@@ -5,14 +5,20 @@ import { LoginComponent } from './auth/login/login.component';
 
 
 const routes: Routes = [
+
   {
     path: 'vote',
     component: NwVoteComponent
   },
- {
-  path: 'login',
-  component: LoginComponent
- }
+  {
+    path: 'login',
+    component: LoginComponent
+  },
+  {
+    path: '',
+    redirectTo: 'login',
+    pathMatch: 'full'
+  }
 ];
 
 @NgModule({

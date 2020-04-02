@@ -1,22 +1,33 @@
 :host {
+    .toolbar {
+        background-color: #004684;
+        color: rgba(255, 255, 255, 0.87);
+        height: 56px;
+        max-height: 56px;
+        display: flex;
+        box-sizing: border-box;
+        padding: 0 16px;
+        width: 100%;
+        flex-direction: row;
+        align-items: center;
+        white-space: nowrap;
+    }
 
     #login {
         width: 100%;
         // background: url('/assets/images/backgrounds/dark-material-bg.jpg') no-repeat;
-        background-color: whitesmoke;
+        background-color: white;
         background-size: cover;
 
         #login-form-wrapper {
             flex: 1 0 auto;
             padding: 32px;
 
-        
             #login-form {
                 padding: 32px;
-                background: #FFFFFF;
+                background: #ffffff;
                 text-align: center;
 
-               
                 .logo {
                     width: 191px;
                 }
@@ -43,13 +54,13 @@
                         margin-top: 8px;
 
                         .remember-me {
-                            margin-bottom: 8px
+                            margin-bottom: 8px;
                         }
 
                         .forgot-password {
                             font-size: 13px;
                             font-weight: 500;
-                            margin-bottom: 8px
+                            margin-bottom: 8px;
                         }
                     }
 
@@ -57,7 +68,6 @@
                         width: 220px;
                         margin: 8px auto;
                         display: block;
-
                     }
                 }
 
@@ -85,8 +95,9 @@
                         padding: 0 8px;
                         z-index: 9999;
 
-                        &:before, &:after {
-                            content: '';
+                        &:before,
+                        &:after {
+                            content: "";
                             display: block;
                             width: 30px;
                             position: absolute;
@@ -105,19 +116,16 @@
                 }
 
                 button {
-
                     &.google,
                     &.facebook {
                         width: 192px;
                         text-transform: none;
-                        color: #FFFFFF;
+                        color: #ffffff;
                         font-size: 13px;
                     }
 
-                
-
                     &.google {
-                        background-color: #D73D32;
+                        background-color: #d73d32;
                         margin-bottom: 8px;
                     }
 
