@@ -1,0 +1,67 @@
+<div id="login" fxLayout="column" >
+
+    <div id="login-form-wrapper" fxLayout="column" fxLayoutAlign="center center">
+
+        <div id="login-form">
+
+            <div  >
+                <img class="logo" src="assets/img/bi-logo-with-tagline.svg">
+            </div>
+
+            <div class="mat-subheading-1 secondary-text">Welcome to the Brand Matrix </div>
+
+            <form name="loginForm" [formGroup]="loginForm" novalidate
+                class="open-close-container">
+
+                <mat-form-field appearance="outline">
+                    <mat-label>Email</mat-label>
+                    <input matInput placeholder="Email" formControlName="email" >
+                    <mat-error *ngIf="loginForm.get('email').hasError('required')">
+                        Email is required
+                    </mat-error>
+                    <mat-error *ngIf="!loginForm.get('email').hasError('required') &&
+                              loginForm.get('email').hasError('email')">
+                        Please enter a valid email address
+                    </mat-error>
+                </mat-form-field>
+
+                <mat-form-field appearance="outline">
+                    <mat-label>Password</mat-label>
+                    <input matInput type="password" placeholder="Password" formControlName="password" >
+                    <mat-error>
+                        Password is required
+                    </mat-error>
+                </mat-form-field>
+                
+                <mat-error *ngIf="false">
+                    Username or password incorrect or not register
+                </mat-error>
+
+                <div class="remember-forgot-password" fxLayout="row" fxLayout.xs="column" fxLayoutAlign="space-between center">
+                    <!-- <mat-checkbox class="remember-me secondary-text" aria-label="Remember Me">
+                        Remember Me
+                    </mat-checkbox> -->
+
+                    <a class="forgot-password" [routerLink]="'/apps/login/forgot-password'">
+                        Forgot Password?
+                    </a>
+                </div>
+
+                <button mat-raised-button color="accent"  class="submit-button" aria-label="LOG IN"
+                    [disabled]="loginForm.invalid">
+                    LOGIN
+                </button>
+
+            </form>
+
+            <div class="register" fxLayout="column" fxLayoutAlign="center center">
+                <span class="text secondary-text">Don't have an account?</span>
+                <a class="link" [routerLink]="'/apps/register/auth/register'">Create an account</a>
+                <a class="link" [routerLink]="'/apps/contacts'">Contact us</a>
+            </div>
+         
+        </div>
+
+    </div>
+
+</div>

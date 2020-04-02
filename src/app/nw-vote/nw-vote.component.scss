@@ -1,0 +1,62 @@
+
+/* footer */
+.footer {
+    width: 100%;
+    height: 54px;
+    min-width: 356px;
+    position: fixed;
+    padding: env(safe-area-inset-bottom);
+    bottom: 0;
+    left: 0;
+    z-index: 9;
+    transition: all ease 0.5s;
+    -webkit-transition: all ease 0.5s;
+    -moz-transition: all ease 0.5s;
+    -ms-transition: all ease 0.5s;
+    background: #000000e6;
+    box-shadow: 0px -3px 10px rgba(0, 0, 0, 0.1);
+    -webkit-box-shadow: 0px -3px 10px rgba(0, 0, 0, 0.1);
+    -moz-box-shadow: 0px -3px 10px rgba(0, 0, 0, 0.1);
+    -ms-box-shadow: 0px -3px 10px rgba(0, 0, 0, 0.1);
+  }
+  
+  .footer .btn {
+    width: 60px;
+    height: 60px;
+    line-height: 54px;
+    padding: 0;
+    text-align: center;
+    display: block;
+    vertical-align: middle;
+    color: white;
+    outline: none;
+  }
+  
+  .footer .btn i {
+    width: 22px;
+    margin: 0 auto;
+    display: inline-block;
+    vertical-align: middle;
+  }
+  
+  .footer .centerbutton {
+    height: 60px;
+    line-height: 54px;
+    width: 60px;
+    border-radius: 30px;
+    margin: 0 15px;
+    margin-top: -20px;
+  }
+  
+  .paybutton {
+    background-color: black;
+    outline: none;
+    width: 90px !important;
+    border: 2px solid goldenrod;
+    font-family: hackers;
+    position: relative;
+    top: -25px;
+    line-height: 20px !important;
+    outline: none !important;
+  }
+  
