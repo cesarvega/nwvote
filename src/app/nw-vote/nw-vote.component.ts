@@ -13,6 +13,7 @@ export class NwVoteComponent implements OnInit {
   projectName = '';
   userToken = '';
   progressBarCompletion = '0';
+  progressBarValue = '0';
   positiveVote = false;
   negativeVote = false;
   neutralVote = false;
@@ -42,6 +43,7 @@ export class NwVoteComponent implements OnInit {
    
       this.name = JSON.parse(res.d)[0].currentName;
       this.progressBarCompletion = 'width: ' + JSON.parse(res.d)[0].completion + '%' ;
+      this.progressBarValue = JSON.parse(res.d)[0].completion;
     });
 
   }
