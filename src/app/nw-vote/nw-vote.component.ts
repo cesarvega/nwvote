@@ -10,6 +10,7 @@ import { Router } from '@angular/router';
 })
 export class NwVoteComponent implements OnInit {
   name = '';
+  projectName = '';
   userToken = '';
   progressBarCompletion = '0';
   positiveVote = false;
@@ -22,7 +23,7 @@ export class NwVoteComponent implements OnInit {
     setInterval(() => {
       this.callNewName();
     }, 3000);
-    this.name = localStorage.getItem('project');
+    this.projectName = localStorage.getItem('project');
     this.userToken = localStorage.getItem('userTokenId');
     if (!this.userToken && !this.name) {
       this.router.navigate(['/', 'login']);
@@ -32,7 +33,7 @@ export class NwVoteComponent implements OnInit {
 
   callNewName() {
     this.NwvoteService.getName().subscribe((res: any) => {
-      console.log(res);
+      // console.log(res);
       this.positiveVote = false;
       this.negativeVote = false;
       this.neutralVote = false;

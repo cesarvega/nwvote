@@ -128,5 +128,8 @@
       }
     }
   },
-  "defaultProject": "nw-vote"
+  "defaultProject": "nw-vote",
+  "cli": {
+    "analytics": false
+  }
 }

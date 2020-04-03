@@ -38,6 +38,7 @@ export class LoginComponent implements OnInit {
   submitCredentials(){
     this._NwvoteService.login(this.loginForm.value, this.projectname ).subscribe((res: any)=>{
       if (JSON.parse(res.d)[0].userToken) {        
+        localStorage.setItem('username', JSON.parse(res.d)[0].username);
         localStorage.setItem('userTokenId', JSON.parse(res.d)[0].userToken);
         localStorage.setItem('project', this.projectname);
         this.router.navigate(['/', 'vote']);
