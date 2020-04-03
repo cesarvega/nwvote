@@ -22,16 +22,16 @@
                 <div class="col-md-12">
                     <section class="text-center " style="padding: 35px 0px 31px 0px;">
 
-                        <button *ngIf="!positiveVote && name !== '....'" (click)="setPositive()" type="button"
+                        <button *ngIf="!positiveVote && !readOnlyName && name !== '....'" (click)="setPositive()" type="button"
                             class="btn btn-outline-success btn-lg mat-elevation-z8" style="color:#1b5e20;width: 260px;border-color: #1b5e20; ">
                             POSITITVE
                         </button>
-                        <button *ngIf="positiveVote && name !== '....'" (click)="setPositive()" type="button"
+                        <button *ngIf="positiveVote && !readOnlyName && name !== '....'" (click)="setPositive()" type="button"
                             class="btn btn-lg mat-elevation-z2 "
                             style="background-color: #1b5e20;color: white;width: 260px;">
                             POSITITVE
                         </button>
-                        <button *ngIf="name === '....'" (click)="setPositive()" type="button"
+                        <button *ngIf="readOnlyName || name === '....'" (click)="setPositive()" type="button"
                             class="btn btn-lg mat-elevation-z2 "
                             style="color:grey;width: 260px;">
                             POSITITVE
@@ -45,16 +45,16 @@
                 <div class="col-md-12">
                     <section class="text-center " style="padding: 35px 0px 31px 0px;">
 
-                        <button *ngIf="!neutralVote && name !== '....'" (click)="setNeutral()" type="button"
+                        <button *ngIf="!neutralVote  && !readOnlyName   && name !== '....'" (click)="setNeutral()" type="button"
                             class="btn btn-outline-primary btn-lg mat-elevation-z8" style="color:#0d47a1;width: 260px;border-color: #0d47a1;  ">
                             NEUTRAL
                         </button>
-                        <button *ngIf="neutralVote && name !== '....'" (click)="setNeutral()" type="button"
+                        <button *ngIf="neutralVote  && !readOnlyName  && name !== '....'" (click)="setNeutral()" type="button"
                             class="btn btn-lg mat-elevation-z2"
                             style="background-color: #0d47a1;color: white;width: 260px;">
                             NEUTRAL
                         </button>
-                        <button *ngIf="name === '....'" (click)="setNeutral()" type="button"
+                        <button *ngIf="readOnlyName || name === '....'" (click)="setNeutral()" type="button"
                             class="btn btn-lg mat-elevation-z2"
                             style="color: grey;width: 260px;">
                             NEUTRAL
@@ -66,16 +66,16 @@
                 <div class="col-md-12">
                     <section class="text-center " style="padding: 35px 0px 31px 0px;">
 
-                        <button *ngIf="!negativeVote && name !== '....'" (click)="setNegative()" type="button"
+                        <button *ngIf="!negativeVote  && !readOnlyName  && name !== '....'" (click)="setNegative()" type="button"
                             class="btn btn-outline-danger btn-lg mat-elevation-z8" style="color:#b71c1c;width: 260px;border-color: #b71c1c; ">
                             NEGATIVE
                         </button>
-                        <button *ngIf="negativeVote && name !== '....'" (click)="setNegative()" type="button"
+                        <button *ngIf="negativeVote  && !readOnlyName  && name !== '....'" (click)="setNegative()" type="button"
                             class="btn btn-lg mat-elevation-z2"
                             style="background-color: #b71c1c;color: white;width: 260px;">
                             NEGATIVE
                         </button>
-                        <button *ngIf="name === '....'" (click)="setNegative()" type="button"
+                        <button *ngIf="readOnlyName || name === '....'" (click)="setNegative()" type="button"
                             class="btn btn-lg mat-elevation-z2"
                             style="color:grey;width: 260px;">
                             NEGATIVE
