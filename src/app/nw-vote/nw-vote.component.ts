@@ -10,6 +10,7 @@ import { Router } from '@angular/router';
 })
 export class NwVoteComponent implements OnInit {
   name = '';
+  readOnlyName = false;
   projectName = '';
   userToken = '';
   progressBarCompletion = '0';
@@ -42,6 +43,7 @@ export class NwVoteComponent implements OnInit {
       }
    
       this.name = JSON.parse(res.d)[0].currentName;
+      this.readOnlyName = (JSON.parse(res.d)[0].readOnly === 1)?true:false;
       this.progressBarCompletion = 'width: ' + JSON.parse(res.d)[0].completion + '%' ;
       this.progressBarValue = JSON.parse(res.d)[0].completion;
     });
