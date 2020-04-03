@@ -11,6 +11,7 @@ import { Router } from '@angular/router';
 export class NwVoteComponent implements OnInit {
   name = '';
   userToken = '';
+  progressBarCompletion = '0';
   positiveVote = false;
   negativeVote = false;
   neutralVote = false;
@@ -36,6 +37,7 @@ export class NwVoteComponent implements OnInit {
       this.negativeVote = false;
       this.neutralVote = false;
       this.name = JSON.parse(res.d)[0].currentName;
+      this.progressBarCompletion = JSON.parse(res.d)[0].completion;
     });
 
   }
