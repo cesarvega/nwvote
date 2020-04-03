@@ -34,9 +34,12 @@ export class NwVoteComponent implements OnInit {
   callNewName() {
     this.NwvoteService.getName().subscribe((res: any) => {
       // console.log(res);
-      this.positiveVote = false;
-      this.negativeVote = false;
-      this.neutralVote = false;
+      if (this.name !== JSON.parse(res.d)[0].currentName) {
+        this.positiveVote = false;
+        this.negativeVote = false;
+        this.neutralVote = false;
+      }
+   
       this.name = JSON.parse(res.d)[0].currentName;
       this.progressBarCompletion = JSON.parse(res.d)[0].completion;
     });
