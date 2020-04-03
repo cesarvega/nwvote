@@ -16,36 +16,58 @@ export class NwvoteService {
   data = {
     token:
       '38230499-A056-4498-80CF-D63D948AA57F',
-    presentationid:
+    project:
       '2',
     username:
       'cvega',
     userToken:
-      '8B4C5800-37A7-4D27-AE02-430402F2ECE2'
+      localStorage.getItem('userTokenId')
 
   }
   dataVote = {
     token:
       '38230499-A056-4498-80CF-D63D948AA57F',
-    presentationid:
+    project:
       '2',
     username:
       'cvega',
     userToken:
-      '8B4C5800-37A7-4D27-AE02-430402F2ECE2',
+      localStorage.getItem('userTokenId'),
     name:
       '',
     vote:
       ''
   }
+  dataLogin = {
+    token:
+      '38230499-A056-4498-80CF-D63D948AA57F',
+    project:
+      '2',
+    username:
+      'cev',
+    password:
+      'ddd',
+    summarize:
+      ''
+  }
 
   getName() {
+    this.data.project = localStorage.getItem('project');
     return this.http.post(this.webBaseUrl + 'GetVotingInfo', this.data);
   }
 
   voteName(vote: string, name: string) {
     this.dataVote.name = name;
     this.dataVote.vote = vote;
-    return this.http.post(this.webBaseUrl + this.apiCall, this.dataVote);
+    this.dataVote.project = localStorage.getItem('project');;
+    return this.http.post(this.webBaseUrl + 'SaveVotingInfo', this.dataVote);
+  }
+
+  login(data: any, project: string) {
+    // this.dataLogin.username = data.email;
+    // this.dataLogin.password = data.name;
+    this.dataLogin.project = project;    
+    this.dataLogin.summarize = (data.suma)?'1':'0';
+    return this.http.post(this.webBaseUrl + 'AuthorizeUser', this.dataLogin);
   }
 }

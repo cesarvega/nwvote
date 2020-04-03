@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { NwvoteService } from './nwvote.service';
+import { Router } from '@angular/router';
 
 
 @Component({
@@ -9,27 +10,31 @@ import { NwvoteService } from './nwvote.service';
 })
 export class NwVoteComponent implements OnInit {
   name = '';
+  userToken = '';
   positiveVote = false;
   negativeVote = false;
   neutralVote = false;
-  isUser=false;
-  constructor(public NwvoteService: NwvoteService) { }
+  constructor(public NwvoteService: NwvoteService, private router: Router) { }
 
   ngOnInit(): void {
     this.callNewName();
     setInterval(() => {
       this.callNewName();
     }, 3000);
+    this.name = localStorage.getItem('project');
+    this.userToken = localStorage.getItem('userTokenId');
+    if (!this.userToken && !this.name) {
+      this.router.navigate(['/', 'login']);
+    }
 
-  
   }
 
   callNewName() {
     this.NwvoteService.getName().subscribe((res: any) => {
       console.log(res);
-      // this.positiveVote = false;
-      // this.negativeVote = false;
-      // this.neutralVote = false;
+      this.positiveVote = false;
+      this.negativeVote = false;
+      this.neutralVote = false;
       this.name = JSON.parse(res.d)[0].currentName;
     });
 
