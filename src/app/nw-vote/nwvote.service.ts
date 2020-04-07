@@ -21,7 +21,7 @@ export class NwvoteService {
     username:
       'cvega',
     userToken:
-      localStorage.getItem('userTokenId')
+      ''
 
   }
   dataVote = {
@@ -54,6 +54,7 @@ export class NwvoteService {
   getName() {
     this.data.project = localStorage.getItem('project');
     this.data.username = localStorage.getItem('username');
+    this.data.userToken = localStorage.getItem('userTokenId');
     return this.http.post(this.webBaseUrl + 'GetVotingInfo', this.data);
   }
 
