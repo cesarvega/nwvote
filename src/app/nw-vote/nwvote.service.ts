@@ -30,9 +30,9 @@ export class NwvoteService {
     project:
       '2',
     username:
-      'cvega',
+      '',
     userToken:
-      localStorage.getItem('userTokenId'),
+     '',
     name:
       '',
     vote:
@@ -44,9 +44,9 @@ export class NwvoteService {
     project:
       '2',
     username:
-      'cev',
+      '',
     password:
-      'ddd',
+      '',
     summarize:
       ''
   }
@@ -58,10 +58,12 @@ export class NwvoteService {
     return this.http.post(this.webBaseUrl + 'GetVotingInfo', this.data);
   }
 
-  voteName(vote: string, name: string) {
+  voteName(name: string, vote: string) {
     this.dataVote.name = name;
     this.dataVote.vote = vote;
-    this.dataVote.project = localStorage.getItem('project');;
+    this.dataVote.username = localStorage.getItem('username');
+    this.dataVote.project = localStorage.getItem('project');
+    this.dataVote.userToken =  localStorage.getItem('userTokenId');
     return this.http.post(this.webBaseUrl + 'SaveVotingInfo', this.dataVote);
   }
 

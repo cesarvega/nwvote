@@ -36,16 +36,16 @@
                     Username or password incorrect or not register
                 </mat-error>
 
-                <div class="remember-forgot-password" fxLayout="row" fxLayout.xs="column"
+                <!-- <div class="remember-forgot-password" fxLayout="row" fxLayout.xs="column"
                     fxLayoutAlign="space-between center">
                     <mat-checkbox matInput  formControlName="suma" class="remember-me secondary-text" aria-label="Remember Me">
                         Summarize your input once finished?
                     </mat-checkbox>
 
-                    <!-- <a class="forgot-password" [routerLink]="'/apps/login/forgot-password'">
+                    <a class="forgot-password" [routerLink]="'/apps/login/forgot-password'">
                         Forgot Password?
-                    </a> -->
-                </div>
+                    </a>
+                </div> -->
 
                 <button (click)="submitCredentials()" mat-raised-button style="color: white;" color="primary" class="submit-button" aria-label="LOG IN"
                     [disabled]="loginForm.invalid">
