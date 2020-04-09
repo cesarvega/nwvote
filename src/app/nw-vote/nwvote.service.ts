@@ -19,7 +19,7 @@ export class NwvoteService {
     project:
       '2',
     username:
-      'cvega',
+      '',
     userToken:
       ''
 
@@ -45,7 +45,7 @@ export class NwvoteService {
       '2',
     username:
       '',
-    password:
+    name:
       '',
     summarize:
       ''
@@ -69,7 +69,7 @@ export class NwvoteService {
 
   login(data: any, project: string) {
     this.dataLogin.username = data.email;
-    this.dataLogin.password = data.name;
+    this.dataLogin.name = data.name;
     this.dataLogin.project = project;    
     this.dataLogin.summarize = (data.suma)?'1':'0';
     return this.http.post(this.webBaseUrl + 'AuthorizeUser', this.dataLogin);
