@@ -19,7 +19,7 @@ export class NwvoteService {
     project:
       '2',
     username:
-      'cvega',
+      '',
     userToken:
       ''
 
