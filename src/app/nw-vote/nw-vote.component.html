@@ -23,7 +23,7 @@
                     <section class="text-center " style="padding: 35px 0px 31px 0px;">
 
                         <button *ngIf="!positiveVote && !readOnlyName && name !== '....'" (click)="setPositive()" type="button"
-                            class="btn btn-outline-success btn-lg mat-elevation-z8" style="color:#1b5e20;width: 260px;border-color: #1b5e20; ">
+                            class="btn btn-outline-success btn-lg mat-elevation-z8" style="width: 260px;">
                             POSITITVE
                         </button>
                         <button *ngIf="positiveVote && !readOnlyName && name !== '....'" (click)="setPositive()" type="button"
@@ -46,7 +46,7 @@
                     <section class="text-center " style="padding: 35px 0px 31px 0px;">
 
                         <button *ngIf="!neutralVote  && !readOnlyName   && name !== '....'" (click)="setNeutral()" type="button"
-                            class="btn btn-outline-primary btn-lg mat-elevation-z8" style="color:#0d47a1;width: 260px;border-color: #0d47a1;  ">
+                            class="btn btn-outline-primary btn-lg mat-elevation-z8" style="width: 260px ">
                             NEUTRAL
                         </button>
                         <button *ngIf="neutralVote  && !readOnlyName  && name !== '....'" (click)="setNeutral()" type="button"
@@ -67,7 +67,7 @@
                     <section class="text-center " style="padding: 35px 0px 31px 0px;">
 
                         <button *ngIf="!negativeVote  && !readOnlyName  && name !== '....'" (click)="setNegative()" type="button"
-                            class="btn btn-outline-danger btn-lg mat-elevation-z8" style="color:#b71c1c;width: 260px;border-color: #b71c1c; ">
+                            class="btn btn-outline-danger btn-lg mat-elevation-z8" style="width: 260px;">
                             NEGATIVE
                         </button>
                         <button *ngIf="negativeVote  && !readOnlyName  && name !== '....'" (click)="setNegative()" type="button"
