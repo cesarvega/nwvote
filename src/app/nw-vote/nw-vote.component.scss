@@ -75,3 +75,20 @@ button:hover{
   background-color: rgba(255, 255, 255, 0.1);
   color: green;
 }
+
+.buttons-negative:hover{
+  background-color: rgba(255, 255, 255, 0.1);
+  color: #b71c1c;
+  outline:none;
+}
+.buttons-neutral:hover{
+  background-color: rgba(255, 255, 255, 0.1);
+  color: #0d47a1;
+  outline:none;
+}
+.buttons-positive:hover{
+  background-color: rgba(255, 255, 255, 0.1);
+  color: #1b5e20;
+  outline:none;
+}
+
