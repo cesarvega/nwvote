@@ -24,17 +24,17 @@
 
                         <button *ngIf="!positiveVote && !readOnlyName && name !== '....'" (click)="setPositive()" type="button"
                             class="btn btn-outline-success btn-lg mat-elevation-z8" style="width: 260px;">
-                            POSITITVE
+                            POSITIVE
                         </button>
                         <button *ngIf="positiveVote && !readOnlyName && name !== '....'" (click)="setPositive()" type="button"
                             class="btn btn-lg mat-elevation-z2 "
                             style="background-color: #1b5e20;color: white;width: 260px;">
-                            POSITITVE
+                            POSITIVE
                         </button>
                         <button *ngIf="readOnlyName || name === '....'" (click)="setPositive()" type="button"
                             class="btn btn-lg mat-elevation-z2 "
                             style="color:grey;width: 260px;">
-                            POSITITVE
+                            POSITIVE
                         </button>
 
                     </section>
