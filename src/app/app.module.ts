@@ -15,11 +15,16 @@ import { MatCheckboxModule } from '@angular/material/checkbox';
 import { MatToolbarModule } from '@angular/material/toolbar';
 import { MatButtonModule } from '@angular/material/button';
 import { MatInputModule } from '@angular/material/input';
+import { MatCardModule } from '@angular/material/card';
+import { MatDialogModule } from '@angular/material/dialog';
+import { BsrMobileComponent } from './bsr-mobile/bsr-mobile.component';
+import { BsrMobileService } from './bsr-mobile/bsr-mobile.service';
 @NgModule({
   declarations: [
     AppComponent,
     LoginComponent,
-    NwVoteComponent
+    NwVoteComponent,
+    BsrMobileComponent
   ],
   imports: [
     BrowserModule,
@@ -33,10 +38,12 @@ import { MatInputModule } from '@angular/material/input';
     MatCheckboxModule,
     MatToolbarModule,
     MatButtonModule,
-    MatInputModule
+    MatInputModule,
+    MatCardModule,
+    MatDialogModule
 
   ],
-  providers: [NwvoteService],
+  providers: [NwvoteService, BsrMobileService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
