@@ -1,0 +1,44 @@
+.presentation-box{
+    width: 950px;
+    height: 710px;
+    border: solid 4px lightgray;
+    border-radius: 6px;   
+    background-repeat: no-repeat;
+    background-size: cover;
+    position: relative;
+    top: 50px;
+}
+
+.toolbar{
+    position: absolute;
+    bottom: 11px;
+    height: 50px;
+    width: 800px;
+    margin-left: 80px;    
+    border-radius: 10px;
+    opacity: 0.95;
+
+
+    .search{
+        border-radius: 1px;
+        width: 180px;
+    }
+
+    .mat-icon{
+        font-size: 19px;
+        color: rgb(71, 71, 71);
+    }
+
+    .search-form {
+        min-width: 150px;
+        max-width: 500px;
+        width: 100%;
+      }
+      
+      .search-full-width {
+        width: 100%;
+      }
+
+     
+
+}

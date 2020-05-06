@@ -12,15 +12,27 @@ import { MatDialog, MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dial
 })
 export class BsrMobileComponent implements OnInit {
 
-  isUserLogged = true;
+  isUserLogged = false;
   newNames = ['AJORSEK', 'EMPROVON', 'KALENPARQ', 'KAMLIO', 'ONBETYM', 'ONDEMUVE', 'ONPARNEX', 'PLUXONTI', 'TEYBILTON', 'VELZAGO'];
 
   loginForm: FormGroup;
   projectname = ''
-  constructor(private _formBuilder: FormBuilder,
+  property: any;
+  projectId: any;
+  constructor(private _formBuilder: FormBuilder, private bsrService:BsrMobileService,
     private activatedRoute: ActivatedRoute,
-    private _BsrMobileService: BsrMobileService,public dialog: MatDialog,
-    private router: Router) { }
+    public dialog: MatDialog,
+    private router: Router) { 
+
+     this.activatedRoute.params.subscribe(params => {
+        this.projectId = params['id'];
+        this.bsrService.getProjectData(this.projectId).subscribe(arg => {
+          this.projectname = JSON.parse(arg[0].bsrData).projectdescription
+        });
+     });
+
+
+    }
 
   ngOnInit(): void {
 
@@ -30,33 +42,23 @@ export class BsrMobileComponent implements OnInit {
 
     this.loginForm = this._formBuilder.group({
       email: ['', Validators.required],
-      suma: [''],
+      suma: [true],
       name: ['', Validators.required]
-    });
-
-    this.activatedRoute.queryParams.subscribe(params => {
-      this.projectname = params['project'];
-
     });
 
   }
 
   submitCredentials() {
-    // this._NwvoteService.login(this.loginForm.value, this.projectname ).subscribe((res: any)=>{
-    //   if (JSON.parse(res.d)[0].userToken) {        
-    //     localStorage.setItem('username', JSON.parse(res.d)[0].username);
-    //     localStorage.setItem('userTokenId', JSON.parse(res.d)[0].userToken);
-    //     localStorage.setItem('project', this.projectname);
-    //     this.router.navigate(['/', 'vote']);
-    //   }
-
-    // })
+    this.bsrService.login(this.loginForm.value, this.projectId ).subscribe((res: any)=>{
+      this.newNames = JSON.parse('[' + res[0].Names + ']');
+      this.isUserLogged = true;
+    })
   }
 
-  openDialog(): void {
+  openDialog(item): void {
     const dialogRef = this.dialog.open(editName, {
-      width: '250px',
-      data: {}
+      // width: '250px',
+      data: {name : item}
     });
 
     dialogRef.afterClosed().subscribe(result => {
@@ -78,13 +80,24 @@ export interface DialogData {
   templateUrl: 'edit-name.html',
 })
 export class editName {
-
+  loginForm: FormGroup;
   constructor(
     public dialogRef: MatDialogRef<editName>,
-    @Inject(MAT_DIALOG_DATA) public data: DialogData) { }
+    @Inject(MAT_DIALOG_DATA) public data: DialogData, private _formBuilder: FormBuilder) { 
+      console.log(this.data.name);
+      this.loginForm = this._formBuilder.group({
+        email: ['', Validators.required],
+        suma: [''],
+        name: [this.data.name]
+      });
+    }
 
   onNoClick(): void {
+    console.log(this.data.name);
+    
     this.dialogRef.close();
   }
+
+  submitCredentials() {}
 
 }

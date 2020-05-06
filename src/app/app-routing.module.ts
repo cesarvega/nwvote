@@ -3,6 +3,7 @@ import { Routes, RouterModule } from '@angular/router';
 import { NwVoteComponent } from './nw-vote/nw-vote.component';
 import { LoginComponent } from './auth/login/login.component';
 import { BsrMobileComponent } from './bsr-mobile/bsr-mobile.component';
+import { BsrComponent } from './bsr/bsr.component';
 
 
 const routes: Routes = [
@@ -12,8 +13,12 @@ const routes: Routes = [
     component: NwVoteComponent
   },
   {
-    path: 'bsr-login:project',
+    path: 'bsr-mobile/:id',
     component: BsrMobileComponent
+  },
+  {
+    path: 'bsr/:id',
+    component: BsrComponent
   },
   {
     path: 'login',

@@ -1,6 +1,8 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
-
+const httpOptions = {
+  headers: new HttpHeaders({'Content-Type': 'application/json'})
+};
 @Injectable({
   providedIn: 'root'
 })
@@ -8,19 +10,22 @@ export class BsrMobileService {
   constructor(private http: HttpClient) { }
 
   // webBaseUrl = 'http://localhost:64378/';
-  webBaseUrl = 'https://tools.brandinstitute.com/wsGeneral/wsNWVote.asmx/';
-  apiCall = 'GetVotingInfo';
+  apiCall = 'api/BiFormCreator/';
+  webBaseUrl = 'https://tools.brandinstitute.com/BIWebServices/';
+  // webBaseUrl = 'http://localhost:64378/';
+  _SP_GetCreatedNamesByEmail;
+  _SP_getProjectData;
 
 
-  data = {
-    token:
-      '38230499-A056-4498-80CF-D63D948AA57F',
-    project:
-      '2',
-    username:
-      '',
-    userToken:
-      ''
+  login(data: any, projectId: string) {
+    this._SP_GetCreatedNamesByEmail = '[BI_GUIDELINES].[dbo].[bsr_getNameCandidatesByUser] ' + "'" + projectId + "'," + "'" + 'cev@gmail.com'  + "'";   
+    // this.dataLogin.summarize = (data.suma) ? '1' : '0';
+    return this.http.post(this.webBaseUrl + this.apiCall, JSON.stringify(this._SP_GetCreatedNamesByEmail), httpOptions);
+  }
+
+  getProjectData(projectId){
+    this._SP_getProjectData = '[BI_GUIDELINES].[dbo].[bsr_GetProjectData] ' + "'" + projectId + "'";
+    return this.http.post(this.webBaseUrl + this.apiCall, JSON.stringify(this._SP_getProjectData), httpOptions);
   }
 
   // goToLogout() {

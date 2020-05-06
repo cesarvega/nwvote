@@ -1,0 +1,36 @@
+<form name="loginForm" [formGroup]="loginForm" novalidate class="nameform">
+
+    <mat-form-field appearance="outline" style="min-width: 350px;">
+        <mat-label>Name Suggestions</mat-label>
+        <input matInput type="name" placeholder="name" formControlName="name">
+    </mat-form-field>
+    <br>
+    <mat-form-field appearance="outline" style="min-width: 350px;">
+        <mat-label>Rationale</mat-label>
+        <input matInput type="name" placeholder="name" formControlName="name">
+    </mat-form-field>
+    <br>
+
+    <div class="row">
+        <div class="col-sm">
+            <button (click)="submitCredentials()" mat-raised-button style="color: white;" color="primary"
+                class="submit-button" aria-label="LOG IN">
+                SAVE
+            </button>
+        </div>
+        <div class="col-sm">
+
+            <button (click)="submitCredentials()" mat-raised-button style="color: white;" color="accent"
+                class="submit-button" aria-label="LOG IN">
+                DELETE
+            </button>
+        </div>
+        <div class="col-sm">
+            <button (click)="onNoClick()" mat-raised-button style="color: white;" color="primary"
+                class="submit-button" aria-label="LOG IN">
+                CANCEL
+            </button>
+        </div>
+    </div>
+
+</form>

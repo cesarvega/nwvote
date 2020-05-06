@@ -16,15 +16,20 @@ import { MatToolbarModule } from '@angular/material/toolbar';
 import { MatButtonModule } from '@angular/material/button';
 import { MatInputModule } from '@angular/material/input';
 import { MatCardModule } from '@angular/material/card';
+import { MatIconModule } from '@angular/material/icon';
+import { MatAutocompleteModule } from '@angular/material/autocomplete';
 import { MatDialogModule } from '@angular/material/dialog';
-import { BsrMobileComponent } from './bsr-mobile/bsr-mobile.component';
+import { BsrMobileComponent, editName } from './bsr-mobile/bsr-mobile.component';
 import { BsrMobileService } from './bsr-mobile/bsr-mobile.service';
+import { BsrComponent } from './bsr/bsr.component';
 @NgModule({
   declarations: [
     AppComponent,
     LoginComponent,
     NwVoteComponent,
-    BsrMobileComponent
+    BsrMobileComponent,
+    editName,
+    BsrComponent
   ],
   imports: [
     BrowserModule,
@@ -40,7 +45,9 @@ import { BsrMobileService } from './bsr-mobile/bsr-mobile.service';
     MatButtonModule,
     MatInputModule,
     MatCardModule,
-    MatDialogModule
+    MatDialogModule,
+    MatIconModule,
+    
 
   ],
   providers: [NwvoteService, BsrMobileService],
