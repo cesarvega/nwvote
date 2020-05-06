@@ -21,24 +21,18 @@
 
     .search{
         border-radius: 1px;
-        width: 180px;
+        width: 150px;
+        margin-right: 20px;
     }
 
     .mat-icon{
         font-size: 19px;
         color: rgb(71, 71, 71);
+        outline: none;
+        padding-right:50px;
     }
 
-    .search-form {
-        min-width: 150px;
-        max-width: 500px;
-        width: 100%;
-      }
-      
-      .search-full-width {
-        width: 100%;
-      }
 
-     
+
 
 }
