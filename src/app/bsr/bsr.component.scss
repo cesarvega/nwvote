@@ -1,38 +1,158 @@
-.presentation-box{
+.presentation-box {
     width: 950px;
     height: 710px;
     border: solid 4px lightgray;
-    border-radius: 6px;   
+    border-radius: 6px;
     background-repeat: no-repeat;
     background-size: cover;
     position: relative;
     top: 50px;
 }
 
-.toolbar{
+.toolbar {
     position: absolute;
     bottom: 11px;
     height: 50px;
     width: 800px;
-    margin-left: 80px;    
+    margin-left: 80px;
     border-radius: 10px;
     opacity: 0.95;
 
-
-    .search{
+    .search {
         border-radius: 1px;
         width: 150px;
         margin-right: 20px;
     }
 
-    .mat-icon{
+    .mat-icon {
         font-size: 19px;
         color: rgb(71, 71, 71);
-        outline: none;
-        padding-right:50px;
     }
 
-
-
-
+    button:focus {
+        outline: 0;
+    }
 }
+
+.toolbar-postit {
+    position: absolute;
+    bottom: 11px;
+    height: 50px;
+    width: 550px;
+    margin-left: 210px;
+    border-radius: 10px;
+    opacity: 0.95;
+
+    .search {
+        border-radius: 1px;
+        width: 150px;
+        margin-right: 20px;
+    }
+
+    .mat-icon {
+        font-size: 19px;
+        color: rgb(71, 71, 71);
+    }
+
+    button:focus {
+        outline: 0;
+    }
+}
+
+.toptoolbar{    
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-image: url(../../assets/img/toolbarBg.jpg);
+}
+
+.postit-box {
+    width: 950px;
+    height: 710px;
+    border: solid 4px lightgray;
+    border-radius: 6px;
+    background-repeat: no-repeat;
+    background-size: cover;
+    position: relative;
+    top: 50px;
+}
+
+.post-it-container {
+    border: red solid;
+    width: 620px;
+    height: 638px;
+}
+
+.names-container {
+    border: #16ff00 solid;
+    width: 322px;
+    height: 638px;
+    position: absolute;
+    right: -324px;
+}
+
+.post-list {
+    width: 100px;
+    max-width: 100%;
+    border: solid 1px #ccc;
+    min-height: 60px;
+    display: flex;
+    flex-direction: row;
+    background: white;
+    border-radius: 4px;
+    overflow: hidden;
+    display: flex;  
+    flex-wrap: wrap;
+  }
+  
+  .post-box {
+    padding: 20px 10px;
+    border-right: solid 1px #ccc;
+    color: rgba(0, 0, 0, 0.87);
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+    box-sizing: border-box;
+    cursor: move;
+    background: white;
+    font-size: 14px;
+    flex-grow: 1;
+    flex-basis: 0;
+
+  }
+  
+  .cdk-drag-preview {
+    box-sizing: border-box;
+    border-radius: 4px;
+    box-shadow: 0 5px 5px -3px rgba(0, 0, 0, 0.2),
+                0 8px 10px 1px rgba(0, 0, 0, 0.14),
+                0 3px 14px 2px rgba(0, 0, 0, 0.12);
+  }
+  
+  .cdk-drag-placeholder {
+    opacity: 0;
+  }
+  
+  .cdk-drag-animating {
+    transition: transform 250ms cubic-bezier(0, 0, 0.2, 1);
+  }
+  
+  .post-box:last-child {
+    border: none;
+  }
+  
+  .post-list.cdk-drop-list-dragging .post-box:not(.cdk-drag-placeholder) {
+    transition: transform 250ms cubic-bezier(0, 0, 0.2, 1);
+  }
+
+  .example-card {
+    height: 300px;
+    width: 300px;
+
+  }
+  
+  .example-header-image {
+    background-image: url('https://material.angular.io/assets/img/examples/shiba1.jpg');
+    background-size: cover;
+  }
+

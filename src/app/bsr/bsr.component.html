@@ -1,59 +1,199 @@
 <div class="container">
-    <div class="row">
-        <div class="col">
-        </div>
-        <div class="col">
-            <div class="presentation-box" [style]="slideBackground">
-
-                <mat-toolbar class="toolbar mat-elevation-z4">
-
-                        <button mat-icon-button aria-label="Example icon-button with a heart icon">
-                          <mat-icon>home</mat-icon>
-                        </button>
-
-                        <button mat-icon-button color="primary" aria-label="Example icon-button with a heart icon">
-                          <mat-icon>lightbulb_outline</mat-icon>
-                        </button>
-
-                        <input class="search" placeholder="search" type="text">
-                        
-                        <button mat-icon-button color="accent" aria-label="Example icon-button with a heart icon">
-                          <mat-icon>chevron_left</mat-icon>
-                        </button>
-
-                        <button mat-icon-button color="warn" aria-label="Example icon-button with a heart icon">
-                          <mat-icon>chevron_right</mat-icon>
-                        </button>
-
-                        <button mat-icon-button aria-label="Example icon-button with a heart icon">
-                          <mat-icon>comment</mat-icon>
-                        </button>
-
-                        <button mat-icon-button color="primary" aria-label="Example icon-button with a heart icon">
-                          <mat-icon>phone_iphone</mat-icon>
-                        </button>
-
-                      
-                        <button mat-icon-button color="accent" aria-label="Example icon-button with a heart icon">
-                          <mat-icon>import_contacts</mat-icon>
-                        </button>
-
-                        <button mat-icon-button color="accent" aria-label="Example icon-button with a heart icon">
-                          Proprietary & Confidential
-                        </button>
-
-                        <button mat-icon-button color="accent" aria-label="Example icon-button with a heart icon">
-                          10/40
-                        </button>
-
-                        <button mat-icon-button color="warn" aria-label="Example icon-button with a heart icon">
-                          <mat-icon>help</mat-icon>
-                        </button>                          
-                        
-                </mat-toolbar>
-            </div>
-        </div>
-        <div class="col">
-        </div>
+  <div class="row">
+    <div class="col">
     </div>
-</div>
+    <div *ngIf="!createPostIt" class="col">
+      <div class="presentation-box" [style]="slideBackground">
+
+        <mat-toolbar class="toolbar mat-elevation-z4">
+
+          <button mat-icon-button aria-label="Example icon-button with a heart icon">
+            <mat-icon>home</mat-icon>
+          </button>
+
+          <button mat-icon-button color="primary" aria-label="Example icon-button with a heart icon">
+            <mat-icon>lightbulb_outline</mat-icon>
+          </button>
+
+          <input class="search" placeholder="search" type="text">
+
+          <button mat-icon-button color="accent" aria-label="Example icon-button with a heart icon">
+            <mat-icon>chevron_left</mat-icon>
+          </button>
+
+          <button mat-icon-button color="warn" aria-label="Example icon-button with a heart icon">
+            <mat-icon>chevron_right</mat-icon>
+          </button>
+
+          <button mat-icon-button aria-label="Example icon-button with a heart icon">
+            <mat-icon>comment</mat-icon>
+          </button>
+
+          <button mat-icon-button color="primary" aria-label="Example icon-button with a heart icon">
+            <mat-icon>phone_iphone</mat-icon>
+          </button>
+
+
+          <button mat-icon-button color="accent" aria-label="Example icon-button with a heart icon">
+            <mat-icon>import_contacts</mat-icon>
+          </button>
+
+          <button mat-icon-button aria-label="Proprietary" style="width: 200px;">
+            Proprietary & Confidential
+          </button>
+
+          <button mat-icon-button aria-label="page" style="width: 100px;">
+            {{pageCounter}}
+          </button>
+
+          <button mat-icon-button color="warn" aria-label="Example icon-button with a heart icon">
+            <mat-icon>help</mat-icon>
+          </button>
+
+        </mat-toolbar>
+      </div>
+    </div>
+    <div class="col" *ngIf="createPostIt">
+      <div class="presentation-box">
+
+
+        <mat-toolbar class="toptoolbar mat-elevation-z4" color="primary">
+          <div class="row">
+            <div class="col" style="color: white; font-size: 40px;font-family: Arial" >
+              Brandstorm
+            </div>
+            <div class="col" style="color: white; font-size: 40px;font-family: Arial; right: -370px;">
+              Names
+            </div>
+          </div>
+        </mat-toolbar>
+
+
+        <div class="row">
+          <div class="col" style="padding: 0px !important; margin-left: 15px !important;">
+            <div class="post-it-container">
+
+              <!-- <mat-grid-list cols="3" cdkDropListGroup>
+                <mat-grid-tile cdkDropList [cdkDropListData]="i" *ngFor="let item of timePeriods; let i = index;"
+                  (cdkDropListDropped)="drop($event)">
+                  <div cdkDrag [cdkDragData]="i" (cdkDragEntered)="entered($event)">
+                    <mat-card style="margin-top:10px;    width: 237px;" cdkDrag> {{item}}</mat-card>
+                  </div>
+                </mat-grid-tile>
+              </mat-grid-list> -->
+
+
+              <!-- <mat-grid-list cdkDropListGroup>
+                <mat-grid-tile cdkDropList [cdkDropListData]="i" *ngFor="let  timePeriod of timePeriods; let i = index;"  cols="3" rowHeight="2:1">
+                  <div cdkDrag > 
+                    {{timePeriod}}
+                  </div> 
+                </mat-grid-tile> 
+              </mat-grid-list> -->
+
+              <!-- <mat-grid-list cols="2" rowHeight="2:1" cdkDropListGroup>
+                <mat-grid-tile *ngFor="let  timePeriod of timePeriods; let i = index;" cdkDropList (cdkDropListDropped)="drop($event)">
+                   <mat-card   style="margin-top:10px;    width: 237px;"
+                    cdkDrag>
+                    <mat-card-header>
+                      <mat-card-title>{{timePeriod}}</mat-card-title>
+                      <mat-card-subtitle> {{i}}
+                      </mat-card-subtitle>
+                    </mat-card-header>
+
+                    <mat-card-content>
+                      <p>
+                        test
+                      </p>
+                    </mat-card-content>
+                    <mat-card-actions>
+                      <button mat-button>
+                        <mat-icon>favorite</mat-icon>
+                      </button>
+                      <button mat-button>SHARE</button>
+                    </mat-card-actions>
+                  </mat-card>
+                </mat-grid-tile>
+             
+              </mat-grid-list> -->
+
+
+              <!-- 
+              <div >
+                <div cdkDropListOrientation="horizontal" fxLayout="row wrap" fxLayoutAlign="start start" fxLayoutWrap fxLayoutGap="10px" class="cards" cdkDropList (cdkDropListDropped)="drop($event)">
+                  <mat-card  *ngFor="let  timePeriod of timePeriods; let i = index" style="margin-top:10px;"
+                    cdkDrag>
+                    <mat-card-header>
+                      <mat-card-title>{{timePeriod}}</mat-card-title>
+                      <mat-card-subtitle> {{i}}
+                      </mat-card-subtitle>
+                    </mat-card-header>
+
+                    <mat-card-content>
+                      <p>
+                        test
+                      </p>
+                    </mat-card-content>
+                    <mat-card-actions>
+                      <button mat-button>
+                        <mat-icon>favorite</mat-icon>
+                      </button>
+                      <button mat-button>SHARE</button>
+                    </mat-card-actions>
+                  </mat-card>
+                </div>
+              </div> -->
+
+              <div class="col" style="padding: 0px !important; margin: 0px !important;">
+                <div class="names-container">
+                  <div *ngFor="let  timePeriod of timePeriods; let i = index">
+                    <span style="font-size:24px;padding-left:10px;">
+
+                      {{timePeriod}}
+                    </span>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <mat-toolbar class="toolbar-postit mat-elevation-z4">
+
+              <button mat-icon-button aria-label="Example icon-button with a heart icon">
+                <mat-icon>home</mat-icon>
+              </button>
+
+              <button mat-icon-button color="primary" aria-label="Example icon-button with a heart icon">
+                <mat-icon>note_add</mat-icon>
+              </button>
+
+              <input class="search" placeholder="search" type="text">
+
+              <button mat-icon-button color="accent" aria-label="Example icon-button with a heart icon">
+                <mat-icon>chevron_left</mat-icon>
+              </button>
+
+              <button mat-icon-button color="warn" aria-label="Example icon-button with a heart icon">
+                <mat-icon>chevron_right</mat-icon>
+              </button>
+
+
+              <button mat-icon-button color="primary" aria-label="Example icon-button with a heart icon">
+                <mat-icon>phone_iphone</mat-icon>
+              </button>
+
+
+              <button mat-icon-button aria-label="page" style="width: 100px;">
+                {{pageCounter}}
+              </button>
+
+              <button mat-icon-button color="warn" aria-label="Example icon-button with a heart icon">
+                <mat-icon>help</mat-icon>
+              </button>
+
+            </mat-toolbar>
+          </div>
+        </div>
+        <div class="col">
+        </div>
+      </div>
+    </div>

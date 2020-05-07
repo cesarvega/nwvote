@@ -17,11 +17,12 @@ import { MatButtonModule } from '@angular/material/button';
 import { MatInputModule } from '@angular/material/input';
 import { MatCardModule } from '@angular/material/card';
 import { MatIconModule } from '@angular/material/icon';
-import { MatAutocompleteModule } from '@angular/material/autocomplete';
+import { DragDropModule } from '@angular/cdk/drag-drop';
 import { MatDialogModule } from '@angular/material/dialog';
 import { BsrMobileComponent, editName } from './bsr-mobile/bsr-mobile.component';
 import { BsrMobileService } from './bsr-mobile/bsr-mobile.service';
 import { BsrComponent } from './bsr/bsr.component';
+import { MatGridListModule } from '@angular/material/grid-list';
 @NgModule({
   declarations: [
     AppComponent,
@@ -39,7 +40,6 @@ import { BsrComponent } from './bsr/bsr.component';
     MatFormFieldModule,
     HttpClientModule,
     ReactiveFormsModule,
-    FlexLayoutModule,
     MatCheckboxModule,
     MatToolbarModule,
     MatButtonModule,
@@ -47,7 +47,10 @@ import { BsrComponent } from './bsr/bsr.component';
     MatCardModule,
     MatDialogModule,
     MatIconModule,
-    
+    FlexLayoutModule,
+    DragDropModule,
+    MatGridListModule
+
 
   ],
   providers: [NwvoteService, BsrMobileService],
