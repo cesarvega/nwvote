@@ -1,34 +1,30 @@
 <form name="loginForm" [formGroup]="loginForm" novalidate class="nameform">
 
-    <mat-form-field appearance="outline" style="min-width: 350px;">
-        <mat-label>Name Suggestions</mat-label>
+    <mat-form-field appearance="outline" style="max-width: 350px; min-width: 260px;">
+        <mat-label>Edit Name</mat-label>
         <input matInput type="name" placeholder="name" formControlName="name">
     </mat-form-field>
     <br>
-    <mat-form-field appearance="outline" style="min-width: 350px;">
+    <mat-form-field appearance="outline" style="max-width: 350px; min-width: 260px;">
         <mat-label>Rationale</mat-label>
         <input matInput type="name" placeholder="name" formControlName="name">
     </mat-form-field>
     <br>
 
     <div class="row">
-        <div class="col-sm">
-            <button (click)="buttonOption('save')" mat-raised-button style="color: white;" color="primary"
-                class="submit-button" aria-label="LOG IN">
-                SAVE
-            </button>
-        </div>
-        <div class="col-sm">
 
-            <button (click)="buttonOption('delete')" mat-raised-button style="color: white;" color="accent"
-                class="submit-button" aria-label="LOG IN">
-                DELETE
+        <div fxFlex>
+            <button (click)="buttonOption('delete')" mat-mini-fab color="warn" aria-label="icon">
+                <mat-icon>delete</mat-icon>
             </button>
-        </div>
-        <div class="col-sm">
-            <button (click)="onNoClick()" mat-raised-button style="color: white;" color="primary"
-                class="submit-button" aria-label="LOG IN">
-                CANCEL
+
+
+            <button (click)="buttonOption('cancel')" mat-mini-fab color="primary" aria-label="icon">
+                <mat-icon>cancel</mat-icon>
+            </button>
+
+            <button (click)="buttonOption('save')" mat-mini-fab color="success" aria-label="icon">
+                <mat-icon>check_circle</mat-icon>
             </button>
         </div>
     </div>

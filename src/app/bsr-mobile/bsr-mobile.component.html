@@ -1,13 +1,16 @@
-<div class="container">
+<div class="">
     <div class="row">
 
         <div class="col-sm">
 
         </div>
 
+
         <div class="col-sm">
 
-            <mat-toolbar class="toolbar ">BI Project: {{projectname}}</mat-toolbar>
+            <mat-toolbar class="toolbar ">BI Project: {{projectname}} v.001</mat-toolbar>
+
+
             <div *ngIf="!isUserLogged" id="login" fxLayout="column">
 
                 <div id="login-form-wrapper" fxLayout="column" fxLayoutAlign="center center">
@@ -84,6 +87,7 @@
             </div>
 
             <div *ngIf="isUserLogged">
+
                 <br>
                 <div class="mat-subheading-1">Suggestions</div>
                 <mat-card style="height: 300px;overflow-y: scroll;">
@@ -143,6 +147,8 @@
 
 
         </div>
+
+
         <div class="col-sm">
 
         </div>
