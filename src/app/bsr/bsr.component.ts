@@ -16,7 +16,8 @@ export class BsrComponent implements OnInit {
     'Long nineteenth century'
   ];
 
-  createPostIt = true;
+  createPostIt = false;
+  overview = false;
   slideBackground = 'background-image: url(http://www.bipresents.com/bsr_slides/TEST_BI_ALEXA/thumbnails/001.jpg);';
   myControl = new FormControl();
   options: string[] = ['One', 'Two', 'Three'];
@@ -41,3 +42,35 @@ export class BsrComponent implements OnInit {
 
   openDialog(name){}
 }
+
+
+export interface DialogData {
+  animal: string;
+  name: string;
+}
+// @Component({
+//   selector: 'edit-name',
+//   templateUrl: 'edit-name.html',
+// })
+// export class editName {
+//   loginForm: FormGroup;
+//   constructor(
+//     public dialogRef: MatDialogRef<editName>,
+//     @Inject(MAT_DIALOG_DATA) public data: DialogData, private _formBuilder: FormBuilder) { 
+//       console.log(this.data.name);
+//       this.loginForm = this._formBuilder.group({
+//         email: ['', Validators.required],
+//         suma: [''],
+//         name: [this.data.name]
+//       });
+//     }
+
+//   onNoClick(): void {
+//     console.log(this.data.name);
+    
+//     this.dialogRef.close();
+//   }
+
+//   submitCredentials() {}
+
+// }

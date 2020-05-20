@@ -14,25 +14,27 @@ export class BsrMobileComponent implements OnInit {
 
   isUserLogged = false;
   newNames = ['AJORSEK', 'EMPROVON', 'KALENPARQ', 'KAMLIO', 'ONBETYM', 'ONDEMUVE', 'ONPARNEX', 'PLUXONTI', 'TEYBILTON', 'VELZAGO'];
-
+  userEmail;
   loginForm: FormGroup;
+  newNameForm: FormGroup;
   projectname = ''
   property: any;
   projectId: any;
-  constructor(private _formBuilder: FormBuilder, private bsrService:BsrMobileService,
+  username: any;
+  constructor(private _formBuilder: FormBuilder, private bsrService: BsrMobileService,
     private activatedRoute: ActivatedRoute,
     public dialog: MatDialog,
-    private router: Router) { 
+    private router: Router) {
 
-     this.activatedRoute.params.subscribe(params => {
-        this.projectId = params['id'];
-        this.bsrService.getProjectData(this.projectId).subscribe(arg => {
-          this.projectname = JSON.parse(arg[0].bsrData).projectdescription
-        });
-     });
+    this.activatedRoute.params.subscribe(params => {
+      this.projectId = params['id'];
+      this.bsrService.getProjectData(this.projectId).subscribe(arg => {
+        this.projectname = JSON.parse(arg[0].bsrData).projectdescription
+      });
+    });
 
 
-    }
+  }
 
   ngOnInit(): void {
 
@@ -46,26 +48,50 @@ export class BsrMobileComponent implements OnInit {
       name: ['', Validators.required]
     });
 
+    this.newNameForm = this._formBuilder.group({
+      suma: [false],
+      name: ['', Validators.required]
+    });
+
   }
 
+  // for login view
   submitCredentials() {
-    this.bsrService.login(this.loginForm.value, this.projectId ).subscribe((res: any)=>{
+    this.userEmail = this.loginForm.value.email;
+    this.username = this.loginForm.value.name;
+    this.bsrService.login(this.loginForm.value, this.projectId).subscribe((res: any) => {
       this.newNames = JSON.parse('[' + res[0].Names + ']');
       this.isUserLogged = true;
     })
   }
 
+
+  sendNewName() {
+    this.bsrService.sendName(this.newNameForm.value.name, '').subscribe(arg => {
+      this.newNameForm.value.name = '';
+      this.bsrService.login({ email: this.userEmail, name: this.username }, this.projectId).subscribe((res: any) => {
+        this.newNames = JSON.parse('[' + res[0].Names + ']');
+        this.isUserLogged = true;
+      })
+    });
+  }
+
   openDialog(item): void {
     const dialogRef = this.dialog.open(editName, {
       // width: '250px',
-      data: {name : item}
+      data: { name: item }
     });
 
     dialogRef.afterClosed().subscribe(result => {
-      console.log('The dialog was closed');
-      // this.animal = result;
+      this.bsrService.sendName(result.form.value.name, result.oldValue).subscribe(arg => {
+        this.bsrService.login({ email: this.userEmail, name: this.username }, this.projectId).subscribe((res: any) => {
+          this.newNames = JSON.parse('[' + res[0].Names + ']');
+          this.isUserLogged = true;
+        })
+      });
     });
   }
+
 
 
 
@@ -81,23 +107,41 @@ export interface DialogData {
 })
 export class editName {
   loginForm: FormGroup;
+  popupwindowData: { form: FormGroup; oldValue: string; };
   constructor(
     public dialogRef: MatDialogRef<editName>,
-    @Inject(MAT_DIALOG_DATA) public data: DialogData, private _formBuilder: FormBuilder) { 
-      console.log(this.data.name);
-      this.loginForm = this._formBuilder.group({
-        email: ['', Validators.required],
-        suma: [''],
-        name: [this.data.name]
-      });
-    }
+    @Inject(MAT_DIALOG_DATA) public data: DialogData, private _formBuilder: FormBuilder) {
+    console.log(this.data.name);
+    this.loginForm = this._formBuilder.group({
+      email: ['', Validators.required],
+      suma: [''],
+      name: [this.data.name]
+    });
+  }
 
   onNoClick(): void {
     console.log(this.data.name);
-    
-    this.dialogRef.close();
+
+    this.popupwindowData = {
+
+      form: this.loginForm,
+      oldValue: this.data.name
+
+    }
+
+    this.dialogRef.close(this.popupwindowData);
   }
 
-  submitCredentials() {}
+  buttonOption(option) {
+
+    if (option === 'save') {
+
+
+    } else {
+
+
+    }
+  }
+
 
 }

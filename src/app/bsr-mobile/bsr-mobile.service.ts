@@ -1,31 +1,56 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { THIS_EXPR } from '@angular/compiler/src/output/output_ast';
 const httpOptions = {
-  headers: new HttpHeaders({'Content-Type': 'application/json'})
+  headers: new HttpHeaders({ 'Content-Type': 'application/json' })
 };
 @Injectable({
   providedIn: 'root'
 })
 export class BsrMobileService {
+
+  _SP_GetCreatedNamesByEmail: any;
+  _SP_getProjectData: any;
+  _SP_Saving_New_Names_Mobile: any;
+  name: any;
+  email: any;
+  projectId: any;
+  sendNewNamesObj: { name: string; oldName: string; source: any; userEmail: any; };
   constructor(private http: HttpClient) { }
 
   // webBaseUrl = 'http://localhost:64378/';
   apiCall = 'api/BiFormCreator/';
   webBaseUrl = 'https://tools.brandinstitute.com/BIWebServices/';
   // webBaseUrl = 'http://localhost:64378/';
-  _SP_GetCreatedNamesByEmail;
-  _SP_getProjectData;
+
 
 
   login(data: any, projectId: string) {
-    this._SP_GetCreatedNamesByEmail = '[BI_GUIDELINES].[dbo].[bsr_getNameCandidatesByUser] ' + "'" + projectId + "'," + "'" + 'cev@gmail.com'  + "'";   
+    this.name = data.name;
+    // this.email = data.email;
+    this.email = 'cev@gmail.com';
+    this.projectId = projectId;
+    this._SP_GetCreatedNamesByEmail = '[BI_GUIDELINES].[dbo].[bsr_getNameCandidatesByUser] ' + "'" + projectId + "'," + "'" + 'cev@gmail.com' + "'";
     // this.dataLogin.summarize = (data.suma) ? '1' : '0';
     return this.http.post(this.webBaseUrl + this.apiCall, JSON.stringify(this._SP_GetCreatedNamesByEmail), httpOptions);
   }
 
-  getProjectData(projectId){
+  getProjectData(projectId) {
     this._SP_getProjectData = '[BI_GUIDELINES].[dbo].[bsr_GetProjectData] ' + "'" + projectId + "'";
     return this.http.post(this.webBaseUrl + this.apiCall, JSON.stringify(this._SP_getProjectData), httpOptions);
+  }
+
+
+  sendName(newName: string, OldName: string) {
+    this.sendNewNamesObj = {
+      name: newName,
+      oldName: OldName,
+      source: this.name,
+      userEmail: this.email
+    }
+
+    this._SP_Saving_New_Names_Mobile = "[BI_GUIDELINES].[dbo].[bsr_mobAddNames] N'" + this.projectId + ',' + JSON.stringify(this.sendNewNamesObj) + "'";
+    return this.http.post(this.webBaseUrl + this.apiCall, JSON.stringify(this._SP_Saving_New_Names_Mobile), httpOptions);
   }
 
   // goToLogout() {

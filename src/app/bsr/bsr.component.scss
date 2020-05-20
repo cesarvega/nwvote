@@ -61,8 +61,9 @@
 
 .toptoolbar{    
     background-repeat: no-repeat;
-    background-size: cover;
+    background-size: initial;    
     background-image: url(../../assets/img/toolbarBg.jpg);
+    height: 53px;
 }
 
 .postit-box {
@@ -156,3 +157,11 @@
     background-size: cover;
   }
 
+  .example-container {
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    background: #eee;
+  }

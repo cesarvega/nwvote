@@ -22,7 +22,9 @@ import { MatDialogModule } from '@angular/material/dialog';
 import { BsrMobileComponent, editName } from './bsr-mobile/bsr-mobile.component';
 import { BsrMobileService } from './bsr-mobile/bsr-mobile.service';
 import { BsrComponent } from './bsr/bsr.component';
+import { MatTooltipModule } from '@angular/material/tooltip';
 import { MatGridListModule } from '@angular/material/grid-list';
+import { MatSidenavModule } from '@angular/material/sidenav';
 @NgModule({
   declarations: [
     AppComponent,
@@ -30,7 +32,7 @@ import { MatGridListModule } from '@angular/material/grid-list';
     NwVoteComponent,
     BsrMobileComponent,
     editName,
-    BsrComponent
+    BsrComponent,
   ],
   imports: [
     BrowserModule,
@@ -49,7 +51,9 @@ import { MatGridListModule } from '@angular/material/grid-list';
     MatIconModule,
     FlexLayoutModule,
     DragDropModule,
-    MatGridListModule
+    MatTooltipModule,
+    MatGridListModule,
+    MatSidenavModule,
 
 
   ],

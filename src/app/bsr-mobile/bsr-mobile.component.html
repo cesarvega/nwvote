@@ -18,8 +18,11 @@
                         <img class="logo" src="assets/img/NAMEPAGE_LOGO-01.svg">
                         <br> <br>
                         <div class="title secondary-text">Welcome to the NamePage<sup style="font-size: 10px;">TM</sup>
-                            for Project </div> <br>
-                        <div class="mat-subheading-2 secondary-text">Please enter your information below to continue.
+                            for Project </div>
+                        <div  class="title secondary-text" style="color: #004684;">
+                            {{projectname}}
+                        </div> <br>
+                        <div class="mat-small secondary-text">Please enter your information below to continue.
                         </div>
 
                         <form name="loginForm" [formGroup]="loginForm" novalidate class="open-close-container">
@@ -84,15 +87,15 @@
                 <br>
                 <div class="mat-subheading-1">Suggestions</div>
                 <mat-card style="height: 300px;overflow-y: scroll;">
-                    
+
                     <div *ngFor="let item of  newNames" (click)="openDialog(item.name)">{{item.name}}</div>
                 </mat-card>
 
-                <form name="loginForm" [formGroup]="loginForm" novalidate class="nameform">
+                <form name="newNameForm" [formGroup]="newNameForm" novalidate class="nameform">
 
                     <mat-form-field appearance="outline" style="min-width: 350px;">
                         <mat-label>Name Suggestions</mat-label>
-                        <input matInput type="name" placeholder="name" formControlName="name" >
+                        <input matInput type="name" placeholder="name" formControlName="name">
                     </mat-form-field>
                     <br>
 
@@ -102,7 +105,7 @@
                         </div>
                         <div class="col-sm">
 
-                            <button (click)="submitCredentials()" mat-raised-button style="color: white;"
+                            <button (click)="sendNewName()" mat-raised-button style="color: white;"
                                 color="primary" class="submit-button" aria-label="LOG IN">
                                 CLICK TO SUBMIT
                             </button>
@@ -113,7 +116,7 @@
                     </div>
                     <br>
 
-                    <mat-checkbox class="remember-me secondary" aria-label="Anonymous">
+                    <mat-checkbox class="remember-me secondary" aria-label="Anonymous" matInput formControlName="suma" >
                         Enable Anonymous Submit?
                     </mat-checkbox>
 
@@ -121,24 +124,24 @@
 
                     <div class="row">
                         <div class="col-sm">
-        
+
                         </div>
                         <div class="col-sm">
-        
-                            <button (click)="submitCredentials()" mat-raised-button style="color: white;"
-                                color="accent" class="submit-button" aria-label="LOG IN">
+
+                            <button (click)="submitCredentials()" mat-raised-button style="color: white;" color="accent"
+                                class="submit-button" aria-label="LOG IN">
                                 CLICK TO FINISH
                             </button>
                         </div>
                         <div class="col-sm">
-        
+
                         </div>
                     </div>
-        
+
                 </form>
             </div>
 
-           
+
         </div>
         <div class="col-sm">
 
