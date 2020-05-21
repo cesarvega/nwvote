@@ -1,12 +1,12 @@
-<div class="container"> 
+<div class="container">
     <div class="row">
 
         <mat-toolbar class="toolbar ">BI Project: {{projectname}}</mat-toolbar>
 
-        <div class="col container" >
+        <div class="col container">
 
-           
-            <div   *ngIf="!isUserLogged" id="login">
+
+            <div *ngIf="!isUserLogged" id="login">
 
                 <div id="login-form-wrapper" fxLayout="column" fxLayoutAlign="center center">
 
@@ -19,7 +19,7 @@
                             for Project </div>
                         <div class="title secondary-text" style="color: #004684;">
                             {{projectname}}
-                        </div> 
+                        </div>
                         <div class="mat-small secondary-text">Please enter your information below to continue.
                         </div>
 
@@ -73,60 +73,62 @@
 
 
 
-            <div *ngIf="isUserLogged" fxLayout="column" fxLayoutAlign="center center"  id="login">
+            <div *ngIf="isUserLogged" fxLayout="column" fxLayoutAlign="center center" id="login">
 
-                    <br>
-                    <div class="mat-subheading-1">Suggestions</div>
-                    <mat-card style="height: 300px;overflow-y: scroll;min-width: 330px;">
+                <br>
+                <div class="mat-subheading-1">Suggestions</div>
+                <mat-card style="height: 300px;overflow-y: scroll;min-width: 330px;">
 
-                        <div *ngFor="let item of  newNames" (click)="openDialog(item.name)">{{item.name}}</div>
-                    </mat-card>
-<br>
-                    <form name="newNameForm" [formGroup]="newNameForm" novalidate class="nameform" style="text-align: center;">
+                    <div *ngFor="let item of  newNames" (click)="openDialog(item.name)">{{item.name}}</div>
+                </mat-card>
+                <br>
+                
+                <form name="newNameForm" [formGroup]="newNameForm" novalidate class="nameform"
+                    style="text-align: center;">
 
-                        <mat-form-field appearance="outline" style="min-width: 330px;">
-                            <mat-label>Name Suggestions</mat-label>
-                            <input matInput type="name" placeholder="name" formControlName="name">
-                        </mat-form-field>
+                    <mat-form-field appearance="outline" style="min-width: 330px;">
+                        <mat-label>Name Suggestions</mat-label>
+                        <input matInput type="name" placeholder="name" formControlName="name">
+                    </mat-form-field>
 
 
 
-                        <div class="row" style="text-align: center;">
-                            <div class="col-sm">
-                            
-                                <button (click)="sendNewName()" mat-raised-button style="color: white;" color="primary"
-                                    class="submit-button" aria-label="LOG IN">
-                                    CLICK TO SUBMIT
-                                </button>
+                    <div class="col" style="text-align: center;">
+                        <div class="col" style="text-align: center;">
 
-                                <br>
-                                <br>
-                            </div>
-                            <div class="col-sm">
+                            <button (click)="sendNewName()" mat-raised-button style="color: white;" color="primary"
+                                class="submit-button" aria-label="LOG IN">
+                                CLICK TO SUBMIT
+                            </button>
 
-                                <mat-checkbox class="remember-me secondary" aria-label="Anonymous" matInput
-                                    formControlName="suma">
-                                    Enable Anonymous Submit?
-                                </mat-checkbox>
+                            <br>
+                            <br>
+                        </div>
+                        <div class="col">
 
-                                <br><br>
-                            </div>
-                            <div class="col-sm">
+                            <mat-checkbox class="remember-me secondary" aria-label="Anonymous" matInput
+                                formControlName="suma">
+                                Enable Anonymous Submit?
+                            </mat-checkbox>
 
-                                <button (click)="submitCredentials()" mat-raised-button style="color: white;"
-                                    color="accent" class="submit-button" aria-label="LOG IN">
-                                    CLICK TO FINISH
-                                </button>
-                            </div>
+                            <br><br>
+                        </div>
+                        <div class="col">
 
+                            <button (click)="submitCredentials()" mat-raised-button style="color: white;" color="accent"
+                                class="submit-button" aria-label="LOG IN">
+                                CLICK TO FINISH
+                            </button>
                         </div>
 
-                    </form>
-                
+                    </div>
+
+                </form>
+
 
             </div>
         </div>
-      
+
     </div>
 </div>
 
