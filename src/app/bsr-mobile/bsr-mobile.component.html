@@ -1,14 +1,12 @@
-<div class="container">
+<div class="container"> 
     <div class="row">
 
-        <div class="col-sm">
+        <mat-toolbar class="toolbar ">BI Project: {{projectname}}</mat-toolbar>
 
-        </div>
+        <div class="col container" >
 
-        <div class="col-sm">
-
-            <mat-toolbar class="toolbar ">BI Project: {{projectname}}v.002</mat-toolbar>
-            <div *ngIf="!isUserLogged" id="login" fxLayout="column">
+           
+            <div   *ngIf="!isUserLogged" id="login">
 
                 <div id="login-form-wrapper" fxLayout="column" fxLayoutAlign="center center">
 
@@ -75,7 +73,7 @@
 
 
 
-            <div *ngIf="isUserLogged">
+            <div *ngIf="isUserLogged" fxLayout="column" fxLayoutAlign="center center">
 
                 <div style="max-width: 360px;" class="contenedor">
 
@@ -130,9 +128,7 @@
 
             </div>
         </div>
-        <div class="col-sm">
-
-        </div>
+      
     </div>
 </div>
 
