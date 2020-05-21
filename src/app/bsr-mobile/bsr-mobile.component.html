@@ -1,17 +1,13 @@
-<div class="">
-    <mat-toolbar class="toolbar ">BI Project: {{projectname}} v.001</mat-toolbar>
+<div class="container">
     <div class="row">
 
         <div class="col-sm">
 
         </div>
 
-
         <div class="col-sm">
 
-           
-
-
+            <mat-toolbar class="toolbar ">BI Project: {{projectname}}</mat-toolbar>
             <div *ngIf="!isUserLogged" id="login" fxLayout="column">
 
                 <div id="login-form-wrapper" fxLayout="column" fxLayoutAlign="center center">
@@ -23,7 +19,7 @@
                         <br> <br>
                         <div class="title secondary-text">Welcome to the NamePage<sup style="font-size: 10px;">TM</sup>
                             for Project </div>
-                        <div  class="title secondary-text" style="color: #004684;">
+                        <div class="title secondary-text" style="color: #004684;">
                             {{projectname}}
                         </div> <br>
                         <div class="mat-small secondary-text">Please enter your information below to continue.
@@ -61,10 +57,6 @@
                                     aria-label="Remember Me">
                                     Summarize your input once finished?
                                 </mat-checkbox>
-
-                                <!-- <a class="forgot-password" [routerLink]="'/apps/login/forgot-password'">
-                        Forgot Password?
-                    </a> -->
                             </div>
 
                             <button (click)="submitCredentials()" mat-raised-button style="color: white;"
@@ -75,12 +67,6 @@
 
                         </form>
 
-                        <!-- <div class="register" fxLayout="column" fxLayoutAlign="center center">
-                <span class="text secondary-text">Don't have an account?</span>
-                <a class="link" [routerLink]="'/apps/register/auth/register'">Create an account</a>
-                <a class="link" [routerLink]="'/apps/contacts'">Contact us</a>
-            </div> -->
-
                     </div>
 
                 </div>
@@ -89,69 +75,73 @@
 
             <div *ngIf="isUserLogged">
 
-                <br>
-                <div class="mat-subheading-1">Suggestions</div>
-                <mat-card style="height: 300px;overflow-y: scroll;">
+                <div style="max-width: 360px;" class="contenedor">
 
-                    <div *ngFor="let item of  newNames" (click)="openDialog(item.name)">{{item.name}}</div>
-                </mat-card>
-
-                <form name="newNameForm" [formGroup]="newNameForm" novalidate class="nameform">
-
-                    <mat-form-field appearance="outline" style="min-width: 350px;">
-                        <mat-label>Name Suggestions</mat-label>
-                        <input matInput type="name" placeholder="name" formControlName="name">
-                    </mat-form-field>
                     <br>
+                    <div class="mat-subheading-1">Suggestions</div>
+                    <mat-card style="height: 300px;overflow-y: scroll;">
 
-                    <div class="row">
-                        <div class="col-sm">
+                        <div *ngFor="let item of  newNames" (click)="openDialog(item.name)">{{item.name}}</div>
+                    </mat-card>
 
+                    <form name="newNameForm" [formGroup]="newNameForm" novalidate class="nameform">
+
+                        <mat-form-field appearance="outline" style="min-width: 350px;">
+                            <mat-label>Name Suggestions</mat-label>
+                            <input matInput type="name" placeholder="name" formControlName="name">
+                        </mat-form-field>
+                        <br>
+
+                  
+                      
+
+                                <button (click)="sendNewName()" mat-raised-button style="color: white;" color="primary"
+                                    class="submit-button" aria-label="LOG IN">
+                                    CLICK TO SUBMIT
+                                </button>
+                       
+                           
+                        <br>
+
+                        <mat-checkbox class="remember-me secondary" aria-label="Anonymous" matInput
+                            formControlName="suma">
+                            Enable Anonymous Submit?
+                        </mat-checkbox>
+
+                        <br><br>
+
+                        <div class="row">
+                            <div class="col-sm">
+
+                            </div>
+                            <div class="col-sm">
+
+                                <button (click)="submitCredentials()" mat-raised-button style="color: white;"
+                                    color="accent" class="submit-button" aria-label="LOG IN">
+                                    CLICK TO FINISH
+                                </button>
+                            </div>
+                            <div class="col-sm">
+
+                            </div>
                         </div>
-                        <div class="col-sm">
 
-                            <button (click)="sendNewName()" mat-raised-button style="color: white;"
-                                color="primary" class="submit-button" aria-label="LOG IN">
-                                CLICK TO SUBMIT
-                            </button>
-                        </div>
-                        <div class="col-sm">
+                    </form>
+                </div>
 
-                        </div>
-                    </div>
-                    <br>
-
-                    <mat-checkbox class="remember-me secondary" aria-label="Anonymous" matInput formControlName="suma" >
-                        Enable Anonymous Submit?
-                    </mat-checkbox>
-
-                    <br><br>
-
-                    <div class="row">
-                        <div class="col-sm">
-
-                        </div>
-                        <div class="col-sm">
-
-                            <button (click)="submitCredentials()" mat-raised-button style="color: white;" color="accent"
-                                class="submit-button" aria-label="LOG IN">
-                                CLICK TO FINISH
-                            </button>
-                        </div>
-                        <div class="col-sm">
-
-                        </div>
-                    </div>
-
-                </form>
             </div>
-
-
         </div>
-
-
         <div class="col-sm">
 
         </div>
     </div>
 </div>
+
+
+
+
+<!-- <div class="register" fxLayout="column" fxLayoutAlign="center center">
+                <span class="text secondary-text">Don't have an account?</span>
+                <a class="link" [routerLink]="'/apps/register/auth/register'">Create an account</a>
+                <a class="link" [routerLink]="'/apps/contacts'">Contact us</a>
+            </div> -->

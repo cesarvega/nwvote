@@ -113,7 +113,7 @@ export class editName {
     @Inject(MAT_DIALOG_DATA) public data: DialogData, private _formBuilder: FormBuilder) {
     console.log(this.data.name);
     this.loginForm = this._formBuilder.group({
-      email: ['', Validators.required],
+      rationale: [''],
       suma: [''],
       name: [this.data.name]
     });
