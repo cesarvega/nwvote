@@ -6,7 +6,7 @@
         <div class="col container">
 
 
-            <div *ngIf="!isUserLogged" id="login">
+            <div *ngIf="!isUserLogged && !isUserLeaving" id="login">
 
                 <div id="login-form-wrapper" fxLayout="column" fxLayoutAlign="center center">
 
@@ -72,7 +72,6 @@
             </div>
 
 
-
             <div *ngIf="isUserLogged" fxLayout="column" fxLayoutAlign="center center" id="login">
 
                 <br>
@@ -82,7 +81,7 @@
                     <div *ngFor="let item of  newNames" (click)="openDialog(item.name)">{{item.name}}</div>
                 </mat-card>
                 <br>
-                
+
                 <form name="newNameForm" [formGroup]="newNameForm" novalidate class="nameform"
                     style="text-align: center;">
 
@@ -115,7 +114,7 @@
                         </div>
                         <div class="col">
 
-                            <button (click)="submitCredentials()" mat-raised-button style="color: white;" color="accent"
+                            <button (click)="finish()" mat-raised-button style="color: white;" color="accent"
                                 class="submit-button" aria-label="LOG IN">
                                 CLICK TO FINISH
                             </button>
@@ -127,6 +126,37 @@
 
 
             </div>
+
+
+
+
+            <div *ngIf="!isUserLogged && isUserLeaving" id="login">
+
+                <div id="login-form-wrapper" fxLayout="column" fxLayoutAlign="center center">
+
+                    <div id="login-form">
+
+                        <img class="logo" src="assets/img/NAMEPAGE_LOGO-01.svg">
+                        <br> <br>
+
+                        <div class="title " style="color: #004684;">
+                            Thank you for using NamePage.
+                        </div>
+                        <div class="title " style="color: #004684;">
+                            To submit additional names, please refresh the page.
+                        </div>
+                        <br>
+
+                        <button mat-mini-fab (click)="reloadpage()" class="refreshbutton" aria-label="icon">
+                            <mat-icon>refresh</mat-icon>
+                        </button>
+
+                    </div>
+
+                </div>
+
+            </div>
+
         </div>
 
     </div>

@@ -13,6 +13,7 @@ import { MatDialog, MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dial
 export class BsrMobileComponent implements OnInit {
 
   isUserLogged = false;
+  isUserLeaving = false;
   newNames = ['AJORSEK', 'EMPROVON', 'KALENPARQ', 'KAMLIO', 'ONBETYM', 'ONDEMUVE', 'ONPARNEX', 'PLUXONTI', 'TEYBILTON', 'VELZAGO'];
   userEmail;
   loginForm: FormGroup;
@@ -92,7 +93,14 @@ export class BsrMobileComponent implements OnInit {
     });
   }
 
+  finish() {
+    this.isUserLogged = false;
+    this.isUserLeaving = true;
+  }
 
+  reloadpage() {
+    location.reload();
+  }
 
 
 }
@@ -104,6 +112,7 @@ export interface DialogData {
 @Component({
   selector: 'edit-name',
   templateUrl: 'edit-name.html',
+  styleUrls: ['./bsr-mobile.component.scss']
 })
 export class editName {
   loginForm: FormGroup;
@@ -135,12 +144,23 @@ export class editName {
   buttonOption(option) {
 
     if (option === 'save') {
+      this.popupwindowData = {
+
+        form: this.loginForm,
+        oldValue: this.data.name
+  
+      }
+  
+      this.dialogRef.close(this.popupwindowData);
+
+    } else if (option === 'delete') {
 
 
     } else {
 
 
     }
+
   }
 
 
