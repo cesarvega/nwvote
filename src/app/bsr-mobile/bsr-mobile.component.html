@@ -75,15 +75,13 @@
 
             <div *ngIf="isUserLogged" fxLayout="column" fxLayoutAlign="center center"  id="login">
 
-                <div style="max-width: 360px;" class="contenedor">
-
                     <br>
                     <div class="mat-subheading-1">Suggestions</div>
-                    <mat-card style="height: 300px;overflow-y: scroll;">
+                    <mat-card style="height: 300px;overflow-y: scroll;min-width: 330px;">
 
                         <div *ngFor="let item of  newNames" (click)="openDialog(item.name)">{{item.name}}</div>
                     </mat-card>
-
+<br>
                     <form name="newNameForm" [formGroup]="newNameForm" novalidate class="nameform" style="text-align: center;">
 
                         <mat-form-field appearance="outline" style="min-width: 330px;">
@@ -124,7 +122,7 @@
                         </div>
 
                     </form>
-                </div>
+                
 
             </div>
         </div>
