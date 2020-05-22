@@ -44,9 +44,9 @@ export class BsrMobileComponent implements OnInit {
     localStorage.setItem('project', '');
 
     this.loginForm = this._formBuilder.group({
-      email: ['', Validators.required],
+      email: ['jdoe@brandinstitute.com', Validators.required],
       suma: [true],
-      name: ['', Validators.required]
+      name: ['Jhon Doe', Validators.required]
     });
 
     this.newNameForm = this._formBuilder.group({

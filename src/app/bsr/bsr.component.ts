@@ -16,8 +16,8 @@ export class BsrComponent implements OnInit {
     'Long nineteenth century'
   ];
 
-  createPostIt = false;
-  overview = false;
+  createPostIt = true;
+  overview = true;
   slideBackground = 'background-image: url(http://www.bipresents.com/bsr_slides/TEST_BI_ALEXA/thumbnails/001.jpg);';
   myControl = new FormControl();
   options: string[] = ['One', 'Two', 'Three'];
