@@ -172,14 +172,10 @@ export class editName {
 
     if (option === 'save') {
       this.popupwindowData = {
-
         form: this.loginForm,
         oldValue: this.data.name
-
       }
-
       this.dialogRef.close(this.popupwindowData);
-
     }
      else if (option === 'delete') {
 
@@ -192,23 +188,14 @@ export class editName {
         }
         this.dialogRef.close(this.popupwindowData);
       }
-
       this.isDeleting = false;
-
     } 
      else if (option === 'dismiss') {
-
-      
         this.dialogRef.close(this.popupwindowData);
-      
-
         this.isDeleting = true;
-
     } 
     else {
-
       this.isDeleting = true;
-
     }
 
   }
