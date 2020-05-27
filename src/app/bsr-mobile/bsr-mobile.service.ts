@@ -16,6 +16,7 @@ export class BsrMobileService {
   email: any;
   projectId: any;
   sendNewNamesObj: { name: string; oldName: string; source: any; userEmail: any; };
+  _deviceUserData: string;
   constructor(private http: HttpClient) { }
 
   // webBaseUrl = 'http://localhost:64378/';
@@ -31,6 +32,16 @@ export class BsrMobileService {
     // this.email = 'cesarvega.col@gmail.com';
     this.projectId = projectId;
     this._SP_GetCreatedNamesByEmail = '[BI_GUIDELINES].[dbo].[bsr_getNameCandidatesByUser] ' + "'" + projectId + "'," + "'" + data.email + "'";
+
+    let summa =  (localStorage.getItem('summarized')=== 'false')?false:true;
+
+    this._deviceUserData = "[BI_GUIDELINES].[dbo].[bsr_DeviceUserData] " + "'" + this.projectId + ","  + this.name + ","  + this.email + "," + summa + "," + "{}" + "'" ;
+
+
+    this.http.post(this.webBaseUrl + this.apiCall, JSON.stringify(this._SP_GetCreatedNamesByEmail), httpOptions).subscribe(res =>{
+
+    });
+
     // this.dataLogin.summarize = (data.suma) ? '1' : '0';
     return this.http.post(this.webBaseUrl + this.apiCall, JSON.stringify(this._SP_GetCreatedNamesByEmail), httpOptions);
   }
@@ -60,7 +71,6 @@ export class BsrMobileService {
       }
     }
 
-
     this._SP_Saving_New_Names_Mobile = "[BI_GUIDELINES].[dbo].[bsr_mobAddNames] N'" + this.projectId + ',' + JSON.stringify(this.sendNewNamesObj) + "'";
     return this.http.post(this.webBaseUrl + this.apiCall, JSON.stringify(this._SP_Saving_New_Names_Mobile), httpOptions);
   }
@@ -71,6 +81,7 @@ export class BsrMobileService {
   }
 
   goToLogout() {
+   
       const sendEmail = "[BI_GUIDELINES].[dbo].[bsr_AddEmailResultsRequest] '" + this.projectId + "','" +  this.email  + "','" +  this.name + "'";
       return this.http.post(this.webBaseUrl + this.apiCall, JSON.stringify(sendEmail), httpOptions);  
   }

@@ -24,6 +24,7 @@ export class BsrMobileComponent implements OnInit {
   username: any;
   wholeData: any;
   anoni: string = '';
+  summarized: any;
   constructor(private _formBuilder: FormBuilder, private bsrService: BsrMobileService,
     private activatedRoute: ActivatedRoute,
     public dialog: MatDialog,
@@ -32,7 +33,7 @@ export class BsrMobileComponent implements OnInit {
     this.activatedRoute.params.subscribe(params => {
       this.projectId = params['id'];
       this.bsrService.getProjectData(this.projectId).subscribe(arg => {
-        this.projectname = JSON.parse(arg[0].bsrData).projectdescription
+        this.projectname = JSON.parse(arg[0].bsrData).projectdescription;
       });
     });
 
@@ -44,6 +45,7 @@ export class BsrMobileComponent implements OnInit {
     //clean local storage 
     localStorage.setItem('userTokenId', '');
     localStorage.setItem('project', '');
+    localStorage.setItem('summarized', '');
 
     this.loginForm = this._formBuilder.group({
       email: ['cesarvega.col@gmail.com', Validators.required],
@@ -62,6 +64,8 @@ export class BsrMobileComponent implements OnInit {
   submitCredentials() {
     this.userEmail = this.loginForm.value.email;
     this.username = this.loginForm.value.name;
+    this.summarized = this.loginForm.value.suma;
+    localStorage.setItem('summarized', this.summarized.toString());
     this.bsrService.login(this.loginForm.value, this.projectId).subscribe((res: any) => {
       if (res.length !== 0) {
         this.newNames = JSON.parse('[' + res[0].Names + ']');
