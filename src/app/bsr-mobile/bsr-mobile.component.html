@@ -14,7 +14,7 @@
 
 
                         <img class="logo" src="assets/img/NAMEPAGE_LOGO-01.svg">
-                        <br> <br>
+                        <br>
                         <div class="title secondary-text">Welcome to the NamePage<sup style="font-size: 10px;">TM</sup>
                             for Project </div>
                         <div class="title secondary-text" style="color: #004684;">
@@ -76,7 +76,7 @@
 
                 <br>
                 <div class="mat-subheading-1">Suggestions</div>
-                <mat-card style="height: 300px;overflow-y: scroll;min-width: 330px;">
+                <mat-card style="height: 250px;overflow-y: scroll;min-width: 330px;">
 
                     <div *ngFor="let item of  newNames" (click)="openDialog(item.name, item.nameid)" >{{item.name}}</div>
                 </mat-card>
