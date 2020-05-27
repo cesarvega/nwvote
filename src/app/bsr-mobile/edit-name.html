@@ -27,7 +27,7 @@
 
 
             <div fxFlex>
-            <button *ngIf="isDeleting" (click)="buttonOption('cancel')"  class="refreshbutton" mat-mini-fab style="font-size: 8px;" color="success" aria-label="icon">
+            <button *ngIf="isDeleting" (click)="buttonOption('dismiss')"  class="refreshbutton" mat-mini-fab style="font-size: 8px;" color="success" aria-label="icon">
                 <mat-icon>cancel</mat-icon>
             </button>
             <button *ngIf="!isDeleting" (click)="buttonOption('cancel')"  class="refreshbutton" mat-mini-fab style="color: white;background-color: red;" color="success" aria-label="icon">
