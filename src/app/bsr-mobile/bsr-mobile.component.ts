@@ -180,7 +180,8 @@ export class editName {
 
       this.dialogRef.close(this.popupwindowData);
 
-    } else if (option === 'delete') {
+    }
+     else if (option === 'delete') {
 
       if (this.isDeleting === false) {
 
@@ -194,7 +195,17 @@ export class editName {
 
       this.isDeleting = false;
 
-    } else {
+    } 
+     else if (option === 'dismiss') {
+
+      
+        this.dialogRef.close(this.popupwindowData);
+      
+
+        this.isDeleting = true;
+
+    } 
+    else {
 
       this.isDeleting = true;
 
