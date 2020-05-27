@@ -46,7 +46,7 @@ export class BsrMobileComponent implements OnInit {
     this.loginForm = this._formBuilder.group({
       email: ['jdoe@brandinstitute.com', Validators.required],
       suma: [true],
-      name: ['Jhon Doe', Validators.required]
+      name: ['John Doe', Validators.required]
     });
 
     this.newNameForm = this._formBuilder.group({
