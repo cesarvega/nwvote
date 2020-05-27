@@ -23,6 +23,7 @@ export class BsrMobileComponent implements OnInit {
   projectId: any;
   username: any;
   wholeData: any;
+  anoni: string = '';
   constructor(private _formBuilder: FormBuilder, private bsrService: BsrMobileService,
     private activatedRoute: ActivatedRoute,
     public dialog: MatDialog,
@@ -72,9 +73,14 @@ export class BsrMobileComponent implements OnInit {
 
   sendNewName() {
     this.newNameForm.value.name.split(',').forEach(splittedName => {
-      const nameTemp = splittedName;
+      let nameTemp = splittedName;
       this.newNameForm.value.name = '';
-      this.bsrService.sendName(nameTemp, '').subscribe(arg => {
+
+      if (this.newNameForm.value.suma) {
+       this.anoni = 'Anonymous';
+      }
+
+      this.bsrService.sendName(nameTemp, this.anoni).subscribe(arg => {
         this.bsrService.login({ email: this.userEmail, name: this.username }, this.projectId).subscribe((res: any) => {
           this.newNames = JSON.parse('[' + res[0].Names + ']');
           this.isUserLogged = true;

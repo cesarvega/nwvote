@@ -42,12 +42,24 @@ export class BsrMobileService {
 
 
   sendName(newName: string, OldName: string) {
-    this.sendNewNamesObj = {
-      name: newName,
-      oldName: OldName,
-      source: this.name,
-      userEmail: this.email
+    
+    if (OldName === 'Anonymous') {
+      OldName = '';
+      this.sendNewNamesObj = {
+        name: newName,
+        oldName: OldName,
+        source: 'Anonymous',
+        userEmail: this.email
+      }
+    } else {
+      this.sendNewNamesObj = {
+        name: newName,
+        oldName: OldName,
+        source: this.name,
+        userEmail: this.email
+      }
     }
+
 
     this._SP_Saving_New_Names_Mobile = "[BI_GUIDELINES].[dbo].[bsr_mobAddNames] N'" + this.projectId + ',' + JSON.stringify(this.sendNewNamesObj) + "'";
     return this.http.post(this.webBaseUrl + this.apiCall, JSON.stringify(this._SP_Saving_New_Names_Mobile), httpOptions);
