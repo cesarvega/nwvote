@@ -17,7 +17,7 @@ export class BsrComponent implements OnInit {
   ];
 
   createPostIt = true;
-  overview = true;
+  overview = false;
   slideBackground = 'background-image: url(http://www.bipresents.com/bsr_slides/TEST_BI_ALEXA/thumbnails/001.jpg);';
   myControl = new FormControl();
   options: string[] = ['One', 'Two', 'Three'];
