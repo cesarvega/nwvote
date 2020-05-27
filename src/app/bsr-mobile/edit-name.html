@@ -1,3 +1,5 @@
+
+<div *ngIf="infoMessage">
 <form name="loginForm" [formGroup]="loginForm" novalidate class="nameform">
 
 
@@ -25,7 +27,6 @@
             </button>
             </div>
 
-
             <div fxFlex>
             <button *ngIf="isDeleting" (click)="buttonOption('dismiss')"  class="refreshbutton" mat-mini-fab style="font-size: 8px;" color="success" aria-label="icon">
                 <mat-icon>cancel</mat-icon>
@@ -47,3 +48,14 @@
     </div>
 
 </form>
+</div>
+<div *ngIf="!infoMessage">    
+    <div  class="mat-h4" style="text-align: center;">Help</div><hr>
+    <div  class="mat-h3" style="text-align: center;color: #004684;">Touch or click a name to edit or add rationales.</div>
+
+<div fxLayoutAlign="end end" >    
+    <button (click)="buttonOption('dismiss')"  class="refreshbutton" mat-mini-fab style="font-size: 8px;" color="success" aria-label="icon">
+        <mat-icon>cancel</mat-icon>
+    </button>
+</div>
+</div>

@@ -1,7 +1,14 @@
 <div class="container">
     <div class="row">
 
-        <mat-toolbar class="toolbar ">BI Project: {{projectname}}v.004</mat-toolbar>
+        <mat-toolbar class="toolbar " fxLayoutAlign="space-between center">
+            <!-- <mat-icon>insert_drive_file</mat-icon>  -->
+            {{projectname}}
+            <button *ngIf="isUserLogged" (click)="openDialog('displayInfo', '')" mat-mini-fab 
+            style="color: white;background-color: #004684;  outline: none;" >
+                <mat-icon>help</mat-icon>
+            </button>
+        </mat-toolbar>
 
         <div class="col container">
 
@@ -89,8 +96,6 @@
                         <mat-label>Name Suggestions</mat-label>
                         <input matInput type="name" placeholder="name" autofocus #reference formControlName="name">
                     </mat-form-field>
-
-
 
                     <div class="col" style="text-align: center;">
                         <div class="col" style="text-align: center;">
