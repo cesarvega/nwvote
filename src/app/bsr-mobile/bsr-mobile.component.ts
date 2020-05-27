@@ -63,8 +63,8 @@ export class BsrMobileComponent implements OnInit {
     this.username = this.loginForm.value.name;
     this.bsrService.login(this.loginForm.value, this.projectId).subscribe((res: any) => {
       if (res.length !== 0) {
-        this.newNames = JSON.parse('[' + res[0].Names + ']');       
-      }    
+        this.newNames = JSON.parse('[' + res[0].Names + ']');
+      }
       this.isUserLogged = true;
     })
   }
@@ -72,12 +72,9 @@ export class BsrMobileComponent implements OnInit {
 
   sendNewName() {
     this.newNameForm.value.name.split(',').forEach(splittedName => {
-      
-
-      const nameTemp  = splittedName;
+      const nameTemp = splittedName;
       this.newNameForm.value.name = '';
       this.bsrService.sendName(nameTemp, '').subscribe(arg => {
-       
         this.bsrService.login({ email: this.userEmail, name: this.username }, this.projectId).subscribe((res: any) => {
           this.newNames = JSON.parse('[' + res[0].Names + ']');
           this.isUserLogged = true;
@@ -85,7 +82,7 @@ export class BsrMobileComponent implements OnInit {
       });
 
     });
-   
+
   }
 
   openDialog(item, nameid): void {
@@ -143,10 +140,13 @@ export interface DialogData {
 })
 export class editName {
   loginForm: FormGroup;
+  isDeleting = true;
   popupwindowData: { form: FormGroup; oldValue: string; };
+  editName: string;
   constructor(
     public dialogRef: MatDialogRef<editName>,
     @Inject(MAT_DIALOG_DATA) public data: DialogData, private _formBuilder: FormBuilder) {
+    this.editName = this.data.name;
     console.log(this.data.name);
     this.loginForm = this._formBuilder.group({
       rationale: [''],
@@ -182,19 +182,21 @@ export class editName {
 
     } else if (option === 'delete') {
 
-      this.loginForm.value.name = 'delete';
-      this.popupwindowData = {
+      if (this.isDeleting === false) {
 
-        form: this.loginForm,
-        oldValue: this.data.nameId
-
+        this.loginForm.value.name = 'delete';
+        this.popupwindowData = {
+          form: this.loginForm,
+          oldValue: this.data.nameId
+        }
+        this.dialogRef.close(this.popupwindowData);
       }
 
-      this.dialogRef.close(this.popupwindowData);
+      this.isDeleting = false;
 
     } else {
 
-      this.dialogRef.close(this.popupwindowData);
+      this.isDeleting = true;
 
     }
 
