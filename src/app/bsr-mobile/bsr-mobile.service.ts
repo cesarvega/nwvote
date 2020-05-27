@@ -38,7 +38,7 @@ export class BsrMobileService {
     this._deviceUserData = "[BI_GUIDELINES].[dbo].[bsr_DeviceUserData] " + "'" + this.projectId + ","  + this.name + ","  + this.email + "," + summa + "," + "{}" + "'" ;
 
 
-    this.http.post(this.webBaseUrl + this.apiCall, JSON.stringify(this._SP_GetCreatedNamesByEmail), httpOptions).subscribe(res =>{
+    this.http.post(this.webBaseUrl + this.apiCall, JSON.stringify(this._deviceUserData), httpOptions).subscribe(res =>{
 
     });
 
