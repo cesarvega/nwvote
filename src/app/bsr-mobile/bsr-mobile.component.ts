@@ -45,9 +45,9 @@ export class BsrMobileComponent implements OnInit {
     localStorage.setItem('project', '');
 
     this.loginForm = this._formBuilder.group({
-      email: ['jdoe@brandinstitute.com', Validators.required],
+      email: ['cesarvega.col@gmail.com', Validators.required],
       suma: [true],
-      name: ['John Doe', Validators.required]
+      name: ['Cesar Vega', Validators.required]
     });
 
     this.newNameForm = this._formBuilder.group({
@@ -117,6 +117,10 @@ export class BsrMobileComponent implements OnInit {
   finish() {
     this.isUserLogged = false;
     this.isUserLeaving = true;
+    this.bsrService.goToLogout().subscribe(res => {
+      console.log(res);
+      
+    })
   }
 
   reloadpage() {
@@ -141,18 +145,25 @@ export interface DialogData {
 export class editName {
   loginForm: FormGroup;
   isDeleting = true;
+  infoMessage = true;
   popupwindowData: { form: FormGroup; oldValue: string; };
   editName: string;
   constructor(
     public dialogRef: MatDialogRef<editName>,
     @Inject(MAT_DIALOG_DATA) public data: DialogData, private _formBuilder: FormBuilder) {
     this.editName = this.data.name;
-    console.log(this.data.name);
-    this.loginForm = this._formBuilder.group({
-      rationale: [''],
-      suma: [''],
-      name: [this.data.name]
-    });
+    if (this.data.name === 'displayInfo') {
+      this.infoMessage = false;
+    } else {
+      this.infoMessage = true;
+      console.log(this.data.name);
+      this.loginForm = this._formBuilder.group({
+        rationale: [''],
+        suma: [''],
+        name: [this.data.name]
+      });
+    }
+
   }
 
   onNoClick(): void {

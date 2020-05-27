@@ -27,10 +27,10 @@ export class BsrMobileService {
 
   login(data: any, projectId: string) {
     this.name = data.name;
-    // this.email = data.email;
-    this.email = 'cev@gmail.com';
+    this.email = data.email;
+    // this.email = 'cesarvega.col@gmail.com';
     this.projectId = projectId;
-    this._SP_GetCreatedNamesByEmail = '[BI_GUIDELINES].[dbo].[bsr_getNameCandidatesByUser] ' + "'" + projectId + "'," + "'" + 'cev@gmail.com' + "'";
+    this._SP_GetCreatedNamesByEmail = '[BI_GUIDELINES].[dbo].[bsr_getNameCandidatesByUser] ' + "'" + projectId + "'," + "'" + data.email + "'";
     // this.dataLogin.summarize = (data.suma) ? '1' : '0';
     return this.http.post(this.webBaseUrl + this.apiCall, JSON.stringify(this._SP_GetCreatedNamesByEmail), httpOptions);
   }
@@ -58,7 +58,10 @@ export class BsrMobileService {
     return this.http.post(this.webBaseUrl + this.apiCall, JSON.stringify(deleteNames), httpOptions);
   }
 
-  // goToLogout() {
+  goToLogout() {
+      const sendEmail = "[BI_GUIDELINES].[dbo].[bsr_AddEmailResultsRequest] '" + this.projectId + "','" +  this.email  + "','" +  this.name + "'";
+      return this.http.post(this.webBaseUrl + this.apiCall, JSON.stringify(sendEmail), httpOptions);  
+  }
 
 
   //   var queryData = "[BI_GUIDELINES].[dbo].[bsr_AddEmailResultsRequest] '" +
