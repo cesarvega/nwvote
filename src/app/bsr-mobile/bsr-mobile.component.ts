@@ -22,6 +22,7 @@ export class BsrMobileComponent implements OnInit {
   property: any;
   projectId: any;
   username: any;
+  wholeData: any;
   constructor(private _formBuilder: FormBuilder, private bsrService: BsrMobileService,
     private activatedRoute: ActivatedRoute,
     public dialog: MatDialog,
@@ -61,35 +62,58 @@ export class BsrMobileComponent implements OnInit {
     this.userEmail = this.loginForm.value.email;
     this.username = this.loginForm.value.name;
     this.bsrService.login(this.loginForm.value, this.projectId).subscribe((res: any) => {
-      this.newNames = JSON.parse('[' + res[0].Names + ']');
+      if (res.length !== 0) {
+        this.newNames = JSON.parse('[' + res[0].Names + ']');       
+      }    
       this.isUserLogged = true;
     })
   }
 
 
   sendNewName() {
-    this.bsrService.sendName(this.newNameForm.value.name, '').subscribe(arg => {
+    this.newNameForm.value.name.split(',').forEach(splittedName => {
+      
+
+      const nameTemp  = splittedName;
       this.newNameForm.value.name = '';
-      this.bsrService.login({ email: this.userEmail, name: this.username }, this.projectId).subscribe((res: any) => {
-        this.newNames = JSON.parse('[' + res[0].Names + ']');
-        this.isUserLogged = true;
-      })
-    });
-  }
-
-  openDialog(item): void {
-    const dialogRef = this.dialog.open(editName, {
-      // width: '250px',
-      data: { name: item }
-    });
-
-    dialogRef.afterClosed().subscribe(result => {
-      this.bsrService.sendName(result.form.value.name, result.oldValue).subscribe(arg => {
+      this.bsrService.sendName(nameTemp, '').subscribe(arg => {
+       
         this.bsrService.login({ email: this.userEmail, name: this.username }, this.projectId).subscribe((res: any) => {
           this.newNames = JSON.parse('[' + res[0].Names + ']');
           this.isUserLogged = true;
         })
       });
+
+    });
+   
+  }
+
+  openDialog(item, nameid): void {
+    const dialogRef = this.dialog.open(editName, {
+      // width: '250px',
+      data: { name: item, nameId: nameid }
+    });
+
+    dialogRef.afterClosed().subscribe(result => {
+
+      if (result.form.value.name && result.form.value.name !== 'delete') {
+
+        this.bsrService.sendName(result.form.value.name, result.oldValue).subscribe(arg => {
+          this.bsrService.login({ email: this.userEmail, name: this.username }, this.projectId).subscribe((res: any) => {
+            this.newNames = JSON.parse('[' + res[0].Names + ']');
+            this.isUserLogged = true;
+          })
+        });
+      } else {
+        this.bsrService.deleteName(result.oldValue).subscribe(arg => {
+          this.bsrService.login({ email: this.userEmail, name: this.username }, this.projectId).subscribe((res: any) => {
+            this.newNames = JSON.parse('[' + res[0].Names + ']');
+            this.isUserLogged = true;
+          })
+        });
+
+      }
+
     });
   }
 
@@ -105,8 +129,11 @@ export class BsrMobileComponent implements OnInit {
 
 }
 
+
+// POPUP EDIT NAME WINDOW
+
 export interface DialogData {
-  animal: string;
+  nameId: string;
   name: string;
 }
 @Component({
@@ -148,16 +175,26 @@ export class editName {
 
         form: this.loginForm,
         oldValue: this.data.name
-  
+
       }
-  
+
       this.dialogRef.close(this.popupwindowData);
 
     } else if (option === 'delete') {
 
+      this.loginForm.value.name = 'delete';
+      this.popupwindowData = {
+
+        form: this.loginForm,
+        oldValue: this.data.nameId
+
+      }
+
+      this.dialogRef.close(this.popupwindowData);
 
     } else {
 
+      this.dialogRef.close(this.popupwindowData);
 
     }
 

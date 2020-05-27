@@ -78,7 +78,7 @@
                 <div class="mat-subheading-1">Suggestions</div>
                 <mat-card style="height: 300px;overflow-y: scroll;min-width: 330px;">
 
-                    <div *ngFor="let item of  newNames" (click)="openDialog(item.name)">{{item.name}}</div>
+                    <div *ngFor="let item of  newNames" (click)="openDialog(item.name, item.nameid)" >{{item.name}}</div>
                 </mat-card>
                 <br>
 
@@ -87,7 +87,7 @@
 
                     <mat-form-field appearance="outline" style="min-width: 330px;">
                         <mat-label>Name Suggestions</mat-label>
-                        <input matInput type="name" placeholder="name" formControlName="name">
+                        <input matInput type="name" placeholder="name" autofocus #reference formControlName="name">
                     </mat-form-field>
 
 
@@ -95,7 +95,7 @@
                     <div class="col" style="text-align: center;">
                         <div class="col" style="text-align: center;">
 
-                            <button (click)="sendNewName()" mat-raised-button style="color: white;" color="primary"
+                            <button (click)="sendNewName(); reference.value=''" mat-raised-button style="color: white;" color="primary"
                                 class="submit-button" aria-label="LOG IN">
                                 CLICK TO SUBMIT
                             </button>

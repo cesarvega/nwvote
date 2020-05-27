@@ -53,6 +53,11 @@ export class BsrMobileService {
     return this.http.post(this.webBaseUrl + this.apiCall, JSON.stringify(this._SP_Saving_New_Names_Mobile), httpOptions);
   }
 
+  deleteName(NameId){
+    let deleteNames = "[BI_GUIDELINES].[dbo].[bsr_delName] " + this.projectId.replace(/\D+/g, '') + "," +  NameId ;
+    return this.http.post(this.webBaseUrl + this.apiCall, JSON.stringify(deleteNames), httpOptions);
+  }
+
   // goToLogout() {
 
 

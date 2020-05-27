@@ -75,8 +75,9 @@
             <div class="row">
               <div class="col" style="padding: 0px !important; margin-left: 15px !important;">
               
-                <div class="row post-it-container" cdkDropList>
-                  <mat-card style="margin-top:10px;    width: 237px;" cdkDrag
+                <div class="col post-it-container" cdkDropList  [cdkDropListData]="timePeriods" (cdkDropListDropped)="drop($event)">
+                <div class="row">
+                  <mat-card style="margin-top:10px;    width: 237px;" cdkDrag  cdkDragLockAxis="xy"
                     *ngFor="let item of timePeriods; let i = index;">
                     <mat-card-header>
                       <mat-card-title>{{item}}</mat-card-title>
@@ -96,7 +97,7 @@
                       <button mat-button>SHARE</button>
                     </mat-card-actions>
                   </mat-card>
-
+                </div>
 
                   <!-- <mat-grid-list cols="3" cdkDropListGroup>
                   <mat-grid-tile cdkDropList [cdkDropListData]="i" *ngFor="let item of timePeriods; let i = index;"
