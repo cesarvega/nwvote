@@ -1,6 +1,6 @@
 <mat-sidenav-container class="example-container" *ngIf="true">
-  <mat-sidenav mode="side" [opened]="overview">Sidenav content</mat-sidenav>
-  <mat-sidenav-content>
+  <mat-sidenav mode="over" [opened]="overview" style="    width: 300px;">Sidenav content</mat-sidenav >
+  <mat-sidenav-content >
     <div class="container">
       <div class="row">
         <div class="col">
@@ -10,34 +10,34 @@
 
             <mat-toolbar class="toolbar mat-elevation-z4">
 
-              <button mat-icon-button aria-label="Example icon-button with a heart icon">
+              <button  (click)="home()" mat-icon-button aria-label="Example icon-button with a heart icon">
                 <mat-icon>home</mat-icon>
               </button>
 
-              <button mat-icon-button color="primary" aria-label="Example icon-button with a heart icon">
+              <button  (click)="bsr()" mat-icon-button color="primary" aria-label="Example icon-button with a heart icon">
                 <mat-icon>lightbulb_outline</mat-icon>
               </button>
 
               <input class="search" placeholder="search" type="text">
 
-              <button mat-icon-button color="accent" aria-label="Example icon-button with a heart icon">
+              <button (click)="moveForward()" mat-icon-button color="accent" aria-label="Example icon-button with a heart icon">
                 <mat-icon>chevron_left</mat-icon>
               </button>
 
-              <button mat-icon-button color="warn" aria-label="Example icon-button with a heart icon">
+              <button  (click)="moveBackward()" mat-icon-button color="warn" aria-label="Example icon-button with a heart icon">
                 <mat-icon>chevron_right</mat-icon>
               </button>
 
-              <button mat-icon-button aria-label="Example icon-button with a heart icon">
+              <button (click)="comment()" mat-icon-button aria-label="Example icon-button with a heart icon">
                 <mat-icon>comment</mat-icon>
               </button>
 
-              <button mat-icon-button color="primary" aria-label="Example icon-button with a heart icon">
+              <button (click)="mobileInstruccions()" mat-icon-button color="primary" aria-label="Example icon-button with a heart icon">
                 <mat-icon>phone_iphone</mat-icon>
               </button>
 
 
-              <button mat-icon-button color="accent" aria-label="Example icon-button with a heart icon">
+              <button (click)="sideMenu()" mat-icon-button color="accent" aria-label="Example icon-button with a heart icon">
                 <mat-icon>import_contacts</mat-icon>
               </button>
 
@@ -45,11 +45,11 @@
                 Proprietary & Confidential
               </button>
 
-              <button mat-icon-button aria-label="page" style="width: 100px;">
+              <button (click)="bsr()" mat-icon-button aria-label="page" style="width: 100px;">
                 {{pageCounter}}
               </button>
 
-              <button mat-icon-button color="warn" aria-label="Example icon-button with a heart icon">
+              <button (click)="help()" mat-icon-button color="warn" aria-label="Example icon-button with a heart icon">
                 <mat-icon>help</mat-icon>
               </button>
 
@@ -77,7 +77,7 @@
               
                 <div class="col post-it-container" cdkDropList  [cdkDropListData]="timePeriods" (cdkDropListDropped)="drop($event)">
                 <div class="row">
-                  <mat-card style="margin-top:10px;    width: 187px;" cdkDrag  cdkDragLockAxis="xy"
+                  <mat-card style="max-resolution: 5px;px;    width: 187px;" cdkDrag  cdkDragLockAxis="xy"
                     *ngFor="let item of timePeriods; let i = index;">
                     <mat-card-header>
                       <mat-card-title>{{item}}</mat-card-title>
