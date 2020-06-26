@@ -166,3 +166,6 @@
     right: 0;
     background: #eee;
   }
+  .mat-sidenav-backdrop.mat-sidenav-shown{
+    background-color: transparent !important;
+}

@@ -20,45 +20,40 @@ export class BsrComponent implements OnInit {
   createPostIt = false;
   overview = false;
   slideBackground = 'background-image: url(http://www.bipresents.com/';
+  baseBackgroundUrl = 'background-image: url(http://www.bipresents.com/';
   myControl = new FormControl();
   options: string[] = ['One', 'Two', 'Three'];
   totalNumberOfSlides;
   pageCounter = ' 1/40';
+  currentPageNumber = 0;
   appSlidesData: any;
+  mainMenu: boolean;
   constructor(private _hotkeysService: HotkeysService, private _BsrService: BsrService,) {
 
 
     this._hotkeysService.add(new Hotkey('right', (event: KeyboardEvent): boolean => {
 
-      // but true to go through positive check
-      // if (!this.stopMovingForward || !this.vote) {
-      //   // this.selectPage('next');
-      // } else {
-      //   setTimeout(() => {
-      //     if (this._matDialog.openDialogs.length === 0) {
-      //       // this._matDialog.open(MustrankComponent);
-      //     }
-      //   }, 10);D:\MRVRCorp\BI\nw-vote\src\app\bsr\bsr.component.ts
-      // }
+    this.moveForward();
       return false;
     }, undefined, 'Move to next slide'));
+
     this._hotkeysService.add(new Hotkey('left', (event: KeyboardEvent): boolean => {
-
       this.moveBackward();
-
       return false;
     }, undefined, 'Move to previous slide'));
+
     this._hotkeysService.add(new Hotkey('up', (event: KeyboardEvent): boolean => {
-      // this.hideMenu = false;
+      this.mainMenu = true;
       return false;
     }, undefined, 'Show menu'));
+
     this._hotkeysService.add(new Hotkey('down', (event: KeyboardEvent): boolean => {
-      // this.hideMenu = true;
+      this.mainMenu = false;
       return false;
     }, undefined, 'Hide menu'));
+
     this._hotkeysService.add(new Hotkey('o', (event: KeyboardEvent): boolean => {
-      // this.overViewState = (this.overViewState) ? false : true;
-      // this.hideShowOverview.emit(this.overViewState + ',' + this.currentPage);
+      this.sideMenu();
       return false;
     }, undefined, 'Hide/Show slide overview'));
     // this._hotkeysService.add(new Hotkey('e', (event: KeyboardEvent): boolean => {
@@ -92,10 +87,11 @@ export class BsrComponent implements OnInit {
     this._BsrService.getNewNames('te2381').subscribe((res: any) => {
       console.log(res);
       this.appSlidesData = res;
+      localStorage.setItem('appSlideData', JSON.stringify(res));
       this.totalNumberOfSlides = res.length
       this.pageCounter = '1/' + this.totalNumberOfSlides;
-      console.log('forwarded=> :' + this.totalNumberOfSlides);
       this.slideBackground = this.slideBackground + res[0].SlideBGFileName + ')';
+      this.currentPageNumber = 1;
       // this.slideBackground =
     })
   }
@@ -114,11 +110,22 @@ export class BsrComponent implements OnInit {
 
   // TOOLBAR MENU ACTIONS 
   moveForward() {
-    console.log('backward');
+    this.createPostIt = false
+    if (this.totalNumberOfSlides >= this.currentPageNumber) {
+      this.pageCounter = this.currentPageNumber + '/' + this.totalNumberOfSlides;
+      this.currentPageNumber = this.currentPageNumber + 1;
+      this.slideBackground = this.baseBackgroundUrl + this.appSlidesData[this.currentPageNumber].SlideBGFileName + ')';
+    }
+
   }
 
   moveBackward() {
-
+    this.createPostIt = false
+ if (this.currentPageNumber > 0) {
+      this.pageCounter = this.currentPageNumber + '/' + this.totalNumberOfSlides;
+      this.currentPageNumber = this.currentPageNumber - 1;
+      this.slideBackground = this.baseBackgroundUrl + this.appSlidesData[this.currentPageNumber].SlideBGFileName + ')';
+    }
   }
 
   postIts() {
@@ -136,12 +143,14 @@ export class BsrComponent implements OnInit {
   }
 
   home() {
-
+    this.pageCounter = '1/' + this.totalNumberOfSlides;
+    this.slideBackground = this.baseBackgroundUrl + this.appSlidesData[0].SlideBGFileName + ')';
+    this.createPostIt = false
     console.log('home');
   }
 
   bsr() {
-
+  this.createPostIt = !this.createPostIt;
     console.log('bsr');
   }
 
