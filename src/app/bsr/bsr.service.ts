@@ -24,7 +24,7 @@ export class BsrService {
   _SP_GetProjectId = '[dbo].[nw_GetPresentationId_BSRID] \'';
   _SP_Get_Group_Summary = '[dbo].[nw_GetSummary_group] ';
   japanese: string;
-  projectId = 'ja2318'
+  projectId = 'ca2456'
   // projectId = 'te2381'
   // BI-FULL-SYS
 //   conceptConstructor() {

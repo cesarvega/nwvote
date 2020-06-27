@@ -21,7 +21,7 @@ import { DragDropModule } from '@angular/cdk/drag-drop';
 import { MatDialogModule } from '@angular/material/dialog';
 import { BsrMobileComponent, editName } from './bsr-mobile/bsr-mobile.component';
 import { BsrMobileService } from './bsr-mobile/bsr-mobile.service';
-import { BsrComponent } from './bsr/bsr.component';
+import { BsrComponent, editPost } from './bsr/bsr.component';
 import { MatTooltipModule } from '@angular/material/tooltip';
 import { MatGridListModule } from '@angular/material/grid-list';
 import { MatSidenavModule } from '@angular/material/sidenav';
@@ -33,6 +33,7 @@ import { HotkeyModule } from 'angular2-hotkeys';
     NwVoteComponent,
     BsrMobileComponent,
     editName,
+    editPost,
     BsrComponent,
   ],
   imports: [

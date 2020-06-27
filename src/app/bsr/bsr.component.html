@@ -1,17 +1,16 @@
 <mat-sidenav-container class="example-container" *ngIf="true">
 
   <mat-sidenav mode="over" [opened]="overview" style="width: 350px;">  
-      <mat-card class="example-card" *ngFor="let item of appSlidesData">        
-        <img  [src]="'http://www.bipresents.com/' + item.SlideBGFileName" alt="overview" style="max-width: 300px;">    
+      <mat-card (click)="goToSlide(i)" class="example-card" *ngFor="let item of appSlidesData; let i = index">        
+        <img  [src]="'http://www.bipresents.com/' + item.SlideBGFileName" alt="overview" style="max-width: 300px;cursor: pointer;">    
       </mat-card>    
   </mat-sidenav >
     
   <mat-sidenav-content >
-    <div class="container">
-      <div class="row">
-        <div class="col">
-        </div>
-        <div *ngIf="!createPostIt" class="col">
+    <div class="container" >
+      
+
+        <div *ngIf="!createPostIt" fxLayoutAlign="center center"class="col" >
           <div class="presentation-box" [style]="slideBackground">
 
             <mat-toolbar class="toolbar mat-elevation-z4" *ngIf="mainMenu">
@@ -62,7 +61,8 @@
             </mat-toolbar>
           </div>
         </div>
-        <div class="col" *ngIf="createPostIt">
+
+        <div *ngIf="createPostIt"  fxLayoutAlign="center center" class="col" >
           <div class="presentation-box">
 
 
@@ -77,13 +77,11 @@
               </div>
             </mat-toolbar>
 
-
-            <div class="row">
-              <div class="col" style="padding: 0px !important; margin-left: 15px !important;">
+              <div class="col" >
               
                 <div class="col post-it-container" cdkDropList  [cdkDropListData]="timePeriods" (cdkDropListDropped)="drop($event)">
                 <div class="row">
-                  <mat-card style="max-resolution: 5px;px;    width: 187px;margin: 10px;" cdkDrag  cdkDragLockAxis="xy"
+                  <mat-card style="width: 187px;margin: 5px;" cdkDrag  cdkDragLockAxis="xy"
                     *ngFor="let item of timePeriods; let i = index;">
                     <mat-card-header>
                       <mat-card-title>{{item}}</mat-card-title>
@@ -96,85 +94,16 @@
                         test
                       </p>
                     </mat-card-content>
-                    <mat-card-actions>
-                      <button mat-button>
-                        <mat-icon>favorite</mat-icon>
+                    <mat-card-actions fxLayoutAlign="center end">
+                      <button (click)="openDialog(i, 'delete')" mat-button>
+                        <mat-icon>delete</mat-icon>
                       </button>
-                      <button mat-button>X</button>
+                      <button (click)="openDialog(i, 'open')"  mat-button> <mat-icon>create</mat-icon></button>
                     </mat-card-actions>
                   </mat-card>
                 </div>
 
-                  <!-- <mat-grid-list cols="3" cdkDropListGroup>
-                  <mat-grid-tile cdkDropList [cdkDropListData]="i" *ngFor="let item of timePeriods; let i = index;"
-                    (cdkDropListDropped)="drop($event)">
-                    <div cdkDrag [cdkDragData]="i" (cdkDragEntered)="entered($event)">
-                      <mat-card style="margin-top:10px;    width: 237px;" cdkDrag> {{item}}</mat-card>
-                    </div>
-                  </mat-grid-tile>
-                </mat-grid-list> -->
-
-
-                  <!-- <mat-grid-list cdkDropListGroup>
-                  <mat-grid-tile cdkDropList [cdkDropListData]="i" *ngFor="let  timePeriod of timePeriods; let i = index;"  cols="3" rowHeight="2:1">
-                    <div cdkDrag > 
-                      {{timePeriod}}
-                    </div> 
-                  </mat-grid-tile> 
-                </mat-grid-list> -->
-
-                  <!-- <mat-grid-list cols="2" rowHeight="2:1" cdkDropListGroup>
-                  <mat-grid-tile *ngFor="let  timePeriod of timePeriods; let i = index;" cdkDropList (cdkDropListDropped)="drop($event)">
-                     <mat-card   style="margin-top:10px;    width: 237px;"
-                      cdkDrag>
-                      <mat-card-header>
-                        <mat-card-title>{{timePeriod}}</mat-card-title>
-                        <mat-card-subtitle> {{i}}
-                        </mat-card-subtitle>
-                      </mat-card-header>
-  
-                      <mat-card-content>
-                        <p>
-                          test
-                        </p>
-                      </mat-card-content>
-                      <mat-card-actions>
-                        <button mat-button>
-                          <mat-icon>favorite</mat-icon>
-                        </button>
-                        <button mat-button>SHARE</button>
-                      </mat-card-actions>
-                    </mat-card>
-                  </mat-grid-tile>
-               
-                </mat-grid-list> -->
-
-                  <!-- <div>
-                  <div cdkDropListOrientation="horizontal" fxLayout="row wrap" fxLayoutAlign="start start" fxLayoutWrap
-                    fxLayoutGap="10px" class="cards" cdkDropList (cdkDropListDropped)="drop($event)">
-                    <mat-card *ngFor="let  timePeriod of timePeriods; let i = index" style="margin-top:10px;" cdkDrag>
-                      <mat-card-header>
-                        <mat-card-title>{{timePeriod}}</mat-card-title>
-                        <mat-card-subtitle> {{i}}
-                        </mat-card-subtitle>
-                      </mat-card-header>
-  
-                      <mat-card-content>
-                        <p>
-                          test
-                        </p>
-                      </mat-card-content>
-                      <mat-card-actions>
-                        <button mat-button>
-                          <mat-icon>favorite</mat-icon>
-                        </button>
-                        <button mat-button>SHARE</button>
-                      </mat-card-actions>
-                    </mat-card>
-                  </div>
-                </div>
-   -->
-
+                 
                   <!-- NAMES BOX -->
 
                   <div class="col" style="padding: 0px !important; margin: 0px !important;">
@@ -226,15 +155,13 @@
                   </button>
 
                 </mat-toolbar>
+
               </div>
-            </div>
-
-            <div class="col">
-            </div>
-
+          
           </div>
         </div>
-      </div>
+
+      
     </div>
   </mat-sidenav-content>
 </mat-sidenav-container>

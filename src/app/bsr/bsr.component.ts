@@ -1,8 +1,12 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Inject } from '@angular/core';
 import { FormControl } from '@angular/forms';
 import { HotkeysService, Hotkey } from 'angular2-hotkeys';
 import { CdkDragDrop, moveItemInArray } from '@angular/cdk/drag-drop';
 import { BsrService } from './bsr.service';
+
+import { FormBuilder, Validators, FormGroup } from '@angular/forms';
+import { MatDialog, MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
+
 @Component({
   selector: 'app-bsr',
   templateUrl: './bsr.component.html',
@@ -16,9 +20,9 @@ export class BsrComponent implements OnInit {
     'Early modern period',
     'Long nineteenth century'
   ];
-
-  createPostIt = false;
-  overview = true;
+  // public dialog: MatDialog;
+  createPostIt = true;
+  overview = false;
   slideBackground = 'background-image: url(http://www.bipresents.com/';
   baseBackgroundUrl = 'background-image: url(http://www.bipresents.com/';
   myControl = new FormControl();
@@ -28,38 +32,28 @@ export class BsrComponent implements OnInit {
   currentPageNumber = 0;
   appSlidesData: any;
   mainMenu: boolean;
-  constructor(private _hotkeysService: HotkeysService, private _BsrService: BsrService,) {
-
-
+  constructor(private _hotkeysService: HotkeysService, private _BsrService: BsrService,public dialog: MatDialog) {
     this._hotkeysService.add(new Hotkey('right', (event: KeyboardEvent): boolean => {
 
     this.moveForward();
       return false;
     }, undefined, 'Move to next slide'));
-
     this._hotkeysService.add(new Hotkey('left', (event: KeyboardEvent): boolean => {
       this.moveBackward();
       return false;
     }, undefined, 'Move to previous slide'));
-
     this._hotkeysService.add(new Hotkey('up', (event: KeyboardEvent): boolean => {
       this.mainMenu = true;
       return false;
     }, undefined, 'Show menu'));
-
     this._hotkeysService.add(new Hotkey('down', (event: KeyboardEvent): boolean => {
       this.mainMenu = false;
       return false;
     }, undefined, 'Hide menu'));
-
     this._hotkeysService.add(new Hotkey('o', (event: KeyboardEvent): boolean => {
       this.sideMenu();
       return false;
     }, undefined, 'Hide/Show slide overview'));
-    // this._hotkeysService.add(new Hotkey('e', (event: KeyboardEvent): boolean => {
-    //   this.resetSlide();
-    //   return false;
-    // }, undefined, 'Reset Slide'));
     this._hotkeysService.add(new Hotkey('b', (event: KeyboardEvent): boolean => {
       // this.removeBackground();
       return false;
@@ -80,7 +74,6 @@ export class BsrComponent implements OnInit {
       // }
       return false;
     }, undefined, ''));
-
   }
 
   ngOnInit(): void {
@@ -106,7 +99,7 @@ export class BsrComponent implements OnInit {
     console.log(event.previousIndex, event.currentIndex);
 
   }
-  openDialog(name) { }
+ 
 
   // TOOLBAR MENU ACTIONS 
   moveForward() {
@@ -164,18 +157,43 @@ export class BsrComponent implements OnInit {
     console.log('help');
   }
 
+  goToSlide(i) {
+    this.slideBackground = this.baseBackgroundUrl + this.appSlidesData[i].SlideBGFileName + ')';
+    this.createPostIt = false
+    console.log('slide ' + i);
+  }
 
 
 
 
+  openDialog(item, nameid): void {
+    const dialogRef = this.dialog.open(editPost, {
+      // width: '250px',
+      data: { name: item, nameId: nameid }
+    });
 
+    dialogRef.afterClosed().subscribe(result => {
 
+      if (result.form.value.name && result.form.value.name !== 'delete') {
 
+        // this.bsrService.sendName(result.form.value.name, result.oldValue).subscribe(arg => {
+        //   this.bsrService.login({ email: this.userEmail, name: this.username }, this.projectId).subscribe((res: any) => {
+        //     this.newNames = JSON.parse('[' + res[0].Names + ']');
+        //     this.isUserLogged = true;
+        //   })
+        // });
+      } else {
+        // this.bsrService.deleteName(result.oldValue).subscribe(arg => {
+        //   this.bsrService.login({ email: this.userEmail, name: this.username }, this.projectId).subscribe((res: any) => {
+        //     this.newNames = JSON.parse('[' + res[0].Names + ']');
+        //     this.isUserLogged = true;
+        //   })
+        // });
 
+      }
 
-
-
-
+    });
+  }
 
 }
 
@@ -184,29 +202,77 @@ export interface DialogData {
   animal: string;
   name: string;
 }
-// @Component({
-//   selector: 'edit-name',
-//   templateUrl: 'edit-name.html',
-// })
-// export class editName {
-//   loginForm: FormGroup;
-//   constructor(
-//     public dialogRef: MatDialogRef<editName>,
-//     @Inject(MAT_DIALOG_DATA) public data: DialogData, private _formBuilder: FormBuilder) { 
-//       console.log(this.data.name);
-//       this.loginForm = this._formBuilder.group({
-//         email: ['', Validators.required],
-//         suma: [''],
-//         name: [this.data.name]
-//       });
-//     }
+@Component({
+  selector: 'editPost',
+  templateUrl: 'editPost-it.html',
+})
+export class editPost {
+  loginForm: FormGroup;
+  isDeleting = true;
+  infoMessage = true;
+  popupwindowData: { form: FormGroup; oldValue: string; };
+  editName: string;
+  constructor(
+    public dialogRef: MatDialogRef<editPost>,
+    @Inject(MAT_DIALOG_DATA) public data: DialogData, private _formBuilder: FormBuilder) {
+    this.editName = this.data.name;
+    if (this.data.name === 'displayInfo') {
+      this.infoMessage = false;
+    } else {
+      this.infoMessage = true;
+      console.log(this.data.name);
+      this.loginForm = this._formBuilder.group({
+        rationale: [''],
+        suma: [''],
+        name: [this.data.name]
+      });
+    }
 
-//   onNoClick(): void {
-//     console.log(this.data.name);
+  }
 
-//     this.dialogRef.close();
-//   }
+  onNoClick(): void {
+    console.log(this.data.name);
 
-//   submitCredentials() {}
+    this.popupwindowData = {
 
-// }
+      form: this.loginForm,
+      oldValue: this.data.name
+
+    }
+
+    this.dialogRef.close(this.popupwindowData);
+  }
+
+  buttonOption(option) {
+
+    if (option === 'save') {
+      this.popupwindowData = {
+        form: this.loginForm,
+        oldValue: this.data.name
+      }
+      this.dialogRef.close(this.popupwindowData);
+    }
+     else if (option === 'delete') {
+
+      if (this.isDeleting === false) {
+
+        this.loginForm.value.name = 'delete';
+        this.popupwindowData = {
+          form: this.loginForm,
+          oldValue: 'this.data.nameId'
+        }
+        this.dialogRef.close(this.popupwindowData);
+      }
+      this.isDeleting = false;
+    } 
+     else if (option === 'dismiss') {
+        this.dialogRef.close(this.popupwindowData);
+        this.isDeleting = true;
+    } 
+    else {
+      this.isDeleting = true;
+    }
+
+  }
+
+}
