@@ -18,7 +18,7 @@ export class BsrComponent implements OnInit {
   ];
 
   createPostIt = false;
-  overview = false;
+  overview = true;
   slideBackground = 'background-image: url(http://www.bipresents.com/';
   baseBackgroundUrl = 'background-image: url(http://www.bipresents.com/';
   myControl = new FormControl();

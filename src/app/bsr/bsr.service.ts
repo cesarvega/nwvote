@@ -27,10 +27,20 @@ export class BsrService {
   projectId = 'ja2318'
   // projectId = 'te2381'
   // BI-FULL-SYS
+//   conceptConstructor() {
+//     this.projectId = _ProjectId;
+//     this.conceptid = '0';
+//     this.concept = 'Concept';
+//     this.conceptorder = '0';
+//     this.attributes = [];
+//     this.names = [];
+// }
 
   urlPlusProjectId = '[BI_GUIDELINES].[dbo].[bsr_GetSlides] ' + "'" + this.projectId + "'";
 
+  //  _SP_NewComcept = "[BI_GUIDELINES].[dbo].[bsr_updConcept] N'" + newConcept + "'";
 
+  // $http.post(webBaseUrl + apiCall, JSON.stringify(_SP_NewComcept)).success
 
   constructor(private http: HttpClient) { }
 
