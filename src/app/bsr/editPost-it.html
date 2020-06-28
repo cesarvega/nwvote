@@ -4,7 +4,7 @@
 
         <div *ngIf="!isDeleting" class="mat-h2" style="text-align: center;">Are you sure you want to delete? </div>
         <div *ngIf="!isDeleting" class="mat-h1" style="text-align: center;color: #004684;"></div>
-        <div *ngIf="!isDeleting" class="mat-h4">This post-it will be removed permanently.</div>
+        <div *ngIf="!isDeleting" class="mat-h4">This post will be removed permanently.</div>
 
         <mat-form-field *ngIf="isDeleting" appearance="outline" style="max-width: 350px; min-width: 260px;">
             <mat-label>Edit Name</mat-label>
@@ -28,23 +28,17 @@
                 </div>
 
                 <div fxFlex>
-                    <button *ngIf="isDeleting" (click)="buttonOption('dismiss')" class="refreshbutton" mat-mini-fab
-                        style="font-size: 8px;" color="success" aria-label="icon">
-                        <mat-icon>cancel</mat-icon>
-                    </button>
+                   
                     <button *ngIf="!isDeleting" (click)="buttonOption('cancel')" class="refreshbutton" mat-mini-fab
-                        style="color: white;background-color: red;" color="success" aria-label="icon">
+                        style="color: white;background-color: red;padding: 4px;outline: none;" color="success" aria-label="icon">
                         <mat-icon>cancel</mat-icon>
                     </button>
                 </div>
 
                 <div fxFlex>
-                    <button *ngIf="isDeleting" (click)="buttonOption('save')" class="refreshbutton" mat-mini-fab
-                        style="font-size: 8px;" color="success" aria-label="icon">
-                        <mat-icon>check_circle</mat-icon>
-                    </button>
+                  
                     <button *ngIf="!isDeleting" (click)="buttonOption('delete')" class="refreshbutton" mat-mini-fab
-                        style="color: white;background-color: green;" color="success" aria-label="icon">
+                        style="color: white;background-color: green;padding: 4px;outline: none;" color="success" aria-label="icon">
                         <mat-icon>delete</mat-icon>
                     </button>
                 </div>
@@ -54,15 +48,77 @@
     </form>
 </div>
 <div *ngIf="!infoMessage">
-    <div class="mat-h4" style="text-align: center;">Help</div>
+    <!-- <div class="mat-h2" style="text-align: center;">post</div>
+    <hr> -->
+
+
+    <form name="loginForm" [formGroup]="loginForm" novalidate class="nameform" fxLayoutAlign="center center">
+
+        <mat-form-field *ngIf="!isDeleting"  style="max-width: 350px; min-width: 260px;">
+            <!-- <mat-label>Edit Name</mat-label> -->
+            <input matInput type="title" placeholder="title" formControlName="name">
+        </mat-form-field>
+        <!-- <br> -->
+        <!-- <mat-form-field *ngIf="!isDeleting" appearance="outline" style="max-width: 350px; min-width: 260px;">
+            <mat-label>Rationale</mat-label>
+            <input matInput type="name" placeholder="name" formControlName="rationale">
+        </mat-form-field>
+        <br> -->
+
+        <!-- <div class="row" style="text-align: center;">
+
+            <div fxFlex fxLayoutAlign="center center">
+                <div fxFlex>
+                    <button *ngIf="!isDeleting" (click)="buttonOption('delete')" class="refreshbutton" mat-mini-fab
+                        style="font-size: 8px;" color="success" aria-label="icon">
+                        <mat-icon>delete</mat-icon>
+                    </button>
+                </div>
+
+                <div fxFlex>
+                    <button *ngIf="!isDeleting" (click)="buttonOption('dismiss')" class="refreshbutton" mat-mini-fab
+                        style="font-size: 8px;" color="success" aria-label="icon">
+                        <mat-icon>cancel</mat-icon>
+                    </button>
+                    <button *ngIf="isDeleting" (click)="buttonOption('cancel')" class="refreshbutton" mat-mini-fab
+                        style="color: white;background-color: red;" color="success" aria-label="icon">
+                        <mat-icon>cancel</mat-icon>
+                    </button>
+                </div>
+
+                <div fxFlex>
+                    <button *ngIf="!isDeleting" (click)="buttonOption('save')" class="refreshbutton" mat-mini-fab
+                        style="font-size: 8px;" color="success" aria-label="icon">
+                        <mat-icon>check_circle</mat-icon>
+                    </button>
+                    <button *ngIf="isDeleting" (click)="buttonOption('delete')" class="refreshbutton" mat-mini-fab
+                        style="color: white;background-color: green;" color="success" aria-label="icon">
+                        <mat-icon>delete</mat-icon>
+                    </button>
+                </div>
+            </div>
+        </div> -->
+
+    </form>
+
     <hr>
-    <div class="mat-h3" style="text-align: center;color: #004684;">Touch or click a name to edit or add rationales.
+    <div class="mat-h3" style="text-align: center;color: #004684;">
+        <div class="row">
+            <div class="col">
+                <div>Key Words and Concepts</div>
+                <ckeditor [editor]="Editor" [data]="dataEditor"></ckeditor>
+            </div>
+            <div class="col">
+                <div>Name Candidates</div>
+                <ckeditor [editor]="Editor" [data]="dataEditor"></ckeditor>
+            </div>
+        </div>
     </div>
 
     <div fxLayoutAlign="end end">
         <button (click)="buttonOption('dismiss')" class="refreshbutton" mat-mini-fab style="font-size: 8px;"
             color="success" aria-label="icon">
-            <mat-icon>cancel</mat-icon>
+            <mat-icon>check</mat-icon>
         </button>
     </div>
 </div>

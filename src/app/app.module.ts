@@ -26,6 +26,7 @@ import { MatTooltipModule } from '@angular/material/tooltip';
 import { MatGridListModule } from '@angular/material/grid-list';
 import { MatSidenavModule } from '@angular/material/sidenav';
 import { HotkeyModule } from 'angular2-hotkeys';
+import { CKEditorModule } from '@ckeditor/ckeditor5-angular';
 @NgModule({
   declarations: [
     AppComponent,
@@ -56,6 +57,7 @@ import { HotkeyModule } from 'angular2-hotkeys';
     MatTooltipModule,
     MatGridListModule,
     MatSidenavModule,
+    CKEditorModule,
     HotkeyModule.forRoot()
 
 

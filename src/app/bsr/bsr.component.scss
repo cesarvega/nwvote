@@ -1,174 +1,184 @@
 .presentation-box {
-    width: 950px;
-    height: 710px;
-    border: solid 4px lightgray;
-    border-radius: 6px;
-    background-repeat: no-repeat;
-    background-size: cover;
-    position: relative;
-    top: 70px;
+  width: 950px;
+  height: 710px;
+  border: solid 4px lightgray;
+  border-radius: 6px;
+  background-repeat: no-repeat;
+  background-size: cover;
+  position: relative;
+  top: 70px;
 }
 
 .toolbar {
-    position: absolute;
-    bottom: 11px;
-    height: 50px;
-    width: 800px;
-    margin-left: 80px;
-    border-radius: 10px;
-    opacity: 0.95;
+  position: absolute;
+  bottom: 11px;
+  height: 50px;
+  width: 800px;
+  margin-left: 80px;
+  border-radius: 10px;
+  opacity: 0.95;
 
-    .search {
-        border-radius: 1px;
-        width: 150px;
-        margin-right: 20px;
-    }
+  .search {
+    border-radius: 1px;
+    width: 150px;
+    margin-right: 20px;
+  }
 
-    .mat-icon {
-        font-size: 19px;
-        color: rgb(71, 71, 71);
-    }
+  .mat-icon {
+    font-size: 19px;
+    color: rgb(71, 71, 71);
+  }
 
-    button:focus {
-        outline: 0;
-    }
+  button:focus {
+    outline: 0;
+  }
 }
 
 .toolbar-postit {
-    position: absolute;
-    bottom: 11px;
-    height: 50px;
-    width: 550px;
-    margin-left: 210px;
-    border-radius: 10px;
-    opacity: 0.95;
+  position: absolute;
+  bottom: 11px;
+  height: 50px;
+  width: 550px;
+  margin-left: 210px;
+  border-radius: 10px;
+  opacity: 0.95;
 
-    .search {
-        border-radius: 1px;
-        width: 150px;
-        margin-right: 20px;
-    }
+  .search {
+    border-radius: 1px;
+    width: 150px;
+    margin-right: 20px;
+  }
 
-    .mat-icon {
-        font-size: 19px;
-        color: rgb(71, 71, 71);
-    }
+  .mat-icon {
+    font-size: 19px;
+    color: rgb(71, 71, 71);
+  }
 
-    button:focus {
-        outline: 0;
-    }
+  button:focus {
+    outline: 0;
+  }
 }
 
-.toptoolbar{    
-    background-repeat: no-repeat;
-    background-size: initial;    
-    background-image: url(../../assets/img/toolbarBg.jpg);
-    height: 53px;
+.toptoolbar {
+  background-repeat: no-repeat;
+  background-size: initial;
+  background-image: url(../../assets/img/toolbarBg.jpg);
+  height: 53px;
 }
 
 .postit-box {
-    width: 950px;
-    height: 710px;
-    border: solid 4px lightgray;
-    border-radius: 6px;
-    background-repeat: no-repeat;
-    background-size: cover;
-    position: relative;
-    top: 50px;
+  width: 950px;
+  height: 710px;
+  border: solid 4px lightgray;
+  border-radius: 6px;
+  background-repeat: no-repeat;
+  background-size: cover;
+  position: relative;
+  top: 50px;
 }
 
 .post-it-container {
-    // border: red solid;
-    width: 620px;
-    margin-top: 10px;
-    height: 638px;
+  // border: red solid;
+  width: 620px;
+  margin-top: 10px;
+  height: 638px;
 }
 
 .names-container {
-    border: #16ff00 solid;
-    width: 322px;
-    height: 638px;
-    position: absolute;
-    right: -337px;
-    top: -415px;
+  // border: #16ff00 solid;
+  width: 322px;
+  height: 638px;
+  position: absolute;
+  right: -318px;
+  top: -319px;
+  overflow: hidden;
+  padding: 10px;
 }
 
 .post-list {
-    width: 100px;
-    max-width: 100%;
-    border: solid 1px #ccc;
-    min-height: 60px;
-    display: flex;
-    flex-direction: row;
-    background: white;
-    border-radius: 4px;
-    overflow: hidden;
-    display: flex;  
-    flex-wrap: wrap;
-  }
-  
-  .post-box {
-    padding: 20px 10px;
-    border-right: solid 1px #ccc;
-    color: rgba(0, 0, 0, 0.87);
-    display: flex;
-    flex-direction: row;
-    align-items: center;
-    justify-content: space-between;
-    box-sizing: border-box;
-    cursor: move;
-    background: white;
-    font-size: 14px;
-    flex-grow: 1;
-    flex-basis: 0;
+  width: 100px;
+  max-width: 100%;
+  border: solid 1px #ccc;
+  min-height: 60px;
+  display: flex;
+  flex-direction: row;
+  background: white;
+  border-radius: 4px;
+  overflow: hidden;
+  display: flex;
+  flex-wrap: wrap;
+}
 
-  }
-  
-  .cdk-drag-preview {
-    box-sizing: border-box;
-    border-radius: 4px;
-    box-shadow: 0 5px 5px -3px rgba(0, 0, 0, 0.2),
-                0 8px 10px 1px rgba(0, 0, 0, 0.14),
-                0 3px 14px 2px rgba(0, 0, 0, 0.12);
-  }
-  
-  .cdk-drag-placeholder {
-    opacity: 0;
-  }
-  
-  .cdk-drag-animating {
-    transition: transform 250ms cubic-bezier(0, 0, 0.2, 1);
-  }
-  
-  .post-box:last-child {
-    border: none;
-  }
-  
-  .post-list.cdk-drop-list-dragging .post-box:not(.cdk-drag-placeholder) {
-    transition: transform 250ms cubic-bezier(0, 0, 0.2, 1);
-  }
+.post-box {
+  padding: 20px 10px;
+  border-right: solid 1px #ccc;
+  color: rgba(0, 0, 0, 0.87);
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-between;
+  box-sizing: border-box;
+  cursor: move;
+  background: white;
+  font-size: 14px;
+  flex-grow: 1;
+  flex-basis: 0;
+}
 
-  .example-card {  
-    width: 320px;
-    padding-left: 4px;
-    margin: 5px;
-    border: solid 1px grey;
+.cdk-drag-preview {
+  box-sizing: border-box;
+  border-radius: 4px;
+  box-shadow: 0 5px 5px -3px rgba(0, 0, 0, 0.2), 0 8px 10px 1px rgba(0, 0, 0, 0.14), 0 3px 14px 2px rgba(0, 0, 0, 0.12);
+}
 
-  }
-  
-  .example-header-image {
-    background-image: url('https://material.angular.io/assets/img/examples/shiba1.jpg');
-    background-size: cover;
-  }
+.cdk-drag-placeholder {
+  opacity: 0;
+}
 
-  .example-container {
-    position: absolute;
-    top: 0;
-    bottom: 0;
-    left: 0;
-    right: 0;
-    background: #eee;
-  }
-  .mat-sidenav-backdrop.mat-sidenav-shown{
-    background-color: transparent !important;
+.cdk-drag-animating {
+  transition: transform 250ms cubic-bezier(0, 0, 0.2, 1);
+}
+
+.post-box:last-child {
+  border: none;
+}
+
+.post-list.cdk-drop-list-dragging .post-box:not(.cdk-drag-placeholder) {
+  transition: transform 250ms cubic-bezier(0, 0, 0.2, 1);
+}
+
+.example-card {
+  width: 320px;
+  padding-left: 4px;
+  margin: 5px;
+  border: solid 1px grey;
+}
+
+.example-header-image {
+  background-image: url("https://material.angular.io/assets/img/examples/shiba1.jpg");
+  background-size: cover;
+}
+
+.example-container {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  background: #eee;
+}
+.mat-sidenav-backdrop.mat-sidenav-shown {
+  background-color: transparent !important;
+}
+
+.material-icons {
+  line-height: 0.8;
+}
+
+.mat-icon {
+  height: 29px;
+}
+
+.post-button {
+  color: whitesmoke; width: 30px; height: 30px;margin-right: 8px;outline: none;
 }

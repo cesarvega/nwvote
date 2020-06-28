@@ -1,167 +1,185 @@
-<mat-sidenav-container class="example-container" *ngIf="true" [hasBackdrop]="false" >
+<mat-sidenav-container class="example-container" *ngIf="true" [hasBackdrop]="false">
 
-  <mat-sidenav mode="over"  [opened]="overview" style="width: 350px;">  
-      <mat-card (click)="goToSlide(i)" class="example-card" *ngFor="let item of appSlidesData; let i = index">        
-        <img  [src]="'http://www.bipresents.com/' + item.SlideBGFileName" alt="overview" style="max-width: 300px;cursor: pointer;">    
-      </mat-card>    
-  </mat-sidenav >
-    
-  <mat-sidenav-content >
-    <div class="container" >
-      
+  <mat-sidenav mode="over" [opened]="overview" style="width: 350px;">
+    <mat-card (click)="goToSlide(i)" class="example-card" *ngFor="let item of appSlidesData; let i = index">
+      <img [src]="'http://www.bipresents.com/' + item.SlideBGFileName" alt="overview"
+        style="max-width: 300px;cursor: pointer;">
+    </mat-card>
+  </mat-sidenav>
 
-        <div *ngIf="!createPostIt" fxLayoutAlign="center center"class="col" >
-          <div class="presentation-box" [style]="slideBackground">
+  <mat-sidenav-content>
+    <div class="container">
 
-            <mat-toolbar class="toolbar mat-elevation-z4" *ngIf="mainMenu">
 
-              <button  (click)="home()" mat-icon-button aria-label="Example icon-button with a heart icon">
+      <div *ngIf="!createPostIt" fxLayoutAlign="center center" class="col">
+        <div class="presentation-box" [style]="slideBackground">
+
+          <mat-toolbar class="toolbar mat-elevation-z4" *ngIf="mainMenu">
+
+            <button (click)="home()" mat-icon-button aria-label="Example icon-button with a heart icon">
+              <mat-icon>home</mat-icon>
+            </button>
+
+            <button (click)="bsr()" mat-icon-button color="primary" aria-label="Example icon-button with a heart icon">
+              <mat-icon>lightbulb_outline</mat-icon>
+            </button>
+
+            <input class="search" placeholder="search" type="text">
+
+            <button (click)="moveBackward()" mat-icon-button color="primary"
+              aria-label="Example icon-button with a heart icon">
+              <mat-icon>chevron_left</mat-icon>
+            </button>
+
+            <button (click)="moveForward()" mat-icon-button color="primary"
+              aria-label="Example icon-button with a heart icon">
+              <mat-icon>chevron_right</mat-icon>
+            </button>
+
+            <button (click)="comment()" mat-icon-button aria-label="Example icon-button with a heart icon">
+              <mat-icon>comment</mat-icon>
+            </button>
+
+            <button (click)="openDialog('mobileInfo', 'do')" mat-icon-button color="primary"
+              aria-label="Example icon-button with a heart icon">
+              <mat-icon>phone_iphone</mat-icon>
+            </button>
+
+
+            <button (click)="sideMenu()" mat-icon-button color="accent"
+              aria-label="Example icon-button with a heart icon">
+              <mat-icon>import_contacts</mat-icon>
+            </button>
+
+            <button mat-icon-button aria-label="Proprietary" style="width: 200px;">
+              Proprietary & Confidential
+            </button>
+
+            <button (click)="bsr()" mat-icon-button aria-label="page" style="width: 100px;">
+              {{pageCounter}}
+            </button>
+
+            <button (click)="displayHelp(false)" mat-icon-button color="warn"
+              aria-label="Example icon-button with a heart icon">
+              <mat-icon style="color: green !important;">help</mat-icon>
+            </button>
+
+          </mat-toolbar>
+        </div>
+      </div>
+
+      <div *ngIf="createPostIt" fxLayoutAlign="center center" class="col">
+        <div class="presentation-box">
+
+
+          <mat-toolbar class="toptoolbar mat-elevation-z4" color="primary">
+            <div class="row">
+              <div class="col" style="color: white; font-size: 40px;font-family: Arial">
+                Brandstorm
+              </div>
+              <div class="col" style="color: white; font-size: 40px;font-family: Arial; right: -370px;">
+                Names
+              </div>
+            </div>
+          </mat-toolbar>
+
+         
+
+            <div class="col post-it-container" cdkDropList [cdkDropListData]="conceptData.concepts" (cdkDropListDropped)="drop($event)">
+             
+              <div class="row">
+
+                <mat-card style="width: 300px;margin: 5px;height: 310px;" cdkDrag cdkDragLockAxis="xy"
+                  *ngFor="let item of conceptData.concepts; let i = index;">
+
+                  <!-- TITLE -->
+
+                  <div style="background-color: white;height: 60px;overflow-x: hidden;width: 283px;word-break: break-all;">
+                    <div class="mat-h2">{{item.concept}}</div>
+                  </div>
+
+
+                  <!-- HTML-CONTENT -->
+
+                  <mat-card-content style="width: 283px;height: 160px; overflow-y: scroll;background-color: white; overflow-x: hidden;">
+                    <div [innerHTML]="item.html"></div>
+                  </mat-card-content>
+
+                  <mat-card-actions fxLayoutAlign="end end">                 
+                    <button (click)="openDialog(i, 'edit')" mat-mini-fab class="post-button"  color="primary">
+                      <mat-icon style="font-size: 18px;">create</mat-icon>
+                    </button>
+                    <button (click)="openDialog(i, 'delete')" mat-mini-fab class="post-button"  color="primary">
+                      <mat-icon style="font-size: 20px;">cancel</mat-icon>
+                    </button>
+                  </mat-card-actions>
+
+                </mat-card>
+                 <!-- NAMES BOX -->
+
+              <div class="col" style="padding: 0px !important; margin: 0px !important;">
+                <div class="names-container">
+                  <div *ngFor="let  item of conceptData.concepts; let i = index">
+                    <span style="font-size:24px;margin: 10px;" matTooltip="Info about the action"
+                      matTooltipPosition="right">
+                      {{item.concept}}
+                    </span>
+                  </div>
+                </div>
+              </div>
+              </div>
+
+
+             
+            </div>
+
+            <!-- MENU -->
+            
+            <mat-toolbar class="toolbar-postit mat-elevation-z4" *ngIf="mainMenu">
+
+              <button (click)="home()" mat-icon-button aria-label="Example icon-button with a heart icon"
+                matTooltip="Info about the action" matTooltipPosition="above">
                 <mat-icon>home</mat-icon>
               </button>
 
-              <button  (click)="bsr()" mat-icon-button color="primary" aria-label="Example icon-button with a heart icon">
-                <mat-icon>lightbulb_outline</mat-icon>
+              <button mat-icon-button color="primary" aria-label="Example icon-button with a heart icon">
+                <mat-icon>note_add</mat-icon>
               </button>
 
               <input class="search" placeholder="search" type="text">
 
-              <button (click)="moveBackward()" mat-icon-button color="primary" aria-label="Example icon-button with a heart icon">
+              <button (click)="moveBackward()" mat-icon-button color="accent"
+                aria-label="Example icon-button with a heart icon">
                 <mat-icon>chevron_left</mat-icon>
               </button>
 
-              <button  (click)="moveForward()" mat-icon-button color="primary" aria-label="Example icon-button with a heart icon">
+              <button (click)="moveForward()" mat-icon-button color="warn"
+                aria-label="Example icon-button with a heart icon">
                 <mat-icon>chevron_right</mat-icon>
               </button>
 
-              <button (click)="comment()" mat-icon-button aria-label="Example icon-button with a heart icon">
-                <mat-icon>comment</mat-icon>
-              </button>
 
-              <button (click)="openDialog('mobileInfo', 'do')" mat-icon-button color="primary" aria-label="Example icon-button with a heart icon">
+              <button (click)="openDialog('mobileInfo', 'do')" mat-icon-button color="primary"
+                aria-label="Example icon-button with a heart icon">
                 <mat-icon>phone_iphone</mat-icon>
               </button>
 
 
-              <button (click)="sideMenu()" mat-icon-button color="accent" aria-label="Example icon-button with a heart icon">
-                <mat-icon>import_contacts</mat-icon>
-              </button>
-
-              <button mat-icon-button aria-label="Proprietary" style="width: 200px;">
-                Proprietary & Confidential
-              </button>
-
-              <button (click)="bsr()" mat-icon-button aria-label="page" style="width: 100px;">
+              <button mat-icon-button aria-label="page" style="width: 100px;">
                 {{pageCounter}}
               </button>
 
-              <button (click)="displayHelp(false)" mat-icon-button color="warn" aria-label="Example icon-button with a heart icon">
-                <mat-icon  style="color: green !important;">help</mat-icon>
+              <button (click)="displayHelp(false)" mat-icon-button color="warn"
+                aria-label="Example icon-button with a heart icon">
+                <mat-icon style="color: green !important;">help</mat-icon>
               </button>
 
             </mat-toolbar>
-          </div>
+
         </div>
-
-        <div *ngIf="createPostIt"  fxLayoutAlign="center center" class="col" >
-          <div class="presentation-box">
+      </div>
 
 
-            <mat-toolbar class="toptoolbar mat-elevation-z4" color="primary" >
-              <div class="row">
-                <div class="col" style="color: white; font-size: 40px;font-family: Arial">
-                  Brandstorm
-                </div>
-                <div class="col" style="color: white; font-size: 40px;font-family: Arial; right: -370px;">
-                  Names
-                </div>
-              </div>
-            </mat-toolbar>
-
-              <div class="col" >
-              
-                <div class="col post-it-container" cdkDropList  [cdkDropListData]="timePeriods" (cdkDropListDropped)="drop($event)">
-                <div class="row">
-                  <mat-card style="width: 187px;margin: 5px;" cdkDrag  cdkDragLockAxis="xy"
-                    *ngFor="let item of timePeriods; let i = index;">
-                    <mat-card-header>
-                      <mat-card-title>{{item}}</mat-card-title>
-                      <mat-card-subtitle> {{i}}
-                      </mat-card-subtitle>
-                    </mat-card-header>
-
-                    <mat-card-content>
-                      <p>
-                        test
-                      </p>
-                    </mat-card-content>
-                    <mat-card-actions fxLayoutAlign="center end">
-                      <button (click)="openDialog(i, 'delete')" mat-button>
-                        <mat-icon>delete</mat-icon>
-                      </button>
-                      <button (click)="openDialog(i, 'edit')"  mat-button> <mat-icon>create</mat-icon></button>
-                    </mat-card-actions>
-                  </mat-card>
-                </div>
-
-                 
-                  <!-- NAMES BOX -->
-
-                  <div class="col" style="padding: 0px !important; margin: 0px !important;">
-                    <div class="names-container">
-                      <div *ngFor="let  timePeriod of timePeriods; let i = index" style="margin-top: 10px;">
-                        <span style="font-size:24px;padding:10px; margin: 10px;" matTooltip="Info about the action"
-                          matTooltipPosition="right">
-                          {{timePeriod}}
-                        </span>
-                      </div>
-
-                    </div>
-                  </div>
-                </div>
-
-                <mat-toolbar class="toolbar-postit mat-elevation-z4" *ngIf="mainMenu">
-
-                  <button  (click)="home()"  mat-icon-button aria-label="Example icon-button with a heart icon"
-                    matTooltip="Info about the action" matTooltipPosition="above">
-                    <mat-icon>home</mat-icon>
-                  </button>
-
-                  <button mat-icon-button color="primary" aria-label="Example icon-button with a heart icon">
-                    <mat-icon>note_add</mat-icon>
-                  </button>
-
-                  <input class="search" placeholder="search" type="text">
-
-                  <button (click)="moveBackward()" mat-icon-button color="accent" aria-label="Example icon-button with a heart icon">
-                    <mat-icon>chevron_left</mat-icon>
-                  </button>
-
-                  <button (click)="moveForward()" mat-icon-button color="warn" aria-label="Example icon-button with a heart icon">
-                    <mat-icon>chevron_right</mat-icon>
-                  </button>
-
-
-                  <button (click)="openDialog('mobileInfo', 'do')" mat-icon-button color="primary" aria-label="Example icon-button with a heart icon">
-                    <mat-icon>phone_iphone</mat-icon>
-                  </button>
-
-
-                  <button mat-icon-button aria-label="page" style="width: 100px;">
-                    {{pageCounter}}
-                  </button>
-
-                  <button (click)="displayHelp(false)" mat-icon-button color="warn" aria-label="Example icon-button with a heart icon">
-                    <mat-icon  style="color: green !important;">help</mat-icon>
-                  </button>
-
-                </mat-toolbar>
-
-              </div>
-          
-          </div>
-        </div>
-
-      
     </div>
   </mat-sidenav-content>
 </mat-sidenav-container>

@@ -7,20 +7,16 @@ import { BsrService } from './bsr.service';
 import { FormBuilder, Validators, FormGroup } from '@angular/forms';
 import { MatDialog, MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 
+import * as ClassicEditor from '@ckeditor/ckeditor5-build-classic';
+
 @Component({
   selector: 'app-bsr',
   templateUrl: './bsr.component.html',
   styleUrls: ['./bsr.component.scss']
 })
 export class BsrComponent implements OnInit {
-  timePeriods = [
-    'Bronze age',
-    'Iron age',
-    'Middle ages',
-    'Early modern period',
-    'Long nineteenth century'
-  ];
-  // public dialog: MatDialog;
+
+  projectId = 'rg2327';
   createPostIt = true;
   overview = false;
   slideBackground = 'background-image: url(http://www.bipresents.com/';
@@ -32,6 +28,7 @@ export class BsrComponent implements OnInit {
   currentPageNumber = 0;
   appSlidesData: any;
   mainMenu: boolean;
+  conceptData: any;
   constructor(private _hotkeysService: HotkeysService, private _BsrService: BsrService, public dialog: MatDialog) {
 
     // keyboard keymaps
@@ -67,7 +64,7 @@ export class BsrComponent implements OnInit {
     this._hotkeysService.add(new Hotkey('esc', (event: KeyboardEvent): boolean => {
       this._hotkeysService.cheatSheetToggle.next(true);
       return false;
-    }, undefined, 'Hide help sheet'));` v cccddddvcf  b`
+    }, undefined, 'Hide help sheet')); ` v cccddddvcf  b`
     this._hotkeysService.add(new Hotkey('shift+r', (event: KeyboardEvent): boolean => {
       // if (this.vote === true) {
       //   this.vote = false;
@@ -79,7 +76,7 @@ export class BsrComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this._BsrService.getNewNames('te2381').subscribe((res: any) => {
+    this._BsrService.getNewNames(this.projectId).subscribe((res: any) => {
       console.log(res);
       this.appSlidesData = res;
       localStorage.setItem('appSlideData', JSON.stringify(res));
@@ -88,17 +85,22 @@ export class BsrComponent implements OnInit {
       this.slideBackground = this.slideBackground + res[0].SlideBGFileName + ')';
       this.currentPageNumber = 1;
     })
+
+    this._BsrService.getPost(this.projectId).subscribe((res: any) => {
+      this.conceptData = JSON.parse(res[0].bsrData);
+      console.log(this.conceptData);
+    });
+
   }
   drop(event: CdkDragDrop<string[]>) {
-    moveItemInArray(this.timePeriods, event.previousIndex, event.currentIndex);
+    moveItemInArray(this.conceptData.concepts, event.previousIndex, event.currentIndex);
     console.log(event.previousIndex, event.currentIndex);
 
 
   }
   entered(event: CdkDragDrop<string[]>) {
-    moveItemInArray(this.timePeriods, event.previousIndex, event.currentIndex);
+    moveItemInArray(this.conceptData.concepts, event.previousIndex, event.currentIndex);
     console.log(event.previousIndex, event.currentIndex);
-
   }
 
 
@@ -166,8 +168,6 @@ export class BsrComponent implements OnInit {
   }
 
 
-
-
   openDialog(item, nameid): void {
     const dialogRef = this.dialog.open(editPost, {
       // width: '250px',
@@ -207,17 +207,21 @@ export interface DialogData {
 @Component({
   selector: 'editPost',
   templateUrl: 'editPost-it.html',
+  styleUrls: ['./bsr.component.scss']
 })
 export class editPost {
+  public Editor = ClassicEditor;
+
   loginForm: FormGroup;
   isDeleting = false;
+  dataEditor = '<p>Hello, world!</p>';
   infoMessage = true;
   popupwindowData: { form: FormGroup; oldValue: string; };
   editName: string;
   constructor(
     public dialogRef: MatDialogRef<editPost>,
-    @Inject(MAT_DIALOG_DATA) public data: DialogData, private _formBuilder: FormBuilder) {
-    this.editName = this.data.name;
+    @Inject(MAT_DIALOG_DATA) public data: DialogData, private _formBuilder: FormBuilder, private _BsrService: BsrService,) {
+    this.editName = this.data.nameId;
     if (this.data.nameId === 'delete') {
       this.infoMessage = true;
       this.isDeleting = false;
@@ -228,36 +232,66 @@ export class editPost {
       this.loginForm = this._formBuilder.group({
         rationale: [''],
         suma: [''],
-        name: [this.data.name]
+        name: [this.data.nameId]
       });
+    }
+
+
+    this.Editor.defaultConfig = {
+      toolbar: {
+        items: [
+          'heading',
+          '|',
+          'bold',
+          'italic',
+          'link',
+          'bulletedList',
+          'numberedList',
+          'alignment',
+          'blockQuote',
+          'undo',
+          'redo'
+        ]
+      },
+      image: {
+        toolbar: [
+          'imageStyle:full',
+          'imageStyle:side',
+          '|',
+          'imageTextAlternative'
+        ]
+      },
+      language: 'en'
     }
   }
 
-  onNoClick(): void {
-    console.log(this.data.name);
-
-    this.popupwindowData = {
-
-      form: this.loginForm,
-      oldValue: this.data.name
-
-    }
-
-    this.dialogRef.close(this.popupwindowData);
+  onReady(editor) {
+    editor.ui.getEditableElement().parentElement.insertBefore(
+      editor.ui.view.toolbar.element,
+      editor.ui.getEditableElement()
+    );
   }
 
   buttonOption(option) {
 
     if (option === 'delete') {
-        this.isDeleting = false;
-        this.dialogRef.close(this.popupwindowData);
-      }
-  
-      else {
-        this.isDeleting = false;
-        this.dialogRef.close(this.popupwindowData);
-      }
-  
+      this.isDeleting = false;
+      this.dialogRef.close(this.popupwindowData);
     }
+
+    else {
+      this.isDeleting = false;
+      this.dialogRef.close(this.popupwindowData);
+    }
+
+  }
+
+  onNoClick(): void {
+    this.popupwindowData = {
+      form: this.loginForm,
+      oldValue: this.data.name
+    }
+    this.dialogRef.close(this.popupwindowData);
+  }
 
 }
