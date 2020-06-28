@@ -1,4 +1,4 @@
-import { Component, OnInit, Inject } from '@angular/core';
+import { Component, OnInit, Inject, ViewEncapsulation } from '@angular/core';
 import { FormControl } from '@angular/forms';
 import { HotkeysService, Hotkey } from 'angular2-hotkeys';
 import { CdkDragDrop, moveItemInArray } from '@angular/cdk/drag-drop';
@@ -32,10 +32,12 @@ export class BsrComponent implements OnInit {
   currentPageNumber = 0;
   appSlidesData: any;
   mainMenu: boolean;
-  constructor(private _hotkeysService: HotkeysService, private _BsrService: BsrService,public dialog: MatDialog) {
+  constructor(private _hotkeysService: HotkeysService, private _BsrService: BsrService, public dialog: MatDialog) {
+
+    // keyboard keymaps
     this._hotkeysService.add(new Hotkey('right', (event: KeyboardEvent): boolean => {
 
-    this.moveForward();
+      this.moveForward();
       return false;
     }, undefined, 'Move to next slide'));
     this._hotkeysService.add(new Hotkey('left', (event: KeyboardEvent): boolean => {
@@ -63,9 +65,9 @@ export class BsrComponent implements OnInit {
       return false;
     }, undefined, 'Show stock ticker'));
     this._hotkeysService.add(new Hotkey('esc', (event: KeyboardEvent): boolean => {
-      // this.displayHelp(false);
+      this._hotkeysService.cheatSheetToggle.next(true);
       return false;
-    }, undefined, 'Hide help sheet'));
+    }, undefined, 'Hide help sheet'));` v cccddddvcf  b`
     this._hotkeysService.add(new Hotkey('shift+r', (event: KeyboardEvent): boolean => {
       // if (this.vote === true) {
       //   this.vote = false;
@@ -85,7 +87,6 @@ export class BsrComponent implements OnInit {
       this.pageCounter = '1/' + this.totalNumberOfSlides;
       this.slideBackground = this.slideBackground + res[0].SlideBGFileName + ')';
       this.currentPageNumber = 1;
-      // this.slideBackground =
     })
   }
   drop(event: CdkDragDrop<string[]>) {
@@ -99,7 +100,7 @@ export class BsrComponent implements OnInit {
     console.log(event.previousIndex, event.currentIndex);
 
   }
- 
+
 
   // TOOLBAR MENU ACTIONS 
   moveForward() {
@@ -109,12 +110,11 @@ export class BsrComponent implements OnInit {
       this.currentPageNumber = this.currentPageNumber + 1;
       this.slideBackground = this.baseBackgroundUrl + this.appSlidesData[this.currentPageNumber].SlideBGFileName + ')';
     }
-
   }
 
   moveBackward() {
     this.createPostIt = false
- if (this.currentPageNumber > 0) {
+    if (this.currentPageNumber > 0) {
       this.pageCounter = this.currentPageNumber + '/' + this.totalNumberOfSlides;
       this.currentPageNumber = this.currentPageNumber - 1;
       this.slideBackground = this.baseBackgroundUrl + this.appSlidesData[this.currentPageNumber].SlideBGFileName + ')';
@@ -143,7 +143,7 @@ export class BsrComponent implements OnInit {
   }
 
   bsr() {
-  this.createPostIt = !this.createPostIt;
+    this.createPostIt = !this.createPostIt;
     console.log('bsr');
   }
 
@@ -152,10 +152,12 @@ export class BsrComponent implements OnInit {
     console.log('comment');
   }
 
-  help() {
 
-    console.log('help');
+  displayHelp(display: boolean) {
+    (display) ? this._hotkeysService.cheatSheetToggle.next() : this._hotkeysService.cheatSheetToggle.next(display);
+    this._hotkeysService.cheatSheetToggle.next(true)
   }
+
 
   goToSlide(i) {
     this.slideBackground = this.baseBackgroundUrl + this.appSlidesData[i].SlideBGFileName + ')';
@@ -199,7 +201,7 @@ export class BsrComponent implements OnInit {
 
 
 export interface DialogData {
-  animal: string;
+  nameId: string;
   name: string;
 }
 @Component({
@@ -208,7 +210,7 @@ export interface DialogData {
 })
 export class editPost {
   loginForm: FormGroup;
-  isDeleting = true;
+  isDeleting = false;
   infoMessage = true;
   popupwindowData: { form: FormGroup; oldValue: string; };
   editName: string;
@@ -216,10 +218,12 @@ export class editPost {
     public dialogRef: MatDialogRef<editPost>,
     @Inject(MAT_DIALOG_DATA) public data: DialogData, private _formBuilder: FormBuilder) {
     this.editName = this.data.name;
-    if (this.data.name === 'displayInfo') {
-      this.infoMessage = false;
-    } else {
+    if (this.data.nameId === 'delete') {
       this.infoMessage = true;
+      this.isDeleting = false;
+    } else {
+      this.infoMessage = false;
+      this.isDeleting = false;
       console.log(this.data.name);
       this.loginForm = this._formBuilder.group({
         rationale: [''],
@@ -227,7 +231,6 @@ export class editPost {
         name: [this.data.name]
       });
     }
-
   }
 
   onNoClick(): void {
@@ -245,34 +248,16 @@ export class editPost {
 
   buttonOption(option) {
 
-    if (option === 'save') {
-      this.popupwindowData = {
-        form: this.loginForm,
-        oldValue: this.data.name
-      }
-      this.dialogRef.close(this.popupwindowData);
-    }
-     else if (option === 'delete') {
-
-      if (this.isDeleting === false) {
-
-        this.loginForm.value.name = 'delete';
-        this.popupwindowData = {
-          form: this.loginForm,
-          oldValue: 'this.data.nameId'
-        }
+    if (option === 'delete') {
+        this.isDeleting = false;
         this.dialogRef.close(this.popupwindowData);
       }
-      this.isDeleting = false;
-    } 
-     else if (option === 'dismiss') {
+  
+      else {
+        this.isDeleting = false;
         this.dialogRef.close(this.popupwindowData);
-        this.isDeleting = true;
-    } 
-    else {
-      this.isDeleting = true;
+      }
+  
     }
-
-  }
 
 }

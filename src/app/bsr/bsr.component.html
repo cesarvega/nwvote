@@ -1,6 +1,6 @@
-<mat-sidenav-container class="example-container" *ngIf="true">
+<mat-sidenav-container class="example-container" *ngIf="true" [hasBackdrop]="false" >
 
-  <mat-sidenav mode="over" [opened]="overview" style="width: 350px;">  
+  <mat-sidenav mode="over"  [opened]="overview" style="width: 350px;">  
       <mat-card (click)="goToSlide(i)" class="example-card" *ngFor="let item of appSlidesData; let i = index">        
         <img  [src]="'http://www.bipresents.com/' + item.SlideBGFileName" alt="overview" style="max-width: 300px;cursor: pointer;">    
       </mat-card>    
@@ -37,7 +37,7 @@
                 <mat-icon>comment</mat-icon>
               </button>
 
-              <button (click)="mobileInstruccions()" mat-icon-button color="primary" aria-label="Example icon-button with a heart icon">
+              <button (click)="openDialog('mobileInfo', 'do')" mat-icon-button color="primary" aria-label="Example icon-button with a heart icon">
                 <mat-icon>phone_iphone</mat-icon>
               </button>
 
@@ -54,7 +54,7 @@
                 {{pageCounter}}
               </button>
 
-              <button (click)="help()" mat-icon-button color="warn" aria-label="Example icon-button with a heart icon">
+              <button (click)="displayHelp(false)" mat-icon-button color="warn" aria-label="Example icon-button with a heart icon">
                 <mat-icon  style="color: green !important;">help</mat-icon>
               </button>
 
@@ -98,7 +98,7 @@
                       <button (click)="openDialog(i, 'delete')" mat-button>
                         <mat-icon>delete</mat-icon>
                       </button>
-                      <button (click)="openDialog(i, 'open')"  mat-button> <mat-icon>create</mat-icon></button>
+                      <button (click)="openDialog(i, 'edit')"  mat-button> <mat-icon>create</mat-icon></button>
                     </mat-card-actions>
                   </mat-card>
                 </div>
@@ -141,7 +141,7 @@
                   </button>
 
 
-                  <button mat-icon-button color="primary" aria-label="Example icon-button with a heart icon">
+                  <button (click)="openDialog('mobileInfo', 'do')" mat-icon-button color="primary" aria-label="Example icon-button with a heart icon">
                     <mat-icon>phone_iphone</mat-icon>
                   </button>
 
@@ -150,7 +150,7 @@
                     {{pageCounter}}
                   </button>
 
-                  <button mat-icon-button color="warn" aria-label="Example icon-button with a heart icon">
+                  <button (click)="displayHelp(false)" mat-icon-button color="warn" aria-label="Example icon-button with a heart icon">
                     <mat-icon  style="color: green !important;">help</mat-icon>
                   </button>
 
@@ -167,3 +167,4 @@
 </mat-sidenav-container>
 
 
+<hotkeys-cheatsheet title="Hotkeys Menu"></hotkeys-cheatsheet>

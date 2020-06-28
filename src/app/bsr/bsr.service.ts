@@ -34,9 +34,12 @@ export class BsrService {
 //     this.conceptorder = '0';
 //     this.attributes = [];
 //     this.names = [];
-// }
-
+// }[BI_GUIDELINES].[dbo].[bsr_updConceptData]
+ 
+  urlPlusPost = '[BI_GUIDELINES].[dbo].[bsr_updConceptData] ' + "'" + this.projectId + "'";
   urlPlusProjectId = '[BI_GUIDELINES].[dbo].[bsr_GetSlides] ' + "'" + this.projectId + "'";
+  urlGetPosit = '[BI_GUIDELINES].[dbo].[bsr_GetProjectData] ' + "'" + this.projectId + "'";
+  property: Object;
 
   //  _SP_NewComcept = "[BI_GUIDELINES].[dbo].[bsr_updConcept] N'" + newConcept + "'";
 
@@ -45,9 +48,16 @@ export class BsrService {
   constructor(private http: HttpClient) { }
 
   getNewNames(projectId) {
+    this.getPost('d0').subscribe(arg => {
+      this.property = arg
+    });
+    
     return this.http.post(this.webBaseUrl + this.apiCall, JSON.stringify(this.urlPlusProjectId), httpOptions);
   }
 
+  getPost(projectName) {
+    return this.http.post(this.webBaseUrl + this.apiCall, JSON.stringify(this.urlGetPosit), httpOptions);
+  }
   getProjectId(projectName) {
     return this.http.post(this.webBaseUrl + this.apiCall, JSON.stringify(this._SP_GetProjectId + projectName + '\''), httpOptions);
     // return this.http.get(this.webBaseUrl + 'api/NW_GetProjectIdWithProjectName?projectName=' + projectName, httpOptions);
