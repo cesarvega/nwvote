@@ -141,7 +141,7 @@
 
                   <div class="names-container">
                     <div *ngFor="let  item of nameCandidates; let i = index">
-                      <span (dblclick)="doubleClickFunction()" style="font-size:22px;margin: 10px;cursor: pointer;overflow: scroll;" [matTooltip]="item.Source" matTooltipPosition="right">
+                      <span (dblclick)="openDialog(item, 'deleteName')" style="font-size:22px;margin: 10px;cursor: pointer;overflow: scroll;" [matTooltip]="item.Source" matTooltipPosition="right">
                         {{item.Name}}                        
                       </span>
                     </div>
@@ -172,7 +172,7 @@
                       <mat-icon>home</mat-icon>
                     </button>
 
-                    <button (click)="postIts()" mat-icon-button color="primary"
+                    <button (click)="newBlankPostIt()" mat-icon-button color="primary"
                       aria-label="Example icon-button with a heart icon">
                       <mat-icon>note_add</mat-icon>
                     </button>

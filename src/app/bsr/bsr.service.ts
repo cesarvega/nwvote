@@ -40,6 +40,8 @@ export class BsrService {
   urlGetPosit = '[BI_GUIDELINES].[dbo].[bsr_GetProjectData] ' + "'" + this.projectId + "'";
   _SP_CHANGE_POST_IT_ORDER = '[BI_GUIDELINES].[dbo].[bsr_updConceptOrder] N' + "'" + JSON.stringify(this.conceptsOrder) + "'";
   _SP_NewName = "[BI_GUIDELINES].[dbo].[nsr_mobAddNames] N'";
+  _SP_deleteNames = "[BI_GUIDELINES].[dbo].[bsr_delName] ";
+  
   isNSR: any;
  
   constructor(private http: HttpClient) { }
@@ -51,6 +53,11 @@ export class BsrService {
       userEmail: 'system@brandinstitute.com',
     }
     let newNameObject = this._SP_NewName + this.projectId + ',' + JSON.stringify(newNameContainer) + "'";
+    return this.http.post(this.webBaseUrl + this.apiCall, JSON.stringify(newNameObject), httpOptions);
+  }
+
+  deleteName(nameId) { 
+    let newNameObject = this._SP_deleteNames + this.projectId.replace(/\D+/g, '') + ',' + nameId ;
     return this.http.post(this.webBaseUrl + this.apiCall, JSON.stringify(newNameObject), httpOptions);
   }
 

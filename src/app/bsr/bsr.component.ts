@@ -67,9 +67,9 @@ export class BsrComponent implements OnInit {
       return false;
     }, undefined, 'Show stock ticker'));
     this._hotkeysService.add(new Hotkey('esc', (event: KeyboardEvent): boolean => {
-      this._hotkeysService.cheatSheetToggle.next(true);
+      this._hotkeysService.cheatSheetToggle.next(false);
       return false;
-    }, undefined, 'Hide help sheet')); ` v cccddddvcf  b`
+    }, undefined, 'Hide help sheet'));
     this._hotkeysService.add(new Hotkey('shift+r', (event: KeyboardEvent): boolean => {
       // if (this.vote === true) {
       //   this.vote = false;
@@ -139,25 +139,17 @@ export class BsrComponent implements OnInit {
     }
   }
 
-  doubleClickFunction(){
-console.log('double');
-
-  }
-
   submitNewName(){
-    this._BsrService.sendNewName(this.loginForm.value.name).subscribe(arg => {
-     
+    this._BsrService.sendNewName(this.loginForm.value.name).subscribe(arg => {     
     });
     setTimeout(() => {
       this._BsrService.getNameCandidates(this.projectId).subscribe((res: any) => {
         this.nameCandidates = res;
-      });
-      
+      });      
     }, 300);
- 
   }
 
-  postIts() {
+  newBlankPostIt() {
     let newConcepData = {
       projectId: this.projectId,
       conceptid: '0',
@@ -166,13 +158,9 @@ console.log('double');
       attributes: [],
       names: []
     }
-
     this._BsrService.newPost(JSON.stringify(newConcepData)).subscribe(arg => {
-
       this.newPost = arg
-
     });
-
 
   }
 
@@ -180,6 +168,7 @@ console.log('double');
     this.overview = !this.overview;
     console.log('overview');
   }
+
   mobileInstruccions() {
 
     console.log('mobileInstruccions');
@@ -215,35 +204,26 @@ console.log('double');
     console.log('slide ' + i);
   }
 
-
   openDialog(item, nameid): void {
     const dialogRef = this.dialog.open(editPost, {
       // width: '250px',
       data: { name: item, nameId: nameid }
     });
-    this.conceptid = item.conceptid;
-    dialogRef.afterClosed().subscribe(result => {
 
+    this.conceptid = item.conceptid;
+
+    dialogRef.afterClosed().subscribe(result => {
       if (result === 'delete') {
         this._BsrService.deletePost(this.conceptid).subscribe(arg => {
-
           this.deletePost = arg
-
         });
-
-      } else {
-        // this.bsrService.deleteName(result.oldValue).subscribe(arg => {
-        //   this.bsrService.login({ email: this.userEmail, name: this.username }, this.projectId).subscribe((res: any) => {
-        //     this.newNames = JSON.parse('[' + res[0].Names + ']');
-        //     this.isUserLogged = true;
-        //   })
-        // });
-
+      } else if(result === 'deleteName'){
+        this._BsrService.getNameCandidates(this.projectId).subscribe((res: any) => {
+          this.nameCandidates = res;
+        });
       }
-
     });
   }
-
 }
 
 
@@ -261,23 +241,31 @@ export class editPost {
 
   loginForm: FormGroup;
   isDeleting = false;
+  isDeletingName = false;
   dataEditor = '<p>Hello, world!</p>';
   infoMessage = true;
   popupwindowData: { form: FormGroup; oldValue: string; };
   editName: string;
   concept: any;
+  projectId = 'rg2327';
   constructor(
     public dialogRef: MatDialogRef<editPost>,
     @Inject(MAT_DIALOG_DATA) public data: DialogData, private _formBuilder: FormBuilder, private _BsrService: BsrService,) {
     this.editName = this.data.nameId;
     this.dataEditor = this.data.name.html;
-    this.concept = this.data.name.concept;
+    if (this.data.name.Name) {
+      this.concept  = this.data.name.Name;
+    }else {
+      this.concept = this.data.name.concept;
+    }
     if (this.data.nameId === 'delete') {
       this.infoMessage = true;
       this.isDeleting = false;
+      // this.isDeletingName = false;
     } else {
-      this.infoMessage = false;
+      this.infoMessage = true;
       this.isDeleting = false;
+      // this.isDeletingName = true;
       console.log(this.data.name);
       this.loginForm = this._formBuilder.group({
         rationale: [''],
@@ -325,12 +313,14 @@ export class editPost {
 
     if (option === 'delete') {
       this.isDeleting = false;
-      this.dialogRef.close('delete');
+      this.dialogRef.close('delete');    
     }
-
-    else {
+    else if(option === 'deleteName') {
       this.isDeleting = false;
-      this.dialogRef.close(this.popupwindowData);
+      this._BsrService.deleteName( this.data.name.NameId).subscribe(arg => { });      
+      this.dialogRef.close('deleteName');
+    } else {
+      this.dialogRef.close('cancel');
     }
 
   }

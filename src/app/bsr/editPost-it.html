@@ -20,7 +20,11 @@
 
                 <div fxFlex>
                   
-                    <button *ngIf="!isDeleting" (click)="buttonOption('delete')" class="refreshbutton" mat-mini-fab
+                    <button *ngIf="!isDeleting && isDeletingName" (click)="buttonOption('delete')" class="refreshbutton" mat-mini-fab
+                        style="color: white;background-color: green;padding: 4px;outline: none;" color="success" aria-label="icon">
+                        <mat-icon>delete</mat-icon>
+                    </button>
+                    <button *ngIf="!isDeleting && !isDeletingName" (click)="buttonOption('deleteName')" class="refreshbutton" mat-mini-fab
                         style="color: white;background-color: green;padding: 4px;outline: none;" color="success" aria-label="icon">
                         <mat-icon>delete</mat-icon>
                     </button>
