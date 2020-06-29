@@ -103,7 +103,11 @@ export class BsrComponent implements OnInit {
     this._BsrService.getNameCandidates(this.projectId).subscribe((res: any) => {
       this.nameCandidates = res;
     });
-
+    this.loginForm = this._formBuilder.group({
+      rationale: [''],
+      suma: [''],
+      name: ['']
+    });
 
   }
   drop(event: CdkDragDrop<string[]>) {
