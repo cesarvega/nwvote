@@ -344,11 +344,11 @@ export class editPost {
    
       let newConcepData = {
       projectId: this.projectId,
-      conceptid: this.data.name.conceptid,
       concept: this.loginForm.value.name,
-      conceptHtml: this.model.editorData,
+      conceptid: JSON.stringify(this.data.name.conceptid),
       attributesArray: this.data.name.attributes,
-      namesArray: this.data.name.names
+      namesArray: this.data.name.names,
+      conceptHtml: this.model.editorData
     }
     this._BsrService.updatePost(JSON.stringify(newConcepData)).subscribe(arg => {
     
