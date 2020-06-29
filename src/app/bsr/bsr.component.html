@@ -132,7 +132,7 @@
                       </mat-card>
 
                     </div>
-              
+
                   </div>
                 </div>
 
@@ -140,12 +140,23 @@
                   <!-- NAMES BOX -->
 
                   <div class="names-container">
-                    <div *ngFor="let  item of conceptData.concepts; let i = index">
-                      <span style="font-size:18px;margin: 10px;" matTooltip="Info about the action"
-                        matTooltipPosition="right">
-                        {{item.concept}}
+                    <div *ngFor="let  item of nameCandidates; let i = index">
+                      <span (dblclick)="doubleClickFunction()" style="font-size:22px;margin: 10px;cursor: pointer;overflow: scroll;" [matTooltip]="item.Source" matTooltipPosition="right">
+                        {{item.Name}}                        
                       </span>
                     </div>
+
+                    <form name="loginForm" [formGroup]="loginForm" novalidate class="name-form" 
+                      fxLayoutAlign="center center">
+
+                      <mat-form-field style="width: 550px;">
+                        <input matInput type="New Name" placeholder="New Name" formControlName="name" [(ngModel)]="newName">
+                      </mat-form-field>
+                      <button (click)="submitNewName(); newName=''" mat-button color="success" aria-label="icon" style="outline: none;">
+                        SUBMIT
+                      </button>
+                    </form>
+
                   </div>
 
 
@@ -153,15 +164,16 @@
               </div>
               <div class="row">
                 <div class="col-md-12">
-                   <!-- MENU -->
-                   <mat-toolbar class="toolbar-postit mat-elevation-z4" *ngIf="mainMenu">
+                  <!-- MENU -->
+                  <mat-toolbar class="toolbar-postit mat-elevation-z4" *ngIf="mainMenu">
 
                     <button (click)="home()" mat-icon-button aria-label="Example icon-button with a heart icon"
                       matTooltip="Info about the action" matTooltipPosition="above">
                       <mat-icon>home</mat-icon>
                     </button>
 
-                    <button mat-icon-button color="primary" aria-label="Example icon-button with a heart icon">
+                    <button (click)="postIts()" mat-icon-button color="primary"
+                      aria-label="Example icon-button with a heart icon">
                       <mat-icon>note_add</mat-icon>
                     </button>
 

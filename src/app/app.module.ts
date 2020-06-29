@@ -27,6 +27,7 @@ import { MatGridListModule } from '@angular/material/grid-list';
 import { MatSidenavModule } from '@angular/material/sidenav';
 import { HotkeyModule } from 'angular2-hotkeys';
 import { CKEditorModule } from '@ckeditor/ckeditor5-angular';
+import { FormsModule } from '@angular/forms';
 @NgModule({
   declarations: [
     AppComponent,
@@ -58,6 +59,7 @@ import { CKEditorModule } from '@ckeditor/ckeditor5-angular';
     MatGridListModule,
     MatSidenavModule,
     CKEditorModule,
+    FormsModule,
     HotkeyModule.forRoot()
 
 

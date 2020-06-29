@@ -15,7 +15,7 @@ import * as ClassicEditor from '@ckeditor/ckeditor5-build-classic';
   styleUrls: ['./bsr.component.scss']
 })
 export class BsrComponent implements OnInit {
-
+  loginForm: FormGroup;
   projectId = 'rg2327';
   createPostIt = true;
   overview = false;
@@ -23,13 +23,18 @@ export class BsrComponent implements OnInit {
   baseBackgroundUrl = 'background-image: url(http://www.bipresents.com/';
   myControl = new FormControl();
   options: string[] = ['One', 'Two', 'Three'];
-  totalNumberOfSlides;
+  totalNumberOfSlides: any;
   pageCounter = ' 1/40';
   currentPageNumber = 0;
   appSlidesData: any;
   mainMenu: boolean;
   conceptData: any;
-  constructor(private _hotkeysService: HotkeysService, private _BsrService: BsrService, public dialog: MatDialog) {
+  newPost: Object;
+  newName: any;
+  conceptid: any;
+  deletePost: Object;
+  nameCandidates: any;
+  constructor(private _formBuilder: FormBuilder, private _hotkeysService: HotkeysService, private _BsrService: BsrService, public dialog: MatDialog) {
 
     // keyboard keymaps
     this._hotkeysService.add(new Hotkey('right', (event: KeyboardEvent): boolean => {
@@ -76,7 +81,7 @@ export class BsrComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this._BsrService.getNewNames(this.projectId).subscribe((res: any) => {
+    this._BsrService.getSlides(this.projectId).subscribe((res: any) => {
       console.log(res);
       this.appSlidesData = res;
       localStorage.setItem('appSlideData', JSON.stringify(res));
@@ -89,6 +94,17 @@ export class BsrComponent implements OnInit {
     this._BsrService.getPost(this.projectId).subscribe((res: any) => {
       this.conceptData = JSON.parse(res[0].bsrData);
       console.log(this.conceptData);
+    });
+
+    this._BsrService.getNameCandidates(this.projectId).subscribe((res: any) => {
+      this.nameCandidates = res;
+    });
+
+
+    this.loginForm = this._formBuilder.group({
+      rationale: [''],
+      suma: [''],
+      name: ['']
     });
 
   }
@@ -123,9 +139,41 @@ export class BsrComponent implements OnInit {
     }
   }
 
-  postIts() {
+  doubleClickFunction(){
+console.log('double');
 
-    console.log('postIts');
+  }
+
+  submitNewName(){
+    this._BsrService.sendNewName(this.loginForm.value.name).subscribe(arg => {
+     
+    });
+    setTimeout(() => {
+      this._BsrService.getNameCandidates(this.projectId).subscribe((res: any) => {
+        this.nameCandidates = res;
+      });
+      
+    }, 300);
+ 
+  }
+
+  postIts() {
+    let newConcepData = {
+      projectId: this.projectId,
+      conceptid: '0',
+      concept: 'Concept',
+      conceptorder: '0',
+      attributes: [],
+      names: []
+    }
+
+    this._BsrService.newPost(JSON.stringify(newConcepData)).subscribe(arg => {
+
+      this.newPost = arg
+
+    });
+
+
   }
 
   sideMenu() {
@@ -173,17 +221,16 @@ export class BsrComponent implements OnInit {
       // width: '250px',
       data: { name: item, nameId: nameid }
     });
-
+    this.conceptid = item.conceptid;
     dialogRef.afterClosed().subscribe(result => {
 
-      if (result.form.value.name && result.form.value.name !== 'delete') {
+      if (result === 'delete') {
+        this._BsrService.deletePost(this.conceptid).subscribe(arg => {
 
-        // this.bsrService.sendName(result.form.value.name, result.oldValue).subscribe(arg => {
-        //   this.bsrService.login({ email: this.userEmail, name: this.username }, this.projectId).subscribe((res: any) => {
-        //     this.newNames = JSON.parse('[' + res[0].Names + ']');
-        //     this.isUserLogged = true;
-        //   })
-        // });
+          this.deletePost = arg
+
+        });
+
       } else {
         // this.bsrService.deleteName(result.oldValue).subscribe(arg => {
         //   this.bsrService.login({ email: this.userEmail, name: this.username }, this.projectId).subscribe((res: any) => {
@@ -278,7 +325,7 @@ export class editPost {
 
     if (option === 'delete') {
       this.isDeleting = false;
-      this.dialogRef.close(this.popupwindowData);
+      this.dialogRef.close('delete');
     }
 
     else {
