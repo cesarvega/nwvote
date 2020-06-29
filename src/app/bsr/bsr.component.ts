@@ -113,7 +113,21 @@ export class BsrComponent implements OnInit {
   drop(event: CdkDragDrop<string[]>) {
     moveItemInArray(this.conceptData.concepts, event.previousIndex, event.currentIndex);
     console.log(event.previousIndex, event.currentIndex);
+    let orderArray = [];
+    this.conceptData.concepts.forEach(ele => {
+      orderArray.push(JSON.stringify(ele.conceptid))
+    });
+    this._BsrService.postItOrder(this.projectId, orderArray).subscribe(arg => {
 
+      this._BsrService.getPost().subscribe((res: any) => {
+        this.conceptData = JSON.parse(res[0].bsrData);
+        if (JSON.parse(res[0].bsrData).presentationtype = 'NSR') {
+          this.isNSR = true;
+        }
+        console.log(this.conceptData);
+      });
+
+    });
 
   }
   entered(event: CdkDragDrop<string[]>) {
@@ -265,8 +279,8 @@ export class editPost {
   concept: any;
   projectId = 'rg2327';
   public model = {
-        editorData: '<p>Hello, world!</p>',
-        namesData:'name'
+        editorData: '',
+        namesData:''
     };
   constructor(
     public dialogRef: MatDialogRef<editPost>,
@@ -275,8 +289,6 @@ export class editPost {
     this.dataEditor = this.data.name.html;
     this.model.editorData = this.data.name.html;
     this.title = this.data.name.Name;
-    
-   
 
     if (this.data.name.Name) {
       this.concept = this.data.name.Name;
@@ -351,7 +363,7 @@ export class editPost {
       concept: this.loginForm.value.name,
       conceptid: JSON.stringify(this.data.name.conceptid),
       attributesArray: this.data.name.attributes,
-      namesArray: this.data.name.names,
+      namesArray:this.model.namesData.split("\n"),
       conceptHtml: this.model.editorData
     }
     this._BsrService.updatePost(JSON.stringify(newConcepData)).subscribe(arg => {

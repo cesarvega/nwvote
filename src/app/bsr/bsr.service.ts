@@ -25,7 +25,7 @@ export class BsrService {
   projectId = 'rg2327'
   // projectId = 'ca2456'
   // projectId = 'te2381'
- 
+
 
   urlPlusPost = '[BI_GUIDELINES].[dbo].[bsr_updConceptData] ' + "'" + this.projectId + "'";
   urlPlusProjectId = '[BI_GUIDELINES].[dbo].[bsr_GetSlides] ' + "'" + this.projectId + "'";
@@ -34,9 +34,9 @@ export class BsrService {
   _SP_NewNameNSR = "[BI_GUIDELINES].[dbo].[nsr_mobAddNames] N'";
   _SP_NewNameBSR = "[BI_GUIDELINES].[dbo].[nsr_mobAddNames] N'";
   _SP_deleteNames = "[BI_GUIDELINES].[dbo].[bsr_delName] ";
-  
+
   isNSR: any;
- 
+
   constructor(private http: HttpClient) { }
 
   sendNewName(nameContainer, isNSR) {
@@ -46,16 +46,16 @@ export class BsrService {
       userEmail: 'system@brandinstitute.com',
     }
     let newNameObject;
-    if (isNSR) {      
+    if (isNSR) {
       newNameObject = this._SP_NewNameNSR + this.projectId + ',' + JSON.stringify(newNameContainer) + "'";
-    }else {
+    } else {
       newNameObject = this._SP_NewNameBSR + this.projectId + ',' + JSON.stringify(newNameContainer) + "'";
     }
     return this.http.post(this.webBaseUrl + this.apiCall, JSON.stringify(newNameObject), httpOptions);
   }
 
-  deleteName(nameId) { 
-    let newNameObject = this._SP_deleteNames + this.projectId.replace(/\D+/g, '') + ',' + nameId ;
+  deleteName(nameId) {
+    let newNameObject = this._SP_deleteNames + this.projectId.replace(/\D+/g, '') + ',' + nameId;
     return this.http.post(this.webBaseUrl + this.apiCall, JSON.stringify(newNameObject), httpOptions);
   }
 
@@ -75,6 +75,7 @@ export class BsrService {
     let _SP_NewComcept = "[BI_GUIDELINES].[dbo].[bsr_updConcept] N'" + newConcept + "'";
     return this.http.post(this.webBaseUrl + this.apiCall, JSON.stringify(_SP_NewComcept), httpOptions);
   }
+
   updatePost(updateConcept) {
     let _SP_NewComcept = "[BI_GUIDELINES].[dbo].[bsr_updConceptData] N'" + updateConcept + "'";
     return this.http.post(this.webBaseUrl + this.apiCall, JSON.stringify(_SP_NewComcept), httpOptions);
@@ -84,6 +85,19 @@ export class BsrService {
     let _SP_NewComcept = "[BI_GUIDELINES].[dbo].[bsr_delConcept] '" + this.projectId + "'," + conceptid;
     return this.http.post(this.webBaseUrl + this.apiCall, JSON.stringify(_SP_NewComcept), httpOptions);
   }
+
+  postItOrder(projectId, conceptIdArray) {
+    this.projectId = projectId;
+    // this.conceptIdArray = conceptIdArray;
+    let sendStrOrder = {
+      projectId: projectId,
+      conceptIdArray: conceptIdArray
+    }
+    // [BI_GUIDELINES].[dbo].[bsr_updConceptOrder] N'{"projectId":"CA2456","conceptIdArray":["7686","7685","7689","8105","8106"]}'
+    let _SP_CHANGE_POST_IT_ORDER = '[BI_GUIDELINES].[dbo].[bsr_updConceptOrder] N' + "'" + JSON.stringify(sendStrOrder) + "'";
+    return this.http.post(this.webBaseUrl + this.apiCall, JSON.stringify(_SP_CHANGE_POST_IT_ORDER), httpOptions);
+  }
+
 
   getProjectId(projectName) {
     return this.http.post(this.webBaseUrl + this.apiCall, JSON.stringify(this._SP_GetProjectId + projectName + '\''), httpOptions);
