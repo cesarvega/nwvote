@@ -19,6 +19,7 @@ export class BsrComponent implements OnInit {
   projectId = 'rg2327';
   createPostIt = true;
   overview = false;
+  isNSR = false;
   slideBackground = 'background-image: url(http://www.bipresents.com/';
   baseBackgroundUrl = 'background-image: url(http://www.bipresents.com/';
   myControl = new FormControl();
@@ -91,8 +92,11 @@ export class BsrComponent implements OnInit {
       this.currentPageNumber = 1;
     })
 
-    this._BsrService.getPost(this.projectId).subscribe((res: any) => {
+    this._BsrService.getPost().subscribe((res: any) => {
       this.conceptData = JSON.parse(res[0].bsrData);
+      if (JSON.parse(res[0].bsrData).presentationtype = 'NSR') {
+        this.isNSR = true;
+      }
       console.log(this.conceptData);
     });
 
@@ -100,12 +104,6 @@ export class BsrComponent implements OnInit {
       this.nameCandidates = res;
     });
 
-
-    this.loginForm = this._formBuilder.group({
-      rationale: [''],
-      suma: [''],
-      name: ['']
-    });
 
   }
   drop(event: CdkDragDrop<string[]>) {
@@ -139,13 +137,13 @@ export class BsrComponent implements OnInit {
     }
   }
 
-  submitNewName(){
-    this._BsrService.sendNewName(this.loginForm.value.name).subscribe(arg => {     
+  submitNewName() {
+    this._BsrService.sendNewName(this.loginForm.value.name, this.isNSR).subscribe(arg => {
     });
     setTimeout(() => {
       this._BsrService.getNameCandidates(this.projectId).subscribe((res: any) => {
         this.nameCandidates = res;
-      });      
+      });
     }, 300);
   }
 
@@ -159,7 +157,9 @@ export class BsrComponent implements OnInit {
       names: []
     }
     this._BsrService.newPost(JSON.stringify(newConcepData)).subscribe(arg => {
-      this.newPost = arg
+      this._BsrService.getPost().subscribe((res: any) => {
+        this.conceptData = JSON.parse(res[0].bsrData);
+      });
     });
 
   }
@@ -215,11 +215,22 @@ export class BsrComponent implements OnInit {
     dialogRef.afterClosed().subscribe(result => {
       if (result === 'delete') {
         this._BsrService.deletePost(this.conceptid).subscribe(arg => {
-          this.deletePost = arg
+          this._BsrService.getPost().subscribe((res: any) => {
+            this.conceptData = JSON.parse(res[0].bsrData);
+            console.log(this.conceptData);
+          });
         });
-      } else if(result === 'deleteName'){
+      } else if (result === 'deleteName') {
         this._BsrService.getNameCandidates(this.projectId).subscribe((res: any) => {
           this.nameCandidates = res;
+        });
+      } else if (result === 'savePost') {
+        this._BsrService.getPost().subscribe((res: any) => {
+          this.conceptData = JSON.parse(res[0].bsrData);
+          if (JSON.parse(res[0].bsrData).presentationtype = 'NSR') {
+            this.isNSR = true;
+          }
+          console.log(this.conceptData);
         });
       }
     });
@@ -245,34 +256,47 @@ export class editPost {
   dataEditor = '<p>Hello, world!</p>';
   infoMessage = true;
   popupwindowData: { form: FormGroup; oldValue: string; };
+  title: string;
   editName: string;
   concept: any;
   projectId = 'rg2327';
+  public model = {
+        editorData: '<p>Hello, world!</p>',
+        namesData:'name'
+    };
   constructor(
     public dialogRef: MatDialogRef<editPost>,
     @Inject(MAT_DIALOG_DATA) public data: DialogData, private _formBuilder: FormBuilder, private _BsrService: BsrService,) {
     this.editName = this.data.nameId;
     this.dataEditor = this.data.name.html;
+    this.model.editorData = this.data.name.html;
+    this.title = this.data.name.Name;
+    
+   
+
     if (this.data.name.Name) {
-      this.concept  = this.data.name.Name;
-    }else {
+      this.concept = this.data.name.Name;
+    } else {
       this.concept = this.data.name.concept;
+      this.isDeletingName = true;
     }
     if (this.data.nameId === 'delete') {
       this.infoMessage = true;
       this.isDeleting = false;
       // this.isDeletingName = false;
-    } else {
+    } else if (this.data.nameId === 'edit') {
+      this.infoMessage = false;
+      this.isDeleting = false;
+    }
+    else {
       this.infoMessage = true;
       this.isDeleting = false;
-      // this.isDeletingName = true;
-      console.log(this.data.name);
-      this.loginForm = this._formBuilder.group({
-        rationale: [''],
-        suma: [''],
-        name: [this.data.name.concept]
-      });
     }
+    this.loginForm = this._formBuilder.group({
+      rationale: [''],
+      suma: [''],
+      name: [this.concept]
+    });
 
     this.Editor.defaultConfig = {
       toolbar: {
@@ -313,11 +337,28 @@ export class editPost {
 
     if (option === 'delete') {
       this.isDeleting = false;
-      this.dialogRef.close('delete');    
+      this.dialogRef.close('delete');
     }
-    else if(option === 'deleteName') {
+    else if (option === 'savePost') {
       this.isDeleting = false;
-      this._BsrService.deleteName( this.data.name.NameId).subscribe(arg => { });      
+   
+      let newConcepData = {
+      projectId: this.projectId,
+      conceptid: this.data.name.conceptid,
+      concept: this.loginForm.value.name,
+      conceptHtml: this.model.editorData,
+      attributesArray: this.data.name.attributes,
+      namesArray: this.data.name.names
+    }
+    this._BsrService.updatePost(JSON.stringify(newConcepData)).subscribe(arg => {
+    
+      this.dialogRef.close('savePost');
+      
+    });
+    }
+    else if (option === 'deleteName') {
+      this.isDeleting = false;
+      this._BsrService.deleteName(this.data.name.NameId).subscribe(arg => { });
       this.dialogRef.close('deleteName');
     } else {
       this.dialogRef.close('cancel');

@@ -22,37 +22,35 @@ export class BsrService {
   _SP_GetProjectId = '[dbo].[nw_GetPresentationId_BSRID] \'';
   _SP_Get_Group_Summary = '[dbo].[nw_GetSummary_group] ';
   japanese: string;
-  projectId = 'RG2327'
+  projectId = 'ca2456'
   // projectId = 'ca2456'
   // projectId = 'te2381'
-  // BI-FULL-SYS
-  //   conceptConstructor() {
-  //     this.projectId = _ProjectId;
-  //     this.conceptid = '0';
-  //     this.concept = 'Concept';
-  //     this.conceptorder = '0';
-  //     this.attributes = [];
-  //     this.names = [];
-  // }[BI_GUIDELINES].[dbo].[bsr_updConceptData]
+ 
 
   urlPlusPost = '[BI_GUIDELINES].[dbo].[bsr_updConceptData] ' + "'" + this.projectId + "'";
   urlPlusProjectId = '[BI_GUIDELINES].[dbo].[bsr_GetSlides] ' + "'" + this.projectId + "'";
   urlGetPosit = '[BI_GUIDELINES].[dbo].[bsr_GetProjectData] ' + "'" + this.projectId + "'";
   _SP_CHANGE_POST_IT_ORDER = '[BI_GUIDELINES].[dbo].[bsr_updConceptOrder] N' + "'" + JSON.stringify(this.conceptsOrder) + "'";
-  _SP_NewName = "[BI_GUIDELINES].[dbo].[nsr_mobAddNames] N'";
+  _SP_NewNameNSR = "[BI_GUIDELINES].[dbo].[nsr_mobAddNames] N'";
+  _SP_NewNameBSR = "[BI_GUIDELINES].[dbo].[nsr_mobAddNames] N'";
   _SP_deleteNames = "[BI_GUIDELINES].[dbo].[bsr_delName] ";
   
   isNSR: any;
  
   constructor(private http: HttpClient) { }
 
-  sendNewName(nameContainer) {
+  sendNewName(nameContainer, isNSR) {
     let newNameContainer = {
       name: nameContainer.split(','),
       source: 'Moderator',
       userEmail: 'system@brandinstitute.com',
     }
-    let newNameObject = this._SP_NewName + this.projectId + ',' + JSON.stringify(newNameContainer) + "'";
+    let newNameObject;
+    if (isNSR) {      
+      newNameObject = this._SP_NewNameNSR + this.projectId + ',' + JSON.stringify(newNameContainer) + "'";
+    }else {
+      newNameObject = this._SP_NewNameBSR + this.projectId + ',' + JSON.stringify(newNameContainer) + "'";
+    }
     return this.http.post(this.webBaseUrl + this.apiCall, JSON.stringify(newNameObject), httpOptions);
   }
 
@@ -69,12 +67,16 @@ export class BsrService {
     return this.http.post(this.webBaseUrl + this.apiCall, JSON.stringify(this.urlPlusProjectId), httpOptions);
   }
 
-  getPost(projectName) {
+  getPost() {
     return this.http.post(this.webBaseUrl + this.apiCall, JSON.stringify(this.urlGetPosit), httpOptions);
   }
 
   newPost(newConcept) {
     let _SP_NewComcept = "[BI_GUIDELINES].[dbo].[bsr_updConcept] N'" + newConcept + "'";
+    return this.http.post(this.webBaseUrl + this.apiCall, JSON.stringify(_SP_NewComcept), httpOptions);
+  }
+  updatePost(updateConcept) {
+    let _SP_NewComcept = "[BI_GUIDELINES].[dbo].[bsr_updConceptData] N'" + updateConcept + "'";
     return this.http.post(this.webBaseUrl + this.apiCall, JSON.stringify(_SP_NewComcept), httpOptions);
   }
 
