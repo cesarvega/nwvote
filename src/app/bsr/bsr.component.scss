@@ -1,12 +1,13 @@
 .presentation-box {
   width: 950px;
-  height: 710px;
+  height: 714px;
   border: solid 4px lightgray;
   border-radius: 6px;
   background-repeat: no-repeat;
   background-size: cover;
   position: relative;
   top: 70px;
+  overflow: hidden;
 }
 
 .toolbar {
@@ -36,7 +37,7 @@
 
 .toolbar-postit {
   position: absolute;
-  bottom: 11px;
+  bottom: -58px;
   height: 50px;
   width: 550px;
   margin-left: 210px;
@@ -64,6 +65,12 @@
   background-size: initial;
   background-image: url(../../assets/img/toolbarBg.jpg);
   height: 53px;
+  position: absolute;
+  width: 941px;
+  top: 73px;
+  z-index: 9999;
+  margin-left: 5px;
+  border-radius: 5px;
 }
 
 .postit-box {
@@ -78,20 +85,20 @@
 }
 
 .post-it-container {
-  // border: red solid;
-  width: 620px;
-  margin-top: 10px;
-  height: 638px;
+  margin: 3px;
+  position: relative;
+  top: 52px;
 }
 
 .names-container {
-  // border: #16ff00 solid;
-  width: 322px;
-  height: 638px;
-  position: absolute;
-  right: -318px;
-  top: -319px;
-  overflow: hidden;
+  background-color: white;
+  width: 293px;
+  height: 630px;
+  position: relative;
+  right: 85px;
+  top: 134px;
+  overflow-x: hidden;
+  overflow-y: scroll;
   padding: 10px;
 }
 
@@ -147,18 +154,6 @@
   transition: transform 250ms cubic-bezier(0, 0, 0.2, 1);
 }
 
-.example-card {
-  width: 320px;
-  padding-left: 4px;
-  margin: 5px;
-  border: solid 1px grey;
-}
-
-.example-header-image {
-  background-image: url("https://material.angular.io/assets/img/examples/shiba1.jpg");
-  background-size: cover;
-}
-
 .example-container {
   position: absolute;
   top: 0;
@@ -180,5 +175,9 @@
 }
 
 .post-button {
-  color: whitesmoke; width: 30px; height: 30px;margin-right: 8px;outline: none;
+  color: whitesmoke;
+  width: 30px;
+  height: 30px;
+  margin-right: 8px;
+  outline: none;
 }

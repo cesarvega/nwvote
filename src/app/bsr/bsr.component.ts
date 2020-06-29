@@ -201,8 +201,8 @@ export class BsrComponent implements OnInit {
 
 
 export interface DialogData {
-  nameId: string;
-  name: string;
+  nameId: any;
+  name: any;
 }
 @Component({
   selector: 'editPost',
@@ -218,10 +218,13 @@ export class editPost {
   infoMessage = true;
   popupwindowData: { form: FormGroup; oldValue: string; };
   editName: string;
+  concept: any;
   constructor(
     public dialogRef: MatDialogRef<editPost>,
     @Inject(MAT_DIALOG_DATA) public data: DialogData, private _formBuilder: FormBuilder, private _BsrService: BsrService,) {
     this.editName = this.data.nameId;
+    this.dataEditor = this.data.name.html;
+    this.concept = this.data.name.concept;
     if (this.data.nameId === 'delete') {
       this.infoMessage = true;
       this.isDeleting = false;
@@ -232,10 +235,9 @@ export class editPost {
       this.loginForm = this._formBuilder.group({
         rationale: [''],
         suma: [''],
-        name: [this.data.nameId]
+        name: [this.data.name.concept]
       });
     }
-
 
     this.Editor.defaultConfig = {
       toolbar: {
