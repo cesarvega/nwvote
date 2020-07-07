@@ -279,9 +279,9 @@ export class editPost {
   concept: any;
   projectId = 'rg2327';
   public model = {
-        editorData: '',
-        namesData:''
-    };
+    editorData: '',
+    namesData: ''
+  };
   constructor(
     public dialogRef: MatDialogRef<editPost>,
     @Inject(MAT_DIALOG_DATA) public data: DialogData, private _formBuilder: FormBuilder, private _BsrService: BsrService,) {
@@ -357,20 +357,21 @@ export class editPost {
     }
     else if (option === 'savePost') {
       this.isDeleting = false;
-   
-      let newConcepData = {
-      projectId: this.projectId,
-      concept: this.loginForm.value.name,
-      conceptid: JSON.stringify(this.data.name.conceptid),
-      attributesArray: this.data.name.attributes,
-      namesArray:this.model.namesData.split("\n"),
-      conceptHtml: this.model.editorData
-    }
-    this._BsrService.updatePost(JSON.stringify(newConcepData)).subscribe(arg => {
-    
-      this.dialogRef.close('savePost');
+
       
-    });
+
+      let newConcepData = {
+        projectId: this.projectId,
+        concept: this.loginForm.value.name,
+        conceptid: JSON.stringify(this.data.name.conceptid),
+        attributesArray: this.data.name.attributes,
+        namesArray: this.model.namesData.split("\n"),
+        conceptHtml: this.model.editorData
+      }
+      this._BsrService.updatePost(JSON.stringify(newConcepData)).subscribe(arg => {
+        this.dialogRef.close('savePost');
+      });
+
     }
     else if (option === 'deleteName') {
       this.isDeleting = false;

@@ -7,7 +7,10 @@ import { BsrComponent } from './bsr/bsr.component';
 
 
 const routes: Routes = [
-
+  {
+    path: 'login/:project',
+    component: LoginComponent
+  },
   {
     path: 'vote',
     component: NwVoteComponent
@@ -19,11 +22,7 @@ const routes: Routes = [
   {
     path: 'bsr/:id',
     component: BsrComponent
-  },
-  {
-    path: 'login/:project',
-    component: LoginComponent
-  },
+  },  
   {
     path: '',
     redirectTo: 'login',

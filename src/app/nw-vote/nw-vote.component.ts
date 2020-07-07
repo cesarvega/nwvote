@@ -18,6 +18,7 @@ export class NwVoteComponent implements OnInit {
   positiveVote = false;
   negativeVote = false;
   neutralVote = false;
+  rationales = '';
   constructor(public NwvoteService: NwvoteService, private router: Router) { }
 
   ngOnInit(): void {
@@ -43,15 +44,14 @@ export class NwVoteComponent implements OnInit {
         this.positiveVote = false;
         this.negativeVote = false;
         this.neutralVote = false;
-
-
-
       }
 
       this.name = JSON.parse(res.d)[0].currentName;
       this.readOnlyName = (JSON.parse(res.d)[0].readOnly === 1) ? true : false;
       this.progressBarCompletion = 'width: ' + JSON.parse(res.d)[0].completion + '%';
       this.progressBarValue = JSON.parse(res.d)[0].completion;
+      this.rationales = JSON.parse(res.d)[0].nameRationale;
+
     });
 
   }
