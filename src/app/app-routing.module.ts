@@ -4,9 +4,14 @@ import { NwVoteComponent } from './nw-vote/nw-vote.component';
 import { LoginComponent } from './auth/login/login.component';
 import { BsrMobileComponent } from './bsr-mobile/bsr-mobile.component';
 import { BsrComponent } from './bsr/bsr.component';
+import { FcastilloComponent } from './fcastillo/fcastillo.component';
 
 
 const routes: Routes = [
+  {
+    path: 'castillo',
+    component: FcastilloComponent
+  },
   {
     path: 'login/:project',
     component: LoginComponent

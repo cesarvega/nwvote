@@ -28,6 +28,7 @@ import { MatSidenavModule } from '@angular/material/sidenav';
 import { HotkeyModule } from 'angular2-hotkeys';
 import { CKEditorModule } from '@ckeditor/ckeditor5-angular';
 import { FormsModule } from '@angular/forms';
+import { FcastilloComponent } from './fcastillo/fcastillo.component';
 @NgModule({
   declarations: [
     AppComponent,
@@ -37,6 +38,7 @@ import { FormsModule } from '@angular/forms';
     editName,
     editPost,
     BsrComponent,
+    FcastilloComponent,
   ],
   imports: [
     BrowserModule,
