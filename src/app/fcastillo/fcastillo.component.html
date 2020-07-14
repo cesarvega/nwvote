@@ -11,7 +11,7 @@
 <div class="container-fluid">
 
     <div class="row">
-        <video width="100%" height="100%" autoplay loop playsinline>
+        <video  (click)="toggleVideo($event)" #videoPlayer width="100%" height="100%" autoplay loop muted playsinline>
             <source src="assets/img/fcast/fcast.mp4" type="video/mp4">
             Your browser does not support HTML video.
         </video>
@@ -28,6 +28,7 @@
 
     <section>
         <div class="comofunciona text-center">Como Funciona?</div>
+        <div>Las dos tienen la misma función, crema blanca para personas de piel sensible o  pieles muy blancas, y crema negra para piel normal. O tolerante a la crema blanca. </div>
         <div class="row">
             <div class="col-1"></div>
             <div class="col-10" fxLayoutAlign="center center">
@@ -41,9 +42,9 @@
         <div class="row">
 
 
-                <div class="col-2"></div>
+                <div class="col-1 "></div>
 
-                <div class="col-8  story">
+                <div class="col-10  story">
                     <div >
                         Esta
                         crema fue fabricada hace 2 años pensando, en las personas que necesitan una ayuda
@@ -68,23 +69,24 @@
                     </div>
 
                 </div>
-                <div class="col-2"></div>
+                <div class="col-1"></div>
             
         </div>
 
     </section>
 
-<hr>
+
 <br>
 
     <section>
         <div class="comofunciona text-center">Quien la usa?</div>
-        <video width="100%" autoplay loop controls playsinline>
+        
+        <video width="100%" height="100%" autoplay loop muted playsinline>
             <source src="assets/img/fcast/van.mp4" type="video/mp4"> Your browser
             does not support HTML video. </video>
         <div class="comofunciona text-center">ORDENA YA $34.99</div>
-        <p class="mat-body-strong text-center">si tienes preguntas no dudes en llamarnos
-        </p>
+        <!-- <p class="mat-body-strong text-center">si tienes preguntas no dudes en llamarnos
+        </p> -->
 
         <div class="col-12 text-center">
             <div id="paypal-button-container">
@@ -101,7 +103,7 @@
     </div>
     <div class="col-2 text-center">
         <button mat-icon-button>
-            <mat-icon>share</mat-icon>
+            <!-- <mat-icon>share</mat-icon> -->
         </button>
     </div>
     <div class="col-5">
