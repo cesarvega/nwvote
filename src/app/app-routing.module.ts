@@ -9,7 +9,7 @@ import { FcastilloComponent } from './fcastillo/fcastillo.component';
 
 const routes: Routes = [
   {
-    path: 'castillo',
+    path: 'index',
     component: FcastilloComponent
   },
   {
@@ -30,9 +30,14 @@ const routes: Routes = [
   },  
   {
     path: '',
-    redirectTo: 'login',
+    redirectTo: 'index',
     pathMatch: 'full'
   }
+  // {
+  //   path: '',
+  //   redirectTo: 'login',
+  //   pathMatch: 'full'
+  // }
 ];
 
 @NgModule({

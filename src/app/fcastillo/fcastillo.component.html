@@ -1,111 +1,340 @@
-<mat-toolbar class="toolbar mat-elevation-z2">
-    <div class="col-1">
-    </div>
-    <div class="col-10">
-        <div class="text-center vvcream">VV FIRE & ICE</div>
-    </div>
-    <div class="col-1">
-    </div>
-</mat-toolbar>
-
-<div class="container-fluid">
-
-    <div class="row">
-        <video  (click)="toggleVideo($event)" #videoPlayer width="100%" height="100%" autoplay loop muted playsinline>
-            <source src="assets/img/fcast/fcast.mp4" type="video/mp4">
-            Your browser does not support HTML video.
-        </video>
-    </div>
-
-    <div class="row">
-        <div class="col-4"></div>
-        <div class="col-4"></div>
-        <div class="col-4">
-            <div class="text-center fc">FC</div>
+<div *ngIf="isDarkMode">
+    <mat-toolbar class="toolbar mat-elevation-z2">
+        <div class="col-1">
         </div>
-    </div>
-    <br>
+        <div class="col-10">
+            <div class="text-center vvcream">MRVR APPS</div>
+        </div>
+        <div class="col-1">
 
-    <section>
-        <div class="comofunciona text-center">Como Funciona?</div>
-        <div>Las dos tienen la misma función, crema blanca para personas de piel sensible o  pieles muy blancas, y crema negra para piel normal. O tolerante a la crema blanca. </div>
+        </div>
+    </mat-toolbar>
+
+    <div class="container-fluid">
+        <br>
+
+
         <div class="row">
-            <div class="col-1"></div>
-            <div class="col-10" fxLayoutAlign="center center">
-                <img class="featureimg" src="assets/img/fcast/2dos.jpg" width="90%" alt="">
+            <video #videoPlayer width="100%" height="100%" autoplay loop [muted]="isMute" playsinline>
+                <source src="assets/img/payment/MRVR_Apps.mp4" type="video/mp4">
+                Your browser does not support HTML video.
+            </video>
+        </div>
+
+        <div class="row">
+            <div class="col-4"></div>
+            <div class="col-4"></div>
+            <div class="col-4">
+                <div class="text-center fc">MRVR</div>
             </div>
-            <div class="col-1"></div>
         </div>
-    </section>
+        <br>
 
-    <section>
-        <div class="row">
+        <section>
 
+            <div *ngIf="!isSpanish" class="comofunciona text-center">Vende en todos lados en línea</div>
+            <div *ngIf="!isSpanish" class="story">Administra todo en un solo lugar y configurare tu tienda online en
+                minutos.</div>
+            <br>
 
-                <div class="col-1 "></div>
-
-                <div class="col-10  story">
-                    <div >
-                        Esta
-                        crema fue fabricada hace 2 años pensando, en las personas que necesitan una ayuda
-                        extra para quemar la grasa localizada del abdomen, ojo no hace milagros, tienes que ser
-                        constante
-                        para
-                        ver resultados, por lo Menos aplicarla antes de hacer tu deporte favorito, en mi caso la uso 10
-                        minutos
-                        antes de empezar mi entrenamiento en el gym, 5 veces por semana ayuda a tonificar la zona a
-                        tratar.
-                    </div>
-                    <br>
-                    <div >
-                        Aplique en poca cantidad en todo tu abdomen especialmente la parte baja y la parte de atrás de
-                        la
-                        espalda baja, o según tus necesidades, inmediatamente después de aplicarla lavarse las manos con
-                        abundante agua y jabón, esto es para prevenir que toques tus ojos o tu cara puesto que la crema
-                        tiene
-                        mentol y no queremos una reacción alérgica en tu cara. Ahora aprovecha tu crema y combínala con
-                        tu
-                        rutina de ejercicio y verás los cambios que tendrás. 🍫👌🏾🔥
-                    </div>
-
+            
+            <div class="row">
+                <div class="col-1"></div>
+                <div class="col-10" fxLayoutAlign="center center">
+                    <img class="featureimg" src="assets/img/payment/cashAppMrvr.jpg" width="90%" alt="">
                 </div>
                 <div class="col-1"></div>
-            
+            </div>
+
+
+            <div *ngIf="!isSpanish" class="comofunciona text-center">Ofrece la mejor experiencia de compra</div>
+            <div *ngIf="!isSpanish" class="story">Creación de tiendas online con poderosas herramientas de venta y
+                opciones flexibles de pagos y envíos.</div>
+            <br>
+            <div *ngIf="!isSpanish" class="comofunciona text-center">Llega a los clientes con mayor facilidad</div>
+            <div *ngIf="!isSpanish" class="story">Cierra tu primera venta más rápido gracias a las herramientas de pago
+                para atraer nuevos clientes de tu página de ventas en línea.</div>
+
+            <br>
+            <div *ngIf="!isSpanish" class="comofunciona text-center">Pon tu página de Facebook e Instagram a trabajar
+            </div>
+            <div *ngIf="!isSpanish" class="story">Tu Tienda en línea te permite promover y vender
+                productos en tu página de Facebook e Instagrams para empresas, fácilmente y en minutos.</div>
+            <br>
+
+            <div *ngIf="!isSpanish" class="comofunciona text-center">Creada para teléfonos inteligentes</div>
+            <div *ngIf="!isSpanish" class="story">La mayoría de las personas compran desde sus dispositivos móviles.
+                Asegúrate de que tu tienda esté lista para ellos.</div>
+            <br>
+
+            <div *ngIf="!isSpanish" class="comofunciona text-center">Vende lo que quieras</div>
+            <div *ngIf="!isSpanish" class="story">Es tu tienda. Vende lo que quieras, de la forma que quieras.
+                Desde productos y servicios hasta material digital como videos o documentos técnicos, la Tienda en línea
+                te ayuda a mostrar,
+                promocionar, vender y enviar tus productos con facilidad.</div>
+            <br>
+
+            <div *ngIf="!isSpanish" class="comofunciona text-center">Ofrece la mejor experiencia de compra.</div>
+            <div *ngIf="!isSpanish" class="story"> Creación de tiendas online con poderosas herramientas
+                de venta y opciones flexibles de pagos y envíos
+            </div>
+
+
+        </section>
+       <br>
+        <section>
+        
+            <div class="row">
+                <div class="col-12 col-md-6">
+                    <div class="col-12 text-center" fxLayoutAlign="center center">
+
+
+                        <mat-card class="example-card" style="max-width: 400px;">
+                            <mat-card-header>
+                                <div mat-card-avatar class="example-header-image" style="background-size: cover;"></div>
+                                <mat-card-title *ngIf="!isSpanish">$49.99</mat-card-title>
+                                <mat-card-subtitle *ngIf="!isSpanish">PAGA 1 HORA DE CONSULTA</mat-card-subtitle>
+                                <!-- <mat-card-subtitle>Dog Breed</mat-card-subtitle> -->
+                            </mat-card-header>
+                            <img mat-card-image src="assets/img/payment/calendar.jpg" alt="Photo of a Shiba Inu">
+                            <mat-card-content>
+                                <div id="paypal-button-container">
+                                </div>
+                            </mat-card-content>
+                            <mat-card-actions>
+                                <!-- <button mat-button>LIKE</button>
+                          <button mat-button>SHARE</button> -->
+                            </mat-card-actions>
+                        </mat-card>
+                    </div>
+                </div>
+                <br>
+                <div class="col-12 col-md-6">
+
+                    <div class="col-12 text-center" fxLayoutAlign="center center">
+                        <mat-card class="example-card" style="    max-width: 400px;
+                    width: 400px;">
+                            <mat-card-header>
+                                <div mat-card-avatar class="example-header-image" style="background-size: cover;"></div>
+                                <mat-card-title *ngIf="!isSpanish">CASH APP</mat-card-title>
+                                <mat-card-subtitle *ngIf="!isSpanish">PAGA 1 HORA DE CONSULTA $39</mat-card-subtitle>
+                            </mat-card-header>
+                            <img mat-card-image src="assets/img/payment/cashAppMrvr.jpg" style="width: 270px;"
+                                alt="cash">
+                            <mat-card-content>
+                                <div id="paypal-button-containe">
+                                </div>
+                            </mat-card-content>
+                            <mat-card-actions>
+                                <!-- <button mat-button>LIKE</button>
+                          <button mat-button>SHARE</button> -->
+                            </mat-card-actions>
+                        </mat-card>
+                    </div>
+                </div>
+            </div>
+
+        </section>
+        <br>
+        <mat-toolbar class="toolbar mat-elevation-z2" style="position: fixed; bottom: 0px; 
+    position: fixed;bottom: 0px; margin-left: -15px;">
+            <div class="col-5">
+                <button mat-mini-fab (click)="mute()" color="" style="outline: none;"
+                aria-label="Example icon button with a filter list icon">
+                <mat-icon>speaker</mat-icon>
+            </button>
+            </div>
+            <div class="col-2 text-center">
+                <button  mat-fab color="white" style="bottom:1px; z-index: 9999;outline: none;
+                        font-size: 0px;">
+                    <mat-icon>language</mat-icon>
+                </button>
+                <!-- <button (click)="changeLanguage()" mat-fab color="white" style="bottom:1px; z-index: 9999;outline: none;
+                        font-size: 0px;">
+                    <mat-icon>language</mat-icon>
+                </button> -->
+            </div>
+            <div class="col-5" fxLayoutAlign="end end">
+                <button mat-mini-fab (click)="darkMode()" color="" style="outline: none;"
+                    aria-label="Example icon button with a filter list icon">
+                    <mat-icon>nights_stay</mat-icon>
+                </button>
+            </div>
+        </mat-toolbar>
+
+        <div fxLayoutAlign="end end">
+
         </div>
 
-    </section>
+    </div>
+</div>
+<div *ngIf="!isDarkMode">
+    <mat-toolbar class="toolbar mat-elevation-z2">
+        <div class="col-1">
+        </div>
+        <div class="col-10">
+            <div class="text-center vvcream">MRVR APPS</div>
+        </div>
+        <div class="col-1">
+
+        </div>
+    </mat-toolbar>
+
+    <div class="container-fluid">
+        <br>
 
 
-<br>
+        <div class="row">
+            <video #videoPlayer width="100%" height="100%" autoplay loop [muted]="isMute" playsinline>
+                <source src="assets/img/payment/MRVR_Apps.mp4" type="video/mp4">
+                Your browser does not support HTML video.
+            </video>
+        </div>
 
-    <section>
-        <div class="comofunciona text-center">Quien la usa?</div>
-        
-        <video width="100%" height="100%" autoplay loop muted playsinline>
-            <source src="assets/img/fcast/van.mp4" type="video/mp4"> Your browser
-            does not support HTML video. </video>
-        <div class="comofunciona text-center">ORDENA YA $34.99</div>
-        <!-- <p class="mat-body-strong text-center">si tienes preguntas no dudes en llamarnos
-        </p> -->
-
-        <div class="col-12 text-center">
-            <div id="paypal-button-container">
+        <div class="row">
+            <div class="col-4"></div>
+            <div class="col-4"></div>
+            <div class="col-4">
+                <div class="text-center fc">MRVR</div>
             </div>
         </div>
+        <br>
+
+        <section>
+
+            <div *ngIf="!isSpanish" class="comofunciona text-center">Vende en todos lados en línea</div>
+            <div *ngIf="!isSpanish" class="story">Administra todo en un solo lugar y configurare tu tienda online en
+                minutos.</div>
+            <br>
+
+            
+            <div class="row">
+                <div class="col-1"></div>
+                <div class="col-10" fxLayoutAlign="center center">
+                    <img class="featureimg" src="assets/img/payment/cashAppMrvr.jpg" width="90%" alt="">
+                </div>
+                <div class="col-1"></div>
+            </div>
 
 
-    </section>
+            <div *ngIf="!isSpanish" class="comofunciona text-center">Ofrece la mejor experiencia de compra</div>
+            <div *ngIf="!isSpanish" class="story">Creación de tiendas online con poderosas herramientas de venta y
+                opciones flexibles de pagos y envíos.</div>
+            <br>
+            <div *ngIf="!isSpanish" class="comofunciona text-center">Llega a los clientes con mayor facilidad</div>
+            <div *ngIf="!isSpanish" class="story">Cierra tu primera venta más rápido gracias a las herramientas de pago
+                para atraer nuevos clientes de tu página de ventas en línea.</div>
 
+            <br>
+            <div *ngIf="!isSpanish" class="comofunciona text-center">Pon tu página de Facebook e Instagram a trabajar
+            </div>
+            <div *ngIf="!isSpanish" class="story">Tu Tienda en línea te permite promover y vender
+                productos en tu página de Facebook e Instagrams para empresas, fácilmente y en minutos.</div>
+            <br>
+
+            <div *ngIf="!isSpanish" class="comofunciona text-center">Creada para teléfonos inteligentes</div>
+            <div *ngIf="!isSpanish" class="story">La mayoría de las personas compran desde sus dispositivos móviles.
+                Asegúrate de que tu tienda esté lista para ellos.</div>
+            <br>
+
+            <div *ngIf="!isSpanish" class="comofunciona text-center">Vende lo que quieras</div>
+            <div *ngIf="!isSpanish" class="story">Es tu tienda. Vende lo que quieras, de la forma que quieras.
+                Desde productos y servicios hasta material digital como videos o documentos técnicos, la Tienda en línea
+                te ayuda a mostrar,
+                promocionar, vender y enviar tus productos con facilidad.</div>
+            <br>
+
+            <div *ngIf="!isSpanish" class="comofunciona text-center">Ofrece la mejor experiencia de compra.</div>
+            <div *ngIf="!isSpanish" class="story"> Creación de tiendas online con poderosas herramientas
+                de venta y opciones flexibles de pagos y envíos
+            </div>
+
+
+        </section>
+       <br>
+        <section>
+        
+            <div class="row">
+                <div class="col-12 col-md-6">
+                    <div class="col-12 text-center" fxLayoutAlign="center center">
+
+
+                        <mat-card class="example-card" style="max-width: 400px;">
+                            <mat-card-header>
+                                <div mat-card-avatar class="example-header-image" style="background-size: cover;"></div>
+                                <mat-card-title *ngIf="!isSpanish">$49.99</mat-card-title>
+                                <mat-card-subtitle *ngIf="!isSpanish">PAGA 1 HORA DE CONSULTA</mat-card-subtitle>
+                                <!-- <mat-card-subtitle>Dog Breed</mat-card-subtitle> -->
+                            </mat-card-header>
+                            <img mat-card-image src="assets/img/payment/calendar.jpg" alt="Photo of a Shiba Inu">
+                            <mat-card-content>
+                                <div id="paypal-button-container">
+                                </div>
+                            </mat-card-content>
+                            <mat-card-actions>
+                                <!-- <button mat-button>LIKE</button>
+                          <button mat-button>SHARE</button> -->
+                            </mat-card-actions>
+                        </mat-card>
+                    </div>
+                </div>
+                <br>
+                <div class="col-12 col-md-6">
+
+                    <div class="col-12 text-center" fxLayoutAlign="center center">
+                        <mat-card class="example-card" style="    max-width: 400px;
+                    width: 400px;">
+                            <mat-card-header>
+                                <div mat-card-avatar class="example-header-image" style="background-size: cover;"></div>
+                                <mat-card-title *ngIf="!isSpanish">CASH APP</mat-card-title>
+                                <mat-card-subtitle *ngIf="!isSpanish">PAGA 1 HORA DE CONSULTA $39</mat-card-subtitle>
+                            </mat-card-header>
+                            <img mat-card-image src="assets/img/payment/cashAppMrvr.jpg" style="width: 270px;"
+                                alt="cash">
+                            <mat-card-content>
+                                <div id="paypal-button-containe">
+                                </div>
+                            </mat-card-content>
+                            <mat-card-actions>
+                                <!-- <button mat-button>LIKE</button>
+                          <button mat-button>SHARE</button> -->
+                            </mat-card-actions>
+                        </mat-card>
+                    </div>
+                </div>
+            </div>
+
+        </section>
+        <br>
+        <mat-toolbar class="toolbar mat-elevation-z2" style="position: fixed; bottom: 0px; 
+    position: fixed;bottom: 0px; margin-left: -15px;">
+            <div class="col-5">
+                <button mat-mini-fab (click)="mute()" color="" style="outline: none;"
+                aria-label="Example icon button with a filter list icon">
+                <mat-icon>speaker</mat-icon>
+            </button>
+            </div>
+            <div class="col-2 text-center">
+                <button  mat-fab color="white" style="bottom:1px; z-index: 9999;outline: none;
+                        font-size: 0px;">
+                    <mat-icon>language</mat-icon>
+                </button>
+                <!-- <button (click)="changeLanguage()" mat-fab color="white" style="bottom:1px; z-index: 9999;outline: none;
+                        font-size: 0px;">
+                    <mat-icon>language</mat-icon>
+                </button> -->
+            </div>
+            <div class="col-5" fxLayoutAlign="end end">
+                <button mat-mini-fab (click)="darkMode()" color="" style="outline: none;"
+                    aria-label="Example icon button with a filter list icon">
+                    <mat-icon>nights_stay</mat-icon>
+                </button>
+            </div>
+        </mat-toolbar>
+
+        <div fxLayoutAlign="end end">
+
+        </div>
+
+    </div>
 </div>
-
-<mat-toolbar class="toolbar mat-elevation-z2">
-    <div class="col-5">
-    </div>
-    <div class="col-2 text-center">
-        <button mat-icon-button>
-            <!-- <mat-icon>share</mat-icon> -->
-        </button>
-    </div>
-    <div class="col-5">
-    </div>
-</mat-toolbar>

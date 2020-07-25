@@ -29,6 +29,7 @@ import { HotkeyModule } from 'angular2-hotkeys';
 import { CKEditorModule } from '@ckeditor/ckeditor5-angular';
 import { FormsModule } from '@angular/forms';
 import { FcastilloComponent } from './fcastillo/fcastillo.component';
+import { MatSlideToggleModule } from '@angular/material/slide-toggle';
 @NgModule({
   declarations: [
     AppComponent,
@@ -44,6 +45,7 @@ import { FcastilloComponent } from './fcastillo/fcastillo.component';
     BrowserModule,
     AppRoutingModule,
     BrowserAnimationsModule,
+    MatSlideToggleModule,
     MatRippleModule,
     MatFormFieldModule,
     HttpClientModule,
