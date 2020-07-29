@@ -28,16 +28,16 @@ const routes: Routes = [
     path: 'bsr/:id',
     component: BsrComponent
   },  
-  {
-    path: '',
-    redirectTo: 'login',
-    pathMatch: 'full'
-  }
   // {
   //   path: '',
   //   redirectTo: 'login',
   //   pathMatch: 'full'
   // }
+  {
+    path: '',
+    redirectTo: 'login',
+    pathMatch: 'full'
+  }
 ];
 
 @NgModule({
