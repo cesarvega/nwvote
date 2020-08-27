@@ -84,8 +84,9 @@
                   <div class="col" style="color: white; font-size: 40px;font-family: Arial">
                     Brandstorm
                   </div>
-                  <div class="col" style="color: white; font-size: 40px;font-family: Arial; right: -370px;">
-                    Names
+                  <div class="col"  (click)="toggleNamebox()" style="color: white; font-size: 40px;font-family: Arial; right: -370px;"  
+                    [matTooltip]="'Names Create 0'" matTooltipPosition="right">
+                    Names 
                   </div>
                 </div>
               </mat-toolbar>
@@ -136,7 +137,7 @@
                   </div>
                 </div>
 
-                <div class="col-md-4">
+                <div class="col-md-4" *ngIf="nameBox">
                   <!-- NAMES BOX -->
 
                   <div class="names-container">
