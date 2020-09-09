@@ -35,6 +35,7 @@ export class BsrComponent implements OnInit {
   conceptid: any;
   deletePost: Object;
   nameCandidates: any;
+  nameBox = true;
   constructor(private _formBuilder: FormBuilder, private _hotkeysService: HotkeysService, private _BsrService: BsrService, public dialog: MatDialog) {
 
     // keyboard keymaps
@@ -253,6 +254,14 @@ export class BsrComponent implements OnInit {
       }
     });
   }
+
+
+
+  toggleNamebox() {
+   this.nameBox = !this.nameBox;
+  }
+
+
 }
 
 

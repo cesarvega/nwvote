@@ -84,8 +84,9 @@
                   <div class="col" style="color: white; font-size: 40px;font-family: Arial">
                     Brandstorm
                   </div>
-                  <div class="col" style="color: white; font-size: 40px;font-family: Arial; right: -370px;">
-                    Names
+                  <div class="col"  (click)="toggleNamebox()" style="color: white; font-size: 40px;font-family: Arial; right: -370px;"  
+                    [matTooltip]="'Names Create 0'" matTooltipPosition="right">
+                    Names 
                   </div>
                 </div>
               </mat-toolbar>
@@ -102,13 +103,13 @@
                     <div class="row post-it-container" cdkDropList [cdkDropListData]="conceptData.concepts"
                       (cdkDropListDropped)="drop($event)">
 
-                      <mat-card style="width: 300px;margin: 5px;height: 310px;" cdkDrag cdkDragLockAxis="xy"
+                      <mat-card style="width: 300px;margin: 5px;height: 310px;background-color: lightgoldenrodyellow;" cdkDrag cdkDragLockAxis="xy"
                         *ngFor="let item of conceptData.concepts; let i = index;">
 
                         <!-- TITLE -->
 
                         <div
-                          style="background-color: white;height: 60px;overflow-x: hidden;width: 283px;word-break: break-all;">
+                          style="background-color: lightgoldenrodyellow;height: 60px;overflow-x: hidden;width: 283px;word-break: break-all;">
                           <div class="mat-h2">{{item.concept}}</div>
                         </div>
 
@@ -116,7 +117,7 @@
                         <!-- HTML-CONTENT -->
 
                         <mat-card-content
-                          style="width: 283px;height: 160px; overflow-y: scroll;background-color: white; overflow-x: hidden;">
+                          style="width: 283px;height: 160px; overflow-y: scroll;background-color: lightgoldenrodyellow; overflow-x: hidden;">
                           <div [innerHTML]="item.html">{{item.html}}</div>
                         </mat-card-content>
 
@@ -136,7 +137,7 @@
                   </div>
                 </div>
 
-                <div class="col-md-4">
+                <div class="col-md-4" *ngIf="nameBox">
                   <!-- NAMES BOX -->
 
                   <div class="names-container">
