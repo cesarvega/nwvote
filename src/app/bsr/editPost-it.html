@@ -13,19 +13,19 @@
                 <div fxFlex>
                    
                     <button *ngIf="!isDeleting" (click)="buttonOption('cancel')" class="refreshbutton" mat-mini-fab
-                        style="color: white;background-color: red;padding: 4px;outline: none;" color="success" aria-label="icon">
+                        style="color: white;background-color: green;padding: 4px;outline: none;" color="success" aria-label="icon">
                         <mat-icon>cancel</mat-icon>
-                    </button>
+                    </button><br> <div style="color: #000;">cancel</div> 
                 </div>
 
                 <div fxFlex>
                   
                     <button *ngIf="!isDeleting && isDeletingName" (click)="buttonOption('delete')" class="refreshbutton" mat-mini-fab
-                        style="color: white;background-color: green;padding: 4px;outline: none;" color="success" aria-label="icon">
-                        <mat-icon>delete</mat-icon>
-                    </button>
+                        style="color: white;background-color: red;padding: 4px;outline: none;" color="success" aria-label="icon">
+                        <mat-icon>check</mat-icon>
+                    </button><br> <div style="color: #000;">delete</div> 
                     <button *ngIf="!isDeleting && !isDeletingName" (click)="buttonOption('deleteName')" class="refreshbutton" mat-mini-fab
-                        style="color: white;background-color: green;padding: 4px;outline: none;" color="success" aria-label="icon">
+                        style="color: white;background-color: red;padding: 4px;outline: none;" color="success" aria-label="icon">
                         <mat-icon>delete</mat-icon>
                     </button>
                 </div>
@@ -43,19 +43,24 @@
     </form>
 
     <hr>
-    <div class="mat-h3" style="text-align: center;color: #004684;">
+    <div class="mat-h3" style="text-align: center;color: #000;" >
         <div class="row">
             <div class="col-md-6">
-                <div>Key Words and Concepts</div>
-                <ckeditor [editor]="Editor" [data]="dataEditor" [(ngModel)]="model.editorData" ></ckeditor>
+                <div>Key Words and Concepts</div> 
+                <ckeditor [editor]="Editor" [data]="dataEditor"
+                 [(ngModel)]="model.editorData" class="ckeditorcev" ></ckeditor>
             </div>
             <div class="col-md-1">  <button (click)="buttonOption('savePost')" class="refreshbutton" mat-button style="font-size: 8px;"
                 color="success" aria-label="icon">
               SYNONYMS
             </button></div>
-            <div class="col-md-5">
+            <div class="col-md-5" >
                 <div>Name Candidates</div>
-                <ckeditor [editor]="Editor" [data]="dataEditor" [(ngModel)]="model.namesData" style="max-height: 400px;"></ckeditor>
+                <mat-form-field style="width: 550px;">                    
+                    <textarea matInput  cdkTextareaAutosize  cdkAutosizeMinRows="20"
+                    cdkAutosizeMaxRows="20" style="max-height: 400px;" appearance="outline" formControlName="suma"></textarea>
+                  </mat-form-field>
+                <!-- <ckeditor [editor]="Editor" [data]="dataEditor" [(ngModel)]="model.namesData" style="max-height: 400px;"></ckeditor> -->
             </div>
         </div>
     </div>

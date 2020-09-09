@@ -36,6 +36,7 @@ export class BsrComponent implements OnInit {
   deletePost: Object;
   nameCandidates: any;
   nameBox = true;
+  myMaxWith = '900px';
   constructor(private _formBuilder: FormBuilder, private _hotkeysService: HotkeysService, private _BsrService: BsrService, public dialog: MatDialog) {
 
     // keyboard keymaps
@@ -336,18 +337,9 @@ export class editPost {
           'alignment',
           'blockQuote',
           'undo',
-          'redo'
-        ]
-      },
-      image: {
-        toolbar: [
-          'imageStyle:full',
-          'imageStyle:side',
-          '|',
-          'imageTextAlternative'
-        ]
-      },
-      language: 'en'
+          'redo',
+        ],        
+      }
     }
   }
 

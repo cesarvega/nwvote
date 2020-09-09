@@ -100,7 +100,7 @@
                   <div class="presentation-box" style="overflow-y: scroll;">
 
                     <!-- POST_REPEATER -->
-                    <div class="row post-it-container" cdkDropList [cdkDropListData]="conceptData.concepts"
+                    <div class="row post-it-container" [ngStyle]="{'max-width': myMaxWith }" cdkDropList [cdkDropListData]="conceptData.concepts"
                       (cdkDropListDropped)="drop($event)">
 
                       <mat-card style="width: 300px;margin: 5px;height: 310px;background-color: lightgoldenrodyellow;" cdkDrag cdkDragLockAxis="xy"
