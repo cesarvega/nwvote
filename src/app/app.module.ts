@@ -30,7 +30,6 @@ import { CKEditorModule } from '@ckeditor/ckeditor5-angular';
 import { FormsModule } from '@angular/forms';
 import { FcastilloComponent } from './fcastillo/fcastillo.component';
 import { MatSlideToggleModule } from '@angular/material/slide-toggle';
-import { DemoNgZorroAntdModule } from './bsr/ng-zorro-antd.module';
 import {MatSliderModule} from '@angular/material/slider';
 @NgModule({
   declarations: [
@@ -67,7 +66,6 @@ import {MatSliderModule} from '@angular/material/slider';
     CKEditorModule,
     FormsModule,
     HotkeyModule.forRoot(),
-    DemoNgZorroAntdModule,
     MatSliderModule
   ],
   providers: [NwvoteService, BsrMobileService],

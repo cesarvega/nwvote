@@ -277,16 +277,6 @@ export class BsrComponent implements OnInit {
       this.showSlider =  !this.showSlider;
   }
 
-  width = 400;
-  height = 200;
-  id = -1;
-  onResize({ width, height }: NzResizeEvent): void {
-    cancelAnimationFrame(this.id);
-    this.id = requestAnimationFrame(() => {
-      this.width = width!;
-      this.height = height!;
-    });
-  }
 
   onInputChange(event: MatSliderChange) {
     console.log("This is emitted as the thumb slides");
