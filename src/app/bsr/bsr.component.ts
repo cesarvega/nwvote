@@ -1,4 +1,4 @@
-import { Component, OnInit, Inject, ViewEncapsulation } from '@angular/core';
+import { Component, OnInit, Inject, ViewEncapsulation, ViewChild } from '@angular/core';
 import { FormControl } from '@angular/forms';
 import { HotkeysService, Hotkey } from 'angular2-hotkeys';
 import { CdkDragDrop, moveItemInArray } from '@angular/cdk/drag-drop';
@@ -8,6 +8,9 @@ import { FormBuilder, Validators, FormGroup } from '@angular/forms';
 import { MatDialog, MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 
 import * as ClassicEditor from '@ckeditor/ckeditor5-build-classic';
+import { NzResizeEvent } from 'ng-zorro-antd/resizable';
+
+
 
 @Component({
   selector: 'app-bsr',
@@ -15,7 +18,11 @@ import * as ClassicEditor from '@ckeditor/ckeditor5-build-classic';
   styleUrls: ['./bsr.component.scss']
 })
 export class BsrComponent implements OnInit {
+
+  @ViewChild('slider')slider;
+
   loginForm: FormGroup;
+  valor: 51;
   projectId = 'rg2327';
   createPostIt = true;
   overview = false;
@@ -36,7 +43,11 @@ export class BsrComponent implements OnInit {
   deletePost: Object;
   nameCandidates: any;
   nameBox = true;
+  nameBoxB = true;
   myMaxWith = '900px';
+  myMaxRWith = '900px';
+  myMaxRightWith = '8px';
+  showSlider: boolean = false;
   constructor(private _formBuilder: FormBuilder, private _hotkeysService: HotkeysService, private _BsrService: BsrService, public dialog: MatDialog) {
 
     // keyboard keymaps
@@ -111,6 +122,7 @@ export class BsrComponent implements OnInit {
       name: ['']
     });
 
+    this.slider.value = 51;
   }
   drop(event: CdkDragDrop<string[]>) {
     moveItemInArray(this.conceptData.concepts, event.previousIndex, event.currentIndex);
@@ -260,14 +272,58 @@ export class BsrComponent implements OnInit {
 
 
   toggleNamebox() {
-   this.nameBox = !this.nameBox;
+  //  this.nameBox = !this.nameBox;
+  //  this.nameBoxB = !this.nameBoxB;
+      this.showSlider =  !this.showSlider;
   }
 
+  width = 400;
+  height = 200;
+  id = -1;
+  onResize({ width, height }: NzResizeEvent): void {
+    cancelAnimationFrame(this.id);
+    this.id = requestAnimationFrame(() => {
+      this.width = width!;
+      this.height = height!;
+    });
+  }
+
+  onInputChange(event: MatSliderChange) {
+    console.log("This is emitted as the thumb slides");
+    console.log(event.value);
+
+    if (event.value > 51) {
+      this.myMaxWith = '935px';
+      this.myMaxRWith = '300px';
+      this.myMaxRightWith = '-1px';
+      this.nameBox =false;
+      this.nameBoxB =false;
+    }else if (event.value <= 51 && event.value > 25) {
+      this.myMaxWith = '925px';
+      this.myMaxRWith = '293px';
+      this.myMaxRightWith = '8px';
+      this.nameBox = true;
+      this.nameBoxB = true;
+    } else if (event.value <= 25) {
+      this.myMaxWith = '335px';
+      this.myMaxRWith = '636px';
+      this.myMaxRightWith = '322px';
+      this.nameBox = true;
+      this.nameBoxB = false;
+      
+    }
+  }
 
 }
 
 
-// CKEDITOR WYSIWYG
+
+import { AngularEditorConfig } from '@kolkov/angular-editor';
+import { MatSliderChange } from '@angular/material/slider';
+
+
+
+// CKEDITOR WYSIWYG // **************************************************************************************************
 
 export interface DialogData {
   nameId: any;
@@ -279,6 +335,45 @@ export interface DialogData {
   styleUrls: ['./bsr.component.scss']
 })
 export class editPost {
+
+
+
+
+  config: AngularEditorConfig = {
+    editable: true,
+    spellcheck: true,
+    height: '15rem',
+    minHeight: '5rem',
+    placeholder: 'Enter text here...',
+    translate: 'no',
+    defaultParagraphSeparator: 'p',
+    defaultFontName: 'Arial',
+    toolbarHiddenButtons: [
+      ['bold']
+      ],
+    customClasses: [
+      {
+        name: "quote",
+        class: "quote",
+      },
+      {
+        name: 'redText',
+        class: 'redText'
+      },
+      {
+        name: "titleText",
+        class: "titleText",
+        tag: "h1",
+      },
+    ]
+  };
+
+
+
+
+
+
+
   public Editor = ClassicEditor;
 
   loginForm: FormGroup;
@@ -341,81 +436,87 @@ export class editPost {
           'blockQuote',
           'undo',
           'redo',
-          "Source",
-"Save",
-"NewPage",
-"DocProps",
-"Preview",
-"Print",
-"Templates",
-"document",
-"Cut",
-"Copy",
-"Paste",
-"PasteText",
-"PasteFromWord",
-"Undo",
-"Redo",
-"Find",
-"Replace",
-"SelectAll",
-"Scayt",
-"Form",
-"Checkbox",
-"Radio",
-"TextField",
-"Textarea",
-"Select",
-"Button",
-"ImageButton",
-"HiddenField",
-"Bold",
-"Italic",
-"Underline",
-"Strike",
-"Subscript",
-"Superscript",
-"RemoveFormat",
-"NumberedList",
-"BulletedList",
-"Outdent",
-"Indent",
-"Blockquote",
-"CreateDiv",
-"JustifyLeft",
-"JustifyCenter",
-"JustifyRight",
-"JustifyBlock",
-"BidiLtr",
-"BidiRtl",
-"Link",
-"Unlink",
-"Anchor",
-"CreatePlaceholder",
-"Image",
-"Flash",
-"Table",
-"HorizontalRule",
-"Smiley",
-"SpecialChar",
-"PageBreak",
-"Iframe",
-"InsertPre",
-"Styles",
-"Format",
-"Font",
-"FontSize",
-"TextColor",
-"BGColor",
-"UIColor",
-"Maximize",
-"ShowBlocks",
-"button1",
-"button2",
-"button3",
-"oembed",
-"MediaEmbed",
-"About"
+          'JustifyLeft',
+          'JustifyCenter',
+          'JustifyRight',
+          'JustifyBlock',
+          [ 'BulletedList', 'JustifyRight', 'JustifyLeft','Bold','Italic','Link', 'Unlink' ] 
+
+          // "Source",
+          // "Save",
+          // "NewPage",
+          // "DocProps",
+          // "Preview",
+          // "Print",
+          // "Templates",
+          // "document",
+          // "Cut",
+          // "Copy",
+          // "Paste",
+          // "PasteText",
+          // "PasteFromWord",
+          // "Undo",
+          // "Redo",
+          // "Find",
+          // "Replace",
+          // "SelectAll",
+          // "Scayt",
+          // "Form",
+          // "Checkbox",
+          // "Radio",
+          // "TextField",
+          // "Textarea",
+          // "Select",
+          // "Button",
+          // "ImageButton",
+          // "HiddenField",
+          // "Bold",
+          // "Italic",
+          // "Underline",
+          // "Strike",
+          // "Subscript",
+          // "Superscript",
+          // "RemoveFormat",
+          // "NumberedList",
+          // "BulletedList",
+          // "Outdent",
+          // "Indent",
+          // "Blockquote",
+          // "CreateDiv",
+          // "JustifyLeft",
+          // "JustifyCenter",
+          // "JustifyRight",
+          // "JustifyBlock",
+          // "BidiLtr",
+          // "BidiRtl",
+          // "Link",
+          // "Unlink",
+          // "Anchor",
+          // "CreatePlaceholder",
+          // "Image",
+          // "Flash",
+          // "Table",
+          // "HorizontalRule",
+          // "Smiley",
+          // "SpecialChar",
+          // "PageBreak",
+          // "Iframe",
+          // "InsertPre",
+          // "Styles",
+          // "Format",
+          // "Font",
+          // "FontSize",
+          // "TextColor",
+          // "BGColor",
+          // "UIColor",
+          // "Maximize",
+          // "ShowBlocks",
+          // "button1",
+          // "button2",
+          // "button3",
+          // "oembed",
+          // "MediaEmbed",
+          // "About"
         ],   
              
       }

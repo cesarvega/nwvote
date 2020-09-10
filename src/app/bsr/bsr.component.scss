@@ -116,6 +116,29 @@
   overflow-y: scroll;
   padding: 10px;
 }
+.names-container2 {
+  background-color: white;
+  width: 625px;
+  height: 630px;
+  position: relative;
+  right: 322px;
+  top: 134px;
+  overflow-x: hidden;
+  overflow-y: scroll;
+  padding: 10px;
+}
+
+.names-container3 {
+  background-color: white;
+  width: 0px;
+  height: 630px;
+  position: relative;
+  right: 322px;
+  top: 134px;
+  overflow-x: hidden;
+  overflow-y: scroll;
+  padding: 10px;
+}
 
 .post-list {
   width: 100px;
@@ -209,3 +232,64 @@
   max-height: 400px;
   min-height: 400px;
 }
+
+
+:host  ::ng-deep  {
+  display: block;
+  height: 200px;
+}
+
+.box {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: #eee;
+  border: 1px solid #ddd;
+}
+
+.bottom-right {
+  position: absolute;
+  top: 0;
+  left: 0;
+}
+
+.right-wrap {
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.right {
+  background: #fff;
+  border: 1px solid #ddd;
+  text-align: center;
+  font-size: 12px;
+  height: 20px;
+  line-height: 20px;
+}
+
+
+mat-slider {
+  width: 600px;
+  position: fixed;
+  top: 423px;
+  z-index: 99;
+  right: 455px;
+  color: lawngreen;
+}
+
+
+// .bounceIn {
+//   display: inline-block;
+//   margin: 0 0.5rem;
+
+//   animation: backInRight; /* referring directly to the animation's @keyframe declaration */
+//   animation-duration: 0.5s; /* don't forget to set a duration! */
+// }
+// .bounceOut {
+//   display: inline-block;
+//   margin: 0 0.5rem;
+
+//   animation: backOutRight; /* referring directly to the animation's @keyframe declaration */
+//   animation-duration: 0.5s; /* don't forget to set a duration! */
+// }

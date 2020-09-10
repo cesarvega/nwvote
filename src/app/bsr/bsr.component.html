@@ -84,9 +84,10 @@
                   <div class="col" style="color: white; font-size: 40px;font-family: Arial">
                     Brandstorm
                   </div>
-                  <div class="col"  (click)="toggleNamebox()" style="color: white; font-size: 40px;font-family: Arial; right: -370px;"  
+                  <div class="col" (click)="toggleNamebox()"
+                    style="color: white; font-size: 40px;font-family: Arial; right: -370px;"
                     [matTooltip]="'Names Create 0'" matTooltipPosition="right">
-                    Names 
+                    Names
                   </div>
                 </div>
               </mat-toolbar>
@@ -96,15 +97,25 @@
             <div class="col-md-12">
               <div class="row">
                 <div class="col-md-8">
-
+                  <!-- <div class="box" nz-resizable (nzResize)="onResize($event)" [style.height.px]="height" [style.width.px]="width">
+                    content
+                    <nz-resize-handle nzDirection="bottomRight">
+                      <i class="bottom-right" nz-icon nzType="caret-up" nzTheme="outline" [nzRotate]="135"></i>
+                    </nz-resize-handle>
+                    <nz-resize-handle nzDirection="right">
+                      <div class="right-wrap">
+                        <i class="right" nz-icon nzType="more" nzTheme="outline"></i>
+                      </div>
+                    </nz-resize-handle>
+                  </div> -->
                   <div class="presentation-box" style="overflow-y: scroll;">
 
                     <!-- POST_REPEATER -->
-                    <div class="row post-it-container" [ngStyle]="{'max-width': myMaxWith }" cdkDropList [cdkDropListData]="conceptData.concepts"
-                      (cdkDropListDropped)="drop($event)">
+                    <div class="row post-it-container" [ngStyle]="{'max-width': myMaxWith }" cdkDropList
+                      [cdkDropListData]="conceptData.concepts" (cdkDropListDropped)="drop($event)">
 
-                      <mat-card style="width: 300px;margin: 5px;height: 310px;background-color: lightgoldenrodyellow;" cdkDrag cdkDragLockAxis="xy"
-                        *ngFor="let item of conceptData.concepts; let i = index;">
+                      <mat-card style="width: 300px;margin: 5px;height: 310px;background-color: lightgoldenrodyellow;"
+                        cdkDrag cdkDragLockAxis="xy" *ngFor="let item of conceptData.concepts; let i = index;">
 
                         <!-- TITLE -->
 
@@ -136,24 +147,90 @@
 
                   </div>
                 </div>
-
-                <div class="col-md-4" *ngIf="nameBox">
+                <mat-slider (input)="onInputChange($event)">dsssss</mat-slider>
+                <div class="col-md-4" *ngIf="nameBox && nameBoxB">
                   <!-- NAMES BOX -->
 
-                  <div class="names-container">
+                  <div class="names-container bounceOut" [ngStyle]="{'max-width': myMaxRWith  }">
                     <div *ngFor="let  item of nameCandidates; let i = index">
-                      <span (dblclick)="openDialog(item, 'deleteName')" style="font-size:22px;margin: 10px;cursor: pointer;overflow: scroll;" [matTooltip]="item.Source" matTooltipPosition="right">
-                        {{item.Name}}                        
+                      <span (dblclick)="openDialog(item, 'deleteName')"
+                        style="font-size:22px;margin: 10px;cursor: pointer;overflow: scroll;" [matTooltip]="item.Source"
+                        matTooltipPosition="right">
+                        {{item.Name}}
                       </span>
                     </div>
 
-                    <form name="loginForm" [formGroup]="loginForm" novalidate class="name-form" 
+                    <form name="loginForm" [formGroup]="loginForm" novalidate class="name-form"
                       fxLayoutAlign="center center">
 
                       <mat-form-field style="width: 550px;">
-                        <input matInput type="New Name" placeholder="New Name" formControlName="name" [(ngModel)]="newName">
+                        <input matInput type="New Name" placeholder="New Name" formControlName="name"
+                          [(ngModel)]="newName">
                       </mat-form-field>
-                      <button (click)="submitNewName(); newName=''" mat-button color="success" aria-label="icon" style="outline: none;">
+                      <button (click)="submitNewName(); newName=''" mat-button color="success" aria-label="icon"
+                        style="outline: none;">
+                        SUBMIT
+                      </button>
+                    </form>
+
+                  </div>
+
+
+                </div>
+                <div *ngIf="true">
+                  <mat-slider step="54" min="1" *ngIf="true" tickInterval="auto" max="100"
+                    (input)="onInputChange($event)">dsssss</mat-slider>
+                </div>
+                <div class="col-md-4 " *ngIf="!nameBox && nameBoxB">
+                  <!-- NAMES BOX -->
+                 
+                  <div class="names-container3 bounceIn">
+                    <div *ngFor="let  item of nameCandidates; let i = index">
+                      <span (dblclick)="openDialog(item, 'deleteName')"
+                        style="font-size:22px;margin: 10px;cursor: pointer;overflow: scroll;" [matTooltip]="item.Source"
+                        matTooltipPosition="right">
+                        {{item.Name}}
+                      </span>
+                    </div>
+
+                    <form name="loginForm" [formGroup]="loginForm" novalidate class="name-form"
+                      fxLayoutAlign="center center">
+
+                      <mat-form-field style="width: 550px;">
+                        <input matInput type="New Name" placeholder="New Name" formControlName="name"
+                          [(ngModel)]="newName">
+                      </mat-form-field>
+                      <button (click)="submitNewName(); newName=''" mat-button color="success" aria-label="icon"
+                        style="outline: none;">
+                        SUBMIT
+                      </button>
+                    </form>
+
+                  </div>
+
+
+                </div>
+                <div class="col-md-4 " *ngIf="nameBox && !nameBoxB">
+                  <!-- NAMES BOX -->
+                  <mat-slider (input)="onInputChange($event)">dsssss</mat-slider>
+                  <div class="names-container2 bounceIn">
+                    <div *ngFor="let  item of nameCandidates; let i = index">
+                      <span (dblclick)="openDialog(item, 'deleteName')"
+                        style="font-size:22px;margin: 10px;cursor: pointer;overflow: scroll;" [matTooltip]="item.Source"
+                        matTooltipPosition="right">
+                        {{item.Name}}
+                      </span>
+                    </div>
+
+                    <form name="loginForm" [formGroup]="loginForm" novalidate class="name-form"
+                      fxLayoutAlign="center center">
+
+                      <mat-form-field style="width: 550px;">
+                        <input matInput type="New Name" placeholder="New Name" formControlName="name"
+                          [(ngModel)]="newName">
+                      </mat-form-field>
+                      <button (click)="submitNewName(); newName=''" mat-button color="success" aria-label="icon"
+                        style="outline: none;">
                         SUBMIT
                       </button>
                     </form>
