@@ -85,7 +85,7 @@
                     Brandstorm
                   </div>
                   <div class="col" (click)="toggleNamebox()"
-                    style="color: white; font-size: 40px;font-family: Arial; right: -370px;"
+                    style="color: white; font-size: 40px;font-family: Arial; right: -370px;cursor: pointer;"
                     [matTooltip]="'Names Create 0'" matTooltipPosition="right">
                     Names
                   </div>
@@ -137,7 +137,10 @@
 
                   </div>
                 </div>
-                <mat-slider *ngIf="true" (input)="onInputChange($event)">dsssss</mat-slider>
+
+
+
+                <mat-slider *ngIf="true" [(ngModel)]='sliderVal' [ngStyle]="{'display':slideCss}" (input)="onInputChange($event)">dsssss</mat-slider>
                 <div class="col-md-4" *ngIf="nameBox && nameBoxB">
                   <!-- NAMES BOX -->
 

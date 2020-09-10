@@ -22,7 +22,8 @@ export class BsrComponent implements OnInit {
   @ViewChild('slider')slider;
 
   loginForm: FormGroup;
-  valor: 51;
+  sliderVal = 51;
+  slideCss = 'none';
   projectId = 'rg2327';
   createPostIt = true;
   overview = false;
@@ -123,6 +124,7 @@ export class BsrComponent implements OnInit {
     });
 
     this.slider.value = 51;
+    this.slideCss = 'block';
   }
   drop(event: CdkDragDrop<string[]>) {
     moveItemInArray(this.conceptData.concepts, event.previousIndex, event.currentIndex);
@@ -275,6 +277,11 @@ export class BsrComponent implements OnInit {
   //  this.nameBox = !this.nameBox;
   //  this.nameBoxB = !this.nameBoxB;
       this.showSlider =  !this.showSlider;
+      if (this.showSlider) {
+        this.slideCss = 'block';
+      }else {
+        this.slideCss = 'none';
+      }
   }
 
 
