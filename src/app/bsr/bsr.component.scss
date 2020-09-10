@@ -203,3 +203,9 @@
     width: 254px;
   background-color: white;
 }
+
+
+:host ::ng-deep .ck-editor__editable_inline {
+  max-height: 400px;
+  min-height: 400px;
+}
