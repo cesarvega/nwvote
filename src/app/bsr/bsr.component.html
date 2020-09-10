@@ -137,7 +137,7 @@
 
                   </div>
                 </div>
-                <mat-slider (input)="onInputChange($event)">dsssss</mat-slider>
+                <mat-slider *ngIf="true" (input)="onInputChange($event)">dsssss</mat-slider>
                 <div class="col-md-4" *ngIf="nameBox && nameBoxB">
                   <!-- NAMES BOX -->
 
@@ -168,8 +168,7 @@
 
                 </div>
                 <div *ngIf="true">
-                  <mat-slider step="54" min="1" *ngIf="true" tickInterval="auto" max="100"
-                    (input)="onInputChange($event)">dsssss</mat-slider>
+               
                 </div>
                 <div class="col-md-4 " *ngIf="!nameBox && nameBoxB">
                   <!-- NAMES BOX -->
@@ -202,7 +201,7 @@
                 </div>
                 <div class="col-md-4 " *ngIf="nameBox && !nameBoxB">
                   <!-- NAMES BOX -->
-                  <mat-slider (input)="onInputChange($event)">dsssss</mat-slider>
+                
                   <div class="names-container2 bounceIn">
                     <div *ngFor="let  item of nameCandidates; let i = index">
                       <span (dblclick)="openDialog(item, 'deleteName')"
