@@ -31,6 +31,8 @@ import { FormsModule } from '@angular/forms';
 import { FcastilloComponent } from './fcastillo/fcastillo.component';
 import { MatSlideToggleModule } from '@angular/material/slide-toggle';
 import {MatSliderModule} from '@angular/material/slider';
+import { AngularEditorModule } from '@kolkov/angular-editor';
+
 @NgModule({
   declarations: [
     AppComponent,
@@ -66,7 +68,9 @@ import {MatSliderModule} from '@angular/material/slider';
     CKEditorModule,
     FormsModule,
     HotkeyModule.forRoot(),
-    MatSliderModule
+    MatSliderModule,
+    AngularEditorModule,
+    
   ],
   providers: [NwvoteService, BsrMobileService],
   bootstrap: [AppComponent]

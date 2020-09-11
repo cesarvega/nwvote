@@ -27,8 +27,21 @@
               <mat-icon>lightbulb_outline</mat-icon>
             </button>
 
-            <input class="search" placeholder="search" type="text">
-
+            <input class="search" placeholder="search" type="text" (keypress)="searchTerm($event.target.value)">
+            <div class="col" *ngIf="isSearching">
+              <div style="
+              width: 149px;
+              height: 580px;
+              overflow-y: scroll;
+              position: relative;
+              left: -186px;
+              bottom: 310px;">
+                <mat-card (click)="goToSlide(i)" class="example-card" *ngFor="let item of appSlidesData; let i = index">
+                  <img [src]="'http://www.bipresents.com/' + item.SlideBGFileName" alt="overview"
+                    style="max-width: 100px;cursor: pointer;">
+                </mat-card>
+              </div>
+            </div>
             <button (click)="moveBackward()" mat-icon-button color="primary"
               aria-label="Example icon-button with a heart icon">
               <mat-icon>chevron_left</mat-icon>
@@ -58,7 +71,7 @@
               Proprietary & Confidential
             </button>
 
-            <button (click)="bsr()" mat-icon-button aria-label="page" style="width: 100px;">
+            <button (click)="bsr()" mat-icon-button aria-label="page" style="width: 100px;font-size: 23px;">
               {{pageCounter}}
             </button>
 
@@ -86,7 +99,7 @@
                   </div>
                   <div class="col" (click)="toggleNamebox()"
                     style="color: white; font-size: 40px;font-family: Arial; right: -370px;cursor: pointer;"
-                    [matTooltip]="'Names Create 0'" matTooltipPosition="right">
+                    [matTooltip]="'Names Create '+ nameCandidates.length" matTooltipPosition="right">
                     Names
                   </div>
                 </div>
@@ -97,7 +110,7 @@
             <div class="col-md-12">
               <div class="row">
                 <div class="col-md-8">
-                
+
                   <div class="presentation-box" style="overflow-y: scroll;">
 
                     <!-- POST_REPEATER -->
@@ -139,10 +152,11 @@
                 </div>
 
 
-
-                <mat-slider *ngIf="true" [(ngModel)]='sliderVal' [ngStyle]="{'display':slideCss}" (input)="onInputChange($event)">dsssss</mat-slider>
+                <!-- SLIDER -->
+                <mat-slider *ngIf="true" [(ngModel)]='sliderVal' [ngStyle]="{'display':slideCss}"
+                  (input)="onInputChange($event)"></mat-slider>
                 <div class="col-md-4" *ngIf="nameBox && nameBoxB">
-                  <!-- NAMES BOX -->
+                  <!-- NAMES  nameCandidates BOX -->
 
                   <div class="names-container bounceOut" [ngStyle]="{'max-width': myMaxRWith  }">
                     <div *ngFor="let  item of nameCandidates; let i = index">
@@ -171,11 +185,12 @@
 
                 </div>
                 <div *ngIf="true">
-               
+
                 </div>
+
                 <div class="col-md-4 " *ngIf="!nameBox && nameBoxB">
                   <!-- NAMES BOX -->
-                 
+
                   <div class="names-container3 bounceIn">
                     <div *ngFor="let  item of nameCandidates; let i = index">
                       <span (dblclick)="openDialog(item, 'deleteName')"
@@ -202,9 +217,10 @@
 
 
                 </div>
+
                 <div class="col-md-4 " *ngIf="nameBox && !nameBoxB">
                   <!-- NAMES BOX -->
-                
+
                   <div class="names-container2 bounceIn">
                     <div *ngFor="let  item of nameCandidates; let i = index">
                       <span (dblclick)="openDialog(item, 'deleteName')"
@@ -247,8 +263,23 @@
                       <mat-icon>note_add</mat-icon>
                     </button>
 
-                    <input class="search" placeholder="search" type="text">
-
+                    <input class="search" placeholder="search" type="text" (input)="onInputChange($event)"
+                      (keypress)="searchTerm($event.target.value)">
+                      <div class="col" *ngIf="isSearching">
+                        <div style="
+                           width: 149px;
+                           height: 350px;
+                           overflow-y: scroll;
+                           position: relative;
+                           left: -186px;
+                           bottom: 200px;
+                           z-index: 99999999999999;">
+                          <mat-card (click)="goToSlide(i)" class="example-card" *ngFor="let item of appSlidesData; let i = index">
+                            <img [src]="'http://www.bipresents.com/' + item.SlideBGFileName" alt="overview"
+                              style="max-width: 100px;cursor: pointer;">
+                          </mat-card>
+                        </div>
+                      </div>
                     <button (click)="moveBackward()" mat-icon-button color="accent"
                       aria-label="Example icon-button with a heart icon">
                       <mat-icon>chevron_left</mat-icon>
@@ -266,7 +297,7 @@
                     </button>
 
 
-                    <button mat-icon-button aria-label="page" style="width: 100px;">
+                    <button mat-icon-button aria-label="page" style="width: 100px;font-size: 23px;">
                       {{pageCounter}}
                     </button>
 

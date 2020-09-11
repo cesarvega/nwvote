@@ -8,8 +8,14 @@ import { FormBuilder, Validators, FormGroup } from '@angular/forms';
 import { MatDialog, MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 
 import * as ClassicEditor from '@ckeditor/ckeditor5-build-classic';
-import { NzResizeEvent } from 'ng-zorro-antd/resizable';
 
+
+
+// import Strikethrough from '@ckeditor/ckeditor5-basic-styles/src/strikethrough';
+
+// import HeadingButtonsUI from '@ckeditor/ckeditor5-heading/src/headingbuttonsui';
+
+// import ParagraphButtonUI from '@ckeditor/ckeditor5-paragraph/src/paragraphbuttonui';
 
 
 @Component({
@@ -19,13 +25,15 @@ import { NzResizeEvent } from 'ng-zorro-antd/resizable';
 })
 export class BsrComponent implements OnInit {
 
-  @ViewChild('slider')slider;
+  @ViewChild('slider') slider;
 
   loginForm: FormGroup;
   sliderVal = 51;
+  totalNumberOfnames = 51;
   slideCss = 'none';
   projectId = 'rg2327';
   createPostIt = true;
+  isSearching = false;
   overview = false;
   isNSR = false;
   slideBackground = 'background-image: url(http://www.bipresents.com/';
@@ -49,6 +57,7 @@ export class BsrComponent implements OnInit {
   myMaxRWith = '900px';
   myMaxRightWith = '8px';
   showSlider: boolean = false;
+  positPresentationIndex: number;
   constructor(private _formBuilder: FormBuilder, private _hotkeysService: HotkeysService, private _BsrService: BsrService, public dialog: MatDialog) {
 
     // keyboard keymaps
@@ -73,14 +82,14 @@ export class BsrComponent implements OnInit {
       this.sideMenu();
       return false;
     }, undefined, 'Hide/Show slide overview'));
-    this._hotkeysService.add(new Hotkey('b', (event: KeyboardEvent): boolean => {
-      // this.removeBackground();
-      return false;
-    }, undefined, 'Remove background'));
-    this._hotkeysService.add(new Hotkey('s', (event: KeyboardEvent): boolean => {
-      // this.timeToDisplayticker();
-      return false;
-    }, undefined, 'Show stock ticker'));
+    // this._hotkeysService.add(new Hotkey('b', (event: KeyboardEvent): boolean => {
+    //   // this.removeBackground();
+    //   return false;
+    // }, undefined, 'Remove background'));
+    // this._hotkeysService.add(new Hotkey('s', (event: KeyboardEvent): boolean => {
+    //   // this.timeToDisplayticker();
+    //   return false;
+    // }, undefined, 'Show stock ticker'));
     this._hotkeysService.add(new Hotkey('esc', (event: KeyboardEvent): boolean => {
       this._hotkeysService.cheatSheetToggle.next(false);
       return false;
@@ -139,6 +148,7 @@ export class BsrComponent implements OnInit {
         this.conceptData = JSON.parse(res[0].bsrData);
         if (JSON.parse(res[0].bsrData).presentationtype = 'NSR') {
           this.isNSR = true;
+
         }
         console.log(this.conceptData);
       });
@@ -154,11 +164,15 @@ export class BsrComponent implements OnInit {
 
   // TOOLBAR MENU ACTIONS 
   moveForward() {
-    this.createPostIt = false
+    this.createPostIt = false;
     if (this.totalNumberOfSlides >= this.currentPageNumber) {
       this.pageCounter = this.currentPageNumber + '/' + this.totalNumberOfSlides;
       this.currentPageNumber = this.currentPageNumber + 1;
       this.slideBackground = this.baseBackgroundUrl + this.appSlidesData[this.currentPageNumber].SlideBGFileName + ')';
+      if (this.appSlidesData[this.currentPageNumber].SlideType === "NameSummary") {
+        this.positPresentationIndex = this.currentPageNumber;
+        this.createPostIt = true;
+      }
     }
   }
 
@@ -168,11 +182,18 @@ export class BsrComponent implements OnInit {
       this.pageCounter = this.currentPageNumber + '/' + this.totalNumberOfSlides;
       this.currentPageNumber = this.currentPageNumber - 1;
       this.slideBackground = this.baseBackgroundUrl + this.appSlidesData[this.currentPageNumber].SlideBGFileName + ')';
+      if (this.appSlidesData[this.currentPageNumber].SlideType === "NameSummary") {
+        this.positPresentationIndex = this.currentPageNumber;
+        this.createPostIt = true;
+      }
     }
   }
 
   submitNewName() {
-    this._BsrService.sendNewName(this.loginForm.value.name, this.isNSR).subscribe(arg => {
+    
+    this.loginForm.value.name.split(',').forEach(element => {
+      this._BsrService.sendNewName(element, this.isNSR).subscribe(arg => {
+      });
     });
     setTimeout(() => {
       this._BsrService.getNameCandidates(this.projectId).subscribe((res: any) => {
@@ -209,6 +230,7 @@ export class BsrComponent implements OnInit {
   }
 
   home() {
+    this.currentPageNumber = 1;
     this.pageCounter = '1/' + this.totalNumberOfSlides;
     this.slideBackground = this.baseBackgroundUrl + this.appSlidesData[0].SlideBGFileName + ')';
     this.createPostIt = false
@@ -217,6 +239,7 @@ export class BsrComponent implements OnInit {
 
   bsr() {
     this.createPostIt = !this.createPostIt;
+    this.currentPageNumber = (this.positPresentationIndex)?this.positPresentationIndex:58;
     console.log('bsr');
   }
 
@@ -268,21 +291,26 @@ export class BsrComponent implements OnInit {
           console.log(this.conceptData);
         });
       }
-    });
+      this._BsrService.getNameCandidates(this.projectId).subscribe((res: any) => {
+        this.nameCandidates = res;
+      });
+    }
+    );
   }
 
 
 
   toggleNamebox() {
-  //  this.nameBox = !this.nameBox;
-  //  this.nameBoxB = !this.nameBoxB;
-      this.showSlider =  !this.showSlider;
-      if (this.showSlider) {
-        this.slideCss = 'block';
-      }else {
-        this.slideCss = 'none';
-      }
+    //  this.nameBox = !this.nameBox;
+    //  this.nameBoxB = !this.nameBoxB;
+    this.showSlider = !this.showSlider;
+    if (this.showSlider) {
+      this.slideCss = 'block';
+    } else {
+      this.slideCss = 'none';
+    }
   }
+
 
 
   onInputChange(event: MatSliderChange) {
@@ -293,9 +321,9 @@ export class BsrComponent implements OnInit {
       this.myMaxWith = '935px';
       this.myMaxRWith = '300px';
       this.myMaxRightWith = '-1px';
-      this.nameBox =false;
-      this.nameBoxB =false;
-    }else if (event.value <= 51 && event.value > 25) {
+      this.nameBox = false;
+      this.nameBoxB = false;
+    } else if (event.value <= 51 && event.value > 25) {
       this.myMaxWith = '925px';
       this.myMaxRWith = '293px';
       this.myMaxRightWith = '8px';
@@ -307,9 +335,20 @@ export class BsrComponent implements OnInit {
       this.myMaxRightWith = '322px';
       this.nameBox = true;
       this.nameBoxB = false;
-      
+
     }
   }
+
+  searchTerm(searchValue: string): void {
+    if (searchValue.length == 0) {
+      this.isSearching = false;
+    } else {
+
+      this.isSearching = true;
+    }
+    console.log(searchValue);
+  }
+
 
 }
 
@@ -326,15 +365,14 @@ export interface DialogData {
   nameId: any;
   name: any;
 }
+
 @Component({
   selector: 'editPost',
   templateUrl: 'editPost-it.html',
   styleUrls: ['./bsr.component.scss']
 })
 export class editPost {
-
-
-
+  name = 'Angular 6';
 
   config: AngularEditorConfig = {
     editable: true,
@@ -347,7 +385,7 @@ export class editPost {
     defaultFontName: 'Arial',
     toolbarHiddenButtons: [
       ['bold']
-      ],
+    ],
     customClasses: [
       {
         name: "quote",
@@ -365,12 +403,6 @@ export class editPost {
     ]
   };
 
-
-
-
-
-
-
   public Editor = ClassicEditor;
 
   loginForm: FormGroup;
@@ -387,6 +419,7 @@ export class editPost {
     editorData: '',
     namesData: ''
   };
+  isMobileInfo: boolean;
   constructor(
     public dialogRef: MatDialogRef<editPost>,
     @Inject(MAT_DIALOG_DATA) public data: DialogData, private _formBuilder: FormBuilder, private _BsrService: BsrService,) {
@@ -413,282 +446,59 @@ export class editPost {
       this.infoMessage = true;
       this.isDeleting = false;
     }
+
+    if (this.data.name === 'mobileInfo') {
+      this.infoMessage = false;
+      this.isDeleting = false;
+      this.isMobileInfo = true;
+    }
+
+
     this.loginForm = this._formBuilder.group({
       rationale: [''],
       suma: [''],
       name: [this.concept]
     });
 
-    this.Editor.defaultConfig = {
-      toolbar: {
-        items: [
-          'heading',
-          '|',
-          'bold',
-          'italic',
-          'link',
-          'bulletedList',
-          'numberedList',
-          'alignment',
-          'blockQuote',
-          'undo',
-          'redo',
-          'JustifyLeft',
-          'JustifyCenter',
-          'JustifyRight',
-          'JustifyBlock',
-          [ 'BulletedList', 'JustifyRight', 'JustifyLeft','Bold','Italic','Link', 'Unlink' ] 
-
-          // "Source",
-          // "Save",
-          // "NewPage",
-          // "DocProps",
-          // "Preview",
-          // "Print",
-          // "Templates",
-          // "document",
-          // "Cut",
-          // "Copy",
-          // "Paste",
-          // "PasteText",
-          // "PasteFromWord",
-          // "Undo",
-          // "Redo",
-          // "Find",
-          // "Replace",
-          // "SelectAll",
-          // "Scayt",
-          // "Form",
-          // "Checkbox",
-          // "Radio",
-          // "TextField",
-          // "Textarea",
-          // "Select",
-          // "Button",
-          // "ImageButton",
-          // "HiddenField",
-          // "Bold",
-          // "Italic",
-          // "Underline",
-          // "Strike",
-          // "Subscript",
-          // "Superscript",
-          // "RemoveFormat",
-          // "NumberedList",
-          // "BulletedList",
-          // "Outdent",
-          // "Indent",
-          // "Blockquote",
-          // "CreateDiv",
-          // "JustifyLeft",
-          // "JustifyCenter",
-          // "JustifyRight",
-          // "JustifyBlock",
-          // "BidiLtr",
-          // "BidiRtl",
-          // "Link",
-          // "Unlink",
-          // "Anchor",
-          // "CreatePlaceholder",
-          // "Image",
-          // "Flash",
-          // "Table",
-          // "HorizontalRule",
-          // "Smiley",
-          // "SpecialChar",
-          // "PageBreak",
-          // "Iframe",
-          // "InsertPre",
-          // "Styles",
-          // "Format",
-          // "Font",
-          // "FontSize",
-          // "TextColor",
-          // "BGColor",
-          // "UIColor",
-          // "Maximize",
-          // "ShowBlocks",
-          // "button1",
-          // "button2",
-          // "button3",
-          // "oembed",
-          // "MediaEmbed",
-          // "About"
-        ],   
-             
-      }
-    }
-    this.Editor.width =100;
-    this.Editor.height =100;
+    // this.Editor.defaultConfig = {
+    //   toolbarGroups: [
+    //     { name: 'document', groups: [ 'mode', 'document', 'doctools' ] },
+    //     { name: 'clipboard', groups: [ 'clipboard', 'undo' ] },
+    //     { name: 'editing', groups: [ 'find', 'selection', 'spellchecker' ] },
+    //     { name: 'forms' },
+    //     '/',
+    //     { name: 'basicstyles', groups: [ 'basicstyles', 'cleanup' ] },
+    //     { name: 'paragraph', groups: [ 'list', 'indent', 'blocks', 'align', 'bidi' ] },
+    //     { name: 'links' },
+    //     { name: 'insert' },
+    //     '/',
+    //     { name: 'styles' },
+    //     { name: 'colors' },
+    //     { name: 'tools' },
+    //     { name: 'others' },
+    //     { name: 'about' }
+    //   ],
+    //   toolbar : [
+    //     { name: 'document', groups: [ 'mode', 'document', 'doctools' ], items: [ 'Source', '-', 'Save', 'NewPage', 'ExportPdf', 'Preview', 'Print', '-', 'Templates' ] },
+    //     { name: 'clipboard', groups: [ 'clipboard', 'undo' ], items: [ 'Cut', 'Copy', 'Paste', 'PasteText', 'PasteFromWord', '-', 'Undo', 'Redo' ] },
+    //     { name: 'editing', groups: [ 'find', 'selection', 'spellchecker' ], items: [ 'Find', 'Replace', '-', 'SelectAll', '-', 'Scayt' ] },
+    //     { name: 'forms', items: [ 'Form', 'Checkbox', 'Radio', 'TextField', 'Textarea', 'Select', 'Button', 'ImageButton', 'HiddenField' ] },
+    //     '/',
+    //     { name: 'basicstyles', groups: [ 'basicstyles', 'cleanup' ], items: [ 'Bold', 'Italic', 'Underline', 'Strike', 'Subscript', 'Superscript', '-', 'CopyFormatting', 'RemoveFormat' ] },
+    //     { name: 'paragraph', groups: [ 'list', 'indent', 'blocks', 'align', 'bidi' ], items: [ 'NumberedList', 'BulletedList', '-', 'Outdent', 'Indent', '-', 'Blockquote', 'CreateDiv', '-', 'JustifyLeft', 'JustifyCenter', 'JustifyRight', 'JustifyBlock', '-', 'BidiLtr', 'BidiRtl', 'Language' ] },
+    //     { name: 'links', items: [ 'Link', 'Unlink', 'Anchor' ] },
+    //     { name: 'insert', items: [ 'Image', 'Flash', 'Table', 'HorizontalRule', 'Smiley', 'SpecialChar', 'PageBreak', 'Iframe' ] },
+    //     '/',
+    //     { name: 'styles', items: [ 'Styles', 'Format', 'Font', 'FontSize' ] },
+    //     { name: 'colors', items: [ 'TextColor', 'BGColor' ] },
+    //     { name: 'tools', items: [ 'Maximize', 'ShowBlocks' ] },
+    //     { name: 'others', items: [ '-' ] },
+    //     { name: 'about', items: [ 'About' ] }
+    //   ]
+    // }
+    // this.Editor.width =100;
+    // this.Editor.height =100;
   }
-  
-
-
-  
- 	
-    
-     
-    
-     
-    
-     
-    
-     
-    
-     
-    
-     
-    
-   
-     
-    
-     
-    
-     
-    
-     
-    
-     
-    
-     
-    
-     
-    
-   
-     
-    
-     
-    
-     
-    
-     
-    
-   
-     
-    
-     
-    
-     
-    
-     
-    
-     
-    
-     
-    
-     
-    
-     
-    
-     
-    
-   
-     
-    
-     
-    
-     
-    
-     
-    
-     
-    
-     
-    
-     
-    
-   
-     
-    
-     
-    
-     
-    
-     
-    
-     
-    
-     
-    
-     
-    
-     
-    
-     
-    
-     
-    
-     
-    
-     
-    
-   
-     
-    
-     
-    
-     
-    
-   
-     
-    
-     
-    
-     
-    
-     
-    
-     
-    
-     
-    
-     
-    
-     
-    
-     
-    
-     
-    
-   
-     
-    
-     
-    
-     
-    
-     
-    
-   
-     
-    
-     
-    
-   
-     
-    
-     
-    
-     
-    
-   
-     
-    
-     
-    
-     
-    
-     
-    
-     
-    
-   
-     
-  
-
-
-
-
 
 
   onReady(editor) {
@@ -707,7 +517,7 @@ export class editPost {
     else if (option === 'savePost') {
       this.isDeleting = false;
 
-      
+
 
       let newConcepData = {
         projectId: this.projectId,
@@ -729,7 +539,11 @@ export class editPost {
     } else {
       this.dialogRef.close('cancel');
     }
-
+    this.loginForm.value.suma.split('\n').forEach(element => {
+      this._BsrService.sendNewName(element, false).subscribe(arg => {
+      });
+    });
+    
   }
 
   onNoClick(): void {

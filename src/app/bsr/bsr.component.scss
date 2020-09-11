@@ -27,17 +27,20 @@
 
 .toolbar {
   position: absolute;
-  bottom: 11px;
-  height: 50px;
-  width: 800px;
-  margin-left: 80px;
-  border-radius: 10px;
-  opacity: 0.95;
+    bottom: 11px;
+    height: 50px;
+    width: 819px;
+    margin-left: 60px;
+    border-radius: 10px;
+    opacity: 0.95;
 
   .search {
-    border-radius: 1px;
+    border-radius: 1px solid grey;
     width: 150px;
     margin-right: 20px;
+    font-size: 16px;
+    padding-left: 6px;
+    
   }
 
   .mat-icon {
@@ -51,18 +54,21 @@
 }
 
 .toolbar-postit {
-  position: absolute;
-  bottom: -58px;
+  position: relative;
+  bottom: -10px;
+  left: 280px;
   height: 50px;
-  width: 550px;
-  margin-left: 265px;
+  width: 540px;
+  /* margin-left: 240px; */
   border-radius: 10px;
-  opacity: 0.95;
+  opacity: 0.9;
 
   .search {
     border-radius: 1px;
     width: 150px;
     margin-right: 20px;
+    font-size: 16px;
+    padding-left: 6px;
   }
 
   .mat-icon {
@@ -268,17 +274,19 @@
   line-height: 20px;
 }
 
-
 mat-slider {
   width: 600px;
   position: fixed;
-  top: 105px;
+  top: 109px;
   z-index: 99;
   right: 455px;
   color: lawngreen;
 }
 
-
+.instruction-style{
+  border: black solid 1px;
+  padding-block: 10px;
+}
 // .bounceIn {
 //   display: inline-block;
 //   margin: 0 0.5rem;

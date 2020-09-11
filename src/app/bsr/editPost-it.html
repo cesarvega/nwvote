@@ -1,5 +1,6 @@
-<div *ngIf="infoMessage">
-   
+<div style="position: relative;" fxLayoutAlign="center center">
+    <div *ngIf="infoMessage && !isMobileInfo" style="width: 400px;height: 500px;" >
+
 
 
         <div *ngIf="!isDeleting" class="mat-h2" style="text-align: center;">Are you sure you want to delete? </div>
@@ -9,67 +10,212 @@
 
         <div class="row" style="text-align: center;">
 
-            <div fxFlex fxLayoutAlign="end end">            
+            <div fxFlex fxLayoutAlign="end end">
                 <div fxFlex>
-                   
+
                     <button *ngIf="!isDeleting" (click)="buttonOption('cancel')" class="refreshbutton" mat-mini-fab
-                        style="color: white;background-color: green;padding: 4px;outline: none;" color="success" aria-label="icon">
+                        style="color: white;background-color: green;padding: 4px;outline: none;" color="success"
+                        aria-label="icon">
                         <mat-icon>cancel</mat-icon>
-                    </button><br> <div style="color: #000;">cancel</div> 
+                    </button><br>
+                    <div style="color: #000;">cancel</div>
                 </div>
 
                 <div fxFlex>
-                  
-                    <button *ngIf="!isDeleting && isDeletingName" (click)="buttonOption('delete')" class="refreshbutton" mat-mini-fab
-                        style="color: white;background-color: red;padding: 4px;outline: none;" color="success" aria-label="icon">
+
+                    <button *ngIf="!isDeleting && isDeletingName" (click)="buttonOption('delete')" class="refreshbutton"
+                        mat-mini-fab style="color: white;background-color: red;padding: 4px;outline: none;"
+                        color="success" aria-label="icon">
                         <mat-icon>check</mat-icon>
-                    </button><br> <div style="color: #000;">delete</div> 
-                    <button *ngIf="!isDeleting && !isDeletingName" (click)="buttonOption('deleteName')" class="refreshbutton" mat-mini-fab
-                        style="color: white;background-color: red;padding: 4px;outline: none;" color="success" aria-label="icon">
+                    </button><br>
+                    <div style="color: #000;">delete</div>
+                    <button *ngIf="!isDeleting && !isDeletingName" (click)="buttonOption('deleteName')"
+                        class="refreshbutton" mat-mini-fab
+                        style="color: white;background-color: red;padding: 4px;outline: none;" color="success"
+                        aria-label="icon">
                         <mat-icon>delete</mat-icon>
                     </button>
                 </div>
             </div>
         </div>
 
-</div>
-<div *ngIf="!infoMessage" style="height: 500px;">
 
-    <form name="loginForm" [formGroup]="loginForm" novalidate class="nameform" fxLayoutAlign="center center">
+    </div>
 
-        <mat-form-field *ngIf="!isDeleting"  style="width: 550px;">         
-            <input matInput type="title" placeholder="title" formControlName="name" >
-        </mat-form-field>
-    </form>
+    <div *ngIf="!infoMessage && !isMobileInfo" style="height: 500px;">
 
-    <hr>
-    <div class="mat-h3" style="text-align: center;color: #000;" >
-        <div class="row">
-            <div class="col-md-6">
-                <div>Key Words and Concepts</div> 
-                <ckeditor [editor]="Editor" [data]="dataEditor" style="max-height: 400px;"
-                 [(ngModel)]="model.editorData" class="ckeditorcev" ></ckeditor>
+        <form name="loginForm" [formGroup]="loginForm" novalidate class="">
+            <div fxLayoutAlign="center center">
+
+                <mat-form-field *ngIf="!isDeleting" style="width: 550px;" appearance="outline">
+                    <mat-label>CONCEPT</mat-label>
+                    <input matInput type="Concept" placeholder="Concept" formControlName="name">
+                </mat-form-field>
             </div>
-            <div class="col-md-1">  <button (click)="buttonOption('savePost')" class="refreshbutton" mat-button style="font-size: 8px;"
-                color="success" aria-label="icon">
-              SYNONYMS
-            </button></div>
-            <div class="col-md-5" >
-                <div>Name Candidates</div>
-                <mat-form-field style="width: 550px;">                    
-                    <textarea matInput  cdkTextareaAutosize  cdkAutosizeMinRows="23"
-                    cdkAutosizeMaxRows="23" style="max-height: 400px;border-top:solid black 1px;border-left:solid black 1px;border-right:solid black 1px" appearance="outline" formControlName="suma"></textarea>
-                  </mat-form-field>
-                <!-- <ckeditor [editor]="Editor" [data]="dataEditor" [(ngModel)]="model.namesData" style="max-height: 400px;"></ckeditor> -->
+
+            <hr style="background-color: #004684;">
+            <div class="mat-h3" style="text-align: center;color: #000;">
+                <div class="row">
+                    <div class="col-md-6">
+                        <div>Key Words and Concepts</div>
+                        <ckeditor [editor]="Editor" [data]="dataEditor" (ready)="onReady($event)"
+                            [(ngModel)]="model.editorData" class="ckeditorcev"></ckeditor>
+                        <!-- <angular-editor [(ngModel)]="model.editorData" [config]="config"></angular-editor> -->
+                    </div>
+
+
+
+
+                    <div class="col-md-1"> <button (click)="buttonOption('savePost')" class="refreshbutton" mat-button
+                            style="font-size: 8px;" color="success" aria-label="icon">
+                            SYNONYMS
+                        </button></div>
+                    <div class="col-md-5">
+                        <div>Name Candidates</div>
+
+                        <mat-form-field style="width: 550px;">
+                            <textarea matInput cdkTextareaAutosize cdkAutosizeMinRows="23" formControlName="suma"
+                                cdkAutosizeMaxRows="23"
+                                style="max-height: 400px;border-top:solid black 1px;border-left:solid black 1px;border-right:solid black 1px"
+                                appearance="outline" formControlName="suma"></textarea>
+                        </mat-form-field>
+                        <!-- <ckeditor [editor]="Editor" [data]="dataEditor" [(ngModel)]="model.namesData" style="max-height: 400px;"></ckeditor> -->
+                    </div>
+                </div>
             </div>
+        </form>
+
+        <div fxLayoutAlign="end end">
+            <button (click)="buttonOption('savePost')" class="refreshbutton" mat-fab style="color: white;position: fixed;
+        bottom: 100px;background-color: green;padding: 4px;outline: none;" color="success" aria-label="icon">
+                <mat-icon>check</mat-icon>
+            </button>
         </div>
     </div>
 
-    <div fxLayoutAlign="end end">
-        <button (click)="buttonOption('savePost')" class="refreshbutton" mat-fab style="color: white;position: fixed;
-        bottom: 100px;background-color: green;padding: 4px;outline: none;"
-            color="success" aria-label="icon">
-            <mat-icon>check</mat-icon>
-        </button>
+
+    <div *ngIf="isMobileInfo" style="height: 300px;text-align: center;font-size-adjust: 100px;">
+
+        <div class="row" layout-align="center center">
+
+            <div flex="" class="text-center flex" style="margin:0 10px">
+                <p>1. Access
+                    www.mynamepage.com/ti823</p>
+                <img class="instruction-style" src="assets/img/bsr/login_page.png" alt="Login">
+            </div>
+            <div flex="" class="text-center flex" style="margin-right:10px">
+                <p>2.
+                    Enter name suggestions</p>
+                <img class="instruction-style" src="assets/img/bsr/page_creation.png" alt="Candidates">
+            </div>
+            <div flex="" class="text-center flex">
+                <p>3.
+                    Edit name suggestions (optional)</p>
+                <img class="instruction-style" src="assets/img/bsr/editing_name.png" alt="Edit, Save and Delete">
+            </div>
+            <div flex="" class="text-center flex" style="margin:0 10px">
+                <p>4.
+                    Complete</p>
+                <img class="instruction-style" src="assets/img/bsr/thank_you_page.png" alt="Logout">
+            </div>
+        </div>
+        <div fxLayoutAlign="end end">
+            <button (click)="buttonOption('')" class="refreshbutton" mat-fab style="color: white;position: fixed;
+        bottom: 100px;background-color: #004684;padding: 4px;outline: none;" color="success" aria-label="icon">
+                <mat-icon>cancel</mat-icon>
+            </button>
+        </div>
+
+        <div ng-hide="!bsrMenubarController.isItNSR" class="nonprop-name-rule-style" aria-hidden="false" style="">
+
+            <h4>
+                The letters h, j, k, w, and y should be avoided
+            </h4>
+
+            <h2 style="line-height: 1.5;margin-top:0px;">
+                A B C D E F G H I J K L M N O P Q R S T U V W <mark>X</mark> Y <mark>Z</mark>
+            </h2>
+
+            <h4>
+                Do Not Start With
+            </h4>
+
+            <ul>
+                <li>
+                    No Double Letters (OO, EE, etc.) OR Triple Consonants
+                </li>
+                <li>
+                    Avoid Double Vowels (Qu- is the only exception)
+                </li>
+                <li>
+                    No Numerical Connotations (TRI, DUB, etc.)
+                </li>
+                <li>
+                    Preferences: “F” not “PH” / “T” not “TH”/ “E” not “AE” or “OE”/ “I” not “Y”
+                </li>
+                <li>
+                    Avoid Beginning Letter Combination with “ME” or “STR”
+                </li>
+                <li>
+                    Total Name (Prefix+Stem) = 4 to 5 Syllables
+                </li>
+                <li>
+                    Special Cases Exist – Please Note Rules Above Are for Prefix + Stem Structure
+                </li>
+                <li>
+                    <mark>Use the letters X, and Z to a minimum</mark>
+                </li>
+            </ul>
+
+            <h4>
+                <b>
+                    <u>
+                        Rules concerning letters
+                    </u>
+                </b>
+            </h4>
+
+            <ul>
+                <li>
+                    The beginning letter sequences “ar-”, “rac-”, “lev-”, “dex-”, “zu-“ or “es-” are reserved for
+                    stereochemical configurations
+                </li>
+                <li type="square" style="padding-left:30px;">
+                    Only used if an isomer of the compound has already been assigned a nonproprietary name
+                </li>
+            </ul>
+
+            <h4>
+                <b>
+                    <u>
+                        Rules concerning meanings
+                    </u>
+                </b>
+            </h4>
+
+            <ul>
+                <li>
+                    Prefixes should not explicitly or implicitly contain any references to:
+                </li>
+                <li type="square" style="padding-left:30px;">
+                    chemical structure (unless present in the compound)
+                </li>
+                <li type="square" style="padding-left:30px;">
+                    anatomical targets or medical conditions to treat
+                </li>
+                <li type="disc" style="padding-left:60px;">
+                    eg “bone-”, “tumo-”, “melan-”
+                </li>
+                <li type="square" style="padding-left:30px;">
+                    promotional language
+                </li>
+                <li type="disc" style="padding-left:60px;">
+                    eg “best-”, “dura-”, “efex-”
+                </li>
+                <li type="square" style="padding-left:30px;">
+                    the name of the manufacturer
+                </li>
+            </ul>
+        </div>
     </div>
 </div>
