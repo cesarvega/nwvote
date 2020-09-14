@@ -58,7 +58,8 @@
   bottom: -10px;
   left: 280px;
   height: 50px;
-  width: 540px;
+  max-width: 569px;;
+  width: 569px;;
   /* margin-left: 240px; */
   border-radius: 10px;
   opacity: 0.9;
@@ -237,6 +238,7 @@
 :host ::ng-deep .ck-editor__editable_inline {
   max-height: 400px;
   min-height: 400px;
+  min-width: 700px;
 }
 
 

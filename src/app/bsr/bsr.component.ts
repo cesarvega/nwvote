@@ -32,7 +32,7 @@ export class BsrComponent implements OnInit {
   totalNumberOfnames = 51;
   slideCss = 'none';
   projectId = 'rg2327';
-  createPostIt = true;
+  createPostIt = false;
   isSearching = false;
   overview = false;
   isNSR = false;
@@ -58,6 +58,7 @@ export class BsrComponent implements OnInit {
   myMaxRightWith = '8px';
   showSlider: boolean = false;
   positPresentationIndex: number;
+  appSearchSlidesData: any;
   constructor(private _formBuilder: FormBuilder, private _hotkeysService: HotkeysService, private _BsrService: BsrService, public dialog: MatDialog) {
 
     // keyboard keymaps
@@ -108,6 +109,7 @@ export class BsrComponent implements OnInit {
     this._BsrService.getSlides(this.projectId).subscribe((res: any) => {
       console.log(res);
       this.appSlidesData = res;
+      this.appSearchSlidesData = res;
       localStorage.setItem('appSlideData', JSON.stringify(res));
       this.totalNumberOfSlides = res.length
       this.pageCounter = '1/' + this.totalNumberOfSlides;
@@ -262,11 +264,14 @@ export class BsrComponent implements OnInit {
   }
 
   openDialog(item, nameid): void {
-    const dialogRef = this.dialog.open(editPost, {
-      width: '100%',
-      height: '800px',
-      data: { name: item, nameId: nameid }
-    });
+   
+ 
+      const dialogRef = this.dialog.open(editPost, {
+        // width: ((nameid === 'edit')?'80%':'100%'),
+        height: ((nameid === 'edit')?'700px':'200px'),
+        data: { name: item, nameId: nameid }
+      });
+    
 
     this.conceptid = item.conceptid;
 
@@ -342,12 +347,25 @@ export class BsrComponent implements OnInit {
   searchTerm(searchValue: string): void {
     if (searchValue.length == 0) {
       this.isSearching = false;
+      this.appSearchSlidesData = [];
     } else {
-
+ 
+      
       this.isSearching = true;
+           
+      this.appSlidesData.forEach(element => {
+        if ( element.DisplayName.includes(searchValue)) {
+         this.appSearchSlidesData.push(element);
+        }
+       });
     }
+
+
+
+
     console.log(searchValue);
   }
+
 
 
 }
@@ -405,6 +423,7 @@ export class editPost {
 
   public Editor = ClassicEditor;
 
+  synonyms
   loginForm: FormGroup;
   isDeleting = false;
   isDeletingName = false;
@@ -552,6 +571,13 @@ export class editPost {
       oldValue: this.data.name
     }
     this.dialogRef.close(this.popupwindowData);
+  }
+
+  getSinonyms(syn){
+    this._BsrService.getSinonyms('one').subscribe(res=>{
+      console.log(res);
+      
+    })
   }
 
 }

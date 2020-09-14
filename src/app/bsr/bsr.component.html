@@ -2,7 +2,7 @@
 
   <!-- OVERVIEW SLIDE -->
   <mat-sidenav mode="over" [opened]="overview" style="width: 350px;">
-    <mat-card (click)="goToSlide(i)" class="example-card" *ngFor="let item of appSlidesData; let i = index">
+    <mat-card (click)="goToSlide(i)" class="example-card" *ngFor="let item of appSearchSlidesData; let i = index">
       <img [src]="'http://www.bipresents.com/' + item.SlideBGFileName" alt="overview"
         style="max-width: 300px;cursor: pointer;">
     </mat-card>
@@ -270,11 +270,16 @@
                            width: 149px;
                            height: 350px;
                            overflow-y: scroll;
-                           position: relative;
-                           left: -186px;
-                           bottom: 200px;
+                           position: absolute;
+                           left: -170px;
+                           bottom: 27px;
                            z-index: 99999999999999;">
-                          <mat-card (click)="goToSlide(i)" class="example-card" *ngFor="let item of appSlidesData; let i = index">
+                          <mat-card (click)="goToSlide(i)" class="example-card" *ngFor="let item of appSearchSlidesData; let i = index">
+                            <mat-card-header>
+                              
+                          <!-- <mat-card-title>Shiba Inu</mat-card-title> -->
+                              <mat-card-subtitle>{{item.DisplayName}}</mat-card-subtitle>
+                            </mat-card-header>
                             <img [src]="'http://www.bipresents.com/' + item.SlideBGFileName" alt="overview"
                               style="max-width: 100px;cursor: pointer;">
                           </mat-card>

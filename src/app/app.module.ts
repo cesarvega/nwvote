@@ -28,7 +28,6 @@ import { MatSidenavModule } from '@angular/material/sidenav';
 import { HotkeyModule } from 'angular2-hotkeys';
 import { CKEditorModule } from '@ckeditor/ckeditor5-angular';
 import { FormsModule } from '@angular/forms';
-import { FcastilloComponent } from './fcastillo/fcastillo.component';
 import { MatSlideToggleModule } from '@angular/material/slide-toggle';
 import {MatSliderModule} from '@angular/material/slider';
 import { AngularEditorModule } from '@kolkov/angular-editor';
@@ -42,7 +41,6 @@ import { AngularEditorModule } from '@kolkov/angular-editor';
     editName,
     editPost,
     BsrComponent,
-    FcastilloComponent,
   ],
   imports: [
     BrowserModule,

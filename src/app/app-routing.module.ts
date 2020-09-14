@@ -9,10 +9,6 @@ import { FcastilloComponent } from './fcastillo/fcastillo.component';
 
 const routes: Routes = [
   {
-    path: 'index',
-    component: FcastilloComponent
-  },
-  {
     path: 'login/:project',
     component: LoginComponent
   },

@@ -35,6 +35,7 @@ export class BsrService {
   _SP_NewNameNSR = "[BI_GUIDELINES].[dbo].[nsr_mobAddNames] N'";
   _SP_NewNameBSR = "[BI_GUIDELINES].[dbo].[nsr_mobAddNames] N'";
   _SP_deleteNames = "[BI_GUIDELINES].[dbo].[bsr_delName] ";
+  _SP_getSynonims = "[BI_GUIDELINES].[dbo].[bsr_GetSynonyms] ";
 
   isNSR: any;
 
@@ -57,6 +58,11 @@ export class BsrService {
 
   deleteName(nameId) {
     let newNameObject = this._SP_deleteNames + this.projectId.replace(/\D+/g, '') + ',' + nameId;
+    return this.http.post(this.webBaseUrl + this.apiCall, JSON.stringify(newNameObject), httpOptions);
+  }
+
+  getSinonyms(sinonym) {
+    let newNameObject = this._SP_getSynonims + "N" + "'"+ sinonym + "'" ;
     return this.http.post(this.webBaseUrl + this.apiCall, JSON.stringify(newNameObject), httpOptions);
   }
 
