@@ -32,7 +32,7 @@ export class BsrComponent implements OnInit {
   totalNumberOfnames = 51;
   slideCss = 'none';
   projectId = 'rg2327';
-  createPostIt = false;
+  createPostIt = true;
   isSearching = false;
   overview = false;
   isNSR = false;
@@ -390,40 +390,40 @@ export interface DialogData {
   styleUrls: ['./bsr.component.scss']
 })
 export class editPost {
-  name = 'Angular 6';
+  // name = 'Angular 6';
 
-  config: AngularEditorConfig = {
-    editable: true,
-    spellcheck: true,
-    height: '15rem',
-    minHeight: '5rem',
-    placeholder: 'Enter text here...',
-    translate: 'no',
-    defaultParagraphSeparator: 'p',
-    defaultFontName: 'Arial',
-    toolbarHiddenButtons: [
-      ['bold']
-    ],
-    customClasses: [
-      {
-        name: "quote",
-        class: "quote",
-      },
-      {
-        name: 'redText',
-        class: 'redText'
-      },
-      {
-        name: "titleText",
-        class: "titleText",
-        tag: "h1",
-      },
-    ]
-  };
+  // config: AngularEditorConfig = {
+  //   editable: true,
+  //   spellcheck: true,
+  //   height: '15rem',
+  //   minHeight: '5rem',
+  //   placeholder: 'Enter text here...',
+  //   translate: 'no',
+  //   defaultParagraphSeparator: 'p',
+  //   defaultFontName: 'Arial',
+  //   toolbarHiddenButtons: [
+  //     ['bold']
+  //   ],
+  //   customClasses: [
+  //     {
+  //       name: "quote",
+  //       class: "quote",
+  //     },
+  //     {
+  //       name: 'redText',
+  //       class: 'redText'
+  //     },
+  //     {
+  //       name: "titleText",
+  //       class: "titleText",
+  //       tag: "h1",
+  //     },
+  //   ]
+  // };
 
   public Editor = ClassicEditor;
-
-  synonyms
+  ckconfig:any;
+  synonyms:any;
   loginForm: FormGroup;
   isDeleting = false;
   isDeletingName = false;
@@ -472,6 +472,31 @@ export class editPost {
       this.isMobileInfo = true;
     }
 
+    this.ckconfig = {
+      allowedContent: false,
+      forcePasteAsPlainText: true,
+      toolbarLocation : 'top',
+      toolbarGroups : [
+        { name: 'clipboard',   groups: [ 'clipboard'] },
+        { name: 'editing',     groups: [ 'find', 'selection', 'spellchecker' ] },
+        { name: 'links' },
+        { name: 'insert' },
+        { name: 'forms' },
+        { name: 'tools' },
+        { name: 'document',       groups: [ 'mode', 'document', 'doctools' ] },
+        { name: 'others' },
+        '/',
+        { name: 'basicstyles', groups: [ 'basicstyles', 'cleanup' ] },
+        { name: 'paragraph',   groups: [ 'list', 'indent', 'blocks', 'align', 'bidi' ] },
+        { name: 'styles' },
+        { name: 'colors' },
+        { name: 'about' }
+        ],
+      removePlugins: 'horizontalrule,tabletools,specialchar,about,others',
+      removeButtons: 'Unlink,Link,Superscript,Subscript,Save,NewPage,Preview,Print,Templates,Replace,SelectAll,Form,Checkbox,Radio,TextField,Textarea,Find,Select,Button,ImageButton,HiddenField,CopyFormatting,CreateDiv,BidiLtr,BidiRtl,Language,Flash,Smiley,PageBreak,Iframe,ShowBlocks,Cut,Copy,Paste,Table,Image,Format,Source,Maximize,Styles,Anchor,SpecialChar,PasteFromWord,PasteText,Scayt,RemoveFormat,Indent,Outdent,Blockquote'
+  
+    }
+
 
     this.loginForm = this._formBuilder.group({
       rationale: [''],
@@ -517,8 +542,11 @@ export class editPost {
     // }
     // this.Editor.width =100;
     // this.Editor.height =100;
+
+
   }
 
+  
 
   onReady(editor) {
     editor.ui.getEditableElement().parentElement.insertBefore(

@@ -236,15 +236,15 @@
 
 
 :host ::ng-deep .ck-editor__editable_inline {
-  max-height: 400px;
-  min-height: 400px;
+  max-height: 900px;
+  min-height: 500px;
   min-width: 700px;
 }
 
 
 :host  ::ng-deep  {
-  display: block;
-  height: 200px;
+  // display: block;
+  // height: 200px;
 }
 
 .box {
@@ -303,3 +303,4 @@ mat-slider {
 //   animation: backOutRight; /* referring directly to the animation's @keyframe declaration */
 //   animation-duration: 0.5s; /* don't forget to set a duration! */
 // }
+
