@@ -30,10 +30,11 @@ import { HotkeyModule } from 'angular2-hotkeys';
 import { FormsModule } from '@angular/forms';
 import { MatSlideToggleModule } from '@angular/material/slide-toggle';
 import {MatSliderModule} from '@angular/material/slider';
-import { AngularEditorModule } from '@kolkov/angular-editor';
 import { CKEditorModule } from 'ckeditor4-angular';
 import { ResizableDirective } from './bsr/resizable.directive';
 
+import { ResizableModule } from 'angular-resizable-element';
+import { NgxResizableModule } from '@3dgenomes/ngx-resizable';
 @NgModule({
   declarations: [
     AppComponent,
@@ -70,7 +71,8 @@ import { ResizableDirective } from './bsr/resizable.directive';
     FormsModule,
     HotkeyModule.forRoot(),
     MatSliderModule,
-    AngularEditorModule,
+    ResizableModule,
+    NgxResizableModule
     
   ],
   providers: [NwvoteService, BsrMobileService],
