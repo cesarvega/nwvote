@@ -24,15 +24,14 @@
   overflow: hidden;
 }
 
-
 .toolbar {
   position: absolute;
-    bottom: 11px;
-    height: 50px;
-    width: 819px;
-    margin-left: 60px;
-    border-radius: 10px;
-    opacity: 0.95;
+  bottom: 11px;
+  height: 50px;
+  width: 819px;
+  margin-left: 60px;
+  border-radius: 10px;
+  opacity: 0.95;
 
   .search {
     border-radius: 1px solid grey;
@@ -40,7 +39,6 @@
     margin-right: 20px;
     font-size: 16px;
     padding-left: 6px;
-    
   }
 
   .mat-icon {
@@ -58,8 +56,8 @@
   bottom: -10px;
   left: 280px;
   height: 50px;
-  max-width: 569px;;
-  width: 569px;;
+  max-width: 569px;
+  width: 569px;
   /* margin-left: 240px; */
   border-radius: 10px;
   opacity: 0.9;
@@ -88,10 +86,9 @@
   background-image: url(../../assets/img/toolbarBg.jpg);
   height: 53px;
   position: absolute;
+  top: 4px;
   width: 954px;
-  top: 73px;
   z-index: 9999;
-  margin-left: 80px;
   border-radius: 5px;
 }
 
@@ -205,7 +202,7 @@
   bottom: 0;
   left: 0;
   right: 0;
-  background: #eee;
+  background: #fff;
 }
 .mat-sidenav-backdrop.mat-sidenav-shown {
   background-color: transparent !important;
@@ -227,24 +224,22 @@
   outline: none;
 }
 
-.name-form { 
+.name-form {
   position: absolute;
-    bottom: 4px;
-    width: 254px;
+  bottom: 4px;
+  width: 254px;
   background-color: white;
 }
 
-
 :host ::ng-deep .ck-editor__editable_inline {
-  max-height: 400px;
-  min-height: 400px;
+  max-height: 900px;
+  min-height: 500px;
   min-width: 700px;
 }
 
-
-:host  ::ng-deep  {
-  display: block;
-  height: 200px;
+:host ::ng-deep {
+  // display: block;
+  // height: 200px;
 }
 
 .box {
@@ -267,6 +262,7 @@
   align-items: center;
   justify-content: center;
 }
+
 .right {
   background: #fff;
   border: 1px solid #ddd;
@@ -285,21 +281,165 @@ mat-slider {
   color: lawngreen;
 }
 
-.instruction-style{
+.instruction-style {
   border: black solid 1px;
   padding-block: 10px;
 }
-// .bounceIn {
-//   display: inline-block;
-//   margin: 0 0.5rem;
 
-//   animation: backInRight; /* referring directly to the animation's @keyframe declaration */
-//   animation-duration: 0.5s; /* don't forget to set a duration! */
-// }
-// .bounceOut {
-//   display: inline-block;
-//   margin: 0 0.5rem;
 
-//   animation: backOutRight; /* referring directly to the animation's @keyframe declaration */
-//   animation-duration: 0.5s; /* don't forget to set a duration! */
-// }
+
+.mat-dialog-container {
+  display: block;
+  padding: 24px;
+  border-radius: 4px;
+  box-sizing: border-box;
+  overflow: auto;
+  outline: 0;
+  width: 100%;
+  height: 100%;
+  background-color: red !important;
+  min-height: inherit;
+  max-height: inherit;
+}
+
+.bounceIn {
+  display: inline-block;
+  margin: 0 0.5rem;
+
+  animation: shakeX; /* referring directly to the animation's @keyframe declaration */
+  animation-duration: 0.1s; /* don't forget to set a duration! */
+}
+.bounceOut {
+  display: inline-block;
+  margin: 0 0.5rem;
+
+  animation: shakeX; /* referring directly to the animation's @keyframe declaration */
+  animation-duration: 0.1s; /* don't forget to set a duration! */
+}
+
+.colorin {
+  max-height: inherit;
+}
+
+.fuse-card {
+  max-width: 320px;
+  min-width: 320px;
+  border-radius: 8px;
+  border: 1px solid;
+  background: #fff;
+  border-color: rgba(0, 0, 0, 0.01);
+}
+
+.title-card {
+  // max-width: 320px;
+  // min-width: 320px;
+  border-radius: 8px;
+  border: 1px solid;
+  background: #fff;
+  border-color: rgba(0, 0, 0, 0.01);
+}
+
+.ckeditor-card {
+  max-width: 690px;
+  min-width: 690px;
+  max-height: 400px;
+  border-radius: 8px;
+  border: 2px solid;
+  background: #fff;
+  border-color: rgba(0, 70, 132, 1);
+}
+
+.new-names-card {
+  max-width: 350px;
+  min-width: 270px;
+  max-height: 341px;
+  border-radius: 8px;
+  border: 2px solid;
+  background: #fff;
+  border-color: #004684;
+  overflow-y: hidden;
+}
+
+.checkButtonEditor {
+  color: white;
+  position: fixed;
+  bottom: 192px;
+  background-color: green;
+  padding: 4px;
+  outline: none;
+}
+
+.shrinkCard {
+  width: 300px;
+  margin: 5px;
+  height: 310px;
+  // background-color: lightgoldenrodyellow;
+  border-radius: 15px;
+}
+
+// post it automatic color programming in SCSS
+
+$postItBodyColors: red,
+green,
+blue;
+// $postItBodyColors: #d6f8fd,
+// #dde7f6,
+// #d8ebfd;
+@for $i from 1 through length($postItBodyColors) {
+    $postItBodyColors: append($postItBodyColors, nth($postItBodyColors, $i));
+}
+
+$postItBodyColorsLength: length($postItBodyColors);
+.biCard {
+    @for $i from 1 through $postItBodyColorsLength {
+        &:nth-of-type(#{$postItBodyColorsLength}n+#{$i}) .shrink-card {
+            background-color: nth($postItBodyColors, $i);
+            
+        }
+        &:nth-of-type(#{$postItBodyColorsLength}n+#{$i}) .shrink-card-content {
+            background-color: nth($postItBodyColors, $i);
+        }
+        &:nth-of-type(#{$postItBodyColorsLength}n+#{$i}) .shrink-card-color {
+            background-color: nth($postItBodyColors, $i);
+        }
+
+        
+    }
+}
+
+$postItHeaderColors: red,
+green,
+violet;
+$postItHeaderColorsLength: length($postItHeaderColors);
+@for $i from 1 through length($postItHeaderColors) {
+    $postItHeaderColors: append($postItHeaderColors, nth($postItHeaderColors, $i));
+}
+
+$postItHeaderColorsLength: length($postItHeaderColors);
+.biCard {
+    @for $i from 1 through $postItHeaderColorsLength {
+        &:nth-of-type(#{$postItHeaderColorsLength}n+#{$i}) .bi-blue {
+            background: nth($postItHeaderColors, $i);
+            
+        }
+               
+        &:nth-of-type(#{$postItHeaderColorsLength}n+#{$i}) .bi-blue:hover {
+            background: nth($postItHeaderColors, $i);
+            -o-transform:rotate(4deg);
+            -webkit-transform:rotate(4deg);
+            -moz-transform:rotate(4deg);
+            position:relative;
+            top:5px;
+            background:#cfc;
+        }
+
+    }
+}
+
+
+
+.mwlResizable {
+  box-sizing: border-box; // required for the enableGhostResize option to work
+}
+
+

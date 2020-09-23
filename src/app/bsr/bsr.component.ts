@@ -32,7 +32,7 @@ export class BsrComponent implements OnInit {
   totalNumberOfnames = 51;
   slideCss = 'none';
   projectId = 'rg2327';
-  createPostIt = false;
+  createPostIt = true;
   isSearching = false;
   overview = false;
   isNSR = false;
