@@ -30,7 +30,6 @@ import { CKEditorModule } from '@ckeditor/ckeditor5-angular';
 import { FormsModule } from '@angular/forms';
 import { MatSlideToggleModule } from '@angular/material/slide-toggle';
 import {MatSliderModule} from '@angular/material/slider';
-import { AngularEditorModule } from '@kolkov/angular-editor';
 
 @NgModule({
   declarations: [
@@ -67,7 +66,7 @@ import { AngularEditorModule } from '@kolkov/angular-editor';
     FormsModule,
     HotkeyModule.forRoot(),
     MatSliderModule,
-    AngularEditorModule,
+    // AngularEditorModule,
     
   ],
   providers: [NwvoteService, BsrMobileService],

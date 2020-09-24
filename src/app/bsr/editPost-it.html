@@ -1,7 +1,9 @@
 <div style="position: relative;overflow: hidden;" fxLayoutAlign="center center">
+    <!-- <div style="position: relative;overflow: hidden;background-image: url(toolbarBg.jpg);background-repeat: no-repeat;"
+    fxLayoutAlign="center center"> -->
+
+    <!-- DELETE BOX -->
     <div *ngIf="infoMessage && !isMobileInfo" style="width: 400px;">
-
-
 
         <div *ngIf="!isDeleting" class="mat-h2" style="text-align: center;">Are you sure you want to delete? </div>
         <!-- <div *ngIf="!isDeleting" class="mat-h4">This post will be removed permanently.</div> -->
@@ -41,61 +43,7 @@
 
 
     </div>
-
-    <div *ngIf="!infoMessage && !isMobileInfo" style="width: 100%;overflow: hidden;">
-
-        <form name="loginForm" [formGroup]="loginForm" novalidate class="">
-            <div fxLayoutAlign="center center">
-
-                <mat-form-field *ngIf="!isDeleting" appearance="outline" style="width: 400px;">
-                    <mat-label>CONCEPT</mat-label>
-                    <input matInput type="Concept" placeholder="Concept" formControlName="name">
-                </mat-form-field>
-            </div>
-
-            <hr style="background-color: #004684;">
-            <div class="mat-h3" style="text-align: center;color: #000;">
-                <div class="row">
-                    <div class="col-md-6">
-                        <div style="color: #004684;">Key Words and Concepts</div>
-                        <ckeditor [editor]="Editor" [data]="dataEditor" (ready)="onReady($event)"
-                            [(ngModel)]="model.editorData" class="ckeditorcev"></ckeditor>
-                        <!-- <angular-editor [(ngModel)]="model.editorData" [config]="config"></angular-editor> -->
-                    </div>
-
-
-
-
-                    <div class="col-md-1">
-                        <button (click)="getSinonyms('one')" class="refreshbutton" mat-button
-                            style="font-size: 8px;" color="success" aria-label="icon">
-                            SYNONYMS
-                        </button>
-                    </div>
-                    <div class="col-md-5">
-                        <div style="color: #004684;">Name Candidates</div>
-
-                        <mat-form-field style="width: 550px;">
-                            <textarea matInput cdkTextareaAutosize cdkAutosizeMinRows="23" formControlName="suma"
-                                cdkAutosizeMaxRows="23"
-                                style="max-height: 400px;border-top:solid black 1px;border-left:solid black 1px;border-right:solid black 1px; padding: 10px;"
-                                appearance="outline" formControlName="suma"></textarea>
-                        </mat-form-field>
-                        <!-- <ckeditor [editor]="Editor" [data]="dataEditor" [(ngModel)]="model.namesData" style="max-height: 400px;"></ckeditor> -->
-                    </div>
-                </div>
-            </div>
-        </form>
-
-        <div fxLayoutAlign="end end">
-            <button (click)="buttonOption('savePost')" class="refreshbutton" mat-fab style="color: white;position: fixed;
-        bottom: 128px;background-color: green;padding: 4px;outline: none;" color="success" aria-label="icon">
-                <mat-icon>check</mat-icon>
-            </button>
-        </div>
-    </div>
-
-
+    <!-- MOBILE INFO PICTURE DISPLAY -->
     <div *ngIf="isMobileInfo" style="height: 300px;text-align: center;font-size-adjust: 100px;">
 
         <div class="row" layout-align="center center">
@@ -123,7 +71,7 @@
         </div>
         <div fxLayoutAlign="end end">
             <button (click)="buttonOption('')" class="refreshbutton" mat-fab style="color: white;position: fixed;
-        bottom: 100px;background-color: #004684;padding: 4px;outline: none;" color="success" aria-label="icon">
+    bottom: 100px;background-color: #004684;padding: 4px;outline: none;" color="success" aria-label="icon">
                 <mat-icon>cancel</mat-icon>
             </button>
         </div>
@@ -220,4 +168,172 @@
             </ul>
         </div>
     </div>
+
+    <div *ngIf="!infoMessage && !isMobileInfo" >
+    <form name="loginForm" [formGroup]="loginForm" novalidate class="">
+        <!-- EDITOR CARD -->
+        <div class="container" fxLayout="column" fxLayoutAlign="center center">
+            <div class="row ">
+                <div class="col">
+                    <div class="title-card">
+
+                        <div class="p-16" style="color: #004684;padding: 10px;" fxLayout="row"
+                            fxLayoutAlign="start center">
+                            <!-- <img class="w-40 h-40 border-radius-100" src="assets/images/avatars/Christy.jpg"> -->
+
+                            <mat-icon style="margin-right: 10px;">assignment</mat-icon>
+                            <h2 class="text-bold ">CONCEPT TITLE</h2>
+
+                            <!-- <div class="ml-16">
+                            <div class="h5 text-bold secondary-text">20 mins. ago</div>
+                        </div> -->
+                        </div>
+
+
+                        <div fxLayoutAlign="center center">
+
+                            <mat-form-field *ngIf="!isDeleting" appearance="outline" style="width: 900px">
+                                <!-- <mat-label>CONCEPT</mat-label> -->
+                                <input matInput type="Concept" placeholder="Concept" formControlName="name">
+                            </mat-form-field>
+                        </div>
+
+
+
+
+                        <!-- <img src="assets/images/cards/card1.jpg">
+                
+                    <div class="p-16">
+                        <div class="h1">Kangaroo Valley Safari</div>
+                        <div class="h4 secondary-text">Free on Thursdays</div>
+                    </div>
+                
+                    <div class="p-16 pt-0 line-height-1.75">
+                        Cards provide context and an entry point to more robust information and views, and
+                        their content and quantity can vary greatly.
+                    </div> -->
+
+                    </div>
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col">
+                    <div class="ckeditor-card">
+
+
+                        <div class="p-16" style="color: #004684;padding: 10px;" fxLayout="row"
+                            fxLayoutAlign="start center">
+                            <!-- <img class="w-40 h-40 border-radius-100" src="assets/images/avatars/Christy.jpg"> -->
+
+                            <!-- <mat-icon style="margin-right: 10px;">assignment</mat-icon> -->
+                            <h2 class="text-bold ">Key Words and Concepts</h2>
+
+                            <!-- <div class="ml-16">
+                            <div class="h5 text-bold secondary-text">20 mins. ago</div>
+                        </div> -->
+                        </div>
+
+                        <ckeditor #child [data]="dataEditor" (ready)="onReady($event)"
+                            [ngModelOptions]="{standalone: true}" [(ngModel)]="model.editorData" class="ckeditorcev"
+                            [config]="ckconfig"></ckeditor>
+
+                    </div>
+                </div>
+                <div class="col">
+                    <div class="new-names-card " style="overflow: hidden;">
+
+
+                        <div class="p-16" style="color: #004684;padding: 5px;" fxLayout="row"
+                            fxLayoutAlign="start center">
+                            <!-- <img class="w-40 h-40 border-radius-100" src="assets/images/avatars/Christy.jpg"> -->
+
+                            <!-- <mat-icon style="margin-right: 10px;">assignment</mat-icon> -->
+                            <h2 class="text-bold " style="">New Names</h2>
+
+                            <!-- <div class="ml-16">
+                            <div class="h5 text-bold secondary-text">20 mins. ago</div>
+                        </div> -->
+                        </div>
+
+                        <div class="p-16" style="color: #004684;padding: 10px;" fxLayout="row"
+                            fxLayoutAlign="start center">
+                            <textarea matInput cdkTextareaAutosize cdkAutosizeMinRows="23" formControlName="suma"
+                                cdkAutosizeMaxRows="23" style="padding: 8px;
+                                height: 180px;
+                                border: solid blue !important;
+                                min-height: 280px;
+                                max-height: 321px;
+                                position: relative;
+                                top: -20px;" appearance="outline" formControlName="suma"></textarea>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+
+            <div class="col">
+                <div fxLayoutAlign="end end">
+                    <button (click)="buttonOption('savePost')" class="checkButtonEditor" mat-fab color="success"
+                        aria-label="icon">
+                        <mat-icon>check</mat-icon>
+                    </button>
+                </div>
+            </div>
+
+        </div>
+
+    </form>
 </div>
+</div>
+
+<!-- 
+<div *ngIf="!infoMessage && !isMobileInfo" style="width: 100%;overflow: hidden;">
+
+    <form name="loginForm" [formGroup]="loginForm" novalidate class="">
+        <div fxLayoutAlign="center center">
+
+            <mat-form-field *ngIf="!isDeleting" appearance="outline" style="width: 400px;">
+                <mat-label>CONCEPT</mat-label>
+                <input matInput type="Concept" placeholder="Concept" formControlName="name">
+            </mat-form-field>
+        </div>
+
+       
+        <div class="mat-h3" style="text-align: left;color: #000;">
+            <div class="row">
+                <div class="col-md-7">
+                    <div style="color: #004684;">Key Words and Concepts</div>
+                    <ckeditor #child [data]="dataEditor" (ready)="onReady($event)"
+                        [ngModelOptions]="{standalone: true}" [(ngModel)]="model.editorData" class="ckeditorcev"
+                        [config]="ckconfig"></ckeditor>
+                  
+                </div>
+                <div class="col-md-1">
+                    <button (click)="getSinonyms('one')" class="refreshbutton" mat-button style="font-size: 8px;"
+                        color="success" aria-label="icon">
+                        SYNONYMS
+                    </button>
+                </div>
+                <div class="col-md-4">
+                    <div style="color: #004684;">Name Candidates</div>
+
+                    <mat-form-field>
+                        <textarea matInput cdkTextareaAutosize cdkAutosizeMinRows="23" formControlName="suma"
+                            cdkAutosizeMaxRows="23"
+                            style="max-height: 400px;border-top:solid black 1px;border-left:solid black 1px;border-right:solid black 1px; padding: 10px;"
+                            appearance="outline" formControlName="suma"></textarea>
+                    </mat-form-field>
+                   
+                </div>
+            </div>
+        </div>
+    </form>
+
+    <div fxLayoutAlign="end end">
+        <button (click)="buttonOption('savePost')" class="refreshbutton" mat-fab style="color: white;position: fixed;
+    bottom: 128px;background-color: green;padding: 4px;outline: none;" color="success" aria-label="icon">
+            <mat-icon>check</mat-icon>
+        </button>
+    </div>
+</div> -->

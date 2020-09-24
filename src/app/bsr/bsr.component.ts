@@ -17,6 +17,7 @@ import * as ClassicEditor from '@ckeditor/ckeditor5-build-classic';
 
 // import ParagraphButtonUI from '@ckeditor/ckeditor5-paragraph/src/paragraphbuttonui';
 
+// import { ResizeEvent } from 'angular-resizable-element';
 
 @Component({
   selector: 'app-bsr',
@@ -262,7 +263,9 @@ export class BsrComponent implements OnInit {
     this.createPostIt = false
     console.log('slide ' + i);
   }
-
+  // onResizeEnd(event: ResizeEvent): void {
+  //   console.log('Element was resized', event);
+  // }
   openDialog(item, nameid): void {
    
  
@@ -369,13 +372,7 @@ export class BsrComponent implements OnInit {
 
 
 }
-
-
-
-import { AngularEditorConfig } from '@kolkov/angular-editor';
 import { MatSliderChange } from '@angular/material/slider';
-
-
 
 // CKEDITOR WYSIWYG // **************************************************************************************************
 
@@ -390,40 +387,9 @@ export interface DialogData {
   styleUrls: ['./bsr.component.scss']
 })
 export class editPost {
-  name = 'Angular 6';
-
-  config: AngularEditorConfig = {
-    editable: true,
-    spellcheck: true,
-    height: '15rem',
-    minHeight: '5rem',
-    placeholder: 'Enter text here...',
-    translate: 'no',
-    defaultParagraphSeparator: 'p',
-    defaultFontName: 'Arial',
-    toolbarHiddenButtons: [
-      ['bold']
-    ],
-    customClasses: [
-      {
-        name: "quote",
-        class: "quote",
-      },
-      {
-        name: 'redText',
-        class: 'redText'
-      },
-      {
-        name: "titleText",
-        class: "titleText",
-        tag: "h1",
-      },
-    ]
-  };
-
   public Editor = ClassicEditor;
-
-  synonyms
+  ckconfig:any;
+  synonyms:any;
   loginForm: FormGroup;
   isDeleting = false;
   isDeletingName = false;
@@ -472,6 +438,30 @@ export class editPost {
       this.isMobileInfo = true;
     }
 
+    this.ckconfig = {
+      allowedContent: false,
+      forcePasteAsPlainText: true,
+      toolbarLocation : 'top',
+      
+      toolbarGroups : [
+        { name: 'clipboard',   groups: [ 'clipboard',''] },     
+        { name: 'insert' },
+        { name: 'forms' },
+        { name: 'tools' },
+        { name: 'document',       groups: [ 'mode', 'document', 'doctools' ] },
+        { name: 'others' },
+        { name: 'basicstyles', groups: [ 'basicstyles', 'cleanup' ] },
+        { name: 'colors' },
+        { name: 'paragraph',   groups: [ 'list', 'indent', 'blocks', 'align', 'bidi' ] },
+        { name: 'styles' },
+        { name: 'links' },
+        { name: 'about' }
+        ],
+      addPlugins: 'simplebox',
+      removePlugins: 'horizontalrule,tabletools,specialchar,about,others',
+      removeButtons: 'Superscript,Subscript,Save,NewPage,Preview,Print,Templates,Replace,SelectAll,Form,Checkbox,Radio,TextField,Textarea,Find,Select,Button,ImageButton,HiddenField,CopyFormatting,CreateDiv,BidiLtr,BidiRtl,Language,Flash,Smiley,PageBreak,Iframe,ShowBlocks,Cut,Copy,Paste,Table,Format,Source,Maximize,Styles,Anchor,SpecialChar,PasteFromWord,PasteText,Scayt,RemoveFormat,Indent,Outdent,Blockquote'
+  
+    }
 
     this.loginForm = this._formBuilder.group({
       rationale: [''],
@@ -479,52 +469,15 @@ export class editPost {
       name: [this.concept]
     });
 
-    // this.Editor.defaultConfig = {
-    //   toolbarGroups: [
-    //     { name: 'document', groups: [ 'mode', 'document', 'doctools' ] },
-    //     { name: 'clipboard', groups: [ 'clipboard', 'undo' ] },
-    //     { name: 'editing', groups: [ 'find', 'selection', 'spellchecker' ] },
-    //     { name: 'forms' },
-    //     '/',
-    //     { name: 'basicstyles', groups: [ 'basicstyles', 'cleanup' ] },
-    //     { name: 'paragraph', groups: [ 'list', 'indent', 'blocks', 'align', 'bidi' ] },
-    //     { name: 'links' },
-    //     { name: 'insert' },
-    //     '/',
-    //     { name: 'styles' },
-    //     { name: 'colors' },
-    //     { name: 'tools' },
-    //     { name: 'others' },
-    //     { name: 'about' }
-    //   ],
-    //   toolbar : [
-    //     { name: 'document', groups: [ 'mode', 'document', 'doctools' ], items: [ 'Source', '-', 'Save', 'NewPage', 'ExportPdf', 'Preview', 'Print', '-', 'Templates' ] },
-    //     { name: 'clipboard', groups: [ 'clipboard', 'undo' ], items: [ 'Cut', 'Copy', 'Paste', 'PasteText', 'PasteFromWord', '-', 'Undo', 'Redo' ] },
-    //     { name: 'editing', groups: [ 'find', 'selection', 'spellchecker' ], items: [ 'Find', 'Replace', '-', 'SelectAll', '-', 'Scayt' ] },
-    //     { name: 'forms', items: [ 'Form', 'Checkbox', 'Radio', 'TextField', 'Textarea', 'Select', 'Button', 'ImageButton', 'HiddenField' ] },
-    //     '/',
-    //     { name: 'basicstyles', groups: [ 'basicstyles', 'cleanup' ], items: [ 'Bold', 'Italic', 'Underline', 'Strike', 'Subscript', 'Superscript', '-', 'CopyFormatting', 'RemoveFormat' ] },
-    //     { name: 'paragraph', groups: [ 'list', 'indent', 'blocks', 'align', 'bidi' ], items: [ 'NumberedList', 'BulletedList', '-', 'Outdent', 'Indent', '-', 'Blockquote', 'CreateDiv', '-', 'JustifyLeft', 'JustifyCenter', 'JustifyRight', 'JustifyBlock', '-', 'BidiLtr', 'BidiRtl', 'Language' ] },
-    //     { name: 'links', items: [ 'Link', 'Unlink', 'Anchor' ] },
-    //     { name: 'insert', items: [ 'Image', 'Flash', 'Table', 'HorizontalRule', 'Smiley', 'SpecialChar', 'PageBreak', 'Iframe' ] },
-    //     '/',
-    //     { name: 'styles', items: [ 'Styles', 'Format', 'Font', 'FontSize' ] },
-    //     { name: 'colors', items: [ 'TextColor', 'BGColor' ] },
-    //     { name: 'tools', items: [ 'Maximize', 'ShowBlocks' ] },
-    //     { name: 'others', items: [ '-' ] },
-    //     { name: 'about', items: [ 'About' ] }
-    //   ]
-    // }
-    // this.Editor.width =100;
-    // this.Editor.height =100;
   }
 
+  
 
   onReady(editor) {
-    editor.ui.getEditableElement().parentElement.insertBefore(
-      editor.ui.view.toolbar.element,
-      editor.ui.getEditableElement()
-    );
+    // editor.ui.getEditableElement().parentElement.insertBefore(
+    //   editor.ui.view.toolbar.element,
+    //   editor.ui.getEditableElement()
+    // );
   }
 
   buttonOption(option) {
