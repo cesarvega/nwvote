@@ -235,7 +235,8 @@
 :host ::ng-deep .ck-editor__editable_inline {
   max-height: 900px;
   min-height: 500px;
-  min-width: 700px;
+  max-height: 680px;
+  height: 500px;
 }
 
 :host ::ng-deep {
@@ -286,8 +287,6 @@ mat-slider {
   border: black solid 1px;
   padding-block: 10px;
 }
-
-
 
 .mat-dialog-container {
   display: block;
@@ -343,7 +342,9 @@ mat-slider {
 .ckeditor-card {
   max-width: 690px;
   min-width: 690px;
-  max-height: 400px;
+  max-height: 680px;
+  height: 500px;
+  overflow: hidden;
   border-radius: 8px;
   border: 2px solid;
   background: #fff;
@@ -380,74 +381,54 @@ mat-slider {
 
 // post it automatic color programming in SCSS
 
-$postItBodyColors: red,
-green,
-blue;
+$postItBodyColors: red, green, blue;
 // $postItBodyColors: #d6f8fd,
 // #dde7f6,
 // #d8ebfd;
 @for $i from 1 through length($postItBodyColors) {
-    $postItBodyColors: append($postItBodyColors, nth($postItBodyColors, $i));
+  $postItBodyColors: append($postItBodyColors, nth($postItBodyColors, $i));
 }
 
 $postItBodyColorsLength: length($postItBodyColors);
 .biCard {
-    @for $i from 1 through $postItBodyColorsLength {
-        &:nth-of-type(#{$postItBodyColorsLength}n+#{$i}) .shrink-card {
-            background-color: nth($postItBodyColors, $i);
-            
-        }
-        &:nth-of-type(#{$postItBodyColorsLength}n+#{$i}) .shrink-card-content {
-            background-color: nth($postItBodyColors, $i);
-        }
-        &:nth-of-type(#{$postItBodyColorsLength}n+#{$i}) .shrink-card-color {
-            background-color: nth($postItBodyColors, $i);
-        }
-
-        
+  @for $i from 1 through $postItBodyColorsLength {
+    &:nth-of-type(#{$postItBodyColorsLength}n + #{$i}) .shrink-card {
+      background-color: nth($postItBodyColors, $i);
     }
+    &:nth-of-type(#{$postItBodyColorsLength}n + #{$i}) .shrink-card-content {
+      background-color: nth($postItBodyColors, $i);
+    }
+    &:nth-of-type(#{$postItBodyColorsLength}n + #{$i}) .shrink-card-color {
+      background-color: nth($postItBodyColors, $i);
+    }
+  }
 }
 
-$postItHeaderColors: red,
-green,
-violet;
+$postItHeaderColors: red, green, violet;
 $postItHeaderColorsLength: length($postItHeaderColors);
 @for $i from 1 through length($postItHeaderColors) {
-    $postItHeaderColors: append($postItHeaderColors, nth($postItHeaderColors, $i));
+  $postItHeaderColors: append($postItHeaderColors, nth($postItHeaderColors, $i));
 }
 
 $postItHeaderColorsLength: length($postItHeaderColors);
 .biCard {
-    @for $i from 1 through $postItHeaderColorsLength {
-        &:nth-of-type(#{$postItHeaderColorsLength}n+#{$i}) .bi-blue {
-            background: nth($postItHeaderColors, $i);
-            
-        }
-               
-        &:nth-of-type(#{$postItHeaderColorsLength}n+#{$i}) .bi-blue:hover {
-            background: nth($postItHeaderColors, $i);
-            -o-transform:rotate(4deg);
-            -webkit-transform:rotate(4deg);
-            -moz-transform:rotate(4deg);
-            position:relative;
-            top:5px;
-            background:#cfc;
-        }
-
+  @for $i from 1 through $postItHeaderColorsLength {
+    &:nth-of-type(#{$postItHeaderColorsLength}n + #{$i}) .bi-blue {
+      background: nth($postItHeaderColors, $i);
     }
+
+    &:nth-of-type(#{$postItHeaderColorsLength}n + #{$i}) .bi-blue:hover {
+      background: nth($postItHeaderColors, $i);
+      -o-transform: rotate(4deg);
+      -webkit-transform: rotate(4deg);
+      -moz-transform: rotate(4deg);
+      position: relative;
+      top: 5px;
+      background: #cfc;
+    }
+  }
 }
-
-
 
 .mwlResizable {
   box-sizing: border-box; // required for the enableGhostResize option to work
-}
-
-
-.example-card {
-  max-width: 280px;
-}
-.example-header-image {
-  background-image: url('https://material.angular.io/assets/img/examples/shiba1.jpg');
-  background-size: cover;
 }
