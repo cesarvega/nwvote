@@ -9,15 +9,10 @@ import { MatDialog, MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dial
 
 import * as ClassicEditor from '@ckeditor/ckeditor5-build-classic';
 
-
-
-// import Strikethrough from '@ckeditor/ckeditor5-basic-styles/src/strikethrough';
-
-// import HeadingButtonsUI from '@ckeditor/ckeditor5-heading/src/headingbuttonsui';
-
-// import ParagraphButtonUI from '@ckeditor/ckeditor5-paragraph/src/paragraphbuttonui';
-
-// import { ResizeEvent } from 'angular-resizable-element';
+///CKEDITOR NOTES, para que el toolbar del editor pueda ser configurado
+//  es necesario de instalar el ckeditor4  y el ckeditor5 y 
+//  en el index.html importar el script <script src="https://cdn.ckeditor.com/4.14.1/full-all/ckeditor.js"></script>
+//  <ckeditor  [(ngModel)]="model.editorData" [data]="dataEditor" [config]="ckconfig"></ckeditor>
 
 @Component({
   selector: 'app-bsr',
@@ -441,8 +436,7 @@ export class editPost {
     this.ckconfig = {
       allowedContent: false,
       forcePasteAsPlainText: true,
-      toolbarLocation : 'top',
-      
+      toolbarLocation : 'top',      
       toolbarGroups : [
         { name: 'clipboard',   groups: [ 'clipboard',''] },     
         { name: 'insert' },
@@ -528,8 +522,7 @@ export class editPost {
 
   getSinonyms(syn){
     this._BsrService.getSinonyms('one').subscribe(res=>{
-      console.log(res);
-      
+      console.log(res);      
     })
   }
 

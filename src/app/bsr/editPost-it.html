@@ -234,10 +234,13 @@
                         </div> -->
                         </div>
 
-                        <ckeditor #child [data]="dataEditor" (ready)="onReady($event)"
+                        <!-- <ckeditor #child [data]="dataEditor" (ready)="onReady($event)"
                             [ngModelOptions]="{standalone: true}" [(ngModel)]="model.editorData" class="ckeditorcev"
-                            [config]="ckconfig"></ckeditor>
-
+                            [config]="ckconfig"></ckeditor> -->
+                            <!-- <ckeditor [editor]="Editor" [data]="dataEditor" (ready)="onReady($event)"
+                            [(ngModel)]="model.editorData"   [config]="ckconfig"></ckeditor> -->
+                            <ckeditor class="ckeditorcev" [ngModelOptions]="{standalone: true}" 
+                             [(ngModel)]="model.editorData" [data]="dataEditor" [config]="ckconfig"></ckeditor>
                     </div>
                 </div>
                 <div class="col">

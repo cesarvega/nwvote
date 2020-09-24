@@ -26,10 +26,11 @@ import { MatTooltipModule } from '@angular/material/tooltip';
 import { MatGridListModule } from '@angular/material/grid-list';
 import { MatSidenavModule } from '@angular/material/sidenav';
 import { HotkeyModule } from 'angular2-hotkeys';
-import { CKEditorModule } from '@ckeditor/ckeditor5-angular';
+// import { CKEditorModule } from '@ckeditor/ckeditor5-angular';
 import { FormsModule } from '@angular/forms';
 import { MatSlideToggleModule } from '@angular/material/slide-toggle';
 import {MatSliderModule} from '@angular/material/slider';
+import { CKEditorModule } from 'ckeditor4-angular';
 
 @NgModule({
   declarations: [
@@ -68,6 +69,9 @@ import {MatSliderModule} from '@angular/material/slider';
     MatSliderModule,
     // AngularEditorModule,
     
+  ],
+  entryComponents: [
+    editPost,
   ],
   providers: [NwvoteService, BsrMobileService],
   bootstrap: [AppComponent]
