@@ -435,6 +435,8 @@ export class editPost {
 
     this.ckconfig = {
       allowedContent: false,
+      width : '99.6%',
+      height : 370,
       forcePasteAsPlainText: true,
       toolbarLocation : 'top',      
       toolbarGroups : [
