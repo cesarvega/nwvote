@@ -28,6 +28,7 @@ export class BsrComponent implements OnInit {
   totalNumberOfnames = 51;
   slideCss = 'none';
   projectId = 'rg2327';
+  // projectId = 'rg2327';
   createPostIt = true;
   isSearching = false;
   overview = false;
@@ -50,6 +51,7 @@ export class BsrComponent implements OnInit {
   nameBox = true;
   nameBoxB = true;
   myMaxWith = '900px';
+  myMaxWith2:any;
   myMaxRWith = '900px';
   myMaxRightWith = '8px';
   showSlider: boolean = false;
@@ -382,7 +384,6 @@ export interface DialogData {
   styleUrls: ['./bsr.component.scss']
 })
 export class editPost {
-  public Editor = ClassicEditor;
   ckconfig:any;
   synonyms:any;
   loginForm: FormGroup;
@@ -394,7 +395,8 @@ export class editPost {
   title: string;
   editName: string;
   concept: any;
-  projectId = 'rg2327';
+  projectId = 'te2647';
+  // projectId = 'rg2327';
   public model = {
     editorData: '',
     namesData: ''
@@ -453,7 +455,7 @@ export class editPost {
         ],
       addPlugins: 'simplebox',
       removePlugins: 'horizontalrule,tabletools,specialchar,about,others',
-      removeButtons: 'Superscript,Subscript,Save,NewPage,Preview,Print,Templates,Replace,SelectAll,Form,Checkbox,Radio,TextField,Textarea,Find,Select,Button,ImageButton,HiddenField,CopyFormatting,CreateDiv,BidiLtr,BidiRtl,Language,Flash,Smiley,PageBreak,Iframe,ShowBlocks,Cut,Copy,Paste,Table,Format,Source,Maximize,Styles,Anchor,SpecialChar,PasteFromWord,PasteText,Scayt,RemoveFormat,Indent,Outdent,Blockquote'
+      removeButtons: 'Image,Superscript,Subscript,Save,NewPage,Preview,Print,Templates,Replace,SelectAll,Form,Checkbox,Radio,TextField,Textarea,Find,Select,Button,ImageButton,HiddenField,CopyFormatting,CreateDiv,BidiLtr,BidiRtl,Language,Flash,PageBreak,Iframe,ShowBlocks,Cut,Copy,Paste,Table,Format,Source,Maximize,Styles,Anchor,SpecialChar,PasteFromWord,PasteText,Scayt,RemoveFormat,Indent,Outdent,Blockquote'
   
     }
 

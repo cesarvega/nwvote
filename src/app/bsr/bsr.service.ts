@@ -31,7 +31,7 @@ export class BsrService {
   urlPlusPost = '[BI_GUIDELINES].[dbo].[bsr_updConceptData] ' + "'" + this.projectId + "'";
   urlPlusProjectId = '[BI_GUIDELINES].[dbo].[bsr_GetSlides] ' + "'" + this.projectId + "'";
   urlGetPosit = '[BI_GUIDELINES].[dbo].[bsr_GetProjectData] ' + "'" + this.projectId + "'";
-  _SP_CHANGE_POST_IT_ORDER = '[BI_GUIDELINES].[dbo].[bsr_updConceptOrder] N' + "'" + JSON.stringify(this.conceptsOrder) + "'";
+  _SP_CHANGE_POST_IT_ORDER:any;
   _SP_NewNameNSR = "[BI_GUIDELINES].[dbo].[nsr_mobAddNames] N'";
   _SP_NewNameBSR = "[BI_GUIDELINES].[dbo].[nsr_mobAddNames] N'";
   _SP_deleteNames = "[BI_GUIDELINES].[dbo].[bsr_delName] ";
@@ -39,7 +39,9 @@ export class BsrService {
 
   isNSR: any;
 
-  constructor(private http: HttpClient) { }
+  constructor(private http: HttpClient) {
+    this._SP_CHANGE_POST_IT_ORDER = '[BI_GUIDELINES].[dbo].[bsr_updConceptOrder] N' + "'" + JSON.stringify(this.conceptsOrder) + "'";
+   }
 
   sendNewName(nameContainer, isNSR) {
     let newNameContainer = {

@@ -111,10 +111,10 @@
               <div class="row">
                 <div class="col-md-8">
 
-                  <div class="presentation-box" style="overflow-y: scroll;">
+                  <div class="presentation-box" style="overflow-y: scroll;" [ngStyle]="{'max-width': myMaxWith2 }">
 
                     <!-- POST_REPEATER -->
-                    <div class="row post-it-container" [ngStyle]="{'max-width': myMaxWith }" cdkDropList
+                    <div class="row post-it-container"  cdkDropList
                       [cdkDropListData]="conceptData.concepts" (cdkDropListDropped)="drop($event)">
 
                       <mat-card style="width: 300px;margin: 5px;height: 310px;background-color: lightgoldenrodyellow;"
@@ -151,7 +151,7 @@
                   </div>
                 </div>
 
-
+                <div class="col-md-4">
                 <!-- SLIDER -->
                 <mat-slider *ngIf="true" [(ngModel)]='sliderVal' [ngStyle]="{'display':slideCss}"
                   (input)="onInputChange($event)"></mat-slider>
@@ -179,18 +179,11 @@
                         SUBMIT
                       </button>
                     </form>
-
                   </div>
-
-
-                </div>
-                <div *ngIf="true">
-
                 </div>
 
                 <div class="col-md-4 " *ngIf="!nameBox && nameBoxB">
                   <!-- NAMES BOX -->
-
                   <div class="names-container3 bounceIn">
                     <div *ngFor="let  item of nameCandidates; let i = index">
                       <span (dblclick)="openDialog(item, 'deleteName')"
@@ -247,6 +240,8 @@
 
 
                 </div>
+
+              </div>
               </div>
               <div class="row">
                 <div class="col-md-12">

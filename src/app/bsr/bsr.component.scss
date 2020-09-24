@@ -86,7 +86,8 @@
   background-image: url(../../assets/img/toolbarBg.jpg);
   height: 53px;
   position: absolute;
-  top: 4px;
+  top: 74px;
+  left: 95px;
   width: 954px;
   z-index: 9999;
   border-radius: 5px;
@@ -443,3 +444,10 @@ $postItHeaderColorsLength: length($postItHeaderColors);
 }
 
 
+.example-card {
+  max-width: 280px;
+}
+.example-header-image {
+  background-image: url('https://material.angular.io/assets/img/examples/shiba1.jpg');
+  background-size: cover;
+}
