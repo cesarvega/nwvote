@@ -7,7 +7,6 @@ import { BsrService } from './bsr.service';
 import { FormBuilder, Validators, FormGroup } from '@angular/forms';
 import { MatDialog, MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 
-import * as ClassicEditor from '@ckeditor/ckeditor5-build-classic';
 
 ///CKEDITOR NOTES, para que el toolbar del editor pueda ser configurado
 //  es necesario de instalar el ckeditor4  y el ckeditor5 y 
@@ -28,7 +27,7 @@ export class BsrComponent implements OnInit {
   totalNumberOfnames = 51;
   slideCss = 'none';
   projectId = 'rg2327';
-  createPostIt = false;
+  createPostIt = true;
   isSearching = false;
   overview = false;
   isNSR = false;
@@ -385,7 +384,7 @@ export interface DialogData {
   styleUrls: ['./bsr.component.scss']
 })
 export class editPost {
-  public Editor = ClassicEditor;
+
   ckconfig:any;
   synonyms:any;
   loginForm: FormGroup;
@@ -439,6 +438,7 @@ export class editPost {
     this.ckconfig = {
       allowedContent: false,
       width : '99.6%',
+      contentsCss: ["body {font-size: 20px;}"],
       height : 370,
       forcePasteAsPlainText: true,
       toolbarLocation : 'top',      

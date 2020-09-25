@@ -178,19 +178,6 @@
   flex-basis: 0;
 }
 
-.cdk-drag-preview {
-  box-sizing: border-box;
-  border-radius: 4px;
-  box-shadow: 0 5px 5px -3px rgba(0, 0, 0, 0.2), 0 8px 10px 1px rgba(0, 0, 0, 0.14), 0 3px 14px 2px rgba(0, 0, 0, 0.12);
-}
-
-.cdk-drag-placeholder {
-  opacity: 0;
-}
-
-.cdk-drag-animating {
-  transition: transform 250ms cubic-bezier(0, 0, 0.2, 1);
-}
 
 .post-box:last-child {
   border: none;
@@ -305,20 +292,6 @@ mat-slider {
   max-height: inherit;
 }
 
-.bounceIn {
-  display: inline-block;
-  margin: 0 0.5rem;
-
-  animation: shakeX; /* referring directly to the animation's @keyframe declaration */
-  animation-duration: 0.1s; /* don't forget to set a duration! */
-}
-.bounceOut {
-  display: inline-block;
-  margin: 0 0.5rem;
-
-  animation: shakeX; /* referring directly to the animation's @keyframe declaration */
-  animation-duration: 0.1s; /* don't forget to set a duration! */
-}
 
 .colorin {
   max-height: inherit;
@@ -334,12 +307,14 @@ mat-slider {
 }
 
 .title-card {
-  // max-width: 320px;
-  // min-width: 320px;
+  overflow: hidden;
   border-radius: 8px;
-  border: 1px solid;
+  border: 2px solid;
   background: #fff;
-  border-color: rgba(0, 0, 0, 0.01);
+  border-color: #004684;
+  margin-bottom: 14px;
+  width: 986px;
+  height: 137px;
 }
 
 .ckeditor-card {
@@ -432,7 +407,102 @@ $postItHeaderColorsLength: length($postItHeaderColors);
     }
   }
 }
+.post-card {
+  @for $i from 1 through $postItBodyColorsLength {
+    &:nth-of-type(#{$postItBodyColorsLength}n + #{$i}) .shrink-card {
+      background-color: nth($postItBodyColors, $i);
+    }
+    &:nth-of-type(#{$postItBodyColorsLength}n + #{$i}) .shrink-card-content {
+      background-color: nth($postItBodyColors, $i);
+    }
+    &:nth-of-type(#{$postItBodyColorsLength}n + #{$i}) .shrink-card-color {
+      background-color: nth($postItBodyColors, $i);
+    }
+  }
+}
 
 .mwlResizable {
   box-sizing: border-box; // required for the enableGhostResize option to work
+}
+
+.post-card {
+  width: 280px;
+  margin: 15px;
+  height: 280px;
+  background-color: #d6f8fd;
+  overflow: hidden;
+
+}
+
+.post-card:hover {
+  width: 295px;
+  // margin: 15px;
+  height: 295px;
+  // background-color: #0bcdeb;
+  animation: heartBeat; /* referring directly to the animation's @keyframe declaration */
+  animation-duration: 0.5s; 
+  z-index: 999999;
+}
+
+.post-title {
+  height: auto;
+  overflow: hidden;
+  width: 253px;
+  word-break: break-all;
+  cursor: grab;
+}
+
+.post-title:hover {
+  height: auto;
+  width: 253px;
+  word-break: break-all;
+  cursor: pointer;
+}
+
+// Resizable options
+
+
+.cdk-drag-preview {
+  box-sizing: border-box;
+  border-radius: 4px;
+  box-shadow: 0 5px 5px -3px rgba(0, 0, 0, 0.2), 0 8px 10px 1px rgba(0, 0, 0, 0.14), 0 3px 14px 2px rgba(0, 0, 0, 0.12);
+}
+
+.cdk-drag-placeholder {
+  opacity: 0;
+}
+
+.cdk-drag-animating {
+  transition: transform 250ms cubic-bezier(0, 0, 0.2, 1);
+}
+
+// Defined Animations
+.bounceIn {
+  display: inline-block;
+  margin: 0 0.5rem;
+
+  animation: shakeX; /* referring directly to the animation's @keyframe declaration */
+  animation-duration: 0.1s; /* don't forget to set a duration! */
+}
+.bounceOut {
+  display: inline-block;
+  margin: 0 0.5rem;
+
+  animation: shakeX; /* referring directly to the animation's @keyframe declaration */
+  animation-duration: 0.1s; /* don't forget to set a duration! */
+}
+
+.shakeIn {
+  display: inline-block;
+  margin: 0 0.5rem;
+
+  animation: shakeX; /* referring directly to the animation's @keyframe declaration */
+  animation-duration: 0.1s; /* don't forget to set a duration! */
+}
+.shakeOut {
+  display: inline-block;
+  margin: 0 0.5rem;
+
+  animation: shakeX; /* referring directly to the animation's @keyframe declaration */
+  animation-duration: 0.1s; /* don't forget to set a duration! */
 }

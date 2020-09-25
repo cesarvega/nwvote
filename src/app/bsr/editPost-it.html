@@ -234,11 +234,6 @@
                         </div> -->
                             </div>
 
-                            <!-- <ckeditor #child [data]="dataEditor" (ready)="onReady($event)"
-                            [ngModelOptions]="{standalone: true}" [(ngModel)]="model.editorData" class="ckeditorcev"
-                            [config]="ckconfig"></ckeditor> -->
-                            <!-- <ckeditor [editor]="Editor" [data]="dataEditor" (ready)="onReady($event)"
-                            [(ngModel)]="model.editorData"   [config]="ckconfig"></ckeditor> -->
                             <ckeditor class="ckeditorcev" [ngModelOptions]="{standalone: true}"
                                 [(ngModel)]="model.editorData" [data]="dataEditor" [config]="ckconfig"></ckeditor>
                         </div>
@@ -256,10 +251,13 @@
                                 fxLayoutAlign="start center">
                                 <textarea matInput cdkTextareaAutosize cdkAutosizeMinRows="23" formControlName="suma"
                                     cdkAutosizeMaxRows="23" style="
-                              height: 460px;
-                              width: 248px;
-                              position: absolute;
-                              top: 40px;" appearance="outline" formControlName="suma"></textarea>
+                                                            height: 460px;
+                                                            width: 248px;
+                                                            position: absolute;
+                                                            font-size: 30px;
+                                                            line-height: 28px;
+                                                            top: 40px;" 
+                                    appearance="outline" formControlName="suma"></textarea>
                             </div>
                         </div>
                     </div>
