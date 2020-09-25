@@ -12,8 +12,8 @@
 }
 
 .slide-box {
-  width: 950px;
-  height: 714px;
+  width: 968px;
+  height: 727px;
   border: solid 4px lightgray;
   border-radius: 6px;
   background-repeat: no-repeat;
@@ -125,6 +125,7 @@
 .names-container2 {
   background-color: white;
   width: 625px;
+  max-width: 625px;
   height: 630px;
   position: relative;
   right: 322px;
@@ -137,6 +138,7 @@
 .names-container3 {
   background-color: white;
   width: 0px;
+  max-width: 0px;
   height: 630px;
   position: relative;
   right: 322px;

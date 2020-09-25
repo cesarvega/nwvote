@@ -28,12 +28,12 @@ export class BsrComponent implements OnInit {
   totalNumberOfnames = 51;
   slideCss = 'none';
   projectId = 'rg2327';
-  createPostIt = true;
+  createPostIt = false;
   isSearching = false;
   overview = false;
   isNSR = false;
-  slideBackground = 'background-image: url(http://www.bipresents.com/';
-  baseBackgroundUrl = 'background-image: url(http://www.bipresents.com/';
+  slideBackground = 'url(http://www.bipresents.com/';
+  baseBackgroundUrl = 'url(http://www.bipresents.com/';
   myControl = new FormControl();
   options: string[] = ['One', 'Two', 'Three'];
   totalNumberOfSlides: any;
@@ -52,9 +52,10 @@ export class BsrComponent implements OnInit {
   myMaxWith = '900px';
   myMaxRWith = '900px';
   myMaxRightWith = '8px';
-  showSlider: boolean = false;
+  showSlider: boolean = true;
   positPresentationIndex: number;
   appSearchSlidesData: any;
+  slideBackground2: string;
   constructor(private _formBuilder: FormBuilder, private _hotkeysService: HotkeysService, private _BsrService: BsrService, public dialog: MatDialog) {
 
     // keyboard keymaps
@@ -130,7 +131,9 @@ export class BsrComponent implements OnInit {
       name: ['']
     });
 
-    this.slider.value = 51;
+    if (this.slider) {      
+      this.slider.value = 51;
+    }
     this.slideCss = 'block';
   }
   drop(event: CdkDragDrop<string[]>) {
@@ -453,9 +456,9 @@ export class editPost {
         { name: 'links' },
         { name: 'about' }
         ],
-      addPlugins: 'simplebox',
+      addPlugins: 'simplebox,tabletools',
       removePlugins: 'horizontalrule,tabletools,specialchar,about,others',
-      removeButtons: 'Superscript,Subscript,Save,NewPage,Preview,Print,Templates,Replace,SelectAll,Form,Checkbox,Radio,TextField,Textarea,Find,Select,Button,ImageButton,HiddenField,CopyFormatting,CreateDiv,BidiLtr,BidiRtl,Language,Flash,Smiley,PageBreak,Iframe,ShowBlocks,Cut,Copy,Paste,Table,Format,Source,Maximize,Styles,Anchor,SpecialChar,PasteFromWord,PasteText,Scayt,RemoveFormat,Indent,Outdent,Blockquote'
+      removeButtons: 'tableselection,Image,Superscript,Subscript,Save,NewPage,Preview,Print,Templates,Replace,SelectAll,Form,Checkbox,Radio,TextField,Textarea,Find,Select,Button,ImageButton,HiddenField,CopyFormatting,CreateDiv,BidiLtr,BidiRtl,Language,Flash,PageBreak,Iframe,ShowBlocks,Cut,Copy,Paste,Table,Format,Source,Maximize,Styles,Anchor,SpecialChar,PasteFromWord,PasteText,Scayt,RemoveFormat,Indent,Outdent,Blockquote'
   
     }
 

@@ -15,7 +15,7 @@
 
       <!-- PRESENTATION -->
       <div *ngIf="!createPostIt" fxLayoutAlign="center center" class="col">
-        <div class="slide-box" [style]="slideBackground">
+        <div class="slide-box" [style.background]="slideBackground">
 
           <mat-toolbar class="toolbar mat-elevation-z4" *ngIf="mainMenu">
 
@@ -123,7 +123,7 @@
                         <!-- TITLE -->
                         <mat-card-title>
                         <div
-                          style="background-color: lightgoldenrodyellow;height: 60px;overflow-x: hidden;width: 283px;word-break: break-all;">
+                          style="height: 50px;overflow-x: hidden;width: 283px;word-break: break-all;">
                           <div class="mat-h2">{{item.concept}}</div>
                         </div>
                       </mat-card-title>
@@ -140,7 +140,8 @@
                             <mat-icon style="font-size: 18px;">create</mat-icon>
                           </button>
                           <button (click)="openDialog(item, 'delete')" mat-mini-fab class="post-button" color="primary">
-                            <mat-icon style="font-size: 20px;">cancel</mat-icon>
+                            <mat-icon style="font-size: 19px;
+                            position: inherit;">cancel</mat-icon>
                           </button>
                         </mat-card-actions>
 
@@ -153,7 +154,7 @@
 
 
                 <!-- SLIDER -->
-                <mat-slider *ngIf="true" [(ngModel)]='sliderVal' [ngStyle]="{'display':slideCss}"
+                <mat-slider *ngIf="showSlider" [(ngModel)]='sliderVal' [ngStyle]="{'display':slideCss}"
                   (input)="onInputChange($event)"></mat-slider>
                 <div class="col-md-4" *ngIf="nameBox && nameBoxB">
                   <!-- NAMES  nameCandidates BOX -->
