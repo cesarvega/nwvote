@@ -106,6 +106,7 @@ export class BsrComponent implements OnInit {
   }
 
   ngOnInit(): void {
+    this.postItListTheme = localStorage.getItem('post-it-list-theme');
     this._BsrService.getSlides(this.projectId).subscribe((res: any) => {
       console.log(res);
       this.appSlidesData = res;
@@ -382,6 +383,7 @@ export class BsrComponent implements OnInit {
     } else {
       this.postItListTheme = 'post-it-list-theme'
     }
+    localStorage.setItem('post-it-list-theme', this.postItListTheme)
   }
 }
 
