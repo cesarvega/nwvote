@@ -39,7 +39,7 @@
 
  
 .presentation-box {
-  width: 961px;
+  width: 948px;
   height: 714px;
   border: solid 4px lightgray;
   border-radius: 6px;
@@ -139,7 +139,7 @@
   position: absolute;
   top: 74px;
   left: 95px;
-  width: 954px;
+  width: 940px;
   z-index: 9999;
   border-radius: 5px;
 }
@@ -163,7 +163,7 @@
 
 .names-container {
   background-color: white;
-  width: 314px;
+  width: 300px;
   max-width: 313px;
   height: 630px;
   position: relative;
@@ -500,6 +500,10 @@ $postItHeaderColorsLength: length($postItHeaderColors);
   // animation-duration: 0.5s; 
   // z-index: 999999;
   @include BoxShadow(12);
+  background-color: lightyellow;
+  // transform: scale(1.4);
+  z-index: 9999999999;
+  
   // box-shadow: 0 1px 1px 0 rgba(0, 0, 0, .14), 0 2px 1px -1px rgba(0, 0, 0, .12), 0 1px 3px 0 rgba(0, 0, 0, .20);
 
 }
