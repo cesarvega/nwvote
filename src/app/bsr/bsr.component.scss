@@ -173,6 +173,7 @@
   overflow-y: scroll;
   padding: 10px;
 }
+
 .names-container::-webkit-scrollbar {
   display: none;
 }
@@ -182,7 +183,7 @@
 
 .names-container2 {
   background-color: white;
-  width: 625px;
+  width: 614px;
   max-width: 625px;
   height: 630px;
   position: relative;
@@ -193,9 +194,10 @@
   padding: 10px;
 }
 
-.names-container3 ::-webkit-scrollbar {
+.names-container2 ::-webkit-scrollbar {
   display: none;
 }
+
 
 .names-container3 {
   background-color: white;
@@ -209,6 +211,10 @@
   overflow-y: scroll;
   padding: 10px;
 
+}
+
+.names-container3 ::-webkit-scrollbar {
+  display: none;
 }
 
 .post-list {
@@ -268,6 +274,7 @@
 
 .mat-icon {
   height: 29px;
+    z-index: 9999;
 }
 
 .post-button {
@@ -280,12 +287,11 @@
 
 .name-form {
   position: fixed;
-    bottom: 213px;
-    width: 276px;
+    top: 687px;
+    width: 300px;
     background-color: white;
     height: 90px;
     border-radius: 12px;
-    // border: #004684 solid 2px;
     padding: 20px;
 }
 
@@ -502,8 +508,18 @@ $postItHeaderColorsLength: length($postItHeaderColors);
   @include BoxShadow(12);
   background-color: lightyellow;
   // transform: scale(1.4);
-  z-index: 9999999999;
-  
+  // z-index: 9999999999;
+  .deleteButton{
+    color: #ff0000d1;
+      font-size: 19px;
+      margin: 5px;
+      position: absolute;
+      right: -8px;
+      top: 255px;
+      cursor: pointer;
+      box-shadow: 0 0 black;
+      z-index:1;
+  }
   // box-shadow: 0 1px 1px 0 rgba(0, 0, 0, .14), 0 2px 1px -1px rgba(0, 0, 0, .12), 0 1px 3px 0 rgba(0, 0, 0, .20);
 
 }
@@ -529,12 +545,10 @@ $postItHeaderColorsLength: length($postItHeaderColors);
 
 .post-content {
   cursor: pointer;
-  width: 263px;
-  height: 260px;
-  overflow-y: scroll;
-  overflow-x: hidden;
-  -ms-overflow-style: none;  /* IE and Edge */
-  scrollbar-width: none;
+    width: 263px;
+    height: 207px;
+    overflow-y: scroll;
+    overflow-x: hidden;
 }
 
 .post-content::-webkit-scrollbar {
@@ -545,10 +559,6 @@ $postItHeaderColorsLength: length($postItHeaderColors);
   overflow-y: scroll;
   -ms-overflow-style: none;  /* IE and Edge */
   scrollbar-width: none;
-  // height: auto;
-  // width: 253px;
-  // word-break: break-all;
-  // cursor: pointer;
 }
 
 // Resizable options

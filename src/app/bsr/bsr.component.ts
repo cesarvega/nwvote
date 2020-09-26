@@ -23,6 +23,7 @@ export class BsrComponent implements OnInit {
   @ViewChild('slider') slider;
 
   loginForm: FormGroup;
+  isMouseOver : boolean =  false;
   sliderVal = 51;
   totalNumberOfnames = 51;
   slideCss = 'none';
@@ -56,6 +57,7 @@ export class BsrComponent implements OnInit {
   positPresentationIndex: number;
   appSearchSlidesData: any;
   slideBackground2: string;
+  nameIndexCounter = 0;
   constructor(private _formBuilder: FormBuilder, private _hotkeysService: HotkeysService, private _BsrService: BsrService, public dialog: MatDialog) {
 
     // keyboard keymaps
@@ -131,7 +133,7 @@ export class BsrComponent implements OnInit {
       name: ['']
     });
 
-    if (this.slider) {      
+    if (this.slider) {
       this.slider.value = 51;
     }
     this.slideCss = 'block';
@@ -191,7 +193,7 @@ export class BsrComponent implements OnInit {
   }
 
   submitNewName() {
-    
+
     this.loginForm.value.name.split(',').forEach(element => {
       this._BsrService.sendNewName(element, this.isNSR).subscribe(arg => {
       });
@@ -240,7 +242,7 @@ export class BsrComponent implements OnInit {
 
   bsr() {
     this.createPostIt = !this.createPostIt;
-    this.currentPageNumber = (this.positPresentationIndex)?this.positPresentationIndex:58;
+    this.currentPageNumber = (this.positPresentationIndex) ? this.positPresentationIndex : 58;
     console.log('bsr');
   }
 
@@ -265,14 +267,14 @@ export class BsrComponent implements OnInit {
   //   console.log('Element was resized', event);
   // }
   openDialog(item, nameid): void {
-   
- 
-      const dialogRef = this.dialog.open(editPost, {
-        // width: ((nameid === 'edit')?'80%':'100%'),
-        height: ((nameid === 'edit')?'700px':'200px'),
-        data: { name: item, nameId: nameid }
-      });
-    
+
+
+    const dialogRef = this.dialog.open(editPost, {
+      // width: ((nameid === 'edit')?'80%':'100%'),
+      height: ((nameid === 'edit') ? '700px' : '200px'),
+      data: { name: item, nameId: nameid }
+    });
+
 
     this.conceptid = item.conceptid;
 
@@ -309,7 +311,21 @@ export class BsrComponent implements OnInit {
   toggleNamebox() {
     //  this.nameBox = !this.nameBox;
     //  this.nameBoxB = !this.nameBoxB;
-    this.showSlider = !this.showSlider;
+
+    if (this.nameIndexCounter === 0) {
+      this.nameIndexCounter++;
+      this.onInputChange(52);
+    } else if (this.nameIndexCounter === 1) {
+      this.nameIndexCounter++;
+      this.onInputChange(30);
+    } else {
+      this.nameIndexCounter = 0;
+      this.onInputChange(15);
+    }
+
+    this.nameIndexCounter
+    this.showSlider = false;
+    // this.showSlider = !this.showSlider;
     if (this.showSlider) {
       this.slideCss = 'block';
     } else {
@@ -319,22 +335,22 @@ export class BsrComponent implements OnInit {
 
 
 
-  onInputChange(event: MatSliderChange) {
+  onInputChange(value : number) {
     console.log("This is emitted as the thumb slides");
-    // console.log(event.value);
-    if (event.value > 51) {
+    // console.log(value);
+    if (value > 51) {
       this.myMaxWith = '935px';
       this.myMaxRWith = '300px';
       this.myMaxRightWith = '-1px';
       this.nameBox = false;
       this.nameBoxB = false;
-    } else if (event.value <= 51 && event.value > 25) {
+    } else if (value <= 51 && value > 25) {
       this.myMaxWith = '925px';
       this.myMaxRWith = '340px';
       this.myMaxRightWith = '8px';
       this.nameBox = true;
       this.nameBoxB = true;
-    } else if (event.value <= 25) {
+    } else if (value <= 25) {
       this.myMaxWith = '335px';
       this.myMaxRWith = '636px';
       this.myMaxRightWith = '352px';
@@ -350,15 +366,13 @@ export class BsrComponent implements OnInit {
     } else {
       this.isSearching = true;
       this.appSlidesData.forEach(element => {
-        if ( element.DisplayName.includes(searchValue)) {
-         this.appSearchSlidesData.push(element);
+        if (element.DisplayName.includes(searchValue)) {
+          this.appSearchSlidesData.push(element);
         }
-       });
+      });
     }
 
   }
-
-
 
 }
 import { MatSliderChange } from '@angular/material/slider';
@@ -377,8 +391,8 @@ export interface DialogData {
 })
 export class editPost {
 
-  ckconfig:any;
-  synonyms:any;
+  ckconfig: any;
+  synonyms: any;
   loginForm: FormGroup;
   isDeleting = false;
   isDeletingName = false;
@@ -429,29 +443,29 @@ export class editPost {
 
     this.ckconfig = {
       allowedContent: false,
-      width : '99.6%',
+      width: '99.6%',
       contentsCss: ["body {font-size: 20px;}"],
-      height : 370,
+      height: 370,
       forcePasteAsPlainText: true,
-      toolbarLocation : 'top',      
-      toolbarGroups : [
-        { name: 'clipboard',   groups: [ 'clipboard',''] },     
+      toolbarLocation: 'top',
+      toolbarGroups: [
+        { name: 'clipboard', groups: ['clipboard', ''] },
         { name: 'insert' },
         { name: 'forms' },
         { name: 'tools' },
-        { name: 'document',       groups: [ 'mode', 'document', 'doctools' ] },
+        { name: 'document', groups: ['mode', 'document', 'doctools'] },
         { name: 'others' },
-        { name: 'basicstyles', groups: [ 'basicstyles', 'cleanup' ] },
+        { name: 'basicstyles', groups: ['basicstyles', 'cleanup'] },
         { name: 'colors' },
-        { name: 'paragraph',   groups: [ 'list', 'indent', 'blocks', 'align', 'bidi' ] },
+        { name: 'paragraph', groups: ['list', 'indent', 'blocks', 'align', 'bidi'] },
         { name: 'styles' },
         { name: 'links' },
         { name: 'about' }
-        ],
+      ],
       addPlugins: 'simplebox,tabletools',
       removePlugins: 'horizontalrule,tabletools,specialchar,about,others',
       removeButtons: 'tableselection,Image,Superscript,Subscript,Save,NewPage,Preview,Print,Templates,Replace,SelectAll,Form,Checkbox,Radio,TextField,Textarea,Find,Select,Button,ImageButton,HiddenField,CopyFormatting,CreateDiv,BidiLtr,BidiRtl,Language,Flash,PageBreak,Iframe,ShowBlocks,Cut,Copy,Paste,Table,Format,Source,Maximize,Styles,Anchor,SpecialChar,PasteFromWord,PasteText,Scayt,RemoveFormat,Indent,Outdent,Blockquote'
-  
+
     }
 
     this.loginForm = this._formBuilder.group({
@@ -462,7 +476,7 @@ export class editPost {
 
   }
 
-  
+
 
   onReady(editor) {
     // editor.ui.getEditableElement().parentElement.insertBefore(
@@ -506,7 +520,7 @@ export class editPost {
       this._BsrService.sendNewName(element, false).subscribe(arg => {
       });
     });
-    
+
   }
 
   onNoClick(): void {
@@ -517,9 +531,9 @@ export class editPost {
     this.dialogRef.close(this.popupwindowData);
   }
 
-  getSinonyms(syn){
-    this._BsrService.getSinonyms('one').subscribe(res=>{
-      console.log(res);      
+  getSinonyms(syn) {
+    this._BsrService.getSinonyms('one').subscribe(res => {
+      console.log(res);
     })
   }
 
