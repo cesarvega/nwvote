@@ -94,7 +94,7 @@
               <!-- Brandstomr and Names toolbar -->
               <mat-toolbar class="toptoolbar mat-elevation-z4" color="primary">
                 <div class="row">
-                  <div class="col brandstorm" style="color: white; font-size: 40px;font-family: Arial">
+                  <div (click)="theme()" class="col brandstorm" style="color: white; font-size: 40px;font-family: Arial">
                     Brandstorm
                   </div>
                   <div class="col" (click)="toggleNamebox()"
@@ -111,37 +111,34 @@
               <div class="row">
                 <div class="col-md-8">
 
-                  <div class="presentation-box " style="overflow-y: scroll;" >
+                  <div class="presentation-box " style="overflow-y: scroll;">
 
                     <!-- POST_REPEATER -->
-                    <div class="row post-it-container " [ngStyle]="{'max-width': myMaxWith }" cdkDropList 
-                      [cdkDropListData]="conceptData.concepts" (cdkDropListDropped)="drop($event)" >
-                      <div class="post-it-list"  *ngFor="let item of conceptData.concepts; let i = index;"> 
+                    <div class="row post-it-container " [ngStyle]="{'max-width': myMaxWith }" cdkDropList
+                      [cdkDropListData]="conceptData.concepts" (cdkDropListDropped)="drop($event)">
 
-                     
-                      <mat-card class="mat-elevation-z4 post-card"  
-                                                 
-                        cdkDrag cdkDragLockAxis="xy" >
+                      <div [ngClass]="postItListTheme" *ngFor="let item of conceptData.concepts; let i = index;">
+                        <mat-card class="mat-elevation-z4 post-card" cdkDrag cdkDragLockAxis="xy">
 
-                        <!-- TITLE -->
-                        <mat-card-title>
-                        <div class="post-title">
-                          <div class="mat-h2" style="line-height: 100%;">{{item.concept}}</div>
-                          <hr>
-                        </div>
-                      </mat-card-title>
+                          <!-- TITLE -->
+                          <mat-card-title>
+                            <div class="post-title">
+                              <div class="mat-h2" style="line-height: 100%;">{{item.concept}}</div>
+                              <hr>
+                            </div>
+                          </mat-card-title>
 
-                        <!-- HTML-CONTENT -->
+                          <!-- HTML-CONTENT -->
 
-                        <mat-card-content class="post-content" (click)="openDialog(item, 'edit')"  >
-                          <div [innerHTML]="item.html"></div>
-                        </mat-card-content>
+                          <mat-card-content class="post-content" (click)="openDialog(item, 'edit')">
+                            <div [innerHTML]="item.html"></div>
+                          </mat-card-content>
 
-                        <mat-icon class="deleteButton" (click)="openDialog(item, 'delete')" >cancel</mat-icon>
-                       
+                          <mat-icon class="deleteButton" (click)="openDialog(item, 'delete')">cancel</mat-icon>
 
-                      </mat-card>
-                    </div>
+
+                        </mat-card>
+                      </div>
                     </div>
 
                   </div>
@@ -165,17 +162,17 @@
                   </div>
 
                   <form name="loginForm" [formGroup]="loginForm" novalidate class="name-form"
-                  fxLayoutAlign="center center">
+                    fxLayoutAlign="center center">
 
-                  <mat-form-field style="width: 550px;">
-                    <input matInput type="New Name" placeholder="New Name" formControlName="name"
-                      [(ngModel)]="newName">
-                  </mat-form-field>
-                  <button (click)="submitNewName(); newName=''" mat-button color="success" aria-label="icon"
-                    style="outline: none;">
-                    SUBMIT
-                  </button>
-                </form>
+                    <mat-form-field style="width: 550px;">
+                      <input matInput type="New Name" placeholder="New Name" formControlName="name"
+                        [(ngModel)]="newName">
+                    </mat-form-field>
+                    <button (click)="submitNewName(); newName=''" mat-button color="success" aria-label="icon"
+                      style="outline: none;">
+                      SUBMIT
+                    </button>
+                  </form>
 
                 </div>
                 <div *ngIf="true">
@@ -259,8 +256,8 @@
 
                     <input class="search" placeholder="search" type="text" (input)="onInputChange($event)"
                       (keypress)="searchTerm($event.target.value)">
-                      <div class="col" *ngIf="isSearching">
-                        <div style="
+                    <div class="col" *ngIf="isSearching">
+                      <div style="
                            width: 149px;
                            height: 350px;
                            overflow-y: scroll;
@@ -268,17 +265,18 @@
                            left: -170px;
                            bottom: 27px;
                            z-index: 99999999999999;">
-                          <mat-card (click)="goToSlide(i)" class="example-card" *ngFor="let item of appSearchSlidesData; let i = index">
-                            <mat-card-header>
-                              
-                          <!-- <mat-card-title>Shiba Inu</mat-card-title> -->
-                              <mat-card-subtitle>{{item.DisplayName}}</mat-card-subtitle>
-                            </mat-card-header>
-                            <img [src]="'http://www.bipresents.com/' + item.SlideBGFileName" alt="overview"
-                              style="max-width: 100px;cursor: pointer;">
-                          </mat-card>
-                        </div>
+                        <mat-card (click)="goToSlide(i)" class="example-card"
+                          *ngFor="let item of appSearchSlidesData; let i = index">
+                          <mat-card-header>
+
+                            <!-- <mat-card-title>Shiba Inu</mat-card-title> -->
+                            <mat-card-subtitle>{{item.DisplayName}}</mat-card-subtitle>
+                          </mat-card-header>
+                          <img [src]="'http://www.bipresents.com/' + item.SlideBGFileName" alt="overview"
+                            style="max-width: 100px;cursor: pointer;">
+                        </mat-card>
                       </div>
+                    </div>
                     <button (click)="moveBackward()" mat-icon-button color="accent"
                       aria-label="Example icon-button with a heart icon">
                       <mat-icon>chevron_left</mat-icon>

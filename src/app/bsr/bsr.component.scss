@@ -491,14 +491,40 @@ mat-slider {
 }
 
 
-$postItanimations: wobble, heartBeat, swing, rubberBand ;
-$postItHeaderColors: #d6f8fd, #d6e2fd, #d6fdfa;
+$postItanimations: wobble, wobble, wobble, wobble ;
+$postItseconds: 1,2,3;
+$postItHeaderColors: #d6f8fd, #d6e2fd, #fdd6eb;
 $postItHeaderColorsLength: length($postItHeaderColors);
 .post-it-list {
   @for $i from 1 through 3 {
     &:nth-of-type(#{$postItHeaderColorsLength}n + #{$i}) .post-card {
       background: nth($postItHeaderColors, $i);
+      animation: nth($postItanimations, $i)  #{$i}s;
+      animation-delay: #{$i}s;
+    }
+
+    &:nth-of-type(#{$postItHeaderColorsLength}n + #{$i}) .post-card:hover {
+      // background: nth($postItHeaderColors, $i);
+      // -o-transform: rotate(4deg);
+      // -webkit-transform: rotate(4deg);
+      -moz-transform: rotate(0.5deg);
+      position: relative;
+      top: -2px;
+      background: lightgoldenrodyellow;
       animation: nth($postItanimations, $i) 1s;
+    }
+  }
+}
+
+
+// theme
+$postItHeaderColors: #d6f8fd, #d6f8fd, #d6f8fd;
+.post-it-list-theme {
+  @for $i from 1 through 3 {
+    &:nth-of-type(#{$postItHeaderColorsLength}n + #{$i}) .post-card {
+      background: nth($postItHeaderColors, $i);
+      animation: nth($postItanimations, $i)  #{$i}s;
+      animation-delay: #{$i}s;
     }
 
     &:nth-of-type(#{$postItHeaderColorsLength}n + #{$i}) .post-card:hover {

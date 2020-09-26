@@ -22,8 +22,9 @@ export class BsrComponent implements OnInit {
 
   @ViewChild('slider') slider;
 
+  postItListTheme = 'post-it-list-theme'
   loginForm: FormGroup;
-  isMouseOver : boolean =  false;
+  isMouseOver: boolean = false;
   sliderVal = 51;
   totalNumberOfnames = 51;
   slideCss = 'none';
@@ -335,7 +336,7 @@ export class BsrComponent implements OnInit {
 
 
 
-  onInputChange(value : number) {
+  onInputChange(value: number) {
     console.log("This is emitted as the thumb slides");
     // console.log(value);
     if (value > 51) {
@@ -374,7 +375,17 @@ export class BsrComponent implements OnInit {
 
   }
 
+
+  theme(): void {
+    if (this.postItListTheme == 'post-it-list-theme') {
+      this.postItListTheme = 'post-it-list'
+    } else {
+      this.postItListTheme = 'post-it-list-theme'
+    }
+  }
 }
+
+
 import { MatSliderChange } from '@angular/material/slider';
 
 // CKEDITOR WYSIWYG // **************************************************************************************************
