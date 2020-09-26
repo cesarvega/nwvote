@@ -29,9 +29,9 @@ import { HotkeyModule } from 'angular2-hotkeys';
 // import { CKEditorModule } from '@ckeditor/ckeditor5-angular';
 import { FormsModule } from '@angular/forms';
 import { MatSlideToggleModule } from '@angular/material/slide-toggle';
-import {MatSliderModule} from '@angular/material/slider';
+import { MatSliderModule } from '@angular/material/slider';
 import { CKEditorModule } from 'ckeditor4-angular';
-
+import { MatBadgeModule } from '@angular/material/badge';
 @NgModule({
   declarations: [
     AppComponent,
@@ -55,6 +55,7 @@ import { CKEditorModule } from 'ckeditor4-angular';
     MatToolbarModule,
     MatButtonModule,
     MatInputModule,
+    MatBadgeModule,
     MatCardModule,
     MatDialogModule,
     MatIconModule,
@@ -68,7 +69,7 @@ import { CKEditorModule } from 'ckeditor4-angular';
     HotkeyModule.forRoot(),
     MatSliderModule,
     // AngularEditorModule,
-    
+
   ],
   entryComponents: [
     editPost,

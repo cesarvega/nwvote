@@ -28,6 +28,7 @@ export class BsrComponent implements OnInit {
   slideCss = 'none';
   projectId = 'rg2327';
   createPostIt = true;
+  isDeleteButon = false;
   isSearching = false;
   overview = false;
   isNSR = false;
@@ -51,7 +52,7 @@ export class BsrComponent implements OnInit {
   myMaxWith = '900px';
   myMaxRWith = '900px';
   myMaxRightWith = '8px';
-  showSlider: boolean = true;
+  showSlider: boolean = false;
   positPresentationIndex: number;
   appSearchSlidesData: any;
   slideBackground2: string;
@@ -320,8 +321,7 @@ export class BsrComponent implements OnInit {
 
   onInputChange(event: MatSliderChange) {
     console.log("This is emitted as the thumb slides");
-    console.log(event.value);
-
+    // console.log(event.value);
     if (event.value > 51) {
       this.myMaxWith = '935px';
       this.myMaxRWith = '300px';
@@ -330,17 +330,16 @@ export class BsrComponent implements OnInit {
       this.nameBoxB = false;
     } else if (event.value <= 51 && event.value > 25) {
       this.myMaxWith = '925px';
-      this.myMaxRWith = '293px';
+      this.myMaxRWith = '340px';
       this.myMaxRightWith = '8px';
       this.nameBox = true;
       this.nameBoxB = true;
     } else if (event.value <= 25) {
       this.myMaxWith = '335px';
       this.myMaxRWith = '636px';
-      this.myMaxRightWith = '322px';
+      this.myMaxRightWith = '352px';
       this.nameBox = true;
       this.nameBoxB = false;
-
     }
   }
 
@@ -349,10 +348,7 @@ export class BsrComponent implements OnInit {
       this.isSearching = false;
       this.appSearchSlidesData = [];
     } else {
- 
-      
       this.isSearching = true;
-           
       this.appSlidesData.forEach(element => {
         if ( element.DisplayName.includes(searchValue)) {
          this.appSearchSlidesData.push(element);
@@ -360,10 +356,6 @@ export class BsrComponent implements OnInit {
        });
     }
 
-
-
-
-    console.log(searchValue);
   }
 
 

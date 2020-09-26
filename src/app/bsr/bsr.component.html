@@ -100,7 +100,7 @@
                   <div class="col" (click)="toggleNamebox()"
                     style="color: white; font-size: 40px;font-family: Arial; right: -370px;cursor: pointer;"
                     [matTooltip]="'Names Create '+ nameCandidates.length" matTooltipPosition="right">
-                    Names
+                    Names <span *ngIf="nameCandidates.length > 0">{{':'+nameCandidates.length}}</span>
                   </div>
                 </div>
               </mat-toolbar>
@@ -129,20 +129,15 @@
 
                         <!-- HTML-CONTENT -->
 
-                        <mat-card-content
-                          style="cursor: pointer;width: 263px;height: 160px; overflow-y: scroll; overflow-x: hidden;">
+                        <mat-card-content class="post-content">
                           <div [innerHTML]="item.html"></div>
                         </mat-card-content>
 
-                        <mat-card-actions fxLayoutAlign="end end">
+                        <mat-card-actions fxLayoutAlign="end end" *ngIf="isDeleteButon">
                           <!-- <button mat-mini-fab class="post-button" color="primary">
                             <mat-icon style="font-size: 18px;">create</mat-icon>
                           </button> -->
-                          <mat-icon (click)="openDialog(item, 'delete')" style="font-size: 19px;
-                          position: absolute;
-                          right: -4px;
-                          cursor: pointer;
-                          bottom: -10px;">cancel</mat-icon>
+                          <mat-icon class="deleteButton" (click)="openDialog(item, 'delete')" >cancel</mat-icon>
                         </mat-card-actions>
 
                       </mat-card>

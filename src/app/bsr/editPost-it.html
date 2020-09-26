@@ -192,9 +192,12 @@
 
                             <div fxLayoutAlign="center center">
 
-                                <mat-form-field *ngIf="!isDeleting" appearance="outline" style="width: 900px">
+                                <mat-form-field *ngIf="!isDeleting"  style="width: 954px;
+                                position: relative;
+                                top: -20px;
+                                font-size: 31px;">
                                     <!-- <mat-label>CONCEPT</mat-label> -->
-                                    <input matInput type="Concept" placeholder="Concept" formControlName="name">
+                                    <input matInput type="Concept"  formControlName="name">
                                 </mat-form-field>
                             </div>
 
@@ -247,7 +250,7 @@
                                 <h2 class="text-bold ">New Names</h2>
                             </div>
 
-                            <div class="p-16" style="color: #004684;padding: 10px;height: 780px;" fxLayout="row"
+                            <div class="p-16" style="padding: 10px;height: 780px;" fxLayout="row"
                                 fxLayoutAlign="start center">
                                 <textarea matInput cdkTextareaAutosize cdkAutosizeMinRows="23" formControlName="suma"
                                     cdkAutosizeMaxRows="23" style="
