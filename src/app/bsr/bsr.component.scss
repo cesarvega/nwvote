@@ -421,72 +421,13 @@ mat-slider {
   border-radius: 15px;
 }
 
-// post it automatic color programming in SCSS
-
-$postItBodyColors: red, green, blue;
-// $postItBodyColors: #d6f8fd,
-// #dde7f6,
-// #d8ebfd;
-@for $i from 1 through length($postItBodyColors) {
-  $postItBodyColors: append($postItBodyColors, nth($postItBodyColors, $i));
-}
-
-$postItBodyColorsLength: length($postItBodyColors);
-.biCard {
-  @for $i from 1 through $postItBodyColorsLength {
-    &:nth-of-type(#{$postItBodyColorsLength}n + #{$i}) .shrink-card {
-      background-color: nth($postItBodyColors, $i);
-    }
-    &:nth-of-type(#{$postItBodyColorsLength}n + #{$i}) .shrink-card-content {
-      background-color: nth($postItBodyColors, $i);
-    }
-    &:nth-of-type(#{$postItBodyColorsLength}n + #{$i}) .shrink-card-color {
-      background-color: nth($postItBodyColors, $i);
-    }
-  }
-}
-
-$postItHeaderColors: red, green, violet;
-$postItHeaderColorsLength: length($postItHeaderColors);
-@for $i from 1 through length($postItHeaderColors) {
-  $postItHeaderColors: append($postItHeaderColors, nth($postItHeaderColors, $i));
-}
-
-$postItHeaderColorsLength: length($postItHeaderColors);
-.biCard {
-  @for $i from 1 through $postItHeaderColorsLength {
-    &:nth-of-type(#{$postItHeaderColorsLength}n + #{$i}) .bi-blue {
-      background: nth($postItHeaderColors, $i);
-    }
-
-    &:nth-of-type(#{$postItHeaderColorsLength}n + #{$i}) .bi-blue:hover {
-      background: nth($postItHeaderColors, $i);
-      -o-transform: rotate(4deg);
-      -webkit-transform: rotate(4deg);
-      -moz-transform: rotate(4deg);
-      position: relative;
-      top: 5px;
-      background: #cfc;
-    }
-  }
-}
-// .post-it-container {
-//   @for $i from 1 through $postItBodyColorsLength {
-//     &:nth-of-type(#{$postItBodyColorsLength}n + #{$i}) .post-card{
-//       background-color: nth($postItBodyColors, $i);
-//     }
-//     &:nth-of-type(#{$postItBodyColorsLength}n + #{$i}) .post-card{
-//       background-color: nth($postItBodyColors, $i);
-//     }
-//     &:nth-of-type(#{$postItBodyColorsLength}n + #{$i}) .post-card{
-//       background-color: nth($postItBodyColors, $i);
-//     }
-//   }
-// }
 
 .mwlResizable {
   box-sizing: border-box; // required for the enableGhostResize option to work
 }
+
+
+
 
 .post-card {
   width: 280px;
@@ -499,16 +440,8 @@ $postItHeaderColorsLength: length($postItHeaderColors);
 }
 
 .post-card:hover {
-  // width: 295px;
-  // height: 295px;
-  // background-color: #0bcdeb;
-  // animation: bounceIn; /* referring directly to the animation's @keyframe declaration */
-  // animation-duration: 0.5s; 
-  // z-index: 999999;
   @include BoxShadow(12);
   background-color: lightyellow;
-  // transform: scale(1.4);
-  // z-index: 9999999999;
   .deleteButton{
     color: #ff0000d1;
       font-size: 19px;
@@ -520,10 +453,7 @@ $postItHeaderColorsLength: length($postItHeaderColors);
       box-shadow: 0 0 black;
       z-index:1;
   }
-  // box-shadow: 0 1px 1px 0 rgba(0, 0, 0, .14), 0 2px 1px -1px rgba(0, 0, 0, .12), 0 1px 3px 0 rgba(0, 0, 0, .20);
-
 }
-
 
 .post-title {
   height: auto;
@@ -541,7 +471,6 @@ $postItHeaderColorsLength: length($postItHeaderColors);
   // word-break: break-all;
   // cursor: pointer;
 }
-
 
 .post-content {
   cursor: pointer;
@@ -561,6 +490,31 @@ $postItHeaderColorsLength: length($postItHeaderColors);
   scrollbar-width: none;
 }
 
+
+$postItanimations: wobble, heartBeat, swing, rubberBand ;
+$postItHeaderColors: #d6f8fd, #d6e2fd, #d6fdfa;
+$postItHeaderColorsLength: length($postItHeaderColors);
+.post-it-list {
+  @for $i from 1 through 3 {
+    &:nth-of-type(#{$postItHeaderColorsLength}n + #{$i}) .post-card {
+      background: nth($postItHeaderColors, $i);
+      animation: nth($postItanimations, $i) 1s;
+    }
+
+    &:nth-of-type(#{$postItHeaderColorsLength}n + #{$i}) .post-card:hover {
+      // background: nth($postItHeaderColors, $i);
+      // -o-transform: rotate(4deg);
+      // -webkit-transform: rotate(4deg);
+      -moz-transform: rotate(0.5deg);
+      position: relative;
+      top: -2px;
+      background: lightgoldenrodyellow;
+      animation: nth($postItanimations, $i) 1s;
+    }
+  }
+}
+
+
 // Resizable options
 
 
@@ -577,6 +531,8 @@ $postItHeaderColorsLength: length($postItHeaderColors);
 .cdk-drag-animating {
   transition: transform 250ms cubic-bezier(0, 0, 0.2, 1);
 }
+
+
 
 // Defined Animations
 .bounceIn {
@@ -600,6 +556,7 @@ $postItHeaderColorsLength: length($postItHeaderColors);
 
   animation: shakeX; /* referring directly to the animation's @keyframe declaration */
   animation-duration: 0.1s; /* don't forget to set a duration! */
+  animation-delay: 0.5s; /* don't forget to set a duration! */
 }
 .shakeOut {
   display: inline-block;
@@ -607,5 +564,28 @@ $postItHeaderColorsLength: length($postItHeaderColors);
 
   animation: shakeX; /* referring directly to the animation's @keyframe declaration */
   animation-duration: 0.1s; /* don't forget to set a duration! */
+}
+
+
+/* The animation code */
+@keyframes example {
+  from {opacity: 0.5;}
+  to {opacity: 1;}
+}
+
+@keyframes NAME-YOUR-ANIMATION {
+  0%   { opacity: 0; }
+  100% { opacity: 1; }
+}
+.brandstorm {
+  display: inline-block;
+  margin: 0 0.5rem;  
+  opacity: 1;
+  transition: opacity .5s ease-out;
+  // animation-fill-mode: both;
+  animation-direction: alternate;
+  animation: lightSpeedInRight 1s ; /* referring directly to the animation's @keyframe declaration */
+  animation-delay: 1s; /* don't forget to set a duration! */
+  // animation-duration: 1s; /* don't forget to set a duration! */
 }
 
