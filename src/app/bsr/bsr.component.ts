@@ -32,7 +32,7 @@ export class BsrComponent implements OnInit {
   totalNumberOfnames = 51;
   slideCss = 'none';
   projectId = 'rg2327';
-  createPostIt = false;
+  createPostIt = true;
   isSearching = false;
   overview = false;
   isNSR = false;
@@ -439,6 +439,7 @@ export class editPost {
     namesData: ''
   };
   isMobileInfo: boolean;
+  ckconfig: any;
   constructor(
     public dialogRef: MatDialogRef<editPost>,
     @Inject(MAT_DIALOG_DATA) public data: DialogData, private _formBuilder: FormBuilder, private _BsrService: BsrService,) {
@@ -479,44 +480,41 @@ export class editPost {
       name: [this.concept]
     });
 
-    // this.Editor.defaultConfig = {
-    //   toolbarGroups: [
-    //     { name: 'document', groups: [ 'mode', 'document', 'doctools' ] },
-    //     { name: 'clipboard', groups: [ 'clipboard', 'undo' ] },
-    //     { name: 'editing', groups: [ 'find', 'selection', 'spellchecker' ] },
-    //     { name: 'forms' },
-    //     '/',
-    //     { name: 'basicstyles', groups: [ 'basicstyles', 'cleanup' ] },
-    //     { name: 'paragraph', groups: [ 'list', 'indent', 'blocks', 'align', 'bidi' ] },
-    //     { name: 'links' },
+    this.ckconfig = {
+      allowedContent: false,
+      forcePasteAsPlainText: true,
+      toolbarLocation : 'top',      
+      addPlugins: 'simplebox',
+      removePlugins: 'horizontalrule,tabletools,specialchar,about,others',
+      removeButtons: 'Superscript,Subscript,Save,NewPage,Preview,Print,Templates,Replace,SelectAll,Form,Checkbox,Radio,TextField,Textarea,Find,Select,Button,ImageButton,HiddenField,CopyFormatting,CreateDiv,BidiLtr,BidiRtl,Language,Flash,Smiley,PageBreak,Iframe,ShowBlocks,Cut,Copy,Paste,Table,Format,Source,Maximize,Styles,Anchor,SpecialChar,PasteFromWord,PasteText,Scayt,RemoveFormat,Indent,Outdent,Blockquote'
+  
+    }
+
+    // this.ckconfig = {
+    //   allowedContent: false,
+    //   forcePasteAsPlainText: true,
+    //   toolbarLocation : 'top',
+      
+    //   toolbarGroups : [
+    //     { name: 'clipboard',   groups: [ 'clipboard',''] },     
     //     { name: 'insert' },
-    //     '/',
-    //     { name: 'styles' },
-    //     { name: 'colors' },
+    //     { name: 'forms' },
     //     { name: 'tools' },
+    //     { name: 'document',       groups: [ 'mode', 'document', 'doctools' ] },
     //     { name: 'others' },
+    //     { name: 'basicstyles', groups: [ 'basicstyles', 'cleanup' ] },
+    //     { name: 'colors' },
+    //     { name: 'paragraph',   groups: [ 'list', 'indent', 'blocks', 'align', 'bidi' ] },
+    //     { name: 'styles' },
+    //     { name: 'links' },
     //     { name: 'about' }
-    //   ],
-    //   toolbar : [
-    //     { name: 'document', groups: [ 'mode', 'document', 'doctools' ], items: [ 'Source', '-', 'Save', 'NewPage', 'ExportPdf', 'Preview', 'Print', '-', 'Templates' ] },
-    //     { name: 'clipboard', groups: [ 'clipboard', 'undo' ], items: [ 'Cut', 'Copy', 'Paste', 'PasteText', 'PasteFromWord', '-', 'Undo', 'Redo' ] },
-    //     { name: 'editing', groups: [ 'find', 'selection', 'spellchecker' ], items: [ 'Find', 'Replace', '-', 'SelectAll', '-', 'Scayt' ] },
-    //     { name: 'forms', items: [ 'Form', 'Checkbox', 'Radio', 'TextField', 'Textarea', 'Select', 'Button', 'ImageButton', 'HiddenField' ] },
-    //     '/',
-    //     { name: 'basicstyles', groups: [ 'basicstyles', 'cleanup' ], items: [ 'Bold', 'Italic', 'Underline', 'Strike', 'Subscript', 'Superscript', '-', 'CopyFormatting', 'RemoveFormat' ] },
-    //     { name: 'paragraph', groups: [ 'list', 'indent', 'blocks', 'align', 'bidi' ], items: [ 'NumberedList', 'BulletedList', '-', 'Outdent', 'Indent', '-', 'Blockquote', 'CreateDiv', '-', 'JustifyLeft', 'JustifyCenter', 'JustifyRight', 'JustifyBlock', '-', 'BidiLtr', 'BidiRtl', 'Language' ] },
-    //     { name: 'links', items: [ 'Link', 'Unlink', 'Anchor' ] },
-    //     { name: 'insert', items: [ 'Image', 'Flash', 'Table', 'HorizontalRule', 'Smiley', 'SpecialChar', 'PageBreak', 'Iframe' ] },
-    //     '/',
-    //     { name: 'styles', items: [ 'Styles', 'Format', 'Font', 'FontSize' ] },
-    //     { name: 'colors', items: [ 'TextColor', 'BGColor' ] },
-    //     { name: 'tools', items: [ 'Maximize', 'ShowBlocks' ] },
-    //     { name: 'others', items: [ '-' ] },
-    //     { name: 'about', items: [ 'About' ] }
-    //   ]
+    //     ],
+    //   addPlugins: 'simplebox',
+    //   removePlugins: 'horizontalrule,tabletools,specialchar,about,others',
+    //   removeButtons: 'Superscript,Subscript,Save,NewPage,Preview,Print,Templates,Replace,SelectAll,Form,Checkbox,Radio,TextField,Textarea,Find,Select,Button,ImageButton,HiddenField,CopyFormatting,CreateDiv,BidiLtr,BidiRtl,Language,Flash,Smiley,PageBreak,Iframe,ShowBlocks,Cut,Copy,Paste,Table,Format,Source,Maximize,Styles,Anchor,SpecialChar,PasteFromWord,PasteText,Scayt,RemoveFormat,Indent,Outdent,Blockquote'
+  
     // }
-    // this.Editor.width =100;
-    // this.Editor.height =100;
+
   }
 
 
@@ -535,9 +533,6 @@ export class editPost {
     }
     else if (option === 'savePost') {
       this.isDeleting = false;
-
-
-
       let newConcepData = {
         projectId: this.projectId,
         concept: this.loginForm.value.name,
