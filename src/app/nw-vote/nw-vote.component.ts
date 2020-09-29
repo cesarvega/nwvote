@@ -38,9 +38,9 @@ export class NwVoteComponent implements OnInit {
     this.NwvoteService.getName().subscribe((res: any) => {
       // console.log(res);
       if (this.name !== JSON.parse(res.d)[0].currentName) {
-        this.positiveVote = true;
-        this.negativeVote = true;
-        this.neutralVote = true;
+        // this.positiveVote = true;
+        // this.negativeVote = true;
+        // this.neutralVote = true;
         this.positiveVote = false;
         this.negativeVote = false;
         this.neutralVote = false;
@@ -50,7 +50,7 @@ export class NwVoteComponent implements OnInit {
       this.readOnlyName = (JSON.parse(res.d)[0].readOnly === 1) ? true : false;
       this.progressBarCompletion = 'width: ' + JSON.parse(res.d)[0].completion + '%';
       this.progressBarValue = JSON.parse(res.d)[0].completion;
-      this.rationales = JSON.parse(res.d)[0].nameRationale;
+      this.rationales = JSON.parse(res.d)[0].nameRationale.replace("`", "'");
 
     });
 
@@ -76,10 +76,19 @@ export class NwVoteComponent implements OnInit {
     this.neutralVote = true;
   }
 
+
+  removeVote() {
+    this.sendVote('');
+    this.positiveVote = false;
+    this.negativeVote = false;
+    this.neutralVote = false;
+  }
+
   sendVote(vote: string) {
     this.NwvoteService.voteName(this.name, vote).subscribe((res: any) => {
       console.log(res);
     });
   }
+
 
 }

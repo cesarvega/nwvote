@@ -17,6 +17,7 @@ const routes: Routes = [
   },
   {
     path: 'bsr-mobile/:id',
+
     component: BsrMobileComponent
   },
   {

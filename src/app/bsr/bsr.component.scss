@@ -464,6 +464,7 @@ mat-slider {
   cursor: grab;
   -ms-overflow-style: none;  /* IE and Edge */
   scrollbar-width: none;
+  text-shadow: 0px 1px 100000  1      n m/   px #555;
 }
 
 .post-title:hover {
@@ -483,7 +484,7 @@ mat-slider {
 
 .post-content::-webkit-scrollbar {
   display: block;
-}
+}                                                
 
 .post-content:hover {
   overflow-y: scroll;
@@ -492,16 +493,16 @@ mat-slider {
 }
 
 
-$postItanimations: wobble, wobble, wobble, wobble ;
+$postItanimations: wobble, wobble, wobble, wobble,  wobble, wobble, wobble, wobble, wobble, wobble, wobble, wobble ;
 $postItseconds: 1,2,3;
-$postItHeaderColors: #d6f8fd, #d6e2fd, #fdd6eb;
+$postItHeaderColors: #d6f8fd, #d6f8fd, #d6f8fd,#d6f8fd, #d6f8fd, #d6f8fd,#d6f8fd, #d6f8fd, #d6f8fd;
 $postItHeaderColorsLength: length($postItHeaderColors);
 .post-it-list {
   @for $i from 1 through 3 {
     &:nth-of-type(#{$postItHeaderColorsLength}n + #{$i}) .post-card {
       background: nth($postItHeaderColors, $i);
-      animation: nth($postItanimations, $i)  #{$i}s;
-      animation-delay: #{$i}s;
+      animation: nth($postItanimations, $i)  0.1s;
+      animation-delay: #{$i};
     }
 
     &:nth-of-type(#{$postItHeaderColorsLength}n + #{$i}) .post-card:hover {
@@ -519,20 +520,20 @@ $postItHeaderColorsLength: length($postItHeaderColors);
 
 
 // theme
-$postItHeaderColors: #d6f8fd, #d6f8fd, #d6f8fd;
+$postItHeaderColors2: #d6f8fd, #dcd6fd, #d6fde9,#fdfcd6, #d6f8fd, #fdd6e8,#fddfd6, #d6f8fd, #d6f8fd;
 .post-it-list-theme {
-  @for $i from 1 through 3 {
+  @for $i from 1 through 8 {
     &:nth-of-type(#{$postItHeaderColorsLength}n + #{$i}) .post-card {
-      background: nth($postItHeaderColors, $i);
-      animation: nth($postItanimations, $i)  #{$i}s;
-      animation-delay: #{$i}s;
+      background: nth($postItHeaderColors2, $i);
+      animation: nth($postItanimations, $i)  0.5s;
+      animation-delay: 0.1+#{$i}s;
     }
 
     &:nth-of-type(#{$postItHeaderColorsLength}n + #{$i}) .post-card:hover {
       // background: nth($postItHeaderColors, $i);
       // -o-transform: rotate(4deg);
       // -webkit-transform: rotate(4deg);
-      -moz-transform: rotate(0.5deg);
+      transform: rotate(1deg);
       position: relative;
       top: -2px;
       background: lightgoldenrodyellow;
