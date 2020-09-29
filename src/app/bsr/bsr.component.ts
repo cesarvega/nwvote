@@ -7,16 +7,11 @@ import { BsrService } from './bsr.service';
 import { FormBuilder, Validators, FormGroup } from '@angular/forms';
 import { MatDialog, MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 
-import * as ClassicEditor from '@ckeditor/ckeditor5-build-classic';
 
-
-
-// import Strikethrough from '@ckeditor/ckeditor5-basic-styles/src/strikethrough';
-
-// import HeadingButtonsUI from '@ckeditor/ckeditor5-heading/src/headingbuttonsui';
-
-// import ParagraphButtonUI from '@ckeditor/ckeditor5-paragraph/src/paragraphbuttonui';
-
+///CKEDITOR NOTES, para que el toolbar del editor pueda ser configurado
+//  es necesario de instalar el ckeditor4  y el ckeditor5 y 
+//  en el index.html importar el script <script src="https://cdn.ckeditor.com/4.14.1/full-all/ckeditor.js"></script>
+//  <ckeditor  [(ngModel)]="model.editorData" [data]="dataEditor" [config]="ckconfig"></ckeditor>
 
 @Component({
   selector: 'app-bsr',
@@ -27,17 +22,20 @@ export class BsrComponent implements OnInit {
 
   @ViewChild('slider') slider;
 
+  postItListTheme = 'post-it-list-theme'
   loginForm: FormGroup;
+  isMouseOver: boolean = false;
   sliderVal = 51;
   totalNumberOfnames = 51;
   slideCss = 'none';
   projectId = 'rg2327';
   createPostIt = true;
+  isDeleteButon = false;
   isSearching = false;
   overview = false;
   isNSR = false;
-  slideBackground = 'background-image: url(http://www.bipresents.com/';
-  baseBackgroundUrl = 'background-image: url(http://www.bipresents.com/';
+  slideBackground = 'url(http://www.bipresents.com/';
+  baseBackgroundUrl = 'url(http://www.bipresents.com/';
   myControl = new FormControl();
   options: string[] = ['One', 'Two', 'Three'];
   totalNumberOfSlides: any;
@@ -59,6 +57,8 @@ export class BsrComponent implements OnInit {
   showSlider: boolean = false;
   positPresentationIndex: number;
   appSearchSlidesData: any;
+  slideBackground2: string;
+  nameIndexCounter = 0;
   constructor(private _formBuilder: FormBuilder, private _hotkeysService: HotkeysService, private _BsrService: BsrService, public dialog: MatDialog) {
 
     // keyboard keymaps
@@ -106,6 +106,7 @@ export class BsrComponent implements OnInit {
   }
 
   ngOnInit(): void {
+    this.postItListTheme = localStorage.getItem('post-it-list-theme');
     this._BsrService.getSlides(this.projectId).subscribe((res: any) => {
       console.log(res);
       this.appSlidesData = res;
@@ -134,7 +135,9 @@ export class BsrComponent implements OnInit {
       name: ['']
     });
 
-    this.slider.value = 51;
+    if (this.slider) {
+      this.slider.value = 51;
+    }
     this.slideCss = 'block';
   }
   drop(event: CdkDragDrop<string[]>) {
@@ -192,7 +195,7 @@ export class BsrComponent implements OnInit {
   }
 
   submitNewName() {
-    
+
     this.loginForm.value.name.split(',').forEach(element => {
       this._BsrService.sendNewName(element, this.isNSR).subscribe(arg => {
       });
@@ -241,7 +244,7 @@ export class BsrComponent implements OnInit {
 
   bsr() {
     this.createPostIt = !this.createPostIt;
-    this.currentPageNumber = (this.positPresentationIndex)?this.positPresentationIndex:58;
+    this.currentPageNumber = (this.positPresentationIndex) ? this.positPresentationIndex : 58;
     console.log('bsr');
   }
 
@@ -262,16 +265,18 @@ export class BsrComponent implements OnInit {
     this.createPostIt = false
     console.log('slide ' + i);
   }
-
+  // onResizeEnd(event: ResizeEvent): void {
+  //   console.log('Element was resized', event);
+  // }
   openDialog(item, nameid): void {
-   
- 
-      const dialogRef = this.dialog.open(editPost, {
-        // width: ((nameid === 'edit')?'80%':'100%'),
-        height: ((nameid === 'edit')?'700px':'200px'),
-        data: { name: item, nameId: nameid }
-      });
-    
+
+
+    const dialogRef = this.dialog.open(editPost, {
+      // width: ((nameid === 'edit')?'80%':'100%'),
+      height: ((nameid === 'edit') ? '700px' : '200px'),
+      data: { name: item, nameId: nameid }
+    });
+
 
     this.conceptid = item.conceptid;
 
@@ -308,7 +313,21 @@ export class BsrComponent implements OnInit {
   toggleNamebox() {
     //  this.nameBox = !this.nameBox;
     //  this.nameBoxB = !this.nameBoxB;
-    this.showSlider = !this.showSlider;
+
+    if (this.nameIndexCounter === 0) {
+      this.nameIndexCounter++;
+      this.onInputChange(52);
+    } else if (this.nameIndexCounter === 1) {
+      this.nameIndexCounter++;
+      this.onInputChange(30);
+    } else {
+      this.nameIndexCounter = 0;
+      this.onInputChange(15);
+    }
+
+    this.nameIndexCounter
+    this.showSlider = false;
+    // this.showSlider = !this.showSlider;
     if (this.showSlider) {
       this.slideCss = 'block';
     } else {
@@ -318,29 +337,27 @@ export class BsrComponent implements OnInit {
 
 
 
-  onInputChange(event: MatSliderChange) {
+  onInputChange(value: number) {
     console.log("This is emitted as the thumb slides");
-    console.log(event.value);
-
-    if (event.value > 51) {
+    // console.log(value);
+    if (value > 51) {
       this.myMaxWith = '935px';
       this.myMaxRWith = '300px';
       this.myMaxRightWith = '-1px';
       this.nameBox = false;
       this.nameBoxB = false;
-    } else if (event.value <= 51 && event.value > 25) {
+    } else if (value <= 51 && value > 25) {
       this.myMaxWith = '925px';
-      this.myMaxRWith = '293px';
+      this.myMaxRWith = '340px';
       this.myMaxRightWith = '8px';
       this.nameBox = true;
       this.nameBoxB = true;
-    } else if (event.value <= 25) {
+    } else if (value <= 25) {
       this.myMaxWith = '335px';
       this.myMaxRWith = '636px';
-      this.myMaxRightWith = '322px';
+      this.myMaxRightWith = '352px';
       this.nameBox = true;
       this.nameBoxB = false;
-
     }
   }
 
@@ -349,33 +366,29 @@ export class BsrComponent implements OnInit {
       this.isSearching = false;
       this.appSearchSlidesData = [];
     } else {
- 
-      
       this.isSearching = true;
-           
       this.appSlidesData.forEach(element => {
-        if ( element.DisplayName.includes(searchValue)) {
-         this.appSearchSlidesData.push(element);
+        if (element.DisplayName.includes(searchValue)) {
+          this.appSearchSlidesData.push(element);
         }
-       });
+      });
     }
 
-
-
-
-    console.log(searchValue);
   }
 
 
-
+  theme(): void {
+    if (this.postItListTheme == 'post-it-list-theme') {
+      this.postItListTheme = 'post-it-list'
+    } else {
+      this.postItListTheme = 'post-it-list-theme'
+    }
+    localStorage.setItem('post-it-list-theme', this.postItListTheme)
+  }
 }
 
 
-
-import { AngularEditorConfig } from '@kolkov/angular-editor';
 import { MatSliderChange } from '@angular/material/slider';
-
-
 
 // CKEDITOR WYSIWYG // **************************************************************************************************
 
@@ -390,40 +403,9 @@ export interface DialogData {
   styleUrls: ['./bsr.component.scss']
 })
 export class editPost {
-  name = 'Angular 6';
 
-  config: AngularEditorConfig = {
-    editable: true,
-    spellcheck: true,
-    height: '15rem',
-    minHeight: '5rem',
-    placeholder: 'Enter text here...',
-    translate: 'no',
-    defaultParagraphSeparator: 'p',
-    defaultFontName: 'Arial',
-    toolbarHiddenButtons: [
-      ['bold']
-    ],
-    customClasses: [
-      {
-        name: "quote",
-        class: "quote",
-      },
-      {
-        name: 'redText',
-        class: 'redText'
-      },
-      {
-        name: "titleText",
-        class: "titleText",
-        tag: "h1",
-      },
-    ]
-  };
-
-  public Editor = ClassicEditor;
-
-  synonyms
+  ckconfig: any;
+  synonyms: any;
   loginForm: FormGroup;
   isDeleting = false;
   isDeletingName = false;
@@ -439,7 +421,7 @@ export class editPost {
     namesData: ''
   };
   isMobileInfo: boolean;
-  ckconfig: any;
+
   constructor(
     public dialogRef: MatDialogRef<editPost>,
     @Inject(MAT_DIALOG_DATA) public data: DialogData, private _formBuilder: FormBuilder, private _BsrService: BsrService,) {
@@ -473,6 +455,32 @@ export class editPost {
       this.isMobileInfo = true;
     }
 
+    this.ckconfig = {
+      allowedContent: false,
+      width: '99.6%',
+      contentsCss: ["body {font-size: 20px;}"],
+      height: 370,
+      forcePasteAsPlainText: true,
+      toolbarLocation: 'top',
+      toolbarGroups: [
+        { name: 'clipboard', groups: ['clipboard', ''] },
+        { name: 'insert' },
+        { name: 'forms' },
+        { name: 'tools' },
+        { name: 'document', groups: ['mode', 'document', 'doctools'] },
+        { name: 'others' },
+        { name: 'basicstyles', groups: ['basicstyles', 'cleanup'] },
+        { name: 'colors' },
+        { name: 'paragraph', groups: ['list', 'indent', 'blocks', 'align', 'bidi'] },
+        { name: 'styles' },
+        { name: 'links' },
+        { name: 'about' }
+      ],
+      addPlugins: 'simplebox,tabletools',
+      removePlugins: 'horizontalrule,tabletools,specialchar,about,others',
+      removeButtons: 'tableselection,Image,Superscript,Subscript,Save,NewPage,Preview,Print,Templates,Replace,SelectAll,Form,Checkbox,Radio,TextField,Textarea,Find,Select,Button,ImageButton,HiddenField,CopyFormatting,CreateDiv,BidiLtr,BidiRtl,Language,Flash,PageBreak,Iframe,ShowBlocks,Cut,Copy,Paste,Table,Format,Source,Maximize,Styles,Anchor,SpecialChar,PasteFromWord,PasteText,Scayt,RemoveFormat,Indent,Outdent,Blockquote'
+
+    }
 
     this.loginForm = this._formBuilder.group({
       rationale: [''],
@@ -480,49 +488,15 @@ export class editPost {
       name: [this.concept]
     });
 
-    this.ckconfig = {
-      allowedContent: false,
-      forcePasteAsPlainText: true,
-      toolbarLocation : 'top',      
-      addPlugins: 'simplebox',
-      removePlugins: 'horizontalrule,tabletools,specialchar,about,others',
-      removeButtons: 'Superscript,Subscript,Save,NewPage,Preview,Print,Templates,Replace,SelectAll,Form,Checkbox,Radio,TextField,Textarea,Find,Select,Button,ImageButton,HiddenField,CopyFormatting,CreateDiv,BidiLtr,BidiRtl,Language,Flash,Smiley,PageBreak,Iframe,ShowBlocks,Cut,Copy,Paste,Table,Format,Source,Maximize,Styles,Anchor,SpecialChar,PasteFromWord,PasteText,Scayt,RemoveFormat,Indent,Outdent,Blockquote'
-  
-    }
-
-    // this.ckconfig = {
-    //   allowedContent: false,
-    //   forcePasteAsPlainText: true,
-    //   toolbarLocation : 'top',
-      
-    //   toolbarGroups : [
-    //     { name: 'clipboard',   groups: [ 'clipboard',''] },     
-    //     { name: 'insert' },
-    //     { name: 'forms' },
-    //     { name: 'tools' },
-    //     { name: 'document',       groups: [ 'mode', 'document', 'doctools' ] },
-    //     { name: 'others' },
-    //     { name: 'basicstyles', groups: [ 'basicstyles', 'cleanup' ] },
-    //     { name: 'colors' },
-    //     { name: 'paragraph',   groups: [ 'list', 'indent', 'blocks', 'align', 'bidi' ] },
-    //     { name: 'styles' },
-    //     { name: 'links' },
-    //     { name: 'about' }
-    //     ],
-    //   addPlugins: 'simplebox',
-    //   removePlugins: 'horizontalrule,tabletools,specialchar,about,others',
-    //   removeButtons: 'Superscript,Subscript,Save,NewPage,Preview,Print,Templates,Replace,SelectAll,Form,Checkbox,Radio,TextField,Textarea,Find,Select,Button,ImageButton,HiddenField,CopyFormatting,CreateDiv,BidiLtr,BidiRtl,Language,Flash,Smiley,PageBreak,Iframe,ShowBlocks,Cut,Copy,Paste,Table,Format,Source,Maximize,Styles,Anchor,SpecialChar,PasteFromWord,PasteText,Scayt,RemoveFormat,Indent,Outdent,Blockquote'
-  
-    // }
-
   }
 
 
+
   onReady(editor) {
-    editor.ui.getEditableElement().parentElement.insertBefore(
-      editor.ui.view.toolbar.element,
-      editor.ui.getEditableElement()
-    );
+    // editor.ui.getEditableElement().parentElement.insertBefore(
+    //   editor.ui.view.toolbar.element,
+    //   editor.ui.getEditableElement()
+    // );
   }
 
   buttonOption(option) {
@@ -557,7 +531,7 @@ export class editPost {
       this._BsrService.sendNewName(element, false).subscribe(arg => {
       });
     });
-    
+
   }
 
   onNoClick(): void {
@@ -568,10 +542,9 @@ export class editPost {
     this.dialogRef.close(this.popupwindowData);
   }
 
-  getSinonyms(syn){
-    this._BsrService.getSinonyms('one').subscribe(res=>{
+  getSinonyms(syn) {
+    this._BsrService.getSinonyms('one').subscribe(res => {
       console.log(res);
-      
     })
   }
 
