@@ -8,7 +8,7 @@ import { BsrComponent } from './bsr/bsr.component';
 
 const routes: Routes = [
   {
-    path: 'login/:project',
+    path: 'login',
     component: LoginComponent
   },
   {
@@ -23,12 +23,7 @@ const routes: Routes = [
   {
     path: 'bsr/:id',
     component: BsrComponent
-  },  
-  // {
-  //   path: '',
-  //   redirectTo: 'login',
-  //   pathMatch: 'full'
-  // }
+  },
   {
     path: '',
     redirectTo: 'login',
