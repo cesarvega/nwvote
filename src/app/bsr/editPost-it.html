@@ -222,7 +222,7 @@
 
                 <div class="row">
                     <div class="col">
-                        <div class="ckeditor-card">
+                        <div class="ckeditor-card"  >
 
 
                             <div class="p-16" style="color: #004684;padding: 10px;" fxLayout="row"
@@ -231,13 +231,14 @@
 
                                 <!-- <mat-icon style="margin-right: 10px;">assignment</mat-icon> -->
                                 <h2 class="text-bold ">Key Words and Concepts</h2>
+                                <button mat-button style="" (click)="getSynonyms()">synonyms</button>
 
                                 <!-- <div class="ml-16">
                             <div class="h5 text-bold secondary-text">20 mins. ago</div>
                         </div> -->
                             </div>
 
-                            <ckeditor class="ckeditorcev" [ngModelOptions]="{standalone: true}"
+                            <ckeditor id="txtTexto" class="ckeditorcev" [ngModelOptions]="{standalone: true}"
                                 [(ngModel)]="model.editorData" [data]="dataEditor" [config]="ckconfig"></ckeditor>
                         </div>
                     </div>

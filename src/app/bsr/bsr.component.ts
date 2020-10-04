@@ -550,4 +550,9 @@ export class editPost {
     })
   }
 
+  async getSynonyms() {
+    const text = await navigator.clipboard.readText();
+    console.log(text);
+  }
+
 }
