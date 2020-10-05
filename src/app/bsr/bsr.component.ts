@@ -34,6 +34,8 @@ export class BsrComponent implements OnInit {
   isSearching = false;
   overview = false;
   isNSR = false;
+  isScreenButton = true;
+  isScreeningNames = false;
   slideBackground = 'url(http://www.bipresents.com/';
   baseBackgroundUrl = 'url(http://www.bipresents.com/';
   myControl = new FormControl();
@@ -273,7 +275,7 @@ export class BsrComponent implements OnInit {
 
     const dialogRef = this.dialog.open(editPost, {
       // width: ((nameid === 'edit')?'80%':'100%'),
-      height: ((nameid === 'edit') ? '700px' : '200px'),
+      // height: ((nameid === 'edit') ? '700px' : '200px'),
       data: { name: item, nameId: nameid }
     });
 
@@ -346,18 +348,21 @@ export class BsrComponent implements OnInit {
       this.myMaxRightWith = '-1px';
       this.nameBox = false;
       this.nameBoxB = false;
+      this.isScreenButton = false;
     } else if (value <= 51 && value > 25) {
       this.myMaxWith = '925px';
       this.myMaxRWith = '340px';
       this.myMaxRightWith = '8px';
       this.nameBox = true;
       this.nameBoxB = true;
+      this.isScreenButton = true;
     } else if (value <= 25) {
       this.myMaxWith = '335px';
       this.myMaxRWith = '636px';
       this.myMaxRightWith = '352px';
       this.nameBox = true;
       this.nameBoxB = false;
+      this.isScreenButton = true;
     }
   }
 
@@ -383,8 +388,18 @@ export class BsrComponent implements OnInit {
     } else {
       this.postItListTheme = 'post-it-list-theme'
     }
-    localStorage.setItem('post-it-list-theme', this.postItListTheme)
+    localStorage.setItem('post-it-list-theme', this.postItListTheme);
+    let audio = new Audio();
+    audio.src = "../../../assets/sound/tap.wav";
+    audio.volume = 0.2;
+    audio.load();
+    audio.play();
   }
+
+  screenNames(){
+    this.isScreeningNames = !this.isScreeningNames;
+  }
+
 }
 
 
@@ -396,6 +411,16 @@ export interface DialogData {
   nameId: any;
   name: any;
 }
+
+
+export interface PeriodicElement {
+  synonyms: string;
+  position: number;
+  weight: number;
+  symbol: string;
+}
+
+
 
 @Component({
   selector: 'editPost',
@@ -420,8 +445,15 @@ export class editPost {
     editorData: '',
     namesData: ''
   };
-  isMobileInfo: boolean;
 
+  isMobileInfo: boolean;
+  allComplete: boolean;
+  isSynonymBox = false;
+
+
+  displayedColumns: string[] = ['position', 'name', 'weight'];
+  synonymWord: string;
+  dataSource: any[];
   constructor(
     public dialogRef: MatDialogRef<editPost>,
     @Inject(MAT_DIALOG_DATA) public data: DialogData, private _formBuilder: FormBuilder, private _BsrService: BsrService,) {
@@ -542,10 +574,28 @@ export class editPost {
     this.dialogRef.close(this.popupwindowData);
   }
 
-  getSinonyms(syn) {
-    this._BsrService.getSinonyms('one').subscribe(res => {
+
+  async getSynonyms() {
+    this.synonymWord = await navigator.clipboard.readText();
+    this.isSynonymBox = true;
+    this._BsrService.getSinonyms(this.synonymWord).subscribe((res: any) => {
+      let counter = 0
+      this.dataSource = [];
+      res.forEach(synonym => {
+        this.dataSource.push({ position: counter, synonyms: synonym.word, weight: 1.0079, symbol: 'H' })
+        counter++;
+      });
       console.log(res);
     })
+  }
+
+  setAll(evt) {
+    this.model.editorData = this.model.editorData.concat('<p>' + evt + '</p>');
+  }
+
+  addSynonymsToEditor() {
+    this.isSynonymBox = false;
+    // this.model.editorData = this.model.editorData.concat('<p>' + this.dataSource[0].synonyms + '</p>');
   }
 
 }

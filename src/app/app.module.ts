@@ -32,6 +32,7 @@ import { MatSlideToggleModule } from '@angular/material/slide-toggle';
 import { MatSliderModule } from '@angular/material/slider';
 import { CKEditorModule } from 'ckeditor4-angular';
 import { MatBadgeModule } from '@angular/material/badge';
+import { MatTableModule } from '@angular/material/table';
 @NgModule({
   declarations: [
     AppComponent,
@@ -66,13 +67,14 @@ import { MatBadgeModule } from '@angular/material/badge';
     MatSidenavModule,
     CKEditorModule,
     FormsModule,
+    MatTableModule,
     HotkeyModule.forRoot(),
     MatSliderModule,
     // AngularEditorModule,
 
   ],
   entryComponents: [
-    editPost,
+    editPost,editName
   ],
   providers: [NwvoteService, BsrMobileService],
   bootstrap: [AppComponent]
