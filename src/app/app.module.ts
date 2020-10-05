@@ -74,7 +74,7 @@ import { MatTableModule } from '@angular/material/table';
 
   ],
   entryComponents: [
-    editPost,
+    editPost,editName
   ],
   providers: [NwvoteService, BsrMobileService],
   bootstrap: [AppComponent]

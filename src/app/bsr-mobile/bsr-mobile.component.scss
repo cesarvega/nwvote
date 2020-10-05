@@ -12,6 +12,12 @@
         align-items: center;
         white-space: nowrap;
     }
+    .bsr-mobile-container {
+        max-width: 400px;
+        position: relative;
+        min-height: 811px;
+        top: 100px;
+    }
 
     #login {
         width: 100%;
@@ -29,7 +35,7 @@
                 text-align: center;
 
                 .logo {
-                    width: 180px;
+                    width: 286px;
                 }
 
                 .title {

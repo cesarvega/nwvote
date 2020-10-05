@@ -34,6 +34,8 @@ export class BsrComponent implements OnInit {
   isSearching = false;
   overview = false;
   isNSR = false;
+  isScreenButton = true;
+  isScreeningNames = false;
   slideBackground = 'url(http://www.bipresents.com/';
   baseBackgroundUrl = 'url(http://www.bipresents.com/';
   myControl = new FormControl();
@@ -346,18 +348,21 @@ export class BsrComponent implements OnInit {
       this.myMaxRightWith = '-1px';
       this.nameBox = false;
       this.nameBoxB = false;
+      this.isScreenButton = false;
     } else if (value <= 51 && value > 25) {
       this.myMaxWith = '925px';
       this.myMaxRWith = '340px';
       this.myMaxRightWith = '8px';
       this.nameBox = true;
       this.nameBoxB = true;
+      this.isScreenButton = true;
     } else if (value <= 25) {
       this.myMaxWith = '335px';
       this.myMaxRWith = '636px';
       this.myMaxRightWith = '352px';
       this.nameBox = true;
       this.nameBoxB = false;
+      this.isScreenButton = true;
     }
   }
 
@@ -383,8 +388,18 @@ export class BsrComponent implements OnInit {
     } else {
       this.postItListTheme = 'post-it-list-theme'
     }
-    localStorage.setItem('post-it-list-theme', this.postItListTheme)
+    localStorage.setItem('post-it-list-theme', this.postItListTheme);
+    let audio = new Audio();
+    audio.src = "../../../assets/sound/tap.wav";
+    audio.volume = 0.2;
+    audio.load();
+    audio.play();
   }
+
+  screenNames(){
+    this.isScreeningNames = !this.isScreeningNames;
+  }
+
 }
 
 
@@ -573,38 +588,6 @@ export class editPost {
         this.dataSource.push({ position: counter, synonyms: synonym.word, weight: 1.0079, symbol: 'H' })
         counter++;
       });
-      // this.dataSource = [
-      //   {position: 1, synonyms: 'Hydrogen', weight: 1.0079, symbol: 'H'},
-      //   {position: 2, synonyms: 'Helium', weight: 4.0026, symbol: 'He'},
-      //   {position: 3, synonyms: 'Lithium', weight: 6.941, symbol: 'Li'},
-      //   {position: 4, synonyms: 'Beryllium', weight: 9.0122, symbol: 'Be'},
-      //   {position: 5, synonyms: 'Boron', weight: 10.811, symbol: 'B'},
-      //   {position: 6, synonyms: 'Carbon', weight: 12.0107, symbol: 'C'},
-      //   {position: 7, synonyms: 'Nitrogen', weight: 14.0067, symbol: 'N'},
-      //   {position: 8, synonyms: 'Oxygen', weight: 15.9994, symbol: 'O'},
-      //   {position: 9, synonyms: 'Fluorine', weight: 18.9984, symbol: 'F'},
-      //   {position: 10, synonyms: 'Neon', weight: 20.1797, symbol: 'Ne'},
-      //   {position: 1, synonyms: 'Hydrogen', weight: 1.0079, symbol: 'H'},
-      //   {position: 2, synonyms: 'Helium', weight: 4.0026, symbol: 'He'},
-      //   {position: 3, synonyms: 'Lithium', weight: 6.941, symbol: 'Li'},
-      //   {position: 4, synonyms: 'Beryllium', weight: 9.0122, symbol: 'Be'},
-      //   {position: 5, synonyms: 'Boron', weight: 10.811, symbol: 'B'},
-      //   {position: 6, synonyms: 'Carbon', weight: 12.0107, symbol: 'C'},
-      //   {position: 7, synonyms: 'Nitrogen', weight: 14.0067, symbol: 'N'},
-      //   {position: 8, synonyms: 'Oxygen', weight: 15.9994, symbol: 'O'},
-      //   {position: 9, synonyms: 'Fluorine', weight: 18.9984, symbol: 'F'},
-      //   {position: 10, synonyms: 'Neon', weight: 20.1797, symbol: 'Ne'},
-      //   {position: 1, synonyms: 'Hydrogen', weight: 1.0079, symbol: 'H'},
-      //   {position: 2, synonyms: 'Helium', weight: 4.0026, symbol: 'He'},
-      //   {position: 3, synonyms: 'Lithium', weight: 6.941, symbol: 'Li'},
-      //   {position: 4, synonyms: 'Beryllium', weight: 9.0122, symbol: 'Be'},
-      //   {position: 5, synonyms: 'Boron', weight: 10.811, symbol: 'B'},
-      //   {position: 6, synonyms: 'Carbon', weight: 12.0107, symbol: 'C'},
-      //   {position: 7, synonyms: 'Nitrogen', weight: 14.0067, symbol: 'N'},
-      //   {position: 8, synonyms: 'Oxygen', weight: 15.9994, symbol: 'O'},
-      //   {position: 9, synonyms: 'Fluorine', weight: 18.9984, symbol: 'F'},
-      //   {position: 10, synonyms: 'Neon', weight: 20.1797, symbol: 'Ne'},
-      // ]
       console.log(res);
     })
   }
