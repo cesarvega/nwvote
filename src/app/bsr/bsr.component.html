@@ -161,7 +161,7 @@
                         [matTooltip]="nameCandidate.Source" matTooltipPosition="right">
                         {{nameCandidate.Name}}
                       </span>
-                      <span *ngIf="isScreeningNames" [innerHTML]="nameCandidate.html.replaceAll('\\',' ')"
+                      <span *ngIf="isScreeningNames" [innerHTML]="nameCandidate.html"
                         (dblclick)="openDialog(nameCandidate, 'deleteName')"
                         style="font-size:22px;margin: 10px;cursor: pointer;overflow: scroll;"
                         [matTooltip]="nameCandidate.Source" matTooltipPosition="right">

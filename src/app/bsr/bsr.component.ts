@@ -129,6 +129,9 @@ export class BsrComponent implements OnInit {
     });
 
     this._BsrService.getNameCandidates(this.projectId).subscribe((res: any) => {
+      res.forEach(name => {
+        name.html = name.html.replace(/\\/g,'');
+      });
       this.nameCandidates = res;
     });
     this.loginForm = this._formBuilder.group({
