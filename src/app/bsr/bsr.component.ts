@@ -273,7 +273,7 @@ export class BsrComponent implements OnInit {
 
     const dialogRef = this.dialog.open(editPost, {
       // width: ((nameid === 'edit')?'80%':'100%'),
-      height: ((nameid === 'edit') ? '700px' : '200px'),
+      // height: ((nameid === 'edit') ? '700px' : '200px'),
       data: { name: item, nameId: nameid }
     });
 
@@ -397,6 +397,16 @@ export interface DialogData {
   name: any;
 }
 
+
+export interface PeriodicElement {
+  synonyms: string;
+  position: number;
+  weight: number;
+  symbol: string;
+}
+
+
+
 @Component({
   selector: 'editPost',
   templateUrl: 'editPost-it.html',
@@ -420,7 +430,15 @@ export class editPost {
     editorData: '',
     namesData: ''
   };
+
   isMobileInfo: boolean;
+  allComplete: boolean;
+  isSynonymBox = false;
+
+
+  displayedColumns: string[] = ['position', 'name', 'weight'];
+  synonymWord: string;
+  dataSource: any[];
   constructor(
     public dialogRef: MatDialogRef<editPost>,
     @Inject(MAT_DIALOG_DATA) public data: DialogData, private _formBuilder: FormBuilder, private _BsrService: BsrService,) {
@@ -544,15 +562,60 @@ export class editPost {
     this.dialogRef.close(this.popupwindowData);
   }
 
-  getSinonyms(syn) {
-    this._BsrService.getSinonyms('one').subscribe(res => {
+
+  async getSynonyms() {
+    this.synonymWord = await navigator.clipboard.readText();
+    this.isSynonymBox = true;
+    this._BsrService.getSinonyms(this.synonymWord).subscribe((res: any) => {
+      let counter = 0
+      this.dataSource = [];
+      res.forEach(synonym => {
+        this.dataSource.push({ position: counter, synonyms: synonym.word, weight: 1.0079, symbol: 'H' })
+        counter++;
+      });
+      // this.dataSource = [
+      //   {position: 1, synonyms: 'Hydrogen', weight: 1.0079, symbol: 'H'},
+      //   {position: 2, synonyms: 'Helium', weight: 4.0026, symbol: 'He'},
+      //   {position: 3, synonyms: 'Lithium', weight: 6.941, symbol: 'Li'},
+      //   {position: 4, synonyms: 'Beryllium', weight: 9.0122, symbol: 'Be'},
+      //   {position: 5, synonyms: 'Boron', weight: 10.811, symbol: 'B'},
+      //   {position: 6, synonyms: 'Carbon', weight: 12.0107, symbol: 'C'},
+      //   {position: 7, synonyms: 'Nitrogen', weight: 14.0067, symbol: 'N'},
+      //   {position: 8, synonyms: 'Oxygen', weight: 15.9994, symbol: 'O'},
+      //   {position: 9, synonyms: 'Fluorine', weight: 18.9984, symbol: 'F'},
+      //   {position: 10, synonyms: 'Neon', weight: 20.1797, symbol: 'Ne'},
+      //   {position: 1, synonyms: 'Hydrogen', weight: 1.0079, symbol: 'H'},
+      //   {position: 2, synonyms: 'Helium', weight: 4.0026, symbol: 'He'},
+      //   {position: 3, synonyms: 'Lithium', weight: 6.941, symbol: 'Li'},
+      //   {position: 4, synonyms: 'Beryllium', weight: 9.0122, symbol: 'Be'},
+      //   {position: 5, synonyms: 'Boron', weight: 10.811, symbol: 'B'},
+      //   {position: 6, synonyms: 'Carbon', weight: 12.0107, symbol: 'C'},
+      //   {position: 7, synonyms: 'Nitrogen', weight: 14.0067, symbol: 'N'},
+      //   {position: 8, synonyms: 'Oxygen', weight: 15.9994, symbol: 'O'},
+      //   {position: 9, synonyms: 'Fluorine', weight: 18.9984, symbol: 'F'},
+      //   {position: 10, synonyms: 'Neon', weight: 20.1797, symbol: 'Ne'},
+      //   {position: 1, synonyms: 'Hydrogen', weight: 1.0079, symbol: 'H'},
+      //   {position: 2, synonyms: 'Helium', weight: 4.0026, symbol: 'He'},
+      //   {position: 3, synonyms: 'Lithium', weight: 6.941, symbol: 'Li'},
+      //   {position: 4, synonyms: 'Beryllium', weight: 9.0122, symbol: 'Be'},
+      //   {position: 5, synonyms: 'Boron', weight: 10.811, symbol: 'B'},
+      //   {position: 6, synonyms: 'Carbon', weight: 12.0107, symbol: 'C'},
+      //   {position: 7, synonyms: 'Nitrogen', weight: 14.0067, symbol: 'N'},
+      //   {position: 8, synonyms: 'Oxygen', weight: 15.9994, symbol: 'O'},
+      //   {position: 9, synonyms: 'Fluorine', weight: 18.9984, symbol: 'F'},
+      //   {position: 10, synonyms: 'Neon', weight: 20.1797, symbol: 'Ne'},
+      // ]
       console.log(res);
     })
   }
 
-  async getSynonyms() {
-    const text = await navigator.clipboard.readText();
-    console.log(text);
+  setAll(evt) {
+    this.model.editorData = this.model.editorData.concat('<p>' + evt + '</p>');
+  }
+
+  addSynonymsToEditor() {
+    this.isSynonymBox = false;
+    // this.model.editorData = this.model.editorData.concat('<p>' + this.dataSource[0].synonyms + '</p>');
   }
 
 }
