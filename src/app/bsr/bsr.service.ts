@@ -23,7 +23,8 @@ export class BsrService {
   _SP_Get_Group_Summary = '[dbo].[nw_GetSummary_group] ';
   japanese: string;
   // projectId = 'te2647'
-  projectId = 'rg2327'
+  projectId = 'te2687'
+  // projectId = 'rg2327'
   // projectId = 'ca2456'
   // projectId = 'te2381'
 

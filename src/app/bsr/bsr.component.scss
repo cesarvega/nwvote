@@ -122,6 +122,13 @@
   }
 }
 
+
+.toolbar-postit:hover {
+  background-color: indigo;
+  @include BoxShadow(4);
+}
+
+
 .toptoolbar {
   background-repeat: no-repeat;
   background-size: initial;
@@ -324,7 +331,6 @@ mat-slider {
   padding-block: 10px;
 }
 
-
 .colorin {
   max-height: inherit;
 }
@@ -497,12 +503,9 @@ mat-slider {
   z-index: 999999;
 }
 
-.delete-info{
+.delete-info {
   width: auto;
 }
-
-
-
 
 .mat-dialog-container {
   display: block;
@@ -517,7 +520,6 @@ mat-slider {
   min-height: inherit;
   max-height: inherit;
 }
-
 
 table {
   width: 100%;

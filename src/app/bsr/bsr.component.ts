@@ -28,7 +28,8 @@ export class BsrComponent implements OnInit {
   sliderVal = 51;
   totalNumberOfnames = 51;
   slideCss = 'none';
-  projectId = 'rg2327';
+  // projectId = 'rg2327';
+  projectId = 'te2687';
   createPostIt = true;
   isDeleteButon = false;
   isSearching = false;
@@ -45,12 +46,12 @@ export class BsrComponent implements OnInit {
   currentPageNumber = 0;
   appSlidesData: any;
   mainMenu: boolean;
-  conceptData: any;
+  conceptData: any = [];
   newPost: Object;
   newName: any;
   conceptid: any;
   deletePost: Object;
-  nameCandidates: any;
+  nameCandidates: any = [];
   nameBox = true;
   nameBoxB = true;
   myMaxWith = '900px';
@@ -132,8 +133,9 @@ export class BsrComponent implements OnInit {
       res.forEach(name => {
         name.html = name.html.replace(/\\/g,'');
       });
-      this.nameCandidates = res;
+      this.nameCandidates = (res.length > 0)?res:[];
     });
+    
     this.loginForm = this._formBuilder.group({
       rationale: [''],
       suma: [''],
@@ -370,16 +372,19 @@ export class BsrComponent implements OnInit {
   }
 
   searchTerm(searchValue: string): void {
-    if (searchValue.length == 0) {
+    if (searchValue.length <= 1) {
       this.isSearching = false;
       this.appSearchSlidesData = [];
     } else {
       this.isSearching = true;
       this.appSlidesData.forEach(element => {
-        if (element.DisplayName.includes(searchValue)) {
+        // if (element.DisplayName.includes(searchValue)) {
+        if (element.SlideBGFileName.toUpperCase().includes(searchValue.toUpperCase())) {
           this.appSearchSlidesData.push(element);
         }
       });
+
+      
     }
 
   }
@@ -443,7 +448,8 @@ export class editPost {
   title: string;
   editName: string;
   concept: any;
-  projectId = 'rg2327';
+  projectId = 'te2687';
+  // projectId = 'rg2327';
   public model = {
     editorData: '',
     namesData: ''
