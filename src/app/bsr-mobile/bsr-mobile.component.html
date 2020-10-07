@@ -3,7 +3,7 @@
 
         <mat-toolbar class="toolbar " fxLayoutAlign="space-between center">
             <!-- <mat-icon>insert_drive_file</mat-icon>  -->
-            Project: {{projectname}}
+            BI Project: {{projectname}}
           
                 <mat-icon *ngIf="isUserLogged" (click)="openDialog('displayInfo', '')" style="color: white;background-color: #004684;  outline: none;" >help</mat-icon>
          
@@ -103,6 +103,9 @@
                                 class="submit-button" aria-label="LOG IN">
                                 CLICK TO SUBMIT
                             </button>
+                            <button mat-icon-button color="accent" aria-label="emoji">
+                                <mat-icon>tag_faces</mat-icon>
+                              </button>
 
                             <br>
                             <br>
@@ -161,6 +164,12 @@
 
             </div>
 
+        </div>
+
+
+        <div *ngIf="isEmojiTime" class="emoji" style="    background-color: antiquewhite;position: relative;
+        top: -105px;">
+            🐶 🐱 🐭 🐹 🐰 🦊 🐻 🐼 🐨 🐯 🦁 🐮 🐷 🐽 🐸 🐵 🙈 🙉 🙊 🐒 🐔 🐧 🐦 🐤 🐣 🐥 🦆 🦅 🦉 🦇 🐺 🐗 🐴 🦄 🐝 🐛 🦋 🐌 🐞 🐜 🦟 🦗 🕷 🕸 🦂 🐢 🐍 🦎 🦖 🦕 🐙 🦑 🦐 🦞 🦀 🐡 🐠 🐟 🐬 🐳 🐋 🦈 🐊 🐅 🐆 🦓 🦍 🦧 🐘 🦛 🦏 🐪 🐫 🦒 🦘 🐃 🐂 🐄 🐎 🐖 🐏 🐑 🦙 🐐 🦌 🐕 🐩 🦮 🐕‍🦺 🐈 🐓 🦃 🦚 🦜 🦢 🦩 🕊 🐇 🦝 🦨 🦡 🦦 🦥 🐁 🐀 🐿 🦔 🐾 🐉 🐲 🌵 🎄 🌲 🌳 🌴 🌱 🌿 ☘️ 🍀 🎍 🎋 🍃 🍂 🍁 🍄 🐚 🌾 💐 🌷 🌹 🥀 🌺 🌸 🌼 🌻 🌞 🌝 🌛 🌜 🌚 🌕 🌖 🌗 🌘 🌑 🌒 🌓 🌔 🌙 🌎 🌍 🌏 🪐 💫 ⭐️ 🌟 ✨ ⚡️ ☄️ 💥 🔥 🌪 🌈 ☀️ 🌤 ⛅️ 🌥 ☁️ 🌦 🌧 ⛈ 🌩 🌨 ❄️ ☃️ ⛄️ 🌬 💨 💧 💦 ☔️ ☂️ 🌊 🌫
         </div>
 
     </div>

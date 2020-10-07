@@ -30,6 +30,7 @@ export class BsrComponent implements OnInit {
   slideCss = 'none';
   // projectId = 'rg2327';
   projectId = 'te2687';
+  projectName = 'te2687';
   createPostIt = true;
   isDeleteButon = false;
   isSearching = false;
@@ -62,8 +63,12 @@ export class BsrComponent implements OnInit {
   appSearchSlidesData: any;
   slideBackground2: string;
   nameIndexCounter = 0;
-  constructor(private _formBuilder: FormBuilder, private _hotkeysService: HotkeysService, private _BsrService: BsrService, public dialog: MatDialog) {
+  
+  constructor(private _formBuilder: FormBuilder, 
+    private _hotkeysService: HotkeysService, 
+    private _BsrService: BsrService, public dialog: MatDialog, activatedRoute: ActivatedRoute) {
 
+    this.projectName = activatedRoute.snapshot.queryParamMap.get('id');
     // keyboard keymaps
     this._hotkeysService.add(new Hotkey('right', (event: KeyboardEvent): boolean => {
 
@@ -98,12 +103,8 @@ export class BsrComponent implements OnInit {
       this._hotkeysService.cheatSheetToggle.next(false);
       return false;
     }, undefined, 'Hide help sheet'));
-    this._hotkeysService.add(new Hotkey('shift+r', (event: KeyboardEvent): boolean => {
-      // if (this.vote === true) {
-      //   this.vote = false;
-      // } else {
-      //   this.vote = true;
-      // }
+    this._hotkeysService.add(new Hotkey('ctrl+e', (event: KeyboardEvent): boolean => {    
+ 
       return false;
     }, undefined, ''));
   }
@@ -413,6 +414,7 @@ export class BsrComponent implements OnInit {
 
 
 import { MatSliderChange } from '@angular/material/slider';
+import { ActivatedRoute } from '@angular/router';
 
 // CKEDITOR WYSIWYG // **************************************************************************************************
 
@@ -459,6 +461,7 @@ export class editPost {
   isMobileInfo: boolean;
   allComplete: boolean;
   isSynonymBox = false;
+  isEmojiTime: boolean = false;
 
 
   displayedColumns: string[] = ['position', 'name', 'weight'];
@@ -529,6 +532,8 @@ export class editPost {
       suma: [''],
       name: [this.concept]
     });
+
+    this.isEmojiTime = !this.isEmojiTime;
 
   }
 
