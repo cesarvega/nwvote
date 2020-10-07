@@ -34,8 +34,7 @@ export class BsrMobileComponent implements OnInit {
     this.activatedRoute.params.subscribe(params => {
       this.projectId = params['id'];
       this.bsrService.getProjectData(this.projectId).subscribe(arg => {
-        this.projectname = JSON.parse(arg[0].bsrData).projectdescription;
-        
+        this.projectname = JSON.parse(arg[0].bsrData).projectdescription;        
       });
     });
 
@@ -73,7 +72,6 @@ export class BsrMobileComponent implements OnInit {
         this.newNames = JSON.parse('[' + res[0].Names + ']');
       }
       this.isUserLogged = true;
-      this.isEmojiTime = true;
     })
   }
 
@@ -140,6 +138,9 @@ export class BsrMobileComponent implements OnInit {
 
   reloadpage() {
     location.reload();
+  }
+  emojiToggle(){
+    this.isEmojiTime = !this.isEmojiTime;
   }
 
 
@@ -225,6 +226,5 @@ export class editName {
     }
 
   }
-
 
 }
