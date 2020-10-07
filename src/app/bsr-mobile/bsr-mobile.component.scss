@@ -20,6 +20,28 @@
             top: 60px;
             overflow-y: hidden;
         }
+        .tab-emoji {
+            max-width: 355px;
+            min-width: 355px;   
+        }
+        .emoji-mobile-box {
+            
+        background-color: #fff;
+        position: absolute;
+        top: 67%;
+        border: lightgrey;
+        border-radius: 10px;
+        padding: 10px;
+        max-height: 220px;
+        font-size: 14px;
+        line-height: 19px;
+        overflow-y: scroll;
+        }
+    }
+
+    .tab-emoji {
+        max-width: 380px;
+        min-width: 380px;
     }
 
     .bsr-mobile-container {
@@ -30,16 +52,22 @@
     }
 
     .emoji-mobile-box {
+
         background-color: #e5e5e5;
-        position: absolute;
-        top: 67%;
-        border: lightgrey;
-        border-radius: 10px;
-        padding: 10px;
-        max-height: 220px;
-        font-size: 14px;
-        line-height: 19px;
-        overflow-y: scroll;
+            position: absolute;
+            top: 67%;
+            border: lightgrey;
+            border-radius: 10px;
+            padding: 10px;
+            max-height: 220px;
+            font-size: 14px;
+            line-height: 19px;
+            overflow-y: scroll;
+            max-width: 373px;
+
+    }
+    .emoji-mobile-box::-webkit-scrollbar {
+        display: none;
     }
 
     #login {
