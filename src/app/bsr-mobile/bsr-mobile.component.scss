@@ -12,11 +12,27 @@
         align-items: center;
         white-space: nowrap;
     }
+    @media (min-width: 576px) {
+        .bsr-mobile-container {
+            max-width: 400px;
+            position: relative;
+            min-height: 811px;
+            top: 60px;
+            overflow-y: hidden;
+        }
+    }
+
     .bsr-mobile-container {
         max-width: 400px;
         position: relative;
         min-height: 811px;
-        top: 100px;
+        overflow-y: hidden;
+    }
+
+    .emoji-mobile-box {
+        background-color: antiquewhite;
+        position: absolute;
+        top: 67%;
     }
 
     #login {

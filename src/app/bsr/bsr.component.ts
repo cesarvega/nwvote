@@ -533,7 +533,7 @@ export class editPost {
       name: [this.concept]
     });
 
-    this.isEmojiTime = !this.isEmojiTime;
+   
 
   }
 
@@ -614,6 +614,9 @@ export class editPost {
   addSynonymsToEditor() {
     this.isSynonymBox = false;
     // this.model.editorData = this.model.editorData.concat('<p>' + this.dataSource[0].synonyms + '</p>');
+  }
+  emojiToggle(){
+    this.isEmojiTime = !this.isEmojiTime;
   }
 
 }

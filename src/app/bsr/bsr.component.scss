@@ -390,15 +390,6 @@ mat-slider {
   overflow-y: hidden;
 }
 
-.checkButtonEditor {
-  color: white;
-  position: fixed;
-  bottom: 145px;
-  background-color: green;
-  padding: 4px;
-  outline: none;
-  right: 400px;
-}
 
 .shrinkCard {
   width: 300px;
@@ -482,9 +473,20 @@ mat-slider {
   font-size: 16px;
   color: black;
 }
+.synonymsIcon2 {
+  cursor: context-menu;
+  position: absolute;
+  top: 85px;
+  font-size: 16px;
+  color: black;
+  padding-left: 5px;
+}
 
 .synonymsIcon:hover {
   color: red;
+}
+.synonymsIcon2:hover {
+  color: orangered;
 }
 
 .synonyms-box {
@@ -537,20 +539,33 @@ table {
   width: 100%;
 }
  
+.post-it-done-button {
+  color: white;
+    position: absolute;
+    top: 593px;
+    background-color: green;
+    padding: 4px;
+    outline: none;
+    left: 970px;
+    // z-index: 999;
+}
+
 .emoji-box{
   background-color: white;
   position: fixed;
   background-origin: padding-box;
   font-size: 21px;
-  top: 160px;
-  max-height: 610px;
+  top: 265px;
+  max-height: 470px;
   line-height: 37px;
   border-radius: 10px;
   padding-left: 10px;
   border: solid lightgrey;
   overflow-y: scroll;
-  width: 941px;
+  width: 741px;
   z-index: 99999;
+  animation: jackInTheBox; /* referring directly to the animation's @keyframe declaration */
+  animation-duration: 0.4s; /* don't forget to set a duration! */
 }
 
 
