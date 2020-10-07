@@ -63,7 +63,7 @@ export class BsrComponent implements OnInit {
   appSearchSlidesData: any;
   slideBackground2: string;
   nameIndexCounter = 0;
-  isEmojiTime: boolean;
+  
   constructor(private _formBuilder: FormBuilder, 
     private _hotkeysService: HotkeysService, 
     private _BsrService: BsrService, public dialog: MatDialog, activatedRoute: ActivatedRoute) {
@@ -101,11 +101,10 @@ export class BsrComponent implements OnInit {
     // }, undefined, 'Show stock ticker'));
     this._hotkeysService.add(new Hotkey('esc', (event: KeyboardEvent): boolean => {
       this._hotkeysService.cheatSheetToggle.next(false);
-      this.isEmojiTime = false;
       return false;
     }, undefined, 'Hide help sheet'));
     this._hotkeysService.add(new Hotkey('ctrl+e', (event: KeyboardEvent): boolean => {    
-      this.isEmojiTime = !this.isEmojiTime;
+ 
       return false;
     }, undefined, ''));
   }
@@ -462,6 +461,7 @@ export class editPost {
   isMobileInfo: boolean;
   allComplete: boolean;
   isSynonymBox = false;
+  isEmojiTime: boolean = false;
 
 
   displayedColumns: string[] = ['position', 'name', 'weight'];
@@ -532,6 +532,8 @@ export class editPost {
       suma: [''],
       name: [this.concept]
     });
+
+    this.isEmojiTime = !this.isEmojiTime;
 
   }
 

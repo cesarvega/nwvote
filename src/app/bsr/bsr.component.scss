@@ -536,6 +536,27 @@ mat-slider {
 table {
   width: 100%;
 }
+ 
+.emoji-box{
+  background-color: white;
+  position: fixed;
+  background-origin: padding-box;
+  font-size: 21px;
+  top: 160px;
+  max-height: 610px;
+  line-height: 37px;
+  border-radius: 10px;
+  padding-left: 10px;
+  border: solid lightgrey;
+  overflow-y: scroll;
+  width: 941px;
+  z-index: 99999;
+}
+
+
+.emoji-box::-webkit-scrollbar {
+  display: block;
+}
 
 $postItanimations: wobble, wobble, wobble, wobble, wobble, wobble, wobble, wobble, wobble, wobble, wobble, wobble;
 $postItseconds: 1, 2, 3;
