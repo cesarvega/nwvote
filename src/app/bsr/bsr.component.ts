@@ -20,8 +20,6 @@ import { MatDialog, MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dial
 })
 export class BsrComponent implements OnInit {
 
-  @ViewChild('slider') slider;
-
   postItListTheme = 'post-it-list-theme'
   loginForm: FormGroup;
   isMouseOver: boolean = false;
@@ -30,6 +28,7 @@ export class BsrComponent implements OnInit {
   slideCss = 'none';
   // projectId = 'rg2327';
   projectId = 'te2687';
+  projectName = 'te2687';
   createPostIt = true;
   isDeleteButon = false;
   isSearching = false;
@@ -62,8 +61,11 @@ export class BsrComponent implements OnInit {
   appSearchSlidesData: any;
   slideBackground2: string;
   nameIndexCounter = 0;
-  constructor(private _formBuilder: FormBuilder, private _hotkeysService: HotkeysService, private _BsrService: BsrService, public dialog: MatDialog) {
+  constructor(private _formBuilder: FormBuilder, 
+    private _hotkeysService: HotkeysService, 
+    private _BsrService: BsrService, public dialog: MatDialog, activatedRoute: ActivatedRoute) {
 
+    this.projectName = activatedRoute.snapshot.queryParamMap.get('id');
     // keyboard keymaps
     this._hotkeysService.add(new Hotkey('right', (event: KeyboardEvent): boolean => {
 
@@ -413,6 +415,7 @@ export class BsrComponent implements OnInit {
 
 
 import { MatSliderChange } from '@angular/material/slider';
+import { ActivatedRoute } from '@angular/router';
 
 // CKEDITOR WYSIWYG // **************************************************************************************************
 
