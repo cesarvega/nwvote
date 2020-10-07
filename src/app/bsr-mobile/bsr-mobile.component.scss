@@ -30,9 +30,16 @@
     }
 
     .emoji-mobile-box {
-        background-color: antiquewhite;
+        background-color: #e5e5e5;
         position: absolute;
         top: 67%;
+        border: lightgrey;
+        border-radius: 10px;
+        padding: 10px;
+        max-height: 220px;
+        font-size: 14px;
+        line-height: 19px;
+        overflow-y: scroll;
     }
 
     #login {
