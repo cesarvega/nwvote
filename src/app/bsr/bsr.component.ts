@@ -376,11 +376,12 @@ export class BsrComponent implements OnInit {
       this.isSearching = false;
       this.appSearchSlidesData = [];
     } else {
-      this.isSearching = true;
+     
       this.appSlidesData.forEach(element => {
-        // if (element.DisplayName.includes(searchValue)) {
-        if (element.SlideBGFileName.toUpperCase().includes(searchValue.toUpperCase())) {
+        // if (element.SlideBGFileName.includes(searchValue)) {
+        if (element.DisplayName.toUpperCase().includes(searchValue.toUpperCase())) {
           this.appSearchSlidesData.push(element);
+          this.isSearching = true;
         }
       });
 
@@ -399,7 +400,7 @@ export class BsrComponent implements OnInit {
     localStorage.setItem('post-it-list-theme', this.postItListTheme);
     let audio = new Audio();
     audio.src = "../../../assets/sound/tap.wav";
-    audio.volume = 0.2;
+    audio.volume = 0.02;
     audio.load();
     audio.play();
   }

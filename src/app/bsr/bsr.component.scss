@@ -122,12 +122,24 @@
   }
 }
 
-
 .toolbar-postit:hover {
-  background-color: indigo;
   @include BoxShadow(4);
 }
 
+.search-results::-webkit-scrollbar {
+  display: none;
+} 
+
+.search-results {
+  background-color: indigo;
+  width: 149px;
+  height: 350px;
+  overflow-y: scroll;
+  position: absolute;
+  left: 390px;
+  top: -360px;
+  z-index: 99999999999999;
+}
 
 .toptoolbar {
   background-repeat: no-repeat;
