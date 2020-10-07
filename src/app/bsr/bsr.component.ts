@@ -462,7 +462,7 @@ export class editPost {
 
   displayedColumns: string[] = ['position', 'name', 'weight'];
   synonymWord: string;
-  dataSource: any[];
+  dataSource: any = [];
   constructor(
     public dialogRef: MatDialogRef<editPost>,
     @Inject(MAT_DIALOG_DATA) public data: DialogData, private _formBuilder: FormBuilder, private _BsrService: BsrService,) {
