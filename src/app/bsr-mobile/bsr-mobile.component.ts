@@ -24,6 +24,7 @@ export class BsrMobileComponent implements OnInit {
   username: any;
   wholeData: any;
   anoni: string = '';
+  isEmojiTime = false;
   summarized: any;
   constructor(private _formBuilder: FormBuilder, private bsrService: BsrMobileService,
     private activatedRoute: ActivatedRoute,
@@ -34,6 +35,7 @@ export class BsrMobileComponent implements OnInit {
       this.projectId = params['id'];
       this.bsrService.getProjectData(this.projectId).subscribe(arg => {
         this.projectname = JSON.parse(arg[0].bsrData).projectdescription;
+        
       });
     });
 
@@ -71,6 +73,7 @@ export class BsrMobileComponent implements OnInit {
         this.newNames = JSON.parse('[' + res[0].Names + ']');
       }
       this.isUserLogged = true;
+      this.isEmojiTime = true;
     })
   }
 

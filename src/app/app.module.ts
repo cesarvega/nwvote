@@ -33,6 +33,7 @@ import { MatSliderModule } from '@angular/material/slider';
 import { CKEditorModule } from 'ckeditor4-angular';
 import { MatBadgeModule } from '@angular/material/badge';
 import { MatTableModule } from '@angular/material/table';
+import { MatTabsModule } from '@angular/material/tabs';
 @NgModule({
   declarations: [
     AppComponent,
@@ -70,11 +71,12 @@ import { MatTableModule } from '@angular/material/table';
     MatTableModule,
     HotkeyModule.forRoot(),
     MatSliderModule,
+    MatTabsModule,
     // AngularEditorModule,
 
   ],
   entryComponents: [
-    editPost,editName
+    editPost, editName
   ],
   providers: [NwvoteService, BsrMobileService],
   bootstrap: [AppComponent]

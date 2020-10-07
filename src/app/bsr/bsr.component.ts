@@ -20,6 +20,8 @@ import { MatDialog, MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dial
 })
 export class BsrComponent implements OnInit {
 
+  @ViewChild('slider') slider;
+
   postItListTheme = 'post-it-list-theme'
   loginForm: FormGroup;
   isMouseOver: boolean = false;
@@ -61,6 +63,7 @@ export class BsrComponent implements OnInit {
   appSearchSlidesData: any;
   slideBackground2: string;
   nameIndexCounter = 0;
+  isEmojiTime: boolean;
   constructor(private _formBuilder: FormBuilder, 
     private _hotkeysService: HotkeysService, 
     private _BsrService: BsrService, public dialog: MatDialog, activatedRoute: ActivatedRoute) {
@@ -98,14 +101,11 @@ export class BsrComponent implements OnInit {
     // }, undefined, 'Show stock ticker'));
     this._hotkeysService.add(new Hotkey('esc', (event: KeyboardEvent): boolean => {
       this._hotkeysService.cheatSheetToggle.next(false);
+      this.isEmojiTime = false;
       return false;
     }, undefined, 'Hide help sheet'));
-    this._hotkeysService.add(new Hotkey('shift+r', (event: KeyboardEvent): boolean => {
-      // if (this.vote === true) {
-      //   this.vote = false;
-      // } else {
-      //   this.vote = true;
-      // }
+    this._hotkeysService.add(new Hotkey('ctrl+e', (event: KeyboardEvent): boolean => {    
+      this.isEmojiTime = !this.isEmojiTime;
       return false;
     }, undefined, ''));
   }

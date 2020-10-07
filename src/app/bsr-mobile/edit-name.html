@@ -19,22 +19,14 @@
 
         <div class="row" style="text-align: center;">
 
-            <div fxFlex fxLayoutAlign="center center">
-                <div fxFlex  >
-                    <button *ngIf="isDeleting" (click)="buttonOption('delete')" class="refreshbutton" mat-mini-fab
-                        style="font-size: 8px;" color="success" aria-label="icon">
-                        <mat-icon>delete</mat-icon>
-                        
-                    </button><br>
-                    <span>delete</span>
-                </div>
-
+            <div fxFlex fxLayoutAlign="end end">
+              
                 <div fxFlex>
-                    <!-- <button *ngIf="isDeleting" (click)="buttonOption('dismiss')" class="refreshbutton" mat-mini-fab
+                    <button *ngIf="isDeleting" (click)="buttonOption('dismiss')" class="refreshbutton" mat-mini-fab
                         style="font-size: 8px;" color="success" aria-label="icon">
                         <mat-icon>cancel</mat-icon>
-                    </button> -->
-                    <button *ngIf="!isDeleting" (click)="buttonOption('cancel')" class="refreshbutton" mat-mini-fab
+                    </button>
+                   <button *ngIf="!isDeleting" (click)="buttonOption('cancel')" class="refreshbutton" mat-mini-fab
                         style="color: white;background-color: green;"  aria-label="icon">
                         <mat-icon>cancel</mat-icon>
                     </button><br>
@@ -49,8 +41,28 @@
                     <button *ngIf="!isDeleting" (click)="buttonOption('delete')" class="refreshbutton" mat-mini-fab
                         style="color: white;background-color: red;" color="success" aria-label="icon">
                         <mat-icon>delete</mat-icon>
-                    </button>
+                    </button> 
                 </div>
+
+
+                <div fxFlex  >
+                    <button *ngIf="isDeleting" (click)="buttonOption('delete')" class="refreshbutton" mat-mini-fab
+                    style="color: white;background-color: red;" color="success" aria-label="icon">
+                        <mat-icon>delete</mat-icon>
+                        
+                    </button><br>
+                    <span>delete</span>
+                </div>
+                <div fxFlex  >
+                    <button *ngIf="isDeleting" (click)="buttonOption('delete')" class="refreshbutton" mat-mini-fab
+                    style="color: white;background-color: green;" color="success" aria-label="icon">
+                        <mat-icon>check_circle</mat-icon>
+                        
+                    </button><br>
+                    <span>update</span>
+                </div>
+
+                
             </div>
         </div>
 
