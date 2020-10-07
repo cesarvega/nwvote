@@ -68,7 +68,11 @@ export class BsrComponent implements OnInit {
     private _hotkeysService: HotkeysService, 
     private _BsrService: BsrService, public dialog: MatDialog, activatedRoute: ActivatedRoute) {
 
-    this.projectName = activatedRoute.snapshot.queryParamMap.get('id');
+    activatedRoute.params.subscribe(params => {
+      this.projectName = params['id'];
+      this.projectId = this.projectName;
+    });
+
     // keyboard keymaps
     this._hotkeysService.add(new Hotkey('right', (event: KeyboardEvent): boolean => {
 
