@@ -497,13 +497,11 @@ export class editPost {
       this.infoMessage = true;
       this.isDeleting = false;
     }
-
     if (this.data.name === 'mobileInfo') {
       this.infoMessage = false;
       this.isDeleting = false;
       this.isMobileInfo = true;
     }
-
     this.ckconfig = {
       allowedContent: false,
       width: '99.6%',
@@ -530,25 +528,13 @@ export class editPost {
       removeButtons: 'tableselection,Image,Superscript,Subscript,Save,NewPage,Preview,Print,Templates,Replace,SelectAll,Form,Checkbox,Radio,TextField,Textarea,Find,Select,Button,ImageButton,HiddenField,CopyFormatting,CreateDiv,BidiLtr,BidiRtl,Language,Flash,PageBreak,Iframe,ShowBlocks,Cut,Copy,Paste,Table,Format,Source,Maximize,Styles,Anchor,SpecialChar,PasteFromWord,PasteText,Scayt,RemoveFormat,Indent,Outdent,Blockquote'
 
     }
-
     this.loginForm = this._formBuilder.group({
       rationale: [''],
       suma: [''],
       name: [this.concept]
     });
-
-   
-
   }
 
-
-
-  onReady(editor) {
-    // editor.ui.getEditableElement().parentElement.insertBefore(
-    //   editor.ui.view.toolbar.element,
-    //   editor.ui.getEditableElement()
-    // );
-  }
 
   buttonOption(option) {
 
@@ -622,5 +608,6 @@ export class editPost {
   emojiToggle(){
     this.isEmojiTime = !this.isEmojiTime;
   }
+  
 
 }
