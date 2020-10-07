@@ -81,7 +81,7 @@ export class BsrMobileComponent implements OnInit {
       this.newNameForm.value.name = '';
 
       if (this.newNameForm.value.suma) {
-       this.anoni = 'Anonymous';
+        this.anoni = 'Anonymous';
       }
 
       this.bsrService.sendName(nameTemp, this.anoni).subscribe(arg => {
@@ -103,22 +103,24 @@ export class BsrMobileComponent implements OnInit {
 
     dialogRef.afterClosed().subscribe(result => {
 
-      if (result.form.value.name && result.form.value.name !== 'delete') {
+      if (result) {
+        if (result.form.value.name && result.form.value.name !== 'delete') {
 
-        this.bsrService.sendName(result.form.value.name, result.oldValue).subscribe(arg => {
-          this.bsrService.login({ email: this.userEmail, name: this.username }, this.projectId).subscribe((res: any) => {
-            this.newNames = JSON.parse('[' + res[0].Names + ']');
-            this.isUserLogged = true;
-          })
-        });
-      } else {
-        this.bsrService.deleteName(result.oldValue).subscribe(arg => {
-          this.bsrService.login({ email: this.userEmail, name: this.username }, this.projectId).subscribe((res: any) => {
-            this.newNames = JSON.parse('[' + res[0].Names + ']');
-            this.isUserLogged = true;
-          })
-        });
+          this.bsrService.sendName(result.form.value.name, result.oldValue).subscribe(arg => {
+            this.bsrService.login({ email: this.userEmail, name: this.username }, this.projectId).subscribe((res: any) => {
+              this.newNames = JSON.parse('[' + res[0].Names + ']');
+              this.isUserLogged = true;
+            })
+          });
+        } else {
+          this.bsrService.deleteName(result.oldValue).subscribe(arg => {
+            this.bsrService.login({ email: this.userEmail, name: this.username }, this.projectId).subscribe((res: any) => {
+              this.newNames = JSON.parse('[' + res[0].Names + ']');
+              this.isUserLogged = true;
+            })
+          });
 
+        }
       }
 
     });
@@ -129,7 +131,7 @@ export class BsrMobileComponent implements OnInit {
     this.isUserLeaving = true;
     this.bsrService.goToLogout().subscribe(res => {
       console.log(res);
-      
+
     })
   }
 
@@ -198,7 +200,7 @@ export class editName {
       }
       this.dialogRef.close(this.popupwindowData);
     }
-     else if (option === 'delete') {
+    else if (option === 'delete') {
 
       if (this.isDeleting === false) {
 
@@ -210,11 +212,11 @@ export class editName {
         this.dialogRef.close(this.popupwindowData);
       }
       this.isDeleting = false;
-    } 
-     else if (option === 'dismiss') {
-        this.dialogRef.close(this.popupwindowData);
-        this.isDeleting = true;
-    } 
+    }
+    else if (option === 'dismiss') {
+      this.dialogRef.close(this.popupwindowData);
+      this.isDeleting = true;
+    }
     else {
       this.isDeleting = true;
     }

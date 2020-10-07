@@ -263,8 +263,7 @@
                       <mat-icon>note_add</mat-icon>
                     </button>
 
-                    <input class="search" placeholder="search" type="text" (input)="onInputChange($event)"
-                      (keypress)="searchTerm($event.target.value)">
+                    <input class="search" placeholder="search" type="text" (input)="searchTerm($event.target.value)">
                     <div class="col" *ngIf="isSearching">
                       <div style="
                            width: 149px;
@@ -276,6 +275,10 @@
                            z-index: 99999999999999;">
                         <mat-card (click)="goToSlide(i)" class="example-card"
                           *ngFor="let item of appSearchSlidesData; let i = index">
+
+
+                          <mat-card-title>Hello</mat-card-title>
+
                           <mat-card-header>
 
                             <!-- <mat-card-title>Shiba Inu</mat-card-title> -->
