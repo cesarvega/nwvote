@@ -161,10 +161,10 @@
                         [matTooltip]="nameCandidate.Source" matTooltipPosition="right">
                         {{nameCandidate.Name}}
                       </span>
-                      <span *ngIf="isScreeningNames"=
+                      <span *ngIf="isScreeningNames" [innerHTML]="nameCandidate.html"
                         (dblclick)="openDialog(nameCandidate, 'deleteName')"
                         style="font-size:22px;margin: 10px;cursor: pointer;overflow: scroll;"
-                        [matTooltip]="nameCandidate.Source" matTooltipPosition="right">{{nameCandidate.html.replace(/\\/g,'')}}
+                        [matTooltip]="nameCandidate.Source" matTooltipPosition="right">
                       </span>
                       <div style="border-bottom: rgba(0,0,0,.12) 1px solid;width: 100%;text-align: center;"></div>
                     </div>
