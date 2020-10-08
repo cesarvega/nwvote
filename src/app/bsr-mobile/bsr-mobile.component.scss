@@ -46,8 +46,16 @@
     .bsr-mobile-container {
         max-width: 400px;
         position: relative;
-        min-height: 811px;
+        min-height: 100%;
         overflow-y: hidden;
+    }
+
+    .names-list-card{
+        height: 200px;
+                overflow-y: scroll;
+                min-width: 330px;
+                line-height: 26px;
+                border-bottom: #1e41ea solid 1px;
     }
 
     .emoji-mobile-box {
