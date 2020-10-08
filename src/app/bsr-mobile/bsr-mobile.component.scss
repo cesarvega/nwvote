@@ -83,7 +83,7 @@
         line-height: 26px;
         border-bottom: #1e41ea solid 1px;
         opacity: 0;
-        animation: jackInTheBox 0.8s ease 0.5s forwards;
+        animation: jackInTheBox 0.5s ease 0.3s forwards;
     }
 
     .names-list-card::-webkit-scrollbar {
@@ -91,9 +91,18 @@
     }
 
     .name-input-field{
-
         left: 0px;
-        animation: lightSpeedInLeft 0.8s ease 1s backwards;
+        animation: rotateInDownLeft 0.4s ease 0.6s backwards;
+    }
+
+    .submit-button{
+        right: 0px;
+        animation: rotateInDownRight 0.2s ease 0.1s backwards;
+    }
+
+    .finish-button{
+        right: 0px;
+        animation: rotateInDownLeft 0.2s ease 0.4s backwards;
     }
 
 
@@ -110,8 +119,16 @@
         overflow-y: scroll;
         animation: jackInTheBox 1s ease 2s forwards;
     }
+    
     .emoji-mobile-box::-webkit-scrollbar {
         display: none;
+    }
+
+
+    .remember-me {
+        // opacity: 0;
+        margin-bottom: 8px;
+        // animation: jackInTheBox 1s ease 2s forwards;
     }
 
     #login {
@@ -154,9 +171,7 @@
                         font-size: 13px;
                         margin-top: 8px;
 
-                        .remember-me {
-                            margin-bottom: 8px;
-                        }
+                       
 
                         .forgot-password {
                             font-size: 13px;
