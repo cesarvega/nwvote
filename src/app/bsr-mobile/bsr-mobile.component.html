@@ -87,7 +87,7 @@
                 <div class="mat-subheading-1">Suggestions: {{newNames.length}}</div>
                 <mat-card class="names-list-card">
 
-                    <div *ngFor="let item of  newNames" style="font-size: 20px;" (click)="openDialog(item.name, item.nameid)" >{{item.name}}</div>
+                    <div *ngFor="let item of  newNames" style="font-size: 20px;cursor: pointer;border-bottom: navy dashed 0.01em ;" (click)="openDialog(item.name, item.nameid)" >{{item.name}}</div>
                 </mat-card>
                 <br>
 

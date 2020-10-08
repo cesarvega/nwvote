@@ -12,12 +12,13 @@
         align-items: center;
         white-space: nowrap;
     }
+
     @media (min-width: 576px) {
         .bsr-mobile-container {
             max-width: 400px;
             position: relative;
-            min-height: 811px;
-            top: 60px;
+            min-height: 90%;
+            top: 30px;
             overflow-y: hidden;
         }
         .tab-emoji {
@@ -27,7 +28,7 @@
         .emoji-mobile-box {
             background-color: #fff;
             position: absolute;
-            top: 67%;
+            top: 14%;
             border: lightgrey;
             border-radius: 10px;
             padding: 10px;
@@ -38,30 +39,37 @@
         }
     }
 
+    @media (max-width: 576px) {
+        .bsr-mobile-container {
+            max-width: 500px;
+            position: relative;
+            min-height: 100%;
+            overflow-y: hidden;
+        }
+    
+    }
+
+   
     .tab-emoji {
         max-width: 380px;
         min-width: 380px;
     }
 
-    .bsr-mobile-container {
-        max-width: 400px;
-        position: relative;
-        min-height: 100%;
-        overflow-y: hidden;
-    }
-
-    .names-list-card{
+    .names-list-card {
         height: 200px;
-                overflow-y: scroll;
-                min-width: 330px;
-                line-height: 26px;
-                border-bottom: #1e41ea solid 1px;
+        overflow-y: scroll;
+        min-width: 330px;
+        line-height: 26px;
+        border-bottom: #1e41ea solid 1px;
+    }
+    .names-list-card::-webkit-scrollbar {
+        display: none;
     }
 
     .emoji-mobile-box {
         background-color: #ffffff;
         position: absolute;
-        top: 20%;
+        top: 14%;
         border: lightgrey 2px solid;
         border-radius: 10px;
         padding: 10px;
@@ -82,7 +90,7 @@
 
         #login-form-wrapper {
             flex: 1 0 auto;
-            padding: 32px;
+            padding: 5px;
 
             #login-form {
                 // padding: 32px;
