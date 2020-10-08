@@ -31,9 +31,9 @@ export class BsrService {
   // projectId = 'te2381'
 
 
-  urlPlusPost = '[BI_GUIDELINES].[dbo].[bsr_updConceptData] ' + "'" + this.projectId + "'";
-  urlPlusProjectId = '[BI_GUIDELINES].[dbo].[bsr_GetSlides] ' + "'" + this.projectId + "'";
-  urlGetPosit = '[BI_GUIDELINES].[dbo].[bsr_GetProjectData] ' + "'" + this.projectId + "'";
+  // urlPlusPost = '[BI_GUIDELINES].[dbo].[bsr_updConceptData] ' + "'" + localStorage.getItem('projectId') + "'";
+ 
+  
   _SP_CHANGE_POST_IT_ORDER:any;
   _SP_NewNameNSR = "[BI_GUIDELINES].[dbo].[nsr_mobAddNames] N'";
   _SP_NewNameBSR = "[BI_GUIDELINES].[dbo].[nsr_mobAddNames] N'";
@@ -79,11 +79,13 @@ export class BsrService {
 
   }
   getSlides(projectId) {
-    return this.http.post(this.webBaseUrl + this.apiCall, JSON.stringify(this.urlPlusProjectId), httpOptions);
+    const urlPlusProjectId = '[BI_GUIDELINES].[dbo].[bsr_GetSlides] ' + "'" + projectId + "'";
+    return this.http.post(this.webBaseUrl + this.apiCall, JSON.stringify(urlPlusProjectId), httpOptions);
   }
 
   getPost() {
-    return this.http.post(this.webBaseUrl + this.apiCall, JSON.stringify(this.urlGetPosit), httpOptions);
+    const urlGetPosit = '[BI_GUIDELINES].[dbo].[bsr_GetProjectData] ' + "'" + localStorage.getItem('projectId') + "'";
+    return this.http.post(this.webBaseUrl + this.apiCall, JSON.stringify(urlGetPosit), httpOptions);
   }
 
   newPost(newConcept) {

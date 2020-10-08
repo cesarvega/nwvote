@@ -62,17 +62,34 @@
 
             <input class="search" placeholder="search" type="text" (input)="searchTerm($event.target.value)">
             <div class="col" *ngIf="isSearching">
-              <div style="
-                          width: 149px;
-                          height: 580px;
-                          overflow-y: scroll;
-                          position: absolute;
-                          left: -175px;
-                          top: -611px;">
-                <mat-card (click)="goToSlide(i)" class="example-card" *ngFor="let item of appSlidesData; let i = index">
+              <div class="main-search">
+
+
+                <mat-card  (click)="goToSlide(i)" class="example-card"
+                *ngFor="let item of appSearchSlidesData; let i = index" >
+                  <mat-card-header>
+                    <div mat-card-avatar class="example-header-image"></div>
+                    <mat-card-title style="    position: absolute;
+                    left: 10px;
+                    font-size: 12px;">{{item.SlideDescription}}</mat-card-title>
+                    <!-- <mat-card-subtitle>Dog Breed</mat-card-subtitle> -->
+                  </mat-card-header>
                   <img [src]="'http://www.bipresents.com/' + item.SlideBGFileName" alt="overview"
-                    style="max-width: 100px;cursor: pointer;">
+                  style="max-width: 100px;cursor: pointer;">
+                  <mat-card-content>
+                   
+                  </mat-card-content>
+                  
                 </mat-card>
+
+                <!-- <mat-card (click)="goToSlide(i)" class="example-card"
+                  *ngFor="let item of appSearchSlidesData; let i = index">
+                 <p style="font-size: 20px;">{{item.SlideDescription}}</p>
+                  <img [src]="'http://www.bipresents.com/' + item.SlideBGFileName" alt="overview"
+                    style="max-width: 50px;cursor: pointer;">
+                </mat-card> -->
+                <br>
+                <hr>
               </div>
             </div>
             <button (click)="moveBackward()" mat-icon-button color="primary"
@@ -295,15 +312,9 @@
                   <div class="search-results">
                     <mat-card (click)="goToSlide(i)" class="example-card"
                       *ngFor="let item of appSearchSlidesData; let i = index">
-
-
-                      <!-- <p>{{item.DisplayName}}</p> -->
-
-
                       <mat-card-header>
 
-                        <!-- <mat-card-title>Shiba Inu</mat-card-title> -->
-                        <mat-card-subtitle>{{item.DisplayName}}</mat-card-subtitle>
+                        <mat-card-subtitle>{{item.SlideDescription}}</mat-card-subtitle>
                       </mat-card-header>
                       <img [src]="'http://www.bipresents.com/' + item.SlideBGFileName" alt="overview"
                         style="max-width: 100px;cursor: pointer;">
