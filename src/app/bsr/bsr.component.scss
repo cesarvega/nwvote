@@ -70,7 +70,7 @@
   position: absolute;
   bottom: 11px;
   height: 50px;
-  width: 819px;
+  width: 850px;
   margin-left: 60px;
   border-radius: 10px;
   opacity: 0.95;
@@ -549,12 +549,13 @@ table {
   left: 970px;
   // z-index: 999;
 }
-.tabs-emojis{
-  overflow-y: scroll;max-height: 600px;
+.tabs-emojis {
+  overflow-y: scroll;
+  max-height: 600px;
 }
-  .tabs-emojis::-webkit-scrollbar {
-    display: none;
-  }
+.tabs-emojis::-webkit-scrollbar {
+  display: none;
+}
 
 .emoji-box {
   background-color: white;
@@ -574,9 +575,24 @@ table {
   animation-duration: 0.4s; /* don't forget to set a duration! */
 }
 
-
 mat-tab-group ::-webkit-scrollbar {
   display: none;
+}
+.emoji-mobile-box {
+  background-color: #fff;
+  position: absolute;
+  top: 12%;
+  border: lightgrey solid 4px;
+  border-radius: 10px;
+  padding: 10px;
+  max-height: 220px;
+  max-width: 387px;
+  font-size: 14px;
+  margin: 7px;
+  line-height: 19px;
+  overflow-y: scroll;
+  opacity: 0;
+  animation: jackInTheBox 0.3s ease 0.1s forwards;
 }
 
 .emoji-box::-webkit-scrollbar {
@@ -588,6 +604,27 @@ mat-tab-group ::-webkit-scrollbar {
   left: 687px;
   top: 20px;
   cursor: pointer;
+}
+
+.comment-box {
+  position: absolute;
+  background-color: white;
+  width: 100%;
+  top: 463px;
+  z-index: 99999;
+  max-width: 540px;
+  height: 250px;
+  border: aliceblue 2px solid;
+  // animation: bounceIn 0.5s ease-in-out 0s 1 forwards;
+  overflow: hidden;
+}
+.comment-field {
+  width: 516px;
+  position: absolute;
+  font-size: 24px;
+  line-height: 28px;
+  top: 4px;
+  margin-left: 9px;
 }
 
 $postItanimations: wobble, wobble, wobble, wobble, wobble, wobble, wobble, wobble, wobble, wobble, wobble, wobble;

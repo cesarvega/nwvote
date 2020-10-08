@@ -20,6 +20,8 @@ export class BsrService {
   _SP_GetSlideInfo = '[BI_GUIDELINES].[dbo].[nw_SaveSlideData_Group_withRecraft] ';
 
   _SP_GetProjectId = '[dbo].[nw_GetPresentationId_BSRID] \'';
+  _SP_comments = '[BI_GUIDELINES].[dbo].[bsr_comments] \''; 
+  // 'te2381','20',N'<span style="font-style: italic;">test</span>'
   _SP_Get_Group_Summary = '[dbo].[nw_GetSummary_group] ';
   japanese: string;
   // projectId = 'te2647'
@@ -38,6 +40,7 @@ export class BsrService {
   _SP_deleteNames = "[BI_GUIDELINES].[dbo].[bsr_delName] ";
   _SP_getSynonims = "[BI_GUIDELINES].[dbo].[bsr_GetSynonyms] ";
 
+
   isNSR: any;
 
   constructor(private http: HttpClient) {
@@ -45,6 +48,7 @@ export class BsrService {
    }
 
   sendNewName(nameContainer, isNSR) {
+    this.projectId = localStorage.getItem('projectId');
     let newNameContainer = {
       name: nameContainer.split(','),
       source: 'Moderator',
@@ -60,6 +64,7 @@ export class BsrService {
   }
 
   deleteName(nameId) {
+    this.projectId = localStorage.getItem('projectId');
     let newNameObject = this._SP_deleteNames + this.projectId.replace(/\D+/g, '') + ',' + nameId;
     return this.http.post(this.webBaseUrl + this.apiCall, JSON.stringify(newNameObject), httpOptions);
   }
@@ -92,6 +97,7 @@ export class BsrService {
   }
 
   deletePost(conceptid) {
+    this.projectId = localStorage.getItem('projectId');
     let _SP_NewComcept = "[BI_GUIDELINES].[dbo].[bsr_delConcept] '" + this.projectId + "'," + conceptid;
     return this.http.post(this.webBaseUrl + this.apiCall, JSON.stringify(_SP_NewComcept), httpOptions);
   }
@@ -111,6 +117,21 @@ export class BsrService {
 
   getProjectId(projectName) {
     return this.http.post(this.webBaseUrl + this.apiCall, JSON.stringify(this._SP_GetProjectId + projectName + '\''), httpOptions);
+    // return this.http.get(this.webBaseUrl + 'api/NW_GetProjectIdWithProjectName?projectName=' + projectName, httpOptions);
+  }
+
+  sendComment(comment: string) {
+    // [BI_GUIDELINES].[dbo].[bsr_comments] 'te2381','20',N'<span style="font-style: italic;">testdd</span>'
+    return this.http.post(this.webBaseUrl + this.apiCall, JSON.stringify(this._SP_comments + comment), httpOptions);
+    // return this.http.get(this.webBaseUrl + 'api/NW_GetProjectIdWithProjectName?projectName=' + projectName, httpOptions);
+  }
+
+  getComments(slideIndex) {
+    this.projectId = localStorage.getItem('projectId');
+    const _SP_getComments = "[BI_GUIDELINES].[dbo].[bsr_get_comments] ";
+    // [BI_GUIDELINES].[dbo].[bsr_get_comments] 'te2381','20'
+    const getCommentsParam = "'" + this.projectId + "','" + slideIndex + "'";
+    return this.http.post(this.webBaseUrl + this.apiCall, JSON.stringify(_SP_getComments + getCommentsParam ), httpOptions);
     // return this.http.get(this.webBaseUrl + 'api/NW_GetProjectIdWithProjectName?projectName=' + projectName, httpOptions);
   }
 

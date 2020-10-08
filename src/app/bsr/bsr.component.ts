@@ -31,7 +31,7 @@ export class BsrComponent implements OnInit {
   // projectId = 'rg2327';
   projectId = 'te2687';
   projectName = 'te2687';
-  createPostIt = true;
+  createPostIt = false;
   isDeleteButon = false;
   isSearching = false;
   overview = false;
@@ -63,9 +63,11 @@ export class BsrComponent implements OnInit {
   appSearchSlidesData: any;
   slideBackground2: string;
   nameIndexCounter = 0;
-  
-  constructor(private _formBuilder: FormBuilder, 
-    private _hotkeysService: HotkeysService, 
+  isCommentBox: boolean = false;
+  commentBoxText = "";
+
+  constructor(private _formBuilder: FormBuilder,
+    private _hotkeysService: HotkeysService,
     private _BsrService: BsrService, public dialog: MatDialog, activatedRoute: ActivatedRoute) {
 
     activatedRoute.params.subscribe(params => {
@@ -107,8 +109,8 @@ export class BsrComponent implements OnInit {
       this._hotkeysService.cheatSheetToggle.next(false);
       return false;
     }, undefined, 'Hide help sheet'));
-    this._hotkeysService.add(new Hotkey('ctrl+e', (event: KeyboardEvent): boolean => {    
- 
+    this._hotkeysService.add(new Hotkey('ctrl+e', (event: KeyboardEvent): boolean => {
+
       return false;
     }, undefined, ''));
   }
@@ -136,11 +138,15 @@ export class BsrComponent implements OnInit {
 
     this._BsrService.getNameCandidates(this.projectId).subscribe((res: any) => {
       res.forEach(name => {
-        name.html = name.html.replace(/\\/g,'');
+        name.html = name.html.replace(/\\/g, '');
       });
-      this.nameCandidates = (res.length > 0)?res:[];
+      this.nameCandidates = (res.length > 0) ? res : [];
     });
+
+    this.getCommentsByIndex(1);
+   
     
+
     this.loginForm = this._formBuilder.group({
       rationale: [''],
       suma: [''],
@@ -152,6 +158,13 @@ export class BsrComponent implements OnInit {
     }
     this.slideCss = 'block';
   }
+
+  getCommentsByIndex(index){
+    this._BsrService.getComments(index).subscribe((arg:any) => {
+      this.commentBoxText = arg[0].Comments;
+    });
+  }
+
   drop(event: CdkDragDrop<string[]>) {
     moveItemInArray(this.conceptData.concepts, event.previousIndex, event.currentIndex);
     console.log(event.previousIndex, event.currentIndex);
@@ -181,6 +194,7 @@ export class BsrComponent implements OnInit {
 
   // TOOLBAR MENU ACTIONS 
   moveForward() {
+    this.isCommentBox = false;
     this.createPostIt = false;
     if (this.totalNumberOfSlides >= this.currentPageNumber) {
       this.pageCounter = this.currentPageNumber + '/' + this.totalNumberOfSlides;
@@ -194,6 +208,7 @@ export class BsrComponent implements OnInit {
   }
 
   moveBackward() {
+    this.isCommentBox = false;
     this.createPostIt = false
     if (this.currentPageNumber > 0) {
       this.pageCounter = this.currentPageNumber + '/' + this.totalNumberOfSlides;
@@ -260,9 +275,22 @@ export class BsrComponent implements OnInit {
     console.log('bsr');
   }
 
-  comment() {
+  displayCommentBox() {
+    this.isCommentBox = !this.isCommentBox;
+    this.commentBoxText = "";
+    this.getCommentsByIndex(this.currentPageNumber);
+  }
 
-    console.log('comment');
+  comment() {
+    
+    if (this.isCommentBox) {
+
+      let comment = this.projectId + "','" + this.currentPageNumber +"',N'" + this.commentBoxText +"'";
+
+      this._BsrService.sendComment(comment).subscribe(res => {
+        this.isCommentBox = false;
+      });
+    }
   }
 
 
@@ -381,7 +409,7 @@ export class BsrComponent implements OnInit {
       this.isSearching = false;
       this.appSearchSlidesData = [];
     } else {
-     
+
       this.appSlidesData.forEach(element => {
         // if (element.SlideBGFileName.includes(searchValue)) {
         if (element.DisplayName.toUpperCase().includes(searchValue.toUpperCase())) {
@@ -390,7 +418,7 @@ export class BsrComponent implements OnInit {
         }
       });
 
-      
+
     }
 
   }
@@ -410,7 +438,7 @@ export class BsrComponent implements OnInit {
     audio.play();
   }
 
-  screenNames(){
+  screenNames() {
     this.isScreeningNames = !this.isScreeningNames;
   }
 
@@ -605,9 +633,9 @@ export class editPost {
     this.isSynonymBox = false;
     // this.model.editorData = this.model.editorData.concat('<p>' + this.dataSource[0].synonyms + '</p>');
   }
-  emojiToggle(){
+  emojiToggle() {
     this.isEmojiTime = !this.isEmojiTime;
   }
-  
+
 
 }
