@@ -24,17 +24,19 @@
         .tab-emoji {
             max-width: 355px;
             min-width: 355px;
+            overflow-y: scroll;
         }
         .emoji-mobile-box {
             background-color: #fff;
             position: absolute;
-            top: 14%;
+            top: 12%;
             border: lightgrey solid 4px;
             border-radius: 10px;
             padding: 10px;
             max-height: 220px;
-            max-width: 399px;
+            max-width: 387px;
             font-size: 14px;
+            margin: 7px;
             line-height: 19px;
             overflow-y: scroll;
             opacity: 0;
@@ -61,7 +63,8 @@
             top: 14%;
             border: lightgrey 2px solid;
             border-radius: 10px;
-            padding: 10px;
+            padding: 0px 11px 0px 16px;
+            margin: 10px;
             max-height: 220px;
             font-size: 14px;
             line-height: 19px;
