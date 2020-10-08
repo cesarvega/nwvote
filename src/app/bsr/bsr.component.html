@@ -2,10 +2,11 @@
 
 
   <!-- OVERVIEW SLIDE -->
-  <mat-sidenav mode="over" [opened]="overview" style="width: 350px;">
-    <mat-card (click)="goToSlide(i)" class="example-card" *ngFor="let item of appSearchSlidesData; let i = index">
+  <mat-sidenav mode="over" [opened]="overview" style="width: 300px;">
+    <mat-card (click)="goToSlide(i)" class="" *ngFor="let item of appSlidesData; let i = index">
+      <p>{{item.SlideDescription}}</p>
       <img [src]="'http://www.bipresents.com/' + item.SlideBGFileName" alt="overview"
-        style="max-width: 300px;cursor: pointer;">
+        style="max-width: 250px;cursor: pointer;">
     </mat-card>
   </mat-sidenav>
 
@@ -381,6 +382,7 @@
 
     </div>
   </mat-sidenav-content>
+
 </mat-sidenav-container>
 
 

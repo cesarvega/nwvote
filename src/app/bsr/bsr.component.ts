@@ -219,7 +219,7 @@ export class BsrComponent implements OnInit {
       this.pageCounter = this.currentPageNumber + '/' + this.totalNumberOfSlides;
       this.slideBackground = this.baseBackgroundUrl + this.appSlidesData[this.currentPageNumber].SlideBGFileName + ')';
       if (this.appSlidesData[this.currentPageNumber].SlideType === "NameSummary") {
-        this.pageCounter =  (this.currentPageNumber - 1) + '/' + this.totalNumberOfSlides;
+        this.pageCounter =  (this.currentPageNumber + 1) + '/' + this.totalNumberOfSlides;
         this.createPostIt = true;
       }
     }
@@ -313,8 +313,8 @@ export class BsrComponent implements OnInit {
 
   goToSlide(i) {
     this.slideBackground = this.baseBackgroundUrl + this.appSlidesData[i].SlideBGFileName + ')';
-    this.createPostIt = false
-    console.log('slide ' + i);
+    this.createPostIt = false;
+    this.pageCounter =  i + 1 + '/' + this.totalNumberOfSlides;
   }
   // onResizeEnd(event: ResizeEvent): void {
   //   console.log('Element was resized', event);
