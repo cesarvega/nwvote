@@ -1,4 +1,4 @@
-<mat-sidenav-container  class="example-container" *ngIf="true" [hasBackdrop]="false">
+<mat-sidenav-container class="example-container" *ngIf="true" [hasBackdrop]="false">
 
 
   <!-- OVERVIEW SLIDE -->
@@ -11,6 +11,40 @@
 
   <mat-sidenav-content style="overflow-y: hidden;">
     <div class="container">
+   
+      <!-- COMMENTS BOX -->
+      <div fxLayout="col"  *ngIf="isCommentBox" fxLayoutAlign="center center">
+        <div fxFlex class="mat-elevation-z4 comment-box">
+          <div class="col">
+            <div class="row">
+              <button (click)="displayCommentBox()" mat-stroked-button style="color: #004684;
+                    position: absolute;
+                    right: 7px;
+                    top: 201px;" color="primary" aria-label="LOG IN"
+                [disabled]="loginForm.invalid">
+                CANCEL
+              </button>
+              <button (click)="comment()" mat-stroked-button style="color: #004684;
+                    position: absolute;
+                    right: 100px;
+                    top: 201px;" color="primary" aria-label="LOG IN"
+                [disabled]="loginForm.invalid">
+                SUBMIT
+              </button>          
+              <form name="loginForm" [formGroup]="loginForm" novalidate class="open-close-container">
+                <mat-form-field class="comment-field " appearance="outline">
+                  <mat-label>Comment's Box</mat-label>
+                  <textarea 
+                           matInput cdkTextareaAutosize cdkAutosizeMinRows="4"
+                           [(ngModel)]="commentBoxText"
+                    formControlName="suma" cdkAutosizeMaxRows="4" appearance="outline"
+                    formControlName="suma" ></textarea>
+                </mat-form-field>   </form>     
+            </div>
+          </div>
+        </div>
+      </div>
+
 
       <!-- PRESENTATION -->
       <div *ngIf="!createPostIt" fxLayoutAlign="center center" class="col">
@@ -29,12 +63,12 @@
             <input class="search" placeholder="search" type="text" (input)="searchTerm($event.target.value)">
             <div class="col" *ngIf="isSearching">
               <div style="
-              width: 149px;
-              height: 580px;
-              overflow-y: scroll;
-              position: relative;
-              left: -186px;
-              bottom: 310px;">
+                          width: 149px;
+                          height: 580px;
+                          overflow-y: scroll;
+                          position: absolute;
+                          left: -175px;
+                          top: -611px;">
                 <mat-card (click)="goToSlide(i)" class="example-card" *ngFor="let item of appSlidesData; let i = index">
                   <img [src]="'http://www.bipresents.com/' + item.SlideBGFileName" alt="overview"
                     style="max-width: 100px;cursor: pointer;">
@@ -51,7 +85,7 @@
               <mat-icon>chevron_right</mat-icon>
             </button>
 
-            <button (click)="comment()" mat-icon-button aria-label="Example icon-button with a heart icon">
+            <button (click)="displayCommentBox()" mat-icon-button aria-label="Example icon-button with a heart icon">
               <mat-icon>comment</mat-icon>
             </button>
 
@@ -82,6 +116,7 @@
           </mat-toolbar>
         </div>
       </div>
+
 
 
       <!-- POST-ITS -->
@@ -331,7 +366,7 @@
 
       </div>
 
-      
+
 
     </div>
   </mat-sidenav-content>

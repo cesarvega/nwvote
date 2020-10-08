@@ -53,7 +53,7 @@ export class BsrMobileService {
 
 
   sendName(newName: string, OldName: string) {
-    
+    this.projectId = localStorage.getItem('projectId');
     if (OldName === 'Anonymous') {
       OldName = '';
       this.sendNewNamesObj = {
