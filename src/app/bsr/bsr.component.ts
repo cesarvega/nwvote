@@ -621,7 +621,7 @@ export class editPost {
     this.dialogRef.close(this.popupwindowData);
   }
 
-
+e
   async getSynonyms() {
     this.synonymWord = await navigator.clipboard.readText();
     this.isSynonymBox = true;
