@@ -144,6 +144,11 @@ export class BsrMobileComponent implements OnInit {
   }
 
 
+  closeEmoji(): void {
+    this.isEmojiTime = false;
+    }
+
+
 }
 
 
