@@ -46,6 +46,11 @@
             min-height: 100%;
             overflow-y: hidden;
         }
+
+        .tab-emoji {
+            max-width: 380px;
+            min-width: 380px;
+        }
     
     }
 
@@ -62,9 +67,11 @@
         line-height: 26px;
         border-bottom: #1e41ea solid 1px;
     }
+
     .names-list-card::-webkit-scrollbar {
         display: none;
     }
+
 
     .emoji-mobile-box {
         background-color: #ffffff;
