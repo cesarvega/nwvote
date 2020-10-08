@@ -131,14 +131,12 @@
 }
 
 .search-results {
-  background-color: indigo;
   width: 149px;
-  height: 350px;
+  height: 510px;
   overflow-y: scroll;
   position: absolute;
-  left: 390px;
-  top: -360px;
-  z-index: 99999999999999;
+  left: 399px;
+  bottom: -62px;
 }
 
 .toptoolbar {
@@ -439,13 +437,6 @@ mat-slider {
   text-shadow: 0px 1px 100000 1 n m/ px #555;
 }
 
-.post-title:hover {
-  // height: auto;
-  // width: 253px;
-  // word-break: break-all;
-  // cursor: pointer;
-}
-
 .post-content {
   cursor: pointer;
   width: 263px;
@@ -625,6 +616,20 @@ mat-tab-group ::-webkit-scrollbar {
   line-height: 28px;
   top: 4px;
   margin-left: 9px;
+}
+
+.main-search {
+  width: 149px;
+  height: 428px;
+  overflow-y: scroll;
+  position: absolute;
+  left: -170px;
+  bottom: 27px;
+  overflow-x: hidden;
+}
+
+.main-search::-webkit-scrollbar {
+  display: none;
 }
 
 $postItanimations: wobble, wobble, wobble, wobble, wobble, wobble, wobble, wobble, wobble, wobble, wobble, wobble;

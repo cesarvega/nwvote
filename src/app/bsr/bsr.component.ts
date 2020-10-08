@@ -72,6 +72,7 @@ export class BsrComponent implements OnInit {
 
     activatedRoute.params.subscribe(params => {
       this.projectName = params['id'];
+      localStorage.setItem('projectId',this.projectName);
       this.projectId = this.projectName;
     });
 
@@ -161,7 +162,9 @@ export class BsrComponent implements OnInit {
 
   getCommentsByIndex(index){
     this._BsrService.getComments(index).subscribe((arg:any) => {
-      this.commentBoxText = arg[0].Comments;
+      if (arg.lenght > 0) {        
+        this.commentBoxText = arg[0].Comments;
+      }
     });
   }
 
@@ -196,12 +199,13 @@ export class BsrComponent implements OnInit {
   moveForward() {
     this.isCommentBox = false;
     this.createPostIt = false;
-    if (this.totalNumberOfSlides >= this.currentPageNumber) {
-      this.pageCounter = this.currentPageNumber + '/' + this.totalNumberOfSlides;
+    if (this.totalNumberOfSlides > this.currentPageNumber) {
       this.currentPageNumber = this.currentPageNumber + 1;
+      this.pageCounter = this.currentPageNumber + '/' + this.totalNumberOfSlides;
       this.slideBackground = this.baseBackgroundUrl + this.appSlidesData[this.currentPageNumber].SlideBGFileName + ')';
       if (this.appSlidesData[this.currentPageNumber].SlideType === "NameSummary") {
-        this.positPresentationIndex = this.currentPageNumber;
+        this.pageCounter =  (this.currentPageNumber + 1) + '/' + this.totalNumberOfSlides;
+        this.positPresentationIndex = this.currentPageNumber + 1;
         this.createPostIt = true;
       }
     }
@@ -210,12 +214,12 @@ export class BsrComponent implements OnInit {
   moveBackward() {
     this.isCommentBox = false;
     this.createPostIt = false
-    if (this.currentPageNumber > 0) {
-      this.pageCounter = this.currentPageNumber + '/' + this.totalNumberOfSlides;
+    if (this.currentPageNumber >= 1) {
       this.currentPageNumber = this.currentPageNumber - 1;
+      this.pageCounter = this.currentPageNumber + '/' + this.totalNumberOfSlides;
       this.slideBackground = this.baseBackgroundUrl + this.appSlidesData[this.currentPageNumber].SlideBGFileName + ')';
       if (this.appSlidesData[this.currentPageNumber].SlideType === "NameSummary") {
-        this.positPresentationIndex = this.currentPageNumber;
+        this.pageCounter =  (this.currentPageNumber + 1) + '/' + this.totalNumberOfSlides;
         this.createPostIt = true;
       }
     }
@@ -271,8 +275,15 @@ export class BsrComponent implements OnInit {
 
   bsr() {
     this.createPostIt = !this.createPostIt;
-    this.currentPageNumber = (this.positPresentationIndex) ? this.positPresentationIndex : 58;
-    console.log('bsr');
+
+    this.appSlidesData.forEach(element => {
+      if (element.SlideType === "NameSummary") {
+        this.currentPageNumber =  parseInt(element.$id);
+        this.pageCounter = this.currentPageNumber + '/' + this.totalNumberOfSlides;
+        this.createPostIt = true;
+      }
+    });
+    
   }
 
   displayCommentBox() {
@@ -302,8 +313,8 @@ export class BsrComponent implements OnInit {
 
   goToSlide(i) {
     this.slideBackground = this.baseBackgroundUrl + this.appSlidesData[i].SlideBGFileName + ')';
-    this.createPostIt = false
-    console.log('slide ' + i);
+    this.createPostIt = false;
+    this.pageCounter =  i + 1 + '/' + this.totalNumberOfSlides;
   }
   // onResizeEnd(event: ResizeEvent): void {
   //   console.log('Element was resized', event);
@@ -412,7 +423,7 @@ export class BsrComponent implements OnInit {
 
       this.appSlidesData.forEach(element => {
         // if (element.SlideBGFileName.includes(searchValue)) {
-        if (element.DisplayName.toUpperCase().includes(searchValue.toUpperCase())) {
+        if (element.SlideDescription.toUpperCase().includes(searchValue.toUpperCase())) {
           this.appSearchSlidesData.push(element);
           this.isSearching = true;
         }
@@ -572,6 +583,9 @@ export class editPost {
     }
     else if (option === 'savePost') {
       this.isDeleting = false;
+
+      this.projectId = localStorage.getItem('projectId');
+
       let newConcepData = {
         projectId: this.projectId,
         concept: this.loginForm.value.name,
