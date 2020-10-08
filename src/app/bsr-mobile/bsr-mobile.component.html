@@ -3,9 +3,13 @@
 
         <mat-toolbar class="toolbar " fxLayoutAlign="space-between center">
             <!-- <mat-icon>insert_drive_file</mat-icon>  -->
-           <div style="font-family: roboto;">
-            BI Project: {{projectname}}
-           </div> 
+            <div class="col">
+                <div class="row">
+                    <div style="font-family: LinLibertine_R;font-size: 25px;padding-right: 10px;">
+                        BI Project: 
+                       </div> <div> {{projectname}}</div>
+                </div>
+            </div>
           
                 <mat-icon *ngIf="isUserLogged" (click)="openDialog('displayInfo', '')" 
                 style="color: white;background-color: #004684;  outline: none;" >help</mat-icon>
@@ -94,7 +98,7 @@
                 <form name="newNameForm" [formGroup]="newNameForm" novalidate class="nameform"
                     style="text-align: center;">
 
-                    <mat-form-field class="name-input-field" appearance="outline" style="min-width: 330px;">
+                    <mat-form-field appearance="outline" style="min-width: 330px;">
                         <mat-label>Name Suggestions</mat-label>
                         <input matInput type="name" placeholder="name" autofocus #reference formControlName="name">
                     </mat-form-field>
@@ -126,8 +130,7 @@
                         </div>
                         <div class="col">
 
-                            <button (click)="finish()" mat-raised-button style="color: white;" color="accent"
-                                class="submit-button" aria-label="LOG IN">
+                            <button class="finish-button" (click)="finish()" mat-raised-button style="color: white;" color="accent" aria-label="LOG IN">
                                 CLICK TO FINISH
                             </button>
                         </div>
