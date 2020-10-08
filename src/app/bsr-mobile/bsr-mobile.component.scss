@@ -51,10 +51,26 @@
             max-width: 380px;
             min-width: 380px;
         }
-    
     }
 
-   
+    @keyframes drop {
+        0% {
+            top: -200px;
+        }
+        25% {
+            top: 50px;
+        }
+        50% {
+            top: 100px;
+        }
+        75% {
+            top: 200px;
+        }
+        100% {
+            top: 150px;
+        }
+    }
+
     .tab-emoji {
         max-width: 380px;
         min-width: 380px;
@@ -66,10 +82,18 @@
         min-width: 330px;
         line-height: 26px;
         border-bottom: #1e41ea solid 1px;
+        opacity: 0;
+        animation: jackInTheBox 0.8s ease 0.5s forwards;
     }
 
     .names-list-card::-webkit-scrollbar {
         display: none;
+    }
+
+    .name-input-field{
+
+        left: 0px;
+        animation: lightSpeedInLeft 0.8s ease 1s backwards;
     }
 
 
@@ -84,6 +108,7 @@
         font-size: 14px;
         line-height: 19px;
         overflow-y: scroll;
+        animation: jackInTheBox 1s ease 2s forwards;
     }
     .emoji-mobile-box::-webkit-scrollbar {
         display: none;
