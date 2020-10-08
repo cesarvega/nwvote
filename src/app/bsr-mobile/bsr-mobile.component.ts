@@ -14,11 +14,11 @@ export class BsrMobileComponent implements OnInit {
 
   isUserLogged = false;
   isUserLeaving = false;
-  newNames = ['AJORSEK', 'EMPROVON', 'KALENPARQ', 'KAMLIO', 'ONBETYM', 'ONDEMUVE', 'ONPARNEX', 'PLUXONTI', 'TEYBILTON', 'VELZAGO'];
+  newNames = [];
   userEmail;
   loginForm: FormGroup;
   newNameForm: FormGroup;
-  projectname = ''
+  projectName = ''
   property: any;
   projectId: any;
   username: any;
@@ -33,8 +33,10 @@ export class BsrMobileComponent implements OnInit {
 
     this.activatedRoute.params.subscribe(params => {
       this.projectId = params['id'];
+      localStorage.setItem('projectId',  this.projectId);
       this.bsrService.getProjectData(this.projectId).subscribe(arg => {
-        this.projectname = JSON.parse(arg[0].bsrData).projectdescription;        
+        this.projectName = JSON.parse(arg[0].bsrData).projectdescription;
+        localStorage.setItem('projectName',  this.projectId);        
       });
     });
 
@@ -42,16 +44,18 @@ export class BsrMobileComponent implements OnInit {
   }
 
   ngOnInit(): void {
-
     //clean local storage 
     localStorage.setItem('userTokenId', '');
     localStorage.setItem('project', '');
     localStorage.setItem('summarized', '');
 
+    this.userEmail = localStorage.getItem('userEmail');
+    this.username = localStorage.getItem('username');
+
     this.loginForm = this._formBuilder.group({
-      email: ['cvega@brandinstitute.com', Validators.required],
+      email: [ this.userEmail, Validators.required],
       suma: [true],
-      name: ['Cesar Vega', Validators.required]
+      name: [this.username, Validators.required]
     });
 
     this.newNameForm = this._formBuilder.group({
@@ -64,7 +68,9 @@ export class BsrMobileComponent implements OnInit {
   // for login view
   submitCredentials() {
     this.userEmail = this.loginForm.value.email;
+    localStorage.setItem('userEmail', this.userEmail);
     this.username = this.loginForm.value.name;
+    localStorage.setItem('username', this.username);    
     this.summarized = this.loginForm.value.suma;
     localStorage.setItem('summarized', this.summarized.toString());
     this.bsrService.login(this.loginForm.value, this.projectId).subscribe((res: any) => {
