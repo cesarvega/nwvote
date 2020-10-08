@@ -113,9 +113,7 @@
                                 color="primary" class="submit-button" aria-label="LOG IN">
                                 CLICK TO SUBMIT
                             </button>
-                            <button style="outline: none;position: absolute;
-                            top: -70px;
-                            right: -17px;" (click)="emojiToggle()" mat-icon-button color="accent" aria-label="emoji">
+                            <button class="emoji-icon" (click)="emojiToggle()" mat-icon-button color="accent" aria-label="emoji">
                                 <mat-icon>tag_faces</mat-icon>
                             </button>
 
@@ -124,7 +122,7 @@
                         </div>
                         <div class="col">
 
-                            <mat-checkbox class="remember-me secondary" aria-label="Anonymous" matInput
+                            <mat-checkbox class="enable-anonymous remember-me secondary" aria-label="Anonymous" matInput
                                 formControlName="suma">
                                 Enable Anonymous Submit?
                             </mat-checkbox>
