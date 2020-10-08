@@ -29,13 +29,16 @@
             background-color: #fff;
             position: absolute;
             top: 14%;
-            border: lightgrey;
+            border: lightgrey solid 4px;
             border-radius: 10px;
             padding: 10px;
             max-height: 220px;
+            max-width: 399px;
             font-size: 14px;
             line-height: 19px;
             overflow-y: scroll;
+            opacity: 0;
+            animation: jackInTheBox 0.3s ease 0.1s forwards;
         }
     }
 
@@ -50,6 +53,21 @@
         .tab-emoji {
             max-width: 380px;
             min-width: 380px;
+        }
+
+        .emoji-mobile-box {
+            background-color: #ffffff;
+            position: absolute;
+            top: 14%;
+            border: lightgrey 2px solid;
+            border-radius: 10px;
+            padding: 10px;
+            max-height: 220px;
+            font-size: 14px;
+            line-height: 19px;
+            overflow-y: scroll;
+            opacity: 0;
+            animation: jackInTheBox 0.3s ease 0.1s forwards;
         }
     }
 
@@ -90,40 +108,24 @@
         display: none;
     }
 
-    .name-input-field{
+    .name-input-field {
         left: 0px;
         animation: rotateInDownLeft 0.4s ease 0.6s backwards;
     }
 
-    .submit-button{
+    .submit-button {
         right: 0px;
         animation: rotateInDownRight 0.2s ease 0.1s backwards;
     }
 
-    .finish-button{
+    .finish-button {
         right: 0px;
         animation: rotateInDownLeft 0.2s ease 0.4s backwards;
     }
 
-
-    .emoji-mobile-box {
-        background-color: #ffffff;
-        position: absolute;
-        top: 14%;
-        border: lightgrey 2px solid;
-        border-radius: 10px;
-        padding: 10px;
-        max-height: 220px;
-        font-size: 14px;
-        line-height: 19px;
-        overflow-y: scroll;
-        animation: jackInTheBox 1s ease 2s forwards;
-    }
-    
     .emoji-mobile-box::-webkit-scrollbar {
         display: none;
     }
-
 
     .remember-me {
         // opacity: 0;
@@ -170,8 +172,6 @@
                     .remember-forgot-password {
                         font-size: 13px;
                         margin-top: 8px;
-
-                       
 
                         .forgot-password {
                             font-size: 13px;
