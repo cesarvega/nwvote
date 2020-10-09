@@ -323,11 +323,11 @@
                   <mat-toolbar class="toolbar-postit mat-elevation-z4 bounceIn" *ngIf="mainMenu">
 
                     <button (click)="home()" mat-icon-button aria-label="Example icon-button with a heart icon"
-                      matTooltip="Info about the action" matTooltipPosition="above">
+                      matTooltip="Home" matTooltipPosition="above">
                       <mat-icon>home</mat-icon>
                     </button>
 
-                    <button (click)="newBlankPostIt()" mat-icon-button color="primary"
+                    <button  matTooltip="New Concept" matTooltipPosition="above" (click)="newBlankPostIt()" mat-icon-button color="primary"
                       aria-label="Example icon-button with a heart icon">
                       <mat-icon>note_add</mat-icon>
                     </button>
