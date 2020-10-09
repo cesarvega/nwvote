@@ -20,7 +20,7 @@ import { MatDialog, MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dial
 })
 export class BsrComponent implements OnInit {
 
-  @ViewChild('slider') slider;
+  // @ViewChild('slider') slider;
 
   postItListTheme = 'post-it-list-theme'
   loginForm: FormGroup;
@@ -31,7 +31,7 @@ export class BsrComponent implements OnInit {
   // projectId = 'rg2327';
   projectId = 'te2687';
   projectName = 'te2687';
-  createPostIt = false;
+  createPostIt = true;
   isDeleteButon = false;
   isSearching = false;
   overview = false;
@@ -112,8 +112,11 @@ export class BsrComponent implements OnInit {
     }, undefined, 'Hide help sheet'));
     this._hotkeysService.add(new Hotkey('ctrl+b', (event: KeyboardEvent): boolean => {
       this.createPostIt = !this.createPostIt;
+      localStorage.setItem('createPostIt',this.createPostIt.toString()) ;
+      this.nameIndexCounter = parseInt(localStorage.getItem('namesIndexCounte'));
+      this.toggleNamebox();
       return false;
-    }, undefined, 'BrandStorm'));
+    }, undefined, 'Toogle Presentation Mode'));
   }
 
   ngOnInit(): void {
@@ -126,7 +129,7 @@ export class BsrComponent implements OnInit {
       this.totalNumberOfSlides = res.length
       this.pageCounter = '1/' + this.totalNumberOfSlides;
       this.slideBackground = this.slideBackground + res[0].SlideBGFileName + ')';
-      this.currentPageNumber = 1;
+      this.currentPageNumber = 0;
     })
 
     this._BsrService.getPost().subscribe((res: any) => {
@@ -143,21 +146,15 @@ export class BsrComponent implements OnInit {
       });
       this.nameCandidates = (res.length > 0) ? res : [];
     });
-
-    this.getCommentsByIndex(1);
-   
-    
-
+    this.getCommentsByIndex(0);
     this.loginForm = this._formBuilder.group({
       rationale: [''],
       suma: [''],
       name: ['']
     });
-
-    if (this.slider) {
-      this.slider.value = 51;
-    }
-    this.slideCss = 'block';
+    this.nameIndexCounter = parseInt(localStorage.getItem('namesIndexCounte'));
+    this.createPostIt = (localStorage.getItem('createPostIt') === 'true')?true:false;
+    this.toggleNamebox();
   }
 
   getCommentsByIndex(index){
@@ -176,19 +173,17 @@ export class BsrComponent implements OnInit {
       orderArray.push(JSON.stringify(ele.conceptid))
     });
     this._BsrService.postItOrder(this.projectId, orderArray).subscribe(arg => {
-
       this._BsrService.getPost().subscribe((res: any) => {
         this.conceptData = JSON.parse(res[0].bsrData);
         if (JSON.parse(res[0].bsrData).presentationtype = 'NSR') {
           this.isNSR = true;
-
         }
         console.log(this.conceptData);
       });
 
     });
-
   }
+
   entered(event: CdkDragDrop<string[]>) {
     moveItemInArray(this.conceptData.concepts, event.previousIndex, event.currentIndex);
     console.log(event.previousIndex, event.currentIndex);
@@ -199,13 +194,15 @@ export class BsrComponent implements OnInit {
   moveForward() {
     this.isCommentBox = false;
     this.createPostIt = false;
+    if (this.currentPageNumber === 0) {
+      this.currentPageNumber = 1;
+    }
     if (this.totalNumberOfSlides > this.currentPageNumber) {
-      this.currentPageNumber = this.currentPageNumber + 1;
-      this.pageCounter = this.currentPageNumber + '/' + this.totalNumberOfSlides;
+      this.pageCounter = this.currentPageNumber + 1 + '/' + this.totalNumberOfSlides;
+      this.currentPageNumber = 1 + this.currentPageNumber;
       this.slideBackground = this.baseBackgroundUrl + this.appSlidesData[this.currentPageNumber].SlideBGFileName + ')';
       if (this.appSlidesData[this.currentPageNumber].SlideType === "NameSummary") {
-        this.pageCounter =  (this.currentPageNumber + 1) + '/' + this.totalNumberOfSlides;
-        this.positPresentationIndex = this.currentPageNumber + 1;
+        this.positPresentationIndex = this.currentPageNumber;
         this.createPostIt = true;
       }
     }
@@ -275,7 +272,9 @@ export class BsrComponent implements OnInit {
 
   bsr() {
     this.createPostIt = !this.createPostIt;
-
+    localStorage.setItem('createPostIt',this.createPostIt.toString()) ;
+    this.nameIndexCounter = parseInt(localStorage.getItem('namesIndexCounte'));
+    this.toggleNamebox();
     this.appSlidesData.forEach(element => {
       if (element.SlideType === "NameSummary") {
         this.currentPageNumber =  parseInt(element.$id);
@@ -288,7 +287,7 @@ export class BsrComponent implements OnInit {
 
   displayCommentBox() {
     this.isCommentBox = !this.isCommentBox;
-    this.commentBoxText = "";
+    // this.commentBoxText = "";
     this.getCommentsByIndex(this.currentPageNumber);
   }
 
@@ -304,21 +303,17 @@ export class BsrComponent implements OnInit {
     }
   }
 
-
   displayHelp(display: boolean) {
     (display) ? this._hotkeysService.cheatSheetToggle.next() : this._hotkeysService.cheatSheetToggle.next(display);
     this._hotkeysService.cheatSheetToggle.next(true)
   }
-
 
   goToSlide(i) {
     this.slideBackground = this.baseBackgroundUrl + this.appSlidesData[i].SlideBGFileName + ')';
     this.createPostIt = false;
     this.pageCounter =  i + 1 + '/' + this.totalNumberOfSlides;
   }
-  // onResizeEnd(event: ResizeEvent): void {
-  //   console.log('Element was resized', event);
-  // }
+
   openDialog(item, nameid): void {
 
 
@@ -358,34 +353,6 @@ export class BsrComponent implements OnInit {
     }
     );
   }
-
-
-
-  toggleNamebox() {
-    //  this.nameBox = !this.nameBox;
-    //  this.nameBoxB = !this.nameBoxB;
-
-    if (this.nameIndexCounter === 0) {
-      this.nameIndexCounter++;
-      this.onInputChange(52);
-    } else if (this.nameIndexCounter === 1) {
-      this.nameIndexCounter++;
-      this.onInputChange(30);
-    } else {
-      this.nameIndexCounter = 0;
-      this.onInputChange(15);
-    }
-
-    this.nameIndexCounter
-    this.showSlider = false;
-    // this.showSlider = !this.showSlider;
-    if (this.showSlider) {
-      this.slideCss = 'block';
-    } else {
-      this.slideCss = 'none';
-    }
-  }
-
 
 
   onInputChange(value: number) {
@@ -434,7 +401,6 @@ export class BsrComponent implements OnInit {
 
   }
 
-
   theme(): void {
     if (this.postItListTheme == 'post-it-list-theme') {
       this.postItListTheme = 'post-it-list'
@@ -449,6 +415,21 @@ export class BsrComponent implements OnInit {
     audio.play();
   }
 
+  toggleNamebox() {
+    localStorage.setItem('namesIndexCounte',this.nameIndexCounter.toString());
+    if (this.nameIndexCounter === 0) {      
+      this.nameIndexCounter++;
+      this.onInputChange(52);
+    } else if (this.nameIndexCounter === 1) {      
+      this.nameIndexCounter++;
+      this.onInputChange(30);
+    } else {      
+      this.nameIndexCounter = 0;
+      this.onInputChange(15);
+    }
+    this.nameIndexCounter
+  }
+
   screenNames() {
     this.isScreeningNames = !this.isScreeningNames;
   }
@@ -458,6 +439,7 @@ export class BsrComponent implements OnInit {
 
 import { MatSliderChange } from '@angular/material/slider';
 import { ActivatedRoute } from '@angular/router';
+import { ThrowStmt } from '@angular/compiler/src/output/output_ast';
 
 // CKEDITOR WYSIWYG // **************************************************************************************************
 
