@@ -1,17 +1,19 @@
 <div style="position: relative;overflow: hidden;" fxLayoutAlign="center center">
     <!-- <div style="position: relative;overflow: hidden;background-image: url(toolbarBg.jpg);background-repeat: no-repeat;"
     fxLayoutAlign="center center"> -->
-
-
     <!-- EMOJIS -->
-    <div *ngIf="isEmojiTime" class="emoji-box mat-elevation-z8">
-
+    <div *ngIf="isEmojiTime" class="emoji-box mat-elevation-z8" cdkDrag>
+        <div class="emoji-handle" cdkDragHandle>
+            <!-- <svg width="24px" fill="currentColor" viewBox="0 0 24 24">
+              <path d="M10 9h4V6h3l-5-5-5 5h3v3zm-1 1H6V7l-5 5 5 5v-3h3v-4zm14 2l-5-5v3h-3v4h3v3l5-5zm-9 3h-4v3H7l5 5 5-5h-3v-3z"></path>
+              <path d="M0 0h24v24H0z" fill="none"></path>
+            </svg> -->
+          </div>
         <div class="col">
             <div class="row cancel-emoji">
                 <mat-icon (click)="emojiToggle()" >cancel</mat-icon>
             </div>
             <div class="row ">
-
                 <mat-tab-group class="tabs-emojis">
                     <mat-tab label="Emoji">
                         <br>
@@ -86,7 +88,7 @@
                 <div fxFlex>
 
                     <button *ngIf="!isDeleting" (click)="buttonOption('cancel')" class="refreshbutton" mat-mini-fab
-                        style="color: white;background-color: grey;padding: 4px;outline: none;" color="success"
+                        style="color: white;background-color: grey;padding: 3px;outline: none;" color="success"
                         aria-label="icon">
                         <mat-icon>cancel</mat-icon>
                     </button><br>
@@ -96,7 +98,7 @@
                 <div fxFlex>
 
                     <button *ngIf="!isDeleting && isDeletingName" (click)="buttonOption('delete')" class="refreshbutton"
-                        mat-mini-fab style="color: white;background-color: red;padding: 4px;outline: none;"
+                        mat-mini-fab style="color: white;background-color: red;padding: 3px;outline: none;"
                         color="success" aria-label="icon">
                         <mat-icon>check</mat-icon>
                     </button><br>
