@@ -203,8 +203,6 @@
   display: none;
 }
 
-
-
 .post-list {
   width: 100px;
   max-width: 100%;
@@ -534,6 +532,16 @@ table {
   display: none;
 }
 
+.emoji-handle {
+  position: absolute;
+  top: 8px;
+  right: 51px;
+  color: #000;
+  cursor: move;
+  width: 664px;
+  height: 24px;
+  z-index: 999999;
+}
 .emoji-box {
   background-color: white;
   position: fixed;
@@ -618,7 +626,7 @@ mat-tab-group ::-webkit-scrollbar {
   display: none;
 }
 
-.overview{
+.overview {
   width: 300px;
   overflow-x: hidden;
   overflow-y: scroll;
@@ -627,7 +635,6 @@ mat-tab-group ::-webkit-scrollbar {
 .overview::-webkit-scrollbar {
   display: none;
 }
-
 
 $postItanimations: wobble, wobble, wobble, wobble, wobble, wobble, wobble, wobble, wobble, wobble, wobble, wobble;
 $postItseconds: 1, 2, 3;
@@ -749,9 +756,27 @@ $postItHeaderColors2: #d6f8fd, #dcd6fd, #d6fde9, #fdfcd6, #d6f8fd, #fdd6e8, #fdd
   opacity: 1;
   // transition: opacity 0.5s ease-out;
   // animation-direction: alternate;
-  animation: pulse ; /* referring directly to the animation's @keyframe declaration */
+  // animation: tada; /* referring directly to the animation's @keyframe declaration */
   animation-delay: 0.1s; /* don't forget to set a duration! */
   animation-duration: 0.5s; /* don't forget to set a duration! */
-  animation-iteration-count: 2;
+  animation-iteration-count: 1;
   animation-fill-mode: forwards;
+  
+}
+.brandstorm:hover {
+  color: #eee !important;
+  display: inline-block;
+  margin: 0 0.5rem;
+  opacity: 1;
+  transition: opacity 0.5s ease-out;
+  animation: tada, wooble;
+  // animation-direction: alternate;
+  // animation: bounce; /* referring directly to the animation's @keyframe declaration */
+  animation-delay: 0.1s; /* don't forget to set a duration! */
+  animation-duration: 0.5s; /* don't forget to set a duration! */
+  animation-iteration-count: 1;
+  animation-timing-function: ease-out;
+  animation-fill-mode: both;
+  cursor: pointer;
+
 }

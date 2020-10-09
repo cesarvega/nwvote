@@ -59,7 +59,7 @@ export class BsrComponent implements OnInit {
   myMaxRWith = '900px';
   myMaxRightWith = '8px';
   showSlider: boolean = false;
-  positPresentationIndex: number;
+  postItPresentationIndex: number;
   appSearchSlidesData: any;
   slideBackground2: string;
   nameIndexCounter = 0;
@@ -72,7 +72,7 @@ export class BsrComponent implements OnInit {
 
     activatedRoute.params.subscribe(params => {
       this.projectName = params['id'];
-      localStorage.setItem('projectId',this.projectName);
+      localStorage.setItem('projectId', this.projectName);
       this.projectId = this.projectName;
     });
 
@@ -111,10 +111,7 @@ export class BsrComponent implements OnInit {
       return false;
     }, undefined, 'Hide help sheet'));
     this._hotkeysService.add(new Hotkey('ctrl+b', (event: KeyboardEvent): boolean => {
-      this.createPostIt = !this.createPostIt;
-      localStorage.setItem('createPostIt',this.createPostIt.toString()) ;
-      this.nameIndexCounter = parseInt(localStorage.getItem('namesIndexCounte'));
-      this.toggleNamebox();
+     this.bsr();
       return false;
     }, undefined, 'Toogle Presentation Mode'));
   }
@@ -130,6 +127,11 @@ export class BsrComponent implements OnInit {
       this.pageCounter = '1/' + this.totalNumberOfSlides;
       this.slideBackground = this.slideBackground + res[0].SlideBGFileName + ')';
       this.currentPageNumber = 0;
+      this.appSlidesData.forEach(element => {
+        if (element.SlideType === "NameSummary") {
+          this.postItPresentationIndex = parseInt(element.$id);
+        }
+      });
     })
 
     this._BsrService.getPost().subscribe((res: any) => {
@@ -153,13 +155,13 @@ export class BsrComponent implements OnInit {
       name: ['']
     });
     this.nameIndexCounter = parseInt(localStorage.getItem('namesIndexCounte'));
-    this.createPostIt = (localStorage.getItem('createPostIt') === 'true')?true:false;
+    this.createPostIt = (localStorage.getItem('createPostIt') === 'true') ? true : false;
     this.toggleNamebox();
   }
 
-  getCommentsByIndex(index){
-    this._BsrService.getComments(index).subscribe((arg:any) => {
-      if (arg.lenght > 0) {        
+  getCommentsByIndex(index) {
+    this._BsrService.getComments(index).subscribe((arg: any) => {
+      if (arg.lenght > 0) {
         this.commentBoxText = arg[0].Comments;
       }
     });
@@ -194,29 +196,25 @@ export class BsrComponent implements OnInit {
   moveForward() {
     this.isCommentBox = false;
     this.createPostIt = false;
-    if (this.currentPageNumber === 0) {
-      this.currentPageNumber = 1;
-    }
-    if (this.totalNumberOfSlides > this.currentPageNumber) {
-      this.pageCounter = this.currentPageNumber + 1 + '/' + this.totalNumberOfSlides;
+    if (this.totalNumberOfSlides > this.currentPageNumber + 1) {
       this.currentPageNumber = 1 + this.currentPageNumber;
       this.slideBackground = this.baseBackgroundUrl + this.appSlidesData[this.currentPageNumber].SlideBGFileName + ')';
-      if (this.appSlidesData[this.currentPageNumber].SlideType === "NameSummary") {
-        this.positPresentationIndex = this.currentPageNumber;
+      if (this.postItPresentationIndex === this.currentPageNumber) {
         this.createPostIt = true;
       }
+      this.pageCounter = this.currentPageNumber + 1 + '/' + this.totalNumberOfSlides;
     }
   }
+
 
   moveBackward() {
     this.isCommentBox = false;
     this.createPostIt = false
     if (this.currentPageNumber >= 1) {
       this.currentPageNumber = this.currentPageNumber - 1;
-      this.pageCounter = this.currentPageNumber + '/' + this.totalNumberOfSlides;
+      this.pageCounter = this.currentPageNumber + 1 + '/' + this.totalNumberOfSlides;
       this.slideBackground = this.baseBackgroundUrl + this.appSlidesData[this.currentPageNumber].SlideBGFileName + ')';
-      if (this.appSlidesData[this.currentPageNumber].SlideType === "NameSummary") {
-        this.pageCounter =  (this.currentPageNumber + 1) + '/' + this.totalNumberOfSlides;
+      if (this.postItPresentationIndex === this.currentPageNumber) {
         this.createPostIt = true;
       }
     }
@@ -263,26 +261,20 @@ export class BsrComponent implements OnInit {
   }
 
   home() {
-    this.currentPageNumber = 1;
     this.pageCounter = '1/' + this.totalNumberOfSlides;
     this.slideBackground = this.baseBackgroundUrl + this.appSlidesData[0].SlideBGFileName + ')';
-    this.createPostIt = false
-    console.log('home');
+    this.createPostIt = false;
+    this.currentPageNumber = 0;
   }
 
   bsr() {
     this.createPostIt = !this.createPostIt;
-    localStorage.setItem('createPostIt',this.createPostIt.toString()) ;
+    localStorage.setItem('createPostIt', this.createPostIt.toString());
     this.nameIndexCounter = parseInt(localStorage.getItem('namesIndexCounte'));
     this.toggleNamebox();
-    this.appSlidesData.forEach(element => {
-      if (element.SlideType === "NameSummary") {
-        this.currentPageNumber =  parseInt(element.$id);
-        this.pageCounter = this.currentPageNumber + '/' + this.totalNumberOfSlides;
-        this.createPostIt = true;
-      }
-    });
-    
+    this.currentPageNumber = this.postItPresentationIndex;
+    this.pageCounter = this.postItPresentationIndex + 1 + '/' + this.totalNumberOfSlides;
+    this.currentPageNumber = this.postItPresentationIndex;
   }
 
   displayCommentBox() {
@@ -292,10 +284,10 @@ export class BsrComponent implements OnInit {
   }
 
   comment() {
-    
+
     if (this.isCommentBox) {
 
-      let comment = this.projectId + "','" + this.currentPageNumber +"',N'" + this.commentBoxText +"'";
+      let comment = this.projectId + "','" + this.currentPageNumber + "',N'" + this.commentBoxText + "'";
 
       this._BsrService.sendComment(comment).subscribe(res => {
         this.isCommentBox = false;
@@ -311,7 +303,7 @@ export class BsrComponent implements OnInit {
   goToSlide(i) {
     this.slideBackground = this.baseBackgroundUrl + this.appSlidesData[i].SlideBGFileName + ')';
     this.createPostIt = false;
-    this.pageCounter =  i + 1 + '/' + this.totalNumberOfSlides;
+    this.pageCounter = i + 1 + '/' + this.totalNumberOfSlides;
   }
 
   openDialog(item, nameid): void {
@@ -416,14 +408,14 @@ export class BsrComponent implements OnInit {
   }
 
   toggleNamebox() {
-    localStorage.setItem('namesIndexCounte',this.nameIndexCounter.toString());
-    if (this.nameIndexCounter === 0) {      
+    localStorage.setItem('namesIndexCounte', this.nameIndexCounter.toString());
+    if (this.nameIndexCounter === 0) {
       this.nameIndexCounter++;
       this.onInputChange(52);
-    } else if (this.nameIndexCounter === 1) {      
+    } else if (this.nameIndexCounter === 1) {
       this.nameIndexCounter++;
       this.onInputChange(30);
-    } else {      
+    } else {
       this.nameIndexCounter = 0;
       this.onInputChange(15);
     }
@@ -603,7 +595,7 @@ export class editPost {
     this.dialogRef.close(this.popupwindowData);
   }
 
-e
+  e
   async getSynonyms() {
     this.synonymWord = await navigator.clipboard.readText();
     this.isSynonymBox = true;
