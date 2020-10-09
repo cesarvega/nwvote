@@ -110,10 +110,10 @@ export class BsrComponent implements OnInit {
       this._hotkeysService.cheatSheetToggle.next(false);
       return false;
     }, undefined, 'Hide help sheet'));
-    this._hotkeysService.add(new Hotkey('ctrl+e', (event: KeyboardEvent): boolean => {
-
+    this._hotkeysService.add(new Hotkey('ctrl+b', (event: KeyboardEvent): boolean => {
+      this.createPostIt = !this.createPostIt;
       return false;
-    }, undefined, ''));
+    }, undefined, 'BrandStorm'));
   }
 
   ngOnInit(): void {
