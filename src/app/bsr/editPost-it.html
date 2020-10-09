@@ -116,9 +116,15 @@
     </div>
     <!-- MOBILE INFO PICTURE DISPLAY -->
     <div *ngIf="isMobileInfo">
-
+        
+                    <mat-icon (click)="buttonOption('')" style="color: #004684;
+                    position: absolute;
+                    top: 576px;
+                    outline: none;
+                    right: 3px;">cancel</mat-icon>
+                
         <div class="row" layout-align="center center">
-
+        
             <div flex="" class="text-center flex" style="margin:0 18px">
                 <p>1. Access
                     www.mynamepage.com/ti823</p>
@@ -141,10 +147,7 @@
             </div>
         </div>
         <div fxLayoutAlign="end end">
-            <button (click)="buttonOption('')" class="refreshbutton" mat-fab style="color: white;position: fixed;
-    bottom: 100px;background-color: #004684;padding: 4px;outline: none;" color="success" aria-label="icon">
-                <mat-icon>cancel</mat-icon>
-            </button>
+            
         </div>
 
         <div ng-hide="!bsrMenubarController.isItNSR" class="nonprop-name-rule-style" aria-hidden="false">

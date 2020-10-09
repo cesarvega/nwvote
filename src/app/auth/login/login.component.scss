@@ -12,22 +12,12 @@
         align-items: center;
         white-space: nowrap;
     }
-    .emoji-mobile-box {
-        background-color: rgb(197, 0, 0);
-        position: absolute;
-        top: 12%;
-        border: lightgrey solid 4px;
-        border-radius: 10px;
-        padding: 10px;
-        max-height: 220px;
-        max-width: 387px;
-        font-size: 14px;
-        margin: 7px;
-        line-height: 19px;
-        overflow-y: scroll;
-        opacity: 0;
-        animation: jackInTheBox 0.3s ease 0.1s forwards;
+
+    .login-container{
+        max-width: 500px;
     }
+
+
     #login {
         width: 100%;
         // background: url('/assets/images/backgrounds/dark-material-bg.jpg') no-repeat;
