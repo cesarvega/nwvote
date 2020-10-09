@@ -339,6 +339,7 @@ mat-slider {
 .instruction-style {
   border: black solid 1px;
   padding-block: 10px;
+  width: 250px;
 }
 
 .colorin {
@@ -631,6 +632,17 @@ mat-tab-group ::-webkit-scrollbar {
 .main-search::-webkit-scrollbar {
   display: none;
 }
+
+.overview{
+  width: 300px;
+  overflow-x: hidden;
+  overflow-y: scroll;
+}
+
+.overview::-webkit-scrollbar {
+  display: none;
+}
+
 
 $postItanimations: wobble, wobble, wobble, wobble, wobble, wobble, wobble, wobble, wobble, wobble, wobble, wobble;
 $postItseconds: 1, 2, 3;
