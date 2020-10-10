@@ -1,6 +1,6 @@
 <mat-sidenav-container class="example-container" *ngIf="true" [hasBackdrop]="false">
 
- 
+
 
   <!-- OVERVIEW SLIDE -->
   <mat-sidenav class="overview" mode="over" [opened]="overview">
@@ -13,10 +13,14 @@
 
   <mat-sidenav-content style="overflow-y: hidden;">
     <div class="container">
+
+      <!-- MENU ICON -->
       <div fxLayout="row" fxLayoutAlign="center center">
-      <button *ngIf="!mainMenu" class="menu-icon" (click)="toogleMenus()" mat-icon-button color="red" >
-        <mat-icon>keyboard_arrow_up</mat-icon>
-      </button></div>
+        <button *ngIf="!mainMenu" class="menu-icon" (click)="toogleMenus()" mat-icon-button color="red">
+          <mat-icon>keyboard_arrow_up</mat-icon>
+        </button>
+      </div>
+
       <!-- COMMENTS BOX -->
       <div fxLayout="col" *ngIf="isCommentBox" fxLayoutAlign="center center">
         <div fxFlex class="mat-elevation-z4 comment-box">
@@ -81,7 +85,7 @@
       <div *ngIf="!createPostIt" fxLayoutAlign="center center" class="col">
         <div class="slide-box mat-elevation-z12" [style.background]="slideBackground">
 
-          <mat-toolbar class="toolbar mat-elevation-z4" *ngIf="mainMenu">
+          <mat-toolbar class="toolbar mat-elevation-z4 bounceIn" *ngIf="mainMenu">
 
             <button (click)="home()" mat-icon-button aria-label="Example icon-button with a heart icon">
               <mat-icon>home</mat-icon>
@@ -133,6 +137,11 @@
               <mat-icon style="color: green !important;">help</mat-icon>
             </button>
 
+            <button (click)="mainMenu = false" mat-icon-button color="warn"
+              aria-label="Example icon-button with a heart icon">
+              <mat-icon style="color: grey !important;">keyboard_arrow_down</mat-icon>
+            </button>
+
           </mat-toolbar>
         </div>
       </div>
@@ -158,8 +167,10 @@
                     [matTooltip]="'Names Create '+ nameCandidates.length" matTooltipPosition="right">
                     Names <span *ngIf="nameCandidates.length > 0">{{':'+nameCandidates.length}}</span>
                   </div>
-                  <button *ngIf="isScreenButton" (click)="screenNames()" mat-icon-button
-                    class="screen-button">screen</button>
+                  <button class="screen-button"   mat-icon-button *ngIf="isScreenButton" (click)="screenNames()">
+                    <mat-icon>folder_special</mat-icon>
+                  </button>
+                
                 </div>
               </mat-toolbar>
             </div>
@@ -232,7 +243,7 @@
                   <form name="loginForm" [formGroup]="loginForm" novalidate class="name-form mat-elevation-z4"
                     fxLayoutAlign="center center">
 
-                    <mat-form-field appearance="outline" >
+                    <mat-form-field appearance="outline">
                       <input matInput type="New Name" placeholder="New Name" formControlName="name"
                         [(ngModel)]="newName">
                     </mat-form-field>
@@ -267,22 +278,22 @@
                       <div style="border-bottom: rgba(0,0,0,.12) 1px solid;width: 100%;text-align: center;"></div>
                     </div>
                     <form name="loginForm" [formGroup]="loginForm" novalidate class="name-form2 "
-                    fxLayoutAlign="center center">
+                      fxLayoutAlign="center center">
 
-                    <mat-form-field appearance="outline" >
-                      <input matInput type="New Name" placeholder="New Name" formControlName="name"
-                        [(ngModel)]="newName">
-                    </mat-form-field>
-                    <button (click)="submitNewName(); newName=''" mat-icon-button color="success" aria-label="icon"
-                      style="outline: none;">
-                      <mat-icon style="font-size: 50px;
+                      <mat-form-field appearance="outline">
+                        <input matInput type="New Name" placeholder="New Name" formControlName="name"
+                          [(ngModel)]="newName">
+                      </mat-form-field>
+                      <button (click)="submitNewName(); newName=''" mat-icon-button color="success" aria-label="icon"
+                        style="outline: none;">
+                        <mat-icon style="font-size: 50px;
                       position: absolute;
                       top: 0px;
                       left: 0px;">play_arrow</mat-icon>
-                    </button>
-                    <p style="position: absolute;
+                      </button>
+                      <p style="position: absolute;
                     top: 60px;">www.mynamepage.com/{{projectId}}</p>
-                  </form>
+                    </form>
                   </div>
                 </div>
               </div>
@@ -345,6 +356,11 @@
                       aria-label="Example icon-button with a heart icon">
                       <mat-icon style="color: green !important;">help</mat-icon>
                     </button>
+
+                    <button (click)="mainMenu = false" mat-icon-button color="warn"
+                    aria-label="Example icon-button with a heart icon">
+                    <mat-icon style="color: grey !important;">keyboard_arrow_down</mat-icon>
+                  </button>
 
                   </mat-toolbar>
                 </div>
