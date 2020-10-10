@@ -97,15 +97,15 @@
 }
 
 .toolbar-postit {
-  position: relative;
-  bottom: -10px;
-  left: 280px;
+  position: absolute;
+  bottom: -59px;
+  margin-left: 110px;
   height: 50px;
   max-width: 569px;
   width: 569px;
-  /* margin-left: 240px; */
   border-radius: 10px;
   opacity: 0.9;
+  right: 190px;
 
   .search {
     border-radius: 1px;
@@ -280,7 +280,7 @@
   background-color: white;
   height: 90px;
   border-bottom-left-radius: 12px;
-  // border-bottom-right-radius: 12px;
+  border-bottom-right-radius: 2px;
   padding: 20px;
 }
 .name-form2 {
@@ -653,9 +653,10 @@ mat-tab-group ::-webkit-scrollbar {
 
 .menu-icon {
   position: absolute;
-  top: 753px;
-  z-index: 99;
-  outline: none;
+    top: 753px;
+    left: auto;
+    z-index: 99;
+    outline: none;
 }
 
 $postItanimations: wobble, wobble, wobble, wobble, wobble, wobble, wobble, wobble, wobble, wobble, wobble, wobble;
