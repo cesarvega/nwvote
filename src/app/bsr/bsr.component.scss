@@ -173,7 +173,7 @@
   background-color: white;
   width: 300px;
   max-width: 313px;
-  height: 620px;
+  height: 552px;
   position: relative;
   right: 8px;
   top: 134px;
@@ -190,7 +190,7 @@
   background-color: white;
   width: 614px;
   max-width: 625px;
-  height: 630px;
+  height: 552px;
   position: relative;
   right: 322px;
   top: 134px;
@@ -199,7 +199,7 @@
   padding: 10px;
 }
 
-.names-container2 ::-webkit-scrollbar {
+.names-container2::-webkit-scrollbar {
   display: none;
 }
 
@@ -276,7 +276,18 @@
   width: 300px;
   background-color: white;
   height: 90px;
-  border-radius: 12px;
+  border-bottom-left-radius: 12px;
+  // border-bottom-right-radius: 12px;
+  padding: 20px;
+}
+.name-form2 {
+  position: fixed;
+  top: 687px;
+  width: 590px;
+  background-color: white;
+  height: 90px;
+  border-bottom-left-radius: 12px;
+  border-bottom-right-radius: 12px;
   padding: 20px;
 }
 
@@ -547,8 +558,8 @@ table {
   position: fixed;
   background-origin: padding-box;
   font-size: 21px;
-  top: 265px;
-  max-height: 470px;
+  top: 124px;
+  max-height: 770px;
   line-height: 37px;
   border-radius: 10px;
   padding-left: 10px;
@@ -634,6 +645,13 @@ mat-tab-group ::-webkit-scrollbar {
 
 .overview::-webkit-scrollbar {
   display: none;
+}
+
+.menu-icon {
+  position: absolute;
+  bottom: 100px;
+  z-index: 99;
+  outline: none;
 }
 
 $postItanimations: wobble, wobble, wobble, wobble, wobble, wobble, wobble, wobble, wobble, wobble, wobble, wobble;
@@ -761,7 +779,6 @@ $postItHeaderColors2: #d6f8fd, #dcd6fd, #d6fde9, #fdfcd6, #d6f8fd, #fdd6e8, #fdd
   animation-duration: 0.5s; /* don't forget to set a duration! */
   animation-iteration-count: 1;
   animation-fill-mode: forwards;
-  
 }
 .brandstorm:hover {
   color: #eee !important;
@@ -769,7 +786,7 @@ $postItHeaderColors2: #d6f8fd, #dcd6fd, #d6fde9, #fdfcd6, #d6f8fd, #fdd6e8, #fdd
   margin: 0 0.5rem;
   opacity: 1;
   transition: opacity 0.5s ease-out;
-  animation: tada, wooble;
+  // animation: tada, wooble;
   // animation-direction: alternate;
   // animation: bounce; /* referring directly to the animation's @keyframe declaration */
   animation-delay: 0.1s; /* don't forget to set a duration! */
@@ -778,5 +795,4 @@ $postItHeaderColors2: #d6f8fd, #dcd6fd, #d6fde9, #fdfcd6, #d6f8fd, #fdd6e8, #fdd
   animation-timing-function: ease-out;
   animation-fill-mode: both;
   cursor: pointer;
-
 }

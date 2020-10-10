@@ -108,6 +108,7 @@ export class BsrComponent implements OnInit {
     // }, undefined, 'Show stock ticker'));
     this._hotkeysService.add(new Hotkey('esc', (event: KeyboardEvent): boolean => {
       this._hotkeysService.cheatSheetToggle.next(false);
+      this.mainMenu = false;
       return false;
     }, undefined, 'Hide help sheet'));
     this._hotkeysService.add(new Hotkey('ctrl+b', (event: KeyboardEvent): boolean => {
@@ -126,7 +127,6 @@ export class BsrComponent implements OnInit {
       this.totalNumberOfSlides = res.length
       this.pageCounter = '1/' + this.totalNumberOfSlides;
       this.slideBackground = this.slideBackground + res[0].SlideBGFileName + ')';
-      this.currentPageNumber = 0;
       this.appSlidesData.forEach(element => {
         if (element.SlideType === "NameSummary") {
           this.postItPresentationIndex = parseInt(element.$id);
@@ -156,12 +156,13 @@ export class BsrComponent implements OnInit {
     });
     this.nameIndexCounter = parseInt(localStorage.getItem('namesIndexCounte'));
     this.createPostIt = (localStorage.getItem('createPostIt') === 'true') ? true : false;
+    this.currentPageNumber = (this.createPostIt)?this.postItPresentationIndex:0;
     this.toggleNamebox();
   }
 
   getCommentsByIndex(index) {
     this._BsrService.getComments(index).subscribe((arg: any) => {
-      if (arg.lenght > 0) {
+      if (arg.length > 0) {
         this.commentBoxText = arg[0].Comments;
       }
     });
@@ -375,20 +376,32 @@ export class BsrComponent implements OnInit {
   }
 
   searchTerm(searchValue: string): void {
-    if (searchValue.length <= 1) {
-      this.isSearching = false;
-      this.appSearchSlidesData = [];
-    } else {
+
+
+
+    if (searchValue.length === 1) {
+      this.appSearchSlidesData = this.appSlidesData;
+      setTimeout(() => {
+        // this.isSearching = true;
+        this.overview = !this.overview;
+      }, 0.4);
+    }
+
+
+    if (searchValue.length > 1) {
+      // this.isSearching = false;
+      this.appSearchSlidesData = this.appSlidesData;
+      
+    }  else if (searchValue.length > 2) {
 
       this.appSlidesData.forEach(element => {
         // if (element.SlideBGFileName.includes(searchValue)) {
         if (element.SlideDescription.toUpperCase().includes(searchValue.toUpperCase())) {
           this.appSearchSlidesData.push(element);
-          this.isSearching = true;
+         
         }
       });
-
-
+     
     }
 
   }
@@ -424,6 +437,10 @@ export class BsrComponent implements OnInit {
 
   screenNames() {
     this.isScreeningNames = !this.isScreeningNames;
+  }
+
+  toogleMenus(){
+    this.mainMenu = !this.mainMenu;
   }
 
 }
