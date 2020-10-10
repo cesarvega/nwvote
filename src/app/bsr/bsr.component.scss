@@ -43,6 +43,7 @@
   -ms-overflow-style: none; /* IE and Edge */
   scrollbar-width: none;
   @include BoxShadow(4);
+  // animation: flip .5s ease 0.1s forwards;
 }
 .presentation-box {
   -ms-overflow-style: none; /* IE and Edge */
@@ -64,6 +65,8 @@
   top: 70px;
   right: -26px;
   overflow: hidden;
+  opacity: 1;
+  // animation: flip .5s ease 0.1s forwards;
 }
 
 .toolbar {
@@ -500,6 +503,7 @@ mat-slider {
   top: 60px;
   right: 17px;
   z-index: 999999;
+  outline: none;
 }
 
 .delete-info {
