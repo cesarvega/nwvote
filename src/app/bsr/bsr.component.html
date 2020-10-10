@@ -1,9 +1,10 @@
 <mat-sidenav-container class="example-container" *ngIf="true" [hasBackdrop]="false">
 
+ 
 
   <!-- OVERVIEW SLIDE -->
-  <mat-sidenav class="overview" mode="over" [opened]="overview" >
-    <mat-card (click)="goToSlide(i)" *ngFor="let item of appSlidesData; let i = index">
+  <mat-sidenav class="overview" mode="over" [opened]="overview">
+    <mat-card (click)="goToSlide(i)" *ngFor="let item of appSearchSlidesData; let i = index">
       <p>{{item.SlideDescription}}</p>
       <img [src]="'http://www.bipresents.com/' + item.SlideBGFileName" alt="overview"
         style="max-width: 250px;cursor: pointer;">
@@ -12,39 +13,68 @@
 
   <mat-sidenav-content style="overflow-y: hidden;">
     <div class="container">
-   
+      <div fxLayout="row" fxLayoutAlign="center center">
+      <button *ngIf="!mainMenu" class="menu-icon" (click)="toogleMenus()" mat-icon-button color="red" >
+        <mat-icon>keyboard_arrow_up</mat-icon>
+      </button></div>
       <!-- COMMENTS BOX -->
-      <div fxLayout="col"  *ngIf="isCommentBox" fxLayoutAlign="center center">
+      <div fxLayout="col" *ngIf="isCommentBox" fxLayoutAlign="center center">
         <div fxFlex class="mat-elevation-z4 comment-box">
           <div class="col">
             <div class="row">
               <button (click)="displayCommentBox()" mat-stroked-button style="color: #004684;
                     position: absolute;
                     right: 7px;
-                    top: 201px;" color="primary" aria-label="LOG IN"
-                [disabled]="loginForm.invalid">
+                    top: 201px;" color="primary" aria-label="LOG IN" [disabled]="loginForm.invalid">
                 CANCEL
               </button>
               <button (click)="comment()" mat-stroked-button style="color: #004684;
                     position: absolute;
                     right: 100px;
-                    top: 201px;" color="primary" aria-label="LOG IN"
-                [disabled]="loginForm.invalid">
+                    top: 201px;" color="primary" aria-label="LOG IN" [disabled]="loginForm.invalid">
                 SUBMIT
-              </button>          
+              </button>
               <form name="loginForm" [formGroup]="loginForm" novalidate class="open-close-container">
                 <mat-form-field class="comment-field " appearance="outline">
                   <mat-label>Comment's Box</mat-label>
-                  <textarea 
-                           matInput cdkTextareaAutosize cdkAutosizeMinRows="4"
-                           [(ngModel)]="commentBoxText"
+                  <textarea matInput cdkTextareaAutosize cdkAutosizeMinRows="4" [(ngModel)]="commentBoxText"
                     formControlName="suma" cdkAutosizeMaxRows="4" appearance="outline"
-                    formControlName="suma" ></textarea>
-                </mat-form-field>   </form>     
+                    formControlName="suma"></textarea>
+                </mat-form-field>
+              </form>
             </div>
           </div>
         </div>
       </div>
+
+      <!-- COMMENTS BOX -->
+      <!-- <div fxLayout="col" *ngIf="!isCommentBox" fxLayoutAlign="center center">
+        <div fxFlex class="mat-elevation-z4 comment-box">
+          <div class="col">
+            <div class="row">
+              <button (click)="displayCommentBox()" mat-stroked-button style="color: #004684;
+                    position: absolute;
+                    right: 7px;
+                    top: 201px;" color="primary" aria-label="LOG IN" [disabled]="loginForm.invalid">
+                CANCEL
+              </button>
+              <button (click)="comment()" mat-stroked-button style="color: #004684;
+                    position: absolute;
+                    right: 100px;
+                    top: 201px;" color="primary" aria-label="LOG IN" [disabled]="loginForm.invalid">
+                SUBMIT
+              </button>
+              <form name="loginForm" [formGroup]="loginForm" novalidate class="open-close-container">
+                <mat-form-field class="comment-field " appearance="outline">
+                  <mat-label>Comment's Box</mat-label>
+                  <textarea matInput cdkTextareaAutosize cdkAutosizeMinRows="4" [(ngModel)]="commentBoxText"
+                    cdkAutosizeMaxRows="4" appearance="outline" formControlName="suma"></textarea>
+                </mat-form-field>
+              </form>
+            </div>
+          </div>
+        </div>
+      </div> -->
 
 
       <!-- PRESENTATION -->
@@ -63,26 +93,7 @@
 
             <input class="search" placeholder="search" type="text" (input)="searchTerm($event.target.value)">
             <div class="col" *ngIf="isSearching">
-              <div class="main-search">
 
-                <mat-card  (click)="goToSlide(i)" class="example-card"
-                *ngFor="let item of appSearchSlidesData; let i = index" >
-                  <mat-card-header>
-                    <div mat-card-avatar class="example-header-image"></div>
-                    <p style="    position: absolute;
-                    left: 10px;
-                    font-size: 12px;">{{item.SlideDescription}}</p>
-                    <!-- <mat-card-subtitle>Dog Breed</mat-card-subtitle> -->
-                  </mat-card-header>
-                  <img [src]="'http://www.bipresents.com/' + item.SlideBGFileName" alt="overview"
-                  style="max-width: 100px;cursor: pointer;">
-              
-                  
-                </mat-card>
-
-                <br>
-                <hr>
-              </div>
             </div>
             <button (click)="moveBackward()" mat-icon-button color="primary"
               aria-label="Example icon-button with a heart icon">
@@ -182,12 +193,11 @@
                           </mat-card-title>
 
                           <!-- HTML-CONTENT -->
-                          <mat-card-content class="post-content" (dblclick)="openDialog(item, 'edit')">
+                          <mat-card-content class="post-content" (click)="openDialog(item, 'edit')">
                             <div [innerHTML]="item.html"></div>
                           </mat-card-content>
 
                           <mat-icon class="deleteButton" (click)="openDialog(item, 'delete')">cancel</mat-icon>
-
 
                         </mat-card>
                       </div>
@@ -219,52 +229,67 @@
                     </div>
                   </div>
 
-                  <form name="loginForm" [formGroup]="loginForm" novalidate class="name-form"
+                  <form name="loginForm" [formGroup]="loginForm" novalidate class="name-form mat-elevation-z4"
                     fxLayoutAlign="center center">
 
-                    <mat-form-field style="width: 550px;">
+                    <mat-form-field appearance="outline" >
                       <input matInput type="New Name" placeholder="New Name" formControlName="name"
                         [(ngModel)]="newName">
                     </mat-form-field>
-                    <button (click)="submitNewName(); newName=''" mat-button color="success" aria-label="icon"
+                    <button (click)="submitNewName(); newName=''" mat-icon-button color="success" aria-label="icon"
                       style="outline: none;">
-                      SUBMIT
+                      <mat-icon style="font-size: 50px;
+                      position: absolute;
+                      top: 0px;
+                      left: 0px;">play_arrow</mat-icon>
                     </button>
                     <p style="position: absolute;
                     top: 60px;">www.mynamepage.com/{{projectId}}</p>
                   </form>
                 </div>
-            
+
 
 
                 <div class="col-md-4 " *ngIf="nameBox && !nameBoxB">
-                  <!-- NAMES BOX -->                 
-                  <div class="names-container2 bounceIn ">
-                    <div *ngFor="let  item of nameCandidates; let i = index">
-                      <span (dblclick)="openDialog(item, 'deleteName')"
-                        style="font-size:22px;margin: 10px;cursor: pointer;overflow: scroll;" [matTooltip]="item.Source"
-                        matTooltipPosition="right">
-                        {{item.Name}}
+                  <!-- NAMES BOX -->
+                  <div class="names-container2 bounceIn">
+                    <div *ngFor="let  nameCandidate of nameCandidates; let i = index">
+                      <span *ngIf="!isScreeningNames" (dblclick)="openDialog(nameCandidate, 'deleteName')"
+                        style="font-size:22px;margin: 10px;cursor: pointer;overflow: scroll;"
+                        [matTooltip]="nameCandidate.Source" matTooltipPosition="right">
+                        {{nameCandidate.Name}}
                       </span>
+                      <span *ngIf="isScreeningNames" [innerHTML]="nameCandidate.html"
+                        (dblclick)="openDialog(nameCandidate, 'deleteName')"
+                        style="font-size:22px;margin: 10px;cursor: pointer;overflow: scroll;"
+                        [matTooltip]="nameCandidate.Source" matTooltipPosition="right">
+                      </span>
+                      <div style="border-bottom: rgba(0,0,0,.12) 1px solid;width: 100%;text-align: center;"></div>
                     </div>
-                    <form name="loginForm" [formGroup]="loginForm" novalidate class="name-form"
-                      fxLayoutAlign="center center">
-                      <mat-form-field style="width: 550px;">
-                        <input matInput type="New Name" placeholder="New Name" formControlName="name"
-                          [(ngModel)]="newName">
-                      </mat-form-field>
-                      <button (click)="submitNewName(); newName=''" mat-button color="success" aria-label="icon"
-                        style="outline: none;">
-                        SUBMIT
-                      </button>
-                    </form>
+                    <form name="loginForm" [formGroup]="loginForm" novalidate class="name-form2 "
+                    fxLayoutAlign="center center">
+
+                    <mat-form-field appearance="outline" >
+                      <input matInput type="New Name" placeholder="New Name" formControlName="name"
+                        [(ngModel)]="newName">
+                    </mat-form-field>
+                    <button (click)="submitNewName(); newName=''" mat-icon-button color="success" aria-label="icon"
+                      style="outline: none;">
+                      <mat-icon style="font-size: 50px;
+                      position: absolute;
+                      top: 0px;
+                      left: 0px;">play_arrow</mat-icon>
+                    </button>
+                    <p style="position: absolute;
+                    top: 60px;">www.mynamepage.com/{{projectId}}</p>
+                  </form>
                   </div>
                 </div>
               </div>
 
               <div class="row">
                 <!-- SEARCH RESULTS -->
-                <div class="col" *ngIf="isSearching">
+                <!-- <div class="col" *ngIf="isSearching">
                   <div class="search-results">
                     <mat-card (click)="goToSlide(i)" class="example-card"
                       *ngFor="let item of appSearchSlidesData; let i = index">
@@ -277,7 +302,7 @@
                     <br>
                     <hr>
                   </div>
-                </div>
+                </div> -->
 
                 <div class="col-md-12">
                   <!-- MENU -->
@@ -288,8 +313,8 @@
                       <mat-icon>home</mat-icon>
                     </button>
 
-                    <button  matTooltip="New Concept" matTooltipPosition="above" (click)="newBlankPostIt()" mat-icon-button color="primary"
-                      aria-label="Example icon-button with a heart icon">
+                    <button matTooltip="New Concept" matTooltipPosition="above" (click)="newBlankPostIt()"
+                      mat-icon-button color="primary" aria-label="Example icon-button with a heart icon">
                       <mat-icon>note_add</mat-icon>
                     </button>
 
