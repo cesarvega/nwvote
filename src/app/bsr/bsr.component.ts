@@ -6,7 +6,7 @@ import { BsrService } from './bsr.service';
 
 import { FormBuilder, Validators, FormGroup } from '@angular/forms';
 import { MatDialog, MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
-
+import { DOCUMENT } from '@angular/common';
 
 ///CKEDITOR NOTES, para que el toolbar del editor pueda ser configurado
 //  es necesario de instalar el ckeditor4  y el ckeditor5 y 
@@ -65,10 +65,11 @@ export class BsrComponent implements OnInit {
   nameIndexCounter = 0;
   isCommentBox: boolean = false;
   commentBoxText = "";
-
-  constructor(private _formBuilder: FormBuilder,
+  elem : any;
+  isFullscreen=  false;
+  constructor( @Inject(DOCUMENT) private document: any ,private _formBuilder: FormBuilder,
     private _hotkeysService: HotkeysService,
-    private _BsrService: BsrService, public dialog: MatDialog, activatedRoute: ActivatedRoute) {
+    private _BsrService: BsrService, public dialog: MatDialog, activatedRoute: ActivatedRoute,) {
 
     activatedRoute.params.subscribe(params => {
       this.projectName = params['id'];
@@ -118,6 +119,8 @@ export class BsrComponent implements OnInit {
   }
 
   ngOnInit(): void {
+    this.elem = document.documentElement;
+    this.currentPageNumber = 0;
     this.postItListTheme = localStorage.getItem('post-it-list-theme');
     this._BsrService.getSlides(this.projectId).subscribe((res: any) => {
       console.log(res);
@@ -158,6 +161,7 @@ export class BsrComponent implements OnInit {
     this.createPostIt = (localStorage.getItem('createPostIt') === 'true') ? true : false;
     this.currentPageNumber = (this.createPostIt)?this.postItPresentationIndex:0;
     this.toggleNamebox();
+    this.openFullscreen(); 
   }
 
   getCommentsByIndex(index) {
@@ -442,8 +446,44 @@ export class BsrComponent implements OnInit {
   toogleMenus(){
     this.mainMenu = !this.mainMenu;
   }
-
+  //  elem:any = document.documentElement;
+  /* View in fullscreen */
+  openFullscreen() {
+    this.elem = document.documentElement;
+    this.isFullscreen = !this.isFullscreen;
+    if (this.isFullscreen) {
+      if (this.elem.requestFullscreen) {
+        this.elem.requestFullscreen();
+      } else if (this.elem.mozRequestFullScreen) {
+        /* Firefox */
+        this.elem.mozRequestFullScreen();
+      } else if (this.elem.webkitRequestFullscreen) {
+        /* Chrome, Safari and Opera */
+        this.elem.webkitRequestFullscreen();
+      } else if (this.elem.msRequestFullscreen) {
+        /* IE/Edge */
+        this.elem.msRequestFullscreen();
+      }
+    }
+     else {
+      if (this.document.exitFullscreen) {
+        this.document.exitFullscreen();
+      } 
+      else if (this.document.mozCancelFullScreen) {
+        /* Firefox */
+        this.document.mozCancelFullScreen();
+      } else if (this.document.webkitExitFullscreen) {
+        /* Chrome, Safari and Opera */
+        this.document.webkitExitFullscreen();
+      } else if (this.document.msExitFullscreen) {
+        /* IE/Edge */
+        this.document.msExitFullscreen();
+      }
+     }
+  
+  }
 }
+
 
 
 import { MatSliderChange } from '@angular/material/slider';
@@ -612,7 +652,6 @@ export class editPost {
     this.dialogRef.close(this.popupwindowData);
   }
 
-  e
   async getSynonyms() {
     this.synonymWord = await navigator.clipboard.readText();
     this.isSynonymBox = true;

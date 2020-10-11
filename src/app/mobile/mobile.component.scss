@@ -1,0 +1,29 @@
+.grid-container {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr 1fr;
+    grid-template-rows: 0.3fr 2.5fr 0.2fr;
+    gap: 0px 0px;
+    grid-template-areas:
+      "header header header header"
+      "body body body body"
+      "footer footer footer footer";
+      height: 100vh;
+    //   max-width: 400px;
+      justify-content: center;
+      align-items: center;
+  }
+  .footer { 
+        grid-area: footer; 
+        height: 20vh;
+        background-color: lightblue;
+}
+  .body { 
+        grid-area: body; 
+        height: 60vh;
+        background-color: lightgreen;
+}
+  .header { 
+        grid-area: header; 
+        height: 20vh;
+        background-color: lightsalmon;
+}

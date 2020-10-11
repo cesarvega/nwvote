@@ -653,10 +653,21 @@ mat-tab-group ::-webkit-scrollbar {
 
 .menu-icon {
   position: absolute;
-    top: 753px;
-    left: auto;
-    z-index: 99;
-    outline: none;
+  top: 753px;
+  left: auto;
+  z-index: 99;
+  outline: none;
+}
+
+.fullscreen {
+  position: absolute;
+  right: 60px;
+  bottom: 30px;
+  outline: none;
+  .full-icon {
+    color: grey !important;
+    font-size: 30px;
+  }
 }
 
 $postItanimations: wobble, wobble, wobble, wobble, wobble, wobble, wobble, wobble, wobble, wobble, wobble, wobble;
