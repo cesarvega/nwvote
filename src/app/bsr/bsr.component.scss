@@ -663,6 +663,24 @@ mat-tab-group ::-webkit-scrollbar {
   outline: none;
 }
 
+
+.menu-left-icon {
+  position: absolute;
+  top: 330px;
+  z-index: 99;
+  outline: none;
+  padding: 86px;
+
+}
+
+.menu-right-icon {
+  position: absolute;
+  right: 395px;
+  top: 420px;
+  z-index: 99;
+  outline: none;
+}
+
 .fullscreen {
   position: absolute;
   right: 60px;
