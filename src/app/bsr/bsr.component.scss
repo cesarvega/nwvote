@@ -817,3 +817,17 @@ $postItHeaderColors2: #d6f8fd, #dcd6fd, #d6fde9, #fdfcd6, #d6f8fd, #fdd6e8, #fdd
   cursor: pointer;
 }
 
+.searchy{
+  width: 190px; 
+  position: absolute;
+  top: 327px;
+  left: 533px;
+  max-height: 400px;
+  overflow-y: scroll;
+  overflow-x: hidden;
+  z-index: 9999999;
+}
+
+.searchy::-webkit-scrollbar{
+  display: none;
+}
