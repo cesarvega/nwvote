@@ -1,10 +1,10 @@
 <mat-sidenav-container class="example-container" *ngIf="true" [hasBackdrop]="false">
 
-
+  
 
   <!-- OVERVIEW SLIDE -->
   <mat-sidenav class="overview" mode="over" [opened]="overview">
-    <mat-card (click)="goToSlide(i)" *ngFor="let item of appSearchSlidesData; let i = index">
+    <mat-card (click)="goToSlide(i)" *ngFor="let item of appSlidesData; let i = index">
       <p>{{item.SlideDescription}}</p>
       <img [src]="'http://www.bipresents.com/' + item.SlideBGFileName" alt="overview"
         style="max-width: 250px;cursor: pointer;">
@@ -80,7 +80,7 @@
         </div>
       </div> -->
 
-      <button class="fullscreen" (click)="openFullscreen()" mat-icon-button color="warn" aria-label="aria">
+      <button class="fullscreen" (click)="openFullscreen()"  matTooltip="FullScreen" matTooltipPosition="right" mat-icon-button color="warn" aria-label="aria">
         <mat-icon class="full-icon">fullscreen</mat-icon>
       </button>
       <!-- PRESENTATION -->
@@ -97,11 +97,9 @@
             <button (click)="bsr()" mat-icon-button color="primary" aria-label="Example icon-button with a heart icon">
               <mat-icon>lightbulb_outline</mat-icon>
             </button>
-
+          
             <input class="search" placeholder="search" type="text" (input)="searchTerm($event.target.value)">
-            <div class="col" *ngIf="isSearching">
-
-            </div>
+           
             <button (click)="moveBackward()" mat-icon-button color="primary"
               aria-label="Example icon-button with a heart icon">
               <mat-icon>chevron_left</mat-icon>
@@ -151,7 +149,21 @@
       </div>
 
 
-
+      <div class="col searchBox" style=" width: 190px; 
+      position: absolute;
+      top: 327px;
+      left: 533px;
+      max-height: 400px;
+      overflow-y: scroll;
+      overflow-x: hidden;
+      z-index: 9999999;
+      " [style.left]="searchBoxLeftProperty"  *ngIf="appSearchSlidesData.length">
+        <mat-card  (click)="goToSlideFromSearch(item.$id)" *ngFor="let item of appSearchSlidesData; let i = index">
+          <p>{{item.SlideDescription}}</p>
+          <img [src]="'http://www.bipresents.com/' + item.SlideBGFileName" alt="overview"
+            style="max-width: 90px;cursor: pointer;">
+        </mat-card><hr>
+      </div>
 
 
       <!-- POST-ITS -->

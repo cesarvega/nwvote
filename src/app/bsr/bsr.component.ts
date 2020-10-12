@@ -23,6 +23,7 @@ export class BsrComponent implements OnInit {
   // @ViewChild('slider') slider;
 
   postItListTheme = 'post-it-list-theme'
+  searchBoxLeftProperty = '533px'
   loginForm: FormGroup;
   isMouseOver: boolean = false;
   sliderVal = 51;
@@ -34,6 +35,7 @@ export class BsrComponent implements OnInit {
   createPostIt = true;
   isDeleteButon = false;
   isSearching = false;
+  search: any;
   overview = false;
   isNSR = false;
   isScreenButton = true;
@@ -46,7 +48,7 @@ export class BsrComponent implements OnInit {
   pageCounter = ' 1/40';
   currentPageNumber = 0;
   appSlidesData: any;
-  mainMenu: boolean;
+  mainMenu: boolean = true;
   conceptData: any = [];
   newPost: Object;
   newName: any;
@@ -60,14 +62,14 @@ export class BsrComponent implements OnInit {
   myMaxRightWith = '8px';
   showSlider: boolean = false;
   postItPresentationIndex: number;
-  appSearchSlidesData: any;
+  appSearchSlidesData: any = [];
   slideBackground2: string;
   nameIndexCounter = 0;
   isCommentBox: boolean = false;
   commentBoxText = "";
-  elem : any;
-  isFullscreen=  false;
-  constructor( @Inject(DOCUMENT) private document: any ,private _formBuilder: FormBuilder,
+  elem: any;
+  isFullscreen = false;
+  constructor(@Inject(DOCUMENT) private document: any, private _formBuilder: FormBuilder,
     private _hotkeysService: HotkeysService,
     private _BsrService: BsrService, public dialog: MatDialog, activatedRoute: ActivatedRoute,) {
 
@@ -113,19 +115,20 @@ export class BsrComponent implements OnInit {
       return false;
     }, undefined, 'Hide help sheet'));
     this._hotkeysService.add(new Hotkey('ctrl+b', (event: KeyboardEvent): boolean => {
-     this.bsr();
+      this.bsr();
       return false;
     }, undefined, 'Toogle Presentation Mode'));
   }
 
   ngOnInit(): void {
+    this.assignCopy();    
     this.elem = document.documentElement;
     this.currentPageNumber = 0;
     this.postItListTheme = localStorage.getItem('post-it-list-theme');
     this._BsrService.getSlides(this.projectId).subscribe((res: any) => {
       console.log(res);
       this.appSlidesData = res;
-      this.appSearchSlidesData = res;
+      // this.appSearchSlidesData = res;
       localStorage.setItem('appSlideData', JSON.stringify(res));
       this.totalNumberOfSlides = res.length
       this.pageCounter = '1/' + this.totalNumberOfSlides;
@@ -135,6 +138,15 @@ export class BsrComponent implements OnInit {
           this.postItPresentationIndex = parseInt(element.$id);
         }
       });
+      this.createPostIt = (localStorage.getItem('createPostIt') === 'true') ? true : false;
+      if (this.createPostIt) {
+        this.searchBoxLeftProperty = '700px';
+        this.currentPageNumber = (this.createPostIt) ? this.postItPresentationIndex : 0;
+      }else{      
+        this.searchBoxLeftProperty = '533px';
+        this.currentPageNumber = 0;
+  
+      }
     })
 
     this._BsrService.getPost().subscribe((res: any) => {
@@ -158,10 +170,9 @@ export class BsrComponent implements OnInit {
       name: ['']
     });
     this.nameIndexCounter = parseInt(localStorage.getItem('namesIndexCounte'));
-    this.createPostIt = (localStorage.getItem('createPostIt') === 'true') ? true : false;
-    this.currentPageNumber = (this.createPostIt)?this.postItPresentationIndex:0;
+  
+    
     this.toggleNamebox();
-    this.openFullscreen(); 
   }
 
   getCommentsByIndex(index) {
@@ -199,6 +210,8 @@ export class BsrComponent implements OnInit {
 
   // TOOLBAR MENU ACTIONS 
   moveForward() {
+    this.searchBoxLeftProperty = '533px';
+    this.appSearchSlidesData = [];
     this.isCommentBox = false;
     this.createPostIt = false;
     if (this.totalNumberOfSlides > this.currentPageNumber + 1) {
@@ -206,6 +219,7 @@ export class BsrComponent implements OnInit {
       this.slideBackground = this.baseBackgroundUrl + this.appSlidesData[this.currentPageNumber].SlideBGFileName + ')';
       if (this.postItPresentationIndex === this.currentPageNumber) {
         this.createPostIt = true;
+          this.searchBoxLeftProperty = '700px';
       }
       this.pageCounter = this.currentPageNumber + 1 + '/' + this.totalNumberOfSlides;
     }
@@ -213,6 +227,8 @@ export class BsrComponent implements OnInit {
 
 
   moveBackward() {
+    this.searchBoxLeftProperty = '533px'; 
+    this.appSearchSlidesData = [];   
     this.isCommentBox = false;
     this.createPostIt = false
     if (this.currentPageNumber >= 1) {
@@ -220,7 +236,8 @@ export class BsrComponent implements OnInit {
       this.pageCounter = this.currentPageNumber + 1 + '/' + this.totalNumberOfSlides;
       this.slideBackground = this.baseBackgroundUrl + this.appSlidesData[this.currentPageNumber].SlideBGFileName + ')';
       if (this.postItPresentationIndex === this.currentPageNumber) {
-        this.createPostIt = true;
+        this.createPostIt = true; 
+          this.searchBoxLeftProperty = '700px';
       }
     }
   }
@@ -266,6 +283,7 @@ export class BsrComponent implements OnInit {
   }
 
   home() {
+    this.searchBoxLeftProperty = '533px'; 
     this.pageCounter = '1/' + this.totalNumberOfSlides;
     this.slideBackground = this.baseBackgroundUrl + this.appSlidesData[0].SlideBGFileName + ')';
     this.createPostIt = false;
@@ -273,13 +291,22 @@ export class BsrComponent implements OnInit {
   }
 
   bsr() {
+    // reset search data
+    this.appSearchSlidesData = [];
     this.createPostIt = !this.createPostIt;
+    if (this.createPostIt) {
+      this.searchBoxLeftProperty = '700px';
+    }else{      
+      this.searchBoxLeftProperty = '533px';
+    }
+    
     localStorage.setItem('createPostIt', this.createPostIt.toString());
     this.nameIndexCounter = parseInt(localStorage.getItem('namesIndexCounte'));
     this.toggleNamebox();
     this.currentPageNumber = this.postItPresentationIndex;
     this.pageCounter = this.postItPresentationIndex + 1 + '/' + this.totalNumberOfSlides;
     this.currentPageNumber = this.postItPresentationIndex;
+
   }
 
   displayCommentBox() {
@@ -309,6 +336,13 @@ export class BsrComponent implements OnInit {
     this.slideBackground = this.baseBackgroundUrl + this.appSlidesData[i].SlideBGFileName + ')';
     this.createPostIt = false;
     this.pageCounter = i + 1 + '/' + this.totalNumberOfSlides;
+  }
+
+  goToSlideFromSearch(i:string) {
+    const ii = parseInt(i) - 1;
+    this.slideBackground = this.baseBackgroundUrl + this.appSlidesData[ii].SlideBGFileName + ')';
+    this.createPostIt = false;
+    this.pageCounter = ii + 1 + '/' + this.totalNumberOfSlides;
   }
 
   openDialog(item, nameid): void {
@@ -379,35 +413,20 @@ export class BsrComponent implements OnInit {
     }
   }
 
+  assignCopy() {
+    // this.appSearchSlidesData = Object.assign([], this.appSlidesData);
+  }
+
   searchTerm(searchValue: string): void {
 
+    if (!searchValue || searchValue === '') {
+      this.appSearchSlidesData = [];
+    } else {
 
-
-    if (searchValue.length === 1) {
-      this.appSearchSlidesData = this.appSlidesData;
-      setTimeout(() => {
-        // this.isSearching = true;
-        this.overview = !this.overview;
-      }, 0.4);
-    }
-
-
-    if (searchValue.length > 1) {
-      // this.isSearching = false;
-      this.appSearchSlidesData = this.appSlidesData;
-      
-    }  else if (searchValue.length > 2) {
-
-      this.appSlidesData.forEach(element => {
-        // if (element.SlideBGFileName.includes(searchValue)) {
-        if (element.SlideDescription.toUpperCase().includes(searchValue.toUpperCase())) {
-          this.appSearchSlidesData.push(element);
-         
-        }
-      });
-     
-    }
-
+      this.appSearchSlidesData = Object.assign([], this.appSlidesData).filter(
+        item => item.SlideDescription.toLowerCase().indexOf(searchValue.toLowerCase()) > -1
+        )
+      } // when nothing has typed
   }
 
   theme(): void {
@@ -443,11 +462,10 @@ export class BsrComponent implements OnInit {
     this.isScreeningNames = !this.isScreeningNames;
   }
 
-  toogleMenus(){
+  toogleMenus() {
     this.mainMenu = !this.mainMenu;
   }
-  //  elem:any = document.documentElement;
-  /* View in fullscreen */
+
   openFullscreen() {
     this.elem = document.documentElement;
     this.isFullscreen = !this.isFullscreen;
@@ -465,10 +483,10 @@ export class BsrComponent implements OnInit {
         this.elem.msRequestFullscreen();
       }
     }
-     else {
+    else {
       if (this.document.exitFullscreen) {
         this.document.exitFullscreen();
-      } 
+      }
       else if (this.document.mozCancelFullScreen) {
         /* Firefox */
         this.document.mozCancelFullScreen();
@@ -479,8 +497,8 @@ export class BsrComponent implements OnInit {
         /* IE/Edge */
         this.document.msExitFullscreen();
       }
-     }
-  
+    }
+
   }
 }
 
@@ -594,7 +612,7 @@ export class editPost {
         { name: 'about' }
       ],
       addPlugins: 'simplebox,tabletools',
-      removePlugins: 'horizontalrule,tabletools,specialchar,about,others',
+      removePlugins: 'horizontalrule,specialchar,about,others',
       removeButtons: 'tableselection,Image,Superscript,Subscript,Save,NewPage,Preview,Print,Templates,Replace,SelectAll,Form,Checkbox,Radio,TextField,Textarea,Find,Select,Button,ImageButton,HiddenField,CopyFormatting,CreateDiv,BidiLtr,BidiRtl,Language,Flash,PageBreak,Iframe,ShowBlocks,Cut,Copy,Paste,Table,Format,Source,Maximize,Styles,Anchor,SpecialChar,PasteFromWord,PasteText,Scayt,RemoveFormat,Indent,Outdent,Blockquote'
 
     }
