@@ -555,7 +555,6 @@ export class editPost {
   isSynonymBox = false;
   isEmojiTime: boolean = false;
 
-
   displayedColumns: string[] = ['position', 'name', 'weight'];
   synonymWord: string = ' Copy name to clipboard ';
   dataSource: any[];
