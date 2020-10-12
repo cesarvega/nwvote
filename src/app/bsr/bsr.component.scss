@@ -674,11 +674,11 @@ mat-tab-group ::-webkit-scrollbar {
 }
 
 .menu-right-icon {
-  position: absolute;
-  right: 395px;
-  top: 420px;
-  z-index: 99;
-  outline: none;
+  position: relative;
+    right: -1040px;
+    top: -298px;
+    z-index: 99;
+    outline: none;
 }
 
 .fullscreen {
