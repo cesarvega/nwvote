@@ -21,6 +21,10 @@
         </button>
       </div>
 
+      <button *ngIf="!mainMenu" class="menu-icon" (click)="toogleMenus()" mat-icon-button color="red">
+        <mat-icon>keyboard_arrow_up</mat-icon>
+      </button>
+
       <!-- COMMENTS BOX -->
       <div fxLayout="col" *ngIf="isCommentBox" fxLayoutAlign="center center">
         <div fxFlex class="mat-elevation-z4 comment-box">
@@ -149,14 +153,7 @@
       </div>
 
 
-      <div class="col searchBox" style=" width: 190px; 
-      position: absolute;
-      top: 327px;
-      left: 533px;
-      max-height: 400px;
-      overflow-y: scroll;
-      overflow-x: hidden;
-      z-index: 9999999;
+      <div class="col searchy" style="
       " [style.left]="searchBoxLeftProperty"  *ngIf="appSearchSlidesData.length">
         <mat-card  (click)="goToSlideFromSearch(item.$id)" *ngFor="let item of appSearchSlidesData; let i = index">
           <p>{{item.SlideDescription}}</p>

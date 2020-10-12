@@ -20,6 +20,8 @@
             min-height: 90%;
             top: 30px;
             overflow-y: hidden;
+            border: solid #020263;
+            border-radius: 10px;
         }
         .tab-emoji {
             max-width: 355px;
@@ -50,6 +52,8 @@
             position: relative;
             min-height: 100%;
             overflow-y: hidden;
+            border: solid #020263;
+            border-radius: 10px;
         }
 
         .tab-emoji {
@@ -274,5 +278,6 @@
         background-color: white;
         font-size: 8px;
         outline: none;
+        animation: heartBeat 1s ease-in-out 0.3s 1  forwards;
     }
 }
