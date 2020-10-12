@@ -557,7 +557,7 @@ export class editPost {
 
 
   displayedColumns: string[] = ['position', 'name', 'weight'];
-  synonymWord: string;
+  synonymWord: string = ' Copy name to clipboard ';
   dataSource: any[];
   constructor(
     public dialogRef: MatDialogRef<editPost>,
@@ -672,6 +672,7 @@ export class editPost {
 
   async getSynonyms() {
     this.synonymWord = await navigator.clipboard.readText();
+   
     this.isSynonymBox = true;
     this._BsrService.getSinonyms(this.synonymWord).subscribe((res: any) => {
       let counter = 0

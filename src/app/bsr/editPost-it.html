@@ -379,19 +379,17 @@
 
 </div> -->
 
-<div *ngIf="true" class="synonyms-box mat-elevation-z8" cdkDrag>
+<div *ngIf="isSynonymBox" class="synonyms-box mat-elevation-z8" cdkDrag>
     <div class="emoji-handle" cdkDragHandle>
     </div>
 
-    <div class="col">
+    <div class="col" >
 
         <div class="row">
-            <p>search Results for : count : {{dataSource.length}} </p><button mat-button class="" (click)="addSynonymsToEditor()">DONE</button>
+            <p style="margin-right: 5px;">search Results for </p> <p style="color: red;">{{synonymWord}}</p><p>: count : {{dataSource.length}} </p>
         </div>
-        <div class="row">
-            <div class="row"> </div>
-        </div>
-        <div class="row">
+      
+        <div class="row" style="overflow-y: scroll; height: 360px;">
 
             <table mat-table [dataSource]="dataSource" class="mat-elevation-z8">
 
@@ -422,7 +420,12 @@
                 <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
                 <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
             </table>
-        </div>      
+        </div> 
+        
+        <div class="row">
+            <button mat-button class="" style="    position: relative;
+            right: -660px;" (click)="addSynonymsToEditor()">DONE</button>
+        </div>
     </div>
 </div>
 

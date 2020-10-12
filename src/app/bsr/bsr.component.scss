@@ -484,18 +484,21 @@ mat-slider {
 .synonyms-box {
   background-color: white;
   position: fixed;
-  background-origin: padding-box;
+  /* background-origin: padding-box; */
   font-size: 21px;
   top: 124px;
+  left: 500px;
   max-height: 770px;
   line-height: 37px;
   border-radius: 10px;
   padding-left: 10px;
   border: solid lightgrey;
-  overflow-y: scroll;
+  overflow: hidden;
   width: 741px;
   z-index: 99999;
-  animation: jackInTheBox; /* referring directly to the animation's @keyframe declaration */
+  -webkit-animation: jackInTheBox;
+  animation: jackInTheBox;
+  -webkit-animation-duration: 0.4s;
   animation-duration: 0.4s;
 }
 
@@ -679,7 +682,7 @@ mat-tab-group ::-webkit-scrollbar {
 
 .menu-right-icon {
   position: relative;
-    right: -1040px;
+    right: -1048px;
     top: -298px;
     z-index: 99;
     outline: none;
