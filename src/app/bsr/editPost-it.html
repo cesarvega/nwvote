@@ -320,7 +320,8 @@
                                 <!-- <mat-icon style="margin-right: 10px;">assignment</mat-icon> -->
                                 <h2 class="text-bold ">Key Words and Concepts</h2>
 
-                                <mat-icon class="synonymsIcon" (click)="getSynonyms()">layers</mat-icon>
+                                <mat-icon class="synonymsIcon" matTooltip="Synonyms: copy serach term first"
+                                    matTooltipPosition="above" (click)="getSynonyms()">layers</mat-icon>
                                 <mat-icon class="synonymsIcon2" (click)="emojiToggle()">tag_faces</mat-icon>
 
                                 <!-- <div class="ml-16">
@@ -383,12 +384,14 @@
     <div class="emoji-handle" cdkDragHandle>
     </div>
 
-    <div class="col" >
+    <div class="col">
 
         <div class="row">
-            <p style="margin-right: 5px;">search Results for </p> <p style="color: red;">{{synonymWord}}</p><p>: count : {{dataSource.length}} </p>
+            <p style="margin-right: 5px;">search Results for </p>
+            <p style="color: red;">{{synonymWord}}</p>
+            <p>: count : {{dataSource.length}} </p>
         </div>
-      
+
         <div class="row" style="overflow-y: scroll; height: 360px;">
 
             <table mat-table [dataSource]="dataSource" class="mat-elevation-z8">
@@ -420,12 +423,11 @@
                 <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
                 <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
             </table>
-        </div> 
-        
+        </div>
+
         <div class="row">
             <button mat-button class="" style="    position: relative;
             right: -660px;" (click)="addSynonymsToEditor()">DONE</button>
         </div>
     </div>
 </div>
-
