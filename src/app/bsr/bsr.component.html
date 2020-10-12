@@ -16,17 +16,20 @@
 
       <!-- MENU ICON -->
       <div fxLayout="row" fxLayoutAlign="center center">
-        <button   class="menu-icon" (click)="toogleMenus()" mat-icon-button color="red">
+        <button *ngIf="!mainMenu" class="menu-icon" (click)="toogleMenus()" mat-icon-button color="red">
           <mat-icon>keyboard_arrow_up</mat-icon>
         </button>
       </div>
 
+     
       <button  (click)="moveBackward()" class="menu-left-icon" disableRipple mat-icon-button color="red">
         <mat-icon>keyboard_arrow_left</mat-icon>
       </button>
       <button   (click)="moveForward()" class="menu-right-icon" disableRipple mat-icon-button color="red">
         <mat-icon>keyboard_arrow_right</mat-icon>
       </button>
+
+    
 
       <!-- COMMENTS BOX -->
       <div fxLayout="col" *ngIf="isCommentBox" fxLayoutAlign="center center">
@@ -156,7 +159,8 @@
       </div>
 
 
-      <div class="col searchy" [style.left]="searchBoxLeftProperty"  *ngIf="appSearchSlidesData.length">
+      <div class="col searchy" style="
+      " [style.left]="searchBoxLeftProperty"  *ngIf="appSearchSlidesData.length">
         <mat-card  (click)="goToSlideFromSearch(item.$id)" *ngFor="let item of appSearchSlidesData; let i = index">
           <p>{{item.SlideDescription}}</p>
           <img [src]="'http://www.bipresents.com/' + item.SlideBGFileName" alt="overview"
