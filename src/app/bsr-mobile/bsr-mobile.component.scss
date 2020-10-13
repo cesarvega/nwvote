@@ -13,6 +13,67 @@
         white-space: nowrap;
     }
 
+
+
+    .names-list-card {
+        height: 300px;
+        overflow-y: scroll;
+        min-width: 330px;
+        line-height: 26px;
+        border-bottom: #1e41ea solid 1px;
+        opacity: 0;
+        animation: bounceIn 0.5s ease 0.3s forwards;
+    }
+
+    .emoji-icon {
+        outline: none;
+        position: absolute;
+        top: -70px;
+        right: -17px;
+        opacity: 1;
+        animation: flip 0.4s  0.8s ease-in-out 1 forwards;
+    }
+
+    .tab-emoji {
+        max-width: 380px;
+        min-width: 380px;
+    }
+
+    
+    .names-list-card::-webkit-scrollbar {
+        display: none;
+    }
+
+    .name-input-field {
+        left: 0px;
+        animation: rotateInDownLeft 0.4s ease 0.6s backwards;
+    }
+
+    .submit-button {
+        right: 0px;
+        animation: rotateInDownRight 0.2s ease 0.1s backwards;
+    }
+
+    .finish-button {
+        right: 0px;
+        animation: rotateInDownLeft 0.2s ease 0.4s backwards;
+    }
+
+    .enable-anonymous {
+        animation: bounceIn 0.2s ease 0.6s backwards;
+    }
+
+    .emoji-mobile-box::-webkit-scrollbar {
+        display: none;
+    }
+
+    .remember-me {
+        // opacity: 0;
+        margin-bottom: 8px;
+        // animation: jackInTheBox 1s ease 2s forwards;
+    }
+
+
     @media (min-width: 576px) {
         .bsr-mobile-container {
             max-width: 400px;
@@ -77,81 +138,7 @@
         }
     }
 
-    .emoji-icon {
-        outline: none;
-        position: absolute;
-        top: -70px;
-        right: -17px;
-        opacity: 1;
-        animation: flip 0.4s  0.8s ease-in-out 1 forwards;
-    }
-
-    @keyframes drop {
-        0% {
-            top: -200px;
-        }
-        25% {
-            top: 50px;
-        }
-        50% {
-            top: 100px;
-        }
-        75% {
-            top: 200px;
-        }
-        100% {
-            top: 150px;
-        }
-    }
-
-    .tab-emoji {
-        max-width: 380px;
-        min-width: 380px;
-    }
-
-    .names-list-card {
-        height: 300px;
-        overflow-y: scroll;
-        min-width: 330px;
-        line-height: 26px;
-        border-bottom: #1e41ea solid 1px;
-        opacity: 0;
-        animation: bounceIn 0.5s ease 0.3s forwards;
-    }
-
-    .names-list-card::-webkit-scrollbar {
-        display: none;
-    }
-
-    .name-input-field {
-        left: 0px;
-        animation: rotateInDownLeft 0.4s ease 0.6s backwards;
-    }
-
-    .submit-button {
-        right: 0px;
-        animation: rotateInDownRight 0.2s ease 0.1s backwards;
-    }
-
-    .finish-button {
-        right: 0px;
-        animation: rotateInDownLeft 0.2s ease 0.4s backwards;
-    }
-
-    .enable-anonymous {
-        animation: bounceIn 0.2s ease 0.6s backwards;
-    }
-
-    .emoji-mobile-box::-webkit-scrollbar {
-        display: none;
-    }
-
-    .remember-me {
-        // opacity: 0;
-        margin-bottom: 8px;
-        // animation: jackInTheBox 1s ease 2s forwards;
-    }
-
+   
     #login {
         width: 100%;
         // background: url('/assets/images/backgrounds/dark-material-bg.jpg') no-repeat;
