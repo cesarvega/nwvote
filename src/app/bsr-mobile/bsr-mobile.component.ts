@@ -111,7 +111,7 @@ export class BsrMobileComponent implements OnInit {
       if (result) {
         if (result.form.value.name && result.form.value.name !== 'delete') {
 
-          var r = confirm("Update Name");
+          var r = confirm("Update Name:"  + this.projectId );
           if (r == true) {
             this.bsrService.sendName(result.form.value.name, result.oldValue).subscribe(arg => {
               this.bsrService.login({ email: this.userEmail, name: this.username }, this.projectId).subscribe((res: any) => {
