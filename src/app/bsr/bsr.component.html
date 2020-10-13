@@ -37,12 +37,14 @@
               <button (click)="displayCommentBox()" mat-stroked-button style="color: #004684;
                     position: absolute;
                     right: 7px;
+                    z-index: 9999;
                     top: 201px;" color="primary" aria-label="LOG IN" [disabled]="loginForm.invalid">
                 CANCEL
               </button>
               <button (click)="comment()" mat-stroked-button style="color: #004684;
                     position: absolute;
                     right: 100px;
+                    z-index: 9999;
                     top: 201px;" color="primary" aria-label="LOG IN" [disabled]="loginForm.invalid">
                 SUBMIT
               </button>
@@ -50,8 +52,7 @@
                 <mat-form-field class="comment-field " appearance="outline">
                   <mat-label>Comment's Box</mat-label>
                   <textarea matInput cdkTextareaAutosize cdkAutosizeMinRows="4" [(ngModel)]="commentBoxText"
-                    formControlName="suma" cdkAutosizeMaxRows="4" appearance="outline"
-                    formControlName="suma"></textarea>
+                    formControlName="suma" cdkAutosizeMaxRows="4" appearance="outline"></textarea>
                 </mat-form-field>
               </form>
             </div>

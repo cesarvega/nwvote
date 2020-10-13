@@ -32,7 +32,7 @@ export class BsrComponent implements OnInit {
   // projectId = 'rg2327';
   projectId = 'te2687';
   projectName = 'te2687';
-  createPostIt = true;
+  createPostIt = false;
   isDeleteButon = false;
   isSearching = false;
   search: any;
@@ -48,7 +48,7 @@ export class BsrComponent implements OnInit {
   pageCounter = ' 1/40';
   currentPageNumber = 0;
   appSlidesData: any;
-  mainMenu: boolean = true;
+  mainMenu: boolean = false;
   conceptData: any = [];
   newPost: Object;
   newName: any;
@@ -71,13 +71,7 @@ export class BsrComponent implements OnInit {
   isFullscreen = false;
   constructor(@Inject(DOCUMENT) private document: any, private _formBuilder: FormBuilder,
     private _hotkeysService: HotkeysService,
-    private _BsrService: BsrService, public dialog: MatDialog, activatedRoute: ActivatedRoute,) {
-
-    activatedRoute.params.subscribe(params => {
-      this.projectName = params['id'];
-      localStorage.setItem('projectId', this.projectName);
-      this.projectId = this.projectName;
-    });
+    private _BsrService: BsrService, public dialog: MatDialog, private activatedRoute: ActivatedRoute,) {
 
     // keyboard keymaps
     this._hotkeysService.add(new Hotkey('right', (event: KeyboardEvent): boolean => {
@@ -121,6 +115,13 @@ export class BsrComponent implements OnInit {
   }
 
   ngOnInit(): void {
+    this.activatedRoute.params.subscribe(params => {
+      this.projectName = params['id'];
+      localStorage.setItem('projectId', this.projectName);
+      localStorage.setItem('projectName', this.projectName);
+      this.projectId = this.projectName;
+    });
+
     this.assignCopy();    
     this.elem = document.documentElement;
     this.currentPageNumber = 0;
@@ -179,6 +180,8 @@ export class BsrComponent implements OnInit {
     this._BsrService.getComments(index).subscribe((arg: any) => {
       if (arg.length > 0) {
         this.commentBoxText = arg[0].Comments;
+      }else{
+        this.commentBoxText = '';
       }
     });
   }
@@ -311,8 +314,7 @@ export class BsrComponent implements OnInit {
 
   displayCommentBox() {
     this.isCommentBox = !this.isCommentBox;
-    // this.commentBoxText = "";
-    this.getCommentsByIndex(this.currentPageNumber);
+    (this.isCommentBox)?this.getCommentsByIndex(this.currentPageNumber):null;
   }
 
   comment() {
@@ -323,6 +325,7 @@ export class BsrComponent implements OnInit {
 
       this._BsrService.sendComment(comment).subscribe(res => {
         this.isCommentBox = false;
+        this.commentBoxText=''
       });
     }
   }
