@@ -76,12 +76,13 @@ export class BsrMobileService {
   }
 
   deleteName(NameId){
+    this.projectId = localStorage.getItem('projectId');
     let deleteNames = "[BI_GUIDELINES].[dbo].[bsr_delName] " + this.projectId.replace(/\D+/g, '') + "," +  NameId ;
     return this.http.post(this.webBaseUrl + this.apiCall, JSON.stringify(deleteNames), httpOptions);
   }
 
   goToLogout() {
-   
+      this.projectId = localStorage.getItem('projectId');
       const sendEmail = "[BI_GUIDELINES].[dbo].[bsr_AddEmailResultsRequest] '" + this.projectId + "','" +  this.email  + "','" +  this.name + "'";
       return this.http.post(this.webBaseUrl + this.apiCall, JSON.stringify(sendEmail), httpOptions);  
   }

@@ -39,8 +39,6 @@ export class BsrMobileComponent implements OnInit {
         localStorage.setItem('projectName',  this.projectId);        
       });
     });
-
-
   }
 
   ngOnInit(): void {
