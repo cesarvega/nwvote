@@ -83,10 +83,11 @@
             <div *ngIf="isUserLogged" fxLayout="column" fxLayoutAlign="center center" id="login">
 
                 <br>
-                <div class="mat-subheading-1">Suggestions</div>
-                <mat-card style="height: 250px;overflow-y: scroll;min-width: 330px;">
-
-                    <div *ngFor="let item of  newNames" style="font-size: 20px;" (click)="openDialog(item.name, item.nameid)" >{{item.name}}</div>
+                <div class="mat-subheading-1">Suggestions: {{newNames.length}}</div>
+                <mat-card class="names-list-card">
+                    <div *ngFor="let item of  newNames" class="name-box" (click)="openDialog(item.name, item.nameid)">
+                        {{item.name}}
+                    </div>
                 </mat-card>
                 <br>
 

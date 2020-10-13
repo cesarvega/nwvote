@@ -13,8 +13,6 @@
         white-space: nowrap;
     }
 
-
-
     .names-list-card {
         height: 300px;
         overflow-y: scroll;
@@ -25,13 +23,19 @@
         animation: bounceIn 0.5s ease 0.3s forwards;
     }
 
+    .name-box {
+        font-size: 20px;
+        cursor: pointer;
+        border-bottom: navy dashed 0.01em;
+    }
+
     .emoji-icon {
         outline: none;
         position: absolute;
         top: -70px;
         right: -17px;
         opacity: 1;
-        animation: flip 0.4s  0.8s ease-in-out 1 forwards;
+        animation: flip 0.4s 0.8s ease-in-out 1 forwards;
     }
 
     .tab-emoji {
@@ -39,7 +43,6 @@
         min-width: 380px;
     }
 
-    
     .names-list-card::-webkit-scrollbar {
         display: none;
     }
@@ -72,7 +75,6 @@
         margin-bottom: 8px;
         // animation: jackInTheBox 1s ease 2s forwards;
     }
-
 
     @media (min-width: 576px) {
         .bsr-mobile-container {
@@ -113,7 +115,6 @@
             position: relative;
             min-height: 100%;
             overflow-y: hidden;
-           
         }
 
         .tab-emoji {
@@ -138,7 +139,6 @@
         }
     }
 
-   
     #login {
         width: 100%;
         // background: url('/assets/images/backgrounds/dark-material-bg.jpg') no-repeat;
@@ -264,9 +264,9 @@
         background-color: white;
         font-size: 8px;
         outline: none;
-        animation: heartBeat 1s ease-in-out 0.3s 1  forwards;
-        :hover{
-            animation: heartBeat 1s ease-in-out 0.3s 1  forwards;
+        animation: heartBeat 1s ease-in-out 0.3s 1 forwards;
+        :hover {
+            animation: heartBeat 1s ease-in-out 0.3s 1 forwards;
         }
     }
 }
