@@ -699,7 +699,7 @@ mat-tab-group ::-webkit-scrollbar {
   }
 }
 
-$postItanimations: wobble, wobble, wobble, wobble, wobble, wobble, wobble, wobble, wobble, wobble, wobble, wobble;
+$postItanimations: shakeY, shakeY, shakeY, shakeY, shakeY, shakeY, shakeY, shakeY, shakeY, shakeY, shakeY, shakeY;
 $postItseconds: 1, 2, 3;
 $postItHeaderColors: #d6f8fd, #d6f8fd, #d6f8fd, #d6f8fd, #d6f8fd, #d6f8fd, #d6f8fd, #d6f8fd, #d6f8fd;
 $postItHeaderColorsLength: length($postItHeaderColors);
@@ -730,8 +730,10 @@ $postItHeaderColors2: #d6f8fd, #dcd6fd, #d6fde9, #fdfcd6, #d6f8fd, #fdd6e8, #fdd
   @for $i from 1 through 8 {
     &:nth-of-type(#{$postItHeaderColorsLength}n + #{$i}) .post-card {
       background: nth($postItHeaderColors2, $i);
-      animation: nth($postItanimations, $i) 0.5s;
-      animation-delay: 0.1 +#{$i}s;
+      // animation: nth($postItanimations, $i) 0.2s;
+      animation: fadeIn 0.2s ease-in-out backwards;
+      animation-iteration-count: 1 ;
+      animation-delay: $i*0.05+s;
     }
 
     &:nth-of-type(#{$postItHeaderColorsLength}n + #{$i}) .post-card:hover {
@@ -742,7 +744,7 @@ $postItHeaderColors2: #d6f8fd, #dcd6fd, #d6fde9, #fdfcd6, #d6f8fd, #fdd6e8, #fdd
       position: relative;
       top: -2px;
       background: lightgoldenrodyellow;
-      animation: nth($postItanimations, $i) 1s;
+      // animation: nth($postItanimations, $i) 1s;
     }
   }
 }
