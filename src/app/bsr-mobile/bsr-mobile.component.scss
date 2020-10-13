@@ -13,16 +13,6 @@
         white-space: nowrap;
     }
 
-    .names-list-card {
-        height: 300px;
-        overflow-y: scroll;
-        min-width: 330px;
-        line-height: 26px;
-        border-bottom: #1e41ea solid 1px;
-        opacity: 0;
-        animation: bounceIn 0.5s ease 0.3s forwards;
-    }
-
     .name-box {
         font-size: 20px;
         cursor: pointer;
@@ -77,6 +67,15 @@
     }
 
     @media (min-width: 576px) {
+        .names-list-card {
+            height: 450px;
+            overflow-y: scroll;
+            min-width: 330px;
+            line-height: 26px;
+            border-bottom: #1e41ea solid 1px;
+            opacity: 0;
+            animation: bounceIn 0.5s ease 0.3s forwards;
+        }
         .bsr-mobile-container {
             max-width: 400px;
             position: relative;
@@ -110,6 +109,17 @@
     }
 
     @media (max-width: 576px) {
+
+        .names-list-card {
+            height: 260px;
+            overflow-y: scroll;
+            min-width: 330px;
+            line-height: 26px;
+            border-bottom: #1e41ea solid 1px;
+            opacity: 0;
+            animation: bounceIn 0.5s ease 0.3s forwards;
+        }
+
         .bsr-mobile-container {
             max-width: 500px;
             position: relative;
