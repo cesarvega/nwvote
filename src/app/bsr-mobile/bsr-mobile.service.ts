@@ -70,12 +70,9 @@ export class BsrMobileService {
         userEmail: this.email
       }
     }
+
     this._SP_Saving_New_Names_Mobile = "[BI_GUIDELINES].[dbo].[bsr_mobAddNames] N'" + this.projectId + ',' + JSON.stringify(this.sendNewNamesObj) + "'";
-    var r = confirm("Update Name:"  +    this._SP_Saving_New_Names_Mobile );
-    if (r == true) {
-     
-      return this.http.post(this.webBaseUrl + this.apiCall, JSON.stringify(this._SP_Saving_New_Names_Mobile), httpOptions);
-    }
+    return this.http.post(this.webBaseUrl + this.apiCall, JSON.stringify(this._SP_Saving_New_Names_Mobile), httpOptions);
   }
 
   deleteName(NameId){
