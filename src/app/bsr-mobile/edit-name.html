@@ -22,7 +22,7 @@
             <div fxFlex fxLayoutAlign="center center">
 
                 <div fxFlex *ngIf="isDeleting">
-                    <button (click)="buttonOption('delete')" class="refreshbutton" mat-mini-fab
+                    <button (click)="buttonOption('delete')" class="delete-update-buttons" mat-mini-fab
                         style="color: white;background-color: red;" color="success" aria-label="icon">
                         <mat-icon>delete</mat-icon>
                     </button><br>
@@ -30,7 +30,7 @@
                 </div>
 
                 <div fxFlex *ngIf="isDeleting">
-                    <button (click)="buttonOption('save')" class="refreshbutton" mat-mini-fab
+                    <button (click)="buttonOption('save')" class="delete-update-buttons" mat-mini-fab
                         style="color: white;background-color: green;" color="success" aria-label="icon">
                         <mat-icon>check_circle</mat-icon>
                     </button><br>

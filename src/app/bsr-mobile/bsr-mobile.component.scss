@@ -259,6 +259,13 @@
         }
     }
 
+    .delete-update-buttons {
+        color: #004684;
+        background-color: white;
+        font-size: 8px;
+        outline: none;
+        animation: heartBeat 1s ease-in-out 0.3s 1 forwards;        
+    }
     .refreshbutton {
         color: #004684;
         background-color: white;
