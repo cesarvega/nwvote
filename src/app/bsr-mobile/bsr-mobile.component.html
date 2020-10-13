@@ -1,20 +1,13 @@
-<div class="container mat-elevation-z8 bsr-mobile-container">
+<div class="container mat-elevation-z4 bsr-mobile-container" >
     <div class="row">
 
         <mat-toolbar class="toolbar " fxLayoutAlign="space-between center">
             <!-- <mat-icon>insert_drive_file</mat-icon>  -->
-            <div class="col">
-                <div class="row">
-                    <div style="font-family: LinLibertine_R;font-size: 25px;padding-right: 10px;">
-                        BI Project:
-                    </div>
-                    <div> {{projectName}}</div>
-                </div>
-            </div>
-
-            <mat-icon *ngIf="isUserLogged" (click)="openDialog('displayInfo', '')"
-                style="color: white;background-color: #004684;  outline: none;">help</mat-icon>
-
+            BI Project: {{projectName}}
+          
+                <mat-icon *ngIf="isUserLogged" (click)="openDialog('displayInfo', '')" 
+                style="color: white;background-color: #004684;  outline: none;" >help</mat-icon>
+         
         </mat-toolbar>
 
         <div class="col container">
@@ -27,6 +20,7 @@
                     <div id="login-form">
 
 
+                        
                         <img class="logo" src="./assets/img/NAMEPAGE_LOGO-01.svg">
                         <br>
                         <div class="title secondary-text">Welcome to the NamePage<sup style="font-size: 10px;">TM</sup>
@@ -89,12 +83,10 @@
             <div *ngIf="isUserLogged" fxLayout="column" fxLayoutAlign="center center" id="login">
 
                 <br>
-                <div class="mat-subheading-1">Suggestions: {{newNames.length}}</div>
-                <mat-card class="names-list-card">
+                <div class="mat-subheading-1">Suggestions</div>
+                <mat-card style="height: 250px;overflow-y: scroll;min-width: 330px;">
 
-                    <div *ngFor="let item of  newNames"
-                        style="font-size: 20px;cursor: pointer;border-bottom: navy dashed 0.01em ;"
-                        (click)="openDialog(item.name, item.nameid)">{{item.name}}</div>
+                    <div *ngFor="let item of  newNames" style="font-size: 20px;" (click)="openDialog(item.name, item.nameid)" >{{item.name}}</div>
                 </mat-card>
                 <br>
 
@@ -109,20 +101,20 @@
                     <div class="col" style="text-align: center;">
                         <div class="col" style="text-align: center;">
 
-                            <button (click)="sendNewName(); reference.value=''" mat-raised-button style="color: white;"
-                                color="primary" class="submit-button" aria-label="LOG IN">
+                            <button (click)="sendNewName(); reference.value=''" mat-raised-button style="color: white;" color="primary"
+                                class="submit-button" aria-label="LOG IN">
                                 CLICK TO SUBMIT
                             </button>
-                            <button class="emoji-icon" (click)="emojiToggle()" mat-icon-button color="accent" aria-label="emoji">
+                            <button style="outline: none;" (click)="emojiToggle()" mat-icon-button color="accent" aria-label="emoji">
                                 <mat-icon>tag_faces</mat-icon>
-                            </button>
+                              </button>
 
                             <br>
                             <br>
                         </div>
                         <div class="col">
 
-                            <mat-checkbox class="enable-anonymous remember-me secondary" aria-label="Anonymous" matInput
+                            <mat-checkbox class="remember-me secondary" aria-label="Anonymous" matInput
                                 formControlName="suma">
                                 Enable Anonymous Submit?
                             </mat-checkbox>
@@ -131,8 +123,8 @@
                         </div>
                         <div class="col">
 
-                            <button class="finish-button" (click)="finish()" mat-raised-button style="color: white;"
-                                color="accent" aria-label="LOG IN">
+                            <button (click)="finish()" mat-raised-button style="color: white;" color="accent"
+                                class="submit-button" aria-label="LOG IN">
                                 CLICK TO FINISH
                             </button>
                         </div>
@@ -177,82 +169,63 @@
         </div>
 
 
-        <div *ngIf="isEmojiTime " class="emoji-mobile-box mat-elevation-z4">
-            <mat-icon (click)="closeEmoji()" style="position: absolute;cursor: pointer;
-            bottom: 2px;
-            right: 1px;z-index: 999999;">cancel</mat-icon>
-            <mat-tab-group class="tabs-emojis">
-                <mat-tab label="Emoji" style="overflow-y: scroll;">
-                    <br>
-                    Faces<br>
-                    😀 😃 😄 😁 😆 😅 😂 🤣 😊 😇 🙂 🙃 😉 😌 😍 🥰 😘 😗 😙 😚 😋 😛 😝 😜 🤪 🤨 🧐
-                    🤓 😎 🤩 🥳 😏 😒 😞 😔 😟 😕 🙁 ☹️ 😣 😖 😫 😩 🥺 😢 😭 😤 😠 😡 🤬 🤯 😳 🥵 🥶 😱 😨 😰 😥 😓 🤗
-                    🤔 🤭
-                    🤫 🤥 😶 😐 😑 😬 🙄 😯 😦 😧 😮 😲 🥱 😴 🤤 😪 😵 🤐 🥴 🤢 🤮 🤧 😷 🤒 🤕 🤑 🤠 😈 👿 👹 👺 🤡 💩
-                    👻 💀
+        <div *ngIf="isEmojiTime mat-elevation-z4" class="emoji-mobile-box" >
+            <mat-tab-group>
+                <mat-tab label="First">😀 😃 😄 😁 😆 😅 😂 🤣 ☺️ 😊 😇 🙂 🙃 😉 😌 😍 🥰 😘 😗 😙 😚 😋 😛 😝 😜 🤪 🤨 🧐
+                    🤓 😎 🤩 🥳 😏 😒 😞 😔 😟 😕 🙁 ☹️ 😣 😖 😫 😩 🥺 😢 😭 😤 😠 😡 🤬 🤯 😳 🥵 🥶 😱 😨 😰 😥 😓 🤗 🤔 🤭
+                    🤫 🤥 😶 😐 😑 😬 🙄 😯 😦 😧 😮 😲 🥱 😴 🤤 😪 😵 🤐 🥴 🤢 🤮 🤧 😷 🤒 🤕 🤑 🤠 😈 👿 👹 👺 🤡 💩 👻 💀
                     ☠️ 👽 👾 🤖 🎃 😺 😸 😹 😻 😼 😽 🙀 😿 😾
-                    <br>
-                    Gestures and Body Parts<br>
-                    👋 🤚 🖐 ✋ 🖖 👌 🤏 ✌️ 🤞 🤟 🤘 🤙 👈 👉 👆 🖕 👇 ☝️ 👍 👎 ✊ 👊 🤛 🤜 👏 🙌 👐 🤲 🤝 🙏 ✍️ 💅 🤳 💪
-                    🦾
+    
+                    Gestures and Body Parts
+                    👋 🤚 🖐 ✋ 🖖 👌 🤏 ✌️ 🤞 🤟 🤘 🤙 👈 👉 👆 🖕 👇 ☝️ 👍 👎 ✊ 👊 🤛 🤜 👏 🙌 👐 🤲 🤝 🙏 ✍️ 💅 🤳 💪 🦾
                     🦵 🦿 🦶 👂 🦻 👃 🧠 🦷 🦴 👀 👁 👅 👄 💋 🩸
-                    <br>
-                    People and Fantasy<br>
-                    👶 🧒 👦 👧 🧑 👱 👨 🧔 👨‍🦰 👨‍🦱 👨‍🦳 👨‍🦲 👩 👩‍🦰 🧑‍🦰 👩‍🦱 🧑‍🦱 👩‍🦳 🧑‍🦳 👩‍🦲 🧑‍🦲
-                    👱‍♀️
-                    👱‍♂️ 🧓 👴 👵 🙍 🙍‍♂️ 🙍‍♀️ 🙎 🙎‍♂️ 🙎‍♀️ 🙅 🙅‍♂️ 🙅‍♀️ 🙆 🙆‍♂️ 🙆‍♀️ 💁 💁‍♂️ 💁‍♀️ 🙋 🙋‍♂️
-                    🙋‍♀️
-                    🧏 🧏‍♂️ 🧏‍♀️ 🙇 🙇‍♂️ 🙇‍♀️ 🤦 🤦‍♂️ 🤦‍♀️ 🤷 🤷‍♂️ 🤷‍♀️ 🧑‍⚕️ 👨‍⚕️ 👩‍⚕️ 🧑‍🎓 👨‍🎓 👩‍🎓
-                    🧑‍🏫
-                    👨‍🏫 👩‍🏫 🧑‍⚖️ 👨‍⚖️ 👩‍⚖️ 🧑‍🌾 👨‍🌾 👩‍🌾 🧑‍🍳 👨‍🍳 👩‍🍳 🧑‍🔧 👨‍🔧 👩‍🔧 🧑‍🏭 👨‍🏭
-                    👩‍🏭
-                    🧑‍💼 👨‍💼 👩‍💼 🧑‍🔬 👨‍🔬 👩‍🔬 🧑‍💻 👨‍💻 👩‍💻 🧑‍🎤 👨‍🎤 👩‍🎤 🧑‍🎨 👨‍🎨 👩‍🎨 🧑‍✈️
-                    👨‍✈️
-                    👩‍✈️ 🧑‍🚀 👨‍🚀 👩‍🚀 🧑‍🚒 👨‍🚒 👩‍🚒 👮 👮‍♂️ 👮‍♀️ 🕵 🕵️‍♂️ 🕵️‍♀️ 💂 💂‍♂️ 💂‍♀️ 👷 👷‍♂️
-                    👷‍♀️
-                    🤴 👸 👳 👳‍♂️ 👳‍♀️ 👲 🧕 🤵 👰 🤰 🤱 👼 🎅 🤶 🦸 🦸‍♂️ 🦸‍♀️ 🦹 🦹‍♂️ 🦹‍♀️ 🧙 🧙‍♂️ 🧙‍♀️ 🧚
-                    🧚‍♂️
-                    🧚‍♀️ 🧛 🧛‍♂️ 🧛‍♀️ 🧜 🧜‍♂️ 🧜‍♀️ 🧝 🧝‍♂️ 🧝‍♀️ 🧞 🧞‍♂️ 🧞‍♀️ 🧟 🧟‍♂️ 🧟‍♀️ 💆 💆‍♂️ 💆‍♀️ 💇
-                    💇‍♂️
-                    💇‍♀️ 🚶 🚶‍♂️ 🚶‍♀️ 🧍 🧍‍♂️ 🧍‍♀️ 🧎 🧎‍♂️ 🧎‍♀️ 🧑‍🦯 👨‍🦯 👩‍🦯 🧑‍🦼 👨‍🦼 👩‍🦼 🧑‍🦽 👨‍🦽
-                    👩‍🦽
-                    🏃 🏃‍♂️ 🏃‍♀️ 💃 🕺 🕴 👯 👯‍♂️ 👯‍♀️ 🧖 🧖‍♂️ 🧖‍♀️ 🧘 🧑‍🤝‍🧑 👭 👫 👬 💏 👨‍❤️‍💋‍👨
-                    👩‍❤️‍💋‍👩 💑
-                    👨‍❤️‍👨 👩‍❤️‍👩 👪 👨‍👩‍👦 👨‍👩‍👧 👨‍👩‍👧‍👦 👨‍👩‍👦‍👦 👨‍👩‍👧‍👧 👨‍👨‍👦 👨‍👨‍👧
-                    👨‍👨‍👧‍👦
+    
+                    People and Fantasy
+                    👶 🧒 👦 👧 🧑 👱 👨 🧔 👨‍🦰 👨‍🦱 👨‍🦳 👨‍🦲 👩 👩‍🦰 🧑‍🦰 👩‍🦱 🧑‍🦱 👩‍🦳 🧑‍🦳 👩‍🦲 🧑‍🦲 👱‍♀️
+                    👱‍♂️ 🧓 👴 👵 🙍 🙍‍♂️ 🙍‍♀️ 🙎 🙎‍♂️ 🙎‍♀️ 🙅 🙅‍♂️ 🙅‍♀️ 🙆 🙆‍♂️ 🙆‍♀️ 💁 💁‍♂️ 💁‍♀️ 🙋 🙋‍♂️ 🙋‍♀️
+                    🧏 🧏‍♂️ 🧏‍♀️ 🙇 🙇‍♂️ 🙇‍♀️ 🤦 🤦‍♂️ 🤦‍♀️ 🤷 🤷‍♂️ 🤷‍♀️ 🧑‍⚕️ 👨‍⚕️ 👩‍⚕️ 🧑‍🎓 👨‍🎓 👩‍🎓 🧑‍🏫
+                    👨‍🏫 👩‍🏫 🧑‍⚖️ 👨‍⚖️ 👩‍⚖️ 🧑‍🌾 👨‍🌾 👩‍🌾 🧑‍🍳 👨‍🍳 👩‍🍳 🧑‍🔧 👨‍🔧 👩‍🔧 🧑‍🏭 👨‍🏭 👩‍🏭
+                    🧑‍💼 👨‍💼 👩‍💼 🧑‍🔬 👨‍🔬 👩‍🔬 🧑‍💻 👨‍💻 👩‍💻 🧑‍🎤 👨‍🎤 👩‍🎤 🧑‍🎨 👨‍🎨 👩‍🎨 🧑‍✈️ 👨‍✈️
+                    👩‍✈️ 🧑‍🚀 👨‍🚀 👩‍🚀 🧑‍🚒 👨‍🚒 👩‍🚒 👮 👮‍♂️ 👮‍♀️ 🕵 🕵️‍♂️ 🕵️‍♀️ 💂 💂‍♂️ 💂‍♀️ 👷 👷‍♂️ 👷‍♀️
+                    🤴 👸 👳 👳‍♂️ 👳‍♀️ 👲 🧕 🤵 👰 🤰 🤱 👼 🎅 🤶 🦸 🦸‍♂️ 🦸‍♀️ 🦹 🦹‍♂️ 🦹‍♀️ 🧙 🧙‍♂️ 🧙‍♀️ 🧚 🧚‍♂️
+                    🧚‍♀️ 🧛 🧛‍♂️ 🧛‍♀️ 🧜 🧜‍♂️ 🧜‍♀️ 🧝 🧝‍♂️ 🧝‍♀️ 🧞 🧞‍♂️ 🧞‍♀️ 🧟 🧟‍♂️ 🧟‍♀️ 💆 💆‍♂️ 💆‍♀️ 💇 💇‍♂️
+                    💇‍♀️ 🚶 🚶‍♂️ 🚶‍♀️ 🧍 🧍‍♂️ 🧍‍♀️ 🧎 🧎‍♂️ 🧎‍♀️ 🧑‍🦯 👨‍🦯 👩‍🦯 🧑‍🦼 👨‍🦼 👩‍🦼 🧑‍🦽 👨‍🦽 👩‍🦽
+                    🏃 🏃‍♂️ 🏃‍♀️ 💃 🕺 🕴 👯 👯‍♂️ 👯‍♀️ 🧖 🧖‍♂️ 🧖‍♀️ 🧘 🧑‍🤝‍🧑 👭 👫 👬 💏 👨‍❤️‍💋‍👨 👩‍❤️‍💋‍👩 💑
+                    👨‍❤️‍👨 👩‍❤️‍👩 👪 👨‍👩‍👦 👨‍👩‍👧 👨‍👩‍👧‍👦 👨‍👩‍👦‍👦 👨‍👩‍👧‍👧 👨‍👨‍👦 👨‍👨‍👧 👨‍👨‍👧‍👦
                     👨‍👨‍👦‍👦 👨‍👨‍👧‍👧 👩‍👩‍👦 👩‍👩‍👧 👩‍👩‍👧‍👦 👩‍👩‍👦‍👦 👩‍👩‍👧‍👧 👨‍👦 👨‍👦‍👦 👨‍👧
                     👨‍👧‍👦 👨‍👧‍👧 👩‍👦 👩‍👦‍👦 👩‍👧 👩‍👧‍👦 👩‍👧‍👧 🗣 👤 👥 👣</mat-tab>
-                <mat-tab label="Nature"> 🐶 🐱 🐭 🐹 🐰 🦊 🐻 🐼 🐨 🐯 🦁 🐮 🐷 🐽 🐸 🐵 🙈 🙉 🙊 🐒 🐔 🐧 🐦 🐤 🐣 🐥
-                    🦆 🦅
+                <mat-tab label="Second"> 🐶 🐱 🐭 🐹 🐰 🦊 🐻 🐼 🐨 🐯 🦁 🐮 🐷 🐽 🐸 🐵 🙈 🙉 🙊 🐒 🐔 🐧 🐦 🐤 🐣 🐥 🦆 🦅
                     🦉
                     🦇 🐺 🐗 🐴 🦄 🐝 🐛 🦋
-                    🐌 🐞 🐜 🦟 🦗 🕷 🕸 🦂 🐢 🐍 🦎 🦖 🦕 🐙 🦑 🦐 🦞 🦀 🐡 🐠 🐟 🐬 🐳 🐋 🦈 🐊 🐅 🐆 🦓 🦍 🦧 🐘 🦛
-                    🦏 🐪
+                    🐌 🐞 🐜 🦟 🦗 🕷 🕸 🦂 🐢 🐍 🦎 🦖 🦕 🐙 🦑 🦐 🦞 🦀 🐡 🐠 🐟 🐬 🐳 🐋 🦈 🐊 🐅 🐆 🦓 🦍 🦧 🐘 🦛 🦏 🐪
                     🐫
                     🦒
-                    🦘 🐃 🐂 🐄 🐎 🐖 🐏 🐑 🦙 🐐 🦌 🐕 🐩 🦮 🐕‍🦺 🐈 🐓 🦃 🦚 🦜 🦢 🦩 🕊 🐇 🦝 🦨 🦡 🦦 🦥 🐁 🐀 🐿
-                    🦔 🐾
+                    🦘 🐃 🐂 🐄 🐎 🐖 🐏 🐑 🦙 🐐 🦌 🐕 🐩 🦮 🐕‍🦺 🐈 🐓 🦃 🦚 🦜 🦢 🦩 🕊 🐇 🦝 🦨 🦡 🦦 🦥 🐁 🐀 🐿 🦔 🐾
                     🐉
                     🐲
-                    🌵 🎄 🌲 🌳 🌴 🌱 🌿 ☘️ 🍀 🎍 🎋 🍃 🍂 🍁 🍄 🐚 🌾 💐 🌷 🌹 🥀 🌺 🌸 🌼 🌻 🌞 🌝 🌛 🌜 🌚 🌕 🌖 🌗
-                    🌘 🌑
+                    🌵 🎄 🌲 🌳 🌴 🌱 🌿 ☘️ 🍀 🎍 🎋 🍃 🍂 🍁 🍄 🐚 🌾 💐 🌷 🌹 🥀 🌺 🌸 🌼 🌻 🌞 🌝 🌛 🌜 🌚 🌕 🌖 🌗 🌘 🌑
                     🌒
                     🌓
-                    🌔 🌙 🌎 🌍 🌏 🪐 💫 ⭐️ 🌟 ✨ ⚡️ ☄️ 💥 🔥 🌪 🌈 ☀️ 🌤 ⛅️ 🌥 ☁️ 🌦 🌧 ⛈ 🌩 🌨 ❄️ ☃️ ⛄️ 🌬 💨 💧 💦 ☔️
-                    ☂️
+                    🌔 🌙 🌎 🌍 🌏 🪐 💫 ⭐️ 🌟 ✨ ⚡️ ☄️ 💥 🔥 🌪 🌈 ☀️ 🌤 ⛅️ 🌥 ☁️ 🌦 🌧 ⛈ 🌩 🌨 ❄️ ☃️ ⛄️ 🌬 💨 💧 💦 ☔️ ☂️
                     🌊 🌫
                 </mat-tab>
-                <mat-tab label="Cool">
-                    [̲̅ə̲̅٨̲̅٥̲̅٦̲̅] ✯ℋᵅᵖᵖᵞ ℬⁱʳᵗᑋᵈᵃᵞ✯ ⋆｡˚ᎶᎾᎾⅅ ℕᏐᎶℍᎢ⋆｡˚✩ 💪👦👉 ◨██══════██◧ ✌♫♪˙❤‿❤˙♫♪✌
-                    ☆❋──❁ɢ∞פ ʍօ®ɴɪɴɢ❃──❋[̲̅$̲̅(̲̅5̲̅)̲̅$̲̅] ┌∩┐(ಠ_ಠ)┌∩┐ ———–[]=¤ԅ༼ ･ 〜 ･ ༽╯
-                    ✌（◕ω◕）✌ 乂❤‿❤乂 ⎧ᴿᴵᴾ⎫◟◟◟◟◟◟◟ ❀◟(ó ̯ ò, ) ლ(´ ❥ `ლ) 🐕≡≡≡===💨 ヽ(ﾟεﾟヽ)))))
-                    ʕっ•ᴥ•ʔ ♥️♥️🖤🖤☠️💀☠️🖤🖤♥️♥️ ★ PLΔyBӨY ★ ̿̿’̿’\̵͇̿̿\=(•̪●)=/̵͇̿̿/’̿̿ ̿ ̿ ̿ ʕ•͡-•ʔ __̴ı̴̴̡̡̡ ̡͌l̡̡̡
-                    ̡͌l̡*̡̡ ̴̡ı̴̴̡ ̡̡͡|̲̲̲͡͡͡ ̲▫̲͡ ̲̲̲͡͡π̲̲͡͡ ̲̲͡▫̲̲͡͡ ̲|̡̡̡ ̡ ̴̡ı̴̡̡ ̡͌l̡̡̡̡.___
-                    v^√√v^──√v^√v^──√v^√√v^── 🏃‍♂️三三☲=💨 ⋆⋆⃟⊱✪⃝⃞⃝⊰⋆⃟⋆⋆ ◤◢◣◥◤◢◣◥ ◦°˚\😃/˚°◦ ♞▀▄▀▄♝▀▄
-                    🐓🐓🥚 ══► 🍳 [̲̅$̲̅(̲̅10)̲̅$̲̅] ｍ（｡≧ _ ≦｡）ｍ Ꮹꄲꄲძ ℳꄲᖇᘉɪ̊ᘉ꒸.͙✼̥୭⁺ ◙▒◙♫♩♬ (ó﹏ò｡) 🌷 ꒐꓄'ꇙ ꇙꉣꋪ꒐ꋊꍌ 🌷
+                <mat-tab label="Third">
+                    <p>✯ℋᵅᵖᵖᵞ ℬⁱʳᵗᑋᵈᵃᵞ✯ </p>
+    
+                    ✌（◕ω◕）✌
+    
                 </mat-tab>
             </mat-tab-group>
-        </div>
+    </div>
 
     </div>
 </div>
+
+
+
+
+<!-- <div class="register" fxLayout="column" fxLayoutAlign="center center">
+                <span class="text secondary-text">Don't have an account?</span>
+                <a class="link" [routerLink]="'/apps/register/auth/register'">Create an account</a>
+                <a class="link" [routerLink]="'/apps/contacts'">Contact us</a>
+            </div> -->

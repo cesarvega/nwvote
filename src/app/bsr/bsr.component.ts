@@ -557,13 +557,8 @@ export class editPost {
 
 
   displayedColumns: string[] = ['position', 'name', 'weight'];
-<<<<<<< HEAD
-  synonymWord: string;
-  dataSource: any = [];
-=======
   synonymWord: string = ' Copy name to clipboard ';
   dataSource: any[];
->>>>>>> 78374ac4ec0bc9f7017a541d96c42a20f4d79c3f
   constructor(
     public dialogRef: MatDialogRef<editPost>,
     @Inject(MAT_DIALOG_DATA) public data: DialogData, private _formBuilder: FormBuilder, private _BsrService: BsrService,) {
