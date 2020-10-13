@@ -33,10 +33,10 @@ export class BsrMobileComponent implements OnInit {
 
     this.activatedRoute.params.subscribe(params => {
       this.projectId = params['id'];
-      localStorage.setItem('projectId',  this.projectId);
+      localStorage.setItem('projectId', this.projectId);
       this.bsrService.getProjectData(this.projectId).subscribe(arg => {
         this.projectName = JSON.parse(arg[0].bsrData).projectdescription;
-        localStorage.setItem('projectName',  this.projectId);        
+        localStorage.setItem('projectName', this.projectId);
       });
     });
   }
@@ -51,7 +51,7 @@ export class BsrMobileComponent implements OnInit {
     this.username = localStorage.getItem('username');
 
     this.loginForm = this._formBuilder.group({
-      email: [ this.userEmail, Validators.required],
+      email: [this.userEmail, Validators.required],
       suma: [true],
       name: [this.username, Validators.required]
     });
@@ -68,7 +68,7 @@ export class BsrMobileComponent implements OnInit {
     this.userEmail = this.loginForm.value.email;
     localStorage.setItem('userEmail', this.userEmail);
     this.username = this.loginForm.value.name;
-    localStorage.setItem('username', this.username);    
+    localStorage.setItem('username', this.username);
     this.summarized = this.loginForm.value.suma;
     localStorage.setItem('summarized', this.summarized.toString());
     this.bsrService.login(this.loginForm.value, this.projectId).subscribe((res: any) => {
@@ -111,12 +111,19 @@ export class BsrMobileComponent implements OnInit {
       if (result) {
         if (result.form.value.name && result.form.value.name !== 'delete') {
 
-          this.bsrService.sendName(result.form.value.name, result.oldValue).subscribe(arg => {
-            this.bsrService.login({ email: this.userEmail, name: this.username }, this.projectId).subscribe((res: any) => {
-              this.newNames = JSON.parse('[' + res[0].Names + ']');
-              this.isUserLogged = true;
-            })
-          });
+          var r = confirm("Update Name");
+          if (r == true) {
+            this.bsrService.sendName(result.form.value.name, result.oldValue).subscribe(arg => {
+              this.bsrService.login({ email: this.userEmail, name: this.username }, this.projectId).subscribe((res: any) => {
+                this.newNames = JSON.parse('[' + res[0].Names + ']');
+                this.isUserLogged = true;
+              })
+            });
+          } else {
+         
+          }
+
+       
         } else {
           this.bsrService.deleteName(result.oldValue).subscribe(arg => {
             this.bsrService.login({ email: this.userEmail, name: this.username }, this.projectId).subscribe((res: any) => {
@@ -143,14 +150,14 @@ export class BsrMobileComponent implements OnInit {
   reloadpage() {
     location.reload();
   }
-  emojiToggle(){
+  emojiToggle() {
     this.isEmojiTime = !this.isEmojiTime;
   }
 
 
   closeEmoji(): void {
     this.isEmojiTime = false;
-    }
+  }
 
 
 }
