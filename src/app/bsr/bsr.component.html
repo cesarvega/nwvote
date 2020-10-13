@@ -157,8 +157,7 @@
       </div>
 
 
-      <div class="col searchy" style="
-      " [style.left]="searchBoxLeftProperty"  *ngIf="appSearchSlidesData.length">
+      <div class="col searchy" [style.left]="searchBoxLeftProperty"  *ngIf="appSearchSlidesData.length">
         <mat-card  (click)="goToSlideFromSearch(item.$id)" *ngFor="let item of appSearchSlidesData; let i = index">
           <p>{{item.SlideDescription}}</p>
           <img [src]="'http://www.bipresents.com/' + item.SlideBGFileName" alt="overview"
