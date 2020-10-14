@@ -51,10 +51,6 @@
   margin: -1px;
   animation-delay: calc(1 * var(--stagger-delay));
   .fill {
-    // display: flex;
-    // justify-content: center;
-    // align-items: center;
-    // border-radius: 10px;
     border-bottom-left-radius: var(--border-bottom-left-radius);
     background-color: white;
     width: 100%;
@@ -64,13 +60,13 @@
     z-index: 2;
     display: flex;
     flex-direction: column-reverse;
-    justify-content: flex-end;
-    align-items: flex-end;
+
     .image-logo {
       width: 100px;
       border: grey solid 3px;
       border-radius: 50%;
       margin: 15px 28px;
+      animation: bounceInUp .5s ease-in-out 2s 1 forwards;
     }
   }
 }
