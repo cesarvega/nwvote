@@ -1,46 +1,44 @@
 .grid-container {
   display: grid;
   grid-template-columns: 1fr;
-  grid-template-rows: auto;
+  grid-template-rows: 1fr 1fr 2fr 0.5fr 0.3fr;
   // grid-auto-rows:78px 20px;
-  gap: 5px 0px;
+  // gap: 0px 0px;
   height: 100vh;
-  width: 450px;
+  max-width: 450px;
   margin: auto;
   overflow: hidden;
   // display: flex;
   // flex-direction: column;
   // justify-content: center;
   // align-items: center;
-  background-color: rgb(255, 238, 0);  
+  background-color: #150625;
   grid-template-areas:
     "⏰"
     "🧯"
     "💵"
     "📆"
     "❤";
-    --stagger-delay:100ms
+  --stagger-delay: 100ms;
 }
 
 @keyframes cardEntrance {
- from{
-   opacity: 0;
-   transform: scale(0.3);
-   filter: hue-rotate(180deg);
- }
- to{
-  opacity: 1;
-  transform: scale(1);
-  filter: hue-rotate(0deg);
- }
-
-
+  from {
+    opacity: 0;
+    transform: scale(0.3);
+    filter: hue-rotate(180deg);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1);
+    filter: hue-rotate(0deg);
+  }
 }
 
-.card{
-  background-color: chartreuse;
-  animation: cardEntrance 700ms ease-out, bounceInRight 1s ease-in-out;
+.card {
+  animation: bounceInRight 1s ease-in-out;
   animation-fill-mode: backwards;
+  // border-bottom-left-radius: 120px;
 }
 
 .⏰ {
@@ -48,48 +46,80 @@
   display: flex;
   justify-content: center;
   align-items: center;
-  border: chartreuse solid 1px;
-  background-color: red;  
+  background-color: #e17c9e;
+  border-radius: 0px;
   animation-delay: calc(1 * var(--stagger-delay));
+  .fill {
+    // border-radius: 10px;
+    border-bottom-left-radius: 120px;
+    background-color: white;
+    width: 100%;
+    height: 120%;
+    margin: 0;
+    padding: 0;
+  }
 }
 .🧯 {
   grid-area: 🧯;
   display: flex;
   justify-content: center;
   align-items: center;
-  border: chartreuse solid 1px;
-  background-color: rgb(78, 233, 31);  
+  background-color: #8a4db5;
   animation-delay: calc(2 * var(--stagger-delay));
+   .fill {
+     
+    border-bottom-left-radius: 120px;
+    background-color: #e17c9e;
+    width: 100%;
+    height: 100%;
+  }
 }
 .💵 {
   grid-area: 💵;
   display: flex;
   justify-content: center;
   align-items: center;
-  border: chartreuse solid 1px;
-  background-color: rgb(216, 21, 183);  
+  background-color: #150625;
   animation-delay: calc(3 * var(--stagger-delay));
+   .fill {
+    border-bottom-left-radius: 120px;
+    background-color: #8a4db5;
+    width: 100%;
+    height: 100%;
+  }
 }
 .📆 {
   grid-area: 📆;
   display: flex;
   justify-content: center;
   align-items: center;
-  border: chartreuse solid 1px;
-  background-color: rgb(238, 133, 14);  
+  background-color:#150625;
+  display: flex;
+  align-items: flex-end;
   animation-delay: calc(4 * var(--stagger-delay));
+   .fill {
+    border-radius: 25% 25% 0% 0%;
+    background-color:#150625;
+    width: 100%;
+    height: 90%;
+
+  }
 }
 .❤ {
   grid-area: ❤;
   display: flex;
   justify-content: center;
   align-items: center;
-  border: chartreuse solid 1px;
-  background-color: rgb(108, 10, 173);  
+  background-color:#150625;
   animation-delay: calc(5 * var(--stagger-delay));
+   .fill {
+    // border-bottom-left-radius: 120px;
+    border-radius: 30px 30px 0 0px;
+    background-color: #067fd5;
+    width: 100%;
+    height: 100%;
+  }
 }
-
-
 
 $postItanimations: shakeY, shakeY, shakeY, shakeY, shakeY, shakeY, shakeY, shakeY, shakeY, shakeY, shakeY, shakeY;
 $postItseconds: 1, 2, 3;
