@@ -24,6 +24,34 @@
   --border-bottom-left-radius: 80px;
 }
 
+@media (maX-width: 576px) {
+  .grid-container {
+    display: grid;
+    grid-template-columns: 1fr;
+    grid-template-rows: 1fr 1fr 2fr 0.5fr 0.3fr;
+    // grid-auto-rows:78px 20px;
+    // gap: 0px 0px;
+    top: 0px;
+    height: 100vh;
+    max-width: 450px;
+    margin: auto;
+    overflow: hidden;
+    // display: flex;
+    // flex-direction: column;
+    // justify-content: center;
+    // align-items: center;
+    background-color: #150625;
+    grid-template-areas:
+      "⏰"
+      "🧯"
+      "💵"
+      "📆"
+      "❤";
+    --stagger-delay: 200ms;
+    --border-bottom-left-radius: 80px;
+  }
+}
+
 @keyframes cardEntrance {
   from {
     opacity: 0;
