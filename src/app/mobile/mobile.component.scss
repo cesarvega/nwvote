@@ -1,29 +1,32 @@
-.grid-container {
-  display: grid;
-  grid-template-columns: 1fr;
-  grid-template-rows: 1fr 1fr 2fr 0.5fr 0.3fr;
-  // grid-auto-rows:78px 20px;
-  // gap: 0px 0px;
-  height: 93vh;
-  max-width: 450px;
-  margin: auto;
-  overflow: hidden;
-  background-color: #150625;
-  border: solid 4px navy;
-  border-radius: 10px;
-  top: 40px;
-  position: relative;
-  background-color: #150625;
-  grid-template-areas:
-    "⏰"
-    "🧯"
-    "💵"
-    "📆"
-    "❤";
-  --stagger-delay: 200ms;
-  --border-bottom-left-radius: 80px;
+@media (max-width: 576px) {
+  .grid-container {
+    display: grid;
+    grid-template-columns: 1fr;
+    grid-template-rows: 1fr 1fr 2fr 0.5fr 0.3fr;
+    // grid-auto-rows:78px 20px;
+    // gap: 0px 0px;
+    height: 100vh;
+    max-width: 450px;
+    margin: auto;
+    overflow: hidden;
+    background-color: #150625;
+   
+    border-radius: 10px;
+    
+    
+    background-color: #150625;
+    grid-template-areas:
+      "⏰"
+      "🧯"
+      "💵"
+      "📆"
+      "❤";
+    --stagger-delay: 200ms;
+    --border-bottom-left-radius: 80px;
+  }
 }
 
+// cellphone mobile device screen size
 @media (min-width: 576px) {
   .grid-container {
     display: grid;
@@ -31,8 +34,11 @@
     grid-template-rows: 1fr 1fr 2fr 0.5fr 0.3fr;
     // grid-auto-rows:78px 20px;
     // gap: 0px 0px;
-    top: 0px;
-    height: 100vh;
+    top: 10px;
+    position: relative;
+    border: solid 4px navy;
+    // top: 0px;
+    height: 98vh;
     max-width: 450px;
     margin: auto;
     overflow: hidden;
@@ -95,7 +101,7 @@
       border-radius: 50%;
       margin: 15px 28px;
       // opacity: 0;
-      animation: bounceInUp 0.5s ease-in-out 1.5s 1 backwards,  cardEntrance 0.5s ease-in-out 1.5s 1 backwards;
+      animation: bounceInUp 0.5s ease-in-out 1.5s 1 backwards, cardEntrance 0.5s ease-in-out 1.5s 1 backwards;
     }
   }
 }
