@@ -45,6 +45,9 @@
   grid-area: ⏰;
   background-color: #e17c9e;
   border-radius: 0px;
+  border-bottom: #e17c9e solid 6px;
+  border-radius: 0px;
+  margin: -1px;
   animation-delay: calc(1 * var(--stagger-delay));
   .fill {
       display: flex;
