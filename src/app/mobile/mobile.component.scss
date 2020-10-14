@@ -1,51 +1,121 @@
 .grid-container {
-    display: grid;
-    grid-template-columns: repeat(4, 1fr);
-    grid-template-rows: 1fr 2fr 1fr;
-    gap: 0px 0px;
-    grid-template-areas:
-      "header header header header"
-      "body body body body"
-      "footer footer footer footer";
-      height: 100vh;
-    //   max-width: 400px;
-    background-color: lightpink;
-    justify-content: space-evenly;
-    align-items: flex-start;
-  }
-  .footer { 
-        grid-area: footer; 
-        height: 100%;
-        background-color: lightblue;
-}
-  .body { 
-        grid-area: body; 
-        height: 100%;
-        background-color: lightgreen;
-        justify-content: center;
-        align-items: center;
-}
-  .header { 
-        grid-area: header; 
-        height: 100%;
-        background-color: lightsalmon;
+  display: grid;
+  grid-template-columns: 1fr;
+  grid-template-rows: auto;
+  // grid-auto-rows:78px 20px;
+  gap: 5px 0px;
+  height: 100vh;
+  width: 450px;
+  margin: auto;
+  overflow: hidden;
+  // display: flex;
+  // flex-direction: column;
+  // justify-content: center;
+  // align-items: center;
+  background-color: rgb(255, 238, 0);  
+  grid-template-areas:
+    "⏰"
+    "🧯"
+    "💵"
+    "📆"
+    "❤";
+    --stagger-delay:100ms
 }
 
-.grid {
-    display: flex;
-    // grid-template-rows: 20px 20px 40px 20px 40px;
-    // grid-template-columns: 1fr 2fr 1fr;
-    justify-content: space-evenly;
-    // align-items: flex-end;
-    // height: 30vh;
+@keyframes cardEntrance {
+ from{
+   opacity: 0;
+   transform: scale(0.3);
+   filter: hue-rotate(180deg);
+ }
+ to{
+  opacity: 1;
+  transform: scale(1);
+  filter: hue-rotate(0deg);
+ }
 
-    .item{
-        color: white;
-        align-items: center;
-        text-align: center;
-        width: 40px;
-        // justify-content: space-around;
-        // align-items: center;
-        
+
+}
+
+.card{
+  background-color: chartreuse;
+  animation: cardEntrance 700ms ease-out, bounceInRight 1s ease-in-out;
+  animation-fill-mode: backwards;
+}
+
+.⏰ {
+  grid-area: ⏰;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border: chartreuse solid 1px;
+  background-color: red;  
+  animation-delay: calc(1 * var(--stagger-delay));
+}
+.🧯 {
+  grid-area: 🧯;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border: chartreuse solid 1px;
+  background-color: rgb(78, 233, 31);  
+  animation-delay: calc(2 * var(--stagger-delay));
+}
+.💵 {
+  grid-area: 💵;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border: chartreuse solid 1px;
+  background-color: rgb(216, 21, 183);  
+  animation-delay: calc(3 * var(--stagger-delay));
+}
+.📆 {
+  grid-area: 📆;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border: chartreuse solid 1px;
+  background-color: rgb(238, 133, 14);  
+  animation-delay: calc(4 * var(--stagger-delay));
+}
+.❤ {
+  grid-area: ❤;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border: chartreuse solid 1px;
+  background-color: rgb(108, 10, 173);  
+  animation-delay: calc(5 * var(--stagger-delay));
+}
+
+
+
+$postItanimations: shakeY, shakeY, shakeY, shakeY, shakeY, shakeY, shakeY, shakeY, shakeY, shakeY, shakeY, shakeY;
+$postItseconds: 1, 2, 3;
+$postItHeaderColors: #d6f8fd, #d6f8fd, #d6f8fd, #d6f8fd, #d6f8fd, #d6f8fd, #d6f8fd, #d6f8fd, #d6f8fd;
+$postItHeaderColorsLength: length($postItHeaderColors);
+// theme
+$postItHeaderColors2: #d6f8fd, #dcd6fd, #d6fde9, #fdfcd6, #d6f8fd, #fdd6e8, #fddfd6, #d6f8fd, #d6f8fd;
+.post-it-list-theme {
+  @for $i from 1 through 5 {
+    &:nth-of-type(#{$postItHeaderColorsLength}n + #{$i}) .post-card {
+      background: nth($postItHeaderColors2, $i);
+      // animation: nth($postItanimations, $i) 0.2s;
+      animation: fadeIn 0.2s ease-in-out backwards;
+      animation-iteration-count: 1;
+      animation-delay: $i * 0.05 + s;
+    }
+
+    &:nth-of-type(#{$postItHeaderColorsLength}n + #{$i}) .post-card:hover {
+      // background: nth($postItHeaderColors, $i);
+      // -o-transform: rotate(4deg);
+      // -webkit-transform: rotate(4deg);
+      transform: rotate(1deg);
+      position: relative;
+      top: -2px;
+      background: lightgoldenrodyellow;
+      // animation: nth($postItanimations, $i) 1s;
     }
   }
+}
