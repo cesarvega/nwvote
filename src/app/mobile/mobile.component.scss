@@ -24,7 +24,7 @@
   --border-bottom-left-radius: 80px;
 }
 
-@media (maX-width: 576px) {
+@media (min-width: 576px) {
   .grid-container {
     display: grid;
     grid-template-columns: 1fr;
