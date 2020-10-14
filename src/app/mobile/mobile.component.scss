@@ -22,7 +22,6 @@
     --stagger-delay: 200ms;
     --border-bottom-left-radius: 80px;
   }
-  
 }
 
 // desktop
@@ -62,10 +61,7 @@
     --stagger-delay: 200ms;
     --border-bottom-left-radius: 80px;
   }
-
 }
-
-
 
 @keyframes cardEntrance {
   from {
@@ -104,6 +100,10 @@
 }
 
 .card {
+  -webkit-animation: bounceInRight 1s ease-in-out, CardEntrance 1s ease-in-out;
+  -moz-animation: bounceInRight 1s ease-in-out, CardEntrance 1s ease-in-out;
+  -ms-animation: bounceInRight 1s ease-in-out, CardEntrance 1s ease-in-out;
+  -o-animation: bounceInRight 1s ease-in-out, CardEntrance 1s ease-in-out;
   animation: bounceInRight 1s ease-in-out, CardEntrance 1s ease-in-out;
   animation-fill-mode: backwards;
   // border-bottom-left-radius: var(--border-bottom-left-radius);
@@ -132,6 +132,11 @@
       border: grey solid 3px;
       border-radius: 50%;
       margin: 18px 25px;
+
+      -webkit-animation: bounceInDown 0.5s ease-in-out 1.5s 1 backwards, cardEntrance 0.5s ease-in-out 1.5s 1 backwards;
+      -moz-animation: bounceInDown 0.5s ease-in-out 1.5s 1 backwards, cardEntrance 0.5s ease-in-out 1.5s 1 backwards;
+      -ms-animation: bounceInDown 0.5s ease-in-out 1.5s 1 backwards, cardEntrance 0.5s ease-in-out 1.5s 1 backwards;
+      -o-animation: bounceInDown 0.5s ease-in-out 1.5s 1 backwards, cardEntrance 0.5s ease-in-out 1.5s 1 backwards;
       animation: bounceInDown 0.5s ease-in-out 1.5s 1 backwards, cardEntrance 0.5s ease-in-out 1.5s 1 backwards;
     }
   }
@@ -213,6 +218,11 @@ $postItHeaderColors2: #d6f8fd, #dcd6fd, #d6fde9, #fdfcd6, #d6f8fd, #fdd6e8, #fdd
     &:nth-of-type(#{$postItHeaderColorsLength}n + #{$i}) .post-card {
       background: nth($postItHeaderColors2, $i);
       // animation: nth($postItanimations, $i) 0.2s;
+
+      -webkit-animation: fadeIn 0.2s ease-in-out backwards;
+      -moz-animation: fadeIn 0.2s ease-in-out backwards;
+      -ms-animation: fadeIn 0.2s ease-in-out backwards;
+      -o-animation: fadeIn 0.2s ease-in-out backwards;
       animation: fadeIn 0.2s ease-in-out backwards;
       animation-iteration-count: 1;
       animation-delay: $i * 0.05 + s;
