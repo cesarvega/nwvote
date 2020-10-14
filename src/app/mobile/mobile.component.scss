@@ -11,9 +11,6 @@
     overflow: hidden;
     background-color: #150625;
    
-    border-radius: 10px;
-    
-    
     background-color: #150625;
     grid-template-areas:
       "⏰"
@@ -34,6 +31,10 @@
     grid-template-rows: 1fr 1fr 2fr 0.5fr 0.3fr;
     // grid-auto-rows:78px 20px;
     // gap: 0px 0px;
+    
+    border-radius: 10px;
+    
+    
     top: 10px;
     position: relative;
     border: solid 4px navy;
