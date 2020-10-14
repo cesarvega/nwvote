@@ -1,3 +1,5 @@
+// mobile
+
 @media (max-width: 576px) {
   .grid-container {
     display: grid;
@@ -10,10 +12,7 @@
     margin: auto;
     overflow: hidden;
     background-color: #150625;
-   
-    border-radius: 10px;
-    
-    
+
     background-color: #150625;
     grid-template-areas:
       "⏰"
@@ -24,9 +23,31 @@
     --stagger-delay: 200ms;
     --border-bottom-left-radius: 80px;
   }
+
+  .name-title {
+    position: absolute;
+    left: 136px;
+    top: 74px;
+  }
+
+  .hr {
+    border: hotpink 2px dotted;
+    width: 134px;
+    position: absolute;
+    top: 92px;
+    left: 137px;
+  }
+
+  .name-sub {
+    position: absolute;
+    left: 138px;
+    top: 104px;
+    font-size: 16px;
+    color: grey;
+  }
 }
 
-// cellphone mobile device screen size
+// desktop
 @media (min-width: 576px) {
   .grid-container {
     display: grid;
@@ -42,6 +63,9 @@
     max-width: 450px;
     margin: auto;
     overflow: hidden;
+
+    border-radius: 10px;
+
     // display: flex;
     // flex-direction: column;
     // justify-content: center;
@@ -55,6 +79,18 @@
       "❤";
     --stagger-delay: 200ms;
     --border-bottom-left-radius: 80px;
+  }
+
+  .name-title {
+    position: absolute; left: 138px; top: 105px;
+  }
+
+  .hr {
+    border: hotpink 2px dotted; width: 134px; position: absolute; top: 122px; left: 137px;
+  }
+
+  .name-sub {
+    position: absolute; left: 138px; top: 142px;font-size: 16px;color: grey;
   }
 }
 
@@ -101,7 +137,7 @@
       border-radius: 50%;
       margin: 15px 28px;
       // opacity: 0;
-      animation: bounceInUp 0.5s ease-in-out 1.5s 1 backwards, cardEntrance 0.5s ease-in-out 1.5s 1 backwards;
+      animation: bounceInDown 0.5s ease-in-out 1.5s 1 backwards, cardEntrance 0.5s ease-in-out 1.5s 1 backwards;
     }
   }
 }
