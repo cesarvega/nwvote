@@ -23,28 +23,7 @@
     --stagger-delay: 200ms;
     --border-bottom-left-radius: 80px;
   }
-
-  .name-title {
-    position: absolute;
-    left: 136px;
-    top: 74px;
-  }
-
-  .hr {
-    border: hotpink 2px dotted;
-    width: 134px;
-    position: absolute;
-    top: 92px;
-    left: 137px;
-  }
-
-  .name-sub {
-    position: absolute;
-    left: 138px;
-    top: 104px;
-    font-size: 16px;
-    color: grey;
-  }
+  
 }
 
 // desktop
@@ -81,18 +60,9 @@
     --border-bottom-left-radius: 80px;
   }
 
-  .name-title {
-    position: absolute; left: 138px; top: 105px;
-  }
-
-  .hr {
-    border: hotpink 2px dotted; width: 134px; position: absolute; top: 122px; left: 137px;
-  }
-
-  .name-sub {
-    position: absolute; left: 138px; top: 142px;font-size: 16px;color: grey;
-  }
 }
+
+
 
 @keyframes cardEntrance {
   from {
@@ -105,6 +75,29 @@
     // transform: scale(1);
     filter: hue-rotate(0deg);
   }
+}
+
+.title-group {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: start;
+  padding-top: 17px;
+}
+
+.name-title {
+  line-height: 4px;
+  font-family: hackers;
+  font-size: 1.7rem;
+  text-align: center;
+}
+
+.name-sub {
+  font-size: 1rem;
+  line-height: 0px;
+  font-style: normal;
+  letter-spacing: 0.231em;
+  font-family: caviar;
 }
 
 .card {
@@ -135,8 +128,7 @@
       width: 100px;
       border: grey solid 3px;
       border-radius: 50%;
-      margin: 15px 28px;
-      // opacity: 0;
+      margin: 18px 25px;
       animation: bounceInDown 0.5s ease-in-out 1.5s 1 backwards, cardEntrance 0.5s ease-in-out 1.5s 1 backwards;
     }
   }
