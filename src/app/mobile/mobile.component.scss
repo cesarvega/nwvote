@@ -4,14 +4,15 @@
   grid-template-rows: 1fr 1fr 2fr 0.5fr 0.3fr;
   // grid-auto-rows:78px 20px;
   // gap: 0px 0px;
-  height: 100vh;
+  height: 93vh;
   max-width: 450px;
   margin: auto;
   overflow: hidden;
-  // display: flex;
-  // flex-direction: column;
-  // justify-content: center;
-  // align-items: center;
+  background-color: #150625;
+  border: solid 4px navy;
+  border-radius: 10px;
+  top: 40px;
+  position: relative;
   background-color: #150625;
   grid-template-areas:
     "⏰"
@@ -26,18 +27,17 @@
 @keyframes cardEntrance {
   from {
     opacity: 0;
-    transform: scale(0.3);
+    // transform: scale(0.3);
     filter: hue-rotate(180deg);
   }
   to {
     opacity: 1;
-    transform: scale(1);
+    // transform: scale(1);
     filter: hue-rotate(0deg);
   }
 }
 
 .card {
-
   animation: bounceInRight 1s ease-in-out, CardEntrance 1s ease-in-out;
   animation-fill-mode: backwards;
   // border-bottom-left-radius: var(--border-bottom-left-radius);
@@ -66,7 +66,8 @@
       border: grey solid 3px;
       border-radius: 50%;
       margin: 15px 28px;
-      animation: bounceInUp .5s ease-in-out 2s 1 forwards;
+      // opacity: 0;
+      animation: bounceInUp 0.5s ease-in-out 1.5s 1 backwards,  cardEntrance 0.5s ease-in-out 1.5s 1 backwards;
     }
   }
 }
