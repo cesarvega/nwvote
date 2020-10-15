@@ -98,6 +98,20 @@
         }
     }
 
+    .example-handle {
+        position: absolute;
+        top: 10px;
+        right: 10px;
+        color: #ccc;
+        cursor: move;
+        width: 24px;
+        height: 24px;
+        position: absolute;
+        right: auto;
+        top: 10px;
+        z-index: 99;
+    }
+
     .tab-1 {
         overflow-y: scroll;
         max-height: 200px;
@@ -180,19 +194,7 @@
             display: none;
         }
 
-        .example-handle {
-            position: absolute;
-            top: 10px;
-            right: 10px;
-            color: #ccc;
-            cursor: move;
-            width: 24px;
-            height: 24px;
-            position: absolute;
-            right: auto;
-            top: 10px;
-            z-index: 99;
-        }
+      
 
         .test-emoji {
             display: flex;
@@ -271,19 +273,7 @@
             border-radius: 10px;
         }
 
-        .example-handle {
-            position: absolute;
-            top: 10px;
-            right: 10px;
-            color: #ccc;
-            cursor: move;
-            width: 24px;
-            height: 24px;
-            position: absolute;
-            right: auto;
-            top: 10px;
-            z-index: 99;
-        }
+      
     }
     // small mobile
     @media (max-width: 400px) {
@@ -350,19 +340,7 @@
             border-radius: 10px;
         }
 
-        .example-handle {
-            position: absolute;
-            top: 10px;
-            right: 10px;
-            color: #ccc;
-            cursor: move;
-            width: 24px;
-            height: 24px;
-            position: absolute;
-            right: auto;
-            top: 10px;
-            z-index: 99;
-        }
+      
     }
 
     .emoji-mobile-box {

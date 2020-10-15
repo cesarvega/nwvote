@@ -174,7 +174,7 @@ export class editName {
   infoMessage = true;
   popupwindowData: { form: FormGroup; oldValue: string; };
   editName: string;
-  @HostBinding('attr.role') role = 'admin'; 
+  // @HostBinding('attr.role') role = 'admin'; 
  
   constructor(
     public dialogRef: MatDialogRef<editName>,
