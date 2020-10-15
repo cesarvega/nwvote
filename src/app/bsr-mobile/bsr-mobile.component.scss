@@ -98,14 +98,6 @@
         }
     }
 
-    .emoji-button {
-        outline: none;
-        position: relative;
-        top: -70px;
-        left: 143px;
-        animation: bounce 0.6s ease-in-out 1.2s 1 normal forwards;
-    }
-
     //desktop
     @media (min-width: 576px) {
         .names-list-card {
@@ -342,7 +334,7 @@
         // animation: heartBeat 1s ease-in-out 0.3s 1 forwards;
         :hover {
             // animation: heartBeat 1s ease-in-out 0.3s 1 forwards;
-            @include BoxShadow(6)
+            @include BoxShadow(6);
         }
     }
 }
@@ -357,10 +349,16 @@
     @include BoxShadow(6);
 }
 
-
-
 // Edit-Name.html
 
-.infoAlertBox{
+.infoAlertBox {
     animation: bounce 0.5 ease 0s 1 normal forwards;
+}
+
+.emoji-button {
+    outline: none;
+    position: relative;
+    top: -70px;
+    left: 143px;
+    animation: headShake 0.6s ease-in-out 1.2s 1 normal forwards;
 }
