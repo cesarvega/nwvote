@@ -7,7 +7,7 @@ import { timer } from 'rxjs';
   styleUrls: ['./mobile.component.scss']
 })
 export class MobileComponent implements OnInit {
-  imageIndex = 'mars_00001.png';
+  imageIndex = 'pilot_00001.png';
   // imageIndex = 'mars_00001.png';
   filmLenght = 20;
   imagePath = '/images';
@@ -24,9 +24,9 @@ export class MobileComponent implements OnInit {
   }
 
   animate(){
-    this.imageIndex = 'ezgif.com-gif-maker.gif';
+    this.imageIndex = 'ezgif.com-gif-maker (3).gif';
     setTimeout(() => {
-      this.imageIndex = 'mars_00001.png';
-    }, 3000);
+      this.imageIndex = 'pilot_00001.png';
+    }, 6000);
   }
 }
