@@ -224,9 +224,9 @@ $postItHeaderColors: #d6f8fd, #d6f8fd, #d6f8fd, #d6f8fd, #d6f8fd, #d6f8fd, #d6f8
 $postItHeaderColorsLength: length($postItHeaderColors);
 // theme
 $postItHeaderColors2: #d6f8fd, #dcd6fd, #d6fde9, #fdfcd6, #d6f8fd, #fdd6e8, #fddfd6, #d6f8fd, #d6f8fd;
-.post-it-list-theme {
+.class-container {
   @for $i from 1 through 5 {
-    &:nth-of-type(#{$postItHeaderColorsLength}n + #{$i}) .post-card {
+    &:nth-of-type(#{$postItHeaderColorsLength}n + #{$i}) .card {
       background: nth($postItHeaderColors2, $i);
       // animation: nth($postItanimations, $i) 0.2s;
 
@@ -239,7 +239,7 @@ $postItHeaderColors2: #d6f8fd, #dcd6fd, #d6fde9, #fdfcd6, #d6f8fd, #fdd6e8, #fdd
       animation-delay: $i * 0.05 + s;
     }
 
-    &:nth-of-type(#{$postItHeaderColorsLength}n + #{$i}) .post-card:hover {
+    &:nth-of-type(#{$postItHeaderColorsLength}n + #{$i}) .card:hover {
       // background: nth($postItHeaderColors, $i);
       // -o-transform: rotate(4deg);
       // -webkit-transform: rotate(4deg);
