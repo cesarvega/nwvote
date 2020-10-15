@@ -48,7 +48,7 @@ export class BsrComponent implements OnInit {
   pageCounter = ' 1/40';
   currentPageNumber = 0;
   appSlidesData: any;
-  mainMenu: boolean = false;
+  mainMenu: boolean = true;
   conceptData: any = [];
   newPost: Object;
   newName: any;
