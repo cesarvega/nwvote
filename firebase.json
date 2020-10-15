@@ -1,6 +1,6 @@
 {
   "hosting": {
-    "public": "dist",
+    "public": "dist/nw-vote",
     "ignore": [
       "firebase.json",
       "**/.*",

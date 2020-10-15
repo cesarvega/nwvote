@@ -31,498 +31,224 @@
 }
 
 :host {
-    .toolbar {
-        background-color: #004684;
-        color: rgba(255, 255, 255, 0.87);
-        height: 56px;
-        max-height: 56px;
+    .grid-container {
+        display: grid;
+        grid-template-columns: 1fr;
+        grid-template-rows: 0.5fr 1fr 2fr;
+        grid-template-areas: "⏰" "🧯" "💵" ;
+        margin: auto;
+        background-color: #fff;
+        --stagger-delay: 100ms;
+        --border-bottom-left-radius: 10px;
+        max-width: 600px;
+        margin: auto;
+        overflow: hidden;
+    }
+
+    .project-name {
         display: flex;
-        box-sizing: border-box;
-        padding: 0 16px;
-        width: 100%;
-        flex-direction: row;
+        justify-content: space-between;
         align-items: center;
-        white-space: nowrap;
+        font-size: 43px;
+        line-height: 40px;
+        letter-spacing: 0.14em;
+        font-weight: 300;
+        font-style: normal;
+    }
+    // mobile
+    @media (max-width: 576px) {
+        .grid-container {
+            height: 100vh;
+            max-width: 450px;
+            padding: 0px;
+            margin: 0px;
+        }
+
+        .container {
+            padding-left: 0 !important;
+            padding-right: 0 !important;
+        }
     }
 
-    .name-box {
-        font-size: 20px;
-        cursor: pointer;
-        border-bottom: navy dashed 0.01em;
+    // desktop
+    @media (min-width: 576px) {
+        .grid-container {
+            border: solid 4px navy;
+            border-radius: 10px;
+            height: 100%;
+        }
     }
 
-    .emoji-icon {
-        outline: none;
-        position: absolute;
-        top: -70px;
-        right: -17px;
-        opacity: 1;
-        animation: flip 0.4s 0.8s ease-in-out 1 forwards;
-    }
-
-    .tab-emoji {
-        max-width: 380px;
-        min-width: 380px;
-    }
-
-    .names-list-card::-webkit-scrollbar {
-        display: none;
-    }
-
-    .name-input-field {
-        left: 0px;
-        animation: slideInDown 0.4s ease 0.6s backwards;
-    }
-
-    .finish-button {
-        right: 0px;
-        animation: rotateInDownLeft 0.2s ease 0.4s backwards;
-    }
-
-    .enable-anonymous {
-        animation: bounceIn 0.2s ease 0.6s backwards;
-    }
-
-    .remember-me {
-        // opacity: 0;
-        margin-bottom: 8px;
-        // animation: jackInTheBox 1s ease 2s forwards;
-    }
-
-    @keyframes cv-fadeIn {
+    @keyframes cardEntrance {
         from {
             opacity: 0;
+            // transform: scale(0.3);
+            filter: hue-rotate(180deg);
         }
         to {
             opacity: 1;
+            // transform: scale(1);
+            filter: hue-rotate(0deg);
         }
     }
 
-    .example-handle {
-        position: absolute;
-        top: 10px;
-        right: 10px;
-        color: #ccc;
-        cursor: move;
-        width: 24px;
-        height: 24px;
-        position: absolute;
-        right: auto;
-        top: 10px;
+
+    .card {
+        -webkit-animation: bounceInDown 1s ease-in-out, CardEntrance 1s ease-in-out;
+        -moz-animation: bounceInDown 1s ease-in-out, CardEntrance 1s ease-in-out;
+        -ms-animation: bounceInDown 1s ease-in-out, CardEntrance 1s ease-in-out;
+        -o-animation: bounceInDown 1s ease-in-out, CardEntrance 1s ease-in-out;
+        animation: bounceInDown 1s ease-in-out, CardEntrance 1s ease-in-out;
+        animation-fill-mode: backwards;
+        // border-bottom-left-radius: var(--border-bottom-left-radius);
+    }
+
+    .⏰ {
+        grid-area: ⏰;
+        background-color: #fff;
+        border-radius: 0px;
+        border-bottom: #fff solid 6px;
+        margin: -1px;
+        z-index: 999;
+        animation-delay: calc(1 * var(--stagger-delay));
+        .fill {
+            border-bottom-left-radius: var(--border-bottom-left-radius);
+            background-color: white;
+            width: 100%;
+            height: 100%;
+            margin: 0;
+            padding: 0;
+            z-index: 999;
+            display: flex;
+            flex-direction: column-reverse;
+            animation-delay: calc(2 * var(--stagger-delay));
+            .image-logo {
+                width: 120px;
+                // border: grey solid 3px;
+                border-radius: 4px;
+                margin: 18px 25px;
+                padding-right: 10px;
+                margin-right: 20px;
+                -webkit-animation: bounceInDown 0.5s ease-in-out 1.5s 1 backwards,
+                    cardEntrance 0.5s ease-in-out 1.5s 1 backwards;
+                -moz-animation: bounceInDown 0.5s ease-in-out 1.5s 1 backwards,
+                    cardEntrance 0.5s ease-in-out 1.5s 1 backwards;
+                -ms-animation: bounceInDown 0.5s ease-in-out 1.5s 1 backwards,
+                    cardEntrance 0.5s ease-in-out 1.5s 1 backwards;
+                -o-animation: bounceInDown 0.5s ease-in-out 1.5s 1 backwards,
+                    cardEntrance 0.5s ease-in-out 1.5s 1 backwards;
+                animation: bounceInDown 0.5s ease-in-out 1.5s 1 backwards,
+                    cardEntrance 0.5s ease-in-out 1.5s 1 backwards;
+            }
+        }
+    }
+    .🧯 {
+        grid-area: 🧯;
+        background-color: #fff;
+        border-radius: 0px;
+        margin: -11px;
         z-index: 99;
-    }
-
-    .tab-1 {
-        overflow-y: scroll;
-        max-height: 200px;
-        line-height: 30px;
-        letter-spacing: -0.054em;
-        scrollbar-width: thin;
-        background-color: white;
-        opacity: 0.97;
-    }
-
-    .tab-1::-webkit-scrollbar {
-        display: none;
-    }
-
-    .test-emoji {
-        display: flex;
-        justify-content: center;
-        align-content: center;
-        position: absolute;
-        top: 480px;
-        border: navy solid 2px;
-        padding: 5px;
-        margin: 5px;
-        border-radius: 10px;
-    }
-
-    //desktop
-    @media (min-width: 576px) {
-        .names-list-card {
-            height: 320px;
-            overflow-y: scroll;
-            min-width: 330px;
-            line-height: 26px;
-            border-bottom: #1e41ea solid 1px;
-            opacity: 0;
-            animation: slideInDown 0.5s ease 0.1s backwards, cv-fadeIn 0.4s ease-in-out 0s forwards;
-        }
-        .bsr-mobile-container {
-            max-width: 400px;
-            position: relative;
-            min-height: 90%;
-            top: 30px;
-            overflow-y: hidden;
-            border: solid #020263;
-            border-radius: 10px;
-        }
-        .tab-emoji {
-            max-width: 355px;
-            min-width: 355px;
-            overflow-y: scroll;
-        }
-        .emoji-mobile-box {
+        animation-delay: calc(2 * var(--stagger-delay));
+        .fill {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            border-bottom-left-radius: var(--border-bottom-left-radius);
             background-color: #fff;
-            position: absolute;
-            top: 12%;
-            border: lightgrey solid 4px;
-            border-radius: 10px;
-            padding: 10px;
-            max-height: 220px;
-            max-width: 387px;
-            font-size: 14px;
-            margin: 7px;
-            line-height: 19px;
-
-            opacity: 0;
-            animation: slideInDown 0.3s ease 0.1s backwards, cv-fadeIn 1s ease-in-out 0.3s forwards;
+            margin-top: -1px;
+            width: 100%;
+            height: 100%;
+            z-index: 99;
         }
-
-        .tab-1 {
-            overflow-y: scroll;
-            max-height: 200px;
-            line-height: 30px;
-            letter-spacing: -0.054em;
-            scrollbar-width: thin;
-            background-color: white;
-            opacity: 0.97;
+    }
+    .💵 {
+        grid-area: 💵;
+        background-color: #fff;
+        animation-delay: calc(3 * var(--stagger-delay));
+        z-index: 9;
+        .fill {
+            border-bottom-left-radius: var(--border-bottom-left-radius);
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            background-color: #fff;
+            width: 102%;
+            height: 100%;
+            z-index: 9;
+            margin: -5px;
         }
-
-        .tab-1::-webkit-scrollbar {
-            display: none;
-        }
-
-      
-
-        .test-emoji {
+    }
+   
+    .❤ {
+        grid-area: ❤;
+        background-color: #fff;
+        animation-delay: calc(5 * var(--stagger-delay));
+        z-index: 0;
+        .fill {
+            // border-bottom-left-radius: var(--border-bottom-left-radius);
             display: flex;
             justify-content: center;
-            align-content: center;
-            position: absolute;
-            top: 518px;
-            border: navy solid 2px;
-            padding: 5px;
-            margin: 5px;
-            border-radius: 10px;
+            align-items: center;
+            border-radius: 30px 30px 0 0px;
+            background-color: #067fd5;
+            width: 100%;
+            height: 100%;
+            z-index: 0;
         }
     }
-    //mobile
-    @media (max-width: 576px) {
-        .names-list-card {
-            height: 260px;
-            overflow-y: scroll;
-            min-width: 330px;
-            line-height: 26px;
-            border-bottom: #1e41ea solid 1px;
-            opacity: 0;
-            animation: slideInDown 0.5s ease 0.3s backwards, cv-fadeIn 1s ease-in-out 0.3s forwards;
-        }
 
-        .bsr-mobile-container {
-            max-width: 500px;
-            position: relative;
-            min-height: 100%;
-            overflow-y: hidden;
-        }
+    $postItanimations: shakeY, shakeY, shakeY, shakeY, shakeY, shakeY, shakeY, shakeY, shakeY, shakeY, shakeY, shakeY;
+    $postItseconds: 1, 2, 3;
+    $postItHeaderColors: #d6f8fd, #d6f8fd, #d6f8fd, #d6f8fd, #d6f8fd, #d6f8fd, #d6f8fd, #d6f8fd, #d6f8fd;
+    $postItHeaderColorsLength: length($postItHeaderColors);
+    // theme
+    $postItHeaderColors2: #d6f8fd, #dcd6fd, #d6fde9, #fdfcd6, #d6f8fd, #fdd6e8, #fddfd6, #d6f8fd, #d6f8fd;
+    .class-container {
+        @for $i from 1 through 5 {
+            &:nth-of-type(#{$postItHeaderColorsLength}n + #{$i}) .card {
+                background: nth($postItHeaderColors2, $i);
+                // animation: nth($postItanimations, $i) 0.2s;
 
-        .tab-emoji {
-            max-width: 380px;
-            min-width: 380px;
-        }
+                -webkit-animation: fadeIn 0.2s ease-in-out backwards;
+                -moz-animation: fadeIn 0.2s ease-in-out backwards;
+                -ms-animation: fadeIn 0.2s ease-in-out backwards;
+                -o-animation: fadeIn 0.2s ease-in-out backwards;
+                animation: fadeIn 0.2s ease-in-out backwards;
+                animation-iteration-count: 1;
+                animation-delay: $i * 0.05 + s;
+            }
 
-        .emoji-mobile-box {
-            background-color: #ffffff;
-            position: absolute;
-            top: 14%;
-            border: lightgrey 2px solid;
-            border-radius: 10px;
-            padding: 0px 11px 0px 16px;
-            margin: 10px;
-            max-height: 220px;
-            font-size: 14px;
-            line-height: 19px;
-            opacity: 0;
-            animation: slideInDown 0.3s ease 0.1s backwards, cv-fadeIn 1s ease-in-out 0.3s forwards;
-        }
-        
-        .tab-1 {
-            overflow-y: scroll;
-            max-height: 175px;
-            line-height: 30px;
-            letter-spacing: -0.054em;
-            scrollbar-width: thin;
-            background-color: white;
-            opacity: 0.97;
-        }
-
-        .tab-1::-webkit-scrollbar {
-            display: none;
-        }
-
-        .test-emoji {
-            display: flex;
-            justify-content: center;
-            align-content: center;
-            position: absolute;
-            top: 455px;
-            border: navy solid 2px;
-            padding: 5px;
-            margin: 5px;
-            border-radius: 10px;
-        }
-
-      
-    }
-    // small mobile
-    @media (max-width: 400px) {
-        .names-list-card {
-            height: 260px;
-            overflow-y: scroll;
-            min-width: 330px;
-            line-height: 26px;
-            border-bottom: #1e41ea solid 1px;
-            opacity: 0;
-            animation: slideInDown 0.5s ease 0.3s backwards, cv-fadeIn 1s ease-in-out 0.3s forwards;
-        }
-
-        .bsr-mobile-container {
-            max-width: 500px;
-            position: relative;
-            min-height: 100%;
-            overflow-y: hidden;
-        }
-
-        .tab-emoji {
-            max-width: 380px;
-            min-width: 380px;
-        }
-
-        .emoji-mobile-box {
-            background-color: #ffffff;
-            position: absolute;
-            top: 14%;
-            border: lightgrey 2px solid;
-            border-radius: 10px;
-            padding: 0px 11px 0px 16px;
-            margin: 10px;
-            max-height: 220px;
-            font-size: 14px;
-            line-height: 19px;
-            opacity: 0;
-            animation: slideInDown 0.3s ease 0.1s backwards, cv-fadeIn 1s ease-in-out 0.3s forwards;
-        }
-
-        .tab-1 {
-            overflow-y: scroll;
-            max-height: 175px;
-            line-height: 30px;
-            letter-spacing: -0.054em;
-            scrollbar-width: thin;
-            background-color: white;
-            opacity: 0.97;
-        }
-
-        .tab-1::-webkit-scrollbar {
-            display: none;
-        }
-
-        .test-emoji {
-            display: flex;
-            justify-content: center;
-            align-content: center;
-            position: absolute;
-            top: 455px;
-            border: navy solid 2px;
-            padding: 5px;
-            margin: 5px;
-            border-radius: 10px;
-        }
-
-      
-    }
-
-    .emoji-mobile-box {
-        overflow: hidden;
-    }
-    .emoji-mobile-box::-webkit-scrollbar {
-        display: none;
-    }
-
-    #login {
-        width: 100%;
-        // background: url('/assets/images/backgrounds/dark-material-bg.jpg') no-repeat;
-        background-color: white;
-        background-size: cover;
-
-        #login-form-wrapper {
-            flex: 1 0 auto;
-            padding: 5px;
-
-            #login-form {
-                // padding: 32px;
-                background: #ffffff;
-                text-align: center;
-
-                .logo {
-                    width: 286px;
-                }
-
-                .title {
-                    font-size: 20px;
-                    margin: 22px 0 18px 0;
-                }
-
-                form {
-                    width: 100%;
-                    text-align: left;
-
-                    mat-form-field {
-                        width: 100%;
-                    }
-
-                    mat-checkbox {
-                        margin: 0;
-                    }
-
-                    .remember-forgot-password {
-                        font-size: 13px;
-                        margin-top: 8px;
-
-                        .forgot-password {
-                            font-size: 13px;
-                            font-weight: 500;
-                            margin-bottom: 8px;
-                        }
-                    }
-
-                    .submit-button {
-                        width: 220px;
-                        margin: 8px auto;
-                        display: block;
-                    }
-                }
-
-                .register {
-                    margin: 22px auto 24px auto;
-                    font-weight: 500;
-
-                    .text {
-                        margin-right: 8px;
-                    }
-                }
-
-                .separator {
-                    font-size: 15px;
-                    font-weight: 600;
-                    margin: 14px auto;
-                    position: relative;
-                    overflow: hidden;
-                    width: 100px;
-                    color: rgba(0, 0, 0, 0.54);
-
-                    .text {
-                        display: inline-flex;
-                        position: relative;
-                        padding: 0 8px;
-                        z-index: 9999;
-
-                        &:before,
-                        &:after {
-                            content: "";
-                            display: block;
-                            width: 30px;
-                            position: absolute;
-                            top: 10px;
-                            border-top: 1px solid rgba(0, 0, 0, 0.12);
-                        }
-
-                        &:before {
-                            right: 100%;
-                        }
-
-                        &:after {
-                            left: 100%;
-                        }
-                    }
-                }
-
-                button {
-                    &.google,
-                    &.facebook {
-                        width: 192px;
-                        text-transform: none;
-                        color: #ffffff;
-                        font-size: 13px;
-                    }
-
-                    &.google {
-                        background-color: #d73d32;
-                        margin-bottom: 8px;
-                    }
-
-                    &.facebook {
-                        background-color: rgb(63, 92, 154);
-                    }
-                }
+            &:nth-of-type(#{$postItHeaderColorsLength}n + #{$i}) .card:hover {
+                // background: nth($postItHeaderColors, $i);
+                // -o-transform: rotate(4deg);
+                // -webkit-transform: rotate(4deg);
+                transform: rotate(1deg);
+                position: relative;
+                top: -2px;
+                background: lightgoldenrodyellow;
+                // animation: nth($postItanimations, $i) 1s;
             }
         }
     }
 
-    .delete-update-buttons {
-        color: #004684;
-        background-color: white;
-        font-size: 8px;
-        outline: none;
-        // animation: heartBeat 1s ease-in-out 0.3s 1 forwards;
-        z-index: 999999;
-    }
-    .refreshbutton {
-        color: #004684;
-        background-color: white;
-        font-size: 8px;
-        outline: none;
-        animation: heartBeat 1s ease-in-out 0.3s 1 forwards;
-    }
-
-    .clickToSumit {
+    
+    .project-name-button {
+        margin: 28px;
+        width: 100vh;
+        height: 100%;
+        font-family: caviar;
+        font-weight: 900;
+        margin: 28px;
+        background-color: #004785;
         color: white;
-        right: 0px;
-        animation: slideInDown 0.2s ease 0.1s backwards;
-        // animation: name duration timing-function delay iteration-count direction fill-mode;
+        letter-spacing: 2px;
+        -webkit-animation: bounceInDown 0.5s ease-in-out 1.5s 1 backwards,
+            cardEntrance 0.5s ease-in-out 1.5s 1 backwards;
+        -moz-animation: bounceInDown 0.5s ease-in-out 1.5s 1 backwards, cardEntrance 0.5s ease-in-out 1.5s 1 backwards;
+        -ms-animation: bounceInDown 0.5s ease-in-out 1.5s 1 backwards, cardEntrance 0.5s ease-in-out 1.5s 1 backwards;
+        -o-animation: bounceInDown 0.5s ease-in-out 1.5s 1 backwards, cardEntrance 0.5s ease-in-out 1.5s 1 backwards;
+        animation: bounceInDown 0.5s ease-in-out 1.5s 1 backwards, cardEntrance 0.5s ease-in-out 1.5s 1 backwards;
     }
 
-    .clickToSumit:hover {
-        @include BoxShadow(6);
-    }
-
-    // Edit-Name.html
-
-    .infoAlertBox {
-        animation: bounce 0.5 ease 0s 1 normal forwards;
-    }
-
-    .emoji-button {
-        outline: none;
-        position: relative;
-        top: -70px;
-        left: 143px;
-        animation: headShake 0.6s ease-in-out 1.2s 1 normal forwards;
-    }
-
-    .alertButons {
-        // color: #004684;
-        background-color: white;
-        font-size: 8px;
-        outline: none;
-        // animation: heartBeat 1s ease-in-out 0.3s 1 forwards;
-    }
-
-    .name-suggestions-field {
-        display: flex;
-        flex-direction: column;
-        justify-content: space-around;
-        align-items: center;
-    }
 }
