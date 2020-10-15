@@ -25,7 +25,7 @@ export class MobileComponent implements OnInit {
 
   animate(){
     this.imageIndex = 'ezgif.com-gif-maker.gif';
-    setInterval(() => {
+    setTimeout(() => {
       this.imageIndex = 'mars_00001.png';
     }, 3000);
   }
