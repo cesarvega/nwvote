@@ -251,3 +251,15 @@ $postItHeaderColors2: #d6f8fd, #dcd6fd, #d6fde9, #fdfcd6, #d6f8fd, #fdd6e8, #fdd
     }
   }
 }
+
+
+.work{
+  margin: 28px; font-family: caviar;font-weight: 900;
+  margin: 28px;
+  -webkit-animation: bounceInDown 0.5s ease-in-out 1.5s 1 backwards, cardEntrance 0.5s ease-in-out 1.5s 1 backwards;
+  -moz-animation: bounceInDown 0.5s ease-in-out 1.5s 1 backwards, cardEntrance 0.5s ease-in-out 1.5s 1 backwards;
+  -ms-animation: bounceInDown 0.5s ease-in-out 1.5s 1 backwards, cardEntrance 0.5s ease-in-out 1.5s 1 backwards;
+  -o-animation: bounceInDown 0.5s ease-in-out 1.5s 1 backwards, cardEntrance 0.5s ease-in-out 1.5s 1 backwards;
+  animation: bounceInDown 0.5s ease-in-out 1.5s 1 backwards, cardEntrance 0.5s ease-in-out 1.5s 1 backwards;
+
+}
