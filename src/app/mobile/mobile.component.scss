@@ -172,6 +172,7 @@
   .fill {
     border-bottom-left-radius: var(--border-bottom-left-radius);
     display: flex;
+    flex-direction: column;
     justify-content: center;
     align-items: center;
     background-color: #8a4db5;
