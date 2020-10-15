@@ -1,5 +1,5 @@
 <div *ngIf="infoMessage">
-    <form name="loginForm" [formGroup]="loginForm" novalidate class="nameform">
+    <form name="loginForm" [formGroup]="loginForm" novalidate>
 
 
         <div *ngIf="!isDeleting" class="mat-h2" style="text-align: center;">Are you sure you want to delete? </div>
@@ -19,7 +19,7 @@
 
         <div class="row" style="text-align: center;">
 
-            <div fxFlex fxLayoutAlign="center center">
+            <div class="" fxFlex fxLayoutAlign="center center">
 
                 <div fxFlex *ngIf="isDeleting">
                     <button (click)="buttonOption('delete')" class="delete-update-buttons" mat-mini-fab

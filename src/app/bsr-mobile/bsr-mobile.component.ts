@@ -1,4 +1,4 @@
-import { Component, OnInit, Inject } from '@angular/core';
+import { Component, OnInit, Inject, HostBinding } from '@angular/core';
 // import { NwvoteService } from '../../nw-vote/nwvote.service';
 import { FormBuilder, Validators, FormGroup } from '@angular/forms';
 import { Router, ActivatedRoute } from '@angular/router';
@@ -168,14 +168,20 @@ export interface DialogData {
   styleUrls: ['./bsr-mobile.component.scss']
 })
 export class editName {
+  
   loginForm: FormGroup;
   isDeleting = true;
   infoMessage = true;
   popupwindowData: { form: FormGroup; oldValue: string; };
   editName: string;
+  @HostBinding('attr.role') role = 'admin'; 
+ 
   constructor(
     public dialogRef: MatDialogRef<editName>,
     @Inject(MAT_DIALOG_DATA) public data: DialogData, private _formBuilder: FormBuilder) {
+
+
+      
     this.editName = this.data.name;
     if (this.data.name === 'displayInfo') {
       this.infoMessage = false;
@@ -202,6 +208,10 @@ export class editName {
     }
 
     this.dialogRef.close(this.popupwindowData);
+
+
+
+
   }
 
   buttonOption(option) {

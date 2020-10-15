@@ -66,7 +66,7 @@
                             </div>
 
                             <button (click)="submitCredentials()" mat-raised-button style="color: white;"
-                                color="primary" class="submit-button" aria-label="LOG IN"
+                                color="primary" class="submit-button clickToSumit" aria-label="LOG IN"
                                 [disabled]="loginForm.invalid">
                                 SUBMIT
                             </button>
@@ -100,10 +100,7 @@
 
                     </mat-form-field>
 
-                    <button style="outline: none;
-                    position: relative;
-                    top: -70px;
-                    left: 143px;" (click)="emojiToggle()" mat-icon-button color="accent"
+                    <button class="emoji-button" (click)="emojiToggle()" mat-icon-button color="accent"
                         aria-label="emoji">
                         <mat-icon>tag_faces</mat-icon>
                     </button>
@@ -111,8 +108,8 @@
                     <div class="col" style="text-align: center;">
                         <div class="col" style="text-align: center;">
 
-                            <button (click)="sendNewName(); reference.value=''" mat-raised-button style="color: white;"
-                                color="primary" class="submit-button" aria-label="LOG IN">
+                            <button (click)="sendNewName(); reference.value=''" mat-raised-button 
+                                color="primary" class="clickToSumit mat-elvation-z2" aria-label="LOG IN">
                                 CLICK TO SUBMIT
                             </button>
                             <br>
@@ -130,7 +127,7 @@
                         <div class="col">
 
                             <button (click)="finish()" mat-raised-button style="color: white;" color="accent"
-                                class="submit-button" aria-label="LOG IN">
+                                class="clickToSumit mat-elvation-z2" aria-label="LOG IN">
                                 CLICK TO FINISH
                             </button>
                         </div>
