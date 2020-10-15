@@ -331,12 +331,9 @@
         background-color: white;
         font-size: 8px;
         outline: none;
-        // animation: heartBeat 1s ease-in-out 0.3s 1 forwards;
-        :hover {
-            // animation: heartBeat 1s ease-in-out 0.3s 1 forwards;
-            @include BoxShadow(6);
-        }
+        animation: heartBeat 1s ease-in-out 0.3s 1 forwards;       
     }
+    
 }
 
 .clickToSumit {
@@ -345,6 +342,7 @@
     animation: slideInDown 0.2s ease 0.1s backwards;
     // animation: name duration timing-function delay iteration-count direction fill-mode;
 }
+
 .clickToSumit:hover {
     @include BoxShadow(6);
 }
@@ -361,4 +359,12 @@
     top: -70px;
     left: 143px;
     animation: headShake 0.6s ease-in-out 1.2s 1 normal forwards;
+}
+
+.alertButons {
+    // color: #004684;
+    background-color: white;
+    font-size: 8px;
+    outline: none;
+    // animation: heartBeat 1s ease-in-out 0.3s 1 forwards;       
 }
