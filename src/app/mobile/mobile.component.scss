@@ -1,4 +1,36 @@
 
+@mixin BoxShadow($dp) {
+  @if $dp==0 {
+      box-shadow: none;
+  } @else if $dp==1 {
+      box-shadow: 0 1px 1px 0 rgba(0, 0, 0, 0.14), 0 2px 1px -1px rgba(0, 0, 0, 0.12), 0 1px 3px 0 rgba(0, 0, 0, 0.2);
+  } @else if $dp==2 {
+      box-shadow: 0 2px 2px 0 rgba(0, 0, 0, 0.14), 0 3px 1px -2px rgba(0, 0, 0, 0.12), 0 1px 5px 0 rgba(0, 0, 0, 0.2);
+  } @else if $dp==3 {
+      box-shadow: 0 3px 4px 0 rgba(0, 0, 0, 0.14), 0 3px 3px -2px rgba(0, 0, 0, 0.12), 0 1px 8px 0 rgba(0, 0, 0, 0.2);
+  } @else if $dp==4 {
+      box-shadow: 0 4px 5px 0 rgba(0, 0, 0, 0.14), 0 1px 10px 0 rgba(0, 0, 0, 0.12), 0 2px 4px -1px rgba(0, 0, 0, 0.2);
+  } @else if $dp==6 {
+      box-shadow: 0 6px 10px 0 rgba(0, 0, 0, 0.14), 0 1px 18px 0 rgba(0, 0, 0, 0.12),
+          0 3px 5px -1px rgba(0, 0, 0, 0.2);
+  } @else if $dp==8 {
+      box-shadow: 0 8px 10px 1px rgba(0, 0, 0, 0.14), 0 3px 14px 2px rgba(0, 0, 0, 0.12),
+          0 5px 5px -3px rgba(0, 0, 0, 0.2);
+  } @else if $dp==9 {
+      box-shadow: 0 9px 12px 1px rgba(0, 0, 0, 0.14), 0 3px 16px 2px rgba(0, 0, 0, 0.12),
+          0 5px 6px -3px rgba(0, 0, 0, 0.2);
+  } @else if $dp==12 {
+      box-shadow: 0 12px 17px 2px rgba(0, 0, 0, 0.14), 0 5px 22px 4px rgba(0, 0, 0, 0.12),
+          0 7px 8px -4px rgba(0, 0, 0, 0.2);
+  } @else if $dp==16 {
+      box-shadow: 0 16px 24px 2px rgba(0, 0, 0, 0.14), 0 6px 30px 5px rgba(0, 0, 0, 0.12),
+          0 8px 10px -5px rgba(0, 0, 0, 0.2);
+  } @else if $dp==24 {
+      box-shadow: 0 24px 38px 3px rgba(0, 0, 0, 0.14), 0 9px 46px 8px rgba(0, 0, 0, 0.12),
+          0 11px 15px -7px rgba(0, 0, 0, 0.2);
+  }
+}
+
 .grid-container {
   display: grid;
   grid-template-columns: 1fr;
@@ -255,11 +287,16 @@ $postItHeaderColors2: #d6f8fd, #dcd6fd, #d6fde9, #fdfcd6, #d6f8fd, #fdd6e8, #fdd
 
 .work{
   margin: 28px; font-family: caviar;font-weight: 900;
+  background-color: white;
   margin: 28px;
+  outline: none;
   -webkit-animation: bounceInDown 0.5s ease-in-out 1.5s 1 backwards, cardEntrance 0.5s ease-in-out 1.5s 1 backwards;
   -moz-animation: bounceInDown 0.5s ease-in-out 1.5s 1 backwards, cardEntrance 0.5s ease-in-out 1.5s 1 backwards;
   -ms-animation: bounceInDown 0.5s ease-in-out 1.5s 1 backwards, cardEntrance 0.5s ease-in-out 1.5s 1 backwards;
   -o-animation: bounceInDown 0.5s ease-in-out 1.5s 1 backwards, cardEntrance 0.5s ease-in-out 1.5s 1 backwards;
   animation: bounceInDown 0.5s ease-in-out 1.5s 1 backwards, cardEntrance 0.5s ease-in-out 1.5s 1 backwards;
+}
+.work:hover{
+  @include BoxShadow(24);
 
 }
