@@ -135,15 +135,27 @@
 }
 
 .card {
-  -webkit-animation: bounceInDown 1s ease-in-out, CardEntrance 1s ease-in-out;
-  -moz-animation: bounceInDown 1s ease-in-out, CardEntrance 1s ease-in-out;
-  -ms-animation: bounceInDown 1s ease-in-out, CardEntrance 1s ease-in-out;
-  -o-animation: bounceInDown 1s ease-in-out, CardEntrance 1s ease-in-out;
-  animation: bounceInDown 1s ease-in-out, CardEntrance 1s ease-in-out;
+  -webkit-animation: bounceInRight 1s ease-in-out, CardEntrance 1s ease-in-out;
+  -moz-animation: bounceInRight 1s ease-in-out, CardEntrance 1s ease-in-out;
+  -ms-animation: bounceInRight 1s ease-in-out, CardEntrance 1s ease-in-out;
+  -o-animation: bounceInRight 1s ease-in-out, CardEntrance 1s ease-in-out;
+  animation: bounceInRight 1s ease-in-out, CardEntrance 1s ease-in-out;
   animation-fill-mode: backwards;
   // border-bottom-left-radius: var(--border-bottom-left-radius);
 }
 
+@keyframes growCard {
+  from {
+   height: inherit;
+    // transform: scale(0.3);
+    filter: hue-rotate(180deg);
+  }
+  to {
+   height: 1320px;
+    // transform: scale(1);
+    filter: hue-rotate(0deg);
+  }
+}
 .⏰ {
   grid-area: ⏰;
   background-color: #e17c9e;
@@ -152,6 +164,7 @@
   margin: -1px;
   z-index: 999;
   animation-delay: calc(1 * var(--stagger-delay));
+
   .fill {
     border-bottom-left-radius: var(--border-bottom-left-radius);
     background-color: white;
@@ -168,13 +181,16 @@
       border: grey solid 3px;
       border-radius: 50%;
       margin: 18px 25px;
-
       -webkit-animation: bounceInDown 0.5s ease-in-out 1.5s 1 backwards, cardEntrance 0.5s ease-in-out 1.5s 1 backwards;
       -moz-animation: bounceInDown 0.5s ease-in-out 1.5s 1 backwards, cardEntrance 0.5s ease-in-out 1.5s 1 backwards;
       -ms-animation: bounceInDown 0.5s ease-in-out 1.5s 1 backwards, cardEntrance 0.5s ease-in-out 1.5s 1 backwards;
       -o-animation: bounceInDown 0.5s ease-in-out 1.5s 1 backwards, cardEntrance 0.5s ease-in-out 1.5s 1 backwards;
       animation: bounceInDown 0.5s ease-in-out 1.5s 1 backwards, cardEntrance 0.5s ease-in-out 1.5s 1 backwards;
     }
+  }
+
+  .fill:hover {
+    animation: growCard 1s ease-in-out 0s 1 normal  forwards;
   }
 }
 .🧯 {
