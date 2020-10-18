@@ -439,11 +439,11 @@ export class BsrComponent implements OnInit {
       this.postItListTheme = 'post-it-list-theme'
     }
     localStorage.setItem('post-it-list-theme', this.postItListTheme);
-    let audio = new Audio();
-    audio.src = "assets/sound/tap.wav";
-    audio.volume = 0.02;
-    audio.load();
-    audio.play();
+    // let audio = new Audio();
+    // audio.src = "assets/sound/tap.wav";
+    // audio.volume = 0.02;
+    // audio.load();
+    // audio.play();
   }
 
   toggleNamebox() {
