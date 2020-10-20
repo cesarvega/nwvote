@@ -23,7 +23,7 @@ export class BsrComponent implements OnInit {
   // @ViewChild('slider') slider;
 
   postItListTheme = 'post-it-list-theme'
-  searchBoxLeftProperty = '533px'
+  searchBoxLeftProperty = '611px;'
   loginForm: FormGroup;
   isMouseOver: boolean = false;
   sliderVal = 51;
@@ -141,10 +141,10 @@ export class BsrComponent implements OnInit {
       });
       this.createPostIt = (localStorage.getItem('createPostIt') === 'true') ? true : false;
       if (this.createPostIt) {
-        this.searchBoxLeftProperty = '700px';
+        this.searchBoxLeftProperty = '777px';
         this.currentPageNumber = (this.createPostIt) ? this.postItPresentationIndex : 0;
       }else{      
-        this.searchBoxLeftProperty = '533px';
+        this.searchBoxLeftProperty = '611px;';
         this.currentPageNumber = 0;
   
       }
@@ -213,7 +213,7 @@ export class BsrComponent implements OnInit {
 
   // TOOLBAR MENU ACTIONS 
   moveForward() {
-    this.searchBoxLeftProperty = '533px';
+    this.searchBoxLeftProperty = '611px;';
     this.appSearchSlidesData = [];
     this.isCommentBox = false;
     this.createPostIt = false;
@@ -222,7 +222,7 @@ export class BsrComponent implements OnInit {
       this.slideBackground = this.baseBackgroundUrl + this.appSlidesData[this.currentPageNumber].SlideBGFileName + ')';
       if (this.postItPresentationIndex === this.currentPageNumber) {
         this.createPostIt = true;
-          this.searchBoxLeftProperty = '700px';
+          this.searchBoxLeftProperty = '777px';
       }
       this.pageCounter = this.currentPageNumber + 1 + '/' + this.totalNumberOfSlides;
     }
@@ -230,7 +230,7 @@ export class BsrComponent implements OnInit {
 
 
   moveBackward() {
-    this.searchBoxLeftProperty = '533px'; 
+    this.searchBoxLeftProperty = '611px;'; 
     this.appSearchSlidesData = [];   
     this.isCommentBox = false;
     this.createPostIt = false
@@ -240,7 +240,7 @@ export class BsrComponent implements OnInit {
       this.slideBackground = this.baseBackgroundUrl + this.appSlidesData[this.currentPageNumber].SlideBGFileName + ')';
       if (this.postItPresentationIndex === this.currentPageNumber) {
         this.createPostIt = true; 
-          this.searchBoxLeftProperty = '700px';
+          this.searchBoxLeftProperty = '777px';
       }
     }
   }
@@ -286,7 +286,7 @@ export class BsrComponent implements OnInit {
   }
 
   home() {
-    this.searchBoxLeftProperty = '533px'; 
+    this.searchBoxLeftProperty = '611px;'; 
     this.pageCounter = '1/' + this.totalNumberOfSlides;
     this.slideBackground = this.baseBackgroundUrl + this.appSlidesData[0].SlideBGFileName + ')';
     this.createPostIt = false;
@@ -298,9 +298,9 @@ export class BsrComponent implements OnInit {
     this.appSearchSlidesData = [];
     this.createPostIt = !this.createPostIt;
     if (this.createPostIt) {
-      this.searchBoxLeftProperty = '700px';
+      this.searchBoxLeftProperty = '777px';
     }else{      
-      this.searchBoxLeftProperty = '533px';
+      this.searchBoxLeftProperty = '611px;';
     }
     
     localStorage.setItem('createPostIt', this.createPostIt.toString());
@@ -353,7 +353,7 @@ export class BsrComponent implements OnInit {
 
     const dialogRef = this.dialog.open(editPost, {
       // width: ((nameid === 'edit')?'80%':'100%'),
-      // height: ((nameid === 'edit') ? '700px' : '200px'),
+      // height: ((nameid === 'edit') ? '777px' : '200px'),
       data: { name: item, nameId: nameid }
     });
 
