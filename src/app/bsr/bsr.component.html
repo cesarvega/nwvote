@@ -158,7 +158,7 @@
       </div>
 
 
-      <div class="col searchy" [style.left]="searchBoxLeftProperty"  *ngIf="appSearchSlidesData.length">
+      <div class="col searchy" [style.left]="searchBoxLeftProperty"  *ngIf="appSearchSlidesData.length&&mainMenu">
         <mat-card  (click)="goToSlideFromSearch(item.$id)" *ngFor="let item of appSearchSlidesData; let i = index">
           <p>{{item.SlideDescription}}</p>
           <img [src]="'http://www.bipresents.com/' + item.SlideBGFileName" alt="overview"
@@ -183,12 +183,15 @@
                     Brandstorm
                   </div>
                   <div class="col" (click)="toggleNamebox()"
-                    style="color: white; font-size: 40px;font-family: Arial; right: -370px;cursor: pointer;"
-                    [matTooltip]="'Names Create '+ nameCandidates.length" matTooltipPosition="right">
-                    Names <span *ngIf="nameCandidates.length > 0">{{':'+nameCandidates.length}}</span>
+                    style="color: white; font-size: 30px;font-family: Arial; right: -370px;cursor: pointer;"
+                    [matTooltip]="'Names Create '+ nameCandidates.length" matTooltipPosition="right" >
+                    Names 
+                    <span *ngIf="nameCandidates.length > 0" style="top: 11px;left: 9px;"  
+                      matBadgeColor="warn"  [matBadgeHidden]="!(nameCandidates.length > 0)" [matBadge]="nameCandidates.length" matBadgeSize="medium"></span>
                   </div>
-                  <button class="screen-button" mat-icon-button *ngIf="isScreenButton" (click)="screenNames()">
-                    <mat-icon>folder_special</mat-icon>
+                  <button class="screen-button" mat-raised-button *ngIf="isScreenButton&&!isNSR" (click)="screenNames()">
+                    <!-- <mat-icon>folder_special</mat-icon> -->
+                   screen
                   </button>
 
                 </div>

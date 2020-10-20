@@ -13,7 +13,7 @@
         <br>
         <mat-form-field *ngIf="isDeleting" appearance="outline" style="max-width: 350px; min-width: 260px;">
             <mat-label>Rationale</mat-label>
-            <input matInput type="text" placeholder="name" formControlName="rationale">
+            <input matInput type="text" placeholder="rationale" formControlName="rationale">
         </mat-form-field>
         <br>
 
@@ -30,11 +30,16 @@
                 </div>
 
                 <div fxFlex *ngIf="isDeleting">
-                    <button (click)="buttonOption('like')" class="delete-update-buttons" mat-mini-fab
+                    <button (click)="buttonOption('like')" *ngIf="!favourite" class="delete-update-buttons" mat-mini-fab
+                        style="color: white;background-color: grey;" color="success" aria-label="icon">
+                        <mat-icon>favorite</mat-icon>
+                    </button>
+                    <button (click)="buttonOption('like')"  *ngIf="favourite" class="delete-update-buttons" mat-mini-fab
                         style="color: white;background-color: red;" color="success" aria-label="icon">
                         <mat-icon>favorite</mat-icon>
-                    </button><br>
-                    <span>like</span>
+                    </button>
+                    <br>
+                    <span>favorite</span>
 
 
                 </div>

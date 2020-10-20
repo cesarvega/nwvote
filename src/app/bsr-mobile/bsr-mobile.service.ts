@@ -15,7 +15,7 @@ export class BsrMobileService {
   name: any;
   email: any;
   projectId: any;
-  sendNewNamesObj: { name: string; oldName: string; source: any; userEmail: any; };
+  sendNewNamesObj: { name: string; oldName: string; rationale: any ; favourite: any;source: any; userEmail: any; };
   _deviceUserData: string;
   constructor(private http: HttpClient) { }
 
@@ -52,13 +52,14 @@ export class BsrMobileService {
   }
 
 
-  sendName(newName: string, OldName: string) {
+  sendName(newName: string, OldName: string, rationale: string, favourite: string, source: string) {
     this.projectId = localStorage.getItem('projectId');
-    if (OldName === 'Anonymous') {
-      OldName = '';
+    if (source === 'Anonymous') {
       this.sendNewNamesObj = {
         name: newName,
         oldName: OldName,
+        rationale:rationale,
+        favourite:favourite,
         source: 'Anonymous',
         userEmail: this.email
       }
@@ -66,12 +67,14 @@ export class BsrMobileService {
       this.sendNewNamesObj = {
         name: newName,
         oldName: OldName,
+        rationale:rationale, 
+        favourite:favourite,
         source: this.name,
         userEmail: this.email
       }
     }
 
-    this._SP_Saving_New_Names_Mobile = "[BI_GUIDELINES].[dbo].[bsr_mobAddNames] N'" + this.projectId + ',' + JSON.stringify(this.sendNewNamesObj) + "'";
+    this._SP_Saving_New_Names_Mobile = "[BI_GUIDELINES].[bsrv2].[bsr_mobAddNames] N'" + this.projectId + ',' + JSON.stringify(this.sendNewNamesObj) + "'";
     return this.http.post(this.webBaseUrl + this.apiCall, JSON.stringify(this._SP_Saving_New_Names_Mobile), httpOptions);
   }
 

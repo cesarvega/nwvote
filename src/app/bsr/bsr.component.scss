@@ -511,6 +511,7 @@ mat-slider {
   right: 17px;
   z-index: 999999;
   outline: none;
+  cursor: pointer;
 }
 
 .delete-info {
@@ -854,7 +855,7 @@ $postItHeaderColors2: #d6f8fd, #dcd6fd, #d6fde9, #fdfcd6, #d6f8fd, #fdd6e8, #fdd
 .searchy {
   width: 190px;
   position: absolute;
-  top: 327px;
+  top: 361px;
   left: 533px;
   max-height: 400px;
   overflow-y: scroll;

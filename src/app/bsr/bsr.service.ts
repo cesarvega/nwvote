@@ -89,7 +89,7 @@ export class BsrService {
   }
 
   newPost(newConcept) {
-    let _SP_NewComcept = "[BI_GUIDELINES].[dbo].[bsr_updConcept] N'" + newConcept + "'";
+    let _SP_NewComcept = "[BI_GUIDELINES].[bsrv2].[bsr_updConcept] N'" + newConcept + "'";
     return this.http.post(this.webBaseUrl + this.apiCall, JSON.stringify(_SP_NewComcept), httpOptions);
   }
 

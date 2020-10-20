@@ -8,7 +8,7 @@
             ">
             BI PROJECT: {{projectName}}
 
-            <mat-icon *ngIf="isUserLogged" (click)="openDialog('displayInfo', '')"
+            <mat-icon *ngIf="isUserLogged" (click)="openDialog('displayInfo', '', '', '', '')"
                 style="color: white;background-color: #004684;  outline: none;cursor: pointer;">help</mat-icon>
 
         </mat-toolbar>
@@ -88,14 +88,15 @@
                 <br>
                 <div class="mat-subheading-1">Name Suggestions: {{newNames.length}}</div>
                 <mat-card class="names-list-card">
-                    <div *ngFor="let item of  newNames; let i = index" class="name-box" (click)="openDialog(item.name, item.nameid)">
+                    <div *ngFor="let item of  newNames; let i = index" class="name-box"
+                     (click)="openDialog(item.name, item.nameid, item.rationale, item.favourite, item.source)">
                         <div> {{item.name}}</div>
                         <div>
-                            <span *ngIf="(item.source !== 'Anonymous')&&(i%3)" style="font-size: 17px;color: red;"
+                            <span *ngIf="(item.favourite==='true')?true:false" style="font-size: 17px;color: red;"
                                 class="material-icons">
                                 favorite
                             </span>
-                            <span  *ngIf="(item.source !== 'user2')||i===2" style="font-size: 17px;" class="material-icons">
+                            <span  *ngIf="(item.source === 'Anonymous')" style="font-size: 17px;" class="material-icons">
                                 font_download
                             </span>
                         </div>
