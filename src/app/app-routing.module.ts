@@ -4,17 +4,11 @@ import { NwVoteComponent } from './nw-vote/nw-vote.component';
 import { LoginComponent } from './auth/login/login.component';
 import { BsrMobileComponent } from './bsr-mobile/bsr-mobile.component';
 import { BsrComponent } from './bsr/bsr.component';
-import { MobileComponent } from './mobile/mobile.component';
-
 
 const routes: Routes = [
   {
     path: 'login',
     component: LoginComponent
-  },
-  {
-    path: 'mobile',
-    component: MobileComponent
   },
   {
     path: 'vote',

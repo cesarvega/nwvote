@@ -11,10 +11,10 @@
             <input matInput type="name" placeholder="name" formControlName="name">
         </mat-form-field>
         <br>
-        <!-- <mat-form-field *ngIf="isDeleting" appearance="outline" style="max-width: 350px; min-width: 260px;">
+        <mat-form-field *ngIf="isDeleting" appearance="outline" style="max-width: 350px; min-width: 260px;">
             <mat-label>Rationale</mat-label>
-            <input matInput type="name" placeholder="name" formControlName="rationale">
-        </mat-form-field> -->
+            <input matInput type="text" placeholder="name" formControlName="rationale">
+        </mat-form-field>
         <br>
 
         <div class="row" style="text-align: center;">
@@ -27,6 +27,16 @@
                         <mat-icon>delete</mat-icon>
                     </button><br>
                     <span>delete</span>
+                </div>
+
+                <div fxFlex *ngIf="isDeleting">
+                    <button (click)="buttonOption('like')" class="delete-update-buttons" mat-mini-fab
+                        style="color: white;background-color: red;" color="success" aria-label="icon">
+                        <mat-icon>favorite</mat-icon>
+                    </button><br>
+                    <span>like</span>
+
+
                 </div>
 
                 <div fxFlex *ngIf="isDeleting">

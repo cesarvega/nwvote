@@ -34,7 +34,6 @@ import { CKEditorModule } from 'ckeditor4-angular';
 import { MatBadgeModule } from '@angular/material/badge';
 import { MatTableModule } from '@angular/material/table';
 import { MatTabsModule } from '@angular/material/tabs';
-import { MobileComponent } from './mobile/mobile.component';
 @NgModule({
   declarations: [
     AppComponent,
@@ -44,7 +43,6 @@ import { MobileComponent } from './mobile/mobile.component';
     editName,
     editPost,
     BsrComponent,
-    MobileComponent,
   ],
   imports: [
     BrowserModule,
