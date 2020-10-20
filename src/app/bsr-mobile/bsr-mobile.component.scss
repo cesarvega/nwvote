@@ -45,11 +45,19 @@
         white-space: nowrap;
     }
 
+   
     .name-box {
         font-size: 20px;
         cursor: pointer;
         border-bottom: navy dashed 0.01em;
+        display: flex;
+        flex-direction: row;
+        justify-content: space-between;        
     }
+
+    .name-box:hover{
+        @include BoxShadow(2)
+       }
 
     .emoji-icon {
         outline: none;

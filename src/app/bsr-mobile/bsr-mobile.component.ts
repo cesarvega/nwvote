@@ -199,19 +199,11 @@ export class editName {
 
   onNoClick(): void {
     console.log(this.data.name);
-
     this.popupwindowData = {
-
       form: this.loginForm,
       oldValue: this.data.name
-
     }
-
     this.dialogRef.close(this.popupwindowData);
-
-
-
-
   }
 
   buttonOption(option) {

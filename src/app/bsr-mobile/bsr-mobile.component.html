@@ -1,15 +1,15 @@
 <div class="container mat-elevation-z4 bsr-mobile-container">
     <div class="row">
 
-        <mat-toolbar class="toolbar " fxLayoutAlign="space-between center" style=" text-align: center;border-bottom-left-radius: 20px;border-bottom-right-radius: 20px;
+        <mat-toolbar class="toolbar " fxLayoutAlign="space-between center" style=" text-align: center;border-bottom-left-radius: 6px;border-bottom-right-radius: 6px;
             display: flex;
             justify-content: space-between;
             align-items: center;
             ">
-            <mat-icon>insert_drive_file</mat-icon> {{projectName}}
+            BI PROJECT: {{projectName}}
 
             <mat-icon *ngIf="isUserLogged" (click)="openDialog('displayInfo', '')"
-                style="color: white;background-color: #004684;  outline: none;">help</mat-icon>
+                style="color: white;background-color: #004684;  outline: none;cursor: pointer;">help</mat-icon>
 
         </mat-toolbar>
 
@@ -88,9 +88,20 @@
                 <br>
                 <div class="mat-subheading-1">Name Suggestions: {{newNames.length}}</div>
                 <mat-card class="names-list-card">
-                    <div *ngFor="let item of  newNames" class="name-box" (click)="openDialog(item.name, item.nameid)">
-                        {{item.name}}
+                    <div *ngFor="let item of  newNames; let i = index" class="name-box" (click)="openDialog(item.name, item.nameid)">
+                        <div> {{item.name}}</div>
+                        <div>
+                            <span *ngIf="(item.source !== 'Anonymous')&&(i%3)" style="font-size: 17px;color: red;"
+                                class="material-icons">
+                                favorite
+                            </span>
+                            <span  *ngIf="(item.source !== 'user2')||i===2" style="font-size: 17px;" class="material-icons">
+                                font_download
+                            </span>
+                        </div>
+
                     </div>
+
                 </mat-card>
                 <br>
 
@@ -98,14 +109,15 @@
 
                     <mat-form-field appearance="outline" style="min-width: 330px;">
                         <mat-label>Name Suggestions</mat-label>
-                        <input matInput type="name" placeholder="name" autofocus #reference formControlName="name">
+                        <input matInput type="name" placeholder="name_1, name_2, name_3...." autofocus #reference
+                            formControlName="name">
 
                     </mat-form-field>
 
-                    <button class="emoji-button" (click)="emojiToggle()" mat-icon-button color="accent"
+                    <!-- <button class="emoji-button" (click)="emojiToggle()" mat-icon-button color="accent"
                         aria-label="emoji">
                         <mat-icon>tag_faces</mat-icon>
-                    </button>
+                    </button> -->
 
                     <div class="col" style="text-align: center;">
                         <div class="col" style="text-align: center;">
@@ -116,6 +128,7 @@
                             </button>
                             <br>
                             <br>
+
                         </div>
                         <div class="col">
 
@@ -124,7 +137,9 @@
                                 Enable Anonymous Submit?
                             </mat-checkbox>
 
-                            <br><br>
+                            <br><br><br>
+                            <br>
+                            <br>
                         </div>
                         <div class="col">
 
@@ -175,7 +190,7 @@
 
 
         <!-- EMOJIES  -->
-        <div *ngIf="isEmojiTime mat-elevation-z4" cdkDrag class="test-emoji">
+        <!-- <div *ngIf="isEmojiTime mat-elevation-z4" cdkDrag class="test-emoji">
             <div class="example-handle" cdkDragHandle>
                 <svg width="24px" fill="currentColor" viewBox="0 0 24 24">
                   <path d="M10 9h4V6h3l-5-5-5 5h3v3zm-1 1H6V7l-5 5 5 5v-3h3v-4zm14 2l-5-5v3h-3v4h3v3l5-5zm-9 3h-4v3H7l5 5 5-5h-3v-3z"></path>
@@ -189,7 +204,7 @@
                 🤓 😎 🤩 🥳 😏 😒 😞 😔 😟 😕 🙁 ☹️ 😣 😖 😫 😩 🥺 😢 😭 😤 😠 😡 🤬 🤯 😳 🥵 🥶 😱 😨 😰 😥 😓 🤗 🤔 🤭
                 🤫 🤥 😶 😐 😑 😬 🙄 😯 😦 😧 😮 😲 🥱 😴 🤤 😪 😵 🤐 🥴 🤢 🤮 🤧 😷 🤒 🤕 🤑 🤠 😈 👿 👹 👺 🤡 💩 👻 💀
                 ☠️ 👽 👾 🤖 🎃 😺 😸 😹 😻 😼 😽 🙀 😿 😾
-
+                ❤️ 🧡 💛 💚 💙 💜 🖤 🤍 🤎 💔 ❣️ 💕 💞 💓 💗 💖 💘 💝 💟
 
                 Gestures and Body Parts
                 <hr>
@@ -212,7 +227,7 @@
                 👨‍👨‍👦‍👦 👨‍👨‍👧‍👧 👩‍👩‍👦 👩‍👩‍👧 👩‍👩‍👧‍👦 👩‍👩‍👦‍👦 👩‍👩‍👧‍👧 👨‍👦 👨‍👦‍👦 👨‍👧
                 👨‍👧‍👦 👨‍👧‍👧 👩‍👦 👩‍👦‍👦 👩‍👧 👩‍👧‍👦 👩‍👧‍👧 🗣 👤 👥 👣
             </div>
-            <!-- <mat-tab-group>
+            <mat-tab-group>
                 <mat-tab id="first-tab" label="First" style="overflow-y: hidden;">
                     <div style="overflow-y: scroll;overflow-x: hidden;">
                     😀 😃 😄 😁 😆 😅 😂 🤣 ☺️ 😊 😇 🙂 🙃 😉 😌 😍 🥰 😘 😗 😙 😚 😋 😛 😝 😜 🤪 🤨 🧐
@@ -264,8 +279,8 @@
                     v^√√v^──√v^√v^──√v^√√v^── 🏃‍♂️三三☲=💨 ⋆⋆⃟⊱✪⃝⃞⃝⊰⋆⃟⋆⋆ ◤◢◣◥◤◢◣◥ ◦°˚\😃/˚°◦ ♞▀▄▀▄♝▀▄
                     🐓🐓🥚 ══► 🍳 [̲̅$̲̅(̲̅10)̲̅$̲̅] ｍ（｡≧ _ ≦｡）ｍ Ꮹꄲꄲძ ℳꄲᖇᘉɪ̊ᘉ꒸.͙✼̥୭⁺ ◙▒◙♫♩♬ (ó﹏ò｡) 🌷 ꒐꓄'ꇙ ꇙꉣꋪ꒐ꋊꍌ 🌷
                 </mat-tab>
-            </mat-tab-group> -->
-        </div>
+            </mat-tab-group>
+        </div> -->
 
     </div>
 </div>
