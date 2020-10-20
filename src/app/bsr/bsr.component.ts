@@ -121,8 +121,7 @@ export class BsrComponent implements OnInit {
       localStorage.setItem('projectName', this.projectName);
       this.projectId = this.projectName;
     });
-
-    this.assignCopy();    
+ 
     this.elem = document.documentElement;
     this.currentPageNumber = 0;
     this.postItListTheme = localStorage.getItem('post-it-list-theme');
@@ -416,10 +415,6 @@ export class BsrComponent implements OnInit {
     }
   }
 
-  assignCopy() {
-    // this.appSearchSlidesData = Object.assign([], this.appSlidesData);
-  }
-
   searchTerm(searchValue: string): void {
 
     if (!searchValue || searchValue === '') {
@@ -439,11 +434,7 @@ export class BsrComponent implements OnInit {
       this.postItListTheme = 'post-it-list-theme'
     }
     localStorage.setItem('post-it-list-theme', this.postItListTheme);
-    // let audio = new Audio();
-    // audio.src = "assets/sound/tap.wav";
-    // audio.volume = 0.02;
-    // audio.load();
-    // audio.play();
+  
   }
 
   toggleNamebox() {

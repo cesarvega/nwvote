@@ -89,7 +89,7 @@ export class BsrMobileComponent implements OnInit {
         this.anoni = 'Anonymous';
       }
 
-      this.bsrService.sendName(nameTemp, this.anoni).subscribe(arg => {
+      this.bsrService.sendName(nameTemp, this.anoni, '').subscribe(arg => {
         this.bsrService.login({ email: this.userEmail, name: this.username }, this.projectId).subscribe((res: any) => {
           this.newNames = JSON.parse('[' + res[0].Names + ']');
           this.isUserLogged = true;
@@ -111,7 +111,7 @@ export class BsrMobileComponent implements OnInit {
       if (result) {
         if (result.form.value.name && result.form.value.name !== 'delete') {
 
-          this.bsrService.sendName(result.form.value.name, result.oldValue).subscribe(arg => {
+          this.bsrService.sendName(result.form.value.name, result.oldValue, result.form.value.rationale).subscribe(arg => {
             this.bsrService.login({ email: this.userEmail, name: this.username }, this.projectId).subscribe((res: any) => {
               this.newNames = JSON.parse('[' + res[0].Names + ']');
               this.isUserLogged = true;

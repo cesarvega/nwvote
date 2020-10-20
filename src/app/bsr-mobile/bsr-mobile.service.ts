@@ -15,7 +15,7 @@ export class BsrMobileService {
   name: any;
   email: any;
   projectId: any;
-  sendNewNamesObj: { name: string; oldName: string; source: any; userEmail: any; };
+  sendNewNamesObj: { name: string; oldName: string; rationale: string; source: any; userEmail: any; };
   _deviceUserData: string;
   constructor(private http: HttpClient) { }
 
@@ -52,13 +52,14 @@ export class BsrMobileService {
   }
 
 
-  sendName(newName: string, OldName: string) {
+  sendName(newName: string, OldName: string, rat: string) {
     this.projectId = localStorage.getItem('projectId');
     if (OldName === 'Anonymous') {
       OldName = '';
       this.sendNewNamesObj = {
         name: newName,
         oldName: OldName,
+        rationale: rat,
         source: 'Anonymous',
         userEmail: this.email
       }
@@ -66,6 +67,7 @@ export class BsrMobileService {
       this.sendNewNamesObj = {
         name: newName,
         oldName: OldName,
+        rationale: rat,
         source: this.name,
         userEmail: this.email
       }
