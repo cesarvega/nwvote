@@ -6,10 +6,10 @@
             justify-content: space-between;
             align-items: center;
             ">
-            {{projectName}}
+            BI PROJECT: {{projectName}}
 
             <mat-icon *ngIf="isUserLogged" (click)="openDialog('displayInfo', '')"
-                style="color: white;background-color: #004684;  outline: none;">help</mat-icon>
+                style="color: white;background-color: #004684;  outline: none;cursor: pointer;">help</mat-icon>
 
         </mat-toolbar>
 
@@ -88,13 +88,18 @@
                 <br>
                 <div class="mat-subheading-1">Name Suggestions: {{newNames.length}}</div>
                 <mat-card class="names-list-card">
-                    <div *ngFor="let item of  newNames" class="name-box" (click)="openDialog(item.name, item.nameid)">
+                    <div *ngFor="let item of  newNames; let i = index" class="name-box" (click)="openDialog(item.name, item.nameid)">
                         <div> {{item.name}}</div>
-                        <div *ngIf="(item.source === 'Anonymous')">
-                            <span style="font-size: 17px;" class="material-icons">
+                        <div>
+                            <span *ngIf="(item.source !== 'Anonymous')&&(i%3)" style="font-size: 17px;color: red;"
+                                class="material-icons">
+                                favorite
+                            </span>
+                            <span  *ngIf="(item.source !== 'user2')||i===2" style="font-size: 17px;" class="material-icons">
                                 font_download
-                                </span>
+                            </span>
                         </div>
+
                     </div>
 
                 </mat-card>
@@ -104,7 +109,8 @@
 
                     <mat-form-field appearance="outline" style="min-width: 330px;">
                         <mat-label>Name Suggestions</mat-label>
-                        <input matInput type="name" placeholder="name" autofocus #reference formControlName="name">
+                        <input matInput type="name" placeholder="name_1, name_2, name_3...." autofocus #reference
+                            formControlName="name">
 
                     </mat-form-field>
 
@@ -122,6 +128,7 @@
                             </button>
                             <br>
                             <br>
+
                         </div>
                         <div class="col">
 
@@ -130,7 +137,9 @@
                                 Enable Anonymous Submit?
                             </mat-checkbox>
 
-                            <br><br>
+                            <br><br><br>
+                            <br>
+                            <br>
                         </div>
                         <div class="col">
 
