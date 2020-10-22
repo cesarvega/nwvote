@@ -186,7 +186,8 @@
                     style="color: white; font-size: 30px;font-family: Arial; right: -370px;cursor: pointer;"
                     [matTooltip]="'Names Create '+ nameCandidates.length" matTooltipPosition="right" >
                     Names 
-                    <span *ngIf="nameCandidates.length > 0" style="top: 11px;left: 9px;"  
+                    <span *ngIf="nameCandidates.length > 0" style="position: absolute;    top: 6px;
+                      right: 4px;"  
                       matBadgeColor="warn"  [matBadgeHidden]="!(nameCandidates.length > 0)" [matBadge]="nameCandidates.length" matBadgeSize="medium"></span>
                   </div>
                   <button class="screen-button" mat-raised-button *ngIf="isScreenButton&&!isNSR" (click)="screenNames()">

@@ -158,12 +158,15 @@ export class BsrComponent implements OnInit {
       console.log(this.conceptData);
     });
 
-    this._BsrService.getNameCandidates(this.projectId).subscribe((res: any) => {
-      res.forEach(name => {
-        name.html = name.html.replace(/\\/g, '');
+    setInterval(() => {
+      this._BsrService.getNameCandidates(this.projectId).subscribe((res: any) => {
+        res.forEach(name => {
+          name.html = name.html.replace(/\\/g, '');
+        });
+        this.nameCandidates = (res.length > 0) ? res : [];
       });
-      this.nameCandidates = (res.length > 0) ? res : [];
-    });
+    }, 3000);
+  
     this.getCommentsByIndex(0);
     this.loginForm = this._formBuilder.group({
       rationale: [''],
