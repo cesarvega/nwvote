@@ -190,7 +190,7 @@
                       right: 4px;"  
                       matBadgeColor="warn"  [matBadgeHidden]="!(nameCandidates.length > 0)" [matBadge]="nameCandidates.length" matBadgeSize="medium"></span>
                   </div>
-                  <button class="screen-button" mat-raised-button *ngIf="isScreenButton&&!isNSR" (click)="screenNames()">
+                  <button class="screen-button" mat-raised-button *ngIf="isScreenButton&&isNSR" (click)="screenNames()">
                     <!-- <mat-icon>folder_special</mat-icon> -->
                    screen
                   </button>
