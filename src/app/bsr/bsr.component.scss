@@ -29,6 +29,15 @@
   }
 }
 
+.main-container {
+  position: absolute;
+  top: -50px;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  background: #fff;
+}
+
 .presentation-box {
   width: 948px;
   height: 714px;
@@ -244,14 +253,6 @@
   transition: transform 250ms cubic-bezier(0, 0, 0.2, 1);
 }
 
-.example-container {
-  position: absolute;
-  top: 0;
-  bottom: 0;
-  left: 0;
-  right: 0;
-  background: #fff;
-}
 .mat-sidenav-backdrop.mat-sidenav-shown {
   background-color: transparent !important;
 }
@@ -274,8 +275,8 @@
 }
 
 .name-form {
-  position: fixed;
-  top: 726px;
+  position: relative;
+  top: 133px;
   width: 300px;
   background-color: white;
   height: 90px;
@@ -284,14 +285,12 @@
   padding: 20px;
 }
 .name-form2 {
-  position: fixed;
-  top: 726px;
-  width: 590px;
+  position: relative;
+  bottom: -140px;
   background-color: white;
-  height: 90px;
   border-bottom-left-radius: 12px;
   border-bottom-right-radius: 12px;
-  padding: 20px;
+  left: -180px;
 }
 
 .box {
@@ -406,12 +405,16 @@ mat-slider {
   overflow: hidden;
   -ms-overflow-style: none; /* IE and Edge */
   scrollbar-width: none;
+  .deleteButton {
+   display: none;
+  }
 }
 
 .post-card:hover {
   @include BoxShadow(12);
   background-color: lightyellow;
   .deleteButton {
+    display: inline;
     color: #ff0000d1;
     font-size: 19px;
     margin: 5px;
@@ -438,9 +441,10 @@ mat-slider {
 .post-content {
   cursor: pointer;
   width: 263px;
-  height: 207px;
+  height: 198px;
   overflow-y: scroll;
   overflow-x: hidden;
+  font-size: 18px;
 }
 
 .post-content::-webkit-scrollbar {
@@ -557,12 +561,13 @@ table {
 
 .emoji-handle {
   position: absolute;
-  top: 8px;
-  right: 51px;
+  top: 5px;
+  // border: red solid 1px;
+  right: 2px;
   color: #000;
   cursor: move;
-  width: 664px;
-  height: 24px;
+  width: 276px;
+  height: 38px;
   z-index: 999999;
 }
 .emoji-box {
@@ -699,6 +704,16 @@ mat-tab-group ::-webkit-scrollbar {
 .fullscreen {
   position: absolute;
   right: 60px;
+  bottom: 30px;
+  outline: none;
+  .full-icon {
+    color: grey !important;
+    font-size: 30px;
+  }
+}
+.fullscreen2 {
+  position: absolute;
+  right: 100px;
   bottom: 30px;
   outline: none;
   .full-icon {

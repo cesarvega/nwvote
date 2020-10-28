@@ -1,4 +1,4 @@
-<mat-sidenav-container class="example-container" *ngIf="true" [hasBackdrop]="false">
+<mat-sidenav-container class="main-container" *ngIf="true" [hasBackdrop]="false">
 
   
 
@@ -89,8 +89,11 @@
         </div>
       </div> -->
 
-      <button class="fullscreen" (click)="openFullscreen()"  matTooltip="FullScreen" matTooltipPosition="right" mat-icon-button color="warn" aria-label="aria">
+      <button class="fullscreen" (click)="openFullscreen()"  matTooltip="FullScreen" matTooltipPosition="top" mat-icon-button color="warn" aria-label="aria">
         <mat-icon class="full-icon">fullscreen</mat-icon>
+      </button>
+      <button class="fullscreen2" (click)="newBlankPostIt()"  matTooltip="new post=it" matTooltipPosition="top" mat-icon-button color="warn" aria-label="aria">
+        <mat-icon class="full-icon">note_add</mat-icon>
       </button>
       <!-- PRESENTATION -->
       <div *ngIf="!createPostIt" fxLayoutAlign="center center" class="col">
@@ -190,7 +193,7 @@
                       right: 4px;"  
                       matBadgeColor="warn"  [matBadgeHidden]="!(nameCandidates.length > 0)" [matBadge]="nameCandidates.length" matBadgeSize="medium"></span>
                   </div>
-                  <button class="screen-button" mat-raised-button *ngIf="isScreenButton&&!isNSR" (click)="screenNames()">
+                  <button class="screen-button" mat-raised-button *ngIf="isScreenButton&&isNSR" (click)="screenNames()">
                     <!-- <mat-icon>folder_special</mat-icon> -->
                    screen
                   </button>
@@ -241,10 +244,7 @@
                   </div>
                 </div>
 
-
-                <!-- SLIDER -->
-                <!-- <mat-slider *ngIf="showSlider" [(ngModel)]='sliderVal' [ngStyle]="{'display':slideCss}"
-                  (input)="onInputChange($event)"></mat-slider> -->
+                <!-- NAMES BOX 1 -->
                 <div class="col-md-4" *ngIf="nameBox && nameBoxB">
                   <!-- NAMES  nameCandidates BOX -->
                   <!-- <button mat-button class="screen-button">screen</button> -->
@@ -284,9 +284,8 @@
                 </div>
 
 
-
                 <div class="col-md-4 " *ngIf="nameBox && !nameBoxB">
-                  <!-- NAMES BOX -->
+                  <!-- NAMES BOX 2-->
                   <div class="names-container2 bounceIn">
                     <div *ngFor="let  nameCandidate of nameCandidates; let i = index">
                       <span *ngIf="!isScreeningNames" (dblclick)="openDialog(nameCandidate, 'deleteName')"
@@ -301,6 +300,7 @@
                       </span>
                       <div style="border-bottom: rgba(0,0,0,.12) 1px solid;width: 100%;text-align: center;"></div>
                     </div>
+                  </div>
                     <form name="loginForm" [formGroup]="loginForm" novalidate class="name-form2 "
                       fxLayoutAlign="center center">
 
@@ -317,8 +317,7 @@
                       </button>
                       <p style="position: absolute;
                     top: 60px;">www.mynamepage.com/{{projectId}}</p>
-                    </form>
-                  </div>
+                    </form>                 
                 </div>
               </div>
 
