@@ -165,7 +165,7 @@ export class BsrComponent implements OnInit {
         });
         this.nameCandidates = (res.length > 0) ? res : [];
       });
-    }, 3000);
+    }, 300);
   
     this.getCommentsByIndex(0);
     this.loginForm = this._formBuilder.group({
@@ -299,6 +299,7 @@ export class BsrComponent implements OnInit {
   bsr() {
     // reset search data
     this.appSearchSlidesData = [];
+    this.mainMenu = false;
     this.createPostIt = !this.createPostIt;
     if (this.createPostIt) {
       this.searchBoxLeftProperty = '777px';
@@ -598,7 +599,7 @@ export class editPost {
     this.ckconfig = {
       allowedContent: false,
       width: '99.6%',
-      contentsCss: ["body {font-size: 20px;}"],
+      contentsCss: ["body {font-size: 24px;}"],
       height: 370,
       forcePasteAsPlainText: true,
       toolbarLocation: 'top',
