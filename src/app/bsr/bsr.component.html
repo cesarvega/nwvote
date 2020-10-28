@@ -126,7 +126,7 @@
               <mat-icon>comment</mat-icon>
             </button>
 
-            <button (click)="openDialog('mobileInfo', 'do')" mat-icon-button color="primary"
+            <button *ngIf="!isNSR" (click)="openDialog('mobileInfo', 'do')" mat-icon-button color="primary"
               aria-label="Example icon-button with a heart icon">
               <mat-icon>phone_iphone</mat-icon>
             </button>
@@ -183,7 +183,7 @@
                 <div class="row">
                   <div (click)="theme()" class="col brandstorm"
                     style="color: white; font-size: 40px;font-family: Arial">
-                    Brandstorm
+                    Brainstorm
                   </div>
                   <div class="col" (click)="toggleNamebox()"
                     style="color: white; font-size: 30px;font-family: Arial; right: -370px;cursor: pointer;"
@@ -365,7 +365,7 @@
                     </button>
 
 
-                    <button (click)="openDialog('mobileInfo', 'do')" mat-icon-button color="primary"
+                    <button *ngIf="!isNSR" (click)="openDialog('mobileInfo', 'do')" mat-icon-button color="primary"
                       aria-label="Example icon-button with a heart icon">
                       <mat-icon>phone_iphone</mat-icon>
                     </button>
