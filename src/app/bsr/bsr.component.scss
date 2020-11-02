@@ -406,7 +406,7 @@ mat-slider {
   -ms-overflow-style: none; /* IE and Edge */
   scrollbar-width: none;
   .deleteButton {
-   display: none;
+    display: none;
   }
 }
 
@@ -682,44 +682,34 @@ mat-tab-group ::-webkit-scrollbar {
   z-index: 99;
   left: 76px;
   outline: none;
-  opacity: 0;
-}
-.menu-left-icon:hover {
-  opacity: 1;
+  // opacity: 0;
 }
 
 .menu-right-icon {
   position: relative;
-  right: -1043px;
+  right: -1047px;
   top: -283px;
   z-index: 99;
   outline: none;
-  opacity: 0;
 }
 
-.menu-right-icon:hover {
-  opacity: 1;
-}
-
-.fullscreen {
+.corner_bar_menu {
   position: absolute;
   right: 60px;
   bottom: 30px;
   outline: none;
-  .full-icon {
-    color: grey !important;
-    font-size: 30px;
-  }
 }
-.fullscreen2 {
-  position: absolute;
-  right: 100px;
-  bottom: 30px;
-  outline: none;
-  .full-icon {
-    color: grey !important;
-    font-size: 30px;
-  }
+
+.full-icon {
+  color: grey !important;
+  font-size: 20px;
+}
+
+.qr_code {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-around;
+  align-items: center;
 }
 
 $postItanimations: shakeY, shakeY, shakeY, shakeY, shakeY, shakeY, shakeY, shakeY, shakeY, shakeY, shakeY, shakeY;
@@ -838,6 +828,7 @@ $postItHeaderColors2: #d6f8fd, #dcd6fd, #d6fde9, #fdfcd6, #d6f8fd, #fdd6e8, #fdd
     opacity: 1;
   }
 }
+
 .brandstorm {
   display: inline-block;
   margin: 0 0.5rem;

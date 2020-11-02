@@ -20,8 +20,7 @@ import { DOCUMENT } from '@angular/common';
 })
 export class BsrComponent implements OnInit {
 
-  // @ViewChild('slider') slider;
-
+  // @ViewChild('slider') slider;  
   postItListTheme = 'post-it-list-theme'
   searchBoxLeftProperty = '611px;'
   loginForm: FormGroup;
@@ -565,6 +564,8 @@ export class editPost {
   displayedColumns: string[] = ['position', 'name', 'weight'];
   synonymWord: string = ' Copy name to clipboard ';
   dataSource: any[];
+  public myAngularxQrCode: string = null;
+  isQRcode: boolean;
   constructor(
     public dialogRef: MatDialogRef<editPost>,
     @Inject(MAT_DIALOG_DATA) public data: DialogData, private _formBuilder: FormBuilder, private _BsrService: BsrService,) {
@@ -572,7 +573,8 @@ export class editPost {
     this.dataEditor = this.data.name.html;
     this.model.editorData = this.data.name.html;
     this.title = this.data.name.Name;
-
+    // assign a value
+    this.myAngularxQrCode = ' www.mynamepage.com/'+ this.projectId;
     if (this.data.name.Name) {
       this.concept = this.data.name.Name;
     } else {
@@ -595,6 +597,12 @@ export class editPost {
       this.infoMessage = false;
       this.isDeleting = false;
       this.isMobileInfo = true;
+    }
+    if (this.data.name === 'qr_code') {
+      this.infoMessage = false;
+      this.isDeleting = false;
+      this.isMobileInfo = false;
+      this.isQRcode = true;
     }
     this.ckconfig = {
       allowedContent: false,

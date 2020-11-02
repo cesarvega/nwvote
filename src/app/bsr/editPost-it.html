@@ -155,9 +155,11 @@
 
         <div class="row" layout-align="center center">
 
+            <!-- <qrcode [qrdata]="myAngularxQrCode" [width]="256" [errorCorrectionLevel]="'M'"></qrcode> -->
+
             <div flex="" class="text-center flex" style="margin:0 18px">
                 <p>1. Access
-                    www.mynamepage.com/ti823</p>
+                    www.mynamepage.com/{{projectId}}</p>
                 <img class="instruction-style mat-elevation-z4" src="assets/img/bsr/login_page.JPG" alt="Login">
             </div>
             <div flex="" class="text-center flex" style="margin-right:10px">
@@ -274,7 +276,7 @@
     </div>
 
     <!-- EDITOR CARD -->
-    <div *ngIf="!infoMessage && !isMobileInfo" class="mat-elevation-z4">
+    <div *ngIf="!infoMessage && !isMobileInfo && !isQRcode" class="mat-elevation-z4">
         <form name="loginForm" [formGroup]="loginForm" novalidate class="">
             <div class="container" fxLayout="column" fxLayoutAlign="center center">
                 <div class="row ">
@@ -376,10 +378,10 @@
 
 </div>
 
-<!-- <div class="synonyms-box" *ngIf="!isSynonymBox">
-
-
-</div> -->
+<div *ngIf="isQRcode" class="qr_code">
+    <qrcode [qrdata]="myAngularxQrCode" [width]="350" [errorCorrectionLevel]="'M'"></qrcode>
+    <p><a style="color: black;" target="_blank">{{myAngularxQrCode}}</a></p>
+</div>
 
 <div *ngIf="isSynonymBox" class="synonyms-box mat-elevation-z8" cdkDrag>
     <div class="emoji-handle" cdkDragHandle>

@@ -87,6 +87,8 @@ export class BsrMobileComponent implements OnInit {
 
       if (this.newNameForm.value.suma) {
         this.anoni = 'Anonymous';
+      }else {
+        this.anoni = '';
       }
 
       this.bsrService.sendName(nameTemp, '','','',this.anoni).subscribe(arg => {

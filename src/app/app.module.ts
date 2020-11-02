@@ -34,6 +34,7 @@ import { CKEditorModule } from 'ckeditor4-angular';
 import { MatBadgeModule } from '@angular/material/badge';
 import { MatTableModule } from '@angular/material/table';
 import { MatTabsModule } from '@angular/material/tabs';
+import { QRCodeModule } from 'angularx-qrcode';
 @NgModule({
   declarations: [
     AppComponent,
@@ -72,6 +73,7 @@ import { MatTabsModule } from '@angular/material/tabs';
     HotkeyModule.forRoot(),
     MatSliderModule,
     MatTabsModule,
+    QRCodeModule
     // AngularEditorModule,
 
   ],
