@@ -285,12 +285,6 @@ export class BsrComponent implements OnInit {
 
   sideMenu() {
     this.overview = !this.overview;
-    console.log('overview');
-  }
-
-  mobileInstruccions() {
-
-    console.log('mobileInstruccions');
   }
 
   home() {
@@ -345,6 +339,7 @@ export class BsrComponent implements OnInit {
   }
 
   goToSlide(i) {
+    this.currentPageNumber = i;
     this.slideBackground = this.baseBackgroundUrl + this.appSlidesData[i].SlideBGFileName + ')';
     this.createPostIt = false;
     this.pageCounter = i + 1 + '/' + this.totalNumberOfSlides;
