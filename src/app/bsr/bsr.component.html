@@ -2,9 +2,9 @@
 
 
   <!-- OVERVIEW SLIDE -->
-  <mat-sidenav mode="over" [opened]="overview">
-    <mat-card class="overview" (click)="goToSlide(i)" *ngFor="let item of appSlidesData; let i = index">
-      <p style="color: #004684;cursor: pointer;border-bottom: #004684;">{{item.SlideDescription}}</p>
+  <mat-sidenav class="overview"  mode="over" [opened]="overview">
+    <mat-card (click)="goToSlide(i)" *ngFor="let item of appSlidesData; let i = index">
+      <p style="color: #004684;cursor: pointer;border-bottom: #004684;">{{i}}. - {{item.SlideDescription}}</p>
       <!-- <img [src]="'http://www.bipresents.com/' + item.SlideBGFileName" alt="overview"
         style="max-width: 250px;cursor: pointer;"> -->
     </mat-card>
@@ -88,8 +88,6 @@
         </div>
       </div> -->
 
-
-
       <!-- CORNER MENUS -->
 
       <div *ngIf="!mainMenu" class="bar_fullscreen" class="corner_bar_menu">
@@ -111,45 +109,60 @@
       </div>
 
       <div *ngIf="mainMenu" class="bar_fullscreen" class="corner_bar_menu">
-        
+        <button (click)="home()" mat-icon-button matTooltip="home" matTooltipPosition="above">
+          <mat-icon class="full-icon">home</mat-icon>
+        </button>
+        <button *ngIf="!createPostIt" (click)="bsr()" mat-icon-button matTooltip="post its" matTooltipPosition="above"
+          mat-icon-button color="warn" aria-label="aria">
+          <mat-icon class="full-icon">lightbulb_outline</mat-icon>
+        </button>
         <button *ngIf="createPostIt" (click)="newBlankPostIt()" matTooltip="new post=it" matTooltipPosition="above"
           mat-icon-button color="warn" aria-label="aria">
           <mat-icon class="full-icon">note_add</mat-icon>
         </button>
-        <button (click)="openFullscreen()" matTooltip="FullScreen" matTooltipPosition="above" mat-icon-button
+        <button (click)="openFullscreen()" matTooltip="full-screen" matTooltipPosition="above" mat-icon-button
           color="warn" aria-label="aria">
-          <mat-icon class="full-icon">fullscreen</mat-icon>
+          <mat-icon class="full-icon">aspect_ratio</mat-icon>
         </button>
-        <button class="" (click)="sideMenu()" matTooltip="search" matTooltipPosition="above" mat-icon-button
-          color="warn" aria-label="aria">
+        <button (click)="sideMenu()" matTooltip="search" matTooltipPosition="above" mat-icon-button color="warn"
+          aria-label="aria">
           <mat-icon class="full-icon">search</mat-icon>
         </button>
-        <button  class="" *ngIf="!createPostIt" (click)="displayCommentBox()" mat-icon-button matTooltip="slide comments" matTooltipPosition="above">
+        <button *ngIf="!createPostIt" (click)="displayCommentBox()" mat-icon-button matTooltip="slide comments"
+          matTooltipPosition="above">
           <mat-icon class="full-icon">comment</mat-icon>
         </button>
-        <button *ngIf="isNSR" class="" (click)="openDialog('qr_code', 'do')" matTooltip="qr code"
-          matTooltipPosition="above" mat-icon-button color="warn" aria-label="aria">
+        <button *ngIf="isNSR" (click)="openDialog('qr_code', 'do')" matTooltip="qr code" matTooltipPosition="above"
+          mat-icon-button color="warn" aria-label="aria">
           <mat-icon class="full-icon">qr_code</mat-icon>
         </button>
-        <button class="" (click)="displayHelp(false)" matTooltip="info" matTooltipPosition="above" mat-icon-button
-          color="warn" aria-label="aria">
+        <button (click)="displayHelp(false)" matTooltip="info" matTooltipPosition="above" mat-icon-button color="warn"
+          aria-label="aria">
           <mat-icon class="full-icon">help</mat-icon>
         </button>
         <button *ngIf="isNSR" (click)="openDialog('mobileInfo', 'do')" matTooltip="mobile app" mat-icon-button
           color="red">
           <mat-icon class="full-icon">phone_iphone</mat-icon>
         </button>
-        <button class="" (click)="newBlankPostIt()" matTooltip="settings" matTooltipPosition="above" mat-icon-button
-          color="warn" aria-label="aria">
-          <mat-icon class="full-icon">settings</mat-icon>
+        <button *ngIf="createPostIt" (click)="diplayFontSizeSlider = !diplayFontSizeSlider" matTooltip="font size"
+          matTooltipPosition="above" mat-icon-button color="warn" aria-label="aria">
+          <mat-icon class="full-icon">font_download</mat-icon>
+          <mat-slider #slider *ngIf="diplayFontSizeSlider" (change)="setFontSize()" [(ngModel)]="font_size"
+            class="slider-font-size" thumbLabel tickInterval="2" min="20" max="38" [value]="font_size"></mat-slider>
         </button>
-        <button (click)="home()" mat-icon-button aria-label="Example icon-button with a heart icon">
-          <mat-icon class="full-icon">home</mat-icon>
+
+        <button *ngIf="createPostIt" (click)="theme()" mat-icon-button matTooltip="toggle theme"
+          matTooltipPosition="above">
+          <mat-icon class="full-icon">casino</mat-icon>
         </button>
-        <button (click)="bsr()" class="full-icon"  mat-icon-button aria-label="page" style="width: 100px;font-size: 23px;">
+        <button *ngIf="createPostIt" (click)="toggleNamebox()" mat-icon-button matTooltip="names box"
+          matTooltipPosition="above">
+          <mat-icon class="full-icon">bento</mat-icon>
+        </button>
+        <button disabled mat-icon-button aria-label="page" style="width: 100px;font-size: 23px;color: grey !important;">
           {{pageCounter}}
         </button>
-        <button class="" (click)="mainMenu = false" matTooltip="hide menu" matTooltipPosition="above" mat-icon-button
+        <button (click)="mainMenu = false" matTooltip="hide menu" matTooltipPosition="above" mat-icon-button
           color="warn" aria-label="aria">
           <mat-icon class="full-icon">keyboard_arrow_down</mat-icon>
         </button>
@@ -166,7 +179,8 @@
         <div class="slide-box mat-elevation-z12" [style.background]="slideBackground">
 
 
-          <mat-toolbar class="toolbar mat-elevation-z4 bounceIn" *ngIf="mainMenu">
+          <mat-toolbar class="toolbar mat-elevation-z4 bounceIn" *ngIf="false">
+            <!-- <mat-toolbar class="toolbar mat-elevation-z4 bounceIn" *ngIf="mainMenu"> -->
 
             <button (click)="home()" mat-icon-button aria-label="Example icon-button with a heart icon">
               <mat-icon>home</mat-icon>
@@ -298,7 +312,8 @@
                           </mat-card-title>
 
                           <!-- HTML-CONTENT -->
-                          <mat-card-content class="post-content" (click)="openDialog(item, 'edit')">
+                          <mat-card-content class="post-content" [ngStyle]="{'font-size': font_size_text}"
+                            (click)="openDialog(item, 'edit')">
                             <div [innerHTML]="item.html"></div>
                           </mat-card-content>
 
@@ -407,7 +422,8 @@
 
                 <div class="col-md-12" fxLayoutAlign="center center">
                   <!-- MENU BSR-->
-                  <mat-toolbar class="toolbar-postit mat-elevation-z4 bounceIn" *ngIf="mainMenu">
+                  <mat-toolbar class="toolbar-postit mat-elevation-z4 bounceIn" *ngIf="false">
+                    <!-- <mat-toolbar class="toolbar-postit mat-elevation-z4 bounceIn" *ngIf="mainMenu"> -->
 
                     <button (click)="home()" mat-icon-button aria-label="Example icon-button with a heart icon"
                       matTooltip="Home" matTooltipPosition="above">

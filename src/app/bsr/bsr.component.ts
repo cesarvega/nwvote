@@ -20,9 +20,12 @@ import { DOCUMENT } from '@angular/common';
 })
 export class BsrComponent implements OnInit {
 
-  // @ViewChild('slider') slider;  
+  @ViewChild('slider') slider;  
   postItListTheme = 'post-it-list-theme'
   searchBoxLeftProperty = '611px;'
+  font_size = '30';
+  font_size_text = this.font_size + 'px';
+  diplayFontSizeSlider = false;
   loginForm: FormGroup;
   isMouseOver: boolean = false;
   sliderVal = 51;
@@ -114,6 +117,9 @@ export class BsrComponent implements OnInit {
   }
 
   ngOnInit(): void {
+
+    this.font_size_text = (localStorage.getItem('font_size_text'))?localStorage.getItem('font_size_text'):'26px';
+
     this.activatedRoute.params.subscribe(params => {
       this.projectName = params['id'];
       localStorage.setItem('projectId', this.projectName);
@@ -506,6 +512,14 @@ export class BsrComponent implements OnInit {
     }
 
   }
+
+
+  setFontSize(){
+    console.log(this.font_size);    
+    this.font_size_text = this.font_size + 'px';
+    localStorage.setItem('font_size_text', this.font_size_text);
+  }
+
 }
 
 

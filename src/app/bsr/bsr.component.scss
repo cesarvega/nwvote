@@ -257,6 +257,18 @@
   background-color: transparent !important;
 }
 
+
+
+.overview {
+  max-width: 470px;
+  // height: 100%;
+}
+
+
+  
+
+
+
 .material-icons {
   line-height: 0.8;
 }
@@ -323,19 +335,18 @@
   line-height: 20px;
 }
 
-mat-slider {
-  width: 600px;
-  position: fixed;
-  top: 115px;
-  z-index: 99;
-  right: 455px;
-  color: lawngreen;
+.slider-font-size {
+  width: 155px;
+  position: absolute;
+  bottom: 36px;
+  right: -52px;
 }
 
 .instruction-style {
-  border: black solid 1px;
-  padding-block: 10px;
+  // border: black solid 1px;
+  // padding-block: 10px;
   width: 250px;
+  max-width: 330px;
 }
 
 .colorin {
@@ -654,16 +665,6 @@ mat-tab-group ::-webkit-scrollbar {
   display: none;
 }
 
-.overview {
-  width: 300px;
-  overflow-x: hidden;
-  overflow-y: scroll;
-}
-
-.overview::-webkit-scrollbar {
-  display: none;
-}
-
 .menu-icon {
   position: absolute;
   top: 810px;
@@ -700,9 +701,13 @@ mat-tab-group ::-webkit-scrollbar {
   outline: none;
 }
 
+.full-icon:hover {
+  transform: scale(2.1);
+}
 .full-icon {
   color: grey !important;
   font-size: 20px;
+  transition: all 0.1s ease-in-out;
 }
 
 .qr_code {

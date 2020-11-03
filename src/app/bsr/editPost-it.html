@@ -147,11 +147,7 @@
     <!-- MOBILE INFO PICTURE DISPLAY -->
     <div *ngIf="isMobileInfo">
 
-        <mat-icon (click)="buttonOption('')" style="color: #004684;
-                    position: absolute;
-                    top: 576px;
-                    outline: none;
-                    right: 3px;">cancel</mat-icon>
+       
 
         <div class="row" layout-align="center center">
 
@@ -160,23 +156,36 @@
             <div flex="" class="text-center flex" style="margin:0 18px">
                 <p>1. Access
                     www.mynamepage.com/{{projectId}}</p>
-                <img class="instruction-style mat-elevation-z4" src="assets/img/bsr/login_page.JPG" alt="Login">
+                <img class="instruction-style " src="assets/img/bsr/login_page.JPG" alt="Login">
             </div>
             <div flex="" class="text-center flex" style="margin-right:10px">
                 <p>2.
                     Enter name suggestions</p>
-                <img class="instruction-style" src="assets/img/bsr/page_creation.png" alt="Candidates">
+                <img class="instruction-style" src="assets/img/bsr/page_creation.JPG" alt="Candidates">
             </div>
             <div flex="" class="text-center flex">
                 <p>3.
                     Edit name suggestions (optional)</p>
-                <img class="instruction-style" src="assets/img/bsr/editing_name.png" alt="Edit, Save and Delete">
+                <img class="instruction-style" src="assets/img/bsr/editing_name.JPG" alt="Edit, Save and Delete">
             </div>
-            <div flex="" class="text-center flex" style="margin:0 10px">
+            <div flex="" class="text-center flex" style="margin: 0px 15px;">
                 <p>4.
                     Complete</p>
-                <img class="instruction-style" src="assets/img/bsr/thank_you_page.png" alt="Logout">
+                <img class="instruction-style" src="assets/img/bsr/thank_you_page.JPG" alt="Logout">
             </div>
+
+
+
+            <mat-icon (click)="buttonOption('')" style="    color: #004684;
+            position: absolute;
+            bottom: -15px;
+            outline: none;
+            right: -7px;
+            font-size: 17px;
+            cursor: pointer;
+            ">disabled_by_default</mat-icon>
+
+
         </div>
 
 
@@ -276,7 +285,7 @@
     </div>
 
     <!-- EDITOR CARD -->
-    <div *ngIf="!infoMessage && !isMobileInfo && !isQRcode" class="mat-elevation-z4">
+    <div *ngIf="!infoMessage && !isMobileInfo && !isQRcode" class="">
         <form name="loginForm" [formGroup]="loginForm" novalidate class="">
             <div class="container" fxLayout="column" fxLayoutAlign="center center">
                 <div class="row ">
@@ -379,6 +388,7 @@
 </div>
 
 <div *ngIf="isQRcode" class="qr_code">
+    <p style="font-family: sans-serif;font-size: 28px;margin: 0px;">scan me</p>
     <qrcode [qrdata]="myAngularxQrCode" [width]="350" [errorCorrectionLevel]="'M'"></qrcode>
     <p><a style="color: black;" target="_blank">{{myAngularxQrCode}}</a></p>
 </div>
