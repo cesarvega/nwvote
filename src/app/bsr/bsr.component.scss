@@ -257,6 +257,18 @@
   background-color: transparent !important;
 }
 
+
+
+.overview {
+  max-width: 470px;
+  // height: 100%;
+}
+
+
+  
+
+
+
 .material-icons {
   line-height: 0.8;
 }
@@ -323,19 +335,18 @@
   line-height: 20px;
 }
 
-mat-slider {
-  width: 600px;
-  position: fixed;
-  top: 115px;
-  z-index: 99;
-  right: 455px;
-  color: lawngreen;
+.slider-font-size {
+  width: 155px;
+  position: absolute;
+  bottom: 36px;
+  right: -52px;
 }
 
 .instruction-style {
-  border: black solid 1px;
-  padding-block: 10px;
+  // border: black solid 1px;
+  // padding-block: 10px;
   width: 250px;
+  max-width: 330px;
 }
 
 .colorin {
@@ -406,7 +417,7 @@ mat-slider {
   -ms-overflow-style: none; /* IE and Edge */
   scrollbar-width: none;
   .deleteButton {
-   display: none;
+    display: none;
   }
 }
 
@@ -654,16 +665,6 @@ mat-tab-group ::-webkit-scrollbar {
   display: none;
 }
 
-.overview {
-  width: 300px;
-  overflow-x: hidden;
-  overflow-y: scroll;
-}
-
-.overview::-webkit-scrollbar {
-  display: none;
-}
-
 .menu-icon {
   position: absolute;
   top: 810px;
@@ -682,44 +683,38 @@ mat-tab-group ::-webkit-scrollbar {
   z-index: 99;
   left: 76px;
   outline: none;
-  opacity: 0;
-}
-.menu-left-icon:hover {
-  opacity: 1;
+  // opacity: 0;
 }
 
 .menu-right-icon {
   position: relative;
-  right: -1043px;
+  right: -1047px;
   top: -283px;
   z-index: 99;
   outline: none;
-  opacity: 0;
 }
 
-.menu-right-icon:hover {
-  opacity: 1;
-}
-
-.fullscreen {
+.corner_bar_menu {
   position: absolute;
   right: 60px;
   bottom: 30px;
   outline: none;
-  .full-icon {
-    color: grey !important;
-    font-size: 30px;
-  }
 }
-.fullscreen2 {
-  position: absolute;
-  right: 100px;
-  bottom: 30px;
-  outline: none;
-  .full-icon {
-    color: grey !important;
-    font-size: 30px;
-  }
+
+.full-icon:hover {
+  transform: scale(2.1);
+}
+.full-icon {
+  color: grey !important;
+  font-size: 20px;
+  transition: all 0.1s ease-in-out;
+}
+
+.qr_code {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-around;
+  align-items: center;
 }
 
 $postItanimations: shakeY, shakeY, shakeY, shakeY, shakeY, shakeY, shakeY, shakeY, shakeY, shakeY, shakeY, shakeY;
@@ -838,6 +833,7 @@ $postItHeaderColors2: #d6f8fd, #dcd6fd, #d6fde9, #fdfcd6, #d6f8fd, #fdd6e8, #fdd
     opacity: 1;
   }
 }
+
 .brandstorm {
   display: inline-block;
   margin: 0 0.5rem;

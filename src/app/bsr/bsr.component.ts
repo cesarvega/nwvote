@@ -20,10 +20,12 @@ import { DOCUMENT } from '@angular/common';
 })
 export class BsrComponent implements OnInit {
 
-  // @ViewChild('slider') slider;
-
+  @ViewChild('slider') slider;  
   postItListTheme = 'post-it-list-theme'
   searchBoxLeftProperty = '611px;'
+  font_size = '30';
+  font_size_text = this.font_size + 'px';
+  diplayFontSizeSlider = false;
   loginForm: FormGroup;
   isMouseOver: boolean = false;
   sliderVal = 51;
@@ -115,6 +117,9 @@ export class BsrComponent implements OnInit {
   }
 
   ngOnInit(): void {
+
+    this.font_size_text = (localStorage.getItem('font_size_text'))?localStorage.getItem('font_size_text'):'26px';
+
     this.activatedRoute.params.subscribe(params => {
       this.projectName = params['id'];
       localStorage.setItem('projectId', this.projectName);
@@ -507,6 +512,14 @@ export class BsrComponent implements OnInit {
     }
 
   }
+
+
+  setFontSize(){
+    console.log(this.font_size);    
+    this.font_size_text = this.font_size + 'px';
+    localStorage.setItem('font_size_text', this.font_size_text);
+  }
+
 }
 
 
@@ -565,6 +578,8 @@ export class editPost {
   displayedColumns: string[] = ['position', 'name', 'weight'];
   synonymWord: string = ' Copy name to clipboard ';
   dataSource: any[];
+  public myAngularxQrCode: string = null;
+  isQRcode: boolean;
   constructor(
     public dialogRef: MatDialogRef<editPost>,
     @Inject(MAT_DIALOG_DATA) public data: DialogData, private _formBuilder: FormBuilder, private _BsrService: BsrService,) {
@@ -572,7 +587,8 @@ export class editPost {
     this.dataEditor = this.data.name.html;
     this.model.editorData = this.data.name.html;
     this.title = this.data.name.Name;
-
+    // assign a value
+    this.myAngularxQrCode = ' www.mynamepage.com/'+ this.projectId;
     if (this.data.name.Name) {
       this.concept = this.data.name.Name;
     } else {
@@ -595,6 +611,12 @@ export class editPost {
       this.infoMessage = false;
       this.isDeleting = false;
       this.isMobileInfo = true;
+    }
+    if (this.data.name === 'qr_code') {
+      this.infoMessage = false;
+      this.isDeleting = false;
+      this.isMobileInfo = false;
+      this.isQRcode = true;
     }
     this.ckconfig = {
       allowedContent: false,
