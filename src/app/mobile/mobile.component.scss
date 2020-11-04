@@ -1,3 +1,4 @@
+$section-animation: backInRight;
 
 .grid-container {
   display: grid;
@@ -23,6 +24,22 @@
   align-items: center;
 
 }
+// .container::-webkit-scrollbar {
+//     width: 30px;
+//     height: 30px
+// }
+
+// .container::-webkit-scrollbar-thumb {
+//     background: linear-gradient(180deg,#ff8a00,#e52e71);
+//     border-radius: 30px;
+//     box-shadow: inset 2px 2px 2px hsla(0,0%,100%,.25),inset -2px -2px 2px rgba(0,0,0,.25)
+// }
+
+// .container::-webkit-scrollbar-track {
+//     background: linear-gradient(90deg,#201c29,#201c29 1px,#100e17 0,#100e17)
+// }
+
+
 // mobile
 @media (max-width: 576px) {
   
@@ -69,11 +86,11 @@
   align-items: flex-start;
   padding-top: 17px;
   opacity: 0;
-  -webkit-animation: backInRight 1s ease-in-out 1.2s forwards, CardEntrance 1s ease-in-out;
-  -moz-animation: backInRight 1s ease-in-out 1.2s forwards, CardEntrance 1s ease-in-out;
-  -ms-animation: backInRight 1s ease-in-out 1.2s forwards, CardEntrance 1s ease-in-out;
-  -o-animation: backInRight 1s ease-in-out 1.2s forwards, CardEntrance 1s ease-in-out;
-  animation: backInRight 1s ease-in-out 1.2s forwards, CardEntrance 1s ease-in-out;
+  -webkit-animation: $section-animation 1s ease-in-out 1.2s forwards, CardEntrance 1s ease-in-out;
+  -moz-animation: $section-animation 1s ease-in-out 1.2s forwards, CardEntrance 1s ease-in-out;
+  -ms-animation: $section-animation 1s ease-in-out 1.2s forwards, CardEntrance 1s ease-in-out;
+  -o-animation: $section-animation 1s ease-in-out 1.2s forwards, CardEntrance 1s ease-in-out;
+  animation: $section-animation 1s ease-in-out 1.2s forwards, CardEntrance 1s ease-in-out;
 }
 
 .name-title {
@@ -82,11 +99,11 @@
   font-size: 1.7rem;
   text-align: center;
   opacity: 0;
-  -webkit-animation: backInRight 1s ease-in-out 1.5s forwards, CardEntrance 1s ease-in-out;
-  -moz-animation: backInRight 1s ease-in-out 1.5s forwards, CardEntrance 1s ease-in-out;
-  -ms-animation: backInRight 1s ease-in-out 1.5s forwards, CardEntrance 1s ease-in-out;
-  -o-animation: backInRight 1s ease-in-out 1.5s forwards, CardEntrance 1s ease-in-out;
-  animation: backInRight 1s ease-in-out 1.5s forwards, CardEntrance 1s ease-in-out;
+  -webkit-animation: $section-animation 1s ease-in-out 1.5s forwards, CardEntrance 1s ease-in-out;
+  -moz-animation: $section-animation 1s ease-in-out 1.5s forwards, CardEntrance 1s ease-in-out;
+  -ms-animation: $section-animation 1s ease-in-out 1.5s forwards, CardEntrance 1s ease-in-out;
+  -o-animation: $section-animation 1s ease-in-out 1.5s forwards, CardEntrance 1s ease-in-out;
+  animation: $section-animation 1s ease-in-out 1.5s forwards, CardEntrance 1s ease-in-out;
 }
 .name-sub {
   font-size: 1rem;
@@ -95,19 +112,19 @@
   letter-spacing: 0.231em;
   font-family: caviar;
   opacity: 0;
-  -webkit-animation: backInRight 1s ease-in-out 2s forwards, CardEntrance 1s ease-in-out;
-  -moz-animation: backInRight 1s ease-in-out 2s forwards, CardEntrance 1s ease-in-out;
-  -ms-animation: backInRight 1s ease-in-out 2s forwards, CardEntrance 1s ease-in-out;
-  -o-animation: backInRight 1s ease-in-out 2s forwards, CardEntrance 1s ease-in-out;
-  animation: backInRight 1s ease-in-out 2s forwards, CardEntrance 1s ease-in-out;
+  -webkit-animation: $section-animation 1s ease-in-out 2s forwards, CardEntrance 1s ease-in-out;
+  -moz-animation: $section-animation 1s ease-in-out 2s forwards, CardEntrance 1s ease-in-out;
+  -ms-animation: $section-animation 1s ease-in-out 2s forwards, CardEntrance 1s ease-in-out;
+  -o-animation: $section-animation 1s ease-in-out 2s forwards, CardEntrance 1s ease-in-out;
+  animation: $section-animation 1s ease-in-out 2s forwards, CardEntrance 1s ease-in-out;
 }
 
 .card {
-  -webkit-animation: bounceInDown 1s ease-in-out, CardEntrance 1s ease-in-out;
-  -moz-animation: bounceInDown 1s ease-in-out, CardEntrance 1s ease-in-out;
-  -ms-animation: bounceInDown 1s ease-in-out, CardEntrance 1s ease-in-out;
-  -o-animation: bounceInDown 1s ease-in-out, CardEntrance 1s ease-in-out;
-  animation: bounceInDown 1s ease-in-out, CardEntrance 1s ease-in-out;
+  -webkit-animation: backInRight 1s ease-in-out, CardEntrance 1s ease-in-out;
+  -moz-animation: backInRight 1s ease-in-out, CardEntrance 1s ease-in-out;
+  -ms-animation: backInRight 1s ease-in-out, CardEntrance 1s ease-in-out;
+  -o-animation: backInRight 1s ease-in-out, CardEntrance 1s ease-in-out;
+  animation: backInRight 1s ease-in-out, CardEntrance 1s ease-in-out;
   animation-fill-mode: backwards;
   // border-bottom-left-radius: var(--border-bottom-left-radius);
 }
