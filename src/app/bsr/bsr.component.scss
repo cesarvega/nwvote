@@ -692,6 +692,13 @@ mat-tab-group ::-webkit-scrollbar {
   right: 60px;
   bottom: 30px;
   outline: none;
+  z-index: 9999;
+  background: white;
+
+}
+
+::ng-deep  .mat-tooltip {
+  font-size: 24px;
 }
 
 .full-icon:hover {
@@ -706,7 +713,6 @@ mat-tab-group ::-webkit-scrollbar {
 .qr_code {
   display: flex;
   flex-direction: column;
-  justify-content: space-around;
   align-items: center;
 }
 
