@@ -676,6 +676,9 @@ mat-tab-group ::-webkit-scrollbar {
   z-index: 99;
   left: 76px;
   outline: none;
+  :hover{
+    transform: scale(1.5);
+  }
   // opacity: 0;
 }
 
@@ -685,6 +688,9 @@ mat-tab-group ::-webkit-scrollbar {
   top: -283px;
   z-index: 99;
   outline: none;
+  :hover{
+    transform: scale(1.5);
+  }
 }
 
 .corner_bar_menu {
