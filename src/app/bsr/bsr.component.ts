@@ -617,7 +617,7 @@ export class editPost {
       allowedContent: false,
       width: '99.6%',
       contentsCss: ["body {font-size: 24px;}"],
-      height: 370,
+      height: 380,
       forcePasteAsPlainText: true,
       toolbarLocation: 'top',
       toolbarGroups: [
