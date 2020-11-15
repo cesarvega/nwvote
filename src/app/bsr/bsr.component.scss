@@ -31,7 +31,7 @@
 
 .main-container {
   position: absolute;
-  top: -50px;
+  top: -90px;
   bottom: 0;
   left: 0;
   right: 0;
@@ -552,8 +552,8 @@ table {
   background-color: green;
   padding: 4px;
   outline: none;
-  left: 970px;
-  // z-index: 999;
+  left: 956px;
+  z-index: 999;box-shadow: none;
 }
 .tabs-emojis {
   overflow-y: scroll;
@@ -700,6 +700,7 @@ mat-tab-group ::-webkit-scrollbar {
   outline: none;
   z-index: 9999;
   background: white;
+  border-radius: 5px;
 
 }
 

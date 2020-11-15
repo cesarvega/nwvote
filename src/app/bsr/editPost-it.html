@@ -147,7 +147,7 @@
     <!-- MOBILE INFO PICTURE DISPLAY -->
     <div *ngIf="isMobileInfo">
 
-       
+
 
         <div class="row" layout-align="center center">
 
@@ -371,18 +371,15 @@
                 </div>
 
 
-                <div class="row">
-                    <div fxLayoutAlign="end end">
-                        <button (click)="buttonOption('savePost')" class="post-it-done-button" mat-fab color="success"
-                            aria-label="icon">
-                            <mat-icon>check</mat-icon>
-                        </button>
-                    </div>
-                </div>
 
             </div>
 
         </form>
+
+        <button (click)="buttonOption('savePost')" class="post-it-done-button" mat-fab color="success"
+            aria-label="icon">
+            <mat-icon>check</mat-icon>
+        </button>
     </div>
 
 </div>
