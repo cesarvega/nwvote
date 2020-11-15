@@ -119,7 +119,7 @@ export class BsrComponent implements OnInit {
   ngOnInit(): void {
 
     this.font_size_text = (localStorage.getItem('font_size_text'))?localStorage.getItem('font_size_text'):'26px';
-
+    this.font_size =  (localStorage.getItem('font_size'))?localStorage.getItem('font_size'):'26';
     this.activatedRoute.params.subscribe(params => {
       this.projectName = params['id'];
       localStorage.setItem('projectId', this.projectName);
@@ -514,6 +514,7 @@ export class BsrComponent implements OnInit {
     console.log(this.font_size);    
     this.font_size_text = this.font_size + 'px';
     localStorage.setItem('font_size_text', this.font_size_text);
+    localStorage.setItem('font_size',  this.font_size);
   }
 
 }
