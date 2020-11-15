@@ -339,6 +339,7 @@ export class BsrComponent implements OnInit {
   }
 
   goToSlide(i) {
+    this.overview = false;
     this.currentPageNumber = i;
     this.slideBackground = this.baseBackgroundUrl + this.appSlidesData[i].SlideBGFileName + ')';
     this.createPostIt = false;

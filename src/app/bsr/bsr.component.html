@@ -1,6 +1,5 @@
 <mat-sidenav-container class="main-container" *ngIf="true" [hasBackdrop]="false">
 
-
   <!-- OVERVIEW SLIDE -->
   <mat-sidenav class="overview"  mode="over" [opened]="overview">
     <mat-card (click)="goToSlide(i)" *ngFor="let item of appSlidesData; let i = index">
@@ -20,13 +19,9 @@
         </button>
       </div>
 
-
       <button (click)="moveBackward()" class="menu-left-icon" disableRipple mat-icon-button color="red">
         <mat-icon>keyboard_arrow_left</mat-icon>
       </button>
-
-
-
 
       <!-- COMMENTS BOX -->
       <div fxLayout="col" *ngIf="isCommentBox" fxLayoutAlign="center center">
@@ -150,7 +145,6 @@
           <mat-slider #slider *ngIf="diplayFontSizeSlider" (change)="setFontSize()" [(ngModel)]="font_size"
             class="slider-font-size" thumbLabel tickInterval="2" min="20" max="38" [value]="font_size"></mat-slider>
         </button>
-
         <button *ngIf="createPostIt" (click)="theme()" mat-icon-button matTooltip="toggle theme"
           matTooltipPosition="above">
           <mat-icon class="full-icon">casino</mat-icon>
@@ -268,7 +262,7 @@
                   </div>
                   <div class="col" (click)="toggleNamebox()"
                     style="color: white; font-size: 30px;font-family: Arial; right: -370px;cursor: pointer;"
-                    [matTooltip]="'Names Create '+ nameCandidates.length" matTooltipPosition="right">
+                    [matTooltip]="'Names Created '+ nameCandidates.length" matTooltipPosition="right">
                     Names
                     <span *ngIf="nameCandidates.length > 0" style="position: absolute;    top: 6px;
                       right: 4px;" matBadgeColor="warn" [matBadgeHidden]="!(nameCandidates.length > 0)"
@@ -358,6 +352,7 @@
                       <mat-icon style="font-size: 50px;
                       position: absolute;
                       top: 0px;
+                      z-index: 1;
                       left: 0px;">play_arrow</mat-icon>
                     </button>
                     <p style="position: absolute;
