@@ -603,7 +603,7 @@ export class editPost {
 
     // assign a value
     // this.myAngularxQrCode = 'http://www.bipresents.com/'+ this.projectId;
-    this.myAngularxQrCode = ' www.mynamepage.com/'+ this.projectId;
+    this.myAngularxQrCode = ' www.mynamepage.com/'+  localStorage.getItem('projectName');
     if (this.data.name.Name) {
       this.concept = this.data.name.Name;
     } else {
