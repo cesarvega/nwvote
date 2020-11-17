@@ -6,26 +6,26 @@ import { BsrMobileComponent } from './bsr-mobile/bsr-mobile.component';
 import { BsrComponent } from './bsr/bsr.component';
 
 const routes: Routes = [
-  {
-    path: 'login',
-    component: LoginComponent
-  },
-  {
-    path: 'vote',
-    component: NwVoteComponent
-  },
-  {
-    path: 'bsr-mobile/:id',
+  // {
+  //   path: 'login',
+  //   component: LoginComponent
+  // },
+  // {
+  //   path: 'vote',
+  //   component: NwVoteComponent
+  // },
+  // {
+  //   path: ':id',
 
-    component: BsrMobileComponent
-  },
+  //   component: BsrMobileComponent
+  // },
   {
-    path: 'bsr/:id',
+    path: ':id',
     component: BsrComponent
   },
   {
     path: '',
-    redirectTo: 'login',
+    redirectTo: '',
     pathMatch: 'full'
   }
 ];

@@ -157,7 +157,7 @@ export class BsrComponent implements OnInit {
 
     this._BsrService.getPost().subscribe((res: any) => {
       this.conceptData = JSON.parse(res[0].bsrData);
-      if (JSON.parse(res[0].bsrData).presentationtype = 'NSR') {
+      if (JSON.parse(res[0].bsrData).presentationtype === 'NSR') {
         this.isNSR = true;
       }
       console.log(this.conceptData);
@@ -204,7 +204,7 @@ export class BsrComponent implements OnInit {
     this._BsrService.postItOrder(this.projectId, orderArray).subscribe(arg => {
       this._BsrService.getPost().subscribe((res: any) => {
         this.conceptData = JSON.parse(res[0].bsrData);
-        if (JSON.parse(res[0].bsrData).presentationtype = 'NSR') {
+        if (JSON.parse(res[0].bsrData).presentationtype === 'NSR') {
           this.isNSR = true;
         }
         console.log(this.conceptData);
@@ -381,7 +381,7 @@ export class BsrComponent implements OnInit {
       } else if (result === 'savePost') {
         this._BsrService.getPost().subscribe((res: any) => {
           this.conceptData = JSON.parse(res[0].bsrData);
-          if (JSON.parse(res[0].bsrData).presentationtype = 'NSR') {
+          if (JSON.parse(res[0].bsrData).presentationtype === 'NSR') {
             this.isNSR = true;
           }
           console.log(this.conceptData);
