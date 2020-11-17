@@ -225,7 +225,7 @@ export class BsrComponent implements OnInit {
     this.appSearchSlidesData = [];
     this.isCommentBox = false;
     this.createPostIt = false;
-    if (this.totalNumberOfSlides > this.currentPageNumber + 1) {
+    if (this.totalNumberOfSlides >= this.currentPageNumber + 1) {
       this.currentPageNumber = 1 + this.currentPageNumber;
       this.slideBackground = this.baseBackgroundUrl + this.appSlidesData[this.currentPageNumber].SlideBGFileName + ')';
       if (this.postItPresentationIndex === this.currentPageNumber) {
@@ -561,7 +561,7 @@ export class editPost {
   title: string;
   editName: string;
   concept: any;
-  projectId = 'te2687';
+  projectId = '';
   // projectId = 'rg2327';
   public model = {
     editorData: '',
@@ -580,11 +580,14 @@ export class editPost {
   isQRcode: boolean;
   constructor(
     public dialogRef: MatDialogRef<editPost>,
-    @Inject(MAT_DIALOG_DATA) public data: DialogData, private _formBuilder: FormBuilder, private _BsrService: BsrService,) {
+    @Inject(MAT_DIALOG_DATA) public data: DialogData, private _formBuilder: FormBuilder, private _BsrService: BsrService, private activatedRoute: ActivatedRoute,) {
     this.editName = this.data.nameId;
     this.dataEditor = this.data.name.html;
     this.model.editorData = this.data.name.html;
     this.title = this.data.name.Name;
+
+    this.projectId = localStorage.getItem('projectId');
+
     // assign a value
     // this.myAngularxQrCode = 'http://www.bipresents.com/'+ this.projectId;
     this.myAngularxQrCode = ' www.mynamepage.com/'+ this.projectId;
