@@ -178,10 +178,10 @@ export class BsrComponent implements OnInit {
       suma: [''],
       name: ['']
     });
-    this.nameIndexCounter = parseInt(localStorage.getItem('namesIndexCounte'));
+    this.nameIndexCounter = (localStorage.getItem('namesIndexCounte'))? parseInt(localStorage.getItem('namesIndexCounte')): 0;
   
     
-    this.toggleNamebox();
+    // this.toggleNamebox();
   }
 
   getCommentsByIndex(index) {
@@ -225,7 +225,7 @@ export class BsrComponent implements OnInit {
     this.appSearchSlidesData = [];
     this.isCommentBox = false;
     this.createPostIt = false;
-    if (this.totalNumberOfSlides >= this.currentPageNumber + 1) {
+    if (this.totalNumberOfSlides > this.currentPageNumber + 1) {
       this.currentPageNumber = 1 + this.currentPageNumber;
       this.slideBackground = this.baseBackgroundUrl + this.appSlidesData[this.currentPageNumber].SlideBGFileName + ')';
       if (this.postItPresentationIndex === this.currentPageNumber) {
@@ -233,6 +233,8 @@ export class BsrComponent implements OnInit {
           this.searchBoxLeftProperty = '777px';
       }
       this.pageCounter = this.currentPageNumber + 1 + '/' + this.totalNumberOfSlides;
+    }else {
+      this.goToSlide(this.currentPageNumber);
     }
   }
 
@@ -597,7 +599,7 @@ export class editPost {
     this.model.editorData = this.data.name.html;
     this.title = this.data.name.Name;
 
-    this.projectId = localStorage.getItem('projectId');
+    this.projectId = '';
 
     // assign a value
     // this.myAngularxQrCode = 'http://www.bipresents.com/'+ this.projectId;
