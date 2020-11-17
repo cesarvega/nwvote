@@ -127,7 +127,7 @@
           matTooltipPosition="above">
           <mat-icon class="full-icon">comment</mat-icon>
         </button>
-        <button *ngIf="isNSR" (click)="openDialog('qr_code', 'do')" matTooltip="qr code" matTooltipPosition="above"
+        <button *ngIf="!isNSR" (click)="openDialog('qr_code', 'do')" matTooltip="qr code" matTooltipPosition="above"
           mat-icon-button color="warn" aria-label="aria">
           <mat-icon class="full-icon">qr_code</mat-icon>
         </button>
@@ -135,7 +135,7 @@
           aria-label="aria">
           <mat-icon class="full-icon">help</mat-icon>
         </button>
-        <button *ngIf="isNSR" (click)="openDialog('mobileInfo', 'do')" matTooltip="mobile app" mat-icon-button
+        <button *ngIf="!isNSR" (click)="openDialog('mobileInfo', 'do')" matTooltip="mobile app" mat-icon-button
           color="red">
           <mat-icon class="full-icon">phone_iphone</mat-icon>
         </button>
@@ -355,7 +355,7 @@
                       z-index: 1;
                       left: 0px;">play_arrow</mat-icon>
                     </button>
-                    <p style="position: absolute;
+                    <p *ngIf="!isNSR" style="position: absolute;
                     top: 60px;">www.mynamepage.com/{{projectId}}</p>
                   </form>
                 </div>
@@ -443,7 +443,7 @@
                     </button>
 
 
-                    <button *ngIf="isNSR" (click)="openDialog('mobileInfo', 'do')" mat-icon-button color="primary"
+                    <button *ngIf="!isNSR" (click)="openDialog('mobileInfo', 'do')" mat-icon-button color="primary"
                       aria-label="Example icon-button with a heart icon">
                       <mat-icon>phone_iphone</mat-icon>
                     </button>
