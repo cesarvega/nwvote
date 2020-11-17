@@ -136,8 +136,8 @@ export class BsrComponent implements OnInit {
       this.appSlidesData = res;
       // this.appSearchSlidesData = res;
       localStorage.setItem('appSlideData', JSON.stringify(res));
-      this.totalNumberOfSlides = res.length - 1;
-      this.pageCounter = '1/' + (parseInt(this.totalNumberOfSlides) + 1);
+      this.totalNumberOfSlides = res.length;
+      this.pageCounter = '1/' + (parseInt(this.totalNumberOfSlides));
       this.slideBackground = this.slideBackground + res[0].SlideBGFileName + ')';
       this.appSlidesData.forEach(element => {
         if (element.SlideType === "NameSummary") {
@@ -294,6 +294,7 @@ export class BsrComponent implements OnInit {
     this.createPostIt = false;
     this.currentPageNumber = 0;
     localStorage.setItem('namesIndexCounte', '0');
+    localStorage.setItem('createPostIt', 'false');
   }
 
   bsr() {
@@ -342,8 +343,18 @@ export class BsrComponent implements OnInit {
   goToSlide(i) {
     this.overview = false;
     this.currentPageNumber = i;
-    this.slideBackground = this.baseBackgroundUrl + this.appSlidesData[i].SlideBGFileName + ')';
-    this.createPostIt = false;
+
+
+    if (this.postItPresentationIndex == this.currentPageNumber) {
+      this.createPostIt = true;
+      
+    }else {
+      this.slideBackground = this.baseBackgroundUrl + this.appSlidesData[i].SlideBGFileName + ')';
+
+      this.createPostIt = false;
+    }
+    
+   
     this.pageCounter = i + 1 + '/' + this.totalNumberOfSlides;
   }
 
