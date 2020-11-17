@@ -312,7 +312,7 @@ export class BsrComponent implements OnInit {
     
     localStorage.setItem('createPostIt', this.createPostIt.toString());
     this.nameIndexCounter = parseInt(localStorage.getItem('namesIndexCounte'));
-    this.toggleNamebox();
+    // this.toggleNamebox();
     this.currentPageNumber = this.postItPresentationIndex;
     this.pageCounter = this.postItPresentationIndex + 1 + '/' + this.totalNumberOfSlides;
     this.currentPageNumber = this.postItPresentationIndex;
