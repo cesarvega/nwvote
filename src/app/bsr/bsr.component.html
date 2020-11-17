@@ -3,7 +3,7 @@
   <!-- OVERVIEW SLIDE -->
   <mat-sidenav class="overview"  mode="over" [opened]="overview">
     <mat-card (click)="goToSlide(i)" *ngFor="let item of appSlidesData; let i = index">
-      <p style="color: #004684;cursor: pointer;border-bottom: #004684;">{{i}}. - {{item.SlideDescription}}</p>
+      <p style="color: #004684;cursor: pointer;border-bottom: #004684;">{{i+1}}. - {{item.SlideDescription}}</p>
       <!-- <img [src]="'http://www.bipresents.com/' + item.SlideBGFileName" alt="overview"
         style="max-width: 250px;cursor: pointer;"> -->
     </mat-card>
@@ -355,7 +355,7 @@
                       z-index: 1;
                       left: 0px;">play_arrow</mat-icon>
                     </button>
-                    <p style="position: absolute;
+                    <p *ngIf="!isNSR" style="position: absolute;
                     top: 60px;">www.mynamepage.com/{{projectId}}</p>
                   </form>
                 </div>

@@ -141,7 +141,7 @@ export class BsrComponent implements OnInit {
       this.slideBackground = this.slideBackground + res[0].SlideBGFileName + ')';
       this.appSlidesData.forEach(element => {
         if (element.SlideType === "NameSummary") {
-          this.postItPresentationIndex = parseInt(element.$id);
+          this.postItPresentationIndex = parseInt(element.$id) - 1 ;
         }
       });
       this.createPostIt = (localStorage.getItem('createPostIt') === 'true') ? true : false;
@@ -293,6 +293,7 @@ export class BsrComponent implements OnInit {
     this.slideBackground = this.baseBackgroundUrl + this.appSlidesData[0].SlideBGFileName + ')';
     this.createPostIt = false;
     this.currentPageNumber = 0;
+    localStorage.setItem('namesIndexCounte', '0');
   }
 
   bsr() {
