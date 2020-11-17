@@ -586,8 +586,8 @@ export class editPost {
     this.model.editorData = this.data.name.html;
     this.title = this.data.name.Name;
     // assign a value
-    this.myAngularxQrCode = 'https://tools.brandinstitute.com/bsrdev/bsr-mobile/'+ this.projectId;
-    // this.myAngularxQrCode = ' www.mynamepage.com/'+ this.projectId;
+    // this.myAngularxQrCode = 'http://www.bipresents.com/'+ this.projectId;
+    this.myAngularxQrCode = ' www.mynamepage.com/'+ this.projectId;
     if (this.data.name.Name) {
       this.concept = this.data.name.Name;
     } else {
