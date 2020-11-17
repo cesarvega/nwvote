@@ -47,7 +47,7 @@ export class BsrComponent implements OnInit {
   myControl = new FormControl();
   options: string[] = ['One', 'Two', 'Three'];
   totalNumberOfSlides: any;
-  pageCounter = ' 1/40';
+  pageCounter = '';
   currentPageNumber = 0;
   appSlidesData: any;
   mainMenu: boolean = true;
@@ -136,8 +136,8 @@ export class BsrComponent implements OnInit {
       this.appSlidesData = res;
       // this.appSearchSlidesData = res;
       localStorage.setItem('appSlideData', JSON.stringify(res));
-      this.totalNumberOfSlides = res.length
-      this.pageCounter = '1/' + this.totalNumberOfSlides;
+      this.totalNumberOfSlides = res.length - 1;
+      this.pageCounter = '1/' + (parseInt(this.totalNumberOfSlides) + 1);
       this.slideBackground = this.slideBackground + res[0].SlideBGFileName + ')';
       this.appSlidesData.forEach(element => {
         if (element.SlideType === "NameSummary") {
