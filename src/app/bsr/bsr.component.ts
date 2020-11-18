@@ -71,6 +71,8 @@ export class BsrComponent implements OnInit {
   commentBoxText = "";
   elem: any;
   isFullscreen = false;
+  namesBoxIndexValue = 52;
+  namesBoxIndex = 0;
   constructor(@Inject(DOCUMENT) private document: any, private _formBuilder: FormBuilder,
     private _hotkeysService: HotkeysService,
     private _BsrService: BsrService, public dialog: MatDialog, private activatedRoute: ActivatedRoute,) {
@@ -181,7 +183,7 @@ export class BsrComponent implements OnInit {
     this.nameIndexCounter = (localStorage.getItem('namesIndexCounte'))? parseInt(localStorage.getItem('namesIndexCounte')): 0;
   
     
-    // this.toggleNamebox();
+    this.onInputChange(parseInt(localStorage.getItem('namesBoxIndex')));
   }
 
   getCommentsByIndex(index) {
@@ -312,7 +314,7 @@ export class BsrComponent implements OnInit {
     
     localStorage.setItem('createPostIt', this.createPostIt.toString());
     this.nameIndexCounter = parseInt(localStorage.getItem('namesIndexCounte'));
-    // this.toggleNamebox();
+    this.onInputChange(parseInt(localStorage.getItem('namesBoxIndex')));
     this.currentPageNumber = this.postItPresentationIndex;
     this.pageCounter = this.postItPresentationIndex + 1 + '/' + this.totalNumberOfSlides;
     this.currentPageNumber = this.postItPresentationIndex;
@@ -408,33 +410,6 @@ export class BsrComponent implements OnInit {
   }
 
 
-  onInputChange(value: number) {
-    console.log("This is emitted as the thumb slides");
-    // console.log(value);
-    if (value > 51) {
-      this.myMaxWith = '935px';
-      this.myMaxRWith = '300px';
-      this.myMaxRightWith = '-1px';
-      this.nameBox = false;
-      this.nameBoxB = false;
-      this.isScreenButton = false;
-    } else if (value <= 51 && value > 25) {
-      this.myMaxWith = '925px';
-      this.myMaxRWith = '340px';
-      this.myMaxRightWith = '8px';
-      this.nameBox = true;
-      this.nameBoxB = true;
-      this.isScreenButton = true;
-    } else if (value <= 25) {
-      this.myMaxWith = '335px';
-      this.myMaxRWith = '636px';
-      this.myMaxRightWith = '352px';
-      this.nameBox = true;
-      this.nameBoxB = false;
-      this.isScreenButton = true;
-    }
-  }
-
   assignCopy() {
     // this.appSearchSlidesData = Object.assign([], this.appSlidesData);
   }
@@ -466,19 +441,51 @@ export class BsrComponent implements OnInit {
   }
 
   toggleNamebox() {
-    localStorage.setItem('namesIndexCounte', this.nameIndexCounter.toString());
-    if (this.nameIndexCounter === 0) {
-      this.nameIndexCounter++;
+    // this.namesBoxIndex = parseInt(localStorage.getItem('namesBoxIndex'));
+    if (this.namesBoxIndex === 0) {
+      this.namesBoxIndex++;
       this.onInputChange(52);
-    } else if (this.nameIndexCounter === 1) {
-      this.nameIndexCounter++;
+    } else if (this.namesBoxIndex === 1) {
+      this.namesBoxIndex++;
       this.onInputChange(30);
     } else {
-      this.nameIndexCounter = 0;
+      this.namesBoxIndex = 0;
       this.onInputChange(15);
     }
-    this.nameIndexCounter
+   
   }
+
+
+  
+  onInputChange(value: number) {
+    // console.log("This is emitted as the thumb slides");
+    // console.log(value);
+    if (value > 51) {
+      this.myMaxWith = '935px';
+      this.myMaxRWith = '300px';
+      this.myMaxRightWith = '-1px';
+      this.nameBox = false;
+      this.nameBoxB = false;
+      this.isScreenButton = false;
+    } else if (value <= 51 && value > 25) {
+      this.myMaxWith = '925px';
+      this.myMaxRWith = '340px';
+      this.myMaxRightWith = '8px';
+      this.nameBox = true;
+      this.nameBoxB = true;
+      this.isScreenButton = true;
+    } else if (value <= 25) {
+      this.myMaxWith = '335px';
+      this.myMaxRWith = '636px';
+      this.myMaxRightWith = '352px';
+      this.nameBox = true;
+      this.nameBoxB = false;
+      this.isScreenButton = true;
+    }
+    this.namesBoxIndexValue = value;
+    localStorage.setItem('namesBoxIndex', this.namesBoxIndexValue.toString());
+  }
+
 
   screenNames() {
     this.isScreeningNames = !this.isScreeningNames;
