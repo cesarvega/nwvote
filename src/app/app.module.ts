@@ -35,6 +35,7 @@ import { MatBadgeModule } from '@angular/material/badge';
 import { MatTableModule } from '@angular/material/table';
 import { MatTabsModule } from '@angular/material/tabs';
 import { QRCodeModule } from 'angularx-qrcode';
+import { DeviceDetectorModule } from 'ngx-device-detector';
 @NgModule({
   declarations: [
     AppComponent,
@@ -73,7 +74,8 @@ import { QRCodeModule } from 'angularx-qrcode';
     HotkeyModule.forRoot(),
     MatSliderModule,
     MatTabsModule,
-    QRCodeModule
+    QRCodeModule,
+    DeviceDetectorModule
     // AngularEditorModule,
 
   ],

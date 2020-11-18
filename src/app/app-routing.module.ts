@@ -14,15 +14,15 @@ const routes: Routes = [
   //   path: 'vote',
   //   component: NwVoteComponent
   // },
-  // {
-  //   path: ':id',
-
-  //   component: BsrMobileComponent
-  // },
   {
     path: ':id',
-    component: BsrComponent
+
+    component: BsrMobileComponent
   },
+  // {
+  //   path: ':id',
+  //   component: BsrComponent
+  // },
   {
     path: '',
     redirectTo: '',

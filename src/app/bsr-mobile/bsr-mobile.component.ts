@@ -4,6 +4,7 @@ import { FormBuilder, Validators, FormGroup } from '@angular/forms';
 import { Router, ActivatedRoute } from '@angular/router';
 import { BsrMobileService } from './bsr-mobile.service';
 import { MatDialog, MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
+import { DeviceDetectorService } from 'ngx-device-detector';
 
 @Component({
   selector: 'app-bsr-mobile',
@@ -26,6 +27,7 @@ export class BsrMobileComponent implements OnInit {
   anoni: string = '';
   isEmojiTime = false;
   summarized: any;
+  deviceInfo: any;
   constructor(private _formBuilder: FormBuilder, private bsrService: BsrMobileService,
     private activatedRoute: ActivatedRoute,
     public dialog: MatDialog,
