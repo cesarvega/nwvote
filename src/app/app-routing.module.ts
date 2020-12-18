@@ -14,12 +14,12 @@ const routes: Routes = [
   //   path: 'vote',
   //   component: NwVoteComponent
   // },
-  {
+  {// BSR-Mobile
     path: ':id',
 
     component: BsrMobileComponent
   },
-  // {
+  // {//BSR
   //   path: ':id',
   //   component: BsrComponent
   // },
