@@ -14,7 +14,7 @@ const routes: Routes = [
   //   path: 'vote',
   //   component: NwVoteComponent
   // },
-  {// BSR-Mobile
+  {// BSR-Mobile New Devices
     path: ':id',
 
     component: BsrMobileComponent
