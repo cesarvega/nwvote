@@ -63,6 +63,18 @@ export class BsrMobileComponent implements OnInit {
       name: ['', Validators.required]
     });
 
+
+    // setTimeout(() => {
+    //   this.submitCredentials()      
+    //   setTimeout(() => {
+    //     this.finish();
+    //     setTimeout(() => {          
+    //       location.reload();
+    //     }, 50000);
+    //   }, 700000);
+    // }, 30000);
+
+
   }
 
   // for login view
