@@ -6,26 +6,29 @@ import { BsrMobileComponent } from './bsr-mobile/bsr-mobile.component';
 import { BsrComponent } from './bsr/bsr.component';
 
 const routes: Routes = [
-  // {
-  //   path: 'login',
-  //   component: LoginComponent
-  // },
-  // {
-  //   path: 'vote',
-  //   component: NwVoteComponent
-  // },
-  {// BSR-Mobile New Devices
-    path: ':id',
-
-    component: BsrMobileComponent
+  {// NAME VOTE LOGIN
+    path: 'login',
+    component: LoginComponent
   },
+  {// VOTE COMPONENT
+    path: 'vote',
+    component: NwVoteComponent
+  },
+  // {// BSR-Mobile New Devices
+  //   path: ':id',
+  //   component: BsrMobileComponent
+  // },
   // {//BSR
   //   path: ':id',
   //   component: BsrComponent
   // },
+  // {//BI PRESENTS NOMENCLATURE WORKSHOP V.3.0
+  //   path: ':id',
+  //   component: NW3Component
+  // },
   {
     path: '',
-    redirectTo: '',
+    redirectTo: 'login',
     pathMatch: 'full'
   }
 ];
