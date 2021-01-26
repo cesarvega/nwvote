@@ -4,6 +4,7 @@ import { NwVoteComponent } from './nw-vote/nw-vote.component';
 import { LoginComponent } from './auth/login/login.component';
 import { BsrMobileComponent } from './bsr-mobile/bsr-mobile.component';
 import { BsrComponent } from './bsr/bsr.component';
+import { NW3Component } from './nw3/nw3.component';
 
 const routes: Routes = [
   {// NAME VOTE LOGIN
@@ -22,10 +23,10 @@ const routes: Routes = [
   //   path: ':id',
   //   component: BsrComponent
   // },
-  // {//BI PRESENTS NOMENCLATURE WORKSHOP V.3.0
-  //   path: ':id',
-  //   component: NW3Component
-  // },
+  {//BI PRESENTS NOMENCLATURE WORKSHOP V.3.0
+    path: ':id',
+    component: NW3Component
+  },
   {
     path: '',
     redirectTo: 'login',

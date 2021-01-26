@@ -36,6 +36,7 @@ import { MatTableModule } from '@angular/material/table';
 import { MatTabsModule } from '@angular/material/tabs';
 import { QRCodeModule } from 'angularx-qrcode';
 import { DeviceDetectorModule } from 'ngx-device-detector';
+import { NW3Component } from './nw3/nw3.component';
 @NgModule({
   declarations: [
     AppComponent,
@@ -45,6 +46,7 @@ import { DeviceDetectorModule } from 'ngx-device-detector';
     editName,
     editPost,
     BsrComponent,
+    NW3Component,
   ],
   imports: [
     BrowserModule,
