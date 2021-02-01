@@ -1,0 +1,175 @@
+@mixin BoxShadow($dp) {
+    @if $dp==0 {
+        box-shadow: none;
+    } @else if $dp==1 {
+        box-shadow: 0 1px 1px 0 rgba(0, 0, 0, 0.14), 0 2px 1px -1px rgba(0, 0, 0, 0.12), 0 1px 3px 0 rgba(0, 0, 0, 0.2);
+    } @else if $dp==2 {
+        box-shadow: 0 2px 2px 0 rgba(0, 0, 0, 0.14), 0 3px 1px -2px rgba(0, 0, 0, 0.12), 0 1px 5px 0 rgba(0, 0, 0, 0.2);
+    } @else if $dp==3 {
+        box-shadow: 0 3px 4px 0 rgba(0, 0, 0, 0.14), 0 3px 3px -2px rgba(0, 0, 0, 0.12), 0 1px 8px 0 rgba(0, 0, 0, 0.2);
+    } @else if $dp==4 {
+        box-shadow: 0 4px 5px 0 rgba(0, 0, 0, 0.14), 0 1px 10px 0 rgba(0, 0, 0, 0.12), 0 2px 4px -1px rgba(0, 0, 0, 0.2);
+    } @else if $dp==6 {
+        box-shadow: 0 6px 10px 0 rgba(0, 0, 0, 0.14), 0 1px 18px 0 rgba(0, 0, 0, 0.12),
+            0 3px 5px -1px rgba(0, 0, 0, 0.2);
+    } @else if $dp==8 {
+        box-shadow: 0 8px 10px 1px rgba(0, 0, 0, 0.14), 0 3px 14px 2px rgba(0, 0, 0, 0.12),
+            0 5px 5px -3px rgba(0, 0, 0, 0.2);
+    } @else if $dp==9 {
+        box-shadow: 0 9px 12px 1px rgba(0, 0, 0, 0.14), 0 3px 16px 2px rgba(0, 0, 0, 0.12),
+            0 5px 6px -3px rgba(0, 0, 0, 0.2);
+    } @else if $dp==12 {
+        box-shadow: 0 12px 17px 2px rgba(0, 0, 0, 0.14), 0 5px 22px 4px rgba(0, 0, 0, 0.12),
+            0 7px 8px -4px rgba(0, 0, 0, 0.2);
+    } @else if $dp==16 {
+        box-shadow: 0 16px 24px 2px rgba(0, 0, 0, 0.14), 0 6px 30px 5px rgba(0, 0, 0, 0.12),
+            0 8px 10px -5px rgba(0, 0, 0, 0.2);
+    } @else if $dp==24 {
+        box-shadow: 0 24px 38px 3px rgba(0, 0, 0, 0.14), 0 9px 46px 8px rgba(0, 0, 0, 0.12),
+            0 11px 15px -7px rgba(0, 0, 0, 0.2);
+    }
+}
+
+.singleName {
+    background-color: white;
+    border: solid 5px #2b3080;
+    width: 948px;
+    height: 714px;
+    margin: 0;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    -ms-transform: translate(-50%, -53%);
+    transform: translate(-50%, -53%);
+    border-radius: 3px;
+    // background-image: url("http://bipresents.com/nw2/nw_slides/Test_WELL_PLATFORM/thumbnails/014.jpg");
+
+    // @include BoxShadow(6);
+
+    .nameContainer {
+        display: flex;
+        align-items: center;
+        flex-direction: column;
+        justify-content: space-around;
+        width: 948px;
+        height: 575px;
+    }
+
+    .voteIcons {
+        display: flex;
+        align-items: center;
+        flex-direction: row;
+        justify-content: space-around;
+        width: 948px;
+        height: 85px;
+        outline: none;
+    }
+
+    .voteIconButton:hover {
+        transform: scale(2.1);
+        color: red;
+    }
+
+    .voteIconButton{
+        color: darkblue;
+        outline: none;
+        width: 40px;
+        height: 40px;
+        line-height: 20px;
+    }
+
+    .GO {
+        @include BoxShadow(6);
+        width: 70px;
+        height: 70px;
+        border: 5px solid darkblue;
+        position: absolute;
+        right: -68px;
+        top: -53px;
+        outline: none;
+        line-height: 30px;
+    }
+
+    .item1 {
+        // font-size: 30px;
+        margin-bottom: 161px;
+        margin-top: -15px;
+    }
+    .item2 {
+        // font-size: 140px;
+        margin-top: -138px;
+        color: darkblue;
+    }
+    .item3 {
+        // font-size: 30px;
+    }
+    .item4 {
+        // font-size: 35px;
+    }
+}
+
+.groupName {
+    background-color: lightcoral;
+    border: solid 5px #2b3080;
+    width: 948px;
+    height: 714px;
+    margin: 0;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    -ms-transform: translate(-50%, -53%);
+    transform: translate(-50%, -53%);
+    border-radius: 3px;
+    background-image: url("http://bipresents.com/nw2/nw_slides/Test_WELL_PLATFORM/thumbnails/014.jpg");
+    @include BoxShadow(6);
+}
+
+.corner_bar_menu {
+    position: absolute;
+    right: 60px;
+    bottom: 30px;
+    outline: none;
+    z-index: 9999;
+    background: white;
+    border-radius: 5px;
+}
+
+::ng-deep .mat-tooltip {
+    font-size: 24px;
+}
+
+.full-icon:hover {
+    transform: scale(2.1);
+    color: darkblue;
+}
+.full-icon {
+    color: grey;
+    font-size: 20px;
+    transition: all 0.1s ease-in-out;
+}
+
+// theme
+$postItHeaderColors2: #d6f8fd, #dcd6fd, #d6fde9, #fdfcd6, #d6f8fd, #fdd6e8, #fddfd6, #d6f8fd, #d6f8fd;
+$postItHeaderColorsLength: length($postItHeaderColors2);
+.post-it-list-theme {
+    @for $i from 1 through 8 {
+        &:nth-of-type(#{$postItHeaderColorsLength}n + #{$i}) .post-card {
+            background: nth($postItHeaderColors2, $i);
+            // animation: nth($postItanimations, $i) 0.2s;
+            animation: fadeIn 0.2s ease-in-out backwards;
+            animation-iteration-count: 1;
+            animation-delay: $i * 0.05 + s;
+        }
+
+        &:nth-of-type(#{$postItHeaderColorsLength}n + #{$i}) .post-card:hover {
+            // background: nth($postItHeaderColors, $i);
+            // -o-transform: rotate(4deg);
+            // -webkit-transform: rotate(4deg);
+            transform: rotate(1deg);
+            position: relative;
+            top: -2px;
+            background: lightgoldenrodyellow;
+            // animation: nth($postItanimations, $i) 1s;
+        }
+    }
+}

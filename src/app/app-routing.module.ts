@@ -7,14 +7,14 @@ import { BsrComponent } from './bsr/bsr.component';
 import { NW3Component } from './nw3/nw3.component';
 
 const routes: Routes = [
-  {// NAME VOTE LOGIN
-    path: 'login',
-    component: LoginComponent
-  },
-  {// VOTE COMPONENT
-    path: 'vote',
-    component: NwVoteComponent
-  },
+  // {// NAME VOTE LOGIN
+  //   path: 'login',
+  //   component: LoginComponent
+  // },
+  // {// VOTE COMPONENT
+  //   path: 'vote',
+  //   component: NwVoteComponent
+  // },
   // {// BSR-Mobile New Devices
   //   path: ':id',
   //   component: BsrMobileComponent

@@ -1,1 +1,115 @@
-<p>nw3 works!</p>
+<!-- <div class="groupName">groupName</div> -->
+<div class="singleName mat-elevation-z8">
+
+    <button class="GO" style="" mat-icon-button matTooltip="home" matTooltipPosition="above">
+        GO
+    </button>
+    <div class="nameContainer">
+        <div [style.font-family]="font1" [style.font-size]="'30px'" class="item1">COVID-9 mRNA vaccine</div>
+        <div [style.font-family]="font2" [style.font-size]="(font2==='Gacor')?'117px':'190px'" class="item2">Comirnaty
+        </div>
+        <div [style.font-family]="font3" [style.font-size]="'30px'" class="item3">HYBERYS</div>
+        <div [style.font-family]="font4" [style.font-size]="'35px'" class="item4">RNA (mRNA) a protein from SARS-CoV-2
+        </div>
+    </div>
+
+    <div class="voteIcons" style="position: absolute;display: flex;align-items: center; justify-content: space-around;">
+
+        <button class="voteIconButton"  mat-icon-button matTooltip="home"
+            matTooltipPosition="above">
+            <mat-icon>sentiment_very_satisfied</mat-icon>
+        </button>
+
+        <button class="voteIconButton"  mat-icon-button matTooltip="home"
+            matTooltipPosition="above">
+            <mat-icon>sentiment_neutral</mat-icon>
+        </button>
+
+        <button class="voteIconButton"  mat-icon-button matTooltip="home"
+            matTooltipPosition="above">
+            <mat-icon>sentiment_very_dissatisfied</mat-icon>
+        </button>
+
+        <button class="voteIconButton"  mat-icon-button matTooltip="home"
+            matTooltipPosition="above">
+            <mat-icon>sync</mat-icon>
+        </button>
+
+    </div>
+
+</div>
+
+
+
+
+<div *ngIf="!mainMenu" class="corner_bar_menu">
+    <button *ngIf="false" matTooltip="new post it" matTooltipPosition="above" mat-icon-button color="warn"
+        aria-label="aria">
+        <mat-icon class="full-icon">note_add</mat-icon>
+    </button>
+    <button *ngIf="!false" mat-icon-button matTooltip="post its" matTooltipPosition="above" mat-icon-button color="warn"
+        aria-label="aria">
+        <mat-icon class="full-icon">lightbulb_outline</mat-icon>
+    </button>
+    <!-- <button mat-icon-button aria-label="Proprietary" style="width: 200px;">
+      Proprietary & Confidential
+    </button> -->
+    <button (click)="toogleMenu()" matTooltip="menu" matTooltipPosition="above" mat-icon-button color="warn"
+        aria-label="aria">
+        <mat-icon class="full-icon">menu</mat-icon>
+    </button>
+</div>
+
+<div *ngIf="mainMenu" class="corner_bar_menu">
+    <button mat-icon-button matTooltip="home" matTooltipPosition="above">
+        <mat-icon class="full-icon">home</mat-icon>
+    </button>
+    <button *ngIf="!true" mat-icon-button matTooltip="post its" matTooltipPosition="above" mat-icon-button color="warn"
+        aria-label="aria">
+        <mat-icon class="full-icon">lightbulb_outline</mat-icon>
+    </button>
+    <button *ngIf="true" matTooltip="new post" matTooltipPosition="above" mat-icon-button color="warn"
+        aria-label="aria">
+        <mat-icon class="full-icon">note_add</mat-icon>
+    </button>
+    <button (click)="openFullscreen()" matTooltip="full-screen" matTooltipPosition="above" mat-icon-button color="warn"
+        aria-label="aria">
+        <mat-icon class="full-icon">aspect_ratio</mat-icon>
+    </button>
+    <button matTooltip="search" matTooltipPosition="above" mat-icon-button color="warn" aria-label="aria">
+        <mat-icon class="full-icon">search</mat-icon>
+    </button>
+    <button *ngIf="!true" mat-icon-button matTooltip="slide comments" matTooltipPosition="above">
+        <mat-icon class="full-icon">comment</mat-icon>
+    </button>
+    <button *ngIf="!false" matTooltip="qr code" matTooltipPosition="above" mat-icon-button color="warn"
+        aria-label="aria">
+        <mat-icon class="full-icon">qr_code</mat-icon>
+    </button>
+    <button matTooltip="info" matTooltipPosition="above" mat-icon-button color="warn" aria-label="aria">
+        <mat-icon class="full-icon">help</mat-icon>
+    </button>
+    <button matTooltip="mobile app" mat-icon-button color="red">
+        <mat-icon class="full-icon">phone_iphone</mat-icon>
+    </button>
+    <button *ngIf="true" matTooltip="font size" matTooltipPosition="above" mat-icon-button color="warn"
+        aria-label="aria">
+        <mat-icon class="full-icon">font_download</mat-icon>
+        <mat-slider #slider *ngIf="false" class="slider-font-size" thumbLabel tickInterval="2" min="20" max="38"
+            [value]="28"></mat-slider>
+    </button>
+    <button (click)="fontTheme()" *ngIf="true" mat-icon-button matTooltip="toggle theme" matTooltipPosition="above">
+        <mat-icon class="full-icon">casino</mat-icon>
+    </button>
+    <button *ngIf="true" mat-icon-button matTooltip="names box" matTooltipPosition="above">
+        <mat-icon class="full-icon">bento</mat-icon>
+    </button>
+    <button disabled mat-icon-button aria-label="page" style="width: 100px;font-size: 23px;color: grey !important;">
+        {{'1/60'}}
+    </button>
+    <button (click)="mainMenu = false" matTooltip="hide menu" matTooltipPosition="above" mat-icon-button color="warn"
+        aria-label="aria">
+        <mat-icon class="full-icon">keyboard_arrow_down</mat-icon>
+    </button>
+
+</div>
