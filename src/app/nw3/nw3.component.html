@@ -1,9 +1,18 @@
 <!-- <div class="groupName">groupName</div> -->
+<button  class="menu-left-icon"  mat-icon-button>
+    <mat-icon>keyboard_arrow_right</mat-icon>
+  </button>
+
+<button  class="menu-right-icon"  mat-icon-button>
+    <mat-icon>keyboard_arrow_left</mat-icon>
+  </button>
+
 <div class="singleName mat-elevation-z8">
 
     <button class="GO" style="" mat-icon-button matTooltip="home" matTooltipPosition="above">
         GO
     </button>
+
     <div class="nameContainer">
         <div [style.font-family]="font1" [style.font-size]="'30px'" class="item1">COVID-9 mRNA vaccine</div>
         <div [style.font-family]="font2" [style.font-size]="(font2==='Gacor')?'117px':'190px'" class="item2">Comirnaty
@@ -13,24 +22,24 @@
         </div>
     </div>
 
-    <div class="voteIcons" style="position: absolute;display: flex;align-items: center; justify-content: space-around;">
+    <div class="voteIcons">
 
-        <button class="voteIconButton"  mat-icon-button matTooltip="home"
+        <button class="voteIconButton"  mat-icon-button matTooltip="Positive"
             matTooltipPosition="above">
             <mat-icon>sentiment_very_satisfied</mat-icon>
         </button>
 
-        <button class="voteIconButton"  mat-icon-button matTooltip="home"
+        <button class="voteIconButton"  mat-icon-button matTooltip="Neutral"
             matTooltipPosition="above">
             <mat-icon>sentiment_neutral</mat-icon>
         </button>
 
-        <button class="voteIconButton"  mat-icon-button matTooltip="home"
+        <button class="voteIconButton"  mat-icon-button matTooltip="Negative"
             matTooltipPosition="above">
             <mat-icon>sentiment_very_dissatisfied</mat-icon>
         </button>
 
-        <button class="voteIconButton"  mat-icon-button matTooltip="home"
+        <button class="voteIconButton"  mat-icon-button matTooltip="Re-Craft"
             matTooltipPosition="above">
             <mat-icon>sync</mat-icon>
         </button>
@@ -38,8 +47,6 @@
     </div>
 
 </div>
-
-
 
 
 <div *ngIf="!mainMenu" class="corner_bar_menu">
