@@ -24,6 +24,7 @@ export class NW3Component implements OnInit {
   isFullscreen = false;
   mainMenu = true;
   fontIndexCounter = 0;
+  isTableOfContent = false;
   
 
 

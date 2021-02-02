@@ -55,29 +55,6 @@
         height: 575px;
     }
 
-    .voteIcons {
-        display: flex;
-        align-items: center;
-        flex-direction: row;
-        justify-content: space-around;
-        width: 948px;
-        height: 85px;
-        outline: none;
-    }
-
-    .voteIconButton:hover {
-        // transform: scale(2.1);
-        // color: red;
-    }
-
-    .voteIconButton {
-        // color: darkblue;
-        outline: none;
-        width: 40px;
-        height: 40px;
-        line-height: 20px;
-    }
-
     .GO {
         @include BoxShadow(4);
         width: 70px;
@@ -132,6 +109,8 @@
     z-index: 9999;
     background: white;
     border-radius: 5px;
+    display: flex;
+    flex-direction: row;
 }
 
 ::ng-deep .mat-tooltip {
@@ -150,19 +129,97 @@
 
 .menu-left-icon {
     position: absolute;
-    right: 330px;
-    top: 45%;
-    outline: none;
-}
-.menu-right-icon {
-    position: absolute;
-    left: 331px;
+    right: -50px;
     top: 45%;
     outline: none;
 }
 
+.menu-right-icon {
+    position: absolute;
+    left: -50px;
+    top: 45%;
+    outline: none;
+}
+
+.tableOfContent {
+    width: 300px;
+    height: 97%;
+    margin: 10px;
+    border: solid 3px darkblue;
+    @include BoxShadow(6);
+}
+
+.settingsBox {
+    float:right;
+    width: 300px;
+    height: 85%;
+    margin: 10px;
+    border: solid 3px darkblue;
+    @include BoxShadow(6);
+}
+
+.voteIcons {
+    position: absolute;
+    left: 147px;
+    display: flex;
+    align-items: center;
+    flex-direction: row;
+    justify-content: space-around;
+    width: 688px;
+    height: 85px;
+    outline: none;
+}
+
+.voteIconButton {
+    color: darkblue;
+    outline: none;
+    width: 40px;
+    height: 40px;
+    line-height: 20px;
+}
+
+.voteOverview {
+    position: absolute;
+    left: 147px;
+    bottom: 115px;
+    display: flex;
+    align-items: center;
+    justify-content: space-around;
+    width: 688px;
+    outline: none;
+}
+
+.voteOverviewBox {
+    border: darkblue 1px solid;
+    width: 100px;
+    height: 200px;
+}
+
+$voteIconsColor: #008d05, #f2ce00, #f50c0c, #4c00ff;
+@for $i from 1 through 4 {
+    .voteIconButton:nth-child(#{$i}) {
+        // color: nth($voteIconsColor, $i);
+        animation: fadeIn 0.2s ease-in-out backwards;
+        animation-iteration-count: 1;
+        animation-delay: $i * 0.15 + s;
+    }
+    .voteOverviewBox:nth-child(#{$i}) {
+        // color: nth($voteIconsColor, $i);
+        animation: fadeIn 0.2s ease-in-out backwards;
+        animation-iteration-count: 1;
+        animation-delay: $i * 0.15 + s;
+    }
+    .voteIconButton:hover:nth-child(#{$i}) {
+        color: nth($voteIconsColor, $i);
+        // transform:;
+        position: relative;
+        top: -2px;
+        transform: scale(2.1) rotate(5deg);
+        background: white;
+    }
+}
 // theme
-$postItHeaderColors2: #05f30d, #f2ce00, #f50c0c, #4c00ff;
+
 // $postItHeaderColorsLength: length($postItHeaderColors2);
 // .voteIcons {
 //     @for $i from 1 through 4 {
@@ -186,19 +243,3 @@ $postItHeaderColors2: #05f30d, #f2ce00, #f50c0c, #4c00ff;
 //         }
 //     }
 // }
-
-$base-color: #036;
-
-@for $i from 1 through 4 {
-    .voteIconButton:nth-child(#{$i}) {
-        color: nth($postItHeaderColors2, $i);
-    }
-    .voteIconButton:hover:nth-child(#{$i}) {
-        transform: scale(2.1);
-        color: green;
-        transform: rotate(6deg);
-        position: relative;
-        top: -2px;
-        background: white;
-    }
-}
