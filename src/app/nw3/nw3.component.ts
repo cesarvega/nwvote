@@ -1,7 +1,9 @@
 import { Component, Inject, OnInit } from '@angular/core';
-import { HotkeysService, Hotkey } from 'angular2-hotkeys';
 import { DOCUMENT } from '@angular/common';
-
+import { trigger, transition, useAnimation } from '@angular/animations';
+import { pulse, flash } from 'ng-animate';
+import { HotkeysService, Hotkey } from 'angular2-hotkeys';
+import Speech from 'speak-tts';
 
 @Component({
   selector: 'app-nw3',
@@ -10,10 +12,9 @@ import { DOCUMENT } from '@angular/common';
 })
 export class NW3Component implements OnInit {
 
-  constructor(@Inject(DOCUMENT) private document: any) { }
-
-  fonts = ['caviar','Camaro','Chelsea','Gacor','NyataFTR','Pinkerston','Quicksand_Book','Quicksand_Light'
-  ,'Cruncho','LilacBlockDemo','Medhurst','NewYork' ];
+  
+  fonts = ['caviar', 'Camaro', 'Chelsea', 'Gacor', 'NyataFTR', 'Pinkerston', 'Quicksand_Book', 'Quicksand_Light'
+    , 'Cruncho', 'LilacBlockDemo', 'Medhurst', 'NewYork'];
   secodaryFontIndex = 0;
   font1 = this.fonts[this.secodaryFontIndex];
   font2 = this.fonts[0];
@@ -25,26 +26,123 @@ export class NW3Component implements OnInit {
   mainMenu = true;
   fontIndexCounter = 0;
   isTableOfContent = false;
-  
+  isSettings = false;
+  myspeech = new Speech();
+  hasSpeechBrowserSupport: boolean;
 
+
+
+  constructor(@Inject(DOCUMENT) private document: any, private _hotkeysService: HotkeysService) {
+    this._hotkeysService.add(new Hotkey('1', (event: KeyboardEvent): boolean => {
+      // this.selectedOpt('positive');
+      // console.log('1 number key');
+      return false;
+    }, undefined, 'Set slide to positive'));
+    this._hotkeysService.add(new Hotkey('2', (event: KeyboardEvent): boolean => {
+      // this.selectedOpt('neutral');
+      // console.log('2 number key');
+      return false;
+    }, undefined, 'Set slide to neutral'));
+    this._hotkeysService.add(new Hotkey('3', (event: KeyboardEvent): boolean => {
+      // this.selectedOpt('negative');
+      // console.log('3 number key');
+      return false;
+    }, undefined, 'Set slide to negative'));
+    this._hotkeysService.add(new Hotkey('4', (event: KeyboardEvent): boolean => {
+      // this.recraft();
+      // console.log('3 number key');
+      return false;
+    }, undefined, 'Set slide to recraft'));
+
+    // text to speech
+    this.myspeech
+      .init({
+        volume: 0.5,
+        lang: 'en-GB',
+        rate: 1,
+        pitch: 1,
+        voice: 'Google French',
+        splitSentences: false,
+        listeners: {
+          onvoiceschanged: voices => {
+            console.log('Voices changed', voices);
+          }
+        }
+      })
+      .then(data => {
+        console.log('Speech is ready', data);
+        // this._addVoicesList(data.voices);
+        // this._prepareSpeakButton(speech);
+      })
+      .catch(e => {
+        console.error('An error occured while initializing : ', e);
+      });
+    this.hasSpeechBrowserSupport = this.myspeech.hasBrowserSupport();
+
+    // var scale = 'scale(1)';
+    // document.body.style.webkitTransform = scale;    // Chrome, Opera, Safari
+    // document.body.style.msTransform = scale;       // IE 9
+    // document.body.style.transform = scale;
+    document.body.style.zoom = 1.10;
+
+  }
 
 
   ngOnInit(): void {
+
   }
+
+  speech(speech, textToSpeech) {
+    if (this.hasSpeechBrowserSupport) {
+      speech
+        .speak({
+          text: textToSpeech,
+          queue: false,
+          listeners: {
+            onstart: () => {
+              console.log('Start utterance');
+            },
+            onend: () => {
+              console.log('End utterance');
+            },
+            onresume: () => {
+              console.log('Resume utterance');
+            },
+            onboundary: event => {
+              console.log(
+                event.name +
+                ' boundary reached after ' +
+                event.elapsedTime +
+                ' milliseconds.'
+              );
+            }
+          }
+        })
+        .then(data => {
+          console.log('Success !', data);
+        })
+        .catch(e => {
+          console.error('An error occurred :', e);
+        });
+    } else {
+      console.log('The browser do not support text to speech');
+    }
+  }
+
 
   fontTheme() {
     this.toogleFont = !this.toogleFont;
     this.font2 = this.fonts[this.fontIndexCounter];
-    if (this.fontIndexCounter===7) { 
-      this.fontIndexCounter = 0; 
-    }else {
+    if (this.fontIndexCounter === 7) {
+      this.fontIndexCounter = 0;
+    } else {
 
       this.fontIndexCounter++;
     }
   }
 
 
-  toogleMenu(){
+  toogleMenu() {
     this.mainMenu = !this.mainMenu;
   }
 
