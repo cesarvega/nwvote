@@ -4,6 +4,9 @@ import { trigger, transition, useAnimation } from '@angular/animations';
 import { pulse, flash } from 'ng-animate';
 import { HotkeysService, Hotkey } from 'angular2-hotkeys';
 import Speech from 'speak-tts';
+import { Nw3Service } from './nw3.service';
+import { ActivatedRoute } from '@angular/router';
+
 
 @Component({
   selector: 'app-nw3',
@@ -12,7 +15,7 @@ import Speech from 'speak-tts';
 })
 export class NW3Component implements OnInit {
 
-  
+
   fonts = ['caviar', 'Camaro', 'Chelsea', 'Gacor', 'NyataFTR', 'Pinkerston', 'Quicksand_Book', 'Quicksand_Light'
     , 'Cruncho', 'LilacBlockDemo', 'Medhurst', 'NewYork'];
   secodaryFontIndex = 0;
@@ -20,19 +23,66 @@ export class NW3Component implements OnInit {
   font2 = this.fonts[0];
   font3 = this.fonts[this.secodaryFontIndex];
   font4 = this.fonts[this.secodaryFontIndex];
-  toogleFont = true;
   elem: any;
+  toogleFont = true;
   isFullscreen = false;
   mainMenu = true;
   fontIndexCounter = 0;
   isTableOfContent = false;
   isSettings = false;
-  myspeech = new Speech();
   hasSpeechBrowserSupport: boolean;
+  myspeech = new Speech();
+
+
+  slideNextPart = 'nw_slides/Test_WELL_PLATFORM/thumbnails/014.jpg)';
+  slideBackground = 'url(http://bipresents.com/nw2/' + this.slideNextPart;
 
 
 
-  constructor(@Inject(DOCUMENT) private document: any, private _hotkeysService: HotkeysService) {
+  VotersList: any;
+  votersBadge: any;
+  nwPositiveVote: any;
+  nwNegativeVote: any;
+  nwNeutralVote: any;
+  nwPositiveVoteUsers: any;
+  nwNegativeVoteUsers: any;
+  nwNeutralVoteUsers: any;
+  projectData: any;
+  name: any ;
+  projectId: any;
+  projectName: any;
+  bsrProjectId: any;
+  negativePronunciation: any;
+  recraftChecked: any;
+  slideModel: any = {
+    'presentationid': '3157',
+    'slideNumber': '18',
+    'NameRanking': '',
+    'NewNames': '',
+    'NamesToExplore': '',
+    'NamesToAvoid': '',
+    'Direction': 'Next',
+    'KanaNamesNegative': '',
+    'recraft': '0',
+  };
+  go: boolean;
+  // 3375,23,'Positive','','','','Next','',0
+
+  constructor(@Inject(DOCUMENT) private document: any, private _NW3Service: Nw3Service,private activatedRoute: ActivatedRoute,
+   private _hotkeysService: HotkeysService) {
+
+
+
+    this.activatedRoute.params.subscribe(params => {
+      this.projectName = params['id'];
+      localStorage.setItem('projectName',   this.projectName); 
+      this._NW3Service.getProjectId(this.projectName).subscribe((data:any) =>{
+        this.projectId = data[0].PresentationId;
+        localStorage.setItem('data',  data[0].PresentationId); 
+      })  
+    });
+
+
     this._hotkeysService.add(new Hotkey('1', (event: KeyboardEvent): boolean => {
       // this.selectedOpt('positive');
       // console.log('1 number key');
@@ -89,8 +139,67 @@ export class NW3Component implements OnInit {
 
 
   ngOnInit(): void {
-
+    this.getNwVoteData( this.projectId);
+    this.saveData(this.slideModel);
   }
+
+
+
+  //  Businness logic 
+
+  getProjectId(name) {
+    this._NW3Service.getProjectId(name).subscribe(
+      (data: object) => {
+        this.projectId = data[0].PresentationId;
+        this.bsrProjectId = data[0].BSRPresentationid;
+        this.getNwVoteData(this.projectId);
+      },
+      err => console.log(err)
+    );
+  }
+
+  getNwVoteData(projectId) {
+    // this.go = !this.go;
+    this._NW3Service.getNwVoteData(this.projectName, this.projectName).subscribe(res => {
+        const data = JSON.parse(res.d);
+        this.VotersList = data.VotersList;
+        this.votersBadge = data.VotersList.length;
+        this.nwPositiveVote = data.Positive;
+        this.nwNegativeVote = data.Negative;
+        this.nwNeutralVote = data.Neutral;
+
+        this.nwPositiveVoteUsers = data.PositiveVoters
+        this.nwNegativeVoteUsers = data.NegativeVoters;
+        this.nwNeutralVoteUsers = data.NeutralVoters;
+
+      })
+  }
+
+
+  saveData(savingObj) {
+    // const temp = JSON.parse(savingObj);
+    // temp.KanaNamesNegative = this.negativePronunciation.join(',');
+    // temp.recraft = (this.recraftChecked) ? 1 : 0;
+    savingObj = JSON.stringify(savingObj);
+    this._NW3Service.getSaveNSlideInfo(savingObj).subscribe(
+      data => {
+        this.go = (data[0].presentationStatus === '0') ? true : false;
+        // slideBackground = 'url(http://bipresents.com/nw2/' + this.slideNextPart;  slideNextPart = 'Test_WELL_PLATFORM/thumbnails/014.jpg)';
+        this.slideBackground =  this.slideBackground + data[0].SlideBGFileName +')';
+        // this.setDataToDisplay(data, 'save');
+      }
+    );
+    // this._BipresentGlobalService.saveSlideInformation(savingObj).subscribe(
+    //   data => {
+    //     this.setDataToDisplay(data, 'save');
+    //   }
+    // );
+  }
+
+
+
+
+  // Configuration methods
 
   speech(speech, textToSpeech) {
     if (this.hasSpeechBrowserSupport) {
@@ -179,4 +288,8 @@ export class NW3Component implements OnInit {
       }
     }
   }
+
+
+
+
 }

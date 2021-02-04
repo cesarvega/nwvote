@@ -37,6 +37,8 @@ import { MatTabsModule } from '@angular/material/tabs';
 import { QRCodeModule } from 'angularx-qrcode';
 import { DeviceDetectorModule } from 'ngx-device-detector';
 import { NW3Component } from './nw3/nw3.component';
+import { Nw3Service } from './nw3/nw3.service';
+
 @NgModule({
   declarations: [
     AppComponent,
@@ -84,7 +86,7 @@ import { NW3Component } from './nw3/nw3.component';
   entryComponents: [
     editPost, editName
   ],
-  providers: [NwvoteService, BsrMobileService],
+  providers: [NwvoteService, BsrMobileService, Nw3Service],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
