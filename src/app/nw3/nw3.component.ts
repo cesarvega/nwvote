@@ -30,6 +30,7 @@ export class NW3Component implements OnInit {
   fontIndexCounter = 0;
   isTableOfContent = false;
   isSettings = false;
+  isRadialMenuOn = false;
   hasSpeechBrowserSupport: boolean;
   myspeech = new Speech();
 
@@ -66,6 +67,9 @@ export class NW3Component implements OnInit {
     'recraft': '0',
   };
   go: boolean;
+  GGClass = 'GG';
+  newNameColor = '';
+  commentsColor = '';
   // 3375,23,'Positive','','','','Next','',0
 
   constructor(@Inject(DOCUMENT) private document: any, private _NW3Service: Nw3Service,private activatedRoute: ActivatedRoute,
@@ -196,7 +200,18 @@ export class NW3Component implements OnInit {
     // );
   }
 
+  showRadiaLMenu(isOn){
+    this.GGClass='GGO';
+    this.isRadialMenuOn = isOn;
+  }
 
+  noClickanyWhere(){
+    // this.GGClass='GGOut';
+    setTimeout(() => {
+      
+      this.showRadiaLMenu(false)
+    }, 300);
+  }
 
 
   // Configuration methods

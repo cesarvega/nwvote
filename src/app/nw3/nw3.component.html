@@ -1,198 +1,220 @@
-<div class="mainContainerPresent mat-elevation-z8">
+<div (click)="noClickanyWhere()" class="page">
 
-    <div *ngIf="isTableOfContent" class="tableOfContent">
-        <div>Table Of Content</div>
-        <div *ngFor="let item of [1,2,3,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,41,2,3,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4]">
-            {{item}}
-        </div>
-    </div>
-
-    <div *ngIf="isSettings" class="settingsBox">
-        <div>Settings</div>
-        <div *ngFor="let item of [1,2,3,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,41,2,3,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4]">
-            {{item}}
-        </div>
-    </div>
-
-    <button class="menu-left-icon" mat-icon-button>
-        <mat-icon>keyboard_arrow_right</mat-icon>
-    </button>
-
-    <button class="menu-right-icon" mat-icon-button>
-        <mat-icon>keyboard_arrow_left</mat-icon>
-    </button>
+    <div class="mainContainerPresent mat-elevation-z8">
 
 
-
-    <div class="singleNameSlide">
-
-        <div class="nameContainer">
-            <div [style.font-family]="font1" [style.font-size]="'30px'" class="item1">COVID-9 mRNA vaccine</div>
-            <div [style.font-family]="font2" [style.font-size]="(font2==='Gacor')?'117px':'190px'" class="item2">
-                Comirnaty
-            </div>
-            <div [style.font-family]="font3" [style.font-size]="'30px'" class="item3">HYBERYS</div>
-            <div [style.font-family]="font4" [style.font-size]="'35px'" class="item4">RNA (mRNA) a protein from
-                SARS-CoV-2
+        <!-- TABLE OF CONTENT  -->
+        <div *ngIf="isTableOfContent" class="tableOfContent">
+            <div>Table Of Content</div>
+            <div
+                *ngFor="let item of [1,2,3,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,41,2,3,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4]">
+                {{item}}
             </div>
         </div>
 
-        <div class="voteIcons">
+        <!-- SETTINGS BOX -->
+        <div *ngIf="isSettings" class="settingsBox">
+            <div>Settings</div>
+            <div
+                *ngFor="let item of [1,2,3,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,41,2,3,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4]">
+                {{item}}
+            </div>
+        </div>
 
-            <button class="voteIconButton" mat-icon-button matTooltip="Positive" matTooltipPosition="above">
-                <mat-icon>sentiment_very_satisfied</mat-icon>
+
+        <button class="menu-left-icon" mat-icon-button>
+            <mat-icon>keyboard_arrow_right</mat-icon>
+        </button>
+
+        <button class="menu-right-icon" mat-icon-button>
+            <mat-icon>keyboard_arrow_left</mat-icon>
+        </button>
+
+
+        <!-- SINGLE TEST NAME -->
+        <div class="singleNameSlide">
+
+            <div class="nameContainer">
+                <div [style.font-family]="font1" [style.font-size]="'30px'" class="item1">COVID-9 mRNA vaccine</div>
+                <div [style.font-family]="font2" [style.font-size]="(font2==='Gacor')?'117px':'190px'" class="item2">
+                    Comirnaty
+                </div>
+                <div [style.font-family]="font3" [style.font-size]="'30px'" class="item3">HYBERYS</div>
+                <div [style.font-family]="font4" [style.font-size]="'35px'" class="item4">RNA (mRNA) a protein from
+                    SARS-CoV-2
+                </div>
+            </div>
+
+            <div class="voteIcons">
+
+                <button class="voteIconButton" mat-icon-button matTooltip="Positive" matTooltipPosition="above">
+                    <mat-icon>sentiment_very_satisfied</mat-icon>
+                </button>
+
+                <button class="voteIconButton" mat-icon-button matTooltip="Neutral" matTooltipPosition="above">
+                    <mat-icon>sentiment_neutral</mat-icon>
+                </button>
+
+                <button class="voteIconButton" mat-icon-button matTooltip="Negative" matTooltipPosition="above">
+                    <mat-icon>sentiment_very_dissatisfied</mat-icon>
+                </button>
+
+                <button class="voteIconButton" mat-icon-button matTooltip="Re-Craft" matTooltipPosition="above">
+                    <mat-icon>sync</mat-icon>
+                </button>
+
+            </div>
+
+        </div>
+
+        <!-- <div class="imagePresentar" [style.background]="slideBackground"></div> -->
+
+        <!-- <div class="groupName" >groupName</div> -->
+
+        <div *ngIf="false" class="voteOverview">
+
+            <button class="voteOverviewBox" matTooltip="Positive" matTooltipPosition="above">
+
             </button>
+            <button class="voteOverviewBox" matTooltip="Positive" matTooltipPosition="above">
 
-            <button class="voteIconButton" mat-icon-button matTooltip="Neutral" matTooltipPosition="above">
-                <mat-icon>sentiment_neutral</mat-icon>
             </button>
+            <button class="voteOverviewBox" matTooltip="Positive" matTooltipPosition="above">
 
-            <button class="voteIconButton" mat-icon-button matTooltip="Negative" matTooltipPosition="above">
-                <mat-icon>sentiment_very_dissatisfied</mat-icon>
             </button>
+            <button class="voteOverviewBox" matTooltip="Positive" matTooltipPosition="above">
 
-            <button class="voteIconButton" mat-icon-button matTooltip="Re-Craft" matTooltipPosition="above">
-                <mat-icon>sync</mat-icon>
             </button>
 
         </div>
 
-    </div>
-
-    <!-- <div class="imagePresentar" [style.background]="slideBackground"></div> -->
-
-    <!-- <div class="groupName" >groupName</div> -->
-
-    <div *ngIf="false" class="voteOverview">
-
-        <button class="voteOverviewBox" matTooltip="Positive" matTooltipPosition="above">
-
-        </button>
-        <button class="voteOverviewBox" matTooltip="Positive" matTooltipPosition="above">
-
-        </button>
-        <button class="voteOverviewBox" matTooltip="Positive" matTooltipPosition="above">
-
-        </button>
-        <button class="voteOverviewBox" matTooltip="Positive" matTooltipPosition="above">
-
-        </button>
-
-    </div>
-
-    <div class="smartRadialButton">
-    
-        
-        <button class="GO" mat-icon-button >
-            G
-        </button>
-        
+        <div class="smartRadialButton">
 
 
-        <button class="G4 GG" mat-icon-button >
-            N
-        </button>
+            <button class="GO" mat-icon-button (mouseenter)="showRadiaLMenu(true)">
+                BI
+            </button>
 
-        <button class="G2 GG" mat-icon-button>
-            C
-        </button>
 
-        <button class="G3 GG" mat-icon-button >
-            P
-        </button>
+<!-- 
+            <button *ngIf="isRadialMenuOn" class="G4 GG" mat-icon-button>
+                N
+            </button>
 
-        <button class="G1 GG" mat-icon-button >
-            T
-        </button>
+            <button *ngIf="isRadialMenuOn" class="G2 GG" mat-icon-button>
+                C
+            </button>
+
+            <button *ngIf="isRadialMenuOn" class="G3 GG" mat-icon-button>
+                P
+            </button>
+
+            <button *ngIf="isRadialMenuOn" class="G1 GG" mat-icon-button>
+                T
+            </button> -->
+
+
+            <div class="textareas">
+                <mat-form-field fxFlex="50" id="newNameFormField" [color]="newNameColor" appearance="outline">
+                    <mat-label>New Names</mat-label>
+                    <input #txtNewName matInput placeholder="New Names" style="font-size: 30px;">
+                </mat-form-field>
+                <mat-form-field fxFlex="50" id="commentsFormField" [color]="commentsColor" appearance="outline">
+                    <mat-label>Comments</mat-label>
+                    <input #txtComments matInput placeholder="Comments" style="font-size: 30px;">
+                </mat-form-field>
+            </div>
+        </div>
+
+
 
     </div>
 
 
 
-</div>
 
-
-
-
-<div *ngIf="!mainMenu" class="corner_bar_menu">
-    <button *ngIf="false" matTooltip="new post it" matTooltipPosition="above" mat-icon-button color="warn"
-        aria-label="aria">
-        <mat-icon class="full-icon">note_add</mat-icon>
-    </button>
-    <!-- <button *ngIf="true" mat-icon-button matTooltip="vote" matTooltipPosition="above" mat-icon-button
+    <div *ngIf="!mainMenu" class="corner_bar_menu">
+        <button *ngIf="false" matTooltip="new post it" matTooltipPosition="above" mat-icon-button color="warn"
+            aria-label="aria">
+            <mat-icon class="full-icon">note_add</mat-icon>
+        </button>
+        <!-- <button *ngIf="true" mat-icon-button matTooltip="vote" matTooltipPosition="above" mat-icon-button
         style="border-radius: 50%; border: 2px solid grey;outline: none;" aria-label="aria">
         GO
     </button> -->
-    <!-- <button mat-icon-button aria-label="Proprietary" style="width: 200px;">
+        <!-- <button mat-icon-button aria-label="Proprietary" style="width: 200px;">
       Proprietary & Confidential
     </button> -->
-    <button (click)="toogleMenu()" matTooltip="menu" matTooltipPosition="above" mat-icon-button color="warn"
-        aria-label="aria">
-        <mat-icon class="full-icon">menu</mat-icon>
-    </button>
-    <!-- <button class="goButton" *ngIf="true" mat-icon-button matTooltip="vote" matTooltipPosition="above" mat-icon-button
+        <button (click)="toogleMenu()" matTooltip="menu" matTooltipPosition="above" mat-icon-button color="warn"
+            aria-label="aria">
+            <mat-icon class="full-icon">menu</mat-icon>
+        </button>
+        <!-- <button class="goButton" *ngIf="true" mat-icon-button matTooltip="vote" matTooltipPosition="above" mat-icon-button
         aria-label="aria">
         GO
     </button> -->
-</div>
+    </div>
 
-<div *ngIf="mainMenu" class="corner_bar_menu">
-    <button mat-icon-button matTooltip="home" matTooltipPosition="above">
-        <mat-icon class="full-icon">home</mat-icon>
-    </button>
-    <button (click)="openFullscreen()" matTooltip="full-screen" matTooltipPosition="above" mat-icon-button color="warn"
-        aria-label="aria">
-        <mat-icon class="full-icon">aspect_ratio</mat-icon>
-    </button>
-    <button (click)="isTableOfContent = !isTableOfContent" matTooltip="search" matTooltipPosition="above"
-        mat-icon-button color="warn" aria-label="aria">
-        <mat-icon class="full-icon">search</mat-icon>
-    </button>
-    <button *ngIf="!true" mat-icon-button matTooltip="slide comments" matTooltipPosition="above">
-        <mat-icon class="full-icon">comment</mat-icon>
-    </button>
-    <button *ngIf="!false" matTooltip="qr code" matTooltipPosition="above" mat-icon-button color="warn"
-        aria-label="aria">
-        <mat-icon class="full-icon">qr_code</mat-icon>
-    </button>
-    <button matTooltip="info" matTooltipPosition="above" mat-icon-button color="warn" aria-label="aria">
-        <mat-icon class="full-icon">help</mat-icon>
-    </button>
-    <button matTooltip="mobile app" matTooltipPosition="above" mat-icon-button color="red">
-        <mat-icon class="full-icon">phone_iphone</mat-icon>
-    </button>
-    <button *ngIf="true" matTooltip="stats" matTooltipPosition="above" mat-icon-button color="warn" aria-label="aria">
-        <mat-icon class="full-icon">bar_chart</mat-icon>
-    </button>
-    <button *ngIf="true" matTooltip="font size" matTooltipPosition="above" mat-icon-button color="warn"
-        aria-label="aria">
-        <mat-icon class="full-icon">font_download</mat-icon>
-        <mat-slider #slider *ngIf="false" class="slider-font-size" thumbLabel tickInterval="2" min="20" max="38"
-            [value]="28"></mat-slider>
-    </button>
-    <button (click)="fontTheme()" *ngIf="true" mat-icon-button matTooltip="toggle theme" matTooltipPosition="above">
-        <mat-icon class="full-icon">casino</mat-icon>
-    </button>
-    <button *ngIf="true" mat-icon-button matTooltip="names box" matTooltipPosition="above">
-        <mat-icon class="full-icon">bento</mat-icon>
-    </button>
-    <button (click)="isSettings = !isSettings" *ngIf="true" mat-icon-button matTooltip="settings"
-        matTooltipPosition="above">
-        <mat-icon class="full-icon">settings</mat-icon>
-    </button>
-    <button *ngIf="true" mat-icon-button matTooltip="help" matTooltipPosition="above">
-        <mat-icon class="full-icon">help</mat-icon>
-    </button>
-    <button disabled mat-icon-button aria-label="page"
-        style="width: 100px;font-size: 23px;color: grey !important;cursor: pointer;">
-        {{'1/60'}}
-    </button>
-    <button (click)="mainMenu = false" matTooltip="hide menu" matTooltipPosition="above" mat-icon-button color="warn"
-        aria-label="aria">
-        <mat-icon class="full-icon">keyboard_arrow_down</mat-icon>
-    </button>
-    <button class="goButton" *ngIf="true" mat-icon-button matTooltip="vote" matTooltipPosition="above" mat-icon-button
-        aria-label="aria">
-        GO
-    </button>
+    <div *ngIf="mainMenu" class="corner_bar_menu">
+        <button mat-icon-button matTooltip="home" matTooltipPosition="above">
+            <mat-icon class="full-icon">home</mat-icon>
+        </button>
+        <button (click)="openFullscreen()" matTooltip="full-screen" matTooltipPosition="above" mat-icon-button
+            color="warn" aria-label="aria">
+            <mat-icon class="full-icon">aspect_ratio</mat-icon>
+        </button>
+        <button (click)="isTableOfContent = !isTableOfContent" matTooltip="search" matTooltipPosition="above"
+            mat-icon-button color="warn" aria-label="aria">
+            <mat-icon class="full-icon">search</mat-icon>
+        </button>
+        <button *ngIf="!true" mat-icon-button matTooltip="slide comments" matTooltipPosition="above">
+            <mat-icon class="full-icon">comment</mat-icon>
+        </button>
+        <button *ngIf="!false" matTooltip="qr code" matTooltipPosition="above" mat-icon-button color="warn"
+            aria-label="aria">
+            <mat-icon class="full-icon">qr_code</mat-icon>
+        </button>
+        <button matTooltip="info" matTooltipPosition="above" mat-icon-button color="warn" aria-label="aria">
+            <mat-icon class="full-icon">help</mat-icon>
+        </button>
+        <button matTooltip="mobile app" matTooltipPosition="above" mat-icon-button color="red">
+            <mat-icon class="full-icon">phone_iphone</mat-icon>
+        </button>
+        <button *ngIf="true" matTooltip="stats" matTooltipPosition="above" mat-icon-button color="warn"
+            aria-label="aria">
+            <mat-icon class="full-icon">bar_chart</mat-icon>
+        </button>
+        <button *ngIf="true" matTooltip="font size" matTooltipPosition="above" mat-icon-button color="warn"
+            aria-label="aria">
+            <mat-icon class="full-icon">font_download</mat-icon>
+            <mat-slider #slider *ngIf="false" class="slider-font-size" thumbLabel tickInterval="2" min="20" max="38"
+                [value]="28"></mat-slider>
+        </button>
+        <button (click)="fontTheme()" *ngIf="true" mat-icon-button matTooltip="toggle theme" matTooltipPosition="above">
+            <mat-icon class="full-icon">casino</mat-icon>
+        </button>
+        <button *ngIf="true" mat-icon-button matTooltip="names box" matTooltipPosition="above">
+            <mat-icon class="full-icon">bento</mat-icon>
+        </button>
+        <button (click)="isSettings = !isSettings" *ngIf="true" mat-icon-button matTooltip="settings"
+            matTooltipPosition="above">
+            <mat-icon class="full-icon">settings</mat-icon>
+        </button>
+        <button *ngIf="true" mat-icon-button matTooltip="help" matTooltipPosition="above">
+            <mat-icon class="full-icon">help</mat-icon>
+        </button>
+        <button disabled mat-icon-button aria-label="page"
+            style="width: 100px;font-size: 23px;color: grey !important;cursor: pointer;">
+            {{'1/60'}}
+        </button>
+        <button (click)="mainMenu = false" matTooltip="hide menu" matTooltipPosition="above" mat-icon-button
+            color="warn" aria-label="aria">
+            <mat-icon class="full-icon">keyboard_arrow_down</mat-icon>
+        </button>
+        <button class="goButton" *ngIf="true" mat-icon-button matTooltip="vote" matTooltipPosition="above"
+            mat-icon-button aria-label="aria">
+            GO
+        </button>
+    </div>
+
 </div>
