@@ -30,12 +30,12 @@ export class NW3Component implements OnInit {
   fontIndexCounter = 0;
   isTableOfContent = false;
   isSettings = false;
-  isRadialMenuOn = false;
+  isGoVoteOn = false;
   hasSpeechBrowserSupport: boolean;
   myspeech = new Speech();
 
 
-  slideNextPart = 'nw_slides/Test_WELL_PLATFORM/thumbnails/014.jpg)';
+  slideNextPart = 'nw_slides/TEAM/thumbnails/001.jpg)';
   slideBackground = 'url(http://bipresents.com/nw2/' + this.slideNextPart;
 
 
@@ -200,16 +200,17 @@ export class NW3Component implements OnInit {
     // );
   }
 
-  showRadiaLMenu(isOn){
-    this.GGClass='GGO';
-    this.isRadialMenuOn = isOn;
+
+
+  goVote(){
+    this.isGoVoteOn = ! this.isGoVoteOn;
   }
 
   noClickanyWhere(){
     // this.GGClass='GGOut';
     setTimeout(() => {
       
-      this.showRadiaLMenu(false)
+     
     }, 300);
   }
 
