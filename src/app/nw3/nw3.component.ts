@@ -68,8 +68,8 @@ export class NW3Component implements OnInit {
   };
   go: boolean;
   GGClass = 'GG';
-  newNameColor = '';
-  commentsColor = '';
+  newNameColor = 'warn';
+  commentsColor = 'accent';
   // 3375,23,'Positive','','','','Next','',0
 
   constructor(@Inject(DOCUMENT) private document: any, private _NW3Service: Nw3Service,private activatedRoute: ActivatedRoute,
