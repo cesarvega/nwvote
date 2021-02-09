@@ -94,6 +94,7 @@
             <button class="GO" mat-icon-button (mouseenter)="showRadiaLMenu(true)">
                 BI
             </button>
+            <mat-icon class="fisheye">panorama_fish_eye</mat-icon>
 
 
 <!-- 
@@ -115,13 +116,13 @@
 
 
             <div class="textareas">
-                <mat-form-field fxFlex="50" id="newNameFormField" [color]="newNameColor" appearance="outline">
-                    <mat-label>New Names</mat-label>
-                    <input #txtNewName matInput placeholder="New Names" style="font-size: 30px;">
+                <mat-form-field fxFlex="50" id="newNameFormField" [color]="newNameColor" appearance="">
+                    <!-- <mat-label>New Names</mat-label> -->
+                    <input #txtNewName matInput placeholder="" style="font-size: 30px;text-align: center;">
                 </mat-form-field>
-                <mat-form-field fxFlex="50" id="commentsFormField" [color]="commentsColor" appearance="outline">
-                    <mat-label>Comments</mat-label>
-                    <input #txtComments matInput placeholder="Comments" style="font-size: 30px;">
+                <mat-form-field fxFlex="50" id="commentsFormField" [color]="commentsColor" appearance="">
+                    <!-- <mat-label>Comments</mat-label> -->
+                    <input #txtComments matInput placeholder="" style="font-size: 30px;text-align: center;">
                 </mat-form-field>
             </div>
         </div>
