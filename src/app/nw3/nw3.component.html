@@ -36,11 +36,11 @@
 
             <div class="nameContainer">
                 <div [style.font-family]="font1" [style.font-size]="'30px'" class="item1">COVID-9 mRNA vaccine</div>
-                <div [style.font-family]="font2" [style.font-size]="(font2==='Gacor')?'117px':'190px'" class="item2" [innerHTML]="'Comirnaty'">
+                <div class="testName" [style.font-family]="font2" [style.font-size]="(font2==='Gacor')?'117px':'190px'"  [innerHTML]="'Comirnaty'">
                     
                 </div>
-                <div [style.font-family]="font3" [style.font-size]="'30px'" class="item3">comir-nati</div>
-                <div [style.font-family]="font4" [style.font-size]="'35px'" class="item4">RNA (mRNA) a protein from
+                <div [style.font-family]="font3" [style.font-size]="'30px'" class="pronounciation">comir-nati</div>
+                <div [style.font-family]="font4" [style.font-size]="'35px'" class="rationale">RNA (mRNA) a protein from
                     SARS-CoV-2
                 </div>
             </div>
@@ -148,7 +148,7 @@
         <!-- <button mat-icon-button aria-label="Proprietary" style="width: 200px;">
       Proprietary & Confidential
     </button> -->
-        <button (click)="toogleMenu()" matTooltip="menu" matTooltipPosition="above" mat-icon-button color="warn"
+        <button (click)="toogleMenu()" matTooltip="" matTooltipPosition="above" mat-icon-button color="warn"
             aria-label="aria">
             <mat-icon class="full-icon">menu</mat-icon>
         </button>
@@ -173,21 +173,21 @@
         <button *ngIf="!true" mat-icon-button matTooltip="slide comments" matTooltipPosition="left">
             <mat-icon class="full-icon">comment</mat-icon>
         </button>
-        <button *ngIf="!false" matTooltip="qr code" matTooltipPosition="left" mat-icon-button color="warn"
+        <button *ngIf="!false" matTooltip="qr code" matTooltipPosition="left" mat-icon-button 
             aria-label="aria">
             <mat-icon class="full-icon">qr_code</mat-icon>
         </button>
-        <button matTooltip="info" matTooltipPosition="left" mat-icon-button color="warn" aria-label="aria">
+        <button matTooltip="info" matTooltipPosition="left" mat-icon-button  aria-label="aria">
             <mat-icon class="full-icon">help</mat-icon>
         </button>
         <button matTooltip="mobile app" matTooltipPosition="left" mat-icon-button color="red">
             <mat-icon class="full-icon">phone_iphone</mat-icon>
         </button>
-        <button *ngIf="true" matTooltip="stats" matTooltipPosition="left" mat-icon-button color="warn"
+        <button *ngIf="true" matTooltip="stats" matTooltipPosition="left" mat-icon-button 
             aria-label="aria">
             <mat-icon class="full-icon">bar_chart</mat-icon>
         </button>
-        <button *ngIf="true" matTooltip="font size" matTooltipPosition="left" mat-icon-button color="warn"
+        <button *ngIf="true" matTooltip="font size" matTooltipPosition="left" mat-icon-button 
             aria-label="aria">
             <mat-icon class="full-icon">font_download</mat-icon>
             <mat-slider #slider *ngIf="false" class="slider-font-size" thumbLabel tickInterval="2" min="20" max="38"
