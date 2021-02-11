@@ -38,6 +38,7 @@ import { QRCodeModule } from 'angularx-qrcode';
 import { DeviceDetectorModule } from 'ngx-device-detector';
 import { NW3Component } from './nw3/nw3.component';
 import { Nw3Service } from './nw3/nw3.service';
+import { BmxComponent } from './bmx/bmx.component';
 
 @NgModule({
   declarations: [
@@ -49,6 +50,7 @@ import { Nw3Service } from './nw3/nw3.service';
     editPost,
     BsrComponent,
     NW3Component,
+    BmxComponent,
   ],
   imports: [
     BrowserModule,
