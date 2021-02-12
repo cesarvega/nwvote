@@ -4,7 +4,7 @@ import { trigger, transition, useAnimation } from '@angular/animations';
 import { pulse, flash } from 'ng-animate';
 import { HotkeysService, Hotkey } from 'angular2-hotkeys';
 import { BmxService } from './bmx.service';
-import { ActivatedRoute } from '@angular/router';
+import { Router, ActivatedRoute } from '@angular/router';
 import Speech from 'speak-tts';
 
 
@@ -18,7 +18,17 @@ export class BmxComponent implements OnInit {
   projectName = 'PROJECT NAME';
   userName = 'Alexa';
   isGoVoteOn = false;
-  constructor() { }
+  projectId: any;
+  constructor(private activatedRoute: ActivatedRoute,) {
+    this.activatedRoute.params.subscribe(params => {
+      this.projectId = params['id'];
+      localStorage.setItem('projectId',  this.projectId);
+      // this.bsrService.getProjectData(this.projectId).subscribe(arg => {
+      //   this.projectName = JSON.parse(arg[0].bsrData).projectdescription;
+      //   localStorage.setItem('projectName',  this.projectId);        
+      // });
+    });
+   }
 
   ngOnInit(): void {
   }

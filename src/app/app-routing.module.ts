@@ -8,15 +8,15 @@ import { NW3Component } from './nw3/nw3.component';
 import { BmxComponent } from './bmx/bmx.component';
 
 const routes: Routes = [
-  // {// NAME VOTE LOGIN
+  // {// NAME VOTE LOGIN https://bipresents.com/namevote/login?project=Test_WELL_PLATFORM
   //   path: 'login',
   //   component: LoginComponent
   // },
-  // {// VOTE COMPONENT
+  // {// VOTE COMPONENT 
   //   path: 'vote',
   //   component: NwVoteComponent
   // },
-  // {// BSR-Mobile New Devices
+  // {// BSR-Mobile http://mynamepage.com/te2687
   //   path: ':id',
   //   component: BsrMobileComponent
   // },

@@ -1,27 +1,36 @@
 <div class="mainContainerPresent mat-elevation-z8">
 
     <div class="landingScreenTextContent">
-        <div style="font-size: 30px;font-family: Quicksand_Book; color: black;">{{projectName}}</div>
-        <div style="font-size: 30px;font-family: Quicksand_Book; color: black;">Welcome {{userName}}!</div>
-        <div style="font-size: 25px;font-family: Quicksand_Book; color: black;">You are about to vote on candidates for
-            XXXXX.</div>
-        <div style="font-size: 25px;font-family: Quicksand_Book; color: black;">Please read the introduction and
-            instructions carefully</div>
-        <div style="font-size: 25px;font-family: Quicksand_Book; color: black;">And we hope you enjoy participating in
-            this internal survey!</div>
+
+        <img class="logo" src="./assets/img/bmxLogo.png">
+
+        <div class="title secondary-text">Welcome to the Brand Matrix<sup style="font-size: 10px;">TM</sup></div>
+        <div class="title secondary-text" style="color: #004684;">
+            {{projectName}}
+        </div>
+        <div class="instructionsText" >
+            <div>You are about to vote on candidates for
+                XXXXX.Please read the introduction and
+                instructions carefully and we hope you enjoy participating in
+                this internal survey!
+            </div>
+            <div>
+            </div>
+            <div>
+            </div>
+        </div>
 
         <div class="slideToLoginBoundary">
-            <button  mat-icon-button class="GO"
-             cdkDragBoundary=".slideToLoginBoundary" cdkDragLockAxis="x" cdkDrag>
+            <button mat-icon-button class="GO" cdkDragBoundary=".slideToLoginBoundary" cdkDragLockAxis="x" cdkDrag>
                 BI
             </button>
             <!-- <mat-icon style="color: darkblue;">crop_16_9</mat-icon> -->
             <input class="slideInput disable-text-selection" type="text" mat-input value="Slide to login" disabled>
         </div>
 
-        <div
-            style="font-size: 20px;font-family: Quicksand_Book; color: black;border: darkblue dotted 1px;width: 200px;">
-            help?</div>
+        <div mat-button class="help">
+            Help?
+        </div>
     </div>
 
     <!-- TABLE OF CONTENT  -->

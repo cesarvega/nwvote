@@ -36,7 +36,7 @@
 
 .mainContainerPresent {
     background-color: white;
-    border: solid 5px black;
+    border: solid 5px darkblue;
     width: 355px;
     height: 90vh; /* Fallback for browsers that do not support Custom Properties */
     height: calc(var(--vh, 1vh) * 90);
@@ -51,13 +51,43 @@
     // background-image: url("http://bipresents.com/nw2/nw_slides/Test_WELL_PLATFORM/thumbnails/014.jpg");
 
     // @include BoxShadow(6);
+
+    .logo {
+        width: 136px;
+    }
+
+    .title {
+        font-size: 20px;
+        margin: -92px 0 18px 0;
+    }
+
+    .instructionsText {
+        color: #6c757d;
+        font-size: 14px;
+        padding: 0 7px;
+        text-align: center;
+    }
+
+    .help {
+        font-size: 12px;
+        font-family: "QUICKSAND";
+        font-weight: bolder;
+        color: darkblue;
+        border: darkblue solid 3px;
+        position: relative;
+        bottom: -4px;
+        height: 29px;
+        width: 60px;
+        border-radius: 10px 10px 0px 0px;
+        @include BoxShadow(2);
+    }
 }
 
 .landingScreenTextContent {
     display: flex;
     flex-direction: column;
     align-items: center;
-    justify-content: space-around;
+    justify-content: space-between;
     height: -webkit-fill-available;
 }
 
@@ -109,6 +139,7 @@
     // animation: heartBeat 10000ms ease-in-out 1ms infinite;
     text-shadow: 0 0.04em 0.04em rgba(0, 0, 0, 0.35);
     box-shadow: inset inset 0px 0px 5px #c1c1c1;
+    // -webkit-box-reflect: below 8px -webkit-gradient(linear, right top, right bottom, from(transparent), to(rgba(255, 255, 255, 0.4)));
     @include BoxShadow(6);
 }
 
@@ -165,4 +196,207 @@
     // font-size: 35px;
     text-shadow: 0 0.04em 0.04em rgba(0, 0, 0, 0.35);
     box-shadow: inset inset 0px 0px 5px #c1c1c1;
+}
+
+.names-list-card::-webkit-scrollbar {
+    display: none;
+}
+
+//desktop
+@media (min-width: 576px) {
+    .names-list-card {
+        height: 320px;
+        overflow-y: scroll;
+        min-width: 330px;
+        line-height: 26px;
+        border-bottom: #1e41ea solid 1px;
+        opacity: 0;
+        animation: slideInDown 0.5s ease 0.1s backwards, cv-fadeIn 0.4s ease-in-out 0s forwards;
+    }
+    .bsr-mobile-container {
+        max-width: 400px;
+        position: relative;
+        min-height: 90%;
+        top: 30px;
+        overflow-y: hidden;
+        border: solid #020263;
+        border-radius: 10px;
+    }
+    .tab-emoji {
+        max-width: 355px;
+        min-width: 355px;
+        overflow-y: scroll;
+    }
+    .emoji-mobile-box {
+        background-color: #fff;
+        position: absolute;
+        top: 12%;
+        border: lightgrey solid 4px;
+        border-radius: 10px;
+        padding: 10px;
+        max-height: 220px;
+        max-width: 387px;
+        font-size: 14px;
+        margin: 7px;
+        line-height: 19px;
+
+        opacity: 0;
+        animation: slideInDown 0.3s ease 0.1s backwards, cv-fadeIn 1s ease-in-out 0.3s forwards;
+    }
+
+    .tab-1 {
+        overflow-y: scroll;
+        max-height: 200px;
+        line-height: 30px;
+        letter-spacing: -0.054em;
+        scrollbar-width: thin;
+        background-color: white;
+        opacity: 0.97;
+    }
+
+    .tab-1::-webkit-scrollbar {
+        display: none;
+    }
+
+    .test-emoji {
+        display: flex;
+        justify-content: center;
+        align-content: center;
+        position: absolute;
+        top: 518px;
+        border: navy solid 2px;
+        padding: 5px;
+        margin: 5px;
+        border-radius: 10px;
+    }
+}
+//mobile
+@media (max-width: 576px) {
+    .names-list-card {
+        height: 260px;
+        overflow-y: scroll;
+        min-width: 330px;
+        line-height: 26px;
+        border-bottom: #1e41ea solid 1px;
+        opacity: 0;
+        animation: slideInDown 0.5s ease 0.3s backwards, cv-fadeIn 1s ease-in-out 0.3s forwards;
+    }
+
+    .bsr-mobile-container {
+        max-width: 500px;
+        position: relative;
+        min-height: 100%;
+        overflow-y: hidden;
+    }
+
+    .tab-emoji {
+        max-width: 380px;
+        min-width: 380px;
+    }
+
+    .emoji-mobile-box {
+        background-color: #ffffff;
+        position: absolute;
+        top: 14%;
+        border: lightgrey 2px solid;
+        border-radius: 10px;
+        padding: 0px 11px 0px 16px;
+        margin: 10px;
+        max-height: 220px;
+        font-size: 14px;
+        line-height: 19px;
+        opacity: 0;
+        animation: slideInDown 0.3s ease 0.1s backwards, cv-fadeIn 1s ease-in-out 0.3s forwards;
+    }
+
+    .tab-1 {
+        overflow-y: scroll;
+        max-height: 175px;
+        line-height: 30px;
+        letter-spacing: -0.054em;
+        scrollbar-width: thin;
+        background-color: white;
+        opacity: 0.97;
+    }
+
+    .tab-1::-webkit-scrollbar {
+        display: none;
+    }
+
+    .test-emoji {
+        display: flex;
+        justify-content: center;
+        align-content: center;
+        position: absolute;
+        top: 455px;
+        border: navy solid 2px;
+        padding: 5px;
+        margin: 5px;
+        border-radius: 10px;
+    }
+}
+// small mobile
+@media (max-width: 400px) {
+    .names-list-card {
+        height: 260px;
+        overflow-y: scroll;
+        min-width: 330px;
+        line-height: 26px;
+        border-bottom: #1e41ea solid 1px;
+        opacity: 0;
+        animation: slideInDown 0.5s ease 0.3s backwards, cv-fadeIn 1s ease-in-out 0.3s forwards;
+    }
+
+    .bsr-mobile-container {
+        max-width: 500px;
+        position: relative;
+        min-height: 100%;
+        overflow-y: hidden;
+    }
+
+    .tab-emoji {
+        max-width: 380px;
+        min-width: 380px;
+    }
+
+    .emoji-mobile-box {
+        background-color: #ffffff;
+        position: absolute;
+        top: 14%;
+        border: lightgrey 2px solid;
+        border-radius: 10px;
+        padding: 0px 11px 0px 16px;
+        margin: 10px;
+        max-height: 220px;
+        font-size: 14px;
+        line-height: 19px;
+        opacity: 0;
+        animation: slideInDown 0.3s ease 0.1s backwards, cv-fadeIn 1s ease-in-out 0.3s forwards;
+    }
+
+    .tab-1 {
+        overflow-y: scroll;
+        max-height: 175px;
+        line-height: 30px;
+        letter-spacing: -0.054em;
+        scrollbar-width: thin;
+        background-color: white;
+        opacity: 0.97;
+    }
+
+    .tab-1::-webkit-scrollbar {
+        display: none;
+    }
+
+    .test-emoji {
+        display: flex;
+        justify-content: center;
+        align-content: center;
+        position: absolute;
+        top: 455px;
+        border: navy solid 2px;
+        padding: 5px;
+        margin: 5px;
+        border-radius: 10px;
+    }
 }
