@@ -1,22 +1,28 @@
-<div class="mainContainerPresent mat-elevation-z8">
+<div class="mainContainerPresent">
 
-    <div class="landingScreenTextContent">
+    <div *ngIf="true" class="landingScreenTextContent">
 
-        <img class="logo" src="./assets/img/bmxLogo.png">
+        <div>
+            <img class="logo" src="./assets/img/bmxLogo.png">
+            <div class="title secondary-text" style="color: #004684; margin-top: 10px;">
+                {{projectName}}
+            </div>
+        </div>
 
         <div class="title secondary-text">Welcome to the Brand Matrix<sup style="font-size: 10px;">TM</sup></div>
-        <div class="title secondary-text" style="color: #004684;">
-            {{projectName}}
-        </div>
-        <div class="instructionsText" >
-            <div>You are about to vote on candidates for
-                XXXXX.Please read the introduction and
+        <div class="title secondary-text">JOHN DOE!</div>
+
+        <div class="instructionsText">
+            <div style="padding: 0px;">You are about to vote on candidates for
+                XXXXX.
+            </div>
+            <div style="font-size: 19px;padding: 10px;">
+                Please read
+            </div>
+            <div style="padding: 0px 20px;">
+                the introduction and
                 instructions carefully and we hope you enjoy participating in
                 this internal survey!
-            </div>
-            <div>
-            </div>
-            <div>
             </div>
         </div>
 
@@ -28,137 +34,22 @@
             <input class="slideInput disable-text-selection" type="text" mat-input value="Slide to login" disabled>
         </div>
 
-        <div mat-button class="help">
+        <button mat-icon-button class="help">
+            <mat-icon>help_center</mat-icon>
+        </button>
+        <!-- <div mat-button class="help">
             Help?
-        </div>
-    </div>
-
-    <!-- TABLE OF CONTENT  -->
-    <!-- <div *ngIf="isTableOfContent" class="tableOfContent">
-        <div>Table Of Content</div>
-        <div
-            *ngFor="let item of [1,2,3,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,41,2,3,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4]">
-            {{item}}
-        </div>
-    </div> -->
-
-    <!-- SETTINGS BOX -->
-    <!-- <div *ngIf="isSettings" class="settingsBox">
-        <div>Settings</div>
-        <div
-            *ngFor="let item of [1,2,3,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,41,2,3,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4]">
-            {{item}}
-        </div>
-    </div> -->
-
-
-    <!-- <button class="menu-left-icon" mat-icon-button>
-        <mat-icon>keyboard_arrow_right</mat-icon>
-    </button>
-
-    <button class="menu-right-icon" mat-icon-button>
-        <mat-icon>keyboard_arrow_left</mat-icon>
-    </button> -->
-
-
-    <!-- SINGLE TEST NAME -->
-    <div class="singleNameSlide">
-
-        <!-- <div class="nameContainer">
-            <div [style.font-family]="font1" [style.font-size]="'30px'" class="item1">COVID-9 mRNA vaccine</div>
-            <div class="testName" [style.font-family]="font2" [style.font-size]="(font2==='Gacor')?'117px':'190px'"  [innerHTML]="'Comirnaty'">
-                
-            </div>
-            <div [style.font-family]="font3" [style.font-size]="'30px'" class="pronounciation">comir-nati</div>
-            <div [style.font-family]="font4" [style.font-size]="'35px'" class="rationale">RNA (mRNA) a protein from
-                SARS-CoV-2
-            </div>
-        </div>
-
-        <div class="voteIcons">
-
-            <button class="voteIconButton" mat-icon-button matTooltip="" matTooltipPosition="above">
-                <mat-icon>sentiment_very_satisfied</mat-icon>
-            </button>
-
-            <button class="voteIconButton" mat-icon-button matTooltip="" matTooltipPosition="above">
-                <mat-icon>sentiment_neutral</mat-icon>
-            </button>
-
-            <button class="voteIconButton" mat-icon-button matTooltip="" matTooltipPosition="above">
-                <mat-icon>sentiment_very_dissatisfied</mat-icon>
-            </button>
-
-            <button class="voteIconButton" mat-icon-button matTooltip="" matTooltipPosition="above">
-                <mat-icon>sync</mat-icon>
-            </button>
-
         </div> -->
-
     </div>
 
-    <!-- <div class="imagePresentar" [style.background]="slideBackground"></div> -->
-
-    <!-- <div class="groupName" >groupName</div> -->
-
-    <!-- <div *ngIf="false" class="voteOverview">
-
-        <button class="voteOverviewBox" matTooltip="Positive" matTooltipPosition="above">
-
-        </button>
-        <button class="voteOverviewBox" matTooltip="Positive" matTooltipPosition="above">
-
-        </button>
-        <button class="voteOverviewBox" matTooltip="Positive" matTooltipPosition="above">
-
-        </button>
-        <button class="voteOverviewBox" matTooltip="Positive" matTooltipPosition="above">
-
-        </button>
-
-    </div> -->
-
-
-    <!-- BI BRAND GO BUTTON -->
-    <!-- <div class="smartRadialButton"> -->
-
-
-    <!-- <button [ngClass]="(isGoVoteOn)?'GO':'GO_Off'" mat-icon-button (click)="goVote()" >
-            BI
-        </button> -->
-    <!-- <mat-icon class="fisheye">panorama_fish_eye</mat-icon> -->
-
-
-    <!-- 
-        <button *ngIf="isRadialMenuOn" class="G4 GG" mat-icon-button>
-            N
-        </button>
-
-        <button *ngIf="isRadialMenuOn" class="G2 GG" mat-icon-button>
-            C
-        </button>
-
-        <button *ngIf="isRadialMenuOn" class="G3 GG" mat-icon-button>
-            P
-        </button>
-
-        <button *ngIf="isRadialMenuOn" class="G1 GG" mat-icon-button>
-            T
-        </button> -->
-
-    <!-- 
-        <div class="textareas">
-            <mat-form-field fxFlex="50" id="newNameFormField"  appearance="">
-                <input #txtNewName matInput placeholder="" style="font-size: 30px;text-align: center;">
-            </mat-form-field>
-            <mat-label class="newNamesLabel" style="color: darkblue;">new names</mat-label>
-            <mat-form-field fxFlex="50" id="commentsFormField"  appearance="">
-                <input #txtComments matInput placeholder="" style="font-size: 30px;text-align: center;">
-            </mat-form-field>
-            <mat-label class="commentsLabel" style="color: darkblue;">comments</mat-label>
+    <div *ngIf="!true" class="singleNameSlide">
+        <div>
+            <img class="logo" src="./assets/img/bmxLogo.png">
+            <div class="title secondary-text" style="color: #004684; margin-top: 10px;">
+                {{projectName}}
+            </div>
         </div>
-    </div> -->
-
-
+    
+    </div>
 
 </div>

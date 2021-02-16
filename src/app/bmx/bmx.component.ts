@@ -19,6 +19,8 @@ export class BmxComponent implements OnInit {
   userName = 'Alexa';
   isGoVoteOn = false;
   projectId: any;
+  SWIPE_ACTION = { LEFT: 'swipeleft', RIGHT: 'swiperight' };
+
   constructor(private activatedRoute: ActivatedRoute,) {
     this.activatedRoute.params.subscribe(params => {
       this.projectId = params['id'];
@@ -31,11 +33,35 @@ export class BmxComponent implements OnInit {
    }
 
   ngOnInit(): void {
+    window.scrollTo(0, 1);
   }
 
   
   goVote(){
     this.isGoVoteOn = ! this.isGoVoteOn;
   }
+
+   // action triggered when user swipes
+   swipe(currentIndex: number, action = this.SWIPE_ACTION.RIGHT) {
+    // out of range
+    // if (currentIndex > this.avatars.length || currentIndex < 0) return;
+
+    let nextIndex = 0;
+
+    // swipe right, next avatar
+    if (action === this.SWIPE_ACTION.RIGHT) {
+        // const isLast = currentIndex === this.avatars.length - 1;
+        // nextIndex = isLast ? 0 : currentIndex + 1;
+    }
+
+    // swipe left, previous avatar
+    if (action === this.SWIPE_ACTION.LEFT) {
+        const isFirst = currentIndex === 0;
+        // nextIndex = isFirst ? this.avatars.length - 1 : currentIndex - 1;
+    }
+
+    // toggle avatar visibility
+    // this.avatars.forEach((x, i) => x.visible = (i === nextIndex));
+}
 
 }
