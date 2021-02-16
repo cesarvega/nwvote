@@ -39,6 +39,14 @@ import { DeviceDetectorModule } from 'ngx-device-detector';
 import { NW3Component } from './nw3/nw3.component';
 import { Nw3Service } from './nw3/nw3.service';
 import { BmxComponent } from './bmx/bmx.component';
+import { HammerGestureConfig, HAMMER_GESTURE_CONFIG } from '@angular/platform-browser';
+
+// export class MyHammerConfig extends HammerGestureConfig {
+//   overrides = <any>{
+//     // override default settings
+//     // 'swipe': { velocity: 0.4, threshold: 20 } 
+//   }
+// }
 
 @NgModule({
   declarations: [
@@ -89,6 +97,8 @@ import { BmxComponent } from './bmx/bmx.component';
     editPost, editName
   ],
   providers: [NwvoteService, BsrMobileService, Nw3Service],
+  
   bootstrap: [AppComponent]
 })
 export class AppModule { }
+
