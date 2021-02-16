@@ -97,7 +97,6 @@
     @include BoxShadow(6);
 }
 .imagePresentar {
-    background-color: lightcoral;
     border: solid 5px #2b3080;
     width: 948px;
     height: 714px;
@@ -108,7 +107,6 @@
     -ms-transform: translate(-50%, -53%);
     transform: translate(-50%, -53%);
     border-radius: 3px;
-    // background-image: url("http://bipresents.com/nw2/nw_slides/Test_WELL_PLATFORM/thumbnails/014.jpg");
     @include BoxShadow(6);
 }
 
