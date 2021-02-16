@@ -34,30 +34,11 @@
     }
 }
 
-.mainContainerPresent {
-    background-color: white;
-    border: solid 5px black;
-    width: 355px;
-    height: 90vh; /* Fallback for browsers that do not support Custom Properties */
-    height: calc(var(--vh, 1vh) * 90);
-    margin: 0;
-    position: absolute;
-    top: 52%;
-    left: 50%;
-    transform: translate(-50%, -53%);
-    border-radius: 10px;
-    text-align: center;
-
-    // background-image: url("http://bipresents.com/nw2/nw_slides/Test_WELL_PLATFORM/thumbnails/014.jpg");
-
-    // @include BoxShadow(6);
-}
-
 .landingScreenTextContent {
     display: flex;
     flex-direction: column;
     align-items: center;
-    justify-content: space-around;
+    justify-content: space-between;
     height: -webkit-fill-available;
 }
 
@@ -109,70 +90,178 @@
     // animation: heartBeat 10000ms ease-in-out 1ms infinite;
     text-shadow: 0 0.04em 0.04em rgba(0, 0, 0, 0.35);
     box-shadow: inset inset 0px 0px 5px #c1c1c1;
+    // -webkit-box-reflect: below 8px -webkit-gradient(linear, right top, right bottom, from(transparent), to(rgba(255, 255, 255, 0.4)));
     @include BoxShadow(6);
 }
 
-.GO_Off {
-    width: 70px;
-    height: 70px;
-    border: 5px solid darkblue;
-    position: relative;
-    left: -108px;
-    // top: -2px;
-    outline: none;
-    font-size: 45px;
-    line-height: 30px;
-    background-color: darkblue;
-    color: white;
-    font-family: auto;
-    z-index: 2;
-    transition: all 100ms ease-in-out;
-    text-shadow: 0 0.04em 0.04em rgba(0, 0, 0, 0.35);
-    box-shadow: inset inset 0px 0px 5px #c1c1c1;
-    @include BoxShadow(6);
-    // animation: heartBeat 10000ms ease-in-out 20ms infinite;
-}
+//desktop
+@media (min-width: 576px) {
+    .mainContainerPresent {
+        background-color: white;
+        /* border: solid 5px darkblue; */
+        width: 665px;
+        height: 90vh;
+        // height: calc(var(--vh, 1vh) * 90);
+        margin: 0;
+        position: absolute;
+        top: 52%;
+        left: 50%;
+        transform: translate(-50%, -53%);
+        border-radius: 10px;
+        text-align: center;
 
-.nameContainer {
-    display: flex;
-    align-items: center;
-    flex-direction: column;
-    justify-content: space-around;
-    width: 948px;
-    height: 525px;
-}
+        // background-image: url("http://bipresents.com/nw2/nw_slides/Test_WELL_PLATFORM/thumbnails/014.jpg");
 
-.item1 {
-    // font-size: 30px;
-    margin-bottom: 161px;
-    margin-top: -15px;
-    text-shadow: 0 0.04em 0.04em rgba(0, 0, 0, 0.35);
-    box-shadow: inset inset 0px 0px 5px #c1c1c1;
+        @include BoxShadow(6);
+
+        .logo {
+            width: 80px;
+        }
+
+        .title {
+            font-size: 20px;
+            margin: -17px 0 0px 0;
+        }
+
+        .instructionsText {
+            color: #6c757d;
+            font-size: 14px;
+            padding: 0 7px;
+            text-align: center;
+            margin: 0 10px;
+        }
+
+      
+    }
+    .mainContainerPresent1 {
+        background-color: white;
+        border: solid 5px darkblue;
+        width: 355px;
+        height: 90vh; /* Fallback for browsers that do not support Custom Properties */
+        // height: calc(var(--vh, 1vh) * 90);
+        margin: 0;
+        position: absolute;
+        top: 52%;
+        left: 50%;
+        transform: translate(-50%, -53%);
+        border-radius: 10px;
+        text-align: center;
+
+        // background-image: url("http://bipresents.com/nw2/nw_slides/Test_WELL_PLATFORM/thumbnails/014.jpg");
+
+        @include BoxShadow(6);
+
+        .logo {
+            width: 80px;
+        }
+
+        .title {
+            font-size: 20px;
+            margin: -17px 0 0px 0;
+        }
+
+        .instructionsText {
+            color: #6c757d;
+            font-size: 14px;
+            padding: 0 7px;
+            text-align: center;
+        }
+
+       
+    }
 }
-.testName {
-    // font-size: 140px;
-    margin-top: -138px;
-    color: darkblue;
-    text-shadow: 0 0.04em 0.04em rgba(0, 0, 0, 0.35);
-    box-shadow: inset inset 0px 0px 5px #c1c1c1;
+//mobile
+@media (max-width: 576px) {
+    .mainContainerPresent {
+        background-color: white;
+        // border: solid 5px darkblue;
+        width: 355px;
+        height: 90vh; /* Fallback for browsers that do not support Custom Properties */
+        // height: calc(var(--vh, 1vh) * 90);
+        margin: 0;
+        position: absolute;
+        top: 52%;
+        left: 50%;
+        transform: translate(-50%, -53%);
+        border-radius: 10px;
+        text-align: center;
+
+        // background-image: url("http://bipresents.com/nw2/nw_slides/Test_WELL_PLATFORM/thumbnails/014.jpg");
+
+        // @include BoxShadow(6);
+
+        .logo {
+            width: 80px;
+            margin: 10px 0px;
+        }
+
+        .title {
+            font-size: 20px;
+            margin: -17px 0 0px 0;
+        }
+
+        .instructionsText {
+            color: #6c757d;
+            font-size: 17px;
+            padding: 0 7px;
+            text-align: center;
+        }
+
+      
+    }
 }
-.pronounciation {
-    // font-size: 30px;
-    text-shadow: 0 0.04em 0.04em rgba(0, 0, 0, 0.35);
-    box-shadow: inset inset 0px 0px 5px #c1c1c1;
-}
-.rationale {
-    // font-size: 35px;
-    text-shadow: 0 0.04em 0.04em rgba(0, 0, 0, 0.35);
-    box-shadow: inset inset 0px 0px 5px #c1c1c1;
+// small mobile
+@media (max-width: 400px) {
+    .mainContainerPresent {
+        background-color: white;
+        // border: solid 5px darkblue;
+        height: 90vh; /* Fallback for browsers that do not support Custom Properties */
+        height: calc(var(--vh, 1vh) * 80);
+        margin: 0;
+        // position: absolute;
+        // top: 52%;
+        // left: 50%;
+        text-align: center;
+        max-width: 500px;
+        min-height: 100%;
+        overflow-y: hidden;
+        text-align: center;
+
+        // background-image: url("http://bipresents.com/nw2/nw_slides/Test_WELL_PLATFORM/thumbnails/014.jpg");
+
+        // @include BoxShadow(6);
+
+        .logo {
+            width: 80px;
+            margin: 10px 0px;
+        }
+
+        .title {
+            font-size: 20px;
+            margin: -17px 0 0px 0;
+        }
+
+        .instructionsText {
+            color: #6c757d;
+            font-size: 17px;
+            padding: 0 7px;
+            text-align: center;
+        }
+
+        
+    }
 }
 
 .help {
-    font-size: 20px;
-    font-family: Quicksand_Book;
-    color: black;
-    border: darkblue dotted 1px;
-    width: 200px;
-    position: relative;
-    bottom: -39px;
+    outline: none;
+    color: darkgrey;;
+    .mat-icon {
+        font-size: 26px;
+    }
 }
+
+// Helper claases
+.names-list-card::-webkit-scrollbar {
+    display: none;
+}
+

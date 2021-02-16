@@ -8,15 +8,15 @@ import { NW3Component } from './nw3/nw3.component';
 import { BmxComponent } from './bmx/bmx.component';
 
 const routes: Routes = [
-  // {// NAME VOTE LOGIN
+  // {// NAME VOTE LOGIN https://bipresents.com/namevote/login?project=Test_WELL_PLATFORM
   //   path: 'login',
   //   component: LoginComponent
   // },
-  // {// VOTE COMPONENT
+  // {// VOTE COMPONENT 
   //   path: 'vote',
   //   component: NwVoteComponent
   // },
-  // {// BSR-Mobile New Devices
+  // {// BSR-Mobile http://mynamepage.com/te2687
   //   path: ':id',
   //   component: BsrMobileComponent
   // },
@@ -24,14 +24,14 @@ const routes: Routes = [
   //   path: ':id',
   //   component: BsrComponent
   // },
-  {//BI BRAND MATRIX
-    path: ':id',
-    component: BmxComponent
-  },
-  // {//BI PRESENTS NOMENCLATURE WORKSHOP V.3.0
+  // {//BI BRAND MATRIX
   //   path: ':id',
-  //   component: NW3Component
+  //   component: BmxComponent
   // },
+  {//NW 3 BI PRESENTS NOMENCLATURE WORKSHOP V.3.0
+    path: ':id',
+    component: NW3Component
+  },
   {
     path: '',
     redirectTo: 'login',

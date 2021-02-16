@@ -5,13 +5,20 @@
   <title>BI Tools</title>
   <base href="/">
   <!-- <meta name="viewport" content="width=device-width, initial-scale=1"> -->
-  <meta name="viewport" content= "width=device-width, user-scalable=no">
+  <meta name="viewport" content= "width=device-width, user-scalable=no, minimal-ui">
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta names="apple-mobile-web-app-status-bar-style" content="black" />
   
   <link rel="icon" type="image/x-icon" href="favicon.ico">
   <link href="https://fonts.googleapis.com/css?family=Roboto:300,400,500&display=swap" rel="stylesheet">
   <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
   <link href="https://fonts.googleapis.com/css2?family=Indie+Flower&family=Itim&family=Quicksand:wght@300&display=swap" rel="stylesheet">
   <script src="https://cdn.ckeditor.com/4.14.1/full-all/ckeditor.js"></script>
+   <!-- Hammer JS -->
+   <script src="https://cdnjs.cloudflare.com/ajax/libs/hammer.js/2.0.8/hammer.js"></script>
+   <script>
+    TouchEmulator();
+    </script>
 </head>
 <body class="mat-typography">
   <app-root></app-root>
