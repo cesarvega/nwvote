@@ -176,12 +176,12 @@
         <button *ngIf="!false" matTooltip="qr code" matTooltipPosition="left" mat-icon-button 
             aria-label="aria">
             <mat-icon class="full-icon">qr_code</mat-icon>
-        </button>
-        <button matTooltip="info" matTooltipPosition="left" mat-icon-button  aria-label="aria">
-            <mat-icon class="full-icon">help</mat-icon>
-        </button>
+        </button>        
         <button matTooltip="mobile app" matTooltipPosition="left" mat-icon-button color="red">
             <mat-icon class="full-icon">phone_iphone</mat-icon>
+        </button>
+        <button *ngIf="true" mat-icon-button matTooltip="names box" matTooltipPosition="left">
+            <mat-icon class="full-icon">where_to_vote</mat-icon>
         </button>
         <button *ngIf="true" matTooltip="stats" matTooltipPosition="left" mat-icon-button 
             aria-label="aria">
@@ -195,10 +195,7 @@
         </button>
         <button (click)="fontTheme()" *ngIf="true" mat-icon-button matTooltip="toggle theme" matTooltipPosition="left">
             <mat-icon class="full-icon">casino</mat-icon>
-        </button>
-        <button *ngIf="true" mat-icon-button matTooltip="names box" matTooltipPosition="left">
-            <mat-icon class="full-icon">bento</mat-icon>
-        </button>
+        </button>       
         <button (click)="isSettings = !isSettings" *ngIf="true" mat-icon-button matTooltip="settings"
             matTooltipPosition="left">
             <mat-icon class="full-icon">settings</mat-icon>

@@ -166,3 +166,13 @@
     text-shadow: 0 0.04em 0.04em rgba(0, 0, 0, 0.35);
     box-shadow: inset inset 0px 0px 5px #c1c1c1;
 }
+
+.help {
+    font-size: 20px;
+    font-family: Quicksand_Book;
+    color: black;
+    border: darkblue dotted 1px;
+    width: 200px;
+    position: relative;
+    bottom: -39px;
+}
