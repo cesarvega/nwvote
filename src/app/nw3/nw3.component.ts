@@ -36,7 +36,7 @@ export class NW3Component implements OnInit {
 
 
   slideNextPart = 'nw_slides/TEAM/thumbnails/001.jpg)';
-  slideBackground = 'url(http://bipresents.com/nw2/' + this.slideNextPart;
+  slideBackground = 'url(http://bipresents.com/nw2/' ;
 
   VotersList: any;
   votersBadge: any;
@@ -54,7 +54,7 @@ export class NW3Component implements OnInit {
   recraftChecked: any;
   slideModel: any = {
     'presentationid': '3157',
-    'slideNumber': '0',
+    'slideNumber': '1',
     'NameRanking': '',
     'NewNames': '',
     'NamesToExplore': '',
@@ -196,6 +196,8 @@ export class NW3Component implements OnInit {
   imgBackground: any;
   slideImageElement: any;
   savePage: any;
+
+
 
   constructor(@Inject(DOCUMENT) private document: any, private _NW3Service: Nw3Service,private activatedRoute: ActivatedRoute,
    private _hotkeysService: HotkeysService) {
@@ -927,7 +929,9 @@ export class NW3Component implements OnInit {
       data => {
         this.go = (data[0].presentationStatus === '0') ? true : false;
         // slideBackground = 'url(http://bipresents.com/nw2/' + this.slideNextPart;  slideNextPart = 'Test_WELL_PLATFORM/thumbnails/014.jpg)';
-        this.slideBackground =  this.slideBackground + data[0].SlideBGFileName +')';
+        this.slideNextPart  =  data[0].SlideBGFileName;
+        this.slideBackground = 'url(http://bipresents.com/nw2/' ;
+        this.slideBackground =  this.slideBackground + this.slideNextPart  +')';
         this.setDataToDisplay(data, 'save');
       }
     );
@@ -1133,6 +1137,7 @@ export class NW3Component implements OnInit {
     }
 
     this.slideType = data[0].SlideType;
+    console.log('refactroing data', data[0]);
     if (this.slideType === 'NameSummary') {
       this._NW3Service.getNotes(this.projectId).subscribe(note => {
         this.extraCommentsElement.nativeElement.value = note[0].NotesExplore.replace(/`/g, '\'');
