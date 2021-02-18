@@ -1133,6 +1133,8 @@ export class NW3Component implements OnInit {
     }
 
     this.slideType = data[0].SlideType;
+    // this.slideType = 'Image';
+
     if (this.slideType === 'NameSummary') {
       this._NW3Service.getNotes(this.projectId).subscribe(note => {
         this.extraCommentsElement.nativeElement.value = note[0].NotesExplore.replace(/`/g, '\'');
