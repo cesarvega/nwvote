@@ -35,7 +35,7 @@
 
         <!-- SINGLE TEST NAME -->
 
-        <div *ngIf="(slideType === 'Image')">
+        <div *ngIf="(slideType !== 'Image')">
             <div class="singleNameSlide">
 
                 <div class="nameContainer">
@@ -136,7 +136,7 @@
         <!-- IMAGE VIEW  -->
 
 
-        <div *ngIf="(slideType !== 'Image')" class="imagePresentar" [style.background]="slideBackground"></div>
+        <div *ngIf="(slideType === 'Image')" class="imagePresentar" [style.background]="slideBackground"></div>
 
     </div>
 
