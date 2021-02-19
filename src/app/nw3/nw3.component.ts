@@ -1,4 +1,4 @@
-import { Component, ElementRef, EventEmitter, Inject, Input, OnInit, Output, ViewChild } from '@angular/core';
+import { Component, ElementRef, EventEmitter, Inject, Input, OnInit, Output, QueryList, ViewChild, ViewChildren } from '@angular/core';
 import { DOCUMENT } from '@angular/common';
 import { trigger, transition, useAnimation } from '@angular/animations';
 import { pulse, flash } from 'ng-animate';
@@ -6,7 +6,9 @@ import { HotkeysService, Hotkey } from 'angular2-hotkeys';
 import Speech from 'speak-tts';
 import { Nw3Service } from './nw3.service';
 import { ActivatedRoute } from '@angular/router';
-
+import { MatSlideToggle } from '@angular/material/slide-toggle';
+import { MatCheckbox } from '@angular/material/checkbox';
+// import { MatSlideToggle, MatCheckbox } from '@angular/material';
 
 @Component({
   selector: 'app-nw3',
@@ -36,7 +38,7 @@ export class NW3Component implements OnInit {
 
 
   slideNextPart = 'nw_slides/TEAM/thumbnails/001.jpg)';
-  slideBackground = 'url(http://bipresents.com/nw2/' + this.slideNextPart;
+  slideBackground = 'url(http://bipresents.com/nw2/' ;
 
   VotersList: any;
   votersBadge: any;
@@ -54,7 +56,7 @@ export class NW3Component implements OnInit {
   recraftChecked: any;
   slideModel: any = {
     'presentationid': '3157',
-    'slideNumber': '0',
+    'slideNumber': '1',
     'NameRanking': '',
     'NewNames': '',
     'NamesToExplore': '',
@@ -132,9 +134,8 @@ export class NW3Component implements OnInit {
   groupNameType: any;
   displayBackground: boolean;
   tempBackground: string;
-  evaluationTimeElement: any;
+  // evaluationTimeElement: any;
   slideType: any;
-  extraCommentsElement: any;
   totalPositive: number;
   totalNeutral: number;
   katakanaNames: any;
@@ -142,8 +143,8 @@ export class NW3Component implements OnInit {
   backgroundCounter: any;
   summarySlideMinWidth: number;
   rationaleMinWidth: number;
-  separateCandidateElement: any;
-  switchPosNegElement: any;
+  // separateCandidateElement: any;
+  // switchPosNegElement: any;
   groupRationale: any;
   rationale: any;
   category: any;
@@ -154,13 +155,11 @@ export class NW3Component implements OnInit {
   isGroupNameTooltip: boolean;
   summaryViewFlexLayout: string;
   cantMove: any;
-  txtNewNameElement: any;
-  pronunciationElement: any;
-  @ViewChild('txtComments') txtCommentsElement: ElementRef;
+  // pronunciationElement: any;
   newNameFormField;
   commentsFormField;
-  nameCandidateElement: any;
-  pronunciationParentElement: any;
+  // nameCandidateElement: any;
+  // pronunciationParentElement: any;
   hoverPositive: boolean;
   hoverNeutral: boolean;
   hoverNegative: boolean;
@@ -189,25 +188,35 @@ export class NW3Component implements OnInit {
   negCount: number;
   hasBackground: boolean;
   totalNewNames: any[];
-  tickerElement: any;
+  // tickerElement: any;
   tickerTime: string;
   @Input() currentSlidePageInfo = '';
   @Input() projectId: string;
   imgBackground: any;
-  slideImageElement: any;
+  // slideImageElement: any;
   savePage: any;
+  results: any;
+  thumbNails: string;
+  passTotalPages: number;
+
+  @ViewChild('positiveButton') positiveButtonToggle: MatSlideToggle;
+  @ViewChild('neutralButton') neutralButtonToggle: MatSlideToggle;
+  @ViewChild('negativeButton') negativeButtonToggle: MatSlideToggle;
+  @ViewChild('recraftButton') recraftButtonToggle: MatSlideToggle;
+  @ViewChild('switchPosNeg') switchPosNegElement: ElementRef;
+  @ViewChild('txtComments') txtCommentsElement: ElementRef;
+  @ViewChild('extraComments') extraCommentsElement: ElementRef;
+  @ViewChild('txtNewName') txtNewNameElement: ElementRef;
+  @ViewChild('ticker') tickerElement: ElementRef;
+  @ViewChild('nameCandidate') nameCandidateElement: ElementRef;
+  @ViewChild('slideImage') slideImageElement: ElementRef;
+  @ViewChild('evaluationTime') evaluationTimeElement: ElementRef;
+  @ViewChild('pronunciationParent') pronunciationParentElement: ElementRef;
+  @ViewChildren('pronunciation') pronunciationElement;
+  @ViewChildren('separateCandidate') separateCandidateElement: QueryList<MatCheckbox>;
 
   constructor(@Inject(DOCUMENT) private document: any, private _NW3Service: Nw3Service,private activatedRoute: ActivatedRoute,
    private _hotkeysService: HotkeysService) {
-
-    this.activatedRoute.params.subscribe(params => {
-      this.projectName = params['id'];
-      localStorage.setItem('projectName',   this.projectName); 
-      this._NW3Service.getProjectId(this.projectName).subscribe((data:any) =>{
-        this.projectId = data[0].PresentationId;
-        localStorage.setItem('data',  data[0].PresentationId); 
-      })  
-    });
 
     this._hotkeysService.add(new Hotkey('right', (event: KeyboardEvent): boolean => {
 
@@ -307,18 +316,52 @@ export class NW3Component implements OnInit {
     // document.body.style.msTransform = scale;       // IE 9
     // document.body.style.transform = scale;
     document.body.style.zoom = 1.10;
+    setTimeout(() => {
+      this.movingSlide = true;
+    }, 300);
 
   }
 
+  getProjectData(projectId) {
+    this._NW3Service.getProjectData(projectId).subscribe(
+      (data: string) => {
+        // console.log(data);
+        this.results = JSON.stringify(data);
+        this.thumbNails = data;
+        this.passTotalPages = data.length;
+        this.projectData = this.results;
+      },
+      err => console.log(err)
+    );
+  }
 
   
   ngOnInit(): void {
-    this.getNwVoteData( this.projectId);
-    this.saveData(this.slideModel);
+
+
+    this.activatedRoute.params.subscribe(params => {
+      this.projectName = params['id'];
+      localStorage.setItem('projectName',   this.projectName); 
+      this._NW3Service.getProjectId(this.projectName).subscribe((data:any) =>{
+        this.projectId = data[0].PresentationId;
+        localStorage.setItem('data',  data[0].PresentationId); 
+        this.getProjectData(this.projectId);
+
+
+        this.getNwVoteData( this.projectId);
+        this.saveData(this.slideModel);
+        this.changes();
+
+      })  
+    });
+
+  
   }
 
     // tslint:disable-next-line:use-life-cycle-interface
-    ngOnChanges() {
+    // ngOnChanges() {
+    changes() {
+      // if (this.auto) {
       if (this.auto) {
         let time = this.timer;
         this.interval = setInterval(() => {
@@ -472,7 +515,7 @@ export class NW3Component implements OnInit {
             } else {
               setTimeout(() => {
                 const bgImage = 'url(http://bipresents.com/nw2/' + projectData[this.pageNumber - 1].SlideBGFileName + ')';
-                this.slideImageElement.nativeElement.style.backgroundImage = bgImage;
+                this.slideBackground = bgImage;
                 this.slideImageElement.nativeElement.style.backgroundSize = '100% 100%';
                 lastVisitedPageNumber = (pageObj.moveTo === 'previous') ? this.pageNumber + 1 : this.pageNumber - 1;
                 this.setEvaluationData(lastVisitedPageNumber, pageObj.moveTo);
@@ -490,7 +533,7 @@ export class NW3Component implements OnInit {
           } else {
             setTimeout(() => {
               const bgImage = 'url(http://bipresents.com/nw2/' + projectData[this.pageNumber - 1].SlideBGFileName + ')';
-              this.slideImageElement.nativeElement.style.backgroundImage = bgImage;
+              this.slideBackground = bgImage;
               this.slideImageElement.nativeElement.style.backgroundSize = '100% 100%';
               const lastVisitedPageNumber = (pageObj.moveTo === 'previous') ? this.pageNumber + 1 : this.pageNumber - 1;
               this.setEvaluationData(lastVisitedPageNumber, pageObj.moveTo);
@@ -704,7 +747,7 @@ export class NW3Component implements OnInit {
 
 
   switchHideButton(number) {
-    this.currentSlideType.emit(this.buttonOptionsObj[number].SlideType);
+    this.currentSlideType.emit(this.results[number].SlideType);
     if (this.buttonOptionsObj[number].SlideType === 'Image' || this.buttonOptionsObj[number].SlideType === 'NameSummary') {
       this.hideButton = true;
       this.stopMovingForward = false;
@@ -927,7 +970,9 @@ export class NW3Component implements OnInit {
       data => {
         this.go = (data[0].presentationStatus === '0') ? true : false;
         // slideBackground = 'url(http://bipresents.com/nw2/' + this.slideNextPart;  slideNextPart = 'Test_WELL_PLATFORM/thumbnails/014.jpg)';
-        this.slideBackground =  this.slideBackground + data[0].SlideBGFileName +')';
+        this.slideNextPart  =  data[0].SlideBGFileName;
+        this.slideBackground = 'url(http://bipresents.com/nw2/' ;
+        this.slideBackground =  this.slideBackground + this.slideNextPart  +')';
         this.setDataToDisplay(data, 'save');
       }
     );
@@ -1133,9 +1178,8 @@ export class NW3Component implements OnInit {
     }
 
     this.slideType = data[0].SlideType;
-    // this.slideType = 'Image';
-
-    if (this.slideType === 'NameSummary') {
+    console.log('refactroing data', data[0]);
+    if (this.slideType === 'NameSummary') { 
       this._NW3Service.getNotes(this.projectId).subscribe(note => {
         this.extraCommentsElement.nativeElement.value = note[0].NotesExplore.replace(/`/g, '\'');
       });
