@@ -73,7 +73,7 @@ export class NW3Component implements OnInit {
   // MENU VARS
   totalPages: number;
   keyboardDirection: number;
-  switchButton: string;
+  switchButton: any;
   //  cantMoveForward: string;
   //  numberChanged: string;
   navigatePageInput: string;
@@ -244,7 +244,6 @@ export class NW3Component implements OnInit {
       if (!this.stopMovingForward || !this.vote) {
         this.selectPage('next');
       } else {
-
       }
       return false;
     }, undefined, 'Move to next slide'));
@@ -366,6 +365,7 @@ export class NW3Component implements OnInit {
     this.isEvaluation = true;
     this.numberChanged = comeFromData;
     this.changingPage = JSON.stringify({ 'currentPage': this.pageNumber, 'moveTo': '' });
+    this.changes();
   }
 
   currentSlideType(slideType) {
@@ -478,9 +478,11 @@ export class NW3Component implements OnInit {
       (data: string) => {
         console.log(data);
         this.results = JSON.stringify(data);
+        this.switchButton = this.results;
         this.projectData = this.results;
         this.thumbNails = data;
         this.passTotalPages = data.length;
+        this.totalPages = this.passTotalPages;
         this.changes();
       },
       err => console.log(err)
@@ -488,6 +490,7 @@ export class NW3Component implements OnInit {
   }
 
   changes() {
+    this.buttonOptionsObj = JSON.parse(this.switchButton);
     if (this.auto) {
       let time = this.timer;
       this.interval = setInterval(() => {
@@ -641,6 +644,7 @@ export class NW3Component implements OnInit {
           } else {
             setTimeout(() => {
               const bgImage = 'url(http://bipresents.com/nw2/' + projectData[this.pageNumber - 1].SlideBGFileName + ')';
+              this.slideBackground = bgImage;
               // this.slideImageElement.nativeElement.style.backgroundImage = bgImage;
               // this.slideImageElement.nativeElement.style.backgroundSize = '100% 100%';
               lastVisitedPageNumber = (pageObj.moveTo === 'previous') ? this.pageNumber + 1 : this.pageNumber - 1;
@@ -659,6 +663,7 @@ export class NW3Component implements OnInit {
         } else {
           setTimeout(() => {
             const bgImage = 'url(http://bipresents.com/nw2/' + projectData[this.pageNumber - 1].SlideBGFileName + ')';
+            this.slideBackground = bgImage;
             // this.slideImageElement.nativeElement.style.backgroundImage = bgImage;
             // this.slideImageElement.nativeElement.style.backgroundSize = '100% 100%';
             const lastVisitedPageNumber = (pageObj.moveTo === 'previous') ? this.pageNumber + 1 : this.pageNumber - 1;
@@ -835,34 +840,40 @@ export class NW3Component implements OnInit {
           this.currentPage += 1;
           this.switchHideButton(this.currentPage - 1);
           movePage = '{"currentPage":' + this.currentPage + ', "moveTo":"' + movingTo + '"}';
-          this.changePage.emit(movePage);
+          this.pageNumberChange(JSON.parse(movePage).currentPage);
+          // this.changePage.emit(movePage);
         }
       } else if (movingTo === 'home') {
         this.currentPage = 1;
         this.switchHideButton(this.currentPage - 1);
         movePage = '{"currentPage":' + this.currentPage + ', "moveTo":"' + movingTo + '"}';
-        this.changePage.emit(movePage);
+         this.pageNumberChange(JSON.parse(movePage).currentPage);
+        // this.changePage.emit(movePage);
       } else if (movingTo === 'summary') {
         this.currentPage = this.totalPages;
         this.switchHideButton(this.currentPage - 1);
         movePage = '{"currentPage":' + this.currentPage + ', "moveTo":"' + movingTo + '"}';
-        this.changePage.emit(movePage);
+         this.pageNumberChange(JSON.parse(movePage).currentPage);
+        // this.changePage.emit(movePage);
       } else if (movingTo === 'previous') {
         if (this.currentPage <= this.initialPage) {
           this.currentPage = this.initialPage;
           this.switchHideButton(this.currentPage - 1);
           movePage = '{"currentPage":' + this.currentPage + ', "moveTo":"' + movingTo + '"}';
-          this.changePage.emit(movePage);
+           this.pageNumberChange(JSON.parse(movePage).currentPage);
+          // this.changePage.emit(movePage);
         } else {
           this.currentPage -= 1;
           this.switchHideButton(this.currentPage - 1);
           movePage = '{"currentPage":' + this.currentPage + ', "moveTo":"' + movingTo + '"}';
-          this.changePage.emit(movePage);
+           this.pageNumberChange(JSON.parse(movePage).currentPage);
+          // this.changePage.emit(movePage);
         }
       } else {
         this.switchHideButton(this.currentPage);
         movePage = '{"currentPage":' + this.currentPage + ', "moveTo":""}';
-        this.changePage.emit(movePage);
+         this.pageNumberChange(JSON.parse(movePage).currentPage);
+        // this.changePage.emit(movePage);
       }
       setTimeout(() => {
         this.movingSlide = true;
