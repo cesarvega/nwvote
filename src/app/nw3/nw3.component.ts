@@ -1221,11 +1221,13 @@ export class NW3Component implements OnInit {
   //  NEW CODE 02/18/21
 
   moveLeft1() {
-    this.saveData(this.slideModel);
+    this.selectPage('previous');
   }
 
   moveRight() {
-    this.saveData(this.slideModel);
+    if (!this.stopMovingForward || !this.vote) {
+      this.selectPage('next');
+    } 
   }
 
 
