@@ -53,19 +53,19 @@
 
                 <div class="voteIcons">
 
-                    <button class="voteIconButton" mat-icon-button matTooltip="" matTooltipPosition="above">
+                    <button class="voteIconButton"  (click)="selectedOpt('positive');" mat-icon-button matTooltip="" matTooltipPosition="above">
                         <mat-icon>sentiment_very_satisfied</mat-icon>
                     </button>
 
-                    <button class="voteIconButton" mat-icon-button matTooltip="" matTooltipPosition="above">
+                    <button class="voteIconButton"  (click)="selectedOpt('neutral');" mat-icon-button matTooltip="" matTooltipPosition="above">
                         <mat-icon>sentiment_neutral</mat-icon>
                     </button>
 
-                    <button class="voteIconButton" mat-icon-button matTooltip="" matTooltipPosition="above">
+                    <button class="voteIconButton"  (click)="selectedOpt('negative');" mat-icon-button matTooltip="" matTooltipPosition="above">
                         <mat-icon>sentiment_very_dissatisfied</mat-icon>
                     </button>
 
-                    <button class="voteIconButton" mat-icon-button matTooltip="" matTooltipPosition="above">
+                    <button class="voteIconButton"  (click)="selectedOpt('recraft');" mat-icon-button matTooltip="" matTooltipPosition="above">
                         <mat-icon>sync</mat-icon>
                     </button>
 
