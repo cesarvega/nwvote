@@ -223,6 +223,8 @@ export class NW3Component implements OnInit {
   thumbNails: any;
   navigatePageIndex;
 
+  testName = 'Comirnaty';
+
 
 
   constructor(@Inject(DOCUMENT) private document: any,
@@ -1105,11 +1107,11 @@ export class NW3Component implements OnInit {
         this.setDataToDisplay(data, 'save');
       }
     );
-    // this._BipresentGlobalService.saveSlideInformation(savingObj).subscribe(
-    //   data => {
-    //     this.setDataToDisplay(data, 'save');
-    //   }
-    // );
+    this._NW3Service.saveSlideInformation(savingObj).subscribe(
+      data => {
+        this.setDataToDisplay(data, 'save');
+      }
+    );
   }
 
   goVote() {
