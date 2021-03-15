@@ -32,7 +32,7 @@
 
 .mainContainerPresent {
     background-color: white;
-    border: solid 5px #2b3080;
+    border: solid 5px darkgray;
     width: 948px;
     height: 714px;
     margin: 0;
@@ -97,7 +97,7 @@
     @include BoxShadow(6);
 }
 .imagePresentar {
-    border: solid 5px #2b3080;
+    border: solid 5px darkgrey;
     width: 948px;
     height: 714px;
     margin: 0;
@@ -201,6 +201,26 @@
     line-height: 20px;
 }
 
+.voteIconButtonGreen {
+    color: green;
+    outline: none;
+    width: 30px;
+    height: 30px;
+    line-height: 20px;
+    @include BoxShadow(6);
+    
+}
+
+.voteIconButtonGreen:hover {
+    color: green;
+    transition: all 2ms ease-in-out;
+    position: relative;
+    top: -2px;
+    transform: scale(1.2);
+    @include BoxShadow(6);
+    
+}
+
 .voteOverview {
     position: absolute;
     left: 147px;
@@ -247,7 +267,7 @@
     color: darkblue;
     font-family: auto;
     z-index: 2;
-    animation: heartBeat 10000ms ease-in-out 1ms infinite;
+    animation: heartBeat 10000ms ease-in-out 1ms forwards;
     text-shadow: 0 0.04em 0.04em rgba(0, 0, 0, 0.35);
     box-shadow: inset inset 0px 0px 5px #c1c1c1;
     @include BoxShadow(6);
@@ -260,7 +280,7 @@
 .GO_Off {
     width: 70px;
     height: 70px;
-    border: 5px solid darkblue;
+    border: 5px solid white;
     position: absolute;
     right: 434px;
     bottom: -35px;

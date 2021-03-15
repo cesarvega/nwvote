@@ -34,14 +34,14 @@
 
 
         <!-- SINGLE TEST NAME -->
-
-        <div *ngIf="(slideType !== 'Image')">
+        <div *ngIf="(slideType === 'NameSummary')" class="summaryPresentar" >SUMMARY SLIDE</div>
+        <div *ngIf="(slideType !== 'Image' && slideType !== 'NameSummary')">
             <div class="singleNameSlide">
 
                 <div class="nameContainer">
                     <div [style.font-family]="font1" [style.font-size]="'30px'" class="item1">COVID-9 mRNA vaccine</div>
                     <div class="testName" [style.font-family]="font2"Comirnaty
-                        [style.font-size]="(font2==='Gacor')?'117px':'190px'" [innerHTML]="testName">
+                        [style.font-size]="(font2==='coture')?'117px':'190px'" [innerHTML]="testName">
 
                     </div>
                     <div [style.font-family]="font3" [style.font-size]="'30px'" class="pronounciation">comir-nati</div>
@@ -53,7 +53,10 @@
 
                 <div class="voteIcons">
 
-                    <button class="voteIconButton"  (click)="selectedOpt('positive');" mat-icon-button matTooltip="" matTooltipPosition="above">
+                    <button *ngIf="positiveChecked" class="voteIconButton"  (click)="selectedOpt('positive');" mat-icon-button matTooltip="" matTooltipPosition="above">
+                        <mat-icon>sentiment_very_satisfied</mat-icon>
+                    </button>
+                    <button *ngIf="!positiveChecked" class="voteIconButtonGreen"  (click)="selectedOpt('positive');" mat-icon-button matTooltip="" matTooltipPosition="above">
                         <mat-icon>sentiment_very_satisfied</mat-icon>
                     </button>
 
@@ -119,11 +122,11 @@
             </button> -->
 
                 <div class="textareas">
-                    <mat-form-field fxFlex="50" id="newNameFormField" appearance="">
+                    <mat-form-field fxFlex="50" id="newNameFormField" appearance="" style="max-width: 45%; padding: 15px 20px;">
                         <input #txtNewName matInput placeholder="" style="font-size: 30px;text-align: center;">
                     </mat-form-field>
                     <mat-label class="newNamesLabel" style="color: darkblue;">new names</mat-label>
-                    <mat-form-field fxFlex="50" id="commentsFormField" appearance="">
+                    <mat-form-field fxFlex="50" id="commentsFormField" appearance="" style="max-width: 45%; padding: 15px 20px;">
                         <input #txtComments matInput placeholder="" style="font-size: 30px;text-align: center;">
                     </mat-form-field>
                     <mat-label class="commentsLabel" style="color: darkblue;">comments</mat-label>
@@ -137,7 +140,9 @@
 
 
         <div *ngIf="(slideType === 'Image')" class="imagePresentar" [style.background]="slideBackground"></div>
-        {{slideBackground}}
+    
+        <!-- <div *ngIf="(slideType === 'NameSummary')" class="groupPresentar" ></div> -->
+        <!-- {{slideBackground}} -->
     </div>
 
 
