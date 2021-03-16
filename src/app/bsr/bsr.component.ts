@@ -120,24 +120,27 @@ export class BsrComponent implements OnInit {
 
   ngOnInit(): void {
 
-    this.font_size_text = (localStorage.getItem('font_size_text'))?localStorage.getItem('font_size_text'):'26px';
-    this.font_size =  (localStorage.getItem('font_size'))?localStorage.getItem('font_size'):'26';
+    this.font_size_text = (localStorage.getItem(this.projectName + '_font_size_text'))?localStorage.getItem(this.projectName + '_font_size_text'):'26px';
+    this.font_size =  (localStorage.getItem(this.projectName + '_font_size'))?localStorage.getItem(this.projectName + '_font_size'):'26';
     this.activatedRoute.params.subscribe(params => {
+
+      // set project ID as localstorage identifier 03/16/21
       this.projectName = params['id'];
-      localStorage.setItem('projectId', this.projectName);
-      localStorage.setItem('projectName', this.projectName);
+      this._BsrService.setProjectName(this.projectName);
+      localStorage.setItem( this.projectName + '_projectId', this.projectName);
+      localStorage.setItem(this.projectName + '_projectName', this.projectName);
       this.projectId = this.projectName;
     });
 
     this.assignCopy();    
     this.elem = document.documentElement;
     this.currentPageNumber = 0;
-    this.postItListTheme = localStorage.getItem('post-it-list-theme');
+    this.postItListTheme = localStorage.getItem(this.projectName + '_post-it-list-theme');
     this._BsrService.getSlides(this.projectId).subscribe((res: any) => {
       console.log(res);
       this.appSlidesData = res;
       // this.appSearchSlidesData = res;
-      localStorage.setItem('appSlideData', JSON.stringify(res));
+      localStorage.setItem(this.projectName + '_appSlideData', JSON.stringify(res));
       this.totalNumberOfSlides = res.length;
       this.pageCounter = '1/' + (parseInt(this.totalNumberOfSlides));
       this.slideBackground = this.slideBackground + res[0].SlideBGFileName + ')';
@@ -146,7 +149,7 @@ export class BsrComponent implements OnInit {
           this.postItPresentationIndex = parseInt(element.$id) - 1 ;
         }
       });
-      this.createPostIt = (localStorage.getItem('createPostIt') === 'true') ? true : false;
+      this.createPostIt = (localStorage.getItem(this.projectName + '_createPostIt') === 'true') ? true : false;
       if (this.createPostIt) {
         this.searchBoxLeftProperty = '777px';
         this.currentPageNumber = (this.createPostIt) ? this.postItPresentationIndex : 0;
@@ -180,10 +183,10 @@ export class BsrComponent implements OnInit {
       suma: [''],
       name: ['']
     });
-    this.nameIndexCounter = (localStorage.getItem('namesIndexCounte'))? parseInt(localStorage.getItem('namesIndexCounte')): 0;
+    this.nameIndexCounter = (localStorage.getItem(this.projectName + '_namesIndexCounte'))? parseInt(localStorage.getItem(this.projectName + '_namesIndexCounte')): 0;
   
     
-    this.onInputChange(parseInt(localStorage.getItem('namesBoxIndex')));
+    this.onInputChange(parseInt(localStorage.getItem(this.projectName + '_namesBoxIndex')));
   }
 
   getCommentsByIndex(index) {
@@ -297,8 +300,8 @@ export class BsrComponent implements OnInit {
     this.slideBackground = this.baseBackgroundUrl + this.appSlidesData[0].SlideBGFileName + ')';
     this.createPostIt = false;
     this.currentPageNumber = 0;
-    localStorage.setItem('namesIndexCounte', '0');
-    localStorage.setItem('createPostIt', 'false');
+    localStorage.setItem(this.projectName + '_namesIndexCounte', '0');
+    localStorage.setItem(this.projectName + '_createPostIt', 'false');
   }
 
   bsr() {
@@ -312,9 +315,9 @@ export class BsrComponent implements OnInit {
       this.searchBoxLeftProperty = '611px;';
     }
     
-    localStorage.setItem('createPostIt', this.createPostIt.toString());
-    this.nameIndexCounter = parseInt(localStorage.getItem('namesIndexCounte'));
-    this.onInputChange(parseInt(localStorage.getItem('namesBoxIndex')));
+    localStorage.setItem(this.projectName + '_createPostIt', this.createPostIt.toString());
+    this.nameIndexCounter = parseInt(localStorage.getItem(this.projectName + '_namesIndexCounte'));
+    this.onInputChange(parseInt(localStorage.getItem(this.projectName + '_namesBoxIndex')));
     this.currentPageNumber = this.postItPresentationIndex;
     this.pageCounter = this.postItPresentationIndex + 1 + '/' + this.totalNumberOfSlides;
     this.currentPageNumber = this.postItPresentationIndex;
@@ -432,7 +435,7 @@ export class BsrComponent implements OnInit {
     } else {
       this.postItListTheme = 'post-it-list-theme'
     }
-    localStorage.setItem('post-it-list-theme', this.postItListTheme);
+    localStorage.setItem(this.projectName + '_post-it-list-theme', this.postItListTheme);
     let audio = new Audio();
     audio.src = "assets/sound/tap.wav";
     audio.volume = 0.02;
@@ -483,7 +486,7 @@ export class BsrComponent implements OnInit {
       this.isScreenButton = true;
     }
     this.namesBoxIndexValue = value;
-    localStorage.setItem('namesBoxIndex', this.namesBoxIndexValue.toString());
+    localStorage.setItem(this.projectName + '_namesBoxIndex', this.namesBoxIndexValue.toString());
   }
 
 
@@ -534,8 +537,8 @@ export class BsrComponent implements OnInit {
   setFontSize(){
     console.log(this.font_size);    
     this.font_size_text = this.font_size + 'px';
-    localStorage.setItem('font_size_text', this.font_size_text);
-    localStorage.setItem('font_size',  this.font_size);
+    localStorage.setItem(this.projectName + '_font_size_text', this.font_size_text);
+    localStorage.setItem(this.projectName + '_font_size',  this.font_size);
   }
 
 }
@@ -561,7 +564,7 @@ export interface PeriodicElement {
   symbol: string;
 }
 
-
+// POST EDITOR COMPONENT
 
 @Component({
   selector: 'editPost',
@@ -610,7 +613,7 @@ export class editPost {
 
     // assign a value
     // this.myAngularxQrCode = 'http://www.bipresents.com/'+ this.projectId;
-    this.myAngularxQrCode = ' www.mynamepage.com/'+  localStorage.getItem('projectName');
+    this.myAngularxQrCode = ' www.mynamepage.com/'+  localStorage.getItem(this._BsrService.getProjectName() + '_projectName');
     if (this.data.name.Name) {
       this.concept = this.data.name.Name;
     } else {
@@ -683,7 +686,7 @@ export class editPost {
     else if (option === 'savePost') {
       this.isDeleting = false;
 
-      this.projectId = localStorage.getItem('projectId');
+      this.projectId = localStorage.getItem(this._BsrService.getProjectName() + '_projectId');
 
       let newConcepData = {
         projectId: this.projectId,
