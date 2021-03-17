@@ -16,13 +16,13 @@ import { ActivatedRoute } from '@angular/router';
 export class NW3Component implements OnInit {
 
 
-  fonts = ['coture', 'Camaro', 'Chelsea', 'Gacor', 'NyataFTR', 'Pinkerston', 'Quicksand_Book', 'Quicksand_Light'
+  fonts = ['coture', 'caviar', 'Chelsea', 'Gacor', 'NyataFTR', 'Pinkerston', 'Quicksand_Book', 'Quicksand_Light'
     , 'Cruncho', 'LilacBlockDemo', 'Medhurst', 'NewYork'];
   secodaryFontIndex = 0;
-  font1 = this.fonts[this.secodaryFontIndex];
+  font1 = this.fonts[1];
   font2 = this.fonts[0];
-  font3 = this.fonts[this.secodaryFontIndex];
-  font4 = this.fonts[this.secodaryFontIndex];
+  font3 = this.fonts[1];
+  font4 = this.fonts[1];
   elem: any;
   toogleFont = true;
   isFullscreen = false;
@@ -177,7 +177,7 @@ export class NW3Component implements OnInit {
   listened: any;
   selectBackground: any;
   tempObj: any;
-  tickerInterval: number;
+  tickerInterval: any;
   slideChange: any;
   resetTime = false;
   auto = false;

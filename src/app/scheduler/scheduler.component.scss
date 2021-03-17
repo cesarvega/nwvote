@@ -1,0 +1,202 @@
+@mixin BoxShadow($dp) {
+    @if $dp==0 {
+        box-shadow: none;
+    } @else if $dp==1 {
+        box-shadow: 0 1px 1px 0 rgba(0, 0, 0, 0.14), 0 2px 1px -1px rgba(0, 0, 0, 0.12), 0 1px 3px 0 rgba(0, 0, 0, 0.2);
+    } @else if $dp==2 {
+        box-shadow: 0 2px 2px 0 rgba(0, 0, 0, 0.14), 0 3px 1px -2px rgba(0, 0, 0, 0.12), 0 1px 5px 0 rgba(0, 0, 0, 0.2);
+    } @else if $dp==3 {
+        box-shadow: 0 3px 4px 0 rgba(0, 0, 0, 0.14), 0 3px 3px -2px rgba(0, 0, 0, 0.12), 0 1px 8px 0 rgba(0, 0, 0, 0.2);
+    } @else if $dp==4 {
+        box-shadow: 0 4px 5px 0 rgba(0, 0, 0, 0.14), 0 1px 10px 0 rgba(0, 0, 0, 0.12), 0 2px 4px -1px rgba(0, 0, 0, 0.2);
+    } @else if $dp==6 {
+        box-shadow: 0 6px 10px 0 rgba(0, 0, 0, 0.14), 0 1px 18px 0 rgba(0, 0, 0, 0.12),
+            0 3px 5px -1px rgba(0, 0, 0, 0.2);
+    } @else if $dp==8 {
+        box-shadow: 0 8px 10px 1px rgba(0, 0, 0, 0.14), 0 3px 14px 2px rgba(0, 0, 0, 0.12),
+            0 5px 5px -3px rgba(0, 0, 0, 0.2);
+    } @else if $dp==9 {
+        box-shadow: 0 9px 12px 1px rgba(0, 0, 0, 0.14), 0 3px 16px 2px rgba(0, 0, 0, 0.12),
+            0 5px 6px -3px rgba(0, 0, 0, 0.2);
+    } @else if $dp==12 {
+        box-shadow: 0 12px 17px 2px rgba(0, 0, 0, 0.14), 0 5px 22px 4px rgba(0, 0, 0, 0.12),
+            0 7px 8px -4px rgba(0, 0, 0, 0.2);
+    } @else if $dp==16 {
+        box-shadow: 0 16px 24px 2px rgba(0, 0, 0, 0.14), 0 6px 30px 5px rgba(0, 0, 0, 0.12),
+            0 8px 10px -5px rgba(0, 0, 0, 0.2);
+    } @else if $dp==24 {
+        box-shadow: 0 24px 38px 3px rgba(0, 0, 0, 0.14), 0 9px 46px 8px rgba(0, 0, 0, 0.12),
+            0 11px 15px -7px rgba(0, 0, 0, 0.2);
+    }
+}
+
+.imagePresentar {
+    border: solid 5px darkgrey;
+    width: 948px;
+    height: 714px;
+    margin: 0;
+    position: absolute;
+    top: 53%;
+    left: 50%;
+    -ms-transform: translate(-50%, -53%);
+    transform: translate(-50%, -53%);
+    border-radius: 3px;
+    @include BoxShadow(6);
+}
+
+.wc-date-container {
+    color: #8d062a !important;
+}
+
+//desktop
+@media (min-width: 576px) {
+    .mainContainerPresent {
+        background-color: white;
+        /* border: solid 5px darkblue; */
+        width: 665px;
+        height: 90vh;
+        // height: calc(var(--vh, 1vh) * 90);
+        margin: 0;
+        position: absolute;
+        top: 52%;
+        left: 50%;
+        transform: translate(-50%, -53%);
+        border-radius: 10px;
+        text-align: center;
+        // background-image: url("http://bipresents.com/nw2/nw_slides/Test_WELL_PLATFORM/thumbnails/014.jpg");
+        @include BoxShadow(6);
+
+        .logo {
+            width: 200px;
+            margin-top: 30px;
+            padding: 10px;
+            height: 145px;
+            @include BoxShadow(6);
+        }
+
+        .welcome {
+            padding-top: 30px;
+            font-family: caviar;
+            font-size: 24px;
+            box-shadow: inset inset 0px 0px 5px #c1c1c1;
+        }
+    }
+}
+//mobile
+@media (max-width: 576px) {
+    .mainContainerPresent {
+        background-color: white;
+        // border: solid 5px darkblue;
+        width: 355px;
+        height: 90vh; /* Fallback for browsers that do not support Custom Properties */
+        // height: calc(var(--vh, 1vh) * 90);
+        margin: 0;
+        position: absolute;
+        top: 52%;
+        left: 50%;
+        transform: translate(-50%, -53%);
+        border-radius: 10px;
+        text-align: center;
+
+        .logo {
+            width: 200px;
+            margin-top: 30px;
+            padding: 10px;
+            height: 145px;
+            @include BoxShadow(6);
+        }
+
+        .welcome {
+            padding-top: 30px;
+            font-family: caviar;
+            font-size: 24px;
+            box-shadow: inset inset 0px 0px 5px #c1c1c1;
+        }
+    }
+}
+// small mobile
+@media (max-width: 400px) {
+    .mainContainerPresent {
+        background-color: white;
+        // border: solid 5px darkblue;
+        height: 90vh; /* Fallback for browsers that do not support Custom Properties */
+        height: calc(var(--vh, 1vh) * 80);
+        margin: 0;
+        // position: absolute;
+        // top: 52%;
+        // left: 50%;
+        text-align: center;
+        max-width: 500px;
+        min-height: 100%;
+        overflow-y: hidden;
+        text-align: center;
+
+        // background-image: url("http://bipresents.com/nw2/nw_slides/Test_WELL_PLATFORM/thumbnails/014.jpg");
+
+        // @include BoxShadow(6);
+
+        .logo {
+            width: 200px;
+            margin-top: 30px;
+            padding: 10px;
+            height: 145px;
+            @include BoxShadow(6);
+        }
+
+        .welcome {
+            padding-top: 30px;
+            font-family: caviar;
+            font-size: 24px;
+            box-shadow: inset inset 0px 0px 5px #c1c1c1;
+        }
+    }
+}
+
+.wc-date-container {
+    float: left;
+    width: 250px !important;
+    height: 30px;
+    border: 1px solid #1565c0;
+    margin-bottom: 1px;
+    font-size: 16px;
+    padding: 5px;
+    text-align: left;
+    cursor: pointer;
+    background: #fff;
+    line-height: 20px;
+}
+
+.mainContainerPresent {
+    background-color: white;
+    // border: solid 5px darkblue;
+    height: 90vh; /* Fallback for browsers that do not support Custom Properties */
+    height: calc(var(--vh, 1vh) * 80);
+    margin: 0;
+    // position: absolute;
+    // top: 52%;
+    // left: 50%;
+    text-align: center;
+    max-width: 500px;
+    min-height: 100%;
+    overflow-y: hidden;
+    text-align: center;
+}
+
+// background-image: url("http://bipresents.com/nw2/nw_slides/Test_WELL_PLATFORM/thumbnails/014.jpg");
+
+// @include BoxShadow(6);
+
+.logo {
+    width: 200px;
+    margin-top: 30px;
+    padding: 10px;
+    height: 145px;
+    @include BoxShadow(6);
+}
+
+.welcome {
+    padding-top: 30px;
+    font-family: caviar;
+    font-size: 24px;
+    box-shadow: inset inset 0px 0px 5px #c1c1c1;
+}

@@ -96,7 +96,34 @@
     // background-image: url("http://bipresents.com/nw2/nw_slides/Test_WELL_PLATFORM/thumbnails/014.jpg");
     @include BoxShadow(6);
 }
+
 .imagePresentar {
+    border: solid 5px darkgrey;
+    width: 948px;
+    height: 714px;
+    margin: 0;
+    position: absolute;
+    top: 53%;
+    left: 50%;
+    -ms-transform: translate(-50%, -53%);
+    transform: translate(-50%, -53%);
+    border-radius: 3px;
+    @include BoxShadow(6);
+}
+.summaryPresentar {
+    border: solid 5px darkgrey;
+    width: 948px;
+    height: 714px;
+    margin: 0;
+    position: absolute;
+    top: 53%;
+    left: 50%;
+    -ms-transform: translate(-50%, -53%);
+    transform: translate(-50%, -53%);
+    border-radius: 3px;
+    @include BoxShadow(6);
+}
+.groupPresentar {
     border: solid 5px darkgrey;
     width: 948px;
     height: 714px;

@@ -1,0 +1,41 @@
+<div class="mainContainerPresent">
+
+
+    <img class="logo" src="assets/img/bi-logo-with-tagline.svg">
+
+    <div class="mat-subheading-1 secondary-text welcome">Welcome please schedule a meeting </div>
+
+
+    <div style="display: flex; flex-direction: row; margin-top: 40px;">
+
+
+        <div style="width: 225px; border: steelblue 1px solid; "></div>
+
+        <angular2-date-picker style="    width: 400px; text-align: center;" [(ngModel)]="date" [settings]="settings"></angular2-date-picker>
+        <!-- <div>
+            <mat-form-field appearance="fill" class="example-form-field">
+                <mat-label>Choose a date</mat-label>
+                <input matInput [matDatepicker]="datepicker">
+                <mat-datepicker-toggle matSuffix [for]="datepicker"></mat-datepicker-toggle>
+                <mat-datepicker #datepicker>
+                  <mat-datepicker-actions>
+                    <button mat-button matDatepickerCancel>Cancel</button>
+                    <button mat-raised-button color="primary" matDatepickerApply>Apply</button>
+                  </mat-datepicker-actions>
+                </mat-datepicker>
+              </mat-form-field>
+        </div> -->
+        <div style="margin-left: 180px;">
+            <p style="font-weight: 900;font-family: caviar;font-size: larger;">Available Time</p>
+            <div style="color: #1564bf;    font-size: larger;    margin-bottom: 10px;
+            text-align: start;mat-zelevation 4; font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;"
+                *ngFor="let person of people">
+                {{ person.name }}
+                <mat-checkbox style="float: right; margin-left: 60px;" matInput class="remember-me secondary-text"
+                    aria-label="Remember Me">
+
+                </mat-checkbox>
+            </div>
+        </div>
+    </div>
+</div>
