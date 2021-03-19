@@ -10,7 +10,8 @@ export class SchedulerComponent implements OnInit {
 		bigBanner: true,
 		timePicker: false,
 		format: 'dd-MM-yyyy',
-		defaultOpen: true
+		defaultOpen: true,
+    closeOnSelect : false
 	}
 
   people: any[] = [
@@ -37,6 +38,13 @@ export class SchedulerComponent implements OnInit {
   ngOnInit(): void {
   }
 
+  onDateSelect(e){
+    console.log(
+
+      e
+    );
+    
+  }
 
 
 }

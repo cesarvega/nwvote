@@ -44,8 +44,17 @@
     @include BoxShadow(6);
 }
 
-.wc-date-container {
+::ng-deep .wc-date-container {
     color: #8d062a !important;
+}
+
+::ng-deep .wc-date-popover {
+    width: 250px;
+    position: absolute;
+    top: 0px !important;
+    height: auto;
+    left: 0;
+    transform: translateX(0);
 }
 
 //desktop
