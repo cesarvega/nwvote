@@ -25,6 +25,7 @@ import { BsrComponent, editPost } from './bsr/bsr.component';
 import { MatTooltipModule } from '@angular/material/tooltip';
 import { MatGridListModule } from '@angular/material/grid-list';
 import { MatSidenavModule } from '@angular/material/sidenav';
+// import { MatDatepickerModule } from '@angular/material';
 import { HotkeyModule } from 'angular2-hotkeys';
 // import { CKEditorModule } from '@ckeditor/ckeditor5-angular';
 import { FormsModule } from '@angular/forms';
@@ -40,6 +41,10 @@ import { NW3Component } from './nw3/nw3.component';
 import { Nw3Service } from './nw3/nw3.service';
 import { BmxComponent } from './bmx/bmx.component';
 import { HammerGestureConfig, HAMMER_GESTURE_CONFIG } from '@angular/platform-browser';
+import { SchedulerComponent } from './scheduler/scheduler.component';
+import { AngularDateTimePickerModule } from 'angular2-datetimepicker';
+import {MatDatepickerModule} from '@angular/material/datepicker';
+import { MatNativeDateModule } from '@angular/material/core';
 
 // export class MyHammerConfig extends HammerGestureConfig {
 //   overrides = <any>{
@@ -59,6 +64,7 @@ import { HammerGestureConfig, HAMMER_GESTURE_CONFIG } from '@angular/platform-br
     BsrComponent,
     NW3Component,
     BmxComponent,
+    SchedulerComponent,
   ],
   imports: [
     BrowserModule,
@@ -73,6 +79,7 @@ import { HammerGestureConfig, HAMMER_GESTURE_CONFIG } from '@angular/platform-br
     MatToolbarModule,
     MatButtonModule,
     MatInputModule,
+    MatDatepickerModule,
     MatBadgeModule,
     MatCardModule,
     MatDialogModule,
@@ -89,7 +96,9 @@ import { HammerGestureConfig, HAMMER_GESTURE_CONFIG } from '@angular/platform-br
     MatSliderModule,
     MatTabsModule,
     QRCodeModule,
-    DeviceDetectorModule
+    DeviceDetectorModule,
+    AngularDateTimePickerModule,
+    MatDatepickerModule
     // AngularEditorModule,
 
   ],

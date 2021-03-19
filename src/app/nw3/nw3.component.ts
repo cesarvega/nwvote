@@ -16,13 +16,13 @@ import { ActivatedRoute } from '@angular/router';
 export class NW3Component implements OnInit {
 
 
-  fonts = ['coture', 'Camaro', 'Chelsea', 'Gacor', 'NyataFTR', 'Pinkerston', 'Quicksand_Book', 'Quicksand_Light'
+  fonts = ['coture', 'caviar', 'Chelsea', 'Gacor', 'NyataFTR', 'Pinkerston', 'Quicksand_Book', 'Quicksand_Light'
     , 'Cruncho', 'LilacBlockDemo', 'Medhurst', 'NewYork'];
   secodaryFontIndex = 0;
-  font1 = this.fonts[this.secodaryFontIndex];
+  font1 = this.fonts[1];
   font2 = this.fonts[0];
-  font3 = this.fonts[this.secodaryFontIndex];
-  font4 = this.fonts[this.secodaryFontIndex];
+  font3 = this.fonts[1];
+  font4 = this.fonts[1];
   elem: any;
   toogleFont = true;
   isFullscreen = false;
@@ -359,17 +359,6 @@ export class NW3Component implements OnInit {
     this.pageDirection = e;
   }
 
-  pageNumberChange(selectedPage) {
-    this.pageNumber = Number(selectedPage);
-    this.currentProgress = (this.pageNumber / this.passTotalPages) * 100;
-    const comeFromData = JSON.stringify({ 'comeFrom': 'summary', pageNumber: selectedPage });
-    this.isImage = false;
-    this.isEvaluation = true;
-    this.numberChanged = comeFromData;
-    this.changingPage = JSON.stringify({ 'currentPage': this.pageNumber, 'moveTo': '' });
-    this.changes();
-  }
-
   currentSlideType(slideType) {
     if (slideType === 'NameEvaluation') {
       this.isImage = false;
@@ -457,12 +446,12 @@ export class NW3Component implements OnInit {
       this.name = params.id;
       this.getProjectId(this.name);
     });
-      this.resizeContent();
+    this.resizeContent();
     // this.getNwVoteData( this.projectId);
     // this.saveData(this.slideModel);
   }
 
-  
+
   getProjectId(name) {
     this._NW3Service.getProjectId(name).subscribe(
       (data: object) => {
@@ -493,121 +482,123 @@ export class NW3Component implements OnInit {
 
   changes() {
     this.buttonOptionsObj = JSON.parse(this.switchButton);
-    if (this.auto) {
-      let time = this.timer;
-      this.interval = setInterval(() => {
-        console.log(time);
-        time--;
-        if (time < 0) {
-          this.slideChange.emit(39);
-          clearInterval(this.interval);
-          console.log('Ding!');
-        };
-      }, 1000);
-    }
-    this.slideModel.NamesToExplore = (this.txtCommentsElement) ? this.txtCommentsElement.nativeElement.value : '';
-    this.slideModel.NewNames = (this.txtNewNameElement) ? this.txtNewNameElement.nativeElement.value : '';
+    // if (this.auto) {
+    //   let time = this.timer;
+    //   this.interval = setInterval(() => {
+    //     console.log(time);
+    //     time--;
+    //     if (time < 0) {
+    //       this.slideChange.emit(39);
+    //       clearInterval(this.interval);
+    //       console.log('Ding!');
+    //     };
+    //   }, 1000);
+    // }
+    // this.slideModel.NamesToExplore = (this.txtCommentsElement) ? this.txtCommentsElement.nativeElement.value : '';
+    // this.slideModel.NewNames = (this.txtNewNameElement) ? this.txtNewNameElement.nativeElement.value : '';
 
-    this.pieChart = [];
-    const newChartData = [];
-    this._NW3Service.getGroupSummary(this.projectId).subscribe(groupResult => {
-      this.posCount = 0;
-      this.neuCount = 0;
-      this.negCount = 0;
-      for (const obj of Object.values(groupResult)) {
-        const arrRanks = obj.nameranking.split('##');
+    // this.pieChart = [];
+    // const newChartData = [];
+    // this._NW3Service.getGroupSummary(this.projectId).subscribe(groupResult => {
+    //   this.posCount = 0;
+    //   this.neuCount = 0;
+    //   this.negCount = 0;
+    //   for (const obj of Object.values(groupResult)) {
+    //     const arrRanks = obj.nameranking.split('##');
 
-        arrRanks.forEach(rank => {
-          if (rank === 'Positive') {
-            this.posCount++;
-          } else if (rank === 'Neutral') {
-            this.neuCount++;
-          } else if (rank === 'Negative') {
-            this.negCount++;
-          }
-        });
+    //     arrRanks.forEach(rank => {
+    //       if (rank === 'Positive') {
+    //         this.posCount++;
+    //       } else if (rank === 'Neutral') {
+    //         this.neuCount++;
+    //       } else if (rank === 'Negative') {
+    //         this.negCount++;
+    //       }
+    //     });
 
-        if (arrRanks.length > 0) {
-          this.hasBackground = false;
-        }
-      }
-      this.totalNewNames = [];
-      this._NW3Service.getRetainTypeName(this.projectId, 'Positive').subscribe((resultPos: Array<object>) => {
-        this.totalPositive = resultPos.length + this.posCount;
-        newChartData.push({
-          'name': 'Positive',
-          'value': resultPos.length + this.posCount
-        });
-        resultPos.forEach((element: any) => {
-          element.NewNames.split(',').forEach(ele => {
-            if (ele !== '') {
+    //     if (arrRanks.length > 0) {
+    //       this.hasBackground = false;
+    //     }
+    //   }
+    //   this.totalNewNames = [];
+    //   this._NW3Service.getRetainTypeName(this.projectId, 'Positive').subscribe((resultPos: Array<object>) => {
+    //     this.totalPositive = resultPos.length + this.posCount;
+    //     newChartData.push({
+    //       'name': 'Positive',
+    //       'value': resultPos.length + this.posCount
+    //     });
+    //     resultPos.forEach((element: any) => {
+    //       element.NewNames.split(',').forEach(ele => {
+    //         if (ele !== '') {
 
-            }
-          });;
-        });
+    //         }
+    //       });;
+    //     });
 
-        this._NW3Service.getRetainTypeName(this.projectId, "New").subscribe((data: Array<object>) => {
-          data.forEach(ele => {
-            this.totalNewNames.push(ele);
-          });;
-          ;
-        });
+    //     this._NW3Service.getRetainTypeName(this.projectId, "New").subscribe((data: Array<object>) => {
+    //       data.forEach(ele => {
+    //         this.totalNewNames.push(ele);
+    //       });;
+    //       ;
+    //     });
 
 
-        this._NW3Service.getRetainTypeName(this.projectId, 'Neutral').subscribe((resultNeu: Array<object>) => {
-          this.totalNeutral = resultNeu.length + this.neuCount;
-          newChartData.push({
-            'name': 'Neutral',
-            'value': resultNeu.length + this.neuCount
-          });
-          this._NW3Service.getRetainTypeName(this.projectId, 'Negative').subscribe((resultNeg: Array<object>) => {
-            newChartData.push({
-              'name': 'Negative',
-              'value': resultNeg.length + this.negCount
-            });
+    //     this._NW3Service.getRetainTypeName(this.projectId, 'Neutral').subscribe((resultNeu: Array<object>) => {
+    //       this.totalNeutral = resultNeu.length + this.neuCount;
+    //       newChartData.push({
+    //         'name': 'Neutral',
+    //         'value': resultNeu.length + this.neuCount
+    //       });
+    //       this._NW3Service.getRetainTypeName(this.projectId, 'Negative').subscribe((resultNeg: Array<object>) => {
+    //         newChartData.push({
+    //           'name': 'Negative',
+    //           'value': resultNeg.length + this.negCount
+    //         });
 
-            newChartData.push({
-              'name': 'New Names',
-              'value': this.totalNewNames.length
-            });
-            // this.pieChart = [...newChartData];
-            const resArr = [];
-            newChartData.forEach(function (item) {
-              const i = resArr.findIndex(x => x.name === item.name);
-              if (i <= -1) {
-                resArr.push({ name: item.name, value: item.value });
-              }
-            }, this.pieChart = resArr);
-          });
-        });
-      });
-    });
+    //         newChartData.push({
+    //           'name': 'New Names',
+    //           'value': this.totalNewNames.length
+    //         });
+    //         // this.pieChart = [...newChartData];
+    //         const resArr = [];
+    //         newChartData.forEach(function (item) {
+    //           const i = resArr.findIndex(x => x.name === item.name);
+    //           if (i <= -1) {
+    //             resArr.push({ name: item.name, value: item.value });
+    //           }
+    //         }, this.pieChart = resArr);
+    //       });
+    //     });
+    //   });
+    // });
 
     const projectData = JSON.parse(this.projectData);
     this.projectName = JSON.parse(this.projectData)[0].DisplayName;
-    if (this.tickerElement) {
-      if (this.tickerTime !== '') {
-        if (JSON.parse(this.tickerTime).showingTicker === true) {
-          this.tickerElement.nativeElement.style.opacity = 1;
-        } else {
-          this.tickerElement.nativeElement.style.opacity = .05;
-        }
-      }
-    }
+    this.testName = projectData[this.pageNumber - 1].SlideDescription;
+    this.testName = projectData[this.pageNumber - 1].SlideDescription;
+    // if (this.tickerElement) {
+    //   if (this.tickerTime !== '') {
+    //     if (JSON.parse(this.tickerTime).showingTicker === true) {
+    //       this.tickerElement.nativeElement.style.opacity = 1;
+    //     } else {
+    //       this.tickerElement.nativeElement.style.opacity = .05;
+    //     }
+    //   }
+    // }
 
-    if (this.displayBackground === false) {
+    // if (this.displayBackground === false) {
 
-      if (this.evaluationTimeElement) {
-        // tslint:disable-next-line:max-line-length
-        this.evaluationTimeElement.nativeElement.style.backgroundImage = this.BackgroundUrl + this.imgBackground[this.backgroundCounter] + '.jpg)';
-        this.evaluationTimeElement.nativeElement.style.backgroundSize = 'cover';
-      }
-    } else {
-      if (this.evaluationTimeElement) {
-        this.evaluationTimeElement.nativeElement.style.backgroundImage = this.tempBackground;
+    //   if (this.evaluationTimeElement) {
+    //     // tslint:disable-next-line:max-line-length
+    //     this.evaluationTimeElement.nativeElement.style.backgroundImage = this.BackgroundUrl + this.imgBackground[this.backgroundCounter] + '.jpg)';
+    //     this.evaluationTimeElement.nativeElement.style.backgroundSize = 'cover';
+    //   }
+    // } else {
+    //   if (this.evaluationTimeElement) {
+    //     this.evaluationTimeElement.nativeElement.style.backgroundImage = this.tempBackground;
 
-      }
-    }
+    //   }
+    // }
 
     if (this.resetTime !== false) {
       this.positiveChecked = false;
@@ -630,36 +621,46 @@ export class NW3Component implements OnInit {
           if (pageObj.moveTo === 'summary') {
             this.savePage = this.pageNumber;
           }
-          this.pageNumber = (this.currentSlidePageInfo !== '{}') ? pageObj.currentPage : this.pageNumber;
-          this.slideType = projectData[this.pageNumber - 1].SlideType.trim();
-          if (this.slideType !== 'Image') {
-            if (pageObj.moveTo === 'previous') {
-              lastVisitedPageNumber = this.pageNumber + 1;
-            }
-            if (pageObj.moveTo === 'next') {
-              lastVisitedPageNumber = this.pageNumber - 1;
-            }
-            if (pageObj.moveTo === 'summary') {
-              lastVisitedPageNumber = this.savePage;
-            }
-            this.setEvaluationData(lastVisitedPageNumber, pageObj.moveTo);
-          } else {
-            setTimeout(() => {
-              const bgImage = 'url(http://bipresents.com/nw2/' + projectData[this.pageNumber - 1].SlideBGFileName + ')';
-              this.slideBackground = bgImage;
-              // this.slideImageElement.nativeElement.style.backgroundImage = bgImage;
-              // this.slideImageElement.nativeElement.style.backgroundSize = '100% 100%';
-              lastVisitedPageNumber = (pageObj.moveTo === 'previous') ? this.pageNumber + 1 : this.pageNumber - 1;
-              this.setEvaluationData(lastVisitedPageNumber, pageObj.moveTo);
-            }, 100);
-          }
+          // this.pageNumber = (this.currentSlidePageInfo !== '{}') ? pageObj.currentPage : this.pageNumber;
+          // this.slideType = projectData[this.pageNumber - 1].SlideType.trim();
+
+
+          // // this.testName = projectData[this.pageNumber - 1].SlideDescription;
+
+          // if (this.slideType !== 'Image') {
+          //   if (pageObj.moveTo === 'previous') {
+          //     lastVisitedPageNumber = this.pageNumber + 1;
+          //   }
+          //   if (pageObj.moveTo === 'next') {
+          //     lastVisitedPageNumber = this.pageNumber - 1;
+          //   }
+          //   if (pageObj.moveTo === 'summary') {
+          //     lastVisitedPageNumber = this.savePage;
+          //   }
+          //   this.setEvaluationData(lastVisitedPageNumber, pageObj.moveTo);
+          // } else {
+          //   setTimeout(() => {
+          //     const bgImage = 'url(http://bipresents.com/nw2/' + projectData[this.pageNumber - 1].SlideBGFileName + ')';
+          //     this.slideBackground = bgImage;
+          //     // this.slideImageElement.nativeElement.style.backgroundImage = bgImage;
+          //     // this.slideImageElement.nativeElement.style.backgroundSize = '100% 100%';
+          //     lastVisitedPageNumber = (pageObj.moveTo === 'previous') ? this.pageNumber + 1 : this.pageNumber - 1;
+          //     this.setEvaluationData(lastVisitedPageNumber, pageObj.moveTo);
+          //   }, 100);
+          // }
         }
       } else {
         const pageObj = JSON.parse(this.currentSlidePageInfo);
         this.pageNumber = (this.currentSlidePageInfo !== '{}') ? pageObj.currentPage : this.pageNumber;
         this.slideType = projectData[this.pageNumber - 1].SlideType.trim();
+
+
+
         this.collectGroupRanks();
         if (this.slideType !== 'Image') {
+
+          this.testName = projectData[this.pageNumber - 1].SlideDescription;
+
           const lastVisitedPageNumber = (pageObj.moveTo === 'previous') ? this.pageNumber + 1 : this.pageNumber - 1;
           this.setEvaluationData(lastVisitedPageNumber, pageObj.moveTo);
         } else {
@@ -699,11 +700,11 @@ export class NW3Component implements OnInit {
     }
   }
 
-  startTicerInterval() {
-    this.tickerInterval = setInterval(() => {
-      this.moveLeft();
-    }, 2000);
-  }
+  // startTicerInterval() {
+  //   this.tickerInterval = setInterval(() => {
+  //     this.moveLeft();
+  //   }, 2000);
+  // }
 
   moveSlide(e) {
     if (e.keyCode === 39 || e.keyCode === 37 || e.keyCode === 40 || e.keyCode === 38) {
@@ -716,7 +717,7 @@ export class NW3Component implements OnInit {
   }
 
   mouseLevae() {
-    this.startTicerInterval();
+    // this.startTicerInterval();
   }
 
   additionalComments(comments: string) {
@@ -726,100 +727,100 @@ export class NW3Component implements OnInit {
     });
   }
 
-  clickedSummaryName(clickedName, originalName) {
-    let searchName = clickedName;
-    if (originalName) {
-      searchName = originalName;
-    }
-    this._NW3Service.getSelectedName(this.projectId, searchName).subscribe(data => {
-      this.setDataToDisplay(data, 'clicked_name');
-    });
-  }
+  // clickedSummaryName(clickedName, originalName) {
+  //   let searchName = clickedName;
+  //   if (originalName) {
+  //     searchName = originalName;
+  //   }
+  //   this._NW3Service.getSelectedName(this.projectId, searchName).subscribe(data => {
+  //     this.setDataToDisplay(data, 'clicked_name');
+  //   });
+  // }
 
-  showPieChart() {
-    this.showRankedNames = false;
-    this.isNewName = false;
-    this.postRadio = false;
-    this.NeuRadio = false;
-    this.NegRadio = false;
-  }
+  // showPieChart() {
+  //   this.showRankedNames = false;
+  //   this.isNewName = false;
+  //   this.postRadio = false;
+  //   this.NeuRadio = false;
+  //   this.NegRadio = false;
+  // }
 
-  onSelect(clickEvent) {
-    this.getSelectedRank(clickEvent.name);
-  }
+  // onSelect(clickEvent) {
+  //   this.getSelectedRank(clickEvent.name);
+  // }
 
-  getSelectedRank(selectedRank) {
-    this._NW3Service.getGroupSummary(this.projectId).subscribe(displayGroupResult => {
-      this.nameCandidates = [];
-      for (const obj of Object.values(displayGroupResult)) {
-        this.tempObj = obj;
-        let arrGroupRank;
-        let arrGroupName;
-        if (obj.name.includes('##')) {
-          arrGroupRank = obj.nameranking.split('##');
-          arrGroupName = obj.name.split('##');
-        } else {
-          arrGroupRank = obj.nameranking.split('##');
-          arrGroupName = obj.name.split('$$');
-        }
-        arrGroupName.forEach((name, index) => {
-          if (selectedRank === 'Positive' && arrGroupRank[index] === 'Positive') {
-            this.nameCandidates.push({
-              'NameToDisplay': name,
-              'Name': this.tempObj.name
-            });
-          }
-          if (selectedRank === 'Negative' && arrGroupRank[index] === 'Negative') {
-            this.nameCandidates.push({
-              'NameToDisplay': name,
-              'Name': this.tempObj.name
-            });
-          }
-          if (selectedRank === 'Neutral' && arrGroupRank[index] === 'Neutral') {
-            this.nameCandidates.push({
-              'NameToDisplay': name,
-              'Name': this.tempObj.name
-            });
-          }
-        });
-      }
-      if (selectedRank === 'New') {
-        this.isNewName = true;
-        this.postRadio = false;
-        this.NeuRadio = false;
-        this.NegRadio = false;
-      } else if (selectedRank === 'Neutral') {
-        this.isNewName = false;
-        this.postRadio = false;
-        this.NeuRadio = true;
-        this.NegRadio = false;
+  // getSelectedRank(selectedRank) {
+  //   this._NW3Service.getGroupSummary(this.projectId).subscribe(displayGroupResult => {
+  //     this.nameCandidates = [];
+  //     for (const obj of Object.values(displayGroupResult)) {
+  //       this.tempObj = obj;
+  //       let arrGroupRank;
+  //       let arrGroupName;
+  //       if (obj.name.includes('##')) {
+  //         arrGroupRank = obj.nameranking.split('##');
+  //         arrGroupName = obj.name.split('##');
+  //       } else {
+  //         arrGroupRank = obj.nameranking.split('##');
+  //         arrGroupName = obj.name.split('$$');
+  //       }
+  //       arrGroupName.forEach((name, index) => {
+  //         if (selectedRank === 'Positive' && arrGroupRank[index] === 'Positive') {
+  //           this.nameCandidates.push({
+  //             'NameToDisplay': name,
+  //             'Name': this.tempObj.name
+  //           });
+  //         }
+  //         if (selectedRank === 'Negative' && arrGroupRank[index] === 'Negative') {
+  //           this.nameCandidates.push({
+  //             'NameToDisplay': name,
+  //             'Name': this.tempObj.name
+  //           });
+  //         }
+  //         if (selectedRank === 'Neutral' && arrGroupRank[index] === 'Neutral') {
+  //           this.nameCandidates.push({
+  //             'NameToDisplay': name,
+  //             'Name': this.tempObj.name
+  //           });
+  //         }
+  //       });
+  //     }
+  //     if (selectedRank === 'New') {
+  //       this.isNewName = true;
+  //       this.postRadio = false;
+  //       this.NeuRadio = false;
+  //       this.NegRadio = false;
+  //     } else if (selectedRank === 'Neutral') {
+  //       this.isNewName = false;
+  //       this.postRadio = false;
+  //       this.NeuRadio = true;
+  //       this.NegRadio = false;
 
-      } else if (selectedRank === 'Negative') {
-        this.isNewName = false;
-        this.postRadio = false;
-        this.NeuRadio = false;
-        this.NegRadio = true;
+  //     } else if (selectedRank === 'Negative') {
+  //       this.isNewName = false;
+  //       this.postRadio = false;
+  //       this.NeuRadio = false;
+  //       this.NegRadio = true;
 
-      } else if (selectedRank === 'Positive') {
-        this.isNewName = false;
-        this.postRadio = true;
-        this.NeuRadio = false;
-        this.NegRadio = false;
+  //     } else if (selectedRank === 'Positive') {
+  //       this.isNewName = false;
+  //       this.postRadio = true;
+  //       this.NeuRadio = false;
+  //       this.NegRadio = false;
 
-      }
-      this._NW3Service.getRetainTypeName(this.projectId, (selectedRank === "New Names") ? "New" : selectedRank).subscribe((data: Array<object>) => {
-        if (this.nameCandidates.length === 0) {
-          this.nameCandidates = data;
-        } else {
-          this.nameCandidates = this.nameCandidates.concat(data);
-        }
-        for (let i = 0; i < this.nameCandidates.length; i++) {
-          this.nameCandidates[i].NameToDisplay = this.convertToEntities(this.nameCandidates[i].NameToDisplay);
-        }
-        this.showRankedNames = true;
-      });
-    });
-  }
+  //     }
+  //     this._NW3Service.getRetainTypeName(this.projectId, (selectedRank === "New Names") ? "New" : selectedRank).subscribe((data: Array<object>) => {
+  //       if (this.nameCandidates.length === 0) {
+  //         this.nameCandidates = data;
+  //       } else {
+  //         this.nameCandidates = this.nameCandidates.concat(data);
+  //       }
+  //       for (let i = 0; i < this.nameCandidates.length; i++) {
+  //         this.nameCandidates[i].NameToDisplay = this.convertToEntities(this.nameCandidates[i].NameToDisplay);
+  //       }
+  //       this.showRankedNames = true;
+  //     });
+  //   });
+  // }
 
   selectPage(movingTo) {
     // stop moving slides for 300 miliseconds
@@ -835,9 +836,9 @@ export class NW3Component implements OnInit {
       if (movingTo === 'next') {
         if (this.currentPage >= this.totalPages) {
           this.currentPage = this.totalPages;
-          this.switchHideButton(this.currentPage - 1);
-          movePage = '{"currentPage":' + this.currentPage + ', "moveTo":"' + movingTo + '"}';
-          this.changePage.emit(movePage);
+          // this.switchHideButton(this.currentPage - 1);
+          // movePage = '{"currentPage":' + this.currentPage + ', "moveTo":"' + movingTo + '"}';
+          // this.changePage.emit(movePage);
         } else {
           this.currentPage += 1;
           this.switchHideButton(this.currentPage - 1);
@@ -849,38 +850,90 @@ export class NW3Component implements OnInit {
         this.currentPage = 1;
         this.switchHideButton(this.currentPage - 1);
         movePage = '{"currentPage":' + this.currentPage + ', "moveTo":"' + movingTo + '"}';
-         this.pageNumberChange(JSON.parse(movePage).currentPage);
+        this.pageNumberChange(JSON.parse(movePage).currentPage);
         // this.changePage.emit(movePage);
       } else if (movingTo === 'summary') {
         this.currentPage = this.totalPages;
         this.switchHideButton(this.currentPage - 1);
         movePage = '{"currentPage":' + this.currentPage + ', "moveTo":"' + movingTo + '"}';
-         this.pageNumberChange(JSON.parse(movePage).currentPage);
+        this.pageNumberChange(JSON.parse(movePage).currentPage);
         // this.changePage.emit(movePage);
       } else if (movingTo === 'previous') {
         if (this.currentPage <= this.initialPage) {
           this.currentPage = this.initialPage;
           this.switchHideButton(this.currentPage - 1);
           movePage = '{"currentPage":' + this.currentPage + ', "moveTo":"' + movingTo + '"}';
-           this.pageNumberChange(JSON.parse(movePage).currentPage);
+          this.pageNumberChange(JSON.parse(movePage).currentPage);
           // this.changePage.emit(movePage);
         } else {
           this.currentPage -= 1;
           this.switchHideButton(this.currentPage - 1);
           movePage = '{"currentPage":' + this.currentPage + ', "moveTo":"' + movingTo + '"}';
-           this.pageNumberChange(JSON.parse(movePage).currentPage);
+          this.pageNumberChange(JSON.parse(movePage).currentPage);
           // this.changePage.emit(movePage);
         }
       } else {
         this.switchHideButton(this.currentPage);
         movePage = '{"currentPage":' + this.currentPage + ', "moveTo":""}';
-         this.pageNumberChange(JSON.parse(movePage).currentPage);
+        this.pageNumberChange(JSON.parse(movePage).currentPage);
         // this.changePage.emit(movePage);
       }
       setTimeout(() => {
         this.movingSlide = true;
       }, 300);
     }
+  }
+
+
+  pageNumberChange(selectedPage) {
+    this.pageNumber = Number(selectedPage);
+    this.currentProgress = (this.pageNumber / this.passTotalPages) * 100;
+    // const comeFromData = JSON.stringify({ 'comeFrom': 'summary', pageNumber: selectedPage });
+    // this.isImage = false;
+    // this.isEvaluation = true;
+    // this.numberChanged = comeFromData;
+    // this.changingPage = JSON.stringify({ 'currentPage': this.pageNumber, 'moveTo': '' });
+
+    const pageObj = JSON.parse(this.currentSlidePageInfo);
+    const projectData = JSON.parse(this.projectData);
+    this.projectName = JSON.parse(this.projectData)[0].DisplayName;
+    this.testName = projectData[this.pageNumber - 1].SlideDescription;
+    this.testName = projectData[this.pageNumber - 1].SlideDescription;
+    this.pageNumber = (this.currentSlidePageInfo !== '{}') ? pageObj.currentPage : this.pageNumber;
+    this.slideType = projectData[this.pageNumber - 1].SlideType.trim();
+    let lastVisitedPageNumber: any;
+
+    // this.testName = projectData[this.pageNumber - 1].SlideDescription;
+
+    if (this.slideType !== 'Image') {
+      if (pageObj.moveTo === 'previous') {
+        lastVisitedPageNumber = this.pageNumber + 1;
+      }
+      if (pageObj.moveTo === 'next') {
+        lastVisitedPageNumber = this.pageNumber - 1;
+      }
+      if (pageObj.moveTo === 'summary') {
+        lastVisitedPageNumber = this.savePage;
+     
+        
+      }
+      this.setEvaluationData(lastVisitedPageNumber, pageObj.moveTo);
+    } if (this.slideType === 'NameSummary'){
+      console.log('Name Candidates - Summary');
+      
+    }
+    
+    else {
+      setTimeout(() => {
+        const bgImage = 'url(http://bipresents.com/nw2/' + projectData[this.pageNumber - 1].SlideBGFileName + ')';
+        this.slideBackground = bgImage;
+        // this.slideImageElement.nativeElement.style.backgroundImage = bgImage;
+        // this.slideImageElement.nativeElement.style.backgroundSize = '100% 100%';
+        lastVisitedPageNumber = (pageObj.moveTo === 'previous') ? this.pageNumber + 1 : this.pageNumber - 1;
+        this.setEvaluationData(lastVisitedPageNumber, pageObj.moveTo);
+      }, 100);
+    }
+    // this.changes();
   }
 
 
@@ -1227,9 +1280,10 @@ export class NW3Component implements OnInit {
   }
 
   moveRight() {
-    if (!this.stopMovingForward || !this.vote) {
+    // if (!this.stopMovingForward || !this.vote) {
+    if (true) {
       this.selectPage('next');
-    } 
+    }
   }
 
 
@@ -1482,6 +1536,7 @@ export class NW3Component implements OnInit {
     }
     if (option === 'positive' && this.positiveChecked === false) {
       this.positiveChecked = true;
+      this.positiveChecked = !this.positiveChecked;
       this.cantMove.emit(false);
       this.neutralChecked = false;
       this.negativeChecked = false;
@@ -1495,8 +1550,12 @@ export class NW3Component implements OnInit {
       }
     } else if (option === 'positive' && this.positiveChecked === true) {
       this.cantMove.emit(true);
+
       this.neutralChecked = false;
       this.positiveChecked = false;
+
+      this.positiveChecked = !this.positiveChecked;
+
       this.negativeChecked = false;
       this.newNameColor = '';
       this.commentsColor = '';
