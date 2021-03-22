@@ -35,6 +35,7 @@ import { CKEditorModule } from 'ckeditor4-angular';
 import { MatBadgeModule } from '@angular/material/badge';
 import { MatTableModule } from '@angular/material/table';
 import { MatTabsModule } from '@angular/material/tabs';
+import { MatSelectModule } from '@angular/material/select';
 import { QRCodeModule } from 'angularx-qrcode';
 import { DeviceDetectorModule } from 'ngx-device-detector';
 import { NW3Component } from './nw3/nw3.component';
@@ -52,6 +53,8 @@ import { MatNativeDateModule } from '@angular/material/core';
 //     // 'swipe': { velocity: 0.4, threshold: 20 } 
 //   }
 // }
+
+import {MatRadioModule} from '@angular/material/radio';
 
 @NgModule({
   declarations: [
@@ -98,7 +101,10 @@ import { MatNativeDateModule } from '@angular/material/core';
     QRCodeModule,
     DeviceDetectorModule,
     AngularDateTimePickerModule,
-    MatDatepickerModule
+    MatDatepickerModule,
+    MatSelectModule,
+    MatRadioModule,
+    MatNativeDateModule
     // AngularEditorModule,
 
   ],

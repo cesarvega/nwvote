@@ -42,3 +42,185 @@
 </div>
 
 
+<div fxFlex class="page-layout p-12" fxLayoutAlign="center center">
+
+    <div fxFlex fxLayout="row wrap">
+
+        <div fxFlex fxLayout="column" fxLayoutGap="12px" fxLayoutAlign="start center">
+
+            <div class="fuse-card" style="align-items: center;">
+                <img style="width: 310px;" src="assets/images/logos/bi-logo.svg" class="p-16">
+                <div class="p-16" style="text-align: center;">
+                    <div class="h1">Welcome</div>
+                    <div class="h3">Please schedule a meeting</div>
+                </div>
+                <div class="p-16 pt-0 line-height-1.75">
+                    <div fxFlex fxLayout="column" [formGroup]="form">
+
+                        <div style="display: flex; flex-direction: row; margin-bottom: 200px;">
+                            <mat-form-field appearance="outline">
+                                <mat-label>Appointment Date</mat-label>
+                                <input matInput formControlName="date" [matDatepicker]="picker" placeholder="select a date"
+                                    required [min]="today | date: 'yyyy-MM-dd'" >
+                                <mat-error *ngIf="true">
+                                    A valid date is required!
+                                </mat-error>
+                                <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+                                <mat-datepicker style="position: relative; top:0px" [opened]="true" #picker color="secondary"></mat-datepicker>
+                            </mat-form-field>
+    
+                            <mat-form-field appearance="outline">
+                                    <mat-label>Appoinment Time</mat-label>
+                                    <input matInput formControlName="time" type="time" [(ngModel)]="time" step
+                                        placeholder="chose a date" required>
+                                    <blockquote>
+                                        <p class="font-weight-100">Meeting hours are from 8 am to 6 pm EST.</p>
+                                    </blockquote>
+                                </mat-form-field>
+    
+                        </div>
+                      
+                        <mat-form-field appearance="outline">
+                            <mat-label>Company</mat-label>
+                            <input type="text" formControlName="company" matInput placeholder="Company" required/>
+                            <mat-error *ngIf="true">
+                                        A company is required!
+                                    </mat-error>
+                        </mat-form-field>
+                        <mat-form-field appearance="outline">
+                            <mat-label>First Name</mat-label>
+                            <input type="text" formControlName="firstName" matInput placeholder="first Name" required/>
+                            <mat-error *ngIf="true">
+                                A contact first name is required!
+                            </mat-error>
+                        </mat-form-field>
+
+                        <mat-form-field appearance="outline">
+                            <mat-label>Last Name</mat-label>
+                            <input type="text" formControlName="lastName" matInput placeholder="last Name" required/>
+                            <mat-error *ngIf="true">
+                                    A contact last name is required!
+                            </mat-error>
+                        </mat-form-field>
+
+                        <mat-form-field appearance="outline">
+                            <mat-label>Street Address</mat-label>
+                            <input type="text" formControlName="address" matInput placeholder="Address" required/>
+                            <mat-error *ngIf="true">
+                                A Street Address is required!
+                            </mat-error>
+                            <blockquote>
+                                <p class="font-weight-100">To assign the appropriate representative,
+                                     please fill in the address.</p>
+                            </blockquote>
+                        </mat-form-field>
+
+                        
+                        <mat-form-field appearance="outline" *ngIf="true">
+                            <mat-label>City</mat-label>
+                            <input type="text" formControlName="city" matInput
+                                placeholder="city" required/>
+                            <mat-error *ngIf="true">
+                                A City is required!
+                            </mat-error>
+                        </mat-form-field>
+
+                        <mat-form-field appearance="outline" *ngIf="true">
+                            <mat-label>State</mat-label>
+                            <input type="text" formControlName="state" matInput
+                                placeholder="state" />
+                            <!-- <mat-error *ngIf="true">
+                                A note is !
+                            </mat-error> -->
+                        </mat-form-field>
+
+                        <mat-form-field appearance="outline" *ngIf="true">
+                            <mat-label>Country</mat-label>
+                            <input type="text" formControlName="country" matInput
+                                placeholder="country" required/>
+                            <mat-error *ngIf="true">
+                                A Country is required!
+                            </mat-error>
+                        </mat-form-field>
+
+                        <mat-form-field appearance="outline" *ngIf="true">
+                            <mat-label>Postal Code</mat-label>
+                            <input type="text" formControlName="postalcode" matInput
+                                placeholder="postalcode" />
+                            <!-- <mat-error *ngIf="true">
+                                A note is !
+                            </mat-error> -->
+                        </mat-form-field>
+
+                        <mat-form-field appearance="outline">
+                            <mat-label>Email </mat-label>
+                            <input type="email" [(ngModel)]="email" formControlName="email" matInput placeholder="Email"
+                                required />
+                            <mat-error *ngIf="true">
+                                A email is required!
+                            </mat-error>
+                        </mat-form-field>                      
+                     
+                        <mat-form-field appearance="outline">
+                            <mat-label>Phone</mat-label>
+                            <input type="number" formControlName="phone" matInput placeholder="Phone" required/>
+                            <mat-error *ngIf="true">
+                                A phone number is required!
+                            </mat-error>
+                        </mat-form-field>
+
+                       
+
+                        <mat-form-field appearance="outline">
+                                <mat-label>Time Zone</mat-label>
+                                <mat-select formControlName="timeZone" matNativeControl [(ngModel)]="selected"
+                                    placeholder="Select time zone" required>
+                                    <mat-option value="EST">Eastern Time (EST)</mat-option>
+                                    <mat-option value="CST">Central Time (CST)</mat-option>
+                                    <mat-option value="MT">Mountain Time (MT)</mat-option>
+                                    <mat-option value="PST">Pacific Time (PST)</mat-option>
+                                    <mat-option value="WET">Western European Time (WET)</mat-option>
+                                    <mat-option value="CET">Central European Time (CET)</mat-option>
+                                    <mat-option value="EET">Eastern European Time (EET)</mat-option>
+                                    <mat-option value="JPT">Japan Time (JPT)</mat-option>
+                                    <mat-option value="KST">Korea Time (KST)</mat-option>
+                                    <mat-option value="BRT">Brasilia Time (BRT)</mat-option>
+                                </mat-select>
+                            </mat-form-field>
+
+                        <mat-form-field appearance="outline">
+                            <mat-label>Meeting Type</mat-label>
+                            <input matInput formControlName="type" style="display:none;" [(ngModel)]="call" required>
+                            <mat-radio-group formControlName="type">
+                                <mat-radio-button class="secondary-text p-8" *ngFor="let item of callType"
+                                   >{{item}}</mat-radio-button>
+                            </mat-radio-group>
+                        </mat-form-field>
+
+                        <mat-form-field appearance="outline">
+                                <mat-label>Notes</mat-label>
+                                <textarea formControlName="note" matInput placeholder="write your note" [rows]="3"
+                                    [matTextareaAutosize]="true" required></textarea>
+                                <mat-error *ngIf="true">
+                                    A note is required!
+                                </mat-error>
+                            </mat-form-field>                
+
+                        <button type="submit" (click)="onSubmit()">
+                            Submit
+                        </button>
+                        <ul>
+                            <li *ngFor="let item of items | async">
+                                {{ item.name }}
+                            </li>
+                        </ul>
+                    </div>
+
+                </div>
+            </div>
+
+        </div>
+
+
+    </div>
+</div>
