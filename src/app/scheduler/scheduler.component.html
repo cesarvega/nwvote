@@ -233,14 +233,14 @@
         </mat-tab-group>
 
         <div style="padding-top: 10px;">
-            <button *ngIf="isNextTab" mat-button color="primary" (click)="previousStep()"
+            <button *ngIf="!isNextTab" mat-button color="primary" (click)="previousStep()"
                 [disabled]="desablePrevioustButton">
                 Previous
             </button>
-            <button mat-button color="primary" (click)="nextStep()" [disabled]="desableNextButton">
+            <button  *ngIf="isNextTab" mat-button color="primary" (click)="nextStep()" [disabled]="desableNextButton">
                 Next
             </button>
-            <button mat-raised-button type="submit" (click)="onSubmit()"
+            <button *ngIf="!isNextTab" mat-raised-button type="submit" (click)="onSubmit()"
                 style="color: white;background-color: #1564bf;">
                 Submit
             </button>
@@ -257,9 +257,11 @@
         </button>
     </div>
 
-    <div  *ngIf="formAlert" class="formFieldValidationAlert">
+    <div  *ngIf="formAlert" class="formFieldValidationAlert" style="display: flex;flex-direction: column; align-items: center; justify-content: center;">
         <h1> PLease complete these fields </h1>
-        <div *ngFor=" let field  of emptyFormFields">{{field}}</div>
+        <div *ngFor=" let field  of emptyFormFields" >{{field}}</div>
+        <br>
+        <br>
         <button mat-raised-button (click)="dismissErrorForm()">Dismiss</button>
     </div>
 

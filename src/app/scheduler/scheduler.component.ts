@@ -31,7 +31,7 @@ export class SchedulerComponent implements OnInit {
 
   selectedIndex: number = 0;
 
-  isNextTab = false;
+  isNextTab = true;
   desablePrevioustButton = false;
   disablePersonalInfoTab = true;
   isForm = true;
@@ -200,9 +200,10 @@ export class SchedulerComponent implements OnInit {
     //     this.validForm = false;
     //   }
     // });
-
+    this.emptyFormFields=[];
+    this.validForm = false;
     for (const property in this.form.value) {
-
+      
       console.log(`${property}: ${this.form.value[property]}`);
       if (`${this.form.value[property]}` !== "") {
         this.validForm = true;
@@ -235,16 +236,17 @@ export class SchedulerComponent implements OnInit {
       this.indexTabCounter = this.indexTabCounter - 1;
       this.isNextTab = false;
       this.selectedIndex = 0;
+      this.isNextTab = true;
     }
     console.log(this.indexTabCounter);
   }
 
   nextStep() {
     if (this.indexTabCounter < 2) {
-      this.indexTabCounter = 1 + this.indexTabCounter;
-      this.isNextTab = true;
+      this.indexTabCounter = 1 + this.indexTabCounter;      
       this.selectedIndex = 1;
       this.disablePersonalInfoTab = false;
+      this.isNextTab = false;
     }
     console.log(this.indexTabCounter);
   }
