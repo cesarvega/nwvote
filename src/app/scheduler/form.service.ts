@@ -15,6 +15,7 @@ export class FormService {
   markFormGroupTouched(formGroup: FormGroup): void {
     Object.values(formGroup.controls).forEach((control: any) => {
       control.markAsTouched();
+      console.log(control.value);      
       if (control.controls) {
         control.controls.forEach(c => this.markFormGroupTouched(c));
       }
@@ -63,6 +64,7 @@ export class FormService {
       State: data.state.replace(/'/g, '`'),
       Country: data.country.replace(/'/g, '`'),
       Postalcode: data.postalcode,
+      Title: 'Mr/Miss',
     };
     return this.httpClient.post(this.ASMX_URL_AddEmailAppointment, dataContainer);
   }

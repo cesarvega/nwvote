@@ -8,7 +8,7 @@ import { FormService } from './form.service';
   selector: 'app-scheduler',
   templateUrl: './scheduler.component.html',
   styleUrls: ['./scheduler.component.scss'],
-  providers: [ FormService]
+  providers: [FormService]
 })
 export class SchedulerComponent implements OnInit {
 
@@ -26,19 +26,27 @@ export class SchedulerComponent implements OnInit {
   paramsArray: any;
   email = '';
   directorId = '';
+  indexTabCounter = 0;
+  desableNextButton = true;
 
+  selectedIndex: number = 1;
+  isNextTab = false;
+  desablePrevioustButton = false;
+  disablePersonalInfoTab = true;
+  isForm = true;
+  isThankyou = false;
 
 
   date: Date = new Date();
-	settings = {
-		bigBanner: true,
-		timePicker: false,
-		format: 'dd-MM-yyyy',
-		defaultOpen: true,
-    closeOnSelect : false
-	}
+  settings = {
+    bigBanner: true,
+    timePicker: false,
+    format: 'dd-MM-yyyy',
+    defaultOpen: true,
+    closeOnSelect: false
+  }
 
-  people: any[] = [
+  times: any[] = [
     {
       "name": "12:00 PM"
     },
@@ -53,6 +61,54 @@ export class SchedulerComponent implements OnInit {
     },
     {
       "name": "2:00 PM"
+    },
+    {
+      "name": "12:00 PM"
+    },
+    {
+      "name": "12:30 PM"
+    },
+    {
+      "name": "1:00 PM"
+    },
+    {
+      "name": "1:30 PM"
+    },
+    {
+      "name": "2:00 PM"
+    },
+    {
+      "name": "1:30 PM"
+    },
+    {
+      "name": "12:30 PM"
+    },
+    {
+      "name": "1:00 PM"
+    },
+    {
+      "name": "1:30 PM"
+    },
+    {
+      "name": "2:00 PM"
+    },
+    {
+      "name": "12:00 PM"
+    },
+    {
+      "name": "12:30 PM"
+    },
+    {
+      "name": "1:00 PM"
+    },
+    {
+      "name": "1:30 PM"
+    },
+    {
+      "name": "2:00 PM"
+    },
+    {
+      "name": "1:30 PM"
     }
   ];
 
@@ -60,57 +116,81 @@ export class SchedulerComponent implements OnInit {
   constructor(private _formBuilder: FormBuilder,
     public _FormService: FormService,
     private _route: Router,
-    private paramsRouter: ActivatedRoute) { 
+    private paramsRouter: ActivatedRoute) {
 
-      
+
     this.today = new Date();
     this.formErrors = {
-        company: {},
-        firstName: {},
-        lastName: {},
-        email: {},
-        phone: {},
-        date: {},
-        time: {},
-        timeZone: {},
-        type: {},
-        note: {},
-        address: {},
-        city: {},
-        // state: {},
-        contry: {},            
-        // postalcode: {},            
+      company: {},
+      firstName: {},
+      lastName: {},
+      email: {},
+      phone: {},
+      date: {},
+      time: {},
+      timeZone: {},
+      type: {},
+      note: {},
+      address: {},
+      city: {},
+      // state: {},
+      contry: {},
+      // postalcode: {},            
     };
-    }
+  }
 
   ngOnInit(): void {
 
     this.form = this._formBuilder.group({
-      company: ['', Validators.required],
-      firstName: ['', Validators.required],
-      lastName: ['', Validators.required],
-      email: ['', Validators.email],
-      phone: ['', Validators.required],
-      date: ['', Validators.required],
-      time: ['', Validators.required],
-      timeZone: ['', Validators.required],
-      type: ['', Validators.required],
-      note: ['', Validators.required],
-      address: ['', Validators.required],
-      city: ['', Validators.required],
-      state: [''],
-      country: ['', Validators.required],            
-      postalcode: ['']            
-  });
+      company: ['BI', Validators.required],
+      firstName: ['Cesar', Validators.required],
+      lastName: ['Vega', Validators.required],
+      email: ['cvega@brandinstitute.com', Validators.email],
+      phone: ['3053228822', Validators.required],
+      date: [new Date, Validators.required],
+      time: ['10:00 PM', Validators.required],
+      timeZone: ['EAST', Validators.required],
+      // type: [''],
+      // type2: ['', Validators.required],
+      note: ['Notas', Validators.required],
+      address: ['201 se 2 ave', Validators.required],
+      city: ['Miami', Validators.required],
+      state: ['Fl'],
+      country: ['USA', Validators.required],
+      postalcode: ['33131']
+    });
 
-  this.paramsRouter.queryParams
-            .subscribe(params => {
-                if (params.value) {
-                    this.paramsArray = params.value.split(',');
-                    this.directorId = this.paramsArray[1]; 
-                    this.email = this.paramsArray[0];
-                }
-            });
+    // this.form = this._formBuilder.group({
+    //   company: ['', Validators.required],
+    //   firstName: ['', Validators.required],
+    //   lastName: ['', Validators.required],
+    //   email: ['', Validators.email],
+    //   phone: ['', Validators.required],
+    //   date: ['', Validators.required],
+    //   time: ['', Validators.required],
+    //   timeZone: ['', Validators.required],
+    //   type: ['', Validators.required],
+    //   type2: ['', Validators.required],
+    //   note: ['', Validators.required],
+    //   address: ['', Validators.required],
+    //   city: ['', Validators.required],
+    //   state: [''],
+    //   country: ['', Validators.required],
+    //   postalcode: ['']
+    // });
+
+    this.paramsRouter.queryParams
+      .subscribe(params => {
+        if (params.value) {
+          this.paramsArray = params.value.split(',');
+          this.directorId = this.paramsArray[1];
+          this.email = this.paramsArray[0];
+        }
+      });
+
+      setTimeout(() => {
+        this.selectedIndex = 0;
+      }, 2000);
 
   }
 
@@ -118,22 +198,53 @@ export class SchedulerComponent implements OnInit {
     this.form.value.date = this.form.value.date.toString();
     this._FormService.markFormGroupTouched(this.form);
     if (this.form.valid) {
-        this._FormService.addEmailAppointment(this.form.value, this.email, this.directorId).subscribe(result => {
-            this.form.reset();
-            this._route.navigateByUrl('form/thankyou');
-        });
+      this._FormService.addEmailAppointment(this.form.value, this.email, this.directorId).subscribe(result => {
+        this.form.reset();
+        // this._route.navigateByUrl('thankyou');
+        this.isForm = false;
+        this.isThankyou = true;
+      });
     } else {
-        this.formErrors = this._FormService.validateForm(this.form, this.formErrors, false);
+      this.formErrors = this._FormService.validateForm(this.form, this.formErrors, false);
     }
-}
+  }
 
-  onDateSelect(e){
-    console.log(
+  onDateSelect(e) {
+    // console.log("date: " + e);
+    // this.form.controls.date = e;
+  }
 
-      e
-    );
-    
+  previousStep() {
+    if (this.indexTabCounter > 0) {
+      this.indexTabCounter = this.indexTabCounter - 1;
+      this.isNextTab = false;
+      this.selectedIndex = 0;
+    }
+    console.log(this.indexTabCounter);
+  }
+
+  nextStep() {
+    if (this.indexTabCounter < 2) {
+      this.indexTabCounter = 1 + this.indexTabCounter;
+      this.isNextTab = true;
+      this.selectedIndex = 1;
+      this.disablePersonalInfoTab = false;
+    }
+    console.log(this.indexTabCounter);
   }
 
 
+  radioChange(e) {
+    this.form.controls.time = this.times[e.value].name;
+    if (this.form.controls.time) {
+      this.desableNextButton = false;
+    }
+    console.log(e.value);
+  }
+
+  makeAnother(){
+    this.isForm = true;
+    this.isThankyou = false;
+    this.selectedIndex = 0;
+  }
 }
