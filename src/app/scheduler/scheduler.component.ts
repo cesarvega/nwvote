@@ -104,7 +104,7 @@ export class SchedulerComponent implements OnInit {
     }
   ];
   validForm = false;
-  emptyFormFields: any;
+  emptyFormFields = [];
   formAlert = false;
 
   constructor(private _formBuilder: FormBuilder,

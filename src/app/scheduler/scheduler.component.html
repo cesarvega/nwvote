@@ -257,10 +257,9 @@
         </button>
     </div>
 
-
-    <div ngIf="formAlert">
+    <div  *ngIf="formAlert" class="formFieldValidationAlert">
         <h1> PLease complete these fields </h1>
-        <div *ngfor=" let field in emptyFormFields">{{field}}</div>
+        <div *ngFor=" let field  of emptyFormFields">{{field}}</div>
         <button mat-raised-button (click)="dismissErrorForm()">Dismiss</button>
     </div>
 
