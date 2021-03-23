@@ -57,9 +57,9 @@
     transform: translateX(0);
 }
 
-// ::ng-deep .ok {
-//     display: none;
-// }
+::ng-deep .ok {
+    display: none;
+}
 
 ::ng-deep .mat-tab-body {
     height: 500px;

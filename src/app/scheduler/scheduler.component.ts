@@ -29,7 +29,8 @@ export class SchedulerComponent implements OnInit {
   indexTabCounter = 0;
   desableNextButton = true;
 
-  selectedIndex: number = 1;
+  selectedIndex: number = 0;
+
   isNextTab = false;
   desablePrevioustButton = false;
   disablePersonalInfoTab = true;
@@ -132,43 +133,43 @@ export class SchedulerComponent implements OnInit {
 
   ngOnInit(): void {
 
-    this.form = this._formBuilder.group({
-      company: ['BI', Validators.required],
-      firstName: ['Cesar', Validators.required],
-      lastName: ['Vega', Validators.required],
-      email: ['cvega@brandinstitute.com', Validators.email],
-      phone: ['3053228822', Validators.required],
-      date: [new Date, Validators.required],
-      time: ['10:00 PM', Validators.required],
-      timeZone: ['EAST', Validators.required],
-      type: [''],
-      // type2: ['', Validators.required],
-      note: ['Notas', Validators.required],
-      address: ['201 se 2 ave', Validators.required],
-      city: ['Miami', Validators.required],
-      state: ['Fl'],
-      country: ['USA', Validators.required],
-      postalcode: ['33131']
-    });
-
     // this.form = this._formBuilder.group({
-    //   company: ['', Validators.required],
-    //   firstName: ['', Validators.required],
-    //   lastName: ['', Validators.required],
-    //   email: ['', Validators.email],
-    //   phone: ['', Validators.required],
-    //   date: ['', Validators.required],
-    //   time: ['', Validators.required],
-    //   timeZone: ['', Validators.required],
-    //   type: ['', Validators.required],
-    //   type2: ['', Validators.required],
-    //   note: ['', Validators.required],
-    //   address: ['', Validators.required],
-    //   city: ['', Validators.required],
-    //   state: [''],
-    //   country: ['', Validators.required],
-    //   postalcode: ['']
+    //   company: ['BI', Validators.required],
+    //   firstName: ['Cesar', Validators.required],
+    //   lastName: ['Vega', Validators.required],
+    //   email: ['cvega@brandinstitute.com', Validators.email],
+    //   phone: ['3053228822', Validators.required],
+    //   date: [new Date, Validators.required],
+    //   time: ['10:00 PM', Validators.required],
+    //   timeZone: ['EAST', Validators.required],
+    //   type: [''],
+    //   // type2: ['', Validators.required],
+    //   note: ['Notas', Validators.required],
+    //   address: ['201 se 2 ave', Validators.required],
+    //   city: ['Miami', Validators.required],
+    //   state: ['Fl'],
+    //   country: ['USA', Validators.required],
+    //   postalcode: ['33131']
     // });
+
+    this.form = this._formBuilder.group({
+      company: ['', Validators.required],
+      firstName: ['', Validators.required],
+      lastName: ['', Validators.required],
+      email: ['', Validators.email],
+      phone: ['', Validators.required],
+      date: ['', Validators.required],
+      time: ['', Validators.required],
+      timeZone: ['', Validators.required],
+      type: ['', Validators.required],
+      // type2: ['', Validators.required],
+      note: ['', Validators.required],
+      address: ['', Validators.required],
+      city: ['', Validators.required],
+      state: [''],
+      country: ['', Validators.required],
+      postalcode: ['']
+    });
 
     this.paramsRouter.queryParams
       .subscribe(params => {
@@ -179,9 +180,9 @@ export class SchedulerComponent implements OnInit {
         }
       });
 
-      setTimeout(() => {
-        this.selectedIndex = 0;
-      }, 2000);
+      // setTimeout(() => {
+      //   this.selectedIndex = 0;
+      // }, 200);
 
   }
 
@@ -200,10 +201,6 @@ export class SchedulerComponent implements OnInit {
     }
   }
 
-  onDateSelect(e) {
-    console.log("date: " + e);
-    this.form.controls.date = e;
-  }
 
   previousStep() {
     if (this.indexTabCounter > 0) {
@@ -226,16 +223,21 @@ export class SchedulerComponent implements OnInit {
 
 
   radioChange(e) {
-    this.form.controls.time = this.times[e.value].name;
-    if (this.form.controls.time) {
+    this.form.value.time = this.times[e.value].name;
+    this.time =   this.form.value.time;
+    if (this.form.value.time) {
       this.desableNextButton = false;
     }
     console.log(e.value);
   }
 
+  
+  onDateSelect(e) {
+    console.log("date: " + e);
+    this.form.controls.date = e;
+  }
+
   makeAnother(){
-    this.isForm = true;
-    this.isThankyou = false;
-    this.selectedIndex = 0;
+    window.location.reload();
   }
 }

@@ -64,19 +64,19 @@
                                 <mat-datepicker style="position: relative; top:0px" [opened]="true" #picker color="secondary"></mat-datepicker>
                             </mat-form-field>
     
-                            <mat-form-field appearance="outline">
-                                    <mat-label>Appoinment Time</mat-label>
-                                    <input matInput formControlName="time" type="time" [(ngModel)]="time" step
-                                        placeholder="chose a date" required>
-                                    <blockquote>
-                                        <p class="font-weight-100">Meeting hours are from 8 am to 6 pm EST.</p>
-                                    </blockquote>
-                                </mat-form-field>
+                           
     
                         </div> -->
 
 
-
+                                        <mat-form-field appearance="outline">
+                                            <mat-label>Appoinment Time</mat-label>
+                                            <input matInput formControlName="time" type="text" [(ngModel)]="time" step
+                                                placeholder="chose a date" required [disabled]="true">
+                                            <blockquote>
+                                                <p class="font-weight-100">Meeting hours are from 8 am to 6 pm EST.</p>
+                                            </blockquote>
+                                        </mat-form-field>
 
                                         <mat-form-field appearance="outline">
                                             <mat-label>Company</mat-label>
@@ -195,9 +195,12 @@
 
                                         <mat-form-field appearance="outline">
                                             <mat-label>Meeting Type</mat-label>
-                                            <input formControlName="type" matInput style="display:none;" [(ngModel)]="call" required>
-                                            <mat-radio-group formControlName="type" >
-                                                <mat-radio-button *ngFor="let appointmentTpe of callType" [value]="appointmentTpe" style="margin-right: 5px;">{{appointmentTpe}}</mat-radio-button> 
+                                            <input formControlName="type" matInput style="display:none;"
+                                                [(ngModel)]="call" required>
+                                            <mat-radio-group formControlName="type">
+                                                <mat-radio-button *ngFor="let appointmentTpe of callType"
+                                                    [value]="appointmentTpe" style="margin-right: 5px;">
+                                                    {{appointmentTpe}}</mat-radio-button>
                                             </mat-radio-group>
                                         </mat-form-field>
 
@@ -230,7 +233,7 @@
 
 
             </mat-tab>
-            <mat-tab label="Third" [disabled]="true"> Content 3 </mat-tab>
+            <!-- <mat-tab label="Third" [disabled]="true"> Content 3 </mat-tab> -->
         </mat-tab-group>
 
         <div style="padding-top: 10px;">
@@ -238,9 +241,9 @@
                 [disabled]="desablePrevioustButton">
                 Previous
             </button>
-            <!-- <button mat-button color="primary" (click)="nextStep()" [disabled]="desableNextButton">
+            <button mat-button color="primary" (click)="nextStep()" [disabled]="desableNextButton">
                 Next
-            </button> -->
+            </button>
         </div>
     </div>
 
@@ -249,7 +252,7 @@
         <div style="padding-top: 20px;" class="mat-display-1  secondary-text">Thank you!</div>
         <div class="mat-subheading-1 secondary-text">Your appointment meeting is scheduled</div>
         <button mat-button color="primary" (click)="makeAnother()" [disabled]="false">
-            Make Another Appointment 
+            Make Another Appointment
         </button>
     </div>
 
