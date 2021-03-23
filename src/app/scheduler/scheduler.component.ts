@@ -103,6 +103,7 @@ export class SchedulerComponent implements OnInit {
       "name": "8:30 PM"
     }
   ];
+  validForm = false;
 
 
   constructor(private _formBuilder: FormBuilder,
@@ -189,7 +190,26 @@ export class SchedulerComponent implements OnInit {
   onSubmit(): void {
     this.form.value.date = this.date.toString();
     // this._FormService.markFormGroupTouched(this.form);
-    if (this.form.valid) {
+    
+
+    // this.form.value.forEach(field => {
+    //   if ${this.form.value[property]} !== "") {
+    //     this.validForm = true;
+    //   }else{
+    //     this.validForm = false;
+    //   }
+    // });
+
+    for (const property in this.form.value) {
+      console.log(`${property}: ${this.form.value[property]}`);
+      if (`${this.form.value[property]}` !== "") {
+        this.validForm = true;
+      }else{
+        this.validForm = false;
+      }
+    }
+
+    if (this.validForm) {
       this._FormService.addEmailAppointment(this.form.value, this.email, this.directorId).subscribe(result => {
         // this.form.reset();
         // this._route.navigateByUrl('thankyou');
