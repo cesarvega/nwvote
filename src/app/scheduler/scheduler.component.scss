@@ -57,6 +57,84 @@
     transform: translateX(0);
 }
 
+// ::ng-deep .ok {
+//     display: none;
+// }
+
+::ng-deep .mat-tab-body {
+    height: 500px;
+}
+
+.timePickerclass {
+    color: #1564bf;
+    font-size: larger;
+    margin-bottom: 10px;
+    text-align: start;
+    font-family: "Franklin Gothic Medium", "Arial Narrow", Arial, sans-serif;
+    overflow-y: scroll;
+    max-height: 300px;
+}
+
+::ng-deep .timePickerclass::-webkit-scrollbar {
+    display: block;
+    width: 5px;
+    height: 8px;
+}
+
+/* width */
+::ng-deep .timePickerclass::-webkit-scrollbar {
+    width: 5px;
+}
+
+/* Track */
+::ng-deep .timePickerclass::-webkit-scrollbar-track {
+    box-shadow: inset 0 0 5px grey; 
+    border-radius: 10px;
+}
+
+/* Handle */
+::ng-deep .timePickerclass::-webkit-scrollbar-thumb {
+    background: #1564bf; 
+    border-radius: 10px;
+}
+
+/* Handle on hover */
+::ng-deep .timePickerclass::-webkit-scrollbar-thumb:hover {
+    background: #1564bf; 
+}
+
+.pesonalInfoClass{
+    height: 350px;
+}
+
+::ng-deep .pesonalInfoClass::-webkit-scrollbar {
+    display: block;
+    width: 5px;
+    height: 8px;
+}
+
+/* width */
+::ng-deep .pesonalInfoClass::-webkit-scrollbar {
+    width: 5px;
+}
+
+/* Track */
+::ng-deep .pesonalInfoClass::-webkit-scrollbar-track {
+    box-shadow: inset 0 0 5px grey; 
+    border-radius: 10px;
+}
+
+/* Handle */
+::ng-deep .pesonalInfoClass::-webkit-scrollbar-thumb {
+    background: #1564bf; 
+    border-radius: 10px;
+}
+
+/* Handle on hover */
+::ng-deep .pesonalInfoClass::-webkit-scrollbar-thumb:hover {
+    background: #1564bf; 
+}
+
 //desktop
 @media (min-width: 576px) {
     .mainContainerPresent {
@@ -160,5 +238,3 @@
         }
     }
 }
-
-

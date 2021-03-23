@@ -35,6 +35,7 @@ import { CKEditorModule } from 'ckeditor4-angular';
 import { MatBadgeModule } from '@angular/material/badge';
 import { MatTableModule } from '@angular/material/table';
 import { MatTabsModule } from '@angular/material/tabs';
+import { MatSelectModule } from '@angular/material/select';
 import { QRCodeModule } from 'angularx-qrcode';
 import { DeviceDetectorModule } from 'ngx-device-detector';
 import { NW3Component } from './nw3/nw3.component';
@@ -53,6 +54,9 @@ import { MatNativeDateModule } from '@angular/material/core';
 //   }
 // }
 
+import {MatRadioModule} from '@angular/material/radio';
+import { ThankYouComponent } from './scheduler/thank-you/thank-you.component';
+
 @NgModule({
   declarations: [
     AppComponent,
@@ -65,6 +69,7 @@ import { MatNativeDateModule } from '@angular/material/core';
     NW3Component,
     BmxComponent,
     SchedulerComponent,
+    ThankYouComponent
   ],
   imports: [
     BrowserModule,
@@ -98,7 +103,10 @@ import { MatNativeDateModule } from '@angular/material/core';
     QRCodeModule,
     DeviceDetectorModule,
     AngularDateTimePickerModule,
-    MatDatepickerModule
+    MatDatepickerModule,
+    MatSelectModule,
+    MatRadioModule,
+    MatNativeDateModule
     // AngularEditorModule,
 
   ],
