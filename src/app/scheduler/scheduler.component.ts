@@ -104,7 +104,8 @@ export class SchedulerComponent implements OnInit {
     }
   ];
   validForm = false;
-
+  emptyFormFields: any;
+  formAlert = false;
 
   constructor(private _formBuilder: FormBuilder,
     public _FormService: FormService,
@@ -181,16 +182,16 @@ export class SchedulerComponent implements OnInit {
         }
       });
 
-      // setTimeout(() => {
-      //   this.selectedIndex = 0;
-      // }, 200);
+    // setTimeout(() => {
+    //   this.selectedIndex = 0;
+    // }, 200);
 
   }
 
   onSubmit(): void {
     this.form.value.date = this.date.toString();
     // this._FormService.markFormGroupTouched(this.form);
-    
+
 
     // this.form.value.forEach(field => {
     //   if ${this.form.value[property]} !== "") {
@@ -201,11 +202,14 @@ export class SchedulerComponent implements OnInit {
     // });
 
     for (const property in this.form.value) {
+
       console.log(`${property}: ${this.form.value[property]}`);
       if (`${this.form.value[property]}` !== "") {
         this.validForm = true;
-      }else{
+      } else {
         this.validForm = false;
+        this.emptyFormFields.push(property)
+        this.formAlert = true;
       }
     }
 
@@ -221,6 +225,10 @@ export class SchedulerComponent implements OnInit {
     }
   }
 
+
+  dismissErrorForm() {
+    this.formAlert = false;
+  }
 
   previousStep() {
     if (this.indexTabCounter > 0) {
@@ -244,20 +252,20 @@ export class SchedulerComponent implements OnInit {
 
   radioChange(e) {
     this.form.value.time = this.times[e.value].name;
-    this.time =   this.form.value.time;
+    this.time = this.form.value.time;
     if (this.form.value.time) {
       this.desableNextButton = false;
     }
     console.log(e.value);
   }
 
-  
+
   onDateSelect(e) {
     console.log("date: " + e);
     this.form.controls.date = e;
   }
 
-  makeAnother(){
+  makeAnother() {
     window.location.reload();
   }
 }

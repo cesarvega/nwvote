@@ -215,10 +215,6 @@
                                             </mat-error>
                                         </mat-form-field>
 
-                                        <button mat-raised-button type="submit" (click)="onSubmit()"
-                                            style="color: white;background-color: #1564bf;">
-                                            Submit
-                                        </button>
 
                                     </div>
 
@@ -244,6 +240,11 @@
             <button mat-button color="primary" (click)="nextStep()" [disabled]="desableNextButton">
                 Next
             </button>
+            <button mat-raised-button type="submit" (click)="onSubmit()"
+                style="color: white;background-color: #1564bf;">
+                Submit
+            </button>
+
         </div>
     </div>
 
@@ -254,6 +255,13 @@
         <button mat-button color="primary" (click)="makeAnother()" [disabled]="false">
             Make Another Appointment
         </button>
+    </div>
+
+
+    <div ngIf="formAlert">
+        <h1> PLease complete these fields </h1>
+        <div *ngfor=" let field in emptyFormFields">{{field}}</div>
+        <button mat-raised-button (click)="dismissErrorForm()">Dismiss</button>
     </div>
 
 </div>
