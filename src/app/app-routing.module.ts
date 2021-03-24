@@ -7,7 +7,6 @@ import { SchedulerComponent } from './scheduler/scheduler.component';
 import { BsrComponent } from './bsr/bsr.component';
 import { NW3Component } from './nw3/nw3.component';
 import { BmxComponent } from './bmx/bmx.component';
-import { ThankYouComponent } from './scheduler/thank-you/thank-you.component';
 
 const routes: Routes = [
   // {// NAME VOTE LOGIN https://bipresents.com/namevote/login?project=Test_WELL_PLATFORM
@@ -22,18 +21,14 @@ const routes: Routes = [
   //   path: ':id',
   //   component: BsrMobileComponent
   // },
-  {// ESCHEDULER
-    path: ':id',
-    component: SchedulerComponent
-  },
-  {
-    path     : 'thankyou',
-    component: ThankYouComponent
-},
-  // {//BSR
+  // {// SCHEDULER
   //   path: ':id',
-  //   component: BsrComponent
+  //   component: SchedulerComponent
   // },
+  {//BSR
+    path: ':id',
+    component: BsrComponent
+  },
   // {//BI BRAND MATRIX
   //   path: ':id',
   //   component: BsrComponent
@@ -42,10 +37,10 @@ const routes: Routes = [
   //   path: ':id',
   //   component: BmxComponent
   // },
-  {//NW 3 BI PRESENTS NOMENCLATURE WORKSHOP V.3.0
-    path: ':id',
-    component: NW3Component
-  },
+  // {//NW 3 BI PRESENTS NOMENCLATURE WORKSHOP V.3.0
+  //   path: ':id',
+  //   component: NW3Component
+  // },
   {
     path: '',
     redirectTo: 'login',
