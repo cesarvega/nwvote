@@ -242,6 +242,10 @@ export class SchedulerComponent implements OnInit {
     }
   }
 
+  onDateSelect(e) {
+    console.log("date: " + e.value);
+    this.date =  e.value;
+  }
 
   dismissErrorForm() {
     this.formAlert = false;
@@ -279,10 +283,6 @@ export class SchedulerComponent implements OnInit {
   }
 
 
-  onDateSelect(e) {
-    console.log("date: " + e.value);
-    this.form.controls.date =  e.value;
-  }
 
   makeAnother() {
     window.location.reload();
