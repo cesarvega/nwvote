@@ -17,6 +17,7 @@
 <!-- 
                     <angular2-date-picker (onDateSelect)="onDateSelect($event)" (ngmodelchange)="onDateSelect($event)" style="    width: 250px; 
                 margin-left: 30px;" [(ngModel)]="date" [settings]="settings"></angular2-date-picker> -->
+                <div>
                 <mat-form-field    appearance="outline" style="width: 250px;  margin-left: 30px;">
                     <mat-label>Appointment Date</mat-label>
                     <input matInput  [min]="MinDate"[matDatepicker]="theTimePicker" placeholder="select a date" (dateChange)="onDateSelect($event)"
@@ -25,25 +26,37 @@
                         A valid date is required!
                     </mat-error>
                     <mat-datepicker-toggle matSuffix [for]="theTimePicker"></mat-datepicker-toggle>
-                    <mat-datepicker  (closed)="_openCalendar(theTimePicker)" [opened]="true" #theTimePicker color="primary" style="color: tomato;"></mat-datepicker>
+                    <mat-datepicker  (closed)="_openCalendar(theTimePicker, 'picker')" [opened]="true" #theTimePicker color="primary" style="color: tomato;"></mat-datepicker>
                 </mat-form-field>
-
+            </div>
                     <div style="margin-left: 124px;z-index: 1;">
                         <p style="font-weight: 900;font-family: caviar;font-size: larger;">Available Time</p>
                         <div class="">
 
                             <div class="timePickerclass">
-                                <button mat-raised-button color="primary" (click)="searchTime()" style="margin-bottom: 10px;color: white;z-index:999;">Search</button>
+                                <!-- <button mat-raised-button color="primary" (click)="searchTime()" 
+                                style="margin-bottom: 10px 5px ;color: white;z-index:999; width: 200px;">Search</button> -->
                                
-                                <mat-radio-group aria-label="Select an option">
+
+                                <div *ngFor="let time of times; let i = index; " style="display: flex;flex-direction: column;align-items: center; ">
+                                    <button *ngIf="i !== selectTimeConfirmIndex" [disabled]="(times.length > 1)?false:true" mat-raised-button (click)="selectTimeConfirmIndex = i" style="width: 200px;margin: 5px 0px;">{{time.name}}</button>
+                                    <div *ngIf="i === selectTimeConfirmIndex && times.length > 1" style="display: flex;flex-direction: row;justify-content: space-around;">
+                                        <button mat-raised-button style="margin: 10px 2px;color: white;" color="accent">{{time.name}}</button>
+                                        <button mat-raised-button (click)="radioChange(time.name)"  style="margin: 10px 2px;color: white;" color="primary">Confirm </button>
+                                    </div>
+                                </div>
+
+
+                                <!-- <mat-radio-group aria-label="Select an option">
                                     <div *ngFor="let time of times; index as i;">
                                         <mat-radio-button (change)="radioChange($event)" [value]="i">{{time.name}}
                                         </mat-radio-button>
                                     </div>
-                                </mat-radio-group>
+                                </mat-radio-group> -->
                             </div>
                         </div>
                     </div>
+
                 </div>
 
             </mat-tab>
@@ -56,35 +69,15 @@
                         <div fxFlex fxLayout="column" fxLayoutGap="12px" fxLayoutAlign="start center">
 
                             <div class="fuse-card" class="pesonalInfoClass" style="align-items: center;width: 410px;">
-                                <!-- <img style="width: 310px;" src="assets/images/logos/bi-logo.svg" class="p-16"> -->
-                                <!-- <div class="p-16" style="text-align: center;">
-                                    <div class="h1">Welcome</div>
-                                    <div class="h3">Please schedule a meeting</div>
-                                </div> -->
+                              
                                 <div class="p-16 pt-0 line-height-1.75">
                                     <div fxFlex fxLayout="column" [formGroup]="form">
 
-                                        <!-- <div style="display: flex; flex-direction: row; margin-bottom: 200px;">
-                            <mat-form-field appearance="outline">
-                                <mat-label>Appointment Date</mat-label>
-                                <input matInput formControlName="date" [matDatepicker]="picker" placeholder="select a date"
-                                    required [min]="today | date: 'yyyy-MM-dd'" >
-                                <mat-error *ngIf="true">
-                                    A valid date is required!
-                                </mat-error>
-                                <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
-                                <mat-datepicker style="position: relative; top:0px" [opened]="true" #picker color="secondary"></mat-datepicker>
-                            </mat-form-field>
-    
-                           
-    
-                        </div> -->
-
-
                                         <mat-form-field appearance="outline">
                                             <mat-label>Appoinment Time</mat-label>
-                                            <input matInput formControlName="time" type="text" [(ngModel)]="time" step
-                                                placeholder="chose a date" required [disabled]="true">
+                                            <input matInput formControlName="time" type="text" [(ngModel)]="time" step [attr.disabled]="'true'" style="display: none;"
+                                                placeholder="chose a date" required >
+                                                <p>{{time}}</p>
                                             <blockquote>
                                                 <p class="font-weight-100">Meeting hours are from 8 am to 6 pm EST.</p>
                                             </blockquote>
@@ -245,13 +238,13 @@
         </mat-tab-group>
 
         <div style="padding-top: 10px;">
-            <button *ngIf="!isNextTab" mat-button color="primary" (click)="previousStep()" 
+            <button *ngIf="!isNextTab" mat-button color="primary" (click)="previousStep()" (click)="_openCalendar(theTimePicker, 'prev')"
                 [disabled]="desablePrevioustButton">
                 Previous
             </button>
-            <button  *ngIf="isNextTab" mat-button color="primary" (click)="nextStep()" [disabled]="desableNextButton">
+            <!-- <button  *ngIf="isNextTab" mat-button color="primary" (click)="nextStep()" [disabled]="desableNextButton">
                 Next
-            </button>
+            </button> -->
             <button *ngIf="!isNextTab" mat-raised-button type="submit" (click)="onSubmit()"
                 style="color: white;background-color: #1564bf;">
                 Submit

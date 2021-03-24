@@ -51,11 +51,12 @@ export class SchedulerComponent implements OnInit {
   validForm = false;
   emptyFormFields = [];
   formAlert = false;
+  selectTimeConfirm = false;
+  selectTimeConfirmIndex;
   MinDate =  new Date();
   @ViewChild(MatDatepicker) private theTimePicker: MatDatepicker<Date>;
   constructor(private _formBuilder: FormBuilder,
     public _FormService: FormService,
-    private _route: Router,
     private paramsRouter: ActivatedRoute) {
 
 
@@ -128,80 +129,92 @@ export class SchedulerComponent implements OnInit {
         }
       });
 
-    // setTimeout(() => {
-    //   this.selectedIndex = 0;
-    // }, 200);
-
+      this.searchTime(new Date().getDate())
   }
 
-  _openCalendar(picker: MatDatepicker<Date>) {
-    if (this.isNextTab) {      
-      picker.open();
+  _openCalendar(picker: MatDatepicker<Date>, direction) {
+    let timeInterval = 0;
+    if (direction === 'prev') {
+      timeInterval = 500;
+    }
+    if (this.isNextTab) {   
+      setTimeout(() => {        
+        picker.open();
+      }, timeInterval);   
     }else {
       picker.close();
     }
   }
+
   _closeCalendar(picker: MatDatepicker<Date>) {
     picker.close();
   }
 
-  searchTime(){
-   this.times  =[
-    {
-      "name": "12:00 PM"
-    },
-    {
-      "name": "12:30 PM"
-    },
-    {
-      "name": "1:00 PM"
-    },
-    {
-      "name": "1:30 PM"
-    },
-    {
-      "name": "2:00 PM"
-    },
-    {
-      "name": "2:30 PM"
-    },
-    {
-      "name": "3:00 PM"
-    },
-    {
-      "name": "3:30 PM"
-    },
-    {
-      "name": "4:00 PM"
-    },
-    {
-      "name": "4:30 PM"
-    },
-    {
-      "name": "5:00 PM"
-    },
-    {
-      "name": "5:30 PM"
-    },
-    {
-      "name": "6:00 PM"
-    },
-    {
-      "name": "6:30 PM"
-    },
-    {
-      "name": "7:00 PM"
-    },
-    {
-      "name": "7:30 PM"
-    },
-    {
-      "name": "8:00 PM"
-    },
-    {
-      "name": "8:30 PM"
+
+  searchTime(date?){
+    this.times  =[{
+      "name": 'Not Time Avilable for '+ date
+    }]
+    if (date !== new Date().getDate()) {
+      this.times  =[
+        {
+          "name": "12:00 PM"
+        },
+        {
+          "name": "12:30 PM"
+        },
+        {
+          "name": "1:00 PM"
+        },
+        {
+          "name": "1:30 PM"
+        },
+        {
+          "name": "2:00 PM"
+        },
+        {
+          "name": "2:30 PM"
+        },
+        {
+          "name": "3:00 PM"
+        },
+        {
+          "name": "3:30 PM"
+        },
+        {
+          "name": "4:00 PM"
+        },
+        {
+          "name": "4:30 PM"
+        },
+        {
+          "name": "5:00 PM"
+        },
+        {
+          "name": "5:30 PM"
+        },
+        {
+          "name": "6:00 PM"
+        },
+        {
+          "name": "6:30 PM"
+        },
+        {
+          "name": "7:00 PM"
+        },
+        {
+          "name": "7:30 PM"
+        },
+        {
+          "name": "8:00 PM"
+        },
+        {
+          "name": "8:30 PM"
+        }
+      ];
     }
-  ];
+
+
   }
 
   onSubmit(): void {
@@ -245,6 +258,7 @@ export class SchedulerComponent implements OnInit {
   onDateSelect(e) {
     console.log("date: " + e.value);
     this.date =  e.value;
+    this.searchTime(e.value.getDate());
   }
 
   dismissErrorForm() {
@@ -254,7 +268,6 @@ export class SchedulerComponent implements OnInit {
   previousStep() {
     if (this.indexTabCounter > 0) {
       this.indexTabCounter = this.indexTabCounter - 1;
-      this.isNextTab = false;
       this.selectedIndex = 0;
       this.isNextTab = true;
     }
@@ -273,13 +286,14 @@ export class SchedulerComponent implements OnInit {
   }
 
 
-  radioChange(e) {
-    this.form.value.time = this.times[e.value].name;
+  radioChange(time) {
+    this.form.value.time = time
     this.time = this.form.value.time;
     if (this.form.value.time) {
       this.desableNextButton = false;
     }
-    console.log(e.value);
+    this. nextStep();
+    console.log(time);
   }
 
 
