@@ -1,8 +1,8 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Observable } from 'rxjs';
-
+import { MatDatepicker } from '@angular/material/datepicker'
 import { FormService } from './form.service';
 @Component({
   selector: 'app-scheduler',
@@ -47,66 +47,12 @@ export class SchedulerComponent implements OnInit {
     closeOnSelect: false
   }
 
-  times: any[] = [
-    {
-      "name": "12:00 PM"
-    },
-    {
-      "name": "12:30 PM"
-    },
-    {
-      "name": "1:00 PM"
-    },
-    {
-      "name": "1:30 PM"
-    },
-    {
-      "name": "2:00 PM"
-    },
-    {
-      "name": "2:30 PM"
-    },
-    {
-      "name": "3:00 PM"
-    },
-    {
-      "name": "3:30 PM"
-    },
-    {
-      "name": "4:00 PM"
-    },
-    {
-      "name": "4:30 PM"
-    },
-    {
-      "name": "5:00 PM"
-    },
-    {
-      "name": "5:30 PM"
-    },
-    {
-      "name": "6:00 PM"
-    },
-    {
-      "name": "6:30 PM"
-    },
-    {
-      "name": "7:00 PM"
-    },
-    {
-      "name": "7:30 PM"
-    },
-    {
-      "name": "8:00 PM"
-    },
-    {
-      "name": "8:30 PM"
-    }
-  ];
+  times: any[] = [];
   validForm = false;
   emptyFormFields = [];
   formAlert = false;
-
+  MinDate =  new Date();
+  @ViewChild(MatDatepicker) private theTimePicker: MatDatepicker<Date>;
   constructor(private _formBuilder: FormBuilder,
     public _FormService: FormService,
     private _route: Router,
@@ -188,6 +134,76 @@ export class SchedulerComponent implements OnInit {
 
   }
 
+  _openCalendar(picker: MatDatepicker<Date>) {
+    if (this.isNextTab) {      
+      picker.open();
+    }else {
+      picker.close();
+    }
+  }
+  _closeCalendar(picker: MatDatepicker<Date>) {
+    picker.close();
+  }
+
+  searchTime(){
+   this.times  =[
+    {
+      "name": "12:00 PM"
+    },
+    {
+      "name": "12:30 PM"
+    },
+    {
+      "name": "1:00 PM"
+    },
+    {
+      "name": "1:30 PM"
+    },
+    {
+      "name": "2:00 PM"
+    },
+    {
+      "name": "2:30 PM"
+    },
+    {
+      "name": "3:00 PM"
+    },
+    {
+      "name": "3:30 PM"
+    },
+    {
+      "name": "4:00 PM"
+    },
+    {
+      "name": "4:30 PM"
+    },
+    {
+      "name": "5:00 PM"
+    },
+    {
+      "name": "5:30 PM"
+    },
+    {
+      "name": "6:00 PM"
+    },
+    {
+      "name": "6:30 PM"
+    },
+    {
+      "name": "7:00 PM"
+    },
+    {
+      "name": "7:30 PM"
+    },
+    {
+      "name": "8:00 PM"
+    },
+    {
+      "name": "8:30 PM"
+    }
+  ];
+  }
+
   onSubmit(): void {
     this.form.value.date = this.date.toString();
     // this._FormService.markFormGroupTouched(this.form);
@@ -200,10 +216,10 @@ export class SchedulerComponent implements OnInit {
     //     this.validForm = false;
     //   }
     // });
-    this.emptyFormFields=[];
+    this.emptyFormFields = [];
     this.validForm = false;
     for (const property in this.form.value) {
-      
+
       console.log(`${property}: ${this.form.value[property]}`);
       if (`${this.form.value[property]}` !== "") {
         this.validForm = true;
@@ -243,10 +259,11 @@ export class SchedulerComponent implements OnInit {
 
   nextStep() {
     if (this.indexTabCounter < 2) {
-      this.indexTabCounter = 1 + this.indexTabCounter;      
+      this.indexTabCounter = 1 + this.indexTabCounter;
       this.selectedIndex = 1;
       this.disablePersonalInfoTab = false;
       this.isNextTab = false;
+      this._closeCalendar(this.theTimePicker);
     }
     console.log(this.indexTabCounter);
   }
@@ -263,11 +280,12 @@ export class SchedulerComponent implements OnInit {
 
 
   onDateSelect(e) {
-    console.log("date: " + e);
-    this.form.controls.date = e;
+    console.log("date: " + e.value);
+    this.form.controls.date =  e.value;
   }
 
   makeAnother() {
     window.location.reload();
   }
+
 }

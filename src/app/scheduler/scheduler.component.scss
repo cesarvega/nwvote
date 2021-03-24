@@ -44,6 +44,8 @@
     border-radius: 3px;
 }
 
+
+
 .imagePresentar {
     border: solid 5px darkgrey;
     width: 948px;
@@ -148,6 +150,26 @@
 ::ng-deep .pesonalInfoClass::-webkit-scrollbar-thumb:hover {
     background: #1564bf;
 }
+
+// DATE PICKER
+::ng-deep .cdk-overlay-backdrop {
+    display: none;
+}
+::ng-deep .mat-datepicker-content {
+    position: absolute;
+    top: -57px;
+}
+
+::ng-deep .mat-calendar-body-today:not(.mat-calendar-body-selected){
+    border-color:lightskyblue;
+  }
+::ng-deep .mat-calendar-body-selected:not(.mat-calendar-body-active){
+    color: white;
+  }
+
+  .displayNone{
+      display: none;
+  }
 
 //desktop
 @media (min-width: 576px) {

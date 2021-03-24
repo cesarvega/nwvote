@@ -14,15 +14,27 @@
 
 
                 <div style="display: flex; flex-direction: row; margin-top: 40px;">
+<!-- 
+                    <angular2-date-picker (onDateSelect)="onDateSelect($event)" (ngmodelchange)="onDateSelect($event)" style="    width: 250px; 
+                margin-left: 30px;" [(ngModel)]="date" [settings]="settings"></angular2-date-picker> -->
+                <mat-form-field    appearance="outline" style="width: 250px;  margin-left: 30px;">
+                    <mat-label>Appointment Date</mat-label>
+                    <input matInput  [min]="MinDate"[matDatepicker]="theTimePicker" placeholder="select a date" (dateChange)="onDateSelect($event)"
+                        required [min]="today | date: 'yyyy-MM-dd'" >
+                    <mat-error *ngIf="true">
+                        A valid date is required!
+                    </mat-error>
+                    <mat-datepicker-toggle matSuffix [for]="theTimePicker"></mat-datepicker-toggle>
+                    <mat-datepicker  (closed)="_openCalendar(theTimePicker)" [opened]="true" #theTimePicker color="primary" style="color: tomato;"></mat-datepicker>
+                </mat-form-field>
 
-                    <angular2-date-picker (onDateSelect)="onDateSelect($event)" style="    width: 250px; 
-                margin-left: 30px;" [(ngModel)]="date" [settings]="settings"></angular2-date-picker>
-
-                    <div style="margin-left: 124px;">
+                    <div style="margin-left: 124px;z-index: 1;">
                         <p style="font-weight: 900;font-family: caviar;font-size: larger;">Available Time</p>
                         <div class="">
 
                             <div class="timePickerclass">
+                                <button mat-raised-button color="primary" (click)="searchTime()" style="margin-bottom: 10px;color: white;z-index:999;">Search</button>
+                               
                                 <mat-radio-group aria-label="Select an option">
                                     <div *ngFor="let time of times; index as i;">
                                         <mat-radio-button (change)="radioChange($event)" [value]="i">{{time.name}}
@@ -233,7 +245,7 @@
         </mat-tab-group>
 
         <div style="padding-top: 10px;">
-            <button *ngIf="!isNextTab" mat-button color="primary" (click)="previousStep()"
+            <button *ngIf="!isNextTab" mat-button color="primary" (click)="previousStep()" (click)="_openCalendar(theTimePicker)"
                 [disabled]="desablePrevioustButton">
                 Previous
             </button>
