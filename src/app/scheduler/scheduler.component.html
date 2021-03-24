@@ -178,7 +178,7 @@
 
 
 
-                                        <mat-form-field appearance="outline">
+                                        <!-- <mat-form-field appearance="outline">
                                             <mat-label>Time Zone</mat-label>
                                             <mat-select formControlName="timeZone" matNativeControl
                                                 [(ngModel)]="selected" placeholder="Select time zone" required>
@@ -193,9 +193,15 @@
                                                 <mat-option value="KST">Korea Time (KST)</mat-option>
                                                 <mat-option value="BRT">Brasilia Time (BRT)</mat-option>
                                             </mat-select>
+                                        </mat-form-field> -->
+
+                                        <mat-form-field appearance="outline">
+                                            <mat-label>Time Zone</mat-label>
+                                            <mat-select formControlName="timeZone" matNativeControl
+                                                [(ngModel)]="selected"  placeholder="Select time zone" required [value]="timeZoneOption[0]">
+                                                <mat-option  [value]="timezone.value" *ngFor="let timezone of timeZoneOption">{{timezone.name}}</mat-option>                                                
+                                            </mat-select>
                                         </mat-form-field>
-
-
 
 
                                         <mat-form-field appearance="outline">

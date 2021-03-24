@@ -16,7 +16,7 @@ export class SchedulerComponent implements OnInit {
   today: Date;
   options: FormGroup;
   callType = ['call', 'person'];
-  selected = 'EST';
+  selected;
   call = 'call';
   time = '08:00';
   scheduleForm: any;
@@ -54,6 +54,11 @@ export class SchedulerComponent implements OnInit {
   selectTimeConfirm = false;
   selectTimeConfirmIndex;
   MinDate =  new Date();
+
+  timeZoneOption = [{value: 'EDT', name: 'Eastern Daylight Time (EDT)'}, {value: 'EST', name: 'Eastern Time (EST)'}, {value: 'CST', name: 'Central Time (CST)'}, {value: 'MT', name: 'Mountain Time (MT)'}, 
+  {value: 'PST', name: 'Pacific Time (PST)'}, {value: 'WET', name: 'Western European Time (WET)'}, {value: 'CET', name: 'Central European Time (CET)'}, {value: 'EET', name: 'Eastern European Time (EET)'},
+  {value: 'JPT', name: 'Japan Time (JPT)'}, {value: 'KST', name: 'Korea Time (KST)'}, {value: 'BRT', name: 'Brasilia Time (BRT)'}]
+
   @ViewChild(MatDatepicker) private theTimePicker: MatDatepicker<Date>;
   constructor(private _formBuilder: FormBuilder,
     public _FormService: FormService,
@@ -130,6 +135,9 @@ export class SchedulerComponent implements OnInit {
       });
 
       this.searchTime(new Date().getDate())
+
+      this.timeZoneOption.push({value:'GMT' + new Date().toString().split('GMT')[1], name: 'GMT' + new Date().toString().split('GMT')[1]}) ;
+      this.selected = 'GMT' + new Date().toString().split('GMT')[1];
   }
 
   _openCalendar(picker: MatDatepicker<Date>, direction) {
