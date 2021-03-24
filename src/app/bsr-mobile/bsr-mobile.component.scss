@@ -1,3 +1,35 @@
+@mixin BoxShadow($dp) {
+    @if $dp==0 {
+        box-shadow: none;
+    } @else if $dp==1 {
+        box-shadow: 0 1px 1px 0 rgba(0, 0, 0, 0.14), 0 2px 1px -1px rgba(0, 0, 0, 0.12), 0 1px 3px 0 rgba(0, 0, 0, 0.2);
+    } @else if $dp==2 {
+        box-shadow: 0 2px 2px 0 rgba(0, 0, 0, 0.14), 0 3px 1px -2px rgba(0, 0, 0, 0.12), 0 1px 5px 0 rgba(0, 0, 0, 0.2);
+    } @else if $dp==3 {
+        box-shadow: 0 3px 4px 0 rgba(0, 0, 0, 0.14), 0 3px 3px -2px rgba(0, 0, 0, 0.12), 0 1px 8px 0 rgba(0, 0, 0, 0.2);
+    } @else if $dp==4 {
+        box-shadow: 0 4px 5px 0 rgba(0, 0, 0, 0.14), 0 1px 10px 0 rgba(0, 0, 0, 0.12), 0 2px 4px -1px rgba(0, 0, 0, 0.2);
+    } @else if $dp==6 {
+        box-shadow: 0 6px 10px 0 rgba(0, 0, 0, 0.14), 0 1px 18px 0 rgba(0, 0, 0, 0.12),
+            0 3px 5px -1px rgba(0, 0, 0, 0.2);
+    } @else if $dp==8 {
+        box-shadow: 0 8px 10px 1px rgba(0, 0, 0, 0.14), 0 3px 14px 2px rgba(0, 0, 0, 0.12),
+            0 5px 5px -3px rgba(0, 0, 0, 0.2);
+    } @else if $dp==9 {
+        box-shadow: 0 9px 12px 1px rgba(0, 0, 0, 0.14), 0 3px 16px 2px rgba(0, 0, 0, 0.12),
+            0 5px 6px -3px rgba(0, 0, 0, 0.2);
+    } @else if $dp==12 {
+        box-shadow: 0 12px 17px 2px rgba(0, 0, 0, 0.14), 0 5px 22px 4px rgba(0, 0, 0, 0.12),
+            0 7px 8px -4px rgba(0, 0, 0, 0.2);
+    } @else if $dp==16 {
+        box-shadow: 0 16px 24px 2px rgba(0, 0, 0, 0.14), 0 6px 30px 5px rgba(0, 0, 0, 0.12),
+            0 8px 10px -5px rgba(0, 0, 0, 0.2);
+    } @else if $dp==24 {
+        box-shadow: 0 24px 38px 3px rgba(0, 0, 0, 0.14), 0 9px 46px 8px rgba(0, 0, 0, 0.12),
+            0 11px 15px -7px rgba(0, 0, 0, 0.2);
+    }
+}
+
 :host {
     .toolbar {
         background-color: #004684;
@@ -13,6 +45,319 @@
         white-space: nowrap;
     }
 
+   
+    .name-box {
+        font-size: 20px;
+        cursor: pointer;
+        border-bottom: navy dashed 0.01em;
+        display: flex;
+        flex-direction: row;
+        justify-content: space-between;        
+    }
+
+    .name-box:hover{
+        @include BoxShadow(2)
+       }
+
+    .emoji-icon {
+        outline: none;
+        position: absolute;
+        top: -70px;
+        right: -17px;
+        opacity: 1;
+        animation: flip 0.4s 0.8s ease-in-out 1 forwards;
+    }
+
+    .tab-emoji {
+        max-width: 380px;
+        min-width: 380px;
+    }
+
+    .names-list-card::-webkit-scrollbar {
+        display: none;
+    }
+
+    .name-input-field {
+        left: 0px;
+        animation: slideInDown 0.4s ease 0.6s backwards;
+    }
+
+    .finish-button {
+        right: 0px;
+        animation: rotateInDownLeft 0.2s ease 0.4s backwards;
+    }
+
+    .enable-anonymous {
+        animation: bounceIn 0.2s ease 0.6s backwards;
+    }
+
+    .remember-me {
+        // opacity: 0;
+        margin-bottom: 8px;
+        // animation: jackInTheBox 1s ease 2s forwards;
+    }
+
+    @keyframes cv-fadeIn {
+        from {
+            opacity: 0;
+        }
+        to {
+            opacity: 1;
+        }
+    }
+
+    .example-handle {
+        position: absolute;
+        top: 10px;
+        right: 10px;
+        color: #ccc;
+        cursor: move;
+        width: 24px;
+        height: 24px;
+        position: absolute;
+        right: auto;
+        top: 10px;
+        z-index: 99;
+    }
+
+    .tab-1 {
+        overflow-y: scroll;
+        max-height: 200px;
+        line-height: 30px;
+        letter-spacing: -0.054em;
+        scrollbar-width: thin;
+        background-color: white;
+        opacity: 0.97;
+    }
+
+    .tab-1::-webkit-scrollbar {
+        display: none;
+    }
+
+    .test-emoji {
+        display: flex;
+        justify-content: center;
+        align-content: center;
+        position: absolute;
+        top: 480px;
+        border: navy solid 2px;
+        padding: 5px;
+        margin: 5px;
+        border-radius: 10px;
+    }
+
+    //desktop
+    @media (min-width: 576px) {
+        .names-list-card {
+            height: 320px;
+            overflow-y: scroll;
+            min-width: 330px;
+            line-height: 26px;
+            border-bottom: #1e41ea solid 1px;
+            opacity: 0;
+            animation: slideInDown 0.5s ease 0.1s backwards, cv-fadeIn 0.4s ease-in-out 0s forwards;
+        }
+        .bsr-mobile-container {
+            max-width: 400px;
+            position: relative;
+            min-height: 90%;
+            top: 30px;
+            overflow-y: hidden;
+            border: solid #020263;
+            border-radius: 10px;
+        }
+        .tab-emoji {
+            max-width: 355px;
+            min-width: 355px;
+            overflow-y: scroll;
+        }
+        .emoji-mobile-box {
+            background-color: #fff;
+            position: absolute;
+            top: 12%;
+            border: lightgrey solid 4px;
+            border-radius: 10px;
+            padding: 10px;
+            max-height: 220px;
+            max-width: 387px;
+            font-size: 14px;
+            margin: 7px;
+            line-height: 19px;
+
+            opacity: 0;
+            animation: slideInDown 0.3s ease 0.1s backwards, cv-fadeIn 1s ease-in-out 0.3s forwards;
+        }
+
+        .tab-1 {
+            overflow-y: scroll;
+            max-height: 200px;
+            line-height: 30px;
+            letter-spacing: -0.054em;
+            scrollbar-width: thin;
+            background-color: white;
+            opacity: 0.97;
+        }
+
+        .tab-1::-webkit-scrollbar {
+            display: none;
+        }
+
+      
+
+        .test-emoji {
+            display: flex;
+            justify-content: center;
+            align-content: center;
+            position: absolute;
+            top: 518px;
+            border: navy solid 2px;
+            padding: 5px;
+            margin: 5px;
+            border-radius: 10px;
+        }
+    }
+    //mobile
+    @media (max-width: 576px) {
+        .names-list-card {
+            height: 260px;
+            overflow-y: scroll;
+            min-width: 330px;
+            line-height: 26px;
+            border-bottom: #1e41ea solid 1px;
+            opacity: 0;
+            animation: slideInDown 0.5s ease 0.3s backwards, cv-fadeIn 1s ease-in-out 0.3s forwards;
+        }
+
+        .bsr-mobile-container {
+            max-width: 500px;
+            position: relative;
+            min-height: 100%;
+            overflow-y: hidden;
+        }
+
+        .tab-emoji {
+            max-width: 380px;
+            min-width: 380px;
+        }
+
+        .emoji-mobile-box {
+            background-color: #ffffff;
+            position: absolute;
+            top: 14%;
+            border: lightgrey 2px solid;
+            border-radius: 10px;
+            padding: 0px 11px 0px 16px;
+            margin: 10px;
+            max-height: 220px;
+            font-size: 14px;
+            line-height: 19px;
+            opacity: 0;
+            animation: slideInDown 0.3s ease 0.1s backwards, cv-fadeIn 1s ease-in-out 0.3s forwards;
+        }
+        
+        .tab-1 {
+            overflow-y: scroll;
+            max-height: 175px;
+            line-height: 30px;
+            letter-spacing: -0.054em;
+            scrollbar-width: thin;
+            background-color: white;
+            opacity: 0.97;
+        }
+
+        .tab-1::-webkit-scrollbar {
+            display: none;
+        }
+
+        .test-emoji {
+            display: flex;
+            justify-content: center;
+            align-content: center;
+            position: absolute;
+            top: 455px;
+            border: navy solid 2px;
+            padding: 5px;
+            margin: 5px;
+            border-radius: 10px;
+        }
+
+      
+    }
+    // small mobile
+    @media (max-width: 400px) {
+        .names-list-card {
+            height: 260px;
+            overflow-y: scroll;
+            min-width: 330px;
+            line-height: 26px;
+            border-bottom: #1e41ea solid 1px;
+            opacity: 0;
+            animation: slideInDown 0.5s ease 0.3s backwards, cv-fadeIn 1s ease-in-out 0.3s forwards;
+        }
+
+        .bsr-mobile-container {
+            max-width: 500px;
+            position: relative;
+            min-height: 100%;
+            overflow-y: hidden;
+        }
+
+        .tab-emoji {
+            max-width: 380px;
+            min-width: 380px;
+        }
+
+        .emoji-mobile-box {
+            background-color: #ffffff;
+            position: absolute;
+            top: 14%;
+            border: lightgrey 2px solid;
+            border-radius: 10px;
+            padding: 0px 11px 0px 16px;
+            margin: 10px;
+            max-height: 220px;
+            font-size: 14px;
+            line-height: 19px;
+            opacity: 0;
+            animation: slideInDown 0.3s ease 0.1s backwards, cv-fadeIn 1s ease-in-out 0.3s forwards;
+        }
+
+        .tab-1 {
+            overflow-y: scroll;
+            max-height: 175px;
+            line-height: 30px;
+            letter-spacing: -0.054em;
+            scrollbar-width: thin;
+            background-color: white;
+            opacity: 0.97;
+        }
+
+        .tab-1::-webkit-scrollbar {
+            display: none;
+        }
+
+        .test-emoji {
+            display: flex;
+            justify-content: center;
+            align-content: center;
+            position: absolute;
+            top: 455px;
+            border: navy solid 2px;
+            padding: 5px;
+            margin: 5px;
+            border-radius: 10px;
+        }
+
+      
+    }
+
+    .emoji-mobile-box {
+        overflow: hidden;
+    }
+    .emoji-mobile-box::-webkit-scrollbar {
+        display: none;
+    }
+
     #login {
         width: 100%;
         // background: url('/assets/images/backgrounds/dark-material-bg.jpg') no-repeat;
@@ -21,7 +366,7 @@
 
         #login-form-wrapper {
             flex: 1 0 auto;
-            padding: 32px;
+            padding: 5px;
 
             #login-form {
                 // padding: 32px;
@@ -29,7 +374,7 @@
                 text-align: center;
 
                 .logo {
-                    width: 180px;
+                    width: 286px;
                 }
 
                 .title {
@@ -52,10 +397,6 @@
                     .remember-forgot-password {
                         font-size: 13px;
                         margin-top: 8px;
-
-                        .remember-me {
-                            margin-bottom: 8px;
-                        }
 
                         .forgot-password {
                             font-size: 13px;
@@ -137,10 +478,59 @@
         }
     }
 
+    .delete-update-buttons {
+        color: #004684;
+        background-color: white;
+        font-size: 8px;
+        outline: none;
+        // animation: heartBeat 1s ease-in-out 0.3s 1 forwards;
+        z-index: 999999;
+    }
     .refreshbutton {
         color: #004684;
         background-color: white;
         font-size: 8px;
         outline: none;
+        animation: heartBeat 1s ease-in-out 0.3s 1 forwards;
+    }
+
+    .clickToSumit {
+        color: white;
+        right: 0px;
+        animation: slideInDown 0.2s ease 0.1s backwards;
+        // animation: name duration timing-function delay iteration-count direction fill-mode;
+    }
+
+    .clickToSumit:hover {
+        @include BoxShadow(6);
+    }
+
+    // Edit-Name.html
+
+    .infoAlertBox {
+        animation: bounce 0.5 ease 0s 1 normal forwards;
+    }
+
+    .emoji-button {
+        outline: none;
+        position: relative;
+        top: -70px;
+        left: 143px;
+        animation: headShake 0.6s ease-in-out 1.2s 1 normal forwards;
+    }
+
+    .alertButons {
+        // color: #004684;
+        background-color: white;
+        font-size: 8px;
+        outline: none;
+        // animation: heartBeat 1s ease-in-out 0.3s 1 forwards;
+    }
+
+    .name-suggestions-field {
+        display: flex;
+        flex-direction: column;
+        justify-content: space-around;
+        align-items: center;
     }
 }

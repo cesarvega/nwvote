@@ -28,10 +28,9 @@ export class LoginComponent implements OnInit {
       name: ['', Validators.required]
   });
 
-  this.activatedRoute.params.subscribe(params => {
-    this.projectname = params['project'];
+ 
+    this.projectname = this.activatedRoute.snapshot.queryParamMap.get('project');
    
-  });
 
   }
 

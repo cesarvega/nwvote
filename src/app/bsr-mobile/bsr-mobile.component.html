@@ -1,12 +1,16 @@
-<div class="container">
+<div class="container mat-elevation-z4 bsr-mobile-container">
     <div class="row">
 
-        <mat-toolbar class="toolbar " fxLayoutAlign="space-between center">
-            <!-- <mat-icon>insert_drive_file</mat-icon>  -->
-            Project: {{projectname}}
-          
-                <mat-icon *ngIf="isUserLogged" (click)="openDialog('displayInfo', '')" style="color: white;background-color: #004684;  outline: none;" >help</mat-icon>
-         
+        <mat-toolbar class="toolbar " fxLayoutAlign="space-between center" style=" text-align: center;border-bottom-left-radius: 6px;border-bottom-right-radius: 6px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            ">
+            BI PROJECT: {{projectName}}
+
+            <mat-icon *ngIf="isUserLogged" (click)="openDialog('displayInfo', '', '', '', '')"
+                style="color: white;background-color: #004684;  outline: none;cursor: pointer;">help</mat-icon>
+
         </mat-toolbar>
 
         <div class="col container">
@@ -19,12 +23,13 @@
                     <div id="login-form">
 
 
-                        <img class="logo" src="assets/img/NAMEPAGE_LOGO-01.svg">
+
+                        <img class="logo" src="./assets/img/NAMEPAGE_LOGO-01.svg">
                         <br>
                         <div class="title secondary-text">Welcome to the NamePage<sup style="font-size: 10px;">TM</sup>
                             for Project </div>
                         <div class="title secondary-text" style="color: #004684;">
-                            {{projectname}}
+                            {{projectName}}
                         </div>
                         <div class="mat-small secondary-text">Please enter your information below to continue.
                         </div>
@@ -64,7 +69,7 @@
                             </div>
 
                             <button (click)="submitCredentials()" mat-raised-button style="color: white;"
-                                color="primary" class="submit-button" aria-label="LOG IN"
+                                color="primary" class="submit-button clickToSumit" aria-label="LOG IN"
                                 [disabled]="loginForm.invalid">
                                 SUBMIT
                             </button>
@@ -81,31 +86,50 @@
             <div *ngIf="isUserLogged" fxLayout="column" fxLayoutAlign="center center" id="login">
 
                 <br>
-                <div class="mat-subheading-1">Suggestions</div>
-                <mat-card style="height: 250px;overflow-y: scroll;min-width: 330px;">
+                <div class="mat-subheading-1">Name Suggestions: {{newNames.length}}</div>
+                <mat-card class="names-list-card">
+                    <div *ngFor="let item of  newNames; let i = index" class="name-box"
+                     (click)="openDialog(item.name, item.nameid, item.rationale, item.favourite, item.source)">
+                        <div> {{item.name}}</div>
+                        <div>
+                            <span *ngIf="(item.favourite==='true')?true:false" style="font-size: 17px;color: red;"
+                                class="material-icons">
+                                favorite
+                            </span>
+                            <span  *ngIf="(item.source === 'Anonymous')" style="font-size: 17px;" class="material-icons">
+                                font_download
+                            </span>
+                        </div>
 
-                    <div *ngFor="let item of  newNames" style="font-size: 20px;" (click)="openDialog(item.name, item.nameid)" >{{item.name}}</div>
+                    </div>
+
                 </mat-card>
                 <br>
 
-                <form name="newNameForm" [formGroup]="newNameForm" novalidate class="nameform"
-                    style="text-align: center;">
+                <form name="newNameForm" [formGroup]="newNameForm" novalidate class="name-suggestions-field">
 
                     <mat-form-field appearance="outline" style="min-width: 330px;">
                         <mat-label>Name Suggestions</mat-label>
-                        <input matInput type="name" placeholder="name" autofocus #reference formControlName="name">
+                        <input matInput type="text"  placeholder="name_1, name_2, name_3...." #reference
+                            formControlName="name">
+
                     </mat-form-field>
+
+                    <!-- <button class="emoji-button" (click)="emojiToggle()" mat-icon-button color="accent"
+                        aria-label="emoji">
+                        <mat-icon>tag_faces</mat-icon>
+                    </button> -->
 
                     <div class="col" style="text-align: center;">
                         <div class="col" style="text-align: center;">
 
-                            <button (click)="sendNewName(); reference.value=''" mat-raised-button style="color: white;" color="primary"
-                                class="submit-button" aria-label="LOG IN">
+                            <button (click)="sendNewName(); reference.value=''" mat-raised-button color="primary"
+                                class="clickToSumit mat-elvation-z2" aria-label="LOG IN">
                                 CLICK TO SUBMIT
                             </button>
+                            <br>
+                            <br>
 
-                            <br>
-                            <br>
                         </div>
                         <div class="col">
 
@@ -114,12 +138,14 @@
                                 Enable Anonymous Submit?
                             </mat-checkbox>
 
-                            <br><br>
+                            <br><br><br>
+                            <br>
+                            <br>
                         </div>
                         <div class="col">
 
                             <button (click)="finish()" mat-raised-button style="color: white;" color="accent"
-                                class="submit-button" aria-label="LOG IN">
+                                class="clickToSumit mat-elvation-z2" aria-label="LOG IN">
                                 CLICK TO FINISH
                             </button>
                         </div>
@@ -133,7 +159,7 @@
 
 
 
-
+            <!-- THANK YOU PAGE  -->
             <div *ngIf="!isUserLogged && isUserLeaving" id="login">
 
                 <div id="login-form-wrapper" fxLayout="column" fxLayoutAlign="center center">
@@ -162,6 +188,100 @@
             </div>
 
         </div>
+
+
+        <!-- EMOJIES  -->
+        <!-- <div *ngIf="isEmojiTime mat-elevation-z4" cdkDrag class="test-emoji">
+            <div class="example-handle" cdkDragHandle>
+                <svg width="24px" fill="currentColor" viewBox="0 0 24 24">
+                  <path d="M10 9h4V6h3l-5-5-5 5h3v3zm-1 1H6V7l-5 5 5 5v-3h3v-4zm14 2l-5-5v3h-3v4h3v3l5-5zm-9 3h-4v3H7l5 5 5-5h-3v-3z"></path>
+                  <path d="M0 0h24v24H0z" fill="none"></path>
+                </svg>
+              </div>
+            <div class="tab-1">
+                Faces
+                <hr>
+                😀 😃 😄 😁 😆 😅 😂 🤣 😊 😇 🙂 🙃 😉 😌 😍 🥰 😘 😗 😙 😚 😋 😛 😝 😜 🤪 🤨 🧐
+                🤓 😎 🤩 🥳 😏 😒 😞 😔 😟 😕 🙁 ☹️ 😣 😖 😫 😩 🥺 😢 😭 😤 😠 😡 🤬 🤯 😳 🥵 🥶 😱 😨 😰 😥 😓 🤗 🤔 🤭
+                🤫 🤥 😶 😐 😑 😬 🙄 😯 😦 😧 😮 😲 🥱 😴 🤤 😪 😵 🤐 🥴 🤢 🤮 🤧 😷 🤒 🤕 🤑 🤠 😈 👿 👹 👺 🤡 💩 👻 💀
+                ☠️ 👽 👾 🤖 🎃 😺 😸 😹 😻 😼 😽 🙀 😿 😾
+                ❤️ 🧡 💛 💚 💙 💜 🖤 🤍 🤎 💔 ❣️ 💕 💞 💓 💗 💖 💘 💝 💟
+
+                Gestures and Body Parts
+                <hr>
+                👋 🤚 🖐 ✋ 🖖 👌 🤏 ✌️ 🤞 🤟 🤘 🤙 👈 👉 👆 🖕 👇 ☝️ 👍 👎 ✊ 👊 🤛 🤜 👏 🙌 👐 🤲 🤝 🙏 ✍️ 💅 🤳 💪 🦾
+                🦵 🦿 🦶 👂 🦻 👃 🧠 🦷 🦴 👀 👁 👅 👄 💋 🩸
+
+                People and Fantasy
+                <hr>
+                👶 🧒 👦 👧 🧑 👱 👨 🧔 👨‍🦰 👨‍🦱 👨‍🦳 👨‍🦲 👩 👩‍🦰 🧑‍🦰 👩‍🦱 🧑‍🦱 👩‍🦳 🧑‍🦳 👩‍🦲 🧑‍🦲 👱‍♀️
+                👱‍♂️ 🧓 👴 👵 🙍 🙍‍♂️ 🙍‍♀️ 🙎 🙎‍♂️ 🙎‍♀️ 🙅 🙅‍♂️ 🙅‍♀️ 🙆 🙆‍♂️ 🙆‍♀️ 💁 💁‍♂️ 💁‍♀️ 🙋 🙋‍♂️ 🙋‍♀️
+                🧏 🧏‍♂️ 🧏‍♀️ 🙇 🙇‍♂️ 🙇‍♀️ 🤦 🤦‍♂️ 🤦‍♀️ 🤷 🤷‍♂️ 🤷‍♀️ 🧑‍⚕️ 👨‍⚕️ 👩‍⚕️ 🧑‍🎓 👨‍🎓 👩‍🎓 🧑‍🏫
+                👨‍🏫 👩‍🏫 🧑‍⚖️ 👨‍⚖️ 👩‍⚖️ 🧑‍🌾 👨‍🌾 👩‍🌾 🧑‍🍳 👨‍🍳 👩‍🍳 🧑‍🔧 👨‍🔧 👩‍🔧 🧑‍🏭 👨‍🏭 👩‍🏭
+                🧑‍💼 👨‍💼 👩‍💼 🧑‍🔬 👨‍🔬 👩‍🔬 🧑‍💻 👨‍💻 👩‍💻 🧑‍🎤 👨‍🎤 👩‍🎤 🧑‍🎨 👨‍🎨 👩‍🎨 🧑‍✈️ 👨‍✈️
+                👩‍✈️ 🧑‍🚀 👨‍🚀 👩‍🚀 🧑‍🚒 👨‍🚒 👩‍🚒 👮 👮‍♂️ 👮‍♀️ 🕵 🕵️‍♂️ 🕵️‍♀️ 💂 💂‍♂️ 💂‍♀️ 👷 👷‍♂️ 👷‍♀️
+                🤴 👸 👳 👳‍♂️ 👳‍♀️ 👲 🧕 🤵 👰 🤰 🤱 👼 🎅 🤶 🦸 🦸‍♂️ 🦸‍♀️ 🦹 🦹‍♂️ 🦹‍♀️ 🧙 🧙‍♂️ 🧙‍♀️ 🧚 🧚‍♂️
+                🧚‍♀️ 🧛 🧛‍♂️ 🧛‍♀️ 🧜 🧜‍♂️ 🧜‍♀️ 🧝 🧝‍♂️ 🧝‍♀️ 🧞 🧞‍♂️ 🧞‍♀️ 🧟 🧟‍♂️ 🧟‍♀️ 💆 💆‍♂️ 💆‍♀️ 💇 💇‍♂️
+                💇‍♀️ 🚶 🚶‍♂️ 🚶‍♀️ 🧍 🧍‍♂️ 🧍‍♀️ 🧎 🧎‍♂️ 🧎‍♀️ 🧑‍🦯 👨‍🦯 👩‍🦯 🧑‍🦼 👨‍🦼 👩‍🦼 🧑‍🦽 👨‍🦽 👩‍🦽
+                🏃 🏃‍♂️ 🏃‍♀️ 💃 🕺 🕴 👯 👯‍♂️ 👯‍♀️ 🧖 🧖‍♂️ 🧖‍♀️ 🧘 🧑‍🤝‍🧑 👭 👫 👬 💏 👨‍❤️‍💋‍👨 👩‍❤️‍💋‍👩 💑
+                👨‍❤️‍👨 👩‍❤️‍👩 👪 👨‍👩‍👦 👨‍👩‍👧 👨‍👩‍👧‍👦 👨‍👩‍👦‍👦 👨‍👩‍👧‍👧 👨‍👨‍👦 👨‍👨‍👧 👨‍👨‍👧‍👦
+                👨‍👨‍👦‍👦 👨‍👨‍👧‍👧 👩‍👩‍👦 👩‍👩‍👧 👩‍👩‍👧‍👦 👩‍👩‍👦‍👦 👩‍👩‍👧‍👧 👨‍👦 👨‍👦‍👦 👨‍👧
+                👨‍👧‍👦 👨‍👧‍👧 👩‍👦 👩‍👦‍👦 👩‍👧 👩‍👧‍👦 👩‍👧‍👧 🗣 👤 👥 👣
+            </div>
+            <mat-tab-group>
+                <mat-tab id="first-tab" label="First" style="overflow-y: hidden;">
+                    <div style="overflow-y: scroll;overflow-x: hidden;">
+                    😀 😃 😄 😁 😆 😅 😂 🤣 ☺️ 😊 😇 🙂 🙃 😉 😌 😍 🥰 😘 😗 😙 😚 😋 😛 😝 😜 🤪 🤨 🧐
+                    🤓 😎 🤩 🥳 😏 😒 😞 😔 😟 😕 🙁 ☹️ 😣 😖 😫 😩 🥺 😢 😭 😤 😠 😡 🤬 🤯 😳 🥵 🥶 😱 😨 😰 😥 😓 🤗 🤔 🤭
+                    🤫 🤥 😶 😐 😑 😬 🙄 😯 😦 😧 😮 😲 🥱 😴 🤤 😪 😵 🤐 🥴 🤢 🤮 🤧 😷 🤒 🤕 🤑 🤠 😈 👿 👹 👺 🤡 💩 👻 💀
+                    ☠️ 👽 👾 🤖 🎃 😺 😸 😹 😻 😼 😽 🙀 😿 😾
+    
+                    Gestures and Body Parts
+                    👋 🤚 🖐 ✋ 🖖 👌 🤏 ✌️ 🤞 🤟 🤘 🤙 👈 👉 👆 🖕 👇 ☝️ 👍 👎 ✊ 👊 🤛 🤜 👏 🙌 👐 🤲 🤝 🙏 ✍️ 💅 🤳 💪 🦾
+                    🦵 🦿 🦶 👂 🦻 👃 🧠 🦷 🦴 👀 👁 👅 👄 💋 🩸
+    
+                    People and Fantasy
+                    👶 🧒 👦 👧 🧑 👱 👨 🧔 👨‍🦰 👨‍🦱 👨‍🦳 👨‍🦲 👩 👩‍🦰 🧑‍🦰 👩‍🦱 🧑‍🦱 👩‍🦳 🧑‍🦳 👩‍🦲 🧑‍🦲 👱‍♀️
+                    👱‍♂️ 🧓 👴 👵 🙍 🙍‍♂️ 🙍‍♀️ 🙎 🙎‍♂️ 🙎‍♀️ 🙅 🙅‍♂️ 🙅‍♀️ 🙆 🙆‍♂️ 🙆‍♀️ 💁 💁‍♂️ 💁‍♀️ 🙋 🙋‍♂️ 🙋‍♀️
+                    🧏 🧏‍♂️ 🧏‍♀️ 🙇 🙇‍♂️ 🙇‍♀️ 🤦 🤦‍♂️ 🤦‍♀️ 🤷 🤷‍♂️ 🤷‍♀️ 🧑‍⚕️ 👨‍⚕️ 👩‍⚕️ 🧑‍🎓 👨‍🎓 👩‍🎓 🧑‍🏫
+                    👨‍🏫 👩‍🏫 🧑‍⚖️ 👨‍⚖️ 👩‍⚖️ 🧑‍🌾 👨‍🌾 👩‍🌾 🧑‍🍳 👨‍🍳 👩‍🍳 🧑‍🔧 👨‍🔧 👩‍🔧 🧑‍🏭 👨‍🏭 👩‍🏭
+                    🧑‍💼 👨‍💼 👩‍💼 🧑‍🔬 👨‍🔬 👩‍🔬 🧑‍💻 👨‍💻 👩‍💻 🧑‍🎤 👨‍🎤 👩‍🎤 🧑‍🎨 👨‍🎨 👩‍🎨 🧑‍✈️ 👨‍✈️
+                    👩‍✈️ 🧑‍🚀 👨‍🚀 👩‍🚀 🧑‍🚒 👨‍🚒 👩‍🚒 👮 👮‍♂️ 👮‍♀️ 🕵 🕵️‍♂️ 🕵️‍♀️ 💂 💂‍♂️ 💂‍♀️ 👷 👷‍♂️ 👷‍♀️
+                    🤴 👸 👳 👳‍♂️ 👳‍♀️ 👲 🧕 🤵 👰 🤰 🤱 👼 🎅 🤶 🦸 🦸‍♂️ 🦸‍♀️ 🦹 🦹‍♂️ 🦹‍♀️ 🧙 🧙‍♂️ 🧙‍♀️ 🧚 🧚‍♂️
+                    🧚‍♀️ 🧛 🧛‍♂️ 🧛‍♀️ 🧜 🧜‍♂️ 🧜‍♀️ 🧝 🧝‍♂️ 🧝‍♀️ 🧞 🧞‍♂️ 🧞‍♀️ 🧟 🧟‍♂️ 🧟‍♀️ 💆 💆‍♂️ 💆‍♀️ 💇 💇‍♂️
+                    💇‍♀️ 🚶 🚶‍♂️ 🚶‍♀️ 🧍 🧍‍♂️ 🧍‍♀️ 🧎 🧎‍♂️ 🧎‍♀️ 🧑‍🦯 👨‍🦯 👩‍🦯 🧑‍🦼 👨‍🦼 👩‍🦼 🧑‍🦽 👨‍🦽 👩‍🦽
+                    🏃 🏃‍♂️ 🏃‍♀️ 💃 🕺 🕴 👯 👯‍♂️ 👯‍♀️ 🧖 🧖‍♂️ 🧖‍♀️ 🧘 🧑‍🤝‍🧑 👭 👫 👬 💏 👨‍❤️‍💋‍👨 👩‍❤️‍💋‍👩 💑
+                    👨‍❤️‍👨 👩‍❤️‍👩 👪 👨‍👩‍👦 👨‍👩‍👧 👨‍👩‍👧‍👦 👨‍👩‍👦‍👦 👨‍👩‍👧‍👧 👨‍👨‍👦 👨‍👨‍👧 👨‍👨‍👧‍👦
+                    👨‍👨‍👦‍👦 👨‍👨‍👧‍👧 👩‍👩‍👦 👩‍👩‍👧 👩‍👩‍👧‍👦 👩‍👩‍👦‍👦 👩‍👩‍👧‍👧 👨‍👦 👨‍👦‍👦 👨‍👧
+                    👨‍👧‍👦 👨‍👧‍👧 👩‍👦 👩‍👦‍👦 👩‍👧 👩‍👧‍👦 👩‍👧‍👧 🗣 👤 👥 👣
+                </div>
+                </mat-tab>
+                <mat-tab label="Second"> 🐶 🐱 🐭 🐹 🐰 🦊 🐻 🐼 🐨 🐯 🦁 🐮 🐷 🐽 🐸 🐵 🙈 🙉 🙊 🐒 🐔 🐧 🐦 🐤 🐣 🐥 🦆 🦅
+                    🦉
+                    🦇 🐺 🐗 🐴 🦄 🐝 🐛 🦋
+                    🐌 🐞 🐜 🦟 🦗 🕷 🕸 🦂 🐢 🐍 🦎 🦖 🦕 🐙 🦑 🦐 🦞 🦀 🐡 🐠 🐟 🐬 🐳 🐋 🦈 🐊 🐅 🐆 🦓 🦍 🦧 🐘 🦛 🦏 🐪
+                    🐫
+                    🦒
+                    🦘 🐃 🐂 🐄 🐎 🐖 🐏 🐑 🦙 🐐 🦌 🐕 🐩 🦮 🐕‍🦺 🐈 🐓 🦃 🦚 🦜 🦢 🦩 🕊 🐇 🦝 🦨 🦡 🦦 🦥 🐁 🐀 🐿 🦔 🐾
+                    🐉
+                    🐲
+                    🌵 🎄 🌲 🌳 🌴 🌱 🌿 ☘️ 🍀 🎍 🎋 🍃 🍂 🍁 🍄 🐚 🌾 💐 🌷 🌹 🥀 🌺 🌸 🌼 🌻 🌞 🌝 🌛 🌜 🌚 🌕 🌖 🌗 🌘 🌑
+                    🌒
+                    🌓
+                    🌔 🌙 🌎 🌍 🌏 🪐 💫 ⭐️ 🌟 ✨ ⚡️ ☄️ 💥 🔥 🌪 🌈 ☀️ 🌤 ⛅️ 🌥 ☁️ 🌦 🌧 ⛈ 🌩 🌨 ❄️ ☃️ ⛄️ 🌬 💨 💧 💦 ☔️ ☂️
+                    🌊 🌫
+                </mat-tab>
+                <mat-tab label="Third">
+                    [̲̅ə̲̅٨̲̅٥̲̅٦̲̅] ✯ℋᵅᵖᵖᵞ ℬⁱʳᵗᑋᵈᵃᵞ✯ ⋆｡˚ᎶᎾᎾⅅ ℕᏐᎶℍᎢ⋆｡˚✩ 💪👦👉 ◨██══════██◧ ✌♫♪˙❤‿❤˙♫♪✌
+                    ☆❋──❁ɢ∞פ ʍօ®ɴɪɴɢ❃──❋[̲̅$̲̅(̲̅5̲̅)̲̅$̲̅] ┌∩┐(ಠ_ಠ)┌∩┐ ———–[]=¤ԅ༼ ･ 〜 ･ ༽╯
+                    ✌（◕ω◕）✌ 乂❤‿❤乂 ⎧ᴿᴵᴾ⎫◟◟◟◟◟◟◟ ❀◟(ó ̯ ò, ) ლ(´ ❥ `ლ) 🐕≡≡≡===💨 ヽ(ﾟεﾟヽ)))))
+                    ʕっ•ᴥ•ʔ ♥️♥️🖤🖤☠️💀☠️🖤🖤♥️♥️ ★ PLΔyBӨY ★ ̿̿’̿’\̵͇̿̿\=(•̪●)=/̵͇̿̿/’̿̿ ̿ ̿ ̿ ʕ•͡-•ʔ __̴ı̴̴̡̡̡
+                    ̡͌l̡̡̡ ̡͌l̡*̡̡ ̴̡ı̴̴̡ ̡̡͡|̲̲̲͡͡͡ ̲▫̲͡ ̲̲̲͡͡π̲̲͡͡ ̲̲͡▫̲̲͡͡ ̲|̡̡̡ ̡ ̴̡ı̴̡̡ ̡͌l̡̡̡̡.___
+                    v^√√v^──√v^√v^──√v^√√v^── 🏃‍♂️三三☲=💨 ⋆⋆⃟⊱✪⃝⃞⃝⊰⋆⃟⋆⋆ ◤◢◣◥◤◢◣◥ ◦°˚\😃/˚°◦ ♞▀▄▀▄♝▀▄
+                    🐓🐓🥚 ══► 🍳 [̲̅$̲̅(̲̅10)̲̅$̲̅] ｍ（｡≧ _ ≦｡）ｍ Ꮹꄲꄲძ ℳꄲᖇᘉɪ̊ᘉ꒸.͙✼̥୭⁺ ◙▒◙♫♩♬ (ó﹏ò｡) 🌷 ꒐꓄'ꇙ ꇙꉣꋪ꒐ꋊꍌ 🌷
+                </mat-tab>
+            </mat-tab-group>
+        </div> -->
 
     </div>
 </div>

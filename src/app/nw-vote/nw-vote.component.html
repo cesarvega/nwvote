@@ -1,17 +1,18 @@
 <mat-toolbar class="toolbar mat-elevation-z2">{{projectName}}</mat-toolbar>
 
-
-
-
-
 <div class="container-fluid">
     <div class="row">
         <div class="col-md-12">
 
             <section class="text-center " style="padding: 35px 0px 31px 0px;">
-
-                <h1 style="font-size: 40px;">{{name}}</h1>
-                <h3 style="font-size: 28px;">{{rationales.replace("`", "'")}}</h3>
+                <div fxLayout="row" fxLayoutAlign="center center" >
+                    <div><h1 style="font-size: 40px;">{{nameToDisplay}}</h1></div>&nbsp;
+                    <div>
+                        <span style="font-size:19px ;">{{notation}}</span>
+                    </div>
+                </div>
+               
+                <h3 style="max-width: 500px;" [innerHTML]="rationales" html style="font-size: 28px;"></h3>
                 <hr>
 
             </section>
@@ -27,12 +28,12 @@
                             class="btn btn-outline-success btn-lg mat-elevation-z8 buttons-positive" style="width: 260px;">
                             POSITIVE
                         </button>
-                        <button *ngIf="positiveVote && !readOnlyName && name !== '....'" (click)="setPositive()" type="button"
+                        <button *ngIf="positiveVote && !readOnlyName && name !== '....'" (click)="removeVote()" type="button"
                             class="btn btn-lg mat-elevation-z2 "
                             style="background-color: #1b5e20;color: white;width: 260px;">
                             POSITIVE
                         </button>
-                        <button *ngIf="readOnlyName || name === '....'" (click)="setPositive()" type="button"
+                        <button *ngIf="readOnlyName || name === '....'"  [disabled]="true" type="button"
                             class="btn btn-lg mat-elevation-z2 "
                             style="color:grey;width: 260px;">
                             POSITIVE
@@ -50,12 +51,12 @@
                             class="btn btn-outline-primary btn-lg mat-elevation-z8 buttons-neutral" style="width: 260px ">
                             NEUTRAL
                         </button>
-                        <button *ngIf="neutralVote  && !readOnlyName  && name !== '....'" (click)="setNeutral()" type="button"
+                        <button *ngIf="neutralVote  && !readOnlyName  && name !== '....'" (click)="removeVote()" type="button"
                             class="btn btn-lg mat-elevation-z2"
                             style="background-color: #0d47a1;color: white;width: 260px;">
                             NEUTRAL
                         </button>
-                        <button *ngIf="readOnlyName || name === '....'" (click)="setNeutral()" type="button"
+                        <button *ngIf="readOnlyName || name === '....'" [disabled]="true" type="button"
                             class="btn btn-lg mat-elevation-z2"
                             style="color: grey;width: 260px;">
                             NEUTRAL
@@ -71,12 +72,12 @@
                             class="btn btn-outline-danger btn-lg mat-elevation-z8 buttons-negative" style="width: 260px;">
                             NEGATIVE
                         </button>
-                        <button *ngIf="negativeVote  && !readOnlyName  && name !== '....'" (click)="setNegative()" type="button"
+                        <button *ngIf="negativeVote  && !readOnlyName  && name !== '....'" (click)="removeVote()" type="button"
                             class="btn btn-lg mat-elevation-z2"
                             style="background-color: #b71c1c;color: white;width: 260px;">
                             NEGATIVE
                         </button>
-                        <button *ngIf="readOnlyName || name === '....'" (click)="setNegative()" type="button"
+                        <button *ngIf="readOnlyName || name === '....'"  [disabled]="true" type="button"
                             class="btn btn-lg mat-elevation-z2"
                             style="color:grey;width: 260px;">
                             NEGATIVE

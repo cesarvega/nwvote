@@ -1,0 +1,55 @@
+<div class="mainContainerPresent">
+
+    <div *ngIf="true" class="landingScreenTextContent">
+
+        <div>
+            <img class="logo" src="./assets/img/bmxLogo.png">
+            <div class="title secondary-text" style="color: #004684; margin-top: 10px;">
+                {{projectName}}
+            </div>
+        </div>
+
+        <div class="title secondary-text">Welcome to the Brand Matrix<sup style="font-size: 10px;">TM</sup></div>
+        <div class="title secondary-text">JOHN DOE!</div>
+
+        <div class="instructionsText">
+            <div style="padding: 0px;">You are about to vote on candidates for
+                XXXXX.
+            </div>
+            <div style="font-size: 19px;padding: 10px;">
+                Please read
+            </div>
+            <div style="padding: 0px 20px;">
+                the introduction and
+                instructions carefully and we hope you enjoy participating in
+                this internal survey!
+            </div>
+        </div>
+
+        <div class="slideToLoginBoundary">
+            <button mat-icon-button class="GO" cdkDragBoundary=".slideToLoginBoundary" cdkDragLockAxis="x" cdkDrag>
+                BI
+            </button>
+            <!-- <mat-icon style="color: darkblue;">crop_16_9</mat-icon> -->
+            <input class="slideInput disable-text-selection" type="text" mat-input value="Slide to login" disabled>
+        </div>
+
+        <button mat-icon-button class="help">
+            <mat-icon>help_center</mat-icon>
+        </button>
+        <!-- <div mat-button class="help">
+            Help?
+        </div> -->
+    </div>
+
+    <div *ngIf="!true" class="singleNameSlide">
+        <div>
+            <img class="logo" src="./assets/img/bmxLogo.png">
+            <div class="title secondary-text" style="color: #004684; margin-top: 10px;">
+                {{projectName}}
+            </div>
+        </div>
+    
+    </div>
+
+</div>

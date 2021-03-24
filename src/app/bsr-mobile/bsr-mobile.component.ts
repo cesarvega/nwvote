@@ -1,9 +1,10 @@
-import { Component, OnInit, Inject } from '@angular/core';
+import { Component, OnInit, Inject, HostBinding } from '@angular/core';
 // import { NwvoteService } from '../../nw-vote/nwvote.service';
 import { FormBuilder, Validators, FormGroup } from '@angular/forms';
 import { Router, ActivatedRoute } from '@angular/router';
 import { BsrMobileService } from './bsr-mobile.service';
 import { MatDialog, MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
+import { DeviceDetectorService } from 'ngx-device-detector';
 
 @Component({
   selector: 'app-bsr-mobile',
@@ -14,17 +15,19 @@ export class BsrMobileComponent implements OnInit {
 
   isUserLogged = false;
   isUserLeaving = false;
-  newNames = ['AJORSEK', 'EMPROVON', 'KALENPARQ', 'KAMLIO', 'ONBETYM', 'ONDEMUVE', 'ONPARNEX', 'PLUXONTI', 'TEYBILTON', 'VELZAGO'];
+  newNames = [];
   userEmail;
   loginForm: FormGroup;
   newNameForm: FormGroup;
-  projectname = ''
+  projectName = ''
   property: any;
   projectId: any;
   username: any;
   wholeData: any;
   anoni: string = '';
+  isEmojiTime = false;
   summarized: any;
+  deviceInfo: any;
   constructor(private _formBuilder: FormBuilder, private bsrService: BsrMobileService,
     private activatedRoute: ActivatedRoute,
     public dialog: MatDialog,
@@ -32,25 +35,27 @@ export class BsrMobileComponent implements OnInit {
 
     this.activatedRoute.params.subscribe(params => {
       this.projectId = params['id'];
+      localStorage.setItem('projectId',  this.projectId);
       this.bsrService.getProjectData(this.projectId).subscribe(arg => {
-        this.projectname = JSON.parse(arg[0].bsrData).projectdescription;
+        this.projectName = JSON.parse(arg[0].bsrData).projectdescription;
+        localStorage.setItem('projectName',  this.projectId);        
       });
     });
-
-
   }
 
   ngOnInit(): void {
-
     //clean local storage 
     localStorage.setItem('userTokenId', '');
     localStorage.setItem('project', '');
     localStorage.setItem('summarized', '');
 
+    this.userEmail = localStorage.getItem('userEmail');
+    this.username = localStorage.getItem('username');
+
     this.loginForm = this._formBuilder.group({
-      email: ['cvega@brandinstitute.com', Validators.required],
+      email: [ this.userEmail, Validators.required],
       suma: [true],
-      name: ['Cesar Vega', Validators.required]
+      name: [this.username, Validators.required]
     });
 
     this.newNameForm = this._formBuilder.group({
@@ -58,12 +63,26 @@ export class BsrMobileComponent implements OnInit {
       name: ['', Validators.required]
     });
 
+
+    // setTimeout(() => {
+    //   this.submitCredentials()      
+    //   setTimeout(() => {
+    //     this.finish();
+    //     setTimeout(() => {          
+    //       location.reload();
+    //     }, 50000);
+    //   }, 700000);
+    // }, 30000);
+
+
   }
 
   // for login view
   submitCredentials() {
     this.userEmail = this.loginForm.value.email;
+    localStorage.setItem('userEmail', this.userEmail);
     this.username = this.loginForm.value.name;
+    localStorage.setItem('username', this.username);    
     this.summarized = this.loginForm.value.suma;
     localStorage.setItem('summarized', this.summarized.toString());
     this.bsrService.login(this.loginForm.value, this.projectId).subscribe((res: any) => {
@@ -81,10 +100,12 @@ export class BsrMobileComponent implements OnInit {
       this.newNameForm.value.name = '';
 
       if (this.newNameForm.value.suma) {
-       this.anoni = 'Anonymous';
+        this.anoni = 'Anonymous';
+      }else {
+        this.anoni = '';
       }
 
-      this.bsrService.sendName(nameTemp, this.anoni).subscribe(arg => {
+      this.bsrService.sendName(nameTemp, '','','',this.anoni).subscribe(arg => {
         this.bsrService.login({ email: this.userEmail, name: this.username }, this.projectId).subscribe((res: any) => {
           this.newNames = JSON.parse('[' + res[0].Names + ']');
           this.isUserLogged = true;
@@ -95,30 +116,51 @@ export class BsrMobileComponent implements OnInit {
 
   }
 
-  openDialog(item, nameid): void {
+  openDialog(item, nameid, rationale, favourite,source): void {
     const dialogRef = this.dialog.open(editName, {
       // width: '250px',
-      data: { name: item, nameId: nameid }
+      data: { 
+          name: item,
+          nameId: nameid,
+          rationale: rationale,
+          favourite: favourite,
+          source: source,
+         }
     });
 
     dialogRef.afterClosed().subscribe(result => {
 
-      if (result.form.value.name && result.form.value.name !== 'delete') {
+      if (result) {
+        if (result.form.value.name && result.form.value.name === 'like') {
 
-        this.bsrService.sendName(result.form.value.name, result.oldValue).subscribe(arg => {
-          this.bsrService.login({ email: this.userEmail, name: this.username }, this.projectId).subscribe((res: any) => {
-            this.newNames = JSON.parse('[' + res[0].Names + ']');
-            this.isUserLogged = true;
-          })
-        });
-      } else {
-        this.bsrService.deleteName(result.oldValue).subscribe(arg => {
-          this.bsrService.login({ email: this.userEmail, name: this.username }, this.projectId).subscribe((res: any) => {
-            this.newNames = JSON.parse('[' + res[0].Names + ']');
-            this.isUserLogged = true;
-          })
-        });
+          this.bsrService.sendName(result.form.value.name, result.oldValue, 
+            result.form.value.rationale, result.form.value.favourite,result.form.value.source).subscribe(arg => {
+            this.bsrService.login({ email: this.userEmail, name: this.username }, this.projectId).subscribe((res: any) => {
+              this.newNames = JSON.parse('[' + res[0].Names + ']');
+              this.isUserLogged = true;
+            })
+          });
+        } 
+        else if (result.form.value.name && result.form.value.name !== 'delete') {
 
+          this.bsrService.sendName(result.form.value.name, result.oldValue, 
+            result.form.value.rationale, result.form.value.favourite,result.form.value.source).subscribe(arg => {
+            this.bsrService.login({ email: this.userEmail, name: this.username }, this.projectId).subscribe((res: any) => {
+              this.newNames = JSON.parse('[' + res[0].Names + ']');
+              this.isUserLogged = true;
+            })
+          });
+        } 
+        
+        else {
+          this.bsrService.deleteName(result.oldValue).subscribe(arg => {
+            this.bsrService.login({ email: this.userEmail, name: this.username }, this.projectId).subscribe((res: any) => {
+              this.newNames = JSON.parse('[' + res[0].Names + ']');
+              this.isUserLogged = true;
+            })
+          });
+
+        }
       }
 
     });
@@ -129,13 +171,21 @@ export class BsrMobileComponent implements OnInit {
     this.isUserLeaving = true;
     this.bsrService.goToLogout().subscribe(res => {
       console.log(res);
-      
+
     })
   }
 
   reloadpage() {
     location.reload();
   }
+  emojiToggle(){
+    this.isEmojiTime = !this.isEmojiTime;
+  }
+
+
+  closeEmoji(): void {
+    this.isEmojiTime = false;
+    }
 
 
 }
@@ -146,6 +196,9 @@ export class BsrMobileComponent implements OnInit {
 export interface DialogData {
   nameId: string;
   name: string;
+  rationale: string;
+  favourite: string;
+  source: string;
 }
 @Component({
   selector: 'edit-name',
@@ -153,24 +206,36 @@ export interface DialogData {
   styleUrls: ['./bsr-mobile.component.scss']
 })
 export class editName {
+  
   loginForm: FormGroup;
   isDeleting = true;
   infoMessage = true;
   popupwindowData: { form: FormGroup; oldValue: string; };
   editName: string;
+  favourite: boolean;
+  source: string;
+  // @HostBinding('attr.role') role = 'admin'; 
+ 
   constructor(
     public dialogRef: MatDialogRef<editName>,
     @Inject(MAT_DIALOG_DATA) public data: DialogData, private _formBuilder: FormBuilder) {
+
+
+      
     this.editName = this.data.name;
+    this.source = this.data.source;
+    this.favourite = (this.data.favourite==='true')?true:false;
+
     if (this.data.name === 'displayInfo') {
       this.infoMessage = false;
     } else {
       this.infoMessage = true;
       console.log(this.data.name);
       this.loginForm = this._formBuilder.group({
-        rationale: [''],
-        suma: [''],
-        name: [this.data.name]
+        rationale: [this.data.rationale],
+        name: [this.data.name],        
+        favourite: [this.data.favourite],
+        source: [this.data.source],
       });
     }
 
@@ -178,14 +243,10 @@ export class editName {
 
   onNoClick(): void {
     console.log(this.data.name);
-
     this.popupwindowData = {
-
       form: this.loginForm,
-      oldValue: this.data.name
-
+      oldValue: this.data.name,
     }
-
     this.dialogRef.close(this.popupwindowData);
   }
 
@@ -194,32 +255,41 @@ export class editName {
     if (option === 'save') {
       this.popupwindowData = {
         form: this.loginForm,
-        oldValue: this.data.name
+        oldValue: this.data.name,
       }
       this.dialogRef.close(this.popupwindowData);
     }
-     else if (option === 'delete') {
+    else if (option === 'delete') {
 
       if (this.isDeleting === false) {
 
         this.loginForm.value.name = 'delete';
         this.popupwindowData = {
           form: this.loginForm,
-          oldValue: this.data.nameId
+          oldValue: this.data.nameId,
         }
         this.dialogRef.close(this.popupwindowData);
       }
       this.isDeleting = false;
-    } 
-     else if (option === 'dismiss') {
+    }
+    else if (option === 'like') {
+
+        this.loginForm.value.favourite =  !this.favourite;
+        this.popupwindowData = {
+          form: this.loginForm,
+          oldValue: this.data.name,
+        }
         this.dialogRef.close(this.popupwindowData);
-        this.isDeleting = true;
-    } 
+      
+    }
+    else if (option === 'dismiss') {
+      this.dialogRef.close(this.popupwindowData);
+      this.isDeleting = true;
+    }
     else {
       this.isDeleting = true;
     }
 
   }
-
 
 }
