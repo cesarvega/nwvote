@@ -55,6 +55,7 @@ import { MatNativeDateModule } from '@angular/material/core';
 // }
 
 import {MatRadioModule} from '@angular/material/radio';
+import { RestaurantComponent } from './restaurant/restaurant.component';
 
 @NgModule({
   declarations: [
@@ -67,7 +68,8 @@ import {MatRadioModule} from '@angular/material/radio';
     BsrComponent,
     NW3Component,
     BmxComponent,
-    SchedulerComponent
+    SchedulerComponent,
+    RestaurantComponent
   ],
   imports: [
     BrowserModule,
