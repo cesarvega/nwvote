@@ -30,6 +30,22 @@
     }
 }
 
+.formFieldValidationAlert {
+    background-color: white;
+    border: solid 3px darkgray;
+    width: 448px;
+    z-index: 1;
+    height: 714px;
+    margin: 0;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -53%);
+    border-radius: 3px;
+}
+
+
+
 .imagePresentar {
     border: solid 5px darkgrey;
     width: 948px;
@@ -73,6 +89,10 @@
     font-family: "Franklin Gothic Medium", "Arial Narrow", Arial, sans-serif;
     overflow-y: scroll;
     max-height: 300px;
+    display: flex;
+    flex-direction: column;
+    /* align-items: center; */
+    width: 225px;
 }
 
 ::ng-deep .timePickerclass::-webkit-scrollbar {
@@ -88,22 +108,22 @@
 
 /* Track */
 ::ng-deep .timePickerclass::-webkit-scrollbar-track {
-    box-shadow: inset 0 0 5px grey; 
+    box-shadow: inset 0 0 5px grey;
     border-radius: 10px;
 }
 
 /* Handle */
 ::ng-deep .timePickerclass::-webkit-scrollbar-thumb {
-    background: #1564bf; 
+    background: #1564bf;
     border-radius: 10px;
 }
 
 /* Handle on hover */
 ::ng-deep .timePickerclass::-webkit-scrollbar-thumb:hover {
-    background: #1564bf; 
+    background: #1564bf;
 }
 
-.pesonalInfoClass{
+.pesonalInfoClass {
     height: 350px;
 }
 
@@ -120,20 +140,40 @@
 
 /* Track */
 ::ng-deep .pesonalInfoClass::-webkit-scrollbar-track {
-    box-shadow: inset 0 0 5px grey; 
+    box-shadow: inset 0 0 5px grey;
     border-radius: 10px;
 }
 
 /* Handle */
 ::ng-deep .pesonalInfoClass::-webkit-scrollbar-thumb {
-    background: #1564bf; 
+    background: #1564bf;
     border-radius: 10px;
 }
 
 /* Handle on hover */
 ::ng-deep .pesonalInfoClass::-webkit-scrollbar-thumb:hover {
-    background: #1564bf; 
+    background: #1564bf;
 }
+
+// DATE PICKER
+::ng-deep .cdk-overlay-backdrop {
+    display: none;
+}
+::ng-deep .mat-datepicker-content {
+    position: absolute;
+    top: -57px;
+}
+
+::ng-deep .mat-calendar-body-today:not(.mat-calendar-body-selected){
+    border-color:lightskyblue;
+  }
+::ng-deep .mat-calendar-body-selected:not(.mat-calendar-body-active){
+    color: white;
+  }
+
+  .displayNone{
+      display: none;
+  }
 
 //desktop
 @media (min-width: 576px) {
