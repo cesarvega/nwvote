@@ -8,28 +8,31 @@
     <div class="menu">
 
 
-        <div style="width:400px; height:200px;">
+        <div style="width:380px; height:200px;">
 
             <div class="foodCard" *ngFor="let item of food; index as i">
                 <h1 class="title secondary-text">{{item.name}}</h1>
                 <div class="title secondary-text">{{item.description}}</div>
                 <div class="row">
-                    <button mat-raised-button color="primary" style="color: black;outline: none; margin: 10px; color: white;">
+                    <button *ngIf="item.options?.length > 0" mat-raised-button color="primary" (click)="option(i)"
+                        style="color: black;outline: none; margin: 10px; color: white;">
                         options
-                      </button> 
-                    <button mat-raised-button color="accent" style="color: black;outline: none; margin: 10px; color: white;">
+                    </button>
+                    <button *ngIf="item.toppings?.length > 0" mat-raised-button color="accent" (click)="toppings(i)"
+                        style="color: black;outline: none; margin: 10px; color: white;">
                         toppings
-                      </button> 
-                    <button mat-icon-button color="accent" style="color: black;outline: none;">
+                    </button>
+                    <button mat-icon-button color="accent" (click)="removeToCart(i)"
+                        style="color: black;outline: none;">
                         <mat-icon>remove_circle_outline</mat-icon>
-                      </button>    
-                      
-                      <button mat-icon-button color="primary" (click)="addToCart(i)" style="color: black;outline: none;">
+                    </button>
+
+                    <button mat-icon-button color="primary" (click)="addToCart(i)" style="color: black;outline: none;">
                         <mat-icon>add_circle_outline</mat-icon>
-                      </button>    
-                      <button mat-icon-button color="primary" (click)="addToCart(i)" style="color: black;outline: none;font-size: 30px;">
-                       {{item.orderQuantity}}
-                      </button>    
+                    </button>
+                    <button mat-icon-button color="primary" style="color: black;outline: none;font-size: 30px;">
+                        {{item.orderQuantity}}
+                    </button>
                 </div>
 
             </div>
@@ -42,9 +45,44 @@
         <div style="width:300px; height:200px"></div>
 
         <div class="footer">
-            <button mat-fab color="primary" style="color: white;">
+            <button mat-fab color="primary" style="color: white;outline: none;position: absolute;bottom: 11px;"
+                (click)="checkout()">
                 <mat-icon>shopping_cart</mat-icon>
-              </button>        
+            </button>
         </div>
     </div>
+
+
+
+
+    <!-- MODAL WINDOWS -->
+
+    <div *ngIf="popUpToppings" class="formFieldValidationAlert"
+        style="display: flex;flex-direction: column; align-items: center; justify-content: center;text-align: center; max-width: 300px;">
+        <h1>Please add toppings</h1>
+        <div *ngFor=" let item  of foodToppings.toppings">{{item.name}}        
+        </div>
+        <br>
+        <br>
+        <button mat-raised-button (click)="dismissErrorForm()">Dismiss</button>
+    </div>
+
+    <div *ngIf="popUpOptions" class="formFieldValidationAlert"
+        style="display: flex;flex-direction: column; align-items: center; justify-content: center;text-align: center; max-width: 300px;">
+        <h1>PLEASE SELECT ONE OF THE OPTIONS </h1>
+            <div *ngFor=" let option  of foodOptions.options">{{option.name}}</div>        
+        <br>
+        <br>
+        <button mat-raised-button (click)="dismissErrorForm()">Dismiss</button>
+    </div>
+
+    <div *ngIf="popUpCheckout" class="formFieldValidationAlert"
+        style="display: flex;flex-direction: column; align-items: center; justify-content: center;text-align: center; max-width: 300px;">
+        <h1>REVIEW ORDER</h1>
+              
+        <br>
+        <br>
+        <button mat-raised-button (click)="dismissErrorForm()">Dismiss</button>
+    </div>
+
 </div>

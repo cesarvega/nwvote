@@ -15,7 +15,7 @@ export class SchedulerComponent implements OnInit {
   form: FormGroup;
   today: Date;
   options: FormGroup;
-  callType = ['call', 'person'];
+  callType = ['New Project Discussion', 'INN/USAN', 'Introduction'];
   selected;
   call = 'call';
   time = '08:00';
