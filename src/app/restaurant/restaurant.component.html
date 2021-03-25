@@ -49,6 +49,7 @@
                 (click)="checkout()">
                 <mat-icon>shopping_cart</mat-icon>
             </button>
+
         </div>
     </div>
 
@@ -60,26 +61,47 @@
     <div *ngIf="popUpToppings" class="formFieldValidationAlert"
         style="display: flex;flex-direction: column; align-items: center; justify-content: center;text-align: center; max-width: 300px;">
         <h1>Please add toppings</h1>
-        <div *ngFor=" let item  of foodToppings.toppings">{{item.name}}        
+        <div class="column">
+            <div class="even" *ngFor=" let item  of foodToppings.toppings ; index as i">
+                <div class="row">                    
+                    <input type="checkbox" value="i" style="margin-right: 5px;"> {{item.name}}  <div style="margin-left: 5px ;"> {{item.price}}</div>
+                </div>
+            </div>           
         </div>
         <br>
         <br>
-        <button mat-raised-button (click)="dismissErrorForm()">Dismiss</button>
+        <div class="row">
+            <button mat-raised-button color="accent" style="margin-right: 5px; color: white;" (click)="dismissErrorForm()">cancel</button>
+            <button mat-raised-button color="primary" style="color: white;" (click)="dismissErrorForm()">confirm</button>
+        </div>
     </div>
+
+    
+    <!-- MODAL OPTIONS -->
 
     <div *ngIf="popUpOptions" class="formFieldValidationAlert"
         style="display: flex;flex-direction: column; align-items: center; justify-content: center;text-align: center; max-width: 300px;">
-        <h1>PLEASE SELECT ONE OF THE OPTIONS </h1>
-            <div *ngFor=" let option  of foodOptions.options">{{option.name}}</div>        
+        <h1>Please select an option</h1>
+        <div class="column">
+            <div class="even" *ngFor=" let item  of foodOptions.options ; index as i">
+                <input type="radio" name="item.name" value="i"  style="margin-right: 5px;"> {{item.name}}
+            </div>
+        </div>
         <br>
         <br>
-        <button mat-raised-button (click)="dismissErrorForm()">Dismiss</button>
+        <div class="row">
+            <button mat-raised-button color="accent" style="margin-right: 5px; color: white;" (click)="dismissErrorForm()">cancel</button>
+            <button mat-raised-button color="primary" style="color: white;" (click)="dismissErrorForm()">confirm</button>
+        </div>
     </div>
 
+
+
+    <!-- MODAL REVIEW -->
     <div *ngIf="popUpCheckout" class="formFieldValidationAlert"
         style="display: flex;flex-direction: column; align-items: center; justify-content: center;text-align: center; max-width: 300px;">
         <h1>REVIEW ORDER</h1>
-              
+
         <br>
         <br>
         <button mat-raised-button (click)="dismissErrorForm()">Dismiss</button>

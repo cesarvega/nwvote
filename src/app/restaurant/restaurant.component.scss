@@ -143,6 +143,16 @@
             align-items: center;
             margin: 10px;
         }
+
+        .column {
+            display: flex;
+            flex-direction: column;
+            // border: gray solid 1px;
+            // border-radius: 5px;
+            justify-content: space-between;
+            align-items: flex-start;
+            margin: 10px;
+        }
     }
     .formFieldValidationAlert {
         background-color: white;
@@ -247,6 +257,16 @@
             // border-radius: 5px;
             justify-content: space-between;
             align-items: center;
+            margin: 10px;
+        }
+
+        .column {
+            display: flex;
+            flex-direction: column;
+            // border: gray solid 1px;
+            // border-radius: 5px;
+            justify-content: space-between;
+            align-items: flex-start;
             margin: 10px;
         }
     }

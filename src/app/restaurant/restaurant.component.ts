@@ -147,6 +147,8 @@ export class RestaurantComponent implements OnInit {
   popUpOptions = false;
   popUpCheckout = false;
   popUpReview = false;
+  foodTopping;
+  foodOption;
 
   constructor() { }
 
@@ -188,6 +190,11 @@ export class RestaurantComponent implements OnInit {
     this.popUpCheckout = true;
     
   }
+
+  // toppingsSlected() {
+  //   this.popUpCheckout = true;
+    
+  // }
 
 
 }
