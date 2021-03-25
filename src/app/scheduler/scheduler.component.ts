@@ -1,3 +1,4 @@
+import { DatePipe } from '@angular/common';
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
@@ -16,7 +17,7 @@ export class SchedulerComponent implements OnInit {
   today: Date;
   options: FormGroup;
   callType = ['call', 'person'];
-  selected = 'EST';
+  selected = 'myTz';
   call = 'call';
   time = '08:00';
   scheduleForm: any;
@@ -103,6 +104,7 @@ export class SchedulerComponent implements OnInit {
       "name": "8:30 PM"
     }
   ];
+
   validForm = false;
   emptyFormFields = [];
   formAlert = false;
@@ -268,4 +270,14 @@ export class SchedulerComponent implements OnInit {
   makeAnother() {
     window.location.reload();
   }
-}
+
+  edtTimeZone = new Date();
+  cstTimeZone = new Date();
+         from = new DatePipe('en-Us').transform(this.cstTimeZone, '') 
+
+  timeZoneOption = [{value: 'myTz', name: this.edtTimeZone}, {value: 'EST', name: 'Eastern Time (EST)'}, {value: 'CST', name: 'Central Time (CST)'}, {value: 'MT', name: 'Mountain Time (MT)'}, 
+  {value: 'PST', name: 'Pacific Time (PST)'}, {value: 'WET', name: 'Western European Time (WET)'}, {value: 'CET', name: 'Central European Time (CET)'}, {value: 'EET', name: 'Eastern European Time (EET)'},
+  {value: 'JPT', name: 'Japan Time (JPT)'}, {value: 'KST', name: 'Korea Time (KST)'}, {value: 'BRT', name: 'Brasilia Time (BRT)'}]
+
+} 
+
