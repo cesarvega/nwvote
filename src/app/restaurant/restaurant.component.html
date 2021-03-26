@@ -1,8 +1,9 @@
-<div class="mainContainer">
+<div class="mainContainer disable-dbl-tap-zoom">
 
     <div class="header">
         <img class="logo" src="./assets/img/bmxLogo.png">
-        <h1>Luna Rosa</h1>
+        <p>Luna Rosa</p>
+        <p style="color: grey;">table i#: {{tableId}}</p>
     </div>
 
     <div class="menu">
@@ -33,24 +34,33 @@
                 </button>
             </div>
 
-            <br>
-            <br>
         </div>
+        <br>
+        <br>
+        <br>
+        <br>
+        <br>
 
 
-        <div style="width:300px; height:200px"></div>
-        <div style="width:300px; height:200px"></div>
-
-        <div class="footer">
-            <button mat-fab color="primary" style="color: white;outline: none;position: absolute;bottom: 11px;"
-                (click)="checkout()">
-                <mat-icon>shopping_cart</mat-icon>
-            </button>
-
-        </div>
     </div>
 
+    <div class="footer">
 
+
+        <button mat-mini-fab color="warn"
+            style="color: white;outline: none;position: absolute;bottom: 19px; left: 80px;">
+            <mat-icon (click)="qrcode()">qr_code</mat-icon>
+        </button>
+        <button mat-mini-fab color="primary" style="color: white;outline: none;position: absolute;bottom: 19px;   "
+            (click)="reviewOrder()">
+            <mat-icon>shopping_cart</mat-icon>
+        </button>
+        <button mat-mini-fab color="accent"
+            style="color: white;outline: none;position: absolute;bottom: 19px; right: 80px;">
+            <mat-icon (click)="qrcode()">settings</mat-icon>
+        </button>
+
+    </div>
 
 
     <!-- MODAL WINDOWS -->
@@ -60,14 +70,12 @@
         <h1>Please add toppings</h1>
         <div class="column">
             <div class="even" *ngFor=" let item  of foodToppings.toppings ; index as i">
-                <div class="row">
-                    <input type="checkbox" value="i" style="margin-right: 5px;"> {{item.name}} <div
-                        style="margin-left: 5px ;"> {{item.price}}</div>
-                </div>
+                <mat-checkbox [(ngModel)]="item.completed" (ngModelChange)="confirm()">
+                    {{item.name}} &nbsp; &nbsp; ${{item.price}}
+                </mat-checkbox>
             </div>
         </div>
-        <br>
-        <br>
+
         <div class="row">
             <button mat-raised-button color="accent" style="margin-right: 5px; color: white;"
                 (click)="dismissErrorForm()">cancel</button>
@@ -79,34 +87,76 @@
 
     <!-- MODAL OPTIONS -->
 
-    <div *ngIf="popUpOptions" class="formFieldValidationAlert"
-        style="display: flex;flex-direction: column; align-items: center; justify-content: center;text-align: center; max-width: 300px;">
+    <div *ngIf="popUpOptions" class="formFieldValidationAlert">
         <h1>Please select an option</h1>
-        <div class="column">
-            <div class="even" *ngFor=" let item  of foodOptions.options ; index as i">
-                <input type="radio" name="item.name" value="i" style="margin-right: 5px;"> {{item.name}}
-            </div>
-        </div>
-        <br>
-        <br>
+        <mat-radio-group class="column" [(ngModel)]="selectedOption">
+            <mat-radio-button *ngFor=" let item  of foodOptions.options ; index as i" [value]="item.name">
+                {{item.name}}
+            </mat-radio-button>
+        </mat-radio-group>
         <div class="row">
             <button mat-raised-button color="accent" style="margin-right: 5px; color: white;"
                 (click)="dismissErrorForm()">cancel</button>
-            <button mat-raised-button color="primary" style="color: white;"
-                (click)="dismissErrorForm()">confirm</button>
+            <button mat-raised-button color="primary" style="color: white;" (click)="dismissErrorForm()"
+                (click)="selected()">confirm</button>
         </div>
     </div>
 
-
-
     <!-- MODAL REVIEW -->
-    <div *ngIf="popUpCheckout" class="formFieldValidationAlert"
-        style="display: flex;flex-direction: column; align-items: center; justify-content: center;text-align: center; max-width: 300px;">
-        <h1>REVIEW ORDER</h1>
-
+    <div *ngIf="popUpQRCode" class="formFieldValidationAlert">
+        <h1>SHARE QR CODE</h1>
+        <qrcode [qrdata]="myAngularxQrCode" [width]="140" [errorCorrectionLevel]="'M'"></qrcode>
+        <p><a style="color: black;" target="_blank">{{myAngularxQrCode}}</a></p>
         <br>
         <br>
         <button mat-raised-button (click)="dismissErrorForm()">Dismiss</button>
+    </div>
+
+
+    <div *ngIf="popUpCheckout" class="reviewOrderClass">
+        <h1>REVIEW ORDER</h1>
+
+        <div style="overflow-y: scroll;">
+            <div *ngFor="let item of order.orderItems; index as i"
+                style="display: flex;flex-direction: column;border: black solid 1px;width: 250px;border-radius: 5px;">
+                <h2>{{item.name}}</h2>
+                <!-- <div>Price &nbsp; &nbsp; </div> -->
+              
+                <div>{{item.description}}</div>
+                <div>{{item.specialIntructions}}</div>
+                <div>{{item.selectedOption}}</div>
+                <div>{{item.selectedToppings}}</div>
+                <br>
+                <div class="row" style="justify-content: space-around;">
+                    <button mat-icon-button color="accent" (click)="removeToCart(i)" style="color: black;outline: none;">
+                        <mat-icon>remove_circle_outline</mat-icon>
+                    </button>
+                    <div>{{item.orderQuantity}} x ${{item.price}}</div>
+                    <button mat-icon-button color="primary" (click)="addToCart(i)" style="color: black;outline: none;">
+                        <mat-icon>add_circle_outline</mat-icon>
+                    </button>
+                </div>
+            </div>
+            <div *ngIf="order.orderItems.length === 0">Nothing Order Yet</div>
+        </div>
+        <br>
+        <br>
+        <button mat-mini-fab color="primary" style="color:white;background-color: green;font-size: 6px;" 
+            (click)="checkout()">
+            <mat-icon>attach_money</mat-icon>
+        </button>
+        <br>
+    </div>
+
+
+    <div *ngIf="popUpThankyou" class="reviewOrderClass">
+        <h2>THANK YOU FOR YOUR ORDER</h2>
+
+        <button mat-mini-fab color="primary" style="color:white;background-color: green;font-size: 6px;" 
+            (click)="thankYou()">
+            <mat-icon>done</mat-icon>
+        </button>
+        <br>
     </div>
 
 </div>

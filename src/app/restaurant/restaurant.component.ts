@@ -1,4 +1,6 @@
 import { Component, OnInit } from '@angular/core';
+import { ThemePalette } from '@angular/material/core';
+import { ActivatedRoute } from '@angular/router';
 
 @Component({
   selector: 'app-restaurant',
@@ -7,30 +9,51 @@ import { Component, OnInit } from '@angular/core';
 })
 export class RestaurantComponent implements OnInit {
 
-  food = [
+
+  food : any = [
     {
       name: 'Emapanadas', price: 8.10,
       description: 'Three Crunchy Colombian Empanadas filled with beef and potato.',
-      options: [],
+      specialIntructions: '',
+      selectedOption: '',
+      selectedToppings: [],
+      options: [
+        { name: 'Green Sauce' },
+        { name: 'Red Sauce' },
+        { name: 'BBQ' },
+        { name: 'Honey Mustard' },
+      ],
       orderQuantity: 0,
       toppings: [
-        // {name:'', price: 3}
+        { name: 'cheese', price: 0, completed: false, },
+        { name: 'onions', price: 3, completed: false, },
+        { name: 'mushrooms', price: 4, completed: false, },
+        { name: 'Pepper', price: 3, completed: false, },
       ]
     },
 
     {
       name: 'Tequenos de Venezuala', price: 8.10,
       description: 'Three cheese-filled pastry fingers from Venezuela.',
+      specialIntructions: '',
+      selectedOption: '',
+      selectedToppings: [],
       options: [],
       orderQuantity: 0,
       toppings: [
-        // {name:'cheese', price: 3}
+        { name: 'cheese', price: 3 },
+        { name: 'onions', price: 3 },
+        { name: 'mushrooms', price: 3 },
+        { name: 'Pepper', price: 3 },
       ]
     },
 
     {
       name: 'Maicitos', price: 13,
       description: 'Fireroastedcorn, topped with mozzarella cheese, crushedLay’s PotatoChips, Green sauce & Pinksauce.',
+      specialIntructions: '',
+      selectedOption: '',
+      selectedToppings: [],
       options: [],
       orderQuantity: 0,
       toppings: [
@@ -44,6 +67,9 @@ export class RestaurantComponent implements OnInit {
     {
       name: 'Colombian Quesadilla', price: 13,
       description: 'Quesadilla topped with crushed Lay’s Potato Chips, green sauce & pinksauce',
+      specialIntructions: '',
+      selectedOption: '',
+      selectedToppings: [],
       options: [],
       orderQuantity: 0,
       toppings: [
@@ -57,6 +83,9 @@ export class RestaurantComponent implements OnInit {
     {
       name: 'Mexican Quesadilla', price: 13,
       description: 'Quesadilla with our fresh made guacamole, jalapenos, pico de gallo, and our chipotle aioli.',
+      specialIntructions: '',
+      selectedOption: '',
+      selectedToppings: [],
       options: [],
       orderQuantity: 0,
       toppings: [
@@ -70,6 +99,9 @@ export class RestaurantComponent implements OnInit {
     {
       name: 'Mexican Street Tacos', price: 13,
       description: '2 Mouthwatering Tacos - made with CORN OR FLOUR TORTILLAS. Beef Barbacoa - Picodegallo, cilantro, cabbage & cotijacheese. ; Pollo Y Pina -Pineapple, cabbage, cilantro, Cotija cheese & Chipotle aioli.; Veggie - Fire roasted corn, mushroom, bellpeper, onions, cabbage, cilantro, guacamole, Cotija cheese & Chipotle aioli.',
+      specialIntructions: '',
+      selectedOption: '',
+      selectedToppings: [],
       options: [
         { name: 'Corn Tortilla' },
         { name: 'Flour Tortilla' },
@@ -86,6 +118,9 @@ export class RestaurantComponent implements OnInit {
     {
       name: 'Melissa Wings', price: 13,
       description: '10 Chicken Wings tossed in your choice of sauces.',
+      specialIntructions: '',
+      selectedOption: '',
+      selectedToppings: [],
       options: [
         { name: 'Buffalo' },
         { name: 'Spicy Asian' },
@@ -101,6 +136,9 @@ export class RestaurantComponent implements OnInit {
     {
       name: 'Colomboan Dog', price: 9.71,
       description: 'Nathan`s famous beef hot dog wrapped in applewood smoked bacon, melted Mozzarella cheese, crushed Lay`s potato chips, coleslaw, green, pink and pineapple sauce.',
+      specialIntructions: '',
+      selectedOption: '',
+      selectedToppings: [],
       options: [],
       orderQuantity: 0,
       toppings: [
@@ -111,6 +149,9 @@ export class RestaurantComponent implements OnInit {
     {
       name: 'Venezuelan Dog', price: 9.71,
       description: 'Nathan`s famous beef hot dog crushed Lay`s Potato chips, coleslsaw, mayonnaise, ketchup, mustard & parmesan cheese.',
+      specialIntructions: '',
+      selectedOption: '',
+      selectedToppings: [],
       options: [],
       orderQuantity: 0,
       toppings: [
@@ -121,6 +162,9 @@ export class RestaurantComponent implements OnInit {
     {
       name: 'Mexican Dog', price: 9.71,
       description: 'Nathan`s famous beef hot dog, Monterey Jack Cheese, freshly-made guacamole, jalapenos and pico de gallo.',
+      specialIntructions: '',
+      selectedOption: '',
+      selectedToppings: [],
       options: [],
       orderQuantity: 0,
       toppings: [
@@ -131,6 +175,9 @@ export class RestaurantComponent implements OnInit {
     {
       name: 'New Yorker', price: 9.71,
       description: 'Nathan`s famous beef hot dog, mustard, sauserkraut & sweet onions.',
+      specialIntructions: '',
+      selectedOption: '',
+      selectedToppings: [],
       options: [],
       orderQuantity: 0,
       toppings: [
@@ -140,31 +187,88 @@ export class RestaurantComponent implements OnInit {
 
   ]
 
+
+  order = {
+    orderItems: [
+      {
+        name: 'Emapanadas', price: 8.10,
+        orderQuantity: 3,
+        description: 'Three Crunchy Colombian Empanadas filled with beef and potato.',
+        specialIntructions: 'no ketchup',
+        selectedOption: 'Cheese',
+        selectedToppings: [],
+      },
+      {
+        name: 'Colomboan Dog', price: 9.71,
+        orderQuantity: 1,
+        description: 'Nathan`s famous beef hot dog wrapped in applewood smoked bacon, melted Mozzarella cheese, crushed Lay`s potato chips, coleslaw, green, pink and pineapple sauce.',
+        specialIntructions: '',
+        selectedOption: '',
+        selectedToppings: [
+          { name: 'cheese', price: 0 },
+          { name: 'onions', price: 3 },
+          { name: 'mushrooms', price: 4 }
+        ],
+      },
+      {
+        name: 'Melissa Wings', price: 13,
+        orderQuantity: 1,
+        description: '10 Chicken Wings tossed in your choice of sauces.',
+        specialIntructions: 'well done cooked',
+        selectedOption: '',
+        selectedToppings: [],
+      },
+    ],
+    serviceCharge: 15,
+    tax: 7,
+    tableId : ''
+  }
+
+  myAngularxQrCode = 'http://mrvrman.com/food/234234';
+
   foodOptions: any;
   foodToppings: any;
 
   popUpToppings = false;
   popUpOptions = false;
   popUpCheckout = false;
+  popUpQRCode = false;
+  popUpThankyou = false;
   popUpReview = false;
   foodTopping;
   foodOption;
+  sendingOrder: any;
+  selectedOption;
+  paramsArray: any;email: any;
+  tableId: any;
 
-  constructor() { }
+
+
+  constructor(private paramsRouter: ActivatedRoute) { }
 
   ngOnInit(): void {
+ 
+    this.paramsRouter.params.subscribe(params => {
+      this.tableId = +params['id']; 
+   });
+
+   if (localStorage.getItem('food')) {
+     
+     this.food = JSON.parse(localStorage.getItem('food')); 
+   }
+
   }
 
 
   addToCart(index) {
 
-    this.food[index].orderQuantity = 1 + this.food[index].orderQuantity; 
+    this.food[index].orderQuantity = 1 + this.food[index].orderQuantity;
 
   }
 
   removeToCart(index) {
-    if (this.food[index].orderQuantity > 0) {      
-      this.food[index].orderQuantity = this.food[index].orderQuantity - 1  ; 
+    if (this.food[index].orderQuantity > 0) {
+      this.food[index].orderQuantity = this.food[index].orderQuantity - 1;
     }
   }
 
@@ -182,19 +286,63 @@ export class RestaurantComponent implements OnInit {
     this.popUpToppings = false;
     this.popUpOptions = false;
     this.popUpCheckout = false;
+    this.popUpQRCode = false;
   }
 
-  
+  reviewOrder() {
+    localStorage.setItem('food', JSON.stringify(this.food));
+    this.popUpCheckout = true;
+    this.sendingOrder = [];
+    let obj = {};
+    this.food.forEach(res => {
+      if (res.orderQuantity > 0) {
+        let toppings = res.toppings.filter((res: any) => {
+          return res.completed === true;
+        })
+        obj = {
+          name: res.name,
+          price: res.price,
+          orderQuantity: res.orderQuantity,
+          description: res.description,
+          specialIntructions: res.specialIntructions,
+          selectedOption: res.selectedOption,
+          selectedToppings: toppings
+        }
+        this.sendingOrder.push(obj);
+      }
+
+      this.order = {
+        orderItems: this.sendingOrder,
+        serviceCharge: 15,
+        tax: 7,
+        tableId : this.tableId
+      }
+
+    })
+    // document.body.requestFullscreen();
+
+  }
+
 
   checkout() {
-    this.popUpCheckout = true;
-    
+    this.popUpCheckout = !this.popUpCheckout;
+    this.popUpThankyou = true;
   }
 
-  // toppingsSlected() {
-  //   this.popUpCheckout = true;
-    
-  // }
+  qrcode() {
+    this.popUpQRCode = !this.popUpQRCode;
+  }
+  confirm() {
+    // this.popUpCheckout = true;
+    // document.body.requestFullscreen();
+  }
 
+  selected() {
+    console.log();
+  }
+
+  thankYou() {
+    this.popUpThankyou = !this.popUpThankyou;
+  }
 
 }
