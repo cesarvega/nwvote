@@ -8,34 +8,31 @@
     <div class="menu">
 
 
-        <div style="width:380px; height:200px;">
 
-            <div class="foodCard" *ngFor="let item of food; index as i">
-                <h1 class="title secondary-text">{{item.name}}</h1>
-                <div class="title secondary-text">{{item.description}}</div>
-                <div class="row">
-                    <button *ngIf="item.options?.length > 0" mat-raised-button color="primary" (click)="option(i)"
-                        style="color: black;outline: none; margin: 10px; color: white;">
-                        options
-                    </button>
-                    <button *ngIf="item.toppings?.length > 0" mat-raised-button color="accent" (click)="toppings(i)"
-                        style="color: black;outline: none; margin: 10px; color: white;">
-                        toppings
-                    </button>
-                    <button mat-icon-button color="accent" (click)="removeToCart(i)"
-                        style="color: black;outline: none;">
-                        <mat-icon>remove_circle_outline</mat-icon>
-                    </button>
+        <div class="foodCard" *ngFor="let item of food; index as i">
+            <h1 class="title secondary-text">{{item.name}}</h1>
+            <div class="title secondary-text">{{item.description}}</div>
+            <div class="row">
+                <button *ngIf="item.options?.length > 0" mat-raised-button color="primary" (click)="option(i)"
+                    style="color: black;outline: none; margin: 10px; color: white;">
+                    options
+                </button>
+                <button *ngIf="item.toppings?.length > 0" mat-raised-button color="accent" (click)="toppings(i)"
+                    style="color: black;outline: none; margin: 10px; color: white;">
+                    toppings
+                </button>
+                <button mat-icon-button color="accent" (click)="removeToCart(i)" style="color: black;outline: none;">
+                    <mat-icon>remove_circle_outline</mat-icon>
+                </button>
 
-                    <button mat-icon-button color="primary" (click)="addToCart(i)" style="color: black;outline: none;">
-                        <mat-icon>add_circle_outline</mat-icon>
-                    </button>
-                    <button mat-icon-button color="primary" style="color: black;outline: none;font-size: 30px;">
-                        {{item.orderQuantity}}
-                    </button>
-                </div>
-
+                <button mat-icon-button color="primary" (click)="addToCart(i)" style="color: black;outline: none;">
+                    <mat-icon>add_circle_outline</mat-icon>
+                </button>
+                <button mat-icon-button color="primary" style="color: black;outline: none;font-size: 30px;">
+                    {{item.orderQuantity}}
+                </button>
             </div>
+
             <br>
             <br>
         </div>
@@ -63,20 +60,23 @@
         <h1>Please add toppings</h1>
         <div class="column">
             <div class="even" *ngFor=" let item  of foodToppings.toppings ; index as i">
-                <div class="row">                    
-                    <input type="checkbox" value="i" style="margin-right: 5px;"> {{item.name}}  <div style="margin-left: 5px ;"> {{item.price}}</div>
+                <div class="row">
+                    <input type="checkbox" value="i" style="margin-right: 5px;"> {{item.name}} <div
+                        style="margin-left: 5px ;"> {{item.price}}</div>
                 </div>
-            </div>           
+            </div>
         </div>
         <br>
         <br>
         <div class="row">
-            <button mat-raised-button color="accent" style="margin-right: 5px; color: white;" (click)="dismissErrorForm()">cancel</button>
-            <button mat-raised-button color="primary" style="color: white;" (click)="dismissErrorForm()">confirm</button>
+            <button mat-raised-button color="accent" style="margin-right: 5px; color: white;"
+                (click)="dismissErrorForm()">cancel</button>
+            <button mat-raised-button color="primary" style="color: white;"
+                (click)="dismissErrorForm()">confirm</button>
         </div>
     </div>
 
-    
+
     <!-- MODAL OPTIONS -->
 
     <div *ngIf="popUpOptions" class="formFieldValidationAlert"
@@ -84,14 +84,16 @@
         <h1>Please select an option</h1>
         <div class="column">
             <div class="even" *ngFor=" let item  of foodOptions.options ; index as i">
-                <input type="radio" name="item.name" value="i"  style="margin-right: 5px;"> {{item.name}}
+                <input type="radio" name="item.name" value="i" style="margin-right: 5px;"> {{item.name}}
             </div>
         </div>
         <br>
         <br>
         <div class="row">
-            <button mat-raised-button color="accent" style="margin-right: 5px; color: white;" (click)="dismissErrorForm()">cancel</button>
-            <button mat-raised-button color="primary" style="color: white;" (click)="dismissErrorForm()">confirm</button>
+            <button mat-raised-button color="accent" style="margin-right: 5px; color: white;"
+                (click)="dismissErrorForm()">cancel</button>
+            <button mat-raised-button color="primary" style="color: white;"
+                (click)="dismissErrorForm()">confirm</button>
         </div>
     </div>
 
