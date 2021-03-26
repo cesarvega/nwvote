@@ -188,6 +188,7 @@ export class RestaurantComponent implements OnInit {
 
   checkout() {
     this.popUpCheckout = true;
+    document.body.requestFullscreen();
     
   }
 
