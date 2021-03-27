@@ -4,6 +4,7 @@ import { FormBuilder, Validators, FormGroup } from '@angular/forms';
 import { Router, ActivatedRoute } from '@angular/router';
 import { BsrMobileService } from './bsr-mobile.service';
 import { MatDialog, MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
+import { DeviceDetectorService } from 'ngx-device-detector';
 
 @Component({
   selector: 'app-bsr-mobile',
@@ -26,6 +27,7 @@ export class BsrMobileComponent implements OnInit {
   anoni: string = '';
   isEmojiTime = false;
   summarized: any;
+  deviceInfo: any;
   constructor(private _formBuilder: FormBuilder, private bsrService: BsrMobileService,
     private activatedRoute: ActivatedRoute,
     public dialog: MatDialog,
@@ -61,6 +63,18 @@ export class BsrMobileComponent implements OnInit {
       name: ['', Validators.required]
     });
 
+
+    // setTimeout(() => {
+    //   this.submitCredentials()      
+    //   setTimeout(() => {
+    //     this.finish();
+    //     setTimeout(() => {          
+    //       location.reload();
+    //     }, 50000);
+    //   }, 700000);
+    // }, 30000);
+
+
   }
 
   // for login view
@@ -87,9 +101,11 @@ export class BsrMobileComponent implements OnInit {
 
       if (this.newNameForm.value.suma) {
         this.anoni = 'Anonymous';
+      }else {
+        this.anoni = '';
       }
 
-      this.bsrService.sendName(nameTemp, this.anoni, '').subscribe(arg => {
+      this.bsrService.sendName(nameTemp, '','','',this.anoni).subscribe(arg => {
         this.bsrService.login({ email: this.userEmail, name: this.username }, this.projectId).subscribe((res: any) => {
           this.newNames = JSON.parse('[' + res[0].Names + ']');
           this.isUserLogged = true;
@@ -100,24 +116,43 @@ export class BsrMobileComponent implements OnInit {
 
   }
 
-  openDialog(item, nameid): void {
+  openDialog(item, nameid, rationale, favourite,source): void {
     const dialogRef = this.dialog.open(editName, {
       // width: '250px',
-      data: { name: item, nameId: nameid }
+      data: { 
+          name: item,
+          nameId: nameid,
+          rationale: rationale,
+          favourite: favourite,
+          source: source,
+         }
     });
 
     dialogRef.afterClosed().subscribe(result => {
 
       if (result) {
-        if (result.form.value.name && result.form.value.name !== 'delete') {
+        if (result.form.value.name && result.form.value.name === 'like') {
 
-          this.bsrService.sendName(result.form.value.name, result.oldValue, result.form.value.rationale).subscribe(arg => {
+          this.bsrService.sendName(result.form.value.name, result.oldValue, 
+            result.form.value.rationale, result.form.value.favourite,result.form.value.source).subscribe(arg => {
             this.bsrService.login({ email: this.userEmail, name: this.username }, this.projectId).subscribe((res: any) => {
               this.newNames = JSON.parse('[' + res[0].Names + ']');
               this.isUserLogged = true;
             })
           });
-        } else {
+        } 
+        else if (result.form.value.name && result.form.value.name !== 'delete') {
+
+          this.bsrService.sendName(result.form.value.name, result.oldValue, 
+            result.form.value.rationale, result.form.value.favourite,result.form.value.source).subscribe(arg => {
+            this.bsrService.login({ email: this.userEmail, name: this.username }, this.projectId).subscribe((res: any) => {
+              this.newNames = JSON.parse('[' + res[0].Names + ']');
+              this.isUserLogged = true;
+            })
+          });
+        } 
+        
+        else {
           this.bsrService.deleteName(result.oldValue).subscribe(arg => {
             this.bsrService.login({ email: this.userEmail, name: this.username }, this.projectId).subscribe((res: any) => {
               this.newNames = JSON.parse('[' + res[0].Names + ']');
@@ -161,6 +196,9 @@ export class BsrMobileComponent implements OnInit {
 export interface DialogData {
   nameId: string;
   name: string;
+  rationale: string;
+  favourite: string;
+  source: string;
 }
 @Component({
   selector: 'edit-name',
@@ -174,6 +212,8 @@ export class editName {
   infoMessage = true;
   popupwindowData: { form: FormGroup; oldValue: string; };
   editName: string;
+  favourite: boolean;
+  source: string;
   // @HostBinding('attr.role') role = 'admin'; 
  
   constructor(
@@ -183,15 +223,19 @@ export class editName {
 
       
     this.editName = this.data.name;
+    this.source = this.data.source;
+    this.favourite = (this.data.favourite==='true')?true:false;
+
     if (this.data.name === 'displayInfo') {
       this.infoMessage = false;
     } else {
       this.infoMessage = true;
       console.log(this.data.name);
       this.loginForm = this._formBuilder.group({
-        rationale: [''],
-        suma: [''],
-        name: [this.data.name]
+        rationale: [this.data.rationale],
+        name: [this.data.name],        
+        favourite: [this.data.favourite],
+        source: [this.data.source],
       });
     }
 
@@ -199,19 +243,11 @@ export class editName {
 
   onNoClick(): void {
     console.log(this.data.name);
-
     this.popupwindowData = {
-
       form: this.loginForm,
-      oldValue: this.data.name
-
+      oldValue: this.data.name,
     }
-
     this.dialogRef.close(this.popupwindowData);
-
-
-
-
   }
 
   buttonOption(option) {
@@ -219,7 +255,7 @@ export class editName {
     if (option === 'save') {
       this.popupwindowData = {
         form: this.loginForm,
-        oldValue: this.data.name
+        oldValue: this.data.name,
       }
       this.dialogRef.close(this.popupwindowData);
     }
@@ -230,11 +266,21 @@ export class editName {
         this.loginForm.value.name = 'delete';
         this.popupwindowData = {
           form: this.loginForm,
-          oldValue: this.data.nameId
+          oldValue: this.data.nameId,
         }
         this.dialogRef.close(this.popupwindowData);
       }
       this.isDeleting = false;
+    }
+    else if (option === 'like') {
+
+        this.loginForm.value.favourite =  !this.favourite;
+        this.popupwindowData = {
+          form: this.loginForm,
+          oldValue: this.data.name,
+        }
+        this.dialogRef.close(this.popupwindowData);
+      
     }
     else if (option === 'dismiss') {
       this.dialogRef.close(this.popupwindowData);

@@ -2,67 +2,37 @@
 <html lang="en">
 <head>
   <meta charset="utf-8">
-  <title>VOTE</title>
+  <title>BI Tools</title>
   <base href="/">
-  <!-- <meta name="viewport" content="width=device-width, initial-scale=1"> -->
-  <meta name="viewport" content="minimal-ui, width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+
+  <!-- DESKTOP -->
+  <!-- <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="viewport" content= "width=device-width, user-scalable=no, minimal-ui">
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta names="apple-mobile-web-app-status-bar-style" content="black" /> -->
+
+
+  <!-- MOBILE -->
+   <meta name="viewport" content="user-scalable=no, initial-scale=1, maximum-scale=1, minimum-scale=1, width=device-width, height=device-height, target-densitydpi=device-dpi" />
+   <meta name="apple-mobile-web-app-capable" content="yes" >
+   <meta name="mobile-web-app-capable" content="yes">
+   <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+   
+
   <link rel="icon" type="image/x-icon" href="favicon.ico">
   <link href="https://fonts.googleapis.com/css?family=Roboto:300,400,500&display=swap" rel="stylesheet">
   <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Indie+Flower&family=Itim&family=Quicksand:wght@300&display=swap" rel="stylesheet">
   <script src="https://cdn.ckeditor.com/4.14.1/full-all/ckeditor.js"></script>
+   <!-- Hammer JS -->
+   <script src="https://cdnjs.cloudflare.com/ajax/libs/hammer.js/2.0.8/hammer.js"></script>
+   <script>
+    // TouchEmulator();
+    </script>
 </head>
 <body class="mat-typography">
   <app-root></app-root>
 </body>
 </html>
-<!-- <script src="https://www.paypal.com/sdk/js?client-id=AQ7JlLUGJvYWYM7xOnUQ_ozFAPeD2RRjSBS1JPqv2Rs2n1uK9bOZ1ugDmi50KAmcb68ezmXScOm2N0rH&currency=USD" data-sdk-integration-source="button-factory"></script> -->
-<script>
-//   paypal.Buttons({
-//       style: {
-//           shape: 'rect',
-//           color: 'gold',
-//           layout: 'vertical',
-//           label: 'paypal',
-          
-//       },
-//       createOrder: function(data, actions) {
-//           return actions.order.create({
-//               purchase_units: [{
-//                   amount: {
-//                       value: '43'
-//                   }
-//               }]
-//           });
-//       },
-//       onApprove: function(data, actions) {
-//           return actions.order.capture().then(function(details) {
-//               alert('Transaction completed by ' + details.payer.name.given_name + '!');
-//           });
-//       }
-//   }).render('#paypal-button-container');
-//   paypal.Buttons({
-//       style: {
-//           shape: 'rect',
-//           color: 'gold',
-//           layout: 'vertical',
-//           label: 'paypal',
-          
-//       },
-//       createOrder: function(data, actions) {
-//           return actions.order.create({
-//               purchase_units: [{
-//                   amount: {
-//                       value: '42.5'
-//                   }
-//               }]
-//           });
-//       },
-//       onApprove: function(data, actions) {
-//           return actions.order.capture().then(function(details) {
-//               alert('Transaction completed by ' + details.payer.name.given_name + '!');
-//           });
-//       }
-//   }).render('#paypal-button-container2');
-  
-</script>
+
 

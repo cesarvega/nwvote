@@ -13,7 +13,11 @@
         <br>
         <mat-form-field *ngIf="isDeleting" appearance="outline" style="max-width: 350px; min-width: 260px;">
             <mat-label>Rationale</mat-label>
+<<<<<<< HEAD
             <input matInput type="name" placeholder="name" formControlName="rationale">
+=======
+            <input matInput type="text" placeholder="rationale" formControlName="rationale">
+>>>>>>> ckeditor2
         </mat-form-field>
         <br>
 
@@ -27,6 +31,21 @@
                         <mat-icon>delete</mat-icon>
                     </button><br>
                     <span>delete</span>
+                </div>
+
+                <div fxFlex *ngIf="isDeleting">
+                    <button (click)="buttonOption('like')" *ngIf="!favourite" class="delete-update-buttons" mat-mini-fab
+                        style="color: white;background-color: grey;" color="success" aria-label="icon">
+                        <mat-icon>favorite</mat-icon>
+                    </button>
+                    <button (click)="buttonOption('like')"  *ngIf="favourite" class="delete-update-buttons" mat-mini-fab
+                        style="color: white;background-color: red;" color="success" aria-label="icon">
+                        <mat-icon>favorite</mat-icon>
+                    </button>
+                    <br>
+                    <span>favorite</span>
+
+
                 </div>
 
                 <div fxFlex *ngIf="isDeleting">
@@ -45,11 +64,11 @@
                         <mat-icon>cancel</mat-icon>
                     </button><br>
                     <span>cancel</span>
-                   
+
                 </div>
 
                 <div fxFlex="50" *ngIf="!isDeleting">
-                   
+
                     <button (click)="buttonOption('delete')" class="alertButons" mat-mini-fab
                         style="color: white;background-color: red;" color="success" aria-label="icon">
                         <mat-icon>delete</mat-icon>
@@ -64,7 +83,7 @@
 <div *ngIf="!infoMessage">
     <div class="mat-h4" style="text-align: center;">Help</div>
     <hr>
-    <div class="mat-h3" style="text-align: center;color: #004684;">Touch or click a name to edit or delete.
+    <div class="mat-h3" style="text-align: center;color: #004684;">Touch or click a name to edit or delete. v0.2
     </div>
 
     <div fxLayoutAlign="end end">

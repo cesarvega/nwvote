@@ -89,7 +89,7 @@ export class NwVoteComponent implements OnInit {
   }
 
   sendVote(vote: string) {
-    this.NwvoteService.voteName(this.name, vote).subscribe((res: any) => {
+    this.NwvoteService.voteName(this.nameToDisplay, vote).subscribe((res: any) => {
       console.log(res);
     });
   }

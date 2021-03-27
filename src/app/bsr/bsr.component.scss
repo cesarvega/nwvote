@@ -29,6 +29,15 @@
   }
 }
 
+.main-container {
+  position: absolute;
+  top: -85px;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  background: #fff;
+}
+
 .presentation-box {
   width: 948px;
   height: 714px;
@@ -244,16 +253,13 @@
   transition: transform 250ms cubic-bezier(0, 0, 0.2, 1);
 }
 
-.example-container {
-  position: absolute;
-  top: 0;
-  bottom: 0;
-  left: 0;
-  right: 0;
-  background: #fff;
-}
 .mat-sidenav-backdrop.mat-sidenav-shown {
   background-color: transparent !important;
+}
+
+.overview {
+  max-width: 470px;
+  top: 85px;
 }
 
 .material-icons {
@@ -274,8 +280,8 @@
 }
 
 .name-form {
-  position: fixed;
-  top: 726px;
+  position: relative;
+  top: 133px;
   width: 300px;
   background-color: white;
   height: 90px;
@@ -284,14 +290,12 @@
   padding: 20px;
 }
 .name-form2 {
-  position: fixed;
-  top: 726px;
-  width: 590px;
+  position: relative;
+  bottom: -140px;
   background-color: white;
-  height: 90px;
   border-bottom-left-radius: 12px;
   border-bottom-right-radius: 12px;
-  padding: 20px;
+  left: -180px;
 }
 
 .box {
@@ -324,19 +328,18 @@
   line-height: 20px;
 }
 
-mat-slider {
-  width: 600px;
-  position: fixed;
-  top: 115px;
-  z-index: 99;
-  right: 455px;
-  color: lawngreen;
+.slider-font-size {
+  width: 155px;
+  position: absolute;
+  bottom: 36px;
+  right: -52px;
 }
 
 .instruction-style {
-  border: black solid 1px;
-  padding-block: 10px;
+  // border: black solid 1px;
+  // padding-block: 10px;
   width: 250px;
+  max-width: 330px;
 }
 
 .colorin {
@@ -406,12 +409,16 @@ mat-slider {
   overflow: hidden;
   -ms-overflow-style: none; /* IE and Edge */
   scrollbar-width: none;
+  .deleteButton {
+    display: none;
+  }
 }
 
 .post-card:hover {
   @include BoxShadow(12);
   background-color: lightyellow;
   .deleteButton {
+    display: inline;
     color: #ff0000d1;
     font-size: 19px;
     margin: 5px;
@@ -438,9 +445,10 @@ mat-slider {
 .post-content {
   cursor: pointer;
   width: 263px;
-  height: 207px;
+  height: 198px;
   overflow-y: scroll;
   overflow-x: hidden;
+  font-size: 18px;
 }
 
 .post-content::-webkit-scrollbar {
@@ -456,7 +464,7 @@ mat-slider {
 .synonymsIcon {
   cursor: context-menu;
   position: absolute;
-  right: 15px;
+  right: 29px;
   top: 86px;
   font-size: 16px;
   color: black;
@@ -511,6 +519,7 @@ mat-slider {
   right: 17px;
   z-index: 999999;
   outline: none;
+  cursor: pointer;
 }
 
 .delete-info {
@@ -543,8 +552,8 @@ table {
   background-color: green;
   padding: 4px;
   outline: none;
-  left: 970px;
-  // z-index: 999;
+  left: 956px;
+  z-index: 999;box-shadow: none;
 }
 .tabs-emojis {
   overflow-y: scroll;
@@ -556,12 +565,13 @@ table {
 
 .emoji-handle {
   position: absolute;
-  top: 8px;
-  right: 51px;
+  top: 5px;
+  // border: red solid 1px;
+  right: 2px;
   color: #000;
   cursor: move;
-  width: 664px;
-  height: 24px;
+  width: 276px;
+  height: 38px;
   z-index: 999999;
 }
 .emoji-box {
@@ -648,16 +658,6 @@ mat-tab-group ::-webkit-scrollbar {
   display: none;
 }
 
-.overview {
-  width: 300px;
-  overflow-x: hidden;
-  overflow-y: scroll;
-}
-
-.overview::-webkit-scrollbar {
-  display: none;
-}
-
 .menu-icon {
   position: absolute;
   top: 810px;
@@ -676,34 +676,51 @@ mat-tab-group ::-webkit-scrollbar {
   z-index: 99;
   left: 76px;
   outline: none;
-  opacity: 0;
-}
-.menu-left-icon:hover {
-  opacity: 1;
+  :hover{
+    transform: scale(1.5);
+  }
+  // opacity: 0;
 }
 
 .menu-right-icon {
   position: relative;
-  right: -1043px;
+  right: -1047px;
   top: -283px;
   z-index: 99;
   outline: none;
-  opacity: 0;
+  :hover{
+    transform: scale(1.5);
+  }
 }
 
-.menu-right-icon:hover {
-  opacity: 1;
-}
-
-.fullscreen {
+.corner_bar_menu {
   position: absolute;
   right: 60px;
   bottom: 30px;
   outline: none;
-  .full-icon {
-    color: grey !important;
-    font-size: 30px;
-  }
+  z-index: 9999;
+  background: white;
+  border-radius: 5px;
+
+}
+
+::ng-deep  .mat-tooltip {
+  font-size: 24px;
+}
+
+.full-icon:hover {
+  transform: scale(2.1);
+}
+.full-icon {
+  color: grey !important;
+  font-size: 20px;
+  transition: all 0.1s ease-in-out;
+}
+
+.qr_code {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
 }
 
 $postItanimations: shakeY, shakeY, shakeY, shakeY, shakeY, shakeY, shakeY, shakeY, shakeY, shakeY, shakeY, shakeY;
@@ -822,6 +839,7 @@ $postItHeaderColors2: #d6f8fd, #dcd6fd, #d6fde9, #fdfcd6, #d6f8fd, #fdd6e8, #fdd
     opacity: 1;
   }
 }
+
 .brandstorm {
   display: inline-block;
   margin: 0 0.5rem;
@@ -854,7 +872,7 @@ $postItHeaderColors2: #d6f8fd, #dcd6fd, #d6fde9, #fdfcd6, #d6f8fd, #fdd6e8, #fdd
 .searchy {
   width: 190px;
   position: absolute;
-  top: 327px;
+  top: 361px;
   left: 533px;
   max-height: 400px;
   overflow-y: scroll;

@@ -1,0 +1,279 @@
+<div class="mainContainerPresent">
+
+
+
+    <img class="logo" src="assets/img/bi-logo-with-tagline.svg">
+    <div *ngIf="isForm">
+        <div class="mat-subheading-1 secondary-text welcome">Welcome please schedule a meeting </div>
+
+
+
+        <mat-tab-group [selectedIndex]="selectedIndex" >
+            <mat-tab label="Date-Time">
+
+
+
+                <div style="display: flex; flex-direction: row; margin-top: 40px;">
+<!-- 
+                    <angular2-date-picker (onDateSelect)="onDateSelect($event)" (ngmodelchange)="onDateSelect($event)" style="    width: 250px; 
+                margin-left: 30px;" [(ngModel)]="date" [settings]="settings"></angular2-date-picker> -->
+                <div>
+                <mat-form-field    appearance="outline" style="width: 250px;  margin-left: 30px;">
+                    <mat-label>Appointment Date</mat-label>
+                    <input matInput  [min]="MinDate"[matDatepicker]="theTimePicker" placeholder="select a date" (dateChange)="onDateSelect($event)"
+                        required [min]="today | date: 'yyyy-MM-dd'" >
+                    <mat-error *ngIf="true">
+                        A valid date is required!
+                    </mat-error>
+                    <mat-datepicker-toggle matSuffix [for]="theTimePicker"></mat-datepicker-toggle>
+                    <mat-datepicker  (closed)="_openCalendar(theTimePicker, 'picker')" [opened]="true" #theTimePicker color="primary" style="color: tomato;"></mat-datepicker>
+                </mat-form-field>
+            </div>
+                    <div style="margin-left: 124px;z-index: 1;">
+                        <p style="font-weight: 900;font-family: caviar;font-size: larger;">Available Time</p>
+                        <div class="">
+
+                            <div class="timePickerclass">
+                                <!-- <button mat-raised-button color="primary" (click)="searchTime()" 
+                                style="margin-bottom: 10px 5px ;color: white;z-index:999; width: 200px;">Search</button> -->
+                               
+
+                                <div *ngFor="let time of times; let i = index; " style="display: flex;flex-direction: column;align-items: center; ">
+                                    <button *ngIf="i !== selectTimeConfirmIndex" [disabled]="(times.length > 1)?false:true" mat-raised-button (click)="selectTimeConfirmIndex = i" style="width: 200px;margin: 5px 0px;">{{time.name}}</button>
+                                    <div *ngIf="i === selectTimeConfirmIndex && times.length > 1" style="display: flex;flex-direction: row;justify-content: space-around;">
+                                        <button mat-raised-button style="margin: 10px 2px;color: white;" color="accent">{{time.name}}</button>
+                                        <button mat-raised-button (click)="radioChange(time.name)"  style="margin: 10px 2px;color: white;" color="primary">Confirm </button>
+                                    </div>
+                                </div>
+
+
+                                <!-- <mat-radio-group aria-label="Select an option">
+                                    <div *ngFor="let time of times; index as i;">
+                                        <mat-radio-button (change)="radioChange($event)" [value]="i">{{time.name}}
+                                        </mat-radio-button>
+                                    </div>
+                                </mat-radio-group> -->
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+
+            </mat-tab>
+            <mat-tab label="personal info" [disabled]="disablePersonalInfoTab">
+
+                <div fxFlex class="page-layout p-12" fxLayoutAlign="center center">
+
+                    <div fxFlex fxLayout="row wrap">
+
+                        <div fxFlex fxLayout="column" fxLayoutGap="12px" fxLayoutAlign="start center">
+
+                            <div class="fuse-card" class="pesonalInfoClass" style="align-items: center;width: 410px;">
+                              
+                                <div class="p-16 pt-0 line-height-1.75">
+                                    <div fxFlex fxLayout="column" [formGroup]="form">
+
+                                        <mat-form-field appearance="outline">
+                                            <mat-label>Appoinment Time</mat-label>
+                                            <input matInput formControlName="time" type="text" [(ngModel)]="time" step [attr.disabled]="'true'" style="display: none;"
+                                                placeholder="chose a date" required >
+                                                <p>{{time}}</p>
+                                            <blockquote>
+                                                <p class="font-weight-100">Meeting hours are from 8 am to 6 pm EST.</p>
+                                            </blockquote>
+                                        </mat-form-field>
+
+                                        <mat-form-field appearance="outline">
+                                            <mat-label>Company</mat-label>
+                                            <input type="text" formControlName="company" matInput placeholder="Company"
+                                                required />
+                                            <mat-error *ngIf="true">
+                                                A company is required!
+                                            </mat-error>
+                                        </mat-form-field>
+                                        <mat-form-field appearance="outline">
+                                            <mat-label>First Name</mat-label>
+                                            <input type="text" formControlName="firstName" matInput
+                                                placeholder="first Name" required />
+                                            <mat-error *ngIf="true">
+                                                A contact first name is required!
+                                            </mat-error>
+                                        </mat-form-field>
+
+                                        <mat-form-field appearance="outline">
+                                            <mat-label>Last Name</mat-label>
+                                            <input type="text" formControlName="lastName" matInput
+                                                placeholder="last Name" required />
+                                            <mat-error *ngIf="true">
+                                                A contact last name is required!
+                                            </mat-error>
+                                        </mat-form-field>
+
+                                        <mat-form-field appearance="outline">
+                                            <mat-label>Street Address</mat-label>
+                                            <input type="text" formControlName="address" matInput placeholder="Address"
+                                                required />
+                                            <mat-error *ngIf="true">
+                                                A Street Address is required!
+                                            </mat-error>
+                                            <blockquote>
+                                                <p class="font-weight-100">To assign the appropriate representative,
+                                                    please fill in the address.</p>
+                                            </blockquote>
+                                        </mat-form-field>
+
+
+                                        <mat-form-field appearance="outline" *ngIf="true">
+                                            <mat-label>City</mat-label>
+                                            <input type="text" formControlName="city" matInput placeholder="city"
+                                                required />
+                                            <mat-error *ngIf="true">
+                                                A City is required!
+                                            </mat-error>
+                                        </mat-form-field>
+
+                                        <mat-form-field appearance="outline" *ngIf="true">
+                                            <mat-label>State</mat-label>
+                                            <input type="text" formControlName="state" matInput placeholder="state" />
+                                            <!-- <mat-error *ngIf="true">
+                                A note is !
+                            </mat-error> -->
+                                        </mat-form-field>
+
+                                        <mat-form-field appearance="outline" *ngIf="true">
+                                            <mat-label>Country</mat-label>
+                                            <input type="text" formControlName="country" matInput placeholder="country"
+                                                required />
+                                            <mat-error *ngIf="true">
+                                                A Country is required!
+                                            </mat-error>
+                                        </mat-form-field>
+
+                                        <mat-form-field appearance="outline" *ngIf="true">
+                                            <mat-label>Postal Code</mat-label>
+                                            <input type="text" formControlName="postalcode" matInput
+                                                placeholder="postalcode" />
+                                            <!-- <mat-error *ngIf="true">
+                                A note is !
+                            </mat-error> -->
+                                        </mat-form-field>
+
+                                        <mat-form-field appearance="outline">
+                                            <mat-label>Email </mat-label>
+                                            <input type="email" [(ngModel)]="email" formControlName="email" matInput
+                                                placeholder="Email" required />
+                                            <mat-error *ngIf="true">
+                                                A email is required!
+                                            </mat-error>
+                                        </mat-form-field>
+
+                                        <mat-form-field appearance="outline">
+                                            <mat-label>Phone</mat-label>
+                                            <input type="number" formControlName="phone" matInput placeholder="Phone"
+                                                required />
+                                            <mat-error *ngIf="true">
+                                                A phone number is required!
+                                            </mat-error>
+                                        </mat-form-field>
+
+
+
+                                        <!-- <mat-form-field appearance="outline">
+                                            <mat-label>Time Zone</mat-label>
+                                            <mat-select formControlName="timeZone" matNativeControl
+                                                [(ngModel)]="selected" placeholder="Select time zone" required>
+                                                <mat-option value="EST">Eastern Time (EST)</mat-option>
+                                                <mat-option value="CST">Central Time (CST)</mat-option>
+                                                <mat-option value="MT">Mountain Time (MT)</mat-option>
+                                                <mat-option value="PST">Pacific Time (PST)</mat-option>
+                                                <mat-option value="WET">Western European Time (WET)</mat-option>
+                                                <mat-option value="CET">Central European Time (CET)</mat-option>
+                                                <mat-option value="EET">Eastern European Time (EET)</mat-option>
+                                                <mat-option value="JPT">Japan Time (JPT)</mat-option>
+                                                <mat-option value="KST">Korea Time (KST)</mat-option>
+                                                <mat-option value="BRT">Brasilia Time (BRT)</mat-option>
+                                            </mat-select>
+                                        </mat-form-field> -->
+
+                                        <mat-form-field appearance="outline">
+                                            <mat-label>Time Zone</mat-label>
+                                            <mat-select formControlName="timeZone" matNativeControl
+                                                [(ngModel)]="selected"  placeholder="Select time zone" required [value]="timeZoneOption[0]">
+                                                <mat-option  [value]="timezone.value" *ngFor="let timezone of timeZoneOption">{{timezone.name}}</mat-option>                                                
+                                            </mat-select>
+                                        </mat-form-field>
+
+
+                                        <mat-form-field appearance="outline">
+                                            <mat-label>Meeting Type</mat-label>
+                                            <input formControlName="type" matInput style="display:none;"
+                                                [(ngModel)]="call" required>
+                                            <mat-radio-group formControlName="type">
+                                                <mat-radio-button *ngFor="let appointmentTpe of callType"
+                                                    [value]="appointmentTpe" style="margin-right: 5px;">
+                                                    {{appointmentTpe}}</mat-radio-button>
+                                            </mat-radio-group>
+                                        </mat-form-field>
+
+
+
+                                        <mat-form-field appearance="outline">
+                                            <mat-label>Notes</mat-label>
+                                            <textarea formControlName="note" matInput placeholder="write your note"
+                                                [rows]="3" [matTextareaAutosize]="true" required></textarea>
+                                            <mat-error *ngIf="true">
+                                                A note is required!
+                                            </mat-error>
+                                        </mat-form-field>
+
+
+                                    </div>
+
+                                </div>
+                            </div>
+
+                        </div>
+
+
+                    </div>
+                </div>
+
+
+            </mat-tab>
+            <!-- <mat-tab label="Third" [disabled]="true"> Content 3 </mat-tab> -->
+        </mat-tab-group>
+
+        <div style="padding-top: 10px;">
+            <button *ngIf="!isNextTab" mat-button color="primary" (click)="previousStep()" (click)="_openCalendar(theTimePicker, 'prev')"
+                [disabled]="desablePrevioustButton">
+                Previous
+            </button>
+            <!-- <button  *ngIf="isNextTab" mat-button color="primary" (click)="nextStep()" [disabled]="desableNextButton">
+                Next
+            </button> -->
+            <button *ngIf="!isNextTab" mat-raised-button type="submit" (click)="onSubmit()"
+                style="color: white;background-color: #1564bf;">
+                Submit
+            </button>
+
+        </div>
+    </div>
+
+
+    <div *ngIf="isThankyou">
+        <div style="padding-top: 20px;" class="mat-display-1  secondary-text">Thank you!</div>
+        <div class="mat-subheading-1 secondary-text">Your appointment meeting is scheduled</div>
+        <button mat-button color="primary" (click)="makeAnother()" [disabled]="false">
+            Make Another Appointment
+        </button>
+    </div>
+
+    <div  *ngIf="formAlert" class="formFieldValidationAlert" style="display: flex;flex-direction: column; align-items: center; justify-content: center;">
+        <h1> PLease complete these fields </h1>
+        <div *ngFor=" let field  of emptyFormFields" >{{field}}</div>
+        <br>
+        <br>
+        <button mat-raised-button (click)="dismissErrorForm()">Dismiss</button>
+    </div>
+
+</div>
