@@ -13,36 +13,45 @@
         <div class="foodCard" *ngFor="let item of food; index as i">
             <h1 class="title secondary-text">{{item.name}}</h1>
             <div class="title secondary-text">{{item.description}}</div>
-            <div class="row">
-                <button *ngIf="item.options?.length > 0" mat-raised-button color="primary" (click)="option(i)"
-                    style="color: black;outline: none; margin: 10px; color: white;">
-                    options
-                </button>
-                <button *ngIf="item.toppings?.length > 0" mat-raised-button color="accent" (click)="toppings(i)"
-                    style="color: black;outline: none; margin: 10px; color: white;">
-                    toppings
-                </button>
-                <button mat-icon-button color="accent" (click)="removeToCart(i)" style="color: black;outline: none;">
-                    <mat-icon>remove_circle_outline</mat-icon>
-                </button>
 
-                <button mat-icon-button color="primary" (click)="addToCart(i)" style="color: black;outline: none;">
-                    <mat-icon>add_circle_outline</mat-icon>
-                </button>
-                <button mat-icon-button color="primary" style="color: black;outline: none;font-size: 30px;">
-                    {{item.orderQuantity}}
-                </button>
+            <img style="width: 200px;" [src]="item.imgSrc">
+
+            <div class="column">
+                <div class="row">
+                    <button *ngIf="item.options?.length > 0" mat-raised-button color="primary" (click)="option(i)"
+                        style="color: black;outline: none; margin: 4px; color: white;">
+                        options
+                    </button>
+                    <button *ngIf="item.toppings?.length > 0" mat-raised-button color="accent" (click)="toppings(i)"
+                        style="color: black;outline: none; margin: 4px; color: white;">
+                        toppings
+                    </button>
+                    <button mat-icon-button color="accent" (click)="removeToCart(i)"
+                        style="color: black;outline: none;">
+                        <mat-icon>remove_circle_outline</mat-icon>
+                    </button>
+
+                    <button mat-icon-button color="primary" (click)="addToCart(i)" style="color: black;outline: none;">
+                        <mat-icon>add_circle_outline</mat-icon>
+                    </button>
+                    <button mat-icon-button color="primary" style="color: black;outline: none;font-size: 30px;">
+                        {{item.orderQuantity}}
+                    </button>
+                </div>
+                <div class="row">
+                    Speacial Instructions &nbsp; &nbsp; <input [(ngModel)]="item.specialIntructions" matInput placeholder="Ex. Pizza" type="text">
+                </div>
             </div>
-
         </div>
         <br>
         <br>
         <br>
         <br>
         <br>
-
-
     </div>
+
+
+
 
     <div class="footer">
 
@@ -63,6 +72,15 @@
     </div>
 
 
+
+
+
+
+
+
+
+
+
     <!-- MODAL WINDOWS -->
 
     <div *ngIf="popUpToppings" class="formFieldValidationAlert"
@@ -76,7 +94,7 @@
             </div>
         </div>
 
-        <div class="row">
+        <div class="rowPopup">
             <button mat-raised-button color="accent" style="margin-right: 5px; color: white;"
                 (click)="dismissErrorForm()">cancel</button>
             <button mat-raised-button color="primary" style="color: white;"
@@ -89,12 +107,12 @@
 
     <div *ngIf="popUpOptions" class="formFieldValidationAlert">
         <h1>Please select an option</h1>
-        <mat-radio-group class="column" [(ngModel)]="selectedOption">
-            <mat-radio-button *ngFor=" let item  of foodOptions.options ; index as i" [value]="item.name">
+        <mat-radio-group class="column" [(ngModel)]="selectedOption"  *ngFor=" let item  of foodOptions.options ; index as i" >
+            <mat-radio-button [value]="item.name">
                 {{item.name}}
             </mat-radio-button>
         </mat-radio-group>
-        <div class="row">
+        <div class="rowPopup">
             <button mat-raised-button color="accent" style="margin-right: 5px; color: white;"
                 (click)="dismissErrorForm()">cancel</button>
             <button mat-raised-button color="primary" style="color: white;" (click)="dismissErrorForm()"
@@ -113,7 +131,7 @@
     </div>
 
 
-    <div *ngIf="popUpCheckout" class="reviewOrderClass">
+    <div *ngIf="popUpCheckout" class="reviewOrderClass  disable-dbl-tap-zoom">
         <h1>REVIEW ORDER</h1>
 
         <div style="overflow-y: scroll;">
@@ -121,14 +139,15 @@
                 style="display: flex;flex-direction: column;border: black solid 1px;width: 250px;border-radius: 5px;">
                 <h2>{{item.name}}</h2>
                 <!-- <div>Price &nbsp; &nbsp; </div> -->
-              
+
                 <div>{{item.description}}</div>
                 <div>{{item.specialIntructions}}</div>
                 <div>{{item.selectedOption}}</div>
                 <div>{{item.selectedToppings}}</div>
                 <br>
                 <div class="row" style="justify-content: space-around;">
-                    <button mat-icon-button color="accent" (click)="removeToCart(i)" style="color: black;outline: none;">
+                    <button mat-icon-button color="accent" (click)="removeToCart(i)"
+                        style="color: black;outline: none;">
                         <mat-icon>remove_circle_outline</mat-icon>
                     </button>
                     <div>{{item.orderQuantity}} x ${{item.price}}</div>
@@ -141,7 +160,7 @@
         </div>
         <br>
         <br>
-        <button mat-mini-fab color="primary" style="color:white;background-color: green;font-size: 6px;" 
+        <button mat-mini-fab color="primary" style="color:white;background-color: green;font-size: 6px;"
             (click)="checkout()">
             <mat-icon>attach_money</mat-icon>
         </button>
@@ -149,10 +168,10 @@
     </div>
 
 
-    <div *ngIf="popUpThankyou" class="reviewOrderClass">
+    <div *ngIf="popUpThankyou" class="reviewOrderClass  disable-dbl-tap-zoom">
         <h2>THANK YOU FOR YOUR ORDER</h2>
 
-        <button mat-mini-fab color="primary" style="color:white;background-color: green;font-size: 6px;" 
+        <button mat-mini-fab color="primary" style="color:white;background-color: green;font-size: 6px;"
             (click)="thankYou()">
             <mat-icon>done</mat-icon>
         </button>

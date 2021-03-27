@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { ThemePalette } from '@angular/material/core';
 import { ActivatedRoute } from '@angular/router';
+import { RestaurantService } from './restaurant.service';
 
 @Component({
   selector: 'app-restaurant',
@@ -14,6 +15,7 @@ export class RestaurantComponent implements OnInit {
     {
       name: 'Emapanadas', price: 8.10,
       description: 'Three Crunchy Colombian Empanadas filled with beef and potato.',
+      imgSrc:'./assets/img/food/empanada.jpg',
       specialIntructions: '',
       selectedOption: '',
       selectedToppings: [],
@@ -35,6 +37,7 @@ export class RestaurantComponent implements OnInit {
     {
       name: 'Tequenos de Venezuala', price: 8.10,
       description: 'Three cheese-filled pastry fingers from Venezuela.',
+      imgSrc:'./assets/img/food/teque.jpg',
       specialIntructions: '',
       selectedOption: '',
       selectedToppings: [],
@@ -51,6 +54,7 @@ export class RestaurantComponent implements OnInit {
     {
       name: 'Maicitos', price: 13,
       description: 'Fireroastedcorn, topped with mozzarella cheese, crushedLay’s PotatoChips, Green sauce & Pinksauce.',
+      imgSrc:'./assets/img/food/maicitos.jpg',
       specialIntructions: '',
       selectedOption: '',
       selectedToppings: [],
@@ -67,6 +71,7 @@ export class RestaurantComponent implements OnInit {
     {
       name: 'Colombian Quesadilla', price: 13,
       description: 'Quesadilla topped with crushed Lay’s Potato Chips, green sauce & pinksauce',
+      imgSrc:'./assets/img/food/colquesadilla.jpg',
       specialIntructions: '',
       selectedOption: '',
       selectedToppings: [],
@@ -83,6 +88,7 @@ export class RestaurantComponent implements OnInit {
     {
       name: 'Mexican Quesadilla', price: 13,
       description: 'Quesadilla with our fresh made guacamole, jalapenos, pico de gallo, and our chipotle aioli.',
+      imgSrc:'./assets/img/food/quesadillas.jpg',
       specialIntructions: '',
       selectedOption: '',
       selectedToppings: [],
@@ -99,6 +105,7 @@ export class RestaurantComponent implements OnInit {
     {
       name: 'Mexican Street Tacos', price: 13,
       description: '2 Mouthwatering Tacos - made with CORN OR FLOUR TORTILLAS. Beef Barbacoa - Picodegallo, cilantro, cabbage & cotijacheese. ; Pollo Y Pina -Pineapple, cabbage, cilantro, Cotija cheese & Chipotle aioli.; Veggie - Fire roasted corn, mushroom, bellpeper, onions, cabbage, cilantro, guacamole, Cotija cheese & Chipotle aioli.',
+      imgSrc:'./assets/img/food/tacos.jpg',
       specialIntructions: '',
       selectedOption: '',
       selectedToppings: [],
@@ -118,6 +125,7 @@ export class RestaurantComponent implements OnInit {
     {
       name: 'Melissa Wings', price: 13,
       description: '10 Chicken Wings tossed in your choice of sauces.',
+      imgSrc:'./assets/img/food/wings.jpg',
       specialIntructions: '',
       selectedOption: '',
       selectedToppings: [],
@@ -136,6 +144,7 @@ export class RestaurantComponent implements OnInit {
     {
       name: 'Colomboan Dog', price: 9.71,
       description: 'Nathan`s famous beef hot dog wrapped in applewood smoked bacon, melted Mozzarella cheese, crushed Lay`s potato chips, coleslaw, green, pink and pineapple sauce.',
+      imgSrc:'./assets/img/food/colhotdog.jpg',
       specialIntructions: '',
       selectedOption: '',
       selectedToppings: [],
@@ -149,6 +158,7 @@ export class RestaurantComponent implements OnInit {
     {
       name: 'Venezuelan Dog', price: 9.71,
       description: 'Nathan`s famous beef hot dog crushed Lay`s Potato chips, coleslsaw, mayonnaise, ketchup, mustard & parmesan cheese.',
+      imgSrc:'./assets/img/food/venehotdog.jpg',
       specialIntructions: '',
       selectedOption: '',
       selectedToppings: [],
@@ -162,6 +172,7 @@ export class RestaurantComponent implements OnInit {
     {
       name: 'Mexican Dog', price: 9.71,
       description: 'Nathan`s famous beef hot dog, Monterey Jack Cheese, freshly-made guacamole, jalapenos and pico de gallo.',
+      imgSrc:'./assets/img/food/newyorkhotdog.jpg',
       specialIntructions: '',
       selectedOption: '',
       selectedToppings: [],
@@ -175,6 +186,7 @@ export class RestaurantComponent implements OnInit {
     {
       name: 'New Yorker', price: 9.71,
       description: 'Nathan`s famous beef hot dog, mustard, sauserkraut & sweet onions.',
+      imgSrc:'./assets/img/food/newyorkhotdog.jpg',
       specialIntructions: '',
       selectedOption: '',
       selectedToppings: [],
@@ -244,7 +256,7 @@ export class RestaurantComponent implements OnInit {
 
 
 
-  constructor(private paramsRouter: ActivatedRoute) { }
+  constructor(private paramsRouter: ActivatedRoute, private restaurantService :RestaurantService) { }
 
   ngOnInit(): void {
  
@@ -252,10 +264,10 @@ export class RestaurantComponent implements OnInit {
       this.tableId = +params['id']; 
    });
 
-   if (localStorage.getItem('food')) {
+  //  if (localStorage.getItem('food')) {
      
-     this.food = JSON.parse(localStorage.getItem('food')); 
-   }
+  //    this.food = JSON.parse(localStorage.getItem('food')); 
+  //  }
 
   }
 
@@ -318,8 +330,12 @@ export class RestaurantComponent implements OnInit {
         tableId : this.tableId
       }
 
+     
+
     })
-    // document.body.requestFullscreen();
+
+    this.restaurantService.setOrder(this.order);
+    localStorage.setItem('order', JSON.stringify(this.order));
 
   }
 
@@ -334,7 +350,7 @@ export class RestaurantComponent implements OnInit {
   }
   confirm() {
     // this.popUpCheckout = true;
-    // document.body.requestFullscreen();
+    
   }
 
   selected() {
