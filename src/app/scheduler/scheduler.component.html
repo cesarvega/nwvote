@@ -32,16 +32,24 @@
                     <div style="margin-left: 124px;z-index: 1;">
                         <p style="font-weight: 900;font-family: caviar;font-size: larger;">Available Time</p>
                         <div class="">
-
+                            <mat-form-field appearance="outline">
+                                <mat-label>Time Zone</mat-label>
+                                <mat-select  matNativeControl
+                                    [(ngModel)]="selected"  placeholder="Select time zone" required [value]="timeZoneOption[0]">
+                                    <mat-option  [value]="timezone.value" *ngFor="let timezone of timeZoneOption">{{timezone.name}}</mat-option>                                                
+                                </mat-select>
+                            </mat-form-field>
+    
                             <div class="timePickerclass">
                                 <!-- <button mat-raised-button color="primary" (click)="searchTime()" 
                                 style="margin-bottom: 10px 5px ;color: white;z-index:999; width: 200px;">Search</button> -->
                                
 
                                 <div *ngFor="let time of times; let i = index; " style="display: flex;flex-direction: column;align-items: center; ">
-                                    <button *ngIf="i !== selectTimeConfirmIndex" [disabled]="(times.length > 1)?false:true" mat-raised-button (click)="selectTimeConfirmIndex = i" style="width: 200px;margin: 5px 0px;">{{time.name}}</button>
+                                    <button *ngIf="i !== selectTimeConfirmIndex" [disabled]="(times.length > 1)?false:true" mat-raised-button (click)="selectTimeConfirmIndex = i"
+                                         style="width: 200px;margin: 5px 0px;">{{time.MeetingTime}}</button>
                                     <div *ngIf="i === selectTimeConfirmIndex && times.length > 1" style="display: flex;flex-direction: row;justify-content: space-around;">
-                                        <button mat-raised-button style="margin: 10px 2px;color: white;" color="accent">{{time.name}}</button>
+                                        <button mat-raised-button style="margin: 10px 2px;color: white;" color="accent">{{time.MeetingTime}}</button>
                                         <button mat-raised-button (click)="radioChange(time.name)"  style="margin: 10px 2px;color: white;" color="primary">Confirm </button>
                                     </div>
                                 </div>
@@ -55,6 +63,7 @@
                                 </mat-radio-group> -->
                             </div>
                         </div>
+                       
                     </div>
 
                 </div>
@@ -194,15 +203,7 @@
                                                 <mat-option value="BRT">Brasilia Time (BRT)</mat-option>
                                             </mat-select>
                                         </mat-form-field> -->
-
-                                        <mat-form-field appearance="outline">
-                                            <mat-label>Time Zone</mat-label>
-                                            <mat-select formControlName="timeZone" matNativeControl
-                                                [(ngModel)]="selected"  placeholder="Select time zone" required [value]="timeZoneOption[0]">
-                                                <mat-option  [value]="timezone.value" *ngFor="let timezone of timeZoneOption">{{timezone.name}}</mat-option>                                                
-                                            </mat-select>
-                                        </mat-form-field>
-
+                                     
 
                                         <mat-form-field appearance="outline">
                                             <mat-label>Meeting Type</mat-label>
