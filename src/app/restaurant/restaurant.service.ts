@@ -1,25 +1,31 @@
 import { Injectable } from '@angular/core';
 
+import { HttpClient, HttpHeaders } from '@angular/common/http';
+const httpOptions = {
+  headers: new HttpHeaders({ 'Content-Type': 'application/json' })
+};
 @Injectable({
   providedIn: 'root'
 })
 export class RestaurantService {
 
-  order:any
-  constructor() { }
+  order: any
+  constructor(private http: HttpClient) { }
 
 
-  setOrder(order){
-    this.order = order;
- 
+  sendOrder(order) {
+    this.order = JSON.stringify(order);
+    return this.http.post('https://blooming-island-37744.herokuapp.com/order', this.order, httpOptions);
   }
-  getOrder(){
-    if (this.order) {
-      
-      return this.order;
-    }else {
-      return JSON.parse( localStorage.getItem('order'));
-    }
+
+
+  getOrder() {    
+    return this.http.get('https://blooming-island-37744.herokuapp.com/order');
+  }
+
+
+  getStripe() {    
+    return this.http.get('https://blooming-island-37744.herokuapp.com/payment/session?amount=100&id=100');
   }
 
 

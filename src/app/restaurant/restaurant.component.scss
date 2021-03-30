@@ -282,6 +282,18 @@
             align-items: flex-start;
             margin: 10px;
         }
+
+
+
+        .pizzaImage{
+            transition: all .2s ease-in-out;
+            animation: fadeIn 1 ease-in 0  forwards 1;
+        }
+
+        .pizzaImage:hover{
+            // transform: scale(1.1);
+        }
+
     }
     .formFieldValidationAlert {
         background-color: white;

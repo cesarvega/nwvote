@@ -11,11 +11,11 @@ import { RestaurantService } from './restaurant.service';
 export class RestaurantComponent implements OnInit {
 
 
-  food : any = [
+  food: any = [
     {
-      name: 'Emapanadas', price: 8.10,
+      name: 'Maragrita', price: 8.10,
       description: 'Three Crunchy Colombian Empanadas filled with beef and potato.',
-      imgSrc:'./assets/img/food/empanada.jpg',
+      imgSrc: './assets/img/food/maragarita.jpg',
       specialIntructions: '',
       selectedOption: '',
       selectedToppings: [],
@@ -35,9 +35,9 @@ export class RestaurantComponent implements OnInit {
     },
 
     {
-      name: 'Tequenos de Venezuala', price: 8.10,
+      name: 'Pepperoni', price: 8.10,
       description: 'Three cheese-filled pastry fingers from Venezuela.',
-      imgSrc:'./assets/img/food/teque.jpg',
+      imgSrc: './assets/img/food/peperoni.jpg',
       specialIntructions: '',
       selectedOption: '',
       selectedToppings: [],
@@ -52,9 +52,9 @@ export class RestaurantComponent implements OnInit {
     },
 
     {
-      name: 'Maicitos', price: 13,
+      name: 'Mushrooms', price: 13,
       description: 'Fireroastedcorn, topped with mozzarella cheese, crushedLay’s PotatoChips, Green sauce & Pinksauce.',
-      imgSrc:'./assets/img/food/maicitos.jpg',
+      imgSrc: './assets/img/food/Mushrooms.jpg',
       specialIntructions: '',
       selectedOption: '',
       selectedToppings: [],
@@ -69,9 +69,9 @@ export class RestaurantComponent implements OnInit {
     },
 
     {
-      name: 'Colombian Quesadilla', price: 13,
+      name: 'White Truffas', price: 13,
       description: 'Quesadilla topped with crushed Lay’s Potato Chips, green sauce & pinksauce',
-      imgSrc:'./assets/img/food/colquesadilla.jpg',
+      imgSrc: './assets/img/food/whiteTruffas.jpg',
       specialIntructions: '',
       selectedOption: '',
       selectedToppings: [],
@@ -88,7 +88,7 @@ export class RestaurantComponent implements OnInit {
     {
       name: 'Mexican Quesadilla', price: 13,
       description: 'Quesadilla with our fresh made guacamole, jalapenos, pico de gallo, and our chipotle aioli.',
-      imgSrc:'./assets/img/food/quesadillas.jpg',
+      imgSrc: './assets/img/food/quesadillas.jpg',
       specialIntructions: '',
       selectedOption: '',
       selectedToppings: [],
@@ -105,7 +105,7 @@ export class RestaurantComponent implements OnInit {
     {
       name: 'Mexican Street Tacos', price: 13,
       description: '2 Mouthwatering Tacos - made with CORN OR FLOUR TORTILLAS. Beef Barbacoa - Picodegallo, cilantro, cabbage & cotijacheese. ; Pollo Y Pina -Pineapple, cabbage, cilantro, Cotija cheese & Chipotle aioli.; Veggie - Fire roasted corn, mushroom, bellpeper, onions, cabbage, cilantro, guacamole, Cotija cheese & Chipotle aioli.',
-      imgSrc:'./assets/img/food/tacos.jpg',
+      imgSrc: './assets/img/food/tacos.jpg',
       specialIntructions: '',
       selectedOption: '',
       selectedToppings: [],
@@ -125,7 +125,7 @@ export class RestaurantComponent implements OnInit {
     {
       name: 'Melissa Wings', price: 13,
       description: '10 Chicken Wings tossed in your choice of sauces.',
-      imgSrc:'./assets/img/food/wings.jpg',
+      imgSrc: './assets/img/food/wings.jpg',
       specialIntructions: '',
       selectedOption: '',
       selectedToppings: [],
@@ -144,7 +144,7 @@ export class RestaurantComponent implements OnInit {
     {
       name: 'Colomboan Dog', price: 9.71,
       description: 'Nathan`s famous beef hot dog wrapped in applewood smoked bacon, melted Mozzarella cheese, crushed Lay`s potato chips, coleslaw, green, pink and pineapple sauce.',
-      imgSrc:'./assets/img/food/colhotdog.jpg',
+      imgSrc: './assets/img/food/colhotdog.jpg',
       specialIntructions: '',
       selectedOption: '',
       selectedToppings: [],
@@ -158,7 +158,7 @@ export class RestaurantComponent implements OnInit {
     {
       name: 'Venezuelan Dog', price: 9.71,
       description: 'Nathan`s famous beef hot dog crushed Lay`s Potato chips, coleslsaw, mayonnaise, ketchup, mustard & parmesan cheese.',
-      imgSrc:'./assets/img/food/venehotdog.jpg',
+      imgSrc: './assets/img/food/venehotdog.jpg',
       specialIntructions: '',
       selectedOption: '',
       selectedToppings: [],
@@ -172,7 +172,7 @@ export class RestaurantComponent implements OnInit {
     {
       name: 'Mexican Dog', price: 9.71,
       description: 'Nathan`s famous beef hot dog, Monterey Jack Cheese, freshly-made guacamole, jalapenos and pico de gallo.',
-      imgSrc:'./assets/img/food/mexicanhotdog.jpg',
+      imgSrc: './assets/img/food/mexicanhotdog.jpg',
       specialIntructions: '',
       selectedOption: '',
       selectedToppings: [],
@@ -186,7 +186,7 @@ export class RestaurantComponent implements OnInit {
     {
       name: 'New Yorker', price: 9.71,
       description: 'Nathan`s famous beef hot dog, mustard, sauserkraut & sweet onions.',
-      imgSrc:'./assets/img/food/newyorkhotdog.jpg',
+      imgSrc: './assets/img/food/newyorkhotdog.jpg',
       specialIntructions: '',
       selectedOption: '',
       selectedToppings: [],
@@ -198,9 +198,10 @@ export class RestaurantComponent implements OnInit {
     },
 
   ]
-
+ 
 
   order = {
+    tableNo: 1,   
     orderItems: [
       {
         name: 'Emapanadas', price: 8.10,
@@ -232,8 +233,7 @@ export class RestaurantComponent implements OnInit {
       },
     ],
     serviceCharge: 15,
-    tax: 7,
-    tableId : ''
+    tax: 7
   }
 
   myAngularxQrCode = 'http://mrvrman.com/food/234234';
@@ -251,23 +251,23 @@ export class RestaurantComponent implements OnInit {
   foodOption;
   sendingOrder: any;
   selectedOption;
-  paramsArray: any;email: any;
-  tableId: any;
+  paramsArray: any; email: any;
+  tableNo: any;
 
 
 
-  constructor(private paramsRouter: ActivatedRoute, private restaurantService :RestaurantService) { }
+  constructor(private paramsRouter: ActivatedRoute, private restaurantService: RestaurantService) { }
 
   ngOnInit(): void {
- 
-    this.paramsRouter.params.subscribe(params => {
-      this.tableId = +params['id']; 
-   });
 
-  //  if (localStorage.getItem('food')) {
-     
-  //    this.food = JSON.parse(localStorage.getItem('food')); 
-  //  }
+    this.paramsRouter.params.subscribe(params => {
+      this.tableNo = +params['id'];
+    });
+
+    //  if (localStorage.getItem('food')) {
+
+    //    this.food = JSON.parse(localStorage.getItem('food')); 
+    //  }
 
   }
 
@@ -327,14 +327,14 @@ export class RestaurantComponent implements OnInit {
         orderItems: this.sendingOrder,
         serviceCharge: 15,
         tax: 7,
-        tableId : this.tableId
+        tableNo: this.tableNo
       }
 
-     
+
 
     })
 
-    this.restaurantService.setOrder(this.order);
+    this.restaurantService.sendOrder(this.order);
     localStorage.setItem('order', JSON.stringify(this.order));
 
   }
@@ -343,6 +343,21 @@ export class RestaurantComponent implements OnInit {
   checkout() {
     this.popUpCheckout = !this.popUpCheckout;
     this.popUpThankyou = true;
+    this.restaurantService.getOrder().subscribe(res =>{
+      console.log(res);
+
+      
+    })
+    this.restaurantService.getStripe().subscribe(res =>{
+      console.log(res);
+
+      
+    })
+
+ 
+    this.restaurantService.sendOrder(this.order).subscribe(res =>{
+      console.log(res);
+    })
   }
 
   qrcode() {
@@ -350,7 +365,7 @@ export class RestaurantComponent implements OnInit {
   }
   confirm() {
     // this.popUpCheckout = true;
-    
+
   }
 
   selected() {
@@ -362,3 +377,192 @@ export class RestaurantComponent implements OnInit {
   }
 
 }
+
+
+ // food: any = [
+  //   {
+  //     name: 'Emapanadas', price: 8.10,
+  //     description: 'Three Crunchy Colombian Empanadas filled with beef and potato.',
+  //     imgSrc: './assets/img/food/empanada.jpg',
+  //     specialIntructions: '',
+  //     selectedOption: '',
+  //     selectedToppings: [],
+  //     options: [
+  //       { name: 'Green Sauce' },
+  //       { name: 'Red Sauce' },
+  //       { name: 'BBQ' },
+  //       { name: 'Honey Mustard' },
+  //     ],
+  //     orderQuantity: 0,
+  //     toppings: [
+  //       { name: 'cheese', price: 0, completed: false, },
+  //       { name: 'onions', price: 3, completed: false, },
+  //       { name: 'mushrooms', price: 4, completed: false, },
+  //       { name: 'Pepper', price: 3, completed: false, },
+  //     ]
+  //   },
+
+  //   {
+  //     name: 'Tequenos de Venezuala', price: 8.10,
+  //     description: 'Three cheese-filled pastry fingers from Venezuela.',
+  //     imgSrc: './assets/img/food/teque.jpg',
+  //     specialIntructions: '',
+  //     selectedOption: '',
+  //     selectedToppings: [],
+  //     options: [],
+  //     orderQuantity: 0,
+  //     toppings: [
+  //       { name: 'cheese', price: 3 },
+  //       { name: 'onions', price: 3 },
+  //       { name: 'mushrooms', price: 3 },
+  //       { name: 'Pepper', price: 3 },
+  //     ]
+  //   },
+
+  //   {
+  //     name: 'Maicitos', price: 13,
+  //     description: 'Fireroastedcorn, topped with mozzarella cheese, crushedLay’s PotatoChips, Green sauce & Pinksauce.',
+  //     imgSrc: './assets/img/food/maicitos.jpg',
+  //     specialIntructions: '',
+  //     selectedOption: '',
+  //     selectedToppings: [],
+  //     options: [],
+  //     orderQuantity: 0,
+  //     toppings: [
+  //       { name: 'Cheese', price: 0 },
+  //       { name: ' Chicken', price: 1.08 },
+  //       { name: 'Steak', price: 2.16 },
+  //       { name: 'Mixto', price: 3.24 }
+  //     ]
+  //   },
+
+  //   {
+  //     name: 'Colombian Quesadilla', price: 13,
+  //     description: 'Quesadilla topped with crushed Lay’s Potato Chips, green sauce & pinksauce',
+  //     imgSrc: './assets/img/food/colquesadilla.jpg',
+  //     specialIntructions: '',
+  //     selectedOption: '',
+  //     selectedToppings: [],
+  //     options: [],
+  //     orderQuantity: 0,
+  //     toppings: [
+  //       { name: 'Cheese', price: 0 },
+  //       { name: ' Chicken', price: 1.08 },
+  //       { name: 'Steak', price: 2.16 },
+  //       { name: 'Mixto', price: 3.24 }
+  //     ]
+  //   },
+
+  //   {
+  //     name: 'Mexican Quesadilla', price: 13,
+  //     description: 'Quesadilla with our fresh made guacamole, jalapenos, pico de gallo, and our chipotle aioli.',
+  //     imgSrc: './assets/img/food/quesadillas.jpg',
+  //     specialIntructions: '',
+  //     selectedOption: '',
+  //     selectedToppings: [],
+  //     options: [],
+  //     orderQuantity: 0,
+  //     toppings: [
+  //       { name: 'Cheese', price: 0 },
+  //       { name: ' Chicken', price: 1.08 },
+  //       { name: 'Steak', price: 2.16 },
+  //       { name: 'Mixto', price: 3.24 }
+  //     ]
+  //   },
+
+  //   {
+  //     name: 'Mexican Street Tacos', price: 13,
+  //     description: '2 Mouthwatering Tacos - made with CORN OR FLOUR TORTILLAS. Beef Barbacoa - Picodegallo, cilantro, cabbage & cotijacheese. ; Pollo Y Pina -Pineapple, cabbage, cilantro, Cotija cheese & Chipotle aioli.; Veggie - Fire roasted corn, mushroom, bellpeper, onions, cabbage, cilantro, guacamole, Cotija cheese & Chipotle aioli.',
+  //     imgSrc: './assets/img/food/tacos.jpg',
+  //     specialIntructions: '',
+  //     selectedOption: '',
+  //     selectedToppings: [],
+  //     options: [
+  //       { name: 'Corn Tortilla' },
+  //       { name: 'Flour Tortilla' },
+  //       { name: 'Beef Barbacoa' },
+  //       { name: 'Pollo Y Pina' },
+  //       { name: ' Veggie' }
+  //     ],
+  //     orderQuantity: 0,
+  //     toppings: [
+  //       { name: 'peperoni', price: 3 }
+  //     ]
+  //   },
+
+  //   {
+  //     name: 'Melissa Wings', price: 13,
+  //     description: '10 Chicken Wings tossed in your choice of sauces.',
+  //     imgSrc: './assets/img/food/wings.jpg',
+  //     specialIntructions: '',
+  //     selectedOption: '',
+  //     selectedToppings: [],
+  //     options: [
+  //       { name: 'Buffalo' },
+  //       { name: 'Spicy Asian' },
+  //       { name: 'BBQ' },
+  //       { name: 'Honey Mustard' },
+  //     ],
+  //     orderQuantity: 0,
+  //     toppings: [
+  //       // { name: 'peperoni', price: 3 }
+  //     ]
+  //   },
+
+  //   {
+  //     name: 'Colomboan Dog', price: 9.71,
+  //     description: 'Nathan`s famous beef hot dog wrapped in applewood smoked bacon, melted Mozzarella cheese, crushed Lay`s potato chips, coleslaw, green, pink and pineapple sauce.',
+  //     imgSrc: './assets/img/food/colhotdog.jpg',
+  //     specialIntructions: '',
+  //     selectedOption: '',
+  //     selectedToppings: [],
+  //     options: [],
+  //     orderQuantity: 0,
+  //     toppings: [
+  //       // { name: 'peperoni', price: 3 }
+  //     ]
+  //   },
+
+  //   {
+  //     name: 'Venezuelan Dog', price: 9.71,
+  //     description: 'Nathan`s famous beef hot dog crushed Lay`s Potato chips, coleslsaw, mayonnaise, ketchup, mustard & parmesan cheese.',
+  //     imgSrc: './assets/img/food/venehotdog.jpg',
+  //     specialIntructions: '',
+  //     selectedOption: '',
+  //     selectedToppings: [],
+  //     options: [],
+  //     orderQuantity: 0,
+  //     toppings: [
+  //       { name: 'peperoni', price: 3 }
+  //     ]
+  //   },
+
+  //   {
+  //     name: 'Mexican Dog', price: 9.71,
+  //     description: 'Nathan`s famous beef hot dog, Monterey Jack Cheese, freshly-made guacamole, jalapenos and pico de gallo.',
+  //     imgSrc: './assets/img/food/mexicanhotdog.jpg',
+  //     specialIntructions: '',
+  //     selectedOption: '',
+  //     selectedToppings: [],
+  //     options: [],
+  //     orderQuantity: 0,
+  //     toppings: [
+  //       { name: 'peperoni', price: 3 }
+  //     ]
+  //   },
+
+  //   {
+  //     name: 'New Yorker', price: 9.71,
+  //     description: 'Nathan`s famous beef hot dog, mustard, sauserkraut & sweet onions.',
+  //     imgSrc: './assets/img/food/newyorkhotdog.jpg',
+  //     specialIntructions: '',
+  //     selectedOption: '',
+  //     selectedToppings: [],
+  //     options: [],
+  //     orderQuantity: 0,
+  //     toppings: [
+  //       { name: 'peperoni', price: 3 }
+  //     ]
+  //   },
+
+  // ]
