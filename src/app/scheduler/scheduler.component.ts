@@ -186,85 +186,92 @@ export class SchedulerComponent implements OnInit {
     }]
 
 
+    if (dataTosend.payload) {
+      let timeData = [];
 
-    let timeData = [];
-
-    this._FormService.getTimeZoneData(dataTosend).subscribe((res: any) => {
-
-
-      this.times = JSON.parse(res.d);
+      this._FormService.getTimeZoneData(dataTosend).subscribe((res: any) => {
 
 
-      this.times.forEach(res => {
+        this.times = JSON.parse(res.d);
 
-        if (res.isOpen === 'true') {
 
-          res.MeetingTime =  res.MeetingTime.split('T')[1];
+        this.times.forEach(res => {
 
-          timeData.push(res);
-        }
+          if (res.isOpen === 'true') {
+
+            res.MeetingTime = res.MeetingTime.split('T')[1];
+
+            timeData.push(res);
+          }
+        })
+
+        this.times = timeData;
+
+
+
       })
+    }
+    else {
 
-      this.times = timeData;
+      this.times = [
+        {
+          "MeetingTime": "12:00 PM"
+        },
+        {
+          "MeetingTime": "12:30 PM"
+        },
+        {
+          "MeetingTime": "1:00 PM"
+        },
+        {
+          "MeetingTime": "1:30 PM"
+        },
+        {
+          "MeetingTime": "2:00 PM"
+        },
+        {
+          "MeetingTime": "2:30 PM"
+        },
+        {
+          "MeetingTime": "3:00 PM"
+        },
+        {
+          "MeetingTime": "3:30 PM"
+        },
+        {
+          "MeetingTime": "4:00 PM"
+        },
+        {
+          "MeetingTime": "4:30 PM"
+        },
+        {
+          "MeetingTime": "5:00 PM"
+        },
+        {
+          "MeetingTime": "5:30 PM"
+        },
+        {
+          "MeetingTime": "6:00 PM"
+        },
+        {
+          "MeetingTime": "6:30 PM"
+        },
+        {
+          "MeetingTime": "7:00 PM"
+        },
+        {
+          "MeetingTime": "7:30 PM"
+        },
+        {
+          "MeetingTime": "8:00 PM"
+        },
+        {
+          "MeetingTime": "8:30 PM"
+        }
+      ];
+    }
 
-      // this.times = [
-      //   {
-      //     "name": "12:00 PM"
-      //   },
-      //   {
-      //     "name": "12:30 PM"
-      //   },
-      //   {
-      //     "name": "1:00 PM"
-      //   },
-      //   {
-      //     "name": "1:30 PM"
-      //   },
-      //   {
-      //     "name": "2:00 PM"
-      //   },
-      //   {
-      //     "name": "2:30 PM"
-      //   },
-      //   {
-      //     "name": "3:00 PM"
-      //   },
-      //   {
-      //     "name": "3:30 PM"
-      //   },
-      //   {
-      //     "name": "4:00 PM"
-      //   },
-      //   {
-      //     "name": "4:30 PM"
-      //   },
-      //   {
-      //     "name": "5:00 PM"
-      //   },
-      //   {
-      //     "name": "5:30 PM"
-      //   },
-      //   {
-      //     "name": "6:00 PM"
-      //   },
-      //   {
-      //     "name": "6:30 PM"
-      //   },
-      //   {
-      //     "name": "7:00 PM"
-      //   },
-      //   {
-      //     "name": "7:30 PM"
-      //   },
-      //   {
-      //     "name": "8:00 PM"
-      //   },
-      //   {
-      //     "name": "8:30 PM"
-      //   }
-      // ];
 
-    })
   }
 
   onSubmit(): void {
