@@ -21,14 +21,14 @@ const routes: Routes = [
   //   path: ':id',
   //   component: BsrMobileComponent
   // },
-  {// SCHEDULER
-    path: ':id',
-    component: SchedulerComponent
-  },
-  // {//BSR
+  // {// SCHEDULER
   //   path: ':id',
-  //   component: BsrComponent
+  //   component: SchedulerComponent  
   // },
+  {//BSR
+    path: ':id',
+    component: BsrComponent
+  },
   // {//BI BRAND MATRIX
   //   path: ':id',
   //   component: BsrComponent

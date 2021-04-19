@@ -535,7 +535,7 @@ export class BsrComponent implements OnInit {
 
 
   setFontSize(){
-    console.log(this.font_size);    
+    // console.log(this.font_size);    
     this.font_size_text = this.font_size + 'px';
     localStorage.setItem(this.projectName + '_font_size_text', this.font_size_text);
     localStorage.setItem(this.projectName + '_font_size',  this.font_size);
@@ -563,6 +563,9 @@ export interface PeriodicElement {
   weight: number;
   symbol: string;
 }
+
+
+
 
 // POST EDITOR COMPONENT
 
@@ -690,7 +693,7 @@ export class editPost {
 
       let newConcepData = {
         projectId: this.projectId,
-        concept: this.loginForm.value.name,
+        concept: this.loginForm.value.name.replace(/'/g, "`"),
         conceptid: JSON.stringify(this.data.name.conceptid),
         attributesArray: this.data.name.attributes,
         namesArray: this.model.namesData.split("\n"),
