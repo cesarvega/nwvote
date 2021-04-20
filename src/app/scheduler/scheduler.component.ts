@@ -1,8 +1,8 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Observable } from 'rxjs';
-
+import { MatDatepicker } from '@angular/material/datepicker'
 import { FormService } from './form.service';
 @Component({
   selector: 'app-scheduler',
@@ -15,8 +15,8 @@ export class SchedulerComponent implements OnInit {
   form: FormGroup;
   today: Date;
   options: FormGroup;
-  callType = ['call', 'person'];
-  selected = 'EST';
+  callType = ['New Project Discussion', 'INN/USAN', 'Introduction'];
+  selected;
   call = 'call';
   time = '08:00';
   scheduleForm: any;
@@ -31,7 +31,7 @@ export class SchedulerComponent implements OnInit {
 
   selectedIndex: number = 0;
 
-  isNextTab = false;
+  isNextTab = true;
   desablePrevioustButton = false;
   disablePersonalInfoTab = true;
   isForm = true;
@@ -47,69 +47,29 @@ export class SchedulerComponent implements OnInit {
     closeOnSelect: false
   }
 
-  times: any[] = [
-    {
-      "name": "12:00 PM"
-    },
-    {
-      "name": "12:30 PM"
-    },
-    {
-      "name": "1:00 PM"
-    },
-    {
-      "name": "1:30 PM"
-    },
-    {
-      "name": "2:00 PM"
-    },
-    {
-      "name": "2:30 PM"
-    },
-    {
-      "name": "3:00 PM"
-    },
-    {
-      "name": "3:30 PM"
-    },
-    {
-      "name": "4:00 PM"
-    },
-    {
-      "name": "4:30 PM"
-    },
-    {
-      "name": "5:00 PM"
-    },
-    {
-      "name": "5:30 PM"
-    },
-    {
-      "name": "6:00 PM"
-    },
-    {
-      "name": "6:30 PM"
-    },
-    {
-      "name": "7:00 PM"
-    },
-    {
-      "name": "7:30 PM"
-    },
-    {
-      "name": "8:00 PM"
-    },
-    {
-      "name": "8:30 PM"
-    }
-  ];
+  times: any[] = [];
   validForm = false;
   emptyFormFields = [];
   formAlert = false;
+  selectTimeConfirm = false;
+  selectTimeConfirmIndex;
+  MinDate = new Date();
 
+  timeZone;
+
+  timeZoneOption = [{ value: 'EDT', name: 'Eastern Daylight Time (EDT)' }, { value: 'EST', name: 'Eastern Time (EST)' }, { value: 'CST', name: 'Central Time (CST)' }, { value: 'MT', name: 'Mountain Time (MT)' },
+  { value: 'PST', name: 'Pacific Time (PST)' }, { value: 'WET', name: 'Western European Time (WET)' }, { value: 'CET', name: 'Central European Time (CET)' }, { value: 'EET', name: 'Eastern European Time (EET)' },
+  { value: 'JPT', name: 'Japan Time (JPT)' }, { value: 'KST', name: 'Korea Time (KST)' }, { value: 'BRT', name: 'Brasilia Time (BRT)' }]
+
+  @ViewChild(MatDatepicker) private theTimePicker: MatDatepicker<Date>;
+
+
+  dataTosend: { token: string; payload: string; } = {
+    token: '6C08E006-1E00-46DC-A844-76888612BB0E'
+    , payload: ''
+  };
   constructor(private _formBuilder: FormBuilder,
     public _FormService: FormService,
-    private _route: Router,
     private paramsRouter: ActivatedRoute) {
 
 
@@ -162,7 +122,7 @@ export class SchedulerComponent implements OnInit {
       phone: ['', Validators.required],
       date: ['', Validators.required],
       time: ['', Validators.required],
-      timeZone: ['', Validators.required],
+      // timeZone: ['', Validators.required],
       type: ['', Validators.required],
       // type2: ['', Validators.required],
       note: ['', Validators.required],
@@ -182,10 +142,129 @@ export class SchedulerComponent implements OnInit {
         }
       });
 
-    // setTimeout(() => {
-    //   this.selectedIndex = 0;
-    // }, 200);
 
+    let d = new Date();
+    this.dataTosend = {
+      token: '6C08E006-1E00-46DC-A844-76888612BB0E'
+      , payload: JSON.stringify({
+        DirectorId: '123',
+        UserTimeZone: 'GMT' + d.toString().split('GMT')[1],
+        DateToCheck: d.getDate() + "-" + (d.getMonth() + 1) + "-" + d.getFullYear()
+
+      })
+    }
+
+    this.searchTime(this.dataTosend)
+
+    this.timeZoneOption.push({ value: 'GMT' + new Date().toString().split('GMT')[1], name: 'GMT' + new Date().toString().split('GMT')[1] });
+    this.selected = 'GMT' + new Date().toString().split('GMT')[1];
+  }
+
+  _openCalendar(picker: MatDatepicker<Date>, direction) {
+    let timeInterval = 0;
+    if (direction === 'prev') {
+      timeInterval = 500;
+    }
+    if (this.isNextTab) {
+      setTimeout(() => {
+        picker.open();
+      }, timeInterval);
+    } else {
+      picker.close();
+    }
+  }
+
+  _closeCalendar(picker: MatDatepicker<Date>) {
+    picker.close();
+  }
+
+
+  searchTime(dataTosend?) {
+
+    this.times = [{
+      "name": 'Not Time Avilable for ' + dataTosend.DateToCheck
+    }]
+
+
+
+    let timeData = [];
+
+    this._FormService.getTimeZoneData(dataTosend).subscribe((res: any) => {
+
+
+      this.times = JSON.parse(res.d);
+
+
+      this.times.forEach(res => {
+
+        if (res.isOpen === 'true') {
+
+          res.MeetingTime =  res.MeetingTime.split('T')[1];
+
+          timeData.push(res);
+        }
+      })
+
+      this.times = timeData;
+
+      // this.times = [
+      //   {
+      //     "name": "12:00 PM"
+      //   },
+      //   {
+      //     "name": "12:30 PM"
+      //   },
+      //   {
+      //     "name": "1:00 PM"
+      //   },
+      //   {
+      //     "name": "1:30 PM"
+      //   },
+      //   {
+      //     "name": "2:00 PM"
+      //   },
+      //   {
+      //     "name": "2:30 PM"
+      //   },
+      //   {
+      //     "name": "3:00 PM"
+      //   },
+      //   {
+      //     "name": "3:30 PM"
+      //   },
+      //   {
+      //     "name": "4:00 PM"
+      //   },
+      //   {
+      //     "name": "4:30 PM"
+      //   },
+      //   {
+      //     "name": "5:00 PM"
+      //   },
+      //   {
+      //     "name": "5:30 PM"
+      //   },
+      //   {
+      //     "name": "6:00 PM"
+      //   },
+      //   {
+      //     "name": "6:30 PM"
+      //   },
+      //   {
+      //     "name": "7:00 PM"
+      //   },
+      //   {
+      //     "name": "7:30 PM"
+      //   },
+      //   {
+      //     "name": "8:00 PM"
+      //   },
+      //   {
+      //     "name": "8:30 PM"
+      //   }
+      // ];
+
+    })
   }
 
   onSubmit(): void {
@@ -200,7 +279,8 @@ export class SchedulerComponent implements OnInit {
     //     this.validForm = false;
     //   }
     // });
-
+    this.emptyFormFields = [];
+    this.validForm = false;
     for (const property in this.form.value) {
 
       console.log(`${property}: ${this.form.value[property]}`);
@@ -225,6 +305,11 @@ export class SchedulerComponent implements OnInit {
     }
   }
 
+  onDateSelect(e) {
+    console.log("date: " + e.value);
+    this.date = e.value;
+    this.searchTime(e.value.getDate());
+  }
 
   dismissErrorForm() {
     this.formAlert = false;
@@ -233,8 +318,8 @@ export class SchedulerComponent implements OnInit {
   previousStep() {
     if (this.indexTabCounter > 0) {
       this.indexTabCounter = this.indexTabCounter - 1;
-      this.isNextTab = false;
       this.selectedIndex = 0;
+      this.isNextTab = true;
     }
     console.log(this.indexTabCounter);
   }
@@ -242,30 +327,29 @@ export class SchedulerComponent implements OnInit {
   nextStep() {
     if (this.indexTabCounter < 2) {
       this.indexTabCounter = 1 + this.indexTabCounter;
-      this.isNextTab = true;
       this.selectedIndex = 1;
       this.disablePersonalInfoTab = false;
+      this.isNextTab = false;
+      this._closeCalendar(this.theTimePicker);
     }
     console.log(this.indexTabCounter);
   }
 
 
-  radioChange(e) {
-    this.form.value.time = this.times[e.value].name;
+  radioChange(time) {
+    this.form.value.time = time
     this.time = this.form.value.time;
     if (this.form.value.time) {
       this.desableNextButton = false;
     }
-    console.log(e.value);
+    this.nextStep();
+    console.log(time);
   }
 
 
-  onDateSelect(e) {
-    console.log("date: " + e);
-    this.form.controls.date = e;
-  }
 
   makeAnother() {
     window.location.reload();
   }
+
 }
