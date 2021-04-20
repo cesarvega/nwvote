@@ -47,6 +47,9 @@ import { AngularDateTimePickerModule } from 'angular2-datetimepicker';
 import {MatDatepickerModule} from '@angular/material/datepicker';
 import { MatNativeDateModule } from '@angular/material/core';
 
+import { DragulaModule } from 'ng2-dragula';
+import { MatListModule } from '@angular/material/list';
+
 // export class MyHammerConfig extends HammerGestureConfig {
 //   overrides = <any>{
 //     // override default settings
@@ -104,9 +107,10 @@ import {MatRadioModule} from '@angular/material/radio';
     MatDatepickerModule,
     MatSelectModule,
     MatRadioModule,
-    MatNativeDateModule
+    MatNativeDateModule,
     // AngularEditorModule,
-
+    DragulaModule.forRoot(),
+    MatListModule
   ],
   entryComponents: [
     editPost, editName
