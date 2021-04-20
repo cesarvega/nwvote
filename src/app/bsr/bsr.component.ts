@@ -1,12 +1,13 @@
 import { Component, OnInit, Inject, ViewEncapsulation, ViewChild } from '@angular/core';
 import { FormControl } from '@angular/forms';
 import { HotkeysService, Hotkey } from 'angular2-hotkeys';
-import { CdkDragDrop, moveItemInArray } from '@angular/cdk/drag-drop';
+import { CdkDragDrop, moveItemInArray, CdkDropListGroup, transferArrayItem } from '@angular/cdk/drag-drop';
 import { BsrService } from './bsr.service';
 
 import { FormBuilder, Validators, FormGroup } from '@angular/forms';
 import { MatDialog, MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { DOCUMENT } from '@angular/common';
+
 
 ///CKEDITOR NOTES, para que el toolbar del editor pueda ser configurado
 //  es necesario de instalar el ckeditor4  y el ckeditor5 y 
@@ -75,7 +76,14 @@ export class BsrComponent implements OnInit {
   namesBoxIndex = 0;
   constructor(@Inject(DOCUMENT) private document: any, private _formBuilder: FormBuilder,
     private _hotkeysService: HotkeysService,
-    private _BsrService: BsrService, public dialog: MatDialog, private activatedRoute: ActivatedRoute,) {
+    private _BsrService: BsrService, public dialog: MatDialog, private activatedRoute: ActivatedRoute,
+    private dragulaService: DragulaService ) {
+
+      dragulaService.createGroup('TASKS', {
+        moves: (el, container, handle) => {
+          return handle.classList.contains('handle');
+        }
+      })
 
     // keyboard keymaps
     this._hotkeysService.add(new Hotkey('right', (event: KeyboardEvent): boolean => {
@@ -199,6 +207,68 @@ export class BsrComponent implements OnInit {
     });
   }
 
+  boxWidth = 155;
+  // calculated based on dynamic row width
+  columnSize: number;
+
+  getItemsTable(rowLayout: Element): number[][] {
+    // calculate column size per row
+    const { width } = rowLayout.getBoundingClientRect();
+    const columnSize = Math.round(width / this.boxWidth);
+    // view has been resized? => update table with new column size
+    if (columnSize != this.columnSize) {
+      this.columnSize = columnSize;
+      this.initTable();
+    }
+    return this.conceptData.concepts;
+  }
+
+  initTable() {
+    // create table rows based on input list
+    // example: [1,2,3,4,5,6] => [ [1,2,3], [4,5,6] ]
+    this.conceptData.concepts = this.conceptData.concepts
+      .filter((_, outerIndex) => outerIndex % this.columnSize == 0) // create outter list of rows
+      .map((
+        _,
+        rowIndex // fill each row from...
+      ) =>
+        this.conceptData.concepts.slice(
+          rowIndex * this.columnSize, // ... row start and
+          rowIndex * this.columnSize + this.columnSize // ...row end
+        )
+      );
+  }
+
+  reorderDroppedItem(event: CdkDragDrop<number[]>) {
+    // same row/container? => move item in same row
+    if (event.previousContainer === event.container) {
+      moveItemInArray(
+        event.container.data,
+        event.previousIndex,
+        event.currentIndex
+      );
+    } else {
+      // different rows? => transfer item from one to another list
+      transferArrayItem(
+        event.previousContainer.data,
+        event.container.data,
+        event.previousIndex,
+        event.currentIndex
+      );
+    }
+
+    // update items after drop: flatten matrix into list
+    // example: [ [1,2,3], [4,5,6] ] => [1,2,3,4,5,6]
+    this.conceptData.concepts = this.conceptData.concepts.reduce(
+      (previous, current) => previous.concat(current),
+      []
+    );
+
+    // re-initialize table - makes sure each row has same numbers of entries
+    // example: [ [1,2], [3,4,5,6] ] => [ [1,2,3], [4,5,6] ]
+    this.initTable();
+  }  
+
   drop(event: CdkDragDrop<string[]>) {
     moveItemInArray(this.conceptData.concepts, event.previousIndex, event.currentIndex);
     console.log(event.previousIndex, event.currentIndex);
@@ -218,9 +288,10 @@ export class BsrComponent implements OnInit {
     });
   }
 
-  entered(event: CdkDragDrop<string[]>) {
-    moveItemInArray(this.conceptData.concepts, event.previousIndex, event.currentIndex);
-    console.log(event.previousIndex, event.currentIndex);
+  dropped(event: CdkDragDrop<any>) {
+   if(event.previousContainer === event.container) {
+    moveItemInArray(event.container.data, event.previousIndex, event.currentIndex);
+  }
   }
 
 
@@ -337,7 +408,7 @@ export class BsrComponent implements OnInit {
 
       this._BsrService.sendComment(comment).subscribe(res => {
         this.isCommentBox = false;
-        this.commentBoxText=''
+        this.commentBoxText='';
       });
     }
   }
@@ -374,8 +445,8 @@ export class BsrComponent implements OnInit {
 
   openDialog(item, nameid): void {
 
-
     const dialogRef = this.dialog.open(editPost, {
+      
       // width: ((nameid === 'edit')?'80%':'100%'),
       // height: ((nameid === 'edit') ? '777px' : '200px'),
       data: { name: item, nameId: nameid }
@@ -399,6 +470,7 @@ export class BsrComponent implements OnInit {
       } else if (result === 'savePost') {
         this._BsrService.getPost().subscribe((res: any) => {
           this.conceptData = JSON.parse(res[0].bsrData);
+
           if (JSON.parse(res[0].bsrData).presentationtype === 'NSR') {
             this.isNSR = true;
           }
@@ -548,6 +620,7 @@ export class BsrComponent implements OnInit {
 import { MatSliderChange } from '@angular/material/slider';
 import { ActivatedRoute } from '@angular/router';
 import { ThrowStmt } from '@angular/compiler/src/output/output_ast';
+import { DragulaService } from 'ng2-dragula';
 
 // CKEDITOR WYSIWYG // **************************************************************************************************
 
@@ -753,5 +826,6 @@ export class editPost {
     this.isEmojiTime = !this.isEmojiTime;
   }
 
+  
 
 }
