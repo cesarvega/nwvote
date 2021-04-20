@@ -23,7 +23,7 @@ const routes: Routes = [
   // },
   // {// SCHEDULER
   //   path: ':id',
-  //   component: SchedulerComponent
+  //   component: SchedulerComponent  
   // },
   {//BSR
     path: ':id',

@@ -56,7 +56,8 @@
                         👨‍👨‍👧‍👦
                         👨‍👨‍👦‍👦 👨‍👨‍👧‍👧 👩‍👩‍👦 👩‍👩‍👧 👩‍👩‍👧‍👦 👩‍👩‍👦‍👦 👩‍👩‍👧‍👧 👨‍👦 👨‍👦‍👦
                         👨‍👧
-                        👨‍👧‍👦 👨‍👧‍👧 👩‍👦 👩‍👦‍👦 👩‍👧 👩‍👧‍👦 👩‍👧‍👧 🗣 👤 👥 👣</mat-tab>
+                        👨‍👧‍👦 👨‍👧‍👧 👩‍👦 👩‍👦‍👦 👩‍👧 👩‍👧‍👦 👩‍👧‍👧 🗣 👤 👥 👣
+                    </mat-tab>
                     <mat-tab label="Nature"> 🐶 🐱 🐭 🐹 🐰 🦊 🐻 🐼 🐨 🐯 🦁 🐮 🐷 🐽 🐸 🐵 🙈 🙉 🙊 🐒 🐔 🐧 🐦 🐤 🐣
                         🐥 🦆 🦅
                         🦉
@@ -285,159 +286,197 @@
     </div>
 
     <!-- EDITOR CARD -->
-    <div *ngIf="!infoMessage && !isMobileInfo && !isQRcode" class="">
-        <form name="loginForm" [formGroup]="loginForm" novalidate class="">
-            <div class="container" fxLayout="column" fxLayoutAlign="center center">
-                <div class="row ">
-                    <div class="col">
-                        <div class="title-card">
+    <div *ngIf="!infoMessage && !isMobileInfo && !isQRcode">
+        <form name="loginForm" [formGroup]="loginForm" novalidate>
+            <div class="editPostit" style="display: flex;flex-direction: column;">
 
-                            <div class="p-16" style="color: #004684;padding: 10px;" fxLayout="row"
-                                fxLayoutAlign="start center">
-                                <!-- <img class="w-40 h-40 border-radius-100" src="assets/images/avatars/Christy.jpg"> -->
+                <div class="postItTitle" style="display: flex; flex-direction: column;border-radius: 8px;
+                border: 1px solid #004684;">
 
-                                <mat-icon style="margin-right: 10px;">assignment</mat-icon>
-                                <h2 class="text-bold ">CONCEPT TITLE</h2>
+                    <!-- CONCEPT TITLE -->
+                    <div style="display: flex; flex-direction: row; color: #004684; margin: 10px;">
+                        <mat-icon style="padding-top: 8px;">assignment</mat-icon>
+                        <h2 class="text-bold " style="padding-left: 5px;">CONCEPT TITLE</h2>
+                    </div>
+                    <mat-form-field *ngIf="!isDeleting" tyle="width: 954px;
+                    position: relative;
+                    top: -20px;
+                    font-size: 31px;">
+                        <input matInput type="Concept" formControlName="name">
+                    </mat-form-field>
 
-                                <!-- <div class="ml-16">
-                            <div class="h5 text-bold secondary-text">20 mins. ago</div>
-                        </div> -->
-                            </div>
+
+                </div>
+
+                <div class="secondRow" style="display: flex;flex-direction: row;">
+
+                    <div class="ckeditor" style="border-radius: 8px; margin: 10px;
+                    border: 1px solid #004684; color: #004684;  max-width: 650px;  min-width: 350px;">
+                        <h2 class="text-bold ">Key Words and Concepts</h2>
+
+                        <mat-icon class="synonymsIcon" matTooltip="copy to clip board before search"
+                            matTooltipPosition="above" (click)="getSynonyms()">layers</mat-icon>
+                        <ckeditor id="txtTexto" class="ckeditorcev" [ngModelOptions]="{standalone: true}"
+                            [(ngModel)]="model.editorData" [data]="dataEditor" [config]="ckconfig"></ckeditor>
+
+                    </div>
+
+                    <div class="newnames" style="display: flex;flex-direction: column;border-radius: 8px;
+                    border: 1px solid #004684;color: #004684; padding-left: 10px; margin: 10px;">
+                        <h2 class="text-bold ">New Names</h2>
+                        <textarea matInput cdkTextareaAutosize cdkAutosizeMinRows="23" formControlName="suma"
+                            cdkAutosizeMaxRows="23" style="
+                                      " appearance="outline" formControlName="suma"></textarea>
+
+                    </div>
+                  
+                </div>
+
+                <div style="display: flex;flex-direction: row;justify-content: flex-end;">
+                <button (click)="buttonOption('savePost')"  mat-fab color="success"
+                        aria-label="icon">
+                        <mat-icon>check</mat-icon>
+                    </button>
+                </div>
+            </div>
+        </form>
+    </div>
 
 
-                            <div fxLayoutAlign="center center">
+<!-- OLD POST IT -->
+<!-- <div *ngIf="!infoMessage && !isMobileInfo && !isQRcode" class="">
+    <form name="loginForm" [formGroup]="loginForm" novalidate class="">
+        <div class="container" fxLayout="column" fxLayoutAlign="center center">
+            <div class="row ">
+                <div class="col">
+                    <div class="title-card">
 
-                                <mat-form-field *ngIf="!isDeleting" style="width: 954px;
-                                position: relative;
-                                top: -20px;
-                                font-size: 31px;">
-                                    <!-- <mat-label>CONCEPT</mat-label> -->
-                                    <input matInput type="Concept" formControlName="name">
-                                </mat-form-field>
-                            </div>
+                        <div class="p-16" style="color: #004684;padding: 10px;" fxLayout="row"
+                            fxLayoutAlign="start center">
+                            <mat-icon style="margin-right: 10px;">assignment</mat-icon>
+                            <h2 class="text-bold ">CONCEPT TITLE</h2>
+                        </div>
 
+                        <div fxLayoutAlign="center center">
+                            <mat-form-field *ngIf="!isDeleting" style="width: 954px;
+                            position: relative;
+                            top: -20px;
+                            font-size: 31px;">
+                              
+                                <input matInput type="Concept" formControlName="name">
+                            </mat-form-field>
                         </div>
                     </div>
                 </div>
+            </div>
+            <div class="row">
+                <div class="col">
+                    <div class="ckeditor-card">
 
-                <div class="row">
-                    <div class="col">
-                        <div class="ckeditor-card">
+                        <div class="p-16" style="color: #004684;padding: 10px;" fxLayout="row"
+                            fxLayoutAlign="start center">
 
+                            <h2 class="text-bold ">Key Words and Concepts</h2>
 
-                            <div class="p-16" style="color: #004684;padding: 10px;" fxLayout="row"
-                                fxLayoutAlign="start center">
-                                <!-- <img class="w-40 h-40 border-radius-100" src="assets/images/avatars/Christy.jpg"> -->
-
-                                <!-- <mat-icon style="margin-right: 10px;">assignment</mat-icon> -->
-                                <h2 class="text-bold ">Key Words and Concepts</h2>
-
-                                <mat-icon class="synonymsIcon" matTooltip="copy to clip board before search"
-                                    matTooltipPosition="above" (click)="getSynonyms()">layers</mat-icon>
-                                <!-- <mat-icon class="synonymsIcon2" (click)="emojiToggle()">tag_faces</mat-icon> -->
-
-                                <!-- <div class="ml-16">
-                            <div class="h5 text-bold secondary-text">20 mins. ago</div>
-                        </div> -->
-                            </div>
-
-                            <ckeditor id="txtTexto" class="ckeditorcev" [ngModelOptions]="{standalone: true}"
-                                [(ngModel)]="model.editorData" [data]="dataEditor" [config]="ckconfig"></ckeditor>
+                            <mat-icon class="synonymsIcon" matTooltip="copy to clip board before search"
+                                matTooltipPosition="above" (click)="getSynonyms()">layers</mat-icon>
                         </div>
+
+                       
+                        <ckeditor id="txtTexto" class="ckeditorcev" [ngModelOptions]="{standalone: true}"
+                            [(ngModel)]="model.editorData" [data]="dataEditor" [config]="ckconfig"></ckeditor>
                     </div>
-                    <div class="col">
-                        <div class="new-names-card " style="overflow: hidden;">
+                </div>
+                <div class="col">
+                    <div class="new-names-card " style="overflow: hidden;">
 
+                        <div class="p-16" style="color: #004684;padding: 5px;" fxLayout="row"
+                            fxLayoutAlign="start center">
+                            <h2 class="text-bold ">New Names</h2>
+                        </div>
 
-                            <div class="p-16" style="color: #004684;padding: 5px;" fxLayout="row"
-                                fxLayoutAlign="start center">
-                                <h2 class="text-bold ">New Names</h2>
-                            </div>
-
-                            <div class="p-16" style="padding: 10px;height: 780px;" fxLayout="row"
-                                fxLayoutAlign="start center">
-                                <textarea matInput cdkTextareaAutosize cdkAutosizeMinRows="23" formControlName="suma"
-                                    cdkAutosizeMaxRows="23" style="
-                                                            height: 460px;
-                                                            width: 248px;
-                                                            position: absolute;
-                                                            font-size: 30px;
-                                                            line-height: 28px;
-                                                            top: 40px;" appearance="outline"
-                                    formControlName="suma"></textarea>
-                            </div>
+                       
+                        <div class="p-16" style="padding: 10px;height: 780px;" fxLayout="row"
+                            fxLayoutAlign="start center">
+                            <textarea matInput cdkTextareaAutosize cdkAutosizeMinRows="23" formControlName="suma"
+                                cdkAutosizeMaxRows="23" style="
+                                                        height: 460px;
+                                                        width: 248px;
+                                                        position: absolute;
+                                                        font-size: 30px;
+                                                        line-height: 28px;
+                                                        top: 40px;" appearance="outline"
+                                formControlName="suma"></textarea>
                         </div>
                     </div>
                 </div>
+            </div>
+        </div>
+    </form>
 
+    <button (click)="buttonOption('savePost')" class="post-it-done-button" mat-fab color="success"
+        aria-label="icon">
+        <mat-icon>check</mat-icon>
+    </button>
+</div> -->
 
+</div>
 
+    <!-- QR CODE-->
+    <div *ngIf="isQRcode" class="qr_code">
+        <p style="font-family: sans-serif;font-size: 28px;margin: 0px;">scan me</p>
+        <qrcode [qrdata]="myAngularxQrCode" [width]="350" [errorCorrectionLevel]="'M'"></qrcode>
+        <p><a style="color: black;" target="_blank">{{myAngularxQrCode}}</a></p>
+    </div>
+
+    <div *ngIf="isSynonymBox" class="synonyms-box mat-elevation-z8" cdkDrag>
+        <div class="emoji-handle" cdkDragHandle>
+        </div>
+
+        <div class="col">
+
+            <div class="row">
+                <p style="margin-right: 5px;">search Results for </p>
+                <p style="color: red;">{{synonymWord}}</p>
+                <p>: count : {{dataSource.length}} </p>
             </div>
 
-        </form>
+            <div class="row" style="overflow-y: scroll; height: 360px;">
 
-        <button (click)="buttonOption('savePost')" class="post-it-done-button" mat-fab color="success"
-            aria-label="icon">
-            <mat-icon>check</mat-icon>
-        </button>
-    </div>
+                <table mat-table [dataSource]="dataSource" class="mat-elevation-z8">
 
-</div>
-<!-- QR CODE-->
-<div *ngIf="isQRcode" class="qr_code">
-    <p style="font-family: sans-serif;font-size: 28px;margin: 0px;">scan me</p>
-    <qrcode [qrdata]="myAngularxQrCode" [width]="350" [errorCorrectionLevel]="'M'"></qrcode>
-    <p><a style="color: black;" target="_blank">{{myAngularxQrCode}}</a></p>
-</div>
+                    <!-- Position Column -->
+                    <ng-container matColumnDef="position">
+                        <th mat-header-cell *matHeaderCellDef> No. </th>
+                        <td mat-cell *matCellDef="let element"> {{element.position}} </td>
+                    </ng-container>
 
-<div *ngIf="isSynonymBox" class="synonyms-box mat-elevation-z8" cdkDrag>
-    <div class="emoji-handle" cdkDragHandle>
-    </div>
+                    <!-- Name Column -->
+                    <ng-container matColumnDef="name">
+                        <th mat-header-cell *matHeaderCellDef> Synonyms </th>
+                        <td mat-cell *matCellDef="let element"> {{element.synonyms}} </td>
+                    </ng-container>
 
-    <div class="col">
+                    <!-- Weight Column -->
+                    <ng-container matColumnDef="weight">
+                        <th mat-header-cell *matHeaderCellDef> Select </th>
+                        <td mat-cell *matCellDef="let element">
+                            <mat-checkbox (change)="setAll(element.synonyms)">
+                            </mat-checkbox>
+                        </td>
 
-        <div class="row">
-            <p style="margin-right: 5px;">search Results for </p>
-            <p style="color: red;">{{synonymWord}}</p>
-            <p>: count : {{dataSource.length}} </p>
-        </div>
-
-        <div class="row" style="overflow-y: scroll; height: 360px;">
-
-            <table mat-table [dataSource]="dataSource" class="mat-elevation-z8">
-
-                <!-- Position Column -->
-                <ng-container matColumnDef="position">
-                    <th mat-header-cell *matHeaderCellDef> No. </th>
-                    <td mat-cell *matCellDef="let element"> {{element.position}} </td>
-                </ng-container>
-
-                <!-- Name Column -->
-                <ng-container matColumnDef="name">
-                    <th mat-header-cell *matHeaderCellDef> Synonyms </th>
-                    <td mat-cell *matCellDef="let element"> {{element.synonyms}} </td>
-                </ng-container>
-
-                <!-- Weight Column -->
-                <ng-container matColumnDef="weight">
-                    <th mat-header-cell *matHeaderCellDef> Select </th>
-                    <td mat-cell *matCellDef="let element">
-                        <mat-checkbox (change)="setAll(element.synonyms)">
-                        </mat-checkbox>
-                    </td>
-
-                </ng-container>
+                    </ng-container>
 
 
 
-                <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
-                <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
-            </table>
-        </div>
+                    <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+                    <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+                </table>
+            </div>
 
-        <div class="row">
-            <button mat-button class="" style="    position: relative;
+            <div class="row">
+                <button mat-button class="" style="    position: relative;
             right: -660px;" (click)="addSynonymsToEditor()">DONE</button>
+            </div>
         </div>
     </div>
-</div>
