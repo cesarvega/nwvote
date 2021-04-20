@@ -1,3 +1,4 @@
+import { DatePipe } from '@angular/common';
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
@@ -352,4 +353,5 @@ export class SchedulerComponent implements OnInit {
     window.location.reload();
   }
 
-}
+} 
+
