@@ -1,9 +1,5 @@
-<<<<<<< HEAD
 import { DatePipe } from '@angular/common';
-import { Component, OnInit } from '@angular/core';
-=======
 import { Component, OnInit, ViewChild } from '@angular/core';
->>>>>>> 196f42ef93571f2a91232bbfad8dc6e6ba131336
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Observable } from 'rxjs';
@@ -20,13 +16,8 @@ export class SchedulerComponent implements OnInit {
   form: FormGroup;
   today: Date;
   options: FormGroup;
-<<<<<<< HEAD
-  callType = ['call', 'person'];
-  selected = 'myTz';
-=======
   callType = ['New Project Discussion', 'INN/USAN', 'Introduction'];
   selected;
->>>>>>> 196f42ef93571f2a91232bbfad8dc6e6ba131336
   call = 'call';
   time = '08:00';
   scheduleForm: any;
@@ -320,17 +311,5 @@ export class SchedulerComponent implements OnInit {
     window.location.reload();
   }
 
-<<<<<<< HEAD
-  edtTimeZone = new Date();
-  cstTimeZone = new Date();
-         from = new DatePipe('en-Us').transform(this.cstTimeZone, '') 
-
-  timeZoneOption = [{value: 'myTz', name: this.edtTimeZone}, {value: 'EST', name: 'Eastern Time (EST)'}, {value: 'CST', name: 'Central Time (CST)'}, {value: 'MT', name: 'Mountain Time (MT)'}, 
-  {value: 'PST', name: 'Pacific Time (PST)'}, {value: 'WET', name: 'Western European Time (WET)'}, {value: 'CET', name: 'Central European Time (CET)'}, {value: 'EET', name: 'Eastern European Time (EET)'},
-  {value: 'JPT', name: 'Japan Time (JPT)'}, {value: 'KST', name: 'Korea Time (KST)'}, {value: 'BRT', name: 'Brasilia Time (BRT)'}]
-
 } 
 
-=======
-}
->>>>>>> 196f42ef93571f2a91232bbfad8dc6e6ba131336
