@@ -294,7 +294,7 @@
     color: darkblue;
     font-family: auto;
     z-index: 2;
-    animation: heartBeat 10000ms ease-in-out 1ms forwards;
+    animation: tada 1000ms ease-in-out 1ms forwards;
     text-shadow: 0 0.04em 0.04em rgba(0, 0, 0, 0.35);
     box-shadow: inset inset 0px 0px 5px #c1c1c1;
     @include BoxShadow(6);
