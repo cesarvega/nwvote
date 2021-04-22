@@ -464,8 +464,8 @@
 .synonymsIcon {
   cursor: context-menu;
   position: absolute;
-  right: 29px;
-  top: 86px;
+  right: 217px;
+  top: 164px;
   font-size: 16px;
   color: black;
 }
@@ -547,13 +547,13 @@ table {
 
 .post-it-done-button {
   color: white;
-  position: absolute;
-  top: 593px;
+  // position: absolute;
+  // top: 593px;
   background-color: green;
-  padding: 4px;
+  // padding: 4px;
   outline: none;
-  left: 956px;
-  z-index: 999;box-shadow: none;
+  // left: 956px;
+  // z-index: 999;box-shadow: none;
 }
 .tabs-emojis {
   overflow-y: scroll;
@@ -676,7 +676,7 @@ mat-tab-group ::-webkit-scrollbar {
   z-index: 99;
   left: 76px;
   outline: none;
-  :hover{
+  :hover {
     transform: scale(1.5);
   }
   // opacity: 0;
@@ -688,7 +688,7 @@ mat-tab-group ::-webkit-scrollbar {
   top: -283px;
   z-index: 99;
   outline: none;
-  :hover{
+  :hover {
     transform: scale(1.5);
   }
 }
@@ -701,10 +701,9 @@ mat-tab-group ::-webkit-scrollbar {
   z-index: 9999;
   background: white;
   border-radius: 5px;
-
 }
 
-::ng-deep  .mat-tooltip {
+::ng-deep .mat-tooltip {
   font-size: 24px;
 }
 
