@@ -24,10 +24,13 @@
       </button>
 
       <!-- COMMENTS BOX -->
-      <div fxLayout="col" *ngIf="isCommentBox" fxLayoutAlign="center center">
+      <div class="comment-to-top" cdkDrag cdkDragRootElement=".cdk-overlay-pane" cdkDragHandle
+      fxLayout="col" *ngIf="isCommentBox" fxLayoutAlign="center center">
+      
         <div fxFlex class="mat-elevation-z4 comment-box">
           <div class="col">
             <div class="row">
+              <mat-icon class="handle" style="float: left; font-size: 36px;" >drag_handle</mat-icon>
               <button (click)="displayCommentBox()" mat-stroked-button style="color: #004684;
                     position: absolute;
                     right: 7px;

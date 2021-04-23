@@ -1,3 +1,4 @@
+import { OverlayContainer } from '@angular/cdk/overlay';
 import { Component, OnInit, Inject, ViewEncapsulation, ViewChild } from '@angular/core';
 import { FormControl } from '@angular/forms';
 import { HotkeysService, Hotkey } from 'angular2-hotkeys';
@@ -77,7 +78,7 @@ export class BsrComponent implements OnInit {
   constructor(@Inject(DOCUMENT) private document: any, private _formBuilder: FormBuilder,
     private _hotkeysService: HotkeysService,
     private _BsrService: BsrService, public dialog: MatDialog, private activatedRoute: ActivatedRoute,
-    private dragulaService: DragulaService ) {
+    private dragulaService: DragulaService) {
 
       dragulaService.createGroup('TASKS', {
         moves: (el, container, handle) => {
@@ -452,7 +453,6 @@ export class BsrComponent implements OnInit {
       data: { name: item, nameId: nameid }
     });
 
-
     this.conceptid = item.conceptid;
 
     dialogRef.afterClosed().subscribe(result => {
@@ -826,3 +826,7 @@ export class editPost {
   
 
 }
+function toTop(nameid: any) {
+  throw new Error('Function not implemented.');
+}
+

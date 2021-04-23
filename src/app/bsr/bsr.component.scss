@@ -629,7 +629,7 @@ mat-tab-group ::-webkit-scrollbar {
   width: 100%;
   top: 463px;
   z-index: 99999;
-  max-width: 540px;
+  max-width: 560px;
   height: 250px;
   border: aliceblue 2px solid;
   animation: bounceIn 0.5s ease-in-out 0s 1 forwards;
@@ -915,3 +915,11 @@ $postItHeaderColors2: #d6f8fd, #dcd6fd, #d6fde9, #fdfcd6, #d6f8fd, #fdd6e8, #fdd
 .handle {
   cursor: move;
 }
+
+.comment-to-top {
+  position: relative;
+  z-index: 9999;
+}
+
+
+
