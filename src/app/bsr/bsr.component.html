@@ -24,7 +24,8 @@
       </button>
 
       <!-- COMMENTS BOX -->
-      <div class="commentBox" fxLayout="col" *ngIf="isCommentBox" fxLayoutAlign="center center"  cdkDrag>
+      <div cdkDrag>
+      <div class="commentBox" fxLayout="col" *ngIf="isCommentBox" fxLayoutAlign="center center"  >
         <div fxFlex class="mat-elevation-z4 comment-box" >
           <div class="col">
             <div class="row" >
@@ -53,7 +54,7 @@
           </div>
         </div>
       </div>
-
+    </div>
       <!-- COMMENTS BOX -->
       <!-- <div fxLayout="col" *ngIf="!isCommentBox" fxLayoutAlign="center center">
         <div fxFlex class="mat-elevation-z4 comment-box">
