@@ -436,7 +436,7 @@
   overflow: hidden;
   width: 253px;
   word-break: break-all;
-  cursor: grab;
+  // cursor: grab;
   -ms-overflow-style: none; /* IE and Edge */
   scrollbar-width: none;
   text-shadow: 0px 1px 100000 1 n m/ px #555;
@@ -912,5 +912,5 @@ $postItHeaderColors2: #d6f8fd, #dcd6fd, #d6fde9, #fdfcd6, #d6f8fd, #fdd6e8, #fdd
 }
 
 .handle {
-  cursor: move;
+  cursor: grab;
 }
