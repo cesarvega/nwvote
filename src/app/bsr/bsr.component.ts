@@ -430,9 +430,51 @@ export class BsrComponent implements OnInit {
 
       let comment = this.projectId + "','" + this.currentPageNumber + "',N'" + this.commentBoxText + "'";
 
+      // let newConcepData = {
+      //   projectId: this.projectId,
+      //   concept: this.loginForm.value.name.replace(/'/g, "`"),
+      //   conceptid: JSON.stringify(this.data.name.conceptid),
+      //   attributesArray: this.data.name.attributes,
+      //   namesArray: this.model.namesData.split("\n"),
+      //   conceptHtml: this.model.editorData
+      // }
+      // this._BsrService.updatePost(JSON.stringify(newConcepData)).subscribe(arg => {
+      //   this.dialogRef.close('savePost');
+      // });
+
+
+     
       this._BsrService.sendComment(comment).subscribe(res => {
-        this.isCommentBox = false;
-        this.commentBoxText='';
+
+
+        let newConcepData = {
+          projectId: this.projectId,
+          conceptid: '0',
+          concept: 'Concept',
+          conceptorder: '0',
+          attributes: [],
+          names: []
+        }
+        this._BsrService.newPost(JSON.stringify(newConcepData)).subscribe(arg => {
+          this._BsrService.getPost().subscribe((res: any) => {
+           
+            this.conceptData = JSON.parse(res[0].bsrData);
+  
+  
+            this.conceptData.concepts[0].html = this.commentBoxText;
+            this.conceptData.concepts.forEach(element => {
+              element.concept = element.concept.replace(/`/g, "'");
+              element.html = element.html.replace(/`/g, "'");
+              });
+  
+              this.isCommentBox = false;
+              this.commentBoxText='';
+          });
+        });
+  
+
+
+
       });
     }
   }
@@ -705,6 +747,10 @@ export class editPost {
     namesData: ''
   };
 
+
+  newNamesPerConcept=''
+  conceptid = ''
+
   isMobileInfo: boolean;
   allComplete: boolean;
   isSynonymBox = false;
@@ -715,6 +761,7 @@ export class editPost {
   dataSource: any[];
   public myAngularxQrCode: string = null;
   isQRcode: boolean;
+  nameid: any = '';
   constructor(
     public dialogRef: MatDialogRef<editPost>,
     @Inject(MAT_DIALOG_DATA) public data: DialogData, private _formBuilder: FormBuilder, private _BsrService: BsrService, private activatedRoute: ActivatedRoute,) {
@@ -723,6 +770,17 @@ export class editPost {
     this.model.editorData = this.data.name.html;
     this.title = this.data.name.Name;
 
+    if (this.data.name.names) {
+      this.data.name.names.forEach(newName => {
+        this.newNamesPerConcept += newName.name + '\n' ;
+        this.nameid += newName.nameid + '\n' ;
+
+      });
+    }
+    
+
+    this.conceptid = this.data.name.conceptid;
+    
     this.projectId = '';
 
     // assign a value
@@ -822,8 +880,12 @@ export class editPost {
     } else {
       this.dialogRef.close('cancel');
     }
-    this.loginForm.value.suma.split('\n').forEach(element => {
-      this._BsrService.sendNewName(element, false).subscribe(arg => {
+    // this.loginForm.value.suma.split('\n').forEach(element => {
+
+      // this.newNamesPerConcept.replace(/'/g, "`");
+      this.newNamesPerConcept.split('\n').forEach((element, index)  => {
+        const tempArray = this.nameid.split('\n');
+      this._BsrService.sendNewName(element, false, this.conceptid, tempArray[index]).subscribe(arg => {
       });
     });
 
