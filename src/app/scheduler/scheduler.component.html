@@ -191,16 +191,7 @@
                                             <mat-label>Time Zone</mat-label>
                                             <mat-select formControlName="timeZone" matNativeControl
                                                 [(ngModel)]="selected" placeholder="Select time zone" required>
-                                                <mat-option value="EST">Eastern Time (EST)</mat-option>
-                                                <mat-option value="CST">Central Time (CST)</mat-option>
-                                                <mat-option value="MT">Mountain Time (MT)</mat-option>
-                                                <mat-option value="PST">Pacific Time (PST)</mat-option>
-                                                <mat-option value="WET">Western European Time (WET)</mat-option>
-                                                <mat-option value="CET">Central European Time (CET)</mat-option>
-                                                <mat-option value="EET">Eastern European Time (EET)</mat-option>
-                                                <mat-option value="JPT">Japan Time (JPT)</mat-option>
-                                                <mat-option value="KST">Korea Time (KST)</mat-option>
-                                                <mat-option value="BRT">Brasilia Time (BRT)</mat-option>
+                                                <mat-option value="{{timeZone.value}}" *ngFor="let timeZone of timeZoneOption">{{timeZone.name}}</mat-option>
                                             </mat-select>
                                         </mat-form-field> -->
                                      

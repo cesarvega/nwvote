@@ -85,17 +85,22 @@ export class BsrService {
   }
 
   getPost() {
+    console.log(this.projectName)
     const urlGetPosit = '[BI_GUIDELINES].[dbo].[bsr_GetProjectData] ' + "'" + localStorage.getItem(this.projectName + '_projectId') + "'";
     return this.http.post(this.webBaseUrl + this.apiCall, JSON.stringify(urlGetPosit), httpOptions);
   }
 
   newPost(newConcept) {
+    console.log(newConcept)
     let _SP_NewComcept = "[BI_GUIDELINES].[bsrv2].[bsr_updConcept] N'" + newConcept + "'";
     return this.http.post(this.webBaseUrl + this.apiCall, JSON.stringify(_SP_NewComcept), httpOptions);
   }
 
   updatePost(updateConcept) {
-    let _SP_NewComcept = "[BI_GUIDELINES].[dbo].[bsr_updConceptData] N'" + updateConcept + "'";
+    let json = JSON.parse(updateConcept);
+    let newUpdateConcept = {...json, concept:json.concept.replace("'", "`")};
+    let string = JSON.stringify(newUpdateConcept);
+    let _SP_NewComcept = "[BI_GUIDELINES].[dbo].[bsr_updConceptData] N'" + string + "'";
     return this.http.post(this.webBaseUrl + this.apiCall, JSON.stringify(_SP_NewComcept), httpOptions);
   }
 

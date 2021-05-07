@@ -1,3 +1,4 @@
+
 <div style="position: relative;overflow: hidden;" fxLayoutAlign="center center">
     <!-- <div style="position: relative;overflow: hidden;background-image: url(toolbarBg.jpg);background-repeat: no-repeat;"
     fxLayoutAlign="center center"> -->
@@ -286,24 +287,31 @@
     </div>
 
     <!-- EDITOR CARD -->
-
-
     <div *ngIf="!infoMessage && !isMobileInfo && !isQRcode">
         <form name="loginForm" [formGroup]="loginForm" novalidate>
             <div class="editPostit" style="display: flex;flex-direction: column;">
 
-                <div class="postItTitle" style="display: flex; flex-direction: column;border-radius: 8px;
-                border: 1px solid #004684;">
+                <div class="postItTitle" style="    display: flex;
+                flex-direction: column;
+                border-radius: 8px;
+                border: 1px solid #004684;
+                height: 90px;
+                font-size: 30px;
+                width: 99%">
 
                     <!-- CONCEPT TITLE -->
-                    <div style="display: flex; flex-direction: row; color: #004684;">
+                    <div style="display: flex; flex-direction: row; color: #004684; margin: 10px;">
                         <mat-icon style="padding-top: 8px;">assignment</mat-icon>
                         <h2 class="text-bold " style="padding-left: 5px;">CONCEPT TITLE</h2>
                     </div>
-                    <mat-form-field *ngIf="!isDeleting" tyle="width: 954px;
+                    <mat-form-field *ngIf="!isDeleting" style="
+                    width: 954px;
+                    font-size: 32px;
                     position: relative;
-                    top: -20px;
-                    font-size: 31px;">
+                    top: -70px;
+                    width: 98%;
+                    margin: 10px;
+                    ">
                         <input matInput type="Concept" formControlName="name">
                     </mat-form-field>
 
@@ -312,7 +320,7 @@
 
                 <div class="secondRow" style="display: flex;flex-direction: row;">
 
-                    <div class="ckeditor" style="border-radius: 8px;
+                    <div class="ckeditor" style="border-radius: 8px; margin: 10px;
                     border: 1px solid #004684; color: #004684;  max-width: 650px;  min-width: 350px;">
                         <h2 class="text-bold ">Key Words and Concepts</h2>
 
@@ -324,26 +332,105 @@
                     </div>
 
                     <div class="newnames" style="display: flex;flex-direction: column;border-radius: 8px;
-                    border: 1px solid #004684;color: #004684; padding-left: 10px;">
-                        <h2 class="text-bold ">New Names</h2>
-                        <textarea matInput cdkTextareaAutosize cdkAutosizeMinRows="23" formControlName="suma"
-                            cdkAutosizeMaxRows="23" style="
-                                      " appearance="outline" formControlName="suma"></textarea>
+                    border: 1px solid #004684; padding-left: 10px; margin: 10px;">
+                        <h2 class="text-bold " style="color: #004684;">New Names</h2>
+                        <textarea style="" matInput cdkTextareaAutosize cdkAutosizeMinRows="23" formControlName="suma"
+                        appearance="outline" formControlName="suma"></textarea>
 
                     </div>
                   
                 </div>
 
-                <button (click)="buttonOption('savePost')"  mat-fab color="success"
+                <div style="display: flex;
+                flex-direction: row;
+                justify-content: center;
+                height: 70px;">
+                <button (click)="buttonOption('savePost')" class="post-it-done-button"  mat-fab color="success"
                         aria-label="icon">
                         <mat-icon>check</mat-icon>
                     </button>
+                </div>
             </div>
         </form>
     </div>
 
 
 <!-- OLD POST IT -->
+<!-- <div *ngIf="!infoMessage && !isMobileInfo && !isQRcode" class="">
+    <form name="loginForm" [formGroup]="loginForm" novalidate class="">
+        <div class="container" fxLayout="column" fxLayoutAlign="center center">
+            <div class="row ">
+                <div class="col">
+                    <div class="title-card">
+
+                        <div class="p-16" style="color: #004684;padding: 10px;" fxLayout="row"
+                            fxLayoutAlign="start center">
+                            <mat-icon style="margin-right: 10px;">assignment</mat-icon>
+                            <h2 class="text-bold ">CONCEPT TITLE</h2>
+                        </div>
+
+                        <div fxLayoutAlign="center center">
+                            <mat-form-field *ngIf="!isDeleting" style="width: 954px;
+                            position: relative;
+                            top: -20px;
+                            font-size: 31px;">
+                              
+                                <input matInput type="Concept" formControlName="name">
+                            </mat-form-field>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col">
+                    <div class="ckeditor-card">
+
+                        <div class="p-16" style="color: #004684;padding: 10px;" fxLayout="row"
+                            fxLayoutAlign="start center">
+
+                            <h2 class="text-bold ">Key Words and Concepts</h2>
+
+                            <mat-icon class="synonymsIcon" matTooltip="copy to clip board before search"
+                                matTooltipPosition="above" (click)="getSynonyms()">layers</mat-icon>
+                        </div>
+
+                       
+                        <ckeditor id="txtTexto" class="ckeditorcev" [ngModelOptions]="{standalone: true}"
+                            [(ngModel)]="model.editorData" [data]="dataEditor" [config]="ckconfig"></ckeditor>
+                    </div>
+                </div>
+                <div class="col">
+                    <div class="new-names-card " style="overflow: hidden;">
+
+                        <div class="p-16" style="color: #004684;padding: 5px;" fxLayout="row"
+                            fxLayoutAlign="start center">
+                            <h2 class="text-bold ">New Names</h2>
+                        </div>
+
+                       
+                        <div class="p-16" style="padding: 10px;height: 780px;" fxLayout="row"
+                            fxLayoutAlign="start center">
+                            <textarea matInput cdkTextareaAutosize cdkAutosizeMinRows="23" formControlName="suma"
+                                cdkAutosizeMaxRows="23" style="
+                                                        height: 460px;
+                                                        width: 248px;
+                                                        position: absolute;
+                                                        font-size: 30px;
+                                                        line-height: 28px;
+                                                        top: 40px;" appearance="outline"
+                                formControlName="suma"></textarea>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </form>
+
+    <button (click)="buttonOption('savePost')" class="post-it-done-button" mat-fab color="success"
+        aria-label="icon">
+        <mat-icon>check</mat-icon>
+    </button>
+</div> -->
 
 
     <!-- QR CODE-->
