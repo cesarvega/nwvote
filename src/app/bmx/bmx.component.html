@@ -1,4 +1,4 @@
-<div class="mainContainerPresent">
+<div class="mainContainerPresent" [@cardAnimator]="animationState" (@cardAnimator.done)="resetAnimationState()">
 
     <div *ngIf="true" class="landingScreenTextContent">
 
@@ -27,7 +27,7 @@
         </div>
 
         <div class="slideToLoginBoundary">
-            <button mat-icon-button class="GO" cdkDragBoundary=".slideToLoginBoundary" cdkDragLockAxis="x" cdkDrag>
+            <button mat-icon-button class="GO" cdkDragBoundary=".slideToLoginBoundary" cdkDragLockAxis="x" cdkDrag (swipeRight)="startAnimation('slideOutRight')">
                 BI
             </button>
             <!-- <mat-icon style="color: darkblue;">crop_16_9</mat-icon> -->

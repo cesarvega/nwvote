@@ -335,7 +335,7 @@
                     border: 1px solid #004684; padding-left: 10px; margin: 10px;">
                         <h2 class="text-bold " style="color: #004684;">New Names</h2>
                         <textarea style="" matInput cdkTextareaAutosize cdkAutosizeMinRows="23" formControlName="suma"
-                        appearance="outline" formControlName="suma"></textarea>
+                        appearance="outline" [value]="newNamesPerConcept" [(ngModel)]="newNamesPerConcept" formControlName="suma"></textarea>
 
                     </div>
                   

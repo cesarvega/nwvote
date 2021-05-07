@@ -1,3 +1,4 @@
+import { OverlayContainer } from '@angular/cdk/overlay';
 import { Component, OnInit, Inject, ViewEncapsulation, ViewChild } from '@angular/core';
 import { FormControl } from '@angular/forms';
 import { HotkeysService, Hotkey } from 'angular2-hotkeys';
@@ -77,7 +78,7 @@ export class BsrComponent implements OnInit {
   constructor(@Inject(DOCUMENT) private document: any, private _formBuilder: FormBuilder,
     private _hotkeysService: HotkeysService,
     private _BsrService: BsrService, public dialog: MatDialog, private activatedRoute: ActivatedRoute,
-    private dragulaService: DragulaService ) {
+    private dragulaService: DragulaService) {
 
       dragulaService.createGroup('TASKS', {
         moves: (el, container, handle) => {
@@ -170,9 +171,15 @@ export class BsrComponent implements OnInit {
 
     this._BsrService.getPost().subscribe((res: any) => {
       this.conceptData = JSON.parse(res[0].bsrData);
+      
       if (JSON.parse(res[0].bsrData).presentationtype === 'NSR') {
         this.isNSR = true;
       }
+
+       this.conceptData.concepts.forEach(element => {
+        element.concept = element.concept.replace(/`/g, "'");
+        element.html = element.html.replace(/`/g, "'");
+        });
       console.log(this.conceptData);
     });
 
@@ -220,6 +227,10 @@ export class BsrComponent implements OnInit {
       this.columnSize = columnSize;
       this.initTable();
     }
+    this.conceptData.concepts.forEach(element => {
+      element.concept = element.concept.replace(/`/g, "'");
+      element.html = element.html.replace(/`/g, "'");
+      });
     return this.conceptData.concepts;
   }
 
@@ -270,6 +281,10 @@ export class BsrComponent implements OnInit {
   }  
 
   drop(event: CdkDragDrop<string[]>) {
+    this.conceptData.concepts.forEach(element => {
+      element.concept = element.concept.replace(/`/g, "'");
+      element.html = element.html.replace(/`/g, "'");
+      });
     moveItemInArray(this.conceptData.concepts, event.previousIndex, event.currentIndex);
     console.log(event.previousIndex, event.currentIndex);
     let orderArray = [];
@@ -279,6 +294,11 @@ export class BsrComponent implements OnInit {
     this._BsrService.postItOrder(this.projectId, orderArray).subscribe(arg => {
       this._BsrService.getPost().subscribe((res: any) => {
         this.conceptData = JSON.parse(res[0].bsrData);
+
+        this.conceptData.concepts.forEach(element => {
+          element.replace(/`/g, "'");
+        });
+
         if (JSON.parse(res[0].bsrData).presentationtype === 'NSR') {
           this.isNSR = true;
         }
@@ -355,6 +375,10 @@ export class BsrComponent implements OnInit {
     }
     this._BsrService.newPost(JSON.stringify(newConcepData)).subscribe(arg => {
       this._BsrService.getPost().subscribe((res: any) => {
+        this.conceptData.concepts.forEach(element => {
+          element.concept = element.concept.replace(/`/g, "'");
+          element.html = element.html.replace(/`/g, "'");
+          });
         this.conceptData = JSON.parse(res[0].bsrData);
       });
     });
@@ -406,9 +430,51 @@ export class BsrComponent implements OnInit {
 
       let comment = this.projectId + "','" + this.currentPageNumber + "',N'" + this.commentBoxText + "'";
 
+      // let newConcepData = {
+      //   projectId: this.projectId,
+      //   concept: this.loginForm.value.name.replace(/'/g, "`"),
+      //   conceptid: JSON.stringify(this.data.name.conceptid),
+      //   attributesArray: this.data.name.attributes,
+      //   namesArray: this.model.namesData.split("\n"),
+      //   conceptHtml: this.model.editorData
+      // }
+      // this._BsrService.updatePost(JSON.stringify(newConcepData)).subscribe(arg => {
+      //   this.dialogRef.close('savePost');
+      // });
+
+
+     
       this._BsrService.sendComment(comment).subscribe(res => {
-        this.isCommentBox = false;
-        this.commentBoxText='';
+
+
+        let newConcepData = {
+          projectId: this.projectId,
+          conceptid: '0',
+          concept: 'Concept',
+          conceptorder: '0',
+          attributes: [],
+          names: []
+        }
+        this._BsrService.newPost(JSON.stringify(newConcepData)).subscribe(arg => {
+          this._BsrService.getPost().subscribe((res: any) => {
+           
+            this.conceptData = JSON.parse(res[0].bsrData);
+  
+  
+            this.conceptData.concepts[0].html = this.commentBoxText;
+            this.conceptData.concepts.forEach(element => {
+              element.concept = element.concept.replace(/`/g, "'");
+              element.html = element.html.replace(/`/g, "'");
+              });
+  
+              this.isCommentBox = false;
+              this.commentBoxText='';
+          });
+        });
+  
+
+
+
       });
     }
   }
@@ -452,14 +518,25 @@ export class BsrComponent implements OnInit {
       data: { name: item, nameId: nameid }
     });
 
-
     this.conceptid = item.conceptid;
 
     dialogRef.afterClosed().subscribe(result => {
+
+      this.conceptData.concepts.forEach(element => {
+        element.concept = element.concept.replace(/`/g, "'");
+        element.html = element.html.replace(/`/g, "'");
+        });
+
       if (result === 'delete') {
         this._BsrService.deletePost(this.conceptid).subscribe(arg => {
           this._BsrService.getPost().subscribe((res: any) => {
+
+
             this.conceptData = JSON.parse(res[0].bsrData);
+            this.conceptData.concepts.forEach(element => {
+              element.concept = element.concept.replace(/`/g, "'");
+              element.html = element.html.replace(/`/g, "'");
+              });
             console.log(this.conceptData);
           });
         });
@@ -470,7 +547,10 @@ export class BsrComponent implements OnInit {
       } else if (result === 'savePost') {
         this._BsrService.getPost().subscribe((res: any) => {
           this.conceptData = JSON.parse(res[0].bsrData);
-
+          this.conceptData.concepts.forEach(element => {
+            element.concept = element.concept.replace(/`/g, "'");
+            element.html = element.html.replace(/`/g, "'");
+            });
           if (JSON.parse(res[0].bsrData).presentationtype === 'NSR') {
             this.isNSR = true;
           }
@@ -667,6 +747,10 @@ export class editPost {
     namesData: ''
   };
 
+
+  newNamesPerConcept=''
+  conceptid = ''
+
   isMobileInfo: boolean;
   allComplete: boolean;
   isSynonymBox = false;
@@ -677,6 +761,7 @@ export class editPost {
   dataSource: any[];
   public myAngularxQrCode: string = null;
   isQRcode: boolean;
+  nameid: any = '';
   constructor(
     public dialogRef: MatDialogRef<editPost>,
     @Inject(MAT_DIALOG_DATA) public data: DialogData, private _formBuilder: FormBuilder, private _BsrService: BsrService, private activatedRoute: ActivatedRoute,) {
@@ -685,6 +770,17 @@ export class editPost {
     this.model.editorData = this.data.name.html;
     this.title = this.data.name.Name;
 
+    if (this.data.name.names) {
+      this.data.name.names.forEach(newName => {
+        this.newNamesPerConcept += newName.name + '\n' ;
+        this.nameid += newName.nameid + '\n' ;
+
+      });
+    }
+    
+
+    this.conceptid = this.data.name.conceptid;
+    
     this.projectId = '';
 
     // assign a value
@@ -784,8 +880,12 @@ export class editPost {
     } else {
       this.dialogRef.close('cancel');
     }
-    this.loginForm.value.suma.split('\n').forEach(element => {
-      this._BsrService.sendNewName(element, false).subscribe(arg => {
+    // this.loginForm.value.suma.split('\n').forEach(element => {
+
+      // this.newNamesPerConcept.replace(/'/g, "`");
+      this.newNamesPerConcept.split('\n').forEach((element, index)  => {
+        const tempArray = this.nameid.split('\n');
+      this._BsrService.sendNewName(element, false, this.conceptid, tempArray[index]).subscribe(arg => {
       });
     });
 
@@ -829,3 +929,7 @@ export class editPost {
   
 
 }
+function toTop(nameid: any) {
+  throw new Error('Function not implemented.');
+}
+
