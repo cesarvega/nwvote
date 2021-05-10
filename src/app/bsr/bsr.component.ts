@@ -756,7 +756,7 @@ export class editPost {
   isSynonymBox = false;
   isEmojiTime: boolean = false;
 
-  displayedColumns: string[] = ['position', 'name', 'weight'];
+  displayedColumns: string[] = ['name', 'weight'];
   synonymWord: string = ' Copy name to clipboard ';
   dataSource: any[];
   public myAngularxQrCode: string = null;
