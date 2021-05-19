@@ -321,7 +321,7 @@
 
                     <div class="ckeditor" style="border-radius: 8px; margin: 10px 0;
                     border: 1px solid #004684; color: #004684;  max-width: 650px;  min-width: 350px;">
-                        <h2 class="text-bold ">Key Words and Concepts</h2>
+                        <h2 class="text-bold " style="margin: 5px;">Key Words and Concepts</h2>
 
                         <mat-icon class="synonymsIcon" matTooltip="copy to clip board before search"
                             matTooltipPosition="above" (click)="getSynonyms()">layers</mat-icon>
@@ -344,13 +344,13 @@
                 <div style="    display: flex;
                 flex-direction: row;
                 justify-content: center;
-                position: relative;
+                position: absolute;
                 height: 0px;
-                left: 376px;
-                top: -72px;">
+                right: 13px;
+                bottom: 73px;">
                     <button (click)="buttonOption('savePost')" class="post-it-done-button" mat-fab color="success"
                         aria-label="icon">
-                        <mat-icon>check</mat-icon>
+                        <mat-icon style="line-height: 26px;">check</mat-icon>
                     </button>
                 </div>
             </div>
