@@ -1690,5 +1690,57 @@ export class NW3Component implements OnInit {
 
   }
 
+
+
+  // SUMMARY FUNCTIONS
+
+  changeSummaryList(lsitSelection){
+
+    if (lsitSelection === 'positive') {      
+      this.summaryPositive = true;
+      this.summaryNeutral = false;
+      this.summaryNegative = false;
+      this.summaryNewNames = false;
+      this.summaryChart = false;    
+    }    
+
+    else if (lsitSelection === 'neutral') {
+      this.summaryPositive = false;
+      this.summaryNeutral = true;
+      this.summaryNegative = false;
+      this.summaryNewNames = false;
+      this.summaryChart = false;      
+    }
+
+    else if (lsitSelection === 'negative') {
+      this.summaryPositive = false;
+      this.summaryNeutral = false;
+      this.summaryNegative = true;
+      this.summaryNewNames = false;
+      this.summaryChart = false;    
+    }
+
+    else if (lsitSelection === 'newNames') {      
+      this.summaryPositive = false;
+      this.summaryNeutral = false;
+      this.summaryNegative = false;
+      this.summaryNewNames = true;
+      this.summaryChart = false;
+    }
+
+    else if (lsitSelection === 'chart') {
+      this.summaryPositive = false;
+      this.summaryNeutral = false;
+      this.summaryNegative = false;
+      this.summaryNewNames = false;
+      this.summaryChart = true;      
+    }
+
+  }
+
+
+
+
+
 }
 

@@ -34,93 +34,82 @@
 
 
         <!-- SINGLE TEST NAME -->
-        <div *ngIf="(slideType === 'NameSummary')" class="summaryPresentar">
+        <div *ngIf="(slideType === 'NameSummary')" class="summaryPresentar summary">
 
-            <div class="summary" style="margin: 30px 20px;
-            font-size: 40px;
-            max-height: 10%;
-            position: fixed;
-            top: 10px;">Summary</div>
+            <div class="summaryLabel">Summary</div>
 
-
-
-            <div style="display: flex; 
-                        flex-direction: row; 
-                        justify-content: space-between;
-                        align-items: center;    
-                        margin-top: 100px;
-                        margin-left: 25px;
-                        margin-right: 25px;">
-
-
-                <div style="display: flex; flex-direction: row; justify-content: space-between;
-                align-items: center">
-                    <button mat-raised-button style="margin-right: 5px;background-color: green;">Positive</button>
-                    <button mat-raised-button style="margin-right: 5px; background-color: orange;" color="primary">Neutral</button>
-                    <button mat-raised-button color="warn">Negative</button>
-      
+            <div class="summaryButtons">
+                <div style="display: flex; flex-direction: row; justify-content: space-between;align-items: center">
+                    <button (click)="changeSummaryList('positive')" mat-raised-button style="margin-right: 5px;background-color: white;">Positive</button>
+                    <button  (click)="changeSummaryList('neutral')" mat-raised-button style="margin-right: 5px; background-color: white;"
+                        color="primary">Neutral</button>
+                    <button (click)="changeSummaryList('negative')" mat-raised-button style="margin-right: 5px; background-color: white;">Negative</button>
 
                 </div>
-                <div style="display: flex; flex-direction: row; justify-content: space-between;
-                align-items: center">
-                    <button mat-raised-button style="margin-right: 5px;background-color: purple;color:white">New Names</button>
-                    <button mat-mini-fab style="margin-right: 5px;background-color: blue;color:white">
+                <div style="display: flex; flex-direction: row; justify-content: space-between;align-items: center">
+                    <button (click)="changeSummaryList('newNames')" mat-raised-button style="margin-right: 5px;background-color: white;color:black">New
+                        Names</button>
+                    <button (click)="changeSummaryList('chart')" mat-mini-fab style="margin-right: 5px;background-color: white;color:black;outline: none;">
                         <mat-icon>leaderboard</mat-icon>
-                      </button>
-
+                    </button>
                 </div>
-
-
             </div>
 
+            <div class="summaryMainContent">
 
-
-
-
-
-
-
-            <div style="overflow-y: scroll;               
-                        max-height: 543px;
-                        margin-top: 17px;">
-
-
-
-
-
-                <div *ngIf="summaryPositive" class="summary postives">
-                    <div style="display: flex;
-                 flex-direction: row; 
-                 display: flex;
-                justify-content: center;
-                align-items: center;">
-                        <div *ngFor="let item of fonts">{{item}}</div>
-                    </div>
-                </div>
-                <div *ngIf="summaryNeutral" class="summary neutral">
-                    <div *ngFor="let item of fonts">{{item}}</div>
-                </div>
-                <div *ngIf="summaryNegative" class="summary negative">
-                    <div *ngFor="let item of fonts">{{item}}</div>
-                </div>
-                <div *ngIf="summaryNewNames" class="summary new_names">
-                    <div *ngFor="let item of fonts">{{item}}</div>
-                </div>
-                <div *ngIf="summaryChart" class="summary chart">
-                    <div style="display: flex; 
-                flex-direction: column; 
-                display: flex;
-                justify-content: left;
-                align-items: left;
-                font-size: 36px;
-                margin: 20px;
-                line-height: 35px;">
+                <div *ngIf="summaryPositive" class="summaryPostives">
+                    <div class="summaryListDisplay" style="background-color: green; color: white;">
                         <div *ngFor="let item of fonts">{{item}}</div>
                         <div *ngFor="let item of fonts">{{item}}</div>
                     </div>
                 </div>
+                <div *ngIf="summaryNeutral" class="summaryPostives">
+                    <div class="summaryListDisplay" style="background-color: orange; color: white;">
+                        <div *ngFor="let item of fonts">{{item}}</div>
+                        <div *ngFor="let item of fonts">{{item}}</div>
+                    </div>
+                </div>
+                <div *ngIf="summaryNegative" class="summaryNegative">
+                    <div class="summaryListDisplay" style="background-color: red; color: white;">
+                        <div *ngFor="let item of fonts">{{item}}</div>
+                        <div *ngFor="let item of fonts">{{item}}</div>
+                    </div>
+                </div>
+                <div *ngIf="summaryNewNames" class="summaryNew_names">
+                    <div class="summaryListDisplay" style="background-color: purple; color: white;">
+                        <div *ngFor="let item of fonts">{{item}}</div>
+                        <div *ngFor="let item of fonts">{{item}}</div>
+                    </div>
+                </div>
+            </div>
+            <div *ngIf="summaryChart" class="summaryChart">
+                <div style="display: flex;flex-direction: column;align-items: center;justify-content: center;">CHART
+                    HERE</div>
+            </div>
+
+            <div style="position: fixed;bottom: 0px;">
+
+                <div class="summaryTextarea">
+                    <mat-form-field style="margin-left:20px; width: 800px;margin-right: 10px;" appearance="outline">
+                        <mat-label>Additional comments</mat-label>
+                        <input type="text" matInput placeholder="Additional comments">
+                    </mat-form-field>
+
+                    <button class="summaryTextAreaButton" mat-raised-button>Save</button>
+                </div>
+
             </div>
         </div>
+
+
+
+
+
+
+
+
+
+
         <div *ngIf="(slideType !== 'Image' && slideType !== 'NameSummary')">
             <div class="singleNameSlide">
 
