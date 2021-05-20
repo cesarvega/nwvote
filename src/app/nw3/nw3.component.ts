@@ -223,6 +223,17 @@ export class NW3Component implements OnInit {
   thumbNails: any;
   navigatePageIndex;
 
+
+
+  // SUMMARY VARS
+  summaryPositive = false;
+  summaryNeutral = false;
+  summaryNegative = false;
+  summaryNewNames = false;
+  summaryChart = true;
+
+
+
   testName = 'Comirnaty';
 
 
@@ -377,7 +388,7 @@ export class NW3Component implements OnInit {
   switchBackground(displayBg) {
     this.displayBackground = !displayBg;
   }
-
+ 
   pageChange(changePageTo: string) {
     this.timeToReset = false;
     const changePageToObj = JSON.parse(changePageTo);
@@ -439,6 +450,16 @@ export class NW3Component implements OnInit {
 
 
   ngOnInit(): void {
+
+
+    // SUMMARY WORK TEST CODE 
+
+
+    // this.pageNumberChange('19');
+
+
+    // END TEST CODE 
+
 
     this.changingPage = '{}';
     this.currentSlidePageInfo = this.changingPage;
@@ -574,7 +595,6 @@ export class NW3Component implements OnInit {
 
     const projectData = JSON.parse(this.projectData);
     this.projectName = JSON.parse(this.projectData)[0].DisplayName;
-    this.testName = projectData[this.pageNumber - 1].SlideDescription;
     this.testName = projectData[this.pageNumber - 1].SlideDescription;
     // if (this.tickerElement) {
     //   if (this.tickerTime !== '') {
@@ -886,7 +906,14 @@ export class NW3Component implements OnInit {
 
 
   pageNumberChange(selectedPage) {
-    this.pageNumber = Number(selectedPage);
+    // this.pageNumber = Number(selectedPage);
+    this.pageNumber =19;
+
+
+
+
+
+
     this.currentProgress = (this.pageNumber / this.passTotalPages) * 100;
     // const comeFromData = JSON.stringify({ 'comeFrom': 'summary', pageNumber: selectedPage });
     // this.isImage = false;
@@ -1662,6 +1689,58 @@ export class NW3Component implements OnInit {
     }
 
   }
+
+
+
+  // SUMMARY FUNCTIONS
+
+  changeSummaryList(lsitSelection){
+
+    if (lsitSelection === 'positive') {      
+      this.summaryPositive = true;
+      this.summaryNeutral = false;
+      this.summaryNegative = false;
+      this.summaryNewNames = false;
+      this.summaryChart = false;    
+    }    
+
+    else if (lsitSelection === 'neutral') {
+      this.summaryPositive = false;
+      this.summaryNeutral = true;
+      this.summaryNegative = false;
+      this.summaryNewNames = false;
+      this.summaryChart = false;      
+    }
+
+    else if (lsitSelection === 'negative') {
+      this.summaryPositive = false;
+      this.summaryNeutral = false;
+      this.summaryNegative = true;
+      this.summaryNewNames = false;
+      this.summaryChart = false;    
+    }
+
+    else if (lsitSelection === 'newNames') {      
+      this.summaryPositive = false;
+      this.summaryNeutral = false;
+      this.summaryNegative = false;
+      this.summaryNewNames = true;
+      this.summaryChart = false;
+    }
+
+    else if (lsitSelection === 'chart') {
+      this.summaryPositive = false;
+      this.summaryNeutral = false;
+      this.summaryNegative = false;
+      this.summaryNewNames = false;
+      this.summaryChart = true;      
+    }
+
+  }
+
+
+
+
 
 }
 

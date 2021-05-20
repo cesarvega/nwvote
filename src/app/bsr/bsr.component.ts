@@ -455,7 +455,7 @@ export class BsrComponent implements OnInit {
           let comments = '';
 
           res.forEach(element => {
-            comments += element.Comments + '\n'
+            comments += element.Comments + "\n"
           });
 
 

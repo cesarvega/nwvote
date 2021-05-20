@@ -147,7 +147,6 @@
     border-radius: 5px;
     display: flex;
     flex-direction: column;
-    
 }
 
 .full-icon:hover {
@@ -235,7 +234,6 @@
     height: 30px;
     line-height: 20px;
     @include BoxShadow(6);
-    
 }
 
 .voteIconButtonGreen:hover {
@@ -245,7 +243,6 @@
     top: -2px;
     transform: scale(1.2);
     @include BoxShadow(6);
-    
 }
 
 .voteOverview {
@@ -280,7 +277,7 @@
     animation: heartBeat 10000ms ease-in-out 100ms infinite, fadeOut 10000ms ease-in-out 100ms infinite;
 }
 
-.GO {   
+.GO {
     width: 70px;
     height: 70px;
     border: 5px solid darkblue;
@@ -525,3 +522,53 @@ $voteIconsColor: #008d05, #f2ce00, #f50c0c, #4c00ff, #4c00ff;
 //         }
 //     }
 // }
+
+// SUMMARY SCSS
+
+.summary {
+    .summaryLabel {
+        margin: 30px 20px;
+        font-size: 40px;
+        max-height: 10%;
+        position: fixed;
+        top: 10px;
+    }
+
+    .summaryButtons {
+        display: flex;
+        flex-direction: row;
+        justify-content: space-between;
+        align-items: center;
+        margin-top: 100px;
+        margin-left: 25px;
+        margin-right: 25px;
+    }
+
+    .summaryMainContent {
+        overflow-y: scroll;
+        max-height: 480px;
+        margin-top: 17px;
+    }
+    .summaryTextarea {
+        display: flex;
+        flex-direction: row;
+        justify-content: space-around;
+        align-items: center;
+    }
+
+    .summaryTextAreaButton {
+        background-color: yellowgreen;
+        margin-top: -22px;
+    }
+
+    .summaryListDisplay{
+        display: flex; 
+        flex-direction: column; 
+        display: flex;
+        justify-content: left;
+        align-items: left;
+        font-size: 36px;
+        margin: 20px;
+        line-height: 35px;
+    }
+}
