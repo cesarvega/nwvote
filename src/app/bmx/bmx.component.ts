@@ -7,13 +7,34 @@ import { BmxService } from './bmx.service';
 import { Router, ActivatedRoute } from '@angular/router';
 import Speech from 'speak-tts';
 
+import { keyframes, animate } from '@angular/animations';
+import * as kf from './keyframes';
 
 @Component({
   selector: 'app-bmx',
   templateUrl: './bmx.component.html',
-  styleUrls: ['./bmx.component.scss']
+  styleUrls: ['./bmx.component.scss'],
+  animations: [
+    trigger('cardAnimator', [
+      transition('* => zoomOutRight', animate(1000, keyframes(kf.zoomOutRight))),
+      transition('* => slideOutRight', animate(1000, keyframes(kf.slideOutRight)))
+    ])
+  ]
 })
 export class BmxComponent implements OnInit {
+
+  animationState: string;
+
+  startAnimation(state) {
+    console.log(state)
+    if (!this.animationState) {
+      this.animationState = state;
+    }
+  }
+
+  resetAnimationState() {
+    this.animationState = '';
+  }
 
   projectName = 'PROJECT NAME';
   userName = 'Alexa';

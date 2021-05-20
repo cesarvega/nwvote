@@ -33,14 +33,92 @@
 
 
 
-        <!-- SINGLE TEST NAME -->
-        <div *ngIf="(slideType === 'NameSummary')" class="summaryPresentar" >SUMMARY SLIDE</div>
-        <div *ngIf="(slideType !== 'Image' && slideType !== 'NameSummary')">
+        <!--❤️ TEMPLATES FOR SLIDES , GROUP NAMES, SINGLE NAME, IMAGE SLIDE -->
+
+        <!-- IMAGE SLIDE  -->
+        <div *ngIf="(slideType === 'Image')" class="imagePresentar" [style.background]="slideBackground"></div>
+        <!-- {{slideBackground}} -->
+
+        <!-- SUMMARY SLIDE -->
+        <div *ngIf="(slideType === 'NameSummary')" class="summaryPresentar summary">
+
+            <div class="summaryLabel">Summary</div>
+
+            <div class="summaryButtons">
+                <div style="display: flex; flex-direction: row; justify-content: space-between;align-items: center">
+                    <button (click)="changeSummaryList('positive')" mat-raised-button
+                        style="margin-right: 5px;background-color: white;">Positive</button>
+                    <button (click)="changeSummaryList('neutral')" mat-raised-button
+                        style="margin-right: 5px; background-color: white;" color="primary">Neutral</button>
+                    <button (click)="changeSummaryList('negative')" mat-raised-button
+                        style="margin-right: 5px; background-color: white;">Negative</button>
+
+                </div>
+                <div style="display: flex; flex-direction: row; justify-content: space-between;align-items: center">
+                    <button (click)="changeSummaryList('newNames')" mat-raised-button
+                        style="margin-right: 5px;background-color: white;color:black">New
+                        Names</button>
+                    <button (click)="changeSummaryList('chart')" mat-mini-fab
+                        style="margin-right: 5px;background-color: white;color:black;outline: none;">
+                        <mat-icon>leaderboard</mat-icon>
+                    </button>
+                </div>
+            </div>
+
+            <div class="summaryMainContent">
+
+                <div *ngIf="summaryPositive" class="summaryPostives">
+                    <div class="summaryListDisplay" style="background-color: green; color: white;">
+                        <div *ngFor="let item of fonts">{{item}}</div>
+                        <div *ngFor="let item of fonts">{{item}}</div>
+                    </div>
+                </div>
+                <div *ngIf="summaryNeutral" class="summaryPostives">
+                    <div class="summaryListDisplay" style="background-color: orange; color: white;">
+                        <div *ngFor="let item of fonts">{{item}}</div>
+                        <div *ngFor="let item of fonts">{{item}}</div>
+                    </div>
+                </div>
+                <div *ngIf="summaryNegative" class="summaryNegative">
+                    <div class="summaryListDisplay" style="background-color: red; color: white;">
+                        <div *ngFor="let item of fonts">{{item}}</div>
+                        <div *ngFor="let item of fonts">{{item}}</div>
+                    </div>
+                </div>
+                <div *ngIf="summaryNewNames" class="summaryNew_names">
+                    <div class="summaryListDisplay" style="background-color: purple; color: white;">
+                        <div *ngFor="let item of fonts">{{item}}</div>
+                        <div *ngFor="let item of fonts">{{item}}</div>
+                    </div>
+                </div>
+            </div>
+            <div *ngIf="summaryChart" class="summaryChart">
+                <div style="display: flex;flex-direction: column;align-items: center;justify-content: center;">CHART
+                    HERE</div>
+            </div>
+
+            <div style="position: fixed;bottom: 0px;">
+
+                <div class="summaryTextarea">
+                    <mat-form-field style="margin-left:20px; width: 800px;margin-right: 10px;" appearance="outline">
+                        <mat-label>Additional comments</mat-label>
+                        <input type="text" matInput placeholder="Additional comments">
+                    </mat-form-field>
+
+                    <button class="summaryTextAreaButton" mat-raised-button>Save</button>
+                </div>
+
+            </div>
+        </div>
+
+
+        <!-- SINGLE NAME -->
+        <div *ngIf="(slideType === 'NameEvaluation')">
             <div class="singleNameSlide">
 
                 <div class="nameContainer">
-                    <div [style.font-family]="font1" [style.font-size]="'30px'" class="item1">COVID-9 mRNA vaccine</div>
-                    <div class="testName" [style.font-family]="font2"Comirnaty
+                    <div [style.font-family]="font1" [style.font-size]="'30px'" class="item1">{{category}}</div>
+                    <div class="testName" [style.font-family]="font2" Comirnaty
                         [style.font-size]="(font2==='coture')?'117px':'190px'" [innerHTML]="testName">
 
                     </div>
@@ -51,24 +129,49 @@
                     </div>
                 </div>
 
+
+
+                <!--VOTE EMOJI BUTTONS -->
                 <div class="voteIcons">
 
-                    <button *ngIf="positiveChecked" class="voteIconButton"  (click)="selectedOpt('positive');" mat-icon-button matTooltip="" matTooltipPosition="above">
+
+                    <!-- POSITIVE BUTTON -->
+                    <button *ngIf="positiveChecked" class="voteIconButton" (click)="selectedOpt('positive');"
+                        mat-icon-button matTooltip="" matTooltipPosition="above">
                         <mat-icon>sentiment_very_satisfied</mat-icon>
                     </button>
-                    <button *ngIf="!positiveChecked" class="voteIconButtonGreen"  (click)="selectedOpt('positive');" mat-icon-button matTooltip="" matTooltipPosition="above">
+                    <button *ngIf="!positiveChecked" class="voteIconButtonGreen" (click)="selectedOpt('positive');"
+                        mat-icon-button matTooltip="" matTooltipPosition="above">
                         <mat-icon>sentiment_very_satisfied</mat-icon>
                     </button>
 
-                    <button class="voteIconButton"  (click)="selectedOpt('neutral');" mat-icon-button matTooltip="" matTooltipPosition="above">
+                    <!-- NEUTRAL BUTTON -->
+                    <button *ngIf="neutralChecked" class="voteIconButton" (click)="selectedOpt('neutral');"
+                        mat-icon-button matTooltip="" matTooltipPosition="above">
+                        <mat-icon>sentiment_neutral</mat-icon>
+                    </button>
+                    <button *ngIf="!neutralChecked" class="voteIconButton" (click)="selectedOpt('neutral');"
+                        mat-icon-button matTooltip="" matTooltipPosition="above">
                         <mat-icon>sentiment_neutral</mat-icon>
                     </button>
 
-                    <button class="voteIconButton"  (click)="selectedOpt('negative');" mat-icon-button matTooltip="" matTooltipPosition="above">
+                    <!-- NEGATIVE BUTTON -->
+                    <button *ngIf="negativeChecked" class="voteIconButton" (click)="selectedOpt('negative');"
+                        mat-icon-button matTooltip="" matTooltipPosition="above">
+                        <mat-icon>sentiment_very_dissatisfied</mat-icon>
+                    </button>
+                    <button *ngIf="!negativeChecked" class="voteIconButton" (click)="selectedOpt('negative');"
+                        mat-icon-button matTooltip="" matTooltipPosition="above">
                         <mat-icon>sentiment_very_dissatisfied</mat-icon>
                     </button>
 
-                    <button class="voteIconButton"  (click)="selectedOpt('recraft');" mat-icon-button matTooltip="" matTooltipPosition="above">
+                    <!-- RECRAFT BUTTON -->
+                    <button *ngIf="recraftChecked" class="voteIconButton" (click)="selectedOpt('recraft');"
+                        mat-icon-button matTooltip="" matTooltipPosition="above">
+                        <mat-icon>sync</mat-icon>
+                    </button>
+                    <button *ngIf="!recraftChecked" class="voteIconButton" (click)="selectedOpt('recraft');"
+                        mat-icon-button matTooltip="" matTooltipPosition="above">
                         <mat-icon>sync</mat-icon>
                     </button>
 
@@ -77,8 +180,8 @@
             </div>
 
 
-            <!-- <div class="groupName" >groupName</div> -->
 
+            <!-- VOTERS LIST WINDOWS  NO IMPLEMENTED YET-->
             <div *ngIf="false" class="voteOverview">
 
                 <button class="voteOverviewBox" matTooltip="Positive" matTooltipPosition="above">
@@ -97,56 +200,41 @@
             </div>
 
 
-            <!-- BI BRAND GO BUTTON -->
+            <!-- BI BRAND GO VOTE BUTTON -->
             <div class="smartRadialButton">
 
                 <button [ngClass]="(isGoVoteOn)?'GO':'GO_Off'" mat-icon-button (click)="goVote()">
                     BI
                 </button>
-                <!-- <mat-icon class="fisheye">panorama_fish_eye</mat-icon> -->
 
-                <!--  <button *ngIf="isRadialMenuOn" class="G4 GG" mat-icon-button>
-                N
-            </button>
 
-            <button *ngIf="isRadialMenuOn" class="G2 GG" mat-icon-button>
-                C
-            </button>
-
-            <button *ngIf="isRadialMenuOn" class="G3 GG" mat-icon-button>
-                P
-            </button>
-
-            <button *ngIf="isRadialMenuOn" class="G1 GG" mat-icon-button>
-                T
-            </button> -->
-
+                <!-- COMMENT AND NEW NAMES TEXTAREAS -->
                 <div class="textareas">
-                    <mat-form-field fxFlex="50" id="newNameFormField" appearance="" style="max-width: 45%; padding: 15px 20px;">
+                    <mat-form-field fxFlex="50" id="newNameFormField" appearance=""
+                        style="max-width: 45%; padding: 15px 20px;">
                         <input #txtNewName matInput placeholder="" style="font-size: 30px;text-align: center;">
                     </mat-form-field>
                     <mat-label class="newNamesLabel" style="color: darkblue;">new names</mat-label>
-                    <mat-form-field fxFlex="50" id="commentsFormField" appearance="" style="max-width: 45%; padding: 15px 20px;">
+                    <mat-form-field fxFlex="50" id="commentsFormField" appearance=""
+                        style="max-width: 45%; padding: 15px 20px;">
                         <input #txtComments matInput placeholder="" style="font-size: 30px;text-align: center;">
                     </mat-form-field>
                     <mat-label class="commentsLabel" style="color: darkblue;">comments</mat-label>
                 </div>
+
+
             </div>
 
         </div>
 
-
-        <!-- IMAGE VIEW  -->
-
-
-        <div *ngIf="(slideType === 'Image')" class="imagePresentar" [style.background]="slideBackground"></div>
-        <!-- {{slideBackground}} -->
+        <!--💔 END OF TEMPLATES FOR SLIDES , GROUP NAMES, SINGLE NAME, IMAGE SLIDE -->
+        
     </div>
 
 
 
 
-    <!-- SIDE MENU -->
+    <!--RIGHT SIDE TOOL BAR MENU -->
     <div *ngIf="!mainMenu" class="corner_bar_menu">
         <button *ngIf="false" matTooltip="new post it" matTooltipPosition="above" mat-icon-button color="warn"
             aria-label="aria">

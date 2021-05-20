@@ -223,6 +223,17 @@ export class NW3Component implements OnInit {
   thumbNails: any;
   navigatePageIndex;
 
+
+
+  // SUMMARY VARS
+  summaryPositive = false;
+  summaryNeutral = false;
+  summaryNegative = false;
+  summaryNewNames = false;
+  summaryChart = true;
+
+
+
   testName = 'Comirnaty';
 
 
@@ -341,34 +352,34 @@ export class NW3Component implements OnInit {
   }
   // DASH CODE
 
-  resizeContent() {
-    if (window.innerWidth >= 1900) {
-      this.contentResize = 60;
-    } else if (window.innerWidth >= 1700) {
-      this.contentResize = 55;
-    } else if (window.innerWidth >= 1400) {
-      this.contentResize = 60;
-    } else if (window.innerWidth >= 1024) {
-      this.contentResize = 80;
-    } else {
-      this.contentResize = 90;
-    }
-  }
+  // resizeContent() {
+  //   if (window.innerWidth >= 1900) {
+  //     this.contentResize = 60;
+  //   } else if (window.innerWidth >= 1700) {
+  //     this.contentResize = 55;
+  //   } else if (window.innerWidth >= 1400) {
+  //     this.contentResize = 60;
+  //   } else if (window.innerWidth >= 1024) {
+  //     this.contentResize = 80;
+  //   } else {
+  //     this.contentResize = 90;
+  //   }
+  // }
 
-  moveSlideDirection(e) {
-    this.pageDirection = e;
-  }
+  // moveSlideDirection(e) {
+  //   this.pageDirection = e;
+  // }
 
-  currentSlideType(slideType) {
-    if (slideType === 'NameEvaluation') {
-      this.isImage = false;
-      this.isEvaluation = true;
-    }
-    if (slideType === 'Image' || slideType === 'NameSummary') {
-      this.isImage = true;
-      this.isEvaluation = false;
-    }
-  }
+  // currentSlideType(slideType) {
+  //   if (slideType === 'NameEvaluation') {
+  //     this.isImage = false;
+  //     this.isEvaluation = true;
+  //   }
+  //   if (slideType === 'Image' || slideType === 'NameSummary') {
+  //     this.isImage = true;
+  //     this.isEvaluation = false;
+  //   }
+  // }
 
   resetSlide(isReset) {
     this.timeToReset = isReset;
@@ -377,7 +388,7 @@ export class NW3Component implements OnInit {
   switchBackground(displayBg) {
     this.displayBackground = !displayBg;
   }
-
+ 
   pageChange(changePageTo: string) {
     this.timeToReset = false;
     const changePageToObj = JSON.parse(changePageTo);
@@ -446,7 +457,7 @@ export class NW3Component implements OnInit {
       this.name = params.id;
       this.getProjectId(this.name);
     });
-    this.resizeContent();
+    // this.resizeContent();
     // this.getNwVoteData( this.projectId);
     // this.saveData(this.slideModel);
   }
@@ -575,7 +586,6 @@ export class NW3Component implements OnInit {
     const projectData = JSON.parse(this.projectData);
     this.projectName = JSON.parse(this.projectData)[0].DisplayName;
     this.testName = projectData[this.pageNumber - 1].SlideDescription;
-    this.testName = projectData[this.pageNumber - 1].SlideDescription;
     // if (this.tickerElement) {
     //   if (this.tickerTime !== '') {
     //     if (JSON.parse(this.tickerTime).showingTicker === true) {
@@ -615,7 +625,7 @@ export class NW3Component implements OnInit {
       this.slideModel.NewNames = (this.txtNewNameElement) ? this.txtNewNameElement.nativeElement.value : '';
       if (this.tickerTime !== '') {
         let lastVisitedPageNumber;
-        this.collectGroupRanks();
+        // this.collectGroupRanks();
         if (JSON.parse(this.tickerTime).active !== true) {
           const pageObj = JSON.parse(this.currentSlidePageInfo);
           if (pageObj.moveTo === 'summary') {
@@ -656,7 +666,7 @@ export class NW3Component implements OnInit {
 
 
 
-        this.collectGroupRanks();
+        // this.collectGroupRanks();
         if (this.slideType !== 'Image') {
 
           this.testName = projectData[this.pageNumber - 1].SlideDescription;
@@ -679,26 +689,26 @@ export class NW3Component implements OnInit {
 
   }
 
-  collectGroupRanks() {
-    this.slideModel.NameRanking = '';
-    if (this.separateCandidateElement) {
-      this.separateCandidateElement.toArray().forEach((element, index) => {
-        if (element.checked) {
-          if (index === (this.separateCandidateElement.toArray().length - 1)) {
-            this.slideModel.NameRanking = this.slideModel.NameRanking + 'Positive';
-          } else {
-            this.slideModel.NameRanking = this.slideModel.NameRanking + 'Positive##';
-          }
-        } else {
-          if (index === (this.separateCandidateElement.toArray().length - 1)) {
-            this.slideModel.NameRanking = this.slideModel.NameRanking + 'Negative';
-          } else {
-            this.slideModel.NameRanking = this.slideModel.NameRanking + 'Negative##';
-          }
-        }
-      });
-    }
-  }
+  // collectGroupRanks() {
+  //   this.slideModel.NameRanking = '';
+  //   if (this.separateCandidateElement) {
+  //     this.separateCandidateElement.toArray().forEach((element, index) => {
+  //       if (element.checked) {
+  //         if (index === (this.separateCandidateElement.toArray().length - 1)) {
+  //           this.slideModel.NameRanking = this.slideModel.NameRanking + 'Positive';
+  //         } else {
+  //           this.slideModel.NameRanking = this.slideModel.NameRanking + 'Positive##';
+  //         }
+  //       } else {
+  //         if (index === (this.separateCandidateElement.toArray().length - 1)) {
+  //           this.slideModel.NameRanking = this.slideModel.NameRanking + 'Negative';
+  //         } else {
+  //           this.slideModel.NameRanking = this.slideModel.NameRanking + 'Negative##';
+  //         }
+  //       }
+  //     });
+  //   }
+  // }
 
   // startTicerInterval() {
   //   this.tickerInterval = setInterval(() => {
@@ -706,11 +716,11 @@ export class NW3Component implements OnInit {
   //   }, 2000);
   // }
 
-  moveSlide(e) {
-    if (e.keyCode === 39 || e.keyCode === 37 || e.keyCode === 40 || e.keyCode === 38) {
-      this.slideChange.emit(e.keyCode);
-    }
-  }
+  // moveSlide(e) {
+  //   if (e.keyCode === 39 || e.keyCode === 37 || e.keyCode === 40 || e.keyCode === 38) {
+  //     this.slideChange.emit(e.keyCode);
+  //   }
+  // }
 
   mouseEnter() {
     clearInterval(this.tickerInterval);
@@ -749,78 +759,82 @@ export class NW3Component implements OnInit {
   //   this.getSelectedRank(clickEvent.name);
   // }
 
-  // getSelectedRank(selectedRank) {
-  //   this._NW3Service.getGroupSummary(this.projectId).subscribe(displayGroupResult => {
-  //     this.nameCandidates = [];
-  //     for (const obj of Object.values(displayGroupResult)) {
-  //       this.tempObj = obj;
-  //       let arrGroupRank;
-  //       let arrGroupName;
-  //       if (obj.name.includes('##')) {
-  //         arrGroupRank = obj.nameranking.split('##');
-  //         arrGroupName = obj.name.split('##');
-  //       } else {
-  //         arrGroupRank = obj.nameranking.split('##');
-  //         arrGroupName = obj.name.split('$$');
-  //       }
-  //       arrGroupName.forEach((name, index) => {
-  //         if (selectedRank === 'Positive' && arrGroupRank[index] === 'Positive') {
-  //           this.nameCandidates.push({
-  //             'NameToDisplay': name,
-  //             'Name': this.tempObj.name
-  //           });
-  //         }
-  //         if (selectedRank === 'Negative' && arrGroupRank[index] === 'Negative') {
-  //           this.nameCandidates.push({
-  //             'NameToDisplay': name,
-  //             'Name': this.tempObj.name
-  //           });
-  //         }
-  //         if (selectedRank === 'Neutral' && arrGroupRank[index] === 'Neutral') {
-  //           this.nameCandidates.push({
-  //             'NameToDisplay': name,
-  //             'Name': this.tempObj.name
-  //           });
-  //         }
-  //       });
-  //     }
-  //     if (selectedRank === 'New') {
-  //       this.isNewName = true;
-  //       this.postRadio = false;
-  //       this.NeuRadio = false;
-  //       this.NegRadio = false;
-  //     } else if (selectedRank === 'Neutral') {
-  //       this.isNewName = false;
-  //       this.postRadio = false;
-  //       this.NeuRadio = true;
-  //       this.NegRadio = false;
 
-  //     } else if (selectedRank === 'Negative') {
-  //       this.isNewName = false;
-  //       this.postRadio = false;
-  //       this.NeuRadio = false;
-  //       this.NegRadio = true;
 
-  //     } else if (selectedRank === 'Positive') {
-  //       this.isNewName = false;
-  //       this.postRadio = true;
-  //       this.NeuRadio = false;
-  //       this.NegRadio = false;
+// SUMMARY SLIDE DATA
 
-  //     }
-  //     this._NW3Service.getRetainTypeName(this.projectId, (selectedRank === "New Names") ? "New" : selectedRank).subscribe((data: Array<object>) => {
-  //       if (this.nameCandidates.length === 0) {
-  //         this.nameCandidates = data;
-  //       } else {
-  //         this.nameCandidates = this.nameCandidates.concat(data);
-  //       }
-  //       for (let i = 0; i < this.nameCandidates.length; i++) {
-  //         this.nameCandidates[i].NameToDisplay = this.convertToEntities(this.nameCandidates[i].NameToDisplay);
-  //       }
-  //       this.showRankedNames = true;
-  //     });
-  //   });
-  // }
+  getSelectedRank(selectedRank) {
+    this._NW3Service.getGroupSummary(this.projectId).subscribe(displayGroupResult => {
+      this.nameCandidates = [];
+      for (const obj of Object.values(displayGroupResult)) {
+        this.tempObj = obj;
+        let arrGroupRank;
+        let arrGroupName;
+        if (obj.name.includes('##')) {
+          arrGroupRank = obj.nameranking.split('##');
+          arrGroupName = obj.name.split('##');
+        } else {
+          arrGroupRank = obj.nameranking.split('##');
+          arrGroupName = obj.name.split('$$');
+        }
+        arrGroupName.forEach((name, index) => {
+          if (selectedRank === 'Positive' && arrGroupRank[index] === 'Positive') {
+            this.nameCandidates.push({
+              'NameToDisplay': name,
+              'Name': this.tempObj.name
+            });
+          }
+          if (selectedRank === 'Negative' && arrGroupRank[index] === 'Negative') {
+            this.nameCandidates.push({
+              'NameToDisplay': name,
+              'Name': this.tempObj.name
+            });
+          }
+          if (selectedRank === 'Neutral' && arrGroupRank[index] === 'Neutral') {
+            this.nameCandidates.push({
+              'NameToDisplay': name,
+              'Name': this.tempObj.name
+            });
+          }
+        });
+      }
+      if (selectedRank === 'New') {
+        this.isNewName = true;
+        this.postRadio = false;
+        this.NeuRadio = false;
+        this.NegRadio = false;
+      } else if (selectedRank === 'Neutral') {
+        this.isNewName = false;
+        this.postRadio = false;
+        this.NeuRadio = true;
+        this.NegRadio = false;
+
+      } else if (selectedRank === 'Negative') {
+        this.isNewName = false;
+        this.postRadio = false;
+        this.NeuRadio = false;
+        this.NegRadio = true;
+
+      } else if (selectedRank === 'Positive') {
+        this.isNewName = false;
+        this.postRadio = true;
+        this.NeuRadio = false;
+        this.NegRadio = false;
+
+      }
+      this._NW3Service.getRetainTypeName(this.projectId, (selectedRank === "New Names") ? "New" : selectedRank).subscribe((data: Array<object>) => {
+        if (this.nameCandidates.length === 0) {
+          this.nameCandidates = data;
+        } else {
+          this.nameCandidates = this.nameCandidates.concat(data);
+        }
+        for (let i = 0; i < this.nameCandidates.length; i++) {
+          this.nameCandidates[i].NameToDisplay = this.convertToEntities(this.nameCandidates[i].NameToDisplay);
+        }
+        this.showRankedNames = true;
+      });
+    });
+  }
 
   selectPage(movingTo) {
     // stop moving slides for 300 miliseconds
@@ -887,6 +901,13 @@ export class NW3Component implements OnInit {
 
   pageNumberChange(selectedPage) {
     this.pageNumber = Number(selectedPage);
+    // this.pageNumber =19;
+
+
+
+
+
+
     this.currentProgress = (this.pageNumber / this.passTotalPages) * 100;
     // const comeFromData = JSON.stringify({ 'comeFrom': 'summary', pageNumber: selectedPage });
     // this.isImage = false;
@@ -1662,6 +1683,58 @@ export class NW3Component implements OnInit {
     }
 
   }
+
+
+
+  // SUMMARY FUNCTIONS
+
+  changeSummaryList(lsitSelection){
+
+    if (lsitSelection === 'positive') {      
+      this.summaryPositive = true;
+      this.summaryNeutral = false;
+      this.summaryNegative = false;
+      this.summaryNewNames = false;
+      this.summaryChart = false;    
+    }    
+
+    else if (lsitSelection === 'neutral') {
+      this.summaryPositive = false;
+      this.summaryNeutral = true;
+      this.summaryNegative = false;
+      this.summaryNewNames = false;
+      this.summaryChart = false;      
+    }
+
+    else if (lsitSelection === 'negative') {
+      this.summaryPositive = false;
+      this.summaryNeutral = false;
+      this.summaryNegative = true;
+      this.summaryNewNames = false;
+      this.summaryChart = false;    
+    }
+
+    else if (lsitSelection === 'newNames') {      
+      this.summaryPositive = false;
+      this.summaryNeutral = false;
+      this.summaryNegative = false;
+      this.summaryNewNames = true;
+      this.summaryChart = false;
+    }
+
+    else if (lsitSelection === 'chart') {
+      this.summaryPositive = false;
+      this.summaryNeutral = false;
+      this.summaryNegative = false;
+      this.summaryNewNames = false;
+      this.summaryChart = true;      
+    }
+
+  }
+
+
+
+
 
 }
 

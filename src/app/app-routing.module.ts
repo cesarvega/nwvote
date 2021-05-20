@@ -25,7 +25,7 @@ const routes: Routes = [
   // },
   // {// SCHEDULER
   //   path: ':id',
-  //   component: SchedulerComponent
+  //   component: SchedulerComponent  
   // },
   // {//BSR
   //   path: ':id',
@@ -39,19 +39,10 @@ const routes: Routes = [
   //   path: ':id',
   //   component: BmxComponent
   // },
-  // {//NW 3 BI PRESENTS NOMENCLATURE WORKSHOP V.3.0
-  //   path: ':id',
-  //   component: NW3Component
-  // },
-  {//FOOD
-    path: 'orders',
-    component: OrderDasboardComponent
-  },
-  {//FOOD
+  {//NW 3 BI PRESENTS NOMENCLATURE WORKSHOP V.3.0
     path: ':id',
-    component: RestaurantComponent
+    component: NW3Component
   },
-  
   {
     path: '',
     redirectTo: '/food',
