@@ -451,16 +451,6 @@ export class NW3Component implements OnInit {
 
   ngOnInit(): void {
 
-
-    // SUMMARY WORK TEST CODE 
-
-
-    // this.pageNumberChange('19');
-
-
-    // END TEST CODE 
-
-
     this.changingPage = '{}';
     this.currentSlidePageInfo = this.changingPage;
     this.activatedRoute.params.subscribe((params: any) => {
@@ -769,78 +759,82 @@ export class NW3Component implements OnInit {
   //   this.getSelectedRank(clickEvent.name);
   // }
 
-  // getSelectedRank(selectedRank) {
-  //   this._NW3Service.getGroupSummary(this.projectId).subscribe(displayGroupResult => {
-  //     this.nameCandidates = [];
-  //     for (const obj of Object.values(displayGroupResult)) {
-  //       this.tempObj = obj;
-  //       let arrGroupRank;
-  //       let arrGroupName;
-  //       if (obj.name.includes('##')) {
-  //         arrGroupRank = obj.nameranking.split('##');
-  //         arrGroupName = obj.name.split('##');
-  //       } else {
-  //         arrGroupRank = obj.nameranking.split('##');
-  //         arrGroupName = obj.name.split('$$');
-  //       }
-  //       arrGroupName.forEach((name, index) => {
-  //         if (selectedRank === 'Positive' && arrGroupRank[index] === 'Positive') {
-  //           this.nameCandidates.push({
-  //             'NameToDisplay': name,
-  //             'Name': this.tempObj.name
-  //           });
-  //         }
-  //         if (selectedRank === 'Negative' && arrGroupRank[index] === 'Negative') {
-  //           this.nameCandidates.push({
-  //             'NameToDisplay': name,
-  //             'Name': this.tempObj.name
-  //           });
-  //         }
-  //         if (selectedRank === 'Neutral' && arrGroupRank[index] === 'Neutral') {
-  //           this.nameCandidates.push({
-  //             'NameToDisplay': name,
-  //             'Name': this.tempObj.name
-  //           });
-  //         }
-  //       });
-  //     }
-  //     if (selectedRank === 'New') {
-  //       this.isNewName = true;
-  //       this.postRadio = false;
-  //       this.NeuRadio = false;
-  //       this.NegRadio = false;
-  //     } else if (selectedRank === 'Neutral') {
-  //       this.isNewName = false;
-  //       this.postRadio = false;
-  //       this.NeuRadio = true;
-  //       this.NegRadio = false;
 
-  //     } else if (selectedRank === 'Negative') {
-  //       this.isNewName = false;
-  //       this.postRadio = false;
-  //       this.NeuRadio = false;
-  //       this.NegRadio = true;
 
-  //     } else if (selectedRank === 'Positive') {
-  //       this.isNewName = false;
-  //       this.postRadio = true;
-  //       this.NeuRadio = false;
-  //       this.NegRadio = false;
+// SUMMARY SLIDE DATA
 
-  //     }
-  //     this._NW3Service.getRetainTypeName(this.projectId, (selectedRank === "New Names") ? "New" : selectedRank).subscribe((data: Array<object>) => {
-  //       if (this.nameCandidates.length === 0) {
-  //         this.nameCandidates = data;
-  //       } else {
-  //         this.nameCandidates = this.nameCandidates.concat(data);
-  //       }
-  //       for (let i = 0; i < this.nameCandidates.length; i++) {
-  //         this.nameCandidates[i].NameToDisplay = this.convertToEntities(this.nameCandidates[i].NameToDisplay);
-  //       }
-  //       this.showRankedNames = true;
-  //     });
-  //   });
-  // }
+  getSelectedRank(selectedRank) {
+    this._NW3Service.getGroupSummary(this.projectId).subscribe(displayGroupResult => {
+      this.nameCandidates = [];
+      for (const obj of Object.values(displayGroupResult)) {
+        this.tempObj = obj;
+        let arrGroupRank;
+        let arrGroupName;
+        if (obj.name.includes('##')) {
+          arrGroupRank = obj.nameranking.split('##');
+          arrGroupName = obj.name.split('##');
+        } else {
+          arrGroupRank = obj.nameranking.split('##');
+          arrGroupName = obj.name.split('$$');
+        }
+        arrGroupName.forEach((name, index) => {
+          if (selectedRank === 'Positive' && arrGroupRank[index] === 'Positive') {
+            this.nameCandidates.push({
+              'NameToDisplay': name,
+              'Name': this.tempObj.name
+            });
+          }
+          if (selectedRank === 'Negative' && arrGroupRank[index] === 'Negative') {
+            this.nameCandidates.push({
+              'NameToDisplay': name,
+              'Name': this.tempObj.name
+            });
+          }
+          if (selectedRank === 'Neutral' && arrGroupRank[index] === 'Neutral') {
+            this.nameCandidates.push({
+              'NameToDisplay': name,
+              'Name': this.tempObj.name
+            });
+          }
+        });
+      }
+      if (selectedRank === 'New') {
+        this.isNewName = true;
+        this.postRadio = false;
+        this.NeuRadio = false;
+        this.NegRadio = false;
+      } else if (selectedRank === 'Neutral') {
+        this.isNewName = false;
+        this.postRadio = false;
+        this.NeuRadio = true;
+        this.NegRadio = false;
+
+      } else if (selectedRank === 'Negative') {
+        this.isNewName = false;
+        this.postRadio = false;
+        this.NeuRadio = false;
+        this.NegRadio = true;
+
+      } else if (selectedRank === 'Positive') {
+        this.isNewName = false;
+        this.postRadio = true;
+        this.NeuRadio = false;
+        this.NegRadio = false;
+
+      }
+      this._NW3Service.getRetainTypeName(this.projectId, (selectedRank === "New Names") ? "New" : selectedRank).subscribe((data: Array<object>) => {
+        if (this.nameCandidates.length === 0) {
+          this.nameCandidates = data;
+        } else {
+          this.nameCandidates = this.nameCandidates.concat(data);
+        }
+        for (let i = 0; i < this.nameCandidates.length; i++) {
+          this.nameCandidates[i].NameToDisplay = this.convertToEntities(this.nameCandidates[i].NameToDisplay);
+        }
+        this.showRankedNames = true;
+      });
+    });
+  }
 
   selectPage(movingTo) {
     // stop moving slides for 300 miliseconds
@@ -906,8 +900,8 @@ export class NW3Component implements OnInit {
 
 
   pageNumberChange(selectedPage) {
-    // this.pageNumber = Number(selectedPage);
-    this.pageNumber =19;
+    this.pageNumber = Number(selectedPage);
+    // this.pageNumber =19;
 
 
 
