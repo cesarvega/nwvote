@@ -352,34 +352,34 @@ export class NW3Component implements OnInit {
   }
   // DASH CODE
 
-  resizeContent() {
-    if (window.innerWidth >= 1900) {
-      this.contentResize = 60;
-    } else if (window.innerWidth >= 1700) {
-      this.contentResize = 55;
-    } else if (window.innerWidth >= 1400) {
-      this.contentResize = 60;
-    } else if (window.innerWidth >= 1024) {
-      this.contentResize = 80;
-    } else {
-      this.contentResize = 90;
-    }
-  }
+  // resizeContent() {
+  //   if (window.innerWidth >= 1900) {
+  //     this.contentResize = 60;
+  //   } else if (window.innerWidth >= 1700) {
+  //     this.contentResize = 55;
+  //   } else if (window.innerWidth >= 1400) {
+  //     this.contentResize = 60;
+  //   } else if (window.innerWidth >= 1024) {
+  //     this.contentResize = 80;
+  //   } else {
+  //     this.contentResize = 90;
+  //   }
+  // }
 
-  moveSlideDirection(e) {
-    this.pageDirection = e;
-  }
+  // moveSlideDirection(e) {
+  //   this.pageDirection = e;
+  // }
 
-  currentSlideType(slideType) {
-    if (slideType === 'NameEvaluation') {
-      this.isImage = false;
-      this.isEvaluation = true;
-    }
-    if (slideType === 'Image' || slideType === 'NameSummary') {
-      this.isImage = true;
-      this.isEvaluation = false;
-    }
-  }
+  // currentSlideType(slideType) {
+  //   if (slideType === 'NameEvaluation') {
+  //     this.isImage = false;
+  //     this.isEvaluation = true;
+  //   }
+  //   if (slideType === 'Image' || slideType === 'NameSummary') {
+  //     this.isImage = true;
+  //     this.isEvaluation = false;
+  //   }
+  // }
 
   resetSlide(isReset) {
     this.timeToReset = isReset;
@@ -457,7 +457,7 @@ export class NW3Component implements OnInit {
       this.name = params.id;
       this.getProjectId(this.name);
     });
-    this.resizeContent();
+    // this.resizeContent();
     // this.getNwVoteData( this.projectId);
     // this.saveData(this.slideModel);
   }
@@ -625,7 +625,7 @@ export class NW3Component implements OnInit {
       this.slideModel.NewNames = (this.txtNewNameElement) ? this.txtNewNameElement.nativeElement.value : '';
       if (this.tickerTime !== '') {
         let lastVisitedPageNumber;
-        this.collectGroupRanks();
+        // this.collectGroupRanks();
         if (JSON.parse(this.tickerTime).active !== true) {
           const pageObj = JSON.parse(this.currentSlidePageInfo);
           if (pageObj.moveTo === 'summary') {
@@ -666,7 +666,7 @@ export class NW3Component implements OnInit {
 
 
 
-        this.collectGroupRanks();
+        // this.collectGroupRanks();
         if (this.slideType !== 'Image') {
 
           this.testName = projectData[this.pageNumber - 1].SlideDescription;
@@ -689,26 +689,26 @@ export class NW3Component implements OnInit {
 
   }
 
-  collectGroupRanks() {
-    this.slideModel.NameRanking = '';
-    if (this.separateCandidateElement) {
-      this.separateCandidateElement.toArray().forEach((element, index) => {
-        if (element.checked) {
-          if (index === (this.separateCandidateElement.toArray().length - 1)) {
-            this.slideModel.NameRanking = this.slideModel.NameRanking + 'Positive';
-          } else {
-            this.slideModel.NameRanking = this.slideModel.NameRanking + 'Positive##';
-          }
-        } else {
-          if (index === (this.separateCandidateElement.toArray().length - 1)) {
-            this.slideModel.NameRanking = this.slideModel.NameRanking + 'Negative';
-          } else {
-            this.slideModel.NameRanking = this.slideModel.NameRanking + 'Negative##';
-          }
-        }
-      });
-    }
-  }
+  // collectGroupRanks() {
+  //   this.slideModel.NameRanking = '';
+  //   if (this.separateCandidateElement) {
+  //     this.separateCandidateElement.toArray().forEach((element, index) => {
+  //       if (element.checked) {
+  //         if (index === (this.separateCandidateElement.toArray().length - 1)) {
+  //           this.slideModel.NameRanking = this.slideModel.NameRanking + 'Positive';
+  //         } else {
+  //           this.slideModel.NameRanking = this.slideModel.NameRanking + 'Positive##';
+  //         }
+  //       } else {
+  //         if (index === (this.separateCandidateElement.toArray().length - 1)) {
+  //           this.slideModel.NameRanking = this.slideModel.NameRanking + 'Negative';
+  //         } else {
+  //           this.slideModel.NameRanking = this.slideModel.NameRanking + 'Negative##';
+  //         }
+  //       }
+  //     });
+  //   }
+  // }
 
   // startTicerInterval() {
   //   this.tickerInterval = setInterval(() => {
@@ -716,11 +716,11 @@ export class NW3Component implements OnInit {
   //   }, 2000);
   // }
 
-  moveSlide(e) {
-    if (e.keyCode === 39 || e.keyCode === 37 || e.keyCode === 40 || e.keyCode === 38) {
-      this.slideChange.emit(e.keyCode);
-    }
-  }
+  // moveSlide(e) {
+  //   if (e.keyCode === 39 || e.keyCode === 37 || e.keyCode === 40 || e.keyCode === 38) {
+  //     this.slideChange.emit(e.keyCode);
+  //   }
+  // }
 
   mouseEnter() {
     clearInterval(this.tickerInterval);

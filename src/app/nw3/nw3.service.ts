@@ -23,9 +23,7 @@ export class Nw3Service {
     this.isnwVOTE.next(mute);
   }
 
-  constructor(private http: HttpClient) { 
-    
-  }
+  constructor(private http: HttpClient) {}
 
   // webBaseUrl = 'http://localhost:64378/';
   webBaseUrl = 'https://tools.brandinstitute.com/BIWebServices/';
@@ -115,8 +113,6 @@ export class Nw3Service {
   sendNameToNwVote(name) {
     return this.http.post(this.webBaseUrl + this.apiCall, { name: name });
   }
-
-
 
 
   convertToEntities(str) {
