@@ -93,10 +93,10 @@
                 </div>
             </div>
             <div *ngIf="summaryChart" class="summaryChart">
-                <div style="display: flex;flex-direction: column;align-items: center;justify-content: center;">CHART
-                    HERE</div>
-            </div>
-
+                <div class="summaryListDisplay" style="background-color: white">  
+                                      <div echarts [options]="chartOption"></div>
+                 </div>
+ 
             <div style="position: fixed;bottom: 0px;">
 
                 <div class="summaryTextarea">

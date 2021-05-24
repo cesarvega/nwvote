@@ -61,6 +61,10 @@ import * as echarts from 'echarts';
 
 import {MatRadioModule} from '@angular/material/radio';
 
+export function loadEcharts() {
+  return import('echarts');
+}
+
 @NgModule({
   declarations: [
     AppComponent,
@@ -113,7 +117,7 @@ import {MatRadioModule} from '@angular/material/radio';
     // AngularEditorModule,
     DragulaModule.forRoot(),
     MatListModule,
-    NgxEchartsModule.forRoot({echarts})
+    NgxEchartsModule.forRoot({echarts: loadEcharts})
   ],
   entryComponents: [
     editPost, editName
