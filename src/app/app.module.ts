@@ -49,6 +49,8 @@ import { MatNativeDateModule } from '@angular/material/core';
 
 import { DragulaModule } from 'ng2-dragula';
 import { MatListModule } from '@angular/material/list';
+import { NgxEchartsModule } from 'ngx-echarts';
+import * as echarts from 'echarts';
 
 // export class MyHammerConfig extends HammerGestureConfig {
 //   overrides = <any>{
@@ -58,6 +60,10 @@ import { MatListModule } from '@angular/material/list';
 // }
 
 import {MatRadioModule} from '@angular/material/radio';
+
+export function loadEcharts() {
+  return import('echarts');
+}
 
 @NgModule({
   declarations: [
@@ -110,7 +116,8 @@ import {MatRadioModule} from '@angular/material/radio';
     MatNativeDateModule,
     // AngularEditorModule,
     DragulaModule.forRoot(),
-    MatListModule
+    MatListModule,
+    NgxEchartsModule.forRoot({echarts: loadEcharts})
   ],
   entryComponents: [
     editPost, editName

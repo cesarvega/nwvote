@@ -6,7 +6,7 @@ import { HotkeysService, Hotkey } from 'angular2-hotkeys';
 import Speech from 'speak-tts';
 import { Nw3Service } from './nw3.service';
 import { ActivatedRoute } from '@angular/router';
-
+import { typeSourceSpan } from '@angular/compiler';
 
 @Component({
   selector: 'app-nw3',
@@ -15,7 +15,7 @@ import { ActivatedRoute } from '@angular/router';
 })
 export class NW3Component implements OnInit {
 
-
+  chartOption: any;
   fonts = ['coture', 'caviar', 'Chelsea', 'Gacor', 'NyataFTR', 'Pinkerston', 'Quicksand_Book', 'Quicksand_Light'
     , 'Cruncho', 'LilacBlockDemo', 'Medhurst', 'NewYork'];
   secodaryFontIndex = 0;
@@ -451,6 +451,35 @@ export class NW3Component implements OnInit {
 
   ngOnInit(): void {
 
+    this.chartOption = {
+      xAxis: {
+          type: 'category',
+          data: ['Positive', 'Neutral', 'Negative']
+      },
+      yAxis: {
+          type: 'value'
+      },
+      series: [{
+          data: [{
+            value: 100,
+            itemStyle: {
+                color: '#008000'
+            }
+        }, {
+          value: 75,
+          itemStyle: {
+              color: '#FFFF00'
+          }
+      }, {
+        value: 50,
+        itemStyle: {
+            color: '#a90000'
+        }
+    },],
+          type: 'bar'
+      }]
+  };
+
     this.changingPage = '{}';
     this.currentSlidePageInfo = this.changingPage;
     this.activatedRoute.params.subscribe((params: any) => {
@@ -461,7 +490,6 @@ export class NW3Component implements OnInit {
     // this.getNwVoteData( this.projectId);
     // this.saveData(this.slideModel);
   }
-
 
   getProjectId(name) {
     this._NW3Service.getProjectId(name).subscribe(
