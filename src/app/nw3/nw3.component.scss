@@ -549,6 +549,11 @@ $voteIconsColor: #008d05, #f2ce00, #f50c0c, #4c00ff, #4c00ff;
         max-height: 480px;
         margin-top: 17px;
     }
+
+    .summaryMainContent::-webkit-scrollbar {
+        display: none;
+      }
+
     .summaryTextarea {
         display: flex;
         flex-direction: row;
@@ -572,3 +577,4 @@ $voteIconsColor: #008d05, #f2ce00, #f50c0c, #4c00ff, #4c00ff;
         line-height: 35px;
     }
 }
+
