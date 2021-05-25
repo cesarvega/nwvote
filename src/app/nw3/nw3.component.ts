@@ -90,17 +90,7 @@ export class NW3Component implements OnInit {
     showingTicker: false,
     active: true
   };
-  // faHome = faHome;
-  // faAngleLeft = faAngleLeft;
-  // faPhone = faMobileAlt;
-  // faTrash = faTrashAlt;
-  // faAngleRight = faAngleRight;
-  // faEraser = faEraser;
-  // faImage = faImage;
-  // faQuestion = faQuestionCircle;
-  // faVoteYea = faVoteYea;
-  // tickerIcon = faEye;
-  // microphoneIcon = faMicrophone;
+
   initialPage = 1;
   currentPage = this.initialPage;
   hideMenu = true;
@@ -116,10 +106,6 @@ export class NW3Component implements OnInit {
   stopMovingForward = false;
   overViewState = true;
 
-  // slideCtrl = new FormControl();
-  // filteredSlides: Observable<Slide[]>;
-
-  // slides: Slide[];
   networkStatus: string;
 
   movingSlide = true;
@@ -205,7 +191,6 @@ export class NW3Component implements OnInit {
   projectId: String = '';
   bsrProjectId: String = '';
   passTotalPages: number;
-  // mode = new FormControl('over');
   name = '';
   tickerTime = '';
   presentationTime = false;
@@ -226,7 +211,6 @@ export class NW3Component implements OnInit {
   navigatePageIndex;
 
 
-
   // SUMMARY VARS
   summaryPositive = false;
   summaryNeutral = false;
@@ -234,9 +218,10 @@ export class NW3Component implements OnInit {
   summaryNewNames = false;
   summaryChart = true;
 
-
-
   testName = 'Comirnaty';
+
+  newNames = '';
+  newComments = '';
 
 
 
@@ -352,36 +337,75 @@ export class NW3Component implements OnInit {
     document.body.style.zoom = 1.10;
 
   }
-  // DASH CODE
 
-  // resizeContent() {
-  //   if (window.innerWidth >= 1900) {
-  //     this.contentResize = 60;
-  //   } else if (window.innerWidth >= 1700) {
-  //     this.contentResize = 55;
-  //   } else if (window.innerWidth >= 1400) {
-  //     this.contentResize = 60;
-  //   } else if (window.innerWidth >= 1024) {
-  //     this.contentResize = 80;
-  //   } else {
-  //     this.contentResize = 90;
-  //   }
-  // }
+  ngOnInit(): void {
 
-  // moveSlideDirection(e) {
-  //   this.pageDirection = e;
-  // }
+    this.changingPage = '{}';
+    this.currentSlidePageInfo = this.changingPage;
+    this.activatedRoute.params.subscribe((params: any) => {
+      this.name = params.id;
 
-  // currentSlideType(slideType) {
-  //   if (slideType === 'NameEvaluation') {
-  //     this.isImage = false;
-  //     this.isEvaluation = true;
-  //   }
-  //   if (slideType === 'Image' || slideType === 'NameSummary') {
-  //     this.isImage = true;
-  //     this.isEvaluation = false;
-  //   }
-  // }
+      this._NW3Service.getProjectId(this.name).subscribe(
+        (data: object) => {
+          // console.log(JSON.parse(data));
+          this.projectId = data[0].PresentationId;
+          this.bsrProjectId = data[0].BSRPresentationid;
+          this._NW3Service.getProjectData(this.projectId).subscribe(
+            (data: string) => {
+              console.log(data);
+              this.results = JSON.stringify(data);
+              this.switchButton = this.results;
+              this.projectData = this.results;
+              this.thumbNails = data;
+              this.passTotalPages = data.length;
+              this.totalPages = this.passTotalPages;
+              this.changes();
+            },
+            err => console.log(err)
+          );
+        },
+        err => console.log(err)
+      );
+
+      // this.getProjectId();
+    });
+
+
+    this.chartOption = {
+      xAxis: {
+        type: 'category',
+        data: ['Positive', 'Neutral', 'Negative']
+      },
+      yAxis: {
+        type: 'value'
+      },
+      series: [{
+        data: [{
+          value: 100,
+          itemStyle: {
+            color: '#008000'
+          }
+        }, {
+          value: 75,
+          itemStyle: {
+            color: '#FFFF00'
+          }
+        }, {
+          value: 50,
+          itemStyle: {
+            color: '#a90000'
+          }
+        },],
+        type: 'bar'
+      }]
+    };
+
+    // this.resizeContent();
+    // this.getNwVoteData( this.projectId);
+    // this.saveData(this.slideModel);
+  }
+
+
 
   resetSlide(isReset) {
     this.timeToReset = isReset;
@@ -390,41 +414,7 @@ export class NW3Component implements OnInit {
   switchBackground(displayBg) {
     this.displayBackground = !displayBg;
   }
- 
-  // pageChange(changePageTo: string) {
-  //   this.timeToReset = false;
-  //   const changePageToObj = JSON.parse(changePageTo);
-  //   if (changePageToObj.moveTo === 'next') {
-  //     this.cantMoveForward = '';
-  //     this.pageNumber += 1;
-  //     if (this.pageNumber >= this.passTotalPages) {
-  //       this.pageNumber = this.passTotalPages;
-  //     }
-  //   }
-  //   if (changePageToObj.moveTo === 'previous') {
-  //     this.pageNumber -= 1;
-  //     this.cantMoveForward = '';
-  //     if (this.pageNumber <= 1) {
-  //       this.pageNumber = 1;
-  //     }
-  //   }
-  //   if (changePageToObj.moveTo === 'home') {
-  //     this.cantMoveForward = '';
-  //     this.pageNumber = 1;
-  //   }
-  //   if (changePageToObj.moveTo === 'summary') {
-  //     this.cantMoveForward = '';
-  //     this.pageNumber = this.passTotalPages;
-  //   }
-  //   if (changePageToObj.moveTo === '') {
-  //     this.cantMoveForward = '';
-  //     this.pageNumber = changePageToObj.currentPage;
-  //   }
-  //   this.currentProgress = (this.pageNumber / this.passTotalPages) * 100;
-  //   this.changingPage = changePageTo;
-  //   this.numberChanged = '';
-  //   this.pageDirection = 0;
-  // }
+
 
   cantMoveSlide(moveSlide: boolean) {
     this.cantMoveForward = moveSlide;
@@ -438,207 +428,15 @@ export class NW3Component implements OnInit {
     }
   }
 
-  // navigateToPage(indexPage) {
-  //   this.navigatePageIndex = indexPage;
-  // }
-  // overviewToggle(state: any) {
-  //   this.overviewDisplay = (state.split(',')[0] === 'false') ? false : true;
-  //   if (!this.overviewDisplay) {
-  //     setTimeout(() => {
-  //       document.getElementById('thumbnail' + state.split(',')[1]).scrollIntoView();
-  //     }, 1);
-  //   }
-  // }
-
-
-  ngOnInit(): void {
-
-    this.chartOption = {
-      xAxis: {
-          type: 'category',
-          data: ['Positive', 'Neutral', 'Negative']
-      },
-      yAxis: {
-          type: 'value'
-      },
-      series: [{
-          data: [{
-            value: 100,
-            itemStyle: {
-                color: '#008000'
-            }
-        }, {
-          value: 75,
-          itemStyle: {
-              color: '#FFFF00'
-          }
-      }, {
-        value: 50,
-        itemStyle: {
-            color: '#a90000'
-        }
-    },],
-          type: 'bar'
-      }]
-  };
-
-    this.changingPage = '{}';
-    this.currentSlidePageInfo = this.changingPage;
-    this.activatedRoute.params.subscribe((params: any) => {
-      this.name = params.id;
-      this.getProjectId(this.name);
-    });
-    // this.resizeContent();
-    // this.getNwVoteData( this.projectId);
-    // this.saveData(this.slideModel);
-  }
-
-  getProjectId(name) {
-    this._NW3Service.getProjectId(name).subscribe(
-      (data: object) => {
-        // console.log(JSON.parse(data));
-        this.projectId = data[0].PresentationId;
-        this.bsrProjectId = data[0].BSRPresentationid;
-        this.getProjectData(this.projectId);
-      },
-      err => console.log(err)
-    );
-  }
-
-  getProjectData(projectId) {
-    this._NW3Service.getProjectData(projectId).subscribe(
-      (data: string) => {
-        console.log(data);
-        this.results = JSON.stringify(data);
-        this.switchButton = this.results;
-        this.projectData = this.results;
-        this.thumbNails = data;
-        this.passTotalPages = data.length;
-        this.totalPages = this.passTotalPages;
-        this.changes();
-      },
-      err => console.log(err)
-    );
-  }
 
   changes() {
     this.buttonOptionsObj = JSON.parse(this.switchButton);
-    // if (this.auto) {
-    //   let time = this.timer;
-    //   this.interval = setInterval(() => {
-    //     console.log(time);
-    //     time--;
-    //     if (time < 0) {
-    //       this.slideChange.emit(39);
-    //       clearInterval(this.interval);
-    //       console.log('Ding!');
-    //     };
-    //   }, 1000);
-    // }
-    // this.slideModel.NamesToExplore = (this.txtCommentsElement) ? this.txtCommentsElement.nativeElement.value : '';
-    // this.slideModel.NewNames = (this.txtNewNameElement) ? this.txtNewNameElement.nativeElement.value : '';
 
-    // this.pieChart = [];
-    // const newChartData = [];
-    // this._NW3Service.getGroupSummary(this.projectId).subscribe(groupResult => {
-    //   this.posCount = 0;
-    //   this.neuCount = 0;
-    //   this.negCount = 0;
-    //   for (const obj of Object.values(groupResult)) {
-    //     const arrRanks = obj.nameranking.split('##');
-
-    //     arrRanks.forEach(rank => {
-    //       if (rank === 'Positive') {
-    //         this.posCount++;
-    //       } else if (rank === 'Neutral') {
-    //         this.neuCount++;
-    //       } else if (rank === 'Negative') {
-    //         this.negCount++;
-    //       }
-    //     });
-
-    //     if (arrRanks.length > 0) {
-    //       this.hasBackground = false;
-    //     }
-    //   }
-    //   this.totalNewNames = [];
-    //   this._NW3Service.getRetainTypeName(this.projectId, 'Positive').subscribe((resultPos: Array<object>) => {
-    //     this.totalPositive = resultPos.length + this.posCount;
-    //     newChartData.push({
-    //       'name': 'Positive',
-    //       'value': resultPos.length + this.posCount
-    //     });
-    //     resultPos.forEach((element: any) => {
-    //       element.NewNames.split(',').forEach(ele => {
-    //         if (ele !== '') {
-
-    //         }
-    //       });;
-    //     });
-
-    //     this._NW3Service.getRetainTypeName(this.projectId, "New").subscribe((data: Array<object>) => {
-    //       data.forEach(ele => {
-    //         this.totalNewNames.push(ele);
-    //       });;
-    //       ;
-    //     });
-
-
-    //     this._NW3Service.getRetainTypeName(this.projectId, 'Neutral').subscribe((resultNeu: Array<object>) => {
-    //       this.totalNeutral = resultNeu.length + this.neuCount;
-    //       newChartData.push({
-    //         'name': 'Neutral',
-    //         'value': resultNeu.length + this.neuCount
-    //       });
-    //       this._NW3Service.getRetainTypeName(this.projectId, 'Negative').subscribe((resultNeg: Array<object>) => {
-    //         newChartData.push({
-    //           'name': 'Negative',
-    //           'value': resultNeg.length + this.negCount
-    //         });
-
-    //         newChartData.push({
-    //           'name': 'New Names',
-    //           'value': this.totalNewNames.length
-    //         });
-    //         // this.pieChart = [...newChartData];
-    //         const resArr = [];
-    //         newChartData.forEach(function (item) {
-    //           const i = resArr.findIndex(x => x.name === item.name);
-    //           if (i <= -1) {
-    //             resArr.push({ name: item.name, value: item.value });
-    //           }
-    //         }, this.pieChart = resArr);
-    //       });
-    //     });
-    //   });
-    // });
 
     const projectData = JSON.parse(this.projectData);
     this.projectName = JSON.parse(this.projectData)[0].DisplayName;
     this.testName = projectData[this.pageNumber - 1].SlideDescription;
-    // if (this.tickerElement) {
-    //   if (this.tickerTime !== '') {
-    //     if (JSON.parse(this.tickerTime).showingTicker === true) {
-    //       this.tickerElement.nativeElement.style.opacity = 1;
-    //     } else {
-    //       this.tickerElement.nativeElement.style.opacity = .05;
-    //     }
-    //   }
-    // }
 
-    // if (this.displayBackground === false) {
-
-    //   if (this.evaluationTimeElement) {
-    //     // tslint:disable-next-line:max-line-length
-    //     this.evaluationTimeElement.nativeElement.style.backgroundImage = this.BackgroundUrl + this.imgBackground[this.backgroundCounter] + '.jpg)';
-    //     this.evaluationTimeElement.nativeElement.style.backgroundSize = 'cover';
-    //   }
-    // } else {
-    //   if (this.evaluationTimeElement) {
-    //     this.evaluationTimeElement.nativeElement.style.backgroundImage = this.tempBackground;
-
-    //   }
-    // }
 
     if (this.resetTime !== false) {
       this.positiveChecked = false;
@@ -661,33 +459,6 @@ export class NW3Component implements OnInit {
           if (pageObj.moveTo === 'summary') {
             this.savePage = this.pageNumber;
           }
-          // this.pageNumber = (this.currentSlidePageInfo !== '{}') ? pageObj.currentPage : this.pageNumber;
-          // this.slideType = projectData[this.pageNumber - 1].SlideType.trim();
-
-
-          // // this.testName = projectData[this.pageNumber - 1].SlideDescription;
-
-          // if (this.slideType !== 'Image') {
-          //   if (pageObj.moveTo === 'previous') {
-          //     lastVisitedPageNumber = this.pageNumber + 1;
-          //   }
-          //   if (pageObj.moveTo === 'next') {
-          //     lastVisitedPageNumber = this.pageNumber - 1;
-          //   }
-          //   if (pageObj.moveTo === 'summary') {
-          //     lastVisitedPageNumber = this.savePage;
-          //   }
-          //   this.setEvaluationData(lastVisitedPageNumber, pageObj.moveTo);
-          // } else {
-          //   setTimeout(() => {
-          //     const bgImage = 'url(http://bipresents.com/nw2/' + projectData[this.pageNumber - 1].SlideBGFileName + ')';
-          //     this.slideBackground = bgImage;
-          //     // this.slideImageElement.nativeElement.style.backgroundImage = bgImage;
-          //     // this.slideImageElement.nativeElement.style.backgroundSize = '100% 100%';
-          //     lastVisitedPageNumber = (pageObj.moveTo === 'previous') ? this.pageNumber + 1 : this.pageNumber - 1;
-          //     this.setEvaluationData(lastVisitedPageNumber, pageObj.moveTo);
-          //   }, 100);
-          // }
         }
       } else {
         const pageObj = JSON.parse(this.currentSlidePageInfo);
@@ -719,38 +490,6 @@ export class NW3Component implements OnInit {
 
   }
 
-  // collectGroupRanks() {
-  //   this.slideModel.NameRanking = '';
-  //   if (this.separateCandidateElement) {
-  //     this.separateCandidateElement.toArray().forEach((element, index) => {
-  //       if (element.checked) {
-  //         if (index === (this.separateCandidateElement.toArray().length - 1)) {
-  //           this.slideModel.NameRanking = this.slideModel.NameRanking + 'Positive';
-  //         } else {
-  //           this.slideModel.NameRanking = this.slideModel.NameRanking + 'Positive##';
-  //         }
-  //       } else {
-  //         if (index === (this.separateCandidateElement.toArray().length - 1)) {
-  //           this.slideModel.NameRanking = this.slideModel.NameRanking + 'Negative';
-  //         } else {
-  //           this.slideModel.NameRanking = this.slideModel.NameRanking + 'Negative##';
-  //         }
-  //       }
-  //     });
-  //   }
-  // }
-
-  // startTicerInterval() {
-  //   this.tickerInterval = setInterval(() => {
-  //     this.moveLeft();
-  //   }, 2000);
-  // }
-
-  // moveSlide(e) {
-  //   if (e.keyCode === 39 || e.keyCode === 37 || e.keyCode === 40 || e.keyCode === 38) {
-  //     this.slideChange.emit(e.keyCode);
-  //   }
-  // }
 
   mouseEnter() {
     clearInterval(this.tickerInterval);
@@ -767,31 +506,9 @@ export class NW3Component implements OnInit {
     });
   }
 
-  // clickedSummaryName(clickedName, originalName) {
-  //   let searchName = clickedName;
-  //   if (originalName) {
-  //     searchName = originalName;
-  //   }
-  //   this._NW3Service.getSelectedName(this.projectId, searchName).subscribe(data => {
-  //     this.setDataToDisplay(data, 'clicked_name');
-  //   });
-  // }
-
-  // showPieChart() {
-  //   this.showRankedNames = false;
-  //   this.isNewName = false;
-  //   this.postRadio = false;
-  //   this.NeuRadio = false;
-  //   this.NegRadio = false;
-  // }
-
-  // onSelect(clickEvent) {
-  //   this.getSelectedRank(clickEvent.name);
-  // }
 
 
-
-// SUMMARY SLIDE DATA
+  // SUMMARY SLIDE DATA
 
   getSelectedRank(selectedRank) {
     this._NW3Service.getGroupSummary(this.projectId).subscribe(displayGroupResult => {
@@ -932,13 +649,7 @@ export class NW3Component implements OnInit {
   pageNumberChange(selectedPage) {
     this.pageNumber = Number(selectedPage);
     // this.pageNumber =19;
-
     this.currentProgress = (this.pageNumber / this.passTotalPages) * 100;
-    // const comeFromData = JSON.stringify({ 'comeFrom': 'summary', pageNumber: selectedPage });
-    // this.isImage = false;
-    // this.isEvaluation = true;
-    // this.numberChanged = comeFromData;
-    // this.changingPage = JSON.stringify({ 'currentPage': this.pageNumber, 'moveTo': '' });
 
     const pageObj = JSON.parse(this.currentSlidePageInfo);
     const projectData = JSON.parse(this.projectData);
@@ -949,33 +660,13 @@ export class NW3Component implements OnInit {
     this.slideType = projectData[this.pageNumber - 1].SlideType.trim();
     let lastVisitedPageNumber: any;
 
-    // this.testName = projectData[this.pageNumber - 1].SlideDescription;
 
-    // if (this.slideType !== 'Image') {
-    //   if (pageObj.moveTo === 'previous') {
-    //     lastVisitedPageNumber = this.pageNumber + 1;
-    //   }
-    //   if (pageObj.moveTo === 'next') {
-    //     lastVisitedPageNumber = this.pageNumber - 1;
-    //   }
-    //   if (pageObj.moveTo === 'summary') {
-    //     lastVisitedPageNumber = this.savePage;
-     
-        
-    //   }
-    //   this.setEvaluationData(lastVisitedPageNumber, pageObj.moveTo);
-    // }
-    
-    
-    if (this.slideType === '"NameEvaluation"'){
-      console.log('"NameEvaluation"');      
+
+    if (this.slideType === 'NameSummary') {
+      console.log('Name Candidates - Summary');
     }
 
-    if (this.slideType === 'NameSummary'){
-      console.log('Name Candidates - Summary');      
-    }
-    
-    else  if (this.slideType === 'Image') { 
+    else if (this.slideType === 'Image') {
       setTimeout(() => {
         const bgImage = 'url(http://bipresents.com/nw2/' + projectData[this.pageNumber - 1].SlideBGFileName + ')';
         this.slideBackground = bgImage;
@@ -987,360 +678,63 @@ export class NW3Component implements OnInit {
     }
     // this.changes();
 
+
+    // this.slideModel= {
+    //   'presentationid': '3157',
+    //   'slideNumber': '1',
+    //   'NameRanking': '',
+    //   'NewNames': '',
+    //   'NamesToExplore': '',
+    //   'NamesToAvoid': '',
+    //   'Direction': 'Next',
+    //   'KanaNamesNegative': '',
+    //   'recraft': '0',
+    // };
+
+
+    this.slideModel.slideNumber = this.pageNumber;
+    this.slideModel.NameRanking = 'Neutral';
+    this.slideModel.presentationid = this.projectId;
+    this.slideModel.NewNames = this.newNames;
+    this.slideModel.NamesToExplore = this.newComments;
+
+    // RESET NEW NAMES AND COMMENTS BOXES
+    this.newNames = '';
+    this.newComments = '';
     this.saveData(JSON.stringify(this.slideModel));
 
 
 
-  }
 
 
-  switchHideButton(number) {
-    // this.currentSlideType.emit(this.buttonOptionsObj[number].SlideType);
-    if (this.buttonOptionsObj[number].SlideType === 'Image' || this.buttonOptionsObj[number].SlideType === 'NameSummary') {
-      this.hideButton = true;
-      this.stopMovingForward = false;
-    } else {
-      this.hideButton = false;
-      if (this.buttonOptionsObj[number].SlideDescription.search('##') >= 0) {
-        this.stopMovingForward = false;
-      } else {
-        this.stopMovingForward = true;
-      }
-    }
-  }
-
-
-
-  //  Businness logic 
-
-  // getProjectId(name) {
-  //   this._NW3Service.getProjectId(name).subscribe(
-  //     (data: object) => {
-  //       this.projectId = data[0].PresentationId;
-  //       this.bsrProjectId = data[0].BSRPresentationid;
-  //       this.getNwVoteData(this.projectId);
-  //     },
-  //     err => console.log(err)
-  //   );
-  // }
-
-  getNwVoteData(projectId) {
-    // this.go = !this.go;
-    this._NW3Service.getNwVoteData(this.projectName, this.projectName).subscribe(res => {
-      const data = JSON.parse(res.d);
-      this.VotersList = data.VotersList;
-      this.votersBadge = data.VotersList.length;
-      this.nwPositiveVote = data.Positive;
-      this.nwNegativeVote = data.Negative;
-      this.nwNeutralVote = data.Neutral;
-
-      this.nwPositiveVoteUsers = data.PositiveVoters
-      this.nwNegativeVoteUsers = data.NegativeVoters;
-      this.nwNeutralVoteUsers = data.NeutralVoters;
-
-    })
-  }
-
-  recraft() {
-    // alert("Hello! I am an alert box!!");
-    this.recraftChecked = !this.recraftChecked;
-  }
-
-  // setNewNameElement(setColor) {
-  //   this.newNameFormField.getElementsByClassName('mat-form-field-outline')[0].style.color = setColor;
-  //   this.newNameFormField.getElementsByClassName('mat-form-field-outline')[1].style.color = setColor;
-  //   this.newNameFormField.getElementsByClassName('mat-form-field-label')[0].style.color = setColor;
-  // }
-
-  // setCommentsElement(setColor) {
-  //   this.commentsFormField.getElementsByClassName('mat-form-field-outline')[0].style.color = setColor;
-  //   this.commentsFormField.getElementsByClassName('mat-form-field-outline')[1].style.color = setColor;
-  //   this.commentsFormField.getElementsByClassName('mat-form-field-label')[0].style.color = setColor;
-  // }
-
-  negativeName(event, filesrc) {
-    if (this.japanese) {
-      this.faVolumeUp = null;
-      const negKanaIndex = this.negativePronunciation.indexOf(event.currentTarget.innerText);
-      if (event.currentTarget.style.color === 'red') {
-        this.negativePronunciation.splice(negKanaIndex, 1);
-        event.currentTarget.style.color = 'black';
-      } else {
-        this.negativePronunciation.push(event.currentTarget.innerText);
-        event.currentTarget.style.color = 'red';
-        // event.currentTarget.style.color = 'red';
-      }
-    } else {
-      // Speech OFF
-      //this.speech(this.myspeech, event.currentTarget.innerText);
-      const audio = new Audio();
-      audio.src = this.fileToPlay;
-      audio.load();
-      if (!this.mute) {
-        audio.play();
-      }
-
-      // this.faVolumeUp = faVolumeUp;
-    }
-  }
-
-  moveLeft() {
-    this.moving = true;
-    setTimeout(() => {
-      this.switchFirst();
-    }, 1000);
-  }
-
-  switchFirst() {
-    this.boxes.push(this.boxes.shift());
-    this.moving = false;
-  }
-
-  listenChild() {
-    if (!this.wasClicked) {
-      this.wasClicked = true;
-      this.listened.emit(this.wasClicked);
-    } else {
-      this.wasClicked = false;
-      this.listened.emit(this.wasClicked);
-    }
-  }
-
-  changeBackground(event) {
-    if (event.currentTarget.id === 'btnPositive') {
-      this.selectBackground.emit('positiveBackground');
-    } else if (event.currentTarget.id === 'btnNeutral') {
-      this.selectBackground.emit('neutralBackground');
-    } else {
-      this.selectBackground.emit('negativeBackground');
-    }
-  }
-
-
-  setEvaluationData(previousNumber, direction) {
-    let selectedRank;
-
-    if (this.groupName === '') {
-      if (this.positiveChecked) {
-        selectedRank = 'Positive';
-      } else if (this.neutralChecked) {
-        selectedRank = 'Neutral';
-      } else if (this.negativeChecked) {
-        selectedRank = 'Negative';
-      } else {
-        selectedRank = '';
-      }
-
-      this.slideModel.NameRanking = selectedRank;
-    }
-
-    this.slideModel.presentationid = this.projectId;
-    this.slideModel.slideNumber = previousNumber;
-    // DB has Names to Explore but is saving Comment Box
-    // this.slideModel.NamesToExplore = (this.txtCommentsElement) ? this.txtCommentsElement.nativeElement.value : '';
-    // this.slideModel.NewNames = (this.txtNewNameElement) ? this.txtNewNameElement.nativeElement.value : '';
-
-    let strPronunciation = '';
-    if (this.negativePronunciation.join(',').indexOf('\'') >= 0) {
-      strPronunciation = this.negativePronunciation.join(',').replace(/'/g, '\'\'');
-    } else {
-      strPronunciation = this.negativePronunciation.join(',');
-    }
-
-    if (strPronunciation !== '') {
-      this.slideModel.KanaNamesNegative = strPronunciation;
-    } else {
-      if (this.slideModel.KanaNamesNegative !== '') {
-        if (this.slideModel.KanaNamesNegative.join(',').indexOf('\'') >= 0) {
-          strPronunciation = this.slideModel.KanaNamesNegative.join(',').replace(/'/g, '\'\'');
-        } else {
-          strPronunciation = this.slideModel.KanaNamesNegative.join(',');
-        }
-        this.slideModel.KanaNamesNegative = strPronunciation;
-      }
-    }
-
-    if (direction === 'next') {
-      this.slideModel.Direction = 'Next';
-      this.saveData(JSON.stringify(this.slideModel));
-    }
-    if (direction === 'previous') {
-      this.slideModel.Direction = 'Prev';
-      this.saveData(JSON.stringify(this.slideModel));
-    }
-    if (direction === 'home') {
-      this.slideModel.Direction = 'Next';
-      this.slideModel.slideNumber = 1;
-      this.saveData(JSON.stringify(this.slideModel));
-    }
-    if (direction === 'summary') {
-      this.slideModel.Direction = 'Next';
-      this.saveData(JSON.stringify(this.slideModel));
-      setTimeout(() => {
-        this.slideModel.slideNumber = JSON.parse(this.projectData).length;
-        this.saveData(JSON.stringify(this.slideModel));
-        this.isNewName = false;
-        this.postRadio = false;
-        this.NeuRadio = false;
-        this.NegRadio = false;
-      }, 50);
-    }
-    if (direction === '') {
-      this.slideModel.slideNumber = this.pageNumber;
-      this.slideModel.Direction = '';
-      this.saveData(JSON.stringify(this.slideModel));
-    }
-  }
-
-  selectAll() {
-    this.separateCandidateElement.toArray().forEach(element => {
-      if (this.switchPosNegElement.nativeElement.checked) {
-        element.checked = true;
-      } else {
-        element.checked = false;
-      }
-    });
   }
 
   saveData(savingObj) {
-    // const temp = JSON.parse(savingObj);
-    // temp.KanaNamesNegative = this.negativePronunciation.join(',');
-    // temp.recraft = (this.recraftChecked) ? 1 : 0;
+    const temp = JSON.parse(savingObj);
+    temp.KanaNamesNegative = this.negativePronunciation.join(',');
+    temp.recraft = (this.recraftChecked) ? 1 : 0;
     // savingObj = JSON.stringify(savingObj);
     this._NW3Service.getSaveNSlideInfo(savingObj).subscribe(
       data => {
         this.go = (data[0].presentationStatus === '0') ? true : false;
         // slideBackground = 'url(http://bipresents.com/nw2/' + this.slideNextPart;  slideNextPart = 'Test_WELL_PLATFORM/thumbnails/014.jpg)';
+        this.newNames = data[0].NewNames;
+        this.newComments = data[0].NamesToExplore;
         this.slideNextPart = data[0].SlideBGFileName;
         this.slideBackground = 'url(http://bipresents.com/nw2/';
         this.slideBackground = this.slideBackground + this.slideNextPart + ')';
-        this.setDataToDisplay(data, 'save');
+        // this.setDataToDisplay(data, 'save');
+        if (this.slideType === 'NameEvaluation') {
+          this.category = data[0].NameCategory;
+          this.rationale = data[0].NameRationale;
+        }
       }
     );
-    this._NW3Service.saveSlideInformation(savingObj).subscribe(
-      data => {
-        this.setDataToDisplay(data, 'save');
-      }
-    );
-  }
-
-  goVote() {
-    this.isGoVoteOn = !this.isGoVoteOn;
-  }
-
-  noClickanyWhere() {
-    this.hoverPositive = false;
-    this.hoverNeutral = false;
-    this.hoverNegative = false;
-    this.VotersListOn = false;
-  }
-
-  mouseLeaveVote() {
-    setTimeout(() => {
-      this.hoverPositive = false;
-    }, 300);
-  }
-
-  // Configuration methods
-
-  speech(speech, textToSpeech) {
-    if (this.hasSpeechBrowserSupport) {
-      speech
-        .speak({
-          text: textToSpeech,
-          queue: false,
-          listeners: {
-            onstart: () => {
-              console.log('Start utterance');
-            },
-            onend: () => {
-              console.log('End utterance');
-            },
-            onresume: () => {
-              console.log('Resume utterance');
-            },
-            onboundary: event => {
-              console.log(
-                event.name +
-                ' boundary reached after ' +
-                event.elapsedTime +
-                ' milliseconds.'
-              );
-            }
-          }
-        })
-        .then(data => {
-          console.log('Success !', data);
-        })
-        .catch(e => {
-          console.error('An error occurred :', e);
-        });
-    } else {
-      console.log('The browser do not support text to speech');
-    }
-  }
-
-  fontTheme() {
-    this.toogleFont = !this.toogleFont;
-    this.font2 = this.fonts[this.fontIndexCounter];
-    if (this.fontIndexCounter === 7) {
-      this.fontIndexCounter = 0;
-    } else {
-
-      this.fontIndexCounter++;
-    }
-  }
-
-
-  toogleMenu() {
-    this.mainMenu = !this.mainMenu;
-  }
-
-  openFullscreen() {
-    this.elem = document.documentElement;
-    this.isFullscreen = !this.isFullscreen;
-    if (this.isFullscreen) {
-      if (this.elem.requestFullscreen) {
-        this.elem.requestFullscreen();
-      } else if (this.elem.mozRequestFullScreen) {
-        /* Firefox */
-        this.elem.mozRequestFullScreen();
-      } else if (this.elem.webkitRequestFullscreen) {
-        /* Chrome, Safari and Opera */
-        this.elem.webkitRequestFullscreen();
-      } else if (this.elem.msRequestFullscreen) {
-        /* IE/Edge */
-        this.elem.msRequestFullscreen();
-      }
-    }
-    else {
-      if (this.document.exitFullscreen) {
-        this.document.exitFullscreen();
-      }
-      else if (this.document.mozCancelFullScreen) {
-        /* Firefox */
-        this.document.mozCancelFullScreen();
-      } else if (this.document.webkitExitFullscreen) {
-        /* Chrome, Safari and Opera */
-        this.document.webkitExitFullscreen();
-      } else if (this.document.msExitFullscreen) {
-        /* IE/Edge */
-        this.document.msExitFullscreen();
-      }
-    }
-  }
-
-  //  NEW CODE 02/18/21
-
-  moveLeft1() {
-    this.selectPage('previous');
-  }
-
-  moveRight() {
-    // if (!this.stopMovingForward || !this.vote) {
-    if (true) {
-      this.selectPage('next');
-    }
+    // this._NW3Service.saveSlideInformation(savingObj).subscribe(
+    //   data => {
+    //     // this.setDataToDisplay(data, 'save');
+    //   }
+    // );
   }
 
 
@@ -1415,7 +809,6 @@ export class NW3Component implements OnInit {
         }
       }, 50);
     }
-
     this.slideType = data[0].SlideType;
     console.log('refactroing data', data[0]);
     if (this.slideType === 'NameSummary') {
@@ -1434,14 +827,11 @@ export class NW3Component implements OnInit {
       this.katakanaNames = data[0].KanaNames.replace(/`/g, '\'').split(',');
     }
 
-
-
     if (this.katakanaNames[0].length >= 1) {
       // this.faVolumeUp = faVolumeUp;
     } else {
       // this.faVolumeUp = null;
     }
-
     if (data[0].GroupedNames !== '') {
       if (data[0].GroupedNames.includes('##')) {
         this.groupName = data[0].GroupedNames.split('##');
@@ -1582,15 +972,310 @@ export class NW3Component implements OnInit {
 
   }
 
+
+  switchHideButton(number) {
+    // this.currentSlideType.emit(this.buttonOptionsObj[number].SlideType);
+    if (this.buttonOptionsObj[number].SlideType === 'Image' || this.buttonOptionsObj[number].SlideType === 'NameSummary') {
+      this.hideButton = true;
+      this.stopMovingForward = false;
+    } else {
+      this.hideButton = false;
+      if (this.buttonOptionsObj[number].SlideDescription.search('##') >= 0) {
+        this.stopMovingForward = false;
+      } else {
+        this.stopMovingForward = true;
+      }
+    }
+  }
+
+
+
+  //  Businness logic 
+
+  getNwVoteData(projectId) {
+    // this.go = !this.go;
+    this._NW3Service.getNwVoteData(this.projectName, this.projectName).subscribe(res => {
+      const data = JSON.parse(res.d);
+      this.VotersList = data.VotersList;
+      this.votersBadge = data.VotersList.length;
+      this.nwPositiveVote = data.Positive;
+      this.nwNegativeVote = data.Negative;
+      this.nwNeutralVote = data.Neutral;
+
+      this.nwPositiveVoteUsers = data.PositiveVoters
+      this.nwNegativeVoteUsers = data.NegativeVoters;
+      this.nwNeutralVoteUsers = data.NeutralVoters;
+
+    })
+  }
+
+  recraft() {
+    // alert("Hello! I am an alert box!!");
+    this.recraftChecked = !this.recraftChecked;
+  }
+
+  negativeName(event, filesrc) {
+    if (this.japanese) {
+      this.faVolumeUp = null;
+      const negKanaIndex = this.negativePronunciation.indexOf(event.currentTarget.innerText);
+      if (event.currentTarget.style.color === 'red') {
+        this.negativePronunciation.splice(negKanaIndex, 1);
+        event.currentTarget.style.color = 'black';
+      } else {
+        this.negativePronunciation.push(event.currentTarget.innerText);
+        event.currentTarget.style.color = 'red';
+        // event.currentTarget.style.color = 'red';
+      }
+    } else {
+      // Speech OFF
+      //this.speech(this.myspeech, event.currentTarget.innerText);
+      const audio = new Audio();
+      audio.src = this.fileToPlay;
+      audio.load();
+      if (!this.mute) {
+        audio.play();
+      }
+
+      // this.faVolumeUp = faVolumeUp;
+    }
+  }
+
+  moveLeft() {
+    this.moving = true;
+    setTimeout(() => {
+      this.switchFirst();
+    }, 1000);
+  }
+
+  switchFirst() {
+    this.boxes.push(this.boxes.shift());
+    this.moving = false;
+  }
+
+  listenChild() {
+    if (!this.wasClicked) {
+      this.wasClicked = true;
+      this.listened.emit(this.wasClicked);
+    } else {
+      this.wasClicked = false;
+      this.listened.emit(this.wasClicked);
+    }
+  }
+
+  changeBackground(event) {
+    if (event.currentTarget.id === 'btnPositive') {
+      this.selectBackground.emit('positiveBackground');
+    } else if (event.currentTarget.id === 'btnNeutral') {
+      this.selectBackground.emit('neutralBackground');
+    } else {
+      this.selectBackground.emit('negativeBackground');
+    }
+  }
+
+
+  setEvaluationData(previousNumber, direction) {
+    let selectedRank;
+
+    if (this.groupName === '') {
+      if (this.positiveChecked) {
+        selectedRank = 'Positive';
+      } else if (this.neutralChecked) {
+        selectedRank = 'Neutral';
+      } else if (this.negativeChecked) {
+        selectedRank = 'Negative';
+      } else {
+        selectedRank = '';
+      }
+
+      this.slideModel.NameRanking = selectedRank;
+    }
+    this.slideModel.presentationid = this.projectId;
+    this.slideModel.slideNumber = previousNumber;
+    let strPronunciation = '';
+    if (this.negativePronunciation.join(',').indexOf('\'') >= 0) {
+      strPronunciation = this.negativePronunciation.join(',').replace(/'/g, '\'\'');
+    } else {
+      strPronunciation = this.negativePronunciation.join(',');
+    }
+
+    if (strPronunciation !== '') {
+      this.slideModel.KanaNamesNegative = strPronunciation;
+    } else {
+      if (this.slideModel.KanaNamesNegative !== '') {
+        if (this.slideModel.KanaNamesNegative.join(',').indexOf('\'') >= 0) {
+          strPronunciation = this.slideModel.KanaNamesNegative.join(',').replace(/'/g, '\'\'');
+        } else {
+          strPronunciation = this.slideModel.KanaNamesNegative.join(',');
+        }
+        this.slideModel.KanaNamesNegative = strPronunciation;
+      }
+    }
+
+    if (direction === 'next') {
+      this.slideModel.Direction = 'Next';
+      this.saveData(JSON.stringify(this.slideModel));
+    }
+    if (direction === 'previous') {
+      this.slideModel.Direction = 'Prev';
+      this.saveData(JSON.stringify(this.slideModel));
+    }
+    if (direction === 'home') {
+      this.slideModel.Direction = 'Next';
+      this.slideModel.slideNumber = 1;
+      this.saveData(JSON.stringify(this.slideModel));
+    }
+    if (direction === 'summary') {
+      this.slideModel.Direction = 'Next';
+      this.saveData(JSON.stringify(this.slideModel));
+      setTimeout(() => {
+        this.slideModel.slideNumber = JSON.parse(this.projectData).length;
+        this.saveData(JSON.stringify(this.slideModel));
+        this.isNewName = false;
+        this.postRadio = false;
+        this.NeuRadio = false;
+        this.NegRadio = false;
+      }, 50);
+    }
+    if (direction === '') {
+      this.slideModel.slideNumber = this.pageNumber;
+      this.slideModel.Direction = '';
+      this.saveData(JSON.stringify(this.slideModel));
+    }
+  }
+
+  selectAll() {
+    this.separateCandidateElement.toArray().forEach(element => {
+      if (this.switchPosNegElement.nativeElement.checked) {
+        element.checked = true;
+      } else {
+        element.checked = false;
+      }
+    });
+  }
+
+
+  goVote() {
+    this.isGoVoteOn = !this.isGoVoteOn;
+  }
+
+  noClickanyWhere() {
+    this.hoverPositive = false;
+    this.hoverNeutral = false;
+    this.hoverNegative = false;
+    this.VotersListOn = false;
+  }
+
+  mouseLeaveVote() {
+    setTimeout(() => {
+      this.hoverPositive = false;
+    }, 300);
+  }
+
+  // Configuration methods
+
+  speech(speech, textToSpeech) {
+    if (this.hasSpeechBrowserSupport) {
+      speech
+        .speak({
+          text: textToSpeech,
+          queue: false,
+          listeners: {
+            onstart: () => {
+              console.log('Start utterance');
+            },
+            onend: () => {
+              console.log('End utterance');
+            },
+            onresume: () => {
+              console.log('Resume utterance');
+            },
+            onboundary: event => {
+              console.log(
+                event.name +
+                ' boundary reached after ' +
+                event.elapsedTime +
+                ' milliseconds.'
+              );
+            }
+          }
+        })
+        .then(data => {
+          console.log('Success !', data);
+        })
+        .catch(e => {
+          console.error('An error occurred :', e);
+        });
+    } else {
+      console.log('The browser do not support text to speech');
+    }
+  }
+
+  fontTheme() {
+    this.toogleFont = !this.toogleFont;
+    this.font2 = this.fonts[this.fontIndexCounter];
+    if (this.fontIndexCounter === 7) {
+      this.fontIndexCounter = 0;
+    } else {
+
+      this.fontIndexCounter++;
+    }
+  }
+
+
+  toogleMenu() {
+    this.mainMenu = !this.mainMenu;
+  }
+
+  openFullscreen() {
+    this.elem = document.documentElement;
+    this.isFullscreen = !this.isFullscreen;
+    if (this.isFullscreen) {
+      if (this.elem.requestFullscreen) {
+        this.elem.requestFullscreen();
+      } else if (this.elem.mozRequestFullScreen) {
+        /* Firefox */
+        this.elem.mozRequestFullScreen();
+      } else if (this.elem.webkitRequestFullscreen) {
+        /* Chrome, Safari and Opera */
+        this.elem.webkitRequestFullscreen();
+      } else if (this.elem.msRequestFullscreen) {
+        /* IE/Edge */
+        this.elem.msRequestFullscreen();
+      }
+    }
+    else {
+      if (this.document.exitFullscreen) {
+        this.document.exitFullscreen();
+      }
+      else if (this.document.mozCancelFullScreen) {
+        /* Firefox */
+        this.document.mozCancelFullScreen();
+      } else if (this.document.webkitExitFullscreen) {
+        /* Chrome, Safari and Opera */
+        this.document.webkitExitFullscreen();
+      } else if (this.document.msExitFullscreen) {
+        /* IE/Edge */
+        this.document.msExitFullscreen();
+      }
+    }
+  }
+
+  //  NEW CODE 02/18/21
+
+  moveLeft1() {
+    this.selectPage('previous');
+  }
+
+  moveRight() {
+    // if (!this.stopMovingForward || !this.vote) {
+    if (true) {
+      this.selectPage('next');
+    }
+  }
+
+
   selectedOpt(option) {
-    this.newNameFormField = <HTMLInputElement>document.getElementById('newNameFormField');
-    this.commentsFormField = <HTMLInputElement>document.getElementById('commentsFormField');
-    if (this.newNameFormField) {
-      this.newNameFormField.style.marginTop = '-30px';
-    }
-    if (this.commentsFormField) {
-      this.commentsFormField.style.marginTop = '-30px';
-    }
+
     if (option === 'positive' && this.positiveChecked === false) {
       this.positiveChecked = true;
       this.positiveChecked = !this.positiveChecked;
@@ -1722,22 +1407,22 @@ export class NW3Component implements OnInit {
 
   // SUMMARY FUNCTIONS
 
-  changeSummaryList(lsitSelection){
+  changeSummaryList(lsitSelection) {
 
-    if (lsitSelection === 'positive') {      
+    if (lsitSelection === 'positive') {
       this.summaryPositive = true;
       this.summaryNeutral = false;
       this.summaryNegative = false;
       this.summaryNewNames = false;
-      this.summaryChart = false;    
-    }    
+      this.summaryChart = false;
+    }
 
     else if (lsitSelection === 'neutral') {
       this.summaryPositive = false;
       this.summaryNeutral = true;
       this.summaryNegative = false;
       this.summaryNewNames = false;
-      this.summaryChart = false;      
+      this.summaryChart = false;
     }
 
     else if (lsitSelection === 'negative') {
@@ -1745,10 +1430,10 @@ export class NW3Component implements OnInit {
       this.summaryNeutral = false;
       this.summaryNegative = true;
       this.summaryNewNames = false;
-      this.summaryChart = false;    
+      this.summaryChart = false;
     }
 
-    else if (lsitSelection === 'newNames') {      
+    else if (lsitSelection === 'newNames') {
       this.summaryPositive = false;
       this.summaryNeutral = false;
       this.summaryNegative = false;
@@ -1761,7 +1446,7 @@ export class NW3Component implements OnInit {
       this.summaryNeutral = false;
       this.summaryNegative = false;
       this.summaryNewNames = false;
-      this.summaryChart = true;      
+      this.summaryChart = true;
     }
 
   }
@@ -1769,3 +1454,320 @@ export class NW3Component implements OnInit {
 
 }
 
+ // DASH CODE
+
+  // resizeContent() {
+  //   if (window.innerWidth >= 1900) {
+  //     this.contentResize = 60;
+  //   } else if (window.innerWidth >= 1700) {
+  //     this.contentResize = 55;
+  //   } else if (window.innerWidth >= 1400) {
+  //     this.contentResize = 60;
+  //   } else if (window.innerWidth >= 1024) {
+  //     this.contentResize = 80;
+  //   } else {
+  //     this.contentResize = 90;
+  //   }
+  // }
+
+  // moveSlideDirection(e) {
+  //   this.pageDirection = e;
+  // }
+
+  // currentSlideType(slideType) {
+  //   if (slideType === 'NameEvaluation') {
+  //     this.isImage = false;
+  //     this.isEvaluation = true;
+  //   }
+  //   if (slideType === 'Image' || slideType === 'NameSummary') {
+  //     this.isImage = true;
+  //     this.isEvaluation = false;
+  //   }
+  // }
+
+
+     // this.newNameFormField = <HTMLInputElement>document.getElementById('newNameFormField');
+    // this.commentsFormField = <HTMLInputElement>document.getElementById('commentsFormField');
+    // if (this.newNameFormField) {
+    //   this.newNameFormField.style.marginTop = '-30px';
+    // }
+    // if (this.commentsFormField) {
+    //   this.commentsFormField.style.marginTop = '-30px';
+    // }
+
+      // setNewNameElement(setColor) {
+  //   this.newNameFormField.getElementsByClassName('mat-form-field-outline')[0].style.color = setColor;
+  //   this.newNameFormField.getElementsByClassName('mat-form-field-outline')[1].style.color = setColor;
+  //   this.newNameFormField.getElementsByClassName('mat-form-field-label')[0].style.color = setColor;
+  // }
+
+  // setCommentsElement(setColor) {
+  //   this.commentsFormField.getElementsByClassName('mat-form-field-outline')[0].style.color = setColor;
+  //   this.commentsFormField.getElementsByClassName('mat-form-field-outline')[1].style.color = setColor;
+  //   this.commentsFormField.getElementsByClassName('mat-form-field-label')[0].style.color = setColor;
+  // }
+
+    // this.testName = projectData[this.pageNumber - 1].SlideDescription;
+
+    // if (this.slideType !== 'Image') {
+    //   if (pageObj.moveTo === 'previous') {
+    //     lastVisitedPageNumber = this.pageNumber + 1;
+    //   }
+    //   if (pageObj.moveTo === 'next') {
+    //     lastVisitedPageNumber = this.pageNumber - 1;
+    //   }
+    //   if (pageObj.moveTo === 'summary') {
+    //     lastVisitedPageNumber = this.savePage;
+
+
+    //   }
+    //   this.setEvaluationData(lastVisitedPageNumber, pageObj.moveTo);
+    // }
+ // clickedSummaryName(clickedName, originalName) {
+  //   let searchName = clickedName;
+  //   if (originalName) {
+  //     searchName = originalName;
+  //   }
+  //   this._NW3Service.getSelectedName(this.projectId, searchName).subscribe(data => {
+  //     this.setDataToDisplay(data, 'clicked_name');
+  //   });
+  // }
+
+  // showPieChart() {
+  //   this.showRankedNames = false;
+  //   this.isNewName = false;
+  //   this.postRadio = false;
+  //   this.NeuRadio = false;
+  //   this.NegRadio = false;
+  // }
+
+  // onSelect(clickEvent) {
+  //   this.getSelectedRank(clickEvent.name);
+  // }
+
+ // collectGroupRanks() {
+  //   this.slideModel.NameRanking = '';
+  //   if (this.separateCandidateElement) {
+  //     this.separateCandidateElement.toArray().forEach((element, index) => {
+  //       if (element.checked) {
+  //         if (index === (this.separateCandidateElement.toArray().length - 1)) {
+  //           this.slideModel.NameRanking = this.slideModel.NameRanking + 'Positive';
+  //         } else {
+  //           this.slideModel.NameRanking = this.slideModel.NameRanking + 'Positive##';
+  //         }
+  //       } else {
+  //         if (index === (this.separateCandidateElement.toArray().length - 1)) {
+  //           this.slideModel.NameRanking = this.slideModel.NameRanking + 'Negative';
+  //         } else {
+  //           this.slideModel.NameRanking = this.slideModel.NameRanking + 'Negative##';
+  //         }
+  //       }
+  //     });
+  //   }
+  // }
+
+  // startTicerInterval() {
+  //   this.tickerInterval = setInterval(() => {
+  //     this.moveLeft();
+  //   }, 2000);
+  // }
+
+  // moveSlide(e) {
+  //   if (e.keyCode === 39 || e.keyCode === 37 || e.keyCode === 40 || e.keyCode === 38) {
+  //     this.slideChange.emit(e.keyCode);
+  //   }
+  // }
+ // this.pageNumber = (this.currentSlidePageInfo !== '{}') ? pageObj.currentPage : this.pageNumber;
+          // this.slideType = projectData[this.pageNumber - 1].SlideType.trim();
+
+
+          // // this.testName = projectData[this.pageNumber - 1].SlideDescription;
+
+          // if (this.slideType !== 'Image') {
+          //   if (pageObj.moveTo === 'previous') {
+          //     lastVisitedPageNumber = this.pageNumber + 1;
+          //   }
+          //   if (pageObj.moveTo === 'next') {
+          //     lastVisitedPageNumber = this.pageNumber - 1;
+          //   }
+          //   if (pageObj.moveTo === 'summary') {
+          //     lastVisitedPageNumber = this.savePage;
+          //   }
+          //   this.setEvaluationData(lastVisitedPageNumber, pageObj.moveTo);
+          // } else {
+          //   setTimeout(() => {
+          //     const bgImage = 'url(http://bipresents.com/nw2/' + projectData[this.pageNumber - 1].SlideBGFileName + ')';
+          //     this.slideBackground = bgImage;
+          //     // this.slideImageElement.nativeElement.style.backgroundImage = bgImage;
+          //     // this.slideImageElement.nativeElement.style.backgroundSize = '100% 100%';
+          //     lastVisitedPageNumber = (pageObj.moveTo === 'previous') ? this.pageNumber + 1 : this.pageNumber - 1;
+          //     this.setEvaluationData(lastVisitedPageNumber, pageObj.moveTo);
+          //   }, 100);
+          // }
+
+           // if (this.auto) {
+    //   let time = this.timer;
+    //   this.interval = setInterval(() => {
+    //     console.log(time);
+    //     time--;
+    //     if (time < 0) {
+    //       this.slideChange.emit(39);
+    //       clearInterval(this.interval);
+    //       console.log('Ding!');
+    //     };
+    //   }, 1000);
+    // }
+    // this.slideModel.NamesToExplore = (this.txtCommentsElement) ? this.txtCommentsElement.nativeElement.value : '';
+    // this.slideModel.NewNames = (this.txtNewNameElement) ? this.txtNewNameElement.nativeElement.value : '';
+
+    // this.pieChart = [];
+    // const newChartData = [];
+    // this._NW3Service.getGroupSummary(this.projectId).subscribe(groupResult => {
+    //   this.posCount = 0;
+    //   this.neuCount = 0;
+    //   this.negCount = 0;
+    //   for (const obj of Object.values(groupResult)) {
+    //     const arrRanks = obj.nameranking.split('##');
+
+    //     arrRanks.forEach(rank => {
+    //       if (rank === 'Positive') {
+    //         this.posCount++;
+    //       } else if (rank === 'Neutral') {
+    //         this.neuCount++;
+    //       } else if (rank === 'Negative') {
+    //         this.negCount++;
+    //       }
+    //     });
+
+    //     if (arrRanks.length > 0) {
+    //       this.hasBackground = false;
+    //     }
+    //   }
+    //   this.totalNewNames = [];
+    //   this._NW3Service.getRetainTypeName(this.projectId, 'Positive').subscribe((resultPos: Array<object>) => {
+    //     this.totalPositive = resultPos.length + this.posCount;
+    //     newChartData.push({
+    //       'name': 'Positive',
+    //       'value': resultPos.length + this.posCount
+    //     });
+    //     resultPos.forEach((element: any) => {
+    //       element.NewNames.split(',').forEach(ele => {
+    //         if (ele !== '') {
+
+    //         }
+    //       });;
+    //     });
+
+    //     this._NW3Service.getRetainTypeName(this.projectId, "New").subscribe((data: Array<object>) => {
+    //       data.forEach(ele => {
+    //         this.totalNewNames.push(ele);
+    //       });;
+    //       ;
+    //     });
+
+
+    //     this._NW3Service.getRetainTypeName(this.projectId, 'Neutral').subscribe((resultNeu: Array<object>) => {
+    //       this.totalNeutral = resultNeu.length + this.neuCount;
+    //       newChartData.push({
+    //         'name': 'Neutral',
+    //         'value': resultNeu.length + this.neuCount
+    //       });
+    //       this._NW3Service.getRetainTypeName(this.projectId, 'Negative').subscribe((resultNeg: Array<object>) => {
+    //         newChartData.push({
+    //           'name': 'Negative',
+    //           'value': resultNeg.length + this.negCount
+    //         });
+
+    //         newChartData.push({
+    //           'name': 'New Names',
+    //           'value': this.totalNewNames.length
+    //         });
+    //         // this.pieChart = [...newChartData];
+    //         const resArr = [];
+    //         newChartData.forEach(function (item) {
+    //           const i = resArr.findIndex(x => x.name === item.name);
+    //           if (i <= -1) {
+    //             resArr.push({ name: item.name, value: item.value });
+    //           }
+    //         }, this.pieChart = resArr);
+    //       });
+    //     });
+    //   });
+    // });
+
+     // if (this.tickerElement) {
+    //   if (this.tickerTime !== '') {
+    //     if (JSON.parse(this.tickerTime).showingTicker === true) {
+    //       this.tickerElement.nativeElement.style.opacity = 1;
+    //     } else {
+    //       this.tickerElement.nativeElement.style.opacity = .05;
+    //     }
+    //   }
+    // }
+
+    // if (this.displayBackground === false) {
+
+    //   if (this.evaluationTimeElement) {
+    //     // tslint:disable-next-line:max-line-length
+    //     this.evaluationTimeElement.nativeElement.style.backgroundImage = this.BackgroundUrl + this.imgBackground[this.backgroundCounter] + '.jpg)';
+    //     this.evaluationTimeElement.nativeElement.style.backgroundSize = 'cover';
+    //   }
+    // } else {
+    //   if (this.evaluationTimeElement) {
+    //     this.evaluationTimeElement.nativeElement.style.backgroundImage = this.tempBackground;
+
+    //   }
+    // }
+
+
+       // const comeFromData = JSON.stringify({ 'comeFrom': 'summary', pageNumber: selectedPage });
+    // this.isImage = false;
+    // this.isEvaluation = true;
+    // this.numberChanged = comeFromData;
+    // this.changingPage = JSON.stringify({ 'currentPage': this.pageNumber, 'moveTo': '' });
+
+      // navigateToPage(indexPage) {
+  //   this.navigatePageIndex = indexPage;
+  // }
+  // overviewToggle(state: any) {
+  //   this.overviewDisplay = (state.split(',')[0] === 'false') ? false : true;
+  //   if (!this.overviewDisplay) {
+  //     setTimeout(() => {
+  //       document.getElementById('thumbnail' + state.split(',')[1]).scrollIntoView();
+  //     }, 1);
+  //   }
+  // }
+ // pageChange(changePageTo: string) {
+  //   this.timeToReset = false;
+  //   const changePageToObj = JSON.parse(changePageTo);
+  //   if (changePageToObj.moveTo === 'next') {
+  //     this.cantMoveForward = '';
+  //     this.pageNumber += 1;
+  //     if (this.pageNumber >= this.passTotalPages) {
+  //       this.pageNumber = this.passTotalPages;
+  //     }
+  //   }
+  //   if (changePageToObj.moveTo === 'previous') {
+  //     this.pageNumber -= 1;
+  //     this.cantMoveForward = '';
+  //     if (this.pageNumber <= 1) {
+  //       this.pageNumber = 1;
+  //     }
+  //   }
+  //   if (changePageToObj.moveTo === 'home') {
+  //     this.cantMoveForward = '';
+  //     this.pageNumber = 1;
+  //   }
+  //   if (changePageToObj.moveTo === 'summary') {
+  //     this.cantMoveForward = '';
+  //     this.pageNumber = this.passTotalPages;
+  //   }
+  //   if (changePageToObj.moveTo === '') {
+  //     this.cantMoveForward = '';
+  //     this.pageNumber = changePageToObj.currentPage;
+  //   }
+  //   this.currentProgress = (this.pageNumber / this.passTotalPages) * 100;
+  //   this.changingPage = changePageTo;
+  //   this.numberChanged = '';
+  //   this.pageDirection = 0;
+  // }

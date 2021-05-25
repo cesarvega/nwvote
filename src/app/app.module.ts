@@ -51,7 +51,6 @@ import { DragulaModule } from 'ng2-dragula';
 import { MatListModule } from '@angular/material/list';
 import { NgxEchartsModule } from 'ngx-echarts';
 import * as echarts from 'echarts';
-
 // export class MyHammerConfig extends HammerGestureConfig {
 //   overrides = <any>{
 //     // override default settings
@@ -76,7 +75,7 @@ export function loadEcharts() {
     BsrComponent,
     NW3Component,
     BmxComponent,
-    SchedulerComponent
+    SchedulerComponent,
   ],
   imports: [
     BrowserModule,
