@@ -52,6 +52,7 @@ export class NW3Component implements OnInit {
   // bsrProjectId: any;
   negativePronunciation = [];
   recraftChecked: any;
+
   slideModel: any = {
     'presentationid': '3157',
     'slideNumber': '1',
@@ -63,6 +64,7 @@ export class NW3Component implements OnInit {
     'KanaNamesNegative': '',
     'recraft': '0',
   };
+
   go: boolean;
   GGClass = 'GG';
   newNameColor = 'warn';
@@ -237,6 +239,10 @@ export class NW3Component implements OnInit {
   testName = 'Comirnaty';
 
 
+  newNames = '';
+  newComments = '';
+
+
 
   constructor(@Inject(DOCUMENT) private document: any,
     private _NW3Service: Nw3Service, private activatedRoute: ActivatedRoute,
@@ -388,41 +394,41 @@ export class NW3Component implements OnInit {
   switchBackground(displayBg) {
     this.displayBackground = !displayBg;
   }
- 
-  pageChange(changePageTo: string) {
-    this.timeToReset = false;
-    const changePageToObj = JSON.parse(changePageTo);
-    if (changePageToObj.moveTo === 'next') {
-      this.cantMoveForward = '';
-      this.pageNumber += 1;
-      if (this.pageNumber >= this.passTotalPages) {
-        this.pageNumber = this.passTotalPages;
-      }
-    }
-    if (changePageToObj.moveTo === 'previous') {
-      this.pageNumber -= 1;
-      this.cantMoveForward = '';
-      if (this.pageNumber <= 1) {
-        this.pageNumber = 1;
-      }
-    }
-    if (changePageToObj.moveTo === 'home') {
-      this.cantMoveForward = '';
-      this.pageNumber = 1;
-    }
-    if (changePageToObj.moveTo === 'summary') {
-      this.cantMoveForward = '';
-      this.pageNumber = this.passTotalPages;
-    }
-    if (changePageToObj.moveTo === '') {
-      this.cantMoveForward = '';
-      this.pageNumber = changePageToObj.currentPage;
-    }
-    this.currentProgress = (this.pageNumber / this.passTotalPages) * 100;
-    this.changingPage = changePageTo;
-    this.numberChanged = '';
-    this.pageDirection = 0;
-  }
+
+  // pageChange(changePageTo: string) {
+  //   this.timeToReset = false;
+  //   const changePageToObj = JSON.parse(changePageTo);
+  //   if (changePageToObj.moveTo === 'next') {
+  //     this.cantMoveForward = '';
+  //     this.pageNumber += 1;
+  //     if (this.pageNumber >= this.passTotalPages) {
+  //       this.pageNumber = this.passTotalPages;
+  //     }
+  //   }
+  //   if (changePageToObj.moveTo === 'previous') {
+  //     this.pageNumber -= 1;
+  //     this.cantMoveForward = '';
+  //     if (this.pageNumber <= 1) {
+  //       this.pageNumber = 1;
+  //     }
+  //   }
+  //   if (changePageToObj.moveTo === 'home') {
+  //     this.cantMoveForward = '';
+  //     this.pageNumber = 1;
+  //   }
+  //   if (changePageToObj.moveTo === 'summary') {
+  //     this.cantMoveForward = '';
+  //     this.pageNumber = this.passTotalPages;
+  //   }
+  //   if (changePageToObj.moveTo === '') {
+  //     this.cantMoveForward = '';
+  //     this.pageNumber = changePageToObj.currentPage;
+  //   }
+  //   this.currentProgress = (this.pageNumber / this.passTotalPages) * 100;
+  //   this.changingPage = changePageTo;
+  //   this.numberChanged = '';
+  //   this.pageDirection = 0;
+  // }
 
   cantMoveSlide(moveSlide: boolean) {
     this.cantMoveForward = moveSlide;
@@ -436,17 +442,17 @@ export class NW3Component implements OnInit {
     }
   }
 
-  navigateToPage(indexPage) {
-    this.navigatePageIndex = indexPage;
-  }
-  overviewToggle(state: any) {
-    this.overviewDisplay = (state.split(',')[0] === 'false') ? false : true;
-    if (!this.overviewDisplay) {
-      setTimeout(() => {
-        document.getElementById('thumbnail' + state.split(',')[1]).scrollIntoView();
-      }, 1);
-    }
-  }
+  // navigateToPage(indexPage) {
+  //   this.navigatePageIndex = indexPage;
+  // }
+  // overviewToggle(state: any) {
+  //   this.overviewDisplay = (state.split(',')[0] === 'false') ? false : true;
+  //   if (!this.overviewDisplay) {
+  //     setTimeout(() => {
+  //       document.getElementById('thumbnail' + state.split(',')[1]).scrollIntoView();
+  //     }, 1);
+  //   }
+  // }
 
 
   ngOnInit(): void {
@@ -615,12 +621,12 @@ export class NW3Component implements OnInit {
       this.neutralChecked = false;
       this.negativeChecked = false;
       this.recraftChecked = false;
-      this.txtNewNameElement.nativeElement.value = '';
-      this.txtNewNameElement.nativeElement.style = '';
-      this.txtCommentsElement.nativeElement.style = '';
-      this.txtCommentsElement.nativeElement.value = '';
-      this.setNewNameElement('');
-      this.setCommentsElement('');
+      // this.txtNewNameElement.nativeElement.value = '';
+      // this.txtNewNameElement.nativeElement.style = '';
+      // this.txtCommentsElement.nativeElement.style = '';
+      // this.txtCommentsElement.nativeElement.value = '';
+      // this.setNewNameElement('');
+      // this.setCommentsElement('');
     } else {
       this.slideModel.NewNames = (this.txtNewNameElement) ? this.txtNewNameElement.nativeElement.value : '';
       if (this.tickerTime !== '') {
@@ -761,7 +767,7 @@ export class NW3Component implements OnInit {
 
 
 
-// SUMMARY SLIDE DATA
+  // SUMMARY SLIDE DATA
 
   getSelectedRank(selectedRank) {
     this._NW3Service.getGroupSummary(this.projectId).subscribe(displayGroupResult => {
@@ -903,11 +909,6 @@ export class NW3Component implements OnInit {
     this.pageNumber = Number(selectedPage);
     // this.pageNumber =19;
 
-
-
-
-
-
     this.currentProgress = (this.pageNumber / this.passTotalPages) * 100;
     // const comeFromData = JSON.stringify({ 'comeFrom': 'summary', pageNumber: selectedPage });
     // this.isImage = false;
@@ -926,25 +927,28 @@ export class NW3Component implements OnInit {
 
     // this.testName = projectData[this.pageNumber - 1].SlideDescription;
 
-    if (this.slideType !== 'Image') {
-      if (pageObj.moveTo === 'previous') {
-        lastVisitedPageNumber = this.pageNumber + 1;
-      }
-      if (pageObj.moveTo === 'next') {
-        lastVisitedPageNumber = this.pageNumber - 1;
-      }
-      if (pageObj.moveTo === 'summary') {
-        lastVisitedPageNumber = this.savePage;
-     
-        
-      }
-      this.setEvaluationData(lastVisitedPageNumber, pageObj.moveTo);
-    } if (this.slideType === 'NameSummary'){
+    // if (this.slideType !== 'Image') {
+    //   if (pageObj.moveTo === 'previous') {
+    //     lastVisitedPageNumber = this.pageNumber + 1;
+    //   }
+    //   if (pageObj.moveTo === 'next') {
+    //     lastVisitedPageNumber = this.pageNumber - 1;
+    //   }
+    //   if (pageObj.moveTo === 'summary') {
+    //     lastVisitedPageNumber = this.savePage;
+
+
+    //   }
+    //   this.setEvaluationData(lastVisitedPageNumber, pageObj.moveTo);
+    // }
+
+
+
+    if (this.slideType === 'NameSummary') {
       console.log('Name Candidates - Summary');
-      
     }
-    
-    else {
+
+    else if (this.slideType === 'Image') {
       setTimeout(() => {
         const bgImage = 'url(http://bipresents.com/nw2/' + projectData[this.pageNumber - 1].SlideBGFileName + ')';
         this.slideBackground = bgImage;
@@ -955,222 +959,22 @@ export class NW3Component implements OnInit {
       }, 100);
     }
     // this.changes();
-  }
 
-
-  switchHideButton(number) {
-    // this.currentSlideType.emit(this.buttonOptionsObj[number].SlideType);
-    if (this.buttonOptionsObj[number].SlideType === 'Image' || this.buttonOptionsObj[number].SlideType === 'NameSummary') {
-      this.hideButton = true;
-      this.stopMovingForward = false;
-    } else {
-      this.hideButton = false;
-      if (this.buttonOptionsObj[number].SlideDescription.search('##') >= 0) {
-        this.stopMovingForward = false;
-      } else {
-        this.stopMovingForward = true;
-      }
-    }
-  }
-
-
-
-  //  Businness logic 
-
-  // getProjectId(name) {
-  //   this._NW3Service.getProjectId(name).subscribe(
-  //     (data: object) => {
-  //       this.projectId = data[0].PresentationId;
-  //       this.bsrProjectId = data[0].BSRPresentationid;
-  //       this.getNwVoteData(this.projectId);
-  //     },
-  //     err => console.log(err)
-  //   );
-  // }
-
-  getNwVoteData(projectId) {
-    // this.go = !this.go;
-    this._NW3Service.getNwVoteData(this.projectName, this.projectName).subscribe(res => {
-      const data = JSON.parse(res.d);
-      this.VotersList = data.VotersList;
-      this.votersBadge = data.VotersList.length;
-      this.nwPositiveVote = data.Positive;
-      this.nwNegativeVote = data.Negative;
-      this.nwNeutralVote = data.Neutral;
-
-      this.nwPositiveVoteUsers = data.PositiveVoters
-      this.nwNegativeVoteUsers = data.NegativeVoters;
-      this.nwNeutralVoteUsers = data.NeutralVoters;
-
-    })
-  }
-
-  recraft() {
-    // alert("Hello! I am an alert box!!");
-    this.recraftChecked = !this.recraftChecked;
-  }
-
-  setNewNameElement(setColor) {
-    this.newNameFormField.getElementsByClassName('mat-form-field-outline')[0].style.color = setColor;
-    this.newNameFormField.getElementsByClassName('mat-form-field-outline')[1].style.color = setColor;
-    this.newNameFormField.getElementsByClassName('mat-form-field-label')[0].style.color = setColor;
-  }
-
-  setCommentsElement(setColor) {
-    this.commentsFormField.getElementsByClassName('mat-form-field-outline')[0].style.color = setColor;
-    this.commentsFormField.getElementsByClassName('mat-form-field-outline')[1].style.color = setColor;
-    this.commentsFormField.getElementsByClassName('mat-form-field-label')[0].style.color = setColor;
-  }
-
-  negativeName(event, filesrc) {
-    if (this.japanese) {
-      this.faVolumeUp = null;
-      const negKanaIndex = this.negativePronunciation.indexOf(event.currentTarget.innerText);
-      if (event.currentTarget.style.color === 'red') {
-        this.negativePronunciation.splice(negKanaIndex, 1);
-        event.currentTarget.style.color = 'black';
-      } else {
-        this.negativePronunciation.push(event.currentTarget.innerText);
-        event.currentTarget.style.color = 'red';
-        // event.currentTarget.style.color = 'red';
-      }
-    } else {
-      // Speech OFF
-      //this.speech(this.myspeech, event.currentTarget.innerText);
-      const audio = new Audio();
-      audio.src = this.fileToPlay;
-      audio.load();
-      if (!this.mute) {
-        audio.play();
-      }
-
-      // this.faVolumeUp = faVolumeUp;
-    }
-  }
-
-  moveLeft() {
-    this.moving = true;
-    setTimeout(() => {
-      this.switchFirst();
-    }, 1000);
-  }
-
-  switchFirst() {
-    this.boxes.push(this.boxes.shift());
-    this.moving = false;
-  }
-
-  listenChild() {
-    if (!this.wasClicked) {
-      this.wasClicked = true;
-      this.listened.emit(this.wasClicked);
-    } else {
-      this.wasClicked = false;
-      this.listened.emit(this.wasClicked);
-    }
-  }
-
-  changeBackground(event) {
-    if (event.currentTarget.id === 'btnPositive') {
-      this.selectBackground.emit('positiveBackground');
-    } else if (event.currentTarget.id === 'btnNeutral') {
-      this.selectBackground.emit('neutralBackground');
-    } else {
-      this.selectBackground.emit('negativeBackground');
-    }
-  }
-
-
-  setEvaluationData(previousNumber, direction) {
-    let selectedRank;
-
-    if (this.groupName === '') {
-      if (this.positiveChecked) {
-        selectedRank = 'Positive';
-      } else if (this.neutralChecked) {
-        selectedRank = 'Neutral';
-      } else if (this.negativeChecked) {
-        selectedRank = 'Negative';
-      } else {
-        selectedRank = '';
-      }
-
-      this.slideModel.NameRanking = selectedRank;
-    }
-
-    this.slideModel.presentationid = this.projectId;
-    this.slideModel.slideNumber = previousNumber;
-    // DB has Names to Explore but is saving Comment Box
-    // this.slideModel.NamesToExplore = (this.txtCommentsElement) ? this.txtCommentsElement.nativeElement.value : '';
-    // this.slideModel.NewNames = (this.txtNewNameElement) ? this.txtNewNameElement.nativeElement.value : '';
-
-    let strPronunciation = '';
-    if (this.negativePronunciation.join(',').indexOf('\'') >= 0) {
-      strPronunciation = this.negativePronunciation.join(',').replace(/'/g, '\'\'');
-    } else {
-      strPronunciation = this.negativePronunciation.join(',');
-    }
-
-    if (strPronunciation !== '') {
-      this.slideModel.KanaNamesNegative = strPronunciation;
-    } else {
-      if (this.slideModel.KanaNamesNegative !== '') {
-        if (this.slideModel.KanaNamesNegative.join(',').indexOf('\'') >= 0) {
-          strPronunciation = this.slideModel.KanaNamesNegative.join(',').replace(/'/g, '\'\'');
-        } else {
-          strPronunciation = this.slideModel.KanaNamesNegative.join(',');
-        }
-        this.slideModel.KanaNamesNegative = strPronunciation;
-      }
-    }
-
-    if (direction === 'next') {
-      this.slideModel.Direction = 'Next';
-      this.saveData(JSON.stringify(this.slideModel));
-    }
-    if (direction === 'previous') {
-      this.slideModel.Direction = 'Prev';
-      this.saveData(JSON.stringify(this.slideModel));
-    }
-    if (direction === 'home') {
-      this.slideModel.Direction = 'Next';
-      this.slideModel.slideNumber = 1;
-      this.saveData(JSON.stringify(this.slideModel));
-    }
-    if (direction === 'summary') {
-      this.slideModel.Direction = 'Next';
-      this.saveData(JSON.stringify(this.slideModel));
-      setTimeout(() => {
-        this.slideModel.slideNumber = JSON.parse(this.projectData).length;
-        this.saveData(JSON.stringify(this.slideModel));
-        this.isNewName = false;
-        this.postRadio = false;
-        this.NeuRadio = false;
-        this.NegRadio = false;
-      }, 50);
-    }
-    if (direction === '') {
+    if (this.slideType === 'NameEvaluation') {
       this.slideModel.slideNumber = this.pageNumber;
-      this.slideModel.Direction = '';
       this.saveData(JSON.stringify(this.slideModel));
     }
-  }
 
-  selectAll() {
-    this.separateCandidateElement.toArray().forEach(element => {
-      if (this.switchPosNegElement.nativeElement.checked) {
-        element.checked = true;
-      } else {
-        element.checked = false;
-      }
-    });
+
+
+
   }
 
   saveData(savingObj) {
     // const temp = JSON.parse(savingObj);
     // temp.KanaNamesNegative = this.negativePronunciation.join(',');
     // temp.recraft = (this.recraftChecked) ? 1 : 0;
-    savingObj = JSON.stringify(savingObj);
+    // savingObj = JSON.stringify(savingObj);
     this._NW3Service.getSaveNSlideInfo(savingObj).subscribe(
       data => {
         this.go = (data[0].presentationStatus === '0') ? true : false;
@@ -1178,134 +982,20 @@ export class NW3Component implements OnInit {
         this.slideNextPart = data[0].SlideBGFileName;
         this.slideBackground = 'url(http://bipresents.com/nw2/';
         this.slideBackground = this.slideBackground + this.slideNextPart + ')';
-        this.setDataToDisplay(data, 'save');
+        // this.setDataToDisplay(data, 'save');
+        if (this.slideType === 'NameEvaluation') {
+          this.category = data[0].NameCategory;
+          this.rationale = data[0].NameRationale;
+        }
       }
     );
     this._NW3Service.saveSlideInformation(savingObj).subscribe(
       data => {
-        this.setDataToDisplay(data, 'save');
+        // this.setDataToDisplay(data, 'save');
       }
     );
   }
 
-  goVote() {
-    this.isGoVoteOn = !this.isGoVoteOn;
-  }
-
-  noClickanyWhere() {
-    this.hoverPositive = false;
-    this.hoverNeutral = false;
-    this.hoverNegative = false;
-    this.VotersListOn = false;
-  }
-
-  mouseLeaveVote() {
-    setTimeout(() => {
-      this.hoverPositive = false;
-    }, 300);
-  }
-
-  // Configuration methods
-
-  speech(speech, textToSpeech) {
-    if (this.hasSpeechBrowserSupport) {
-      speech
-        .speak({
-          text: textToSpeech,
-          queue: false,
-          listeners: {
-            onstart: () => {
-              console.log('Start utterance');
-            },
-            onend: () => {
-              console.log('End utterance');
-            },
-            onresume: () => {
-              console.log('Resume utterance');
-            },
-            onboundary: event => {
-              console.log(
-                event.name +
-                ' boundary reached after ' +
-                event.elapsedTime +
-                ' milliseconds.'
-              );
-            }
-          }
-        })
-        .then(data => {
-          console.log('Success !', data);
-        })
-        .catch(e => {
-          console.error('An error occurred :', e);
-        });
-    } else {
-      console.log('The browser do not support text to speech');
-    }
-  }
-
-  fontTheme() {
-    this.toogleFont = !this.toogleFont;
-    this.font2 = this.fonts[this.fontIndexCounter];
-    if (this.fontIndexCounter === 7) {
-      this.fontIndexCounter = 0;
-    } else {
-
-      this.fontIndexCounter++;
-    }
-  }
-
-
-  toogleMenu() {
-    this.mainMenu = !this.mainMenu;
-  }
-
-  openFullscreen() {
-    this.elem = document.documentElement;
-    this.isFullscreen = !this.isFullscreen;
-    if (this.isFullscreen) {
-      if (this.elem.requestFullscreen) {
-        this.elem.requestFullscreen();
-      } else if (this.elem.mozRequestFullScreen) {
-        /* Firefox */
-        this.elem.mozRequestFullScreen();
-      } else if (this.elem.webkitRequestFullscreen) {
-        /* Chrome, Safari and Opera */
-        this.elem.webkitRequestFullscreen();
-      } else if (this.elem.msRequestFullscreen) {
-        /* IE/Edge */
-        this.elem.msRequestFullscreen();
-      }
-    }
-    else {
-      if (this.document.exitFullscreen) {
-        this.document.exitFullscreen();
-      }
-      else if (this.document.mozCancelFullScreen) {
-        /* Firefox */
-        this.document.mozCancelFullScreen();
-      } else if (this.document.webkitExitFullscreen) {
-        /* Chrome, Safari and Opera */
-        this.document.webkitExitFullscreen();
-      } else if (this.document.msExitFullscreen) {
-        /* IE/Edge */
-        this.document.msExitFullscreen();
-      }
-    }
-  }
-
-  //  NEW CODE 02/18/21
-
-  moveLeft1() {
-    this.selectPage('previous');
-  }
-
-  moveRight() {
-    // if (!this.stopMovingForward || !this.vote) {
-    if (true) {
-      this.selectPage('next');
-    }
-  }
 
 
   setDataToDisplay(data: any, comeFrom) {
@@ -1546,15 +1236,345 @@ export class NW3Component implements OnInit {
 
   }
 
+
+  switchHideButton(number) {
+    // this.currentSlideType.emit(this.buttonOptionsObj[number].SlideType);
+    if (this.buttonOptionsObj[number].SlideType === 'Image' || this.buttonOptionsObj[number].SlideType === 'NameSummary') {
+      this.hideButton = true;
+      this.stopMovingForward = false;
+    } else {
+      this.hideButton = false;
+      if (this.buttonOptionsObj[number].SlideDescription.search('##') >= 0) {
+        this.stopMovingForward = false;
+      } else {
+        this.stopMovingForward = true;
+      }
+    }
+  }
+
+
+
+  //  Businness logic 
+
+  // getProjectId(name) {
+  //   this._NW3Service.getProjectId(name).subscribe(
+  //     (data: object) => {
+  //       this.projectId = data[0].PresentationId;
+  //       this.bsrProjectId = data[0].BSRPresentationid;
+  //       this.getNwVoteData(this.projectId);
+  //     },
+  //     err => console.log(err)
+  //   );
+  // }
+
+  getNwVoteData(projectId) {
+    // this.go = !this.go;
+    this._NW3Service.getNwVoteData(this.projectName, this.projectName).subscribe(res => {
+      const data = JSON.parse(res.d);
+      this.VotersList = data.VotersList;
+      this.votersBadge = data.VotersList.length;
+      this.nwPositiveVote = data.Positive;
+      this.nwNegativeVote = data.Negative;
+      this.nwNeutralVote = data.Neutral;
+
+      this.nwPositiveVoteUsers = data.PositiveVoters
+      this.nwNegativeVoteUsers = data.NegativeVoters;
+      this.nwNeutralVoteUsers = data.NeutralVoters;
+
+    })
+  }
+
+  recraft() {
+    // alert("Hello! I am an alert box!!");
+    this.recraftChecked = !this.recraftChecked;
+  }
+
+  // setNewNameElement(setColor) {
+  //   this.newNameFormField.getElementsByClassName('mat-form-field-outline')[0].style.color = setColor;
+  //   this.newNameFormField.getElementsByClassName('mat-form-field-outline')[1].style.color = setColor;
+  //   this.newNameFormField.getElementsByClassName('mat-form-field-label')[0].style.color = setColor;
+  // }
+
+  // setCommentsElement(setColor) {
+  //   this.commentsFormField.getElementsByClassName('mat-form-field-outline')[0].style.color = setColor;
+  //   this.commentsFormField.getElementsByClassName('mat-form-field-outline')[1].style.color = setColor;
+  //   this.commentsFormField.getElementsByClassName('mat-form-field-label')[0].style.color = setColor;
+  // }
+
+  negativeName(event, filesrc) {
+    if (this.japanese) {
+      this.faVolumeUp = null;
+      const negKanaIndex = this.negativePronunciation.indexOf(event.currentTarget.innerText);
+      if (event.currentTarget.style.color === 'red') {
+        this.negativePronunciation.splice(negKanaIndex, 1);
+        event.currentTarget.style.color = 'black';
+      } else {
+        this.negativePronunciation.push(event.currentTarget.innerText);
+        event.currentTarget.style.color = 'red';
+        // event.currentTarget.style.color = 'red';
+      }
+    } else {
+      // Speech OFF
+      //this.speech(this.myspeech, event.currentTarget.innerText);
+      const audio = new Audio();
+      audio.src = this.fileToPlay;
+      audio.load();
+      if (!this.mute) {
+        audio.play();
+      }
+
+      // this.faVolumeUp = faVolumeUp;
+    }
+  }
+
+  moveLeft() {
+    this.moving = true;
+    setTimeout(() => {
+      this.switchFirst();
+    }, 1000);
+  }
+
+  switchFirst() {
+    this.boxes.push(this.boxes.shift());
+    this.moving = false;
+  }
+
+  listenChild() {
+    if (!this.wasClicked) {
+      this.wasClicked = true;
+      this.listened.emit(this.wasClicked);
+    } else {
+      this.wasClicked = false;
+      this.listened.emit(this.wasClicked);
+    }
+  }
+
+  changeBackground(event) {
+    if (event.currentTarget.id === 'btnPositive') {
+      this.selectBackground.emit('positiveBackground');
+    } else if (event.currentTarget.id === 'btnNeutral') {
+      this.selectBackground.emit('neutralBackground');
+    } else {
+      this.selectBackground.emit('negativeBackground');
+    }
+  }
+
+
+  setEvaluationData(previousNumber, direction) {
+    let selectedRank;
+
+    if (this.groupName === '') {
+      if (this.positiveChecked) {
+        selectedRank = 'Positive';
+      } else if (this.neutralChecked) {
+        selectedRank = 'Neutral';
+      } else if (this.negativeChecked) {
+        selectedRank = 'Negative';
+      } else {
+        selectedRank = '';
+      }
+
+      this.slideModel.NameRanking = selectedRank;
+    }
+
+    this.slideModel.presentationid = this.projectId;
+    this.slideModel.slideNumber = previousNumber;
+    // DB has Names to Explore but is saving Comment Box
+    // this.slideModel.NamesToExplore = (this.txtCommentsElement) ? this.txtCommentsElement.nativeElement.value : '';
+    // this.slideModel.NewNames = (this.txtNewNameElement) ? this.txtNewNameElement.nativeElement.value : '';
+
+    let strPronunciation = '';
+    if (this.negativePronunciation.join(',').indexOf('\'') >= 0) {
+      strPronunciation = this.negativePronunciation.join(',').replace(/'/g, '\'\'');
+    } else {
+      strPronunciation = this.negativePronunciation.join(',');
+    }
+
+    if (strPronunciation !== '') {
+      this.slideModel.KanaNamesNegative = strPronunciation;
+    } else {
+      if (this.slideModel.KanaNamesNegative !== '') {
+        if (this.slideModel.KanaNamesNegative.join(',').indexOf('\'') >= 0) {
+          strPronunciation = this.slideModel.KanaNamesNegative.join(',').replace(/'/g, '\'\'');
+        } else {
+          strPronunciation = this.slideModel.KanaNamesNegative.join(',');
+        }
+        this.slideModel.KanaNamesNegative = strPronunciation;
+      }
+    }
+
+    if (direction === 'next') {
+      this.slideModel.Direction = 'Next';
+      this.saveData(JSON.stringify(this.slideModel));
+    }
+    if (direction === 'previous') {
+      this.slideModel.Direction = 'Prev';
+      this.saveData(JSON.stringify(this.slideModel));
+    }
+    if (direction === 'home') {
+      this.slideModel.Direction = 'Next';
+      this.slideModel.slideNumber = 1;
+      this.saveData(JSON.stringify(this.slideModel));
+    }
+    if (direction === 'summary') {
+      this.slideModel.Direction = 'Next';
+      this.saveData(JSON.stringify(this.slideModel));
+      setTimeout(() => {
+        this.slideModel.slideNumber = JSON.parse(this.projectData).length;
+        this.saveData(JSON.stringify(this.slideModel));
+        this.isNewName = false;
+        this.postRadio = false;
+        this.NeuRadio = false;
+        this.NegRadio = false;
+      }, 50);
+    }
+    if (direction === '') {
+      this.slideModel.slideNumber = this.pageNumber;
+      this.slideModel.Direction = '';
+      this.saveData(JSON.stringify(this.slideModel));
+    }
+  }
+
+  selectAll() {
+    this.separateCandidateElement.toArray().forEach(element => {
+      if (this.switchPosNegElement.nativeElement.checked) {
+        element.checked = true;
+      } else {
+        element.checked = false;
+      }
+    });
+  }
+
+ 
+  goVote() {
+    this.isGoVoteOn = !this.isGoVoteOn;
+  }
+
+  noClickanyWhere() {
+    this.hoverPositive = false;
+    this.hoverNeutral = false;
+    this.hoverNegative = false;
+    this.VotersListOn = false;
+  }
+
+  mouseLeaveVote() {
+    setTimeout(() => {
+      this.hoverPositive = false;
+    }, 300);
+  }
+
+  // Configuration methods
+
+  speech(speech, textToSpeech) {
+    if (this.hasSpeechBrowserSupport) {
+      speech
+        .speak({
+          text: textToSpeech,
+          queue: false,
+          listeners: {
+            onstart: () => {
+              console.log('Start utterance');
+            },
+            onend: () => {
+              console.log('End utterance');
+            },
+            onresume: () => {
+              console.log('Resume utterance');
+            },
+            onboundary: event => {
+              console.log(
+                event.name +
+                ' boundary reached after ' +
+                event.elapsedTime +
+                ' milliseconds.'
+              );
+            }
+          }
+        })
+        .then(data => {
+          console.log('Success !', data);
+        })
+        .catch(e => {
+          console.error('An error occurred :', e);
+        });
+    } else {
+      console.log('The browser do not support text to speech');
+    }
+  }
+
+  fontTheme() {
+    this.toogleFont = !this.toogleFont;
+    this.font2 = this.fonts[this.fontIndexCounter];
+    if (this.fontIndexCounter === 7) {
+      this.fontIndexCounter = 0;
+    } else {
+
+      this.fontIndexCounter++;
+    }
+  }
+
+
+  toogleMenu() {
+    this.mainMenu = !this.mainMenu;
+  }
+
+  openFullscreen() {
+    this.elem = document.documentElement;
+    this.isFullscreen = !this.isFullscreen;
+    if (this.isFullscreen) {
+      if (this.elem.requestFullscreen) {
+        this.elem.requestFullscreen();
+      } else if (this.elem.mozRequestFullScreen) {
+        /* Firefox */
+        this.elem.mozRequestFullScreen();
+      } else if (this.elem.webkitRequestFullscreen) {
+        /* Chrome, Safari and Opera */
+        this.elem.webkitRequestFullscreen();
+      } else if (this.elem.msRequestFullscreen) {
+        /* IE/Edge */
+        this.elem.msRequestFullscreen();
+      }
+    }
+    else {
+      if (this.document.exitFullscreen) {
+        this.document.exitFullscreen();
+      }
+      else if (this.document.mozCancelFullScreen) {
+        /* Firefox */
+        this.document.mozCancelFullScreen();
+      } else if (this.document.webkitExitFullscreen) {
+        /* Chrome, Safari and Opera */
+        this.document.webkitExitFullscreen();
+      } else if (this.document.msExitFullscreen) {
+        /* IE/Edge */
+        this.document.msExitFullscreen();
+      }
+    }
+  }
+
+  //  NEW CODE 02/18/21
+
+  moveLeft1() {
+    this.selectPage('previous');
+  }
+
+  moveRight() {
+    // if (!this.stopMovingForward || !this.vote) {
+    if (true) {
+      this.selectPage('next');
+    }
+  }
+
+
   selectedOpt(option) {
-    this.newNameFormField = <HTMLInputElement>document.getElementById('newNameFormField');
-    this.commentsFormField = <HTMLInputElement>document.getElementById('commentsFormField');
-    if (this.newNameFormField) {
-      this.newNameFormField.style.marginTop = '-30px';
-    }
-    if (this.commentsFormField) {
-      this.commentsFormField.style.marginTop = '-30px';
-    }
+    // this.newNameFormField = <HTMLInputElement>document.getElementById('newNameFormField');
+    // this.commentsFormField = <HTMLInputElement>document.getElementById('commentsFormField');
+    // if (this.newNameFormField) {
+    //   this.newNameFormField.style.marginTop = '-30px';
+    // }
+    // if (this.commentsFormField) {
+    //   this.commentsFormField.style.marginTop = '-30px';
+    // }
     if (option === 'positive' && this.positiveChecked === false) {
       this.positiveChecked = true;
       this.positiveChecked = !this.positiveChecked;
@@ -1566,8 +1586,8 @@ export class NW3Component implements OnInit {
       if (this.nameCandidateElement) {
         this.nameCandidateElement.nativeElement.style.opacity = 1;
         this.pronunciationParentElement.nativeElement.style.opacity = 1;
-        this.setNewNameElement('');
-        this.setCommentsElement('');
+        // this.setNewNameElement('');
+        // this.setCommentsElement('');
       }
     } else if (option === 'positive' && this.positiveChecked === true) {
       this.cantMove.emit(true);
@@ -1590,8 +1610,8 @@ export class NW3Component implements OnInit {
       if (this.nameCandidateElement) {
         this.nameCandidateElement.nativeElement.style.opacity = 1;
         this.pronunciationParentElement.nativeElement.style.opacity = 1;
-        this.setNewNameElement('');
-        this.setCommentsElement('#0d47a1');
+        // this.setNewNameElement('');
+        // this.setCommentsElement('#0d47a1');
       }
     } else if (option === 'neutral' && this.neutralChecked === true) {
       this.cantMove.emit(true);
@@ -1601,7 +1621,7 @@ export class NW3Component implements OnInit {
       this.commentsColor = '';
       this.newNameColor = '';
       if (this.nameCandidateElement) {
-        this.setCommentsElement('');
+        // this.setCommentsElement('');
       }
     } else if (option === 'negative' && this.negativeChecked === false) {
       this.neutralChecked = false;
@@ -1613,8 +1633,8 @@ export class NW3Component implements OnInit {
       if (this.nameCandidateElement) {
         this.nameCandidateElement.nativeElement.style.opacity = 0.3;
         this.pronunciationParentElement.nativeElement.style.opacity = 0.3;
-        this.setNewNameElement('#b71c1c');
-        this.setCommentsElement('#b71c1c');
+        // this.setNewNameElement('#b71c1c');
+        // this.setCommentsElement('#b71c1c');
       }
     } else {
       this.negativeChecked = false;
@@ -1625,8 +1645,8 @@ export class NW3Component implements OnInit {
       if (this.nameCandidateElement) {
         this.nameCandidateElement.nativeElement.style.opacity = 1;
         this.pronunciationParentElement.nativeElement.style.opacity = 1;
-        this.setNewNameElement('');
-        this.setCommentsElement('');
+        // this.setNewNameElement('');
+        // this.setCommentsElement('');
       }
     }
     if (this.japanese) {
@@ -1684,26 +1704,24 @@ export class NW3Component implements OnInit {
 
   }
 
-
-
   // SUMMARY FUNCTIONS
 
-  changeSummaryList(lsitSelection){
+  changeSummaryList(lsitSelection) {
 
-    if (lsitSelection === 'positive') {      
+    if (lsitSelection === 'positive') {
       this.summaryPositive = true;
       this.summaryNeutral = false;
       this.summaryNegative = false;
       this.summaryNewNames = false;
-      this.summaryChart = false;    
-    }    
+      this.summaryChart = false;
+    }
 
     else if (lsitSelection === 'neutral') {
       this.summaryPositive = false;
       this.summaryNeutral = true;
       this.summaryNegative = false;
       this.summaryNewNames = false;
-      this.summaryChart = false;      
+      this.summaryChart = false;
     }
 
     else if (lsitSelection === 'negative') {
@@ -1711,10 +1729,10 @@ export class NW3Component implements OnInit {
       this.summaryNeutral = false;
       this.summaryNegative = true;
       this.summaryNewNames = false;
-      this.summaryChart = false;    
+      this.summaryChart = false;
     }
 
-    else if (lsitSelection === 'newNames') {      
+    else if (lsitSelection === 'newNames') {
       this.summaryPositive = false;
       this.summaryNeutral = false;
       this.summaryNegative = false;
@@ -1727,13 +1745,10 @@ export class NW3Component implements OnInit {
       this.summaryNeutral = false;
       this.summaryNegative = false;
       this.summaryNewNames = false;
-      this.summaryChart = true;      
+      this.summaryChart = true;
     }
 
   }
-
-
-
 
 
 }
