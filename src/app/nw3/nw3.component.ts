@@ -6,7 +6,7 @@ import { HotkeysService, Hotkey } from 'angular2-hotkeys';
 import Speech from 'speak-tts';
 import { Nw3Service } from './nw3.service';
 import { ActivatedRoute } from '@angular/router';
-
+import { typeSourceSpan } from '@angular/compiler';
 
 @Component({
   selector: 'app-nw3',
@@ -15,7 +15,7 @@ import { ActivatedRoute } from '@angular/router';
 })
 export class NW3Component implements OnInit {
 
-
+  chartOption: any;
   fonts = ['coture', 'caviar', 'Chelsea', 'Gacor', 'NyataFTR', 'Pinkerston', 'Quicksand_Book', 'Quicksand_Light'
     , 'Cruncho', 'LilacBlockDemo', 'Medhurst', 'NewYork'];
   secodaryFontIndex = 0;
@@ -90,17 +90,7 @@ export class NW3Component implements OnInit {
     showingTicker: false,
     active: true
   };
-  // faHome = faHome;
-  // faAngleLeft = faAngleLeft;
-  // faPhone = faMobileAlt;
-  // faTrash = faTrashAlt;
-  // faAngleRight = faAngleRight;
-  // faEraser = faEraser;
-  // faImage = faImage;
-  // faQuestion = faQuestionCircle;
-  // faVoteYea = faVoteYea;
-  // tickerIcon = faEye;
-  // microphoneIcon = faMicrophone;
+
   initialPage = 1;
   currentPage = this.initialPage;
   hideMenu = true;
@@ -116,10 +106,6 @@ export class NW3Component implements OnInit {
   stopMovingForward = false;
   overViewState = true;
 
-  // slideCtrl = new FormControl();
-  // filteredSlides: Observable<Slide[]>;
-
-  // slides: Slide[];
   networkStatus: string;
 
   movingSlide = true;
@@ -205,7 +191,6 @@ export class NW3Component implements OnInit {
   projectId: String = '';
   bsrProjectId: String = '';
   passTotalPages: number;
-  // mode = new FormControl('over');
   name = '';
   tickerTime = '';
   presentationTime = false;
@@ -226,7 +211,6 @@ export class NW3Component implements OnInit {
   navigatePageIndex;
 
 
-
   // SUMMARY VARS
   summaryPositive = false;
   summaryNeutral = false;
@@ -234,10 +218,7 @@ export class NW3Component implements OnInit {
   summaryNewNames = false;
   summaryChart = true;
 
-
-
   testName = 'Comirnaty';
-
 
   newNames = '';
   newComments = '';
@@ -356,36 +337,75 @@ export class NW3Component implements OnInit {
     document.body.style.zoom = 1.10;
 
   }
-  // DASH CODE
 
-  // resizeContent() {
-  //   if (window.innerWidth >= 1900) {
-  //     this.contentResize = 60;
-  //   } else if (window.innerWidth >= 1700) {
-  //     this.contentResize = 55;
-  //   } else if (window.innerWidth >= 1400) {
-  //     this.contentResize = 60;
-  //   } else if (window.innerWidth >= 1024) {
-  //     this.contentResize = 80;
-  //   } else {
-  //     this.contentResize = 90;
-  //   }
-  // }
+  ngOnInit(): void {
 
-  // moveSlideDirection(e) {
-  //   this.pageDirection = e;
-  // }
+    this.changingPage = '{}';
+    this.currentSlidePageInfo = this.changingPage;
+    this.activatedRoute.params.subscribe((params: any) => {
+      this.name = params.id;
 
-  // currentSlideType(slideType) {
-  //   if (slideType === 'NameEvaluation') {
-  //     this.isImage = false;
-  //     this.isEvaluation = true;
-  //   }
-  //   if (slideType === 'Image' || slideType === 'NameSummary') {
-  //     this.isImage = true;
-  //     this.isEvaluation = false;
-  //   }
-  // }
+      this._NW3Service.getProjectId(this.name).subscribe(
+        (data: object) => {
+          // console.log(JSON.parse(data));
+          this.projectId = data[0].PresentationId;
+          this.bsrProjectId = data[0].BSRPresentationid;
+          this._NW3Service.getProjectData(this.projectId).subscribe(
+            (data: string) => {
+              console.log(data);
+              this.results = JSON.stringify(data);
+              this.switchButton = this.results;
+              this.projectData = this.results;
+              this.thumbNails = data;
+              this.passTotalPages = data.length;
+              this.totalPages = this.passTotalPages;
+              this.changes();
+            },
+            err => console.log(err)
+          );
+        },
+        err => console.log(err)
+      );
+
+      // this.getProjectId();
+    });
+
+
+    this.chartOption = {
+      xAxis: {
+        type: 'category',
+        data: ['Positive', 'Neutral', 'Negative']
+      },
+      yAxis: {
+        type: 'value'
+      },
+      series: [{
+        data: [{
+          value: 100,
+          itemStyle: {
+            color: '#008000'
+          }
+        }, {
+          value: 75,
+          itemStyle: {
+            color: '#FFFF00'
+          }
+        }, {
+          value: 50,
+          itemStyle: {
+            color: '#a90000'
+          }
+        },],
+        type: 'bar'
+      }]
+    };
+
+    // this.resizeContent();
+    // this.getNwVoteData( this.projectId);
+    // this.saveData(this.slideModel);
+  }
+
+
 
   resetSlide(isReset) {
     this.timeToReset = isReset;
@@ -395,40 +415,6 @@ export class NW3Component implements OnInit {
     this.displayBackground = !displayBg;
   }
 
-  // pageChange(changePageTo: string) {
-  //   this.timeToReset = false;
-  //   const changePageToObj = JSON.parse(changePageTo);
-  //   if (changePageToObj.moveTo === 'next') {
-  //     this.cantMoveForward = '';
-  //     this.pageNumber += 1;
-  //     if (this.pageNumber >= this.passTotalPages) {
-  //       this.pageNumber = this.passTotalPages;
-  //     }
-  //   }
-  //   if (changePageToObj.moveTo === 'previous') {
-  //     this.pageNumber -= 1;
-  //     this.cantMoveForward = '';
-  //     if (this.pageNumber <= 1) {
-  //       this.pageNumber = 1;
-  //     }
-  //   }
-  //   if (changePageToObj.moveTo === 'home') {
-  //     this.cantMoveForward = '';
-  //     this.pageNumber = 1;
-  //   }
-  //   if (changePageToObj.moveTo === 'summary') {
-  //     this.cantMoveForward = '';
-  //     this.pageNumber = this.passTotalPages;
-  //   }
-  //   if (changePageToObj.moveTo === '') {
-  //     this.cantMoveForward = '';
-  //     this.pageNumber = changePageToObj.currentPage;
-  //   }
-  //   this.currentProgress = (this.pageNumber / this.passTotalPages) * 100;
-  //   this.changingPage = changePageTo;
-  //   this.numberChanged = '';
-  //   this.pageDirection = 0;
-  // }
 
   cantMoveSlide(moveSlide: boolean) {
     this.cantMoveForward = moveSlide;
@@ -442,179 +428,15 @@ export class NW3Component implements OnInit {
     }
   }
 
-  // navigateToPage(indexPage) {
-  //   this.navigatePageIndex = indexPage;
-  // }
-  // overviewToggle(state: any) {
-  //   this.overviewDisplay = (state.split(',')[0] === 'false') ? false : true;
-  //   if (!this.overviewDisplay) {
-  //     setTimeout(() => {
-  //       document.getElementById('thumbnail' + state.split(',')[1]).scrollIntoView();
-  //     }, 1);
-  //   }
-  // }
-
-
-  ngOnInit(): void {
-
-    this.changingPage = '{}';
-    this.currentSlidePageInfo = this.changingPage;
-    this.activatedRoute.params.subscribe((params: any) => {
-      this.name = params.id;
-      this.getProjectId(this.name);
-    });
-    // this.resizeContent();
-    // this.getNwVoteData( this.projectId);
-    // this.saveData(this.slideModel);
-  }
-
-
-  getProjectId(name) {
-    this._NW3Service.getProjectId(name).subscribe(
-      (data: object) => {
-        // console.log(JSON.parse(data));
-        this.projectId = data[0].PresentationId;
-        this.bsrProjectId = data[0].BSRPresentationid;
-        this.getProjectData(this.projectId);
-      },
-      err => console.log(err)
-    );
-  }
-
-  getProjectData(projectId) {
-    this._NW3Service.getProjectData(projectId).subscribe(
-      (data: string) => {
-        console.log(data);
-        this.results = JSON.stringify(data);
-        this.switchButton = this.results;
-        this.projectData = this.results;
-        this.thumbNails = data;
-        this.passTotalPages = data.length;
-        this.totalPages = this.passTotalPages;
-        this.changes();
-      },
-      err => console.log(err)
-    );
-  }
 
   changes() {
     this.buttonOptionsObj = JSON.parse(this.switchButton);
-    // if (this.auto) {
-    //   let time = this.timer;
-    //   this.interval = setInterval(() => {
-    //     console.log(time);
-    //     time--;
-    //     if (time < 0) {
-    //       this.slideChange.emit(39);
-    //       clearInterval(this.interval);
-    //       console.log('Ding!');
-    //     };
-    //   }, 1000);
-    // }
-    // this.slideModel.NamesToExplore = (this.txtCommentsElement) ? this.txtCommentsElement.nativeElement.value : '';
-    // this.slideModel.NewNames = (this.txtNewNameElement) ? this.txtNewNameElement.nativeElement.value : '';
 
-    // this.pieChart = [];
-    // const newChartData = [];
-    // this._NW3Service.getGroupSummary(this.projectId).subscribe(groupResult => {
-    //   this.posCount = 0;
-    //   this.neuCount = 0;
-    //   this.negCount = 0;
-    //   for (const obj of Object.values(groupResult)) {
-    //     const arrRanks = obj.nameranking.split('##');
-
-    //     arrRanks.forEach(rank => {
-    //       if (rank === 'Positive') {
-    //         this.posCount++;
-    //       } else if (rank === 'Neutral') {
-    //         this.neuCount++;
-    //       } else if (rank === 'Negative') {
-    //         this.negCount++;
-    //       }
-    //     });
-
-    //     if (arrRanks.length > 0) {
-    //       this.hasBackground = false;
-    //     }
-    //   }
-    //   this.totalNewNames = [];
-    //   this._NW3Service.getRetainTypeName(this.projectId, 'Positive').subscribe((resultPos: Array<object>) => {
-    //     this.totalPositive = resultPos.length + this.posCount;
-    //     newChartData.push({
-    //       'name': 'Positive',
-    //       'value': resultPos.length + this.posCount
-    //     });
-    //     resultPos.forEach((element: any) => {
-    //       element.NewNames.split(',').forEach(ele => {
-    //         if (ele !== '') {
-
-    //         }
-    //       });;
-    //     });
-
-    //     this._NW3Service.getRetainTypeName(this.projectId, "New").subscribe((data: Array<object>) => {
-    //       data.forEach(ele => {
-    //         this.totalNewNames.push(ele);
-    //       });;
-    //       ;
-    //     });
-
-
-    //     this._NW3Service.getRetainTypeName(this.projectId, 'Neutral').subscribe((resultNeu: Array<object>) => {
-    //       this.totalNeutral = resultNeu.length + this.neuCount;
-    //       newChartData.push({
-    //         'name': 'Neutral',
-    //         'value': resultNeu.length + this.neuCount
-    //       });
-    //       this._NW3Service.getRetainTypeName(this.projectId, 'Negative').subscribe((resultNeg: Array<object>) => {
-    //         newChartData.push({
-    //           'name': 'Negative',
-    //           'value': resultNeg.length + this.negCount
-    //         });
-
-    //         newChartData.push({
-    //           'name': 'New Names',
-    //           'value': this.totalNewNames.length
-    //         });
-    //         // this.pieChart = [...newChartData];
-    //         const resArr = [];
-    //         newChartData.forEach(function (item) {
-    //           const i = resArr.findIndex(x => x.name === item.name);
-    //           if (i <= -1) {
-    //             resArr.push({ name: item.name, value: item.value });
-    //           }
-    //         }, this.pieChart = resArr);
-    //       });
-    //     });
-    //   });
-    // });
 
     const projectData = JSON.parse(this.projectData);
     this.projectName = JSON.parse(this.projectData)[0].DisplayName;
     this.testName = projectData[this.pageNumber - 1].SlideDescription;
-    // if (this.tickerElement) {
-    //   if (this.tickerTime !== '') {
-    //     if (JSON.parse(this.tickerTime).showingTicker === true) {
-    //       this.tickerElement.nativeElement.style.opacity = 1;
-    //     } else {
-    //       this.tickerElement.nativeElement.style.opacity = .05;
-    //     }
-    //   }
-    // }
 
-    // if (this.displayBackground === false) {
-
-    //   if (this.evaluationTimeElement) {
-    //     // tslint:disable-next-line:max-line-length
-    //     this.evaluationTimeElement.nativeElement.style.backgroundImage = this.BackgroundUrl + this.imgBackground[this.backgroundCounter] + '.jpg)';
-    //     this.evaluationTimeElement.nativeElement.style.backgroundSize = 'cover';
-    //   }
-    // } else {
-    //   if (this.evaluationTimeElement) {
-    //     this.evaluationTimeElement.nativeElement.style.backgroundImage = this.tempBackground;
-
-    //   }
-    // }
 
     if (this.resetTime !== false) {
       this.positiveChecked = false;
@@ -637,33 +459,6 @@ export class NW3Component implements OnInit {
           if (pageObj.moveTo === 'summary') {
             this.savePage = this.pageNumber;
           }
-          // this.pageNumber = (this.currentSlidePageInfo !== '{}') ? pageObj.currentPage : this.pageNumber;
-          // this.slideType = projectData[this.pageNumber - 1].SlideType.trim();
-
-
-          // // this.testName = projectData[this.pageNumber - 1].SlideDescription;
-
-          // if (this.slideType !== 'Image') {
-          //   if (pageObj.moveTo === 'previous') {
-          //     lastVisitedPageNumber = this.pageNumber + 1;
-          //   }
-          //   if (pageObj.moveTo === 'next') {
-          //     lastVisitedPageNumber = this.pageNumber - 1;
-          //   }
-          //   if (pageObj.moveTo === 'summary') {
-          //     lastVisitedPageNumber = this.savePage;
-          //   }
-          //   this.setEvaluationData(lastVisitedPageNumber, pageObj.moveTo);
-          // } else {
-          //   setTimeout(() => {
-          //     const bgImage = 'url(http://bipresents.com/nw2/' + projectData[this.pageNumber - 1].SlideBGFileName + ')';
-          //     this.slideBackground = bgImage;
-          //     // this.slideImageElement.nativeElement.style.backgroundImage = bgImage;
-          //     // this.slideImageElement.nativeElement.style.backgroundSize = '100% 100%';
-          //     lastVisitedPageNumber = (pageObj.moveTo === 'previous') ? this.pageNumber + 1 : this.pageNumber - 1;
-          //     this.setEvaluationData(lastVisitedPageNumber, pageObj.moveTo);
-          //   }, 100);
-          // }
         }
       } else {
         const pageObj = JSON.parse(this.currentSlidePageInfo);
@@ -695,38 +490,6 @@ export class NW3Component implements OnInit {
 
   }
 
-  // collectGroupRanks() {
-  //   this.slideModel.NameRanking = '';
-  //   if (this.separateCandidateElement) {
-  //     this.separateCandidateElement.toArray().forEach((element, index) => {
-  //       if (element.checked) {
-  //         if (index === (this.separateCandidateElement.toArray().length - 1)) {
-  //           this.slideModel.NameRanking = this.slideModel.NameRanking + 'Positive';
-  //         } else {
-  //           this.slideModel.NameRanking = this.slideModel.NameRanking + 'Positive##';
-  //         }
-  //       } else {
-  //         if (index === (this.separateCandidateElement.toArray().length - 1)) {
-  //           this.slideModel.NameRanking = this.slideModel.NameRanking + 'Negative';
-  //         } else {
-  //           this.slideModel.NameRanking = this.slideModel.NameRanking + 'Negative##';
-  //         }
-  //       }
-  //     });
-  //   }
-  // }
-
-  // startTicerInterval() {
-  //   this.tickerInterval = setInterval(() => {
-  //     this.moveLeft();
-  //   }, 2000);
-  // }
-
-  // moveSlide(e) {
-  //   if (e.keyCode === 39 || e.keyCode === 37 || e.keyCode === 40 || e.keyCode === 38) {
-  //     this.slideChange.emit(e.keyCode);
-  //   }
-  // }
 
   mouseEnter() {
     clearInterval(this.tickerInterval);
@@ -742,28 +505,6 @@ export class NW3Component implements OnInit {
       console.log(data);
     });
   }
-
-  // clickedSummaryName(clickedName, originalName) {
-  //   let searchName = clickedName;
-  //   if (originalName) {
-  //     searchName = originalName;
-  //   }
-  //   this._NW3Service.getSelectedName(this.projectId, searchName).subscribe(data => {
-  //     this.setDataToDisplay(data, 'clicked_name');
-  //   });
-  // }
-
-  // showPieChart() {
-  //   this.showRankedNames = false;
-  //   this.isNewName = false;
-  //   this.postRadio = false;
-  //   this.NeuRadio = false;
-  //   this.NegRadio = false;
-  // }
-
-  // onSelect(clickEvent) {
-  //   this.getSelectedRank(clickEvent.name);
-  // }
 
 
 
@@ -908,13 +649,7 @@ export class NW3Component implements OnInit {
   pageNumberChange(selectedPage) {
     this.pageNumber = Number(selectedPage);
     // this.pageNumber =19;
-
     this.currentProgress = (this.pageNumber / this.passTotalPages) * 100;
-    // const comeFromData = JSON.stringify({ 'comeFrom': 'summary', pageNumber: selectedPage });
-    // this.isImage = false;
-    // this.isEvaluation = true;
-    // this.numberChanged = comeFromData;
-    // this.changingPage = JSON.stringify({ 'currentPage': this.pageNumber, 'moveTo': '' });
 
     const pageObj = JSON.parse(this.currentSlidePageInfo);
     const projectData = JSON.parse(this.projectData);
@@ -924,23 +659,6 @@ export class NW3Component implements OnInit {
     this.pageNumber = (this.currentSlidePageInfo !== '{}') ? pageObj.currentPage : this.pageNumber;
     this.slideType = projectData[this.pageNumber - 1].SlideType.trim();
     let lastVisitedPageNumber: any;
-
-    // this.testName = projectData[this.pageNumber - 1].SlideDescription;
-
-    // if (this.slideType !== 'Image') {
-    //   if (pageObj.moveTo === 'previous') {
-    //     lastVisitedPageNumber = this.pageNumber + 1;
-    //   }
-    //   if (pageObj.moveTo === 'next') {
-    //     lastVisitedPageNumber = this.pageNumber - 1;
-    //   }
-    //   if (pageObj.moveTo === 'summary') {
-    //     lastVisitedPageNumber = this.savePage;
-
-
-    //   }
-    //   this.setEvaluationData(lastVisitedPageNumber, pageObj.moveTo);
-    // }
 
 
 
@@ -960,10 +678,31 @@ export class NW3Component implements OnInit {
     }
     // this.changes();
 
-    if (this.slideType === 'NameEvaluation') {
-      this.slideModel.slideNumber = this.pageNumber;
-      this.saveData(JSON.stringify(this.slideModel));
-    }
+
+    // this.slideModel= {
+    //   'presentationid': '3157',
+    //   'slideNumber': '1',
+    //   'NameRanking': '',
+    //   'NewNames': '',
+    //   'NamesToExplore': '',
+    //   'NamesToAvoid': '',
+    //   'Direction': 'Next',
+    //   'KanaNamesNegative': '',
+    //   'recraft': '0',
+    // };
+
+
+    this.slideModel.slideNumber = this.pageNumber;
+    this.slideModel.NameRanking = 'Neutral';
+    this.slideModel.presentationid = this.projectId;
+    this.slideModel.NewNames = this.newNames;
+    this.slideModel.NamesToExplore = this.newComments;
+
+    // RESET NEW NAMES AND COMMENTS BOXES
+    this.newNames = '';
+    this.newComments = '';
+    this.saveData(JSON.stringify(this.slideModel));
+
 
 
 
@@ -971,14 +710,16 @@ export class NW3Component implements OnInit {
   }
 
   saveData(savingObj) {
-    // const temp = JSON.parse(savingObj);
-    // temp.KanaNamesNegative = this.negativePronunciation.join(',');
-    // temp.recraft = (this.recraftChecked) ? 1 : 0;
+    const temp = JSON.parse(savingObj);
+    temp.KanaNamesNegative = this.negativePronunciation.join(',');
+    temp.recraft = (this.recraftChecked) ? 1 : 0;
     // savingObj = JSON.stringify(savingObj);
     this._NW3Service.getSaveNSlideInfo(savingObj).subscribe(
       data => {
         this.go = (data[0].presentationStatus === '0') ? true : false;
         // slideBackground = 'url(http://bipresents.com/nw2/' + this.slideNextPart;  slideNextPart = 'Test_WELL_PLATFORM/thumbnails/014.jpg)';
+        this.newNames = data[0].NewNames;
+        this.newComments = data[0].NamesToExplore;
         this.slideNextPart = data[0].SlideBGFileName;
         this.slideBackground = 'url(http://bipresents.com/nw2/';
         this.slideBackground = this.slideBackground + this.slideNextPart + ')';
@@ -989,13 +730,12 @@ export class NW3Component implements OnInit {
         }
       }
     );
-    this._NW3Service.saveSlideInformation(savingObj).subscribe(
-      data => {
-        // this.setDataToDisplay(data, 'save');
-      }
-    );
+    // this._NW3Service.saveSlideInformation(savingObj).subscribe(
+    //   data => {
+    //     // this.setDataToDisplay(data, 'save');
+    //   }
+    // );
   }
-
 
 
   setDataToDisplay(data: any, comeFrom) {
@@ -1069,7 +809,6 @@ export class NW3Component implements OnInit {
         }
       }, 50);
     }
-
     this.slideType = data[0].SlideType;
     console.log('refactroing data', data[0]);
     if (this.slideType === 'NameSummary') {
@@ -1088,14 +827,11 @@ export class NW3Component implements OnInit {
       this.katakanaNames = data[0].KanaNames.replace(/`/g, '\'').split(',');
     }
 
-
-
     if (this.katakanaNames[0].length >= 1) {
       // this.faVolumeUp = faVolumeUp;
     } else {
       // this.faVolumeUp = null;
     }
-
     if (data[0].GroupedNames !== '') {
       if (data[0].GroupedNames.includes('##')) {
         this.groupName = data[0].GroupedNames.split('##');
@@ -1256,17 +992,6 @@ export class NW3Component implements OnInit {
 
   //  Businness logic 
 
-  // getProjectId(name) {
-  //   this._NW3Service.getProjectId(name).subscribe(
-  //     (data: object) => {
-  //       this.projectId = data[0].PresentationId;
-  //       this.bsrProjectId = data[0].BSRPresentationid;
-  //       this.getNwVoteData(this.projectId);
-  //     },
-  //     err => console.log(err)
-  //   );
-  // }
-
   getNwVoteData(projectId) {
     // this.go = !this.go;
     this._NW3Service.getNwVoteData(this.projectName, this.projectName).subscribe(res => {
@@ -1288,18 +1013,6 @@ export class NW3Component implements OnInit {
     // alert("Hello! I am an alert box!!");
     this.recraftChecked = !this.recraftChecked;
   }
-
-  // setNewNameElement(setColor) {
-  //   this.newNameFormField.getElementsByClassName('mat-form-field-outline')[0].style.color = setColor;
-  //   this.newNameFormField.getElementsByClassName('mat-form-field-outline')[1].style.color = setColor;
-  //   this.newNameFormField.getElementsByClassName('mat-form-field-label')[0].style.color = setColor;
-  // }
-
-  // setCommentsElement(setColor) {
-  //   this.commentsFormField.getElementsByClassName('mat-form-field-outline')[0].style.color = setColor;
-  //   this.commentsFormField.getElementsByClassName('mat-form-field-outline')[1].style.color = setColor;
-  //   this.commentsFormField.getElementsByClassName('mat-form-field-label')[0].style.color = setColor;
-  // }
 
   negativeName(event, filesrc) {
     if (this.japanese) {
@@ -1376,13 +1089,8 @@ export class NW3Component implements OnInit {
 
       this.slideModel.NameRanking = selectedRank;
     }
-
     this.slideModel.presentationid = this.projectId;
     this.slideModel.slideNumber = previousNumber;
-    // DB has Names to Explore but is saving Comment Box
-    // this.slideModel.NamesToExplore = (this.txtCommentsElement) ? this.txtCommentsElement.nativeElement.value : '';
-    // this.slideModel.NewNames = (this.txtNewNameElement) ? this.txtNewNameElement.nativeElement.value : '';
-
     let strPronunciation = '';
     if (this.negativePronunciation.join(',').indexOf('\'') >= 0) {
       strPronunciation = this.negativePronunciation.join(',').replace(/'/g, '\'\'');
@@ -1445,7 +1153,7 @@ export class NW3Component implements OnInit {
     });
   }
 
- 
+
   goVote() {
     this.isGoVoteOn = !this.isGoVoteOn;
   }
@@ -1567,14 +1275,7 @@ export class NW3Component implements OnInit {
 
 
   selectedOpt(option) {
-    // this.newNameFormField = <HTMLInputElement>document.getElementById('newNameFormField');
-    // this.commentsFormField = <HTMLInputElement>document.getElementById('commentsFormField');
-    // if (this.newNameFormField) {
-    //   this.newNameFormField.style.marginTop = '-30px';
-    // }
-    // if (this.commentsFormField) {
-    //   this.commentsFormField.style.marginTop = '-30px';
-    // }
+
     if (option === 'positive' && this.positiveChecked === false) {
       this.positiveChecked = true;
       this.positiveChecked = !this.positiveChecked;
@@ -1753,3 +1454,320 @@ export class NW3Component implements OnInit {
 
 }
 
+ // DASH CODE
+
+  // resizeContent() {
+  //   if (window.innerWidth >= 1900) {
+  //     this.contentResize = 60;
+  //   } else if (window.innerWidth >= 1700) {
+  //     this.contentResize = 55;
+  //   } else if (window.innerWidth >= 1400) {
+  //     this.contentResize = 60;
+  //   } else if (window.innerWidth >= 1024) {
+  //     this.contentResize = 80;
+  //   } else {
+  //     this.contentResize = 90;
+  //   }
+  // }
+
+  // moveSlideDirection(e) {
+  //   this.pageDirection = e;
+  // }
+
+  // currentSlideType(slideType) {
+  //   if (slideType === 'NameEvaluation') {
+  //     this.isImage = false;
+  //     this.isEvaluation = true;
+  //   }
+  //   if (slideType === 'Image' || slideType === 'NameSummary') {
+  //     this.isImage = true;
+  //     this.isEvaluation = false;
+  //   }
+  // }
+
+
+     // this.newNameFormField = <HTMLInputElement>document.getElementById('newNameFormField');
+    // this.commentsFormField = <HTMLInputElement>document.getElementById('commentsFormField');
+    // if (this.newNameFormField) {
+    //   this.newNameFormField.style.marginTop = '-30px';
+    // }
+    // if (this.commentsFormField) {
+    //   this.commentsFormField.style.marginTop = '-30px';
+    // }
+
+      // setNewNameElement(setColor) {
+  //   this.newNameFormField.getElementsByClassName('mat-form-field-outline')[0].style.color = setColor;
+  //   this.newNameFormField.getElementsByClassName('mat-form-field-outline')[1].style.color = setColor;
+  //   this.newNameFormField.getElementsByClassName('mat-form-field-label')[0].style.color = setColor;
+  // }
+
+  // setCommentsElement(setColor) {
+  //   this.commentsFormField.getElementsByClassName('mat-form-field-outline')[0].style.color = setColor;
+  //   this.commentsFormField.getElementsByClassName('mat-form-field-outline')[1].style.color = setColor;
+  //   this.commentsFormField.getElementsByClassName('mat-form-field-label')[0].style.color = setColor;
+  // }
+
+    // this.testName = projectData[this.pageNumber - 1].SlideDescription;
+
+    // if (this.slideType !== 'Image') {
+    //   if (pageObj.moveTo === 'previous') {
+    //     lastVisitedPageNumber = this.pageNumber + 1;
+    //   }
+    //   if (pageObj.moveTo === 'next') {
+    //     lastVisitedPageNumber = this.pageNumber - 1;
+    //   }
+    //   if (pageObj.moveTo === 'summary') {
+    //     lastVisitedPageNumber = this.savePage;
+
+
+    //   }
+    //   this.setEvaluationData(lastVisitedPageNumber, pageObj.moveTo);
+    // }
+ // clickedSummaryName(clickedName, originalName) {
+  //   let searchName = clickedName;
+  //   if (originalName) {
+  //     searchName = originalName;
+  //   }
+  //   this._NW3Service.getSelectedName(this.projectId, searchName).subscribe(data => {
+  //     this.setDataToDisplay(data, 'clicked_name');
+  //   });
+  // }
+
+  // showPieChart() {
+  //   this.showRankedNames = false;
+  //   this.isNewName = false;
+  //   this.postRadio = false;
+  //   this.NeuRadio = false;
+  //   this.NegRadio = false;
+  // }
+
+  // onSelect(clickEvent) {
+  //   this.getSelectedRank(clickEvent.name);
+  // }
+
+ // collectGroupRanks() {
+  //   this.slideModel.NameRanking = '';
+  //   if (this.separateCandidateElement) {
+  //     this.separateCandidateElement.toArray().forEach((element, index) => {
+  //       if (element.checked) {
+  //         if (index === (this.separateCandidateElement.toArray().length - 1)) {
+  //           this.slideModel.NameRanking = this.slideModel.NameRanking + 'Positive';
+  //         } else {
+  //           this.slideModel.NameRanking = this.slideModel.NameRanking + 'Positive##';
+  //         }
+  //       } else {
+  //         if (index === (this.separateCandidateElement.toArray().length - 1)) {
+  //           this.slideModel.NameRanking = this.slideModel.NameRanking + 'Negative';
+  //         } else {
+  //           this.slideModel.NameRanking = this.slideModel.NameRanking + 'Negative##';
+  //         }
+  //       }
+  //     });
+  //   }
+  // }
+
+  // startTicerInterval() {
+  //   this.tickerInterval = setInterval(() => {
+  //     this.moveLeft();
+  //   }, 2000);
+  // }
+
+  // moveSlide(e) {
+  //   if (e.keyCode === 39 || e.keyCode === 37 || e.keyCode === 40 || e.keyCode === 38) {
+  //     this.slideChange.emit(e.keyCode);
+  //   }
+  // }
+ // this.pageNumber = (this.currentSlidePageInfo !== '{}') ? pageObj.currentPage : this.pageNumber;
+          // this.slideType = projectData[this.pageNumber - 1].SlideType.trim();
+
+
+          // // this.testName = projectData[this.pageNumber - 1].SlideDescription;
+
+          // if (this.slideType !== 'Image') {
+          //   if (pageObj.moveTo === 'previous') {
+          //     lastVisitedPageNumber = this.pageNumber + 1;
+          //   }
+          //   if (pageObj.moveTo === 'next') {
+          //     lastVisitedPageNumber = this.pageNumber - 1;
+          //   }
+          //   if (pageObj.moveTo === 'summary') {
+          //     lastVisitedPageNumber = this.savePage;
+          //   }
+          //   this.setEvaluationData(lastVisitedPageNumber, pageObj.moveTo);
+          // } else {
+          //   setTimeout(() => {
+          //     const bgImage = 'url(http://bipresents.com/nw2/' + projectData[this.pageNumber - 1].SlideBGFileName + ')';
+          //     this.slideBackground = bgImage;
+          //     // this.slideImageElement.nativeElement.style.backgroundImage = bgImage;
+          //     // this.slideImageElement.nativeElement.style.backgroundSize = '100% 100%';
+          //     lastVisitedPageNumber = (pageObj.moveTo === 'previous') ? this.pageNumber + 1 : this.pageNumber - 1;
+          //     this.setEvaluationData(lastVisitedPageNumber, pageObj.moveTo);
+          //   }, 100);
+          // }
+
+           // if (this.auto) {
+    //   let time = this.timer;
+    //   this.interval = setInterval(() => {
+    //     console.log(time);
+    //     time--;
+    //     if (time < 0) {
+    //       this.slideChange.emit(39);
+    //       clearInterval(this.interval);
+    //       console.log('Ding!');
+    //     };
+    //   }, 1000);
+    // }
+    // this.slideModel.NamesToExplore = (this.txtCommentsElement) ? this.txtCommentsElement.nativeElement.value : '';
+    // this.slideModel.NewNames = (this.txtNewNameElement) ? this.txtNewNameElement.nativeElement.value : '';
+
+    // this.pieChart = [];
+    // const newChartData = [];
+    // this._NW3Service.getGroupSummary(this.projectId).subscribe(groupResult => {
+    //   this.posCount = 0;
+    //   this.neuCount = 0;
+    //   this.negCount = 0;
+    //   for (const obj of Object.values(groupResult)) {
+    //     const arrRanks = obj.nameranking.split('##');
+
+    //     arrRanks.forEach(rank => {
+    //       if (rank === 'Positive') {
+    //         this.posCount++;
+    //       } else if (rank === 'Neutral') {
+    //         this.neuCount++;
+    //       } else if (rank === 'Negative') {
+    //         this.negCount++;
+    //       }
+    //     });
+
+    //     if (arrRanks.length > 0) {
+    //       this.hasBackground = false;
+    //     }
+    //   }
+    //   this.totalNewNames = [];
+    //   this._NW3Service.getRetainTypeName(this.projectId, 'Positive').subscribe((resultPos: Array<object>) => {
+    //     this.totalPositive = resultPos.length + this.posCount;
+    //     newChartData.push({
+    //       'name': 'Positive',
+    //       'value': resultPos.length + this.posCount
+    //     });
+    //     resultPos.forEach((element: any) => {
+    //       element.NewNames.split(',').forEach(ele => {
+    //         if (ele !== '') {
+
+    //         }
+    //       });;
+    //     });
+
+    //     this._NW3Service.getRetainTypeName(this.projectId, "New").subscribe((data: Array<object>) => {
+    //       data.forEach(ele => {
+    //         this.totalNewNames.push(ele);
+    //       });;
+    //       ;
+    //     });
+
+
+    //     this._NW3Service.getRetainTypeName(this.projectId, 'Neutral').subscribe((resultNeu: Array<object>) => {
+    //       this.totalNeutral = resultNeu.length + this.neuCount;
+    //       newChartData.push({
+    //         'name': 'Neutral',
+    //         'value': resultNeu.length + this.neuCount
+    //       });
+    //       this._NW3Service.getRetainTypeName(this.projectId, 'Negative').subscribe((resultNeg: Array<object>) => {
+    //         newChartData.push({
+    //           'name': 'Negative',
+    //           'value': resultNeg.length + this.negCount
+    //         });
+
+    //         newChartData.push({
+    //           'name': 'New Names',
+    //           'value': this.totalNewNames.length
+    //         });
+    //         // this.pieChart = [...newChartData];
+    //         const resArr = [];
+    //         newChartData.forEach(function (item) {
+    //           const i = resArr.findIndex(x => x.name === item.name);
+    //           if (i <= -1) {
+    //             resArr.push({ name: item.name, value: item.value });
+    //           }
+    //         }, this.pieChart = resArr);
+    //       });
+    //     });
+    //   });
+    // });
+
+     // if (this.tickerElement) {
+    //   if (this.tickerTime !== '') {
+    //     if (JSON.parse(this.tickerTime).showingTicker === true) {
+    //       this.tickerElement.nativeElement.style.opacity = 1;
+    //     } else {
+    //       this.tickerElement.nativeElement.style.opacity = .05;
+    //     }
+    //   }
+    // }
+
+    // if (this.displayBackground === false) {
+
+    //   if (this.evaluationTimeElement) {
+    //     // tslint:disable-next-line:max-line-length
+    //     this.evaluationTimeElement.nativeElement.style.backgroundImage = this.BackgroundUrl + this.imgBackground[this.backgroundCounter] + '.jpg)';
+    //     this.evaluationTimeElement.nativeElement.style.backgroundSize = 'cover';
+    //   }
+    // } else {
+    //   if (this.evaluationTimeElement) {
+    //     this.evaluationTimeElement.nativeElement.style.backgroundImage = this.tempBackground;
+
+    //   }
+    // }
+
+
+       // const comeFromData = JSON.stringify({ 'comeFrom': 'summary', pageNumber: selectedPage });
+    // this.isImage = false;
+    // this.isEvaluation = true;
+    // this.numberChanged = comeFromData;
+    // this.changingPage = JSON.stringify({ 'currentPage': this.pageNumber, 'moveTo': '' });
+
+      // navigateToPage(indexPage) {
+  //   this.navigatePageIndex = indexPage;
+  // }
+  // overviewToggle(state: any) {
+  //   this.overviewDisplay = (state.split(',')[0] === 'false') ? false : true;
+  //   if (!this.overviewDisplay) {
+  //     setTimeout(() => {
+  //       document.getElementById('thumbnail' + state.split(',')[1]).scrollIntoView();
+  //     }, 1);
+  //   }
+  // }
+ // pageChange(changePageTo: string) {
+  //   this.timeToReset = false;
+  //   const changePageToObj = JSON.parse(changePageTo);
+  //   if (changePageToObj.moveTo === 'next') {
+  //     this.cantMoveForward = '';
+  //     this.pageNumber += 1;
+  //     if (this.pageNumber >= this.passTotalPages) {
+  //       this.pageNumber = this.passTotalPages;
+  //     }
+  //   }
+  //   if (changePageToObj.moveTo === 'previous') {
+  //     this.pageNumber -= 1;
+  //     this.cantMoveForward = '';
+  //     if (this.pageNumber <= 1) {
+  //       this.pageNumber = 1;
+  //     }
+  //   }
+  //   if (changePageToObj.moveTo === 'home') {
+  //     this.cantMoveForward = '';
+  //     this.pageNumber = 1;
+  //   }
+  //   if (changePageToObj.moveTo === 'summary') {
+  //     this.cantMoveForward = '';
+  //     this.pageNumber = this.passTotalPages;
+  //   }
+  //   if (changePageToObj.moveTo === '') {
+  //     this.cantMoveForward = '';
+  //     this.pageNumber = changePageToObj.currentPage;
+  //   }
+  //   this.currentProgress = (this.pageNumber / this.passTotalPages) * 100;
+  //   this.changingPage = changePageTo;
+  //   this.numberChanged = '';
+  //   this.pageDirection = 0;
+  // }

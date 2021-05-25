@@ -93,8 +93,9 @@
                 </div>
             </div>
             <div *ngIf="summaryChart" class="summaryChart">
-                <div style="display: flex;flex-direction: column;align-items: center;justify-content: center;">CHART
-                    HERE</div>
+
+                <div echarts [options]="chartOption"></div>
+
             </div>
 
             <div style="position: fixed;bottom: 0px;">
@@ -122,7 +123,8 @@
 
                     </div>
                     <div [style.font-family]="font3" [style.font-size]="'30px'" class="pronounciation">comir-nati</div>
-                    <div [style.font-family]="font4" [style.font-size]="'35px'" style="text-align: center;line-height: 40px;" class="rationale">{{rationale}}
+                    <div [style.font-family]="font4" [style.font-size]="'35px'"
+                        style="text-align: center;line-height: 40px;" class="rationale">{{rationale}}
                     </div>
                 </div>
 
@@ -209,14 +211,16 @@
                 <div class="textareas">
                     <mat-form-field fxFlex="50" id="newNameFormField" appearance=""
                         style="max-width: 45%; padding: 15px 20px;">
-                        <input #txtNewName matInput placeholder="" [(ngModel)]="newNames"  style="font-size: 30px;text-align: center;">
+                        <input #txtNewName matInput placeholder="" [(ngModel)]="newNames"
+                            style="font-size: 30px;text-align: center;">
                     </mat-form-field>
                     <mat-label class="newNamesLabel" style="color: darkblue;">new names</mat-label>
                     <mat-form-field fxFlex="50" id="commentsFormField" appearance=""
                         style="max-width: 45%; padding: 15px 20px;">
-                        <input #txtComments matInput placeholder=""  [(ngModel)]="newComments" style="font-size: 30px;text-align: center;">
+                        <input #txtComments matInput placeholder="" [(ngModel)]="newComments"
+                            style="font-size: 30px;text-align: center;">
                     </mat-form-field>
-                    <mat-label class="commentsLabel" style="color: darkblue;" >comments</mat-label>
+                    <mat-label class="commentsLabel" style="color: darkblue;">comments</mat-label>
                 </div>
 
 
@@ -225,7 +229,7 @@
         </div>
 
         <!--💔 END OF TEMPLATES FOR SLIDES , GROUP NAMES, SINGLE NAME, IMAGE SLIDE -->
-        
+
     </div>
 
 
