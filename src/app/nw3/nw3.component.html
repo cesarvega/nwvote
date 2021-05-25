@@ -122,9 +122,7 @@
 
                     </div>
                     <div [style.font-family]="font3" [style.font-size]="'30px'" class="pronounciation">comir-nati</div>
-                    <div [style.font-family]="font4" [style.font-size]="'35px'" class="rationale">RNA (mRNA) a protein
-                        from
-                        SARS-CoV-2
+                    <div [style.font-family]="font4" [style.font-size]="'35px'" style="text-align: center;line-height: 40px;" class="rationale">{{rationale}}
                     </div>
                 </div>
 
@@ -211,14 +209,14 @@
                 <div class="textareas">
                     <mat-form-field fxFlex="50" id="newNameFormField" appearance=""
                         style="max-width: 45%; padding: 15px 20px;">
-                        <input #txtNewName matInput placeholder="" style="font-size: 30px;text-align: center;">
+                        <input #txtNewName matInput placeholder="" [(ngModel)]="newNames"  style="font-size: 30px;text-align: center;">
                     </mat-form-field>
                     <mat-label class="newNamesLabel" style="color: darkblue;">new names</mat-label>
                     <mat-form-field fxFlex="50" id="commentsFormField" appearance=""
                         style="max-width: 45%; padding: 15px 20px;">
-                        <input #txtComments matInput placeholder="" style="font-size: 30px;text-align: center;">
+                        <input #txtComments matInput placeholder=""  [(ngModel)]="newComments" style="font-size: 30px;text-align: center;">
                     </mat-form-field>
-                    <mat-label class="commentsLabel" style="color: darkblue;">comments</mat-label>
+                    <mat-label class="commentsLabel" style="color: darkblue;" >comments</mat-label>
                 </div>
 
 
@@ -300,7 +298,7 @@
         </button>
         <button disabled mat-icon-button aria-label="page"
             style="font-size: 23px;color: grey !important;cursor: pointer;">
-            {{'1/60'}}
+            {{pageNumber}}/{{passTotalPages}}
         </button>
         <button (click)="mainMenu = false" matTooltip="hide menu" matTooltipPosition="left" mat-icon-button color="warn"
             aria-label="aria">
