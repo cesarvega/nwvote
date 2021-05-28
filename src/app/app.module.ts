@@ -59,7 +59,6 @@ import * as echarts from 'echarts';
 // }
 
 import {MatRadioModule} from '@angular/material/radio';
-
 export function loadEcharts() {
   return import('echarts');
 }
@@ -76,6 +75,7 @@ export function loadEcharts() {
     NW3Component,
     BmxComponent,
     SchedulerComponent,
+    // OrderDasboardComponent
   ],
   imports: [
     BrowserModule,

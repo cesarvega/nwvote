@@ -692,8 +692,8 @@ export class NW3Component implements OnInit {
     // };
 
 
-    this.slideModel.slideNumber = this.pageNumber - 1;
-    this.slideModel.NameRanking = 'Neutral';
+    this.slideModel.slideNumber = this.pageNumber;
+    // this.slideModel.NameRanking = 'Neutral';
     this.slideModel.presentationid = this.projectId;
     this.slideModel.NewNames = this.newNames;
     this.slideModel.NamesToExplore = this.newComments;
@@ -724,6 +724,17 @@ export class NW3Component implements OnInit {
         this.slideBackground = 'url(http://bipresents.com/nw2/';
         this.slideBackground = this.slideBackground + this.slideNextPart + ')';
         // this.setDataToDisplay(data, 'save');
+
+
+        if (data[0].GroupedNames.lenght > 0) {
+          
+
+          console.log('groupos');
+          
+        }
+
+
+
         if (this.slideType === 'NameEvaluation') {
           this.category = data[0].NameCategory;
           this.rationale = data[0].NameRationale;
@@ -929,12 +940,12 @@ export class NW3Component implements OnInit {
         }, 10);
       } else {
         if (data[0].SlideType === 'NameEvaluation') {
-          this.cantMove.emit(true);
+          // this.cantMove.emit(true);
         }
         this.selectedOpt(data[0].NameRanking.toLowerCase());
       }
     } else {
-      this.cantMove.emit(false);
+      // this.cantMove.emit(false);
     }
 
     if (this.txtNewNameElement) {
@@ -1275,11 +1286,11 @@ export class NW3Component implements OnInit {
 
 
   selectedOpt(option) {
-
+    this.slideModel.NameRanking  = option;
     if (option === 'positive' && this.positiveChecked === false) {
       this.positiveChecked = true;
-      this.positiveChecked = !this.positiveChecked;
-      this.cantMove.emit(false);
+      // this.positiveChecked = !this.positiveChecked;
+      // this.cantMove.emit(false);
       this.neutralChecked = false;
       this.negativeChecked = false;
       this.newNameColor = 'accent';
@@ -1291,19 +1302,19 @@ export class NW3Component implements OnInit {
         // this.setCommentsElement('');
       }
     } else if (option === 'positive' && this.positiveChecked === true) {
-      this.cantMove.emit(true);
+      // this.cantMove.emit(true);
 
       this.neutralChecked = false;
       this.positiveChecked = false;
 
-      this.positiveChecked = !this.positiveChecked;
+      // this.positiveChecked = !this.positiveChecked;
 
       this.negativeChecked = false;
       this.newNameColor = '';
       this.commentsColor = '';
     } else if (option === 'neutral' && this.neutralChecked === false) {
       this.neutralChecked = true;
-      this.cantMove.emit(false);
+      // this.cantMove.emit(false);
       this.positiveChecked = false;
       this.negativeChecked = false;
       this.newNameColor = 'primary';
@@ -1315,7 +1326,7 @@ export class NW3Component implements OnInit {
         // this.setCommentsElement('#0d47a1');
       }
     } else if (option === 'neutral' && this.neutralChecked === true) {
-      this.cantMove.emit(true);
+      // this.cantMove.emit(true);
       this.neutralChecked = false;
       this.positiveChecked = false;
       this.negativeChecked = false;
@@ -1328,7 +1339,7 @@ export class NW3Component implements OnInit {
       this.neutralChecked = false;
       this.positiveChecked = false;
       this.negativeChecked = true;
-      this.cantMove.emit(false);
+      // this.cantMove.emit(false);
       this.newNameColor = 'warn';
       this.commentsColor = 'warn';
       if (this.nameCandidateElement) {
