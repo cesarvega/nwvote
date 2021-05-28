@@ -139,12 +139,12 @@
                         mat-icon-button matTooltip="" matTooltipPosition="above">
                         <mat-icon>sentiment_very_satisfied</mat-icon>
                     </button>
+                    
                     <button *ngIf="!positiveChecked" class="voteIconButton" (click)="selectedOpt('positive');"
                         mat-icon-button matTooltip="" matTooltipPosition="above">
                         <mat-icon>sentiment_very_satisfied</mat-icon>
                     </button>
 
-                    <!-- NEUTRAL BUTTON -->
                     <button *ngIf="neutralChecked" class="voteIconButtonYellow" (click)="selectedOpt('neutral');"
                         mat-icon-button matTooltip="" matTooltipPosition="above">
                         <mat-icon>sentiment_neutral</mat-icon>
