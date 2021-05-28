@@ -692,7 +692,7 @@ export class NW3Component implements OnInit {
     // };
 
 
-    this.slideModel.slideNumber = this.pageNumber;
+    this.slideModel.slideNumber = this.pageNumber - 1;
     this.slideModel.NameRanking = 'Neutral';
     this.slideModel.presentationid = this.projectId;
     this.slideModel.NewNames = this.newNames;

@@ -77,6 +77,7 @@ export class Nw3Service {
   }
 
   getSaveNSlideInfo(modelToSave) {
+    console.log(modelToSave)
     const regex = /Negative/gi;
     const regexapostrophe = /'/gi;
     const saveObj = JSON.parse(modelToSave);
