@@ -135,17 +135,17 @@
 
 
                     <!-- POSITIVE BUTTON -->
-                    <button *ngIf="positiveChecked" class="voteIconButton" (click)="selectedOpt('positive');"
+                    <button *ngIf="positiveChecked" class="voteIconButtonGreen" (click)="selectedOpt('positive');"
                         mat-icon-button matTooltip="" matTooltipPosition="above">
                         <mat-icon>sentiment_very_satisfied</mat-icon>
                     </button>
-                    <button *ngIf="!positiveChecked" class="voteIconButtonGreen" (click)="selectedOpt('positive');"
+                    <button *ngIf="!positiveChecked" class="voteIconButton" (click)="selectedOpt('positive');"
                         mat-icon-button matTooltip="" matTooltipPosition="above">
                         <mat-icon>sentiment_very_satisfied</mat-icon>
                     </button>
 
                     <!-- NEUTRAL BUTTON -->
-                    <button *ngIf="neutralChecked" class="voteIconButton" (click)="selectedOpt('neutral');"
+                    <button *ngIf="neutralChecked" class="voteIconButtonYellow" (click)="selectedOpt('neutral');"
                         mat-icon-button matTooltip="" matTooltipPosition="above">
                         <mat-icon>sentiment_neutral</mat-icon>
                     </button>
@@ -155,7 +155,7 @@
                     </button>
 
                     <!-- NEGATIVE BUTTON -->
-                    <button *ngIf="negativeChecked" class="voteIconButton" (click)="selectedOpt('negative');"
+                    <button *ngIf="negativeChecked" class="voteIconButtonRed" (click)="selectedOpt('negative');"
                         mat-icon-button matTooltip="" matTooltipPosition="above">
                         <mat-icon>sentiment_very_dissatisfied</mat-icon>
                     </button>
@@ -165,7 +165,7 @@
                     </button>
 
                     <!-- RECRAFT BUTTON -->
-                    <button *ngIf="recraftChecked" class="voteIconButton" (click)="selectedOpt('recraft');"
+                    <button *ngIf="recraftChecked" class="voteIconButtonPurple" (click)="selectedOpt('recraft');"
                         mat-icon-button matTooltip="" matTooltipPosition="above">
                         <mat-icon>sync</mat-icon>
                     </button>

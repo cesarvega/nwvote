@@ -236,6 +236,33 @@
     @include BoxShadow(6);
 }
 
+.voteIconButtonRed {
+    color: red;
+    outline: none;
+    width: 30px;
+    height: 30px;
+    line-height: 20px;
+    @include BoxShadow(6);
+}
+
+.voteIconButtonPurple {
+    color: violet;
+    outline: none;
+    width: 30px;
+    height: 30px;
+    line-height: 20px;
+    @include BoxShadow(6);
+}
+
+.voteIconButtonYellow {
+    color: yellow;
+    outline: none;
+    width: 30px;
+    height: 30px;
+    line-height: 20px;
+    @include BoxShadow(6);
+}
+
 .voteIconButtonGreen:hover {
     color: green;
     transition: all 2ms ease-in-out;
@@ -393,7 +420,7 @@ $voteIconsColor: #008d05, #f2ce00, #f50c0c, #4c00ff, #4c00ff;
     }
 
     .voteIconButton:hover:nth-child(#{$i}) {
-        color: nth($voteIconsColor, $i);
+        // color: nth($voteIconsColor, $i);
         transition: all 2ms ease-in-out;
         position: relative;
         top: -2px;

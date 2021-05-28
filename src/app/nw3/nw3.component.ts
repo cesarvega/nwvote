@@ -693,7 +693,7 @@ export class NW3Component implements OnInit {
 
 
     this.slideModel.slideNumber = this.pageNumber;
-    this.slideModel.NameRanking = 'Neutral';
+    // this.slideModel.NameRanking = 'Neutral';
     this.slideModel.presentationid = this.projectId;
     this.slideModel.NewNames = this.newNames;
     this.slideModel.NamesToExplore = this.newComments;
@@ -1286,10 +1286,10 @@ export class NW3Component implements OnInit {
 
 
   selectedOpt(option) {
-
+    this.slideModel.NameRanking  = option;
     if (option === 'positive' && this.positiveChecked === false) {
       this.positiveChecked = true;
-      this.positiveChecked = !this.positiveChecked;
+      // this.positiveChecked = !this.positiveChecked;
       // this.cantMove.emit(false);
       this.neutralChecked = false;
       this.negativeChecked = false;
@@ -1307,7 +1307,7 @@ export class NW3Component implements OnInit {
       this.neutralChecked = false;
       this.positiveChecked = false;
 
-      this.positiveChecked = !this.positiveChecked;
+      // this.positiveChecked = !this.positiveChecked;
 
       this.negativeChecked = false;
       this.newNameColor = '';
