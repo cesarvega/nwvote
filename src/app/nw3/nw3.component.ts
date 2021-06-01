@@ -601,40 +601,40 @@ export class NW3Component implements OnInit {
           // movePage = '{"currentPage":' + this.currentPage + ', "moveTo":"' + movingTo + '"}';
           // this.changePage.emit(movePage);
         } else {
-          this.currentPage += 1;
-          this.switchHideButton(this.currentPage - 1);
+          // this.switchHideButton(this.currentPage - 1);
           movePage = '{"currentPage":' + this.currentPage + ', "moveTo":"' + movingTo + '"}';
           this.pageNumberChange(JSON.parse(movePage).currentPage);
+          this.currentPage += 1;
           // this.changePage.emit(movePage);
         }
       } else if (movingTo === 'home') {
         this.currentPage = 1;
-        this.switchHideButton(this.currentPage - 1);
+        // this.switchHideButton(this.currentPage - 1);
         movePage = '{"currentPage":' + this.currentPage + ', "moveTo":"' + movingTo + '"}';
         this.pageNumberChange(JSON.parse(movePage).currentPage);
         // this.changePage.emit(movePage);
       } else if (movingTo === 'summary') {
         this.currentPage = this.totalPages;
-        this.switchHideButton(this.currentPage - 1);
+        // this.switchHideButton(this.currentPage - 1);
         movePage = '{"currentPage":' + this.currentPage + ', "moveTo":"' + movingTo + '"}';
         this.pageNumberChange(JSON.parse(movePage).currentPage);
         // this.changePage.emit(movePage);
       } else if (movingTo === 'previous') {
         if (this.currentPage <= this.initialPage) {
           this.currentPage = this.initialPage;
-          this.switchHideButton(this.currentPage - 1);
+          // this.switchHideButton(this.currentPage - 1);
           movePage = '{"currentPage":' + this.currentPage + ', "moveTo":"' + movingTo + '"}';
           this.pageNumberChange(JSON.parse(movePage).currentPage);
           // this.changePage.emit(movePage);
         } else {
           this.currentPage -= 1;
-          this.switchHideButton(this.currentPage - 1);
+          // this.switchHideButton(this.currentPage - 1);
           movePage = '{"currentPage":' + this.currentPage + ', "moveTo":"' + movingTo + '"}';
           this.pageNumberChange(JSON.parse(movePage).currentPage);
           // this.changePage.emit(movePage);
         }
       } else {
-        this.switchHideButton(this.currentPage);
+        // this.switchHideButton(this.currentPage);
         movePage = '{"currentPage":' + this.currentPage + ', "moveTo":""}';
         this.pageNumberChange(JSON.parse(movePage).currentPage);
         // this.changePage.emit(movePage);
