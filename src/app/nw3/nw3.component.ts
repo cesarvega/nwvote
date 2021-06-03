@@ -585,6 +585,9 @@ export class NW3Component implements OnInit {
 
   selectPage(movingTo) {
     // stop moving slides for 300 miliseconds
+
+    this.slideModel.Direction = movingTo;
+
     if (this.movingSlide) {
       this.movingSlide = false;
       let movePage = '';
@@ -597,7 +600,7 @@ export class NW3Component implements OnInit {
       if (movingTo === 'next') {
         if (this.currentPage >= this.totalPages) {
           this.currentPage = this.totalPages;
-          // this.switchHideButton(this.currentPage - 1);
+          this.switchHideButton(this.currentPage - 1);
           // movePage = '{"currentPage":' + this.currentPage + ', "moveTo":"' + movingTo + '"}';
           // this.changePage.emit(movePage);
         } else {
@@ -622,7 +625,7 @@ export class NW3Component implements OnInit {
       } else if (movingTo === 'previous') {
         if (this.currentPage <= this.initialPage) {
           this.currentPage = this.initialPage;
-          this.switchHideButton(this.currentPage - 1);
+          // this.switchHideButton(this.currentPage - 1);
           movePage = '{"currentPage":' + this.currentPage + ', "moveTo":"' + movingTo + '"}';
           this.pageNumberChange(JSON.parse(movePage).currentPage);
           // this.changePage.emit(movePage);
@@ -634,7 +637,7 @@ export class NW3Component implements OnInit {
           // this.changePage.emit(movePage);
         }
       } else {
-        this.switchHideButton(this.currentPage);
+        // this.switchHideButton(this.currentPage);
         movePage = '{"currentPage":' + this.currentPage + ', "moveTo":""}';
         this.pageNumberChange(JSON.parse(movePage).currentPage);
         // this.changePage.emit(movePage);
@@ -692,7 +695,11 @@ export class NW3Component implements OnInit {
     // };
 
 
-    this.slideModel.slideNumber = this.pageNumber;
+    if (this.slideModel.Direction === 'next') {
+      this.slideModel.slideNumber = this.pageNumber - 1;
+    }else if (this.slideModel.Direction === 'previous') {
+      this.slideModel.slideNumber = this.pageNumber;
+    }
     // this.slideModel.NameRanking = 'Neutral';
     this.slideModel.presentationid = this.projectId;
     this.slideModel.NewNames = this.newNames;
@@ -718,6 +725,23 @@ export class NW3Component implements OnInit {
       data => {
         this.go = (data[0].presentationStatus === '0') ? true : false;
         // slideBackground = 'url(http://bipresents.com/nw2/' + this.slideNextPart;  slideNextPart = 'Test_WELL_PLATFORM/thumbnails/014.jpg)';
+        if (data[0].NameRanking === 'Positive' && 'positive') {
+          this.positiveChecked = true;
+          this.neutralChecked = false;
+          this.negativeChecked = false;
+        }else if (data[0].NameRanking === 'Neutral' && 'neutral') {
+          this.neutralChecked = true;
+          this.positiveChecked = false;
+          this.negativeChecked = false;
+        } else if (data[0].NameRanking === 'Negative' && 'negative') {
+          this.negativeChecked = true;
+          this.positiveChecked = false;
+          this.neutralChecked = false;
+        }else {
+          this.positiveChecked = false;
+          this.neutralChecked = false;
+          this.negativeChecked = false;
+        }
         this.newNames = data[0].NewNames;
         this.newComments = data[0].NamesToExplore;
         this.slideNextPart = data[0].SlideBGFileName;
@@ -1127,6 +1151,7 @@ export class NW3Component implements OnInit {
       this.saveData(JSON.stringify(this.slideModel));
     }
     if (direction === 'previous') {
+      this.slideModel.slideNumber + 1;
       this.slideModel.Direction = 'Prev';
       this.saveData(JSON.stringify(this.slideModel));
     }
@@ -1274,7 +1299,9 @@ export class NW3Component implements OnInit {
   //  NEW CODE 02/18/21
 
   moveLeft1() {
+    if (true) {
     this.selectPage('previous');
+    }
   }
 
   moveRight() {
@@ -1287,7 +1314,7 @@ export class NW3Component implements OnInit {
 
   selectedOpt(option) {
     this.slideModel.NameRanking  = option;
-    if (option === 'positive' && this.positiveChecked === false) {
+    if (option === 'Positive' && this.positiveChecked === false) {
       this.positiveChecked = true;
       // this.positiveChecked = !this.positiveChecked;
       // this.cantMove.emit(false);
@@ -1301,7 +1328,7 @@ export class NW3Component implements OnInit {
         // this.setNewNameElement('');
         // this.setCommentsElement('');
       }
-    } else if (option === 'positive' && this.positiveChecked === true) {
+    } else if (option === 'Positive' && this.positiveChecked === true) {
       // this.cantMove.emit(true);
 
       this.neutralChecked = false;
@@ -1312,7 +1339,7 @@ export class NW3Component implements OnInit {
       this.negativeChecked = false;
       this.newNameColor = '';
       this.commentsColor = '';
-    } else if (option === 'neutral' && this.neutralChecked === false) {
+    } else if (option === 'Neutral' && this.neutralChecked === false) {
       this.neutralChecked = true;
       // this.cantMove.emit(false);
       this.positiveChecked = false;
@@ -1325,7 +1352,7 @@ export class NW3Component implements OnInit {
         // this.setNewNameElement('');
         // this.setCommentsElement('#0d47a1');
       }
-    } else if (option === 'neutral' && this.neutralChecked === true) {
+    } else if (option === 'Neutral' && this.neutralChecked === true) {
       // this.cantMove.emit(true);
       this.neutralChecked = false;
       this.positiveChecked = false;
@@ -1335,7 +1362,7 @@ export class NW3Component implements OnInit {
       if (this.nameCandidateElement) {
         // this.setCommentsElement('');
       }
-    } else if (option === 'negative' && this.negativeChecked === false) {
+    } else if (option === 'Negative' && this.negativeChecked === false) {
       this.neutralChecked = false;
       this.positiveChecked = false;
       this.negativeChecked = true;
