@@ -694,7 +694,7 @@ export class NW3Component implements OnInit {
     //   'recraft': '0',
     // };
 
-
+    
     if (this.slideModel.Direction === 'next') {
       this.slideModel.slideNumber = this.pageNumber - 1;
     }else if (this.slideModel.Direction === 'previous') {
