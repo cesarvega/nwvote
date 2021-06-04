@@ -229,58 +229,62 @@
         </div>
 
 
+
+
         <!-- MULTIPLE NAME -->
-        <div *ngIf="(slideType === 'MultipleNameEvaluation')" >
+
+        <div *ngIf="(slideType === 'MultipleNameEvaluation')">
+           
+            <div [style.font-family]="font1" [style.font-size]="'30px'" style="margin: 20px;margin-bottom: 30px;">{{category}}</div>
+
+            <div class="subMainContainer">
 
 
-            <div [style.font-family]="font1" [style.font-size]="'30px'" style="margin: 20px;
-            margin-bottom: 30px;">{{category}}</div>
 
 
-            <div class="groupSlideContent"  style="
-            display: flex;
-            flex-direction: column;
-            flex-wrap: wrap;
-            justify-content: space-between;
-            height: 550px;
-            /* width: 550px; */
-            ">
+                <div class="groupSlideContent">
 
-                <div *ngFor="let separateName of groupName">
+                    <div *ngFor="let separateName of groupName; let i = index;">
 
 
-                    <div style="display: flex; flex-direction: row; align-items: flex-start;
-                    justify-content: start;border: brown solid 1px;" >
+                        <div class="groupNameItemContainer">
 
-                        <div style="font-size: 20px;" [innerHTML]="separateName.split('|')[0]">
-                            <!-- {{separateName.split('|')[0]}} -->
+                            <button *ngIf="separateName.split('|')[0].length > 0" (mouseenter)="selectetVotedIndex(i, $event)" class="groupNameVoteItem" mat-icon-button color="warn" aria-label="aria">
+                                <mat-icon class="full-icon">note_add</mat-icon>
+                            </button>
+
+                            <div  (mouseenter)="selectetdNameIndex(i, $event)" (mouseleave)="selectNameItemIndex = '';selectVoteIndex = ''" class="groupNameItem" [innerHTML]="separateName.split('|')[0]">
+                                <!-- {{separateName.split('|')[0]}} -->
+                            </div>
+
+                            <div  class="groupNameItemNotation"
+                                [innerHTML]="separateName.split('|')[1]">
+                                <!-- {{ separateName.split('|')[1]}} -->
+                            </div>
+
+                            <div class="groupNameIetmRationale" *ngIf="i === selectNameItemIndex" [style.left]="myleft" [style.top]="mytop" [innerHTML]="'Future Rationale'">
+                            </div>
+                            <div class="voteItems"  (mouseleave)="selectVoteIndex = ''" *ngIf="i === selectVoteIndex" [style.left]="myleft" [style.top]="mytop">
+                                <button  mat-icon-button color="accent" aria-label="aria">
+                                    <mat-icon >favorite_border</mat-icon>
+                                </button>
+                                <button  mat-icon-button color="accent" aria-label="aria">
+                                    <mat-icon >check_circle</mat-icon>
+                                </button>                               
+                                <button  mat-icon-button color="accent" aria-label="aria">
+                                    <mat-icon >thumb_down_off_alt</mat-icon>
+                                </button>
+                            </div>
+
                         </div>
-                        <div style="font-size: 15px !important; padding-left: 5px; padding-top: 2px "
-                            [innerHTML]="separateName.split('|')[1]">
-                            <!-- {{ separateName.split('|')[1]}} -->
-                        </div>
-                        <div style="width: 200px;
-                        height: 21px;
-                        position: relative;
-                        top: 1px;
-                        border: #57b446 solid 1px;
-                        border-radius: 13px;
-                        display: flex;
-                        align-items: center;
-                        justify-content: center;"
-                            [innerHTML]="separateName.split('|')[1]">
-                            <!-- {{ separateName.split('|')[1]}} -->
-                        </div>
-                        
+
+
                     </div>
 
-
                 </div>
-            </div>
 
-
-            <!-- BI BRAND GO VOTE BUTTON -->
-            <!-- <div class="smartRadialButton">
+                <!-- BI BRAND GO VOTE BUTTON -->
+                <!-- <div class="smartRadialButton">
 
                 <button [ngClass]="(isGoVoteOn)?'GO':'GO_Off'" mat-icon-button (click)="goVote()">
                     BI
@@ -306,8 +310,9 @@
 
             </div> -->
 
-        </div>
+            </div>
 
+        </div>
         <!--💔 END OF TEMPLATES FOR SLIDES , GROUP NAMES, SINGLE NAME, IMAGE SLIDE -->
 
     </div>
