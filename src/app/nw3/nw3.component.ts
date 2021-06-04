@@ -600,7 +600,7 @@ export class NW3Component implements OnInit {
       if (movingTo === 'next') {
         if (this.currentPage >= this.totalPages) {
           this.currentPage = this.totalPages;
-          // this.switchHideButton(this.currentPage - 1);
+          this.switchHideButton(this.currentPage - 1);
           // movePage = '{"currentPage":' + this.currentPage + ', "moveTo":"' + movingTo + '"}';
           // this.changePage.emit(movePage);
         } else {
@@ -695,7 +695,11 @@ export class NW3Component implements OnInit {
     // };
 
 
-    this.slideModel.slideNumber = this.pageNumber - 1;
+    if (this.slideModel.Direction === 'next') {
+      this.slideModel.slideNumber = this.pageNumber - 1;
+    }else if (this.slideModel.Direction === 'previous') {
+      this.slideModel.slideNumber = this.pageNumber;
+    }
     // this.slideModel.NameRanking = 'Neutral';
     this.slideModel.presentationid = this.projectId;
     this.slideModel.NewNames = this.newNames;
@@ -721,6 +725,23 @@ export class NW3Component implements OnInit {
       data => {
         this.go = (data[0].presentationStatus === '0') ? true : false;
         // slideBackground = 'url(http://bipresents.com/nw2/' + this.slideNextPart;  slideNextPart = 'Test_WELL_PLATFORM/thumbnails/014.jpg)';
+        if (data[0].NameRanking === 'Positive' && 'positive') {
+          this.positiveChecked = true;
+          this.neutralChecked = false;
+          this.negativeChecked = false;
+        }else if (data[0].NameRanking === 'Neutral' && 'neutral') {
+          this.neutralChecked = true;
+          this.positiveChecked = false;
+          this.negativeChecked = false;
+        } else if (data[0].NameRanking === 'Negative' && 'negative') {
+          this.negativeChecked = true;
+          this.positiveChecked = false;
+          this.neutralChecked = false;
+        }else {
+          this.positiveChecked = false;
+          this.neutralChecked = false;
+          this.negativeChecked = false;
+        }
         this.newNames = data[0].NewNames;
         this.newComments = data[0].NamesToExplore;
         this.slideNextPart = data[0].SlideBGFileName;
@@ -1198,6 +1219,7 @@ export class NW3Component implements OnInit {
       this.saveData(JSON.stringify(this.slideModel));
     }
     if (direction === 'previous') {
+      this.slideModel.slideNumber + 1;
       this.slideModel.Direction = 'Prev';
       this.saveData(JSON.stringify(this.slideModel));
     }
@@ -1345,7 +1367,9 @@ export class NW3Component implements OnInit {
   //  NEW CODE 02/18/21
 
   moveLeft1() {
+    if (true) {
     this.selectPage('previous');
+    }
   }
 
   moveRight() {
