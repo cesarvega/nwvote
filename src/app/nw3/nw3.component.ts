@@ -604,21 +604,21 @@ export class NW3Component implements OnInit {
           // movePage = '{"currentPage":' + this.currentPage + ', "moveTo":"' + movingTo + '"}';
           // this.changePage.emit(movePage);
         } else {
+          // this.switchHideButton(this.currentPage - 1);
           this.currentPage += 1;
-          this.switchHideButton(this.currentPage - 1);
           movePage = '{"currentPage":' + this.currentPage + ', "moveTo":"' + movingTo + '"}';
           this.pageNumberChange(JSON.parse(movePage).currentPage);
           // this.changePage.emit(movePage);
         }
       } else if (movingTo === 'home') {
         this.currentPage = 1;
-        this.switchHideButton(this.currentPage - 1);
+        // this.switchHideButton(this.currentPage - 1);
         movePage = '{"currentPage":' + this.currentPage + ', "moveTo":"' + movingTo + '"}';
         this.pageNumberChange(JSON.parse(movePage).currentPage);
         // this.changePage.emit(movePage);
       } else if (movingTo === 'summary') {
         this.currentPage = this.totalPages;
-        this.switchHideButton(this.currentPage - 1);
+        // this.switchHideButton(this.currentPage - 1);
         movePage = '{"currentPage":' + this.currentPage + ', "moveTo":"' + movingTo + '"}';
         this.pageNumberChange(JSON.parse(movePage).currentPage);
         // this.changePage.emit(movePage);
@@ -631,7 +631,7 @@ export class NW3Component implements OnInit {
           // this.changePage.emit(movePage);
         } else {
           this.currentPage -= 1;
-          this.switchHideButton(this.currentPage - 1);
+          // this.switchHideButton(this.currentPage - 1);
           movePage = '{"currentPage":' + this.currentPage + ', "moveTo":"' + movingTo + '"}';
           this.pageNumberChange(JSON.parse(movePage).currentPage);
           // this.changePage.emit(movePage);
@@ -747,13 +747,81 @@ export class NW3Component implements OnInit {
         this.slideNextPart = data[0].SlideBGFileName;
         this.slideBackground = 'url(http://bipresents.com/nw2/';
         this.slideBackground = this.slideBackground + this.slideNextPart + ')';
+
+
+      
         // this.setDataToDisplay(data, 'save');
 
 
-        if (data[0].GroupedNames.lenght > 0) {
-          
+        if (data[0].GroupedNames.length > 0) {
+          this.slideType = 'MultipleNameEvaluation';
+          this.category = data[0].NameCategory;
+          if (data[0].GroupedNames !== '') {
+            if (data[0].GroupedNames.includes('##')) {
+              this.groupName = data[0].GroupedNames.split('##');
+              this.groupName = "APPOLOVEN|(J)|アポロベン##APPOVEN|(C)|アポベン##LUMVESTIN|(JB) (CTC)|ルムベスティン##ORAVEN|(CB)|オラベン##VENCHAI | (DE) (DEB)|ベンチャイ##VENLEPIUS | (U/I) (BR) (BRB)|ベンレピウス##VENPOLLO |(CT) (JB)|ベンポロ##APPOLOVEN|(J)|アポロベン##APPOVEN|(C)|アポベン##LUMVESTIN|(JB) (CTC)|ルムベスティン##ORAVEN|(CB)|オラベン##VENCHAI | (DE) (DEB)|ベンチャイ##VENLEPIUS | (U/I) (BR) (BRB)|ベンレピウス##VENPOLLO |(CT) (JB)|ベンポロ##APPOLOVEN|(J)|アポロベン##APPOVEN|(C)|アポベン##LUMVESTIN|(JB) (CTC)|ルムベスティン##ORAVEN|(CB)|オラベン##VENCHAI | (DE) (DEB)|ベンチャイ##VENLEPIUS | (U/I) (BR) (BRB)|ベンレピウス##VENPOLLO |(CT) (JB)|ベンポロ##APPOLOVEN|(J)|アポロベン##APPOVEN|(C)|アポベン##LUMVESTIN|(JB) (CTC)|ルムベスティン##ORAVEN|(CB)|オラベン##VENCHAI | (DE) (DEB)|ベンチャイ##VENLEPIUS | (U/I) (BR) (BRB)|ベンレピウス##VENPOLLO |(CT) (JB)|ベンポロ##APPOLOVEN|(J)|アポロベン##APPOVEN|(C)|アポベン##LUMVESTIN|(JB) (CTC)|ルムベスティン##ORAVEN|(CB)|オラベン##VENCHAI | (DE) (DEB)|ベンチャイ##VENLEPIUS | (U/I) (BR) (BRB)|ベンレピウス##VENPOLLO |(CT) (JB)|ベンポロ##APPOLOVEN|(J)|アポロベン##APPOVEN|(C)|アポベン##LUMVESTIN|(JB) (CTC)|ルムベスティン##ORAVEN|(CB)|オラベン##VENCHAI | (DE) (DEB)|ベンチャイ##VENLEPIUS | (U/I) (BR) (BRB)|ベンレピウス##VENPOLLO |(CT) (JB)|ベンポロ##APPOLOVEN|(J)|アポロベン##APPOVEN|(C)|アポベン##LUMVESTIN|(JB) (CTC)|ルムベスティン##ORAVEN|(CB)|オラベン##VENCHAI | (DE) (DEB)|ベンチャイ##VENLEPIUS | (U/I) (BR) (BRB)|ベンレピウス##VENPOLLO |(CT) (JB)|ベンポロ##APPOLOVEN|(J)|アポロベン##APPOVEN|(C)|アポベン##LUMVESTIN|(JB) (CTC)|ルムベスティン##ORAVEN|(CB)|オラベン##VENCHAI | (DE) (DEB)|ベンチャイ##VENLEPIUS | (U/I) (BR) (BRB)|ベンレピウス##VENPOLLO |(CT) (JB)|ベンポロ##APPOLOVEN|(J)|アポロベン##APPOVEN|(C)|アポベン##LUMVESTIN|(JB) (CTC)|ルムベスティン##ORAVEN|(CB)|オラベン##VENCHAI | (DE) (DEB)|ベンチャイ##VENLEPIUS | (U/I) (BR) (BRB)|ベンレピウス##VENPOLLO |(CT) (JB)|ベンポロ".split('##');
+              // this.groupName = "APPOLOVENAPPOLOVENAPPOLOVENAPPOLOVEN|(J)|アポロベン##APPOVEN|(C)|アポベン##LUMVESTIN|(JB) (CTC)|ルムベスティン##ORAVEN|(CB)|オラベン##VENCHAI | (DE) (DEB)|ベンチャイ##VENLEPIUS | (U/I) (BR) (BRB)|ベンレピウス##VENPOLLO |(CT) (JB)|ベンポロ##APPOLOVEN|(J)|アポロベン##APPOVEN|(C)|アポベン##LUMVESTIN|(JB) (CTC)|ルムベスティン##ORAVEN|(CB)|オラベン##VENCHAI | (DE) (DEB)|ベンチャイ##VENLEPIUS | (U/I) (BR) (BRB)|ベンレピウス##VENPOLLO |(CT) (JB)|ベンポロ##APPOLOVEN|(J)|アポロベン##APPOVEN|(C)|アポベン##LUMVESTIN|(JB) (CTC)|ルムベスティン##ORAVEN|(CB)|オラベン##VENCHAI | (DE) (DEB)|ベンチャイ##VENLEPIUS | (U/I) (BR) (BRB)|ベンレピウス##VENPOLLO |(CT) (JB)|ベンポロ##APPOLOVEN|(J)|アポロベン##APPOVEN|(C)|アポベン##LUMVESTIN|(JB) (CTC)|ルムベスティン##ORAVEN|(CB)|オラベン##VENCHAI | (DE) (DEB)|ベンチャイ##VENLEPIUS | (U/I) (BR) (BRB)|ベンレピウス##VENPOLLO |(CT) (JB)|ベンポロ##APPOLOVEN|(J)|アポロベン##APPOVEN|(C)|アポベン##LUMVESTIN|(JB) (CTC)|ルムベスティン##ORAVEN|(CB)|オラベン##VENCHAI | (DE) (DEB)|ベンチャイ##VENLEPIUS | (U/I) (BR) (BRB)|ベンレピウス##VENPOLLO |(CT) (JB)|ベンポロ##APPOLOVEN|(J)|アポロベン##APPOVEN|(C)|アポベン##LUMVESTIN|(JB) (CTC)|ルムベスティン##ORAVEN|(CB)|オラベン##VENCHAI | (DE) (DEB)|ベンチャイ##VENLEPIUS | (U/I) (BR) (BRB)|ベンレピウス##VENPOLLO |(CT) (JB)|ベンポロ##APPOLOVEN|(J)|アポロベン##APPOVEN|(C)|アポベン##LUMVESTIN|(JB) (CTC)|ルムベスティン##ORAVEN|(CB)|オラベン##VENCHAI | (DE) (DEB)|ベンチャイ##VENLEPIUS | (U/I) (BR) (BRB)|ベンレピウス##VENPOLLO |(CT) (JB)|ベンポロ##APPOLOVEN|(J)|アポロベン##APPOVEN|(C)|アポベン##LUMVESTIN|(JB) (CTC)|ルムベスティン##ORAVEN|(CB)|オラベン##VENCHAI | (DE) (DEB)|ベンチャイ##VENLEPIUS | (U/I) (BR) (BRB)|ベンレピウス##VENPOLLO |(CT) (JB)|ベンポロ##APPOLOVEN|(J)|アポロベン##APPOVEN|(C)|アポベン##LUMVESTIN|(JB) (CTC)|ルムベスティン##ORAVEN|(CB)|オラベン##VENCHAI | (DE) (DEB)|ベンチャイ##VENLEPIUS | (U/I) (BR) (BRB)|ベンレピウス##VENPOLLO |(CT) (JB)|ベンポロ".split('##');
+              this.groupName.forEach(element => {
+                if (element.split('|').length > 1) {
+                  this.isPipeSplit = true;
+                }
+      
+              });
+              this.isGroupNameTooltip = true;
+              // this.summaryViewFlexLayout = 'column wrap';
+            } else {
+              this.groupName = data[0].GroupedNames.split('$$');
+              this.isGroupNameTooltip = false;
+              // this.summaryViewFlexLayout = 'column';
+            }
+      
+            let counter = 0;
+            let index = 0;
+            this.groupName.forEach(element => {
+              // this.groupName[index] = element.replace('(', '|(');
+              if (counter < element.length) {
+                counter = element.length;
+                this.summarySlideMinWidth = (counter * 20) + 20;
+                this.rationaleMinWidth = 1000 - this.summarySlideMinWidth;
+                if (this.summarySlideMinWidth > 900) {
+                  this.summarySlideMinWidth = 800;
+                  this.rationaleMinWidth = 200;
+                }
+              }
+              index = index + 1;
+            });
+            
+            // setTimeout(() => {
+            //   this.separateCandidateElement.toArray().forEach((element, index) => {
+            //     const arrRank = data[0].NameRanking.split('##');
+            //     const areLike = this.areAllLike(arrRank);
+            //     if (data[0].NameRanking.split('##')[0] !== '') {
+            //       this.switchPosNegElement.nativeElement.checked = (areLike) ? true : false;
+      
+            //       if (arrRank[index] === 'Negative' || arrRank[index] === 'novalue') {
+            //         element.checked = false;
+            //       } else {
+            //         element.checked = true;
+            //       }
+            //     } else {
+            //       this.switchPosNegElement.nativeElement.checked = false;
+            //     }
+      
+            //   });
+            // }, 50);
 
-          console.log('groupos');
+
+
+          } else {
+            this.name = data[0].Name;
+            this.name = this.name.replace('(', '|(');
+            if (this.evaluationTimeElement && data[0].TemplateFileName !== 'images/BackGrounds/Default.jpg') {
+              // tslint:disable-next-line:max-line-length
+              this.evaluationTimeElement.nativeElement.style.backgroundImage = this.BackgroundUrl + this.imgBackground[this.backgroundCounter] + '.jpg)';
+              this.evaluationTimeElement.nativeElement.style.backgroundSize = 'cover';
+            }
+          }
+      
           
         }
 

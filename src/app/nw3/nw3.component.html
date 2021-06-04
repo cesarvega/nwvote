@@ -67,7 +67,7 @@
 
             <div class="summaryMainContent">
 
-                <div *ngIf="summaryPositive" class="summaryPostives">
+                <div *ngIf="summaryPositive" class="summaryPostives" style="">
                     <div class="summaryListDisplay" style="background-color: green; color: white;">
                         <div *ngFor="let item of fonts">{{item}}</div>
                         <div *ngFor="let item of fonts">{{item}}</div>
@@ -139,7 +139,7 @@
                         mat-icon-button matTooltip="" matTooltipPosition="above">
                         <mat-icon>sentiment_very_satisfied</mat-icon>
                     </button>
-                    
+
                     <button *ngIf="!positiveChecked" class="voteIconButton" (click)="selectedOpt('Positive');"
                         mat-icon-button matTooltip="" matTooltipPosition="above">
                         <mat-icon>sentiment_very_satisfied</mat-icon>
@@ -225,6 +225,86 @@
 
 
             </div>
+
+        </div>
+
+
+        <!-- MULTIPLE NAME -->
+        <div *ngIf="(slideType === 'MultipleNameEvaluation')" >
+
+
+            <div [style.font-family]="font1" [style.font-size]="'30px'" style="margin: 20px;
+            margin-bottom: 30px;">{{category}}</div>
+
+
+            <div class="groupSlideContent"  style="
+            display: flex;
+            flex-direction: column;
+            flex-wrap: wrap;
+            justify-content: space-between;
+            height: 550px;
+            /* width: 550px; */
+            ">
+
+                <div *ngFor="let separateName of groupName">
+
+
+                    <div style="display: flex; flex-direction: row; align-items: flex-start;
+                    justify-content: start;border: brown solid 1px;" >
+
+                        <div style="font-size: 20px;" [innerHTML]="separateName.split('|')[0]">
+                            <!-- {{separateName.split('|')[0]}} -->
+                        </div>
+                        <div style="font-size: 15px !important; padding-left: 5px; padding-top: 2px "
+                            [innerHTML]="separateName.split('|')[1]">
+                            <!-- {{ separateName.split('|')[1]}} -->
+                        </div>
+                        <div style="width: 200px;
+                        height: 21px;
+                        position: relative;
+                        top: 1px;
+                        border: #57b446 solid 1px;
+                        border-radius: 13px;
+                        display: flex;
+                        align-items: center;
+                        justify-content: center;"
+                            [innerHTML]="separateName.split('|')[1]">
+                            <!-- {{ separateName.split('|')[1]}} -->
+                        </div>
+                        
+                    </div>
+
+
+                </div>
+            </div>
+
+
+            <!-- BI BRAND GO VOTE BUTTON -->
+            <!-- <div class="smartRadialButton">
+
+                <button [ngClass]="(isGoVoteOn)?'GO':'GO_Off'" mat-icon-button (click)="goVote()">
+                    BI
+                </button>
+
+
+                
+                <div class="textareas">
+                    <mat-form-field fxFlex="50" id="newNameFormField" appearance=""
+                        style="max-width: 45%; padding: 15px 20px;">
+                        <input #txtNewName matInput placeholder="" [(ngModel)]="newNames"
+                            style="font-size: 30px;text-align: center;">
+                    </mat-form-field>
+                    <mat-label class="newNamesLabel" style="color: darkblue;">new names</mat-label>
+                    <mat-form-field fxFlex="50" id="commentsFormField" appearance=""
+                        style="max-width: 45%; padding: 15px 20px;">
+                        <input #txtComments matInput placeholder="" [(ngModel)]="newComments"
+                            style="font-size: 30px;text-align: center;">
+                    </mat-form-field>
+                    <mat-label class="commentsLabel" style="color: darkblue;">comments</mat-label>
+                </div>
+
+
+            </div> -->
 
         </div>
 

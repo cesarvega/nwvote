@@ -25,7 +25,7 @@ const routes: Routes = [
   //   path: ':id',
   //   component: SchedulerComponent  
   // },
-  // {//BSR
+  // {//BSR  color of the bar #002f5b
   //   path: ':id',
   //   component: BsrComponent
   // },
