@@ -15,42 +15,42 @@
         <!-- SETTINGS BOX -->
         <!-- <div *ngIf="isSettings" class="settingsBox"> -->
         <div *ngIf="true" class="settingsBox">
-        
+
             <div>Settings</div>
 
             <div class="label" style="width: 250px; text-align: center;">font size</div>
 
-            <input type="range"  style="    margin: 20px;width: 200px;"  class="settingsSlide" 
-            (change)="setFontSize(groupTestNameFontSize)" [(ngModel)]="groupTestNameFontSize"
-            class="slider-font-size"  tickInterval="1" min="1" max="200" [value]="groupTestNameFontSize">
+            <input type="range" style="    margin: 20px;width: 200px;" class="settingsSlide"
+                (change)="setFontSize(groupTestNameFontSize)" [(ngModel)]="groupTestNameFontSize"
+                class="slider-font-size" tickInterval="1" min="1" max="200" [value]="groupTestNameFontSize">
 
             <div class="label" style="width: 250px; text-align: center;">page columns</div>
 
-            <input type="range"  style="margin: 20px;width: 200px;"  class="settingsSlide" 
-            (change)="setGroupSlideHeight(groupSlideHeihtValue)" [(ngModel)]="groupSlideHeihtValue"
-              tickInterval="1" min="1200" max="10000" [value]="groupSlideHeihtValue">
+            <input type="range" style="margin: 20px;width: 200px;" class="settingsSlide"
+                (change)="setGroupSlideHeight(groupSlideHeihtValue)" [(ngModel)]="groupSlideHeihtValue" tickInterval="1"
+                min="1200" max="10000" [value]="groupSlideHeihtValue">
 
             <div class="label" style="width: 250px; text-align: center;">line-height</div>
 
-            <input type="range"  style="margin: 20px;width: 200px;"  class="settingsSlide" 
-            (change)="setGroupSlidelineHeight(groupSlidelineHeightValue)" [(ngModel)]="groupSlidelineHeightValue"
-              tickInterval="1" min="1" max="100" [value]="groupSlidelineHeightValue">
+            <input type="range" style="margin: 20px;width: 200px;" class="settingsSlide"
+                (change)="setGroupSlidelineHeight(groupSlidelineHeightValue)" [(ngModel)]="groupSlidelineHeightValue"
+                tickInterval="1" min="1" max="100" [value]="groupSlidelineHeightValue">
 
             <div class="label" style="width: 250px; text-align: center;">card width</div>
 
-            <input type="range"  style="margin: 20px;width: 200px;"  class="settingsSlide" 
-            (change)="setCardWidth(cardWidthValue)" [(ngModel)]="cardWidthValue"
-              tickInterval="1" min="1" max="100" [value]="cardWidthValue">
-          
+            <input type="range" style="margin: 20px;width: 200px;" class="settingsSlide"
+                (change)="setCardWidth(cardWidthValue)" [(ngModel)]="cardWidthValue" tickInterval="1" min="1" max="100"
+                [value]="cardWidthValue">
+
         </div>
-      
-       
+
+
         <!-- <div *ngIf="true" class="settingsBox">
             <div>Table Of Content</div>
             <mat-slider  (change)="setFontSize()" [(ngModel)]="groupTestNameFontSize"
         class="slider-font-size" thumbLabel tickInterval="1" min="20" max="38" [value]="groupTestNameFontSize"></mat-slider>
         </div> -->
-       
+
 
         <!-- LEFT & RIGHT ICONS -->
         <button (click)="moveRight()" class="menu-left-icon" mat-icon-button>
@@ -141,7 +141,7 @@
 
             </div>
         </div>
-
+       
         <!-- SINGLE NAME -->
         <div *ngIf="(slideType === 'NameEvaluation')">
             <div class="singleNameSlide">
@@ -258,30 +258,33 @@
 
         </div>
 
+         <!-- MULTIPLE NAME -->
 
-
-
-        <!-- MULTIPLE NAME -->
-
-        <div *ngIf="(slideType === 'MultipleNameEvaluation')">
+         <div *ngIf="(slideType === 'MultipleNameEvaluation')">
 
             <div [style.font-family]="font1" [style.font-size]="'30px'" style="margin: 20px;margin-bottom: 30px;">
                 {{category}}</div>
 
             <div class="subMainContainer">
 
-                <div class="groupSlideContent" [style.height]="groupSlideHeiht" [style.line-height]="groupSlidelineHeight">
+                <div class="groupSlideContent" [style.height]="groupSlideHeiht"
+                    [style.line-height]="groupSlidelineHeight">
 
-                    <div *ngFor="let separateName of groupName; let i = index;">
+                    <div style="display: flex; flex-direction: row; justify-items: stretch;"
+                        *ngFor="let separateName of groupName; let i = index;">
+
+                        <!-- 😀 RANK ICON-->
+                        <button  (click)="selectetVotedIndex(i, $event)" disableRipple style="    margin: 18px 0px 0px -17px;
+                        position: absolute;
+                        outline: none;"
+                            *ngIf="separateName.split('|')[0].length > 0" class="groupNameVoteItem" mat-icon-button
+                            color="warn" aria-label="aria">
+                            <mat-icon class="voteIconRank" style="font-size: 40px;">favorite</mat-icon>
+                        </button>
+
+                        <div class="groupNameItemContainer" style="margin-left: 10px;padding-left: 20px;">
 
 
-                        <div class="groupNameItemContainer">
-
-                            <button (click)="selectetVotedIndex(i, $event)"
-                                *ngIf="separateName.split('|')[0].length > 0" class="groupNameVoteItem" mat-icon-button
-                                color="warn" aria-label="aria">
-                                <mat-icon class="full-icon">note_add</mat-icon>
-                            </button>
                             <div class="voteItems" (mouseleave)="selectVoteIndex = ''" *ngIf="i === selectVoteIndex"
                                 [style.left]="myleft" [style.top]="mytop">
                                 <button mat-icon-button color="accent" aria-label="aria">
@@ -296,18 +299,20 @@
                             </div>
 
                             <!-- TEST 😱 NAME -->
-                            <div *ngIf="i !== selectNameItemIndex" (click)="selectetdNameIndex(i, $event)" 
-                                [style.font-size]="groupTestNameFontSize + 'px'"
-                                class="groupNameItem" [innerHTML]="separateName.split('|')[0]">
+                            <div *ngIf="i !== selectNameItemIndex" (click)="selectetdNameIndex(i, $event)"
+                                [style.font-size]="groupTestNameFontSize + 'px'" class="groupNameItem"
+                                [innerHTML]="separateName.split('|')[0]">
                                 <!-- {{separateName.split('|')[0]}} -->
                             </div>
 
-                            <div *ngIf="i !== selectNameItemIndex" class="groupNameItemNotation" [innerHTML]="separateName.split('|')[1]">
+                            <div *ngIf="i !== selectNameItemIndex" class="groupNameItemNotation"
+                                [innerHTML]="separateName.split('|')[1]">
                                 <!-- {{ separateName.split('|')[1]}} -->
                             </div>
 
-                            <div class="groupNameIetmRationale" (mouseleave)="selectNameItemIndex = ''"  *ngIf="i === selectNameItemIndex" [style.left]="myleft"
-                                [style.top]="mytop" [innerHTML]="'Future Rationale'">
+                            <div class="groupNameIetmRationale" (mouseleave)="selectNameItemIndex = ''"
+                                *ngIf="i === selectNameItemIndex" [style.left]="myleft" [style.top]="mytop"
+                                [innerHTML]="'Future Rationale'">
                             </div>
 
 
@@ -347,7 +352,32 @@
 
             </div>
 
+           
+            <!-- FAVORITE RANK ALL ICON -->
+                <button [ngClass]="(isGoVoteOn)?'heart-favorite':'heart-favorite-Off'" mat-icon-button (click)="goVote()">
+                    <mat-icon  class="heart-favorite-icon">favorite</mat-icon>
+                </button>
+                <button class="G4 GG" mat-icon-button >
+                    <mat-icon>thumb_down_off_alt</mat-icon>
+                </button>
+                <button class="G1 GG" mat-icon-button >
+                    <mat-icon>sentiment_very_satisfied</mat-icon>
+                </button>
+        
+                <!-- <button class="G2 GG" mat-icon-button>
+                    C
+                </button>
+        
+                <button class="G3 GG" mat-icon-button >
+                    P
+                </button> -->
+        
+               
+           
+
         </div>
+
+
         <!--💔 END OF TEMPLATES FOR SLIDES , GROUP NAMES, SINGLE NAME, IMAGE SLIDE -->
 
     </div>
