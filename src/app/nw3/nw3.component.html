@@ -270,7 +270,7 @@
                 <div class="groupSlideContent" [style.height]="groupSlideHeiht"
                     [style.line-height]="groupSlidelineHeight">
 
-                    <div style="display: flex; flex-direction: row; justify-items: stretch;"
+                    <div style="display: flex; flex-direction: row; "
                         *ngFor="let separateName of groupName; let i = index;">
 
                         <!-- 😀 RANK ICON-->
@@ -279,13 +279,15 @@
                         outline: none;"
                             *ngIf="separateName.split('|')[0].length > 0" class="groupNameVoteItem" mat-icon-button
                             color="warn" aria-label="aria">
-                            <mat-icon class="voteIconRank" style="font-size: 40px;">favorite</mat-icon>
+                            <mat-icon (click)="toggleRankIcon(rankIcon, i)" [style.color]="rankIcon[i].color" class="voteIconRank">
+                                <div [innerHTML]="rankIcon[i].icon"></div>
+                            </mat-icon>
                         </button>
 
                         <div class="groupNameItemContainer" style="margin-left: 10px;padding-left: 20px;">
 
 
-                            <div class="voteItems" (mouseleave)="selectVoteIndex = ''" *ngIf="i === selectVoteIndex"
+                            <!-- <div class="voteItems" (mouseleave)="selectVoteIndex = ''" *ngIf="i === selectVoteIndex"
                                 [style.left]="myleft" [style.top]="mytop">
                                 <button mat-icon-button color="accent" aria-label="aria">
                                     <mat-icon>favorite_border</mat-icon>
@@ -296,7 +298,7 @@
                                 <button mat-icon-button color="accent" aria-label="aria">
                                     <mat-icon>thumb_down_off_alt</mat-icon>
                                 </button>
-                            </div>
+                            </div> -->
 
                             <!-- TEST 😱 NAME -->
                             <div *ngIf="i !== selectNameItemIndex" (click)="selectetdNameIndex(i, $event)"
@@ -354,13 +356,13 @@
 
            
             <!-- FAVORITE RANK ALL ICON -->
-                <button [ngClass]="(isGoVoteOn)?'heart-favorite':'heart-favorite-Off'" mat-icon-button (click)="goVote()">
+                <button [ngClass]="(isGoVoteOn)?'heart-favorite':'heart-favorite-Off'" mat-icon-button (click)="setAllNamesIcon('favorite', 'red')">
                     <mat-icon  class="heart-favorite-icon">favorite</mat-icon>
                 </button>
-                <button class="G4 GG" mat-icon-button >
+                <button class="G4 GG" mat-icon-button (click)="setAllNamesIcon('thumb_down_off_alt', 'purple')">
                     <mat-icon>thumb_down_off_alt</mat-icon>
                 </button>
-                <button class="G1 GG" mat-icon-button >
+                <button class="G1 GG" mat-icon-button (click)="setAllNamesIcon('sentiment_very_satisfied', 'yellow')">
                     <mat-icon>sentiment_very_satisfied</mat-icon>
                 </button>
         
