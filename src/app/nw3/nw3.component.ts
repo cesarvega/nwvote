@@ -229,6 +229,12 @@ export class NW3Component implements OnInit {
   myleft: any;
   mytop: any;
   selectVoteIndex: any;
+  groupTestNameFontSize: any;
+  groupSlideHeiht: any;
+  groupSlideHeihtValue: any;
+  groupSlidelineHeight: any;
+  groupSlidelineHeightValue: string;
+  cardWidthValue: any;
 
 
 
@@ -346,6 +352,11 @@ export class NW3Component implements OnInit {
   }
 
   ngOnInit(): void {
+    this.groupTestNameFontSize = '50';
+    this.groupSlideHeihtValue = '2700';
+    this.groupSlideHeiht = '2700px';
+    this.groupSlidelineHeightValue = '10';
+    this.groupSlidelineHeight = '10px';
 
     this.changingPage = '{}';
     this.currentSlidePageInfo = this.changingPage;
@@ -658,7 +669,7 @@ export class NW3Component implements OnInit {
 
   pageNumberChange(selectedPage) {
     this.pageNumber = Number(selectedPage);
-    // this.pageNumber =19;
+    this.pageNumber = 6;
     this.currentProgress = (this.pageNumber / this.passTotalPages) * 100;
 
     const pageObj = JSON.parse(this.currentSlidePageInfo);
@@ -704,7 +715,7 @@ export class NW3Component implements OnInit {
 
     if (this.slideModel.Direction === 'next') {
       this.slideModel.slideNumber = this.pageNumber - 1;
-    }else if (this.slideModel.Direction === 'previous') {
+    } else if (this.slideModel.Direction === 'previous') {
       this.slideModel.slideNumber = this.pageNumber;
     }
     // this.slideModel.NameRanking = 'Neutral';
@@ -736,7 +747,7 @@ export class NW3Component implements OnInit {
           this.positiveChecked = true;
           this.neutralChecked = false;
           this.negativeChecked = false;
-        }else if (data[0].NameRanking === 'Neutral' && 'neutral') {
+        } else if (data[0].NameRanking === 'Neutral' && 'neutral') {
           this.neutralChecked = true;
           this.positiveChecked = false;
           this.negativeChecked = false;
@@ -744,7 +755,7 @@ export class NW3Component implements OnInit {
           this.negativeChecked = true;
           this.positiveChecked = false;
           this.neutralChecked = false;
-        }else {
+        } else {
           this.positiveChecked = false;
           this.neutralChecked = false;
           this.negativeChecked = false;
@@ -756,7 +767,7 @@ export class NW3Component implements OnInit {
         this.slideBackground = this.slideBackground + this.slideNextPart + ')';
 
 
-      
+
         // this.setDataToDisplay(data, 'save');
 
 
@@ -766,13 +777,13 @@ export class NW3Component implements OnInit {
           if (data[0].GroupedNames !== '') {
             if (data[0].GroupedNames.includes('##')) {
               this.groupName = data[0].GroupedNames.split('##');
-              // this.groupName = "APPOLOVEN|(J)|アポロベン##APPOVEN|(C)|アポベン##LUMVESTIN|(JB) (CTC)|ルムベスティン##ORAVEN|(CB)|オラベン##VENCHAI | (DE) (DEB)|ベンチャイ##VENLEPIUS | (U/I) (BR) (BRB)|ベンレピウス##VENPOLLO |(CT) (JB)|ベンポロ##APPOLOVEN|(J)|アポロベン##APPOVEN|(C)|アポベン##LUMVESTIN|(JB) (CTC)|ルムベスティン##ORAVEN|(CB)|オラベン##VENCHAI | (DE) (DEB)|ベンチャイ##VENLEPIUS | (U/I) (BR) (BRB)|ベンレピウス##VENPOLLO |(CT) (JB)|ベンポロ##APPOLOVEN|(J)|アポロベン##APPOVEN|(C)|アポベン##LUMVESTIN|(JB) (CTC)|ルムベスティン##ORAVEN|(CB)|オラベン##VENCHAI | (DE) (DEB)|ベンチャイ##VENLEPIUS | (U/I) (BR) (BRB)|ベンレピウス##VENPOLLO |(CT) (JB)|ベンポロ##APPOLOVEN|(J)|アポロベン##APPOVEN|(C)|アポベン##LUMVESTIN|(JB) (CTC)|ルムベスティン##ORAVEN|(CB)|オラベン##VENCHAI | (DE) (DEB)|ベンチャイ##VENLEPIUS | (U/I) (BR) (BRB)|ベンレピウス##VENPOLLO |(CT) (JB)|ベンポロ##APPOLOVEN|(J)|アポロベン##APPOVEN|(C)|アポベン##LUMVESTIN|(JB) (CTC)|ルムベスティン##ORAVEN|(CB)|オラベン##VENCHAI | (DE) (DEB)|ベンチャイ##VENLEPIUS | (U/I) (BR) (BRB)|ベンレピウス##VENPOLLO |(CT) (JB)|ベンポロ##APPOLOVEN|(J)|アポロベン##APPOVEN|(C)|アポベン##LUMVESTIN|(JB) (CTC)|ルムベスティン##ORAVEN|(CB)|オラベン##VENCHAI | (DE) (DEB)|ベンチャイ##VENLEPIUS | (U/I) (BR) (BRB)|ベンレピウス##VENPOLLO |(CT) (JB)|ベンポロ##APPOLOVEN|(J)|アポロベン##APPOVEN|(C)|アポベン##LUMVESTIN|(JB) (CTC)|ルムベスティン##ORAVEN|(CB)|オラベン##VENCHAI | (DE) (DEB)|ベンチャイ##VENLEPIUS | (U/I) (BR) (BRB)|ベンレピウス##VENPOLLO |(CT) (JB)|ベンポロ##APPOLOVEN|(J)|アポロベン##APPOVEN|(C)|アポベン##LUMVESTIN|(JB) (CTC)|ルムベスティン##ORAVEN|(CB)|オラベン##VENCHAI | (DE) (DEB)|ベンチャイ##VENLEPIUS | (U/I) (BR) (BRB)|ベンレピウス##VENPOLLO |(CT) (JB)|ベンポロ##APPOLOVEN|(J)|アポロベン##APPOVEN|(C)|アポベン##LUMVESTIN|(JB) (CTC)|ルムベスティン##ORAVEN|(CB)|オラベン##VENCHAI | (DE) (DEB)|ベンチャイ##VENLEPIUS | (U/I) (BR) (BRB)|ベンレピウス##VENPOLLO |(CT) (JB)|ベンポロ".split('##');
+              this.groupName = "APPOLOVEN|(J)|アポロベン##APPOVEN|(C)|アポベン##LUMVESTIN|(JB) (CTC)|ルムベスティン##ORAVEN|(CB)|オラベン##VENCHAI | (DE) (DEB)|ベンチャイ##VENLEPIUS | (U/I) (BR) (BRB)|ベンレピウス##VENPOLLO |(CT) (JB)|ベンポロ##APPOLOVEN|(J)|アポロベン##APPOVEN|(C)|アポベン##LUMVESTIN|(JB) (CTC)|ルムベスティン##ORAVEN|(CB)|オラベン##VENCHAI | (DE) (DEB)|ベンチャイ##VENLEPIUS | (U/I) (BR) (BRB)|ベンレピウス##VENPOLLO |(CT) (JB)|ベンポロ##APPOLOVEN|(J)|アポロベン##APPOVEN|(C)|アポベン##LUMVESTIN|(JB) (CTC)|ルムベスティン##ORAVEN|(CB)|オラベン##VENCHAI | (DE) (DEB)|ベンチャイ##VENLEPIUS | (U/I) (BR) (BRB)|ベンレピウス##VENPOLLO |(CT) (JB)|ベンポロ##APPOLOVEN|(J)|アポロベン##APPOVEN|(C)|アポベン##LUMVESTIN|(JB) (CTC)|ルムベスティン##ORAVEN|(CB)|オラベン##VENCHAI | (DE) (DEB)|ベンチャイ##VENLEPIUS | (U/I) (BR) (BRB)|ベンレピウス##VENPOLLO |(CT) (JB)|ベンポロ##APPOLOVEN|(J)|アポロベン##APPOVEN|(C)|アポベン##LUMVESTIN|(JB) (CTC)|ルムベスティン##ORAVEN|(CB)|オラベン##VENCHAI | (DE) (DEB)|ベンチャイ##VENLEPIUS | (U/I) (BR) (BRB)|ベンレピウス##VENPOLLO |(CT) (JB)|ベンポロ##APPOLOVEN|(J)|アポロベン##APPOVEN|(C)|アポベン##LUMVESTIN|(JB) (CTC)|ルムベスティン##ORAVEN|(CB)|オラベン##VENCHAI | (DE) (DEB)|ベンチャイ##VENLEPIUS | (U/I) (BR) (BRB)|ベンレピウス##VENPOLLO |(CT) (JB)|ベンポロ##APPOLOVEN|(J)|アポロベン##APPOVEN|(C)|アポベン##LUMVESTIN|(JB) (CTC)|ルムベスティン##ORAVEN|(CB)|オラベン##VENCHAI | (DE) (DEB)|ベンチャイ##VENLEPIUS | (U/I) (BR) (BRB)|ベンレピウス##VENPOLLO |(CT) (JB)|ベンポロ##APPOLOVEN|(J)|アポロベン##APPOVEN|(C)|アポベン##LUMVESTIN|(JB) (CTC)|ルムベスティン##ORAVEN|(CB)|オラベン##VENCHAI | (DE) (DEB)|ベンチャイ##VENLEPIUS | (U/I) (BR) (BRB)|ベンレピウス##VENPOLLO |(CT) (JB)|ベンポロ##APPOLOVEN|(J)|アポロベン##APPOVEN|(C)|アポベン##LUMVESTIN|(JB) (CTC)|ルムベスティン##ORAVEN|(CB)|オラベン##VENCHAI | (DE) (DEB)|ベンチャイ##VENLEPIUS | (U/I) (BR) (BRB)|ベンレピウス##VENPOLLO |(CT) (JB)|ベンポロ##APPOLOVEN|(J)|アポロベン##APPOVEN|(C)|アポベン##LUMVESTIN|(JB) (CTC)|ルムベスティン##ORAVEN|(CB)|オラベン##VENCHAI | (DE) (DEB)|ベンチャイ##VENLEPIUS | (U/I) (BR) (BRB)|ベンレピウス##VENPOLLO |(CT) (JB)|ベンポロ##APPOLOVEN|(J)|アポロベン##APPOVEN|(C)|アポベン##LUMVESTIN|(JB) (CTC)|ルムベスティン##ORAVEN|(CB)|オラベン##VENCHAI | (DE) (DEB)|ベンチャイ##VENLEPIUS | (U/I) (BR) (BRB)|ベンレピウス##VENPOLLO |(CT) (JB)|ベンポロ##APPOLOVEN|(J)|アポロベン##APPOVEN|(C)|アポベン##LUMVESTIN|(JB) (CTC)|ルムベスティン##ORAVEN|(CB)|オラベン##VENCHAI | (DE) (DEB)|ベンチャイ##VENLEPIUS | (U/I) (BR) (BRB)|ベンレピウス##VENPOLLO |(CT) (JB)|ベンポロ##APPOLOVEN|(J)|アポロベン##APPOVEN|(C)|アポベン##LUMVESTIN|(JB) (CTC)|ルムベスティン##ORAVEN|(CB)|オラベン##VENCHAI | (DE) (DEB)|ベンチャイ##VENLEPIUS | (U/I) (BR) (BRB)|ベンレピウス##VENPOLLO |(CT) (JB)|ベンポロ##APPOLOVEN|(J)|アポロベン##APPOVEN|(C)|アポベン##LUMVESTIN|(JB) (CTC)|ルムベスティン##ORAVEN|(CB)|オラベン##VENCHAI | (DE) (DEB)|ベンチャイ##VENLEPIUS | (U/I) (BR) (BRB)|ベンレピウス##VENPOLLO |(CT) (JB)|ベンポロ##APPOLOVEN|(J)|アポロベン##APPOVEN|(C)|アポベン##LUMVESTIN|(JB) (CTC)|ルムベスティン##ORAVEN|(CB)|オラベン##VENCHAI | (DE) (DEB)|ベンチャイ##VENLEPIUS | (U/I) (BR) (BRB)|ベンレピウス##VENPOLLO |(CT) (JB)|ベンポロ##APPOLOVEN|(J)|アポロベン##APPOVEN|(C)|アポベン##LUMVESTIN|(JB) (CTC)|ルムベスティン##ORAVEN|(CB)|オラベン##VENCHAI | (DE) (DEB)|ベンチャイ##VENLEPIUS | (U/I) (BR) (BRB)|ベンレピウス##VENPOLLO |(CT) (JB)|ベンポロ##APPOLOVEN|(J)|アポロベン##APPOVEN|(C)|アポベン##LUMVESTIN|(JB) (CTC)|ルムベスティン##ORAVEN|(CB)|オラベン##VENCHAI | (DE) (DEB)|ベンチャイ##VENLEPIUS | (U/I) (BR) (BRB)|ベンレピウス##VENPOLLO |(CT) (JB)|ベンポロ##APPOLOVEN|(J)|アポロベン##APPOVEN|(C)|アポベン##LUMVESTIN|(JB) (CTC)|ルムベスティン##ORAVEN|(CB)|オラベン##VENCHAI | (DE) (DEB)|ベンチャイ##VENLEPIUS | (U/I) (BR) (BRB)|ベンレピウス##VENPOLLO |(CT) (JB)|ベンポロ".split('##');
               // this.groupName = "APPOLOVENAPPOLOVENAPPOLOVENAPPOLOVEN|(J)|アポロベン##APPOVEN|(C)|アポベン##LUMVESTIN|(JB) (CTC)|ルムベスティン##ORAVEN|(CB)|オラベン##VENCHAI | (DE) (DEB)|ベンチャイ##VENLEPIUS | (U/I) (BR) (BRB)|ベンレピウス##VENPOLLO |(CT) (JB)|ベンポロ##APPOLOVEN|(J)|アポロベン##APPOVEN|(C)|アポベン##LUMVESTIN|(JB) (CTC)|ルムベスティン##ORAVEN|(CB)|オラベン##VENCHAI | (DE) (DEB)|ベンチャイ##VENLEPIUS | (U/I) (BR) (BRB)|ベンレピウス##VENPOLLO |(CT) (JB)|ベンポロ##APPOLOVEN|(J)|アポロベン##APPOVEN|(C)|アポベン##LUMVESTIN|(JB) (CTC)|ルムベスティン##ORAVEN|(CB)|オラベン##VENCHAI | (DE) (DEB)|ベンチャイ##VENLEPIUS | (U/I) (BR) (BRB)|ベンレピウス##VENPOLLO |(CT) (JB)|ベンポロ##APPOLOVEN|(J)|アポロベン##APPOVEN|(C)|アポベン##LUMVESTIN|(JB) (CTC)|ルムベスティン##ORAVEN|(CB)|オラベン##VENCHAI | (DE) (DEB)|ベンチャイ##VENLEPIUS | (U/I) (BR) (BRB)|ベンレピウス##VENPOLLO |(CT) (JB)|ベンポロ##APPOLOVEN|(J)|アポロベン##APPOVEN|(C)|アポベン##LUMVESTIN|(JB) (CTC)|ルムベスティン##ORAVEN|(CB)|オラベン##VENCHAI | (DE) (DEB)|ベンチャイ##VENLEPIUS | (U/I) (BR) (BRB)|ベンレピウス##VENPOLLO |(CT) (JB)|ベンポロ##APPOLOVEN|(J)|アポロベン##APPOVEN|(C)|アポベン##LUMVESTIN|(JB) (CTC)|ルムベスティン##ORAVEN|(CB)|オラベン##VENCHAI | (DE) (DEB)|ベンチャイ##VENLEPIUS | (U/I) (BR) (BRB)|ベンレピウス##VENPOLLO |(CT) (JB)|ベンポロ##APPOLOVEN|(J)|アポロベン##APPOVEN|(C)|アポベン##LUMVESTIN|(JB) (CTC)|ルムベスティン##ORAVEN|(CB)|オラベン##VENCHAI | (DE) (DEB)|ベンチャイ##VENLEPIUS | (U/I) (BR) (BRB)|ベンレピウス##VENPOLLO |(CT) (JB)|ベンポロ##APPOLOVEN|(J)|アポロベン##APPOVEN|(C)|アポベン##LUMVESTIN|(JB) (CTC)|ルムベスティン##ORAVEN|(CB)|オラベン##VENCHAI | (DE) (DEB)|ベンチャイ##VENLEPIUS | (U/I) (BR) (BRB)|ベンレピウス##VENPOLLO |(CT) (JB)|ベンポロ##APPOLOVEN|(J)|アポロベン##APPOVEN|(C)|アポベン##LUMVESTIN|(JB) (CTC)|ルムベスティン##ORAVEN|(CB)|オラベン##VENCHAI | (DE) (DEB)|ベンチャイ##VENLEPIUS | (U/I) (BR) (BRB)|ベンレピウス##VENPOLLO |(CT) (JB)|ベンポロ".split('##');
               this.groupName.forEach(element => {
                 if (element.split('|').length > 1) {
                   this.isPipeSplit = true;
                 }
-      
+
               });
               this.isGroupNameTooltip = true;
               // this.summaryViewFlexLayout = 'column wrap';
@@ -781,7 +792,7 @@ export class NW3Component implements OnInit {
               this.isGroupNameTooltip = false;
               // this.summaryViewFlexLayout = 'column';
             }
-      
+
             let counter = 0;
             let index = 0;
             this.groupName.forEach(element => {
@@ -797,14 +808,14 @@ export class NW3Component implements OnInit {
               }
               index = index + 1;
             });
-            
+
             // setTimeout(() => {
             //   this.separateCandidateElement.toArray().forEach((element, index) => {
             //     const arrRank = data[0].NameRanking.split('##');
             //     const areLike = this.areAllLike(arrRank);
             //     if (data[0].NameRanking.split('##')[0] !== '') {
             //       this.switchPosNegElement.nativeElement.checked = (areLike) ? true : false;
-      
+
             //       if (arrRank[index] === 'Negative' || arrRank[index] === 'novalue') {
             //         element.checked = false;
             //       } else {
@@ -813,7 +824,7 @@ export class NW3Component implements OnInit {
             //     } else {
             //       this.switchPosNegElement.nativeElement.checked = false;
             //     }
-      
+
             //   });
             // }, 50);
 
@@ -828,8 +839,8 @@ export class NW3Component implements OnInit {
               this.evaluationTimeElement.nativeElement.style.backgroundSize = 'cover';
             }
           }
-      
-          
+
+
         }
 
 
@@ -1375,7 +1386,7 @@ export class NW3Component implements OnInit {
 
   moveLeft1() {
     if (true) {
-    this.selectPage('previous');
+      this.selectPage('previous');
     }
   }
 
@@ -1388,7 +1399,7 @@ export class NW3Component implements OnInit {
 
 
   selectedOpt(option) {
-    this.slideModel.NameRanking  = option;
+    this.slideModel.NameRanking = option;
     if (option === 'Positive' && this.positiveChecked === false) {
       this.positiveChecked = true;
       // this.positiveChecked = !this.positiveChecked;
@@ -1567,16 +1578,38 @@ export class NW3Component implements OnInit {
 
   // GROUP NAMES TEMPLATE FUNCTIONS
 
-  selectetdNameIndex(i, event){
+  selectetdNameIndex(i, event) {
     this.selectNameItemIndex = i;
     this.myleft = event.clientX;
     this.mytop = event.clientY;
   }
 
-  selectetVotedIndex(i, event){
+  selectetVotedIndex(i, event) {
     this.selectVoteIndex = i;
     this.myleft = event.clientX;
     this.mytop = event.clientY;
+  }
+
+
+  setFontSize(groupTestNameFontSize) {
+    this.groupTestNameFontSize = groupTestNameFontSize ;
+  }
+
+
+  setGroupSlideHeight(groupSlideHeiht) {
+    this.groupSlideHeiht = groupSlideHeiht + 'px';
+    this.groupSlideHeihtValue = groupSlideHeiht;
+  }
+
+  setGroupSlidelineHeight(groupSlidelineHeight) {
+    this.groupSlidelineHeight = groupSlidelineHeight + 'px';
+    this.groupSlidelineHeightValue = groupSlidelineHeight;
+  }
+
+
+  
+  setCardWidth(cardWidthValue) {
+    this.cardWidthValue = cardWidthValue ;
   }
 
 }

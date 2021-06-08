@@ -13,14 +13,44 @@
         </div>
 
         <!-- SETTINGS BOX -->
-        <div *ngIf="isSettings" class="settingsBox">
+        <!-- <div *ngIf="isSettings" class="settingsBox"> -->
+        <div *ngIf="true" class="settingsBox">
+        
             <div>Settings</div>
-            <div
-                *ngFor="let item of [1,2,3,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,41,2,3,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4]">
-                {{item}}
-            </div>
-        </div>
 
+            <div class="label" style="width: 250px; text-align: center;">font size</div>
+
+            <input type="range"  style="    margin: 20px;width: 200px;"  class="settingsSlide" 
+            (change)="setFontSize(groupTestNameFontSize)" [(ngModel)]="groupTestNameFontSize"
+            class="slider-font-size"  tickInterval="1" min="1" max="200" [value]="groupTestNameFontSize">
+
+            <div class="label" style="width: 250px; text-align: center;">page columns</div>
+
+            <input type="range"  style="margin: 20px;width: 200px;"  class="settingsSlide" 
+            (change)="setGroupSlideHeight(groupSlideHeihtValue)" [(ngModel)]="groupSlideHeihtValue"
+              tickInterval="1" min="1200" max="10000" [value]="groupSlideHeihtValue">
+
+            <div class="label" style="width: 250px; text-align: center;">line-height</div>
+
+            <input type="range"  style="margin: 20px;width: 200px;"  class="settingsSlide" 
+            (change)="setGroupSlidelineHeight(groupSlidelineHeightValue)" [(ngModel)]="groupSlidelineHeightValue"
+              tickInterval="1" min="1" max="100" [value]="groupSlidelineHeightValue">
+
+            <div class="label" style="width: 250px; text-align: center;">card width</div>
+
+            <input type="range"  style="margin: 20px;width: 200px;"  class="settingsSlide" 
+            (change)="setCardWidth(cardWidthValue)" [(ngModel)]="cardWidthValue"
+              tickInterval="1" min="1" max="100" [value]="cardWidthValue">
+          
+        </div>
+      
+       
+        <!-- <div *ngIf="true" class="settingsBox">
+            <div>Table Of Content</div>
+            <mat-slider  (change)="setFontSize()" [(ngModel)]="groupTestNameFontSize"
+        class="slider-font-size" thumbLabel tickInterval="1" min="20" max="38" [value]="groupTestNameFontSize"></mat-slider>
+        </div> -->
+       
 
         <!-- LEFT & RIGHT ICONS -->
         <button (click)="moveRight()" class="menu-left-icon" mat-icon-button>
@@ -234,47 +264,52 @@
         <!-- MULTIPLE NAME -->
 
         <div *ngIf="(slideType === 'MultipleNameEvaluation')">
-           
-            <div [style.font-family]="font1" [style.font-size]="'30px'" style="margin: 20px;margin-bottom: 30px;">{{category}}</div>
+
+            <div [style.font-family]="font1" [style.font-size]="'30px'" style="margin: 20px;margin-bottom: 30px;">
+                {{category}}</div>
 
             <div class="subMainContainer">
 
-
-
-
-                <div class="groupSlideContent">
+                <div class="groupSlideContent" [style.height]="groupSlideHeiht" [style.line-height]="groupSlidelineHeight">
 
                     <div *ngFor="let separateName of groupName; let i = index;">
 
 
                         <div class="groupNameItemContainer">
 
-                            <button *ngIf="separateName.split('|')[0].length > 0" (mouseenter)="selectetVotedIndex(i, $event)" class="groupNameVoteItem" mat-icon-button color="warn" aria-label="aria">
+                            <button (click)="selectetVotedIndex(i, $event)"
+                                *ngIf="separateName.split('|')[0].length > 0" class="groupNameVoteItem" mat-icon-button
+                                color="warn" aria-label="aria">
                                 <mat-icon class="full-icon">note_add</mat-icon>
                             </button>
+                            <div class="voteItems" (mouseleave)="selectVoteIndex = ''" *ngIf="i === selectVoteIndex"
+                                [style.left]="myleft" [style.top]="mytop">
+                                <button mat-icon-button color="accent" aria-label="aria">
+                                    <mat-icon>favorite_border</mat-icon>
+                                </button>
+                                <button mat-icon-button color="accent" aria-label="aria">
+                                    <mat-icon>check_circle</mat-icon>
+                                </button>
+                                <button mat-icon-button color="accent" aria-label="aria">
+                                    <mat-icon>thumb_down_off_alt</mat-icon>
+                                </button>
+                            </div>
 
-                            <div  (mouseenter)="selectetdNameIndex(i, $event)" (mouseleave)="selectNameItemIndex = '';selectVoteIndex = ''" class="groupNameItem" [innerHTML]="separateName.split('|')[0]">
+                            <!-- TEST 😱 NAME -->
+                            <div *ngIf="i !== selectNameItemIndex" (click)="selectetdNameIndex(i, $event)" 
+                                [style.font-size]="groupTestNameFontSize + 'px'"
+                                class="groupNameItem" [innerHTML]="separateName.split('|')[0]">
                                 <!-- {{separateName.split('|')[0]}} -->
                             </div>
 
-                            <div  class="groupNameItemNotation"
-                                [innerHTML]="separateName.split('|')[1]">
+                            <div *ngIf="i !== selectNameItemIndex" class="groupNameItemNotation" [innerHTML]="separateName.split('|')[1]">
                                 <!-- {{ separateName.split('|')[1]}} -->
                             </div>
 
-                            <div class="groupNameIetmRationale" *ngIf="i === selectNameItemIndex" [style.left]="myleft" [style.top]="mytop" [innerHTML]="'Future Rationale'">
+                            <div class="groupNameIetmRationale" (mouseleave)="selectNameItemIndex = ''"  *ngIf="i === selectNameItemIndex" [style.left]="myleft"
+                                [style.top]="mytop" [innerHTML]="'Future Rationale'">
                             </div>
-                            <div class="voteItems"  (mouseleave)="selectVoteIndex = ''" *ngIf="i === selectVoteIndex" [style.left]="myleft" [style.top]="mytop">
-                                <button  mat-icon-button color="accent" aria-label="aria">
-                                    <mat-icon >favorite_border</mat-icon>
-                                </button>
-                                <button  mat-icon-button color="accent" aria-label="aria">
-                                    <mat-icon >check_circle</mat-icon>
-                                </button>                               
-                                <button  mat-icon-button color="accent" aria-label="aria">
-                                    <mat-icon >thumb_down_off_alt</mat-icon>
-                                </button>
-                            </div>
+
 
                         </div>
 
