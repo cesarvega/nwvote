@@ -46,7 +46,7 @@ import { SchedulerComponent } from './scheduler/scheduler.component';
 import { AngularDateTimePickerModule } from 'angular2-datetimepicker';
 import {MatDatepickerModule} from '@angular/material/datepicker';
 import { MatNativeDateModule } from '@angular/material/core';
-
+import {MatProgressBarModule} from '@angular/material/progress-bar';
 import { DragulaModule } from 'ng2-dragula';
 import { MatListModule } from '@angular/material/list';
 import { NgxEchartsModule } from 'ngx-echarts';
@@ -113,6 +113,7 @@ export function loadEcharts() {
     MatSelectModule,
     MatRadioModule,
     MatNativeDateModule,
+    MatProgressBarModule,
     // AngularEditorModule,
     DragulaModule.forRoot(),
     MatListModule,

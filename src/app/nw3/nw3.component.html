@@ -1,8 +1,8 @@
 <div (click)="noClickanyWhere()" class="page">
 
-    <!-- <div class="mainContainerPresent mat-elevation-z8" [style.background]="slideBackground"> -->
-    <div class="mainContainerPresent mat-elevation-z8" >
-
+    <div class="mainContainerPresent mat-elevation-z8" [style.background-image]="slideNameBackground">
+        <!-- <div class="mainContainerPresent mat-elevation-z8" > -->
+        <mat-progress-bar mode="determinate" [value]="currentProgress" color="warn"  style="z-index: 99999;height: 3px;"></mat-progress-bar>
 
         <!-- TABLE OF CONTENT  -->
         <div *ngIf="isTableOfContent" class="tableOfContent">
@@ -15,7 +15,7 @@
 
         <!-- SETTINGS BOX -->
         <!-- <div *ngIf="isSettings" class="settingsBox"> -->
-        <div *ngIf="true" class="settingsBox">
+        <div *ngIf="isSettings" class="settingsBox">
 
             <div>Settings</div>
 
@@ -37,11 +37,11 @@
                 (change)="setGroupSlidelineHeight(groupSlidelineHeightValue)" [(ngModel)]="groupSlidelineHeightValue"
                 tickInterval="1" min="1" max="100" [value]="groupSlidelineHeightValue">
 
-            <div class="label" style="width: 250px; text-align: center;">card width</div>
+            <!-- <div class="label" style="width: 250px; text-align: center;">card width</div>
 
             <input type="range" style="margin: 20px;width: 200px;" class="settingsSlide"
                 (change)="setCardWidth(cardWidthValue)" [(ngModel)]="cardWidthValue" tickInterval="1" min="1" max="100"
-                [value]="cardWidthValue">
+                [value]="cardWidthValue"> -->
 
         </div>
 
@@ -275,9 +275,7 @@
                         *ngFor="let separateName of groupName; let i = index;">
 
                         <!-- 😀 RANK ICON-->
-                        <button  (click)="selectetVotedIndex(i, $event)" disableRipple style="    margin: 18px 0px 0px -17px;
-                        position: absolute;
-                        outline: none;"
+                        <button  disableRipple style="margin: 18px 0px 0px -17px;position: absolute;outline: none;"
                             *ngIf="separateName.split('|')[0].length > 0" class="groupNameVoteItem" mat-icon-button
                             color="warn" aria-label="aria">
                             <mat-icon (click)="toggleRankIcon(rankIcon, i)" [style.color]="rankIcon[i].color" class="voteIconRank">
@@ -286,76 +284,26 @@
                         </button>
 
                         <div class="groupNameItemContainer" style="margin-left: 10px;padding-left: 20px;">
-
-
-                            <!-- <div class="voteItems" (mouseleave)="selectVoteIndex = ''" *ngIf="i === selectVoteIndex"
-                                [style.left]="myleft" [style.top]="mytop">
-                                <button mat-icon-button color="accent" aria-label="aria">
-                                    <mat-icon>favorite_border</mat-icon>
-                                </button>
-                                <button mat-icon-button color="accent" aria-label="aria">
-                                    <mat-icon>check_circle</mat-icon>
-                                </button>
-                                <button mat-icon-button color="accent" aria-label="aria">
-                                    <mat-icon>thumb_down_off_alt</mat-icon>
-                                </button>
-                            </div> -->
-
                             <!-- TEST 😱 NAME -->
                             <div *ngIf="i !== selectNameItemIndex" (click)="selectetdNameIndex(i, $event)"
                                 [style.font-size]="groupTestNameFontSize + 'px'" class="groupNameItem"
                                 [innerHTML]="separateName.split('|')[0]">
                                 <!-- {{separateName.split('|')[0]}} -->
                             </div>
-
                             <div *ngIf="i !== selectNameItemIndex" class="groupNameItemNotation"
                                 [innerHTML]="separateName.split('|')[1]">
                                 <!-- {{ separateName.split('|')[1]}} -->
                             </div>
-
                             <div class="groupNameIetmRationale" (mouseleave)="selectNameItemIndex = ''" (click)="selectNameItemIndex = ''"
                                 *ngIf="i === selectNameItemIndex" [style.left]="myleft" [style.top]="mytop"
                                 [innerHTML]="'Future Rationale Future Rationale Future RationaleFuture RationaleFuture RationaleFuture Rationale'">
                             </div>
-
-
                         </div>
-
-
                     </div>
 
                 </div>
-
-                <!-- BI BRAND GO VOTE BUTTON -->
-                <!-- <div class="smartRadialButton">
-
-                <button [ngClass]="(isGoVoteOn)?'GO':'GO_Off'" mat-icon-button (click)="goVote()">
-                    BI
-                </button>
-
-
-                
-                <div class="textareas">
-                    <mat-form-field fxFlex="50" id="newNameFormField" appearance=""
-                        style="max-width: 45%; padding: 15px 20px;">
-                        <input #txtNewName matInput placeholder="" [(ngModel)]="newNames"
-                            style="font-size: 30px;text-align: center;">
-                    </mat-form-field>
-                    <mat-label class="newNamesLabel" style="color: darkblue;">new names</mat-label>
-                    <mat-form-field fxFlex="50" id="commentsFormField" appearance=""
-                        style="max-width: 45%; padding: 15px 20px;">
-                        <input #txtComments matInput placeholder="" [(ngModel)]="newComments"
-                            style="font-size: 30px;text-align: center;">
-                    </mat-form-field>
-                    <mat-label class="commentsLabel" style="color: darkblue;">comments</mat-label>
-                </div>
-
-
-            </div> -->
-
             </div>
 
-           
             <!-- FAVORITE RANK ALL ICON -->
                 <button [ngClass]="(isFavoriteOn)?'heart-favorite':'heart-favorite-Off'" mat-icon-button (click)="setAllNamesIcon('favorite', 'red')">
                     <mat-icon  class="heart-favorite-icon">favorite</mat-icon>
@@ -374,10 +322,6 @@
                 <button class="G3 GG" mat-icon-button >
                     P
                 </button> -->
-        
-               
-           
-
         </div>
 
 
