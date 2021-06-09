@@ -738,8 +738,8 @@ $voteIconsColor: #008d05, #f2ce00, #f50c0c, #4c00ff, #4c00ff;
                 animation: fadeIn 0.9s ease-in forwards;
             }
             .groupNameIetmRationale {
-                width: 200px;
-                height: 30px;
+                width: 300px;
+                height: 60px;
                 position: relative;
                 /* top: 1px; */
                 border: #57b446 solid 1px;
@@ -749,7 +749,7 @@ $voteIconsColor: #008d05, #f2ce00, #f50c0c, #4c00ff, #4c00ff;
                 display: flex;
                 align-items: center;
                 justify-content: center;
-                background-color: aquamarine;
+                background-color: white;
                 animation: fadeIn 0.2s ease-in forwards;
             }
             .voteItems {
