@@ -1,6 +1,7 @@
 <div (click)="noClickanyWhere()" class="page">
 
-    <div class="mainContainerPresent mat-elevation-z8">
+    <!-- <div class="mainContainerPresent mat-elevation-z8" [style.background]="slideBackground"> -->
+    <div class="mainContainerPresent mat-elevation-z8" >
 
 
         <!-- TABLE OF CONTENT  -->
@@ -144,7 +145,7 @@
        
         <!-- SINGLE NAME -->
         <div *ngIf="(slideType === 'NameEvaluation')">
-            <div class="singleNameSlide">
+            <div class="singleNameSlide" >
 
                 <div class="nameContainer">
                     <div [style.font-family]="font1" [style.font-size]="'30px'" class="item1">{{category}}</div>
@@ -260,15 +261,15 @@
 
          <!-- MULTIPLE NAME -->
 
-         <div *ngIf="(slideType === 'MultipleNameEvaluation')">
+         <div *ngIf="(slideType === 'MultipleNameEvaluation')" >
 
             <div [style.font-family]="font1" [style.font-size]="'30px'" style="margin: 20px;margin-bottom: 30px;">
                 {{category}}</div>
 
             <div class="subMainContainer">
 
-                <div class="groupSlideContent" [style.height]="groupSlideHeiht"
-                    [style.line-height]="groupSlidelineHeight">
+                <div class="groupSlideContent" [style.height]="groupSlideHeihtValue + 'px'"
+                    [style.line-height]="groupSlidelineHeightValue + 'px'">
 
                     <div style="display: flex; flex-direction: row; "
                         *ngFor="let separateName of groupName; let i = index;">
