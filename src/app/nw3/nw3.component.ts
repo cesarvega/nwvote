@@ -886,6 +886,8 @@ export class NW3Component implements OnInit {
             this.slideType = 'NameEvaluation'; 
           }
 
+         
+
         }
 
         if (this.slideType === 'NameEvaluation') {
@@ -899,6 +901,10 @@ export class NW3Component implements OnInit {
     //     // this.setDataToDisplay(data, 'save');
     //   }
     // );
+
+
+    this.slideType = 'info'; 
+
   }
 
 
