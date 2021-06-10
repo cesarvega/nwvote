@@ -15,6 +15,29 @@ import { ActivatedRoute } from '@angular/router';
 })
 export class NW3Component implements OnInit {
 
+// https://bipresents.com/nwtest/HiRYU_test
+
+// https://bipresents.com/nw2/TEST_BI_Katakana
+
+// https://bipresents.com/namevote/login?project=TEST_BI_Katakana
+
+// https://bipresents.com/nw2/TEST_BI_Katakana_BigJap
+
+// https://bipresents.com/namevote/login?project=TEST_BI_Katakana_BigJap
+
+
+// https://bipresents.com/nw2/TEST_BI_Katakana_Phonetics
+
+// https://bipresents.com/namevote/login?project=TEST_BI_Katakana_Phonetics
+
+
+// https://bipresents.com/nw2/TEST_BI_Katakana_Tagline
+
+// https://bipresents.com/namevote/login?project=TEST_BI_Katakana_Tagline
+
+
+
+
 
   fonts = ['coture', 'caviar', 'Chelsea', 'Gacor', 'NyataFTR', 'Pinkerston', 'Quicksand_Book', 'Quicksand_Light'
     , 'Cruncho', 'LilacBlockDemo', 'Medhurst', 'NewYork'];
