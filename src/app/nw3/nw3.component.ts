@@ -17,7 +17,25 @@ export class NW3Component implements OnInit {
 
 // TESTING URLS
 // http://localhost:4200/HIRYU_test
+// https://bipresents.com/nwtest/HiRYU_test
 
+// https://bipresents.com/nw2/TEST_BI_Katakana
+
+// https://bipresents.com/namevote/login?project=TEST_BI_Katakana
+
+// https://bipresents.com/nw2/TEST_BI_Katakana_BigJap
+
+// https://bipresents.com/namevote/login?project=TEST_BI_Katakana_BigJap
+
+
+// https://bipresents.com/nw2/TEST_BI_Katakana_Phonetics
+
+// https://bipresents.com/namevote/login?project=TEST_BI_Katakana_Phonetics
+
+
+// https://bipresents.com/nw2/TEST_BI_Katakana_Tagline
+
+// https://bipresents.com/namevote/login?project=TEST_BI_Katakana_Tagline
 
   chartOption: any;
   fonts = ['coture', 'caviar', 'Chelsea', 'Gacor', 'NyataFTR', 'Pinkerston', 'Quicksand_Book', 'Quicksand_Light'
@@ -676,7 +694,7 @@ export class NW3Component implements OnInit {
 
   pageNumberChange(selectedPage) {
     this.pageNumber = Number(selectedPage);
-    this.pageNumber = 10;
+    // this.pageNumber = 10;
     this.currentProgress = (this.pageNumber / this.passTotalPages) * 100;
 
     const pageObj = JSON.parse(this.currentSlidePageInfo);
@@ -793,13 +811,13 @@ export class NW3Component implements OnInit {
              
               if (data[0].GroupedNames.includes('##')) {
                 this.groupName = data[0].GroupedNames.split('##');
-                //  this.groupName = "APPOLOVEN|(J)|アポロベン##APPOVEN|(C)|アポベン##LUMVESTIN|(JB) (CTC)|ルムベスティン##ORAVEN|(CB)|オラベン##VENCHAI | (DE) (DEB)|ベンチャイ##VENLEPIUS | (U/I) (BR) (BRB)|ベンレピウス##VENPOLLO |(CT) (JB)|ベンポロ##APPOLOVEN|(J)|アポロベン##APPOVEN|(C)|アポベン##LUMVESTIN|(JB) (CTC)|ルムベスティン##ORAVEN|(CB)|オラベン##VENCHAI | (DE) (DEB)|ベンチャイ##VENLEPIUS | (U/I) (BR) (BRB)|ベンレピウス##VENPOLLO |(CT) (JB)|ベンポロ##APPOLOVEN|(J)|アポロベン##APPOVEN|(C)|アポベン##LUMVESTIN|(JB) (CTC)|ルムベスティン##ORAVEN|(CB)|オラベン##VENCHAI | (DE) (DEB)|ベンチャイ##VENLEPIUS | (U/I) (BR) (BRB)|ベンレピウス##VENPOLLO |(CT) (JB)|ベンポロ##APPOLOVEN|(J)|アポロベン##APPOVEN|(C)|アポベン##LUMVESTIN|(JB) (CTC)|ルムベスティン##ORAVEN|(CB)|オラベン##VENCHAI | (DE) (DEB)|ベンチャイ##VENLEPIUS | (U/I) (BR) (BRB)|ベンレピウス##VENPOLLO |(CT) (JB)|ベンポロ##APPOLOVEN|(J)|アポロベン##APPOVEN|(C)|アポベン##LUMVESTIN|(JB) (CTC)|ルムベスティン##ORAVEN|(CB)|オラベン##VENCHAI | (DE) (DEB)|ベンチャイ##VENLEPIUS | (U/I) (BR) (BRB)|ベンレピウス##VENPOLLO |(CT) (JB)|ベンポロ##APPOLOVEN|(J)|アポロベン##APPOVEN|(C)|アポベン##LUMVESTIN|(JB) (CTC)|ルムベスティン##ORAVEN|(CB)|オラベン##VENCHAI | (DE) (DEB)|ベンチャイ##VENLEPIUS | (U/I) (BR) (BRB)|ベンレピウス##VENPOLLO |(CT) (JB)|ベンポロ##APPOLOVEN|(J)|アポロベン##APPOVEN|(C)|アポベン##LUMVESTIN|(JB) (CTC)|ルムベスティン##ORAVEN|(CB)|オラベン##VENCHAI | (DE) (DEB)|ベンチャイ##VENLEPIUS | (U/I) (BR) (BRB)|ベンレピウス##VENPOLLO |(CT) (JB)|ベンポロ##APPOLOVEN|(J)|アポロベン##APPOVEN|(C)|アポベン##LUMVESTIN|(JB) (CTC)|ルムベスティン##ORAVEN|(CB)|オラベン##VENCHAI | (DE) (DEB)|ベンチャイ##VENLEPIUS | (U/I) (BR) (BRB)|ベンレピウス##VENPOLLO |(CT) (JB)|ベンポロ##APPOLOVEN|(J)|アポロベン##APPOVEN|(C)|アポベン##LUMVESTIN|(JB) (CTC)|ルムベスティン##ORAVEN|(CB)|オラベン##VENCHAI | (DE) (DEB)|ベンチャイ##VENLEPIUS | (U/I) (BR) (BRB)|ベンレピウス##VENPOLLO |(CT) (JB)|ベンポロ##APPOLOVEN|(J)|アポロベン##APPOVEN|(C)|アポベン##LUMVESTIN|(JB) (CTC)|ルムベスティン##ORAVEN|(CB)|オラベン##VENCHAI | (DE) (DEB)|ベンチャイ##VENLEPIUS | (U/I) (BR) (BRB)|ベンレピウス##VENPOLLO |(CT) (JB)|ベンポロ##APPOLOVEN|(J)|アポロベン##APPOVEN|(C)|アポベン##LUMVESTIN|(JB) (CTC)|ルムベスティン##ORAVEN|(CB)|オラベン##VENCHAI | (DE) (DEB)|ベンチャイ##VENLEPIUS | (U/I) (BR) (BRB)|ベンレピウス##VENPOLLO |(CT) (JB)|ベンポロ##APPOLOVEN|(J)|アポロベン##APPOVEN|(C)|アポベン##LUMVESTIN|(JB) (CTC)|ルムベスティン##ORAVEN|(CB)|オラベン##VENCHAI | (DE) (DEB)|ベンチャイ##VENLEPIUS | (U/I) (BR) (BRB)|ベンレピウス##VENPOLLO |(CT) (JB)|ベンポロ##APPOLOVEN|(J)|アポロベン##APPOVEN|(C)|アポベン##LUMVESTIN|(JB) (CTC)|ルムベスティン##ORAVEN|(CB)|オラベン##VENCHAI | (DE) (DEB)|ベンチャイ##VENLEPIUS | (U/I) (BR) (BRB)|ベンレピウス##VENPOLLO |(CT) (JB)|ベンポロ##APPOLOVEN|(J)|アポロベン##APPOVEN|(C)|アポベン##LUMVESTIN|(JB) (CTC)|ルムベスティン##ORAVEN|(CB)|オラベン##VENCHAI | (DE) (DEB)|ベンチャイ##VENLEPIUS | (U/I) (BR) (BRB)|ベンレピウス##VENPOLLO |(CT) (JB)|ベンポロ##APPOLOVEN|(J)|アポロベン##APPOVEN|(C)|アポベン##LUMVESTIN|(JB) (CTC)|ルムベスティン##ORAVEN|(CB)|オラベン##VENCHAI | (DE) (DEB)|ベンチャイ##VENLEPIUS | (U/I) (BR) (BRB)|ベンレピウス##VENPOLLO |(CT) (JB)|ベンポロ##APPOLOVEN|(J)|アポロベン##APPOVEN|(C)|アポベン##LUMVESTIN|(JB) (CTC)|ルムベスティン##ORAVEN|(CB)|オラベン##VENCHAI | (DE) (DEB)|ベンチャイ##VENLEPIUS | (U/I) (BR) (BRB)|ベンレピウス##VENPOLLO |(CT) (JB)|ベンポロ##APPOLOVEN|(J)|アポロベン##APPOVEN|(C)|アポベン##LUMVESTIN|(JB) (CTC)|ルムベスティン##ORAVEN|(CB)|オラベン##VENCHAI | (DE) (DEB)|ベンチャイ##VENLEPIUS | (U/I) (BR) (BRB)|ベンレピウス##VENPOLLO |(CT) (JB)|ベンポロ##APPOLOVEN|(J)|アポロベン##APPOVEN|(C)|アポベン##LUMVESTIN|(JB) (CTC)|ルムベスティン##ORAVEN|(CB)|オラベン##VENCHAI | (DE) (DEB)|ベンチャイ##VENLEPIUS | (U/I) (BR) (BRB)|ベンレピウス##LASTONE |(CT) (JB)|ベンポロ".split('##');
+                 this.groupName = "APPOLOVEN|(J)|アポロベン##APPOVEN|(C)|アポベン##LUMVESTIN|(JB) (CTC)|ルムベスティン##ORAVEN|(CB)|オラベン##VENCHAI | (DE) (DEB)|ベンチャイ##VENLEPIUS | (U/I) (BR) (BRB)|ベンレピウス##VENPOLLO |(CT) (JB)|ベンポロ##APPOLOVEN|(J)|アポロベン##APPOVEN|(C)|アポベン##LUMVESTIN|(JB) (CTC)|ルムベスティン##ORAVEN|(CB)|オラベン##VENCHAI | (DE) (DEB)|ベンチャイ##VENLEPIUS | (U/I) (BR) (BRB)|ベンレピウス##VENPOLLO |(CT) (JB)|ベンポロ##APPOLOVEN|(J)|アポロベン##APPOVEN|(C)|アポベン##LUMVESTIN|(JB) (CTC)|ルムベスティン##ORAVEN|(CB)|オラベン##VENCHAI | (DE) (DEB)|ベンチャイ##VENLEPIUS | (U/I) (BR) (BRB)|ベンレピウス##VENPOLLO |(CT) (JB)|ベンポロ##APPOLOVEN|(J)|アポロベン##APPOVEN|(C)|アポベン##LUMVESTIN|(JB) (CTC)|ルムベスティン##ORAVEN|(CB)|オラベン##VENCHAI | (DE) (DEB)|ベンチャイ##VENLEPIUS | (U/I) (BR) (BRB)|ベンレピウス##VENPOLLO |(CT) (JB)|ベンポロ##APPOLOVEN|(J)|アポロベン##APPOVEN|(C)|アポベン##LUMVESTIN|(JB) (CTC)|ルムベスティン##ORAVEN|(CB)|オラベン##VENCHAI | (DE) (DEB)|ベンチャイ##VENLEPIUS | (U/I) (BR) (BRB)|ベンレピウス##VENPOLLO |(CT) (JB)|ベンポロ##APPOLOVEN|(J)|アポロベン##APPOVEN|(C)|アポベン##LUMVESTIN|(JB) (CTC)|ルムベスティン##ORAVEN|(CB)|オラベン##VENCHAI | (DE) (DEB)|ベンチャイ##VENLEPIUS | (U/I) (BR) (BRB)|ベンレピウス##VENPOLLO |(CT) (JB)|ベンポロ##APPOLOVEN|(J)|アポロベン##APPOVEN|(C)|アポベン##LUMVESTIN|(JB) (CTC)|ルムベスティン##ORAVEN|(CB)|オラベン##VENCHAI | (DE) (DEB)|ベンチャイ##VENLEPIUS | (U/I) (BR) (BRB)|ベンレピウス##VENPOLLO |(CT) (JB)|ベンポロ##APPOLOVEN|(J)|アポロベン##APPOVEN|(C)|アポベン##LUMVESTIN|(JB) (CTC)|ルムベスティン##ORAVEN|(CB)|オラベン##VENCHAI | (DE) (DEB)|ベンチャイ##VENLEPIUS | (U/I) (BR) (BRB)|ベンレピウス##VENPOLLO |(CT) (JB)|ベンポロ##APPOLOVEN|(J)|アポロベン##APPOVEN|(C)|アポベン##LUMVESTIN|(JB) (CTC)|ルムベスティン##ORAVEN|(CB)|オラベン##VENCHAI | (DE) (DEB)|ベンチャイ##VENLEPIUS | (U/I) (BR) (BRB)|ベンレピウス##VENPOLLO |(CT) (JB)|ベンポロ##APPOLOVEN|(J)|アポロベン##APPOVEN|(C)|アポベン##LUMVESTIN|(JB) (CTC)|ルムベスティン##ORAVEN|(CB)|オラベン##VENCHAI | (DE) (DEB)|ベンチャイ##VENLEPIUS | (U/I) (BR) (BRB)|ベンレピウス##VENPOLLO |(CT) (JB)|ベンポロ##APPOLOVEN|(J)|アポロベン##APPOVEN|(C)|アポベン##LUMVESTIN|(JB) (CTC)|ルムベスティン##ORAVEN|(CB)|オラベン##VENCHAI | (DE) (DEB)|ベンチャイ##VENLEPIUS | (U/I) (BR) (BRB)|ベンレピウス##VENPOLLO |(CT) (JB)|ベンポロ##APPOLOVEN|(J)|アポロベン##APPOVEN|(C)|アポベン##LUMVESTIN|(JB) (CTC)|ルムベスティン##ORAVEN|(CB)|オラベン##VENCHAI | (DE) (DEB)|ベンチャイ##VENLEPIUS | (U/I) (BR) (BRB)|ベンレピウス##VENPOLLO |(CT) (JB)|ベンポロ##APPOLOVEN|(J)|アポロベン##APPOVEN|(C)|アポベン##LUMVESTIN|(JB) (CTC)|ルムベスティン##ORAVEN|(CB)|オラベン##VENCHAI | (DE) (DEB)|ベンチャイ##VENLEPIUS | (U/I) (BR) (BRB)|ベンレピウス##VENPOLLO |(CT) (JB)|ベンポロ##APPOLOVEN|(J)|アポロベン##APPOVEN|(C)|アポベン##LUMVESTIN|(JB) (CTC)|ルムベスティン##ORAVEN|(CB)|オラベン##VENCHAI | (DE) (DEB)|ベンチャイ##VENLEPIUS | (U/I) (BR) (BRB)|ベンレピウス##VENPOLLO |(CT) (JB)|ベンポロ##APPOLOVEN|(J)|アポロベン##APPOVEN|(C)|アポベン##LUMVESTIN|(JB) (CTC)|ルムベスティン##ORAVEN|(CB)|オラベン##VENCHAI | (DE) (DEB)|ベンチャイ##VENLEPIUS | (U/I) (BR) (BRB)|ベンレピウス##VENPOLLO |(CT) (JB)|ベンポロ##APPOLOVEN|(J)|アポロベン##APPOVEN|(C)|アポベン##LUMVESTIN|(JB) (CTC)|ルムベスティン##ORAVEN|(CB)|オラベン##VENCHAI | (DE) (DEB)|ベンチャイ##VENLEPIUS | (U/I) (BR) (BRB)|ベンレピウス##VENPOLLO |(CT) (JB)|ベンポロ##APPOLOVEN|(J)|アポロベン##APPOVEN|(C)|アポベン##LUMVESTIN|(JB) (CTC)|ルムベスティン##ORAVEN|(CB)|オラベン##VENCHAI | (DE) (DEB)|ベンチャイ##VENLEPIUS | (U/I) (BR) (BRB)|ベンレピウス##VENPOLLO |(CT) (JB)|ベンポロ##APPOLOVEN|(J)|アポロベン##APPOVEN|(C)|アポベン##LUMVESTIN|(JB) (CTC)|ルムベスティン##ORAVEN|(CB)|オラベン##VENCHAI | (DE) (DEB)|ベンチャイ##VENLEPIUS | (U/I) (BR) (BRB)|ベンレピウス##LASTONE |(CT) (JB)|ベンポロ".split('##');
                 // this.groupName = "APPOLOVENAPPOLOVENAPPOLOVENAPPOLOVEN|(J)|アポロベン##APPOVEN|(C)|アポベン##LUMVESTIN|(JB) (CTC)|ルムベスティン##ORAVEN|(CB)|オラベン##VENCHAI | (DE) (DEB)|ベンチャイ##VENLEPIUS | (U/I) (BR) (BRB)|ベンレピウス##VENPOLLO |(CT) (JB)|ベンポロ##APPOLOVEN|(J)|アポロベン##APPOVEN|(C)|アポベン##LUMVESTIN|(JB) (CTC)|ルムベスティン##ORAVEN|(CB)|オラベン##VENCHAI | (DE) (DEB)|ベンチャイ##VENLEPIUS | (U/I) (BR) (BRB)|ベンレピウス##VENPOLLO |(CT) (JB)|ベンポロ##APPOLOVEN|(J)|アポロベン##APPOVEN|(C)|アポベン##LUMVESTIN|(JB) (CTC)|ルムベスティン##ORAVEN|(CB)|オラベン##VENCHAI | (DE) (DEB)|ベンチャイ##VENLEPIUS | (U/I) (BR) (BRB)|ベンレピウス##VENPOLLO |(CT) (JB)|ベンポロ##APPOLOVEN|(J)|アポロベン##APPOVEN|(C)|アポベン##LUMVESTIN|(JB) (CTC)|ルムベスティン##ORAVEN|(CB)|オラベン##VENCHAI | (DE) (DEB)|ベンチャイ##VENLEPIUS | (U/I) (BR) (BRB)|ベンレピウス##VENPOLLO |(CT) (JB)|ベンポロ##APPOLOVEN|(J)|アポロベン##APPOVEN|(C)|アポベン##LUMVESTIN|(JB) (CTC)|ルムベスティン##ORAVEN|(CB)|オラベン##VENCHAI | (DE) (DEB)|ベンチャイ##VENLEPIUS | (U/I) (BR) (BRB)|ベンレピウス##VENPOLLO |(CT) (JB)|ベンポロ##APPOLOVEN|(J)|アポロベン##APPOVEN|(C)|アポベン##LUMVESTIN|(JB) (CTC)|ルムベスティン##ORAVEN|(CB)|オラベン##VENCHAI | (DE) (DEB)|ベンチャイ##VENLEPIUS | (U/I) (BR) (BRB)|ベンレピウス##VENPOLLO |(CT) (JB)|ベンポロ##APPOLOVEN|(J)|アポロベン##APPOVEN|(C)|アポベン##LUMVESTIN|(JB) (CTC)|ルムベスティン##ORAVEN|(CB)|オラベン##VENCHAI | (DE) (DEB)|ベンチャイ##VENLEPIUS | (U/I) (BR) (BRB)|ベンレピウス##VENPOLLO |(CT) (JB)|ベンポロ##APPOLOVEN|(J)|アポロベン##APPOVEN|(C)|アポベン##LUMVESTIN|(JB) (CTC)|ルムベスティン##ORAVEN|(CB)|オラベン##VENCHAI | (DE) (DEB)|ベンチャイ##VENLEPIUS | (U/I) (BR) (BRB)|ベンレピウス##VENPOLLO |(CT) (JB)|ベンポロ##APPOLOVEN|(J)|アポロベン##APPOVEN|(C)|アポベン##LUMVESTIN|(JB) (CTC)|ルムベスティン##ORAVEN|(CB)|オラベン##VENCHAI | (DE) (DEB)|ベンチャイ##VENLEPIUS | (U/I) (BR) (BRB)|ベンレピウス##LASTONE |(CT) (JB)|ベンポロ".split('##');
                
                 this.rankIconsValue =  data[0].NameRanking.split('##');
 
-                // this.groupName.forEach(rankValue => {
-                this.rankIconsValue.forEach(rankValue => {
+                this.groupName.forEach(rankValue => {
+                // this.rankIconsValue.forEach(rankValue => {
 
                   if (rankValue === 'novalue') {
                     this.rankIcon.push({icon: 'info', color: 'grey'}) ;
@@ -882,7 +900,7 @@ export class NW3Component implements OnInit {
 
 
           } else { 
-            this.slideNameBackground = 'url("https://image.shutterstock.com/shutterstock/photos/1897867054/display_1500/stock-vector-currency-watermark-background-intense-illustration-detailed-design-1897867054.jpg")';
+            // this.slideNameBackground = 'url("https://image.shutterstock.com/shutterstock/photos/1897867054/display_1500/stock-vector-currency-watermark-background-intense-illustration-detailed-design-1897867054.jpg")';
             this.slideType = 'NameEvaluation'; 
           }
 
@@ -903,7 +921,7 @@ export class NW3Component implements OnInit {
     // );
 
 
-    this.slideType = 'info'; 
+    // this.slideType = 'info'; 
 
   }
 

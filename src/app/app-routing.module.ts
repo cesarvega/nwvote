@@ -21,10 +21,10 @@ const routes: Routes = [
   //   path: ':id',
   //   component: BsrMobileComponent
   // },
-  // {// SCHEDULER
-  //   path: ':id',
-  //   component: SchedulerComponent  
-  // },
+  {// SCHEDULER
+    path: ':id',
+    component: SchedulerComponent  
+  },
   // {//BSR  color of the bar #002f5b
   //   path: ':id',
   //   component: BsrComponent
@@ -37,10 +37,10 @@ const routes: Routes = [
   //   path: ':id',
   //   component: BmxComponent
   // },
-  {//NW 3 BI PRESENTS NOMENCLATURE WORKSHOP V.3.0
-    path: ':id',
-    component: NW3Component
-  },
+  // {//NW 3 BI PRESENTS NOMENCLATURE WORKSHOP V.3.0
+  //   path: ':id',
+  //   component: NW3Component
+  // },
   {
     path: '',
     redirectTo: '/food',
