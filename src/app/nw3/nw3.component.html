@@ -1,7 +1,8 @@
 <div (click)="noClickanyWhere()" class="page">
 
-    <div class="mainContainerPresent mat-elevation-z8">
-
+    <div class="mainContainerPresent mat-elevation-z8" [style.background-image]="slideNameBackground">
+        <!-- <div class="mainContainerPresent mat-elevation-z8" > -->
+        <mat-progress-bar mode="determinate" [value]="currentProgress" color="warn"  style="z-index: 99999;height: 3px;"></mat-progress-bar>
 
         <!-- TABLE OF CONTENT  -->
         <div *ngIf="isTableOfContent" class="tableOfContent">
@@ -13,13 +14,43 @@
         </div>
 
         <!-- SETTINGS BOX -->
+        <!-- <div *ngIf="isSettings" class="settingsBox"> -->
         <div *ngIf="isSettings" class="settingsBox">
+
             <div>Settings</div>
-            <div
-                *ngFor="let item of [1,2,3,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,41,2,3,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4]">
-                {{item}}
-            </div>
+
+            <div class="label" style="width: 250px; text-align: center;">font size</div>
+
+            <input type="range" style="    margin: 20px;width: 200px;" class="settingsSlide"
+                (change)="setFontSize(groupTestNameFontSize)" [(ngModel)]="groupTestNameFontSize"
+                class="slider-font-size" tickInterval="1" min="1" max="200" [value]="groupTestNameFontSize">
+
+            <div class="label" style="width: 250px; text-align: center;">page columns</div>
+
+            <input type="range" style="margin: 20px;width: 200px;" class="settingsSlide"
+                (change)="setGroupSlideHeight(groupSlideHeihtValue)" [(ngModel)]="groupSlideHeihtValue" tickInterval="1"
+                min="1200" max="10000" [value]="groupSlideHeihtValue">
+
+            <div class="label" style="width: 250px; text-align: center;">line-height</div>
+
+            <input type="range" style="margin: 20px;width: 200px;" class="settingsSlide"
+                (change)="setGroupSlidelineHeight(groupSlidelineHeightValue)" [(ngModel)]="groupSlidelineHeightValue"
+                tickInterval="1" min="1" max="100" [value]="groupSlidelineHeightValue">
+
+            <!-- <div class="label" style="width: 250px; text-align: center;">card width</div>
+
+            <input type="range" style="margin: 20px;width: 200px;" class="settingsSlide"
+                (change)="setCardWidth(cardWidthValue)" [(ngModel)]="cardWidthValue" tickInterval="1" min="1" max="100"
+                [value]="cardWidthValue"> -->
+
         </div>
+
+
+        <!-- <div *ngIf="true" class="settingsBox">
+            <div>Table Of Content</div>
+            <mat-slider  (change)="setFontSize()" [(ngModel)]="groupTestNameFontSize"
+        class="slider-font-size" thumbLabel tickInterval="1" min="20" max="38" [value]="groupTestNameFontSize"></mat-slider>
+        </div> -->
 
 
         <!-- LEFT & RIGHT ICONS -->
@@ -111,10 +142,10 @@
 
             </div>
         </div>
-
+       
         <!-- SINGLE NAME -->
         <div *ngIf="(slideType === 'NameEvaluation')">
-            <div class="singleNameSlide">
+            <div class="singleNameSlide" >
 
                 <div class="nameContainer">
                     <div [style.font-family]="font1" [style.font-size]="'30px'" class="item1">{{category}}</div>
@@ -228,85 +259,77 @@
 
         </div>
 
+         <!-- MULTIPLE NAME -->
 
-        <!-- MULTIPLE NAME -->
-        <div *ngIf="(slideType === 'MultipleNameEvaluation')" >
+         <div *ngIf="(slideType === 'MultipleNameEvaluation')" >
 
+            <div [style.font-family]="font1" [style.font-size]="'30px'" style="margin: 20px;margin-bottom: 30px;">
+                {{category}}</div>
 
-            <div [style.font-family]="font1" [style.font-size]="'30px'" style="margin: 20px;
-            margin-bottom: 30px;">{{category}}</div>
+            <div class="subMainContainer">
 
+                <div class="groupSlideContent" [style.height]="groupSlideHeihtValue + 'px'"
+                    [style.line-height]="groupSlidelineHeightValue + 'px'">
 
-            <div class="groupSlideContent"  style="
-            display: flex;
-            flex-direction: column;
-            flex-wrap: wrap;
-            justify-content: space-between;
-            height: 550px;
-            /* width: 550px; */
-            ">
+                    <div style="display: flex; flex-direction: row; "
+                        *ngFor="let separateName of groupName; let i = index;">
 
-                <div *ngFor="let separateName of groupName">
+                        <!-- 😀 RANK ICON-->
+                        <button  disableRipple style="margin: 18px 0px 0px -17px;position: absolute;outline: none;"
+                            *ngIf="separateName.split('|')[0].length > 0" class="groupNameVoteItem" mat-icon-button
+                            color="warn" aria-label="aria">
+                            <mat-icon (click)="toggleRankIcon(rankIcon, i)" [style.color]="rankIcon[i].color" class="voteIconRank">
+                                <div [innerHTML]="rankIcon[i].icon"></div>
+                            </mat-icon>
+                        </button>
 
-
-                    <div style="display: flex; flex-direction: row; align-items: flex-start;
-                    justify-content: start;border: brown solid 1px;" >
-
-                        <div style="font-size: 20px;" [innerHTML]="separateName.split('|')[0]">
-                            <!-- {{separateName.split('|')[0]}} -->
+                        <div class="groupNameItemContainer" style="margin-left: 10px;padding-left: 20px;">
+                            <!-- TEST 😱 NAME -->
+                            <div *ngIf="i !== selectNameItemIndex" (click)="selectetdNameIndex(i, $event)"
+                                [style.font-size]="groupTestNameFontSize + 'px'" class="groupNameItem"
+                                [innerHTML]="separateName.split('|')[0]">
+                                <!-- {{separateName.split('|')[0]}} -->
+                            </div>
+                            <div *ngIf="i !== selectNameItemIndex" class="groupNameItemNotation"
+                                [innerHTML]="separateName.split('|')[1]">
+                                <!-- {{ separateName.split('|')[1]}} -->
+                            </div>
+                            <div class="groupNameIetmRationale" (mouseleave)="selectNameItemIndex = ''" (click)="selectNameItemIndex = ''"
+                                *ngIf="i === selectNameItemIndex" [style.left]="myleft" [style.top]="mytop"
+                                [innerHTML]="'Future Rationale Future Rationale Future RationaleFuture RationaleFuture RationaleFuture Rationale'">
+                            </div>
                         </div>
-                        <div style="font-size: 15px !important; padding-left: 5px; padding-top: 2px "
-                            [innerHTML]="separateName.split('|')[1]">
-                            <!-- {{ separateName.split('|')[1]}} -->
-                        </div>
-                        <div style="width: 200px;
-                        height: 21px;
-                        position: relative;
-                        top: 1px;
-                        border: #57b446 solid 1px;
-                        border-radius: 13px;
-                        display: flex;
-                        align-items: center;
-                        justify-content: center;"
-                            [innerHTML]="separateName.split('|')[1]">
-                            <!-- {{ separateName.split('|')[1]}} -->
-                        </div>
-                        
                     </div>
-
 
                 </div>
             </div>
 
-
-            <!-- BI BRAND GO VOTE BUTTON -->
-            <!-- <div class="smartRadialButton">
-
-                <button [ngClass]="(isGoVoteOn)?'GO':'GO_Off'" mat-icon-button (click)="goVote()">
-                    BI
+            <!-- FAVORITE RANK ALL ICON -->
+                <button [ngClass]="(isFavoriteOn)?'heart-favorite':'heart-favorite-Off'" mat-icon-button (click)="setAllNamesIcon('favorite', 'red')">
+                    <mat-icon  class="heart-favorite-icon">favorite</mat-icon>
                 </button>
-
-
-                
-                <div class="textareas">
-                    <mat-form-field fxFlex="50" id="newNameFormField" appearance=""
-                        style="max-width: 45%; padding: 15px 20px;">
-                        <input #txtNewName matInput placeholder="" [(ngModel)]="newNames"
-                            style="font-size: 30px;text-align: center;">
-                    </mat-form-field>
-                    <mat-label class="newNamesLabel" style="color: darkblue;">new names</mat-label>
-                    <mat-form-field fxFlex="50" id="commentsFormField" appearance=""
-                        style="max-width: 45%; padding: 15px 20px;">
-                        <input #txtComments matInput placeholder="" [(ngModel)]="newComments"
-                            style="font-size: 30px;text-align: center;">
-                    </mat-form-field>
-                    <mat-label class="commentsLabel" style="color: darkblue;">comments</mat-label>
-                </div>
-
-
-            </div> -->
-
+                <button class="G4 GG" mat-icon-button (click)="setAllNamesIcon('thumb_down_off_alt', 'purple')">
+                    <mat-icon>thumb_down_off_alt</mat-icon>
+                </button>
+                <button class="G1 GG" mat-icon-button (click)="setAllNamesIcon('sentiment_very_satisfied', 'yellow')">
+                    <mat-icon>sentiment_very_satisfied</mat-icon>
+                </button>
+        
+                <!-- <button class="G2 GG" mat-icon-button>
+                    C
+                </button>
+        
+                <button class="G3 GG" mat-icon-button >
+                    P
+                </button> -->
         </div>
+
+         <!-- INFO SLIDE QR CODE -->
+         <div *ngIf="(slideType === 'info')">
+           
+            SLIDE info
+        </div>
+
 
         <!--💔 END OF TEMPLATES FOR SLIDES , GROUP NAMES, SINGLE NAME, IMAGE SLIDE -->
 

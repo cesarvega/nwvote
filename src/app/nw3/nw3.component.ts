@@ -15,6 +15,28 @@ import { typeSourceSpan } from '@angular/compiler';
 })
 export class NW3Component implements OnInit {
 
+// TESTING URLS
+// http://localhost:4200/HIRYU_test
+// https://bipresents.com/nwtest/HiRYU_test
+
+// https://bipresents.com/nw2/TEST_BI_Katakana
+
+// https://bipresents.com/namevote/login?project=TEST_BI_Katakana
+
+// https://bipresents.com/nw2/TEST_BI_Katakana_BigJap
+
+// https://bipresents.com/namevote/login?project=TEST_BI_Katakana_BigJap
+
+
+// https://bipresents.com/nw2/TEST_BI_Katakana_Phonetics
+
+// https://bipresents.com/namevote/login?project=TEST_BI_Katakana_Phonetics
+
+
+// https://bipresents.com/nw2/TEST_BI_Katakana_Tagline
+
+// https://bipresents.com/namevote/login?project=TEST_BI_Katakana_Tagline
+
   chartOption: any;
   fonts = ['coture', 'caviar', 'Chelsea', 'Gacor', 'NyataFTR', 'Pinkerston', 'Quicksand_Book', 'Quicksand_Light'
     , 'Cruncho', 'LilacBlockDemo', 'Medhurst', 'NewYork'];
@@ -224,6 +246,22 @@ export class NW3Component implements OnInit {
   newComments = '';
 
 
+  // GROUP NAMES TEMPLATE
+  selectNameItemIndex;
+  myleft: any;
+  mytop: any;
+  selectVoteIndex: any;
+  groupTestNameFontSize: any;
+  groupSlideHeihtValue: any;
+  groupSlidelineHeightValue: string;
+  cardWidthValue: any;
+  rankIcon = [];
+  rankIconsValue: any;
+  rankIconsStyle: any;
+  isFavoriteOn = false;slideNameBackground: string;
+;
+
+
 
   constructor(@Inject(DOCUMENT) private document: any,
     private _NW3Service: Nw3Service, private activatedRoute: ActivatedRoute,
@@ -242,12 +280,14 @@ export class NW3Component implements OnInit {
 
       // but true to go through positive check
       if (!this.stopMovingForward || !this.vote) {
+        this.slideType = '';
         this.selectPage('next');
       } else {
       }
       return false;
     }, undefined, 'Move to next slide'));
     this._hotkeysService.add(new Hotkey('left', (event: KeyboardEvent): boolean => {
+      this.slideType = '';
       this.selectPage('previous');
       return false;
     }, undefined, 'Move to previous slide'));
@@ -339,6 +379,9 @@ export class NW3Component implements OnInit {
   }
 
   ngOnInit(): void {
+    this.groupTestNameFontSize = '50';
+    this.groupSlideHeihtValue = '5000';
+    this.groupSlidelineHeightValue = '10';
 
     this.changingPage = '{}';
     this.currentSlidePageInfo = this.changingPage;
@@ -651,7 +694,7 @@ export class NW3Component implements OnInit {
 
   pageNumberChange(selectedPage) {
     this.pageNumber = Number(selectedPage);
-    // this.pageNumber =19;
+    // this.pageNumber = 10;
     this.currentProgress = (this.pageNumber / this.passTotalPages) * 100;
 
     const pageObj = JSON.parse(this.currentSlidePageInfo);
@@ -660,19 +703,26 @@ export class NW3Component implements OnInit {
     this.testName = projectData[this.pageNumber - 1].SlideDescription;
     this.testName = projectData[this.pageNumber - 1].SlideDescription;
     this.pageNumber = (this.currentSlidePageInfo !== '{}') ? pageObj.currentPage : this.pageNumber;
-    this.slideType = projectData[this.pageNumber - 1].SlideType.trim();
+    // this.slideType = projectData[this.pageNumber - 1].SlideType.trim();
     let lastVisitedPageNumber: any;
+    this.slideType = '';
 
 
-
-    if (this.slideType === 'NameSummary') {
-      console.log('Name Candidates - Summary');
+    if (projectData[this.pageNumber - 1].SlideType.trim() === 'NameSummary') {
+      this.slideType = projectData[this.pageNumber - 1].SlideType.trim();
     }
 
-    else if (this.slideType === 'Image') {
+    else if (projectData[this.pageNumber - 1].SlideType.trim() === 'NameEvaluation') {
+      // this.slideType = projectData[this.pageNumber - 1].SlideType.trim();
+     
+    }
+
+    else if (projectData[this.pageNumber - 1].SlideType.trim() === 'Image') {
+      this.slideType = projectData[this.pageNumber - 1].SlideType.trim();
       setTimeout(() => {
         const bgImage = 'url(http://bipresents.com/nw2/' + projectData[this.pageNumber - 1].SlideBGFileName + ')';
         this.slideBackground = bgImage;
+        
         // this.slideImageElement.nativeElement.style.backgroundImage = bgImage;
         // this.slideImageElement.nativeElement.style.backgroundSize = '100% 100%';
         lastVisitedPageNumber = (pageObj.moveTo === 'previous') ? this.pageNumber + 1 : this.pageNumber - 1;
@@ -696,7 +746,7 @@ export class NW3Component implements OnInit {
 
     if (this.slideModel.Direction === 'next') {
       this.slideModel.slideNumber = this.pageNumber - 1;
-    }else if (this.slideModel.Direction === 'previous') {
+    } else if (this.slideModel.Direction === 'previous') {
       this.slideModel.slideNumber = this.pageNumber;
     }
     this.slideModel.presentationid = this.projectId;
@@ -727,7 +777,7 @@ export class NW3Component implements OnInit {
           this.positiveChecked = true;
           this.neutralChecked = false;
           this.negativeChecked = false;
-        }else if (data[0].NameRanking === 'Neutral') {
+        } else if (data[0].NameRanking === 'Neutral' && 'neutral') {
           this.neutralChecked = true;
           this.positiveChecked = false;
           this.negativeChecked = false;
@@ -735,7 +785,7 @@ export class NW3Component implements OnInit {
           this.negativeChecked = true;
           this.positiveChecked = false;
           this.neutralChecked = false;
-        }else {
+        } else {
           this.positiveChecked = false;
           this.neutralChecked = false;
           this.negativeChecked = false;
@@ -750,11 +800,115 @@ export class NW3Component implements OnInit {
         if (data[0].GroupedNames.lenght > 0) {
           
 
-          console.log('groupos');
-          
+
+
+        // this.setDataToDisplay(data, 'save');
+
+        if (this.slideType === '') {
+          // this.slideType = '';
+          if (data[0].GroupedNames.length > 0) {
+            this.slideType = 'MultipleNameEvaluation';
+            this.category = data[0].NameCategory;
+            if (data[0].GroupedNames !== '') {
+             
+              if (data[0].GroupedNames.includes('##')) {
+                this.groupName = data[0].GroupedNames.split('##');
+                 this.groupName = "APPOLOVEN|(J)|アポロベン##APPOVEN|(C)|アポベン##LUMVESTIN|(JB) (CTC)|ルムベスティン##ORAVEN|(CB)|オラベン##VENCHAI | (DE) (DEB)|ベンチャイ##VENLEPIUS | (U/I) (BR) (BRB)|ベンレピウス##VENPOLLO |(CT) (JB)|ベンポロ##APPOLOVEN|(J)|アポロベン##APPOVEN|(C)|アポベン##LUMVESTIN|(JB) (CTC)|ルムベスティン##ORAVEN|(CB)|オラベン##VENCHAI | (DE) (DEB)|ベンチャイ##VENLEPIUS | (U/I) (BR) (BRB)|ベンレピウス##VENPOLLO |(CT) (JB)|ベンポロ##APPOLOVEN|(J)|アポロベン##APPOVEN|(C)|アポベン##LUMVESTIN|(JB) (CTC)|ルムベスティン##ORAVEN|(CB)|オラベン##VENCHAI | (DE) (DEB)|ベンチャイ##VENLEPIUS | (U/I) (BR) (BRB)|ベンレピウス##VENPOLLO |(CT) (JB)|ベンポロ##APPOLOVEN|(J)|アポロベン##APPOVEN|(C)|アポベン##LUMVESTIN|(JB) (CTC)|ルムベスティン##ORAVEN|(CB)|オラベン##VENCHAI | (DE) (DEB)|ベンチャイ##VENLEPIUS | (U/I) (BR) (BRB)|ベンレピウス##VENPOLLO |(CT) (JB)|ベンポロ##APPOLOVEN|(J)|アポロベン##APPOVEN|(C)|アポベン##LUMVESTIN|(JB) (CTC)|ルムベスティン##ORAVEN|(CB)|オラベン##VENCHAI | (DE) (DEB)|ベンチャイ##VENLEPIUS | (U/I) (BR) (BRB)|ベンレピウス##VENPOLLO |(CT) (JB)|ベンポロ##APPOLOVEN|(J)|アポロベン##APPOVEN|(C)|アポベン##LUMVESTIN|(JB) (CTC)|ルムベスティン##ORAVEN|(CB)|オラベン##VENCHAI | (DE) (DEB)|ベンチャイ##VENLEPIUS | (U/I) (BR) (BRB)|ベンレピウス##VENPOLLO |(CT) (JB)|ベンポロ##APPOLOVEN|(J)|アポロベン##APPOVEN|(C)|アポベン##LUMVESTIN|(JB) (CTC)|ルムベスティン##ORAVEN|(CB)|オラベン##VENCHAI | (DE) (DEB)|ベンチャイ##VENLEPIUS | (U/I) (BR) (BRB)|ベンレピウス##VENPOLLO |(CT) (JB)|ベンポロ##APPOLOVEN|(J)|アポロベン##APPOVEN|(C)|アポベン##LUMVESTIN|(JB) (CTC)|ルムベスティン##ORAVEN|(CB)|オラベン##VENCHAI | (DE) (DEB)|ベンチャイ##VENLEPIUS | (U/I) (BR) (BRB)|ベンレピウス##VENPOLLO |(CT) (JB)|ベンポロ##APPOLOVEN|(J)|アポロベン##APPOVEN|(C)|アポベン##LUMVESTIN|(JB) (CTC)|ルムベスティン##ORAVEN|(CB)|オラベン##VENCHAI | (DE) (DEB)|ベンチャイ##VENLEPIUS | (U/I) (BR) (BRB)|ベンレピウス##VENPOLLO |(CT) (JB)|ベンポロ##APPOLOVEN|(J)|アポロベン##APPOVEN|(C)|アポベン##LUMVESTIN|(JB) (CTC)|ルムベスティン##ORAVEN|(CB)|オラベン##VENCHAI | (DE) (DEB)|ベンチャイ##VENLEPIUS | (U/I) (BR) (BRB)|ベンレピウス##VENPOLLO |(CT) (JB)|ベンポロ##APPOLOVEN|(J)|アポロベン##APPOVEN|(C)|アポベン##LUMVESTIN|(JB) (CTC)|ルムベスティン##ORAVEN|(CB)|オラベン##VENCHAI | (DE) (DEB)|ベンチャイ##VENLEPIUS | (U/I) (BR) (BRB)|ベンレピウス##VENPOLLO |(CT) (JB)|ベンポロ##APPOLOVEN|(J)|アポロベン##APPOVEN|(C)|アポベン##LUMVESTIN|(JB) (CTC)|ルムベスティン##ORAVEN|(CB)|オラベン##VENCHAI | (DE) (DEB)|ベンチャイ##VENLEPIUS | (U/I) (BR) (BRB)|ベンレピウス##VENPOLLO |(CT) (JB)|ベンポロ##APPOLOVEN|(J)|アポロベン##APPOVEN|(C)|アポベン##LUMVESTIN|(JB) (CTC)|ルムベスティン##ORAVEN|(CB)|オラベン##VENCHAI | (DE) (DEB)|ベンチャイ##VENLEPIUS | (U/I) (BR) (BRB)|ベンレピウス##VENPOLLO |(CT) (JB)|ベンポロ##APPOLOVEN|(J)|アポロベン##APPOVEN|(C)|アポベン##LUMVESTIN|(JB) (CTC)|ルムベスティン##ORAVEN|(CB)|オラベン##VENCHAI | (DE) (DEB)|ベンチャイ##VENLEPIUS | (U/I) (BR) (BRB)|ベンレピウス##VENPOLLO |(CT) (JB)|ベンポロ##APPOLOVEN|(J)|アポロベン##APPOVEN|(C)|アポベン##LUMVESTIN|(JB) (CTC)|ルムベスティン##ORAVEN|(CB)|オラベン##VENCHAI | (DE) (DEB)|ベンチャイ##VENLEPIUS | (U/I) (BR) (BRB)|ベンレピウス##VENPOLLO |(CT) (JB)|ベンポロ##APPOLOVEN|(J)|アポロベン##APPOVEN|(C)|アポベン##LUMVESTIN|(JB) (CTC)|ルムベスティン##ORAVEN|(CB)|オラベン##VENCHAI | (DE) (DEB)|ベンチャイ##VENLEPIUS | (U/I) (BR) (BRB)|ベンレピウス##VENPOLLO |(CT) (JB)|ベンポロ##APPOLOVEN|(J)|アポロベン##APPOVEN|(C)|アポベン##LUMVESTIN|(JB) (CTC)|ルムベスティン##ORAVEN|(CB)|オラベン##VENCHAI | (DE) (DEB)|ベンチャイ##VENLEPIUS | (U/I) (BR) (BRB)|ベンレピウス##VENPOLLO |(CT) (JB)|ベンポロ##APPOLOVEN|(J)|アポロベン##APPOVEN|(C)|アポベン##LUMVESTIN|(JB) (CTC)|ルムベスティン##ORAVEN|(CB)|オラベン##VENCHAI | (DE) (DEB)|ベンチャイ##VENLEPIUS | (U/I) (BR) (BRB)|ベンレピウス##LASTONE |(CT) (JB)|ベンポロ".split('##');
+                // this.groupName = "APPOLOVENAPPOLOVENAPPOLOVENAPPOLOVEN|(J)|アポロベン##APPOVEN|(C)|アポベン##LUMVESTIN|(JB) (CTC)|ルムベスティン##ORAVEN|(CB)|オラベン##VENCHAI | (DE) (DEB)|ベンチャイ##VENLEPIUS | (U/I) (BR) (BRB)|ベンレピウス##VENPOLLO |(CT) (JB)|ベンポロ##APPOLOVEN|(J)|アポロベン##APPOVEN|(C)|アポベン##LUMVESTIN|(JB) (CTC)|ルムベスティン##ORAVEN|(CB)|オラベン##VENCHAI | (DE) (DEB)|ベンチャイ##VENLEPIUS | (U/I) (BR) (BRB)|ベンレピウス##VENPOLLO |(CT) (JB)|ベンポロ##APPOLOVEN|(J)|アポロベン##APPOVEN|(C)|アポベン##LUMVESTIN|(JB) (CTC)|ルムベスティン##ORAVEN|(CB)|オラベン##VENCHAI | (DE) (DEB)|ベンチャイ##VENLEPIUS | (U/I) (BR) (BRB)|ベンレピウス##VENPOLLO |(CT) (JB)|ベンポロ##APPOLOVEN|(J)|アポロベン##APPOVEN|(C)|アポベン##LUMVESTIN|(JB) (CTC)|ルムベスティン##ORAVEN|(CB)|オラベン##VENCHAI | (DE) (DEB)|ベンチャイ##VENLEPIUS | (U/I) (BR) (BRB)|ベンレピウス##VENPOLLO |(CT) (JB)|ベンポロ##APPOLOVEN|(J)|アポロベン##APPOVEN|(C)|アポベン##LUMVESTIN|(JB) (CTC)|ルムベスティン##ORAVEN|(CB)|オラベン##VENCHAI | (DE) (DEB)|ベンチャイ##VENLEPIUS | (U/I) (BR) (BRB)|ベンレピウス##VENPOLLO |(CT) (JB)|ベンポロ##APPOLOVEN|(J)|アポロベン##APPOVEN|(C)|アポベン##LUMVESTIN|(JB) (CTC)|ルムベスティン##ORAVEN|(CB)|オラベン##VENCHAI | (DE) (DEB)|ベンチャイ##VENLEPIUS | (U/I) (BR) (BRB)|ベンレピウス##VENPOLLO |(CT) (JB)|ベンポロ##APPOLOVEN|(J)|アポロベン##APPOVEN|(C)|アポベン##LUMVESTIN|(JB) (CTC)|ルムベスティン##ORAVEN|(CB)|オラベン##VENCHAI | (DE) (DEB)|ベンチャイ##VENLEPIUS | (U/I) (BR) (BRB)|ベンレピウス##VENPOLLO |(CT) (JB)|ベンポロ##APPOLOVEN|(J)|アポロベン##APPOVEN|(C)|アポベン##LUMVESTIN|(JB) (CTC)|ルムベスティン##ORAVEN|(CB)|オラベン##VENCHAI | (DE) (DEB)|ベンチャイ##VENLEPIUS | (U/I) (BR) (BRB)|ベンレピウス##VENPOLLO |(CT) (JB)|ベンポロ##APPOLOVEN|(J)|アポロベン##APPOVEN|(C)|アポベン##LUMVESTIN|(JB) (CTC)|ルムベスティン##ORAVEN|(CB)|オラベン##VENCHAI | (DE) (DEB)|ベンチャイ##VENLEPIUS | (U/I) (BR) (BRB)|ベンレピウス##LASTONE |(CT) (JB)|ベンポロ".split('##');
+               
+                this.rankIconsValue =  data[0].NameRanking.split('##');
+
+                this.groupName.forEach(rankValue => {
+                // this.rankIconsValue.forEach(rankValue => {
+
+                  if (rankValue === 'novalue') {
+                    this.rankIcon.push({icon: 'info', color: 'grey'}) ;
+                  } else if (rankValue === 'Positive') {
+                    this.rankIcon.push({icon: 'favorite', color: 'red'}) ;
+                  }else if (rankValue === 'neutral') {
+                    this.rankIcon.push({icon: 'sentiment_very_satisfied', color: 'yellow'}) ;
+                  }else if (rankValue === 'negative') {
+                    this.rankIcon.push({icon: 'thumb_down_off_alt', color: 'purple'}) ;
+                  }else if (rankValue === 'recraft') {
+                    this.rankIcon.push({icon: 'info', color: ''}) ;
+                  }else {
+                    this.rankIcon.push({icon: 'info', color: 'grey'}) ;
+                  }
+
+                });
+                
+                this.rankIconsStyle =  [''];
+                this.groupName.forEach(element => {
+                  if (element.split('|').length > 1) {
+                    this.isPipeSplit = true;
+                  }
+
+                });
+                this.isGroupNameTooltip = true;
+                // this.summaryViewFlexLayout = 'column wrap';
+              } else {
+                this.groupName = data[0].GroupedNames.split('$$');
+                this.isGroupNameTooltip = false;
+                
+                // this.summaryViewFlexLayout = 'column';
+              }
+
+              let counter = 0;
+              let index = 0;
+              this.groupName.forEach(element => {
+                // this.groupName[index] = element.replace('(', '|(');
+                if (counter < element.length) {
+                  counter = element.length;
+                  this.summarySlideMinWidth = (counter * 20) + 20;
+                  this.rationaleMinWidth = 1000 - this.summarySlideMinWidth;
+                  if (this.summarySlideMinWidth > 900) {
+                    this.summarySlideMinWidth = 800;
+                    this.rationaleMinWidth = 200;
+                  }
+                }
+                index = index + 1;
+              });
+
+              // setTimeout(() => {
+              //   this.separateCandidateElement.toArray().forEach((element, index) => {
+              //     const arrRank = data[0].NameRanking.split('##');
+              //     const areLike = this.areAllLike(arrRank);
+              //     if (data[0].NameRanking.split('##')[0] !== '') {
+              //       this.switchPosNegElement.nativeElement.checked = (areLike) ? true : false;
+
+              //       if (arrRank[index] === 'Negative' || arrRank[index] === 'novalue') {
+              //         element.checked = false;
+              //       } else {
+              //         element.checked = true;
+              //       }
+              //     } else {
+              //       this.switchPosNegElement.nativeElement.checked = false;
+              //     }
+
+              //   });
+              // }, 50);
+
+
+
+            } else {
+              this.name = data[0].Name;
+              this.name = this.name.replace('(', '|(');
+              if (this.evaluationTimeElement && data[0].TemplateFileName !== 'images/BackGrounds/Default.jpg') {
+                // tslint:disable-next-line:max-line-length
+                this.evaluationTimeElement.nativeElement.style.backgroundImage = this.BackgroundUrl + this.imgBackground[this.backgroundCounter] + '.jpg)';
+                this.evaluationTimeElement.nativeElement.style.backgroundSize = 'cover';
+              }
+            }
+
+
+          } else { 
+            // this.slideNameBackground = 'url("https://image.shutterstock.com/shutterstock/photos/1897867054/display_1500/stock-vector-currency-watermark-background-intense-illustration-detailed-design-1897867054.jpg")';
+            this.slideType = 'NameEvaluation'; 
+          }
+
+         
+
         }
-
-
 
         if (this.slideType === 'NameEvaluation') {
           this.category = data[0].NameCategory;
@@ -767,6 +921,10 @@ export class NW3Component implements OnInit {
     //     // this.setDataToDisplay(data, 'save');
     //   }
     // );
+
+
+    // this.slideType = 'info'; 
+
   }
 
 
@@ -1297,20 +1455,22 @@ export class NW3Component implements OnInit {
 
   moveLeft1() {
     if (true) {
-    this.selectPage('previous');
+      this.slideType = '';
+      this.selectPage('previous');
     }
   }
 
   moveRight() {
     // if (!this.stopMovingForward || !this.vote) {
     if (true) {
+      this.slideType = '';
       this.selectPage('next');
     }
   }
 
 
   selectedOpt(option) {
-    this.slideModel.NameRanking  = option;
+    this.slideModel.NameRanking = option;
     if (option === 'Positive' && this.positiveChecked === false) {
       this.positiveChecked = true;
       // this.positiveChecked = !this.positiveChecked;
@@ -1494,6 +1654,55 @@ export class NW3Component implements OnInit {
   }
 
 
+  // GROUP NAMES TEMPLATE FUNCTIONS
+
+  selectetdNameIndex(i, event) {
+    this.selectNameItemIndex = i;
+    this.myleft = event.clientX;
+    this.mytop = event.clientY;
+  }
+
+  // selectetVotedIndex(i, event) {
+  //   this.selectVoteIndex = i;
+  //   this.myleft = event.clientX;
+  //   this.mytop = event.clientY;
+  // }
+
+
+  setFontSize(groupTestNameFontSize) {
+    this.groupTestNameFontSize = groupTestNameFontSize;
+  }
+
+
+  setGroupSlideHeight(groupSlideHeiht) {
+    this.groupSlideHeihtValue = groupSlideHeiht;
+  }
+
+  setGroupSlidelineHeight(groupSlidelineHeight) {
+    this.groupSlidelineHeightValue = groupSlidelineHeight;
+  }
+
+  toggleRankIcon(rankIcon, i) {
+    if (rankIcon[i].icon === 'info') {
+      this.rankIcon[i] = {icon: 'favorite', color: 'red'};
+    } else if (rankIcon[i].icon === 'favorite') {
+      this.rankIcon[i] = {icon: 'sentiment_very_satisfied', color: 'yellow'}
+    } else if (rankIcon[i].icon === 'sentiment_very_satisfied') {
+      this.rankIcon[i] = {icon: 'thumb_down_off_alt', color: 'purple'};
+    } else if (rankIcon[i].icon === 'thumb_down_off_alt') {
+      this.rankIcon[i] = {icon: 'info', color: 'grey'};
+    }
+  }
+
+  setAllNamesIcon(icon ,color){
+    this.isFavoriteOn = !this.isFavoriteOn;
+    this.rankIcon.forEach(currenticon => {
+      currenticon.icon =  icon;
+      currenticon.color =  color;
+    });
+
+  }
+  
 }
 
  // DASH CODE
