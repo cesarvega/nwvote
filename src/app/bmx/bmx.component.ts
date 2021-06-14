@@ -1,3 +1,4 @@
+import { Validators, FormControl } from '@angular/forms';
 import { Component, Inject, OnInit } from '@angular/core';
 import { DOCUMENT } from '@angular/common';
 import { trigger, transition, useAnimation } from '@angular/animations';
@@ -7,34 +8,28 @@ import { BmxService } from './bmx.service';
 import { Router, ActivatedRoute } from '@angular/router';
 import Speech from 'speak-tts';
 
-import { keyframes, animate } from '@angular/animations';
-import * as kf from './keyframes';
+import { keyframes, animate, state, style } from '@angular/animations';
+
 
 @Component({
   selector: 'app-bmx',
   templateUrl: './bmx.component.html',
   styleUrls: ['./bmx.component.scss'],
   animations: [
-    trigger('cardAnimator', [
-      transition('* => zoomOutRight', animate(1000, keyframes(kf.zoomOutRight))),
-      transition('* => slideOutRight', animate(1000, keyframes(kf.slideOutRight)))
-    ])
+    trigger("fadeInOut", [
+      state(
+        "void",
+        style({
+          opacity: 0
+        })
+      ),
+      transition("void <=> *", animate(900))
+    ]),
   ]
 })
 export class BmxComponent implements OnInit {
 
-  animationState: string;
-
-  startAnimation(state) {
-    console.log(state)
-    if (!this.animationState) {
-      this.animationState = state;
-    }
-  }
-
-  resetAnimationState() {
-    this.animationState = '';
-  }
+  slideToLogin: boolean;
 
   projectName = 'PROJECT NAME';
   userName = 'Alexa';
@@ -42,6 +37,8 @@ export class BmxComponent implements OnInit {
   projectId: any;
   SWIPE_ACTION = { LEFT: 'swipeleft', RIGHT: 'swiperight' };
    // our list of avatars
+
+   
    avatars = [
     {
         name: 'kristy',
@@ -76,6 +73,21 @@ export class BmxComponent implements OnInit {
       // });
     });
    }
+
+   emailFormControl = new FormControl('', [
+    Validators.required,
+    Validators.email,
+  ]);
+
+   onSwipe(evt) {
+    const x = Math.abs(evt.deltaX) > 20 ? (evt.deltaX > 0 ? 'swipeRight' : 'swipeLeft'):'';
+    console.log(x);
+    if (x === 'swipeRight') {
+      this.slideToLogin = true;
+      }else if (x === 'swipeLeft') {
+        this.slideToLogin = false; 
+      }
+    }
 
   ngOnInit(): void {
     window.scrollTo(0, 1);

@@ -33,14 +33,14 @@ const routes: Routes = [
   //   path: ':id',
   //   component: BsrComponent
   // },
-  // {//BI BRAND MATRIX
-  //   path: ':id',
-  //   component: BmxComponent
-  // },
-  {//NW 3 BI PRESENTS NOMENCLATURE WORKSHOP V.3.0
+  {//BI BRAND MATRIX
     path: ':id',
-    component: NW3Component
+    component: BmxComponent
   },
+  // {//NW 3 BI PRESENTS NOMENCLATURE WORKSHOP V.3.0
+  //   path: ':id',
+  //   component: NW3Component
+  // },
   {
     path: '',
     redirectTo: '/food',
