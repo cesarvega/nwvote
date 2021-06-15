@@ -225,6 +225,17 @@
     @include BoxShadow(6);
 }
 
+
+// VOTE ICONS AND BAGES
+
+.mat-badge-content{
+    position: absolute;
+    top: 4px !important;
+    left: 4px;
+    // color: white;
+    background-color: greenyellow;
+}
+
 .voteIcons {
     position: absolute;
     left: 120px;
@@ -292,12 +303,12 @@
 
 .voteOverview {
     position: absolute;
-    left: 147px;
-    bottom: 115px;
+    left: 146px;
+    bottom: 149px;
     display: flex;
     align-items: center;
-    justify-content: space-around;
-    width: 688px;
+    justify-content: space-evenly;
+    width: 633px;
     outline: none;
 }
 
@@ -305,6 +316,10 @@
     border: darkblue 1px solid;
     width: 100px;
     height: 200px;
+}
+
+.voteOverviewBox::-webkit-scrollbar {
+    display: none;
 }
 
 .fisheye {
@@ -790,6 +805,6 @@ $voteIconsColor: #008d05, #f2ce00, #f50c0c, #4c00ff, #4c00ff;
     display: none;
 }
 
-.example-card {
-    width: 400px;
-}
+// .example-card {
+//     width: 400px;
+// }

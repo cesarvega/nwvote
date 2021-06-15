@@ -2,7 +2,8 @@
 
     <div class="mainContainerPresent mat-elevation-z8" [style.background-image]="slideNameBackground">
         <!-- <div class="mainContainerPresent mat-elevation-z8" > -->
-        <mat-progress-bar mode="determinate" [value]="currentProgress" color="warn"  style="z-index: 99999;height: 3px;"></mat-progress-bar>
+        <mat-progress-bar mode="determinate" [value]="currentProgress" color="warn" style="z-index: 99999;height: 3px;">
+        </mat-progress-bar>
 
         <!-- TABLE OF CONTENT  -->
         <div *ngIf="isTableOfContent" class="tableOfContent">
@@ -142,10 +143,10 @@
 
             </div>
         </div>
-       
+
         <!-- SINGLE NAME -->
         <div *ngIf="(slideType === 'NameEvaluation')">
-            <div class="singleNameSlide" >
+            <div class="singleNameSlide">
 
                 <div class="nameContainer">
                     <div [style.font-family]="font1" [style.font-size]="'30px'" class="item1">{{category}}</div>
@@ -166,15 +167,17 @@
 
 
                     <!-- POSITIVE BUTTON -->
-                    <button *ngIf="positiveChecked" class="voteIconButtonGreen" (click)="selectedOpt('Positive');"
-                        mat-icon-button matTooltip="" matTooltipPosition="above">
+                    <button *ngIf="positiveChecked" matBadge="8" matBadgePosition="after" matBadgeColor="accent"
+                        class="voteIconButtonGreen" (click)="selectedOpt('Positive');" mat-icon-button matTooltip=""
+                        matTooltipPosition="after">
                         <mat-icon>sentiment_very_satisfied</mat-icon>
                     </button>
 
-                    <button *ngIf="!positiveChecked" class="voteIconButton" (click)="selectedOpt('Positive');"
-                        mat-icon-button matTooltip="" matTooltipPosition="above">
+                    <button *ngIf="!positiveChecked" matBadge="12" matBadgeColor="accent" class="voteIconButton"
+                        (click)="selectedOpt('Positive');" mat-icon-button matTooltip="" matTooltipPosition="above">
                         <mat-icon>sentiment_very_satisfied</mat-icon>
                     </button>
+                    <!-- <span matBadge="8" matBadgePosition="after" matBadgeColor="accent">Text with a badge</span> -->
 
                     <button *ngIf="neutralChecked" class="voteIconButtonYellow" (click)="selectedOpt('Neutral');"
                         mat-icon-button matTooltip="" matTooltipPosition="above">
@@ -212,10 +215,12 @@
 
 
             <!-- VOTERS LIST WINDOWS  NO IMPLEMENTED YET-->
-            <div *ngIf="false" class="voteOverview">
+            <div *ngIf="true" class="voteOverview">
 
-                <button class="voteOverviewBox" matTooltip="Positive" matTooltipPosition="above">
-
+                <button class="voteOverviewBox" matTooltip="Positive" matTooltipPosition="above" style="overflow-y: scroll;overflow-x: hidden;">
+                    <div style="display: flex; flex-direction: column;">
+                        <span *ngFor="let item of HEROES">{{item.name}}</span>
+                    </div>
                 </button>
                 <button class="voteOverviewBox" matTooltip="Positive" matTooltipPosition="above">
 
@@ -223,9 +228,9 @@
                 <button class="voteOverviewBox" matTooltip="Positive" matTooltipPosition="above">
 
                 </button>
-                <button class="voteOverviewBox" matTooltip="Positive" matTooltipPosition="above">
+                <!-- <button class="voteOverviewBox" matTooltip="Positive" matTooltipPosition="above">
 
-                </button>
+                </button> -->
 
             </div>
 
@@ -259,9 +264,9 @@
 
         </div>
 
-         <!-- MULTIPLE NAME -->
+        <!-- MULTIPLE NAME -->
 
-         <div *ngIf="(slideType === 'MultipleNameEvaluation')" >
+        <div *ngIf="(slideType === 'MultipleNameEvaluation')">
 
             <div [style.font-family]="font1" [style.font-size]="'30px'" style="margin: 20px;margin-bottom: 30px;">
                 {{category}}</div>
@@ -275,10 +280,11 @@
                         *ngFor="let separateName of groupName; let i = index;">
 
                         <!-- 😀 RANK ICON-->
-                        <button  disableRipple style="margin: 18px 0px 0px -17px;position: absolute;outline: none;"
+                        <button disableRipple style="margin: 18px 0px 0px -17px;position: absolute;outline: none;"
                             *ngIf="separateName.split('|')[0].length > 0" class="groupNameVoteItem" mat-icon-button
                             color="warn" aria-label="aria">
-                            <mat-icon (click)="toggleRankIcon(rankIcon, i)" [style.color]="rankIcon[i].color" class="voteIconRank">
+                            <mat-icon (click)="toggleRankIcon(rankIcon, i)" [style.color]="rankIcon[i].color"
+                                class="voteIconRank">
                                 <div [innerHTML]="rankIcon[i].icon"></div>
                             </mat-icon>
                         </button>
@@ -294,8 +300,9 @@
                                 [innerHTML]="separateName.split('|')[1]">
                                 <!-- {{ separateName.split('|')[1]}} -->
                             </div>
-                            <div class="groupNameIetmRationale" (mouseleave)="selectNameItemIndex = ''" (click)="selectNameItemIndex = ''"
-                                *ngIf="i === selectNameItemIndex" [style.left]="myleft" [style.top]="mytop"
+                            <div class="groupNameIetmRationale" (mouseleave)="selectNameItemIndex = ''"
+                                (click)="selectNameItemIndex = ''" *ngIf="i === selectNameItemIndex"
+                                [style.left]="myleft" [style.top]="mytop"
                                 [innerHTML]="'Future Rationale Future Rationale Future RationaleFuture RationaleFuture RationaleFuture Rationale'">
                             </div>
                         </div>
@@ -305,17 +312,18 @@
             </div>
 
             <!-- FAVORITE RANK ALL ICON -->
-                <button [ngClass]="(isFavoriteOn)?'heart-favorite':'heart-favorite-Off'" mat-icon-button (click)="setAllNamesIcon('favorite', 'red')">
-                    <mat-icon  class="heart-favorite-icon">favorite</mat-icon>
-                </button>
-                <button class="G4 GG" mat-icon-button (click)="setAllNamesIcon('thumb_down_off_alt', 'purple')">
-                    <mat-icon>thumb_down_off_alt</mat-icon>
-                </button>
-                <button class="G1 GG" mat-icon-button (click)="setAllNamesIcon('sentiment_very_satisfied', 'yellow')">
-                    <mat-icon>sentiment_very_satisfied</mat-icon>
-                </button>
-        
-                <!-- <button class="G2 GG" mat-icon-button>
+            <button [ngClass]="(isFavoriteOn)?'heart-favorite':'heart-favorite-Off'" mat-icon-button
+                (click)="setAllNamesIcon('favorite', 'red')">
+                <mat-icon class="heart-favorite-icon">favorite</mat-icon>
+            </button>
+            <button class="G4 GG" mat-icon-button (click)="setAllNamesIcon('thumb_down_off_alt', 'purple')">
+                <mat-icon>thumb_down_off_alt</mat-icon>
+            </button>
+            <button class="G1 GG" mat-icon-button (click)="setAllNamesIcon('sentiment_very_satisfied', 'yellow')">
+                <mat-icon>sentiment_very_satisfied</mat-icon>
+            </button>
+
+            <!-- <button class="G2 GG" mat-icon-button>
                     C
                 </button>
         
@@ -324,9 +332,9 @@
                 </button> -->
         </div>
 
-         <!-- INFO SLIDE QR CODE -->
-         <div *ngIf="(slideType === 'info')">
-           
+        <!-- INFO SLIDE QR CODE -->
+        <div *ngIf="(slideType === 'info')">
+
             SLIDE info
         </div>
 
