@@ -168,43 +168,42 @@
 
                     <!-- POSITIVE BUTTON -->
                     <button *ngIf="positiveChecked" matBadge="8" matBadgePosition="after" matBadgeColor="accent"
-                        class="voteIconButtonGreen" (click)="selectedOpt('Positive');" mat-icon-button matTooltip=""
-                        matTooltipPosition="after">
+                        class="voteIconButtonGreen" (click)="selectedOpt('Positive');" mat-icon-button >
                         <mat-icon>sentiment_very_satisfied</mat-icon>
                     </button>
 
                     <button *ngIf="!positiveChecked" matBadge="12" matBadgeColor="accent" class="voteIconButton"
-                        (click)="selectedOpt('Positive');" mat-icon-button matTooltip="" matTooltipPosition="above">
+                        (click)="selectedOpt('Positive');" mat-icon-button >
                         <mat-icon>sentiment_very_satisfied</mat-icon>
                     </button>
                     <!-- <span matBadge="8" matBadgePosition="after" matBadgeColor="accent">Text with a badge</span> -->
 
-                    <button *ngIf="neutralChecked" class="voteIconButtonYellow" (click)="selectedOpt('Neutral');"
-                        mat-icon-button matTooltip="" matTooltipPosition="above">
+                    <button *ngIf="neutralChecked" matBadge="12" matBadgeColor="accent" class="voteIconButtonYellow" (click)="selectedOpt('Neutral');"
+                        mat-icon-button >
                         <mat-icon>sentiment_neutral</mat-icon>
                     </button>
-                    <button *ngIf="!neutralChecked" class="voteIconButton" (click)="selectedOpt('Neutral');"
-                        mat-icon-button matTooltip="" matTooltipPosition="above">
+                    <button *ngIf="!neutralChecked" matBadge="12" matBadgeColor="accent" class="voteIconButton" (click)="selectedOpt('Neutral');"
+                        mat-icon-button >
                         <mat-icon>sentiment_neutral</mat-icon>
                     </button>
 
                     <!-- NEGATIVE BUTTON -->
-                    <button *ngIf="negativeChecked" class="voteIconButtonRed" (click)="selectedOpt('Negative');"
-                        mat-icon-button matTooltip="" matTooltipPosition="above">
+                    <button *ngIf="negativeChecked" matBadge="12" matBadgeColor="accent" class="voteIconButtonRed" (click)="selectedOpt('Negative');"
+                        mat-icon-button >
                         <mat-icon>sentiment_very_dissatisfied</mat-icon>
                     </button>
-                    <button *ngIf="!negativeChecked" class="voteIconButton" (click)="selectedOpt('Negative');"
-                        mat-icon-button matTooltip="" matTooltipPosition="above">
+                    <button *ngIf="!negativeChecked" matBadge="12" matBadgeColor="accent" class="voteIconButton" (click)="selectedOpt('Negative');"
+                        mat-icon-button >
                         <mat-icon>sentiment_very_dissatisfied</mat-icon>
                     </button>
 
                     <!-- RECRAFT BUTTON -->
-                    <button *ngIf="recraftChecked" class="voteIconButtonPurple" (click)="selectedOpt('recraft');"
-                        mat-icon-button matTooltip="" matTooltipPosition="above">
+                    <button *ngIf="recraftChecked"  matBadge="12" matBadgeColor="accent" class="voteIconButtonPurple" (click)="selectedOpt('recraft');"
+                        mat-icon-button >
                         <mat-icon>sync</mat-icon>
                     </button>
-                    <button *ngIf="!recraftChecked" class="voteIconButton" (click)="selectedOpt('recraft');"
-                        mat-icon-button matTooltip="" matTooltipPosition="above">
+                    <button *ngIf="!recraftChecked"  matBadge="12" matBadgeColor="accent" class="voteIconButton" (click)="selectedOpt('recraft');"
+                        mat-icon-button >
                         <mat-icon>sync</mat-icon>
                     </button>
 
@@ -217,20 +216,20 @@
             <!-- VOTERS LIST WINDOWS  NO IMPLEMENTED YET-->
             <div *ngIf="true" class="voteOverview">
 
-                <button class="voteOverviewBox" matTooltip="Positive" matTooltipPosition="above" style="overflow-y: scroll;overflow-x: hidden;">
+                <button class="voteOverviewBox"  style="overflow-y: scroll;overflow-x: hidden;border-top-left-radius: 5px; border-top-right-radius: 5px;">
                     <div style="display: flex; flex-direction: column;">
                         <span *ngFor="let item of HEROES">{{item.name}}</span>
                     </div>
                 </button>
-                <button class="voteOverviewBox" matTooltip="Positive" matTooltipPosition="above">
+                <button class="voteOverviewBox" >
 
                 </button>
-                <button class="voteOverviewBox" matTooltip="Positive" matTooltipPosition="above">
+                <button class="voteOverviewBox" >
 
                 </button>
-                <!-- <button class="voteOverviewBox" matTooltip="Positive" matTooltipPosition="above">
+                <button class="voteOverviewBox" >
 
-                </button> -->
+                </button>
 
             </div>
 
@@ -241,6 +240,15 @@
                 <button [ngClass]="(isGoVoteOn)?'GO':'GO_Off'" mat-icon-button (click)="goVote()">
                     BI
                 </button>
+                <button class="G4 GG" mat-icon-button (click)="setAllNamesIcon('thumb_down_off_alt', 'purple')"
+                style="color: yellow;background-color: RGB(1, 1, 139);border:3px solid yellow">
+                   N
+                </button>
+                <button class="G1 GG" mat-icon-button (click)="setAllNamesIcon('sentiment_very_satisfied', 'yellow')" 
+                style="color: chartreuse;background-color: RGB(1, 1, 139);border:3px solid chartreuse">
+                   P
+                </button>
+    
 
 
                 <!-- COMMENT AND NEW NAMES TEXTAREAS -->
