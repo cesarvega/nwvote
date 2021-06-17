@@ -915,7 +915,7 @@ export class NW3Component implements OnInit {
           this.rationale = data[0].NameRationale;
         }
       }
-    );
+      });
     // this._NW3Service.saveSlideInformation(savingObj).subscribe(
     //   data => {
     //     // this.setDataToDisplay(data, 'save');

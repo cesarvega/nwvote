@@ -9,7 +9,8 @@ import { Router, ActivatedRoute } from '@angular/router';
 import Speech from 'speak-tts';
 
 import { keyframes, animate, state, style } from '@angular/animations';
-
+import { Haptics } from '@capacitor/haptics';
+import { Plugin } from '@capacitor/core';
 
 @Component({
   selector: 'app-bmx',
@@ -79,11 +80,12 @@ export class BmxComponent implements OnInit {
     Validators.email,
   ]);
 
-   onSwipe(evt) {
+    async onSwipe(evt) {
     const x = Math.abs(evt.deltaX) > 20 ? (evt.deltaX > 0 ? 'swipeRight' : 'swipeLeft'):'';
     console.log(x);
     if (x === 'swipeRight') {
       this.slideToLogin = true;
+      await Haptics.vibrate();
       }else if (x === 'swipeLeft') {
         this.slideToLogin = false; 
       }
