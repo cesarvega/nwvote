@@ -41,8 +41,8 @@ export class NW3Component implements OnInit {
     { id: 16, name: 'RubberMan' },
     { id: 17, name: 'Dynama' },
     { id: 18, name: 'Dr IQ' },
-    { id: 19, name: 'Magma' },
-    { id: 20, name: 'Tornado' }
+    // { id: 19, name: 'Magma' },
+    // { id: 20, name: 'Tornado' }
   ];
   // TESTING URLS
   // http://localhost:4200/HIRYU_test
@@ -174,8 +174,8 @@ export class NW3Component implements OnInit {
   evaluationTimeElement: any;
   slideType: any;
   extraCommentsElement: any;
-  totalPositive: number;
-  totalNeutral: number;
+  totalPositive: any;
+  totalNeutral: any;
   katakanaNames: any;
   BackgroundUrl: any;
   backgroundCounter: any;
@@ -217,6 +217,7 @@ export class NW3Component implements OnInit {
   selectBackground: any;
   tempObj: any;
   tickerInterval: any;
+  voteUsersInterval: any;
   slideChange: any;
   resetTime = false;
   auto = false;
@@ -288,7 +289,16 @@ export class NW3Component implements OnInit {
   rankIconsValue: any;
   rankIconsStyle: any;
   isFavoriteOn = false; slideNameBackground: string;
-  ;
+
+
+  // TALLY AND VOTE USER VARS
+  displayVoteUserBadges = false;
+  displayTallyButtons = false;
+  positiveUsersVote : any = '';
+  NeutralUsersVote : any = '';
+  NegativeUsersVote : any = '';
+  allVoters : any = '';
+
 
 
 
@@ -408,9 +418,13 @@ export class NW3Component implements OnInit {
   }
 
   ngOnInit(): void {
+
+    //  FONTS INITIAL PARAMETERS FOR SLIDERS
     this.groupTestNameFontSize = '50';
     this.groupSlideHeihtValue = '5000';
     this.groupSlidelineHeightValue = '10';
+
+    //////////////////////////////////////////
 
     this.changingPage = '{}';
     this.currentSlidePageInfo = this.changingPage;
@@ -475,6 +489,14 @@ export class NW3Component implements OnInit {
     // this.resizeContent();
     // this.getNwVoteData( this.projectId);
     // this.saveData(this.slideModel);
+
+    // if ( this.slideType === 'NameEvaluation') {
+    //   setInterval(() => {
+    //     this.getNwVoteData();
+    //   }, 500);
+    // }
+
+
   }
 
 
@@ -736,7 +758,7 @@ export class NW3Component implements OnInit {
     // this.slideType = projectData[this.pageNumber - 1].SlideType.trim();
     let lastVisitedPageNumber: any;
     this.slideType = '';
-
+    clearInterval(this.voteUsersInterval);
 
     if (projectData[this.pageNumber - 1].SlideType.trim() === 'NameSummary') {
       this.slideType = projectData[this.pageNumber - 1].SlideType.trim();
@@ -830,8 +852,7 @@ export class NW3Component implements OnInit {
 
 
 
-        // this.setDataToDisplay(data, 'save');
-
+      
         if (this.slideType === '') {
           // this.slideType = '';
           if (data[0].GroupedNames.length > 0) {
@@ -932,12 +953,17 @@ export class NW3Component implements OnInit {
           } else {
             // this.slideNameBackground = 'url("https://image.shutterstock.com/shutterstock/photos/1897867054/display_1500/stock-vector-currency-watermark-background-intense-illustration-detailed-design-1897867054.jpg")';
             this.slideType = 'NameEvaluation';
+            this.voteUsersInterval = setInterval(() => {
               this.getNwVoteData();
+            }, 500);
+
           }
 
 
 
         }
+
+        this.setDataToDisplay(data, 'save');
 
         if (this.slideType === 'NameEvaluation') {
           this.category = data[0].NameCategory;
@@ -1004,8 +1030,7 @@ export class NW3Component implements OnInit {
                 this.evaluationTimeElement.nativeElement.style.backgroundImage = '';
                 this.evaluationTimeElement.nativeElement.style.backgroundSize = 'cover';
 
-              } else {
-                // tslint:disable-next-line:max-line-length
+              } else {                
                 this.evaluationTimeElement.nativeElement.style.backgroundImage = this.BackgroundUrl + data[0].TemplateFileName + ')';
                 this.evaluationTimeElement.nativeElement.style.backgroundSize = 'cover';
                 this.evaluationTimeElement.nativeElement.style.backgroundRepeat = 'no-repeat';
@@ -1036,8 +1061,9 @@ export class NW3Component implements OnInit {
       });
     }
 
-    this.totalPositive = data[0].TotPositive - 1;
-    this.totalNeutral = data[0].TotNeutral - 1;
+    this.totalPositive = (data[0].TotPositive != 0)?data[0].TotPositive = 1 : '';
+    this.totalNeutral = (data[0].TotNeutral != 0)?data[0].TotNeutral = 1 : '';
+
     this.negativePronunciation = [];
     if (this.japanese) {
       this.katakanaNames = data[0].KanaNames.replace(/`/g, '\'').split('、');
@@ -1210,23 +1236,6 @@ export class NW3Component implements OnInit {
 
 
   //  Businness logic 
-
-  getNwVoteData() {
-    // this.go = !this.go;
-    this._NW3Service.getNwVoteData(this.projectName, this.testName).subscribe(res => {
-      const data = JSON.parse(res.d);
-      this.VotersList = data.VotersList;
-      this.votersBadge = data.VotersList.length;
-      this.nwPositiveVote = data.Positive;
-      this.nwNegativeVote = data.Negative;
-      this.nwNeutralVote = data.Neutral;
-
-      this.nwPositiveVoteUsers = data.PositiveVoters
-      this.nwNegativeVoteUsers = data.NegativeVoters;
-      this.nwNeutralVoteUsers = data.NeutralVoters;
-
-    })
-  }
 
   recraft() {
     // alert("Hello! I am an alert box!!");
@@ -1724,6 +1733,48 @@ export class NW3Component implements OnInit {
     });
 
   }
+
+
+  // VOTE USERS BADGES AND FUNCTIONS
+
+
+  getNwVoteData() {
+    // this.go = !this.go;
+    this._NW3Service.getNwVoteData(this.projectName, this.testName).subscribe(res => {
+      const data = JSON.parse(res.d);
+      this.VotersList = data.VotersList;
+      this.votersBadge = data.VotersList.length;
+      this.nwPositiveVote = data.Positive;
+      this.nwNegativeVote = data.Negative;
+      this.nwNeutralVote = data.Neutral;
+
+      this.nwPositiveVoteUsers = data.PositiveVoters
+      this.nwNeutralVoteUsers = data.NeutralVoters;
+      this.nwNegativeVoteUsers = data.NegativeVoters;
+    })
+  }
+
+
+  voteUserBadges() {
+    this.displayVoteUserBadges = !this.displayVoteUserBadges;
+    if (this.displayVoteUserBadges) {
+      this.positiveUsersVote = this.nwPositiveVote;
+      this.NeutralUsersVote = this.nwNeutralVote;
+      this.NegativeUsersVote = this.nwNegativeVote;
+      this.allVoters = this.nwPositiveVote + this.nwNeutralVote + this.nwNegativeVote;
+    
+    }else {
+      this.positiveUsersVote = '';
+      this.NeutralUsersVote = '';
+      this.NegativeUsersVote = '';
+      this.allVoters = '';
+    }
+  }
+
+  displayTally() {
+    this.displayTallyButtons = !this.displayTallyButtons;
+  }
+
 
 }
 

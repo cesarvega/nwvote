@@ -225,16 +225,15 @@
     @include BoxShadow(6);
 }
 
-
 // VOTE ICONS AND BAGES
 
-.mat-badge-content{
-    position: absolute;
-    top: 4px !important;
-    left: 4px;
-    // color: white;
-    background-color: greenyellow;
-}
+// .mat-badge-content{
+//     position: absolute;
+//     top: 4px !important;
+//     left: 4px;
+//     // color: white;
+//     background-color: greenyellow;
+// }
 
 .voteIcons {
     position: absolute;
@@ -246,6 +245,109 @@
     width: 688px;
     height: 85px;
     outline: none;
+
+    .voteIconButton1 {
+        .mat-badge-content {
+            position: absolute;
+            top: 4px !important;
+            left: 4px;
+            color: white;
+            background-color: green;
+        }
+    }
+
+    .voteIconButtonGreen {
+        color: green;
+        outline: none;
+        width: 30px;
+        height: 30px;
+        line-height: 20px;
+        @include BoxShadow(6);
+
+        .mat-badge-content {
+            position: absolute;
+            top: 4px !important;
+            left: 4px;
+            color: white;
+            background-color: green;
+        }
+    }
+
+    .voteIconButton2 {
+        .mat-badge-content {
+            position: absolute;
+            top: 4px !important;
+            left: 4px;
+            color: black;
+            background-color: yellow;
+        }
+    }
+
+    .voteIconButtonYellow {
+        color: yellow;
+        outline: none;
+        width: 30px;
+        height: 30px;
+        line-height: 20px;
+        @include BoxShadow(6);
+
+        .mat-badge-content {
+            position: absolute;
+            top: 4px !important;
+            left: 4px;
+            color: black;
+            background-color: yellow;
+        }
+    }
+    .voteIconButton3 {
+        .mat-badge-content {
+            position: absolute;
+            top: 4px !important;
+            left: 4px;
+            color: white;
+            background-color: red;
+        }
+    }
+    .voteIconButtonRed {
+        color: red;
+        outline: none;
+        width: 30px;
+        height: 30px;
+        line-height: 20px;
+        @include BoxShadow(6);
+        .mat-badge-content {
+            position: absolute;
+            top: 4px !important;
+            left: 4px;
+            color: white;
+            background-color: red;
+        }
+    }
+
+    .voteIconButton4 {
+        .mat-badge-content {
+            position: absolute;
+            top: 4px !important;
+            left: 4px;
+            color: white;
+            background-color: purple;
+        }
+    }
+    .voteIconButtonPurple {
+        color: violet;
+        outline: none;
+        width: 30px;
+        height: 30px;
+        line-height: 20px;
+        @include BoxShadow(6);
+        .mat-badge-content {
+            position: absolute;
+            top: 4px !important;
+            left: 4px;
+            color: white;
+            background-color: purple;
+        }
+    }
 }
 
 .voteIconButton {
@@ -254,42 +356,6 @@
     width: 30px;
     height: 30px;
     line-height: 20px;
-}
-
-.voteIconButtonGreen {
-    color: green;
-    outline: none;
-    width: 30px;
-    height: 30px;
-    line-height: 20px;
-    @include BoxShadow(6);
-}
-
-.voteIconButtonRed {
-    color: red;
-    outline: none;
-    width: 30px;
-    height: 30px;
-    line-height: 20px;
-    @include BoxShadow(6);
-}
-
-.voteIconButtonPurple {
-    color: violet;
-    outline: none;
-    width: 30px;
-    height: 30px;
-    line-height: 20px;
-    @include BoxShadow(6);
-}
-
-.voteIconButtonYellow {
-    color: yellow;
-    outline: none;
-    width: 30px;
-    height: 30px;
-    line-height: 20px;
-    @include BoxShadow(6);
 }
 
 .voteIconButtonGreen:hover {
@@ -313,9 +379,10 @@
 }
 
 .voteOverviewBox {
-    border: darkblue 1px solid;
+    border: blue 1px solid;
     width: 100px;
     height: 200px;
+    background-color: white;
 }
 
 .voteOverviewBox::-webkit-scrollbar {
@@ -485,6 +552,58 @@
     background-color: white;
     color: purple;
     font-family: auto;
+}
+
+//TALLY BADGES
+
+.neutralBadgeTally {
+    @include BoxShadow(6);
+    width: 35px;
+    height: 35px;
+    position: absolute;
+    right: 374px;
+    bottom: -19px;
+    outline: none;
+    font-size: 23px;
+    line-height: 10px;
+    font-family: auto;
+
+    color: blue;
+    background-color: white;
+    border: 3px solid white;
+
+    .mat-badge-content {
+        position: absolute;
+        top: 4px !important;
+        left: 4px;
+        color: white;
+        background-color: purple;
+    }
+}
+
+.positiveBadgeTally {
+    @include BoxShadow(6);
+    width: 35px;
+    height: 35px;
+    position: absolute;
+    right: 538px;
+    bottom: -19px;
+    outline: none;
+    font-size: 23px;
+    line-height: 10px;
+    font-family: auto;
+
+    color: blue;
+    background-color: white;
+    border: 3px solid white;
+
+    .mat-badge-content {
+        position: absolute;
+        top: 4px !important;
+        left: 4px;
+        // color: white;
+        background-color: greenyellow;
+    }
 }
 
 $voteIconsColor: #008d05, #f2ce00, #f50c0c, #4c00ff, #4c00ff;
