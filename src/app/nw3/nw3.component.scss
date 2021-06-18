@@ -367,22 +367,54 @@
     @include BoxShadow(6);
 }
 
-.voteOverview {
-    position: absolute;
-    left: 146px;
-    bottom: 149px;
-    display: flex;
-    align-items: center;
-    justify-content: space-evenly;
-    width: 633px;
-    outline: none;
-}
+// .voteOverview {
+//     position: absolute;
+//     left: 146px;
+//     bottom: 149px;
+//     display: flex;
+//     align-items: center;
+//     justify-content: space-evenly;
+//     width: 633px;
+//     outline: none;
+// }
 
 .voteOverviewBox {
     border: blue 1px solid;
-    width: 100px;
+    min-width: 100px;
     height: 200px;
     background-color: white;
+    overflow-y: scroll;
+    overflow-x: hidden;
+    border-top-left-radius: 5px;
+    border-top-right-radius: 5px;
+
+    .listAlign {
+        display: flex;
+        flex-direction: column;
+    }
+}
+
+.positiveUserList {
+    position: absolute;
+    bottom: 60px;
+    left: 35px;
+}
+
+.neutralUserList {
+    position: absolute;
+    bottom: 60px;
+    left: 211px;
+}
+.negativeUsersList {
+    position: absolute;
+    bottom: 60px;
+    right: 211px;
+}
+
+.allUsersList {
+    position: absolute;
+    bottom: 60px;
+    right: 34px;
 }
 
 .voteOverviewBox::-webkit-scrollbar {

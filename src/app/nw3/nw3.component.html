@@ -160,79 +160,89 @@
                     </div>
                 </div>
 
-                <!-- VOTERS LIST WINDOWS ☠️-->
-                <div *ngIf="true" class="voteOverview">
-
-                    <button class="voteOverviewBox"
-                        style="overflow-y: scroll;overflow-x: hidden;border-top-left-radius: 5px; border-top-right-radius: 5px;">
-                        <div style="display: flex; flex-direction: column;">
-                            <span *ngFor="let item of nwPositiveVoteUsers">{{item}}</span>
-                        </div>
-                    </button>
-                    <button class="voteOverviewBox" style="overflow-y: scroll;overflow-x: hidden;border-top-left-radius: 5px; border-top-right-radius: 5px;">
-                        <div style="display: flex; flex-direction: column;">
-                            <span *ngFor="let item of nwNeutralVoteUsers">{{item}}</span>
-                        </div>
-                    </button>
-                    <button class="voteOverviewBox" style="overflow-y: scroll;overflow-x: hidden;border-top-left-radius: 5px; border-top-right-radius: 5px;">
-                        <div style="display: flex; flex-direction: column;">
-                            <span *ngFor="let item of nwNegativeVoteUsers">{{item}}</span>
-                        </div>
-                    </button>
-                    <button class="voteOverviewBox" style="overflow-y: scroll;overflow-x: hidden;border-top-left-radius: 5px; border-top-right-radius: 5px;">
-                        <div style="display: flex; flex-direction: column; justify-content: flex-end;">
-                            <span *ngFor="let item of HEROES">{{item.name}}</span>
-                        </div>
-
-                    </button>
-
-                </div>
-
 
                 <!--VOTE EMOJI BUTTONS 👽-->
                 <div class="voteIcons">
 
 
-                    <!-- POSITIVE BUTTON -->
-                    <button *ngIf="positiveChecked" [matBadge]="positiveUsersVote" class="voteIconButtonGreen"
-                        (click)="selectedOpt('Positive');" mat-icon-button>
-                        <mat-icon>sentiment_very_satisfied</mat-icon>
-                    </button>
-
-                    <button *ngIf="!positiveChecked" [matBadge]="positiveUsersVote" class="voteIconButton voteIconButton1"
-                        (click)="selectedOpt('Positive');" mat-icon-button>
-                        <mat-icon>sentiment_very_satisfied</mat-icon>
-                    </button>
-
-                    <button *ngIf="neutralChecked" [matBadge]="NeutralUsersVote" class="voteIconButtonYellow"
-                        (click)="selectedOpt('Neutral');" mat-icon-button>
-                        <mat-icon>sentiment_neutral</mat-icon>
-                    </button>
-                    <button *ngIf="!neutralChecked" [matBadge]="NeutralUsersVote" class="voteIconButton voteIconButton2"
-                        (click)="selectedOpt('Neutral');" mat-icon-button>
-                        <mat-icon>sentiment_neutral</mat-icon>
-                    </button>
-
+                    <!-- POSITIVE BUTTON  -->
+                    <div>
+                        <button *ngIf="displayPositiveBox" (mouseleave)="displayPositiveBox = false" class="voteOverviewBox positiveUserList">
+                            <div class="listAlign">
+                                <span *ngFor="let item of nwPositiveVoteUsers">{{item}}</span>
+                            </div>
+                        </button>
+                        <div (mouseenter)="displayOverviewBox('positiveBox')">
+                            <button *ngIf="positiveChecked" [matBadge]="positiveUsersVote" class="voteIconButtonGreen"
+                                (click)="selectedOpt('Positive');" mat-icon-button>
+                                <mat-icon>sentiment_very_satisfied</mat-icon>
+                            </button>
+                            <button *ngIf="!positiveChecked" [matBadge]="positiveUsersVote"
+                                class="voteIconButton voteIconButton1" (click)="selectedOpt('Positive');"
+                                mat-icon-button>
+                                <mat-icon>sentiment_very_satisfied</mat-icon>
+                            </button>
+                        </div>
+                    </div>
+                    <!-- NEUTRAL BUTTON -->
+                    <div>
+                        <button *ngIf="displayNeutralbox" (mouseleave)="displayNeutralbox = false"  class="voteOverviewBox neutralUserList">
+                            <div class="listAlign">
+                                <span *ngFor="let item of nwNeutralVoteUsers">{{item}}</span>
+                            </div>
+                        </button>
+                        <div (mouseenter)="displayOverviewBox('neutralBox')">
+                            <button *ngIf="neutralChecked" [matBadge]="NeutralUsersVote" class="voteIconButtonYellow"
+                                (click)="selectedOpt('Neutral');" mat-icon-button>
+                                <mat-icon>sentiment_neutral</mat-icon>
+                            </button>
+                            <button *ngIf="!neutralChecked" [matBadge]="NeutralUsersVote"
+                                class="voteIconButton voteIconButton2" (click)="selectedOpt('Neutral');"
+                                mat-icon-button>
+                                <mat-icon>sentiment_neutral</mat-icon>
+                            </button>
+                        </div>
+                    </div>
                     <!-- NEGATIVE BUTTON -->
-                    <button *ngIf="negativeChecked" [matBadge]="NegativeUsersVote" class="voteIconButtonRed"
-                        (click)="selectedOpt('Negative');" mat-icon-button>
-                        <mat-icon>sentiment_very_dissatisfied</mat-icon>
-                    </button>
-                    <button *ngIf="!negativeChecked" [matBadge]="NegativeUsersVote" class="voteIconButton voteIconButton3"
-                        (click)="selectedOpt('Negative');" mat-icon-button>
-                        <mat-icon>sentiment_very_dissatisfied</mat-icon>
-                    </button>
-
+                    <div>
+                        <button *ngIf="displayNegativeBox" (mouseleave)="displayNegativeBox = false" class="voteOverviewBox negativeUsersList">
+                            <div class="listAlign">
+                                <span *ngFor="let item of nwNegativeVoteUsers">{{item}}</span>
+                            </div>
+                        </button>
+                        <div (mouseenter)="displayOverviewBox('negativeBox')">
+                            <button *ngIf="negativeChecked" [matBadge]="NegativeUsersVote" class="voteIconButtonRed"
+                                (click)="selectedOpt('Negative');" mat-icon-button>
+                                <mat-icon>sentiment_very_dissatisfied</mat-icon>
+                            </button>
+                            <button *ngIf="!negativeChecked" [matBadge]="NegativeUsersVote"
+                                class="voteIconButton voteIconButton3" (click)="selectedOpt('Negative');"
+                                mat-icon-button>
+                                <mat-icon>sentiment_very_dissatisfied</mat-icon>
+                            </button>
+                        </div>
+                    </div>
                     <!-- RECRAFT BUTTON -->
-                    <button *ngIf="recraftChecked" [matBadge]="allVoters" class="voteIconButtonPurple"
-                        (click)="selectedOpt('recraft');" mat-icon-button>
-                        <mat-icon>sync</mat-icon>
-                    </button>
-                    <button *ngIf="!recraftChecked" [matBadge]="allVoters" class="voteIconButton voteIconButton4"
-                        (click)="selectedOpt('recraft');" mat-icon-button>
-                        <mat-icon>sync</mat-icon>
-                    </button>
-
+                    <div>
+                        <button *ngIf="displayAllUsersBox" (mouseleave)="displayAllUsersBox = false"  class="voteOverviewBox allUsersList">
+                            <div class="listAlign">
+                                <span style="display: flex; flex-direction: row;" *ngFor="let item of HEROES; let i = index">
+                                    <mat-icon (click)="deleteVoteUser(i)" style="position: relative;top: 8px;font-size: xx-small; ">cancel</mat-icon>{{item.name}}
+                                </span>
+                            </div>
+                        </button>
+                        <div (mouseenter)="displayOverviewBox('allUsersBox')">
+                            <button *ngIf="recraftChecked" [matBadge]="allVoters" class="voteIconButtonPurple"
+                                (click)="selectedOpt('recraft');" mat-icon-button>
+                                <mat-icon>sync</mat-icon>
+                            </button>
+                            <button *ngIf="!recraftChecked" [matBadge]="allVoters"
+                                class="voteIconButton voteIconButton4" (click)="selectedOpt('recraft');"
+                                mat-icon-button>
+                                <mat-icon>sync</mat-icon>
+                            </button>
+                        </div>
+                    </div>
                 </div>
 
             </div>
@@ -244,12 +254,12 @@
                 <button [ngClass]="(isGoVoteOn)?'GO':'GO_Off'" mat-icon-button (click)="goVote()">
                     BI
                 </button>
-                <button *ngIf="displayTallyButtons" class="neutralBadgeTally GG" [matBadge]="totalPositive" mat-icon-button
-                    (click)="setAllNamesIcon('thumb_down_off_alt', 'purple')">
+                <button *ngIf="displayTallyButtons" class="neutralBadgeTally GG" [matBadge]="totalPositive"
+                    mat-icon-button (click)="setAllNamesIcon('thumb_down_off_alt', 'purple')">
                     N
                 </button>
-                <button *ngIf="displayTallyButtons" class="positiveBadgeTally GG" [matBadge]="totalNeutral" mat-icon-button
-                    (click)="setAllNamesIcon('sentiment_very_satisfied', 'yellow')">
+                <button *ngIf="displayTallyButtons" class="positiveBadgeTally GG" [matBadge]="totalNeutral"
+                    mat-icon-button (click)="setAllNamesIcon('sentiment_very_satisfied', 'yellow')">
                     P
                 </button>
 

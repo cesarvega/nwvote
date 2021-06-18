@@ -294,10 +294,14 @@ export class NW3Component implements OnInit {
   // TALLY AND VOTE USER VARS
   displayVoteUserBadges = false;
   displayTallyButtons = false;
-  positiveUsersVote : any = '';
-  NeutralUsersVote : any = '';
-  NegativeUsersVote : any = '';
-  allVoters : any = '';
+  positiveUsersVote: any = '';
+  NeutralUsersVote: any = '';
+  NegativeUsersVote: any = '';
+  allVoters: any = '';
+  displayPositiveBox = false;
+  displayNeutralbox = false;
+  displayNegativeBox = false;
+  displayAllUsersBox = false;
 
 
 
@@ -852,7 +856,7 @@ export class NW3Component implements OnInit {
 
 
 
-      
+
         if (this.slideType === '') {
           // this.slideType = '';
           if (data[0].GroupedNames.length > 0) {
@@ -1030,7 +1034,7 @@ export class NW3Component implements OnInit {
                 this.evaluationTimeElement.nativeElement.style.backgroundImage = '';
                 this.evaluationTimeElement.nativeElement.style.backgroundSize = 'cover';
 
-              } else {                
+              } else {
                 this.evaluationTimeElement.nativeElement.style.backgroundImage = this.BackgroundUrl + data[0].TemplateFileName + ')';
                 this.evaluationTimeElement.nativeElement.style.backgroundSize = 'cover';
                 this.evaluationTimeElement.nativeElement.style.backgroundRepeat = 'no-repeat';
@@ -1061,8 +1065,8 @@ export class NW3Component implements OnInit {
       });
     }
 
-    this.totalPositive = (data[0].TotPositive != 0)?data[0].TotPositive = 1 : '';
-    this.totalNeutral = (data[0].TotNeutral != 0)?data[0].TotNeutral = 1 : '';
+    this.totalPositive = (data[0].TotPositive != 0) ? data[0].TotPositive = 1 : '';
+    this.totalNeutral = (data[0].TotNeutral != 0) ? data[0].TotNeutral = 1 : '';
 
     this.negativePronunciation = [];
     if (this.japanese) {
@@ -1762,8 +1766,8 @@ export class NW3Component implements OnInit {
       this.NeutralUsersVote = this.nwNeutralVote;
       this.NegativeUsersVote = this.nwNegativeVote;
       this.allVoters = this.nwPositiveVote + this.nwNeutralVote + this.nwNegativeVote;
-    
-    }else {
+
+    } else {
       this.positiveUsersVote = '';
       this.NeutralUsersVote = '';
       this.NegativeUsersVote = '';
@@ -1775,6 +1779,38 @@ export class NW3Component implements OnInit {
     this.displayTallyButtons = !this.displayTallyButtons;
   }
 
+  displayOverviewBox(boxType) {
+
+    if (this.displayVoteUserBadges) {
+
+      if (boxType === 'positiveBox') {
+
+        this.displayPositiveBox = true;
+
+        
+      } else if (boxType === 'neutralBox') {
+
+        this.displayNeutralbox = true;
+
+      } else if (boxType === 'negativeBox') {
+
+        this.displayNegativeBox = true;
+
+      } else if (boxType === 'allUsersBox') {
+
+        this.displayAllUsersBox = true;
+
+      }
+
+    }
+
+  }
+
+
+  deleteVoteUser(i){
+    console.log(i);
+    
+  }
 
 }
 
