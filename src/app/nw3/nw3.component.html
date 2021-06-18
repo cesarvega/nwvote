@@ -1,6 +1,6 @@
 <div (click)="noClickanyWhere()" class="page">
-    <!-- QR CODE-->
-  
+
+
     <div class="mainContainerPresent mat-elevation-z8" [style.background-image]="slideNameBackground">
 
 
@@ -377,6 +377,7 @@
 
     </div>
 
+</div>
 
 
 
@@ -465,12 +466,29 @@
         </button> -->
     </div>
 
-  
 
-</div>
-
-<div *ngIf="isQRcode" class="qr_code">
+    <!-- QR CODE-->
+<div (click)="noClickanyWhere()"  *ngIf="isQRcode" class="qr_code">
     <p style="font-family: sans-serif;font-size: 28px;margin-top: 10px;">scan me</p>
     <qrcode [qrdata]="myAngularxQrCode" [width]="350" [errorCorrectionLevel]="'M'"></qrcode>
     <p><a style="color: black;" target="_blank">{{myAngularxQrCode}}</a></p>
+</div>
+
+<div (click)="noClickanyWhere()"  *ngIf="displayNameVoteMobiile" class="info" style="display: flex; flex-direction: row;" class="qr_code">
+    <div class="text-center flex" >
+        <p>1. Edit name suggestions (optional)</p>
+        <img style=" width: 300px;" alt="Edit, Save and Delete" class="instruction-style" src="assets/img/nw3/NameVoteLogin.JPG">
+    </div>
+    <div class="text-center flex" >
+        <p>1. Edit name suggestions (optional)</p>
+        <img style=" width: 300px;" alt="Edit, Save and Delete" class="instruction-style" src="assets/img/nw3/NameVoteNoName.JPG">
+    </div>
+    <div class="text-center flex" >
+        <p>1. Edit name suggestions (optional)</p>
+        <img style=" width: 300px;" alt="Edit, Save and Delete" class="instruction-style" src="assets/img/nw3/NameVoteWithName.JPG">
+    </div>
+    <div class="text-center flex" >
+        <p>1. Edit name suggestions (optional)</p>
+        <img style=" width: 300px;" alt="Edit, Save and Delete" class="instruction-style" src="assets/img/nw3/NameVoteWithNameOn.JPG">
+    </div>
 </div>

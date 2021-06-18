@@ -1399,6 +1399,8 @@ export class NW3Component implements OnInit {
     this.hoverNeutral = false;
     this.hoverNegative = false;
     this.VotersListOn = false;
+    this.displayNameVoteMobiile = false;
+    this.isQRcode = false;
   }
 
   mouseLeaveVote() {
@@ -1815,7 +1817,7 @@ export class NW3Component implements OnInit {
   }
 
   displayNameVoteInfo(){
-    this.displayNameVoteMobiile = true;  
+    this.displayNameVoteMobiile = !this.displayNameVoteMobiile;  
   }
 
   deleteVoteUser(i){
