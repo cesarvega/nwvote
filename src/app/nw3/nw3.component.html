@@ -1,6 +1,11 @@
 <div (click)="noClickanyWhere()" class="page">
-
+    <!-- QR CODE-->
+  
     <div class="mainContainerPresent mat-elevation-z8" [style.background-image]="slideNameBackground">
+
+
+
+
         <!-- <div class="mainContainerPresent mat-elevation-z8" > -->
         <mat-progress-bar mode="determinate" [value]="currentProgress" color="warn" style="z-index: 99999;height: 3px;">
         </mat-progress-bar>
@@ -167,7 +172,8 @@
 
                     <!-- POSITIVE BUTTON  -->
                     <div>
-                        <button *ngIf="displayPositiveBox" (mouseleave)="displayPositiveBox = false" class="voteOverviewBox positiveUserList">
+                        <button *ngIf="displayPositiveBox && (nwPositiveVoteUsers.length > 0)"
+                            (mouseleave)="displayPositiveBox = false" class="voteOverviewBox positiveUserList">
                             <div class="listAlign">
                                 <span *ngFor="let item of nwPositiveVoteUsers">{{item}}</span>
                             </div>
@@ -186,7 +192,8 @@
                     </div>
                     <!-- NEUTRAL BUTTON -->
                     <div>
-                        <button *ngIf="displayNeutralbox" (mouseleave)="displayNeutralbox = false"  class="voteOverviewBox neutralUserList">
+                        <button *ngIf="displayNeutralbox && (nwNeutralVoteUsers.length > 0)"
+                            (mouseleave)="displayNeutralbox = false" class="voteOverviewBox neutralUserList">
                             <div class="listAlign">
                                 <span *ngFor="let item of nwNeutralVoteUsers">{{item}}</span>
                             </div>
@@ -205,7 +212,8 @@
                     </div>
                     <!-- NEGATIVE BUTTON -->
                     <div>
-                        <button *ngIf="displayNegativeBox" (mouseleave)="displayNegativeBox = false" class="voteOverviewBox negativeUsersList">
+                        <button *ngIf="displayNegativeBox && (nwNegativeVoteUsers.length > 0)"
+                            (mouseleave)="displayNegativeBox = false" class="voteOverviewBox negativeUsersList">
                             <div class="listAlign">
                                 <span *ngFor="let item of nwNegativeVoteUsers">{{item}}</span>
                             </div>
@@ -224,10 +232,14 @@
                     </div>
                     <!-- RECRAFT BUTTON -->
                     <div>
-                        <button *ngIf="displayAllUsersBox" (mouseleave)="displayAllUsersBox = false"  class="voteOverviewBox allUsersList">
+                        <button *ngIf="displayAllUsersBox && (HEROES.length > 0) "
+                            (mouseleave)="displayAllUsersBox = false" class="voteOverviewBox allUsersList">
                             <div class="listAlign">
-                                <span style="display: flex; flex-direction: row;" *ngFor="let item of HEROES; let i = index">
-                                    <mat-icon (click)="deleteVoteUser(i)" style="position: relative;top: 8px;font-size: xx-small; ">cancel</mat-icon>{{item.name}}
+                                <span style="display: flex; flex-direction: row;"
+                                    *ngFor="let item of HEROES; let i = index">
+                                    <mat-icon (click)="deleteVoteUser(i)"
+                                        style="position: relative;top: 8px;font-size: xx-small; ">cancel</mat-icon>
+                                    {{item.name}}
                                 </span>
                             </div>
                         </button>
@@ -406,10 +418,12 @@
         <button *ngIf="!true" mat-icon-button matTooltip="slide comments" matTooltipPosition="left">
             <mat-icon class="full-icon">comment</mat-icon>
         </button>
-        <button *ngIf="!false" matTooltip="qr code" matTooltipPosition="left" mat-icon-button aria-label="aria">
+        <button *ngIf="!false" (click)="displayQRCode()" matTooltip="qr code" matTooltipPosition="left" mat-icon-button
+            aria-label="aria">
             <mat-icon class="full-icon">qr_code</mat-icon>
         </button>
-        <button matTooltip="mobile app" matTooltipPosition="left" mat-icon-button color="red">
+        <button (click)="displayNameVoteInfo()" matTooltip="mobile app" matTooltipPosition="left" mat-icon-button
+            color="red">
             <mat-icon class="full-icon">phone_iphone</mat-icon>
         </button>
         <button *ngIf="true" (click)="voteUserBadges()" mat-icon-button matTooltip="names box"
@@ -451,4 +465,12 @@
         </button> -->
     </div>
 
+  
+
+</div>
+
+<div *ngIf="isQRcode" class="qr_code">
+    <p style="font-family: sans-serif;font-size: 28px;margin-top: 10px;">scan me</p>
+    <qrcode [qrdata]="myAngularxQrCode" [width]="350" [errorCorrectionLevel]="'M'"></qrcode>
+    <p><a style="color: black;" target="_blank">{{myAngularxQrCode}}</a></p>
 </div>

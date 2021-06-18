@@ -279,12 +279,12 @@
             top: 4px !important;
             left: 4px;
             color: black;
-            background-color: yellow;
+            background-color: #ffad37;
         }
     }
 
     .voteIconButtonYellow {
-        color: yellow;
+        color: #ffad37;
         outline: none;
         width: 30px;
         height: 30px;
@@ -296,7 +296,7 @@
             top: 4px !important;
             left: 4px;
             color: black;
-            background-color: yellow;
+            background-color: #ffad37;
         }
     }
     .voteIconButton3 {
@@ -398,23 +398,27 @@
     position: absolute;
     bottom: 60px;
     left: 35px;
+    border: green 1px solid;
 }
 
 .neutralUserList {
     position: absolute;
     bottom: 60px;
     left: 211px;
+    border: #ffad37 1px solid;
 }
 .negativeUsersList {
     position: absolute;
     bottom: 60px;
     right: 211px;
+    border: red 1px solid;
 }
 
 .allUsersList {
     position: absolute;
     bottom: 60px;
     right: 34px;
+    border: blueviolet 1px solid;
 }
 
 .voteOverviewBox::-webkit-scrollbar {
@@ -529,7 +533,7 @@
     @include BoxShadow(6);
     width: 35px;
     height: 35px;
-    border: 3px solid #f2ce00;
+    border: 3px solid #ffad37;
     position: absolute;
     right: 538px;
     bottom: -19px;
@@ -537,7 +541,7 @@
     font-size: 23px;
     line-height: 10px;
     background-color: white;
-    color: #f2ce00;
+    color: #ffad37;
     font-family: auto;
 }
 .G2 {
@@ -955,6 +959,22 @@ $voteIconsColor: #008d05, #f2ce00, #f50c0c, #4c00ff, #4c00ff;
 .subMainContainer::-webkit-scrollbar {
     display: none;
 }
+
+
+.qr_code {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    -ms-transform: translate(-50%, -53%);
+    transform: translate(-50%, -53%);
+    border-radius: 3px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    z-index: 1;   
+    background-color: white;;
+    @include BoxShadow(16);
+  }
 
 // .example-card {
 //     width: 400px;

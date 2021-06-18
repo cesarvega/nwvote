@@ -302,6 +302,9 @@ export class NW3Component implements OnInit {
   displayNeutralbox = false;
   displayNegativeBox = false;
   displayAllUsersBox = false;
+  myAngularxQrCode: string;
+  isQRcode = false;
+  displayNameVoteMobiile = false;
 
 
 
@@ -749,7 +752,7 @@ export class NW3Component implements OnInit {
 
   pageNumberChange(selectedPage) {
     this.pageNumber = Number(selectedPage);
-    this.pageNumber = 10;
+    // this.pageNumber = 10;
 
     // PROGRESS BAR DATA
     this.currentProgress = (this.pageNumber / this.passTotalPages) * 100;
@@ -866,13 +869,13 @@ export class NW3Component implements OnInit {
 
               if (data[0].GroupedNames.includes('##')) {
                 this.groupName = data[0].GroupedNames.split('##');
-                this.groupName = "APPOLOVEN|(J)|アポロベン##APPOVEN|(C)|アポベン##LUMVESTIN|(JB) (CTC)|ルムベスティン##ORAVEN|(CB)|オラベン##VENCHAI | (DE) (DEB)|ベンチャイ##VENLEPIUS | (U/I) (BR) (BRB)|ベンレピウス##VENPOLLO |(CT) (JB)|ベンポロ##APPOLOVEN|(J)|アポロベン##APPOVEN|(C)|アポベン##LUMVESTIN|(JB) (CTC)|ルムベスティン##ORAVEN|(CB)|オラベン##VENCHAI | (DE) (DEB)|ベンチャイ##VENLEPIUS | (U/I) (BR) (BRB)|ベンレピウス##VENPOLLO |(CT) (JB)|ベンポロ##APPOLOVEN|(J)|アポロベン##APPOVEN|(C)|アポベン##LUMVESTIN|(JB) (CTC)|ルムベスティン##ORAVEN|(CB)|オラベン##VENCHAI | (DE) (DEB)|ベンチャイ##VENLEPIUS | (U/I) (BR) (BRB)|ベンレピウス##VENPOLLO |(CT) (JB)|ベンポロ##APPOLOVEN|(J)|アポロベン##APPOVEN|(C)|アポベン##LUMVESTIN|(JB) (CTC)|ルムベスティン##ORAVEN|(CB)|オラベン##VENCHAI | (DE) (DEB)|ベンチャイ##VENLEPIUS | (U/I) (BR) (BRB)|ベンレピウス##VENPOLLO |(CT) (JB)|ベンポロ##APPOLOVEN|(J)|アポロベン##APPOVEN|(C)|アポベン##LUMVESTIN|(JB) (CTC)|ルムベスティン##ORAVEN|(CB)|オラベン##VENCHAI | (DE) (DEB)|ベンチャイ##VENLEPIUS | (U/I) (BR) (BRB)|ベンレピウス##VENPOLLO |(CT) (JB)|ベンポロ##APPOLOVEN|(J)|アポロベン##APPOVEN|(C)|アポベン##LUMVESTIN|(JB) (CTC)|ルムベスティン##ORAVEN|(CB)|オラベン##VENCHAI | (DE) (DEB)|ベンチャイ##VENLEPIUS | (U/I) (BR) (BRB)|ベンレピウス##VENPOLLO |(CT) (JB)|ベンポロ##APPOLOVEN|(J)|アポロベン##APPOVEN|(C)|アポベン##LUMVESTIN|(JB) (CTC)|ルムベスティン##ORAVEN|(CB)|オラベン##VENCHAI | (DE) (DEB)|ベンチャイ##VENLEPIUS | (U/I) (BR) (BRB)|ベンレピウス##VENPOLLO |(CT) (JB)|ベンポロ##APPOLOVEN|(J)|アポロベン##APPOVEN|(C)|アポベン##LUMVESTIN|(JB) (CTC)|ルムベスティン##ORAVEN|(CB)|オラベン##VENCHAI | (DE) (DEB)|ベンチャイ##VENLEPIUS | (U/I) (BR) (BRB)|ベンレピウス##VENPOLLO |(CT) (JB)|ベンポロ##APPOLOVEN|(J)|アポロベン##APPOVEN|(C)|アポベン##LUMVESTIN|(JB) (CTC)|ルムベスティン##ORAVEN|(CB)|オラベン##VENCHAI | (DE) (DEB)|ベンチャイ##VENLEPIUS | (U/I) (BR) (BRB)|ベンレピウス##VENPOLLO |(CT) (JB)|ベンポロ##APPOLOVEN|(J)|アポロベン##APPOVEN|(C)|アポベン##LUMVESTIN|(JB) (CTC)|ルムベスティン##ORAVEN|(CB)|オラベン##VENCHAI | (DE) (DEB)|ベンチャイ##VENLEPIUS | (U/I) (BR) (BRB)|ベンレピウス##VENPOLLO |(CT) (JB)|ベンポロ##APPOLOVEN|(J)|アポロベン##APPOVEN|(C)|アポベン##LUMVESTIN|(JB) (CTC)|ルムベスティン##ORAVEN|(CB)|オラベン##VENCHAI | (DE) (DEB)|ベンチャイ##VENLEPIUS | (U/I) (BR) (BRB)|ベンレピウス##VENPOLLO |(CT) (JB)|ベンポロ##APPOLOVEN|(J)|アポロベン##APPOVEN|(C)|アポベン##LUMVESTIN|(JB) (CTC)|ルムベスティン##ORAVEN|(CB)|オラベン##VENCHAI | (DE) (DEB)|ベンチャイ##VENLEPIUS | (U/I) (BR) (BRB)|ベンレピウス##VENPOLLO |(CT) (JB)|ベンポロ##APPOLOVEN|(J)|アポロベン##APPOVEN|(C)|アポベン##LUMVESTIN|(JB) (CTC)|ルムベスティン##ORAVEN|(CB)|オラベン##VENCHAI | (DE) (DEB)|ベンチャイ##VENLEPIUS | (U/I) (BR) (BRB)|ベンレピウス##VENPOLLO |(CT) (JB)|ベンポロ##APPOLOVEN|(J)|アポロベン##APPOVEN|(C)|アポベン##LUMVESTIN|(JB) (CTC)|ルムベスティン##ORAVEN|(CB)|オラベン##VENCHAI | (DE) (DEB)|ベンチャイ##VENLEPIUS | (U/I) (BR) (BRB)|ベンレピウス##VENPOLLO |(CT) (JB)|ベンポロ##APPOLOVEN|(J)|アポロベン##APPOVEN|(C)|アポベン##LUMVESTIN|(JB) (CTC)|ルムベスティン##ORAVEN|(CB)|オラベン##VENCHAI | (DE) (DEB)|ベンチャイ##VENLEPIUS | (U/I) (BR) (BRB)|ベンレピウス##VENPOLLO |(CT) (JB)|ベンポロ##APPOLOVEN|(J)|アポロベン##APPOVEN|(C)|アポベン##LUMVESTIN|(JB) (CTC)|ルムベスティン##ORAVEN|(CB)|オラベン##VENCHAI | (DE) (DEB)|ベンチャイ##VENLEPIUS | (U/I) (BR) (BRB)|ベンレピウス##VENPOLLO |(CT) (JB)|ベンポロ##APPOLOVEN|(J)|アポロベン##APPOVEN|(C)|アポベン##LUMVESTIN|(JB) (CTC)|ルムベスティン##ORAVEN|(CB)|オラベン##VENCHAI | (DE) (DEB)|ベンチャイ##VENLEPIUS | (U/I) (BR) (BRB)|ベンレピウス##VENPOLLO |(CT) (JB)|ベンポロ##APPOLOVEN|(J)|アポロベン##APPOVEN|(C)|アポベン##LUMVESTIN|(JB) (CTC)|ルムベスティン##ORAVEN|(CB)|オラベン##VENCHAI | (DE) (DEB)|ベンチャイ##VENLEPIUS | (U/I) (BR) (BRB)|ベンレピウス##LASTONE |(CT) (JB)|ベンポロ".split('##');
+                // this.groupName = "APPOLOVEN|(J)|アポロベン##APPOVEN|(C)|アポベン##LUMVESTIN|(JB) (CTC)|ルムベスティン##ORAVEN|(CB)|オラベン##VENCHAI | (DE) (DEB)|ベンチャイ##VENLEPIUS | (U/I) (BR) (BRB)|ベンレピウス##VENPOLLO |(CT) (JB)|ベンポロ##APPOLOVEN|(J)|アポロベン##APPOVEN|(C)|アポベン##LUMVESTIN|(JB) (CTC)|ルムベスティン##ORAVEN|(CB)|オラベン##VENCHAI | (DE) (DEB)|ベンチャイ##VENLEPIUS | (U/I) (BR) (BRB)|ベンレピウス##VENPOLLO |(CT) (JB)|ベンポロ##APPOLOVEN|(J)|アポロベン##APPOVEN|(C)|アポベン##LUMVESTIN|(JB) (CTC)|ルムベスティン##ORAVEN|(CB)|オラベン##VENCHAI | (DE) (DEB)|ベンチャイ##VENLEPIUS | (U/I) (BR) (BRB)|ベンレピウス##VENPOLLO |(CT) (JB)|ベンポロ##APPOLOVEN|(J)|アポロベン##APPOVEN|(C)|アポベン##LUMVESTIN|(JB) (CTC)|ルムベスティン##ORAVEN|(CB)|オラベン##VENCHAI | (DE) (DEB)|ベンチャイ##VENLEPIUS | (U/I) (BR) (BRB)|ベンレピウス##VENPOLLO |(CT) (JB)|ベンポロ##APPOLOVEN|(J)|アポロベン##APPOVEN|(C)|アポベン##LUMVESTIN|(JB) (CTC)|ルムベスティン##ORAVEN|(CB)|オラベン##VENCHAI | (DE) (DEB)|ベンチャイ##VENLEPIUS | (U/I) (BR) (BRB)|ベンレピウス##VENPOLLO |(CT) (JB)|ベンポロ##APPOLOVEN|(J)|アポロベン##APPOVEN|(C)|アポベン##LUMVESTIN|(JB) (CTC)|ルムベスティン##ORAVEN|(CB)|オラベン##VENCHAI | (DE) (DEB)|ベンチャイ##VENLEPIUS | (U/I) (BR) (BRB)|ベンレピウス##VENPOLLO |(CT) (JB)|ベンポロ##APPOLOVEN|(J)|アポロベン##APPOVEN|(C)|アポベン##LUMVESTIN|(JB) (CTC)|ルムベスティン##ORAVEN|(CB)|オラベン##VENCHAI | (DE) (DEB)|ベンチャイ##VENLEPIUS | (U/I) (BR) (BRB)|ベンレピウス##VENPOLLO |(CT) (JB)|ベンポロ##APPOLOVEN|(J)|アポロベン##APPOVEN|(C)|アポベン##LUMVESTIN|(JB) (CTC)|ルムベスティン##ORAVEN|(CB)|オラベン##VENCHAI | (DE) (DEB)|ベンチャイ##VENLEPIUS | (U/I) (BR) (BRB)|ベンレピウス##VENPOLLO |(CT) (JB)|ベンポロ##APPOLOVEN|(J)|アポロベン##APPOVEN|(C)|アポベン##LUMVESTIN|(JB) (CTC)|ルムベスティン##ORAVEN|(CB)|オラベン##VENCHAI | (DE) (DEB)|ベンチャイ##VENLEPIUS | (U/I) (BR) (BRB)|ベンレピウス##VENPOLLO |(CT) (JB)|ベンポロ##APPOLOVEN|(J)|アポロベン##APPOVEN|(C)|アポベン##LUMVESTIN|(JB) (CTC)|ルムベスティン##ORAVEN|(CB)|オラベン##VENCHAI | (DE) (DEB)|ベンチャイ##VENLEPIUS | (U/I) (BR) (BRB)|ベンレピウス##VENPOLLO |(CT) (JB)|ベンポロ##APPOLOVEN|(J)|アポロベン##APPOVEN|(C)|アポベン##LUMVESTIN|(JB) (CTC)|ルムベスティン##ORAVEN|(CB)|オラベン##VENCHAI | (DE) (DEB)|ベンチャイ##VENLEPIUS | (U/I) (BR) (BRB)|ベンレピウス##VENPOLLO |(CT) (JB)|ベンポロ##APPOLOVEN|(J)|アポロベン##APPOVEN|(C)|アポベン##LUMVESTIN|(JB) (CTC)|ルムベスティン##ORAVEN|(CB)|オラベン##VENCHAI | (DE) (DEB)|ベンチャイ##VENLEPIUS | (U/I) (BR) (BRB)|ベンレピウス##VENPOLLO |(CT) (JB)|ベンポロ##APPOLOVEN|(J)|アポロベン##APPOVEN|(C)|アポベン##LUMVESTIN|(JB) (CTC)|ルムベスティン##ORAVEN|(CB)|オラベン##VENCHAI | (DE) (DEB)|ベンチャイ##VENLEPIUS | (U/I) (BR) (BRB)|ベンレピウス##VENPOLLO |(CT) (JB)|ベンポロ##APPOLOVEN|(J)|アポロベン##APPOVEN|(C)|アポベン##LUMVESTIN|(JB) (CTC)|ルムベスティン##ORAVEN|(CB)|オラベン##VENCHAI | (DE) (DEB)|ベンチャイ##VENLEPIUS | (U/I) (BR) (BRB)|ベンレピウス##VENPOLLO |(CT) (JB)|ベンポロ##APPOLOVEN|(J)|アポロベン##APPOVEN|(C)|アポベン##LUMVESTIN|(JB) (CTC)|ルムベスティン##ORAVEN|(CB)|オラベン##VENCHAI | (DE) (DEB)|ベンチャイ##VENLEPIUS | (U/I) (BR) (BRB)|ベンレピウス##VENPOLLO |(CT) (JB)|ベンポロ##APPOLOVEN|(J)|アポロベン##APPOVEN|(C)|アポベン##LUMVESTIN|(JB) (CTC)|ルムベスティン##ORAVEN|(CB)|オラベン##VENCHAI | (DE) (DEB)|ベンチャイ##VENLEPIUS | (U/I) (BR) (BRB)|ベンレピウス##VENPOLLO |(CT) (JB)|ベンポロ##APPOLOVEN|(J)|アポロベン##APPOVEN|(C)|アポベン##LUMVESTIN|(JB) (CTC)|ルムベスティン##ORAVEN|(CB)|オラベン##VENCHAI | (DE) (DEB)|ベンチャイ##VENLEPIUS | (U/I) (BR) (BRB)|ベンレピウス##VENPOLLO |(CT) (JB)|ベンポロ##APPOLOVEN|(J)|アポロベン##APPOVEN|(C)|アポベン##LUMVESTIN|(JB) (CTC)|ルムベスティン##ORAVEN|(CB)|オラベン##VENCHAI | (DE) (DEB)|ベンチャイ##VENLEPIUS | (U/I) (BR) (BRB)|ベンレピウス##LASTONE |(CT) (JB)|ベンポロ".split('##');
                 // this.groupName = "APPOLOVENAPPOLOVENAPPOLOVENAPPOLOVEN|(J)|アポロベン##APPOVEN|(C)|アポベン##LUMVESTIN|(JB) (CTC)|ルムベスティン##ORAVEN|(CB)|オラベン##VENCHAI | (DE) (DEB)|ベンチャイ##VENLEPIUS | (U/I) (BR) (BRB)|ベンレピウス##VENPOLLO |(CT) (JB)|ベンポロ##APPOLOVEN|(J)|アポロベン##APPOVEN|(C)|アポベン##LUMVESTIN|(JB) (CTC)|ルムベスティン##ORAVEN|(CB)|オラベン##VENCHAI | (DE) (DEB)|ベンチャイ##VENLEPIUS | (U/I) (BR) (BRB)|ベンレピウス##VENPOLLO |(CT) (JB)|ベンポロ##APPOLOVEN|(J)|アポロベン##APPOVEN|(C)|アポベン##LUMVESTIN|(JB) (CTC)|ルムベスティン##ORAVEN|(CB)|オラベン##VENCHAI | (DE) (DEB)|ベンチャイ##VENLEPIUS | (U/I) (BR) (BRB)|ベンレピウス##VENPOLLO |(CT) (JB)|ベンポロ##APPOLOVEN|(J)|アポロベン##APPOVEN|(C)|アポベン##LUMVESTIN|(JB) (CTC)|ルムベスティン##ORAVEN|(CB)|オラベン##VENCHAI | (DE) (DEB)|ベンチャイ##VENLEPIUS | (U/I) (BR) (BRB)|ベンレピウス##VENPOLLO |(CT) (JB)|ベンポロ##APPOLOVEN|(J)|アポロベン##APPOVEN|(C)|アポベン##LUMVESTIN|(JB) (CTC)|ルムベスティン##ORAVEN|(CB)|オラベン##VENCHAI | (DE) (DEB)|ベンチャイ##VENLEPIUS | (U/I) (BR) (BRB)|ベンレピウス##VENPOLLO |(CT) (JB)|ベンポロ##APPOLOVEN|(J)|アポロベン##APPOVEN|(C)|アポベン##LUMVESTIN|(JB) (CTC)|ルムベスティン##ORAVEN|(CB)|オラベン##VENCHAI | (DE) (DEB)|ベンチャイ##VENLEPIUS | (U/I) (BR) (BRB)|ベンレピウス##VENPOLLO |(CT) (JB)|ベンポロ##APPOLOVEN|(J)|アポロベン##APPOVEN|(C)|アポベン##LUMVESTIN|(JB) (CTC)|ルムベスティン##ORAVEN|(CB)|オラベン##VENCHAI | (DE) (DEB)|ベンチャイ##VENLEPIUS | (U/I) (BR) (BRB)|ベンレピウス##VENPOLLO |(CT) (JB)|ベンポロ##APPOLOVEN|(J)|アポロベン##APPOVEN|(C)|アポベン##LUMVESTIN|(JB) (CTC)|ルムベスティン##ORAVEN|(CB)|オラベン##VENCHAI | (DE) (DEB)|ベンチャイ##VENLEPIUS | (U/I) (BR) (BRB)|ベンレピウス##VENPOLLO |(CT) (JB)|ベンポロ##APPOLOVEN|(J)|アポロベン##APPOVEN|(C)|アポベン##LUMVESTIN|(JB) (CTC)|ルムベスティン##ORAVEN|(CB)|オラベン##VENCHAI | (DE) (DEB)|ベンチャイ##VENLEPIUS | (U/I) (BR) (BRB)|ベンレピウス##LASTONE |(CT) (JB)|ベンポロ".split('##');
 
                 this.rankIconsValue = data[0].NameRanking.split('##');
-
-                this.groupName.forEach(rankValue => {
-                  // this.rankIconsValue.forEach(rankValue => {
+                this.rankIcon = [];
+                // this.groupName.forEach(rankValue => {
+                  this.rankIconsValue.forEach(rankValue => {
 
                   if (rankValue === 'novalue') {
                     this.rankIcon.push({ icon: 'info', color: 'grey' });
@@ -906,21 +909,21 @@ export class NW3Component implements OnInit {
                 // this.summaryViewFlexLayout = 'column';
               }
 
-              let counter = 0;
-              let index = 0;
-              this.groupName.forEach(element => {
-                // this.groupName[index] = element.replace('(', '|(');
-                if (counter < element.length) {
-                  counter = element.length;
-                  this.summarySlideMinWidth = (counter * 20) + 20;
-                  this.rationaleMinWidth = 1000 - this.summarySlideMinWidth;
-                  if (this.summarySlideMinWidth > 900) {
-                    this.summarySlideMinWidth = 800;
-                    this.rationaleMinWidth = 200;
-                  }
-                }
-                index = index + 1;
-              });
+              // let counter = 0;
+              // let index = 0;
+              // this.groupName.forEach(element => {
+              //   // this.groupName[index] = element.replace('(', '|(');
+              //   if (counter < element.length) {
+              //     counter = element.length;
+              //     this.summarySlideMinWidth = (counter * 20) + 20;
+              //     this.rationaleMinWidth = 1000 - this.summarySlideMinWidth;
+              //     if (this.summarySlideMinWidth > 900) {
+              //       this.summarySlideMinWidth = 800;
+              //       this.rationaleMinWidth = 200;
+              //     }
+              //   }
+              //   index = index + 1;
+              // });
 
               // setTimeout(() => {
               //   this.separateCandidateElement.toArray().forEach((element, index) => {
@@ -998,7 +1001,7 @@ export class NW3Component implements OnInit {
     localStorage.setItem('isNonProp', this.isNonProp.toString());
     localStorage.setItem('isKatakana', this.japanese.toString());
     this.nameCandidates = [];
-    this.groupName = '';
+    // this.groupName = '';
     this.showRankedNames = false;
     if (data[0].mp3FilePath) {
       this.audiofile = data[0].mp3FilePath;
@@ -1057,7 +1060,7 @@ export class NW3Component implements OnInit {
         }
       }, 50);
     }
-    this.slideType = data[0].SlideType;
+    // this.slideType = data[0].SlideType;
     console.log('refactroing data', data[0]);
     if (this.slideType === 'NameSummary') {
       this._NW3Service.getNotes(this.projectId).subscribe(note => {
@@ -1081,66 +1084,66 @@ export class NW3Component implements OnInit {
     } else {
       // this.faVolumeUp = null;
     }
-    if (data[0].GroupedNames !== '') {
-      if (data[0].GroupedNames.includes('##')) {
-        this.groupName = data[0].GroupedNames.split('##');
-        this.groupName.forEach(element => {
-          if (element.split('|').length > 1) {
-            this.isPipeSplit = true;
-          }
+    // if (data[0].GroupedNames !== '') {
+    //   if (data[0].GroupedNames.includes('##')) {
+    //     this.groupName = data[0].GroupedNames.split('##');
+    //     this.groupName.forEach(element => {
+    //       if (element.split('|').length > 1) {
+    //         this.isPipeSplit = true;
+    //       }
 
-        });
-        this.isGroupNameTooltip = true;
-        this.summaryViewFlexLayout = 'column wrap';
-      } else {
-        this.groupName = data[0].GroupedNames.split('$$');
-        this.isGroupNameTooltip = false;
-        this.summaryViewFlexLayout = 'column';
-      }
+    //     });
+    //     this.isGroupNameTooltip = true;
+    //     this.summaryViewFlexLayout = 'column wrap';
+    //   } else {
+    //     this.groupName = data[0].GroupedNames.split('$$');
+    //     this.isGroupNameTooltip = false;
+    //     this.summaryViewFlexLayout = 'column';
+    //   }
 
-      let counter = 0;
-      let index = 0;
-      this.groupName.forEach(element => {
-        // this.groupName[index] = element.replace('(', '|(');
-        if (counter < element.length) {
-          counter = element.length;
-          this.summarySlideMinWidth = (counter * 20) + 20;
-          this.rationaleMinWidth = 1000 - this.summarySlideMinWidth;
-          if (this.summarySlideMinWidth > 900) {
-            this.summarySlideMinWidth = 800;
-            this.rationaleMinWidth = 200;
-          }
-        }
-        index = index + 1;
-      });
+    //   let counter = 0;
+    //   let index = 0;
+    //   this.groupName.forEach(element => {
+    //     // this.groupName[index] = element.replace('(', '|(');
+    //     if (counter < element.length) {
+    //       counter = element.length;
+    //       this.summarySlideMinWidth = (counter * 20) + 20;
+    //       this.rationaleMinWidth = 1000 - this.summarySlideMinWidth;
+    //       if (this.summarySlideMinWidth > 900) {
+    //         this.summarySlideMinWidth = 800;
+    //         this.rationaleMinWidth = 200;
+    //       }
+    //     }
+    //     index = index + 1;
+    //   });
 
-      setTimeout(() => {
-        this.separateCandidateElement.toArray().forEach((element, index) => {
-          const arrRank = data[0].NameRanking.split('##');
-          const areLike = this.areAllLike(arrRank);
-          if (data[0].NameRanking.split('##')[0] !== '') {
-            this.switchPosNegElement.nativeElement.checked = (areLike) ? true : false;
+    //   // setTimeout(() => {
+    //   //   this.separateCandidateElement.toArray().forEach((element, index) => {
+    //   //     const arrRank = data[0].NameRanking.split('##');
+    //   //     const areLike = this.areAllLike(arrRank);
+    //   //     if (data[0].NameRanking.split('##')[0] !== '') {
+    //   //       this.switchPosNegElement.nativeElement.checked = (areLike) ? true : false;
 
-            if (arrRank[index] === 'Negative' || arrRank[index] === 'novalue') {
-              element.checked = false;
-            } else {
-              element.checked = true;
-            }
-          } else {
-            this.switchPosNegElement.nativeElement.checked = false;
-          }
+    //   //       if (arrRank[index] === 'Negative' || arrRank[index] === 'novalue') {
+    //   //         element.checked = false;
+    //   //       } else {
+    //   //         element.checked = true;
+    //   //       }
+    //   //     } else {
+    //   //       this.switchPosNegElement.nativeElement.checked = false;
+    //   //     }
 
-        });
-      }, 50);
-    } else {
-      this.name = data[0].Name;
-      this.name = this.name.replace('(', '|(');
-      if (this.evaluationTimeElement && data[0].TemplateFileName !== 'images/BackGrounds/Default.jpg') {
-        // tslint:disable-next-line:max-line-length
-        this.evaluationTimeElement.nativeElement.style.backgroundImage = this.BackgroundUrl + this.hideBackground[this.backgroundCounter] + '.jpg)';
-        this.evaluationTimeElement.nativeElement.style.backgroundSize = 'cover';
-      }
-    }
+    //   //   });
+    //   // }, 50);
+    // } else {
+    //   this.name = data[0].Name;
+    //   this.name = this.name.replace('(', '|(');
+    //   if (this.evaluationTimeElement && data[0].TemplateFileName !== 'images/BackGrounds/Default.jpg') {
+    //     // tslint:disable-next-line:max-line-length
+    //     this.evaluationTimeElement.nativeElement.style.backgroundImage = this.BackgroundUrl + this.hideBackground[this.backgroundCounter] + '.jpg)';
+    //     this.evaluationTimeElement.nativeElement.style.backgroundSize = 'cover';
+    //   }
+    // }
 
     if (data[0].GroupRationale !== '') {
       if (data[0].GroupRationale.includes('##')) {
@@ -1721,7 +1724,7 @@ export class NW3Component implements OnInit {
     if (rankIcon[i].icon === 'info') {
       this.rankIcon[i] = { icon: 'favorite', color: 'red' };
     } else if (rankIcon[i].icon === 'favorite') {
-      this.rankIcon[i] = { icon: 'sentiment_very_satisfied', color: 'yellow' }
+      this.rankIcon[i] = { icon: 'sentiment_very_satisfied', color: '#ffad37' }
     } else if (rankIcon[i].icon === 'sentiment_very_satisfied') {
       this.rankIcon[i] = { icon: 'thumb_down_off_alt', color: 'purple' };
     } else if (rankIcon[i].icon === 'thumb_down_off_alt') {
@@ -1806,6 +1809,14 @@ export class NW3Component implements OnInit {
 
   }
 
+  displayQRCode(){
+    this.isQRcode = !this.isQRcode;
+    this.myAngularxQrCode = ' www.mynamepage.com/' + 'PROJECTS';
+  }
+
+  displayNameVoteInfo(){
+    this.displayNameVoteMobiile = true;  
+  }
 
   deleteVoteUser(i){
     console.log(i);
