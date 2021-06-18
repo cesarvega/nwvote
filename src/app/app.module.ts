@@ -57,7 +57,7 @@ import * as echarts from 'echarts';
 //     // 'swipe': { velocity: 0.4, threshold: 20 } 
 //   }
 // }
-
+import { MatSnackBarModule, MAT_SNACK_BAR_DEFAULT_OPTIONS } from '@angular/material/snack-bar';
 import {MatRadioModule} from '@angular/material/radio';
 export function loadEcharts() {
   return import('echarts');
@@ -118,12 +118,14 @@ export function loadEcharts() {
     // AngularEditorModule,
     DragulaModule.forRoot(),
     MatListModule,
-    NgxEchartsModule.forRoot({echarts: loadEcharts})
+    NgxEchartsModule.forRoot({echarts: loadEcharts}),
+    MatSnackBarModule
   ],
   entryComponents: [
     editPost, editName
   ],
-  providers: [NwvoteService, BsrMobileService, Nw3Service],
+  providers: [NwvoteService, BsrMobileService, Nw3Service,
+    {provide: MAT_SNACK_BAR_DEFAULT_OPTIONS, useValue: {duration: 1000}}],
   
   bootstrap: [AppComponent]
 })

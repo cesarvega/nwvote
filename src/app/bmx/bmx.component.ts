@@ -1,3 +1,4 @@
+import { MatSnackBar } from '@angular/material/snack-bar';
 import { Validators, FormControl } from '@angular/forms';
 import { Component, Inject, OnInit } from '@angular/core';
 import { DOCUMENT } from '@angular/common';
@@ -64,7 +65,7 @@ export class BmxComponent implements OnInit {
 ];
 
 
-  constructor(private activatedRoute: ActivatedRoute,) {
+  constructor(private activatedRoute: ActivatedRoute, private _snackBar: MatSnackBar) {
     this.activatedRoute.params.subscribe(params => {
       this.projectId = params['id'];
       localStorage.setItem('projectId',  this.projectId);
@@ -80,16 +81,22 @@ export class BmxComponent implements OnInit {
     Validators.email,
   ]);
 
+  durationInSeconds = 5;
+
     async onSwipe(evt) {
     const x = Math.abs(evt.deltaX) > 20 ? (evt.deltaX > 0 ? 'swipeRight' : 'swipeLeft'):'';
     console.log(x);
     if (x === 'swipeRight') {
       this.slideToLogin = true;
       await Haptics.vibrate();
-      }else if (x === 'swipeLeft') {
+      this._snackBar.open(x);
+    }else if (x === 'swipeLeft') {
         this.slideToLogin = false; 
+        this._snackBar.open(x);
       }
     }
+
+    
 
   ngOnInit(): void {
     window.scrollTo(0, 1);
