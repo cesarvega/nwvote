@@ -319,21 +319,22 @@ export class NW3Component implements OnInit {
   colorScheme = [
     {
       'name': 'Positive',
-      'value': '#1B5E20'
+      'value': '#01bfa5'
     },
     {
       'name': 'Neutral',
-      'value': '#0D47A1'
+      'value': '#ffdf00'
     },
     {
       'name': 'Negative',
-      'value': '#B71C1C'
+      'value': '#fe0265'
     },
     {
       'name': 'New Names',
-      'value': '#3b87ee'
+      'value': '#0237ff'
     }
   ];
+  currentSlidePageInfo: string;
 
 
 
@@ -454,6 +455,7 @@ export class NW3Component implements OnInit {
 
   ngOnInit(): void {
 
+
     //  FONTS INITIAL PARAMETERS FOR SLIDERS
     this.groupTestNameFontSize = '50';
     this.groupSlideHeihtValue = '5000';
@@ -488,6 +490,8 @@ export class NW3Component implements OnInit {
         err => console.log(err)
       );
     });
+
+    
   }
 
 
@@ -733,7 +737,7 @@ export class NW3Component implements OnInit {
 
   pageNumberChange(selectedPage) {
     this.pageNumber = Number(selectedPage);
-    // this.pageNumber = 10;
+    this.pageNumber = 8;
 
     // PROGRESS BAR DATA
     this.currentProgress = (this.pageNumber / this.passTotalPages) * 100;

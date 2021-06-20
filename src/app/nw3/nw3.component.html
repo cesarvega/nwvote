@@ -106,25 +106,25 @@
 
                 <div *ngIf="summaryPositive" class="summaryPostives" style="">
                     <div class="summaryListDisplay" style="background-color: green; color: white;">
-                        <div *ngFor="let item of fonts">{{item}}</div>
-                        <div *ngFor="let item of fonts">{{item}}</div>
+                        <div *ngFor="let item of totalPositive">{{item}}</div>
+                        <!-- <div *ngFor="let item of fonts">{{item}}</div> -->
                     </div>
                 </div>
                 <div *ngIf="summaryNeutral" class="summaryPostives">
                     <div class="summaryListDisplay" style="background-color: orange; color: white;">
-                        <div *ngFor="let item of fonts">{{item}}</div>
-                        <div *ngFor="let item of fonts">{{item}}</div>
+                        <div *ngFor="let item of totalNeutral">{{item}}</div>
+                        <!-- <div *ngFor="let item of fonts">{{item}}</div> -->
                     </div>
                 </div>
                 <div *ngIf="summaryNegative" class="summaryNegative">
                     <div class="summaryListDisplay" style="background-color: red; color: white;">
-                        <div *ngFor="let item of fonts">{{item}}</div>
-                        <div *ngFor="let item of fonts">{{item}}</div>
+                        <div *ngFor="let item of totalNegative">{{item}}</div>
+                        <!-- <div *ngFor="let item of fonts">{{item}}</div> -->
                     </div>
                 </div>
                 <div *ngIf="summaryNewNames" class="summaryNew_names">
                     <div class="summaryListDisplay" style="background-color: purple; color: white;">
-                        <div *ngFor="let item of totalNewNames">{{item.NewNames}}</div>
+                        <div *ngFor="let item of totalNewNames">{{item.NameToDisplay}}</div>
                         <!-- <div *ngFor="let item of fonts">{{item}}</div> -->
                     </div>
                 </div>
@@ -315,7 +315,7 @@
                 <div class="groupSlideContent" [style.height]="groupSlideHeihtValue + 'px'"
                     [style.line-height]="groupSlidelineHeightValue + 'px'">
 
-                    <div style="display: flex; flex-direction: row; "
+                    <div class="rankingBox" style="display: flex; flex-direction: row; "
                         *ngFor="let separateName of groupName; let i = index;">
 
                         <!-- 😀 RANK ICON-->
@@ -355,12 +355,13 @@
                 (click)="setAllNamesIcon('favorite', 'red')">
                 <mat-icon class="heart-favorite-icon">favorite</mat-icon>
             </button>
-            <button class="G4 GG" mat-icon-button (click)="setAllNamesIcon('thumb_down_off_alt', 'purple')">
-                <mat-icon>thumb_down_off_alt</mat-icon>
-            </button>
             <button class="G1 GG" mat-icon-button (click)="setAllNamesIcon('sentiment_very_satisfied', 'yellow')">
                 <mat-icon>sentiment_very_satisfied</mat-icon>
             </button>
+            <button class="G4 GG" mat-icon-button (click)="setAllNamesIcon('thumb_down_off_alt', 'purple')">
+                <mat-icon>thumb_down_off_alt</mat-icon>
+            </button>
+            
 
             <!-- <button class="G2 GG" mat-icon-button>
                     C
