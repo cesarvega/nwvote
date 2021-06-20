@@ -231,7 +231,7 @@ export class NW3Component implements OnInit {
   totalNewNames: any[];
   tickerElement: any;
   // tickerTime: string;
-  @Input() currentSlidePageInfo = '';
+  // @Input() currentSlidePageInfo = '';
   // @Input() projectId: string;
   imgBackground: any;
   slideImageElement: any;
@@ -261,14 +261,6 @@ export class NW3Component implements OnInit {
   overviewDisplay = true;
   thumbNails: any;
   navigatePageIndex;
-
-
-  // SUMMARY VARS
-  summaryPositive = false;
-  summaryNeutral = false;
-  summaryNegative = false;
-  summaryNewNames = false;
-  summaryChart = true;
 
   testName = 'Comirnaty';
 
@@ -307,7 +299,41 @@ export class NW3Component implements OnInit {
   displayNameVoteMobiile = false;
   totalNegative: number;
   AditionalComments: any;
+  
+  // SUMMARY CHART VARS
+  summaryPositive = false;
+  summaryNeutral = false;
+  summaryNegative = false;
+  summaryNewNames = false;
+  summaryChart = true;
 
+  chartDimension = [700, 450];
+  showXAxis = true;
+  showYAxis = true;
+  gradient = false;
+  showLegend = false;
+  showXAxisLabel = true;
+  xAxisLabel = 'Votes';
+  showYAxisLabel = true;
+  yAxisLabel = 'Names ';
+  colorScheme = [
+    {
+      'name': 'Positive',
+      'value': '#1B5E20'
+    },
+    {
+      'name': 'Neutral',
+      'value': '#0D47A1'
+    },
+    {
+      'name': 'Negative',
+      'value': '#B71C1C'
+    },
+    {
+      'name': 'New Names',
+      'value': '#3b87ee'
+    }
+  ];
 
 
 
@@ -461,60 +487,7 @@ export class NW3Component implements OnInit {
         },
         err => console.log(err)
       );
-
-      // this.getProjectId();
     });
-
-
-    this.chartOption = {
-      xAxis: {
-        type: 'category',
-        data: ['Positive', 'Neutral', 'Negative', 'New Names']
-      },
-      yAxis: {
-        type: 'value'
-      },
-      series: [{
-        data: [
-          {
-            value: 100,
-            itemStyle: {
-              color: '#008000'
-            }
-          },
-          {
-            value: 75,
-            itemStyle: {
-              color: '#FFFF00'
-            }
-          },
-          {
-            value: 75,
-            itemStyle: {
-              color: '#00ff00'
-            }
-          },
-          {
-            value: 50,
-            itemStyle: {
-              color: '#a90000'
-            }
-          },],
-        type: 'bar'
-      }]
-    };
-
-    // this.resizeContent();
-    // this.getNwVoteData( this.projectId);
-    // this.saveData(this.slideModel);
-
-    // if ( this.slideType === 'NameEvaluation') {
-    //   setInterval(() => {
-    //     this.getNwVoteData();
-    //   }, 500);
-    // }
-
-
   }
 
 
@@ -1735,14 +1708,10 @@ export class NW3Component implements OnInit {
         }
       }
       this.totalNewNames = [];
-
-
       this._NW3Service.getRetainTypeName(this.projectId, "New").subscribe((data: Array<object>) => {
         data.forEach(ele => {
           this.totalNewNames.push(ele);
         });
-
-        
 
         this._NW3Service.getRetainTypeName(this.projectId, 'Positive').subscribe((resultPos: Array<object>) => {
           this.totalPositive = resultPos.length + this.posCount;
@@ -1752,13 +1721,10 @@ export class NW3Component implements OnInit {
           });
           resultPos.forEach((element: any) => {
             element.NewNames.split(',').forEach(ele => {
-              if (ele !== '') {
-  
+              if (ele !== '') {  
               }
             });;
           });
-
-
 
           this._NW3Service.getRetainTypeName(this.projectId, 'Neutral').subscribe((resultNeu: Array<object>) => {
             this.totalNeutral = resultNeu.length + this.neuCount;
@@ -1767,9 +1733,6 @@ export class NW3Component implements OnInit {
               'value': resultNeu.length + this.neuCount
             });
 
-
-
-
             this._NW3Service.getRetainTypeName(this.projectId, 'Negative').subscribe((resultNeg: Array<object>) => {
               this.totalNegative = resultNeg.length + this.negCount;
               newChartData.push({
@@ -1777,79 +1740,23 @@ export class NW3Component implements OnInit {
                 'value': resultNeg.length + this.negCount
               });
 
+              newChartData.push({
+                'name': 'New Names',
+                'value': this.totalNewNames.length
+              });
 
-
-              this.chartOption = {
-                xAxis: {
-                  type: 'category',
-                  data: ['Positive', 'Neutral', 'Negative', 'New Names']
-                },
-                yAxis: {
-                  type: 'value'
-                },
-                series: [{
-                  data: [
-                    {
-                      value: this.totalPositive,
-                      itemStyle: {
-                        color: '#0fd60f'
-                      }
-                    },
-                    {
-                      value: this.totalNeutral,
-                      itemStyle: {
-                        color: '#d60fd6'
-                      }
-                    },
-                    {
-                      value: this.totalNegative,
-                      itemStyle: {
-                        color: '#0fd6d6'
-                      }
-                    },
-                    {
-                      value: this.totalNewNames.length,
-                      itemStyle: {
-                        color: '#0f0fd6'
-                      }
-                    },],
-                  type: 'bar'
-                }]
-              };
-
-
-
-
-
+              const resArr = [];
+              newChartData.forEach(function (item) {
+                const i = resArr.findIndex(x => x.name === item.name);
+                if (i <= -1) {
+                  resArr.push({ name: item.name, value: item.value });
+                }
+              }, this.pieChart = resArr);             
             });
-      
-      
-
-
-
-
-
           });
-
-
-
-
         });
-  
-
-        
       });
-
-
-    
-
-
-
-
-
-
     });
-
   }
 
 

@@ -51,6 +51,7 @@ import { DragulaModule } from 'ng2-dragula';
 import { MatListModule } from '@angular/material/list';
 import { NgxEchartsModule } from 'ngx-echarts';
 import * as echarts from 'echarts';
+import { NgxChartsModule } from '@swimlane/ngx-charts';
 // export class MyHammerConfig extends HammerGestureConfig {
 //   overrides = <any>{
 //     // override default settings
@@ -114,6 +115,7 @@ export function loadEcharts() {
     MatRadioModule,
     MatNativeDateModule,
     MatProgressBarModule,
+    NgxChartsModule,
     // AngularEditorModule,
     DragulaModule.forRoot(),
     MatListModule,
