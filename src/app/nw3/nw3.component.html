@@ -92,7 +92,7 @@
 
                 </div>
                 <div style="display: flex; flex-direction: row; justify-content: space-between;align-items: center">
-                    <button (click)="changeSummaryList('newNames')" mat-raised-button
+                    <button (click)="changeSummaryList('new names')" mat-raised-button
                         style="margin-right: 5px;background-color: white;color:black">New
                         Names</button>
                     <button (click)="changeSummaryList('chart')" mat-mini-fab
@@ -124,14 +124,14 @@
                 </div>
                 <div *ngIf="summaryNewNames" class="summaryNew_names">
                     <div class="summaryListDisplay" style="background-color: purple; color: white;">
-                        <div *ngFor="let item of fonts">{{item}}</div>
-                        <div *ngFor="let item of fonts">{{item}}</div>
+                        <div *ngFor="let item of totalNewNames">{{item.NewNames}}</div>
+                        <!-- <div *ngFor="let item of fonts">{{item}}</div> -->
                     </div>
                 </div>
             </div>
             <div *ngIf="summaryChart" class="summaryChart">
 
-                <div echarts [options]="chartOption"></div>
+                <div echarts [options]="chartOption" (chartClick)="onChartClick($event)"></div>
 
             </div>
 
@@ -452,7 +452,7 @@
         <button *ngIf="true" mat-icon-button matTooltip="help" matTooltipPosition="left">
             <mat-icon class="full-icon">help</mat-icon>
         </button>
-        <button disabled mat-icon-button aria-label="page"
+        <button (click)="pageNumberChange(passTotalPages)" mat-icon-button aria-label="page"
             style="font-size: 23px;color: grey !important;cursor: pointer;">
             {{pageNumber}}/{{passTotalPages}}
         </button>

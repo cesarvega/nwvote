@@ -305,6 +305,8 @@ export class NW3Component implements OnInit {
   myAngularxQrCode: string;
   isQRcode = false;
   displayNameVoteMobiile = false;
+  totalNegative: number;
+  AditionalComments: any;
 
 
 
@@ -467,28 +469,37 @@ export class NW3Component implements OnInit {
     this.chartOption = {
       xAxis: {
         type: 'category',
-        data: ['Positive', 'Neutral', 'Negative']
+        data: ['Positive', 'Neutral', 'Negative', 'New Names']
       },
       yAxis: {
         type: 'value'
       },
       series: [{
-        data: [{
-          value: 100,
-          itemStyle: {
-            color: '#008000'
-          }
-        }, {
-          value: 75,
-          itemStyle: {
-            color: '#FFFF00'
-          }
-        }, {
-          value: 50,
-          itemStyle: {
-            color: '#a90000'
-          }
-        },],
+        data: [
+          {
+            value: 100,
+            itemStyle: {
+              color: '#008000'
+            }
+          },
+          {
+            value: 75,
+            itemStyle: {
+              color: '#FFFF00'
+            }
+          },
+          {
+            value: 75,
+            itemStyle: {
+              color: '#00ff00'
+            }
+          },
+          {
+            value: 50,
+            itemStyle: {
+              color: '#a90000'
+            }
+          },],
         type: 'bar'
       }]
     };
@@ -532,12 +543,9 @@ export class NW3Component implements OnInit {
 
   changes() {
     this.buttonOptionsObj = JSON.parse(this.switchButton);
-
-
     const projectData = JSON.parse(this.projectData);
     this.projectName = JSON.parse(this.projectData)[0].DisplayName;
     this.testName = projectData[this.pageNumber - 1].SlideDescription;
-
 
     if (this.resetTime !== false) {
       this.positiveChecked = false;
@@ -757,6 +765,11 @@ export class NW3Component implements OnInit {
     // PROGRESS BAR DATA
     this.currentProgress = (this.pageNumber / this.passTotalPages) * 100;
 
+
+    if (selectedPage === this.passTotalPages) {
+      this.changeSummaryList('chart');
+    }
+
     const pageObj = JSON.parse(this.currentSlidePageInfo);
     const projectData = JSON.parse(this.projectData);
     this.projectName = JSON.parse(this.projectData)[0].DisplayName;
@@ -875,7 +888,7 @@ export class NW3Component implements OnInit {
                 this.rankIconsValue = data[0].NameRanking.split('##');
                 this.rankIcon = [];
                 // this.groupName.forEach(rankValue => {
-                  this.rankIconsValue.forEach(rankValue => {
+                this.rankIconsValue.forEach(rankValue => {
 
                   if (rankValue === 'novalue') {
                     this.rankIcon.push({ icon: 'info', color: 'grey' });
@@ -1064,7 +1077,7 @@ export class NW3Component implements OnInit {
     console.log('refactroing data', data[0]);
     if (this.slideType === 'NameSummary') {
       this._NW3Service.getNotes(this.projectId).subscribe(note => {
-        this.extraCommentsElement.nativeElement.value = note[0].NotesExplore.replace(/`/g, '\'');
+        this.AditionalComments = note[0].NotesExplore.replace(/`/g, '\'');
       });
     }
 
@@ -1516,6 +1529,7 @@ export class NW3Component implements OnInit {
   }
 
 
+
   selectedOpt(option) {
     this.slideModel.NameRanking = option;
     if (option === 'Positive' && this.positiveChecked === false) {
@@ -1647,7 +1661,13 @@ export class NW3Component implements OnInit {
 
   }
 
-  // SUMMARY FUNCTIONS
+  // SUMMARY CHART FUNCTIONS
+
+  onChartClick(e) {
+    console.log(e);
+    this.changeSummaryList(e.name.toLowerCase())
+  }
+
 
   changeSummaryList(lsitSelection) {
 
@@ -1675,7 +1695,7 @@ export class NW3Component implements OnInit {
       this.summaryChart = false;
     }
 
-    else if (lsitSelection === 'newNames') {
+    else if (lsitSelection === 'new names') {
       this.summaryPositive = false;
       this.summaryNeutral = false;
       this.summaryNegative = false;
@@ -1691,10 +1711,149 @@ export class NW3Component implements OnInit {
       this.summaryChart = true;
     }
 
+    this.pieChart = [];
+    const newChartData = [];
+    this._NW3Service.getGroupSummary(this.projectId).subscribe(groupResult => {
+      this.posCount = 0;
+      this.neuCount = 0;
+      this.negCount = 0;
+      for (const obj of Object.values(groupResult)) {
+        const arrRanks = obj.nameranking.split('##');
+
+        arrRanks.forEach(rank => {
+          if (rank === 'Positive') {
+            this.posCount++;
+          } else if (rank === 'Neutral') {
+            this.neuCount++;
+          } else if (rank === 'Negative') {
+            this.negCount++;
+          }
+        });
+
+        if (arrRanks.length > 0) {
+          this.hasBackground = false;
+        }
+      }
+      this.totalNewNames = [];
+
+
+      this._NW3Service.getRetainTypeName(this.projectId, "New").subscribe((data: Array<object>) => {
+        data.forEach(ele => {
+          this.totalNewNames.push(ele);
+        });
+
+        
+
+        this._NW3Service.getRetainTypeName(this.projectId, 'Positive').subscribe((resultPos: Array<object>) => {
+          this.totalPositive = resultPos.length + this.posCount;
+          newChartData.push({
+            'name': 'Positive',
+            'value': resultPos.length + this.posCount
+          });
+          resultPos.forEach((element: any) => {
+            element.NewNames.split(',').forEach(ele => {
+              if (ele !== '') {
+  
+              }
+            });;
+          });
+
+
+
+          this._NW3Service.getRetainTypeName(this.projectId, 'Neutral').subscribe((resultNeu: Array<object>) => {
+            this.totalNeutral = resultNeu.length + this.neuCount;
+            newChartData.push({
+              'name': 'Neutral',
+              'value': resultNeu.length + this.neuCount
+            });
+
+
+
+
+            this._NW3Service.getRetainTypeName(this.projectId, 'Negative').subscribe((resultNeg: Array<object>) => {
+              this.totalNegative = resultNeg.length + this.negCount;
+              newChartData.push({
+                'name': 'Negative',
+                'value': resultNeg.length + this.negCount
+              });
+
+
+
+              this.chartOption = {
+                xAxis: {
+                  type: 'category',
+                  data: ['Positive', 'Neutral', 'Negative', 'New Names']
+                },
+                yAxis: {
+                  type: 'value'
+                },
+                series: [{
+                  data: [
+                    {
+                      value: this.totalPositive,
+                      itemStyle: {
+                        color: '#0fd60f'
+                      }
+                    },
+                    {
+                      value: this.totalNeutral,
+                      itemStyle: {
+                        color: '#d60fd6'
+                      }
+                    },
+                    {
+                      value: this.totalNegative,
+                      itemStyle: {
+                        color: '#0fd6d6'
+                      }
+                    },
+                    {
+                      value: this.totalNewNames.length,
+                      itemStyle: {
+                        color: '#0f0fd6'
+                      }
+                    },],
+                  type: 'bar'
+                }]
+              };
+
+
+
+
+
+            });
+      
+      
+
+
+
+
+
+          });
+
+
+
+
+        });
+  
+
+        
+      });
+
+
+    
+
+
+
+
+
+
+    });
+
   }
 
 
-  // GROUP NAMES TEMPLATE FUNCTIONS
+  // GROUP NAMES TEMPLATE SETTINGS
 
   selectetdNameIndex(i, event) {
     this.selectNameItemIndex = i;
@@ -1763,7 +1922,6 @@ export class NW3Component implements OnInit {
     })
   }
 
-
   voteUserBadges() {
     this.displayVoteUserBadges = !this.displayVoteUserBadges;
     if (this.displayVoteUserBadges) {
@@ -1792,7 +1950,7 @@ export class NW3Component implements OnInit {
 
         this.displayPositiveBox = true;
 
-        
+
       } else if (boxType === 'neutralBox') {
 
         this.displayNeutralbox = true;
@@ -1811,18 +1969,18 @@ export class NW3Component implements OnInit {
 
   }
 
-  displayQRCode(){
+  displayQRCode() {
     this.isQRcode = !this.isQRcode;
     this.myAngularxQrCode = ' www.mynamepage.com/' + 'PROJECTS';
   }
 
-  displayNameVoteInfo(){
-    this.displayNameVoteMobiile = !this.displayNameVoteMobiile;  
+  displayNameVoteInfo() {
+    this.displayNameVoteMobiile = !this.displayNameVoteMobiile;
   }
 
-  deleteVoteUser(i){
+  deleteVoteUser(i) {
     console.log(i);
-    
+
   }
 
 }
