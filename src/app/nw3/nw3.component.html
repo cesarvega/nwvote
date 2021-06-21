@@ -335,6 +335,7 @@
                                 [innerHTML]="separateName.split('|')[0]">
                                 <!-- {{separateName.split('|')[0]}} -->
                             </div>
+                            <!--NOTATION -->
                             <div *ngIf="i !== selectNameItemIndex" class="groupNameItemNotation"
                                 [innerHTML]="separateName.split('|')[1]">
                                 <!-- {{ separateName.split('|')[1]}} -->
@@ -412,7 +413,7 @@
 
 <div *ngIf="mainMenu" class="corner_bar_menu">
     <button mat-icon-button matTooltip="home" matTooltipPosition="left">
-        <mat-icon class="full-icon">home</mat-icon>
+        <mat-icon  (click)="selectPage('home')" class="full-icon">home</mat-icon>
     </button>
     <button (click)="openFullscreen()" matTooltip="full-screen" matTooltipPosition="left" mat-icon-button color="warn"
         aria-label="aria">
@@ -457,7 +458,7 @@
     <button *ngIf="true" mat-icon-button matTooltip="help" matTooltipPosition="left">
         <mat-icon class="full-icon">help</mat-icon>
     </button>
-    <button (click)="pageNumberChange(passTotalPages)" mat-icon-button aria-label="page"
+    <button (click)="selectPage('summary')" mat-icon-button aria-label="page"
         style="font-size: 23px;color: grey !important;cursor: pointer;">
         {{pageNumber}}/{{passTotalPages}}
     </button>

@@ -872,7 +872,7 @@ $voteIconsColor: #008d05, #f2ce00, #f50c0c, #4c00ff, #4c00ff;
                 &:nth-of-type(#{100}n + #{$i}) .voteIconRank {
                     animation: heartBeat 0.5s ease-in-out normal;
                     animation-iteration-count: 1;
-                    animation-delay: $i * 0.05 + s;
+                    animation-delay: $i * 0.08 + s;
                 }
             }
         }

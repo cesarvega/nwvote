@@ -299,7 +299,7 @@ export class NW3Component implements OnInit {
   displayNameVoteMobiile = false;
   totalNegative: number;
   AditionalComments: any;
-  
+
   // SUMMARY CHART VARS
   summaryPositive = false;
   summaryNeutral = false;
@@ -355,14 +355,13 @@ export class NW3Component implements OnInit {
 
       // but true to go through positive check
       if (!this.stopMovingForward || !this.vote) {
-        this.slideType = '';
+        // this.slideType = '';
         this.selectPage('next');
-      } else {
       }
       return false;
     }, undefined, 'Move to next slide'));
     this._hotkeysService.add(new Hotkey('left', (event: KeyboardEvent): boolean => {
-      this.slideType = '';
+      // this.slideType = '';
       this.selectPage('previous');
       return false;
     }, undefined, 'Move to previous slide'));
@@ -441,7 +440,7 @@ export class NW3Component implements OnInit {
         // this._prepareSpeakButton(speech);
       })
       .catch(e => {
-        console.error('An error occured while initializing : ', e);
+        // console.error('An error occured while initializing : ', e);
       });
     this.hasSpeechBrowserSupport = this.myspeech.hasBrowserSupport();
 
@@ -454,7 +453,6 @@ export class NW3Component implements OnInit {
   }
 
   ngOnInit(): void {
-
 
     //  FONTS INITIAL PARAMETERS FOR SLIDERS
     this.groupTestNameFontSize = '50';
@@ -491,9 +489,8 @@ export class NW3Component implements OnInit {
       );
     });
 
-    
-  }
 
+  }
 
 
   resetSlide(isReset) {
@@ -503,7 +500,6 @@ export class NW3Component implements OnInit {
   switchBackground(displayBg) {
     this.displayBackground = !displayBg;
   }
-
 
   cantMoveSlide(moveSlide: boolean) {
     this.cantMoveForward = moveSlide;
@@ -517,7 +513,6 @@ export class NW3Component implements OnInit {
     }
   }
 
-
   changes() {
     this.buttonOptionsObj = JSON.parse(this.switchButton);
     const projectData = JSON.parse(this.projectData);
@@ -529,17 +524,8 @@ export class NW3Component implements OnInit {
       this.neutralChecked = false;
       this.negativeChecked = false;
       this.recraftChecked = false;
-      // this.txtNewNameElement.nativeElement.value = '';
-      // this.txtNewNameElement.nativeElement.style = '';
-      // this.txtCommentsElement.nativeElement.style = '';
-      // this.txtCommentsElement.nativeElement.value = '';
-      // this.setNewNameElement('');
-      // this.setCommentsElement('');
     } else {
-      this.slideModel.NewNames = (this.txtNewNameElement) ? this.txtNewNameElement.nativeElement.value : '';
       if (this.tickerTime !== '') {
-        let lastVisitedPageNumber;
-        // this.collectGroupRanks();
         if (JSON.parse(this.tickerTime).active !== true) {
           const pageObj = JSON.parse(this.currentSlidePageInfo);
           if (pageObj.moveTo === 'summary') {
@@ -551,9 +537,6 @@ export class NW3Component implements OnInit {
         this.pageNumber = (this.currentSlidePageInfo !== '{}') ? pageObj.currentPage : this.pageNumber;
         this.slideType = projectData[this.pageNumber - 1].SlideType.trim();
 
-
-
-        // this.collectGroupRanks();
         if (this.slideType !== 'Image') {
 
           this.testName = projectData[this.pageNumber - 1].SlideDescription;
@@ -671,62 +654,51 @@ export class NW3Component implements OnInit {
 
   selectPage(movingTo) {
     // stop moving slides for 300 miliseconds
-
     this.slideModel.Direction = movingTo;
-
     if (this.movingSlide) {
       this.movingSlide = false;
       let movePage = '';
-      this.tickeObj.active = false;
-      this.showTicker.emit(JSON.stringify(this.tickeObj));
       if (this.hideBackground) {
         this.hideBackground = !this.hideBackground;
-        this.showBackground.emit(this.hideBackground);
       }
       if (movingTo === 'next') {
         if (this.currentPage >= this.totalPages) {
           this.currentPage = this.totalPages;
-          this.switchHideButton(this.currentPage - 1);
-          // movePage = '{"currentPage":' + this.currentPage + ', "moveTo":"' + movingTo + '"}';
-          // this.changePage.emit(movePage);
         } else {
-          // this.switchHideButton(this.currentPage - 1);
           this.currentPage += 1;
           movePage = '{"currentPage":' + this.currentPage + ', "moveTo":"' + movingTo + '"}';
           this.pageNumberChange(JSON.parse(movePage).currentPage);
-          // this.changePage.emit(movePage);
         }
       } else if (movingTo === 'home') {
         this.currentPage = 1;
-        // this.switchHideButton(this.currentPage - 1);
+
         movePage = '{"currentPage":' + this.currentPage + ', "moveTo":"' + movingTo + '"}';
         this.pageNumberChange(JSON.parse(movePage).currentPage);
-        // this.changePage.emit(movePage);
+
       } else if (movingTo === 'summary') {
         this.currentPage = this.totalPages;
-        // this.switchHideButton(this.currentPage - 1);
+
         movePage = '{"currentPage":' + this.currentPage + ', "moveTo":"' + movingTo + '"}';
         this.pageNumberChange(JSON.parse(movePage).currentPage);
-        // this.changePage.emit(movePage);
+
       } else if (movingTo === 'previous') {
         if (this.currentPage <= this.initialPage) {
           this.currentPage = this.initialPage;
-          // this.switchHideButton(this.currentPage - 1);
+
           movePage = '{"currentPage":' + this.currentPage + ', "moveTo":"' + movingTo + '"}';
           this.pageNumberChange(JSON.parse(movePage).currentPage);
-          // this.changePage.emit(movePage);
+
         } else {
           this.currentPage -= 1;
-          // this.switchHideButton(this.currentPage - 1);
+
           movePage = '{"currentPage":' + this.currentPage + ', "moveTo":"' + movingTo + '"}';
           this.pageNumberChange(JSON.parse(movePage).currentPage);
-          // this.changePage.emit(movePage);
+
         }
       } else {
-        // this.switchHideButton(this.currentPage);
         movePage = '{"currentPage":' + this.currentPage + ', "moveTo":""}';
         this.pageNumberChange(JSON.parse(movePage).currentPage);
-        // this.changePage.emit(movePage);
+
       }
       setTimeout(() => {
         this.movingSlide = true;
@@ -737,12 +709,9 @@ export class NW3Component implements OnInit {
 
   pageNumberChange(selectedPage) {
     this.pageNumber = Number(selectedPage);
-    this.pageNumber = 8;
-
+    // this.pageNumber = 8;
     // PROGRESS BAR DATA
     this.currentProgress = (this.pageNumber / this.passTotalPages) * 100;
-
-
     if (selectedPage === this.passTotalPages) {
       this.changeSummaryList('chart');
     }
@@ -859,7 +828,7 @@ export class NW3Component implements OnInit {
 
               if (data[0].GroupedNames.includes('##')) {
                 this.groupName = data[0].GroupedNames.split('##');
-                // this.groupName = "APPOLOVEN|(J)|アポロベン##APPOVEN|(C)|アポベン##LUMVESTIN|(JB) (CTC)|ルムベスティン##ORAVEN|(CB)|オラベン##VENCHAI | (DE) (DEB)|ベンチャイ##VENLEPIUS | (U/I) (BR) (BRB)|ベンレピウス##VENPOLLO |(CT) (JB)|ベンポロ##APPOLOVEN|(J)|アポロベン##APPOVEN|(C)|アポベン##LUMVESTIN|(JB) (CTC)|ルムベスティン##ORAVEN|(CB)|オラベン##VENCHAI | (DE) (DEB)|ベンチャイ##VENLEPIUS | (U/I) (BR) (BRB)|ベンレピウス##VENPOLLO |(CT) (JB)|ベンポロ##APPOLOVEN|(J)|アポロベン##APPOVEN|(C)|アポベン##LUMVESTIN|(JB) (CTC)|ルムベスティン##ORAVEN|(CB)|オラベン##VENCHAI | (DE) (DEB)|ベンチャイ##VENLEPIUS | (U/I) (BR) (BRB)|ベンレピウス##VENPOLLO |(CT) (JB)|ベンポロ##APPOLOVEN|(J)|アポロベン##APPOVEN|(C)|アポベン##LUMVESTIN|(JB) (CTC)|ルムベスティン##ORAVEN|(CB)|オラベン##VENCHAI | (DE) (DEB)|ベンチャイ##VENLEPIUS | (U/I) (BR) (BRB)|ベンレピウス##VENPOLLO |(CT) (JB)|ベンポロ##APPOLOVEN|(J)|アポロベン##APPOVEN|(C)|アポベン##LUMVESTIN|(JB) (CTC)|ルムベスティン##ORAVEN|(CB)|オラベン##VENCHAI | (DE) (DEB)|ベンチャイ##VENLEPIUS | (U/I) (BR) (BRB)|ベンレピウス##VENPOLLO |(CT) (JB)|ベンポロ##APPOLOVEN|(J)|アポロベン##APPOVEN|(C)|アポベン##LUMVESTIN|(JB) (CTC)|ルムベスティン##ORAVEN|(CB)|オラベン##VENCHAI | (DE) (DEB)|ベンチャイ##VENLEPIUS | (U/I) (BR) (BRB)|ベンレピウス##VENPOLLO |(CT) (JB)|ベンポロ##APPOLOVEN|(J)|アポロベン##APPOVEN|(C)|アポベン##LUMVESTIN|(JB) (CTC)|ルムベスティン##ORAVEN|(CB)|オラベン##VENCHAI | (DE) (DEB)|ベンチャイ##VENLEPIUS | (U/I) (BR) (BRB)|ベンレピウス##VENPOLLO |(CT) (JB)|ベンポロ##APPOLOVEN|(J)|アポロベン##APPOVEN|(C)|アポベン##LUMVESTIN|(JB) (CTC)|ルムベスティン##ORAVEN|(CB)|オラベン##VENCHAI | (DE) (DEB)|ベンチャイ##VENLEPIUS | (U/I) (BR) (BRB)|ベンレピウス##VENPOLLO |(CT) (JB)|ベンポロ##APPOLOVEN|(J)|アポロベン##APPOVEN|(C)|アポベン##LUMVESTIN|(JB) (CTC)|ルムベスティン##ORAVEN|(CB)|オラベン##VENCHAI | (DE) (DEB)|ベンチャイ##VENLEPIUS | (U/I) (BR) (BRB)|ベンレピウス##VENPOLLO |(CT) (JB)|ベンポロ##APPOLOVEN|(J)|アポロベン##APPOVEN|(C)|アポベン##LUMVESTIN|(JB) (CTC)|ルムベスティン##ORAVEN|(CB)|オラベン##VENCHAI | (DE) (DEB)|ベンチャイ##VENLEPIUS | (U/I) (BR) (BRB)|ベンレピウス##VENPOLLO |(CT) (JB)|ベンポロ##APPOLOVEN|(J)|アポロベン##APPOVEN|(C)|アポベン##LUMVESTIN|(JB) (CTC)|ルムベスティン##ORAVEN|(CB)|オラベン##VENCHAI | (DE) (DEB)|ベンチャイ##VENLEPIUS | (U/I) (BR) (BRB)|ベンレピウス##VENPOLLO |(CT) (JB)|ベンポロ##APPOLOVEN|(J)|アポロベン##APPOVEN|(C)|アポベン##LUMVESTIN|(JB) (CTC)|ルムベスティン##ORAVEN|(CB)|オラベン##VENCHAI | (DE) (DEB)|ベンチャイ##VENLEPIUS | (U/I) (BR) (BRB)|ベンレピウス##VENPOLLO |(CT) (JB)|ベンポロ##APPOLOVEN|(J)|アポロベン##APPOVEN|(C)|アポベン##LUMVESTIN|(JB) (CTC)|ルムベスティン##ORAVEN|(CB)|オラベン##VENCHAI | (DE) (DEB)|ベンチャイ##VENLEPIUS | (U/I) (BR) (BRB)|ベンレピウス##VENPOLLO |(CT) (JB)|ベンポロ##APPOLOVEN|(J)|アポロベン##APPOVEN|(C)|アポベン##LUMVESTIN|(JB) (CTC)|ルムベスティン##ORAVEN|(CB)|オラベン##VENCHAI | (DE) (DEB)|ベンチャイ##VENLEPIUS | (U/I) (BR) (BRB)|ベンレピウス##VENPOLLO |(CT) (JB)|ベンポロ##APPOLOVEN|(J)|アポロベン##APPOVEN|(C)|アポベン##LUMVESTIN|(JB) (CTC)|ルムベスティン##ORAVEN|(CB)|オラベン##VENCHAI | (DE) (DEB)|ベンチャイ##VENLEPIUS | (U/I) (BR) (BRB)|ベンレピウス##VENPOLLO |(CT) (JB)|ベンポロ##APPOLOVEN|(J)|アポロベン##APPOVEN|(C)|アポベン##LUMVESTIN|(JB) (CTC)|ルムベスティン##ORAVEN|(CB)|オラベン##VENCHAI | (DE) (DEB)|ベンチャイ##VENLEPIUS | (U/I) (BR) (BRB)|ベンレピウス##VENPOLLO |(CT) (JB)|ベンポロ##APPOLOVEN|(J)|アポロベン##APPOVEN|(C)|アポベン##LUMVESTIN|(JB) (CTC)|ルムベスティン##ORAVEN|(CB)|オラベン##VENCHAI | (DE) (DEB)|ベンチャイ##VENLEPIUS | (U/I) (BR) (BRB)|ベンレピウス##VENPOLLO |(CT) (JB)|ベンポロ##APPOLOVEN|(J)|アポロベン##APPOVEN|(C)|アポベン##LUMVESTIN|(JB) (CTC)|ルムベスティン##ORAVEN|(CB)|オラベン##VENCHAI | (DE) (DEB)|ベンチャイ##VENLEPIUS | (U/I) (BR) (BRB)|ベンレピウス##LASTONE |(CT) (JB)|ベンポロ".split('##');
+                this.groupName = "APPOLOVEN|(J)|アポロベン##APPOVEN|(C)|アポベン##LUMVESTIN|(JB) (CTC)|ルムベスティン##ORAVEN|(CB)|オラベン##VENCHAI | (DE) (DEB)|ベンチャイ##VENLEPIUS | (U/I) (BR) (BRB)|ベンレピウス##VENPOLLO |(CT) (JB)|ベンポロ##APPOLOVEN|(J)|アポロベン##APPOVEN|(C)|アポベン##LUMVESTIN|(JB) (CTC)|ルムベスティン##ORAVEN|(CB)|オラベン##VENCHAI | (DE) (DEB)|ベンチャイ##VENLEPIUS | (U/I) (BR) (BRB)|ベンレピウス##VENPOLLO |(CT) (JB)|ベンポロ##APPOLOVEN|(J)|アポロベン##APPOVEN|(C)|アポベン##LUMVESTIN|(JB) (CTC)|ルムベスティン##ORAVEN|(CB)|オラベン##VENCHAI | (DE) (DEB)|ベンチャイ##VENLEPIUS | (U/I) (BR) (BRB)|ベンレピウス##VENPOLLO |(CT) (JB)|ベンポロ##APPOLOVEN|(J)|アポロベン##APPOVEN|(C)|アポベン##LUMVESTIN|(JB) (CTC)|ルムベスティン##ORAVEN|(CB)|オラベン##VENCHAI | (DE) (DEB)|ベンチャイ##VENLEPIUS | (U/I) (BR) (BRB)|ベンレピウス##VENPOLLO |(CT) (JB)|ベンポロ##APPOLOVEN|(J)|アポロベン##APPOVEN|(C)|アポベン##LUMVESTIN|(JB) (CTC)|ルムベスティン##ORAVEN|(CB)|オラベン##VENCHAI | (DE) (DEB)|ベンチャイ##VENLEPIUS | (U/I) (BR) (BRB)|ベンレピウス##VENPOLLO |(CT) (JB)|ベンポロ##APPOLOVEN|(J)|アポロベン##APPOVEN|(C)|アポベン##LUMVESTIN|(JB) (CTC)|ルムベスティン##ORAVEN|(CB)|オラベン##VENCHAI | (DE) (DEB)|ベンチャイ##VENLEPIUS | (U/I) (BR) (BRB)|ベンレピウス##VENPOLLO |(CT) (JB)|ベンポロ##APPOLOVEN|(J)|アポロベン##APPOVEN|(C)|アポベン##LUMVESTIN|(JB) (CTC)|ルムベスティン##ORAVEN|(CB)|オラベン##VENCHAI | (DE) (DEB)|ベンチャイ##VENLEPIUS | (U/I) (BR) (BRB)|ベンレピウス##VENPOLLO |(CT) (JB)|ベンポロ##APPOLOVEN|(J)|アポロベン##APPOVEN|(C)|アポベン##LUMVESTIN|(JB) (CTC)|ルムベスティン##ORAVEN|(CB)|オラベン##VENCHAI | (DE) (DEB)|ベンチャイ##VENLEPIUS | (U/I) (BR) (BRB)|ベンレピウス##VENPOLLO |(CT) (JB)|ベンポロ##APPOLOVEN|(J)|アポロベン##APPOVEN|(C)|アポベン##LUMVESTIN|(JB) (CTC)|ルムベスティン##ORAVEN|(CB)|オラベン##VENCHAI | (DE) (DEB)|ベンチャイ##VENLEPIUS | (U/I) (BR) (BRB)|ベンレピウス##VENPOLLO |(CT) (JB)|ベンポロ##APPOLOVEN|(J)|アポロベン##APPOVEN|(C)|アポベン##LUMVESTIN|(JB) (CTC)|ルムベスティン##ORAVEN|(CB)|オラベン##VENCHAI | (DE) (DEB)|ベンチャイ##VENLEPIUS | (U/I) (BR) (BRB)|ベンレピウス##VENPOLLO |(CT) (JB)|ベンポロ##APPOLOVEN|(J)|アポロベン##APPOVEN|(C)|アポベン##LUMVESTIN|(JB) (CTC)|ルムベスティン##ORAVEN|(CB)|オラベン##VENCHAI | (DE) (DEB)|ベンチャイ##VENLEPIUS | (U/I) (BR) (BRB)|ベンレピウス##VENPOLLO |(CT) (JB)|ベンポロ##APPOLOVEN|(J)|アポロベン##APPOVEN|(C)|アポベン##LUMVESTIN|(JB) (CTC)|ルムベスティン##ORAVEN|(CB)|オラベン##VENCHAI | (DE) (DEB)|ベンチャイ##VENLEPIUS | (U/I) (BR) (BRB)|ベンレピウス##VENPOLLO |(CT) (JB)|ベンポロ##APPOLOVEN|(J)|アポロベン##APPOVEN|(C)|アポベン##LUMVESTIN|(JB) (CTC)|ルムベスティン##ORAVEN|(CB)|オラベン##VENCHAI | (DE) (DEB)|ベンチャイ##VENLEPIUS | (U/I) (BR) (BRB)|ベンレピウス##VENPOLLO |(CT) (JB)|ベンポロ##APPOLOVEN|(J)|アポロベン##APPOVEN|(C)|アポベン##LUMVESTIN|(JB) (CTC)|ルムベスティン##ORAVEN|(CB)|オラベン##VENCHAI | (DE) (DEB)|ベンチャイ##VENLEPIUS | (U/I) (BR) (BRB)|ベンレピウス##VENPOLLO |(CT) (JB)|ベンポロ##APPOLOVEN|(J)|アポロベン##APPOVEN|(C)|アポベン##LUMVESTIN|(JB) (CTC)|ルムベスティン##ORAVEN|(CB)|オラベン##VENCHAI | (DE) (DEB)|ベンチャイ##VENLEPIUS | (U/I) (BR) (BRB)|ベンレピウス##VENPOLLO |(CT) (JB)|ベンポロ##APPOLOVEN|(J)|アポロベン##APPOVEN|(C)|アポベン##LUMVESTIN|(JB) (CTC)|ルムベスティン##ORAVEN|(CB)|オラベン##VENCHAI | (DE) (DEB)|ベンチャイ##VENLEPIUS | (U/I) (BR) (BRB)|ベンレピウス##VENPOLLO |(CT) (JB)|ベンポロ##APPOLOVEN|(J)|アポロベン##APPOVEN|(C)|アポベン##LUMVESTIN|(JB) (CTC)|ルムベスティン##ORAVEN|(CB)|オラベン##VENCHAI | (DE) (DEB)|ベンチャイ##VENLEPIUS | (U/I) (BR) (BRB)|ベンレピウス##VENPOLLO |(CT) (JB)|ベンポロ##APPOLOVEN|(J)|アポロベン##APPOVEN|(C)|アポベン##LUMVESTIN|(JB) (CTC)|ルムベスティン##ORAVEN|(CB)|オラベン##VENCHAI | (DE) (DEB)|ベンチャイ##VENLEPIUS | (U/I) (BR) (BRB)|ベンレピウス##LASTONE |(CT) (JB)|ベンポロ".split('##');
                 // this.groupName = "APPOLOVENAPPOLOVENAPPOLOVENAPPOLOVEN|(J)|アポロベン##APPOVEN|(C)|アポベン##LUMVESTIN|(JB) (CTC)|ルムベスティン##ORAVEN|(CB)|オラベン##VENCHAI | (DE) (DEB)|ベンチャイ##VENLEPIUS | (U/I) (BR) (BRB)|ベンレピウス##VENPOLLO |(CT) (JB)|ベンポロ##APPOLOVEN|(J)|アポロベン##APPOVEN|(C)|アポベン##LUMVESTIN|(JB) (CTC)|ルムベスティン##ORAVEN|(CB)|オラベン##VENCHAI | (DE) (DEB)|ベンチャイ##VENLEPIUS | (U/I) (BR) (BRB)|ベンレピウス##VENPOLLO |(CT) (JB)|ベンポロ##APPOLOVEN|(J)|アポロベン##APPOVEN|(C)|アポベン##LUMVESTIN|(JB) (CTC)|ルムベスティン##ORAVEN|(CB)|オラベン##VENCHAI | (DE) (DEB)|ベンチャイ##VENLEPIUS | (U/I) (BR) (BRB)|ベンレピウス##VENPOLLO |(CT) (JB)|ベンポロ##APPOLOVEN|(J)|アポロベン##APPOVEN|(C)|アポベン##LUMVESTIN|(JB) (CTC)|ルムベスティン##ORAVEN|(CB)|オラベン##VENCHAI | (DE) (DEB)|ベンチャイ##VENLEPIUS | (U/I) (BR) (BRB)|ベンレピウス##VENPOLLO |(CT) (JB)|ベンポロ##APPOLOVEN|(J)|アポロベン##APPOVEN|(C)|アポベン##LUMVESTIN|(JB) (CTC)|ルムベスティン##ORAVEN|(CB)|オラベン##VENCHAI | (DE) (DEB)|ベンチャイ##VENLEPIUS | (U/I) (BR) (BRB)|ベンレピウス##VENPOLLO |(CT) (JB)|ベンポロ##APPOLOVEN|(J)|アポロベン##APPOVEN|(C)|アポベン##LUMVESTIN|(JB) (CTC)|ルムベスティン##ORAVEN|(CB)|オラベン##VENCHAI | (DE) (DEB)|ベンチャイ##VENLEPIUS | (U/I) (BR) (BRB)|ベンレピウス##VENPOLLO |(CT) (JB)|ベンポロ##APPOLOVEN|(J)|アポロベン##APPOVEN|(C)|アポベン##LUMVESTIN|(JB) (CTC)|ルムベスティン##ORAVEN|(CB)|オラベン##VENCHAI | (DE) (DEB)|ベンチャイ##VENLEPIUS | (U/I) (BR) (BRB)|ベンレピウス##VENPOLLO |(CT) (JB)|ベンポロ##APPOLOVEN|(J)|アポロベン##APPOVEN|(C)|アポベン##LUMVESTIN|(JB) (CTC)|ルムベスティン##ORAVEN|(CB)|オラベン##VENCHAI | (DE) (DEB)|ベンチャイ##VENLEPIUS | (U/I) (BR) (BRB)|ベンレピウス##VENPOLLO |(CT) (JB)|ベンポロ##APPOLOVEN|(J)|アポロベン##APPOVEN|(C)|アポベン##LUMVESTIN|(JB) (CTC)|ルムベスティン##ORAVEN|(CB)|オラベン##VENCHAI | (DE) (DEB)|ベンチャイ##VENLEPIUS | (U/I) (BR) (BRB)|ベンレピウス##LASTONE |(CT) (JB)|ベンポロ".split('##');
 
                 this.rankIconsValue = data[0].NameRanking.split('##');
@@ -1215,22 +1184,6 @@ export class NW3Component implements OnInit {
   }
 
 
-  switchHideButton(number) {
-    // this.currentSlideType.emit(this.buttonOptionsObj[number].SlideType);
-    if (this.buttonOptionsObj[number].SlideType === 'Image' || this.buttonOptionsObj[number].SlideType === 'NameSummary') {
-      this.hideButton = true;
-      this.stopMovingForward = false;
-    } else {
-      this.hideButton = false;
-      if (this.buttonOptionsObj[number].SlideDescription.search('##') >= 0) {
-        this.stopMovingForward = false;
-      } else {
-        this.stopMovingForward = true;
-      }
-    }
-  }
-
-
 
   //  Businness logic 
 
@@ -1492,16 +1445,17 @@ export class NW3Component implements OnInit {
 
   moveLeft1() {
     if (true) {
-      this.slideType = '';
+      // this.slideType = '';
       this.selectPage('previous');
     }
   }
 
   moveRight() {
-    // if (!this.stopMovingForward || !this.vote) {
-    if (true) {
-      this.slideType = '';
-      this.selectPage('next');
+    if (!this.stopMovingForward || !this.vote) {
+      if (true) {
+        // this.slideType = '';
+        this.selectPage('next');
+      }
     }
   }
 
@@ -1725,7 +1679,7 @@ export class NW3Component implements OnInit {
           });
           resultPos.forEach((element: any) => {
             element.NewNames.split(',').forEach(ele => {
-              if (ele !== '') {  
+              if (ele !== '') {
               }
             });;
           });
@@ -1755,7 +1709,7 @@ export class NW3Component implements OnInit {
                 if (i <= -1) {
                   resArr.push({ name: item.name, value: item.value });
                 }
-              }, this.pieChart = resArr);             
+              }, this.pieChart = resArr);
             });
           });
         });
