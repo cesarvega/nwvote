@@ -868,11 +868,14 @@ $voteIconsColor: #008d05, #f2ce00, #f50c0c, #4c00ff, #4c00ff;
                 font-size: 40px;
             }
 
-            @for $i from 1 through 8 {
+            @for $i from 1 through 20 {
                 &:nth-of-type(#{100}n + #{$i}) .voteIconRank {
                     animation: heartBeat 0.5s ease-in-out normal;
                     animation-iteration-count: 1;
                     animation-delay: $i * 0.08 + s;
+                }
+                &:nth-of-type(#{100}n + #{$i}) .voteIconRank:hover {
+                    transform: scale(1.2);
                 }
             }
         }

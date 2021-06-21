@@ -335,6 +335,7 @@ export class NW3Component implements OnInit {
     }
   ];
   currentSlidePageInfo: string;
+  previousSlideType: string;
 
 
 
@@ -453,14 +454,6 @@ export class NW3Component implements OnInit {
   }
 
   ngOnInit(): void {
-
-    //  FONTS INITIAL PARAMETERS FOR SLIDERS
-    this.groupTestNameFontSize = '50';
-    this.groupSlideHeihtValue = '5000';
-    this.groupSlidelineHeightValue = '10';
-
-    //////////////////////////////////////////
-
     this.changingPage = '{}';
     this.currentSlidePageInfo = this.changingPage;
     this.activatedRoute.params.subscribe((params: any) => {
@@ -514,10 +507,18 @@ export class NW3Component implements OnInit {
   }
 
   changes() {
+    
     this.buttonOptionsObj = JSON.parse(this.switchButton);
     const projectData = JSON.parse(this.projectData);
     this.projectName = JSON.parse(this.projectData)[0].DisplayName;
     this.testName = projectData[this.pageNumber - 1].SlideDescription;
+
+    //  FONTS INITIAL PARAMETERS FOR SLIDERS
+    this.groupTestNameFontSize = (localStorage.getItem(this.projectName + '_groupTestNameFontSize')) ? localStorage.getItem(this.projectName + '_groupTestNameFontSize') : '50';
+    this.groupSlideHeihtValue = (localStorage.getItem(this.projectName + '_groupSlideHeihtValue')) ? localStorage.getItem(this.projectName + '_groupSlideHeihtValue') : '5000';
+    this.groupSlidelineHeightValue = (localStorage.getItem(this.projectName + '_groupSlidelineHeightValue')) ? localStorage.getItem(this.projectName + '_groupSlidelineHeightValue') : '10';
+
+    //////////////////////////////////////////
 
     if (this.resetTime !== false) {
       this.positiveChecked = false;
@@ -716,72 +717,57 @@ export class NW3Component implements OnInit {
       this.changeSummaryList('chart');
     }
 
+    clearInterval(this.voteUsersInterval);
     const pageObj = JSON.parse(this.currentSlidePageInfo);
     const projectData = JSON.parse(this.projectData);
     this.projectName = JSON.parse(this.projectData)[0].DisplayName;
     this.testName = projectData[this.pageNumber - 1].SlideDescription;
     this.pageNumber = (this.currentSlidePageInfo !== '{}') ? pageObj.currentPage : this.pageNumber;
-    // this.slideType = projectData[this.pageNumber - 1].SlideType.trim();
     let lastVisitedPageNumber: any;
+    this.previousSlideType = this.slideType;
     this.slideType = '';
-    clearInterval(this.voteUsersInterval);
-
     if (projectData[this.pageNumber - 1].SlideType.trim() === 'NameSummary') {
-      this.slideType = projectData[this.pageNumber - 1].SlideType.trim();
+      this.slideType = 'NameSummary';
     }
-
-    else if (projectData[this.pageNumber - 1].SlideType.trim() === 'NameEvaluation') {
-      // this.slideType = projectData[this.pageNumber - 1].SlideType.trim();
-
-    }
-
     else if (projectData[this.pageNumber - 1].SlideType.trim() === 'Image') {
-      this.slideType = projectData[this.pageNumber - 1].SlideType.trim();
+      this.slideType = 'Image';
       setTimeout(() => {
         const bgImage = 'url(http://bipresents.com/nw2/' + projectData[this.pageNumber - 1].SlideBGFileName + ')';
         this.slideBackground = bgImage;
-
-        // this.slideImageElement.nativeElement.style.backgroundImage = bgImage;
-        // this.slideImageElement.nativeElement.style.backgroundSize = '100% 100%';
         lastVisitedPageNumber = (pageObj.moveTo === 'previous') ? this.pageNumber + 1 : this.pageNumber - 1;
         this.setEvaluationData(lastVisitedPageNumber, pageObj.moveTo);
       }, 100);
     }
-    // this.changes();
-
-
-    // this.slideModel= {
-    //   'presentationid': '3157',
-    //   'slideNumber': '1',
-    //   'NameRanking': '',
-    //   'NewNames': '',
-    //   'NamesToExplore': '',
-    //   'NamesToAvoid': '',
-    //   'Direction': 'Next',
-    //   'KanaNamesNegative': '',
-    //   'recraft': '0',
-    // };
-
 
     if (this.slideModel.Direction === 'next') {
       this.slideModel.slideNumber = this.pageNumber - 1;
     } else if (this.slideModel.Direction === 'previous') {
       this.slideModel.slideNumber = this.pageNumber;
     }
-    // this.slideModel.NameRanking = 'Neutral';
+
     this.slideModel.presentationid = this.projectId;
     this.slideModel.NewNames = this.newNames;
     this.slideModel.NamesToExplore = this.newComments;
-
+    
     // RESET NEW NAMES AND COMMENTS BOXES
     this.newNames = '';
     this.newComments = '';
+    this.slideModel.NameRanking = '';
+    if (this.previousSlideType === 'MultipleNameEvaluation') {
+      this.rankIcon.forEach(rankIcon => {
+        if (rankIcon.icon === "favorite") {
+          this.slideModel.NameRanking += 'positive'+ '##';                  
+        }else if (rankIcon.icon === "sentiment_very_satisfied") {
+          this.slideModel.NameRanking += 'neutral'+ '##';                  
+        }else  if (rankIcon.icon === "thumb_down_off_alt") {
+          this.slideModel.NameRanking += 'negative' + '##';                  
+        }else  if (rankIcon.icon === "info") {
+          this.slideModel.NameRanking += 'novalue' + '##';                  
+        }
+      });
+    }
+
     this.saveData(JSON.stringify(this.slideModel));
-
-
-
-
-
   }
 
   saveData(savingObj) {
@@ -793,15 +779,15 @@ export class NW3Component implements OnInit {
       data => {
         this.go = (data[0].presentationStatus === '0') ? true : false;
         // slideBackground = 'url(http://bipresents.com/nw2/' + this.slideNextPart;  slideNextPart = 'Test_WELL_PLATFORM/thumbnails/014.jpg)';
-        if (data[0].NameRanking === 'Positive' && 'positive') {
+        if (data[0].NameRanking.toLowerCase() === 'positive') {
           this.positiveChecked = true;
           this.neutralChecked = false;
           this.negativeChecked = false;
-        } else if (data[0].NameRanking === 'Neutral' && 'neutral') {
+        } else if (data[0].NameRanking.toLowerCase() === 'neutral') {
           this.neutralChecked = true;
           this.positiveChecked = false;
           this.negativeChecked = false;
-        } else if (data[0].NameRanking === 'Negative' && 'negative') {
+        } else if (data[0].NameRanking.toLowerCase() === 'negative') {
           this.negativeChecked = true;
           this.positiveChecked = false;
           this.neutralChecked = false;
@@ -815,42 +801,37 @@ export class NW3Component implements OnInit {
         this.slideNextPart = data[0].SlideBGFileName;
         this.slideBackground = 'url(http://bipresents.com/nw2/';
         this.slideBackground = this.slideBackground + this.slideNextPart + ')';
-
-
-
-
+        this.rankIcon = [];
         if (this.slideType === '') {
-          // this.slideType = '';
           if (data[0].GroupedNames.length > 0) {
             this.slideType = 'MultipleNameEvaluation';
             this.category = data[0].NameCategory;
             if (data[0].GroupedNames !== '') {
-
               if (data[0].GroupedNames.includes('##')) {
                 this.groupName = data[0].GroupedNames.split('##');
-                this.groupName = "APPOLOVEN|(J)|アポロベン##APPOVEN|(C)|アポベン##LUMVESTIN|(JB) (CTC)|ルムベスティン##ORAVEN|(CB)|オラベン##VENCHAI | (DE) (DEB)|ベンチャイ##VENLEPIUS | (U/I) (BR) (BRB)|ベンレピウス##VENPOLLO |(CT) (JB)|ベンポロ##APPOLOVEN|(J)|アポロベン##APPOVEN|(C)|アポベン##LUMVESTIN|(JB) (CTC)|ルムベスティン##ORAVEN|(CB)|オラベン##VENCHAI | (DE) (DEB)|ベンチャイ##VENLEPIUS | (U/I) (BR) (BRB)|ベンレピウス##VENPOLLO |(CT) (JB)|ベンポロ##APPOLOVEN|(J)|アポロベン##APPOVEN|(C)|アポベン##LUMVESTIN|(JB) (CTC)|ルムベスティン##ORAVEN|(CB)|オラベン##VENCHAI | (DE) (DEB)|ベンチャイ##VENLEPIUS | (U/I) (BR) (BRB)|ベンレピウス##VENPOLLO |(CT) (JB)|ベンポロ##APPOLOVEN|(J)|アポロベン##APPOVEN|(C)|アポベン##LUMVESTIN|(JB) (CTC)|ルムベスティン##ORAVEN|(CB)|オラベン##VENCHAI | (DE) (DEB)|ベンチャイ##VENLEPIUS | (U/I) (BR) (BRB)|ベンレピウス##VENPOLLO |(CT) (JB)|ベンポロ##APPOLOVEN|(J)|アポロベン##APPOVEN|(C)|アポベン##LUMVESTIN|(JB) (CTC)|ルムベスティン##ORAVEN|(CB)|オラベン##VENCHAI | (DE) (DEB)|ベンチャイ##VENLEPIUS | (U/I) (BR) (BRB)|ベンレピウス##VENPOLLO |(CT) (JB)|ベンポロ##APPOLOVEN|(J)|アポロベン##APPOVEN|(C)|アポベン##LUMVESTIN|(JB) (CTC)|ルムベスティン##ORAVEN|(CB)|オラベン##VENCHAI | (DE) (DEB)|ベンチャイ##VENLEPIUS | (U/I) (BR) (BRB)|ベンレピウス##VENPOLLO |(CT) (JB)|ベンポロ##APPOLOVEN|(J)|アポロベン##APPOVEN|(C)|アポベン##LUMVESTIN|(JB) (CTC)|ルムベスティン##ORAVEN|(CB)|オラベン##VENCHAI | (DE) (DEB)|ベンチャイ##VENLEPIUS | (U/I) (BR) (BRB)|ベンレピウス##VENPOLLO |(CT) (JB)|ベンポロ##APPOLOVEN|(J)|アポロベン##APPOVEN|(C)|アポベン##LUMVESTIN|(JB) (CTC)|ルムベスティン##ORAVEN|(CB)|オラベン##VENCHAI | (DE) (DEB)|ベンチャイ##VENLEPIUS | (U/I) (BR) (BRB)|ベンレピウス##VENPOLLO |(CT) (JB)|ベンポロ##APPOLOVEN|(J)|アポロベン##APPOVEN|(C)|アポベン##LUMVESTIN|(JB) (CTC)|ルムベスティン##ORAVEN|(CB)|オラベン##VENCHAI | (DE) (DEB)|ベンチャイ##VENLEPIUS | (U/I) (BR) (BRB)|ベンレピウス##VENPOLLO |(CT) (JB)|ベンポロ##APPOLOVEN|(J)|アポロベン##APPOVEN|(C)|アポベン##LUMVESTIN|(JB) (CTC)|ルムベスティン##ORAVEN|(CB)|オラベン##VENCHAI | (DE) (DEB)|ベンチャイ##VENLEPIUS | (U/I) (BR) (BRB)|ベンレピウス##VENPOLLO |(CT) (JB)|ベンポロ##APPOLOVEN|(J)|アポロベン##APPOVEN|(C)|アポベン##LUMVESTIN|(JB) (CTC)|ルムベスティン##ORAVEN|(CB)|オラベン##VENCHAI | (DE) (DEB)|ベンチャイ##VENLEPIUS | (U/I) (BR) (BRB)|ベンレピウス##VENPOLLO |(CT) (JB)|ベンポロ##APPOLOVEN|(J)|アポロベン##APPOVEN|(C)|アポベン##LUMVESTIN|(JB) (CTC)|ルムベスティン##ORAVEN|(CB)|オラベン##VENCHAI | (DE) (DEB)|ベンチャイ##VENLEPIUS | (U/I) (BR) (BRB)|ベンレピウス##VENPOLLO |(CT) (JB)|ベンポロ##APPOLOVEN|(J)|アポロベン##APPOVEN|(C)|アポベン##LUMVESTIN|(JB) (CTC)|ルムベスティン##ORAVEN|(CB)|オラベン##VENCHAI | (DE) (DEB)|ベンチャイ##VENLEPIUS | (U/I) (BR) (BRB)|ベンレピウス##VENPOLLO |(CT) (JB)|ベンポロ##APPOLOVEN|(J)|アポロベン##APPOVEN|(C)|アポベン##LUMVESTIN|(JB) (CTC)|ルムベスティン##ORAVEN|(CB)|オラベン##VENCHAI | (DE) (DEB)|ベンチャイ##VENLEPIUS | (U/I) (BR) (BRB)|ベンレピウス##VENPOLLO |(CT) (JB)|ベンポロ##APPOLOVEN|(J)|アポロベン##APPOVEN|(C)|アポベン##LUMVESTIN|(JB) (CTC)|ルムベスティン##ORAVEN|(CB)|オラベン##VENCHAI | (DE) (DEB)|ベンチャイ##VENLEPIUS | (U/I) (BR) (BRB)|ベンレピウス##VENPOLLO |(CT) (JB)|ベンポロ##APPOLOVEN|(J)|アポロベン##APPOVEN|(C)|アポベン##LUMVESTIN|(JB) (CTC)|ルムベスティン##ORAVEN|(CB)|オラベン##VENCHAI | (DE) (DEB)|ベンチャイ##VENLEPIUS | (U/I) (BR) (BRB)|ベンレピウス##VENPOLLO |(CT) (JB)|ベンポロ##APPOLOVEN|(J)|アポロベン##APPOVEN|(C)|アポベン##LUMVESTIN|(JB) (CTC)|ルムベスティン##ORAVEN|(CB)|オラベン##VENCHAI | (DE) (DEB)|ベンチャイ##VENLEPIUS | (U/I) (BR) (BRB)|ベンレピウス##VENPOLLO |(CT) (JB)|ベンポロ##APPOLOVEN|(J)|アポロベン##APPOVEN|(C)|アポベン##LUMVESTIN|(JB) (CTC)|ルムベスティン##ORAVEN|(CB)|オラベン##VENCHAI | (DE) (DEB)|ベンチャイ##VENLEPIUS | (U/I) (BR) (BRB)|ベンレピウス##LASTONE |(CT) (JB)|ベンポロ".split('##');
+                // this.groupName = "APPOLOVEN|(J)|アポロベン##APPOVEN|(C)|アポベン##LUMVESTIN|(JB) (CTC)|ルムベスティン##ORAVEN|(CB)|オラベン##VENCHAI | (DE) (DEB)|ベンチャイ##VENLEPIUS | (U/I) (BR) (BRB)|ベンレピウス##VENPOLLO |(CT) (JB)|ベンポロ##APPOLOVEN|(J)|アポロベン##APPOVEN|(C)|アポベン##LUMVESTIN|(JB) (CTC)|ルムベスティン##ORAVEN|(CB)|オラベン##VENCHAI | (DE) (DEB)|ベンチャイ##VENLEPIUS | (U/I) (BR) (BRB)|ベンレピウス##VENPOLLO |(CT) (JB)|ベンポロ##APPOLOVEN|(J)|アポロベン##APPOVEN|(C)|アポベン##LUMVESTIN|(JB) (CTC)|ルムベスティン##ORAVEN|(CB)|オラベン##VENCHAI | (DE) (DEB)|ベンチャイ##VENLEPIUS | (U/I) (BR) (BRB)|ベンレピウス##VENPOLLO |(CT) (JB)|ベンポロ##APPOLOVEN|(J)|アポロベン##APPOVEN|(C)|アポベン##LUMVESTIN|(JB) (CTC)|ルムベスティン##ORAVEN|(CB)|オラベン##VENCHAI | (DE) (DEB)|ベンチャイ##VENLEPIUS | (U/I) (BR) (BRB)|ベンレピウス##VENPOLLO |(CT) (JB)|ベンポロ##APPOLOVEN|(J)|アポロベン##APPOVEN|(C)|アポベン##LUMVESTIN|(JB) (CTC)|ルムベスティン##ORAVEN|(CB)|オラベン##VENCHAI | (DE) (DEB)|ベンチャイ##VENLEPIUS | (U/I) (BR) (BRB)|ベンレピウス##VENPOLLO |(CT) (JB)|ベンポロ##APPOLOVEN|(J)|アポロベン##APPOVEN|(C)|アポベン##LUMVESTIN|(JB) (CTC)|ルムベスティン##ORAVEN|(CB)|オラベン##VENCHAI | (DE) (DEB)|ベンチャイ##VENLEPIUS | (U/I) (BR) (BRB)|ベンレピウス##VENPOLLO |(CT) (JB)|ベンポロ##APPOLOVEN|(J)|アポロベン##APPOVEN|(C)|アポベン##LUMVESTIN|(JB) (CTC)|ルムベスティン##ORAVEN|(CB)|オラベン##VENCHAI | (DE) (DEB)|ベンチャイ##VENLEPIUS | (U/I) (BR) (BRB)|ベンレピウス##VENPOLLO |(CT) (JB)|ベンポロ##APPOLOVEN|(J)|アポロベン##APPOVEN|(C)|アポベン##LUMVESTIN|(JB) (CTC)|ルムベスティン##ORAVEN|(CB)|オラベン##VENCHAI | (DE) (DEB)|ベンチャイ##VENLEPIUS | (U/I) (BR) (BRB)|ベンレピウス##VENPOLLO |(CT) (JB)|ベンポロ##APPOLOVEN|(J)|アポロベン##APPOVEN|(C)|アポベン##LUMVESTIN|(JB) (CTC)|ルムベスティン##ORAVEN|(CB)|オラベン##VENCHAI | (DE) (DEB)|ベンチャイ##VENLEPIUS | (U/I) (BR) (BRB)|ベンレピウス##VENPOLLO |(CT) (JB)|ベンポロ##APPOLOVEN|(J)|アポロベン##APPOVEN|(C)|アポベン##LUMVESTIN|(JB) (CTC)|ルムベスティン##ORAVEN|(CB)|オラベン##VENCHAI | (DE) (DEB)|ベンチャイ##VENLEPIUS | (U/I) (BR) (BRB)|ベンレピウス##VENPOLLO |(CT) (JB)|ベンポロ##APPOLOVEN|(J)|アポロベン##APPOVEN|(C)|アポベン##LUMVESTIN|(JB) (CTC)|ルムベスティン##ORAVEN|(CB)|オラベン##VENCHAI | (DE) (DEB)|ベンチャイ##VENLEPIUS | (U/I) (BR) (BRB)|ベンレピウス##VENPOLLO |(CT) (JB)|ベンポロ##APPOLOVEN|(J)|アポロベン##APPOVEN|(C)|アポベン##LUMVESTIN|(JB) (CTC)|ルムベスティン##ORAVEN|(CB)|オラベン##VENCHAI | (DE) (DEB)|ベンチャイ##VENLEPIUS | (U/I) (BR) (BRB)|ベンレピウス##VENPOLLO |(CT) (JB)|ベンポロ##APPOLOVEN|(J)|アポロベン##APPOVEN|(C)|アポベン##LUMVESTIN|(JB) (CTC)|ルムベスティン##ORAVEN|(CB)|オラベン##VENCHAI | (DE) (DEB)|ベンチャイ##VENLEPIUS | (U/I) (BR) (BRB)|ベンレピウス##VENPOLLO |(CT) (JB)|ベンポロ##APPOLOVEN|(J)|アポロベン##APPOVEN|(C)|アポベン##LUMVESTIN|(JB) (CTC)|ルムベスティン##ORAVEN|(CB)|オラベン##VENCHAI | (DE) (DEB)|ベンチャイ##VENLEPIUS | (U/I) (BR) (BRB)|ベンレピウス##VENPOLLO |(CT) (JB)|ベンポロ##APPOLOVEN|(J)|アポロベン##APPOVEN|(C)|アポベン##LUMVESTIN|(JB) (CTC)|ルムベスティン##ORAVEN|(CB)|オラベン##VENCHAI | (DE) (DEB)|ベンチャイ##VENLEPIUS | (U/I) (BR) (BRB)|ベンレピウス##VENPOLLO |(CT) (JB)|ベンポロ##APPOLOVEN|(J)|アポロベン##APPOVEN|(C)|アポベン##LUMVESTIN|(JB) (CTC)|ルムベスティン##ORAVEN|(CB)|オラベン##VENCHAI | (DE) (DEB)|ベンチャイ##VENLEPIUS | (U/I) (BR) (BRB)|ベンレピウス##VENPOLLO |(CT) (JB)|ベンポロ##APPOLOVEN|(J)|アポロベン##APPOVEN|(C)|アポベン##LUMVESTIN|(JB) (CTC)|ルムベスティン##ORAVEN|(CB)|オラベン##VENCHAI | (DE) (DEB)|ベンチャイ##VENLEPIUS | (U/I) (BR) (BRB)|ベンレピウス##VENPOLLO |(CT) (JB)|ベンポロ##APPOLOVEN|(J)|アポロベン##APPOVEN|(C)|アポベン##LUMVESTIN|(JB) (CTC)|ルムベスティン##ORAVEN|(CB)|オラベン##VENCHAI | (DE) (DEB)|ベンチャイ##VENLEPIUS | (U/I) (BR) (BRB)|ベンレピウス##LASTONE |(CT) (JB)|ベンポロ".split('##');
                 // this.groupName = "APPOLOVENAPPOLOVENAPPOLOVENAPPOLOVEN|(J)|アポロベン##APPOVEN|(C)|アポベン##LUMVESTIN|(JB) (CTC)|ルムベスティン##ORAVEN|(CB)|オラベン##VENCHAI | (DE) (DEB)|ベンチャイ##VENLEPIUS | (U/I) (BR) (BRB)|ベンレピウス##VENPOLLO |(CT) (JB)|ベンポロ##APPOLOVEN|(J)|アポロベン##APPOVEN|(C)|アポベン##LUMVESTIN|(JB) (CTC)|ルムベスティン##ORAVEN|(CB)|オラベン##VENCHAI | (DE) (DEB)|ベンチャイ##VENLEPIUS | (U/I) (BR) (BRB)|ベンレピウス##VENPOLLO |(CT) (JB)|ベンポロ##APPOLOVEN|(J)|アポロベン##APPOVEN|(C)|アポベン##LUMVESTIN|(JB) (CTC)|ルムベスティン##ORAVEN|(CB)|オラベン##VENCHAI | (DE) (DEB)|ベンチャイ##VENLEPIUS | (U/I) (BR) (BRB)|ベンレピウス##VENPOLLO |(CT) (JB)|ベンポロ##APPOLOVEN|(J)|アポロベン##APPOVEN|(C)|アポベン##LUMVESTIN|(JB) (CTC)|ルムベスティン##ORAVEN|(CB)|オラベン##VENCHAI | (DE) (DEB)|ベンチャイ##VENLEPIUS | (U/I) (BR) (BRB)|ベンレピウス##VENPOLLO |(CT) (JB)|ベンポロ##APPOLOVEN|(J)|アポロベン##APPOVEN|(C)|アポベン##LUMVESTIN|(JB) (CTC)|ルムベスティン##ORAVEN|(CB)|オラベン##VENCHAI | (DE) (DEB)|ベンチャイ##VENLEPIUS | (U/I) (BR) (BRB)|ベンレピウス##VENPOLLO |(CT) (JB)|ベンポロ##APPOLOVEN|(J)|アポロベン##APPOVEN|(C)|アポベン##LUMVESTIN|(JB) (CTC)|ルムベスティン##ORAVEN|(CB)|オラベン##VENCHAI | (DE) (DEB)|ベンチャイ##VENLEPIUS | (U/I) (BR) (BRB)|ベンレピウス##VENPOLLO |(CT) (JB)|ベンポロ##APPOLOVEN|(J)|アポロベン##APPOVEN|(C)|アポベン##LUMVESTIN|(JB) (CTC)|ルムベスティン##ORAVEN|(CB)|オラベン##VENCHAI | (DE) (DEB)|ベンチャイ##VENLEPIUS | (U/I) (BR) (BRB)|ベンレピウス##VENPOLLO |(CT) (JB)|ベンポロ##APPOLOVEN|(J)|アポロベン##APPOVEN|(C)|アポベン##LUMVESTIN|(JB) (CTC)|ルムベスティン##ORAVEN|(CB)|オラベン##VENCHAI | (DE) (DEB)|ベンチャイ##VENLEPIUS | (U/I) (BR) (BRB)|ベンレピウス##VENPOLLO |(CT) (JB)|ベンポロ##APPOLOVEN|(J)|アポロベン##APPOVEN|(C)|アポベン##LUMVESTIN|(JB) (CTC)|ルムベスティン##ORAVEN|(CB)|オラベン##VENCHAI | (DE) (DEB)|ベンチャイ##VENLEPIUS | (U/I) (BR) (BRB)|ベンレピウス##LASTONE |(CT) (JB)|ベンポロ".split('##');
-
                 this.rankIconsValue = data[0].NameRanking.split('##');
-                this.rankIcon = [];
                 // this.groupName.forEach(rankValue => {
-                this.rankIconsValue.forEach(rankValue => {
-
-                  if (rankValue === 'novalue') {
+                if ( this.rankIconsValue [0] !== "") {
+                  this.rankIconsValue.forEach(rankValue => {
+                    if (rankValue === 'novalue') {
+                      this.rankIcon.push({ icon: 'info', color: 'grey' });
+                    } else if (rankValue === 'positive') {
+                      this.rankIcon.push({ icon: 'favorite', color: 'red' });
+                    } else if (rankValue === 'neutral') {
+                      this.rankIcon.push({ icon: 'sentiment_very_satisfied', color: 'yellow' });
+                    } else if (rankValue === 'negative') {
+                      this.rankIcon.push({ icon: 'thumb_down_off_alt', color: 'purple' });
+                    } else {
+                      this.rankIcon.push({ icon: 'info', color: 'grey' });
+                    }
+                  });
+                } else {
+                  this.groupName.forEach(rankValue => {
                     this.rankIcon.push({ icon: 'info', color: 'grey' });
-                  } else if (rankValue === 'Positive') {
-                    this.rankIcon.push({ icon: 'favorite', color: 'red' });
-                  } else if (rankValue === 'neutral') {
-                    this.rankIcon.push({ icon: 'sentiment_very_satisfied', color: 'yellow' });
-                  } else if (rankValue === 'negative') {
-                    this.rankIcon.push({ icon: 'thumb_down_off_alt', color: 'purple' });
-                  } else if (rankValue === 'recraft') {
-                    this.rankIcon.push({ icon: 'info', color: '' });
-                  } else {
-                    this.rankIcon.push({ icon: 'info', color: 'grey' });
-                  }
-
-                });
+                  });                  
+                }
 
                 this.rankIconsStyle = [''];
                 this.groupName.forEach(element => {
@@ -864,47 +845,7 @@ export class NW3Component implements OnInit {
               } else {
                 this.groupName = data[0].GroupedNames.split('$$');
                 this.isGroupNameTooltip = false;
-
-                // this.summaryViewFlexLayout = 'column';
               }
-
-              // let counter = 0;
-              // let index = 0;
-              // this.groupName.forEach(element => {
-              //   // this.groupName[index] = element.replace('(', '|(');
-              //   if (counter < element.length) {
-              //     counter = element.length;
-              //     this.summarySlideMinWidth = (counter * 20) + 20;
-              //     this.rationaleMinWidth = 1000 - this.summarySlideMinWidth;
-              //     if (this.summarySlideMinWidth > 900) {
-              //       this.summarySlideMinWidth = 800;
-              //       this.rationaleMinWidth = 200;
-              //     }
-              //   }
-              //   index = index + 1;
-              // });
-
-              // setTimeout(() => {
-              //   this.separateCandidateElement.toArray().forEach((element, index) => {
-              //     const arrRank = data[0].NameRanking.split('##');
-              //     const areLike = this.areAllLike(arrRank);
-              //     if (data[0].NameRanking.split('##')[0] !== '') {
-              //       this.switchPosNegElement.nativeElement.checked = (areLike) ? true : false;
-
-              //       if (arrRank[index] === 'Negative' || arrRank[index] === 'novalue') {
-              //         element.checked = false;
-              //       } else {
-              //         element.checked = true;
-              //       }
-              //     } else {
-              //       this.switchPosNegElement.nativeElement.checked = false;
-              //     }
-
-              //   });
-              // }, 50);
-
-
-
             } else {
               this.name = data[0].Name;
               this.name = this.name.replace('(', '|(');
@@ -915,22 +856,15 @@ export class NW3Component implements OnInit {
               }
             }
 
-
           } else {
             // this.slideNameBackground = 'url("https://image.shutterstock.com/shutterstock/photos/1897867054/display_1500/stock-vector-currency-watermark-background-intense-illustration-detailed-design-1897867054.jpg")';
             this.slideType = 'NameEvaluation';
             this.voteUsersInterval = setInterval(() => {
               this.getNwVoteData();
             }, 500);
-
           }
-
-
-
         }
-
         this.setDataToDisplay(data, 'save');
-
         if (this.slideType === 'NameEvaluation') {
           this.category = data[0].NameCategory;
           this.rationale = data[0].NameRationale;
@@ -1019,8 +953,7 @@ export class NW3Component implements OnInit {
         }
       }, 50);
     }
-    // this.slideType = data[0].SlideType;
-    console.log('refactroing data', data[0]);
+
     if (this.slideType === 'NameSummary') {
       this._NW3Service.getNotes(this.projectId).subscribe(note => {
         this.AditionalComments = note[0].NotesExplore.replace(/`/g, '\'');
@@ -1735,15 +1668,17 @@ export class NW3Component implements OnInit {
 
   setFontSize(groupTestNameFontSize) {
     this.groupTestNameFontSize = groupTestNameFontSize;
+    localStorage.setItem(this.projectName + '_groupTestNameFontSize', this.groupTestNameFontSize.toString());
   }
-
 
   setGroupSlideHeight(groupSlideHeiht) {
     this.groupSlideHeihtValue = groupSlideHeiht;
+    localStorage.setItem(this.projectName + '_groupSlideHeihtValue', this.groupSlideHeihtValue.toString());
   }
 
   setGroupSlidelineHeight(groupSlidelineHeight) {
     this.groupSlidelineHeightValue = groupSlidelineHeight;
+    localStorage.setItem(this.projectName + '_groupSlidelineHeightValue', this.groupSlidelineHeightValue.toString());
   }
 
   toggleRankIcon(rankIcon, i) {
