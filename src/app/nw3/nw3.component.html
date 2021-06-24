@@ -83,21 +83,19 @@
 
             <div class="summaryButtons">
                 <div style="display: flex; flex-direction: row; justify-content: space-between;align-items: center">
-                    <button (click)="getSelectedRank('positive'); changeSummaryList('positive')" mat-raised-button
+                    <button (click)="changeSummaryList('Positive')" mat-raised-button
                         style="margin-right: 5px;background-color: white;">Positive</button>
-
-                    <button (click)="getSelectedRank('neutral'); changeSummaryList('neutral')" mat-raised-button
+                    <button (click)="changeSummaryList('Neutral')" mat-raised-button
                         style="margin-right: 5px; background-color: white;" color="primary">Neutral</button>
-
-                    <button (click)="getSelectedRank('negative'); changeSummaryList('negative')" mat-raised-button
+                    <button (click)="changeSummaryList('Negative')" mat-raised-button
                         style="margin-right: 5px; background-color: white;">Negative</button>
 
                 </div>
                 <div style="display: flex; flex-direction: row; justify-content: space-between;align-items: center">
-                    <button (click)="getSelectedRank('New'); changeSummaryList('new names')"mat-raised-button
+                    <button (click)="changeSummaryList('new names')" mat-raised-button
                         style="margin-right: 5px;background-color: white;color:black">New
                         Names</button>
-                    <button (click)="getSelectedRank('chart'); changeSummaryList('chart')"mat-mini-fab
+                    <button (click)="changeSummaryList('chart')" mat-mini-fab
                         style="margin-right: 5px;background-color: white;color:black;outline: none;">
                         <mat-icon>leaderboard</mat-icon>
                     </button>
@@ -106,55 +104,28 @@
 
             <div class="summaryMainContent">
 
-                <div *ngIf="summaryPositive" class="summaryPostives" style="">
+                <div *ngIf="summaryPositive" class="summaryPostives">
                     <div class="summaryListDisplay" style="background-color: green; color: white;">
-                        <div *ngFor="let name of nameCandidates ; let i = index">
-                             <div style="font-size: xx-large;" [matTooltip]="name.NewNames"
-                                [matTooltipClass]="'bi-tooltip-style'" matTooltipPosition="right"
-                                 [innerHTML]="nameCandidates[i].NameToDisplay.split('(')[0]">
-                                </div>
-                            <div style="font-size: 20px !important; padding-left: 5px; padding-top: 8px ">
-                                {{nameCandidates[i].NameToDisplay.replace('(', '|(').split('|')[1]}}</div>
-                        </div>                       
+                        <div *ngFor="let item of totalNewNames2[0]">{{item.Name}}</div>
+                        <!-- <div *ngFor="let item of fonts">{{item}}</div> -->
                     </div>
                 </div>
                 <div *ngIf="summaryNeutral" class="summaryPostives">
                     <div class="summaryListDisplay" style="background-color: orange; color: white;">
-                        <div *ngFor="let name of nameCandidates ; let i = index">
-                             <div style="font-size: xx-large;" [matTooltip]="name.NewNames"
-                                [matTooltipClass]="'bi-tooltip-style'" matTooltipPosition="right"
-                                 [innerHTML]="nameCandidates[i].NameToDisplay.split('(')[0]">
-                                </div>
-                            <div style="font-size: 20px !important; padding-left: 5px; padding-top: 8px ">
-                                {{nameCandidates[i].NameToDisplay.replace('(', '|(').split('|')[1]}}</div>
-                        </div>
-                       
+                        <div *ngFor="let item of totalNewNames2[0]">{{item.Name}}</div>
+                        <!-- <div *ngFor="let item of fonts">{{item}}</div> -->
                     </div>
                 </div>
                 <div *ngIf="summaryNegative" class="summaryNegative">
                     <div class="summaryListDisplay" style="background-color: red; color: white;">
-                        <div *ngFor="let name of nameCandidates ; let i = index">
-                             <div style="font-size: xx-large;" [matTooltip]="name.NewNames"
-                                [matTooltipClass]="'bi-tooltip-style'" matTooltipPosition="right"
-                                 [innerHTML]="nameCandidates[i].NameToDisplay.split('(')[0]">
-                                </div>
-                            <div style="font-size: 20px !important; padding-left: 5px; padding-top: 8px ">
-                                {{nameCandidates[i].NameToDisplay.replace('(', '|(').split('|')[1]}}</div>
-                        </div>
-                       
+                        <div *ngFor="let item of totalNewNames2[0]">{{item.Name}}</div>
+                        <!-- <div *ngFor="let item of fonts">{{item}}</div> -->
                     </div>
                 </div>
                 <div *ngIf="summaryNewNames" class="summaryNew_names">
                     <div class="summaryListDisplay" style="background-color: purple; color: white;">
-                        <div *ngFor="let name of nameCandidates ; let i = index">
-                             <div style="font-size: xx-large;" [matTooltip]="name.NewNames"
-                                [matTooltipClass]="'bi-tooltip-style'" matTooltipPosition="right"
-                                 [innerHTML]="nameCandidates[i].NameToDisplay.split('(')[0]">
-                                </div>
-                            <div style="font-size: 20px !important; padding-left: 5px; padding-top: 8px ">
-                                {{nameCandidates[i].NameToDisplay.replace('(', '|(').split('|')[1]}}</div>
-                        </div>
-                       
+                        <div *ngFor="let item of totalNewNames2[0]">{{item.NameToDisplay}}</div>
+                        <!-- <div *ngFor="let item of fonts">{{item}}</div> -->
                     </div>
                 </div>
             </div>
@@ -349,7 +320,7 @@
 
                         <!-- 😀 RANK ICON-->
                         <button disableRipple style="margin: 18px 0px 0px -17px;position: absolute;outline: none;"
-                            *ngIf="separateName.split('|')[0].length > 0" class="groupNameVoteItem" mat-icon-button 
+                            *ngIf="separateName.split('|')[0].length > 0" class="groupNameVoteItem" mat-icon-button
                             color="warn" aria-label="aria">
                             <mat-icon (click)="toggleRankIcon(rankIcon, i)" [style.color]="rankIcon[i].color"
                                 class="voteIconRank">
