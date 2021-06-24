@@ -105,26 +105,26 @@
             <div class="summaryMainContent">
 
                 <div *ngIf="summaryPositive" class="summaryPostives">
-                    <div class="summaryListDisplay" style="background-color: green; color: white;">
-                        <div *ngFor="let item of totalNewNames2[0]">{{item.Name}}</div>
+                    <div  class="summaryListDisplay" style="background-color: green; color: white;">
+                        <div   (click)="clickedSummaryName(item.NameToDisplay, item.Name)" *ngFor="let item of totalNewNames2[0]">{{item.Name}}</div>
                         <!-- <div *ngFor="let item of fonts">{{item}}</div> -->
                     </div>
                 </div>
                 <div *ngIf="summaryNeutral" class="summaryPostives">
-                    <div class="summaryListDisplay" style="background-color: orange; color: white;">
-                        <div *ngFor="let item of totalNewNames2[0]">{{item.Name}}</div>
+                    <div  class="summaryListDisplay" style="background-color: orange; color: white;">
+                        <div  (click)="clickedSummaryName(item.NameToDisplay, item.Name)"  *ngFor="let item of totalNewNames2[0]">{{item.Name}}</div>
                         <!-- <div *ngFor="let item of fonts">{{item}}</div> -->
                     </div>
                 </div>
                 <div *ngIf="summaryNegative" class="summaryNegative">
-                    <div class="summaryListDisplay" style="background-color: red; color: white;">
-                        <div *ngFor="let item of totalNewNames2[0]">{{item.Name}}</div>
+                    <div  class="summaryListDisplay" style="background-color: red; color: white;">
+                        <div  (click)="clickedSummaryName(item.NameToDisplay, item.Name)"  *ngFor="let item of totalNewNames2[0]">{{item.Name}}</div>
                         <!-- <div *ngFor="let item of fonts">{{item}}</div> -->
                     </div>
                 </div>
                 <div *ngIf="summaryNewNames" class="summaryNew_names">
-                    <div class="summaryListDisplay" style="background-color: purple; color: white;">
-                        <div *ngFor="let item of totalNewNames2[0]">{{item.NameToDisplay}}</div>
+                    <div  class="summaryListDisplay" style="background-color: purple; color: white;">
+                        <div  (click)="clickedSummaryName(item.NameToDisplay, item.Name)"  *ngFor="let item of totalNewNames2[0]">{{item.NameToDisplay}}</div>
                         <!-- <div *ngFor="let item of fonts">{{item}}</div> -->
                     </div>
                 </div>
@@ -164,7 +164,7 @@
                         [style.font-size]="(font2==='coture')?'117px':'190px'" [innerHTML]="testName">
 
                     </div>
-                    <div [style.font-family]="font3" [style.font-size]="'30px'" class="pronounciation">comir-nati</div>
+                    <!-- <div [style.font-family]="font3" [style.font-size]="'30px'" class="pronounciation">comir-nati</div> -->
                     <div [style.font-family]="font4" [style.font-size]="'35px'"
                         style="text-align: center;line-height: 40px;" class="rationale">{{rationale}}
                     </div>

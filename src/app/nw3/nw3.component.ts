@@ -1501,6 +1501,15 @@ export class NW3Component implements OnInit {
 
   }
 
+  clickedSummaryName(clickedName, originalName) {
+    let searchName = clickedName;
+    if (originalName) {
+      searchName = originalName;
+    }
+    this._NW3Service.getSelectedName(this.projectId, searchName).subscribe(data => {
+      this.pageNumberChange(parseInt(data[0].SlideNumber));
+    });
+  }
 
   getSelectedRank(selectedRank) {
     this._NW3Service.getGroupSummary(this.projectId).subscribe(displayGroupResult => {
@@ -1716,15 +1725,6 @@ export class NW3Component implements OnInit {
 
   }
 
-  clickedSummaryName(clickedName, originalName) {
-    let searchName = clickedName;
-    if (originalName) {
-      searchName = originalName;
-    }
-    this._NW3Service.getSelectedName(this.projectId, searchName).subscribe(data => {
-      this.setDataToDisplay(data, 'clicked_name');
-    });
-  }
 
   // APPLICATION SOUNDS
 
