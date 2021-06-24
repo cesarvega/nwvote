@@ -336,6 +336,7 @@ export class NW3Component implements OnInit {
   ];
   currentSlidePageInfo: string;
   previousSlideType: string;
+  soundVolume = 0.1;
 
 
 
@@ -356,12 +357,13 @@ export class NW3Component implements OnInit {
 
       // but true to go through positive check
       if (this.stopMovingForward || this.vote) {
+        this.playSound('03 Primary System Sounds/navigation_forward-selection-minimal.wav', this.soundVolume);
         this.selectPage('next');
       }
       return false;
     }, undefined, 'Move to next slide'));
     this._hotkeysService.add(new Hotkey('left', (event: KeyboardEvent): boolean => {
-      // this.slideType = '';
+      this.playSound('03 Primary System Sounds/navigation_backward-selection-minimal.wav', this.soundVolume);
       this.selectPage('previous');
       return false;
     }, undefined, 'Move to previous slide'));
@@ -391,11 +393,11 @@ export class NW3Component implements OnInit {
       return false;
     }, undefined, 'Hide help sheet'));
     this._hotkeysService.add(new Hotkey('shift+r', (event: KeyboardEvent): boolean => {
-      if (this.stopMovingForward  === false) {
-        this.stopMovingForward  = true;
+      if (this.stopMovingForward === false) {
+        this.stopMovingForward = true;
         this.vote = true;
       } else {
-        this.stopMovingForward  = false;
+        this.stopMovingForward = false;
       }
       return false;
     }, undefined, ''));
@@ -431,7 +433,7 @@ export class NW3Component implements OnInit {
         splitSentences: false,
         listeners: {
           onvoiceschanged: voices => {
-            console.log('Voices changed', voices);
+            // console.log('Voices changed', voices);
           }
         }
       })
@@ -474,6 +476,7 @@ export class NW3Component implements OnInit {
               this.passTotalPages = data.length;
               this.totalPages = this.passTotalPages;
               this.changes();
+              this.playSound('01 Hero Sounds/hero_decorative-celebration-02.wav', this.soundVolume);
             },
             err => console.log(err)
           );
@@ -726,7 +729,7 @@ export class NW3Component implements OnInit {
     let lastVisitedPageNumber: any;
     this.previousSlideType = this.slideType;
     this.slideType = '';
-    
+
     if (projectData[this.pageNumber - 1].SlideType.trim() === 'NameSummary') {
       this.slideType = 'NameSummary';
     }
@@ -753,7 +756,7 @@ export class NW3Component implements OnInit {
     // RESET NEW NAMES AND COMMENTS BOXES
     this.newNames = '';
     this.newComments = '';
-    
+
     if (this.previousSlideType === 'MultipleNameEvaluation') {
       this.rankIcon.forEach(rankIcon => {
         if (rankIcon.icon === "favorite") {
@@ -772,16 +775,16 @@ export class NW3Component implements OnInit {
       this.slideModel.NameRanking = 'Positive'
     } else if (
       this.neutralChecked) {
-        this.slideModel.NameRanking = 'Neutral'
+      this.slideModel.NameRanking = 'Neutral'
     } else if (
       this.negativeChecked) {
-        this.slideModel.NameRanking = 'Negative'
+      this.slideModel.NameRanking = 'Negative'
     }
 
 
-      this.saveData(JSON.stringify(this.slideModel));
+    this.saveData(JSON.stringify(this.slideModel));
   }
-  
+
 
   saveData(savingObj) {
 
@@ -799,10 +802,10 @@ export class NW3Component implements OnInit {
         this.go = (data[0].presentationStatus === '0') ? true : false;
 
         this.slideModel.NameRanking = '';
-       
-          this.positiveChecked = false;
-          this.neutralChecked = false;
-          this.negativeChecked = false;
+
+        this.positiveChecked = false;
+        this.neutralChecked = false;
+        this.negativeChecked = false;
 
         // slideBackground = 'url(http://bipresents.com/nw2/' + this.slideNextPart;  slideNextPart = 'Test_WELL_PLATFORM/thumbnails/014.jpg)';
         if (data[0].NameRanking.toLowerCase() === 'positive') {
@@ -817,7 +820,7 @@ export class NW3Component implements OnInit {
           this.negativeChecked = true;
           this.positiveChecked = false;
           this.neutralChecked = false;
-        } 
+        }
         this.newNames = data[0].NewNames;
         this.newComments = data[0].NamesToExplore;
         this.slideNextPart = data[0].SlideBGFileName;
@@ -827,6 +830,7 @@ export class NW3Component implements OnInit {
         if (this.slideType === '') {
           if (data[0].GroupedNames.length > 0) {
             this.slideType = 'MultipleNameEvaluation';
+            this.playSound('01 Hero Sounds/hero_simple-celebration-01.wav', this.soundVolume);
             this.category = data[0].NameCategory;
             if (data[0].GroupedNames !== '') {
               if (data[0].GroupedNames.includes('##')) {
@@ -910,7 +914,7 @@ export class NW3Component implements OnInit {
 
   }
 
-  selectedOpt(option) {    
+  selectedOpt(option) {
     if (option === 'Positive') {
       this.positiveChecked = !this.positiveChecked;
       this.neutralChecked = false;
@@ -932,8 +936,8 @@ export class NW3Component implements OnInit {
     }
 
     if (this.neutralChecked === true
-      ||this.positiveChecked === true
-      ||this.negativeChecked === true) {
+      || this.positiveChecked === true
+      || this.negativeChecked === true) {
       this.vote = true;
     } else {
       this.vote = false;
@@ -945,10 +949,11 @@ export class NW3Component implements OnInit {
   }
 
   moveRight() {
-    if (this.stopMovingForward  || this.vote) {
-        this.selectPage('next');
+    if (this.stopMovingForward || this.vote) {
+      this.playSound('03 Primary System Sounds/navigation_forward-selection-minimal.wav', this.soundVolume);
+      this.selectPage('next');
     }
-  } 
+  }
 
 
   setDataToDisplay(data: any, comeFrom) {
@@ -1124,7 +1129,7 @@ export class NW3Component implements OnInit {
 
   }
 
-  
+
   //  Businness logic 
 
   recraft() {
@@ -1384,23 +1389,12 @@ export class NW3Component implements OnInit {
   //  NEW CODE 02/18/21
 
   moveLeft1() {
-    if (true) {
-      // this.slideType = '';
+    if (true) {      
+      this.playSound('03 Primary System Sounds/navigation_backward-selection-minimal.wav', this.soundVolume);
       this.selectPage('previous');
     }
   }
 
-  
-
-
-  // areAllLike(arr) {
-  //   for (let i = 0; i < arr.length; i++) {
-  //     if (arr[i] !== 'Positive') {
-  //       return false;
-  //     }
-  //   }
-  //   return true;
-  // }
 
   convertToEntities(str) {
     let bstr = '';
@@ -1614,6 +1608,15 @@ export class NW3Component implements OnInit {
 
   setAllNamesIcon(icon, color) {
     this.isFavoriteOn = !this.isFavoriteOn;
+    let sound;
+    if (icon === 'favorite') {
+      sound = '01 Hero Sounds/hero_simple-celebration-01.wav'
+    } else if (icon === 'thumb_down_off_alt') {
+      sound = '03 Primary System Sounds/ui_tap-variant-01.wav'
+    } else if (icon === 'sentiment_very_satisfied') {
+      sound = '03 Primary System Sounds/ui_lock.wav'
+    }
+    this.playSound(sound, this.soundVolume);
     this.rankIcon.forEach(currenticon => {
       currenticon.icon = icon;
       currenticon.color = color;
@@ -1712,6 +1715,22 @@ export class NW3Component implements OnInit {
     });
   }
 
+  // APPLICATION SOUNDS
+
+  playSound(soundEffect, volume) {
+    let audio = new Audio();
+    // audio.src = soundEffect;
+    // audio.volume = volume;
+    audio.src = "assets/sound/wav/" + soundEffect;
+    audio.volume = volume;
+    audio.load();
+    audio.play();
+  }
+
+  myFunction() {
+    console.log('myFunction()');
+
+  }
 }
 
  // DASH CODE

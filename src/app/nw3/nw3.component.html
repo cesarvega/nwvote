@@ -188,7 +188,7 @@
             <div class="singleNameSlide">
 
                 <div class="nameContainer">
-                    <div [style.font-family]="font1" [style.font-size]="'30px'" class="item1">{{category}}🥰</div>
+                    <div [style.font-family]="font1" [style.font-size]="'30px'" class="item1">{{category}}</div>
                     <div class="testName" [style.font-family]="font2" Comirnaty
                         [style.font-size]="(font2==='coture')?'117px':'190px'" [innerHTML]="testName">
 
@@ -255,12 +255,12 @@
                         <div (mouseenter)="displayOverviewBox('negativeBox')">
                             <button *ngIf="negativeChecked" [matBadge]="NegativeUsersVote" class="voteIconButtonRed"
                                 (click)="selectedOpt('Negative');" mat-icon-button>
-                                <mat-icon>sentiment_very_dissatisfied</mat-icon>👎
+                                <mat-icon>sentiment_very_dissatisfied</mat-icon>
                             </button>
                             <button *ngIf="!negativeChecked" [matBadge]="NegativeUsersVote"
                                 class="voteIconButton voteIconButton3" (click)="selectedOpt('Negative');"
                                 mat-icon-button>
-                                <mat-icon>sentiment_very_dissatisfied</mat-icon>👎
+                                <mat-icon>sentiment_very_dissatisfied</mat-icon>
                             </button>
                         </div>
                     </div>
@@ -349,7 +349,7 @@
 
                         <!-- 😀 RANK ICON-->
                         <button disableRipple style="margin: 18px 0px 0px -17px;position: absolute;outline: none;"
-                            *ngIf="separateName.split('|')[0].length > 0" class="groupNameVoteItem" mat-icon-button
+                            *ngIf="separateName.split('|')[0].length > 0" class="groupNameVoteItem" mat-icon-button 
                             color="warn" aria-label="aria">
                             <mat-icon (click)="toggleRankIcon(rankIcon, i)" [style.color]="rankIcon[i].color"
                                 class="voteIconRank">
