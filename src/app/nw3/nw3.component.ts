@@ -148,7 +148,7 @@ export class NW3Component implements OnInit {
   hideBackground = false;
   mute: boolean;
   nwVote = false;
-  buttonOptionsObj;
+  slideData;
   hideButton = true;
   isNonProp = true;
   showHelp = false;
@@ -377,7 +377,7 @@ export class NW3Component implements OnInit {
       return false;
     }, undefined, 'Hide menu'));
     this._hotkeysService.add(new Hotkey('o', (event: KeyboardEvent): boolean => {
-      this.overViewState = (this.overViewState) ? false : true;
+      this.isTableOfContent = (this.isTableOfContent) ? false : true;
       // this.hideShowOverview.emit(this.overViewState + ',' + this.currentPage);
       return false;
     }, undefined, 'Hide/Show slide overview'));
@@ -461,7 +461,6 @@ export class NW3Component implements OnInit {
     this.currentSlidePageInfo = this.changingPage;
     this.activatedRoute.params.subscribe((params: any) => {
       this.name = params.id;
-
       this._NW3Service.getProjectId(this.name).subscribe(
         (data: object) => {
           // console.log(JSON.parse(data));
@@ -476,8 +475,7 @@ export class NW3Component implements OnInit {
               this.thumbNails = data;
               this.passTotalPages = data.length;
               this.totalPages = this.passTotalPages;
-              this.changes();
-              this.playSound('01 Hero Sounds/hero_decorative-celebration-02.wav', this.soundVolume);
+              this.changes();              
             },
             err => console.log(err)
           );
@@ -512,7 +510,7 @@ export class NW3Component implements OnInit {
 
   changes() {
 
-    this.buttonOptionsObj = JSON.parse(this.switchButton);
+    this.slideData = JSON.parse(this.switchButton);
     const projectData = JSON.parse(this.projectData);
     this.projectName = JSON.parse(this.projectData)[0].DisplayName;
     this.testName = projectData[this.pageNumber - 1].SlideDescription;
@@ -561,7 +559,7 @@ export class NW3Component implements OnInit {
       }
     }
 
-
+    this.playSound('01 Hero Sounds/hero_decorative-celebration-02.wav', this.soundVolume);
   }
 
 
@@ -1615,6 +1613,7 @@ export class NW3Component implements OnInit {
   }
 
   toggleRankIcon(rankIcon, i) {
+    this.playSound('02 Alerts and Notifications/alert_high-intensity.wav', this.soundVolume);
     if (rankIcon[i].icon === 'info') {
       this.rankIcon[i] = { icon: 'favorite', color: 'red' };
     } else if (rankIcon[i].icon === 'favorite') {
@@ -1627,7 +1626,9 @@ export class NW3Component implements OnInit {
   }
 
   setAllNamesIcon(icon, color) {
-    this.isFavoriteOn = !this.isFavoriteOn;
+    if (icon === 'favorite') {      
+      this.isFavoriteOn = !this.isFavoriteOn;
+    }
     let sound;
     if (icon === 'favorite') {
       sound = '01 Hero Sounds/hero_simple-celebration-01.wav'

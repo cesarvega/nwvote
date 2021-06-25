@@ -11,11 +11,12 @@
         </mat-progress-bar>
 
         <!-- TABLE OF CONTENT  -->
-        <div *ngIf="isTableOfContent" class="tableOfContent">
+        <div *ngIf="isTableOfContent" class="tableOfContent" style="overflow-y:scroll ; overflow-x: hidden;">
             <div>Table Of Content</div>
-            <div
-                *ngFor="let item of [1,2,3,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,41,2,3,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4]">
-                {{item}}
+            <div style="font-size: 20px;padding: 10px;"
+                *ngFor="let item of slideData; let i = index" (click)="pageNumberChange(i+1)">
+               <span> {{(item.SlideDescription.length >0)?item.SlideDescription:item.SlideType}}</span>
+               <img [src]="'http://bipresents.com/nw2/' + item.SlideBGFileName"  style="width: 100px;">
             </div>
         </div>
 
@@ -434,27 +435,27 @@
         color="red">
         <mat-icon class="full-icon">phone_iphone</mat-icon>
     </button>
-    <button *ngIf="true" (click)="voteUserBadges()" mat-icon-button matTooltip="names box" matTooltipPosition="left">
+    <button *ngIf="(slideType === 'NameEvaluation')" (click)="voteUserBadges()" mat-icon-button matTooltip="names box" matTooltipPosition="left">
         <mat-icon class="full-icon">where_to_vote</mat-icon>
     </button>
-    <button *ngIf="true" (click)="displayTally()" mat-icon-button matTooltip="tally" matTooltipPosition="left">
+    <button *ngIf="(slideType === 'NameEvaluation')" (click)="displayTally()" mat-icon-button matTooltip="tally" matTooltipPosition="left">
         <mat-icon class="full-icon">T</mat-icon>
     </button>
-    <button *ngIf="true" matTooltip="stats" matTooltipPosition="left" mat-icon-button aria-label="aria">
+    <!-- <button *ngIf="true" matTooltip="stats" matTooltipPosition="left" mat-icon-button aria-label="aria">
         <mat-icon class="full-icon">bar_chart</mat-icon>
     </button>
     <button *ngIf="true" matTooltip="font size" matTooltipPosition="left" mat-icon-button aria-label="aria">
         <mat-icon class="full-icon">font_download</mat-icon>
         <mat-slider #slider *ngIf="false" class="slider-font-size" thumbLabel tickInterval="2" min="20" max="38"
             [value]="28"></mat-slider>
-    </button>
+    </button> -->
     <button (click)="fontTheme()" *ngIf="true" mat-icon-button matTooltip="toggle theme" matTooltipPosition="left">
         <mat-icon class="full-icon">casino</mat-icon>
     </button>
-    <button (click)="isSettings = !isSettings" *ngIf="true" mat-icon-button matTooltip="settings"
+    <!-- <button (click)="isSettings = !isSettings" *ngIf="true" mat-icon-button matTooltip="settings"
         matTooltipPosition="left">
         <mat-icon class="full-icon">settings</mat-icon>
-    </button>
+    </button> -->
     <button *ngIf="true" mat-icon-button matTooltip="help" matTooltipPosition="left">
         <mat-icon class="full-icon">help</mat-icon>
     </button>
