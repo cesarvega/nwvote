@@ -60,6 +60,7 @@ import { NgxChartsModule } from '@swimlane/ngx-charts';
 // }
 
 import {MatRadioModule} from '@angular/material/radio';
+import { BmxCreatorComponent } from './bmx-creator/bmx-creator.component';
 export function loadEcharts() {
   return import('echarts');
 }
@@ -76,6 +77,7 @@ export function loadEcharts() {
     NW3Component,
     BmxComponent,
     SchedulerComponent,
+    BmxCreatorComponent,
     // OrderDasboardComponent
   ],
   imports: [
