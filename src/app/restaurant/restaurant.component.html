@@ -9,8 +9,6 @@
 
     <div class="menu">
 
-
-
         <div class="foodCard" *ngFor="let item of food; index as i" style="color: white;">
 
             <img class="pizzaImage" style="width: 106%;" [src]="item.imgSrc">
@@ -19,27 +17,34 @@
 
             <div class="column">
 
-                <div class="row">
-                    <button *ngIf="item.options?.length > 0" mat-raised-button  (click)="option(i)"
-                        style="color: black;outline: none; margin: 4px;background-color: goldenrod;">
-                        BOOK
-                    </button>
-                    <div  *ngIf="item.options?.length > 0"> or </div>
-                    <button *ngIf="item.toppings?.length > 0" mat-raised-button  (click)="toppings(i)"
-                        style="color: black;outline: none; margin: 4p; background-color:#ff37ff">
-                        RENT
-                    </button>
-                   <!-- <button mat-icon-button color="accent" (click)="removeToCart(i)"
-                        style="color: black;outline: none;">
-                        <mat-icon>remove_circle_outline</mat-icon>
-                    </button>
+                <div class="column">
+                    <div class="row">
+                        <button *ngIf="item.options?.length > 0" mat-raised-button (click)="option(i)"
+                            style="color: black;outline: none; margin: 4px;background-color: goldenrod;">
+                            BOOK
+                        </button>
+                        <div *ngIf="item.options?.length > 0"> or </div>
+                        <button *ngIf="item.toppings?.length > 0" mat-raised-button (click)="toppings(i)"
+                            style="color: black;outline: none; margin: 4p; background-color:#ff37ff">
+                            RENT
+                        </button>
+                    </div>
+                    <span style="font-size: 18px;">HOURS OF SERVICE</span>
+                    <div class="row">
+                        <button mat-icon-button color="primary" style="color: white;outline: none;font-size: 30px;">
+                            {{item.orderQuantity}}
+                        </button>
+                        <button mat-icon-button color="accent" (click)="removeToCart(i)"
+                            style="color: white;outline: none;">
+                            <mat-icon>remove_circle_outline</mat-icon>
+                        </button>
 
-                    <button mat-icon-button color="primary" (click)="addToCart(i)" style="color: black;outline: none;">
-                        <mat-icon>add_circle_outline</mat-icon>
-                    </button>
-                    <button mat-icon-button color="primary" style="color: black;outline: none;font-size: 30px;">
-                        {{item.orderQuantity}}
-                    </button> -->
+                        <button mat-icon-button color="primary" (click)="addToCart(i)"
+                            style="color: white;outline: none;">
+                            <mat-icon>add_circle_outline</mat-icon>
+                        </button>
+
+                    </div>
                 </div>
                 <!-- <div class="row">
                     Speacial Instructions &nbsp; &nbsp; <input [(ngModel)]="item.specialIntructions" matInput placeholder="Ex. Pizza" type="text">
@@ -60,7 +65,7 @@
 
         <button mat-mini-fab color="warn"
             style="color: white;outline: none;position: absolute;bottom: 19px; left: 80px;background-color: goldenrod;">
-            <mat-icon (click)="qrcode()">qr_code</mat-icon>
+            <mat-icon style="line-height: 18px;" (click)="qrcode()">qr_code</mat-icon>
         </button>
         <button mat-mini-fab color="primary" style="color: white;
         background-color: black;
@@ -70,7 +75,7 @@
         height: 60px;" (click)="checkout()">
             <mat-icon>attach_money</mat-icon>
         </button>
-        <button mat-mini-fab 
+        <button mat-mini-fab
             style="background-color: goldenrod; color: white;outline: none;position: absolute;bottom: 19px; right: 80px;">
             <a style="color: white;" href="tel:3053220070">
                 <mat-icon>phone</mat-icon>
@@ -78,16 +83,6 @@
         </button>
 
     </div>
-
-
-
-
-
-
-
-
-
-
 
     <!-- MODAL WINDOWS -->
 
@@ -110,7 +105,6 @@
         </div>
     </div>
 
-
     <!-- MODAL OPTIONS -->
 
     <div *ngIf="popUpOptions" class="formFieldValidationAlert">
@@ -125,29 +119,36 @@
             <button mat-raised-button color="accent" style="margin-right: 5px; color: white;"
                 (click)="dismissErrorForm()">cancel</button>
             <button mat-raised-button color="primary" style="color: white;" (click)="dismissErrorForm()"
-                (click)="selected()">confirm</button>
+                (click)="openGoogleForm()">confirm</button>
+
+
+            <a class="buy-with-crypto"
+                href="https://commerce.coinbase.com/checkout/2229efb9-519c-4d3c-b77a-ba8c739beda8"
+                style="color: black;">
+                Buy with Crypto
+            </a>
+            <script src="https://commerce.coinbase.com/v1/checkout.js?version=201807">
+            </script>
+
         </div>
     </div>
 
     <!-- MODAL REVIEW -->
     <div *ngIf="popUpQRCode" class="formFieldValidationAlert">
-        <h1>SHARE QR CODE</h1>
+        <h1>Screenshot & Share</h1>
         <qrcode [qrdata]="myAngularxQrCode" [width]="140" [errorCorrectionLevel]="'M'"></qrcode>
         <p><a style="color: black;" target="_blank">{{myAngularxQrCode}}</a></p>
-        <br>
-        <br>
-        <button mat-raised-button (click)="dismissErrorForm()">Dismiss</button>
+        <button mat-mini-fab color="primary"
+            style="color:white;background-color: green;font-size: 6px;margin-bottom: 10px;"
+            (click)="dismissErrorForm()">
+            <mat-icon>check</mat-icon>
+        </button>
     </div>
-
-
-
 
 
     <div *ngIf="popUpThankyou" class="reviewOrderClass  disable-dbl-tap-zoom">
         <h2>WE ACCEPT CRYPTO PAYMENTS</h2>
         <img class="logo" style="width: 280px;" src="./assets/img/food/payment.JPG">
-
-
         <button mat-mini-fab color="primary" style="color:white;background-color: green;font-size: 6px;"
             (click)="thankYou()">
             <mat-icon>check</mat-icon>

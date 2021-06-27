@@ -10,7 +10,9 @@ import { RestaurantService } from './restaurant.service';
 })
 export class RestaurantComponent implements OnInit {
 
-
+  
+  declare navigator: any; 
+  newVariable:any = window.navigator;
   food: any = [
     {
       name: '2017 Scalade', price: 250 + 'H',
@@ -246,7 +248,7 @@ export class RestaurantComponent implements OnInit {
     tax: 7
   }
 
-  myAngularxQrCode = 'tel:1-305-742-7989';
+  myAngularxQrCode = 'http://mrvrman.com/luxury-rides';
 
   foodOptions: any;
   foodToppings: any;
@@ -264,8 +266,6 @@ export class RestaurantComponent implements OnInit {
   paramsArray: any; email: any;
   tableNo: any;
 
-
-
   constructor(private paramsRouter: ActivatedRoute, private restaurantService: RestaurantService) { }
 
   ngOnInit(): void {
@@ -278,6 +278,8 @@ export class RestaurantComponent implements OnInit {
 
     //    this.food = JSON.parse(localStorage.getItem('food')); 
     //  }
+
+    
 
   }
 
@@ -371,7 +373,18 @@ export class RestaurantComponent implements OnInit {
   }
 
   qrcode() {
+    let newVariable2 = (window.navigator as any)
+
     this.popUpQRCode = !this.popUpQRCode;
+    if (newVariable2.share) {
+      newVariable2.share({
+        title: 'MIAMI LUXURY RIDES',
+        text: 'SHARE ME',
+        url: 'http://mrvrman.com/luxury-rides',
+      })
+        .then(() => console.log('Successful share'))
+        .catch((error) => console.log('Error sharing', error));
+    }
   }
   confirm() {
     // this.popUpCheckout = true;
@@ -386,6 +399,9 @@ export class RestaurantComponent implements OnInit {
     this.popUpThankyou = !this.popUpThankyou;
   }
 
+  openGoogleForm(){
+    window.open('https://forms.gle/fYyxruynUuTRm62v6', "_blank");
+  }
 }
 
 
