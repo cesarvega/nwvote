@@ -17,19 +17,19 @@
 
             <div class="column">
 
-                <div class="column">
+                <div class="column" style="align-items: center;">
                     <div class="row">
-                        <button *ngIf="item.options?.length > 0" mat-raised-button (click)="option(i)"
-                            style="color: black;outline: none; margin: 4px;background-color: goldenrod;">
-                            BOOK
+                        <button *ngIf="item.options?.length > 0 " mat-raised-button (click)="option(i)"
+                            style="color: black;outline: none; margin: 4px;background-color: goldenrod;" [disabled]="(item.orderQuantity === 0)">                          
+                        $PAY
                         </button>
-                        <div *ngIf="item.options?.length > 0"> or </div>
-                        <button *ngIf="item.toppings?.length > 0" mat-raised-button (click)="toppings(i)"
+                        <div *ngIf="item.options?.length > 0 "> or </div>
+                        <button *ngIf="item.toppings?.length >  0 " mat-raised-button (click)="openGoogleForm()"
                             style="color: black;outline: none; margin: 4p; background-color:#ff37ff">
-                            RENT
-                        </button>
+                            RESERVE
+                        </button>                    
                     </div>
-                    <span style="font-size: 18px;">HOURS OF SERVICE</span>
+                    <span style="font-size: 18px;align-items: center;">HOURS OF SERVICE</span>
                     <div class="row">
                         <button mat-icon-button color="primary" style="color: white;outline: none;font-size: 30px;">
                             {{item.orderQuantity}}
@@ -119,17 +119,7 @@
             <button mat-raised-button color="accent" style="margin-right: 5px; color: white;"
                 (click)="dismissErrorForm()">cancel</button>
             <button mat-raised-button color="primary" style="color: white;" (click)="dismissErrorForm()"
-                (click)="openGoogleForm()">confirm</button>
-
-
-            <a class="buy-with-crypto"
-                href="https://commerce.coinbase.com/checkout/2229efb9-519c-4d3c-b77a-ba8c739beda8"
-                style="color: black;">
-                Buy with Crypto
-            </a>
-            <script src="https://commerce.coinbase.com/v1/checkout.js?version=201807">
-            </script>
-
+                (click)="openGoogleForm()">confirm</button>           
         </div>
     </div>
 

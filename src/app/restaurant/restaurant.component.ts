@@ -297,8 +297,10 @@ export class RestaurantComponent implements OnInit {
   }
 
   option(index) {
-    this.popUpOptions = true;
-    this.foodOptions = this.food[index];
+    // this.popUpOptions = true;
+    // this.foodOptions = this.food[index];
+
+    window.open('https://commerce.coinbase.com/checkout/d983d382-1345-4214-9518-fb7d3ca97b27', "_top");
   }
 
   toppings(index) {
@@ -400,7 +402,7 @@ export class RestaurantComponent implements OnInit {
   }
 
   openGoogleForm(){
-    window.open('https://forms.gle/fYyxruynUuTRm62v6', "_blank");
+    window.open('https://forms.gle/fYyxruynUuTRm62v6', "_top");
   }
 }
 
