@@ -13,9 +13,9 @@ export class RestaurantComponent implements OnInit {
 
   food: any = [
     {
-      name: 'Maragrita', price: 8.10,
-      description: 'Three Crunchy Colombian Empanadas filled with beef and potato.',
-      imgSrc: './assets/img/food/maragarita.jpg',
+      name: '2017 Scalade', price: 250 + 'H',
+      description: '6 passenger– Wifi – Bluetooth – High-end Sound system – Luxury Seating',
+      imgSrc: './assets/img/food/scalade.jpeg',
       specialIntructions: '',
       selectedOption: '',
       selectedToppings: [],
@@ -35,13 +35,18 @@ export class RestaurantComponent implements OnInit {
     },
 
     {
-      name: 'Pepperoni', price: 8.10,
-      description: 'Three cheese-filled pastry fingers from Venezuela.',
-      imgSrc: './assets/img/food/peperoni.jpg',
+      name: 'Cadillac', price: 8.10,
+      description: '5 passenger– Wifi – Bluetooth – High-end Sound system – Luxury Seating',
+      imgSrc: './assets/img/food/cadillac.jpg',
       specialIntructions: '',
       selectedOption: '',
       selectedToppings: [],
-      options: [],
+      options: [
+        { name: 'Green Sauce' },
+        { name: 'Red Sauce' },
+        { name: 'BBQ' },
+        { name: 'Honey Mustard' },
+      ],
       orderQuantity: 0,
       toppings: [
         { name: 'cheese', price: 3 },
@@ -52,150 +57,155 @@ export class RestaurantComponent implements OnInit {
     },
 
     {
-      name: 'Mushrooms', price: 13,
-      description: 'Fireroastedcorn, topped with mozzarella cheese, crushedLay’s PotatoChips, Green sauce & Pinksauce.',
-      imgSrc: './assets/img/food/Mushrooms.jpg',
-      specialIntructions: '',
-      selectedOption: '',
-      selectedToppings: [],
-      options: [],
-      orderQuantity: 0,
-      toppings: [
-        { name: 'Cheese', price: 0 },
-        { name: ' Chicken', price: 1.08 },
-        { name: 'Steak', price: 2.16 },
-        { name: 'Mixto', price: 3.24 }
-      ]
-    },
-
-    {
-      name: 'White Truffas', price: 13,
-      description: 'Quesadilla topped with crushed Lay’s Potato Chips, green sauce & pinksauce',
-      imgSrc: './assets/img/food/whiteTruffas.jpg',
-      specialIntructions: '',
-      selectedOption: '',
-      selectedToppings: [],
-      options: [],
-      orderQuantity: 0,
-      toppings: [
-        { name: 'Cheese', price: 0 },
-        { name: ' Chicken', price: 1.08 },
-        { name: 'Steak', price: 2.16 },
-        { name: 'Mixto', price: 3.24 }
-      ]
-    },
-
-    {
-      name: 'Mexican Quesadilla', price: 13,
-      description: 'Quesadilla with our fresh made guacamole, jalapenos, pico de gallo, and our chipotle aioli.',
-      imgSrc: './assets/img/food/quesadillas.jpg',
-      specialIntructions: '',
-      selectedOption: '',
-      selectedToppings: [],
-      options: [],
-      orderQuantity: 0,
-      toppings: [
-        { name: 'Cheese', price: 0 },
-        { name: ' Chicken', price: 1.08 },
-        { name: 'Steak', price: 2.16 },
-        { name: 'Mixto', price: 3.24 }
-      ]
-    },
-
-    {
-      name: 'Mexican Street Tacos', price: 13,
-      description: '2 Mouthwatering Tacos - made with CORN OR FLOUR TORTILLAS. Beef Barbacoa - Picodegallo, cilantro, cabbage & cotijacheese. ; Pollo Y Pina -Pineapple, cabbage, cilantro, Cotija cheese & Chipotle aioli.; Veggie - Fire roasted corn, mushroom, bellpeper, onions, cabbage, cilantro, guacamole, Cotija cheese & Chipotle aioli.',
-      imgSrc: './assets/img/food/tacos.jpg',
+      name: 'Tesla', price: 13,
+      description: '4 passenger– Wifi – Bluetooth – High-end Sound system – Luxury Seating',
+      imgSrc: './assets/img/food/testla.jpg',
       specialIntructions: '',
       selectedOption: '',
       selectedToppings: [],
       options: [
-        { name: 'Corn Tortilla' },
-        { name: 'Flour Tortilla' },
-        { name: 'Beef Barbacoa' },
-        { name: 'Pollo Y Pina' },
-        { name: ' Veggie' }
-      ],
-      orderQuantity: 0,
-      toppings: [
-        { name: 'peperoni', price: 3 }
-      ]
-    },
-
-    {
-      name: 'Melissa Wings', price: 13,
-      description: '10 Chicken Wings tossed in your choice of sauces.',
-      imgSrc: './assets/img/food/wings.jpg',
-      specialIntructions: '',
-      selectedOption: '',
-      selectedToppings: [],
-      options: [
-        { name: 'Buffalo' },
-        { name: 'Spicy Asian' },
+        { name: 'Green Sauce' },
+        { name: 'Red Sauce' },
         { name: 'BBQ' },
         { name: 'Honey Mustard' },
       ],
       orderQuantity: 0,
       toppings: [
-        // { name: 'peperoni', price: 3 }
+        { name: 'Cheese', price: 0 },
+        { name: ' Chicken', price: 1.08 },
+        { name: 'Steak', price: 2.16 },
+        { name: 'Mixto', price: 3.24 }
       ]
     },
 
     {
-      name: 'Colomboan Dog', price: 9.71,
-      description: 'Nathan`s famous beef hot dog wrapped in applewood smoked bacon, melted Mozzarella cheese, crushed Lay`s potato chips, coleslaw, green, pink and pineapple sauce.',
-      imgSrc: './assets/img/food/colhotdog.jpg',
+      name: 'Passat ', price: 13,
+      description: '5 passenger– Wifi – Bluetooth – High-end Sound system – Luxury Seating',
+      imgSrc: './assets/img/food/passat.jpg',
       specialIntructions: '',
       selectedOption: '',
       selectedToppings: [],
       options: [],
       orderQuantity: 0,
       toppings: [
-        // { name: 'peperoni', price: 3 }
+        { name: 'Cheese', price: 0 },
+        { name: ' Chicken', price: 1.08 },
+        { name: 'Steak', price: 2.16 },
+        { name: 'Mixto', price: 3.24 }
       ]
     },
 
-    {
-      name: 'Venezuelan Dog', price: 9.71,
-      description: 'Nathan`s famous beef hot dog crushed Lay`s Potato chips, coleslsaw, mayonnaise, ketchup, mustard & parmesan cheese.',
-      imgSrc: './assets/img/food/venehotdog.jpg',
-      specialIntructions: '',
-      selectedOption: '',
-      selectedToppings: [],
-      options: [],
-      orderQuantity: 0,
-      toppings: [
-        { name: 'peperoni', price: 3 }
-      ]
-    },
+    // {
+    //   name: 'Mexican Quesadilla', price: 13,
+    //   description: 'Quesadilla with our fresh made guacamole, jalapenos, pico de gallo, and our chipotle aioli.',
+    //   imgSrc: './assets/img/food/quesadillas.jpg',
+    //   specialIntructions: '',
+    //   selectedOption: '',
+    //   selectedToppings: [],
+    //   options: [],
+    //   orderQuantity: 0,
+    //   toppings: [
+    //     { name: 'Cheese', price: 0 },
+    //     { name: ' Chicken', price: 1.08 },
+    //     { name: 'Steak', price: 2.16 },
+    //     { name: 'Mixto', price: 3.24 }
+    //   ]
+    // },
 
-    {
-      name: 'Mexican Dog', price: 9.71,
-      description: 'Nathan`s famous beef hot dog, Monterey Jack Cheese, freshly-made guacamole, jalapenos and pico de gallo.',
-      imgSrc: './assets/img/food/mexicanhotdog.jpg',
-      specialIntructions: '',
-      selectedOption: '',
-      selectedToppings: [],
-      options: [],
-      orderQuantity: 0,
-      toppings: [
-        { name: 'peperoni', price: 3 }
-      ]
-    },
+    // {
+    //   name: 'Mexican Street Tacos', price: 13,
+    //   description: '2 Mouthwatering Tacos - made with CORN OR FLOUR TORTILLAS. Beef Barbacoa - Picodegallo, cilantro, cabbage & cotijacheese. ; Pollo Y Pina -Pineapple, cabbage, cilantro, Cotija cheese & Chipotle aioli.; Veggie - Fire roasted corn, mushroom, bellpeper, onions, cabbage, cilantro, guacamole, Cotija cheese & Chipotle aioli.',
+    //   imgSrc: './assets/img/food/tacos.jpg',
+    //   specialIntructions: '',
+    //   selectedOption: '',
+    //   selectedToppings: [],
+    //   options: [
+    //     { name: 'Corn Tortilla' },
+    //     { name: 'Flour Tortilla' },
+    //     { name: 'Beef Barbacoa' },
+    //     { name: 'Pollo Y Pina' },
+    //     { name: ' Veggie' }
+    //   ],
+    //   orderQuantity: 0,
+    //   toppings: [
+    //     { name: 'peperoni', price: 3 }
+    //   ]
+    // },
 
-    {
-      name: 'New Yorker', price: 9.71,
-      description: 'Nathan`s famous beef hot dog, mustard, sauserkraut & sweet onions.',
-      imgSrc: './assets/img/food/newyorkhotdog.jpg',
-      specialIntructions: '',
-      selectedOption: '',
-      selectedToppings: [],
-      options: [],
-      orderQuantity: 0,
-      toppings: [
-        { name: 'peperoni', price: 3 }
-      ]
-    },
+    // {
+    //   name: 'Melissa Wings', price: 13,
+    //   description: '10 Chicken Wings tossed in your choice of sauces.',
+    //   imgSrc: './assets/img/food/wings.jpg',
+    //   specialIntructions: '',
+    //   selectedOption: '',
+    //   selectedToppings: [],
+    //   options: [
+    //     { name: 'Buffalo' },
+    //     { name: 'Spicy Asian' },
+    //     { name: 'BBQ' },
+    //     { name: 'Honey Mustard' },
+    //   ],
+    //   orderQuantity: 0,
+    //   toppings: [
+    //     // { name: 'peperoni', price: 3 }
+    //   ]
+    // },
+
+    // {
+    //   name: 'Colomboan Dog', price: 9.71,
+    //   description: 'Nathan`s famous beef hot dog wrapped in applewood smoked bacon, melted Mozzarella cheese, crushed Lay`s potato chips, coleslaw, green, pink and pineapple sauce.',
+    //   imgSrc: './assets/img/food/colhotdog.jpg',
+    //   specialIntructions: '',
+    //   selectedOption: '',
+    //   selectedToppings: [],
+    //   options: [],
+    //   orderQuantity: 0,
+    //   toppings: [
+    //     // { name: 'peperoni', price: 3 }
+    //   ]
+    // },
+
+    // {
+    //   name: 'Venezuelan Dog', price: 9.71,
+    //   description: 'Nathan`s famous beef hot dog crushed Lay`s Potato chips, coleslsaw, mayonnaise, ketchup, mustard & parmesan cheese.',
+    //   imgSrc: './assets/img/food/venehotdog.jpg',
+    //   specialIntructions: '',
+    //   selectedOption: '',
+    //   selectedToppings: [],
+    //   options: [],
+    //   orderQuantity: 0,
+    //   toppings: [
+    //     { name: 'peperoni', price: 3 }
+    //   ]
+    // },
+
+    // {
+    //   name: 'Mexican Dog', price: 9.71,
+    //   description: 'Nathan`s famous beef hot dog, Monterey Jack Cheese, freshly-made guacamole, jalapenos and pico de gallo.',
+    //   imgSrc: './assets/img/food/mexicanhotdog.jpg',
+    //   specialIntructions: '',
+    //   selectedOption: '',
+    //   selectedToppings: [],
+    //   options: [],
+    //   orderQuantity: 0,
+    //   toppings: [
+    //     { name: 'peperoni', price: 3 }
+    //   ]
+    // },
+
+    // {
+    //   name: 'New Yorker', price: 9.71,
+    //   description: 'Nathan`s famous beef hot dog, mustard, sauserkraut & sweet onions.',
+    //   imgSrc: './assets/img/food/newyorkhotdog.jpg',
+    //   specialIntructions: '',
+    //   selectedOption: '',
+    //   selectedToppings: [],
+    //   options: [],
+    //   orderQuantity: 0,
+    //   toppings: [
+    //     { name: 'peperoni', price: 3 }
+    //   ]
+    // },
 
   ]
  
@@ -236,7 +246,7 @@ export class RestaurantComponent implements OnInit {
     tax: 7
   }
 
-  myAngularxQrCode = 'http://mrvrman.com/food/234234';
+  myAngularxQrCode = 'tel:1-305-742-7989';
 
   foodOptions: any;
   foodToppings: any;
