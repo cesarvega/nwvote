@@ -1,9 +1,9 @@
 <div class="mainContainer disable-dbl-tap-zoom">
 
-    <div class="logo-miami">
+    <div class="logo-miami" >
         <!-- <img class="logo" src="./assets/img/food/payment.JPG"> -->
-        <p>MIAMI LUXURY</p><br>
-        <p style="color: rgb(255, 55, 255);">RIDES</p>
+        <p style="animation: swing 200ms ease-in-out 100ms forwards">MIAMI LUXURY</p><br>
+        <p style="color: rgb(255, 55, 255);animation: swing 200ms ease-in-out 100ms forwards">RIDES</p>
         <!-- <p style="color: grey;">table i#: {{tableNo}}</p> -->
     </div>
 
@@ -20,12 +20,13 @@
                 <div class="column" style="align-items: center;">
                     <div class="row">
                         <button *ngIf="item.options?.length > 0 " mat-raised-button (click)="option(i)"
-                            style="color: black;outline: none; margin: 4px;background-color: goldenrod;" [disabled]="(item.orderQuantity === 0)">                          
+                            style="color: black;outline: none; margin: 4px;background-color: goldenrod;  
+                            animation: bounce 200ms ease-in-out 100ms forwards" [disabled]="(item.orderQuantity === 0)">                          
                         $PAY
                         </button>
                         <div *ngIf="item.options?.length > 0 "> or </div>
                         <button *ngIf="item.toppings?.length >  0 " mat-raised-button (click)="openGoogleForm()"
-                            style="color: black;outline: none; margin: 4p; background-color:#ff37ff">
+                            style="color: black;outline: none; margin: 4p; background-color:#ff37ff;animation: bounce 200ms ease-in-out 100ms forwards">
                             RESERVE
                         </button>                    
                     </div>
@@ -108,18 +109,24 @@
     <!-- MODAL OPTIONS -->
 
     <div *ngIf="popUpOptions" class="formFieldValidationAlert">
-        <h1>Please select an option</h1>
-        <mat-radio-group class="column" [(ngModel)]="selectedOption"
+        <h2>Please select a payment option</h2>
+        <!-- <mat-radio-group class="column" [(ngModel)]="selectedOption"
             *ngFor=" let item  of foodOptions.options ; index as i">
             <mat-radio-button [value]="item.name">
                 {{item.name}}
             </mat-radio-button>
-        </mat-radio-group>
-        <div class="rowPopup">
-            <button mat-raised-button color="accent" style="margin-right: 5px; color: white;"
-                (click)="dismissErrorForm()">cancel</button>
-            <button mat-raised-button color="primary" style="color: white;" (click)="dismissErrorForm()"
-                (click)="openGoogleForm()">confirm</button>           
+        </mat-radio-group> -->
+        <p>Cash App</p>
+         <img class="logo" style="width: 150px;" src="./assets/img/food/cashApp.jpg"><br>
+         <p>Zelle</p>
+         <img class="logo" style="width: 150px;" src="./assets/img/food/zelle.png">
+         <p>cesarvega.col@gmail.com</p>
+        <div class="rowPopup" style="display: flex;flex-direction: column;gap: 10px;align-items: center;">
+           
+            <button mat-raised-button color="primary" style="color: white;" (click)="crypto()">CRYPTO</button> 
+                
+                <button mat-raised-button color="accent" style="margin-right: 5px; color: white;"
+                (click)="dismissErrorForm()">CANCEL</button>
         </div>
     </div>
 

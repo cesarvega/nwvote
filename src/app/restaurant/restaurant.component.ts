@@ -297,9 +297,11 @@ export class RestaurantComponent implements OnInit {
   }
 
   option(index) {
-    // this.popUpOptions = true;
-    // this.foodOptions = this.food[index];
+    this.popUpOptions = true;
+    this.foodOptions = this.food[index];    
+  }
 
+  crypto(){
     window.open('https://commerce.coinbase.com/checkout/d983d382-1345-4214-9518-fb7d3ca97b27', "_top");
   }
 
