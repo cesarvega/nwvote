@@ -3,9 +3,6 @@
 
     <div class="mainContainerPresent mat-elevation-z8" [style.background-image]="slideNameBackground">
 
-
-
-
         <!-- <div class="mainContainerPresent mat-elevation-z8" > -->
         <!-- <mat-progress-bar mode="determinate" [value]="currentProgress" color="warn" style="z-index: 99999;height: 3px;">
         </mat-progress-bar> -->
@@ -144,7 +141,7 @@
         <!-- {{slideBackground}} -->
 
         <!-- SUMMARY SLIDE -->
-        <div *ngIf="(slideType === 'Image')" class="summaryPresentar summary">
+        <div *ngIf="(slideType === 'NameSummary')" class="summaryPresentar summary">
 
             <div class="summaryLabel">Summary</div>
 
@@ -224,6 +221,7 @@
                 </div>
 
             </div>
+
         </div>
 
         <!-- SINGLE NAME -->
@@ -450,6 +448,71 @@
         </div>
 
 
+        
+        <div *ngIf="mainMenu && (slideType !== 'Image')" class="bottom_menu">
+            <button mat-icon-button matTooltip="home" matTooltipPosition="above">
+                <mat-icon (click)="selectPage('home')" class="full-icon">home</mat-icon>
+            </button>
+            <button (click)="openFullscreen()" matTooltip="full-screen" matTooltipPosition="above" mat-icon-button color="warn"
+                aria-label="aria">
+                <mat-icon class="full-icon">aspect_ratio</mat-icon>
+            </button>
+            <button (click)="isTableOfContent = !isTableOfContent" matTooltip="search" matTooltipPosition="above" mat-icon-button
+                color="warn" aria-label="aria">
+                <mat-icon class="full-icon">search</mat-icon>
+            </button>
+            <button *ngIf="!true" mat-icon-button matTooltip="slide comments" matTooltipPosition="above">
+                <mat-icon class="full-icon">comment</mat-icon>
+            </button>
+            <button *ngIf="!false" (click)="displayQRCode()" matTooltip="qr code" matTooltipPosition="above" mat-icon-button
+                aria-label="aria">
+                <mat-icon class="full-icon">qr_code</mat-icon>
+            </button>
+            <button (click)="displayNameVoteInfo()" matTooltip="mobile app" matTooltipPosition="above" mat-icon-button
+                color="red">
+                <mat-icon class="full-icon">phone_iphone</mat-icon>
+            </button>
+            <button *ngIf="(slideType === 'NameEvaluation')" (click)="voteUserBadges()" mat-icon-button matTooltip="names box"
+                matTooltipPosition="above">
+                <mat-icon class="full-icon">where_to_vote</mat-icon>
+            </button>
+            <button *ngIf="(slideType === 'NameEvaluation')" (click)="displayTally()" mat-icon-button matTooltip="tally"
+                matTooltipPosition="above">
+                <mat-icon class="full-icon">T</mat-icon>
+            </button>
+            <!-- <button *ngIf="true" matTooltip="stats" matTooltipPosition="above" mat-icon-button aria-label="aria">
+                <mat-icon class="full-icon">bar_chart</mat-icon>
+            </button>
+            <button *ngIf="true" matTooltip="font size" matTooltipPosition="above" mat-icon-button aria-label="aria">
+                <mat-icon class="full-icon">font_download</mat-icon>
+                <mat-slider #slider *ngIf="false" class="slider-font-size" thumbLabel tickInterval="2" min="20" max="38"
+                    [value]="28"></mat-slider>
+            </button> -->
+            <button (click)="fontTheme()" *ngIf="true" mat-icon-button matTooltip="toggle theme" matTooltipPosition="above">
+                <mat-icon class="full-icon">casino</mat-icon>
+            </button>
+            <!-- <button (click)="isSettings = !isSettings" *ngIf="true" mat-icon-button matTooltip="settings"
+                matTooltipPosition="above">
+                <mat-icon class="full-icon">settings</mat-icon>
+            </button> -->
+            <button *ngIf="true" mat-icon-button matTooltip="help" matTooltipPosition="above">
+                <mat-icon class="full-icon">help</mat-icon>
+            </button>
+            <button (click)="selectPage('summary')" mat-icon-button aria-label="page"
+                style="font-size: 23px;color: grey !important;cursor: pointer;">
+                {{pageNumber}}/{{passTotalPages}}
+            </button>
+            <button (click)="mainMenu = false" matTooltip="hide menu" matTooltipPosition="above" mat-icon-button color="warn"
+                aria-label="aria">
+                <mat-icon class="full-icon">keyboard_arrow_down</mat-icon>
+            </button>
+            <!-- <button class="goButton" *ngIf="true" mat-icon-button matTooltip="vote" matTooltipPosition="above"
+                    mat-icon-button aria-label="aria">
+                    GO
+                </button> -->
+        </div>
+        
+
         <!--💔 END OF TABS PROJECT INFO, TEMPLATES, IMAGE UPLOADER, PAGE DESIGN, INTRO, PAGE MODULES, RESPONDANTS, CONTACT 💔-->
 
     </div>
@@ -543,6 +606,12 @@
             GO
         </button> -->
 </div>
+
+
+<div>
+
+
+
 
 
 <!-- QR CODE-->

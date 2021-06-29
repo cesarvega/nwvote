@@ -149,6 +149,18 @@
     flex-direction: column;
 }
 
+.bottom_menu {
+    position: absolute;
+    right: 284px;
+    bottom: 10px;
+    outline: none;
+    z-index: 9999;
+    /* background: white; */
+    border-radius: 5px;
+    display: flex;
+    flex-direction: row;
+}
+
 .full-icon:hover {
     transform: scale(2);
     color: darkblue;
