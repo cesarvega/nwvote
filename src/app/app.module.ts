@@ -41,7 +41,7 @@ import { DeviceDetectorModule } from 'ngx-device-detector';
 import { NW3Component } from './nw3/nw3.component';
 import { Nw3Service } from './nw3/nw3.service';
 import { BmxComponent } from './bmx/bmx.component';
-import { HammerGestureConfig, HAMMER_GESTURE_CONFIG } from '@angular/platform-browser';
+import { HammerGestureConfig, HAMMER_GESTURE_CONFIG, HammerModule } from '@angular/platform-browser';
 import { SchedulerComponent } from './scheduler/scheduler.component';
 import { AngularDateTimePickerModule } from 'angular2-datetimepicker';
 import {MatDatepickerModule} from '@angular/material/datepicker';
@@ -58,7 +58,7 @@ import { NgxChartsModule } from '@swimlane/ngx-charts';
 //     // 'swipe': { velocity: 0.4, threshold: 20 } 
 //   }
 // }
-
+import { MatSnackBarModule, MAT_SNACK_BAR_DEFAULT_OPTIONS } from '@angular/material/snack-bar';
 import {MatRadioModule} from '@angular/material/radio';
 import { BmxCreatorComponent } from './bmx-creator/bmx-creator.component';
 export function loadEcharts() {
@@ -82,6 +82,7 @@ export function loadEcharts() {
   ],
   imports: [
     BrowserModule,
+    HammerModule,
     AppRoutingModule,
     BrowserAnimationsModule,
     MatSlideToggleModule,
@@ -121,12 +122,14 @@ export function loadEcharts() {
     // AngularEditorModule,
     DragulaModule.forRoot(),
     MatListModule,
-    NgxEchartsModule.forRoot({echarts: loadEcharts})
+    NgxEchartsModule.forRoot({echarts: loadEcharts}),
+    MatSnackBarModule
   ],
   entryComponents: [
     editPost, editName
   ],
-  providers: [NwvoteService, BsrMobileService, Nw3Service],
+  providers: [NwvoteService, BsrMobileService, Nw3Service,
+    {provide: MAT_SNACK_BAR_DEFAULT_OPTIONS, useValue: {duration: 1000}}],
   
   bootstrap: [AppComponent]
 })
