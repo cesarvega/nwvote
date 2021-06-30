@@ -148,7 +148,7 @@ export class NW3Component implements OnInit {
   hideBackground = false;
   mute: boolean;
   nwVote = false;
-  buttonOptionsObj;
+  slideData;
   hideButton = true;
   isNonProp = true;
   showHelp = false;
@@ -186,9 +186,9 @@ export class NW3Component implements OnInit {
   groupRationale: any;
   rationale: any;
   category: any;
-  positiveChecked: boolean;
-  neutralChecked: boolean;
-  negativeChecked: boolean;
+  positiveChecked = false;
+  neutralChecked = false;
+  negativeChecked = false;
   isPipeSplit: boolean;
   isGroupNameTooltip: boolean;
   summaryViewFlexLayout: string;
@@ -304,8 +304,8 @@ export class NW3Component implements OnInit {
   summaryPositive = false;
   summaryNeutral = false;
   summaryNegative = false;
-  summaryNewNames = false;
-  summaryChart = true;
+  summaryNewNames = true;
+  summaryChart = false;
 
   chartDimension = [700, 450];
   showXAxis = true;
@@ -336,6 +336,8 @@ export class NW3Component implements OnInit {
   ];
   currentSlidePageInfo: string;
   previousSlideType: string;
+  soundVolume = 0.1;
+  totalNewNames2: any[];
 
 
 
@@ -355,14 +357,14 @@ export class NW3Component implements OnInit {
     this._hotkeysService.add(new Hotkey('right', (event: KeyboardEvent): boolean => {
 
       // but true to go through positive check
-      if (!this.stopMovingForward || !this.vote) {
-        // this.slideType = '';
+      if (this.stopMovingForward || this.vote) {
+        this.playSound('03 Primary System Sounds/navigation_forward-selection-minimal.wav', this.soundVolume);
         this.selectPage('next');
       }
       return false;
     }, undefined, 'Move to next slide'));
     this._hotkeysService.add(new Hotkey('left', (event: KeyboardEvent): boolean => {
-      // this.slideType = '';
+      this.playSound('03 Primary System Sounds/navigation_backward-selection-minimal.wav', this.soundVolume);
       this.selectPage('previous');
       return false;
     }, undefined, 'Move to previous slide'));
@@ -375,7 +377,7 @@ export class NW3Component implements OnInit {
       return false;
     }, undefined, 'Hide menu'));
     this._hotkeysService.add(new Hotkey('o', (event: KeyboardEvent): boolean => {
-      this.overViewState = (this.overViewState) ? false : true;
+      this.isTableOfContent = (this.isTableOfContent) ? false : true;
       // this.hideShowOverview.emit(this.overViewState + ',' + this.currentPage);
       return false;
     }, undefined, 'Hide/Show slide overview'));
@@ -392,30 +394,31 @@ export class NW3Component implements OnInit {
       return false;
     }, undefined, 'Hide help sheet'));
     this._hotkeysService.add(new Hotkey('shift+r', (event: KeyboardEvent): boolean => {
-      if (this.vote === true) {
-        this.vote = false;
-      } else {
+      if (this.stopMovingForward === false) {
+        this.stopMovingForward = true;
         this.vote = true;
+      } else {
+        this.stopMovingForward = false;
       }
       return false;
     }, undefined, ''));
     this._hotkeysService.add(new Hotkey('1', (event: KeyboardEvent): boolean => {
-      this.selectedOpt('positive');
+      this.selectedOpt('Positive');
       // console.log('1 number key');
       return false;
     }, undefined, 'Set slide to positive'));
     this._hotkeysService.add(new Hotkey('2', (event: KeyboardEvent): boolean => {
-      this.selectedOpt('neutral');
+      this.selectedOpt('Neutral');
       // console.log('2 number key');
       return false;
     }, undefined, 'Set slide to neutral'));
     this._hotkeysService.add(new Hotkey('3', (event: KeyboardEvent): boolean => {
-      this.selectedOpt('negative');
+      this.selectedOpt('Negative');
       // console.log('3 number key');
       return false;
     }, undefined, 'Set slide to negative'));
     this._hotkeysService.add(new Hotkey('4', (event: KeyboardEvent): boolean => {
-      // this.recraft();
+      this.recraft();
       // console.log('3 number key');
       return false;
     }, undefined, 'Set slide to recraft'));
@@ -431,7 +434,7 @@ export class NW3Component implements OnInit {
         splitSentences: false,
         listeners: {
           onvoiceschanged: voices => {
-            console.log('Voices changed', voices);
+            // console.log('Voices changed', voices);
           }
         }
       })
@@ -458,7 +461,6 @@ export class NW3Component implements OnInit {
     this.currentSlidePageInfo = this.changingPage;
     this.activatedRoute.params.subscribe((params: any) => {
       this.name = params.id;
-
       this._NW3Service.getProjectId(this.name).subscribe(
         (data: object) => {
           // console.log(JSON.parse(data));
@@ -473,7 +475,7 @@ export class NW3Component implements OnInit {
               this.thumbNails = data;
               this.passTotalPages = data.length;
               this.totalPages = this.passTotalPages;
-              this.changes();
+              this.changes();              
             },
             err => console.log(err)
           );
@@ -507,8 +509,8 @@ export class NW3Component implements OnInit {
   }
 
   changes() {
-    
-    this.buttonOptionsObj = JSON.parse(this.switchButton);
+
+    this.slideData = JSON.parse(this.switchButton);
     const projectData = JSON.parse(this.projectData);
     this.projectName = JSON.parse(this.projectData)[0].DisplayName;
     this.testName = projectData[this.pageNumber - 1].SlideDescription;
@@ -557,7 +559,7 @@ export class NW3Component implements OnInit {
       }
     }
 
-
+    this.playSound('01 Hero Sounds/hero_decorative-celebration-02.wav', this.soundVolume);
   }
 
 
@@ -579,79 +581,6 @@ export class NW3Component implements OnInit {
 
 
   // SUMMARY SLIDE DATA
-
-  getSelectedRank(selectedRank) {
-    this._NW3Service.getGroupSummary(this.projectId).subscribe(displayGroupResult => {
-      this.nameCandidates = [];
-      for (const obj of Object.values(displayGroupResult)) {
-        this.tempObj = obj;
-        let arrGroupRank;
-        let arrGroupName;
-        if (obj.name.includes('##')) {
-          arrGroupRank = obj.nameranking.split('##');
-          arrGroupName = obj.name.split('##');
-        } else {
-          arrGroupRank = obj.nameranking.split('##');
-          arrGroupName = obj.name.split('$$');
-        }
-        arrGroupName.forEach((name, index) => {
-          if (selectedRank === 'Positive' && arrGroupRank[index] === 'Positive') {
-            this.nameCandidates.push({
-              'NameToDisplay': name,
-              'Name': this.tempObj.name
-            });
-          }
-          if (selectedRank === 'Negative' && arrGroupRank[index] === 'Negative') {
-            this.nameCandidates.push({
-              'NameToDisplay': name,
-              'Name': this.tempObj.name
-            });
-          }
-          if (selectedRank === 'Neutral' && arrGroupRank[index] === 'Neutral') {
-            this.nameCandidates.push({
-              'NameToDisplay': name,
-              'Name': this.tempObj.name
-            });
-          }
-        });
-      }
-      if (selectedRank === 'New') {
-        this.isNewName = true;
-        this.postRadio = false;
-        this.NeuRadio = false;
-        this.NegRadio = false;
-      } else if (selectedRank === 'Neutral') {
-        this.isNewName = false;
-        this.postRadio = false;
-        this.NeuRadio = true;
-        this.NegRadio = false;
-
-      } else if (selectedRank === 'Negative') {
-        this.isNewName = false;
-        this.postRadio = false;
-        this.NeuRadio = false;
-        this.NegRadio = true;
-
-      } else if (selectedRank === 'Positive') {
-        this.isNewName = false;
-        this.postRadio = true;
-        this.NeuRadio = false;
-        this.NegRadio = false;
-
-      }
-      this._NW3Service.getRetainTypeName(this.projectId, (selectedRank === "New Names") ? "New" : selectedRank).subscribe((data: Array<object>) => {
-        if (this.nameCandidates.length === 0) {
-          this.nameCandidates = data;
-        } else {
-          this.nameCandidates = this.nameCandidates.concat(data);
-        }
-        for (let i = 0; i < this.nameCandidates.length; i++) {
-          this.nameCandidates[i].NameToDisplay = this.convertToEntities(this.nameCandidates[i].NameToDisplay);
-        }
-        this.showRankedNames = true;
-      });
-    });
-  }
 
   selectPage(movingTo) {
     // stop moving slides for 300 miliseconds
@@ -710,7 +639,7 @@ export class NW3Component implements OnInit {
 
   pageNumberChange(selectedPage) {
     this.pageNumber = Number(selectedPage);
-    // this.pageNumber = 8;
+    // this.pageNumber = 10;
     // PROGRESS BAR DATA
     this.currentProgress = (this.pageNumber / this.passTotalPages) * 100;
     if (selectedPage === this.passTotalPages) {
@@ -726,6 +655,7 @@ export class NW3Component implements OnInit {
     let lastVisitedPageNumber: any;
     this.previousSlideType = this.slideType;
     this.slideType = '';
+
     if (projectData[this.pageNumber - 1].SlideType.trim() === 'NameSummary') {
       this.slideType = 'NameSummary';
     }
@@ -748,29 +678,47 @@ export class NW3Component implements OnInit {
     this.slideModel.presentationid = this.projectId;
     this.slideModel.NewNames = this.newNames;
     this.slideModel.NamesToExplore = this.newComments;
-    
+
     // RESET NEW NAMES AND COMMENTS BOXES
     this.newNames = '';
     this.newComments = '';
-    this.slideModel.NameRanking = '';
+
     if (this.previousSlideType === 'MultipleNameEvaluation') {
       this.rankIcon.forEach(rankIcon => {
         if (rankIcon.icon === "favorite") {
-          this.slideModel.NameRanking += 'positive'+ '##';                  
-        }else if (rankIcon.icon === "sentiment_very_satisfied") {
-          this.slideModel.NameRanking += 'neutral'+ '##';                  
-        }else  if (rankIcon.icon === "thumb_down_off_alt") {
-          this.slideModel.NameRanking += 'negative' + '##';                  
-        }else  if (rankIcon.icon === "info") {
-          this.slideModel.NameRanking += 'novalue' + '##';                  
+          this.slideModel.NameRanking += 'positive' + '##';
+        } else if (rankIcon.icon === "sentiment_very_satisfied") {
+          this.slideModel.NameRanking += 'neutral' + '##';
+        } else if (rankIcon.icon === "thumb_down_off_alt") {
+          this.slideModel.NameRanking += 'negative' + '##';
+        } else if (rankIcon.icon === "info") {
+          this.slideModel.NameRanking += 'novalue' + '##';
         }
       });
     }
 
+    if (this.positiveChecked) {
+      this.slideModel.NameRanking = 'Positive'
+    } else if (
+      this.neutralChecked) {
+      this.slideModel.NameRanking = 'Neutral'
+    } else if (
+      this.negativeChecked) {
+      this.slideModel.NameRanking = 'Negative'
+    }
+
+
     this.saveData(JSON.stringify(this.slideModel));
   }
 
+
   saveData(savingObj) {
+
+
+    if (this.positiveChecked || this.neutralChecked || this.negativeChecked) {
+      // this.slideModel.NameRanking = option;
+    }
+
     const temp = JSON.parse(savingObj);
     temp.KanaNamesNegative = this.negativePronunciation.join(',');
     temp.recraft = (this.recraftChecked) ? 1 : 0;
@@ -778,6 +726,13 @@ export class NW3Component implements OnInit {
     this._NW3Service.getSaveNSlideInfo(savingObj).subscribe(
       data => {
         this.go = (data[0].presentationStatus === '0') ? true : false;
+
+        this.slideModel.NameRanking = '';
+
+        this.positiveChecked = false;
+        this.neutralChecked = false;
+        this.negativeChecked = false;
+
         // slideBackground = 'url(http://bipresents.com/nw2/' + this.slideNextPart;  slideNextPart = 'Test_WELL_PLATFORM/thumbnails/014.jpg)';
         if (data[0].NameRanking.toLowerCase() === 'positive') {
           this.positiveChecked = true;
@@ -791,10 +746,6 @@ export class NW3Component implements OnInit {
           this.negativeChecked = true;
           this.positiveChecked = false;
           this.neutralChecked = false;
-        } else {
-          this.positiveChecked = false;
-          this.neutralChecked = false;
-          this.negativeChecked = false;
         }
         this.newNames = data[0].NewNames;
         this.newComments = data[0].NamesToExplore;
@@ -805,6 +756,7 @@ export class NW3Component implements OnInit {
         if (this.slideType === '') {
           if (data[0].GroupedNames.length > 0) {
             this.slideType = 'MultipleNameEvaluation';
+            this.playSound('01 Hero Sounds/hero_simple-celebration-01.wav', this.soundVolume);
             this.category = data[0].NameCategory;
             if (data[0].GroupedNames !== '') {
               if (data[0].GroupedNames.includes('##')) {
@@ -813,15 +765,15 @@ export class NW3Component implements OnInit {
                 // this.groupName = "APPOLOVENAPPOLOVENAPPOLOVENAPPOLOVEN|(J)|アポロベン##APPOVEN|(C)|アポベン##LUMVESTIN|(JB) (CTC)|ルムベスティン##ORAVEN|(CB)|オラベン##VENCHAI | (DE) (DEB)|ベンチャイ##VENLEPIUS | (U/I) (BR) (BRB)|ベンレピウス##VENPOLLO |(CT) (JB)|ベンポロ##APPOLOVEN|(J)|アポロベン##APPOVEN|(C)|アポベン##LUMVESTIN|(JB) (CTC)|ルムベスティン##ORAVEN|(CB)|オラベン##VENCHAI | (DE) (DEB)|ベンチャイ##VENLEPIUS | (U/I) (BR) (BRB)|ベンレピウス##VENPOLLO |(CT) (JB)|ベンポロ##APPOLOVEN|(J)|アポロベン##APPOVEN|(C)|アポベン##LUMVESTIN|(JB) (CTC)|ルムベスティン##ORAVEN|(CB)|オラベン##VENCHAI | (DE) (DEB)|ベンチャイ##VENLEPIUS | (U/I) (BR) (BRB)|ベンレピウス##VENPOLLO |(CT) (JB)|ベンポロ##APPOLOVEN|(J)|アポロベン##APPOVEN|(C)|アポベン##LUMVESTIN|(JB) (CTC)|ルムベスティン##ORAVEN|(CB)|オラベン##VENCHAI | (DE) (DEB)|ベンチャイ##VENLEPIUS | (U/I) (BR) (BRB)|ベンレピウス##VENPOLLO |(CT) (JB)|ベンポロ##APPOLOVEN|(J)|アポロベン##APPOVEN|(C)|アポベン##LUMVESTIN|(JB) (CTC)|ルムベスティン##ORAVEN|(CB)|オラベン##VENCHAI | (DE) (DEB)|ベンチャイ##VENLEPIUS | (U/I) (BR) (BRB)|ベンレピウス##VENPOLLO |(CT) (JB)|ベンポロ##APPOLOVEN|(J)|アポロベン##APPOVEN|(C)|アポベン##LUMVESTIN|(JB) (CTC)|ルムベスティン##ORAVEN|(CB)|オラベン##VENCHAI | (DE) (DEB)|ベンチャイ##VENLEPIUS | (U/I) (BR) (BRB)|ベンレピウス##VENPOLLO |(CT) (JB)|ベンポロ##APPOLOVEN|(J)|アポロベン##APPOVEN|(C)|アポベン##LUMVESTIN|(JB) (CTC)|ルムベスティン##ORAVEN|(CB)|オラベン##VENCHAI | (DE) (DEB)|ベンチャイ##VENLEPIUS | (U/I) (BR) (BRB)|ベンレピウス##VENPOLLO |(CT) (JB)|ベンポロ##APPOLOVEN|(J)|アポロベン##APPOVEN|(C)|アポベン##LUMVESTIN|(JB) (CTC)|ルムベスティン##ORAVEN|(CB)|オラベン##VENCHAI | (DE) (DEB)|ベンチャイ##VENLEPIUS | (U/I) (BR) (BRB)|ベンレピウス##VENPOLLO |(CT) (JB)|ベンポロ##APPOLOVEN|(J)|アポロベン##APPOVEN|(C)|アポベン##LUMVESTIN|(JB) (CTC)|ルムベスティン##ORAVEN|(CB)|オラベン##VENCHAI | (DE) (DEB)|ベンチャイ##VENLEPIUS | (U/I) (BR) (BRB)|ベンレピウス##LASTONE |(CT) (JB)|ベンポロ".split('##');
                 this.rankIconsValue = data[0].NameRanking.split('##');
                 // this.groupName.forEach(rankValue => {
-                if ( this.rankIconsValue [0] !== "") {
+                if (this.rankIconsValue[0] !== "") {
                   this.rankIconsValue.forEach(rankValue => {
-                    if (rankValue === 'novalue') {
+                    if (rankValue.toLowerCase() === 'novalue') {
                       this.rankIcon.push({ icon: 'info', color: 'grey' });
-                    } else if (rankValue === 'positive') {
+                    } else if (rankValue.toLowerCase() === 'positive') {
                       this.rankIcon.push({ icon: 'favorite', color: 'red' });
-                    } else if (rankValue === 'neutral') {
+                    } else if (rankValue.toLowerCase() === 'neutral') {
                       this.rankIcon.push({ icon: 'sentiment_very_satisfied', color: 'yellow' });
-                    } else if (rankValue === 'negative') {
+                    } else if (rankValue.toLowerCase() === 'negative') {
                       this.rankIcon.push({ icon: 'thumb_down_off_alt', color: 'purple' });
                     } else {
                       this.rankIcon.push({ icon: 'info', color: 'grey' });
@@ -830,7 +782,7 @@ export class NW3Component implements OnInit {
                 } else {
                   this.groupName.forEach(rankValue => {
                     this.rankIcon.push({ icon: 'info', color: 'grey' });
-                  });                  
+                  });
                 }
 
                 this.rankIconsStyle = [''];
@@ -859,6 +811,12 @@ export class NW3Component implements OnInit {
           } else {
             // this.slideNameBackground = 'url("https://image.shutterstock.com/shutterstock/photos/1897867054/display_1500/stock-vector-currency-watermark-background-intense-illustration-detailed-design-1897867054.jpg")';
             this.slideType = 'NameEvaluation';
+            if (data[0].NameRanking === "") {
+              this.vote = false;
+            }
+            else {
+              this.vote = true;
+            }
             this.voteUsersInterval = setInterval(() => {
               this.getNwVoteData();
             }, 500);
@@ -880,6 +838,47 @@ export class NW3Component implements OnInit {
 
     // this.slideType = 'info'; 
 
+  }
+
+  selectedOpt(option) {
+    if (option === 'Positive') {
+      this.positiveChecked = !this.positiveChecked;
+      this.neutralChecked = false;
+      this.negativeChecked = false;
+      // this.newNameColor = 'accent';
+      // this.commentsColor = 'accent';
+    }
+    else if (option === 'Neutral') {
+      this.neutralChecked = !this.neutralChecked;
+      this.positiveChecked = false;
+      this.negativeChecked = false;
+      // this.newNameColor = 'primary';
+      // this.commentsColor = 'primary';
+
+    } else if (option === 'Negative') {
+      this.neutralChecked = false;
+      this.positiveChecked = false;
+      this.negativeChecked = !this.negativeChecked;
+    }
+
+    if (this.neutralChecked === true
+      || this.positiveChecked === true
+      || this.negativeChecked === true) {
+      this.vote = true;
+    } else {
+      this.vote = false;
+    }
+
+    if (this.japanese) {
+      // this.faVolumeUp = null;
+    }
+  }
+
+  moveRight() {
+    if (this.stopMovingForward || this.vote) {
+      this.playSound('03 Primary System Sounds/navigation_forward-selection-minimal.wav', this.soundVolume);
+      this.selectPage('next');
+    }
   }
 
 
@@ -976,66 +975,6 @@ export class NW3Component implements OnInit {
     } else {
       // this.faVolumeUp = null;
     }
-    // if (data[0].GroupedNames !== '') {
-    //   if (data[0].GroupedNames.includes('##')) {
-    //     this.groupName = data[0].GroupedNames.split('##');
-    //     this.groupName.forEach(element => {
-    //       if (element.split('|').length > 1) {
-    //         this.isPipeSplit = true;
-    //       }
-
-    //     });
-    //     this.isGroupNameTooltip = true;
-    //     this.summaryViewFlexLayout = 'column wrap';
-    //   } else {
-    //     this.groupName = data[0].GroupedNames.split('$$');
-    //     this.isGroupNameTooltip = false;
-    //     this.summaryViewFlexLayout = 'column';
-    //   }
-
-    //   let counter = 0;
-    //   let index = 0;
-    //   this.groupName.forEach(element => {
-    //     // this.groupName[index] = element.replace('(', '|(');
-    //     if (counter < element.length) {
-    //       counter = element.length;
-    //       this.summarySlideMinWidth = (counter * 20) + 20;
-    //       this.rationaleMinWidth = 1000 - this.summarySlideMinWidth;
-    //       if (this.summarySlideMinWidth > 900) {
-    //         this.summarySlideMinWidth = 800;
-    //         this.rationaleMinWidth = 200;
-    //       }
-    //     }
-    //     index = index + 1;
-    //   });
-
-    //   // setTimeout(() => {
-    //   //   this.separateCandidateElement.toArray().forEach((element, index) => {
-    //   //     const arrRank = data[0].NameRanking.split('##');
-    //   //     const areLike = this.areAllLike(arrRank);
-    //   //     if (data[0].NameRanking.split('##')[0] !== '') {
-    //   //       this.switchPosNegElement.nativeElement.checked = (areLike) ? true : false;
-
-    //   //       if (arrRank[index] === 'Negative' || arrRank[index] === 'novalue') {
-    //   //         element.checked = false;
-    //   //       } else {
-    //   //         element.checked = true;
-    //   //       }
-    //   //     } else {
-    //   //       this.switchPosNegElement.nativeElement.checked = false;
-    //   //     }
-
-    //   //   });
-    //   // }, 50);
-    // } else {
-    //   this.name = data[0].Name;
-    //   this.name = this.name.replace('(', '|(');
-    //   if (this.evaluationTimeElement && data[0].TemplateFileName !== 'images/BackGrounds/Default.jpg') {
-    //     // tslint:disable-next-line:max-line-length
-    //     this.evaluationTimeElement.nativeElement.style.backgroundImage = this.BackgroundUrl + this.hideBackground[this.backgroundCounter] + '.jpg)';
-    //     this.evaluationTimeElement.nativeElement.style.backgroundSize = 'cover';
-    //   }
-    // }
 
     if (data[0].GroupRationale !== '') {
       if (data[0].GroupRationale.includes('##')) {
@@ -1049,37 +988,37 @@ export class NW3Component implements OnInit {
     }
 
     this.category = data[0].NameCategory;
-    if (data[0].GroupedNames === '') {
-      if (data[0].NameRanking === 'Positive') {
-        setTimeout(() => {
-          this.positiveChecked = false;
-          this.neutralChecked = false;
-          this.negativeChecked = false;
-          this.selectedOpt(data[0].NameRanking.toLowerCase());
-        }, 10);
-      } else if (data[0].NameRanking === 'Neutral') {
-        setTimeout(() => {
-          this.positiveChecked = false;
-          this.neutralChecked = false;
-          this.negativeChecked = false;
-          this.selectedOpt(data[0].NameRanking.toLowerCase());
-        }, 10);
-      } else if (data[0].NameRanking === 'Negative') {
-        setTimeout(() => {
-          this.positiveChecked = false;
-          this.neutralChecked = false;
-          this.negativeChecked = false;
-          this.selectedOpt(data[0].NameRanking.toLowerCase());
-        }, 10);
-      } else {
-        if (data[0].SlideType === 'NameEvaluation') {
-          // this.cantMove.emit(true);
-        }
-        this.selectedOpt(data[0].NameRanking.toLowerCase());
-      }
-    } else {
-      // this.cantMove.emit(false);
-    }
+    // if (data[0].GroupedNames === '') {
+    //   if (data[0].NameRanking === 'Positive') {
+    //     setTimeout(() => {
+    //       this.positiveChecked = false;
+    //       this.neutralChecked = false;
+    //       this.negativeChecked = false;
+    //       this.selectedOpt(data[0].NameRanking.toLowerCase());
+    //     }, 10);
+    //   } else if (data[0].NameRanking === 'Neutral') {
+    //     setTimeout(() => {
+    //       this.positiveChecked = false;
+    //       this.neutralChecked = false;
+    //       this.negativeChecked = false;
+    //       this.selectedOpt(data[0].NameRanking.toLowerCase());
+    //     }, 10);
+    //   } else if (data[0].NameRanking === 'Negative') {
+    //     setTimeout(() => {
+    //       this.positiveChecked = false;
+    //       this.neutralChecked = false;
+    //       this.negativeChecked = false;
+    //       this.selectedOpt(data[0].NameRanking.toLowerCase());
+    //     }, 10);
+    //   } else {
+    //     if (data[0].SlideType === 'NameEvaluation') {
+    //       // this.cantMove.emit(true);
+    //     }
+    //     this.selectedOpt(data[0].NameRanking.toLowerCase());
+    //   }
+    // } else {
+    //   // this.cantMove.emit(false);
+    // }
 
     if (this.txtNewNameElement) {
       const tstr = this.convertToEntities(data[0].NewNames);
@@ -1115,7 +1054,6 @@ export class NW3Component implements OnInit {
     }
 
   }
-
 
 
   //  Businness logic 
@@ -1377,111 +1315,12 @@ export class NW3Component implements OnInit {
   //  NEW CODE 02/18/21
 
   moveLeft1() {
-    if (true) {
-      // this.slideType = '';
+    if (true) {      
+      this.playSound('03 Primary System Sounds/navigation_backward-selection-minimal.wav', this.soundVolume);
       this.selectPage('previous');
     }
   }
 
-  moveRight() {
-    if (!this.stopMovingForward || !this.vote) {
-      if (true) {
-        // this.slideType = '';
-        this.selectPage('next');
-      }
-    }
-  }
-
-
-
-  selectedOpt(option) {
-    this.slideModel.NameRanking = option;
-    if (option === 'Positive' && this.positiveChecked === false) {
-      this.positiveChecked = true;
-      // this.positiveChecked = !this.positiveChecked;
-      // this.cantMove.emit(false);
-      this.neutralChecked = false;
-      this.negativeChecked = false;
-      this.newNameColor = 'accent';
-      this.commentsColor = 'accent';
-      if (this.nameCandidateElement) {
-        this.nameCandidateElement.nativeElement.style.opacity = 1;
-        this.pronunciationParentElement.nativeElement.style.opacity = 1;
-        // this.setNewNameElement('');
-        // this.setCommentsElement('');
-      }
-    } else if (option === 'Positive' && this.positiveChecked === true) {
-      // this.cantMove.emit(true);
-
-      this.neutralChecked = false;
-      this.positiveChecked = false;
-
-      // this.positiveChecked = !this.positiveChecked;
-
-      this.negativeChecked = false;
-      this.newNameColor = '';
-      this.commentsColor = '';
-    } else if (option === 'Neutral' && this.neutralChecked === false) {
-      this.neutralChecked = true;
-      // this.cantMove.emit(false);
-      this.positiveChecked = false;
-      this.negativeChecked = false;
-      this.newNameColor = 'primary';
-      this.commentsColor = 'primary';
-      if (this.nameCandidateElement) {
-        this.nameCandidateElement.nativeElement.style.opacity = 1;
-        this.pronunciationParentElement.nativeElement.style.opacity = 1;
-        // this.setNewNameElement('');
-        // this.setCommentsElement('#0d47a1');
-      }
-    } else if (option === 'Neutral' && this.neutralChecked === true) {
-      // this.cantMove.emit(true);
-      this.neutralChecked = false;
-      this.positiveChecked = false;
-      this.negativeChecked = false;
-      this.commentsColor = '';
-      this.newNameColor = '';
-      if (this.nameCandidateElement) {
-        // this.setCommentsElement('');
-      }
-    } else if (option === 'Negative' && this.negativeChecked === false) {
-      this.neutralChecked = false;
-      this.positiveChecked = false;
-      this.negativeChecked = true;
-      // this.cantMove.emit(false);
-      this.newNameColor = 'warn';
-      this.commentsColor = 'warn';
-      if (this.nameCandidateElement) {
-        this.nameCandidateElement.nativeElement.style.opacity = 0.3;
-        this.pronunciationParentElement.nativeElement.style.opacity = 0.3;
-        // this.setNewNameElement('#b71c1c');
-        // this.setCommentsElement('#b71c1c');
-      }
-    } else {
-      this.negativeChecked = false;
-      this.neutralChecked = false;
-      this.positiveChecked = false;
-      this.newNameColor = '';
-      this.commentsColor = '';
-      if (this.nameCandidateElement) {
-        this.nameCandidateElement.nativeElement.style.opacity = 1;
-        this.pronunciationParentElement.nativeElement.style.opacity = 1;
-        // this.setNewNameElement('');
-        // this.setCommentsElement('');
-      }
-    }
-    if (this.japanese) {
-      // this.faVolumeUp = null;
-    }
-  }
-  areAllLike(arr) {
-    for (let i = 0; i < arr.length; i++) {
-      if (arr[i] !== 'Positive') {
-        return false;
-      }
-    }
-    return true;
-  }
 
   convertToEntities(str) {
     let bstr = '';
@@ -1505,7 +1344,7 @@ export class NW3Component implements OnInit {
     }
   }
 
-  // new mobile NW 
+  // GO BUTON SIGNAL FOR VOTE MOBILE APP
   sendNameToMobileNW() {
     // this.go = !this.go;
     this._NW3Service.sendGoSignalVoting(
@@ -1533,9 +1372,9 @@ export class NW3Component implements OnInit {
   }
 
 
-  changeSummaryList(lsitSelection) {
+  changeSummaryList(listSelection) {
 
-    if (lsitSelection === 'positive') {
+    if (listSelection === 'Positive') {
       this.summaryPositive = true;
       this.summaryNeutral = false;
       this.summaryNegative = false;
@@ -1543,7 +1382,7 @@ export class NW3Component implements OnInit {
       this.summaryChart = false;
     }
 
-    else if (lsitSelection === 'neutral') {
+    else if (listSelection === 'Neutral') {
       this.summaryPositive = false;
       this.summaryNeutral = true;
       this.summaryNegative = false;
@@ -1551,7 +1390,7 @@ export class NW3Component implements OnInit {
       this.summaryChart = false;
     }
 
-    else if (lsitSelection === 'negative') {
+    else if (listSelection === 'Negative') {
       this.summaryPositive = false;
       this.summaryNeutral = false;
       this.summaryNegative = true;
@@ -1559,7 +1398,7 @@ export class NW3Component implements OnInit {
       this.summaryChart = false;
     }
 
-    else if (lsitSelection === 'new names') {
+    else if (listSelection === 'new names') {
       this.summaryPositive = false;
       this.summaryNeutral = false;
       this.summaryNegative = false;
@@ -1567,7 +1406,7 @@ export class NW3Component implements OnInit {
       this.summaryChart = false;
     }
 
-    else if (lsitSelection === 'chart') {
+    else if (listSelection === 'chart') {
       this.summaryPositive = false;
       this.summaryNeutral = false;
       this.summaryNegative = false;
@@ -1648,8 +1487,100 @@ export class NW3Component implements OnInit {
         });
       });
     });
+
+    this.totalNewNames = [];
+    this.totalNewNames2 = [];
+    this._NW3Service.getRetainTypeName(this.projectId, (listSelection === "new names") ? "New" : listSelection).subscribe((data: Array<object>) => {
+      this.totalNewNames2.push(data);
+      console.log(this.totalNewNames2);
+    });
+    console.log(this.totalNewNames2);
+    
+
   }
 
+  clickedSummaryName(clickedName, originalName) {
+    let searchName = clickedName;
+    if (originalName) {
+      searchName = originalName;
+    }
+    this._NW3Service.getSelectedName(this.projectId, searchName).subscribe(data => {
+      this.pageNumberChange(parseInt(data[0].SlideNumber));
+    });
+  }
+
+  getSelectedRank(selectedRank) {
+    this._NW3Service.getGroupSummary(this.projectId).subscribe(displayGroupResult => {
+      this.nameCandidates = [];
+      for (const obj of Object.values(displayGroupResult)) {
+        this.tempObj = obj;
+        let arrGroupRank;
+        let arrGroupName;
+        if (obj.name.includes('##')) {
+          arrGroupRank = obj.nameranking.split('##');
+          arrGroupName = obj.name.split('##');
+        } else {
+          arrGroupRank = obj.nameranking.split('##');
+          arrGroupName = obj.name.split('$$');
+        }
+        arrGroupName.forEach((name, index) => {
+          if (selectedRank === 'Positive' && arrGroupRank[index] === 'Positive') {
+            this.nameCandidates.push({
+              'NameToDisplay': name,
+              'Name': this.tempObj.name
+            });
+          }
+          if (selectedRank === 'Negative' && arrGroupRank[index] === 'Negative') {
+            this.nameCandidates.push({
+              'NameToDisplay': name,
+              'Name': this.tempObj.name
+            });
+          }
+          if (selectedRank === 'Neutral' && arrGroupRank[index] === 'Neutral') {
+            this.nameCandidates.push({
+              'NameToDisplay': name,
+              'Name': this.tempObj.name
+            });
+          }
+        });
+      }
+      if (selectedRank === 'New') {
+        this.isNewName = true;
+        this.postRadio = false;
+        this.NeuRadio = false;
+        this.NegRadio = false;
+      } else if (selectedRank === 'Neutral') {
+        this.isNewName = false;
+        this.postRadio = false;
+        this.NeuRadio = true;
+        this.NegRadio = false;
+
+      } else if (selectedRank === 'Negative') {
+        this.isNewName = false;
+        this.postRadio = false;
+        this.NeuRadio = false;
+        this.NegRadio = true;
+
+      } else if (selectedRank === 'Positive') {
+        this.isNewName = false;
+        this.postRadio = true;
+        this.NeuRadio = false;
+        this.NegRadio = false;
+
+      }
+      this._NW3Service.getRetainTypeName(this.projectId, (selectedRank === "New Names") ? "New" : selectedRank).subscribe((data: Array<object>) => {
+        if (this.nameCandidates.length === 0) {
+          this.nameCandidates = data;
+        } else {
+          this.nameCandidates = this.nameCandidates.concat(data);
+        }
+        for (let i = 0; i < this.nameCandidates.length; i++) {
+          this.nameCandidates[i].NameToDisplay = this.convertToEntities(this.nameCandidates[i].NameToDisplay);
+        }
+        this.showRankedNames = true;
+      });
+    });
+  }
 
   // GROUP NAMES TEMPLATE SETTINGS
 
@@ -1682,6 +1613,7 @@ export class NW3Component implements OnInit {
   }
 
   toggleRankIcon(rankIcon, i) {
+    this.playSound('02 Alerts and Notifications/alert_high-intensity.wav', this.soundVolume);
     if (rankIcon[i].icon === 'info') {
       this.rankIcon[i] = { icon: 'favorite', color: 'red' };
     } else if (rankIcon[i].icon === 'favorite') {
@@ -1694,7 +1626,18 @@ export class NW3Component implements OnInit {
   }
 
   setAllNamesIcon(icon, color) {
-    this.isFavoriteOn = !this.isFavoriteOn;
+    if (icon === 'favorite') {      
+      this.isFavoriteOn = !this.isFavoriteOn;
+    }
+    let sound;
+    if (icon === 'favorite') {
+      sound = '01 Hero Sounds/hero_simple-celebration-01.wav'
+    } else if (icon === 'thumb_down_off_alt') {
+      sound = '03 Primary System Sounds/ui_tap-variant-01.wav'
+    } else if (icon === 'sentiment_very_satisfied') {
+      sound = '03 Primary System Sounds/ui_lock.wav'
+    }
+    this.playSound(sound, this.soundVolume);
     this.rankIcon.forEach(currenticon => {
       currenticon.icon = icon;
       currenticon.color = color;
@@ -1783,6 +1726,23 @@ export class NW3Component implements OnInit {
 
   }
 
+
+  // APPLICATION SOUNDS
+
+  playSound(soundEffect, volume) {
+    let audio = new Audio();
+    // audio.src = soundEffect;
+    // audio.volume = volume;
+    audio.src = "assets/sound/wav/" + soundEffect;
+    audio.volume = volume;
+    audio.load();
+    audio.play();
+  }
+
+  myFunction() {
+    console.log('myFunction()');
+
+  }
 }
 
  // DASH CODE
@@ -1854,15 +1814,7 @@ export class NW3Component implements OnInit {
     //   }
     //   this.setEvaluationData(lastVisitedPageNumber, pageObj.moveTo);
     // }
- // clickedSummaryName(clickedName, originalName) {
-  //   let searchName = clickedName;
-  //   if (originalName) {
-  //     searchName = originalName;
-  //   }
-  //   this._NW3Service.getSelectedName(this.projectId, searchName).subscribe(data => {
-  //     this.setDataToDisplay(data, 'clicked_name');
-  //   });
-  // }
+
 
   // showPieChart() {
   //   this.showRankedNames = false;

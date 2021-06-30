@@ -263,6 +263,7 @@
         height: 30px;
         line-height: 20px;
         @include BoxShadow(6);
+        transform: scale(1.2);
 
         .mat-badge-content {
             position: absolute;
@@ -290,7 +291,7 @@
         height: 30px;
         line-height: 20px;
         @include BoxShadow(6);
-
+        transform: scale(1.2);
         .mat-badge-content {
             position: absolute;
             top: 4px !important;
@@ -308,13 +309,14 @@
             background-color: #fe0265;
         }
     }
-    .voteIconButton#fe0265 {
+    .voteIconButtonRed {
         color: #fe0265;
         outline: none;
         width: 30px;
         height: 30px;
         line-height: 20px;
         @include BoxShadow(6);
+        transform: scale(1.2);
         .mat-badge-content {
             position: absolute;
             top: 4px !important;
@@ -334,12 +336,13 @@
         }
     }
     .voteIconButtonPurple {
-        color: #0336ff;
+        color: purple;
         outline: none;
         width: 30px;
         height: 30px;
         line-height: 20px;
         @include BoxShadow(6);
+        transform: scale(1.2);
         .mat-badge-content {
             position: absolute;
             top: 4px !important;
@@ -356,10 +359,11 @@
     width: 30px;
     height: 30px;
     line-height: 20px;
+    transform: scale(1.2);
 }
 
 .voteIconButtonGreen:hover {
-    color: green;
+    // color: green;
     transition: all 2ms ease-in-out;
     position: relative;
     top: -2px;
@@ -377,6 +381,55 @@
 //     width: 633px;
 //     outline: none;
 // }
+
+
+$voteIconsColor: #008d05, #f2ce00, #f50c0c, #4c00ff, #4c00ff;
+@for $i from 1 through 5 {
+    .voteIconButton:nth-child(#{$i}) {
+        // color: nth($voteIconsColor, $i);
+        animation: fadeIn 0.2s ease-in-out backwards;
+        animation-iteration-count: 1;
+        animation-delay: $i * 0.15 + s;
+        @include BoxShadow(6);
+    }
+
+    .voteIconButton:hover:nth-child(#{$i}) {
+        // color: nth($voteIconsColor, $i);
+        transition: all 2ms ease-in-out;
+        position: relative;
+        top: -2px;
+        transform: scale(2);
+        background: white;
+    }
+
+    .voteOverviewBox:nth-child(#{$i}) {
+        // color: nth($voteIconsColor, $i);
+        animation: fadeIn 0.2s ease-in-out backwards;
+        animation-iteration-count: 1;
+        animation-delay: $i * 0.15 + s;
+    }
+
+    .GG:nth-child(#{$i}) {
+        // color: nth($voteIconsColor, $i);
+        animation: bounce 0.5s ease-in-out backwards;
+        animation-iteration-count: 1;
+        animation-delay: $i * 0.15 + s;
+        text-shadow: 0 0.04em 0.04em rgba(0, 0, 0, 0.35);
+        box-shadow: inset inset 0px 0px 5px #c1c1c1;
+    }
+
+    .GGOut:nth-child(#{$i}) {
+        animation: fadeOut 0.2s ease-in-out backwards;
+        animation-iteration-count: 1;
+        animation-delay: $i * 0.15 + s;
+    }
+
+    .GG:hover:nth-child(#{$i}) {
+        transform: scale(1.2);
+        background: white;
+    }
+}
+
 
 .voteOverviewBox {
     border: blue 1px solid;
@@ -500,7 +553,7 @@
     z-index: 2;
     animation: tada 1000ms ease-in-out 1ms forwards;
     text-shadow: 0 0.04em 0.04em rgba(0, 0, 0, 0.35);
-    box-shadow: inset inset 0px 0px 5px #c1c1c1;
+    box-shadow: inset inset 0px 0px 5px #c1c1c1;      
     @include BoxShadow(6);
     transform: scale(1.2);
 }
@@ -526,6 +579,7 @@
     transition: all 100ms ease-in-out;
     text-shadow: 0 0.04em 0.04em rgba(0, 0, 0, 0.35);
     box-shadow: inset inset 0px 0px 5px #c1c1c1;
+    animation: bounce 0.5s ease-in-out forwards;
     @include BoxShadow(6);
     // animation: heartBeat 10000ms ease-in-out 20ms infinite;
 }
@@ -642,52 +696,6 @@
     }
 }
 
-$voteIconsColor: #008d05, #f2ce00, #f50c0c, #4c00ff, #4c00ff;
-@for $i from 1 through 5 {
-    .voteIconButton:nth-child(#{$i}) {
-        // color: nth($voteIconsColor, $i);
-        animation: fadeIn 0.2s ease-in-out backwards;
-        animation-iteration-count: 1;
-        animation-delay: $i * 0.15 + s;
-        @include BoxShadow(6);
-    }
-
-    .voteIconButton:hover:nth-child(#{$i}) {
-        color: nth($voteIconsColor, $i);
-        transition: all 2ms ease-in-out;
-        position: relative;
-        top: -2px;
-        transform: scale(1.2);
-        background: white;
-    }
-
-    .voteOverviewBox:nth-child(#{$i}) {
-        // color: nth($voteIconsColor, $i);
-        animation: fadeIn 0.2s ease-in-out backwards;
-        animation-iteration-count: 1;
-        animation-delay: $i * 0.15 + s;
-    }
-
-    .GG:nth-child(#{$i}) {
-        // color: nth($voteIconsColor, $i);
-        animation: fadeIn 0.2s ease-in-out backwards;
-        animation-iteration-count: 1;
-        animation-delay: $i * 0.15 + s;
-        text-shadow: 0 0.04em 0.04em rgba(0, 0, 0, 0.35);
-        box-shadow: inset inset 0px 0px 5px #c1c1c1;
-    }
-
-    .GGOut:nth-child(#{$i}) {
-        animation: fadeOut 0.2s ease-in-out backwards;
-        animation-iteration-count: 1;
-        animation-delay: $i * 0.15 + s;
-    }
-
-    .GG:hover:nth-child(#{$i}) {
-        transform: scale(1.2);
-        background: white;
-    }
-}
 
 .goButton {
     border-radius: 11px;
@@ -756,32 +764,6 @@ $voteIconsColor: #008d05, #f2ce00, #f50c0c, #4c00ff, #4c00ff;
     width: max-content;
     text-align: center;
 }
-
-// theme
-
-// $postItHeaderColorsLength: length($postItHeaderColors2);
-// .voteIcons {
-//     @for $i from 1 through 4 {
-//         &:nth-of-type(#{$postItHeaderColorsLength}n + #{$i}) .voteIconButton {
-//             color: nth($postItHeaderColors2, $i);
-//             // color: darkblue;
-//             // animation: nth($postItanimations, $i) 0.2s;
-//             animation: fadeIn 0.2s ease-in-out backwards;
-//             animation-iteration-count: 1;
-//             animation-delay: $i * 0.15 + s;
-//         }
-
-//         &:nth-of-type(#{$postItHeaderColorsLength}n + #{$i}) .voteIconButton:hover {
-//             transform: scale(2.1);
-//             color: green;
-//             transform: rotate(2deg);
-//             position: relative;
-//             top: -2px;
-//             background: white;
-//             // animation: nth($postItanimations, $i) 1s;
-//         }
-//     }
-// }
 
 // SUMMARY SCSS
 
