@@ -1744,6 +1744,27 @@ export class BmxCreatorComponent implements OnInit {
     console.log('myFunction()');
 
   }
+
+
+// BRAND MATRIX CODE
+
+logintoTheMatrix(){
+
+  this.isGoVoteOn = !this.isGoVoteOn;
+
+  
+
+  this.slideType = "NameSummary";
+}
+
+
+
+
+
+
+
+
+
 }
 
  // DASH CODE

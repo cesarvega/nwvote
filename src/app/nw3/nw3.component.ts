@@ -467,7 +467,7 @@ export class NW3Component implements OnInit {
           this.projectId = data[0].PresentationId;
           this.bsrProjectId = data[0].BSRPresentationid;
           this._NW3Service.getProjectData(this.projectId).subscribe(
-            (data: string) => {
+            (data: any) => {
               console.log(data);
               this.results = JSON.stringify(data);
               this.switchButton = this.results;
@@ -1438,12 +1438,12 @@ export class NW3Component implements OnInit {
         }
       }
       this.totalNewNames = [];
-      this._NW3Service.getRetainTypeName(this.projectId, "New").subscribe((data: Array<object>) => {
+      this._NW3Service.getRetainTypeName(this.projectId, "New").subscribe((data: any) => {
         data.forEach(ele => {
           this.totalNewNames.push(ele);
         });
 
-        this._NW3Service.getRetainTypeName(this.projectId, 'Positive').subscribe((resultPos: Array<object>) => {
+        this._NW3Service.getRetainTypeName(this.projectId, 'Positive').subscribe((resultPos: any) => {
           this.totalPositive = resultPos.length + this.posCount;
           newChartData.push({
             'name': 'Positive',
@@ -1456,14 +1456,14 @@ export class NW3Component implements OnInit {
             });;
           });
 
-          this._NW3Service.getRetainTypeName(this.projectId, 'Neutral').subscribe((resultNeu: Array<object>) => {
+          this._NW3Service.getRetainTypeName(this.projectId, 'Neutral').subscribe((resultNeu: any) => {
             this.totalNeutral = resultNeu.length + this.neuCount;
             newChartData.push({
               'name': 'Neutral',
               'value': resultNeu.length + this.neuCount
             });
 
-            this._NW3Service.getRetainTypeName(this.projectId, 'Negative').subscribe((resultNeg: Array<object>) => {
+            this._NW3Service.getRetainTypeName(this.projectId, 'Negative').subscribe((resultNeg: any) => {
               this.totalNegative = resultNeg.length + this.negCount;
               newChartData.push({
                 'name': 'Negative',
@@ -1490,7 +1490,7 @@ export class NW3Component implements OnInit {
 
     this.totalNewNames = [];
     this.totalNewNames2 = [];
-    this._NW3Service.getRetainTypeName(this.projectId, (listSelection === "new names") ? "New" : listSelection).subscribe((data: Array<object>) => {
+    this._NW3Service.getRetainTypeName(this.projectId, (listSelection === "new names") ? "New" : listSelection).subscribe((data: any) => {
       this.totalNewNames2.push(data);
       console.log(this.totalNewNames2);
     });
@@ -1568,7 +1568,7 @@ export class NW3Component implements OnInit {
         this.NegRadio = false;
 
       }
-      this._NW3Service.getRetainTypeName(this.projectId, (selectedRank === "New Names") ? "New" : selectedRank).subscribe((data: Array<object>) => {
+      this._NW3Service.getRetainTypeName(this.projectId, (selectedRank === "New Names") ? "New" : selectedRank).subscribe((data: any) => {
         if (this.nameCandidates.length === 0) {
           this.nameCandidates = data;
         } else {
