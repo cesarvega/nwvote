@@ -30,6 +30,66 @@
     }
 }
 
+//   BRAND MATRIX CREATOR DASH
+.logo-badge {
+    // border: solid 5px darkblue;
+    width: 14.5%;
+    height: 60px;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    position: absolute;
+    background-color: white;
+    box-shadow: 0 6px 10px 0 rgb(0 0 0 / 14%), 0 1px 18px 0 rgb(0 0 0 / 12%), 0 3px 5px -1px rgb(0 0 0 / 20%);
+}
+.welcome {
+    // border: solid 5px #8b1500;
+    width: 14.5%;
+    height: 10%;
+    top: 67px;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    position: absolute;
+    background-color: #353f4b;
+    box-shadow: 0 6px 10px 0 rgb(0 0 0 / 14%), 0 1px 18px 0 rgb(0 0 0 / 12%), 0 3px 5px -1px rgb(0 0 0 / 20%);
+}
+
+.menu {
+    display: flex;
+    flex-direction: column;
+    overflow-x: hidden;
+    top: 166px;
+    width: 14.5%;
+    position: absolute;
+    .menu-item {
+        cursor: pointer;
+        height: 89px;
+        display: flex;
+        flex-direction: row;
+        margin: 1px 0px;
+        align-items: center;
+        position: relative;
+        color: white;
+        background-color: #353f4b;
+        box-shadow: 0 6px 10px 0 rgb(0 0 0 / 14%), 0 1px 18px 0 rgb(0 0 0 / 12%), 0 3px 5px -1px rgb(0 0 0 / 20%);
+    }
+    .menu-item:hover {
+        cursor: pointer;
+        height: 89px;
+        display: flex;
+        flex-direction: row;
+        margin: 1px 0px;
+        align-items: center;
+        position: relative;
+        color: #353f4b;
+        background-color: #bdbdbd;
+        // transform: scale(1.1);
+        box-shadow: 0 6px 10px 0 rgb(0 0 0 / 14%), 0 1px 18px 0 rgb(0 0 0 / 12%), 0 3px 5px -1px rgb(0 0 0 / 20%);
+    }
+}
+
+// *******************************************************************************************
 .mainContainerPresent {
     background-color: white;
     border: solid 5px darkgray;
@@ -137,8 +197,6 @@
     border-radius: 3px;
     @include BoxShadow(6);
 }
-
-
 
 .full-icon:hover {
     transform: scale(2);
@@ -791,8 +849,6 @@ $voteIconsColor: #008d05, #f2ce00, #f50c0c, #4c00ff, #4c00ff;
     }
 }
 
-
-
 // SUMMARY SCSS
 
 .summary {
@@ -801,10 +857,10 @@ $voteIconsColor: #008d05, #f2ce00, #f50c0c, #4c00ff, #4c00ff;
         font-size: 40px;
         max-height: 10%;
         color: darkblue;
-        font-family: 'coture';
+        font-family: "coture";
         top: 10px;
         text-shadow: 0 0.04em 0.04em rgba(0, 0, 0, 0.35);
-                box-shadow: inset inset 0px 0px 5px #c1c1c1;
+        box-shadow: inset inset 0px 0px 5px #c1c1c1;
     }
 
     .summaryButtons {
@@ -1005,7 +1061,6 @@ $voteIconsColor: #008d05, #f2ce00, #f50c0c, #4c00ff, #4c00ff;
     }
 }
 
-
 .corner_bar_menu {
     position: absolute;
     right: 30px;
@@ -1038,11 +1093,9 @@ $voteIconsColor: #008d05, #f2ce00, #f50c0c, #4c00ff, #4c00ff;
         width: max-content;
         text-align: center;
     }
-    
 }
 
-
-.bottom_menu_off{
+.bottom_menu_off {
     display: none;
 }
 
