@@ -1,7 +1,7 @@
 <div style="display: flex;flex-direction: row;">
     <div style="display: flex;border:brown 0px solid;width: 15%; height: 100vh;">
 
-
+        <!-- LOGO BRANDING 🎭-->
         <div class="logo-badge" style="font-size: 21px;overflow-x: hidden;">
 
             <img style="width: 50px;margin-left: 10px;" src="./assets/img/bmxLogo.png">
@@ -16,7 +16,7 @@
                 </div>
             </div>
         </div>
-
+        <!--🎭 END LOGO BRANDING -->
         <div class="welcome">
             <button mat-icon-button style="background-color: white;margin: 0 20px 0 10px">
                 <mat-icon>account_circle</mat-icon>
@@ -87,7 +87,7 @@
                 </div>
             </div>
         </div>
-        <!-- END SIDE MENU 🎀-->
+        <!--🎀 END SIDE MENU -->
 
     </div>
 
@@ -103,13 +103,12 @@
 
 
     <!-- CREATE/EDIT COMPONENT  🧠-->
-    <div class="create-edit" *ngIf="true" style="border: hotpink solid 1px; width: 60%; height: 100vh;">
+    <div class="create-edit"  *ngIf="true" style="border: hotpink solid 1px; width: 60%; height: 100vh;overflow-y: scroll;">
 
-
+        <div *ngFor="let bmxItem of brandMatrixObjects" style="display: flex;flex-direction: column;">
         <!-- BMX HEADER 😋 -->
         <div class="development-border" style="height: 100px;display: flex;flex-direction: row;justify-content: space-between;align-items: center;
             font-size: 60px;">
-
             <div>
                 <img style="width: 127px;margin-left: 10px;" src="./assets/img/bi-logo-with-tagline.svg">
             </div>
@@ -119,27 +118,27 @@
             </div>
 
         </div>
-         <!-- END BMX HEADER 😋 -->
+        <!--😋 END BMX HEADER  -->
 
-
-         <!-- BMX PARAGRAPH EDITOR 📑 -->
-        <div class="development-border">
-
-            <div style="margin: 30px;"  [innerHTML]="sampleHtml | safe: 'html'"></div>
-            <ckeditor id="txtTexto" class="ckeditorcev" [ngModelOptions]="{standalone: true}"
-            [(ngModel)]="model.editorData" [data]="dataEditor" [config]="ckconfig"></ckeditor>
-
-            <button (click)="sendTextHtml()">click me</button>
+        <!-- BMX PARAGRAPH EDITOR 📑 -->
+        <div class="development-border" style="margin: 10px;">           
+            <div style="margin: 30px;" [innerHTML]="sampleHtml | safe: 'html'"></div>
+            <ckeditor *ngIf="isCkeditorOn" id="txtTexto" class="ckeditorcev" [ngModelOptions]="{standalone: true}"
+                [(ngModel)]="model.editorData" [data]="dataEditor" [config]="ckconfig"></ckeditor>
+            <button (click)="sendTextHtml();isCkeditorOn = false">click me</button>
+            <button *ngIf="!isCkeditorOn" mat-icon-button style="outline: none;position: relative;" (click)="isCkeditorOn = true">
+                <mat-icon style="font-size: 40px;">edit</mat-icon>
+            </button>
         </div>
-         <!-- END BMX PARAGRAPH EDITOR 📑 -->
+        <!-- 📑 END BMX PARAGRAPH EDITOR -->
 
-      
+    </div>
 
     </div>
 
     <div class="create-edit" *ngIf="true" style="border: pink solid 1px; width: 25%; height: 100vh;"></div>
 
-     <!--END CREATE/EDIT COMPONENT  🧠-->
+    <!--🧠 END CREATE/EDIT COMPONENT-->
 
 
     <div class="reports" *ngIf="false" style="border: hotpink solid 1px; width: 60%; height: 100vh;"></div>

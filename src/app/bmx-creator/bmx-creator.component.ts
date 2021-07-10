@@ -18,11 +18,12 @@ import { Nw3Service } from '../nw3/nw3.service';
 export class BmxCreatorComponent implements OnInit {
   projectName: any;
   projectId: any;
+  isCkeditorOn = false;
   soundVolume = 0.2;
-  isMenuActive1 = false;
+  isMenuActive1 = true;
   isMenuActive2 = true;
   isMenuActive3 = true;
-  isMenuActive4 = true;
+  isMenuActive4 = false;
   isMenuActive5 = true;
   isMenuActive6 = true;
   dataEditor = '<p>Hello, world!</p>';
@@ -31,10 +32,15 @@ export class BmxCreatorComponent implements OnInit {
     namesData: ''
   };
   ckconfig: any;
-
-
   sampleHtml = `<p style="text-align:center;color:red">Instructions</p>\n\n<p style=\"text-align:justify\"><br />\nPlease select at least three &quot;themes&quot; you would consider to move forward for the Line Draw Family.</p>\n\n<p style=\"text-align:justify\"><strong>What do we mean by &quot;theme&quot;:</strong></p>\n\n<p style=\"text-align:justify\">We will develop names that pertain to an overarching theme. Each individual name candidate will have potential to be used as an ingredient brand to be used across all Line Draw Family concepts or as it pertains to each individual concept. In the latter scenario, we will develop names with a common word part and this word part will be included in each concept name. For example, if you choose the &quot;Optimized&quot; theme, we will develop candidates around the Op/Opt/Opti word parts.</p>\n\n<p style=\"text-align:justify\"><strong>How many themes should I vote on?</strong></p>\n\n<p style=\"text-align:justify\">You can select as many as you&rsquo;d like but we request that you select at least 3 themes. Based on the vote, we will select three to five themes for full creative exploration. How do I provide a vote? To make a selection, simply click the checkbox to the left of the desired name candidate. After you make a selection, you will be asked to rate that theme based on your own personal preference on a scale from 1 to 7, 1 being neutral and 7 being the most liked.</p>\n\n<p style=\"text-align:justify\">Once you have finished your selections, please click the &quot;Continue&quot; button on the bottom of the page to proceed to the next evaluation section.</p>\n`
+ 
+  brandMatrixObjects = [
+    { componentType:'text-editor', 
+    componentText:this.sampleHtml, 
+    componentSettings:[{ fontSize:'16px', fontFace:'Arial', fontColor:'red' }],
 
+
+  },{},{}];
 
   constructor(@Inject(DOCUMENT) private document: any,
     private _NW3Service: Nw3Service, private activatedRoute: ActivatedRoute,
@@ -48,47 +54,6 @@ export class BmxCreatorComponent implements OnInit {
         localStorage.setItem('data', data[0].PresentationId);
       })
     });
-
-    this._hotkeysService.add(new Hotkey('right', (event: KeyboardEvent): boolean => {  
-      return false;
-    }, undefined, 'Move to next slide'));
-    this._hotkeysService.add(new Hotkey('left', (event: KeyboardEvent): boolean => {
-      this.playSound('03 Primary System Sounds/navigation_backward-selection-minimal.wav', this.soundVolume);
-      return false;
-    }, undefined, 'Move to previous slide'));
-    this._hotkeysService.add(new Hotkey('up', (event: KeyboardEvent): boolean => {     
-      return false;
-    }, undefined, 'Show menu'));
-    this._hotkeysService.add(new Hotkey('down', (event: KeyboardEvent): boolean => {      
-      return false;
-    }, undefined, 'Hide menu'));
-    this._hotkeysService.add(new Hotkey('o', (event: KeyboardEvent): boolean => {     
-      return false;
-    }, undefined, 'Hide/Show slide overview'));
-    this._hotkeysService.add(new Hotkey('b', (event: KeyboardEvent): boolean => {    
-      return false;
-    }, undefined, 'Remove background'));
-    this._hotkeysService.add(new Hotkey('s', (event: KeyboardEvent): boolean => {     
-      return false;
-    }, undefined, 'Show stock ticker'));
-    this._hotkeysService.add(new Hotkey('esc', (event: KeyboardEvent): boolean => {      
-      return false;
-    }, undefined, 'Hide help sheet'));
-    this._hotkeysService.add(new Hotkey('shift+r', (event: KeyboardEvent): boolean => {      
-      return false;
-    }, undefined, ''));
-    this._hotkeysService.add(new Hotkey('1', (event: KeyboardEvent): boolean => {     
-      return false;
-    }, undefined, 'Set slide to positive'));
-    this._hotkeysService.add(new Hotkey('2', (event: KeyboardEvent): boolean => {      
-      return false;
-    }, undefined, 'Set slide to neutral'));
-    this._hotkeysService.add(new Hotkey('3', (event: KeyboardEvent): boolean => {      
-      return false;
-    }, undefined, 'Set slide to negative'));
-    this._hotkeysService.add(new Hotkey('4', (event: KeyboardEvent): boolean => {      
-      return false;
-    }, undefined, 'Set slide to recraft'));
 
  
     // document.body.style.zoom = 1.10;
@@ -137,7 +102,7 @@ export class BmxCreatorComponent implements OnInit {
     audio.play();
   }
 
-  // menu functionallity toggles the active link menu item
+  // menu functionallity toggles the active link scss
   toggleMenuActive(menuItem){
     this.isMenuActive1 = (menuItem === 'isMenuActive1')?false:true;
     this.isMenuActive2 = (menuItem === 'isMenuActive2')?false:true;
@@ -149,7 +114,8 @@ export class BmxCreatorComponent implements OnInit {
 
   sendTextHtml(index?){
     this.sampleHtml =  this.model.editorData;  
-    // console.log(this.model.editorData);
-    
+    if (index) {      
+      this.brandMatrixObjects[index].componentText = this.model.editorData;
+    }    
   }
 }
