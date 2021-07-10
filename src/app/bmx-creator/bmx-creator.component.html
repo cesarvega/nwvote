@@ -21,53 +21,39 @@
             <button mat-icon-button style="background-color: white;margin: 0 20px 0 10px">
                 <mat-icon>account_circle</mat-icon>
             </button>
-            <div class="title secondary-text"
-                style="color: white; text-align: end;font-family: Arial, Helvetica, sans-serif;font-size: 20px;">
+            <div style="color: white; text-align: end;font-family: Arial, Helvetica, sans-serif;font-size: 20px;">
                 {{' welcome Alexa!'}}
             </div>
-
         </div>
 
-
-
-        <div class="menu" >
-            <div class="menu-item">
-                <button mat-icon-button style="color: white;margin: 0 20px 0 10px">
+        <!-- SIDE MENU 🎀 -->
+        <div class="menu">
+            <div [ngClass]="(isMenuActive1)?'menu-item':'menu-active'" (click)="toggleMenuActive('isMenuActive1')">
+                <button mat-icon-button style="margin: 0 20px 0 10px">
                     <mat-icon style="font-size: 40px;">list</mat-icon>
                 </button>
-                <div
-                    style=" text-align: end;font-family: Arial, Helvetica, sans-serif;font-size: 20px;">
+                <div style=" text-align: end;font-family: Arial, Helvetica, sans-serif;font-size: 20px;">
                     {{'Project List'}}
                 </div>
             </div>
-            <div class="menu-item">
+            <div [ngClass]="(isMenuActive2)?'menu-item':'menu-active'" (click)="toggleMenuActive('isMenuActive2')">
                 <button mat-icon-button style="margin: 0 20px 0 10px">
                     <mat-icon style="font-size: 40px;">open_in_full</mat-icon>
                 </button>
 
                 <div style=" display: flex;flex-direction: column;align-items: flex-start;">
-                    <div
-                        style=" text-align: end;font-family: Arial, Helvetica, sans-serif;font-size: 20px;">
+                    <div style=" text-align: end;font-family: Arial, Helvetica, sans-serif;font-size: 20px;">
                         {{'Open Links'}}
-                     
                     </div>
-                    <div
-                        style=" text-align: end;font-family: Arial, Helvetica, sans-serif;font-size: 20px;">
-                        
+                    <div style=" text-align: end;font-family: Arial, Helvetica, sans-serif;font-size: 20px;">
                         {{'Archive'}}
-                      
                     </div>
-                    <div
-                        style=" text-align: end;font-family: Arial, Helvetica, sans-serif;font-size: 20px;">
-                       
+                    <div style=" text-align: end;font-family: Arial, Helvetica, sans-serif;font-size: 20px;">
                         {{'Stats'}}
                     </div>
-
                 </div>
-
-
             </div>
-            <div class="menu-item">
+            <div [ngClass]="(isMenuActive3)?'menu-item':'menu-active'" (click)="toggleMenuActive('isMenuActive3')">
                 <button mat-icon-button style="margin: 0 20px 0 10px">
                     <mat-icon style="font-size: 40px;">mail</mat-icon>
                 </button>
@@ -76,15 +62,15 @@
                     {{'Matrix Invites'}}
                 </div>
             </div>
-            <div class="menu-item">
+            <div [ngClass]="(isMenuActive4)?'menu-item':'menu-active'" (click)="toggleMenuActive('isMenuActive4')">
                 <button mat-icon-button style="margin: 0 20px 0 10px">
                     <mat-icon style="font-size: 40px;">edit</mat-icon>
                 </button>
-                <div  style=" text-align: end;font-family: Arial, Helvetica, sans-serif;font-size: 20px;">
+                <div style=" text-align: end;font-family: Arial, Helvetica, sans-serif;font-size: 20px;">
                     {{'Create/Edit Matrix'}}
                 </div>
             </div>
-            <div class="menu-item">
+            <div [ngClass]="(isMenuActive5)?'menu-item':'menu-active'" (click)="toggleMenuActive('isMenuActive5')">
                 <button mat-icon-button style="margin: 0 20px 0 10px">
                     <mat-icon style="font-size: 40px;">stacked_bar_chart</mat-icon>
                 </button>
@@ -92,7 +78,7 @@
                     {{'Reports'}}
                 </div>
             </div>
-            <div class="menu-item">
+            <div [ngClass]="(isMenuActive6)?'menu-item':'menu-active'" (click)="toggleMenuActive('isMenuActive6')">
                 <button mat-icon-button style="margin: 0 20px 0 10px">
                     <mat-icon style="font-size: 40px;">settings</mat-icon>
                 </button>
@@ -101,8 +87,64 @@
                 </div>
             </div>
         </div>
+        <!-- END SIDE MENU 🎀-->
 
     </div>
-    <div style="width: 60%; height: 100vh;"></div>
-    <div style="width: 25%; height: 100vh;"></div>
+
+
+    <div class="project-list" *ngIf="false" style="border: hotpink solid 1px; width: 60%; height: 100vh;"></div>
+    <div class="project-list" *ngIf="false" style="border: pink solid 1px; width: 25%; height: 100vh;"></div>
+
+    <div class="open-links" *ngIf="false" style="border: hotpink solid 1px; width: 60%; height: 100vh;"></div>
+    <div class="open-links" *ngIf="false" style="border: pink solid 1px; width: 25%; height: 100vh;"></div>
+
+    <div class="matrix-invites" *ngIf="false" style="border: hotpink solid 1px; width: 60%; height: 100vh;"></div>
+    <div class="matrix-invites" *ngIf="false" style="border: pink solid 1px; width: 25%; height: 100vh;"></div>
+
+
+    <!-- CREATE/EDIT COMPONENT  🧠-->
+    <div class="create-edit" *ngIf="true" style="border: hotpink solid 1px; width: 60%; height: 100vh;">
+
+
+        <!-- BMX HEADER 😋 -->
+        <div class="development-border" style="height: 100px;display: flex;flex-direction: row;justify-content: space-between;align-items: center;
+            font-size: 60px;">
+
+            <div>
+                <img style="width: 127px;margin-left: 10px;" src="./assets/img/bi-logo-with-tagline.svg">
+            </div>
+            <div><span style="color: grey;">Brand</span> <span style="color: blue;">Matrix</span></div>
+            <div>
+                <img style="width: 127px;margin-right: 10px;" src="./assets/img/bmx/BD.png">
+            </div>
+
+        </div>
+         <!-- END BMX HEADER 😋 -->
+
+
+         <!-- BMX PARAGRAPH EDITOR 📑 -->
+        <div class="development-border">
+
+            <div style="margin: 30px;"  [innerHTML]="sampleHtml | safe: 'html'"></div>
+            <ckeditor id="txtTexto" class="ckeditorcev" [ngModelOptions]="{standalone: true}"
+            [(ngModel)]="model.editorData" [data]="dataEditor" [config]="ckconfig"></ckeditor>
+
+            <button (click)="sendTextHtml()">click me</button>
+        </div>
+         <!-- END BMX PARAGRAPH EDITOR 📑 -->
+
+      
+
+    </div>
+
+    <div class="create-edit" *ngIf="true" style="border: pink solid 1px; width: 25%; height: 100vh;"></div>
+
+     <!--END CREATE/EDIT COMPONENT  🧠-->
+
+
+    <div class="reports" *ngIf="false" style="border: hotpink solid 1px; width: 60%; height: 100vh;"></div>
+    <div class="reports" *ngIf="false" div style="border: pink solid 1px; width: 25%; height: 100vh;"></div>
+
+    <div class="settings" *ngIf="false" style="border: hotpink solid 1px; width: 60%; height: 100vh;"></div>
+    <div class="settings" *ngIf="false" div style="border: pink solid 1px; width: 25%; height: 100vh;"></div>
 </div>
