@@ -46,10 +46,12 @@ import { SchedulerComponent } from './scheduler/scheduler.component';
 import { AngularDateTimePickerModule } from 'angular2-datetimepicker';
 import {MatDatepickerModule} from '@angular/material/datepicker';
 import { MatNativeDateModule } from '@angular/material/core';
-
+import {MatProgressBarModule} from '@angular/material/progress-bar';
 import { DragulaModule } from 'ng2-dragula';
 import { MatListModule } from '@angular/material/list';
-
+import { NgxEchartsModule } from 'ngx-echarts';
+import * as echarts from 'echarts';
+import { NgxChartsModule } from '@swimlane/ngx-charts';
 // export class MyHammerConfig extends HammerGestureConfig {
 //   overrides = <any>{
 //     // override default settings
@@ -58,6 +60,11 @@ import { MatListModule } from '@angular/material/list';
 // }
 
 import {MatRadioModule} from '@angular/material/radio';
+import { BmxCreatorComponent } from './bmx-creator/bmx-creator.component';
+import { SafePipe } from './bmx-creator/safe.pipe';
+export function loadEcharts() {
+  return import('echarts');
+}
 
 @NgModule({
   declarations: [
@@ -70,7 +77,10 @@ import {MatRadioModule} from '@angular/material/radio';
     BsrComponent,
     NW3Component,
     BmxComponent,
-    SchedulerComponent
+    SchedulerComponent,
+    BmxCreatorComponent,
+    SafePipe,
+    // OrderDasboardComponent
   ],
   imports: [
     BrowserModule,
@@ -108,9 +118,12 @@ import {MatRadioModule} from '@angular/material/radio';
     MatSelectModule,
     MatRadioModule,
     MatNativeDateModule,
+    MatProgressBarModule,
+    NgxChartsModule,
     // AngularEditorModule,
     DragulaModule.forRoot(),
-    MatListModule
+    MatListModule,
+    NgxEchartsModule.forRoot({echarts: loadEcharts})
   ],
   entryComponents: [
     editPost, editName

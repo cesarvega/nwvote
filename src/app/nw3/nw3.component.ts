@@ -955,6 +955,28 @@ export class NW3Component implements OnInit {
       }, 100);
     }
     // this.changes();
+
+    if (this.slideType !== 'NameEvaluation') {
+
+      let slideModel2 = {
+        'presentationid': '3157',
+        'slideNumber': selectedPage,
+        'NameRanking': '',
+        'NewNames': '',
+        'NamesToExplore': '',
+        'NamesToAvoid': '',
+        'Direction': 'Next',
+        'KanaNamesNegative': '',
+        'recraft': '0',
+      };
+     
+
+    this.saveData(slideModel2);
+
+    }
+
+
+
   }
 
 
@@ -1685,7 +1707,6 @@ export class NW3Component implements OnInit {
   }
 
 
-
   // SUMMARY FUNCTIONS MAY 20-2021
 
   changeSummaryList(lsitSelection){
@@ -1731,9 +1752,6 @@ export class NW3Component implements OnInit {
     }
 
   }
-
-
-
 
 
 }

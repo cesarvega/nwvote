@@ -81,10 +81,10 @@ export class Nw3Service {
     const regexapostrophe = /'/gi;
     const saveObj = JSON.parse(modelToSave);
     // console.log(saveObj.NameRanking);
-    if (saveObj.NameRanking.length > 9) {
-      const newNameRanking = saveObj.NameRanking.replace(regex, 'novalue');
-      saveObj.NameRanking = newNameRanking;
-    }
+    // if (saveObj.NameRanking.length > 9) {
+    //   const newNameRanking = saveObj.NameRanking.replace(regex, 'novalue');
+    //   saveObj.NameRanking = newNameRanking;
+    // }
 
     this.japanese = localStorage.getItem('isKatakana');
 
