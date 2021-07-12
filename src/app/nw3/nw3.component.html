@@ -111,7 +111,8 @@
             </div>
         </div>
 
-        <!-- SINGLE NAME -->
+
+        <!-- SINGLE NAME 👷🏻‍♂️-->
         <div *ngIf="(slideType === 'NameEvaluation')">
             <div class="singleNameSlide">
 
@@ -300,7 +301,7 @@
         </button>
         <button disabled mat-icon-button aria-label="page"
             style="font-size: 23px;color: grey !important;cursor: pointer;">
-            {{'1/60'}}
+            {{pageNumber}}/{{passTotalPages}}
         </button>
         <button (click)="mainMenu = false" matTooltip="hide menu" matTooltipPosition="left" mat-icon-button color="warn"
             aria-label="aria">
