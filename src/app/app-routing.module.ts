@@ -26,15 +26,15 @@ const routes: Routes = [
   //   path: ':id',
   //   component: SchedulerComponent  
   // },
-  // {//BSR
+  // {//BSR  color of the bar #002f5b
   //   path: ':id',
   //   component: BsrComponent
   // },
   // {//BI BRAND MATRIX CREATOR
   //   path: ':id',
-  //   component: BmxCreatorComponent
+  //   component: BsrComponent
   // },
-  // {//BI BRAND MATRIX MOBILE
+  // {//BI BRAND MATRIX
   //   path: ':id',
   //   component: BmxComponent
   // },
@@ -44,7 +44,7 @@ const routes: Routes = [
   },
   {
     path: '',
-    redirectTo: '/TEST_BI_Katakana_Phonetics',
+    redirectTo: '/bi',
     pathMatch: 'full'
   } 
 ];
