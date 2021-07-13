@@ -61,6 +61,7 @@ import { NgxChartsModule } from '@swimlane/ngx-charts';
 import { MatSnackBarModule, MAT_SNACK_BAR_DEFAULT_OPTIONS } from '@angular/material/snack-bar';
 import {MatRadioModule} from '@angular/material/radio';
 import { BmxCreatorComponent } from './bmx-creator/bmx-creator.component';
+import { SafePipe } from './bmx-creator/safe.pipe';
 export function loadEcharts() {
   return import('echarts');
 }
@@ -78,6 +79,7 @@ export function loadEcharts() {
     BmxComponent,
     SchedulerComponent,
     BmxCreatorComponent,
+    SafePipe,
     // OrderDasboardComponent
   ],
   imports: [

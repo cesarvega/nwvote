@@ -30,6 +30,182 @@
     }
 }
 
+//   BRAND MATRIX CREATOR DASH
+
+.main-container {
+    display: flex;
+    flex-direction: row;
+
+    .logo-badge {
+        // border: solid 5px darkblue;
+        width: 21.5%;
+        height: 60px;
+        display: flex;
+        flex-direction: row;
+        align-items: center;
+        position: absolute;
+        background-color: white;
+        box-shadow: 0 6px 10px 0 rgb(0 0 0 / 14%), 0 1px 18px 0 rgb(0 0 0 / 12%), 0 3px 5px -1px rgb(0 0 0 / 20%);
+    }
+    .welcome {
+        // border: solid 5px #8b1500;
+        width: 21.5%;
+        height: 10%;
+        top: 67px;
+        display: flex;
+        flex-direction: row;
+        align-items: center;
+        position: absolute;
+        background-color: #353f4b;
+        box-shadow: 0 6px 10px 0 rgb(0 0 0 / 14%), 0 1px 18px 0 rgb(0 0 0 / 12%), 0 3px 5px -1px rgb(0 0 0 / 20%);
+    }
+    
+    .menu {
+        display: flex;
+        flex-direction: column;
+        overflow-x: hidden;
+        top: 166px;
+        width: 21.5%;
+        position: absolute;
+        .menu-item {
+            cursor: pointer;
+            height: 89px;
+            display: flex;
+            flex-direction: row;
+            margin: 1px 0px;
+            align-items: center;
+            position: relative;
+            color: white;
+            background-color: #353f4b;
+            box-shadow: 0 6px 10px 0 rgb(0 0 0 / 14%), 0 1px 18px 0 rgb(0 0 0 / 12%), 0 3px 5px -1px rgb(0 0 0 / 20%);
+        }
+        .menu-item:hover {
+            cursor: pointer;
+            height: 89px;
+            display: flex;
+            flex-direction: row;
+            margin: 1px 0px;
+            align-items: center;
+            position: relative;
+            color: #353f4b;
+            background-color: #bdbdbd;
+            // transform: scale(1.1);
+            box-shadow: 0 6px 10px 0 rgb(0 0 0 / 14%), 0 1px 18px 0 rgb(0 0 0 / 12%), 0 3px 5px -1px rgb(0 0 0 / 20%);
+        }
+        .menu-active {
+            cursor: pointer;
+            height: 89px;
+            display: flex;
+            flex-direction: row;
+            margin: 1px 0px;
+            align-items: center;
+            position: relative;
+            color: #353f4b;
+            background-color: #bdbdbd;
+            // transform: scale(1.1);
+            box-shadow: 0 6px 10px 0 rgb(0 0 0 / 14%), 0 1px 18px 0 rgb(0 0 0 / 12%), 0 3px 5px -1px rgb(0 0 0 / 20%);
+        }
+    }
+    
+    .development-border {
+        border: blue 1px solid;
+    }
+    
+    .full-icon:hover {
+        transform: scale(2);
+        color: darkblue;
+    }
+    .full-icon {
+        color: grey;
+        font-size: 20px;
+        transition: all 0.1s ease-in-out;
+        text-shadow: 0 0.04em 0.04em rgba(0, 0, 0, 0.35);
+        box-shadow: inset inset 0px 0px 5px #c1c1c1;
+    }
+    
+    .create-edit::-webkit-scrollbar {
+        display: none;
+    }
+    .create-edit {
+        // border: hotpink solid 1px;
+        width: 60%;
+        height: 100vh;
+        overflow-y: scroll;
+        @include BoxShadow(2);
+    }
+    
+    .emoji-handle {
+        // position: absolute;
+        top: 5px;
+        // border: red solid 1px;
+        right: 2px;
+        color: rgb(255, 255, 255);
+        cursor: move;
+        width: 100%;
+        position: absolute;
+        // height: 38px;
+        // z-index: 999999;
+    }
+    
+    .paragraph {
+        margin-top: 10px;
+        position: relative;
+        .edit-icon {
+            display: none;
+        }
+        .cancel {
+            outline: none;
+            position: absolute;
+            margin: 10px;
+            right: 0px;
+            z-index: 999999;
+            bottom: -13px;
+        }
+        .save {
+            outline: none;
+            position: absolute;
+            margin: 10px;
+            right: 50px;
+            z-index: 999999;
+            bottom: -13px;
+        }
+    }
+    
+    .paragraph:hover {
+        .edit-icon {
+            display: inline;
+            outline: none;
+            position: absolute;
+            margin: 10px;
+            bottom: 0;
+            right: 0;
+        }
+    }
+    
+    .header {
+        cursor: pointer;
+        height: 100px;
+        display: flex;
+        flex-direction: row;
+        justify-content: space-between;
+        align-items: center;
+        font-size: 60px;
+        position: relative;
+    }
+    
+    .test-name-table {
+        display: flex;
+        flex-direction: row;
+        // border: olive solid 1px;
+        text-align: center;
+        justify-content: space-between;
+        align-content: center;
+    }
+    
+}
+
+
+// *******************************************************************************************
 .mainContainerPresent {
     background-color: white;
     border: solid 5px darkgray;
@@ -98,7 +274,7 @@
 }
 
 .imagePresentar {
-    border: solid 5px darkgrey;
+    border: solid 5px darkblue;
     width: 948px;
     height: 714px;
     margin: 0;
@@ -111,8 +287,9 @@
     @include BoxShadow(6);
 }
 .summaryPresentar {
-    border: solid 5px darkgrey;
+    border: solid 5px darkblue;
     width: 948px;
+    text-align: center;
     height: 714px;
     margin: 0;
     position: absolute;
@@ -135,42 +312,6 @@
     transform: translate(-50%, -53%);
     border-radius: 3px;
     @include BoxShadow(6);
-}
-
-.corner_bar_menu {
-    position: absolute;
-    right: 30px;
-    bottom: 30px;
-    outline: none;
-    z-index: 9999;
-    background: white;
-    border-radius: 5px;
-    display: flex;
-    flex-direction: column;
-}
-
-.bottom_menu {
-    position: absolute;
-    right: 284px;
-    bottom: 10px;
-    outline: none;
-    z-index: 9999;
-    /* background: white; */
-    border-radius: 5px;
-    display: flex;
-    flex-direction: row;
-}
-
-.full-icon:hover {
-    transform: scale(2);
-    color: darkblue;
-}
-.full-icon {
-    color: grey;
-    font-size: 20px;
-    transition: all 0.1s ease-in-out;
-    text-shadow: 0 0.04em 0.04em rgba(0, 0, 0, 0.35);
-    box-shadow: inset inset 0px 0px 5px #c1c1c1;
 }
 
 .heart-favorite-icon:hover {
@@ -504,14 +645,15 @@ $voteIconsColor: #008d05, #f2ce00, #f50c0c, #4c00ff, #4c00ff;
 }
 
 .GO_LOGIN {
-    width: 70px;
-    height: 70px;
+    width: 124px;
+    height: 45px;
     border: 5px solid darkblue;
     position: absolute;
-    right: 143px;
-    top: -44px;
+    right: 117px;
+    top: 201px;
     outline: none;
-    font-size: 36px;
+    border-radius: 6%;
+    font-size: 19px;
     line-height: 31px;
     background-color: white;
     color: darkblue;
@@ -528,14 +670,15 @@ $voteIconsColor: #008d05, #f2ce00, #f50c0c, #4c00ff, #4c00ff;
 }
 
 .GO_Off__LOGIN {
-    width: 70px;
-    height: 70px;
-    border: 5px solid white;
+    width: 124px;
+    height: 45px;
+    border: 7px solid white;
     position: absolute;
-    right: 143px;
-    top: -44px;
+    right: 117px;
+    top: 201px;
     outline: none;
-    font-size: 36px;
+    border-radius: 6%;
+    font-size: 19px;
     line-height: 30px;
     background-color: darkblue;
     color: white;
@@ -810,24 +953,18 @@ $voteIconsColor: #008d05, #f2ce00, #f50c0c, #4c00ff, #4c00ff;
     }
 }
 
-::ng-deep .mat-tooltip {
-    font-size: 24px;
-    position: absolute;
-    left: -2px;
-    top: -30px;
-    width: max-content;
-    text-align: center;
-}
-
 // SUMMARY SCSS
 
 .summary {
     .summaryLabel {
-        margin: 30px 20px;
+        margin: 45px 20px;
         font-size: 40px;
         max-height: 10%;
-        position: fixed;
+        color: darkblue;
+        font-family: "coture";
         top: 10px;
+        text-shadow: 0 0.04em 0.04em rgba(0, 0, 0, 0.35);
+        box-shadow: inset inset 0px 0px 5px #c1c1c1;
     }
 
     .summaryButtons {
@@ -1028,12 +1165,49 @@ $voteIconsColor: #008d05, #f2ce00, #f50c0c, #4c00ff, #4c00ff;
     }
 }
 
-.example-form {
-    min-width: 150px;
-    max-width: 500px;
-    width: 100%;
+.corner_bar_menu {
+    position: absolute;
+    right: 30px;
+    bottom: 30px;
+    outline: none;
+    z-index: 9999;
+    background: white;
+    border-radius: 5px;
+    display: flex;
+    flex-direction: column;
 }
 
-.example-full-width {
-    width: 100%;
+.bottom_menu {
+    position: absolute;
+    right: 329px;
+    bottom: 10px;
+    outline: none;
+    z-index: 9999;
+    /* background: white; */
+    border-radius: 5px;
+    display: flex;
+    flex-direction: row;
+    transform: scale(1.5);
+
+    .mat-tooltip {
+        font-size: 24px;
+        position: absolute;
+        left: -2px;
+        top: -30px;
+        width: max-content;
+        text-align: center;
+    }
+}
+
+.bottom_menu_off {
+    display: none;
+}
+
+::ng-deep .mat-tooltip {
+    font-size: 34px;
+    position: absolute;
+    left: -2px;
+    top: -20px;
+    width: max-content;
+    text-align: center;
 }

@@ -13,10 +13,10 @@
         <!-- TABLE OF CONTENT  -->
         <div *ngIf="isTableOfContent" class="tableOfContent" style="overflow-y:scroll ; overflow-x: hidden;">
             <div>Table Of Content</div>
-            <div style="font-size: 20px;padding: 10px;" *ngFor="let item of slideData; let i = index"
-                (click)="pageNumberChange(i+1)">
-                <span> {{(item.SlideDescription.length >0)?item.SlideDescription:item.SlideType}}</span>
-                <img [src]="'http://bipresents.com/nw2/' + item.SlideBGFileName" style="width: 100px;">
+            <div style="font-size: 20px;padding: 10px;"
+                *ngFor="let item of slideData; let i = index" (click)="pageNumberChange(i+1)">
+               <span> {{(item.SlideDescription.length >0)?item.SlideDescription:item.SlideType}}</span>
+               <img [src]="'http://bipresents.com/nw2/' + item.SlideBGFileName"  style="width: 100px;">
             </div>
         </div>
 
@@ -106,36 +106,31 @@
             <div class="summaryMainContent">
 
                 <div *ngIf="summaryPositive" class="summaryPostives">
-                    <div class="summaryListDisplay" style="background-color: green; color: white;">
-                        <div (click)="clickedSummaryName(item.NameToDisplay, item.Name)"
-                            *ngFor="let item of totalNewNames2[0]">{{item.Name}}</div>
+                    <div  class="summaryListDisplay" style="background-color: green; color: white;">
+                        <div   (click)="clickedSummaryName(item.NameToDisplay, item.Name)" *ngFor="let item of totalNewNames2[0]">{{item.Name}}</div>
                         <!-- <div *ngFor="let item of fonts">{{item}}</div> -->
                     </div>
                 </div>
                 <div *ngIf="summaryNeutral" class="summaryPostives">
-                    <div class="summaryListDisplay" style="background-color: orange; color: white;">
-                        <div (click)="clickedSummaryName(item.NameToDisplay, item.Name)"
-                            *ngFor="let item of totalNewNames2[0]">{{item.Name}}</div>
+                    <div  class="summaryListDisplay" style="background-color: orange; color: white;">
+                        <div  (click)="clickedSummaryName(item.NameToDisplay, item.Name)"  *ngFor="let item of totalNewNames2[0]">{{item.Name}}</div>
                         <!-- <div *ngFor="let item of fonts">{{item}}</div> -->
                     </div>
                 </div>
                 <div *ngIf="summaryNegative" class="summaryNegative">
-                    <div class="summaryListDisplay" style="background-color: red; color: white;">
-                        <div (click)="clickedSummaryName(item.NameToDisplay, item.Name)"
-                            *ngFor="let item of totalNewNames2[0]">{{item.Name}}</div>
+                    <div  class="summaryListDisplay" style="background-color: red; color: white;">
+                        <div  (click)="clickedSummaryName(item.NameToDisplay, item.Name)"  *ngFor="let item of totalNewNames2[0]">{{item.Name}}</div>
                         <!-- <div *ngFor="let item of fonts">{{item}}</div> -->
                     </div>
                 </div>
                 <div *ngIf="summaryNewNames" class="summaryNew_names">
-                    <div class="summaryListDisplay" style="background-color: purple; color: white;">
-                        <div (click)="clickedSummaryName(item.NameToDisplay, item.Name)"
-                            *ngFor="let item of totalNewNames2[0]">{{item.NameToDisplay}}</div>
+                    <div  class="summaryListDisplay" style="background-color: purple; color: white;">
+                        <div  (click)="clickedSummaryName(item.NameToDisplay, item.Name)"  *ngFor="let item of totalNewNames2[0]">{{item.NameToDisplay}}</div>
                         <!-- <div *ngFor="let item of fonts">{{item}}</div> -->
                     </div>
                 </div>
             </div>
-            <div *ngIf="summaryChart" class="summaryChart"
-                style="display: flex;flex-direction: column;     align-items: center;">
+            <div *ngIf="summaryChart" class="summaryChart" style="display: flex;flex-direction: column;     align-items: center;">
 
                 <!-- <div echarts [options]="chartOption" (chartClick)="onChartClick($event)"></div> -->
                 <ngx-charts-bar-vertical [hidden]="showRankedNames" [view]="chartDimension" [customColors]="colorScheme"
@@ -260,7 +255,8 @@
                                 <mat-icon>sync</mat-icon>
                             </button>
                             <button *ngIf="!recraftChecked" [matBadge]="allVoters"
-                                class="voteIconButton voteIconButton4" (click)="recraft();" mat-icon-button>
+                                class="voteIconButton voteIconButton4" (click)="recraft();"
+                                mat-icon-button>
                                 <mat-icon>sync</mat-icon>
                             </button>
                         </div>
@@ -347,7 +343,8 @@
                             </div>
                             <div class="groupNameIetmRationale" (mouseleave)="selectNameItemIndex = ''"
                                 (click)="selectNameItemIndex = ''" *ngIf="i === selectNameItemIndex"
-                                [style.left]="myleft" [style.top]="mytop" [innerHTML]="groupRationale[i]">
+                                [style.left]="myleft" [style.top]="mytop"
+                                [innerHTML]="groupRationale[i]">
                             </div>
                         </div>
                     </div>
@@ -366,7 +363,7 @@
             <button class="G4 GG" mat-icon-button (click)="setAllNamesIcon('thumb_down_off_alt', 'purple')">
                 <mat-icon>thumb_down_off_alt</mat-icon>
             </button>
-
+            
 
             <!-- <button class="G2 GG" mat-icon-button>
                     C
@@ -417,7 +414,7 @@
 
 <div *ngIf="mainMenu" class="corner_bar_menu">
     <button mat-icon-button matTooltip="home" matTooltipPosition="left">
-        <mat-icon (click)="selectPage('home')" class="full-icon">home</mat-icon>
+        <mat-icon  (click)="selectPage('home')" class="full-icon">home</mat-icon>
     </button>
     <button (click)="openFullscreen()" matTooltip="full-screen" matTooltipPosition="left" mat-icon-button color="warn"
         aria-label="aria">
@@ -438,12 +435,10 @@
         color="red">
         <mat-icon class="full-icon">phone_iphone</mat-icon>
     </button>
-    <button *ngIf="(slideType === 'NameEvaluation')" (click)="voteUserBadges()" mat-icon-button matTooltip="names box"
-        matTooltipPosition="left">
+    <button *ngIf="(slideType === 'NameEvaluation')" (click)="voteUserBadges()" mat-icon-button matTooltip="names box" matTooltipPosition="left">
         <mat-icon class="full-icon">where_to_vote</mat-icon>
     </button>
-    <button *ngIf="(slideType === 'NameEvaluation')" (click)="displayTally()" mat-icon-button matTooltip="tally"
-        matTooltipPosition="left">
+    <button *ngIf="(slideType === 'NameEvaluation')" (click)="displayTally()" mat-icon-button matTooltip="tally" matTooltipPosition="left">
         <mat-icon class="full-icon">T</mat-icon>
     </button>
     <!-- <button *ngIf="true" matTooltip="stats" matTooltipPosition="left" mat-icon-button aria-label="aria">
