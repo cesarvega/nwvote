@@ -42,7 +42,7 @@
     -ms-transform: translate(-50%, -53%);
     transform: translate(-50%, -53%);
     border-radius: 3px;
-    // background-image: url("http://bipresents.com/nw2/nw_slides/Test_WELL_PLATFORM/thumbnails/014.jpg");
+    // background-image: url("https://image.shutterstock.com/shutterstock/photos/1897867054/display_1500/stock-vector-currency-watermark-background-intense-illustration-detailed-design-1897867054.jpg");
 
     // @include BoxShadow(6);
 
@@ -147,7 +147,6 @@
     border-radius: 5px;
     display: flex;
     flex-direction: column;
-    
 }
 
 .full-icon:hover {
@@ -160,6 +159,24 @@
     transition: all 0.1s ease-in-out;
     text-shadow: 0 0.04em 0.04em rgba(0, 0, 0, 0.35);
     box-shadow: inset inset 0px 0px 5px #c1c1c1;
+}
+
+.heart-favorite-icon:hover {
+    transform: scale(2);
+    color: white;
+    font-size: 30px;
+    margin: -8px -18px;
+    position: absolute;
+}
+.heart-favorite-icon {
+    color: white;
+    font-size: 20px;
+    margin: -11px -13px;
+    position: absolute;
+    transition: all 0.1s ease-in-out;
+    text-shadow: 0 0.04em 0.04em rgba(0, 0, 0, 0.35);
+    box-shadow: inset inset 0px 0px 5px #c1c1c1;
+    transform: scale(2);
 }
 
 .menu-left-icon {
@@ -208,6 +225,16 @@
     @include BoxShadow(6);
 }
 
+// VOTE ICONS AND BAGES
+
+// .mat-badge-content{
+//     position: absolute;
+//     top: 4px !important;
+//     left: 4px;
+//     // color: white;
+//     background-color: greenyellow;
+// }
+
 .voteIcons {
     position: absolute;
     left: 120px;
@@ -218,6 +245,112 @@
     width: 688px;
     height: 85px;
     outline: none;
+
+    .voteIconButton1 {
+        .mat-badge-content {
+            position: absolute;
+            top: 4px !important;
+            left: 4px;
+            color: white;
+            background-color: #01bfa5;
+        }
+    }
+
+    .voteIconButtonGreen {
+        color: #01bfa5;
+        outline: none;
+        width: 30px;
+        height: 30px;
+        line-height: 20px;
+        @include BoxShadow(6);
+        transform: scale(1.2);
+
+        .mat-badge-content {
+            position: absolute;
+            top: 4px !important;
+            left: 4px;
+            color: white;
+            background-color: #01bfa5;
+        }
+    }
+
+    .voteIconButton2 {
+        .mat-badge-content {
+            position: absolute;
+            top: 4px !important;
+            left: 4px;
+            color: black;
+            background-color: #ffdf00;
+        }
+    }
+
+    .voteIconButtonYellow {
+        color: #ffdf00;
+        outline: none;
+        width: 30px;
+        height: 30px;
+        line-height: 20px;
+        @include BoxShadow(6);
+        transform: scale(1.2);
+        .mat-badge-content {
+            position: absolute;
+            top: 4px !important;
+            left: 4px;
+            color: black;
+            background-color: #ffdf00;
+        }
+    }
+    .voteIconButton3 {
+        .mat-badge-content {
+            position: absolute;
+            top: 4px !important;
+            left: 4px;
+            color: white;
+            background-color: #fe0265;
+        }
+    }
+    .voteIconButtonRed {
+        color: #fe0265;
+        outline: none;
+        width: 30px;
+        height: 30px;
+        line-height: 20px;
+        @include BoxShadow(6);
+        transform: scale(1.2);
+        .mat-badge-content {
+            position: absolute;
+            top: 4px !important;
+            left: 4px;
+            color: white;
+            background-color: #fe0265;
+        }
+    }
+
+    .voteIconButton4 {
+        .mat-badge-content {
+            position: absolute;
+            top: 4px !important;
+            left: 4px;
+            color: white;
+            background-color: #0336ff;
+        }
+    }
+    .voteIconButtonPurple {
+        color: purple;
+        outline: none;
+        width: 30px;
+        height: 30px;
+        line-height: 20px;
+        @include BoxShadow(6);
+        transform: scale(1.2);
+        .mat-badge-content {
+            position: absolute;
+            top: 4px !important;
+            left: 4px;
+            color: white;
+            background-color: #0336ff;
+        }
+    }
 }
 
 .voteIconButton {
@@ -226,43 +359,123 @@
     width: 30px;
     height: 30px;
     line-height: 20px;
-}
-
-.voteIconButtonGreen {
-    color: green;
-    outline: none;
-    width: 30px;
-    height: 30px;
-    line-height: 20px;
-    @include BoxShadow(6);
-    
+    transform: scale(1.2);
 }
 
 .voteIconButtonGreen:hover {
-    color: green;
+    // color: green;
     transition: all 2ms ease-in-out;
     position: relative;
     top: -2px;
     transform: scale(1.2);
     @include BoxShadow(6);
-    
 }
 
-.voteOverview {
-    position: absolute;
-    left: 147px;
-    bottom: 115px;
-    display: flex;
-    align-items: center;
-    justify-content: space-around;
-    width: 688px;
-    outline: none;
+// .voteOverview {
+//     position: absolute;
+//     left: 146px;
+//     bottom: 149px;
+//     display: flex;
+//     align-items: center;
+//     justify-content: space-evenly;
+//     width: 633px;
+//     outline: none;
+// }
+
+
+$voteIconsColor: #008d05, #f2ce00, #f50c0c, #4c00ff, #4c00ff;
+@for $i from 1 through 5 {
+    .voteIconButton:nth-child(#{$i}) {
+        // color: nth($voteIconsColor, $i);
+        animation: fadeIn 0.2s ease-in-out backwards;
+        animation-iteration-count: 1;
+        animation-delay: $i * 0.15 + s;
+        @include BoxShadow(6);
+    }
+
+    .voteIconButton:hover:nth-child(#{$i}) {
+        // color: nth($voteIconsColor, $i);
+        transition: all 2ms ease-in-out;
+        position: relative;
+        top: -2px;
+        transform: scale(2);
+        background: white;
+    }
+
+    .voteOverviewBox:nth-child(#{$i}) {
+        // color: nth($voteIconsColor, $i);
+        animation: fadeIn 0.2s ease-in-out backwards;
+        animation-iteration-count: 1;
+        animation-delay: $i * 0.15 + s;
+    }
+
+    .GG:nth-child(#{$i}) {
+        // color: nth($voteIconsColor, $i);
+        animation: bounce 0.5s ease-in-out backwards;
+        animation-iteration-count: 1;
+        animation-delay: $i * 0.15 + s;
+        text-shadow: 0 0.04em 0.04em rgba(0, 0, 0, 0.35);
+        box-shadow: inset inset 0px 0px 5px #c1c1c1;
+    }
+
+    .GGOut:nth-child(#{$i}) {
+        animation: fadeOut 0.2s ease-in-out backwards;
+        animation-iteration-count: 1;
+        animation-delay: $i * 0.15 + s;
+    }
+
+    .GG:hover:nth-child(#{$i}) {
+        transform: scale(1.2);
+        background: white;
+    }
 }
+
 
 .voteOverviewBox {
-    border: darkblue 1px solid;
-    width: 100px;
+    border: blue 1px solid;
+    min-width: 100px;
     height: 200px;
+    background-color: white;
+    overflow-y: scroll;
+    overflow-x: hidden;
+    border-top-left-radius: 5px;
+    border-top-right-radius: 5px;
+
+    .listAlign {
+        display: flex;
+        flex-direction: column;
+    }
+}
+
+.positiveUserList {
+    position: absolute;
+    bottom: 60px;
+    left: 35px;
+    border: green 1px solid;
+}
+
+.neutralUserList {
+    position: absolute;
+    bottom: 60px;
+    left: 211px;
+    border: #ffad37 1px solid;
+}
+.negativeUsersList {
+    position: absolute;
+    bottom: 60px;
+    right: 211px;
+    border: red 1px solid;
+}
+
+.allUsersList {
+    position: absolute;
+    bottom: 60px;
+    right: 34px;
+    border: blueviolet 1px solid;
+}
+
+.voteOverviewBox::-webkit-scrollbar {
+    display: none;
 }
 
 .fisheye {
@@ -280,7 +493,7 @@
     animation: heartBeat 10000ms ease-in-out 100ms infinite, fadeOut 10000ms ease-in-out 100ms infinite;
 }
 
-.GO {   
+.GO {
     width: 70px;
     height: 70px;
     border: 5px solid darkblue;
@@ -294,7 +507,7 @@
     color: darkblue;
     font-family: auto;
     z-index: 2;
-    animation: heartBeat 10000ms ease-in-out 1ms forwards;
+    animation: tada 1000ms ease-in-out 1ms forwards;
     text-shadow: 0 0.04em 0.04em rgba(0, 0, 0, 0.35);
     box-shadow: inset inset 0px 0px 5px #c1c1c1;
     @include BoxShadow(6);
@@ -324,19 +537,65 @@
     @include BoxShadow(6);
     // animation: heartBeat 10000ms ease-in-out 20ms infinite;
 }
+.heart-favorite {
+    width: 70px;
+    height: 70px;
+    border: 5px solid red;
+    position: absolute;
+    right: 434px;
+    bottom: -35px;
+    outline: none;
+    // font-size: 45px;
+    line-height: 31px;
+    background-color: red;
+    color: grey;
+    font-family: auto;
+    z-index: 2;
+    animation: tada 1000ms ease-in-out 1ms forwards;
+    text-shadow: 0 0.04em 0.04em rgba(0, 0, 0, 0.35);
+    box-shadow: inset inset 0px 0px 5px #c1c1c1;      
+    @include BoxShadow(6);
+    transform: scale(1.2);
+}
+
+.heart-favorite-Off:hover {
+    transform: scale(1.2);
+}
+
+.heart-favorite-Off {
+    width: 70px;
+    height: 70px;
+    border: 5px solid white;
+    position: absolute;
+    right: 434px;
+    bottom: -35px;
+    outline: none;
+    font-size: 45px;
+    line-height: 30px;
+    background-color: red;
+    color: white;
+    font-family: auto;
+    z-index: 2;
+    transition: all 100ms ease-in-out;
+    text-shadow: 0 0.04em 0.04em rgba(0, 0, 0, 0.35);
+    box-shadow: inset inset 0px 0px 5px #c1c1c1;
+    animation: bounce 0.5s ease-in-out forwards;
+    @include BoxShadow(6);
+    // animation: heartBeat 10000ms ease-in-out 20ms infinite;
+}
 .G1 {
     @include BoxShadow(6);
     width: 35px;
     height: 35px;
-    border: 3px solid darkblue;
+    border: 3px solid #ffad37;
     position: absolute;
-    right: 511px;
+    right: 538px;
     bottom: -19px;
     outline: none;
     font-size: 23px;
     line-height: 10px;
     background-color: white;
-    color: darkblue;
+    color: #ffad37;
     font-family: auto;
 }
 .G2 {
@@ -373,7 +632,7 @@
     @include BoxShadow(6);
     width: 35px;
     height: 35px;
-    border: 3px solid darkblue;
+    border: 3px solid purple;
     position: absolute;
     right: 374px;
     bottom: -19px;
@@ -381,56 +640,62 @@
     font-size: 23px;
     line-height: 10px;
     background-color: white;
-    color: darkblue;
+    color: purple;
     font-family: auto;
 }
 
-$voteIconsColor: #008d05, #f2ce00, #f50c0c, #4c00ff, #4c00ff;
-@for $i from 1 through 5 {
-    .voteIconButton:nth-child(#{$i}) {
-        // color: nth($voteIconsColor, $i);
-        animation: fadeIn 0.2s ease-in-out backwards;
-        animation-iteration-count: 1;
-        animation-delay: $i * 0.15 + s;
-        @include BoxShadow(6);
-    }
+//TALLY BADGES
 
-    .voteIconButton:hover:nth-child(#{$i}) {
-        color: nth($voteIconsColor, $i);
-        transition: all 2ms ease-in-out;
-        position: relative;
-        top: -2px;
-        transform: scale(1.2);
-        background: white;
-    }
+.neutralBadgeTally {
+    @include BoxShadow(6);
+    width: 35px;
+    height: 35px;
+    position: absolute;
+    right: 374px;
+    bottom: -19px;
+    outline: none;
+    font-size: 23px;
+    line-height: 10px;
+    font-family: auto;
 
-    .voteOverviewBox:nth-child(#{$i}) {
-        // color: nth($voteIconsColor, $i);
-        animation: fadeIn 0.2s ease-in-out backwards;
-        animation-iteration-count: 1;
-        animation-delay: $i * 0.15 + s;
-    }
+    color: blue;
+    background-color: white;
+    border: 3px solid white;
 
-    .GG:nth-child(#{$i}) {
-        // color: nth($voteIconsColor, $i);
-        animation: fadeIn 0.2s ease-in-out backwards;
-        animation-iteration-count: 1;
-        animation-delay: $i * 0.15 + s;
-        text-shadow: 0 0.04em 0.04em rgba(0, 0, 0, 0.35);
-        box-shadow: inset inset 0px 0px 5px #c1c1c1;
-    }
-
-    .GGOut:nth-child(#{$i}) {
-        animation: fadeOut 0.2s ease-in-out backwards;
-        animation-iteration-count: 1;
-        animation-delay: $i * 0.15 + s;
-    }
-
-    .GG:hover:nth-child(#{$i}) {
-        transform: scale(1.2);
-        background: white;
+    .mat-badge-content {
+        position: absolute;
+        top: 4px !important;
+        left: 4px;
+        color: white;
+        background-color: purple;
     }
 }
+
+.positiveBadgeTally {
+    @include BoxShadow(6);
+    width: 35px;
+    height: 35px;
+    position: absolute;
+    right: 538px;
+    bottom: -19px;
+    outline: none;
+    font-size: 23px;
+    line-height: 10px;
+    font-family: auto;
+
+    color: blue;
+    background-color: white;
+    border: 3px solid white;
+
+    .mat-badge-content {
+        position: absolute;
+        top: 4px !important;
+        left: 4px;
+        // color: white;
+        background-color: greenyellow;
+    }
+}
+
 
 .goButton {
     border-radius: 11px;
@@ -500,28 +765,215 @@ $voteIconsColor: #008d05, #f2ce00, #f50c0c, #4c00ff, #4c00ff;
     text-align: center;
 }
 
-// theme
+// SUMMARY SCSS
 
-// $postItHeaderColorsLength: length($postItHeaderColors2);
-// .voteIcons {
-//     @for $i from 1 through 4 {
-//         &:nth-of-type(#{$postItHeaderColorsLength}n + #{$i}) .voteIconButton {
-//             color: nth($postItHeaderColors2, $i);
-//             // color: darkblue;
-//             // animation: nth($postItanimations, $i) 0.2s;
-//             animation: fadeIn 0.2s ease-in-out backwards;
-//             animation-iteration-count: 1;
-//             animation-delay: $i * 0.15 + s;
-//         }
+.summary {
+    .summaryLabel {
+        margin: 30px 20px;
+        font-size: 40px;
+        max-height: 10%;
+        position: fixed;
+        top: 10px;
+    }
 
-//         &:nth-of-type(#{$postItHeaderColorsLength}n + #{$i}) .voteIconButton:hover {
-//             transform: scale(2.1);
-//             color: green;
-//             transform: rotate(2deg);
-//             position: relative;
-//             top: -2px;
-//             background: white;
-//             // animation: nth($postItanimations, $i) 1s;
-//         }
-//     }
+    .summaryButtons {
+        display: flex;
+        flex-direction: row;
+        justify-content: space-between;
+        align-items: center;
+        margin-top: 100px;
+        margin-left: 25px;
+        margin-right: 25px;
+    }
+
+    .summaryMainContent {
+        overflow-y: scroll;
+        max-height: 480px;
+        margin-top: 17px;
+    }
+
+    .summaryMainContent::-webkit-scrollbar {
+        display: none;
+    }
+
+    .summaryTextarea {
+        display: flex;
+        flex-direction: row;
+        justify-content: space-around;
+        align-items: center;
+    }
+
+    .summaryTextAreaButton {
+        background-color: yellowgreen;
+        margin-top: -22px;
+    }
+
+    .summaryListDisplay {
+        display: flex;
+        flex-direction: column;
+        display: flex;
+        justify-content: left;
+        align-items: left;
+        font-size: 36px;
+        margin: 20px;
+        line-height: 35px;
+    }
+}
+
+.subMainContainer {
+    // background-color: white;
+    // border: solid 5px rgb(230, 13, 13);
+    width: 948px;
+    height: 600px;
+    margin: 0;
+    position: absolute;
+    top: 53%;
+    left: 50%;
+    -ms-transform: translate(-50%, -53%);
+    transform: translate(-50%, -53%);
+    border-radius: 3px;
+    overflow-y: scroll;
+    overflow-x: hidden;
+
+    .groupSlideContent {
+        display: flex;
+        flex-direction: column;
+        flex-wrap: wrap;
+        justify-content: flex-start;
+        height: 1400px;
+        padding: 4px 0px 0px 83px;
+        /* width: 300px; */
+
+        .rankingBox {
+            .voteIconRank {
+                text-shadow: 0 0.04em 0.04em rgba(0, 0, 0, 0.35);
+                font-size: 40px;
+            }
+
+            @for $i from 1 through 20 {
+                &:nth-of-type(#{100}n + #{$i}) .voteIconRank {
+                    animation: heartBeat 0.5s ease-in-out normal;
+                    animation-iteration-count: 1;
+                    animation-delay: $i * 0.08 + s;
+                }
+                &:nth-of-type(#{100}n + #{$i}) .voteIconRank:hover {
+                    transform: scale(1.2);
+                }
+            }
+        }
+
+        .groupNameItemContainer:hover {
+            @include BoxShadow(2);
+            border-bottom-right-radius: 10px;
+            // border-top-right-radius: 10px;
+            height: max-content;
+            margin: 5px;
+        }
+        .groupNameItemContainer {
+            // testing code
+
+            // @include BoxShadow(6);
+            // border-bottom-right-radius: 5px;
+            // border-top-right-radius: 5px;
+            // height: max-content;
+            // margin: 5px;
+
+            // end testing code
+
+            display: flex;
+            flex-direction: row;
+            align-items: flex-start;
+            justify-content: flex-start;
+
+            // border: brown solid 0px;
+
+            .groupNameItem {
+                font-size: 20px;
+                margin: 30px 10px;
+                animation: fadeIn 0.5s ease-in forwards;
+                text-shadow: 0 0.04em 0.04em rgba(0, 0, 0, 0.35);
+                box-shadow: inset inset 0px 0px 5px #c1c1c1;
+            }
+            .groupNameItemNotation {
+                font-size: 15px;
+                padding-left: 0px;
+                margin: 21px 6px;
+                animation: fadeIn 0.9s ease-in forwards;
+            }
+            .groupNameIetmRationale {
+                width: 300px;
+                height: 60px;
+                position: relative;
+                /* top: 1px; */
+                border: #57b446 solid 1px;
+                /* left: 11px; */
+                margin: 5px 10px;
+                border-radius: 3px;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                background-color: white;
+                animation: fadeIn 0.2s ease-in forwards;
+            }
+            .voteItems {
+                width: 136px;
+                height: 34px;
+                position: relative;
+                border: #ec0aec solid 2px;
+                margin: 8px 1px;
+                border-radius: 3px;
+                display: flex;
+                flex-direction: row;
+                align-items: center;
+                justify-content: center;
+                background-color: #ffffff38;
+                z-index: 1;
+                animation: fadeInRight 0.2s ease-in forwards;
+            }
+            // .voteItems {
+            //     width: 136px;
+            //     height: 34px;
+            //     position: absolute;
+            //     border: #ec0aec solid 2px;
+            //     margin: 34px 46px;
+            //     border-radius: 3px;
+            //     display: flex;
+            //     flex-direction: row;
+            //     align-items: center;
+            //     justify-content: center;
+            //     background-color: white;
+            //     z-index: 1;
+            // }
+        }
+    }
+}
+
+// GROUP NAME TEMPLATE SCSS
+.subMainContainer::-webkit-scrollbar {
+    display: none;
+}
+
+.qr_code {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    -ms-transform: translate(-50%, -53%);
+    transform: translate(-50%, -53%);
+    border-radius: 3px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    z-index: 1;
+    background-color: white;
+    @include BoxShadow(16);
+}
+
+.info {
+    .img {
+        width: 200px;
+    }
+}
+
+// .example-card {
+//     width: 400px;
 // }

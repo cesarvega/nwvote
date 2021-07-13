@@ -41,20 +41,30 @@ import { DeviceDetectorModule } from 'ngx-device-detector';
 import { NW3Component } from './nw3/nw3.component';
 import { Nw3Service } from './nw3/nw3.service';
 import { BmxComponent } from './bmx/bmx.component';
-import { HammerGestureConfig, HAMMER_GESTURE_CONFIG } from '@angular/platform-browser';
+import { HammerGestureConfig, HAMMER_GESTURE_CONFIG, HammerModule } from '@angular/platform-browser';
 import { SchedulerComponent } from './scheduler/scheduler.component';
 import { AngularDateTimePickerModule } from 'angular2-datetimepicker';
 import {MatDatepickerModule} from '@angular/material/datepicker';
 import { MatNativeDateModule } from '@angular/material/core';
-
+import {MatProgressBarModule} from '@angular/material/progress-bar';
+import { DragulaModule } from 'ng2-dragula';
+import { MatListModule } from '@angular/material/list';
+import { NgxEchartsModule } from 'ngx-echarts';
+import * as echarts from 'echarts';
+import { NgxChartsModule } from '@swimlane/ngx-charts';
 // export class MyHammerConfig extends HammerGestureConfig {
 //   overrides = <any>{
 //     // override default settings
 //     // 'swipe': { velocity: 0.4, threshold: 20 } 
 //   }
 // }
-
+import { MatSnackBarModule, MAT_SNACK_BAR_DEFAULT_OPTIONS } from '@angular/material/snack-bar';
 import {MatRadioModule} from '@angular/material/radio';
+import { BmxCreatorComponent } from './bmx-creator/bmx-creator.component';
+import { SafePipe } from './bmx-creator/safe.pipe';
+export function loadEcharts() {
+  return import('echarts');
+}
 
 @NgModule({
   declarations: [
@@ -67,10 +77,14 @@ import {MatRadioModule} from '@angular/material/radio';
     BsrComponent,
     NW3Component,
     BmxComponent,
-    SchedulerComponent
+    SchedulerComponent,
+    BmxCreatorComponent,
+    SafePipe,
+    // OrderDasboardComponent
   ],
   imports: [
     BrowserModule,
+    HammerModule,
     AppRoutingModule,
     BrowserAnimationsModule,
     MatSlideToggleModule,
@@ -104,14 +118,20 @@ import {MatRadioModule} from '@angular/material/radio';
     MatDatepickerModule,
     MatSelectModule,
     MatRadioModule,
-    MatNativeDateModule
+    MatNativeDateModule,
+    MatProgressBarModule,
+    NgxChartsModule,
     // AngularEditorModule,
-
+    DragulaModule.forRoot(),
+    MatListModule,
+    NgxEchartsModule.forRoot({echarts: loadEcharts}),
+    MatSnackBarModule
   ],
   entryComponents: [
     editPost, editName
   ],
-  providers: [NwvoteService, BsrMobileService, Nw3Service],
+  providers: [NwvoteService, BsrMobileService, Nw3Service,
+    {provide: MAT_SNACK_BAR_DEFAULT_OPTIONS, useValue: {duration: 1000}}],
   
   bootstrap: [AppComponent]
 })

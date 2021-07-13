@@ -8,6 +8,7 @@ import * as moment from 'moment';
 export class FormService {
 
   protected ASMX_URL_AddEmailAppointment = 'https://tools.brandinstitute.com/wsPanelMembers/wsPanel.asmx/addEmailAppointment';
+  protected ASMX_URL_GetCalendarInfo = 'https://tools.brandinstitute.com/wsPanelMembers/wsScheduler.asmx/getCalendarInfo';
   // protected ASMX_URL_AddEmailAppointment = 'http://localhost:55833/wsPanel.asmx/addEmailAppointment';
 
   constructor(private httpClient: HttpClient) { }
@@ -67,5 +68,9 @@ export class FormService {
       Title: 'Mr/Miss',
     };
     return this.httpClient.post(this.ASMX_URL_AddEmailAppointment, dataContainer);
+  }
+
+  getTimeZoneData(date){
+    return this.httpClient.post(this.ASMX_URL_GetCalendarInfo, date);
   }
 }

@@ -1,3 +1,5 @@
+import { MatSnackBar } from '@angular/material/snack-bar';
+import { Validators, FormControl } from '@angular/forms';
 import { Component, Inject, OnInit } from '@angular/core';
 import { DOCUMENT } from '@angular/common';
 import { trigger, transition, useAnimation } from '@angular/animations';
@@ -7,13 +9,29 @@ import { BmxService } from './bmx.service';
 import { Router, ActivatedRoute } from '@angular/router';
 import Speech from 'speak-tts';
 
+import { keyframes, animate, state, style } from '@angular/animations';
+import { Haptics } from '@capacitor/haptics';
+import { Plugin } from '@capacitor/core';
 
 @Component({
   selector: 'app-bmx',
   templateUrl: './bmx.component.html',
-  styleUrls: ['./bmx.component.scss']
+  styleUrls: ['./bmx.component.scss'],
+  animations: [
+    trigger("fadeInOut", [
+      state(
+        "void",
+        style({
+          opacity: 0
+        })
+      ),
+      transition("void <=> *", animate(900))
+    ]),
+  ]
 })
 export class BmxComponent implements OnInit {
+
+  slideToLogin: boolean;
 
   projectName = 'PROJECT NAME';
   userName = 'Alexa';
@@ -21,6 +39,8 @@ export class BmxComponent implements OnInit {
   projectId: any;
   SWIPE_ACTION = { LEFT: 'swipeleft', RIGHT: 'swiperight' };
    // our list of avatars
+
+   
    avatars = [
     {
         name: 'kristy',
@@ -45,7 +65,7 @@ export class BmxComponent implements OnInit {
 ];
 
 
-  constructor(private activatedRoute: ActivatedRoute,) {
+  constructor(private activatedRoute: ActivatedRoute, private _snackBar: MatSnackBar) {
     this.activatedRoute.params.subscribe(params => {
       this.projectId = params['id'];
       localStorage.setItem('projectId',  this.projectId);
@@ -55,6 +75,28 @@ export class BmxComponent implements OnInit {
       // });
     });
    }
+
+   emailFormControl = new FormControl('', [
+    Validators.required,
+    Validators.email,
+  ]);
+
+  durationInSeconds = 5;
+
+    async onSwipe(evt) {
+    const x = Math.abs(evt.deltaX) > 20 ? (evt.deltaX > 0 ? 'swipeRight' : 'swipeLeft'):'';
+    console.log(x);
+    if (x === 'swipeRight') {
+      this.slideToLogin = true;
+      await Haptics.vibrate();
+      this._snackBar.open(x);
+    }else if (x === 'swipeLeft') {
+        this.slideToLogin = false; 
+        this._snackBar.open(x);
+      }
+    }
+
+    
 
   ngOnInit(): void {
     window.scrollTo(0, 1);

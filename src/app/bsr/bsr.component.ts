@@ -1,12 +1,14 @@
+import { OverlayContainer } from '@angular/cdk/overlay';
 import { Component, OnInit, Inject, ViewEncapsulation, ViewChild } from '@angular/core';
 import { FormControl } from '@angular/forms';
 import { HotkeysService, Hotkey } from 'angular2-hotkeys';
-import { CdkDragDrop, moveItemInArray } from '@angular/cdk/drag-drop';
+import { CdkDragDrop, moveItemInArray, CdkDropListGroup, transferArrayItem } from '@angular/cdk/drag-drop';
 import { BsrService } from './bsr.service';
 
 import { FormBuilder, Validators, FormGroup } from '@angular/forms';
 import { MatDialog, MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { DOCUMENT } from '@angular/common';
+
 
 ///CKEDITOR NOTES, para que el toolbar del editor pueda ser configurado
 //  es necesario de instalar el ckeditor4  y el ckeditor5 y 
@@ -20,7 +22,7 @@ import { DOCUMENT } from '@angular/common';
 })
 export class BsrComponent implements OnInit {
 
-  @ViewChild('slider') slider;  
+  @ViewChild('slider') slider;
   postItListTheme = 'post-it-list-theme'
   searchBoxLeftProperty = '611px;'
   font_size = '30';
@@ -76,7 +78,14 @@ export class BsrComponent implements OnInit {
   namesBoxIndex = 0;
   constructor(@Inject(DOCUMENT) private document: any, private _formBuilder: FormBuilder,
     private _hotkeysService: HotkeysService,
-    private _BsrService: BsrService, public dialog: MatDialog, private activatedRoute: ActivatedRoute,) {
+    private _BsrService: BsrService, public dialog: MatDialog, private activatedRoute: ActivatedRoute,
+    private dragulaService: DragulaService) {
+
+    dragulaService.createGroup('TASKS', {
+      moves: (el, container, handle) => {
+        return handle.classList.contains('handle');
+      }
+    })
 
     // keyboard keymaps
     this._hotkeysService.add(new Hotkey('right', (event: KeyboardEvent): boolean => {
@@ -121,19 +130,19 @@ export class BsrComponent implements OnInit {
 
   ngOnInit(): void {
 
-    this.font_size_text = (localStorage.getItem(this.projectName + '_font_size_text'))?localStorage.getItem(this.projectName + '_font_size_text'):'26px';
-    this.font_size =  (localStorage.getItem(this.projectName + '_font_size'))?localStorage.getItem(this.projectName + '_font_size'):'26';
+    this.font_size_text = (localStorage.getItem(this.projectName + '_font_size_text')) ? localStorage.getItem(this.projectName + '_font_size_text') : '26px';
+    this.font_size = (localStorage.getItem(this.projectName + '_font_size')) ? localStorage.getItem(this.projectName + '_font_size') : '26';
     this.activatedRoute.params.subscribe(params => {
 
       // set project ID as localstorage identifier 03/16/21
       this.projectName = params['id'];
       this._BsrService.setProjectName(this.projectName);
-      localStorage.setItem( this.projectName + '_projectId', this.projectName);
+      localStorage.setItem(this.projectName + '_projectId', this.projectName);
       localStorage.setItem(this.projectName + '_projectName', this.projectName);
       this.projectId = this.projectName;
     });
 
-    this.assignCopy();    
+    this.assignCopy();
     this.elem = document.documentElement;
     this.currentPageNumber = 0;
     this.postItListTheme = localStorage.getItem(this.projectName + '_post-it-list-theme');
@@ -147,25 +156,31 @@ export class BsrComponent implements OnInit {
       this.slideBackground = this.slideBackground + res[0].SlideBGFileName + ')';
       this.appSlidesData.forEach(element => {
         if (element.SlideType === "NameSummary") {
-          this.postItPresentationIndex = parseInt(element.$id) - 1 ;
+          this.postItPresentationIndex = parseInt(element.$id) - 1;
         }
       });
       this.createPostIt = (localStorage.getItem(this.projectName + '_createPostIt') === 'true') ? true : false;
       if (this.createPostIt) {
         this.searchBoxLeftProperty = '777px';
         this.currentPageNumber = (this.createPostIt) ? this.postItPresentationIndex : 0;
-      }else{      
+      } else {
         this.searchBoxLeftProperty = '611px;';
         this.currentPageNumber = 0;
-  
+
       }
     })
 
     this._BsrService.getPost().subscribe((res: any) => {
       this.conceptData = JSON.parse(res[0].bsrData);
+
       if (JSON.parse(res[0].bsrData).presentationtype === 'NSR') {
         this.isNSR = true;
       }
+
+      this.conceptData.concepts.forEach(element => {
+        element.concept = element.concept.replace(/`/g, "'");
+        element.html = element.html.replace(/`/g, "'");
+      });
       console.log(this.conceptData);
     });
 
@@ -177,16 +192,16 @@ export class BsrComponent implements OnInit {
         this.nameCandidates = (res.length > 0) ? res : [];
       });
     }, 300);
-  
+
     this.getCommentsByIndex(0);
     this.loginForm = this._formBuilder.group({
       rationale: [''],
       suma: [''],
       name: ['']
     });
-    this.nameIndexCounter = (localStorage.getItem(this.projectName + '_namesIndexCounte'))? parseInt(localStorage.getItem(this.projectName + '_namesIndexCounte')): 0;
-  
-    
+    this.nameIndexCounter = (localStorage.getItem(this.projectName + '_namesIndexCounte')) ? parseInt(localStorage.getItem(this.projectName + '_namesIndexCounte')) : 0;
+
+
     this.onInputChange(parseInt(localStorage.getItem(this.projectName + '_namesBoxIndex')));
   }
 
@@ -194,13 +209,83 @@ export class BsrComponent implements OnInit {
     this._BsrService.getComments(index).subscribe((arg: any) => {
       if (arg.length > 0) {
         this.commentBoxText = arg[0].Comments;
-      }else{
+      } else {
         this.commentBoxText = '';
       }
     });
   }
 
+  boxWidth = 155;
+  // calculated based on dynamic row width
+  columnSize: number;
+
+  getItemsTable(rowLayout: Element): number[][] {
+    // calculate column size per row
+    const { width } = rowLayout.getBoundingClientRect();
+    const columnSize = Math.round(width / this.boxWidth);
+    // view has been resized? => update table with new column size
+    if (columnSize != this.columnSize) {
+      this.columnSize = columnSize;
+      this.initTable();
+    }
+    this.conceptData.concepts.forEach(element => {
+      element.concept = element.concept.replace(/`/g, "'");
+      element.html = element.html.replace(/`/g, "'");
+    });
+    return this.conceptData.concepts;
+  }
+
+  initTable() {
+    // create table rows based on input list
+    // example: [1,2,3,4,5,6] => [ [1,2,3], [4,5,6] ]
+    this.conceptData.concepts = this.conceptData.concepts
+      .filter((_, outerIndex) => outerIndex % this.columnSize == 0) // create outter list of rows
+      .map((
+        _,
+        rowIndex // fill each row from...
+      ) =>
+        this.conceptData.concepts.slice(
+          rowIndex * this.columnSize, // ... row start and
+          rowIndex * this.columnSize + this.columnSize // ...row end
+        )
+      );
+  }
+
+  reorderDroppedItem(event: CdkDragDrop<number[]>) {
+    // same row/container? => move item in same row
+    if (event.previousContainer === event.container) {
+      moveItemInArray(
+        event.container.data,
+        event.previousIndex,
+        event.currentIndex
+      );
+    } else {
+      // different rows? => transfer item from one to another list
+      transferArrayItem(
+        event.previousContainer.data,
+        event.container.data,
+        event.previousIndex,
+        event.currentIndex
+      );
+    }
+
+    // update items after drop: flatten matrix into list
+    // example: [ [1,2,3], [4,5,6] ] => [1,2,3,4,5,6]
+    this.conceptData.concepts = this.conceptData.concepts.reduce(
+      (previous, current) => previous.concat(current),
+      []
+    );
+
+    // re-initialize table - makes sure each row has same numbers of entries
+    // example: [ [1,2], [3,4,5,6] ] => [ [1,2,3], [4,5,6] ]
+    this.initTable();
+  }
+
   drop(event: CdkDragDrop<string[]>) {
+    this.conceptData.concepts.forEach(element => {
+      element.concept = element.concept.replace(/`/g, "'");
+      element.html = element.html.replace(/`/g, "'");
+    });
     moveItemInArray(this.conceptData.concepts, event.previousIndex, event.currentIndex);
     console.log(event.previousIndex, event.currentIndex);
     let orderArray = [];
@@ -210,6 +295,11 @@ export class BsrComponent implements OnInit {
     this._BsrService.postItOrder(this.projectId, orderArray).subscribe(arg => {
       this._BsrService.getPost().subscribe((res: any) => {
         this.conceptData = JSON.parse(res[0].bsrData);
+
+        this.conceptData.concepts.forEach(element => {
+          element.replace(/`/g, "'");
+        });
+
         if (JSON.parse(res[0].bsrData).presentationtype === 'NSR') {
           this.isNSR = true;
         }
@@ -219,9 +309,10 @@ export class BsrComponent implements OnInit {
     });
   }
 
-  entered(event: CdkDragDrop<string[]>) {
-    moveItemInArray(this.conceptData.concepts, event.previousIndex, event.currentIndex);
-    console.log(event.previousIndex, event.currentIndex);
+  dropped(event: CdkDragDrop<any>) {
+    if (event.previousContainer === event.container) {
+      moveItemInArray(event.container.data, event.previousIndex, event.currentIndex);
+    }
   }
 
 
@@ -236,18 +327,18 @@ export class BsrComponent implements OnInit {
       this.slideBackground = this.baseBackgroundUrl + this.appSlidesData[this.currentPageNumber].SlideBGFileName + ')';
       if (this.postItPresentationIndex === this.currentPageNumber) {
         this.createPostIt = true;
-          this.searchBoxLeftProperty = '777px';
+        this.searchBoxLeftProperty = '777px';
       }
       this.pageCounter = this.currentPageNumber + 1 + '/' + this.totalNumberOfSlides;
-    }else {
+    } else {
       this.goToSlide(this.currentPageNumber);
     }
   }
 
 
   moveBackward() {
-    this.searchBoxLeftProperty = '611px;'; 
-    this.appSearchSlidesData = [];   
+    this.searchBoxLeftProperty = '611px;';
+    this.appSearchSlidesData = [];
     this.isCommentBox = false;
     this.createPostIt = false
     if (this.currentPageNumber >= 1) {
@@ -255,8 +346,8 @@ export class BsrComponent implements OnInit {
       this.pageCounter = this.currentPageNumber + 1 + '/' + this.totalNumberOfSlides;
       this.slideBackground = this.baseBackgroundUrl + this.appSlidesData[this.currentPageNumber].SlideBGFileName + ')';
       if (this.postItPresentationIndex === this.currentPageNumber) {
-        this.createPostIt = true; 
-          this.searchBoxLeftProperty = '777px';
+        this.createPostIt = true;
+        this.searchBoxLeftProperty = '777px';
       }
     }
   }
@@ -285,6 +376,10 @@ export class BsrComponent implements OnInit {
     }
     this._BsrService.newPost(JSON.stringify(newConcepData)).subscribe(arg => {
       this._BsrService.getPost().subscribe((res: any) => {
+        this.conceptData.concepts.forEach(element => {
+          element.concept = element.concept.replace(/`/g, "'");
+          element.html = element.html.replace(/`/g, "'");
+        });
         this.conceptData = JSON.parse(res[0].bsrData);
       });
     });
@@ -296,7 +391,7 @@ export class BsrComponent implements OnInit {
   }
 
   home() {
-    this.searchBoxLeftProperty = '611px;'; 
+    this.searchBoxLeftProperty = '611px;';
     this.pageCounter = '1/' + this.totalNumberOfSlides;
     this.slideBackground = this.baseBackgroundUrl + this.appSlidesData[0].SlideBGFileName + ')';
     this.createPostIt = false;
@@ -312,10 +407,10 @@ export class BsrComponent implements OnInit {
     this.createPostIt = !this.createPostIt;
     if (this.createPostIt) {
       this.searchBoxLeftProperty = '777px';
-    }else{      
+    } else {
       this.searchBoxLeftProperty = '611px;';
     }
-    
+
     localStorage.setItem(this.projectName + '_createPostIt', this.createPostIt.toString());
     this.nameIndexCounter = parseInt(localStorage.getItem(this.projectName + '_namesIndexCounte'));
     this.onInputChange(parseInt(localStorage.getItem(this.projectName + '_namesBoxIndex')));
@@ -327,7 +422,7 @@ export class BsrComponent implements OnInit {
 
   displayCommentBox() {
     this.isCommentBox = !this.isCommentBox;
-    (this.isCommentBox)?this.getCommentsByIndex(this.currentPageNumber):null;
+    (this.isCommentBox) ? this.getCommentsByIndex(this.currentPageNumber) : null;
   }
 
   comment() {
@@ -336,9 +431,62 @@ export class BsrComponent implements OnInit {
 
       let comment = this.projectId + "','" + this.currentPageNumber + "',N'" + this.commentBoxText + "'";
 
-      this._BsrService.sendComment(comment).subscribe(res => {
-        this.isCommentBox = false;
-        this.commentBoxText=''
+      this._BsrService.sendComment(comment).subscribe((res: any) => {
+
+        let newConcepData = {
+          projectId: this.projectId,
+          conceptid: '-1',
+          concept: 'Concept',
+          conceptorder: '0',
+          attributes: [],
+          names: []
+        }
+
+        this._BsrService.newPost(JSON.stringify(newConcepData)).subscribe(arg => {
+          this.conceptData = JSON.parse(arg[0].bsrData);
+          let summayConceptId = '';
+          this.conceptData.concepts.forEach(element => {
+            if (element.concept === "SUMMARY" || element.concept === "summary") {
+              summayConceptId = element.conceptid
+            }
+          });
+
+
+          // SUMMIRIZE COMMENTS INTO A POST IT 
+          let comments = '';
+
+          res.forEach(element => {
+            comments += "<p>" + element.Comments + "<p>" 
+          });
+
+
+          let newConcepData2 = {
+            projectId: this.projectId,
+            concept: 'SUMMARY',
+            conceptid: '"' + summayConceptId + '"',
+            attributesArray: '',
+            namesArray: '',
+            conceptHtml: comments
+          }
+
+          this._BsrService.updatePost(JSON.stringify(newConcepData2))
+            .subscribe(arg => {
+
+              this._BsrService.getPost().subscribe((res: any) => {
+                this.conceptData = JSON.parse(res[0].bsrData);
+                // this.conceptData.concepts[0].html = this.commentBoxText;
+                this.conceptData.concepts.forEach(element => {
+                  element.concept = element.concept.replace(/`/g, "'");
+                  element.html = element.html.replace(/`/g, "'");
+                });
+                this.isCommentBox = false;
+                this.commentBoxText = '';
+              });
+
+            });
+
+        });
+
       });
     }
   }
@@ -355,18 +503,18 @@ export class BsrComponent implements OnInit {
 
     if (this.postItPresentationIndex == this.currentPageNumber) {
       this.createPostIt = true;
-      
-    }else {
+
+    } else {
       this.slideBackground = this.baseBackgroundUrl + this.appSlidesData[i].SlideBGFileName + ')';
 
       this.createPostIt = false;
     }
-    
-   
+
+
     this.pageCounter = i + 1 + '/' + this.totalNumberOfSlides;
   }
 
-  goToSlideFromSearch(i:string) {
+  goToSlideFromSearch(i: string) {
     const ii = parseInt(i) - 1;
     this.slideBackground = this.baseBackgroundUrl + this.appSlidesData[ii].SlideBGFileName + ')';
     this.createPostIt = false;
@@ -375,21 +523,35 @@ export class BsrComponent implements OnInit {
 
   openDialog(item, nameid): void {
 
-
     const dialogRef = this.dialog.open(editPost, {
+
       // width: ((nameid === 'edit')?'80%':'100%'),
       // height: ((nameid === 'edit') ? '777px' : '200px'),
       data: { name: item, nameId: nameid }
     });
 
-
     this.conceptid = item.conceptid;
 
     dialogRef.afterClosed().subscribe(result => {
+
+      this.conceptData.concepts.forEach(element => {
+        element.concept = element.concept.replace(/`/g, "'");
+        element.html = element.html.replace(/`/g, "'");
+      });
+
       if (result === 'delete') {
+        if (this.conceptid === '-1') {
+          this.conceptid = "'" + -1 + '"';
+        }
         this._BsrService.deletePost(this.conceptid).subscribe(arg => {
           this._BsrService.getPost().subscribe((res: any) => {
+
+
             this.conceptData = JSON.parse(res[0].bsrData);
+            this.conceptData.concepts.forEach(element => {
+              element.concept = element.concept.replace(/`/g, "'");
+              element.html = element.html.replace(/`/g, "'");
+            });
             console.log(this.conceptData);
           });
         });
@@ -400,6 +562,10 @@ export class BsrComponent implements OnInit {
       } else if (result === 'savePost') {
         this._BsrService.getPost().subscribe((res: any) => {
           this.conceptData = JSON.parse(res[0].bsrData);
+          this.conceptData.concepts.forEach(element => {
+            element.concept = element.concept.replace(/`/g, "'");
+            element.html = element.html.replace(/`/g, "'");
+          });
           if (JSON.parse(res[0].bsrData).presentationtype === 'NSR') {
             this.isNSR = true;
           }
@@ -426,8 +592,8 @@ export class BsrComponent implements OnInit {
 
       this.appSearchSlidesData = Object.assign([], this.appSlidesData).filter(
         item => item.SlideDescription.toLowerCase().indexOf(searchValue.toLowerCase()) > -1
-        )
-      } // when nothing has typed
+      )
+    } // when nothing has typed
   }
 
   theme(): void {
@@ -456,11 +622,11 @@ export class BsrComponent implements OnInit {
       this.namesBoxIndex = 0;
       this.onInputChange(15);
     }
-   
+
   }
 
 
-  
+
   onInputChange(value: number) {
     // console.log("This is emitted as the thumb slides");
     // console.log(value);
@@ -535,11 +701,11 @@ export class BsrComponent implements OnInit {
   }
 
 
-  setFontSize(){
-    console.log(this.font_size);    
+  setFontSize() {
+    // console.log(this.font_size);    
     this.font_size_text = this.font_size + 'px';
     localStorage.setItem(this.projectName + '_font_size_text', this.font_size_text);
-    localStorage.setItem(this.projectName + '_font_size',  this.font_size);
+    localStorage.setItem(this.projectName + '_font_size', this.font_size);
   }
 
 }
@@ -549,6 +715,7 @@ export class BsrComponent implements OnInit {
 import { MatSliderChange } from '@angular/material/slider';
 import { ActivatedRoute } from '@angular/router';
 import { ThrowStmt } from '@angular/compiler/src/output/output_ast';
+import { DragulaService } from 'ng2-dragula';
 
 // CKEDITOR WYSIWYG // **************************************************************************************************
 
@@ -564,6 +731,9 @@ export interface PeriodicElement {
   weight: number;
   symbol: string;
 }
+
+
+
 
 // POST EDITOR COMPONENT
 
@@ -592,16 +762,21 @@ export class editPost {
     namesData: ''
   };
 
+
+  newNamesPerConcept = ''
+  conceptid = ''
+
   isMobileInfo: boolean;
   allComplete: boolean;
   isSynonymBox = false;
   isEmojiTime: boolean = false;
 
-  displayedColumns: string[] = ['position', 'name', 'weight'];
+  displayedColumns: string[] = ['name', 'weight'];
   synonymWord: string = ' Copy name to clipboard ';
   dataSource: any[];
   public myAngularxQrCode: string = null;
   isQRcode: boolean;
+  nameid: any = '';
   constructor(
     public dialogRef: MatDialogRef<editPost>,
     @Inject(MAT_DIALOG_DATA) public data: DialogData, private _formBuilder: FormBuilder, private _BsrService: BsrService, private activatedRoute: ActivatedRoute,) {
@@ -610,11 +785,22 @@ export class editPost {
     this.model.editorData = this.data.name.html;
     this.title = this.data.name.Name;
 
+    if (this.data.name.names) {
+      this.data.name.names.forEach(newName => {
+        this.newNamesPerConcept += newName.name + '\n';
+        this.nameid += newName.nameid + '\n';
+
+      });
+    }
+
+
+    this.conceptid = this.data.name.conceptid;
+
     this.projectId = '';
 
     // assign a value
     // this.myAngularxQrCode = 'http://www.bipresents.com/'+ this.projectId;
-    this.myAngularxQrCode = ' www.mynamepage.com/'+  localStorage.getItem(this._BsrService.getProjectName() + '_projectName');
+    this.myAngularxQrCode = ' www.mynamepage.com/' + localStorage.getItem(this._BsrService.getProjectName() + '_projectName');
     if (this.data.name.Name) {
       this.concept = this.data.name.Name;
     } else {
@@ -691,7 +877,7 @@ export class editPost {
 
       let newConcepData = {
         projectId: this.projectId,
-        concept: this.loginForm.value.name,
+        concept: this.loginForm.value.name.replace(/'/g, "`"),
         conceptid: JSON.stringify(this.data.name.conceptid),
         attributesArray: this.data.name.attributes,
         namesArray: this.model.namesData.split("\n"),
@@ -709,8 +895,12 @@ export class editPost {
     } else {
       this.dialogRef.close('cancel');
     }
-    this.loginForm.value.suma.split('\n').forEach(element => {
-      this._BsrService.sendNewName(element, false).subscribe(arg => {
+    // this.loginForm.value.suma.split('\n').forEach(element => {
+
+    // this.newNamesPerConcept.replace(/'/g, "`");
+    this.newNamesPerConcept.split('\n').forEach((element, index) => {
+      const tempArray = this.nameid.split('\n');
+      this._BsrService.sendNewName(element, false, this.conceptid, tempArray[index]).subscribe(arg => {
       });
     });
 
@@ -726,7 +916,7 @@ export class editPost {
 
   async getSynonyms() {
     this.synonymWord = await navigator.clipboard.readText();
-   
+
     this.isSynonymBox = true;
     this._BsrService.getSinonyms(this.synonymWord).subscribe((res: any) => {
       let counter = 0
@@ -752,4 +942,9 @@ export class editPost {
   }
 
 
+
 }
+function toTop(nameid: any) {
+  throw new Error('Function not implemented.');
+}
+

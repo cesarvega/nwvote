@@ -23,9 +23,7 @@ export class Nw3Service {
     this.isnwVOTE.next(mute);
   }
 
-  constructor(private http: HttpClient) { 
-    
-  }
+  constructor(private http: HttpClient) {}
 
   // webBaseUrl = 'http://localhost:64378/';
   webBaseUrl = 'https://tools.brandinstitute.com/BIWebServices/';
@@ -83,10 +81,10 @@ export class Nw3Service {
     const regexapostrophe = /'/gi;
     const saveObj = JSON.parse(modelToSave);
     // console.log(saveObj.NameRanking);
-    if (saveObj.NameRanking.length > 9) {
-      const newNameRanking = saveObj.NameRanking.replace(regex, 'novalue');
-      saveObj.NameRanking = newNameRanking;
-    }
+    // if (saveObj.NameRanking.length > 9) {
+    //   const newNameRanking = saveObj.NameRanking.replace(regex, 'novalue');
+    //   saveObj.NameRanking = newNameRanking;
+    // }
 
     this.japanese = localStorage.getItem('isKatakana');
 
@@ -115,8 +113,6 @@ export class Nw3Service {
   sendNameToNwVote(name) {
     return this.http.post(this.webBaseUrl + this.apiCall, { name: name });
   }
-
-
 
 
   convertToEntities(str) {

@@ -35,8 +35,10 @@ export class BsrService {
  
   
   _SP_CHANGE_POST_IT_ORDER:any;
-  _SP_NewNameNSR = "[BI_GUIDELINES].[dbo].[nsr_mobAddNames] N'";
   _SP_NewNameBSR = "[BI_GUIDELINES].[dbo].[nsr_mobAddNames] N'";
+  _SP_NewNameNSR = "[BI_GUIDELINES].[dbo].[nsr_mobAddNames] N'";
+  _SP_NewNameNSR_v2021 = "[BI_GUIDELINES].[dbo].[nsr_mobAddNames_v2021] N'";
+  // _SP_NewNameBSR_v2021 = "[BI_GUIDELINES].[dbo].[bsr_mobAddNames_v2021] N'";
   _SP_deleteNames = "[BI_GUIDELINES].[dbo].[bsr_delName] ";
   _SP_getSynonims = "[BI_GUIDELINES].[dbo].[bsr_GetSynonyms] ";
 
@@ -48,18 +50,20 @@ export class BsrService {
     this._SP_CHANGE_POST_IT_ORDER = '[BI_GUIDELINES].[dbo].[bsr_updConceptOrder] N' + "'" + JSON.stringify(this.conceptsOrder) + "'";
    }
 
-  sendNewName(nameContainer, isNSR) {
+  sendNewName(nameContainer, isNSR, conceptid?, nameid? ) {
     this.projectId = localStorage.getItem(this.projectName + '_projectId');
     let newNameContainer = {
       name: nameContainer.split(','),
       source: 'Moderator',
       userEmail: 'system@brandinstitute.com',
+      conceptid: conceptid, // new stuff 
+      nameid: nameid // new stuff 
     }
     let newNameObject;
     if (isNSR) {
-      newNameObject = this._SP_NewNameNSR + this.projectId + ',' + JSON.stringify(newNameContainer) + "'";
+      newNameObject = this._SP_NewNameNSR_v2021 + this.projectId + ',' + JSON.stringify(newNameContainer) + "'";
     } else {
-      newNameObject = this._SP_NewNameBSR + this.projectId + ',' + JSON.stringify(newNameContainer) + "'";
+      newNameObject = this._SP_NewNameNSR_v2021 + this.projectId + ',' + JSON.stringify(newNameContainer) + "'";
     }
     return this.http.post(this.webBaseUrl + this.apiCall, JSON.stringify(newNameObject), httpOptions);
   }
@@ -85,17 +89,22 @@ export class BsrService {
   }
 
   getPost() {
+    console.log(this.projectName)
     const urlGetPosit = '[BI_GUIDELINES].[dbo].[bsr_GetProjectData] ' + "'" + localStorage.getItem(this.projectName + '_projectId') + "'";
     return this.http.post(this.webBaseUrl + this.apiCall, JSON.stringify(urlGetPosit), httpOptions);
   }
 
   newPost(newConcept) {
+    console.log(newConcept)
     let _SP_NewComcept = "[BI_GUIDELINES].[bsrv2].[bsr_updConcept] N'" + newConcept + "'";
     return this.http.post(this.webBaseUrl + this.apiCall, JSON.stringify(_SP_NewComcept), httpOptions);
   }
 
   updatePost(updateConcept) {
-    let _SP_NewComcept = "[BI_GUIDELINES].[dbo].[bsr_updConceptData] N'" + updateConcept + "'";
+    let json = JSON.parse(updateConcept);
+    let newUpdateConcept = {...json, concept:json.concept.replace("'", "`")};
+    let string = JSON.stringify(newUpdateConcept);
+    let _SP_NewComcept = "[BI_GUIDELINES].[dbo].[bsr_updConceptData] N'" + string + "'";
     return this.http.post(this.webBaseUrl + this.apiCall, JSON.stringify(_SP_NewComcept), httpOptions);
   }
 
