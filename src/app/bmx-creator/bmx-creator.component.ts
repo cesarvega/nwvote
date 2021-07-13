@@ -8,6 +8,7 @@ import Speech from 'speak-tts';
 import { ActivatedRoute } from '@angular/router';
 import { typeSourceSpan } from '@angular/compiler';
 import { Nw3Service } from '../nw3/nw3.service';
+import { BmxService } from './bmx.service';
 import { DragulaService } from 'ng2-dragula';
 
 @Component({
@@ -73,10 +74,11 @@ export class BmxCreatorComponent implements OnInit {
     { name: 'TRUSTED', rationale: 'Trus, Tru' },
     { name: 'NOMANER', rationale: 'referred' },
   ];
+  settingsData: any;
 
   constructor(@Inject(DOCUMENT) private document: any,
     private _NW3Service: Nw3Service, private activatedRoute: ActivatedRoute,
-    private _hotkeysService: HotkeysService,private dragulaService: DragulaService) {
+    private _hotkeysService: HotkeysService,private dragulaService: DragulaService,private _BmxService: BmxService) {
 
     this.activatedRoute.params.subscribe(params => {
       this.projectName = params['id'];
@@ -86,7 +88,6 @@ export class BmxCreatorComponent implements OnInit {
         localStorage.setItem('data', data[0].PresentationId);
       })
     });
-
 
     dragulaService.createGroup('TASKS', {
       moves: (el, container, handle) => {
@@ -99,6 +100,17 @@ export class BmxCreatorComponent implements OnInit {
   }
 
   ngOnInit(): void {
+
+
+    this._BmxService.getGeneralLists()
+      .subscribe((arg:any) => {
+        this.settingsData = JSON.parse(arg.d);
+        console.log(JSON.parse(arg.d));
+        
+      });
+    
+
+
     this.ckconfig = {
       allowedContent: false,
       width: '99.6%',
@@ -150,13 +162,6 @@ export class BmxCreatorComponent implements OnInit {
     this.isMenuActive6 = (menuItem === 'isMenuActive6') ? false : true;
   }
 
-  sendTextHtml(index?) {    
-    this.sampleHtml = this.model.editorData;
-    if (index) {
-      this.brandMatrixObjects[index].componentText = this.model.editorData;
-    }
-  }
-
   createNewBmxComponent(){
     window.scrollTo(300, 500);
     this.brandMatrixObjects.push( {
@@ -167,9 +172,6 @@ export class BmxCreatorComponent implements OnInit {
   }
 
   checkDragEvetn(e){
-
     console.log(e);
-    
-
   }
 }
