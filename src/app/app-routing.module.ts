@@ -44,7 +44,7 @@ const routes: Routes = [
   // },
   {
     path: '',
-    redirectTo: '/bi',
+    redirectTo: '/TEST_BI_Katakana_Phonetics',
     pathMatch: 'full'
   } 
 ];
