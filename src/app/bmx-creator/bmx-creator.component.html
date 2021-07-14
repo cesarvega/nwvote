@@ -29,7 +29,7 @@
 
         <!-- SIDE MENU 🎀 -->
         <div class="menu">
-            <div [ngClass]="(isMenuActive1)?'menu-item':'menu-active'" (click)="toggleMenuActive('isMenuActive1')">
+            <div [ngClass]="(isMenuActive1)?'menu-active':'menu-item'" (click)="toggleMenuActive('isMenuActive1')">
                 <button mat-icon-button style="margin: 0 20px 0 10px">
                     <mat-icon style="font-size: 40px;">list</mat-icon>
                 </button>
@@ -37,7 +37,7 @@
                     {{'Project List'}}
                 </div>
             </div>
-            <div [ngClass]="(isMenuActive2)?'menu-item':'menu-active'" (click)="toggleMenuActive('isMenuActive2')">
+            <div [ngClass]="(isMenuActive2)?'menu-active':'menu-item'" (click)="toggleMenuActive('isMenuActive2')">
                 <button mat-icon-button style="margin: 0 20px 0 10px">
                     <mat-icon style="font-size: 40px;">open_in_full</mat-icon>
                 </button>
@@ -54,7 +54,7 @@
                     </div>
                 </div>
             </div>
-            <div [ngClass]="(isMenuActive3)?'menu-item':'menu-active'" (click)="toggleMenuActive('isMenuActive3')">
+            <div [ngClass]="(isMenuActive3)?'menu-active':'menu-item'" (click)="toggleMenuActive('isMenuActive3')">
                 <button mat-icon-button style="margin: 0 20px 0 10px">
                     <mat-icon style="font-size: 40px;">mail</mat-icon>
                 </button>
@@ -63,7 +63,7 @@
                     {{'Matrix Invites'}}
                 </div>
             </div>
-            <div [ngClass]="(isMenuActive4)?'menu-item':'menu-active'" (click)="toggleMenuActive('isMenuActive4')">
+            <div [ngClass]="(isMenuActive4)?'menu-active':'menu-item'" (click)="toggleMenuActive('isMenuActive4')">
                 <button mat-icon-button style="margin: 0 20px 0 10px">
                     <mat-icon style="font-size: 40px;">edit</mat-icon>
                 </button>
@@ -71,7 +71,7 @@
                     {{'Create/Edit Matrix'}}
                 </div>
             </div>
-            <div [ngClass]="(isMenuActive5)?'menu-item':'menu-active'" (click)="toggleMenuActive('isMenuActive5')">
+            <div [ngClass]="(isMenuActive5)?'menu-active':'menu-item'" (click)="toggleMenuActive('isMenuActive5')">
                 <button mat-icon-button style="margin: 0 20px 0 10px">
                     <mat-icon style="font-size: 40px;">stacked_bar_chart</mat-icon>
                 </button>
@@ -79,7 +79,7 @@
                     {{'Reports'}}
                 </div>
             </div>
-            <div [ngClass]="(isMenuActive6)?'menu-item':'menu-active'" (click)="toggleMenuActive('isMenuActive6')">
+            <div [ngClass]="(isMenuActive6)?'menu-active':'menu-item'" (click)="toggleMenuActive('isMenuActive6')">
                 <button mat-icon-button style="margin: 0 20px 0 10px">
                     <mat-icon style="font-size: 40px;">settings</mat-icon>
                 </button>
@@ -92,20 +92,27 @@
 
     </div>
 
+    <!-- PROJECT LIST-->
+    <div class="project-list" *ngIf="isMenuActive1" style="border: hotpink solid 1px; width: 60%; height: 100vh;">
+        PROJECT LIST
+    </div>
+    <div class="project-list" *ngIf="isMenuActive1" style="border: pink solid 1px; width: 25%; height: 100vh;">
+        side panel 1</div>
+    <!--END  PROJECT LIST-->
 
-    <div class="project-list" *ngIf="false" style="border: hotpink solid 1px; width: 60%; height: 100vh;"></div>
-    <div class="project-list" *ngIf="false" style="border: pink solid 1px; width: 25%; height: 100vh;"></div>
+    <!-- OPEN LINKS-->
+    <div class="open-links" *ngIf="isMenuActive2" style="border: hotpink solid 1px; width: 60%; height: 100vh;">OPEN LINKS</div>
+    <div class="open-links" *ngIf="isMenuActive2" style="border: pink solid 1px; width: 25%; height: 100vh;">side panel 2</div>
+    <!--END OPEN LINKS-->
 
-    <div class="open-links" *ngIf="false" style="border: hotpink solid 1px; width: 60%; height: 100vh;"></div>
-    <div class="open-links" *ngIf="false" style="border: pink solid 1px; width: 25%; height: 100vh;"></div>
-
-    <div class="matrix-invites" *ngIf="false" style="border: hotpink solid 1px; width: 60%; height: 100vh;"></div>
-    <div class="matrix-invites" *ngIf="false" style="border: pink solid 1px; width: 25%; height: 100vh;"></div>
-
+    <!-- MATRIX INVITES -->
+    <div class="matrix-invites" *ngIf="isMenuActive3" style="border: hotpink solid 1px; width: 60%; height: 100vh;">MATRIX INVITES</div>
+    <div class="matrix-invites" *ngIf="isMenuActive3" style="border: pink solid 1px; width: 25%; height: 100vh;">side panel 3</div>
+    <!--END MATRIX INVITES -->
 
     <!-- CREATE/EDIT COMPONENT  🧠-->
 
-    <div class="create-edit" *ngIf="!isMenuActive4" dragula="TASKS" [(dragulaModel)]="brandMatrixObjects"
+    <div class="create-edit" *ngIf="isMenuActive4" dragula="TASKS" [(dragulaModel)]="brandMatrixObjects"
         (dragulaModelChange)="checkDragEvetn($event);brandMatrixObjects = $event">
 
         <div *ngIf="true" class="mainContainerPresent" style="position: absolute;
@@ -116,15 +123,17 @@
                 <mat-select>
                     <mat-option *ngFor="let settingsList of settingsData.SalesBoardProjectList" [value]="settingsList">
                         {{settingsList}}
-                    </mat-option> </mat-select>
+                    </mat-option>
+                </mat-select>
             </mat-card>
-            
+
             <mat-card>
                 <mat-label>DepartmentList</mat-label>
                 <mat-select>
                     <mat-option *ngFor="let settingsList of settingsData.DepartmentList" [value]="settingsList">
                         {{settingsList}}
-                    </mat-option> </mat-select>
+                    </mat-option>
+                </mat-select>
             </mat-card>
         </div>
 
@@ -150,7 +159,7 @@
                 <div style="margin: 30px;" [innerHTML]="bmxItem.componentText | safe: 'html'"></div>
                 <ckeditor *ngIf="i === selectedIndex" id="txtTexto" class="ckeditorcev"
                     style="animation: fadeIn 0.5s ease forwards;" [ngModelOptions]="{standalone: true}"
-                    [(ngModel)]="bmxItem.componentText" [data]="dataEditor" [config]="ckconfig">
+                    [(ngModel)]="bmxItem.componentText" [data]="bmxItem.componentText" [config]="ckconfig">
                 </ckeditor>
 
                 <button *ngIf="i === selectedIndex" class="cancel" (click)="selectedIndex = '';" mat-icon-button>
@@ -203,7 +212,7 @@
 
     </div>
 
-    <div class="create-edit" *ngIf="!isMenuActive4" style="border: pink solid 1px; width: 25%; height: 100vh;">
+    <div class="create-edit" *ngIf="isMenuActive4" style="border: pink solid 1px; width: 25%; height: 100vh;">
 
         <div *ngIf="true" class="" style="display: flex;flex-direction: column;margin-top: 50px;">
             <button (click)="createNewBmxComponent()" mat-icon-button matTooltip="home" matTooltipPosition="right">
@@ -226,10 +235,12 @@
 
     <!--🧠 END CREATE/EDIT COMPONENT-->
 
-
-    <div class="reports" *ngIf="false" style="border: hotpink solid 1px; width: 60%; height: 100vh;"></div>
-    <div class="reports" *ngIf="false" div style="border: pink solid 1px; width: 25%; height: 100vh;"></div>
-
-    <div class="settings" *ngIf="false" style="border: hotpink solid 1px; width: 60%; height: 100vh;"></div>
-    <div class="settings" *ngIf="false" div style="border: pink solid 1px; width: 25%; height: 100vh;"></div>
+    <!-- REPORTS -->
+    <div class="reports" *ngIf="isMenuActive5" style="border: hotpink solid 1px; width: 60%; height: 100vh;">REPORTS</div>
+    <div class="reports" *ngIf="isMenuActive5" div style="border: pink solid 1px; width: 25%; height: 100vh;">SIDE PANEL5</div>
+    <!--END REPORTS -->
+    <!-- SETTINGS -->
+    <div class="settings" *ngIf="isMenuActive6" style="border: hotpink solid 1px; width: 60%; height: 100vh;">SETTINGS</div>
+    <div class="settings" *ngIf="isMenuActive6" div style="border: pink solid 1px; width: 25%; height: 100vh;">SIDE PANEL 6</div>
+    <!--END SETTINGS -->
 </div>

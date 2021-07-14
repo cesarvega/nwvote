@@ -22,12 +22,11 @@ export class BmxCreatorComponent implements OnInit {
   projectId: any;
   soundVolume = 0.2;
   isMenuActive1 = true;
-  isMenuActive2 = true;
-  isMenuActive3 = true;
+  isMenuActive2 = false;
+  isMenuActive3 = false;
   isMenuActive4 = false;
-  isMenuActive5 = true;
-  isMenuActive6 = true;
-  dataEditor = '<p>Hello, world!</p>';
+  isMenuActive5 = false;
+  isMenuActive6 = false;
   model = {
     editorData: '',
     namesData: ''
@@ -154,12 +153,12 @@ export class BmxCreatorComponent implements OnInit {
 
   // menu functionallity toggles the active link scss
   toggleMenuActive(menuItem) {
-    this.isMenuActive1 = (menuItem === 'isMenuActive1') ? false : true;
-    this.isMenuActive2 = (menuItem === 'isMenuActive2') ? false : true;
-    this.isMenuActive3 = (menuItem === 'isMenuActive3') ? false : true;
-    this.isMenuActive4 = (menuItem === 'isMenuActive4') ? false : true;
-    this.isMenuActive5 = (menuItem === 'isMenuActive5') ? false : true;
-    this.isMenuActive6 = (menuItem === 'isMenuActive6') ? false : true;
+    this.isMenuActive1 = (menuItem === 'isMenuActive1') ? true : false;
+    this.isMenuActive2 = (menuItem === 'isMenuActive2') ? true : false;
+    this.isMenuActive3 = (menuItem === 'isMenuActive3') ? true : false;
+    this.isMenuActive4 = (menuItem === 'isMenuActive4') ? true : false;
+    this.isMenuActive5 = (menuItem === 'isMenuActive5') ? true : false;
+    this.isMenuActive6 = (menuItem === 'isMenuActive6') ? true : false;
   }
 
   createNewBmxComponent(){
