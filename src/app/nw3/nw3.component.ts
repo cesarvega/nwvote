@@ -67,7 +67,7 @@ export class NW3Component implements OnInit {
   // https://bipresents.com/namevote/login?project=TEST_BI_Katakana_Tagline
 
   chartOption: any;
-  fonts = ['coture', 'caviar', 'Chelsea', 'Gacor', 'NyataFTR', 'Pinkerston', 'Quicksand_Book', 'Quicksand_Light'
+  fonts = ['sans-serif','coture', 'caviar', 'Chelsea', 'Gacor', 'NyataFTR', 'Pinkerston', 'Quicksand_Book', 'Quicksand_Light'
     , 'Cruncho', 'LilacBlockDemo', 'Medhurst', 'NewYork'];
   secodaryFontIndex = 0;
   font1 = this.fonts[1];
@@ -1368,7 +1368,7 @@ export class NW3Component implements OnInit {
 
   onChartClick(e) {
     console.log(e);
-    this.changeSummaryList(e.name.toLowerCase())
+    this.changeSummaryList(e.name)
   }
 
 
@@ -1398,7 +1398,7 @@ export class NW3Component implements OnInit {
       this.summaryChart = false;
     }
 
-    else if (listSelection === 'new names') {
+    else if (listSelection === 'New Names') {
       this.summaryPositive = false;
       this.summaryNeutral = false;
       this.summaryNegative = false;
@@ -1490,7 +1490,7 @@ export class NW3Component implements OnInit {
 
     this.totalNewNames = [];
     this.totalNewNames2 = [];
-    this._NW3Service.getRetainTypeName(this.projectId, (listSelection === "new names") ? "New" : listSelection).subscribe((data: Array<object>) => {
+    this._NW3Service.getRetainTypeName(this.projectId, (listSelection === "New Names") ? "New" : listSelection).subscribe((data: Array<object>) => {
       this.totalNewNames2.push(data);
       console.log(this.totalNewNames2);
     });

@@ -101,13 +101,17 @@
     <!--END  PROJECT LIST-->
 
     <!-- OPEN LINKS-->
-    <div class="open-links" *ngIf="isMenuActive2" style="border: hotpink solid 1px; width: 60%; height: 100vh;">OPEN LINKS</div>
-    <div class="open-links" *ngIf="isMenuActive2" style="border: pink solid 1px; width: 25%; height: 100vh;">side panel 2</div>
+    <div class="open-links" *ngIf="isMenuActive2" style="border: hotpink solid 1px; width: 60%; height: 100vh;">OPEN
+        LINKS</div>
+    <div class="open-links" *ngIf="isMenuActive2" style="border: pink solid 1px; width: 25%; height: 100vh;">side panel
+        2</div>
     <!--END OPEN LINKS-->
 
     <!-- MATRIX INVITES -->
-    <div class="matrix-invites" *ngIf="isMenuActive3" style="border: hotpink solid 1px; width: 60%; height: 100vh;">MATRIX INVITES</div>
-    <div class="matrix-invites" *ngIf="isMenuActive3" style="border: pink solid 1px; width: 25%; height: 100vh;">side panel 3</div>
+    <div class="matrix-invites" *ngIf="isMenuActive3" style="border: hotpink solid 1px; width: 60%; height: 100vh;">
+        MATRIX INVITES</div>
+    <div class="matrix-invites" *ngIf="isMenuActive3" style="border: pink solid 1px; width: 25%; height: 100vh;">side
+        panel 3</div>
     <!--END MATRIX INVITES -->
 
     <!-- CREATE/EDIT COMPONENT  🧠-->
@@ -120,110 +124,114 @@
         width: 1011px;">
 
 
-<div class="dropdowns" style="display: flex;flex-direction: column;">
-
-    <div style="display: flex;flex-direction: row;">
-        
-            <mat-label>SalesBoardProjectList</mat-label>
-            <mat-select>
-                <mat-option *ngFor="let settingsList of settingsData.SalesBoardProjectList" [value]="settingsList">
-                    {{settingsList}}
-                </mat-option>
-            </mat-select>
-        
-
-       
-            <mat-label>DepartmentList</mat-label>
-            <mat-select>
-                <mat-option *ngFor="let settingsList of settingsData.DepartmentList" [value]="settingsList">
-                    {{settingsList}}
-                </mat-option>
-            </mat-select>
-       
-    
-    </div>
-
-    <br>
-    <br>
-    <br>
-    <br>
-    <br>
-    <div style="display: flex;flex-direction: row;">
-        
-            <mat-label>SalesBoardProjectList</mat-label>
-            <mat-select>
-                <mat-option *ngFor="let settingsList of settingsData.SalesBoardProjectList" [value]="settingsList">
-                    {{settingsList}}
-                </mat-option>
-            </mat-select>
-        
-
-       
-            <mat-label>DepartmentList</mat-label>
-            <mat-select>
-                <mat-option *ngFor="let settingsList of settingsData.DepartmentList" [value]="settingsList">
-                    {{settingsList}}
-                </mat-option>
-            </mat-select>
-       
-    
-    </div>
-
-    <br>
-    <br>
-    <br>
-    <br>
-    <br>
-    <div style="display: flex;flex-direction: row;">
-        
-            <mat-label>SalesBoardProjectList</mat-label>
-            <mat-select>
-                <mat-option *ngFor="let settingsList of settingsData.SalesBoardProjectList" [value]="settingsList">
-                    {{settingsList}}
-                </mat-option>
-            </mat-select>
-        
-
-       
-            <mat-label>DepartmentList</mat-label>
-            <mat-select>
-                <mat-option *ngFor="let settingsList of settingsData.DepartmentList" [value]="settingsList">
-                    {{settingsList}}
-                </mat-option>
-            </mat-select>
-       
-    
-    </div>
-    <div></div>
-
-</div>
-<br>
-<br>
-<br>
-<br>
-<br>
-<br>
-     
             <div class="dropdowns" style="display: flex;flex-direction: column;">
 
                 <div style="display: flex;flex-direction: row;">
-                    
-                        <mat-label>SalesBoardProjectList</mat-label>
-                        <mat-select>
-                            <mat-option *ngFor="let settingsList of settingsData.SalesBoardProjectList" [value]="settingsList">
-                                {{settingsList}}
-                            </mat-option>
-                        </mat-select>
-                
-                
+
+                    <label>SalesBoardProjectList</label>
+                    <select>
+                        <option *ngFor="let settingsList of settingsData.SalesBoardProjectList"
+                            [value]="settingsList">
+                            {{settingsList}}
+                        </option>
+                    </select>
+
+
+
+                    <mat-label>DepartmentList</mat-label>
+                    <mat-select>
+                        <mat-option *ngFor="let settingsList of settingsData.DepartmentList" [value]="settingsList">
+                            {{settingsList}}
+                        </mat-option>
+                    </mat-select>
+
+
+                </div>
+
+                <br>
+                <br>
+                <br>
+                <br>
+                <br>
+                <div style="display: flex;flex-direction: row;">
+
+                    <mat-label>SalesBoardProjectList</mat-label>
+                    <mat-select>
+                        <mat-option *ngFor="let settingsList of settingsData.SalesBoardProjectList"
+                            [value]="settingsList">
+                            {{settingsList}}
+                        </mat-option>
+                    </mat-select>
+
+
+
+                    <mat-label>DepartmentList</mat-label>
+                    <mat-select>
+                        <mat-option *ngFor="let settingsList of settingsData.DepartmentList" [value]="settingsList">
+                            {{settingsList}}
+                        </mat-option>
+                    </mat-select>
+
+
+                </div>
+
+                <br>
+                <br>
+                <br>
+                <br>
+                <br>
+                <div style="display: flex;flex-direction: row;">
+
+                    <mat-label>SalesBoardProjectList</mat-label>
+                    <mat-select>
+                        <mat-option *ngFor="let settingsList of settingsData.SalesBoardProjectList"
+                            [value]="settingsList">
+                            {{settingsList}}
+                        </mat-option>
+                    </mat-select>
+
+
+
+                    <mat-label>DepartmentList</mat-label>
+                    <mat-select>
+                        <mat-option *ngFor="let settingsList of settingsData.DepartmentList" [value]="settingsList">
+                            {{settingsList}}
+                        </mat-option>
+                    </mat-select>
+
+
+                </div>
+                <div></div>
+
+            </div>
+            <br>
+            <br>
+            <br>
+            <br>
+            <br>
+            <br>
+
+            <div class="dropdowns" style="display: flex;flex-direction: column;">
+
+                <div style="display: flex;flex-direction: row;">
+
+                    <mat-label>SalesBoardProjectList</mat-label>
+                    <mat-select>
+                        <mat-option *ngFor="let settingsList of settingsData.SalesBoardProjectList"
+                            [value]="settingsList">
+                            {{settingsList}}
+                        </mat-option>
+                    </mat-select>
+
+
                 </div>
 
                 <div></div>
 
             </div>
-     
 
-           
+
+
         </div>
 
         <div *ngFor="let bmxItem of brandMatrixObjects; let i = index"
@@ -325,11 +333,15 @@
     <!--🧠 END CREATE/EDIT COMPONENT-->
 
     <!-- REPORTS -->
-    <div class="reports" *ngIf="isMenuActive5" style="border: hotpink solid 1px; width: 60%; height: 100vh;">REPORTS</div>
-    <div class="reports" *ngIf="isMenuActive5" div style="border: pink solid 1px; width: 25%; height: 100vh;">SIDE PANEL5</div>
+    <div class="reports" *ngIf="isMenuActive5" style="border: hotpink solid 1px; width: 60%; height: 100vh;">REPORTS
+    </div>
+    <div class="reports" *ngIf="isMenuActive5" div style="border: pink solid 1px; width: 25%; height: 100vh;">SIDE
+        PANEL5</div>
     <!--END REPORTS -->
     <!-- SETTINGS -->
-    <div class="settings" *ngIf="isMenuActive6" style="border: hotpink solid 1px; width: 60%; height: 100vh;">SETTINGS</div>
-    <div class="settings" *ngIf="isMenuActive6" div style="border: pink solid 1px; width: 25%; height: 100vh;">SIDE PANEL 6</div>
+    <div class="settings" *ngIf="isMenuActive6" style="border: hotpink solid 1px; width: 60%; height: 100vh;">SETTINGS
+    </div>
+    <div class="settings" *ngIf="isMenuActive6" div style="border: pink solid 1px; width: 25%; height: 100vh;">SIDE
+        PANEL 6</div>
     <!--END SETTINGS -->
 </div>
