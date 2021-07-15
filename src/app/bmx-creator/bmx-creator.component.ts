@@ -21,10 +21,10 @@ export class BmxCreatorComponent implements OnInit {
   projectName: any;
   projectId: any;
   soundVolume = 0.2;
-  isMenuActive1 = true;
+  isMenuActive1 = false;
   isMenuActive2 = false;
   isMenuActive3 = false;
-  isMenuActive4 = false;
+  isMenuActive4 = true;
   isMenuActive5 = false;
   isMenuActive6 = false;
   model = {
@@ -75,18 +75,17 @@ export class BmxCreatorComponent implements OnInit {
   ];
   settingsData: any;
 
-  constructor(@Inject(DOCUMENT) private document: any,
-    private _NW3Service: Nw3Service, private activatedRoute: ActivatedRoute,
+  constructor(@Inject(DOCUMENT) private document: any, private activatedRoute: ActivatedRoute,
     private _hotkeysService: HotkeysService,private dragulaService: DragulaService,private _BmxService: BmxService) {
 
-    this.activatedRoute.params.subscribe(params => {
-      this.projectName = params['id'];
-      localStorage.setItem('projectName', this.projectName);
-      this._NW3Service.getProjectId(this.projectName).subscribe((data: any) => {
-        this.projectId = data[0].PresentationId;
-        localStorage.setItem('data', data[0].PresentationId);
-      })
-    });
+    // this.activatedRoute.params.subscribe(params => {
+    //   this.projectName = params['id'];
+    //   localStorage.setItem('projectName', this.projectName);
+    //   this._NW3Service.getProjectId(this.projectName).subscribe((data: any) => {
+    //     this.projectId = data[0].PresentationId;
+    //     localStorage.setItem('data', data[0].PresentationId);
+    //   })
+    // });
 
     dragulaService.createGroup('TASKS', {
       moves: (el, container, handle) => {
@@ -141,15 +140,15 @@ export class BmxCreatorComponent implements OnInit {
 
   }
 
-  playSound(soundEffect, volume) {
-    let audio = new Audio();
-    // audio.src = soundEffect;
-    // audio.volume = volume;
-    audio.src = "assets/sound/wav/" + soundEffect;
-    audio.volume = volume;
-    audio.load();
-    audio.play();
-  }
+  // playSound(soundEffect, volume) {
+  //   let audio = new Audio();
+  //   // audio.src = soundEffect;
+  //   // audio.volume = volume;
+  //   audio.src = "assets/sound/wav/" + soundEffect;
+  //   audio.volume = volume;
+  //   audio.load();
+  //   audio.play();
+  // }
 
   // menu functionallity toggles the active link scss
   toggleMenuActive(menuItem) {
@@ -173,4 +172,8 @@ export class BmxCreatorComponent implements OnInit {
   checkDragEvetn(e){
     console.log(e);
   }
+
+
+  // COOMENT FOR THE TEMPLATE OR 
+
 }

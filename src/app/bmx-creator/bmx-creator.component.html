@@ -118,23 +118,112 @@
         <div *ngIf="true" class="mainContainerPresent" style="position: absolute;
         z-index: 1;
         width: 1011px;">
-            <mat-card>
-                <mat-label>SalesBoardProjectList</mat-label>
-                <mat-select>
-                    <mat-option *ngFor="let settingsList of settingsData.SalesBoardProjectList" [value]="settingsList">
-                        {{settingsList}}
-                    </mat-option>
-                </mat-select>
-            </mat-card>
 
-            <mat-card>
-                <mat-label>DepartmentList</mat-label>
-                <mat-select>
-                    <mat-option *ngFor="let settingsList of settingsData.DepartmentList" [value]="settingsList">
-                        {{settingsList}}
-                    </mat-option>
-                </mat-select>
-            </mat-card>
+
+<div class="dropdowns" style="display: flex;flex-direction: column;">
+
+    <div style="display: flex;flex-direction: row;">
+        
+            <mat-label>SalesBoardProjectList</mat-label>
+            <mat-select>
+                <mat-option *ngFor="let settingsList of settingsData.SalesBoardProjectList" [value]="settingsList">
+                    {{settingsList}}
+                </mat-option>
+            </mat-select>
+        
+
+       
+            <mat-label>DepartmentList</mat-label>
+            <mat-select>
+                <mat-option *ngFor="let settingsList of settingsData.DepartmentList" [value]="settingsList">
+                    {{settingsList}}
+                </mat-option>
+            </mat-select>
+       
+    
+    </div>
+
+    <br>
+    <br>
+    <br>
+    <br>
+    <br>
+    <div style="display: flex;flex-direction: row;">
+        
+            <mat-label>SalesBoardProjectList</mat-label>
+            <mat-select>
+                <mat-option *ngFor="let settingsList of settingsData.SalesBoardProjectList" [value]="settingsList">
+                    {{settingsList}}
+                </mat-option>
+            </mat-select>
+        
+
+       
+            <mat-label>DepartmentList</mat-label>
+            <mat-select>
+                <mat-option *ngFor="let settingsList of settingsData.DepartmentList" [value]="settingsList">
+                    {{settingsList}}
+                </mat-option>
+            </mat-select>
+       
+    
+    </div>
+
+    <br>
+    <br>
+    <br>
+    <br>
+    <br>
+    <div style="display: flex;flex-direction: row;">
+        
+            <mat-label>SalesBoardProjectList</mat-label>
+            <mat-select>
+                <mat-option *ngFor="let settingsList of settingsData.SalesBoardProjectList" [value]="settingsList">
+                    {{settingsList}}
+                </mat-option>
+            </mat-select>
+        
+
+       
+            <mat-label>DepartmentList</mat-label>
+            <mat-select>
+                <mat-option *ngFor="let settingsList of settingsData.DepartmentList" [value]="settingsList">
+                    {{settingsList}}
+                </mat-option>
+            </mat-select>
+       
+    
+    </div>
+    <div></div>
+
+</div>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+     
+            <div class="dropdowns" style="display: flex;flex-direction: column;">
+
+                <div style="display: flex;flex-direction: row;">
+                    
+                        <mat-label>SalesBoardProjectList</mat-label>
+                        <mat-select>
+                            <mat-option *ngFor="let settingsList of settingsData.SalesBoardProjectList" [value]="settingsList">
+                                {{settingsList}}
+                            </mat-option>
+                        </mat-select>
+                
+                
+                </div>
+
+                <div></div>
+
+            </div>
+     
+
+           
         </div>
 
         <div *ngFor="let bmxItem of brandMatrixObjects; let i = index"
