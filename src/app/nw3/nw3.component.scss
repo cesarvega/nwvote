@@ -59,24 +59,25 @@
         // font-size: 30px;
         margin-bottom: 161px;
         margin-top: -15px;
-        text-shadow: 0 0.04em 0.04em rgba(0, 0, 0, 0.35);
+        // text-shadow: 0 0.04em 0.04em rgba(0, 0, 0, 0.35);
         box-shadow: inset inset 0px 0px 5px #c1c1c1;
     }
     .testName {
-        // font-size: 140px;
+        font-size: 140px;
         margin-top: -138px;
         color: darkblue;
+        font-size: 150px;
         // text-shadow: 0 0.04em 0.04em rgba(0, 0, 0, 0.35);
         box-shadow: inset inset 0px 0px 5px #c1c1c1;
     }
     .pronounciation {
         // font-size: 30px;
-        text-shadow: 0 0.04em 0.04em rgba(0, 0, 0, 0.35);
+        // text-shadow: 0 0.04em 0.04em rgba(0, 0, 0, 0.35);
         box-shadow: inset inset 0px 0px 5px #c1c1c1;
     }
     .rationale {
         // font-size: 35px;
-        text-shadow: 0 0.04em 0.04em rgba(0, 0, 0, 0.35);
+        // text-shadow: 0 0.04em 0.04em rgba(0, 0, 0, 0.35);
         box-shadow: inset inset 0px 0px 5px #c1c1c1;
     }
 }
@@ -390,7 +391,7 @@ $voteIconsColor: #008d05, #f2ce00, #f50c0c, #4c00ff, #4c00ff;
         animation: fadeIn 0.2s ease-in-out backwards;
         animation-iteration-count: 1;
         animation-delay: $i * 0.15 + s;
-        @include BoxShadow(6);
+        @include BoxShadow(2);
     }
 
     .voteIconButton:hover:nth-child(#{$i}) {
@@ -540,14 +541,14 @@ $voteIconsColor: #008d05, #f2ce00, #f50c0c, #4c00ff, #4c00ff;
 .heart-favorite {
     width: 70px;
     height: 70px;
-    border: 5px solid red;
+    border: 5px solid #ee0278;
     position: absolute;
     right: 434px;
     bottom: -35px;
     outline: none;
     // font-size: 45px;
     line-height: 31px;
-    background-color: red;
+    background-color: #ee0278;
     color: grey;
     font-family: auto;
     z-index: 2;
@@ -572,7 +573,7 @@ $voteIconsColor: #008d05, #f2ce00, #f50c0c, #4c00ff, #4c00ff;
     outline: none;
     font-size: 45px;
     line-height: 30px;
-    background-color: red;
+    background-color: #ee0278;
     color: white;
     font-family: auto;
     z-index: 2;
@@ -587,7 +588,7 @@ $voteIconsColor: #008d05, #f2ce00, #f50c0c, #4c00ff, #4c00ff;
     @include BoxShadow(6);
     width: 35px;
     height: 35px;
-    border: 3px solid #ffad37;
+    border: 3px solid #ee7802;
     position: absolute;
     right: 538px;
     bottom: -19px;
@@ -595,7 +596,7 @@ $voteIconsColor: #008d05, #f2ce00, #f50c0c, #4c00ff, #4c00ff;
     font-size: 23px;
     line-height: 10px;
     background-color: white;
-    color: #ffad37;
+    color: #ee7802;
     font-family: auto;
 }
 .G2 {
@@ -632,7 +633,7 @@ $voteIconsColor: #008d05, #f2ce00, #f50c0c, #4c00ff, #4c00ff;
     @include BoxShadow(6);
     width: 35px;
     height: 35px;
-    border: 3px solid purple;
+    border: 3px solid #0278ee;
     position: absolute;
     right: 374px;
     bottom: -19px;
@@ -640,7 +641,7 @@ $voteIconsColor: #008d05, #f2ce00, #f50c0c, #4c00ff, #4c00ff;
     font-size: 23px;
     line-height: 10px;
     background-color: white;
-    color: purple;
+    color: #0278ee;
     font-family: auto;
 }
 
@@ -846,7 +847,7 @@ $voteIconsColor: #008d05, #f2ce00, #f50c0c, #4c00ff, #4c00ff;
 
         .rankingBox {
             .voteIconRank {
-                text-shadow: 0 0.04em 0.04em rgba(0, 0, 0, 0.35);
+                // text-shadow: 0 0.04em 0.04em rgba(0, 0, 0, 0.35);
                 font-size: 40px;
             }
 
@@ -891,11 +892,11 @@ $voteIconsColor: #008d05, #f2ce00, #f50c0c, #4c00ff, #4c00ff;
                 font-size: 20px;
                 margin: 30px 10px;
                 animation: fadeIn 0.5s ease-in forwards;
-                text-shadow: 0 0.04em 0.04em rgba(0, 0, 0, 0.35);
+                // text-shadow: 0 0.04em 0.04em rgba(0, 0, 0, 0.35);
                 box-shadow: inset inset 0px 0px 5px #c1c1c1;
             }
             .groupNameItemNotation {
-                font-size: 15px;
+                font-size: 20px;
                 padding-left: 0px;
                 margin: 21px 6px;
                 animation: fadeIn 0.9s ease-in forwards;

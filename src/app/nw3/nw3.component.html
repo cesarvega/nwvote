@@ -1,10 +1,9 @@
+
+<!-- MAIN CONTENT DIV -->
 <div (click)="noClickanyWhere()" class="page">
 
 
     <div class="mainContainerPresent mat-elevation-z8" [style.background-image]="slideNameBackground">
-
-
-
 
         <!-- <div class="mainContainerPresent mat-elevation-z8" > -->
         <mat-progress-bar mode="determinate" [value]="currentProgress" color="warn" style="z-index: 99999;height: 3px;">
@@ -71,13 +70,13 @@
 
 
 
-        <!--❤️ TEMPLATES FOR SLIDES , GROUP NAMES, SINGLE NAME, IMAGE SLIDE ❤️-->
+        <!--❤️ TEMPLATES FOR SLIDES , GROUP NAMES, SINGLE NAME, IMAGE SLIDE-->
 
         <!-- IMAGE SLIDE  -->
         <div *ngIf="(slideType === 'Image')" class="imagePresentar" [style.background]="slideBackground"></div>
         <!-- {{slideBackground}} -->
 
-        <!-- SUMMARY SLIDE -->
+        <!-- SUMMARY SLIDE 📊-->
         <div *ngIf="(slideType === 'NameSummary')" class="summaryPresentar summary">
 
             <div class="summaryLabel">Summary</div>
@@ -155,14 +154,14 @@
             </div>
         </div>
 
-        <!-- SINGLE NAME -->
+        <!-- SINGLE NAME 💲-->
         <div *ngIf="(slideType === 'NameEvaluation')">
             <div class="singleNameSlide">
 
                 <div class="nameContainer">
                     <div [style.font-family]="font2" [style.font-size]="'30px'" class="item1">{{category}}</div>
                     <div class="testName" [style.font-family]="font2" Comirnaty
-                        [style.font-size]="(font2==='coture')?'117px':'190px'" [innerHTML]="testName">
+                        [style.font-size]="(testName.length>8)?'150px':'190px'" [innerHTML]="testName">
 
                     </div>
                     <!-- <div [style.font-family]="font3" [style.font-size]="'30px'" class="pronounciation">comir-nati</div> -->
@@ -308,7 +307,7 @@
 
         <div *ngIf="(slideType === 'MultipleNameEvaluation')">
 
-            <div [style.font-family]="font1" [style.font-size]="'30px'" style="margin: 20px;margin-bottom: 30px;">
+            <div [style.font-family]="font2" [style.font-size]="'30px'" style="margin: 20px;margin-bottom: 30px;">
                 {{category}}</div>
 
             <div class="subMainContainer">
@@ -320,8 +319,8 @@
                         *ngFor="let separateName of groupName; let i = index;">
 
                         <!-- 😀 RANK ICON-->
-                        <button disableRipple style="margin: 18px 0px 0px -17px;position: absolute;outline: none;"
-                            *ngIf="separateName.split('|')[0].length > 0" class="groupNameVoteItem" mat-icon-button
+                        <button disableRipple class="groupNameVoteItem" style="margin: 18px 0px 0px -17px;position: absolute;outline: none;"
+                            *ngIf="separateName.split('|')[0].length > 0"  mat-icon-button
                             color="warn" aria-label="aria">
                             <mat-icon (click)="toggleRankIcon(rankIcon, i)" [style.color]="rankIcon[i].color"
                                 class="voteIconRank">
@@ -337,8 +336,12 @@
                                 <!-- {{separateName.split('|')[0]}} -->
                             </div>
                             <!--NOTATION -->
-                            <div *ngIf="i !== selectNameItemIndex" class="groupNameItemNotation"
+                            <div *ngIf="i !== selectNameItemIndex" class="groupNameItemNotation"  [style.font-size]="(groupTestNameFontSize-20) + 'px'"
                                 [innerHTML]="separateName.split('|')[1]">
+                                <!-- {{ separateName.split('|')[1]}} -->
+                            </div>
+                            <div *ngIf="i !== selectNameItemIndex" class="groupNameItemNotation"  [style.font-size]="(groupTestNameFontSize-20) + 'px'"
+                                [innerHTML]="separateName.split('|')[2]">
                                 <!-- {{ separateName.split('|')[1]}} -->
                             </div>
                             <div class="groupNameIetmRationale" (mouseleave)="selectNameItemIndex = ''"
@@ -354,13 +357,13 @@
 
             <!-- FAVORITE RANK ALL ICON -->
             <button [ngClass]="(isFavoriteOn)?'heart-favorite':'heart-favorite-Off'" mat-icon-button
-                (click)="setAllNamesIcon('favorite', 'red')">
+                (click)="setAllNamesIcon('favorite', '#ee0278')">
                 <mat-icon class="heart-favorite-icon">favorite</mat-icon>
             </button>
-            <button class="G1 GG" mat-icon-button (click)="setAllNamesIcon('sentiment_very_satisfied', 'yellow')">
+            <button class="G1 GG" mat-icon-button (click)="setAllNamesIcon('sentiment_very_satisfied', '#ee7802')">
                 <mat-icon>sentiment_very_satisfied</mat-icon>
             </button>
-            <button class="G4 GG" mat-icon-button (click)="setAllNamesIcon('thumb_down_off_alt', 'purple')">
+            <button class="G4 GG" mat-icon-button (click)="setAllNamesIcon('thumb_down_off_alt', '#0278ee')">
                 <mat-icon>thumb_down_off_alt</mat-icon>
             </button>
             
@@ -381,7 +384,7 @@
         </div>
 
 
-        <!--💔 END OF TEMPLATES FOR SLIDES , GROUP NAMES, SINGLE NAME, IMAGE SLIDE 💔-->
+        <!--💔 END OF TEMPLATES FOR SLIDES , GROUP NAMES, SINGLE NAME, IMAGE SLIDE -->
 
     </div>
 
