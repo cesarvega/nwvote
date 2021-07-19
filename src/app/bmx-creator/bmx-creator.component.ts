@@ -10,14 +10,10 @@ import { typeSourceSpan } from '@angular/compiler';
 import { Nw3Service } from '../nw3/nw3.service';
 import { BmxService } from './bmx.service';
 import { DragulaService } from 'ng2-dragula';
-<<<<<<< HEAD
-import { FormControl, Validators } from '@angular/forms';
-=======
 import { MatPaginator } from '@angular/material/paginator';
 import { MatTableDataSource } from '@angular/material/table';
 import { MatSort } from '@angular/material/sort';
 import { MatDatepicker } from '@angular/material/datepicker';
->>>>>>> kennethbranch
 
 @Component({
   selector: 'app-bmx-creator',
@@ -104,14 +100,9 @@ export class BmxCreatorComponent implements OnInit {
   ];
   settingsData: any;
 
-<<<<<<< HEAD
-  constructor(@Inject(DOCUMENT) private document: any, private activatedRoute: ActivatedRoute,
-    private _hotkeysService: HotkeysService,private dragulaService: DragulaService,private _BmxService: BmxService) {
-=======
   constructor(@Inject(DOCUMENT) private document: any,
     private _NW3Service: Nw3Service, private activatedRoute: ActivatedRoute,
     private _hotkeysService: HotkeysService, private dragulaService: DragulaService, private _BmxService: BmxService) {
->>>>>>> kennethbranch
 
     // this.activatedRoute.params.subscribe(params => {
     //   this.projectName = params['id'];
@@ -139,7 +130,7 @@ export class BmxCreatorComponent implements OnInit {
     
     this._BmxService.getGeneralLists()
       .subscribe((arg:any) => {
-        //this.settingsData = JSON.parse(arg.d);
+        this.settingsData = JSON.parse(arg.d);
 
         let obj = '[{"ProjectName":"test1","ProjectId":616,"Status":"C","Department":"","Office":"","Created":null,"Close":null},{"ProjectName":"test2","ProjectId":616,"Status":"C","Department":"","Office":"","Created":null,"Close":"123456"},{"ProjectName":"test3","ProjectId":616,"Status":"C","Department":"","Office":"","Created":null,"Close":null},{"ProjectName":"test4","ProjectId":616,"Status":"C","Department":"","Office":"","Created":null,"Close":null},{"ProjectName":"test5","ProjectId":616,"Status":"C","Department":"","Office":"","Created":null,"Close":null},{"ProjectName":"test6","ProjectId":616,"Status":"C","Department":"","Office":"","Created":null,"Close":"56456"},{"ProjectName":"test7","ProjectId":616,"Status":"C","Department":"","Office":"","Created":null,"Close":null}]';
         
@@ -151,13 +142,8 @@ export class BmxCreatorComponent implements OnInit {
        
 
       });
-<<<<<<< HEAD
-    
-      
-=======
 
 
->>>>>>> kennethbranch
 
     this.ckconfig = {
       allowedContent: false,
@@ -223,11 +209,6 @@ export class BmxCreatorComponent implements OnInit {
     console.log(e);
   }
 
-<<<<<<< HEAD
-
-  // COOMENT FOR THE TEMPLATE OR 
-
-=======
   applyFilter(filterValue: string): void {
     filterValue = filterValue.trim(); // Remove whitespace
     filterValue = filterValue.toLowerCase(); // Datasource defaults to lowercase matches
@@ -287,5 +268,4 @@ export class BmxCreatorComponent implements OnInit {
     // Prevent Saturday and Sunday from being selected.
     return day !== 0 && day !== 6 ;
   }
->>>>>>> kennethbranch
 }
