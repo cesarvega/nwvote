@@ -119,104 +119,105 @@
     <div class="create-edit" *ngIf="isMenuActive4" dragula="TASKS" [(dragulaModel)]="brandMatrixObjects"
         (dragulaModelChange)="checkDragEvetn($event);brandMatrixObjects = $event">
 
-    <div *ngIf="true" class="mainContainerPresent" style="position: absolute;
+        <div *ngIf="true" class="mainContainerPresent" style="position: absolute;
         z-index: 1;
         width: 1011px;">
 
-<h2>Project TEST BrandMatrix Setup</h2>
-<h3 style="color:#253b7d;">Basic Project Information</h3>
+            <h2>Project TEST BrandMatrix Setup</h2>
+            <h3 style="color:#253b7d;">Basic Project Information</h3>
 
-<div class="dropdowns" style="display: flex;flex-direction: column;">
+            <div class="dropdowns" style="display: flex;flex-direction: column;">
 
-    <div style="display: flex;flex-direction: row;">
-        <label class="selectLabels">Salesboard</label>
-        <mat-form-field appearance="outline">
-            <mat-label>Select Salesboard Project</mat-label>
-            <mat-select class="selectLabels">
-                <mat-option *ngFor="let settingsList of settingsData.SalesBoardProjectList" [value]="settingsList">
-                    {{settingsList}}
-                </mat-option>
-            </mat-select>
-        </mat-form-field>
-        <label class="selectLabels">Department</label>
-        <mat-form-field appearance="outline">
-            <mat-label>Select Department</mat-label>
-            <mat-select>
-                <mat-option *ngFor="let settingsList of settingsData.DepartmentList" [value]="settingsList">
-                    {{settingsList}}
-                </mat-option>
-            </mat-select>
-        </mat-form-field>
-    
-    </div>
+                <div style="display: flex;flex-direction: row;">
+                    <label class="selectLabels">Salesboard</label>
+                    <mat-form-field appearance="outline">
+                        <mat-label>Select Salesboard Project</mat-label>
+                        <mat-select class="selectLabels">
+                            <mat-option *ngFor="let settingsList of settingsData.SalesBoardProjectList"
+                                [value]="settingsList">
+                                {{settingsList}}
+                            </mat-option>
+                        </mat-select>
+                    </mat-form-field>
+                    <label class="selectLabels">Department</label>
+                    <mat-form-field appearance="outline">
+                        <mat-label>Select Department</mat-label>
+                        <mat-select>
+                            <mat-option *ngFor="let settingsList of settingsData.DepartmentList" [value]="settingsList">
+                                {{settingsList}}
+                            </mat-option>
+                        </mat-select>
+                    </mat-form-field>
 
-    <div style="display: flex;flex-direction: row;">
-        <label class="selectLabels">Project Name</label>
-        <mat-form-field appearance="outline">
-            <mat-label>Enter Project Name</mat-label>
-            <input type="text" matInput disabled>
-        </mat-form-field>
-        <label class="selectLabels">Region</label>
-       <mat-form-field appearance="outline">
-            <mat-label>Select Region</mat-label>
-            <mat-select>
-                <mat-option *ngFor="let settingsList of settingsData.OfficeList" [value]="settingsList">
-                    {{settingsList}}
-                </mat-option>
-            </mat-select>
-       </mat-form-field>
-    
-    </div>
+                </div>
 
-    <div style="display: flex;flex-direction: row;">
-        <label class="selectLabels">Company</label>
-        <mat-form-field appearance="outline">
-            <mat-label>Enter Company</mat-label>
-            <input type="text" matInput disabled>
-        </mat-form-field>
-        <label class="selectLabels">Language</label>
-       <mat-form-field appearance="outline">
-            <mat-label>Select Language</mat-label>
-            <mat-select>
-                <mat-option *ngFor="let settingsList of settingsData.LanguageList" [value]="settingsList">
-                    {{settingsList}}
-                </mat-option>
-            </mat-select>
-       </mat-form-field>
-    
-    </div>
-    <div></div>
+                <div style="display: flex;flex-direction: row;">
+                    <label class="selectLabels">Project Name</label>
+                    <mat-form-field appearance="outline">
+                        <mat-label>Enter Project Name</mat-label>
+                        <input type="text" matInput >
+                    </mat-form-field>
+                    <label class="selectLabels">Region</label>
+                    <mat-form-field appearance="outline">
+                        <mat-label>Select Region</mat-label>
+                        <mat-select>
+                            <mat-option *ngFor="let settingsList of settingsData.OfficeList" [value]="settingsList">
+                                {{settingsList}}
+                            </mat-option>
+                        </mat-select>
+                    </mat-form-field>
 
-</div>
+                </div>
+
+                <div style="display: flex;flex-direction: row;">
+                    <label class="selectLabels">Company</label>
+                    <mat-form-field appearance="outline">
+                        <mat-label>Enter Company</mat-label>
+                        <input type="text" matInput >
+                    </mat-form-field>
+                    <label class="selectLabels">Language</label>
+                    <mat-form-field appearance="outline">
+                        <mat-label>Select Language</mat-label>
+                        <mat-select>
+                            <mat-option *ngFor="let settingsList of settingsData.LanguageList" [value]="settingsList">
+                                {{settingsList}}
+                            </mat-option>
+                        </mat-select>
+                    </mat-form-field>
+
+                </div>
+                <div></div>
+
+            </div>
             <h3 style="color: #253b7d;">Manage Directors</h3>
             <div class="dropdowns" style="display: flex;flex-direction: column;">
 
                 <div style="display: flex;flex-direction: row;">
-                <label class="selectLabels">Regional Directors</label>
-                <mat-form-field appearance="outline">
+                    <label class="selectLabels">Regional Directors</label>
+                    <mat-form-field appearance="outline">
                         <mat-label>Select Region</mat-label>
                         <mat-select>
                             <!-- <mat-option *ngFor="let settingsList of settingsData.DirectorList" [value]="settingsList.id">
                                 {{settingsList.Director}}, {{settingsList.Title}}
                             </mat-option> -->
                             <mat-option *ngFor="let settingsList of settingsData.OfficeList" [value]="settingsList">
-                    {{settingsList}}
-                </mat-option>
+                                {{settingsList}}
+                            </mat-option>
                         </mat-select>
-                </mat-form-field>
-                
+                    </mat-form-field>
+
                 </div>
 
                 <div style="display: flex;flex-direction: row;">
-                <label class="selectLabels">Director Name</label>
-                <mat-form-field appearance="outline">
+                    <label class="selectLabels">Director Name</label>
+                    <mat-form-field appearance="outline">
                         <mat-label>Director</mat-label>
                         <mat-select>
                             <mat-option *ngFor="let settingsList of settingsData.DirectorList" [value]="settingsList">
                                 {{settingsList.Director}}
                             </mat-option>
                         </mat-select>
-                </mat-form-field>
+                    </mat-form-field>
                 </div>
 
             </div>
