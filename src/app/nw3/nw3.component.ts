@@ -731,8 +731,8 @@ export class NW3Component implements OnInit {
       data => {
         this.go = (data[0].presentationStatus === '0') ? true : false;
 
-        this.slideModel.NameRanking = '';
-
+        
+        // this.slideModel.NameRanking = '';
         this.positiveChecked = false;
         this.neutralChecked = false;
         this.negativeChecked = false;
@@ -843,6 +843,7 @@ export class NW3Component implements OnInit {
     // this.slideType = 'info'; 
 
   }
+  
 
   selectedOpt(option) {
     if (option === 'Positive') {
@@ -1457,7 +1458,7 @@ export class NW3Component implements OnInit {
             element.NewNames.split(',').forEach(ele => {
               if (ele !== '') {
               }
-            });;
+            });
           });
 
           this._NW3Service.getRetainTypeName(this.projectId, 'Neutral').subscribe((resultNeu: Array<object>) => {
@@ -1507,6 +1508,7 @@ export class NW3Component implements OnInit {
     let searchName = clickedName;
     if (originalName) {
       searchName = originalName;
+     
     }
     this._NW3Service.getSelectedName(this.projectId, searchName).subscribe(data => {
       this.slideModel.NameRanking = data[0].NameRanking;
