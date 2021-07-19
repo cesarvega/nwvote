@@ -42,11 +42,11 @@ const routes: Routes = [
   //   path: ':id',
   //   component: NW3Component
   // },
-  {
-    path: '',
-    redirectTo: '/TEST_BI_Katakana_Phonetics',
-    pathMatch: 'full'
-  } 
+  // {
+  //   path: '',
+  //   redirectTo: '/TEST_BI_Katakana_Phonetics',
+  //   pathMatch: 'full'
+  // } 
 ];
 
 @NgModule({
