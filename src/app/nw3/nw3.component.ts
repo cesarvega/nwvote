@@ -642,8 +642,9 @@ export class NW3Component implements OnInit {
 
   pageNumberChange(selectedPage) {
     this.pageNumber = Number(selectedPage);
-    this.pageNumber = 8;
+    // this.pageNumber = 8;
     // PROGRESS BAR DATA
+    this.currentPage = selectedPage;
     this.currentProgress = (this.pageNumber / this.passTotalPages) * 100;
     if (selectedPage === this.passTotalPages) {
       this.changeSummaryList('chart');
@@ -1508,6 +1509,7 @@ export class NW3Component implements OnInit {
       searchName = originalName;
     }
     this._NW3Service.getSelectedName(this.projectId, searchName).subscribe(data => {
+      this.slideModel.NameRanking = data[0].NameRanking;
       this.pageNumberChange(parseInt(data[0].SlideNumber));
     });
   }
