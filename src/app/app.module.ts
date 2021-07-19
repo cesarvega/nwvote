@@ -52,6 +52,10 @@ import { MatListModule } from '@angular/material/list';
 import { NgxEchartsModule } from 'ngx-echarts';
 import * as echarts from 'echarts';
 import { NgxChartsModule } from '@swimlane/ngx-charts';
+import { MatSortModule } from '@angular/material/sort';
+import { MatPaginatorModule } from '@angular/material/paginator';
+
+ 
 // export class MyHammerConfig extends HammerGestureConfig {
 //   overrides = <any>{
 //     // override default settings
@@ -125,7 +129,9 @@ export function loadEcharts() {
     DragulaModule.forRoot(),
     MatListModule,
     NgxEchartsModule.forRoot({echarts: loadEcharts}),
-    MatSnackBarModule
+    MatSnackBarModule,
+    MatSortModule,
+    MatPaginatorModule,
   ],
   entryComponents: [
     editPost, editName
