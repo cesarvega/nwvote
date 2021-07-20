@@ -10,7 +10,10 @@ import { typeSourceSpan } from '@angular/compiler';
 import { Nw3Service } from '../nw3/nw3.service';
 import { BmxService } from './bmx.service';
 import { DragulaService } from 'ng2-dragula';
-import { FormControl, Validators } from '@angular/forms';
+import { MatPaginator } from '@angular/material/paginator';
+import { MatTableDataSource } from '@angular/material/table';
+import { MatSort } from '@angular/material/sort';
+import { MatDatepicker } from '@angular/material/datepicker';
 
 @Component({
   selector: 'app-bmx-creator',
@@ -19,6 +22,26 @@ import { FormControl, Validators } from '@angular/forms';
   encapsulation: ViewEncapsulation.None,
 })
 export class BmxCreatorComponent implements OnInit {
+
+  @ViewChild(MatSort) sort: MatSort;
+  @ViewChild(MatPaginator) paginator: MatPaginator;
+  dataSource;
+  allData;
+  viewedData;
+  displayedColumns = ['Client', 'ProjectName', 'Department', 'Office', 'Created', 'Close', 'Email', 'Edit', 'Delete'];
+  selected;
+
+  title = 'ng-calendar-demo';
+  selectedDate = new Date('2019/09/26');
+  startAt = new Date('2019/09/11');
+  minDate = new Date('2019/09/14');
+  maxDate = new Date(new Date().setMonth(new Date().getMonth() + 1));
+  year: any;
+  DayAndDate: string;
+
+
+
+
   projectName: any;
   projectId: any;
   soundVolume = 0.2;
@@ -75,10 +98,18 @@ export class BmxCreatorComponent implements OnInit {
     { name: 'TRUSTED', rationale: 'Trus, Tru' },
     { name: 'NOMANER', rationale: 'referred' },
   ];
-  settingsData: any;
+  
+  settingsData = { 
+    SalesBoardProjectList : '',
+    DepartmentList : '',
+    OfficeList : '',
+    LanguageList : '',
+    DirectorList : ''
+  };
 
-  constructor(@Inject(DOCUMENT) private document: any, private activatedRoute: ActivatedRoute,
-    private _hotkeysService: HotkeysService,private dragulaService: DragulaService,private _BmxService: BmxService) {
+  constructor(@Inject(DOCUMENT) private document: any,
+    private _NW3Service: Nw3Service, private activatedRoute: ActivatedRoute,
+    private _hotkeysService: HotkeysService, private dragulaService: DragulaService, private _BmxService: BmxService) {
 
     // this.activatedRoute.params.subscribe(params => {
     //   this.projectName = params['id'];
@@ -100,16 +131,14 @@ export class BmxCreatorComponent implements OnInit {
   }
 
   ngOnInit(): void {
-
-
+    this.selected = 'Live'
+    
     this._BmxService.getGeneralLists()
       .subscribe((arg:any) => {
         this.settingsData = JSON.parse(arg.d);
-        console.log(JSON.parse(arg.d));
-        
+        //
+        console.log(JSON.parse(arg.d));        
       });
-    
-      
 
     this.ckconfig = {
       allowedContent: false,
@@ -138,19 +167,19 @@ export class BmxCreatorComponent implements OnInit {
 
     }
 
+    // SAMPLE DATA FOR CKEDITOR
     this.model.editorData = this.sampleHtml;
 
-  }
 
-  // playSound(soundEffect, volume) {
-  //   let audio = new Audio();
-  //   // audio.src = soundEffect;
-  //   // audio.volume = volume;
-  //   audio.src = "assets/sound/wav/" + soundEffect;
-  //   audio.volume = volume;
-  //   audio.load();
-  //   audio.play();
-  // }
+
+    // <!-- PROJECT LIST DATA 📀-->
+
+    let obj = '[{"ProjectName":"test1","ProjectId":616,"Status":"C","Department":"","Office":"","Created":null,"Close":null},{"ProjectName":"test2","ProjectId":616,"Status":"C","Department":"","Office":"","Created":null,"Close":"123456"},{"ProjectName":"test3","ProjectId":616,"Status":"C","Department":"","Office":"","Created":null,"Close":null},{"ProjectName":"test4","ProjectId":616,"Status":"C","Department":"","Office":"","Created":null,"Close":null},{"ProjectName":"test5","ProjectId":616,"Status":"C","Department":"","Office":"","Created":null,"Close":null},{"ProjectName":"test6","ProjectId":616,"Status":"C","Department":"","Office":"","Created":null,"Close":"56456"},{"ProjectName":"test7","ProjectId":616,"Status":"C","Department":"","Office":"","Created":null,"Close":null}]';
+        
+    this.allData = JSON.parse(obj);
+    this.changeView();
+
+  }
 
   // menu functionallity toggles the active link scss
   toggleMenuActive(menuItem) {
@@ -162,20 +191,82 @@ export class BmxCreatorComponent implements OnInit {
     this.isMenuActive6 = (menuItem === 'isMenuActive6') ? true : false;
   }
 
-  createNewBmxComponent(){
+  createNewBmxComponent() {
     window.scrollTo(300, 500);
-    this.brandMatrixObjects.push( {
+    this.brandMatrixObjects.push({
       componentType: 'text-editor',
       componentText: this.sampleHtml,
       componentSettings: [{ fontSize: '16px', fontFace: 'Arial', fontColor: 'red' }],
     })
   }
 
-  checkDragEvetn(e){
+  checkDragEvetn(e) {
     console.log(e);
   }
 
+ 
+  // <!-- PROJECT LIST 📀📀📀📀📀📀📀📀📀📀📀📀📀📀📀📀📀📀📀📀📀📀📀📀📀📀📀📀📀📀📀📀📀📀📀📀📀📀📀-->
 
-  // COOMENT FOR THE TEMPLATE OR 
+  applyFilter(filterValue: string): void {
+    filterValue = filterValue.trim(); // Remove whitespace
+    filterValue = filterValue.toLowerCase(); // Datasource defaults to lowercase matches
+    this.dataSource.filter = filterValue;
+    if (this.dataSource.paginator) {
+      this.dataSource.paginator.firstPage();
+    }
+  }
 
+
+  sendEmail(option: string): void {
+    var test = option;
+  }
+
+  editBM(option: string): void {
+    var test = option;
+  }
+
+  deleteBM(option: string): void {
+    var test = option;
+  }
+
+  changeView(): void
+  {
+    this.viewedData = [];
+      for(let i = 0; i < this.allData.length; i++)
+      {
+        if(this.selected == 'Live' && this.allData[i].Close == null)
+        {
+          this.viewedData.push(this.allData[i])
+        }
+        else if(this.selected == 'Closed' && this.allData[i].Close != null)
+        {
+          this.viewedData.push(this.allData[i])
+        }
+        else if(this.selected == 'All')
+        {
+          this.viewedData = this.allData;
+          break;
+        }
+      }
+      this.dataSource = new MatTableDataSource<any>(this.viewedData);
+      this.dataSource.paginator = this.paginator;
+      this.dataSource.sort = this.sort;
+  }
+
+  onSelect(event) {
+    console.log(event);
+    this.selectedDate = event;
+    const dateString = event.toDateString();
+    const dateValue = dateString.split(' ');
+    this.year = dateValue[3];
+    this.DayAndDate = dateValue[0] + ',' + ' ' + dateValue[1] + ' ' + dateValue[2];
+  }
+
+  myDateFilter = (d: Date): boolean => {
+    const day = d.getDay();
+    // Prevent Saturday and Sunday from being selected.
+    return day !== 0 && day !== 6 ;
+  }
+
+  // <!-- END PROJECT LIST 📀📀📀📀📀📀📀📀📀📀📀📀📀📀📀📀📀📀📀📀📀📀📀📀📀📀📀📀📀📀📀📀📀📀📀📀📀📀📀-->
 }
