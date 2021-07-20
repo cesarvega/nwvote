@@ -98,7 +98,14 @@ export class BmxCreatorComponent implements OnInit {
     { name: 'TRUSTED', rationale: 'Trus, Tru' },
     { name: 'NOMANER', rationale: 'referred' },
   ];
-  settingsData: any;
+  
+  settingsData = { 
+    SalesBoardProjectList : '',
+    DepartmentList : '',
+    OfficeList : '',
+    LanguageList : '',
+    DirectorList : ''
+  };
 
   constructor(@Inject(DOCUMENT) private document: any,
     private _NW3Service: Nw3Service, private activatedRoute: ActivatedRoute,
@@ -126,24 +133,12 @@ export class BmxCreatorComponent implements OnInit {
   ngOnInit(): void {
     this.selected = 'Live'
     
-
-    
     this._BmxService.getGeneralLists()
       .subscribe((arg:any) => {
         this.settingsData = JSON.parse(arg.d);
-
-        let obj = '[{"ProjectName":"test1","ProjectId":616,"Status":"C","Department":"","Office":"","Created":null,"Close":null},{"ProjectName":"test2","ProjectId":616,"Status":"C","Department":"","Office":"","Created":null,"Close":"123456"},{"ProjectName":"test3","ProjectId":616,"Status":"C","Department":"","Office":"","Created":null,"Close":null},{"ProjectName":"test4","ProjectId":616,"Status":"C","Department":"","Office":"","Created":null,"Close":null},{"ProjectName":"test5","ProjectId":616,"Status":"C","Department":"","Office":"","Created":null,"Close":null},{"ProjectName":"test6","ProjectId":616,"Status":"C","Department":"","Office":"","Created":null,"Close":"56456"},{"ProjectName":"test7","ProjectId":616,"Status":"C","Department":"","Office":"","Created":null,"Close":null}]';
-        
-        this.allData = JSON.parse(obj);
-        this.changeView();
         //
-        console.log(JSON.parse(arg.d));
-        
-       
-
+        console.log(JSON.parse(arg.d));        
       });
-
-
 
     this.ckconfig = {
       allowedContent: false,
@@ -172,19 +167,19 @@ export class BmxCreatorComponent implements OnInit {
 
     }
 
+    // SAMPLE DATA FOR CKEDITOR
     this.model.editorData = this.sampleHtml;
 
-  }
 
-  // playSound(soundEffect, volume) {
-  //   let audio = new Audio();
-  //   // audio.src = soundEffect;
-  //   // audio.volume = volume;
-  //   audio.src = "assets/sound/wav/" + soundEffect;
-  //   audio.volume = volume;
-  //   audio.load();
-  //   audio.play();
-  // }
+
+    // <!-- PROJECT LIST DATA 📀-->
+
+    let obj = '[{"ProjectName":"test1","ProjectId":616,"Status":"C","Department":"","Office":"","Created":null,"Close":null},{"ProjectName":"test2","ProjectId":616,"Status":"C","Department":"","Office":"","Created":null,"Close":"123456"},{"ProjectName":"test3","ProjectId":616,"Status":"C","Department":"","Office":"","Created":null,"Close":null},{"ProjectName":"test4","ProjectId":616,"Status":"C","Department":"","Office":"","Created":null,"Close":null},{"ProjectName":"test5","ProjectId":616,"Status":"C","Department":"","Office":"","Created":null,"Close":null},{"ProjectName":"test6","ProjectId":616,"Status":"C","Department":"","Office":"","Created":null,"Close":"56456"},{"ProjectName":"test7","ProjectId":616,"Status":"C","Department":"","Office":"","Created":null,"Close":null}]';
+        
+    this.allData = JSON.parse(obj);
+    this.changeView();
+
+  }
 
   // menu functionallity toggles the active link scss
   toggleMenuActive(menuItem) {
@@ -209,6 +204,9 @@ export class BmxCreatorComponent implements OnInit {
     console.log(e);
   }
 
+ 
+  // <!-- PROJECT LIST 📀📀📀📀📀📀📀📀📀📀📀📀📀📀📀📀📀📀📀📀📀📀📀📀📀📀📀📀📀📀📀📀📀📀📀📀📀📀📀-->
+
   applyFilter(filterValue: string): void {
     filterValue = filterValue.trim(); // Remove whitespace
     filterValue = filterValue.toLowerCase(); // Datasource defaults to lowercase matches
@@ -217,6 +215,7 @@ export class BmxCreatorComponent implements OnInit {
       this.dataSource.paginator.firstPage();
     }
   }
+
 
   sendEmail(option: string): void {
     var test = option;
@@ -268,4 +267,6 @@ export class BmxCreatorComponent implements OnInit {
     // Prevent Saturday and Sunday from being selected.
     return day !== 0 && day !== 6 ;
   }
+
+  // <!-- END PROJECT LIST 📀📀📀📀📀📀📀📀📀📀📀📀📀📀📀📀📀📀📀📀📀📀📀📀📀📀📀📀📀📀📀📀📀📀📀📀📀📀📀-->
 }

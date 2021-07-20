@@ -1,7 +1,7 @@
 <div class="main-container">
     <div style="display: flex;border:brown 0px solid;width: 25%; height: 100vh;">
 
-        <!-- LOGO BRANDING 🎭-->
+        <!-- LOGO BRANDING 🎭🎭🎭🎭🎭🎭🎭🎭🎭🎭🎭🎭🎭🎭🎭🎭🎭🎭🎭🎭🎭🎭🎭🎭🎭🎭🎭🎭🎭🎭🎭🎭🎭-->
         <div class="logo-badge" style="font-size: 21px;overflow-x: hidden;">
 
             <img style="width: 50px;margin-left: 10px;" src="./assets/img/bmxLogo.png">
@@ -16,7 +16,8 @@
                 </div>
             </div>
         </div>
-        <!--🎭 END LOGO BRANDING -->
+        <!--🎭🎭🎭🎭🎭🎭🎭🎭🎭🎭🎭🎭🎭🎭🎭🎭🎭🎭🎭🎭🎭🎭🎭🎭🎭🎭🎭🎭🎭🎭🎭 END LOGO BRANDING -->
+
 
         <div class="welcome">
             <button mat-icon-button style="background-color: white;margin: 0 20px 0 20px">
@@ -27,7 +28,8 @@
             </div>
         </div>
 
-        <!-- SIDE MENU 🎀 -->
+
+        <!-- SIDE MENU 🎀🎀🎀🎀🎀🎀🎀🎀🎀🎀🎀🎀🎀🎀🎀🎀🎀🎀🎀🎀🎀🎀🎀🎀🎀🎀🎀🎀🎀🎀🎀🎀🎀🎀🎀🎀🎀🎀🎀🎀 -->
         <div class="menu">
             <div [ngClass]="(isMenuActive1)?'menu-active':'menu-item'" (click)="toggleMenuActive('isMenuActive1')">
                 <button mat-icon-button style="margin: 0 20px 0 10px">
@@ -88,15 +90,18 @@
                 </div>
             </div>
         </div>
-        <!--🎀 END SIDE MENU -->
+        <!--🎀🎀🎀🎀🎀🎀🎀🎀🎀🎀🎀🎀🎀🎀🎀🎀🎀🎀🎀🎀🎀🎀🎀🎀🎀🎀🎀🎀🎀🎀🎀🎀🎀🎀🎀🎀🎀🎀🎀🎀🎀 END SIDE MENU -->
 
     </div>
 
-    <!-- PROJECT LIST-->
+
+
+
+    <!-- PROJECT LIST 📀📀📀📀📀📀📀📀📀📀📀📀📀📀📀📀📀📀📀📀📀📀📀📀📀📀📀📀📀📀📀📀📀📀📀📀📀📀📀-->
     <div class="project-list" *ngIf="isMenuActive1" style="border: hotpink solid 1px; width: 60%; height: 100vh;">
         <div>
             PROJECT LIST
-            <mat-form-field appearance="fill" style="border-radius: 0px" >
+            <mat-form-field appearance="fill" style="border-radius: 0px">
                 <mat-label>Current Selection</mat-label>
                 <mat-select [(value)]="selected" (selectionChange)="changeView()">
                     <mat-option value="Live">Live</mat-option>
@@ -137,62 +142,76 @@
                 </ng-container>
                 <ng-container matColumnDef="Email">
                     <th mat-header-cell *matHeaderCellDef mat-sort-header style="width: 3.33%;"> </th>
-                    <td mat-cell *matCellDef="let element"> 
-                        <button mat-icon-button color="primary" aria-label="Example icon button with a home icon" (click)="sendEmail(element.ProjectId)">
+                    <td mat-cell *matCellDef="let element">
+                        <button mat-icon-button color="primary" aria-label="Example icon button with a home icon"
+                            (click)="sendEmail(element.ProjectId)">
                             <mat-icon>email</mat-icon>
-                          </button>
+                        </button>
                     </td>
                 </ng-container>
                 <ng-container matColumnDef="Edit">
                     <th mat-header-cell *matHeaderCellDef mat-sort-header style="width: 3.33%;"> </th>
-                    <td mat-cell *matCellDef="let element"> 
-                        <button mat-icon-button color="green" aria-label="Example icon button with a home icon" (click)="editBM(element.ProjectId)">
+                    <td mat-cell *matCellDef="let element">
+                        <button mat-icon-button color="green" aria-label="Example icon button with a home icon"
+                            (click)="editBM(element.ProjectId)">
                             <mat-icon>build</mat-icon>
-                          </button>
+                        </button>
                     </td>
                 </ng-container>
                 <ng-container matColumnDef="Delete">
                     <th mat-header-cell *matHeaderCellDef mat-sort-header style="width: 3.33%;"> </th>
-                    <td mat-cell *matCellDef="let element"> 
-                        <button mat-icon-button color="warn" aria-label="Example icon button with a home icon" (click)="deleteBM(element.ProjectId)">
+                    <td mat-cell *matCellDef="let element">
+                        <button mat-icon-button color="warn" aria-label="Example icon button with a home icon"
+                            (click)="deleteBM(element.ProjectId)">
                             <mat-icon>delete</mat-icon>
-                          </button>
+                        </button>
                     </td>
                 </ng-container>
 
-                <tr mat-header-row *matHeaderRowDef="displayedColumns" ></tr>
+                <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
                 <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
             </table>
             <mat-paginator [pageSizeOptions]="[5, 10, 6613]" showFirstLastButtons></mat-paginator>
         </div>
     </div>
+
+    <!-- CALENDAR  📆📆📆📆📆📆📆📆📆-->
     <div class="project-list" *ngIf="isMenuActive1" style="border: pink solid 1px; width: 25%; height: 100vh;">
         side panel 1
         <div style="width: 100%;">
             <mat-card class="demo-inline-calendar-card">
                 <mat-calendar (selectedChange)="selected = $event"></mat-calendar>
-              </mat-card>
+            </mat-card>
         </div>
-        
     </div>
-    <!--END  PROJECT LIST-->
+    <!--   📆📆📆📆📆📆📆📆📆 END CALENDAR-->
 
-    <!-- OPEN LINKS-->
+
+    <!--📀📀📀📀📀📀📀📀📀📀📀📀📀📀📀📀📀📀📀📀📀📀📀📀📀📀📀📀📀📀📀📀📀📀📀📀📀📀📀📀📀📀📀📀END  PROJECT LIST-->
+
+
+
+    <!-- OPEN LINKS 🦠🦠🦠🦠🦠🦠🦠🦠🦠🦠🦠🦠🦠🦠🦠🦠🦠🦠🦠🦠🦠🦠🦠🦠🦠🦠🦠🦠🦠🦠🦠🦠🦠🦠🦠🦠🦠🦠🦠🦠🦠🦠🦠🦠-->
     <div class="open-links" *ngIf="isMenuActive2" style="border: hotpink solid 1px; width: 60%; height: 100vh;">OPEN
         LINKS</div>
     <div class="open-links" *ngIf="isMenuActive2" style="border: pink solid 1px; width: 25%; height: 100vh;">side panel
         2</div>
-    <!--END OPEN LINKS-->
+    <!--🦠🦠🦠🦠🦠🦠🦠🦠🦠🦠🦠🦠🦠🦠🦠🦠🦠🦠🦠🦠🦠🦠🦠🦠🦠🦠🦠🦠🦠🦠🦠🦠🦠🦠🦠🦠🦠🦠🦠🦠🦠🦠🦠🦠🦠END OPEN LINKS-->
 
-    <!-- MATRIX INVITES -->
+
+
+
+    <!-- MATRIX INVITES 🧧🧧🧧🧧🧧🧧🧧🧧🧧🧧🧧🧧🧧🧧🧧🧧🧧🧧🧧🧧🧧🧧🧧🧧🧧🧧🧧🧧🧧🧧🧧🧧🧧🧧🧧🧧🧧🧧🧧🧧🧧🧧🧧🧧🧧🧧🧧🧧🧧🧧🧧🧧-->
     <div class="matrix-invites" *ngIf="isMenuActive3" style="border: hotpink solid 1px; width: 60%; height: 100vh;">
         MATRIX INVITES</div>
     <div class="matrix-invites" *ngIf="isMenuActive3" style="border: pink solid 1px; width: 25%; height: 100vh;">side
         panel 3</div>
-    <!--END MATRIX INVITES -->
+    <!-- 🧧🧧🧧🧧🧧🧧🧧🧧🧧🧧🧧🧧🧧🧧🧧🧧🧧🧧🧧🧧🧧🧧🧧🧧🧧🧧🧧🧧🧧🧧🧧🧧🧧🧧🧧🧧🧧🧧🧧🧧🧧🧧🧧🧧🧧🧧🧧🧧🧧🧧🧧🧧🧧🧧🧧🧧🧧END MATRIX INVITES -->
 
-    <!-- CREATE/EDIT COMPONENT  🧠-->
 
+
+
+    <!-- CREATE/EDIT COMPONENT  🧠🧠🧠🧠🧠🧠🧠🧠🧠🧠🧠🧠🧠🧠🧠🧠🧠🧠🧠🧠🧠🧠🧠🧠🧠🧠🧠🧠🧠🧠🧠🧠🧠🧠🧠🧠🧠🧠🧠🧠🧠-->
     <div class="create-edit" *ngIf="isMenuActive4" dragula="TASKS" [(dragulaModel)]="brandMatrixObjects"
         (dragulaModelChange)="checkDragEvetn($event);brandMatrixObjects = $event">
 
@@ -232,7 +251,7 @@
                     <label class="selectLabels">Project Name</label>
                     <mat-form-field appearance="outline">
                         <mat-label>Enter Project Name</mat-label>
-                        <input type="text" matInput >
+                        <input type="text" matInput>
                     </mat-form-field>
                     <label class="selectLabels">Region</label>
                     <mat-form-field appearance="outline">
@@ -250,7 +269,7 @@
                     <label class="selectLabels">Company</label>
                     <mat-form-field appearance="outline">
                         <mat-label>Enter Company</mat-label>
-                        <input type="text" matInput >
+                        <input type="text" matInput>
                     </mat-form-field>
                     <label class="selectLabels">Language</label>
                     <mat-form-field appearance="outline">
@@ -399,18 +418,22 @@
         </div>
     </div>
 
-    <!--🧠 END CREATE/EDIT COMPONENT-->
+    <!--🧠🧠🧠🧠🧠🧠🧠🧠🧠🧠🧠🧠🧠🧠🧠🧠🧠🧠🧠🧠🧠🧠🧠🧠🧠🧠🧠🧠🧠🧠🧠🧠🧠🧠🧠🧠🧠🧠🧠🧠🧠 END CREATE/EDIT COMPONENT-->
 
-    <!-- REPORTS -->
+
+
+    <!-- REPORTS 📗📗📗📗📗📗📗📗📗📗📗📗📗📗📗📗📗📗📗📗📗📗📗📗📗📗📗📗📗📗📗📗📗📗📗📗📗📗📗📗📗📗📗📗📗📗📗📗📗📗-->
     <div class="reports" *ngIf="isMenuActive5" style="border: hotpink solid 1px; width: 60%; height: 100vh;">REPORTS
     </div>
     <div class="reports" *ngIf="isMenuActive5" div style="border: pink solid 1px; width: 25%; height: 100vh;">SIDE
         PANEL5</div>
-    <!--END REPORTS -->
-    <!-- SETTINGS -->
+    <!--📗📗📗📗📗📗📗📗📗📗📗📗📗📗📗📗📗📗📗📗📗📗📗📗📗📗📗📗📗📗📗📗📗📗📗📗📗📗📗📗📗📗📗📗📗📗📗📗📗📗 END REPORTS -->
+
+
+    <!-- SETTINGS ⚙️⚙️⚙️⚙️⚙️⚙️⚙️⚙️⚙️⚙️⚙️⚙️⚙️⚙️⚙️⚙️⚙️⚙️⚙️⚙️⚙️⚙️⚙️⚙️⚙️⚙️⚙️⚙️⚙️⚙️⚙️⚙️⚙️⚙️⚙️⚙️⚙️⚙️⚙️⚙️⚙️⚙️⚙️⚙️⚙️-->
     <div class="settings" *ngIf="isMenuActive6" style="border: hotpink solid 1px; width: 60%; height: 100vh;">SETTINGS
     </div>
     <div class="settings" *ngIf="isMenuActive6" div style="border: pink solid 1px; width: 25%; height: 100vh;">SIDE
         PANEL 6</div>
-    <!--END SETTINGS -->
+    <!--⚙️⚙️⚙️⚙️⚙️⚙️⚙️⚙️⚙️⚙️⚙️⚙️⚙️⚙️⚙️⚙️⚙️⚙️⚙️⚙️⚙️⚙️⚙️⚙️⚙️⚙️⚙️⚙️⚙️⚙️⚙️⚙️⚙️⚙️⚙️⚙️⚙️⚙️⚙️⚙️⚙️⚙️⚙️⚙️⚙️⚙️⚙️⚙️END SETTINGS -->
 </div>
