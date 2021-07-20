@@ -174,8 +174,8 @@ export class BmxCreatorComponent implements OnInit {
 
 
 
-    // <!-- PROJECT LIST DATA 📀-->
 
+<<<<<<< HEAD
 
     this._BmxService.getGetProjectList()
     .subscribe((arg:any) => {
@@ -186,6 +186,8 @@ export class BmxCreatorComponent implements OnInit {
     });
 
   
+=======
+>>>>>>> afec623... trying to fix pagination from this morning
 
   }
 
