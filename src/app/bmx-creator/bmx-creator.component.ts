@@ -224,7 +224,6 @@ export class BmxCreatorComponent implements OnInit {
     }
   }
 
-
   sendEmail(option: string): void {
     var test = option;
   }
@@ -275,6 +274,4 @@ export class BmxCreatorComponent implements OnInit {
     // Prevent Saturday and Sunday from being selected.
     return day !== 0 && day !== 6 ;
   }
-
-  // <!-- END PROJECT LIST 📀📀📀📀📀📀📀📀📀📀📀📀📀📀📀📀📀📀📀📀📀📀📀📀📀📀📀📀📀📀📀📀📀📀📀📀📀📀📀-->
 }
