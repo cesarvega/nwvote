@@ -915,7 +915,7 @@ export class NW3Component implements OnInit {
 
     if (comeFrom === 'clicked_name') {
       const sendSlideNumber = data[0].SlideNumber;
-      this.changePageNumber.emit(sendSlideNumber);
+      // this.changePageNumber.emit(sendSlideNumber);
     }
 
     if (data[0].TemplateFileName !== '' && data[0].TemplateFileName !== 'images/BackGrounds/Default.jpg') {
@@ -1511,8 +1511,9 @@ export class NW3Component implements OnInit {
      
     }
     this._NW3Service.getSelectedName(this.projectId, searchName).subscribe(data => {
-      this.slideModel.NameRanking = data[0].NameRanking;
-      this.pageNumberChange(parseInt(data[0].SlideNumber));
+      // this.slideModel.NameRanking = data[0].NameRanking;
+      // this.pageNumberChange(parseInt(data[0].SlideNumber));
+      // this.setDataToDisplay(data,'clicked_name')
     });
   }
 
