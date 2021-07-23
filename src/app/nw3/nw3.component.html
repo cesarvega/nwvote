@@ -76,7 +76,7 @@
         <div *ngIf="(slideType === 'Image')" class="imagePresentar" [style.background]="slideBackground"></div>
         <!-- {{slideBackground}} -->
 
-        <!-- SUMMARY SLIDE 📊-->
+        <!-- SUMMARY SLIDE 📊📊📊📊📊📊📊📊-->
         <div *ngIf="(slideType === 'NameSummary')" class="summaryPresentar summary">
 
             <div class="summaryLabel">Summary</div>
@@ -106,25 +106,25 @@
 
                 <div *ngIf="summaryPositive" class="summaryPostives">
                     <div  class="summaryListDisplay" style="background-color: green; color: white;">
-                        <div   (click)="clickedSummaryName(item.NameToDisplay, item.Name)" *ngFor="let item of totalNewNames2[0]">{{item.Name}}</div>
+                        <div   (click)="clickedSummaryName(item.Name, item.NameToDisplay)" *ngFor="let item of totalPositiveNames">{{item.Name.split('|')[0]}}</div>
                         <!-- <div *ngFor="let item of fonts">{{item}}</div> -->
                     </div>
                 </div>
                 <div *ngIf="summaryNeutral" class="summaryPostives">
                     <div  class="summaryListDisplay" style="background-color: orange; color: white;">
-                        <div  (click)="clickedSummaryName(item.NameToDisplay, item.Name)"  *ngFor="let item of totalNewNames2[0]">{{item.Name}}</div>
+                        <div  (click)="clickedSummaryName(item.Name, item.NameToDisplay)"  *ngFor="let item of totalNeutralNames">{{item.Name.split('|')[0]}}</div>
                         <!-- <div *ngFor="let item of fonts">{{item}}</div> -->
                     </div>
                 </div>
                 <div *ngIf="summaryNegative" class="summaryNegative">
                     <div  class="summaryListDisplay" style="background-color: red; color: white;">
-                        <div  (click)="clickedSummaryName(item.NameToDisplay, item.Name)"  *ngFor="let item of totalNewNames2[0]">{{item.Name}}</div>
+                        <div  (click)="clickedSummaryName(item.Name, item.NameToDisplay)"  *ngFor="let item of totalNegativeNames">{{item.Name.split('|')[0]}}</div>
                         <!-- <div *ngFor="let item of fonts">{{item}}</div> -->
                     </div>
                 </div>
                 <div *ngIf="summaryNewNames" class="summaryNew_names">
                     <div  class="summaryListDisplay" style="background-color: purple; color: white;">
-                        <div  (click)="clickedSummaryName(item.NameToDisplay, item.Name)"  *ngFor="let item of totalNewNames2[0]">{{item.NameToDisplay}}</div>
+                        <div  (click)="clickedSummaryName(item.NameToDisplay,item.Name)"  *ngFor="let item of totalNewNames">{{item.NameToDisplay}}</div>
                         <!-- <div *ngFor="let item of fonts">{{item}}</div> -->
                     </div>
                 </div>
@@ -153,6 +153,8 @@
 
             </div>
         </div>
+
+         <!--  📊📊📊📊📊📊📊📊 END SUMMARY SLIDE-->
 
         <!-- SINGLE NAME 💲-->
         <div *ngIf="(slideType === 'NameEvaluation')">
