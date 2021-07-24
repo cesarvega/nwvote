@@ -740,12 +740,19 @@ export class NW3Component implements OnInit {
         this.japanese = (data[0].PresentationType === 'Katakana') ? true : false;
         this.isKatakana_BigJap = (data[0].PresentationType === 'Katakana_BigJap') ? true : false;
         this.recraftChecked = (data[0].Recraft === "False") ? false : true;
-        if (this.isKatakana_BigJap) {
+        if (this.isKatakana_BigJap) { 
           this.japanese = true;
         }
 
-        this.go = (data[0].presentationStatus === '0') ? true : false;
+        if (this.japanese) {
+              this.katakanaNames = data[0].KanaNames.replace(/`/g, '\'').split('、');
+            }
+            else {
+              this.katakanaNames = data[0].KanaNames.replace(/`/g, '\'').split(',');
+            }
 
+        this.go = (data[0].presentationStatus === '0') ? true : false;
+        this.isGoVoteOn = this.go;
 
         // this.slideModel.NameRanking = '';
         this.positiveChecked = false;
@@ -760,7 +767,7 @@ export class NW3Component implements OnInit {
         } else if (data[0].NameRanking.toLowerCase() === 'neutral') {
           this.neutralChecked = true;
           this.positiveChecked = false;
-          this.negativeChecked = false;
+          this.negativeChecked = false;         
         } else if (data[0].NameRanking.toLowerCase() === 'negative') {
           this.negativeChecked = true;
           this.positiveChecked = false;
@@ -1058,6 +1065,11 @@ export class NW3Component implements OnInit {
 
   goVote() {
     this.isGoVoteOn = !this.isGoVoteOn;
+    this._NW3Service.sendGoSignalVoting(
+      JSON.parse(this.projectData)[0].DisplayName, this.isGoVoteOn).subscribe(res => {
+        console.log(res);
+
+      })
   }
 
   noClickanyWhere() {
@@ -1216,14 +1228,13 @@ export class NW3Component implements OnInit {
 
   }
 
-  // SUMMARY CHART FUNCTIONS
-
+  // SUMMARY CHART BAR CLICK
   onChartClick(e) {
     console.log(e);
     this.changeSummaryList(e.name)
   }
 
-
+  // GETS ALL THE SUMMARY VOTES NAMES AND SETS THE BAR CHAR VALUES
   changeSummaryList(listSelection) {
     if (listSelection === 'Positive') {
       this.summaryPositive = true;
@@ -1346,6 +1357,7 @@ export class NW3Component implements OnInit {
     });
   }
 
+  // NAME CLICK
   clickedSummaryName(clickedName, originalName) {
 
     let searchName = clickedName;
@@ -1356,17 +1368,13 @@ export class NW3Component implements OnInit {
     }
 
     this._NW3Service.getSelectedName(this.projectId, searchName).subscribe(data => {
-
-
       this.go = (data[0].presentationStatus === '0') ? true : false;
-
+      this.isGoVoteOn = this.go;
       this.slideType = '';
-
       this.currentPage = parseInt(data[0].SlideNumber);
       this.pageNumber = parseInt(data[0].SlideNumber);
       this.currentProgress = (this.pageNumber / this.passTotalPages) * 100;
 
-      // this.slideModel.NameRanking = '';
       this.positiveChecked = false;
       this.neutralChecked = false;
       this.negativeChecked = false;
@@ -1392,8 +1400,6 @@ export class NW3Component implements OnInit {
       this.slideBackground = this.slideBackground + this.slideNextPart + ')';
       this.rankIcon = [];
 
-    
-
         if (!data[0].GroupedNames) {
           data[0].GroupedNames = data[0].Name;
           if (data[0].Name.includes('##')) {
@@ -1402,8 +1408,6 @@ export class NW3Component implements OnInit {
             this.slideType = data[0].SlideType;
           }
         
-
-
         if (data[0].GroupedNames && data[0].GroupedNames.length > 0 && this.slideType === '') {
           this.slideType = 'MultipleNameEvaluation';
           this.playSound('01 Hero Sounds/hero_simple-celebration-01.wav', this.soundVolume);
@@ -1482,7 +1486,6 @@ export class NW3Component implements OnInit {
         this.rationale = data[0].NameRationale;
         this.testName = data[0].Name;
       }
-
     });
   }
 
@@ -1937,18 +1940,6 @@ export class NW3Component implements OnInit {
 //   }
 
 // }
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 
