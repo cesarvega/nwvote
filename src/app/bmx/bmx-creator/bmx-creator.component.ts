@@ -81,6 +81,20 @@ export class BmxCreatorComponent implements OnInit {
     },
   ];
 
+  TEMPLATES = [
+    { name: 'ASSIST', rationale: 'Sist, Assist, Syst' },
+    { name: 'ENHANCE', rationale: 'Hance, En-' },
+    { name: 'EVOLVE', rationale: 'Evo' },
+    { name: 'GUARD', rationale: 'Gard, Guard' },
+    { name: 'INVEST', rationale: 'In, Inv' },
+    { name: 'OMNI', rationale: 'Omni' },
+    { name: 'OPTIMAL', rationale: 'Opti, Opt, Op' },
+    { name: 'SHIELD', rationale: 'Shield' },
+    { name: 'SYNCHRONIZE', rationale: 'Synch, Sync' },
+    { name: 'TRUSTED', rationale: 'Trus, Tru' },
+    { name: 'NOMANER', rationale: 'referred' },
+  ];
+
   testNames = [
     { name: 'ASSIST', rationale: 'Sist, Assist, Syst' },
     { name: 'ENHANCE', rationale: 'Hance, En-' },
@@ -114,6 +128,16 @@ export class BmxCreatorComponent implements OnInit {
     //     localStorage.setItem('data', data[0].PresentationId);
     //   })
     // });
+
+    this.toggleMenuActive('isMenuActive8')
+    this.isMainMenuActive = false;
+
+    this._BmxService.getGeneralLists()
+    .subscribe((arg:any) => {
+      this.settingsData = JSON.parse(arg.d);
+      console.log(JSON.parse(arg.d));      
+    });
+
 
     // DRAGGING SERVICE FOR SURVEY CREATOR
     dragulaService.createGroup('TASKS', {

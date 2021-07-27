@@ -308,11 +308,7 @@
                 </div>
 
             </div>
-
-
-
         </div>
-
 
         <div *ngIf="false">
 
@@ -392,7 +388,7 @@
 
     </div>
 
-    <div class="project-info" *ngIf="isMenuActive8" style="border: pink solid 1px; width: 25%; height: 100vh;">
+    <div  class="project-info" *ngIf="false" style="border: pink solid 1px; width: 25%; height: 100vh;">
 
         <div *ngIf="true" class="" style="display: flex;flex-direction: column;margin-top: 50px;">
             <button (click)="createNewBmxComponent()" mat-icon-button matTooltip="home" matTooltipPosition="right">
@@ -417,20 +413,25 @@
 
     <!-- TEMPLATES 📐📐📐📐📐📐📐📐📐📐📐📐📐📐📐📐📐📐📐📐📐📐📐📐📐📐📐📐📐📐📐📐📐📐📐📐📐📐📐📐📐📐📐-->
     <div class="templates" *ngIf="isMenuActive9" style="border: hotpink solid 1px; width: 60%; height: 100vh;">TEMPLATES
+
+        <div *ngFor="let template of TEMPLATES" style="display: flex;flex-direction: row; justify-content: space-around;">
+           <div> {{template.name}}</div>
+        </div>
+
     </div>
     <div class="templates" *ngIf="isMenuActive9" div style="border: pink solid 1px; width: 25%; height: 100vh;">SIDE
         PANEL 9</div>
     <!-- END 📐📐📐📐📐📐📐📐📐📐📐📐📐📐📐📐📐📐📐📐📐📐📐📐📐📐📐📐📐📐📐📐📐📐📐📐📐📐📐📐📐 TEMPLATES -->
 
 
-    <!-- IMAGE UPLOADER 📐📐📐📐📐📐📐📐📐📐📐📐📐📐📐📐📐📐📐📐📐📐📐📐📐📐📐📐📐📐📐📐📐📐📐📐📐📐📐📐📐📐📐-->
+    <!-- IMAGE UPLOADER 🎎🎎🎎🎎🎎🎎🎎🎎🎎🎎🎎🎎🎎🎎🎎🎎🎎🎎🎎🎎🎎🎎🎎🎎🎎🎎🎎🎎🎎🎎🎎🎎🎎🎎🎎🎎🎎🎎🎎🎎🎎-->
     <div class="Image-Uploader" *ngIf="isMenuActive10" style="border: hotpink solid 1px; width: 60%; height: 100vh;">
         Image Uploader
     </div>
     <div class="Image-Uploader" *ngIf="isMenuActive10" div style="border: pink solid 1px; width: 25%; height: 100vh;">
         SIDE
         PANEL 10</div>
-    <!-- END 📐📐📐📐📐📐📐📐📐📐📐📐📐📐📐📐📐📐📐📐📐📐📐📐📐📐📐📐📐📐📐📐📐📐📐📐📐📐📐📐📐 IMAGE UPLOADER -->
+    <!-- END 🎎🎎🎎🎎🎎🎎🎎🎎🎎🎎🎎🎎🎎🎎🎎🎎🎎🎎🎎🎎🎎🎎🎎🎎🎎🎎🎎🎎🎎🎎🎎🎎🎎🎎🎎🎎🎎🎎🎎 IMAGE UPLOADER -->
 
 
     <!-- PAGE DESIGN 📐📐📐📐📐📐📐📐📐📐📐📐📐📐📐📐📐📐📐📐📐📐📐📐📐📐📐📐📐📐📐📐📐📐📐📐📐📐📐📐📐📐📐-->
