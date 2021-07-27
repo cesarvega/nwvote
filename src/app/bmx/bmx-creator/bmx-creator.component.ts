@@ -7,7 +7,7 @@ import Speech from 'speak-tts';
 // import { Nw3Service } from './nw3.service';
 import { ActivatedRoute } from '@angular/router';
 import { typeSourceSpan } from '@angular/compiler';
-import { Nw3Service } from '../nw3/nw3.service';
+import { Nw3Service } from '../../nw3/nw3.service';
 import { BmxService } from './bmx.service';
 import { DragulaService } from 'ng2-dragula';
 import { MatPaginator } from '@angular/material/paginator';
