@@ -32,6 +32,19 @@ export class BmxCreatorComponent implements OnInit {
   isMenuActive4;
   isMenuActive5;
   isMenuActive6;
+  isMenuActive7;
+  isMenuActive8;
+  isMenuActive9;
+  isMenuActive10;  
+  isMenuActive11;
+  isMenuActive12;
+  isMenuActive13;
+  isMenuActive14;
+  isMenuActive15;
+  
+
+  isMainMenuActive = true;
+
   model = {
     editorData: '',
     namesData: ''
@@ -150,6 +163,16 @@ export class BmxCreatorComponent implements OnInit {
     this.isMenuActive4 = (menuItem === 'isMenuActive4') ? true : false;
     this.isMenuActive5 = (menuItem === 'isMenuActive5') ? true : false;
     this.isMenuActive6 = (menuItem === 'isMenuActive6') ? true : false;
+    this.isMenuActive7 = (menuItem === 'isMenuActive7') ? true : false;
+    this.isMenuActive8 = (menuItem === 'isMenuActive8') ? true : false;
+    this.isMenuActive9 = (menuItem === 'isMenuActive9') ? true : false;
+    this.isMenuActive10 = (menuItem === 'isMenuActive10') ? true : false;    
+    this.isMenuActive11 = (menuItem === 'isMenuActive11') ? true : false;
+    this.isMenuActive12 = (menuItem === 'isMenuActive12') ? true : false;
+    this.isMenuActive13 = (menuItem === 'isMenuActive13') ? true : false;
+    this.isMenuActive14 = (menuItem === 'isMenuActive14') ? true : false;
+    this.isMenuActive15 = (menuItem === 'isMenuActive15') ? true : false;
+    
   }
 
   createNewBmxComponent() {

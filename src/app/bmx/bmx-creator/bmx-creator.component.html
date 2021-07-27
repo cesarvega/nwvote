@@ -4,16 +4,16 @@
         <!-- LOGO BRANDING 🎭🎭🎭🎭🎭🎭🎭🎭🎭🎭🎭🎭🎭🎭🎭🎭🎭🎭🎭🎭🎭🎭🎭🎭🎭🎭🎭🎭🎭🎭🎭🎭🎭-->
         <div class="logo-badge" style="font-size: 21px;overflow-x: hidden;">
 
-            <img style="width: 50px;margin-left: 10px;" src="./assets/img/bmxLogo.png">
+            <img style="width: 271px;margin-left: 18px;" src="./assets/img/bmx/BRANDMATRIX-DASHBOARD-LOGO.svg">
             <div style="display: flex;flex-direction: column;">
-                <div class="title secondary-text"
+                <!-- <div class="title secondary-text"
                     style="color: #004684; margin-top: 10px;text-align: center;font-family: Arial, Helvetica, sans-serif;font-weight: 800;">
                     {{'BRANDMATRIX'}}
                 </div>
                 <div
                     style="color: #004684; text-align: end;font-family: Arial, Helvetica, sans-serif;font-weight: 600;">
                     {{'Dashboard'}}
-                </div>
+                </div> -->
             </div>
         </div>
         <!--🎭🎭🎭🎭🎭🎭🎭🎭🎭🎭🎭🎭🎭🎭🎭🎭🎭🎭🎭🎭🎭🎭🎭🎭🎭🎭🎭🎭🎭🎭🎭 END LOGO BRANDING -->
@@ -30,7 +30,7 @@
 
 
         <!-- SIDE MENU 🎀🎀🎀🎀🎀🎀🎀🎀🎀🎀🎀🎀🎀🎀🎀🎀🎀🎀🎀🎀🎀🎀🎀🎀🎀🎀🎀🎀🎀🎀🎀🎀🎀🎀🎀🎀🎀🎀🎀🎀 -->
-        <div class="menu">
+        <div class="menu" *ngIf="isMainMenuActive">
             <div [ngClass]="(isMenuActive1)?'menu-active':'menu-item'" (click)="toggleMenuActive('isMenuActive1')">
                 <button mat-icon-button style="margin: 0 20px 0 10px">
                     <mat-icon style="font-size: 40px;">list</mat-icon>
@@ -65,7 +65,8 @@
                     {{'Matrix Invites'}}
                 </div>
             </div>
-            <div [ngClass]="(isMenuActive4)?'menu-active':'menu-item'" (click)="toggleMenuActive('isMenuActive4')">
+            <div [ngClass]="(isMenuActive4)?'menu-active':'menu-item'"
+                (click)="toggleMenuActive('isMenuActive8');isMainMenuActive = false ">
                 <button mat-icon-button style="margin: 0 20px 0 10px">
                     <mat-icon style="font-size: 40px;">edit</mat-icon>
                 </button>
@@ -92,17 +93,76 @@
         </div>
         <!--🎀🎀🎀🎀🎀🎀🎀🎀🎀🎀🎀🎀🎀🎀🎀🎀🎀🎀🎀🎀🎀🎀🎀🎀🎀🎀🎀🎀🎀🎀🎀🎀🎀🎀🎀🎀🎀🎀🎀🎀🎀 END SIDE MENU -->
 
+
+        <!-- SIDE MENU 🎀🎀🎀🎀🎀🎀🎀🎀🎀🎀🎀🎀🎀🎀🎀🎀🎀🎀🎀🎀🎀🎀🎀🎀🎀🎀🎀🎀🎀🎀🎀🎀🎀🎀🎀🎀🎀🎀🎀🎀 -->
+        <div class="menu" *ngIf="!isMainMenuActive">
+            <div [ngClass]="(isMenuActive8)?'menu-active':'menu-item'" (click)="toggleMenuActive('isMenuActive8')">
+
+                <div
+                    style=" text-align: end;font-family: Arial, Helvetica, sans-serif;font-size: 20px;padding-left:20px">
+                    {{'Project Information'}}
+                </div>
+            </div>
+            <div [ngClass]="(isMenuActive9)?'menu-active':'menu-item'" (click)="toggleMenuActive('isMenuActive9')">
+                <div style=" display: flex;flex-direction: column;align-items: flex-start;">
+                    <div
+                        style=" text-align: end;font-family: Arial, Helvetica, sans-serif;font-size: 20px;padding-left:20px">
+                        {{'Templates'}}
+                    </div>
+
+                </div>
+            </div>
+            <div [ngClass]="(isMenuActive10)?'menu-active':'menu-item'" (click)="toggleMenuActive('isMenuActive10')">
+                <div class="title secondary-text"
+                    style=" text-align: end;font-family: Arial, Helvetica, sans-serif;font-size: 20px;padding-left:20px">
+                    {{'Image Uploader'}}
+                </div>
+            </div>
+            <div [ngClass]="(isMenuActive11)?'menu-active':'menu-item'" (click)="toggleMenuActive('isMenuActive11')">
+                <div
+                    style=" text-align: end;font-family: Arial, Helvetica, sans-serif;font-size: 20px;padding-left:20px">
+                    {{'Page Design'}}
+                </div>
+            </div>
+            <div [ngClass]="(isMenuActive12)?'menu-active':'menu-item'" (click)="toggleMenuActive('isMenuActive12')">
+                <div
+                    style=" text-align: end;font-family: Arial, Helvetica, sans-serif;font-size: 20px;padding-left:20px">
+                    {{'Introduction'}}
+                </div>
+            </div>
+            <div [ngClass]="(isMenuActive13)?'menu-active':'menu-item'" (click)="toggleMenuActive('isMenuActive13')">
+                <div
+                    style=" text-align: end;font-family: Arial, Helvetica, sans-serif;font-size: 20px;padding-left:20px">
+                    {{'Page Modules'}}
+                </div>
+            </div>
+            <div [ngClass]="(isMenuActive14)?'menu-active':'menu-item'" (click)="toggleMenuActive('isMenuActive14')">
+                <div
+                    style=" text-align: end;font-family: Arial, Helvetica, sans-serif;font-size: 20px;padding-left:20px">
+                    {{'Respondants Email'}}
+                </div>
+            </div>
+            <div [ngClass]="(isMenuActive15)?'menu-active':'menu-item'" (click)="toggleMenuActive('isMenuActive15')">
+                <div
+                    style=" text-align: end;font-family: Arial, Helvetica, sans-serif;font-size: 20px;padding-left:20px">
+                    {{'Contact'}}
+                </div>
+            </div>
+            <div [ngClass]="'menu-item'" (click)="toggleMenuActive('isMenuActive1');isMainMenuActive = true" >
+                <button mat-icon-button style="color:white;margin: 0 20px 0 20px;">
+                    <mat-icon style="transform: rotate(-90deg);margin-right: 10px;">arrow_circle_up</mat-icon>BACK
+                </button>
+            </div>
+        </div>
+        <!--🎀🎀🎀🎀🎀🎀🎀🎀🎀🎀🎀🎀🎀🎀🎀🎀🎀🎀🎀🎀🎀🎀🎀🎀🎀🎀🎀🎀🎀🎀🎀🎀🎀🎀🎀🎀🎀🎀🎀🎀🎀 END SIDE MENU -->
     </div>
 
 
 
-
-    <!-- PROJECT LIST 📀📀📀📀📀📀📀📀📀📀📀📀📀📀📀📀📀📀📀📀📀📀📀📀📀📀📀📀📀📀📀📀📀📀📀📀📀📀📀-->
+    <!-- PROJECT LIST COMPONENT 📀📀📀📀📀📀📀📀📀📀📀📀📀📀📀📀📀📀📀📀📀📀📀📀📀📀📀📀📀📀📀📀📀📀📀📀📀📀📀-->
     <app-project-list class="project-list" [isMenuActive1]="isMenuActive1"
         style="border: hotpink solid 1px;height: 100vh;overflow-y: scroll;"></app-project-list>
     <!--📀📀📀📀📀📀📀📀📀📀📀📀📀📀📀📀📀📀📀📀📀📀📀📀📀📀📀📀📀📀📀📀📀📀📀📀📀📀📀📀📀📀📀📀END  PROJECT LIST-->
-
-
 
 
 
@@ -114,8 +174,6 @@
     <!--🦠🦠🦠🦠🦠🦠🦠🦠🦠🦠🦠🦠🦠🦠🦠🦠🦠🦠🦠🦠🦠🦠🦠🦠🦠🦠🦠🦠🦠🦠🦠🦠🦠🦠🦠🦠🦠🦠🦠🦠🦠🦠🦠🦠🦠END OPEN LINKS-->
 
 
-
-
     <!-- MATRIX INVITES 🧧🧧🧧🧧🧧🧧🧧🧧🧧🧧🧧🧧🧧🧧🧧🧧🧧🧧🧧🧧🧧🧧🧧🧧🧧🧧🧧🧧🧧🧧🧧🧧🧧🧧🧧🧧🧧🧧🧧🧧🧧🧧🧧🧧🧧🧧🧧🧧🧧🧧🧧🧧-->
     <div class="matrix-invites" *ngIf="isMenuActive3" style="border: hotpink solid 1px; width: 60%; height: 100vh;">
         MATRIX INVITES</div>
@@ -124,15 +182,33 @@
     <!-- 🧧🧧🧧🧧🧧🧧🧧🧧🧧🧧🧧🧧🧧🧧🧧🧧🧧🧧🧧🧧🧧🧧🧧🧧🧧🧧🧧🧧🧧🧧🧧🧧🧧🧧🧧🧧🧧🧧🧧🧧🧧🧧🧧🧧🧧🧧🧧🧧🧧🧧🧧🧧🧧🧧🧧🧧🧧END MATRIX INVITES -->
 
 
+    <!-- REPORTS 📗📗📗📗📗📗📗📗📗📗📗📗📗📗📗📗📗📗📗📗📗📗📗📗📗📗📗📗📗📗📗📗📗📗📗📗📗📗📗📗📗📗📗📗📗📗📗📗📗📗-->
+    <div class="reports" *ngIf="isMenuActive5" style="border: hotpink solid 1px; width: 60%; height: 100vh;">REPORTS
+    </div>
+    <div class="reports" *ngIf="isMenuActive5" div style="border: pink solid 1px; width: 25%; height: 100vh;">SIDE
+        PANEL5</div>
+    <!--📗📗📗📗📗📗📗📗📗📗📗📗📗📗📗📗📗📗📗📗📗📗📗📗📗📗📗📗📗📗📗📗📗📗📗📗📗📗📗📗📗📗📗📗📗📗📗📗📗📗 END REPORTS -->
 
 
-    <!-- CREATE/EDIT COMPONENT  🧠🧠🧠🧠🧠🧠🧠🧠🧠🧠🧠🧠🧠🧠🧠🧠🧠🧠🧠🧠🧠🧠🧠🧠🧠🧠🧠🧠🧠🧠🧠🧠🧠🧠🧠🧠🧠🧠🧠🧠🧠-->
-    <div class="create-edit" *ngIf="isMenuActive4" dragula="TASKS" [(dragulaModel)]="brandMatrixObjects"
+    <!-- SETTINGS ⚙️⚙️⚙️⚙️⚙️⚙️⚙️⚙️⚙️⚙️⚙️⚙️⚙️⚙️⚙️⚙️⚙️⚙️⚙️⚙️⚙️⚙️⚙️⚙️⚙️⚙️⚙️⚙️⚙️⚙️⚙️⚙️⚙️⚙️⚙️⚙️⚙️⚙️⚙️⚙️⚙️⚙️⚙️⚙️⚙️-->
+    <div class="settings" *ngIf="isMenuActive6" style="border: hotpink solid 1px; width: 60%; height: 100vh;">SETTINGS
+    </div>
+    <div class="settings" *ngIf="isMenuActive6" div style="border: pink solid 1px; width: 25%; height: 100vh;">SIDE
+        PANEL 6</div>
+    <!--⚙️⚙️⚙️⚙️⚙️⚙️⚙️⚙️⚙️⚙️⚙️⚙️⚙️⚙️⚙️⚙️⚙️⚙️⚙️⚙️⚙️⚙️⚙️⚙️⚙️⚙️⚙️⚙️⚙️⚙️⚙️⚙️⚙️⚙️⚙️⚙️⚙️⚙️⚙️⚙️⚙️⚙️⚙️⚙️⚙️⚙️⚙️⚙️END SETTINGS -->
+
+
+
+
+    <!-- SECOND MENU SECTION PAGES  📌📌📌📌📌📌📌📌📌📌📌📌📌📌📌📌📌📌📌📌📌📌📌📌📌📌📌📌📌📌📌📌📌📌📌📌📌📌📌-->
+
+
+
+    <!-- PROJECT INFORMATION  🧠🧠🧠🧠🧠🧠🧠🧠🧠🧠🧠🧠🧠🧠🧠🧠🧠🧠🧠🧠🧠🧠🧠🧠🧠🧠🧠🧠🧠🧠🧠🧠🧠🧠🧠🧠🧠🧠🧠🧠🧠-->
+    <div class="project-info" *ngIf="isMenuActive8" dragula="TASKS" [(dragulaModel)]="brandMatrixObjects"
         (dragulaModelChange)="checkDragEvetn($event);brandMatrixObjects = $event">
 
-        <div *ngIf="true" class="mainContainerPresent" style="position: absolute;
-        z-index: 1;
-        width: 1011px;">
+        <div *ngIf="true" class="mainContainerPresent" style="position: absolute;z-index: 1;width: 1011px;">
 
             <h2>Project TEST BrandMatrix Setup</h2>
             <h3 style="color:#253b7d;">Basic Project Information</h3>
@@ -209,8 +285,8 @@
                         <mat-label>Select Region</mat-label>
                         <mat-select>
                             <!-- <mat-option *ngFor="let settingsList of settingsData.DirectorList" [value]="settingsList.id">
-                                {{settingsList.Director}}, {{settingsList.Title}}
-                            </mat-option> -->
+                            {{settingsList.Director}}, {{settingsList.Title}}
+                        </mat-option> -->
                             <mat-option *ngFor="let settingsList of settingsData.OfficeList" [value]="settingsList">
                                 {{settingsList}}
                             </mat-option>
@@ -237,82 +313,86 @@
 
         </div>
 
-        <div *ngFor="let bmxItem of brandMatrixObjects; let i = index"
-            style="display: flex;flex-direction: column;margin: 10px;">
-            <!-- BMX HEADER 😋 -->
 
-            <div *ngIf="bmxItem.componentType === 'logo-header'" class="header development-border">
-                <div class="emoji-handle">.</div>
-                <div>
-                    <img style="width: 127px;margin-left: 20px;" src="./assets/img/bi-logo-with-tagline.svg">
-                </div>
-                <div><span style="color: #253b7d;">Brand</span> <span style="color: #253b7d;">Matrix</span></div>
-                <div>
-                    <img style="width: 127px;margin-right: 20px;" src="./assets/img/bmx/BD.png">
-                </div>
-            </div>
-            <!--😋 END BMX HEADER  -->
+        <div *ngIf="false">
 
-            <!-- BMX PARAGRAPH EDITOR 📑 -->
-            <div *ngIf="bmxItem.componentType === 'text-editor'" class="paragraph development-border">
-                <div class="emoji-handle">.</div>
-                <div style="margin: 30px;" [innerHTML]="bmxItem.componentText | safe: 'html'"></div>
-                <ckeditor *ngIf="i === selectedIndex" id="txtTexto" class="ckeditorcev"
-                    style="animation: fadeIn 0.5s ease forwards;" [ngModelOptions]="{standalone: true}"
-                    [(ngModel)]="bmxItem.componentText" [data]="bmxItem.componentText" [config]="ckconfig">
-                </ckeditor>
+            <div *ngFor="let bmxItem of brandMatrixObjects; let i = index"
+                style="display: flex;flex-direction: column;margin: 10px;">
+                <!-- BMX HEADER 😋 -->
 
-                <button *ngIf="i === selectedIndex" class="cancel" (click)="selectedIndex = '';" mat-icon-button>
-                    <mat-icon style="font-size: 25px;">cancel</mat-icon>
-                </button>
-                <button *ngIf="i !== selectedIndex" mat-icon-button class="edit-icon" (click)="selectedIndex = i">
-                    <mat-icon style="font-size: 25px;">edit</mat-icon>
-                </button>
-            </div>
-            <!-- 📑 END BMX PARAGRAPH EDITOR -->
-
-
-            <!-- LINEAR SCALE -->
-            <div *ngIf="bmxItem.componentType === 'ranking-scale'" class="development-border"
-                style="display: flex;flex-direction: column;position: relative;">
-                <div class="emoji-handle">.</div>
-                <div *ngFor="let testName of testNames" style="margin:10px 10px;">
-                    <div class="test-name-table">
-                        <label style="width: 10%;text-align: start;margin-left: 10px;"
-                            for="html">{{testName.name}}</label>
-                        <label style="width: 10%;text-align: start;margin-left: 10px;"
-                            for="html">{{testName.rationale}}</label>
-
-                        <button mat-raised-button color="primary" class="edit-icon">
-                            1
-                        </button>
-                        <button mat-raised-button color="primary" class="edit-icon">
-                            2
-                        </button>
-                        <button mat-raised-button color="primary" class="edit-icon">
-                            3
-                        </button>
-                        <button mat-raised-button color="primary" class="edit-icon">
-                            4
-                        </button>
-                        <!-- <input type="radio" id="1" [name]="testName.name" value="1">
-                        <label for="1">1</label>
-                        <input type="radio" id="2" [name]="testName.name" value="2">
-                        <label for="2">2</label>
-                        <input type="radio" id="3" [name]="testName.name" value="3">
-                        <label for="3">3</label> -->
+                <div *ngIf="bmxItem.componentType === 'logo-header'" class="header development-border">
+                    <div class="emoji-handle">.</div>
+                    <div>
+                        <img style="width: 127px;margin-left: 20px;" src="./assets/img/bi-logo-with-tagline.svg">
                     </div>
-                </div>x
+                    <div><span style="color: #253b7d;">Brand</span> <span style="color: #253b7d;">Matrix</span></div>
+                    <div>
+                        <img style="width: 127px;margin-right: 20px;" src="./assets/img/bmx/BD.png">
+                    </div>
+                </div>
+                <!--😋 END BMX HEADER  -->
+
+                <!-- BMX PARAGRAPH EDITOR 📑 -->
+                <div *ngIf="bmxItem.componentType === 'text-editor'" class="paragraph development-border">
+                    <div class="emoji-handle">.</div>
+                    <div style="margin: 30px;" [innerHTML]="bmxItem.componentText | safe: 'html'"></div>
+                    <ckeditor *ngIf="i === selectedIndex" id="txtTexto" class="ckeditorcev"
+                        style="animation: fadeIn 0.5s ease forwards;" [ngModelOptions]="{standalone: true}"
+                        [(ngModel)]="bmxItem.componentText" [data]="bmxItem.componentText" [config]="ckconfig">
+                    </ckeditor>
+
+                    <button *ngIf="i === selectedIndex" class="cancel" (click)="selectedIndex = '';" mat-icon-button>
+                        <mat-icon style="font-size: 25px;">cancel</mat-icon>
+                    </button>
+                    <button *ngIf="i !== selectedIndex" mat-icon-button class="edit-icon" (click)="selectedIndex = i">
+                        <mat-icon style="font-size: 25px;">edit</mat-icon>
+                    </button>
+                </div>
+                <!-- 📑 END BMX PARAGRAPH EDITOR -->
+
+
+                <!-- LINEAR SCALE -->
+                <div *ngIf="bmxItem.componentType === 'ranking-scale'" class="development-border"
+                    style="display: flex;flex-direction: column;position: relative;">
+                    <div class="emoji-handle">.</div>
+                    <div *ngFor="let testName of testNames" style="margin:10px 10px;">
+                        <div class="test-name-table">
+                            <label style="width: 10%;text-align: start;margin-left: 10px;"
+                                for="html">{{testName.name}}</label>
+                            <label style="width: 10%;text-align: start;margin-left: 10px;"
+                                for="html">{{testName.rationale}}</label>
+
+                            <button mat-raised-button color="primary" class="edit-icon">
+                                1
+                            </button>
+                            <button mat-raised-button color="primary" class="edit-icon">
+                                2
+                            </button>
+                            <button mat-raised-button color="primary" class="edit-icon">
+                                3
+                            </button>
+                            <button mat-raised-button color="primary" class="edit-icon">
+                                4
+                            </button>
+                            <!-- <input type="radio" id="1" [name]="testName.name" value="1">
+                    <label for="1">1</label>
+                    <input type="radio" id="2" [name]="testName.name" value="2">
+                    <label for="2">2</label>
+                    <input type="radio" id="3" [name]="testName.name" value="3">
+                    <label for="3">3</label> -->
+                        </div>
+                    </div>x
+
+                </div>
+
+                <!-- END LINEAR SCALE -->
 
             </div>
-
-            <!-- END LINEAR SCALE -->
-
         </div>
 
     </div>
 
-    <div class="create-edit" *ngIf="isMenuActive4" style="border: pink solid 1px; width: 25%; height: 100vh;">
+    <div class="project-info" *ngIf="isMenuActive8" style="border: pink solid 1px; width: 25%; height: 100vh;">
 
         <div *ngIf="true" class="" style="display: flex;flex-direction: column;margin-top: 50px;">
             <button (click)="createNewBmxComponent()" mat-icon-button matTooltip="home" matTooltipPosition="right">
@@ -332,26 +412,71 @@
             </button>
         </div>
     </div>
-    <!--🧠🧠🧠🧠🧠🧠🧠🧠🧠🧠🧠🧠🧠🧠🧠🧠🧠🧠🧠🧠🧠🧠🧠🧠🧠🧠🧠🧠🧠🧠🧠🧠🧠🧠🧠🧠🧠🧠🧠🧠🧠 END CREATE/EDIT COMPONENT-->
+    <!--🧠🧠🧠🧠🧠🧠🧠🧠🧠🧠🧠🧠🧠🧠🧠🧠🧠🧠🧠🧠🧠🧠🧠🧠🧠🧠🧠🧠🧠🧠🧠🧠🧠🧠🧠🧠🧠🧠🧠🧠🧠 END PROJECT INFORMATION-->
 
 
-
-    <!-- REPORTS 📗📗📗📗📗📗📗📗📗📗📗📗📗📗📗📗📗📗📗📗📗📗📗📗📗📗📗📗📗📗📗📗📗📗📗📗📗📗📗📗📗📗📗📗📗📗📗📗📗📗-->
-    <div class="reports" *ngIf="isMenuActive5" style="border: hotpink solid 1px; width: 60%; height: 100vh;">REPORTS
+    <!-- TEMPLATES 📐📐📐📐📐📐📐📐📐📐📐📐📐📐📐📐📐📐📐📐📐📐📐📐📐📐📐📐📐📐📐📐📐📐📐📐📐📐📐📐📐📐📐-->
+    <div class="templates" *ngIf="isMenuActive9" style="border: hotpink solid 1px; width: 60%; height: 100vh;">TEMPLATES
     </div>
-    <div class="reports" *ngIf="isMenuActive5" div style="border: pink solid 1px; width: 25%; height: 100vh;">SIDE
-        PANEL5</div>
-    <!--📗📗📗📗📗📗📗📗📗📗📗📗📗📗📗📗📗📗📗📗📗📗📗📗📗📗📗📗📗📗📗📗📗📗📗📗📗📗📗📗📗📗📗📗📗📗📗📗📗📗 END REPORTS -->
+    <div class="templates" *ngIf="isMenuActive9" div style="border: pink solid 1px; width: 25%; height: 100vh;">SIDE
+        PANEL 9</div>
+    <!-- END 📐📐📐📐📐📐📐📐📐📐📐📐📐📐📐📐📐📐📐📐📐📐📐📐📐📐📐📐📐📐📐📐📐📐📐📐📐📐📐📐📐 TEMPLATES -->
 
 
-
-    <!-- SETTINGS ⚙️⚙️⚙️⚙️⚙️⚙️⚙️⚙️⚙️⚙️⚙️⚙️⚙️⚙️⚙️⚙️⚙️⚙️⚙️⚙️⚙️⚙️⚙️⚙️⚙️⚙️⚙️⚙️⚙️⚙️⚙️⚙️⚙️⚙️⚙️⚙️⚙️⚙️⚙️⚙️⚙️⚙️⚙️⚙️⚙️-->
-    <div class="settings" *ngIf="isMenuActive6" style="border: hotpink solid 1px; width: 60%; height: 100vh;">SETTINGS
+    <!-- IMAGE UPLOADER 📐📐📐📐📐📐📐📐📐📐📐📐📐📐📐📐📐📐📐📐📐📐📐📐📐📐📐📐📐📐📐📐📐📐📐📐📐📐📐📐📐📐📐-->
+    <div class="Image-Uploader" *ngIf="isMenuActive10" style="border: hotpink solid 1px; width: 60%; height: 100vh;">
+        Image Uploader
     </div>
-    <div class="settings" *ngIf="isMenuActive6" div style="border: pink solid 1px; width: 25%; height: 100vh;">SIDE
-        PANEL 6</div>
-    <!--⚙️⚙️⚙️⚙️⚙️⚙️⚙️⚙️⚙️⚙️⚙️⚙️⚙️⚙️⚙️⚙️⚙️⚙️⚙️⚙️⚙️⚙️⚙️⚙️⚙️⚙️⚙️⚙️⚙️⚙️⚙️⚙️⚙️⚙️⚙️⚙️⚙️⚙️⚙️⚙️⚙️⚙️⚙️⚙️⚙️⚙️⚙️⚙️END SETTINGS -->
+    <div class="Image-Uploader" *ngIf="isMenuActive10" div style="border: pink solid 1px; width: 25%; height: 100vh;">
+        SIDE
+        PANEL 10</div>
+    <!-- END 📐📐📐📐📐📐📐📐📐📐📐📐📐📐📐📐📐📐📐📐📐📐📐📐📐📐📐📐📐📐📐📐📐📐📐📐📐📐📐📐📐 IMAGE UPLOADER -->
 
 
+    <!-- PAGE DESIGN 📐📐📐📐📐📐📐📐📐📐📐📐📐📐📐📐📐📐📐📐📐📐📐📐📐📐📐📐📐📐📐📐📐📐📐📐📐📐📐📐📐📐📐-->
+    <div class="page-design" *ngIf="isMenuActive11" style="border: hotpink solid 1px; width: 60%; height: 100vh;">
+        TEMPLATES
+    </div>
+    <div class="page-design" *ngIf="isMenuActive11" div style="border: pink solid 1px; width: 25%; height: 100vh;">SIDE
+        PANEL 11</div>
+    <!-- END 📐📐📐📐📐📐📐📐📐📐📐📐📐📐📐📐📐📐📐📐📐📐📐📐📐📐📐📐📐📐📐📐📐📐📐📐📐📐📐📐📐 PAGE DESIGN -->
+
+
+    <!-- INTRODUCTION 📐📐📐📐📐📐📐📐📐📐📐📐📐📐📐📐📐📐📐📐📐📐📐📐📐📐📐📐📐📐📐📐📐📐📐📐📐📐📐📐📐📐📐-->
+    <div class="introduction" *ngIf="isMenuActive12" style="border: hotpink solid 1px; width: 60%; height: 100vh;">
+        INTRODUCTION
+    </div>
+    <div class="introduction" *ngIf="isMenuActive12" div style="border: pink solid 1px; width: 25%; height: 100vh;">SIDE
+        PANEL 12</div>
+    <!-- END 📐📐📐📐📐📐📐📐📐📐📐📐📐📐📐📐📐📐📐📐📐📐📐📐📐📐📐📐📐📐📐📐📐📐📐📐📐📐📐📐📐 INTRODUCTION -->
+
+
+    <!-- PAGE MODULES 📐📐📐📐📐📐📐📐📐📐📐📐📐📐📐📐📐📐📐📐📐📐📐📐📐📐📐📐📐📐📐📐📐📐📐📐📐📐📐📐📐📐📐-->
+    <div class="page-modules" *ngIf="isMenuActive13" style="border: hotpink solid 1px; width: 60%; height: 100vh;">PAGE
+        MODULES
+    </div>
+    <div class="page-modules" *ngIf="isMenuActive13" div style="border: pink solid 1px; width: 25%; height: 100vh;">SIDE
+        PANEL 13</div>
+    <!-- END 📐📐📐📐📐📐📐📐📐📐📐📐📐📐📐📐📐📐📐📐📐📐📐📐📐📐📐📐📐📐📐📐📐📐📐📐📐📐📐📐📐 PAGE MODULES -->
+
+
+    <!-- RESPONDANTS EMAILS 📐📐📐📐📐📐📐📐📐📐📐📐📐📐📐📐📐📐📐📐📐📐📐📐📐📐📐📐📐📐📐📐📐📐📐📐📐📐📐📐📐📐📐-->
+    <div class="respondants-emails" *ngIf="isMenuActive14"
+        style="border: hotpink solid 1px; width: 60%; height: 100vh;">RESPONDANTS EMAILS
+    </div>
+    <div class="respondants-emails" *ngIf="isMenuActive14" div
+        style="border: pink solid 1px; width: 25%; height: 100vh;">SIDE
+        PANEL 14</div>
+    <!-- END 📐📐📐📐📐📐📐📐📐📐📐📐📐📐📐📐📐📐📐📐📐📐📐📐📐📐📐📐📐📐📐📐📐📐📐📐📐📐📐📐📐 RESPONDANTS EMAILS -->
+
+
+    <!-- CONTACT 📐📐📐📐📐📐📐📐📐📐📐📐📐📐📐📐📐📐📐📐📐📐📐📐📐📐📐📐📐📐📐📐📐📐📐📐📐📐📐📐📐📐📐-->
+    <div class="templates" *ngIf="isMenuActive15" style="border: hotpink solid 1px; width: 60%; height: 100vh;">CONTACT
+    </div>
+    <div class="templates" *ngIf="isMenuActive15" div style="border: pink solid 1px; width: 25%; height: 100vh;">SIDE
+        PANEL 15</div>
+    <!-- END 📐📐📐📐📐📐📐📐📐📐📐📐📐📐📐📐📐📐📐📐📐📐📐📐📐📐📐📐📐📐📐📐📐📐📐📐📐📐📐📐📐 CONTACT -->
+
+    <!-- END  📌📌📌📌📌📌📌📌📌📌📌📌📌📌📌📌📌📌📌📌📌📌📌📌📌📌📌📌📌📌📌📌📌📌📌📌📌📌📌 SECOND MENU SECTION PAGES -->
 
 </div>
