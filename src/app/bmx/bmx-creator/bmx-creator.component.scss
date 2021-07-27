@@ -105,6 +105,8 @@
             // transform: scale(1.1);
             box-shadow: 0 6px 10px 0 rgb(0 0 0 / 14%), 0 1px 18px 0 rgb(0 0 0 / 12%), 0 3px 5px -1px rgb(0 0 0 / 20%);
         }
+
+        
     }
     
     .development-border {
@@ -201,6 +203,11 @@
         justify-content: space-between;
         align-content: center;
     }
+
+    .project-list::-webkit-scrollbar {
+        display: none;
+    }
+    
     
 }
 

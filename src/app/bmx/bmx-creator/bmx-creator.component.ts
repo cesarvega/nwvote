@@ -22,36 +22,16 @@ import { MatDatepicker } from '@angular/material/datepicker';
   encapsulation: ViewEncapsulation.None,
 })
 export class BmxCreatorComponent implements OnInit {
-
-
   // https://getemoji.com/
-
-
-  @ViewChild(MatSort) sort: MatSort;
-  @ViewChild(MatPaginator) paginator: MatPaginator;
-  dataSource;
-  allData;
-  viewedData;
-  displayedColumns = ['Client', 'ProjectName', 'Department', 'Office', 'Created', 'Close', 'Email', 'Edit', 'Delete'];
-  selected;
-
-  title = 'ng-calendar-demo';
-  selectedDate = new Date('2019/09/26');
-  startAt = new Date('2019/09/11');
-  minDate = new Date('2019/09/14');
-  maxDate = new Date(new Date().setMonth(new Date().getMonth() + 1));
-  year: any;
-  DayAndDate: string;
-
   projectName: any;
   projectId: any;
   soundVolume = 0.2;
-  isMenuActive1 = true;
-  isMenuActive2 = false;
-  isMenuActive3 = false;
-  isMenuActive4 = false;
-  isMenuActive5 = false;
-  isMenuActive6 = false;
+  isMenuActive1;
+  isMenuActive2;
+  isMenuActive3;
+  isMenuActive4;
+  isMenuActive5;
+  isMenuActive6;
   model = {
     editorData: '',
     namesData: ''
@@ -62,6 +42,7 @@ export class BmxCreatorComponent implements OnInit {
   sampleHtml = `<p style="text-align:center;color:red">Instructions</p>\n\n<p style=\"text-align:justify\"><br />\nPlease select at least three &quot;themes&quot; you would consider to move forward for the Line Draw Family.</p>\n\n<p style=\"text-align:justify\"><strong>What do we mean by &quot;theme&quot;:</strong></p>\n\n<p style=\"text-align:justify\">We will develop names that pertain to an overarching theme. Each individual name candidate will have potential to be used as an ingredient brand to be used across all Line Draw Family concepts or as it pertains to each individual concept. In the latter scenario, we will develop names with a common word part and this word part will be included in each concept name. For example, if you choose the &quot;Optimized&quot; theme, we will develop candidates around the Op/Opt/Opti word parts.</p>\n\n<p style=\"text-align:justify\"><strong>How many themes should I vote on?</strong></p>\n\n<p style=\"text-align:justify\">You can select as many as you&rsquo;d like but we request that you select at least 3 themes. Based on the vote, we will select three to five themes for full creative exploration. How do I provide a vote? To make a selection, simply click the checkbox to the left of the desired name candidate. After you make a selection, you will be asked to rate that theme based on your own personal preference on a scale from 1 to 7, 1 being neutral and 7 being the most liked.</p>\n\n<p style=\"text-align:justify\">Once you have finished your selections, please click the &quot;Continue&quot; button on the bottom of the page to proceed to the next evaluation section.</p>\n`
   selectedOption: any;
 
+  // SURVEY CREATOR VARIABLES & SCHEME
   brandMatrixObjects = [
     {
       componentType: 'logo-header',
@@ -112,7 +93,6 @@ export class BmxCreatorComponent implements OnInit {
   constructor(@Inject(DOCUMENT) private document: any,
     private _NW3Service: Nw3Service, private activatedRoute: ActivatedRoute,
     private _hotkeysService: HotkeysService, private dragulaService: DragulaService, private _BmxService: BmxService) {
-
     // this.activatedRoute.params.subscribe(params => {
     //   this.projectName = params['id'];
     //   localStorage.setItem('projectName', this.projectName);
@@ -122,28 +102,16 @@ export class BmxCreatorComponent implements OnInit {
     //   })
     // });
 
+    // DRAGGING SERVICE FOR SURVEY CREATOR
     dragulaService.createGroup('TASKS', {
       moves: (el, container, handle) => {
         return handle.classList.contains('emoji-handle');
       }
     })
-
     // document.body.style.zoom = 1.10;
-
   }
 
   ngOnInit(): void {
-    this.selected = 'Live'
-    
-    this._BmxService.getGetProjectList()
-    .subscribe((arg:any) => {
-      let obj = '[{"ProjectName":"test33333","ProjectId":616,"Status":"C","Department":"","Office":"","Created":null,"Close":null},{"ProjectName":"test2","ProjectId":616,"Status":"C","Department":"","Office":"","Created":null,"Close":"123456"},{"ProjectName":"test3","ProjectId":616,"Status":"C","Department":"","Office":"","Created":null,"Close":null},{"ProjectName":"test4","ProjectId":616,"Status":"C","Department":"","Office":"","Created":null,"Close":null},{"ProjectName":"test5","ProjectId":616,"Status":"C","Department":"","Office":"","Created":null,"Close":null},{"ProjectName":"test6","ProjectId":616,"Status":"C","Department":"","Office":"","Created":null,"Close":"56456"},{"ProjectName":"test7","ProjectId":616,"Status":"C","Department":"","Office":"","Created":null,"Close":null},{"ProjectName":"test1","ProjectId":616,"Status":"C","Department":"","Office":"","Created":null,"Close":null},{"ProjectName":"test2","ProjectId":616,"Status":"C","Department":"","Office":"","Created":null,"Close":"123456"},{"ProjectName":"test3","ProjectId":616,"Status":"C","Department":"","Office":"","Created":null,"Close":null},{"ProjectName":"test4","ProjectId":616,"Status":"C","Department":"","Office":"","Created":null,"Close":null},{"ProjectName":"test5","ProjectId":616,"Status":"C","Department":"","Office":"","Created":null,"Close":null},{"ProjectName":"test6","ProjectId":616,"Status":"C","Department":"","Office":"","Created":null,"Close":"56456"},{"ProjectName":"test777777","ProjectId":616,"Status":"C","Department":"","Office":"","Created":null,"Close":null}]';
-      this.allData = JSON.parse(arg.d);
-      // this.allData = JSON.parse(obj);
-      this.changeView();     
-    });
-
-
     this.ckconfig = {
       allowedContent: false,
       width: '99.6%',
@@ -170,14 +138,8 @@ export class BmxCreatorComponent implements OnInit {
       removeButtons: 'Smiley,tableselection,Image,Superscript,Subscript,Save,NewPage,Preview,Print,Templates,Replace,SelectAll,Form,Checkbox,Radio,TextField,Textarea,Find,Select,Button,ImageButton,HiddenField,CopyFormatting,CreateDiv,BidiLtr,BidiRtl,Language,Flash,PageBreak,Iframe,ShowBlocks,Cut,Copy,Paste,Table,Format,Source,Maximize,Styles,Anchor,SpecialChar,PasteFromWord,PasteText,Scayt,RemoveFormat,Indent,Outdent,Blockquote'
 
     }
-
     // SAMPLE DATA FOR CKEDITOR
     this.model.editorData = this.sampleHtml;
-
-
-
-
-
   }
 
   // menu functionallity toggles the active link scss
@@ -203,66 +165,4 @@ export class BmxCreatorComponent implements OnInit {
     console.log(e);
   }
 
- 
-  // <!-- PROJECT LIST 📀📀📀📀📀📀📀📀📀📀📀📀📀📀📀📀📀📀📀📀📀📀📀📀📀📀📀📀📀📀📀📀📀📀📀📀📀📀📀-->
-
-  applyFilter(filterValue: string): void {
-    filterValue = filterValue.trim(); // Remove whitespace
-    filterValue = filterValue.toLowerCase(); // Datasource defaults to lowercase matches
-    this.dataSource.filter = filterValue;
-    if (this.dataSource.paginator) {
-      this.dataSource.paginator.firstPage();
-    }
-  }
-
-  sendEmail(option: string): void {
-    var test = option;
-  }
-
-  editBM(option: string): void {
-    var test = option;
-  }
-
-  deleteBM(option: string): void {
-    var test = option;
-  }
-
-  changeView(): void
-  {
-    this.viewedData = [];
-      for(let i = 0; i < this.allData.length; i++)
-      {
-        if(this.selected == 'Live' && this.allData[i].Status == 'O')
-        {
-          this.viewedData.push(this.allData[i])
-        }
-        else if(this.selected == 'Closed' && this.allData[i].Close != 'O')
-        {
-          this.viewedData.push(this.allData[i])
-        }
-        else if(this.selected == 'All')
-        {
-          this.viewedData = this.allData;
-          break;
-        }
-      }
-      this.dataSource = new MatTableDataSource<any>(this.viewedData);
-      this.dataSource.paginator = this.paginator;
-      this.dataSource.sort = this.sort;
-  }
-
-  onSelect(event) {
-    console.log(event);
-    this.selectedDate = event;
-    const dateString = event.toDateString();
-    const dateValue = dateString.split(' ');
-    this.year = dateValue[3];
-    this.DayAndDate = dateValue[0] + ',' + ' ' + dateValue[1] + ' ' + dateValue[2];
-  }
-
-  myDateFilter = (d: Date): boolean => {
-    const day = d.getDay();
-    // Prevent Saturday and Sunday from being selected.
-    return day !== 0 && day !== 6 ;
-  }
 }

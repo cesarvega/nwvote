@@ -63,6 +63,7 @@ import {MatRadioModule} from '@angular/material/radio';
 import { SafePipe } from './safe.pipe';
 import { BmxRoutingModule } from './bmx-routing.module';
 import { BmxComponent } from '../bmx-survey/bmx.component';
+import { ProjectListComponent } from '../bmx-creator/project-list/project-list.component';
 // import { BmxModule } from './bmx/bmx/bmx.module';
 export function loadEcharts() {
   return import('echarts');
@@ -70,7 +71,7 @@ export function loadEcharts() {
 
 
 @NgModule({
-  declarations: [BmxComponent,BmxCreatorComponent,SafePipe],
+  declarations: [BmxComponent,BmxCreatorComponent,SafePipe,ProjectListComponent],
   imports: [
     BrowserModule,
     HammerModule,
