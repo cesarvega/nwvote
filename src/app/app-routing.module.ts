@@ -31,17 +31,17 @@ const routes: Routes = [
   //   component: BsrComponent
   // },
   {//BI BRAND MATRIX CREATOR
-    path: ':id',
-    component: BmxCreatorComponent
+  path: ':id',
+   component: BmxCreatorComponent
   },
-  // {//BI BRAND MATRIX
-  //   path: ':id',
-  //   component: BmxComponent
-  // },
-  // {//NW 3 BI PRESENTS NOMENCLATURE WORKSHOP V.3.0
-  //   path: ':id',
-  //   component: NW3Component
-  // },
+   {//BI BRAND MATRIX
+    path: ':id',
+    component: BmxComponent
+  },
+  //{//NW 3 BI PRESENTS NOMENCLATURE WORKSHOP V.3.0
+    //path: ':id',
+    //component: NW3Component
+  //},
   {
     path: '',
     redirectTo: '/TEST_BI_Katakana_Phonetics',

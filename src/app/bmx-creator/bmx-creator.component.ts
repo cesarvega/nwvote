@@ -149,12 +149,14 @@ export class BmxCreatorComponent implements OnInit {
   ngOnInit(): void {
     this.selected = 'Live'
     
-    this._BmxService.getGeneralLists()
-      .subscribe((arg:any) => {
-        this.settingsData = JSON.parse(arg.d);
-        //
-        console.log(JSON.parse(arg.d));        
-      });
+    this._BmxService.getGetProjectList()
+    .subscribe((arg:any) => {
+      let obj = '[{"ProjectName":"test33333","ProjectId":616,"Status":"C","Department":"","Office":"","Created":null,"Close":null},{"ProjectName":"test2","ProjectId":616,"Status":"C","Department":"","Office":"","Created":null,"Close":"123456"},{"ProjectName":"test3","ProjectId":616,"Status":"C","Department":"","Office":"","Created":null,"Close":null},{"ProjectName":"test4","ProjectId":616,"Status":"C","Department":"","Office":"","Created":null,"Close":null},{"ProjectName":"test5","ProjectId":616,"Status":"C","Department":"","Office":"","Created":null,"Close":null},{"ProjectName":"test6","ProjectId":616,"Status":"C","Department":"","Office":"","Created":null,"Close":"56456"},{"ProjectName":"test7","ProjectId":616,"Status":"C","Department":"","Office":"","Created":null,"Close":null},{"ProjectName":"test1","ProjectId":616,"Status":"C","Department":"","Office":"","Created":null,"Close":null},{"ProjectName":"test2","ProjectId":616,"Status":"C","Department":"","Office":"","Created":null,"Close":"123456"},{"ProjectName":"test3","ProjectId":616,"Status":"C","Department":"","Office":"","Created":null,"Close":null},{"ProjectName":"test4","ProjectId":616,"Status":"C","Department":"","Office":"","Created":null,"Close":null},{"ProjectName":"test5","ProjectId":616,"Status":"C","Department":"","Office":"","Created":null,"Close":null},{"ProjectName":"test6","ProjectId":616,"Status":"C","Department":"","Office":"","Created":null,"Close":"56456"},{"ProjectName":"test777777","ProjectId":616,"Status":"C","Department":"","Office":"","Created":null,"Close":null}]';
+      this.allData = JSON.parse(arg.d);
+      // this.allData = JSON.parse(obj);
+      this.changeView();     
+    });
+
 
     this.ckconfig = {
       allowedContent: false,
@@ -188,18 +190,7 @@ export class BmxCreatorComponent implements OnInit {
 
 
 
-    // <!-- PROJECT LIST DATA 📀-->
 
-
-    this._BmxService.getGetProjectList()
-    .subscribe((arg:any) => {
-      let obj = '[{"ProjectName":"test33333","ProjectId":616,"Status":"C","Department":"","Office":"","Created":null,"Close":null},{"ProjectName":"test2","ProjectId":616,"Status":"C","Department":"","Office":"","Created":null,"Close":"123456"},{"ProjectName":"test3","ProjectId":616,"Status":"C","Department":"","Office":"","Created":null,"Close":null},{"ProjectName":"test4","ProjectId":616,"Status":"C","Department":"","Office":"","Created":null,"Close":null},{"ProjectName":"test5","ProjectId":616,"Status":"C","Department":"","Office":"","Created":null,"Close":null},{"ProjectName":"test6","ProjectId":616,"Status":"C","Department":"","Office":"","Created":null,"Close":"56456"},{"ProjectName":"test7","ProjectId":616,"Status":"C","Department":"","Office":"","Created":null,"Close":null},{"ProjectName":"test1","ProjectId":616,"Status":"C","Department":"","Office":"","Created":null,"Close":null},{"ProjectName":"test2","ProjectId":616,"Status":"C","Department":"","Office":"","Created":null,"Close":"123456"},{"ProjectName":"test3","ProjectId":616,"Status":"C","Department":"","Office":"","Created":null,"Close":null},{"ProjectName":"test4","ProjectId":616,"Status":"C","Department":"","Office":"","Created":null,"Close":null},{"ProjectName":"test5","ProjectId":616,"Status":"C","Department":"","Office":"","Created":null,"Close":null},{"ProjectName":"test6","ProjectId":616,"Status":"C","Department":"","Office":"","Created":null,"Close":"56456"},{"ProjectName":"test777777","ProjectId":616,"Status":"C","Department":"","Office":"","Created":null,"Close":null}]';
-      this.allData = JSON.parse(arg.d);
-      // this.allData = JSON.parse(obj);
-      this.changeView();     
-    });
-
-  
 
   }
 
@@ -238,7 +229,6 @@ export class BmxCreatorComponent implements OnInit {
     }
   }
 
-
   sendEmail(option: string): void {
     var test = option;
   }
@@ -256,11 +246,11 @@ export class BmxCreatorComponent implements OnInit {
     this.viewedData = [];
       for(let i = 0; i < this.allData.length; i++)
       {
-        if(this.selected == 'Live' && this.allData[i].Close == null)
+        if(this.selected == 'Live' && this.allData[i].Status == 'O')
         {
           this.viewedData.push(this.allData[i])
         }
-        else if(this.selected == 'Closed' && this.allData[i].Close != null)
+        else if(this.selected == 'Closed' && this.allData[i].Close != 'O')
         {
           this.viewedData.push(this.allData[i])
         }
@@ -289,10 +279,4 @@ export class BmxCreatorComponent implements OnInit {
     // Prevent Saturday and Sunday from being selected.
     return day !== 0 && day !== 6 ;
   }
-
-  // <!-- END PROJECT LIST 📀📀📀📀📀📀📀📀📀📀📀📀📀📀📀📀📀📀📀📀📀📀📀📀📀📀📀📀📀📀📀📀📀📀📀📀📀📀📀-->
-
-  // DROPDOWN AUTOCOMPLETE 👻👻👻👻👻
-
-  
 }
