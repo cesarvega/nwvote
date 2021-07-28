@@ -123,12 +123,12 @@
         box-shadow: inset inset 0px 0px 5px #c1c1c1;
     }
 
-    .create-edit::-webkit-scrollbar {
+    .page-design::-webkit-scrollbar {
         display: none;
     }
-    .create-edit {
+    .page-design {
         // border: hotpink solid 1px;
-        width: 60%;
+        width: 75%;
         height: 100vh;
         overflow-y: scroll;
         @include BoxShadow(2);
@@ -234,9 +234,9 @@
     .template-list-item:hover {
         border: #76d354 4px solid;
     }
-   
 }
 
+// 💜 💜 💜 💜 💜 💜 💜 💜 💜 💜 💜 💜 💜 💜 💜 💜 💜 💜 💜 💜 💜 💜 💜 💜 💜 💜 💜 💜 💜 💜 💜 💜 💜 💜 💜 💜 💜 💜 💜 💜 💜 💜 💜
 // END OF THE SCSS PROJECT *******************************************************************************************
 .mainContainerPresent {
     background-color: white;

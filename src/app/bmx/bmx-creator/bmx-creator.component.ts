@@ -250,15 +250,6 @@ export class BmxCreatorComponent implements OnInit {
     this.isMenuActive16 = (menuItem === 'isMenuActive16') ? true : false;    
   }
 
-  createNewBmxComponent() {
-    window.scrollTo(300, 500);
-    this.brandMatrixObjects.push({
-      componentType: 'text-editor',
-      componentText: this.sampleHtml,
-      componentSettings: [{ fontSize: '16px', fontFace: 'Arial', fontColor: 'red' }],
-    })
-  }
-
   checkDragEvetn(e) {
     console.log(e);
   }
