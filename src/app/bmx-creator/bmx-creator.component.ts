@@ -120,7 +120,8 @@ export class BmxCreatorComponent implements OnInit {
     bmxRegion: new FormControl(),
     bmxCompany: new FormControl(),
     bmxLanguage: new FormControl(),
-    bmxRegionalDirector: new FormControl()
+    bmxRegionalDirector: new FormControl(),
+    bmxDirectorName: new FormControl()
  }); 
 
   constructor(@Inject(DOCUMENT) private document: any,

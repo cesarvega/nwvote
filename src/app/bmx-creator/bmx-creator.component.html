@@ -306,11 +306,11 @@
                     <label class="selectLabels">Director Name</label>
                     <mat-form-field appearance="outline">
                         <mat-label>Director</mat-label>
-                        <mat-selec [(ngModel)]=""t>
+                        <mat-select formControlName="bmxDirectorName">
                             <mat-option *ngFor="let settingsList of settingsData.DirectorList" [value]="settingsList">
                                 {{settingsList.Director}}
                             </mat-option>
-                        </mat-selec>
+                        </mat-select>
                     </mat-form-field>
                 </div>
 
