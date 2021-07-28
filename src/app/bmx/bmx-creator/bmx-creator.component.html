@@ -588,6 +588,8 @@
     <!-- END 💊💊💊💊💊💊💊💊💊💊💊💊💊💊💊💊💊💊💊💊💊💊💊💊💊💊💊💊💊💊💊💊💊💊💊💊💊💊💊 PAGE MODULES -->
 
 
+
+
     <!-- RESPONDANTS EMAILS 📗📗📗📗📗📗📗📗📗📗📗📗📗📗📗📗📗📗📗📗📗📗📗📗📗📗📗📗📗📗📗📗📗📗📗📗📗📗📗📗📗📗📗📗📗📗-->
     <div class="respondants-emails" *ngIf="isMenuActive14" style="border: hotpink solid 0px; height: 100vh;">
 
@@ -692,6 +694,20 @@
                             Chosse File(s)
                         </button>
                     </div>
+
+
+                    <div style="width: 656px;margin-top: 20px;">
+                    <!-- CKEDITOR -->
+
+                    <div >
+                     
+                        <!-- <div style="margin: 30px;" [innerHTML]="brandMatrixObjects[1].componentText | safe: 'html'"></div> -->
+                        <ckeditor  id="txtTexto"  style="animation: fadeIn 0.5s ease forwards;" [ngModelOptions]="{standalone: true}"
+                            [(ngModel)]="brandMatrixObjects[1].componentText" [data]="brandMatrixObjects[1].componentText" [config]="ckconfig">
+                        </ckeditor>
+                          
+                    </div>
+                </div>
 
                 </div>
 
