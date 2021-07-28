@@ -120,7 +120,7 @@ export function loadEcharts() {
     MatSnackBarModule,
     MatSortModule,
     MatPaginatorModule,
-    BmxModule
+    // BmxModule
   ],
   entryComponents: [
     editPost, editName
