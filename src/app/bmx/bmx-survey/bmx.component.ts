@@ -1,6 +1,6 @@
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { Validators, FormControl } from '@angular/forms';
-import { Component, Inject, OnInit } from '@angular/core';
+import { Component, Inject, OnInit, ElementRef, ViewChild } from '@angular/core';
 import { DOCUMENT } from '@angular/common';
 import { trigger, transition, useAnimation } from '@angular/animations';
 import { pulse, flash } from 'ng-animate';
@@ -12,6 +12,7 @@ import Speech from 'speak-tts';
 import { keyframes, animate, state, style } from '@angular/animations';
 import { Haptics } from '@capacitor/haptics';
 import { Plugin } from '@capacitor/core';
+import { eventNames } from 'process';
 
 @Component({
   selector: 'app-bmx',
@@ -32,6 +33,7 @@ import { Plugin } from '@capacitor/core';
 export class BmxComponent implements OnInit {
 
   slideToLogin: boolean;
+@ViewChild('cardZoom') cardElement: ElementRef;
 
   projectName = 'PROJECT NAME';
   userName = 'Alexa';
@@ -81,14 +83,14 @@ export class BmxComponent implements OnInit {
     Validators.email,
   ]);
 
-  durationInSeconds = 5;
+// SWIPE EVENT
 
-    async onSwipe(evt) {
+    onSwipe(evt) {
     const x = Math.abs(evt.deltaX) > 20 ? (evt.deltaX > 0 ? 'swipeRight' : 'swipeLeft'):'';
     console.log(x);
     if (x === 'swipeRight') {
       this.slideToLogin = true;
-      await Haptics.vibrate();
+      // await Haptics.vibrate();
       this._snackBar.open(x);
     }else if (x === 'swipeLeft') {
         this.slideToLogin = false; 
@@ -96,10 +98,24 @@ export class BmxComponent implements OnInit {
       }
     }
 
-    
+//PINCH EVENT
+ hammer = new Hammer(document.documentElement);
+//  onPinch(event){
+  // this.hammer.get('pinch').set({ enable: true });
+  //  this.hammer.on('pinch', (event) => {
+  //  console.log(event.type);
+  
+// }
 
   ngOnInit(): void {
     window.scrollTo(0, 1);
+    this.hammer.get('pinch').set({ enable: true });
+    this.hammer.on('pinch', (event) => {
+    console.log(event.type);
+    if(event.type === 'pinch'){
+      this._snackBar.open('You\'re pinching me!');
+    }
+  });
   }
 
   

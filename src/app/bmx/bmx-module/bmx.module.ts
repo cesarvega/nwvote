@@ -1,13 +1,16 @@
-import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
+import { CommonModule } from '@angular/common';
+import { BmxCreatorComponent } from '../bmx-creator/bmx-creator.component';
+import { BrowserModule } from '@angular/platform-browser';
+// import { NgModule } from '@angular/core';
 import { FlexLayoutModule } from '@angular/flex-layout';
-import { AppRoutingModule } from './app-routing.module';
-import { AppComponent } from './app.component';
-import { LoginComponent } from './auth/login/login.component';
-import { NwVoteComponent } from './nw-vote/nw-vote.component';
+// import { AppRoutingModule } from './app-routing.module';
+// import { AppComponent } from './app.component';
+// import { LoginComponent } from './auth/login/login.component';
+// import { NwVoteComponent } from './nw-vote/nw-vote.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { MatRippleModule } from '@angular/material/core';
-import { NwvoteService } from './nw-vote/nwvote.service';
+// import { NwvoteService } from './nw-vote/nwvote.service';
 import { HttpClientModule } from '@angular/common/http';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { ReactiveFormsModule } from '@angular/forms';
@@ -19,13 +22,15 @@ import { MatCardModule } from '@angular/material/card';
 import { MatIconModule } from '@angular/material/icon';
 import { DragDropModule } from '@angular/cdk/drag-drop';
 import { MatDialogModule } from '@angular/material/dialog';
-import { BsrMobileComponent, editName } from './bsr-mobile/bsr-mobile.component';
-import { BsrMobileService } from './bsr-mobile/bsr-mobile.service';
-import { BsrComponent, editPost } from './bsr/bsr.component';
+// import { BsrMobileComponent, editName } from './bsr-mobile/bsr-mobile.component';
+// import { BsrMobileService } from './bsr-mobile/bsr-mobile.service';
+// import { BsrComponent, editPost } from './bsr/bsr.component';
 import { MatTooltipModule } from '@angular/material/tooltip';
 import { MatGridListModule } from '@angular/material/grid-list';
 import { MatSidenavModule } from '@angular/material/sidenav';
+// import { MatDatepickerModule } from '@angular/material';
 import { HotkeyModule } from 'angular2-hotkeys';
+// import { CKEditorModule } from '@ckeditor/ckeditor5-angular';
 import { FormsModule } from '@angular/forms';
 import { MatSlideToggleModule } from '@angular/material/slide-toggle';
 import { MatSliderModule } from '@angular/material/slider';
@@ -36,10 +41,11 @@ import { MatTabsModule } from '@angular/material/tabs';
 import { MatSelectModule } from '@angular/material/select';
 import { QRCodeModule } from 'angularx-qrcode';
 import { DeviceDetectorModule } from 'ngx-device-detector';
-import { NW3Component } from './nw3/nw3.component';
-import { Nw3Service } from './nw3/nw3.service';
+// import { NW3Component } from './nw3/nw3.component';
+// import { Nw3Service } from './nw3/nw3.service';
+// import { BmxComponent } from './bmx/bmx.component';
 import { HammerGestureConfig, HAMMER_GESTURE_CONFIG, HammerModule } from '@angular/platform-browser';
-import { SchedulerComponent } from './scheduler/scheduler.component';
+// import { SchedulerComponent } from './scheduler/scheduler.component';
 import { AngularDateTimePickerModule } from 'angular2-datetimepicker';
 import {MatDatepickerModule} from '@angular/material/datepicker';
 import { MatNativeDateModule } from '@angular/material/core';
@@ -47,37 +53,37 @@ import {MatProgressBarModule} from '@angular/material/progress-bar';
 import { DragulaModule } from 'ng2-dragula';
 import { MatListModule } from '@angular/material/list';
 import { NgxEchartsModule } from 'ngx-echarts';
+import * as echarts from 'echarts';
 import { NgxChartsModule } from '@swimlane/ngx-charts';
 import { MatSortModule } from '@angular/material/sort';
 import { MatPaginatorModule } from '@angular/material/paginator';
 import { MatSnackBarModule, MAT_SNACK_BAR_DEFAULT_OPTIONS } from '@angular/material/snack-bar';
-import { MatRadioModule } from '@angular/material/radio';
-import { BmxModule } from './bmx/bmx-module/bmx.module';
+import {MatRadioModule} from '@angular/material/radio';
+// import { BmxCreatorComponent } from './bmx-creator/bmx-creator.component';
+import { SafePipe } from './safe.pipe';
+import { BmxRoutingModule } from './bmx-routing.module';
+import { BmxComponent } from '../bmx-survey/bmx.component';
+import { ProjectListComponent } from '../bmx-creator/project-list/project-list.component';
+import { RespondentsComponent } from '../bmx-creator/respondents/respondents.component';
+import { SurveyCreationDesignComponent } from '../bmx-creator/survey-creation-design/survey-creation-design.component';
+// import { RespondentsComponent } from '../bmx-creator/respodents/RespondentsComponent';
+// import { BmxModule } from './bmx/bmx/bmx.module';
 export function loadEcharts() {
   return import('echarts');
 }
 
-@NgModule({
-  declarations: [
-    AppComponent,
-    LoginComponent,
-    NwVoteComponent,
-    BsrMobileComponent,
-    editName,
-    editPost,
-    BsrComponent,
-    NW3Component,
-    // BmxComponent,
-    SchedulerComponent,
 
-    // BmxCreatorComponent,
-    // SafePipe,
-    // OrderDasboardComponent
+@NgModule({
+  declarations: [BmxComponent,
+    BmxCreatorComponent,
+    SafePipe,
+    ProjectListComponent,
+    RespondentsComponent,    
+    SurveyCreationDesignComponent,
   ],
   imports: [
     BrowserModule,
     HammerModule,
-    AppRoutingModule,
     BrowserAnimationsModule,
     MatSlideToggleModule,
     MatRippleModule,
@@ -109,26 +115,18 @@ export function loadEcharts() {
     AngularDateTimePickerModule,
     MatDatepickerModule,
     MatSelectModule,
-    MatRadioModule,
     MatNativeDateModule,
     MatProgressBarModule,
     NgxChartsModule,
-    // AngularEditorModule,
     DragulaModule.forRoot(),
     MatListModule,
     NgxEchartsModule.forRoot({echarts: loadEcharts}),
     MatSnackBarModule,
     MatSortModule,
     MatPaginatorModule,
-    // BmxModule
-  ],
-  entryComponents: [
-    editPost, editName
-  ],
-  providers: [NwvoteService, BsrMobileService, Nw3Service,
-    {provide: MAT_SNACK_BAR_DEFAULT_OPTIONS, useValue: {duration: 1000}}],
-  
-  bootstrap: [AppComponent]
-})
-export class AppModule { }
+    CommonModule,
+    BmxRoutingModule,
 
+  ]
+})
+export class BmxModule { }

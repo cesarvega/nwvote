@@ -67,7 +67,7 @@ export class NW3Component implements OnInit {
   // https://bipresents.com/namevote/login?project=TEST_BI_Katakana_Tagline
 
   chartOption: any;
-  fonts = ['coture', 'caviar', 'Chelsea', 'Gacor', 'NyataFTR', 'Pinkerston', 'Quicksand_Book', 'Quicksand_Light'
+  fonts = ['sans-serif', 'coture', 'caviar', 'Chelsea', 'Gacor', 'NyataFTR', 'Pinkerston', 'Quicksand_Book', 'Quicksand_Light'
     , 'Cruncho', 'LilacBlockDemo', 'Medhurst', 'NewYork'];
   secodaryFontIndex = 0;
   font1 = this.fonts[1];
@@ -338,7 +338,13 @@ export class NW3Component implements OnInit {
   previousSlideType: string;
   soundVolume = 0.1;
   totalNewNames2: any[];
-
+  infoColor = '#d8d8d8';
+  negativeColor = '#0278ee';
+  neutralColor = '#ee7802';
+  positiveColor = '#ee0278';
+  totalPositiveNames: object[];
+  totalNeutralNames: object[];
+  totalNegativeNames: object[];
 
 
   constructor(@Inject(DOCUMENT) private document: any,
@@ -475,7 +481,7 @@ export class NW3Component implements OnInit {
               this.thumbNails = data;
               this.passTotalPages = data.length;
               this.totalPages = this.passTotalPages;
-              this.changes();              
+              this.changes();
             },
             err => console.log(err)
           );
@@ -639,8 +645,9 @@ export class NW3Component implements OnInit {
 
   pageNumberChange(selectedPage) {
     this.pageNumber = Number(selectedPage);
-    // this.pageNumber = 10;
+    // this.pageNumber = 8;
     // PROGRESS BAR DATA
+    this.currentPage = selectedPage;
     this.currentProgress = (this.pageNumber / this.passTotalPages) * 100;
     if (selectedPage === this.passTotalPages) {
       this.changeSummaryList('chart');
@@ -658,6 +665,7 @@ export class NW3Component implements OnInit {
 
     if (projectData[this.pageNumber - 1].SlideType.trim() === 'NameSummary') {
       this.slideType = 'NameSummary';
+      // this.getSelectedRank('chart')
     }
     else if (projectData[this.pageNumber - 1].SlideType.trim() === 'Image') {
       this.slideType = 'Image';
@@ -684,6 +692,7 @@ export class NW3Component implements OnInit {
     this.newComments = '';
 
     if (this.previousSlideType === 'MultipleNameEvaluation') {
+      this.slideModel.NameRanking = '';
       this.rankIcon.forEach(rankIcon => {
         if (rankIcon.icon === "favorite") {
           this.slideModel.NameRanking += 'positive' + '##';
@@ -725,10 +734,27 @@ export class NW3Component implements OnInit {
     // savingObj = JSON.stringify(savingObj);
     this._NW3Service.getSaveNSlideInfo(savingObj).subscribe(
       data => {
+
+
+        this.isNonProp = (data[0].PresentationType === 'Nonproprietary') ? true : false;
+        this.japanese = (data[0].PresentationType === 'Katakana') ? true : false;
+        this.isKatakana_BigJap = (data[0].PresentationType === 'Katakana_BigJap') ? true : false;
+        this.recraftChecked = (data[0].Recraft === "False") ? false : true;
+        if (this.isKatakana_BigJap) { 
+          this.japanese = true;
+        }
+
+        if (this.japanese) {
+              this.katakanaNames = data[0].KanaNames.replace(/`/g, '\'').split('、');
+            }
+            else {
+              this.katakanaNames = data[0].KanaNames.replace(/`/g, '\'').split(',');
+            }
+
         this.go = (data[0].presentationStatus === '0') ? true : false;
+        this.isGoVoteOn = this.go;
 
-        this.slideModel.NameRanking = '';
-
+        // this.slideModel.NameRanking = '';
         this.positiveChecked = false;
         this.neutralChecked = false;
         this.negativeChecked = false;
@@ -741,7 +767,7 @@ export class NW3Component implements OnInit {
         } else if (data[0].NameRanking.toLowerCase() === 'neutral') {
           this.neutralChecked = true;
           this.positiveChecked = false;
-          this.negativeChecked = false;
+          this.negativeChecked = false;         
         } else if (data[0].NameRanking.toLowerCase() === 'negative') {
           this.negativeChecked = true;
           this.positiveChecked = false;
@@ -761,27 +787,33 @@ export class NW3Component implements OnInit {
             if (data[0].GroupedNames !== '') {
               if (data[0].GroupedNames.includes('##')) {
                 this.groupName = data[0].GroupedNames.split('##');
+
+                this.negativeChecked = false;
+                this.positiveChecked = false;
+                this.neutralChecked = false;
+
+
                 // this.groupName = "APPOLOVEN|(J)|アポロベン##APPOVEN|(C)|アポベン##LUMVESTIN|(JB) (CTC)|ルムベスティン##ORAVEN|(CB)|オラベン##VENCHAI | (DE) (DEB)|ベンチャイ##VENLEPIUS | (U/I) (BR) (BRB)|ベンレピウス##VENPOLLO |(CT) (JB)|ベンポロ##APPOLOVEN|(J)|アポロベン##APPOVEN|(C)|アポベン##LUMVESTIN|(JB) (CTC)|ルムベスティン##ORAVEN|(CB)|オラベン##VENCHAI | (DE) (DEB)|ベンチャイ##VENLEPIUS | (U/I) (BR) (BRB)|ベンレピウス##VENPOLLO |(CT) (JB)|ベンポロ##APPOLOVEN|(J)|アポロベン##APPOVEN|(C)|アポベン##LUMVESTIN|(JB) (CTC)|ルムベスティン##ORAVEN|(CB)|オラベン##VENCHAI | (DE) (DEB)|ベンチャイ##VENLEPIUS | (U/I) (BR) (BRB)|ベンレピウス##VENPOLLO |(CT) (JB)|ベンポロ##APPOLOVEN|(J)|アポロベン##APPOVEN|(C)|アポベン##LUMVESTIN|(JB) (CTC)|ルムベスティン##ORAVEN|(CB)|オラベン##VENCHAI | (DE) (DEB)|ベンチャイ##VENLEPIUS | (U/I) (BR) (BRB)|ベンレピウス##VENPOLLO |(CT) (JB)|ベンポロ##APPOLOVEN|(J)|アポロベン##APPOVEN|(C)|アポベン##LUMVESTIN|(JB) (CTC)|ルムベスティン##ORAVEN|(CB)|オラベン##VENCHAI | (DE) (DEB)|ベンチャイ##VENLEPIUS | (U/I) (BR) (BRB)|ベンレピウス##VENPOLLO |(CT) (JB)|ベンポロ##APPOLOVEN|(J)|アポロベン##APPOVEN|(C)|アポベン##LUMVESTIN|(JB) (CTC)|ルムベスティン##ORAVEN|(CB)|オラベン##VENCHAI | (DE) (DEB)|ベンチャイ##VENLEPIUS | (U/I) (BR) (BRB)|ベンレピウス##VENPOLLO |(CT) (JB)|ベンポロ##APPOLOVEN|(J)|アポロベン##APPOVEN|(C)|アポベン##LUMVESTIN|(JB) (CTC)|ルムベスティン##ORAVEN|(CB)|オラベン##VENCHAI | (DE) (DEB)|ベンチャイ##VENLEPIUS | (U/I) (BR) (BRB)|ベンレピウス##VENPOLLO |(CT) (JB)|ベンポロ##APPOLOVEN|(J)|アポロベン##APPOVEN|(C)|アポベン##LUMVESTIN|(JB) (CTC)|ルムベスティン##ORAVEN|(CB)|オラベン##VENCHAI | (DE) (DEB)|ベンチャイ##VENLEPIUS | (U/I) (BR) (BRB)|ベンレピウス##VENPOLLO |(CT) (JB)|ベンポロ##APPOLOVEN|(J)|アポロベン##APPOVEN|(C)|アポベン##LUMVESTIN|(JB) (CTC)|ルムベスティン##ORAVEN|(CB)|オラベン##VENCHAI | (DE) (DEB)|ベンチャイ##VENLEPIUS | (U/I) (BR) (BRB)|ベンレピウス##VENPOLLO |(CT) (JB)|ベンポロ##APPOLOVEN|(J)|アポロベン##APPOVEN|(C)|アポベン##LUMVESTIN|(JB) (CTC)|ルムベスティン##ORAVEN|(CB)|オラベン##VENCHAI | (DE) (DEB)|ベンチャイ##VENLEPIUS | (U/I) (BR) (BRB)|ベンレピウス##VENPOLLO |(CT) (JB)|ベンポロ##APPOLOVEN|(J)|アポロベン##APPOVEN|(C)|アポベン##LUMVESTIN|(JB) (CTC)|ルムベスティン##ORAVEN|(CB)|オラベン##VENCHAI | (DE) (DEB)|ベンチャイ##VENLEPIUS | (U/I) (BR) (BRB)|ベンレピウス##VENPOLLO |(CT) (JB)|ベンポロ##APPOLOVEN|(J)|アポロベン##APPOVEN|(C)|アポベン##LUMVESTIN|(JB) (CTC)|ルムベスティン##ORAVEN|(CB)|オラベン##VENCHAI | (DE) (DEB)|ベンチャイ##VENLEPIUS | (U/I) (BR) (BRB)|ベンレピウス##VENPOLLO |(CT) (JB)|ベンポロ##APPOLOVEN|(J)|アポロベン##APPOVEN|(C)|アポベン##LUMVESTIN|(JB) (CTC)|ルムベスティン##ORAVEN|(CB)|オラベン##VENCHAI | (DE) (DEB)|ベンチャイ##VENLEPIUS | (U/I) (BR) (BRB)|ベンレピウス##VENPOLLO |(CT) (JB)|ベンポロ##APPOLOVEN|(J)|アポロベン##APPOVEN|(C)|アポベン##LUMVESTIN|(JB) (CTC)|ルムベスティン##ORAVEN|(CB)|オラベン##VENCHAI | (DE) (DEB)|ベンチャイ##VENLEPIUS | (U/I) (BR) (BRB)|ベンレピウス##VENPOLLO |(CT) (JB)|ベンポロ##APPOLOVEN|(J)|アポロベン##APPOVEN|(C)|アポベン##LUMVESTIN|(JB) (CTC)|ルムベスティン##ORAVEN|(CB)|オラベン##VENCHAI | (DE) (DEB)|ベンチャイ##VENLEPIUS | (U/I) (BR) (BRB)|ベンレピウス##VENPOLLO |(CT) (JB)|ベンポロ##APPOLOVEN|(J)|アポロベン##APPOVEN|(C)|アポベン##LUMVESTIN|(JB) (CTC)|ルムベスティン##ORAVEN|(CB)|オラベン##VENCHAI | (DE) (DEB)|ベンチャイ##VENLEPIUS | (U/I) (BR) (BRB)|ベンレピウス##VENPOLLO |(CT) (JB)|ベンポロ##APPOLOVEN|(J)|アポロベン##APPOVEN|(C)|アポベン##LUMVESTIN|(JB) (CTC)|ルムベスティン##ORAVEN|(CB)|オラベン##VENCHAI | (DE) (DEB)|ベンチャイ##VENLEPIUS | (U/I) (BR) (BRB)|ベンレピウス##VENPOLLO |(CT) (JB)|ベンポロ##APPOLOVEN|(J)|アポロベン##APPOVEN|(C)|アポベン##LUMVESTIN|(JB) (CTC)|ルムベスティン##ORAVEN|(CB)|オラベン##VENCHAI | (DE) (DEB)|ベンチャイ##VENLEPIUS | (U/I) (BR) (BRB)|ベンレピウス##LASTONE |(CT) (JB)|ベンポロ".split('##');
                 // this.groupName = "APPOLOVENAPPOLOVENAPPOLOVENAPPOLOVEN|(J)|アポロベン##APPOVEN|(C)|アポベン##LUMVESTIN|(JB) (CTC)|ルムベスティン##ORAVEN|(CB)|オラベン##VENCHAI | (DE) (DEB)|ベンチャイ##VENLEPIUS | (U/I) (BR) (BRB)|ベンレピウス##VENPOLLO |(CT) (JB)|ベンポロ##APPOLOVEN|(J)|アポロベン##APPOVEN|(C)|アポベン##LUMVESTIN|(JB) (CTC)|ルムベスティン##ORAVEN|(CB)|オラベン##VENCHAI | (DE) (DEB)|ベンチャイ##VENLEPIUS | (U/I) (BR) (BRB)|ベンレピウス##VENPOLLO |(CT) (JB)|ベンポロ##APPOLOVEN|(J)|アポロベン##APPOVEN|(C)|アポベン##LUMVESTIN|(JB) (CTC)|ルムベスティン##ORAVEN|(CB)|オラベン##VENCHAI | (DE) (DEB)|ベンチャイ##VENLEPIUS | (U/I) (BR) (BRB)|ベンレピウス##VENPOLLO |(CT) (JB)|ベンポロ##APPOLOVEN|(J)|アポロベン##APPOVEN|(C)|アポベン##LUMVESTIN|(JB) (CTC)|ルムベスティン##ORAVEN|(CB)|オラベン##VENCHAI | (DE) (DEB)|ベンチャイ##VENLEPIUS | (U/I) (BR) (BRB)|ベンレピウス##VENPOLLO |(CT) (JB)|ベンポロ##APPOLOVEN|(J)|アポロベン##APPOVEN|(C)|アポベン##LUMVESTIN|(JB) (CTC)|ルムベスティン##ORAVEN|(CB)|オラベン##VENCHAI | (DE) (DEB)|ベンチャイ##VENLEPIUS | (U/I) (BR) (BRB)|ベンレピウス##VENPOLLO |(CT) (JB)|ベンポロ##APPOLOVEN|(J)|アポロベン##APPOVEN|(C)|アポベン##LUMVESTIN|(JB) (CTC)|ルムベスティン##ORAVEN|(CB)|オラベン##VENCHAI | (DE) (DEB)|ベンチャイ##VENLEPIUS | (U/I) (BR) (BRB)|ベンレピウス##VENPOLLO |(CT) (JB)|ベンポロ##APPOLOVEN|(J)|アポロベン##APPOVEN|(C)|アポベン##LUMVESTIN|(JB) (CTC)|ルムベスティン##ORAVEN|(CB)|オラベン##VENCHAI | (DE) (DEB)|ベンチャイ##VENLEPIUS | (U/I) (BR) (BRB)|ベンレピウス##VENPOLLO |(CT) (JB)|ベンポロ##APPOLOVEN|(J)|アポロベン##APPOVEN|(C)|アポベン##LUMVESTIN|(JB) (CTC)|ルムベスティン##ORAVEN|(CB)|オラベン##VENCHAI | (DE) (DEB)|ベンチャイ##VENLEPIUS | (U/I) (BR) (BRB)|ベンレピウス##VENPOLLO |(CT) (JB)|ベンポロ##APPOLOVEN|(J)|アポロベン##APPOVEN|(C)|アポベン##LUMVESTIN|(JB) (CTC)|ルムベスティン##ORAVEN|(CB)|オラベン##VENCHAI | (DE) (DEB)|ベンチャイ##VENLEPIUS | (U/I) (BR) (BRB)|ベンレピウス##LASTONE |(CT) (JB)|ベンポロ".split('##');
                 this.rankIconsValue = data[0].NameRanking.split('##');
-                // this.groupName.forEach(rankValue => {
                 if (this.rankIconsValue[0] !== "") {
+                  //  this.groupName.forEach(rankValue => {
                   this.rankIconsValue.forEach(rankValue => {
                     if (rankValue.toLowerCase() === 'novalue') {
-                      this.rankIcon.push({ icon: 'info', color: 'grey' });
+                      this.rankIcon.push({ icon: 'info', color: this.infoColor });
                     } else if (rankValue.toLowerCase() === 'positive') {
-                      this.rankIcon.push({ icon: 'favorite', color: 'red' });
+                      this.rankIcon.push({ icon: 'favorite', color: this.positiveColor });
                     } else if (rankValue.toLowerCase() === 'neutral') {
-                      this.rankIcon.push({ icon: 'sentiment_very_satisfied', color: 'yellow' });
+                      this.rankIcon.push({ icon: 'sentiment_very_satisfied', color: this.neutralColor });
                     } else if (rankValue.toLowerCase() === 'negative') {
-                      this.rankIcon.push({ icon: 'thumb_down_off_alt', color: 'purple' });
+                      this.rankIcon.push({ icon: 'thumb_down_off_alt', color: this.negativeColor });
                     } else {
-                      this.rankIcon.push({ icon: 'info', color: 'grey' });
+                      this.rankIcon.push({ icon: 'info', color: this.infoColor });
                     }
                   });
                 } else {
                   this.groupName.forEach(rankValue => {
-                    this.rankIcon.push({ icon: 'info', color: 'grey' });
+                    this.rankIcon.push({ icon: 'info', color: this.infoColor });
                   });
                 }
 
@@ -822,7 +854,7 @@ export class NW3Component implements OnInit {
             }, 500);
           }
         }
-        this.setDataToDisplay(data, 'save');
+        // this.setDataToDisplay(data, 'save');
         if (this.slideType === 'NameEvaluation') {
           this.category = data[0].NameCategory;
           this.rationale = data[0].NameRationale;
@@ -840,6 +872,7 @@ export class NW3Component implements OnInit {
 
   }
 
+  // VOTING EMOJI ICON MECHANISM
   selectedOpt(option) {
     if (option === 'Positive') {
       this.positiveChecked = !this.positiveChecked;
@@ -879,180 +912,6 @@ export class NW3Component implements OnInit {
       this.playSound('03 Primary System Sounds/navigation_forward-selection-minimal.wav', this.soundVolume);
       this.selectPage('next');
     }
-  }
-
-
-  setDataToDisplay(data: any, comeFrom) {
-    this.isNonProp = (data[0].PresentationType === 'Nonproprietary') ? true : false;
-    this.japanese = (data[0].PresentationType === 'Katakana') ? true : false;
-    this.isKatakana_BigJap = (data[0].PresentationType === 'Katakana_BigJap') ? true : false;
-    this.recraftChecked = (data[0].Recraft === "False") ? false : true;
-    if (this.isKatakana_BigJap) {
-      this.japanese = true;
-    }
-    localStorage.setItem('isNonProp', this.isNonProp.toString());
-    localStorage.setItem('isKatakana', this.japanese.toString());
-    this.nameCandidates = [];
-    // this.groupName = '';
-    this.showRankedNames = false;
-    if (data[0].mp3FilePath) {
-      this.audiofile = data[0].mp3FilePath;
-      this.fileToPlay = data[0].mp3FilePath;
-      const audio = new Audio();
-      audio.src = this.fileToPlay;
-      audio.load();
-      if (!this.mute) {
-        audio.play();
-      }
-    } else {
-      this.fileToPlay = '';
-    }
-
-    if (comeFrom === 'clicked_name') {
-      const sendSlideNumber = data[0].SlideNumber;
-      this.changePageNumber.emit(sendSlideNumber);
-    }
-
-    if (data[0].TemplateFileName !== '' && data[0].TemplateFileName !== 'images/BackGrounds/Default.jpg') {
-      setTimeout(() => {
-        this.groupNameType = data[0].GroupedNames.length;
-        if (this.displayBackground === false) {
-          this.tempBackground = 'url(http://bipresents.com/nw2/assets/' + data[0].TemplateFileName + ')';
-          // tslint:disable-next-line:max-line-length
-          this.evaluationTimeElement.nativeElement.style.backgroundImage = this.BackgroundUrl + this.hideBackground[this.backgroundCounter] + '.jpg)';
-          this.evaluationTimeElement.nativeElement.style.backgroundSize = 'cover';
-        } else {
-          if (this.evaluationTimeElement) {
-            if ('url(http://bipresents.com/nw2/' + data[0].TemplateFileName + ')' !== this.tempBackground) {
-
-              if (this.groupNameType !== 0) {
-                this.evaluationTimeElement.nativeElement.style.backgroundImage = '';
-                this.evaluationTimeElement.nativeElement.style.backgroundSize = 'cover';
-
-              } else {
-                this.evaluationTimeElement.nativeElement.style.backgroundImage = this.BackgroundUrl + data[0].TemplateFileName + ')';
-                this.evaluationTimeElement.nativeElement.style.backgroundSize = 'cover';
-                this.evaluationTimeElement.nativeElement.style.backgroundRepeat = 'no-repeat';
-                this.tempBackground = 'url(http://bipresents.com/nw2/assets/' + data[0].TemplateFileName + ')';
-              }
-            } else {
-
-              if (this.groupNameType !== 0) {
-                this.evaluationTimeElement.nativeElement.style.backgroundImage = '';
-                this.evaluationTimeElement.nativeElement.style.backgroundSize = 'cover';
-
-              } else {
-                this.evaluationTimeElement.nativeElement.style.backgroundImage = this.tempBackground;
-                this.groupNameType = data[0].GroupedNames.length;
-              }
-            }
-          }
-
-
-        }
-      }, 50);
-    }
-
-    if (this.slideType === 'NameSummary') {
-      this._NW3Service.getNotes(this.projectId).subscribe(note => {
-        this.AditionalComments = note[0].NotesExplore.replace(/`/g, '\'');
-      });
-    }
-
-    this.totalPositive = (data[0].TotPositive != 0) ? data[0].TotPositive = 1 : '';
-    this.totalNeutral = (data[0].TotNeutral != 0) ? data[0].TotNeutral = 1 : '';
-
-    this.negativePronunciation = [];
-    if (this.japanese) {
-      this.katakanaNames = data[0].KanaNames.replace(/`/g, '\'').split('、');
-    }
-    else {
-      this.katakanaNames = data[0].KanaNames.replace(/`/g, '\'').split(',');
-    }
-
-    if (this.katakanaNames[0].length >= 1) {
-      // this.faVolumeUp = faVolumeUp;
-    } else {
-      // this.faVolumeUp = null;
-    }
-
-    if (data[0].GroupRationale !== '') {
-      if (data[0].GroupRationale.includes('##')) {
-        this.groupRationale = data[0].GroupRationale.replace(/`/g, '\'').split('##');
-      } else {
-        this.groupRationale = data[0].GroupRationale.replace(/`/g, '\'').split('$$');
-      }
-    } else {
-      this.rationale = data[0].NameRationale.replace(/`/g, '\'');
-      this.groupRationale = '';
-    }
-
-    this.category = data[0].NameCategory;
-    // if (data[0].GroupedNames === '') {
-    //   if (data[0].NameRanking === 'Positive') {
-    //     setTimeout(() => {
-    //       this.positiveChecked = false;
-    //       this.neutralChecked = false;
-    //       this.negativeChecked = false;
-    //       this.selectedOpt(data[0].NameRanking.toLowerCase());
-    //     }, 10);
-    //   } else if (data[0].NameRanking === 'Neutral') {
-    //     setTimeout(() => {
-    //       this.positiveChecked = false;
-    //       this.neutralChecked = false;
-    //       this.negativeChecked = false;
-    //       this.selectedOpt(data[0].NameRanking.toLowerCase());
-    //     }, 10);
-    //   } else if (data[0].NameRanking === 'Negative') {
-    //     setTimeout(() => {
-    //       this.positiveChecked = false;
-    //       this.neutralChecked = false;
-    //       this.negativeChecked = false;
-    //       this.selectedOpt(data[0].NameRanking.toLowerCase());
-    //     }, 10);
-    //   } else {
-    //     if (data[0].SlideType === 'NameEvaluation') {
-    //       // this.cantMove.emit(true);
-    //     }
-    //     this.selectedOpt(data[0].NameRanking.toLowerCase());
-    //   }
-    // } else {
-    //   // this.cantMove.emit(false);
-    // }
-
-    if (this.txtNewNameElement) {
-      const tstr = this.convertToEntities(data[0].NewNames);
-      this.txtNewNameElement.nativeElement.value = tstr;
-    }
-    if (this.txtCommentsElement) {
-      const tstr = this.convertToEntities(data[0].NamesToExplore);
-      this.txtCommentsElement.nativeElement.value = tstr;
-    }
-
-    if (data[0].KanaNamesNegative !== '') {
-      const tstr = this.convertToEntities(data[0].KanaNamesNegative);
-      data[0].KanaNamesNegative = tstr;
-      setTimeout(() => {
-        this.slideModel.KanaNamesNegative = data[0].KanaNamesNegative.split(',');
-        this.pronunciationElement.toArray().forEach(element => {
-          const idx = this.slideModel.KanaNamesNegative.indexOf(element.nativeElement.innerText);
-          if (idx > -1) {
-            element.nativeElement.style.color = 'red';
-          } else {
-            element.nativeElement.style.color = 'black';
-          }
-        });
-      }, 50);
-    } else {
-      this.slideModel.KanaNamesNegative = [];
-    }
-
-    if (this.backgroundCounter >= 9) {
-      this.backgroundCounter = 0;
-    } else {
-      this.backgroundCounter++;
-    }
-
   }
 
 
@@ -1206,6 +1065,11 @@ export class NW3Component implements OnInit {
 
   goVote() {
     this.isGoVoteOn = !this.isGoVoteOn;
+    this._NW3Service.sendGoSignalVoting(
+      JSON.parse(this.projectData)[0].DisplayName, this.isGoVoteOn).subscribe(res => {
+        console.log(res);
+
+      })
   }
 
   noClickanyWhere() {
@@ -1315,7 +1179,7 @@ export class NW3Component implements OnInit {
   //  NEW CODE 02/18/21
 
   moveLeft1() {
-    if (true) {      
+    if (true) {
       this.playSound('03 Primary System Sounds/navigation_backward-selection-minimal.wav', this.soundVolume);
       this.selectPage('previous');
     }
@@ -1364,16 +1228,14 @@ export class NW3Component implements OnInit {
 
   }
 
-  // SUMMARY CHART FUNCTIONS
-
+  // SUMMARY CHART BAR CLICK
   onChartClick(e) {
     console.log(e);
-    this.changeSummaryList(e.name.toLowerCase())
+    this.changeSummaryList(e.name)
   }
 
-
+  // GETS ALL THE SUMMARY VOTES NAMES AND SETS THE BAR CHAR VALUES
   changeSummaryList(listSelection) {
-
     if (listSelection === 'Positive') {
       this.summaryPositive = true;
       this.summaryNeutral = false;
@@ -1381,7 +1243,6 @@ export class NW3Component implements OnInit {
       this.summaryNewNames = false;
       this.summaryChart = false;
     }
-
     else if (listSelection === 'Neutral') {
       this.summaryPositive = false;
       this.summaryNeutral = true;
@@ -1389,7 +1250,6 @@ export class NW3Component implements OnInit {
       this.summaryNewNames = false;
       this.summaryChart = false;
     }
-
     else if (listSelection === 'Negative') {
       this.summaryPositive = false;
       this.summaryNeutral = false;
@@ -1397,15 +1257,13 @@ export class NW3Component implements OnInit {
       this.summaryNewNames = false;
       this.summaryChart = false;
     }
-
-    else if (listSelection === 'new names') {
+    else if (listSelection === 'New Names') {
       this.summaryPositive = false;
       this.summaryNeutral = false;
       this.summaryNegative = false;
       this.summaryNewNames = true;
       this.summaryChart = false;
     }
-
     else if (listSelection === 'chart') {
       this.summaryPositive = false;
       this.summaryNeutral = false;
@@ -1413,189 +1271,230 @@ export class NW3Component implements OnInit {
       this.summaryNewNames = false;
       this.summaryChart = true;
     }
-
     this.pieChart = [];
-    const newChartData = [];
-    this._NW3Service.getGroupSummary(this.projectId).subscribe(groupResult => {
-      this.posCount = 0;
-      this.neuCount = 0;
-      this.negCount = 0;
-      for (const obj of Object.values(groupResult)) {
-        const arrRanks = obj.nameranking.split('##');
-
-        arrRanks.forEach(rank => {
-          if (rank === 'Positive') {
-            this.posCount++;
-          } else if (rank === 'Neutral') {
-            this.neuCount++;
-          } else if (rank === 'Negative') {
-            this.negCount++;
-          }
-        });
-
-        if (arrRanks.length > 0) {
-          this.hasBackground = false;
-        }
-      }
-      this.totalNewNames = [];
-      this._NW3Service.getRetainTypeName(this.projectId, "New").subscribe((data: Array<object>) => {
-        data.forEach(ele => {
-          this.totalNewNames.push(ele);
-        });
-
-        this._NW3Service.getRetainTypeName(this.projectId, 'Positive').subscribe((resultPos: Array<object>) => {
-          this.totalPositive = resultPos.length + this.posCount;
-          newChartData.push({
-            'name': 'Positive',
-            'value': resultPos.length + this.posCount
-          });
-          resultPos.forEach((element: any) => {
-            element.NewNames.split(',').forEach(ele => {
-              if (ele !== '') {
-              }
-            });;
-          });
-
-          this._NW3Service.getRetainTypeName(this.projectId, 'Neutral').subscribe((resultNeu: Array<object>) => {
-            this.totalNeutral = resultNeu.length + this.neuCount;
-            newChartData.push({
-              'name': 'Neutral',
-              'value': resultNeu.length + this.neuCount
-            });
-
-            this._NW3Service.getRetainTypeName(this.projectId, 'Negative').subscribe((resultNeg: Array<object>) => {
-              this.totalNegative = resultNeg.length + this.negCount;
-              newChartData.push({
-                'name': 'Negative',
-                'value': resultNeg.length + this.negCount
-              });
-
-              newChartData.push({
-                'name': 'New Names',
-                'value': this.totalNewNames.length
-              });
-
-              const resArr = [];
-              newChartData.forEach(function (item) {
-                const i = resArr.findIndex(x => x.name === item.name);
-                if (i <= -1) {
-                  resArr.push({ name: item.name, value: item.value });
+    let  newChartData = [];
+    this.totalNewNames = [];
+    this._NW3Service.getRetainTypeName(this.projectId, "New").subscribe((data: Array<object>) => {
+      this.totalNewNames = data;
+      this._NW3Service.getRetainTypeName(this.projectId, 'Positive').subscribe((resultPos: Array<object>) => {
+        this.totalPositive = resultPos.length;
+        this.totalPositiveNames = resultPos;
+        this._NW3Service.getRetainTypeName(this.projectId, 'Neutral').subscribe((resultNeu: Array<object>) => {
+          this.totalNeutral = resultNeu.length;
+          this.totalNeutralNames = resultNeu;
+          this._NW3Service.getRetainTypeName(this.projectId, 'Negative').subscribe((resultNeg: Array<object>) => {
+            this.totalNegative = resultNeg.length
+            this.totalNegativeNames = resultNeg;
+            this._NW3Service.getGroupSummary(this.projectId).subscribe((groupResult: any) => {
+              let arrGroupRank;
+              let arrGroupName;
+              groupResult.forEach(obj => {
+                if (obj.name.includes('##')) {
+                  arrGroupRank = obj.nameranking.split('##');
+                  arrGroupName = obj.name.split('##');
+                } else {
+                  arrGroupRank = obj.nameranking.split('##');
+                  arrGroupName = obj.name.split('$$');
                 }
-              }, this.pieChart = resArr);
+                arrGroupName.forEach((name, index) => {
+                  if (arrGroupRank[index] && arrGroupRank[index].toLowerCase() === 'positive') {
+                    this.totalPositive++;
+                    this.totalPositiveNames.push(
+                      {Name: name ,
+                      NameToDisplay: obj.name}
+                      );
+                  }
+                  if (arrGroupRank[index] && arrGroupRank[index].toLowerCase() === 'negative') {
+                    this.totalNegative++;
+                    this.totalNegativeNames.push(
+                      {Name: name ,
+                      NameToDisplay: obj.name}
+                      );
+                  }
+                  if (arrGroupRank[index] && arrGroupRank[index].toLowerCase() === 'neutral') {
+                    this.totalNeutral++;
+                    this.totalNeutralNames.push(
+                      {Name: name ,
+                      NameToDisplay: obj.name}
+                      );
+                  }
+                });
+
+                newChartData = []
+                newChartData.push({
+                  'name': 'Positive',
+                  'value': this.totalPositive
+                });
+
+                newChartData.push({
+                  'name': 'Neutral',
+                  'value': this.totalNeutral
+                });
+
+                newChartData.push({
+                  'name': 'Negative',
+                  'value': this.totalNegative
+                });
+
+                newChartData.push({
+                  'name': 'New Names',
+                  'value': this.totalNewNames.length
+                });
+
+                const resArr = [];
+                newChartData.forEach(function (item) {
+                  const i = resArr.findIndex(x => x.name === item.name);
+                  if (i <= -1) {
+                    resArr.push({ name: item.name, value: item.value });
+                  }
+                }, this.pieChart = resArr);
+
+              });
             });
           });
         });
       });
     });
-
-    this.totalNewNames = [];
-    this.totalNewNames2 = [];
-    this._NW3Service.getRetainTypeName(this.projectId, (listSelection === "new names") ? "New" : listSelection).subscribe((data: Array<object>) => {
-      this.totalNewNames2.push(data);
-      console.log(this.totalNewNames2);
-    });
-    console.log(this.totalNewNames2);
-    
-
   }
 
+  // NAME CLICK
   clickedSummaryName(clickedName, originalName) {
+
     let searchName = clickedName;
     if (originalName) {
       searchName = originalName;
+    }else{
+      searchName = searchName.split('|')[0]
     }
+
     this._NW3Service.getSelectedName(this.projectId, searchName).subscribe(data => {
-      this.pageNumberChange(parseInt(data[0].SlideNumber));
+      this.go = (data[0].presentationStatus === '0') ? true : false;
+      this.isGoVoteOn = this.go;
+      this.slideType = '';
+      this.currentPage = parseInt(data[0].SlideNumber);
+      this.pageNumber = parseInt(data[0].SlideNumber);
+      this.currentProgress = (this.pageNumber / this.passTotalPages) * 100;
+
+      this.positiveChecked = false;
+      this.neutralChecked = false;
+      this.negativeChecked = false;
+
+      // slideBackground = 'url(http://bipresents.com/nw2/' + this.slideNextPart;  slideNextPart = 'Test_WELL_PLATFORM/thumbnails/014.jpg)';
+      if (data[0].NameRanking.toLowerCase() === 'positive') {
+        this.positiveChecked = true;
+        this.neutralChecked = false;
+        this.negativeChecked = false;
+      } else if (data[0].NameRanking.toLowerCase() === 'neutral') {
+        this.neutralChecked = true;
+        this.positiveChecked = false;
+        this.negativeChecked = false;
+      } else if (data[0].NameRanking.toLowerCase() === 'negative') {
+        this.negativeChecked = true;
+        this.positiveChecked = false;
+        this.neutralChecked = false;
+      }
+      this.newNames = data[0].NewNames;
+      this.newComments = data[0].NamesToExplore;
+      this.slideNextPart = data[0].SlideBGFileName;
+      this.slideBackground = 'url(http://bipresents.com/nw2/';
+      this.slideBackground = this.slideBackground + this.slideNextPart + ')';
+      this.rankIcon = [];
+
+        if (!data[0].GroupedNames) {
+          data[0].GroupedNames = data[0].Name;
+          if (data[0].Name.includes('##')) {
+            this.slideType = '';
+          }else{
+            this.slideType = data[0].SlideType;
+          }
+        
+        if (data[0].GroupedNames && data[0].GroupedNames.length > 0 && this.slideType === '') {
+          this.slideType = 'MultipleNameEvaluation';
+          this.playSound('01 Hero Sounds/hero_simple-celebration-01.wav', this.soundVolume);
+          this.category = data[0].NameCategory;
+          if (data[0].GroupedNames !== '') {
+            if (data[0].GroupedNames.includes('##')) {
+              this.groupName = data[0].GroupedNames.split('##');
+
+              this.negativeChecked = false;
+              this.positiveChecked = false;
+              this.neutralChecked = false;
+
+              // this.groupName = "APPOLOVEN|(J)|アポロベン##APPOVEN|(C)|アポベン##LUMVESTIN|(JB) (CTC)|ルムベスティン##ORAVEN|(CB)|オラベン##VENCHAI | (DE) (DEB)|ベンチャイ##VENLEPIUS | (U/I) (BR) (BRB)|ベンレピウス##VENPOLLO |(CT) (JB)|ベンポロ##APPOLOVEN|(J)|アポロベン##APPOVEN|(C)|アポベン##LUMVESTIN|(JB) (CTC)|ルムベスティン##ORAVEN|(CB)|オラベン##VENCHAI | (DE) (DEB)|ベンチャイ##VENLEPIUS | (U/I) (BR) (BRB)|ベンレピウス##VENPOLLO |(CT) (JB)|ベンポロ##APPOLOVEN|(J)|アポロベン##APPOVEN|(C)|アポベン##LUMVESTIN|(JB) (CTC)|ルムベスティン##ORAVEN|(CB)|オラベン##VENCHAI | (DE) (DEB)|ベンチャイ##VENLEPIUS | (U/I) (BR) (BRB)|ベンレピウス##VENPOLLO |(CT) (JB)|ベンポロ##APPOLOVEN|(J)|アポロベン##APPOVEN|(C)|アポベン##LUMVESTIN|(JB) (CTC)|ルムベスティン##ORAVEN|(CB)|オラベン##VENCHAI | (DE) (DEB)|ベンチャイ##VENLEPIUS | (U/I) (BR) (BRB)|ベンレピウス##VENPOLLO |(CT) (JB)|ベンポロ##APPOLOVEN|(J)|アポロベン##APPOVEN|(C)|アポベン##LUMVESTIN|(JB) (CTC)|ルムベスティン##ORAVEN|(CB)|オラベン##VENCHAI | (DE) (DEB)|ベンチャイ##VENLEPIUS | (U/I) (BR) (BRB)|ベンレピウス##VENPOLLO |(CT) (JB)|ベンポロ##APPOLOVEN|(J)|アポロベン##APPOVEN|(C)|アポベン##LUMVESTIN|(JB) (CTC)|ルムベスティン##ORAVEN|(CB)|オラベン##VENCHAI | (DE) (DEB)|ベンチャイ##VENLEPIUS | (U/I) (BR) (BRB)|ベンレピウス##VENPOLLO |(CT) (JB)|ベンポロ##APPOLOVEN|(J)|アポロベン##APPOVEN|(C)|アポベン##LUMVESTIN|(JB) (CTC)|ルムベスティン##ORAVEN|(CB)|オラベン##VENCHAI | (DE) (DEB)|ベンチャイ##VENLEPIUS | (U/I) (BR) (BRB)|ベンレピウス##VENPOLLO |(CT) (JB)|ベンポロ##APPOLOVEN|(J)|アポロベン##APPOVEN|(C)|アポベン##LUMVESTIN|(JB) (CTC)|ルムベスティン##ORAVEN|(CB)|オラベン##VENCHAI | (DE) (DEB)|ベンチャイ##VENLEPIUS | (U/I) (BR) (BRB)|ベンレピウス##VENPOLLO |(CT) (JB)|ベンポロ##APPOLOVEN|(J)|アポロベン##APPOVEN|(C)|アポベン##LUMVESTIN|(JB) (CTC)|ルムベスティン##ORAVEN|(CB)|オラベン##VENCHAI | (DE) (DEB)|ベンチャイ##VENLEPIUS | (U/I) (BR) (BRB)|ベンレピウス##VENPOLLO |(CT) (JB)|ベンポロ##APPOLOVEN|(J)|アポロベン##APPOVEN|(C)|アポベン##LUMVESTIN|(JB) (CTC)|ルムベスティン##ORAVEN|(CB)|オラベン##VENCHAI | (DE) (DEB)|ベンチャイ##VENLEPIUS | (U/I) (BR) (BRB)|ベンレピウス##VENPOLLO |(CT) (JB)|ベンポロ##APPOLOVEN|(J)|アポロベン##APPOVEN|(C)|アポベン##LUMVESTIN|(JB) (CTC)|ルムベスティン##ORAVEN|(CB)|オラベン##VENCHAI | (DE) (DEB)|ベンチャイ##VENLEPIUS | (U/I) (BR) (BRB)|ベンレピウス##VENPOLLO |(CT) (JB)|ベンポロ##APPOLOVEN|(J)|アポロベン##APPOVEN|(C)|アポベン##LUMVESTIN|(JB) (CTC)|ルムベスティン##ORAVEN|(CB)|オラベン##VENCHAI | (DE) (DEB)|ベンチャイ##VENLEPIUS | (U/I) (BR) (BRB)|ベンレピウス##VENPOLLO |(CT) (JB)|ベンポロ##APPOLOVEN|(J)|アポロベン##APPOVEN|(C)|アポベン##LUMVESTIN|(JB) (CTC)|ルムベスティン##ORAVEN|(CB)|オラベン##VENCHAI | (DE) (DEB)|ベンチャイ##VENLEPIUS | (U/I) (BR) (BRB)|ベンレピウス##VENPOLLO |(CT) (JB)|ベンポロ##APPOLOVEN|(J)|アポロベン##APPOVEN|(C)|アポベン##LUMVESTIN|(JB) (CTC)|ルムベスティン##ORAVEN|(CB)|オラベン##VENCHAI | (DE) (DEB)|ベンチャイ##VENLEPIUS | (U/I) (BR) (BRB)|ベンレピウス##VENPOLLO |(CT) (JB)|ベンポロ##APPOLOVEN|(J)|アポロベン##APPOVEN|(C)|アポベン##LUMVESTIN|(JB) (CTC)|ルムベスティン##ORAVEN|(CB)|オラベン##VENCHAI | (DE) (DEB)|ベンチャイ##VENLEPIUS | (U/I) (BR) (BRB)|ベンレピウス##VENPOLLO |(CT) (JB)|ベンポロ##APPOLOVEN|(J)|アポロベン##APPOVEN|(C)|アポベン##LUMVESTIN|(JB) (CTC)|ルムベスティン##ORAVEN|(CB)|オラベン##VENCHAI | (DE) (DEB)|ベンチャイ##VENLEPIUS | (U/I) (BR) (BRB)|ベンレピウス##VENPOLLO |(CT) (JB)|ベンポロ##APPOLOVEN|(J)|アポロベン##APPOVEN|(C)|アポベン##LUMVESTIN|(JB) (CTC)|ルムベスティン##ORAVEN|(CB)|オラベン##VENCHAI | (DE) (DEB)|ベンチャイ##VENLEPIUS | (U/I) (BR) (BRB)|ベンレピウス##VENPOLLO |(CT) (JB)|ベンポロ##APPOLOVEN|(J)|アポロベン##APPOVEN|(C)|アポベン##LUMVESTIN|(JB) (CTC)|ルムベスティン##ORAVEN|(CB)|オラベン##VENCHAI | (DE) (DEB)|ベンチャイ##VENLEPIUS | (U/I) (BR) (BRB)|ベンレピウス##LASTONE |(CT) (JB)|ベンポロ".split('##');
+              // this.groupName = "APPOLOVENAPPOLOVENAPPOLOVENAPPOLOVEN|(J)|アポロベン##APPOVEN|(C)|アポベン##LUMVESTIN|(JB) (CTC)|ルムベスティン##ORAVEN|(CB)|オラベン##VENCHAI | (DE) (DEB)|ベンチャイ##VENLEPIUS | (U/I) (BR) (BRB)|ベンレピウス##VENPOLLO |(CT) (JB)|ベンポロ##APPOLOVEN|(J)|アポロベン##APPOVEN|(C)|アポベン##LUMVESTIN|(JB) (CTC)|ルムベスティン##ORAVEN|(CB)|オラベン##VENCHAI | (DE) (DEB)|ベンチャイ##VENLEPIUS | (U/I) (BR) (BRB)|ベンレピウス##VENPOLLO |(CT) (JB)|ベンポロ##APPOLOVEN|(J)|アポロベン##APPOVEN|(C)|アポベン##LUMVESTIN|(JB) (CTC)|ルムベスティン##ORAVEN|(CB)|オラベン##VENCHAI | (DE) (DEB)|ベンチャイ##VENLEPIUS | (U/I) (BR) (BRB)|ベンレピウス##VENPOLLO |(CT) (JB)|ベンポロ##APPOLOVEN|(J)|アポロベン##APPOVEN|(C)|アポベン##LUMVESTIN|(JB) (CTC)|ルムベスティン##ORAVEN|(CB)|オラベン##VENCHAI | (DE) (DEB)|ベンチャイ##VENLEPIUS | (U/I) (BR) (BRB)|ベンレピウス##VENPOLLO |(CT) (JB)|ベンポロ##APPOLOVEN|(J)|アポロベン##APPOVEN|(C)|アポベン##LUMVESTIN|(JB) (CTC)|ルムベスティン##ORAVEN|(CB)|オラベン##VENCHAI | (DE) (DEB)|ベンチャイ##VENLEPIUS | (U/I) (BR) (BRB)|ベンレピウス##VENPOLLO |(CT) (JB)|ベンポロ##APPOLOVEN|(J)|アポロベン##APPOVEN|(C)|アポベン##LUMVESTIN|(JB) (CTC)|ルムベスティン##ORAVEN|(CB)|オラベン##VENCHAI | (DE) (DEB)|ベンチャイ##VENLEPIUS | (U/I) (BR) (BRB)|ベンレピウス##VENPOLLO |(CT) (JB)|ベンポロ##APPOLOVEN|(J)|アポロベン##APPOVEN|(C)|アポベン##LUMVESTIN|(JB) (CTC)|ルムベスティン##ORAVEN|(CB)|オラベン##VENCHAI | (DE) (DEB)|ベンチャイ##VENLEPIUS | (U/I) (BR) (BRB)|ベンレピウス##VENPOLLO |(CT) (JB)|ベンポロ##APPOLOVEN|(J)|アポロベン##APPOVEN|(C)|アポベン##LUMVESTIN|(JB) (CTC)|ルムベスティン##ORAVEN|(CB)|オラベン##VENCHAI | (DE) (DEB)|ベンチャイ##VENLEPIUS | (U/I) (BR) (BRB)|ベンレピウス##VENPOLLO |(CT) (JB)|ベンポロ##APPOLOVEN|(J)|アポロベン##APPOVEN|(C)|アポベン##LUMVESTIN|(JB) (CTC)|ルムベスティン##ORAVEN|(CB)|オラベン##VENCHAI | (DE) (DEB)|ベンチャイ##VENLEPIUS | (U/I) (BR) (BRB)|ベンレピウス##LASTONE |(CT) (JB)|ベンポロ".split('##');
+              this.rankIconsValue = data[0].NameRanking.split('##');
+              if (this.rankIconsValue[0] !== "") {
+                //  this.groupName.forEach(rankValue => {
+                this.rankIconsValue.forEach(rankValue => {
+                  if (rankValue.toLowerCase() === 'novalue') {
+                    this.rankIcon.push({ icon: 'info', color: this.infoColor });
+                  } else if (rankValue.toLowerCase() === 'positive') {
+                    this.rankIcon.push({ icon: 'favorite', color: this.positiveColor });
+                  } else if (rankValue.toLowerCase() === 'neutral') {
+                    this.rankIcon.push({ icon: 'sentiment_very_satisfied', color: this.neutralColor });
+                  } else if (rankValue.toLowerCase() === 'negative') {
+                    this.rankIcon.push({ icon: 'thumb_down_off_alt', color: this.negativeColor });
+                  } else {
+                    this.rankIcon.push({ icon: 'info', color: this.infoColor });
+                  }
+                });
+              } else {
+                this.groupName.forEach(rankValue => {
+                  this.rankIcon.push({ icon: 'info', color: this.infoColor });
+                });
+              }
+
+              this.rankIconsStyle = [''];
+              this.groupName.forEach(element => {
+                if (element.split('|').length > 1) {
+                  this.isPipeSplit = true;
+                }
+
+              });
+              this.isGroupNameTooltip = true;
+              // this.summaryViewFlexLayout = 'column wrap';
+            } else {
+              this.groupName = data[0].GroupedNames.split('$$');
+              this.isGroupNameTooltip = false;
+            }
+          } else {
+            this.name = data[0].Name;
+            this.name = this.name.replace('(', '|(');
+            if (this.evaluationTimeElement && data[0].TemplateFileName !== 'images/BackGrounds/Default.jpg') {
+              // tslint:disable-next-line:max-line-length
+              this.evaluationTimeElement.nativeElement.style.backgroundImage = this.BackgroundUrl + this.imgBackground[this.backgroundCounter] + '.jpg)';
+              this.evaluationTimeElement.nativeElement.style.backgroundSize = 'cover';
+            }
+          }
+
+        } else {
+          // this.slideNameBackground = 'url("https://image.shutterstock.com/shutterstock/photos/1897867054/display_1500/stock-vector-currency-watermark-background-intense-illustration-detailed-design-1897867054.jpg")';
+          this.slideType = 'NameEvaluation';
+          if (data[0].NameRanking === "") {
+            this.vote = false;
+          }
+          else {
+            this.vote = true;
+          }
+          this.voteUsersInterval = setInterval(() => {
+            this.getNwVoteData();
+          }, 500);
+        }
+      }
+      if (this.slideType === 'NameEvaluation') {
+        this.category = data[0].NameCategory;
+        this.rationale = data[0].NameRationale;
+        this.testName = data[0].Name;
+      }
     });
   }
 
-  getSelectedRank(selectedRank) {
-    this._NW3Service.getGroupSummary(this.projectId).subscribe(displayGroupResult => {
-      this.nameCandidates = [];
-      for (const obj of Object.values(displayGroupResult)) {
-        this.tempObj = obj;
-        let arrGroupRank;
-        let arrGroupName;
-        if (obj.name.includes('##')) {
-          arrGroupRank = obj.nameranking.split('##');
-          arrGroupName = obj.name.split('##');
-        } else {
-          arrGroupRank = obj.nameranking.split('##');
-          arrGroupName = obj.name.split('$$');
-        }
-        arrGroupName.forEach((name, index) => {
-          if (selectedRank === 'Positive' && arrGroupRank[index] === 'Positive') {
-            this.nameCandidates.push({
-              'NameToDisplay': name,
-              'Name': this.tempObj.name
-            });
-          }
-          if (selectedRank === 'Negative' && arrGroupRank[index] === 'Negative') {
-            this.nameCandidates.push({
-              'NameToDisplay': name,
-              'Name': this.tempObj.name
-            });
-          }
-          if (selectedRank === 'Neutral' && arrGroupRank[index] === 'Neutral') {
-            this.nameCandidates.push({
-              'NameToDisplay': name,
-              'Name': this.tempObj.name
-            });
-          }
-        });
-      }
-      if (selectedRank === 'New') {
-        this.isNewName = true;
-        this.postRadio = false;
-        this.NeuRadio = false;
-        this.NegRadio = false;
-      } else if (selectedRank === 'Neutral') {
-        this.isNewName = false;
-        this.postRadio = false;
-        this.NeuRadio = true;
-        this.NegRadio = false;
-
-      } else if (selectedRank === 'Negative') {
-        this.isNewName = false;
-        this.postRadio = false;
-        this.NeuRadio = false;
-        this.NegRadio = true;
-
-      } else if (selectedRank === 'Positive') {
-        this.isNewName = false;
-        this.postRadio = true;
-        this.NeuRadio = false;
-        this.NegRadio = false;
-
-      }
-      this._NW3Service.getRetainTypeName(this.projectId, (selectedRank === "New Names") ? "New" : selectedRank).subscribe((data: Array<object>) => {
-        if (this.nameCandidates.length === 0) {
-          this.nameCandidates = data;
-        } else {
-          this.nameCandidates = this.nameCandidates.concat(data);
-        }
-        for (let i = 0; i < this.nameCandidates.length; i++) {
-          this.nameCandidates[i].NameToDisplay = this.convertToEntities(this.nameCandidates[i].NameToDisplay);
-        }
-        this.showRankedNames = true;
-      });
-    });
-  }
-
-  // GROUP NAMES TEMPLATE SETTINGS
 
   selectetdNameIndex(i, event) {
     this.selectNameItemIndex = i;
     this.myleft = event.clientX;
     this.mytop = event.clientY;
   }
-
-  // selectetVotedIndex(i, event) {
-  //   this.selectVoteIndex = i;
-  //   this.myleft = event.clientX;
-  //   this.mytop = event.clientY;
-  // }
-
 
   setFontSize(groupTestNameFontSize) {
     this.groupTestNameFontSize = groupTestNameFontSize;
@@ -1615,18 +1514,18 @@ export class NW3Component implements OnInit {
   toggleRankIcon(rankIcon, i) {
     this.playSound('02 Alerts and Notifications/alert_high-intensity.wav', this.soundVolume);
     if (rankIcon[i].icon === 'info') {
-      this.rankIcon[i] = { icon: 'favorite', color: 'red' };
+      this.rankIcon[i] = { icon: 'favorite', color: this.positiveColor };
     } else if (rankIcon[i].icon === 'favorite') {
-      this.rankIcon[i] = { icon: 'sentiment_very_satisfied', color: '#ffad37' }
+      this.rankIcon[i] = { icon: 'sentiment_very_satisfied', color: this.neutralColor }
     } else if (rankIcon[i].icon === 'sentiment_very_satisfied') {
-      this.rankIcon[i] = { icon: 'thumb_down_off_alt', color: 'purple' };
+      this.rankIcon[i] = { icon: 'thumb_down_off_alt', color: this.negativeColor };
     } else if (rankIcon[i].icon === 'thumb_down_off_alt') {
-      this.rankIcon[i] = { icon: 'info', color: 'grey' };
+      this.rankIcon[i] = { icon: 'info', color: this.infoColor };
     }
   }
 
   setAllNamesIcon(icon, color) {
-    if (icon === 'favorite') {      
+    if (icon === 'favorite') {
       this.isFavoriteOn = !this.isFavoriteOn;
     }
     let sound;
@@ -1739,13 +1638,310 @@ export class NW3Component implements OnInit {
     audio.play();
   }
 
-  myFunction() {
-    console.log('myFunction()');
-
-  }
 }
 
  // DASH CODE
+
+ // getSelectedRank(selectedRank) {
+
+
+  //   this._NW3Service.getGroupSummary(this.projectId).subscribe(displayGroupResult => {
+  //     this.nameCandidates = [];
+  //     for (const obj of Object.values(displayGroupResult)) {
+  //       this.tempObj = obj;
+  //       let arrGroupRank;
+  //       let arrGroupName;
+  //       if (obj.name.includes('##')) {
+  //         arrGroupRank = obj.nameranking.split('##');
+  //         arrGroupName = obj.name.split('##');
+  //       } else {
+  //         arrGroupRank = obj.nameranking.split('##');
+  //         arrGroupName = obj.name.split('$$');
+  //       }
+  //       arrGroupName.forEach((name, index) => {
+  //         if (selectedRank === 'Positive' && arrGroupRank[index] === 'Positive') {
+  //           this.nameCandidates.push({
+  //             'NameToDisplay': name,
+  //             'Name': this.tempObj.name
+  //           });
+  //         }
+  //         if (selectedRank === 'Negative' && arrGroupRank[index] === 'Negative') {
+  //           this.nameCandidates.push({
+  //             'NameToDisplay': name,
+  //             'Name': this.tempObj.name
+  //           });
+  //         }
+  //         if (selectedRank === 'Neutral' && arrGroupRank[index] === 'Neutral') {
+  //           this.nameCandidates.push({
+  //             'NameToDisplay': name,
+  //             'Name': this.tempObj.name
+  //           });
+  //         }
+  //       });
+  //     }
+  //     // if (selectedRank === 'New') {
+  //     //   this.isNewName = true;
+  //     //   this.postRadio = false;
+  //     //   this.NeuRadio = false;
+  //     //   this.NegRadio = false;
+  //     // } else if (selectedRank === 'Neutral') {
+  //     //   this.isNewName = false;
+  //     //   this.postRadio = false;
+  //     //   this.NeuRadio = true;
+  //     //   this.NegRadio = false;
+
+  //     // } else if (selectedRank === 'Negative') {
+  //     //   this.isNewName = false;
+  //     //   this.postRadio = false;
+  //     //   this.NeuRadio = false;
+  //     //   this.NegRadio = true;
+
+  //     // } else if (selectedRank === 'Positive') {
+  //     //   this.isNewName = false;
+  //     //   this.postRadio = true;
+  //     //   this.NeuRadio = false;
+  //     //   this.NegRadio = false;
+
+  //     // }
+
+
+
+
+
+
+  //     if (selectedRank === 'Positive') {
+  //       this.summaryPositive = true;
+  //       this.summaryNeutral = false;
+  //       this.summaryNegative = false;
+  //       this.summaryNewNames = false;
+  //       this.summaryChart = false;
+  //     }
+
+  //     else if (selectedRank === 'Neutral') {
+  //       this.summaryPositive = false;
+  //       this.summaryNeutral = true;
+  //       this.summaryNegative = false;
+  //       this.summaryNewNames = false;
+  //       this.summaryChart = false;
+  //     }
+
+  //     else if (selectedRank === 'Negative') {
+  //       this.summaryPositive = false;
+  //       this.summaryNeutral = false;
+  //       this.summaryNegative = true;
+  //       this.summaryNewNames = false;
+  //       this.summaryChart = false;
+  //     }
+
+  //     else if (selectedRank === 'New Names') {
+  //       this.summaryPositive = false;
+  //       this.summaryNeutral = false;
+  //       this.summaryNegative = false;
+  //       this.summaryNewNames = true;
+  //       this.summaryChart = false;
+  //     }
+
+  //     else if (selectedRank === 'chart') {
+  //       this.summaryPositive = false;
+  //       this.summaryNeutral = false;
+  //       this.summaryNegative = false;
+  //       this.summaryNewNames = false;
+  //       this.summaryChart = true;
+  //     }
+
+
+  //     this._NW3Service.getRetainTypeName(this.projectId, (selectedRank === "New Names") ? "New" : selectedRank).subscribe((data: Array<object>) => {
+  //       if (this.nameCandidates.length === 0) {
+  //         this.nameCandidates = data;
+  //       } else {
+  //         this.nameCandidates = this.nameCandidates.concat(data);
+  //       }
+  //       for (let i = 0; i < this.nameCandidates.length; i++) {
+  //         this.nameCandidates[i].NameToDisplay = this.convertToEntities(this.nameCandidates[i].NameToDisplay);
+  //       }
+  //       // this.showRankedNames = true;
+  //     });
+  //   });
+  // }
+
+  // GROUP NAMES TEMPLATE SETTINGS
+
+
+
+//  setDataToDisplay(data: any, comeFrom) {
+//   this.isNonProp = (data[0].PresentationType === 'Nonproprietary') ? true : false;
+//   this.japanese = (data[0].PresentationType === 'Katakana') ? true : false;
+//   this.isKatakana_BigJap = (data[0].PresentationType === 'Katakana_BigJap') ? true : false;
+//   this.recraftChecked = (data[0].Recraft === "False") ? false : true;
+//   if (this.isKatakana_BigJap) {
+//     this.japanese = true;
+//   }
+//   localStorage.setItem('isNonProp', this.isNonProp.toString());
+//   localStorage.setItem('isKatakana', this.japanese.toString());
+//   this.nameCandidates = [];
+//   // this.groupName = '';
+//   this.showRankedNames = false;
+//   if (data[0].mp3FilePath) {
+//     this.audiofile = data[0].mp3FilePath;
+//     this.fileToPlay = data[0].mp3FilePath;
+//     const audio = new Audio();
+//     audio.src = this.fileToPlay;
+//     audio.load();
+//     if (!this.mute) {
+//       audio.play();
+//     }
+//   } else {
+//     this.fileToPlay = '';
+//   }
+
+//   if (comeFrom === 'clicked_name') {
+//     const sendSlideNumber = data[0].SlideNumber;
+//     // this.changePageNumber.emit(sendSlideNumber);
+//   }
+
+//   if (data[0].TemplateFileName !== '' && data[0].TemplateFileName !== 'images/BackGrounds/Default.jpg') {
+//     setTimeout(() => {
+//       this.groupNameType = data[0].GroupedNames.length;
+//       if (this.displayBackground === false) {
+//         this.tempBackground = 'url(http://bipresents.com/nw2/assets/' + data[0].TemplateFileName + ')';
+//         // tslint:disable-next-line:max-line-length
+//         this.evaluationTimeElement.nativeElement.style.backgroundImage = this.BackgroundUrl + this.hideBackground[this.backgroundCounter] + '.jpg)';
+//         this.evaluationTimeElement.nativeElement.style.backgroundSize = 'cover';
+//       } else {
+//         if (this.evaluationTimeElement) {
+//           if ('url(http://bipresents.com/nw2/' + data[0].TemplateFileName + ')' !== this.tempBackground) {
+
+//             if (this.groupNameType !== 0) {
+//               this.evaluationTimeElement.nativeElement.style.backgroundImage = '';
+//               this.evaluationTimeElement.nativeElement.style.backgroundSize = 'cover';
+
+//             } else {
+//               this.evaluationTimeElement.nativeElement.style.backgroundImage = this.BackgroundUrl + data[0].TemplateFileName + ')';
+//               this.evaluationTimeElement.nativeElement.style.backgroundSize = 'cover';
+//               this.evaluationTimeElement.nativeElement.style.backgroundRepeat = 'no-repeat';
+//               this.tempBackground = 'url(http://bipresents.com/nw2/assets/' + data[0].TemplateFileName + ')';
+//             }
+//           } else {
+
+//             if (this.groupNameType !== 0) {
+//               this.evaluationTimeElement.nativeElement.style.backgroundImage = '';
+//               this.evaluationTimeElement.nativeElement.style.backgroundSize = 'cover';
+
+//             } else {
+//               this.evaluationTimeElement.nativeElement.style.backgroundImage = this.tempBackground;
+//               this.groupNameType = data[0].GroupedNames.length;
+//             }
+//           }
+//         }
+
+
+//       }
+//     }, 50);
+//   }
+
+//   if (this.slideType === 'NameSummary') {
+//     this._NW3Service.getNotes(this.projectId).subscribe(note => {
+//       this.AditionalComments = note[0].NotesExplore.replace(/`/g, '\'');
+//     });
+//   }
+
+//   this.totalPositive = (data[0].TotPositive != 0) ? data[0].TotPositive = 1 : '';
+//   this.totalNeutral = (data[0].TotNeutral != 0) ? data[0].TotNeutral = 1 : '';
+
+//   this.negativePronunciation = [];
+//   if (this.japanese) {
+//     this.katakanaNames = data[0].KanaNames.replace(/`/g, '\'').split('、');
+//   }
+//   else {
+//     this.katakanaNames = data[0].KanaNames.replace(/`/g, '\'').split(',');
+//   }
+
+//   if (this.katakanaNames[0].length >= 1) {
+//     // this.faVolumeUp = faVolumeUp;
+//   } else {
+//     // this.faVolumeUp = null;
+//   }
+
+//   if (data[0].GroupRationale !== '') {
+//     if (data[0].GroupRationale.includes('##')) {
+//       this.groupRationale = data[0].GroupRationale.replace(/`/g, '\'').split('##');
+//     } else {
+//       this.groupRationale = data[0].GroupRationale.replace(/`/g, '\'').split('$$');
+//     }
+//   } else {
+//     this.rationale = data[0].NameRationale.replace(/`/g, '\'');
+//     this.groupRationale = '';
+//   }
+
+//   this.category = data[0].NameCategory;
+//   // if (data[0].GroupedNames === '') {
+//   //   if (data[0].NameRanking === 'Positive') {
+//   //     setTimeout(() => {
+//   //       this.positiveChecked = false;
+//   //       this.neutralChecked = false;
+//   //       this.negativeChecked = false;
+//   //       this.selectedOpt(data[0].NameRanking.toLowerCase());
+//   //     }, 10);
+//   //   } else if (data[0].NameRanking === 'Neutral') {
+//   //     setTimeout(() => {
+//   //       this.positiveChecked = false;
+//   //       this.neutralChecked = false;
+//   //       this.negativeChecked = false;
+//   //       this.selectedOpt(data[0].NameRanking.toLowerCase());
+//   //     }, 10);
+//   //   } else if (data[0].NameRanking === 'Negative') {
+//   //     setTimeout(() => {
+//   //       this.positiveChecked = false;
+//   //       this.neutralChecked = false;
+//   //       this.negativeChecked = false;
+//   //       this.selectedOpt(data[0].NameRanking.toLowerCase());
+//   //     }, 10);
+//   //   } else {
+//   //     if (data[0].SlideType === 'NameEvaluation') {
+//   //       // this.cantMove.emit(true);
+//   //     }
+//   //     this.selectedOpt(data[0].NameRanking.toLowerCase());
+//   //   }
+//   // } else {
+//   //   // this.cantMove.emit(false);
+//   // }
+
+//   if (this.txtNewNameElement) {
+//     const tstr = this.convertToEntities(data[0].NewNames);
+//     this.txtNewNameElement.nativeElement.value = tstr;
+//   }
+//   if (this.txtCommentsElement) {
+//     const tstr = this.convertToEntities(data[0].NamesToExplore);
+//     this.txtCommentsElement.nativeElement.value = tstr;
+//   }
+
+//   if (data[0].KanaNamesNegative !== '') {
+//     const tstr = this.convertToEntities(data[0].KanaNamesNegative);
+//     data[0].KanaNamesNegative = tstr;
+//     setTimeout(() => {
+//       this.slideModel.KanaNamesNegative = data[0].KanaNamesNegative.split(',');
+//       this.pronunciationElement.toArray().forEach(element => {
+//         const idx = this.slideModel.KanaNamesNegative.indexOf(element.nativeElement.innerText);
+//         if (idx > -1) {
+//           element.nativeElement.style.color = 'red';
+//         } else {
+//           element.nativeElement.style.color = 'black';
+//         }
+//       });
+//     }, 50);
+//   } else {
+//     this.slideModel.KanaNamesNegative = [];
+//   }
+
+//   if (this.backgroundCounter >= 9) {
+//     this.backgroundCounter = 0;
+//   } else {
+//     this.backgroundCounter++;
+//   }
+
+// }
+
+
 
   // resizeContent() {
   //   if (window.innerWidth >= 1900) {

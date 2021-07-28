@@ -6,8 +6,9 @@ import { BsrMobileComponent } from './bsr-mobile/bsr-mobile.component';
 import { SchedulerComponent } from './scheduler/scheduler.component';
 import { BsrComponent } from './bsr/bsr.component';
 import { NW3Component } from './nw3/nw3.component';
-import { BmxComponent } from './bmx/bmx.component';
-import { BmxCreatorComponent } from './bmx-creator/bmx-creator.component';
+import { BmxCreatorComponent } from './bmx/bmx-creator/bmx-creator.component';
+import { BmxComponent } from './bmx/bmx-survey/bmx.component';
+// import { BmxCreatorComponent } from './bmx-creator/bmx-creator.component';
 
 const routes: Routes = [
   // {// NAME VOTE LOGIN https://bipresents.com/namevote/login?project=Test_WELL_PLATFORM
@@ -30,21 +31,21 @@ const routes: Routes = [
   //   path: ':id',
   //   component: BsrComponent
   // },
-  {//BI BRAND MATRIX CREATOR
-    path: ':id',
-    component: BmxCreatorComponent
-  },
-  // {//BI BRAND MATRIX
+  // {//BI BRAND MATRIX CREATOR
+  // path: ':id',
+  //  component: BmxCreatorComponent
+  // },
+  //  {//BI BRAND MATRIX
   //   path: ':id',
   //   component: BmxComponent
   // },
-  // {//NW 3 BI PRESENTS NOMENCLATURE WORKSHOP V.3.0
-  //   path: ':id',
-  //   component: NW3Component
-  // },
+  {//NW 3 BI PRESENTS NOMENCLATURE WORKSHOP V.3.0
+    path: ':id',
+    component: NW3Component
+  },
   {
     path: '',
-    redirectTo: '/bi',
+    redirectTo: '/TEST_BI_Katakana_Phonetics',
     pathMatch: 'full'
   } 
 ];
