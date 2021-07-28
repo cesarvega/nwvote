@@ -64,6 +64,8 @@ import { SafePipe } from './safe.pipe';
 import { BmxRoutingModule } from './bmx-routing.module';
 import { BmxComponent } from '../bmx-survey/bmx.component';
 import { ProjectListComponent } from '../bmx-creator/project-list/project-list.component';
+import { RespondentsComponent } from '../bmx-creator/respondents/respondents.component';
+// import { RespondentsComponent } from '../bmx-creator/respodents/RespondentsComponent';
 // import { BmxModule } from './bmx/bmx/bmx.module';
 export function loadEcharts() {
   return import('echarts');
@@ -71,7 +73,7 @@ export function loadEcharts() {
 
 
 @NgModule({
-  declarations: [BmxComponent,BmxCreatorComponent,SafePipe,ProjectListComponent],
+  declarations: [BmxComponent,BmxCreatorComponent,SafePipe,ProjectListComponent,RespondentsComponent],
   imports: [
     BrowserModule,
     HammerModule,
@@ -116,7 +118,8 @@ export function loadEcharts() {
     MatSortModule,
     MatPaginatorModule,
     CommonModule,
-    BmxRoutingModule
+    BmxRoutingModule,
+
   ]
 })
 export class BmxModule { }

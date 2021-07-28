@@ -69,6 +69,7 @@ export function loadEcharts() {
     NW3Component,
     // BmxComponent,
     SchedulerComponent,
+
     // BmxCreatorComponent,
     // SafePipe,
     // OrderDasboardComponent

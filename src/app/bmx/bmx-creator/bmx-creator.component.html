@@ -139,10 +139,16 @@
             <div [ngClass]="(isMenuActive14)?'menu-active':'menu-item'" (click)="toggleMenuActive('isMenuActive14')">
                 <div
                     style=" text-align: end;font-family: Arial, Helvetica, sans-serif;font-size: 20px;padding-left:20px">
-                    {{'Survey Participants/Email'}}
+                    {{'Respondents'}}
                 </div>
             </div>
             <div [ngClass]="(isMenuActive15)?'menu-active':'menu-item'" (click)="toggleMenuActive('isMenuActive15')">
+                <div
+                    style=" text-align: end;font-family: Arial, Helvetica, sans-serif;font-size: 20px;padding-left:20px">
+                    {{'Survey Participants/Email'}}
+                </div>
+            </div>
+            <div [ngClass]="(isMenuActive16)?'menu-active':'menu-item'" (click)="toggleMenuActive('isMenuActive16')">
                 <div
                     style=" text-align: end;font-family: Arial, Helvetica, sans-serif;font-size: 20px;padding-left:20px">
                     {{'Contact'}}
@@ -601,10 +607,19 @@
     <!-- END 💊💊💊💊💊💊💊💊💊💊💊💊💊💊💊💊💊💊💊💊💊💊💊💊💊💊💊💊💊💊💊💊💊💊💊💊💊💊💊 PAGE MODULES -->
 
 
+    <!-- RESPONDANTS 📩📩📩📩📩📩📩📩📩📩📩📩📩📩📩📩📩📩📩📩📩📩📩📩📩📩📩📩📩📩📩📩📩📩📩📩📩📩📩📩📩-->
+    <div class="page-modules" *ngIf="isMenuActive14" style="border: hotpink solid 1px; width: 60%; height: 100vh;">
+       <app-respondents [isMenuActive14]= "isMenuActive14"></app-respondents>
+    </div>
+    <div class="page-modules" *ngIf="isMenuActive14" div style="border: pink solid 1px; width: 25%; height: 100vh;">SIDE
+        PANEL 13</div>
+    <!-- END 📩📩📩📩📩📩📩📩📩📩📩📩📩📩📩📩📩📩📩📩📩📩📩📩📩📩📩📩📩📩📩📩📩📩📩📩📩📩📩📩📩 RESPONDANTS -->
 
 
-    <!-- RESPONDANTS EMAILS 📗📗📗📗📗📗📗📗📗📗📗📗📗📗📗📗📗📗📗📗📗📗📗📗📗📗📗📗📗📗📗📗📗📗📗📗📗📗📗📗📗📗📗📗📗📗-->
-    <div class="respondants-emails" *ngIf="isMenuActive14" style="border: hotpink solid 0px; height: 100vh;">
+
+
+    <!--  EMAILS 📗📗📗📗📗📗📗📗📗📗📗📗📗📗📗📗📗📗📗📗📗📗📗📗📗📗📗📗📗📗📗📗📗📗📗📗📗📗📗📗📗📗📗📗📗📗-->
+    <div class="emails" *ngIf="isMenuActive15" style="border: hotpink solid 0px; height: 100vh;">
 
         <h2 style="margin: 20px;">Project TEST BrandMatrix Setup</h2>
         <!-- HEADER INPUTS -->
@@ -618,30 +633,7 @@
                 </div>
                 <div style="margin-left: 20px;font-size: 15px;color:grey;font-weight: 100;">Send Department Confirmation
                     Emails
-                </div>
-
-                <div style="margin: 20px;font-size: 20px;color:#063074;font-weight: 800;">Send</div>
-
-                <div style="display: flex;flex-direction: row;">
-                    <mat-form-field appearance="outline" style="margin-left: 20px;">
-                        <mat-label>Select not completed</mat-label>
-                        <mat-select class="selectLabels">
-                            <mat-option *ngFor="let settingsList of settingsData.DepartmentList" [value]="settingsList">
-                                {{settingsList}}
-                            </mat-option>
-                        </mat-select>
-                    </mat-form-field>
-
-                    <div style="display: flex;flex-direction: column;">
-                        <div>
-                            <button mat-raised-button
-                                style="background-color: #003180;color:white;margin: 5px 20px 0 20px;">
-                                Upload Participants
-                            </button>
-                        </div>
-                        <div style="position: relative;left: 89px;top: 2px;color: grey;">{{'0 Participants'}}</div>
-                    </div>
-                </div>
+                </div>            
             </div>
 
 
@@ -730,16 +722,16 @@
             </div>
         </div>
     </div>
-    <!-- <div class="respondants-emails" *ngIf="isMenuActive14" div
+    <!-- <div class="emails" *ngIf="isMenuActive14" div
         style="border: pink solid 1px; width: 25%; height: 100vh;">SIDE
-        RESPONDANTS EMAILS 14</div> -->
-    <!-- END 📗📗📗📗📗📗📗📗📗📗📗📗📗📗📗📗📗📗📗📗📗📗📗📗📗📗📗📗📗📗📗📗📗📗📗📗📗📗📗📗📗📗📗📗📗📗 RESPONDANTS EMAILS -->
+         EMAILS 14</div> -->
+    <!-- END 📗📗📗📗📗📗📗📗📗📗📗📗📗📗📗📗📗📗📗📗📗📗📗📗📗📗📗📗📗📗📗📗📗📗📗📗📗📗📗📗📗📗📗📗📗📗  EMAILS -->
 
 
     <!-- CONTACT 🎀🎀🎀🎀🎀🎀🎀🎀🎀🎀🎀🎀🎀🎀🎀🎀🎀🎀🎀🎀🎀🎀🎀🎀🎀🎀🎀🎀🎀🎀🎀🎀🎀🎀🎀🎀🎀🎀🎀🎀🎀🎀🎀🎀🎀🎀-->
-    <div class="templates" *ngIf="isMenuActive15" style="border: hotpink solid 1px; width: 60%; height: 100vh;">CONTACT
+    <div class="templates" *ngIf="isMenuActive16" style="border: hotpink solid 1px; width: 60%; height: 100vh;">CONTACT
     </div>
-    <div class="templates" *ngIf="isMenuActive15" div style="border: pink solid 1px; width: 25%; height: 100vh;">SIDE
+    <div class="templates" *ngIf="isMenuActive16" div style="border: pink solid 1px; width: 25%; height: 100vh;">SIDE
         PANEL 15</div>
     <!-- END 🎀🎀🎀🎀🎀🎀🎀🎀🎀🎀🎀🎀🎀🎀🎀🎀🎀🎀🎀🎀🎀🎀🎀🎀🎀🎀🎀🎀🎀🎀🎀🎀🎀🎀🎀🎀🎀🎀🎀🎀🎀🎀🎀🎀🎀 CONTACT -->
 

@@ -42,6 +42,7 @@ export class BmxCreatorComponent implements OnInit {
   isMenuActive13;
   isMenuActive14;
   isMenuActive15;
+  isMenuActive16;
   
   isTemplateSelected = '';
   isSelectedButton = '';
@@ -178,8 +179,8 @@ export class BmxCreatorComponent implements OnInit {
     //   })
     // });
 
-    // this.toggleMenuActive('isMenuActive1') 
-    // this.isMainMenuActive = !false;
+    this.toggleMenuActive('isMenuActive14') 
+    this.isMainMenuActive = false;
 
     this._BmxService.getGeneralLists()
     .subscribe((arg:any) => {
@@ -245,7 +246,7 @@ export class BmxCreatorComponent implements OnInit {
     this.isMenuActive13 = (menuItem === 'isMenuActive13') ? true : false;
     this.isMenuActive14 = (menuItem === 'isMenuActive14') ? true : false;
     this.isMenuActive15 = (menuItem === 'isMenuActive15') ? true : false;
-    
+    this.isMenuActive16 = (menuItem === 'isMenuActive16') ? true : false;    
   }
 
   createNewBmxComponent() {
