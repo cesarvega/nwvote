@@ -148,7 +148,7 @@
                     {{'Contact'}}
                 </div>
             </div>
-            <div [ngClass]="'menu-item'" (click)="toggleMenuActive('isMenuActive1');isMainMenuActive = true" >
+            <div [ngClass]="'menu-item'" (click)="toggleMenuActive('isMenuActive1');isMainMenuActive = true">
                 <button mat-icon-button style="color:white;margin: 0 20px 0 20px;">
                     <mat-icon style="transform: rotate(-90deg);margin-right: 10px;">arrow_circle_up</mat-icon>BACK
                 </button>
@@ -161,7 +161,7 @@
 
     <!-- PROJECT LIST COMPONENT 📀📀📀📀📀📀📀📀📀📀📀📀📀📀📀📀📀📀📀📀📀📀📀📀📀📀📀📀📀📀📀📀📀📀📀📀📀📀📀-->
     <app-project-list class="project-list" [isMenuActive1]="isMenuActive1"
-        style="border: hotpink solid 1px;height: 100vh;overflow-y: scroll;"></app-project-list>
+        style="border: hotpink solid 0px;height: 100vh;overflow-y: scroll;"></app-project-list>
     <!--📀📀📀📀📀📀📀📀📀📀📀📀📀📀📀📀📀📀📀📀📀📀📀📀📀📀📀📀📀📀📀📀📀📀📀📀📀📀📀📀📀📀📀📀END  PROJECT LIST-->
 
 
@@ -208,11 +208,13 @@
     <div class="project-info" *ngIf="isMenuActive8" dragula="TASKS" [(dragulaModel)]="brandMatrixObjects"
         (dragulaModelChange)="checkDragEvetn($event);brandMatrixObjects = $event">
 
-        <div *ngIf="true" class="mainContainerPresent" style="position: absolute;z-index: 1;width: 1011px;">
+        <div *ngIf="true" class="" style="position: absolute;z-index: 1;width: 1011px;">
 
-            <h2>Project TEST BrandMatrix Setup</h2>
-            <h3 style="color:#253b7d;">Basic Project Information</h3>
-
+            <h2 style="margin: 20px;">Project TEST BrandMatrix Setup</h2>
+            <div style="margin: 20px;font-size: 20px;color:#063074;font-weight: 800;">Basic Project Information</div>
+            <br>
+            <br>
+            <br>
             <div class="dropdowns" style="display: flex;flex-direction: column;">
 
                 <div style="display: flex;flex-direction: row;">
@@ -388,7 +390,7 @@
 
     </div>
 
-    <div  class="project-info" *ngIf="false" style="border: pink solid 1px; width: 25%; height: 100vh;">
+    <div class="project-info" *ngIf="false" style="border: pink solid 1px; width: 25%; height: 100vh;">
 
         <div *ngIf="true" class="" style="display: flex;flex-direction: column;margin-top: 50px;">
             <button (click)="createNewBmxComponent()" mat-icon-button matTooltip="home" matTooltipPosition="right">
@@ -412,10 +414,50 @@
 
 
     <!-- TEMPLATES 📐📐📐📐📐📐📐📐📐📐📐📐📐📐📐📐📐📐📐📐📐📐📐📐📐📐📐📐📐📐📐📐📐📐📐📐📐📐📐📐📐📐📐-->
-    <div class="templates" *ngIf="isMenuActive9" style="border: hotpink solid 1px; width: 60%; height: 100vh;">TEMPLATES
+    <div class="templates" *ngIf="isMenuActive9"
+        style="border: hotpink solid 0px; width: 60%; height: 100vh;overflow-y: hidden;">
 
-        <div *ngFor="let template of TEMPLATES" style="display: flex;flex-direction: row; justify-content: space-around;">
-           <div> {{template.name}}</div>
+        <h2 style="margin: 20px;">Project TEST BrandMatrix Setup</h2>
+        <!-- HEADER INPUTS -->
+        <div style="margin: 20px;font-size: 20px;color:#063074;font-weight: 800;">Choose a Template</div>
+
+        <div style="display: flex;flex-direction: row;
+        justify-content: space-between;">
+            <div style="margin: 20px; ">
+                <mat-form-field appearance="outline">
+                    <mat-label>Department</mat-label>
+                    <mat-select class="selectLabels">
+                        <mat-option *ngFor="let settingsList of settingsData.DepartmentList" [value]="settingsList">
+                            {{settingsList}}
+                        </mat-option>
+                    </mat-select>
+                </mat-form-field>
+            </div>
+            <div style="margin: 20px 60px 0px 0px;">
+                <mat-icon style="margin-right: 10px;font-size: 30px;">search</mat-icon>
+                <mat-form-field appearance="outline">
+                    <mat-label>Find Template</mat-label>
+                    <input matInput type="Searh" placeholder="template name">
+                </mat-form-field>
+            </div>
+        </div>
+
+        <!--END HEADER INPUTS -->
+
+        <div class="template-list" style="margin-top:20px;display: flex;flex-direction: row; height: 100vh;overflow-y: scroll;
+         justify-content: flex-start;width: 100%;flex-wrap: wrap;text-align: center;">
+            <div *ngFor="let template of TEMPLATES; let i = index">
+                {{template.name}}
+                <div (mouseenter)="isTemplateSelected = i" (mouseleave)="isTemplateSelected = ''"
+                    style="display: flex;flex-direction: row;justify-content: center;align-items: center;width: 200px;height: 200px;background-color: lightgray;border: grey solid 1px;margin: 20px;">
+                    <button *ngIf="isTemplateSelected === i" mat-raised-button style="background-color: green;color:white;margin: 0 20px 0 20px;">
+                        SELECT
+                    </button>
+                    <!-- <button mat-raised-button style="background-color: lightseagreen;color:white;margin: 0 20px 0 20px;">
+                        SELECTED
+                    </button> -->
+                </div>
+            </div>
         </div>
 
     </div>
@@ -434,49 +476,49 @@
     <!-- END 🎎🎎🎎🎎🎎🎎🎎🎎🎎🎎🎎🎎🎎🎎🎎🎎🎎🎎🎎🎎🎎🎎🎎🎎🎎🎎🎎🎎🎎🎎🎎🎎🎎🎎🎎🎎🎎🎎🎎 IMAGE UPLOADER -->
 
 
-    <!-- PAGE DESIGN 📐📐📐📐📐📐📐📐📐📐📐📐📐📐📐📐📐📐📐📐📐📐📐📐📐📐📐📐📐📐📐📐📐📐📐📐📐📐📐📐📐📐📐-->
+    <!-- PAGE DESIGN 🧿🧿🧿🧿🧿🧿🧿🧿🧿🧿🧿🧿🧿🧿🧿🧿🧿🧿🧿🧿🧿🧿🧿🧿🧿🧿🧿🧿🧿🧿🧿🧿🧿🧿🧿🧿🧿🧿🧿🧿🧿-->
     <div class="page-design" *ngIf="isMenuActive11" style="border: hotpink solid 1px; width: 60%; height: 100vh;">
         TEMPLATES
     </div>
     <div class="page-design" *ngIf="isMenuActive11" div style="border: pink solid 1px; width: 25%; height: 100vh;">SIDE
         PANEL 11</div>
-    <!-- END 📐📐📐📐📐📐📐📐📐📐📐📐📐📐📐📐📐📐📐📐📐📐📐📐📐📐📐📐📐📐📐📐📐📐📐📐📐📐📐📐📐 PAGE DESIGN -->
+    <!-- END 🧿🧿🧿🧿🧿🧿🧿🧿🧿🧿🧿🧿🧿🧿🧿🧿🧿🧿🧿🧿🧿🧿🧿🧿🧿🧿🧿🧿🧿🧿🧿🧿🧿🧿🧿🧿🧿🧿🧿🧿 PAGE DESIGN -->
 
 
-    <!-- INTRODUCTION 📐📐📐📐📐📐📐📐📐📐📐📐📐📐📐📐📐📐📐📐📐📐📐📐📐📐📐📐📐📐📐📐📐📐📐📐📐📐📐📐📐📐📐-->
+    <!-- INTRODUCTION 🚰🚰🚰🚰🚰🚰🚰🚰🚰🚰🚰🚰🚰🚰🚰🚰🚰🚰🚰🚰🚰🚰🚰🚰🚰🚰🚰🚰🚰🚰🚰🚰🚰🚰🚰🚰🚰🚰🚰-->
     <div class="introduction" *ngIf="isMenuActive12" style="border: hotpink solid 1px; width: 60%; height: 100vh;">
         INTRODUCTION
     </div>
     <div class="introduction" *ngIf="isMenuActive12" div style="border: pink solid 1px; width: 25%; height: 100vh;">SIDE
         PANEL 12</div>
-    <!-- END 📐📐📐📐📐📐📐📐📐📐📐📐📐📐📐📐📐📐📐📐📐📐📐📐📐📐📐📐📐📐📐📐📐📐📐📐📐📐📐📐📐 INTRODUCTION -->
+    <!-- END 🚰🚰🚰🚰🚰🚰🚰🚰🚰🚰🚰🚰🚰🚰🚰🚰🚰🚰🚰🚰🚰🚰🚰🚰🚰🚰🚰🚰🚰🚰🚰🚰🚰🚰🚰🚰🚰🚰🚰 INTRODUCTION -->
 
 
-    <!-- PAGE MODULES 📐📐📐📐📐📐📐📐📐📐📐📐📐📐📐📐📐📐📐📐📐📐📐📐📐📐📐📐📐📐📐📐📐📐📐📐📐📐📐📐📐📐📐-->
+    <!-- PAGE MODULES 💊💊💊💊💊💊💊💊💊💊💊💊💊💊💊💊💊💊💊💊💊💊💊💊💊💊💊💊💊💊💊💊💊💊💊💊💊💊💊-->
     <div class="page-modules" *ngIf="isMenuActive13" style="border: hotpink solid 1px; width: 60%; height: 100vh;">PAGE
         MODULES
     </div>
     <div class="page-modules" *ngIf="isMenuActive13" div style="border: pink solid 1px; width: 25%; height: 100vh;">SIDE
         PANEL 13</div>
-    <!-- END 📐📐📐📐📐📐📐📐📐📐📐📐📐📐📐📐📐📐📐📐📐📐📐📐📐📐📐📐📐📐📐📐📐📐📐📐📐📐📐📐📐 PAGE MODULES -->
+    <!-- END 💊💊💊💊💊💊💊💊💊💊💊💊💊💊💊💊💊💊💊💊💊💊💊💊💊💊💊💊💊💊💊💊💊💊💊💊💊💊💊 PAGE MODULES -->
 
 
-    <!-- RESPONDANTS EMAILS 📐📐📐📐📐📐📐📐📐📐📐📐📐📐📐📐📐📐📐📐📐📐📐📐📐📐📐📐📐📐📐📐📐📐📐📐📐📐📐📐📐📐📐-->
+    <!-- RESPONDANTS EMAILS 📗📗📗📗📗📗📗📗📗📗📗📗📗📗📗📗📗📗📗📗📗📗📗📗📗📗📗📗📗📗📗📗📗📗📗📗📗📗📗📗📗📗📗📗📗📗-->
     <div class="respondants-emails" *ngIf="isMenuActive14"
         style="border: hotpink solid 1px; width: 60%; height: 100vh;">RESPONDANTS EMAILS
     </div>
     <div class="respondants-emails" *ngIf="isMenuActive14" div
         style="border: pink solid 1px; width: 25%; height: 100vh;">SIDE
         PANEL 14</div>
-    <!-- END 📐📐📐📐📐📐📐📐📐📐📐📐📐📐📐📐📐📐📐📐📐📐📐📐📐📐📐📐📐📐📐📐📐📐📐📐📐📐📐📐📐 RESPONDANTS EMAILS -->
+    <!-- END 📗📗📗📗📗📗📗📗📗📗📗📗📗📗📗📗📗📗📗📗📗📗📗📗📗📗📗📗📗📗📗📗📗📗📗📗📗📗📗📗📗📗📗📗📗📗 RESPONDANTS EMAILS -->
 
 
-    <!-- CONTACT 📐📐📐📐📐📐📐📐📐📐📐📐📐📐📐📐📐📐📐📐📐📐📐📐📐📐📐📐📐📐📐📐📐📐📐📐📐📐📐📐📐📐📐-->
+    <!-- CONTACT 🎀🎀🎀🎀🎀🎀🎀🎀🎀🎀🎀🎀🎀🎀🎀🎀🎀🎀🎀🎀🎀🎀🎀🎀🎀🎀🎀🎀🎀🎀🎀🎀🎀🎀🎀🎀🎀🎀🎀🎀🎀🎀🎀🎀🎀🎀-->
     <div class="templates" *ngIf="isMenuActive15" style="border: hotpink solid 1px; width: 60%; height: 100vh;">CONTACT
     </div>
     <div class="templates" *ngIf="isMenuActive15" div style="border: pink solid 1px; width: 25%; height: 100vh;">SIDE
         PANEL 15</div>
-    <!-- END 📐📐📐📐📐📐📐📐📐📐📐📐📐📐📐📐📐📐📐📐📐📐📐📐📐📐📐📐📐📐📐📐📐📐📐📐📐📐📐📐📐 CONTACT -->
+    <!-- END 🎀🎀🎀🎀🎀🎀🎀🎀🎀🎀🎀🎀🎀🎀🎀🎀🎀🎀🎀🎀🎀🎀🎀🎀🎀🎀🎀🎀🎀🎀🎀🎀🎀🎀🎀🎀🎀🎀🎀🎀🎀🎀🎀🎀🎀 CONTACT -->
 
     <!-- END  📌📌📌📌📌📌📌📌📌📌📌📌📌📌📌📌📌📌📌📌📌📌📌📌📌📌📌📌📌📌📌📌📌📌📌📌📌📌📌 SECOND MENU SECTION PAGES -->
 

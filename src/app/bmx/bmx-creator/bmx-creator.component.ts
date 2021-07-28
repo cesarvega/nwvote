@@ -42,6 +42,7 @@ export class BmxCreatorComponent implements OnInit {
   isMenuActive14;
   isMenuActive15;
   
+  isTemplateSelected = '';
 
   isMainMenuActive = true;
 
@@ -82,17 +83,21 @@ export class BmxCreatorComponent implements OnInit {
   ];
 
   TEMPLATES = [
-    { name: 'ASSIST', rationale: 'Sist, Assist, Syst' },
-    { name: 'ENHANCE', rationale: 'Hance, En-' },
-    { name: 'EVOLVE', rationale: 'Evo' },
-    { name: 'GUARD', rationale: 'Gard, Guard' },
-    { name: 'INVEST', rationale: 'In, Inv' },
-    { name: 'OMNI', rationale: 'Omni' },
-    { name: 'OPTIMAL', rationale: 'Opti, Opt, Op' },
+    { name: 'Standart Personal Preference', rationale: 'Sist, Assist, Syst' },
+    { name: 'Ranking', rationale: 'Hance, En-' },
+    { name: 'NArrowDown', rationale: 'Evo' },
+    { name: 'This or That', rationale: 'Gard, Guard' },
+    { name: 'Naming Contest', rationale: 'In, Inv' },
+    { name: 'Question & Answer', rationale: 'Omni' },
+    { name: 'Build Your Own', rationale: 'Opti, Opt, Op' },
     { name: 'SHIELD', rationale: 'Shield' },
     { name: 'SYNCHRONIZE', rationale: 'Synch, Sync' },
     { name: 'TRUSTED', rationale: 'Trus, Tru' },
     { name: 'NOMANER', rationale: 'referred' },
+    { name: 'ASSIST', rationale: 'Sist, Assist, Syst' },
+    { name: 'ENHANCE', rationale: 'Hance, En-' },
+    { name: 'EVOLVE', rationale: 'Evo' },
+    { name: 'GUARD', rationale: 'Gard, Guard' },
   ];
 
   testNames = [
@@ -129,7 +134,7 @@ export class BmxCreatorComponent implements OnInit {
     //   })
     // });
 
-    this.toggleMenuActive('isMenuActive8')
+    this.toggleMenuActive('isMenuActive9')
     this.isMainMenuActive = false;
 
     this._BmxService.getGeneralLists()
