@@ -69,7 +69,7 @@
         position: absolute;
         .menu-item {
             cursor: pointer;
-            height: 80px;
+            height: 70px;
             display: flex;
             flex-direction: row;
             margin: 1px 0px;
@@ -81,7 +81,7 @@
         }
         .menu-item:hover {
             cursor: pointer;
-            height: 89px;
+            height: 75px;
             display: flex;
             flex-direction: row;
             margin: 1px 0px;
@@ -94,7 +94,7 @@
         }
         .menu-active {
             cursor: pointer;
-            height: 89px;
+            height: 75px;
             display: flex;
             flex-direction: row;
             margin: 1px 0px;

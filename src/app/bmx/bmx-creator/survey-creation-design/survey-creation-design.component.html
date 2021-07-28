@@ -1,0 +1,101 @@
+    <!--  SURVEY CREATION & DESIGN 🧿🧿🧿🧿🧿🧿🧿🧿🧿🧿🧿🧿🧿🧿🧿🧿🧿🧿🧿🧿🧿🧿🧿🧿🧿🧿🧿🧿🧿🧿🧿🧿🧿🧿🧿🧿🧿🧿🧿🧿🧿-->
+    <div class="page-design"  *ngIf="isMenuActive11"  dragula="TASKS" [(dragulaModel)]="brandMatrixObjects"
+    (dragulaModelChange)="checkDragEvetn($event);brandMatrixObjects = $event" >
+
+            <div *ngFor="let bmxItem of brandMatrixObjects; let i = index"
+                style="display: flex;flex-direction: column;margin: 10px;">
+                <!-- BMX HEADER 😋 -->
+
+                <div *ngIf="bmxItem.componentType === 'logo-header'" class="header development-border">
+                    <div class="emoji-handle">.</div>
+                    <div>
+                        <img style="width: 127px;margin-left: 20px;" src="./assets/img/bi-logo-with-tagline.svg">
+                    </div>
+                    <div><span style="color: #253b7d;">Brand</span> <span style="color: #253b7d;">Matrix</span></div>
+                    <div>
+                        <img style="width: 127px;margin-right: 20px;" src="./assets/img/bmx/BD.png">
+                    </div>
+                </div>
+                <!--😋 END BMX HEADER  -->
+
+                <!-- BMX PARAGRAPH EDITOR 📑 -->
+                <div *ngIf="bmxItem.componentType === 'text-editor'" class="paragraph development-border">
+                    <div class="emoji-handle">.</div>
+                    <div style="margin: 30px;" [innerHTML]="bmxItem.componentText | safe: 'html'"></div>
+                    <ckeditor *ngIf="i === selectedIndex" id="txtTexto" class="ckeditorcev"
+                        style="animation: fadeIn 0.5s ease forwards;" [ngModelOptions]="{standalone: true}"
+                        [(ngModel)]="bmxItem.componentText" [data]="bmxItem.componentText" [config]="ckconfig">
+                    </ckeditor>
+
+                    <button *ngIf="i === selectedIndex" class="cancel" (click)="selectedIndex = '';" mat-icon-button>
+                        <mat-icon style="font-size: 25px;">cancel</mat-icon>
+                    </button>
+                    <button *ngIf="i !== selectedIndex" mat-icon-button class="edit-icon" (click)="selectedIndex = i">
+                        <mat-icon style="font-size: 25px;">edit</mat-icon>
+                    </button>
+                </div>
+                <!-- 📑 END BMX PARAGRAPH EDITOR -->
+
+
+                <!-- LINEAR SCALE -->
+                <div *ngIf="bmxItem.componentType === 'ranking-scale'" class="development-border"
+                    style="display: flex;flex-direction: column;position: relative;">
+                    <div class="emoji-handle">.</div>
+                    <div *ngFor="let testName of testNames" style="margin:10px 10px;">
+                        <div class="test-name-table">
+                            <label style="width: 10%;text-align: start;margin-left: 10px;"
+                                for="html">{{testName.name}}</label>
+                            <label style="width: 10%;text-align: start;margin-left: 10px;"
+                                for="html">{{testName.rationale}}</label>
+
+                            <button mat-raised-button color="primary" class="edit-icon">
+                                1
+                            </button>
+                            <button mat-raised-button color="primary" class="edit-icon">
+                                2
+                            </button>
+                            <button mat-raised-button color="primary" class="edit-icon">
+                                3
+                            </button>
+                            <button mat-raised-button color="primary" class="edit-icon">
+                                4
+                            </button>
+                            <input type="radio" id="1" [name]="testName.name" value="1">
+                            <label for="1">1</label>
+                            <input type="radio" id="2" [name]="testName.name" value="2">
+                            <label for="2">2</label>
+                            <input type="radio" id="3" [name]="testName.name" value="3">
+                            <label for="3">3</label>
+                        </div>
+                    </div>x
+
+                </div>
+
+                <!-- END LINEAR SCALE -->
+
+            </div>
+
+    </div>
+
+    <div class="project-info"  *ngIf="isMenuActive11" style="border: pink solid 1px; width: 25%; height: 100vh;">
+
+        <div  style="display: flex;flex-direction: column;margin-top: 50px;">
+            <button (click)="createNewBmxComponent()" mat-icon-button matTooltip="home" matTooltipPosition="right">
+                <mat-icon class="full-icon">note_add</mat-icon>
+            </button>
+            <button matTooltip="full-screen" matTooltipPosition="right" mat-icon-button color="warn" aria-label="aria">
+                <mat-icon class="full-icon">aspect_ratio</mat-icon>
+            </button>
+            <button matTooltip="search" matTooltipPosition="right" mat-icon-button color="warn" aria-label="aria">
+                <mat-icon class="full-icon">search</mat-icon>
+            </button>
+            <button *ngIf="!true" mat-icon-button matTooltip="slide comments" matTooltipPosition="right">
+                <mat-icon class="full-icon">comment</mat-icon>
+            </button>
+            <button *ngIf="!false" matTooltip="qr code" matTooltipPosition="right" mat-icon-button aria-label="aria">
+                <mat-icon class="full-icon">qr_code</mat-icon>
+            </button>
+        </div>
+    </div>
+    
+    <!-- END 🧿🧿🧿🧿🧿🧿🧿🧿🧿🧿🧿🧿🧿🧿🧿🧿🧿🧿🧿🧿🧿🧿🧿🧿🧿🧿🧿🧿🧿🧿🧿🧿🧿🧿🧿🧿🧿🧿🧿🧿  SURVEY CREATION & DESIGN -->
