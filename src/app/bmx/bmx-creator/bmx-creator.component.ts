@@ -106,6 +106,15 @@ export class BmxCreatorComponent implements OnInit {
     { name: 'Diagram', rationale: 'Evo' },
     { name: 'Other', rationale: 'Gard, Guard' }
   ];
+  EMAIL_TEMPLATES = [
+    { name: 'Clinical Trial', rationale: 'Sist, Assist, Syst' },
+    { name: 'Consumer', rationale: 'Hance, En-' },
+    { name: 'Contest/Namepage', rationale: 'Evo' },
+    { name: 'Nonproprietary Name', rationale: 'Gard, Guard' },
+    { name: 'Nonproprietary Suffix', rationale: 'Gard, Guard' },
+    { name: 'Logo', rationale: 'Gard, Guard' },
+    { name: 'Pharmaceutical/Rx', rationale: 'Gard, Guard' }
+  ];
 
   testNames = [
     { name: 'ASSIST', rationale: 'Sist, Assist, Syst' },
