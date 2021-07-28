@@ -1,5 +1,6 @@
 import { Component, ElementRef, EventEmitter, Inject, Input, OnInit, Output, ViewChild, ViewEncapsulation } from '@angular/core';
 import { DOCUMENT } from '@angular/common';
+import { FormControl, FormGroup } from '@angular/forms';
 import { trigger, transition, useAnimation } from '@angular/animations';
 import { pulse, flash } from 'ng-animate';
 import { HotkeysService, Hotkey } from 'angular2-hotkeys';
@@ -100,6 +101,22 @@ export class BmxCreatorComponent implements OnInit {
     { name: 'EVOLVE', rationale: 'Evo' },
     { name: 'GUARD', rationale: 'Gard, Guard' },
   ];
+  IMAGES_UPLOADED = [
+    { name: 'Image 1', rationale: 'Sist, Assist, Syst' },
+    { name: 'Image 2', rationale: 'Hance, En-' },
+    { name: 'Image 3', rationale: 'Evo' },
+    { name: 'Image 4', rationale: 'Gard, Guard' },
+    { name: 'Image 5', rationale: 'In, Inv' },
+    { name: 'Image 6', rationale: 'Omni' },
+    { name: 'Image 7', rationale: 'Opti, Opt, Op' },
+    { name: 'Image 8', rationale: 'Shield' },
+    { name: 'Image 9', rationale: 'Synch, Sync' },
+    { name: 'Image 10', rationale: 'Trus, Tru' },
+  ];
+  LINK_TYPE = [
+    { name: 'Direct Link', rationale: 'Sist, Assist, Syst' },
+    { name: 'General Link', rationale: 'Hance, En-' },
+  ];
   AUTOSIZE_OPTIONS = [
     { name: 'Client Logo', rationale: 'Sist, Assist, Syst' },
     { name: 'Test Logo', rationale: 'Hance, En-' },
@@ -138,6 +155,17 @@ export class BmxCreatorComponent implements OnInit {
     DirectorList : ''
   };
 
+  bmxEditData = new FormGroup({
+    bmxSalesboard: new FormControl(),
+    bmxDepartment: new FormControl(),
+    bmxProjectName: new FormControl(),
+    bmxRegion: new FormControl(),
+    bmxCompany: new FormControl(),
+    bmxLanguage: new FormControl(),
+    bmxRegionalDirector: new FormControl(),
+    bmxDirectorName: new FormControl()
+ }); 
+
   constructor(@Inject(DOCUMENT) private document: any,
     private _NW3Service: Nw3Service, private activatedRoute: ActivatedRoute,
     private _hotkeysService: HotkeysService, private dragulaService: DragulaService, private _BmxService: BmxService) {
@@ -150,8 +178,8 @@ export class BmxCreatorComponent implements OnInit {
     //   })
     // });
 
-    this.toggleMenuActive('isMenuActive14')
-    this.isMainMenuActive = false;
+    // this.toggleMenuActive('isMenuActive1') 
+    // this.isMainMenuActive = !false;
 
     this._BmxService.getGeneralLists()
     .subscribe((arg:any) => {

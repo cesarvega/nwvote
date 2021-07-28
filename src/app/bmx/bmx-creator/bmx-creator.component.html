@@ -139,7 +139,7 @@
             <div [ngClass]="(isMenuActive14)?'menu-active':'menu-item'" (click)="toggleMenuActive('isMenuActive14')">
                 <div
                     style=" text-align: end;font-family: Arial, Helvetica, sans-serif;font-size: 20px;padding-left:20px">
-                    {{'Respondants Email'}}
+                    {{'Survey Participants/Email'}}
                 </div>
             </div>
             <div [ngClass]="(isMenuActive15)?'menu-active':'menu-item'" (click)="toggleMenuActive('isMenuActive15')">
@@ -219,7 +219,7 @@
 
                 <div style="display: flex;flex-direction: row;">
                     <label class="selectLabels">Salesboard</label>
-                    <mat-form-field appearance="outline">
+                    <mat-form-field  formControlName="bmxSalesboard" appearance="outline">
                         <mat-label>Select Salesboard Project</mat-label>
                         <mat-select class="selectLabels">
                             <mat-option *ngFor="let settingsList of settingsData.SalesBoardProjectList"
@@ -229,7 +229,7 @@
                         </mat-select>
                     </mat-form-field>
                     <label class="selectLabels">Department</label>
-                    <mat-form-field appearance="outline">
+                    <mat-form-field  formControlName="bmxDepartment" appearance="outline">
                         <mat-label>Select Department</mat-label>
                         <mat-select>
                             <mat-option *ngFor="let settingsList of settingsData.DepartmentList" [value]="settingsList">
@@ -244,12 +244,12 @@
                     <label class="selectLabels">Project Name</label>
                     <mat-form-field appearance="outline">
                         <mat-label>Enter Project Name</mat-label>
-                        <input type="text" matInput>
+                        <input type="text" matInput formControlName="bmxProjectName">
                     </mat-form-field>
                     <label class="selectLabels">Region</label>
                     <mat-form-field appearance="outline">
                         <mat-label>Select Region</mat-label>
-                        <mat-select>
+                        <mat-select  formControlName="bmxRegion">
                             <mat-option *ngFor="let settingsList of settingsData.OfficeList" [value]="settingsList">
                                 {{settingsList}}
                             </mat-option>
@@ -262,11 +262,11 @@
                     <label class="selectLabels">Company</label>
                     <mat-form-field appearance="outline">
                         <mat-label>Enter Company</mat-label>
-                        <input type="text" matInput>
+                        <input type="text" matInput  formControlName="bmxCompany">
                     </mat-form-field>
                     <label class="selectLabels">Language</label>
                     <mat-form-field appearance="outline">
-                        <mat-label>Select Language</mat-label>
+                        <mat-label formControlName="bmxLanguage">Select Language</mat-label>
                         <mat-select>
                             <mat-option *ngFor="let settingsList of settingsData.LanguageList" [value]="settingsList">
                                 {{settingsList}}
@@ -284,24 +284,20 @@
                 <div style="display: flex;flex-direction: row;">
                     <label class="selectLabels">Regional Directors</label>
                     <mat-form-field appearance="outline">
-                        <mat-label>Select Region</mat-label>
-                        <mat-select>
-                            <!-- <mat-option *ngFor="let settingsList of settingsData.DirectorList" [value]="settingsList.id">
-                            {{settingsList.Director}}, {{settingsList.Title}}
-                        </mat-option> -->
+                        <mat-label >Select Region</mat-label>
+                        <mat-select formControlName="bmxRegionalDirector">
                             <mat-option *ngFor="let settingsList of settingsData.OfficeList" [value]="settingsList">
                                 {{settingsList}}
                             </mat-option>
                         </mat-select>
                     </mat-form-field>
-
                 </div>
 
                 <div style="display: flex;flex-direction: row;">
                     <label class="selectLabels">Director Name</label>
                     <mat-form-field appearance="outline">
                         <mat-label>Director</mat-label>
-                        <mat-select>
+                        <mat-select  formControlName="bmxDirectorName">
                             <mat-option *ngFor="let settingsList of settingsData.DirectorList" [value]="settingsList">
                                 {{settingsList.Director}}
                             </mat-option>
@@ -415,7 +411,7 @@
 
     <!-- TEMPLATES 📐📐📐📐📐📐📐📐📐📐📐📐📐📐📐📐📐📐📐📐📐📐📐📐📐📐📐📐📐📐📐📐📐📐📐📐📐📐📐📐📐📐📐-->
     <div class="templates" *ngIf="isMenuActive9"
-        style="border: hotpink solid 0px; width: 60%; height: 100vh;overflow-y: hidden;">
+        style="border: hotpink solid 0px; width: 1000px; height: 100vh;overflow-y: hidden;">
 
         <h2 style="margin: 20px;">Project TEST BrandMatrix Setup</h2>
         <!-- HEADER INPUTS -->
@@ -463,13 +459,13 @@
         </div>
 
     </div>
-    <div class="templates" *ngIf="isMenuActive9" div style="border: pink solid 1px; width: 25%; height: 100vh;">SIDE
-        PANEL 9</div>
+    <!-- <div class="templates" *ngIf="isMenuActive9" div style="border: pink solid 1px; width: 25%; height: 100vh;">SIDE
+        PANEL 9</div> -->
     <!-- END 📐📐📐📐📐📐📐📐📐📐📐📐📐📐📐📐📐📐📐📐📐📐📐📐📐📐📐📐📐📐📐📐📐📐📐📐📐📐📐📐📐 TEMPLATES -->
 
 
     <!-- IMAGE UPLOADER 🎎🎎🎎🎎🎎🎎🎎🎎🎎🎎🎎🎎🎎🎎🎎🎎🎎🎎🎎🎎🎎🎎🎎🎎🎎🎎🎎🎎🎎🎎🎎🎎🎎🎎🎎🎎🎎🎎🎎🎎🎎-->
-    <div class="Image-Uploader" *ngIf="isMenuActive10" style="border: hotpink solid 0px; width: 60%; height: 100vh;">
+    <div class="Image-Uploader" *ngIf="isMenuActive10" style="border: hotpink solid 0px; width: 1000px; height: 100vh;">
 
         <h2 style="margin: 20px;">Project TEST BrandMatrix Setup</h2>
         <!-- HEADER INPUTS -->
@@ -477,48 +473,60 @@
 
         <div style="display: flex;flex-direction: row;justify-content: space-between;">
 
+            <!-- CLOUD ICON UPLOAD BOX -->
+
             <div
                 style="display: flex;flex-direction:column; justify-content: space-evenly; align-items: center;border: grey dashed 3px; width: 300px; height: 200px;margin-left: 20px;">
 
-                <mat-icon style="color: #003180; font-size: 90px; margin-top: -20px; height: 10px;
-            width: 90px;">cloud_upload</mat-icon>
+                <mat-icon style="color: #003180; font-size: 90px; margin-top: -20px; height: 10px;width: 90px;">
+                    cloud_upload</mat-icon>
                 <br>
                 <br>
 
                 <h3 style="font-weight: 700;">Drag files to upload</h3>
 
 
-                <button mat-raised-button
-                    style="background-color: #003180;color:white;margin: -20px 20px 0 20px;">Select files to
-                    upload</button>
+                <button mat-raised-button style="background-color: #003180;color:white;margin: -20px 20px 0 20px;">
+                    Select files to upload
+                </button>
+
 
             </div>
 
-            <div style="width: 350px;">
-                <span> Title To Your Upload </span><br>
-                <mat-form-field style="width: 350px;margin-top: 10px;" appearance="outline">
-                    <mat-label>Upload Title</mat-label>
-                    <input matInput placeholder="Upload Title" value="">
-                </mat-form-field>
-            </div>
-            <div>
-                Autosizer <button mat-raised-button
-                    style="background-color: #003180;color:white;margin: -20px 20px 0 20px;">Resize
-                    Selected</button><br>
-                <mat-form-field appearance="outline" style="width: 212px;">
-                    <mat-label>Set Autosize</mat-label>
-                    <mat-select class="selectLabels">
-                        <mat-option *ngFor="let autoSizeOption of AUTOSIZE_OPTIONS" [value]="autoSizeOption">
-                            {{autoSizeOption.name}}
-                        </mat-option>
-                    </mat-select>
-                </mat-form-field>
-            </div>
 
+      
+                <div style="width: 350px;">
+                    <span> Title To Your Upload </span><br>
+                    <mat-form-field style="width: 350px;margin-top: 10px;" appearance="outline">
+                        <mat-label>Upload Title</mat-label>
+                        <input matInput placeholder="Upload Title" value="">
+                    </mat-form-field>
+
+                    <h6 style="color: grey;font-size: 10px;">* This title will appear as the gallery name for the group
+                        of files, and it will be demarcate with a 1, 2, 3, or so on </h6>
+                </div>
+
+
+
+                <div>
+                    Autosizer <button mat-raised-button
+                        style="background-color: #003180;color:white;margin: -20px 20px 0 20px;">Resize
+                        Selected</button><br>
+                    <mat-form-field appearance="outline" style="width: 212px;">
+                        <mat-label>Set Autosize</mat-label>
+                        <mat-select class="selectLabels">
+                            <mat-option *ngFor="let autoSizeOption of AUTOSIZE_OPTIONS" [value]="autoSizeOption">
+                                {{autoSizeOption.name}}
+                            </mat-option>
+                        </mat-select>
+                    </mat-form-field>
+                </div>
+                
         </div>
+    
 
         <div style="display: flex;flex-direction: row;">
-            <div style="margin: 10px;font-size: 20px;color:grey;font-weight: 200;padding-top: 17px;">Images Uploaded
+            <div style="margin: 10px;font-size: 12px;color:grey;font-weight: 200;padding-top: 17px;">Images Uploaded
             </div>
             <mat-form-field style="width: 200px;margin-top: 10px;" appearance="outline">
                 <mat-label>Find Images</mat-label>
@@ -532,10 +540,15 @@
 
             <div class="template-list" style="margin-top:20px;display: flex;flex-direction: row; height: 100vh;overflow-y: scroll;
             justify-content: flex-start;width: 100%;flex-wrap: wrap;text-align: center;">
-                <div *ngFor="let template of TEMPLATES; let i = index">
-                    {{template.name}}
+                <div *ngFor="let template of IMAGES_UPLOADED; let i = index">
+                  
+                    <input type="text" [placeholder]="template.name">
                     <div [ngClass]="(isSelectedButton === i)?'template-list-selected':'template-list-item'"
                         (mouseenter)="isTemplateSelected = i" (mouseleave)="isTemplateSelected = ''">
+                        
+                        
+                        
+                        
                         <button (click)="isSelectedButton = i"
                             *ngIf="isTemplateSelected === i && isSelectedButton !== i" mat-raised-button
                             style="background-color: #76d354;color:white;margin: 0 20px 0 20px;">
@@ -555,9 +568,9 @@
 
     </div>
 
-    <div class="Image-Uploader" *ngIf="isMenuActive10" div style="border: pink solid 1px; width: 25%; height: 100vh;">
+    <!-- <div class="Image-Uploader" *ngIf="isMenuActive10" div style="border: pink solid 1px; width: 25%; height: 100vh;">
         SIDE
-        PANEL 10</div>
+        PANEL 10</div> -->
     <!-- END 🎎🎎🎎🎎🎎🎎🎎🎎🎎🎎🎎🎎🎎🎎🎎🎎🎎🎎🎎🎎🎎🎎🎎🎎🎎🎎🎎🎎🎎🎎🎎🎎🎎🎎🎎🎎🎎🎎🎎 IMAGE UPLOADER -->
 
 
@@ -594,14 +607,10 @@
     <div class="respondants-emails" *ngIf="isMenuActive14" style="border: hotpink solid 0px; height: 100vh;">
 
         <h2 style="margin: 20px;">Project TEST BrandMatrix Setup</h2>
-
-
-
         <!-- HEADER INPUTS -->
         <div style="display: flex;flex-direction: row;justify-content: space-evenly;">
 
             <div>
-
                 <div style="margin: 20px;font-size: 20px;color:#063074;font-weight: 800;">Email Settings</div>
 
                 <div style="margin-left: 20px;font-size: 15px;color:grey;font-weight: 100;">Send Director Confirmation
@@ -615,7 +624,7 @@
 
                 <div style="display: flex;flex-direction: row;">
                     <mat-form-field appearance="outline" style="margin-left: 20px;">
-                        <mat-label>Select no complete</mat-label>
+                        <mat-label>Select not completed</mat-label>
                         <mat-select class="selectLabels">
                             <mat-option *ngFor="let settingsList of settingsData.DepartmentList" [value]="settingsList">
                                 {{settingsList}}
@@ -639,32 +648,34 @@
             <div style="display: flex;flex-direction: column;">
                 <div style="display: flex;flex-direction: row;justify-content: space-evenly;">
 
-                    <div>
-                        <div style="margin: 20px;font-size: 20px;color:#063074;font-weight: 800;">Templates</div>
-                        <mat-form-field appearance="outline" style="margin-left: 20px;">
-                            <mat-label>Chosse Template</mat-label>
-                            <mat-select class="selectLabels">
-                                <mat-option *ngFor="let EMAIL_TEMPLATE of EMAIL_TEMPLATES" [value]="EMAIL_TEMPLATE">
-                                    {{EMAIL_TEMPLATE.name}}
-                                </mat-option>
-                            </mat-select>
-                        </mat-form-field>
-                    </div>
-                    <div>
-                        <div style="margin: 20px;font-size: 20px;color:#063074;font-weight: 800;">Link Type</div>
-                        <mat-form-field appearance="outline" style="margin-left: 20px;">
-                            <mat-label>Direct Link</mat-label>
-                            <mat-select class="selectLabels">
-                                <mat-option *ngFor="let settingsList of settingsData.DepartmentList"
-                                    [value]="settingsList">
-                                    {{settingsList}}
-                                </mat-option>
-                            </mat-select>
-                        </mat-form-field>
-                        <button mat-raised-button
-                            style="background-color: #003180;color:white;margin: 10px 20px 0 20px;height: 38px;">
-                            load Text
-                        </button>
+                    <div style="display: flex;justify-content: space-around;">
+                        <div>
+                            <div style="margin: 20px;font-size: 20px;color:#063074;font-weight: 800;">Templates</div>
+                            <mat-form-field appearance="outline" style="margin-left: 20px;">
+                                <mat-label>Choose Template</mat-label>
+                                <mat-select class="selectLabels">
+                                    <mat-option *ngFor="let EMAIL_TEMPLATE of EMAIL_TEMPLATES" [value]="EMAIL_TEMPLATE">
+                                        {{EMAIL_TEMPLATE.name}}
+                                    </mat-option>
+                                </mat-select>
+                            </mat-form-field>
+                        </div>
+                        <div>
+                            <div style="margin: 20px;font-size: 20px;color:#063074;font-weight: 800;">Link Type</div>
+                            <mat-form-field appearance="outline" style="margin-left: 20px;">
+                                <mat-label>Direct Link</mat-label>
+                                <mat-select class="selectLabels">
+                                    <mat-option *ngFor="let link of LINK_TYPE"
+                                        [value]="link">
+                                        {{link.name}}
+                                    </mat-option>
+                                </mat-select>
+                            </mat-form-field>
+                            <button mat-raised-button
+                                style="background-color: #003180;color:white;margin: 10px 20px 0 20px;height: 38px;">
+                                Load Text
+                            </button>
+                        </div>
                     </div>
                 </div>
                 <div style="margin-left: 20px;">
@@ -679,7 +690,8 @@
                     </div>
                     <div style="display: flex;flex-direction: row;margin-bottom: 20px;justify-content: space-between;">
                         <div style="color:#063074;font-size: 20px;margin-right: 20px;">BCC :</div>
-                        <input style="width: 458px;" mat-input type="text" placeholder="creative@brandinstitue.com,director1@brandinstitue.com,direct...">
+                        <input style="width: 458px;" mat-input type="text"
+                            placeholder="creative@brandinstitue.com,director1@brandinstitue.com,direct...">
                     </div>
                     <div style="display: flex;flex-direction: row;margin-bottom: 20px;justify-content: space-between;">
                         <div style="color:#063074;font-size: 20px;margin-right: 20px;">Subject :</div>
@@ -691,33 +703,33 @@
                         <div style="color: grey;">{{'attachments'}}</div>
                         <button mat-raised-button
                             style="background-color: #003180;color:white;margin: -7px 0px 0 12px;">
-                            Chosse File(s)
+                            Choose File(s)
                         </button>
                     </div>
-
-
                     <div style="width: 656px;margin-top: 20px;">
-                    <!-- CKEDITOR -->
-
-                    <div >
-                     
-                        <!-- <div style="margin: 30px;" [innerHTML]="brandMatrixObjects[1].componentText | safe: 'html'"></div> -->
-                        <ckeditor  id="txtTexto"  style="animation: fadeIn 0.5s ease forwards;" [ngModelOptions]="{standalone: true}"
-                            [(ngModel)]="brandMatrixObjects[1].componentText" [data]="brandMatrixObjects[1].componentText" [config]="ckconfig">
-                        </ckeditor>
-                          
+                        <!-- CKEDITOR -->
+                        <div>
+                            <!-- <div style="margin: 30px;" [innerHTML]="brandMatrixObjects[1].componentText | safe: 'html'"></div> -->
+                            <ckeditor id="txtTexto" style="animation: fadeIn 0.5s ease forwards;"
+                                [ngModelOptions]="{standalone: true}" [(ngModel)]="brandMatrixObjects[1].componentText"
+                                [data]="brandMatrixObjects[1].componentText" [config]="ckconfig">
+                            </ckeditor>
+                            <div style="display: flex;justify-content: flex-end;">
+                                <button mat-raised-button style="background-color: #003180;color:white;margin:20px">
+                                    Send Invite
+                                </button>
+                                <button mat-raised-button style="background-color: #003180;color:white;margin:20px 0px">
+                                    Preview Invite
+                                </button>
+                            </div>
+                        </div>
                     </div>
-                </div>
 
                 </div>
 
             </div>
         </div>
     </div>
-
-
-
-
     <!-- <div class="respondants-emails" *ngIf="isMenuActive14" div
         style="border: pink solid 1px; width: 25%; height: 100vh;">SIDE
         RESPONDANTS EMAILS 14</div> -->
