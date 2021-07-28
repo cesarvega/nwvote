@@ -100,6 +100,12 @@ export class BmxCreatorComponent implements OnInit {
     { name: 'EVOLVE', rationale: 'Evo' },
     { name: 'GUARD', rationale: 'Gard, Guard' },
   ];
+  AUTOSIZE_OPTIONS = [
+    { name: 'Client Logo', rationale: 'Sist, Assist, Syst' },
+    { name: 'Test Logo', rationale: 'Hance, En-' },
+    { name: 'Diagram', rationale: 'Evo' },
+    { name: 'Other', rationale: 'Gard, Guard' }
+  ];
 
   testNames = [
     { name: 'ASSIST', rationale: 'Sist, Assist, Syst' },
@@ -135,7 +141,7 @@ export class BmxCreatorComponent implements OnInit {
     //   })
     // });
 
-    this.toggleMenuActive('isMenuActive9')
+    this.toggleMenuActive('isMenuActive14')
     this.isMainMenuActive = false;
 
     this._BmxService.getGeneralLists()
