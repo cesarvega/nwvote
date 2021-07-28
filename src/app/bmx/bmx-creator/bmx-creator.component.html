@@ -450,12 +450,14 @@
                 {{template.name}}
                 <div (mouseenter)="isTemplateSelected = i" (mouseleave)="isTemplateSelected = ''"
                     style="display: flex;flex-direction: row;justify-content: center;align-items: center;width: 200px;height: 200px;background-color: lightgray;border: grey solid 1px;margin: 20px;">
-                    <button *ngIf="isTemplateSelected === i" mat-raised-button style="background-color: green;color:white;margin: 0 20px 0 20px;">
+                    <button 
+                     (click)="isSelectedButton = i"
+                     *ngIf="isTemplateSelected === i && isSelectedButton !== i" mat-raised-button style="background-color: green;color:white;margin: 0 20px 0 20px;">
                         SELECT
                     </button>
-                    <!-- <button mat-raised-button style="background-color: lightseagreen;color:white;margin: 0 20px 0 20px;">
+                    <button *ngIf="isSelectedButton === i" mat-raised-button style="background-color: lightseagreen;color:white;margin: 0 20px 0 20px;">
                         SELECTED
-                    </button> -->
+                    </button>
                 </div>
             </div>
         </div>

@@ -43,6 +43,7 @@ export class BmxCreatorComponent implements OnInit {
   isMenuActive15;
   
   isTemplateSelected = '';
+  isSelectedButton = '';
 
   isMainMenuActive = true;
 
