@@ -2,7 +2,7 @@
 
 <mat-form-field style="    width: 94%;margin: 20px;" appearance="outline">
     <mat-label>Copy & Paste Respondents</mat-label>
-    <textarea matInput rows="4" cols="50" placeholder="First name, Last Name, respondentName@email.com"></textarea>
+    <textarea matInput rows="4" cols="50" #respondants placeholder="First name, Last Name, respondentName@email.com"></textarea>
 </mat-form-field>
 <div style="display: flex;flex-direction: row;">
 
@@ -21,8 +21,9 @@
 
     <div style="display: flex;flex-direction: column;">
         <div>
-            <button mat-raised-button style="background-color: #003180;color:white;margin: 5px 20px 0 20px;">
+            <button mat-raised-button style="background-color: #003180;color:white;margin: 5px 20px 0 20px;" (click)="upLoadResp(respondants.value)" > 
                 Upload Participants
+                
             </button>
         </div>
         <div style="position: relative;left: 89px;top: 2px;color: grey;">{{'0 Participants'}}</div>
@@ -34,41 +35,34 @@
 <br>
 <br>
 <!-- MAKE YOUR TABLE BELOW THIS IS SAMPLE TABLE -->
-<table class="table table-bordered">
-    <tr>
-        <th>Fisrt Name</th>
-        <th>Last Name</th>
-        <th>Email</th>
-        <th>Group</th>
-        <th>Edit</th>
-        <th>Delete</th>
-    </tr>
-</table>
-<div style="display: flex;flex-direction: row; justify-content: space-between;align-items: center;"
-    *ngFor="let settingsList of RESPONDENTS_LIST">
-
-    <td>
-        <div style="padding: 30px;">{{settingsList.firstName}}</div>
-    </td>
-    <td>
-        <div style="padding: 30px;">{{settingsList.lastName}}</div>
-    </td>
-    <td>
-        <div style="padding: 30px;">{{settingsList.email}}</div>
-    </td>
-    <td>
-        <button mat-icon-button style="color: #488abc;" aria-label="Example icon button with a home icon">
-            <mat-icon>email</mat-icon>
-        </button>
-    </td>
-    <td>
-        <button mat-icon-button style="color: #48bcb4;" aria-label="Example icon button with a home icon">
-             <mat-icon>build</mat-icon>
-        </button>
-    </td>
-    <td>
-        <button mat-icon-button style="color: #bc488a;" aria-label="Example icon button with a home icon">
-            <mat-icon>delete</mat-icon>
-        </button>
-    </td>
+<div>
+    <table mat-table [dataSource]="dataSource" matSort class="mat-elevation-z8" style="width: 100%;">
+        <!-- Position Column -->
+        <ng-container matColumnDef="firstName">
+            <th mat-header-cell *matHeaderCellDef> First Name </th>
+            <td mat-cell *matCellDef="let element"> {{element.firstName}} </td>
+        </ng-container>
+        <ng-container matColumnDef="lastName">
+            <th mat-header-cell *matHeaderCellDef> Last Name </th>
+            <td mat-cell *matCellDef="let element"> {{element.lastName}} </td>
+        </ng-container>
+        <ng-container matColumnDef="email">
+            <th mat-header-cell *matHeaderCellDef> Email </th>
+            <td mat-cell *matCellDef="let element"> {{element.email}} </td>
+        </ng-container>
+        <ng-container matColumnDef="group">
+            <th mat-header-cell *matHeaderCellDef> Group </th>
+            <td mat-cell *matCellDef="let element"> {{element.group}} </td>
+        </ng-container>
+        <ng-container matColumnDef="subGroup">
+            <th mat-header-cell *matHeaderCellDef> Subgroup </th>
+            <td mat-cell *matCellDef="let element"> {{element.subGroup}} </td>
+        </ng-container>
+        <ng-container matColumnDef="weight">
+            <th mat-header-cell *matHeaderCellDef> Weight </th>
+            <td mat-cell *matCellDef="let element"> {{element.weight}} </td>
+        </ng-container>
+        <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+        <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+    </table>
 </div>

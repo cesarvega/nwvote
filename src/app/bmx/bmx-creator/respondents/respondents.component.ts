@@ -1,4 +1,6 @@
 import { Component, ElementRef, EventEmitter, Inject, Input, OnInit, Output, ViewChild, ViewEncapsulation } from '@angular/core';
+import { MatPaginator } from '@angular/material/paginator';
+import { MatTableDataSource } from '@angular/material/table';
 @Component({
   selector: 'app-respondents',
   templateUrl: './respondents.component.html',
@@ -6,16 +8,23 @@ import { Component, ElementRef, EventEmitter, Inject, Input, OnInit, Output, Vie
 })
 export class RespondentsComponent implements OnInit {
   @Input() isMenuActive14 ;
+  displayedColumns = ['firstName', 'lastName', 'email', 'group', 'subGroup', 'weight'/*, 'edit', 'delete'*/];
+  dataSource;
+  
   RESPONDENTS_LIST = [
-    {'firstName':'firstName', 'lastName':'lastName', 'email':'email'},
-    {'firstName':'Cesar', 'lastName':'Vega', 'email':'myemail@email.com'},
-    {'firstName':'Carlos', 'lastName':'Gomez', 'email':'myemail@email.com'},
-    {'firstName':'Kenneth', 'lastName':'Cabrera', 'email':'myemail@email.com'},
-    {'firstName':'Pedro', 'lastName':'Reyes', 'email':'myemail@email.com'},
+    {'firstName':'firstName', 'lastName':'lastName', 'email':'email', 'group':'group', 'subGroup':'subGroup', 'weight':'weight' }
+    
   ]
   constructor() { }
 
   ngOnInit(): void {
+    this.dataSource = new MatTableDataSource<any>(this.RESPONDENTS_LIST);
   }
+
+  upLoadResp(list: string): void
+  {
+     const test = list;
+  }
+
 
 }
