@@ -44,6 +44,7 @@ export class BmxCreatorComponent implements OnInit {
   isMenuActive15;
   isMenuActive16;
   
+  // TEMPLATE SELECTOR VARABLES
   isTemplateSelected = '';
   isSelectedButton = '';
 
@@ -247,15 +248,6 @@ export class BmxCreatorComponent implements OnInit {
     this.isMenuActive14 = (menuItem === 'isMenuActive14') ? true : false;
     this.isMenuActive15 = (menuItem === 'isMenuActive15') ? true : false;
     this.isMenuActive16 = (menuItem === 'isMenuActive16') ? true : false;    
-  }
-
-  createNewBmxComponent() {
-    window.scrollTo(300, 500);
-    this.brandMatrixObjects.push({
-      componentType: 'text-editor',
-      componentText: this.sampleHtml,
-      componentSettings: [{ fontSize: '16px', fontFace: 'Arial', fontColor: 'red' }],
-    })
   }
 
   checkDragEvetn(e) {
