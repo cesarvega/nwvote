@@ -39,8 +39,6 @@ export class SurveyCreationDesignComponent implements OnInit {
       componentType: 'text-editor',
       componentText: this.sampleHtml,
       componentSettings: [{ fontSize: '16px', fontFace: 'Arial', fontColor: 'red' }],
-
-
     },
   ];
   testNames = [

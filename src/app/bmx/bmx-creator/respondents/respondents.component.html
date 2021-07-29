@@ -47,28 +47,28 @@
 <div style="display: flex;flex-direction: row; justify-content: space-between;align-items: center;"
     *ngFor="let settingsList of RESPONDENTS_LIST">
 
-    <td>
-        <div style="padding: 30px;">{{settingsList.firstName}}</div>
-    </td>
-    <td>
-        <div style="padding: 30px;">{{settingsList.lastName}}</div>
-    </td>
-    <td>
-        <div style="padding: 30px;">{{settingsList.email}}</div>
-    </td>
-    <td>
-        <button mat-icon-button style="color: #488abc;" aria-label="Example icon button with a home icon">
+    
+        <div style="width: 10%;text-align: start;margin-left: 10px;">{{settingsList.firstName}}</div>
+    
+    
+        <div style="width: 10%;text-align: start;margin-left: 10px;">{{settingsList.lastName}}</div>
+    
+    
+        <div style="width: 10%;text-align: start;margin-left: 10px;">{{settingsList.email}}</div>
+    
+    
+        <button style="width: 10%;text-align: start;margin-left: 10px;" mat-icon-button style="color: #488abc;" aria-label="Example icon button with a home icon">
             <mat-icon>email</mat-icon>
         </button>
-    </td>
-    <td>
-        <button mat-icon-button style="color: #48bcb4;" aria-label="Example icon button with a home icon">
+    
+    
+        <button style="width: 10%;text-align: start;margin-left: 10px;" mat-icon-button style="color: #48bcb4;" aria-label="Example icon button with a home icon">
              <mat-icon>build</mat-icon>
         </button>
-    </td>
-    <td>
-        <button mat-icon-button style="color: #bc488a;" aria-label="Example icon button with a home icon">
+    
+    
+        <button style="width: 10%;text-align: start;margin-left: 10px;" mat-icon-button style="color: #bc488a;" aria-label="Example icon button with a home icon">
             <mat-icon>delete</mat-icon>
         </button>
-    </td>
+    
 </div>
