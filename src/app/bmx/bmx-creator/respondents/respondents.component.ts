@@ -43,8 +43,8 @@ export class RespondentsComponent implements OnInit {
     {
       if(this.RESPONDENTS_LIST[i].firstName == option)
       {
-        delete this.RESPONDENTS_LIST[i];
-        this.RESPONDENTS_LIST.length = this.RESPONDENTS_LIST.length - 1;
+        this.RESPONDENTS_LIST.splice(i, 1);
+        break;
       }
     }
     this.dataSource = new MatTableDataSource<any>(this.RESPONDENTS_LIST);
