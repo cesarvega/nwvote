@@ -103,28 +103,12 @@ export class BmxCreatorComponent implements OnInit {
     { name: 'EVOLVE', rationale: 'Evo' },
     { name: 'GUARD', rationale: 'Gard, Guard' },
   ];
-  IMAGES_UPLOADED = [
-    { name: 'Image 1', rationale: 'Sist, Assist, Syst' },
-    { name: 'Image 2', rationale: 'Hance, En-' },
-    { name: 'Image 3', rationale: 'Evo' },
-    { name: 'Image 4', rationale: 'Gard, Guard' },
-    { name: 'Image 5', rationale: 'In, Inv' },
-    { name: 'Image 6', rationale: 'Omni' },
-    { name: 'Image 7', rationale: 'Opti, Opt, Op' },
-    { name: 'Image 8', rationale: 'Shield' },
-    { name: 'Image 9', rationale: 'Synch, Sync' },
-    { name: 'Image 10', rationale: 'Trus, Tru' },
-  ];
+ 
   LINK_TYPE = [
     { name: 'Direct Link', rationale: 'Sist, Assist, Syst' },
     { name: 'General Link', rationale: 'Hance, En-' },
   ];
-  AUTOSIZE_OPTIONS = [
-    { name: 'Client Logo', rationale: 'Sist, Assist, Syst' },
-    { name: 'Test Logo', rationale: 'Hance, En-' },
-    { name: 'Diagram', rationale: 'Evo' },
-    { name: 'Other', rationale: 'Gard, Guard' }
-  ];
+ 
   EMAIL_TEMPLATES = [
     { name: 'Clinical Trial', rationale: 'Sist, Assist, Syst' },
     { name: 'Consumer', rationale: 'Hance, En-' },
