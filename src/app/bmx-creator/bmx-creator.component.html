@@ -217,7 +217,8 @@
 
         <div *ngIf="true" class="mainContainerPresent" style="position: absolute;
         z-index: 1;
-        width: 1011px;">
+        width: 1011px;"
+        [formGroup]="bmxEditData">
 
             <h2>Project TEST BrandMatrix Setup</h2>
             <h3 style="color:#253b7d;">Basic Project Information</h3>
@@ -226,13 +227,22 @@
 
                 <div style="display: flex;flex-direction: row;">
                     <label class="selectLabels">Salesboard</label>
+                    <form>
                     <mat-form-field appearance="outline">
-                            <mat-select formControlName="bmxSalesboard">
-                                <mat-option *ngFor="let settingsList of settingsData.SalesBoardProjectList" [value]="settingsList">
+                        <!-- <mat-select formControlName="bmxSalesboard"> -->
+                            <input type="text"
+                                        placeholder="Enter Salesboard Project"
+                                        [formControl]="salesboardFilter"
+                                        matInput
+                                        [matAutocomplete]="auto">
+                            <mat-autocomplete #auto="matAutocomplete" [displayWith]="displayName">
+                                <mat-option *ngFor="let settingsList of filteredOptions | async" ([value])="salesboardList">
                                     {{settingsList}}
                                 </mat-option>
-                            </mat-select>
+                            </mat-autocomplete>
+                        <!-- </mat-select> -->
                     </mat-form-field>
+                </form>
                     <label class="selectLabels">Department</label>
                     <mat-form-field appearance="outline">
                         <mat-label>Select Department</mat-label>

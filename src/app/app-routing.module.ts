@@ -34,10 +34,10 @@ const routes: Routes = [
   path: ':id',
    component: BmxCreatorComponent
   },
-   {//BI BRAND MATRIX
-    path: ':id',
-    component: BmxComponent
-  },
+  //  {//BI BRAND MATRIX
+  //   path: ':id',
+  //   component: BmxComponent
+  // },
   //{//NW 3 BI PRESENTS NOMENCLATURE WORKSHOP V.3.0
     //path: ':id',
     //component: NW3Component
