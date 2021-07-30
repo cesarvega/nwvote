@@ -50,4 +50,10 @@ export class RespondentsComponent implements OnInit {
     this.dataSource = new MatTableDataSource<any>(this.RESPONDENTS_LIST);
   }
 
+  public onFocusOutEvent(event: any): void {
+    localStorage.setItem('fakeprojectname' + '_repondants list', this.RESPONDENTS_LIST.toString()) 
+  }
+
+
+
 }
