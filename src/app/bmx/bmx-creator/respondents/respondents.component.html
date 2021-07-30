@@ -1,0 +1,95 @@
+<div style="width: 100%;">
+    <div style="margin: 20px;font-size: 20px;color:#063074;font-weight: 800;">Send</div>
+
+    <mat-form-field style="    width: 94%;margin: 20px;" appearance="outline">
+        <mat-label>Copy & Paste Respondents</mat-label>
+        <textarea matInput rows="4" cols="50" #respondants placeholder="First name, Last Name, respondentName@email.com"></textarea>
+    </mat-form-field>
+    <div style="display: flex;flex-direction: row;">
+    
+    
+        <!-- CHNAGE THE DROP DOWN FOR CHECK BoXES Select All/Deselect All checkbox & a Select All Not Completed -->
+    
+        <mat-form-field appearance="outline" style="margin-left: 20px;">
+            <mat-label>Select not completed</mat-label>
+            <mat-select class="selectLabels">
+                <mat-option *ngFor="let settingsList of ['Select All', 'Deselect All', 'Select All Not Completed']"
+                    [value]="settingsList">
+                    {{settingsList}}
+                </mat-option>
+            </mat-select>
+        </mat-form-field>
+    
+        <div style="display: flex;flex-direction: column;">
+            <div>
+                <button mat-raised-button style="background-color: #003180;color:white;margin: 5px 20px 0 20px;" (click)="upLoadResp(respondants.value)" > 
+                    Upload Participants                    
+                </button>
+            </div>
+            <div style="position: relative;left: 89px;top: 2px;color: grey;">{{'0 Participants'}}</div>
+        </div>
+    </div>
+    
+    
+    <br>
+    <br>
+    <br>
+    <!-- MAKE YOUR TABLE BELOW THIS IS SAMPLE TABLE -->
+    <div>
+        <table mat-table [dataSource]="dataSource" matSort class="mat-elevation-z2">
+            <!-- Position Column -->
+            <ng-container matColumnDef="firstName">
+                <th mat-header-cell *matHeaderCellDef style="width: 15%;" > First Name </th>
+                <td mat-cell *matCellDef="let element"> 
+                    <input matInput placeholder="First Name " [value]="element.firstName" [(ngModel)]="element.firstName">
+                </td>
+            </ng-container>
+            
+            <ng-container matColumnDef="lastName">
+                <th mat-header-cell *matHeaderCellDef style="width: 15%;"> Last Name </th>
+                <td mat-cell *matCellDef="let element"> 
+                    <input matInput placeholder="Last Name" [value]="element.lastName" [(ngModel)]="element.lastName">
+                     </td>
+            </ng-container>
+            <ng-container matColumnDef="email">
+                <th mat-header-cell *matHeaderCellDef style="width: 30%;"> Email </th>
+                <td mat-cell *matCellDef="let element"> 
+                    <input matInput placeholder="Email" [value]="element.email" [(ngModel)]="element.email">
+
+                     </td>
+            </ng-container>
+            <ng-container matColumnDef="group">
+                <th mat-header-cell *matHeaderCellDef style="width: 5%;"> Group </th>
+                <td mat-cell *matCellDef="let element"> 
+                    <input matInput placeholder="" [value]="element.group" [(ngModel)]="element.group">
+
+                     </td>
+            </ng-container>
+            <ng-container matColumnDef="subGroup">
+                <th mat-header-cell *matHeaderCellDef style="width: 5%;"> Subgroup </th>
+                <td mat-cell *matCellDef="let element"> 
+                    <input matInput placeholder="" [value]="element.subGroup" [(ngModel)]="element.subGroup">
+
+                     </td>
+            </ng-container>
+            <ng-container matColumnDef="weight">
+                <th mat-header-cell *matHeaderCellDef style="width: 5%;"> Weight </th>
+                <td mat-cell *matCellDef="let element">
+                    <input matInput placeholder="" [value]="element.weight" [(ngModel)]="element.weight">
+                     </td>
+            </ng-container>
+            <ng-container matColumnDef="delete">
+                <th mat-header-cell *matHeaderCellDef mat-sort-header style="width: 3.33%;"> </th>
+                <td mat-cell *matCellDef="let element">
+                    <button mat-icon-button  style="color: #bc488a;" aria-label="Example icon button with a home icon"
+                        (click)="deletPart(element.firstName)">
+                        <mat-icon>delete</mat-icon>
+                    </button>
+                </td>
+            </ng-container>
+            <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+            <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+        </table>
+    </div>
+    
+</div>

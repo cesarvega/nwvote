@@ -59,7 +59,7 @@
         background-color: #353f4b;
         box-shadow: 0 6px 10px 0 rgb(0 0 0 / 14%), 0 1px 18px 0 rgb(0 0 0 / 12%), 0 3px 5px -1px rgb(0 0 0 / 20%);
     }
-    
+
     .menu {
         display: flex;
         flex-direction: column;
@@ -69,7 +69,7 @@
         position: absolute;
         .menu-item {
             cursor: pointer;
-            height: 89px;
+            height: 70px;
             display: flex;
             flex-direction: row;
             margin: 1px 0px;
@@ -81,7 +81,7 @@
         }
         .menu-item:hover {
             cursor: pointer;
-            height: 89px;
+            height: 75px;
             display: flex;
             flex-direction: row;
             margin: 1px 0px;
@@ -94,7 +94,7 @@
         }
         .menu-active {
             cursor: pointer;
-            height: 89px;
+            height: 75px;
             display: flex;
             flex-direction: row;
             margin: 1px 0px;
@@ -106,11 +106,11 @@
             box-shadow: 0 6px 10px 0 rgb(0 0 0 / 14%), 0 1px 18px 0 rgb(0 0 0 / 12%), 0 3px 5px -1px rgb(0 0 0 / 20%);
         }
     }
-    
+
     .development-border {
         border: blue 1px solid;
     }
-    
+
     .full-icon:hover {
         transform: scale(2);
         color: darkblue;
@@ -122,18 +122,18 @@
         text-shadow: 0 0.04em 0.04em rgba(0, 0, 0, 0.35);
         box-shadow: inset inset 0px 0px 5px #c1c1c1;
     }
-    
-    .create-edit::-webkit-scrollbar {
+
+    .page-design::-webkit-scrollbar {
         display: none;
     }
-    .create-edit {
+    .page-design {
         // border: hotpink solid 1px;
-        width: 60%;
+        width: 90%;
         height: 100vh;
         overflow-y: scroll;
         @include BoxShadow(2);
     }
-    
+
     .emoji-handle {
         // position: absolute;
         top: 5px;
@@ -146,7 +146,7 @@
         // height: 38px;
         // z-index: 999999;
     }
-    
+
     .paragraph {
         margin-top: 10px;
         position: relative;
@@ -170,7 +170,7 @@
             bottom: -13px;
         }
     }
-    
+
     .paragraph:hover {
         .edit-icon {
             display: inline;
@@ -181,7 +181,7 @@
             right: 0;
         }
     }
-    
+
     .header {
         cursor: pointer;
         height: 100px;
@@ -192,19 +192,55 @@
         font-size: 60px;
         position: relative;
     }
-    
+
     .test-name-table {
         display: flex;
         flex-direction: row;
         // border: olive solid 1px;
         text-align: center;
-        justify-content: space-between;
+        // justify-content: space-between;
         align-content: center;
     }
-    
+
+    .test-name-table:nth-child(odd) {
+       border-bottom: grey solid 1px;
+    }
+
+    .project-list::-webkit-scrollbar {
+        display: none;
+    }
+    .template-list::-webkit-scrollbar {
+        display: none;
+    }
+
+    .template-list-item {
+        display: flex;
+        flex-direction: row;
+        justify-content: center;
+        align-items: center;
+        width: 200px;
+        height: 200px;
+        background-color: lightgray;
+        border: grey solid 1px;
+        margin: 20px;
+    }
+    .template-list-selected {
+        display: flex;
+        flex-direction: row;
+        justify-content: center;
+        align-items: center;
+        width: 200px;
+        height: 200px;
+        background-color: lightgray;
+        border: #01a6ff 4px solid;
+        margin: 20px;
+    }
+    .template-list-item:hover {
+        border: #76d354 4px solid;
+    }
 }
 
-
+// 💜 💜 💜 💜 💜 💜 💜 💜 💜 💜 💜 💜 💜 💜 💜 💜 💜 💜 💜 💜 💜 💜 💜 💜 💜 💜 💜 💜 💜 💜 💜 💜 💜 💜 💜 💜 💜 💜 💜 💜 💜 💜 💜
 // END OF THE SCSS PROJECT *******************************************************************************************
 .mainContainerPresent {
     background-color: white;
@@ -1216,5 +1252,3 @@ $voteIconsColor: #008d05, #f2ce00, #f50c0c, #4c00ff, #4c00ff;
     padding-left: 1rem;
     flex: 0.3 0 0;
 }
-
-
