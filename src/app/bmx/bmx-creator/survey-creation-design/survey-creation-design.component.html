@@ -129,7 +129,7 @@
                 </div>
 
 
-                <div *ngFor="let testName of testNames; let i = index" style="margin:10px 10px;">
+                <div *ngFor="let testName of testNames; let y = index" style="margin:10px 10px;">
                     <div class="test-name-table">
 
                         <div style="width: 33%;text-align: start;margin-left: 10px;">{{testName.name}}</div>
@@ -137,29 +137,13 @@
 
                         <div style="width: 33%;text-align: start;margin-left: 10px;">{{testName.rationale}}</div>
 
-                        <button style="outline: none;color:#76d354;" mat-icon-button
+                        <div *ngFor="let star of  STARS; let i = index">
+                            <button (mouseenter)="selectStar(star.id); selectedStarRatingIndex = y.toString()+star.id" 
+                            [ngClass]="(y.toString()+star.id === selectedStarRatingIndex)?star.class:'active-rating-star'" style="outline: none;" mat-icon-button
                             aria-label="ranking">
-                            <mat-icon>grade</mat-icon>
+                            <mat-icon>{{star.icon}}</mat-icon>
                         </button>
-
-                        <button style="outline: none;color:#76d354;" mat-icon-button
-                            aria-label="ranking">
-                            <mat-icon>star</mat-icon>
-                        </button>
-
-                        <button style="outline: none;color:#76d354;" mat-icon-button
-                            aria-label="ranking">
-                            <mat-icon>star</mat-icon>
-                        </button>
-                        <button style="outline: none;color:#76d354;" mat-icon-button
-                            aria-label="ranking">
-                            <mat-icon>star</mat-icon>
-                        </button>
-
-                        <button style="outline: none;color:#76d354;" mat-icon-button
-                            aria-label="ranking">
-                            <mat-icon>star</mat-icon>
-                        </button>
+                        </div>                       
                     </div>
                 </div>
                 <button *ngIf="i === selectedIndex" class="cancel" (click)="selectedIndex = '';" mat-icon-button>

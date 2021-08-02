@@ -19,12 +19,55 @@ export class SurveyCreationDesignComponent implements OnInit {
   sampleHtml2 = `<p style="text-align:center;color:red">MORE TEXT OR PARGRAPTH</p>`
   selectedOption: any;
   rankingScaleValue = 5;
-
+  // activeRatingStart = false;
+  activeRatingStart0 = false;
+  activeRatingStart1= false;
+  activeRatingStart2 = false;
+  activeRatingStart3= false;
+  activeRatingStart4 = false;
+  activeRatingStart5 = false;
   displayInstructions = false;
+
+  selectedStarRatingIndex = ''
+  selectedRating = 0;
+  STARS = [
+    {
+      id: 1,
+      icon: 'grade',
+      class: 'active-rating-star'
+    },
+    {
+      id: 2,
+      icon: 'grade',
+      class: 'active-rating-star'
+    },
+    {
+      id: 3,
+      icon: 'grade',
+      class: 'active-rating-star'
+    },
+    {
+      id: 4,
+      icon: 'grade',
+      class: 'active-rating-star'
+    },
+    {
+      id: 5,
+      icon: 'grade',
+      class: 'active-rating-star'
+    }
+
+  ];
+
   // SURVEY CREATOR VARIABLES & SCHEME
   brandMatrixObjects = [
     {
       componentType: 'logo-header',
+      componentText: this.sampleHtml,
+      componentSettings: [{ fontSize: '16px', fontFace: 'Arial', fontColor: 'red' }],
+    },
+    {
+      componentType: 'ranking-scale',
       componentText: this.sampleHtml,
       componentSettings: [{ fontSize: '16px', fontFace: 'Arial', fontColor: 'red' }],
     },
@@ -99,7 +142,36 @@ export class SurveyCreationDesignComponent implements OnInit {
     })
   }
 
+  setRating(index){
 
+    
+  }
+
+  selectStar(value): void{
+
+    // prevent multiple selection
+    if ( this.selectedRating === 0){
+
+      this.STARS.filter( (star) => {
+
+        if ( star.id <= value){
+
+          star.class = 'active-rating-star';
+
+        }else{
+
+          star.class = 'rating-star';
+
+        }
+
+        return star;
+      });
+
+    }
+
+    // this.selectedRating = value;
+
+  }
 
   toggleInstructions() {
     this.displayInstructions = !this.displayInstructions;
