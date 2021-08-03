@@ -50,8 +50,6 @@ import { NgxEchartsModule } from 'ngx-echarts';
 import { NgxChartsModule } from '@swimlane/ngx-charts';
 import { MatSortModule } from '@angular/material/sort';
 import { MatPaginatorModule } from '@angular/material/paginator';
-import { MatAutocompleteModule } from '@angular/material/autocomplete';
- 
 // export class MyHammerConfig extends HammerGestureConfig {
 //   overrides = <any>{
 //     // override default settings
@@ -130,7 +128,7 @@ export function loadEcharts() {
     MatSnackBarModule,
     MatSortModule,
     MatPaginatorModule,
-    BmxModule
+    BmxModule,
   ],
   entryComponents: [
     editPost, editName
