@@ -68,6 +68,8 @@ import { RespondentsComponent } from '../bmx-creator/respondents/respondents.com
 import { SurveyCreationDesignComponent } from '../bmx-creator/survey-creation-design/survey-creation-design.component';
 // import { RespondentsComponent } from '../bmx-creator/respodents/RespondentsComponent';
 // import { BmxModule } from './bmx/bmx/bmx.module';
+
+import { MatAutocompleteModule } from '@angular/material/autocomplete';
 export function loadEcharts() {
   return import('echarts');
 }
@@ -126,6 +128,7 @@ export function loadEcharts() {
     MatPaginatorModule,
     CommonModule,
     BmxRoutingModule,
+    MatAutocompleteModule
 
   ]
 })

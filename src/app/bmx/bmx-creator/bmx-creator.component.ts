@@ -15,7 +15,8 @@ import { MatPaginator } from '@angular/material/paginator';
 import { MatTableDataSource } from '@angular/material/table';
 import { MatSort } from '@angular/material/sort';
 import { MatDatepicker } from '@angular/material/datepicker';
-
+import { Observable } from 'rxjs';
+import { map, startWith } from 'rxjs/operators';
 @Component({
   selector: 'app-bmx-creator',
   templateUrl: './bmx-creator.component.html',
@@ -155,13 +156,14 @@ export class BmxCreatorComponent implements OnInit {
   ];
 
   settingsData = { 
-    SalesBoardProjectList : '',
+    SalesBoardProjectList : [],
     DepartmentList : '',
     OfficeList : '',
     LanguageList : '',
     DirectorList : ''
   };
-
+  testProject: any;
+  stringBmxEditData: any;
   bmxEditData = new FormGroup({
     bmxSalesboard: new FormControl(),
     bmxDepartment: new FormControl(),
@@ -187,12 +189,21 @@ export class BmxCreatorComponent implements OnInit {
 
     this.toggleMenuActive('isMenuActive11') 
     this.isMainMenuActive = false;
-
     this._BmxService.getGeneralLists()
     .subscribe((arg:any) => {
       this.settingsData = JSON.parse(arg.d);
-      console.log(JSON.parse(arg.d));      
+      console.log(JSON.parse(arg.d));
+        //AUTOCOMPLETE 🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖
+      this.settingsData.SalesBoardProjectList.forEach( myObject =>{  this.salesboardObj.push({name: myObject['SalesBoardProjectList']})});
+      console.log(this.salesboardObj);
+      this.filteredOptions = this.bmxEditData.controls['bmxSalesboard'].valueChanges
+      .pipe(
+        startWith(''),
+          map(value => this._filter(value))
+        );
+        // END 🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖 AUTOCOMPLETE
     });
+
 
 
     // DRAGGING SERVICE FOR SURVEY CREATOR
@@ -258,5 +269,19 @@ export class BmxCreatorComponent implements OnInit {
   checkDragEvetn(e) {
     console.log(e);
   }
+
+
+   //AUTOCOMPLETE 🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖
+   filteredOptions: Observable<string[]>;
+   salesboardFilter = new FormControl();
+   salesboardObj = [];
+ 
+   private _filter(value: string): string[] {
+     const filterValue = value.toLowerCase();
+     console.log(value);
+     return this.settingsData['SalesBoardProjectList'].filter(option => option.toLowerCase().includes(filterValue));
+   }
+   // END 🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖 AUTOCOMPLETE
+ 
 
 }
