@@ -57,6 +57,8 @@ export function loadEcharts() {
   return import('echarts');
 }
 
+// NOTES : Enable BmxModule to make the Brand Matrix Apps work
+
 @NgModule({
   declarations: [
     AppComponent,

@@ -2,24 +2,53 @@
     <div class="page-design" *ngIf="isMenuActive11" dragula="TASKS" [(dragulaModel)]="brandMatrixObjects"
         (dragulaModelChange)="checkDragEvetn($event);brandMatrixObjects = $event">
 
+
+        <!-- BRAND MATRIX MODULAR LEGO TEMPLATE COMPONENTS  🧑🏻‍🚀🧑🏻‍🚀🧑🏻‍🚀🧑🏻‍🚀🧑🏻‍🚀🧑🏻‍🚀🧑🏻‍🚀🧑🏻‍🚀🧑🏻‍🚀🧑🏻‍🚀🧑🏻‍🚀🧑🏻‍🚀🧑🏻‍🚀 -->
         <div *ngFor="let bmxItem of brandMatrixObjects; let i = index"
             style="display: flex;flex-direction: column;margin: 10px;">
-            <!-- BMX HEADER 😋 -->
 
-            <div *ngIf="bmxItem.componentType === 'logo-header'" class="header development-border">
+
+            <!-- BMX HEADER 😋😋😋😋😋😋😋😋😋😋😋😋😋😋😋😋😋😋😋😋😋😋😋😋😋😋😋😋😋😋😋😋😋😋😋😋😋😋 -->
+
+            <div *ngIf="bmxItem.componentType === 'logo-header'" class="header">
+
                 <div class="emoji-handle">.</div>
+
                 <div>
-                    <img style="width: 127px;margin-left: 20px;" src="./assets/img/bi-logo-with-tagline.svg">
+                    <img style="width: 231px;margin-left: 8px;    margin-top: 60px;"
+                        src="./assets/img/bmx/BRANDMATRIX-DASHBOARD-LOGO.svg">
+
+                    <div style="margin-left: 50px;">
+                        <div style="font-size: 16px;margin-top: 10px;color: #48535e;">CATEGORY HEADER HERE</div>
+                        <div style="font-size: 14px;margin-bottom: 20px;color: lightgray;">Brief Description Here</div>
+
+                    </div>
+
                 </div>
-                <div><span style="color: #253b7d;">Brand</span> <span style="color: #253b7d;">Matrix</span></div>
+
                 <div>
+                    <span style="color: #48535e;font-size: 30px;margin-right: 31px;outline: none;
+                    font-family: Arial, Helvetica, sans-serif;">PROJECT NAME</span>
+                </div>
+
+                <div>
+                    <button (click)="toggleInstructions()" style="margin-right: 33px;" mat-icon-button
+                        matTooltip="Instructions" matTooltipPosition="above">
+                        <!-- <div>Instructions</div> -->
+                        <mat-icon style="font-size: 30px;color: #37457d;" class="full-icon">description</mat-icon>
+                    </button>
                     <img style="width: 127px;margin-right: 20px;" src="./assets/img/bmx/BD.png">
                 </div>
-            </div>
-            <!--😋 END BMX HEADER  -->
 
-            <!-- BMX PARAGRAPH EDITOR 📑 -->
-            <div *ngIf="bmxItem.componentType === 'text-editor'" class="paragraph development-border">
+
+
+
+            </div>
+            <!--😋😋😋😋😋😋😋😋😋😋😋😋😋😋😋😋😋😋😋😋😋😋😋😋😋😋😋😋😋😋😋😋😋😋😋😋😋😋 END BMX HEADER  -->
+
+
+            <!-- BMX PARAGRAPH EDITOR 📑📑📑📑📑📑📑📑📑📑📑📑📑📑📑📑📑📑📑📑📑📑📑📑📑📑📑📑📑📑 -->
+            <div *ngIf="bmxItem.componentType === 'instructions' && displayInstructions" class="paragraph ">
                 <div class="emoji-handle">.</div>
                 <div style="margin: 30px;" [innerHTML]="bmxItem.componentText | safe: 'html'"></div>
                 <ckeditor *ngIf="i === selectedIndex" id="txtTexto" class="ckeditorcev"
@@ -34,60 +63,125 @@
                     <mat-icon style="font-size: 25px;">edit</mat-icon>
                 </button>
             </div>
-            <!-- 📑 END BMX PARAGRAPH EDITOR -->
+            <!-- 📑📑📑📑📑📑📑📑📑📑📑📑📑📑📑📑📑📑📑📑📑📑📑📑📑📑📑📑📑📑 END BMX PARAGRAPH EDITOR -->
 
 
-            <!-- LINEAR SCALE -->
-            <div *ngIf="bmxItem.componentType === 'ranking-scale'" class="development-border"
-                style="display: flex;flex-direction: column;position: relative;">
+            <!-- BMX PARAGRAPH EDITOR 📑📑📑📑📑📑📑📑📑📑📑📑📑📑📑📑📑📑📑📑📑📑📑📑📑📑📑📑📑📑 -->
+            <div *ngIf="bmxItem.componentType === 'text-editor'" class="paragraph ">
                 <div class="emoji-handle">.</div>
-                <div *ngFor="let testName of testNames" style="margin:10px 10px;">
-                    <div class="test-name-table">
-                        <label style="width: 10%;text-align: start;margin-left: 10px;"
-                            for="html">{{testName.name}}</label>
-                        <label style="width: 10%;text-align: start;margin-left: 10px;"
-                            for="html">{{testName.rationale}}</label>
+                <div style="margin: 30px;" [innerHTML]="bmxItem.componentText | safe: 'html'"></div>
+                <ckeditor *ngIf="i === selectedIndex" id="txtTexto" class="ckeditorcev"
+                    style="animation: fadeIn 0.5s ease forwards;" [ngModelOptions]="{standalone: true}"
+                    [(ngModel)]="bmxItem.componentText" [data]="bmxItem.componentText" [config]="ckconfig">
+                </ckeditor>
 
-                        <button mat-raised-button color="primary" class="edit-icon">
-                            1
-                        </button>
-                        <button mat-raised-button color="primary" class="edit-icon">
-                            2
-                        </button>
-                        <button mat-raised-button color="primary" class="edit-icon">
-                            3
-                        </button>
-                        <button mat-raised-button color="primary" class="edit-icon">
-                            4
-                        </button>
-                        <input type="radio" id="1" [name]="testName.name" value="1">
-                        <label for="1">1</label>
-                        <input type="radio" id="2" [name]="testName.name" value="2">
-                        <label for="2">2</label>
-                        <input type="radio" id="3" [name]="testName.name" value="3">
-                        <label for="3">3</label>
+                <button *ngIf="i === selectedIndex" class="cancel" (click)="selectedIndex = '';" mat-icon-button>
+                    <mat-icon style="font-size: 25px;">cancel</mat-icon>
+                </button>
+                <button *ngIf="i !== selectedIndex" mat-icon-button class="edit-icon" (click)="selectedIndex = i">
+                    <mat-icon style="font-size: 25px;">edit</mat-icon>
+                </button>
+            </div>
+            <!-- 📑📑📑📑📑📑📑📑📑📑📑📑📑📑📑📑📑📑📑📑📑📑📑📑📑📑📑📑📑📑 END BMX PARAGRAPH EDITOR -->
+
+
+            <!-- LINEAR SCALE 👽👽👽👽👽👽👽👽👽👽👽👽👽👽👽👽👽👽👽👽👽👽👽👽👽👽👽👽👽👽👽👽👽👽👽👽👽👽👽👽👽👽-->
+            <div *ngIf="bmxItem.componentType === 'ranking-scale'" class="paragraph"
+                style="display: flex;flex-direction: column;position: relative;">
+
+                <div class="emoji-handle">.</div>
+                <div class="test-name-table" style="margin-top: 20px;">
+                    <div
+                        style="width: 33%;text-align: center; font-size: 20px;   font-weight: bold;color: #324395;margin-left: 20px;">
+                        NAME</div>
+                    <div
+                        style="width: 33%;text-align: center; font-size: 20px;  font-weight: bold;color: #324395;margin-left: 50px;">
+                        RATIONALE</div>
+                    <div
+                        style="width: 33%;text-align: center; font-size: 20px;  font-weight: bold;color: #324395;margin-left: 20px;">
+                        RATING</div>
+                </div>
+                <hr>
+                <!-- UPLOAD TESTNAMES -->
+                <div *ngIf="i === selectedIndex" class="mat-elevation-z4">
+                    <div style="text-align: center;">
+                        <div style="font-size: 16px;margin: 20px;color: #48535e;">PASTE TEST NAMES</div>
+                        <!-- <div style="font-size: 14px;margin-bottom: 20px;color: lightgray;">Brief Description Here</div> -->
                     </div>
-                </div>x
+                    <div>
+                        <mat-form-field style="width: 90%;margin-left: 20px;" appearance="outline">
+                            <mat-label>Copy & Paste TEST NAMES</mat-label>
+                            <textarea matInput rows="4" cols="50"
+                                placeholder="ENHANCE,Hance, En-,EVOLVE,Evo,GUARD,Gard, Guard,INVEST,In, Inv,OMNI,Omni,OPTIMAL"></textarea>
+                        </mat-form-field>
+                    </div>
+                    <hr>
+                    <div style="text-align: center;">
+                        <div style="font-size: 16px;margin-top: 10px;color: #48535e;">SELECT RATING RANGE</div>
+                        <br>
+                        <br>
+                        <br>
+                        <div>
+                            1 <input [(ngModel)]="rankingScaleValue" type="range" id="volume" name="volume" min="0"
+                                max="11"> {{rankingScaleValue}} <br>
+                            <label for="volume">from </label>
+                        </div>
+                        <hr>
+                        <button style="outline: none;color:#76d354;margin-bottom: 50px;" mat-icon-button
+                            (click)="selectedIndex = '';" aria-label="ranking">DONE <br>
+                            <mat-icon>check_circle</mat-icon>
+                        </button>
+                    </div>
+                </div>
 
+
+                <div *ngFor="let testName of bmxItem.componentText; let y = index" style="margin:10px 10px;">
+                    <div class="test-name-table">
+
+                        <div style="width: 33%;text-align: center;margin-left: 10px;">{{testName.name}}</div>
+
+
+                        <div style="width: 33%;text-align: center;margin-left: 10px;">{{testName.rationale}}</div>
+
+                        <div style="margin-left: 80px;">
+                            <button *ngFor="let star of  testName.STARS" (mouseenter)="selectStar(star.id , y)"
+                                (click)="setRating(star.id,y)" [ngClass]="star.class" style="outline: none;"
+                                mat-icon-button aria-label="ranking">
+                                <mat-icon>{{star.icon}}</mat-icon>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+                <button *ngIf="i === selectedIndex" class="cancel" (click)="selectedIndex = '';" mat-icon-button>
+                    <mat-icon style="font-size: 25px;">cancel</mat-icon>
+                </button>
+                <button *ngIf="i !== selectedIndex" mat-icon-button class="edit-icon" (click)="selectedIndex = i">
+                    <mat-icon style="font-size: 25px;">edit</mat-icon>
+                </button>
             </div>
 
-            <!-- END LINEAR SCALE -->
+            <!-- END LINEAR SCALE 👽👽👽👽👽👽👽👽👽👽👽👽👽👽👽👽👽👽👽👽👽👽👽👽👽👽👽👽👽👽👽👽👽👽👽👽👽👽👽👽 -->
 
         </div>
-
+        <!-- END 🧑🏻‍🚀🧑🏻‍🚀🧑🏻‍🚀🧑🏻‍🚀🧑🏻‍🚀🧑🏻‍🚀🧑🏻‍🚀🧑🏻‍🚀🧑🏻‍🚀🧑🏻‍🚀🧑🏻‍🚀🧑🏻‍🚀🧑🏻‍🚀 BRAND MATRIX MODULAR LEGO TEMPLATE COMPONENTS   -->
     </div>
+
+
+
+
 
     <div class="project-info" *ngIf="isMenuActive11" style="border: pink solid 1px; width: 25%; height: 100vh;">
 
         <div style="display: flex;flex-direction: column;margin-top: 50px;">
-            <button (click)="createNewBmxComponent()" mat-icon-button matTooltip="home" matTooltipPosition="right">
+            <button (click)="createNewBmxComponent()" mat-icon-button matTooltip="Add Intro" matTooltipPosition="right">
                 <mat-icon class="full-icon">note_add</mat-icon>
             </button>
-            <button matTooltip="full-screen" matTooltipPosition="right" mat-icon-button color="warn" aria-label="aria">
-                <mat-icon class="full-icon">aspect_ratio</mat-icon>
+            <button (click)="createRankingComponent()" matTooltip="TEST NAMES" matTooltipPosition="right"
+                mat-icon-button color="warn" aria-label="aria">
+                <mat-icon class="full-icon">grading</mat-icon>
             </button>
-            <button matTooltip="search" matTooltipPosition="right" mat-icon-button color="warn" aria-label="aria">
-                <mat-icon class="full-icon">search</mat-icon>
+            <button matTooltip="SCALE" matTooltipPosition="right" mat-icon-button color="warn" aria-label="aria">
+                <mat-icon class="full-icon">linear_scale</mat-icon>
             </button>
             <button *ngIf="!true" mat-icon-button matTooltip="slide comments" matTooltipPosition="right">
                 <mat-icon class="full-icon">comment</mat-icon>

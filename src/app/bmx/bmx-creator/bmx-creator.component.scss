@@ -128,7 +128,7 @@
     }
     .page-design {
         // border: hotpink solid 1px;
-        width: 75%;
+        width: 90%;
         height: 100vh;
         overflow-y: scroll;
         @include BoxShadow(2);
@@ -198,8 +198,12 @@
         flex-direction: row;
         // border: olive solid 1px;
         text-align: center;
-        justify-content: space-between;
+        // justify-content: space-between;
         align-content: center;
+    }
+
+    .test-name-table:nth-child(odd) {
+       border-bottom: grey solid 1px;
     }
 
     .project-list::-webkit-scrollbar {

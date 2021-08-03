@@ -14,7 +14,7 @@ export class RespondentsComponent implements OnInit {
   @ViewChild('respondants') myTestDiv: ElementRef;
   
   RESPONDENTS_LIST = [
-    {'firstName':'firstName', 'lastName':'lastName', 'email':'email', 'group':'group', 'subGroup':'subGroup', 'weight':'weight' }
+    {'firstName':'Cesar', 'lastName':'Vega', 'email':'cvega@brandinstitute.com', 'group':'group 1', 'subGroup':'subGroup 3', 'weight':'100' }
     
   ]
   constructor() { }
@@ -49,11 +49,5 @@ export class RespondentsComponent implements OnInit {
     }
     this.dataSource = new MatTableDataSource<any>(this.RESPONDENTS_LIST);
   }
-
-  public onFocusOutEvent(event: any): void {
-    localStorage.setItem('fakeprojectname' + '_repondants list', this.RESPONDENTS_LIST.toString()) 
-  }
-
-
 
 }
