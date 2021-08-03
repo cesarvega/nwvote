@@ -21,44 +21,348 @@ export class SurveyCreationDesignComponent implements OnInit {
   rankingScaleValue = 5;
   // activeRatingStart = false;
   activeRatingStart0 = false;
-  activeRatingStart1= false;
+  activeRatingStart1 = false;
   activeRatingStart2 = false;
-  activeRatingStart3= false;
+  activeRatingStart3 = false;
   activeRatingStart4 = false;
   activeRatingStart5 = false;
   displayInstructions = false;
 
   selectedStarRatingIndex = ''
   selectedRating = 0;
-  STARS = [
+  newTestNames = [];
+  testNames = [
     {
-      id: 1,
-      icon: 'grade',
-      class: 'active-rating-star'
-    },
-    {
-      id: 2,
-      icon: 'grade',
-      class: 'active-rating-star'
-    },
-    {
-      id: 3,
-      icon: 'grade',
-      class: 'active-rating-star'
-    },
-    {
-      id: 4,
-      icon: 'grade',
-      class: 'active-rating-star'
-    },
-    {
-      id: 5,
-      icon: 'grade',
-      class: 'active-rating-star'
-    }
+      name: 'ASSIST', rationale: 'Sist, Assist, Syst', STARS: [
+        {
+          id: 1,
+          icon: 'grade',
+          class: 'rating-star'
+        },
+        {
+          id: 2,
+          icon: 'grade',
+          class: 'rating-star'
+        },
+        {
+          id: 3,
+          icon: 'grade',
+          class: 'rating-star'
+        },
+        {
+          id: 4,
+          icon: 'grade',
+          class: 'rating-star'
+        },
+        {
+          id: 5,
+          icon: 'grade',
+          class: 'rating-star'
+        }
 
+      ]
+    },
+    {
+      name: 'ENHANCE', rationale: 'Hance, En-', STARS: [
+        {
+          id: 1,
+          icon: 'grade',
+          class: 'rating-star'
+        },
+        {
+          id: 2,
+          icon: 'grade',
+          class: 'rating-star'
+        },
+        {
+          id: 3,
+          icon: 'grade',
+          class: 'rating-star'
+        },
+        {
+          id: 4,
+          icon: 'grade',
+          class: 'rating-star'
+        },
+        {
+          id: 5,
+          icon: 'grade',
+          class: 'rating-star'
+        }
+
+      ]
+    },
+    {
+      name: 'EVOLVE', rationale: 'Evo', STARS: [
+        {
+          id: 1,
+          icon: 'grade',
+          class: 'rating-star'
+        },
+        {
+          id: 2,
+          icon: 'grade',
+          class: 'rating-star'
+        },
+        {
+          id: 3,
+          icon: 'grade',
+          class: 'rating-star'
+        },
+        {
+          id: 4,
+          icon: 'grade',
+          class: 'rating-star'
+        },
+        {
+          id: 5,
+          icon: 'grade',
+          class: 'rating-star'
+        }
+
+      ]
+    },
+    {
+      name: 'GUARD', rationale: 'Gard, Guard', STARS: [
+        {
+          id: 1,
+          icon: 'grade',
+          class: 'rating-star'
+        },
+        {
+          id: 2,
+          icon: 'grade',
+          class: 'rating-star'
+        },
+        {
+          id: 3,
+          icon: 'grade',
+          class: 'rating-star'
+        },
+        {
+          id: 4,
+          icon: 'grade',
+          class: 'rating-star'
+        },
+        {
+          id: 5,
+          icon: 'grade',
+          class: 'rating-star'
+        }
+
+      ]
+    },
+    {
+      name: 'INVEST', rationale: 'In, Inv', STARS: [
+        {
+          id: 1,
+          icon: 'grade',
+          class: 'rating-star'
+        },
+        {
+          id: 2,
+          icon: 'grade',
+          class: 'rating-star'
+        },
+        {
+          id: 3,
+          icon: 'grade',
+          class: 'rating-star'
+        },
+        {
+          id: 4,
+          icon: 'grade',
+          class: 'rating-star'
+        },
+        {
+          id: 5,
+          icon: 'grade',
+          class: 'rating-star'
+        }
+
+      ]
+    },
+    {
+      name: 'OMNI', rationale: 'Omni', STARS: [
+        {
+          id: 1,
+          icon: 'grade',
+          class: 'rating-star'
+        },
+        {
+          id: 2,
+          icon: 'grade',
+          class: 'rating-star'
+        },
+        {
+          id: 3,
+          icon: 'grade',
+          class: 'rating-star'
+        },
+        {
+          id: 4,
+          icon: 'grade',
+          class: 'rating-star'
+        },
+        {
+          id: 5,
+          icon: 'grade',
+          class: 'rating-star'
+        }
+
+      ]
+    },
+    {
+      name: 'OPTIMAL', rationale: 'Opti, Opt, Op', STARS: [
+        {
+          id: 1,
+          icon: 'grade',
+          class: 'rating-star'
+        },
+        {
+          id: 2,
+          icon: 'grade',
+          class: 'rating-star'
+        },
+        {
+          id: 3,
+          icon: 'grade',
+          class: 'rating-star'
+        },
+        {
+          id: 4,
+          icon: 'grade',
+          class: 'rating-star'
+        },
+        {
+          id: 5,
+          icon: 'grade',
+          class: 'rating-star'
+        }
+
+      ]
+    },
+    {
+      name: 'SHIELD', rationale: 'Shield', STARS: [
+        {
+          id: 1,
+          icon: 'grade',
+          class: 'rating-star'
+        },
+        {
+          id: 2,
+          icon: 'grade',
+          class: 'rating-star'
+        },
+        {
+          id: 3,
+          icon: 'grade',
+          class: 'rating-star'
+        },
+        {
+          id: 4,
+          icon: 'grade',
+          class: 'rating-star'
+        },
+        {
+          id: 5,
+          icon: 'grade',
+          class: 'rating-star'
+        }
+
+      ]
+    },
+    {
+      name: 'SYNCHRONIZE', rationale: 'Synch, Sync', STARS: [
+        {
+          id: 1,
+          icon: 'grade',
+          class: 'rating-star'
+        },
+        {
+          id: 2,
+          icon: 'grade',
+          class: 'rating-star'
+        },
+        {
+          id: 3,
+          icon: 'grade',
+          class: 'rating-star'
+        },
+        {
+          id: 4,
+          icon: 'grade',
+          class: 'rating-star'
+        },
+        {
+          id: 5,
+          icon: 'grade',
+          class: 'rating-star'
+        }
+
+      ]
+    },
+    {
+      name: 'TRUSTED', rationale: 'Trus, Tru', STARS: [
+        {
+          id: 1,
+          icon: 'grade',
+          class: 'rating-star'
+        },
+        {
+          id: 2,
+          icon: 'grade',
+          class: 'rating-star'
+        },
+        {
+          id: 3,
+          icon: 'grade',
+          class: 'rating-star'
+        },
+        {
+          id: 4,
+          icon: 'grade',
+          class: 'rating-star'
+        },
+        {
+          id: 5,
+          icon: 'grade',
+          class: 'rating-star'
+        }
+
+      ]
+    },
+    {
+      name: 'NOMANER', rationale: 'referred', STARS: [
+        {
+          id: 1,
+          icon: 'grade',
+          class: 'rating-star'
+        },
+        {
+          id: 2,
+          icon: 'grade',
+          class: 'rating-star'
+        },
+        {
+          id: 3,
+          icon: 'grade',
+          class: 'rating-star'
+        },
+        {
+          id: 4,
+          icon: 'grade',
+          class: 'rating-star'
+        },
+        {
+          id: 5,
+          icon: 'grade',
+          class: 'rating-star'
+        }
+
+      ]
+    },
   ];
-
   // SURVEY CREATOR VARIABLES & SCHEME
   brandMatrixObjects = [
     {
@@ -68,7 +372,7 @@ export class SurveyCreationDesignComponent implements OnInit {
     },
     {
       componentType: 'ranking-scale',
-      componentText: this.sampleHtml,
+      componentText: this.testNames,
       componentSettings: [{ fontSize: '16px', fontFace: 'Arial', fontColor: 'red' }],
     },
     {
@@ -77,19 +381,7 @@ export class SurveyCreationDesignComponent implements OnInit {
       componentSettings: [{ fontSize: '16px', fontFace: 'Arial', fontColor: 'red' }],
     },
   ];
-  testNames = [
-    { name: 'ASSIST', rationale: 'Sist, Assist, Syst' },
-    { name: 'ENHANCE', rationale: 'Hance, En-' },
-    { name: 'EVOLVE', rationale: 'Evo' },
-    { name: 'GUARD', rationale: 'Gard, Guard' },
-    { name: 'INVEST', rationale: 'In, Inv' },
-    { name: 'OMNI', rationale: 'Omni' },
-    { name: 'OPTIMAL', rationale: 'Opti, Opt, Op' },
-    { name: 'SHIELD', rationale: 'Shield' },
-    { name: 'SYNCHRONIZE', rationale: 'Synch, Sync' },
-    { name: 'TRUSTED', rationale: 'Trus, Tru' },
-    { name: 'NOMANER', rationale: 'referred' },
-  ];
+
   constructor() { }
 
   ngOnInit(): void {
@@ -124,6 +416,16 @@ export class SurveyCreationDesignComponent implements OnInit {
   }
 
 
+  toggleInstructions() {
+    this.displayInstructions = !this.displayInstructions;
+  }
+
+  checkDragEvetn(e) {
+    console.log(e);
+  }
+
+
+
   createNewBmxComponent() {
     window.scrollTo(300, 500);
     this.brandMatrixObjects.push({
@@ -134,31 +436,55 @@ export class SurveyCreationDesignComponent implements OnInit {
   }
 
   createRankingComponent() {
+
+    // parse string
+    let parsedTestnames = ['ASSISTCV', 'ENHANCE', 'EVOLVE', 'GUARD', 'INVEST', 'OMNI', 'OPTIMAL', 'SHIELD', 'SYNCHRONIZE', 'TRUSTED', 'NOMANER']
+    let ratingScale = 5;
+
+    this.createNewDataObject(parsedTestnames,ratingScale);
     window.scrollTo(300, 500);
     this.brandMatrixObjects.push({
       componentType: 'ranking-scale',
-      componentText: this.sampleHtml,
+      componentText: this.newTestNames,
       componentSettings: [{ fontSize: '16px', fontFace: 'Arial', fontColor: 'red' }],
     })
   }
 
-  setRating(index){
-
-    
-  }
-
-  selectStar(value): void{
+  setRating(starId, testNameId) {
 
     // prevent multiple selection
-    if ( this.selectedRating === 0){
+    if (this.selectedRating === 0) {
 
-      this.STARS.filter( (star) => {
+      this.testNames[testNameId].STARS.filter((star) => {
 
-        if ( star.id <= value){
+        if (star.id <= starId) {
 
           star.class = 'active-rating-star';
 
-        }else{
+        } else {
+
+          star.class = 'rating-star';
+
+        }
+
+        return star;
+      });
+
+    }
+  }
+
+  selectStar(starId, testNameId): void {
+
+    // prevent multiple selection
+    if (this.selectedRating === 0) {
+
+      this.testNames[testNameId].STARS.filter((star) => {
+
+        if (star.id <= starId) {
+
+          star.class = 'active-rating-star';
+
+        } else {
 
           star.class = 'rating-star';
 
@@ -173,13 +499,24 @@ export class SurveyCreationDesignComponent implements OnInit {
 
   }
 
-  toggleInstructions() {
-    this.displayInstructions = !this.displayInstructions;
-  }
 
-  checkDragEvetn(e) {
-    console.log(e);
-  }
+  createNewDataObject(parsedTestnames, ratingScale) {
+    
+    let startCounter: any = []
 
+    // CREATE RATINGS NUMBER OF STARS OR SCALE
+    for (let index = 0; index < ratingScale; index++) {
+      startCounter.push({
+        id: index,
+        icon: 'grade',
+        class: 'rating-star'
+      });
+    }
+    // create object
+    parsedTestnames.forEach((name, index) => {
+      this.newTestNames.push({ name: name, rationale: 'rat', STARS: startCounter })
+    });
+
+  }
 
 }
