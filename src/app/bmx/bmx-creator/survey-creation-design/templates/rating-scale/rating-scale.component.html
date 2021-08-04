@@ -20,7 +20,7 @@
     <div>
         <mat-form-field style="width: 90%;margin-left: 20px;" appearance="outline">
             <mat-label>Copy & Paste TEST NAMES</mat-label>
-            <textarea matInput rows="4" cols="50"
+            <textarea matInput rows="4" cols="50" [(ngModel)]="testNamesInput"
                 placeholder="ENHANCE,Hance, En-,EVOLVE,Evo,GUARD,Gard, Guard,INVEST,In, Inv,OMNI,Omni,OPTIMAL"></textarea>
         </mat-form-field>
     </div>
@@ -37,7 +37,7 @@
         </div>
         <hr>
         <button style="outline: none;color:#76d354;margin-bottom: 50px;" mat-icon-button
-            (click)="selectedIndex = '';" aria-label="ranking">DONE <br>
+            (click)="selectedIndex = '';upLoadNamesAndRationales(testNamesInput)" aria-label="ranking">DONE <br>
             <mat-icon>check_circle</mat-icon>
         </button>
     </div>
@@ -45,7 +45,7 @@
 
 
 <!-- RATING TABLE -->
-<div *ngFor="let testName of bmxItem.componentText; let y = index" style="margin:10px 10px;">
+<div class="odd-style" *ngFor="let testName of bmxItem.componentText; let y = index" style="margin:10px 10px;">
     <div class="test-name-table">
 
         <div style="width: 33%;text-align: center;margin-left: 10px;">{{testName.name}}</div>
@@ -53,16 +53,16 @@
 
         <div style="width: 33%;text-align: center;margin-left: 10px;">{{testName.rationale}}</div>
 
-        <div style="margin-left: 80px;">
+        <div style="margin-left: 140px;">
             <button *ngFor="let star of  testName.STARS" (mouseenter)="selectStar(star.id , y)" (mouseleave)="selectStar(star.id , y)"
-                (click)="setRating(star.id,y)" [ngClass]="star.class" style="outline: none;"
+                (click)="setRating(star.id,y)" [ngClass]="star.class" style="outline: none;margin:-5px -10px;"
                 mat-icon-button aria-label="ranking">
                 <mat-icon>{{star.icon}}</mat-icon>
             </button>
         </div>
     </div>
 </div>
-<button *ngIf="i === selectedIndex" class="cancel" (click)="selectedIndex = '';" mat-icon-button>
+<button *ngIf="i === selectedIndex" class="cancel" (click)="selectedIndex = ''" mat-icon-button>
     <mat-icon style="font-size: 25px;">cancel</mat-icon>
 </button>
 <button *ngIf="i !== selectedIndex" mat-icon-button class="edit-icon" (click)="selectedIndex = i">

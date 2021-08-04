@@ -13,7 +13,6 @@
             <div *ngIf="bmxItem.componentType === 'logo-header'" class="header">
 
                 <div class="emoji-handle">.</div>
-
                 <div>
                     <img style="width: 231px;margin-left: 8px;    margin-top: 60px;"
                         src="./assets/img/bmx/BRANDMATRIX-DASHBOARD-LOGO.svg">
@@ -21,9 +20,7 @@
                     <div style="margin-left: 50px;">
                         <div style="font-size: 16px;margin-top: 10px;color: #48535e;">CATEGORY HEADER HERE</div>
                         <div style="font-size: 14px;margin-bottom: 20px;color: lightgray;">Brief Description Here</div>
-
                     </div>
-
                 </div>
 
                 <div>
@@ -86,13 +83,10 @@
 
 
             <!-- LINEAR SCALE 👽👽👽👽👽👽👽👽👽👽👽👽👽👽👽👽👽👽👽👽👽👽👽👽👽👽👽👽👽👽👽👽👽👽👽👽👽👽👽👽👽👽-->
-            <div *ngIf="bmxItem.componentType === 'ranking-scale'" class="paragraph"
-                style="display: flex;flex-direction: column;position: relative;">
-
+            <div *ngIf="bmxItem.componentType === 'ranking-scale'" class="paragraph">
                 <div class="emoji-handle">.</div>
                 <app-rating-scale [bmxItem]="bmxItem" [i]='i' ></app-rating-scale>
             </div>
-
             <!-- END LINEAR SCALE 👽👽👽👽👽👽👽👽👽👽👽👽👽👽👽👽👽👽👽👽👽👽👽👽👽👽👽👽👽👽👽👽👽👽👽👽👽👽👽👽 -->
 
         </div>
