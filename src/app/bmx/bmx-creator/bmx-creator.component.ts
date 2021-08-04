@@ -99,31 +99,9 @@ export class BmxCreatorComponent implements OnInit {
     { name: 'This or That', rationale: 'Gard, Guard' },
     { name: 'Naming Contest', rationale: 'In, Inv' },
     { name: 'Question & Answer', rationale: 'Omni' },
-    { name: 'Build Your Own', rationale: 'Opti, Opt, Op' },
-    { name: 'SHIELD', rationale: 'Shield' },
-    { name: 'SYNCHRONIZE', rationale: 'Synch, Sync' },
-    { name: 'TRUSTED', rationale: 'Trus, Tru' },
-    { name: 'NOMANER', rationale: 'referred' },
-    { name: 'ASSIST', rationale: 'Sist, Assist, Syst' },
-    { name: 'ENHANCE', rationale: 'Hance, En-' },
-    { name: 'EVOLVE', rationale: 'Evo' },
-    { name: 'GUARD', rationale: 'Gard, Guard' },
+    { name: 'Build Your Own', rationale: 'Opti, Opt, Op' },    
   ];
  
-  LINK_TYPE = [
-    { name: 'Direct Link', rationale: 'Sist, Assist, Syst' },
-    { name: 'General Link', rationale: 'Hance, En-' },
-  ];
- 
-  EMAIL_TEMPLATES = [
-    { name: 'Clinical Trial', rationale: 'Sist, Assist, Syst' },
-    { name: 'Consumer', rationale: 'Hance, En-' },
-    { name: 'Contest/Namepage', rationale: 'Evo' },
-    { name: 'Nonproprietary Name', rationale: 'Gard, Guard' },
-    { name: 'Nonproprietary Suffix', rationale: 'Gard, Guard' },
-    { name: 'Logo', rationale: 'Gard, Guard' },
-    { name: 'Pharmaceutical/Rx', rationale: 'Gard, Guard' }
-  ];
 
   testNames = [
     { name: 'ASSIST', rationale: 'Sist, Assist, Syst' },
@@ -146,18 +124,9 @@ export class BmxCreatorComponent implements OnInit {
     LanguageList : '',
     DirectorList : ''
   };
+
   testProject: any;
-  stringBmxEditData: any;
-  bmxEditData = new FormGroup({
-    bmxSalesboard: new FormControl(),
-    bmxDepartment: new FormControl(),
-    bmxProjectName: new FormControl(),
-    bmxRegion: new FormControl(),
-    bmxCompany: new FormControl(),
-    bmxLanguage: new FormControl(),
-    bmxRegionalDirector: new FormControl(),
-    bmxDirectorName: new FormControl()
- }); 
+
 
   constructor(@Inject(DOCUMENT) private document: any,
     private _NW3Service: Nw3Service, private activatedRoute: ActivatedRoute,
@@ -171,23 +140,15 @@ export class BmxCreatorComponent implements OnInit {
     //   })
     // });
 
-    this.toggleMenuActive('isMenuActive8') 
+    this.toggleMenuActive('isMenuActive9') 
     this.isMainMenuActive = false;
 
-
+ 
     this._BmxService.getGeneralLists()
     .subscribe((arg:any) => {
       this.settingsData = JSON.parse(arg.d);
       console.log(JSON.parse(arg.d));
-        //AUTOCOMPLETE 🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖
-      this.settingsData.SalesBoardProjectList.forEach( myObject =>{  this.salesboardObj.push({name: myObject['SalesBoardProjectList']})});
-      console.log(this.salesboardObj);
-      this.filteredOptions = this.bmxEditData.controls['bmxSalesboard'].valueChanges
-      .pipe(
-        startWith(''),
-          map(value => this._filter(value))
-        );
-        // END 🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖 AUTOCOMPLETE
+    
     });
 
 
@@ -258,24 +219,6 @@ export class BmxCreatorComponent implements OnInit {
   checkDragEvetn(e) {
     console.log(e);
   }
-
-  //AUTOCOMPLETE 🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖
-  filteredOptions: Observable<string[]>;
-  salesboardFilter = new FormControl();
-  salesboardObj = [];
-
-  private _filter(value: string): string[] {
-    const filterValue = value.toLowerCase();
-    console.log(value);
-    return this.settingsData['SalesBoardProjectList'].filter(option => option.toLowerCase().includes(filterValue));
-  }
-  // END 🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖 AUTOCOMPLETE
-
-  // <!--  EMAILS 📗📗📗📗📗📗📗📗📗📗📗📗📗📗📗📗📗📗📗📗📗📗📗📗📗📗📗📗📗📗📗📗📗📗📗📗📗📗📗📗📗📗📗📗📗📗-->
-
-
-
-  // <!-- END 📗📗📗📗📗📗📗📗📗📗📗📗📗📗📗📗📗📗📗📗📗📗📗📗📗📗📗📗📗📗📗📗📗📗📗📗📗📗📗📗📗📗📗📗📗📗  EMAILS -->
 
   
 }
