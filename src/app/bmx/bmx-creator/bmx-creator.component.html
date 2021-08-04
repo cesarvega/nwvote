@@ -220,23 +220,29 @@
             <br>
             <br>
             <br>
+            <form [formGroup]="bmxEditData">
             <div class="dropdowns" style="display: flex;flex-direction: column;">
 
                 <div style="display: flex;flex-direction: row;">
                     <label class="selectLabels">Salesboard</label>
-                    <mat-form-field formControlName="bmxSalesboard" appearance="outline">
-                        <mat-label>Select Salesboard Project</mat-label>
-                        <mat-select class="selectLabels">
-                            <mat-option *ngFor="let settingsList of settingsData.SalesBoardProjectList"
-                                [value]="settingsList">
-                                {{settingsList}}
-                            </mat-option>
-                        </mat-select>
-                    </mat-form-field>
+                        <mat-form-field appearance="outline">
+                            <!-- <mat-select formControlName="bmxSalesboard"> -->
+                                <input type="text"
+                                            placeholder="Enter Salesboard Project"
+                                            formControlName="bmxSalesboard"
+                                            matInput
+                                            [matAutocomplete]="auto">
+                                <mat-autocomplete #auto="matAutocomplete">
+                                    <mat-option *ngFor="let settingsList of filteredOptions | async" [value]="settingsList">
+                                        {{settingsList}}
+                                    </mat-option>
+                                </mat-autocomplete>
+                            <!-- </mat-select> -->
+                        </mat-form-field>
                     <label class="selectLabels">Department</label>
-                    <mat-form-field formControlName="bmxDepartment" appearance="outline">
+                    <mat-form-field  appearance="outline">
                         <mat-label>Select Department</mat-label>
-                        <mat-select>
+                        <mat-select formControlName="bmxDepartment">
                             <mat-option *ngFor="let settingsList of settingsData.DepartmentList" [value]="settingsList">
                                 {{settingsList}}
                             </mat-option>
@@ -271,8 +277,8 @@
                     </mat-form-field>
                     <label class="selectLabels">Language</label>
                     <mat-form-field appearance="outline">
-                        <mat-label formControlName="bmxLanguage">Select Language</mat-label>
-                        <mat-select>
+                        <mat-label>Select Language</mat-label>
+                        <mat-select formControlName="bmxLanguage">
                             <mat-option *ngFor="let settingsList of settingsData.LanguageList" [value]="settingsList">
                                 {{settingsList}}
                             </mat-option>
@@ -311,6 +317,7 @@
                 </div>
 
             </div>
+        </form>
         </div>
 
 

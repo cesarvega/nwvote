@@ -50,6 +50,12 @@ import { NgxEchartsModule } from 'ngx-echarts';
 import { NgxChartsModule } from '@swimlane/ngx-charts';
 import { MatSortModule } from '@angular/material/sort';
 import { MatPaginatorModule } from '@angular/material/paginator';
+// export class MyHammerConfig extends HammerGestureConfig {
+//   overrides = <any>{
+//     // override default settings
+//     // 'swipe': { velocity: 0.4, threshold: 20 } 
+//   }
+// }
 import { MatSnackBarModule, MAT_SNACK_BAR_DEFAULT_OPTIONS } from '@angular/material/snack-bar';
 import { MatRadioModule } from '@angular/material/radio';
 import { BmxModule } from './bmx/bmx-module/bmx.module';
@@ -122,7 +128,7 @@ export function loadEcharts() {
     MatSnackBarModule,
     MatSortModule,
     MatPaginatorModule,
-    BmxModule
+    BmxModule,
   ],
   entryComponents: [
     editPost, editName
