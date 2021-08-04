@@ -139,7 +139,7 @@
             <div [ngClass]="(isMenuActive14)?'menu-active':'menu-item'" (click)="toggleMenuActive('isMenuActive14')">
                 <div
                     style=" text-align: end;font-family: Arial, Helvetica, sans-serif;font-size: 20px;padding-left:20px">
-                    {{'Respondents'}}
+                    {{'Participants'}}
                 </div>
             </div>
             <div [ngClass]="(isMenuActive15)?'menu-active':'menu-item'" (click)="toggleMenuActive('isMenuActive15')">
@@ -415,7 +415,7 @@
 
 
     <!-- RESPONDANTS 📩📩📩📩📩📩📩📩📩📩📩📩📩📩📩📩📩📩📩📩📩📩📩📩📩📩📩📩📩📩📩📩📩📩📩📩📩📩📩📩📩-->
-    <div class="page-modules" *ngIf="isMenuActive14" style="border: hotpink solid 1px; width: 60%; height: 100vh;">
+    <div class="page-modules" *ngIf="isMenuActive14" style="border: hotpink solid 0px; width: 60%; height: 100vh;">
         <app-respondents [isMenuActive14]="isMenuActive14"></app-respondents>
     </div>
     <div class="page-modules" *ngIf="isMenuActive14" div style="border: pink solid 1px; width: 25%; height: 100vh;">SIDE
