@@ -37,14 +37,14 @@ export class BmxCreatorComponent implements OnInit {
   isMenuActive7;
   isMenuActive8;
   isMenuActive9;
-  isMenuActive10;  
+  isMenuActive10;
   isMenuActive11;
   isMenuActive12;
   isMenuActive13;
   isMenuActive14;
   isMenuActive15;
   isMenuActive16;
-  
+
   // TEMPLATE SELECTOR VARABLES
   isTemplateSelected = '';
   isSelectedButton = '';
@@ -92,6 +92,7 @@ export class BmxCreatorComponent implements OnInit {
     },
   ];
 
+
   TEMPLATES = [
     { name: 'Standart Personal Preference', rationale: 'Sist, Assist, Syst' },
     { name: 'Ranking', rationale: 'Hance, En-' },
@@ -99,30 +100,16 @@ export class BmxCreatorComponent implements OnInit {
     { name: 'This or That', rationale: 'Gard, Guard' },
     { name: 'Naming Contest', rationale: 'In, Inv' },
     { name: 'Question & Answer', rationale: 'Omni' },
-    { name: 'Build Your Own', rationale: 'Opti, Opt, Op' },    
-  ];
- 
-
-  testNames = [
-    { name: 'ASSIST', rationale: 'Sist, Assist, Syst' },
-    { name: 'ENHANCE', rationale: 'Hance, En-' },
-    { name: 'EVOLVE', rationale: 'Evo' },
-    { name: 'GUARD', rationale: 'Gard, Guard' },
-    { name: 'INVEST', rationale: 'In, Inv' },
-    { name: 'OMNI', rationale: 'Omni' },
-    { name: 'OPTIMAL', rationale: 'Opti, Opt, Op' },
-    { name: 'SHIELD', rationale: 'Shield' },
-    { name: 'SYNCHRONIZE', rationale: 'Synch, Sync' },
-    { name: 'TRUSTED', rationale: 'Trus, Tru' },
-    { name: 'NOMANER', rationale: 'referred' },
+    { name: 'Build Your Own', rationale: 'Opti, Opt, Op' },
   ];
 
-  settingsData = { 
-    SalesBoardProjectList : [],
-    DepartmentList : '',
-    OfficeList : '',
-    LanguageList : '',
-    DirectorList : ''
+
+  settingsData = {
+    SalesBoardProjectList: [],
+    DepartmentList: '',
+    OfficeList: '',
+    LanguageList: '',
+    DirectorList: ''
   };
 
   testProject: any;
@@ -140,16 +127,16 @@ export class BmxCreatorComponent implements OnInit {
     //   })
     // });
 
-    this.toggleMenuActive('isMenuActive9') 
+    this.toggleMenuActive('isMenuActive11')
     this.isMainMenuActive = false;
 
- 
+
     this._BmxService.getGeneralLists()
-    .subscribe((arg:any) => {
-      this.settingsData = JSON.parse(arg.d);
-      console.log(JSON.parse(arg.d));
-    
-    });
+      .subscribe((arg: any) => {
+        this.settingsData = JSON.parse(arg.d);
+        console.log(JSON.parse(arg.d));
+
+      });
 
 
 
@@ -194,7 +181,7 @@ export class BmxCreatorComponent implements OnInit {
     this.model.editorData = this.sampleHtml;
   }
 
-  
+
 
   // menu functionallity toggles the active link scss
   toggleMenuActive(menuItem) {
@@ -207,18 +194,18 @@ export class BmxCreatorComponent implements OnInit {
     this.isMenuActive7 = (menuItem === 'isMenuActive7') ? true : false;
     this.isMenuActive8 = (menuItem === 'isMenuActive8') ? true : false;
     this.isMenuActive9 = (menuItem === 'isMenuActive9') ? true : false;
-    this.isMenuActive10 = (menuItem === 'isMenuActive10') ? true : false;    
+    this.isMenuActive10 = (menuItem === 'isMenuActive10') ? true : false;
     this.isMenuActive11 = (menuItem === 'isMenuActive11') ? true : false;
     this.isMenuActive12 = (menuItem === 'isMenuActive12') ? true : false;
     this.isMenuActive13 = (menuItem === 'isMenuActive13') ? true : false;
     this.isMenuActive14 = (menuItem === 'isMenuActive14') ? true : false;
     this.isMenuActive15 = (menuItem === 'isMenuActive15') ? true : false;
-    this.isMenuActive16 = (menuItem === 'isMenuActive16') ? true : false;    
+    this.isMenuActive16 = (menuItem === 'isMenuActive16') ? true : false;
   }
 
   checkDragEvetn(e) {
     console.log(e);
   }
 
-  
+
 }

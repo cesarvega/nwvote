@@ -72,6 +72,7 @@ import { ParticipantsEmailComponent } from '../bmx-creator/participants-email/pa
 // import { BmxModule } from './bmx/bmx/bmx.module';
 import { MatAutocompleteModule } from '@angular/material/autocomplete';
 import { ProjectInformationComponent } from '../bmx-creator/project-information/project-information.component';
+import { RatingScaleComponent } from '../bmx-creator/survey-creation-design/templates/rating-scale/rating-scale.component';
 export function loadEcharts() {
   return import('echarts');
 }
@@ -87,6 +88,7 @@ export function loadEcharts() {
     ImageUploaderComponent,
     ParticipantsEmailComponent,
     ProjectInformationComponent,
+    RatingScaleComponent,
   ],
   imports: [
     BrowserModule,
