@@ -40,6 +40,7 @@ export class ImageUploaderComponent implements OnInit {
 
 
   ngOnInit(): void {
+    
   }
   /*
   onFileSelected(event) {
