@@ -109,28 +109,12 @@ export class BmxCreatorComponent implements OnInit {
     { name: 'EVOLVE', rationale: 'Evo' },
     { name: 'GUARD', rationale: 'Gard, Guard' },
   ];
-  IMAGES_UPLOADED = [
-    { name: 'Image 1', rationale: 'Sist, Assist, Syst' },
-    { name: 'Image 2', rationale: 'Hance, En-' },
-    { name: 'Image 3', rationale: 'Evo' },
-    { name: 'Image 4', rationale: 'Gard, Guard' },
-    { name: 'Image 5', rationale: 'In, Inv' },
-    { name: 'Image 6', rationale: 'Omni' },
-    { name: 'Image 7', rationale: 'Opti, Opt, Op' },
-    { name: 'Image 8', rationale: 'Shield' },
-    { name: 'Image 9', rationale: 'Synch, Sync' },
-    { name: 'Image 10', rationale: 'Trus, Tru' },
-  ];
+ 
   LINK_TYPE = [
     { name: 'Direct Link', rationale: 'Sist, Assist, Syst' },
     { name: 'General Link', rationale: 'Hance, En-' },
   ];
-  AUTOSIZE_OPTIONS = [
-    { name: 'Client Logo', rationale: 'Sist, Assist, Syst' },
-    { name: 'Test Logo', rationale: 'Hance, En-' },
-    { name: 'Diagram', rationale: 'Evo' },
-    { name: 'Other', rationale: 'Gard, Guard' }
-  ];
+ 
   EMAIL_TEMPLATES = [
     { name: 'Clinical Trial', rationale: 'Sist, Assist, Syst' },
     { name: 'Consumer', rationale: 'Hance, En-' },
@@ -187,8 +171,10 @@ export class BmxCreatorComponent implements OnInit {
     //   })
     // });
 
-    this.toggleMenuActive('isMenuActive11') 
+    this.toggleMenuActive('isMenuActive8') 
     this.isMainMenuActive = false;
+
+
     this._BmxService.getGeneralLists()
     .subscribe((arg:any) => {
       this.settingsData = JSON.parse(arg.d);
@@ -213,6 +199,7 @@ export class BmxCreatorComponent implements OnInit {
       }
     })
     // document.body.style.zoom = 1.10;
+
   }
 
   ngOnInit(): void {
@@ -246,6 +233,8 @@ export class BmxCreatorComponent implements OnInit {
     this.model.editorData = this.sampleHtml;
   }
 
+  
+
   // menu functionallity toggles the active link scss
   toggleMenuActive(menuItem) {
     this.isMenuActive1 = (menuItem === 'isMenuActive1') ? true : false;
@@ -270,18 +259,23 @@ export class BmxCreatorComponent implements OnInit {
     console.log(e);
   }
 
+  //AUTOCOMPLETE 🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖
+  filteredOptions: Observable<string[]>;
+  salesboardFilter = new FormControl();
+  salesboardObj = [];
 
-   //AUTOCOMPLETE 🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖
-   filteredOptions: Observable<string[]>;
-   salesboardFilter = new FormControl();
-   salesboardObj = [];
- 
-   private _filter(value: string): string[] {
-     const filterValue = value.toLowerCase();
-     console.log(value);
-     return this.settingsData['SalesBoardProjectList'].filter(option => option.toLowerCase().includes(filterValue));
-   }
-   // END 🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖 AUTOCOMPLETE
- 
+  private _filter(value: string): string[] {
+    const filterValue = value.toLowerCase();
+    console.log(value);
+    return this.settingsData['SalesBoardProjectList'].filter(option => option.toLowerCase().includes(filterValue));
+  }
+  // END 🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖 AUTOCOMPLETE
 
+  // <!--  EMAILS 📗📗📗📗📗📗📗📗📗📗📗📗📗📗📗📗📗📗📗📗📗📗📗📗📗📗📗📗📗📗📗📗📗📗📗📗📗📗📗📗📗📗📗📗📗📗-->
+
+
+
+  // <!-- END 📗📗📗📗📗📗📗📗📗📗📗📗📗📗📗📗📗📗📗📗📗📗📗📗📗📗📗📗📗📗📗📗📗📗📗📗📗📗📗📗📗📗📗📗📗📗  EMAILS -->
+
+  
 }

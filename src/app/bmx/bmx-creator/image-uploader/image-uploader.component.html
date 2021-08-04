@@ -1,0 +1,101 @@
+<h2 style="margin: 20px;">Project TEST BrandMatrix Setup</h2>
+<!-- HEADER INPUTS -->
+<div style="margin: 20px;font-size: 20px;color:#063074;font-weight: 800;">Image Uploader</div>
+
+<div style="display: flex;flex-direction: row;justify-content: space-between;">
+
+    <!-- CLOUD ICON UPLOAD BOX -->
+
+    <div
+        style="display: flex;flex-direction:column; justify-content: space-evenly; align-items: center;border: grey dashed 3px; width: 300px; height: 200px;margin-left: 20px;">
+        <input type="file" class="file-input" (change)="onFileSelected($event)" #fileUpload style="display: none;" multiple accept="image/*">
+
+        <mat-icon style="color: #003180; font-size: 90px; margin-top: -20px; height: 10px;width: 90px;">
+            cloud_upload</mat-icon>
+        <br>
+        <br>
+
+        <h3 style="font-weight: 700;">Drag files to upload</h3>
+
+
+        <button mat-raised-button style="background-color: #003180;color:white;margin: -20px 20px 0 20px;"
+            (click)="fileUpload.click()">
+            Select files to upload
+        </button>
+
+
+    </div>
+
+
+
+    <div style="width: 350px;">
+        <span> Title To Your Upload </span><br>
+        <mat-form-field style="width: 350px;margin-top: 10px;" appearance="outline">
+            <mat-label>Upload Title</mat-label>
+            <input matInput placeholder="Upload Title" value="">
+        </mat-form-field>
+
+        <h6 style="color: grey;font-size: 10px;">* This title will appear as the gallery name for the group
+            of files, and it will be demarcate with a 1, 2, 3, or so on </h6>
+    </div>
+    <div>
+        {{fileName || "No file uploaded yet."}}
+        <mat-progress-bar class="progress-bar" mode="determinate" [value]="uploadProgress" *ngIf="uploadProgress">
+
+        </mat-progress-bar>
+
+        <mat-icon class="cancel-upload" (click)="cancelUpload()" *ngIf="uploadProgress">delete_forever</mat-icon>
+        <!--
+                    Autosizer <button mat-raised-button
+                style="background-color: #003180;color:white;margin: -20px 20px 0 20px;">Resize
+                Selected</button><br>
+            <mat-form-field appearance="outline" style="width: 212px;">
+                <mat-label>Set Autosize</mat-label>
+                <mat-select class="selectLabels">
+                    <mat-option *ngFor="let autoSizeOption of AUTOSIZE_OPTIONS" [value]="autoSizeOption">
+                        {{autoSizeOption.name}}
+                    </mat-option>
+                </mat-select>
+            </mat-form-field>
+            -->
+
+    </div>
+
+</div>
+
+
+<div style="display: flex;flex-direction: row;">
+    <div style="margin: 10px;font-size: 12px;color:grey;font-weight: 200;padding-top: 17px;">Images Uploaded
+    </div>
+    <mat-form-field style="width: 200px;margin-top: 10px;" appearance="outline">
+        <mat-label>Find Images</mat-label>
+        <input matInput placeholder="Search Images" value="">
+    </mat-form-field>
+</div>
+
+
+<!-- IMAGES LIST -->
+<div style="border: #003180 solid 1px;  height: 55vh; overflow-y: scroll;">
+
+    <div class="template-list" style="margin-top:20px;display: flex;flex-direction: row; height: 100vh;overflow-y: scroll;
+        justify-content: flex-start;width: 100%;flex-wrap: wrap;text-align: center;">
+        <div *ngFor="let template of IMAGES_UPLOADED; let i = index">
+
+            <input type="text" [placeholder]="template.name">
+            <div [style.background-image]="'url(' + template.url + ')'"
+            style = "background-size: contain;"
+            [ngClass]="(isSelectedButton === i)?'template-list-selected':'template-list-item'"
+                (mouseenter)="isTemplateSelected = i" (mouseleave)="isTemplateSelected = ''">
+                <button (click)="isSelectedButton = i" *ngIf="isTemplateSelected === i && isSelectedButton !== i"
+                    mat-raised-button style="background-color: #76d354;color:white;margin: 0 20px 0 20px;">
+                    SELECT
+                </button>
+                <button *ngIf="isSelectedButton === i" mat-raised-button
+                    style="background-color: #01a6ff;color:white;margin: 0 20px 0 20px;">
+                    SELECTED
+                </button>
+            </div>
+        </div>
+    </div>
+
+</div>

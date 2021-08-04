@@ -62,6 +62,7 @@ export class BsrComponent implements OnInit {
   nameBox = true;
   nameBoxB = true;
   myMaxWith = '900px';
+  myMaxWith2:any;
   myMaxRWith = '900px';
   myMaxRightWith = '8px';
   showSlider: boolean = false;

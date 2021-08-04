@@ -66,9 +66,9 @@ import { BmxComponent } from '../bmx-survey/bmx.component';
 import { ProjectListComponent } from '../bmx-creator/project-list/project-list.component';
 import { RespondentsComponent } from '../bmx-creator/respondents/respondents.component';
 import { SurveyCreationDesignComponent } from '../bmx-creator/survey-creation-design/survey-creation-design.component';
+import { ImageUploaderComponent } from '../bmx-creator/image-uploader/image-uploader.component';
 // import { RespondentsComponent } from '../bmx-creator/respodents/RespondentsComponent';
 // import { BmxModule } from './bmx/bmx/bmx.module';
-
 import { MatAutocompleteModule } from '@angular/material/autocomplete';
 export function loadEcharts() {
   return import('echarts');
@@ -82,6 +82,7 @@ export function loadEcharts() {
     ProjectListComponent,
     RespondentsComponent,    
     SurveyCreationDesignComponent,
+    ImageUploaderComponent
   ],
   imports: [
     BrowserModule,
@@ -129,7 +130,6 @@ export function loadEcharts() {
     CommonModule,
     BmxRoutingModule,
     MatAutocompleteModule
-
   ]
 })
 export class BmxModule { }
