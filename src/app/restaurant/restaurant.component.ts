@@ -15,9 +15,9 @@ export class RestaurantComponent implements OnInit {
   newVariable:any = window.navigator;
   food: any = [
     {
-      name: '2017 Scalade', price: 250 + 'H',
-      description: '6 passenger– Wifi – Bluetooth – High-end Sound system – Luxury Seating',
-      imgSrc: './assets/img/food/scalade.jpeg',
+      name: 'BAOLI', price: 250 + 'H',
+      description: 'BAOLI',
+      imgSrc: './assets/img/elite/BAOILI.jpg',
       specialIntructions: '',
       selectedOption: '',
       selectedToppings: [],
@@ -37,9 +37,9 @@ export class RestaurantComponent implements OnInit {
     },
 
     {
-      name: 'Cadillac', price: 8.10,
+      name: 'CASATUA', price: 8.10,
       description: '5 passenger– Wifi – Bluetooth – High-end Sound system – Luxury Seating',
-      imgSrc: './assets/img/food/cadillac.jpg',
+      imgSrc: './assets/img/elite/CASATUA.jpg',
       specialIntructions: '',
       selectedOption: '',
       selectedToppings: [],
@@ -59,9 +59,9 @@ export class RestaurantComponent implements OnInit {
     },
 
     {
-      name: 'Tesla', price: 13,
+      name: 'TIENDITA', price: 13,
       description: '4 passenger– Wifi – Bluetooth – High-end Sound system – Luxury Seating',
-      imgSrc: './assets/img/food/testla.jpg',
+      imgSrc: './assets/img/elite/TIENDITA.jpg',
       specialIntructions: '',
       selectedOption: '',
       selectedToppings: [],
@@ -81,9 +81,9 @@ export class RestaurantComponent implements OnInit {
     },
 
     {
-      name: 'Passat ', price: 13,
+      name: 'SBA ', price: 13,
       description: '5 passenger– Wifi – Bluetooth – High-end Sound system – Luxury Seating',
-      imgSrc: './assets/img/food/passat.jpg',
+      imgSrc: './assets/img/elite/SBA.jpg',
       specialIntructions: '',
       selectedOption: '',
       selectedToppings: [],
@@ -96,7 +96,7 @@ export class RestaurantComponent implements OnInit {
         { name: 'Mixto', price: 3.24 }
       ]
     },
-
+//  🤑 🤑 🤑 🤑 🤑 🤑 🤑 🤑 🤑 🤑 🤑 🤑 🤑 🤑 🤑 🤑 🤑 🤑 🤑 🤑 🤑 🤑 🤑 🤑 🤑 🤑 🤑 🤑 🤑 🤑 🤑 🤑 🤑 🤑 🤑 🤑 🤑 🤑 🤑 🤑 🤑 🤑
     // {
     //   name: 'Mexican Quesadilla', price: 13,
     //   description: 'Quesadilla with our fresh made guacamole, jalapenos, pico de gallo, and our chipotle aioli.',
@@ -248,7 +248,8 @@ export class RestaurantComponent implements OnInit {
     tax: 7
   }
 
-  myAngularxQrCode = 'http://mrvrman.com/luxury-rides';
+  myAngularxQrCode = 'http://mrvrman.com/eliterecruter';
+  // myAngularxQrCode = 'http://mrvrman.com/elite';
 
   foodOptions: any;
   foodToppings: any;
