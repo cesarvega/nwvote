@@ -128,7 +128,7 @@
     }
     .page-design {
         // border: hotpink solid 1px;
-        width: 75%;
+        width: 90%;
         height: 100vh;
         overflow-y: scroll;
         @include BoxShadow(2);
@@ -198,8 +198,12 @@
         flex-direction: row;
         // border: olive solid 1px;
         text-align: center;
-        justify-content: space-between;
+        // justify-content: space-between;
         align-content: center;
+    }
+
+    .test-name-table:nth-child(odd) {
+       border-bottom: grey solid 1px;
     }
 
     .project-list::-webkit-scrollbar {
@@ -216,7 +220,7 @@
         align-items: center;
         width: 200px;
         height: 200px;
-        background-color: lightgray;
+        //background-color: lightgray;
         border: grey solid 1px;
         margin: 20px;
     }
@@ -1248,3 +1252,4 @@ $voteIconsColor: #008d05, #f2ce00, #f50c0c, #4c00ff, #4c00ff;
     padding-left: 1rem;
     flex: 0.3 0 0;
 }
+

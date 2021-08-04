@@ -15,6 +15,8 @@ import { MatPaginator } from '@angular/material/paginator';
 import { MatTableDataSource } from '@angular/material/table';
 import { MatSort } from '@angular/material/sort';
 import { MatDatepicker } from '@angular/material/datepicker';
+import { Observable } from 'rxjs';
+import { map, startWith } from 'rxjs/operators';
 
 @Component({
   selector: 'app-bmx-creator',
@@ -57,7 +59,12 @@ export class BmxCreatorComponent implements OnInit {
 
   ckconfig: any;
   selectedIndex: any
-  sampleHtml = `<p style="text-align:center;color:red">Instructions</p>\n\n<p style=\"text-align:justify\"><br />\nPlease select at least three &quot;themes&quot; you would consider to move forward for the Line Draw Family.</p>\n\n<p style=\"text-align:justify\"><strong>What do we mean by &quot;theme&quot;:</strong></p>\n\n<p style=\"text-align:justify\">We will develop names that pertain to an overarching theme. Each individual name candidate will have potential to be used as an ingredient brand to be used across all Line Draw Family concepts or as it pertains to each individual concept. In the latter scenario, we will develop names with a common word part and this word part will be included in each concept name. For example, if you choose the &quot;Optimized&quot; theme, we will develop candidates around the Op/Opt/Opti word parts.</p>\n\n<p style=\"text-align:justify\"><strong>How many themes should I vote on?</strong></p>\n\n<p style=\"text-align:justify\">You can select as many as you&rsquo;d like but we request that you select at least 3 themes. Based on the vote, we will select three to five themes for full creative exploration. How do I provide a vote? To make a selection, simply click the checkbox to the left of the desired name candidate. After you make a selection, you will be asked to rate that theme based on your own personal preference on a scale from 1 to 7, 1 being neutral and 7 being the most liked.</p>\n\n<p style=\"text-align:justify\">Once you have finished your selections, please click the &quot;Continue&quot; button on the bottom of the page to proceed to the next evaluation section.</p>\n`
+  sampleHtml = `Dear PARTICIPANT,
+  You have been selected to participate in the brand name selection for BI Pharma's new ADSSK & CCC Inhibitor for the treatment of multiple cancer types. 
+  In this survey, you'll be voting on multiple name candidates that have been developed specifically for this compound. The survey will guide you, and an instructions button is available at any time for your assistance.
+  We hope you enjoy this piece of your branding process. Please select Continue below to officially start your survey. 
+  Best,
+  The Brand Institute Team`
   selectedOption: any;
 
   // SURVEY CREATOR VARIABLES & SCHEME
@@ -103,28 +110,12 @@ export class BmxCreatorComponent implements OnInit {
     { name: 'EVOLVE', rationale: 'Evo' },
     { name: 'GUARD', rationale: 'Gard, Guard' },
   ];
-  IMAGES_UPLOADED = [
-    { name: 'Image 1', rationale: 'Sist, Assist, Syst' },
-    { name: 'Image 2', rationale: 'Hance, En-' },
-    { name: 'Image 3', rationale: 'Evo' },
-    { name: 'Image 4', rationale: 'Gard, Guard' },
-    { name: 'Image 5', rationale: 'In, Inv' },
-    { name: 'Image 6', rationale: 'Omni' },
-    { name: 'Image 7', rationale: 'Opti, Opt, Op' },
-    { name: 'Image 8', rationale: 'Shield' },
-    { name: 'Image 9', rationale: 'Synch, Sync' },
-    { name: 'Image 10', rationale: 'Trus, Tru' },
-  ];
+ 
   LINK_TYPE = [
     { name: 'Direct Link', rationale: 'Sist, Assist, Syst' },
     { name: 'General Link', rationale: 'Hance, En-' },
   ];
-  AUTOSIZE_OPTIONS = [
-    { name: 'Client Logo', rationale: 'Sist, Assist, Syst' },
-    { name: 'Test Logo', rationale: 'Hance, En-' },
-    { name: 'Diagram', rationale: 'Evo' },
-    { name: 'Other', rationale: 'Gard, Guard' }
-  ];
+ 
   EMAIL_TEMPLATES = [
     { name: 'Clinical Trial', rationale: 'Sist, Assist, Syst' },
     { name: 'Consumer', rationale: 'Hance, En-' },
@@ -150,13 +141,15 @@ export class BmxCreatorComponent implements OnInit {
   ];
 
   settingsData = { 
-    SalesBoardProjectList : '',
+    SalesBoardProjectList : [],
     DepartmentList : '',
     OfficeList : '',
     LanguageList : '',
     DirectorList : ''
   };
 
+  testProject: any;
+  stringBmxEditData: any;
   bmxEditData = new FormGroup({
     bmxSalesboard: new FormControl(),
     bmxDepartment: new FormControl(),
@@ -180,13 +173,23 @@ export class BmxCreatorComponent implements OnInit {
     //   })
     // });
 
-    this.toggleMenuActive('isMenuActive14') 
+    this.toggleMenuActive('isMenuActive8') 
     this.isMainMenuActive = false;
+
 
     this._BmxService.getGeneralLists()
     .subscribe((arg:any) => {
       this.settingsData = JSON.parse(arg.d);
-      console.log(JSON.parse(arg.d));      
+      console.log(JSON.parse(arg.d));
+        //AUTOCOMPLETE 🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖
+      this.settingsData.SalesBoardProjectList.forEach( myObject =>{  this.salesboardObj.push({name: myObject['SalesBoardProjectList']})});
+      console.log(this.salesboardObj);
+      this.filteredOptions = this.bmxEditData.controls['bmxSalesboard'].valueChanges
+      .pipe(
+        startWith(''),
+          map(value => this._filter(value))
+        );
+        // END 🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖 AUTOCOMPLETE
     });
 
 
@@ -197,6 +200,7 @@ export class BmxCreatorComponent implements OnInit {
       }
     })
     // document.body.style.zoom = 1.10;
+
   }
 
   ngOnInit(): void {
@@ -230,6 +234,8 @@ export class BmxCreatorComponent implements OnInit {
     this.model.editorData = this.sampleHtml;
   }
 
+  
+
   // menu functionallity toggles the active link scss
   toggleMenuActive(menuItem) {
     this.isMenuActive1 = (menuItem === 'isMenuActive1') ? true : false;
@@ -254,4 +260,23 @@ export class BmxCreatorComponent implements OnInit {
     console.log(e);
   }
 
+  //AUTOCOMPLETE 🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖
+  filteredOptions: Observable<string[]>;
+  salesboardFilter = new FormControl();
+  salesboardObj = [];
+
+  private _filter(value: string): string[] {
+    const filterValue = value.toLowerCase();
+    console.log(value);
+    return this.settingsData['SalesBoardProjectList'].filter(option => option.toLowerCase().includes(filterValue));
+  }
+  // END 🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖 AUTOCOMPLETE
+
+  // <!--  EMAILS 📗📗📗📗📗📗📗📗📗📗📗📗📗📗📗📗📗📗📗📗📗📗📗📗📗📗📗📗📗📗📗📗📗📗📗📗📗📗📗📗📗📗📗📗📗📗-->
+
+
+
+  // <!-- END 📗📗📗📗📗📗📗📗📗📗📗📗📗📗📗📗📗📗📗📗📗📗📗📗📗📗📗📗📗📗📗📗📗📗📗📗📗📗📗📗📗📗📗📗📗📗  EMAILS -->
+
+  
 }
