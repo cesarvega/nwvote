@@ -58,7 +58,9 @@
             <button *ngFor="let star of  testName.STARS; let x =  index" (click)="setRating(star.id,y)" [ngClass]="star.class"
                 (mouseenter)="selectStar(star.id , y)" (mouseleave)="selectStar(star.id , y)"
                 style="outline: none;margin:-5px -8px;" mat-icon-button aria-label="ranking">
-                <mat-icon *ngIf="(y !== 0)" style="transform: rotate(0deg);">{{'crop_din'}}</mat-icon>
+                <mat-icon *ngIf="(y !== 0)">{{star.icon}}</mat-icon>
+                
+                <!-- <mat-icon *ngIf="(y !== 0)" style="transform: rotate(0deg);">{{'crop_din'}}</mat-icon> -->
                 <div class="rating-text"  *ngIf="(y === 0 && x === 0)"  >RATING</div>
             </button>
         </div>
