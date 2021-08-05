@@ -9,6 +9,7 @@ import { NW3Component } from './nw3/nw3.component';
 import { BmxComponent } from './bmx/bmx.component';
 import { RestaurantComponent } from './restaurant/restaurant.component';
 import { OrderDasboardComponent } from './restaurant/order-dasboard/order-dasboard.component';
+import { EliteComponent } from './elite/elite.component';
 
 const routes: Routes = [
   // {// NAME VOTE LOGIN https://bipresents.com/namevote/login?project=Test_WELL_PLATFORM
@@ -43,18 +44,18 @@ const routes: Routes = [
   //   path: ':id',
   //   component: NW3Component
   // },
-  {//FOOD
-    path: 'orders',
-    component: OrderDasboardComponent
-  },
+  // {//FOOD
+  //   path: 'orders',
+  //   component: OrderDasboardComponent
+  // },
   {//FOOD
     path: ':id',
-    component: RestaurantComponent
+    component: EliteComponent
   },
   
   {
     path: '',
-    redirectTo: '/food',
+    redirectTo: '/1',
     pathMatch: 'full'
   } 
 ];
