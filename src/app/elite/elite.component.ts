@@ -14,200 +14,105 @@ export class EliteComponent implements OnInit {
   newVariable:any = window.navigator;
   food: any = [
     {
-      name: 'BAOLI', price: 250 + 'H',
-      description: 'BAOLI',
-      imgSrc: './assets/img/elite/BAOILI.jpg',
-      specialIntructions: '',
-      selectedOption: '',
-      selectedToppings: [],
-      options: [
-        { name: 'Green Sauce' },
-        { name: 'Red Sauce' },
-        { name: 'BBQ' },
-        { name: 'Honey Mustard' },
-      ],
-      orderQuantity: 0,
-      toppings: [
-        { name: 'cheese', price: 0, completed: false, },
-        { name: 'onions', price: 3, completed: false, },
-        { name: 'mushrooms', price: 4, completed: false, },
-        { name: 'Pepper', price: 3, completed: false, },
-      ]
+      name: 'Instagram',
+      description: 'Instagram',
+      imgSrc: './assets/img/elite/CesarVega/Instagram.png',
     },
-
     {
-      name: 'CASATUA', price: 8.10,
-      description: '5 passenger– Wifi – Bluetooth – High-end Sound system – Luxury Seating',
-      imgSrc: './assets/img/elite/CASATUA.jpg',
-      specialIntructions: '',
-      selectedOption: '',
-      selectedToppings: [],
-      options: [
-        { name: 'Green Sauce' },
-        { name: 'Red Sauce' },
-        { name: 'BBQ' },
-        { name: 'Honey Mustard' },
-      ],
-      orderQuantity: 0,
-      toppings: [
-        { name: 'cheese', price: 3 },
-        { name: 'onions', price: 3 },
-        { name: 'mushrooms', price: 3 },
-        { name: 'Pepper', price: 3 },
-      ]
+      name: 'FaceBook',
+      description: 'FaceBook',
+      imgSrc: './assets/img/elite/CesarVega/FaceBook.png',
     },
-
     {
-      name: 'TIENDITA', price: 13,
-      description: '4 passenger– Wifi – Bluetooth – High-end Sound system – Luxury Seating',
-      imgSrc: './assets/img/elite/TIENDITA.jpg',
-      specialIntructions: '',
-      selectedOption: '',
-      selectedToppings: [],
-      options: [
-        { name: 'Green Sauce' },
-        { name: 'Red Sauce' },
-        { name: 'BBQ' },
-        { name: 'Honey Mustard' },
-      ],
-      orderQuantity: 0,
-      toppings: [
-        { name: 'Cheese', price: 0 },
-        { name: ' Chicken', price: 1.08 },
-        { name: 'Steak', price: 2.16 },
-        { name: 'Mixto', price: 3.24 }
-      ]
+      name: 'LinkIn',
+      description: 'LinkIn',
+      imgSrc: './assets/img/elite/CesarVega/LinkIn.png',
     },
-
     {
-      name: 'SBA ', price: 13,
-      description: '5 passenger– Wifi – Bluetooth – High-end Sound system – Luxury Seating',
-      imgSrc: './assets/img/elite/SBA.jpg',
-      specialIntructions: '',
-      selectedOption: '',
-      selectedToppings: [],
-      options: [],
-      orderQuantity: 0,
-      toppings: [
-        { name: 'Cheese', price: 0 },
-        { name: ' Chicken', price: 1.08 },
-        { name: 'Steak', price: 2.16 },
-        { name: 'Mixto', price: 3.24 }
-      ]
+      name: 'Tweeter',
+      description: 'Tweeter',
+      imgSrc: './assets/img/elite/CesarVega/Tweeter.png',
     },
-//  🤑 🤑 🤑 🤑 🤑 🤑 🤑 🤑 🤑 🤑 🤑 🤑 🤑 🤑 🤑 🤑 🤑 🤑 🤑 🤑 🤑 🤑 🤑 🤑 🤑 🤑 🤑 🤑 🤑 🤑 🤑 🤑 🤑 🤑 🤑 🤑 🤑 🤑 🤑 🤑 🤑 🤑
-    // {
-    //   name: 'Mexican Quesadilla', price: 13,
-    //   description: 'Quesadilla with our fresh made guacamole, jalapenos, pico de gallo, and our chipotle aioli.',
-    //   imgSrc: './assets/img/food/quesadillas.jpg',
-    //   specialIntructions: '',
-    //   selectedOption: '',
-    //   selectedToppings: [],
-    //   options: [],
-    //   orderQuantity: 0,
-    //   toppings: [
-    //     { name: 'Cheese', price: 0 },
-    //     { name: ' Chicken', price: 1.08 },
-    //     { name: 'Steak', price: 2.16 },
-    //     { name: 'Mixto', price: 3.24 }
-    //   ]
-    // },
-
-    // {
-    //   name: 'Mexican Street Tacos', price: 13,
-    //   description: '2 Mouthwatering Tacos - made with CORN OR FLOUR TORTILLAS. Beef Barbacoa - Picodegallo, cilantro, cabbage & cotijacheese. ; Pollo Y Pina -Pineapple, cabbage, cilantro, Cotija cheese & Chipotle aioli.; Veggie - Fire roasted corn, mushroom, bellpeper, onions, cabbage, cilantro, guacamole, Cotija cheese & Chipotle aioli.',
-    //   imgSrc: './assets/img/food/tacos.jpg',
-    //   specialIntructions: '',
-    //   selectedOption: '',
-    //   selectedToppings: [],
-    //   options: [
-    //     { name: 'Corn Tortilla' },
-    //     { name: 'Flour Tortilla' },
-    //     { name: 'Beef Barbacoa' },
-    //     { name: 'Pollo Y Pina' },
-    //     { name: ' Veggie' }
-    //   ],
-    //   orderQuantity: 0,
-    //   toppings: [
-    //     { name: 'peperoni', price: 3 }
-    //   ]
-    // },
-
-    // {
-    //   name: 'Melissa Wings', price: 13,
-    //   description: '10 Chicken Wings tossed in your choice of sauces.',
-    //   imgSrc: './assets/img/food/wings.jpg',
-    //   specialIntructions: '',
-    //   selectedOption: '',
-    //   selectedToppings: [],
-    //   options: [
-    //     { name: 'Buffalo' },
-    //     { name: 'Spicy Asian' },
-    //     { name: 'BBQ' },
-    //     { name: 'Honey Mustard' },
-    //   ],
-    //   orderQuantity: 0,
-    //   toppings: [
-    //     // { name: 'peperoni', price: 3 }
-    //   ]
-    // },
-
-    // {
-    //   name: 'Colomboan Dog', price: 9.71,
-    //   description: 'Nathan`s famous beef hot dog wrapped in applewood smoked bacon, melted Mozzarella cheese, crushed Lay`s potato chips, coleslaw, green, pink and pineapple sauce.',
-    //   imgSrc: './assets/img/food/colhotdog.jpg',
-    //   specialIntructions: '',
-    //   selectedOption: '',
-    //   selectedToppings: [],
-    //   options: [],
-    //   orderQuantity: 0,
-    //   toppings: [
-    //     // { name: 'peperoni', price: 3 }
-    //   ]
-    // },
-
-    // {
-    //   name: 'Venezuelan Dog', price: 9.71,
-    //   description: 'Nathan`s famous beef hot dog crushed Lay`s Potato chips, coleslsaw, mayonnaise, ketchup, mustard & parmesan cheese.',
-    //   imgSrc: './assets/img/food/venehotdog.jpg',
-    //   specialIntructions: '',
-    //   selectedOption: '',
-    //   selectedToppings: [],
-    //   options: [],
-    //   orderQuantity: 0,
-    //   toppings: [
-    //     { name: 'peperoni', price: 3 }
-    //   ]
-    // },
-
-    // {
-    //   name: 'Mexican Dog', price: 9.71,
-    //   description: 'Nathan`s famous beef hot dog, Monterey Jack Cheese, freshly-made guacamole, jalapenos and pico de gallo.',
-    //   imgSrc: './assets/img/food/mexicanhotdog.jpg',
-    //   specialIntructions: '',
-    //   selectedOption: '',
-    //   selectedToppings: [],
-    //   options: [],
-    //   orderQuantity: 0,
-    //   toppings: [
-    //     { name: 'peperoni', price: 3 }
-    //   ]
-    // },
-
-    // {
-    //   name: 'New Yorker', price: 9.71,
-    //   description: 'Nathan`s famous beef hot dog, mustard, sauserkraut & sweet onions.',
-    //   imgSrc: './assets/img/food/newyorkhotdog.jpg',
-    //   specialIntructions: '',
-    //   selectedOption: '',
-    //   selectedToppings: [],
-    //   options: [],
-    //   orderQuantity: 0,
-    //   toppings: [
-    //     { name: 'peperoni', price: 3 }
-    //   ]
-    // },
-
+    {
+      name: 'SnapChat',
+      description: 'SnapChat',
+      imgSrc: './assets/img/elite/CesarVega/SnapChat.png',
+    },
+    {
+      name: 'TikTok',
+      description: 'TikTok',
+      imgSrc: './assets/img/elite/CesarVega/TikTok.png',
+    },
+    {
+      name: 'WhatsApp',
+      description: 'WhatsApp',
+      imgSrc: './assets/img/elite/CesarVega/WhatsApp.png',
+    },
+    {
+      name: 'Message',
+      description: 'Message',
+      imgSrc: './assets/img/elite/CesarVega/Message.png',
+    },
+    {
+      name: 'GMAIL',
+      description: 'GMAIL',
+      imgSrc: './assets/img/elite/CesarVega/GMAIL.png',
+    },
+    {
+      name: 'Phone',
+      description: 'Phone',
+      imgSrc: './assets/img/elite/CesarVega/Phone.png',
+    },
+    {
+      name: 'Ca$hApp',
+      description: 'Ca$hApp',
+      imgSrc: './assets/img/elite/CesarVega/Ca$hApp.png',
+    },
+    {
+      name: 'Zelle',
+      description: 'Zelle',
+      imgSrc: './assets/img/elite/CesarVega/Zelle.png',
+    },
+    {
+      name: 'Venmo',
+      description: 'Venmo',
+      imgSrc: './assets/img/elite/CesarVega/Venmo.png',
+    },
+    {
+      name: 'PayPal',
+      description: 'PayPal',
+      imgSrc: './assets/img/elite/CesarVega/PayPal.png',
+    },
+    {
+      name: 'BitCoin',
+      description: 'BitCoin',
+      imgSrc: './assets/img/elite/CesarVega/BitCoin.png',
+    },
+    {
+      name: 'DogeCoin',
+      description: 'DogeCoin',
+      imgSrc: './assets/img/elite/CesarVega/DogeCoin.png',
+    },
+    {
+      name: 'Sound Cloud',
+      description: 'Sound Cloud',
+      imgSrc: './assets/img/elite/CesarVega/Sound Cloud.png',
+    },
+    {
+      name: 'Spotify',
+      description: 'Spotify',
+      imgSrc: './assets/img/elite/CesarVega/Spotify.png',
+    },
+    {
+      name: 'YouTube',
+      description: 'YouTube',
+      imgSrc: './assets/img/elite/CesarVega/YouTube.png',
+    },
+    {
+      name: 'Wifi',
+      description: 'Wifi',
+      imgSrc: './assets/img/elite/CesarVega/Wifi.png',
+    },
   ]
  
 
