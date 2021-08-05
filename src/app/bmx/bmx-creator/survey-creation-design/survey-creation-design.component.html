@@ -105,7 +105,7 @@
                 mat-icon-button color="warn" aria-label="aria">
                 <mat-icon class="full-icon">grading</mat-icon>
             </button>
-            <button matTooltip="SCALE" matTooltipPosition="right" mat-icon-button color="warn" aria-label="aria">
+            <button (click)="saveData()" matTooltip="SCALE" matTooltipPosition="right" mat-icon-button color="warn" aria-label="aria">
                 <mat-icon class="full-icon">linear_scale</mat-icon>
             </button>
             <button *ngIf="!true" mat-icon-button matTooltip="slide comments" matTooltipPosition="right">

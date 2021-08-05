@@ -98,6 +98,10 @@ export class SurveyCreationDesignComponent implements OnInit {
       })
     } else if (componentType === 'rating-scale') {
       this.TestNameDataModel = [];
+      this.TestNameDataModel.push({
+        name: 'NAME', rationale: 'RATIONALE',
+        STARS: this.createRatingStars()
+      })
       for (let index = 0; index < 5; index++) {
         this.TestNameDataModel.push({
           name: 'TEST NAME ' + index, rationale: 'Rationale of an undisclosed length',
@@ -123,6 +127,13 @@ export class SurveyCreationDesignComponent implements OnInit {
       });
     }
     return startCounter;
+  }
+
+
+  saveData(){
+
+    console.log('');
+    
   }
 
 }
