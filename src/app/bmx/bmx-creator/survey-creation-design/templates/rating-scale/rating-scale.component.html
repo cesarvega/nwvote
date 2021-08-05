@@ -35,9 +35,9 @@
         <br>
         <br>
         <div>
-            1 <input [(ngModel)]="rankingScaleValue" type="range" id="volume" name="volume" min="0" max="11">
-            {{rankingScaleValue}} <br>
-            <label for="volume">from </label>
+            5 <input [(ngModel)]="rankingScaleValue" type="range" id="volume" name="volume" min="5" max="10">
+            10 <br>
+            <label for="volume">{{rankingScaleValue}}</label>
         </div>
         <hr>
         <button style="outline: none;color:#76d354;margin-bottom: 50px;" mat-icon-button
@@ -54,7 +54,7 @@
         <div *ngFor="let columnName of columnsNames" style="width: 33%;text-align: start;margin:10px 10px;">
             <div>{{testName[columnName]}}</div>
         </div>
-        <div style="min-width: 500px">
+        <div style="min-width: 250px">
             <button *ngFor="let star of  testName.STARS; let x =  index" (click)="setRating(star.id,y)" [ngClass]="star.class"
                 (mouseenter)="selectStar(star.id , y)" (mouseleave)="selectStar(star.id , y)"
                 style="outline: none;margin:-5px -8px;" mat-icon-button aria-label="ranking">
