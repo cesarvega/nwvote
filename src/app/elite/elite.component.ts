@@ -273,11 +273,14 @@ export class EliteComponent implements OnInit {
     this.paramsRouter.params.subscribe(params => {
       this.tableNo = +params['id'];
     });
-
-    //  if (localStorage.getItem('food')) {
-
-    //    this.food = JSON.parse(localStorage.getItem('food')); 
-    //  }
+ // this.activatedRoute.params.subscribe(params => {
+    //   this.projectName = params['id'];
+    //   localStorage.setItem('projectName', this.projectName);
+    //   this._NW3Service.getProjectId(this.projectName).subscribe((data: any) => {
+    //     this.projectId = data[0].PresentationId;
+    //     localStorage.setItem('data', data[0].PresentationId);
+    //   })
+    // });
 
     
 
