@@ -31,13 +31,28 @@ export class RespondentsComponent implements OnInit {
     const temp = list.split("\n");
     for(var i = 0; i < temp.length; i++)
     {
+      let z = Math.floor(Math.random() * 3);;
+      let y = '';
+      if(z == 0)
+      {
+        y = 'NS'
+      }
+      else if(z == 1)
+      {
+        y = 'NF'
+      }
+      else
+      {
+        y = 'F'
+      }
+        
       if(temp[i] != "" && temp[i].includes('\t'))
       {
-        this.RESPONDENTS_LIST.push({'firstName': temp[i].split("\t")[0], 'lastName':temp[i].split("\t")[1], 'email':temp[i].split("\t")[2], 'group':temp[i].split("\t")[3], 'subGroup':temp[i].split("\t")[4], 'weight':temp[i].split("\t")[5] });
+        this.RESPONDENTS_LIST.push({'firstName': temp[i].split("\t")[0], 'lastName':temp[i].split("\t")[1], 'email':temp[i].split("\t")[2], 'group':temp[i].split("\t")[3], 'subGroup':temp[i].split("\t")[4], 'weight':temp[i].split("\t")[5], 'status':y });
       }
       else if(temp[i] != "")
       {
-        this.RESPONDENTS_LIST.push({'firstName': temp[i].split(" ")[0], 'lastName':temp[i].split(" ")[1], 'email':temp[i].split(" ")[2], 'group':temp[i].split(" ")[3], 'subGroup':temp[i].split(" ")[4], 'weight':temp[i].split(" ")[5] });
+        this.RESPONDENTS_LIST.push({'firstName': temp[i].split(" ")[0], 'lastName':temp[i].split(" ")[1], 'email':temp[i].split(" ")[2], 'group':temp[i].split(" ")[3], 'subGroup':temp[i].split(" ")[4], 'weight':temp[i].split(" ")[5], 'status':y });
       }
     }
     this.myTestDiv.nativeElement.value = '';

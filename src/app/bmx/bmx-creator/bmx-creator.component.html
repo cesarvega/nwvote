@@ -166,10 +166,15 @@
 
 
     <!-- PROJECT LIST COMPONENT 📀📀📀📀📀📀📀📀📀📀📀📀📀📀📀📀📀📀📀📀📀📀📀📀📀📀📀📀📀📀📀📀📀📀📀📀📀📀📀-->
+    <div class="project-list" *ngIf="isMenuActive1" style="border: hotpink solid 0px; width: 75%; height: 100vh;">
+        <app-project-list [isMenuActive1]="isMenuActive1"></app-project-list>
+    </div>
+
+
+    <!--
     <app-project-list class="project-list" [isMenuActive1]="isMenuActive1"
         style="border: hotpink solid 0px;height: 100vh;overflow-y: scroll;"></app-project-list>
-    <!--📀📀📀📀📀📀📀📀📀📀📀📀📀📀📀📀📀📀📀📀📀📀📀📀📀📀📀📀📀📀📀📀📀📀📀📀📀📀📀📀📀📀📀📀END  PROJECT LIST-->
-
+    📀📀📀📀📀📀📀📀📀📀📀📀📀📀📀📀📀📀📀📀📀📀📀📀📀📀📀📀📀📀📀📀📀📀📀📀📀📀📀📀📀📀📀📀END  PROJECT LIST-->
 
 
     <!-- OPEN LINKS 🦠🦠🦠🦠🦠🦠🦠🦠🦠🦠🦠🦠🦠🦠🦠🦠🦠🦠🦠🦠🦠🦠🦠🦠🦠🦠🦠🦠🦠🦠🦠🦠🦠🦠🦠🦠🦠🦠🦠🦠🦠🦠🦠🦠-->
@@ -278,7 +283,7 @@
 
 
     <!-- IMAGE UPLOADER 🎎🎎🎎🎎🎎🎎🎎🎎🎎🎎🎎🎎🎎🎎🎎🎎🎎🎎🎎🎎🎎🎎🎎🎎🎎🎎🎎🎎🎎🎎🎎🎎🎎🎎🎎🎎🎎🎎🎎🎎🎎-->
-    <div class="Image-Uploader" *ngIf="isMenuActive10" style="border: hotpink solid 0px; width: 1000px; height: 100vh;">
+    <div class="Image-Uploader" *ngIf="isMenuActive10" style="border: hotpink solid 0px; width: auto; height: 100vh;">
         <app-image-uploader></app-image-uploader>
     </div>
 
@@ -316,19 +321,24 @@
 
 
     <!-- RESPONDANTS 📩📩📩📩📩📩📩📩📩📩📩📩📩📩📩📩📩📩📩📩📩📩📩📩📩📩📩📩📩📩📩📩📩📩📩📩📩📩📩📩📩-->
-    <div class="page-modules" *ngIf="isMenuActive14" style="border: hotpink solid 0px; width: 60%; height: 100vh;">
+    <div class="page-modules" *ngIf="isMenuActive14" style="border: hotpink solid 0px; width: 75%; height: 100vh;">
         <app-respondents [isMenuActive14]="isMenuActive14"></app-respondents>
     </div>
+    <!--
     <div class="page-modules" *ngIf="isMenuActive14" div style="border: pink solid 1px; width: 25%; height: 100vh;">SIDE
         PANEL 13</div>
-    <!-- END 📩📩📩📩📩📩📩📩📩📩📩📩📩📩📩📩📩📩📩📩📩📩📩📩📩📩📩📩📩📩📩📩📩📩📩📩📩📩📩📩📩 RESPONDANTS -->
+    <!-END 📩📩📩📩📩📩📩📩📩📩📩📩📩📩📩📩📩📩📩📩📩📩📩📩📩📩📩📩📩📩📩📩📩📩📩📩📩📩📩📩📩 RESPONDANTS -->
 
 
 
 
-    <!--  EMAILS 📗📗📗📗📗📗📗📗📗📗📗📗📗📗📗📗📗📗📗📗📗📗📗📗📗📗📗📗📗📗📗📗📗📗📗📗📗📗📗📗📗📗📗📗📗📗-->
+    <!--  EMAILS 📗📗📗📗📗📗📗📗📗📗📗📗📗📗📗📗📗📗📗📗📗📗📗📗📗📗📗📗📗📗📗📗📗📗📗📗📗📗📗📗📗📗📗📗📗📗
     <div class="emails" *ngIf="isMenuActive15" style="border: hotpink solid 0px; height: 100vh;">
         <app-participants-email></app-participants-email>      
+    </div>-->
+
+    <div class="emails" *ngIf="isMenuActive15" style="border: hotpink solid 0px; width: 75%; height: 100vh;">
+        <app-participants-email> [isMenuActive15]="isMenuActive15"></app-participants-email>
     </div>
     <!-- <div class="emails" *ngIf="isMenuActive14" div
         style="border: pink solid 1px; width: 25%; height: 100vh;">SIDE
