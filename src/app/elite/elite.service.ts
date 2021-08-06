@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-
+import { AngularFirestore } from '@angular/fire/firestore';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 const httpOptions = {
   headers: new HttpHeaders({ 'Content-Type': 'application/json' })
@@ -11,22 +11,35 @@ const httpOptions = {
 export class EliteService {
 
   order: any
-  constructor(private http: HttpClient) { }
+  constructor(private http: HttpClient, private firestore: AngularFirestore) { }
 
 
-  sendOrder(order) {
-    this.order = JSON.stringify(order);
-    return this.http.post('https://blooming-island-37744.herokuapp.com/order', this.order, httpOptions);
+  createCoffeeOrder(data) {
+    return new Promise<any>((resolve, reject) => {
+      this.firestore
+        .collection("promoter")
+        .add(data)
+        .then(res => { }, err => reject(err));
+    });
+  }
+
+  getCoffeeOrders() { 
+    return this.firestore.collection("promoter").snapshotChanges();
   }
 
 
-  getOrder() {    
-    return this.http.get('https://blooming-island-37744.herokuapp.com/order');
-  }
+  updateCoffeeOrder(data) {
+    return this.firestore
+        .collection("promoter")
+        .doc(data.payload.doc.id)
+        .set({qrcodeId: 5, name: 'Tony vega', userid: 5 }, { merge: true });
+ }
 
-
-  getStripe() {    
-    return this.http.get('https://blooming-island-37744.herokuapp.com/payment/session?amount=100&id=100');
-  }
+ deleteCoffeeOrder(data) {
+  return this.firestore
+      .collection("promoter")
+      .doc(data.payload.doc.id)
+      .delete();
+}
 
 }
