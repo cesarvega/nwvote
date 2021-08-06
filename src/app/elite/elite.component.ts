@@ -11,8 +11,8 @@ import { EliteService } from './elite.service';
 })
 export class EliteComponent implements OnInit {
 
-  declare navigator: any; 
-  newVariable:any = window.navigator;
+  declare navigator: any;
+  newVariable: any = window.navigator;
   food: any = [
     {
       name: 'Cesar Vega',
@@ -120,10 +120,10 @@ export class EliteComponent implements OnInit {
     //   imgSrc: './assets/img/elite/CesarVega/Wifi.png',
     // },
   ]
- 
+
 
   order = {
-    tableNo: 1,   
+    tableNo: 1,
     orderItems: [
       {
         name: 'Emapanadas', price: 8.10,
@@ -184,7 +184,7 @@ export class EliteComponent implements OnInit {
     this.paramsRouter.params.subscribe(params => {
       this.tableNo = +params['id'];
     });
- // this.activatedRoute.params.subscribe(params => {
+    // this.activatedRoute.params.subscribe(params => {
     //   this.projectName = params['id'];
     //   localStorage.setItem('projectName', this.projectName);
     //   this._NW3Service.getProjectId(this.projectName).subscribe((data: any) => {
@@ -193,10 +193,32 @@ export class EliteComponent implements OnInit {
     //   })
     // });
 
+    this.getCoffeeOrders();
     
+
+
+    // this.EliteService.createCoffeeOrder({ qrcodeId: 1, name: 'cesar vega', userid: 1 }).then(res => {
+    //   console.log(res);
+
+    // })
+
 
   }
 
+  coffeeOrders;
+  getCoffeeOrders = () =>
+    this.EliteService
+      .getCoffeeOrders()
+      .subscribe((res:any)=> {
+        this.coffeeOrders = res;
+        this.updatePromoter(this.coffeeOrders[0]);
+      }
+      );
+
+
+      updatePromoter(promoter){
+        this.EliteService.updateCoffeeOrder(promoter)
+      }
 
   addToCart(index) {
 
@@ -212,10 +234,10 @@ export class EliteComponent implements OnInit {
 
   option(index) {
     this.popUpOptions = true;
-    this.foodOptions = this.food[index];    
+    this.foodOptions = this.food[index];
   }
 
-  crypto(){
+  crypto() {
     window.open('https://commerce.coinbase.com/checkout/d983d382-1345-4214-9518-fb7d3ca97b27', "_top");
   }
 
@@ -264,31 +286,10 @@ export class EliteComponent implements OnInit {
 
     })
 
-    this.EliteService.sendOrder(this.order);
-    localStorage.setItem('order', JSON.stringify(this.order));
 
   }
 
 
-  checkout() {
-    this.popUpCheckout = !this.popUpCheckout;
-    this.popUpThankyou = true;
-    this.EliteService.getOrder().subscribe(res =>{
-      console.log(res);
-
-      
-    })
-    this.EliteService.getStripe().subscribe(res =>{
-      console.log(res);
-
-      
-    })
-
- 
-    this.EliteService.sendOrder(this.order).subscribe(res =>{
-      console.log(res);
-    })
-  }
 
   qrcode() {
     // let newVariable2 = (window.navigator as any)
@@ -317,7 +318,7 @@ export class EliteComponent implements OnInit {
     this.popUpThankyou = !this.popUpThankyou;
   }
 
-  openGoogleForm(){
+  openGoogleForm() {
     window.open('https://forms.gle/fYyxruynUuTRm62v6', "_top");
   }
 }
