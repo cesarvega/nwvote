@@ -2,13 +2,12 @@
 
     <div class="logo-miami">
         <img class="logo" src="./assets/img/elite/logo.png">
-        <p style="animation: swing 200ms ease-in-out 100ms forwards; padding-top: 20px;">ELITE</p><br>
+        <p style="animation: swing 200ms ease-in-out 100ms forwards; padding-top: 20px;">CESAR VEGA</p><br>
         <!-- <p style="color: rgb(255, 55, 255);animation: swing 200ms ease-in-out 100ms forwards">RIDES</p> -->
         <!-- <p style="color: grey;">table i#: {{tableNo}}</p> -->
     </div>
 
     <!-- RECRUTER -->
-
     <!-- <div class="menu" style="margin-top: 50px;">
 
         <div class="foodCard" *ngFor="let item of food; index as i" style="color: white;">
@@ -22,9 +21,9 @@
     <div class="menu">
 
         <div class="foodCard" *ngFor="let item of food; index as i" style="color: white;">
-            <img class="pizzaImage" style="width: 100%;" [src]="item.imgSrc">
+            <img class="pizzaImage" style="width: 100%;" [src]="item.imgSrc" (click)="sendQrCode(item)">
             <h1 class="title secondary-text" style="padding-top: 10px;">{{item.name}}</h1>
-            <div class="title secondary-text" style="width: 290px;text-align: center;">{{item.description}}</div>           
+            <!-- <div class="title secondary-text" style="width: 290px;text-align: center;">{{item.description}}</div>            -->
         </div>
         <br>
         <br>
@@ -56,9 +55,11 @@
  
     <!-- MODAL REVIEW -->
     <div *ngIf="popUpQRCode" class="formFieldValidationAlert" style="background: black;border: black 1px solid;">
-        <h1 style="color: white;">Scan App</h1>
+        <h1 style="color: white;">Share This App</h1>
         <!-- <qrcode [qrdata]="myAngularxQrCode" [width]="140" [errorCorrectionLevel]="'M'"></qrcode> -->
-        <img class="logo" style="width: 360px" src="./assets/img/elite/CesarVega/ElitteCesar.jpg">
+        <img class="logo" style="width: 360px" src="./assets/img/elite/CesarVega/ElitteCesar.jpg" (click)="sendQrCode('eliteCesar')">
+        <!-- REGISTARTION FORM -->
+        <!-- <img class="logo" style="width: 360px;background: white;" src="./assets/img/elite/CesarVega/CesarRecruiter.png"> -->
         <!-- <p><a style="color: rgb(255, 255, 255);" target="_blank">{{myAngularxQrCode}}</a></p> -->
         <button mat-mini-fab color="primary"
             style="color:white;background-color: green;font-size: 6px;margin-bottom: 10px;"
