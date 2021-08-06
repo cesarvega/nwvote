@@ -48,7 +48,11 @@ const routes: Routes = [
   //   path: 'orders',
   //   component: OrderDasboardComponent
   // },
-  {//FOOD
+  // {//ELITE
+  //   path: ':id',
+  //   component: RestaurantComponent
+  // },
+  {//ELITE CESAR
     path: ':id',
     component: EliteComponent
   },

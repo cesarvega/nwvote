@@ -25,7 +25,7 @@
 
             <img class="pizzaImage" style="width: 100%;" [src]="item.imgSrc">
             <h1 class="title secondary-text" style="padding-top: 10px;">{{item.name}}</h1>
-    <!-- <div class="title secondary-text" style="width: 290px;text-align: center;">{{item.description}}</div> -->
+    <div class="title secondary-text" style="width: 290px;text-align: center;">{{item.description}}</div>
 
     <!-- END PROMOTER -->
     <!-- 
@@ -145,10 +145,10 @@
 
 <!-- MODAL REVIEW -->
 <div *ngIf="popUpQRCode" class="formFieldValidationAlert" style="background: black;border: black 1px solid;">
-    <h1 style="color: white;">Share to Recruit</h1>
+    <h1 style="color: white;">Scan App</h1>
     <!-- <qrcode [qrdata]="myAngularxQrCode" [width]="140" [errorCorrectionLevel]="'M'"></qrcode> -->
-    <img class="logo" style="width: 200px;" src="./assets/img/elite/RECRUTER.jpg">
-    <p><a style="color: rgb(255, 255, 255);" target="_blank">{{myAngularxQrCode}}</a></p>
+    <img class="logo" style="width: 360px" src="./assets/img/elite/CesarVega/ElitteCesar.jpg">
+    <!-- <p><a style="color: rgb(255, 255, 255);" target="_blank">{{myAngularxQrCode}}</a></p> -->
     <button mat-mini-fab color="primary" style="color:white;background-color: green;font-size: 6px;margin-bottom: 10px;"
         (click)="dismissErrorForm()">
         <mat-icon>check</mat-icon>
