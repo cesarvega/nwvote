@@ -14,30 +14,30 @@ export class EliteService {
   constructor(private http: HttpClient, private firestore: AngularFirestore) { }
 
 
-  createCoffeeOrder(data) {
+  createPromoter(data) {
     return new Promise<any>((resolve, reject) => {
       this.firestore
-        .collection("promoter")
+        .collection("venue")
         .add(data)
         .then(res => { }, err => reject(err));
     });
   }
 
-  getCoffeeOrders() { 
-    return this.firestore.collection("promoter").snapshotChanges();
+  getPromoters() { 
+    return this.firestore.collection("venue").snapshotChanges();
   }
 
 
-  updateCoffeeOrder(data) {
+  updatePromoter(data) {
     return this.firestore
-        .collection("promoter")
+        .collection("venue")
         .doc(data.payload.doc.id)
-        .set({qrcodeId: 5, name: 'Tony vega', userid: 5 }, { merge: true });
+        .set({qrcodeId: 8, name: 'Tommy Candy', userid: 8 }, { merge: true });
  }
 
- deleteCoffeeOrder(data) {
+ deletePromoter(data) {
   return this.firestore
-      .collection("promoter")
+      .collection("venue")
       .doc(data.payload.doc.id)
       .delete();
 }
