@@ -51,6 +51,12 @@ export class ElitePromoterComponent implements OnInit {
       ],
       promotions: [
         {
+          promoId: 'xyz',
+          promoName: 'Discount',
+          description: '10 % Discount',
+          imgSrc: './assets/img/elite/Promoters/ClientQrCode.png'
+        },
+        {
           promoId: 'abc',
           promoName: 'Discount',
           description: '10 % Discount',
@@ -62,22 +68,28 @@ export class ElitePromoterComponent implements OnInit {
       promoterId: '3456',
       promoterName: 'Peter Albeiro',
       venues: [{
-        venueId: 'zasd',
-        venueName: 'BAOLI',
-        description: 'BAOLI',
-        imgSrc: './assets/img/elite/BAOILI.jpg'
+        venueId: 'asd',
+        venueName: 'SBA',
+        description: 'SBA',
+        imgSrc: './assets/img/elite/SBA.jpg'
       },
       {
-        venueId: 'wesr',
-        venueName: 'CASATUA',
-        description: 'BAOLI',
-        imgSrc: './assets/img/elite/CASATUA.jpg'
+        venueId: 'fgh',
+        venueName: 'TIENDITA',
+        description: 'TIENDITA',
+        imgSrc: './assets/img/elite/TIENDITA.jpg'
 
       }
       ],
       promotions: [
         {
-          promoId: 'zasd',
+          promoId: 'asd',
+          promoName: 'Discount',
+          description: '10 % Discount',
+          imgSrc: './assets/img/elite/discount.jpg'
+        },
+        {
+          promoId: 'fgh',
           promoName: 'Discount',
           description: '10 % Discount',
           imgSrc: './assets/img/elite/discount.jpg'
@@ -98,9 +110,11 @@ export class ElitePromoterComponent implements OnInit {
   isPromotionsExpired = false;
   isPromtionSucess = false;
   guessAmount = 0;
+  clientguessAmount = 0;
   secretVenueKey = '';
   GUESS_AMOUNT_OPTIONS = [1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20];
   submitButtonReady = true;
+  isClientScanned = false;
 
   constructor(private paramsRouter: ActivatedRoute, private EliteService: EliteService) { }
 
@@ -114,50 +128,52 @@ export class ElitePromoterComponent implements OnInit {
 
 
     if (this.qrcodeType === 'client') {
+      this.title = 'PROMOTION  CODE'
       this.PROMOTERS.forEach((promoter, index) => {
         if (this.promoterId === promoter.promoterId) {
-          this.VENUES = promoter.promotions;
+          // this.VENUES = promoter.promotions;
           this.EliteService.createPromoter({ promoterId: this.promoterId, venueId: this.VenueId, completed: 'inprogress', created: new Date() }).then(res => {
             this.myAngularxQrCode = this.myAngularxQrCode + res;
+            this.venueName = this.VenueId;
+            this.popUpQRCode = true;
+
+            this.EliteService.getPromoters(res)
+            .subscribe((arg:any) => {
+              if (arg.payload.data().completed === 'complete') {
+                this.isClientScanned = true;
+                this.popUpQRCode = false;
+              }
+            });
+
+
+
           }).catch(err => {
             console.log(err);
           });
         }
-      });
+      });    
+
     }
     else if (this.qrcodeType === 'venue') {
-      this.title = 'VENUE SCAN';
+      
       this.isVenueForm = true;
 
       this.EliteService.getPromoters(this.VenueId)
       .subscribe((arg:any) => {
        this.venueName = arg.payload.data().venueId;
+       this.title = this.venueName;
       });
+
     }
     else if (this.qrcodeType === 'promoter') {
+      this.title = 'SCAN PROMOTION'
       this.PROMOTERS.forEach((promoter, index) => {
         if (this.promoterId === promoter.promoterId) {
           this.VENUES = promoter.venues;
         }
       });
     }
-
-
-
-    // this.getPromoters();
-
   }
-
-
-  // SCAN AND SEND DATA
-  // sendQrCode(item, index) {
-  //   if (item === this.VENUES[index].venueId) {
-  //     this.EliteService.createPromoter({ promoterId: this.promoterId, venueId: this.VENUES[index].venueId, created: new Date() }).then(res => {
-  //       console.log(res);
-  //     })
-  //   }
-  // }
-
 
   validatePromotion(){
     this.EliteService.getPromoters(this.VenueId)
@@ -175,10 +191,16 @@ export class ElitePromoterComponent implements OnInit {
         if (!this.isPromtionSucess) {
           this.isVenueForm = false;
           this.isPromotionsExpired = true;  
+          this.title = 'COMPLETED';
         }
         
        }
     });
+  }
+
+  validateGuessAmount(clientguessAmount){    
+    this.isPromtionSucess = true;
+    this.isClientScanned = false;
   }
 
   crypto() {

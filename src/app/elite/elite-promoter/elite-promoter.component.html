@@ -2,7 +2,7 @@
 
     <div class="logo-miami">
         <img class="logo" src="./assets/img/elite/logo.png">
-        <p style="animation: swing 200ms ease-in-out 100ms forwards; padding-top: 20px;">{{venueName}}</p><br>
+        <p style="animation: swing 200ms ease-in-out 100ms forwards; padding-top: 20px;">{{title}}</p><br>
         <!-- <p style="color: rgb(255, 55, 255);animation: swing 200ms ease-in-out 100ms forwards">RIDES</p> -->
         <!-- <p style="color: grey;">table i#: {{tableNo}}</p> -->
     </div>
@@ -53,6 +53,30 @@
             </button>
         </form>
 
+
+
+        <form *ngIf="isClientScanned" name="loginForm" novalidate class=""
+        style="background: white; display: flex;flex-direction: column;margin:20% 20px;padding: 20px;border-radius: 5px;">
+        <h1
+            style="animation: swing 200ms ease-in-out 100ms forwards; padding-top: 20px;color: red;text-align: center;">
+            Please tell us how many guess are with you</h1><br>
+       
+        <br>
+        <mat-form-field appearance="fill">
+            <mat-label>Number of guess</mat-label>
+            <select [(ngModel)]="clientguessAmount" [ngModelOptions]="{standalone: true}" matNativeControl required>
+                <option *ngFor="let guessNumber of GUESS_AMOUNT_OPTIONS" value="guessNumber">{{guessNumber}}
+                </option>
+            </select>
+        </mat-form-field>
+   
+        <button *ngIf="(clientguessAmount != 0)" (click)="validateGuessAmount(clientguessAmount)" mat-raised-button style="color: white;" color="primary"
+            class="submit-button" aria-label="LOG IN">
+            SUBMIT
+        </button>
+    </form>
+
+
         <h1 *ngIf="isPromotionsExpired" style="color: white;
     text-align: center;
     margin-top: 40%;
@@ -100,18 +124,18 @@
     </div>
 
     <!-- MODAL REVIEW -->
-    <div *ngIf="popUpQRCode" class="formFieldValidationAlert" style="background: black;border: black 1px solid;">
-        <h1 style="color: white;">Share This App</h1>
+    <div *ngIf="popUpQRCode" class="formFieldValidationAlert" style="background: black;border: black 1px solid;padding: 20px;">
+        <h1 style="color: white;">{{venueName}}</h1>
         <qrcode [qrdata]="myAngularxQrCode" [width]="140" [errorCorrectionLevel]="'M'"></qrcode>
         <!-- <img class="logo" style="width: 360px" src="./assets/img/elite/CesarVega/ElitteCesar.jpg" (click)="sendQrCode('eliteCesar', 'i')"> -->
         <!-- REGISTARTION FORM -->
         <!-- <img class="logo" style="width: 360px;background: white;" src="./assets/img/elite/CesarVega/CesarRecruiter.png"> -->
         <!-- <p><a style="color: rgb(255, 255, 255);" target="_blank">{{myAngularxQrCode}}</a></p> -->
-        <button mat-mini-fab color="primary"
+        <!-- <button mat-mini-fab color="primary"
             style="color:white;background-color: green;font-size: 6px;margin-bottom: 10px;"
             (click)="dismissErrorForm()">
             <mat-icon>check</mat-icon>
-        </button>
+        </button> -->
     </div>
 
 </div>
