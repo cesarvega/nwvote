@@ -164,8 +164,6 @@ export class EliteComponent implements OnInit {
 
   }
 
-
-
   sendQrCode(item) {
 
     if (item.name === 'Instagram') {
@@ -236,21 +234,6 @@ export class EliteComponent implements OnInit {
     }
 
   }
-
-
-  Promoters;
-  getPromoters = () =>
-    this.EliteService
-      .getPromoters()
-      .subscribe((res: any) => {
-        this.Promoters = res;
-        // this.updatePromoter(this.Promoters[0]);
-      }
-      );
-  updatePromoter(promoter) {
-    this.EliteService.updatePromoter(promoter)
-  }
-
 
   crypto() {
     window.open('https://commerce.coinbase.com/checkout/d983d382-1345-4214-9518-fb7d3ca97b27', "_top");

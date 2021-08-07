@@ -11,7 +11,7 @@ import { EliteService } from '../elite.service';
 })
 export class ElitePromoterComponent implements OnInit {
 
-  myAngularxQrCode = 'http://mrvrman.com/elite/';
+  myAngularxQrCode = 'http://mrvrman.com/elite/elite/1234/venue/';
   // myAngularxQrCode = 'http://mrvrman.com/elite';
   foodOptions: any;
   foodToppings: any;
@@ -86,7 +86,7 @@ export class ElitePromoterComponent implements OnInit {
     }
   ]
 
-  
+
   VENUES: any = []
   VenueId: any;
 
@@ -105,14 +105,52 @@ export class ElitePromoterComponent implements OnInit {
       this.PROMOTERS.forEach((promoter, index) => {
         if (this.promoterId === promoter.promoterId) {
           this.VENUES = promoter.promotions;
-          this.EliteService.createPromoter({ promoterId: this.promoterId, venueId: this.VenueId, created: new Date() }).then(res => { 
-            console.log('docId', res);         
+          this.EliteService.createPromoter({ promoterId: this.promoterId, venueId: this.VenueId, completed: 'inprogress', created: new Date() }).then(res => {
             this.myAngularxQrCode = this.myAngularxQrCode + res;
+          }).catch(err => {
+            console.log(err);
           });
-      
-          
         }
       });
+    }
+    else if (this.qrcodeType === 'venue') {
+      this.title = this.VenueId;
+      this.EliteService.getPromoters(this.VenueId)
+        .subscribe((arg:any) => {
+          if (arg.payload.data().completed === 'inprogress') {
+            console.log('cupon inprogress')
+            setTimeout(() => {
+                this.EliteService.updatePromoter(this.VenueId).then(res => {
+                  // console.log('update' , res);
+                })
+              }, 5000);
+          }
+          else
+          {  
+            console.log('cupon already completed')
+           }
+        });
+
+      // setTimeout(() => {
+      //   this.EliteService.updatePromoter(this.VenueId).then(res => {
+      //     // console.log('update' , res);
+      //   })
+      // }, 5000);
+
+
+      // this.PROMOTERS.forEach((promoter : any, index) => {
+      //   if (this.promoterId === promoter.promoterId) {
+
+      //     promoter.venues.forEach(venue => {
+      //        if (venue.venueId === this.VenueId ) {
+      //          console.log('sucess');
+      //          alert('sucess');       
+      //          this.title = 'SUCESS'        
+      //        }
+      //     });
+
+      //   }
+      // });
 
     }
     else if (this.qrcodeType === 'promoter') {
@@ -121,23 +159,6 @@ export class ElitePromoterComponent implements OnInit {
           this.VENUES = promoter.venues;
         }
       });
-
-    }
-    else if (this.qrcodeType === 'venue') {
-      this.PROMOTERS.forEach((promoter : any, index) => {
-        if (this.promoterId === promoter.promoterId) {
-          
-          promoter.venues.forEach(venue => {
-             if (venue.venueId === this.VenueId ) {
-               console.log('sucess');
-               alert('sucess');       
-               this.title = 'SUCESS'        
-             }
-          });
-          
-        }
-      });
-
     }
 
 
@@ -154,20 +175,6 @@ export class ElitePromoterComponent implements OnInit {
         console.log(res);
       })
     }
-  }
-
-
-  Promoters;
-  getPromoters = () =>
-    this.EliteService
-      .getPromoters()
-      .subscribe((res: any) => {
-        this.Promoters = res;
-        // this.updatePromoter(this.Promoters[0]);
-      }
-      );
-  updatePromoter(promoter) {
-    this.EliteService.updatePromoter(promoter)
   }
 
 

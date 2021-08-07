@@ -11,9 +11,7 @@ const httpOptions = {
 export class EliteService {
 
   order: any
-  promoterTransactionId:any
   constructor(private http: HttpClient, private firestore: AngularFirestore) { }
-
 
   createPromoter(data) {
     return new Promise<any>((resolve, reject) => {
@@ -26,20 +24,21 @@ export class EliteService {
     });
   }
 
-  getpromoterTransactionId(){
-    return this.promoterTransactionId;
-  }
-
-  getPromoters() { 
-    return this.firestore.collection("venue").snapshotChanges();
+  getPromoters(venuId) { 
+    return this.firestore.collection("venue").doc(venuId).snapshotChanges();  
   }
 
 
-  updatePromoter(data) {
-    return this.firestore
+  updatePromoter(id) {
+    return new Promise<any>((resolve, reject) => {
+       this.firestore
         .collection("venue")
-        .doc(data.payload.doc.id)
-        .set({qrcodeId: 8, name: 'Tommy Candy', userid: 8 }, { merge: true });
+        .doc(id)
+        .set({completed:'complete', updated: new Date() }, { merge: true })
+        .then(res => { 
+          resolve(res)     
+         }, err => reject(err));
+      });
  }
 
  deletePromoter(data) {
