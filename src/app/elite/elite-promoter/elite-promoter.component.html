@@ -2,7 +2,7 @@
 
     <div class="logo-miami">
         <img class="logo" src="./assets/img/elite/logo.png">
-        <p style="animation: swing 200ms ease-in-out 100ms forwards; padding-top: 20px;">{{title}}</p><br>
+        <p style="animation: swing 200ms ease-in-out 100ms forwards; padding-top: 20px;">{{venueName}}</p><br>
         <!-- <p style="color: rgb(255, 55, 255);animation: swing 200ms ease-in-out 100ms forwards">RIDES</p> -->
         <!-- <p style="color: grey;">table i#: {{tableNo}}</p> -->
     </div>
@@ -18,10 +18,56 @@
     <!-- END RECRUTER -->
 
     <!-- PROMOTER -->
+
     <div class="menu">
 
+        <form *ngIf="isVenueForm" name="loginForm" novalidate class=""
+            style="background: white; display: flex;flex-direction: column;margin:20% 20px;padding: 20px;border-radius: 5px;">
+            <h1
+                style="animation: swing 200ms ease-in-out 100ms forwards; padding-top: 20px;color: red;text-align: center;">
+                Validating Promotion</h1><br>
+
+            <h2 style="color: blueviolet;text-align: center;">Is This {{venueName}} business?</h2>
+            <mat-radio-group style="display: flex;flex-direction: column;justify-content: center;align-items: center;"
+                [(ngModel)]="venueName" aria-label="Select an option" [ngModelOptions]="{standalone: true}">
+                <mat-radio-button value="'true'">YES</mat-radio-button>
+                <mat-radio-button value="'false'">NO</mat-radio-button>
+            </mat-radio-group>
+            <br>
+            <mat-form-field appearance="fill">
+                <mat-label>Number of guess</mat-label>
+                <select [(ngModel)]="guessAmount" [ngModelOptions]="{standalone: true}" matNativeControl required>
+                    <option *ngFor="let guessNumber of GUESS_AMOUNT_OPTIONS" value="guessNumber">{{guessNumber}}
+                    </option>
+                </select>
+            </mat-form-field>
+            <mat-form-field appearance="outline">
+                <mat-label>SECRET VENUE CODE</mat-label>
+                <input matInput type="text" placeholder="e.g xyzhdsrg" [(ngModel)]="secretVenueKey"
+                    [ngModelOptions]="{standalone: true}">
+            </mat-form-field>
+            <!-- *ngIf="(guessAmount != 0) && (secretVenueKey.length > 0) " -->
+            <button *ngIf="(guessAmount != 0) && (secretVenueKey.length > 0) " (click)="validatePromotion()" mat-raised-button style="color: white;" color="primary"
+                class="submit-button" aria-label="LOG IN">
+                SUBMIT
+            </button>
+        </form>
+
+        <h1 *ngIf="isPromotionsExpired" style="color: white;
+    text-align: center;
+    margin-top: 40%;
+    font-size: 60px;
+    line-height: 60px;">Sorry this pormotion is alredy redeemed or expired</h1>
+        <h1 *ngIf="isPromtionSucess" style="color: white;
+        text-align: center;
+        margin-top: 26%;
+        font-size: 41px;
+        line-height: 60px;">Thank you for your business</h1>
+
+
+        <!-- VENUES LIST -->
         <div class="foodCard" *ngFor="let item of VENUES; index as i" style="color: white;">
-            <img class="pizzaImage" style="width: 100%;" [src]="item.imgSrc" >
+            <img class="pizzaImage" style="width: 100%;" [src]="item.imgSrc">
             <h1 class="title secondary-text" style="padding-top: 10px;">{{item.venueName}}</h1>
             <!-- <div class="title secondary-text" style="width: 290px;text-align: center;">{{item.description}}</div>            -->
         </div>
@@ -52,7 +98,7 @@
             </a>
         </button> -->
     </div>
- 
+
     <!-- MODAL REVIEW -->
     <div *ngIf="popUpQRCode" class="formFieldValidationAlert" style="background: black;border: black 1px solid;">
         <h1 style="color: white;">Share This App</h1>

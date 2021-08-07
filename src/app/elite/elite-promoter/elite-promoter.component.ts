@@ -88,7 +88,19 @@ export class ElitePromoterComponent implements OnInit {
 
 
   VENUES: any = []
+
+
+
+// VENUE SCAN VARS
   VenueId: any;
+  isVenueForm = false;
+  venueName = 'sample';
+  isPromotionsExpired = false;
+  isPromtionSucess = false;
+  guessAmount = 0;
+  secretVenueKey = '';
+  GUESS_AMOUNT_OPTIONS = [1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20];
+  submitButtonReady = true;
 
   constructor(private paramsRouter: ActivatedRoute, private EliteService: EliteService) { }
 
@@ -114,44 +126,13 @@ export class ElitePromoterComponent implements OnInit {
       });
     }
     else if (this.qrcodeType === 'venue') {
-      this.title = this.VenueId;
+      this.title = 'VENUE SCAN';
+      this.isVenueForm = true;
+
       this.EliteService.getPromoters(this.VenueId)
-        .subscribe((arg:any) => {
-          if (arg.payload.data().completed === 'inprogress') {
-            console.log('cupon inprogress')
-            setTimeout(() => {
-                this.EliteService.updatePromoter(this.VenueId).then(res => {
-                  // console.log('update' , res);
-                })
-              }, 5000);
-          }
-          else
-          {  
-            console.log('cupon already completed')
-           }
-        });
-
-      // setTimeout(() => {
-      //   this.EliteService.updatePromoter(this.VenueId).then(res => {
-      //     // console.log('update' , res);
-      //   })
-      // }, 5000);
-
-
-      // this.PROMOTERS.forEach((promoter : any, index) => {
-      //   if (this.promoterId === promoter.promoterId) {
-
-      //     promoter.venues.forEach(venue => {
-      //        if (venue.venueId === this.VenueId ) {
-      //          console.log('sucess');
-      //          alert('sucess');       
-      //          this.title = 'SUCESS'        
-      //        }
-      //     });
-
-      //   }
-      // });
-
+      .subscribe((arg:any) => {
+       this.venueName = arg.payload.data().venueId;
+      });
     }
     else if (this.qrcodeType === 'promoter') {
       this.PROMOTERS.forEach((promoter, index) => {
@@ -169,14 +150,36 @@ export class ElitePromoterComponent implements OnInit {
 
 
   // SCAN AND SEND DATA
-  sendQrCode(item, index) {
-    if (item === this.VENUES[index].venueId) {
-      this.EliteService.createPromoter({ promoterId: this.promoterId, venueId: this.VENUES[index].venueId, created: new Date() }).then(res => {
-        console.log(res);
-      })
-    }
-  }
+  // sendQrCode(item, index) {
+  //   if (item === this.VENUES[index].venueId) {
+  //     this.EliteService.createPromoter({ promoterId: this.promoterId, venueId: this.VENUES[index].venueId, created: new Date() }).then(res => {
+  //       console.log(res);
+  //     })
+  //   }
+  // }
 
+
+  validatePromotion(){
+    this.EliteService.getPromoters(this.VenueId)
+    .subscribe((arg:any) => {
+      if (arg.payload.data().completed === 'inprogress') {
+        console.log('cupon inprogress')        
+        this.isVenueForm = false;
+        this.isPromtionSucess = true;
+            this.EliteService.updatePromoter(this.VenueId).then(res => {              
+            })
+      }
+      else
+      {  
+        console.log('cupon already completed');
+        if (!this.isPromtionSucess) {
+          this.isVenueForm = false;
+          this.isPromotionsExpired = true;  
+        }
+        
+       }
+    });
+  }
 
   crypto() {
     window.open('https://commerce.coinbase.com/checkout/d983d382-1345-4214-9518-fb7d3ca97b27', "_top");
