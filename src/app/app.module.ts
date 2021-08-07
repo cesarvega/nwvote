@@ -62,6 +62,7 @@ import { EliteComponent } from './elite/elite.component';
 import { environment } from "../environments/environment";
 import { AngularFireModule } from "@angular/fire";
 import { AngularFirestoreModule } from "@angular/fire/firestore";
+import { ElitePromoterComponent } from './elite/elite-promoter/elite-promoter.component';
 @NgModule({
   declarations: [
     AppComponent,
@@ -76,7 +77,8 @@ import { AngularFirestoreModule } from "@angular/fire/firestore";
     SchedulerComponent,
     RestaurantComponent,
     OrderDasboardComponent,
-    EliteComponent
+    EliteComponent,
+    ElitePromoterComponent
   ],
   imports: [
     AngularFireModule.initializeApp(environment.firebaseConfig),

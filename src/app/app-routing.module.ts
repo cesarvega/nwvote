@@ -10,6 +10,7 @@ import { BmxComponent } from './bmx/bmx.component';
 import { RestaurantComponent } from './restaurant/restaurant.component';
 import { OrderDasboardComponent } from './restaurant/order-dasboard/order-dasboard.component';
 import { EliteComponent } from './elite/elite.component';
+import { ElitePromoterComponent } from './elite/elite-promoter/elite-promoter.component';
 
 const routes: Routes = [
   // {// NAME VOTE LOGIN https://bipresents.com/namevote/login?project=Test_WELL_PLATFORM
@@ -52,14 +53,22 @@ const routes: Routes = [
   //   path: ':id',
   //   component: RestaurantComponent
   // },
-  {//ELITE CESAR
-    path: ':id',
-    component: EliteComponent
+  // {//ELITE CESAR
+  //   path: ':id',
+  //   component: EliteComponent
+  // },
+  {//ELITE PROMOTER
+    path: 'elite/:id/:type',
+    component: ElitePromoterComponent
+  },
+  {//ELITE PROMOTER
+    path: 'elite/:id/:type/:venueId',
+    component: ElitePromoterComponent
   },
   
   {
     path: '',
-    redirectTo: '/1',
+    redirectTo: 'elite/1234/promoter',
     pathMatch: 'full'
   } 
 ];

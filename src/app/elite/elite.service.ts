@@ -11,6 +11,7 @@ const httpOptions = {
 export class EliteService {
 
   order: any
+  promoterTransactionId:any
   constructor(private http: HttpClient, private firestore: AngularFirestore) { }
 
 
@@ -19,8 +20,14 @@ export class EliteService {
       this.firestore
         .collection("venue")
         .add(data)
-        .then(res => { }, err => reject(err));
+        .then(res => { 
+         resolve(res.id)     
+        }, err => reject(err));
     });
+  }
+
+  getpromoterTransactionId(){
+    return this.promoterTransactionId;
   }
 
   getPromoters() { 
