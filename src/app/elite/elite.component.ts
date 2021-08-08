@@ -155,13 +155,6 @@ export class EliteComponent implements OnInit {
       this.tableNo = +params['id'];
     });
 
-    // this.getPromoters();
-
-    // this.EliteService.createPromoter({ qrcodeId: 1, name: 'cesar vega', userid: 1 }).then(res => {
-    //   console.log(res);
-
-    // })
-
   }
 
   sendQrCode(item) {

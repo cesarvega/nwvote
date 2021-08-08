@@ -48,6 +48,7 @@
     "moment": "^2.29.1",
     "ng-animate": "^0.3.4",
     "ngx-device-detector": "^1.4.6",
+    "ngx-kjua": "^1.12.3",
     "npm": "^6.14.8",
     "rxjs": "^6.5.5",
     "speak-tts": "^2.0.8",

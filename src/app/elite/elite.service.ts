@@ -27,6 +27,9 @@ export class EliteService {
   getPromoters(venuId) { 
     return this.firestore.collection("venue").doc(venuId).snapshotChanges();  
   }
+  getAllPromoters() { 
+    return this.firestore.collection("venue").snapshotChanges();  
+  }
 
 
   updatePromoter(id) {

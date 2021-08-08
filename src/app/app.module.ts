@@ -46,7 +46,7 @@ import { SchedulerComponent } from './scheduler/scheduler.component';
 import { AngularDateTimePickerModule } from 'angular2-datetimepicker';
 import {MatDatepickerModule} from '@angular/material/datepicker';
 import { MatNativeDateModule } from '@angular/material/core';
-
+import { NgxKjuaModule } from 'ngx-kjua';
 // export class MyHammerConfig extends HammerGestureConfig {
 //   overrides = <any>{
 //     // override default settings
@@ -63,6 +63,7 @@ import { environment } from "../environments/environment";
 import { AngularFireModule } from "@angular/fire";
 import { AngularFirestoreModule } from "@angular/fire/firestore";
 import { ElitePromoterComponent } from './elite/elite-promoter/elite-promoter.component';
+import { EliteDashComponent } from './elite/elite-dash/elite-dash.component';
 @NgModule({
   declarations: [
     AppComponent,
@@ -78,7 +79,8 @@ import { ElitePromoterComponent } from './elite/elite-promoter/elite-promoter.co
     RestaurantComponent,
     OrderDasboardComponent,
     EliteComponent,
-    ElitePromoterComponent
+    ElitePromoterComponent,
+    EliteDashComponent
   ],
   imports: [
     AngularFireModule.initializeApp(environment.firebaseConfig),
@@ -117,7 +119,8 @@ import { ElitePromoterComponent } from './elite/elite-promoter/elite-promoter.co
     MatDatepickerModule,
     MatSelectModule,
     MatRadioModule,
-    MatNativeDateModule
+    MatNativeDateModule,
+    NgxKjuaModule
     // AngularEditorModule,
 
   ],

@@ -11,6 +11,7 @@ import { RestaurantComponent } from './restaurant/restaurant.component';
 import { OrderDasboardComponent } from './restaurant/order-dasboard/order-dasboard.component';
 import { EliteComponent } from './elite/elite.component';
 import { ElitePromoterComponent } from './elite/elite-promoter/elite-promoter.component';
+import { EliteDashComponent } from './elite/elite-dash/elite-dash.component';
 
 const routes: Routes = [
   // {// NAME VOTE LOGIN https://bipresents.com/namevote/login?project=Test_WELL_PLATFORM
@@ -58,6 +59,10 @@ const routes: Routes = [
   //   component: EliteComponent
   // },
   {//ELITE PROMOTER
+    path: 'dash',
+    component: EliteDashComponent
+  },
+  {//ELITE PROMOTER
     path: 'elite/:id/:type',
     component: ElitePromoterComponent
   },
@@ -68,7 +73,7 @@ const routes: Routes = [
   
   {
     path: '',
-    redirectTo: 'elite/1234/promoter',
+    redirectTo: 'dash',
     pathMatch: 'full'
   } 
 ];

@@ -1,5 +1,6 @@
 import { MESSAGES_CONTAINER_ID } from '@angular/cdk/a11y';
-import { Component, OnInit } from '@angular/core';
+import { DOCUMENT } from '@angular/common';
+import { Component, Inject, OnInit, AfterViewInit } from '@angular/core';
 import { ThemePalette } from '@angular/material/core';
 import { ActivatedRoute } from '@angular/router';
 import { EliteService } from '../elite.service';
@@ -12,6 +13,9 @@ import { EliteService } from '../elite.service';
 export class ElitePromoterComponent implements OnInit {
 
   myAngularxQrCode = 'http://mrvrman.com/elite/elite/1234/venue/';
+  qrocodeColor = '#629d5d';
+  qrocodeColorBackground = '#ffffff00';
+  QRLOGO = '<img  src="./assets/img/elite/CesarVega/CesarRecruiter.png">'
   // myAngularxQrCode = 'http://mrvrman.com/elite';
   foodOptions: any;
   foodToppings: any;
@@ -36,7 +40,7 @@ export class ElitePromoterComponent implements OnInit {
       promoterId: '1234',
       promoterName: 'Juan Velez',
       venues: [{
-        venueId: 'xyz',
+        venueId: 'Baoili',
         venueName: 'BAOLI',
         description: 'BAOLI',
         imgSrc: './assets/img/elite/BAOILI.jpg'
@@ -51,7 +55,7 @@ export class ElitePromoterComponent implements OnInit {
       ],
       promotions: [
         {
-          promoId: 'xyz',
+          promoId: 'Baoili',
           promoName: 'Discount',
           description: '10 % Discount',
           imgSrc: './assets/img/elite/Promoters/ClientQrCode.png'
@@ -103,7 +107,7 @@ export class ElitePromoterComponent implements OnInit {
 
 
 
-// VENUE SCAN VARS
+  // VENUE SCAN VARS
   VenueId: any;
   isVenueForm = false;
   venueName = 'sample';
@@ -112,38 +116,48 @@ export class ElitePromoterComponent implements OnInit {
   guessAmount = 0;
   clientguessAmount = 0;
   secretVenueKey = '';
-  GUESS_AMOUNT_OPTIONS = [1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20];
+  GUESS_AMOUNT_OPTIONS = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20];
   submitButtonReady = true;
   isClientScanned = false;
+  goToTheVenue = true;
+  
 
-  constructor(private paramsRouter: ActivatedRoute, private EliteService: EliteService) { }
+  promotionalUniqueId = '';
+  canvas : any = 'canvas';
 
+  constructor(@Inject(DOCUMENT) document, private paramsRouter: ActivatedRoute, private EliteService: EliteService) {
+
+
+  }
+
+ 
   ngOnInit(): void {
-
+   
     this.paramsRouter.params.subscribe(params => {
       this.promoterId = params['id'];
       this.qrcodeType = params['type'];
       this.VenueId = params['venueId'];
     });
 
+    
 
     if (this.qrcodeType === 'client') {
-      this.title = 'PROMOTION  CODE'
+      this.title = 'PROMOTION  CODE'      
       this.PROMOTERS.forEach((promoter, index) => {
         if (this.promoterId === promoter.promoterId) {
           // this.VENUES = promoter.promotions;
           this.EliteService.createPromoter({ promoterId: this.promoterId, venueId: this.VenueId, completed: 'inprogress', created: new Date() }).then(res => {
             this.myAngularxQrCode = this.myAngularxQrCode + res;
             this.venueName = this.VenueId;
-            this.popUpQRCode = true;
-
+            
+            localStorage.setItem(this.venueName, res);
+            // alert(this.venueName);
             this.EliteService.getPromoters(res)
-            .subscribe((arg:any) => {
-              if (arg.payload.data().completed === 'complete') {
-                this.isClientScanned = true;
-                this.popUpQRCode = false;
-              }
-            });
+              .subscribe((arg: any) => {
+                if (arg.payload.data().completed === 'complete') {
+                  this.isClientScanned = true;                  
+                }
+              });
 
 
 
@@ -151,18 +165,25 @@ export class ElitePromoterComponent implements OnInit {
             console.log(err);
           });
         }
-      });    
+      });
+
+    } else if (this.qrcodeType === 'client-scanning') {
+       // ESCANING QR AT THE VENUE
+      this.promotionalUniqueId = localStorage.getItem(this.VenueId);
+      this.title = this.promotionalUniqueId;
+      this.isClientScanned = true;
+
 
     }
     else if (this.qrcodeType === 'venue') {
-      
+
       this.isVenueForm = true;
 
       this.EliteService.getPromoters(this.VenueId)
-      .subscribe((arg:any) => {
-       this.venueName = arg.payload.data().venueId;
-       this.title = this.venueName;
-      });
+        .subscribe((arg: any) => {
+          this.venueName = arg.payload.data().venueId;
+          this.title = this.venueName;
+        });
 
     }
     else if (this.qrcodeType === 'promoter') {
@@ -175,50 +196,37 @@ export class ElitePromoterComponent implements OnInit {
     }
   }
 
-  validatePromotion(){
+  validatePromotion() {
     this.EliteService.getPromoters(this.VenueId)
-    .subscribe((arg:any) => {
-      if (arg.payload.data().completed === 'inprogress') {
-        console.log('cupon inprogress')        
-        this.isVenueForm = false;
-        this.isPromtionSucess = true;
-            this.EliteService.updatePromoter(this.VenueId).then(res => {              
-            })
-      }
-      else
-      {  
-        console.log('cupon already completed');
-        if (!this.isPromtionSucess) {
+      .subscribe((arg: any) => {
+        if (arg.payload.data().completed === 'inprogress') {
+          console.log('cupon inprogress')
           this.isVenueForm = false;
-          this.isPromotionsExpired = true;  
-          this.title = 'COMPLETED';
+          this.isPromtionSucess = true;
+          this.EliteService.updatePromoter(this.VenueId).then(res => {
+          })
         }
-        
-       }
-    });
+        else {
+          console.log('cupon already completed');
+          if (!this.isPromtionSucess) {
+            this.isVenueForm = false;
+            this.isPromotionsExpired = true;
+            this.title = 'COMPLETED';
+          }
+
+        }
+      });
   }
 
-  validateGuessAmount(clientguessAmount){    
-    this.isPromtionSucess = true;
+  validateGuessAmount(clientguessAmount) {
+    this.popUpQRCode = true;
     this.isClientScanned = false;
   }
 
-  crypto() {
-    window.open('https://commerce.coinbase.com/checkout/d983d382-1345-4214-9518-fb7d3ca97b27', "_top");
-  }
-
-
-  dismissErrorForm() {
-    this.popUpToppings = false;
-    this.popUpOptions = false;
-    this.popUpCheckout = false;
-    this.popUpQRCode = false;
-  }
 
 
   qrcode() {
     this.popUpQRCode = !this.popUpQRCode;
-
   }
 
 
