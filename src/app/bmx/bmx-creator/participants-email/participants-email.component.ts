@@ -1,4 +1,8 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Input } from '@angular/core';
+import { MatTableDataSource } from '@angular/material/table';
+import { SelectionModel } from '@angular/cdk/collections';
+import { HighlightSpanKind } from 'typescript';
+
 
 @Component({
   selector: 'app-participants-email',
@@ -6,6 +10,15 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./participants-email.component.scss']
 })
 export class ParticipantsEmailComponent implements OnInit {
+  allData;
+  viewedData;
+  selected;
+  @Input() isMenuActive15;
+  displayedColumns: string[] = ['select', 'firstName', 'lastName', 'group', 'subGroup', 'status'];
+  RESPONDENTS_LIST;
+  to;
+  dataSource;
+  selection;
   ckconfig: any;
   selectedIndex: any
   sampleHtml = `Dear PARTICIPANT,
@@ -19,7 +32,7 @@ export class ParticipantsEmailComponent implements OnInit {
     { name: 'Direct Link', rationale: 'Sist, Assist, Syst' },
     { name: 'General Link', rationale: 'Hance, En-' },
   ];
- 
+
   EMAIL_TEMPLATES = [
     { name: 'Clinical Trial', rationale: 'Sist, Assist, Syst' },
     { name: 'Consumer', rationale: 'Hance, En-' },
@@ -62,10 +75,17 @@ export class ParticipantsEmailComponent implements OnInit {
   ];
 
   constructor() {
-    
-   }
+
+  }
 
   ngOnInit(): void {
+    this.selected = 'All';
+    
+    var test = localStorage.getItem('fakeprojectname' + '_repondants list');
+    this.allData = JSON.parse(test);
+    this.changeView();
+    this.selection = new SelectionModel<any>(true, []);
+    this.to = '';
     this.ckconfig = {
       allowedContent: false,
       width: '99.6%',
@@ -94,6 +114,61 @@ export class ParticipantsEmailComponent implements OnInit {
     }
     // SAMPLE DATA FOR CKEDITOR
     this.model.editorData = this.sampleHtml;
+  }
+
+  isAllSelected() {
+    const numSelected = this.selection.selected.length;
+    const numRows = this.dataSource.data.length;
+    return numSelected === numRows;
+  }
+
+  masterToggle() {
+    if (this.isAllSelected()) {
+      this.selection.clear();
+      this.to = '';
+    }
+    else {
+      this.dataSource.data.forEach(row => {
+        this.selection.select(row);
+        if (!this.to.includes(row.firstName)) {
+          this.to += row.firstName + '; ';
+
+        }
+      });
+
+    }
+
+  }
+
+  selectRow($event, dataSource) {
+    if ($event.checked) {
+      this.to += dataSource.firstName + '; ';
+    }
+    else {
+      this.to = this.to.replace(dataSource.firstName + '; ', "");
+    }
+  }
+
+  changeView(): void {
+    this.viewedData = [];
+    for (let i = 0; i < this.allData.length; i++) {
+      if (this.selected == 'NS' && this.allData[i].status == 'NS') {
+
+        this.viewedData.push(this.allData[i])
+      }
+      else if (this.selected == 'NF' && this.allData[i].status == 'NF') {
+
+        this.viewedData.push(this.allData[i])
+      }
+      else if (this.selected == 'F' && this.allData[i].status == 'F') {
+        this.viewedData.push(this.allData[i])
+      }
+      else if(this.selected == 'All') {
+        this.viewedData = this.allData;
+        break;
+      }
+    }
+    this.dataSource = new MatTableDataSource<any>(this.viewedData);
   }
 
 

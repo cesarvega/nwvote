@@ -4,13 +4,7 @@ import { Subscription } from 'rxjs/internal/Subscription';
 import { BmxService } from '../bmx.service';
 import { HotkeysService, Hotkey } from 'angular2-hotkeys';
 import { DragulaService } from 'ng2-dragula';
-import { DOCUMENT } from '@angular/common';
 import { ActivatedRoute } from '@angular/router';
-import { typeSourceSpan } from '@angular/compiler';
-import { MatPaginator } from '@angular/material/paginator';
-import { MatTableDataSource } from '@angular/material/table';
-import { MatSort } from '@angular/material/sort';
-
 
 @Component({
   selector: 'app-image-uploader',
@@ -46,6 +40,7 @@ export class ImageUploaderComponent implements OnInit {
 
 
   ngOnInit(): void {
+    
   }
   /*
   onFileSelected(event) {

@@ -1,8 +1,5 @@
-
-
-.active-rating-star{
-    color:#76d354;
-}
-.rating-star{
-    color:grey;
+.paragraph {
+    display: flex;
+    flex-direction: column;
+    position: relative;
 }

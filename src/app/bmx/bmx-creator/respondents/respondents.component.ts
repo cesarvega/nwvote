@@ -14,12 +14,15 @@ export class RespondentsComponent implements OnInit {
   @ViewChild('respondants') myTestDiv: ElementRef;
   
   RESPONDENTS_LIST = [
-    {'firstName':'firstName', 'lastName':'lastName', 'email':'email', 'group':'group', 'subGroup':'subGroup', 'weight':'weight' }
+    /*{'firstName':'firstName', 'lastName':'lastName', 'email':'email', 'group':'group', 'subGroup':'subGroup', 'weight':'weight' }*/
     
   ]
   constructor() { }
 
   ngOnInit(): void {
+    //localStorage.setItem('fakeprojectname' + '_repondants list', JSON.stringify(this.RESPONDENTS_LIST));
+    var test = localStorage.getItem('fakeprojectname' + '_repondants list');
+    this.RESPONDENTS_LIST = JSON.parse(test);
     this.dataSource = new MatTableDataSource<any>(this.RESPONDENTS_LIST);
   }
 
@@ -28,14 +31,33 @@ export class RespondentsComponent implements OnInit {
     const temp = list.split("\n");
     for(var i = 0; i < temp.length; i++)
     {
-      if(temp[i] != "")
+      let z = Math.floor(Math.random() * 3);;
+      let y = '';
+      if(z == 0)
       {
-        this.RESPONDENTS_LIST.push({'firstName': temp[i].split("\t")[0], 'lastName':temp[i].split("\t")[1], 'email':temp[i].split("\t")[2], 'group':temp[i].split("\t")[3], 'subGroup':temp[i].split("\t")[4], 'weight':temp[i].split("\t")[5] });
+        y = 'NS'
+      }
+      else if(z == 1)
+      {
+        y = 'NF'
+      }
+      else
+      {
+        y = 'F'
+      }
+        
+      if(temp[i] != "" && temp[i].includes('\t'))
+      {
+        this.RESPONDENTS_LIST.push({'firstName': temp[i].split("\t")[0], 'lastName':temp[i].split("\t")[1], 'email':temp[i].split("\t")[2], 'group':temp[i].split("\t")[3], 'subGroup':temp[i].split("\t")[4], 'weight':temp[i].split("\t")[5], 'status':y });
+      }
+      else if(temp[i] != "")
+      {
+        this.RESPONDENTS_LIST.push({'firstName': temp[i].split(" ")[0], 'lastName':temp[i].split(" ")[1], 'email':temp[i].split(" ")[2], 'group':temp[i].split(" ")[3], 'subGroup':temp[i].split(" ")[4], 'weight':temp[i].split(" ")[5], 'status':y });
       }
     }
     this.myTestDiv.nativeElement.value = '';
     this.dataSource = new MatTableDataSource<any>(this.RESPONDENTS_LIST);
-    localStorage.setItem('fakeprojectname' + '_repondants list', this.RESPONDENTS_LIST.toString()) 
+    localStorage.setItem('fakeprojectname' + '_repondants list', JSON.stringify(this.RESPONDENTS_LIST)) 
   }
 
   deletPart(option: string): void {
@@ -48,12 +70,11 @@ export class RespondentsComponent implements OnInit {
       }
     }
     this.dataSource = new MatTableDataSource<any>(this.RESPONDENTS_LIST);
+    localStorage.setItem('fakeprojectname' + '_repondants list', JSON.stringify(this.RESPONDENTS_LIST));
   }
 
   public onFocusOutEvent(event: any): void {
-    localStorage.setItem('fakeprojectname' + '_repondants list', this.RESPONDENTS_LIST.toString()) 
+    localStorage.setItem('fakeprojectname' + '_repondants list', JSON.stringify(this.RESPONDENTS_LIST)) 
   }
-
-
 
 }

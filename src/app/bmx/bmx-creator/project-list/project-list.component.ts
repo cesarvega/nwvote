@@ -15,7 +15,7 @@ import { BmxService } from '../bmx.service';
   styleUrls: ['./project-list.component.scss']
 })
 export class ProjectListComponent implements OnInit {
-
+  @Input() isMenuActive1;
   @ViewChild(MatSort) sort: MatSort;
   @ViewChild(MatPaginator) paginator: MatPaginator;
   dataSource;
@@ -33,13 +33,11 @@ export class ProjectListComponent implements OnInit {
   DayAndDate: string;
   projectName: any;
   projectId: any;
-  @Input() isMenuActive1 ;
   constructor(@Inject(DOCUMENT) private document: any,private activatedRoute: ActivatedRoute,
   private _hotkeysService: HotkeysService, private dragulaService: DragulaService, private _BmxService: BmxService) { }
 
   ngOnInit(): void {
     this.selected = 'Live'
-    this.isMenuActive1 = !true;
     this._BmxService.getGetProjectList()
     .subscribe((arg:any) => {
       let obj = '[{"ProjectName":"test33333","ProjectId":616,"Status":"C","Department":"","Office":"","Created":null,"Close":null},{"ProjectName":"test2","ProjectId":616,"Status":"C","Department":"","Office":"","Created":null,"Close":"123456"},{"ProjectName":"test3","ProjectId":616,"Status":"C","Department":"","Office":"","Created":null,"Close":null},{"ProjectName":"test4","ProjectId":616,"Status":"C","Department":"","Office":"","Created":null,"Close":null},{"ProjectName":"test5","ProjectId":616,"Status":"C","Department":"","Office":"","Created":null,"Close":null},{"ProjectName":"test6","ProjectId":616,"Status":"C","Department":"","Office":"","Created":null,"Close":"56456"},{"ProjectName":"test7","ProjectId":616,"Status":"C","Department":"","Office":"","Created":null,"Close":null},{"ProjectName":"test1","ProjectId":616,"Status":"C","Department":"","Office":"","Created":null,"Close":null},{"ProjectName":"test2","ProjectId":616,"Status":"C","Department":"","Office":"","Created":null,"Close":"123456"},{"ProjectName":"test3","ProjectId":616,"Status":"C","Department":"","Office":"","Created":null,"Close":null},{"ProjectName":"test4","ProjectId":616,"Status":"C","Department":"","Office":"","Created":null,"Close":null},{"ProjectName":"test5","ProjectId":616,"Status":"C","Department":"","Office":"","Created":null,"Close":null},{"ProjectName":"test6","ProjectId":616,"Status":"C","Department":"","Office":"","Created":null,"Close":"56456"},{"ProjectName":"test777777","ProjectId":616,"Status":"C","Department":"","Office":"","Created":null,"Close":null}]';
