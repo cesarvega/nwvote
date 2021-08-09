@@ -32,12 +32,24 @@ export class EliteService {
   }
 
 
-  updatePromoter(id) {
+  updatePromoter(id, guessAmount,secretVenueKey?) {
     return new Promise<any>((resolve, reject) => {
        this.firestore
         .collection("venue")
         .doc(id)
-        .set({completed:'complete', updated: new Date() }, { merge: true })
+        .set({serverGuessAmount: guessAmount,secretVenueKey:secretVenueKey, completed:'complete', updated: new Date() }, { merge: true })
+        .then(res => { 
+          resolve(res)     
+         }, err => reject(err));
+      });
+ }
+
+  updateClientGuess(id, clientguessAmount) {
+    return new Promise<any>((resolve, reject) => {
+       this.firestore
+        .collection("venue")
+        .doc(id)
+        .set({clientguessAmount: clientguessAmount,serverGuessAmount: 'guessAmount',secretVenueKey:'secretVenueKey', updated: new Date() }, { merge: true })
         .then(res => { 
           resolve(res)     
          }, err => reject(err));

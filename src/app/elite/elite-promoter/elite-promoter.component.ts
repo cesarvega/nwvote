@@ -16,20 +16,20 @@ export class ElitePromoterComponent implements OnInit {
   qrocodeColor = '#629d5d';
   qrocodeColorBackground = '#ffffff00';
   QRLOGO = '<img  src="./assets/img/elite/CesarVega/CesarRecruiter.png">'
-  // myAngularxQrCode = 'http://mrvrman.com/elite';
-  foodOptions: any;
-  foodToppings: any;
-  popUpToppings = false;
-  popUpOptions = false;
-  popUpCheckout = false;
+
   popUpQRCode = false;
-  popUpThankyou = false;
-  popUpReview = false;
-  foodTopping;
-  foodOption;
-  sendingOrder: any;
-  selectedOption;
-  paramsArray: any; email: any;
+  // popUpThankyou = false;
+  // popUpReview = false;
+  // foodTopping;
+  // foodOption;
+  // sendingOrder: any;
+  // selectedOption;
+  // paramsArray: any; 
+  clientEmail = '';
+  clientName = '';
+  clientPhone = '';
+  isClientForm = false;
+
   promoterId: any;
   qrcodeType: any;
   Id: any;
@@ -113,67 +113,51 @@ export class ElitePromoterComponent implements OnInit {
   venueName = 'sample';
   isPromotionsExpired = false;
   isPromtionSucess = false;
-  guessAmount = 0;
-  clientguessAmount = 0;
+  guessAmount = 1;
+  clientguessAmount = 1;
   secretVenueKey = '';
   GUESS_AMOUNT_OPTIONS = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20];
   submitButtonReady = true;
   isClientScanned = false;
-  goToTheVenue = true;
-  
+  goToTheVenue = false;
+
 
   promotionalUniqueId = '';
-  canvas : any = 'canvas';
+  canvas: any = 'canvas';
 
   constructor(@Inject(DOCUMENT) document, private paramsRouter: ActivatedRoute, private EliteService: EliteService) {
 
 
   }
 
- 
+
   ngOnInit(): void {
-   
+
     this.paramsRouter.params.subscribe(params => {
       this.promoterId = params['id'];
       this.qrcodeType = params['type'];
       this.VenueId = params['venueId'];
     });
 
-    
-
-    if (this.qrcodeType === 'client') {
-      this.title = 'PROMOTION  CODE'      
-      this.PROMOTERS.forEach((promoter, index) => {
-        if (this.promoterId === promoter.promoterId) {
-          // this.VENUES = promoter.promotions;
-          this.EliteService.createPromoter({ promoterId: this.promoterId, venueId: this.VenueId, completed: 'inprogress', created: new Date() }).then(res => {
-            this.myAngularxQrCode = this.myAngularxQrCode + res;
-            this.venueName = this.VenueId;
-            
-            localStorage.setItem(this.venueName, res);
-            // alert(this.venueName);
-            this.EliteService.getPromoters(res)
-              .subscribe((arg: any) => {
-                if (arg.payload.data().completed === 'complete') {
-                  this.isClientScanned = true;                  
-                }
-              });
 
 
-
-          }).catch(err => {
-            console.log(err);
-          });
-        }
-      });
-
-    } else if (this.qrcodeType === 'client-scanning') {
-       // ESCANING QR AT THE VENUE
+    if (this.qrcodeType === 'client-scanning') {
+      // ESCANING QR AT THE VENUE
       this.promotionalUniqueId = localStorage.getItem(this.VenueId);
-      this.title = this.promotionalUniqueId;
+      this.myAngularxQrCode = this.myAngularxQrCode + this.promotionalUniqueId
+      this.title = this.VenueId;
       this.isClientScanned = true;
+      this.EliteService.getPromoters(this.promotionalUniqueId)
+        .subscribe((arg: any) => {
+          if (arg.payload.data().completed === 'complete') {
+            this.popUpQRCode = false;
+            this.isPromtionSucess = true;
+          }
+        });
 
-
+    }
+    else if (this.qrcodeType === 'client') {
+      this.isClientForm = true
     }
     else if (this.qrcodeType === 'venue') {
 
@@ -203,7 +187,7 @@ export class ElitePromoterComponent implements OnInit {
           console.log('cupon inprogress')
           this.isVenueForm = false;
           this.isPromtionSucess = true;
-          this.EliteService.updatePromoter(this.VenueId).then(res => {
+          this.EliteService.updatePromoter(this.VenueId,this.guessAmount,this.secretVenueKey).then(res => {
           })
         }
         else {
@@ -213,16 +197,36 @@ export class ElitePromoterComponent implements OnInit {
             this.isPromotionsExpired = true;
             this.title = 'COMPLETED';
           }
-
         }
       });
   }
 
-  validateGuessAmount(clientguessAmount) {
+  validateGuessAmount() {
+    this.EliteService.updateClientGuess(localStorage.getItem(this.VenueId),this.clientguessAmount).then(res => {
+    })
     this.popUpQRCode = true;
     this.isClientScanned = false;
   }
 
+  isClientInfoReady() {
+    this.isClientForm = false;
+    this.goToTheVenue = true;
+    if (this.qrcodeType === 'client') {
+      this.title = 'PROMOTION  CODE'
+      this.PROMOTERS.forEach((promoter, index) => {
+        if (this.promoterId === promoter.promoterId) {
+          this.EliteService.createPromoter(
+            { promoterId: this.promoterId, venueId: this.VenueId, clientEmail: this.clientEmail,clientName: 
+              this.clientName,clientPhone:  this.clientPhone, completed: 'inprogress', created: new Date() }).then(res => {
+            this.venueName = this.VenueId;
+            localStorage.setItem(this.venueName, res);
+          }).catch(err => {
+            console.log(err);
+          });
+        }
+      });
+    }
+  }
 
 
   qrcode() {
