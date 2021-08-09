@@ -111,7 +111,6 @@ export class SurveyCreationDesignComponent implements OnInit {
   }
 
   createNewBmxComponent(componentType) {
-
     if (componentType === 'text-editor') {
       this.bmxPages[this.currentPage].page.push({
         componentType: 'text-editor',
@@ -125,7 +124,7 @@ export class SurveyCreationDesignComponent implements OnInit {
         name: 'NAME', rationale: 'RATIONALE',
         STARS: this.createRatingStars()
       })
-      for (let index = 0; index < 5; index++) {
+      for (let index = 0; index < 15; index++) {
         this.TestNameDataModel.push({
           name: 'TEST NAME ' + index, rationale: 'Rationale of an undisclosed length',
           STARS: this.createRatingStars()
@@ -140,21 +139,16 @@ export class SurveyCreationDesignComponent implements OnInit {
 
   }
 
-  changePage(direction){
-    if (direction === 'next' &&  this.bmxPages.length - 1> this.currentPage) {
-      this.currentPage =  this.currentPage + 1;
-    } else  if (direction === 'previous' &&  this.currentPage >= 1) {
-      this.currentPage =  this.currentPage - 1;
-    }   
+  changePage(direction) {
+    if (direction === 'next' && this.bmxPages.length - 1 > this.currentPage) {
+      this.currentPage = this.currentPage + 1;
+    } else if (direction === 'previous' && this.currentPage >= 1) {
+      this.currentPage = this.currentPage - 1;
+    }
   }
-
-  selectPageNumber(pageNumber){
-
+  selectPageNumber(pageNumber) {
     this.currentPage = pageNumber;
-
   }
-
-
 
 
   // 🌭🌭🌭🌭🌭🌭🌭🌭🌭🌭🌭🌭🌭🌭PRIVATE METHODS 🌭🌭🌭🌭🌭🌭🌭🌭🌭🌭🌭🌭🌭🌭🌭🌭🌭🌭🌭🌭🌭🌭🌭🌭🌭🌭🌭🌭🌭

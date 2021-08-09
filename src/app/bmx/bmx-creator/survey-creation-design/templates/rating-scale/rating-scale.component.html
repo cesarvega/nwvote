@@ -31,7 +31,7 @@
 </div>
 
 
-<!--🥑🥑🥑🥑🥑🥑🥑🥑🥑🥑🥑🥑🥑🥑🥑🥑🥑RATING TABLE 🥑🥑🥑🥑🥑🥑🥑🥑🥑🥑🥑🥑🥑🥑🥑🥑🥑-->
+<!--🥑🥑🥑🥑🥑🥑🥑🥑🥑🥑🥑🥑🥑🥑🥑🥑🥑🥑🥑🥑🥑🥑🥑🥑🥑 RATING TABLE 🥑🥑🥑🥑🥑🥑🥑🥑🥑🥑🥑🥑🥑🥑🥑🥑🥑🥑🥑🥑🥑🥑🥑-->
 <button class="add-column" matTooltip="Add column" matTooltipPosition="left"  (click)="insertNewColumn()" mat-icon-button aria-label="ranking" >
     <mat-icon>view_list</mat-icon>
 </button>
@@ -40,12 +40,11 @@
         <div class="test-name-table">
 
             <div *ngFor="let columnName of columnsNames; let e =  index" style="width: 33%;text-align: justify;margin:10px 10px;">
-                <div (mouseenter)="selectedColumn = e" (mouseleave)="selectedColumn = ''"  *ngIf="(y == 0)" class="header-title">                    
-                    <span *ngIf="selectedColumn === e" matTooltip="delete column"matTooltipPosition="above" class="header-delete-icon" 
-                    (click)="deleteColumn(testName[columnName])">x</span>
-                    <input   *ngIf="(y == 0)" [(ngModel)]="testName[columnName]" class="header-title-box" value="testName[columnName]">
+                <div class="header-title" (mouseenter)="selectedColumn = e" (mouseleave)="selectedColumn = ''"  *ngIf="(y == 0)" >                    
+                    <span class="header-delete-icon" *ngIf="selectedColumn === e" matTooltip="delete column" matTooltipPosition="above" (click)="deleteColumn(testName[columnName])">x</span>
+                    <input  class="header-title-box"   *ngIf="(y == 0)" [(ngModel)]="testName[columnName]" value="testName[columnName]">
                 </div>              
-                <input *ngIf="(y !== 0)" [(ngModel)]="testName[columnName]" class="row-box" value="testName[columnName]">
+                <input  class="row-box" *ngIf="(y !== 0)" [(ngModel)]="testName[columnName]" value="testName[columnName]">
             </div>
             <div style="min-width: 250px">
                 <button *ngFor="let star of  testName.STARS; let x =  index" (click)="setRating(star.id,y)"
@@ -71,3 +70,5 @@
         <mat-icon style="font-size: 25px;">edit</mat-icon>
     </button>
 </div>
+
+<!--🥑🥑🥑🥑🥑🥑🥑🥑🥑🥑🥑🥑🥑🥑🥑🥑🥑🥑🥑🥑🥑🥑🥑🥑🥑END RATING TABLE 🥑🥑🥑🥑🥑🥑🥑🥑🥑🥑🥑🥑🥑🥑🥑🥑🥑🥑🥑🥑🥑🥑🥑-->

@@ -94,8 +94,7 @@
 
             <div class="page-buttons">
                 <div class="page-buttons" style="position: fixed;bottom: 40px;">
-                <button *ngIf="!false" (click)="changePage('previous')" matTooltip="Create New Page"
-                    matTooltipPosition="right" mat-icon-button aria-label="aria">
+                <button (click)="changePage('previous')"  mat-icon-button >
                     <mat-icon class="full-icon">chevron_left</mat-icon>
                 </button>
                 <div *ngFor="let page of bmxPages; let pageIndex = index">
@@ -105,8 +104,7 @@
                     </button>
                 </div>
 
-                <button *ngIf="!false" (click)="changePage('next')" matTooltip="Create New Page"
-                    matTooltipPosition="right" mat-icon-button aria-label="aria">
+                <button (click)="changePage('next')"  mat-icon-button >
                     <mat-icon class="full-icon">chevron_right</mat-icon>
                 </button>
             </div>
