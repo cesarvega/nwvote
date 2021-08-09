@@ -43,6 +43,17 @@ export class ProjectInformationComponent implements OnInit {
     bmxRegionalDirector: new FormControl(),
     bmxDirectorName: new FormControl()
  }); 
+
+ projectInfo = {
+  bmxSalesboard: '',
+  bmxDepartment: '',
+  bmxProjectName: '',
+  bmxRegion: '',
+  bmxCompany: '',
+  bmxLanguage: '',
+  bmxRegionalDirector: '',
+  bmxDirectorName: ''
+ }
   ngOnInit(): void {
 
     
@@ -60,17 +71,22 @@ export class ProjectInformationComponent implements OnInit {
         );
         // END 🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖 AUTOCOMPLETE
     });
-
+    localStorage.getItem('fakeproject')
   }
   //AUTOCOMPLETE 🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖
   filteredOptions: Observable<string[]>;
   salesboardFilter = new FormControl();
   salesboardObj = [];
-
+  projectName: string;
   private _filter(value: string): string[] {
     const filterValue = value.toLowerCase();
     console.log(value);
     return this.settingsData['SalesBoardProjectList'].filter(option => option.toLowerCase().includes(filterValue));
   }
   // END 🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖 AUTOCOMPLETE
+
+  directorSelected: any;
+  saveData() {
+  localStorage.setItem( 'fakeproject', JSON.stringify(this.salesboardObj));
+  } 
 }
