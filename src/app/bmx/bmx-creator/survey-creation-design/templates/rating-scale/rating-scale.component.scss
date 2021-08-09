@@ -5,15 +5,31 @@
     color: grey;
 }
 
-.odd-style:first-child {
-    font-size: 15px;
-    font-weight: bold;
-    color: #324395;
-    margin-bottom: 20px;
-}
-// .odd-style:nth-child(even) {
-//     background: #ccc;
+// .odd-style::-webkit-scrollbar {
+//     display: none;
 // }
+.odd-style::-webkit-scrollbar {
+    width: 3px;
+}
+
+/* Track */
+.odd-style::-webkit-scrollbar-track {
+    background: #f1f1f1;
+}
+
+/* Handle */
+.odd-style::-webkit-scrollbar-thumb {
+    background: rgb(7, 177, 58);
+    border-radius: 10px;
+}
+
+/* Handle on hover */
+.odd-style::-webkit-scrollbar-thumb:hover {
+     background: #b30000; 
+}
+
+
+
 
 .rating-text {
     width: 33%;

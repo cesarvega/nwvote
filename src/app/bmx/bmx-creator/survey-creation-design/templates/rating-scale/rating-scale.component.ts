@@ -26,7 +26,7 @@ export class RatingScaleComponent implements OnInit {
   columnsNames: string[];
   columnsNamesHeader: string[];
   listString: string;
-
+ tempItems = [];
 
   constructor() { }
   ngOnInit(): void {
@@ -81,9 +81,9 @@ export class RatingScaleComponent implements OnInit {
   }
 
   upLoadNamesAndRationales(list: string) {
-    if (!list) { list = this.listString;}
+    if (!list) { list = this.listString; }
     if (list) {
-      this.listString  = list;
+      this.listString = list;
       const textAreaInput = list.split("\n");
       this.columnsNames = [];
       this.columnsNames = textAreaInput[0].toLowerCase().split("\t");
@@ -95,7 +95,7 @@ export class RatingScaleComponent implements OnInit {
 
           objectColumnDefiner['STARS'] = this.createRatingStars(this.rankingScaleValue);
           for (var e = 0; e < this.columnsNames.length; e++) {
-            if ( (textAreaInput[i].split("\t").length > 0)) {
+            if ((textAreaInput[i].split("\t").length > 0)) {
               objectColumnDefiner[this.columnsNames[e]] = textAreaInput[i].split("\t")[e];
             }
           }
@@ -103,34 +103,65 @@ export class RatingScaleComponent implements OnInit {
         }
       }
       this.bmxItem.componentText = this.TESTNAMES_LIST;
+ 
     }
   }
 
 
-  insertNewColumn(){
-    this.columnsNames
-    let textAreaInput = this.bmxItem.componentText;
-
-
-    this.columnsNames = [];
-    
-    this.TESTNAMES_LIST = [];
-    for (var i = 0; i < textAreaInput.length; i++) {
-      if (textAreaInput[i] != "" && textAreaInput[i].length > 6) {
-        let objectColumnDefiner = {};
-
-        objectColumnDefiner['STARS'] = this.createRatingStars(this.rankingScaleValue);
-        for (var e = 0; e < this.columnsNames.length; e++) {
-          if ( (textAreaInput[i].split("\t").length > 0)) {
-            objectColumnDefiner[this.columnsNames[e]] = textAreaInput[i].split("\t")[e];
-          }
-        }
-        this.TESTNAMES_LIST.push(objectColumnDefiner);
+  insertNewColumn() {  
+    const tempItems =  []
+    this.tempItems = tempItems
+    var count = 0;
+    for (var k in this.bmxItem.componentText[0]) {
+      if (this.bmxItem.componentText[0].hasOwnProperty(k)) {
+        ++count;
       }
     }
-    this.bmxItem.componentText = this.TESTNAMES_LIST;
+    this.columnsNames.push('Custom ' + (count - 1));
+    this.bmxItem.componentText.forEach((object , index) => {
+      tempItems[index] = this.addToObject(object, 'Custom ' + (count - 1), 'Custom ' + (count - 1), count - 1)
+    });
+
+    this.bmxItem.componentText = [];
+    this.bmxItem.componentText = tempItems;
   }
 
+  deleteColumn(columnName){
+  //   this.bmxItem.componentText = this.tempItems;
+  //   let car  = this.bmxItem.componentText[0]
+
+   let temporary = []
+
+  //   this.bmxItem.componentText.forEach((object , index) => {
+  //     const newCar = Object.keys(car).reduce((object, key) => {
+  //       if (key !== columnName) {
+  //         object[key] = car[key]
+  //       }
+  //       return object
+  //     }, {})
+
+  //     temporary.push(newCar);
+  //   });
+  //   this.bmxItem.componentText = [];
+  //   this.bmxItem.componentText = temporary;
+
+  this.columnsNames.forEach(element => {
+    
+    if (element !== columnName) {
+      temporary.push(element)      
+    }
+  });
+
+  this.columnsNames = temporary;
+  
+     this.bmxItem.componentText.forEach((object , index) => {
+      delete this.bmxItem.componentText[index][columnName]
+    });
+    this.bmxItem.componentText =  JSON.parse(JSON.stringify(this.bmxItem.componentText));
+
+    // this.bmxItem.componentText = this.bmxItem.componentText;
+
+  }
 
   // PRIVATE METHODS
   createRatingStars(ratingScale) {
@@ -146,4 +177,31 @@ export class RatingScaleComponent implements OnInit {
   }
 
 
+  addToObject(obj, key, value, index) {
+    // Create a temp object and index variable
+    let temp = {};
+    let i = 0;
+    // Loop through the original object
+    for (let prop in obj) {
+      if (obj.hasOwnProperty(prop)) {
+
+        // If the indexes match, add the new item
+        if (i === index && key && value) {
+          temp[key] = value;
+        }
+        // Add the current item in the loop to the temp obj
+        temp[prop] = obj[prop];
+        // Increase the count
+        i++;
+      }
+    }
+
+    // If no index, add to the end
+    if (!index && key && value) {
+      temp[key] = value;
+    }
+
+    return temp;
+
+  };
 }
