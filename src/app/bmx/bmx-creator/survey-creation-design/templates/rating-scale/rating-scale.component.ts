@@ -80,7 +80,6 @@ export class RatingScaleComponent implements OnInit {
     this.bmxItem.componentText.splice(option, 1);
   }
 
-
   upLoadNamesAndRationales(list: string) {
     if (!list) { list = this.listString;}
     if (list) {
@@ -105,6 +104,31 @@ export class RatingScaleComponent implements OnInit {
       }
       this.bmxItem.componentText = this.TESTNAMES_LIST;
     }
+  }
+
+
+  insertNewColumn(){
+    this.columnsNames
+    let textAreaInput = this.bmxItem.componentText;
+
+
+    this.columnsNames = [];
+    
+    this.TESTNAMES_LIST = [];
+    for (var i = 0; i < textAreaInput.length; i++) {
+      if (textAreaInput[i] != "" && textAreaInput[i].length > 6) {
+        let objectColumnDefiner = {};
+
+        objectColumnDefiner['STARS'] = this.createRatingStars(this.rankingScaleValue);
+        for (var e = 0; e < this.columnsNames.length; e++) {
+          if ( (textAreaInput[i].split("\t").length > 0)) {
+            objectColumnDefiner[this.columnsNames[e]] = textAreaInput[i].split("\t")[e];
+          }
+        }
+        this.TESTNAMES_LIST.push(objectColumnDefiner);
+      }
+    }
+    this.bmxItem.componentText = this.TESTNAMES_LIST;
   }
 
 

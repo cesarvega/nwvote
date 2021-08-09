@@ -1,6 +1,6 @@
-<div style="display: flex; ">
-    <div class="bmx-page" *ngIf="isMenuActive11" dragula="TASKS" [(dragulaModel)]="brandMatrixObjects"
-        (dragulaModelChange)="checkDragEvetn($event);brandMatrixObjects = $event">
+<div style="display: flex;">
+    <div style="flex-direction: column;" class="bmx-page" *ngIf="isMenuActive11" dragula="TASKS"
+        [(dragulaModel)]="brandMatrixObjects" (dragulaModelChange)="checkDragEvetn($event);brandMatrixObjects = $event">
 
 
         <!-- BRAND MATRIX MODULAR LEGO TEMPLATE COMPONENTS  🧑🏻‍🚀🧑🏻‍🚀🧑🏻‍🚀🧑🏻‍🚀🧑🏻‍🚀🧑🏻‍🚀🧑🏻‍🚀🧑🏻‍🚀🧑🏻‍🚀🧑🏻‍🚀🧑🏻‍🚀🧑🏻‍🚀🧑🏻‍🚀 -->
@@ -90,26 +90,31 @@
             <!-- END LINEAR SCALE 👽👽👽👽👽👽👽👽👽👽👽👽👽👽👽👽👽👽👽👽👽👽👽👽👽👽👽👽👽👽👽👽👽👽👽👽👽👽👽👽 -->
 
         </div>
-        <div class="page-buttons">
 
-            <button *ngIf="!false" (click)="changePage('previous')" matTooltip="Create New Page"
-                matTooltipPosition="right" mat-icon-button aria-label="aria">
-                <mat-icon class="full-icon">chevron_left</mat-icon>
-            </button>
-            <div *ngFor="let page of bmxPages; let pageIndex = index">
-                <button style="min-width: 35px;" (click)="selectPageNumber(pageIndex)" [ngClass]="(currentPage === pageIndex)?'pageNumberActive':'pageNumber'" mat-raised-button>
-                    {{page.pageNumber}}
+
+            <div class="page-buttons">
+                <div class="page-buttons" style="position: fixed;bottom: 40px;">
+                <button *ngIf="!false" (click)="changePage('previous')" matTooltip="Create New Page"
+                    matTooltipPosition="right" mat-icon-button aria-label="aria">
+                    <mat-icon class="full-icon">chevron_left</mat-icon>
+                </button>
+                <div *ngFor="let page of bmxPages; let pageIndex = index">
+                    <button style="min-width: 35px;" (click)="selectPageNumber(pageIndex)"
+                        [ngClass]="(currentPage === pageIndex)?'pageNumberActive':'pageNumber'" mat-raised-button>
+                        {{page.pageNumber}}
+                    </button>
+                </div>
+
+                <button *ngIf="!false" (click)="changePage('next')" matTooltip="Create New Page"
+                    matTooltipPosition="right" mat-icon-button aria-label="aria">
+                    <mat-icon class="full-icon">chevron_right</mat-icon>
                 </button>
             </div>
-
-            <button *ngIf="!false" (click)="changePage('next')" matTooltip="Create New Page" matTooltipPosition="right"
-                mat-icon-button aria-label="aria">
-                <mat-icon class="full-icon">chevron_right</mat-icon>
-            </button>
         </div>
+
+
         <!-- END 🧑🏻‍🚀🧑🏻‍🚀🧑🏻‍🚀🧑🏻‍🚀🧑🏻‍🚀🧑🏻‍🚀🧑🏻‍🚀🧑🏻‍🚀🧑🏻‍🚀🧑🏻‍🚀🧑🏻‍🚀🧑🏻‍🚀🧑🏻‍🚀 BRAND MATRIX MODULAR LEGO TEMPLATE COMPONENTS   -->
     </div>
-
 
 
     <!-- MENU -->
