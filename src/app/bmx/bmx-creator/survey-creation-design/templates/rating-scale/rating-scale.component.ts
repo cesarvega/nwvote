@@ -54,11 +54,8 @@ export class RatingScaleComponent implements OnInit {
     }
   }
   selectStar(starId, testNameId): void {
-    // prevent multiple selection
     if (this.selectedRating === 0) {
-
       this.bmxItem.componentText[testNameId].STARS.filter((star) => {
-
         if (star.id <= starId) {
 
           star.class = 'active-rating-star';
@@ -72,9 +69,6 @@ export class RatingScaleComponent implements OnInit {
       });
 
     }
-
-    // this.selectedRating = value;
-
   }
 
   deletRow(option): void {

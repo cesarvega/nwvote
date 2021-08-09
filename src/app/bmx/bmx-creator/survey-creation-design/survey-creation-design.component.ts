@@ -111,13 +111,15 @@ export class SurveyCreationDesignComponent implements OnInit {
   }
 
   createNewBmxComponent(componentType) {
+
     if (componentType === 'text-editor') {
-      this.brandMatrixObjects.push({
+      this.bmxPages[this.currentPage].page.push({
         componentType: 'text-editor',
         componentText: this.sampleHtml2,
         componentSettings: [{ fontSize: '16px', fontFace: 'Arial', fontColor: 'red' }],
       })
     } else if (componentType === 'rating-scale') {
+
       this.TestNameDataModel = [];
       this.TestNameDataModel.push({
         name: 'NAME', rationale: 'RATIONALE',
@@ -129,12 +131,13 @@ export class SurveyCreationDesignComponent implements OnInit {
           STARS: this.createRatingStars()
         })
       }
-      this.brandMatrixObjects.push({
+      this.bmxPages[this.currentPage].page.push({
         componentType: 'ranking-scale',
         componentText: this.TestNameDataModel,
         componentSettings: [{ fontSize: '16px', fontFace: 'Arial', fontColor: 'red' }],
       })
     }
+
   }
 
   changePage(direction){
