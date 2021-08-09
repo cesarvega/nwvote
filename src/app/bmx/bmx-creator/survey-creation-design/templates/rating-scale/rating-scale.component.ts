@@ -26,7 +26,8 @@ export class RatingScaleComponent implements OnInit {
   columnsNames: string[];
   columnsNamesHeader: string[];
   listString: string;
- tempItems = [];
+  tempItems = [];
+  selectedColumn
 
   constructor() { }
   ngOnInit(): void {
@@ -103,13 +104,13 @@ export class RatingScaleComponent implements OnInit {
         }
       }
       this.bmxItem.componentText = this.TESTNAMES_LIST;
- 
+
     }
   }
 
 
-  insertNewColumn() {  
-    const tempItems =  []
+  insertNewColumn() {
+    const tempItems = []
     this.tempItems = tempItems
     var count = 0;
     for (var k in this.bmxItem.componentText[0]) {
@@ -118,7 +119,7 @@ export class RatingScaleComponent implements OnInit {
       }
     }
     this.columnsNames.push('Custom ' + (count - 1));
-    this.bmxItem.componentText.forEach((object , index) => {
+    this.bmxItem.componentText.forEach((object, index) => {
       tempItems[index] = this.addToObject(object, 'Custom ' + (count - 1), 'Custom ' + (count - 1), count - 1)
     });
 
@@ -126,38 +127,38 @@ export class RatingScaleComponent implements OnInit {
     this.bmxItem.componentText = tempItems;
   }
 
-  deleteColumn(columnName){
-  //   this.bmxItem.componentText = this.tempItems;
-  //   let car  = this.bmxItem.componentText[0]
+  deleteColumn(columnName) {
+    //   this.bmxItem.componentText = this.tempItems;
+    //   let car  = this.bmxItem.componentText[0]
 
-   let temporary = []
+    let temporary = []
 
-  //   this.bmxItem.componentText.forEach((object , index) => {
-  //     const newCar = Object.keys(car).reduce((object, key) => {
-  //       if (key !== columnName) {
-  //         object[key] = car[key]
-  //       }
-  //       return object
-  //     }, {})
+    //   this.bmxItem.componentText.forEach((object , index) => {
+    //     const newCar = Object.keys(car).reduce((object, key) => {
+    //       if (key !== columnName) {
+    //         object[key] = car[key]
+    //       }
+    //       return object
+    //     }, {})
 
-  //     temporary.push(newCar);
-  //   });
-  //   this.bmxItem.componentText = [];
-  //   this.bmxItem.componentText = temporary;
+    //     temporary.push(newCar);
+    //   });
+    //   this.bmxItem.componentText = [];
+    //   this.bmxItem.componentText = temporary;
 
-  this.columnsNames.forEach(element => {
-    
-    if (element !== columnName) {
-      temporary.push(element)      
-    }
-  });
+    this.columnsNames.forEach(element => {
 
-  this.columnsNames = temporary;
-  
-     this.bmxItem.componentText.forEach((object , index) => {
+      if (element !== columnName) {
+        temporary.push(element)
+      }
+    });
+
+    this.columnsNames = temporary;
+
+    this.bmxItem.componentText.forEach((object, index) => {
       delete this.bmxItem.componentText[index][columnName]
     });
-    this.bmxItem.componentText =  JSON.parse(JSON.stringify(this.bmxItem.componentText));
+    this.bmxItem.componentText = JSON.parse(JSON.stringify(this.bmxItem.componentText));
 
     // this.bmxItem.componentText = this.bmxItem.componentText;
 

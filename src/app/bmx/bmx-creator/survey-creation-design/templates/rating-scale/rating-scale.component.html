@@ -39,10 +39,16 @@
     <div  *ngFor="let testName of bmxItem.componentText; let y = index">
         <div class="test-name-table">
 
-            <div *ngFor="let columnName of columnsNames" style="width: 33%;text-align: justify;margin:10px 10px;">
+            <div *ngFor="let columnName of columnsNames; let e =  index" style="width: 33%;text-align: justify;margin:10px 10px;">
                 <!-- <div *ngIf="(y === 0)">{{testName[columnName]}}</div> -->
-                <input *ngIf="(y == 0)" [(ngModel)]="testName[columnName]" (click)="deleteColumn(testName[columnName])"
+                <div (mouseenter)="selectedColumn = e" (mouseleave)="selectedColumn = ''"  *ngIf="(y == 0)" style="display: flex;flex-direction: row;justify-content: flex-start;">
+                    
+                    <span *ngIf="selectedColumn === e" matTooltip="delete column"
+                    matTooltipPosition="above" style="cursor: pointer;margin-right: 5px;color: red;font-size: 20px;" 
+                    (click)="deleteColumn(testName[columnName])">x</span>
+                    <input   *ngIf="(y == 0)" [(ngModel)]="testName[columnName]" 
                     style="font-weight: bold;color: #324395;border: none;max-width: 300px;" value="testName[columnName]">
+                </div>
               
                 <input *ngIf="(y !== 0)" [(ngModel)]="testName[columnName]" style="border: none;max-width: 300px;"
                     value="testName[columnName]">
