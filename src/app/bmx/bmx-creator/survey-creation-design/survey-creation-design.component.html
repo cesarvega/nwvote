@@ -1,11 +1,11 @@
-<div style="display: flex;">
-    <div class="page-design" *ngIf="isMenuActive11" dragula="TASKS" [(dragulaModel)]="brandMatrixObjects"
+<div style="display: flex; ">
+    <div class="bmx-page" *ngIf="isMenuActive11" dragula="TASKS" [(dragulaModel)]="brandMatrixObjects"
         (dragulaModelChange)="checkDragEvetn($event);brandMatrixObjects = $event">
 
 
         <!-- BRAND MATRIX MODULAR LEGO TEMPLATE COMPONENTS  🧑🏻‍🚀🧑🏻‍🚀🧑🏻‍🚀🧑🏻‍🚀🧑🏻‍🚀🧑🏻‍🚀🧑🏻‍🚀🧑🏻‍🚀🧑🏻‍🚀🧑🏻‍🚀🧑🏻‍🚀🧑🏻‍🚀🧑🏻‍🚀 -->
-        <div *ngFor="let bmxItem of brandMatrixObjects; let i = index"
-            style="display: flex;flex-direction: column;margin: 10px;">
+        <div *ngFor="let bmxItem of bmxPages[currentPage].page; let i = index"
+            style="display: flex;flex-direction: column;margin: 10px;align-content: center;">
 
 
             <!-- BMX HEADER 😋😋😋😋😋😋😋😋😋😋😋😋😋😋😋😋😋😋😋😋😋😋😋😋😋😋😋😋😋😋😋😋😋😋😋😋😋😋 -->
@@ -85,34 +85,55 @@
             <!-- LINEAR SCALE 👽👽👽👽👽👽👽👽👽👽👽👽👽👽👽👽👽👽👽👽👽👽👽👽👽👽👽👽👽👽👽👽👽👽👽👽👽👽👽👽👽👽-->
             <div *ngIf="bmxItem.componentType === 'ranking-scale'" class="paragraph">
                 <div class="emoji-handle">.</div>
-                <app-rating-scale [bmxItem]="bmxItem" [i]='i' ></app-rating-scale>
+                <app-rating-scale [bmxItem]="bmxItem" [i]='i'></app-rating-scale>
             </div>
             <!-- END LINEAR SCALE 👽👽👽👽👽👽👽👽👽👽👽👽👽👽👽👽👽👽👽👽👽👽👽👽👽👽👽👽👽👽👽👽👽👽👽👽👽👽👽👽 -->
 
         </div>
+        <div class="page-buttons">
+
+            <button *ngIf="!false" (click)="changePage('previous')" matTooltip="Create New Page"
+                matTooltipPosition="right" mat-icon-button aria-label="aria">
+                <mat-icon class="full-icon">chevron_left</mat-icon>
+            </button>
+            <div *ngFor="let page of bmxPages; let pageIndex = index">
+                <button style="min-width: 35px;" (click)="selectPageNumber(pageIndex)" [ngClass]="(currentPage === pageIndex)?'pageNumberActive':'pageNumber'" mat-raised-button>
+                    {{page.pageNumber}}
+                </button>
+            </div>
+
+            <button *ngIf="!false" (click)="changePage('next')" matTooltip="Create New Page" matTooltipPosition="right"
+                mat-icon-button aria-label="aria">
+                <mat-icon class="full-icon">chevron_right</mat-icon>
+            </button>
+        </div>
         <!-- END 🧑🏻‍🚀🧑🏻‍🚀🧑🏻‍🚀🧑🏻‍🚀🧑🏻‍🚀🧑🏻‍🚀🧑🏻‍🚀🧑🏻‍🚀🧑🏻‍🚀🧑🏻‍🚀🧑🏻‍🚀🧑🏻‍🚀🧑🏻‍🚀 BRAND MATRIX MODULAR LEGO TEMPLATE COMPONENTS   -->
     </div>
+
 
 
     <!-- MENU -->
     <div class="project-info" *ngIf="isMenuActive11" style="border: pink solid 1px; width: 25%; height: 100vh;">
 
         <div style="display: flex;flex-direction: column;margin-top: 50px;">
-            <button (click)="createNewBmxComponent('text-editor')" mat-icon-button matTooltip="Add Intro" matTooltipPosition="right">
+            <button (click)="createNewBmxComponent('text-editor')" mat-icon-button matTooltip="Add Intro"
+                matTooltipPosition="right">
                 <mat-icon class="full-icon">note_add</mat-icon>
             </button>
             <button (click)="createNewBmxComponent('rating-scale')" matTooltip="TEST NAMES" matTooltipPosition="right"
                 mat-icon-button color="warn" aria-label="aria">
                 <mat-icon class="full-icon">grading</mat-icon>
             </button>
-            <button (click)="saveData()" matTooltip="SCALE" matTooltipPosition="right" mat-icon-button color="warn" aria-label="aria">
+            <button *ngIf="!false" (click)="createPage()" matTooltip="Create New Page" matTooltipPosition="right"
+                mat-icon-button aria-label="aria">
+                <mat-icon class="full-icon">post_add</mat-icon>
+            </button>
+            <button (click)="saveData()" matTooltip="SCALE" matTooltipPosition="right" mat-icon-button color="warn"
+                aria-label="aria">
                 <mat-icon class="full-icon">linear_scale</mat-icon>
             </button>
             <button *ngIf="!true" mat-icon-button matTooltip="slide comments" matTooltipPosition="right">
                 <mat-icon class="full-icon">comment</mat-icon>
-            </button>
-            <button *ngIf="!false" matTooltip="qr code" matTooltipPosition="right" mat-icon-button aria-label="aria">
-                <mat-icon class="full-icon">qr_code</mat-icon>
             </button>
         </div>
     </div>

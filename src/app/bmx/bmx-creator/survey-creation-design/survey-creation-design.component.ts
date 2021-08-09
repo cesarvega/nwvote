@@ -31,6 +31,9 @@ export class SurveyCreationDesignComponent implements OnInit {
   ratingScale = 5;
 
   // SURVEY CREATOR VARIABLES & SCHEME
+
+  currentPage = 0;
+
   brandMatrixObjects = [
     {
       componentType: 'logo-header',
@@ -43,6 +46,13 @@ export class SurveyCreationDesignComponent implements OnInit {
       componentSettings: [{ fontSize: '16px', fontFace: 'Arial', fontColor: 'red' }],
     },
   ];
+
+  bmxPages = [
+    {
+      pageNumber: 1,
+      page: this.brandMatrixObjects
+    }
+  ]
 
   constructor() { }
 
@@ -89,6 +99,17 @@ export class SurveyCreationDesignComponent implements OnInit {
     console.log(e);
   }
 
+  createPage() {
+    this.bmxPages.push({
+      pageNumber: this.bmxPages.length + 1,
+      page: [{
+        componentType: '',
+        componentText: '',
+        componentSettings: [{ fontSize: '16px', fontFace: 'Arial', fontColor: 'red' }]
+      }]
+    })
+  }
+
   createNewBmxComponent(componentType) {
     if (componentType === 'text-editor') {
       this.brandMatrixObjects.push({
@@ -116,7 +137,24 @@ export class SurveyCreationDesignComponent implements OnInit {
     }
   }
 
-  // PRIVATE METHODS
+  changePage(direction){
+    if (direction === 'next' &&  this.bmxPages.length - 1> this.currentPage) {
+      this.currentPage =  this.currentPage + 1;
+    } else  if (direction === 'previous' &&  this.currentPage >= 1) {
+      this.currentPage =  this.currentPage - 1;
+    }   
+  }
+
+  selectPageNumber(pageNumber){
+
+    this.currentPage = pageNumber;
+
+  }
+
+
+
+
+  // 🌭🌭🌭🌭🌭🌭🌭🌭🌭🌭🌭🌭🌭🌭PRIVATE METHODS 🌭🌭🌭🌭🌭🌭🌭🌭🌭🌭🌭🌭🌭🌭🌭🌭🌭🌭🌭🌭🌭🌭🌭🌭🌭🌭🌭🌭🌭
   createRatingStars() {
     let startCounter: any = []
     for (let index = 0; index < this.ratingScale; index++) {
@@ -129,11 +167,10 @@ export class SurveyCreationDesignComponent implements OnInit {
     return startCounter;
   }
 
-
-  saveData(){
+  saveData() {
 
     console.log('');
-    
+
   }
 
 }
