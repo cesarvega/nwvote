@@ -10,8 +10,12 @@ import { EliteService } from '../elite.service';
   styleUrls: ['./elite-business.component.scss']
 })
 export class EliteBusinessComponent implements OnInit {
+  fullname
+  email
+  phone
+  title = 'CESAR VEGA'
+  url
 
-  
   declare navigator: any;
   newVariable: any = window.navigator;
   QR_CODES: any = [
@@ -127,8 +131,6 @@ export class EliteBusinessComponent implements OnInit {
     },
   ]
 
-
-
   myAngularxQrCode = 'http://mrvrman.com/eliteCesar';
   // myAngularxQrCode = 'http://mrvrman.com/elite';
 
@@ -145,7 +147,7 @@ export class EliteBusinessComponent implements OnInit {
   foodOption;
   sendingOrder: any;
   selectedOption;
-  paramsArray: any; email: any;
+  paramsArray: any; 
   tableNo: any;
 
   constructor(private paramsRouter: ActivatedRoute, private EliteService: EliteService) { }
@@ -233,8 +235,6 @@ export class EliteBusinessComponent implements OnInit {
     window.open('https://commerce.coinbase.com/checkout/d983d382-1345-4214-9518-fb7d3ca97b27', "_top");
   }
 
- 
-
   dismissErrorForm() {
     this.popUpToppings = false;
     this.popUpOptions = false;
@@ -242,13 +242,10 @@ export class EliteBusinessComponent implements OnInit {
     this.popUpQRCode = false;
   }
 
-
   qrcode() {
     this.popUpQRCode = !this.popUpQRCode;
 
   }
-
-
 }
 
   // SOCIAL MEDIA QRCODES

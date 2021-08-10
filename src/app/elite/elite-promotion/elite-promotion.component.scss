@@ -1,0 +1,411 @@
+@mixin BoxShadow($dp) {
+    @if $dp==0 {
+        box-shadow: none;
+    } @else if $dp==1 {
+        box-shadow: 0 1px 1px 0 rgba(0, 0, 0, 0.14), 0 2px 1px -1px rgba(0, 0, 0, 0.12), 0 1px 3px 0 rgba(0, 0, 0, 0.2);
+    } @else if $dp==2 {
+        box-shadow: 0 2px 2px 0 rgba(0, 0, 0, 0.14), 0 3px 1px -2px rgba(0, 0, 0, 0.12), 0 1px 5px 0 rgba(0, 0, 0, 0.2);
+    } @else if $dp==3 {
+        box-shadow: 0 3px 4px 0 rgba(0, 0, 0, 0.14), 0 3px 3px -2px rgba(0, 0, 0, 0.12), 0 1px 8px 0 rgba(0, 0, 0, 0.2);
+    } @else if $dp==4 {
+        box-shadow: 0 4px 5px 0 rgba(0, 0, 0, 0.14), 0 1px 10px 0 rgba(0, 0, 0, 0.12), 0 2px 4px -1px rgba(0, 0, 0, 0.2);
+    } @else if $dp==6 {
+        box-shadow: 0 6px 10px 0 rgba(0, 0, 0, 0.14), 0 1px 18px 0 rgba(0, 0, 0, 0.12),
+            0 3px 5px -1px rgba(0, 0, 0, 0.2);
+    } @else if $dp==8 {
+        box-shadow: 0 8px 10px 1px rgba(0, 0, 0, 0.14), 0 3px 14px 2px rgba(0, 0, 0, 0.12),
+            0 5px 5px -3px rgba(0, 0, 0, 0.2);
+    } @else if $dp==9 {
+        box-shadow: 0 9px 12px 1px rgba(0, 0, 0, 0.14), 0 3px 16px 2px rgba(0, 0, 0, 0.12),
+            0 5px 6px -3px rgba(0, 0, 0, 0.2);
+    } @else if $dp==12 {
+        box-shadow: 0 12px 17px 2px rgba(0, 0, 0, 0.14), 0 5px 22px 4px rgba(0, 0, 0, 0.12),
+            0 7px 8px -4px rgba(0, 0, 0, 0.2);
+    } @else if $dp==16 {
+        box-shadow: 0 16px 24px 2px rgba(0, 0, 0, 0.14), 0 6px 30px 5px rgba(0, 0, 0, 0.12),
+            0 8px 10px -5px rgba(0, 0, 0, 0.2);
+    } @else if $dp==24 {
+        box-shadow: 0 24px 38px 3px rgba(0, 0, 0, 0.14), 0 9px 46px 8px rgba(0, 0, 0, 0.12),
+            0 11px 15px -7px rgba(0, 0, 0, 0.2);
+    }
+}
+
+.inprogress{
+    color: orange;
+}
+
+.complete{
+    color: greenyellow;
+}
+//desktop
+@media (min-width: 576px) {
+    .mainContainer {
+        display: flex;
+        flex-direction: column;
+        height: 90vh;
+        width: 500px;
+        max-width: 500px;
+        justify-content: space-between;
+        align-items: center;
+        border: black solid 5px;
+        background-color: rgb(0 0 0 / 88%);
+        border-radius: 10px;
+        overflow: hidden;
+
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        -ms-transform: translate(-50%, -53%);
+        transform: translate(-50%, -53%);
+        @include BoxShadow(6);
+
+        
+        .logo-miami {
+            font-size: 30px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            color: aqua;
+            font-family: Miami;
+            padding-top: 20px;
+            background-color: black;
+            width: 100%;
+            text-shadow: 0 0.04em 0.04em rgba(0, 0, 0, 0.35);
+            @include BoxShadow(12);
+        }
+
+        .logo {
+            width: 80px;
+        }
+        .header {
+            width: 100%;
+            height: 110px;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-around;
+            align-items: center;
+            position: fixed;
+            top: 0px;
+            background-color: white;
+            z-index: 1;
+        }
+
+        .footer {
+            width: 100%;
+            height: 41px;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            align-items: center;
+            position: fixed;
+            bottom: 0px;
+            background-color: #000;
+            z-index: 1;
+            border: 1px solid #004684;
+        }
+
+        .boton {
+            width: 100px;
+            margin: 5px;
+            color: white;
+            width: 100px;
+            // margin: 10px;
+            color: white;
+            font-size: 30px;
+        }
+
+        .menu {
+            height: 94%;
+            overflow-x: hidden;
+            overflow-y: scroll;
+            position: absolute;
+            top: 180px;
+        }
+
+        .foodCard {
+            display: flex;
+            flex-direction: column;
+            border: rgb(255, 255, 255) solid 1px;
+            border-radius: 5px;
+            justify-content: space-between;
+            align-items: center;
+            margin: 10px;
+        }
+
+        .row {
+            display: flex;
+            flex-direction: row;
+            // border: gray solid 1px;
+            // border-radius: 5px;
+            justify-content: space-between;
+            align-items: center;
+            margin: 10px;
+            width: 100%;
+        }
+
+        .rowPopup {
+            display: flex;
+            flex-direction: row;
+            // border: gray solid 1px;
+            // border-radius: 5px;
+            justify-content: space-between;
+            align-items: center;
+            margin: 10px;
+        }
+
+        .column {
+            display: flex;
+            flex-direction: column;
+            // border: gray solid 1px;
+            // border-radius: 5px;
+            justify-content: space-between;
+            align-items: flex-start;
+            margin: 10px;
+        }
+    }
+    .formFieldValidationAlert {
+        background-color: white;
+        border: solid 3px darkgray;
+        width: 448px;
+        z-index: 1;
+        height: 714px;
+        margin: 0;
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -53%);
+        border-radius: 3px;
+
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        text-align: center;
+        max-width: 300px;
+    }
+    .reviewOrderClass {
+        background-color: white;
+        border: solid 3px darkgray;
+        width: 448px;
+        z-index: 1;
+        height: 714px;
+        margin: 0;
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -53%);
+        border-radius: 3px;
+
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        text-align: center;
+        max-width: 300px;
+        height: auto;
+    }
+}
+//mobile
+@media (max-width: 576px) {
+    .mainContainer {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: space-between;
+        height: 100vh;
+        overflow: hidden;
+        background-color: rgb(0 0 0 / 88%);
+        color: rgb(0, 0, 0);
+
+        .logo-miami {
+            font-size: 20px;
+            display: flex;
+            margin-bottom: 10px;
+            flex-direction: column;
+            align-items: center;
+            color: rgb(255, 255, 255);
+            font-family: Miami;
+            padding-top: 20px;
+            background-color: black;
+            width: 100%;
+            text-shadow: 0 0.04em 0.04em rgba(0, 0, 0, 0.35);
+            @include BoxShadow(12);
+        }
+
+        .logo {
+            width: 62px;
+            margin-top: 10px;
+        }
+
+        .header {
+            width: 100%;
+            height: 100px;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            align-items: center;
+            position: fixed;
+            top: 0px;
+            background-color: white;
+            z-index: 1;
+        }
+
+        .footer {
+            width: 100%;
+            height: 41px;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            align-items: center;
+            position: fixed;
+            bottom: 0px;
+            background-color: #000000;
+            z-index: 1;
+            // border-top: 3px solid #004684;
+        }
+
+        .boton {
+            width: 100px;
+            margin: 5px;
+            color: white;
+            width: 100px;
+            // margin: 10px;
+            color: white;
+            font-size: 30px;
+        }
+
+        .menu {
+            height: 90%;
+            overflow-x: hidden;
+            overflow-y: scroll;
+            position: absolute;
+            top: 146px;
+            background-color: rgb(0 0 0 / 88%);
+        }
+
+        .foodCard {
+            display: flex;
+            flex-direction: column;
+            border: rgb(255, 255, 255) solid 1px;
+            border-radius: 5px;
+            justify-content: space-between;
+            align-items: center;
+            margin: 10px;
+        }
+
+        .row {
+            display: flex;
+            flex-direction: row;
+            // border: gray solid 1px;
+            // border-radius: 5px;
+            justify-content: space-between;
+            align-items: center;
+            margin: 10px;
+            width: 100%;
+        }
+
+        .rowPopup {
+            display: flex;
+            flex-direction: row;
+            // border: gray solid 1px;
+            // border-radius: 5px;
+            justify-content: space-between;
+            align-items: center;
+            margin: 10px;
+        }
+
+        .column {
+            display: flex;
+            flex-direction: column;
+            // border: gray solid 1px;
+            // border-radius: 5px;
+            justify-content: space-between;
+            align-items: flex-start;
+            margin: 10px;
+        }
+
+        .pizzaImage {
+            transition: all 0.2s ease-in-out;
+            animation: fadeIn 1 ease-in 0 forwards 1;
+            background-color: rgb(0 0 0 / 88%);
+            @include BoxShadow(12);
+        }
+
+        .pizzaImage:hover {
+            // transform: scale(1.1);
+        }
+    }
+    .formFieldValidationAlert {
+        background-color: white;
+        border: solid 3px darkgray;
+        width: 448px;
+        z-index: 1;
+        height: 714px;
+        margin: 0;
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -53%);
+        border-radius: 3px;
+
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        text-align: center;
+        max-width: 300px;
+        height: auto;
+    }
+    .reviewOrderClass {
+        background-color: white;
+        border: solid 3px darkgray;
+        width: 448px;
+        z-index: 1;
+        height: 550px;
+        margin: 0;
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -53%);
+        border-radius: 3px;
+
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        text-align: center;
+        max-width: 300px;
+    }
+}
+// small mobile
+@media (max-width: 400px) {
+}
+
+.disable-dbl-tap-zoom {
+    touch-action: manipulation;
+}
+
+// MAIN SCCROLL BAR STYLE
+
+/* width */
+::ng-deep .menu::-webkit-scrollbar {
+    width: 5px;
+    display: none;
+}
+
+/* Track */
+::ng-deep .menu::-webkit-scrollbar-track {
+    box-shadow: inset 0 0 5px grey;
+    border-radius: 10px;
+}
+
+/* Handle */
+::ng-deep .menu::-webkit-scrollbar-thumb {
+    background: #1564bf;
+    border-radius: 10px;
+}
+
+/* Handle on hover */
+::ng-deep .menu::-webkit-scrollbar-thumb:hover {
+    background: #1564bf;
+}

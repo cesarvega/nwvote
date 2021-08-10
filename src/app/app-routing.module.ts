@@ -9,6 +9,7 @@ import { EliteVenueComponent } from './elite/elite-venue/elite-venue.component';
 import { ElitePromotionComponent } from './elite/elite-promotion/elite-promotion.component';
 
 const routes: Routes = [
+  
    {//ELITE BUSINESS
     path: 'businnes',
     component: EliteBusinessComponent
@@ -17,6 +18,7 @@ const routes: Routes = [
     path: 'businnes/:id',
     component: EliteBusinessComponent
   },
+
   {//ELITE VENUE
     path: 'venue',
     component: EliteVenueComponent
@@ -25,26 +27,30 @@ const routes: Routes = [
     path: 'venue/:id',
     component: EliteVenueComponent
   },
+
   {//ELITE PROMOTER
-    path: 'businnes',
+    path: 'promoter',
     component: ElitePromoterComponent
   },
   {//ELITE PROMOTER WITH ID
-    path: 'businnes/:id',
+    path: 'promoter/:id/:type/:venueId',
     component: ElitePromoterComponent
   },
+
   {//ELITE PROMOTION
-    path: 'businnes',
+    path: 'promotion',
     component: ElitePromotionComponent
   },
   {//ELITE PROMOTION WITH ID
-    path: 'businnes/:id',
+    path: 'promotion/:id',
     component: ElitePromotionComponent
   },
+
   {//ELITE DASHBOARD
     path: 'dash',
     component: EliteDashComponent
   },
+
   {//ELITE SYSTEM UX UI
     path: 'elite/:id/:type',
     component: EliteComponent
