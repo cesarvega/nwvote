@@ -27,14 +27,14 @@ const routes: Routes = [
   //   path: ':id',
   //   component: SchedulerComponent  
   // },
-  {//BSR  color of the bar #002f5b
-    path: ':id',
-    component: BsrComponent
-  },
-  // {//BI BRAND MATRIX CREATOR
-  // path: ':id',
-  //  component: BmxCreatorComponent
+  // {//BSR  color of the bar #002f5b
+  //   path: ':id',
+  //   component: BsrComponent
   // },
+  {//BI BRAND MATRIX CREATOR
+  path: ':id',
+   component: BmxCreatorComponent
+  },
   //  {//BI BRAND MATRIX
   //   path: ':id',
   //   component: BmxComponent
