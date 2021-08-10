@@ -22,7 +22,7 @@ export class RespondentsComponent implements OnInit {
   ngOnInit(): void {
     //localStorage.setItem('fakeprojectname' + '_repondants list', JSON.stringify(this.RESPONDENTS_LIST));
     var test = localStorage.getItem('fakeprojectname' + '_repondants list');
-    this.RESPONDENTS_LIST = JSON.parse(test);
+    // this.RESPONDENTS_LIST = JSON.parse(test);
     this.dataSource = new MatTableDataSource<any>(this.RESPONDENTS_LIST);
   }
 
