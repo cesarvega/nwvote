@@ -87,6 +87,6 @@ export class ProjectInformationComponent implements OnInit {
 
   directorSelected: any;
   saveData() {
-  localStorage.setItem( 'fakeproject', JSON.stringify(this.salesboardObj));
+  localStorage.setItem( 'fakeproject', JSON.stringify(this.bmxEditData));
   } 
 }
