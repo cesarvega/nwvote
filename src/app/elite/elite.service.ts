@@ -114,10 +114,10 @@ export class EliteService {
  
 
 // VENUE 🙈🙈🙈🙈🙈🙈🙈🙈🙈🙈🙈🙈🙈🙈🙈🙈🙈🙈🙈🙈🙈🙈🙈🙈🙈🙈🙈🙈🙈🙈🙈🙈🙈🙈🙈🙈🙈🙈🙈🙈🙈🙈🙈🙈🙈🙈🙈🙈🙈🙈🙈🙈🙈
-  createVenu(data) {
+  createVenue(data) {
     return new Promise<any>((resolve, reject) => {
       this.firestore
-        .collection("Venu")
+        .collection("Venue")
         .add(data)
         .then(res => { 
          resolve(res.id)     
@@ -125,31 +125,31 @@ export class EliteService {
     });
   }
 
-  getVenus(venuId) { 
-    return this.firestore.collection("Venu").doc(venuId).snapshotChanges();  
+  getVenues(venueId) { 
+    return this.firestore.collection("Venue").doc(venueId).snapshotChanges();  
   }
 
 
-  getAllVenus() { 
-    return this.firestore.collection("Venu").snapshotChanges();  
+  getAllVenues() { 
+    return this.firestore.collection("Venue").snapshotChanges();  
   }
 
 
-  updateVenu(id, guessAmount, secretVenuKey?) {
+  updateVenue(id, guessAmount, secretVenueKey?) {
     return new Promise<any>((resolve, reject) => {
        this.firestore
-        .collection("Venu")
+        .collection("Venue")
         .doc(id)
-        .set({serverGuessAmount: guessAmount,secretVenuKey:secretVenuKey, completed:'complete', updated: new Date() }, { merge: true })
+        .set({serverGuessAmount: guessAmount,secretVenueKey:secretVenueKey, completed:'complete', updated: new Date() }, { merge: true })
         .then(res => { 
           resolve(res)     
          }, err => reject(err));
       });
  }
 
- deleteVenu(data) {
+ deleteVenue(data) {
   return this.firestore
-      .collection("Venu")
+      .collection("Venue")
       .doc(data.payload.doc.id)
       .delete();
 }
@@ -197,5 +197,92 @@ export class EliteService {
 }
  
    //END PROMOTORES 🐍🐍🐍🐍🐍🐍🐍🐍🐍🐍🐍🐍🐍🐍🐍🐍🐍🐍🐍🐍🐍🐍🐍🐍🐍🐍🐍🐍🐍🐍🐍🐍🐍🐍🐍🐍🐍🐍🐍🐍🐍🐍🐍🐍🐍🐍🐍🐍🐍🐍🐍🐍🐍🐍
+
+
+   // PROMOTION 🍀🍀🍀🍀🍀🍀🍀🍀🍀🍀🍀🍀🍀🍀🍀🍀🍀🍀🍀🍀🍀🍀🍀🍀🍀🍀🍀🍀🍀🍀🍀🍀🍀🍀🍀🍀🍀🍀🍀🍀🍀🍀🍀🍀🍀🍀🍀🍀🍀🍀
+  createPromotion(data) {
+    return new Promise<any>((resolve, reject) => {
+      this.firestore
+        .collection("Promotion")
+        .add(data)
+        .then(res => { 
+         resolve(res.id)     
+        }, err => reject(err));
+    });
+  }
+
+  getPromotions(venuId) { 
+    return this.firestore.collection("Promotion").doc(venuId).snapshotChanges();  
+  }
+
+
+  getAllPromotions() { 
+    return this.firestore.collection("Promotion").snapshotChanges();  
+  }
+
+
+  updatePromotion(id, guessAmount, secretPromotionKey?) {
+    return new Promise<any>((resolve, reject) => {
+       this.firestore
+        .collection("Promotion")
+        .doc(id)
+        .set({serverGuessAmount: guessAmount,secretPromotionKey:secretPromotionKey, completed:'complete', updated: new Date() }, { merge: true })
+        .then(res => { 
+          resolve(res)     
+         }, err => reject(err));
+      });
+ }
+
+ deletePromotion(data) {
+  return this.firestore
+      .collection("Promotion")
+      .doc(data.payload.doc.id)
+      .delete();
+}
+ 
+   //END PROMOTION 🍀🍀🍀🍀🍀🍀🍀🍀🍀🍀🍀🍀🍀🍀🍀🍀🍀🍀🍀🍀🍀🍀🍀🍀🍀🍀🍀🍀🍀🍀🍀🍀🍀🍀🍀🍀🍀🍀🍀🍀🍀🍀🍀🍀🍀🍀
+
+   // TRANSACTION 🌎🌎🌎🌎🌎🌎🌎🌎🌎🌎🌎🌎🌎🌎🌎🌎🌎🌎🌎🌎🌎🌎🌎🌎🌎🌎🌎🌎🌎🌎🌎🌎🌎🌎🌎🌎🌎🌎🌎🌎🌎🌎🌎🌎🌎🌎🌎🌎
+  createTransaction(data) {
+    return new Promise<any>((resolve, reject) => {
+      this.firestore
+        .collection("Transaction")
+        .add(data)
+        .then(res => { 
+         resolve(res.id)     
+        }, err => reject(err));
+    });
+  }
+
+  getTransactions(venuId) { 
+    return this.firestore.collection("Transaction").doc(venuId).snapshotChanges();  
+  }
+
+
+  getAllTransactions() { 
+    return this.firestore.collection("Transaction").snapshotChanges();  
+  }
+
+
+  updateTransaction(id, guessAmount, secretTransactionKey?) {
+    return new Promise<any>((resolve, reject) => {
+       this.firestore
+        .collection("Transaction")
+        .doc(id)
+        .set({serverGuessAmount: guessAmount,secretTransactionKey:secretTransactionKey, completed:'complete', updated: new Date() }, { merge: true })
+        .then(res => { 
+          resolve(res)     
+         }, err => reject(err));
+      });
+ }
+
+ deleteTransaction(data) {
+  return this.firestore
+      .collection("Transaction")
+      .doc(data.payload.doc.id)
+      .delete();
+}
+ 
+   //END TRANSACTION 🌎🌎🌎🌎🌎🌎🌎🌎🌎🌎🌎🌎🌎🌎🌎🌎🌎🌎🌎🌎🌎🌎🌎🌎🌎🌎🌎🌎🌎🌎🌎🌎🌎🌎🌎🌎🌎🌎🌎🌎🌎🌎🌎🌎🌎🌎🌎🌎🌎🌎🌎🌎
 
 }
