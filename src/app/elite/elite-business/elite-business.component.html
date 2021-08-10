@@ -20,9 +20,9 @@
     <!-- PROMOTER -->
     <div class="menu">
 
-        <div class="foodCard" *ngFor="let item of food; index as i" style="color: white;">
-            <img class="pizzaImage" style="width: 100%;" [src]="item.imgSrc" (click)="sendQrCode(item)">
-            <h1 class="title secondary-text" style="padding-top: 10px;">{{item.name}}</h1>
+        <div class="foodCard" *ngFor="let QR of QR_CODES; index as i" style="color: white;">
+            <img class="pizzaImage" style="width: 100%;" [src]="QR.imgSrc" (click)="sendQrCode(QR)">
+            <h1 class="title secondary-text" style="padding-top: 10px;">{{QR.name}}</h1>
             <!-- <div class="title secondary-text" style="width: 290px;text-align: center;">{{item.description}}</div>            -->
         </div>
         <br>

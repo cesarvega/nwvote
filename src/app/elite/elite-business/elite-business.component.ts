@@ -14,7 +14,7 @@ export class EliteBusinessComponent implements OnInit {
   
   declare navigator: any;
   newVariable: any = window.navigator;
-  food: any = [
+  QR_CODES: any = [
     // {
     //   name: 'Cesar Vega',
     //   description: 'Recruiter',
@@ -233,10 +233,7 @@ export class EliteBusinessComponent implements OnInit {
     window.open('https://commerce.coinbase.com/checkout/d983d382-1345-4214-9518-fb7d3ca97b27', "_top");
   }
 
-  toppings(index) {
-    this.popUpToppings = true;
-    this.foodToppings = this.food[index];
-  }
+ 
 
   dismissErrorForm() {
     this.popUpToppings = false;
