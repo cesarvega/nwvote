@@ -64,6 +64,9 @@ import { AngularFireModule } from "@angular/fire";
 import { AngularFirestoreModule } from "@angular/fire/firestore";
 import { ElitePromoterComponent } from './elite/elite-promoter/elite-promoter.component';
 import { EliteDashComponent } from './elite/elite-dash/elite-dash.component';
+import { EliteVenueComponent } from './elite/elite-venue/elite-venue.component';
+import { ElitePromotionComponent } from './elite/elite-promotion/elite-promotion.component';
+import { EliteBusinessComponent } from './elite/elite-business/elite-business.component';
 @NgModule({
   declarations: [
     AppComponent,
@@ -80,7 +83,10 @@ import { EliteDashComponent } from './elite/elite-dash/elite-dash.component';
     OrderDasboardComponent,
     EliteComponent,
     ElitePromoterComponent,
-    EliteDashComponent
+    EliteDashComponent,
+    EliteVenueComponent,
+    ElitePromotionComponent,
+    EliteBusinessComponent
   ],
   imports: [
     AngularFireModule.initializeApp(environment.firebaseConfig),
