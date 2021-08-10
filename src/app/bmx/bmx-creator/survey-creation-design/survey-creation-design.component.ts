@@ -31,6 +31,9 @@ export class SurveyCreationDesignComponent implements OnInit {
   ratingScale = 5;
 
   // SURVEY CREATOR VARIABLES & SCHEME
+
+  currentPage = 0;
+
   brandMatrixObjects = [
     {
       componentType: 'logo-header',
@@ -43,6 +46,13 @@ export class SurveyCreationDesignComponent implements OnInit {
       componentSettings: [{ fontSize: '16px', fontFace: 'Arial', fontColor: 'red' }],
     },
   ];
+
+  bmxPages = [
+    {
+      pageNumber: 1,
+      page: this.brandMatrixObjects
+    }
+  ]
 
   constructor() { }
 
@@ -89,34 +99,59 @@ export class SurveyCreationDesignComponent implements OnInit {
     console.log(e);
   }
 
+  createPage() {
+    this.bmxPages.push({
+      pageNumber: this.bmxPages.length + 1,
+      page: [{
+        componentType: '',
+        componentText: '',
+        componentSettings: [{ fontSize: '16px', fontFace: 'Arial', fontColor: 'red' }]
+      }]
+    })
+  }
+
   createNewBmxComponent(componentType) {
     if (componentType === 'text-editor') {
-      this.brandMatrixObjects.push({
+      this.bmxPages[this.currentPage].page.push({
         componentType: 'text-editor',
         componentText: this.sampleHtml2,
         componentSettings: [{ fontSize: '16px', fontFace: 'Arial', fontColor: 'red' }],
       })
     } else if (componentType === 'rating-scale') {
+
       this.TestNameDataModel = [];
       this.TestNameDataModel.push({
         name: 'NAME', rationale: 'RATIONALE',
         STARS: this.createRatingStars()
       })
-      for (let index = 0; index < 5; index++) {
+      for (let index = 0; index < 15; index++) {
         this.TestNameDataModel.push({
           name: 'TEST NAME ' + index, rationale: 'Rationale of an undisclosed length',
           STARS: this.createRatingStars()
         })
       }
-      this.brandMatrixObjects.push({
+      this.bmxPages[this.currentPage].page.push({
         componentType: 'ranking-scale',
         componentText: this.TestNameDataModel,
         componentSettings: [{ fontSize: '16px', fontFace: 'Arial', fontColor: 'red' }],
       })
     }
+
   }
 
-  // PRIVATE METHODS
+  changePage(direction) {
+    if (direction === 'next' && this.bmxPages.length - 1 > this.currentPage) {
+      this.currentPage = this.currentPage + 1;
+    } else if (direction === 'previous' && this.currentPage >= 1) {
+      this.currentPage = this.currentPage - 1;
+    }
+  }
+  selectPageNumber(pageNumber) {
+    this.currentPage = pageNumber;
+  }
+
+
+  // 🌭🌭🌭🌭🌭🌭🌭🌭🌭🌭🌭🌭🌭🌭PRIVATE METHODS 🌭🌭🌭🌭🌭🌭🌭🌭🌭🌭🌭🌭🌭🌭🌭🌭🌭🌭🌭🌭🌭🌭🌭🌭🌭🌭🌭🌭🌭
   createRatingStars() {
     let startCounter: any = []
     for (let index = 0; index < this.ratingScale; index++) {
@@ -129,11 +164,10 @@ export class SurveyCreationDesignComponent implements OnInit {
     return startCounter;
   }
 
-
-  saveData(){
+  saveData() {
 
     console.log('');
-    
+
   }
 
 }

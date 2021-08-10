@@ -129,8 +129,8 @@
     .page-design {
         // border: hotpink solid 1px;
         width: 90%;
-        height: 100vh;
-        overflow-y: scroll;
+        height: 91vh;
+        overflow-y: hidden;
         @include BoxShadow(2);
     }
 
