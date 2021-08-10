@@ -5,15 +5,25 @@
     color: grey;
 }
 
-.odd-style:first-child {
-    font-size: 15px;
-    font-weight: bold;
-    color: #324395;
-    margin-bottom: 20px;
+.odd-style::-webkit-scrollbar {
+    width: 3px;
 }
-// .odd-style:nth-child(even) {
-//     background: #ccc;
-// }
+
+/* Track */
+.odd-style::-webkit-scrollbar-track {
+    background: #f1f1f1;
+}
+
+/* Handle */
+.odd-style::-webkit-scrollbar-thumb {
+    background: rgb(7, 177, 58);
+    border-radius: 10px;
+}
+
+/* Handle on hover */
+.odd-style::-webkit-scrollbar-thumb:hover {
+    background: #b30000;
+}
 
 .rating-text {
     width: 33%;
@@ -23,4 +33,35 @@
     font-weight: bold;
     color: #324395;
     margin-bottom: 20px;
+}
+
+.header-title {
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-start;
+}
+
+.header-delete-icon {
+    cursor: pointer;
+    margin-right: 5px;
+    color: red;
+    font-size: 20px;
+}
+
+.header-title-box {
+    font-weight: bold;
+    color: #324395;
+    border: none;
+    max-width: 300px;
+}
+
+.row-box {
+    border: none;
+    max-width: 300px;
+}
+
+.add-column {
+    outline: none;
+    margin: -20px 29px;
+    float: right;
 }

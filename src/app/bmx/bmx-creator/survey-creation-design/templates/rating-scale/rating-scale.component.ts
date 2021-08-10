@@ -26,7 +26,8 @@ export class RatingScaleComponent implements OnInit {
   columnsNames: string[];
   columnsNamesHeader: string[];
   listString: string;
-
+  tempItems = [];
+  selectedColumn
 
   constructor() { }
   ngOnInit(): void {
@@ -53,11 +54,8 @@ export class RatingScaleComponent implements OnInit {
     }
   }
   selectStar(starId, testNameId): void {
-    // prevent multiple selection
     if (this.selectedRating === 0) {
-
       this.bmxItem.componentText[testNameId].STARS.filter((star) => {
-
         if (star.id <= starId) {
 
           star.class = 'active-rating-star';
@@ -71,20 +69,16 @@ export class RatingScaleComponent implements OnInit {
       });
 
     }
-
-    // this.selectedRating = value;
-
   }
 
-  deletPart(option): void {
+  deletRow(option): void {
     this.bmxItem.componentText.splice(option, 1);
   }
 
-
   upLoadNamesAndRationales(list: string) {
-    if (!list) { list = this.listString;}
+    if (!list) { list = this.listString; }
     if (list) {
-      this.listString  = list;
+      this.listString = list;
       const textAreaInput = list.split("\n");
       this.columnsNames = [];
       this.columnsNames = textAreaInput[0].toLowerCase().split("\t");
@@ -93,10 +87,9 @@ export class RatingScaleComponent implements OnInit {
       for (var i = 0; i < textAreaInput.length; i++) {
         if (textAreaInput[i] != "" && textAreaInput[i].length > 6) {
           let objectColumnDefiner = {};
-
           objectColumnDefiner['STARS'] = this.createRatingStars(this.rankingScaleValue);
           for (var e = 0; e < this.columnsNames.length; e++) {
-            if ( (textAreaInput[i].split("\t").length > 0)) {
+            if ((textAreaInput[i].split("\t").length > 0)) {
               objectColumnDefiner[this.columnsNames[e]] = textAreaInput[i].split("\t")[e];
             }
           }
@@ -107,6 +100,33 @@ export class RatingScaleComponent implements OnInit {
     }
   }
 
+  insertNewColumn() {
+    var count = 0;
+    for (var k in this.bmxItem.componentText[0]) {
+      if (this.bmxItem.componentText[0].hasOwnProperty(k)) {
+        ++count;
+      }
+    }
+    this.columnsNames.push('Custom ' + (count - 1));
+    this.bmxItem.componentText.forEach((object, index) => {
+      this.bmxItem.componentText[index] = this.addToObject(object, 'Custom ' + (count - 1), 'Custom ' + (count - 1), count - 1)
+    });
+  }
+
+  deleteColumn(columnName) {
+    let temporary = []
+    // REMOVE THE COLUMN FROM THE COLUMNS
+    this.columnsNames.forEach(element => {
+      if (element !== columnName) {
+        temporary.push(element)
+      }
+    });
+    this.columnsNames = temporary;
+    this.bmxItem.componentText.forEach((object, index) => {
+      delete this.bmxItem.componentText[index][columnName]
+    });
+    this.bmxItem.componentText = JSON.parse(JSON.stringify(this.bmxItem.componentText));
+  }
 
   // PRIVATE METHODS
   createRatingStars(ratingScale) {
@@ -122,4 +142,31 @@ export class RatingScaleComponent implements OnInit {
   }
 
 
+  addToObject(obj, key, value, index) {
+    // Create a temp object and index variable
+    let temp = {};
+    let i = 0;
+    // Loop through the original object
+    for (let prop in obj) {
+      if (obj.hasOwnProperty(prop)) {
+
+        // If the indexes match, add the new item
+        if (i === index && key && value) {
+          temp[key] = value;
+        }
+        // Add the current item in the loop to the temp obj
+        temp[prop] = obj[prop];
+        // Increase the count
+        i++;
+      }
+    }
+
+    // If no index, add to the end
+    if (!index && key && value) {
+      temp[key] = value;
+    }
+
+    return temp;
+
+  };
 }

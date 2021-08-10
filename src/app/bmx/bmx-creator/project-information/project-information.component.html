@@ -74,7 +74,7 @@
         <div></div>
 
     </div>
-    <h3 style="color: #253b7d;">Manage Directors</h3>
+    <h3 style="color: hsl(225, 54%, 32%);">Manage Directors</h3>
     <div class="dropdowns" style="display: flex;flex-direction: column;">
 
         <div style="display: flex;flex-direction: row;">
@@ -93,14 +93,31 @@
             <label class="selectLabels">Director Name</label>
             <mat-form-field appearance="outline">
                 <mat-label>Director</mat-label>
-                <mat-select formControlName="bmxDirectorName">
+                <mat-select formControlName="bmxDirectorName" [(value)]="directorSelected">
                     <mat-option *ngFor="let settingsList of settingsData.DirectorList" [value]="settingsList">
                         {{settingsList.Director}}
                     </mat-option>
                 </mat-select>
             </mat-form-field>
+            <button mat-button color="primary" (click)="saveData()">Save</button>
         </div>
 
     </div>
+<mat-card *ngIf="directorSelected" class="directorCard" >
+    <div style="display: flex;flex-direction: row;">
+        <label class="selectLabels">Title:</label>
+        <label>{{directorSelected.Title}}</label>
+    </div>
+
+    <div style="display: flex;flex-direction: row;">
+        <label class="selectLabels">Email:</label>
+        <label>{{directorSelected.Email}}</label>
+    </div>
+
+    <div style="display: flex;flex-direction: row;">
+        <label class="selectLabels">Phone #:</label>
+        <label></label>
+    </div>
+</mat-card>
 </form>
 </div>
