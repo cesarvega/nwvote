@@ -52,11 +52,11 @@ const routes: Routes = [
   },
 
   {//ELITE SYSTEM UX UI
-    path: 'elite/:id/:type',
+    path: 'UX/:id/:type',
     component: EliteComponent
   },
   {//ELITE SYSTEM UX UI
-    path: 'elite/:id/:type/:venueId',
+    path: 'UX/:id/:type/:venueId',
     component: EliteComponent
   },
   

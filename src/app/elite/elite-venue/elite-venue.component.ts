@@ -60,30 +60,39 @@ export class EliteVenueComponent implements OnInit {
   @ViewChild("canvas", { static: true }) canvas: ElementRef;
 
   ngOnInit(): void {
+
+
+
+      this.paramsRouter.params.subscribe(params => {
+      this.tableNo = +params['id'];
+    });
+
+
     console.log(QRCodeStyling);
     if (!QRCodeStyling) {
       return;
     }
-    const qrCode = new QRCodeStyling({
-      width: 232,
-      height: 232,
-      margin: 14,
-      data: "https://www.facebook.com/",
-      image:
-        "https://upload.wikimedia.org/wikipedia/commons/5/51/Facebook_f_logo_%282019%29.svg",
-      dotsOptions: {
-        color: "#4267b2",
-        type: "rounded"
-      },
-      backgroundOptions: {
-        color: "#e9ebee"
-      },
-      imageOptions: {
-        crossOrigin: "anonymous",
-        margin: 14
-      }
-    });
+    const qrCode = new QRCodeStyling({width:300,height:300,data:"https://qr-code-styling.com",margin:2,
+    qrOptions:{typeNumber:0,mode:"Byte",errorCorrectionLevel:"Q"},
+    imageOptions:{"hideBackgroundDots":true,"imageSize":0.4,"margin":0},
+    dotsOptions:{type:"dots",color:"#6a1a4c"},
+    backgroundOptions:{color:"#ffffff"},
+    image: "./assets/img/elite/logo.png",
+    cornersSquareOptions:{type:"extra-rounded",color:"#000000", gradient:{type:'radial',rotation:0, colorStops:[{ offset:1,
+      color:"#000000"}]}}  });
 
+    
+    // dotsOptionsHelper:{
+    //   colorType:{single:true,gradient:false},
+    //   gradient:{linear:true,radial:false,color1:"#6a1a4c",color2:"#6a1a4c",rotation:0}},
+    //   cornersSquareOptions:{type:"extra-rounded",color:"#000000"},
+    //   cornersSquareOptionsHelper:{colorType:{single:true,gradient:false},gradient:{linear:true,radial:false,color1:"#000000",
+    //   color2:"#000000",rotation:0}},
+    //   cornersDotOptions:{type:"square",color:"#000000"},cornersDotOptionsHelper:{colorType:{singlex:true,
+    //     gradient:false},gradient:{linear:true,radial:false,color1:"#000000",color2:"#000000",rotation:0}},
+    //     backgroundOptionsHelper:{colorType:{single:true,gradient:false},gradient:{linear:true,radial:false,
+    //       color1:"#ffffff",color2:"#ffffff",rotation:0}}
+  
     qrCode.append(this.canvas.nativeElement);
   }
 
