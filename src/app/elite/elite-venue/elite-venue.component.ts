@@ -1,7 +1,6 @@
-import { Component, ViewChild, ElementRef, OnInit } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { EliteService } from '../elite.service';
-import  QRCodeStyling  from "qr-code-styling";
 
 @Component({
   selector: 'app-elite-venue',
@@ -46,55 +45,19 @@ export class EliteVenueComponent implements OnInit {
 
   constructor(private paramsRouter: ActivatedRoute, private EliteService: EliteService) { }
 
-  // ngOnInit(): void {
-
-  //   this.paramsRouter.params.subscribe(params => {
-  //     this.tableNo = +params['id'];
-  //   });
-
-  //   this.EliteService.getAllPromoters()
-  //     .subscribe((arg: any) => {
-  //       this.DASH = arg;
-  //     });
-  // }
-  @ViewChild("canvas", { static: true }) canvas: ElementRef;
-
   ngOnInit(): void {
 
-
-
-      this.paramsRouter.params.subscribe(params => {
+    this.paramsRouter.params.subscribe(params => {
       this.tableNo = +params['id'];
     });
 
-
-    console.log(QRCodeStyling);
-    if (!QRCodeStyling) {
-      return;
-    }
-    const qrCode = new QRCodeStyling({width:300,height:300,data:"https://qr-code-styling.com",margin:2,
-    qrOptions:{typeNumber:0,mode:"Byte",errorCorrectionLevel:"Q"},
-    imageOptions:{"hideBackgroundDots":true,"imageSize":0.4,"margin":0},
-    dotsOptions:{type:"dots",color:"#6a1a4c"},
-    backgroundOptions:{color:"#ffffff"},
-    image: "./assets/img/elite/logo.png",
-    cornersSquareOptions:{type:"extra-rounded",color:"#000000", gradient:{type:'radial',rotation:0, colorStops:[{ offset:1,
-      color:"#000000"}]}}  });
-
-    
-    // dotsOptionsHelper:{
-    //   colorType:{single:true,gradient:false},
-    //   gradient:{linear:true,radial:false,color1:"#6a1a4c",color2:"#6a1a4c",rotation:0}},
-    //   cornersSquareOptions:{type:"extra-rounded",color:"#000000"},
-    //   cornersSquareOptionsHelper:{colorType:{single:true,gradient:false},gradient:{linear:true,radial:false,color1:"#000000",
-    //   color2:"#000000",rotation:0}},
-    //   cornersDotOptions:{type:"square",color:"#000000"},cornersDotOptionsHelper:{colorType:{singlex:true,
-    //     gradient:false},gradient:{linear:true,radial:false,color1:"#000000",color2:"#000000",rotation:0}},
-    //     backgroundOptionsHelper:{colorType:{single:true,gradient:false},gradient:{linear:true,radial:false,
-    //       color1:"#ffffff",color2:"#ffffff",rotation:0}}
-  
-    qrCode.append(this.canvas.nativeElement);
+    this.EliteService.getAllPromoters()
+      .subscribe((arg: any) => {
+        this.DASH = arg;
+      });
   }
+  
+ 
 
   crypto() {
     window.open('https://commerce.coinbase.com/checkout/d983d382-1345-4214-9518-fb7d3ca97b27', "_top");
@@ -117,7 +80,7 @@ export class EliteVenueComponent implements OnInit {
 
   }
 
-  isVenueInfoReady(){
+  isVenueInfoReady() {
 
   }
 

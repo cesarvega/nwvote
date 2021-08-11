@@ -7,7 +7,7 @@ import { EliteDashComponent } from './elite/elite-dash/elite-dash.component';
 import { EliteBusinessComponent } from './elite/elite-business/elite-business.component';
 import { EliteVenueComponent } from './elite/elite-venue/elite-venue.component';
 import { ElitePromotionComponent } from './elite/elite-promotion/elite-promotion.component';
-
+import { EliteQrCodeDesignerComponent } from './elite/elite-qr-code-designer/elite-qr-code-designer.component';
 const routes: Routes = [
   
    {//ELITE BUSINESS
@@ -49,6 +49,10 @@ const routes: Routes = [
   {//ELITE DASHBOARD
     path: 'dash',
     component: EliteDashComponent
+  },
+  {//ELITE DASHBOARD
+    path: 'qr',
+    component: EliteQrCodeDesignerComponent
   },
 
   {//ELITE SYSTEM UX UI

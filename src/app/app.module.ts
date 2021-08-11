@@ -67,6 +67,7 @@ import { EliteDashComponent } from './elite/elite-dash/elite-dash.component';
 import { EliteVenueComponent } from './elite/elite-venue/elite-venue.component';
 import { ElitePromotionComponent } from './elite/elite-promotion/elite-promotion.component';
 import { EliteBusinessComponent } from './elite/elite-business/elite-business.component';
+import { EliteQrCodeDesignerComponent } from './elite/elite-qr-code-designer/elite-qr-code-designer.component';
 @NgModule({
   declarations: [
     AppComponent,
@@ -86,7 +87,8 @@ import { EliteBusinessComponent } from './elite/elite-business/elite-business.co
     EliteDashComponent,
     EliteVenueComponent,
     ElitePromotionComponent,
-    EliteBusinessComponent
+    EliteBusinessComponent,
+    EliteQrCodeDesignerComponent
   ],
   imports: [
     AngularFireModule.initializeApp(environment.firebaseConfig),
