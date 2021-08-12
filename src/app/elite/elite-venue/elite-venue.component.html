@@ -5,64 +5,80 @@
         <p style="animation: swing 200ms ease-in-out 100ms forwards; padding-top: 20px;">{{title}}</p><br>
     </div>
 
-    <div class="menu"> 
+    <div style="display: flex;align-items: center;" class="menu">
 
         <!-- 🤷🏻‍♂️🤷🏻‍♂️🤷🏻‍♂️🤷🏻‍♂️🤷🏻‍♂️🤷🏻‍♂️🤷🏻‍♂️🤷🏻‍♂️🤷🏻‍♂️🤷🏻‍♂️🤷🏻‍♂️🤷🏻‍♂️🤷🏻‍♂️🤷🏻‍♂️🤷🏻‍♂️🤷🏻‍♂️🤷🏻‍♂️ Venue INFO 🤷🏻‍♂️🤷🏻‍♂️🤷🏻‍♂️🤷🏻‍♂️🤷🏻‍♂️🤷🏻‍♂️🤷🏻‍♂️🤷🏻‍♂️🤷🏻‍♂️🤷🏻‍♂️🤷🏻‍♂️🤷🏻‍♂️🤷🏻‍♂️🤷🏻‍♂️🤷🏻‍♂️🤷🏻‍♂️🤷🏻‍♂️🤷🏻‍♂️🤷🏻‍♂️🤷🏻‍♂️🤷🏻‍♂️🤷🏻‍♂️🤷🏻‍♂️🤷🏻‍♂️🤷🏻‍♂️ -->
-        <form *ngIf="true" name="loginForm" novalidate class=""
-            style="background: white; display: flex;flex-direction: column;margin:20% 20px;padding: 20px;border-radius: 5px;">
+        <form *ngIf="true" name="loginForm" novalidate
+            style="animation: heartBeat 500ms ease-in-out 100ms forwards;background: white; display: flex;flex-direction: column;padding: 20px;border-radius: 5px;">
             <!-- <h1 style="animation: swing 200ms ease-in-out 100ms forwards; padding-top: 20px;color: red;text-align: center;">
      Please provide your info to get promotion
   </h1> -->
-            <br>
-            <h2 style="color: black;text-align: center;">Business Info</h2>
+
+            <h2 style="color: black;text-align: center;">Business Register</h2>
 
             <mat-form-field appearance="outline">
-                <mat-label>NAME</mat-label>
-                <input matInput type="text" placeholder="Name" [(ngModel)]="VenueName"
+                <mat-label>BUSINESS NAME</mat-label>
+                <input matInput type="text" placeholder="Name" [(ngModel)]="venueInfo.VenueName"
+                    [ngModelOptions]="{standalone: true}">
+            </mat-form-field>
+
+            <mat-error *ngIf="emailregistered">
+                user email already regsitered
+            </mat-error>
+
+            <mat-form-field appearance="outline">
+                <mat-label>BUSINESS EMAIL</mat-label>
+                <input matInput type="email" placeholder="Email" (ngModelChange)="resetEmailError()"
+                    [(ngModel)]="venueInfo.VenueEmail" [ngModelOptions]="{standalone: true}">
+            </mat-form-field>
+
+
+            <mat-form-field appearance="outline">
+                <mat-label>BUSINESS ADDRESS</mat-label>
+                <input matInput type="email" placeholder="Payemnt Type" [(ngModel)]="venueInfo.VenueAddress"
                     [ngModelOptions]="{standalone: true}">
             </mat-form-field>
 
             <mat-form-field appearance="outline">
-                <mat-label>EMAIL</mat-label>
-                <input matInput type="email" placeholder="Email" [(ngModel)]="VenueEmail"
-                    [ngModelOptions]="{standalone: true}">
+                <mat-label>BUSINESS TYPE</mat-label>
+                <select matNativeControl [(ngModel)]="venueInfo.VenueType" [ngModelOptions]="{standalone: true}">
+                    <option value="restaurant">restaurant</option>
+                    <option value="bar">bar</option>
+                    <option value="apparel">apparel</option>
+                    <option value="rental">rental</option>
+                </select>
             </mat-form-field>
 
-            <mat-form-field appearance="outline">
-                <mat-label>PAYMENT</mat-label>
-                <input matInput type="email" placeholder="Payemnt Type" [(ngModel)]="VenuePayment"
-                    [ngModelOptions]="{standalone: true}">
-            </mat-form-field>
-
-            <mat-form-field appearance="outline">
+            <!--  <mat-form-field appearance="outline">
                 <mat-label>BALANCE</mat-label>
-                <input matInput type="email" placeholder="Balance" [(ngModel)]="VenueBalance"
+                <input matInput type="email" placeholder="Balance" [(ngModel)]="venueInfo.VenueBalance"
                     [ngModelOptions]="{standalone: true}">
-            </mat-form-field>
-           
+            </mat-form-field> -->
+
             <mat-form-field appearance="outline">
                 <mat-label>PHONE</mat-label>
                 <input matInput type="tel" placeholder="3050058555" pattern="[0-9]{3}-[0-9]{3}-[0-9]{4}"
-                    [(ngModel)]="VenuePhone" [ngModelOptions]="{standalone: true}">
+                    [(ngModel)]="venueInfo.VenuePhone" [ngModelOptions]="{standalone: true}">
             </mat-form-field>
 
-            <button *ngIf="(VenueName.length > 0) && (VenueEmail.length > 0) && (VenuePhone.length > 0) "
-                (click)="isVenueInfoReady()" mat-raised-button style="color: white;" color="primary"
-                class="submit-button" aria-label="LOG IN">
-                SUBMIT
-            </button>
+            <div style="display: flex;flex-direction: coloumn;align-items: stretch;justify-content:space-around;">
+                <button *ngIf="(venueInfo.VenueName.length > 0)" (click)="reset()" mat-raised-button
+                    style="color: white;" color="accent" class="submit-button" aria-label="LOG IN">
+                    RESET
+                </button>
+
+                <button
+                    *ngIf="(venueInfo.VenueName.length > 0) && (venueInfo.VenueEmail.length > 0) && (venueInfo.VenuePhone.length > 0) "
+                    (click)="createOrUpdateVenue()" mat-raised-button style="color: white;" color="primary"
+                    class="submit-button" aria-label="LOG IN">
+                    SUBMIT
+                </button>
+            </div>
 
         </form>
         <!-- 🤷🏻‍♂️🤷🏻‍♂️🤷🏻‍♂️🤷🏻‍♂️🤷🏻‍♂️🤷🏻‍♂️🤷🏻‍♂️🤷🏻‍♂️🤷🏻‍♂️🤷🏻‍♂️🤷🏻‍♂️🤷🏻‍♂️🤷🏻‍♂️🤷🏻‍♂️🤷🏻‍♂️🤷🏻‍♂️🤷🏻‍♂️ END Venue INFO 🤷🏻‍♂️🤷🏻‍♂️🤷🏻‍♂️🤷🏻‍♂️🤷🏻‍♂️🤷🏻‍♂️🤷🏻‍♂️🤷🏻‍♂️🤷🏻‍♂️🤷🏻‍♂️🤷🏻‍♂️🤷🏻‍♂️🤷🏻‍♂️🤷🏻‍♂️🤷🏻‍♂️🤷🏻‍♂️🤷🏻‍♂️🤷🏻‍♂️🤷🏻‍♂️🤷🏻‍♂️🤷🏻‍♂️🤷🏻‍♂️🤷🏻‍♂️🤷🏻‍♂️🤷🏻‍♂️ -->
 
-       
-        <br>
-        <br>
-        <br>
-        <br>
-        <br>
     </div>
-
     <div class="footer">
         <!-- <button mat-mini-fab color="warn"
             style="color: white;outline: none;position: absolute;bottom: 19px; left: 80px;background-color: goldenrod;">
@@ -93,8 +109,7 @@
         <!-- <img class="logo" style="width: 360px;background: white;" src="./assets/img/elite/CesarVega/CesarRecruiter.png"> -->
         <!-- <p><a style="color: rgb(255, 255, 255);" target="_blank">{{myAngularxQrCode}}</a></p> -->
         <button mat-mini-fab color="primary"
-            style="color:white;background-color: green;font-size: 6px;margin-bottom: 10px;"
-            (click)="dismissErrorForm()">
+            style="color:white;background-color: green;font-size: 6px;margin-bottom: 10px;" (click)="qrcode()">
             <mat-icon>check</mat-icon>
         </button>
     </div>

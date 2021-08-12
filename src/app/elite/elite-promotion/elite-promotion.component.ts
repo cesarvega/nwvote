@@ -1,6 +1,4 @@
-import { MESSAGES_CONTAINER_ID } from '@angular/cdk/a11y';
 import { Component, OnInit } from '@angular/core';
-import { ThemePalette } from '@angular/material/core';
 import { ActivatedRoute } from '@angular/router';
 import { EliteService } from '../elite.service';
 
@@ -11,63 +9,93 @@ import { EliteService } from '../elite.service';
   styleUrls: ['./elite-promotion.component.scss']
 })
 export class ElitePromotionComponent implements OnInit {
-  declare navigator: any;
-  newVariable: any = window.navigator;
-  
-  DASH = []
+ 
 
-  myAngularxQrCode = 'http://mrvrman.com/eliteCesar';
-  // myAngularxQrCode = 'http://mrvrman.com/elite';
+  title = 'ELITE'
+  PromotionName = 'Baoli';
+  PromoDescription = 'baouli@gmail.com';
+  PromotionRate = 'zelle';
+  PromotionRules = '0';
+  PromotionPhone = '3055558899';
+  PromotionAddress = '201 South Beach, Fl, 33130';
+  PromotionType = 'restaurant';
+  popUpQRCode: boolean;
+  PromotionId: any;
+  emailregistered = false;
 
-  foodOptions: any;
-  foodToppings: any;
-
-  popUpToppings = false;
-  popUpOptions = false;
-  popUpCheckout = false;
-  popUpQRCode = false;
-  popUpThankyou = false;
-  popUpReview = false;
-  foodTopping;
-  foodOption;
-  sendingOrder: any;
-  selectedOption;
-  paramsArray: any; email: any;
-  tableNo: any;
+  PromotionInfo = {
+    PromotionName: this.PromotionName,
+    PromoDescription: this.PromoDescription,
+    PromotionRate: this.PromotionRate,
+    PromotionRules: this.PromotionRules,
+    PromotionPhone: this.PromotionPhone,
+    PromotionAddress: this.PromotionAddress,
+    PromotionType: this.PromotionType,
+    updated: new Date(),
+    created: new Date()
+  }
 
   constructor(private paramsRouter: ActivatedRoute, private EliteService: EliteService) { }
 
   ngOnInit(): void {
 
     this.paramsRouter.params.subscribe(params => {
-      this.tableNo = +params['id'];
+      this.PromotionId = params['id'];
     });
 
-    this.EliteService.getAllPromoters()
-    .subscribe((arg:any) => {
-      this.DASH = arg;
-    });
-  }
-
- 
-  crypto() {
-    window.open('https://commerce.coinbase.com/checkout/d983d382-1345-4214-9518-fb7d3ca97b27', "_top");
-  }
-
-  toppings(index) {
-    this.popUpToppings = true;
-    // this.foodToppings = this.food[index];
-  }
-
-  dismissErrorForm() {
-    this.popUpToppings = false;
-    this.popUpOptions = false;
-    this.popUpCheckout = false;
-    this.popUpQRCode = false;
+    // this.PromotionId = localStorage.getItem('PromotionId');
+    // if (this.PromotionId) {
+    //   this.EliteService.getPromotionById(this.PromotionId).subscribe((arg: any) => {
+    //     if (arg.payload.data()) {
+    //       this.PromotionInfo = arg.payload.data()
+    //     }
+    //   });
+    // }
   }
 
   qrcode() {
     this.popUpQRCode = !this.popUpQRCode;
+  }
 
+  reset() {
+    this.PromotionInfo = {
+      PromotionName: '',
+      PromoDescription: '',
+      PromotionRate: '',
+      PromotionRules: '',
+      PromotionPhone: '',
+      PromotionAddress: '',
+      PromotionType: '',
+      updated: new Date(),
+      created: new Date()
+    }
+  }
+
+  resetEmailError() {
+    this.emailregistered = false
+  }
+
+  createOrUpdatePromotion() {
+    this.EliteService.getPromotionById(this.PromoDescription).subscribe((arg: any) => {
+      if (arg.payload.exists) {
+        console.log('this Promotion is already registered')
+        this.emailregistered = true
+      } else {
+        this.PromotionInfo = {
+          PromotionName: this.PromotionName,
+          PromoDescription: this.PromoDescription,
+          PromotionRate: this.PromotionRate,
+          PromotionRules: this.PromotionRules,
+          PromotionPhone: this.PromotionPhone,
+          PromotionAddress: this.PromotionAddress,
+          PromotionType: this.PromotionType,
+          updated: new Date(),
+          created: new Date()
+        }
+        this.EliteService.createPromotion(this.PromotionInfo).then(res => {
+          localStorage.setItem('PromotionId', this.PromoDescription)
+        })
+      }
+    });
   }
 }

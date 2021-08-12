@@ -19,6 +19,11 @@ const routes: Routes = [
     component: EliteBusinessComponent
   },
 
+
+  /***
+   * ELITE MARKETING APP
+   */
+
   {//ELITE VENUE
     path: 'venue',
     component: EliteVenueComponent

@@ -1,192 +1,84 @@
 <div class="mainContainer disable-dbl-tap-zoom">
-    <!-- 🧐🧐🧐🧐🧐🧐🧐🧐🧐🧐🧐🧐🧐🧐🧐🧐 LOGO 🧐🧐🧐🧐🧐🧐🧐🧐🧐🧐🧐🧐🧐🧐🧐🧐🧐🧐🧐🧐🧐🧐🧐🧐🧐🧐🧐 -->
+
     <div class="logo-miami">
         <img class="logo" src="./assets/img/elite/logo.png">
-        <p style="animation: swing 200ms ease-in-out 100ms forwards; padding-top: 20px;font-size: 10px;">{{myAngularxQrCode}}</p><br>
-        <!-- <p style="color: rgb(255, 55, 255);animation: swing 200ms ease-in-out 100ms forwards">RIDES</p> -->
+        <p style="animation: swing 200ms ease-in-out 100ms forwards; padding-top: 20px;">{{title}}</p><br>
     </div>
-    <!-- 🧐🧐🧐🧐🧐🧐🧐🧐🧐🧐🧐🧐🧐🧐🧐🧐 END LOGO 🧐🧐🧐🧐🧐🧐🧐🧐🧐🧐🧐🧐🧐🧐🧐🧐🧐🧐🧐🧐🧐🧐🧐🧐🧐🧐🧐 -->
-    <div class="menu">
 
+    <div style="display: flex;align-items: center;" class="menu">
 
-
-        <!-- 🤷🏻‍♂️🤷🏻‍♂️🤷🏻‍♂️🤷🏻‍♂️🤷🏻‍♂️🤷🏻‍♂️🤷🏻‍♂️🤷🏻‍♂️🤷🏻‍♂️🤷🏻‍♂️🤷🏻‍♂️🤷🏻‍♂️🤷🏻‍♂️🤷🏻‍♂️🤷🏻‍♂️🤷🏻‍♂️🤷🏻‍♂️ CLIENT INFO 🤷🏻‍♂️🤷🏻‍♂️🤷🏻‍♂️🤷🏻‍♂️🤷🏻‍♂️🤷🏻‍♂️🤷🏻‍♂️🤷🏻‍♂️🤷🏻‍♂️🤷🏻‍♂️🤷🏻‍♂️🤷🏻‍♂️🤷🏻‍♂️🤷🏻‍♂️🤷🏻‍♂️🤷🏻‍♂️🤷🏻‍♂️🤷🏻‍♂️🤷🏻‍♂️🤷🏻‍♂️🤷🏻‍♂️🤷🏻‍♂️🤷🏻‍♂️🤷🏻‍♂️🤷🏻‍♂️ -->
-        <form *ngIf="isClientForm" name="loginForm" novalidate class=""
-            style="background: white; display: flex;flex-direction: column;margin:20% 20px;padding: 20px;border-radius: 5px;">
+        <!-- 🤷🏻‍♂️🤷🏻‍♂️🤷🏻‍♂️🤷🏻‍♂️🤷🏻‍♂️🤷🏻‍♂️🤷🏻‍♂️🤷🏻‍♂️🤷🏻‍♂️🤷🏻‍♂️🤷🏻‍♂️🤷🏻‍♂️🤷🏻‍♂️🤷🏻‍♂️🤷🏻‍♂️🤷🏻‍♂️🤷🏻‍♂️ Promoter INFO 🤷🏻‍♂️🤷🏻‍♂️🤷🏻‍♂️🤷🏻‍♂️🤷🏻‍♂️🤷🏻‍♂️🤷🏻‍♂️🤷🏻‍♂️🤷🏻‍♂️🤷🏻‍♂️🤷🏻‍♂️🤷🏻‍♂️🤷🏻‍♂️🤷🏻‍♂️🤷🏻‍♂️🤷🏻‍♂️🤷🏻‍♂️🤷🏻‍♂️🤷🏻‍♂️🤷🏻‍♂️🤷🏻‍♂️🤷🏻‍♂️🤷🏻‍♂️🤷🏻‍♂️🤷🏻‍♂️ -->
+        <form *ngIf="true" name="loginForm" novalidate
+            style="animation: heartBeat 500ms ease-in-out 100ms forwards;background: white; display: flex;flex-direction: column;padding: 20px;border-radius: 5px;">
             <!-- <h1 style="animation: swing 200ms ease-in-out 100ms forwards; padding-top: 20px;color: red;text-align: center;">
-               Please provide your info to get promotion
-            </h1> -->
-            <br>
-            <h2 style="color: blueviolet;text-align: center;">Please provide your info to get promotion</h2>
+     Please provide your info to get promotion
+  </h1> -->
+
+            <h2 style="color: black;text-align: center;">Business Register</h2>
+
             <mat-form-field appearance="outline">
-                <mat-label>NAME</mat-label>
-                <input matInput type="text" placeholder="e.g xyzhdsrg" [(ngModel)]="clientName"
+                <mat-label>BUSINESS NAME</mat-label>
+                <input matInput type="text" placeholder="Name" [(ngModel)]="promoterInfo.PromoterName"
                     [ngModelOptions]="{standalone: true}">
             </mat-form-field>
+
+            <mat-error *ngIf="emailregistered">
+                user email already regsitered
+            </mat-error>
+
             <mat-form-field appearance="outline">
-                <mat-label>EMAIL</mat-label>
-                <input matInput type="email" placeholder="e.g xyzhdsrg" [(ngModel)]="clientEmail"
+                <mat-label>BUSINESS EMAIL</mat-label>
+                <input matInput type="email" placeholder="Email" (ngModelChange)="resetEmailError()"
+                    [(ngModel)]="promoterInfo.PromoterEmail" [ngModelOptions]="{standalone: true}">
+            </mat-form-field>
+
+
+            <mat-form-field appearance="outline">
+                <mat-label>BUSINESS ADDRESS</mat-label>
+                <input matInput type="email" placeholder="Payemnt Type" [(ngModel)]="promoterInfo.PromoterAddress"
                     [ngModelOptions]="{standalone: true}">
             </mat-form-field>
+
             <mat-form-field appearance="outline">
-                <mat-label>Phone</mat-label>
-                <input matInput type="tel" placeholder="3050058555"pattern="[0-9]{3}-[0-9]{3}-[0-9]{4}" [(ngModel)]="clientPhone"
-                    [ngModelOptions]="{standalone: true}">
+                <mat-label>BUSINESS TYPE</mat-label>
+                <select matNativeControl [(ngModel)]="promoterInfo.PromoterType" [ngModelOptions]="{standalone: true}">
+                    <option value="restaurant">restaurant</option>
+                    <option value="bar">bar</option>
+                    <option value="apparel">apparel</option>
+                    <option value="rental">rental</option>
+                </select>
             </mat-form-field>
-            
-            <button *ngIf="(clientName.length > 0) && (clientEmail.length > 0) && (clientPhone.length > 0) " (click)="isClientInfoReady()"
-                mat-raised-button style="color: white;" color="primary" class="submit-button" aria-label="LOG IN">
-                SUBMIT
-            </button>
+
+            <!--  <mat-form-field appearance="outline">
+                <mat-label>BALANCE</mat-label>
+                <input matInput type="email" placeholder="Balance" [(ngModel)]="promoterInfo.PromoterBalance"
+                    [ngModelOptions]="{standalone: true}">
+            </mat-form-field> -->
+
+            <mat-form-field appearance="outline">
+                <mat-label>PHONE</mat-label>
+                <input matInput type="tel" placeholder="3050058555" pattern="[0-9]{3}-[0-9]{3}-[0-9]{4}"
+                    [(ngModel)]="promoterInfo.PromoterPhone" [ngModelOptions]="{standalone: true}">
+            </mat-form-field>
+
+            <div style="display: flex;flex-direction: coloumn;align-items: stretch;justify-content:space-around;">
+                <button *ngIf="(promoterInfo.PromoterName.length > 0)" (click)="reset()" mat-raised-button
+                    style="color: white;" color="accent" class="submit-button" aria-label="LOG IN">
+                    RESET
+                </button>
+
+                <button
+                    *ngIf="(promoterInfo.PromoterName.length > 0) && (promoterInfo.PromoterEmail.length > 0) && (promoterInfo.PromoterPhone.length > 0) "
+                    (click)="createOrUpdatePromoter()" mat-raised-button style="color: white;" color="primary"
+                    class="submit-button" aria-label="LOG IN">
+                    SUBMIT
+                </button>
+            </div>
+
         </form>
-        <!-- 🤷🏻‍♂️🤷🏻‍♂️🤷🏻‍♂️🤷🏻‍♂️🤷🏻‍♂️🤷🏻‍♂️🤷🏻‍♂️🤷🏻‍♂️🤷🏻‍♂️🤷🏻‍♂️🤷🏻‍♂️🤷🏻‍♂️🤷🏻‍♂️🤷🏻‍♂️🤷🏻‍♂️🤷🏻‍♂️🤷🏻‍♂️ END CLIENT INFO 🤷🏻‍♂️🤷🏻‍♂️🤷🏻‍♂️🤷🏻‍♂️🤷🏻‍♂️🤷🏻‍♂️🤷🏻‍♂️🤷🏻‍♂️🤷🏻‍♂️🤷🏻‍♂️🤷🏻‍♂️🤷🏻‍♂️🤷🏻‍♂️🤷🏻‍♂️🤷🏻‍♂️🤷🏻‍♂️🤷🏻‍♂️🤷🏻‍♂️🤷🏻‍♂️🤷🏻‍♂️🤷🏻‍♂️🤷🏻‍♂️🤷🏻‍♂️🤷🏻‍♂️🤷🏻‍♂️ -->
+        <!-- 🤷🏻‍♂️🤷🏻‍♂️🤷🏻‍♂️🤷🏻‍♂️🤷🏻‍♂️🤷🏻‍♂️🤷🏻‍♂️🤷🏻‍♂️🤷🏻‍♂️🤷🏻‍♂️🤷🏻‍♂️🤷🏻‍♂️🤷🏻‍♂️🤷🏻‍♂️🤷🏻‍♂️🤷🏻‍♂️🤷🏻‍♂️ END Promoter INFO 🤷🏻‍♂️🤷🏻‍♂️🤷🏻‍♂️🤷🏻‍♂️🤷🏻‍♂️🤷🏻‍♂️🤷🏻‍♂️🤷🏻‍♂️🤷🏻‍♂️🤷🏻‍♂️🤷🏻‍♂️🤷🏻‍♂️🤷🏻‍♂️🤷🏻‍♂️🤷🏻‍♂️🤷🏻‍♂️🤷🏻‍♂️🤷🏻‍♂️🤷🏻‍♂️🤷🏻‍♂️🤷🏻‍♂️🤷🏻‍♂️🤷🏻‍♂️🤷🏻‍♂️🤷🏻‍♂️ -->
 
-
-
-
-        <!-- 🎒🎒🎒🎒🎒🎒🎒🎒🎒🎒🎒🎒🎒🎒🎒🎒🎒 VENUE SCANNED 🎒🎒🎒🎒🎒🎒🎒🎒🎒🎒🎒🎒🎒🎒🎒🎒🎒🎒🎒🎒🎒🎒🎒🎒 -->
-        <form *ngIf="isVenueForm" name="loginForm" novalidate class=""
-            style="background: white; display: flex;flex-direction: column;margin:20% 20px;padding: 20px;border-radius: 5px;">
-            <h1
-                style="animation: swing 200ms ease-in-out 100ms forwards; padding-top: 20px;color: red;text-align: center;">
-                Validating Promotion</h1><br>
-
-            <h2 style="color: blueviolet;text-align: center;">Is This {{venueName}} business?</h2>
-            <mat-radio-group style="display: flex;flex-direction: column;justify-content: center;align-items: center;"
-                [(ngModel)]="venueName" aria-label="Select an option" [ngModelOptions]="{standalone: true}">
-                <mat-radio-button value="'true'">YES</mat-radio-button>
-                <mat-radio-button value="'false'">NO</mat-radio-button>
-            </mat-radio-group>
-            <br>
-         
-            <mat-form-field appearance="outline">
-                <mat-label>Number of guess</mat-label>
-                <input matInput type="tel"  [(ngModel)]="guessAmount"
-                    [ngModelOptions]="{standalone: true}">
-            </mat-form-field>
-
-            <mat-form-field appearance="outline">
-                <mat-label>SECRET VENUE CODE</mat-label>
-                <input matInput type="text" placeholder="e.g xyzhdsrg" [(ngModel)]="secretVenueKey"
-                    [ngModelOptions]="{standalone: true}">
-            </mat-form-field>
-            <!-- *ngIf="(guessAmount != 0) && (secretVenueKey.length > 0) " -->
-            <button *ngIf="(guessAmount != 0) && (secretVenueKey.length > 0) " (click)="validatePromotion()"
-                mat-raised-button style="color: white;" color="primary" class="submit-button" aria-label="LOG IN">
-                SUBMIT
-            </button>
-        </form>
-        <!-- 🎒🎒🎒🎒🎒🎒🎒🎒🎒🎒🎒🎒🎒🎒🎒🎒🎒 END VENUE SCANNED 🎒🎒🎒🎒🎒🎒🎒🎒🎒🎒🎒🎒🎒🎒🎒🎒🎒🎒🎒🎒🎒🎒🎒🎒 -->
-
-
-
-        <!-- 🧶🧶🧶🧶🧶🧶🧶🧶🧶🧶🧶🧶🧶🧶🧶🧶🧶🧶🧶CLIENT🧶🧶🧶🧶🧶🧶🧶🧶🧶🧶🧶🧶🧶🧶🧶🧶🧶🧶🧶🧶🧶🧶 -->
-        <form *ngIf="isClientScanned" name="loginForm" novalidate class=""
-            style="background: white; display: flex;flex-direction: column;margin:20% 20px;padding: 20px;border-radius: 5px;">
-            <h1
-                style="animation: swing 200ms ease-in-out 100ms forwards; padding-top: 20px;color: red;text-align: center;">
-                Please tell us how many guess are with you</h1><br>
-
-            <br>
-
-            <mat-form-field appearance="outline">
-                <mat-label>Number of guess</mat-label>
-                <input matInput type="tel"  [(ngModel)]="clientguessAmount"
-                    [ngModelOptions]="{standalone: true}">
-            </mat-form-field>
-
-            <button *ngIf="(clientguessAmount != 0)" (click)="validateGuessAmount()" mat-raised-button
-                style="color: white;" color="primary" class="submit-button" aria-label="LOG IN">
-                SUBMIT
-            </button>
-        </form>
-        <!-- 🧶🧶🧶🧶🧶🧶🧶🧶🧶🧶🧶🧶🧶🧶🧶🧶🧶🧶🧶 END CLIENT🧶🧶🧶🧶🧶🧶🧶🧶🧶🧶🧶🧶🧶🧶🧶🧶🧶🧶🧶🧶🧶🧶 -->
-
-
-
-
-        <!-- 🙇🏻🙇🏻🙇🏻🙇🏻🙇🏻🙇🏻🙇🏻🙇🏻🙇🏻🙇🏻🙇🏻🙇🏻🙇🏻🙇🏻🙇🏻🙇🏻🙇🏻🙇🏻🙇🏻🙇🏻  MESSAGE BOXES  🙇🏻🙇🏻🙇🏻🙇🏻🙇🏻🙇🏻🙇🏻🙇🏻🙇🏻🙇🏻🙇🏻🙇🏻🙇🏻🙇🏻🙇🏻🙇🏻🙇🏻🙇🏻🙇🏻🙇🏻🙇🏻🙇🏻 -->
-        <h1 *ngIf="isPromotionsExpired" style="color: white;
-                    text-align: center;
-                    margin-top: 40%;
-                    font-size: 60px;
-                    line-height: 60px;">Sorry this pormotion is alredy redeemed or expired</h1>
-        <h1 *ngIf="isPromtionSucess" style="color: white;
-                    text-align: center;
-                    margin-top: 26%;
-                    font-size: 41px;
-                    line-height: 60px;">Thank you for your business</h1>
-
-        <div *ngIf="goToTheVenue"
-            style="display: flex;flex-direction: column;justify-content: center;align-items: center;">
-            <h1 style="color: white;
-                    text-align: center;
-                    margin-top: 10%;
-                    padding: 10px;
-                    font-size: 25px;
-                    line-height: 40px;">Go to the venu, look for similar QR-CODE and scan using this phone
-            </h1>
-            <img class="logo" style="width: 283px;" src="./assets/img/elite/Promoters/VenueQrCode.png">
-        </div>
-        <div *ngIf="popUpQRCode"
-            style="display: flex;flex-direction: column;justify-content: center;align-items: center;">
-            <h1 style="color: white;
-                    text-align: center;
-                    margin-top: 10%;
-                    padding: 10px;
-                    font-size: 25px;
-                    line-height: 40px;">Give this code to the server for disccount
-            </h1>
-        </div>
-        <!-- 🙇🏻🙇🏻🙇🏻🙇🏻🙇🏻🙇🏻🙇🏻🙇🏻🙇🏻🙇🏻🙇🏻🙇🏻🙇🏻🙇🏻🙇🏻🙇🏻🙇🏻🙇🏻🙇🏻🙇🏻 END MESSAGE BOXES 🙇🏻🙇🏻🙇🏻🙇🏻🙇🏻🙇🏻🙇🏻🙇🏻🙇🏻🙇🏻🙇🏻🙇🏻🙇🏻🙇🏻🙇🏻🙇🏻🙇🏻🙇🏻🙇🏻🙇🏻🙇🏻🙇🏻 -->
-
-
-
-
-        <!-- 🎃🎃🎃🎃🎃🎃🎃🎃🎃🎃🎃🎃🎃🎃🎃🎃🎃🎃🎃 VENUES LIST 🎃🎃🎃🎃🎃🎃🎃🎃🎃🎃🎃🎃🎃🎃🎃🎃🎃🎃🎃🎃🎃🎃🎃🎃🎃🎃-->
-        <div class="foodCard" *ngFor="let item of VENUES; index as i" style="color: white;">
-            <img class="pizzaImage" style="width: 100%;" [src]="item.imgSrc">
-            <h1 class="title secondary-text" style="padding-top: 10px;">{{item.venueName}}</h1>
-            <!-- <div class="title secondary-text" style="width: 290px;text-align: center;">{{item.description}}</div>            -->
-        </div>
-
-        <!-- 🎃🎃🎃🎃🎃🎃🎃🎃🎃🎃🎃🎃🎃🎃🎃🎃🎃🎃🎃 END VENUES LIST 🎃🎃🎃🎃🎃🎃🎃🎃🎃🎃🎃🎃🎃🎃🎃🎃🎃🎃🎃🎃🎃🎃🎃🎃🎃🎃-->
-
-        <br>
-        <br>
-        <br>
-        <br>
-        <br>
     </div>
-
-    
-
-    <!-- 🎅🏻🎅🏻🎅🏻🎅🏻🎅🏻🎅🏻🎅🏻🎅🏻🎅🏻🎅🏻🎅🏻🎅🏻🎅🏻🎅🏻🎅🏻🎅🏻🎅🏻🎅🏻🎅🏻🎅🏻🎅🏻🎅🏻 QRCODE GENERATOR 🎅🏻🎅🏻🎅🏻🎅🏻🎅🏻🎅🏻🎅🏻🎅🏻🎅🏻🎅🏻🎅🏻🎅🏻🎅🏻🎅🏻🎅🏻🎅🏻🎅🏻🎅🏻🎅🏻🎅🏻🎅🏻🎅🏻-->
-    <div *ngIf="popUpQRCode" class="formFieldValidationAlert"
-        style="background: black;border: black 1px solid;padding: 20px;    position: absolute;
-        top: 470px;">
-        <div style="color: green;position: absolute;bottom: -35px;font-size: 19px;">{{venueName}}</div>
-
-        <ngx-kjua style="z-index: 1px;margin-top: 10px;" [text]="myAngularxQrCode" [renderAsync]="false"
-            [render]="'svg'" [crisp]="true" [minVersion]="10" [ecLevel]="'H'" [size]="228" [ratio]="undefined"
-            [fill]="qrocodeColor" [back]="qrocodeColorBackground" [rounded]="100" [quiet]="0" [mode]="'plain'"
-            [mSize]="15" [mPosX]="50" [mPosY]="50" [label]="'ELITE'" [fontname]="'sans-serif'" [fontcolor]="'#ff9818'"
-            [image]="'canvas'" [cssClass]="'image-auto'"></ngx-kjua>
-        <img class="logo" style="width: 383px;position: absolute;z-index: -1;"
-            src="./assets/img/elite/Promoters/ClientQrCode.png">
-        <!-- REGISTARTION FORM -->
-        <img id="logo" class="logo" style="width: 60px;background: white;position: absolute;top: 94px;"
-            src="./assets/img/elite//logo.png">
-        <!-- <p><a style="color: rgb(255, 255, 255);" target="_blank">{{myAngularxQrCode}}</a></p> -->
-        <!-- <button mat-mini-fab color="primary"
-            style="color:white;background-color: green;font-size: 6px;margin-bottom: 10px;"
-            (click)="dismissErrorForm()">
-            <mat-icon>check</mat-icon>
-        </button> -->
-    </div>
-    <!-- 🎅🏻🎅🏻🎅🏻🎅🏻🎅🏻🎅🏻🎅🏻🎅🏻🎅🏻🎅🏻🎅🏻🎅🏻🎅🏻🎅🏻🎅🏻🎅🏻🎅🏻🎅🏻🎅🏻🎅🏻🎅🏻🎅🏻 END QRCODE 🎅🏻🎅🏻🎅🏻🎅🏻🎅🏻🎅🏻🎅🏻🎅🏻🎅🏻🎅🏻🎅🏻🎅🏻🎅🏻🎅🏻🎅🏻🎅🏻🎅🏻🎅🏻🎅🏻🎅🏻🎅🏻🎅🏻-->
-
-    <!-- 👾👾👾👾👾👾👾👾👾👾👾👾👾👾👾👾👾👾👾 FOOTER MENU 👾👾👾👾👾👾👾👾👾👾👾👾👾👾👾👾👾👾👾👾👾 -->
     <div class="footer">
         <!-- <button mat-mini-fab color="warn"
             style="color: white;outline: none;position: absolute;bottom: 19px; left: 80px;background-color: goldenrod;">
@@ -197,7 +89,7 @@
         font-size: 6px;
         bottom: 30px;
         width: 60px;
-        height: 60px;">
+        height: 60px;" (click)="qrcode()">
             <mat-icon>qr_code</mat-icon>
         </button>
         <!-- <button mat-mini-fab
@@ -207,7 +99,19 @@
             </a>
         </button> -->
     </div>
-    <!-- 👾👾👾👾👾👾👾👾👾👾👾👾👾👾👾👾👾👾👾 END FOOTER MENU 👾👾👾👾👾👾👾👾👾👾👾👾👾👾👾👾👾👾👾👾👾 -->
 
+    <!-- MODAL REVIEW -->
+    <div *ngIf="popUpQRCode" class="formFieldValidationAlert" style="background: black;border: black 1px solid;">
+        <h1 style="color: white;">OPEN YOUR APP</h1>
+        <!-- <qrcode [qrdata]="myAngularxQrCode" [width]="140" [errorCorrectionLevel]="'M'"></qrcode> -->
+        <img class="logo" style="width: 360px" src="./assets/img/elite/Promoters/PromoterQrCode.png">
+        <!-- REGISTARTION FORM -->
+        <!-- <img class="logo" style="width: 360px;background: white;" src="./assets/img/elite/CesarVega/CesarRecruiter.png"> -->
+        <!-- <p><a style="color: rgb(255, 255, 255);" target="_blank">{{myAngularxQrCode}}</a></p> -->
+        <button mat-mini-fab color="primary"
+            style="color:white;background-color: green;font-size: 6px;margin-bottom: 10px;" (click)="qrcode()">
+            <mat-icon>check</mat-icon>
+        </button>
+    </div>
 
 </div>

@@ -11,7 +11,7 @@ import { EliteService } from './elite.service';
   styleUrls: ['./elite.component.scss']
 })
 export class EliteComponent implements OnInit {
-  myAngularxQrCode = 'http://mrvrman.com/elite/elite/1234/venue/';
+  myAngularxQrCode = 'http://mrvrman.com/elite/UX/1234/venue/';
   qrocodeColor = '#629d5d';
   qrocodeColorBackground = '#ffffff00';
   QRLOGO = '<img  src="./assets/img/elite/CesarVega/CesarRecruiter.png">'

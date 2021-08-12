@@ -30,6 +30,13 @@
     }
 }
 
+.inprogress{
+    color: orange;
+}
+
+.complete{
+    color: greenyellow;
+}
 //desktop
 @media (min-width: 576px) {
     .mainContainer {
@@ -268,11 +275,11 @@
         }
 
         .menu {
-            height: 90%;
+            // height: 60%;
             overflow-x: hidden;
             overflow-y: scroll;
             position: absolute;
-            top: 146px;
+            top: 170px;
             background-color: rgb(0 0 0 / 88%);
         }
 

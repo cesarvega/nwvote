@@ -2,26 +2,64 @@
 
     <div class="logo-miami">
         <img class="logo" src="./assets/img/elite/logo.png">
-        <p style="animation: swing 200ms ease-in-out 100ms forwards; padding-top: 20px;">ELITE DASH</p><br>
+        <p style="animation: swing 200ms ease-in-out 100ms forwards; padding-top: 20px;">{{title}}</p><br>
     </div>
 
-    <div class="menu">
+    <div style="display: flex;align-items: center;" class="menu">
 
-        <div class="foodCard" *ngFor="let item of DASH; index as i" style="color: white;">
-            <!-- <img class="pizzaImage" style="width: 100%;" [src]="item.imgSrc" (click)="sendQrCode(item)"> -->
-            <h1 class="title secondary-text" style="padding-top: 5px;">{{item.payload.doc.data().venueId}}</h1>
-            <h1 class="title secondary-text" style="padding-top: 5px;">{{item.payload.doc.id}}</h1>
-            <h1 class="title secondary-text" style="padding-top: 5px;">{{item.payload.doc.data().promoterId}}</h1>
-            <h1 class="title secondary-text" [ngClass]="(item.payload.doc.data().completed === 'inprogress')?'inprogress':'complete'" style="padding-top: 10px;">{{item.payload.doc.data().completed}}</h1>
-            <!-- <div class="title secondary-text" style="width: 290px;text-align: center;">{{item.description}}</div>            -->
-        </div>
-        <br>
-        <br>
-        <br>
-        <br>
-        <br>
+        <!-- 🤷🏻‍♂️🤷🏻‍♂️🤷🏻‍♂️🤷🏻‍♂️🤷🏻‍♂️🤷🏻‍♂️🤷🏻‍♂️🤷🏻‍♂️🤷🏻‍♂️🤷🏻‍♂️🤷🏻‍♂️🤷🏻‍♂️🤷🏻‍♂️🤷🏻‍♂️🤷🏻‍♂️🤷🏻‍♂️🤷🏻‍♂️ Venue INFO 🤷🏻‍♂️🤷🏻‍♂️🤷🏻‍♂️🤷🏻‍♂️🤷🏻‍♂️🤷🏻‍♂️🤷🏻‍♂️🤷🏻‍♂️🤷🏻‍♂️🤷🏻‍♂️🤷🏻‍♂️🤷🏻‍♂️🤷🏻‍♂️🤷🏻‍♂️🤷🏻‍♂️🤷🏻‍♂️🤷🏻‍♂️🤷🏻‍♂️🤷🏻‍♂️🤷🏻‍♂️🤷🏻‍♂️🤷🏻‍♂️🤷🏻‍♂️🤷🏻‍♂️🤷🏻‍♂️ -->
+        <form *ngIf="true" name="loginForm" novalidate
+            style="animation: heartBeat 500ms ease-in-out 100ms forwards;background: white; display: flex;flex-direction: column;padding: 20px;border-radius: 5px;">
+            <!-- <h1 style="animation: swing 200ms ease-in-out 100ms forwards; padding-top: 20px;color: red;text-align: center;">
+     Please provide your info to get promotion
+  </h1> -->
+
+            <h2 style="color: black;text-align: center;">Create Promotion</h2>
+
+            <mat-form-field appearance="outline">
+                <mat-label>PROMOTION NAME</mat-label>
+                <input matInput type="text" placeholder="Name" [(ngModel)]="PromotionInfo.PromotionName"
+                    [ngModelOptions]="{standalone: true}">
+            </mat-form-field>
+            <mat-form-field appearance="outline">
+                <mat-label>DESCRIPTION</mat-label>
+                <textarea matInput type="text" placeholder="Name" [(ngModel)]="PromotionInfo.PromoDescription"
+                    [ngModelOptions]="{standalone: true}"></textarea>
+            </mat-form-field>
+            <mat-form-field appearance="outline">
+                <mat-label>RATE</mat-label>
+                <input matInput type="text" placeholder="Name" [(ngModel)]="PromotionInfo.PromotionRate"
+                    [ngModelOptions]="{standalone: true}">
+            </mat-form-field>
+            <mat-form-field appearance="outline">
+                <mat-label>RULES</mat-label>
+                <input matInput type="text" placeholder="Name" [(ngModel)]="PromotionInfo.PromotionRules"
+                    [ngModelOptions]="{standalone: true}">
+            </mat-form-field>
+
+            <mat-error *ngIf="emailregistered">
+                user email already regsitered
+            </mat-error>
+
+            
+            <div style="display: flex;flex-direction: coloumn;align-items: stretch;justify-content:space-around;">
+                <button *ngIf="(PromotionInfo.PromoDescription.length > 0)" (click)="reset()" mat-raised-button
+                    style="color: white;" color="accent" class="submit-button" aria-label="LOG IN">
+                    RESET
+                </button>
+
+                <button
+                    *ngIf="(PromotionInfo.PromoDescription.length > 0) && (PromotionInfo.PromotionName.length > 0)"
+                    (click)="createOrUpdatePromotion()" mat-raised-button style="color: white;" color="primary"
+                    class="submit-button" aria-label="LOG IN">
+                    SUBMIT
+                </button>
+            </div>
+
+        </form>
+        <!-- 🤷🏻‍♂️🤷🏻‍♂️🤷🏻‍♂️🤷🏻‍♂️🤷🏻‍♂️🤷🏻‍♂️🤷🏻‍♂️🤷🏻‍♂️🤷🏻‍♂️🤷🏻‍♂️🤷🏻‍♂️🤷🏻‍♂️🤷🏻‍♂️🤷🏻‍♂️🤷🏻‍♂️🤷🏻‍♂️🤷🏻‍♂️ END Venue INFO 🤷🏻‍♂️🤷🏻‍♂️🤷🏻‍♂️🤷🏻‍♂️🤷🏻‍♂️🤷🏻‍♂️🤷🏻‍♂️🤷🏻‍♂️🤷🏻‍♂️🤷🏻‍♂️🤷🏻‍♂️🤷🏻‍♂️🤷🏻‍♂️🤷🏻‍♂️🤷🏻‍♂️🤷🏻‍♂️🤷🏻‍♂️🤷🏻‍♂️🤷🏻‍♂️🤷🏻‍♂️🤷🏻‍♂️🤷🏻‍♂️🤷🏻‍♂️🤷🏻‍♂️🤷🏻‍♂️ -->
+
     </div>
-
     <div class="footer">
         <!-- <button mat-mini-fab color="warn"
             style="color: white;outline: none;position: absolute;bottom: 19px; left: 80px;background-color: goldenrod;">
@@ -42,7 +80,7 @@
             </a>
         </button> -->
     </div>
- 
+
     <!-- MODAL REVIEW -->
     <div *ngIf="popUpQRCode" class="formFieldValidationAlert" style="background: black;border: black 1px solid;">
         <h1 style="color: white;">OPEN YOUR APP</h1>
@@ -52,8 +90,7 @@
         <!-- <img class="logo" style="width: 360px;background: white;" src="./assets/img/elite/CesarVega/CesarRecruiter.png"> -->
         <!-- <p><a style="color: rgb(255, 255, 255);" target="_blank">{{myAngularxQrCode}}</a></p> -->
         <button mat-mini-fab color="primary"
-            style="color:white;background-color: green;font-size: 6px;margin-bottom: 10px;"
-            (click)="dismissErrorForm()">
+            style="color:white;background-color: green;font-size: 6px;margin-bottom: 10px;" (click)="qrcode()">
             <mat-icon>check</mat-icon>
         </button>
     </div>

@@ -10,78 +10,92 @@ import { EliteService } from '../elite.service';
 export class EliteVenueComponent implements OnInit {
 
 
+
   title = 'ELITE'
-  VenueName = '';
-  VenueEmail = '';
-  VenuePayment = '';
-  VenueBalance = '';
-  VenuePhone = '';
+  VenueName = 'Baoli';
+  VenueEmail = 'baouli@gmail.com';
+  VenuePayment = 'zelle';
+  VenueBalance = '0';
+  VenuePhone = '3055558899';
+  VenueAddress = '201 South Beach, Fl, 33130';
+  VenueType = 'restaurant';
+  popUpQRCode: boolean;
+  venueId: any;
+  emailregistered = false;
 
-  declare navigator: any;
-  newVariable: any = window.navigator;
-
-  DASH = []
-
-
-
-  myAngularxQrCode = 'http://mrvrman.com/eliteCesar';
-  // myAngularxQrCode = 'http://mrvrman.com/elite';
-
-  foodOptions: any;
-  foodToppings: any;
-
-  popUpToppings = false;
-  popUpOptions = false;
-  popUpCheckout = false;
-  popUpQRCode = false;
-  popUpThankyou = false;
-  popUpReview = false;
-  foodTopping;
-  foodOption;
-  sendingOrder: any;
-  selectedOption;
-  paramsArray: any; email: any;
-  tableNo: any;
+  venueInfo = {
+    VenueName: this.VenueName,
+    VenueEmail: this.VenueEmail,
+    VenuePayment: this.VenuePayment,
+    VenueBalance: this.VenueBalance,
+    VenuePhone: this.VenuePhone,
+    VenueAddress: this.VenueAddress,
+    VenueType: this.VenueType,
+    updated: new Date(),
+    created: new Date()
+  }
 
   constructor(private paramsRouter: ActivatedRoute, private EliteService: EliteService) { }
 
   ngOnInit(): void {
 
     this.paramsRouter.params.subscribe(params => {
-      this.tableNo = +params['id'];
+      this.venueId = params['id'];
     });
 
-    this.EliteService.getAllPromoters()
-      .subscribe((arg: any) => {
-        this.DASH = arg;
+    this.venueId = localStorage.getItem('venueId');
+    if (this.venueId) {
+      this.EliteService.getVenueById(this.venueId).subscribe((arg: any) => {
+        if (arg.payload.data()) {
+          this.venueInfo = arg.payload.data()
+        }
       });
-  }
-  
- 
-
-  crypto() {
-    window.open('https://commerce.coinbase.com/checkout/d983d382-1345-4214-9518-fb7d3ca97b27', "_top");
-  }
-
-  toppings(index) {
-    this.popUpToppings = true;
-    // this.foodToppings = this.food[index];
-  }
-
-  dismissErrorForm() {
-    this.popUpToppings = false;
-    this.popUpOptions = false;
-    this.popUpCheckout = false;
-    this.popUpQRCode = false;
+    }
   }
 
   qrcode() {
     this.popUpQRCode = !this.popUpQRCode;
-
   }
 
-  isVenueInfoReady() {
-
+  reset() {
+    this.venueInfo = {
+      VenueName: '',
+      VenueEmail: '',
+      VenuePayment: '',
+      VenueBalance: '',
+      VenuePhone: '',
+      VenueAddress: '',
+      VenueType: '',
+      updated: new Date(),
+      created: new Date()
+    }
   }
 
+  resetEmailError() {
+    this.emailregistered = false
+  }
+
+  createOrUpdateVenue() {
+    this.EliteService.getVenueById(this.VenueEmail).subscribe((arg: any) => {
+      if (arg.payload.exists) {
+        console.log('this venue is already registered')
+        this.emailregistered = true
+      } else {
+        this.venueInfo = {
+          VenueName: this.VenueName,
+          VenueEmail: this.VenueEmail,
+          VenuePayment: this.VenuePayment,
+          VenueBalance: this.VenueBalance,
+          VenuePhone: this.VenuePhone,
+          VenueAddress: this.VenueAddress,
+          VenueType: this.VenueType,
+          updated: new Date(),
+          created: new Date()
+        }
+        this.EliteService.createVenue(this.venueInfo).then(res => {
+          localStorage.setItem('venueId', this.VenueEmail)
+        })
+      }
+    });
+  }
 }
