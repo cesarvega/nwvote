@@ -38,7 +38,7 @@ export class QrCodeComponent implements OnInit {
     this.dotsOptions = this.qrCodeConfig.qrCodeConfig
     const qrCode = new QRCodeStyling({
       width: 223, height: 223, data: this.dotsOptions.qrCodeRenderUrl, margin: 0,
-      qrOptions: { typeNumber: 0, mode: "Byte", errorCorrectionLevel: "Q" },
+      qrOptions: { typeNumber: 0, mode: "Byte", errorCorrectionLevel: "L" },
       imageOptions: { hideBackgroundDots: true, imageSize: 0.4, margin: 0 },
       dotsOptions: {
         type: "dots", color: this.dotsOptions.color, gradient: {

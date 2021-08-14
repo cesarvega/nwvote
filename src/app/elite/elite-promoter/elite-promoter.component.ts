@@ -49,38 +49,70 @@ export class ElitePromoterComponent implements OnInit {
     this.PROMOTERS = [
       {
         promoterId: 'cesarvega.col@gmail.com',
-        promoterName: 'Juan Velez',
-        venues: [{
-          venueId: 'baoli',
-          venueName: 'BAOLI',
-          description: 'BAOLI',
-          imgSrc: './assets/img/elite/BAOILI.jpg',
-          qrCodeConfig:{
-            color1: '#a664ac',
-            color2: '#decddf',
-            background: '#000000',
-            cornersSquare: '#fff',
-            logo: './assets/img/elite/logow.png',
-            imageBackground: './assets/img/elite/Promoters/purpleBlack.png',
-            qrCodeRenderUrl :'http://mrvrman.com/elite/UX/' + 'cesarvega.col@gmail.com' + '/client/baoli'
+        promoterName: 'Cesar Vega',
+        venues: [
+          {
+            venueId: 'baoli',
+            venueName: 'BAOLI',
+            description: 'Italian Restaurant',
+            imgSrc: './assets/img/elite/BAOILI.jpg',
+            qrCodeConfig: {
+              color1: '#a664ac',
+              color2: '#decddf',
+              background: '#000000',
+              cornersSquare: '#fff',
+              logo: './assets/img/elite/logow.png',
+              imageBackground: './assets/img/elite/Promoters/purpleBlack.png',
+              qrCodeRenderUrl: 'http://mrvrman.com/elite/UX/' + 'cesarvega.col@gmail.com' + '/client/baoli'
+            }
+          },
+          {
+            venueId: 'casatua',
+            venueName: 'CASATUA',
+            description: 'Italian Restaurant, fresh pasta',
+            imgSrc: './assets/img/elite/CASATUA.jpg',
+            qrCodeConfig: {
+              color1: '#e28811',
+              color2: '#613c0d',
+              background: '#fff',
+              cornersSquare: '#000',
+              logo: './assets/img/elite/logo.png',
+              imageBackground: './assets/img/elite/Promoters/orangeW.png',
+              qrCodeRenderUrl: 'http://mrvrman.com/elite/UX/' + 'cesarvega.col@gmail.com' + '/client/casatua'
+            }
+
+          },
+          {
+            venueId: 'dirtyrabbit',
+            venueName: 'Dirty Rabbit',
+            description: 'Latin music bar',
+            imgSrc: './assets/img/elite/BAOILI.jpg',
+            qrCodeConfig: {
+              color1: '#21ee6b',
+              color2: '#bdfbd4',
+              background: '#000000',
+              cornersSquare: '#fff',
+              logo: './assets/img/elite/logow.png',
+              imageBackground: './assets/img/elite/Promoters/greenB.png',
+              qrCodeRenderUrl: 'http://mrvrman.com/elite/UX/' + 'cesarvega.col@gmail.com' + '/client/dirtyrabbit'
+            }
+          },
+          {
+            venueId: 'casatua',
+            venueName: 'CASATUA',
+            description: 'CASATUA',
+            imgSrc: './assets/img/elite/CASATUA.jpg',
+            qrCodeConfig: {
+              color1: '#ff0000',
+              color2: '#460606',
+              background: '#fff',
+              cornersSquare: '#000',
+              logo: './assets/img/elite/logo.png',
+              imageBackground: './assets/img/elite/Promoters/redw.png',
+              qrCodeRenderUrl: 'http://mrvrman.com/elite/UX/' + 'cesarvega.col@gmail.com' + '/client/casatua'
+            }
+
           }
-        },
-        {
-          venueId: 'casatua',
-          venueName: 'CASATUA',
-          description: 'CASATUA',
-          imgSrc: './assets/img/elite/CASATUA.jpg',
-          qrCodeConfig:{
-            color1: '#e28811',
-            color2: '#613c0d',
-            background: '#fff',
-            cornersSquare: '#000',
-            logo: './assets/img/elite/logo.png',
-            imageBackground: './assets/img/elite/Promoters/orangeW.png',
-            qrCodeRenderUrl :'http://mrvrman.com/elite/UX/' + 'cesarvega.col@gmail.com' + '/client/casatua'
-          }
-  
-        }
         ],
         promotions: [
           {
@@ -98,21 +130,21 @@ export class ElitePromoterComponent implements OnInit {
         ]
       },
       {
-        promoterId: '3456',
-        promoterName: 'Peter Albeiro',
+        promoterId: 'Eduardo@gmail.com',
+        promoterName: 'Eduardo Londono',
         venues: [{
           venueId: 'asd',
           venueName: 'SBA',
           description: 'SBA',
           imgSrc: './assets/img/elite/SBA.jpg',
-          qrCodeConfig:{
+          qrCodeConfig: {
             color1: '#9d64a1',
             color2: '#decddf',
             background: '#000000',
             cornersSquare: '#fff',
             logo: './assets/img/elite/logow.png',
             imageBackground: './assets/img/elite/Promoters/purpleBlack.png',
-            qrCodeRenderUrl :'http://mrvrman.com/elite/UX/' + 'cesarvega.col@gmail.com' + '/client/baoli'
+            qrCodeRenderUrl: 'http://mrvrman.com/elite/UX/' + 'cesarvega.col@gmail.com' + '/client/baoli'
           }
         },
         {
@@ -120,16 +152,16 @@ export class ElitePromoterComponent implements OnInit {
           venueName: 'TIENDITA',
           description: 'TIENDITA',
           imgSrc: './assets/img/elite/TIENDITA.jpg',
-          qrCodeConfig:{
+          qrCodeConfig: {
             color1: '#9d64a1',
             color2: '#decddf',
             background: '#000000',
             cornersSquare: '#fff',
             logo: './assets/img/elite/logow.png',
             imageBackground: './assets/img/elite/Promoters/purpleBlack.png',
-            qrCodeRenderUrl :'http://mrvrman.com/elite/UX/' + 'cesarvega.col@gmail.com' + '/client/baoli'
+            qrCodeRenderUrl: 'http://mrvrman.com/elite/UX/' + 'cesarvega.col@gmail.com' + '/client/baoli'
           }
-  
+
         }
         ],
         promotions: [
@@ -157,10 +189,10 @@ export class ElitePromoterComponent implements OnInit {
         this.title = 'SCAN PROMOTION'
         this.PROMOTERS.forEach((promoter, index) => {
           if (this.PromoterId === promoter.promoterId) {
-            this.VENUES['promoter'] = promoter       
+            this.VENUES['promoter'] = promoter
           }
         });
-      
+
       }
     });
 
