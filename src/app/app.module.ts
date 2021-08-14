@@ -68,6 +68,8 @@ import { EliteVenueComponent } from './elite/elite-venue/elite-venue.component';
 import { ElitePromotionComponent } from './elite/elite-promotion/elite-promotion.component';
 import { EliteBusinessComponent } from './elite/elite-business/elite-business.component';
 import { EliteQrCodeDesignerComponent } from './elite/elite-qr-code-designer/elite-qr-code-designer.component';
+import { EliteCorporateComponent } from './elite/elite-corporate/elite-corporate.component';
+import { QrCodeComponent } from './elite/qr-code/qr-code.component';
 @NgModule({
   declarations: [
     AppComponent,
@@ -88,7 +90,9 @@ import { EliteQrCodeDesignerComponent } from './elite/elite-qr-code-designer/eli
     EliteVenueComponent,
     ElitePromotionComponent,
     EliteBusinessComponent,
-    EliteQrCodeDesignerComponent
+    EliteQrCodeDesignerComponent,
+    EliteCorporateComponent,
+    QrCodeComponent
   ],
   imports: [
     AngularFireModule.initializeApp(environment.firebaseConfig),

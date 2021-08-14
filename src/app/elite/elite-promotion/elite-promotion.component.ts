@@ -12,13 +12,10 @@ export class ElitePromotionComponent implements OnInit {
  
 
   title = 'ELITE'
-  PromotionName = 'Baoli';
-  PromoDescription = 'baouli@gmail.com';
-  PromotionRate = 'zelle';
-  PromotionRules = '0';
-  PromotionPhone = '3055558899';
-  PromotionAddress = '201 South Beach, Fl, 33130';
-  PromotionType = 'restaurant';
+  PromotionName = 'Baoli Disscount';
+  PromoDescription = 'All customer coming with this digital coupon will obtain 10% discount on the final bill';
+  PromotionRate = '10%';
+  PromotionRules = 'Apply only between 10:00 AM until 7:00 PM';
   popUpQRCode: boolean;
   PromotionId: any;
   emailregistered = false;
@@ -28,9 +25,6 @@ export class ElitePromotionComponent implements OnInit {
     PromoDescription: this.PromoDescription,
     PromotionRate: this.PromotionRate,
     PromotionRules: this.PromotionRules,
-    PromotionPhone: this.PromotionPhone,
-    PromotionAddress: this.PromotionAddress,
-    PromotionType: this.PromotionType,
     updated: new Date(),
     created: new Date()
   }
@@ -43,14 +37,14 @@ export class ElitePromotionComponent implements OnInit {
       this.PromotionId = params['id'];
     });
 
-    // this.PromotionId = localStorage.getItem('PromotionId');
-    // if (this.PromotionId) {
-    //   this.EliteService.getPromotionById(this.PromotionId).subscribe((arg: any) => {
-    //     if (arg.payload.data()) {
-    //       this.PromotionInfo = arg.payload.data()
-    //     }
-    //   });
-    // }
+    this.PromotionId = localStorage.getItem('PromotionId');
+    if (this.PromotionId) {
+      this.EliteService.getPromotionById(this.PromotionId).subscribe((arg: any) => {
+        if (arg.payload.data()) {
+          this.PromotionInfo = arg.payload.data()
+        }
+      });
+    }
   }
 
   qrcode() {
@@ -63,9 +57,6 @@ export class ElitePromotionComponent implements OnInit {
       PromoDescription: '',
       PromotionRate: '',
       PromotionRules: '',
-      PromotionPhone: '',
-      PromotionAddress: '',
-      PromotionType: '',
       updated: new Date(),
       created: new Date()
     }
@@ -86,14 +77,11 @@ export class ElitePromotionComponent implements OnInit {
           PromoDescription: this.PromoDescription,
           PromotionRate: this.PromotionRate,
           PromotionRules: this.PromotionRules,
-          PromotionPhone: this.PromotionPhone,
-          PromotionAddress: this.PromotionAddress,
-          PromotionType: this.PromotionType,
           updated: new Date(),
           created: new Date()
         }
         this.EliteService.createPromotion(this.PromotionInfo).then(res => {
-          localStorage.setItem('PromotionId', this.PromoDescription)
+          localStorage.setItem('PromotionId', res)
         })
       }
     });

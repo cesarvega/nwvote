@@ -131,7 +131,7 @@ export class EliteComponent implements OnInit {
 
 
   ngOnInit(): void {
-
+    this.isPromtionSucess = false
     this.paramsRouter.params.subscribe(params => {
       this.promoterId = params['id'];
       this.qrcodeType = params['type'];
@@ -144,18 +144,19 @@ export class EliteComponent implements OnInit {
       // ESCANING QR AT THE VENUE
       this.promotionalUniqueId = localStorage.getItem(this.VenueId);
       this.myAngularxQrCode = this.myAngularxQrCode + this.promotionalUniqueId
-      this.title = this.VenueId;
-      this.isClientScanned = true;
+      this.title = this.VenueId;     
       this.EliteService.getPromoters(this.promotionalUniqueId)
         .subscribe((arg: any) => {
           if (arg.payload.data().completed === 'complete') {
             this.popUpQRCode = false;
             this.isPromtionSucess = true;
-          }
+            this.isClientScanned = false;
+          } else { this.isClientScanned = true }
         });
 
     }
     else if (this.qrcodeType === 'client') {
+      this.title = 'Promo Registration';
       this.isClientForm = true
     }
     else if (this.qrcodeType === 'venue') {
@@ -186,7 +187,7 @@ export class EliteComponent implements OnInit {
           console.log('cupon inprogress')
           this.isVenueForm = false;
           this.isPromtionSucess = true;
-          this.EliteService.updatePromoter(this.VenueId,this.guessAmount,this.secretVenueKey).then(res => {
+          this.EliteService.updatePromoter(this.VenueId, this.guessAmount, this.secretVenueKey).then(res => {
           })
         }
         else {
@@ -201,7 +202,7 @@ export class EliteComponent implements OnInit {
   }
 
   validateGuessAmount() {
-    this.EliteService.updateClientGuess(localStorage.getItem(this.VenueId),this.clientguessAmount).then(res => {
+    this.EliteService.updateClientGuess(localStorage.getItem(this.VenueId), this.clientguessAmount).then(res => {
     })
     this.popUpQRCode = true;
     this.isClientScanned = false;
@@ -215,13 +216,15 @@ export class EliteComponent implements OnInit {
       this.PROMOTERS.forEach((promoter, index) => {
         if (this.promoterId === promoter.promoterId) {
           this.EliteService.createPromoter(
-            { promoterId: this.promoterId, venueId: this.VenueId, clientEmail: this.clientEmail,clientName: 
-              this.clientName,clientPhone:  this.clientPhone, completed: 'inprogress', created: new Date() }).then(res => {
-            this.venueName = this.VenueId;
-            localStorage.setItem(this.venueName, res);
-          }).catch(err => {
-            console.log(err);
-          });
+            {
+              promoterId: this.promoterId, venueId: this.VenueId, clientEmail: this.clientEmail, clientName:
+                this.clientName, clientPhone: this.clientPhone, completed: 'inprogress', created: new Date()
+            }).then(res => {
+              this.venueName = this.VenueId;
+              localStorage.setItem(this.venueName, res);
+            }).catch(err => {
+              console.log(err);
+            });
         }
       });
     }

@@ -25,7 +25,7 @@ export class EliteQrCodeDesignerComponent implements OnInit {
 
 
 
-  myAngularxQrCode = 'http://mrvrman.com/eliteCesar';
+  myAngularxQrCode = 'http://mrvrman.com/elitecesar';
   // myAngularxQrCode = 'http://mrvrman.com/elite';
 
   foodOptions: any;
@@ -46,71 +46,85 @@ export class EliteQrCodeDesignerComponent implements OnInit {
 
   constructor(private paramsRouter: ActivatedRoute, private EliteService: EliteService) { }
 
-  // ngOnInit(): void {
-
-  //   this.paramsRouter.params.subscribe(params => {
-  //     this.tableNo = +params['id'];
-  //   });
-
-  //   this.EliteService.getAllPromoters()
-  //     .subscribe((arg: any) => {
-  //       this.DASH = arg;
-  //     });
-  // }
   @ViewChild("canvas", { static: true }) canvas: ElementRef;
 
   ngOnInit(): void {
-
-
 
     this.paramsRouter.params.subscribe(params => {
       this.tableNo = +params['id'];
     });
 
-
     console.log(QRCodeStyling);
     if (!QRCodeStyling) {
       return;
     }
-    const qrCode = new QRCodeStyling({
-      width: 300, height: 300, data: "https://qr-code-styling.com", margin: 2,
-      qrOptions: { typeNumber: 0, mode: "Byte", errorCorrectionLevel: "Q" },
-      imageOptions: { hideBackgroundDots: true, imageSize: 0.4, margin: 0 },
-      dotsOptions: { type: "dots", color: "#6a1a4c" },
-      backgroundOptions: { color: "#ffffff" },
-      image: "./assets/img/elite/logo.png",
-      cornersSquareOptions: {
-        type: "extra-rounded", color: "#000000", gradient: {
+
+    let qrCodeColotThemes = {
+      dotsOptions : { type: "dots", color: "#9d64a1", gradient: {
+        type: 'linear', rotation: 0, colorStops: [{
+          offset: 0,
+          color: "#9d64a1"
+        }, {
+          offset: 3,
+          color: "#decddf"
+        }]
+      } },
+      backgroundOptions :{
+        type: "square", color: "#fff", gradient: {
           type: 'radial', rotation: 0, colorStops: [{
             offset: 0,
-            color: "#cc0000"
+            color: "#fff"
+          }]
+        }
+      },
+      cornersDotOptions :{
+        type: "dot", color: "#fff", gradient: {
+          type: 'linear', rotation: 0, colorStops: [{
+            offset: 0,
+            color: "#fff"
+          }, {
+            offset: 3,
+            color: "#fff"
+          }]
+        }
+      }
+    }
+
+    const qrCode = new QRCodeStyling({
+      width: 223, height: 223, data: this.myAngularxQrCode, margin: 0,
+      qrOptions: { typeNumber: 0, mode: "Byte", errorCorrectionLevel: "Q" },
+      imageOptions: { hideBackgroundDots: true, imageSize: 0.4, margin: 0 },
+      dotsOptions: { type: "dots", color: "#9d64a1", gradient: {
+        type: 'linear', rotation: 0, colorStops: [{
+          offset: 0,
+          color: "#9d64a1"
+        }, {
+          offset: 3,
+          color: "#decddf"
+        }]
+      } },
+      backgroundOptions: { color: "#000000" },
+      image: "./assets/img/elite/logow.png",
+      cornersSquareOptions: {
+        type: "square", color: "#fff", gradient: {
+          type: 'radial', rotation: 0, colorStops: [{
+            offset: 0,
+            color: "#fff"
           }]
         }
       },
       cornersDotOptions: {
-        type: "square", color: "#000000", gradient: {
+        type: "dot", color: "#fff", gradient: {
           type: 'linear', rotation: 0, colorStops: [{
             offset: 0,
-            color: "#cc0000"
+            color: "#fff"
           }, {
             offset: 3,
-            color: "#0000ff"
+            color: "#fff"
           }]
         }
       }
     });
-
-
-    // dotsOptionsHelper:{
-    //   colorType:{single:true,gradient:false},
-    //   gradient:{linear:true,radial:false,color1:"#6a1a4c",color2:"#6a1a4c",rotation:0}},
-    //   cornersSquareOptions:{type:"extra-rounded",color:"#000000"},
-    //   cornersSquareOptionsHelper:{colorType:{single:true,gradient:false},gradient:{linear:true,radial:false,color1:"#000000",
-    //   color2:"#000000",rotation:0}},
-    //   cornersDotOptions:{type:"square",color:"#000000"},cornersDotOptionsHelper:{colorType:{singlex:true,
-    //     gradient:false},gradient:{linear:true,radial:false,color1:"#000000",color2:"#000000",rotation:0}},
-    //     backgroundOptionsHelper:{colorType:{single:true,gradient:false},gradient:{linear:true,radial:false,
-    //       color1:"#ffffff",color2:"#ffffff",rotation:0}}
 
     qrCode.append(this.canvas.nativeElement);
   }

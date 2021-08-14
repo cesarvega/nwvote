@@ -8,6 +8,7 @@ import { EliteBusinessComponent } from './elite/elite-business/elite-business.co
 import { EliteVenueComponent } from './elite/elite-venue/elite-venue.component';
 import { ElitePromotionComponent } from './elite/elite-promotion/elite-promotion.component';
 import { EliteQrCodeDesignerComponent } from './elite/elite-qr-code-designer/elite-qr-code-designer.component';
+import { EliteCorporateComponent } from './elite/elite-corporate/elite-corporate.component';
 const routes: Routes = [
   
    {//ELITE BUSINESS
@@ -33,16 +34,16 @@ const routes: Routes = [
     component: EliteVenueComponent
   },
 
-  {//ELITE PROMOTER
+  {//ELITE PROMOTER 🙋‍♂️🙋‍♂️🙋‍♂️🙋‍♂️🙋‍♂️🙋‍♂️🙋‍♂️🙋‍♂️🙋‍♂️
     path: 'promoter',
     component: ElitePromoterComponent
   },
   {//ELITE PROMOTER WITH ID
-    path: 'promoter/:id/:type/:venueId',
+    path: 'promoter/:id',
     component: ElitePromoterComponent
   },
 
-  {//ELITE PROMOTION
+  {//ELITE PROMOTION 👑👑👑👑👑👑👑👑👑👑
     path: 'promotion',
     component: ElitePromotionComponent
   },
@@ -58,6 +59,10 @@ const routes: Routes = [
   {//ELITE DASHBOARD
     path: 'qr',
     component: EliteQrCodeDesignerComponent
+  },
+  {//ELITE CORPORATE
+    path: 'corporate',
+    component: EliteCorporateComponent
   },
 
   {//ELITE SYSTEM UX UI

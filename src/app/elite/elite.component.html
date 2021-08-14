@@ -1,8 +1,8 @@
 <div class="mainContainer disable-dbl-tap-zoom">
     <!-- 🧐🧐🧐🧐🧐🧐🧐🧐🧐🧐🧐🧐🧐🧐🧐🧐 LOGO 🧐🧐🧐🧐🧐🧐🧐🧐🧐🧐🧐🧐🧐🧐🧐🧐🧐🧐🧐🧐🧐🧐🧐🧐🧐🧐🧐 -->
     <div class="logo-miami">
-        <img class="logo" src="./assets/img/elite/logo.png">
-        <p style="animation: swing 200ms ease-in-out 100ms forwards; padding-top: 20px;font-size: 10px;">{{myAngularxQrCode}}</p><br>
+        <img class="logo" src="./assets/img/elite/logow.png">
+        <p style="animation: swing 200ms ease-in-out 100ms forwards; padding-top: 20px;">{{title}}</p><br>
         <!-- <p style="color: rgb(255, 55, 255);animation: swing 200ms ease-in-out 100ms forwards">RIDES</p> -->
     </div>
     <!-- 🧐🧐🧐🧐🧐🧐🧐🧐🧐🧐🧐🧐🧐🧐🧐🧐 END LOGO 🧐🧐🧐🧐🧐🧐🧐🧐🧐🧐🧐🧐🧐🧐🧐🧐🧐🧐🧐🧐🧐🧐🧐🧐🧐🧐🧐 -->
@@ -17,19 +17,19 @@
                Please provide your info to get promotion
             </h1> -->
             <br>
-            <h2 style="color: blueviolet;text-align: center;">Please provide your info to get promotion</h2>
+            <h2 style="color: rgb(0, 0, 0);text-align: center;">Please provide your info to get promotion</h2>
             <mat-form-field appearance="outline">
-                <mat-label>NAME</mat-label>
-                <input matInput type="text" placeholder="e.g xyzhdsrg" [(ngModel)]="clientName"
+                <mat-label>Name</mat-label>
+                <input matInput type="name" placeholder="John Smith" [(ngModel)]="clientName"
                     [ngModelOptions]="{standalone: true}">
             </mat-form-field>
             <mat-form-field appearance="outline">
-                <mat-label>EMAIL</mat-label>
-                <input matInput type="email" placeholder="e.g xyzhdsrg" [(ngModel)]="clientEmail"
+                <mat-label>Email</mat-label>
+                <input matInput type="email" placeholder="jsmith@gmail.com" [(ngModel)]="clientEmail"
                     [ngModelOptions]="{standalone: true}">
             </mat-form-field>
             <mat-form-field appearance="outline">
-                <mat-label>Phone</mat-label>
+                <mat-label>Phone Number</mat-label>
                 <input matInput type="tel" placeholder="3050058555"pattern="[0-9]{3}-[0-9]{3}-[0-9]{4}" [(ngModel)]="clientPhone"
                     [ngModelOptions]="{standalone: true}">
             </mat-form-field>
@@ -47,11 +47,11 @@
         <!-- 🎒🎒🎒🎒🎒🎒🎒🎒🎒🎒🎒🎒🎒🎒🎒🎒🎒 VENUE SCANNED 🎒🎒🎒🎒🎒🎒🎒🎒🎒🎒🎒🎒🎒🎒🎒🎒🎒🎒🎒🎒🎒🎒🎒🎒 -->
         <form *ngIf="isVenueForm" name="loginForm" novalidate class=""
             style="background: white; display: flex;flex-direction: column;margin:20% 20px;padding: 20px;border-radius: 5px;">
-            <h1
+            <!-- <h1
                 style="animation: swing 200ms ease-in-out 100ms forwards; padding-top: 20px;color: red;text-align: center;">
-                Validating Promotion</h1><br>
+                Validating Promotion</h1><br> -->
 
-            <h2 style="color: blueviolet;text-align: center;">Is This {{venueName}} business?</h2>
+            <h2 style="color: black;text-align: center;">Is This {{venueName}} business?</h2>
             <mat-radio-group style="display: flex;flex-direction: column;justify-content: center;align-items: center;"
                 [(ngModel)]="venueName" aria-label="Select an option" [ngModelOptions]="{standalone: true}">
                 <mat-radio-button value="'true'">YES</mat-radio-button>
@@ -84,8 +84,8 @@
         <form *ngIf="isClientScanned" name="loginForm" novalidate class=""
             style="background: white; display: flex;flex-direction: column;margin:20% 20px;padding: 20px;border-radius: 5px;">
             <h1
-                style="animation: swing 200ms ease-in-out 100ms forwards; padding-top: 20px;color: red;text-align: center;">
-                Please tell us how many guess are with you</h1><br>
+                style="animation: swing 200ms ease-in-out 100ms forwards; padding-top: 20px;color: rgb(0, 0, 0);text-align: center;">
+                How many are you and your guess?</h1><br>
 
             <br>
 
@@ -124,7 +124,7 @@
                     margin-top: 10%;
                     padding: 10px;
                     font-size: 25px;
-                    line-height: 40px;">Go to the venu, look for similar QR-CODE and scan using this phone
+                    line-height: 40px;">Scan this QR-CODE at the location to get the promotion
             </h1>
             <img class="logo" style="width: 283px;" src="./assets/img/elite/Promoters/VenueQrCode.png">
         </div>

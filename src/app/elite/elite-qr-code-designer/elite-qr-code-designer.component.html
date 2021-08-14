@@ -1,15 +1,17 @@
 <div class="mainContainer disable-dbl-tap-zoom">
 
     <div class="logo-miami">
-        <img class="logo" src="./assets/img/elite/logo.png">
+        <img class="logo" src="./assets/img/elite/logow.png">
         <p style="animation: swing 200ms ease-in-out 100ms forwards; padding-top: 20px;">QR-DESIGNER</p><br>
     </div>
-
-    <div style="display: flex;align-items: center;margin-bottom: 100px;" class="menu"> 
+    
+    <div style="display: flex;flex-direction: column ;align-items: center;top: 25%;" class="menu"> 
         
         
-        <div style="margin-bottom: 220px;" #canvas></div>
-
+        <div style="position: absolute;top:71px" #canvas></div>
+        <img  style="width: 360px;" src="./assets/img/elite/Promoters/purpleBlack.png">
+        <p style="animation: swing 200ms ease-in-out 100ms forwards; padding-top: 20px;">{{myAngularxQrCode}}</p><br>
+            
        
     </div>
 
@@ -38,7 +40,7 @@
     <div *ngIf="popUpQRCode" class="formFieldValidationAlert" style="background: black;border: black 1px solid;">
         <h1 style="color: white;">OPEN YOUR APP</h1>
         <!-- <qrcode [qrdata]="myAngularxQrCode" [width]="140" [errorCorrectionLevel]="'M'"></qrcode> -->
-        <img class="logo" style="width: 360px" src="./assets/img/elite/Promoters/PromoterQrCode.png">
+        <img class="logo" style="width: 360px" src="./assets/img/elite/Promoters/PromoterQrCode.png">        
         <!-- REGISTARTION FORM -->
         <!-- <img class="logo" style="width: 360px;background: white;" src="./assets/img/elite/CesarVega/CesarRecruiter.png"> -->
         <!-- <p><a style="color: rgb(255, 255, 255);" target="_blank">{{myAngularxQrCode}}</a></p> -->
