@@ -41,27 +41,18 @@ import { DeviceDetectorModule } from 'ngx-device-detector';
 import { NW3Component } from './nw3/nw3.component';
 import { Nw3Service } from './nw3/nw3.service';
 import { BmxComponent } from './bmx/bmx.component';
-import { HammerGestureConfig, HAMMER_GESTURE_CONFIG } from '@angular/platform-browser';
 import { SchedulerComponent } from './scheduler/scheduler.component';
 import { AngularDateTimePickerModule } from 'angular2-datetimepicker';
-import {MatDatepickerModule} from '@angular/material/datepicker';
+import { MatDatepickerModule } from '@angular/material/datepicker';
 import { MatNativeDateModule } from '@angular/material/core';
 import { NgxKjuaModule } from 'ngx-kjua';
-// export class MyHammerConfig extends HammerGestureConfig {
-//   overrides = <any>{
-//     // override default settings
-//     // 'swipe': { velocity: 0.4, threshold: 20 } 
-//   }
-// }
 
-import {MatRadioModule} from '@angular/material/radio';
+import { MatRadioModule } from '@angular/material/radio';
 import { RestaurantComponent } from './restaurant/restaurant.component';
 import { OrderDasboardComponent } from './restaurant/order-dasboard/order-dasboard.component';
 import { EliteComponent } from './elite/elite.component';
 
 import { environment } from "../environments/environment";
-import { AngularFireModule } from "@angular/fire";
-import { AngularFirestoreModule } from "@angular/fire/firestore";
 import { ElitePromoterComponent } from './elite/elite-promoter/elite-promoter.component';
 import { EliteDashComponent } from './elite/elite-dash/elite-dash.component';
 import { EliteVenueComponent } from './elite/elite-venue/elite-venue.component';
@@ -70,6 +61,16 @@ import { EliteBusinessComponent } from './elite/elite-business/elite-business.co
 import { EliteQrCodeDesignerComponent } from './elite/elite-qr-code-designer/elite-qr-code-designer.component';
 import { EliteCorporateComponent } from './elite/elite-corporate/elite-corporate.component';
 import { QrCodeComponent } from './elite/qr-code/qr-code.component';
+import { EliteAuthComponent } from './elite/elite-auth/elite-auth.component';
+
+
+import { AngularFireModule } from '@angular/fire';
+import { AngularFirestoreModule } from '@angular/fire/firestore';
+import { AngularFireStorageModule } from '@angular/fire/storage';
+import { AngularFireAuthModule } from '@angular/fire/auth';
+
+
+
 @NgModule({
   declarations: [
     AppComponent,
@@ -92,11 +93,14 @@ import { QrCodeComponent } from './elite/qr-code/qr-code.component';
     EliteBusinessComponent,
     EliteQrCodeDesignerComponent,
     EliteCorporateComponent,
-    QrCodeComponent
+    QrCodeComponent,
+    EliteAuthComponent
   ],
   imports: [
     AngularFireModule.initializeApp(environment.firebaseConfig),
     AngularFirestoreModule,
+    AngularFireStorageModule,
+    AngularFireAuthModule,
     BrowserModule,
     AppRoutingModule,
     BrowserAnimationsModule,
@@ -140,7 +144,7 @@ import { QrCodeComponent } from './elite/qr-code/qr-code.component';
     editPost, editName
   ],
   providers: [NwvoteService, BsrMobileService, Nw3Service],
-  
+
   bootstrap: [AppComponent]
 })
 export class AppModule { }

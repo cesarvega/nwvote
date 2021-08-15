@@ -9,9 +9,17 @@ import { EliteVenueComponent } from './elite/elite-venue/elite-venue.component';
 import { ElitePromotionComponent } from './elite/elite-promotion/elite-promotion.component';
 import { EliteQrCodeDesignerComponent } from './elite/elite-qr-code-designer/elite-qr-code-designer.component';
 import { EliteCorporateComponent } from './elite/elite-corporate/elite-corporate.component';
+import { EliteAuthComponent } from './elite/elite-auth/elite-auth.component';
+import { EliteAuthGuard } from './elite/elite-auth/elite-auth.guard';
 const routes: Routes = [
-  
-   {//ELITE BUSINESS
+
+  {//ELITE BUSINESS
+    path: 'auth',
+    component: EliteAuthComponent
+  },
+
+
+  {//ELITE BUSINESS
     path: 'businnes',
     component: EliteBusinessComponent
   },
@@ -36,7 +44,8 @@ const routes: Routes = [
 
   {//ELITE PROMOTER 🙋‍♂️🙋‍♂️🙋‍♂️🙋‍♂️🙋‍♂️🙋‍♂️🙋‍♂️🙋‍♂️🙋‍♂️
     path: 'promoter',
-    component: ElitePromoterComponent
+    component: ElitePromoterComponent,
+    // canActivate: [EliteAuthGuard]
   },
   {//ELITE PROMOTER WITH ID
     path: 'promoter/:id',
@@ -73,12 +82,12 @@ const routes: Routes = [
     path: 'UX/:id/:type/:venueId',
     component: EliteComponent
   },
-  
+
   {
     path: '',
     redirectTo: 'dash',
     pathMatch: 'full'
-  } 
+  }
 ];
 
 @NgModule({
