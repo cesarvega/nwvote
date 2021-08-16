@@ -27,21 +27,16 @@
         </div>
         <div>
             <div style="font-size: 16px;margin-top: 10px;color: #48535e;">CHOOSE RATING ICON</div>
-
             <br>
-            <div>
+            <mat-radio-group aria-label="Select an option" [(ngModel)]="ratingScaleIcon">
                 <mat-icon style="color:#76d354;">grade</mat-icon>
-                <input type="radio" id="volume" name="volume" min="5" max="10">
-               
-             
-                
-            </div>
-            <div>
+                <mat-radio-button value="grade">
+                </mat-radio-button>
                 <mat-icon style="color:#e6ad11;">battery_full</mat-icon>
-                <input type="radio" id="volume" name="volume" min="5" max="10">
-            </div>
+                <mat-radio-button value="battery_full">
+                </mat-radio-button>
+            </mat-radio-group>
             <hr>
-
         </div>
 
         <button style="outline: none;color:#76d354;margin-bottom: 50px;" mat-icon-button
@@ -63,7 +58,7 @@
         <div class="test-name-table">
 
             <div *ngFor="let columnName of columnsNames; let e =  index"
-                style="width: 33%;text-align: justify;margin:10px 10px;">
+                style="width: 50%;text-align: justify;margin:10px 10px;">
                 <div class="header-title" (mouseenter)="selectedColumn = e" (mouseleave)="selectedColumn = ''"
                     *ngIf="(y == 0)">
                     <span class="header-delete-icon" *ngIf="selectedColumn === e" matTooltip="delete column"
@@ -71,8 +66,19 @@
                     <input class="header-title-box" *ngIf="(y == 0)" [(ngModel)]="testName[columnName]"
                         value="testName[columnName]">
                 </div>
-                <input class="row-box" *ngIf="(y !== 0)" [(ngModel)]="testName[columnName]"
+
+<!-- 
+                <input  [ngClass]="(columnName == 'rationale')?'header-title-rationale-box ':'header-title-box'"  *ngIf="(y == 0)" [(ngModel)]="testName[columnName]"
+                value="testName[columnName]">
+        </div>
+        <input   [ngClass]="(columnName == 'rationale')?'rationale-box':'row-box'" *ngIf="(y !== 0)" [(ngModel)]="testName[columnName]"
+            value="testName[columnName]"> -->
+                <input class="row-box" *ngIf="(y !== 0) && columnName != 'rationale'" [(ngModel)]="testName[columnName]"
                     value="testName[columnName]">
+
+                    <textarea class="row-box" *ngIf="(y !== 0) && columnName == 'rationale'" [(ngModel)]="testName[columnName]"
+                    value="testName[columnName]"></textarea>
+
             </div>
             <div style="min-width: 250px">
                 <button *ngFor="let star of  testName.STARS; let x =  index" (click)="setRating(star.id,y)"
