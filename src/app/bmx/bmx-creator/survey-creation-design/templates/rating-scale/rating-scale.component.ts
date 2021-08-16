@@ -28,6 +28,7 @@ export class RatingScaleComponent implements OnInit {
   listString: string;
   tempItems = [];
   selectedColumn
+  ratingScaleIcon = 'grade';
 
   constructor() { }
   ngOnInit(): void {
@@ -58,7 +59,7 @@ export class RatingScaleComponent implements OnInit {
       this.bmxItem.componentText[testNameId].STARS.filter((star) => {
         if (star.id <= starId) {
 
-          star.class = 'active-rating-star';
+          star.class =(this.ratingScaleIcon === 'grade')?'active-rating-star':'active-rating-bar';
 
         } else {
 
@@ -87,7 +88,7 @@ export class RatingScaleComponent implements OnInit {
       for (var i = 0; i < textAreaInput.length; i++) {
         if (textAreaInput[i] != "" && textAreaInput[i].length > 6) {
           let objectColumnDefiner = {};
-          objectColumnDefiner['STARS'] = this.createRatingStars(this.rankingScaleValue);
+          objectColumnDefiner['STARS'] = this.createRatingStars(this.rankingScaleValue, this.ratingScaleIcon);
           for (var e = 0; e < this.columnsNames.length; e++) {
             if ((textAreaInput[i].split("\t").length > 0)) {
               objectColumnDefiner[this.columnsNames[e]] = textAreaInput[i].split("\t")[e];
@@ -128,13 +129,19 @@ export class RatingScaleComponent implements OnInit {
     this.bmxItem.componentText = JSON.parse(JSON.stringify(this.bmxItem.componentText));
   }
 
+
+  checkDragEvetn(e) {
+    console.log(e);
+  }
+
+
   // PRIVATE METHODS
-  createRatingStars(ratingScale) {
+  createRatingStars(ratingScale, ratingScaleIcon) {
     let startCounter: any = []
     for (let index = 0; index < ratingScale; index++) {
       startCounter.push({
         id: index,
-        icon: 'grade',
+        icon: ratingScaleIcon,
         class: 'rating-star'
       });
     }
@@ -169,4 +176,7 @@ export class RatingScaleComponent implements OnInit {
     return temp;
 
   };
+
+
+
 }
