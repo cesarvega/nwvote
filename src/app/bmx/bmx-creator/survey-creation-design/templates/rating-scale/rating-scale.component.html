@@ -1,4 +1,4 @@
-<!-- CONFIG BOX -->
+<!-- 🔧🔧🔧🔧🔧🔧🔧🔧🔧🔧🔧🔧🔧🔧🔧🔧🔧🔧🔧🔧🔧 CONFIG BOX 🔧🔧🔧🔧🔧🔧🔧🔧🔧🔧🔧🔧🔧🔧🔧🔧🔧🔧🔧🔧🔧🔧🔧 -->
 <div *ngIf="i === selectedIndex" class="mat-elevation-z4">
     <div style="text-align: center;">
         <div style="font-size: 16px;margin: 20px;color: #48535e;">PASTE TEST NAMES</div>
@@ -12,39 +12,67 @@
         </mat-form-field>
     </div>
     <hr>
-    <div style="text-align: center;">
-        <div style="font-size: 16px;margin-top: 10px;color: #48535e;">SELECT RATING RANGE</div>
-        <br>
-        <br>
-        <br>
+    <div style="text-align: center;display: flex;flex-direction: row;justify-content: space-around;">
         <div>
-            5 <input [(ngModel)]="rankingScaleValue" type="range" id="volume" name="volume" min="5" max="10">
-            10 <br>
-            <label for="volume">{{rankingScaleValue}}</label>
+            <div style="font-size: 16px;margin-top: 10px;color: #48535e;">SELECT RATING RANGE</div>
+            <br>
+
+            <div>
+                5 <input [(ngModel)]="rankingScaleValue" type="range" id="volume" name="volume" min="5" max="10">
+                10 <br>
+                <label for="volume">{{rankingScaleValue}}</label>
+            </div>
+            <hr>
+
         </div>
-        <hr>
+        <div>
+            <div style="font-size: 16px;margin-top: 10px;color: #48535e;">CHOOSE RATING ICON</div>
+
+            <br>
+            <div>
+                <mat-icon style="color:#76d354;">grade</mat-icon>
+                <input type="radio" id="volume" name="volume" min="5" max="10">
+               
+             
+                
+            </div>
+            <div>
+                <mat-icon style="color:#e6ad11;">battery_full</mat-icon>
+                <input type="radio" id="volume" name="volume" min="5" max="10">
+            </div>
+            <hr>
+
+        </div>
+
         <button style="outline: none;color:#76d354;margin-bottom: 50px;" mat-icon-button
-            (click)="selectedIndex = '';upLoadNamesAndRationales(testNamesInput)" aria-label="ranking">DONE <br>
-            <mat-icon>check_circle</mat-icon>
+            (click)="selectedIndex = '';upLoadNamesAndRationales(testNamesInput)" aria-label="ranking">
+            <mat-icon>check_circle</mat-icon><br> DONE
         </button>
     </div>
 </div>
-
+<!-- 🔧🔧🔧🔧🔧🔧🔧🔧🔧🔧🔧🔧🔧🔧🔧🔧🔧🔧🔧🔧🔧🔧🔧🔧🔧🔧🔧🔧🔧🔧🔧🔧🔧🔧🔧🔧🔧🔧🔧🔧🔧🔧🔧🔧🔧🔧🔧🔧🔧 -->
 
 <!--🥑🥑🥑🥑🥑🥑🥑🥑🥑🥑🥑🥑🥑🥑🥑🥑🥑🥑🥑🥑🥑🥑🥑🥑🥑 RATING TABLE 🥑🥑🥑🥑🥑🥑🥑🥑🥑🥑🥑🥑🥑🥑🥑🥑🥑🥑🥑🥑🥑🥑🥑-->
-<button class="add-column" matTooltip="Add column" matTooltipPosition="left"  (click)="insertNewColumn()" mat-icon-button aria-label="ranking" >
+
+<button class="add-column" matTooltip="Add column" matTooltipPosition="left" (click)="insertNewColumn()" mat-icon-button
+    aria-label="ranking">
     <mat-icon>view_list</mat-icon>
 </button>
 <div class="odd-style" style="overflow-x: scroll;">
-    <div  *ngFor="let testName of bmxItem.componentText; let y = index">
+    <div *ngFor="let testName of bmxItem.componentText; let y = index">
         <div class="test-name-table">
 
-            <div *ngFor="let columnName of columnsNames; let e =  index" style="width: 33%;text-align: justify;margin:10px 10px;">
-                <div class="header-title" (mouseenter)="selectedColumn = e" (mouseleave)="selectedColumn = ''"  *ngIf="(y == 0)" >                    
-                    <span class="header-delete-icon" *ngIf="selectedColumn === e" matTooltip="delete column" matTooltipPosition="above" (click)="deleteColumn(testName[columnName])">x</span>
-                    <input  class="header-title-box"   *ngIf="(y == 0)" [(ngModel)]="testName[columnName]" value="testName[columnName]">
-                </div>              
-                <input  class="row-box" *ngIf="(y !== 0)" [(ngModel)]="testName[columnName]" value="testName[columnName]">
+            <div *ngFor="let columnName of columnsNames; let e =  index"
+                style="width: 33%;text-align: justify;margin:10px 10px;">
+                <div class="header-title" (mouseenter)="selectedColumn = e" (mouseleave)="selectedColumn = ''"
+                    *ngIf="(y == 0)">
+                    <span class="header-delete-icon" *ngIf="selectedColumn === e" matTooltip="delete column"
+                        matTooltipPosition="above" (click)="deleteColumn(testName[columnName])">x</span>
+                    <input class="header-title-box" *ngIf="(y == 0)" [(ngModel)]="testName[columnName]"
+                        value="testName[columnName]">
+                </div>
+                <input class="row-box" *ngIf="(y !== 0)" [(ngModel)]="testName[columnName]"
+                    value="testName[columnName]">
             </div>
             <div style="min-width: 250px">
                 <button *ngFor="let star of  testName.STARS; let x =  index" (click)="setRating(star.id,y)"
