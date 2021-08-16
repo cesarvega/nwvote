@@ -63,8 +63,10 @@
                     *ngIf="(y == 0)">
                     <span class="header-delete-icon" *ngIf="selectedColumn === e" matTooltip="delete column"
                         matTooltipPosition="above" (click)="deleteColumn(testName[columnName])">x</span>
-                    <input class="header-title-box" *ngIf="(y == 0)" [(ngModel)]="testName[columnName]"
+                    <input class="header-title-box" *ngIf="(y == 0) && columnName != 'rationale'" [(ngModel)]="testName[columnName]"
                         value="testName[columnName]">
+                        <textarea style="height: 100%;width: 300px; font-weight: bold;color: #324395;" class="row-box" *ngIf="(y == 0) && columnName == 'rationale'"
+                        [(ngModel)]="testName[columnName]" value="testName[columnName]"></textarea>
                 </div>
 
                 <!-- 
@@ -77,7 +79,7 @@
                 <input class="row-box" *ngIf="(y !== 0) && columnName != 'rationale'" [(ngModel)]="testName[columnName]"
                     value="testName[columnName]">
 
-                <textarea style="    height: 24px;width: 300px;" class="row-box" *ngIf="(y !== 0) && columnName == 'rationale'"
+                <textarea style="height: 24px;width: 300px;" class="row-box" *ngIf="(y !== 0) && columnName == 'rationale'"
                     [(ngModel)]="testName[columnName]" value="testName[columnName]"></textarea>
 
             </div>
