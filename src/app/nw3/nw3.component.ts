@@ -341,10 +341,14 @@ export class NW3Component implements OnInit {
   infoColor = '#d8d8d8';
   negativeColor = '#0278ee';
   neutralColor = '#ee7802';
-  positiveColor = '#ee0278';
+  positiveColor = '#09bf06';
   totalPositiveNames: object[];
   totalNeutralNames: object[];
   totalNegativeNames: object[];
+  positiveIcon = 'task_alt';
+  neutralIcon = 'thumb_up';
+  negativeIcon = 'thumb_down';
+  infoIcon = 'info';
 
 
   constructor(@Inject(DOCUMENT) private document: any,
@@ -362,7 +366,7 @@ export class NW3Component implements OnInit {
 
     this._hotkeysService.add(new Hotkey('right', (event: KeyboardEvent): boolean => {
 
-      // but true to go through positive check
+      // but true to go through positive 
       if (this.stopMovingForward || this.vote) {
         this.playSound('03 Primary System Sounds/navigation_forward-selection-minimal.wav', this.soundVolume);
         this.selectPage('next');
@@ -694,13 +698,13 @@ export class NW3Component implements OnInit {
     if (this.previousSlideType === 'MultipleNameEvaluation') {
       this.slideModel.NameRanking = '';
       this.rankIcon.forEach(rankIcon => {
-        if (rankIcon.icon === "favorite") {
+        if (rankIcon.icon === this.positiveIcon) {
           this.slideModel.NameRanking += 'positive' + '##';
-        } else if (rankIcon.icon === "sentiment_very_satisfied") {
+        } else if (rankIcon.icon === this.neutralIcon) {
           this.slideModel.NameRanking += 'neutral' + '##';
-        } else if (rankIcon.icon === "thumb_down_off_alt") {
+        } else if (rankIcon.icon === this.negativeIcon) {
           this.slideModel.NameRanking += 'negative' + '##';
-        } else if (rankIcon.icon === "info") {
+        } else if (rankIcon.icon === this.infoIcon) {
           this.slideModel.NameRanking += 'novalue' + '##';
         }
       });
@@ -800,20 +804,20 @@ export class NW3Component implements OnInit {
                   //  this.groupName.forEach(rankValue => {
                   this.rankIconsValue.forEach(rankValue => {
                     if (rankValue.toLowerCase() === 'novalue') {
-                      this.rankIcon.push({ icon: 'info', color: this.infoColor });
+                      this.rankIcon.push({ icon: this.infoIcon, color: this.infoColor });
                     } else if (rankValue.toLowerCase() === 'positive') {
-                      this.rankIcon.push({ icon: 'favorite', color: this.positiveColor });
+                      this.rankIcon.push({ icon: this.positiveIcon, color: this.positiveColor });
                     } else if (rankValue.toLowerCase() === 'neutral') {
-                      this.rankIcon.push({ icon: 'sentiment_very_satisfied', color: this.neutralColor });
+                      this.rankIcon.push({ icon: this.neutralIcon, color: this.neutralColor });
                     } else if (rankValue.toLowerCase() === 'negative') {
-                      this.rankIcon.push({ icon: 'thumb_down_off_alt', color: this.negativeColor });
+                      this.rankIcon.push({ icon: this.negativeIcon, color: this.negativeColor });
                     } else {
-                      this.rankIcon.push({ icon: 'info', color: this.infoColor });
+                      this.rankIcon.push({ icon: this.infoIcon, color: this.infoColor });
                     }
                   });
                 } else {
                   this.groupName.forEach(rankValue => {
-                    this.rankIcon.push({ icon: 'info', color: this.infoColor });
+                    this.rankIcon.push({ icon: this.infoIcon, color: this.infoColor });
                   });
                 }
 
@@ -868,7 +872,7 @@ export class NW3Component implements OnInit {
     // );
 
 
-    // this.slideType = 'info'; 
+    // this.slideType = this.infoIcon; 
 
   }
 
@@ -1427,20 +1431,20 @@ export class NW3Component implements OnInit {
                 //  this.groupName.forEach(rankValue => {
                 this.rankIconsValue.forEach(rankValue => {
                   if (rankValue.toLowerCase() === 'novalue') {
-                    this.rankIcon.push({ icon: 'info', color: this.infoColor });
+                    this.rankIcon.push({ icon: this.infoIcon, color: this.infoColor });
                   } else if (rankValue.toLowerCase() === 'positive') {
-                    this.rankIcon.push({ icon: 'favorite', color: this.positiveColor });
+                    this.rankIcon.push({ icon: this.positiveIcon, color: this.positiveColor });
                   } else if (rankValue.toLowerCase() === 'neutral') {
-                    this.rankIcon.push({ icon: 'sentiment_very_satisfied', color: this.neutralColor });
+                    this.rankIcon.push({ icon: this.neutralIcon, color: this.neutralColor });
                   } else if (rankValue.toLowerCase() === 'negative') {
-                    this.rankIcon.push({ icon: 'thumb_down_off_alt', color: this.negativeColor });
+                    this.rankIcon.push({ icon: this.negativeIcon, color: this.negativeColor });
                   } else {
-                    this.rankIcon.push({ icon: 'info', color: this.infoColor });
+                    this.rankIcon.push({ icon: this.infoIcon, color: this.infoColor });
                   }
                 });
               } else {
                 this.groupName.forEach(rankValue => {
-                  this.rankIcon.push({ icon: 'info', color: this.infoColor });
+                  this.rankIcon.push({ icon: this.infoIcon, color: this.infoColor });
                 });
               }
 
@@ -1513,27 +1517,27 @@ export class NW3Component implements OnInit {
 
   toggleRankIcon(rankIcon, i) {
     this.playSound('02 Alerts and Notifications/alert_high-intensity.wav', this.soundVolume);
-    if (rankIcon[i].icon === 'info') {
-      this.rankIcon[i] = { icon: 'favorite', color: this.positiveColor };
-    } else if (rankIcon[i].icon === 'favorite') {
-      this.rankIcon[i] = { icon: 'sentiment_very_satisfied', color: this.neutralColor }
-    } else if (rankIcon[i].icon === 'sentiment_very_satisfied') {
-      this.rankIcon[i] = { icon: 'thumb_down_off_alt', color: this.negativeColor };
-    } else if (rankIcon[i].icon === 'thumb_down_off_alt') {
-      this.rankIcon[i] = { icon: 'info', color: this.infoColor };
+    if (rankIcon[i].icon === this.infoIcon) {
+      this.rankIcon[i] = { icon: this.positiveIcon, color: this.positiveColor };
+    } else if (rankIcon[i].icon === this.positiveIcon) {
+      this.rankIcon[i] = { icon: this.neutralIcon, color: this.neutralColor }
+    } else if (rankIcon[i].icon === this.neutralIcon) {
+      this.rankIcon[i] = { icon: this.negativeIcon, color: this.negativeColor };
+    } else if (rankIcon[i].icon === this.negativeIcon) {
+      this.rankIcon[i] = { icon: this.infoIcon, color: this.infoColor };
     }
   }
 
   setAllNamesIcon(icon, color) {
-    if (icon === 'favorite') {
+    if (icon === this.positiveIcon) {
       this.isFavoriteOn = !this.isFavoriteOn;
     }
     let sound;
-    if (icon === 'favorite') {
+    if (icon === this.positiveIcon) {
       sound = '01 Hero Sounds/hero_simple-celebration-01.wav'
-    } else if (icon === 'thumb_down_off_alt') {
+    } else if (icon === this.negativeIcon) {
       sound = '03 Primary System Sounds/ui_tap-variant-01.wav'
-    } else if (icon === 'sentiment_very_satisfied') {
+    } else if (icon === this.neutralIcon) {
       sound = '03 Primary System Sounds/ui_lock.wav'
     }
     this.playSound(sound, this.soundVolume);
