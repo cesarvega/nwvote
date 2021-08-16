@@ -67,17 +67,18 @@
                         value="testName[columnName]">
                 </div>
 
-<!-- 
+                <!-- 
                 <input  [ngClass]="(columnName == 'rationale')?'header-title-rationale-box ':'header-title-box'"  *ngIf="(y == 0)" [(ngModel)]="testName[columnName]"
                 value="testName[columnName]">
         </div>
         <input   [ngClass]="(columnName == 'rationale')?'rationale-box':'row-box'" *ngIf="(y !== 0)" [(ngModel)]="testName[columnName]"
             value="testName[columnName]"> -->
+
                 <input class="row-box" *ngIf="(y !== 0) && columnName != 'rationale'" [(ngModel)]="testName[columnName]"
                     value="testName[columnName]">
 
-                    <textarea class="row-box" *ngIf="(y !== 0) && columnName == 'rationale'" [(ngModel)]="testName[columnName]"
-                    value="testName[columnName]"></textarea>
+                <textarea style="    height: 24px;width: 300px;" class="row-box" *ngIf="(y !== 0) && columnName == 'rationale'"
+                    [(ngModel)]="testName[columnName]" value="testName[columnName]"></textarea>
 
             </div>
             <div style="min-width: 250px">
