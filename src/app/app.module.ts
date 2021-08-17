@@ -68,6 +68,7 @@ import { AngularFireModule } from '@angular/fire';
 import { AngularFirestoreModule } from '@angular/fire/firestore';
 import { AngularFireStorageModule } from '@angular/fire/storage';
 import { AngularFireAuthModule } from '@angular/fire/auth';
+import { EliteBusinessCardComponent } from './elite/elite-business-card/elite-business-card.component';
 
 
 
@@ -94,7 +95,8 @@ import { AngularFireAuthModule } from '@angular/fire/auth';
     EliteQrCodeDesignerComponent,
     EliteCorporateComponent,
     QrCodeComponent,
-    EliteAuthComponent
+    EliteAuthComponent,
+    EliteBusinessCardComponent,
   ],
   imports: [
     AngularFireModule.initializeApp(environment.firebaseConfig),
