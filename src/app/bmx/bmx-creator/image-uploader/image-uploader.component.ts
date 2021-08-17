@@ -1,5 +1,5 @@
 import { HttpClient, HttpEventType } from '@angular/common/http';
-import { Component, OnInit } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
 import { Subscription } from 'rxjs/internal/Subscription';
 import { BmxService } from '../bmx.service';
 import { HotkeysService, Hotkey } from 'angular2-hotkeys';
@@ -34,6 +34,7 @@ export class ImageUploaderComponent implements OnInit {
   fileName = '';
   uploadProgress: number;
   uploadSub: Subscription;
+  @Input() isMenuActive10;
 
   constructor(private http: HttpClient, private activatedRoute: ActivatedRoute,
     private _hotkeysService: HotkeysService, private dragulaService: DragulaService, private _BmxService: BmxService) { }

@@ -279,8 +279,12 @@
 
 
     <!-- IMAGE UPLOADER 🎎🎎🎎🎎🎎🎎🎎🎎🎎🎎🎎🎎🎎🎎🎎🎎🎎🎎🎎🎎🎎🎎🎎🎎🎎🎎🎎🎎🎎🎎🎎🎎🎎🎎🎎🎎🎎🎎🎎🎎🎎-->
-    <div class="Image-Uploader" *ngIf="isMenuActive10" style="border: hotpink solid 0px; width: auto; height: 100vh;">
+    <!--<div class="Image-Uploader" *ngIf="isMenuActive10" style="border: hotpink solid 0px; width: auto; height: 100vh;">
         <app-image-uploader></app-image-uploader>
+    </div>-->
+
+    <div class="Image-Uploader" *ngIf="isMenuActive10" style="border: hotpink solid 0px; width: 75%; height: 100vh;">
+        <app-image-uploader [isMenuActive10]="isMenuActive10"></app-image-uploader>
     </div>
 
     <!-- <div class="Image-Uploader" *ngIf="isMenuActive10" div style="border: pink solid 1px; width: 25%; height: 100vh;">
