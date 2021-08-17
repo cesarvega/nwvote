@@ -11,6 +11,7 @@ import { EliteQrCodeDesignerComponent } from './elite/elite-qr-code-designer/eli
 import { EliteCorporateComponent } from './elite/elite-corporate/elite-corporate.component';
 import { EliteAuthComponent } from './elite/elite-auth/elite-auth.component';
 import { EliteAuthGuard } from './elite/elite-auth/elite-auth.guard';
+import { EliteBusinessCardComponent } from './elite/elite-business-card/elite-business-card.component';
 const routes: Routes = [
 
   {//ELITE BUSINESS
@@ -20,11 +21,16 @@ const routes: Routes = [
 
 
   {//ELITE BUSINESS
-    path: 'businnes',
+    path: 'business-card',
+    component: EliteBusinessCardComponent
+  },
+
+  {//ELITE BUSINESS
+    path: 'business',
     component: EliteBusinessComponent
   },
   {//ELITE BUSINESS WITH ID
-    path: 'businnes/:id',
+    path: 'business/:id',
     component: EliteBusinessComponent
   },
 
