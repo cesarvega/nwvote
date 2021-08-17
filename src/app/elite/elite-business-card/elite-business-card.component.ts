@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-
+import { faInstagram } from '@fortawesome/free-brands-svg-icons';
 @Component({
   selector: 'app-elite-business-card',
   templateUrl: './elite-business-card.component.html',
@@ -8,7 +8,7 @@ import { Component, OnInit } from '@angular/core';
 export class EliteBusinessCardComponent implements OnInit {
   isGoVoteOn = true;
   isRadialMenuOn = false;
-
+  faInstagram = faInstagram
   constructor() { }
 
   ngOnInit(): void {

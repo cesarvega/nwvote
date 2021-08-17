@@ -71,6 +71,7 @@ import { AngularFireAuthModule } from '@angular/fire/auth';
 import { EliteBusinessCardComponent } from './elite/elite-business-card/elite-business-card.component';
 
 
+import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 
 @NgModule({
   declarations: [
@@ -138,7 +139,8 @@ import { EliteBusinessCardComponent } from './elite/elite-business-card/elite-bu
     MatSelectModule,
     MatRadioModule,
     MatNativeDateModule,
-    NgxKjuaModule
+    NgxKjuaModule,
+    FontAwesomeModule
     // AngularEditorModule,
 
   ],

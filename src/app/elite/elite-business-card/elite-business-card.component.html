@@ -5,19 +5,16 @@
 <div
     style="display: flex;flex-direction: column;align-items: center;justify-items: space-evenly;align-items: center;justify-content: center;max-width: 500px;">
 
-    <img src="./assets/img/elite/CesarVega/header.jpg" style="width: 100%;position: fixed;
-    top: 0px;">
+    <img src="./assets/img/elite/CesarVega/header.jpg" style="width: 100%;position:fixed;top: 0px;">
     <img src="./assets/img/elite/CesarVega/body.jpg" style="width: 100%;">
 
 
     <!-- BI BRAND GO BUTTON -->
-    <div class="smartRadialButton" style="position: absolute;display: flex;
-    flex-direction: column;">
+    <div class="smartRadialButton" style="position: absolute;display: flex;flex-direction: column;top: 50%;left: 50%;-ms-transform: translate(-50%, -53%);transform: translate(-50%, -53%);">
 
-        <button [ngClass]="(isGoVoteOn)?'GO':'GO_Off'" mat-icon-button (click)="goVote()">
+        <button [ngClass]="(isGoVoteOn)?'GO':'GO_Off'" style="-webkit-background-clip: text; background-clip: text;" mat-icon-button (click)="goVote()">
             C
         </button>
-
 
         <button (click)="sendQrCode('WhatsApp')" *ngIf="isRadialMenuOn" class="G4 GG" mat-icon-button>
             <mat-icon>whatsapp</mat-icon>
@@ -27,21 +24,19 @@
             <mat-icon>phone_in_talk</mat-icon>
         </button>
 
-        <button (click)="sendQrCode('Instagram')" *ngIf="isRadialMenuOn" class="G3 GG" mat-icon-button>
-            <mat-icon>photo_camera</mat-icon>
+        <button (click)="sendQrCode('Instagram')" *ngIf="isRadialMenuOn" class="G3 GG" mat-icon-button>            
+            <fa-icon [icon]="faInstagram"></fa-icon>
         </button>
 
         <button (click)="sendQrCode('Ca$hApp')" *ngIf="isRadialMenuOn" class="G1 GG" mat-icon-button>
-            <mat-icon>paid</mat-icon>
+            <mat-icon>attach_money</mat-icon>
         </button>
-
 
     </div>
 
 
 
     <img src="./assets/img/elite/CesarVega/bodyR.jpg" style="width: 100%;">
-    <img src="./assets/img/elite/CesarVega/footer.jpg" style="width: 100%;position: fixed;
-    bottom: 0px;">
+    <img src="./assets/img/elite/CesarVega/footer.jpg" style="width: 100%;position: fixed;bottom: 0px;">
 
 </div>
