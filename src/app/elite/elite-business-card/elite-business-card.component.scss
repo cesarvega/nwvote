@@ -30,9 +30,7 @@
     }
 }
 
-
-.smartRadialButton{
-
+.smartRadialButton {
     .fisheye {
         //  DEPRECATED
         position: absolute;
@@ -47,18 +45,18 @@
         transition: all 30s ease-in-out;
         animation: heartBeat 10000ms ease-in-out 100ms infinite, fadeOut 10000ms ease-in-out 100ms infinite;
     }
-    .GO {   
-        width: 100px;
-        height: 100px;
-        border: 5px solid darkblue;
-        position: absolute;
-        top: 40%;
-        left: 37%;
+    .GO {
+        width: 140px;
+        height: 140px;
+        border: 5px solid white;
+        // position: relative;
+        // top: 38%;
+        // left: 31%;
         outline: none;
-        font-size: 45px;
+        font-size: 88px;
         line-height: 31px;
-        background-color: white;
-        color: darkblue;
+        background-color: black;
+        color: white;
         font-family: auto;
         z-index: 2;
         animation: heartBeat 10000ms ease-in-out 1ms forwards;
@@ -66,23 +64,23 @@
         box-shadow: inset inset 0px 0px 5px #c1c1c1;
         @include BoxShadow(6);
     }
-    
+
     .GO_Off:hover {
         transform: scale(1.2);
     }
-    
+
     .GO_Off {
-        width: 100px;
-        height: 100px;
-        border: 5px solid white;
-        position: absolute;
-        top: 40%;
-        left: 37%;
+        width: 140px;
+        height: 140px;
+        border: 5px solid #ceab04;
+        // position: relative;
+        // top: 38%;
+        // left: 31%;
         outline: none;
-        font-size: 45px;
+        font-size: 88px;
         line-height: 30px;
-        background-color: darkblue;
-        color: white;
+        background-color: black;
+        color: #ceab04;
         font-family: auto;
         z-index: 2;
         transition: all 100ms ease-in-out;
@@ -93,65 +91,64 @@
     }
     .G1 {
         @include BoxShadow(6);
-        width: 35px;
-        height: 35px;
-        border: 3px solid darkblue;
+        width: 55px;
+        height: 55px;
+        border: 3px solid #ceab04;
         position: absolute;
-         top: 40%;
-        left: 37%;
+        top: -47%;
+        left: -7%;
         outline: none;
         font-size: 23px;
         line-height: 10px;
-        background-color: white;
-        color: darkblue;
+        background-color: black;
+        color: #ceab04;
         font-family: auto;
     }
     .G2 {
         @include BoxShadow(6);
-        width: 35px;
-        height: 35px;
-        border: 3px solid darkblue;
+        width: 55px;
+        height: 55px;
+        border: 3px solid #ceab04;
         position: absolute;
-         top: 40%;
-        left: 37%;
+        top: -15%;
+        left: 102%;
         outline: none;
         font-size: 23px;
         line-height: 10px;
-        background-color: white;
-        color: darkblue;
+        background-color: black;
+        color: #ceab04;
         font-family: auto;
     }
     .G3 {
         @include BoxShadow(6);
-        width: 35px;
-        height: 35px;
-        border: 3px solid darkblue;
+        width: 55px;
+        height: 55px;
+        border: 3px solid #ceab04;
         position: absolute;
-         top: 40%;
-        left: 37%;
+        top: -50%;
+        left: 59%;
         outline: none;
         font-size: 23px;
         line-height: 10px;
-        background-color: white;
-        color: darkblue;
+        background-color: black;
+        color: #ceab04;
         font-family: auto;
     }
     .G4 {
         @include BoxShadow(6);
-        width: 35px;
-        height: 35px;
-        border: 3px solid darkblue;
+        width: 55px;
+        height: 55px;
+        border: 3px solid #ceab04;
         position: absolute;
-         top: 40%;
-        left: 37%;
+        top: 36%;
+        left: 116%;
         outline: none;
         font-size: 23px;
         line-height: 10px;
-        background-color: white;
-        color: darkblue;
+        background-color: black;
+        color: #ceab04;
         font-family: auto;
     }
-    
 }
 
 $voteIconsColor: #008d05, #f2ce00, #f50c0c, #4c00ff, #4c00ff;

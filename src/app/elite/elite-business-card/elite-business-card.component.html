@@ -2,38 +2,40 @@
     
   </div> -->
 
-  <div style="display: flex;flex-direction: column;align-items: center;justify-items: space-evenly;align-items: center;justify-content: center;max-width: 500px;">
+<div
+    style="display: flex;flex-direction: column;align-items: center;justify-items: space-evenly;align-items: center;justify-content: center;max-width: 500px;">
 
     <img src="./assets/img/elite/CesarVega/header.jpg" style="width: 100%;position: fixed;
     top: 0px;">
     <img src="./assets/img/elite/CesarVega/body.jpg" style="width: 100%;">
 
 
-     <!-- BI BRAND GO BUTTON -->
-     <div class="smartRadialButton">
+    <!-- BI BRAND GO BUTTON -->
+    <div class="smartRadialButton" style="position: absolute;display: flex;
+    flex-direction: column;">
 
         <button [ngClass]="(isGoVoteOn)?'GO':'GO_Off'" mat-icon-button (click)="goVote()">
-            BI
+            C
         </button>
-        
 
-         <button *ngIf="isRadialMenuOn" class="G4 GG" mat-icon-button>
-        N
-    </button>
 
-    <button *ngIf="isRadialMenuOn" class="G2 GG" mat-icon-button>
-        C
-    </button>
+        <button (click)="sendQrCode('WhatsApp')" *ngIf="isRadialMenuOn" class="G4 GG" mat-icon-button>
+            <mat-icon>whatsapp</mat-icon>
+        </button>
 
-    <button *ngIf="isRadialMenuOn" class="G3 GG" mat-icon-button>
-        P
-    </button>
+        <button (click)="sendQrCode('Phone')" *ngIf="isRadialMenuOn" class="G2 GG" mat-icon-button>
+            <mat-icon>phone_in_talk</mat-icon>
+        </button>
 
-    <button *ngIf="isRadialMenuOn" class="G1 GG" mat-icon-button>
-        T
-    </button>
+        <button (click)="sendQrCode('Instagram')" *ngIf="isRadialMenuOn" class="G3 GG" mat-icon-button>
+            <mat-icon>photo_camera</mat-icon>
+        </button>
 
-   
+        <button (click)="sendQrCode('Ca$hApp')" *ngIf="isRadialMenuOn" class="G1 GG" mat-icon-button>
+            <mat-icon>paid</mat-icon>
+        </button>
+
+
     </div>
 
 
@@ -43,5 +45,3 @@
     bottom: 0px;">
 
 </div>
-   
- 
