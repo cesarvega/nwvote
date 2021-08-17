@@ -1,41 +1,42 @@
-<div class="mainContainer disable-dbl-tap-zoom">
+<div class="mainContainer disable-dbl-tap-zoom" >
     <!-- 🧐🧐🧐🧐🧐🧐🧐🧐🧐🧐🧐🧐🧐🧐🧐🧐 LOGO 🧐🧐🧐🧐🧐🧐🧐🧐🧐🧐🧐🧐🧐🧐🧐🧐🧐🧐🧐🧐🧐🧐🧐🧐🧐🧐🧐 -->
-    <div class="logo-miami">
+    <div class="logo-miami" style="background-image: url(./assets/img/elite/header.jpg);background-size: contain;">
         <img class="logo" src="./assets/img/elite/logow.png">
         <p style="animation: swing 200ms ease-in-out 100ms forwards; padding-top: 20px;">{{title}}</p><br>
         <!-- <p style="color: rgb(255, 55, 255);animation: swing 200ms ease-in-out 100ms forwards">RIDES</p> -->
     </div>
     <!-- 🧐🧐🧐🧐🧐🧐🧐🧐🧐🧐🧐🧐🧐🧐🧐🧐 END LOGO 🧐🧐🧐🧐🧐🧐🧐🧐🧐🧐🧐🧐🧐🧐🧐🧐🧐🧐🧐🧐🧐🧐🧐🧐🧐🧐🧐 -->
-    <div class="menu">
+    <div class="menu"  style="    background-image: url(./assets/img/elite/pattherBG.jpg);
+    background-size: contain;">
 
 
 
         <!-- 🤷🏻‍♂️🤷🏻‍♂️🤷🏻‍♂️🤷🏻‍♂️🤷🏻‍♂️🤷🏻‍♂️🤷🏻‍♂️🤷🏻‍♂️🤷🏻‍♂️🤷🏻‍♂️🤷🏻‍♂️🤷🏻‍♂️🤷🏻‍♂️🤷🏻‍♂️🤷🏻‍♂️🤷🏻‍♂️🤷🏻‍♂️ CLIENT INFO 🤷🏻‍♂️🤷🏻‍♂️🤷🏻‍♂️🤷🏻‍♂️🤷🏻‍♂️🤷🏻‍♂️🤷🏻‍♂️🤷🏻‍♂️🤷🏻‍♂️🤷🏻‍♂️🤷🏻‍♂️🤷🏻‍♂️🤷🏻‍♂️🤷🏻‍♂️🤷🏻‍♂️🤷🏻‍♂️🤷🏻‍♂️🤷🏻‍♂️🤷🏻‍♂️🤷🏻‍♂️🤷🏻‍♂️🤷🏻‍♂️🤷🏻‍♂️🤷🏻‍♂️🤷🏻‍♂️ -->
         <form *ngIf="isClientForm" name="loginForm" novalidate class=""
-            style="background: white; display: flex;flex-direction: column;margin:20% 20px;padding: 20px;border-radius: 5px;">
+            style="background: rgba(0, 0, 0, 0.664);display: flex;flex-direction: column;margin:20% 20px;padding: 20px;border-radius: 5px;">
             <!-- <h1 style="animation: swing 200ms ease-in-out 100ms forwards; padding-top: 20px;color: red;text-align: center;">
                Please provide your info to get promotion
             </h1> -->
             <br>
-            <h2 style="color: rgb(0, 0, 0);text-align: center;">Please provide your info to get promotion</h2>
+            <h2 style="color: rgb(255, 255, 255);text-align: center;">Please provide your info to get promotion</h2>
             <mat-form-field appearance="outline">
-                <mat-label>Name</mat-label>
-                <input matInput type="name" placeholder="John Smith" [(ngModel)]="clientName"
+                <mat-label  style="color: white;" style="color: white;">Name</mat-label>
+                <input  style="color: white;"  matInput type="name" placeholder="John Smith" [(ngModel)]="clientName"
                     [ngModelOptions]="{standalone: true}">
             </mat-form-field>
             <mat-form-field appearance="outline">
-                <mat-label>Email</mat-label>
-                <input matInput type="email" placeholder="jsmith@gmail.com" [(ngModel)]="clientEmail"
+                <mat-label  style="color: white;">Email</mat-label>
+                <input  style="color: white;" matInput type="email" placeholder="jsmith@gmail.com" [(ngModel)]="clientEmail"
                     [ngModelOptions]="{standalone: true}">
             </mat-form-field>
             <mat-form-field appearance="outline">
-                <mat-label>Phone Number</mat-label>
-                <input matInput type="tel" placeholder="3050058555"pattern="[0-9]{3}-[0-9]{3}-[0-9]{4}" [(ngModel)]="clientPhone"
+                <mat-label  style="color: white;">Phone Number</mat-label>
+                <input  style="color: white;" matInput type="tel" placeholder="3050058555"pattern="[0-9]{3}-[0-9]{3}-[0-9]{4}" [(ngModel)]="clientPhone"
                     [ngModelOptions]="{standalone: true}">
             </mat-form-field>
             
             <button *ngIf="(clientName.length > 0) && (clientEmail.length > 0) && (clientPhone.length > 0) " (click)="isClientInfoReady()"
-                mat-raised-button style="color: white;" color="primary" class="submit-button" aria-label="LOG IN">
+                mat-raised-button style="    color: white;background: #d30505;" color="primary" class="submit-button" aria-label="LOG IN">
                 SUBMIT
             </button>
         </form>
@@ -187,7 +188,7 @@
     <!-- 🎅🏻🎅🏻🎅🏻🎅🏻🎅🏻🎅🏻🎅🏻🎅🏻🎅🏻🎅🏻🎅🏻🎅🏻🎅🏻🎅🏻🎅🏻🎅🏻🎅🏻🎅🏻🎅🏻🎅🏻🎅🏻🎅🏻 END QRCODE 🎅🏻🎅🏻🎅🏻🎅🏻🎅🏻🎅🏻🎅🏻🎅🏻🎅🏻🎅🏻🎅🏻🎅🏻🎅🏻🎅🏻🎅🏻🎅🏻🎅🏻🎅🏻🎅🏻🎅🏻🎅🏻🎅🏻-->
 
     <!-- 👾👾👾👾👾👾👾👾👾👾👾👾👾👾👾👾👾👾👾 FOOTER MENU 👾👾👾👾👾👾👾👾👾👾👾👾👾👾👾👾👾👾👾👾👾 -->
-    <div class="footer">
+    <div class="footer"  style="background-image: url(./assets/img/elite/header.jpg);background-size: contain;">
         <!-- <button mat-mini-fab color="warn"
             style="color: white;outline: none;position: absolute;bottom: 19px; left: 80px;background-color: goldenrod;">
             <mat-icon style="line-height: 18px;" (click)="qrcode()">qr_code</mat-icon>

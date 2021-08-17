@@ -1,6 +1,6 @@
 <div class="mainContainer disable-dbl-tap-zoom">
 
-    <div class="logo-miami">
+    <div class="logo-miami" style="background-image: url(./assets/img/elite/header.jpg);background-size: contain;">
         <img class="logo" src="./assets/img/elite/logow.png">
         <p style="animation: swing 200ms ease-in-out 100ms forwards; padding-top: 20px;">{{title}}</p><br>
         <!-- <p style="color: rgb(255, 55, 255);animation: swing 200ms ease-in-out 100ms forwards">RIDES</p> -->
@@ -18,7 +18,8 @@
     <!-- END RECRUTER -->
 
     <!-- PROMOTER -->
-    <div class="menu">
+    <div class="menu" style="    background-image: url(./assets/img/elite/pattherBG.jpg);
+    background-size: contain;">
 
         <div class="foodCard" *ngFor="let QR of QR_CODES; index as i" style="color: white;">
             <img class="pizzaImage" style="width: 100%;" [src]="QR.imgSrc" (click)="sendQrCode(QR)">
