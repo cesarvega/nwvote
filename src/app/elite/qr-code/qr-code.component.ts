@@ -39,7 +39,7 @@ export class QrCodeComponent implements OnInit {
     const qrCode = new QRCodeStyling({
       width: 223, height: 223, data: this.dotsOptions.qrCodeRenderUrl, margin: 0,
       qrOptions: { typeNumber: 0, mode: "Byte", errorCorrectionLevel: "L" },
-      imageOptions: { hideBackgroundDots: true, imageSize: 0.4, margin: 0 },
+      imageOptions: { hideBackgroundDots: true, imageSize: 1, margin: 0 },
       dotsOptions: {
         type: "dots", color: this.dotsOptions.color, gradient: {
           type: 'linear', rotation: 0, colorStops: [{

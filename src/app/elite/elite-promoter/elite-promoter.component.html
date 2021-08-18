@@ -8,7 +8,9 @@
     <div style="display: flex;  flex-direction: column; align-items: center;background-image: url(./assets/img/elite/pattherBG.jpg);background-size: contain;" class="menu">
 
         <!-- 🤷🏻‍♂️🤷🏻‍♂️🤷🏻‍♂️🤷🏻‍♂️🤷🏻‍♂️🤷🏻‍♂️🤷🏻‍♂️🤷🏻‍♂️🤷🏻‍♂️🤷🏻‍♂️🤷🏻‍♂️🤷🏻‍♂️🤷🏻‍♂️🤷🏻‍♂️🤷🏻‍♂️🤷🏻‍♂️🤷🏻‍♂️ Promoter INFO 🤷🏻‍♂️🤷🏻‍♂️🤷🏻‍♂️🤷🏻‍♂️🤷🏻‍♂️🤷🏻‍♂️🤷🏻‍♂️🤷🏻‍♂️🤷🏻‍♂️🤷🏻‍♂️🤷🏻‍♂️🤷🏻‍♂️🤷🏻‍♂️🤷🏻‍♂️🤷🏻‍♂️🤷🏻‍♂️🤷🏻‍♂️🤷🏻‍♂️🤷🏻‍♂️🤷🏻‍♂️🤷🏻‍♂️🤷🏻‍♂️🤷🏻‍♂️🤷🏻‍♂️🤷🏻‍♂️ -->
-        <form *ngIf="isPromoterRegiter" name="loginForm" novalidate
+        
+                <!-- isPromoterRegiter -->
+        <form *ngIf="false" name="loginForm" novalidate
             style="animation: heartBeat 500ms ease-in-out 100ms forwards;background: white; display: flex;flex-direction: column;padding: 20px;border-radius: 5px;">
             <!-- <h1 style="animation: swing 200ms ease-in-out 100ms forwards; padding-top: 20px;color: red;text-align: center;">
      Please provide your info to get promotion
@@ -84,7 +86,7 @@
             <!-- <img class="pizzaImage" style="width: 100%;" [src]="item.imgSrc">
             -->
             <h1 class="title secondary-text" style="padding-top: 10px;color: whitesmoke;">{{item.venueName}}</h1>
-            <app-qr-code [qrCodeConfig]="item" *ngIf="!isPromoterRegiter"></app-qr-code>
+            <app-qr-code [qrCodeConfig]="item" *ngIf="true"></app-qr-code>
 
           
             <!-- <div class="title secondary-text" style="width: 290px;text-align: center;">{{item.description}}</div>            -->

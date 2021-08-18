@@ -1,4 +1,4 @@
-<div class="mainContainer disable-dbl-tap-zoom" >
+<div class="mainContainer disable-dbl-tap-zoom">
     <!-- 🧐🧐🧐🧐🧐🧐🧐🧐🧐🧐🧐🧐🧐🧐🧐🧐 LOGO 🧐🧐🧐🧐🧐🧐🧐🧐🧐🧐🧐🧐🧐🧐🧐🧐🧐🧐🧐🧐🧐🧐🧐🧐🧐🧐🧐 -->
     <div class="logo-miami" style="background-image: url(./assets/img/elite/header.jpg);background-size: contain;">
         <img class="logo" src="./assets/img/elite/logow.png">
@@ -6,7 +6,7 @@
         <!-- <p style="color: rgb(255, 55, 255);animation: swing 200ms ease-in-out 100ms forwards">RIDES</p> -->
     </div>
     <!-- 🧐🧐🧐🧐🧐🧐🧐🧐🧐🧐🧐🧐🧐🧐🧐🧐 END LOGO 🧐🧐🧐🧐🧐🧐🧐🧐🧐🧐🧐🧐🧐🧐🧐🧐🧐🧐🧐🧐🧐🧐🧐🧐🧐🧐🧐 -->
-    <div class="menu"  style="background-image: url(./assets/img/elite/pattherBG.jpg);background-size: contain;">
+    <div class="menu" style="background-image: url(./assets/img/elite/pattherBG.jpg);background-size: contain;">
 
 
 
@@ -19,23 +19,25 @@
             <br>
             <h2 style="color: rgb(255, 255, 255);text-align: center;">Please provide your info to get promotion</h2>
             <mat-form-field appearance="outline">
-                <mat-label  style="color: white;" style="color: white;">Name</mat-label>
-                <input  style="color: white;"  matInput type="name" placeholder="John Smith" [(ngModel)]="clientName"
+                <mat-label style="color: white;">Name</mat-label>
+                <input style="color: white;" matInput type="name" placeholder="John Smith" [(ngModel)]="clientName"
                     [ngModelOptions]="{standalone: true}">
             </mat-form-field>
             <mat-form-field appearance="outline">
-                <mat-label  style="color: white;">Email</mat-label>
-                <input  style="color: white;" matInput type="email" placeholder="jsmith@gmail.com" [(ngModel)]="clientEmail"
-                    [ngModelOptions]="{standalone: true}">
+                <mat-label style="color: white;">Email</mat-label>
+                <input style="color: white;" matInput type="email" placeholder="jsmith@gmail.com"
+                    [(ngModel)]="clientEmail" [ngModelOptions]="{standalone: true}">
             </mat-form-field>
             <mat-form-field appearance="outline">
-                <mat-label  style="color: white;">Phone Number</mat-label>
-                <input  style="color: white;" matInput type="tel" placeholder="3050058555"pattern="[0-9]{3}-[0-9]{3}-[0-9]{4}" [(ngModel)]="clientPhone"
+                <mat-label style="color: white;">Phone Number</mat-label>
+                <input style="color: white;" matInput type="tel" placeholder="3050058555"
+                    pattern="[0-9]{3}-[0-9]{3}-[0-9]{4}" [(ngModel)]="clientPhone"
                     [ngModelOptions]="{standalone: true}">
             </mat-form-field>
-            
-            <button *ngIf="(clientName.length > 0) && (clientEmail.length > 0) && (clientPhone.length > 0) " (click)="isClientInfoReady()"
-                mat-raised-button style="    color: white;background: #d30505;" color="primary" class="submit-button" aria-label="LOG IN">
+
+            <button *ngIf="(clientName.length > 0) && (clientEmail.length > 0) && (clientPhone.length > 0) "
+                (click)="isClientInfoReady()" mat-raised-button style="    color: white;background: #d1ac6f;"
+                color="primary" class="submit-button" aria-label="LOG IN">
                 SUBMIT
             </button>
         </form>
@@ -46,33 +48,32 @@
 
         <!-- 🎒🎒🎒🎒🎒🎒🎒🎒🎒🎒🎒🎒🎒🎒🎒🎒🎒 VENUE SCANNED 🎒🎒🎒🎒🎒🎒🎒🎒🎒🎒🎒🎒🎒🎒🎒🎒🎒🎒🎒🎒🎒🎒🎒🎒 -->
         <form *ngIf="isVenueForm" name="loginForm" novalidate class=""
-            style="background: white; display: flex;flex-direction: column;margin:20% 20px;padding: 20px;border-radius: 5px;">
+        style="background: rgba(0, 0, 0, 0.664);display: flex;flex-direction: column;margin:20% 20px;padding: 20px;border-radius: 5px;">
             <!-- <h1
                 style="animation: swing 200ms ease-in-out 100ms forwards; padding-top: 20px;color: red;text-align: center;">
                 Validating Promotion</h1><br> -->
 
-            <h2 style="color: black;text-align: center;">Is This {{venueName}} business?</h2>
-            <mat-radio-group style="display: flex;flex-direction: column;justify-content: center;align-items: center;"
+            <h2 style="color: #fffdfd;text-align: center;">Is This {{venueName}} business?</h2>
+            <mat-radio-group  style="display: flex;flex-direction: column;justify-content: center;align-items: center;color: white;"
                 [(ngModel)]="venueName" aria-label="Select an option" [ngModelOptions]="{standalone: true}">
-                <mat-radio-button value="'true'">YES</mat-radio-button>
-                <mat-radio-button value="'false'">NO</mat-radio-button>
+                <mat-radio-button style="color: white;" value="'true'">YES</mat-radio-button>
+                <mat-radio-button style="color: white;" value="'false'">NO</mat-radio-button>
             </mat-radio-group>
             <br>
-         
+
             <mat-form-field appearance="outline">
-                <mat-label>Number of guess</mat-label>
-                <input matInput type="tel"  [(ngModel)]="guessAmount"
-                    [ngModelOptions]="{standalone: true}">
+                <mat-label style="color: white;">Number of guess</mat-label>
+                <input style="color: white;" matInput type="tel" [(ngModel)]="guessAmount" [ngModelOptions]="{standalone: true}">
             </mat-form-field>
 
             <mat-form-field appearance="outline">
-                <mat-label>SECRET VENUE CODE</mat-label>
-                <input matInput type="text" placeholder="e.g xyzhdsrg" [(ngModel)]="secretVenueKey"
+                <mat-label style="color: white;">SECRET VENUE CODE</mat-label>
+                <input style="color: white;" matInput type="text" placeholder="e.g xyzhdsrg" [(ngModel)]="secretVenueKey"
                     [ngModelOptions]="{standalone: true}">
             </mat-form-field>
             <!-- *ngIf="(guessAmount != 0) && (secretVenueKey.length > 0) " -->
             <button *ngIf="(guessAmount != 0) && (secretVenueKey.length > 0) " (click)="validatePromotion()"
-                mat-raised-button style="color: white;" color="primary" class="submit-button" aria-label="LOG IN">
+                mat-raised-button style="    color: white;background: #d1ac6f;" color="primary" class="submit-button" aria-label="LOG IN" >
                 SUBMIT
             </button>
         </form>
@@ -81,22 +82,21 @@
 
 
         <!-- 🧶🧶🧶🧶🧶🧶🧶🧶🧶🧶🧶🧶🧶🧶🧶🧶🧶🧶🧶CLIENT🧶🧶🧶🧶🧶🧶🧶🧶🧶🧶🧶🧶🧶🧶🧶🧶🧶🧶🧶🧶🧶🧶 -->
-        <form *ngIf="isClientScanned" name="loginForm" novalidate class=""
-            style="background: white; display: flex;flex-direction: column;margin:20% 20px;padding: 20px;border-radius: 5px;">
+        <form *ngIf="isClientScanned && !popUpQRCode && !isPromtionSucess" name="loginForm" novalidate class=""
+        style="background: rgba(0, 0, 0, 0.664);display: flex;flex-direction: column;margin:20% 20px;padding: 20px;border-radius: 5px;">
             <h1
-                style="animation: swing 200ms ease-in-out 100ms forwards; padding-top: 20px;color: rgb(0, 0, 0);text-align: center;">
+                style="animation: swing 200ms ease-in-out 100ms forwards; padding-top: 20px;color: #ffffff;text-align: center;">
                 How many are you and your guess?</h1><br>
 
             <br>
 
             <mat-form-field appearance="outline">
-                <mat-label>Number of guess</mat-label>
-                <input matInput type="tel"  [(ngModel)]="clientguessAmount"
-                    [ngModelOptions]="{standalone: true}">
+                <mat-label style="color: white;">Number of guess</mat-label>
+                <input  style="color: white;" matInput type="tel" [(ngModel)]="clientguessAmount" [ngModelOptions]="{standalone: true}">
             </mat-form-field>
 
             <button *ngIf="(clientguessAmount != 0)" (click)="validateGuessAmount()" mat-raised-button
-                style="color: white;" color="primary" class="submit-button" aria-label="LOG IN">
+            style="    color: white;background: #d1ac6f;" color="primary" class="submit-button" aria-label="LOG IN">
                 SUBMIT
             </button>
         </form>
@@ -117,17 +117,68 @@
                     font-size: 41px;
                     line-height: 60px;">Thank you for your business</h1>
 
-        <div *ngIf="goToTheVenue"
-            style="display: flex;flex-direction: column;justify-content: center;align-items: center;">
+
+        <div *ngIf="goToTheVenue" style="display: flex;flex-direction: column;justify-content: center;align-items: center;">
+            <h1 style="color: white;
+            text-align: center;
+            margin-top: 10%;
+            padding: 10px;
+            font-size: 25px;
+            line-height: 40px;">DIRTY RABBY 
+            </h1>
+            <h1 style="color: white;
+            text-align: center;
+            margin-top: 10%;
+            padding: 10px;
+            font-size: 25px;
+            line-height: 40px;">PROMOTION 
+            </h1>
             <h1 style="color: white;
                     text-align: center;
                     margin-top: 10%;
                     padding: 10px;
                     font-size: 25px;
-                    line-height: 40px;">Scan this QR-CODE at the location to get the promotion
+                    line-height: 40px;">Scan this QR-CODE at DIRTY RABBY to get the promotion
             </h1>
             <img class="logo" style="width: 283px;" src="./assets/img/elite/Promoters/VenueQrCode.png">
+
+
+            <img class="logo" style="width: 283px;" src="./assets/img/elite/conejo-rojo.png">
+           
+
+
+            <img class="logo" style="width: 283px;" src="./assets/img/elite/dirtyRabby.jpg">
+            <h1 style="color: #afaeae;
+            text-align: center;
+            margin-top: 10%;
+            padding: 10px;
+            font-size: 25px;
+            line-height: 40px;">The Dirty Rabbit Wynwood is a new concept of bar “Based on a True Story”, expertly
+                designed for you to relax and enjoy our incredible craft cocktails.
+            </h1>
+            <h2 style="color: #afaeae;
+            text-align: center;
+            margin-top: 10%;
+            padding: 10px;
+            font-size: 25px;
+            line-height: 40px;">CONTACT US TO EXPERIENCE MIAMI'S BEST NIGHTCLUB
+            </h2>
+
+            <button
+                 mat-raised-button style="    color: white;background: red;"
+                color="primary" class="submit-button" aria-label="LOG IN">
+                RESERVE TABLE
+            </button>
+            <div>
+
+
+
+
+            </div>
+
         </div>
+
+
         <div *ngIf="popUpQRCode"
             style="display: flex;flex-direction: column;justify-content: center;align-items: center;">
             <h1 style="color: white;
@@ -159,11 +210,10 @@
         <br>
     </div>
 
-    
+
 
     <!-- 🎅🏻🎅🏻🎅🏻🎅🏻🎅🏻🎅🏻🎅🏻🎅🏻🎅🏻🎅🏻🎅🏻🎅🏻🎅🏻🎅🏻🎅🏻🎅🏻🎅🏻🎅🏻🎅🏻🎅🏻🎅🏻🎅🏻 QRCODE GENERATOR 🎅🏻🎅🏻🎅🏻🎅🏻🎅🏻🎅🏻🎅🏻🎅🏻🎅🏻🎅🏻🎅🏻🎅🏻🎅🏻🎅🏻🎅🏻🎅🏻🎅🏻🎅🏻🎅🏻🎅🏻🎅🏻🎅🏻-->
-    <div *ngIf="popUpQRCode" class="formFieldValidationAlert"
-        style="background: black;border: black 1px solid;padding: 20px;    position: absolute;
+    <div *ngIf="popUpQRCode" class="formFieldValidationAlert" style="background: black;border: black 1px solid;padding: 20px;    position: absolute;
         top: 470px;">
         <div style="color: green;position: absolute;bottom: -35px;font-size: 19px;">{{venueName}}</div>
 
@@ -187,7 +237,7 @@
     <!-- 🎅🏻🎅🏻🎅🏻🎅🏻🎅🏻🎅🏻🎅🏻🎅🏻🎅🏻🎅🏻🎅🏻🎅🏻🎅🏻🎅🏻🎅🏻🎅🏻🎅🏻🎅🏻🎅🏻🎅🏻🎅🏻🎅🏻 END QRCODE 🎅🏻🎅🏻🎅🏻🎅🏻🎅🏻🎅🏻🎅🏻🎅🏻🎅🏻🎅🏻🎅🏻🎅🏻🎅🏻🎅🏻🎅🏻🎅🏻🎅🏻🎅🏻🎅🏻🎅🏻🎅🏻🎅🏻-->
 
     <!-- 👾👾👾👾👾👾👾👾👾👾👾👾👾👾👾👾👾👾👾 FOOTER MENU 👾👾👾👾👾👾👾👾👾👾👾👾👾👾👾👾👾👾👾👾👾 -->
-    <div class="footer"  style="background-image: url(./assets/img/elite/header.jpg);background-size: contain;">
+    <div class="footer" style="background-image: url(./assets/img/elite/header.jpg);background-size: contain;">
         <!-- <button mat-mini-fab color="warn"
             style="color: white;outline: none;position: absolute;bottom: 19px; left: 80px;background-color: goldenrod;">
             <mat-icon style="line-height: 18px;" (click)="qrcode()">qr_code</mat-icon>

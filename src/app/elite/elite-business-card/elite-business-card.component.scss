@@ -30,6 +30,27 @@
     }
 }
 
+
+.mainContainer {
+    display: flex;
+    flex-direction: column;
+    height: 90vh;
+    width: 500px;
+    max-width: 500px;
+    justify-content: space-between;
+    align-items: center;
+    border: black solid 5px;
+    background-color: rgb(0 0 0 / 88%);
+    border-radius: 10px;
+    overflow: hidden;
+
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    -ms-transform: translate(-50%, -53%);
+    transform: translate(-50%, -53%);
+    @include BoxShadow(6);}
+
 .smartRadialButton {
     .fisheye {
         //  DEPRECATED

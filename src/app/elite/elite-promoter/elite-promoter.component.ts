@@ -52,6 +52,22 @@ export class ElitePromoterComponent implements OnInit {
         promoterName: 'Cesar Vega',
         venues: [
           {
+            venueId: 'dirtyRabbit ',
+            venueName: 'DIRTY RABBY ',
+            description: 'DIRTY RABBY ',
+            imgSrc: './assets/img/elite/CASATUA.jpg',
+            qrCodeConfig: {
+              color1: '#ff0000',
+              color2: '#460606',
+              background: '#fff',
+              cornersSquare: '#000',
+              logo: './assets/img/elite/conejo-rojo.png',
+              imageBackground: './assets/img/elite/Promoters/redw.png',
+              qrCodeRenderUrl: 'http://mrvrman.com/elite/UX/' + 'cesarvega.col@gmail.com' + '/client/dirtyRabbit'
+            }
+
+          },
+          {
             venueId: 'baoli',
             venueName: 'BAOLI',
             description: 'Italian Restaurant',
@@ -98,20 +114,20 @@ export class ElitePromoterComponent implements OnInit {
             }
           },
           {
-            venueId: 'casatua',
-            venueName: 'CASATUA',
-            description: 'CASATUA',
-            imgSrc: './assets/img/elite/CASATUA.jpg',
+            venueId: 'fgh',
+            venueName: 'TIENDITA',
+            description: 'TIENDITA',
+            imgSrc: './assets/img/elite/TIENDITA.jpg',
             qrCodeConfig: {
-              color1: '#ff0000',
-              color2: '#460606',
-              background: '#fff',
-              cornersSquare: '#000',
-              logo: './assets/img/elite/logo.png',
-              imageBackground: './assets/img/elite/Promoters/redw.png',
-              qrCodeRenderUrl: 'http://mrvrman.com/elite/UX/' + 'cesarvega.col@gmail.com' + '/client/casatua'
+              color1: '#9d64a1',
+              color2: '#decddf',
+              background: '#000000',
+              cornersSquare: '#fff',
+              logo: './assets/img/elite/logow.png',
+              imageBackground: './assets/img/elite/Promoters/purpleBlack.png',
+              qrCodeRenderUrl: 'http://mrvrman.com/elite/UX/' + 'cesarvega.col@gmail.com' + '/client/baoli'
             }
-
+  
           }
         ],
         promotions: [
@@ -146,23 +162,8 @@ export class ElitePromoterComponent implements OnInit {
             imageBackground: './assets/img/elite/Promoters/purpleBlack.png',
             qrCodeRenderUrl: 'http://mrvrman.com/elite/UX/' + 'cesarvega.col@gmail.com' + '/client/baoli'
           }
-        },
-        {
-          venueId: 'fgh',
-          venueName: 'TIENDITA',
-          description: 'TIENDITA',
-          imgSrc: './assets/img/elite/TIENDITA.jpg',
-          qrCodeConfig: {
-            color1: '#9d64a1',
-            color2: '#decddf',
-            background: '#000000',
-            cornersSquare: '#fff',
-            logo: './assets/img/elite/logow.png',
-            imageBackground: './assets/img/elite/Promoters/purpleBlack.png',
-            qrCodeRenderUrl: 'http://mrvrman.com/elite/UX/' + 'cesarvega.col@gmail.com' + '/client/baoli'
-          }
-
         }
+        
         ],
         promotions: [
           {
