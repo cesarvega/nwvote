@@ -72,6 +72,7 @@ import { EliteBusinessCardComponent } from './elite/elite-business-card/elite-bu
 
 
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
+import { ServiceWorkerModule } from '@angular/service-worker';
 
 @NgModule({
   declarations: [
@@ -140,7 +141,8 @@ import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
     MatRadioModule,
     MatNativeDateModule,
     NgxKjuaModule,
-    FontAwesomeModule
+    FontAwesomeModule,
+    ServiceWorkerModule.register('ngsw-worker.js', { enabled: environment.production })
     // AngularEditorModule,
 
   ],

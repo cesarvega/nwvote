@@ -45,16 +45,11 @@
         overflow: hidden;
 
         position: absolute;
-        top: 53%;
+        top: 50%;
         left: 50%;
         -ms-transform: translate(-50%, -53%);
         transform: translate(-50%, -53%);
         @include BoxShadow(6);
-
-        .body-bg {
-            width: 100%;
-            height: 90vh;
-        }
     }
 }
 
@@ -65,6 +60,15 @@
 }
 
 .smartRadialButton {
+    position: fixed;
+    display: flex;
+    flex-direction: column;
+    top: 38%;
+    left: 31%;
+    -ms-transform: translate(-50%, -53%);
+    transform: translate(-50%, -53%);
+    animation: backInDown 1500ms ease-in-out 0ms normal forwards;
+
     .GO {
         width: 140px;
         height: 140px;
@@ -108,7 +112,7 @@
         text-shadow: 0 0.04em 0.04em rgba(247, 203, 8, 0.3);
         box-shadow: inset inset 0px 0px 5px #c1c1c1;
         @include BoxShadow(6);
-        // animation: heartBeat 10000ms ease-in-out 20ms infinite;
+        animation: tada 500ms ease-in-out 20ms forwards;
     }
     .G1 {
         @include BoxShadow(6);
@@ -201,4 +205,8 @@ $voteIconsColor: #008d05, #f2ce00, #f50c0c, #4c00ff, #4c00ff;
         transform: scale(1.2);
         background: white;
     }
+}
+
+.disable-dbl-tap-zoom {
+    touch-action: manipulation;
 }

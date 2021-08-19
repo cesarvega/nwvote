@@ -1,20 +1,29 @@
-<!-- <div id="example1" style="background: url('./assets/img/elite/CesarVega/charlieVBG.jpg')">
-    
-  </div> -->
+
+<div class="mainContainer disable-dbl-tap-zoom" style="z-index: 999;color: ivory;">
+    Settings
+</div>
 <div class="mainContainer disable-dbl-tap-zoom">
-    <div
-        style="display: flex;flex-direction: column;align-items: center;justify-items: space-evenly;align-items: center;justify-content: center;max-width: 500px;">
-        <h1 style="font-family: Anggraini;color: #d5ad6d;position: absolute;top: 82px;z-index: 1;">{{title}}</h1>
-        <img src="./assets/img/elite/CesarVega/header.jpg"style="width: 100%;position:fixed;top: 0px;max-width: 500px;">
-        <img src="./assets/img/elite/CesarVega/body.jpg" style="width: 368px;
-        position: absolute;
-        top: 152px;
-        z-index: -1;">
+    <div style="display: flex;
+    flex-direction: column;
+    align-items: center;
+    max-width: 500px;">
+
+        <h1 style="font-family: Anggraini;
+        color: #d5ad6d;
+        position: fixed;
+        top: 52px;
+        z-index: 1;
+        font-size: 70px;animation: backInDown 1000ms ease-in-out 0ms normal forwards;">{{title}}</h1>
+
+        <img src="./assets/img/elite/CesarVega/header.jpg"
+            style="width: 100%;position:fixed;top: 0px;max-width: 500px;">
+
+
+        <img src="./assets/img/elite/CesarVega/body.jpg" style="width: 100%;height: 100%;">
 
 
         <!-- BI BRAND GO BUTTON -->
-        <div class="smartRadialButton"
-            style="position: absolute;display: flex;flex-direction: column;top: 50%;left: 50%;-ms-transform: translate(-50%, -53%);transform: translate(-50%, -53%);">
+        <div class="smartRadialButton" style="">
 
             <button [ngClass]="(isGoVoteOn)?'GO':'GO_Off'" style="-webkit-background-clip: text; background-clip: text;"
                 mat-icon-button (click)="goVote()">
@@ -38,25 +47,31 @@
             </button>
 
         </div>
-      
-       
-        <div style="    font-family: oprah;
+
+
+        <h3 style="    
+        font-family: caviar;
         color: #d5ad6d;
-        position: absolute;
-        width: 100%;
-        height:100px;
-        bottom: 65px;
-        z-index: 1;
-        padding: 10px;
-        margin: 10px;
-        font-size: 20px; line-height: 1.3em !important;overflow: visible;text-overflow: inherit;text-size-adjust: 30;">{{username}}</div>
-
-
-        <h3 style="font-family: caviar;color: #d5ad6d;position: absolute;padding-top: 80px;bottom: 40px;z-index: 1;">{{userDescription}}</h3>
+        position: fixed;
+        bottom: 16px;
+        z-index: 1;animation:backInUp 3000ms ease-in-out 0ms normal forwards;">{{userDescription}}</h3>
 
         <!-- <img src="./assets/img/elite/CesarVega/bodyR.jpg" style="width: 100%;"> -->
         <img src="./assets/img/elite/CesarVega/footer.jpg"
             style="width: 100%;position: fixed;bottom: 0px;max-width: 500px;">
-  
+
+
+        <div style="font-family:Anggraini;
+            color: #d5ad6d;
+            position: fixed;
+            text-align: center;
+            width: 100%;
+            height: 220px;
+            bottom: -126px;
+            z-index: 1;
+            font-size: 60px;animation:backInUp 2500ms ease-in-out 0ms normal forwards;">
+            {{username}}</div>
+
     </div>
 </div>
+
