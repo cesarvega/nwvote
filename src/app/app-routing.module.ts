@@ -91,7 +91,7 @@ const routes: Routes = [
 
   {
     path: '',
-    redirectTo: 'dash',
+    redirectTo: 'business-card',
     pathMatch: 'full'
   }
 ];
