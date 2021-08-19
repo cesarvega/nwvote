@@ -9,6 +9,10 @@ export class EliteBusinessCardComponent implements OnInit {
   isGoVoteOn = true;
   isRadialMenuOn = false;
   faInstagram = faInstagram
+  logoInitial = 'C'
+  username = 'Charlie V'
+  userDescription = 'CEO'
+  title = 'Elite'
   constructor() { }
 
   ngOnInit(): void {

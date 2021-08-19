@@ -4,10 +4,12 @@
 <div class="mainContainer disable-dbl-tap-zoom">
     <div
         style="display: flex;flex-direction: column;align-items: center;justify-items: space-evenly;align-items: center;justify-content: center;max-width: 500px;">
-
-        <img src="./assets/img/elite/CesarVega/header.jpg"
-            style="width: 100%;position:fixed;top: 0px;max-width: 500px;">
-        <img src="./assets/img/elite/CesarVega/body.jpg" style="width: 100%;">
+        <h1 style="font-family: Anggraini;color: #d5ad6d;position: absolute;top: 82px;z-index: 1;">{{title}}</h1>
+        <img src="./assets/img/elite/CesarVega/header.jpg"style="width: 100%;position:fixed;top: 0px;max-width: 500px;">
+        <img src="./assets/img/elite/CesarVega/body.jpg" style="width: 368px;
+        position: absolute;
+        top: 152px;
+        z-index: -1;">
 
 
         <!-- BI BRAND GO BUTTON -->
@@ -16,7 +18,7 @@
 
             <button [ngClass]="(isGoVoteOn)?'GO':'GO_Off'" style="-webkit-background-clip: text; background-clip: text;"
                 mat-icon-button (click)="goVote()">
-                C
+                {{logoInitial}}
             </button>
 
             <button (click)="sendQrCode('WhatsApp')" *ngIf="isRadialMenuOn" class="G4 GG" mat-icon-button>
@@ -36,12 +38,25 @@
             </button>
 
         </div>
+      
+       
+        <div style="    font-family: oprah;
+        color: #d5ad6d;
+        position: absolute;
+        width: 100%;
+        height:100px;
+        bottom: 65px;
+        z-index: 1;
+        padding: 10px;
+        margin: 10px;
+        font-size: 20px; line-height: 1.3em !important;overflow: visible;text-overflow: inherit;text-size-adjust: 30;">{{username}}</div>
 
 
+        <h3 style="font-family: caviar;color: #d5ad6d;position: absolute;padding-top: 80px;bottom: 40px;z-index: 1;">{{userDescription}}</h3>
 
-        <img src="./assets/img/elite/CesarVega/bodyR.jpg" style="width: 100%;">
+        <!-- <img src="./assets/img/elite/CesarVega/bodyR.jpg" style="width: 100%;"> -->
         <img src="./assets/img/elite/CesarVega/footer.jpg"
             style="width: 100%;position: fixed;bottom: 0px;max-width: 500px;">
-
+  
     </div>
 </div>

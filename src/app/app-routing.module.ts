@@ -25,69 +25,69 @@ const routes: Routes = [
     component: EliteBusinessCardComponent
   },
 
-  {//ELITE BUSINESS
-    path: 'business',
-    component: EliteBusinessComponent
-  },
-  {//ELITE BUSINESS WITH ID
-    path: 'business/:id',
-    component: EliteBusinessComponent
-  },
+  // {//ELITE BUSINESS
+  //   path: 'business',
+  //   component: EliteBusinessComponent
+  // },
+  // {//ELITE BUSINESS WITH ID
+  //   path: 'business/:id',
+  //   component: EliteBusinessComponent
+  // },
 
 
-  /***
-   * ELITE MARKETING APP
-   */
+  // /***
+  //  * ELITE MARKETING APP
+  //  */
 
-  {//ELITE VENUE
-    path: 'venue',
-    component: EliteVenueComponent
-  },
-  {//ELITE VENUE WITH ID
-    path: 'venue/:id',
-    component: EliteVenueComponent
-  },
+  // {//ELITE VENUE
+  //   path: 'venue',
+  //   component: EliteVenueComponent
+  // },
+  // {//ELITE VENUE WITH ID
+  //   path: 'venue/:id',
+  //   component: EliteVenueComponent
+  // },
 
-  {//ELITE PROMOTER 🙋‍♂️🙋‍♂️🙋‍♂️🙋‍♂️🙋‍♂️🙋‍♂️🙋‍♂️🙋‍♂️🙋‍♂️
-    path: 'promoter',
-    component: ElitePromoterComponent,
-    // canActivate: [EliteAuthGuard]
-  },
-  {//ELITE PROMOTER WITH ID
-    path: 'promoter/:id',
-    component: ElitePromoterComponent
-  },
+  // {//ELITE PROMOTER 🙋‍♂️🙋‍♂️🙋‍♂️🙋‍♂️🙋‍♂️🙋‍♂️🙋‍♂️🙋‍♂️🙋‍♂️
+  //   path: 'promoter',
+  //   component: ElitePromoterComponent,
+  //   // canActivate: [EliteAuthGuard]
+  // },
+  // {//ELITE PROMOTER WITH ID
+  //   path: 'promoter/:id',
+  //   component: ElitePromoterComponent
+  // },
 
-  {//ELITE PROMOTION 👑👑👑👑👑👑👑👑👑👑
-    path: 'promotion',
-    component: ElitePromotionComponent
-  },
-  {//ELITE PROMOTION WITH ID
-    path: 'promotion/:id',
-    component: ElitePromotionComponent
-  },
+  // {//ELITE PROMOTION 👑👑👑👑👑👑👑👑👑👑
+  //   path: 'promotion',
+  //   component: ElitePromotionComponent
+  // },
+  // {//ELITE PROMOTION WITH ID
+  //   path: 'promotion/:id',
+  //   component: ElitePromotionComponent
+  // },
 
-  {//ELITE DASHBOARD
-    path: 'dash',
-    component: EliteDashComponent
-  },
-  {//ELITE DASHBOARD
-    path: 'qr',
-    component: EliteQrCodeDesignerComponent
-  },
-  {//ELITE CORPORATE
-    path: 'corporate',
-    component: EliteCorporateComponent
-  },
+  // {//ELITE DASHBOARD
+  //   path: 'dash',
+  //   component: EliteDashComponent
+  // },
+  // {//ELITE DASHBOARD
+  //   path: 'qr',
+  //   component: EliteQrCodeDesignerComponent
+  // },
+  // {//ELITE CORPORATE
+  //   path: 'corporate',
+  //   component: EliteCorporateComponent
+  // },
 
-  {//ELITE SYSTEM UX UI
-    path: 'UX/:id/:type',
-    component: EliteComponent
-  },
-  {//ELITE SYSTEM UX UI
-    path: 'UX/:id/:type/:venueId',
-    component: EliteComponent
-  },
+  // {//ELITE SYSTEM UX UI
+  //   path: 'UX/:id/:type',
+  //   component: EliteComponent
+  // },
+  // {//ELITE SYSTEM UX UI
+  //   path: 'UX/:id/:type/:venueId',
+  //   component: EliteComponent
+  // },
 
   {
     path: '',
