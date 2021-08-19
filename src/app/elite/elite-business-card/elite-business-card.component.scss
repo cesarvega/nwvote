@@ -30,27 +30,6 @@
     }
 }
 
-
-.mainContainer {
-    display: flex;
-    flex-direction: column;
-    height: 90vh;
-    width: 500px;
-    max-width: 500px;
-    justify-content: space-between;
-    align-items: center;
-    border: black solid 5px;
-    background-color: rgb(0 0 0 / 88%);
-    border-radius: 10px;
-    overflow: hidden;
-
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    -ms-transform: translate(-50%, -53%);
-    transform: translate(-50%, -53%);
-    @include BoxShadow(6);}
-
 .smartRadialButton {
     .fisheye {
         //  DEPRECATED
@@ -69,7 +48,7 @@
     .GO {
         width: 140px;
         height: 140px;
-        border: 5px solid #fffefeb2;
+        border: 5px solid white;
         // position: relative;
         // top: 38%;
         // left: 31%;
@@ -77,7 +56,7 @@
         font-size: 88px;
         line-height: 31px;
         background-color: black;
-        color: #fffefeb2;
+        color: white;
         font-family: auto;
         z-index: 2;
         animation: heartBeat 10000ms ease-in-out 1ms forwards;
@@ -93,20 +72,19 @@
     .GO_Off {
         width: 140px;
         height: 140px;
-        border: 5px solid #d1ac6f;
-        color: #d5ad6d; /*if no support for background-clip*/        
-       
-        display:inline;
+        border: 5px solid #ceab04;
         // position: relative;
         // top: 38%;
         // left: 31%;
         outline: none;
         font-size: 88px;
         line-height: 30px;
+        background-color: black;
+        color: #ceab04;
         font-family: auto;
         z-index: 2;
         transition: all 100ms ease-in-out;
-        text-shadow: 0 0.04em 0.04em rgba(247, 203, 8, 0.3);
+        text-shadow: 0 0.04em 0.04em rgba(0, 0, 0, 0.35);
         box-shadow: inset inset 0px 0px 5px #c1c1c1;
         @include BoxShadow(6);
         // animation: heartBeat 10000ms ease-in-out 20ms infinite;
@@ -115,75 +93,90 @@
         @include BoxShadow(6);
         width: 55px;
         height: 55px;
-        border: 3px solid #d1ac6f;
+        border: 3px solid #ceab04;
         position: absolute;
-        top: -53%;
-        left: -14%;
+        top: -47%;
+        left: -7%;
         outline: none;
         font-size: 23px;
         line-height: 10px;
         background-color: black;
-        color: #d5ad6d;
+        color: #ceab04;
         font-family: auto;
-        text-shadow: 0 0.04em 0.04em rgba(0, 0, 0, 0.35);
-        box-shadow: inset inset 0px 0px 5px #c1c1c1;
-        
     }
     .G2 {
         @include BoxShadow(6);
         width: 55px;
         height: 55px;
-        border: 3px solid #d1ac6f;
+        border: 3px solid #ceab04;
         position: absolute;
-        top: -31%;
-        left: 107%;
+        top: -15%;
+        left: 102%;
         outline: none;
         font-size: 23px;
         line-height: 10px;
         background-color: black;
-        color: #d5ad6d;
+        color: #ceab04;
         font-family: auto;
-        text-shadow: 0 0.04em 0.04em rgba(0, 0, 0, 0.35);
-        box-shadow: inset inset 0px 0px 5px #c1c1c1;
     }
     .G3 {
         @include BoxShadow(6);
         width: 55px;
         height: 55px;
-        border: 3px solid #d1ac6f;
+        border: 3px solid #ceab04;
         position: absolute;
-        top: -61%;
-        left: 52%;
+        top: -50%;
+        left: 59%;
         outline: none;
         font-size: 23px;
         line-height: 10px;
         background-color: black;
-        color: #d5ad6d;
+        color: #ceab04;
         font-family: auto;
-        text-shadow: 0 0.04em 0.04em rgba(0, 0, 0, 0.35);
-        box-shadow: inset inset 0px 0px 5px #c1c1c1;
     }
     .G4 {
         @include BoxShadow(6);
         width: 55px;
         height: 55px;
-        border: 3px solid #d1ac6f;
+        border: 3px solid #ceab04;
         position: absolute;
-        top: 32%;
-        left: 125%;
+        top: 36%;
+        left: 116%;
         outline: none;
         font-size: 23px;
         line-height: 10px;
         background-color: black;
-        color: #d5ad6d;
+        color: #ceab04;
         font-family: auto;
-        text-shadow: 0 0.04em 0.04em rgba(0, 0, 0, 0.35);
-        box-shadow: inset inset 0px 0px 5px #c1c1c1;
     }
 }
 
 $voteIconsColor: #008d05, #f2ce00, #f50c0c, #4c00ff, #4c00ff;
 @for $i from 1 through 5 {
+    .voteIconButton:nth-child(#{$i}) {
+        // color: nth($voteIconsColor, $i);
+        animation: fadeIn 0.2s ease-in-out backwards;
+        animation-iteration-count: 1;
+        animation-delay: $i * 0.15 + s;
+        @include BoxShadow(6);
+    }
+
+    .voteIconButton:hover:nth-child(#{$i}) {
+        color: nth($voteIconsColor, $i);
+        transition: all 2ms ease-in-out;
+        position: relative;
+        top: -2px;
+        transform: scale(1.2);
+        background: white;
+    }
+
+    .voteOverviewBox:nth-child(#{$i}) {
+        // color: nth($voteIconsColor, $i);
+        animation: fadeIn 0.2s ease-in-out backwards;
+        animation-iteration-count: 1;
+        animation-delay: $i * 0.15 + s;
+    }
+
     .GG:nth-child(#{$i}) {
         // color: nth($voteIconsColor, $i);
         animation: fadeIn 0.2s ease-in-out backwards;

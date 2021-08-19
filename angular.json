@@ -127,6 +127,10 @@
               "devServerTarget": "nw-vote:serve:production"
             }
           }
+        },
+        "deploy": {
+          "builder": "@angular/fire:deploy",
+          "options": {}
         }
       }
     }
