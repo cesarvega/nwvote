@@ -9,10 +9,11 @@ import { faInstagram } from '@fortawesome/free-brands-svg-icons';
 export class EliteBusinessCardComponent implements OnInit, AfterViewInit {
   isGoVoteOn = true;
   isRadialMenuOn = false;
+  isSettingsOn = false;
   faInstagram = faInstagram
   logoInitial = 'C'
   username = 'Charlie V'
-  userDescription = 'CEO'
+  userDescription = 'MEMBER CLUB'
   title = 'Elite'
   promoterId: any;
   qrcodeType: any;
@@ -21,6 +22,14 @@ export class EliteBusinessCardComponent implements OnInit, AfterViewInit {
   mute: any;
   audiofile: string;
   soundVolume = 0;
+  themeClass = 'aqua'
+  theme = [{
+    header:'./assets/img/elite/CesarVega/headerMermaid.jpg',
+    body:'./assets/img/elite/CesarVega/bodYMermaid1.jpg',
+    footer:'./assets/img/elite/CesarVega/footerMermaid.jpg',
+    logo:'',
+    fontType:''
+  }]
   constructor( private paramsRouter: ActivatedRoute,) { }
 
   ngOnInit(): void {
@@ -38,6 +47,7 @@ export class EliteBusinessCardComponent implements OnInit, AfterViewInit {
   goVote() {
     this.isGoVoteOn = !this.isGoVoteOn;
     this.isRadialMenuOn = !this.isRadialMenuOn;
+    this.isSettingsOn = !this.isSettingsOn;
   }
   sendQrCode(item) {
 
