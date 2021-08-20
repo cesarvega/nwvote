@@ -11,10 +11,7 @@ export class EliteBusinessCardComponent implements OnInit, AfterViewInit {
   isRadialMenuOn = false;
   isSettingsOn = false;
   faInstagram = faInstagram
-  logoInitial = 'C'
-  username = 'Charlie V'
-  userDescription = 'MEMBER CLUB'
-  title = 'Elite'
+
   promoterId: any;
   qrcodeType: any;
   VenueId: any;
@@ -22,15 +19,35 @@ export class EliteBusinessCardComponent implements OnInit, AfterViewInit {
   mute: any;
   audiofile: string;
   soundVolume = 0;
-  themeClass = 'aqua'
-  theme = [{
-    header:'./assets/img/elite/CesarVega/headerMermaid.jpg',
-    body:'./assets/img/elite/CesarVega/bodYMermaid1.jpg',
-    footer:'./assets/img/elite/CesarVega/footerMermaid.jpg',
-    logo:'',
-    fontType:''
+  themeIndex = 0;
+  userIndex = 0;
+
+  user = [{
+    logoInitial: 'C',
+    username: 'Atrea M',
+    userDescription: 'CLUB MEMBER',
+    title: 'Elite'
   }]
-  constructor( private paramsRouter: ActivatedRoute,) { }
+
+  theme = [
+    {
+      themeName: 'elite',
+      header: './assets/img/elite/CesarVega/header.jpg',
+      body: './assets/img/elite/CesarVega/body.jpg',
+      footer: './assets/img/elite/CesarVega/footer.jpg',      
+      fontFamily: '',
+      fontSize:'10px'
+    },
+    {
+      themeName: 'aqua',
+      header: './assets/img/elite/CesarVega/headerMermaid.jpg',
+      body: './assets/img/elite/CesarVega/bodYMermaid1.jpg',
+      footer: './assets/img/elite/CesarVega/footerMermaid.jpg',      
+      fontFamily: '',
+      fontSize:'10px'
+    }
+  ]
+  constructor(private paramsRouter: ActivatedRoute,) { }
 
   ngOnInit(): void {
     this.paramsRouter.params.subscribe(params => {
@@ -39,9 +56,20 @@ export class EliteBusinessCardComponent implements OnInit, AfterViewInit {
       this.VenueId = params['venueId'];
     });
   }
-  
+
   ngAfterViewInit(): void {
-   
+
+  
+  }
+
+  changeTheme() {
+    if (this.themeIndex == 0) {
+
+      this.themeIndex = 1;
+    } else {
+
+      this.themeIndex = 0;
+    }
   }
 
   goVote() {
@@ -51,7 +79,7 @@ export class EliteBusinessCardComponent implements OnInit, AfterViewInit {
   }
   sendQrCode(item) {
 
-  //  this.playSound('02 Alerts and Notifications/alert_high-intensity.wav', this.soundVolume);
+    //  this.playSound('02 Alerts and Notifications/alert_high-intensity.wav', this.soundVolume);
 
     if (item === 'Instagram') {
       window.open('https://www.instagram.com/cesarvega_2020/', "_parent");
