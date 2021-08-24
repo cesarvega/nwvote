@@ -1,9 +1,9 @@
 import { MESSAGES_CONTAINER_ID } from '@angular/cdk/a11y';
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit ,Pipe, PipeTransform } from '@angular/core';
 import { ThemePalette } from '@angular/material/core';
 import { ActivatedRoute } from '@angular/router';
 import { EliteService } from '../elite.service';
-
+import { DatePipe } from '@angular/common';
 @Component({
   selector: 'app-elite-dash',
   templateUrl: './elite-dash.component.html',
@@ -71,5 +71,15 @@ export class EliteDashComponent implements OnInit {
   qrcode() {
     this.popUpQRCode = !this.popUpQRCode;
 
+  }
+}
+
+
+@Pipe({
+  name: 'formatDate',
+})
+export class dateFormatPipe implements PipeTransform {
+  transform(value: any) {
+      return new Date(value.seconds*1000).toString().split('(Eastern Daylight Time)')
   }
 }

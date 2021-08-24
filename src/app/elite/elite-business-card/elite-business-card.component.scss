@@ -172,7 +172,6 @@
             // left: 31%;
             outline: none;
             font-size: 88px;
-            line-height: 31px;
             // background-color: black;
             color: $fontColor;
             font-family: auto;
@@ -201,7 +200,6 @@
             // left: 31%;
             outline: none;
             font-size: 88px;
-            line-height: 30px;
             font-family: auto;
             z-index: 2;
             transition: all 100ms ease-in-out;
@@ -402,6 +400,232 @@
             line-height: 31px;
             // background-color: black;
             color: #000;
+            font-family: auto;
+            z-index: 2;
+            animation: heartBeat 10000ms ease-in-out 1ms forwards;
+            text-shadow: 0 0.04em 0.04em rgba(0, 0, 0, 0.35);
+            box-shadow: inset inset 0px 0px 5px #c1c1c1;
+            @include BoxShadow(6);
+        }
+
+        .GO_Off:hover {
+            transform: scale(1.2);
+        }
+
+        .GO_Off {
+            width: 140px;
+            height: 140px;
+            border: 5px solid #d1ac6f;
+            color: #d5ad6d; /*if no support for background-clip*/
+            display: inline;
+            background: #000;
+            // position: relative;
+            // top: 38%;
+            // left: 31%;
+            outline: none;
+            font-size: 88px;
+            line-height: 30px;
+            font-family: auto;
+            z-index: 2;
+            transition: all 100ms ease-in-out;
+            text-shadow: 0 0.04em 0.04em rgba(247, 203, 8, 0.3);
+            box-shadow: inset inset 0px 0px 5px #c1c1c1;
+            @include BoxShadow(6);
+            animation: tada 500ms ease-in-out 20ms forwards;
+        }
+        .G1 {
+            @include BoxShadow(6);
+            width: 55px;
+            height: 55px;
+            border: 3px solid #d1ac6f;
+            position: absolute;
+            top: -53%;
+            left: -14%;
+            outline: none;
+            font-size: 23px;
+            line-height: 10px;
+            background-color: black;
+            color: #d5ad6d;
+            font-family: auto;
+            text-shadow: 0 0.04em 0.04em rgba(0, 0, 0, 0.35);
+            box-shadow: inset inset 0px 0px 5px #c1c1c1;
+        }
+        .G2 {
+            @include BoxShadow(6);
+            width: 55px;
+            height: 55px;
+            border: 3px solid #d1ac6f;
+            position: absolute;
+            top: -31%;
+            left: 107%;
+            outline: none;
+            font-size: 23px;
+            line-height: 10px;
+            background-color: black;
+            color: #d5ad6d;
+            font-family: auto;
+            text-shadow: 0 0.04em 0.04em rgba(0, 0, 0, 0.35);
+            box-shadow: inset inset 0px 0px 5px #c1c1c1;
+        }
+        .G3 {
+            @include BoxShadow(6);
+            width: 55px;
+            height: 55px;
+            border: 3px solid #d1ac6f;
+            position: absolute;
+            top: -61%;
+            left: 52%;
+            outline: none;
+            font-size: 23px;
+            line-height: 10px;
+            background-color: black;
+            color: #d5ad6d;
+            font-family: auto;
+            text-shadow: 0 0.04em 0.04em rgba(0, 0, 0, 0.35);
+            box-shadow: inset inset 0px 0px 5px #c1c1c1;
+        }
+        .G4 {
+            @include BoxShadow(6);
+            width: 55px;
+            height: 55px;
+            border: 3px solid #d1ac6f;
+            position: absolute;
+            top: 32%;
+            left: 125%;
+            outline: none;
+            font-size: 23px;
+            line-height: 10px;
+            background-color: black;
+            color: #d5ad6d;
+            font-family: auto;
+            text-shadow: 0 0.04em 0.04em rgba(0, 0, 0, 0.35);
+            box-shadow: inset inset 0px 0px 5px #c1c1c1;
+        }
+    }
+
+    $voteIconsColor: #008d05, #f2ce00, #f50c0c, #4c00ff, #4c00ff;
+    @for $i from 1 through 5 {
+        .GG:nth-child(#{$i}) {
+            // color: nth($voteIconsColor, $i);
+            animation: fadeIn 0.2s ease-in-out backwards;
+            animation-iteration-count: 1;
+            animation-delay: $i * 0.15 + s;
+            text-shadow: 0 0.04em 0.04em rgba(0, 0, 0, 0.35);
+            box-shadow: inset inset 0px 0px 5px #c1c1c1;
+        }
+
+        .GGOut:nth-child(#{$i}) {
+            animation: fadeOut 0.2s ease-in-out backwards;
+            animation-iteration-count: 1;
+            animation-delay: $i * 0.15 + s;
+        }
+
+        .GG:hover:nth-child(#{$i}) {
+            transform: scale(1.2);
+            background: white;
+            animation: bounceIn 500ms ease-in-out 20ms forwards;
+        }
+    }
+}
+
+.elite-pink {
+    $borderColor: #c14eb7;
+    $fontColor: #e76876;
+    $fontSecondColor: #dabd92;;
+    $backgroundColor: antiquewhite;
+
+    .header {
+        width: 100%;
+        position: fixed;
+        top: 0px;
+        max-width: 500px;
+        z-index: 1;
+        border: $borderColor 3px solid;
+        border-bottom-right-radius: 20px;
+        border-bottom-left-radius: 20px;
+        @include BoxShadow(12);
+    }
+
+    .title {
+        font-family: Anggraini;
+        color: $fontColor;
+        position: fixed;
+        top: 79px;
+        /* background: black; */
+        height: 100px;
+        /* padding: 44px; */
+        /* border: aqua 3px solid; */
+        border-radius: 10px;
+        z-index: 99;
+        font-weight: 500;
+        font-size: 70px;
+        animation: backInDown 1000ms ease-in-out 0ms normal forwards;
+        // @include BoxShadow(12);
+    }
+
+    .name {
+        font-family: Anggraini;
+        color: $fontColor;
+        position: fixed;
+        text-align: center;
+        width: 90%;
+        // background: antiquewhite;
+        height: 100px;
+        padding: 40px 16px 0 0;
+        // border: aqua 3px solid;
+        border-radius: 10px;
+        /* height: 220px; */
+        bottom: 29px;
+        z-index: 1;
+        font-weight: 500;
+        font-size: 60px;
+        animation: backInUp 2500ms ease-in-out 0ms normal forwards;
+        // @include BoxShadow(12);
+    }
+
+    .description {
+        font-family: caviar;
+        color: $fontSecondColor;
+        position: fixed;
+        bottom: 16px;
+        font-weight: 900;
+        z-index: 1;
+        animation: backInUp 3000ms ease-in-out 0ms normal forwards;
+    }
+
+    .footer {
+        width: 100%;
+        position: fixed;
+        bottom: 0px;
+        max-width: 500px;
+        border: $borderColor 3px solid;
+        border-top-right-radius: 20px;
+        border-top-left-radius: 20px;
+        @include BoxShadow(12);
+    }
+    .smartRadialButton {
+        position: fixed;
+        display: flex;
+        flex-direction: column;
+        top: 38%;
+        left: 31%;
+        -ms-transform: translate(-50%, -53%);
+        transform: translate(-50%, -53%);
+        animation: backInDown 1500ms ease-in-out 0ms normal forwards;
+
+        .GO {
+            width: 140px;
+            height: 140px;
+            border: 5px solid #ffffff;
+            background:  $borderColor;
+            // position: relative;
+            // top: 38%;
+            // left: 31%;
+            outline: none;
+            font-size: 88px;
+            line-height: 31px;
+            // background-color: black;
+            color: #fffefe;
             font-family: auto;
             z-index: 2;
             animation: heartBeat 10000ms ease-in-out 1ms forwards;

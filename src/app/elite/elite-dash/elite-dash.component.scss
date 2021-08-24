@@ -35,7 +35,7 @@
 }
 
 .complete{
-    color: greenyellow;
+    color: rgb(98, 163, 1);
 }
 //desktop
 @media (min-width: 576px) {
@@ -43,9 +43,9 @@
         display: flex;
         flex-direction: column;
         height: 90vh;
-        width: 500px;
-        max-width: 500px;
-        justify-content: space-between;
+        width: 1170px;
+        max-width: 1170px;
+        // justify-content: space-between;
         align-items: center;
         border: black solid 5px;
         background-color: rgb(0 0 0 / 88%);
@@ -57,6 +57,7 @@
         left: 50%;
         -ms-transform: translate(-50%, -53%);
         transform: translate(-50%, -53%);
+        // overflow-y: scroll;
         @include BoxShadow(6);
 
         
@@ -75,7 +76,7 @@
         }
 
         .logo {
-            width: 80px;
+            width: 284px;
         }
         .header {
             width: 100%;
@@ -124,11 +125,12 @@
 
         .foodCard {
             display: flex;
-            flex-direction: column;
+            flex-direction: row;
             border: rgb(255, 255, 255) solid 1px;
             border-radius: 5px;
             justify-content: space-between;
             align-items: center;
+            flex-wrap: inherit;
             margin: 10px;
         }
 
@@ -233,7 +235,7 @@
         }
 
         .logo {
-            width: 62px;
+            width: 284px;
             margin-top: 10px;
         }
 
@@ -392,6 +394,10 @@
     width: 5px;
     display: none;
 }
+::ng-deep .row::-webkit-scrollbar {
+    // width: 5px;
+    display: none;
+}
 
 /* Track */
 ::ng-deep .menu::-webkit-scrollbar-track {
@@ -409,3 +415,4 @@
 ::ng-deep .menu::-webkit-scrollbar-thumb:hover {
     background: #1564bf;
 }
+

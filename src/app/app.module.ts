@@ -54,7 +54,7 @@ import { EliteComponent } from './elite/elite.component';
 
 import { environment } from "../environments/environment";
 import { ElitePromoterComponent } from './elite/elite-promoter/elite-promoter.component';
-import { EliteDashComponent } from './elite/elite-dash/elite-dash.component';
+import { dateFormatPipe, EliteDashComponent } from './elite/elite-dash/elite-dash.component';
 import { EliteVenueComponent } from './elite/elite-venue/elite-venue.component';
 import { ElitePromotionComponent } from './elite/elite-promotion/elite-promotion.component';
 import { EliteBusinessComponent } from './elite/elite-business/elite-business.component';
@@ -99,6 +99,7 @@ import { ServiceWorkerModule } from '@angular/service-worker';
     QrCodeComponent,
     EliteAuthComponent,
     EliteBusinessCardComponent,
+    dateFormatPipe
   ],
   imports: [
     AngularFireModule.initializeApp(environment.firebaseConfig),

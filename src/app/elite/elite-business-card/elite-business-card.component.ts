@@ -1,6 +1,7 @@
 import { AfterViewInit, Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { faInstagram } from '@fortawesome/free-brands-svg-icons';
+import { EliteAuthService } from '../elite-auth/elite-auth.service';
 @Component({
   selector: 'app-elite-business-card',
   templateUrl: './elite-business-card.component.html',
@@ -24,30 +25,72 @@ export class EliteBusinessCardComponent implements OnInit, AfterViewInit {
 
   user = [{
     logoInitial: 'C',
-    username: 'Atrea M',
+    username: 'Charlie V',
     userDescription: 'CLUB MEMBER',
     title: 'Elite'
   }]
 
   theme = [
     {
-      themeName: 'elite',
+      themeName: 'elite-pink',
       header: './assets/img/elite/CesarVega/header.jpg',
-      body: './assets/img/elite/CesarVega/body.jpg',
-      footer: './assets/img/elite/CesarVega/footer.jpg',      
+      body: './assets/img/elite/CesarVega/bodyLove.jpg',
+      footer: './assets/img/elite/CesarVega/footer.jpg',
       fontFamily: '',
-      fontSize:'10px'
+      fontSize: '10px'
     },
     {
       themeName: 'aqua',
       header: './assets/img/elite/CesarVega/headerMermaid.jpg',
       body: './assets/img/elite/CesarVega/bodYMermaid1.jpg',
-      footer: './assets/img/elite/CesarVega/footerMermaid.jpg',      
+      footer: './assets/img/elite/CesarVega/footerMermaid.jpg',
       fontFamily: '',
-      fontSize:'10px'
-    }
+      fontSize: '10px'
+    },
+    {
+      themeName: 'elite',
+      header: './assets/img/elite/CesarVega/header.jpg',
+      body: './assets/img/elite/CesarVega/bodyGreen.jpg',
+      footer: './assets/img/elite/CesarVega/footer.jpg',
+      fontFamily: '',
+      fontSize: '10px'
+    },
+    {
+      themeName: 'elite',
+      header: './assets/img/elite/CesarVega/header.jpg',
+      body: './assets/img/elite/CesarVega/bodyRose1.jpg',
+      footer: './assets/img/elite/CesarVega/footer.jpg',
+      fontFamily: '',
+      fontSize: '10px'
+    },
+
+    {
+      themeName: 'elite',
+      header: './assets/img/elite/CesarVega/header.jpg',
+      body: './assets/img/elite/CesarVega/bodyRose.jpg',
+      footer: './assets/img/elite/CesarVega/footer.jpg',
+      fontFamily: '',
+      fontSize: '10px'
+    },
+    {
+      themeName: 'elite',
+      header: './assets/img/elite/CesarVega/header.jpg',
+      body: './assets/img/elite/CesarVega/body.jpg',
+      footer: './assets/img/elite/CesarVega/footer.jpg',
+      fontFamily: '',
+      fontSize: '10px'
+    },
+    {
+      themeName: 'elite',
+      header: './assets/img/elite/CesarVega/header.jpg',
+      body: './assets/img/elite/CesarVega/bodyLV.jpg',
+      footer: './assets/img/elite/CesarVega/footer.jpg',
+      fontFamily: '',
+      fontSize: '10px'
+    },
+   
   ]
-  constructor(private paramsRouter: ActivatedRoute,) { }
+  constructor(private paramsRouter: ActivatedRoute,public auth : EliteAuthService) { }
 
   ngOnInit(): void {
     this.paramsRouter.params.subscribe(params => {
@@ -59,15 +102,28 @@ export class EliteBusinessCardComponent implements OnInit, AfterViewInit {
 
   ngAfterViewInit(): void {
 
-  
+
   }
 
   changeTheme() {
     if (this.themeIndex == 0) {
 
       this.themeIndex = 1;
-    } else {
+    } 
+    else if (this.themeIndex == 1) {
 
+      this.themeIndex = 2;
+    } 
+    else if (this.themeIndex == 2)  {
+      this.themeIndex = 3;
+    }
+    else if (this.themeIndex == 3)  {
+      this.themeIndex = 4;
+    }
+    else if (this.themeIndex == 4)  {
+      this.themeIndex = 5;
+    }
+    else if (this.themeIndex == 5)  {
       this.themeIndex = 0;
     }
   }
@@ -75,7 +131,7 @@ export class EliteBusinessCardComponent implements OnInit, AfterViewInit {
   goVote() {
     this.isGoVoteOn = !this.isGoVoteOn;
     this.isRadialMenuOn = !this.isRadialMenuOn;
-    this.isSettingsOn = !this.isSettingsOn;
+    // this.isSettingsOn = !this.isSettingsOn;
   }
   sendQrCode(item) {
 

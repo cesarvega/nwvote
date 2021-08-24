@@ -22,7 +22,8 @@ const routes: Routes = [
 
   {//ELITE BUSINESS
     path: 'business-card',
-    component: EliteBusinessCardComponent
+    component: EliteBusinessCardComponent,
+     // canActivate: [EliteAuthGuard]
   },
 
   {//ELITE BUSINESS
@@ -91,7 +92,7 @@ const routes: Routes = [
 
   {
     path: '',
-    redirectTo: 'business-card',
+    redirectTo: 'dash',
     pathMatch: 'full'
   }
 ];

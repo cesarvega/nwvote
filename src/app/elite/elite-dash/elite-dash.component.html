@@ -1,19 +1,50 @@
 <div class="mainContainer disable-dbl-tap-zoom">
 
     <div class="logo-miami">
-        <img class="logo" src="./assets/img/elite/logo.png">
-        <p style="animation: swing 200ms ease-in-out 100ms forwards; padding-top: 20px;">ELITE DASH</p><br>
+        <img class="logo" src="./assets/img/elite/logoElite.JPG">
+        <!-- <p style="animation: swing 200ms ease-in-out 100ms forwards; padding-top: 20px;">ELITE DASH</p><br> -->
     </div>
 
-    <div class="menu">
+    <div class="row" style="overflow-y: scroll;">
 
-        <div class="foodCard" *ngFor="let item of DASH; index as i" style="color: white;">
+        <div class="" *ngFor="let item of DASH; index as i" style="color: white;">
             <!-- <img class="pizzaImage" style="width: 100%;" [src]="item.imgSrc" (click)="sendQrCode(item)"> -->
-            <h1 class="title secondary-text" style="padding-top: 5px;">{{item.payload.doc.data().venueId}}</h1>
-            <h1 class="title secondary-text" style="padding-top: 5px;">{{item.payload.doc.id}}</h1>
-            <h1 class="title secondary-text" style="padding-top: 5px;">{{item.payload.doc.data().promoterId}}</h1>
-            <h1 class="title secondary-text" [ngClass]="(item.payload.doc.data().completed === 'inprogress')?'inprogress':'complete'" style="padding-top: 10px;">{{item.payload.doc.data().completed}}</h1>
-            <!-- <div class="title secondary-text" style="width: 290px;text-align: center;">{{item.description}}</div>            -->
+            <div class="column">
+
+                <!-- <h1 class="title secondary-text" style="padding-top: 5px;"></h1> -->
+               
+                <!-- <h1 class="title secondary-text"style="padding-top: 10px;"></h1> -->
+                
+                <!-- <div class="title secondary-text" style="width: 290px;text-align: center;">{{item.description}}</div>            -->
+                
+                <mat-card >
+                    <mat-card-header>
+                        <!-- <div mat-card-avatar class="example-header-image"></div> -->
+                        <mat-card-title style="color: red;"><span style="color: black;">BUSINESS NAME :</span> {{item.payload.doc.data().venueId}}</mat-card-title>
+                        <mat-card-subtitle  
+                        [ngClass]="(item.payload.doc.data().completed === 'inprogress')?'inprogress':'complete'" >
+                         <span style="color: black;">PROMO STATUS:</span> {{item.payload.doc.data().completed}}</mat-card-subtitle>
+                    </mat-card-header>
+                    <!-- <img mat-card-image src="https://material.angular.io/assets/img/examples/shiba2.jpg" alt="Photo of a Shiba Inu"> -->
+                    <mat-card-content>
+                        <p style="color: red;"><span style="color: black;">client Name: </span> {{item.payload.doc.data().clientName}}</p>
+                        <p style="color: red;"><span style="color: black;">client Email: </span> {{item.payload.doc.data().clientEmail }}</p>
+                        <p style="color: red;"><span style="color: black;">client Phone: </span> {{item.payload.doc.data().clientPhone}}</p>
+                        <p style="color: red;"><span style="color: black;">clientguess Amount:</span> {{item.payload.doc.data().clientguessAmount}}</p>
+                        <!-- <p style="color: red;"><span style="color: black;">Date: </span> {{item.payload.doc.data().created: | dateFormatPipe:"MM/dd/yy"  }}</p> -->
+                    </mat-card-content>
+                    <hr>
+                    <mat-card-content>
+                        <p style="color: green;"><span style="color: black;">promoter Id:  </span> {{item.payload.doc.data().promoterId}}</p>
+                        <p style="color: green;"><span style="color: black;">client Email: </span> {{item.payload.doc.data().clientEmail }}</p>
+                        <p style="color: green;"><span style="color: black;">secret Transaction Key:  </span> {{item.payload.doc.data().secretTransactionKey}}</p>
+                        <p style="color: green;"><span style="color: black;">server Guess Amount: </span> {{item.payload.doc.data().serverGuessAmount}}</p>
+                        <p style="color: green;"><span style="color: black;">Date: </span> {{item.payload.doc.data().created | formatDate }}</p>
+                    </mat-card-content>
+                </mat-card>
+            </div>
+                
+
         </div>
         <br>
         <br>

@@ -1,10 +1,12 @@
-<!-- 
-<div *ngIf="isSettingsOn" class="settings-box" style="z-index: 999;color: ivory;">
+
+<div *ngIf="!isSettingsOn" class="settings-box" style="z-index: 999;height: 100vh;
+width: 100vh;
+background: #db000026;">
     Settings
     Settings
 
-</div> -->
-<div [ngClass]="theme[themeIndex].themeName"  class="mainContainer disable-dbl-tap-zoom">
+</div>
+<div *ngIf="!isSettingsOn"  [ngClass]="theme[themeIndex].themeName"  class="mainContainer disable-dbl-tap-zoom">
    
 
         <h1 class="title" (click)="changeTheme()">{{user[userIndex].title}}</h1>
@@ -45,7 +47,7 @@
 
         <div class="name">
             {{user[userIndex].username}}</div>
-
+            <button class="description" mat-icon-button (click)="auth.signOut()"> <mat-icon>cancel</mat-icon></button>
 
         <h3 class="description">{{user[userIndex].userDescription}}</h3>
 
