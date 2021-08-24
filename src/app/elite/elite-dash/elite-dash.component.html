@@ -8,15 +8,8 @@
     <div class="row" style="overflow-y: scroll;">
 
         <div class="" *ngFor="let item of DASH; index as i" style="color: white;">
-            <!-- <img class="pizzaImage" style="width: 100%;" [src]="item.imgSrc" (click)="sendQrCode(item)"> -->
             <div class="column">
 
-                <!-- <h1 class="title secondary-text" style="padding-top: 5px;"></h1> -->
-               
-                <!-- <h1 class="title secondary-text"style="padding-top: 10px;"></h1> -->
-                
-                <!-- <div class="title secondary-text" style="width: 290px;text-align: center;">{{item.description}}</div>            -->
-                
                 <mat-card >
                     <mat-card-header>
                         <!-- <div mat-card-avatar class="example-header-image"></div> -->
@@ -31,7 +24,7 @@
                         <p style="color: red;"><span style="color: black;">client Email: </span> {{item.payload.doc.data().clientEmail }}</p>
                         <p style="color: red;"><span style="color: black;">client Phone: </span> {{item.payload.doc.data().clientPhone}}</p>
                         <p style="color: red;"><span style="color: black;">clientguess Amount:</span> {{item.payload.doc.data().clientguessAmount}}</p>
-                        <!-- <p style="color: red;"><span style="color: black;">Date: </span> {{item.payload.doc.data().created: | dateFormatPipe:"MM/dd/yy"  }}</p> -->
+                        <p style="color: orangered;"><span style="color: black;">Date: </span> {{item.payload.doc.data().created | formatDate }}</p>
                     </mat-card-content>
                     <hr>
                     <mat-card-content>
@@ -39,7 +32,7 @@
                         <p style="color: green;"><span style="color: black;">client Email: </span> {{item.payload.doc.data().clientEmail }}</p>
                         <p style="color: green;"><span style="color: black;">secret Transaction Key:  </span> {{item.payload.doc.data().secretTransactionKey}}</p>
                         <p style="color: green;"><span style="color: black;">server Guess Amount: </span> {{item.payload.doc.data().serverGuessAmount}}</p>
-                        <p style="color: green;"><span style="color: black;">Date: </span> {{item.payload.doc.data().created | formatDate }}</p>
+                        <p style="color: green;"><span style="color: black;">Updated: </span> {{item.payload.doc.data().updated | formatDate }}</p>
                     </mat-card-content>
                 </mat-card>
             </div>
@@ -58,14 +51,14 @@
             style="color: white;outline: none;position: absolute;bottom: 19px; left: 80px;background-color: goldenrod;">
             <mat-icon style="line-height: 18px;" (click)="qrcode()">qr_code</mat-icon>
         </button> -->
-        <button mat-mini-fab color="primary" style="color: white;
+        <!-- <button mat-mini-fab color="primary" style="color: white;
         background-color: black;
         font-size: 6px;
         bottom: 30px;
         width: 60px;
         height: 60px;" (click)="qrcode()">
             <mat-icon>qr_code</mat-icon>
-        </button>
+        </button> -->
         <!-- <button mat-mini-fab
             style="background-color: goldenrod; color: white;outline: none;position: absolute;bottom: 19px; right: 80px;">
             <a style="color: white;" href="tel:3053220070">
