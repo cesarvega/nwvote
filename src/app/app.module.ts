@@ -3,8 +3,8 @@ import { NgModule } from '@angular/core';
 import { FlexLayoutModule } from '@angular/flex-layout';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
-import { LoginComponent } from './auth/login/login.component';
-import { NwVoteComponent } from './nw-vote/nw-vote.component';
+// import { LoginComponent } from './auth/login/login.component';
+// import { NwVoteComponent } from './nw-vote/nw-vote.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { MatRippleModule } from '@angular/material/core';
 import { NwvoteService } from './nw-vote/nwvote.service';
@@ -19,9 +19,9 @@ import { MatCardModule } from '@angular/material/card';
 import { MatIconModule } from '@angular/material/icon';
 import { DragDropModule } from '@angular/cdk/drag-drop';
 import { MatDialogModule } from '@angular/material/dialog';
-import { BsrMobileComponent, editName } from './bsr-mobile/bsr-mobile.component';
+// import { BsrMobileComponent, editName } from './bsr-mobile/bsr-mobile.component';
 import { BsrMobileService } from './bsr-mobile/bsr-mobile.service';
-import { BsrComponent, editPost } from './bsr/bsr.component';
+// import { BsrComponent, editPost } from './bsr/bsr.component';
 import { MatTooltipModule } from '@angular/material/tooltip';
 import { MatGridListModule } from '@angular/material/grid-list';
 import { MatSidenavModule } from '@angular/material/sidenav';
@@ -38,18 +38,18 @@ import { MatTabsModule } from '@angular/material/tabs';
 import { MatSelectModule } from '@angular/material/select';
 import { QRCodeModule } from 'angularx-qrcode';
 import { DeviceDetectorModule } from 'ngx-device-detector';
-import { NW3Component } from './nw3/nw3.component';
+// import { NW3Component } from './nw3/nw3.component';
 import { Nw3Service } from './nw3/nw3.service';
-import { BmxComponent } from './bmx/bmx.component';
-import { SchedulerComponent } from './scheduler/scheduler.component';
+// import { BmxComponent } from './bmx/bmx.component';
+// import { SchedulerComponent } from './scheduler/scheduler.component';
 import { AngularDateTimePickerModule } from 'angular2-datetimepicker';
 import { MatDatepickerModule } from '@angular/material/datepicker';
 import { MatNativeDateModule } from '@angular/material/core';
 import { NgxKjuaModule } from 'ngx-kjua';
 
 import { MatRadioModule } from '@angular/material/radio';
-import { RestaurantComponent } from './restaurant/restaurant.component';
-import { OrderDasboardComponent } from './restaurant/order-dasboard/order-dasboard.component';
+// import { RestaurantComponent } from './restaurant/restaurant.component';
+// import { OrderDasboardComponent } from './restaurant/order-dasboard/order-dasboard.component';
 import { EliteComponent } from './elite/elite.component';
 
 import { environment } from "../environments/environment";
@@ -77,17 +77,17 @@ import { ServiceWorkerModule } from '@angular/service-worker';
 @NgModule({
   declarations: [
     AppComponent,
-    LoginComponent,
-    NwVoteComponent,
-    BsrMobileComponent,
-    editName,
-    editPost,
-    BsrComponent,
-    NW3Component,
-    BmxComponent,
-    SchedulerComponent,
-    RestaurantComponent,
-    OrderDasboardComponent,
+    // LoginComponent,
+    // NwVoteComponent,
+    // BsrMobileComponent,
+    // editName,
+    // editPost,
+    // BsrComponent,
+    // NW3Component,
+    // BmxComponent,
+    // SchedulerComponent,
+    // RestaurantComponent,
+    // OrderDasboardComponent,
     EliteComponent,
     ElitePromoterComponent,
     EliteDashComponent,
@@ -148,7 +148,7 @@ import { ServiceWorkerModule } from '@angular/service-worker';
 
   ],
   entryComponents: [
-    editPost, editName
+    // editPost, editName
   ],
   providers: [NwvoteService, BsrMobileService, Nw3Service],
 

@@ -1,63 +1,63 @@
 <div class="mainContainer disable-dbl-tap-zoom">
 
     <div class="logo-miami">
-        <img class="logo" src="./assets/img/elite/logo.png">
-        <p style="animation: swing 200ms ease-in-out 100ms forwards; padding-top: 20px;">{{title}}</p><br>
+        <img style="width: 300px;" src="./assets/img/elite/logoElite.JPG">
+        <p style="animation: swing 200ms ease-in-out 100ms forwards; padding-top: 20px;">{{'BUSINESS REGISTER'}}</p><br>
     </div>
 
-    <div style="display: flex;align-items: center;" class="menu">
+    <div style="display: flex;align-items: center;;background-image: url(./assets/img/elite/pattherBG.jpg);background-size: contain;" class="menu">
 
         <!-- 🤷🏻‍♂️🤷🏻‍♂️🤷🏻‍♂️🤷🏻‍♂️🤷🏻‍♂️🤷🏻‍♂️🤷🏻‍♂️🤷🏻‍♂️🤷🏻‍♂️🤷🏻‍♂️🤷🏻‍♂️🤷🏻‍♂️🤷🏻‍♂️🤷🏻‍♂️🤷🏻‍♂️🤷🏻‍♂️🤷🏻‍♂️ Venue INFO 🤷🏻‍♂️🤷🏻‍♂️🤷🏻‍♂️🤷🏻‍♂️🤷🏻‍♂️🤷🏻‍♂️🤷🏻‍♂️🤷🏻‍♂️🤷🏻‍♂️🤷🏻‍♂️🤷🏻‍♂️🤷🏻‍♂️🤷🏻‍♂️🤷🏻‍♂️🤷🏻‍♂️🤷🏻‍♂️🤷🏻‍♂️🤷🏻‍♂️🤷🏻‍♂️🤷🏻‍♂️🤷🏻‍♂️🤷🏻‍♂️🤷🏻‍♂️🤷🏻‍♂️🤷🏻‍♂️ -->
         <form *ngIf="true" name="loginForm" novalidate
-            style="animation: heartBeat 500ms ease-in-out 100ms forwards;background: white; display: flex;flex-direction: column;padding: 20px;border-radius: 5px;">
+            style="background: rgba(0, 0, 0, 0.664);animation: heartBeat 500ms ease-in-out 100ms forwards;color: white; display: flex;flex-direction: column;padding: 20px;border-radius: 5px;">
             <!-- <h1 style="animation: swing 200ms ease-in-out 100ms forwards; padding-top: 20px;color: red;text-align: center;">
      Please provide your info to get promotion
   </h1> -->
 
-            <h2 style="color: black;text-align: center;">Business Register</h2>
+            <!-- <h2 style="color: black;text-align: center;">Business Register</h2> -->
 
             <mat-form-field appearance="outline">
-                <mat-label>BUSINESS NAME</mat-label>
-                <input matInput type="text" placeholder="Name" [(ngModel)]="venueInfo.VenueName"
+                <mat-label style="color: white;">BUSINESS NAME</mat-label>
+                <input style="color: white;" matInput type="text" placeholder="Name" [(ngModel)]="venueInfo.VenueName"
                     [ngModelOptions]="{standalone: true}">
             </mat-form-field>
 
             <mat-error *ngIf="emailregistered">
-                user email already regsitered
+                user email already regsitered 
             </mat-error>
 
             <mat-form-field appearance="outline">
-                <mat-label>BUSINESS EMAIL</mat-label>
-                <input matInput type="email" placeholder="Email" (ngModelChange)="resetEmailError()"
+                <mat-label style="color: white;">BUSINESS EMAIL</mat-label>
+                <input style="color: white;" matInput type="email" placeholder="Email" (ngModelChange)="resetEmailError()"
                     [(ngModel)]="venueInfo.VenueEmail" [ngModelOptions]="{standalone: true}">
             </mat-form-field>
 
 
             <mat-form-field appearance="outline">
-                <mat-label>BUSINESS ADDRESS</mat-label>
-                <input matInput type="email" placeholder="Payemnt Type" [(ngModel)]="venueInfo.VenueAddress"
+                <mat-label style="color: white;">BUSINESS ADDRESS</mat-label>
+                <input style="color: white;" matInput type="email" placeholder="Payemnt Type" [(ngModel)]="venueInfo.VenueAddress"
                     [ngModelOptions]="{standalone: true}">
             </mat-form-field>
 
             <mat-form-field appearance="outline">
-                <mat-label>BUSINESS TYPE</mat-label>
+                <mat-label style="color: white;">BUSINESS TYPE</mat-label>
                 <select matNativeControl [(ngModel)]="venueInfo.VenueType" [ngModelOptions]="{standalone: true}">
-                    <option value="restaurant">restaurant</option>
-                    <option value="bar">bar</option>
-                    <option value="apparel">apparel</option>
-                    <option value="rental">rental</option>
+                    <option style="color: black;"value="restaurant">restaurant</option>
+                    <option style="color: black;"value="bar">bar</option>
+                    <option style="color: black;"value="apparel">apparel</option>
+                    <option style="color: black;"value="rental">rental</option>
                 </select>
             </mat-form-field>
 
             <!--  <mat-form-field appearance="outline">
-                <mat-label>BALANCE</mat-label>
-                <input matInput type="email" placeholder="Balance" [(ngModel)]="venueInfo.VenueBalance"
+                <mat-label style="color: white;">BALANCE</mat-label>
+                <input style="color: white;" matInput type="email" placeholder="Balance" [(ngModel)]="venueInfo.VenueBalance"
                     [ngModelOptions]="{standalone: true}">
             </mat-form-field> -->
 
             <mat-form-field appearance="outline">
-                <mat-label>PHONE</mat-label>
-                <input matInput type="tel" placeholder="3050058555" pattern="[0-9]{3}-[0-9]{3}-[0-9]{4}"
+                <mat-label style="color: white;">PHONE</mat-label>
+                <input style="color: white;" matInput type="tel" placeholder="3050058555" pattern="[0-9]{3}-[0-9]{3}-[0-9]{4}"
                     [(ngModel)]="venueInfo.VenuePhone" [ngModelOptions]="{standalone: true}">
             </mat-form-field>
 

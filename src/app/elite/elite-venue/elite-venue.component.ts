@@ -76,24 +76,17 @@ export class EliteVenueComponent implements OnInit {
   }
 
   createOrUpdateVenue() {
-    this.EliteService.getVenueById(this.VenueEmail).subscribe((arg: any) => {
+    this.EliteService.getVenueById(this.venueInfo.VenueEmail).subscribe((arg: any) => {
       if (arg.payload.exists) {
         console.log('this venue is already registered')
         this.emailregistered = true
       } else {
-        this.venueInfo = {
-          VenueName: this.VenueName,
-          VenueEmail: this.VenueEmail,
-          VenuePayment: this.VenuePayment,
-          VenueBalance: this.VenueBalance,
-          VenuePhone: this.VenuePhone,
-          VenueAddress: this.VenueAddress,
-          VenueType: this.VenueType,
-          updated: new Date(),
-          created: new Date()
-        }
         this.EliteService.createVenue(this.venueInfo).then(res => {
-          localStorage.setItem('venueId', this.VenueEmail)
+          localStorage.setItem('venueId', this.venueInfo.VenueEmail)
+          this.reset()
+          setTimeout(() => {            
+            window.location.reload()
+          }, 5000);
         })
       }
     });

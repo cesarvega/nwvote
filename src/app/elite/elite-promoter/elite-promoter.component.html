@@ -1,26 +1,27 @@
 <div class="mainContainer disable-dbl-tap-zoom">
 
-    <div class="logo-miami"  style="background-image: url(./assets/img/elite/header.jpg);background-size: contain;">
+    <div class="logo-miami">
         <img style="width: 300px;" src="./assets/img/elite/logoElite.JPG">
         <p style="animation: swing 200ms ease-in-out 100ms forwards; padding-top: 20px;">{{title}}</p><br>
     </div>
 
-    <div style="display: flex;  flex-direction: column; align-items: center;background-image: url(./assets/img/elite/pattherBG.jpg);background-size: contain;" class="menu">
+    <div style="display: flex;  flex-direction: column; align-items: center;background-image: url(./assets/img/elite/pattherBG.jpg);background-size: contain;"
+        class="menu">
 
         <!-- 🤷🏻‍♂️🤷🏻‍♂️🤷🏻‍♂️🤷🏻‍♂️🤷🏻‍♂️🤷🏻‍♂️🤷🏻‍♂️🤷🏻‍♂️🤷🏻‍♂️🤷🏻‍♂️🤷🏻‍♂️🤷🏻‍♂️🤷🏻‍♂️🤷🏻‍♂️🤷🏻‍♂️🤷🏻‍♂️🤷🏻‍♂️ Promoter INFO 🤷🏻‍♂️🤷🏻‍♂️🤷🏻‍♂️🤷🏻‍♂️🤷🏻‍♂️🤷🏻‍♂️🤷🏻‍♂️🤷🏻‍♂️🤷🏻‍♂️🤷🏻‍♂️🤷🏻‍♂️🤷🏻‍♂️🤷🏻‍♂️🤷🏻‍♂️🤷🏻‍♂️🤷🏻‍♂️🤷🏻‍♂️🤷🏻‍♂️🤷🏻‍♂️🤷🏻‍♂️🤷🏻‍♂️🤷🏻‍♂️🤷🏻‍♂️🤷🏻‍♂️🤷🏻‍♂️ -->
-        
-                <!-- isPromoterRegiter -->
-        <form *ngIf="false" name="loginForm" novalidate
-            style="animation: heartBeat 500ms ease-in-out 100ms forwards;background: white; display: flex;flex-direction: column;padding: 20px;border-radius: 5px;">
+
+        <!-- isPromoterRegiter -->
+        <form *ngIf="isPromoterRegiter" name="loginForm" novalidate
+            style="background: rgba(0, 0, 0, 0.664);animation: heartBeat 500ms ease-in-out 100ms forwards;color: white; display: flex;flex-direction: column;padding: 20px;border-radius: 5px;">
             <!-- <h1 style="animation: swing 200ms ease-in-out 100ms forwards; padding-top: 20px;color: red;text-align: center;">
      Please provide your info to get promotion
   </h1> -->
 
-            <h2 style="color: black;text-align: center;">Business Register</h2>
+            <h2 style="color: black;text-align: center;">Pomoter Register</h2>
 
             <mat-form-field appearance="outline">
-                <mat-label>BUSINESS NAME</mat-label>
-                <input matInput type="text" placeholder="Name" [(ngModel)]="promoterInfo.PromoterName"
+                <mat-label style="color: white;">PROMOTER NAME</mat-label>
+                <input style="color: white;" matInput type="text" placeholder="Name" [(ngModel)]="promoterInfo.PromoterName"
                     [ngModelOptions]="{standalone: true}">
             </mat-form-field>
 
@@ -29,37 +30,37 @@
             </mat-error>
 
             <mat-form-field appearance="outline">
-                <mat-label>BUSINESS EMAIL</mat-label>
-                <input matInput type="email" placeholder="Email" (ngModelChange)="resetEmailError()"
+                <mat-label style="color: white;">PROMOTER EMAIL</mat-label>
+                <input style="color: white;" matInput type="email" placeholder="Email" (ngModelChange)="resetEmailError()"
                     [(ngModel)]="promoterInfo.PromoterEmail" [ngModelOptions]="{standalone: true}">
             </mat-form-field>
 
 
             <mat-form-field appearance="outline">
-                <mat-label>BUSINESS ADDRESS</mat-label>
-                <input matInput type="email" placeholder="Payemnt Type" [(ngModel)]="promoterInfo.PromoterAddress"
+                <mat-label style="color: white;">PROMOTER ADDRESS</mat-label>
+                <input style="color: white;" matInput type="email" placeholder="Payemnt Type" [(ngModel)]="promoterInfo.PromoterAddress"
                     [ngModelOptions]="{standalone: true}">
             </mat-form-field>
 
             <mat-form-field appearance="outline">
-                <mat-label>BUSINESS TYPE</mat-label>
-                <select matNativeControl [(ngModel)]="promoterInfo.PromoterType" [ngModelOptions]="{standalone: true}">
-                    <option value="restaurant">restaurant</option>
-                    <option value="bar">bar</option>
-                    <option value="apparel">apparel</option>
-                    <option value="rental">rental</option>
+                <mat-label style="color: white;">PROMOTER TYPE</mat-label>
+                <select  matNativeControl [(ngModel)]="promoterInfo.PromoterType" [ngModelOptions]="{standalone: true}">
+                    <option style="color: black;"value="restaurant">restaurant</option>
+                    <option style="color: black;"value="bar">bar</option>
+                    <option style="color: black;"value="apparel">apparel</option>
+                    <option style="color: black;"value="rental">rental</option>
                 </select>
             </mat-form-field>
 
             <!--  <mat-form-field appearance="outline">
-                <mat-label>BALANCE</mat-label>
-                <input matInput type="email" placeholder="Balance" [(ngModel)]="promoterInfo.PromoterBalance"
+                <mat-label style="color: white;">BALANCE</mat-label>
+                <input style="color: white;" matInput type="email" placeholder="Balance" [(ngModel)]="promoterInfo.PromoterBalance"
                     [ngModelOptions]="{standalone: true}">
             </mat-form-field> -->
 
             <mat-form-field appearance="outline">
-                <mat-label>PHONE</mat-label>
-                <input matInput type="tel" placeholder="3050058555" pattern="[0-9]{3}-[0-9]{3}-[0-9]{4}"
+                <mat-label style="color: white;">PHONE</mat-label>
+                <input style="color: white;" matInput type="tel" placeholder="3050058555" pattern="[0-9]{3}-[0-9]{3}-[0-9]{4}"
                     [(ngModel)]="promoterInfo.PromoterPhone" [ngModelOptions]="{standalone: true}">
             </mat-form-field>
 
@@ -81,23 +82,24 @@
         <!-- 🤷🏻‍♂️🤷🏻‍♂️🤷🏻‍♂️🤷🏻‍♂️🤷🏻‍♂️🤷🏻‍♂️🤷🏻‍♂️🤷🏻‍♂️🤷🏻‍♂️🤷🏻‍♂️🤷🏻‍♂️🤷🏻‍♂️🤷🏻‍♂️🤷🏻‍♂️🤷🏻‍♂️🤷🏻‍♂️🤷🏻‍♂️ END Promoter INFO 🤷🏻‍♂️🤷🏻‍♂️🤷🏻‍♂️🤷🏻‍♂️🤷🏻‍♂️🤷🏻‍♂️🤷🏻‍♂️🤷🏻‍♂️🤷🏻‍♂️🤷🏻‍♂️🤷🏻‍♂️🤷🏻‍♂️🤷🏻‍♂️🤷🏻‍♂️🤷🏻‍♂️🤷🏻‍♂️🤷🏻‍♂️🤷🏻‍♂️🤷🏻‍♂️🤷🏻‍♂️🤷🏻‍♂️🤷🏻‍♂️🤷🏻‍♂️🤷🏻‍♂️🤷🏻‍♂️ -->
 
         <!-- 🎃🎃🎃🎃🎃🎃🎃🎃🎃🎃🎃🎃🎃🎃🎃🎃🎃🎃🎃 VENUES LIST 🎃🎃🎃🎃🎃🎃🎃🎃🎃🎃🎃🎃🎃🎃🎃🎃🎃🎃🎃🎃🎃🎃🎃🎃🎃🎃-->
-        
-        <div class="qr-code-card" *ngFor="let item of VENUES.promoter.venues; index as i" style="color: white;height: 450px;">
-            <!-- <img class="pizzaImage" style="width: 100%;" [src]="item.imgSrc">
+        <div *ngIf="!isPromoterRegiter">
+            <div class="qr-code-card" *ngFor="let item of VENUES.promoter.venues; index as i"
+                style="color: white;height: 450px;">
+                <!-- <img class="pizzaImage" style="width: 100%;" [src]="item.imgSrc">
             -->
-            <h1 class="title secondary-text" style="padding-top: 10px;color: whitesmoke;">{{item.venueName}}</h1>
-            <app-qr-code [qrCodeConfig]="item" *ngIf="true"></app-qr-code>
+                <h1 class="title secondary-text" style="padding-top: 10px;color: whitesmoke;">{{item.venueName}}</h1>
+                <app-qr-code [qrCodeConfig]="item" *ngIf="true"></app-qr-code>
 
-          
-            <!-- <div class="title secondary-text" style="width: 290px;text-align: center;">{{item.description}}</div>            -->
+
+                <!-- <div class="title secondary-text" style="width: 290px;text-align: center;">{{item.description}}</div>            -->
+            </div>
         </div>
-
         <!-- 🎃🎃🎃🎃🎃🎃🎃🎃🎃🎃🎃🎃🎃🎃🎃🎃🎃🎃🎃 END VENUES LIST 🎃🎃🎃🎃🎃🎃🎃🎃🎃🎃🎃🎃🎃🎃🎃🎃🎃🎃🎃🎃🎃🎃🎃🎃🎃🎃-->
 
-        
+
 
     </div>
-    <div class="footer"  style="background-image: url(./assets/img/elite/header.jpg);background-size: contain;">
+    <div class="footer" >
         <!-- <button mat-mini-fab color="warn"
             style="color: white;outline: none;position: absolute;bottom: 19px; left: 80px;background-color: goldenrod;">
             <mat-icon style="line-height: 18px;" (click)="qrcode()">qr_code</mat-icon>

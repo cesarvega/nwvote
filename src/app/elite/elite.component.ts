@@ -239,14 +239,14 @@ export class EliteComponent implements OnInit {
         });
 
     }
-    else if (this.qrcodeType === 'promoter') {
-      this.title = 'SCAN PROMOTION'
-      this.PROMOTERS.forEach((promoter, index) => {
-        if (this.promoterId === promoter.promoterId) {
-          this.VENUES = promoter.venues;
-        }
-      });
-    }
+    // else if (this.qrcodeType === 'promoter') {
+    //   this.title = 'SCAN PROMOTION'
+    //   this.PROMOTERS.forEach((promoter, index) => {
+    //     if (this.promoterId === promoter.promoterId) {
+    //       this.VENUES = promoter.venues;
+    //     }
+    //   });
+    // }
   }
 
   validatePromotion() {
