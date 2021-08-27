@@ -89,6 +89,10 @@ export class SurveyCreationDesignComponent implements OnInit {
     if (this.TEMPLATE_NAME === 'Standart Personal Preference') {
       this.createNewBmxComponent("rating-scale");
     }
+    // this.bmxPages.push( {
+    //   pageNumber: 1,
+    //   page: this.brandMatrixObjects
+    // })
   }
 
   toggleInstructions() {
@@ -124,7 +128,7 @@ export class SurveyCreationDesignComponent implements OnInit {
         name: 'NAME', rationale: 'RATIONALE',
         STARS: this.createRatingStars()
       })
-      for (let index = 0; index < 15; index++) {
+      for (let index = 0; index < 12; index++) {
         this.TestNameDataModel.push({
           name: 'TEST NAME ' + index, rationale: 'Rationale of an undisclosed length',
           STARS: this.createRatingStars()
@@ -168,6 +172,23 @@ export class SurveyCreationDesignComponent implements OnInit {
 
     console.log('');
 
+  }
+
+  createTemplate(template){
+
+    localStorage.setItem(template, JSON.stringify(this.bmxPages))
+
+  }
+
+
+  loadTemplate(template){
+
+    this.bmxPages = JSON.parse(localStorage.getItem('template1'))
+  }
+
+  
+  deleteComponent(i){
+    this.bmxPages[this.currentPage].page.splice(i, 1)
   }
 
 }

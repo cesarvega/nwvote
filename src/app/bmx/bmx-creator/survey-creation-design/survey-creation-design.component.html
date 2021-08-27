@@ -13,7 +13,9 @@
             <div *ngIf="bmxItem.componentType === 'logo-header'" class="header">
 
                 <div class="emoji-handle">.</div>
+               
                 <div>
+                    
                     <img style="width: 231px;margin-left: 8px;    margin-top: 60px;"
                         src="./assets/img/bmx/BRANDMATRIX-DASHBOARD-LOGO.svg">
 
@@ -35,6 +37,12 @@
                         <mat-icon style="font-size: 30px;color: #37457d;" class="full-icon">description</mat-icon>
                     </button>
                     <img style="width: 127px;margin-right: 20px;" src="./assets/img/bmx/BD.png">
+                    <!-- <div style="display: flex;flex-direction: row;justify-content: flex-end;align-items: flex-end;">
+                        <button style="outline: none;color:#f10a0a;top: 19px;" mat-icon-button (click)="deleteComponent()"
+                            aria-label="delte">
+                            <mat-icon>cancel</mat-icon>
+                        </button>
+                    </div> -->
                 </div>
 
 
@@ -47,6 +55,12 @@
             <!-- BMX instructions EDITOR 📑📑📑📑📑📑📑📑📑📑📑📑📑📑📑📑📑📑📑📑📑📑📑📑📑📑📑📑📑📑 -->
             <div *ngIf="bmxItem.componentType === 'instructions' && displayInstructions" class="paragraph ">
                 <div class="emoji-handle">.</div>
+                <div style="display: flex;flex-direction: column;justify-content: flex-end;align-items: flex-end;">
+                    <button style="outline: none;color:#f10a0a;top: 19px;" mat-icon-button (click)="deleteComponent(i)"
+                        aria-label="delte">
+                        <mat-icon>cancel</mat-icon>
+                    </button>
+                </div>
                 <div style="margin: 30px;" [innerHTML]="bmxItem.componentText | safe: 'html'"></div>
                 <ckeditor *ngIf="i === selectedIndex" id="txtTexto" class="ckeditorcev"
                     style="animation: fadeIn 0.5s ease forwards;" [ngModelOptions]="{standalone: true}"
@@ -66,6 +80,12 @@
             <!-- BMX PARAGRAPH EDITOR 📑📑📑📑📑📑📑📑📑📑📑📑📑📑📑📑📑📑📑📑📑📑📑📑📑📑📑📑📑📑 -->
             <div *ngIf="bmxItem.componentType === 'text-editor'" class="paragraph ">
                 <div class="emoji-handle">.</div>
+                <div style="display: flex;flex-direction: column;justify-content: flex-end;align-items: flex-end;">
+                    <button style="outline: none;color:#f10a0a;top: 19px;" mat-icon-button (click)="deleteComponent(i)"
+                        aria-label="delte">
+                        <mat-icon>cancel</mat-icon>
+                    </button>
+                </div>
                 <div style="margin: 30px;" [innerHTML]="bmxItem.componentText | safe: 'html'"></div>
                 <ckeditor *ngIf="i === selectedIndex" id="txtTexto" class="ckeditorcev"
                     style="animation: fadeIn 0.5s ease forwards;" [ngModelOptions]="{standalone: true}"
@@ -85,16 +105,24 @@
             <!-- LINEAR SCALE 👽👽👽👽👽👽👽👽👽👽👽👽👽👽👽👽👽👽👽👽👽👽👽👽👽👽👽👽👽👽👽👽👽👽👽👽👽👽👽👽👽👽-->
             <div *ngIf="bmxItem.componentType === 'ranking-scale'" class="paragraph">
                 <div class="emoji-handle">.</div>
+                <div style="display: flex;flex-direction: column;justify-content: flex-end;align-items: flex-end;">
+                    <button style="outline: none;color:#f10a0a;top: 19px;" mat-icon-button (click)="deleteComponent(i)"
+                        aria-label="delte">
+                        <mat-icon>cancel</mat-icon>
+                    </button>
+                </div>
                 <app-rating-scale [bmxItem]="bmxItem" [i]='i'></app-rating-scale>
+
             </div>
             <!-- END LINEAR SCALE 👽👽👽👽👽👽👽👽👽👽👽👽👽👽👽👽👽👽👽👽👽👽👽👽👽👽👽👽👽👽👽👽👽👽👽👽👽👽👽👽 -->
 
         </div>
 
 
-            <div class="page-buttons">
-                <div class="page-buttons" style="position: fixed;bottom: 40px;">
-                <button (click)="changePage('previous')"  mat-icon-button >
+        <!-- PAGE BUTTONS AND DIRECTIONS -->
+        <div class="page-buttons">
+            <div class="page-buttons" style="position: fixed;bottom: 40px;">
+                <button (click)="changePage('previous')" mat-icon-button>
                     <mat-icon class="full-icon">chevron_left</mat-icon>
                 </button>
                 <div *ngFor="let page of bmxPages; let pageIndex = index">
@@ -104,7 +132,7 @@
                     </button>
                 </div>
 
-                <button (click)="changePage('next')"  mat-icon-button >
+                <button (click)="changePage('next')" mat-icon-button>
                     <mat-icon class="full-icon">chevron_right</mat-icon>
                 </button>
             </div>
@@ -119,11 +147,11 @@
     <div class="project-info" *ngIf="isMenuActive11" style="border: pink solid 1px; width: 25%; height: 100vh;">
 
         <div style="display: flex;flex-direction: column;margin-top: 50px;">
-            <button (click)="createNewBmxComponent('text-editor')" mat-icon-button matTooltip="Add Intro"
+            <button (click)="createNewBmxComponent('text-editor')" mat-icon-button matTooltip="add paragraph"
                 matTooltipPosition="right">
                 <mat-icon class="full-icon">note_add</mat-icon>
             </button>
-            <button (click)="createNewBmxComponent('rating-scale')" matTooltip="TEST NAMES" matTooltipPosition="right"
+            <button (click)="createNewBmxComponent('rating-scale')" matTooltip="rating table" matTooltipPosition="right"
                 mat-icon-button color="warn" aria-label="aria">
                 <mat-icon class="full-icon">grading</mat-icon>
             </button>
@@ -131,12 +159,13 @@
                 mat-icon-button aria-label="aria">
                 <mat-icon class="full-icon">post_add</mat-icon>
             </button>
-            <button (click)="saveData()" matTooltip="SCALE" matTooltipPosition="right" mat-icon-button color="warn"
-                aria-label="aria">
-                <mat-icon class="full-icon">linear_scale</mat-icon>
+            <button (click)="createTemplate('template1')" matTooltip="save template" matTooltipPosition="right"
+                mat-icon-button color="warn" aria-label="aria">
+                <mat-icon class="full-icon">save</mat-icon>
             </button>
-            <button *ngIf="!true" mat-icon-button matTooltip="slide comments" matTooltipPosition="right">
-                <mat-icon class="full-icon">comment</mat-icon>
+            <button *ngIf="true" (click)="loadTemplate('template1')" mat-icon-button matTooltip="use template"
+                matTooltipPosition="right">
+                <mat-icon class="full-icon">library_add</mat-icon>
             </button>
         </div>
     </div>
