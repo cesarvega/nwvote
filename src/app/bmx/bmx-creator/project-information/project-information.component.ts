@@ -1,6 +1,7 @@
+import { MatSnackBar } from '@angular/material/snack-bar';
 import { Component, ElementRef, EventEmitter, Inject, Input, OnInit, Output, ViewChild, ViewEncapsulation } from '@angular/core';
 import { DOCUMENT } from '@angular/common';
-import { FormControl, FormGroup } from '@angular/forms';
+import { FormControl, FormGroup, FormBuilder, FormArray } from '@angular/forms';
 import { trigger, transition, useAnimation } from '@angular/animations';
 import { pulse, flash } from 'ng-animate';
 import { HotkeysService, Hotkey } from 'angular2-hotkeys';
@@ -16,6 +17,7 @@ import { MatSort } from '@angular/material/sort';
 import { MatDatepicker } from '@angular/material/datepicker';
 import { Observable } from 'rxjs';
 import { map, startWith } from 'rxjs/operators';
+import { JsonpClientBackend } from '@angular/common/http';
 
 @Component({
   selector: 'app-project-information',
@@ -24,7 +26,7 @@ import { map, startWith } from 'rxjs/operators';
 })
 export class ProjectInformationComponent implements OnInit {
 
-  constructor(private _BmxService: BmxService) { }
+  constructor(private _BmxService: BmxService, private _snackBar: MatSnackBar) {}
   settingsData = { 
     SalesBoardProjectList : [],
     DepartmentList : '',
@@ -41,22 +43,10 @@ export class ProjectInformationComponent implements OnInit {
     bmxCompany: new FormControl(),
     bmxLanguage: new FormControl(),
     bmxRegionalDirector: new FormControl(),
-    bmxDirectorName: new FormControl()
  }); 
 
- projectInfo = {
-  bmxSalesboard: '',
-  bmxDepartment: '',
-  bmxProjectName: '',
-  bmxRegion: '',
-  bmxCompany: '',
-  bmxLanguage: '',
-  bmxRegionalDirector: '',
-  bmxDirectorName: ''
- }
   ngOnInit(): void {
 
-    
     this._BmxService.getGeneralLists()
     .subscribe((arg:any) => {
       this.settingsData = JSON.parse(arg.d);
@@ -71,7 +61,7 @@ export class ProjectInformationComponent implements OnInit {
         );
         // END 🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖 AUTOCOMPLETE
     });
-    localStorage.getItem('fakeproject')
+    this.bmxEditData.setValue(JSON.parse(localStorage.getItem('fakeproject' + '_project_info')));
   }
   //AUTOCOMPLETE 🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖
   filteredOptions: Observable<string[]>;
@@ -85,8 +75,33 @@ export class ProjectInformationComponent implements OnInit {
   }
   // END 🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖 AUTOCOMPLETE
 
-  directorSelected: any;
-  saveData() {
-  localStorage.setItem( 'fakeproject', JSON.stringify(this.bmxEditData));
+  directorSelected;
+  directorDetails = [];
+  public onFocusOutEvent(event: any): void {
+  localStorage.setItem( 'fakeproject' + '_project_info', JSON.stringify(this.bmxEditData.value));
+  console.log(this.bmxEditData.value);
   } 
+
+  saveProjectInfo() {
+    localStorage.setItem( 'fakeproject' + '_project_info', JSON.stringify(this.bmxEditData.value));
+    this._snackBar.open('Saved Succesfully');
+  }
+ 
+  public elements: Array<any> = [];
+
+  public appendElement(): void {
+    this.elements = [...this.elements, this.elements.length];
+  }
+
+  public caller(elementId: number): void {
+    console.log('New Director Selected Succesfully');
+  }
+
+  removeDirector(index) {
+    // let index = this.elements.indexOf(index);
+    // console.log(index);
+   this.elements.splice(index, 1);
+    // this.elements = [...this.elements.splice(index, 1)];
+
+  }
 }
