@@ -106,6 +106,10 @@ export class RatingScaleComponent implements OnInit {
         }
       }
       this.bmxItem.componentText = this.TESTNAMES_LIST;
+    } else {
+      this.bmxItem.componentText.forEach(row => {
+        row.STARS = this.createRatingStars(this.rankingScaleValue, this.ratingScaleIcon)
+      });
     }
   }
 
