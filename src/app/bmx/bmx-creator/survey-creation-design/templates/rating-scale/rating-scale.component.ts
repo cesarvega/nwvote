@@ -23,7 +23,7 @@ export class RatingScaleComponent implements OnInit {
   TestNameDataModel: any[];
   ratingScale = 5;
   TESTNAMES_LIST = [];
-  columnsNames: string[];
+  columnsNames = [];
   columnsNamesHeader: string[];
   listString: string;
   tempItems = [];
@@ -33,7 +33,15 @@ export class RatingScaleComponent implements OnInit {
   constructor() { }
   ngOnInit(): void {
     console.log('');
-    this.columnsNames = ['name', 'rationale']
+    let values = Object.keys(this.bmxItem.componentText[0])
+
+    values.forEach(value => {
+      if (typeof value == "string" && value != "STARS") {
+        this.columnsNames.push(value)
+      }
+    });
+
+    // this.columnsNames = Object.values(this.bmxItem.componentText[0])
   }
   setRating(starId, testNameId) {
     // prevent multiple selection
