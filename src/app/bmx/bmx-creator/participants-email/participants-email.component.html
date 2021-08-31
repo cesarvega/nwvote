@@ -6,12 +6,14 @@
 
             <div>
                 <div style="margin: 20px;font-size: 20px;color:#063074;font-weight: 800;">Email Settings</div>
-
-                <div style="margin-left: 20px;font-size: 15px;color:grey;font-weight: 100;">Send Director Confirmation
+                <div style="margin-left: 0px;font-size: 15px;color:grey;font-weight: 100;">Send Director Confirmation
                     Emails
+                    <input type="checkbox" [checked]="dirConfirm" (change)="dirConfirm = !dirConfirm" />
                 </div>
-                <div style="margin-left: 20px;font-size: 15px;color:grey;font-weight: 100;">Send Department Confirmation
+
+                <div style="margin-left: 0px;font-size: 15px;color:grey;font-weight: 100;">Send Department Confirmation
                     Emails
+                    <input type="checkbox" [checked]="deptConfirm" (change)="deptConfirm = !deptConfirm" />
                 </div>
             </div>
 

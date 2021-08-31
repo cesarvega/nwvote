@@ -11,6 +11,8 @@ import { HighlightSpanKind } from 'typescript';
 })
 export class ParticipantsEmailComponent implements OnInit {
   allData;
+  dirConfirm;
+  deptConfirm;
   viewedData;
   selected;
   @Input() isMenuActive15;
