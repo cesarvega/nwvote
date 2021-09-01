@@ -15,7 +15,7 @@ export class RatingScaleComponent implements OnInit {
   displayInstructions = false;
 
   selectedStarRatingIndex = ''
-  selectedRating = 0;
+  selectedRating = '';
 
 
   // CONFIGURATION VARIABLES
@@ -45,25 +45,28 @@ export class RatingScaleComponent implements OnInit {
   }
   setRating(starId, testNameId) {
     // prevent multiple selection
-    if (this.selectedRating === 0) {
-      this.bmxItem.componentText[testNameId].STARS.filter((star) => {
+    // if (this.selectedRating === 0) {
+    //   this.bmxItem.componentText[testNameId].STARS.filter((star) => {
 
-        if (star.id <= starId) {
+    //     if (star.id <= starId) {
 
-          star.class = 'active-rating-star';
+    //       star.class = 'active-rating-star';
 
-        } else {
+    //     } else {
 
-          star.class = 'rating-star';
+    //       star.class = 'rating-star';
 
-        }
+    //     }
 
-        return star;
-      });
-    }
+    //     return star;
+    //   });
+    // }
+    // this.selectedRating = starId
+    this.bmxItem.componentText[testNameId].RATE = starId
   }
   selectStar(starId, testNameId): void {
-    if (this.selectedRating === 0) {
+    // if (this.selectedRating === 0) {
+      // this.selectedRating = 0
       this.bmxItem.componentText[testNameId].STARS.filter((star) => {
         if (star.id <= starId) {
 
@@ -77,12 +80,28 @@ export class RatingScaleComponent implements OnInit {
         return star;
       });
 
-    }
+    
+    // }
   }
 
-  deletRow(option): void {
-    this.bmxItem.componentText.splice(option, 1);
+  leaveStar(testNameId): void {
+    // if (this.selectedRating === 0) {
+      this.selectedRating = this.bmxItem.componentText[testNameId].RATE
+      this.bmxItem.componentText[testNameId].STARS.filter((star) => {
+        if (star.id <= this.selectedRating && this.selectedRating !== "") {
+
+          star.class ='active-rating-star';
+
+        } else {
+          star.class ='rating-star';
+        }
+        return star;
+      });
+      // this.setRating(starId, testNameId) 
+
+    // }
   }
+
 
   upLoadNamesAndRationales(list: string) {
     if (!list) { list = this.listString; }
@@ -107,8 +126,9 @@ export class RatingScaleComponent implements OnInit {
       }
       this.bmxItem.componentText = this.TESTNAMES_LIST;
     } else {
-      this.bmxItem.componentText.forEach(row => {
+      this.bmxItem.componentText.forEach((row, index)     => {
         row.STARS = this.createRatingStars(this.rankingScaleValue, this.ratingScaleIcon)
+        this.leaveStar(index);
       });
     }
   }
@@ -125,6 +145,11 @@ export class RatingScaleComponent implements OnInit {
       this.bmxItem.componentText[index] = this.addToObject(object, 'Custom ' + (count - 1), 'Custom ' + (count - 1), count - 1)
     });
   }
+
+  deletRow(option): void {
+    this.bmxItem.componentText.splice(option, 1);
+  }
+
 
   deleteColumn(columnName) {
     let temporary = []

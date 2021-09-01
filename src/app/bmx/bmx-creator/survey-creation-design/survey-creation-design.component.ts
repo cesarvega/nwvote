@@ -130,7 +130,9 @@ export class SurveyCreationDesignComponent implements OnInit {
       })
       for (let index = 0; index < 12; index++) {
         this.TestNameDataModel.push({
-          name: 'TEST NAME ' + index, rationale: 'Rationale of an undisclosed length',
+          name: 'TEST NAME ' + index, 
+          rationale: 'Rationale of an undisclosed length',
+          RATE:-1,
           STARS: this.createRatingStars()
         })
       }
