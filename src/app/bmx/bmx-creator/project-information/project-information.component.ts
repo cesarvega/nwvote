@@ -35,6 +35,15 @@ export class ProjectInformationComponent implements OnInit {
     DirectorList : ''
   };
   stringBmxEditData: any;
+
+  DIRECTORS: Array<any> = [];
+
+  director = {
+    Director:'',
+  }
+
+  selectedDirector
+
   bmxEditData = new FormGroup({
     bmxSalesboard: new FormControl(),
     bmxDepartment: new FormControl(),
@@ -87,21 +96,35 @@ export class ProjectInformationComponent implements OnInit {
     this._snackBar.open('Saved Succesfully');
   }
  
-  public elements: Array<any> = [];
 
-  public appendElement(): void {
-    this.elements = [...this.elements, this.elements.length];
+
+  createDirector(): void {
+    // this.directors = [...this.directors, this.directors.length];
+    this.DIRECTORS.push(this.director)
   }
 
-  public caller(elementId: number): void {
+  caller(elementId: number): void {
     console.log('New Director Selected Succesfully');
   }
 
   removeDirector(index) {
-    // let index = this.elements.indexOf(index);
+    // let index = this.directors.indexOf(index);
     // console.log(index);
-   this.elements.splice(index, 1);
-    // this.elements = [...this.elements.splice(index, 1)];
+   this.DIRECTORS.splice(index, 1);
+    // this.directors = [...this.directors.splice(index, 1)];
 
+  }
+
+  fillDirectorInfo(director, index){
+    this.director = {
+      // Id: director.Id,
+      Director:director.Director,
+      // Title:director.Title,
+      // Email:director.Email,
+      // Phone:director.Phone
+    }
+    this.DIRECTORS[index] = director.Director    
+    console.log('test');
+    
   }
 }

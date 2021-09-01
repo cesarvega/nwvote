@@ -43,30 +43,12 @@ export class RatingScaleComponent implements OnInit {
 
     // this.columnsNames = Object.values(this.bmxItem.componentText[0])
   }
+
   setRating(starId, testNameId) {
-    // prevent multiple selection
-    // if (this.selectedRating === 0) {
-    //   this.bmxItem.componentText[testNameId].STARS.filter((star) => {
-
-    //     if (star.id <= starId) {
-
-    //       star.class = 'active-rating-star';
-
-    //     } else {
-
-    //       star.class = 'rating-star';
-
-    //     }
-
-    //     return star;
-    //   });
-    // }
-    // this.selectedRating = starId
     this.bmxItem.componentText[testNameId].RATE = starId
   }
+
   selectStar(starId, testNameId): void {
-    // if (this.selectedRating === 0) {
-      // this.selectedRating = 0
       this.bmxItem.componentText[testNameId].STARS.filter((star) => {
         if (star.id <= starId) {
 
@@ -79,27 +61,18 @@ export class RatingScaleComponent implements OnInit {
         }
         return star;
       });
-
-    
-    // }
   }
 
   leaveStar(testNameId): void {
-    // if (this.selectedRating === 0) {
       this.selectedRating = this.bmxItem.componentText[testNameId].RATE
       this.bmxItem.componentText[testNameId].STARS.filter((star) => {
         if (star.id <= this.selectedRating && this.selectedRating !== "") {
-
           star.class ='active-rating-star';
-
         } else {
           star.class ='rating-star';
         }
         return star;
       });
-      // this.setRating(starId, testNameId) 
-
-    // }
   }
 
 
@@ -128,7 +101,7 @@ export class RatingScaleComponent implements OnInit {
     } else {
       this.bmxItem.componentText.forEach((row, index)     => {
         row.STARS = this.createRatingStars(this.rankingScaleValue, this.ratingScaleIcon)
-        this.leaveStar(index);
+        // this.leaveStar(index);
       });
     }
   }
