@@ -55,10 +55,24 @@
 .bmx-page {
     width: 90%;
     height: 91vh;
-    overflow-y:scroll ;
+    overflow-y: scroll;
     @include BoxShadow(2);
 }
 
 .bmx-page::-webkit-scrollbar {
     display: none;
+}
+
+.save-template-box {
+    width: 370px;
+    height: 370px;
+    margin: 0;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    -ms-transform: translate(-50%, -53%);
+    transform: translate(-50%, -53%);
+    border-radius: 3px;
+    background-color: white;
+    border: solid 5px darkgray;
 }

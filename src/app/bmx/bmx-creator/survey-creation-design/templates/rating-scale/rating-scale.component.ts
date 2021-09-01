@@ -67,7 +67,7 @@ export class RatingScaleComponent implements OnInit {
       this.selectedRating = this.bmxItem.componentText[testNameId].RATE
       this.bmxItem.componentText[testNameId].STARS.filter((star) => {
         if (star.id <= this.selectedRating && this.selectedRating !== "") {
-          star.class ='active-rating-star';
+          star.class =(this.ratingScaleIcon === 'grade')?'active-rating-star':'active-rating-bar';
         } else {
           star.class ='rating-star';
         }

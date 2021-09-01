@@ -30,6 +30,15 @@ export class SurveyCreationDesignComponent implements OnInit {
   newTestNames = [];
   ratingScale = 5;
 
+
+  // TEMPLATE BOX 
+  isTemplateBoxOn = false;
+  isSaveOrUpdate = false;
+  templateTitle = 'Template Save or Update';
+  templateButtonTitle = 'Save';
+  TEMPLATES = ['Standart Personal Preference', 'Ranking'];
+  templateName = '';
+
   // SURVEY CREATOR VARIABLES & SCHEME
 
   currentPage = 0;

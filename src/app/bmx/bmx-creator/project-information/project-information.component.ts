@@ -39,7 +39,11 @@ export class ProjectInformationComponent implements OnInit {
   DIRECTORS: Array<any> = [];
 
   director = {
-    Director:'',
+    id: '',
+    name:'',
+    title:'',
+    email:'',
+    phone:''
   }
 
   selectedDirector
@@ -117,13 +121,13 @@ export class ProjectInformationComponent implements OnInit {
 
   fillDirectorInfo(director, index){
     this.director = {
-      // Id: director.Id,
-      Director:director.Director,
-      // Title:director.Title,
-      // Email:director.Email,
-      // Phone:director.Phone
+      id: director.Id,
+      name:director.Director,
+      title:director.Title,
+      email:director.Email,
+      phone:director.Phone
     }
-    this.DIRECTORS[index] = director.Director    
+    this.DIRECTORS[index] =  director.Director    
     console.log('test');
     
   }
