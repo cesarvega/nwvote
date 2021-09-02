@@ -102,8 +102,8 @@
             <!-- 📑📑📑📑📑📑📑📑📑📑📑📑📑📑📑📑📑📑📑📑📑📑📑📑📑📑📑📑📑📑 END BMX PARAGRAPH EDITOR -->
 
 
-            <!-- LINEAR SCALE 👽👽👽👽👽👽👽👽👽👽👽👽👽👽👽👽👽👽👽👽👽👽👽👽👽👽👽👽👽👽👽👽👽👽👽👽👽👽👽👽👽👽-->
-            <div *ngIf="bmxItem.componentType === 'ranking-scale'" class="paragraph">
+            <!-- STARS SCALE 👽👽👽👽👽👽👽👽👽👽👽👽👽👽👽👽👽👽👽👽👽👽👽👽👽👽👽👽👽👽👽👽👽👽👽👽👽👽👽👽👽👽-->
+            <div *ngIf="bmxItem.componentType === 'rate-scale'" class="paragraph">
                 <div class="emoji-handle">.</div>
                 <div style="display: flex;flex-direction: column;justify-content: flex-end;align-items: flex-end;">
                     <button style="outline: none;color:#f10a0a;top: 19px;" mat-icon-button (click)="deleteComponent(i)"
@@ -114,7 +114,22 @@
                 <app-rating-scale [bmxItem]="bmxItem" [i]='i'></app-rating-scale>
 
             </div>
-            <!-- END LINEAR SCALE 👽👽👽👽👽👽👽👽👽👽👽👽👽👽👽👽👽👽👽👽👽👽👽👽👽👽👽👽👽👽👽👽👽👽👽👽👽👽👽👽 -->
+            <!-- END STARS SCALE 👽👽👽👽👽👽👽👽👽👽👽👽👽👽👽👽👽👽👽👽👽👽👽👽👽👽👽👽👽👽👽👽👽👽👽👽👽👽👽👽 -->
+
+
+            <!-- RANK SCALE 😭😭😭😭😭😭😭😭😭😭😭😭😭😭😭😭😭😭😭😭😭😭😭😭😭😭😭😭😭😭😭😭😭😭😭😭😭👽👽👽-->
+            <div *ngIf="bmxItem.componentType === 'ranking-scale'" class="paragraph">
+                <div class="emoji-handle">.</div>
+                <div style="display: flex;flex-direction: column;justify-content: flex-end;align-items: flex-end;">
+                    <button style="outline: none;color:#f10a0a;top: 19px;" mat-icon-button (click)="deleteComponent(i)"
+                        aria-label="delte">
+                        <mat-icon>cancel</mat-icon>
+                    </button>
+                </div>
+                <app-rank-scale [bmxItem]="bmxItem" [i]='i'></app-rank-scale>
+
+            </div>
+            <!-- END RANK SCALE 😭😭😭😭😭😭😭😭😭😭😭😭😭😭😭😭😭😭😭😭😭😭😭😭😭😭😭😭😭😭😭😭😭😭😭😭😭👽 -->
 
         </div>
 
@@ -155,9 +170,13 @@
                 matTooltipPosition="right">
                 <mat-icon class="full-icon">note_add</mat-icon>
             </button>
-            <button (click)="createNewBmxComponent('rating-scale')" matTooltip="rating table" matTooltipPosition="right"
+            <button (click)="createNewBmxComponent('rate-scale')" matTooltip="rating table" matTooltipPosition="right"
                 mat-icon-button color="warn" aria-label="aria">
                 <mat-icon class="full-icon">grading</mat-icon>
+            </button>
+            <button (click)="createNewBmxComponent('ranking-scale')" matTooltip="rank table" matTooltipPosition="right"
+                mat-icon-button color="warn" aria-label="aria">
+                <mat-icon class="full-icon">trending_down</mat-icon>
             </button>
             <button *ngIf="!false" (click)="createPage()" matTooltip="Create New Page" matTooltipPosition="right"
                 mat-icon-button aria-label="aria">

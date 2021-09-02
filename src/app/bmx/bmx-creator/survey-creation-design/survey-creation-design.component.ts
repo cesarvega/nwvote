@@ -63,7 +63,6 @@ export class SurveyCreationDesignComponent implements OnInit {
     }
   ]
 
-
   SAMPLE_BMX = [
     {
       "pageNumber": 1,
@@ -140,7 +139,7 @@ export class SurveyCreationDesignComponent implements OnInit {
           ]
         },
         {
-          "componentType": "ranking-scale",
+          "componentType": "rate-scale",
           "componentText": [
             {
               "STARS": [
@@ -605,7 +604,7 @@ export class SurveyCreationDesignComponent implements OnInit {
     this.model.editorData = this.sampleHtml;
     // TEMPLATE SELECTOR
     if (this.TEMPLATE_NAME === 'Standart Personal Preference') {
-      this.createNewBmxComponent("rating-scale");
+      this.createNewBmxComponent("rate-scale");
     }
     this.bmxPages = this.SAMPLE_BMX
   }
@@ -644,7 +643,28 @@ export class SurveyCreationDesignComponent implements OnInit {
         componentText: this.sampleHtml2,
         componentSettings: [{ fontSize: '16px', fontFace: 'Arial', fontColor: 'red' }],
       })
-    } else if (componentType === 'rating-scale') {
+    } else if (componentType === 'rate-scale') {
+
+      this.TestNameDataModel = [];
+      this.TestNameDataModel.push({
+        name: 'NAME', rationale: 'RATIONALE',
+        STARS: this.createRatingStars()
+      })
+      for (let index = 0; index < 12; index++) {
+        this.TestNameDataModel.push({
+          name: 'TEST NAME ' + index,
+          rationale: 'Rationale of an undisclosed length',
+          RATE: -1,
+          STARS: this.createRatingStars()
+        })
+      }
+      this.bmxPages[this.currentPage].page.push({
+        componentType: 'rate-scale',
+        componentText: this.TestNameDataModel,
+        componentSettings: [{ fontSize: '16px', fontFace: 'Arial', fontColor: 'red' }],
+      })
+    }
+     else if (componentType === 'ranking-scale') {
 
       this.TestNameDataModel = [];
       this.TestNameDataModel.push({
@@ -742,7 +762,7 @@ export class SurveyCreationDesignComponent implements OnInit {
     for (let index = 0; index < this.ratingScale; index++) {
       startCounter.push({
         id: index,
-        icon: 'grade',
+        icon: index,
         class: 'rating-star'
       });
     }
