@@ -717,7 +717,23 @@ export class SurveyCreationDesignComponent implements OnInit {
   }
 
   resetTemplate() {
-
+    this.bmxPages = [
+      {
+        pageNumber: 1,
+        page: [
+          {
+            componentType: 'logo-header',
+            componentText: 'PROJECT NAME',
+            componentSettings: [{ fontSize: '16px', fontFace: 'Arial', fontColor: 'red' }],
+          },
+          {
+            componentType: 'instructions',
+            componentText: this.sampleHtml,
+            componentSettings: [{ fontSize: '16px', fontFace: 'Arial', fontColor: 'red' }],
+          },
+        ]
+      }
+    ]
   }
 
   // 🌭🌭🌭🌭🌭🌭🌭🌭🌭🌭🌭🌭🌭🌭PRIVATE METHODS 🌭🌭🌭🌭🌭🌭🌭🌭🌭🌭🌭🌭🌭🌭🌭🌭🌭🌭🌭🌭🌭🌭🌭🌭🌭🌭🌭🌭🌭
