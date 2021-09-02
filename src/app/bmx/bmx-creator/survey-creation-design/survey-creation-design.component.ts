@@ -762,7 +762,7 @@ export class SurveyCreationDesignComponent implements OnInit {
     for (let index = 0; index < this.ratingScale; index++) {
       startCounter.push({
         id: index,
-        icon: index,
+        icon: index + 1,
         class: 'rating-star'
       });
     }
