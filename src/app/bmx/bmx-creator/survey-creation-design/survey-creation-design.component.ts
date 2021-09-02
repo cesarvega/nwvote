@@ -669,14 +669,35 @@ export class SurveyCreationDesignComponent implements OnInit {
       this.TestNameDataModel = [];
       this.TestNameDataModel.push({
         name: 'NAME', rationale: 'RATIONALE',
-        STARS: this.createRatingStars()
+        STARS: this.createRateScale()
       })
       for (let index = 0; index < 12; index++) {
         this.TestNameDataModel.push({
           name: 'TEST NAME ' + index,
           rationale: 'Rationale of an undisclosed length',
           RATE: -1,
-          STARS: this.createRatingStars()
+          STARS: this.createRateScale()
+        })
+      }
+      this.bmxPages[this.currentPage].page.push({
+        componentType: 'ranking-scale',
+        componentText: this.TestNameDataModel,
+        componentSettings: [{ fontSize: '16px', fontFace: 'Arial', fontColor: 'red' }],
+      })
+    }
+     else if (componentType === 'image-rate-scale') {
+
+      this.TestNameDataModel = [];
+      this.TestNameDataModel.push({
+        name: 'NAME', rationale: 'RATIONALE',
+        STARS: this.createRateScale()
+      })
+      for (let index = 0; index < 12; index++) {
+        this.TestNameDataModel.push({
+          name: 'TEST NAME ' + index,
+          rationale: 'Rationale of an undisclosed length',
+          RATE: -1,
+          STARS: this.createRateScale()
         })
       }
       this.bmxPages[this.currentPage].page.push({
@@ -758,6 +779,17 @@ export class SurveyCreationDesignComponent implements OnInit {
 
   // 🌭🌭🌭🌭🌭🌭🌭🌭🌭🌭🌭🌭🌭🌭PRIVATE METHODS 🌭🌭🌭🌭🌭🌭🌭🌭🌭🌭🌭🌭🌭🌭🌭🌭🌭🌭🌭🌭🌭🌭🌭🌭🌭🌭🌭🌭🌭
   createRatingStars() {
+    let startCounter: any = []
+    for (let index = 0; index < this.ratingScale; index++) {
+      startCounter.push({
+        id: index,
+        icon: 'grade',
+        class: 'rating-star'
+      });
+    }
+    return startCounter;
+  }
+  createRateScale() {
     let startCounter: any = []
     for (let index = 0; index < this.ratingScale; index++) {
       startCounter.push({

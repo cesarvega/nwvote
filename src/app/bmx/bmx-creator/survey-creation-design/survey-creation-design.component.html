@@ -11,7 +11,12 @@
             <!-- BMX HEADER 😋😋😋😋😋😋😋😋😋😋😋😋😋😋😋😋😋😋😋😋😋😋😋😋😋😋😋😋😋😋😋😋😋😋😋😋😋😋 -->
 
             <div *ngIf="bmxItem.componentType === 'logo-header'" class="header">
-
+                <div style="position: absolute;right: 0px;">
+                    <button style="outline: none;color:#f10a0a;top: 19px;" mat-icon-button (click)="deleteComponent(i)"
+                        aria-label="delte">
+                        <mat-icon style="font-size: 17px;">cancel</mat-icon>
+                    </button>
+                </div>
                 <div class="emoji-handle">.</div>
 
                 <div>
@@ -40,7 +45,7 @@
                     <!-- <div style="display: flex;flex-direction: row;justify-content: flex-end;align-items: flex-end;">
                         <button style="outline: none;color:#f10a0a;top: 19px;" mat-icon-button (click)="deleteComponent()"
                             aria-label="delte">
-                            <mat-icon>cancel</mat-icon>
+                            <mat-icon style="font-size: 17px;">cancel</mat-icon>
                         </button>
                     </div> -->
                 </div>
@@ -58,7 +63,7 @@
                 <div style="display: flex;flex-direction: column;justify-content: flex-end;align-items: flex-end;">
                     <button style="outline: none;color:#f10a0a;top: 19px;" mat-icon-button (click)="deleteComponent(i)"
                         aria-label="delte">
-                        <mat-icon>cancel</mat-icon>
+                        <mat-icon style="font-size: 17px;">cancel</mat-icon>
                     </button>
                 </div>
                 <div style="margin: 30px;" [innerHTML]="bmxItem.componentText | safe: 'html'"></div>
@@ -83,7 +88,7 @@
                 <div style="display: flex;flex-direction: column;justify-content: flex-end;align-items: flex-end;">
                     <button style="outline: none;color:#f10a0a;top: 19px;" mat-icon-button (click)="deleteComponent(i)"
                         aria-label="delte">
-                        <mat-icon>cancel</mat-icon>
+                        <mat-icon style="font-size: 17px;">cancel</mat-icon>
                     </button>
                 </div>
                 <div style="margin: 30px;" [innerHTML]="bmxItem.componentText | safe: 'html'"></div>
@@ -108,7 +113,7 @@
                 <div style="display: flex;flex-direction: column;justify-content: flex-end;align-items: flex-end;">
                     <button style="outline: none;color:#f10a0a;top: 19px;" mat-icon-button (click)="deleteComponent(i)"
                         aria-label="delte">
-                        <mat-icon>cancel</mat-icon>
+                        <mat-icon style="font-size: 17px;">cancel</mat-icon>
                     </button>
                 </div>
                 <app-rating-scale [bmxItem]="bmxItem" [i]='i'></app-rating-scale>
@@ -117,19 +122,33 @@
             <!-- END STARS SCALE 👽👽👽👽👽👽👽👽👽👽👽👽👽👽👽👽👽👽👽👽👽👽👽👽👽👽👽👽👽👽👽👽👽👽👽👽👽👽👽👽 -->
 
 
-            <!-- RANK SCALE 😭😭😭😭😭😭😭😭😭😭😭😭😭😭😭😭😭😭😭😭😭😭😭😭😭😭😭😭😭😭😭😭😭😭😭😭😭👽👽👽-->
+            <!-- RANK SCALE 😭😭😭😭😭😭😭😭😭😭😭😭😭😭😭😭😭😭😭😭😭😭😭😭😭😭😭😭😭😭😭😭😭😭😭😭😭-->
             <div *ngIf="bmxItem.componentType === 'ranking-scale'" class="paragraph">
                 <div class="emoji-handle">.</div>
                 <div style="display: flex;flex-direction: column;justify-content: flex-end;align-items: flex-end;">
                     <button style="outline: none;color:#f10a0a;top: 19px;" mat-icon-button (click)="deleteComponent(i)"
                         aria-label="delte">
-                        <mat-icon>cancel</mat-icon>
+                        <mat-icon style="font-size: 17px;">cancel</mat-icon>
+                    </button>
+                </div>
+                <app-image-rate-scale [bmxItem]="bmxItem" [i]='i'></app-image-rate-scale>
+
+            </div>
+            <!-- END RANK SCALE 😭😭😭😭😭😭😭😭😭😭😭😭😭😭😭😭😭😭😭😭😭😭😭😭😭😭😭😭😭😭😭😭😭😭😭😭😭 -->
+
+            <!-- IMAGE SCALE 👀👀👀👀👀👀👀👀👀👀👀👀👀👀👀👀👀👀👀👀👀👀👀👀👀👀👀👀👀👀👀👀👀👀👀👀👀👀-->
+            <div *ngIf="bmxItem.componentType === 'image-rate-scale'" class="paragraph">
+                <div class="emoji-handle">.</div>
+                <div style="display: flex;flex-direction: column;justify-content: flex-end;align-items: flex-end;">
+                    <button style="outline: none;color:#f10a0a;top: 19px;" mat-icon-button (click)="deleteComponent(i)"
+                        aria-label="delte">
+                        <mat-icon style="font-size: 17px;">cancel</mat-icon>
                     </button>
                 </div>
                 <app-rank-scale [bmxItem]="bmxItem" [i]='i'></app-rank-scale>
 
             </div>
-            <!-- END RANK SCALE 😭😭😭😭😭😭😭😭😭😭😭😭😭😭😭😭😭😭😭😭😭😭😭😭😭😭😭😭😭😭😭😭😭😭😭😭😭👽 -->
+            <!-- END IMAGE SCALE 👀👀👀👀👀👀👀👀👀👀👀👀👀👀👀👀👀👀👀👀👀👀👀👀👀👀👀👀👀👀👀👀👀👀👀👀👀👀 -->
 
         </div>
 
@@ -177,6 +196,10 @@
             <button (click)="createNewBmxComponent('ranking-scale')" matTooltip="rank table" matTooltipPosition="right"
                 mat-icon-button color="warn" aria-label="aria">
                 <mat-icon class="full-icon">trending_down</mat-icon>
+            </button>
+            <button (click)="createNewBmxComponent('image-rate-scale')" matTooltip="image rate table" matTooltipPosition="right"
+                mat-icon-button color="warn" aria-label="aria">
+                <mat-icon class="full-icon">image</mat-icon>
             </button>
             <button *ngIf="!false" (click)="createPage()" matTooltip="Create New Page" matTooltipPosition="right"
                 mat-icon-button aria-label="aria">
