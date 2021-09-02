@@ -74,5 +74,6 @@
     transform: translate(-50%, -53%);
     border-radius: 3px;
     background-color: white;
-    border: solid 5px darkgray;
+    border: solid 6px darkgray;
+    @include BoxShadow(6);
 }

@@ -96,7 +96,7 @@ export class BmxCreatorComponent implements OnInit {
   TEMPLATES = [
     { name: 'Standart Personal Preference', rationale: 'Sist, Assist, Syst' },
     { name: 'Ranking', rationale: 'Hance, En-' },
-    { name: 'NArrowDown', rationale: 'Evo' },
+    { name: 'NarrowDown', rationale: 'Evo' },
     { name: 'This or That', rationale: 'Gard, Guard' },
     { name: 'Naming Contest', rationale: 'In, Inv' },
     { name: 'Question & Answer', rationale: 'Omni' },

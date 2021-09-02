@@ -34,10 +34,10 @@ export class SurveyCreationDesignComponent implements OnInit {
   // TEMPLATE BOX 
   isTemplateBoxOn = false;
   isSaveOrUpdate = false;
-  templateTitle = 'Template Save or Update';
-  templateButtonTitle = 'Save';
-  TEMPLATES = ['Standart Personal Preference', 'Ranking'];
+  templateTitle;
+  TEMPLATES = ['Standart Personal Preference', 'Ranking', 'NarrowDown', 'This or That', 'Naming Contest', 'Question & Answer'];
   templateName = '';
+  selectedTemplateName = '';
 
   // SURVEY CREATOR VARIABLES & SCHEME
 
@@ -139,9 +139,9 @@ export class SurveyCreationDesignComponent implements OnInit {
       })
       for (let index = 0; index < 12; index++) {
         this.TestNameDataModel.push({
-          name: 'TEST NAME ' + index, 
+          name: 'TEST NAME ' + index,
           rationale: 'Rationale of an undisclosed length',
-          RATE:-1,
+          RATE: -1,
           STARS: this.createRatingStars()
         })
       }
@@ -161,9 +161,47 @@ export class SurveyCreationDesignComponent implements OnInit {
       this.currentPage = this.currentPage - 1;
     }
   }
+
   selectPageNumber(pageNumber) {
     this.currentPage = pageNumber;
   }
+
+  deleteComponent(i) {
+    this.bmxPages[this.currentPage].page.splice(i, 1)
+  }
+
+
+  // TEMPLATE METHODS
+  saveOrUpdateTemplate(templateName) {
+    localStorage.setItem(templateName, JSON.stringify(this.bmxPages))
+    this.templateTitle = "Template '" + templateName + "' saved"
+
+    if (this.TEMPLATES.indexOf(templateName) < 0) {
+      this.TEMPLATES.push(templateName)
+    }
+
+    setTimeout(() => {
+      this.openSaveTemplateBox()
+    }, 3000);
+  }
+
+  loadTemplate(templateName) {
+    if (localStorage.getItem(templateName)) {
+      this.bmxPages = JSON.parse(localStorage.getItem(templateName))
+    }
+    this.openSaveTemplateBox()
+  }
+
+  templateSelected() {
+    this.isSaveOrUpdate = true;
+  }
+
+  openSaveTemplateBox() {
+    this.templateName = ''
+    this.templateTitle = 'save, update or load a template'
+    this.isTemplateBoxOn = !this.isTemplateBoxOn
+  }
+
 
 
   // 🌭🌭🌭🌭🌭🌭🌭🌭🌭🌭🌭🌭🌭🌭PRIVATE METHODS 🌭🌭🌭🌭🌭🌭🌭🌭🌭🌭🌭🌭🌭🌭🌭🌭🌭🌭🌭🌭🌭🌭🌭🌭🌭🌭🌭🌭🌭
@@ -185,21 +223,7 @@ export class SurveyCreationDesignComponent implements OnInit {
 
   }
 
-  createTemplate(template){
-
-    localStorage.setItem(template, JSON.stringify(this.bmxPages))
-
-  }
-
-
-  loadTemplate(template){
-
-    this.bmxPages = JSON.parse(localStorage.getItem('template1'))
-  }
-
-  
-  deleteComponent(i){
-    this.bmxPages[this.currentPage].page.splice(i, 1)
-  }
 
 }
+
+

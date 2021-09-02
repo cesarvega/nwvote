@@ -159,7 +159,7 @@
                 mat-icon-button aria-label="aria">
                 <mat-icon class="full-icon">post_add</mat-icon>
             </button>
-            <button (click)="createTemplate('template1')" matTooltip="save template" matTooltipPosition="right"
+            <button (click)="openSaveTemplateBox()" matTooltip="save template" matTooltipPosition="right"
                 mat-icon-button color="warn" aria-label="aria">
                 <mat-icon class="full-icon">save</mat-icon>
             </button>
@@ -172,28 +172,39 @@
 </div>
 
 
-<div *ngIf="!isTemplateBoxOn" class="save-template-box"
+<div *ngIf="isTemplateBoxOn" class="save-template-box"
     style="display: flex;flex-direction: column;align-items: center;justify-content: space-around;">
     <h2 style="text-align: center;padding-top: 5px;color: #2a3f8a;">{{templateTitle}}</h2>
 
     <mat-form-field appearance="outline">
-        <mat-label>Template Name</mat-label>
-        <input matInput [(ngModel)]="templateName" placeholder="New Name">
+        <mat-label>New Template Name</mat-label>
+        <input matInput [(ngModel)]="templateName" placeholder="New Name" (click)="isSaveOrUpdate = false">
         <button *ngIf="templateName" matSuffix mat-icon-button aria-label="Clear" (click)="templateName=''">
             <mat-icon>close</mat-icon>
-          </button>
+        </button>
     </mat-form-field>
-    <p style="text-align: center;color: grey;" *ngIf="templateName.length == 0">or pick one to update</p>
+    <p style="text-align: center;color: grey;" *ngIf="templateName.length == 0">or select one to load or update</p>
     <mat-form-field *ngIf="templateName.length == 0" appearance="outline">
         <mat-label>Templates</mat-label>
-        <mat-select [(ngModel)]="templateName" >
+        <mat-select [(ngModel)]="templateName" (selectionChange)="templateSelected()">
             <mat-option *ngFor="let template of TEMPLATES " [value]="template">
                 {{template}}
             </mat-option>
         </mat-select>
     </mat-form-field>
-    <button  mat-raised-button style="color: white;background-color: #2a3f8a">
-        {{templateButtonTitle}}
-    </button>
-  
+    <div *ngIf="templateName.length > 3" style="display: flex;flex-direction: row;justify-content: space-evenly; width: 200px;">
+        <button *ngIf="!isSaveOrUpdate"  (click)="saveOrUpdateTemplate(templateName)" mat-raised-button
+            style="color: white;background-color: #2a3f8a">
+            save
+        </button>
+        <button *ngIf="isSaveOrUpdate" (click)="saveOrUpdateTemplate(templateName)" mat-raised-button
+            style="color: white;background-color: #2a3f8a">
+            update
+        </button>
+        <p *ngIf="isSaveOrUpdate">or</p>
+        <button *ngIf="isSaveOrUpdate" (click)="loadTemplate(templateName)" mat-raised-button
+            style="color: white;background-color: #2a3f8a">
+            load
+        </button>
+    </div>
 </div>
