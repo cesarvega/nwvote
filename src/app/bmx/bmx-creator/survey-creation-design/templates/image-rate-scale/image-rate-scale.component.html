@@ -63,36 +63,37 @@
                     *ngIf="(y == 0)">
                     <span class="header-delete-icon" *ngIf="selectedColumn === e" matTooltip="delete column"
                         matTooltipPosition="above" (click)="deleteColumn(testName[columnName])">x</span>
-                    <input class="header-title-box" *ngIf="(y == 0) && columnName != 'rationale'" [(ngModel)]="testName[columnName]"
-                        value="testName[columnName]">
-                        <textarea style="height: 100%;width: 300px; font-weight: bold;color: #324395;" class="row-box" *ngIf="(y == 0) && columnName == 'rationale'"
-                        [(ngModel)]="testName[columnName]" value="testName[columnName]"></textarea>
+                    <input class="header-title-box" *ngIf="(y == 0) && columnName != 'rationale'"
+                        [(ngModel)]="testName[columnName]" value="testName[columnName]">
+                    <textarea style="height: 100%;width: 300px; font-weight: bold;color: #324395;" class="row-box"
+                        *ngIf="(y == 0) && columnName == 'rationale'" [(ngModel)]="testName[columnName]"
+                        value="testName[columnName]"></textarea>
                 </div>
 
-                <!-- 
-                <input  [ngClass]="(columnName == 'rationale')?'header-title-rationale-box ':'header-title-box'"  *ngIf="(y == 0)" [(ngModel)]="testName[columnName]"
+                <img class="row-box" style="width: 300px;" [src]="testName[columnName]" *ngIf="(y !== 0) && columnName == 'name'" [(ngModel)]="testName[columnName]"
                 value="testName[columnName]">
-        </div>
-        <input   [ngClass]="(columnName == 'rationale')?'rationale-box':'row-box'" *ngIf="(y !== 0)" [(ngModel)]="testName[columnName]"
-            value="testName[columnName]"> -->
 
-                <input class="row-box" *ngIf="(y !== 0) && columnName != 'rationale'" [(ngModel)]="testName[columnName]"
+                <input class="row-box" *ngIf="(y !== 0) && columnName != 'rationale' && columnName != 'name'" [(ngModel)]="testName[columnName]"
                     value="testName[columnName]">
 
-                <textarea style="height: 24px;width: 300px;" class="row-box" *ngIf="(y !== 0) && columnName == 'rationale'"
-                    [(ngModel)]="testName[columnName]" value="testName[columnName]"></textarea>
+                <textarea style="height: 24px;width: 300px;" class="row-box"
+                    *ngIf="(y !== 0) && columnName == 'rationale'" [(ngModel)]="testName[columnName]"
+                    value="testName[columnName]"></textarea>
 
-                    <!-- [ngClass]="star.class" (mouseenter)="selectStar(star.id , y)" (mouseleave)="leaveStar(star.id , y)" -->
+
             </div>
+
+            <!--⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️ STARS ⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️ -->
+
             <div style="min-width: 250px">
                 <button *ngFor="let star of  testName.STARS; let x =  index" (click)="setRating(star.id,y)"
                     [ngClass]="star.class" (mouseenter)="selectStar(star.id , y)" (mouseleave)="leaveStar(y)"
                     style="outline: none;margin:-5px -8px;" mat-icon-button aria-label="ranking">
                     <mat-icon *ngIf="(y !== 0)">{{star.icon}}</mat-icon>
-                    <!-- <mat-icon *ngIf="(y !== 0)" style="transform: rotate(0deg);">{{'crop_din'}}</mat-icon> -->
                     <div class="rating-text" *ngIf="(y === 0 && x === 0)">RATING</div>
                 </button>
             </div>
+                   <!--⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️ END STARS ⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️ -->
             <div style="min-width: 100px">
                 <button *ngIf="(y !== 0)" style="outline: none;margin:-5px -8px;" (click)="deletRow(y)" mat-icon-button
                     aria-label="ranking">

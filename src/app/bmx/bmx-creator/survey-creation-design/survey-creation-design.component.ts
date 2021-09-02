@@ -689,7 +689,7 @@ export class SurveyCreationDesignComponent implements OnInit {
 
       this.TestNameDataModel = [];
       this.TestNameDataModel.push({
-        name: 'NAME', rationale: 'RATIONALE',
+        name: 'LOGO', rationale: 'RATIONALE',
         STARS: this.createRatingStars()
       })
       for (let index = 0; index < 5; index++) {
