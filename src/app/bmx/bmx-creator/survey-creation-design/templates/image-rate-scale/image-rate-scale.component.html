@@ -25,7 +25,7 @@
             <hr>
 
         </div>
-        <!-- <div>
+        <div>
             <div style="font-size: 16px;margin-top: 10px;color: #48535e;">CHOOSE RATING ICON</div>
             <br>
             <mat-radio-group aria-label="Select an option" [(ngModel)]="ratingScaleIcon">
@@ -37,7 +37,7 @@
                 </mat-radio-button>
             </mat-radio-group>
             <hr>
-        </div> -->
+        </div>
 
         <button style="outline: none;color:#76d354;margin-bottom: 50px;" mat-icon-button
             (click)="selectedIndex = '';upLoadNamesAndRationales(testNamesInput)" aria-label="ranking">
@@ -88,8 +88,7 @@
                 <button *ngFor="let star of  testName.STARS; let x =  index" (click)="setRating(star.id,y)"
                     [ngClass]="star.class" (mouseenter)="selectStar(star.id , y)" (mouseleave)="leaveStar(y)"
                     style="outline: none;margin:-5px -8px;" mat-icon-button aria-label="ranking">
-                    <p style="font-size: 25px;
-                    font-weight: 400;" *ngIf="(y !== 0)">{{star.icon}}</p>
+                    <mat-icon *ngIf="(y !== 0)">{{star.icon}}</mat-icon>
                     <!-- <mat-icon *ngIf="(y !== 0)" style="transform: rotate(0deg);">{{'crop_din'}}</mat-icon> -->
                     <div class="rating-text" *ngIf="(y === 0 && x === 0)">RATING</div>
                 </button>

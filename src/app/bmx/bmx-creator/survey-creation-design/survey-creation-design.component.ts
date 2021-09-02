@@ -690,14 +690,15 @@ export class SurveyCreationDesignComponent implements OnInit {
       this.TestNameDataModel = [];
       this.TestNameDataModel.push({
         name: 'NAME', rationale: 'RATIONALE',
-        STARS: this.createRateScale()
+        STARS: this.createRatingStars()
       })
-      for (let index = 0; index < 12; index++) {
+      for (let index = 0; index < 5; index++) {
+        let imageIndex = index + 1
         this.TestNameDataModel.push({
-          name: 'TEST NAME ' + index,
+          name: './assets/img/bmx/logoTestNames/logo' + imageIndex.toString() + '.JPG',
           rationale: 'Rationale of an undisclosed length',
           RATE: -1,
-          STARS: this.createRateScale()
+          STARS: this.createRatingStars()
         })
       }
       this.bmxPages[this.currentPage].page.push({

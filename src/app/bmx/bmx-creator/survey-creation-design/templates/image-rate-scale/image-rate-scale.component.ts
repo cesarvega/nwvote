@@ -151,7 +151,7 @@ export class ImageRateScaleComponent implements OnInit {
     for (let index = 0; index < ratingScale; index++) {
       startCounter.push({
         id: index,
-        icon: index + 1,
+        icon: ratingScaleIcon,
         class: 'rating-star'
       });
     }
