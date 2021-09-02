@@ -74,6 +74,7 @@ import { MatAutocompleteModule } from '@angular/material/autocomplete';
 import { ProjectInformationComponent } from '../bmx-creator/project-information/project-information.component';
 import { RatingScaleComponent } from '../bmx-creator/survey-creation-design/templates/rating-scale/rating-scale.component';
 import { RankScaleComponent } from '../bmx-creator/survey-creation-design/templates/rank-scale/rank-scale.component';
+import { ImageRateScaleComponent } from '../bmx-creator/survey-creation-design/templates/image-rate-scale/image-rate-scale.component';
 export function loadEcharts() {
   return import('echarts');
 }
@@ -91,6 +92,7 @@ export function loadEcharts() {
     ProjectInformationComponent,
     RatingScaleComponent,
     RankScaleComponent,
+    ImageRateScaleComponent,
   ],
   imports: [
     BrowserModule,

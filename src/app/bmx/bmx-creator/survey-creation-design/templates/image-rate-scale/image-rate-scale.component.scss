@@ -1,0 +1,82 @@
+.active-rating-star {
+    color: #76d354;
+}
+.active-rating-bar {
+    color: #e7c00f;
+}
+.rating-star {
+    color: grey;
+}
+
+.odd-style::-webkit-scrollbar {
+    width: 3px;
+}
+
+/* Track */
+.odd-style::-webkit-scrollbar-track {
+    background: white;
+}
+
+/* Handle */
+.odd-style::-webkit-scrollbar-thumb {
+    background: #f1f1f1;
+    border-radius: 10px;
+}
+
+/* Handle on hover */
+.odd-style::-webkit-scrollbar-thumb:hover {
+    background: #283e90;
+}
+
+.rating-text {
+    width: 33%;
+    text-align: start;
+    margin: 10px 10px;
+    font-size: 17px;
+    font-weight: bold;
+    color: #324395;
+    margin-bottom: 20px;
+}
+
+.header-title {
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-start;
+}
+
+.header-delete-icon {
+    cursor: pointer;
+    margin-right: 5px;
+    color: red;
+    font-size: 20px;
+}
+
+.header-title-box {
+    font-weight: bold;
+    color: #324395;
+    border: none;
+    max-width: 300px;
+}
+
+.header-title-rationale-box {
+    font-weight: bold;
+    color: #324395;
+    border: none;
+    max-width: 300px;
+}
+
+.row-box {
+    border: none;
+    max-width: 300px;
+}
+
+.rationale-box {
+    border: none;
+    width: 300px;
+}
+
+.add-column {
+    outline: none;
+    margin: -20px 29px;
+    float: right;
+}
