@@ -34,6 +34,7 @@ export class SurveyCreationDesignComponent implements OnInit {
   // TEMPLATE BOX 
   isTemplateBoxOn = false;
   isSaveOrUpdate = false;
+  isOverViewPageOn = false;
   templateTitle;
   TEMPLATES = ['Standart Personal Preference', 'Ranking', 'NarrowDown', 'This or That', 'Naming Contest', 'Question & Answer'];
   templateName = '';
@@ -702,7 +703,7 @@ export class SurveyCreationDesignComponent implements OnInit {
         })
       }
       this.bmxPages[this.currentPage].page.push({
-        componentType: 'ranking-scale',
+        componentType: 'image-rate-scale',
         componentText: this.TestNameDataModel,
         componentSettings: [{ fontSize: '16px', fontFace: 'Arial', fontColor: 'red' }],
       })
@@ -776,6 +777,11 @@ export class SurveyCreationDesignComponent implements OnInit {
         ]
       }
     ]
+  }
+
+
+  overviewPage(){
+
   }
 
   // 🌭🌭🌭🌭🌭🌭🌭🌭🌭🌭🌭🌭🌭🌭PRIVATE METHODS 🌭🌭🌭🌭🌭🌭🌭🌭🌭🌭🌭🌭🌭🌭🌭🌭🌭🌭🌭🌭🌭🌭🌭🌭🌭🌭🌭🌭🌭

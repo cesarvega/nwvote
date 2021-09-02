@@ -70,8 +70,7 @@
                         value="testName[columnName]"></textarea>
                 </div>
 
-                <img class="row-box" style="width: 300px;" [src]="testName[columnName]" *ngIf="(y !== 0) && columnName == 'name'" [(ngModel)]="testName[columnName]"
-                value="testName[columnName]">
+                <img class="row-box" style="width: 300px;" [src]="testName[columnName]" *ngIf="(y !== 0) && columnName == 'name'">
 
                 <input class="row-box" *ngIf="(y !== 0) && columnName != 'rationale' && columnName != 'name'" [(ngModel)]="testName[columnName]"
                     value="testName[columnName]">

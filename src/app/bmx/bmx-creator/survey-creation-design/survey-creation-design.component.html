@@ -131,8 +131,7 @@
                         <mat-icon style="font-size: 17px;">cancel</mat-icon>
                     </button>
                 </div>
-                <app-image-rate-scale [bmxItem]="bmxItem" [i]='i'></app-image-rate-scale>
-
+                <app-rank-scale [bmxItem]="bmxItem" [i]='i'></app-rank-scale>
             </div>
             <!-- END RANK SCALE 😭😭😭😭😭😭😭😭😭😭😭😭😭😭😭😭😭😭😭😭😭😭😭😭😭😭😭😭😭😭😭😭😭😭😭😭😭 -->
 
@@ -145,8 +144,7 @@
                         <mat-icon style="font-size: 17px;">cancel</mat-icon>
                     </button>
                 </div>
-                <app-rank-scale [bmxItem]="bmxItem" [i]='i'></app-rank-scale>
-
+                <app-image-rate-scale [bmxItem]="bmxItem" [i]='i'></app-image-rate-scale>
             </div>
             <!-- END IMAGE SCALE 👀👀👀👀👀👀👀👀👀👀👀👀👀👀👀👀👀👀👀👀👀👀👀👀👀👀👀👀👀👀👀👀👀👀👀👀👀👀 -->
 
@@ -209,13 +207,18 @@
                 mat-icon-button color="warn" aria-label="aria">
                 <mat-icon class="full-icon">save</mat-icon>
             </button>
-            <button *ngIf="true" (click)="loadTemplate('template1')" mat-icon-button matTooltip="use template"
+            <!-- <button *ngIf="true" (click)="loadTemplate('template1')" mat-icon-button matTooltip="use template"
                 matTooltipPosition="right">
                 <mat-icon class="full-icon">library_add</mat-icon>
-            </button>
+            </button> -->
             <button *ngIf="true" (click)="resetTemplate()" mat-icon-button matTooltip="reset template"
                 matTooltipPosition="right">
                 <mat-icon class="full-icon">delete_sweep
+                </mat-icon>
+            </button>
+            <button *ngIf="true" (click)="overviewPage()" mat-icon-button matTooltip="overview page"
+                matTooltipPosition="right">
+                <mat-icon class="full-icon">visibility
                 </mat-icon>
             </button>
         </div>
@@ -249,7 +252,7 @@
             save
         </button>
         <button *ngIf="isSaveOrUpdate" (click)="saveOrUpdateTemplate(templateName)" mat-raised-button
-            style="color: white;background-color: #2a3f8a">
+            style="color: white;background-color: #8a2a5a">
             update
         </button>
         <p *ngIf="isSaveOrUpdate">or</p>
