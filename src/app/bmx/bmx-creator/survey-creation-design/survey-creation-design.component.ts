@@ -124,7 +124,15 @@ export class SurveyCreationDesignComponent implements OnInit {
   }
 
   createNewBmxComponent(componentType) {
-    if (componentType === 'text-editor') {
+
+     if (componentType === 'logo-header') {
+      this.bmxPages[this.currentPage].page.push({
+        componentType: 'logo-header',
+        componentText: 'PROJECT NAME',
+        componentSettings: [{ fontSize: '16px', fontFace: 'Arial', fontColor: 'red' }],
+      })
+     }
+      else if (componentType === 'text-editor') {
       this.bmxPages[this.currentPage].page.push({
         componentType: 'text-editor',
         componentText: this.sampleHtml2,

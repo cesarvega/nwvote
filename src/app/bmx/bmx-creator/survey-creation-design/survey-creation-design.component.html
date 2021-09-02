@@ -147,6 +147,10 @@
     <div class="project-info" *ngIf="isMenuActive11" style="border: pink solid 1px; width: 25%; height: 100vh;">
 
         <div style="display: flex;flex-direction: column;margin-top: 50px;">
+            <button (click)="createNewBmxComponent('logo-header')" mat-icon-button matTooltip="add paragraph"
+                matTooltipPosition="right">
+                <mat-icon class="full-icon">account_circle</mat-icon>
+            </button>
             <button (click)="createNewBmxComponent('text-editor')" mat-icon-button matTooltip="add paragraph"
                 matTooltipPosition="right">
                 <mat-icon class="full-icon">note_add</mat-icon>
