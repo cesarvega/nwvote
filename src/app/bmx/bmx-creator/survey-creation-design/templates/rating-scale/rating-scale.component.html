@@ -76,7 +76,7 @@
         <input   [ngClass]="(columnName == 'rationale')?'rationale-box':'row-box'" *ngIf="(y !== 0)" [(ngModel)]="testName[columnName]"
             value="testName[columnName]"> -->
 
-                <input class="row-box" *ngIf="(y !== 0) && columnName != 'rationale'" [(ngModel)]="testName[columnName]"
+                <input class="row-box" style="height: 24px;width: 300px;" *ngIf="(y !== 0) && columnName != 'rationale'" [(ngModel)]="testName[columnName]"
                     value="testName[columnName]">
 
                 <textarea style="height: 24px;width: 300px;" class="row-box" *ngIf="(y !== 0) && columnName == 'rationale'"
