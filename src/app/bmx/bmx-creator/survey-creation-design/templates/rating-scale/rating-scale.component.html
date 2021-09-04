@@ -127,14 +127,14 @@ style="display: flex;flex-direction: row;justify-content: space-evenly;width: 86
 
                     <!-- 🟢🟢🟢🟢🟢🟢🟢🟢🟢🟢🟢🟢🟢🟢 TEXT AREA RENDERER 🟢🟢🟢🟢🟢🟢🟢🟢🟢🟢🟢🟢🟢🟢🟢🟢 -->
 
-                    <!-- <textarea style="text-align: center; font-weight: bold;color: #324395;"
-                        [style.width]="columnsSlider +'px'" class="row-box" *ngIf="(y == 0) "
-                        [(ngModel)]="testName[columnName]" value="testName[columnName]"></textarea> -->
+                    <textarea *ngIf="y == 0 && bmxClientPageOveview" style="text-align: center; font-weight: bold;color: #324395;"
+                        [style.width]="columnsSlider +'px'" class="row-box" 
+                        [(ngModel)]="testName[columnName]" value="testName[columnName]"></textarea>
 
 
                     <!-- 🟡🟡🟡🟡🟡🟡🟡🟡🟡🟡🟡🟡🟡🟡 PARAGRAPH VIEW PAGE MODE 🟡🟡🟡🟡🟡🟡🟡🟡🟡🟡🟡🟡🟡🟡🟡🟡 -->
-                    <p style="text-align: center; font-weight: bold;color: #324395;" [style.width]="columnsSlider +'px'" 
-                        *ngIf="(y == 0) " >{{testName[columnName]}}</p>
+                    <p  style="text-align: center; font-weight: bold;color: #324395;" [style.width]="columnsSlider +'px'" 
+                        *ngIf="y == 0 && !bmxClientPageOveview" >{{testName[columnName]}}</p>
 
                 </div>
 
@@ -149,15 +149,15 @@ style="display: flex;flex-direction: row;justify-content: space-evenly;width: 86
                     [value]="testName[columnName]"></textarea> -->
 
                 <!-- <mat-form-field style="text-align: center;" > -->
-                <!-- <textarea [style.width]="columnsSlider +'px'" *ngIf="(y !== 0) " cdkTextareaAutosize
+                <textarea *ngIf="y !== 0 && bmxClientPageOveview " [style.width]="columnsSlider +'px'"  cdkTextareaAutosize
                     [cdkAutosizeMinRows]="(testName[columnName].length > 50)?rowHeightSlider:2"
                     style="outline: none;text-align: center;" class="row-box"
-                    [(ngModel)]="testName[columnName]"></textarea> -->
+                    [(ngModel)]="testName[columnName]"></textarea>
 
                 <!-- </mat-form-field> -->
 
                 <!-- 🟡🟡🟡🟡🟡🟡🟡🟡🟡🟡🟡🟡🟡🟡 PARAGRAPH VIEW PAGE MODE 🟡🟡🟡🟡🟡🟡🟡🟡🟡🟡🟡🟡🟡🟡🟡🟡 -->
-                <p [style.width]="columnsSlider +'px'" *ngIf="(y !== 0) " style="text-align: center;">{{testName[columnName]}}</p>
+                <p *ngIf="y !== 0 && !bmxClientPageOveview"  [style.width]="columnsSlider +'px'" style="text-align: center;">{{testName[columnName]}}</p>
 
             </div>
 

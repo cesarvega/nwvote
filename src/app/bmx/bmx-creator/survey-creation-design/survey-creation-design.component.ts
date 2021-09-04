@@ -8,7 +8,7 @@ import { Component, ElementRef, EventEmitter, Inject, Input, OnInit, Output, Vie
 export class SurveyCreationDesignComponent implements OnInit {
 
   @Input() isMenuActive11;
-  @Input() displayLeftSideMenu;
+  @Input() bmxClientPageOveview;
 
   TEMPLATE_NAME = 'Standart Personal Preference'
 

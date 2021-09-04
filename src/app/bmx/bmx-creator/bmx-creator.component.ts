@@ -25,7 +25,7 @@ import { map, startWith } from 'rxjs/operators';
 })
 export class BmxCreatorComponent implements OnInit {
   // https://getemoji.com/
-  displayLeftSideMenu = true;
+  bmxClientPageOveview = true;
   displayRightSideMenu = false;
 
 
@@ -214,7 +214,7 @@ export class BmxCreatorComponent implements OnInit {
   
   
   toggleViewPageMode() {
-    this.displayLeftSideMenu = !this.displayLeftSideMenu;
+    this.bmxClientPageOveview = !this.bmxClientPageOveview;
   }
 
 

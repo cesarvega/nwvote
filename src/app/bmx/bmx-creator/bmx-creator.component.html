@@ -1,11 +1,11 @@
 <div class="main-container">
-    <button *ngIf="true" style="position: absolute;bottom: 30px;z-index: 9999999999;right: 30px;" 
+    <button style="position: absolute;bottom: 30px;z-index: 9999999999;right: 30px;outline: none;" 
     (click)="toggleViewPageMode()" mat-icon-button matTooltip="overview page" matTooltipPosition="left">
         <mat-icon class="full-icon" style="font-size: 35px;">visibility
         </mat-icon>
     </button>
     
-    <div *ngIf="displayLeftSideMenu" style="display: flex;border:brown 0px solid;width: 25%; height: 100vh;">
+    <div *ngIf="bmxClientPageOveview" style="display: flex;border:brown 0px solid;width: 25%; height: 100vh;">
 
         <!-- LOGO BRANDING 🎭🎭🎭🎭🎭🎭🎭🎭🎭🎭🎭🎭🎭🎭🎭🎭🎭🎭🎭🎭🎭🎭🎭🎭🎭🎭🎭🎭🎭🎭🎭🎭🎭-->
         <div class="logo-badge" style="font-size: 21px;overflow-x: hidden;">
@@ -301,8 +301,8 @@
 
 
     <!--  SURVEY CREATION & DESIGN 🧿🧿🧿🧿🧿🧿🧿🧿🧿🧿🧿🧿🧿🧿🧿🧿🧿🧿🧿🧿🧿🧿🧿🧿🧿🧿🧿🧿🧿🧿🧿🧿🧿🧿🧿🧿🧿🧿🧿🧿🧿-->
-    <div [ngClass]="displayLeftSideMenu?'page-design':'page-design-client'" *ngIf="isMenuActive11">
-        <app-survey-creation-design [isMenuActive11]="isMenuActive11" [displayLeftSideMenu]="displayLeftSideMenu">
+    <div [ngClass]="bmxClientPageOveview?'page-design':'page-design-client'" *ngIf="isMenuActive11">
+        <app-survey-creation-design [isMenuActive11]="isMenuActive11" [bmxClientPageOveview]="bmxClientPageOveview">
         </app-survey-creation-design>
     </div>
     <!-- END 🧿🧿🧿🧿🧿🧿🧿🧿🧿🧿🧿🧿🧿🧿🧿🧿🧿🧿🧿🧿🧿🧿🧿🧿🧿🧿🧿🧿🧿🧿🧿🧿🧿🧿🧿🧿🧿🧿🧿🧿  SURVEY CREATION & DESIGN -->
