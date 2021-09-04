@@ -51,6 +51,22 @@
     align-items: center;
     justify-content: center;
 }
+.page-buttons-heigth-minus-50 {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+    position: fixed;
+    bottom: 25px;
+}
+.page-buttons-heigth-40 {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+    position: fixed;
+    bottom: 40px;
+}
 
 .bmx-page {
     width: 628%;

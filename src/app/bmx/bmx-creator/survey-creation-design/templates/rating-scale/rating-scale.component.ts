@@ -1,5 +1,5 @@
 import { Component, ElementRef, EventEmitter, Inject, Input, OnInit, Output, ViewChild, ViewEncapsulation } from '@angular/core';
-import {CdkTextareaAutosize} from '@angular/cdk/text-field';
+import { CdkTextareaAutosize } from '@angular/cdk/text-field';
 @Component({
   selector: 'app-rating-scale',
   templateUrl: './rating-scale.component.html',
@@ -13,6 +13,7 @@ export class RatingScaleComponent implements OnInit {
   rankingScaleValue = 5;
   selectedIndex: any
   displayInstructions = false;
+  isColumnResizerOn = true;
 
   selectedStarRatingIndex = ''
   selectedRating = '';
@@ -52,30 +53,30 @@ export class RatingScaleComponent implements OnInit {
   }
 
   selectStar(starId, testNameId): void {
-      this.bmxItem.componentText[testNameId].STARS.filter((star) => {
-        if (star.id <= starId) {
+    this.bmxItem.componentText[testNameId].STARS.filter((star) => {
+      if (star.id <= starId) {
 
-          star.class =(this.ratingScaleIcon === 'grade')?'active-rating-star':'active-rating-bar';
+        star.class = (this.ratingScaleIcon === 'grade') ? 'active-rating-star' : 'active-rating-bar';
 
-        } else {
+      } else {
 
-          star.class = 'rating-star';
+        star.class = 'rating-star';
 
-        }
-        return star;
-      });
+      }
+      return star;
+    });
   }
 
   leaveStar(testNameId): void {
-      this.selectedRating = this.bmxItem.componentText[testNameId].RATE
-      this.bmxItem.componentText[testNameId].STARS.filter((star) => {
-        if (star.id <= this.selectedRating && this.selectedRating !== "") {
-          star.class =(this.ratingScaleIcon === 'grade')?'active-rating-star':'active-rating-bar';
-        } else {
-          star.class ='rating-star';
-        }
-        return star;
-      });
+    this.selectedRating = this.bmxItem.componentText[testNameId].RATE
+    this.bmxItem.componentText[testNameId].STARS.filter((star) => {
+      if (star.id <= this.selectedRating && this.selectedRating !== "") {
+        star.class = (this.ratingScaleIcon === 'grade') ? 'active-rating-star' : 'active-rating-bar';
+      } else {
+        star.class = 'rating-star';
+      }
+      return star;
+    });
   }
 
   createRatingStars(ratingScale, ratingScaleIcon) {
@@ -114,7 +115,7 @@ export class RatingScaleComponent implements OnInit {
       }
       this.bmxItem.componentText = this.TESTNAMES_LIST;
     } else {
-      this.bmxItem.componentText.forEach((row, index)     => {
+      this.bmxItem.componentText.forEach((row, index) => {
         row.STARS = this.createRatingStars(this.rankingScaleValue, this.ratingScaleIcon)
         // this.leaveStar(index);
       });
@@ -189,9 +190,26 @@ export class RatingScaleComponent implements OnInit {
   };
 
 
-  setFontSize(size){
+  setFontSize(size) {
     console.log(size);
-    
+
+  }
+
+  setColumnWidth(size) {
+    console.log(size);
+
+  }
+  setSMALLTextLengthColumnHeight(size) {
+    console.log(size);
+
+  }
+  setBIGTextLengthColumnHeight(size) {
+    console.log(size);
+
+  }
+
+  toogleColumnResizer() {
+    this.isColumnResizerOn = !this.isColumnResizerOn
   }
 
 }

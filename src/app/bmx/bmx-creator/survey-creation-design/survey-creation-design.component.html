@@ -153,7 +153,7 @@
 
         <!-- PAGE BUTTONS AND DIRECTIONS 1 2 3 📲📲📲📲📲📲📲📲📲📲📲📲📲📲📲📲📲📲📲📲📲📲📲📲📲📲📲📲📲📲📲📲📲📲-->
         <div class="page-buttons">
-            <div class="page-buttons" style="position: fixed;bottom: 40px;">
+            <div [ngClass]="displayLeftSideMenu?'page-buttons-heigth-40':'page-buttons-heigth-minus-50'">
                 <button (click)="changePage('previous')" mat-icon-button>
                     <mat-icon class="full-icon">chevron_left</mat-icon>
                 </button>
