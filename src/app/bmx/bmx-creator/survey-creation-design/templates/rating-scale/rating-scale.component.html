@@ -1,4 +1,22 @@
 <!-- 🔧🔧🔧🔧🔧🔧🔧🔧🔧🔧🔧🔧🔧🔧🔧🔧🔧🔧🔧🔧🔧 CONFIG BOX 🔧🔧🔧🔧🔧🔧🔧🔧🔧🔧🔧🔧🔧🔧🔧🔧🔧🔧🔧🔧🔧🔧🔧 -->
+<button  class="add-column" style=" margin: -20px 29px;" *ngIf="i === selectedIndex"  (click)="selectedIndex = ''" mat-icon-button>
+    <mat-icon style="font-size: 25px;" class="full-icon">cancel</mat-icon>
+</button>
+<button class="add-column" style=" margin: -20px 29px;" *ngIf="i !== selectedIndex" mat-icon-button  (click)="selectedIndex = i">
+    <mat-icon style="font-size: 25px;" class="full-icon">edit</mat-icon>
+</button>
+<button class="add-column" style=" margin: -20px 59px;" matTooltip="Add column" matTooltipPosition="above" (click)="insertNewColumn()" mat-icon-button
+    aria-label="ranking">
+    <mat-icon style="font-size: 26px;" class="full-icon">view_list</mat-icon>
+</button>
+<button class="add-column" style="margin: -20px 89px;" matTooltip="Add column" matTooltipPosition="above" (click)="insertNewColumn()" mat-icon-button
+    aria-label="ranking">
+    <mat-icon style="font-size: 26px;" class="full-icon">next_plan</mat-icon>
+</button>
+<button class="add-column" style="margin: -20px 119px;" matTooltip="Add column" matTooltipPosition="above" (click)="insertNewColumn()" mat-icon-button
+    aria-label="ranking">
+    <mat-icon style="font-size: 26px;" class="full-icon">swap_horizontal_circle</mat-icon>
+</button>
 <div *ngIf="i === selectedIndex" class="mat-elevation-z4">
     <div style="text-align: center;">
         <div style="font-size: 16px;margin: 20px;color: #48535e;">PASTE TEST NAMES</div>
@@ -49,18 +67,6 @@
 
 <!--🥑🥑🥑🥑🥑🥑🥑🥑🥑🥑🥑🥑🥑🥑🥑🥑🥑🥑🥑🥑🥑🥑🥑🥑🥑 RATING TABLE 🥑🥑🥑🥑🥑🥑🥑🥑🥑🥑🥑🥑🥑🥑🥑🥑🥑🥑🥑🥑🥑🥑🥑-->
 
-<button class="add-column" matTooltip="Add column" matTooltipPosition="above" (click)="insertNewColumn()" mat-icon-button
-    aria-label="ranking">
-    <mat-icon style="font-size: 26px;" class="full-icon">view_list</mat-icon>
-</button>
-<button class="add-column" style="margin: -20px 59px;" matTooltip="Add column" matTooltipPosition="above" (click)="insertNewColumn()" mat-icon-button
-    aria-label="ranking">
-    <mat-icon style="font-size: 26px;" class="full-icon">next_plan</mat-icon>
-</button>
-<button class="add-column" style="margin: -20px 89px;" matTooltip="Add column" matTooltipPosition="above" (click)="insertNewColumn()" mat-icon-button
-    aria-label="ranking">
-    <mat-icon style="font-size: 26px;" class="full-icon">swap_horizontal_circle</mat-icon>
-</button>
 
 <div style="display: flex;flex-direction: row;">
 
@@ -90,31 +96,45 @@
                     <span *ngIf="selectedColumn === e" class="header-delete-icon" matTooltip="delete column"
                         matTooltipPosition="above" (click)="deleteColumn(testName[columnName])">x</span>
 
-                    <!-- <input *ngIf="(y == 0) && columnName != 'rationale'"  style="text-align: center; font-weight: bold;color: #324395;" [style.width]="columnsSlider +'px'"  class="header-title-box"
+                     <!-- 🔴🔴🔴🔴🔴🔴🔴🔴🔴🔴🔴🔴🔴🔴🔴 OLD CODE DEPRECATED 🔴🔴🔴🔴🔴🔴🔴🔴🔴🔴🔴🔴🔴🔴🔴🔴 -->
+                       <!--  <input *ngIf="(y == 0) && columnName != 'rationale'"  style="text-align: center; font-weight: bold;color: #324395;" [style.width]="columnsSlider +'px'"  class="header-title-box"
                         [(ngModel)]="testName[columnName]" value="testName[columnName]"> -->
 
-                    <textarea style="text-align: center; font-weight: bold;color: #324395;" [style.width]="columnsSlider +'px'"  class="row-box"
+
+
+                    <!-- 🟢🟢🟢🟢🟢🟢🟢🟢🟢🟢🟢🟢🟢🟢 TEXT AREA RENDERER 🟢🟢🟢🟢🟢🟢🟢🟢🟢🟢🟢🟢🟢🟢🟢🟢 -->
+                        
+                        <textarea style="text-align: center; font-weight: bold;color: #324395;" [style.width]="columnsSlider +'px'"  class="row-box"
                         *ngIf="(y == 0) " [(ngModel)]="testName[columnName]"
                         value="testName[columnName]"></textarea>
+
+
+                        <!-- 🟡🟡🟡🟡🟡🟡🟡🟡🟡🟡🟡🟡🟡🟡 PARAGRAPH VIEW PAGE MODE 🟡🟡🟡🟡🟡🟡🟡🟡🟡🟡🟡🟡🟡🟡🟡🟡 -->
+                    <!-- <p style="text-align: center; font-weight: bold;color: #324395;" [style.width]="columnsSlider +'px'" 
+                        *ngIf="(y == 0) " >{{testName[columnName]}}</p> -->
 
                 </div>
 
                 <!-- <input class="row-box"  style="text-align: center;" [style.width]="columnsSlider +'px'" *ngIf="(y !== 0) && columnName != 'rationale'"
                     [(ngModel)]="testName[columnName]" value="testName[columnName]"> [style.height]="columnsSlider +'px'"-->
                  
-                <textarea style="text-align: center;" [style.width]="columnsSlider +'px'"  
+
+                    <!-- 🟢🟢🟢🟢🟢🟢🟢🟢🟢🟢🟢🟢🟢🟢 TEXT AREA RENDERER 🟢🟢🟢🟢🟢🟢🟢🟢🟢🟢🟢🟢🟢🟢🟢🟢 -->
+                <!-- <textarea style="text-align: center;" [style.width]="columnsSlider +'px'"  
                     class="row-box"
                     *ngIf="(y !== 0) " [(ngModel)]="testName[columnName]"
-                    [value]="testName[columnName]"></textarea>
+                    [value]="testName[columnName]"></textarea> -->
                
-                <!-- <mat-form-field [style.width]="columnsSlider +'px'" *ngIf="(y !== 0) "  appearance="outline">
-                    <textarea matInput cdkTextareaAutosize  #autosize="cdkTextareaAutosize"  cdkAutosizeMinRows="2" 
+                <mat-form-field [style.width]="columnsSlider +'px'" *ngIf="(y !== 0) " style="text-align: center;" >
+                    <textarea matInput cdkTextareaAutosize  #autosize="cdkTextareaAutosize"  cdkAutosizeMinRows="7" 
                     cdkAutosizeMaxRows="15" style="outline: none;"  class="row-box"
                         [(ngModel)]="testName[columnName]"
                         value="testName[columnName]"></textarea>
                    
-                  </mat-form-field> -->
-                    <!-- <p style="text-align: center;">{{testName[columnName]}}</p> -->
+                  </mat-form-field>
+
+                    <!-- 🟡🟡🟡🟡🟡🟡🟡🟡🟡🟡🟡🟡🟡🟡 PARAGRAPH VIEW PAGE MODE 🟡🟡🟡🟡🟡🟡🟡🟡🟡🟡🟡🟡🟡🟡🟡🟡 -->
+                    <!-- <p [style.width]="columnsSlider +'px'" *ngIf="(y !== 0) " style="text-align: center;">{{testName[columnName]}}</p> -->
 
             </div>
 
@@ -130,6 +150,7 @@
             </div>
             <!--⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️ END STARS ⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️ -->
 
+            <!-- TABLE ROW BUTTONS ICONS -->
             <div style="min-width: 100px">
                 <button *ngIf="(y !== 0)" style="outline: none;margin:-5px -8px;" (click)="deletRow(y)" mat-icon-button
                     aria-label="ranking">
@@ -144,12 +165,12 @@
             </div>
         </div>
     </div>
-    <button *ngIf="i === selectedIndex" class="cancel" (click)="selectedIndex = ''" mat-icon-button>
+    <!-- <button *ngIf="i === selectedIndex" class="cancel" (click)="selectedIndex = ''" mat-icon-button>
         <mat-icon style="font-size: 25px;">cancel</mat-icon>
     </button>
     <button *ngIf="i !== selectedIndex" mat-icon-button class="edit-icon" (click)="selectedIndex = i">
         <mat-icon style="font-size: 25px;">edit</mat-icon>
-    </button>
+    </button> -->
 </div>
 
 <!--🥑🥑🥑🥑🥑🥑🥑🥑🥑🥑🥑🥑🥑🥑🥑🥑🥑🥑🥑🥑🥑🥑🥑🥑🥑END RATING TABLE 🥑🥑🥑🥑🥑🥑🥑🥑🥑🥑🥑🥑🥑🥑🥑🥑🥑🥑🥑🥑🥑🥑🥑-->

@@ -67,17 +67,17 @@
 
 .row-box {
     border: none;
-    max-width: 300px;
+    // max-width: 300px;
 }
 
 .rationale-box {
     border: none;
-    width: 300px;
+    // width: 300px;
 }
 
 .add-column {
     outline: none;
-    margin: -20px 29px;
+   
     float: right;
     color: grey;
 }
@@ -90,4 +90,7 @@ textarea {
     outline: none;
     height: auto;
     overflow: auto;
+  }
+  mat-form-field {
+    margin-right: 12px;
   }
