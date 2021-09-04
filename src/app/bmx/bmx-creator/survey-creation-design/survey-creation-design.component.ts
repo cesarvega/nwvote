@@ -8,6 +8,7 @@ import { Component, ElementRef, EventEmitter, Inject, Input, OnInit, Output, Vie
 export class SurveyCreationDesignComponent implements OnInit {
 
   @Input() isMenuActive11;
+  @Input() displayLeftSideMenu;
 
   TEMPLATE_NAME = 'Standart Personal Preference'
 
@@ -651,7 +652,7 @@ export class SurveyCreationDesignComponent implements OnInit {
         name: 'NAME', rationale: 'RATIONALE',
         STARS: this.createRatingStars()
       })
-      for (let index = 0; index < 12; index++) {
+      for (let index = 0; index < 6; index++) {
         this.TestNameDataModel.push({
           name: 'TEST NAME ' + index,
           rationale: 'Rationale of an undisclosed length',

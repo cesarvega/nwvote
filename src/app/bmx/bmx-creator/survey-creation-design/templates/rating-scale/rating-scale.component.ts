@@ -1,5 +1,5 @@
 import { Component, ElementRef, EventEmitter, Inject, Input, OnInit, Output, ViewChild, ViewEncapsulation } from '@angular/core';
-
+import {CdkTextareaAutosize} from '@angular/cdk/text-field';
 @Component({
   selector: 'app-rating-scale',
   templateUrl: './rating-scale.component.html',
@@ -9,13 +9,15 @@ export class RatingScaleComponent implements OnInit {
 
   @Input() bmxItem;
   @Input() i;
-
+  @ViewChild('autosize') autosize: CdkTextareaAutosize;
   rankingScaleValue = 5;
   selectedIndex: any
   displayInstructions = false;
 
   selectedStarRatingIndex = ''
   selectedRating = '';
+  columnsSlider = 376
+  ratingColumnSlider = 230
 
 
   // CONFIGURATION VARIABLES
@@ -44,8 +46,9 @@ export class RatingScaleComponent implements OnInit {
     // this.columnsNames = Object.values(this.bmxItem.componentText[0])
   }
 
+  // ⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️ STARS METHODS  ⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️
   setRating(starId, testNameId) {
-    this.bmxItem.componentText[testNameId].RATE = starId
+    this.bmxItem.componentText[testNameId].RATE = starId + 1
   }
 
   selectStar(starId, testNameId): void {
@@ -75,6 +78,18 @@ export class RatingScaleComponent implements OnInit {
       });
   }
 
+  createRatingStars(ratingScale, ratingScaleIcon) {
+    let startCounter: any = []
+    for (let index = 0; index < ratingScale; index++) {
+      startCounter.push({
+        id: index,
+        icon: ratingScaleIcon,
+        class: 'rating-star'
+      });
+    }
+    return startCounter;
+  }
+  // ⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️ END STARS METHODS  ⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️
 
   upLoadNamesAndRationales(list: string) {
     if (!list) { list = this.listString; }
@@ -145,20 +160,6 @@ export class RatingScaleComponent implements OnInit {
   }
 
 
-  // PRIVATE METHODS
-  createRatingStars(ratingScale, ratingScaleIcon) {
-    let startCounter: any = []
-    for (let index = 0; index < ratingScale; index++) {
-      startCounter.push({
-        id: index,
-        icon: ratingScaleIcon,
-        class: 'rating-star'
-      });
-    }
-    return startCounter;
-  }
-
-
   addToObject(obj, key, value, index) {
     // Create a temp object and index variable
     let temp = {};
@@ -188,5 +189,9 @@ export class RatingScaleComponent implements OnInit {
   };
 
 
+  setFontSize(size){
+    console.log(size);
+    
+  }
 
 }

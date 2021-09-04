@@ -41,7 +41,7 @@
 .header-title {
     display: flex;
     flex-direction: row;
-    justify-content: flex-start;
+    justify-content: center;
 }
 
 .header-delete-icon {
@@ -79,4 +79,15 @@
     outline: none;
     margin: -20px 29px;
     float: right;
+    color: grey;
 }
+.test-name-table {
+    align-items: center;
+}
+
+textarea {
+    resize: none;
+    outline: none;
+    height: auto;
+    overflow: auto;
+  }

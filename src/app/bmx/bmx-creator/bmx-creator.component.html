@@ -1,5 +1,11 @@
 <div class="main-container">
-    <div style="display: flex;border:brown 0px solid;width: 25%; height: 100vh;">
+    <button *ngIf="true" style="    position: absolute;bottom: 30px;z-index: 9999999999;right: 30px;" 
+    (click)="toggleViewPageMode()" mat-icon-button matTooltip="overview page" matTooltipPosition="left">
+        <mat-icon class="full-icon" style="font-size: 35px;">visibility
+        </mat-icon>
+    </button>
+    
+    <div *ngIf="displayLeftSideMenu" style="display: flex;border:brown 0px solid;width: 25%; height: 100vh;">
 
         <!-- LOGO BRANDING 🎭🎭🎭🎭🎭🎭🎭🎭🎭🎭🎭🎭🎭🎭🎭🎭🎭🎭🎭🎭🎭🎭🎭🎭🎭🎭🎭🎭🎭🎭🎭🎭🎭-->
         <div class="logo-badge" style="font-size: 21px;overflow-x: hidden;">
@@ -217,7 +223,7 @@
 
     <!-- PROJECT INFORMATION  🧠🧠🧠🧠🧠🧠🧠🧠🧠🧠🧠🧠🧠🧠🧠🧠🧠🧠🧠🧠🧠🧠🧠🧠🧠🧠🧠🧠🧠🧠🧠🧠🧠🧠🧠🧠🧠🧠🧠🧠🧠-->
     <div class="project-info" *ngIf="isMenuActive8">
-      <app-project-information></app-project-information>
+        <app-project-information></app-project-information>
     </div>
     <!--🧠🧠🧠🧠🧠🧠🧠🧠🧠🧠🧠🧠🧠🧠🧠🧠🧠🧠🧠🧠🧠🧠🧠🧠🧠🧠🧠🧠🧠🧠🧠🧠🧠🧠🧠🧠🧠🧠🧠🧠🧠 END PROJECT INFORMATION-->
 
@@ -267,7 +273,7 @@
                         style="background-color: #01a6ff;color:white;margin: 0 20px 0 20px;">
                         SELECTED
                     </button>
-                    
+
                 </div>
             </div>
         </div>
@@ -295,8 +301,9 @@
 
 
     <!--  SURVEY CREATION & DESIGN 🧿🧿🧿🧿🧿🧿🧿🧿🧿🧿🧿🧿🧿🧿🧿🧿🧿🧿🧿🧿🧿🧿🧿🧿🧿🧿🧿🧿🧿🧿🧿🧿🧿🧿🧿🧿🧿🧿🧿🧿🧿-->
-    <div class="page-design" *ngIf="isMenuActive11" >
-        <app-survey-creation-design [isMenuActive11]="isMenuActive11"></app-survey-creation-design>
+    <div [ngClass]="displayLeftSideMenu?'page-design':'page-design-client'" *ngIf="isMenuActive11">
+        <app-survey-creation-design [isMenuActive11]="isMenuActive11" [displayLeftSideMenu]="displayLeftSideMenu">
+        </app-survey-creation-design>
     </div>
     <!-- END 🧿🧿🧿🧿🧿🧿🧿🧿🧿🧿🧿🧿🧿🧿🧿🧿🧿🧿🧿🧿🧿🧿🧿🧿🧿🧿🧿🧿🧿🧿🧿🧿🧿🧿🧿🧿🧿🧿🧿🧿  SURVEY CREATION & DESIGN -->
 

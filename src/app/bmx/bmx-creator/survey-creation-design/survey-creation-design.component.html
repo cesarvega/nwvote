@@ -151,7 +151,7 @@
         </div>
 
 
-        <!-- PAGE BUTTONS AND DIRECTIONS 📲📲📲📲📲📲📲📲📲📲📲📲📲📲📲📲📲📲📲📲📲📲📲📲📲📲📲📲📲📲📲📲📲📲-->
+        <!-- PAGE BUTTONS AND DIRECTIONS 1 2 3 📲📲📲📲📲📲📲📲📲📲📲📲📲📲📲📲📲📲📲📲📲📲📲📲📲📲📲📲📲📲📲📲📲📲-->
         <div class="page-buttons">
             <div class="page-buttons" style="position: fixed;bottom: 40px;">
                 <button (click)="changePage('previous')" mat-icon-button>
@@ -176,7 +176,7 @@
 
 
     <!--RIGHT SIDE MENU -->
-    <div class="project-info" *ngIf="isMenuActive11" style="border: pink solid 1px; width: 25%; height: 100vh;">
+    <div class="project-info" *ngIf="displayLeftSideMenu" style="border: pink solid 1px; width: 25%; height: 100vh;">
 
         <div style="display: flex;flex-direction: column;margin-top: 50px;">
             <button (click)="createNewBmxComponent('logo-header')" mat-icon-button matTooltip="add header"
@@ -207,20 +207,12 @@
                 mat-icon-button color="warn" aria-label="aria">
                 <mat-icon class="full-icon">save</mat-icon>
             </button>
-            <!-- <button *ngIf="true" (click)="loadTemplate('template1')" mat-icon-button matTooltip="use template"
-                matTooltipPosition="right">
-                <mat-icon class="full-icon">library_add</mat-icon>
-            </button> -->
             <button *ngIf="true" (click)="resetTemplate()" mat-icon-button matTooltip="reset template"
                 matTooltipPosition="right">
                 <mat-icon class="full-icon">delete_sweep
                 </mat-icon>
             </button>
-            <button *ngIf="true" (click)="overviewPage()" mat-icon-button matTooltip="overview page"
-                matTooltipPosition="right">
-                <mat-icon class="full-icon">visibility
-                </mat-icon>
-            </button>
+           
         </div>
     </div>
 </div>

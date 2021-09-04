@@ -49,48 +49,91 @@
 
 <!--🥑🥑🥑🥑🥑🥑🥑🥑🥑🥑🥑🥑🥑🥑🥑🥑🥑🥑🥑🥑🥑🥑🥑🥑🥑 RATING TABLE 🥑🥑🥑🥑🥑🥑🥑🥑🥑🥑🥑🥑🥑🥑🥑🥑🥑🥑🥑🥑🥑🥑🥑-->
 
-<button class="add-column" matTooltip="Add column" matTooltipPosition="left" (click)="insertNewColumn()" mat-icon-button
+<button class="add-column" matTooltip="Add column" matTooltipPosition="above" (click)="insertNewColumn()" mat-icon-button
     aria-label="ranking">
-    <mat-icon>view_list</mat-icon>
+    <mat-icon style="font-size: 26px;" class="full-icon">view_list</mat-icon>
 </button>
+<button class="add-column" style="margin: -20px 59px;" matTooltip="Add column" matTooltipPosition="above" (click)="insertNewColumn()" mat-icon-button
+    aria-label="ranking">
+    <mat-icon style="font-size: 26px;" class="full-icon">next_plan</mat-icon>
+</button>
+<button class="add-column" style="margin: -20px 89px;" matTooltip="Add column" matTooltipPosition="above" (click)="insertNewColumn()" mat-icon-button
+    aria-label="ranking">
+    <mat-icon style="font-size: 26px;" class="full-icon">swap_horizontal_circle</mat-icon>
+</button>
+
+<div style="display: flex;flex-direction: row;">
+
+    <p>columns</p>
+    <input type="range" style="margin: 20px;width: 200px;" 
+    (change)="setFontSize(columnsSlider)" [(ngModel)]="columnsSlider"
+    class="slider-font-size" tickInterval="1" min="50" max="1000" [value]="columnsSlider">{{columnsSlider}}
+    <!-- <p>rating column</p>
+    <input type="range" style="margin: 20px;width: 200px;" 
+    (change)="setFontSize(ratingColumnSlider)" [(ngModel)]="ratingColumnSlider"
+    class="slider-font-size" tickInterval="1" min="50" max="1000" [value]="ratingColumnSlider">{{ratingColumnSlider}} -->
+
+</div>
+<!-- <mat-slider min="200" max="500" step="10" value="200" [(value)]="columnsSlider"></mat-slider><p>{{columnsSlider}}</p> -->
+
 <div class="odd-style" style="overflow-x: scroll;">
     <div *ngFor="let testName of bmxItem.componentText; let y = index">
+        
         <div class="test-name-table">
 
             <div *ngFor="let columnName of columnsNames; let e =  index"
-                style="width: 50%;text-align: justify;margin:10px 10px;">
-                <div class="header-title" (mouseenter)="selectedColumn = e" (mouseleave)="selectedColumn = ''"
-                    *ngIf="(y == 0)">
-                    <span class="header-delete-icon" *ngIf="selectedColumn === e" matTooltip="delete column"
+                style="text-align: center;margin:10px 10px;"[style.width]="columnsSlider +'px'">
+
+                <div *ngIf="(y == 0)" class="header-title" (mouseenter)="selectedColumn = e"
+                    (mouseleave)="selectedColumn = ''">
+
+                    <span *ngIf="selectedColumn === e" class="header-delete-icon" matTooltip="delete column"
                         matTooltipPosition="above" (click)="deleteColumn(testName[columnName])">x</span>
-                    <input class="header-title-box" *ngIf="(y == 0) && columnName != 'rationale'" [(ngModel)]="testName[columnName]"
-                        value="testName[columnName]">
-                        <textarea style="height: 100%;width: 300px; font-weight: bold;color: #324395;" class="row-box" *ngIf="(y == 0) && columnName == 'rationale'"
-                        [(ngModel)]="testName[columnName]" value="testName[columnName]"></textarea>
+
+                    <!-- <input *ngIf="(y == 0) && columnName != 'rationale'"  style="text-align: center; font-weight: bold;color: #324395;" [style.width]="columnsSlider +'px'"  class="header-title-box"
+                        [(ngModel)]="testName[columnName]" value="testName[columnName]"> -->
+
+                    <textarea style="text-align: center; font-weight: bold;color: #324395;" [style.width]="columnsSlider +'px'"  class="row-box"
+                        *ngIf="(y == 0) " [(ngModel)]="testName[columnName]"
+                        value="testName[columnName]"></textarea>
+
                 </div>
 
-                <!-- 
-                <input  [ngClass]="(columnName == 'rationale')?'header-title-rationale-box ':'header-title-box'"  *ngIf="(y == 0)" [(ngModel)]="testName[columnName]"
-                value="testName[columnName]">
-        </div>
-        <input   [ngClass]="(columnName == 'rationale')?'rationale-box':'row-box'" *ngIf="(y !== 0)" [(ngModel)]="testName[columnName]"
-            value="testName[columnName]"> -->
+                <!-- <input class="row-box"  style="text-align: center;" [style.width]="columnsSlider +'px'" *ngIf="(y !== 0) && columnName != 'rationale'"
+                    [(ngModel)]="testName[columnName]" value="testName[columnName]"> [style.height]="columnsSlider +'px'"-->
+                 
+                <textarea style="text-align: center;" [style.width]="columnsSlider +'px'"  
+                    class="row-box"
+                    *ngIf="(y !== 0) " [(ngModel)]="testName[columnName]"
+                    [value]="testName[columnName]"></textarea>
+               
+                <!-- <mat-form-field [style.width]="columnsSlider +'px'" *ngIf="(y !== 0) "  appearance="outline">
+                    <textarea matInput cdkTextareaAutosize  #autosize="cdkTextareaAutosize"  cdkAutosizeMinRows="2" 
+                    cdkAutosizeMaxRows="15" style="outline: none;"  class="row-box"
+                        [(ngModel)]="testName[columnName]"
+                        value="testName[columnName]"></textarea>
+                   
+                  </mat-form-field> -->
+                    <!-- <p style="text-align: center;">{{testName[columnName]}}</p> -->
 
-                <input class="row-box" style="height: 24px;width: 300px;" *ngIf="(y !== 0) && columnName != 'rationale'" [(ngModel)]="testName[columnName]"
-                    value="testName[columnName]">
-
-                <textarea style="height: 24px;width: 300px;" class="row-box" *ngIf="(y !== 0) && columnName == 'rationale'"
-                    [(ngModel)]="testName[columnName]" value="testName[columnName]"></textarea>
-
-                    <!-- [ngClass]="star.class" (mouseenter)="selectStar(star.id , y)" (mouseleave)="leaveStar(star.id , y)" -->
             </div>
-            <div style="min-width: 250px">
+
+            <!--⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️ STARS ⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️ -->
+            <div style="text-align: center;min-width: 250px;">
                 <button *ngFor="let star of  testName.STARS; let x =  index" (click)="setRating(star.id,y)"
                     [ngClass]="star.class" (mouseenter)="selectStar(star.id , y)" (mouseleave)="leaveStar(y)"
                     style="outline: none;margin:-5px -8px;" mat-icon-button aria-label="ranking">
                     <mat-icon *ngIf="(y !== 0)">{{star.icon}}</mat-icon>
                     <!-- <mat-icon *ngIf="(y !== 0)" style="transform: rotate(0deg);">{{'crop_din'}}</mat-icon> -->
-                    <div class="rating-text" *ngIf="(y === 0 && x === 0)">RATING</div>
+                    <div class="rating-text" style="text-align: center;" *ngIf="(y === 0 && x === 0)">RATING</div>
+                </button>
+            </div>
+            <!--⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️ END STARS ⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️ -->
+
+            <div style="min-width: 100px">
+                <button *ngIf="(y !== 0)" style="outline: none;margin:-5px -8px;" (click)="deletRow(y)" mat-icon-button
+                    aria-label="ranking">
+                    <mat-icon>online_prediction</mat-icon>
                 </button>
             </div>
             <div style="min-width: 100px">
