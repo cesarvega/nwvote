@@ -17,7 +17,7 @@ export class RatingScaleComponent implements OnInit {
   selectedStarRatingIndex = ''
   selectedRating = '';
   columnsSlider = 376
-  ratingColumnSlider = 230
+  rowHeightSlider = 1.5
 
 
   // CONFIGURATION VARIABLES

@@ -74,10 +74,10 @@
     <input type="range" style="margin: 20px;width: 200px;" 
     (change)="setFontSize(columnsSlider)" [(ngModel)]="columnsSlider"
     class="slider-font-size" tickInterval="1" min="50" max="1000" [value]="columnsSlider">{{columnsSlider}}
-    <!-- <p>rating column</p>
+    <p>ROW HEIGTH</p>
     <input type="range" style="margin: 20px;width: 200px;" 
-    (change)="setFontSize(ratingColumnSlider)" [(ngModel)]="ratingColumnSlider"
-    class="slider-font-size" tickInterval="1" min="50" max="1000" [value]="ratingColumnSlider">{{ratingColumnSlider}} -->
+    (change)="setFontSize(rowHeightSlider)" [(ngModel)]="rowHeightSlider"
+    class="slider-font-size" tickInterval="1" min="2" max="10" [value]="rowHeightSlider">{{rowHeightSlider}}
 
 </div>
 <!-- <mat-slider min="200" max="500" step="10" value="200" [(value)]="columnsSlider"></mat-slider><p>{{columnsSlider}}</p> -->
@@ -125,13 +125,13 @@
                     *ngIf="(y !== 0) " [(ngModel)]="testName[columnName]"
                     [value]="testName[columnName]"></textarea> -->
                
-                <mat-form-field [style.width]="columnsSlider +'px'" *ngIf="(y !== 0) " style="text-align: center;" >
-                    <textarea matInput cdkTextareaAutosize  #autosize="cdkTextareaAutosize"  cdkAutosizeMinRows="7" 
-                    cdkAutosizeMaxRows="15" style="outline: none;"  class="row-box"
-                        [(ngModel)]="testName[columnName]"
-                        value="testName[columnName]"></textarea>
+                <!-- <mat-form-field style="text-align: center;" > -->
+                    <textarea [style.width]="columnsSlider +'px'" *ngIf="(y !== 0) "  
+                     cdkTextareaAutosize   [cdkAutosizeMinRows]="(testName[columnName].length > 50)?rowHeightSlider:2" 
+                     style="outline: none;text-align: center;"  class="row-box"
+                        [(ngModel)]="testName[columnName]"></textarea>
                    
-                  </mat-form-field>
+                  <!-- </mat-form-field> -->
 
                     <!-- 🟡🟡🟡🟡🟡🟡🟡🟡🟡🟡🟡🟡🟡🟡 PARAGRAPH VIEW PAGE MODE 🟡🟡🟡🟡🟡🟡🟡🟡🟡🟡🟡🟡🟡🟡🟡🟡 -->
                     <!-- <p [style.width]="columnsSlider +'px'" *ngIf="(y !== 0) " style="text-align: center;">{{testName[columnName]}}</p> -->
