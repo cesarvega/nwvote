@@ -1,3 +1,24 @@
+<button (click)="selectedIndex = ''" class="add-column" style=" margin: -20px 29px;" *ngIf="i === selectedIndex"
+    mat-icon-button>
+    <mat-icon style="font-size: 25px;" class="full-icon">cancel</mat-icon>
+</button>
+<button (click)="selectedIndex = i" class="add-column" style=" margin: -20px 29px;" *ngIf="i !== selectedIndex"
+    mat-icon-button>
+    <mat-icon style="font-size: 25px;" class="full-icon">edit</mat-icon>
+</button>
+<button (click)="insertNewColumn()" class="add-column" style=" margin: -20px 65px;" matTooltip="Add column"
+    matTooltipPosition="above" mat-icon-button aria-label="ranking">
+    <mat-icon style="font-size: 26px;" class="full-icon">view_list</mat-icon>
+</button>
+<button (click)="insertNewColumn()" class="add-column" style="margin: -20px 95px;" matTooltip="Add column"
+    matTooltipPosition="above" mat-icon-button aria-label="ranking">
+    <mat-icon style="font-size: 26px;" class="full-icon">next_plan</mat-icon>
+</button>
+<button (click)="toogleColumnResizer()" class="add-column" style="margin: -20px 125px;" matTooltip="Add column"
+    matTooltipPosition="above" mat-icon-button aria-label="ranking">
+    <mat-icon style="font-size: 26px;" class="full-icon">swap_horizontal_circle</mat-icon>
+</button>
+
 <!-- 🔧🔧🔧🔧🔧🔧🔧🔧🔧🔧🔧🔧🔧🔧🔧🔧🔧🔧🔧🔧🔧 CONFIG BOX 🔧🔧🔧🔧🔧🔧🔧🔧🔧🔧🔧🔧🔧🔧🔧🔧🔧🔧🔧🔧🔧🔧🔧 -->
 <div *ngIf="i === selectedIndex" class="mat-elevation-z4">
     <div style="text-align: center;">
@@ -45,52 +66,118 @@
         </button>
     </div>
 </div>
-<!-- 🔧🔧🔧🔧🔧🔧🔧🔧🔧🔧🔧🔧🔧🔧🔧🔧🔧🔧🔧🔧🔧🔧🔧🔧🔧🔧🔧🔧🔧🔧🔧🔧🔧🔧🔧🔧🔧🔧🔧🔧🔧🔧🔧🔧🔧🔧🔧🔧🔧 -->
+<!-- 🔧🔧🔧🔧🔧🔧🔧🔧🔧🔧🔧🔧🔧🔧🔧🔧🔧🔧🔧🔧🔧🔧END CONFIG BOX 🔧🔧🔧🔧🔧🔧🔧🔧🔧🔧🔧🔧🔧🔧🔧🔧🔧🔧🔧🔧🔧 -->
+
+
 
 <!--🥑🥑🥑🥑🥑🥑🥑🥑🥑🥑🥑🥑🥑🥑🥑🥑🥑🥑🥑🥑🥑🥑🥑🥑🥑 RATING TABLE 🥑🥑🥑🥑🥑🥑🥑🥑🥑🥑🥑🥑🥑🥑🥑🥑🥑🥑🥑🥑🥑🥑🥑-->
 
-<button class="add-column" matTooltip="Add column" matTooltipPosition="left" (click)="insertNewColumn()" mat-icon-button
-    aria-label="ranking">
-    <mat-icon>view_list</mat-icon>
-</button>
+
+<div *ngIf="isColumnResizerOn" class="mat-elevation-z2" 
+style="display: flex;flex-direction: row;justify-content: space-evenly;width: 86%;padding: 10px;">
+
+    <div style="display: flex;flex-direction: column;align-items: center;">
+        <p>columns width:  {{columnsSlider}} px</p>
+        <input type="range" style="margin: 20px;width: 140px;" (change)="setFontSize(columnsSlider)"
+            [(ngModel)]="columnsSlider" class="slider-font-size" tickInterval="1" min="50" max="1000"
+            [value]="columnsSlider">
+       
+    </div>
+    <div style="display: flex;flex-direction: column;align-items: center;">
+    <p>row height: {{rowHeightSlider}} px</p>
+    <input type="range" style="margin: 20px;width: 140px;" (change)="setFontSize(rowHeightSlider)"
+        [(ngModel)]="rowHeightSlider" class="slider-font-size" tickInterval="1" min="2" max="10"
+        [value]="rowHeightSlider">
+    </div>
+    <div style="display: flex;flex-direction: column;align-items: center;">
+        <p>row more text height: {{columnsSlider}} px</p>
+        <input type="range" style="margin: 20px;width: 140px;" (change)="setFontSize(columnsSlider)"
+            [(ngModel)]="columnsSlider" class="slider-font-size" tickInterval="1" min="50" max="1000"
+            [value]="columnsSlider">
+        
+    </div>
+    <div style="display: flex;flex-direction: column;align-items: center;">
+    <p>font size: {{rowHeightSlider}} px</p>
+    <input type="range" style="margin: 20px;width: 140px;" (change)="setFontSize(rowHeightSlider)"
+        [(ngModel)]="rowHeightSlider" class="slider-font-size" tickInterval="1" min="2" max="10"
+        [value]="rowHeightSlider">
+    </div>
+</div>
+<!-- <mat-slider min="200" max="500" step="10" value="200" [(value)]="columnsSlider"></mat-slider><p>{{columnsSlider}}</p> -->
+
 <div class="odd-style" style="overflow-x: scroll;">
     <div *ngFor="let testName of bmxItem.componentText; let y = index">
+
         <div class="test-name-table">
 
-            <div *ngFor="let columnName of columnsNames; let e =  index"
-                style="width: 50%;text-align: justify;margin:10px 10px;">
-                <div class="header-title" (mouseenter)="selectedColumn = e" (mouseleave)="selectedColumn = ''"
-                    *ngIf="(y == 0)">
-                    <span class="header-delete-icon" *ngIf="selectedColumn === e" matTooltip="delete column"
+            <div *ngFor="let columnName of columnsNames; let e =  index" style="text-align: center;margin:10px 10px;"
+                [style.width]="columnsSlider +'px'">
+
+                <div *ngIf="(y == 0)" class="header-title" (mouseenter)="selectedColumn = e"
+                    (mouseleave)="selectedColumn = ''">
+
+                    <span *ngIf="selectedColumn === e" class="header-delete-icon" matTooltip="delete column"
                         matTooltipPosition="above" (click)="deleteColumn(testName[columnName])">x</span>
-                    <input class="header-title-box" *ngIf="(y == 0) && columnName != 'rationale'" [(ngModel)]="testName[columnName]"
-                        value="testName[columnName]">
-                        <textarea style="height: 100%;width: 300px; font-weight: bold;color: #324395;" class="row-box" *ngIf="(y == 0) && columnName == 'rationale'"
+
+                    <!-- 🔴🔴🔴🔴🔴🔴🔴🔴🔴🔴🔴🔴🔴🔴🔴 OLD CODE DEPRECATED 🔴🔴🔴🔴🔴🔴🔴🔴🔴🔴🔴🔴🔴🔴🔴🔴 -->
+                    <!--  <input *ngIf="(y == 0) && columnName != 'rationale'"  style="text-align: center; font-weight: bold;color: #324395;" [style.width]="columnsSlider +'px'"  class="header-title-box"
+                        [(ngModel)]="testName[columnName]" value="testName[columnName]"> -->
+
+
+
+                    <!-- 🟢🟢🟢🟢🟢🟢🟢🟢🟢🟢🟢🟢🟢🟢 TEXT AREA RENDERER 🟢🟢🟢🟢🟢🟢🟢🟢🟢🟢🟢🟢🟢🟢🟢🟢 -->
+
+                    <textarea *ngIf="y == 0 && bmxClientPageOveview" style="text-align: center; font-weight: bold;color: #324395;"
+                        [style.width]="columnsSlider +'px'" class="row-box" 
                         [(ngModel)]="testName[columnName]" value="testName[columnName]"></textarea>
+
+
+                    <!-- 🟡🟡🟡🟡🟡🟡🟡🟡🟡🟡🟡🟡🟡🟡 PARAGRAPH VIEW PAGE MODE 🟡🟡🟡🟡🟡🟡🟡🟡🟡🟡🟡🟡🟡🟡🟡🟡 -->
+                    <p  style="text-align: center; font-weight: bold;color: #324395;" [style.width]="columnsSlider +'px'" 
+                        *ngIf="y == 0 && !bmxClientPageOveview" >{{testName[columnName]}}</p>
+
                 </div>
 
-                <!-- 
-                <input  [ngClass]="(columnName == 'rationale')?'header-title-rationale-box ':'header-title-box'"  *ngIf="(y == 0)" [(ngModel)]="testName[columnName]"
-                value="testName[columnName]">
-        </div>
-        <input   [ngClass]="(columnName == 'rationale')?'rationale-box':'row-box'" *ngIf="(y !== 0)" [(ngModel)]="testName[columnName]"
-            value="testName[columnName]"> -->
+                <!-- <input class="row-box"  style="text-align: center;" [style.width]="columnsSlider +'px'" *ngIf="(y !== 0) && columnName != 'rationale'"
+                    [(ngModel)]="testName[columnName]" value="testName[columnName]"> [style.height]="columnsSlider +'px'"-->
 
-                <input class="row-box" *ngIf="(y !== 0) && columnName != 'rationale'" [(ngModel)]="testName[columnName]"
-                    value="testName[columnName]">
 
-                <textarea style="height: 24px;width: 300px;" class="row-box" *ngIf="(y !== 0) && columnName == 'rationale'"
-                    [(ngModel)]="testName[columnName]" value="testName[columnName]"></textarea>
+                <!-- 🟢🟢🟢🟢🟢🟢🟢🟢🟢🟢🟢🟢🟢🟢 TEXT AREA RENDERER 🟢🟢🟢🟢🟢🟢🟢🟢🟢🟢🟢🟢🟢🟢🟢🟢 -->
+                <!-- <textarea style="text-align: center;" [style.width]="columnsSlider +'px'"  
+                    class="row-box"
+                    *ngIf="(y !== 0) " [(ngModel)]="testName[columnName]"
+                    [value]="testName[columnName]"></textarea> -->
 
-                    <!-- [ngClass]="star.class" (mouseenter)="selectStar(star.id , y)" (mouseleave)="leaveStar(star.id , y)" -->
+                <!-- <mat-form-field style="text-align: center;" > -->
+                <textarea *ngIf="y !== 0 && bmxClientPageOveview " [style.width]="columnsSlider +'px'"  cdkTextareaAutosize
+                    [cdkAutosizeMinRows]="(testName[columnName].length > 50)?rowHeightSlider:2"
+                    style="outline: none;text-align: center;" class="row-box"
+                    [(ngModel)]="testName[columnName]"></textarea>
+
+                <!-- </mat-form-field> -->
+
+                <!-- 🟡🟡🟡🟡🟡🟡🟡🟡🟡🟡🟡🟡🟡🟡 PARAGRAPH VIEW PAGE MODE 🟡🟡🟡🟡🟡🟡🟡🟡🟡🟡🟡🟡🟡🟡🟡🟡 -->
+                <p *ngIf="y !== 0 && !bmxClientPageOveview"  [style.width]="columnsSlider +'px'" style="text-align: center;">{{testName[columnName]}}</p>
+
             </div>
-            <div style="min-width: 250px">
+
+            <!--⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️ STARS ⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️ -->
+            <div style="text-align: center;min-width: 250px;">
                 <button *ngFor="let star of  testName.STARS; let x =  index" (click)="setRating(star.id,y)"
                     [ngClass]="star.class" (mouseenter)="selectStar(star.id , y)" (mouseleave)="leaveStar(y)"
                     style="outline: none;margin:-5px -8px;" mat-icon-button aria-label="ranking">
                     <mat-icon *ngIf="(y !== 0)">{{star.icon}}</mat-icon>
                     <!-- <mat-icon *ngIf="(y !== 0)" style="transform: rotate(0deg);">{{'crop_din'}}</mat-icon> -->
-                    <div class="rating-text" *ngIf="(y === 0 && x === 0)">RATING</div>
+                    <div class="rating-text" style="text-align: center;" *ngIf="(y === 0 && x === 0)">RATING</div>
+                </button>
+            </div>
+            <!--⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️ END STARS ⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️ -->
+
+            <!-- TABLE ROW BUTTONS ICONS -->
+            <div style="min-width: 100px">
+                <button *ngIf="(y !== 0)" style="outline: none;margin:-5px -8px;" (click)="deletRow(y)" mat-icon-button
+                    aria-label="ranking">
+                    <mat-icon>online_prediction</mat-icon>
                 </button>
             </div>
             <div style="min-width: 100px">
@@ -101,12 +188,12 @@
             </div>
         </div>
     </div>
-    <button *ngIf="i === selectedIndex" class="cancel" (click)="selectedIndex = ''" mat-icon-button>
+    <!-- <button *ngIf="i === selectedIndex" class="cancel" (click)="selectedIndex = ''" mat-icon-button>
         <mat-icon style="font-size: 25px;">cancel</mat-icon>
     </button>
     <button *ngIf="i !== selectedIndex" mat-icon-button class="edit-icon" (click)="selectedIndex = i">
         <mat-icon style="font-size: 25px;">edit</mat-icon>
-    </button>
+    </button> -->
 </div>
 
 <!--🥑🥑🥑🥑🥑🥑🥑🥑🥑🥑🥑🥑🥑🥑🥑🥑🥑🥑🥑🥑🥑🥑🥑🥑🥑END RATING TABLE 🥑🥑🥑🥑🥑🥑🥑🥑🥑🥑🥑🥑🥑🥑🥑🥑🥑🥑🥑🥑🥑🥑🥑-->

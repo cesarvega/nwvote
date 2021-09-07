@@ -11,7 +11,12 @@
             <!-- BMX HEADER 😋😋😋😋😋😋😋😋😋😋😋😋😋😋😋😋😋😋😋😋😋😋😋😋😋😋😋😋😋😋😋😋😋😋😋😋😋😋 -->
 
             <div *ngIf="bmxItem.componentType === 'logo-header'" class="header">
-
+                <div style="position: absolute;right: 0px;">
+                    <button style="outline: none;color:#f10a0a;top: 19px;" mat-icon-button (click)="deleteComponent(i)"
+                        aria-label="delte">
+                        <mat-icon style="font-size: 17px;">cancel</mat-icon>
+                    </button>
+                </div>
                 <div class="emoji-handle">.</div>
 
                 <div>
@@ -40,7 +45,7 @@
                     <!-- <div style="display: flex;flex-direction: row;justify-content: flex-end;align-items: flex-end;">
                         <button style="outline: none;color:#f10a0a;top: 19px;" mat-icon-button (click)="deleteComponent()"
                             aria-label="delte">
-                            <mat-icon>cancel</mat-icon>
+                            <mat-icon style="font-size: 17px;">cancel</mat-icon>
                         </button>
                     </div> -->
                 </div>
@@ -58,7 +63,7 @@
                 <div style="display: flex;flex-direction: column;justify-content: flex-end;align-items: flex-end;">
                     <button style="outline: none;color:#f10a0a;top: 19px;" mat-icon-button (click)="deleteComponent(i)"
                         aria-label="delte">
-                        <mat-icon>cancel</mat-icon>
+                        <mat-icon style="font-size: 17px;">cancel</mat-icon>
                     </button>
                 </div>
                 <div style="margin: 30px;" [innerHTML]="bmxItem.componentText | safe: 'html'"></div>
@@ -83,7 +88,7 @@
                 <div style="display: flex;flex-direction: column;justify-content: flex-end;align-items: flex-end;">
                     <button style="outline: none;color:#f10a0a;top: 19px;" mat-icon-button (click)="deleteComponent(i)"
                         aria-label="delte">
-                        <mat-icon>cancel</mat-icon>
+                        <mat-icon style="font-size: 17px;">cancel</mat-icon>
                     </button>
                 </div>
                 <div style="margin: 30px;" [innerHTML]="bmxItem.componentText | safe: 'html'"></div>
@@ -108,35 +113,47 @@
                 <div style="display: flex;flex-direction: column;justify-content: flex-end;align-items: flex-end;">
                     <button style="outline: none;color:#f10a0a;top: 19px;" mat-icon-button (click)="deleteComponent(i)"
                         aria-label="delte">
-                        <mat-icon>cancel</mat-icon>
+                        <mat-icon style="font-size: 17px;">cancel</mat-icon>
                     </button>
                 </div>
-                <app-rating-scale [bmxItem]="bmxItem" [i]='i'></app-rating-scale>
+                <app-rating-scale [bmxItem]="bmxItem" [i]='i' [bmxClientPageOveview]="bmxClientPageOveview"></app-rating-scale>
 
             </div>
             <!-- END STARS SCALE 👽👽👽👽👽👽👽👽👽👽👽👽👽👽👽👽👽👽👽👽👽👽👽👽👽👽👽👽👽👽👽👽👽👽👽👽👽👽👽👽 -->
 
 
-            <!-- RANK SCALE 😭😭😭😭😭😭😭😭😭😭😭😭😭😭😭😭😭😭😭😭😭😭😭😭😭😭😭😭😭😭😭😭😭😭😭😭😭👽👽👽-->
+            <!-- RANK SCALE 😭😭😭😭😭😭😭😭😭😭😭😭😭😭😭😭😭😭😭😭😭😭😭😭😭😭😭😭😭😭😭😭😭😭😭😭😭-->
             <div *ngIf="bmxItem.componentType === 'ranking-scale'" class="paragraph">
                 <div class="emoji-handle">.</div>
                 <div style="display: flex;flex-direction: column;justify-content: flex-end;align-items: flex-end;">
                     <button style="outline: none;color:#f10a0a;top: 19px;" mat-icon-button (click)="deleteComponent(i)"
                         aria-label="delte">
-                        <mat-icon>cancel</mat-icon>
+                        <mat-icon style="font-size: 17px;">cancel</mat-icon>
                     </button>
                 </div>
                 <app-rank-scale [bmxItem]="bmxItem" [i]='i'></app-rank-scale>
-
             </div>
-            <!-- END RANK SCALE 😭😭😭😭😭😭😭😭😭😭😭😭😭😭😭😭😭😭😭😭😭😭😭😭😭😭😭😭😭😭😭😭😭😭😭😭😭👽 -->
+            <!-- END RANK SCALE 😭😭😭😭😭😭😭😭😭😭😭😭😭😭😭😭😭😭😭😭😭😭😭😭😭😭😭😭😭😭😭😭😭😭😭😭😭 -->
+
+            <!-- IMAGE SCALE 👀👀👀👀👀👀👀👀👀👀👀👀👀👀👀👀👀👀👀👀👀👀👀👀👀👀👀👀👀👀👀👀👀👀👀👀👀👀-->
+            <div *ngIf="bmxItem.componentType === 'image-rate-scale'" class="paragraph">
+                <div class="emoji-handle">.</div>
+                <div style="display: flex;flex-direction: column;justify-content: flex-end;align-items: flex-end;">
+                    <button style="outline: none;color:#f10a0a;top: 19px;" mat-icon-button (click)="deleteComponent(i)"
+                        aria-label="delte">
+                        <mat-icon style="font-size: 17px;">cancel</mat-icon>
+                    </button>
+                </div>
+                <app-image-rate-scale [bmxItem]="bmxItem" [i]='i'></app-image-rate-scale>
+            </div>
+            <!-- END IMAGE SCALE 👀👀👀👀👀👀👀👀👀👀👀👀👀👀👀👀👀👀👀👀👀👀👀👀👀👀👀👀👀👀👀👀👀👀👀👀👀👀 -->
 
         </div>
 
 
-        <!-- PAGE BUTTONS AND DIRECTIONS 📲📲📲📲📲📲📲📲📲📲📲📲📲📲📲📲📲📲📲📲📲📲📲📲📲📲📲📲📲📲📲📲📲📲-->
+        <!-- PAGE BUTTONS AND DIRECTIONS 1 2 3 📲📲📲📲📲📲📲📲📲📲📲📲📲📲📲📲📲📲📲📲📲📲📲📲📲📲📲📲📲📲📲📲📲📲-->
         <div class="page-buttons">
-            <div class="page-buttons" style="position: fixed;bottom: 40px;">
+            <div [ngClass]="bmxClientPageOveview?'page-buttons-heigth-40':'page-buttons-heigth-minus-50'">
                 <button (click)="changePage('previous')" mat-icon-button>
                     <mat-icon class="full-icon">chevron_left</mat-icon>
                 </button>
@@ -159,7 +176,7 @@
 
 
     <!--RIGHT SIDE MENU -->
-    <div class="project-info" *ngIf="isMenuActive11" style="border: pink solid 1px; width: 25%; height: 100vh;">
+    <div class="project-info" *ngIf="bmxClientPageOveview" style="border: pink solid 1px; width: 25%; height: 100vh;">
 
         <div style="display: flex;flex-direction: column;margin-top: 50px;">
             <button (click)="createNewBmxComponent('logo-header')" mat-icon-button matTooltip="add header"
@@ -178,6 +195,10 @@
                 mat-icon-button color="warn" aria-label="aria">
                 <mat-icon class="full-icon">trending_down</mat-icon>
             </button>
+            <button (click)="createNewBmxComponent('image-rate-scale')" matTooltip="image rate table" matTooltipPosition="right"
+                mat-icon-button color="warn" aria-label="aria">
+                <mat-icon class="full-icon">image</mat-icon>
+            </button>
             <button *ngIf="!false" (click)="createPage()" matTooltip="Create New Page" matTooltipPosition="right"
                 mat-icon-button aria-label="aria">
                 <mat-icon class="full-icon">post_add</mat-icon>
@@ -186,15 +207,12 @@
                 mat-icon-button color="warn" aria-label="aria">
                 <mat-icon class="full-icon">save</mat-icon>
             </button>
-            <button *ngIf="true" (click)="loadTemplate('template1')" mat-icon-button matTooltip="use template"
-                matTooltipPosition="right">
-                <mat-icon class="full-icon">library_add</mat-icon>
-            </button>
             <button *ngIf="true" (click)="resetTemplate()" mat-icon-button matTooltip="reset template"
                 matTooltipPosition="right">
                 <mat-icon class="full-icon">delete_sweep
                 </mat-icon>
             </button>
+           
         </div>
     </div>
 </div>
@@ -226,7 +244,7 @@
             save
         </button>
         <button *ngIf="isSaveOrUpdate" (click)="saveOrUpdateTemplate(templateName)" mat-raised-button
-            style="color: white;background-color: #2a3f8a">
+            style="color: white;background-color: #8a2a5a">
             update
         </button>
         <p *ngIf="isSaveOrUpdate">or</p>

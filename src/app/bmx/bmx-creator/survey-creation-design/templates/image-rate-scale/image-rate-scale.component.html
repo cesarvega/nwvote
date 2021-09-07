@@ -1,0 +1,112 @@
+<!-- 🔧🔧🔧🔧🔧🔧🔧🔧🔧🔧🔧🔧🔧🔧🔧🔧🔧🔧🔧🔧🔧 CONFIG BOX 🔧🔧🔧🔧🔧🔧🔧🔧🔧🔧🔧🔧🔧🔧🔧🔧🔧🔧🔧🔧🔧🔧🔧 -->
+<div *ngIf="i === selectedIndex" class="mat-elevation-z4">
+    <div style="text-align: center;">
+        <div style="font-size: 16px;margin: 20px;color: #48535e;">PASTE TEST NAMES</div>
+        <!-- <div style="font-size: 14px;margin-bottom: 20px;color: lightgray;">Brief Description Here</div> -->
+    </div>
+    <div>
+        <mat-form-field style="width: 90%;margin-left: 20px;" appearance="outline">
+            <mat-label>Copy & Paste TEST NAMES</mat-label>
+            <textarea matInput rows="4" cols="50" [(ngModel)]="testNamesInput"
+                placeholder="ENHANCE,Hance, En-,EVOLVE,Evo,GUARD,Gard, Guard,INVEST,In, Inv,OMNI,Omni,OPTIMAL"></textarea>
+        </mat-form-field>
+    </div>
+    <hr>
+    <div style="text-align: center;display: flex;flex-direction: row;justify-content: space-around;">
+        <div>
+            <div style="font-size: 16px;margin-top: 10px;color: #48535e;">SELECT RATING RANGE</div>
+            <br>
+
+            <div>
+                5 <input [(ngModel)]="rankingScaleValue" type="range" id="volume" name="volume" min="5" max="10">
+                10 <br>
+                <label for="volume">{{rankingScaleValue}}</label>
+            </div>
+            <hr>
+
+        </div>
+        <div>
+            <div style="font-size: 16px;margin-top: 10px;color: #48535e;">CHOOSE RATING ICON</div>
+            <br>
+            <mat-radio-group aria-label="Select an option" [(ngModel)]="ratingScaleIcon">
+                <mat-icon style="color:#76d354;">grade</mat-icon>
+                <mat-radio-button value="grade">
+                </mat-radio-button>
+                <mat-icon style="color:#e6ad11;">settings_cell</mat-icon>
+                <mat-radio-button value="settings_cell">
+                </mat-radio-button>
+            </mat-radio-group>
+            <hr>
+        </div>
+
+        <button style="outline: none;color:#76d354;margin-bottom: 50px;" mat-icon-button
+            (click)="selectedIndex = '';upLoadNamesAndRationales(testNamesInput)" aria-label="ranking">
+            <mat-icon>check_circle</mat-icon><br> DONE
+        </button>
+    </div>
+</div>
+<!-- 🔧🔧🔧🔧🔧🔧🔧🔧🔧🔧🔧🔧🔧🔧🔧🔧🔧🔧🔧🔧🔧🔧🔧🔧🔧🔧🔧🔧🔧🔧🔧🔧🔧🔧🔧🔧🔧🔧🔧🔧🔧🔧🔧🔧🔧🔧🔧🔧🔧 -->
+
+<!--🥑🥑🥑🥑🥑🥑🥑🥑🥑🥑🥑🥑🥑🥑🥑🥑🥑🥑🥑🥑🥑🥑🥑🥑🥑 RATING TABLE 🥑🥑🥑🥑🥑🥑🥑🥑🥑🥑🥑🥑🥑🥑🥑🥑🥑🥑🥑🥑🥑🥑🥑-->
+
+<button class="add-column" matTooltip="Add column" matTooltipPosition="left" (click)="insertNewColumn()" mat-icon-button
+    aria-label="ranking">
+    <mat-icon>view_list</mat-icon>
+</button>
+<div class="odd-style" style="overflow-x: scroll;">
+    <div *ngFor="let testName of bmxItem.componentText; let y = index">
+        <div class="test-name-table">
+
+            <div *ngFor="let columnName of columnsNames; let e =  index"
+                style="width: 50%;text-align: justify;margin:10px 10px;">
+                <div class="header-title" (mouseenter)="selectedColumn = e" (mouseleave)="selectedColumn = ''"
+                    *ngIf="(y == 0)">
+                    <span class="header-delete-icon" *ngIf="selectedColumn === e" matTooltip="delete column"
+                        matTooltipPosition="above" (click)="deleteColumn(testName[columnName])">x</span>
+                    <input class="header-title-box" *ngIf="(y == 0) && columnName != 'rationale'"
+                        [(ngModel)]="testName[columnName]" value="testName[columnName]">
+                    <textarea style="height: 100%;width: 300px; font-weight: bold;color: #324395;" class="row-box"
+                        *ngIf="(y == 0) && columnName == 'rationale'" [(ngModel)]="testName[columnName]"
+                        value="testName[columnName]"></textarea>
+                </div>
+
+                <img class="row-box" style="width: 300px;" [src]="testName[columnName]" *ngIf="(y !== 0) && columnName == 'name'">
+
+                <input class="row-box" *ngIf="(y !== 0) && columnName != 'rationale' && columnName != 'name'" [(ngModel)]="testName[columnName]"
+                    value="testName[columnName]">
+
+                <textarea style="height: 24px;width: 300px;" class="row-box"
+                    *ngIf="(y !== 0) && columnName == 'rationale'" [(ngModel)]="testName[columnName]"
+                    value="testName[columnName]"></textarea>
+
+
+            </div>
+
+            <!--⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️ STARS ⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️ -->
+
+            <div style="min-width: 250px">
+                <button *ngFor="let star of  testName.STARS; let x =  index" (click)="setRating(star.id,y)"
+                    [ngClass]="star.class" (mouseenter)="selectStar(star.id , y)" (mouseleave)="leaveStar(y)"
+                    style="outline: none;margin:-5px -8px;" mat-icon-button aria-label="ranking">
+                    <mat-icon *ngIf="(y !== 0)">{{star.icon}}</mat-icon>
+                    <div class="rating-text" *ngIf="(y === 0 && x === 0)">RATING</div>
+                </button>
+            </div>
+                   <!--⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️ END STARS ⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️ -->
+            <div style="min-width: 100px">
+                <button *ngIf="(y !== 0)" style="outline: none;margin:-5px -8px;" (click)="deletRow(y)" mat-icon-button
+                    aria-label="ranking">
+                    <mat-icon>delete_outline</mat-icon>
+                </button>
+            </div>
+        </div>
+    </div>
+    <button *ngIf="i === selectedIndex" class="cancel" (click)="selectedIndex = ''" mat-icon-button>
+        <mat-icon style="font-size: 25px;">cancel</mat-icon>
+    </button>
+    <button *ngIf="i !== selectedIndex" mat-icon-button class="edit-icon" (click)="selectedIndex = i">
+        <mat-icon style="font-size: 25px;">edit</mat-icon>
+    </button>
+</div>
+
+<!--🥑🥑🥑🥑🥑🥑🥑🥑🥑🥑🥑🥑🥑🥑🥑🥑🥑🥑🥑🥑🥑🥑🥑🥑🥑END RATING TABLE 🥑🥑🥑🥑🥑🥑🥑🥑🥑🥑🥑🥑🥑🥑🥑🥑🥑🥑🥑🥑🥑🥑🥑-->

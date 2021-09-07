@@ -25,6 +25,10 @@ import { map, startWith } from 'rxjs/operators';
 })
 export class BmxCreatorComponent implements OnInit {
   // https://getemoji.com/
+  bmxClientPageOveview = true;
+  displayRightSideMenu = false;
+
+
   projectName: any;
   projectId: any;
   soundVolume = 0.2;
@@ -50,6 +54,7 @@ export class BmxCreatorComponent implements OnInit {
   isSelectedButton = '';
 
   isMainMenuActive = true;
+  
 
   model = {
     editorData: '',
@@ -205,6 +210,11 @@ export class BmxCreatorComponent implements OnInit {
 
   checkDragEvetn(e) {
     console.log(e);
+  }
+  
+  
+  toggleViewPageMode() {
+    this.bmxClientPageOveview = !this.bmxClientPageOveview;
   }
 
 

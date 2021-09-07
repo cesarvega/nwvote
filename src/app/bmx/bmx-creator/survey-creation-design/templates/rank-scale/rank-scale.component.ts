@@ -152,7 +152,7 @@ export class RankScaleComponent implements OnInit {
     for (let index = 0; index < ratingScale; index++) {
       startCounter.push({
         id: index,
-        icon: index,
+        icon: index + 1,
         class: 'rating-star'
       });
     }

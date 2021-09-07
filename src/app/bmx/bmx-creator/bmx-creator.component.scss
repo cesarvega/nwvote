@@ -128,8 +128,27 @@
     }
     .page-design {
         // border: hotpink solid 1px;
+        // position: absolute;
+        // top: 50%;
+        // left: 50%;
+        // -ms-transform: translate(-50%, -53%);
+        // transform: translate(-50%, -53%);
+
         width: 90%;
         height: 91vh;
+        overflow-y: hidden;
+        @include BoxShadow(2);
+    }
+
+    .page-design-client {
+        position: absolute;
+        top: 53%;
+        left: 50%;
+        -ms-transform: translate(-50%, -53%);
+        transform: translate(-50%, -53%);
+
+        width: 90%;
+        height: 100vh;
         overflow-y: hidden;
         @include BoxShadow(2);
     }
@@ -203,7 +222,7 @@
     }
 
     .test-name-table:nth-child(odd) {
-       border-bottom: grey solid 1px;
+        border-bottom: grey solid 1px;
     }
 
     .project-list::-webkit-scrollbar {

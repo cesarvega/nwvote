@@ -1,25 +1,21 @@
-import { Component, ElementRef, EventEmitter, Inject, Input, OnInit, Output, ViewChild, ViewEncapsulation } from '@angular/core';
-import { CdkTextareaAutosize } from '@angular/cdk/text-field';
+import { Component,Input, OnInit} from '@angular/core';
+
 @Component({
-  selector: 'app-rating-scale',
-  templateUrl: './rating-scale.component.html',
-  styleUrls: ['./rating-scale.component.scss']
+  selector: 'app-image-rate-scale',
+  templateUrl: './image-rate-scale.component.html',
+  styleUrls: ['./image-rate-scale.component.scss']
 })
-export class RatingScaleComponent implements OnInit {
+export class ImageRateScaleComponent implements OnInit {
 
   @Input() bmxItem;
   @Input() i;
-  @Input() bmxClientPageOveview;
-  @ViewChild('autosize') autosize: CdkTextareaAutosize;
+
   rankingScaleValue = 5;
   selectedIndex: any
   displayInstructions = false;
-  isColumnResizerOn = true;
 
   selectedStarRatingIndex = ''
   selectedRating = '';
-  columnsSlider = 376
-  rowHeightSlider = 1.5
 
 
   // CONFIGURATION VARIABLES
@@ -48,50 +44,37 @@ export class RatingScaleComponent implements OnInit {
     // this.columnsNames = Object.values(this.bmxItem.componentText[0])
   }
 
-  // ⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️ STARS METHODS  ⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️
   setRating(starId, testNameId) {
     this.bmxItem.componentText[testNameId].RATE = starId
   }
 
   selectStar(starId, testNameId): void {
-    this.bmxItem.componentText[testNameId].STARS.filter((star) => {
-      if (star.id <= starId) {
+      this.bmxItem.componentText[testNameId].STARS.filter((star) => {
+        if (star.id <= starId) {
 
-        star.class = (this.ratingScaleIcon === 'grade') ? 'active-rating-star' : 'active-rating-bar';
+          star.class =(this.ratingScaleIcon === 'grade')?'active-rating-star':'active-rating-bar';
 
-      } else {
+        } else {
 
-        star.class = 'rating-star';
+          star.class = 'rating-star';
 
-      }
-      return star;
-    });
+        }
+        return star;
+      });
   }
 
   leaveStar(testNameId): void {
-    this.selectedRating = this.bmxItem.componentText[testNameId].RATE
-    this.bmxItem.componentText[testNameId].STARS.filter((star) => {
-      if (star.id <= this.selectedRating && this.selectedRating !== "") {
-        star.class = (this.ratingScaleIcon === 'grade') ? 'active-rating-star' : 'active-rating-bar';
-      } else {
-        star.class = 'rating-star';
-      }
-      return star;
-    });
+      this.selectedRating = this.bmxItem.componentText[testNameId].RATE
+      this.bmxItem.componentText[testNameId].STARS.filter((star) => {
+        if (star.id <= this.selectedRating && this.selectedRating !== "") {
+          star.class =(this.ratingScaleIcon === 'grade')?'active-rating-star':'active-rating-bar';
+        } else {
+          star.class ='rating-star';
+        }
+        return star;
+      });
   }
 
-  createRatingStars(ratingScale, ratingScaleIcon) {
-    let startCounter: any = []
-    for (let index = 0; index < ratingScale; index++) {
-      startCounter.push({
-        id: index,
-        icon: ratingScaleIcon,
-        class: 'rating-star'
-      });
-    }
-    return startCounter;
-  }
-  // ⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️ END STARS METHODS  ⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️
 
   upLoadNamesAndRationales(list: string) {
     if (!list) { list = this.listString; }
@@ -116,7 +99,7 @@ export class RatingScaleComponent implements OnInit {
       }
       this.bmxItem.componentText = this.TESTNAMES_LIST;
     } else {
-      this.bmxItem.componentText.forEach((row, index) => {
+      this.bmxItem.componentText.forEach((row, index)     => {
         row.STARS = this.createRatingStars(this.rankingScaleValue, this.ratingScaleIcon)
         // this.leaveStar(index);
       });
@@ -162,6 +145,20 @@ export class RatingScaleComponent implements OnInit {
   }
 
 
+  // PRIVATE METHODS
+  createRatingStars(ratingScale, ratingScaleIcon) {
+    let startCounter: any = []
+    for (let index = 0; index < ratingScale; index++) {
+      startCounter.push({
+        id: index,
+        icon: ratingScaleIcon,
+        class: 'rating-star'
+      });
+    }
+    return startCounter;
+  }
+
+
   addToObject(obj, key, value, index) {
     // Create a temp object and index variable
     let temp = {};
@@ -191,26 +188,5 @@ export class RatingScaleComponent implements OnInit {
   };
 
 
-  setFontSize(size) {
-    console.log(size);
-
-  }
-
-  setColumnWidth(size) {
-    console.log(size);
-
-  }
-  setSMALLTextLengthColumnHeight(size) {
-    console.log(size);
-
-  }
-  setBIGTextLengthColumnHeight(size) {
-    console.log(size);
-
-  }
-
-  toogleColumnResizer() {
-    this.isColumnResizerOn = !this.isColumnResizerOn
-  }
 
 }
