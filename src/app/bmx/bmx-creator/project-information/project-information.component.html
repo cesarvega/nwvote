@@ -95,8 +95,8 @@
         <mat-form-field appearance="outline">
             <mat-label>Director</mat-label>
             <mat-select [(value)]="directorSelected">
-                <mat-option *ngFor="let settingsList of settingsData.DirectorList" [value]="settingsList">
-                    {{settingsList.Director}}
+                <mat-option *ngFor="let settingsList of directorNames" [value]="settingsList">
+                    {{settingsList.name}}
                 </mat-option>
             </mat-select>
         </mat-form-field>
@@ -109,7 +109,7 @@
         </div>
     </div>
 
-   
+
     <div class="d-flex flex-wrap" style="width: 100%;">
         <div *ngFor="let director of DIRECTORS, index as i" style="width: 50%; padding-top: 5vh;">
             <div style="  display: flex;
@@ -122,9 +122,9 @@
                 <label>Director Name</label>
                 <mat-form-field appearance="outline">
                     <mat-label>Director</mat-label>
-                    <mat-select [(ngModel)]="director.Director"  (selectionChange)="fillDirectorInfo(director, i)">
-                        <mat-option *ngFor="let settingsList of settingsData.DirectorList" [value]="settingsList">
-                            {{settingsList.Director}}
+                    <mat-select [(ngModel)]="directorNames[i]" (selectionChange)="fillDirectorInfo(director, i)">
+                        <mat-option *ngFor="let settingsList of directorNames" [value]="settingsList">
+                            {{settingsList.name}}
                         </mat-option>
                     </mat-select>
                 </mat-form-field>
@@ -156,7 +156,7 @@
     </div>
     <br>
     <br>
-<!-- 
+    <!-- 
     <mat-card *ngIf="directorSelected" class="directorCard">
         <div style="display: flex;flex-direction: row;">
             <label class="selectLabels">Title:</label>

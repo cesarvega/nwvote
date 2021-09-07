@@ -26,27 +26,30 @@ import { JsonpClientBackend } from '@angular/common/http';
 })
 export class ProjectInformationComponent implements OnInit {
 
-  constructor(private _BmxService: BmxService, private _snackBar: MatSnackBar) {}
-  settingsData = { 
-    SalesBoardProjectList : [],
-    DepartmentList : '',
-    OfficeList : '',
-    LanguageList : '',
-    DirectorList : ''
+  constructor(private _BmxService: BmxService, private _snackBar: MatSnackBar) { }
+  settingsData = {
+    SalesBoardProjectList: [],
+    DepartmentList: '',
+    OfficeList: '',
+    LanguageList: '',
+    DirectorList: []
   };
   stringBmxEditData: any;
 
   DIRECTORS: Array<any> = [];
 
+
   director = {
     id: '',
-    name:'',
-    title:'',
-    email:'',
-    phone:''
+    name: '',
+    title: '',
+    email: '',
+    phone: ''
   }
 
-  selectedDirector
+  selectedDirector;
+
+  directorNames = [];
 
   bmxEditData = new FormGroup({
     bmxSalesboard: new FormControl(),
@@ -56,25 +59,28 @@ export class ProjectInformationComponent implements OnInit {
     bmxCompany: new FormControl(),
     bmxLanguage: new FormControl(),
     bmxRegionalDirector: new FormControl(),
- }); 
+  });
 
   ngOnInit(): void {
 
     this._BmxService.getGeneralLists()
-    .subscribe((arg:any) => {
-      this.settingsData = JSON.parse(arg.d);
-      console.log(JSON.parse(arg.d));
+      .subscribe((arg: any) => {
+        this.settingsData = JSON.parse(arg.d);
+        console.log(JSON.parse(arg.d));
         //AUTOCOMPLETE 🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖
-      this.settingsData.SalesBoardProjectList.forEach( myObject =>{  this.salesboardObj.push({name: myObject['SalesBoardProjectList']})});
-      console.log(this.salesboardObj);
-      this.filteredOptions = this.bmxEditData.controls['bmxSalesboard'].valueChanges
-      .pipe(
-        startWith(''),
-          map(value => this._filter(value))
-        );
+        this.settingsData.SalesBoardProjectList.forEach(myObject => { this.salesboardObj.push({ name: myObject['SalesBoardProjectList'] }) });
+        console.log(this.salesboardObj);
+        this.settingsData.DirectorList.forEach(myObj => { this.directorNames.push({ name: myObj['Director'] }) });
+        console.log(this.directorNames);
+        this.filteredOptions = this.bmxEditData.controls['bmxSalesboard'].valueChanges
+          .pipe(
+            startWith(''),
+            map(value => this._filter(value))
+          );
         // END 🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖 AUTOCOMPLETE
-    });
+      });
     this.bmxEditData.setValue(JSON.parse(localStorage.getItem('fakeproject' + '_project_info')));
+
   }
   //AUTOCOMPLETE 🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖
   filteredOptions: Observable<string[]>;
@@ -91,20 +97,23 @@ export class ProjectInformationComponent implements OnInit {
   directorSelected;
   directorDetails = [];
   public onFocusOutEvent(event: any): void {
-  localStorage.setItem( 'fakeproject' + '_project_info', JSON.stringify(this.bmxEditData.value));
-  console.log(this.bmxEditData.value);
-  } 
+    localStorage.setItem('fakeproject' + '_project_info', JSON.stringify(this.bmxEditData.value));
+    console.log(this.bmxEditData.value);
+  }
 
   saveProjectInfo() {
-    localStorage.setItem( 'fakeproject' + '_project_info', JSON.stringify(this.bmxEditData.value));
+    localStorage.setItem('fakeproject' + '_project_info', JSON.stringify(this.bmxEditData.value));
     this._snackBar.open('Saved Succesfully');
   }
- 
 
+  getDirectorNames() {
+    // this.settingsData.DirectorList.forEach( myObj =>{  this.directorNames.push({name: myObj['Director']})});
+    console.log(this.directorNames);
+  }
 
   createDirector(): void {
     // this.directors = [...this.directors, this.directors.length];
-    this.DIRECTORS.push(this.director)
+    this.DIRECTORS.push(this.director);
   }
 
   caller(elementId: number): void {
@@ -114,21 +123,21 @@ export class ProjectInformationComponent implements OnInit {
   removeDirector(index) {
     // let index = this.directors.indexOf(index);
     // console.log(index);
-   this.DIRECTORS.splice(index, 1);
+    this.DIRECTORS.splice(index, 1);
     // this.directors = [...this.directors.splice(index, 1)];
 
   }
 
-  fillDirectorInfo(director, index){
+  fillDirectorInfo(director, index) {
     this.director = {
       id: director.Id,
-      name:director.Director,
-      title:director.Title,
-      email:director.Email,
-      phone:director.Phone
+      name: director.Director,
+      title: director.Title,
+      email: director.Email,
+      phone: director.Phone
     }
-    this.DIRECTORS[index] =  director.Director    
+    this.DIRECTORS[index] = this.directorNames;
     console.log('test');
-    
+
   }
 }
