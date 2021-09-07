@@ -122,7 +122,7 @@
                 <label>Director Name</label>
                 <mat-form-field appearance="outline">
                     <mat-label>Director</mat-label>
-                    <mat-select [(ngModel)]="director.Director"  (selectionChange)="fillDirectorInfo(director, i)">
+                    <mat-select [(ngModel)]="director.ngmodel"  (selectionChange)="fillDirectorInfo(director, i)">
                         <mat-option *ngFor="let settingsList of settingsData.DirectorList" [value]="settingsList">
                             {{settingsList.Director}}
                         </mat-option>

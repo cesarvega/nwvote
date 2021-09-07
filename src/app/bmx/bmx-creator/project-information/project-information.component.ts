@@ -43,7 +43,8 @@ export class ProjectInformationComponent implements OnInit {
     name:'',
     title:'',
     email:'',
-    phone:''
+    phone:'',
+    ngmodel:'', 
   }
 
   selectedDirector
@@ -125,7 +126,8 @@ export class ProjectInformationComponent implements OnInit {
       name:director.Director,
       title:director.Title,
       email:director.Email,
-      phone:director.Phone
+      phone:director.Phone,
+      ngmodel:director.ngmodel
     }
     this.DIRECTORS[index] =  director.Director    
     console.log('test');

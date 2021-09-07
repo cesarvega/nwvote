@@ -50,7 +50,7 @@ export class RatingScaleComponent implements OnInit {
 
   // ⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️ STARS METHODS  ⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️
   setRating(starId, testNameId) {
-    this.bmxItem.componentText[testNameId].RATE = starId + 1
+    this.bmxItem.componentText[testNameId].RATE = starId
   }
 
   selectStar(starId, testNameId): void {
