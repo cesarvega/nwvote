@@ -44,7 +44,8 @@ export class ProjectInformationComponent implements OnInit {
     name: '',
     title: '',
     email: '',
-    phone: ''
+    phone: '',
+    ngModel: ''
   }
 
   selectedDirector;
@@ -70,7 +71,14 @@ export class ProjectInformationComponent implements OnInit {
         //AUTOCOMPLETE 🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖
         this.settingsData.SalesBoardProjectList.forEach(myObject => { this.salesboardObj.push({ name: myObject['SalesBoardProjectList'] }) });
         console.log(this.salesboardObj);
-        this.settingsData.DirectorList.forEach(myObj => { this.directorNames.push({ name: myObj['Director'] }) });
+        this.settingsData.DirectorList.forEach(directorObj => {
+          this.directorNames.push({name:directorObj.Director,
+                                    id:directorObj.Id,
+                                    title:directorObj.Title,
+                                    email:directorObj.Email,
+                                    phone:directorObj.Phone
+          })
+        });
         console.log(this.directorNames);
         this.filteredOptions = this.bmxEditData.controls['bmxSalesboard'].valueChanges
           .pipe(
@@ -113,7 +121,14 @@ export class ProjectInformationComponent implements OnInit {
 
   createDirector(): void {
     // this.directors = [...this.directors, this.directors.length];
-    this.DIRECTORS.push(this.director);
+    let director: any = {}
+    director.email = ""
+    director.id = ""
+    director.name = ""
+    director.phone = ""
+    director.title = ""
+    director.ngModel = ""
+    this.DIRECTORS.push(director);
   }
 
   caller(elementId: number): void {
@@ -129,15 +144,19 @@ export class ProjectInformationComponent implements OnInit {
   }
 
   fillDirectorInfo(director, index) {
-    this.director = {
-      id: director.Id,
-      name: director.Director,
-      title: director.Title,
-      email: director.Email,
-      phone: director.Phone
+ 
+    this.directorNames.forEach(element =>{
+    if (element.name == director.ngModel) {
+      this.director = {
+        id: element.id,
+        name: element.name,
+        title: element.title,
+        email: element.email,
+        phone: element.phone,
+        ngModel: director.ngModel
+      }
+      this.DIRECTORS[index] =  this.director;
     }
-    this.DIRECTORS[index] = this.directorNames;
-    console.log('test');
-
+    })
   }
 }

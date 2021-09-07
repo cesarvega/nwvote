@@ -119,33 +119,33 @@
             border: black 1px solid;
             padding: 10px;
             border-radius: 5px;">
-                <label>Director Name</label>
+                <label>Director Name {{i}} {{DIRECTORS[i].ngModel}}</label>
                 <mat-form-field appearance="outline">
                     <mat-label>Director</mat-label>
-                    <mat-select [(ngModel)]="directorNames[i]" (selectionChange)="fillDirectorInfo(director, i)">
-                        <mat-option *ngFor="let settingsList of directorNames" [value]="settingsList">
-                            {{settingsList.name}}
-                        </mat-option>
+                    <mat-select [(ngModel)]="director.ngModel" (selectionChange)="fillDirectorInfo(director, i)">
+                        <mat-option *ngFor="let directorName of directorNames" [value]="directorName.name">
+                            {{directorName.name}}
+                        </mat-option>   
                     </mat-select>
                 </mat-form-field>
                 <!-- <button mat-mini-fab style="position: absolute; top: 9px; right: 500px;" color="success" (click)="appendElement()"><mat-icon>add</mat-icon></button> -->
                 <!-- <button mat-button color="primary" (click)="saveData()">Save</button> -->
             </div>
 
-            <mat-card *ngIf="DIRECTORS[i]" class="directorCard" style="width: 75%;">
+            <mat-card *ngIf="director.title.length > 0" class="directorCard" style="width: 75%;">
                 <div style="display: flex;flex-direction: row;">
                     <label class="selectLabels">Title: </label>
-                    <label>{{director.Title}}</label>
+                    <label>{{director.title}}</label>
                 </div>
 
                 <div style="display: flex;flex-direction: row;">
                     <label class="selectLabels">Email: </label>
-                    <label>{{director.Email}}</label>
+                    <label>{{director.email}}</label>
                 </div>
 
                 <div style="display: flex;flex-direction: row;">
                     <label class="selectLabels">Phone #: </label>
-                    <label>{{director.Phone}}</label>
+                    <label>{{director.phone}}</label>
                 </div>
                 <button mat-mini-fab style="position: absolute; top: 9px; right: 5px;" color="warn"
                     (click)="removeDirector(i)">
