@@ -78,29 +78,29 @@ style="display: flex;flex-direction: row;justify-content: space-evenly;width: 86
 
     <div style="display: flex;flex-direction: column;align-items: center;">
         <p>columns width:  {{columnsSlider}} px</p>
-        <input type="range" style="margin: 20px;width: 140px;" (change)="setFontSize(columnsSlider)"
+        <input type="range" style="margin: 20px;width: 140px;" (change)="setColumnWidth(columnsSlider)"
             [(ngModel)]="columnsSlider" class="slider-font-size" tickInterval="1" min="50" max="1000"
             [value]="columnsSlider">
        
     </div>
     <div style="display: flex;flex-direction: column;align-items: center;">
     <p>row height: {{rowHeightSlider}} px</p>
-    <input type="range" style="margin: 20px;width: 140px;" (change)="setFontSize(rowHeightSlider)"
+    <input type="range" style="margin: 20px;width: 140px;" (change)="setSMALLTextLengthColumnHeight(rowHeightSlider)"
         [(ngModel)]="rowHeightSlider" class="slider-font-size" tickInterval="1" min="2" max="10"
         [value]="rowHeightSlider">
     </div>
-    <div style="display: flex;flex-direction: column;align-items: center;">
+    <!-- <div style="display: flex;flex-direction: column;align-items: center;">
         <p>row more text height: {{columnsSlider}} px</p>
         <input type="range" style="margin: 20px;width: 140px;" (change)="setFontSize(columnsSlider)"
             [(ngModel)]="columnsSlider" class="slider-font-size" tickInterval="1" min="50" max="1000"
             [value]="columnsSlider">
         
-    </div>
+    </div> -->
     <div style="display: flex;flex-direction: column;align-items: center;">
-    <p>font size: {{rowHeightSlider}} px</p>
-    <input type="range" style="margin: 20px;width: 140px;" (change)="setFontSize(rowHeightSlider)"
-        [(ngModel)]="rowHeightSlider" class="slider-font-size" tickInterval="1" min="2" max="10"
-        [value]="rowHeightSlider">
+    <p>font size: {{fontSizeRow}} px</p>
+    <input type="range" style="margin: 20px;width: 140px;" (change)="setFontSize(fontSizeRow)"
+        [(ngModel)]="fontSizeRow" class="slider-font-size" tickInterval="1" min="2" max="40"
+        [value]="fontSizeRow">
     </div>
 </div>
 <!-- <mat-slider min="200" max="500" step="10" value="200" [(value)]="columnsSlider"></mat-slider><p>{{columnsSlider}}</p> -->
@@ -149,7 +149,7 @@ style="display: flex;flex-direction: row;justify-content: space-evenly;width: 86
                     [value]="testName[columnName]"></textarea> -->
 
                 <!-- <mat-form-field style="text-align: center;" > -->
-                <textarea *ngIf="y !== 0 && bmxClientPageOveview " [style.width]="columnsSlider +'px'"  cdkTextareaAutosize
+                <textarea *ngIf="y !== 0 && bmxClientPageOveview " [style.width]="columnsSlider +'px'"  [style.font-size]="fontSizeRow +'px'"  cdkTextareaAutosize
                     [cdkAutosizeMinRows]="(testName[columnName].length > 50)?rowHeightSlider:2"
                     style="outline: none;text-align: center;" class="row-box"
                     [(ngModel)]="testName[columnName]"></textarea>
@@ -157,7 +157,7 @@ style="display: flex;flex-direction: row;justify-content: space-evenly;width: 86
                 <!-- </mat-form-field> -->
 
                 <!-- 🟡🟡🟡🟡🟡🟡🟡🟡🟡🟡🟡🟡🟡🟡 PARAGRAPH VIEW PAGE MODE 🟡🟡🟡🟡🟡🟡🟡🟡🟡🟡🟡🟡🟡🟡🟡🟡 -->
-                <p *ngIf="y !== 0 && !bmxClientPageOveview"  [style.width]="columnsSlider +'px'" style="text-align: center;">{{testName[columnName]}}</p>
+                <p *ngIf="y !== 0 && !bmxClientPageOveview" [style.font-size]="fontSizeRow +'px'"  [style.width]="columnsSlider +'px'" style="text-align: center;">{{testName[columnName]}}</p>
 
             </div>
 

@@ -20,6 +20,7 @@ export class RatingScaleComponent implements OnInit {
   selectedRating = '';
   columnsSlider = 376
   rowHeightSlider = 1.5
+  fontSizeRow = '12'
 
 
   // CONFIGURATION VARIABLES
@@ -44,6 +45,10 @@ export class RatingScaleComponent implements OnInit {
         this.columnsNames.push(value)
       }
     });
+
+    this.columnsSlider = this.bmxItem.componentSettings[0].columnWidth
+    this.rowHeightSlider = this.bmxItem.componentSettings[0].columnHeight
+    this.fontSizeRow = this.bmxItem.componentSettings[0].fontSize
 
     // this.columnsNames = Object.values(this.bmxItem.componentText[0])
   }
@@ -192,16 +197,17 @@ export class RatingScaleComponent implements OnInit {
 
 
   setFontSize(size) {
-    console.log(size);
+
+    this.bmxItem.componentSettings[0].fontSize = size
 
   }
 
-  setColumnWidth(size) {
-    console.log(size);
+  setColumnWidth(columnWidth) {
+    this.bmxItem.componentSettings[0].columnWidth = columnWidth
 
   }
-  setSMALLTextLengthColumnHeight(size) {
-    console.log(size);
+  setSMALLTextLengthColumnHeight(columnHeight) {
+    this.bmxItem.componentSettings[0].columnHeight = columnHeight
 
   }
   setBIGTextLengthColumnHeight(size) {
