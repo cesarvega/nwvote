@@ -18,9 +18,9 @@ export class RatingScaleComponent implements OnInit {
 
   selectedStarRatingIndex = ''
   selectedRating = '';
-  columnsSlider = 376
+  columnsSlider = 358 
   rowHeightSlider = 1.5
-  fontSizeRow = '12'
+  fontSizeRow = 19 
 
 
   // CONFIGURATION VARIABLES
@@ -46,7 +46,7 @@ export class RatingScaleComponent implements OnInit {
       }
     });
 
-    this.columnsSlider = this.bmxItem.componentSettings[0].columnWidth
+    this.columnsSlider = (this.bmxItem.componentSettings[0].columnWidth)?this.bmxItem.componentSettings[0].columnWidth:this.columnsSlider
     this.rowHeightSlider = this.bmxItem.componentSettings[0].columnHeight
     this.fontSizeRow = this.bmxItem.componentSettings[0].fontSize
 

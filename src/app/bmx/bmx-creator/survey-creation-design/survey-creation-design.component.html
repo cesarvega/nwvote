@@ -18,9 +18,7 @@
                     </button>
                 </div>
                 <div class="emoji-handle">.</div>
-
                 <div>
-
                     <img style="width: 231px;margin-left: 8px;    margin-top: 60px;"
                         src="./assets/img/bmx/BRANDMATRIX-DASHBOARD-LOGO.svg">
 
@@ -29,12 +27,10 @@
                         <div style="font-size: 14px;margin-bottom: 20px;color: lightgray;">Brief Description Here</div>
                     </div>
                 </div>
-
                 <div>
                     <span style="color: #48535e;font-size: 30px;margin-right: 31px;outline: none;
                     font-family: Arial, Helvetica, sans-serif;">{{bmxItem.componentText}}</span>
                 </div>
-
                 <div>
                     <button (click)="toggleInstructions()" style="margin-right: 33px;" mat-icon-button
                         matTooltip="Instructions" matTooltipPosition="above">
@@ -49,10 +45,6 @@
                         </button>
                     </div> -->
                 </div>
-
-
-
-
             </div>
             <!--😋😋😋😋😋😋😋😋😋😋😋😋😋😋😋😋😋😋😋😋😋😋😋😋😋😋😋😋😋😋😋😋😋😋😋😋😋😋 END BMX HEADER  -->
 
@@ -175,8 +167,9 @@
     </div>
 
 
-    <!--RIGHT SIDE MENU -->
-    <div class="project-info" *ngIf="bmxClientPageOveview" style="border: pink solid 1px; width: 25%; height: 100vh;">
+    <!-- 🎵🎵🎵🎵🎵🎵🎵🎵🎵🎵🎵🎵🎵🎵🎵🎵🎵🎵🎵🎵🎵🎵🎵  RIGHT SIDE MENU 🎵🎵🎵🎵🎵🎵🎵🎵🎵🎵🎵🎵🎵🎵🎵🎵🎵🎵-->
+    <!-- <div class="project-info" *ngIf="bmxClientPageOveview" style="border: pink solid 1px; width: 25%; height: 100vh;"> -->
+    <div class="project-info" *ngIf="true">
 
         <div style="display: flex;flex-direction: column;margin-top: 50px;">
             <button (click)="createNewBmxComponent('logo-header')" mat-icon-button matTooltip="add header"
@@ -215,6 +208,10 @@
            
         </div>
     </div>
+
+    
+    <!-- 🎵🎵🎵🎵🎵🎵🎵🎵🎵🎵🎵🎵🎵🎵🎵🎵🎵🎵🎵🎵🎵🎵🎵 END RIGHT SIDE MENU 🎵🎵🎵🎵🎵🎵🎵🎵🎵🎵🎵🎵🎵🎵🎵🎵🎵🎵-->
+
 </div>
 
 
