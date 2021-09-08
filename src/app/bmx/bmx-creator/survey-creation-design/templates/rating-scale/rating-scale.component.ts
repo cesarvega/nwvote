@@ -9,7 +9,8 @@ export class RatingScaleComponent implements OnInit {
 
   @Input() bmxItem;
   @Input() i;
-  @Input() bmxClientPageOveview;
+  @Input() bmxClientPageDesignMode;
+  @Input() bmxClientPageOverview;
   @ViewChild('autosize') autosize: CdkTextareaAutosize;
   rankingScaleValue = 5;
   selectedIndex: any

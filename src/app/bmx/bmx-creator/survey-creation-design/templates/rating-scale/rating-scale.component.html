@@ -1,27 +1,29 @@
 
+<div *ngIf="bmxClientPageOverview">
 <!-- ➗➗➗➗➗➗➗➗➗➗➗➗➗➗➗➗➗➗➗  SETTINGS ICONS  ➗➗➗➗➗➗➗➗➗➗➗➗➗➗➗➗➗ -->
 
-<button (click)="selectedIndex = ''" class="add-column" matTooltip="cancel" matTooltipPosition="above" style=" margin: -20px 29px;" *ngIf="i === selectedIndex"
+    <button (click)="selectedIndex = ''" class="add-column" matTooltip="cancel" matTooltipPosition="above" style=" margin: -20px 29px;" *ngIf="i === selectedIndex"
     mat-icon-button>
     <mat-icon style="font-size: 25px;" class="full-icon">cancel</mat-icon>
 </button>
 <button (click)="selectedIndex = i" class="add-column" matTooltip="settings" matTooltipPosition="above" style=" margin: -20px 29px;" *ngIf="i !== selectedIndex"
-    mat-icon-button>
-    <mat-icon style="font-size: 25px;" class="full-icon">edit</mat-icon>
+mat-icon-button>
+<mat-icon style="font-size: 25px;" class="full-icon">edit</mat-icon>
 </button>
 <button (click)="insertNewColumn()" class="add-column" style=" margin: -20px 65px;" matTooltip="Add column"
-    matTooltipPosition="above" mat-icon-button aria-label="ranking">
-    <mat-icon style="font-size: 26px;" class="full-icon">view_list</mat-icon>
+matTooltipPosition="above" mat-icon-button aria-label="ranking">
+<mat-icon style="font-size: 26px;" class="full-icon">view_list</mat-icon>
 </button>
 <!-- <button (click)="insertNewColumn()" class="add-column" style="margin: -20px 95px;" matTooltip="Add column"
     matTooltipPosition="above" mat-icon-button aria-label="ranking">
     <mat-icon style="font-size: 26px;" class="full-icon">next_plan</mat-icon>
 </button> -->
 <button (click)="toogleColumnResizer()" class="add-column" style="margin: -20px 95px;" matTooltip="row settings"
-    matTooltipPosition="above" mat-icon-button aria-label="ranking">
-    <mat-icon style="font-size: 26px;" class="full-icon">swap_horizontal_circle</mat-icon>
+matTooltipPosition="above" mat-icon-button aria-label="ranking">
+<mat-icon style="font-size: 26px;" class="full-icon">swap_horizontal_circle</mat-icon>
 </button>
 <!-- ➗➗➗➗➗➗➗➗➗➗➗➗➗➗➗➗➗➗➗  END  ➗➗➗➗➗➗➗➗➗➗➗➗➗➗➗➗➗ -->
+</div>
 
 
 <!-- 🔧🔧🔧🔧🔧🔧🔧🔧🔧🔧🔧🔧🔧🔧🔧🔧🔧🔧🔧🔧🔧 CONFIG BOX 🔧🔧🔧🔧🔧🔧🔧🔧🔧🔧🔧🔧🔧🔧🔧🔧🔧🔧🔧🔧🔧🔧🔧 -->
@@ -79,8 +81,16 @@
 
 
 <!-- ⏺⏺⏺⏺⏺⏺⏺⏺⏺⏺⏺⏺⏺⏺⏺⏺⏺⏺⏺⏺RAGE INPUTS FOR COLUMN SETTINGS ⏺⏺⏺⏺⏺⏺⏺⏺⏺⏺⏺⏺⏺⏺⏺⏺⏺⏺⏺ -->
-<div *ngIf="isColumnResizerOn" class="mat-elevation-z2"
-    style="display: flex;flex-direction: row;justify-content: space-evenly;width: 86%;padding: 10px;">
+<div *ngIf="isColumnResizerOn && bmxClientPageOverview" class="mat-elevation-z2"
+    style="display: flex;
+    flex-direction: row;
+    justify-content: space-evenly;
+    width: 86%;
+    /* padding: 10px; */
+    position: relative;
+    top: -15px;
+    left: 40px;
+    border-radius: 15px;">
 
     <div style="display: flex;flex-direction: column;align-items: center;">
         <p style="margin: 0 0 -12px;">columns width: {{columnsSlider}} px</p>
@@ -128,26 +138,26 @@
 
                     <!-- 🟢🟢🟢🟢🟢🟢🟢🟢🟢🟢🟢🟢🟢🟢 TEXT AREA RENDERER 🟢🟢🟢🟢🟢🟢🟢🟢🟢🟢🟢🟢🟢🟢🟢🟢 -->
 
-                    <textarea *ngIf="y == 0 && bmxClientPageOveview"
+                    <textarea *ngIf="y == 0 && bmxClientPageDesignMode"
                         style="text-align: center; font-weight: bold;color: #324395;"
                         [style.width]="columnsSlider +'px'" class="row-box" [(ngModel)]="testName[columnName]"
                         value="testName[columnName]"></textarea>
 
                     <!-- 🟡🟡🟡🟡🟡🟡🟡🟡🟡🟡🟡🟡🟡🟡 PARAGRAPH VIEW PAGE MODE 🟡🟡🟡🟡🟡🟡🟡🟡🟡🟡🟡🟡🟡🟡🟡🟡 -->
-                    <p style="text-align: center; font-weight: bold;color: #324395;" [style.width]="columnsSlider +'px'"
-                        *ngIf="y == 0 && !bmxClientPageOveview">{{testName[columnName]}}</p>
+                    <p style="text-align: center; font-weight: bold;color: #324395;margin: 0 0 0px;" [style.width]="columnsSlider +'px'"
+                        *ngIf="y == 0 && !bmxClientPageDesignMode">{{testName[columnName]}}</p>
                 </div>        
 
 
                 <!-- 🟢🟢🟢🟢🟢🟢🟢🟢🟢🟢🟢🟢🟢🟢 TEXT AREA RENDERER 🟢🟢🟢🟢🟢🟢🟢🟢🟢🟢🟢🟢🟢🟢🟢🟢 -->
-                <textarea *ngIf="y !== 0 && bmxClientPageOveview " [style.width]="columnsSlider +'px'"
+                <textarea *ngIf="y !== 0 && bmxClientPageDesignMode " [style.width]="columnsSlider +'px'"
                     [style.font-size]="fontSizeRow +'px'" cdkTextareaAutosize
                     [cdkAutosizeMinRows]="(testName[columnName].length > 50)?rowHeightSlider:2"
                     style="outline: none;text-align: center;" class="row-box"
                     [(ngModel)]="testName[columnName]"></textarea>
                 <!-- 🟡🟡🟡🟡🟡🟡🟡🟡🟡🟡🟡🟡🟡🟡 PARAGRAPH VIEW PAGE MODE 🟡🟡🟡🟡🟡🟡🟡🟡🟡🟡🟡🟡🟡🟡🟡🟡 -->
-                <p *ngIf="y !== 0 && !bmxClientPageOveview" [style.font-size]="fontSizeRow +'px'"
-                    [style.width]="columnsSlider +'px'" style="text-align: center;">{{testName[columnName]}}</p>
+                <p *ngIf="y !== 0 && !bmxClientPageDesignMode" [style.font-size]="fontSizeRow +'px'"
+                    [style.width]="columnsSlider +'px'" style="text-align: center;margin: 0 0 0px;">{{testName[columnName]}}</p>
 
             </div>
 
@@ -173,7 +183,7 @@
                 </button>
             </div>
             <div style="min-width: 100px">
-                <button *ngIf="(y !== 0)" style="outline: none;margin:-5px -8px;" (click)="deletRow(y)" mat-icon-button
+                <button *ngIf="(y !== 0) && bmxClientPageOverview" style="outline: none;margin:-5px -8px;" (click)="deletRow(y)" mat-icon-button
                     aria-label="ranking">
                     <mat-icon>delete_outline</mat-icon>
                 </button>

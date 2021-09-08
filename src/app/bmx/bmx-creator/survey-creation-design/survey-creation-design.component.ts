@@ -8,7 +8,8 @@ import { Component, ElementRef, EventEmitter, Inject, Input, OnInit, Output, Vie
 export class SurveyCreationDesignComponent implements OnInit {
 
   @Input() isMenuActive11;
-  @Input() bmxClientPageOveview;
+  @Input() bmxClientPageDesignMode;
+  @Input() bmxClientPageOverview;
 
   TEMPLATE_NAME = 'Standart Personal Preference'
 
@@ -740,7 +741,7 @@ export class SurveyCreationDesignComponent implements OnInit {
 
     setTimeout(() => {
       this.openSaveTemplateBox()
-    }, 3000);
+    }, 1000);
   }
 
   loadTemplate(templateName) {
