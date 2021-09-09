@@ -95,7 +95,7 @@ matTooltipPosition="above" mat-icon-button aria-label="ranking">
     <div style="display: flex;flex-direction: column;align-items: center;">
         <p style="margin: 0 0 -12px;">columns width: {{columnsSlider}} px</p>
         <input type="range" style="margin: 20px;width: 140px;" (change)="setColumnWidth(columnsSlider)"
-            [(ngModel)]="columnsSlider" class="slider-font-size" tickInterval="1" min="50" max="1000"
+            [(ngModel)]="columnsSlider" class="slider-font-size" tickInterval="1" min="250" max="1000"
             [value]="columnsSlider">
 
     </div>
@@ -105,13 +105,13 @@ matTooltipPosition="above" mat-icon-button aria-label="ranking">
             (change)="setSMALLTextLengthColumnHeight(rowHeightSlider)" [(ngModel)]="rowHeightSlider"
             class="slider-font-size" tickInterval="1" min="2" max="10" [value]="rowHeightSlider">
     </div>
-    <!-- <div style="display: flex;flex-direction: column;align-items: center;">
-        <p style="margin: 0 0 -12px;">row more text height: {{columnsSlider}} px</p>
-        <input type="range" style="margin: 20px;width: 140px;" (change)="setFontSize(columnsSlider)"
-            [(ngModel)]="columnsSlider" class="slider-font-size" tickInterval="1" min="50" max="1000"
-            [value]="columnsSlider">
+    <div style="display: flex;flex-direction: column;align-items: center;">
+        <p style="margin: 0 0 -12px;">ratinale width: {{rationalewidth}} px</p>
+        <input type="range" style="margin: 20px;width: 140px;" (change)="setRationalewidth(rationalewidth)"
+            [(ngModel)]="rationalewidth" class="slider-font-size" tickInterval="1" min="50" max="1000"
+            [value]="rationalewidth">
         
-    </div> -->
+    </div>
     <div style="display: flex;flex-direction: column;align-items: center;">
         <p style="margin: 0 0 -12px;">font size: {{fontSizeRow}} px</p>
         <input type="range" style="margin: 20px;width: 140px;" (change)="setFontSize(fontSizeRow)"
@@ -139,25 +139,32 @@ matTooltipPosition="above" mat-icon-button aria-label="ranking">
                     <!-- 🟢🟢🟢🟢🟢🟢🟢🟢🟢🟢🟢🟢🟢🟢 TEXT AREA RENDERER 🟢🟢🟢🟢🟢🟢🟢🟢🟢🟢🟢🟢🟢🟢🟢🟢 -->
 
                     <textarea *ngIf="y == 0 && bmxClientPageDesignMode"
-                        style="text-align: center; font-weight: bold;color: #324395;"
-                        [style.width]="columnsSlider +'px'" class="row-box" [(ngModel)]="testName[columnName]"
+                    [style.width]="(columnName == 'rationale'  || columnName == 'name')?rationalewidth + 'px':rationalewidth +'px'" 
+                    [style.font-size]="fontSizeRow +'px'"
+                    style="text-align: center; font-weight: bold;color: #324395;"
+                        class="row-box" [(ngModel)]="testName[columnName]"
                         value="testName[columnName]"></textarea>
 
                     <!-- 🟡🟡🟡🟡🟡🟡🟡🟡🟡🟡🟡🟡🟡🟡 PARAGRAPH VIEW PAGE MODE 🟡🟡🟡🟡🟡🟡🟡🟡🟡🟡🟡🟡🟡🟡🟡🟡 -->
-                    <p style="text-align: center; font-weight: bold;color: #324395;margin: 0 0 0px;" [style.width]="columnsSlider +'px'"
+                    <p style="text-align: center; font-weight: bold;color: #324395;margin: 0 0 0px;" 
+                    [style.width]="(columnName == 'rationale'  || columnName == 'name')?rationalewidth + 'px':columnsSlider +'px'" 
+                    [style.font-size]="fontSizeRow +'px'"
                         *ngIf="y == 0 && !bmxClientPageDesignMode">{{testName[columnName]}}</p>
                 </div>        
 
 
                 <!-- 🟢🟢🟢🟢🟢🟢🟢🟢🟢🟢🟢🟢🟢🟢 TEXT AREA RENDERER 🟢🟢🟢🟢🟢🟢🟢🟢🟢🟢🟢🟢🟢🟢🟢🟢 -->
-                <textarea *ngIf="y !== 0 && bmxClientPageDesignMode " [style.width]="columnsSlider +'px'"
+                <textarea *ngIf="y !== 0 && bmxClientPageDesignMode " 
+                [style.width]="(columnName == 'rationale'  || columnName == 'name')?rationalewidth + 'px':columnsSlider +'px'" 
                     [style.font-size]="fontSizeRow +'px'" cdkTextareaAutosize
                     [cdkAutosizeMinRows]="(testName[columnName].length > 50)?rowHeightSlider:2"
                     style="outline: none;text-align: center;" class="row-box"
                     [(ngModel)]="testName[columnName]"></textarea>
                 <!-- 🟡🟡🟡🟡🟡🟡🟡🟡🟡🟡🟡🟡🟡🟡 PARAGRAPH VIEW PAGE MODE 🟡🟡🟡🟡🟡🟡🟡🟡🟡🟡🟡🟡🟡🟡🟡🟡 -->
                 <p *ngIf="y !== 0 && !bmxClientPageDesignMode" [style.font-size]="fontSizeRow +'px'"
-                    [style.width]="columnsSlider +'px'" style="text-align: center;margin: 0 0 0px;">{{testName[columnName]}}</p>
+                    
+                [style.width]="(columnName == 'rationale'  || columnName == 'name')?rationalewidth + 'px':columnsSlider +'px'"  
+                style="text-align: center;margin: 0 0 0px;">{{testName[columnName]}}</p>
 
             </div>
 

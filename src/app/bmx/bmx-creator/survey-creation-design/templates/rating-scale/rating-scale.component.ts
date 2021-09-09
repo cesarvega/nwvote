@@ -22,6 +22,7 @@ export class RatingScaleComponent implements OnInit {
   columnsSlider = 358 
   rowHeightSlider = 1.5
   fontSizeRow = 19 
+  rationalewidth = this.columnsSlider + 100 
 
 
   // CONFIGURATION VARIABLES
@@ -197,6 +198,11 @@ export class RatingScaleComponent implements OnInit {
   };
 
 
+  setRationalewidth(size) {
+
+    this.bmxItem.componentSettings[0].rationalewidth = size
+
+  }
   setFontSize(size) {
 
     this.bmxItem.componentSettings[0].fontSize = size
