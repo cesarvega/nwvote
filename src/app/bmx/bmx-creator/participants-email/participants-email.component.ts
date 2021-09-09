@@ -16,7 +16,7 @@ export class ParticipantsEmailComponent implements OnInit {
   viewedData;
   selected;
   @Input() isMenuActive15;
-  displayedColumns: string[] = ['select', 'firstName', 'lastName', 'group', 'subGroup', 'status'];
+  displayedColumns: string[] = ['select', 'FirstName', 'LastName', 'group', 'SubGroup', 'Status'];
   RESPONDENTS_LIST;
   to;
   dataSource;
@@ -132,8 +132,8 @@ export class ParticipantsEmailComponent implements OnInit {
     else {
       this.dataSource.data.forEach(row => {
         this.selection.select(row);
-        if (!this.to.includes(row.firstName)) {
-          this.to += row.firstName + '; ';
+        if (!this.to.includes(row.FirstName)) {
+          this.to += row.FirstName + '; ';
 
         }
       });
@@ -144,25 +144,25 @@ export class ParticipantsEmailComponent implements OnInit {
 
   selectRow($event, dataSource) {
     if ($event.checked) {
-      this.to += dataSource.firstName + '; ';
+      this.to += dataSource.FirstName + '; ';
     }
     else {
-      this.to = this.to.replace(dataSource.firstName + '; ', "");
+      this.to = this.to.replace(dataSource.FirstName + '; ', "");
     }
   }
 
   changeView(): void {
     this.viewedData = [];
     for (let i = 0; i < this.allData.length; i++) {
-      if (this.selected == 'NS' && this.allData[i].status == 'NS') {
+      if (this.selected == 'NS' && this.allData[i].Status == 'NS') {
 
         this.viewedData.push(this.allData[i])
       }
-      else if (this.selected == 'NF' && this.allData[i].status == 'NF') {
+      else if (this.selected == 'NF' && this.allData[i].Status == 'NF') {
 
         this.viewedData.push(this.allData[i])
       }
-      else if (this.selected == 'F' && this.allData[i].status == 'F') {
+      else if (this.selected == 'F' && this.allData[i].Status == 'F') {
         this.viewedData.push(this.allData[i])
       }
       else if(this.selected == 'All') {
