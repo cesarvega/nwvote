@@ -16,6 +16,7 @@ import { BmxService } from '../bmx.service';
 })
 export class ProjectListComponent implements OnInit {
   @Input() isMenuActive1;
+  @Output() isMenuActive1Close: EventEmitter<boolean>=new EventEmitter<boolean>();
   @ViewChild(MatSort) sort: MatSort;
   @ViewChild(MatPaginator) paginator: MatPaginator;
   dataSource;
@@ -40,7 +41,6 @@ export class ProjectListComponent implements OnInit {
     this.selected = 'Live'
     this._BmxService.getGetProjectList()
     .subscribe((arg:any) => {
-      let obj = '[{"ProjectName":"test33333","ProjectId":616,"Status":"C","Department":"","Office":"","Created":null,"Close":null},{"ProjectName":"test2","ProjectId":616,"Status":"C","Department":"","Office":"","Created":null,"Close":"123456"},{"ProjectName":"test3","ProjectId":616,"Status":"C","Department":"","Office":"","Created":null,"Close":null},{"ProjectName":"test4","ProjectId":616,"Status":"C","Department":"","Office":"","Created":null,"Close":null},{"ProjectName":"test5","ProjectId":616,"Status":"C","Department":"","Office":"","Created":null,"Close":null},{"ProjectName":"test6","ProjectId":616,"Status":"C","Department":"","Office":"","Created":null,"Close":"56456"},{"ProjectName":"test7","ProjectId":616,"Status":"C","Department":"","Office":"","Created":null,"Close":null},{"ProjectName":"test1","ProjectId":616,"Status":"C","Department":"","Office":"","Created":null,"Close":null},{"ProjectName":"test2","ProjectId":616,"Status":"C","Department":"","Office":"","Created":null,"Close":"123456"},{"ProjectName":"test3","ProjectId":616,"Status":"C","Department":"","Office":"","Created":null,"Close":null},{"ProjectName":"test4","ProjectId":616,"Status":"C","Department":"","Office":"","Created":null,"Close":null},{"ProjectName":"test5","ProjectId":616,"Status":"C","Department":"","Office":"","Created":null,"Close":null},{"ProjectName":"test6","ProjectId":616,"Status":"C","Department":"","Office":"","Created":null,"Close":"56456"},{"ProjectName":"test777777","ProjectId":616,"Status":"C","Department":"","Office":"","Created":null,"Close":null}]';
       this.allData = JSON.parse(arg.d);
       // this.allData = JSON.parse(obj);
       this.changeView();     
@@ -62,6 +62,8 @@ export class ProjectListComponent implements OnInit {
 
   editBM(option: string): void {
     var test = option;
+    localStorage.setItem('projectName', option);
+    this.isMenuActive1Close.emit(false);
   }
 
   deleteBM(option: string): void {

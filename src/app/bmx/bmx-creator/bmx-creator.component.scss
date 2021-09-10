@@ -38,7 +38,7 @@
 
     .logo-badge {
         // border: solid 5px darkblue;
-        width: 21.5%;
+        width: 15.5%;
         height: 60px;
         display: flex;
         flex-direction: row;
@@ -49,7 +49,7 @@
     }
     .welcome {
         // border: solid 5px #8b1500;
-        width: 21.5%;
+        width: 15.5%;
         height: 10%;
         top: 67px;
         display: flex;
@@ -65,7 +65,7 @@
         flex-direction: column;
         overflow-x: hidden;
         top: 166px;
-        width: 21.5%;
+        width: 15.5%;
         position: absolute;
         .menu-item {
             cursor: pointer;
@@ -134,24 +134,36 @@
         // -ms-transform: translate(-50%, -53%);
         // transform: translate(-50%, -53%);
 
-        width: 90%;
+        width: 80%;
         height: 91vh;
         overflow-y: hidden;
-        @include BoxShadow(2);
+        // @include BoxShadow(2);
+        // .project-info {
+        //     position: absolute;
+        //     right: -30px;
+        //     background: white;
+        // }
     }
 
     .page-design-client {
         position: absolute;
         top: 53%;
         left: 50%;
-        -ms-transform: translate(-50%, -53%);
         transform: translate(-50%, -53%);
-
         width: 90%;
-        height: 100vh;
-        overflow-y: hidden;
-        @include BoxShadow(2);
+        height: 97vh;
+        overflow: visible;
+        // @include BoxShadow(2);
+        .project-info {
+            position: absolute;
+            right: -45px;
+            background: white;
+        }
     }
+
+    
+
+    
 
     .emoji-handle {
         // position: absolute;

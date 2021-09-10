@@ -9,7 +9,8 @@ export class RatingScaleComponent implements OnInit {
 
   @Input() bmxItem;
   @Input() i;
-  @Input() bmxClientPageOveview;
+  @Input() bmxClientPageDesignMode;
+  @Input() bmxClientPageOverview;
   @ViewChild('autosize') autosize: CdkTextareaAutosize;
   rankingScaleValue = 5;
   selectedIndex: any
@@ -18,8 +19,10 @@ export class RatingScaleComponent implements OnInit {
 
   selectedStarRatingIndex = ''
   selectedRating = '';
-  columnsSlider = 376
+  columnsSlider = 358 
   rowHeightSlider = 1.5
+  fontSizeRow = 19 
+  rationalewidth = this.columnsSlider + 100 
 
 
   // CONFIGURATION VARIABLES
@@ -44,6 +47,10 @@ export class RatingScaleComponent implements OnInit {
         this.columnsNames.push(value)
       }
     });
+
+    this.columnsSlider = (this.bmxItem.componentSettings[0].columnWidth)?this.bmxItem.componentSettings[0].columnWidth:this.columnsSlider
+    this.rowHeightSlider = this.bmxItem.componentSettings[0].columnHeight
+    this.fontSizeRow = this.bmxItem.componentSettings[0].fontSize
 
     // this.columnsNames = Object.values(this.bmxItem.componentText[0])
   }
@@ -191,22 +198,24 @@ export class RatingScaleComponent implements OnInit {
   };
 
 
-  setFontSize(size) {
-    console.log(size);
-
+  setRationalewidth(rationalewidth) {
+    this.bmxItem.componentSettings[0].rationalewidth = rationalewidth
   }
 
-  setColumnWidth(size) {
-    console.log(size);
-
+  setFontSize(fontSize) {
+    this.bmxItem.componentSettings[0].fontSize = fontSize
   }
-  setSMALLTextLengthColumnHeight(size) {
-    console.log(size);
 
+  setColumnWidth(columnWidth) {
+    this.bmxItem.componentSettings[0].columnWidth = columnWidth
   }
+
+  setSMALLTextLengthColumnHeight(columnHeight) {
+    this.bmxItem.componentSettings[0].columnHeight = columnHeight
+  }
+  
   setBIGTextLengthColumnHeight(size) {
     console.log(size);
-
   }
 
   toogleColumnResizer() {

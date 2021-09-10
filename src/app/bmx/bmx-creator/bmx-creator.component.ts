@@ -25,7 +25,8 @@ import { map, startWith } from 'rxjs/operators';
 })
 export class BmxCreatorComponent implements OnInit {
   // https://getemoji.com/
-  bmxClientPageOveview = true;
+  bmxClientPageDesignMode = true;
+  bmxClientPageOverview = true;
   displayRightSideMenu = false;
 
 
@@ -213,9 +214,20 @@ export class BmxCreatorComponent implements OnInit {
   }
   
   
+  toggleViewPageModeDesign() {
+    this.bmxClientPageDesignMode = !this.bmxClientPageDesignMode;
+  }
+  
   toggleViewPageMode() {
-    this.bmxClientPageOveview = !this.bmxClientPageOveview;
+    this.bmxClientPageOverview = !this.bmxClientPageOverview;
   }
 
+  editBM(event)
+  {
+    console.log(event)
+    this.isMenuActive1 = event;
+    this.isMainMenuActive = event;
+    this.isMenuActive8 = !event;
+  }
 
 }

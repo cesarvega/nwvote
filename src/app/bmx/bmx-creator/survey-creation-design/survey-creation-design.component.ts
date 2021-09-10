@@ -8,7 +8,8 @@ import { Component, ElementRef, EventEmitter, Inject, Input, OnInit, Output, Vie
 export class SurveyCreationDesignComponent implements OnInit {
 
   @Input() isMenuActive11;
-  @Input() bmxClientPageOveview;
+  @Input() bmxClientPageDesignMode;
+  @Input() bmxClientPageOverview;
 
   TEMPLATE_NAME = 'Standart Personal Preference'
 
@@ -74,7 +75,7 @@ export class SurveyCreationDesignComponent implements OnInit {
           "componentText": "PROJECT NAME",
           "componentSettings": [
             {
-              "fontSize": "16px",
+              "fontSize": "16",
               "fontFace": "Arial",
               "fontColor": "red"
             }
@@ -85,7 +86,7 @@ export class SurveyCreationDesignComponent implements OnInit {
           "componentText": "<p style=\"text-align:center\">Instructions</p>\n\n<p style=\"text-align:justify\">Please select&nbsp;only&nbsp;the name candidates that you would categorize as&nbsp;<strong>neutral to positive</strong>&nbsp;You should take into consideration any competitive brand name associations, pronunciation issues or negative connotations when making your selections. To make a selection, simply click the check box to the left of the desired name candidate. After you make a selection, you will be asked to rate that name based on a set of criteria:&nbsp;<strong>Fit to Product Concept:</strong> Please rate each selected name candidate based on how well it fits the product concept on a scale from 1 to 7, 1 being average and 7 being excellent.&nbsp;<strong>Overall Likeability:</strong> Please rate each selected name candidate based on your own personal preference on a scale from 1 to 7, 1 being neutral and 7 being the most liked. Once you have finished your selections, please click the &quot;Continue&quot; button on the bottom of the page to proceed to the next evaluation section.</p>\n\n<p style=\"text-align:justify\">&nbsp;</p>\n\n<p style=\"text-align:center\">Concept Statement</p>\n\n<p>cvegaCS</p>\n\n<p style=\"text-align:justify\">&nbsp;</p>\n\n<p style=\"text-align:justify\">&nbsp;</p>\n",
           "componentSettings": [
             {
-              "fontSize": "16px",
+              "fontSize": "16",
               "fontFace": "Arial",
               "fontColor": "red"
             }
@@ -96,7 +97,7 @@ export class SurveyCreationDesignComponent implements OnInit {
           "componentText": "<p style=\"text-align:center\"><span style=\"font-size:18px\">WELCOME</span></p>\n\n<p><span style=\"font-size:16px\">You have been chosen to participate in the brand name selection process for XXXX&#39;s new XXXXX (Project Code Name: XXXX). In this interactive BrandMatrix evaluation, you will be asked to identify and evaluate your favorite brand name options. The name candidates, both newly created and project team retained, are presented according to the following brand strategies:</span><br />\n<br />\nXXX<br />\nXXX<br />\nXXX<br />\nXXX<br />\nXXX</p>\n\n<p>Should you have any questions or comments regarding the BrandMatrixTM, please contact one of the following individuals:</p>\n\n<p>Brand Institute<br />\nCreative Department&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; creative@brandinstitute.com&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;N/A</p>\n\n<p>Brand Institute<br />\nCreative Department&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; creative@brandinstitute.com&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; N/A</p>\n",
           "componentSettings": [
             {
-              "fontSize": "16px",
+              "fontSize": "16",
               "fontFace": "Arial",
               "fontColor": "red"
             }
@@ -112,7 +113,7 @@ export class SurveyCreationDesignComponent implements OnInit {
           "componentText": "",
           "componentSettings": [
             {
-              "fontSize": "16px",
+              "fontSize": "16",
               "fontFace": "Arial",
               "fontColor": "red"
             }
@@ -123,7 +124,7 @@ export class SurveyCreationDesignComponent implements OnInit {
           "componentText": "PROJECT NAME",
           "componentSettings": [
             {
-              "fontSize": "16px",
+              "fontSize": "16",
               "fontFace": "Arial",
               "fontColor": "red"
             }
@@ -134,7 +135,7 @@ export class SurveyCreationDesignComponent implements OnInit {
           "componentText": "<p style=\"text-align:center\">Instructions</p>\n\n<p>Please select&nbsp;only&nbsp;the name candidates that you would categorize as&nbsp;neutral to positive&nbsp;You should take into consideration any competitive brand name associations, pronunciation issues or negative connotations when making your selections. To make a selection, simply click the check box to the left of the desired name candidate. After you make a selection, you will be asked to rate that name based on a set of criteria:&nbsp;Fit to Product Concept: Please rate each selected name candidate based on how well it fits the product concept on a scale from 1 to 7, 1 being average and 7 being excellent.&nbsp;Overall Likeability: Please rate each selected name candidate based on your own personal preference on a scale from 1 to 7, 1 being neutral and 7 being the most liked. Once you have finished your selections, please click the &quot;Continue&quot; button on the bottom of the page to proceed to the next evaluation section.</p>\n\n<p style=\"text-align:center\">Concept Statement</p>\n",
           "componentSettings": [
             {
-              "fontSize": "16px",
+              "fontSize": "16",
               "fontFace": "Arial",
               "fontColor": "red"
             }
@@ -525,7 +526,7 @@ export class SurveyCreationDesignComponent implements OnInit {
           ],
           "componentSettings": [
             {
-              "fontSize": "16px",
+              "fontSize": "16",
               "fontFace": "Arial",
               "fontColor": "red"
             }
@@ -541,7 +542,7 @@ export class SurveyCreationDesignComponent implements OnInit {
           "componentText": "",
           "componentSettings": [
             {
-              "fontSize": "16px",
+              "fontSize": "16",
               "fontFace": "Arial",
               "fontColor": "red"
             }
@@ -552,7 +553,7 @@ export class SurveyCreationDesignComponent implements OnInit {
           "componentText": "PROJECT NAME",
           "componentSettings": [
             {
-              "fontSize": "16px",
+              "fontSize": "16",
               "fontFace": "Arial",
               "fontColor": "red"
             }
@@ -563,7 +564,7 @@ export class SurveyCreationDesignComponent implements OnInit {
           "componentText": "<p style=\"text-align:center\"><span style=\"font-size:22px\">Thank you for participating. Your responses have been recorded.<br />\n<br />\nPlease feel free to provide new name candidate suggestions in the text box below (optional). When you are finished, please click &quot;Submit&quot; to complete the survey.</span></p>\n\n<p style=\"text-align:center\">&nbsp;</p>\n",
           "componentSettings": [
             {
-              "fontSize": "16px",
+              "fontSize": "16",
               "fontFace": "Arial",
               "fontColor": "red"
             }
@@ -740,7 +741,7 @@ export class SurveyCreationDesignComponent implements OnInit {
 
     setTimeout(() => {
       this.openSaveTemplateBox()
-    }, 3000);
+    }, 1000);
   }
 
   loadTemplate(templateName) {
