@@ -134,10 +134,15 @@
         // -ms-transform: translate(-50%, -53%);
         // transform: translate(-50%, -53%);
 
-        width: 90%;
+        width: 80%;
         height: 91vh;
         overflow-y: hidden;
-        @include BoxShadow(2);
+        // @include BoxShadow(2);
+        // .project-info {
+        //     position: absolute;
+        //     right: -30px;
+        //     background: white;
+        // }
     }
 
     .page-design-client {
@@ -147,8 +152,13 @@
         transform: translate(-50%, -53%);
         width: 90%;
         height: 97vh;
-        overflow-y: hidden;
-        @include BoxShadow(2);
+        overflow: visible;
+        // @include BoxShadow(2);
+        .project-info {
+            position: absolute;
+            right: -45px;
+            background: white;
+        }
     }
 
     
