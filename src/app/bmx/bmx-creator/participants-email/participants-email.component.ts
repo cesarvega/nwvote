@@ -2,6 +2,9 @@ import { Component, OnInit, Input } from '@angular/core';
 import { MatTableDataSource } from '@angular/material/table';
 import { SelectionModel } from '@angular/cdk/collections';
 import { HighlightSpanKind } from 'typescript';
+import { BmxService } from '../bmx.service';
+import { DragulaService } from 'ng2-dragula';
+import { HotkeysService, Hotkey } from 'angular2-hotkeys';
 
 
 @Component({
@@ -76,16 +79,24 @@ export class ParticipantsEmailComponent implements OnInit {
     },
   ];
 
-  constructor() {
+  constructor(private _hotkeysService: HotkeysService, private dragulaService: DragulaService, private _BmxService: BmxService) {
 
   }
 
   ngOnInit(): void {
     this.selected = 'All';
     
-    var test = localStorage.getItem('fakeprojectname' + '_repondants list');
-    this.allData = JSON.parse(test);
-    this.changeView();
+    
+
+    this._BmxService.BrandMatrixGetParticipantList(localStorage.getItem('projectName'))
+    .subscribe((arg:any) => {
+      this.allData = JSON.parse(arg.d).ParticipantList;
+      this.changeView();
+    });
+
+
+
+   
     this.selection = new SelectionModel<any>(true, []);
     this.to = '';
     this.ckconfig = {
