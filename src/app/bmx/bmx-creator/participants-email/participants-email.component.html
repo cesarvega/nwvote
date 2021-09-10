@@ -6,12 +6,14 @@
 
             <div>
                 <div style="margin: 20px;font-size: 20px;color:#063074;font-weight: 800;">Email Settings</div>
-                <div style="margin-left: 0px;font-size: 15px;color:grey;font-weight: 100;">Send Director Confirmation
+                <div style="line-height: 1; margin-left: 40px;font-size: 15px;
+                color:grey;font-weight: 100;width: 300px;display: flex;flex-direction: row; justify-content: space-between;margin-bottom: 10px;">Send Director Confirmation
                     Emails
                     <input type="checkbox" [checked]="dirConfirm" (change)="dirConfirm = !dirConfirm" />
                 </div>
 
-                <div style="margin-left: 0px;font-size: 15px;color:grey;font-weight: 100;">Send Department Confirmation
+                <div style="line-height: 1; margin-left: 40px;font-size: 15px;
+                color:grey;font-weight: 100;width: 300px;display: flex;flex-direction: row; justify-content: space-between;">Send Department Confirmation
                     Emails
                     <input type="checkbox" [checked]="deptConfirm" (change)="deptConfirm = !deptConfirm" />
                 </div>
@@ -103,9 +105,9 @@
         </div>
 
     </div>
-    <div style="border: hotpink solid 0px; width: 35%; padding-left: 5%;">
+    <div style="border: hotpink solid 0px; width: 35%;padding: 7% 0px 0px 22px">
         <div style="display: flex;flex-direction: row;margin-bottom: 20px; justify-content: space-between; ">
-            <div style="color:#063074;font-size: 20px;margin-right: 20px;">To :</div>
+            <div style="color:#063074;font-size: 20px;margin-right: 20px;font-weight: 800;">To :</div>
         </div>
         <mat-form-field appearance="outline" style="width: 100%;">
             <textarea matInput rows="4" cols="50" placeholder="Recipients">{{to}}</textarea>
