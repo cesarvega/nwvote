@@ -30,6 +30,15 @@ export class SurveyCreationDesignComponent implements OnInit {
   newTestNames = [];
   ratingScale = 5;
 
+
+  // TEMPLATE BOX 
+  isTemplateBoxOn = false;
+  isSaveOrUpdate = false;
+  templateTitle;
+  TEMPLATES = ['Standart Personal Preference', 'Ranking', 'NarrowDown', 'This or That', 'Naming Contest', 'Question & Answer'];
+  templateName = '';
+  selectedTemplateName = '';
+
   // SURVEY CREATOR VARIABLES & SCHEME
 
   currentPage = 0;
@@ -47,10 +56,519 @@ export class SurveyCreationDesignComponent implements OnInit {
     },
   ];
 
-  bmxPages = [
+  bmxPages: any = [
     {
       pageNumber: 1,
       page: this.brandMatrixObjects
+    }
+  ]
+
+
+  SAMPLE_BMX = [
+    {
+      "pageNumber": 1,
+      "page": [
+        {
+          "componentType": "logo-header",
+          "componentText": "PROJECT NAME",
+          "componentSettings": [
+            {
+              "fontSize": "16px",
+              "fontFace": "Arial",
+              "fontColor": "red"
+            }
+          ]
+        },
+        {
+          "componentType": "instructions",
+          "componentText": "<p style=\"text-align:center\">Instructions</p>\n\n<p style=\"text-align:justify\">Please select&nbsp;only&nbsp;the name candidates that you would categorize as&nbsp;<strong>neutral to positive</strong>&nbsp;You should take into consideration any competitive brand name associations, pronunciation issues or negative connotations when making your selections. To make a selection, simply click the check box to the left of the desired name candidate. After you make a selection, you will be asked to rate that name based on a set of criteria:&nbsp;<strong>Fit to Product Concept:</strong> Please rate each selected name candidate based on how well it fits the product concept on a scale from 1 to 7, 1 being average and 7 being excellent.&nbsp;<strong>Overall Likeability:</strong> Please rate each selected name candidate based on your own personal preference on a scale from 1 to 7, 1 being neutral and 7 being the most liked. Once you have finished your selections, please click the &quot;Continue&quot; button on the bottom of the page to proceed to the next evaluation section.</p>\n\n<p style=\"text-align:justify\">&nbsp;</p>\n\n<p style=\"text-align:center\">Concept Statement</p>\n\n<p>cvegaCS</p>\n\n<p style=\"text-align:justify\">&nbsp;</p>\n\n<p style=\"text-align:justify\">&nbsp;</p>\n",
+          "componentSettings": [
+            {
+              "fontSize": "16px",
+              "fontFace": "Arial",
+              "fontColor": "red"
+            }
+          ]
+        },
+        {
+          "componentType": "text-editor",
+          "componentText": "<p style=\"text-align:center\"><span style=\"font-size:18px\">WELCOME</span></p>\n\n<p><span style=\"font-size:16px\">You have been chosen to participate in the brand name selection process for XXXX&#39;s new XXXXX (Project Code Name: XXXX). In this interactive BrandMatrix evaluation, you will be asked to identify and evaluate your favorite brand name options. The name candidates, both newly created and project team retained, are presented according to the following brand strategies:</span><br />\n<br />\nXXX<br />\nXXX<br />\nXXX<br />\nXXX<br />\nXXX</p>\n\n<p>Should you have any questions or comments regarding the BrandMatrixTM, please contact one of the following individuals:</p>\n\n<p>Brand Institute<br />\nCreative Department&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; creative@brandinstitute.com&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;N/A</p>\n\n<p>Brand Institute<br />\nCreative Department&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; creative@brandinstitute.com&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; N/A</p>\n",
+          "componentSettings": [
+            {
+              "fontSize": "16px",
+              "fontFace": "Arial",
+              "fontColor": "red"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "pageNumber": 2,
+      "page": [
+        {
+          "componentType": "",
+          "componentText": "",
+          "componentSettings": [
+            {
+              "fontSize": "16px",
+              "fontFace": "Arial",
+              "fontColor": "red"
+            }
+          ]
+        },
+        {
+          "componentType": "logo-header",
+          "componentText": "PROJECT NAME",
+          "componentSettings": [
+            {
+              "fontSize": "16px",
+              "fontFace": "Arial",
+              "fontColor": "red"
+            }
+          ]
+        },
+        {
+          "componentType": "text-editor",
+          "componentText": "<p style=\"text-align:center\">Instructions</p>\n\n<p>Please select&nbsp;only&nbsp;the name candidates that you would categorize as&nbsp;neutral to positive&nbsp;You should take into consideration any competitive brand name associations, pronunciation issues or negative connotations when making your selections. To make a selection, simply click the check box to the left of the desired name candidate. After you make a selection, you will be asked to rate that name based on a set of criteria:&nbsp;Fit to Product Concept: Please rate each selected name candidate based on how well it fits the product concept on a scale from 1 to 7, 1 being average and 7 being excellent.&nbsp;Overall Likeability: Please rate each selected name candidate based on your own personal preference on a scale from 1 to 7, 1 being neutral and 7 being the most liked. Once you have finished your selections, please click the &quot;Continue&quot; button on the bottom of the page to proceed to the next evaluation section.</p>\n\n<p style=\"text-align:center\">Concept Statement</p>\n",
+          "componentSettings": [
+            {
+              "fontSize": "16px",
+              "fontFace": "Arial",
+              "fontColor": "red"
+            }
+          ]
+        },
+        {
+          "componentType": "ranking-scale",
+          "componentText": [
+            {
+              "STARS": [
+                {
+                  "id": 0,
+                  "icon": "grade",
+                  "class": "rating-star"
+                },
+                {
+                  "id": 1,
+                  "icon": "grade",
+                  "class": "rating-star"
+                },
+                {
+                  "id": 2,
+                  "icon": "grade",
+                  "class": "rating-star"
+                },
+                {
+                  "id": 3,
+                  "icon": "grade",
+                  "class": "rating-star"
+                },
+                {
+                  "id": 4,
+                  "icon": "grade",
+                  "class": "rating-star"
+                },
+                {
+                  "id": 5,
+                  "icon": "grade",
+                  "class": "rating-star"
+                },
+                {
+                  "id": 6,
+                  "icon": "grade",
+                  "class": "rating-star"
+                }
+              ],
+              "name": "NAME",
+              "rationale": "RATIONALE",
+              "katakana": "KATAKANA"
+            },
+            {
+              "STARS": [
+                {
+                  "id": 0,
+                  "icon": "grade",
+                  "class": "rating-star"
+                },
+                {
+                  "id": 1,
+                  "icon": "grade",
+                  "class": "rating-star"
+                },
+                {
+                  "id": 2,
+                  "icon": "grade",
+                  "class": "rating-star"
+                },
+                {
+                  "id": 3,
+                  "icon": "grade",
+                  "class": "rating-star"
+                },
+                {
+                  "id": 4,
+                  "icon": "grade",
+                  "class": "rating-star"
+                },
+                {
+                  "id": 5,
+                  "icon": "grade",
+                  "class": "rating-star"
+                },
+                {
+                  "id": 6,
+                  "icon": "grade",
+                  "class": "rating-star"
+                }
+              ],
+              "name": "LOADED NAME 0",
+              "rationale": "Rationale of an unth",
+              "katakana": "片仮名、カタカナ",
+              "RATE": 0
+            },
+            {
+              "STARS": [
+                {
+                  "id": 0,
+                  "icon": "grade",
+                  "class": "rating-star"
+                },
+                {
+                  "id": 1,
+                  "icon": "grade",
+                  "class": "rating-star"
+                },
+                {
+                  "id": 2,
+                  "icon": "grade",
+                  "class": "rating-star"
+                },
+                {
+                  "id": 3,
+                  "icon": "grade",
+                  "class": "rating-star"
+                },
+                {
+                  "id": 4,
+                  "icon": "grade",
+                  "class": "rating-star"
+                },
+                {
+                  "id": 5,
+                  "icon": "grade",
+                  "class": "rating-star"
+                },
+                {
+                  "id": 6,
+                  "icon": "grade",
+                  "class": "rating-star"
+                }
+              ],
+              "name": "LOADED NAME 1",
+              "rationale": "Rationale of an undisclosed length",
+              "katakana": "片仮名、カタカナ"
+            },
+            {
+              "STARS": [
+                {
+                  "id": 0,
+                  "icon": "grade",
+                  "class": "rating-star"
+                },
+                {
+                  "id": 1,
+                  "icon": "grade",
+                  "class": "rating-star"
+                },
+                {
+                  "id": 2,
+                  "icon": "grade",
+                  "class": "rating-star"
+                },
+                {
+                  "id": 3,
+                  "icon": "grade",
+                  "class": "rating-star"
+                },
+                {
+                  "id": 4,
+                  "icon": "grade",
+                  "class": "rating-star"
+                },
+                {
+                  "id": 5,
+                  "icon": "grade",
+                  "class": "rating-star"
+                },
+                {
+                  "id": 6,
+                  "icon": "grade",
+                  "class": "rating-star"
+                }
+              ],
+              "name": "LOADED NAME 2",
+              "rationale": "Rationale of an undisclosed length",
+              "katakana": "片仮名、カナ"
+            },
+            {
+              "STARS": [
+                {
+                  "id": 0,
+                  "icon": "grade",
+                  "class": "rating-star"
+                },
+                {
+                  "id": 1,
+                  "icon": "grade",
+                  "class": "rating-star"
+                },
+                {
+                  "id": 2,
+                  "icon": "grade",
+                  "class": "rating-star"
+                },
+                {
+                  "id": 3,
+                  "icon": "grade",
+                  "class": "rating-star"
+                },
+                {
+                  "id": 4,
+                  "icon": "grade",
+                  "class": "rating-star"
+                },
+                {
+                  "id": 5,
+                  "icon": "grade",
+                  "class": "rating-star"
+                },
+                {
+                  "id": 6,
+                  "icon": "grade",
+                  "class": "rating-star"
+                }
+              ],
+              "name": "LOADED 3",
+              "rationale": "Rationale of an losed length",
+              "katakana": "片仮名、カタカナ"
+            },
+            {
+              "STARS": [
+                {
+                  "id": 0,
+                  "icon": "grade",
+                  "class": "rating-star"
+                },
+                {
+                  "id": 1,
+                  "icon": "grade",
+                  "class": "rating-star"
+                },
+                {
+                  "id": 2,
+                  "icon": "grade",
+                  "class": "rating-star"
+                },
+                {
+                  "id": 3,
+                  "icon": "grade",
+                  "class": "rating-star"
+                },
+                {
+                  "id": 4,
+                  "icon": "grade",
+                  "class": "rating-star"
+                },
+                {
+                  "id": 5,
+                  "icon": "grade",
+                  "class": "rating-star"
+                },
+                {
+                  "id": 6,
+                  "icon": "grade",
+                  "class": "rating-star"
+                }
+              ],
+              "name": "LOADED NAME 4",
+              "rationale": "Rationale of an undisclosed length",
+              "katakana": "、カタカナ"
+            },
+            {
+              "STARS": [
+                {
+                  "id": 0,
+                  "icon": "grade",
+                  "class": "rating-star"
+                },
+                {
+                  "id": 1,
+                  "icon": "grade",
+                  "class": "rating-star"
+                },
+                {
+                  "id": 2,
+                  "icon": "grade",
+                  "class": "rating-star"
+                },
+                {
+                  "id": 3,
+                  "icon": "grade",
+                  "class": "rating-star"
+                },
+                {
+                  "id": 4,
+                  "icon": "grade",
+                  "class": "rating-star"
+                },
+                {
+                  "id": 5,
+                  "icon": "grade",
+                  "class": "rating-star"
+                },
+                {
+                  "id": 6,
+                  "icon": "grade",
+                  "class": "rating-star"
+                }
+              ],
+              "name": "NAME 5",
+              "rationale": "Rationale of an undisclosed length",
+              "katakana": "片仮名、カタカナ"
+            },
+            {
+              "STARS": [
+                {
+                  "id": 0,
+                  "icon": "grade",
+                  "class": "rating-star"
+                },
+                {
+                  "id": 1,
+                  "icon": "grade",
+                  "class": "rating-star"
+                },
+                {
+                  "id": 2,
+                  "icon": "grade",
+                  "class": "rating-star"
+                },
+                {
+                  "id": 3,
+                  "icon": "grade",
+                  "class": "rating-star"
+                },
+                {
+                  "id": 4,
+                  "icon": "grade",
+                  "class": "rating-star"
+                },
+                {
+                  "id": 5,
+                  "icon": "grade",
+                  "class": "rating-star"
+                },
+                {
+                  "id": 6,
+                  "icon": "grade",
+                  "class": "rating-star"
+                }
+              ],
+              "name": "LOADED NAME ",
+              "rationale": "Rationale of an unlosed lengthRationale of an undisclosed lengthRationale of an undisclosed lengthRationale of an undisclosed lengthRationale of an undisclosed length",
+              "katakana": "タカナ"
+            },
+            {
+              "STARS": [
+                {
+                  "id": 0,
+                  "icon": "grade",
+                  "class": "rating-star"
+                },
+                {
+                  "id": 1,
+                  "icon": "grade",
+                  "class": "rating-star"
+                },
+                {
+                  "id": 2,
+                  "icon": "grade",
+                  "class": "rating-star"
+                },
+                {
+                  "id": 3,
+                  "icon": "grade",
+                  "class": "rating-star"
+                },
+                {
+                  "id": 4,
+                  "icon": "grade",
+                  "class": "rating-star"
+                },
+                {
+                  "id": 5,
+                  "icon": "grade",
+                  "class": "rating-star"
+                },
+                {
+                  "id": 6,
+                  "icon": "grade",
+                  "class": "rating-star"
+                }
+              ],
+              "name": "LOADED NAME 7",
+              "rationale": "Rationale of an undisclosed length",
+              "katakana": "片仮名、カタカナ"
+            }
+          ],
+          "componentSettings": [
+            {
+              "fontSize": "16px",
+              "fontFace": "Arial",
+              "fontColor": "red"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "pageNumber": 3,
+      "page": [
+        {
+          "componentType": "",
+          "componentText": "",
+          "componentSettings": [
+            {
+              "fontSize": "16px",
+              "fontFace": "Arial",
+              "fontColor": "red"
+            }
+          ]
+        },
+        {
+          "componentType": "logo-header",
+          "componentText": "PROJECT NAME",
+          "componentSettings": [
+            {
+              "fontSize": "16px",
+              "fontFace": "Arial",
+              "fontColor": "red"
+            }
+          ]
+        },
+        {
+          "componentType": "text-editor",
+          "componentText": "<p style=\"text-align:center\"><span style=\"font-size:22px\">Thank you for participating. Your responses have been recorded.<br />\n<br />\nPlease feel free to provide new name candidate suggestions in the text box below (optional). When you are finished, please click &quot;Submit&quot; to complete the survey.</span></p>\n\n<p style=\"text-align:center\">&nbsp;</p>\n",
+          "componentSettings": [
+            {
+              "fontSize": "16px",
+              "fontFace": "Arial",
+              "fontColor": "red"
+            }
+          ]
+        }
+      ]
     }
   ]
 
@@ -89,6 +607,7 @@ export class SurveyCreationDesignComponent implements OnInit {
     if (this.TEMPLATE_NAME === 'Standart Personal Preference') {
       this.createNewBmxComponent("rating-scale");
     }
+    this.bmxPages = this.SAMPLE_BMX
   }
 
   toggleInstructions() {
@@ -111,7 +630,15 @@ export class SurveyCreationDesignComponent implements OnInit {
   }
 
   createNewBmxComponent(componentType) {
-    if (componentType === 'text-editor') {
+
+    if (componentType === 'logo-header') {
+      this.bmxPages[this.currentPage].page.push({
+        componentType: 'logo-header',
+        componentText: 'PROJECT NAME',
+        componentSettings: [{ fontSize: '16px', fontFace: 'Arial', fontColor: 'red' }],
+      })
+    }
+    else if (componentType === 'text-editor') {
       this.bmxPages[this.currentPage].page.push({
         componentType: 'text-editor',
         componentText: this.sampleHtml2,
@@ -124,9 +651,11 @@ export class SurveyCreationDesignComponent implements OnInit {
         name: 'NAME', rationale: 'RATIONALE',
         STARS: this.createRatingStars()
       })
-      for (let index = 0; index < 15; index++) {
+      for (let index = 0; index < 12; index++) {
         this.TestNameDataModel.push({
-          name: 'TEST NAME ' + index, rationale: 'Rationale of an undisclosed length',
+          name: 'TEST NAME ' + index,
+          rationale: 'Rationale of an undisclosed length',
+          RATE: -1,
           STARS: this.createRatingStars()
         })
       }
@@ -146,10 +675,66 @@ export class SurveyCreationDesignComponent implements OnInit {
       this.currentPage = this.currentPage - 1;
     }
   }
+
   selectPageNumber(pageNumber) {
     this.currentPage = pageNumber;
   }
 
+  deleteComponent(i) {
+    this.bmxPages[this.currentPage].page.splice(i, 1)
+  }
+
+
+  // TEMPLATE METHODS
+  saveOrUpdateTemplate(templateName) {
+    localStorage.setItem(templateName, JSON.stringify(this.bmxPages))
+    this.templateTitle = "Template '" + templateName + "' saved"
+
+    if (this.TEMPLATES.indexOf(templateName) < 0) {
+      this.TEMPLATES.push(templateName)
+    }
+
+    setTimeout(() => {
+      this.openSaveTemplateBox()
+    }, 3000);
+  }
+
+  loadTemplate(templateName) {
+    if (localStorage.getItem(templateName)) {
+      this.bmxPages = JSON.parse(localStorage.getItem(templateName))
+    }
+    this.openSaveTemplateBox()
+  }
+
+  templateSelected() {
+    this.isSaveOrUpdate = true;
+  }
+
+  openSaveTemplateBox() {
+    this.templateName = ''
+    this.templateTitle = 'save, update or load a template'
+    this.isTemplateBoxOn = !this.isTemplateBoxOn
+  }
+
+  resetTemplate() {
+    this.bmxPages = [
+      {
+        pageNumber: 1,
+        page: [
+          {
+            componentType: 'logo-header',
+            componentText: 'PROJECT NAME',
+            componentSettings: [{ fontSize: '16px', fontFace: 'Arial', fontColor: 'red' }],
+          },
+          {
+            componentType: 'instructions',
+            componentText: this.sampleHtml,
+            componentSettings: [{ fontSize: '16px', fontFace: 'Arial', fontColor: 'red' }],
+          },
+        ]
+      }
+    ]
+  }
 
   // 🌭🌭🌭🌭🌭🌭🌭🌭🌭🌭🌭🌭🌭🌭PRIVATE METHODS 🌭🌭🌭🌭🌭🌭🌭🌭🌭🌭🌭🌭🌭🌭🌭🌭🌭🌭🌭🌭🌭🌭🌭🌭🌭🌭🌭🌭🌭
   createRatingStars() {
@@ -170,4 +755,7 @@ export class SurveyCreationDesignComponent implements OnInit {
 
   }
 
+
 }
+
+

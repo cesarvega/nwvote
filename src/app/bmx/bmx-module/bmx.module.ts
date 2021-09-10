@@ -120,6 +120,7 @@ export function loadEcharts() {
     MatSliderModule,
     MatTabsModule,
     QRCodeModule,
+    MatRadioModule,
     DeviceDetectorModule,
     AngularDateTimePickerModule,
     MatDatepickerModule,

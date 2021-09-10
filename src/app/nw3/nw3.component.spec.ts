@@ -1,20 +1,20 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { RatingScaleComponent } from './rating-scale.component';
+import { NW3Component } from './nw3.component';
 
-describe('RatingScaleComponent', () => {
-  let component: RatingScaleComponent;
-  let fixture: ComponentFixture<RatingScaleComponent>;
+describe('NW3Component', () => {
+  let component: NW3Component;
+  let fixture: ComponentFixture<NW3Component>;
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ RatingScaleComponent ]
+      declarations: [ NW3Component ]
     })
     .compileComponents();
   }));
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(RatingScaleComponent);
+    fixture = TestBed.createComponent(NW3Component);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

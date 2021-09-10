@@ -2,122 +2,174 @@
 
     <h2 style="margin: 20px;">Project TEST BrandMatrix Setup</h2>
     <div style="margin: 20px;font-size: 20px;color:#063074;font-weight: 800;">Basic Project Information</div>
+    <button mat-raised-button color="success" style="position: absolute; right: 200px;"
+        (click)="saveProjectInfo()">Save</button>
     <br>
     <br>
     <br>
     <form [formGroup]="bmxEditData">
-    <div class="dropdowns" style="display: flex;flex-direction: column;">
+        <div class="dropdowns" style="display: flex;flex-direction: column;">
 
-        <div style="display: flex;flex-direction: row;">
-            <label class="selectLabels">Salesboard</label>
+            <div style="display: flex;flex-direction: row;">
+                <label class="selectLabels">Salesboard</label>
                 <mat-form-field appearance="outline">
                     <!-- <mat-select formControlName="bmxSalesboard"> -->
-                        <input type="text"
-                                    placeholder="Enter Salesboard Project"
-                                    formControlName="bmxSalesboard"
-                                    matInput
-                                    [matAutocomplete]="auto">
-                        <mat-autocomplete #auto="matAutocomplete">
-                            <mat-option *ngFor="let settingsList of filteredOptions | async" [value]="settingsList">
-                                {{settingsList}}
-                            </mat-option>
-                        </mat-autocomplete>
+                    <input type="text" placeholder="Enter Salesboard Project" formControlName="bmxSalesboard" matInput
+                        [matAutocomplete]="auto">
+                    <mat-autocomplete #auto="matAutocomplete">
+                        <mat-option *ngFor="let settingsList of filteredOptions | async" [value]="settingsList">
+                            {{settingsList}}
+                        </mat-option>
+                    </mat-autocomplete>
                     <!-- </mat-select> -->
                 </mat-form-field>
-            <label class="selectLabels">Department</label>
-            <mat-form-field  appearance="outline">
-                <mat-label>Select Department</mat-label>
-                <mat-select formControlName="bmxDepartment">
-                    <mat-option *ngFor="let settingsList of settingsData.DepartmentList" [value]="settingsList">
-                        {{settingsList}}
-                    </mat-option>
-                </mat-select>
-            </mat-form-field>
+                <label class="selectLabels">Department</label>
+                <mat-form-field appearance="outline">
+                    <mat-label>Select Department</mat-label>
+                    <mat-select formControlName="bmxDepartment">
+                        <mat-option *ngFor="let settingsList of settingsData.DepartmentList" [value]="settingsList">
+                            {{settingsList}}
+                        </mat-option>
+                    </mat-select>
+                </mat-form-field>
 
+            </div>
+
+            <div style="display: flex;flex-direction: row;">
+                <label class="selectLabels">Project Name</label>
+                <mat-form-field appearance="outline">
+                    <mat-label>Enter Project Name</mat-label>
+                    <input type="text" matInput formControlName="bmxProjectName">
+                </mat-form-field>
+                <label class="selectLabels">Region</label>
+                <mat-form-field appearance="outline">
+                    <mat-label>Select Region</mat-label>
+                    <mat-select formControlName="bmxRegion">
+                        <mat-option *ngFor="let settingsList of settingsData.OfficeList" [value]="settingsList">
+                            {{settingsList}}
+                        </mat-option>
+                    </mat-select>
+                </mat-form-field>
+
+            </div>
+
+            <div style="display: flex;flex-direction: row;">
+                <label class="selectLabels">Company</label>
+                <mat-form-field appearance="outline">
+                    <mat-label>Enter Company</mat-label>
+                    <input type="text" matInput formControlName="bmxCompany">
+                </mat-form-field>
+                <label class="selectLabels">Language</label>
+                <mat-form-field appearance="outline">
+                    <mat-label>Select Language</mat-label>
+                    <mat-select formControlName="bmxLanguage">
+                        <mat-option *ngFor="let settingsList of settingsData.LanguageList" [value]="settingsList">
+                            {{settingsList}}
+                        </mat-option>
+                    </mat-select>
+                </mat-form-field>
+
+            </div>
+            <div></div>
+
+        </div>
+        <h3 style="color: hsl(225, 54%, 32%);">Manage Directors</h3>
+        <div class="dropdowns" style="display: flex;flex-direction: column;">
+
+            <div style="display: flex;flex-direction: row;">
+                <label class="selectLabels">Regional Directors</label>
+                <mat-form-field appearance="outline">
+                    <mat-label>Select Region</mat-label>
+                    <mat-select formControlName="bmxRegionalDirector">
+                        <mat-option *ngFor="let settingsList of settingsData.OfficeList" [value]="settingsList">
+                            {{settingsList}}
+                        </mat-option>
+                    </mat-select>
+                </mat-form-field>
+            </div>
+        </div>
+    </form>
+
+    <div style="display: flex;flex-direction: row; position: relative;">
+        <label class="selectLabels">Director Name</label>
+        <mat-form-field appearance="outline">
+            <mat-label>Director</mat-label>
+            <mat-select [(value)]="directorSelected">
+                <mat-option *ngFor="let settingsList of settingsData.DirectorList" [value]="settingsList">
+                    {{settingsList.Director}}
+                </mat-option>
+            </mat-select>
+        </mat-form-field>
+        <div>
+            <button mat-mini-fab style="position: absolute; top: 9px; right: 500px;" color="success"
+                (click)="createDirector()">
+                <mat-icon>add</mat-icon>
+            </button>
+            <!-- <button mat-mini-fab style="position: absolute; top: 9px; right: 450px;" color="warn" (click)="removeDirector(i)"><mat-icon>delete</mat-icon></button> -->
+        </div>
+    </div>
+
+   
+    <div class="d-flex flex-wrap" style="width: 100%;">
+        <div *ngFor="let director of DIRECTORS, index as i" style="width: 50%; padding-top: 5vh;">
+            <div style="  display: flex;
+            flex-direction: row;
+            justify-content: space-between;
+            width: 390px;
+            border: black 1px solid;
+            padding: 10px;
+            border-radius: 5px;">
+                <label>Director Name</label>
+                <mat-form-field appearance="outline">
+                    <mat-label>Director</mat-label>
+                    <mat-select [(ngModel)]="director.Director"  (selectionChange)="fillDirectorInfo(director, i)">
+                        <mat-option *ngFor="let settingsList of settingsData.DirectorList" [value]="settingsList">
+                            {{settingsList.Director}}
+                        </mat-option>
+                    </mat-select>
+                </mat-form-field>
+                <!-- <button mat-mini-fab style="position: absolute; top: 9px; right: 500px;" color="success" (click)="appendElement()"><mat-icon>add</mat-icon></button> -->
+                <!-- <button mat-button color="primary" (click)="saveData()">Save</button> -->
+            </div>
+
+            <mat-card *ngIf="DIRECTORS[i]" class="directorCard" style="width: 75%;">
+                <div style="display: flex;flex-direction: row;">
+                    <label class="selectLabels">Title: </label>
+                    <label>{{director.Title}}</label>
+                </div>
+
+                <div style="display: flex;flex-direction: row;">
+                    <label class="selectLabels">Email: </label>
+                    <label>{{director.Email}}</label>
+                </div>
+
+                <div style="display: flex;flex-direction: row;">
+                    <label class="selectLabels">Phone #: </label>
+                    <label>{{director.Phone}}</label>
+                </div>
+                <button mat-mini-fab style="position: absolute; top: 9px; right: 5px;" color="warn"
+                    (click)="removeDirector(i)">
+                    <mat-icon>delete</mat-icon>
+                </button>
+            </mat-card>
+        </div>
+    </div>
+    <br>
+    <br>
+<!-- 
+    <mat-card *ngIf="directorSelected" class="directorCard">
+        <div style="display: flex;flex-direction: row;">
+            <label class="selectLabels">Title:</label>
+            <label>{{directorSelected.Title}}</label>
         </div>
 
         <div style="display: flex;flex-direction: row;">
-            <label class="selectLabels">Project Name</label>
-            <mat-form-field appearance="outline">
-                <mat-label>Enter Project Name</mat-label>
-                <input type="text" matInput formControlName="bmxProjectName">
-            </mat-form-field>
-            <label class="selectLabels">Region</label>
-            <mat-form-field appearance="outline">
-                <mat-label>Select Region</mat-label>
-                <mat-select formControlName="bmxRegion">
-                    <mat-option *ngFor="let settingsList of settingsData.OfficeList" [value]="settingsList">
-                        {{settingsList}}
-                    </mat-option>
-                </mat-select>
-            </mat-form-field>
-
+            <label class="selectLabels">Email:</label>
+            <label>{{directorSelected.Email}}</label>
         </div>
 
         <div style="display: flex;flex-direction: row;">
-            <label class="selectLabels">Company</label>
-            <mat-form-field appearance="outline">
-                <mat-label>Enter Company</mat-label>
-                <input type="text" matInput formControlName="bmxCompany">
-            </mat-form-field>
-            <label class="selectLabels">Language</label>
-            <mat-form-field appearance="outline">
-                <mat-label>Select Language</mat-label>
-                <mat-select formControlName="bmxLanguage">
-                    <mat-option *ngFor="let settingsList of settingsData.LanguageList" [value]="settingsList">
-                        {{settingsList}}
-                    </mat-option>
-                </mat-select>
-            </mat-form-field>
-
+            <label class="selectLabels">Phone #:</label>
+            <label>{{directorSelected.Phone}}</label>
         </div>
-        <div></div>
-
-    </div>
-    <h3 style="color: hsl(225, 54%, 32%);">Manage Directors</h3>
-    <div class="dropdowns" style="display: flex;flex-direction: column;">
-
-        <div style="display: flex;flex-direction: row;">
-            <label class="selectLabels">Regional Directors</label>
-            <mat-form-field appearance="outline">
-                <mat-label>Select Region</mat-label>
-                <mat-select formControlName="bmxRegionalDirector">
-                    <mat-option *ngFor="let settingsList of settingsData.OfficeList" [value]="settingsList">
-                        {{settingsList}}
-                    </mat-option>
-                </mat-select>
-            </mat-form-field>
-        </div>
-
-        <div style="display: flex;flex-direction: row;">
-            <label class="selectLabels">Director Name</label>
-            <mat-form-field appearance="outline">
-                <mat-label>Director</mat-label>
-                <mat-select formControlName="bmxDirectorName" [(value)]="directorSelected">
-                    <mat-option *ngFor="let settingsList of settingsData.DirectorList" [value]="settingsList">
-                        {{settingsList.Director}}
-                    </mat-option>
-                </mat-select>
-            </mat-form-field>
-            <button mat-button color="primary" (click)="saveData()">Save</button>
-        </div>
-
-    </div>
-<mat-card *ngIf="directorSelected" class="directorCard" >
-    <div style="display: flex;flex-direction: row;">
-        <label class="selectLabels">Title:</label>
-        <label>{{directorSelected.Title}}</label>
-    </div>
-
-    <div style="display: flex;flex-direction: row;">
-        <label class="selectLabels">Email:</label>
-        <label>{{directorSelected.Email}}</label>
-    </div>
-
-    <div style="display: flex;flex-direction: row;">
-        <label class="selectLabels">Phone #:</label>
-        <label></label>
-    </div>
-</mat-card>
-</form>
-</div>
+    </mat-card> -->

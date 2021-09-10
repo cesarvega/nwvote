@@ -1,6 +1,9 @@
 .active-rating-star {
     color: #76d354;
 }
+.active-rating-bar {
+    color: #e7c00f;
+}
 .rating-star {
     color: grey;
 }
@@ -11,25 +14,25 @@
 
 /* Track */
 .odd-style::-webkit-scrollbar-track {
-    background: #f1f1f1;
+    background: white;
 }
 
 /* Handle */
 .odd-style::-webkit-scrollbar-thumb {
-    background: rgb(7, 177, 58);
+    background: #f1f1f1;
     border-radius: 10px;
 }
 
 /* Handle on hover */
 .odd-style::-webkit-scrollbar-thumb:hover {
-    background: #b30000;
+    background: #283e90;
 }
 
 .rating-text {
     width: 33%;
     text-align: start;
     margin: 10px 10px;
-    font-size: 20px;
+    font-size: 17px;
     font-weight: bold;
     color: #324395;
     margin-bottom: 20px;
@@ -55,9 +58,21 @@
     max-width: 300px;
 }
 
+.header-title-rationale-box {
+    font-weight: bold;
+    color: #324395;
+    border: none;
+    max-width: 300px;
+}
+
 .row-box {
     border: none;
     max-width: 300px;
+}
+
+.rationale-box {
+    border: none;
+    width: 300px;
 }
 
 .add-column {

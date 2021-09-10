@@ -15,7 +15,7 @@ export class RatingScaleComponent implements OnInit {
   displayInstructions = false;
 
   selectedStarRatingIndex = ''
-  selectedRating = 0;
+  selectedRating = '';
 
 
   // CONFIGURATION VARIABLES
@@ -23,42 +23,36 @@ export class RatingScaleComponent implements OnInit {
   TestNameDataModel: any[];
   ratingScale = 5;
   TESTNAMES_LIST = [];
-  columnsNames: string[];
+  columnsNames = [];
   columnsNamesHeader: string[];
   listString: string;
   tempItems = [];
   selectedColumn
+  ratingScaleIcon = 'grade';
 
   constructor() { }
   ngOnInit(): void {
     console.log('');
-    this.columnsNames = ['name', 'rationale']
+    let values = Object.keys(this.bmxItem.componentText[0])
+
+    values.forEach(value => {
+      if (typeof value == "string" && value != "STARS") {
+        this.columnsNames.push(value)
+      }
+    });
+
+    // this.columnsNames = Object.values(this.bmxItem.componentText[0])
   }
+
   setRating(starId, testNameId) {
-    // prevent multiple selection
-    if (this.selectedRating === 0) {
-      this.bmxItem.componentText[testNameId].STARS.filter((star) => {
-
-        if (star.id <= starId) {
-
-          star.class = 'active-rating-star';
-
-        } else {
-
-          star.class = 'rating-star';
-
-        }
-
-        return star;
-      });
-    }
+    this.bmxItem.componentText[testNameId].RATE = starId
   }
+
   selectStar(starId, testNameId): void {
-    if (this.selectedRating === 0) {
       this.bmxItem.componentText[testNameId].STARS.filter((star) => {
         if (star.id <= starId) {
 
-          star.class = 'active-rating-star';
+          star.class =(this.ratingScaleIcon === 'grade')?'active-rating-star':'active-rating-bar';
 
         } else {
 
@@ -67,13 +61,20 @@ export class RatingScaleComponent implements OnInit {
         }
         return star;
       });
-
-    }
   }
 
-  deletRow(option): void {
-    this.bmxItem.componentText.splice(option, 1);
+  leaveStar(testNameId): void {
+      this.selectedRating = this.bmxItem.componentText[testNameId].RATE
+      this.bmxItem.componentText[testNameId].STARS.filter((star) => {
+        if (star.id <= this.selectedRating && this.selectedRating !== "") {
+          star.class =(this.ratingScaleIcon === 'grade')?'active-rating-star':'active-rating-bar';
+        } else {
+          star.class ='rating-star';
+        }
+        return star;
+      });
   }
+
 
   upLoadNamesAndRationales(list: string) {
     if (!list) { list = this.listString; }
@@ -87,7 +88,7 @@ export class RatingScaleComponent implements OnInit {
       for (var i = 0; i < textAreaInput.length; i++) {
         if (textAreaInput[i] != "" && textAreaInput[i].length > 6) {
           let objectColumnDefiner = {};
-          objectColumnDefiner['STARS'] = this.createRatingStars(this.rankingScaleValue);
+          objectColumnDefiner['STARS'] = this.createRatingStars(this.rankingScaleValue, this.ratingScaleIcon);
           for (var e = 0; e < this.columnsNames.length; e++) {
             if ((textAreaInput[i].split("\t").length > 0)) {
               objectColumnDefiner[this.columnsNames[e]] = textAreaInput[i].split("\t")[e];
@@ -97,6 +98,11 @@ export class RatingScaleComponent implements OnInit {
         }
       }
       this.bmxItem.componentText = this.TESTNAMES_LIST;
+    } else {
+      this.bmxItem.componentText.forEach((row, index)     => {
+        row.STARS = this.createRatingStars(this.rankingScaleValue, this.ratingScaleIcon)
+        // this.leaveStar(index);
+      });
     }
   }
 
@@ -113,6 +119,11 @@ export class RatingScaleComponent implements OnInit {
     });
   }
 
+  deletRow(option): void {
+    this.bmxItem.componentText.splice(option, 1);
+  }
+
+
   deleteColumn(columnName) {
     let temporary = []
     // REMOVE THE COLUMN FROM THE COLUMNS
@@ -128,13 +139,19 @@ export class RatingScaleComponent implements OnInit {
     this.bmxItem.componentText = JSON.parse(JSON.stringify(this.bmxItem.componentText));
   }
 
+
+  checkDragEvetn(e) {
+    console.log(e);
+  }
+
+
   // PRIVATE METHODS
-  createRatingStars(ratingScale) {
+  createRatingStars(ratingScale, ratingScaleIcon) {
     let startCounter: any = []
     for (let index = 0; index < ratingScale; index++) {
       startCounter.push({
         id: index,
-        icon: 'grade',
+        icon: ratingScaleIcon,
         class: 'rating-star'
       });
     }
@@ -169,4 +186,7 @@ export class RatingScaleComponent implements OnInit {
     return temp;
 
   };
+
+
+
 }
