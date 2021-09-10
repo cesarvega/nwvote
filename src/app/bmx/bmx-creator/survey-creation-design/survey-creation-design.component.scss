@@ -57,7 +57,7 @@
     align-items: center;
     justify-content: center;
     position: fixed;
-    bottom: 25px;
+    bottom: 10px;
 }
 .page-buttons-heigth-40 {
     display: flex;
@@ -69,8 +69,8 @@
 }
 
 .bmx-page {
-    width: 628%;
-    height: 91vh;
+    // width: 628%;
+    height: 90.8vh;
     overflow-y: scroll;
     @include BoxShadow(2);
 }
@@ -93,3 +93,5 @@
     border: solid 6px darkgray;
     @include BoxShadow(6);
 }
+
+

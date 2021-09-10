@@ -12,7 +12,9 @@
         
             <!-- CHNAGE THE DROP DOWN FOR CHECK BoXES Select All/Deselect All checkbox & a Select All Not Completed -->
         
-            <mat-form-field appearance="outline" style="margin-left: 20px;">
+            
+            <!--
+                    <mat-form-field appearance="outline" style="margin-left: 20px;">
                 <mat-label>Select not completed</mat-label>
                 <mat-select class="selectLabels">
                     <mat-option *ngFor="let settingsList of ['Select All', 'Deselect All', 'Select All Not Completed']"
@@ -21,7 +23,7 @@
                     </mat-option>
                 </mat-select>
             </mat-form-field>
-        
+            -->
             <div style="display: flex;flex-direction: column;">
                 <div>
                     <button mat-raised-button style="background-color: #003180;color:white;margin: 5px 20px 0 20px;" (click)="upLoadResp(respondants.value)" > 
@@ -29,7 +31,7 @@
                         
                     </button>
                 </div>
-                <div style="position: relative;left: 89px;top: 2px;color: grey;">{{'0 Participants'}}</div>
+                <!--<div style="position: relative;left: 89px;top: 2px;color: grey;">{{'0 Participants'}}</div>-->
             </div>
         </div>
         
@@ -41,23 +43,23 @@
         <div>
             <table mat-table [dataSource]="dataSource" matSort class="mat-elevation-z8">
                 <!-- Position Column -->
-                <ng-container matColumnDef="firstName">
+                <ng-container matColumnDef="FirstName">
                     <th mat-header-cell *matHeaderCellDef style="width: 15%;" > First Name </th>
                     <td mat-cell *matCellDef="let element"> 
-                        <input matInput placeholder="First Name " [value]="element.firstName" [(ngModel)]="element.firstName" (focusout)="onFocusOutEvent($event)">
+                        <input matInput placeholder="First Name " [value]="element.FirstName" [(ngModel)]="element.FirstName" (focusout)="onFocusOutEvent($event)">
                     </td>
                 </ng-container>
                 
-                <ng-container matColumnDef="lastName">
+                <ng-container matColumnDef="LastName">
                     <th mat-header-cell *matHeaderCellDef style="width: 15%;"> Last Name </th>
                     <td mat-cell *matCellDef="let element"> 
-                        <input matInput placeholder="Last Name" [value]="element.lastName" [(ngModel)]="element.lastName" (focusout)="onFocusOutEvent($event)">
+                        <input matInput placeholder="Last Name" [value]="element.LastName" [(ngModel)]="element.LastName" (focusout)="onFocusOutEvent($event)">
                          </td>
                 </ng-container>
-                <ng-container matColumnDef="email">
+                <ng-container matColumnDef="Email">
                     <th mat-header-cell *matHeaderCellDef style="width: 30%;"> Email </th>
                     <td mat-cell *matCellDef="let element"> 
-                        <input matInput placeholder="Email" [value]="element.email" [(ngModel)]="element.email" (focusout)="onFocusOutEvent($event)">
+                        <input matInput placeholder="Email" [value]="element.Email" [(ngModel)]="element.Email" (focusout)="onFocusOutEvent($event)">
     
                          </td>
                 </ng-container>
@@ -68,24 +70,24 @@
     
                          </td>
                 </ng-container>
-                <ng-container matColumnDef="subGroup">
+                <ng-container matColumnDef="SubGroup">
                     <th mat-header-cell *matHeaderCellDef style="width: 5%;"> Subgroup </th>
                     <td mat-cell *matCellDef="let element"> 
-                        <input matInput placeholder="" [value]="element.subGroup" [(ngModel)]="element.subGroup" (focusout)="onFocusOutEvent($event)">
+                        <input matInput placeholder="" [value]="element.SubGroup" [(ngModel)]="element.SubGroup" (focusout)="onFocusOutEvent($event)">
     
                          </td>
                 </ng-container>
-                <ng-container matColumnDef="weight">
+                <ng-container matColumnDef="AnswerWeight">
                     <th mat-header-cell *matHeaderCellDef style="width: 5%;"> Weight </th>
                     <td mat-cell *matCellDef="let element">
-                        <input matInput placeholder="" [value]="element.weight" [(ngModel)]="element.weight" (focusout)="onFocusOutEvent($event)">
+                        <input matInput placeholder="" [value]="element.AnswerWeight" [(ngModel)]="element.AnswerWeight" (focusout)="onFocusOutEvent($event)">
                          </td>
                 </ng-container>
                 <ng-container matColumnDef="delete">
                     <th mat-header-cell *matHeaderCellDef style="width: 3.33%;"> </th>
                     <td mat-cell *matCellDef="let element">
                         <button mat-icon-button  style="color: #bc488a;" aria-label="Example icon button with a home icon"
-                            (click)="deletPart(element.firstName)">
+                            (click)="deletPart(element.FirstName)">
                             <mat-icon>delete</mat-icon>
                         </button>
                     </td>
