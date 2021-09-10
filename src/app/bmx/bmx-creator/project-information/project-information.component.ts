@@ -45,12 +45,14 @@ export class ProjectInformationComponent implements OnInit {
     title: '',
     email: '',
     phone: '',
-    ngModel: ''
+    ngModel: '',
+    office: ''
   }
 
   selectedDirector;
 
   directorNames = [];
+  officeNames = []
 
   bmxEditData = new FormGroup({
     bmxSalesboard: new FormControl(),
@@ -68,6 +70,14 @@ export class ProjectInformationComponent implements OnInit {
       .subscribe((arg: any) => {
         this.settingsData = JSON.parse(arg.d);
         console.log(JSON.parse(arg.d));
+        //Director Offices
+        this.settingsData.DirectorList.forEach(officeObj => {
+          this.officeNames.push({
+            office: officeObj.Office
+          })
+        })
+        console.log(this.officeNames);
+        //END Director Offices
         //Director Obj
         this.settingsData.DirectorList.forEach(directorObj => {
           this.directorNames.push({
@@ -75,7 +85,8 @@ export class ProjectInformationComponent implements OnInit {
             id: directorObj.Id,
             title: directorObj.Title,
             email: directorObj.Email,
-            phone: directorObj.Phone
+            phone: directorObj.Phone,
+            office: directorObj.Office
           })
         });
         console.log(this.directorNames);
@@ -132,6 +143,7 @@ export class ProjectInformationComponent implements OnInit {
     director.phone = ""
     director.title = ""
     director.ngModel = ""
+    director.office = ""
     this.DIRECTORS.push(director);
   }
 
@@ -153,18 +165,20 @@ export class ProjectInformationComponent implements OnInit {
           title: element.title,
           email: element.email,
           phone: element.phone,
-          ngModel: director.ngModel
+          ngModel: director.ngModel,
+          office: director.Office
         }
         this.DIRECTORS[index] = this.director;
       }
     })
   }
 
-  officeSelected(officeName) {
+  officeSelected(officeNames) {
     let DIRECTORS_Filtered: any = [];
+    DIRECTORS_Filtered = "";
     this.DIRECTORS.forEach(director => {
-      if (director.office == officeName) {
-        
+      if (director.Office == officeNames) {
+        DIRECTORS_Filtered.push(this.director.name);
       }
     })
   }
