@@ -278,7 +278,7 @@
             <div class="smartRadialButton">
 
                 <button [ngClass]="(isGoVoteOn)?'GO':'GO_Off'" mat-icon-button (click)="goVote()">
-                    BI
+                    GO
                 </button>
                 <button *ngIf="displayTallyButtons" class="neutralBadgeTally GG" [matBadge]="totalPositive"
                     mat-icon-button (click)="setAllNamesIcon('thumb_down_off_alt', 'purple')">
