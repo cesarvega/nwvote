@@ -68,18 +68,22 @@ export class ProjectInformationComponent implements OnInit {
       .subscribe((arg: any) => {
         this.settingsData = JSON.parse(arg.d);
         console.log(JSON.parse(arg.d));
-        //AUTOCOMPLETE 🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖
-        this.settingsData.SalesBoardProjectList.forEach(myObject => { this.salesboardObj.push({ name: myObject['SalesBoardProjectList'] }) });
-        console.log(this.salesboardObj);
+        //Director Obj
         this.settingsData.DirectorList.forEach(directorObj => {
-          this.directorNames.push({name:directorObj.Director,
-                                    id:directorObj.Id,
-                                    title:directorObj.Title,
-                                    email:directorObj.Email,
-                                    phone:directorObj.Phone
+          this.directorNames.push({
+            name: directorObj.Director,
+            id: directorObj.Id,
+            title: directorObj.Title,
+            email: directorObj.Email,
+            phone: directorObj.Phone
           })
         });
         console.log(this.directorNames);
+        //END Director Obj
+        //AUTOCOMPLETE 🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖
+        this.settingsData.SalesBoardProjectList.forEach(myObject => { this.salesboardObj.push({ name: myObject['SalesBoardProjectList'] }) });
+        console.log(this.salesboardObj);
+        
         this.filteredOptions = this.bmxEditData.controls['bmxSalesboard'].valueChanges
           .pipe(
             startWith(''),
@@ -131,10 +135,6 @@ export class ProjectInformationComponent implements OnInit {
     this.DIRECTORS.push(director);
   }
 
-  caller(elementId: number): void {
-    console.log('New Director Selected Succesfully');
-  }
-
   removeDirector(index) {
     // let index = this.directors.indexOf(index);
     // console.log(index);
@@ -144,19 +144,28 @@ export class ProjectInformationComponent implements OnInit {
   }
 
   fillDirectorInfo(director, index) {
- 
-    this.directorNames.forEach(element =>{
-    if (element.name == director.ngModel) {
-      this.director = {
-        id: element.id,
-        name: element.name,
-        title: element.title,
-        email: element.email,
-        phone: element.phone,
-        ngModel: director.ngModel
+
+    this.directorNames.forEach(element => {
+      if (element.name == director.ngModel) {
+        this.director = {
+          id: element.id,
+          name: element.name,
+          title: element.title,
+          email: element.email,
+          phone: element.phone,
+          ngModel: director.ngModel
+        }
+        this.DIRECTORS[index] = this.director;
       }
-      this.DIRECTORS[index] =  this.director;
-    }
+    })
+  }
+
+  officeSelected(officeName) {
+    let DIRECTORS_Filtered: any = [];
+    this.DIRECTORS.forEach(director => {
+      if (director.office == officeName) {
+        
+      }
     })
   }
 }

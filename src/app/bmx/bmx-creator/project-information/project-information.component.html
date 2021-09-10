@@ -80,7 +80,7 @@
                 <label class="selectLabels">Regional Directors</label>
                 <mat-form-field appearance="outline">
                     <mat-label>Select Region</mat-label>
-                    <mat-select formControlName="bmxRegionalDirector">
+                    <mat-select formControlName="bmxRegionalDirector" (selectionChange)="officeSelected(officeName)">
                         <mat-option *ngFor="let settingsList of settingsData.OfficeList" [value]="settingsList">
                             {{settingsList}}
                         </mat-option>
@@ -119,20 +119,13 @@
             border: black 1px solid;
             padding: 10px;
             border-radius: 5px;">
-                <label>Director Name {{i}} {{DIRECTORS[i].ngModel}}</label>
+                <label>Director Name</label>
                 <mat-form-field appearance="outline">
                     <mat-label>Director</mat-label>
-<<<<<<< HEAD
                     <mat-select [(ngModel)]="director.ngModel" (selectionChange)="fillDirectorInfo(director, i)">
                         <mat-option *ngFor="let directorName of directorNames" [value]="directorName.name">
                             {{directorName.name}}
                         </mat-option>   
-=======
-                    <mat-select [(ngModel)]="director.ngmodel"  (selectionChange)="fillDirectorInfo(director, i)">
-                        <mat-option *ngFor="let settingsList of settingsData.DirectorList" [value]="settingsList">
-                            {{settingsList.Director}}
-                        </mat-option>
->>>>>>> bmx
                     </mat-select>
                 </mat-form-field>
                 <!-- <button mat-mini-fab style="position: absolute; top: 9px; right: 500px;" color="success" (click)="appendElement()"><mat-icon>add</mat-icon></button> -->
