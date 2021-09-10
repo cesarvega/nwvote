@@ -1,12 +1,11 @@
 import { Component,Input, OnInit} from '@angular/core';
 
-
 @Component({
-  selector: 'app-rank-scale',
-  templateUrl: './rank-scale.component.html',
-  styleUrls: ['./rank-scale.component.scss']
+  selector: 'app-image-rate-scale',
+  templateUrl: './image-rate-scale.component.html',
+  styleUrls: ['./image-rate-scale.component.scss']
 })
-export class RankScaleComponent implements OnInit {
+export class ImageRateScaleComponent implements OnInit {
 
   @Input() bmxItem;
   @Input() i;
@@ -152,7 +151,7 @@ export class RankScaleComponent implements OnInit {
     for (let index = 0; index < ratingScale; index++) {
       startCounter.push({
         id: index,
-        icon: index + 1,
+        icon: ratingScaleIcon,
         class: 'rating-star'
       });
     }

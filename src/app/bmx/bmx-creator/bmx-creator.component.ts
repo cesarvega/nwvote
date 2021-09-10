@@ -25,6 +25,11 @@ import { map, startWith } from 'rxjs/operators';
 })
 export class BmxCreatorComponent implements OnInit {
   // https://getemoji.com/
+  bmxClientPageDesignMode = true;
+  bmxClientPageOverview = true;
+  displayRightSideMenu = false;
+
+
   projectName: any;
   projectId: any;
   soundVolume = 0.2;
@@ -50,6 +55,7 @@ export class BmxCreatorComponent implements OnInit {
   isSelectedButton = '';
 
   isMainMenuActive = true;
+  
 
   model = {
     editorData: '',
@@ -205,6 +211,15 @@ export class BmxCreatorComponent implements OnInit {
 
   checkDragEvetn(e) {
     console.log(e);
+  }
+  
+  
+  toggleViewPageModeDesign() {
+    this.bmxClientPageDesignMode = !this.bmxClientPageDesignMode;
+  }
+  
+  toggleViewPageMode() {
+    this.bmxClientPageOverview = !this.bmxClientPageOverview;
   }
 
   editBM(event)
