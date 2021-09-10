@@ -8,23 +8,31 @@
   color: grey;
 }
 
-.odd-style::-webkit-scrollbar {
+.main-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-items: center;
+  overflow-x: scroll;
+}
+
+.scroller-style::-webkit-scrollbar {
   width: 3px;
 }
 
 /* Track */
-.odd-style::-webkit-scrollbar-track {
+.scroller-style::-webkit-scrollbar-track {
   background: white;
 }
 
 /* Handle */
-.odd-style::-webkit-scrollbar-thumb {
+.scroller-style::-webkit-scrollbar-thumb {
   background: #f1f1f1;
   border-radius: 10px;
 }
 
 /* Handle on hover */
-.odd-style::-webkit-scrollbar-thumb:hover {
+.scroller-style::-webkit-scrollbar-thumb:hover {
   background: #283e90;
 }
 

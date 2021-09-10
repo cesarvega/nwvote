@@ -198,28 +198,24 @@ export class RatingScaleComponent implements OnInit {
   };
 
 
-  setRationalewidth(size) {
-
-    this.bmxItem.componentSettings[0].rationalewidth = size
-
+  setRationalewidth(rationalewidth) {
+    this.bmxItem.componentSettings[0].rationalewidth = rationalewidth
   }
-  setFontSize(size) {
 
-    this.bmxItem.componentSettings[0].fontSize = size
-
+  setFontSize(fontSize) {
+    this.bmxItem.componentSettings[0].fontSize = fontSize
   }
 
   setColumnWidth(columnWidth) {
     this.bmxItem.componentSettings[0].columnWidth = columnWidth
-
   }
+
   setSMALLTextLengthColumnHeight(columnHeight) {
     this.bmxItem.componentSettings[0].columnHeight = columnHeight
-
   }
+  
   setBIGTextLengthColumnHeight(size) {
     console.log(size);
-
   }
 
   toogleColumnResizer() {
