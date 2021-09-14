@@ -16,25 +16,6 @@
   overflow-x: scroll;
 }
 
-.scroller-style::-webkit-scrollbar {
-  width: 3px;
-}
-
-/* Track */
-.scroller-style::-webkit-scrollbar-track {
-  background: white;
-}
-
-/* Handle */
-.scroller-style::-webkit-scrollbar-thumb {
-  background: #f1f1f1;
-  border-radius: 10px;
-}
-
-/* Handle on hover */
-.scroller-style::-webkit-scrollbar-thumb:hover {
-  background: #283e90;
-}
 
 .rating-text {
   font-size: 17px;
@@ -57,19 +38,19 @@
   font-size: 20px;
 }
 
-.header-title-box {
-  font-weight: bold;
-  color: #324395;
-  border: none;
-  max-width: 300px;
-}
+// .header-title-box {
+//   font-weight: bold;
+//   color: #324395;
+//   border: none;
+//   max-width: 300px;
+// }
 
-.header-title-rationale-box {
-  font-weight: bold;
-  color: #324395;
-  border: none;
-  max-width: 300px;
-}
+// .header-title-rationale-box {
+//   font-weight: bold;
+//   color: #324395;
+//   border: none;
+//   max-width: 300px;
+// }
 
 .row-box {
   border: none;
@@ -87,9 +68,33 @@
   float: right;
   color: grey;
 }
+
 .test-name-table {
   align-items: center;
 }
+
+
+.scroller-style::-webkit-scrollbar {
+  width: 3px;
+}
+
+/* Track */
+.scroller-style::-webkit-scrollbar-track {
+  background: white;
+}
+
+/* Handle */
+.scroller-style::-webkit-scrollbar-thumb {
+  background: #f1f1f1;
+  border-radius: 10px;
+}
+
+/* Handle on hover */
+.scroller-style::-webkit-scrollbar-thumb:hover {
+  background: #283e90;
+}
+
+
 
 textarea {
   resize: none;
