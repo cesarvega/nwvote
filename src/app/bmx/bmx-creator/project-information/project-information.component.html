@@ -80,8 +80,8 @@
                 <label class="selectLabels">Regional Directors</label>
                 <mat-form-field appearance="outline">
                     <mat-label>Select Region</mat-label>
-                    <mat-select formControlName="bmxRegionalDirector" (selectionChange)="officeSelected(officeName)" [(value)]="officeName" (change)="filterDirectors($event.target.value)">
-                        <mat-option *ngFor="let settingsList of settingsData.OfficeList" [value]="settingsList">
+                    <mat-select [(ngModel)]="bmxRegionalDirectorDropdown" formControlName="bmxRegionalDirector" (selectionChange)="officeSelected(bmxRegionalDirectorDropdown)">
+                        <mat-option *ngFor="let settingsList of settingsData.OfficeList"   [value]="settingsList">
                             {{settingsList}}
                         </mat-option>
                     </mat-select>
@@ -95,26 +95,16 @@
         </div>
     </form>
 
-    <div style="display: flex; flex-direction: row;flex-wrap: wrap;justify-content: space-between;margin: 10px 100px;">
+    <div style="display: flex; flex-direction: row;flex-wrap: wrap;justify-content: space-between;margin: 10px 71px;">
         <div *ngFor="let director of DIRECTORS, index as i" >
-            <!-- <div style="  display: flex;
-            flex-direction: row;
-            justify-content: space-between;
-            width: 390px;
-            padding: 10px;
-            border-radius: 5px;">
-                -->
-                <!-- <button mat-mini-fab style="position: absolute; top: 9px; right: 500px;" color="success" (click)="appendElement()"><mat-icon>add</mat-icon></button> -->
-                <!-- <button mat-button color="primary" (click)="saveData()">Save</button> -->
-            <!-- </div> -->
-            <mat-card  class="directorCard" style="margin:20px 0px;width: 400px;">
 
+            <mat-card  class="directorCard" style="margin:20px 0px;width: 400px;">
                 <label style="margin-right: 20px;">Director Name</label>
                 <mat-form-field appearance="outline">
                     <mat-label>Director</mat-label>
                     <mat-select [(ngModel)]="director.ngModel" (selectionChange)="fillDirectorInfo(director, i)">
-                        <mat-option *ngFor="let directorName of DIRECTORS_Filtered" [value]="directorName">
-                            {{directorName}}
+                        <mat-option *ngFor="let directorName of DIRECTORS_Filtered" [value]="directorName.name">
+                            {{directorName.name}}
                         </mat-option>   
                     </mat-select>
                 </mat-form-field>
