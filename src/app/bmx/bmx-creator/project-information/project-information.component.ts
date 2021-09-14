@@ -174,19 +174,16 @@ DIRECTORS_Filtered: Array<any> = [];
   officeSelected(officeName) {
     
 
-    this.DIRECTORS.forEach(director => {
-      if (this.director.office == officeName) {
+    this.directorDetails.forEach(director => {
+      if (this.bmxEditData.value['bmxRegionalDirector'] == officeName) {
         this.DIRECTORS_Filtered.push(this.directorNames);
       }
     })
-
-    console.log(this.directorNames);
-    console.log(this.director.office);
     console.log(this.DIRECTORS_Filtered);
   }
 
   filterDirectors(filterVal: any) {
-    this.directorNames.filter(item => item.officeName == filterVal);
+    this.directorDetails.filter(item => item.officeName == filterVal);
   }
 
 }
