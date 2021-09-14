@@ -80,7 +80,7 @@
                 <label class="selectLabels">Regional Directors</label>
                 <mat-form-field appearance="outline">
                     <mat-label>Select Region</mat-label>
-                    <mat-select formControlName="bmxRegionalDirector" (selectionChange)="officeSelected(officeNames)">
+                    <mat-select formControlName="bmxRegionalDirector" (selectionChange)="officeSelected(officeName)" [(ngModel)] = "officeName">
                         <mat-option *ngFor="let settingsList of settingsData.OfficeList" [value]="settingsList">
                             {{settingsList}}
                         </mat-option>
@@ -140,6 +140,12 @@
                 </button>
             </div>
             </mat-card>
+
+            <mat-select>
+                <mat-option *ngFor="let directorName of DIRECTORS_Filtered" [value]="directorName">
+                    {{directorName}}
+                </mat-option>   
+            </mat-select>
 
         </div>
     </div>

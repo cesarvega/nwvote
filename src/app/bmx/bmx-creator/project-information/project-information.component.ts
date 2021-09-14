@@ -49,10 +49,13 @@ export class ProjectInformationComponent implements OnInit {
     office: ''
   }
 
+  selectedOffice;
   selectedDirector;
 
   directorNames = [];
-  officeNames = []
+  directorDetails = [];
+  officeName = [];
+
 
   bmxEditData = new FormGroup({
     bmxSalesboard: new FormControl(),
@@ -70,17 +73,8 @@ export class ProjectInformationComponent implements OnInit {
       .subscribe((arg: any) => {
         this.settingsData = JSON.parse(arg.d);
         console.log(JSON.parse(arg.d));
-        //Director Offices
-        this.settingsData.DirectorList.forEach(officeObj => {
-          this.officeNames.push({
-            office: officeObj.Office
-          })
-        })
-        console.log(this.officeNames);
-        //END Director Offices
-        //Director Obj
         this.settingsData.DirectorList.forEach(directorObj => {
-          this.directorNames.push({
+          this.directorDetails.push({
             name: directorObj.Director,
             id: directorObj.Id,
             title: directorObj.Title,
@@ -89,11 +83,16 @@ export class ProjectInformationComponent implements OnInit {
             office: directorObj.Office
           })
         });
+        console.log(this.directorDetails);
+            this.directorDetails.forEach( officeObj =>{  this.directorNames.push({name: officeObj['name']})});
         console.log(this.directorNames);
+
         //END Director Obj
+
+
         //AUTOCOMPLETE 🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖
         this.settingsData.SalesBoardProjectList.forEach(myObject => { this.salesboardObj.push({ name: myObject['SalesBoardProjectList'] }) });
-        console.log(this.salesboardObj);
+        
         
         this.filteredOptions = this.bmxEditData.controls['bmxSalesboard'].valueChanges
           .pipe(
@@ -118,7 +117,6 @@ export class ProjectInformationComponent implements OnInit {
   // END 🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖 AUTOCOMPLETE
 
   directorSelected;
-  directorDetails = [];
   public onFocusOutEvent(event: any): void {
     localStorage.setItem('fakeproject' + '_project_info', JSON.stringify(this.bmxEditData.value));
     console.log(this.bmxEditData.value);
@@ -130,8 +128,8 @@ export class ProjectInformationComponent implements OnInit {
   }
 
   getDirectorNames() {
-    // this.settingsData.DirectorList.forEach( myObj =>{  this.directorNames.push({name: myObj['Director']})});
-    console.log(this.directorNames);
+    // this.settingsData.DirectorList.forEach( myObj =>{  this.directorDetails.push({name: myObj['Director']})});
+    console.log(this.directorDetails);
   }
 
   createDirector(): void {
@@ -157,7 +155,7 @@ export class ProjectInformationComponent implements OnInit {
 
   fillDirectorInfo(director, index) {
 
-    this.directorNames.forEach(element => {
+    this.directorDetails.forEach(element => {
       if (element.name == director.ngModel) {
         this.director = {
           id: element.id,
@@ -166,20 +164,29 @@ export class ProjectInformationComponent implements OnInit {
           email: element.email,
           phone: element.phone,
           ngModel: director.ngModel,
-          office: director.Office
+          office: element.office
         }
         this.DIRECTORS[index] = this.director;
       }
     })
   }
+DIRECTORS_Filtered: Array<any> = [];
+  officeSelected(officeName) {
+    
 
-  officeSelected(officeNames) {
-    let DIRECTORS_Filtered: any = [];
-    DIRECTORS_Filtered = "";
     this.DIRECTORS.forEach(director => {
-      if (director.Office == officeNames) {
-        DIRECTORS_Filtered.push(this.director.name);
+      if (this.director.office == officeName) {
+        this.DIRECTORS_Filtered.push(this.directorNames);
       }
     })
+
+    console.log(this.directorNames);
+    console.log(this.director.office);
+    console.log(this.DIRECTORS_Filtered);
   }
+
+  filterDirectors(filterVal: any) {
+    this.directorNames.filter(item => item.officeName == filterVal);
+  }
+
 }
