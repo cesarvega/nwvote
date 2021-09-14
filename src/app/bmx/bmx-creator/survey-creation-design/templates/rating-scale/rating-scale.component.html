@@ -97,12 +97,6 @@ matTooltipPosition="above" mat-icon-button aria-label="ranking">
             [value]="columnsSlider">
     </div>
     <div style="display: flex;flex-direction: column;align-items: center;">
-        <p style="margin: 0 0 -12px;">row height: {{rowHeightSlider}} px</p>
-        <input type="range" style="margin: 20px;width: 140px;"
-            (change)="setSMALLTextLengthColumnHeight(rowHeightSlider)" [(ngModel)]="rowHeightSlider"
-            class="slider-font-size" tickInterval="1" min="2" max="10" [value]="rowHeightSlider">
-    </div>
-    <div style="display: flex;flex-direction: column;align-items: center;">
         <p style="margin: 0 0 -12px;">ratinale width: {{rationalewidth}} px</p>
         <input type="range" style="margin: 20px;width: 140px;" (change)="setRationalewidth(rationalewidth)"
             [(ngModel)]="rationalewidth" class="slider-font-size" tickInterval="1" min="50" max="1000"
@@ -112,6 +106,12 @@ matTooltipPosition="above" mat-icon-button aria-label="ranking">
         <p style="margin: 0 0 -12px;">font size: {{fontSizeRow}} px</p>
         <input type="range" style="margin: 20px;width: 140px;" (change)="setFontSize(fontSizeRow)"
             [(ngModel)]="fontSizeRow" class="slider-font-size" tickInterval="1" min="2" max="40" [value]="fontSizeRow">
+    </div>
+     <div style="display: flex;flex-direction: column;align-items: center;">
+        <p style="margin: 0 0 -12px;">row height: {{rowHeightSlider}} px</p>
+        <input type="range" style="margin: 20px;width: 140px;"
+            (change)="setSMALLTextLengthColumnHeight(rowHeightSlider)" [(ngModel)]="rowHeightSlider"
+            class="slider-font-size" tickInterval="1" min="2" max="20" [value]="rowHeightSlider">
     </div>
 </div>
 <!-- <mat-slider min="200" max="500" step="10" value="200" [(value)]="columnsSlider"></mat-slider><p>{{columnsSlider}}</p> -->
@@ -159,7 +159,7 @@ matTooltipPosition="above" mat-icon-button aria-label="ranking">
                 <textarea *ngIf="y !== 0 && bmxClientPageDesignMode " 
                 [style.width]="(columnName == 'rationale')?rationalewidth + 'px':columnsSlider +'px'" 
                     [style.font-size]="fontSizeRow +'px'" cdkTextareaAutosize
-                    [cdkAutosizeMinRows]="(testName[columnName].length > 50)?rowHeightSlider:2"
+                    [cdkAutosizeMinRows]="rowHeightSlider"
                     style="outline: none;text-align: center;" class="row-box"
                     [(ngModel)]="testName[columnName]"></textarea>
                 <!-- 🟡🟡🟡🟡🟡🟡🟡🟡🟡🟡🟡🟡🟡🟡 PARAGRAPH VIEW PAGE MODE 🟡🟡🟡🟡🟡🟡🟡🟡🟡🟡🟡🟡🟡🟡🟡🟡 -->
@@ -175,7 +175,7 @@ matTooltipPosition="above" mat-icon-button aria-label="ranking">
                 <div *ngIf="(y !== 0)">
                     <button *ngFor="let star of  testName.STARS; let x =  index" (click)="setRating(star.id,y)"
                         [ngClass]="star.class" (mouseenter)="selectStar(star.id , y)" (mouseleave)="leaveStar(y)"
-                        style="outline: none;margin:-5px -8px;" mat-icon-button aria-label="ranking">
+                        style="outline: none;margin:-5px -11px;" mat-icon-button aria-label="ranking">
                         <mat-icon>{{star.icon}}</mat-icon>                       
                     </button>
                 </div>
@@ -184,12 +184,12 @@ matTooltipPosition="above" mat-icon-button aria-label="ranking">
             <!--⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️ END STARS ⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️ -->
 
             <!--♦️♦️♦️♦️♦️♦️♦️♦️♦️♦️♦️♦️♦️♦️♦️♦️♦️♦️♦️♦️♦️♦️♦️♦️♦️♦️♦️♦️♦️♦️♦️♦️♦️♦️♦️♦️♦️♦️♦️♦️♦️♦️♦️♦️ TABLE ROW ICONS ♦️♦️♦️♦️♦️♦️♦️♦️♦️♦️♦️♦️♦️♦️♦️♦️♦️♦️♦️-->
-            <div style="min-width: 100px">
+            <!-- <div style="min-width: 100px">
                 <button *ngIf="(y !== 0)" style="outline: none;margin:-5px -8px;" (click)="deletRow(y)" mat-icon-button
                     aria-label="ranking">
                     <mat-icon>online_prediction</mat-icon>
                 </button>
-            </div>
+            </div> -->
             <div style="min-width: 100px">
                 <button *ngIf="(y !== 0) && bmxClientPageOverview" style="outline: none;margin:-5px -8px;" (click)="deletRow(y)" mat-icon-button
                     aria-label="ranking">

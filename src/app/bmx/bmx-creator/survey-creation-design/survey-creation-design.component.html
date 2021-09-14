@@ -52,7 +52,7 @@
             <!-- BMX instructions EDITOR 📑📑📑📑📑📑📑📑📑📑📑📑📑📑📑📑📑📑📑📑📑📑📑📑📑📑📑📑📑📑 -->
             <div *ngIf="bmxItem.componentType === 'instructions' && displayInstructions" class="paragraph ">
                 <div class="emoji-handle">.</div>
-                <div style="display: flex;flex-direction: column;justify-content: flex-end;align-items: flex-end;">
+                <div style="position: absolute;right: 0px;">
                     <button *ngIf="bmxClientPageOverview" style="outline: none;color:#f10a0a;top: 19px;" mat-icon-button (click)="deleteComponent(i)"
                         aria-label="delte">
                         <mat-icon style="font-size: 17px;">cancel</mat-icon>
@@ -77,7 +77,7 @@
             <!-- BMX PARAGRAPH EDITOR 📑📑📑📑📑📑📑📑📑📑📑📑📑📑📑📑📑📑📑📑📑📑📑📑📑📑📑📑📑📑 -->
             <div *ngIf="bmxItem.componentType === 'text-editor'" class="paragraph ">
                 <div class="emoji-handle">.</div>
-                <div style="display: flex;flex-direction: column;justify-content: flex-end;align-items: flex-end;">
+                <div style="position: absolute;right: 0px;">
                     <button *ngIf="bmxClientPageOverview" style="outline: none;color:#f10a0a;top: 19px;" mat-icon-button (click)="deleteComponent(i)"
                         aria-label="delte">
                         <mat-icon style="font-size: 17px;">cancel</mat-icon>
@@ -102,7 +102,7 @@
             <!-- STARS SCALE 👽👽👽👽👽👽👽👽👽👽👽👽👽👽👽👽👽👽👽👽👽👽👽👽👽👽👽👽👽👽👽👽👽👽👽👽👽👽👽👽👽👽-->
             <div *ngIf="bmxItem.componentType === 'rate-scale'" class="paragraph">
                 <div class="emoji-handle">.</div>
-                <div style="display: flex;flex-direction: column;justify-content: flex-end;align-items: flex-end;">
+                <div style="position: absolute;right: 0px;">
                     <button *ngIf="bmxClientPageOverview" style="outline: none;color:#f10a0a;top: 19px;" mat-icon-button (click)="deleteComponent(i)"
                         aria-label="delte">
                         <mat-icon style="font-size: 17px;">cancel</mat-icon>
@@ -117,7 +117,7 @@
             <!-- RANK SCALE 😭😭😭😭😭😭😭😭😭😭😭😭😭😭😭😭😭😭😭😭😭😭😭😭😭😭😭😭😭😭😭😭😭😭😭😭😭-->
             <div *ngIf="bmxItem.componentType === 'ranking-scale'" class="paragraph">
                 <div class="emoji-handle">.</div>
-                <div style="display: flex;flex-direction: column;justify-content: flex-end;align-items: flex-end;">
+                <div style="position: absolute;right: 0px;">
                     <button style="outline: none;color:#f10a0a;top: 19px;" mat-icon-button (click)="deleteComponent(i)"
                         aria-label="delte">
                         <mat-icon style="font-size: 17px;">cancel</mat-icon>
@@ -130,7 +130,7 @@
             <!-- IMAGE SCALE 👀👀👀👀👀👀👀👀👀👀👀👀👀👀👀👀👀👀👀👀👀👀👀👀👀👀👀👀👀👀👀👀👀👀👀👀👀👀-->
             <div *ngIf="bmxItem.componentType === 'image-rate-scale'" class="paragraph">
                 <div class="emoji-handle">.</div>
-                <div style="display: flex;flex-direction: column;justify-content: flex-end;align-items: flex-end;">
+                <div style="position: absolute;right: 0px;">
                     <button style="outline: none;color:#f10a0a;top: 19px;" mat-icon-button (click)="deleteComponent(i)"
                         aria-label="delte">
                         <mat-icon style="font-size: 17px;">cancel</mat-icon>

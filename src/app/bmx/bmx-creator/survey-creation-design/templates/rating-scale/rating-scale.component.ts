@@ -40,6 +40,8 @@ export class RatingScaleComponent implements OnInit {
   constructor() { }
   ngOnInit(): void {
     console.log('');
+    
+    // COLUMN NAMES
     let values = Object.keys(this.bmxItem.componentText[0])
 
     values.forEach(value => {
@@ -48,6 +50,7 @@ export class RatingScaleComponent implements OnInit {
       }
     });
 
+    // INITIAL COLUMNS SETTINGS
     this.columnsSlider = (this.bmxItem.componentSettings[0].columnWidth)?this.bmxItem.componentSettings[0].columnWidth:this.columnsSlider
     this.rowHeightSlider = this.bmxItem.componentSettings[0].columnHeight
     this.fontSizeRow = this.bmxItem.componentSettings[0].fontSize
@@ -100,6 +103,7 @@ export class RatingScaleComponent implements OnInit {
   }
   // ⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️ END STARS METHODS  ⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️
 
+
   upLoadNamesAndRationales(list: string) {
     if (!list) { list = this.listString; }
     if (list) {
@@ -130,6 +134,7 @@ export class RatingScaleComponent implements OnInit {
     }
   }
 
+  // COLUMNS ADD AND REMOVE
   insertNewColumn() {
     var count = 0;
     for (var k in this.bmxItem.componentText[0]) {
@@ -147,7 +152,6 @@ export class RatingScaleComponent implements OnInit {
     this.bmxItem.componentText.splice(option, 1);
   }
 
-
   deleteColumn(columnName) {
     let temporary = []
     // REMOVE THE COLUMN FROM THE COLUMNS
@@ -160,16 +164,16 @@ export class RatingScaleComponent implements OnInit {
     this.bmxItem.componentText.forEach((object, index) => {
       delete this.bmxItem.componentText[index][columnName]
     });
-    this.bmxItem.componentText = JSON.parse(JSON.stringify(this.bmxItem.componentText));
+    this.bmxItem.componentText = this.bmxItem.componentText;
   }
+
 
 
   checkDragEvetn(e) {
     console.log(e);
   }
 
-
-  addToObject(obj, key, value, index) {
+  private addToObject(obj, key, value, index) {
     // Create a temp object and index variable
     let temp = {};
     let i = 0;
@@ -198,6 +202,8 @@ export class RatingScaleComponent implements OnInit {
   };
 
 
+
+  // INOUT RANGE CONTROLS AND FONT SIZE
   setRationalewidth(rationalewidth) {
     this.bmxItem.componentSettings[0].rationalewidth = rationalewidth
   }
@@ -214,10 +220,6 @@ export class RatingScaleComponent implements OnInit {
     this.bmxItem.componentSettings[0].columnHeight = columnHeight
   }
   
-  setBIGTextLengthColumnHeight(size) {
-    console.log(size);
-  }
-
   toogleColumnResizer() {
     this.isColumnResizerOn = !this.isColumnResizerOn
   }
