@@ -100,7 +100,7 @@
 
 
             <!-- STARS SCALE 👽👽👽👽👽👽👽👽👽👽👽👽👽👽👽👽👽👽👽👽👽👽👽👽👽👽👽👽👽👽👽👽👽👽👽👽👽👽👽👽👽👽-->
-            <div *ngIf="bmxItem.componentType === 'rate-scale'" class="paragraph">
+            <div *ngIf="bmxItem.componentType === 'rate-scale'" class="paragraph mat-elevation-z2" style="margin-bottom: 30px;">
                 <div class="emoji-handle">.</div>
                 <div style="position: absolute;right: 0px;">
                     <button *ngIf="bmxClientPageOverview" style="outline: none;color:#f10a0a;top: 19px;" mat-icon-button (click)="deleteComponent(i)"
@@ -108,7 +108,7 @@
                         <mat-icon style="font-size: 17px;">cancel</mat-icon>
                     </button>
                 </div>
-                <app-rating-scale [bmxItem]="bmxItem" [i]='i' [bmxClientPageDesignMode]="bmxClientPageDesignMode" [bmxClientPageOverview]="bmxClientPageOverview"></app-rating-scale>
+                <app-rating-scale [bmxItem]="bmxItem" [i]="i" [bmxClientPageDesignMode]="bmxClientPageDesignMode" [bmxClientPageOverview]="bmxClientPageOverview"></app-rating-scale>
 
             </div>
             <!-- END STARS SCALE 👽👽👽👽👽👽👽👽👽👽👽👽👽👽👽👽👽👽👽👽👽👽👽👽👽👽👽👽👽👽👽👽👽👽👽👽👽👽👽👽 -->
@@ -118,12 +118,12 @@
             <div *ngIf="bmxItem.componentType === 'ranking-scale'" class="paragraph">
                 <div class="emoji-handle">.</div>
                 <div style="position: absolute;right: 0px;">
-                    <button style="outline: none;color:#f10a0a;top: 19px;" mat-icon-button (click)="deleteComponent(i)"
+                    <button *ngIf="bmxClientPageOverview"  style="outline: none;color:#f10a0a;top: 19px;" mat-icon-button (click)="deleteComponent(i)"
                         aria-label="delte">
                         <mat-icon style="font-size: 17px;">cancel</mat-icon>
                     </button>
                 </div>
-                <app-rank-scale [bmxItem]="bmxItem" [i]='i' [bmxClientPageDesignMode]="bmxClientPageDesignMode" [bmxClientPageOverview]="bmxClientPageOverview"></app-rank-scale>
+                <app-rank-scale [bmxItem]="bmxItem" [i]="i" [bmxClientPageDesignMode]="bmxClientPageDesignMode" [bmxClientPageOverview]="bmxClientPageOverview"></app-rank-scale>
             </div>
             <!-- END RANK SCALE 😭😭😭😭😭😭😭😭😭😭😭😭😭😭😭😭😭😭😭😭😭😭😭😭😭😭😭😭😭😭😭😭😭😭😭😭😭 -->
 
@@ -131,12 +131,12 @@
             <div *ngIf="bmxItem.componentType === 'image-rate-scale'" class="paragraph">
                 <div class="emoji-handle">.</div>
                 <div style="position: absolute;right: 0px;">
-                    <button style="outline: none;color:#f10a0a;top: 19px;" mat-icon-button (click)="deleteComponent(i)"
+                    <button *ngIf="bmxClientPageOverview"  style="outline: none;color:#f10a0a;top: 19px;" mat-icon-button (click)="deleteComponent(i)"
                         aria-label="delte">
                         <mat-icon style="font-size: 17px;">cancel</mat-icon>
                     </button>
                 </div>
-                <app-image-rate-scale [bmxItem]="bmxItem" [i]='i'></app-image-rate-scale>
+                <app-image-rate-scale  [bmxItem]="bmxItem" [i]="i" [bmxClientPageDesignMode]="bmxClientPageDesignMode" [bmxClientPageOverview]="bmxClientPageOverview"></app-image-rate-scale>
             </div>
             <!-- END IMAGE SCALE 👀👀👀👀👀👀👀👀👀👀👀👀👀👀👀👀👀👀👀👀👀👀👀👀👀👀👀👀👀👀👀👀👀👀👀👀👀👀 -->
 
