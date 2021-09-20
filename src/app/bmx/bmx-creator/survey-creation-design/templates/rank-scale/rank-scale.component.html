@@ -26,7 +26,7 @@ matTooltipPosition="above" mat-icon-button aria-label="ranking">
 
 
 <!-- 🔧🔧🔧🔧🔧🔧🔧🔧🔧🔧🔧🔧🔧🔧🔧🔧🔧🔧🔧🔧🔧 CONFIG BOX 🔧🔧🔧🔧🔧🔧🔧🔧🔧🔧🔧🔧🔧🔧🔧🔧🔧🔧🔧🔧🔧🔧🔧 -->
-<div *ngIf="i === selectedIndex" class="mat-elevation-z4">
+<div *ngIf="i === selectedIndex" class="mat-elevation-z4" style="position: absolute;width: 62vw;background: #fafafa;z-index: 1;top: -8px;left: 15%;border: aliceblue 5px solid;">
     <div style="text-align: center;">
         <div style="font-size: 16px;margin: 20px;color: #48535e;">PASTE TEST NAMES</div>
         <!-- <div style="font-size: 14px;margin-bottom: 20px;color: lightgray;">Brief Description Here</div> -->
@@ -52,6 +52,16 @@ matTooltipPosition="above" mat-icon-button aria-label="ranking">
             <hr>
 
         </div>
+
+        <!-- <div>
+            <mat-form-field appearance="outline">
+                <mat-label>choose criteria</mat-label>
+                <mat-select  multiple [(ngModel)]="selectedCriteria" (selectionChange)="criteriaSelection(selectedCriteria)">
+                  <mat-option *ngFor="let cirteriaItem of CRITERIA" [value]="cirteriaItem">{{cirteriaItem.name}}</mat-option>
+                </mat-select>
+              </mat-form-field>
+        </div> -->
+
         <div>
             <div style="font-size: 16px;margin-top: 10px;color: #48535e;">CHOOSE RATING ICON</div>
             <br>
@@ -143,9 +153,9 @@ matTooltipPosition="above" mat-icon-button aria-label="ranking">
                         <mat-form-field appearance="outline">
                             
                             <mat-label>Rank 1 to {{rankingScaleValue}}</mat-label>
-                            <select matNativeControl [(ngModel)]="bmxItem.componentText[y].RATE" (selectionChange)="setRating(selectedRank,y)">
-                                <option  *ngFor="let star of  testName.STARS; let x =  index" value="star.icon">{{star.icon}}</option>
-                            </select>
+                            <mat-select matNativeControl [(ngModel)]="bmxItem.componentText[y].RATE" (selectionChange)="setRating(bmxItem.componentText[y].RATE,y)">
+                                <mat-option  *ngFor="let star of  testName.STARS; let x =  index" [value]="star.icon">{{star.icon}}</mat-option>
+                            </mat-select>
                           </mat-form-field>
     
                     </div>

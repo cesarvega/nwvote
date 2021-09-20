@@ -1,5 +1,5 @@
-import { Component,Input, OnInit} from '@angular/core';
-
+import { Component, ElementRef, EventEmitter, Inject, Input, OnInit, Output, ViewChild, ViewEncapsulation } from '@angular/core';
+import { CdkTextareaAutosize } from '@angular/cdk/text-field';
 @Component({
   selector: 'app-image-rate-scale',
   templateUrl: './image-rate-scale.component.html',
@@ -7,16 +7,25 @@ import { Component,Input, OnInit} from '@angular/core';
 })
 export class ImageRateScaleComponent implements OnInit {
 
+ 
   @Input() bmxItem;
   @Input() i;
-
+  @Input() bmxClientPageDesignMode;
+  @Input() bmxClientPageOverview;
+  @ViewChild('autosize') autosize: CdkTextareaAutosize;
   rankingScaleValue = 5;
   selectedIndex: any
   displayInstructions = false;
+  isColumnResizerOn = false;
 
   selectedStarRatingIndex = ''
   selectedRating = '';
-
+  columnsSlider = 358 
+  rowHeightSlider = 1.5
+  fontSizeRow = 19 
+  rationalewidth = this.columnsSlider + 100 
+  isTemplateSelected = '';
+  isSelectedButton = '';
 
   // CONFIGURATION VARIABLES
   testNamesInput: string
@@ -29,10 +38,13 @@ export class ImageRateScaleComponent implements OnInit {
   tempItems = [];
   selectedColumn
   ratingScaleIcon = 'grade';
+  IMAGES_UPLOADED = [];
 
   constructor() { }
   ngOnInit(): void {
     console.log('');
+    
+    // COLUMN NAMES
     let values = Object.keys(this.bmxItem.componentText[0])
 
     values.forEach(value => {
@@ -41,39 +53,58 @@ export class ImageRateScaleComponent implements OnInit {
       }
     });
 
+    // INITIAL COLUMNS SETTINGS
+    this.columnsSlider = (this.bmxItem.componentSettings[0].columnWidth)?this.bmxItem.componentSettings[0].columnWidth:this.columnsSlider
+    this.rowHeightSlider = this.bmxItem.componentSettings[0].columnHeight
+    this.fontSizeRow = this.bmxItem.componentSettings[0].fontSize
+
     // this.columnsNames = Object.values(this.bmxItem.componentText[0])
   }
 
+  // ⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️ STARS METHODS  ⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️
   setRating(starId, testNameId) {
     this.bmxItem.componentText[testNameId].RATE = starId
   }
 
   selectStar(starId, testNameId): void {
-      this.bmxItem.componentText[testNameId].STARS.filter((star) => {
-        if (star.id <= starId) {
+    this.bmxItem.componentText[testNameId].STARS.filter((star) => {
+      if (star.id <= starId) {
 
-          star.class =(this.ratingScaleIcon === 'grade')?'active-rating-star':'active-rating-bar';
+        star.class = (this.ratingScaleIcon === 'grade') ? 'active-rating-star' : 'active-rating-bar';
 
-        } else {
+      } else {
 
-          star.class = 'rating-star';
+        star.class = 'rating-star';
 
-        }
-        return star;
-      });
+      }
+      return star;
+    });
   }
 
   leaveStar(testNameId): void {
-      this.selectedRating = this.bmxItem.componentText[testNameId].RATE
-      this.bmxItem.componentText[testNameId].STARS.filter((star) => {
-        if (star.id <= this.selectedRating && this.selectedRating !== "") {
-          star.class =(this.ratingScaleIcon === 'grade')?'active-rating-star':'active-rating-bar';
-        } else {
-          star.class ='rating-star';
-        }
-        return star;
-      });
+    this.selectedRating = this.bmxItem.componentText[testNameId].RATE
+    this.bmxItem.componentText[testNameId].STARS.filter((star) => {
+      if (star.id <= this.selectedRating && this.selectedRating !== "") {
+        star.class = (this.ratingScaleIcon === 'grade') ? 'active-rating-star' : 'active-rating-bar';
+      } else {
+        star.class = 'rating-star';
+      }
+      return star;
+    });
   }
+
+  createRatingStars(ratingScale, ratingScaleIcon) {
+    let startCounter: any = []
+    for (let index = 0; index < ratingScale; index++) {
+      startCounter.push({
+        id: index,
+        icon: ratingScaleIcon,
+        class: 'rating-star'
+      });
+    }
+    return startCounter;
+  }
+  // ⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️ END STARS METHODS  ⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️
 
 
   upLoadNamesAndRationales(list: string) {
@@ -99,13 +130,14 @@ export class ImageRateScaleComponent implements OnInit {
       }
       this.bmxItem.componentText = this.TESTNAMES_LIST;
     } else {
-      this.bmxItem.componentText.forEach((row, index)     => {
+      this.bmxItem.componentText.forEach((row, index) => {
         row.STARS = this.createRatingStars(this.rankingScaleValue, this.ratingScaleIcon)
         // this.leaveStar(index);
       });
     }
   }
 
+  // COLUMNS ADD AND REMOVE
   insertNewColumn() {
     var count = 0;
     for (var k in this.bmxItem.componentText[0]) {
@@ -123,7 +155,6 @@ export class ImageRateScaleComponent implements OnInit {
     this.bmxItem.componentText.splice(option, 1);
   }
 
-
   deleteColumn(columnName) {
     let temporary = []
     // REMOVE THE COLUMN FROM THE COLUMNS
@@ -136,30 +167,16 @@ export class ImageRateScaleComponent implements OnInit {
     this.bmxItem.componentText.forEach((object, index) => {
       delete this.bmxItem.componentText[index][columnName]
     });
-    this.bmxItem.componentText = JSON.parse(JSON.stringify(this.bmxItem.componentText));
+    this.bmxItem.componentText = this.bmxItem.componentText;
   }
+
 
 
   checkDragEvetn(e) {
     console.log(e);
   }
 
-
-  // PRIVATE METHODS
-  createRatingStars(ratingScale, ratingScaleIcon) {
-    let startCounter: any = []
-    for (let index = 0; index < ratingScale; index++) {
-      startCounter.push({
-        id: index,
-        icon: ratingScaleIcon,
-        class: 'rating-star'
-      });
-    }
-    return startCounter;
-  }
-
-
-  addToObject(obj, key, value, index) {
+  private addToObject(obj, key, value, index) {
     // Create a temp object and index variable
     let temp = {};
     let i = 0;
@@ -187,6 +204,42 @@ export class ImageRateScaleComponent implements OnInit {
 
   };
 
+
+
+  // INOUT RANGE CONTROLS AND FONT SIZE
+  setRationalewidth(rationalewidth) {
+    this.bmxItem.componentSettings[0].rationalewidth = rationalewidth
+  }
+
+  setFontSize(fontSize) {
+    this.bmxItem.componentSettings[0].fontSize = fontSize
+  }
+
+  setColumnWidth(columnWidth) {
+    this.bmxItem.componentSettings[0].columnWidth = columnWidth
+  }
+
+  setSMALLTextLengthColumnHeight(columnHeight) {
+    this.bmxItem.componentSettings[0].columnHeight = columnHeight
+  }
+  
+  toogleColumnResizer() {
+    this.isColumnResizerOn = !this.isColumnResizerOn
+  }
+
+
+  onFileSelected(event) {
+    if (event.target.files && event.target.files[0]) {
+      var filesAmount = event.target.files.length;
+      for (let i = 0; i < filesAmount; i++) {
+        var reader = new FileReader();
+        reader.onload = (event: any) => {
+          this.IMAGES_UPLOADED.push({ name: this.IMAGES_UPLOADED.length.toString(), rationale: 'Sist, Assist, Syst', url: event.target.result });
+        }
+        reader.readAsDataURL(event.target.files[i]);
+      }
+    }
+  }
 
 
 }

@@ -107,18 +107,7 @@ export class SurveyCreationDesignComponent implements OnInit {
     },
     {
       "pageNumber": 2,
-      "page": [
-        {
-          "componentType": "",
-          "componentText": "",
-          "componentSettings": [
-            {
-              "fontSize": "16",
-              "fontFace": "Arial",
-              "fontColor": "red"
-            }
-          ]
-        },
+      "page": [       
         {
           "componentType": "logo-header",
           "componentText": "PROJECT NAME",
