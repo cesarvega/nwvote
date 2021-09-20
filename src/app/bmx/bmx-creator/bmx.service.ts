@@ -10,6 +10,7 @@ export class BmxService {
   GetProjectList = '/GetProjectList';
   GetGeneralLists = '/GetGeneralLists';
   GetParticipantList = '/BrandMatrixGetParticipantList'
+  GetProjectInfo = '/BrandMatrixGetDirectorList';
   constructor(private http: HttpClient) {}
    
   getGeneralLists() {
@@ -26,6 +27,12 @@ export class BmxService {
 
   BrandMatrixGetParticipantList(projectName: any) {
     return this.http.post(this.webBaseUrl + this.GetParticipantList, {token:'646EBF52-1846-47C2-9F62-DC50AE5BF692',payload:'{ "ProjectName" : "' + projectName + '" }'});
+    // return this.http.get(this.webBaseUrl + 'api/NW_GetProjectIdWithProjectName?projectName=' + projectName, httpOptions);
+    
+  }
+
+  getProjectInfo(projectName: any) {
+    return this.http.post(this.webBaseUrl + this.GetProjectInfo, {token:'646EBF52-1846-47C2-9F62-DC50AE5BF692',payload:'{ "ProjectName" : "' + projectName + '" }'});
     // return this.http.get(this.webBaseUrl + 'api/NW_GetProjectIdWithProjectName?projectName=' + projectName, httpOptions);
     
   }
