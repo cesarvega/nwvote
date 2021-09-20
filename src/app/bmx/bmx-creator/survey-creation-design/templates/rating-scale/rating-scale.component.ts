@@ -215,11 +215,25 @@ export class RatingScaleComponent implements OnInit {
     });
   }
 
+  insertCommentBoxColumn() {
+    var count = 0;
+    for (var k in this.bmxItem.componentText[0]) {
+      if (this.bmxItem.componentText[0].hasOwnProperty(k)) {
+        ++count;
+      }
+    }
+    this.columnsNames.push('Comments ' + (count - 1));
+    this.bmxItem.componentText.forEach((object, index) => {
+      this.bmxItem.componentText[index] = this.addToObject(object, 'Comments ' + (count - 1), 'Comments ' + (count - 1), count - 1)
+    });
+  }
+
   deletRow(option): void {
     this.bmxItem.componentText.splice(option, 1);
   }
 
   deleteColumn(columnName) {
+    
     let temporary = []
     // REMOVE THE COLUMN FROM THE COLUMNS
     this.columnsNames.forEach(element => {
@@ -233,8 +247,6 @@ export class RatingScaleComponent implements OnInit {
     });
     this.bmxItem.componentText = this.bmxItem.componentText;
   }
-
-
 
   checkDragEvetn(e) {
     console.log(e);
@@ -269,8 +281,7 @@ export class RatingScaleComponent implements OnInit {
   };
 
 
-
-  // INOUT RANGE CONTROLS AND FONT SIZE
+  // INPUT RANGE CONTROLS AND FONT SIZE
   setRationalewidth(rationalewidth) {
     this.bmxItem.componentSettings[0].rationalewidth = rationalewidth
   }
@@ -294,20 +305,6 @@ export class RatingScaleComponent implements OnInit {
 
   criteriaSelection(selectedCriteria) {
     this.ASSIGNED_CRITERIA = selectedCriteria
-
-    let criteriaObject = {
-
-    }
-
-    selectedCriteria.forEach(criteria => {
-      let criteriaObject = {
-
-
-
-      }
-
-    });
-
   }
 
   ASSIGNED_CRITERIA = [{ name: 'Fit to Company Description', rate: 0 },
