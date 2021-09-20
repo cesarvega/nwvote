@@ -128,11 +128,11 @@ matTooltipPosition="above" mat-icon-button aria-label="ranking">
 <!-- ⏺⏺⏺⏺⏺⏺⏺⏺⏺⏺⏺⏺⏺⏺⏺⏺⏺⏺⏺⏺⏺⏺  END  ⏺⏺⏺⏺⏺⏺⏺⏺⏺⏺⏺⏺⏺⏺⏺⏺⏺⏺ -->
 
 
-<div class="scroller-style main-container" dragula="DRAGGABLE_ROW">
+<div class="scroller-style main-container" dragula="DRAGGABLE_ROW"  [(dragulaModel)]="bmxItem.componentText" (dragulaModelChange)="checkDragEvetn($event);">
     <div *ngFor="let testName of bmxItem.componentText; let y = index">
-        <mat-icon style="position:absolute;margin-top: 85px; left: 150px; width:30px">drag_indicator</mat-icon>
-
-        <div class="test-name-table">
+      
+        <div class="test-name-table" style="cursor: grab;">
+            <mat-icon *ngIf="(y !== 0)" >drag_indicator</mat-icon>
 
                  <!--⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️ STARS RENDERER ⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️ -->
                  <div style="text-align: center;min-width: 250px;">

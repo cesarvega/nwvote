@@ -1,6 +1,6 @@
-import { DragulaService } from 'ng2-dragula';
 import { Component, ElementRef, EventEmitter, Inject, Input, OnInit, Output, ViewChild, ViewEncapsulation } from '@angular/core';
 import { CdkTextareaAutosize } from '@angular/cdk/text-field';
+import { DragulaService } from 'ng2-dragula';
 
 @Component({
   selector: 'app-rank-scale',
