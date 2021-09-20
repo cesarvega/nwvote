@@ -188,7 +188,7 @@ export class RatingScaleComponent implements OnInit {
   }
 
   // COLUMNS ADD AND REMOVE
-  insertNewColumn() {
+  insertTextColumn() {
     var count = 0;
     for (var k in this.bmxItem.componentText[0]) {
       if (this.bmxItem.componentText[0].hasOwnProperty(k)) {
@@ -198,6 +198,20 @@ export class RatingScaleComponent implements OnInit {
     this.columnsNames.push('Custom ' + (count - 1));
     this.bmxItem.componentText.forEach((object, index) => {
       this.bmxItem.componentText[index] = this.addToObject(object, 'Custom ' + (count - 1), 'Custom ' + (count - 1), count - 1)
+    });
+  }
+
+
+  insertRadioColumn() {
+    var count = 0;
+    for (var k in this.bmxItem.componentText[0]) {
+      if (this.bmxItem.componentText[0].hasOwnProperty(k)) {
+        ++count;
+      }
+    }
+    this.columnsNames.push('Radio Column ' + (count - 1));
+    this.bmxItem.componentText.forEach((object, index) => {
+      this.bmxItem.componentText[index] = this.addToObject(object, 'Radio Column ' + (count - 1), 'Radio Column ' + (count - 1), count - 1)
     });
   }
 
