@@ -157,6 +157,7 @@ export class BmxCreatorComponent implements OnInit {
   }
 
   ngOnInit(): void {
+    //localStorage.removeItem('projectName');
     this.ckconfig = {
       allowedContent: false,
       width: '99.6%',
@@ -191,6 +192,10 @@ export class BmxCreatorComponent implements OnInit {
 
   // menu functionallity toggles the active link scss
   toggleMenuActive(menuItem) {
+    if(menuItem === 'isMenuActive1')
+    {
+      localStorage.removeItem('projectName');
+    }
     this.isMenuActive1 = (menuItem === 'isMenuActive1') ? true : false;
     this.isMenuActive2 = (menuItem === 'isMenuActive2') ? true : false;
     this.isMenuActive3 = (menuItem === 'isMenuActive3') ? true : false;

@@ -13,15 +13,13 @@
             <div class="row-field">
                 <label class="selectLabels">Salesboard</label>
                 <mat-form-field appearance="outline">
-                    <!-- <mat-select formControlName="bmxSalesboard"> -->
-                    <input type="text" placeholder="Enter Salesboard Project" formControlName="bmxSalesboard" matInput
+                    <input type="text" [readonly]="isReadonly" placeholder="Enter Salesboard Project" formControlName="bmxSalesboard" matInput
                         [matAutocomplete]="auto">
                     <mat-autocomplete #auto="matAutocomplete">
                         <mat-option *ngFor="let settingsList of filteredOptions | async" [value]="settingsList">
                             {{settingsList}}
                         </mat-option>
                     </mat-autocomplete>
-                    <!-- </mat-select> -->
                 </mat-form-field>
                 <label class="selectLabels">Department</label>
                 <mat-form-field appearance="outline">
@@ -96,14 +94,14 @@
     </form>
 
     <div style="display: flex; flex-direction: row;flex-wrap: wrap;justify-content: space-between;margin: 10px 71px;">
-        <div *ngFor="let director of DIRECTORS, index as i" >
+        <div *ngFor="let director of DIRECTORS; let i = index; trackBy: trackByIndex" >
 
             <mat-card  class="directorCard" style="margin:20px 0px;width: 400px;">
                 <label style="margin-right: 20px;">Director Name</label>
                 <mat-form-field appearance="outline">
                     <mat-label>Director</mat-label>
-                    <mat-select [(ngModel)]="director.ngModel" (selectionChange)="fillDirectorInfo(director, i)">
-                        <mat-option *ngFor="let directorName of DIRECTORS_Filtered" [value]="directorName.name">
+                    <mat-select [id]="i" [(ngModel)]="director.name" (selectionChange)="selected($event, i)">
+                        <mat-option *ngFor="let directorName of currentDirectorList" [value]="directorName.name">
                             {{directorName.name}}
                         </mat-option>   
                     </mat-select>

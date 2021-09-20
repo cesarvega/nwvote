@@ -16,8 +16,10 @@ import { MatTableDataSource } from '@angular/material/table';
 import { MatSort } from '@angular/material/sort';
 import { MatDatepicker } from '@angular/material/datepicker';
 import { Observable } from 'rxjs';
-import { map, startWith } from 'rxjs/operators';
+import { filter, map, startWith } from 'rxjs/operators';
 import { JsonpClientBackend } from '@angular/common/http';
+import { MatSelectChange } from '@angular/material/select';
+
 
 @Component({
   selector: 'app-project-information',
@@ -39,7 +41,7 @@ export class ProjectInformationComponent implements OnInit {
 
   DIRECTORS: Array<any> = [];
 
-
+  isReadonly;
   director = {
     id: '',
     name: '',
@@ -50,13 +52,14 @@ export class ProjectInformationComponent implements OnInit {
   }
 
   selectedDirector;
+  allDirectors : Array<any> = [];
+  currentDirectorList : Array<any> = [];
 
-  directorNames = [];
+
+  bmxRegionalDirectorDropdown;
+  bmxDirecttorSelect;
 
 
-  bmxRegionalDirectorDropdown
-
-  
   bmxEditData = new FormGroup({
     bmxSalesboard: new FormControl(),
     bmxDepartment: new FormControl(),
@@ -68,35 +71,68 @@ export class ProjectInformationComponent implements OnInit {
   });
 
   ngOnInit(): void {
+    this.initForm();
+    var items = localStorage.getItem('projectName');
+    if (items != undefined || items != null) 
+    {
+      this.isReadonly = true;
+      this._BmxService.getProjectInfo(localStorage.getItem('projectName'))
+        .subscribe((arg: any) => {
+          var data = JSON.parse(arg.d);
+          this.bmxEditData.patchValue({ bmxSalesboard: data.SalesBoardProject });
+          this.bmxEditData.patchValue({ bmxProjectName: data.ProjectName });
+          //this.bmxEditData.patchValue({ bmxDepartment: data.SalesBoardProject });
+          this.bmxEditData.patchValue({ bmxRegion: data.Office });
+          this.bmxEditData.patchValue({ bmxLanguage: data.Language });
+          this.bmxEditData.patchValue({ bmxCompany: data.Client });
+          var list;
 
-    this._BmxService.getGeneralLists()
-      .subscribe((arg: any) => {
-        this.settingsData = JSON.parse(arg.d);
-        console.log(JSON.parse(arg.d));
-        //AUTOCOMPLETE 🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖
-        this.settingsData.SalesBoardProjectList.forEach(myObject => { this.salesboardObj.push({ name: myObject['SalesBoardProjectList'] }) });
-        console.log(this.salesboardObj);
-        this.settingsData.DirectorList.forEach(directorObj => {
-          this.directorNames.push({
-            name: directorObj.Director,
-            id: directorObj.Id,
-            title: directorObj.Title,
-            email: directorObj.Email,
-            phone: directorObj.Phone,
-            office: directorObj.Office
-          })
+          for (let i = 0; i < data.DirectorList.length; i++) {
+            let director: any = {}
+            director.email = data.DirectorList[i].Email;
+            director.id = ""
+            director.name = data.DirectorList[i].Director
+            director.phone = data.DirectorList[i].Phone
+            director.title = data.DirectorList[i].Title
+            director.ngModel = director.ngModel
+            this.DIRECTORS.push(director);
+          }
+          this.bmxEditData.patchValue({ bmxRegionalDirector: this.DIRECTORS });
+          
         });
-        this.DIRECTORS_Filtered = this.directorNames
-        console.log(this.directorNames);
-        this.filteredOptions = this.bmxEditData.controls['bmxSalesboard'].valueChanges
-          .pipe(
-            startWith(''),
-            map(value => this._filter(value))
-          );
-        // END 🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖 AUTOCOMPLETE
-      });
-    this.bmxEditData.setValue(JSON.parse(localStorage.getItem('fakeproject' + '_project_info')));
+    }
+    
+      this._BmxService.getGeneralLists()
+        .subscribe((arg: any) => {
+          this.settingsData = JSON.parse(arg.d);
+          console.log(JSON.parse(arg.d));
+          //AUTOCOMPLETE 🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖
+          this.settingsData.SalesBoardProjectList.forEach(myObject => { this.salesboardObj.push({ name: myObject['SalesBoardProjectList'] }) });
+          this.settingsData.DirectorList.forEach(directorObj => {
+            this.allDirectors.push({
+              name: directorObj.Director,
+              id: directorObj.Id,
+              title: directorObj.Title,
+              email: directorObj.Email,
+              phone: directorObj.Phone,
+              office: directorObj.Office
+            })
+            this.currentDirectorList= this.allDirectors;
+          });
+          //console.log(this.directorNames);
+          this.filteredOptions = this.bmxEditData.controls['bmxSalesboard'].valueChanges
+            .pipe(
+              startWith(''),
+              map(value => this._filter(value))
+            );
+          // END 🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖 AUTOCOMPLETE
+        });
 
+    
+      
+    
+
+    //this.bmxEditData.setValue(JSON.parse(localStorage.getItem('fakeproject' + '_project_info')));
   }
   //AUTOCOMPLETE 🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖
   filteredOptions: Observable<string[]>;
@@ -124,7 +160,7 @@ export class ProjectInformationComponent implements OnInit {
 
   getDirectorNames() {
     // this.settingsData.DirectorList.forEach( myObj =>{  this.directorNames.push({name: myObj['Director']})});
-    console.log(this.directorNames);
+    //console.log(this.directorNames);
   }
 
   createDirector(): void {
@@ -150,7 +186,7 @@ export class ProjectInformationComponent implements OnInit {
     // this.directors = [...this.directors.splice(index, 1)];
 
   }
-
+  /*
   fillDirectorInfo(director, index) {
 
     this.directorNames.forEach(element => {
@@ -167,21 +203,41 @@ export class ProjectInformationComponent implements OnInit {
       }
     })
   }
+  */
 
 
-
-  officeSelected(officeName) {
-
-    this.DIRECTORS_Filtered = []
-    this.DIRECTORS = []
-
-    this.directorNames.forEach(director => {
+  officeSelected(officeName) 
+  {
+    this.currentDirectorList= [];
+    this.allDirectors.forEach(director => {
       if (director.office == officeName) {
-        this.DIRECTORS_Filtered.push(director);
+        this.currentDirectorList.push(director);
       }
     })
-    // console.log(this.DIRECTORS_Filtered);
   }
 
+  fillDirectorInfo(directorName) 
+  {
+    this.DIRECTORS[this.DIRECTORS.length -1] = this.allDirectors.find(o => o.name === directorName);
+  }
 
+  initForm() {
+    this.bmxEditData = new FormGroup({
+      bmxSalesboard: new FormControl(),
+      bmxDepartment: new FormControl(),
+      bmxProjectName: new FormControl(),
+      bmxRegion: new FormControl(),
+      bmxCompany: new FormControl(),
+      bmxLanguage: new FormControl(),
+      bmxRegionalDirector: new FormControl(),
+    });
+  }
+
+  selected(matSelectChange: MatSelectChange, index: number) {
+    this.DIRECTORS[index] = matSelectChange.value;
+  }
+
+  trackByIndex(index, item) {
+    return index;
+  }
 }
