@@ -174,9 +174,7 @@
 
 
                     <!-- IF ELSE TEMPLATE INPUTS  -->
-                    <input
-                        *ngIf="y !== 0  &&  columnName.includes('Radio Column') == true"
-                        type="radio" [name]="y" [value]="y">
+                    <input *ngIf="y !== 0  &&  columnName.includes('Radio Column') == true" type="radio" [name]="y" [value]="y">
 
                     <!-- TEXT_AREA  editor mode-->
                     <textarea
