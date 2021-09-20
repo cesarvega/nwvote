@@ -1,3 +1,4 @@
+import { DragulaService } from 'ng2-dragula';
 import { Component, ElementRef, EventEmitter, Inject, Input, OnInit, Output, ViewChild, ViewEncapsulation } from '@angular/core';
 import { CdkTextareaAutosize } from '@angular/cdk/text-field';
 
@@ -40,7 +41,11 @@ export class RankScaleComponent implements OnInit {
   selectedRank
   nativeSelectFormControl
 
-  constructor() { }
+  constructor(private dragulaService: DragulaService) {
+    dragulaService.createGroup('DRAGGABLE_ROW', {
+
+    });
+   }
   ngOnInit(): void {
     console.log('');
     
