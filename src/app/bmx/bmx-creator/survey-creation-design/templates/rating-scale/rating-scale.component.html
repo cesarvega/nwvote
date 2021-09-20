@@ -199,8 +199,7 @@
                     <div *ngIf="testName.CRITERIA; else elseBlock">
                     <div *ngFor="let criteria of testName.CRITERIA  let x =  index"
                         style="display: flex;flex-direction: row;justify-content: space-between;border-bottom: 1px solid grey;">
-                        <span [style.font-size]="fontSizeRow +'px'" style="margin-bottom: 5px;">{{criteria.name}}
-                        </span>
+                        <span [style.font-size]="fontSizeRow +'px'" style="margin-bottom: 5px;">{{criteria.name}}</span>
                         <div style="text-align: right;min-width: 200px;">
                             
 
@@ -211,14 +210,10 @@
                                     <mat-icon>{{star.icon}}</mat-icon>
                                 </button>
                             </div>
-                            
-
                         </div>
                     </div>
 
-
                     <ng-template #elseBlock>
-
                         <button *ngFor="let star of  testName.STARS; let x =  index"
                             (click)="setRating(star.id,y)" [ngClass]="star.class"
                             (mouseenter)="selectStar(star.id , y)" (mouseleave)="leaveStar(y)"

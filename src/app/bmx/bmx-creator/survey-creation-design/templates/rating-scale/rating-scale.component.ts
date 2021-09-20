@@ -91,7 +91,7 @@ export class RatingScaleComponent implements OnInit {
     });
   }
 
-  // CRITERIA
+  // CRITERIA STARS
 
   setCriteriaRating( starId, criteriaId, testNameId) {
     this.bmxItem.componentText[testNameId].CRITERIA[criteriaId].RATE = starId
