@@ -28,7 +28,7 @@
                             <div style="margin: 20px;font-size: 20px;color:#063074;font-weight: 800;">Templates</div>
                             <mat-form-field appearance="outline" style="margin-left: 20px;">
                                 <mat-label>Choose Template</mat-label>
-                                <mat-select class="selectLabels">
+                                <mat-select class="selectLabels" [(ngModel)] = "emailTemp">
                                     <mat-option *ngFor="let EMAIL_TEMPLATE of EMAIL_TEMPLATES" [value]="EMAIL_TEMPLATE">
                                         {{EMAIL_TEMPLATE.name}}
                                     </mat-option>
@@ -39,7 +39,7 @@
                             <div style="margin: 20px;font-size: 20px;color:#063074;font-weight: 800;">Link Type</div>
                             <mat-form-field appearance="outline" style="margin-left: 20px;">
                                 <mat-label>Direct Link</mat-label>
-                                <mat-select class="selectLabels">
+                                <mat-select class="selectLabels" [(ngModel)] = "linkType">
                                     <mat-option *ngFor="let link of LINK_TYPE" [value]="link">
                                         {{link.name}}
                                     </mat-option>
@@ -60,20 +60,20 @@
             <div style="margin-bottom: 20px;font-size: 20px;color:#063074;font-weight: 800;">Send Invite</div>
             <div style="display: flex;flex-direction: row;margin-bottom: 20px; justify-content: space-between; ">
                 <div style="color:#063074;font-size: 20px;margin-right: 20px;">From :</div>
-                <input style="width: 458px;" mat-input type="text" placeholder="director@brandinstitute.com">
+                <input style="width: 458px;" mat-input type="text" placeholder="director@brandinstitute.com" [(ngModel)] = "From">
             </div>
             <div style="display: flex;flex-direction: row;margin-bottom: 20px;justify-content: space-between;">
                 <div style="color:#063074;font-size: 20px;margin-right: 20px;">CC :</div>
-                <input style="width: 458px;" mat-input type="text" placeholder="CC">
+                <input style="width: 458px;" mat-input type="text" placeholder="CC" [(ngModel)] = "CC">
             </div>
             <div style="display: flex;flex-direction: row;margin-bottom: 20px;justify-content: space-between;">
                 <div style="color:#063074;font-size: 20px;margin-right: 20px;">BCC :</div>
                 <input style="width: 458px;" mat-input type="text"
-                    placeholder="creative@brandinstitue.com,director1@brandinstitue.com,direct...">
+                    placeholder="creative@brandinstitue.com,director1@brandinstitue.com,direct..." [(ngModel)] = "BCC">
             </div>
             <div style="display: flex;flex-direction: row;margin-bottom: 20px;justify-content: space-between;">
                 <div style="color:#063074;font-size: 20px;margin-right: 20px;">Subject :</div>
-                <input style="width: 458px;" mat-input type="text" placeholder="Subject">
+                <input style="width: 458px;" mat-input type="text" placeholder="Subject" [(ngModel)] = "Subject">
             </div>
 
             <div style="display: flex;flex-direction: row;">
@@ -92,7 +92,7 @@
                         [data]="brandMatrixObjects[1].componentText" [config]="ckconfig">
                     </ckeditor>
                     <div style="display: flex;justify-content: flex-end;">
-                        <button mat-raised-button style="background-color: #003180;color:white;margin:20px">
+                        <button mat-raised-button style="background-color: #003180;color:white;margin:20px" (click)="sendEmail()">
                             Send Invite
                         </button>
                         <button mat-raised-button style="background-color: #003180;color:white;margin:20px 0px">
