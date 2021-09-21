@@ -33,6 +33,12 @@ export class SurveyCreationDesignComponent implements OnInit {
   ratingScale = 5;
 
 
+  //CONFIRMATION BOX
+  isResetConfirmation = false;
+  isUpdateConfirmation = false;
+  isResetBoxOn = false;
+  isUpdateBoxOn = false;
+
   // TEMPLATE BOX 
   isTemplateBoxOn = false;
   isSaveOrUpdate = false;
@@ -731,13 +737,18 @@ export class SurveyCreationDesignComponent implements OnInit {
     setTimeout(() => {
       this.openSaveTemplateBox()
     }, 1000);
+
+    
   }
+
+  loadBtn = false;
 
   loadTemplate(templateName) {
     if (localStorage.getItem(templateName)) {
       this.bmxPages = JSON.parse(localStorage.getItem(templateName))
     }
     this.openSaveTemplateBox()
+    
   }
 
   templateSelected() {
@@ -751,6 +762,7 @@ export class SurveyCreationDesignComponent implements OnInit {
   }
 
   resetTemplate() {
+
     this.bmxPages = [
       {
         pageNumber: 1,
@@ -769,6 +781,11 @@ export class SurveyCreationDesignComponent implements OnInit {
         ]
       }
     ]
+    this.isResetConfirmation = false;
+  }
+
+  openResetConfirmationBox() {
+    this.isResetConfirmation = !this.isResetConfirmation;
   }
 
 
