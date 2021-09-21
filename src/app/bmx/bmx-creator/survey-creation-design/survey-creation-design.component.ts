@@ -738,7 +738,7 @@ export class SurveyCreationDesignComponent implements OnInit {
       this.openSaveTemplateBox()
     }, 1000);
 
-    
+    this.openUpdtBox();
   }
 
   loadBtn = false;
@@ -786,6 +786,10 @@ export class SurveyCreationDesignComponent implements OnInit {
 
   openResetConfirmationBox() {
     this.isResetConfirmation = !this.isResetConfirmation;
+  }
+
+  openUpdtBox() {
+    this.isUpdateConfirmation = !this.isUpdateConfirmation;
   }
 
 

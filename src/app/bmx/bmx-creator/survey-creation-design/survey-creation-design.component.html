@@ -244,7 +244,7 @@
             style="color: white;background-color: #2a3f8a">
             save
         </button>
-        <button *ngIf="isSaveOrUpdate" (click)="saveOrUpdateTemplate(templateName)" mat-raised-button
+        <button *ngIf="isSaveOrUpdate" (click)="openUpdtBox()" mat-raised-button
             style="color: white;background-color: #8a2a5a">
             update
         </button>
@@ -276,17 +276,16 @@
 
 <div *ngIf="isUpdateConfirmation" class="save-template-box"
     style="display: flex;flex-direction: column;align-items: center;justify-content: space-around;">
-    <h2 style="text-align: center;padding-top: 5px;color: #2a3f8a;">{{templateTitle}}</h2>
     
-        <h2 *ngIf="isUpdateBoxOn">Are you sure you want to update the current template?</h2>
+        <h2 style="text-align: center;">Are you sure you want to update the current template?</h2>
     
     <div style="display: flex;flex-direction: row;justify-content: space-evenly; width: 200px;">
         <button mat-raised-button
-            style="color: white;background-color: #2a3f8a" (click)="resetTemplate()">
+            style="color: white;background-color: #2a3f8a" (click)=" saveOrUpdateTemplate(templateName)">
             Confirm
         </button>
         <button mat-raised-button
-            style="color: white;background-color: red" (click)="isResetConfirmation = false">
+            style="color: white;background-color: red" (click)="isUpdateConfirmation = false">
             Cancel
         </button>
     </div>
