@@ -20,7 +20,7 @@ export class RatingScaleComponent implements OnInit {
   selectedStarRatingIndex = ''
   selectedRating = '';
   columnsSlider = 150
-  rowHeightSlider = 1.5
+  rowHeightSlider = 2
   fontSizeRow = 19
   rationalewidth = this.columnsSlider + 100
 
