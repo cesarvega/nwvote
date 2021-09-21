@@ -200,7 +200,7 @@
                 mat-icon-button color="warn" aria-label="aria">
                 <mat-icon class="full-icon">save</mat-icon>
             </button>
-            <button *ngIf="true" (click)="resetTemplate()" mat-icon-button matTooltip="reset template"
+            <button *ngIf="true" (click)="openResetConfirmationBox()" mat-icon-button matTooltip="reset template"
                 matTooltipPosition="right">
                 <mat-icon class="full-icon">delete_sweep
                 </mat-icon>
@@ -249,9 +249,45 @@
             update
         </button>
         <p *ngIf="isSaveOrUpdate">or</p>
-        <button *ngIf="isSaveOrUpdate" (click)="loadTemplate(templateName)" mat-raised-button
+        <button *ngIf="isSaveOrUpdate" (click)="loadTemplate(templateName)" mat-raised-button id="loadBtn"
             style="color: white;background-color: #2a3f8a">
             load
+        </button>
+    </div>
+</div>
+
+<div *ngIf="isResetConfirmation" class="save-template-box"
+    style="display: flex;flex-direction: column;align-items: center;justify-content: space-around;">
+    <h2 style="text-align: center;padding-top: 5px;color: #2a3f8a;">{{templateTitle}}</h2>
+
+        <h1 style="text-align: center;">Are you sure you want to reset the template?</h1>
+       
+    <div style="display: flex;flex-direction: row;justify-content: space-evenly; width: 200px;">
+        <button mat-raised-button
+            style="color: white;background-color: #2a3f8a" (click)="resetTemplate()">
+            Confirm
+        </button>
+        <button mat-raised-button
+            style="color: white;background-color: red" (click)="isResetConfirmation = false">
+            Cancel
+        </button>
+    </div>
+</div>
+
+<div *ngIf="isUpdateConfirmation" class="save-template-box"
+    style="display: flex;flex-direction: column;align-items: center;justify-content: space-around;">
+    <h2 style="text-align: center;padding-top: 5px;color: #2a3f8a;">{{templateTitle}}</h2>
+    
+        <h2 *ngIf="isUpdateBoxOn">Are you sure you want to update the current template?</h2>
+    
+    <div style="display: flex;flex-direction: row;justify-content: space-evenly; width: 200px;">
+        <button mat-raised-button
+            style="color: white;background-color: #2a3f8a" (click)="resetTemplate()">
+            Confirm
+        </button>
+        <button mat-raised-button
+            style="color: white;background-color: red" (click)="isResetConfirmation = false">
+            Cancel
         </button>
     </div>
 </div>

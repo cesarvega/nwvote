@@ -1,6 +1,6 @@
+import { DragulaService } from 'ng2-dragula';
 import { Component, ElementRef, EventEmitter, Inject, Input, OnInit, Output, ViewChild, ViewEncapsulation } from '@angular/core';
 import { CdkTextareaAutosize } from '@angular/cdk/text-field';
-import { DragulaService } from 'ng2-dragula';
 
 @Component({
   selector: 'app-rank-scale',
@@ -43,7 +43,7 @@ export class RankScaleComponent implements OnInit {
 
   constructor(private dragulaService: DragulaService) {
     dragulaService.createGroup('DRAGGABLE_ROW', {
-
+      moves: (el, source, handle, sibling) => !el.classList.contains('rating-test')
     });
    }
   ngOnInit(): void {
