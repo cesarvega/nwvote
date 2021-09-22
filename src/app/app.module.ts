@@ -61,6 +61,7 @@ import { MatRadioModule } from '@angular/material/radio';
 import { BmxModule } from './bmx/bmx-module/bmx.module';
 
 
+
 export function loadEcharts() {
   return import('echarts');
 }
@@ -79,6 +80,7 @@ export function loadEcharts() {
     NW3Component,
     // BmxComponent,
     SchedulerComponent,
+
 
     
 
