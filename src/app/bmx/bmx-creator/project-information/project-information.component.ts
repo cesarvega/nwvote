@@ -52,11 +52,12 @@ export class ProjectInformationComponent implements OnInit {
   }
 
   selectedDirector;
-  allDirectors : Array<any> = [];
-  currentDirectorList : Array<any> = [];
+  allDirectors: Array<any> = [];
+  currentDirectorList: Array<any> = [];
   bmxRegionalDirectorDropdown;
   bmxDirecttorSelect;
-
+  office = '';
+  empty = '';
 
   bmxEditData = new FormGroup({
     bmxSalesboard: new FormControl(),
@@ -71,8 +72,7 @@ export class ProjectInformationComponent implements OnInit {
   ngOnInit(): void {
     this.initForm();
     var items = localStorage.getItem('projectName');
-    if (items != undefined || items != null) 
-    {
+    if (items != undefined || items != null) {
       this.isReadonly = false;
       this._BmxService.getProjectInfo(localStorage.getItem('projectName'))
         .subscribe((arg: any) => {
@@ -93,44 +93,46 @@ export class ProjectInformationComponent implements OnInit {
             director.phone = data.DirectorList[i].Phone
             director.title = data.DirectorList[i].Title
             director.ngModel = director.ngModel
+            director.office = ''
             this.DIRECTORS.push(director);
           }
           this.bmxEditData.patchValue({ bmxRegionalDirector: this.DIRECTORS });
-          
+
         });
     }
-    
-      this._BmxService.getGeneralLists()
-        .subscribe((arg: any) => {
-          this.settingsData = JSON.parse(arg.d);
-          console.log(JSON.parse(arg.d));
-          //AUTOCOMPLETE 🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖
-          this.settingsData.SalesBoardProjectList.forEach(myObject => { this.salesboardObj.push({ name: myObject['SalesBoardProjectList'] }) });
-          this.settingsData.DirectorList.forEach(directorObj => {
-            this.allDirectors.push({
-              name: directorObj.Director,
-              id: directorObj.Id,
-              title: directorObj.Title,
-              email: directorObj.Email,
-              phone: directorObj.Phone,
-              office: directorObj.Office
-            })
-            this.currentDirectorList= this.allDirectors;
-          });
-          //console.log(this.directorNames);
-          this.filteredOptions = this.bmxEditData.controls['bmxSalesboard'].valueChanges
-            .pipe(
-              startWith(''),
-              map(value => this._filter(value))
-            );
-          // END 🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖 AUTOCOMPLETE
+
+    this._BmxService.getGeneralLists()
+      .subscribe((arg: any) => {
+        this.settingsData = JSON.parse(arg.d);
+        console.log(JSON.parse(arg.d));
+        //AUTOCOMPLETE 🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖
+        this.settingsData.SalesBoardProjectList.forEach(myObject => { this.salesboardObj.push({ name: myObject['SalesBoardProjectList'] }) });
+        this.settingsData.DirectorList.forEach(directorObj => {
+          this.allDirectors.push({
+            name: directorObj.Director,
+            id: directorObj.Id,
+            title: directorObj.Title,
+            email: directorObj.Email,
+            phone: directorObj.Phone,
+            office: directorObj.Office
+          })
+          
+          
         });
-
-    
-      
-    
-
+        this.currentDirectorList = this.allDirectors;
+        for (var i = 0; i < this.DIRECTORS.length; i++) {
+          this.DIRECTORS[i] = this.allDirectors.find(o => o.name === this.DIRECTORS[i].name);
+        }
+        this.filteredOptions = this.bmxEditData.controls['bmxSalesboard'].valueChanges
+          .pipe(
+            startWith(''),
+            map(value => this._filter(value))
+          );
+        // END 🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖 AUTOCOMPLETE
+      });
     //this.bmxEditData.setValue(JSON.parse(localStorage.getItem('fakeproject' + '_project_info')));
+
+
   }
   //AUTOCOMPLETE 🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖
   filteredOptions: Observable<string[]>;
@@ -160,10 +162,7 @@ export class ProjectInformationComponent implements OnInit {
     this._snackBar.open('Saved Succesfully');
   }
 
-  getDirectorNames() {
-    // this.settingsData.DirectorList.forEach( myObj =>{  this.directorNames.push({name: myObj['Director']})});
-    //console.log(this.directorNames);
-  }
+
 
   createDirector(): void {
     // this.directors = [...this.directors, this.directors.length];
@@ -174,6 +173,7 @@ export class ProjectInformationComponent implements OnInit {
     director.phone = ""
     director.title = ""
     director.ngModel = ""
+    director.office = ''
     this.DIRECTORS.push(director);
   }
 
@@ -189,9 +189,9 @@ export class ProjectInformationComponent implements OnInit {
 
   }
 
-  officeSelected(officeName) 
-  {
-    this.currentDirectorList= [];
+  officeSelected(officeName) {
+    this.office = officeName;
+    this.currentDirectorList = [];
     this.allDirectors.forEach(director => {
       if (director.office == officeName) {
         this.currentDirectorList.push(director);
@@ -199,10 +199,7 @@ export class ProjectInformationComponent implements OnInit {
     })
   }
 
-  fillDirectorInfo(directorName) 
-  {
-    this.DIRECTORS[this.DIRECTORS.length -1] = this.allDirectors.find(o => o.name === directorName);
-  }
+
 
   initForm() {
     this.bmxEditData = new FormGroup({
@@ -223,4 +220,13 @@ export class ProjectInformationComponent implements OnInit {
   trackByIndex(index, item) {
     return index;
   }
+  /*
+  getDirectorNames() {
+    // this.settingsData.DirectorList.forEach( myObj =>{  this.directorNames.push({name: myObj['Director']})});
+    //console.log(this.directorNames);
+  }
+  fillDirectorInfo(directorName) 
+  {
+    this.DIRECTORS[this.DIRECTORS.length -1] = this.allDirectors.find(o => o.name === directorName);
+  }*/
 }
