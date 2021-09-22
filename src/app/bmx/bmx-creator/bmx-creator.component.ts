@@ -27,7 +27,7 @@ export class BmxCreatorComponent implements OnInit {
   // https://getemoji.com/
   bmxClientPageDesignMode = true;
   bmxClientPageOverview = true;
-  displayRightSideMenu = false;
+  displayRightSideMenu = true;
 
 
   projectName: any;
@@ -133,8 +133,8 @@ export class BmxCreatorComponent implements OnInit {
     //   })
     // });
 
-    this.toggleMenuActive('isMenuActive11')
-    this.isMainMenuActive = false;
+    this.toggleMenuActive('isMenuActive1')
+    // this.isMainMenuActive = false;
 
 
     this._BmxService.getGeneralLists()
@@ -193,9 +193,13 @@ export class BmxCreatorComponent implements OnInit {
   // menu functionallity toggles the active link scss
   toggleMenuActive(menuItem) {
     if(menuItem === 'isMenuActive1')
-    {
+    { this.isMainMenuActive = true;
       localStorage.removeItem('projectName');
-    }
+    } else if(menuItem === 'isMenuActive11'){
+      this.bmxClientPageDesignMode = false;
+      this.bmxClientPageOverview = false;
+      this.isMainMenuActive = false;
+     }
     this.isMenuActive1 = (menuItem === 'isMenuActive1') ? true : false;
     this.isMenuActive2 = (menuItem === 'isMenuActive2') ? true : false;
     this.isMenuActive3 = (menuItem === 'isMenuActive3') ? true : false;

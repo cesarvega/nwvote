@@ -42,14 +42,14 @@ export class ProjectInformationComponent implements OnInit {
   DIRECTORS: Array<any> = [];
 
   isReadonly;
-  director = {
-    id: '',
-    name: '',
-    title: '',
-    email: '',
-    phone: '',
-    ngModel: ''
-  }
+  // director = {
+  //   id: '',
+  //   name: '',
+  //   title: '',
+  //   email: '',
+  //   phone: '',
+  //   ngModel: ''
+  // }
 
   selectedDirector;
   allDirectors: Array<any> = [];
