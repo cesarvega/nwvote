@@ -93,8 +93,388 @@ export class SurveyCreationDesignComponent implements OnInit {
           ]
         },
         {
-          "componentType": "text-editor",
-          "componentText": "<p style=\"text-align:center\"><span style=\"font-size:18px\">WELCOME</span></p>\n\n<p><span style=\"font-size:16px\">You have been chosen to participate in the brand name selection process for XXXX&#39;s new XXXXX (Project Code Name: XXXX). In this interactive BrandMatrix evaluation, you will be asked to identify and evaluate your favorite brand name options. The name candidates, both newly created and project team retained, are presented according to the following brand strategies:</span><br />\n<br />\nXXX<br />\nXXX<br />\nXXX<br />\nXXX<br />\nXXX</p>\n\n<p>Should you have any questions or comments regarding the BrandMatrixTM, please contact one of the following individuals:</p>\n\n<p>Brand Institute<br />\nCreative Department&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; creative@brandinstitute.com&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;N/A</p>\n\n<p>Brand Institute<br />\nCreative Department&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; creative@brandinstitute.com&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; N/A</p>\n",
+          "componentType": "rate-scale",
+          "componentText": [
+            {
+              "STARS": [
+                {
+                  "id": 0,
+                  "icon": "grade",
+                  "class": "rating-star"
+                },
+                {
+                  "id": 1,
+                  "icon": "grade",
+                  "class": "rating-star"
+                },
+                {
+                  "id": 2,
+                  "icon": "grade",
+                  "class": "rating-star"
+                },
+                {
+                  "id": 3,
+                  "icon": "grade",
+                  "class": "rating-star"
+                },
+                {
+                  "id": 4,
+                  "icon": "grade",
+                  "class": "rating-star"
+                },
+                {
+                  "id": 5,
+                  "icon": "grade",
+                  "class": "rating-star"
+                },
+                {
+                  "id": 6,
+                  "icon": "grade",
+                  "class": "rating-star"
+                }
+              ],
+              "name": "NAME",
+              "rationale": "RATIONALE",
+              "katakana": "KATAKANA"
+            },
+            {
+              "STARS": [
+                {
+                  "id": 0,
+                  "icon": "grade",
+                  "class": "rating-star"
+                },
+                {
+                  "id": 1,
+                  "icon": "grade",
+                  "class": "rating-star"
+                },
+                {
+                  "id": 2,
+                  "icon": "grade",
+                  "class": "rating-star"
+                },
+                {
+                  "id": 3,
+                  "icon": "grade",
+                  "class": "rating-star"
+                },
+                {
+                  "id": 4,
+                  "icon": "grade",
+                  "class": "rating-star"
+                },
+                {
+                  "id": 5,
+                  "icon": "grade",
+                  "class": "rating-star"
+                },
+                {
+                  "id": 6,
+                  "icon": "grade",
+                  "class": "rating-star"
+                }
+              ],
+              "name": "LOADED NAME 0",
+              "rationale": "Rationale of an unth",
+              "katakana": "片仮名、カタカナ",
+              "RATE": 0
+            },
+            {
+              "STARS": [
+                {
+                  "id": 0,
+                  "icon": "grade",
+                  "class": "rating-star"
+                },
+                {
+                  "id": 1,
+                  "icon": "grade",
+                  "class": "rating-star"
+                },
+                {
+                  "id": 2,
+                  "icon": "grade",
+                  "class": "rating-star"
+                },
+                {
+                  "id": 3,
+                  "icon": "grade",
+                  "class": "rating-star"
+                },
+                {
+                  "id": 4,
+                  "icon": "grade",
+                  "class": "rating-star"
+                },
+                {
+                  "id": 5,
+                  "icon": "grade",
+                  "class": "rating-star"
+                },
+                {
+                  "id": 6,
+                  "icon": "grade",
+                  "class": "rating-star"
+                }
+              ],
+              "name": "LOADED NAME 1",
+              "rationale": "Rationale of an undisclosed length",
+              "katakana": "片仮名、カタカナ"
+            },
+            {
+              "STARS": [
+                {
+                  "id": 0,
+                  "icon": "grade",
+                  "class": "rating-star"
+                },
+                {
+                  "id": 1,
+                  "icon": "grade",
+                  "class": "rating-star"
+                },
+                {
+                  "id": 2,
+                  "icon": "grade",
+                  "class": "rating-star"
+                },
+                {
+                  "id": 3,
+                  "icon": "grade",
+                  "class": "rating-star"
+                },
+                {
+                  "id": 4,
+                  "icon": "grade",
+                  "class": "rating-star"
+                },
+                {
+                  "id": 5,
+                  "icon": "grade",
+                  "class": "rating-star"
+                },
+                {
+                  "id": 6,
+                  "icon": "grade",
+                  "class": "rating-star"
+                }
+              ],
+              "name": "LOADED NAME 2",
+              "rationale": "Rationale of an undisclosed length",
+              "katakana": "片仮名、カナ"
+            },
+            {
+              "STARS": [
+                {
+                  "id": 0,
+                  "icon": "grade",
+                  "class": "rating-star"
+                },
+                {
+                  "id": 1,
+                  "icon": "grade",
+                  "class": "rating-star"
+                },
+                {
+                  "id": 2,
+                  "icon": "grade",
+                  "class": "rating-star"
+                },
+                {
+                  "id": 3,
+                  "icon": "grade",
+                  "class": "rating-star"
+                },
+                {
+                  "id": 4,
+                  "icon": "grade",
+                  "class": "rating-star"
+                },
+                {
+                  "id": 5,
+                  "icon": "grade",
+                  "class": "rating-star"
+                },
+                {
+                  "id": 6,
+                  "icon": "grade",
+                  "class": "rating-star"
+                }
+              ],
+              "name": "LOADED 3",
+              "rationale": "Rationale of an losed length",
+              "katakana": "片仮名、カタカナ"
+            },
+            {
+              "STARS": [
+                {
+                  "id": 0,
+                  "icon": "grade",
+                  "class": "rating-star"
+                },
+                {
+                  "id": 1,
+                  "icon": "grade",
+                  "class": "rating-star"
+                },
+                {
+                  "id": 2,
+                  "icon": "grade",
+                  "class": "rating-star"
+                },
+                {
+                  "id": 3,
+                  "icon": "grade",
+                  "class": "rating-star"
+                },
+                {
+                  "id": 4,
+                  "icon": "grade",
+                  "class": "rating-star"
+                },
+                {
+                  "id": 5,
+                  "icon": "grade",
+                  "class": "rating-star"
+                },
+                {
+                  "id": 6,
+                  "icon": "grade",
+                  "class": "rating-star"
+                }
+              ],
+              "name": "LOADED NAME 4",
+              "rationale": "Rationale of an undisclosed length",
+              "katakana": "、カタカナ"
+            },
+            {
+              "STARS": [
+                {
+                  "id": 0,
+                  "icon": "grade",
+                  "class": "rating-star"
+                },
+                {
+                  "id": 1,
+                  "icon": "grade",
+                  "class": "rating-star"
+                },
+                {
+                  "id": 2,
+                  "icon": "grade",
+                  "class": "rating-star"
+                },
+                {
+                  "id": 3,
+                  "icon": "grade",
+                  "class": "rating-star"
+                },
+                {
+                  "id": 4,
+                  "icon": "grade",
+                  "class": "rating-star"
+                },
+                {
+                  "id": 5,
+                  "icon": "grade",
+                  "class": "rating-star"
+                },
+                {
+                  "id": 6,
+                  "icon": "grade",
+                  "class": "rating-star"
+                }
+              ],
+              "name": "NAME 5",
+              "rationale": "Rationale of an undisclosed length",
+              "katakana": "片仮名、カタカナ"
+            },
+            {
+              "STARS": [
+                {
+                  "id": 0,
+                  "icon": "grade",
+                  "class": "rating-star"
+                },
+                {
+                  "id": 1,
+                  "icon": "grade",
+                  "class": "rating-star"
+                },
+                {
+                  "id": 2,
+                  "icon": "grade",
+                  "class": "rating-star"
+                },
+                {
+                  "id": 3,
+                  "icon": "grade",
+                  "class": "rating-star"
+                },
+                {
+                  "id": 4,
+                  "icon": "grade",
+                  "class": "rating-star"
+                },
+                {
+                  "id": 5,
+                  "icon": "grade",
+                  "class": "rating-star"
+                },
+                {
+                  "id": 6,
+                  "icon": "grade",
+                  "class": "rating-star"
+                }
+              ],
+              "name": "LOADED NAME ",
+              "rationale": "Rationale of an unlosed lengthRationale of an undisclosed lengthRationale of an undisclosed lengthRationale of an undisclosed lengthRationale of an undisclosed length",
+              "katakana": "タカナ"
+            },
+            {
+              "STARS": [
+                {
+                  "id": 0,
+                  "icon": "grade",
+                  "class": "rating-star"
+                },
+                {
+                  "id": 1,
+                  "icon": "grade",
+                  "class": "rating-star"
+                },
+                {
+                  "id": 2,
+                  "icon": "grade",
+                  "class": "rating-star"
+                },
+                {
+                  "id": 3,
+                  "icon": "grade",
+                  "class": "rating-star"
+                },
+                {
+                  "id": 4,
+                  "icon": "grade",
+                  "class": "rating-star"
+                },
+                {
+                  "id": 5,
+                  "icon": "grade",
+                  "class": "rating-star"
+                },
+                {
+                  "id": 6,
+                  "icon": "grade",
+                  "class": "rating-star"
+                }
+              ],
+              "name": "LOADED NAME 7",
+              "rationale": "Rationale of an undisclosed length",
+              "katakana": "片仮名、カタカナ"
+            }
+          ],
           "componentSettings": [
             {
               "fontSize": "16",

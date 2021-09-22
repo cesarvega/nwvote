@@ -15,7 +15,7 @@ export class RatingScaleComponent implements OnInit {
   rankingScaleValue = 5;
   selectedIndex: any
   displayInstructions = false;
-  isColumnResizerOn = false;
+  isColumnResizerOn = true;
 
   selectedStarRatingIndex = ''
   selectedRating = '';
