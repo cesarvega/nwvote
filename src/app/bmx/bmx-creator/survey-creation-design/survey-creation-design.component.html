@@ -10,41 +10,14 @@
 
             <!-- BMX HEADER 😋😋😋😋😋😋😋😋😋😋😋😋😋😋😋😋😋😋😋😋😋😋😋😋😋😋😋😋😋😋😋😋😋😋😋😋😋😋 -->
 
-            <div *ngIf="bmxItem.componentType === 'logo-header'" class="header">
+            <div *ngIf="bmxItem.componentType === 'logo-header'" class="paragraph">
                 <div style="position: absolute;right: 0px;">
                     <button *ngIf="bmxClientPageOverview" style="outline: none;color:#f10a0a;top: 19px;" mat-icon-button (click)="deleteComponent(i)"
                         aria-label="delte">
                         <mat-icon style="font-size: 17px;">cancel</mat-icon>
                     </button>
                 </div>
-                <div class="emoji-handle">.</div>
-                <div>
-                    <img style="width: 231px;margin-left: 8px;    margin-top: 60px;"
-                        src="./assets/img/bmx/BRANDMATRIX-DASHBOARD-LOGO.svg">
-
-                    <div style="margin-left: 50px;">
-                        <div style="font-size: 16px;margin-top: 10px;color: #48535e;">CATEGORY HEADER HERE</div>
-                        <div style="font-size: 14px;margin-bottom: 20px;color: lightgray;">Brief Description Here</div>
-                    </div>
-                </div>
-                <div>
-                    <span style="color: #48535e;font-size: 30px;margin-right: 31px;outline: none;
-                    font-family: Arial, Helvetica, sans-serif;">{{bmxItem.componentText}}</span>
-                </div>
-                <div>
-                    <button (click)="toggleInstructions()" style="margin-right: 33px;" mat-icon-button
-                        matTooltip="Instructions" matTooltipPosition="above">
-                        <!-- <div>Instructions</div> -->
-                        <mat-icon style="font-size: 30px;color: #37457d;" class="full-icon">description</mat-icon>
-                    </button>
-                    <img style="width: 127px;margin-right: 20px;" src="./assets/img/bmx/BD.png">
-                    <!-- <div style="display: flex;flex-direction: row;justify-content: flex-end;align-items: flex-end;">
-                        <button style="outline: none;color:#f10a0a;top: 19px;" mat-icon-button (click)="deleteComponent()"
-                            aria-label="delte">
-                            <mat-icon style="font-size: 17px;">cancel</mat-icon>
-                        </button>
-                    </div> -->
-                </div>
+              <app-logo-header [bmxItem]="bmxItem" [i]="i" [bmxClientPageDesignMode]="bmxClientPageDesignMode" [bmxClientPageOverview]="bmxClientPageOverview"></app-logo-header>
             </div>
             <!--😋😋😋😋😋😋😋😋😋😋😋😋😋😋😋😋😋😋😋😋😋😋😋😋😋😋😋😋😋😋😋😋😋😋😋😋😋😋 END BMX HEADER  -->
 

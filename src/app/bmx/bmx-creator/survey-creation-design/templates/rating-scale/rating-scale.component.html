@@ -133,11 +133,11 @@
 <!-- ⏺⏺⏺⏺⏺⏺⏺⏺⏺⏺⏺⏺⏺⏺⏺⏺⏺⏺⏺⏺⏺⏺  END  ⏺⏺⏺⏺⏺⏺⏺⏺⏺⏺⏺⏺⏺⏺⏺⏺⏺⏺ -->
 
 
-<div class="scroller-style main-container">
+<div class="scroller-style main-container"  dragula="DRAGGABLE_ROW"  [(dragulaModel)]="bmxItem.componentText" (dragulaModelChange)="checkDragEvetn($event);">
     <div *ngFor="let testName of bmxItem.componentText; let y = index">
 
+        <!-- <div *ngIf="(y !== 0)" style="color: white;font-size: xx-small;">.</div> -->
         <div class="test-name-table">
-
             <div *ngFor="let columnName of columnsNames; let e =  index"
                 style="display: flex;align-items: center;justify-content: center;" 
                 [ngClass]="(e%2==0)?'red':'blue'"
@@ -217,10 +217,8 @@
                         <div *ngFor="let criteria of testName.CRITERIA  let x =  index"
                             style="display: flex;flex-direction: column;justify-content: space-between;border-bottom: rgb(231, 230, 230) 1px solid;">
                             <span [style.font-size]="fontSizeRow +'px'"
-                                style="margin-bottom: 5px;">{{criteria.name}}</span>
-                            <div style="text-align: right;min-width: 200px;">
-
-
+                                style="padding-top:6px;max-width: 200px;">{{criteria.name}}</span>
+                            <div style="min-width: 200px;padding-bottom:6px">
                                 <button *ngFor="let star of  criteria.STARS;" (click)="setCriteriaRating(star.id,x,y)"
                                     [ngClass]="star.class" (mouseenter)="selectCriteriaStar(star.id,x,y)"
                                     (mouseleave)="leaveCriteriaStar(y,x)" style="outline: none;margin:-5px -11px;"

@@ -1,1 +1,23 @@
-<p>logo-header works!</p>
+<div style="display: flex;flex-direction: row;justify-items: center;justify-content: space-between;align-items: center;margin: -30px 35px;">
+    <div class="emoji-handle">.</div>
+    <div>
+        <img style="width: 231px;margin-left: 8px;margin-top: 60px;"
+            [src]="bmxItem.componentSettings[0].brandInstituteURL">
+
+        <div style="margin-left: 50px;">
+            <div style="font-size: 16px;margin-top: 10px;color: #48535e;">CATEGORY HEADER HERE</div>
+            <div style="font-size: 14px;margin-bottom: 20px;color: lightgray;">Brief Description Here</div>
+        </div>
+    </div>
+    <div>
+        <span style="color: #48535e;font-size: 30px;margin-right: 31px;outline: none;font-family: Arial, Helvetica, sans-serif;">{{bmxItem.componentText}}</span>
+    </div>
+    <div>
+        <button (click)="toggleInstructions()" style="margin-right: 33px;" mat-icon-button matTooltip="Instructions"
+            matTooltipPosition="above">
+            <!-- <div>Instructions</div> -->
+            <mat-icon style="font-size: 30px;color: #37457d;" class="full-icon">description</mat-icon>
+        </button>
+        <img style="width: 127px;margin-right: 20px;" [src]="bmxItem.componentSettings[0].companyLogoURL">
+    </div>
+</div>

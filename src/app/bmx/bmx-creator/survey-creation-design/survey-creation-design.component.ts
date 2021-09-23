@@ -77,7 +77,9 @@ export class SurveyCreationDesignComponent implements OnInit {
             {
               "fontSize": "16",
               "fontFace": "Arial",
-              "fontColor": "red"
+              "fontColor": "red",
+              "brandInstituteURL": "./assets/img/bmx/BRANDMATRIX-DASHBOARD-LOGO.svg",
+              "companyLogoURL": "./assets/img/bmx/BD.png"
             }
           ]
         },
@@ -1122,6 +1124,10 @@ export class SurveyCreationDesignComponent implements OnInit {
 
   templateSelected() {
     this.isSaveOrUpdate = true;
+  }
+
+  delete(){
+    this.isTemplateBoxOn = true
   }
 
   openSaveTemplateBox() {

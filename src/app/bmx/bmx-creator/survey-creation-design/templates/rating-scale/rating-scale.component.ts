@@ -1,5 +1,6 @@
 import { Component, ElementRef, EventEmitter, Inject, Input, OnInit, Output, ViewChild, ViewEncapsulation } from '@angular/core';
 import { CdkTextareaAutosize } from '@angular/cdk/text-field';
+import { DragulaService } from 'ng2-dragula';
 @Component({
   selector: 'app-rating-scale',
   templateUrl: './rating-scale.component.html',
@@ -38,7 +39,7 @@ export class RatingScaleComponent implements OnInit {
   ratingScaleIcon = 'grade';
   selectedCriteria
 
-  constructor() { }
+  constructor(private dragulaService: DragulaService) { }
   ngOnInit(): void {
     console.log('');
 
