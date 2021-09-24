@@ -59,6 +59,7 @@ import { MatPaginatorModule } from '@angular/material/paginator';
 import { MatSnackBarModule, MAT_SNACK_BAR_DEFAULT_OPTIONS } from '@angular/material/snack-bar';
 import { MatRadioModule } from '@angular/material/radio';
 import { BmxModule } from './bmx/bmx-module/bmx.module';
+import { TextParagraphComponent } from './bmx/bmx-creator/survey-creation-design/templates/text-paragraph/text-paragraph.component';
 
 
 

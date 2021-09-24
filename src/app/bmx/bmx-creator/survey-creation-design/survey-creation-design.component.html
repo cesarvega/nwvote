@@ -56,18 +56,7 @@
                         <mat-icon style="font-size: 17px;">cancel</mat-icon>
                     </button>
                 </div>
-                <div style="margin: 30px;" [innerHTML]="bmxItem.componentText | safe: 'html'"></div>
-                <ckeditor *ngIf="i === selectedIndex" id="txtTexto" class="ckeditorcev"
-                    style="animation: fadeIn 0.5s ease forwards;" [ngModelOptions]="{standalone: true}"
-                    [(ngModel)]="bmxItem.componentText" [data]="bmxItem.componentText" [config]="ckconfig">
-                </ckeditor>
-
-                <button *ngIf="i === selectedIndex && bmxClientPageOverview" class="cancel" (click)="selectedIndex = '';" mat-icon-button>
-                    <mat-icon style="font-size: 25px;">cancel</mat-icon>
-                </button>
-                <button *ngIf="i !== selectedIndex && bmxClientPageOverview" mat-icon-button class="edit-icon" (click)="selectedIndex = i">
-                    <mat-icon style="font-size: 25px;">edit</mat-icon>
-                </button>
+                <app-text-paragraph [bmxItem]="bmxItem" [i]="i" [bmxClientPageDesignMode]="bmxClientPageDesignMode" [bmxClientPageOverview]="bmxClientPageOverview"></app-text-paragraph>
             </div>
             <!-- 📑📑📑📑📑📑📑📑📑📑📑📑📑📑📑📑📑📑📑📑📑📑📑📑📑📑📑📑📑📑 END BMX PARAGRAPH EDITOR -->
 

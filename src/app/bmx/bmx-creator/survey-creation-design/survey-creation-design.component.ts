@@ -497,7 +497,9 @@ export class SurveyCreationDesignComponent implements OnInit {
             {
               "fontSize": "16",
               "fontFace": "Arial",
-              "fontColor": "red"
+              "fontColor": "red",
+              "brandInstituteURL": "./assets/img/bmx/BRANDMATRIX-DASHBOARD-LOGO.svg",
+              "companyLogoURL": "./assets/img/bmx/BD.png"
             }
           ]
         },
@@ -909,24 +911,15 @@ export class SurveyCreationDesignComponent implements OnInit {
       "pageNumber": 3,
       "page": [
         {
-          "componentType": "",
-          "componentText": "",
-          "componentSettings": [
-            {
-              "fontSize": "16",
-              "fontFace": "Arial",
-              "fontColor": "red"
-            }
-          ]
-        },
-        {
           "componentType": "logo-header",
           "componentText": "PROJECT NAME",
           "componentSettings": [
             {
               "fontSize": "16",
               "fontFace": "Arial",
-              "fontColor": "red"
+              "fontColor": "red",
+              "brandInstituteURL": "./assets/img/bmx/BRANDMATRIX-DASHBOARD-LOGO.svg",
+              "companyLogoURL": "./assets/img/bmx/BD.png"
             }
           ]
         },
@@ -948,32 +941,7 @@ export class SurveyCreationDesignComponent implements OnInit {
   constructor() { }
 
   ngOnInit(): void {
-    this.ckconfig = {
-      allowedContent: false,
-      width: '99.6%',
-      contentsCss: ["body {font-size: 24px;}"],
-      height: 280,
-      forcePasteAsPlainText: true,
-      toolbarLocation: 'top',
-      toolbarGroups: [
-        { name: 'clipboard', groups: ['clipboard', ''] },
-        { name: 'insert' },
-        { name: 'forms' },
-        { name: 'tools' },
-        { name: 'document', groups: ['mode', 'document', 'doctools'] },
-        { name: 'others' },
-        { name: 'basicstyles', groups: ['basicstyles', 'cleanup'] },
-        { name: 'colors' },
-        { name: 'paragraph', groups: ['list', 'indent', 'blocks', 'align', 'bidi'] },
-        { name: 'styles' },
-        { name: 'links' },
-        { name: 'about' }
-      ],
-      addPlugins: 'simplebox,tabletools',
-      removePlugins: 'horizontalrule,specialchar,about,others',
-      removeButtons: 'Smiley,tableselection,Image,Superscript,Subscript,Save,NewPage,Preview,Print,Templates,Replace,SelectAll,Form,Checkbox,Radio,TextField,Textarea,Find,Select,Button,ImageButton,HiddenField,CopyFormatting,CreateDiv,BidiLtr,BidiRtl,Language,Flash,PageBreak,Iframe,ShowBlocks,Cut,Copy,Paste,Table,Format,Source,Maximize,Styles,Anchor,SpecialChar,PasteFromWord,PasteText,Scayt,RemoveFormat,Indent,Outdent,Blockquote'
-
-    }
+  
     // SAMPLE DATA FOR CKEDITOR
     this.model.editorData = this.sampleHtml;
     // TEMPLATE SELECTOR
