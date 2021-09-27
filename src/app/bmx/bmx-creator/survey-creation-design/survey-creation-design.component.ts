@@ -479,9 +479,10 @@ export class SurveyCreationDesignComponent implements OnInit {
           ],
           "componentSettings": [
             {
-              "fontSize": "16",
-              "fontFace": "Arial",
-              "fontColor": "red",
+              "fontSize": 16,
+              "columnWidth": 150,
+              "rationalewidth": 250,
+              "rowHeight": 2,
               "categoryName": "Category name",
               "categoryDescription": "category description"
             }
@@ -491,7 +492,7 @@ export class SurveyCreationDesignComponent implements OnInit {
     },
     {
       "pageNumber": 2,
-      "page": [       
+      "page": [
         {
           "componentType": "logo-header",
           "componentText": "PROJECT NAME",
@@ -901,9 +902,12 @@ export class SurveyCreationDesignComponent implements OnInit {
           ],
           "componentSettings": [
             {
-              "fontSize": "16",
-              "fontFace": "Arial",
-              "fontColor": "red"
+              "fontSize": 16,
+              "columnWidth": 150,
+              "rationalewidth": 250,
+              "rowHeight": 2,
+              "categoryName": "Category name",
+              "categoryDescription": "category description"
             }
           ]
         }
@@ -943,7 +947,7 @@ export class SurveyCreationDesignComponent implements OnInit {
   constructor() { }
 
   ngOnInit(): void {
-  
+
     // SAMPLE DATA FOR CKEDITOR
     this.model.editorData = this.sampleHtml;
     // TEMPLATE SELECTOR
@@ -1008,7 +1012,7 @@ export class SurveyCreationDesignComponent implements OnInit {
         componentSettings: [{ fontSize: '16px', fontFace: 'Arial', fontColor: 'red' }],
       })
     }
-     else if (componentType === 'ranking-scale') {
+    else if (componentType === 'ranking-scale') {
 
       this.TestNameDataModel = [];
       this.TestNameDataModel.push({
@@ -1029,7 +1033,7 @@ export class SurveyCreationDesignComponent implements OnInit {
         componentSettings: [{ fontSize: '16px', fontFace: 'Arial', fontColor: 'red' }],
       })
     }
-     else if (componentType === 'image-rate-scale') {
+    else if (componentType === 'image-rate-scale') {
 
       this.TestNameDataModel = [];
       this.TestNameDataModel.push({
@@ -1096,7 +1100,7 @@ export class SurveyCreationDesignComponent implements OnInit {
     this.isSaveOrUpdate = true;
   }
 
-  delete(){
+  delete() {
     this.isTemplateBoxOn = true
   }
 
@@ -1120,7 +1124,7 @@ export class SurveyCreationDesignComponent implements OnInit {
             componentType: 'instructions',
             componentText: this.sampleHtml,
             componentSettings: [{ fontSize: '16px', fontFace: 'Arial', fontColor: 'red' }],
-            
+
           },
         ]
       }
@@ -1128,7 +1132,7 @@ export class SurveyCreationDesignComponent implements OnInit {
   }
 
 
-  overviewPage(){
+  overviewPage() {
 
   }
 

@@ -294,31 +294,10 @@ export class RatingScaleComponent implements OnInit {
 
   };
 
-  
-  // INPUT RANGE CONTROLS AND FONT SIZE
-
-  setColumnWidth(columnWidth) {
-    this.bmxItem.componentSettings[0].columnWidth = columnWidth
-  }
-
-  setRationalewidth(rationalewidth) {
-    this.bmxItem.componentSettings[0].rationalewidth = rationalewidth
-  }
-
-  setFontSize(fontSize) {
-    this.bmxItem.componentSettings[0].fontSize = fontSize
-  }
-
-
-  setSMALLTextLengthColumnHeight(columnHeight) {
-    this.bmxItem.componentSettings[0].columnHeight = columnHeight
-  }
 
   toogleColumnResizer() {
     this.isColumnResizerOn = !this.isColumnResizerOn
   }
-
-
 
   ASSIGNED_CRITERIA = []
   CRITERIA = [
