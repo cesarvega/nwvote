@@ -10,6 +10,7 @@ export class LogoHeaderComponent implements OnInit {
   @Input() bmxClientPageDesignMode;
   @Input() bmxClientPageOverview;
   displayInstructions: boolean;
+  openSettings = false
   constructor() { }
 
   ngOnInit(): void {
