@@ -41,15 +41,7 @@ export class ProjectInformationComponent implements OnInit {
 
   DIRECTORS: Array<any> = [];
 
-  isReadonly;
-  // director = {
-  //   id: '',
-  //   name: '',
-  //   title: '',
-  //   email: '',
-  //   phone: '',
-  //   ngModel: ''
-  // }
+  
 
   selectedDirector;
   allDirectors: Array<any> = [];
@@ -58,6 +50,7 @@ export class ProjectInformationComponent implements OnInit {
   bmxDirecttorSelect;
   office = '';
   empty = '';
+  dName;
 
   bmxEditData = new FormGroup({
     bmxSalesboard: new FormControl(),
@@ -73,7 +66,6 @@ export class ProjectInformationComponent implements OnInit {
     this.initForm();
     var items = localStorage.getItem('projectName');
     if (items != undefined || items != null) {
-      this.isReadonly = false;
       this._BmxService.getProjectInfo(localStorage.getItem('projectName'))
         .subscribe((arg: any) => {
           var data = JSON.parse(arg.d);
@@ -174,6 +166,21 @@ export class ProjectInformationComponent implements OnInit {
     director.title = ""
     director.ngModel = ""
     director.office = ''
+    director.type = 'BI'
+    this.DIRECTORS.push(director);
+  }
+
+  createCustomDirector(): void {
+    // this.directors = [...this.directors, this.directors.length];
+    let director: any = {}
+    director.email = ""
+    director.id = ""
+    director.name = ""
+    director.phone = ""
+    director.title = ""
+    director.ngModel = ""
+    director.office = ''
+    director.type = 'Custom'
     this.DIRECTORS.push(director);
   }
 

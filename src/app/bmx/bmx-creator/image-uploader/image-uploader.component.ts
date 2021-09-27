@@ -73,6 +73,17 @@ export class ImageUploaderComponent implements OnInit {
         var reader = new FileReader();
         reader.onload = (event: any) => {
           this.IMAGES_UPLOADED.push({ name: this.IMAGES_UPLOADED.length.toString(), rationale: 'Sist, Assist, Syst', url: event.target.result });
+          const filedata = event.target.result.split(",")[0];
+          const resourceData:JSON = <JSON><unknown>{
+            "ProjectName": localStorage.getItem('projectName'),
+            "FileName": this.IMAGES_UPLOADED.length.toString() + '.' + filedata.substring((filedata.indexOf("/")+1),(filedata.indexOf(";") )),
+            "ItemType" : 'TestName',
+            "FileType" : filedata,
+            "FileContent" : event.target.result.split(event.target.result.split(",")[0] + ',').pop()
+          }
+          this._BmxService.saveFileResources(JSON.stringify(resourceData)).subscribe(result => {
+            var so = result;
+          });
         }
         reader.readAsDataURL(event.target.files[i]);
       }

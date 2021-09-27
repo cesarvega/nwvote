@@ -12,6 +12,7 @@ export class BmxService {
   GetParticipantList = '/BrandMatrixGetParticipantList'
   GetProjectInfo = '/BrandMatrixGetDirectorList';
   SaveProjectInfor = '/BrandMatrixUpdDirectorList'
+  BrandMatrixResourceUpload = '/BrandMatrixResourceUpload'
   constructor(private http: HttpClient) {}
    
   getGeneralLists() {
@@ -39,6 +40,12 @@ export class BmxService {
     return this.http.post(this.webBaseUrl + this.GetProjectInfo, { token: '646EBF52-1846-47C2-9F62-DC50AE5BF692', payload: '{ "ProjectName" : "' + projectName + '" }' });
     // return this.http.get(this.webBaseUrl + 'api/NW_GetProjectIdWithProjectName?projectName=' + projectName, httpOptions);
   }
+
+  saveFileResources(resourceData: any)
+  {
+    return this.http.post(this.webBaseUrl + this.BrandMatrixResourceUpload, { token: '646EBF52-1846-47C2-9F62-DC50AE5BF692', payload:  resourceData });
+  }
+
 
   saveOrUpdateProjectInfo(project, data) {​ }​
 
