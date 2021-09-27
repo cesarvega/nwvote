@@ -58,8 +58,11 @@
         <input type="text" [(ngModel)]="bmxItem.componentSettings[0].categoryDescription" 
         [value]="bmxItem.componentSettings[0].categoryDescription" style="font-size: 20px;color: #ee7f25;padding-bottom: 20px;">
         
-    </div>
 
+        MIN<input type="number" [(ngModel)]="bmxItem.componentSettings[0].minRule" [value]="bmxItem.componentSettings[0].minRule"> 
+        MAX<input type="number" [(ngModel)]="bmxItem.componentSettings[0].maxRule" [value]="bmxItem.componentSettings[0].maxRule"> 
+
+    </div>
 
     <hr>
     <div style="text-align: center;display: flex;flex-direction: row;justify-content: space-around;">
