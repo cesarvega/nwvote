@@ -52,12 +52,6 @@ export class RatingScaleComponent implements OnInit {
       }
     });
 
-    // INITIAL COLUMNS SETTINGS
-    this.columnsSlider = (this.bmxItem.componentSettings[0].columnWidth) ? this.bmxItem.componentSettings[0].columnWidth : this.columnsSlider
-    this.rowHeightSlider = this.bmxItem.componentSettings[0].columnHeight
-    this.fontSizeRow = this.bmxItem.componentSettings[0].fontSize
-
-    // this.columnsNames = Object.values(this.bmxItem.componentText[0])
   }
 
   // ⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️ STARS METHODS  ⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️
@@ -294,31 +288,10 @@ export class RatingScaleComponent implements OnInit {
 
   };
 
-  
-  // INPUT RANGE CONTROLS AND FONT SIZE
-
-  setColumnWidth(columnWidth) {
-    this.bmxItem.componentSettings[0].columnWidth = columnWidth
-  }
-
-  setRationalewidth(rationalewidth) {
-    this.bmxItem.componentSettings[0].rationalewidth = rationalewidth
-  }
-
-  setFontSize(fontSize) {
-    this.bmxItem.componentSettings[0].fontSize = fontSize
-  }
-
-
-  setSMALLTextLengthColumnHeight(columnHeight) {
-    this.bmxItem.componentSettings[0].columnHeight = columnHeight
-  }
 
   toogleColumnResizer() {
     this.isColumnResizerOn = !this.isColumnResizerOn
   }
-
-
 
   ASSIGNED_CRITERIA = []
   CRITERIA = [
