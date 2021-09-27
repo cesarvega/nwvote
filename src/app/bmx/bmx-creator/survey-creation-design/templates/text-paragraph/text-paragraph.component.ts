@@ -10,8 +10,9 @@ export class TextParagraphComponent implements OnInit {
   @Input() i;
   @Input() bmxClientPageDesignMode;
   @Input() bmxClientPageOverview;
-  selectedIndex
-  ckconfig: { allowedContent: boolean; width: string; contentsCss: string[]; height: number; forcePasteAsPlainText: boolean; toolbarLocation: string; toolbarGroups: ({ name: string; groups: string[]; } | { name: string; groups?: undefined; })[]; addPlugins: string; removePlugins: string; removeButtons: string; };
+
+  openSettings = false
+  ckconfig;
   constructor() { }
 
   ngOnInit(): void {

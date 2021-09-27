@@ -84,7 +84,7 @@ export class SurveyCreationDesignComponent implements OnInit {
           ]
         },
         {
-          "componentType": "instructions",
+          "componentType": "text-editor",
           "componentText": "<p style=\"text-align:center\">Instructions</p>\n\n<p style=\"text-align:justify\">Please select&nbsp;only&nbsp;the name candidates that you would categorize as&nbsp;<strong>neutral to positive</strong>&nbsp;You should take into consideration any competitive brand name associations, pronunciation issues or negative connotations when making your selections. To make a selection, simply click the check box to the left of the desired name candidate. After you make a selection, you will be asked to rate that name based on a set of criteria:&nbsp;<strong>Fit to Product Concept:</strong> Please rate each selected name candidate based on how well it fits the product concept on a scale from 1 to 7, 1 being average and 7 being excellent.&nbsp;<strong>Overall Likeability:</strong> Please rate each selected name candidate based on your own personal preference on a scale from 1 to 7, 1 being neutral and 7 being the most liked. Once you have finished your selections, please click the &quot;Continue&quot; button on the bottom of the page to proceed to the next evaluation section.</p>\n\n<p style=\"text-align:justify\">&nbsp;</p>\n\n<p style=\"text-align:center\">Concept Statement</p>\n\n<p>cvegaCS</p>\n\n<p style=\"text-align:justify\">&nbsp;</p>\n\n<p style=\"text-align:justify\">&nbsp;</p>\n",
           "componentSettings": [
             {
@@ -481,7 +481,9 @@ export class SurveyCreationDesignComponent implements OnInit {
             {
               "fontSize": "16",
               "fontFace": "Arial",
-              "fontColor": "red"
+              "fontColor": "red",
+              "categoryName": "Category name",
+              "categoryDescription": "category description"
             }
           ]
         }
