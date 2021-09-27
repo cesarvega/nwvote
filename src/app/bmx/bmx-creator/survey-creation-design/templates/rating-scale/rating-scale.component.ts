@@ -404,5 +404,6 @@ export class RatingScaleComponent implements OnInit {
     { name: 'How the test name works alongside the name CUVITRU?', rate: 0 },
   ]
 
+  openDelete
 
 }
