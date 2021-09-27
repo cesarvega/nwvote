@@ -164,7 +164,7 @@ export class ProjectInformationComponent implements OnInit {
   createDirector(): void {
     // this.directors = [...this.directors, this.directors.length];
     var test = this.dName;
-    if (this.dName != '') {
+    if (this.dName != undefined) {
       let director: any = {}
       director.email = ""
       director.id = ""
