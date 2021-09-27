@@ -33,7 +33,7 @@ export class ProjectInformationComponent implements OnInit {
   settingsData = {
     SalesBoardProjectList: [],
     DepartmentList: '',
-    OfficeList: '',
+    OfficeList: [],
     LanguageList: '',
     DirectorList: []
   };
@@ -41,9 +41,10 @@ export class ProjectInformationComponent implements OnInit {
 
   DIRECTORS: Array<any> = [];
 
-  
+
 
   selectedDirector;
+  officeLocations: Array<any> = [];
   allDirectors: Array<any> = [];
   currentDirectorList: Array<any> = [];
   bmxRegionalDirectorDropdown;
@@ -51,6 +52,7 @@ export class ProjectInformationComponent implements OnInit {
   office = '';
   empty = '';
   dName;
+  canEdit;
 
   bmxEditData = new FormGroup({
     bmxSalesboard: new FormControl(),
@@ -59,10 +61,12 @@ export class ProjectInformationComponent implements OnInit {
     bmxRegion: new FormControl(),
     bmxCompany: new FormControl(),
     bmxLanguage: new FormControl(),
+    bmxRegionalOffice: new FormControl(),
     bmxRegionalDirector: new FormControl(),
   });
 
   ngOnInit(): void {
+    this.canEdit = null;
     this.initForm();
     var items = localStorage.getItem('projectName');
     if (items != undefined || items != null) {
@@ -88,7 +92,7 @@ export class ProjectInformationComponent implements OnInit {
             director.office = ''
             this.DIRECTORS.push(director);
           }
-          this.bmxEditData.patchValue({ bmxRegionalDirector: this.DIRECTORS });
+          this.bmxEditData.patchValue({ bmxRegionalOffice: this.DIRECTORS });
 
         });
     }
@@ -96,6 +100,7 @@ export class ProjectInformationComponent implements OnInit {
     this._BmxService.getGeneralLists()
       .subscribe((arg: any) => {
         this.settingsData = JSON.parse(arg.d);
+        this.settingsData.OfficeList.unshift('All');
         console.log(JSON.parse(arg.d));
         //AUTOCOMPLETE 🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖
         this.settingsData.SalesBoardProjectList.forEach(myObject => { this.salesboardObj.push({ name: myObject['SalesBoardProjectList'] }) });
@@ -106,10 +111,10 @@ export class ProjectInformationComponent implements OnInit {
             title: directorObj.Title,
             email: directorObj.Email,
             phone: directorObj.Phone,
-            office: directorObj.Office
+            office: directorObj.Office,
           })
-          
-          
+
+
         });
         this.currentDirectorList = this.allDirectors;
         for (var i = 0; i < this.DIRECTORS.length; i++) {
@@ -158,16 +163,22 @@ export class ProjectInformationComponent implements OnInit {
 
   createDirector(): void {
     // this.directors = [...this.directors, this.directors.length];
-    let director: any = {}
-    director.email = ""
-    director.id = ""
-    director.name = ""
-    director.phone = ""
-    director.title = ""
-    director.ngModel = ""
-    director.office = ''
-    director.type = 'BI'
-    this.DIRECTORS.push(director);
+    var test = this.dName;
+    if (this.dName != '') {
+      let director: any = {}
+      director.email = ""
+      director.id = ""
+      director.name = ""
+      director.phone = ""
+      director.title = ""
+      director.ngModel = ""
+      director.office = ''
+      director.type = 'BI'
+      director = this.allDirectors.find(o => o.name === this.dName)
+      this.DIRECTORS.push(director);
+
+    }
+
   }
 
   createCustomDirector(): void {
@@ -196,14 +207,29 @@ export class ProjectInformationComponent implements OnInit {
 
   }
 
+  editDirector(index) {
+    if (this.canEdit === index) {
+      this.canEdit = null;
+    }
+    else {
+      this.canEdit = index;
+
+    }
+  }
+
+
   officeSelected(officeName) {
-    this.office = officeName;
-    this.currentDirectorList = [];
-    this.allDirectors.forEach(director => {
-      if (director.office == officeName) {
-        this.currentDirectorList.push(director);
-      }
-    })
+    if (officeName != '' && officeName != 'All') {
+      this.office = officeName;
+      this.currentDirectorList = [];
+
+      this.allDirectors.forEach(director => {
+        if (director.office == officeName) {
+          this.currentDirectorList.push(director);
+        }
+      })
+
+    }
   }
 
 
@@ -216,6 +242,7 @@ export class ProjectInformationComponent implements OnInit {
       bmxRegion: new FormControl(),
       bmxCompany: new FormControl(),
       bmxLanguage: new FormControl(),
+      bmxRegionalOffice: new FormControl(),
       bmxRegionalDirector: new FormControl(),
     });
   }
@@ -227,13 +254,4 @@ export class ProjectInformationComponent implements OnInit {
   trackByIndex(index, item) {
     return index;
   }
-  /*
-  getDirectorNames() {
-    // this.settingsData.DirectorList.forEach( myObj =>{  this.directorNames.push({name: myObj['Director']})});
-    //console.log(this.directorNames);
-  }
-  fillDirectorInfo(directorName) 
-  {
-    this.DIRECTORS[this.DIRECTORS.length -1] = this.allDirectors.find(o => o.name === directorName);
-  }*/
 }

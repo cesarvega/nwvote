@@ -4,3 +4,13 @@
     justify-content: space-around;
     align-items: baseline;
 }
+
+.directorInfo{
+    outline: none;
+  box-shadow: none;
+}
+
+.directorInfo:focus{
+  box-shadow: revert ;
+  outline: revert;
+}

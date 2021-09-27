@@ -2,7 +2,8 @@
 
     <h2 style="margin: 20px;">Project TEST BrandMatrix Setup</h2>
     <div style="margin: 20px;font-size: 20px;color:#063074;font-weight: 800;">Basic Project Information</div>
-    <button mat-raised-button color="success" style="position: absolute;right: 79px;background-color:#063074;color: white;"
+    <button mat-raised-button color="success"
+        style="position: absolute;right: 79px;background-color:#063074;color: white;"
         (click)="saveProjectInfo()">Save</button>
     <br>
     <br>
@@ -78,146 +79,37 @@
                 <label class="selectLabels">Regional Directors</label>
                 <mat-form-field appearance="outline">
                     <mat-label>Select Region</mat-label>
-                    <mat-select [(ngModel)]="bmxRegionalDirectorDropdown" formControlName="bmxRegionalDirector" (selectionChange)="officeSelected(bmxRegionalDirectorDropdown)">
-                        <mat-option *ngFor="let settingsList of settingsData.OfficeList"   [value]="settingsList">
+                    <mat-select [(ngModel)]="bmxRegionalDirectorDropdown" formControlName="bmxRegionalOffice"
+                        (selectionChange)="officeSelected(bmxRegionalDirectorDropdown)">
+                        <mat-option *ngFor="let settingsList of settingsData.OfficeList" [value]="settingsList">
                             {{settingsList}}
                         </mat-option>
                     </mat-select>
                 </mat-form-field>
+
                 <mat-form-field appearance="outline">
                     <mat-label>Director</mat-label>
-                        <mat-select [(ngModel)]="dName">
-                            <mat-option *ngFor="let directorName of currentDirectorList">
-                                {{directorName.name}}
-                            </mat-option>   
-                        </mat-select>
-                </mat-form-field>
-
-
-                <button mat-mini-fab style="background-color:#063074;outline: none;"
-                (click)="createDirector()">
-                <mat-icon class="full-icon" style="color: white;" >add</mat-icon>
-            </button>
-            <button mat-mini-fab style="background-color:#063074;outline: none;"
-                (click)="createCustomDirector()">
-                <mat-icon class="full-icon" style="color: white;" >add</mat-icon>
-            </button>
-            </div>
-           
-        </div>
-    </form>
-
-    <div style="display: flex; flex-direction: row;flex-wrap: wrap;justify-content: space-between;margin: 10px 71px;">
-        <div *ngFor="let director of DIRECTORS; let i = index; trackBy: trackByIndex" >
-            <div *ngIf="director.office === empty && office !== empty;else other_content">
-                <mat-card  class="directorCard" style="margin:20px 0px;width: 400px;">
-                    <label style="margin-right: 20px;">Director Name</label>
-                    <mat-form-field appearance="outline">
-                        <mat-label>Director</mat-label>
-                        <mat-select [id]="i" [(ngModel)]="director.name" (selectionChange)="selected($event, i)">
-                            <mat-option *ngFor="let directorName of currentDirectorList" [value]="directorName.name">
-                                {{directorName.name}}
-                            </mat-option>   
-                        </mat-select>
-                    </mat-form-field>
-    
-                    <div *ngIf="director.title.length > 0">
-                    <div style="display: flex;flex-direction: row;">
-                        <div style="margin-right: 6px;" class="selectLabels">Title: </div>
-                        <div>{{director.title}}</div>
-                    </div>
-    
-                    <div style="display: flex;flex-direction: row;">
-                        <div style="margin-right: 6px;" class="selectLabels">Email: </div>
-                        <div>{{director.email}}</div>
-                    </div>
-    
-                    <div style="display: flex;flex-direction: row;">
-                        <div style="margin-right: 6px;" class="selectLabels">Phone #: </div>
-                        <div>{{director.phone}}</div>
-                    </div>
-                    <button mat-icon-button style="position: absolute; top: 9px; right: 5px;color: red;"
-                        (click)="removeDirector(i)">
-                        <mat-icon>delete</mat-icon>
-                    </button>
-                </div>
-                </mat-card>
-             </div>
-         
-             <ng-template #other_content>
-                <mat-card  class="directorCard" style="margin:20px 0px;width: 400px;">
-                    <label style="margin-right: 20px;">Director Name</label>
-                    <mat-form-field appearance="outline">
-                        <mat-label>Director</mat-label>
-                        <mat-select [id]="i" [(ngModel)]="director.name" (selectionChange)="selected($event, i)">
-                            <mat-option *ngFor="let directorName of allDirectors" [value]="directorName.name">
-                                {{directorName.name}}
-                            </mat-option>   
-                        </mat-select>
-                    </mat-form-field>
-    
-                    <div *ngIf="director.title.length > 0">
-                    <div style="display: flex;flex-direction: row;">
-                        <div style="margin-right: 6px;" class="selectLabels">Title: </div>
-                        <div>{{director.title}}</div>
-                    </div>
-    
-                    <div style="display: flex;flex-direction: row;">
-                        <div style="margin-right: 6px;" class="selectLabels">Email: </div>
-                        <div>{{director.email}}</div>
-                    </div>
-    
-                    <div style="display: flex;flex-direction: row;">
-                        <div style="margin-right: 6px;" class="selectLabels">Phone #: </div>
-                        <div>{{director.phone}}</div>
-                    </div>
-                    <button mat-icon-button style="position: absolute; top: 9px; right: 5px;color: red;"
-                        (click)="removeDirector(i)">
-                        <mat-icon>delete</mat-icon>
-                    </button>
-                </div>
-                </mat-card>
-                
-            </ng-template>
-
-
-
-            
-            <!--<mat-card  class="directorCard" style="margin:20px 0px;width: 400px;">
-                <label style="margin-right: 20px;">Director Name</label>
-                <mat-form-field appearance="outline">
-                    <mat-label>Director</mat-label>
-                    <mat-select [id]="i" [(ngModel)]="director.name" (selectionChange)="selected($event, i)">
+                    <mat-select [(ngModel)]="dName" formControlName="bmxRegionalDirector">
                         <mat-option *ngFor="let directorName of currentDirectorList" [value]="directorName.name">
                             {{directorName.name}}
-                        </mat-option>   
+                        </mat-option>
                     </mat-select>
                 </mat-form-field>
 
-                <div *ngIf="director.title.length > 0">
-                <div style="display: flex;flex-direction: row;">
-                    <div style="margin-right: 6px;" class="selectLabels">Title: </div>
-                    <div>{{director.title}}</div>
-                </div>
 
-                <div style="display: flex;flex-direction: row;">
-                    <div style="margin-right: 6px;" class="selectLabels">Email: </div>
-                    <div>{{director.email}}</div>
-                </div>
 
-                <div style="display: flex;flex-direction: row;">
-                    <div style="margin-right: 6px;" class="selectLabels">Phone #: </div>
-                    <div>{{director.phone}}</div>
-                </div>
-                <button mat-icon-button style="position: absolute; top: 9px; right: 5px;color: red;"
-                    (click)="removeDirector(i)">
-                    <mat-icon>delete</mat-icon>
+
+                <button mat-mini-fab style="background-color:#063074;outline: none;" (click)="createDirector()">
+                    <mat-icon class="full-icon" style="color: white;">add</mat-icon>
+                </button>
+                <button mat-mini-fab style="background-color:#063074;outline: none;" (click)="createCustomDirector()">
+                    <mat-icon class="full-icon" style="color: white;">add</mat-icon>
                 </button>
             </div>
-            </mat-card>-->
 
         </div>
-    </div>
+    </form>
+
+    
     <br>
     <br>
- 
