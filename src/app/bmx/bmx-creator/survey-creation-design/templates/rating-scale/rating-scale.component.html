@@ -1,26 +1,26 @@
 <!-- ➗➗➗➗➗➗➗➗➗➗➗➗➗➗➗➗➗➗➗  SETTINGS ICONS  ➗➗➗➗➗➗➗➗➗➗➗➗➗➗➗➗➗ -->
 <div *ngIf="bmxClientPageOverview">
     <button (click)="selectedIndex = ''" class="add-column" matTooltip="cancel" matTooltipPosition="above"
-        style=" margin: -20px 29px;" *ngIf="i === selectedIndex" mat-icon-button>
+        style=" margin: -50px 29px;" *ngIf="i === selectedIndex" mat-icon-button>
         <mat-icon style="font-size: 25px;" class="full-icon">cancel</mat-icon>
     </button>
     <button (click)="selectedIndex = i" class="add-column" matTooltip="settings" matTooltipPosition="above"
-        style=" margin: -20px 29px;" *ngIf="i !== selectedIndex" mat-icon-button>
+        style=" margin: -50px 29px;" *ngIf="i !== selectedIndex" mat-icon-button>
         <mat-icon style="font-size: 25px;" class="full-icon">edit</mat-icon>
     </button>
-    <button (click)="insertTextColumn()" class="add-column" style=" margin: -20px 65px;" matTooltip="add column"
+    <button (click)="insertTextColumn()" class="add-column" style=" margin: -50px 65px;" matTooltip="add Text column"
         matTooltipPosition="above" mat-icon-button aria-label="ranking">
         <mat-icon style="font-size: 26px;" class="full-icon">view_list</mat-icon>
     </button>
-    <button (click)="insertRadioColumn()" class="add-column" style="margin: -20px 95px;" matTooltip="add radio column"
+    <button (click)="insertRadioColumn()" class="add-column" style="margin: -50px 95px;" matTooltip="add radio column"
         matTooltipPosition="above" mat-icon-button aria-label="ranking">
-        <mat-icon style="font-size: 26px;" class="full-icon">radio_button_unchecked</mat-icon>
+        <mat-icon style="font-size: 26px;" class="full-icon">radio_button_checked</mat-icon>
     </button>
-    <button (click)="insertCommentBoxColumn()" class="add-column" style="margin: -20px 125px;" matTooltip="add radio column"
-        matTooltipPosition="above" mat-icon-button aria-label="ranking">
+    <button (click)="insertCommentBoxColumn()" class="add-column" style="margin: -50px 125px;"
+        matTooltip="add Comments column" matTooltipPosition="above" mat-icon-button aria-label="ranking">
         <mat-icon style="font-size: 26px;" class="full-icon">wysiwyg</mat-icon>
     </button>
-    <button (click)="toogleColumnResizer()" class="add-column" style="margin: -20px 155px;" matTooltip="row settings"
+    <button (click)="toogleColumnResizer()" class="add-column" style="margin: -50px 155px;" matTooltip="row settings"
         matTooltipPosition="above" mat-icon-button aria-label="ranking">
         <mat-icon style="font-size: 26px;" class="full-icon">swap_horizontal_circle</mat-icon>
     </button>
@@ -96,12 +96,12 @@
 
 
 <!-- ⏺⏺⏺⏺⏺⏺⏺⏺⏺⏺⏺⏺⏺⏺⏺⏺⏺⏺⏺⏺RAGE INPUTS FOR COLUMN SETTINGS ⏺⏺⏺⏺⏺⏺⏺⏺⏺⏺⏺⏺⏺⏺⏺⏺⏺⏺⏺ -->
-<div *ngIf="isColumnResizerOn && bmxClientPageOverview" class="mat-elevation-z2" style="display: flex;
+<div *ngIf="isColumnResizerOn && bmxClientPageOverview" class="" style="display: flex;
     flex-direction: row;
     justify-content: space-evenly;
     width: 86%;
-    position: relative;
-    top: -15px;
+    position: absolute;
+    top: -50px;
     left: 40px;
     border-radius: 15px;">
 
@@ -133,19 +133,22 @@
 <!-- ⏺⏺⏺⏺⏺⏺⏺⏺⏺⏺⏺⏺⏺⏺⏺⏺⏺⏺⏺⏺⏺⏺  END  ⏺⏺⏺⏺⏺⏺⏺⏺⏺⏺⏺⏺⏺⏺⏺⏺⏺⏺ -->
 
 
-<div class="scroller-style main-container">
+<div class="scroller-style main-container"  dragula="DRAGGABLE_ROW"  [(dragulaModel)]="bmxItem.componentText" (dragulaModelChange)="checkDragEvetn($event);">
     <div *ngFor="let testName of bmxItem.componentText; let y = index">
 
+        <!-- <div *ngIf="(y !== 0)" style="color: white;font-size: xx-small;">.</div> -->
         <div class="test-name-table">
-
-            <div *ngFor="let columnName of columnsNames; let e =  index" style="text-align: center;margin:10px 10px;"
+            <div *ngFor="let columnName of columnsNames; let e =  index"
+                style="display: flex;align-items: center;justify-content: center;" 
+                [ngClass]="(e%2==0)?'red':'blue'"
                 [style.width]="(columnName == 'rationale' )?rationalewidth + 'px':columnsSlider +'px'">
 
                 <div *ngIf="(y == 0)" class="header-title" (mouseenter)="selectedColumn = e"
                     (mouseleave)="selectedColumn = ''">
 
-                    <span *ngIf="selectedColumn === e" class="header-delete-icon" matTooltip="delete column"
-                        matTooltipPosition="above" (click)="deleteColumn(testName[columnName])">x</span>
+                    <span *ngIf="selectedColumn === e && bmxClientPageOverview" class="header-delete-icon"
+                        matTooltip="delete column" matTooltipPosition="above"
+                        (click)="deleteColumn(testName[columnName])">x</span>
 
                     <!-- 🟢🟢🟢🟢🟢🟢🟢🟢🟢🟢🟢🟢🟢🟢 HEADER TEXT AREA 🟢🟢🟢🟢🟢🟢🟢🟢🟢🟢🟢🟢🟢🟢🟢🟢 -->
 
@@ -172,22 +175,22 @@
 
 
                 <!-- 🟡🟡🟡🟡🟡🟡🟡🟡🟡🟡🟡🟡🟡🟡 TABLE CELLS  🟡🟡🟡🟡🟡🟡🟡🟡🟡🟡🟡🟡🟡🟡🟡🟡 -->
-                <div class="header-title">
+                <div>
 
 
 
 
                     <!-- IF ELSE TEMPLATE INPUTS  -->
-                    <input *ngIf="y !== 0  &&  columnName.includes('Radio Column') == true" type="radio" [name]="y" [value]="y">
+                    <input *ngIf="y !== 0  &&  columnName.includes('Radio Column') == true" type="radio" [name]="y"
+                        [value]="testName[columnName]" (change)="saveRadioColumValue(columnName, y)">
 
-                 
+
                     <!-- TEXT_AREA COLUMN-->
-                    <textarea
-                    *ngIf="y !== 0  && columnName.includes('Comments') == true"
+                    <textarea *ngIf="y !== 0  && columnName.includes('Comments') == true"
                         [style.width]="(columnName == 'rationale')?rationalewidth + 'px':columnsSlider +'px'"
                         [style.font-size]="fontSizeRow +'px'" cdkTextareaAutosize [cdkAutosizeMinRows]="rowHeightSlider"
-                        style="text-align: center;height: 32px;width: 358px;font-size: 16px;border: 1px solid grey;" class="row-box"
-                        [(ngModel)]="testName[columnName]"></textarea>
+                        style="text-align: center;height: 32px;width: 358px;font-size: 16px;border: 1px solid grey;"
+                        class="row-box" [(ngModel)]="testName[columnName]" rows="4" cols="50"></textarea>
 
 
                     <textarea
@@ -197,8 +200,7 @@
                         style="outline: none;text-align: center;" class="row-box"
                         [(ngModel)]="testName[columnName]"></textarea>
 
-                    <p 
-                        *ngIf="y !== 0  && !bmxClientPageDesignMode && (columnName.includes('Radio Column') != true) &&  columnName.includes('Comments') != true"
+                    <p *ngIf="y !== 0  && !bmxClientPageDesignMode && (columnName.includes('Radio Column') != true) &&  columnName.includes('Comments') != true"
                         [style.font-size]="fontSizeRow +'px'"
                         [style.width]="(columnName == 'rationale')?rationalewidth + 'px':columnsSlider +'px'"
                         style="text-align: center;margin: 0 0 0px;">{{testName[columnName]}}</p>
@@ -206,35 +208,36 @@
                 <!-- 🟡🟡🟡🟡🟡🟡🟡🟡🟡🟡🟡🟡🟡🟡 END TABLE CELLS 🟡🟡🟡🟡🟡🟡🟡🟡🟡🟡🟡🟡🟡🟡🟡🟡 -->
             </div>
             <!--⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️ STARS RENDERER ⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️ -->
-            <div style="text-align: center;min-width: 380px;">
-
+            <div
+                style="min-width: 200px;background-color:white;display: flex;align-items: center;
+                justify-content: center;border-left: rgb(231, 230, 230) 1px solid;
+                border-right: rgb(231, 230, 230) 1px solid;border-top: rgb(231, 230, 230) 1px solid;">
                 <div *ngIf="(y !== 0)">
                     <div *ngIf="testName.CRITERIA; else elseBlock">
-                    <div *ngFor="let criteria of testName.CRITERIA  let x =  index"
-                        style="display: flex;flex-direction: row;justify-content: space-between;border-bottom: 1px solid grey;">
-                        <span [style.font-size]="fontSizeRow +'px'" style="margin-bottom: 5px;">{{criteria.name}}</span>
-                        <div style="text-align: right;min-width: 200px;">
-                            
-
-                                <button *ngFor="let star of  criteria.STARS;"
-                                (click)="setCriteriaRating(star.id,x,y)" [ngClass]="star.class"
-                                (mouseenter)="selectCriteriaStar(star.id,x,y)" (mouseleave)="leaveCriteriaStar(y,x)"
-                                    style="outline: none;margin:-5px -11px;" mat-icon-button aria-label="ranking">
+                        <div *ngFor="let criteria of testName.CRITERIA  let x =  index"
+                            style="display: flex;flex-direction: column;justify-content: space-between;border-bottom: rgb(231, 230, 230) 1px solid;">
+                            <span [style.font-size]="fontSizeRow +'px'"
+                                style="padding-top:6px;max-width: 200px;">{{criteria.name}}</span>
+                            <div style="min-width: 200px;padding-bottom:6px">
+                                <button *ngFor="let star of  criteria.STARS;" (click)="setCriteriaRating(star.id,x,y)"
+                                    [ngClass]="star.class" (mouseenter)="selectCriteriaStar(star.id,x,y)"
+                                    (mouseleave)="leaveCriteriaStar(y,x)" style="outline: none;margin:-5px -11px;"
+                                    mat-icon-button aria-label="ranking">
                                     <mat-icon>{{star.icon}}</mat-icon>
                                 </button>
                             </div>
                         </div>
                     </div>
-
                     <ng-template #elseBlock>
-                        <button *ngFor="let star of  testName.STARS; let x =  index"
-                            (click)="setRating(star.id,y)" [ngClass]="star.class"
-                            (mouseenter)="selectStar(star.id , y)" (mouseleave)="leaveStar(y)"
-                            style="outline: none;margin:-5px -11px;" mat-icon-button aria-label="ranking">
-                            <mat-icon>{{star.icon}}</mat-icon>
-                        </button>
+                        <div style="position: relative;top: -5px;">
+                            <button *ngFor="let star of  testName.STARS; let x =  index" (click)="setRating(star.id,y)"
+                                [ngClass]="star.class" (mouseenter)="selectStar(star.id , y)"
+                                (mouseleave)="leaveStar(y)" style="outline: none;margin:-5px -11px;" mat-icon-button
+                                aria-label="ranking">
+                                <mat-icon>{{star.icon}}</mat-icon>
+                            </button>
+                        </div>
                     </ng-template>
-
                 </div>
                 <div class="rating-text" *ngIf="(y === 0 )">RATING</div>
             </div>
@@ -247,9 +250,9 @@
                     <mat-icon>online_prediction</mat-icon>
                 </button>
             </div> -->
-            <div style="min-width: 100px">
-                <button *ngIf="(y !== 0) && bmxClientPageOverview" style="outline: none;margin:-5px -8px;"
-                    (click)="deletRow(y)" mat-icon-button aria-label="ranking">
+            <div *ngIf="(y !== 0) && bmxClientPageOverview" style="min-width: 100px; position: absolute;right: 0px;">
+                <button style="outline: none;margin:-5px -8px;" (click)="deletRow(y)" mat-icon-button
+                    aria-label="ranking">
                     <mat-icon>delete_outline</mat-icon>
                 </button>
             </div>

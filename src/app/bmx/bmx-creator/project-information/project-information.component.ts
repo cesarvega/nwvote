@@ -42,20 +42,18 @@ export class ProjectInformationComponent implements OnInit {
   DIRECTORS: Array<any> = [];
 
   isReadonly;
-  director = {
-    id: '',
-    name: '',
-    title: '',
-    email: '',
-    phone: '',
-    ngModel: ''
-  }
+  // director = {
+  //   id: '',
+  //   name: '',
+  //   title: '',
+  //   email: '',
+  //   phone: '',
+  //   ngModel: ''
+  // }
 
   selectedDirector;
   allDirectors : Array<any> = [];
   currentDirectorList : Array<any> = [];
-
-
   bmxRegionalDirectorDropdown;
   bmxDirecttorSelect;
 
@@ -75,7 +73,7 @@ export class ProjectInformationComponent implements OnInit {
     var items = localStorage.getItem('projectName');
     if (items != undefined || items != null) 
     {
-      this.isReadonly = true;
+      this.isReadonly = false;
       this._BmxService.getProjectInfo(localStorage.getItem('projectName'))
         .subscribe((arg: any) => {
           var data = JSON.parse(arg.d);
@@ -155,6 +153,10 @@ export class ProjectInformationComponent implements OnInit {
 
   saveProjectInfo() {
     localStorage.setItem('fakeproject' + '_project_info', JSON.stringify(this.bmxEditData.value));
+    /*const rememberUser:JSON = <JSON><unknown>{
+      "Client": this.bmxEditData.get('bmxCompany').value
+    }
+    this._BmxService.setProjectInfo(localStorage.getItem('projectName'), JSON.stringify(rememberUser));*/
     this._snackBar.open('Saved Succesfully');
   }
 
@@ -186,25 +188,6 @@ export class ProjectInformationComponent implements OnInit {
     // this.directors = [...this.directors.splice(index, 1)];
 
   }
-  /*
-  fillDirectorInfo(director, index) {
-
-    this.directorNames.forEach(element => {
-      if (element.name == director.ngModel) {
-        this.director = {
-          id: element.id,
-          name: element.name,
-          title: element.title,
-          email: element.email,
-          phone: element.phone,
-          ngModel: director.ngModel
-        }
-        this.DIRECTORS[index] = this.director;
-      }
-    })
-  }
-  */
-
 
   officeSelected(officeName) 
   {
@@ -234,7 +217,7 @@ export class ProjectInformationComponent implements OnInit {
   }
 
   selected(matSelectChange: MatSelectChange, index: number) {
-    this.DIRECTORS[index] = matSelectChange.value;
+    this.DIRECTORS[index] = this.allDirectors.find(o => o.name === matSelectChange.value);
   }
 
   trackByIndex(index, item) {

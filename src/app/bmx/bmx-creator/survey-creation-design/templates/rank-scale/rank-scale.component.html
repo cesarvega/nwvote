@@ -52,16 +52,6 @@ matTooltipPosition="above" mat-icon-button aria-label="ranking">
             <hr>
 
         </div>
-
-        <!-- <div>
-            <mat-form-field appearance="outline">
-                <mat-label>choose criteria</mat-label>
-                <mat-select  multiple [(ngModel)]="selectedCriteria" (selectionChange)="criteriaSelection(selectedCriteria)">
-                  <mat-option *ngFor="let cirteriaItem of CRITERIA" [value]="cirteriaItem">{{cirteriaItem.name}}</mat-option>
-                </mat-select>
-              </mat-form-field>
-        </div> -->
-
         <div>
             <div style="font-size: 16px;margin-top: 10px;color: #48535e;">CHOOSE RATING ICON</div>
             <br>
@@ -128,36 +118,25 @@ matTooltipPosition="above" mat-icon-button aria-label="ranking">
 <!-- ⏺⏺⏺⏺⏺⏺⏺⏺⏺⏺⏺⏺⏺⏺⏺⏺⏺⏺⏺⏺⏺⏺  END  ⏺⏺⏺⏺⏺⏺⏺⏺⏺⏺⏺⏺⏺⏺⏺⏺⏺⏺ -->
 
 
-<div class="scroller-style main-container" dragula="DRAGGABLE_ROW"  [(dragulaModel)]="bmxItem.componentText" (dragulaModelChange)="checkDragEvetn($event);">
+<div class="scroller-style main-container" dragula="DRAGGABLE_RANK_ROW"  [(dragulaModel)]="bmxItem.componentText" (dragulaModelChange)="checkDragEvetn($event);">
     <div *ngFor="let testName of bmxItem.componentText; let y = index">
       
         <div class="test-name-table" style="cursor: grab;">
+<<<<<<< HEAD
             <mat-icon *ngIf="(y !== 0)" class="handle" >drag_indicator</mat-icon>
 
+=======
+         
+>>>>>>> bmx
                  <!--⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️ STARS RENDERER ⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️ -->
                  <div style="text-align: center;min-width: 250px;">
-                
                     <div *ngIf="(y !== 0)">
-                        <!-- <button *ngFor="let star of  testName.STARS; let x =  index" (click)="setRating(star.id,y)"
-                            [ngClass]="star.class" (mouseenter)="selectStar(star.id , y)" (mouseleave)="leaveStar(y)"
-                            style="outline: none;margin:-5px -11px;" mat-icon-button aria-label="ranking">
-                            <p>{{star.icon}}</p>                       
-                        </button> -->
-                        <!-- <mat-form-field appearance="outline">
-                        <mat-label>Choose one</mat-label>
-                        <select [(ngModel)]="selectedRank" formControl="nativeSelectFormControl"
-                        (selectionChange)="setRating(selectedRank,y)">
-                            <option  *ngFor="let star of  testName.STARS; let x =  index" value="star.icon">{{star.icon}}</option>
-                          </select>
-                        </mat-form-field> -->
                         <mat-form-field appearance="outline">
-                            
                             <mat-label>Rank 1 to {{rankingScaleValue}}</mat-label>
                             <mat-select matNativeControl [(ngModel)]="bmxItem.componentText[y].RATE" (selectionChange)="setRating(bmxItem.componentText[y].RATE,y)">
                                 <mat-option  *ngFor="let star of  testName.STARS; let x =  index" [value]="star.icon">{{star.icon}}</mat-option>
                             </mat-select>
                           </mat-form-field>
-    
                     </div>
                     <div class="rating-text"   *ngIf="(y === 0 )">RANKING</div>
                 </div>
@@ -179,20 +158,11 @@ matTooltipPosition="above" mat-icon-button aria-label="ranking">
                     style="text-align: center; font-weight: bold;color: #324395;"
                         class="row-box" [(ngModel)]="testName[columnName]"
                         value="testName[columnName]"></textarea>
-
-                        <!-- <textarea *ngIf=" bmxClientPageDesignMode " 
-                        [style.width]="rationalewidth + 'px'" 
-                            [style.font-size]="fontSizeRow +'px'" cdkTextareaAutosize
-                            [cdkAutosizeMinRows]="(testName[columnName].length > 50)?rowHeightSlider:2"
-                            style="outline: none;text-align: center;" class="row-box"
-                            [(ngModel)]="testName[columnName]"></textarea>cev -->
-
                     <!-- 🟡🟡🟡🟡🟡🟡🟡🟡🟡🟡🟡🟡🟡🟡 HEADER PARAGRAPH VIEW PAGE MODE 🟡🟡🟡🟡🟡🟡🟡🟡🟡🟡🟡🟡🟡🟡🟡🟡 -->
                     <p style="text-align: center; font-weight: bold;color: #324395;margin: 0 0 0px;"                     
                     [style.font-size]="fontSizeRow +'px'"
                         *ngIf=" !bmxClientPageDesignMode">{{testName[columnName]}}</p>
                 </div>        
-                
                 <div class="header-title">
 
                 <!-- 🟢🟢🟢🟢🟢🟢🟢🟢🟢🟢🟢🟢🟢🟢 ROW TEXT AREA 🟢🟢🟢🟢🟢🟢🟢🟢🟢🟢🟢🟢🟢🟢🟢🟢 -->
@@ -212,12 +182,6 @@ matTooltipPosition="above" mat-icon-button aria-label="ranking">
        
 
             <!--♦️♦️♦️♦️♦️♦️♦️♦️♦️♦️♦️♦️♦️♦️♦️♦️♦️♦️♦️♦️♦️♦️♦️♦️♦️♦️♦️♦️♦️♦️♦️♦️♦️♦️♦️♦️♦️♦️♦️♦️♦️♦️♦️♦️ TABLE ROW ICONS ♦️♦️♦️♦️♦️♦️♦️♦️♦️♦️♦️♦️♦️♦️♦️♦️♦️♦️♦️-->
-            <!-- <div style="min-width: 100px">
-                <button *ngIf="(y !== 0)" style="outline: none;margin:-5px -8px;" (click)="deletRow(y)" mat-icon-button
-                    aria-label="ranking">
-                    <mat-icon>online_prediction</mat-icon>
-                </button>
-            </div> -->
             <div style="min-width: 100px">
                 <button *ngIf="(y !== 0) && bmxClientPageOverview" style="outline: none;margin:-5px -8px;" (click)="deletRow(y)" mat-icon-button
                     aria-label="ranking">
@@ -227,12 +191,6 @@ matTooltipPosition="above" mat-icon-button aria-label="ranking">
              <!--♦️♦️♦️♦️♦️♦️♦️♦️♦️♦️♦️♦️♦️♦️♦️♦️♦️♦️♦️♦️♦️♦️♦️♦️♦️♦️♦️♦️♦️♦️♦️♦️♦️♦️♦️♦️♦️♦️♦️♦️♦️♦️♦️♦️ END TABLE ROW ICONS ♦️♦️♦️♦️♦️♦️♦️♦️♦️♦️♦️♦️♦️♦️♦️♦️♦️♦️♦️-->
         </div>
     </div>
-    <!-- <button *ngIf="i === selectedIndex" class="cancel" (click)="selectedIndex = ''" mat-icon-button>
-        <mat-icon style="font-size: 25px;">cancel</mat-icon>
-    </button>
-    <button *ngIf="i !== selectedIndex" mat-icon-button class="edit-icon" (click)="selectedIndex = i">
-        <mat-icon style="font-size: 25px;">edit</mat-icon>
-    </button> -->
 </div>
 
 <!--🥑🥑🥑🥑🥑🥑🥑🥑🥑🥑🥑🥑🥑🥑🥑🥑🥑🥑🥑🥑🥑🥑🥑🥑🥑END RATING TABLE 🥑🥑🥑🥑🥑🥑🥑🥑🥑🥑🥑🥑🥑🥑🥑🥑🥑🥑🥑🥑🥑🥑🥑-->

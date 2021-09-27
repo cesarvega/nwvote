@@ -1,5 +1,6 @@
 import { Component, ElementRef, EventEmitter, Inject, Input, OnInit, Output, ViewChild, ViewEncapsulation } from '@angular/core';
 import { CdkTextareaAutosize } from '@angular/cdk/text-field';
+import { DragulaService } from 'ng2-dragula';
 @Component({
   selector: 'app-rating-scale',
   templateUrl: './rating-scale.component.html',
@@ -15,12 +16,12 @@ export class RatingScaleComponent implements OnInit {
   rankingScaleValue = 5;
   selectedIndex: any
   displayInstructions = false;
-  isColumnResizerOn = false;
+  isColumnResizerOn = true;
 
   selectedStarRatingIndex = ''
   selectedRating = '';
-  columnsSlider = 358
-  rowHeightSlider = 1.5
+  columnsSlider = 150
+  rowHeightSlider = 2
   fontSizeRow = 19
   rationalewidth = this.columnsSlider + 100
 
@@ -38,7 +39,7 @@ export class RatingScaleComponent implements OnInit {
   ratingScaleIcon = 'grade';
   selectedCriteria
 
-  constructor() { }
+  constructor(private dragulaService: DragulaService) { }
   ngOnInit(): void {
     console.log('');
 
@@ -46,7 +47,7 @@ export class RatingScaleComponent implements OnInit {
     let values = Object.keys(this.bmxItem.componentText[0])
 
     values.forEach(value => {
-      if (typeof value == "string" && value != "STARS") {
+      if (typeof value == "string" && value != "STARS" && value != "CRITERIA" ) {
         this.columnsNames.push(value)
       }
     });
@@ -201,7 +202,6 @@ export class RatingScaleComponent implements OnInit {
     });
   }
 
-
   insertRadioColumn() {
     var count = 0;
     for (var k in this.bmxItem.componentText[0]) {
@@ -213,6 +213,16 @@ export class RatingScaleComponent implements OnInit {
     this.bmxItem.componentText.forEach((object, index) => {
       this.bmxItem.componentText[index] = this.addToObject(object, 'Radio Column ' + (count - 1), 'Radio Column ' + (count - 1), count - 1)
     });
+  }
+
+  saveRadioColumValue(name, x){
+    let values = Object.keys(this.bmxItem.componentText[x])
+    values.forEach(columnName => {
+      if (columnName.includes('Radio Column') ) {
+        this.bmxItem.componentText[x][columnName] = false
+      }
+    });
+    this.bmxItem.componentText[x][name] = true
   }
 
   insertCommentBoxColumn() {
@@ -248,6 +258,10 @@ export class RatingScaleComponent implements OnInit {
     this.bmxItem.componentText = this.bmxItem.componentText;
   }
 
+  criteriaSelection(selectedCriteria) {
+    this.ASSIGNED_CRITERIA = selectedCriteria
+  }
+
   checkDragEvetn(e) {
     console.log(e);
   }
@@ -280,8 +294,13 @@ export class RatingScaleComponent implements OnInit {
 
   };
 
-
+  
   // INPUT RANGE CONTROLS AND FONT SIZE
+
+  setColumnWidth(columnWidth) {
+    this.bmxItem.componentSettings[0].columnWidth = columnWidth
+  }
+
   setRationalewidth(rationalewidth) {
     this.bmxItem.componentSettings[0].rationalewidth = rationalewidth
   }
@@ -290,9 +309,6 @@ export class RatingScaleComponent implements OnInit {
     this.bmxItem.componentSettings[0].fontSize = fontSize
   }
 
-  setColumnWidth(columnWidth) {
-    this.bmxItem.componentSettings[0].columnWidth = columnWidth
-  }
 
   setSMALLTextLengthColumnHeight(columnHeight) {
     this.bmxItem.componentSettings[0].columnHeight = columnHeight
@@ -303,14 +319,8 @@ export class RatingScaleComponent implements OnInit {
   }
 
 
-  criteriaSelection(selectedCriteria) {
-    this.ASSIGNED_CRITERIA = selectedCriteria
-  }
 
-  ASSIGNED_CRITERIA = [{ name: 'Fit to Company Description', rate: 0 },
-  { name: 'Fit to Product Statement', rate: 0 },
-  { name: 'Fit to Product Overview', rate: 0 },
-  { name: 'Fit to Global Positioning', rate: 0 }]
+  ASSIGNED_CRITERIA = []
   CRITERIA = [
     { name: 'Fit to Company Description', rate: 0 },
     { name: 'Fit to Product Statement', rate: 0 },

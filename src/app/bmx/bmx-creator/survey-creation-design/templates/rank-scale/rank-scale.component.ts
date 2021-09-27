@@ -42,8 +42,8 @@ export class RankScaleComponent implements OnInit {
   nativeSelectFormControl
 
   constructor(private dragulaService: DragulaService) {
-    dragulaService.createGroup('DRAGGABLE_ROW', {
-      moves: (el, source, handle, sibling) => !el.classList.contains('rating-test')
+    dragulaService.createGroup('DRAGGABLE_RANK_ROW', {
+
     });
    }
   ngOnInit(): void {

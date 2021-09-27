@@ -33,6 +33,12 @@ export class ParticipantsEmailComponent implements OnInit {
   Best,
   The Brand Institute Team`
   selectedOption: any;
+  emailTemp;
+  linkType;
+  From;
+  BCC;
+  CC;
+  Subject;
   LINK_TYPE = [
     { name: 'Direct Link', rationale: 'Sist, Assist, Syst' },
     { name: 'General Link', rationale: 'Hance, En-' },
@@ -155,10 +161,10 @@ export class ParticipantsEmailComponent implements OnInit {
 
   selectRow($event, dataSource) {
     if ($event.checked) {
-      this.to += dataSource.FirstName + '; ';
+      this.to += dataSource.Email + '; ';
     }
     else {
-      this.to = this.to.replace(dataSource.FirstName + '; ', "");
+      this.to = this.to.replace(dataSource.Email + '; ', "");
     }
   }
 
@@ -184,5 +190,21 @@ export class ParticipantsEmailComponent implements OnInit {
     this.dataSource = new MatTableDataSource<any>(this.viewedData);
   }
 
+  sendEmail()
+  {
+    const rememberEmail:JSON = <JSON><unknown>{
+      "dirConfirm": this.dirConfirm,
+      "deptConfirm": this.deptConfirm,
+      "emailTemp" : this.emailTemp,
+      "linkType" : this.linkType,
+      "From" : this.From,
+      "BCC" : this.BCC,
+      "CC" : this.CC,
+      "Subject" : this.Subject,
+      "Message" : this.brandMatrixObjects[1].componentText,
+      "TO" : this.to
+    }
+    localStorage.setItem('fakeprojectname' + '_emailInfo', JSON.stringify(rememberEmail));
+  }
 
 }
