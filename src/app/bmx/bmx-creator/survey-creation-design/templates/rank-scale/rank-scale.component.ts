@@ -42,7 +42,7 @@ export class RankScaleComponent implements OnInit {
   nativeSelectFormControl
 
   constructor(private dragulaService: DragulaService) {
-    dragulaService.createGroup('DRAGGABLE_ROW', {
+    dragulaService.createGroup('DRAGGABLE_RANK_ROW', {
 
     });
    }
