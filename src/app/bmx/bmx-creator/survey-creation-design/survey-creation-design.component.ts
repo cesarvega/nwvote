@@ -486,7 +486,8 @@ export class SurveyCreationDesignComponent implements OnInit {
               "rationalewidth": 250,
               "rowHeight": 2,
               "categoryName": "Category name",
-              "categoryDescription": "category description"
+              "categoryDescription": "category description",
+              "ratingScaleTitle" : "RATING"
             }
           ]
         }
@@ -911,7 +912,8 @@ export class SurveyCreationDesignComponent implements OnInit {
               "rationalewidth": 250,
               "rowHeight": 2,
               "categoryName": "Category name",
-              "categoryDescription": "category description"
+              "categoryDescription": "category description",
+              "ratingScaleTitle" : "RATING"
             }
           ]
         }

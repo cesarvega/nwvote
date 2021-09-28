@@ -20,7 +20,7 @@ export class RatingScaleComponent implements OnInit {
 
   selectedStarRatingIndex = ''
   selectedRating = '';
-  displayEditingIcons = false
+  editSingleTableCells = false
   // columnsSlider = 150
   // rowHeightSlider = 2
   // fontSizeRow = 19
@@ -237,6 +237,10 @@ export class RatingScaleComponent implements OnInit {
 
   deletRow(option): void {
     this.bmxItem.componentText.splice(option, 1);
+  }
+
+  insertRow(): void {
+      this.bmxItem.componentText.push(this.bmxItem.componentText[0])
   }
 
   deleteColumn(columnName) {
