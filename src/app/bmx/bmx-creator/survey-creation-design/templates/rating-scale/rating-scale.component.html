@@ -2,7 +2,7 @@
 <div *ngIf="bmxClientPageOverview">
     <button (click)="selectedIndex = ''" class="add-column" matTooltip="cancel" matTooltipPosition="above"
         style=" margin: -50px 29px;" *ngIf="i === selectedIndex" mat-icon-button>
-        <mat-icon style="font-size: 25px;" class="full-icon">cancel</mat-icon>
+        <mat-icon style="font-size: 25px;" class="full-icon">check_circle</mat-icon>
     </button>
     <button (click)="selectedIndex = i" class="add-column" matTooltip="settings" matTooltipPosition="above"
         style=" margin: -50px 29px;" *ngIf="i !== selectedIndex" mat-icon-button>
@@ -157,13 +157,14 @@
 
 
 <!--💲💲💲💲💲💲💲💲💲💲💲💲💲💲💲💲💲💲💲💲💲💲💲💲💲💲💲💲💲💲💲💲💲 TABLE GENERATOR 💲💲💲💲💲💲💲💲💲💲💲💲💲💲💲💲💲💲💲💲💲💲💲💲💲💲💲💲💲💲💲💲💲💲-->
+<div style="display: flex;flex-direction: column;padding-left: 40px;">
+        
+    <div style="font-size: 25px;color: #324395;padding-bottom: 10px;">{{bmxItem.componentSettings[0].categoryName}}</div>
+    <div style="font-size: 18px;color: #ee7f25;padding-bottom: 20px;">{{bmxItem.componentSettings[0].categoryDescription}}</div>
+    
+</div>
 <div class="scroller-style main-container"  dragula="DRAGGABLE_ROW"  [(dragulaModel)]="bmxItem.componentText" (dragulaModelChange)="checkDragEvetn($event);">
-    <div style="display: flex;flex-direction: column;width: 85vw;">
-        
-        <div style="font-size: 25px;color: #324395;padding-bottom: 10px;">{{bmxItem.componentSettings[0].categoryName}}</div>
-        <div style="font-size: 18px;color: #ee7f25;padding-bottom: 20px;">{{bmxItem.componentSettings[0].categoryDescription}}</div>
-        
-    </div>
+    
     <div *ngFor="let testName of bmxItem.componentText; let y = index">
 
         <!-- <div *ngIf="(y !== 0)" style="color: white;font-size: xx-small;">.</div> -->

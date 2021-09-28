@@ -20,10 +20,11 @@ export class RatingScaleComponent implements OnInit {
 
   selectedStarRatingIndex = ''
   selectedRating = '';
-  columnsSlider = 150
-  rowHeightSlider = 2
-  fontSizeRow = 19
-  rationalewidth = this.columnsSlider + 100
+  displayEditingIcons = false
+  // columnsSlider = 150
+  // rowHeightSlider = 2
+  // fontSizeRow = 19
+  // rationalewidth = this.columnsSlider + 100
 
 
   // CONFIGURATION VARIABLES
@@ -38,6 +39,8 @@ export class RatingScaleComponent implements OnInit {
   selectedColumn
   ratingScaleIcon = 'grade';
   selectedCriteria
+
+
 
   constructor(private dragulaService: DragulaService) { }
   ngOnInit(): void {

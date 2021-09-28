@@ -5,9 +5,14 @@
         <mat-icon class="full-icon" style="font-size: 35px;">handyman
         </mat-icon>
     </button>
-    <button *ngIf="isMenuActive11" style="position: absolute;bottom: 30px;z-index: 9999999999;right: 30px;outline: none;" 
-    (click)="toggleViewPageModeDesign()" mat-icon-button matTooltip="full screen" matTooltipPosition="above">
+    <button *ngIf="isMenuActive11 && bmxClientPageDesignMode" style="position: absolute;bottom: 30px;z-index: 9999999999;right: 30px;outline: none;" 
+    (click)="toggleViewPageModeDesign()" mat-icon-button matTooltip="preview" matTooltipPosition="above">
         <mat-icon class="full-icon" style="font-size: 35px;">visibility
+        </mat-icon>
+    </button>
+    <button *ngIf="isMenuActive11 && !bmxClientPageDesignMode" style="position: absolute;bottom: 30px;z-index: 9999999999;right: 30px;outline: none;" 
+    (click)="toggleViewPageModeDesign()" mat-icon-button matTooltip="menu" matTooltipPosition="above">
+        <mat-icon class="full-icon" style="font-size: 35px;">menu
         </mat-icon>
     </button>
     <div *ngIf="bmxClientPageDesignMode" style="display: flex;border:brown 0px solid;width: 17%; height: 100vh;">
@@ -123,12 +128,12 @@
 
                 </div>
             </div>-->
-            <div [ngClass]="(isMenuActive10)?'menu-active':'menu-item'" (click)="toggleMenuActive('isMenuActive10')">
+            <!-- <div [ngClass]="(isMenuActive10)?'menu-active':'menu-item'" (click)="toggleMenuActive('isMenuActive10')">
                 <div class="title secondary-text"
                     style=" text-align: end;font-family: Arial, Helvetica, sans-serif;font-size: 20px;padding-left:20px">
                     {{'Image Uploader'}}
                 </div>
-            </div>
+            </div> -->
             <div [ngClass]="(isMenuActive11)?'menu-active':'menu-item'" (click)="toggleMenuActive('isMenuActive11')">
                 <div
                     style=" text-align: end;font-family: Arial, Helvetica, sans-serif;font-size: 20px;padding-left:20px">
@@ -159,12 +164,12 @@
                     {{'Survey Participants/Email'}}
                 </div>
             </div>
-            <!-- <div [ngClass]="(isMenuActive16)?'menu-active':'menu-item'" (click)="toggleMenuActive('isMenuActive16')">
+            <div [ngClass]="(isMenuActive16)?'menu-active':'menu-item'" (click)="toggleMenuActive('isMenuActive16')">
                 <div
                     style=" text-align: end;font-family: Arial, Helvetica, sans-serif;font-size: 20px;padding-left:20px">
-                    {{'Contact'}}
+                    {{'Reports'}}
                 </div>
-            </div> -->
+            </div>
             <div [ngClass]="'menu-item'" (click)="toggleMenuActive('isMenuActive1');isMainMenuActive = true">
                 <button mat-icon-button style="color:white;margin: 0 20px 0 20px;">
                     <mat-icon style="transform: rotate(-90deg);margin-right: 10px;">arrow_circle_up</mat-icon>BACK
@@ -233,7 +238,7 @@
     <!--🧠🧠🧠🧠🧠🧠🧠🧠🧠🧠🧠🧠🧠🧠🧠🧠🧠🧠🧠🧠🧠🧠🧠🧠🧠🧠🧠🧠🧠🧠🧠🧠🧠🧠🧠🧠🧠🧠🧠🧠🧠 END PROJECT INFORMATION-->
 
 
-    <!-- TEMPLATES 📐📐📐📐📐📐📐📐📐📐📐📐📐📐📐📐📐📐📐📐📐📐📐📐📐📐📐📐📐📐📐📐📐📐📐📐📐📐📐📐📐📐📐-->
+    <!-- TEMPLATES 📐📐📐📐📐📐📐📐📐📐📐📐📐📐📐📐📐🔴🔴🔴🔴🔴📐📐📐📐📐📐📐📐📐📐📐📐📐📐📐📐📐📐📐📐📐📐📐-->
     <div class="templates" *ngIf="isMenuActive9"
         style="border: hotpink solid 0px; width: 1000px; height: 100vh;overflow-y: hidden;">
 
@@ -286,10 +291,10 @@
     </div>
     <!-- <div class="templates" *ngIf="isMenuActive9" div style="border: pink solid 1px; width: 25%; height: 100vh;">SIDE
         PANEL 9</div> -->
-    <!-- END 📐📐📐📐📐📐📐📐📐📐📐📐📐📐📐📐📐📐📐📐📐📐📐📐📐📐📐📐📐📐📐📐📐📐📐📐📐📐📐📐📐 TEMPLATES -->
+    <!-- END 📐📐📐📐📐📐📐📐📐📐📐📐📐📐📐📐📐📐📐🔴🔴🔴🔴🔴📐📐📐📐📐📐📐📐📐📐📐📐📐📐📐📐📐 TEMPLATES -->
 
 
-    <!-- IMAGE UPLOADER 🎎🎎🎎🎎🎎🎎🎎🎎🎎🎎🎎🎎🎎🎎🎎🎎🎎🎎🎎🎎🎎🎎🎎🎎🎎🎎🎎🎎🎎🎎🎎🎎🎎🎎🎎🎎🎎🎎🎎🎎🎎-->
+    <!-- IMAGE UPLOADER 🎎🎎🎎🎎🎎🎎🎎🎎🎎🎎🎎🎎🎎🔴🔴🔴🔴🔴🔴🎎🎎🎎🎎🎎🎎🎎🎎🎎🎎🎎🎎🎎🎎🎎🎎🎎🎎🎎🎎🎎🎎🎎-->
     <!--<div class="Image-Uploader" *ngIf="isMenuActive10" style="border: hotpink solid 0px; width: auto; height: 100vh;">
         <app-image-uploader></app-image-uploader>
     </div>-->
@@ -301,7 +306,7 @@
     <!-- <div class="Image-Uploader" *ngIf="isMenuActive10" div style="border: pink solid 1px; width: 25%; height: 100vh;">
         SIDE
         PANEL 10</div> -->
-    <!-- END 🎎🎎🎎🎎🎎🎎🎎🎎🎎🎎🎎🎎🎎🎎🎎🎎🎎🎎🎎🎎🎎🎎🎎🎎🎎🎎🎎🎎🎎🎎🎎🎎🎎🎎🎎🎎🎎🎎🎎 IMAGE UPLOADER -->
+    <!-- END 🎎🎎🎎🎎🎎🎎🎎🎎🎎🎎🎎🎎🎎🎎🎎🎎🎎🎎🎎🔴🔴🔴🔴🔴🔴🎎🎎🎎🎎🎎🎎🎎🎎🎎🎎🎎🎎🎎🎎🎎🎎 IMAGE UPLOADER -->
 
 
 
@@ -314,22 +319,22 @@
 
 
 
-    <!-- INTRODUCTION 🚰🚰🚰🚰🚰🚰🚰🚰🚰🚰🚰🚰🚰🚰🚰🚰🚰🚰🚰🚰🚰🚰🚰🚰🚰🚰🚰🚰🚰🚰🚰🚰🚰🚰🚰🚰🚰🚰🚰-->
+    <!-- INTRODUCTION 🚰🚰🚰🚰🚰🚰🚰🚰🚰🚰🚰🚰🚰🚰🚰🚰🔴🔴🔴🔴🚰🚰🚰🚰🚰🚰🚰🚰🚰🚰🚰🚰🚰🚰🚰🚰🚰🚰🚰🚰🚰-->
     <div class="introduction" *ngIf="isMenuActive12" style="border: hotpink solid 1px; width: 60%; height: 100vh;">
         INTRODUCTION
     </div>
     <div class="introduction" *ngIf="isMenuActive12" div style="border: pink solid 1px; width: 25%; height: 100vh;">SIDE
         PANEL 12</div>
-    <!-- END 🚰🚰🚰🚰🚰🚰🚰🚰🚰🚰🚰🚰🚰🚰🚰🚰🚰🚰🚰🚰🚰🚰🚰🚰🚰🚰🚰🚰🚰🚰🚰🚰🚰🚰🚰🚰🚰🚰🚰 INTRODUCTION -->
+    <!-- END 🚰🚰🚰🚰🚰🚰🚰🚰🚰🚰🚰🚰🚰🚰🚰🚰🚰🚰🔴🔴🔴🔴🔴🚰🚰🚰🚰🚰🚰🚰🚰🚰🚰🚰🚰🚰🚰🚰🚰🚰🚰 INTRODUCTION -->
 
 
-    <!-- PAGE MODULES 💊💊💊💊💊💊💊💊💊💊💊💊💊💊💊💊💊💊💊💊💊💊💊💊💊💊💊💊💊💊💊💊💊💊💊💊💊💊💊-->
+    <!-- PAGE MODULES 💊💊💊💊💊💊💊💊💊💊💊💊💊💊💊🔴🔴🔴🔴💊💊💊💊💊💊💊💊💊💊💊💊💊💊💊💊💊💊💊💊-->
     <div class="page-modules" *ngIf="isMenuActive13" style="border: hotpink solid 1px; width: 60%; height: 100vh;">PAGE
         MODULES
     </div>
     <div class="page-modules" *ngIf="isMenuActive13" div style="border: pink solid 1px; width: 25%; height: 100vh;">SIDE
         PANEL 13</div>
-    <!-- END 💊💊💊💊💊💊💊💊💊💊💊💊💊💊💊💊💊💊💊💊💊💊💊💊💊💊💊💊💊💊💊💊💊💊💊💊💊💊💊 PAGE MODULES -->
+    <!-- END 💊💊💊💊💊💊💊💊💊💊💊💊💊💊💊💊💊💊💊🔴🔴🔴🔴💊💊💊💊💊💊💊💊💊💊💊💊💊💊💊💊 PAGE MODULES -->
 
 
     <!-- RESPONDANTS 📩📩📩📩📩📩📩📩📩📩📩📩📩📩📩📩📩📩📩📩📩📩📩📩📩📩📩📩📩📩📩📩📩📩📩📩📩📩📩📩📩-->
@@ -359,10 +364,10 @@
 
 
     <!-- CONTACT 🎀🎀🎀🎀🎀🎀🎀🎀🎀🎀🎀🎀🎀🎀🎀🎀🎀🎀🎀🎀🎀🎀🎀🎀🎀🎀🎀🎀🎀🎀🎀🎀🎀🎀🎀🎀🎀🎀🎀🎀🎀🎀🎀🎀🎀🎀-->
-    <div class="templates" *ngIf="isMenuActive16" style="border: hotpink solid 1px; width: 60%; height: 100vh;">CONTACT
+    <div class="templates" *ngIf="isMenuActive16" style="border: hotpink solid 0px; width: 60%; height: 100vw;">
+        <app-project-reports></app-project-reports>
     </div>
-    <div class="templates" *ngIf="isMenuActive16" div style="border: pink solid 1px; width: 25%; height: 100vh;">SIDE
-        PANEL 15</div>
+   
     <!-- END 🎀🎀🎀🎀🎀🎀🎀🎀🎀🎀🎀🎀🎀🎀🎀🎀🎀🎀🎀🎀🎀🎀🎀🎀🎀🎀🎀🎀🎀🎀🎀🎀🎀🎀🎀🎀🎀🎀🎀🎀🎀🎀🎀🎀🎀 CONTACT -->
 
     <!-- END  📌📌📌📌📌📌📌📌📌📌📌📌📌📌📌📌📌📌📌📌📌📌📌📌📌📌📌📌📌📌📌📌📌📌📌📌📌📌📌 SECOND MENU SECTION PAGES -->
