@@ -99,10 +99,12 @@
 
 
 
-                <button mat-mini-fab style="background-color:#063074;outline: none;" matTooltip="add director" matTooltipPosition="above" (click)="createDirector()">
+                <button mat-mini-fab style="background-color:#063074;outline: none;" matTooltip="add director"
+                    matTooltipPosition="above" (click)="createDirector()">
                     <mat-icon class="full-icon" style="color: white;">add</mat-icon>
                 </button>
-                <button mat-mini-fab style="background-color:#067418;outline: none;" matTooltip="add new user" matTooltipPosition="above" (click)="createCustomDirector()">
+                <button mat-mini-fab style="background-color:#ee7f25;outline: none;" matTooltip="add new user"
+                    matTooltipPosition="above" (click)="createCustomDirector()">
                     <mat-icon class="full-icon" style="color: white;">highlight_alt</mat-icon>
                 </button>
             </div>
@@ -115,48 +117,50 @@
             <mat-card class="directorCard" style="margin:20px 0px;width: 400px;">
 
                 <div style="display: flex;flex-direction: row;">
-                    <div style="margin-right: 6px;" class="selectLabels">Director: </div>
+                    <div style="margin-right: 6px; color: #324395;" class="selectLabels">Director: </div>
                     <input class="directorInfo" [(ngModel)]="DIRECTORS[i].name" placeholder="Director"
                         [readonly]="i !== canEdit" matInput style="width:75%">
                 </div>
 
-                
-                    <div style="display: flex;flex-direction: row;">
-                        <div style="margin-right: 6px;" class="selectLabels">Title: </div>
-                        <input class="directorInfo" [(ngModel)]="DIRECTORS[i].title" placeholder="Title"
-                        [readonly]="i !== canEdit" matInput style="width:75%">
-                    </div>
 
-                    <div style="display: flex;flex-direction: row;">
-                        <div style="margin-right: 6px;" class="selectLabels">Email: </div>
-                        <input class="directorInfo" [(ngModel)]="DIRECTORS[i].email" placeholder="Email"
+                <div style="display: flex;flex-direction: row;">
+                    <div style="margin-right: 6px;color: #053074;" class="selectLabels">Title: </div>
+                    <input class="directorInfo" [(ngModel)]="DIRECTORS[i].title" placeholder="Title"
                         [readonly]="i !== canEdit" matInput style="width:75%">
-                    </div>
+                </div>
 
-                    <div style="display: flex;flex-direction: row;">
-                        <div style="margin-right: 6px;" class="selectLabels">Phone #: </div>
-                        <input class="directorInfo" [(ngModel)]="DIRECTORS[i].phone" placeholder="Phone"
+                <div style="display: flex;flex-direction: row;">
+                    <div style="margin-right: 6px; color: #324395;" class="selectLabels">Email: </div>
+                    <input class="directorInfo" [(ngModel)]="DIRECTORS[i].email" placeholder="Email"
                         [readonly]="i !== canEdit" matInput style="width:75%">
-                    </div>
+                </div>
+
+                <div style="display: flex;flex-direction: row;">
+                    <div style="margin-right: 6px; color: #053074;" class="selectLabels">Phone #: </div>
+                    <input class="directorInfo" [(ngModel)]="DIRECTORS[i].phone" placeholder="Phone"
+                        [readonly]="i !== canEdit" matInput style="width:75%">
+                </div>
+                <div class="optionButton">
                     <div *ngIf="canEdit !== i; else elseBlock">
                         <button mat-icon-button style="position: absolute; top: 9px; right: 5px;color: grey;"
-                            (click)="editDirector(i)">
+                            (click)="editDirector(i)" >
                             <mat-icon>build</mat-icon>
                         </button>
-
+    
                     </div>
-
                     <ng-template #elseBlock>
                         <button mat-icon-button style="position: absolute; top: 9px; right: 5px;color: grey;"
                             (click)="editDirector(i)">
-                            <mat-icon>cached</mat-icon>
+                            <mat-icon>mode_edit_outline</mat-icon>
                         </button>
                     </ng-template>
                     <button mat-icon-button style="position: absolute; top: 45px; right: 5px;color: red;"
-                        (click)="removeDirector(i)">
+                        (dblclick)="removeDirector(i)">
                         <mat-icon>delete</mat-icon>
                     </button>
-                
+
+                </div>
+
             </mat-card>
 
 

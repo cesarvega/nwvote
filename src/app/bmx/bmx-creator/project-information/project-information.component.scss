@@ -14,3 +14,9 @@
   box-shadow: revert ;
   outline: revert;
 }
+
+.optionButton{
+  visibility: hidden;
+}
+
+.directorCard:hover > .optionButton { visibility: visible; }

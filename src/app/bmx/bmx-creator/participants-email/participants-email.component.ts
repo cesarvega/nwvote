@@ -14,6 +14,8 @@ import { HotkeysService, Hotkey } from 'angular2-hotkeys';
 })
 export class ParticipantsEmailComponent implements OnInit {
   allData;
+
+  attachments = [];
   dirConfirm;
   deptConfirm;
   viewedData;
@@ -202,9 +204,38 @@ export class ParticipantsEmailComponent implements OnInit {
       "CC" : this.CC,
       "Subject" : this.Subject,
       "Message" : this.brandMatrixObjects[1].componentText,
-      "TO" : this.to
+      "TO" : this.to,
+      "attachents" : this.attachments
     }
     localStorage.setItem('fakeprojectname' + '_emailInfo', JSON.stringify(rememberEmail));
+  }
+
+  onFileSelected(event) {
+    if (event.target.files && event.target.files[0]) {
+      var filesAmount = event.target.files.length;
+      var filearray = event.target.files;
+      for (let i = 0; i < filesAmount; i++) {
+        var reader = new FileReader();
+        reader.onload = (event: any) => {
+          const filedata = event.target.result.split(",")[0];
+          const resourceData:JSON = <JSON><unknown>{
+            "ProjectName": localStorage.getItem('projectName'),
+            "FileName": filearray[i].name,
+            "ItemType" : 'TestName',
+            "FileType" : filedata,
+            "FileContent" : event.target.result.split(event.target.result.split(",")[0] + ',').pop()
+          }
+          this.attachments.push(resourceData);
+        }
+        reader.readAsDataURL(event.target.files[i]);
+      }
+    }
+    const t = this.attachments;
+  }
+
+  deleteFile(index)
+  {
+    this.attachments.splice(index, 1);
   }
 
 }

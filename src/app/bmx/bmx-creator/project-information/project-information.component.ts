@@ -53,6 +53,7 @@ export class ProjectInformationComponent implements OnInit {
   empty = '';
   dName;
   canEdit;
+  isDisplay = true;
 
   bmxEditData = new FormGroup({
     bmxSalesboard: new FormControl(),
@@ -162,8 +163,6 @@ export class ProjectInformationComponent implements OnInit {
 
 
   createDirector(): void {
-    // this.directors = [...this.directors, this.directors.length];
-    var test = this.dName;
     if (this.dName != undefined) {
       let director: any = {}
       director.email = ""

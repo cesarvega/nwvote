@@ -6,14 +6,18 @@
 
             <div>
                 <div style="margin: 23px 20px;font-size: 20px;color:#063074;font-weight: 800;">Email Settings</div>
-                <div style="line-height: 1; margin-left: 40px;font-size: 15px;
-                color:grey;font-weight: 100;width: 300px;display: flex;flex-direction: row; justify-content: space-between;margin-bottom: 10px;">Send Director Confirmation
+                <div
+                    style="line-height: 1; margin-left: 40px;font-size: 15px;
+                color:grey;font-weight: 100;width: 300px;display: flex;flex-direction: row; justify-content: space-between;margin-bottom: 10px;">
+                    Send Director Confirmation
                     Emails
                     <input type="checkbox" [checked]="dirConfirm" (change)="dirConfirm = !dirConfirm" />
                 </div>
 
-                <div style="line-height: 1; margin-left: 40px;font-size: 15px;
-                color:grey;font-weight: 100;width: 300px;display: flex;flex-direction: row; justify-content: space-between;">Send Department Confirmation
+                <div
+                    style="line-height: 1; margin-left: 40px;font-size: 15px;
+                color:grey;font-weight: 100;width: 300px;display: flex;flex-direction: row; justify-content: space-between;">
+                    Send Department Confirmation
                     Emails
                     <input type="checkbox" [checked]="deptConfirm" (change)="deptConfirm = !deptConfirm" />
                 </div>
@@ -28,7 +32,7 @@
                             <div style="margin: 20px;font-size: 20px;color:#063074;font-weight: 800;">Templates</div>
                             <mat-form-field appearance="outline" style="margin-left: 20px;">
                                 <mat-label>Choose Template</mat-label>
-                                <mat-select class="selectLabels" [(ngModel)] = "emailTemp">
+                                <mat-select class="selectLabels" [(ngModel)]="emailTemp">
                                     <mat-option *ngFor="let EMAIL_TEMPLATE of EMAIL_TEMPLATES" [value]="EMAIL_TEMPLATE">
                                         {{EMAIL_TEMPLATE.name}}
                                     </mat-option>
@@ -39,7 +43,7 @@
                             <div style="margin: 20px;font-size: 20px;color:#063074;font-weight: 800;">Link Type</div>
                             <mat-form-field appearance="outline" style="margin-left: 20px;">
                                 <mat-label>Direct Link</mat-label>
-                                <mat-select class="selectLabels" [(ngModel)] = "linkType">
+                                <mat-select class="selectLabels" [(ngModel)]="linkType">
                                     <mat-option *ngFor="let link of LINK_TYPE" [value]="link">
                                         {{link.name}}
                                     </mat-option>
@@ -60,28 +64,44 @@
             <div style="margin-bottom: 20px;font-size: 20px;color:#063074;font-weight: 800;">Send Invite</div>
             <div style="display: flex;flex-direction: row;margin-bottom: 20px; justify-content: space-between; ">
                 <div style="color:#063074;font-size: 20px;margin-right: 20px;">From :</div>
-                <input style="width: 458px;" mat-input type="text" placeholder="director@brandinstitute.com" [(ngModel)] = "From">
+                <input style="width: 458px;" mat-input type="text" placeholder="director@brandinstitute.com"
+                    [(ngModel)]="From">
             </div>
             <div style="display: flex;flex-direction: row;margin-bottom: 20px;justify-content: space-between;">
                 <div style="color:#063074;font-size: 20px;margin-right: 20px;">CC :</div>
-                <input style="width: 458px;" mat-input type="text" placeholder="CC" [(ngModel)] = "CC">
+                <input style="width: 458px;" mat-input type="text" placeholder="CC" [(ngModel)]="CC">
             </div>
             <div style="display: flex;flex-direction: row;margin-bottom: 20px;justify-content: space-between;">
                 <div style="color:#063074;font-size: 20px;margin-right: 20px;">BCC :</div>
                 <input style="width: 458px;" mat-input type="text"
-                    placeholder="creative@brandinstitue.com,director1@brandinstitue.com,direct..." [(ngModel)] = "BCC">
+                    placeholder="creative@brandinstitue.com,director1@brandinstitue.com,direct..." [(ngModel)]="BCC">
             </div>
             <div style="display: flex;flex-direction: row;margin-bottom: 20px;justify-content: space-between;">
                 <div style="color:#063074;font-size: 20px;margin-right: 20px;">Subject :</div>
-                <input style="width: 458px;" mat-input type="text" placeholder="Subject" [(ngModel)] = "Subject">
+                <input style="width: 458px;" mat-input type="text" placeholder="Subject" [(ngModel)]="Subject">
             </div>
 
             <div style="display: flex;flex-direction: row;">
                 <mat-icon style="color: #003180;font-size: 25px;">attach_file</mat-icon>
-                <div style="color: grey;">{{'attachments'}}</div>
-                <button mat-raised-button style="background-color: #003180;color:white;margin: -7px 0px 0 12px;">
-                    Choose File(s)
-                </button>
+                <div style="color: grey;">
+                    <div *ngFor="let file of attachments; let i = index">
+                        {{file.FileName}}
+                        <button mat-icon-button (click)="deleteFile(i)">
+                            <mat-icon>delete</mat-icon>
+                        </button>
+                    </div>
+                </div>
+                <div>
+                    <input type="file" class="file-input" (change)="onFileSelected($event)" #fileUpload
+                        style="display: none;" multiple>
+                    <button mat-raised-button style="background-color: #003180;color:white;margin: -7px 0px 0 12px;"
+                        (click)="fileUpload.click()">
+                        Choose File(s)
+                    </button>
+
+
+                </div>
+
             </div>
             <div style="width: 100%;margin-top: 20px;">
                 <!-- CKEDITOR -->
@@ -92,7 +112,8 @@
                         [data]="brandMatrixObjects[1].componentText" [config]="ckconfig">
                     </ckeditor>
                     <div style="display: flex;justify-content: flex-end;">
-                        <button mat-raised-button style="background-color: #003180;color:white;margin:20px" (click)="sendEmail()">
+                        <button mat-raised-button style="background-color: #003180;color:white;margin:20px"
+                            (click)="sendEmail()">
                             Send Invite
                         </button>
                         <button mat-raised-button style="background-color: #003180;color:white;margin:20px 0px">
@@ -170,7 +191,7 @@
                 <tr mat-row *matRowDef="let row; columns: displayedColumns;">
                 </tr>
             </table>
-            
+
 
         </div>
     </div>
