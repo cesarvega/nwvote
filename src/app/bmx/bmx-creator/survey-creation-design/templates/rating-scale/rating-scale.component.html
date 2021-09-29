@@ -226,7 +226,7 @@
                 <div>
 
                     <!-- IF ELSE TEMPLATE INPUTS  -->
-                    <input *ngIf="y !== 0  &&  columnName.includes('RadioColumn') == true" type="radio" [name]="y"
+                    <input *ngIf="y !== 0  &&  columnName.includes('RadioColumn') == true" type="radio" [name]="'rate' + y"
                         [checked]="testName[columnName]" (change)="saveRadioColumValue(columnName, y)">
 
 

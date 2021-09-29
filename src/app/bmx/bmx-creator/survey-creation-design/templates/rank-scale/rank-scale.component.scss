@@ -43,7 +43,7 @@
 
 .red{
   background-color: white;
-  border-left: rgb(231, 230, 230) 1px solid;
+  border-right: rgb(231, 230, 230) 1px solid;
   border-top: rgb(231, 230, 230) 1px solid;
   padding: 20px;
   // margin: 5px;
@@ -51,10 +51,14 @@
 
 .blue{
   background-color: white;
-  border-left: rgb(230, 230, 230) 1px solid;
+  border-right: rgb(230, 230, 230) 1px solid;
   border-top: rgb(231, 230, 230) 1px solid;
   padding: 20px;
   // margin: 5px;
+}
+
+.test-name-table:last-child {
+  border-bottom: rgb(231, 230, 230) 1px solid;
 }
 
 

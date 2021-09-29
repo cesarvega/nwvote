@@ -40,6 +40,9 @@ export class RankScaleComponent implements OnInit {
   selectedColumn
   ratingScaleIcon = 'grade';
   selectedCriteria
+  extraColumnCounter = 1
+  radioColumnCounter = 1
+  commentColumnCounter = 1
 
   constructor(private dragulaService: DragulaService) {
    
@@ -82,7 +85,7 @@ export class RankScaleComponent implements OnInit {
     this.selectedRating = this.bmxItem.componentText[testNameId].RATE
     this.bmxItem.componentText[testNameId].STARS.filter((star) => {
       if (star.id <= this.selectedRating && this.selectedRating !== "") {
-        star.class = (this.ratingScaleIcon === 'grade') ? 'active-rating-star' : 'active-rating-bar';
+        star.styleClass = (this.ratingScaleIcon === 'grade') ? 'active-rating-star' : 'active-rating-bar';
       } else {
         star.styleClass = 'rating-star';
       }
@@ -115,7 +118,7 @@ export class RankScaleComponent implements OnInit {
     this.selectedRating = this.bmxItem.componentText[testNameId].CRITERIA[criteriaId].RATE
     this.bmxItem.componentText[testNameId].CRITERIA[criteriaId].STARS.filter((star) => {
       if (star.id <= this.selectedRating && this.selectedRating !== "") {
-        star.class = (this.ratingScaleIcon === 'grade') ? 'active-rating-star' : 'active-rating-bar';
+        star.styleClass = (this.ratingScaleIcon === 'grade') ? 'active-rating-star' : 'active-rating-bar';
       } else {
         star.styleClass = 'rating-star';
       }
@@ -128,8 +131,8 @@ export class RankScaleComponent implements OnInit {
     for (let index = 0; index < ratingScale; index++) {
       startCounter.push({
         id: index,
-        icon: index + 1,
-        class: 'rating-star'
+        icon: ratingScaleIcon,
+        styleClass: 'rating-star'
       });
     }
     return startCounter;
@@ -144,7 +147,20 @@ export class RankScaleComponent implements OnInit {
       const rows = list.split("\n");
       this.columnsNames = [];
       this.columnsNames = rows[0].toLowerCase().split("\t");
-      // rows.splice(0,1);
+
+      this.extraColumnCounter = 1
+      this.columnsNames.forEach((column, index) => {
+        if (column == 'name candidates' || column == 'test names' || column == 'names') {
+          this.columnsNames[index] = 'nameCandidates'
+          } else if (column == 'name rationale' || column == 'rationale' || column == 'rationales')  {
+            this.columnsNames[index] = 'rationale'
+          } else if (column == 'katakana')  {
+            this.columnsNames[index] = 'katakana'
+          } else {
+            this.columnsNames[index] = 'ExtraColumn' + this.extraColumnCounter
+            this.extraColumnCounter++
+          }      
+      });
       this.TESTNAMES_LIST = [];
       for (let i = 0; i < rows.length; i++) {
         if (rows[i] != "" && rows[i].length > 6) {
@@ -153,7 +169,7 @@ export class RankScaleComponent implements OnInit {
 
             for (let e = 0; e < this.columnsNames.length; e++) {
               if ((rows[i].split("\t").length > 0)) {
-                objectColumnDesign[this.columnsNames[e]] = rows[i].split("\t")[e];
+                objectColumnDesign[this.columnsNames[e]] = rows[i].split("\t")[e]
               }
             }
             objectColumnDesign['CRITERIA'] = []
@@ -169,7 +185,7 @@ export class RankScaleComponent implements OnInit {
             objectColumnDesign['STARS'] = this.createRatingStars(this.rankingScaleValue, this.ratingScaleIcon);
             for (let e = 0; e < this.columnsNames.length; e++) {
               if ((rows[i].split("\t").length > 0)) {
-                objectColumnDesign[this.columnsNames[e]] = rows[i].split("\t")[e];
+                objectColumnDesign[this.columnsNames[e]] = rows[i].split("\t")[e]
               }
             }
           }
@@ -188,53 +204,48 @@ export class RankScaleComponent implements OnInit {
 
   // COLUMNS ADD AND REMOVE
   insertTextColumn() {
-    var count = 0;
-    for (var k in this.bmxItem.componentText[0]) {
-      if (this.bmxItem.componentText[0].hasOwnProperty(k)) {
-        ++count;
-      }
-    }
-    this.columnsNames.push('Custom ' + (count - 1));
-    this.bmxItem.componentText.forEach((object, index) => {
-      this.bmxItem.componentText[index] = this.addToObject(object, 'Custom ' + (count - 1), 'Custom ' + (count - 1), count - 1)
+    this.columnsNames.push('ExtraColumn' + (this.extraColumnCounter));
+    this.bmxItem.componentText.forEach((object) => {
+      let coulmnName  = 'ExtraColumn' + this.extraColumnCounter
+      object[coulmnName] = coulmnName + 'txt' 
     });
+    this.extraColumnCounter++
+  }
+
+  insertCommentBoxColumn() {
+    this.columnsNames.push('Comments' + (this.commentColumnCounter));
+    this.bmxItem.componentText.forEach((object) => {
+      // object = this.addToObject(object, 'Comments' + (this.commentColumnCounter), 'CommentsTxt' + (this.commentColumnCounter), this.commentColumnCounter)
+      let coulmnName  = 'Comments' + this.commentColumnCounter
+      object[coulmnName] = coulmnName + 'txt' 
+    });
+    this.commentColumnCounter++
   }
 
   insertRadioColumn() {
-    var count = 0;
-    for (var k in this.bmxItem.componentText[0]) {
-      if (this.bmxItem.componentText[0].hasOwnProperty(k)) {
-        ++count;
-      }
-    }
-    this.columnsNames.push('Radio Column ' + (count - 1));
+    this.columnsNames.push('RadioColumn' + (this.radioColumnCounter));
     this.bmxItem.componentText.forEach((object, index) => {
-      this.bmxItem.componentText[index] = this.addToObject(object, 'Radio Column ' + (count - 1), 'Radio Column ' + (count - 1), count - 1)
+      let coulmnName  = 'RadioColumn' + this.radioColumnCounter
+      if (index == 0) {
+        object[coulmnName] = coulmnName + 'txt' 
+      } else {
+        object[coulmnName] = false 
+      }
     });
+    this.radioColumnCounter++
   }
 
   saveRadioColumValue(name, x){
     let values = Object.keys(this.bmxItem.componentText[x])
     values.forEach(columnName => {
-      if (columnName.includes('Radio Column') ) {
+      if (columnName.includes('RadioColumn') ) {
         this.bmxItem.componentText[x][columnName] = false
       }
     });
     this.bmxItem.componentText[x][name] = true
   }
 
-  insertCommentBoxColumn() {
-    var count = 0;
-    for (var k in this.bmxItem.componentText[0]) {
-      if (this.bmxItem.componentText[0].hasOwnProperty(k)) {
-        ++count;
-      }
-    }
-    this.columnsNames.push('Comments ' + (count - 1));
-    this.bmxItem.componentText.forEach((object, index) => {
-      this.bmxItem.componentText[index] = this.addToObject(object, 'Comments ' + (count - 1), 'Comments ' + (count - 1), count - 1)
-    });
-  }
+ 
 
   deletRow(option): void {
     this.bmxItem.componentText.splice(option, 1);
@@ -300,6 +311,7 @@ export class RankScaleComponent implements OnInit {
   toogleColumnResizer() {
     this.isColumnResizerOn = !this.isColumnResizerOn
   }
+
 
   ASSIGNED_CRITERIA = []
   CRITERIA = [
