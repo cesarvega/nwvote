@@ -257,7 +257,8 @@ export class RankScaleComponent implements OnInit {
   }
 
   insertRow(): void {
-      this.bmxItem.componentText.push(this.bmxItem.componentText[0])
+    // INSERT NEW ROWS bug when radiobutons are on because it copies the name of the 
+      this.bmxItem.componentText.push(this.bmxItem.componentText[1])
   }
 
   deleteColumn(columnName) {
