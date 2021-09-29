@@ -1080,7 +1080,7 @@ export class SurveyCreationDesignComponent implements OnInit {
           "rowHeight": 2,
           "categoryName": "Category name",
           "categoryDescription": "category description",
-          "ratingScaleTitle": "RATING"
+          "ratingScaleTitle": "RANK"
         }
         ],
       })

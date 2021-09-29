@@ -31,7 +31,7 @@ export class RankScaleComponent implements OnInit {
   // CONFIGURATION VARIABLES
   testNamesInput: string
   TestNameDataModel: any[];
-  ratingScale = 5;
+  ratingScale = 3;
   TESTNAMES_LIST = [];
   columnsNames = [];
   columnsNamesHeader: string[];
@@ -43,6 +43,11 @@ export class RankScaleComponent implements OnInit {
   extraColumnCounter = 1
   radioColumnCounter = 1
   commentColumnCounter = 1
+  rankingType = 'dropDown'
+  rankingTypeOptions = [ 'dropDown' , 'dragAndDrop', 'radio' ]
+
+  draggableBag
+  isdropDown = true
 
   constructor(private dragulaService: DragulaService) {
    
@@ -312,6 +317,33 @@ export class RankScaleComponent implements OnInit {
     this.isColumnResizerOn = !this.isColumnResizerOn
   }
 
+
+  rankingTableType(rankingType){
+
+    if (rankingType == 'dropDown' ) {
+      this.draggableBag = ''
+      this.isdropDown = true
+    } else if (rankingType == 'dragAndDrop') {
+      this.draggableBag = 'DRAGGABLE_RANK_ROW'
+      this.isdropDown = false
+      
+    } else if (rankingType == 'radio') {
+      this.draggableBag = ''
+      this.isdropDown = false
+      this.columnsNames.forEach(columnName => {
+        if (columnName.includes('RadioColumn')) {
+          this.deleteColumn(columnName)
+        }
+      });
+      this.radioColumnCounter = 1
+      for (let index = 0; index < this.rankingScaleValue; index++) {
+        
+        this.insertRadioColumn()        
+      }
+      
+    }
+
+  }
 
   ASSIGNED_CRITERIA = []
   CRITERIA = [
