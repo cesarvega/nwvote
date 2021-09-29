@@ -17,7 +17,7 @@
         <mat-icon style="font-size: 26px;" class="full-icon">radio_button_checked</mat-icon>
     </button>
     <button (click)="insertCommentBoxColumn()" class="add-column" style="margin: -50px 125px;"
-        matTooltip="add Comments column" matTooltipPosition="above" mat-icon-button aria-label="ranking">
+        matTooltip="add a Comment box column" matTooltipPosition="above" mat-icon-button aria-label="ranking">
         <mat-icon style="font-size: 26px;" class="full-icon">wysiwyg</mat-icon>
     </button>
     <button (click)="insertRow()" class="add-column" style="margin: -50px 155px;" matTooltip="insert row"
@@ -194,16 +194,16 @@
                     <!-- IF YOU WANT TO DELET ALL COLUMNS PASS THE COLUMN NAME  NOT testName[columnName]-->
                     <span *ngIf="selectedColumn === e && bmxClientPageOverview" class="header-delete-icon"
                         matTooltip="double click to delete column" matTooltipPosition="above"
-                        (dblclick)="deleteColumn(testName[columnName])">x</span>
+                        (dblclick)="deleteColumn(columnName)">x</span>
 
                     <!-- 🟢🟢🟢🟢🟢🟢🟢🟢🟢🟢🟢🟢🟢🟢 HEADER TEXT AREA 🟢🟢🟢🟢🟢🟢🟢🟢🟢🟢🟢🟢🟢🟢🟢🟢 -->
 
-                    <textarea *ngIf="y == 0 && bmxClientPageDesignMode"
+                    <textarea *ngIf="y == 0 && editSingleTableCells"
                         [style.font-size]="bmxItem.componentSettings[0].fontSize +'px'"
                         style="text-align: center; font-weight: bold;color: #324395;" class="row-box"
                         [(ngModel)]="testName[columnName]" value="testName[columnName]"></textarea>
 
-                    <!-- <textarea *ngIf=" bmxClientPageDesignMode " 
+                    <!-- <textarea *ngIf=" editSingleTableCells " 
                         [style.width]="bmxItem.componentSettings[0].rationalewidth + 'px'" 
                             [style.font-size]="bmxItem.componentSettings[0].fontSize +'px'" cdkTextareaAutosize
                             [cdkAutosizeMinRows]="(testName[columnName].length > 50)?bmxItem.componentSettings[0].rowHeight:2"
@@ -215,7 +215,7 @@
 
                     <p style="text-align: center; font-weight: bold;color: #324395;margin: 0 0 0px;"
                         [style.font-size]="bmxItem.componentSettings[0].fontSize +'px'"
-                        *ngIf=" !bmxClientPageDesignMode">{{testName[columnName]}}
+                        *ngIf=" !editSingleTableCells">{{testName[columnName]}}
                     </p>
                 </div>
 
@@ -226,8 +226,8 @@
                 <div>
 
                     <!-- IF ELSE TEMPLATE INPUTS  -->
-                    <input *ngIf="y !== 0  &&  columnName.includes('Radio Column') == true" type="radio" [name]="y"
-                        [value]="testName[columnName]" (change)="saveRadioColumValue(columnName, y)">
+                    <input *ngIf="y !== 0  &&  columnName.includes('RadioColumn') == true" type="radio" [name]="y"
+                        [checked]="testName[columnName]" (change)="saveRadioColumValue(columnName, y)">
 
 
                     <!-- TEXT_AREA COLUMN-->
@@ -241,14 +241,14 @@
 
                         <!-- TEXT AREA TO EDIT TABLE CELL CONTENT -->
                     <textarea
-                        *ngIf="y !== 0  && editSingleTableCells && (columnName.includes('Radio Column') != true) &&  columnName.includes('Comments') != true"
+                        *ngIf="y !== 0  && editSingleTableCells && (columnName.includes('RadioColumn') != true) &&  columnName.includes('Comments') != true"
                         [style.width]="(columnName == 'rationale')?bmxItem.componentSettings[0].rationalewidth + 'px':bmxItem.componentSettings[0].columnWidth +'px'"
                         [style.font-size]="bmxItem.componentSettings[0].fontSize +'px'" cdkTextareaAutosize
                         [cdkAutosizeMinRows]="bmxItem.componentSettings[0].rowHeight"
                         style="outline: none;text-align: center;" class="row-box"
                         [(ngModel)]="testName[columnName]"></textarea>
 
-                    <p *ngIf="y !== 0  && !editSingleTableCells && (columnName.includes('Radio Column') != true) &&  columnName.includes('Comments') != true"
+                    <p *ngIf="y !== 0  && !editSingleTableCells && (columnName.includes('RadioColumn') != true) &&  columnName.includes('Comments') != true"
                         [style.font-size]="bmxItem.componentSettings[0].fontSize +'px'"
                         [style.width]="(columnName == 'rationale')?bmxItem.componentSettings[0].rationalewidth + 'px':bmxItem.componentSettings[0].columnWidth +'px'"
                         style="text-align: center;margin: 0 0 0px;">{{testName[columnName]}}</p>
@@ -267,7 +267,7 @@
                                 style="padding-top:6px;max-width: 200px;">{{criteria.name}}</span>
                             <div style="min-width: 200px;padding-bottom:6px">
                                 <button *ngFor="let star of  criteria.STARS;" (click)="setCriteriaRating(star.id,x,y)"
-                                    [ngClass]="star.class" (mouseenter)="selectCriteriaStar(star.id,x,y)"
+                                    [ngClass]="star.styleClass" (mouseenter)="selectCriteriaStar(star.id,x,y)"
                                     (mouseleave)="leaveCriteriaStar(y,x)" style="outline: none;margin:-5px -11px;"
                                     mat-icon-button aria-label="ranking">
                                     <mat-icon>{{star.icon}}</mat-icon>
@@ -278,7 +278,7 @@
                     <ng-template #elseBlock>
                         <div style="position: relative;top: -5px;">
                             <button *ngFor="let star of  testName.STARS; let x =  index" (click)="setRating(star.id,y)"
-                                [ngClass]="star.class" (mouseenter)="selectStar(star.id , y)"
+                                [ngClass]="star.styleClass" (mouseenter)="selectStar(star.id , y)"
                                 (mouseleave)="leaveStar(y)" style="outline: none;margin:-5px -11px;" mat-icon-button
                                 aria-label="ranking">
                                 <mat-icon>{{star.icon}}</mat-icon>
@@ -286,7 +286,11 @@
                         </div>
                     </ng-template>
                 </div>
-                <div class="rating-text" *ngIf="(y === 0 )">{{bmxItem.componentSettings[0].ratingScaleTitle}}</div>
+                 <textarea *ngIf="y == 0 && editSingleTableCells"
+                        [style.font-size]="bmxItem.componentSettings[0].fontSize +'px'"
+                        style="text-align: center; font-weight: bold;color: #324395;" class="row-box"
+                        [(ngModel)]="bmxItem.componentSettings[0].ratingScaleTitle" value="bmxItem.componentSettings[0].ratingScaleTitle"></textarea>
+                <div class="rating-text" *ngIf="y == 0 && !editSingleTableCells">{{bmxItem.componentSettings[0].ratingScaleTitle}}</div>
             </div>
             <!--⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️ END STARS ⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️ -->
 
