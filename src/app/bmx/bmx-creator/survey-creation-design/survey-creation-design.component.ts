@@ -72,7 +72,7 @@ export class SurveyCreationDesignComponent implements OnInit {
       "page": [
         {
           "componentType": "logo-header",
-          "componentText": "PROJECT NAME",
+          "componentText": "PROJECT BLEND",
           "componentSettings": [
             {
               "fontSize": "16",
@@ -1007,20 +1007,20 @@ export class SurveyCreationDesignComponent implements OnInit {
   }
 
   createNewBmxComponent(componentType) {
-
+// ▶️▶️▶️▶️▶️▶️▶️▶️▶️▶️▶️▶️▶️▶️▶️▶️▶️▶️▶️▶️▶️▶️▶️▶️▶️▶️
     if (componentType === 'logo-header') {
       this.bmxPages[this.currentPage].page.push({
         componentType: 'logo-header',
         componentText: 'PROJECT NAME',
         componentSettings: [{ fontSize: '16px', fontFace: 'Arial', fontColor: 'red' }],
       })
-    }
+    }// ▶️▶️▶️▶️▶️▶️▶️▶️▶️▶️▶️▶️▶️▶️▶️▶️▶️▶️▶️▶️▶️▶️▶️▶️▶️▶️
     else if (componentType === 'text-editor') {
       this.bmxPages[this.currentPage].page.push({
         componentType: 'text-editor',
         componentText: this.sampleHtml2,
         componentSettings: [{ fontSize: '16px', fontFace: 'Arial', fontColor: 'red' }],
-      })
+      })// ▶️▶️▶️▶️▶️▶️▶️▶️▶️▶️▶️▶️▶️▶️▶️▶️▶️▶️▶️▶️▶️▶️▶️▶️▶️▶️
     } else if (componentType === 'rate-scale') {
 
       this.TestNameDataModel = [];
@@ -1052,7 +1052,7 @@ export class SurveyCreationDesignComponent implements OnInit {
         }
         ],
       })
-    }
+    }// ▶️▶️▶️▶️▶️▶️▶️▶️▶️▶️▶️▶️▶️▶️▶️▶️▶️▶️▶️▶️▶️▶️▶️▶️▶️▶️
     else if (componentType === 'ranking-scale') {
 
       this.TestNameDataModel = [];
@@ -1084,7 +1084,7 @@ export class SurveyCreationDesignComponent implements OnInit {
         }
         ],
       })
-    }
+    }// ▶️▶️▶️▶️▶️▶️▶️▶️▶️▶️▶️▶️▶️▶️▶️▶️▶️▶️▶️▶️▶️▶️▶️▶️▶️▶️
     else if (componentType === 'image-rate-scale') {
 
       this.TestNameDataModel = [];

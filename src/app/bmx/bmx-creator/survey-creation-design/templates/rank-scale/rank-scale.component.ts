@@ -54,7 +54,7 @@ export class RankScaleComponent implements OnInit {
    }
    ngOnInit(): void {
     console.log('');
-
+    // this.rankingTableType(this.rankingType)
     // COLUMN NAMES
     let values = Object.keys(this.bmxItem.componentText[0])
 
@@ -320,7 +320,11 @@ export class RankScaleComponent implements OnInit {
 
 
   rankingTableType(rankingType){
-
+    this.columnsNames.forEach(columnName => {
+      if (columnName.includes('RadioColumn')) {
+        this.deleteColumn(columnName)
+      }
+    });
     if (rankingType == 'dropDown' ) {
       this.draggableBag = ''
       this.isdropDown = true
@@ -331,19 +335,11 @@ export class RankScaleComponent implements OnInit {
     } else if (rankingType == 'radio') {
       this.draggableBag = ''
       this.isdropDown = false
-      this.columnsNames.forEach(columnName => {
-        if (columnName.includes('RadioColumn')) {
-          this.deleteColumn(columnName)
-        }
-      });
       this.radioColumnCounter = 1
       for (let index = 0; index < this.rankingScaleValue; index++) {
-        
         this.insertRadioColumn()        
       }
-      
     }
-
   }
 
   ASSIGNED_CRITERIA = []
