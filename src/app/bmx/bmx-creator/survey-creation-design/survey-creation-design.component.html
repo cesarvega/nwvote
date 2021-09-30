@@ -12,7 +12,8 @@
 
             <div *ngIf="bmxItem.componentType === 'logo-header'" class="paragraph">
                 <div style="position: absolute;right: 0px;">
-                    <button *ngIf="bmxClientPageOverview" style="outline: none;color:#f10a0a;top: 19px;" mat-icon-button (dblclick)="deleteComponent(i)"
+                    <button *ngIf="bmxClientPageOverview" matTooltip="double click to delete" matTooltipPosition="above"
+                    style="outline: none;color:#f10a0a;top: 19px;" mat-icon-button (dblclick)="deleteComponent(i)"
                         aria-label="delte">
                         <mat-icon style="font-size: 17px;">cancel</mat-icon>
                     </button>
@@ -23,10 +24,11 @@
 
 
             <!-- BMX PARAGRAPH EDITOR 📑📑📑📑📑📑📑📑📑📑📑📑📑📑📑📑📑📑📑📑📑📑📑📑📑📑📑📑📑📑 -->
-            <div *ngIf="bmxItem.componentType === 'text-editor'" class="paragraph ">
+            <div *ngIf="bmxItem.componentType === 'text-editor'" class="paragraph">
                 <div class="emoji-handle">.</div>
                 <div style="position: absolute;right: 0px;">
-                    <button *ngIf="bmxClientPageOverview" style="outline: none;color:#f10a0a;top: 60px;" mat-icon-button (dblclick)="deleteComponent(i)"
+                    <button *ngIf="bmxClientPageOverview"  matTooltip="double click to delete" matTooltipPosition="above"
+                    style="outline: none;color:#f10a0a;top: 60px;" mat-icon-button (dblclick)="deleteComponent(i)"
                         aria-label="delte">
                         <mat-icon style="font-size: 17px;">cancel</mat-icon>
                     </button>
@@ -40,7 +42,8 @@
             <div *ngIf="bmxItem.componentType === 'rate-scale'" class="paragraph " style="margin-bottom: 30px;">
                 <div class="emoji-handle">.</div>
                 <div style="position: absolute;right: 0px;">
-                    <button *ngIf="bmxClientPageOverview" style="outline: none;color:#f10a0a;top: 19px;" mat-icon-button (dblclick)="deleteComponent(i)"
+                    <button *ngIf="bmxClientPageOverview" matTooltip="double click to delete" matTooltipPosition="above"
+                    style="outline: none;color:#f10a0a;top: 19px;" mat-icon-button (dblclick)="deleteComponent(i)"
                         aria-label="delte">
                         <mat-icon style="font-size: 17px;">cancel</mat-icon>
                     </button>
@@ -55,7 +58,8 @@
             <div *ngIf="bmxItem.componentType === 'ranking-scale'" class="paragraph">
                 <div class="emoji-handle">.</div>
                 <div style="position: absolute;right: 0px;">
-                    <button *ngIf="bmxClientPageOverview"  style="outline: none;color:#f10a0a;top: 19px;" mat-icon-button (dblclick)="deleteComponent(i)"
+                    <button *ngIf="bmxClientPageOverview"  matTooltip="double click to delete" matTooltipPosition="above"
+                    style="outline: none;color:#f10a0a;top: 19px;" mat-icon-button (dblclick)="deleteComponent(i)"
                         aria-label="delte">
                         <mat-icon style="font-size: 17px;">cancel</mat-icon>
                     </button>
@@ -68,7 +72,8 @@
             <div *ngIf="bmxItem.componentType === 'image-rate-scale'" class="paragraph">
                 <div class="emoji-handle">.</div>
                 <div style="position: absolute;right: 0px;">
-                    <button *ngIf="bmxClientPageOverview"  style="outline: none;color:#f10a0a;top: 19px;" mat-icon-button (dblclick)="deleteComponent(i)"
+                    <button *ngIf="bmxClientPageOverview"  matTooltip="double click to delete" matTooltipPosition="above"
+                    style="outline: none;color:#f10a0a;top: 19px;" mat-icon-button (dblclick)="deleteComponent(i)"
                         aria-label="delte">
                         <mat-icon style="font-size: 17px;">cancel</mat-icon>
                     </button>

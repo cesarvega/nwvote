@@ -17,20 +17,21 @@ export class RankScaleComponent implements OnInit {
   rankingScaleValue = 5;
   selectedIndex: any
   displayInstructions = false;
-  isColumnResizerOn = false;
+  isColumnResizerOn = true;
 
   selectedStarRatingIndex = ''
   selectedRating = '';
-  columnsSlider = 358 
-  rowHeightSlider = 1.5
-  fontSizeRow = 19 
-  rationalewidth = this.columnsSlider + 100 
+  editSingleTableCells = false
+  // columnsSlider = 150
+  // rowHeightSlider = 2
+  // fontSizeRow = 19
+  // rationalewidth = this.columnsSlider + 100
 
 
   // CONFIGURATION VARIABLES
   testNamesInput: string
   TestNameDataModel: any[];
-  ratingScale = 5;
+  ratingScale = 3;
   TESTNAMES_LIST = [];
   columnsNames = [];
   columnsNamesHeader: string[];
@@ -38,32 +39,31 @@ export class RankScaleComponent implements OnInit {
   tempItems = [];
   selectedColumn
   ratingScaleIcon = 'grade';
-  selectedRank
-  nativeSelectFormControl
+  selectedCriteria
+  extraColumnCounter = 1
+  radioColumnCounter = 1
+  commentColumnCounter = 1
+  rankingType = 'dropDown'
+  rankingTypeOptions = [ 'dropDown' , 'dragAndDrop', 'radio' ]
+
+  draggableBag
+  isdropDown = true
 
   constructor(private dragulaService: DragulaService) {
-    dragulaService.createGroup('DRAGGABLE_RANK_ROW', {
-
-    });
+   
    }
-  ngOnInit(): void {
+   ngOnInit(): void {
     console.log('');
-    
+    // this.rankingTableType(this.rankingType)
     // COLUMN NAMES
     let values = Object.keys(this.bmxItem.componentText[0])
 
     values.forEach(value => {
-      if (typeof value == "string" && value != "STARS") {
+      if (typeof value == "string" && value != "STARS" && value != "CRITERIA" ) {
         this.columnsNames.push(value)
       }
     });
 
-    // INITIAL COLUMNS SETTINGS
-    this.columnsSlider = (this.bmxItem.componentSettings[0].columnWidth)?this.bmxItem.componentSettings[0].columnWidth:this.columnsSlider
-    this.rowHeightSlider = this.bmxItem.componentSettings[0].columnHeight
-    this.fontSizeRow = this.bmxItem.componentSettings[0].fontSize
-
-    // this.columnsNames = Object.values(this.bmxItem.componentText[0])
   }
 
   // ⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️ STARS METHODS  ⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️
@@ -75,11 +75,11 @@ export class RankScaleComponent implements OnInit {
     this.bmxItem.componentText[testNameId].STARS.filter((star) => {
       if (star.id <= starId) {
 
-        star.class = (this.ratingScaleIcon === 'grade') ? 'active-rating-star' : 'active-rating-bar';
+        star.styleClass = (this.ratingScaleIcon === 'grade') ? 'active-rating-star' : 'active-rating-bar';
 
       } else {
 
-        star.class = 'rating-star';
+        star.styleClass = 'rating-star';
 
       }
       return star;
@@ -90,9 +90,42 @@ export class RankScaleComponent implements OnInit {
     this.selectedRating = this.bmxItem.componentText[testNameId].RATE
     this.bmxItem.componentText[testNameId].STARS.filter((star) => {
       if (star.id <= this.selectedRating && this.selectedRating !== "") {
-        star.class = (this.ratingScaleIcon === 'grade') ? 'active-rating-star' : 'active-rating-bar';
+        star.styleClass = (this.ratingScaleIcon === 'grade') ? 'active-rating-star' : 'active-rating-bar';
       } else {
-        star.class = 'rating-star';
+        star.styleClass = 'rating-star';
+      }
+      return star;
+    });
+  }
+
+  // CRITERIA STARS
+
+  setCriteriaRating( starId, criteriaId, testNameId) {
+    this.bmxItem.componentText[testNameId].CRITERIA[criteriaId].RATE = starId
+  }
+
+  selectCriteriaStar( starId, criteriaId, testNameId): void {
+    this.bmxItem.componentText[testNameId].CRITERIA[criteriaId].STARS.filter((star) => {
+      if (star.id <= starId) {
+
+        star.styleClass = (this.ratingScaleIcon === 'grade') ? 'active-rating-star' : 'active-rating-bar';
+
+      } else {
+
+        star.styleClass = 'rating-star';
+
+      }
+      return star;
+    });
+  }
+
+  leaveCriteriaStar(testNameId, criteriaId): void {
+    this.selectedRating = this.bmxItem.componentText[testNameId].CRITERIA[criteriaId].RATE
+    this.bmxItem.componentText[testNameId].CRITERIA[criteriaId].STARS.filter((star) => {
+      if (star.id <= this.selectedRating && this.selectedRating !== "") {
+        star.styleClass = (this.ratingScaleIcon === 'grade') ? 'active-rating-star' : 'active-rating-bar';
+      } else {
+        star.styleClass = 'rating-star';
       }
       return star;
     });
@@ -103,17 +136,12 @@ export class RankScaleComponent implements OnInit {
     for (let index = 0; index < ratingScale; index++) {
       startCounter.push({
         id: index,
-        icon: index + 1,
-        class: 'rating-star'
+        icon: ratingScaleIcon,
+        styleClass: 'rating-star'
       });
     }
     return startCounter;
   }
-
-  
-  // PRIVATE METHODS
-
-
   // ⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️ END STARS METHODS  ⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️
 
 
@@ -121,52 +149,120 @@ export class RankScaleComponent implements OnInit {
     if (!list) { list = this.listString; }
     if (list) {
       this.listString = list;
-      const textAreaInput = list.split("\n");
+      const rows = list.split("\n");
       this.columnsNames = [];
-      this.columnsNames = textAreaInput[0].toLowerCase().split("\t");
-      // textAreaInput.splice(0,1);
+      this.columnsNames = rows[0].toLowerCase().split("\t");
+
+      this.extraColumnCounter = 1
+      this.columnsNames.forEach((column, index) => {
+        if (column == 'name candidates' || column == 'test names' || column == 'names') {
+          this.columnsNames[index] = 'nameCandidates'
+          } else if (column == 'name rationale' || column == 'rationale' || column == 'rationales')  {
+            this.columnsNames[index] = 'rationale'
+          } else if (column == 'katakana')  {
+            this.columnsNames[index] = 'katakana'
+          } else {
+            this.columnsNames[index] = 'ExtraColumn' + this.extraColumnCounter
+            this.extraColumnCounter++
+          }      
+      });
       this.TESTNAMES_LIST = [];
-      for (var i = 0; i < textAreaInput.length; i++) {
-        if (textAreaInput[i] != "" && textAreaInput[i].length > 6) {
-          let objectColumnDefiner = {};
-          objectColumnDefiner['STARS'] = this.createRatingStars(this.rankingScaleValue, this.ratingScaleIcon);
-          for (var e = 0; e < this.columnsNames.length; e++) {
-            if ((textAreaInput[i].split("\t").length > 0)) {
-              objectColumnDefiner[this.columnsNames[e]] = textAreaInput[i].split("\t")[e];
+      for (let i = 0; i < rows.length; i++) {
+        if (rows[i] != "" && rows[i].length > 6) {
+          let objectColumnDesign = {};
+          if (this.ASSIGNED_CRITERIA.length > 0) {
+
+            for (let e = 0; e < this.columnsNames.length; e++) {
+              if ((rows[i].split("\t").length > 0)) {
+                objectColumnDesign[this.columnsNames[e]] = rows[i].split("\t")[e]
+              }
+            }
+            objectColumnDesign['CRITERIA'] = []
+            this.ASSIGNED_CRITERIA.forEach(criteria => {
+              objectColumnDesign['CRITERIA'].push({
+                name : criteria.name,
+                STARS : this.createRatingStars(this.rankingScaleValue, this.ratingScaleIcon),
+                RATE : -1,
+              })
+            });
+          } else {
+
+            objectColumnDesign['STARS'] = this.createRatingStars(this.rankingScaleValue, this.ratingScaleIcon);
+            for (let e = 0; e < this.columnsNames.length; e++) {
+              if ((rows[i].split("\t").length > 0)) {
+                objectColumnDesign[this.columnsNames[e]] = rows[i].split("\t")[e]
+              }
             }
           }
-          this.TESTNAMES_LIST.push(objectColumnDefiner);
+
+          this.TESTNAMES_LIST.push(objectColumnDesign);
         }
       }
       this.bmxItem.componentText = this.TESTNAMES_LIST;
     } else {
       this.bmxItem.componentText.forEach((row, index) => {
         row.STARS = this.createRatingStars(this.rankingScaleValue, this.ratingScaleIcon)
-        this.bmxItem.componentText[index].RATE = undefined
         // this.leaveStar(index);
       });
     }
   }
 
   // COLUMNS ADD AND REMOVE
-  insertNewColumn() {
-    var count = 0;
-    for (var k in this.bmxItem.componentText[0]) {
-      if (this.bmxItem.componentText[0].hasOwnProperty(k)) {
-        ++count;
-      }
-    }
-    this.columnsNames.push('Custom ' + (count - 1));
-    this.bmxItem.componentText.forEach((object, index) => {
-      this.bmxItem.componentText[index] = this.addToObject(object, 'Custom ' + (count - 1), 'Custom ' + (count - 1), count - 1)
+  insertTextColumn() {
+    this.columnsNames.push('ExtraColumn' + (this.extraColumnCounter));
+    this.bmxItem.componentText.forEach((object) => {
+      let coulmnName  = 'ExtraColumn' + this.extraColumnCounter
+      object[coulmnName] = coulmnName + 'txt' 
     });
+    this.extraColumnCounter++
   }
+
+  insertCommentBoxColumn() {
+    this.columnsNames.push('Comments' + (this.commentColumnCounter));
+    this.bmxItem.componentText.forEach((object) => {
+      // object = this.addToObject(object, 'Comments' + (this.commentColumnCounter), 'CommentsTxt' + (this.commentColumnCounter), this.commentColumnCounter)
+      let coulmnName  = 'Comments' + this.commentColumnCounter
+      object[coulmnName] = coulmnName + 'txt' 
+    });
+    this.commentColumnCounter++
+  }
+
+  insertRadioColumn() {
+    this.columnsNames.push('RadioColumn' + (this.radioColumnCounter));
+    this.bmxItem.componentText.forEach((object, index) => {
+      let coulmnName  = 'RadioColumn' + this.radioColumnCounter
+      if (index == 0) {
+        object[coulmnName] = coulmnName + 'txt' 
+      } else {
+        object[coulmnName] = false 
+      }
+    });
+    this.radioColumnCounter++
+  }
+
+  saveRadioColumValue(name, x){
+    let values = Object.keys(this.bmxItem.componentText[x])
+    values.forEach(columnName => {
+      if (columnName.includes('RadioColumn') ) {
+        this.bmxItem.componentText[x][columnName] = false
+      }
+    });
+    this.bmxItem.componentText[x][name] = true
+  }
+
+ 
 
   deletRow(option): void {
     this.bmxItem.componentText.splice(option, 1);
   }
 
+  insertRow(): void {
+    // INSERT NEW ROWS bug when radiobutons are on because it copies the name of the 
+      this.bmxItem.componentText.push(this.bmxItem.componentText[1])
+  }
+
   deleteColumn(columnName) {
+    
     let temporary = []
     // REMOVE THE COLUMN FROM THE COLUMNS
     this.columnsNames.forEach(element => {
@@ -181,7 +277,9 @@ export class RankScaleComponent implements OnInit {
     this.bmxItem.componentText = this.bmxItem.componentText;
   }
 
-
+  criteriaSelection(selectedCriteria) {
+    this.ASSIGNED_CRITERIA = selectedCriteria
+  }
 
   checkDragEvetn(e) {
     console.log(e);
@@ -216,113 +314,117 @@ export class RankScaleComponent implements OnInit {
   };
 
 
-
-  // INOUT RANGE CONTROLS AND FONT SIZE
-  setRationalewidth(rationalewidth) {
-    this.bmxItem.componentSettings[0].rationalewidth = rationalewidth
-  }
-
-  setFontSize(fontSize) {
-    this.bmxItem.componentSettings[0].fontSize = fontSize
-  }
-
-  setColumnWidth(columnWidth) {
-    this.bmxItem.componentSettings[0].columnWidth = columnWidth
-  }
-
-  setSMALLTextLengthColumnHeight(columnHeight) {
-    this.bmxItem.componentSettings[0].columnHeight = columnHeight
-  }
-  
   toogleColumnResizer() {
     this.isColumnResizerOn = !this.isColumnResizerOn
   }
 
-  ASSIGNED_CATEGORIES = [{name:'Fit to Company Description', rate:0},
-  {name:'Fit to Product Statement', rate:0},
-  {name:'Fit to Product Overview', rate:0},
-  {name:'Fit to Global Positioning', rate:0}]
-  CRITERIAS = [   
-    {name:'Fit to Company Description', rate:0},
-    {name:'Fit to Product Statement', rate:0},
-    {name:'Fit to Product Overview', rate:0},
-    {name:'Fit to Global Positioning', rate:0},
-    {name:'Fit to Concept/Positioning', rate:0},
-    {name:'Fit to Brand Vision', rate:0},
-    {name:'Fit to Vision Statement or Product Description', rate:0},
-    {name:'Fit to Product Concept/Description', rate:0},
-    {name:'Fit to Product Line Concept', rate:0},
-    {name:'Fit to Global Concept', rate:0},
-    {name:'Fit to Program Concept', rate:0},
-    {name:'Fit to Therapeutic Area', rate:0},
-    {name:'Fit to Service Positioning', rate:0},
-    {name:'Fit to Product Description', rate:0},
-    {name:'Fit to Venue Concept', rate:0},
-    {name:'Fit to Program Description', rate:0},
-    {name:'Fit to Program Vision', rate:0},
-    {name:'Fit to Value Proposition', rate:0},
-    {name:'Fit to Technology Concept', rate:0},
-    {name:'Fit to Vision', rate:0},
-    {name:'Product Positioning', rate:0},
-    {name:'Fit to Product Concept and Positioning', rate:0},
-    {name:'Fit to Concept Statement', rate:0},
-    {name:'Fit to Division Concept', rate:0},
-    {name:'Fit to Mechanism of Action', rate:0},
-    {name:'Fit to Brand Concept', rate:0},
-    {name:'Fit to Product Range Concept', rate:0},
-    {name:'Fit to Concept', rate:0},
-    {name:'Fit to Trial Concept', rate:0},
-    {name:'Fit to Product Features and Benefits', rate:0},
-    {name:'Fit to Brand', rate:0},
-    {name:'Fit to Company Concept', rate:0},
-    {name:'S`adapter au Concept de produit', rate:0},
-    {name:'Fit to Compound Concept', rate:0},
-    {name:'Fit to Service Concept', rate:0},
-    {name:'Fit to Product Vision', rate:0},
-    {name:'Fit to Contract Concept', rate:0},
-    {name:'Fit to Product', rate:0},
-    {name:'Fit to Brand Essence', rate:0},
-    {name:'Fit to Entity Objectives', rate:0},
-    {name:'Brand Family Rankings', rate:0},
-    {name:'Fit to Trial Overview', rate:0},
-    {name:'Fit to Business Unit Concept', rate:0},
-    {name:'Fit to X4P-001 WHIM Syndrome Program', rate:0},
-    {name:'Fit to Product Positioning', rate:0},
-    {name:'Fit to LEO Pharma Mission and Vision', rate:0},
-    {name:'Fit to Product Profile', rate:0},
-    {name:'Fit to Positioning', rate:0},
-    {name:'Fit to Company Mission', rate:0},
-    {name:'Fit to Therapy', rate:0},
-    {name:'Fit to Class Concept', rate:0},
-    {name:'• S`adapter au Concept de produit', rate:0},
-    {name:'Fit to Product Concept/S`adapter au Concept de produit', rate:0},
-    {name:'Fit to Portfolio Concept', rate:0},
-    {name:'Fit to Mission and Vision Statements', rate:0},
-    {name:'Overall Feasibility', rate:0},
-    {name:'Fit to Company Description/Mission', rate:0},
-    {name:'Fit to Compound Character and Image', rate:0},
-    {name:'Fit to Strategy', rate:0},
-    {name:'Personal Preference', rate:0},
-    {name:'OPSIRIA Likeness', rate:0},
-    {name:'Appropriately describes the Flutiform breath triggered inhaler', rate:0},
-    {name:'Overall strategic fit and likeability', rate:0},
-    {name:'Uniqueness', rate:0},
-    {name:'Fit to Category Concept', rate:0},
-    {name:'Overall Preference', rate:0},
-    {name:'Connection to Hemlibra', rate:0},
-    {name:'Fit to Company Vision Statement', rate:0},
-    {name:'Fit to Website Concept', rate:0},
-    {name:'Dislike', rate:0},
-    {name:'Like', rate:0},
-    {name:'Negative/Offensive Communication', rate:0},
-    {name:'Fit to Phase 2/3 HTE Trial', rate:0},
-    {name:'Fit to Phase 2 VS Trial', rate:0},
-    {name:'Exaggerative/Inappropriate Claim', rate:0},
-    {name:'Fit to Product Concept', rate:0},
-    {name:'Attribute Evaluations', rate:0},
-    {name:'Memorability', rate:0},
-    {name:'Overall Likeability', rate:0},
-    {name:'How the test name works alongside the name CUVITRU?', rate:0},
+
+  rankingTableType(rankingType){
+    this.columnsNames.forEach(columnName => {
+      if (columnName.includes('RadioColumn')) {
+        this.deleteColumn(columnName)
+      }
+    });
+    if (rankingType == 'dropDown' ) {
+      this.draggableBag = ''
+      this.isdropDown = true
+    } else if (rankingType == 'dragAndDrop') {
+      this.draggableBag = 'DRAGGABLE_RANK_ROW'
+      this.isdropDown = false
+      
+    } else if (rankingType == 'radio') {
+      this.draggableBag = ''
+      this.isdropDown = false
+      this.radioColumnCounter = 1
+      for (let index = 0; index < this.rankingScaleValue; index++) {
+        this.insertRadioColumn()        
+      }
+    }
+  }
+
+  ASSIGNED_CRITERIA = []
+  CRITERIA = [
+    { name: 'Fit to Company Description', rate: 0 },
+    { name: 'Fit to Product Statement', rate: 0 },
+    { name: 'Fit to Product Overview', rate: 0 },
+    { name: 'Fit to Global Positioning', rate: 0 },
+    { name: 'Fit to Concept/Positioning', rate: 0 },
+    { name: 'Fit to Brand Vision', rate: 0 },
+    { name: 'Fit to Vision Statement or Product Description', rate: 0 },
+    { name: 'Fit to Product Concept/Description', rate: 0 },
+    { name: 'Fit to Product Line Concept', rate: 0 },
+    { name: 'Fit to Global Concept', rate: 0 },
+    { name: 'Fit to Program Concept', rate: 0 },
+    { name: 'Fit to Therapeutic Area', rate: 0 },
+    { name: 'Fit to Service Positioning', rate: 0 },
+    { name: 'Fit to Product Description', rate: 0 },
+    { name: 'Fit to Venue Concept', rate: 0 },
+    { name: 'Fit to Program Description', rate: 0 },
+    { name: 'Fit to Program Vision', rate: 0 },
+    { name: 'Fit to Value Proposition', rate: 0 },
+    { name: 'Fit to Technology Concept', rate: 0 },
+    { name: 'Fit to Vision', rate: 0 },
+    { name: 'Product Positioning', rate: 0 },
+    { name: 'Fit to Product Concept and Positioning', rate: 0 },
+    { name: 'Fit to Concept Statement', rate: 0 },
+    { name: 'Fit to Division Concept', rate: 0 },
+    { name: 'Fit to Mechanism of Action', rate: 0 },
+    { name: 'Fit to Brand Concept', rate: 0 },
+    { name: 'Fit to Product Range Concept', rate: 0 },
+    { name: 'Fit to Concept', rate: 0 },
+    { name: 'Fit to Trial Concept', rate: 0 },
+    { name: 'Fit to Product Features and Benefits', rate: 0 },
+    { name: 'Fit to Brand', rate: 0 },
+    { name: 'Fit to Company Concept', rate: 0 },
+    { name: 'S`adapter au Concept de produit', rate: 0 },
+    { name: 'Fit to Compound Concept', rate: 0 },
+    { name: 'Fit to Service Concept', rate: 0 },
+    { name: 'Fit to Product Vision', rate: 0 },
+    { name: 'Fit to Contract Concept', rate: 0 },
+    { name: 'Fit to Product', rate: 0 },
+    { name: 'Fit to Brand Essence', rate: 0 },
+    { name: 'Fit to Entity Objectives', rate: 0 },
+    { name: 'Brand Family Rankings', rate: 0 },
+    { name: 'Fit to Trial Overview', rate: 0 },
+    { name: 'Fit to Business Unit Concept', rate: 0 },
+    { name: 'Fit to X4P-001 WHIM Syndrome Program', rate: 0 },
+    { name: 'Fit to Product Positioning', rate: 0 },
+    { name: 'Fit to LEO Pharma Mission and Vision', rate: 0 },
+    { name: 'Fit to Product Profile', rate: 0 },
+    { name: 'Fit to Positioning', rate: 0 },
+    { name: 'Fit to Company Mission', rate: 0 },
+    { name: 'Fit to Therapy', rate: 0 },
+    { name: 'Fit to Class Concept', rate: 0 },
+    { name: '• S`adapter au Concept de produit', rate: 0 },
+    { name: 'Fit to Product Concept/S`adapter au Concept de produit', rate: 0 },
+    { name: 'Fit to Portfolio Concept', rate: 0 },
+    { name: 'Fit to Mission and Vision Statements', rate: 0 },
+    { name: 'Overall Feasibility', rate: 0 },
+    { name: 'Fit to Company Description/Mission', rate: 0 },
+    { name: 'Fit to Compound Character and Image', rate: 0 },
+    { name: 'Fit to Strategy', rate: 0 },
+    { name: 'Personal Preference', rate: 0 },
+    { name: 'OPSIRIA Likeness', rate: 0 },
+    { name: 'Appropriately describes the Flutiform breath triggered inhaler', rate: 0 },
+    { name: 'Overall strategic fit and likeability', rate: 0 },
+    { name: 'Uniqueness', rate: 0 },
+    { name: 'Fit to Category Concept', rate: 0 },
+    { name: 'Overall Preference', rate: 0 },
+    { name: 'Connection to Hemlibra', rate: 0 },
+    { name: 'Fit to Company Vision Statement', rate: 0 },
+    { name: 'Fit to Website Concept', rate: 0 },
+    { name: 'Dislike', rate: 0 },
+    { name: 'Like', rate: 0 },
+    { name: 'Negative/Offensive Communication', rate: 0 },
+    { name: 'Fit to Phase 2/3 HTE Trial', rate: 0 },
+    { name: 'Fit to Phase 2 VS Trial', rate: 0 },
+    { name: 'Exaggerative/Inappropriate Claim', rate: 0 },
+    { name: 'Fit to Product Concept', rate: 0 },
+    { name: 'Attribute Evaluations', rate: 0 },
+    { name: 'Memorability', rate: 0 },
+    { name: 'Overall Likeability', rate: 0 },
+    { name: 'How the test name works alongside the name CUVITRU?', rate: 0 },
   ]
+
 
 }

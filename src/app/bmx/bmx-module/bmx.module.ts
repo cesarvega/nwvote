@@ -77,6 +77,7 @@ import { RankScaleComponent } from '../bmx-creator/survey-creation-design/templa
 import { ImageRateScaleComponent } from '../bmx-creator/survey-creation-design/templates/image-rate-scale/image-rate-scale.component';
 import { LogoHeaderComponent } from '../bmx-creator/survey-creation-design/templates/logo-header/logo-header.component';
 import { TextParagraphComponent } from '../bmx-creator/survey-creation-design/templates/text-paragraph/text-paragraph.component';
+import { ProjectReportsComponent } from '../bmx-creator/project-reports/project-reports.component';
 export function loadEcharts() {
   return import('echarts');
 }
@@ -97,6 +98,7 @@ export function loadEcharts() {
     ImageRateScaleComponent,
     LogoHeaderComponent,
     TextParagraphComponent,
+    ProjectReportsComponent,
   ],
   imports: [
     BrowserModule,

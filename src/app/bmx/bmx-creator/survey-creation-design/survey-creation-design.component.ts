@@ -72,7 +72,7 @@ export class SurveyCreationDesignComponent implements OnInit {
       "page": [
         {
           "componentType": "logo-header",
-          "componentText": "PROJECT NAME",
+          "componentText": "PROJECT BLEND",
           "componentSettings": [
             {
               "fontSize": "16",
@@ -102,40 +102,40 @@ export class SurveyCreationDesignComponent implements OnInit {
                 {
                   "id": 0,
                   "icon": "grade",
-                  "class": "rating-star"
+                  "styleClass": "rating-star"
                 },
                 {
                   "id": 1,
                   "icon": "grade",
-                  "class": "rating-star"
+                  "styleClass": "rating-star"
                 },
                 {
                   "id": 2,
                   "icon": "grade",
-                  "class": "rating-star"
+                  "styleClass": "rating-star"
                 },
                 {
                   "id": 3,
                   "icon": "grade",
-                  "class": "rating-star"
+                  "styleClass": "rating-star"
                 },
                 {
                   "id": 4,
                   "icon": "grade",
-                  "class": "rating-star"
+                  "styleClass": "rating-star"
                 },
                 {
                   "id": 5,
                   "icon": "grade",
-                  "class": "rating-star"
+                  "styleClass": "rating-star"
                 },
                 {
                   "id": 6,
                   "icon": "grade",
-                  "class": "rating-star"
+                  "styleClass": "rating-star"
                 }
               ],
-              "name": "NAME",
+              "nameCandidates": "NAME",
               "rationale": "RATIONALE",
               "katakana": "KATAKANA"
             },
@@ -144,40 +144,40 @@ export class SurveyCreationDesignComponent implements OnInit {
                 {
                   "id": 0,
                   "icon": "grade",
-                  "class": "rating-star"
+                  "styleClass": "rating-star"
                 },
                 {
                   "id": 1,
                   "icon": "grade",
-                  "class": "rating-star"
+                  "styleClass": "rating-star"
                 },
                 {
                   "id": 2,
                   "icon": "grade",
-                  "class": "rating-star"
+                  "styleClass": "rating-star"
                 },
                 {
                   "id": 3,
                   "icon": "grade",
-                  "class": "rating-star"
+                  "styleClass": "rating-star"
                 },
                 {
                   "id": 4,
                   "icon": "grade",
-                  "class": "rating-star"
+                  "styleClass": "rating-star"
                 },
                 {
                   "id": 5,
                   "icon": "grade",
-                  "class": "rating-star"
+                  "styleClass": "rating-star"
                 },
                 {
                   "id": 6,
                   "icon": "grade",
-                  "class": "rating-star"
+                  "styleClass": "rating-star"
                 }
               ],
-              "name": "LOADED NAME 0",
+              "nameCandidates": "LOADED NAME 0",
               "rationale": "Rationale of an unth",
               "katakana": "片仮名、カタカナ",
               "RATE": 0
@@ -187,40 +187,40 @@ export class SurveyCreationDesignComponent implements OnInit {
                 {
                   "id": 0,
                   "icon": "grade",
-                  "class": "rating-star"
+                  "styleClass": "rating-star"
                 },
                 {
                   "id": 1,
                   "icon": "grade",
-                  "class": "rating-star"
+                  "styleClass": "rating-star"
                 },
                 {
                   "id": 2,
                   "icon": "grade",
-                  "class": "rating-star"
+                  "styleClass": "rating-star"
                 },
                 {
                   "id": 3,
                   "icon": "grade",
-                  "class": "rating-star"
+                  "styleClass": "rating-star"
                 },
                 {
                   "id": 4,
                   "icon": "grade",
-                  "class": "rating-star"
+                  "styleClass": "rating-star"
                 },
                 {
                   "id": 5,
                   "icon": "grade",
-                  "class": "rating-star"
+                  "styleClass": "rating-star"
                 },
                 {
                   "id": 6,
                   "icon": "grade",
-                  "class": "rating-star"
+                  "styleClass": "rating-star"
                 }
               ],
-              "name": "LOADED NAME 1",
+              "nameCandidates": "LOADED NAME 1",
               "rationale": "Rationale of an undisclosed length",
               "katakana": "片仮名、カタカナ"
             },
@@ -229,40 +229,40 @@ export class SurveyCreationDesignComponent implements OnInit {
                 {
                   "id": 0,
                   "icon": "grade",
-                  "class": "rating-star"
+                  "styleClass": "rating-star"
                 },
                 {
                   "id": 1,
                   "icon": "grade",
-                  "class": "rating-star"
+                  "styleClass": "rating-star"
                 },
                 {
                   "id": 2,
                   "icon": "grade",
-                  "class": "rating-star"
+                  "styleClass": "rating-star"
                 },
                 {
                   "id": 3,
                   "icon": "grade",
-                  "class": "rating-star"
+                  "styleClass": "rating-star"
                 },
                 {
                   "id": 4,
                   "icon": "grade",
-                  "class": "rating-star"
+                  "styleClass": "rating-star"
                 },
                 {
                   "id": 5,
                   "icon": "grade",
-                  "class": "rating-star"
+                  "styleClass": "rating-star"
                 },
                 {
                   "id": 6,
                   "icon": "grade",
-                  "class": "rating-star"
+                  "styleClass": "rating-star"
                 }
               ],
-              "name": "LOADED NAME 2",
+              "nameCandidates": "LOADED NAME 2",
               "rationale": "Rationale of an undisclosed length",
               "katakana": "片仮名、カナ"
             },
@@ -271,40 +271,40 @@ export class SurveyCreationDesignComponent implements OnInit {
                 {
                   "id": 0,
                   "icon": "grade",
-                  "class": "rating-star"
+                  "styleClass": "rating-star"
                 },
                 {
                   "id": 1,
                   "icon": "grade",
-                  "class": "rating-star"
+                  "styleClass": "rating-star"
                 },
                 {
                   "id": 2,
                   "icon": "grade",
-                  "class": "rating-star"
+                  "styleClass": "rating-star"
                 },
                 {
                   "id": 3,
                   "icon": "grade",
-                  "class": "rating-star"
+                  "styleClass": "rating-star"
                 },
                 {
                   "id": 4,
                   "icon": "grade",
-                  "class": "rating-star"
+                  "styleClass": "rating-star"
                 },
                 {
                   "id": 5,
                   "icon": "grade",
-                  "class": "rating-star"
+                  "styleClass": "rating-star"
                 },
                 {
                   "id": 6,
                   "icon": "grade",
-                  "class": "rating-star"
+                  "styleClass": "rating-star"
                 }
               ],
-              "name": "LOADED 3",
+              "nameCandidates": "LOADED 3",
               "rationale": "Rationale of an losed length",
               "katakana": "片仮名、カタカナ"
             },
@@ -313,40 +313,40 @@ export class SurveyCreationDesignComponent implements OnInit {
                 {
                   "id": 0,
                   "icon": "grade",
-                  "class": "rating-star"
+                  "styleClass": "rating-star"
                 },
                 {
                   "id": 1,
                   "icon": "grade",
-                  "class": "rating-star"
+                  "styleClass": "rating-star"
                 },
                 {
                   "id": 2,
                   "icon": "grade",
-                  "class": "rating-star"
+                  "styleClass": "rating-star"
                 },
                 {
                   "id": 3,
                   "icon": "grade",
-                  "class": "rating-star"
+                  "styleClass": "rating-star"
                 },
                 {
                   "id": 4,
                   "icon": "grade",
-                  "class": "rating-star"
+                  "styleClass": "rating-star"
                 },
                 {
                   "id": 5,
                   "icon": "grade",
-                  "class": "rating-star"
+                  "styleClass": "rating-star"
                 },
                 {
                   "id": 6,
                   "icon": "grade",
-                  "class": "rating-star"
+                  "styleClass": "rating-star"
                 }
               ],
-              "name": "LOADED NAME 4",
+              "nameCandidates": "LOADED NAME 4",
               "rationale": "Rationale of an undisclosed length",
               "katakana": "、カタカナ"
             },
@@ -355,40 +355,40 @@ export class SurveyCreationDesignComponent implements OnInit {
                 {
                   "id": 0,
                   "icon": "grade",
-                  "class": "rating-star"
+                  "styleClass": "rating-star"
                 },
                 {
                   "id": 1,
                   "icon": "grade",
-                  "class": "rating-star"
+                  "styleClass": "rating-star"
                 },
                 {
                   "id": 2,
                   "icon": "grade",
-                  "class": "rating-star"
+                  "styleClass": "rating-star"
                 },
                 {
                   "id": 3,
                   "icon": "grade",
-                  "class": "rating-star"
+                  "styleClass": "rating-star"
                 },
                 {
                   "id": 4,
                   "icon": "grade",
-                  "class": "rating-star"
+                  "styleClass": "rating-star"
                 },
                 {
                   "id": 5,
                   "icon": "grade",
-                  "class": "rating-star"
+                  "styleClass": "rating-star"
                 },
                 {
                   "id": 6,
                   "icon": "grade",
-                  "class": "rating-star"
+                  "styleClass": "rating-star"
                 }
               ],
-              "name": "NAME 5",
+              "nameCandidates": "NAME 5",
               "rationale": "Rationale of an undisclosed length",
               "katakana": "片仮名、カタカナ"
             },
@@ -397,40 +397,40 @@ export class SurveyCreationDesignComponent implements OnInit {
                 {
                   "id": 0,
                   "icon": "grade",
-                  "class": "rating-star"
+                  "styleClass": "rating-star"
                 },
                 {
                   "id": 1,
                   "icon": "grade",
-                  "class": "rating-star"
+                  "styleClass": "rating-star"
                 },
                 {
                   "id": 2,
                   "icon": "grade",
-                  "class": "rating-star"
+                  "styleClass": "rating-star"
                 },
                 {
                   "id": 3,
                   "icon": "grade",
-                  "class": "rating-star"
+                  "styleClass": "rating-star"
                 },
                 {
                   "id": 4,
                   "icon": "grade",
-                  "class": "rating-star"
+                  "styleClass": "rating-star"
                 },
                 {
                   "id": 5,
                   "icon": "grade",
-                  "class": "rating-star"
+                  "styleClass": "rating-star"
                 },
                 {
                   "id": 6,
                   "icon": "grade",
-                  "class": "rating-star"
+                  "styleClass": "rating-star"
                 }
               ],
-              "name": "LOADED NAME ",
+              "nameCandidates": "LOADED NAME ",
               "rationale": "Rationale of an unlosed lengthRationale of an undisclosed lengthRationale of an undisclosed lengthRationale of an undisclosed lengthRationale of an undisclosed length",
               "katakana": "タカナ"
             },
@@ -439,40 +439,40 @@ export class SurveyCreationDesignComponent implements OnInit {
                 {
                   "id": 0,
                   "icon": "grade",
-                  "class": "rating-star"
+                  "styleClass": "rating-star"
                 },
                 {
                   "id": 1,
                   "icon": "grade",
-                  "class": "rating-star"
+                  "styleClass": "rating-star"
                 },
                 {
                   "id": 2,
                   "icon": "grade",
-                  "class": "rating-star"
+                  "styleClass": "rating-star"
                 },
                 {
                   "id": 3,
                   "icon": "grade",
-                  "class": "rating-star"
+                  "styleClass": "rating-star"
                 },
                 {
                   "id": 4,
                   "icon": "grade",
-                  "class": "rating-star"
+                  "styleClass": "rating-star"
                 },
                 {
                   "id": 5,
                   "icon": "grade",
-                  "class": "rating-star"
+                  "styleClass": "rating-star"
                 },
                 {
                   "id": 6,
                   "icon": "grade",
-                  "class": "rating-star"
+                  "styleClass": "rating-star"
                 }
               ],
-              "name": "LOADED NAME 7",
+              "nameCandidates": "LOADED NAME 7",
               "rationale": "Rationale of an undisclosed length",
               "katakana": "片仮名、カタカナ"
             }
@@ -486,7 +486,8 @@ export class SurveyCreationDesignComponent implements OnInit {
               "rationalewidth": 250,
               "rowHeight": 2,
               "categoryName": "Category name",
-              "categoryDescription": "category description"
+              "categoryDescription": "category description",
+              "ratingScaleTitle": "RATING"
             }
           ]
         }
@@ -527,40 +528,40 @@ export class SurveyCreationDesignComponent implements OnInit {
                 {
                   "id": 0,
                   "icon": "grade",
-                  "class": "rating-star"
+                  "styleClass": "rating-star"
                 },
                 {
                   "id": 1,
                   "icon": "grade",
-                  "class": "rating-star"
+                  "styleClass": "rating-star"
                 },
                 {
                   "id": 2,
                   "icon": "grade",
-                  "class": "rating-star"
+                  "styleClass": "rating-star"
                 },
                 {
                   "id": 3,
                   "icon": "grade",
-                  "class": "rating-star"
+                  "styleClass": "rating-star"
                 },
                 {
                   "id": 4,
                   "icon": "grade",
-                  "class": "rating-star"
+                  "styleClass": "rating-star"
                 },
                 {
                   "id": 5,
                   "icon": "grade",
-                  "class": "rating-star"
+                  "styleClass": "rating-star"
                 },
                 {
                   "id": 6,
                   "icon": "grade",
-                  "class": "rating-star"
+                  "styleClass": "rating-star"
                 }
               ],
-              "name": "NAME",
+              "nameCandidates": "NAME",
               "rationale": "RATIONALE",
               "katakana": "KATAKANA"
             },
@@ -569,40 +570,40 @@ export class SurveyCreationDesignComponent implements OnInit {
                 {
                   "id": 0,
                   "icon": "grade",
-                  "class": "rating-star"
+                  "styleClass": "rating-star"
                 },
                 {
                   "id": 1,
                   "icon": "grade",
-                  "class": "rating-star"
+                  "styleClass": "rating-star"
                 },
                 {
                   "id": 2,
                   "icon": "grade",
-                  "class": "rating-star"
+                  "styleClass": "rating-star"
                 },
                 {
                   "id": 3,
                   "icon": "grade",
-                  "class": "rating-star"
+                  "styleClass": "rating-star"
                 },
                 {
                   "id": 4,
                   "icon": "grade",
-                  "class": "rating-star"
+                  "styleClass": "rating-star"
                 },
                 {
                   "id": 5,
                   "icon": "grade",
-                  "class": "rating-star"
+                  "styleClass": "rating-star"
                 },
                 {
                   "id": 6,
                   "icon": "grade",
-                  "class": "rating-star"
+                  "styleClass": "rating-star"
                 }
               ],
-              "name": "LOADED NAME 0",
+              "nameCandidates": "LOADED NAME 0",
               "rationale": "Rationale of an unth",
               "katakana": "片仮名、カタカナ",
               "RATE": 0
@@ -612,40 +613,40 @@ export class SurveyCreationDesignComponent implements OnInit {
                 {
                   "id": 0,
                   "icon": "grade",
-                  "class": "rating-star"
+                  "styleClass": "rating-star"
                 },
                 {
                   "id": 1,
                   "icon": "grade",
-                  "class": "rating-star"
+                  "styleClass": "rating-star"
                 },
                 {
                   "id": 2,
                   "icon": "grade",
-                  "class": "rating-star"
+                  "styleClass": "rating-star"
                 },
                 {
                   "id": 3,
                   "icon": "grade",
-                  "class": "rating-star"
+                  "styleClass": "rating-star"
                 },
                 {
                   "id": 4,
                   "icon": "grade",
-                  "class": "rating-star"
+                  "styleClass": "rating-star"
                 },
                 {
                   "id": 5,
                   "icon": "grade",
-                  "class": "rating-star"
+                  "styleClass": "rating-star"
                 },
                 {
                   "id": 6,
                   "icon": "grade",
-                  "class": "rating-star"
+                  "styleClass": "rating-star"
                 }
               ],
-              "name": "LOADED NAME 1",
+              "nameCandidates": "LOADED NAME 1",
               "rationale": "Rationale of an undisclosed length",
               "katakana": "片仮名、カタカナ"
             },
@@ -654,40 +655,40 @@ export class SurveyCreationDesignComponent implements OnInit {
                 {
                   "id": 0,
                   "icon": "grade",
-                  "class": "rating-star"
+                  "styleClass": "rating-star"
                 },
                 {
                   "id": 1,
                   "icon": "grade",
-                  "class": "rating-star"
+                  "styleClass": "rating-star"
                 },
                 {
                   "id": 2,
                   "icon": "grade",
-                  "class": "rating-star"
+                  "styleClass": "rating-star"
                 },
                 {
                   "id": 3,
                   "icon": "grade",
-                  "class": "rating-star"
+                  "styleClass": "rating-star"
                 },
                 {
                   "id": 4,
                   "icon": "grade",
-                  "class": "rating-star"
+                  "styleClass": "rating-star"
                 },
                 {
                   "id": 5,
                   "icon": "grade",
-                  "class": "rating-star"
+                  "styleClass": "rating-star"
                 },
                 {
                   "id": 6,
                   "icon": "grade",
-                  "class": "rating-star"
+                  "styleClass": "rating-star"
                 }
               ],
-              "name": "LOADED NAME 2",
+              "nameCandidates": "LOADED NAME 2",
               "rationale": "Rationale of an undisclosed length",
               "katakana": "片仮名、カナ"
             },
@@ -696,40 +697,40 @@ export class SurveyCreationDesignComponent implements OnInit {
                 {
                   "id": 0,
                   "icon": "grade",
-                  "class": "rating-star"
+                  "styleClass": "rating-star"
                 },
                 {
                   "id": 1,
                   "icon": "grade",
-                  "class": "rating-star"
+                  "styleClass": "rating-star"
                 },
                 {
                   "id": 2,
                   "icon": "grade",
-                  "class": "rating-star"
+                  "styleClass": "rating-star"
                 },
                 {
                   "id": 3,
                   "icon": "grade",
-                  "class": "rating-star"
+                  "styleClass": "rating-star"
                 },
                 {
                   "id": 4,
                   "icon": "grade",
-                  "class": "rating-star"
+                  "styleClass": "rating-star"
                 },
                 {
                   "id": 5,
                   "icon": "grade",
-                  "class": "rating-star"
+                  "styleClass": "rating-star"
                 },
                 {
                   "id": 6,
                   "icon": "grade",
-                  "class": "rating-star"
+                  "styleClass": "rating-star"
                 }
               ],
-              "name": "LOADED 3",
+              "nameCandidates": "LOADED 3",
               "rationale": "Rationale of an losed length",
               "katakana": "片仮名、カタカナ"
             },
@@ -738,40 +739,40 @@ export class SurveyCreationDesignComponent implements OnInit {
                 {
                   "id": 0,
                   "icon": "grade",
-                  "class": "rating-star"
+                  "styleClass": "rating-star"
                 },
                 {
                   "id": 1,
                   "icon": "grade",
-                  "class": "rating-star"
+                  "styleClass": "rating-star"
                 },
                 {
                   "id": 2,
                   "icon": "grade",
-                  "class": "rating-star"
+                  "styleClass": "rating-star"
                 },
                 {
                   "id": 3,
                   "icon": "grade",
-                  "class": "rating-star"
+                  "styleClass": "rating-star"
                 },
                 {
                   "id": 4,
                   "icon": "grade",
-                  "class": "rating-star"
+                  "styleClass": "rating-star"
                 },
                 {
                   "id": 5,
                   "icon": "grade",
-                  "class": "rating-star"
+                  "styleClass": "rating-star"
                 },
                 {
                   "id": 6,
                   "icon": "grade",
-                  "class": "rating-star"
+                  "styleClass": "rating-star"
                 }
               ],
-              "name": "LOADED NAME 4",
+              "nameCandidates": "LOADED NAME 4",
               "rationale": "Rationale of an undisclosed length",
               "katakana": "、カタカナ"
             },
@@ -780,40 +781,40 @@ export class SurveyCreationDesignComponent implements OnInit {
                 {
                   "id": 0,
                   "icon": "grade",
-                  "class": "rating-star"
+                  "styleClass": "rating-star"
                 },
                 {
                   "id": 1,
                   "icon": "grade",
-                  "class": "rating-star"
+                  "styleClass": "rating-star"
                 },
                 {
                   "id": 2,
                   "icon": "grade",
-                  "class": "rating-star"
+                  "styleClass": "rating-star"
                 },
                 {
                   "id": 3,
                   "icon": "grade",
-                  "class": "rating-star"
+                  "styleClass": "rating-star"
                 },
                 {
                   "id": 4,
                   "icon": "grade",
-                  "class": "rating-star"
+                  "styleClass": "rating-star"
                 },
                 {
                   "id": 5,
                   "icon": "grade",
-                  "class": "rating-star"
+                  "styleClass": "rating-star"
                 },
                 {
                   "id": 6,
                   "icon": "grade",
-                  "class": "rating-star"
+                  "styleClass": "rating-star"
                 }
               ],
-              "name": "NAME 5",
+              "nameCandidates": "NAME 5",
               "rationale": "Rationale of an undisclosed length",
               "katakana": "片仮名、カタカナ"
             },
@@ -822,40 +823,40 @@ export class SurveyCreationDesignComponent implements OnInit {
                 {
                   "id": 0,
                   "icon": "grade",
-                  "class": "rating-star"
+                  "styleClass": "rating-star"
                 },
                 {
                   "id": 1,
                   "icon": "grade",
-                  "class": "rating-star"
+                  "styleClass": "rating-star"
                 },
                 {
                   "id": 2,
                   "icon": "grade",
-                  "class": "rating-star"
+                  "styleClass": "rating-star"
                 },
                 {
                   "id": 3,
                   "icon": "grade",
-                  "class": "rating-star"
+                  "styleClass": "rating-star"
                 },
                 {
                   "id": 4,
                   "icon": "grade",
-                  "class": "rating-star"
+                  "styleClass": "rating-star"
                 },
                 {
                   "id": 5,
                   "icon": "grade",
-                  "class": "rating-star"
+                  "styleClass": "rating-star"
                 },
                 {
                   "id": 6,
                   "icon": "grade",
-                  "class": "rating-star"
+                  "styleClass": "rating-star"
                 }
               ],
-              "name": "LOADED NAME ",
+              "nameCandidates": "LOADED NAME ",
               "rationale": "Rationale of an unlosed lengthRationale of an undisclosed lengthRationale of an undisclosed lengthRationale of an undisclosed lengthRationale of an undisclosed length",
               "katakana": "タカナ"
             },
@@ -864,40 +865,40 @@ export class SurveyCreationDesignComponent implements OnInit {
                 {
                   "id": 0,
                   "icon": "grade",
-                  "class": "rating-star"
+                  "styleClass": "rating-star"
                 },
                 {
                   "id": 1,
                   "icon": "grade",
-                  "class": "rating-star"
+                  "styleClass": "rating-star"
                 },
                 {
                   "id": 2,
                   "icon": "grade",
-                  "class": "rating-star"
+                  "styleClass": "rating-star"
                 },
                 {
                   "id": 3,
                   "icon": "grade",
-                  "class": "rating-star"
+                  "styleClass": "rating-star"
                 },
                 {
                   "id": 4,
                   "icon": "grade",
-                  "class": "rating-star"
+                  "styleClass": "rating-star"
                 },
                 {
                   "id": 5,
                   "icon": "grade",
-                  "class": "rating-star"
+                  "styleClass": "rating-star"
                 },
                 {
                   "id": 6,
                   "icon": "grade",
-                  "class": "rating-star"
+                  "styleClass": "rating-star"
                 }
               ],
-              "name": "LOADED NAME 7",
+              "nameCandidates": "LOADED NAME 7",
               "rationale": "Rationale of an undisclosed length",
               "katakana": "片仮名、カタカナ"
             }
@@ -911,7 +912,8 @@ export class SurveyCreationDesignComponent implements OnInit {
               "rationalewidth": 250,
               "rowHeight": 2,
               "categoryName": "Category name",
-              "categoryDescription": "category description"
+              "categoryDescription": "category description",
+              "ratingScaleTitle": "RATING"
             }
           ]
         }
@@ -958,890 +960,12 @@ export class SurveyCreationDesignComponent implements OnInit {
       "bmxProjectName": "103PED",
       "bmxRegion": "Basel 1",
       "bmxRegionalDirector": "undefined",
-      "bmxRegionalOffice": [{"name": "William Johnson", "id": "1063", "title": "Global President", "email": "wjohnson@brandinstitute.com"},{ "name": "Priya Patel", "id": "1411", "title": "Vice President, Brand Development - New York", "email": "ppatel@brandinstitute.com"}],
+      "bmxRegionalOffice": [{ "nameCandidates": "William Johnson", "id": "1063", "title": "Global President", "email": "wjohnson@brandinstitute.com" }, { "nameCandidates": "Priya Patel", "id": "1411", "title": "Vice President, Brand Development - New York", "email": "ppatel@brandinstitute.com" }],
       "bmxSalesboard": "103PED",
     },
 
-    "BMX" : [
-      {
-        "pageNumber": 1,
-        "page": [
-          {
-            "componentType": "logo-header",
-            "componentText": "PROJECT NAME",
-            "componentSettings": [
-              {
-                "fontSize": "16",
-                "fontFace": "Arial",
-                "fontColor": "red",
-                "brandInstituteURL": "./assets/img/bmx/BRANDMATRIX-DASHBOARD-LOGO.svg",
-                "companyLogoURL": "./assets/img/bmx/BD.png"
-              }
-            ]
-          },
-          {
-            "componentType": "text-editor",
-            "componentText": "<p style=\"text-align:center\">Instructions</p>\n\n<p style=\"text-align:justify\">Please select&nbsp;only&nbsp;the name candidates that you would categorize as&nbsp;<strong>neutral to positive</strong>&nbsp;You should take into consideration any competitive brand name associations, pronunciation issues or negative connotations when making your selections. To make a selection, simply click the check box to the left of the desired name candidate. After you make a selection, you will be asked to rate that name based on a set of criteria:&nbsp;<strong>Fit to Product Concept:</strong> Please rate each selected name candidate based on how well it fits the product concept on a scale from 1 to 7, 1 being average and 7 being excellent.&nbsp;<strong>Overall Likeability:</strong> Please rate each selected name candidate based on your own personal preference on a scale from 1 to 7, 1 being neutral and 7 being the most liked. Once you have finished your selections, please click the &quot;Continue&quot; button on the bottom of the page to proceed to the next evaluation section.</p>\n\n<p style=\"text-align:justify\">&nbsp;</p>\n\n<p style=\"text-align:center\">Concept Statement</p>\n\n<p>cvegaCS</p>\n\n<p style=\"text-align:justify\">&nbsp;</p>\n\n<p style=\"text-align:justify\">&nbsp;</p>\n",
-            "componentSettings": [
-              {
-                "fontSize": "16",
-                "fontFace": "Arial",
-                "fontColor": "red"
-              }
-            ]
-          },
-          {
-            "componentType": "rate-scale",
-            "componentText": [
-              {
-                "STARS": [
-                  {
-                    "id": 0,
-                    "icon": "grade",
-                    "class": "rating-star"
-                  },
-                  {
-                    "id": 1,
-                    "icon": "grade",
-                    "class": "rating-star"
-                  },
-                  {
-                    "id": 2,
-                    "icon": "grade",
-                    "class": "rating-star"
-                  },
-                  {
-                    "id": 3,
-                    "icon": "grade",
-                    "class": "rating-star"
-                  },
-                  {
-                    "id": 4,
-                    "icon": "grade",
-                    "class": "rating-star"
-                  },
-                  {
-                    "id": 5,
-                    "icon": "grade",
-                    "class": "rating-star"
-                  },
-                  {
-                    "id": 6,
-                    "icon": "grade",
-                    "class": "rating-star"
-                  }
-                ],
-                "name": "NAME",
-                "rationale": "RATIONALE",
-                "katakana": "KATAKANA"
-              },
-              {
-                "STARS": [
-                  {
-                    "id": 0,
-                    "icon": "grade",
-                    "class": "rating-star"
-                  },
-                  {
-                    "id": 1,
-                    "icon": "grade",
-                    "class": "rating-star"
-                  },
-                  {
-                    "id": 2,
-                    "icon": "grade",
-                    "class": "rating-star"
-                  },
-                  {
-                    "id": 3,
-                    "icon": "grade",
-                    "class": "rating-star"
-                  },
-                  {
-                    "id": 4,
-                    "icon": "grade",
-                    "class": "rating-star"
-                  },
-                  {
-                    "id": 5,
-                    "icon": "grade",
-                    "class": "rating-star"
-                  },
-                  {
-                    "id": 6,
-                    "icon": "grade",
-                    "class": "rating-star"
-                  }
-                ],
-                "name": "LOADED NAME 0",
-                "rationale": "Rationale of an unth",
-                "katakana": "片仮名、カタカナ",
-                "RATE": 0
-              },
-              {
-                "STARS": [
-                  {
-                    "id": 0,
-                    "icon": "grade",
-                    "class": "rating-star"
-                  },
-                  {
-                    "id": 1,
-                    "icon": "grade",
-                    "class": "rating-star"
-                  },
-                  {
-                    "id": 2,
-                    "icon": "grade",
-                    "class": "rating-star"
-                  },
-                  {
-                    "id": 3,
-                    "icon": "grade",
-                    "class": "rating-star"
-                  },
-                  {
-                    "id": 4,
-                    "icon": "grade",
-                    "class": "rating-star"
-                  },
-                  {
-                    "id": 5,
-                    "icon": "grade",
-                    "class": "rating-star"
-                  },
-                  {
-                    "id": 6,
-                    "icon": "grade",
-                    "class": "rating-star"
-                  }
-                ],
-                "name": "LOADED NAME 1",
-                "rationale": "Rationale of an undisclosed length",
-                "katakana": "片仮名、カタカナ"
-              },
-              {
-                "STARS": [
-                  {
-                    "id": 0,
-                    "icon": "grade",
-                    "class": "rating-star"
-                  },
-                  {
-                    "id": 1,
-                    "icon": "grade",
-                    "class": "rating-star"
-                  },
-                  {
-                    "id": 2,
-                    "icon": "grade",
-                    "class": "rating-star"
-                  },
-                  {
-                    "id": 3,
-                    "icon": "grade",
-                    "class": "rating-star"
-                  },
-                  {
-                    "id": 4,
-                    "icon": "grade",
-                    "class": "rating-star"
-                  },
-                  {
-                    "id": 5,
-                    "icon": "grade",
-                    "class": "rating-star"
-                  },
-                  {
-                    "id": 6,
-                    "icon": "grade",
-                    "class": "rating-star"
-                  }
-                ],
-                "name": "LOADED NAME 2",
-                "rationale": "Rationale of an undisclosed length",
-                "katakana": "片仮名、カナ"
-              },
-              {
-                "STARS": [
-                  {
-                    "id": 0,
-                    "icon": "grade",
-                    "class": "rating-star"
-                  },
-                  {
-                    "id": 1,
-                    "icon": "grade",
-                    "class": "rating-star"
-                  },
-                  {
-                    "id": 2,
-                    "icon": "grade",
-                    "class": "rating-star"
-                  },
-                  {
-                    "id": 3,
-                    "icon": "grade",
-                    "class": "rating-star"
-                  },
-                  {
-                    "id": 4,
-                    "icon": "grade",
-                    "class": "rating-star"
-                  },
-                  {
-                    "id": 5,
-                    "icon": "grade",
-                    "class": "rating-star"
-                  },
-                  {
-                    "id": 6,
-                    "icon": "grade",
-                    "class": "rating-star"
-                  }
-                ],
-                "name": "LOADED 3",
-                "rationale": "Rationale of an losed length",
-                "katakana": "片仮名、カタカナ"
-              },
-              {
-                "STARS": [
-                  {
-                    "id": 0,
-                    "icon": "grade",
-                    "class": "rating-star"
-                  },
-                  {
-                    "id": 1,
-                    "icon": "grade",
-                    "class": "rating-star"
-                  },
-                  {
-                    "id": 2,
-                    "icon": "grade",
-                    "class": "rating-star"
-                  },
-                  {
-                    "id": 3,
-                    "icon": "grade",
-                    "class": "rating-star"
-                  },
-                  {
-                    "id": 4,
-                    "icon": "grade",
-                    "class": "rating-star"
-                  },
-                  {
-                    "id": 5,
-                    "icon": "grade",
-                    "class": "rating-star"
-                  },
-                  {
-                    "id": 6,
-                    "icon": "grade",
-                    "class": "rating-star"
-                  }
-                ],
-                "name": "LOADED NAME 4",
-                "rationale": "Rationale of an undisclosed length",
-                "katakana": "、カタカナ"
-              },
-              {
-                "STARS": [
-                  {
-                    "id": 0,
-                    "icon": "grade",
-                    "class": "rating-star"
-                  },
-                  {
-                    "id": 1,
-                    "icon": "grade",
-                    "class": "rating-star"
-                  },
-                  {
-                    "id": 2,
-                    "icon": "grade",
-                    "class": "rating-star"
-                  },
-                  {
-                    "id": 3,
-                    "icon": "grade",
-                    "class": "rating-star"
-                  },
-                  {
-                    "id": 4,
-                    "icon": "grade",
-                    "class": "rating-star"
-                  },
-                  {
-                    "id": 5,
-                    "icon": "grade",
-                    "class": "rating-star"
-                  },
-                  {
-                    "id": 6,
-                    "icon": "grade",
-                    "class": "rating-star"
-                  }
-                ],
-                "name": "NAME 5",
-                "rationale": "Rationale of an undisclosed length",
-                "katakana": "片仮名、カタカナ"
-              },
-              {
-                "STARS": [
-                  {
-                    "id": 0,
-                    "icon": "grade",
-                    "class": "rating-star"
-                  },
-                  {
-                    "id": 1,
-                    "icon": "grade",
-                    "class": "rating-star"
-                  },
-                  {
-                    "id": 2,
-                    "icon": "grade",
-                    "class": "rating-star"
-                  },
-                  {
-                    "id": 3,
-                    "icon": "grade",
-                    "class": "rating-star"
-                  },
-                  {
-                    "id": 4,
-                    "icon": "grade",
-                    "class": "rating-star"
-                  },
-                  {
-                    "id": 5,
-                    "icon": "grade",
-                    "class": "rating-star"
-                  },
-                  {
-                    "id": 6,
-                    "icon": "grade",
-                    "class": "rating-star"
-                  }
-                ],
-                "name": "LOADED NAME ",
-                "rationale": "Rationale of an unlosed lengthRationale of an undisclosed lengthRationale of an undisclosed lengthRationale of an undisclosed lengthRationale of an undisclosed length",
-                "katakana": "タカナ"
-              },
-              {
-                "STARS": [
-                  {
-                    "id": 0,
-                    "icon": "grade",
-                    "class": "rating-star"
-                  },
-                  {
-                    "id": 1,
-                    "icon": "grade",
-                    "class": "rating-star"
-                  },
-                  {
-                    "id": 2,
-                    "icon": "grade",
-                    "class": "rating-star"
-                  },
-                  {
-                    "id": 3,
-                    "icon": "grade",
-                    "class": "rating-star"
-                  },
-                  {
-                    "id": 4,
-                    "icon": "grade",
-                    "class": "rating-star"
-                  },
-                  {
-                    "id": 5,
-                    "icon": "grade",
-                    "class": "rating-star"
-                  },
-                  {
-                    "id": 6,
-                    "icon": "grade",
-                    "class": "rating-star"
-                  }
-                ],
-                "name": "LOADED NAME 7",
-                "rationale": "Rationale of an undisclosed length",
-                "katakana": "片仮名、カタカナ"
-              }
-            ],
-            "componentSettings": [
-              {
-                "minRule": 0,
-                "maxRule": 0,
-                "fontSize": 16,
-                "columnWidth": 150,
-                "rationalewidth": 250,
-                "rowHeight": 2,
-                "categoryName": "Category name",
-                "categoryDescription": "category description"
-              }
-            ]
-          }
-        ]
-      },
-      {
-        "pageNumber": 2,
-        "page": [
-          {
-            "componentType": "logo-header",
-            "componentText": "PROJECT NAME",
-            "componentSettings": [
-              {
-                "fontSize": "16",
-                "fontFace": "Arial",
-                "fontColor": "red",
-                "brandInstituteURL": "./assets/img/bmx/BRANDMATRIX-DASHBOARD-LOGO.svg",
-                "companyLogoURL": "./assets/img/bmx/BD.png"
-              }
-            ]
-          },
-          {
-            "componentType": "text-editor",
-            "componentText": "<p style=\"text-align:center\">Instructions</p>\n\n<p>Please select&nbsp;only&nbsp;the name candidates that you would categorize as&nbsp;neutral to positive&nbsp;You should take into consideration any competitive brand name associations, pronunciation issues or negative connotations when making your selections. To make a selection, simply click the check box to the left of the desired name candidate. After you make a selection, you will be asked to rate that name based on a set of criteria:&nbsp;Fit to Product Concept: Please rate each selected name candidate based on how well it fits the product concept on a scale from 1 to 7, 1 being average and 7 being excellent.&nbsp;Overall Likeability: Please rate each selected name candidate based on your own personal preference on a scale from 1 to 7, 1 being neutral and 7 being the most liked. Once you have finished your selections, please click the &quot;Continue&quot; button on the bottom of the page to proceed to the next evaluation section.</p>\n\n<p style=\"text-align:center\">Concept Statement</p>\n",
-            "componentSettings": [
-              {
-                "fontSize": "16",
-                "fontFace": "Arial",
-                "fontColor": "red"
-              }
-            ]
-          },
-          {
-            "componentType": "rate-scale",
-            "componentText": [
-              {
-                "STARS": [
-                  {
-                    "id": 0,
-                    "icon": "grade",
-                    "class": "rating-star"
-                  },
-                  {
-                    "id": 1,
-                    "icon": "grade",
-                    "class": "rating-star"
-                  },
-                  {
-                    "id": 2,
-                    "icon": "grade",
-                    "class": "rating-star"
-                  },
-                  {
-                    "id": 3,
-                    "icon": "grade",
-                    "class": "rating-star"
-                  },
-                  {
-                    "id": 4,
-                    "icon": "grade",
-                    "class": "rating-star"
-                  },
-                  {
-                    "id": 5,
-                    "icon": "grade",
-                    "class": "rating-star"
-                  },
-                  {
-                    "id": 6,
-                    "icon": "grade",
-                    "class": "rating-star"
-                  }
-                ],
-                "name": "NAME",
-                "rationale": "RATIONALE",
-                "katakana": "KATAKANA"
-              },
-              {
-                "STARS": [
-                  {
-                    "id": 0,
-                    "icon": "grade",
-                    "class": "rating-star"
-                  },
-                  {
-                    "id": 1,
-                    "icon": "grade",
-                    "class": "rating-star"
-                  },
-                  {
-                    "id": 2,
-                    "icon": "grade",
-                    "class": "rating-star"
-                  },
-                  {
-                    "id": 3,
-                    "icon": "grade",
-                    "class": "rating-star"
-                  },
-                  {
-                    "id": 4,
-                    "icon": "grade",
-                    "class": "rating-star"
-                  },
-                  {
-                    "id": 5,
-                    "icon": "grade",
-                    "class": "rating-star"
-                  },
-                  {
-                    "id": 6,
-                    "icon": "grade",
-                    "class": "rating-star"
-                  }
-                ],
-                "name": "LOADED NAME 0",
-                "rationale": "Rationale of an unth",
-                "katakana": "片仮名、カタカナ",
-                "RATE": 0
-              },
-              {
-                "STARS": [
-                  {
-                    "id": 0,
-                    "icon": "grade",
-                    "class": "rating-star"
-                  },
-                  {
-                    "id": 1,
-                    "icon": "grade",
-                    "class": "rating-star"
-                  },
-                  {
-                    "id": 2,
-                    "icon": "grade",
-                    "class": "rating-star"
-                  },
-                  {
-                    "id": 3,
-                    "icon": "grade",
-                    "class": "rating-star"
-                  },
-                  {
-                    "id": 4,
-                    "icon": "grade",
-                    "class": "rating-star"
-                  },
-                  {
-                    "id": 5,
-                    "icon": "grade",
-                    "class": "rating-star"
-                  },
-                  {
-                    "id": 6,
-                    "icon": "grade",
-                    "class": "rating-star"
-                  }
-                ],
-                "name": "LOADED NAME 1",
-                "rationale": "Rationale of an undisclosed length",
-                "katakana": "片仮名、カタカナ"
-              },
-              {
-                "STARS": [
-                  {
-                    "id": 0,
-                    "icon": "grade",
-                    "class": "rating-star"
-                  },
-                  {
-                    "id": 1,
-                    "icon": "grade",
-                    "class": "rating-star"
-                  },
-                  {
-                    "id": 2,
-                    "icon": "grade",
-                    "class": "rating-star"
-                  },
-                  {
-                    "id": 3,
-                    "icon": "grade",
-                    "class": "rating-star"
-                  },
-                  {
-                    "id": 4,
-                    "icon": "grade",
-                    "class": "rating-star"
-                  },
-                  {
-                    "id": 5,
-                    "icon": "grade",
-                    "class": "rating-star"
-                  },
-                  {
-                    "id": 6,
-                    "icon": "grade",
-                    "class": "rating-star"
-                  }
-                ],
-                "name": "LOADED NAME 2",
-                "rationale": "Rationale of an undisclosed length",
-                "katakana": "片仮名、カナ"
-              },
-              {
-                "STARS": [
-                  {
-                    "id": 0,
-                    "icon": "grade",
-                    "class": "rating-star"
-                  },
-                  {
-                    "id": 1,
-                    "icon": "grade",
-                    "class": "rating-star"
-                  },
-                  {
-                    "id": 2,
-                    "icon": "grade",
-                    "class": "rating-star"
-                  },
-                  {
-                    "id": 3,
-                    "icon": "grade",
-                    "class": "rating-star"
-                  },
-                  {
-                    "id": 4,
-                    "icon": "grade",
-                    "class": "rating-star"
-                  },
-                  {
-                    "id": 5,
-                    "icon": "grade",
-                    "class": "rating-star"
-                  },
-                  {
-                    "id": 6,
-                    "icon": "grade",
-                    "class": "rating-star"
-                  }
-                ],
-                "name": "LOADED 3",
-                "rationale": "Rationale of an losed length",
-                "katakana": "片仮名、カタカナ"
-              },
-              {
-                "STARS": [
-                  {
-                    "id": 0,
-                    "icon": "grade",
-                    "class": "rating-star"
-                  },
-                  {
-                    "id": 1,
-                    "icon": "grade",
-                    "class": "rating-star"
-                  },
-                  {
-                    "id": 2,
-                    "icon": "grade",
-                    "class": "rating-star"
-                  },
-                  {
-                    "id": 3,
-                    "icon": "grade",
-                    "class": "rating-star"
-                  },
-                  {
-                    "id": 4,
-                    "icon": "grade",
-                    "class": "rating-star"
-                  },
-                  {
-                    "id": 5,
-                    "icon": "grade",
-                    "class": "rating-star"
-                  },
-                  {
-                    "id": 6,
-                    "icon": "grade",
-                    "class": "rating-star"
-                  }
-                ],
-                "name": "LOADED NAME 4",
-                "rationale": "Rationale of an undisclosed length",
-                "katakana": "、カタカナ"
-              },
-              {
-                "STARS": [
-                  {
-                    "id": 0,
-                    "icon": "grade",
-                    "class": "rating-star"
-                  },
-                  {
-                    "id": 1,
-                    "icon": "grade",
-                    "class": "rating-star"
-                  },
-                  {
-                    "id": 2,
-                    "icon": "grade",
-                    "class": "rating-star"
-                  },
-                  {
-                    "id": 3,
-                    "icon": "grade",
-                    "class": "rating-star"
-                  },
-                  {
-                    "id": 4,
-                    "icon": "grade",
-                    "class": "rating-star"
-                  },
-                  {
-                    "id": 5,
-                    "icon": "grade",
-                    "class": "rating-star"
-                  },
-                  {
-                    "id": 6,
-                    "icon": "grade",
-                    "class": "rating-star"
-                  }
-                ],
-                "name": "NAME 5",
-                "rationale": "Rationale of an undisclosed length",
-                "katakana": "片仮名、カタカナ"
-              },
-              {
-                "STARS": [
-                  {
-                    "id": 0,
-                    "icon": "grade",
-                    "class": "rating-star"
-                  },
-                  {
-                    "id": 1,
-                    "icon": "grade",
-                    "class": "rating-star"
-                  },
-                  {
-                    "id": 2,
-                    "icon": "grade",
-                    "class": "rating-star"
-                  },
-                  {
-                    "id": 3,
-                    "icon": "grade",
-                    "class": "rating-star"
-                  },
-                  {
-                    "id": 4,
-                    "icon": "grade",
-                    "class": "rating-star"
-                  },
-                  {
-                    "id": 5,
-                    "icon": "grade",
-                    "class": "rating-star"
-                  },
-                  {
-                    "id": 6,
-                    "icon": "grade",
-                    "class": "rating-star"
-                  }
-                ],
-                "name": "LOADED NAME ",
-                "rationale": "Rationale of an unlosed lengthRationale of an undisclosed lengthRationale of an undisclosed lengthRationale of an undisclosed lengthRationale of an undisclosed length",
-                "katakana": "タカナ"
-              },
-              {
-                "STARS": [
-                  {
-                    "id": 0,
-                    "icon": "grade",
-                    "class": "rating-star"
-                  },
-                  {
-                    "id": 1,
-                    "icon": "grade",
-                    "class": "rating-star"
-                  },
-                  {
-                    "id": 2,
-                    "icon": "grade",
-                    "class": "rating-star"
-                  },
-                  {
-                    "id": 3,
-                    "icon": "grade",
-                    "class": "rating-star"
-                  },
-                  {
-                    "id": 4,
-                    "icon": "grade",
-                    "class": "rating-star"
-                  },
-                  {
-                    "id": 5,
-                    "icon": "grade",
-                    "class": "rating-star"
-                  },
-                  {
-                    "id": 6,
-                    "icon": "grade",
-                    "class": "rating-star"
-                  }
-                ],
-                "name": "LOADED NAME 7",
-                "rationale": "Rationale of an undisclosed length",
-                "katakana": "片仮名、カタカナ"
-              }
-            ],
-            "componentSettings": [
-              {
-                "minRule": 0,
-                "maxRule": 0,
-                "fontSize": 16,
-                "columnWidth": 150,
-                "rationalewidth": 250,
-                "rowHeight": 2,
-                "categoryName": "Category name",
-                "categoryDescription": "category description"
-              }
-            ]
-          }
-        ]
-      },
-      {
-        "pageNumber": 3,
-        "page": [
-          {
-            "componentType": "logo-header",
-            "componentText": "PROJECT NAME",
-            "componentSettings": [
-              {
-                "fontSize": "16",
-                "fontFace": "Arial",
-                "fontColor": "red",
-                "brandInstituteURL": "./assets/img/bmx/BRANDMATRIX-DASHBOARD-LOGO.svg",
-                "companyLogoURL": "./assets/img/bmx/BD.png"
-              }
-            ]
-          },
-          {
-            "componentType": "text-editor",
-            "componentText": "<p style=\"text-align:center\"><span style=\"font-size:22px\">Thank you for participating. Your responses have been recorded.<br />\n<br />\nPlease feel free to provide new name candidate suggestions in the text box below (optional). When you are finished, please click &quot;Submit&quot; to complete the survey.</span></p>\n\n<p style=\"text-align:center\">&nbsp;</p>\n",
-            "componentSettings": [
-              {
-                "fontSize": "16",
-                "fontFace": "Arial",
-                "fontColor": "red"
-              }
-            ]
-          }
-        ]
-      }
+    "BMX": [
+
     ]
 
 
@@ -1883,20 +1007,20 @@ export class SurveyCreationDesignComponent implements OnInit {
   }
 
   createNewBmxComponent(componentType) {
-
+// ▶️▶️▶️▶️▶️▶️▶️▶️▶️▶️▶️▶️▶️▶️▶️▶️▶️▶️▶️▶️▶️▶️▶️▶️▶️▶️
     if (componentType === 'logo-header') {
       this.bmxPages[this.currentPage].page.push({
         componentType: 'logo-header',
         componentText: 'PROJECT NAME',
         componentSettings: [{ fontSize: '16px', fontFace: 'Arial', fontColor: 'red' }],
       })
-    }
+    }// ▶️▶️▶️▶️▶️▶️▶️▶️▶️▶️▶️▶️▶️▶️▶️▶️▶️▶️▶️▶️▶️▶️▶️▶️▶️▶️
     else if (componentType === 'text-editor') {
       this.bmxPages[this.currentPage].page.push({
         componentType: 'text-editor',
         componentText: this.sampleHtml2,
         componentSettings: [{ fontSize: '16px', fontFace: 'Arial', fontColor: 'red' }],
-      })
+      })// ▶️▶️▶️▶️▶️▶️▶️▶️▶️▶️▶️▶️▶️▶️▶️▶️▶️▶️▶️▶️▶️▶️▶️▶️▶️▶️
     } else if (componentType === 'rate-scale') {
 
       this.TestNameDataModel = [];
@@ -1904,7 +1028,7 @@ export class SurveyCreationDesignComponent implements OnInit {
         name: 'NAME', rationale: 'RATIONALE',
         STARS: this.createRatingStars()
       })
-      for (let index = 0; index < 6; index++) {
+      for (let index = 0; index < 5; index++) {
         this.TestNameDataModel.push({
           name: 'TEST NAME ' + index,
           rationale: 'Rationale of an undisclosed length',
@@ -1915,9 +1039,20 @@ export class SurveyCreationDesignComponent implements OnInit {
       this.bmxPages[this.currentPage].page.push({
         componentType: 'rate-scale',
         componentText: this.TestNameDataModel,
-        componentSettings: [{ fontSize: '16px', fontFace: 'Arial', fontColor: 'red' }],
+        componentSettings: [{
+          "minRule": 0,
+          "maxRule": 0,
+          "fontSize": 16,
+          "columnWidth": 150,
+          "rationalewidth": 250,
+          "rowHeight": 2,
+          "categoryName": "Category name",
+          "categoryDescription": "category description",
+          "ratingScaleTitle": "RATING"
+        }
+        ],
       })
-    }
+    }// ▶️▶️▶️▶️▶️▶️▶️▶️▶️▶️▶️▶️▶️▶️▶️▶️▶️▶️▶️▶️▶️▶️▶️▶️▶️▶️
     else if (componentType === 'ranking-scale') {
 
       this.TestNameDataModel = [];
@@ -1925,7 +1060,7 @@ export class SurveyCreationDesignComponent implements OnInit {
         name: 'NAME', rationale: 'RATIONALE',
         STARS: this.createRateScale()
       })
-      for (let index = 0; index < 12; index++) {
+      for (let index = 0; index < 5; index++) {
         this.TestNameDataModel.push({
           name: 'TEST NAME ' + index,
           rationale: 'Rationale of an undisclosed length',
@@ -1936,9 +1071,20 @@ export class SurveyCreationDesignComponent implements OnInit {
       this.bmxPages[this.currentPage].page.push({
         componentType: 'ranking-scale',
         componentText: this.TestNameDataModel,
-        componentSettings: [{ fontSize: '16px', fontFace: 'Arial', fontColor: 'red' }],
+        componentSettings: [{
+          "minRule": 0,
+          "maxRule": 0,
+          "fontSize": 16,
+          "columnWidth": 150,
+          "rationalewidth": 250,
+          "rowHeight": 2,
+          "categoryName": "Category name",
+          "categoryDescription": "category description",
+          "ratingScaleTitle": "RANK"
+        }
+        ],
       })
-    }
+    }// ▶️▶️▶️▶️▶️▶️▶️▶️▶️▶️▶️▶️▶️▶️▶️▶️▶️▶️▶️▶️▶️▶️▶️▶️▶️▶️
     else if (componentType === 'image-rate-scale') {
 
       this.TestNameDataModel = [];
@@ -2049,7 +1195,7 @@ export class SurveyCreationDesignComponent implements OnInit {
       startCounter.push({
         id: index,
         icon: 'grade',
-        class: 'rating-star'
+        styleClass: 'rating-star'
       });
     }
     return startCounter;
@@ -2060,7 +1206,7 @@ export class SurveyCreationDesignComponent implements OnInit {
       startCounter.push({
         id: index,
         icon: index + 1,
-        class: 'rating-star'
+        styleClass: 'rating-star'
       });
     }
     return startCounter;
