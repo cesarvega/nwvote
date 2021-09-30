@@ -101,14 +101,15 @@
                     </mat-option>
                 </mat-select>
             </mat-form-field> -->
-            <mat-radio-group aria-label="Select an option" [(ngModel)]="rankingType" 
-            (change)="rankingTableType(rankingType)">
-            <div style="display: flex;flex-direction: column;gap: 1px;">
-                <mat-radio-button value="dropDown">Drop-Down</mat-radio-button>
-                <mat-radio-button value="dragAndDrop">Drag & Drop</mat-radio-button>
-                <mat-radio-button value="radio">Radio Butons</mat-radio-button></div>
-              </mat-radio-group>
-          
+            <mat-radio-group aria-label="Select an option" [(ngModel)]="rankingType"
+                (change)="rankingTableType(rankingType)">
+                <div style="display: flex;flex-direction: column;gap: 1px;">
+                    <mat-radio-button value="dropDown">Drop-Down</mat-radio-button>
+                    <mat-radio-button value="dragAndDrop">Drag & Drop</mat-radio-button>
+                    <mat-radio-button value="radio">Radio Butons</mat-radio-button>
+                </div>
+            </mat-radio-group>
+
         </div>
 
         <div>
@@ -190,7 +191,7 @@
 
         <div class="test-name-table" style="cursor: grab;">
 
-            <!--⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️ STARS RENDERER ⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️ -->
+            <!--⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️ RANK RENDERER ⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️ -->
             <div *ngIf="isdropDown" style="min-width: 200px;background-color:white;display: flex;align-items: center;
             justify-content: center;border-left: rgb(231, 230, 230) 1px solid;
             border-right: rgb(231, 230, 230) 1px solid;border-top: rgb(231, 230, 230) 1px solid;">
@@ -204,6 +205,7 @@
                         </mat-select>
                     </mat-form-field>
                 </div>
+                <!-- COLUMN HEADER -->
                 <textarea *ngIf="y == 0 && editSingleTableCells"
                     [style.font-size]="bmxItem.componentSettings[0].fontSize +'px'"
                     style="text-align: center; font-weight: bold;color: #324395;min-width: 200px;" class="row-box"
@@ -212,7 +214,7 @@
                 <div class="rating-text" *ngIf="y == 0 && !editSingleTableCells">
                     {{bmxItem.componentSettings[0].ratingScaleTitle}}</div>
             </div>
-            <!--⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️ END STARS ⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️ -->
+            <!--⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️ RANK STARS ⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️ -->
 
             <div *ngFor="let columnName of columnsNames; let e =  index"
                 style="display: flex;align-items: center;justify-content: center;" [ngClass]="(e%2==0)?'red':'blue'"
@@ -222,8 +224,8 @@
                     (mouseleave)="selectedColumn = ''">
 
                     <!-- IF YOU WANT TO DELET ALL COLUMNS PASS THE COLUMN NAME  NOT testName[columnName]-->
-                    <span *ngIf="selectedColumn === e && bmxClientPageOverview && !editSingleTableCells" class="header-delete-icon"
-                        matTooltip="double click to delete column" matTooltipPosition="above"
+                    <span *ngIf="selectedColumn === e && bmxClientPageOverview && !editSingleTableCells"
+                        class="header-delete-icon" matTooltip="double click to delete column" matTooltipPosition="above"
                         (dblclick)="deleteColumn(columnName)">x</span>
 
                     <!-- 🟢🟢🟢🟢🟢🟢🟢🟢🟢🟢🟢🟢🟢🟢 HEADER TEXT AREA 🟢🟢🟢🟢🟢🟢🟢🟢🟢🟢🟢🟢🟢🟢🟢🟢 -->
@@ -255,7 +257,7 @@
                 <!-- 🟡🟡🟡🟡🟡🟡🟡🟡🟡🟡🟡🟡🟡🟡 TABLE CELLS  🟡🟡🟡🟡🟡🟡🟡🟡🟡🟡🟡🟡🟡🟡🟡🟡 -->
                 <div>
 
-                    <!-- IF ELSE TEMPLATE INPUTS  -->
+                    <!-- IF ELSE TEMPLATE INPUTS  -- BELOW RADION BUTTONS COLUMN -->
                     <input *ngIf="y !== 0  &&  columnName.includes('RadioColumn') == true" type="radio"
                         [name]="columnName + i" [checked]="testName[columnName]"
                         (change)="saveRadioColumValue(columnName, y)">
@@ -287,8 +289,8 @@
                 <!-- 🟡🟡🟡🟡🟡🟡🟡🟡🟡🟡🟡🟡🟡🟡 END TABLE CELLS 🟡🟡🟡🟡🟡🟡🟡🟡🟡🟡🟡🟡🟡🟡🟡🟡 -->
             </div>
             <div *ngIf="(y !== 0) && bmxClientPageOverview" style="min-width: 100px; position: absolute;right: 0px;">
-                <button style="outline: none;margin:3px -8px;" (dblclick)="deletRow(y)" mat-icon-button  matTooltip="doble click to delete row" matTooltipPosition="left"
-                    aria-label="ranking">
+                <button style="outline: none;margin:3px -8px;" (dblclick)="deletRow(y)" mat-icon-button
+                    matTooltip="doble click to delete row" matTooltipPosition="left" aria-label="ranking">
                     <mat-icon>delete_outline</mat-icon>
                 </button>
             </div>
@@ -296,7 +298,7 @@
 
 
         <!--♦️♦️♦️♦️♦️♦️♦️♦️♦️♦️♦️♦️♦️♦️♦️♦️♦️♦️♦️♦️♦️♦️♦️♦️♦️♦️♦️♦️♦️♦️♦️♦️♦️♦️♦️♦️♦️♦️♦️♦️♦️♦️♦️♦️ TABLE ROW ICONS ♦️♦️♦️♦️♦️♦️♦️♦️♦️♦️♦️♦️♦️♦️♦️♦️♦️♦️♦️-->
-       
+
         <!--♦️♦️♦️♦️♦️♦️♦️♦️♦️♦️♦️♦️♦️♦️♦️♦️♦️♦️♦️♦️♦️♦️♦️♦️♦️♦️♦️♦️♦️♦️♦️♦️♦️♦️♦️♦️♦️♦️♦️♦️♦️♦️♦️♦️ END TABLE ROW ICONS ♦️♦️♦️♦️♦️♦️♦️♦️♦️♦️♦️♦️♦️♦️♦️♦️♦️♦️♦️-->
     </div>
 </div>

@@ -1096,6 +1096,7 @@ export class SurveyCreationDesignComponent implements OnInit {
         let imageIndex = index + 1
         this.TestNameDataModel.push({
           name: './assets/img/bmx/logoTestNames/logo' + imageIndex.toString() + '.JPG',
+          nameCandidate: 'TEST NAME ' + index,
           rationale: 'Rationale of an undisclosed length',
           RATE: -1,
           STARS: this.createRatingStars()
