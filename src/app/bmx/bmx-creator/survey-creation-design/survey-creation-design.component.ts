@@ -1104,7 +1104,18 @@ export class SurveyCreationDesignComponent implements OnInit {
       this.bmxPages[this.currentPage].page.push({
         componentType: 'image-rate-scale',
         componentText: this.TestNameDataModel,
-        componentSettings: [{ fontSize: '16px', fontFace: 'Arial', fontColor: 'red' }],
+        componentSettings: [{
+          "minRule": 0,
+          "maxRule": 0,
+          "fontSize": 16,
+          "columnWidth": 150,
+          "rationalewidth": 250,
+          "rowHeight": 2,
+          "categoryName": "Category name",
+          "categoryDescription": "category description",
+          "ratingScaleTitle": "RANK"
+        }
+        ],
       })
     }
 
