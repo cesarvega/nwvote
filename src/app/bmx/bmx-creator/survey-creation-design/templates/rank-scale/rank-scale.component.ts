@@ -53,8 +53,8 @@ export class RankScaleComponent implements OnInit {
    
    }
    ngOnInit(): void {
-    console.log('');
-    // this.rankingTableType(this.rankingType)
+    // this.rankingTableType(this.bmxItem.componentSettings[0].rankType)
+    this.rankingType = this.bmxItem.componentSettings[0].rankType
     // COLUMN NAMES
     let values = Object.keys(this.bmxItem.componentText[0])
 
@@ -65,7 +65,7 @@ export class RankScaleComponent implements OnInit {
     });
 
   }
-
+  
   // ⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️ STARS METHODS  ⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️
   setRating(starId, testNameId) {
     this.bmxItem.componentText[testNameId].RATE = starId
@@ -136,13 +136,14 @@ export class RankScaleComponent implements OnInit {
     for (let index = 0; index < ratingScale; index++) {
       startCounter.push({
         id: index,
-        icon: ratingScaleIcon,
+        icon: index + 1,
         styleClass: 'rating-star'
       });
     }
     return startCounter;
   }
   // ⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️ END STARS METHODS  ⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️
+
 
 
   upLoadNamesAndRationales(list: string) {
@@ -207,7 +208,6 @@ export class RankScaleComponent implements OnInit {
     }
   }
 
-  // COLUMNS ADD AND REMOVE
   insertTextColumn() {
     this.columnsNames.push('ExtraColumn' + (this.extraColumnCounter));
     this.bmxItem.componentText.forEach((object) => {
@@ -249,8 +249,6 @@ export class RankScaleComponent implements OnInit {
     });
     this.bmxItem.componentText[x][name] = true
   }
-
- 
 
   deletRow(option): void {
     this.bmxItem.componentText.splice(option, 1);
@@ -320,6 +318,14 @@ export class RankScaleComponent implements OnInit {
 
 
   rankingTableType(rankingType){
+    this.bmxItem.componentSettings[0].rankType = rankingType
+    let values = Object.keys(this.bmxItem.componentText[0])
+
+    values.forEach(value => {
+      if (typeof value == "string" && value != "STARS" && value != "CRITERIA" ) {
+        this.columnsNames.push(value)
+      }
+    });
     this.columnsNames.forEach(columnName => {
       if (columnName.includes('RadioColumn')) {
         this.deleteColumn(columnName)
@@ -341,6 +347,8 @@ export class RankScaleComponent implements OnInit {
       }
     }
   }
+
+
 
   ASSIGNED_CRITERIA = []
   CRITERIA = [

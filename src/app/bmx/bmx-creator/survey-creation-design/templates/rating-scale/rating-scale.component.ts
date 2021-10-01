@@ -1,6 +1,6 @@
 import { Component, ElementRef, EventEmitter, Inject, Input, OnInit, Output, ViewChild, ViewEncapsulation } from '@angular/core';
 import { CdkTextareaAutosize } from '@angular/cdk/text-field';
-import { DragulaService } from 'ng2-dragula';
+
 @Component({
   selector: 'app-rating-scale',
   templateUrl: './rating-scale.component.html',
@@ -42,10 +42,11 @@ export class RatingScaleComponent implements OnInit {
   extraColumnCounter = 1
   radioColumnCounter = 1
   commentColumnCounter = 1
+  rankingType = 'dropDown'
 
 
 
-  constructor(private dragulaService: DragulaService) { }
+  constructor() { }
   ngOnInit(): void {
     console.log('');
 
@@ -310,6 +311,7 @@ export class RatingScaleComponent implements OnInit {
   toogleColumnResizer() {
     this.isColumnResizerOn = !this.isColumnResizerOn
   }
+
 
   ASSIGNED_CRITERIA = []
   CRITERIA = [

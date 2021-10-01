@@ -48,6 +48,7 @@
   padding: 20px;
   // margin: 5px;
 }
+
 .red:first-child{
   background-color: white;
   border-right: rgb(231, 230, 230) 1px solid;
@@ -252,11 +253,11 @@ input[type="range"]:focus::-ms-fill-upper {
 @supports(-webkit-appearance: none) or (-moz-appearance: none) {
   input[type='checkbox'],
   input[type='radio'] {
-    --active: #275EFE;
+    --active: #ee7f25;
     --active-inner: #fff;
     --focus: 2px rgba(39, 94, 254, .3);
     --border: #BBC1E1;
-    --border-hover: #275EFE;
+    --border-hover: #ee7f25;
     --background: #fff;
     --disabled: #F6F8FF;
     --disabled-inner: #E1E6F9;
