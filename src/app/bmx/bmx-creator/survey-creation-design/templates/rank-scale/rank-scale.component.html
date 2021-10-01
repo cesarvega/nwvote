@@ -197,11 +197,11 @@
         <div class="test-name-table" style="cursor: grab;">
 
             <!--⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️ RANK RENDERER ⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️ -->
-            <div *ngIf="isdropDown" style="min-width: 200px;background-color:white;display: flex;align-items: center;
+            <div style="min-width: 200px;background-color:white;display: flex;align-items: center;
             justify-content: center;border-left: rgb(231, 230, 230) 1px solid;
             border-right: rgb(231, 230, 230) 1px solid;border-top: rgb(231, 230, 230) 1px solid;">
                 <div *ngIf="(y !== 0)">
-                    <mat-form-field appearance="outline" style="width: 130px;padding-top: 13px;height: 80px;">
+                    <mat-form-field *ngIf="rankingType == 'dropDown'"  appearance="outline" style="width: 130px;padding-top: 13px;height: 80px;">
                         <mat-label>Rank 1 to {{rankingScaleValue}}</mat-label>
                         <mat-select matNativeControl [(ngModel)]="bmxItem.componentText[y].RATE"
                             (selectionChange)="setRating(bmxItem.componentText[y].RATE,y)">
@@ -209,6 +209,11 @@
                                 {{star.icon}}</mat-option>
                         </mat-select>
                     </mat-form-field>
+
+                    <button  *ngIf="rankingType == 'dragAndDrop'"  mat-button style="background-color:#ee7f25 ;color: white;">{{y}}</button>
+                   
+                    <button  *ngIf="rankingType == 'radio'"  mat-button style="background-color:#ee7f25 ;color: white;">{{this.bmxItem.componentText[y].RATE}}</button>
+
                 </div>
                 <!-- COLUMN HEADER -->
                 <textarea *ngIf="y == 0 && editSingleTableCells"

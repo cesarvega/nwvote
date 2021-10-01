@@ -29,8 +29,22 @@ export class RankScaleComponent extends RatingScaleComponent implements OnInit {
    ngOnInit(): void {
     
     this.createRatingStars( this.ratingScale)
-    
+    // this.rankingTableType( this.bmxItem.componentSettings[0].rankType)
     this.rankingType = this.bmxItem.componentSettings[0].rankType
+
+    if (this.rankingType == 'dropDown' ) {
+      this.draggableBag = ''
+      this.isdropDown = true
+    } else if (this.rankingType == 'dragAndDrop') {
+      this.draggableBag = 'DRAGGABLE_RANK_ROW'
+      this.isdropDown = false
+      
+    } else if (this.rankingType == 'radio') {
+      this.draggableBag = ''
+      this.isdropDown = false
+      this.radioColumnCounter = 1
+      }
+
     // COLUMN NAMES
     let values = Object.keys(this.bmxItem.componentText[0])
 
@@ -123,6 +137,7 @@ export class RankScaleComponent extends RatingScaleComponent implements OnInit {
     this.bmxItem.componentSettings[0].rankType = rankingType
     let values = Object.keys(this.bmxItem.componentText[0])
     this.columnsNames = []
+    this.RadioColumnList = []
     values.forEach(value => {
       if (typeof value == "string" && value != "STARS" && value != "CRITERIA" ) {
         this.columnsNames.push(value)

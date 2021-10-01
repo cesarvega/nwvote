@@ -43,6 +43,7 @@ export class RatingScaleComponent implements OnInit {
   radioColumnCounter = 1
   commentColumnCounter = 1
   rankingType = 'dropDown'
+  RadioColumnList = []
 
 
 
@@ -62,8 +63,15 @@ export class RatingScaleComponent implements OnInit {
   }
 
   // ⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️ STARS METHODS  ⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️
-  setRating(starId, testNameId) {
-    this.bmxItem.componentText[testNameId].RATE = starId
+  setRating(rate, testNameId) {
+    if (this.bmxItem.componentType == 'ranking-scale') {
+      this.bmxItem.componentText.forEach((element, i) => {
+        if (element.RATE == rate) {
+          this.bmxItem.componentText[i].RATE = 0
+        }
+      });
+    }
+    this.bmxItem.componentText[testNameId].RATE = rate
   }
 
   selectStar(starId, testNameId): void {
@@ -223,9 +231,11 @@ export class RatingScaleComponent implements OnInit {
   }
 
   insertRadioColumn() {
-    this.columnsNames.push('RadioColumn' + (this.radioColumnCounter));
+    this.columnsNames.push('RadioColumn' + (this.radioColumnCounter));    
+    this.RadioColumnList.push('RadioColumn' + this.radioColumnCounter)
     this.bmxItem.componentText.forEach((object, index) => {
       let coulmnName  = 'RadioColumn' + this.radioColumnCounter
+      
       if (index == 0) {
         object[coulmnName] = this.radioColumnCounter 
       } else {
@@ -235,14 +245,28 @@ export class RatingScaleComponent implements OnInit {
     this.radioColumnCounter++
   }
 
-  saveRadioColumValue(name, x){
-    let values = Object.keys(this.bmxItem.componentText[x])
+  saveRadioColumValue(name, y){
+    let values = Object.keys(this.bmxItem.componentText[y])
     values.forEach(columnName => {
       if (columnName.includes('RadioColumn') ) {
-        this.bmxItem.componentText[x][columnName] = false
+        this.bmxItem.componentText[y][columnName] = false
       }
     });
-    this.bmxItem.componentText[x][name] = true
+    this.bmxItem.componentText[y][name] = true
+    this.RadioColumnList.forEach((columnName, index) => {
+      if (columnName.includes('RadioColumn')) {
+        if (this.bmxItem.componentText[y][columnName]) {
+          if (this.bmxItem.componentType == 'ranking-scale') {
+            this.bmxItem.componentText.forEach((element, i) => {
+              if (element.RATE == index + 1) {
+                this.bmxItem.componentText[i].RATE = 0
+              }
+            });
+          }
+          this.bmxItem.componentText[y].RATE = index + 1
+        }
+      }
+    });
   }
 
  
