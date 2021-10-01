@@ -13,6 +13,7 @@ export class NarrowDownComponent extends RatingScaleComponent implements OnInit 
   @Input() i;
   @Input() bmxClientPageDesignMode;
   @Input() bmxClientPageOverview;
+  SLECTED_ROWS = []
   constructor() {
     super()
   }

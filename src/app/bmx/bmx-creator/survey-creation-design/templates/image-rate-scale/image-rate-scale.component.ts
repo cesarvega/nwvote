@@ -32,15 +32,13 @@ export class ImageRateScaleComponent extends RatingScaleComponent implements OnI
   fileName = '';
   uploadProgress: number;
   uploadSub: Subscription;
+  resourceData: any;
   
 
   constructor(private _BmxService: BmxService) {super()}
 
   ngOnInit(): void {
-
-    // COLUMN NAMES
     let values = Object.keys(this.bmxItem.componentText[0])
-
     values.forEach(value => {
       if (typeof value == "string" && value != "STARS" && value != "CRITERIA" ) {
         this.columnsNames.push(value)
@@ -55,26 +53,29 @@ export class ImageRateScaleComponent extends RatingScaleComponent implements OnI
       for (let i = 0; i < filesAmount; i++) {
         var reader = new FileReader();
         reader.onload = (event: any) => {
-          this.IMAGES_UPLOADED.push({ name: this.IMAGES_UPLOADED.length.toString(), rationale: 'Sist, Assist, Syst', url: event.target.result });
-          const filedata = event.target.result.split(",")[0];
-          const resourceData:JSON = <JSON><unknown>{
+          this.IMAGES_UPLOADED.push({ name: event.target.files[i].name, rationale: 'Sist, Assist, Syst', url: event.target.result });
+          this.resourceData = {
             "ProjectName": localStorage.getItem('projectName'),
-            "FileName": this.IMAGES_UPLOADED.length.toString() + '.' + filedata.substring((filedata.indexOf("/")+1),(filedata.indexOf(";") )),
-            "ItemType" : 'TestName',
-            "FileType" : filedata,
+            "FileName": event.target.files[i].name,
+            "ItemType" : 'logo-rate',
+            "FileType" : event.target.files[i].type,
             "FileContent" : event.target.result.split(event.target.result.split(",")[0] + ',').pop()
           }
-          this._BmxService.saveFileResources(JSON.stringify(resourceData)).subscribe(result => {
-            var so = result;
-          });
         }
         reader.readAsDataURL(event.target.files[i]);
       }
     }
   }
+
   cancelUpload() {
     this.uploadSub.unsubscribe();
     this.reset();
+  }
+
+  uploadAllImages(){
+    this._BmxService.saveFileResources(JSON.stringify(this.resourceData)).subscribe(result => {
+      var so = result;
+    });
   }
 
   reset() {

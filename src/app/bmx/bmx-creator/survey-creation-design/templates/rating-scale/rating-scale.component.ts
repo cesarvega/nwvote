@@ -227,7 +227,7 @@ export class RatingScaleComponent implements OnInit {
     this.bmxItem.componentText.forEach((object, index) => {
       let coulmnName  = 'RadioColumn' + this.radioColumnCounter
       if (index == 0) {
-        object[coulmnName] = coulmnName + 'txt' 
+        object[coulmnName] = this.radioColumnCounter 
       } else {
         object[coulmnName] = false 
       }

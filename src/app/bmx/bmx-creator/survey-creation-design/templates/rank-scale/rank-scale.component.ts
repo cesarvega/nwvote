@@ -1,59 +1,35 @@
 import { Component, ElementRef, EventEmitter, Inject, Input, OnInit, Output, ViewChild, ViewEncapsulation } from '@angular/core';
 import { CdkTextareaAutosize } from '@angular/cdk/text-field';
 import { DragulaService } from 'ng2-dragula';
+import { RatingScaleComponent } from '../rating-scale/rating-scale.component';
 
 @Component({
   selector: 'app-rank-scale',
   templateUrl: './rank-scale.component.html',
   styleUrls: ['./rank-scale.component.scss']
 })
-export class RankScaleComponent implements OnInit {
+export class RankScaleComponent extends RatingScaleComponent implements OnInit {
 
   @Input() bmxItem;
   @Input() i;
   @Input() bmxClientPageDesignMode;
   @Input() bmxClientPageOverview;
-  @ViewChild('autosize') autosize: CdkTextareaAutosize;
-  rankingScaleValue = 5;
-  selectedIndex: any
-  displayInstructions = false;
-  isColumnResizerOn = true;
-
-  selectedStarRatingIndex = ''
-  selectedRating = '';
-  editSingleTableCells = false
-  // columnsSlider = 150
-  // rowHeightSlider = 2
-  // fontSizeRow = 19
-  // rationalewidth = this.columnsSlider + 100
-
-
-  // CONFIGURATION VARIABLES
-  testNamesInput: string
-  TestNameDataModel: any[];
-  ratingScale = 3;
-  TESTNAMES_LIST = [];
-  columnsNames = [];
-  columnsNamesHeader: string[];
-  listString: string;
-  tempItems = [];
-  selectedColumn
-  ratingScaleIcon = 'grade';
-  selectedCriteria
-  extraColumnCounter = 1
-  radioColumnCounter = 1
-  commentColumnCounter = 1
+ 
   rankingType = 'dropDown'
   rankingTypeOptions = [ 'dropDown' , 'dragAndDrop', 'radio' ]
 
   draggableBag
   isdropDown = true
 
-  constructor(private dragulaService: DragulaService) {
-   
+  constructor() {
+   super()
+   this.rankingScaleValue = 3
+   this.ratingScale = 3
    }
    ngOnInit(): void {
-    // this.rankingTableType(this.bmxItem.componentSettings[0].rankType)
+    
+    this.createRatingStars( this.ratingScale)
+    
     this.rankingType = this.bmxItem.componentSettings[0].rankType
     // COLUMN NAMES
     let values = Object.keys(this.bmxItem.componentText[0])
@@ -66,72 +42,7 @@ export class RankScaleComponent implements OnInit {
 
   }
   
-  // ⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️ STARS METHODS  ⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️
-  setRating(starId, testNameId) {
-    this.bmxItem.componentText[testNameId].RATE = starId
-  }
-
-  selectStar(starId, testNameId): void {
-    this.bmxItem.componentText[testNameId].STARS.filter((star) => {
-      if (star.id <= starId) {
-
-        star.styleClass = (this.ratingScaleIcon === 'grade') ? 'active-rating-star' : 'active-rating-bar';
-
-      } else {
-
-        star.styleClass = 'rating-star';
-
-      }
-      return star;
-    });
-  }
-
-  leaveStar(testNameId): void {
-    this.selectedRating = this.bmxItem.componentText[testNameId].RATE
-    this.bmxItem.componentText[testNameId].STARS.filter((star) => {
-      if (star.id <= this.selectedRating && this.selectedRating !== "") {
-        star.styleClass = (this.ratingScaleIcon === 'grade') ? 'active-rating-star' : 'active-rating-bar';
-      } else {
-        star.styleClass = 'rating-star';
-      }
-      return star;
-    });
-  }
-
-  // CRITERIA STARS
-
-  setCriteriaRating( starId, criteriaId, testNameId) {
-    this.bmxItem.componentText[testNameId].CRITERIA[criteriaId].RATE = starId
-  }
-
-  selectCriteriaStar( starId, criteriaId, testNameId): void {
-    this.bmxItem.componentText[testNameId].CRITERIA[criteriaId].STARS.filter((star) => {
-      if (star.id <= starId) {
-
-        star.styleClass = (this.ratingScaleIcon === 'grade') ? 'active-rating-star' : 'active-rating-bar';
-
-      } else {
-
-        star.styleClass = 'rating-star';
-
-      }
-      return star;
-    });
-  }
-
-  leaveCriteriaStar(testNameId, criteriaId): void {
-    this.selectedRating = this.bmxItem.componentText[testNameId].CRITERIA[criteriaId].RATE
-    this.bmxItem.componentText[testNameId].CRITERIA[criteriaId].STARS.filter((star) => {
-      if (star.id <= this.selectedRating && this.selectedRating !== "") {
-        star.styleClass = (this.ratingScaleIcon === 'grade') ? 'active-rating-star' : 'active-rating-bar';
-      } else {
-        star.styleClass = 'rating-star';
-      }
-      return star;
-    });
-  }
-
-  createRatingStars(ratingScale, ratingScaleIcon) {
+  createRatingStars(ratingScale, ratingScaleIcon?) {
     let startCounter: any = []
     for (let index = 0; index < ratingScale; index++) {
       startCounter.push({
@@ -142,9 +53,6 @@ export class RankScaleComponent implements OnInit {
     }
     return startCounter;
   }
-  // ⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️ END STARS METHODS  ⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️
-
-
 
   upLoadNamesAndRationales(list: string) {
     if (!list) { list = this.listString; }
@@ -200,6 +108,8 @@ export class RankScaleComponent implements OnInit {
         }
       }
       this.bmxItem.componentText = this.TESTNAMES_LIST;
+      this.rankingTableType( this.bmxItem.componentSettings[0].rankType)
+     
     } else {
       this.bmxItem.componentText.forEach((row, index) => {
         row.STARS = this.createRatingStars(this.rankingScaleValue, this.ratingScaleIcon)
@@ -208,119 +118,11 @@ export class RankScaleComponent implements OnInit {
     }
   }
 
-  insertTextColumn() {
-    this.columnsNames.push('ExtraColumn' + (this.extraColumnCounter));
-    this.bmxItem.componentText.forEach((object) => {
-      let coulmnName  = 'ExtraColumn' + this.extraColumnCounter
-      object[coulmnName] = coulmnName + 'txt' 
-    });
-    this.extraColumnCounter++
-  }
-
-  insertCommentBoxColumn() {
-    this.columnsNames.push('Comments' + (this.commentColumnCounter));
-    this.bmxItem.componentText.forEach((object) => {
-      // object = this.addToObject(object, 'Comments' + (this.commentColumnCounter), 'CommentsTxt' + (this.commentColumnCounter), this.commentColumnCounter)
-      let coulmnName  = 'Comments' + this.commentColumnCounter
-      object[coulmnName] = coulmnName + 'txt' 
-    });
-    this.commentColumnCounter++
-  }
-
-  insertRadioColumn() {
-    this.columnsNames.push('RadioColumn' + (this.radioColumnCounter));
-    this.bmxItem.componentText.forEach((object, index) => {
-      let coulmnName  = 'RadioColumn' + this.radioColumnCounter
-      if (index == 0) {
-        object[coulmnName] = coulmnName + 'txt' 
-      } else {
-        object[coulmnName] = false 
-      }
-    });
-    this.radioColumnCounter++
-  }
-
-  saveRadioColumValue(name, x){
-    let values = Object.keys(this.bmxItem.componentText[x])
-    values.forEach(columnName => {
-      if (columnName.includes('RadioColumn') ) {
-        this.bmxItem.componentText[x][columnName] = false
-      }
-    });
-    this.bmxItem.componentText[x][name] = true
-  }
-
-  deletRow(option): void {
-    this.bmxItem.componentText.splice(option, 1);
-  }
-
-  insertRow(): void {
-    // INSERT NEW ROWS bug when radiobutons are on because it copies the name of the 
-      this.bmxItem.componentText.push(this.bmxItem.componentText[1])
-  }
-
-  deleteColumn(columnName) {
-    
-    let temporary = []
-    // REMOVE THE COLUMN FROM THE COLUMNS
-    this.columnsNames.forEach(element => {
-      if (element !== columnName) {
-        temporary.push(element)
-      }
-    });
-    this.columnsNames = temporary;
-    this.bmxItem.componentText.forEach((object, index) => {
-      delete this.bmxItem.componentText[index][columnName]
-    });
-    this.bmxItem.componentText = this.bmxItem.componentText;
-  }
-
-  criteriaSelection(selectedCriteria) {
-    this.ASSIGNED_CRITERIA = selectedCriteria
-  }
-
-  checkDragEvetn(e) {
-    console.log(e);
-  }
-
-  private addToObject(obj, key, value, index) {
-    // Create a temp object and index variable
-    let temp = {};
-    let i = 0;
-    // Loop through the original object
-    for (let prop in obj) {
-      if (obj.hasOwnProperty(prop)) {
-
-        // If the indexes match, add the new item
-        if (i === index && key && value) {
-          temp[key] = value;
-        }
-        // Add the current item in the loop to the temp obj
-        temp[prop] = obj[prop];
-        // Increase the count
-        i++;
-      }
-    }
-
-    // If no index, add to the end
-    if (!index && key && value) {
-      temp[key] = value;
-    }
-
-    return temp;
-
-  };
-
-
-  toogleColumnResizer() {
-    this.isColumnResizerOn = !this.isColumnResizerOn
-  }
-
 
   rankingTableType(rankingType){
     this.bmxItem.componentSettings[0].rankType = rankingType
     let values = Object.keys(this.bmxItem.componentText[0])
-
+    this.columnsNames = []
     values.forEach(value => {
       if (typeof value == "string" && value != "STARS" && value != "CRITERIA" ) {
         this.columnsNames.push(value)

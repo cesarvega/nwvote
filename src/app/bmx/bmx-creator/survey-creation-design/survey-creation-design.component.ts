@@ -197,6 +197,7 @@ export class SurveyCreationDesignComponent implements OnInit {
           "columnWidth": 150,
           "rationalewidth": 250,
           "rowHeight": 2,
+          "radioColumnsWidth": 75,
           "categoryName": "Category Ranking",
           "categoryDescription": "This is Ranking matrix",
           "ratingScaleTitle": "RANK",
@@ -366,7 +367,7 @@ export class SurveyCreationDesignComponent implements OnInit {
   }
   createRankinScale() {
     let startCounter: any = []
-    for (let index = 0; index < this.ratingScale; index++) {
+    for (let index = 0; index < 3; index++) {
       startCounter.push({
         id: index,
         icon: index + 1,
