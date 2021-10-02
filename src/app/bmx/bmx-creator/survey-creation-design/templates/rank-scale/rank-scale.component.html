@@ -101,8 +101,8 @@
                     </mat-option>
                 </mat-select>
             </mat-form-field> -->
-            <mat-radio-group aria-label="Select an option" [(ngModel)]="rankingType"
-                (change)="rankingTableType(rankingType)">
+            <mat-radio-group aria-label="Select an option" [(ngModel)]="this.bmxItem.componentSettings[0].rankType"
+                (change)="rankingTableType(this.bmxItem.componentSettings[0].rankType)">
                 <div style="display: flex;flex-direction: column;gap: 1px;">
                     <mat-radio-button value="dropDown">Drop-Down</mat-radio-button>
                     <mat-radio-button value="dragAndDrop">Drag & Drop</mat-radio-button>
@@ -190,7 +190,7 @@
         {{bmxItem.componentSettings[0].categoryDescription}}</div>
 
 </div>
-<div class="scroller-style main-container" [dragula]="'draggableBag'" [(dragulaModel)]="bmxItem.componentText"
+<div class="scroller-style main-container" [dragula]="draggableBag" [(dragulaModel)]="bmxItem.componentText"
     (dragulaModelChange)="checkDragEvetn($event);">
     <div *ngFor="let testName of bmxItem.componentText; let y = index">
 
@@ -201,7 +201,7 @@
             justify-content: center;border-left: rgb(231, 230, 230) 1px solid;
             border-right: rgb(231, 230, 230) 1px solid;border-top: rgb(231, 230, 230) 1px solid;">
                 <div *ngIf="(y !== 0)">
-                    <mat-form-field *ngIf="rankingType == 'dropDown'"  appearance="outline" style="width: 130px;padding-top: 13px;height: 80px;">
+                    <mat-form-field *ngIf="this.bmxItem.componentSettings[0].rankType == 'dropDown'"  appearance="outline" style="width: 130px;padding-top: 13px;height: 80px;">
                         <mat-label>Rank 1 to {{rankingScaleValue}}</mat-label>
                         <mat-select matNativeControl [(ngModel)]="bmxItem.componentText[y].RATE"
                             (selectionChange)="setRating(bmxItem.componentText[y].RATE,y)">
@@ -210,9 +210,9 @@
                         </mat-select>
                     </mat-form-field>
 
-                    <button  *ngIf="rankingType == 'dragAndDrop'"  mat-button style="background-color:#ee7f25 ;color: white;">{{y}}</button>
+                    <button  *ngIf="this.bmxItem.componentSettings[0].rankType == 'dragAndDrop'"  mat-button style="background-color:#ee7f25 ;color: white;">{{y}}</button>
                    
-                    <button  *ngIf="rankingType == 'radio'"  mat-button style="background-color:#ee7f25 ;color: white;">{{this.bmxItem.componentText[y].RATE}}</button>
+                    <button  *ngIf="this.bmxItem.componentSettings[0].rankType == 'radio'"  mat-button style="background-color:#ee7f25 ;color: white;">{{this.bmxItem.componentText[y].RATE}}</button>
 
                 </div>
                 <!-- COLUMN HEADER -->

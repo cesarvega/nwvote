@@ -74,7 +74,7 @@ export class RatingScaleComponent implements OnInit {
         }
       });
     }
-    if (rate.target) {
+    if (rate.target && this.bmxItem.componentType == 'narrow-down') {
 
       if (this.selectedRowCounter >= this.rankingScaleValue && !this.bmxItem.componentText[testNameId].SELECTED_ROW) {
         for (let index = 0; index < this.bmxItem.componentText.length; index++) {
@@ -336,7 +336,7 @@ export class RatingScaleComponent implements OnInit {
   }
 
   checkDragEvetn(e) {
-    console.log(e);
+    // console.log(e);
   }
 
   private addToObject(obj, key, value, index) {
