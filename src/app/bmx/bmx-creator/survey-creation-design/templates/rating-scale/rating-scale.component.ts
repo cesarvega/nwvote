@@ -14,6 +14,7 @@ export class RatingScaleComponent implements OnInit {
   @Input() bmxClientPageOverview;
   @ViewChild('autosize') autosize: CdkTextareaAutosize;
   rankingScaleValue = 5;
+  selectedRowCounter = 0;
   selectedIndex: any
   displayInstructions = false;
   isColumnResizerOn = true;
@@ -55,7 +56,7 @@ export class RatingScaleComponent implements OnInit {
     let values = Object.keys(this.bmxItem.componentText[0])
 
     values.forEach(value => {
-      if (typeof value == "string" && value != "STARS" && value != "CRITERIA" ) {
+      if (typeof value == "string" && value != "STARS" && value != "CRITERIA") {
         this.columnsNames.push(value)
       }
     });
@@ -64,6 +65,13 @@ export class RatingScaleComponent implements OnInit {
 
   // ⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️ STARS METHODS  ⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️
   setRating(rate, testNameId) {
+
+    if (this.selectedRowCounter >= this.rankingScaleValue) {
+      
+    } else {
+      this.selectedRowCounter++
+    }
+
     if (this.bmxItem.componentType == 'ranking-scale') {
       this.bmxItem.componentText.forEach((element, i) => {
         if (element.RATE == rate) {
@@ -71,7 +79,13 @@ export class RatingScaleComponent implements OnInit {
         }
       });
     }
-    this.bmxItem.componentText[testNameId].RATE = rate
+    if (this.bmxItem.componentType == 'narrow-down') {
+      this.bmxItem.componentText[testNameId].RATE = rate.target.checked
+    } else {
+
+      this.bmxItem.componentText[testNameId].RATE = rate
+    }
+
   }
 
   selectStar(starId, testNameId): void {
@@ -103,11 +117,11 @@ export class RatingScaleComponent implements OnInit {
 
   // CRITERIA STARS
 
-  setCriteriaRating( starId, criteriaId, testNameId) {
+  setCriteriaRating(starId, criteriaId, testNameId) {
     this.bmxItem.componentText[testNameId].CRITERIA[criteriaId].RATE = starId
   }
 
-  selectCriteriaStar( starId, criteriaId, testNameId): void {
+  selectCriteriaStar(starId, criteriaId, testNameId): void {
     this.bmxItem.componentText[testNameId].CRITERIA[criteriaId].STARS.filter((star) => {
       if (star.id <= starId) {
 
@@ -160,14 +174,14 @@ export class RatingScaleComponent implements OnInit {
       this.columnsNames.forEach((column, index) => {
         if (column == 'name candidates' || column == 'test names' || column == 'names') {
           this.columnsNames[index] = 'nameCandidates'
-          } else if (column == 'name rationale' || column == 'rationale' || column == 'rationales')  {
-            this.columnsNames[index] = 'rationale'
-          } else if (column == 'katakana')  {
-            this.columnsNames[index] = 'katakana'
-          } else {
-            this.columnsNames[index] = 'ExtraColumn' + this.extraColumnCounter
-            this.extraColumnCounter++
-          }      
+        } else if (column == 'name rationale' || column == 'rationale' || column == 'rationales') {
+          this.columnsNames[index] = 'rationale'
+        } else if (column == 'katakana') {
+          this.columnsNames[index] = 'katakana'
+        } else {
+          this.columnsNames[index] = 'ExtraColumn' + this.extraColumnCounter
+          this.extraColumnCounter++
+        }
       });
       this.TESTNAMES_LIST = [];
       for (let i = 0; i < rows.length; i++) {
@@ -183,9 +197,9 @@ export class RatingScaleComponent implements OnInit {
             objectColumnDesign['CRITERIA'] = []
             this.ASSIGNED_CRITERIA.forEach(criteria => {
               objectColumnDesign['CRITERIA'].push({
-                name : criteria.name,
-                STARS : this.createRatingStars(this.rankingScaleValue, this.ratingScaleIcon),
-                RATE : -1,
+                name: criteria.name,
+                STARS: this.createRatingStars(this.rankingScaleValue, this.ratingScaleIcon),
+                RATE: -1,
               })
             });
           } else {
@@ -214,8 +228,8 @@ export class RatingScaleComponent implements OnInit {
   insertTextColumn() {
     this.columnsNames.push('ExtraColumn' + (this.extraColumnCounter));
     this.bmxItem.componentText.forEach((object) => {
-      let coulmnName  = 'ExtraColumn' + this.extraColumnCounter
-      object[coulmnName] = coulmnName + 'txt' 
+      let coulmnName = 'ExtraColumn' + this.extraColumnCounter
+      object[coulmnName] = 'Text Column'
     });
     this.extraColumnCounter++
   }
@@ -224,31 +238,31 @@ export class RatingScaleComponent implements OnInit {
     this.columnsNames.push('Comments' + (this.commentColumnCounter));
     this.bmxItem.componentText.forEach((object) => {
       // object = this.addToObject(object, 'Comments' + (this.commentColumnCounter), 'CommentsTxt' + (this.commentColumnCounter), this.commentColumnCounter)
-      let coulmnName  = 'Comments' + this.commentColumnCounter
-      object[coulmnName] = coulmnName + 'txt' 
+      let coulmnName = 'Comments' + this.commentColumnCounter
+      object[coulmnName] = 'General Comments'
     });
     this.commentColumnCounter++
   }
 
   insertRadioColumn() {
-    this.columnsNames.push('RadioColumn' + (this.radioColumnCounter));    
+    this.columnsNames.push('RadioColumn' + (this.radioColumnCounter));
     this.RadioColumnList.push('RadioColumn' + this.radioColumnCounter)
     this.bmxItem.componentText.forEach((object, index) => {
-      let coulmnName  = 'RadioColumn' + this.radioColumnCounter
-      
+      let coulmnName = 'RadioColumn' + this.radioColumnCounter
+
       if (index == 0) {
-        object[coulmnName] = this.radioColumnCounter 
+        object[coulmnName] = this.radioColumnCounter
       } else {
-        object[coulmnName] = false 
+        object[coulmnName] = false
       }
     });
     this.radioColumnCounter++
   }
 
-  saveRadioColumValue(name, y){
+  saveRadioColumValue(name, y) {
     let values = Object.keys(this.bmxItem.componentText[y])
     values.forEach(columnName => {
-      if (columnName.includes('RadioColumn') ) {
+      if (columnName.includes('RadioColumn')) {
         this.bmxItem.componentText[y][columnName] = false
       }
     });
@@ -269,18 +283,18 @@ export class RatingScaleComponent implements OnInit {
     });
   }
 
- 
+
 
   deletRow(option): void {
     this.bmxItem.componentText.splice(option, 1);
   }
 
   insertRow(): void {
-      this.bmxItem.componentText.push(this.bmxItem.componentText[0])
+    this.bmxItem.componentText.push(this.bmxItem.componentText[0])
   }
 
   deleteColumn(columnName) {
-    
+
     let temporary = []
     // REMOVE THE COLUMN FROM THE COLUMNS
     this.columnsNames.forEach(element => {

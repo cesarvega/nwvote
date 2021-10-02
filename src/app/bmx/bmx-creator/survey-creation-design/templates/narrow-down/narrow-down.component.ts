@@ -29,14 +29,7 @@ export class NarrowDownComponent extends RatingScaleComponent implements OnInit 
       }
     });
 
-
-    
-
     
   }
 
-  setRating(s , d){
-console.log('');
-
-  }
 }

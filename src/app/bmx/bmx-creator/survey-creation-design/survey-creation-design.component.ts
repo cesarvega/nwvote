@@ -249,7 +249,7 @@ export class SurveyCreationDesignComponent implements OnInit {
       })
       for (let index = 0; index < 5; index++) {
         this.TestNameDataModel.push({
-          name: 'TEST NAME ' + index,
+          name: 'NARROW TEST NAME ' + index,
           rationale: 'Rationale of an undisclosed length',
           RATE: -1,
           STARS: this.createRatingStars()
@@ -267,7 +267,8 @@ export class SurveyCreationDesignComponent implements OnInit {
           "rowHeight": 2,
           "categoryName": "Category Narrow Down",
           "categoryDescription": "This is narrow down matrix",
-          "ratingScaleTitle": "RATING"
+          "ratingScaleTitle": "RATING",
+          "ratingScaleNarrowDownTitle": "SELECT 5 OUT OF 10"
         }
         ],
       })

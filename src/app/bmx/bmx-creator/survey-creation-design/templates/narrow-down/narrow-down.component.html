@@ -184,6 +184,40 @@
 
         <!-- <div *ngIf="(y !== 0)" style="color: white;font-size: xx-small;">.</div> -->
         <div class="test-name-table">
+            
+              <!--⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️ RANK RENDERER ⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️ -->
+              <div style="min-width: 200px;background-color:white;display: flex;align-items: center;
+              justify-content: center;border-left: rgb(231, 230, 230) 1px solid;
+              border-right: rgb(231, 230, 230) 1px solid;border-top: rgb(231, 230, 230) 1px solid;">
+                  <div *ngIf="(y !== 0)">
+                      <!-- <mat-form-field *ngIf="rankingType == 'dropDown'"  appearance="outline" style="width: 130px;padding-top: 13px;height: 80px;">
+                          <mat-label>Rank 1 to {{rankingScaleValue}}</mat-label>
+                          <mat-select matNativeControl [(ngModel)]="bmxItem.componentText[y].RATE"
+                              (selectionChange)="setRating(bmxItem.componentText[y].RATE,y)">
+                              <mat-option *ngFor="let star of  testName.STARS; let x =  index" [value]="star.icon">
+                                  {{star.icon}}</mat-option>
+                          </mat-select>
+                      </mat-form-field>
+  
+                      <button  *ngIf="rankingType == 'dragAndDrop'"  mat-button style="background-color:#ee7f25 ;color: white;">{{y}}</button>
+                     
+                      <button  *ngIf="rankingType == 'radio'"  mat-button style="background-color:#ee7f25 ;color: white;">{{this.bmxItem.componentText[y].RATE}}</button> -->
+
+                      <input type="checkbox" [disabled]="false"   (change)="setRating($event,y)">
+
+  
+                  </div>
+                  <!-- COLUMN HEADER -->
+                  <textarea *ngIf="y == 0 && editSingleTableCells"
+                      [style.font-size]="bmxItem.componentSettings[0].fontSize +'px'"
+                      style="text-align: center; font-weight: bold;color: #324395;min-width: 200px;" class="row-box"
+                      [(ngModel)]="bmxItem.componentSettings[0].ratingScaleNarrowDownTitle"
+                      value="bmxItem.componentSettings[0].ratingScaleNarrowDownTitle"></textarea>
+                  <div class="rating-text" *ngIf="y == 0 && !editSingleTableCells">
+                      {{bmxItem.componentSettings[0].ratingScaleNarrowDownTitle }}</div>
+              </div>
+              <!--⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️ RANK STARS ⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️ -->
+
             <div *ngFor="let columnName of columnsNames; let e =  index"
                 style="display: flex;align-items: center;justify-content: center;" [ngClass]="(e%2==0)?'red':'blue'"
                 [style.width]="(columnName == 'rationale' )?bmxItem.componentSettings[0].rationalewidth + 'px':bmxItem.componentSettings[0].columnWidth +'px'">
@@ -256,7 +290,7 @@
                 <!-- 🟡🟡🟡🟡🟡🟡🟡🟡🟡🟡🟡🟡🟡🟡 END TABLE CELLS 🟡🟡🟡🟡🟡🟡🟡🟡🟡🟡🟡🟡🟡🟡🟡🟡 -->
             </div>
             <!--⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️ STARS RENDERER ⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️ -->
-            <div style="min-width: 200px;background-color:white;display: flex;align-items: center;
+            <div *ngIf="selectedRowCounter >= rankingScaleValue" style="min-width: 200px;background-color:white;display: flex;align-items: center;
                 justify-content: center;border-left: rgb(231, 230, 230) 1px solid;
                 border-right: rgb(231, 230, 230) 1px solid;border-top: rgb(231, 230, 230) 1px solid;">
                 <div *ngIf="(y !== 0)">
