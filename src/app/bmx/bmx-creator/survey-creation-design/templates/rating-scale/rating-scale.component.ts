@@ -66,11 +66,6 @@ export class RatingScaleComponent implements OnInit {
   // ⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️ STARS METHODS  ⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️
   setRating(rate, testNameId) {
 
-    if (this.selectedRowCounter >= this.rankingScaleValue) {
-      
-    } else {
-      this.selectedRowCounter++
-    }
 
     if (this.bmxItem.componentType == 'ranking-scale') {
       this.bmxItem.componentText.forEach((element, i) => {
@@ -79,8 +74,35 @@ export class RatingScaleComponent implements OnInit {
         }
       });
     }
-    if (this.bmxItem.componentType == 'narrow-down') {
-      this.bmxItem.componentText[testNameId].RATE = rate.target.checked
+    if (rate.target) {
+
+      if (this.selectedRowCounter >= this.rankingScaleValue && !this.bmxItem.componentText[testNameId].SELECTED_ROW) {
+        for (let index = 0; index < this.bmxItem.componentText.length; index++) {
+          // REMOVE FIRST CHECKED VALUE
+          if (this.bmxItem.componentText[index].SELECTED_ROW) {
+            this.bmxItem.componentText[index].SELECTED_ROW = false;
+            break
+          }
+        }
+
+
+      }
+      this.bmxItem.componentText[testNameId].SELECTED_ROW = rate.target.checked
+
+      this.selectedRowCounter = 0
+      for (let index = 0; index < this.bmxItem.componentText.length; index++) {
+        if (this.bmxItem.componentText[index].SELECTED_ROW) {
+          this.selectedRowCounter++
+        } else {
+          this.bmxItem.componentText[index].SELECTED_ROW = false
+        }
+      }
+
+      // if (!rate.target.checked) {
+      //   this.selectedRowCounter = this.selectedRowCounter - 1
+      // } else {
+      //   this.selectedRowCounter++
+      // }
     } else {
 
       this.bmxItem.componentText[testNameId].RATE = rate

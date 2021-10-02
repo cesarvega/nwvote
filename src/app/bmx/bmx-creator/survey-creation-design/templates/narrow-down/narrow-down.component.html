@@ -203,7 +203,7 @@
                      
                       <button  *ngIf="rankingType == 'radio'"  mat-button style="background-color:#ee7f25 ;color: white;">{{this.bmxItem.componentText[y].RATE}}</button> -->
 
-                      <input type="checkbox" [disabled]="false"   (change)="setRating($event,y)">
+                      <input type="checkbox" [disabled]="false" [checked]="this.bmxItem.componentText[y].SELECTED_ROW"   (change)="setRating($event,y)">
 
   
                   </div>
@@ -290,10 +290,10 @@
                 <!-- 🟡🟡🟡🟡🟡🟡🟡🟡🟡🟡🟡🟡🟡🟡 END TABLE CELLS 🟡🟡🟡🟡🟡🟡🟡🟡🟡🟡🟡🟡🟡🟡🟡🟡 -->
             </div>
             <!--⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️ STARS RENDERER ⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️ -->
-            <div *ngIf="selectedRowCounter >= rankingScaleValue" style="min-width: 200px;background-color:white;display: flex;align-items: center;
+            <div  style="min-width: 200px;background-color:white;display: flex;align-items: center;
                 justify-content: center;border-left: rgb(231, 230, 230) 1px solid;
                 border-right: rgb(231, 230, 230) 1px solid;border-top: rgb(231, 230, 230) 1px solid;">
-                <div *ngIf="(y !== 0)">
+                <div *ngIf="(y !== 0) && this.bmxItem.componentText[y].SELECTED_ROW">
                     <div *ngIf="testName.CRITERIA; else elseBlock">
                         <div *ngFor="let criteria of testName.CRITERIA  let x =  index"
                             style="display: flex;flex-direction: column;justify-content: space-between;border-bottom: rgb(231, 230, 230) 1px solid;">
