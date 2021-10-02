@@ -129,7 +129,7 @@ export class SurveyCreationDesignComponent implements OnInit {
       this.bmxPages[this.currentPage].page.push({
         componentType: 'logo-header',
         componentText: 'PROJECT NAME',
-        componentSettings: [{ fontSize: '16px', fontFace: 'Arial', fontColor: 'red', 
+        componentSettings: [{ fontSize: '16px', fontFace: 'Arial', logoWidth: 100, 
         brandInstituteURL: "./assets/img/bmx/BRANDMATRIX-DASHBOARD-LOGO.svg",
         companyLogoURL: "./assets/img/bmx/BD.png" }],
       })
@@ -395,7 +395,7 @@ export class SurveyCreationDesignComponent implements OnInit {
                     {
                         "fontSize": "16",
                         "fontFace": "Arial",
-                        "fontColor": "red",
+                        "logoWidth": 100,
                         "brandInstituteURL": "./assets/img/bmx/BRANDMATRIX-DASHBOARD-LOGO.svg",
                         "companyLogoURL": "./assets/img/bmx/BD.png"
                     }
