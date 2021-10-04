@@ -124,7 +124,7 @@ export class SurveyCreationDesignComponent implements OnInit {
         // ▶️▶️▶️▶️▶️▶️▶️▶️▶️▶️▶️▶️▶️▶️▶️▶️▶️▶️▶️▶️▶️▶️▶️▶️▶️▶️
         if (componentType === 'logo-header') {
             this.bmxPages[this.currentPage].page.push({
-                componentType: 'logo-header',
+                componentType: componentType,
                 componentText: 'PROJECT NAME',
                 componentSettings: [{
                     fontSize: '16px', fontFace: 'Arial', logoWidth: 100,
@@ -135,7 +135,7 @@ export class SurveyCreationDesignComponent implements OnInit {
         }// ▶️▶️▶️▶️▶️▶️▶️▶️▶️▶️▶️▶️▶️▶️▶️▶️▶️▶️▶️▶️▶️▶️▶️▶️▶️▶️
         else if (componentType === 'text-editor') {
             this.bmxPages[this.currentPage].page.push({
-                componentType: 'text-editor',
+                componentType: componentType,
                 componentText: this.sampleHtml2,
                 componentSettings: [{ fontSize: '16px', fontFace: 'Arial', fontColor: 'red' }],
             })// ▶️▶️▶️▶️▶️▶️▶️▶️▶️▶️▶️▶️▶️▶️▶️▶️▶️▶️▶️▶️▶️▶️▶️▶️▶️▶️
@@ -155,7 +155,7 @@ export class SurveyCreationDesignComponent implements OnInit {
                 })
             }
             this.bmxPages[this.currentPage].page.push({
-                componentType: 'rate-scale',
+                componentType: componentType,
                 componentText: this.TestNameDataModel,
                 componentSettings: [{
                     "minRule": 0,
@@ -187,7 +187,7 @@ export class SurveyCreationDesignComponent implements OnInit {
                 })
             }
             this.bmxPages[this.currentPage].page.push({
-                componentType: 'ranking-scale',
+                componentType: componentType,
                 componentText: this.TestNameDataModel,
                 componentSettings: [{
                     "minRule": 0,
@@ -219,13 +219,13 @@ export class SurveyCreationDesignComponent implements OnInit {
                 this.TestNameDataModel.push({
                     // name: 'TEST NAME ' + index,
                     name: './assets/img/bmx/logoTestNames/logo' + imageIndex.toString() + '.JPG',
-                    logoURL: './assets/img/bmx/logoTestNames/logo' + imageIndex.toString() + '.JPG',
+                    // logoURL: './assets/img/bmx/logoTestNames/logo' + imageIndex.toString() + '.JPG',
                     RATE: -1,
                     STARS: this.createRatingStars()
                 })
             }
             this.bmxPages[this.currentPage].page.push({
-                componentType: 'image-rate-scale',
+                componentType: componentType,
                 componentText: this.TestNameDataModel,
                 componentSettings: [{
                     "minRule": 0,
@@ -245,19 +245,19 @@ export class SurveyCreationDesignComponent implements OnInit {
 
             this.TestNameDataModel = [];
             this.TestNameDataModel.push({
-                name: 'NAME', rationale: 'RATIONALE',
-                STARS: this.createRatingStars()
+                // name: 'NAME', rationale: 'RATIONALE',
+                // STARS: this.createRatingStars()
             })
             for (let index = 0; index < 5; index++) {
                 this.TestNameDataModel.push({
-                    name: 'NARROW TEST NAME ' + index,
+                    name: 'TEST NAME ' + index,
                     rationale: 'Rationale of an undisclosed length',
                     RATE: -1,
                     STARS: this.createRatingStars()
                 })
             }
             this.bmxPages[this.currentPage].page.push({
-                componentType: 'narrow-down',
+                componentType: componentType,
                 componentText: this.TestNameDataModel,
                 componentSettings: [{
                     "minRule": 0,
@@ -266,10 +266,42 @@ export class SurveyCreationDesignComponent implements OnInit {
                     "columnWidth": 150,
                     "rationalewidth": 250,
                     "rowHeight": 2,
-                    "categoryName": "Category Narrow Down",
-                    "categoryDescription": "This is narrow down matrix",
-                    "ratingScaleTitle": "RATING",
-                    "ratingScaleNarrowDownTitle": "SELECT 5 OUT OF 10"
+                    "categoryName": "Category Rate",
+                    "categoryDescription": "This is Rate matrix",
+                    "ratingScaleTitle": "QUESTIONS"
+                }
+                ],
+            })
+        }// ▶️▶️▶️▶️▶️▶️▶️▶️▶️▶️▶️▶️▶️▶️▶️▶️▶️▶️▶️▶️▶️▶️▶️▶️▶️▶️
+        else if (componentType === 'question-answer') {
+
+            this.TestNameDataModel = [];
+            this.TestNameDataModel.push({
+                name: 'Questions', 
+                // rationale: 'RATIONALE',
+                STARS: this.createRatingStars()
+            })
+            for (let index = 0; index < 5; index++) {
+                this.TestNameDataModel.push({
+                    name: 'QUESTION ' + index,
+                    // rationale: 'Rationale of an undisclosed length',
+                    RATE: -1,
+                    STARS: this.createRatingStars()
+                })
+            }
+            this.bmxPages[this.currentPage].page.push({
+                componentType: componentType,
+                componentText: this.TestNameDataModel,
+                componentSettings: [{
+                    "minRule": 0,
+                    "maxRule": 0,
+                    "fontSize": 16,
+                    "columnWidth": 600,
+                    "rationalewidth": 250,
+                    "rowHeight": 2,
+                    "categoryName": "Category Question & Answer",
+                    "categoryDescription": "Insert Comments box for answers",
+                    // "ratingScaleTitle": "RATING"
                 }
                 ],
             })
@@ -337,14 +369,12 @@ export class SurveyCreationDesignComponent implements OnInit {
                     {
                         componentType: 'logo-header',
                         componentText: 'PROJECT NAME',
-                        componentSettings: [{ fontSize: '16px', fontFace: 'Arial', fontColor: 'red' }],
-                    },
-                    {
-                        componentType: 'instructions',
-                        componentText: this.sampleHtml,
-                        componentSettings: [{ fontSize: '16px', fontFace: 'Arial', fontColor: 'red' }],
-
-                    },
+                        componentSettings: [{
+                            fontSize: '16px', fontFace: 'Arial', logoWidth: 100,
+                            brandInstituteURL: "./assets/img/bmx/BRANDMATRIX-DASHBOARD-LOGO.svg",
+                            companyLogoURL: "./assets/img/bmx/BD.png"
+                        }],
+                    }
                 ]
             }
         ]
@@ -404,188 +434,12 @@ export class SurveyCreationDesignComponent implements OnInit {
                 },
                 {
                     "componentType": "text-editor",
-                    "componentText": "<p style=\"text-align:center\"><u>Instructions</u></p>\n\n<p style=\"text-align:center\">&nbsp;</p>\n\n<p style=\"text-align:justify\">&nbsp; &nbsp; &nbsp; &nbsp;</p>\n",
+                    "componentText": "<p style=\"text-align:center\"><u>Instructions</u></p>\n\n<p style=\"text-align:center\">&nbsp;</p>\n\n<p style=\"text-align:justify\">&nbsp; &nbsp; &nbsp; &nbsp; &nbsp;Please select&nbsp;only&nbsp;the name candidates that you would categorize as&nbsp;<strong>neutral to positive</strong>&nbsp;</p>\n\n<p style=\"text-align:justify\">&nbsp; &nbsp; &nbsp; &nbsp; &nbsp;You should take into consideration any competitive brand name associations, pronunciation issues or negative connotations when making your selections.</p>\n\n<p style=\"text-align:justify\">&nbsp; &nbsp; &nbsp; &nbsp; &nbsp;To make a selection, simply click the check box to the left of the desired name candidate.</p>\n\n<p>&nbsp; &nbsp; &nbsp; &nbsp; &nbsp;After you make a selection, you will be asked to rate that name based on your&nbsp;<strong>Personal Preference</strong>:</p>\n\n<p>&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; Please rate each selected name candidate based on your own personal preference on a scale from <strong>1</strong> to <strong>7</strong>, <strong>1</strong> being neutral and <strong>7</strong> being the most liked.</p>\n\n<p>&nbsp; &nbsp; &nbsp; &nbsp; &nbsp;There is no ranking for negative as these names are not to be selected</p>\n\n<p>&nbsp; &nbsp; &nbsp; &nbsp; &nbsp;Once you have finished your selections, please click the &quot;Continue&quot; button on the bottom of the page to complete the survey.</p>\n",
                     "componentSettings": [
                         {
                             "fontSize": "16",
                             "fontFace": "Arial",
                             "fontColor": "red"
-                        }
-                    ]
-                },
-                {
-                    "componentType": "image-rate-scale",
-                    "componentText": [
-                        {
-                            "logoURL": "LOGO"
-                        },
-                        {
-                            "logoURL": "./assets/img/bmx/logoTestNames/logo1.JPG",
-                            "RATE": -1,
-                            "STARS": [
-                                {
-                                    "id": 0,
-                                    "icon": "grade",
-                                    "styleClass": "rating-star"
-                                },
-                                {
-                                    "id": 1,
-                                    "icon": "grade",
-                                    "styleClass": "rating-star"
-                                },
-                                {
-                                    "id": 2,
-                                    "icon": "grade",
-                                    "styleClass": "rating-star"
-                                },
-                                {
-                                    "id": 3,
-                                    "icon": "grade",
-                                    "styleClass": "rating-star"
-                                },
-                                {
-                                    "id": 4,
-                                    "icon": "grade",
-                                    "styleClass": "rating-star"
-                                }
-                            ]
-                        },
-                        {
-                            "logoURL": "./assets/img/bmx/logoTestNames/logo2.JPG",
-                            "RATE": -1,
-                            "STARS": [
-                                {
-                                    "id": 0,
-                                    "icon": "grade",
-                                    "styleClass": "rating-star"
-                                },
-                                {
-                                    "id": 1,
-                                    "icon": "grade",
-                                    "styleClass": "rating-star"
-                                },
-                                {
-                                    "id": 2,
-                                    "icon": "grade",
-                                    "styleClass": "rating-star"
-                                },
-                                {
-                                    "id": 3,
-                                    "icon": "grade",
-                                    "styleClass": "rating-star"
-                                },
-                                {
-                                    "id": 4,
-                                    "icon": "grade",
-                                    "styleClass": "rating-star"
-                                }
-                            ]
-                        },
-                        {
-                            "logoURL": "./assets/img/bmx/logoTestNames/logo3.JPG",
-                            "RATE": -1,
-                            "STARS": [
-                                {
-                                    "id": 0,
-                                    "icon": "grade",
-                                    "styleClass": "rating-star"
-                                },
-                                {
-                                    "id": 1,
-                                    "icon": "grade",
-                                    "styleClass": "rating-star"
-                                },
-                                {
-                                    "id": 2,
-                                    "icon": "grade",
-                                    "styleClass": "rating-star"
-                                },
-                                {
-                                    "id": 3,
-                                    "icon": "grade",
-                                    "styleClass": "rating-star"
-                                },
-                                {
-                                    "id": 4,
-                                    "icon": "grade",
-                                    "styleClass": "rating-star"
-                                }
-                            ]
-                        },
-                        {
-                            "logoURL": "./assets/img/bmx/logoTestNames/logo4.JPG",
-                            "RATE": -1,
-                            "STARS": [
-                                {
-                                    "id": 0,
-                                    "icon": "grade",
-                                    "styleClass": "rating-star"
-                                },
-                                {
-                                    "id": 1,
-                                    "icon": "grade",
-                                    "styleClass": "rating-star"
-                                },
-                                {
-                                    "id": 2,
-                                    "icon": "grade",
-                                    "styleClass": "rating-star"
-                                },
-                                {
-                                    "id": 3,
-                                    "icon": "grade",
-                                    "styleClass": "rating-star"
-                                },
-                                {
-                                    "id": 4,
-                                    "icon": "grade",
-                                    "styleClass": "rating-star"
-                                }
-                            ]
-                        },
-                        {
-                            "logoURL": "./assets/img/bmx/logoTestNames/logo5.JPG",
-                            "RATE": -1,
-                            "STARS": [
-                                {
-                                    "id": 0,
-                                    "icon": "grade",
-                                    "styleClass": "rating-star"
-                                },
-                                {
-                                    "id": 1,
-                                    "icon": "grade",
-                                    "styleClass": "rating-star"
-                                },
-                                {
-                                    "id": 2,
-                                    "icon": "grade",
-                                    "styleClass": "rating-star"
-                                },
-                                {
-                                    "id": 3,
-                                    "icon": "grade",
-                                    "styleClass": "rating-star"
-                                },
-                                {
-                                    "id": 4,
-                                    "icon": "grade",
-                                    "styleClass": "rating-star"
-                                }
-                            ]
-                        }
-                    ],
-                    "componentSettings": [
-                        {
-                            "minRule": 0,
-                            "maxRule": 0,
-                            "fontSize": 16,
-                            "columnWidth": 336,
-                            "rationalewidth": 250,
-                            "rowHeight": 2,
-                            "categoryName": "Category Logo Rating",
-                            "categoryDescription": "This is logo rating matrix",
-                            "ratingScaleTitle": "RANK"
                         }
                     ]
                 },
@@ -2478,7 +2332,7 @@ export class SurveyCreationDesignComponent implements OnInit {
                         {
                             "fontSize": "16px",
                             "fontFace": "Arial",
-                            "logoWidth": 154,
+                            "logoWidth": 100,
                             "brandInstituteURL": "./assets/img/bmx/BRANDMATRIX-DASHBOARD-LOGO.svg",
                             "companyLogoURL": "./assets/img/bmx/BD.png"
                         }
@@ -2789,7 +2643,6 @@ export class SurveyCreationDesignComponent implements OnInit {
                     "componentType": "image-rate-scale",
                     "componentText": [
                         {
-                            "name": "LOGO",
                             "STARS": [
                                 {
                                     "id": 0,
@@ -2815,24 +2668,13 @@ export class SurveyCreationDesignComponent implements OnInit {
                                     "id": 4,
                                     "icon": "grade",
                                     "styleClass": "rating-star"
-                                },
-                                {
-                                    "id": 5,
-                                    "icon": "grade",
-                                    "styleClass": "rating-star"
-                                },
-                                {
-                                    "id": 6,
-                                    "icon": "grade",
-                                    "styleClass": "rating-star"
                                 }
                             ],
+                            "nameCandidates": "Name Candidates",
+                            "rationale": "Rationale",
                             "Comments1": "General Comments"
                         },
                         {
-                            "name": "./assets/img/bmx/logoTestNames/logo1.JPG",
-                            "nameCandidate": "TEST NAME 0",
-                            "RATE": -1,
                             "STARS": [
                                 {
                                     "id": 0,
@@ -2858,24 +2700,14 @@ export class SurveyCreationDesignComponent implements OnInit {
                                     "id": 4,
                                     "icon": "grade",
                                     "styleClass": "rating-star"
-                                },
-                                {
-                                    "id": 5,
-                                    "icon": "grade",
-                                    "styleClass": "rating-star"
-                                },
-                                {
-                                    "id": 6,
-                                    "icon": "grade",
-                                    "styleClass": "rating-star"
                                 }
                             ],
+                            "nameCandidates": "https://tools.brandinstitute.com/bmresources/103PED/logo1.JPG",
+                            "rationale": "Rationale of an unthRationale of an unthdddd dddddddd dddddddd ddddddddddd ddddddd dddddddd",
+                            "name": "https://tools.brandinstitute.com/bmresources/103PED/logo1.JPG",
                             "Comments1": "General Comments"
                         },
                         {
-                            "name": "./assets/img/bmx/logoTestNames/logo2.JPG",
-                            "nameCandidate": "TEST NAME 1",
-                            "RATE": -1,
                             "STARS": [
                                 {
                                     "id": 0,
@@ -2901,24 +2733,14 @@ export class SurveyCreationDesignComponent implements OnInit {
                                     "id": 4,
                                     "icon": "grade",
                                     "styleClass": "rating-star"
-                                },
-                                {
-                                    "id": 5,
-                                    "icon": "grade",
-                                    "styleClass": "rating-star"
-                                },
-                                {
-                                    "id": 6,
-                                    "icon": "grade",
-                                    "styleClass": "rating-star"
                                 }
                             ],
+                            "nameCandidates": "https://tools.brandinstitute.com/bmresources/103PED/logo2.JPG",
+                            "rationale": "Rationale of an undisclosed length",
+                            "name": "https://tools.brandinstitute.com/bmresources/103PED/logo2.JPG",
                             "Comments1": "General Comments"
                         },
                         {
-                            "name": "./assets/img/bmx/logoTestNames/logo3.JPG",
-                            "nameCandidate": "TEST NAME 2",
-                            "RATE": -1,
                             "STARS": [
                                 {
                                     "id": 0,
@@ -2944,24 +2766,14 @@ export class SurveyCreationDesignComponent implements OnInit {
                                     "id": 4,
                                     "icon": "grade",
                                     "styleClass": "rating-star"
-                                },
-                                {
-                                    "id": 5,
-                                    "icon": "grade",
-                                    "styleClass": "rating-star"
-                                },
-                                {
-                                    "id": 6,
-                                    "icon": "grade",
-                                    "styleClass": "rating-star"
                                 }
                             ],
+                            "nameCandidates": "https://tools.brandinstitute.com/bmresources/103PED/logo3.JPG",
+                            "rationale": "Rationale of an undisclosed length",
+                            "name": "https://tools.brandinstitute.com/bmresources/103PED/logo3.JPG",
                             "Comments1": "General Comments"
                         },
                         {
-                            "name": "./assets/img/bmx/logoTestNames/logo4.JPG",
-                            "nameCandidate": "TEST NAME 3",
-                            "RATE": -1,
                             "STARS": [
                                 {
                                     "id": 0,
@@ -2987,24 +2799,14 @@ export class SurveyCreationDesignComponent implements OnInit {
                                     "id": 4,
                                     "icon": "grade",
                                     "styleClass": "rating-star"
-                                },
-                                {
-                                    "id": 5,
-                                    "icon": "grade",
-                                    "styleClass": "rating-star"
-                                },
-                                {
-                                    "id": 6,
-                                    "icon": "grade",
-                                    "styleClass": "rating-star"
                                 }
                             ],
+                            "nameCandidates": "https://tools.brandinstitute.com/bmresources/103PED/logo4.JPG",
+                            "rationale": "Rationale of an losed length",
+                            "name": "https://tools.brandinstitute.com/bmresources/103PED/logo4.JPG",
                             "Comments1": "General Comments"
                         },
                         {
-                            "name": "./assets/img/bmx/logoTestNames/logo5.JPG",
-                            "nameCandidate": "TEST NAME 4",
-                            "RATE": -1,
                             "STARS": [
                                 {
                                     "id": 0,
@@ -3030,18 +2832,11 @@ export class SurveyCreationDesignComponent implements OnInit {
                                     "id": 4,
                                     "icon": "grade",
                                     "styleClass": "rating-star"
-                                },
-                                {
-                                    "id": 5,
-                                    "icon": "grade",
-                                    "styleClass": "rating-star"
-                                },
-                                {
-                                    "id": 6,
-                                    "icon": "grade",
-                                    "styleClass": "rating-star"
                                 }
                             ],
+                            "nameCandidates": "https://tools.brandinstitute.com/bmresources/103PED/logo5.JPG",
+                            "rationale": "Rationale of an undisclosed length",
+                            "name": "https://tools.brandinstitute.com/bmresources/103PED/logo5.JPG",
                             "Comments1": "General Comments"
                         }
                     ],
@@ -3051,7 +2846,7 @@ export class SurveyCreationDesignComponent implements OnInit {
                             "maxRule": 0,
                             "fontSize": 16,
                             "columnWidth": 336,
-                            "rationalewidth": 250,
+                            "rationalewidth": 375,
                             "rowHeight": 2,
                             "categoryName": "Category Logo Rating",
                             "categoryDescription": "This is logo rating matrix",

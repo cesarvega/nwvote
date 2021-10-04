@@ -204,14 +204,14 @@ export class RatingScaleComponent implements OnInit {
 
       this.extraColumnCounter = 1
       this.columnsNames.forEach((column, index) => {
-        if (column == 'name candidates' || column == 'test names' || column == 'names') {
+        if (column == 'name candidates' || column == 'test names' || column == 'names' || column == 'questions') {
           // if (this.bmxItem.componentType = 'image-rate-scale') {
           //   this.columnsNames[index] = 'name'
           // } else {
           // }
           
           this.columnsNames[index] = 'nameCandidates'
-        } else if (column == 'name rationale' || column == 'rationale' || column == 'rationales') {
+        } else if (column == 'name rationale' || column == 'rationale' || column == 'rationales' ) {
           this.columnsNames[index] = 'rationale'
         } else if (column == 'katakana') {
           this.columnsNames[index] = 'katakana'

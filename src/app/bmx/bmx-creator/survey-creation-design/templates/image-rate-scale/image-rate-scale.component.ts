@@ -89,6 +89,7 @@ export class ImageRateScaleComponent extends RatingScaleComponent implements OnI
         this.IMAGES_UPLOADED.shift()
         // imageObject['FileContent'] = JSON.parse(result.d).FileUrl
         this.bmxItem.componentText[index + 1].nameCandidates = JSON.parse(result.d).FileUrl
+        this.bmxItem.componentText[index + 1].name = JSON.parse(result.d).FileUrl
       });
     });
 
