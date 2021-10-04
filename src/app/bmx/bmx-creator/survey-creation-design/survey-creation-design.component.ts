@@ -416,18 +416,27 @@ export class SurveyCreationDesignComponent implements OnInit {
                     {
                         "fontSize": "16",
                         "fontFace": "Arial",
-                        "logoWidth": 100,
+                        "fontColor": "red",
                         "brandInstituteURL": "./assets/img/bmx/BRANDMATRIX-DASHBOARD-LOGO.svg",
                         "companyLogoURL": "./assets/img/bmx/BD.png"
                     }
                 ]
             },
             {
-                "componentType": "narrow-down",
+                "componentType": "text-editor",
+                "componentText": "<p style=\"text-align:center\"><u>Instructions</u></p>\n\n<p style=\"text-align:center\">&nbsp;</p>\n\n<p style=\"text-align:justify\">&nbsp; &nbsp; &nbsp; &nbsp; &nbsp;Please select&nbsp;only&nbsp;the name candidates that you would categorize as&nbsp;<strong>neutral to positive</strong>&nbsp;</p>\n\n<p style=\"text-align:justify\">&nbsp;</p>\n\n<p style=\"text-align:justify\">&nbsp; &nbsp; &nbsp; &nbsp; &nbsp;You should take into consideration any competitive brand name associations, pronunciation issues or negative connotations when making your selections.</p>\n\n<p style=\"text-align:justify\">&nbsp;</p>\n\n<p style=\"text-align:justify\">&nbsp; &nbsp; &nbsp; &nbsp; &nbsp;To make a selection, simply click the check box to the left of the desired name candidate.</p>\n\n<p style=\"text-align:justify\">&nbsp;</p>\n\n<p>&nbsp; &nbsp; &nbsp; &nbsp; &nbsp;After you make a selection, you will be asked to rate that name based on your&nbsp;<strong>Personal Preference</strong>:</p>\n\n<p>&nbsp;</p>\n\n<p>&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; Please rate each selected name candidate based on your own personal preference on a scale from <strong>1</strong> to <strong>7</strong>, <strong>1</strong> being neutral and <strong>7</strong> being the most liked.</p>\n\n<p>&nbsp;</p>\n\n<p>&nbsp; &nbsp; &nbsp; &nbsp; &nbsp;There is no ranking for negative as these names are not to be selected</p>\n\n<p>&nbsp;</p>\n\n<p>&nbsp; &nbsp; &nbsp; &nbsp; &nbsp;Once you have finished your selections, please click the &quot;Continue&quot; button on the bottom of the page to complete the survey.</p>\n\n<p style=\"text-align:justify\">&nbsp;</p>\n\n<p>&nbsp;</p>\n",
+                "componentSettings": [
+                    {
+                        "fontSize": "16",
+                        "fontFace": "Arial",
+                        "fontColor": "red"
+                    }
+                ]
+            },
+            {
+                "componentType": "rate-scale",
                 "componentText": [
                     {
-                        "name": "NAME",
-                        "rationale": "RATIONALE",
                         "STARS": [
                             {
                                 "id": 0,
@@ -453,13 +462,23 @@ export class SurveyCreationDesignComponent implements OnInit {
                                 "id": 4,
                                 "icon": "grade",
                                 "styleClass": "rating-star"
+                            },
+                            {
+                                "id": 5,
+                                "icon": "grade",
+                                "styleClass": "rating-star"
+                            },
+                            {
+                                "id": 6,
+                                "icon": "grade",
+                                "styleClass": "rating-star"
                             }
-                        ]
+                        ],
+                        "nameCandidates": "Name Candidates",
+                        "rationale": "Rationales",
+                        "Comments1": "General Comments"
                     },
                     {
-                        "name": "TEST NAME 0",
-                        "rationale": "Rationale of an undisclosed length",
-                        "RATE": -1,
                         "STARS": [
                             {
                                 "id": 0,
@@ -485,13 +504,23 @@ export class SurveyCreationDesignComponent implements OnInit {
                                 "id": 4,
                                 "icon": "grade",
                                 "styleClass": "rating-star"
+                            },
+                            {
+                                "id": 5,
+                                "icon": "grade",
+                                "styleClass": "rating-star"
+                            },
+                            {
+                                "id": 6,
+                                "icon": "grade",
+                                "styleClass": "rating-star"
                             }
-                        ]
+                        ],
+                        "nameCandidates": "TEMPORAL  ",
+                        "rationale": "Treatment to Slow Parkinson’s Given Orally",
+                        "Comments1": "General Comments"
                     },
                     {
-                        "name": "TEST NAME 1",
-                        "rationale": "Rationale of an undisclosed length",
-                        "RATE": -1,
                         "STARS": [
                             {
                                 "id": 0,
@@ -517,13 +546,23 @@ export class SurveyCreationDesignComponent implements OnInit {
                                 "id": 4,
                                 "icon": "grade",
                                 "styleClass": "rating-star"
+                            },
+                            {
+                                "id": 5,
+                                "icon": "grade",
+                                "styleClass": "rating-star"
+                            },
+                            {
+                                "id": 6,
+                                "icon": "grade",
+                                "styleClass": "rating-star"
                             }
-                        ]
+                        ],
+                        "nameCandidates": "Moderato  ",
+                        "rationale": "A Moderate Musical Tempo (Suggests Slowing Disease Progression)",
+                        "Comments1": "General Comments"
                     },
                     {
-                        "name": "TEST NAME 2",
-                        "rationale": "Rationale of an undisclosed length",
-                        "RATE": -1,
                         "STARS": [
                             {
                                 "id": 0,
@@ -549,13 +588,23 @@ export class SurveyCreationDesignComponent implements OnInit {
                                 "id": 4,
                                 "icon": "grade",
                                 "styleClass": "rating-star"
+                            },
+                            {
+                                "id": 5,
+                                "icon": "grade",
+                                "styleClass": "rating-star"
+                            },
+                            {
+                                "id": 6,
+                                "icon": "grade",
+                                "styleClass": "rating-star"
                             }
-                        ]
+                        ],
+                        "nameCandidates": "REINSPIRE ",
+                        "rationale": "Reviewing an Early Intervention for Slowing Parkinson's Disease Progression - Give Hope, Links to UCB's \"Inspired by Patients\"",
+                        "Comments1": "General Comments"
                     },
                     {
-                        "name": "TEST NAME 3",
-                        "rationale": "Rationale of an undisclosed length",
-                        "RATE": -1,
                         "STARS": [
                             {
                                 "id": 0,
@@ -581,13 +630,23 @@ export class SurveyCreationDesignComponent implements OnInit {
                                 "id": 4,
                                 "icon": "grade",
                                 "styleClass": "rating-star"
+                            },
+                            {
+                                "id": 5,
+                                "icon": "grade",
+                                "styleClass": "rating-star"
+                            },
+                            {
+                                "id": 6,
+                                "icon": "grade",
+                                "styleClass": "rating-star"
                             }
-                        ]
+                        ],
+                        "nameCandidates": "MILKY WAY  ",
+                        "rationale": "MIsfolding Parkinson Study With Early Stage Patients",
+                        "Comments1": "General Comments"
                     },
                     {
-                        "name": "TEST NAME 4",
-                        "rationale": "Rationale of an undisclosed length",
-                        "RATE": -1,
                         "STARS": [
                             {
                                 "id": 0,
@@ -613,8 +672,105 @@ export class SurveyCreationDesignComponent implements OnInit {
                                 "id": 4,
                                 "icon": "grade",
                                 "styleClass": "rating-star"
+                            },
+                            {
+                                "id": 5,
+                                "icon": "grade",
+                                "styleClass": "rating-star"
+                            },
+                            {
+                                "id": 6,
+                                "icon": "grade",
+                                "styleClass": "rating-star"
                             }
-                        ]
+                        ],
+                        "nameCandidates": "Arkitect ",
+                        "rationale": "\"Architect,\" Embeds Ark for Parkinson's Disease and Implies Stability or Planning Ahead",
+                        "Comments1": "General Comments"
+                    },
+                    {
+                        "STARS": [
+                            {
+                                "id": 0,
+                                "icon": "grade",
+                                "styleClass": "rating-star"
+                            },
+                            {
+                                "id": 1,
+                                "icon": "grade",
+                                "styleClass": "rating-star"
+                            },
+                            {
+                                "id": 2,
+                                "icon": "grade",
+                                "styleClass": "rating-star"
+                            },
+                            {
+                                "id": 3,
+                                "icon": "grade",
+                                "styleClass": "rating-star"
+                            },
+                            {
+                                "id": 4,
+                                "icon": "grade",
+                                "styleClass": "rating-star"
+                            },
+                            {
+                                "id": 5,
+                                "icon": "grade",
+                                "styleClass": "rating-star"
+                            },
+                            {
+                                "id": 6,
+                                "icon": "grade",
+                                "styleClass": "rating-star"
+                            }
+                        ],
+                        "nameCandidates": "Unfolding ",
+                        "rationale": "A Slow Revealing, Suggests Slowing Disease Progression and Links to Alpha-Synuclein Misfolding",
+                        "Comments1": "General Comments"
+                    },
+                    {
+                        "STARS": [
+                            {
+                                "id": 0,
+                                "icon": "grade",
+                                "styleClass": "rating-star"
+                            },
+                            {
+                                "id": 1,
+                                "icon": "grade",
+                                "styleClass": "rating-star"
+                            },
+                            {
+                                "id": 2,
+                                "icon": "grade",
+                                "styleClass": "rating-star"
+                            },
+                            {
+                                "id": 3,
+                                "icon": "grade",
+                                "styleClass": "rating-star"
+                            },
+                            {
+                                "id": 4,
+                                "icon": "grade",
+                                "styleClass": "rating-star"
+                            },
+                            {
+                                "id": 5,
+                                "icon": "grade",
+                                "styleClass": "rating-star"
+                            },
+                            {
+                                "id": 6,
+                                "icon": "grade",
+                                "styleClass": "rating-star"
+                            }
+                        ],
+                        "nameCandidates": "ORCHESTRA  ",
+                        "rationale": "ORal New Chemical Entity Aiming to Slow Disease Trajectory in Early Parkinson’s",
+                        "Comments1": "General Comments"
                     }
                 ],
                 "componentSettings": [
@@ -622,12 +778,12 @@ export class SurveyCreationDesignComponent implements OnInit {
                         "minRule": 0,
                         "maxRule": 0,
                         "fontSize": 16,
-                        "columnWidth": 150,
-                        "rationalewidth": 250,
+                        "columnWidth": 191,
+                        "rationalewidth": 804,
                         "rowHeight": 2,
-                        "categoryName": "Category Narrow Down",
-                        "categoryDescription": "This is narrow down matrix",
-                        "ratingScaleTitle": "RATING"
+                        "categoryName": "Name Candidates",
+                        "categoryDescription": "",
+                        "ratingScaleTitle": "Rate from 1 to 7"
                     }
                 ]
             }
@@ -1250,27 +1406,37 @@ export class SurveyCreationDesignComponent implements OnInit {
                         "STARS": [
                             {
                                 "id": 0,
-                                "icon": "grade",
+                                "icon": 1,
                                 "styleClass": "rating-star"
                             },
                             {
                                 "id": 1,
-                                "icon": "grade",
+                                "icon": 2,
                                 "styleClass": "rating-star"
                             },
                             {
                                 "id": 2,
-                                "icon": "grade",
+                                "icon": 3,
                                 "styleClass": "rating-star"
                             },
                             {
                                 "id": 3,
-                                "icon": "grade",
+                                "icon": 4,
                                 "styleClass": "rating-star"
                             },
                             {
                                 "id": 4,
-                                "icon": "grade",
+                                "icon": 5,
+                                "styleClass": "rating-star"
+                            },
+                            {
+                                "id": 5,
+                                "icon": 6,
+                                "styleClass": "rating-star"
+                            },
+                            {
+                                "id": 6,
+                                "icon": 7,
                                 "styleClass": "rating-star"
                             }
                         ],
@@ -1279,31 +1445,41 @@ export class SurveyCreationDesignComponent implements OnInit {
                     {
                         "name": "TEST NAME 1",
                         "rationale": "Rationale of an undisclosed length",
-                        "RATE": -1,
+                        "RATE": 2,
                         "STARS": [
                             {
                                 "id": 0,
-                                "icon": "grade",
+                                "icon": 1,
                                 "styleClass": "rating-star"
                             },
                             {
                                 "id": 1,
-                                "icon": "grade",
+                                "icon": 2,
                                 "styleClass": "rating-star"
                             },
                             {
                                 "id": 2,
-                                "icon": "grade",
+                                "icon": 3,
                                 "styleClass": "rating-star"
                             },
                             {
                                 "id": 3,
-                                "icon": "grade",
+                                "icon": 4,
                                 "styleClass": "rating-star"
                             },
                             {
                                 "id": 4,
-                                "icon": "grade",
+                                "icon": 5,
+                                "styleClass": "rating-star"
+                            },
+                            {
+                                "id": 5,
+                                "icon": 6,
+                                "styleClass": "rating-star"
+                            },
+                            {
+                                "id": 6,
+                                "icon": 7,
                                 "styleClass": "rating-star"
                             }
                         ],
@@ -1312,31 +1488,41 @@ export class SurveyCreationDesignComponent implements OnInit {
                     {
                         "name": "TEST NAME 0",
                         "rationale": "Rationale of an undisclosed length",
-                        "RATE": -1,
+                        "RATE": 1,
                         "STARS": [
                             {
                                 "id": 0,
-                                "icon": "grade",
+                                "icon": 1,
                                 "styleClass": "rating-star"
                             },
                             {
                                 "id": 1,
-                                "icon": "grade",
+                                "icon": 2,
                                 "styleClass": "rating-star"
                             },
                             {
                                 "id": 2,
-                                "icon": "grade",
+                                "icon": 3,
                                 "styleClass": "rating-star"
                             },
                             {
                                 "id": 3,
-                                "icon": "grade",
+                                "icon": 4,
                                 "styleClass": "rating-star"
                             },
                             {
                                 "id": 4,
-                                "icon": "grade",
+                                "icon": 5,
+                                "styleClass": "rating-star"
+                            },
+                            {
+                                "id": 5,
+                                "icon": 6,
+                                "styleClass": "rating-star"
+                            },
+                            {
+                                "id": 6,
+                                "icon": 7,
                                 "styleClass": "rating-star"
                             }
                         ],
@@ -1345,31 +1531,41 @@ export class SurveyCreationDesignComponent implements OnInit {
                     {
                         "name": "TEST NAME 4",
                         "rationale": "Rationale of an undisclosed length",
-                        "RATE": -1,
+                        "RATE": 3,
                         "STARS": [
                             {
                                 "id": 0,
-                                "icon": "grade",
+                                "icon": 1,
                                 "styleClass": "rating-star"
                             },
                             {
                                 "id": 1,
-                                "icon": "grade",
+                                "icon": 2,
                                 "styleClass": "rating-star"
                             },
                             {
                                 "id": 2,
-                                "icon": "grade",
+                                "icon": 3,
                                 "styleClass": "rating-star"
                             },
                             {
                                 "id": 3,
-                                "icon": "grade",
+                                "icon": 4,
                                 "styleClass": "rating-star"
                             },
                             {
                                 "id": 4,
-                                "icon": "grade",
+                                "icon": 5,
+                                "styleClass": "rating-star"
+                            },
+                            {
+                                "id": 5,
+                                "icon": 6,
+                                "styleClass": "rating-star"
+                            },
+                            {
+                                "id": 6,
+                                "icon": 7,
                                 "styleClass": "rating-star"
                             }
                         ],
@@ -1378,31 +1574,41 @@ export class SurveyCreationDesignComponent implements OnInit {
                     {
                         "name": "TEST NAME 2",
                         "rationale": "Rationale of an undisclosed length",
-                        "RATE": -1,
+                        "RATE": 4,
                         "STARS": [
                             {
                                 "id": 0,
-                                "icon": "grade",
+                                "icon": 1,
                                 "styleClass": "rating-star"
                             },
                             {
                                 "id": 1,
-                                "icon": "grade",
+                                "icon": 2,
                                 "styleClass": "rating-star"
                             },
                             {
                                 "id": 2,
-                                "icon": "grade",
+                                "icon": 3,
                                 "styleClass": "rating-star"
                             },
                             {
                                 "id": 3,
-                                "icon": "grade",
+                                "icon": 4,
                                 "styleClass": "rating-star"
                             },
                             {
                                 "id": 4,
-                                "icon": "grade",
+                                "icon": 5,
+                                "styleClass": "rating-star"
+                            },
+                            {
+                                "id": 5,
+                                "icon": 6,
+                                "styleClass": "rating-star"
+                            },
+                            {
+                                "id": 6,
+                                "icon": 7,
                                 "styleClass": "rating-star"
                             }
                         ],
@@ -1411,31 +1617,41 @@ export class SurveyCreationDesignComponent implements OnInit {
                     {
                         "name": "TEST NAME 3",
                         "rationale": "Rationale of an undisclosed length",
-                        "RATE": -1,
+                        "RATE": 5,
                         "STARS": [
                             {
                                 "id": 0,
-                                "icon": "grade",
+                                "icon": 1,
                                 "styleClass": "rating-star"
                             },
                             {
                                 "id": 1,
-                                "icon": "grade",
+                                "icon": 2,
                                 "styleClass": "rating-star"
                             },
                             {
                                 "id": 2,
-                                "icon": "grade",
+                                "icon": 3,
                                 "styleClass": "rating-star"
                             },
                             {
                                 "id": 3,
-                                "icon": "grade",
+                                "icon": 4,
                                 "styleClass": "rating-star"
                             },
                             {
                                 "id": 4,
-                                "icon": "grade",
+                                "icon": 5,
+                                "styleClass": "rating-star"
+                            },
+                            {
+                                "id": 5,
+                                "icon": 6,
+                                "styleClass": "rating-star"
+                            },
+                            {
+                                "id": 6,
+                                "icon": 7,
                                 "styleClass": "rating-star"
                             }
                         ],
@@ -1452,7 +1668,8 @@ export class SurveyCreationDesignComponent implements OnInit {
                         "rowHeight": 2,
                         "categoryName": "Category name",
                         "categoryDescription": "category description",
-                        "ratingScaleTitle": "RANK"
+                        "ratingScaleTitle": "RANK",
+                        "rankType": "dropDown"
                     }
                 ]
             }
@@ -1503,344 +1720,176 @@ export class SurveyCreationDesignComponent implements OnInit {
                         "STARS": [
                             {
                                 "id": 0,
-                                "icon": "grade",
+                                "icon": 1,
                                 "styleClass": "rating-star"
                             },
                             {
                                 "id": 1,
-                                "icon": "grade",
+                                "icon": 2,
                                 "styleClass": "rating-star"
                             },
                             {
                                 "id": 2,
-                                "icon": "grade",
-                                "styleClass": "rating-star"
-                            },
-                            {
-                                "id": 3,
-                                "icon": "grade",
-                                "styleClass": "rating-star"
-                            },
-                            {
-                                "id": 4,
-                                "icon": "grade",
-                                "styleClass": "rating-star"
-                            },
-                            {
-                                "id": 5,
-                                "icon": "grade",
+                                "icon": 3,
                                 "styleClass": "rating-star"
                             }
                         ],
                         "nameCandidates": "Name Candidates",
                         "rationale": "Rationales",
-                        "RadioColumn1": "1",
-                        "RadioColumn2": "2",
-                        "RadioColumn3": "3",
-                        "RadioColumn4": "4",
-                        "RadioColumn5": "5",
-                        "RadioColumn6": "6",
                         "Comments2": "General Comments"
                     },
                     {
                         "STARS": [
                             {
                                 "id": 0,
-                                "icon": "grade",
+                                "icon": 1,
                                 "styleClass": "rating-star"
                             },
                             {
                                 "id": 1,
-                                "icon": "grade",
+                                "icon": 2,
                                 "styleClass": "rating-star"
                             },
                             {
                                 "id": 2,
-                                "icon": "grade",
-                                "styleClass": "rating-star"
-                            },
-                            {
-                                "id": 3,
-                                "icon": "grade",
-                                "styleClass": "rating-star"
-                            },
-                            {
-                                "id": 4,
-                                "icon": "grade",
-                                "styleClass": "rating-star"
-                            },
-                            {
-                                "id": 5,
-                                "icon": "grade",
+                                "icon": 3,
                                 "styleClass": "rating-star"
                             }
                         ],
                         "nameCandidates": "sivuzaplorsen ",
                         "rationale": "Individualized",
-                        "RadioColumn1": true,
-                        "RadioColumn2": false,
-                        "RadioColumn3": false,
-                        "RadioColumn4": false,
-                        "RadioColumn5": false,
-                        "RadioColumn6": false,
                         "Comments2": "Comments"
                     },
                     {
                         "STARS": [
                             {
                                 "id": 0,
-                                "icon": "grade",
+                                "icon": 1,
                                 "styleClass": "rating-star"
                             },
                             {
                                 "id": 1,
-                                "icon": "grade",
+                                "icon": 2,
                                 "styleClass": "rating-star"
                             },
                             {
                                 "id": 2,
-                                "icon": "grade",
-                                "styleClass": "rating-star"
-                            },
-                            {
-                                "id": 3,
-                                "icon": "grade",
-                                "styleClass": "rating-star"
-                            },
-                            {
-                                "id": 4,
-                                "icon": "grade",
-                                "styleClass": "rating-star"
-                            },
-                            {
-                                "id": 5,
-                                "icon": "grade",
+                                "icon": 3,
                                 "styleClass": "rating-star"
                             }
                         ],
                         "nameCandidates": "ofasaplorsen ",
                         "rationale": "Blank Canvas",
-                        "RadioColumn1": false,
-                        "RadioColumn2": false,
-                        "RadioColumn3": true,
-                        "RadioColumn4": false,
-                        "RadioColumn5": false,
-                        "RadioColumn6": false,
                         "Comments2": "Comments"
                     },
                     {
                         "STARS": [
                             {
                                 "id": 0,
-                                "icon": "grade",
+                                "icon": 1,
                                 "styleClass": "rating-star"
                             },
                             {
                                 "id": 1,
-                                "icon": "grade",
+                                "icon": 2,
                                 "styleClass": "rating-star"
                             },
                             {
                                 "id": 2,
-                                "icon": "grade",
-                                "styleClass": "rating-star"
-                            },
-                            {
-                                "id": 3,
-                                "icon": "grade",
-                                "styleClass": "rating-star"
-                            },
-                            {
-                                "id": 4,
-                                "icon": "grade",
-                                "styleClass": "rating-star"
-                            },
-                            {
-                                "id": 5,
-                                "icon": "grade",
+                                "icon": 3,
                                 "styleClass": "rating-star"
                             }
                         ],
                         "nameCandidates": "beritapolirsen ",
                         "rationale": "Connotes Liberty",
-                        "RadioColumn1": false,
-                        "RadioColumn2": true,
-                        "RadioColumn3": false,
-                        "RadioColumn4": false,
-                        "RadioColumn5": false,
-                        "RadioColumn6": false,
                         "Comments2": "Comments"
                     },
                     {
                         "STARS": [
                             {
                                 "id": 0,
-                                "icon": "grade",
+                                "icon": 1,
                                 "styleClass": "rating-star"
                             },
                             {
                                 "id": 1,
-                                "icon": "grade",
+                                "icon": 2,
                                 "styleClass": "rating-star"
                             },
                             {
                                 "id": 2,
-                                "icon": "grade",
-                                "styleClass": "rating-star"
-                            },
-                            {
-                                "id": 3,
-                                "icon": "grade",
-                                "styleClass": "rating-star"
-                            },
-                            {
-                                "id": 4,
-                                "icon": "grade",
-                                "styleClass": "rating-star"
-                            },
-                            {
-                                "id": 5,
-                                "icon": "grade",
-                                "styleClass": "rating-star"
-                            }
-                        ],
-                        "nameCandidates": "pelcirapolirsen ",
-                        "rationale": "Precision Medicine",
-                        "RadioColumn1": false,
-                        "RadioColumn2": false,
-                        "RadioColumn3": false,
-                        "RadioColumn4": true,
-                        "RadioColumn5": false,
-                        "RadioColumn6": false,
-                        "Comments2": "Comments"
-                    },
-                    {
-                        "STARS": [
-                            {
-                                "id": 0,
-                                "icon": "grade",
-                                "styleClass": "rating-star"
-                            },
-                            {
-                                "id": 1,
-                                "icon": "grade",
-                                "styleClass": "rating-star"
-                            },
-                            {
-                                "id": 2,
-                                "icon": "grade",
-                                "styleClass": "rating-star"
-                            },
-                            {
-                                "id": 3,
-                                "icon": "grade",
-                                "styleClass": "rating-star"
-                            },
-                            {
-                                "id": 4,
-                                "icon": "grade",
-                                "styleClass": "rating-star"
-                            },
-                            {
-                                "id": 5,
-                                "icon": "grade",
-                                "styleClass": "rating-star"
-                            }
-                        ],
-                        "nameCandidates": "pemapolirsen ",
-                        "rationale": "Hope",
-                        "RadioColumn1": false,
-                        "RadioColumn2": false,
-                        "RadioColumn3": false,
-                        "RadioColumn4": false,
-                        "RadioColumn5": false,
-                        "RadioColumn6": false,
-                        "Comments2": "Comments"
-                    },
-                    {
-                        "STARS": [
-                            {
-                                "id": 0,
-                                "icon": "grade",
-                                "styleClass": "rating-star"
-                            },
-                            {
-                                "id": 1,
-                                "icon": "grade",
-                                "styleClass": "rating-star"
-                            },
-                            {
-                                "id": 2,
-                                "icon": "grade",
-                                "styleClass": "rating-star"
-                            },
-                            {
-                                "id": 3,
-                                "icon": "grade",
-                                "styleClass": "rating-star"
-                            },
-                            {
-                                "id": 4,
-                                "icon": "grade",
-                                "styleClass": "rating-star"
-                            },
-                            {
-                                "id": 5,
-                                "icon": "grade",
+                                "icon": 3,
                                 "styleClass": "rating-star"
                             }
                         ],
                         "nameCandidates": "talrapolirsen ",
                         "rationale": "Tailored",
-                        "RadioColumn1": false,
-                        "RadioColumn2": false,
-                        "RadioColumn3": false,
-                        "RadioColumn4": false,
-                        "RadioColumn5": true,
-                        "RadioColumn6": false,
                         "Comments2": "Comments"
                     },
                     {
                         "STARS": [
                             {
                                 "id": 0,
-                                "icon": "grade",
+                                "icon": 1,
                                 "styleClass": "rating-star"
                             },
                             {
                                 "id": 1,
-                                "icon": "grade",
+                                "icon": 2,
                                 "styleClass": "rating-star"
                             },
                             {
                                 "id": 2,
-                                "icon": "grade",
+                                "icon": 3,
+                                "styleClass": "rating-star"
+                            }
+                        ],
+                        "nameCandidates": "pemapolirsen ",
+                        "rationale": "Hope",
+                        "Comments2": "Comments"
+                    },
+                    {
+                        "STARS": [
+                            {
+                                "id": 0,
+                                "icon": 1,
                                 "styleClass": "rating-star"
                             },
                             {
-                                "id": 3,
-                                "icon": "grade",
+                                "id": 1,
+                                "icon": 2,
                                 "styleClass": "rating-star"
                             },
                             {
-                                "id": 4,
-                                "icon": "grade",
+                                "id": 2,
+                                "icon": 3,
+                                "styleClass": "rating-star"
+                            }
+                        ],
+                        "nameCandidates": "pelcirapolirsen ",
+                        "rationale": "Precision Medicine",
+                        "Comments2": "Comments"
+                    },
+                    {
+                        "STARS": [
+                            {
+                                "id": 0,
+                                "icon": 1,
                                 "styleClass": "rating-star"
                             },
                             {
-                                "id": 5,
-                                "icon": "grade",
+                                "id": 1,
+                                "icon": 2,
+                                "styleClass": "rating-star"
+                            },
+                            {
+                                "id": 2,
+                                "icon": 3,
                                 "styleClass": "rating-star"
                             }
                         ],
                         "nameCandidates": "vidnulapolirsen ",
                         "rationale": "Individualized",
-                        "RadioColumn1": false,
-                        "RadioColumn2": false,
-                        "RadioColumn3": false,
-                        "RadioColumn4": false,
-                        "RadioColumn5": false,
-                        "RadioColumn6": true,
                         "Comments2": "Comments"
                     }
                 ],
@@ -1849,12 +1898,14 @@ export class SurveyCreationDesignComponent implements OnInit {
                         "minRule": 0,
                         "maxRule": 0,
                         "fontSize": 16,
-                        "columnWidth": 129,
+                        "columnWidth": 221,
                         "rationalewidth": 268,
                         "rowHeight": 2,
                         "categoryName": "AZD2373 Nonproprietary Name Candidates",
                         "categoryDescription": "category description",
-                        "ratingScaleTitle": "RANK"
+                        "ratingScaleTitle": "RANK",
+                        "rankType": "dragAndDrop",
+                        "radioColumnsWidth": 95
                     }
                 ]
             }
@@ -1889,7 +1940,687 @@ export class SurveyCreationDesignComponent implements OnInit {
             },
             {
                 "componentType": "text-editor",
-                "componentText": "<p style=\"text-align:center\"><u>Instructions</u></p>\n\n<p><br />\nPlease select your favorite logo candidates based on your&nbsp;personal preference&nbsp;on a scale from 1 to 7: 1 being negative, 4 being average and 7 being excellent. Once you have finished your selections, please click the &quot;Continue&quot; button on the bottom of the page to proceed to the next evaluation section.</p>\n",
+                "componentText": "<p style=\"text-align:center\"><u>Instructions</u></p>\n\n<p><br />\nPlease select your favorite logo candidates based on your&nbsp;personal preference&nbsp;on a scale from 1 to 5: 1 being negative, 3 being average and 5 being excellent. Once you have finished your selections, please click the &quot;Continue&quot; button on the bottom of the page to proceed to the next evaluation section.</p>\n",
+                "componentSettings": [
+                    {
+                        "fontSize": "16px",
+                        "fontFace": "Arial",
+                        "fontColor": "red"
+                    }
+                ]
+            },
+            {
+                "componentType": "ranking-scale",
+                "componentText": [
+                    {
+                        "STARS": [
+                            {
+                                "id": 0,
+                                "icon": 1,
+                                "styleClass": "rating-star"
+                            },
+                            {
+                                "id": 1,
+                                "icon": 2,
+                                "styleClass": "rating-star"
+                            },
+                            {
+                                "id": 2,
+                                "icon": 3,
+                                "styleClass": "rating-star"
+                            },
+                            {
+                                "id": 3,
+                                "icon": 4,
+                                "styleClass": "rating-star"
+                            },
+                            {
+                                "id": 4,
+                                "icon": 5,
+                                "styleClass": "rating-star"
+                            }
+                        ],
+                        "nameCandidates": "Name Candidates",
+                        "rationale": "Rationale",
+                        "RadioColumn1": 1,
+                        "RadioColumn2": 2,
+                        "RadioColumn3": 3,
+                        "RadioColumn4": 4,
+                        "RadioColumn5": 5
+                    },
+                    {
+                        "STARS": [
+                            {
+                                "id": 0,
+                                "icon": 1,
+                                "styleClass": "rating-star"
+                            },
+                            {
+                                "id": 1,
+                                "icon": 2,
+                                "styleClass": "rating-star"
+                            },
+                            {
+                                "id": 2,
+                                "icon": 3,
+                                "styleClass": "rating-star"
+                            },
+                            {
+                                "id": 3,
+                                "icon": 4,
+                                "styleClass": "rating-star"
+                            },
+                            {
+                                "id": 4,
+                                "icon": 5,
+                                "styleClass": "rating-star"
+                            }
+                        ],
+                        "nameCandidates": "Pledge  ",
+                        "rationale": "A Promise or Oath, Embeds P and D for Parkinson's Disease",
+                        "RadioColumn1": true,
+                        "RadioColumn2": false,
+                        "RadioColumn3": false,
+                        "RadioColumn4": false,
+                        "RadioColumn5": false,
+                        "RATE": 0
+                    },
+                    {
+                        "STARS": [
+                            {
+                                "id": 0,
+                                "icon": 1,
+                                "styleClass": "rating-star"
+                            },
+                            {
+                                "id": 1,
+                                "icon": 2,
+                                "styleClass": "rating-star"
+                            },
+                            {
+                                "id": 2,
+                                "icon": 3,
+                                "styleClass": "rating-star"
+                            },
+                            {
+                                "id": 3,
+                                "icon": 4,
+                                "styleClass": "rating-star"
+                            },
+                            {
+                                "id": 4,
+                                "icon": 5,
+                                "styleClass": "rating-star"
+                            }
+                        ],
+                        "nameCandidates": "Opening  ",
+                        "rationale": "Onset, Beginning (i.e., an Early Treatment)",
+                        "RadioColumn1": false,
+                        "RadioColumn2": true,
+                        "RadioColumn3": false,
+                        "RadioColumn4": false,
+                        "RadioColumn5": false,
+                        "RATE": 2
+                    },
+                    {
+                        "STARS": [
+                            {
+                                "id": 0,
+                                "icon": 1,
+                                "styleClass": "rating-star"
+                            },
+                            {
+                                "id": 1,
+                                "icon": 2,
+                                "styleClass": "rating-star"
+                            },
+                            {
+                                "id": 2,
+                                "icon": 3,
+                                "styleClass": "rating-star"
+                            },
+                            {
+                                "id": 3,
+                                "icon": 4,
+                                "styleClass": "rating-star"
+                            },
+                            {
+                                "id": 4,
+                                "icon": 5,
+                                "styleClass": "rating-star"
+                            }
+                        ],
+                        "nameCandidates": "SUSPEND  ",
+                        "rationale": "Study of UCB0599's Slowing of the Progression of Early Parkinson's Disease - Delay",
+                        "RadioColumn1": false,
+                        "RadioColumn2": false,
+                        "RadioColumn3": true,
+                        "RadioColumn4": false,
+                        "RadioColumn5": false,
+                        "RATE": 3
+                    },
+                    {
+                        "STARS": [
+                            {
+                                "id": 0,
+                                "icon": 1,
+                                "styleClass": "rating-star"
+                            },
+                            {
+                                "id": 1,
+                                "icon": 2,
+                                "styleClass": "rating-star"
+                            },
+                            {
+                                "id": 2,
+                                "icon": 3,
+                                "styleClass": "rating-star"
+                            },
+                            {
+                                "id": 3,
+                                "icon": 4,
+                                "styleClass": "rating-star"
+                            },
+                            {
+                                "id": 4,
+                                "icon": 5,
+                                "styleClass": "rating-star"
+                            }
+                        ],
+                        "nameCandidates": "Placid  ",
+                        "rationale": "Calm, Steady, Stable, Begins in P and Ends with D to Suggest Parkinson's Disease",
+                        "RadioColumn1": false,
+                        "RadioColumn2": false,
+                        "RadioColumn3": false,
+                        "RadioColumn4": true,
+                        "RadioColumn5": false,
+                        "RATE": 4
+                    },
+                    {
+                        "STARS": [
+                            {
+                                "id": 0,
+                                "icon": 1,
+                                "styleClass": "rating-star"
+                            },
+                            {
+                                "id": 1,
+                                "icon": 2,
+                                "styleClass": "rating-star"
+                            },
+                            {
+                                "id": 2,
+                                "icon": 3,
+                                "styleClass": "rating-star"
+                            },
+                            {
+                                "id": 3,
+                                "icon": 4,
+                                "styleClass": "rating-star"
+                            },
+                            {
+                                "id": 4,
+                                "icon": 5,
+                                "styleClass": "rating-star"
+                            }
+                        ],
+                        "nameCandidates": "At Dawn ",
+                        "rationale": "Suggests Early Treatment",
+                        "RadioColumn1": false,
+                        "RadioColumn2": false,
+                        "RadioColumn3": false,
+                        "RadioColumn4": false,
+                        "RadioColumn5": true,
+                        "RATE": 5
+                    },
+                    {
+                        "STARS": [
+                            {
+                                "id": 0,
+                                "icon": 1,
+                                "styleClass": "rating-star"
+                            },
+                            {
+                                "id": 1,
+                                "icon": 2,
+                                "styleClass": "rating-star"
+                            },
+                            {
+                                "id": 2,
+                                "icon": 3,
+                                "styleClass": "rating-star"
+                            },
+                            {
+                                "id": 3,
+                                "icon": 4,
+                                "styleClass": "rating-star"
+                            },
+                            {
+                                "id": 4,
+                                "icon": 5,
+                                "styleClass": "rating-star"
+                            }
+                        ],
+                        "nameCandidates": "Skylark  ",
+                        "rationale": "Type of Bird, May Connote Freedom or Taking Flight, Links to Parkinson's Disease",
+                        "RadioColumn1": true,
+                        "RadioColumn2": false,
+                        "RadioColumn3": false,
+                        "RadioColumn4": false,
+                        "RadioColumn5": false,
+                        "RATE": 1
+                    },
+                    {
+                        "STARS": [
+                            {
+                                "id": 0,
+                                "icon": 1,
+                                "styleClass": "rating-star"
+                            },
+                            {
+                                "id": 1,
+                                "icon": 2,
+                                "styleClass": "rating-star"
+                            },
+                            {
+                                "id": 2,
+                                "icon": 3,
+                                "styleClass": "rating-star"
+                            },
+                            {
+                                "id": 3,
+                                "icon": 4,
+                                "styleClass": "rating-star"
+                            },
+                            {
+                                "id": 4,
+                                "icon": 5,
+                                "styleClass": "rating-star"
+                            }
+                        ],
+                        "nameCandidates": "Pearly  ",
+                        "rationale": "Shining Like a Pearl (May Suggest Hope), Implies Treating Parkinson's Disease (P-) Early",
+                        "RadioColumn1": false,
+                        "RadioColumn2": false,
+                        "RadioColumn3": false,
+                        "RadioColumn4": false,
+                        "RadioColumn5": false
+                    },
+                    {
+                        "STARS": [
+                            {
+                                "id": 0,
+                                "icon": 1,
+                                "styleClass": "rating-star"
+                            },
+                            {
+                                "id": 1,
+                                "icon": 2,
+                                "styleClass": "rating-star"
+                            },
+                            {
+                                "id": 2,
+                                "icon": 3,
+                                "styleClass": "rating-star"
+                            },
+                            {
+                                "id": 3,
+                                "icon": 4,
+                                "styleClass": "rating-star"
+                            },
+                            {
+                                "id": 4,
+                                "icon": 5,
+                                "styleClass": "rating-star"
+                            }
+                        ],
+                        "nameCandidates": "STEADY  ",
+                        "rationale": "Study Testing an Early Parkinson's Disease Therapy - Suggests Stabilizing Symptoms, Gaining Control",
+                        "RadioColumn1": false,
+                        "RadioColumn2": false,
+                        "RadioColumn3": false,
+                        "RadioColumn4": false,
+                        "RadioColumn5": false
+                    }
+                ],
+                "componentSettings": [
+                    {
+                        "minRule": 0,
+                        "maxRule": 0,
+                        "fontSize": 16,
+                        "columnWidth": 150,
+                        "rationalewidth": 689,
+                        "rowHeight": 2,
+                        "radioColumnsWidth": 75,
+                        "categoryName": "Category Ranking",
+                        "categoryDescription": "This is Ranking matrix",
+                        "ratingScaleTitle": "RANK",
+                        "rankType": "radio"
+                    }
+                ]
+            }
+        ]
+    },
+    {
+        "pageNumber": 6,
+        "page": [
+            {
+                "componentType": "",
+                "componentText": "",
+                "componentSettings": [
+                    {
+                        "fontSize": "16px",
+                        "fontFace": "Arial",
+                        "fontColor": "red"
+                    }
+                ]
+            },
+            {
+                "componentType": "logo-header",
+                "componentText": "PROJECT NAME",
+                "componentSettings": [
+                    {
+                        "fontSize": "16px",
+                        "fontFace": "Arial",
+                        "logoWidth": 100,
+                        "brandInstituteURL": "./assets/img/bmx/BRANDMATRIX-DASHBOARD-LOGO.svg",
+                        "companyLogoURL": "./assets/img/bmx/BD.png"
+                    }
+                ]
+            },
+            {
+                "componentType": "text-editor",
+                "componentText": "<p style=\"text-align:center\"><u>Instructions</u></p>\n\n<p><br />\nPlease select&nbsp;only&nbsp;the name candidates that you would categorize as&nbsp;<strong>neutral to positive</strong>.</p>\n\n<p>You should take into consideration any competitive brand name associations, pronunciation issues or negative connotations when making your selections.</p>\n\n<p>To make a selection, simply click the check box to the left of the desired name candidate.</p>\n\n<p>After you make a selection, you will be asked to rate that name based on your&nbsp;<strong>Personal Preference</strong>:</p>\n\n<p>Please rate each selected name candidate based on your own personal preference on a scale from 1 to 7, 1 being neutral and 7 being the most liked.</p>\n\n<p>There is no ranking for negative as these names are not to be selected</p>\n\n<p>Once you have finished your selections, please click the &quot;Continue&quot; button on the bottom of the page to complete the survey.</p>\n",
+                "componentSettings": [
+                    {
+                        "fontSize": "16px",
+                        "fontFace": "Arial",
+                        "fontColor": "red"
+                    }
+                ]
+            },
+            {
+                "componentType": "narrow-down",
+                "componentText": [
+                    {
+                        "STARS": [
+                            {
+                                "id": 0,
+                                "icon": "grade",
+                                "styleClass": "rating-star"
+                            },
+                            {
+                                "id": 1,
+                                "icon": "grade",
+                                "styleClass": "rating-star"
+                            },
+                            {
+                                "id": 2,
+                                "icon": "grade",
+                                "styleClass": "rating-star"
+                            },
+                            {
+                                "id": 3,
+                                "icon": "grade",
+                                "styleClass": "rating-star"
+                            },
+                            {
+                                "id": 4,
+                                "icon": "grade",
+                                "styleClass": "rating-star"
+                            }
+                        ],
+                        "nameCandidates": "Name Candidates",
+                        "rationale": "Rationale",
+                        "katakana": "Katakana",
+                        "SELECTED_ROW": false
+                    },
+                    {
+                        "STARS": [
+                            {
+                                "id": 0,
+                                "icon": "grade",
+                                "styleClass": "rating-star"
+                            },
+                            {
+                                "id": 1,
+                                "icon": "grade",
+                                "styleClass": "rating-star"
+                            },
+                            {
+                                "id": 2,
+                                "icon": "grade",
+                                "styleClass": "rating-star"
+                            },
+                            {
+                                "id": 3,
+                                "icon": "grade",
+                                "styleClass": "rating-star"
+                            },
+                            {
+                                "id": 4,
+                                "icon": "grade",
+                                "styleClass": "rating-star"
+                            }
+                        ],
+                        "nameCandidates": "Test 1",
+                        "rationale": "Rationale of an unthRationale of an unthdddd dddddddd dddddddd ddddddddddd ddddddd dddddddd",
+                        "katakana": "片仮名、カタカナ",
+                        "SELECTED_ROW": true
+                    },
+                    {
+                        "STARS": [
+                            {
+                                "id": 0,
+                                "icon": "grade",
+                                "styleClass": "rating-star"
+                            },
+                            {
+                                "id": 1,
+                                "icon": "grade",
+                                "styleClass": "rating-star"
+                            },
+                            {
+                                "id": 2,
+                                "icon": "grade",
+                                "styleClass": "rating-star"
+                            },
+                            {
+                                "id": 3,
+                                "icon": "grade",
+                                "styleClass": "rating-star"
+                            },
+                            {
+                                "id": 4,
+                                "icon": "grade",
+                                "styleClass": "rating-star"
+                            }
+                        ],
+                        "nameCandidates": "Test 2",
+                        "rationale": "Rationale of an undisclosed length",
+                        "katakana": "片仮名、カタカナ",
+                        "SELECTED_ROW": false
+                    },
+                    {
+                        "STARS": [
+                            {
+                                "id": 0,
+                                "icon": "grade",
+                                "styleClass": "rating-star"
+                            },
+                            {
+                                "id": 1,
+                                "icon": "grade",
+                                "styleClass": "rating-star"
+                            },
+                            {
+                                "id": 2,
+                                "icon": "grade",
+                                "styleClass": "rating-star"
+                            },
+                            {
+                                "id": 3,
+                                "icon": "grade",
+                                "styleClass": "rating-star"
+                            },
+                            {
+                                "id": 4,
+                                "icon": "grade",
+                                "styleClass": "rating-star"
+                            }
+                        ],
+                        "nameCandidates": "Test 3",
+                        "rationale": "Rationale of an undisclosed length",
+                        "katakana": "片仮名、カナ",
+                        "SELECTED_ROW": false
+                    },
+                    {
+                        "STARS": [
+                            {
+                                "id": 0,
+                                "icon": "grade",
+                                "styleClass": "rating-star"
+                            },
+                            {
+                                "id": 1,
+                                "icon": "grade",
+                                "styleClass": "rating-star"
+                            },
+                            {
+                                "id": 2,
+                                "icon": "grade",
+                                "styleClass": "rating-star"
+                            },
+                            {
+                                "id": 3,
+                                "icon": "grade",
+                                "styleClass": "rating-star"
+                            },
+                            {
+                                "id": 4,
+                                "icon": "grade",
+                                "styleClass": "rating-star"
+                            }
+                        ],
+                        "nameCandidates": "Test 4",
+                        "rationale": "Rationale of an losed length",
+                        "katakana": "片仮名、カタカナ",
+                        "SELECTED_ROW": false
+                    },
+                    {
+                        "STARS": [
+                            {
+                                "id": 0,
+                                "icon": "grade",
+                                "styleClass": "rating-star"
+                            },
+                            {
+                                "id": 1,
+                                "icon": "grade",
+                                "styleClass": "rating-star"
+                            },
+                            {
+                                "id": 2,
+                                "icon": "grade",
+                                "styleClass": "rating-star"
+                            },
+                            {
+                                "id": 3,
+                                "icon": "grade",
+                                "styleClass": "rating-star"
+                            },
+                            {
+                                "id": 4,
+                                "icon": "grade",
+                                "styleClass": "rating-star"
+                            }
+                        ],
+                        "nameCandidates": "Test 5",
+                        "rationale": "Rationale of an undisclosed length",
+                        "katakana": "、カタカナ",
+                        "SELECTED_ROW": false
+                    },
+                    {
+                        "STARS": [
+                            {
+                                "id": 0,
+                                "icon": "grade",
+                                "styleClass": "rating-star"
+                            },
+                            {
+                                "id": 1,
+                                "icon": "grade",
+                                "styleClass": "rating-star"
+                            },
+                            {
+                                "id": 2,
+                                "icon": "grade",
+                                "styleClass": "rating-star"
+                            },
+                            {
+                                "id": 3,
+                                "icon": "grade",
+                                "styleClass": "rating-star"
+                            },
+                            {
+                                "id": 4,
+                                "icon": "grade",
+                                "styleClass": "rating-star"
+                            }
+                        ],
+                        "nameCandidates": "Test 6",
+                        "rationale": "Rationale of an undisclosed length",
+                        "katakana": "片仮名、カタカナ",
+                        "SELECTED_ROW": false
+                    }
+                ],
+                "componentSettings": [
+                    {
+                        "minRule": 0,
+                        "maxRule": 0,
+                        "fontSize": 16,
+                        "columnWidth": 221,
+                        "rationalewidth": 452,
+                        "rowHeight": 2,
+                        "categoryName": "Category Narrow Down",
+                        "categoryDescription": "This is narrow down matrix",
+                        "ratingScaleTitle": "RATING",
+                        "ratingScaleNarrowDownTitle": "SELECT 5 OUT OF 10"
+                    }
+                ]
+            }
+        ]
+    },
+    {
+        "pageNumber": 7,
+        "page": [
+            {
+                "componentType": "",
+                "componentText": "",
+                "componentSettings": [
+                    {
+                        "fontSize": "16px",
+                        "fontFace": "Arial",
+                        "fontColor": "red"
+                    }
+                ]
+            },
+            {
+                "componentType": "logo-header",
+                "componentText": "PROJECT NAME",
+                "componentSettings": [
+                    {
+                        "fontSize": "16px",
+                        "fontFace": "Arial",
+                        "logoWidth": 100,
+                        "brandInstituteURL": "./assets/img/bmx/BRANDMATRIX-DASHBOARD-LOGO.svg",
+                        "companyLogoURL": "./assets/img/bmx/BD.png"
+                    }
+                ]
+            },
+            {
+                "componentType": "text-editor",
+                "componentText": "<p style=\"text-align:center\">Instructions</p>\n\n<p><br />\nPlease select your favorite logo candidates based on your&nbsp;personal preference&nbsp;on a scale from 1 to 7: 1 being negative, 4 being average and 7 being excellent. Once you have finished your selections, please click the &quot;Continue&quot; button on the bottom of the page to proceed to the next evaluation section.</p>\n",
                 "componentSettings": [
                     {
                         "fontSize": "16px",
@@ -1983,7 +2714,7 @@ export class SurveyCreationDesignComponent implements OnInit {
                                 "styleClass": "rating-star"
                             }
                         ],
-                        "Comments1": "Comments"
+                        "Comments1": "General Comments"
                     },
                     {
                         "name": "./assets/img/bmx/logoTestNames/logo2.JPG",
@@ -2026,7 +2757,7 @@ export class SurveyCreationDesignComponent implements OnInit {
                                 "styleClass": "rating-star"
                             }
                         ],
-                        "Comments1": "Comments"
+                        "Comments1": "General Comments"
                     },
                     {
                         "name": "./assets/img/bmx/logoTestNames/logo3.JPG",
@@ -2069,7 +2800,7 @@ export class SurveyCreationDesignComponent implements OnInit {
                                 "styleClass": "rating-star"
                             }
                         ],
-                        "Comments1": "Comments"
+                        "Comments1": "General Comments"
                     },
                     {
                         "name": "./assets/img/bmx/logoTestNames/logo4.JPG",
@@ -2112,7 +2843,7 @@ export class SurveyCreationDesignComponent implements OnInit {
                                 "styleClass": "rating-star"
                             }
                         ],
-                        "Comments1": "Comments"
+                        "Comments1": "General Comments"
                     },
                     {
                         "name": "./assets/img/bmx/logoTestNames/logo5.JPG",
@@ -2155,7 +2886,7 @@ export class SurveyCreationDesignComponent implements OnInit {
                                 "styleClass": "rating-star"
                             }
                         ],
-                        "Comments1": "Comments"
+                        "Comments1": "General Comments"
                     }
                 ],
                 "componentSettings": [
@@ -2166,8 +2897,8 @@ export class SurveyCreationDesignComponent implements OnInit {
                         "columnWidth": 336,
                         "rationalewidth": 250,
                         "rowHeight": 2,
-                        "categoryName": "Category name",
-                        "categoryDescription": "category description",
+                        "categoryName": "Category Logo Rating",
+                        "categoryDescription": "This is logo rating matrix",
                         "ratingScaleTitle": "RANK"
                     }
                 ]
@@ -2175,7 +2906,6 @@ export class SurveyCreationDesignComponent implements OnInit {
         ]
     }
 ]
-
 
 }
 
