@@ -21,8 +21,8 @@ export class RankScaleComponent extends RatingScaleComponent implements OnInit {
   draggableBag
   isdropDown = true
 
-  constructor() {
-   super()
+  constructor(dragulaService: DragulaService) {
+   super(dragulaService)
    this.rankingScaleValue = 3
    this.ratingScale = 3
    }

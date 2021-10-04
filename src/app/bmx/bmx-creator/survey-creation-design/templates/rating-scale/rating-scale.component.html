@@ -187,7 +187,7 @@
                 style="display: flex;align-items: center;justify-content: center;" [ngClass]="(e%2==0)?'red':'blue'"
                 [style.width]="(columnName == 'rationale' )?bmxItem.componentSettings[0].rationalewidth + 'px':bmxItem.componentSettings[0].columnWidth +'px'">
 
-                <div *ngIf="(y == 0)" class="header-title" (mouseenter)="selectedColumn = e"
+                <div *ngIf="(y == 0)" class="header-title " (mouseenter)="selectedColumn = e"
                     (mouseleave)="selectedColumn = ''">
 
                     <!-- IF YOU WANT TO DELET ALL COLUMNS PASS THE COLUMN NAME  NOT testName[columnName]-->

@@ -18,7 +18,14 @@ export class ImageRateScaleComponent extends RatingScaleComponent implements OnI
   @Input() bmxClientPageOverview;
   @ViewChild('autosize') autosize: CdkTextareaAutosize;
 
-  IMAGES_UPLOADED = []
+  imageurls =[];
+
+
+
+  IMAGES_UPLOADED = [
+    
+  ];
+
   AUTOSIZE_OPTIONS = [
     { name: 'Client Logo', rationale: 'Sist, Assist, Syst' },
     { name: 'Test Logo', rationale: 'Hance, En-' },
@@ -33,9 +40,9 @@ export class ImageRateScaleComponent extends RatingScaleComponent implements OnI
   uploadProgress: number;
   uploadSub: Subscription;
   resourceData: any;
-  
+  logoWidth = 200
 
-  constructor(private _BmxService: BmxService) {super()}
+  constructor(private _BmxService: BmxService,dragulaService: DragulaService) {super(dragulaService)}
 
   ngOnInit(): void {
     let values = Object.keys(this.bmxItem.componentText[0])
@@ -49,18 +56,21 @@ export class ImageRateScaleComponent extends RatingScaleComponent implements OnI
 
   onFileSelected(event) {
     if (event.target.files && event.target.files[0]) {
-      var filesAmount = event.target.files.length;
+      let filesAmount = event.target.files.length;
       for (let i = 0; i < filesAmount; i++) {
-        var reader = new FileReader();
-        reader.onload = (event: any) => {
-          this.IMAGES_UPLOADED.push({ name: event.target.files[i].name, rationale: 'Sist, Assist, Syst', url: event.target.result });
+        let reader = new FileReader();
+        let FileName = event.target.files[i].name
+        let FileType =  event.target.files[i].type
+        reader.onload = (event: any) => {          
           this.resourceData = {
             "ProjectName": localStorage.getItem('projectName'),
-            "FileName": event.target.files[i].name,
+            "FileName": FileName,
             "ItemType" : 'logo-rate',
-            "FileType" : event.target.files[i].type,
-            "FileContent" : event.target.result.split(event.target.result.split(",")[0] + ',').pop()
+            "FileType" : FileType,
+            "FileContent" : event.target.result
+            // "FileContent" : event.target.result.split(event.target.result.split(",")[0] + ',').pop()
           }
+          this.IMAGES_UPLOADED.push(this.resourceData);
         }
         reader.readAsDataURL(event.target.files[i]);
       }
@@ -76,6 +86,10 @@ export class ImageRateScaleComponent extends RatingScaleComponent implements OnI
     this._BmxService.saveFileResources(JSON.stringify(this.resourceData)).subscribe(result => {
       var so = result;
     });
+  }
+
+  deleteImage(index){
+    this.IMAGES_UPLOADED.splice(index, 1)
   }
 
   reset() {

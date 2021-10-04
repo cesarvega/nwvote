@@ -4,8 +4,8 @@
         style=" margin: -50px 29px;" *ngIf="i === selectedIndex" mat-icon-button>
         <mat-icon style="font-size: 25px;" class="full-icon">check_circle</mat-icon>
     </button>
-    <button (click)="selectedIndex = i" class="add-column" matTooltip="edit table content & settings" matTooltipPosition="above"
-        style=" margin: -50px 29px;" *ngIf="i !== selectedIndex" mat-icon-button>
+    <button (click)="selectedIndex = i" class="add-column" matTooltip="edit table content & settings"
+        matTooltipPosition="above" style=" margin: -50px 29px;" *ngIf="i !== selectedIndex" mat-icon-button>
         <mat-icon style="font-size: 25px;" class="full-icon">edit</mat-icon>
     </button>
     <button (click)="insertTextColumn()" class="add-column" style=" margin: -50px 65px;" matTooltip="add Text column"
@@ -24,8 +24,8 @@
         matTooltipPosition="above" mat-icon-button aria-label="ranking">
         <mat-icon style="font-size: 26px;" class="full-icon">vertical_distribute</mat-icon>
     </button>
-    <button (click)="editSingleTableCells = !editSingleTableCells" class="add-column" style="margin: -50px 185px;" matTooltip="edit tabel cells"
-        matTooltipPosition="above" mat-icon-button aria-label="ranking">
+    <button (click)="editSingleTableCells = !editSingleTableCells" class="add-column" style="margin: -50px 185px;"
+        matTooltip="edit tabel cells" matTooltipPosition="above" mat-icon-button aria-label="ranking">
         <mat-icon style="font-size: 26px;" class="full-icon">explicit</mat-icon>
     </button>
     <button (click)="toogleColumnResizer()" class="add-column" style="margin: -50px 215px;" matTooltip="row settings"
@@ -77,57 +77,37 @@
 
     </div>
 
-<hr>
+    <hr>
+    <input type="file" class="file-input" (change)="onFileSelected($event)" #fileUpload style="display: none;" multiple
+        accept="image/*">
+    <button mat-raised-button style="background-color: #003180;color:white;margin: -3px -173px 0px 29px;"
+        (click)="fileUpload.click()">
+        Select files to upload
+    </button>
+    <div style="display: flex;flex-direction: row; gap:10; padding-top: 10px;">
 
-<div style="display: flex;flex-direction: row; gap:10">
+        <div class="template-list" [dragula]="'draggableBag'" [(dragulaModel)]="IMAGES_UPLOADED"
+            style="display: flex;flex-direction: column; overflow-y: scroll;width: 100%;justify-content: center;">
+            <div *ngFor="let template of IMAGES_UPLOADED; let imgIndex = index" [ngClass]="(imgIndex%2==0)?'red':'blue'"
+                class="image-row">
 
-    
-    <div
-        style="display: flex;flex-direction:column; justify-content: space-evenly; align-items: center;border: grey dashed 3px; width: 300px; height: 200px;margin-left: 20px;">
-        <input type="file" class="file-input" (change)="onFileSelected($event)" #fileUpload style="display: none;"
-            multiple accept="image/*">
+                <div class="image-cell">
+                    <div style="font-size: 25px;color: #003180;width: 40px;">{{imgIndex + 1}}</div>
+                    <img [src]="template.FileContent" [width]="logoWidth">
+                </div>
 
-        <mat-icon style="color: #003180; font-size: 90px; margin-top: -20px; height: 10px;width: 90px;">
-            cloud_upload</mat-icon>
-        <br>
-        <br>
-
-        <h3 style="font-weight: 700;">Drag files to upload</h3>
-
-
-        <button mat-raised-button style="background-color: #003180;color:white;margin: -20px 20px 0 20px;"
-            (click)="fileUpload.click()">
-            Select files to upload
-        </button>
-
-
-
-
-    </div>
-    <div class="template-list" style="margin-top:20px;display: flex;flex-direction: row; overflow-y: scroll;justify-content: flex-start;width: 100%;flex-wrap: wrap;text-align: center;">
-        <div *ngFor="let template of IMAGES_UPLOADED; let i = index">
-
-           
-            <div [style.background-image]="'url(' + template.url + ')'" style="background-size: contain;background-repeat:no-repeat"
-                [ngClass]="(isSelectedButton === i)?'template-list-selected':'template-list-item'"
-                (mouseenter)="isTemplateSelected = i" (mouseleave)="isTemplateSelected = ''">
-                <button (click)="isSelectedButton = i" mat-icon-button  *ngIf="isTemplateSelected === i && isSelectedButton !== i"
-                    mat-raised-button style="background-color: #e20000;color:white;margin: 0 20px 0 20px;">
-                    <mat-icon style="font-size: 25px;" style="color: white;">delete</mat-icon>
+                <input type="text" [value]="template.FileName">
+                <p>{{template.FileType}}</p>
+                <button (dblclick)="deleteImage(imgIndex)" mat-icon-button style="background-color: #ffffff;"
+                    matTooltip="double click to delete " matTooltipPosition="above">
+                    <mat-icon style="color: #e20000;">delete</mat-icon>
                 </button>
-                <!-- <button *ngIf="isSelectedButton === i" mat-raised-button
-                    style="background-color: #ff0101;color:white;margin: 0 20px 0 20px;">
-                    SELECTED
-                </button> -->
+
             </div>
-            <input type="text" [placeholder]="template.name">
         </div>
     </div>
 
 
-</div>
-    
-  
 
     <hr>
     <div style="text-align: center;display: flex;flex-direction: row;justify-content: space-around;">
@@ -266,8 +246,8 @@
 
 
                     <p style="text-align: center; font-weight: bold;color: #324395;margin: 0 0 0px;"
-                        [style.font-size]="bmxItem.componentSettings[0].fontSize +'px'"
-                        *ngIf=" !editSingleTableCells">{{testName[columnName]}}
+                        [style.font-size]="bmxItem.componentSettings[0].fontSize +'px'" *ngIf=" !editSingleTableCells">
+                        {{testName[columnName]}}
                     </p>
                 </div>
 
@@ -278,8 +258,9 @@
                 <div>
 
                     <!-- IF ELSE TEMPLATE INPUTS  -->
-                    <input *ngIf="y !== 0  &&  columnName.includes('RadioColumn') == true" type="radio" [name]="'rate' + y"
-                        [checked]="testName[columnName]" (change)="saveRadioColumValue(columnName, y)">
+                    <input *ngIf="y !== 0  &&  columnName.includes('RadioColumn') == true" type="radio"
+                        [name]="'rate' + y" [checked]="testName[columnName]"
+                        (change)="saveRadioColumValue(columnName, y)">
 
 
                     <!-- TEXT_AREA COLUMN-->
@@ -290,10 +271,10 @@
                         style="text-align: center;height: 32px;width: 358px;font-size: 16px;border: 1px solid grey;"
                         class="row-box" [(ngModel)]="testName[columnName]" rows="4" cols="50"></textarea>
 
-                        <img class="row-box" style="width: 300px;" [src]="testName[columnName]"
+                    <img class="row-box" style="width: 300px;" [src]="testName[columnName]"
                         *ngIf="(y !== 0) && (columnName == 'name' || columnName == 'nameCandidates')">
 
-                        <!-- TEXT AREA TO EDIT TABLE CELL CONTENT -->
+                    <!-- TEXT AREA TO EDIT TABLE CELL CONTENT -->
                     <textarea
                         *ngIf="y !== 0  && editSingleTableCells && (columnName.includes('RadioColumn') != true) &&  columnName.includes('Comments') != true"
                         [style.width]="(columnName == 'rationale')?bmxItem.componentSettings[0].rationalewidth + 'px':bmxItem.componentSettings[0].columnWidth +'px'"
@@ -340,11 +321,13 @@
                         </div>
                     </ng-template>
                 </div>
-                 <textarea *ngIf="y == 0 && editSingleTableCells"
-                        [style.font-size]="bmxItem.componentSettings[0].fontSize +'px'"
-                        style="text-align: center; font-weight: bold;color: #324395;" class="row-box"
-                        [(ngModel)]="bmxItem.componentSettings[0].ratingScaleTitle" value="bmxItem.componentSettings[0].ratingScaleTitle"></textarea>
-                <div class="rating-text" *ngIf="y == 0 && !editSingleTableCells">{{bmxItem.componentSettings[0].ratingScaleTitle}}</div>
+                <textarea *ngIf="y == 0 && editSingleTableCells"
+                    [style.font-size]="bmxItem.componentSettings[0].fontSize +'px'"
+                    style="text-align: center; font-weight: bold;color: #324395;" class="row-box"
+                    [(ngModel)]="bmxItem.componentSettings[0].ratingScaleTitle"
+                    value="bmxItem.componentSettings[0].ratingScaleTitle"></textarea>
+                <div class="rating-text" *ngIf="y == 0 && !editSingleTableCells">
+                    {{bmxItem.componentSettings[0].ratingScaleTitle}}</div>
             </div>
             <!--⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️ END STARS ⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️ -->
 
@@ -356,8 +339,8 @@
                 </button>
             </div> -->
             <div *ngIf="(y !== 0) && bmxClientPageOverview" style="min-width: 100px; position: absolute;right: 0px;">
-                <button style="outline: none;margin:3px -8px;" (dblclick)="deletRow(y)" mat-icon-button  matTooltip="doble click to delete row" matTooltipPosition="left"
-                    aria-label="ranking">
+                <button style="outline: none;margin:3px -8px;" (dblclick)="deletRow(y)" mat-icon-button
+                    matTooltip="doble click to delete row" matTooltipPosition="left" aria-label="ranking">
                     <mat-icon>delete_outline</mat-icon>
                 </button>
             </div>

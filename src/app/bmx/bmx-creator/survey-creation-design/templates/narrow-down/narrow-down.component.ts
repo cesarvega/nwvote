@@ -14,8 +14,8 @@ export class NarrowDownComponent extends RatingScaleComponent implements OnInit 
   @Input() bmxClientPageDesignMode;
   @Input() bmxClientPageOverview;
   SLECTED_ROWS = []
-  constructor() {
-    super()
+  constructor(dragulaService: DragulaService) {
+    super(dragulaService)
   }
 
   ngOnInit(): void {
