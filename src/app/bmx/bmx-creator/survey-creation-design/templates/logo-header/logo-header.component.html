@@ -1,23 +1,40 @@
-<div style="display: flex;flex-direction: row;justify-items: center;justify-content: space-between;align-items: center;margin: -30px 35px;">
-    <div class="emoji-handle">.</div>
-    <div>
-        <img style="width: 231px;margin-left: 8px;margin-top: 60px;"
-            [src]="bmxItem.componentSettings[0].brandInstituteURL">
+<div style="display: flex;flex-direction: column;">
+ 
+        <span style="color: #053074;font-size: 30px;outline: none;font-family: Arial, Helvetica, sans-serif;text-align: center;padding-top: 20px;">{{bmxItem.componentText}}</span>
+   
+    <div
+        style="display: flex;flex-direction: row;justify-items: center;justify-content: space-between;align-items: center;margin: -30px 35px;">
+        <div class="emoji-handle">.</div>
 
-        <!-- <div style="margin-left: 50px;">
+        <div >
+            <img style="width: 231px;margin-left: 8px;margin-top: 60px;"
+                [src]="bmxItem.componentSettings[0].brandInstituteURL">
+
+            <!-- <div style="margin-left: 50px;">
             <div style="font-size: 16px;margin-top: 10px;color: #48535e;">CATEGORY HEADER HERE</div>
             <div style="font-size: 14px;margin-bottom: 20px;color: lightgray;">Brief Description Here</div>
         </div> -->
-    </div>
-    <div>
-        <span style="color: #48535e;font-size: 30px;outline: none;font-family: Arial, Helvetica, sans-serif;">{{bmxItem.componentText}}</span>
-    </div>
-    <div>
-        <button (click)="toggleInstructions()" style="margin-right: 33px;" mat-icon-button matTooltip="Instructions"
+        </div>
+
+        <div>
+            <!-- <button (click)="toggleInstructions()" style="margin-right: 33px;" mat-icon-button matTooltip="Instructions"
             matTooltipPosition="above">
-            <!-- <div>Instructions</div> -->
+          
             <mat-icon style="font-size: 30px;color: #37457d;" class="full-icon">description</mat-icon>
-        </button>
-        <img style="width: 127px;margin-right: 20px;" [src]="bmxItem.componentSettings[0].companyLogoURL">
+        </button> -->
+        <input type="file" class="file-input" (change)="onFileSelected($event)" #fileUpload
+        style="display: none;" accept="image/x-png,image/gif,image/jpeg">
+
+        <div *ngIf="displayLogoWidthRange && bmxClientPageOverview" (mouseleave)="displayLogoWidthRange = false" style="position: absolute;top: 0px;right: 0px;">
+            <p style="margin: 0 0 -12px;color: grey;">logo width: {{bmxItem.componentSettings[0].logoWidth}} px</p>
+            <input type="range" style="margin: 20px;width: 140px;    text-align: center;" [(ngModel)]="bmxItem.componentSettings[0].logoWidth"
+                class="slider-font-size" tickInterval="1" min="50" max="500"
+                [value]="bmxItem.componentSettings[0].logoWidth">
+        </div>
+
+            <img (mouseenter)="displayLogoWidthRange = true" 
+            (dblclick)="fileUpload.click()"  [width]="bmxItem.componentSettings[0].logoWidth"  style="margin-top: 60px;cursor: pointer;"
+                [src]="bmxItem.componentSettings[0].companyLogoURL">
+        </div>
     </div>
 </div>

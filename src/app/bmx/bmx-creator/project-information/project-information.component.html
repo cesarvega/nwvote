@@ -139,16 +139,16 @@
                 </div>
                 <div class="optionButton">
                     <div *ngIf="canEdit !== i; else elseBlock">
-                        <button mat-icon-button style="position: absolute; top: 9px; right: 5px;color: grey;"
+                        <button mat-icon-button style="position: absolute; top: 9px; right: 5px;color: #053074;"
                             (click)="editDirector(i)" >
-                            <mat-icon>build</mat-icon>
+                            <mat-icon>edit</mat-icon>
                         </button>
     
                     </div>
                     <ng-template #elseBlock>
-                        <button mat-icon-button style="position: absolute; top: 9px; right: 5px;color: grey;"
+                        <button mat-icon-button style="position: absolute; top: 9px; right: 5px;color: #ee7f25;"
                             (click)="editDirector(i)">
-                            <mat-icon>mode_edit_outline</mat-icon>
+                            <mat-icon>check_circle</mat-icon>
                         </button>
                     </ng-template>
                     <button mat-icon-button style="position: absolute; top: 45px; right: 5px;color: red;"

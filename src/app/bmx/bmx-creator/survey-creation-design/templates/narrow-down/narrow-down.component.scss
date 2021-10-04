@@ -43,15 +43,6 @@
 
 .red{
   background-color: white;
-  border-right: rgb(231, 230, 230) 1px solid;
-  border-top: rgb(231, 230, 230) 1px solid;
-  padding: 20px;
-  // margin: 5px;
-}
-
-.red:first-child{
-  background-color: white;
-  border-right: rgb(231, 230, 230) 1px solid;
   border-left: rgb(231, 230, 230) 1px solid;
   border-top: rgb(231, 230, 230) 1px solid;
   padding: 20px;
@@ -60,7 +51,7 @@
 
 .blue{
   background-color: white;
-  border-right: rgb(230, 230, 230) 1px solid;
+  border-left: rgb(230, 230, 230) 1px solid;
   border-top: rgb(231, 230, 230) 1px solid;
   padding: 20px;
   // margin: 5px;
@@ -69,7 +60,6 @@
 .test-name-table:last-child {
   border-bottom: rgb(231, 230, 230) 1px solid;
 }
-
 
 .main-container {
   display: flex;
@@ -122,7 +112,6 @@
 .test-name-table {
   display: flex;
   flex-direction: row;
-  background-color: #2a6495;
 }
 
 .test-name-table:hover {
@@ -249,7 +238,6 @@ input[type="range"]:focus::-ms-fill-lower {
 input[type="range"]:focus::-ms-fill-upper {
   background: #ef7f25;
 }
-
 
 @supports(-webkit-appearance: none) or (-moz-appearance: none) {
   input[type='checkbox'],

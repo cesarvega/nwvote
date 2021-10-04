@@ -197,7 +197,7 @@ export class BmxCreatorComponent implements OnInit {
       localStorage.removeItem('projectName');
     } else if(menuItem === 'isMenuActive11'){
       this.bmxClientPageDesignMode = false;
-      this.bmxClientPageOverview = false;
+      this.bmxClientPageOverview = true;
       this.isMainMenuActive = false;
      }
     this.isMenuActive1 = (menuItem === 'isMenuActive1') ? true : false;
