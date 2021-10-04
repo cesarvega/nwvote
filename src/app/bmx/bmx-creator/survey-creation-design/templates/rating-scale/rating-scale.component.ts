@@ -115,7 +115,7 @@ export class RatingScaleComponent implements OnInit {
       // }
     } else {
 
-      this.bmxItem.componentText[testNameId].RATE = rate
+      this.bmxItem.componentText[testNameId].RATE = rate + 1
     }
 
   }
@@ -205,6 +205,11 @@ export class RatingScaleComponent implements OnInit {
       this.extraColumnCounter = 1
       this.columnsNames.forEach((column, index) => {
         if (column == 'name candidates' || column == 'test names' || column == 'names') {
+          // if (this.bmxItem.componentType = 'image-rate-scale') {
+          //   this.columnsNames[index] = 'name'
+          // } else {
+          // }
+          
           this.columnsNames[index] = 'nameCandidates'
         } else if (column == 'name rationale' || column == 'rationale' || column == 'rationales') {
           this.columnsNames[index] = 'rationale'

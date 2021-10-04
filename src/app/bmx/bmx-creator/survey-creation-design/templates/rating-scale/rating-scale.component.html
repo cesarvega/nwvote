@@ -53,8 +53,11 @@
     </div>
     <div style="display: flex;justify-content: center;justify-items: center;">
         
-            <textarea style="width: 90%;" matInput  [(ngModel)]="testNamesInput"
+        <mat-form-field style="width: 90%;margin-left: 20px;" appearance="outline">
+            <mat-label>Copy & Paste TEST NAMES</mat-label>
+            <textarea matInput rows="4" cols="50" [(ngModel)]="testNamesInput"
                 placeholder="ENHANCE,Hance, En-,EVOLVE,Evo,GUARD,Gard, Guard,INVEST,In, Inv,OMNI,Omni,OPTIMAL"></textarea>
+        </mat-form-field>
         
     </div>
 
