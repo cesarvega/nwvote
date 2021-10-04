@@ -36,36 +36,11 @@ export class ImageUploaderComponent implements OnInit {
   uploadSub: Subscription;
   @Input() isMenuActive10;
 
-  constructor(private http: HttpClient, private activatedRoute: ActivatedRoute,
-    private _hotkeysService: HotkeysService, private dragulaService: DragulaService, private _BmxService: BmxService) { }
+  constructor(private _BmxService: BmxService) { }
 
 
-  ngOnInit(): void {
-    
-  }
-  /*
-  onFileSelected(event) {
-    for (var i = 0; i < event.target.files.length; i++) {
-      const file: File = event.target.files[i];
-      if (file) {
-        this.fileName = this.fileName + '\n' + file.name;
-        const formData = new FormData();
-        formData.append("thumbnail", file);
-        var s;
-        var reader = new FileReader();
+  ngOnInit(): void { }
 
-        reader.onload = (_event) => {
-           s = reader.result.toString();
-           this.IMAGES_UPLOADED.push({ name: this.IMAGES_UPLOADED.length.toString(), rationale: 'Sist, Assist, Syst', url: s });
-        }
-        reader.readAsDataURL(event.target.files[i]);
-
-      }
-
-    }
-
-  }
-  */
   onFileSelected(event) {
     if (event.target.files && event.target.files[0]) {
       var filesAmount = event.target.files.length;
@@ -73,13 +48,22 @@ export class ImageUploaderComponent implements OnInit {
         var reader = new FileReader();
         reader.onload = (event: any) => {
           this.IMAGES_UPLOADED.push({ name: this.IMAGES_UPLOADED.length.toString(), rationale: 'Sist, Assist, Syst', url: event.target.result });
+          const filedata = event.target.result.split(",")[0];
+          const resourceData:JSON = <JSON><unknown>{
+            "ProjectName": localStorage.getItem('projectName'),
+            "FileName": this.IMAGES_UPLOADED.length.toString() + '.' + filedata.substring((filedata.indexOf("/")+1),(filedata.indexOf(";") )),
+            "ItemType" : 'TestName',
+            "FileType" : filedata,
+            "FileContent" : event.target.result.split(event.target.result.split(",")[0] + ',').pop()
+          }
+          this._BmxService.saveFileResources(JSON.stringify(resourceData)).subscribe(result => {
+            var so = result;
+          });
         }
         reader.readAsDataURL(event.target.files[i]);
       }
     }
   }
-
-
   cancelUpload() {
     this.uploadSub.unsubscribe();
     this.reset();
@@ -90,33 +74,6 @@ export class ImageUploaderComponent implements OnInit {
     this.uploadSub = null;
   }
 
-  /*
-  onFileSelected(event) {
-    const file: File = event.target.files[0];
-
-    if (file) {
-      this.fileName = file.name;
-      const formData = new FormData();
-      formData.append("thumbnail", file);
-
-      const upload$ = this.http.post("/api/thumbnail-upload", formData, {
-        reportProgress: true,
-        observe: 'events'
-      })
-
-      this.uploadSub = upload$.subscribe(event => {
-        if (event.type == HttpEventType.UploadProgress) {
-          this.uploadProgress = Math.round(100 * (event.loaded / event.total));
-        }
-      })
-    }
-  }
-  */
-
-
-
 }
-function getRandomInt(arg0: number) {
-  throw new Error('Function not implemented.');
-}
+
 

@@ -48,14 +48,15 @@
     width: 1024px;
     height: 54px;" cdkDragHandle> </div>
     <div style="text-align: center;">
-        <div style="font-size: 16px;margin: 20px;color: #48535e;">Copy & Paste TEST NAMES</div>
+        <div style="font-size: 16px;margin: 20px;color: #48535e;">PASTE TEST NAMES</div>
         <!-- <div style="font-size: 14px;margin-bottom: 20px;color: lightgray;">Brief Description Here</div> -->
     </div>
-    <div style="display: flex;justify-content: center;justify-items: center;">
-        
-            <textarea style="width: 90%;" matInput  [(ngModel)]="testNamesInput"
+    <div>
+        <mat-form-field style="width: 90%;margin-left: 20px;" appearance="outline">
+            <mat-label>Copy & Paste TEST NAMES</mat-label>
+            <textarea matInput rows="4" cols="50" [(ngModel)]="testNamesInput"
                 placeholder="ENHANCE,Hance, En-,EVOLVE,Evo,GUARD,Gard, Guard,INVEST,In, Inv,OMNI,Omni,OPTIMAL"></textarea>
-        
+        </mat-form-field>
     </div>
 
     <hr>
@@ -183,11 +184,45 @@
 
         <!-- <div *ngIf="(y !== 0)" style="color: white;font-size: xx-small;">.</div> -->
         <div class="test-name-table">
+            
+              <!--⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️ RANK RENDERER ⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️ -->
+              <div style="min-width: 200px;background-color:white;display: flex;align-items: center;
+              justify-content: center;border-left: rgb(231, 230, 230) 1px solid;
+              border-right: rgb(231, 230, 230) 1px solid;border-top: rgb(231, 230, 230) 1px solid;">
+                  <div *ngIf="(y !== 0)">
+                      <!-- <mat-form-field *ngIf="rankingType == 'dropDown'"  appearance="outline" style="width: 130px;padding-top: 13px;height: 80px;">
+                          <mat-label>Rank 1 to {{rankingScaleValue}}</mat-label>
+                          <mat-select matNativeControl [(ngModel)]="bmxItem.componentText[y].RATE"
+                              (selectionChange)="setRating(bmxItem.componentText[y].RATE,y)">
+                              <mat-option *ngFor="let star of  testName.STARS; let x =  index" [value]="star.icon">
+                                  {{star.icon}}</mat-option>
+                          </mat-select>
+                      </mat-form-field>
+  
+                      <button  *ngIf="rankingType == 'dragAndDrop'"  mat-button style="background-color:#ee7f25 ;color: white;">{{y}}</button>
+                     
+                      <button  *ngIf="rankingType == 'radio'"  mat-button style="background-color:#ee7f25 ;color: white;">{{this.bmxItem.componentText[y].RATE}}</button> -->
+
+                      <input type="checkbox" [disabled]="false" [checked]="this.bmxItem.componentText[y].SELECTED_ROW"   (change)="setRating($event,y)">
+
+  
+                  </div>
+                  <!-- COLUMN HEADER -->
+                  <textarea *ngIf="y == 0 && editSingleTableCells"
+                      [style.font-size]="bmxItem.componentSettings[0].fontSize +'px'"
+                      style="text-align: center; font-weight: bold;color: #324395;min-width: 200px;" class="row-box"
+                      [(ngModel)]="bmxItem.componentSettings[0].ratingScaleNarrowDownTitle"
+                      value="bmxItem.componentSettings[0].ratingScaleNarrowDownTitle"></textarea>
+                  <div class="rating-text" *ngIf="y == 0 && !editSingleTableCells">
+                      {{bmxItem.componentSettings[0].ratingScaleNarrowDownTitle }}</div>
+              </div>
+              <!--⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️ RANK STARS ⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️ -->
+
             <div *ngFor="let columnName of columnsNames; let e =  index"
                 style="display: flex;align-items: center;justify-content: center;" [ngClass]="(e%2==0)?'red':'blue'"
                 [style.width]="(columnName == 'rationale' )?bmxItem.componentSettings[0].rationalewidth + 'px':bmxItem.componentSettings[0].columnWidth +'px'">
 
-                <div *ngIf="(y == 0)" class="header-title " (mouseenter)="selectedColumn = e"
+                <div *ngIf="(y == 0)" class="header-title" (mouseenter)="selectedColumn = e"
                     (mouseleave)="selectedColumn = ''">
 
                     <!-- IF YOU WANT TO DELET ALL COLUMNS PASS THE COLUMN NAME  NOT testName[columnName]-->
@@ -241,10 +276,10 @@
                         <!-- TEXT AREA TO EDIT TABLE CELL CONTENT -->
                     <textarea
                         *ngIf="y !== 0  && editSingleTableCells && (columnName.includes('RadioColumn') != true) &&  columnName.includes('Comments') != true"
-                        [style.width]="(columnName == 'rationale')?(bmxItem.componentSettings[0].rationalewidth - 10) + 'px':(bmxItem.componentSettings[0].columnWidth -10) +'px'"
+                        [style.width]="(columnName == 'rationale')?bmxItem.componentSettings[0].rationalewidth + 'px':bmxItem.componentSettings[0].columnWidth +'px'"
                         [style.font-size]="bmxItem.componentSettings[0].fontSize +'px'" cdkTextareaAutosize
                         [cdkAutosizeMinRows]="bmxItem.componentSettings[0].rowHeight"
-                        style="outline: none;text-align: center;margin: 0 10px;" class="row-box"
+                        style="outline: none;text-align: center;" class="row-box"
                         [(ngModel)]="testName[columnName]"></textarea>
 
                     <p *ngIf="y !== 0  && !editSingleTableCells && (columnName.includes('RadioColumn') != true) &&  columnName.includes('Comments') != true"
@@ -255,10 +290,10 @@
                 <!-- 🟡🟡🟡🟡🟡🟡🟡🟡🟡🟡🟡🟡🟡🟡 END TABLE CELLS 🟡🟡🟡🟡🟡🟡🟡🟡🟡🟡🟡🟡🟡🟡🟡🟡 -->
             </div>
             <!--⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️ STARS RENDERER ⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️ -->
-            <div style="min-width: 200px;background-color:white;display: flex;align-items: center;
+            <div  style="min-width: 200px;background-color:white;display: flex;align-items: center;
                 justify-content: center;border-left: rgb(231, 230, 230) 1px solid;
                 border-right: rgb(231, 230, 230) 1px solid;border-top: rgb(231, 230, 230) 1px solid;">
-                <div *ngIf="(y !== 0)">
+                <div *ngIf="(y !== 0) && this.bmxItem.componentText[y].SELECTED_ROW">
                     <div *ngIf="testName.CRITERIA; else elseBlock">
                         <div *ngFor="let criteria of testName.CRITERIA  let x =  index"
                             style="display: flex;flex-direction: column;justify-content: space-between;border-bottom: rgb(231, 230, 230) 1px solid;">
