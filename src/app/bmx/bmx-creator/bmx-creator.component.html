@@ -178,7 +178,7 @@
 
     <!-- PROJECT LIST COMPONENT 📀📀📀📀📀📀📀📀📀📀📀📀📀📀📀📀📀📀📀📀📀📀📀📀📀📀📀📀📀📀📀📀📀📀📀📀📀📀📀-->
     <div class="project-list" *ngIf="isMenuActive1" style="border: hotpink solid 0px; width: 75%; height: 100vh;">
-        <app-project-list [isMenuActive1]="isMenuActive1" (isMenuActive1Close)="editBM($event)"></app-project-list>
+        <app-project-list [isMenuActive1]="isMenuActive1" (isMenuActive1Close)="editBM($event)" (isMenuActive1Email)="emailBM($event)"></app-project-list>
     </div>
 
 

@@ -13,6 +13,7 @@ export class BmxService {
   GetProjectInfo = '/BrandMatrixGetDirectorList';
   SaveProjectInfor = '/BrandMatrixUpdDirectorList'
   BrandMatrixResourceUpload = '/BrandMatrixResourceUpload'
+  SendEmail = '/BrandMatrixSendEmail'
   constructor(private http: HttpClient) {}
    
   getGeneralLists() {
@@ -44,6 +45,12 @@ export class BmxService {
   saveFileResources(resourceData: any)
   {
     return this.http.post(this.webBaseUrl + this.BrandMatrixResourceUpload, { token: '646EBF52-1846-47C2-9F62-DC50AE5BF692', payload:  resourceData });
+  }
+
+  sendEmail(resourceData: any)
+  {
+    return this.http.post(this.webBaseUrl + this.SendEmail, { token: '646EBF52-1846-47C2-9F62-DC50AE5BF692', payload:  '{ "emailData" : "' + resourceData + '" }'});
+
   }
 
 

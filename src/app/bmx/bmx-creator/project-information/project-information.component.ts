@@ -69,6 +69,7 @@ export class ProjectInformationComponent implements OnInit {
   ngOnInit(): void {
     this.canEdit = null;
     this.initForm();
+    this.onChanges();
     var items = localStorage.getItem('projectName');
     if (items != undefined || items != null) {
       this._BmxService.getProjectInfo(localStorage.getItem('projectName'))
@@ -252,5 +253,19 @@ export class ProjectInformationComponent implements OnInit {
 
   trackByIndex(index, item) {
     return index;
+  }
+
+  onChanges(): void {
+    this.bmxEditData.get('bmxRegion').valueChanges.subscribe(val => {
+      if(val !== null || val != '')
+      {
+        this.allDirectors.forEach(director => {
+          if (director.office == val) {
+            this.DIRECTORS.push(director);
+          }
+        })
+  
+      }
+    });
   }
 }

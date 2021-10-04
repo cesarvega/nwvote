@@ -239,4 +239,12 @@ export class BmxCreatorComponent implements OnInit {
     this.isMenuActive8 = !event;
   }
 
+  emailBM(event)
+  {
+    console.log(event)
+    this.isMenuActive1 = event;
+    this.isMainMenuActive = event;
+    this.isMenuActive15 = !event;
+  }
+
 }

@@ -17,6 +17,7 @@ import { BmxService } from '../bmx.service';
 export class ProjectListComponent implements OnInit {
   @Input() isMenuActive1;
   @Output() isMenuActive1Close: EventEmitter<boolean>=new EventEmitter<boolean>();
+  @Output() isMenuActive1Email: EventEmitter<boolean>=new EventEmitter<boolean>();
   @ViewChild(MatSort) sort: MatSort;
   @ViewChild(MatPaginator) paginator: MatPaginator;
   dataSource;
@@ -58,6 +59,8 @@ export class ProjectListComponent implements OnInit {
 
   sendEmail(option: string): void {
     var test = option;
+    localStorage.setItem('projectName', option);
+    this.isMenuActive1Close.emit(false);
   }
 
   editBM(option: string): void {
@@ -107,5 +110,7 @@ export class ProjectListComponent implements OnInit {
     // Prevent Saturday and Sunday from being selected.
     return day !== 0 && day !== 6 ;
   }
+
+  
 
 }
