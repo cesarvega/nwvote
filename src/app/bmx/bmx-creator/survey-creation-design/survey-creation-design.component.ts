@@ -484,6 +484,11 @@ export class SurveyCreationDesignComponent implements OnInit {
                                     "id": 6,
                                     "icon": "grade",
                                     "styleClass": "rating-star"
+                                },
+                                {
+                                    "id": 7,
+                                    "icon": "grade",
+                                    "styleClass": "rating-star"
                                 }
                             ],
                             "nameCandidates": "Name Candidates",
@@ -519,6 +524,11 @@ export class SurveyCreationDesignComponent implements OnInit {
                                 },
                                 {
                                     "id": 6,
+                                    "icon": "grade",
+                                    "styleClass": "rating-star"
+                                },
+                                {
+                                    "id": 7,
                                     "icon": "grade",
                                     "styleClass": "rating-star"
                                 }
@@ -558,6 +568,11 @@ export class SurveyCreationDesignComponent implements OnInit {
                                     "id": 6,
                                     "icon": "grade",
                                     "styleClass": "rating-star"
+                                },
+                                {
+                                    "id": 7,
+                                    "icon": "grade",
+                                    "styleClass": "rating-star"
                                 }
                             ],
                             "nameCandidates": "Moderato  ",
@@ -593,6 +608,11 @@ export class SurveyCreationDesignComponent implements OnInit {
                                 },
                                 {
                                     "id": 6,
+                                    "icon": "grade",
+                                    "styleClass": "rating-star"
+                                },
+                                {
+                                    "id": 7,
                                     "icon": "grade",
                                     "styleClass": "rating-star"
                                 }
@@ -632,6 +652,11 @@ export class SurveyCreationDesignComponent implements OnInit {
                                     "id": 6,
                                     "icon": "grade",
                                     "styleClass": "rating-star"
+                                },
+                                {
+                                    "id": 7,
+                                    "icon": "grade",
+                                    "styleClass": "rating-star"
                                 }
                             ],
                             "nameCandidates": "MILKY WAY  ",
@@ -667,6 +692,11 @@ export class SurveyCreationDesignComponent implements OnInit {
                                 },
                                 {
                                     "id": 6,
+                                    "icon": "grade",
+                                    "styleClass": "rating-star"
+                                },
+                                {
+                                    "id": 7,
                                     "icon": "grade",
                                     "styleClass": "rating-star"
                                 }
@@ -706,6 +736,11 @@ export class SurveyCreationDesignComponent implements OnInit {
                                     "id": 6,
                                     "icon": "grade",
                                     "styleClass": "rating-star"
+                                },
+                                {
+                                    "id": 7,
+                                    "icon": "grade",
+                                    "styleClass": "rating-star"
                                 }
                             ],
                             "nameCandidates": "Unfolding ",
@@ -741,6 +776,11 @@ export class SurveyCreationDesignComponent implements OnInit {
                                 },
                                 {
                                     "id": 6,
+                                    "icon": "grade",
+                                    "styleClass": "rating-star"
+                                },
+                                {
+                                    "id": 7,
                                     "icon": "grade",
                                     "styleClass": "rating-star"
                                 }
@@ -1378,8 +1418,6 @@ export class SurveyCreationDesignComponent implements OnInit {
                     "componentType": "ranking-scale",
                     "componentText": [
                         {
-                            "name": "Name Candidates",
-                            "rationale": "Rationales",
                             "STARS": [
                                 {
                                     "id": 0,
@@ -1395,34 +1433,13 @@ export class SurveyCreationDesignComponent implements OnInit {
                                     "id": 2,
                                     "icon": 3,
                                     "styleClass": "rating-star"
-                                },
-                                {
-                                    "id": 3,
-                                    "icon": 4,
-                                    "styleClass": "rating-star"
-                                },
-                                {
-                                    "id": 4,
-                                    "icon": 5,
-                                    "styleClass": "rating-star"
-                                },
-                                {
-                                    "id": 5,
-                                    "icon": 6,
-                                    "styleClass": "rating-star"
-                                },
-                                {
-                                    "id": 6,
-                                    "icon": 7,
-                                    "styleClass": "rating-star"
                                 }
                             ],
-                            "Comments1": "General Comments"
+                            "ExtraColumn1": "NAME",
+                            "rationale": "RATIONALE",
+                            "Comments2": "General Comments"
                         },
                         {
-                            "name": "TEST NAME 1",
-                            "rationale": "Rationale of an undisclosed length",
-                            "RATE": 2,
                             "STARS": [
                                 {
                                     "id": 0,
@@ -1438,34 +1455,13 @@ export class SurveyCreationDesignComponent implements OnInit {
                                     "id": 2,
                                     "icon": 3,
                                     "styleClass": "rating-star"
-                                },
-                                {
-                                    "id": 3,
-                                    "icon": 4,
-                                    "styleClass": "rating-star"
-                                },
-                                {
-                                    "id": 4,
-                                    "icon": 5,
-                                    "styleClass": "rating-star"
-                                },
-                                {
-                                    "id": 5,
-                                    "icon": 6,
-                                    "styleClass": "rating-star"
-                                },
-                                {
-                                    "id": 6,
-                                    "icon": 7,
-                                    "styleClass": "rating-star"
                                 }
                             ],
-                            "Comments1": "Comments"
+                            "ExtraColumn1": "TEST NAME 1",
+                            "rationale": "Rationale of an losed length",
+                            "Comments2": "General Comments"
                         },
                         {
-                            "name": "TEST NAME 0",
-                            "rationale": "Rationale of an undisclosed length",
-                            "RATE": 1,
                             "STARS": [
                                 {
                                     "id": 0,
@@ -1481,34 +1477,13 @@ export class SurveyCreationDesignComponent implements OnInit {
                                     "id": 2,
                                     "icon": 3,
                                     "styleClass": "rating-star"
-                                },
-                                {
-                                    "id": 3,
-                                    "icon": 4,
-                                    "styleClass": "rating-star"
-                                },
-                                {
-                                    "id": 4,
-                                    "icon": 5,
-                                    "styleClass": "rating-star"
-                                },
-                                {
-                                    "id": 5,
-                                    "icon": 6,
-                                    "styleClass": "rating-star"
-                                },
-                                {
-                                    "id": 6,
-                                    "icon": 7,
-                                    "styleClass": "rating-star"
                                 }
                             ],
-                            "Comments1": "Comments"
+                            "ExtraColumn1": "TEST NAME 2",
+                            "rationale": "Rationale of an undisclosed length",
+                            "Comments2": "General Comments"
                         },
                         {
-                            "name": "TEST NAME 4",
-                            "rationale": "Rationale of an undisclosed length",
-                            "RATE": 3,
                             "STARS": [
                                 {
                                     "id": 0,
@@ -1524,34 +1499,13 @@ export class SurveyCreationDesignComponent implements OnInit {
                                     "id": 2,
                                     "icon": 3,
                                     "styleClass": "rating-star"
-                                },
-                                {
-                                    "id": 3,
-                                    "icon": 4,
-                                    "styleClass": "rating-star"
-                                },
-                                {
-                                    "id": 4,
-                                    "icon": 5,
-                                    "styleClass": "rating-star"
-                                },
-                                {
-                                    "id": 5,
-                                    "icon": 6,
-                                    "styleClass": "rating-star"
-                                },
-                                {
-                                    "id": 6,
-                                    "icon": 7,
-                                    "styleClass": "rating-star"
                                 }
                             ],
-                            "Comments1": "Comments"
+                            "ExtraColumn1": "TEST NAME 3",
+                            "rationale": "Rationale of an undisclosed length",
+                            "Comments2": "General Comments"
                         },
                         {
-                            "name": "TEST NAME 2",
-                            "rationale": "Rationale of an undisclosed length",
-                            "RATE": 4,
                             "STARS": [
                                 {
                                     "id": 0,
@@ -1567,34 +1521,13 @@ export class SurveyCreationDesignComponent implements OnInit {
                                     "id": 2,
                                     "icon": 3,
                                     "styleClass": "rating-star"
-                                },
-                                {
-                                    "id": 3,
-                                    "icon": 4,
-                                    "styleClass": "rating-star"
-                                },
-                                {
-                                    "id": 4,
-                                    "icon": 5,
-                                    "styleClass": "rating-star"
-                                },
-                                {
-                                    "id": 5,
-                                    "icon": 6,
-                                    "styleClass": "rating-star"
-                                },
-                                {
-                                    "id": 6,
-                                    "icon": 7,
-                                    "styleClass": "rating-star"
                                 }
                             ],
-                            "Comments1": "Comments"
+                            "ExtraColumn1": "TEST NAME 4",
+                            "rationale": "Rationale of an losed length",
+                            "Comments2": "General Comments"
                         },
                         {
-                            "name": "TEST NAME 3",
-                            "rationale": "Rationale of an undisclosed length",
-                            "RATE": 5,
                             "STARS": [
                                 {
                                     "id": 0,
@@ -1610,29 +1543,11 @@ export class SurveyCreationDesignComponent implements OnInit {
                                     "id": 2,
                                     "icon": 3,
                                     "styleClass": "rating-star"
-                                },
-                                {
-                                    "id": 3,
-                                    "icon": 4,
-                                    "styleClass": "rating-star"
-                                },
-                                {
-                                    "id": 4,
-                                    "icon": 5,
-                                    "styleClass": "rating-star"
-                                },
-                                {
-                                    "id": 5,
-                                    "icon": 6,
-                                    "styleClass": "rating-star"
-                                },
-                                {
-                                    "id": 6,
-                                    "icon": 7,
-                                    "styleClass": "rating-star"
                                 }
                             ],
-                            "Comments1": "Comments"
+                            "ExtraColumn1": "TEST NAME 5",
+                            "rationale": "Rationale of an undisclosed length",
+                            "Comments2": "General Comments"
                         }
                     ],
                     "componentSettings": [
@@ -1643,8 +1558,9 @@ export class SurveyCreationDesignComponent implements OnInit {
                             "columnWidth": 305,
                             "rationalewidth": 544,
                             "rowHeight": 2,
-                            "categoryName": "Category name",
-                            "categoryDescription": "category description",
+                            "radioColumnsWidth": 75,
+                            "categoryName": "Category Ranking",
+                            "categoryDescription": "This is Ranking matrix",
                             "ratingScaleTitle": "RANK",
                             "rankType": "dropDown"
                         }
@@ -1975,11 +1891,11 @@ export class SurveyCreationDesignComponent implements OnInit {
                             ],
                             "nameCandidates": "Pledge  ",
                             "rationale": "A Promise or Oath, Embeds P and D for Parkinson's Disease",
-                            "RadioColumn1": true,
+                            "RadioColumn1": false,
                             "RadioColumn2": false,
                             "RadioColumn3": false,
                             "RadioColumn4": false,
-                            "RadioColumn5": false,
+                            "RadioColumn5": true,
                             "RATE": 5
                         },
                         {
@@ -2169,7 +2085,7 @@ export class SurveyCreationDesignComponent implements OnInit {
                             "RadioColumn3": false,
                             "RadioColumn4": false,
                             "RadioColumn5": false,
-                            "RATE": 2
+                            "RATE": 0
                         }
                     ],
                     "componentSettings": [
@@ -2252,6 +2168,11 @@ export class SurveyCreationDesignComponent implements OnInit {
                                     "id": 4,
                                     "icon": "grade",
                                     "styleClass": "rating-star"
+                                },
+                                {
+                                    "id": 5,
+                                    "icon": "grade",
+                                    "styleClass": "rating-star"
                                 }
                             ],
                             "nameCandidates": "Name Candidates",
@@ -2278,6 +2199,11 @@ export class SurveyCreationDesignComponent implements OnInit {
                                 },
                                 {
                                     "id": 4,
+                                    "icon": "grade",
+                                    "styleClass": "rating-star"
+                                },
+                                {
+                                    "id": 5,
                                     "icon": "grade",
                                     "styleClass": "rating-star"
                                 }
@@ -2308,12 +2234,17 @@ export class SurveyCreationDesignComponent implements OnInit {
                                     "id": 4,
                                     "icon": "grade",
                                     "styleClass": "rating-star"
+                                },
+                                {
+                                    "id": 5,
+                                    "icon": "grade",
+                                    "styleClass": "rating-star"
                                 }
                             ],
                             "nameCandidates": "Test 2",
                             "rationale": "Rationale of an undisclosed length",
                             "katakana": "片仮名、カタカナ",
-                            "SELECTED_ROW": true
+                            "SELECTED_ROW": false
                         },
                         {
                             "STARS": [
@@ -2334,6 +2265,11 @@ export class SurveyCreationDesignComponent implements OnInit {
                                 },
                                 {
                                     "id": 4,
+                                    "icon": "grade",
+                                    "styleClass": "rating-star"
+                                },
+                                {
+                                    "id": 5,
                                     "icon": "grade",
                                     "styleClass": "rating-star"
                                 }
@@ -2364,6 +2300,11 @@ export class SurveyCreationDesignComponent implements OnInit {
                                     "id": 4,
                                     "icon": "grade",
                                     "styleClass": "rating-star"
+                                },
+                                {
+                                    "id": 5,
+                                    "icon": "grade",
+                                    "styleClass": "rating-star"
                                 }
                             ],
                             "nameCandidates": "Test 4",
@@ -2392,6 +2333,11 @@ export class SurveyCreationDesignComponent implements OnInit {
                                     "id": 4,
                                     "icon": "grade",
                                     "styleClass": "rating-star"
+                                },
+                                {
+                                    "id": 5,
+                                    "icon": "grade",
+                                    "styleClass": "rating-star"
                                 }
                             ],
                             "nameCandidates": "Test 5",
@@ -2418,6 +2364,11 @@ export class SurveyCreationDesignComponent implements OnInit {
                                 },
                                 {
                                     "id": 4,
+                                    "icon": "grade",
+                                    "styleClass": "rating-star"
+                                },
+                                {
+                                    "id": 5,
                                     "icon": "grade",
                                     "styleClass": "rating-star"
                                 }
@@ -2507,6 +2458,11 @@ export class SurveyCreationDesignComponent implements OnInit {
                                     "id": 4,
                                     "icon": "grade",
                                     "styleClass": "rating-star"
+                                },
+                                {
+                                    "id": 5,
+                                    "icon": "grade",
+                                    "styleClass": "rating-star"
                                 }
                             ],
                             "nameCandidates": "Name Candidates",
@@ -2532,6 +2488,11 @@ export class SurveyCreationDesignComponent implements OnInit {
                                 },
                                 {
                                     "id": 4,
+                                    "icon": "grade",
+                                    "styleClass": "rating-star"
+                                },
+                                {
+                                    "id": 5,
                                     "icon": "grade",
                                     "styleClass": "rating-star"
                                 }
@@ -2562,6 +2523,11 @@ export class SurveyCreationDesignComponent implements OnInit {
                                     "id": 4,
                                     "icon": "grade",
                                     "styleClass": "rating-star"
+                                },
+                                {
+                                    "id": 5,
+                                    "icon": "grade",
+                                    "styleClass": "rating-star"
                                 }
                             ],
                             "nameCandidates": "https://tools.brandinstitute.com/bmresources/103PED/logo2.JPG",
@@ -2588,6 +2554,11 @@ export class SurveyCreationDesignComponent implements OnInit {
                                 },
                                 {
                                     "id": 4,
+                                    "icon": "grade",
+                                    "styleClass": "rating-star"
+                                },
+                                {
+                                    "id": 5,
                                     "icon": "grade",
                                     "styleClass": "rating-star"
                                 }
@@ -2618,6 +2589,11 @@ export class SurveyCreationDesignComponent implements OnInit {
                                     "id": 4,
                                     "icon": "grade",
                                     "styleClass": "rating-star"
+                                },
+                                {
+                                    "id": 5,
+                                    "icon": "grade",
+                                    "styleClass": "rating-star"
                                 }
                             ],
                             "nameCandidates": "https://tools.brandinstitute.com/bmresources/103PED/logo4.JPG",
@@ -2644,6 +2620,11 @@ export class SurveyCreationDesignComponent implements OnInit {
                                 },
                                 {
                                     "id": 4,
+                                    "icon": "grade",
+                                    "styleClass": "rating-star"
+                                },
+                                {
+                                    "id": 5,
                                     "icon": "grade",
                                     "styleClass": "rating-star"
                                 }
