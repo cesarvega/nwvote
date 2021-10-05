@@ -42,10 +42,8 @@ export class SurveyCreationDesignComponent implements OnInit {
     TEMPLATES = ['Standart Personal Preference', 'Ranking', 'NarrowDown', 'This or That', 'Naming Contest', 'Question & Answer'];
     templateName = '';
     selectedTemplateName = '';
-    openResetConfirmationBox
-    openUpdtBox
-    isResetConfirmation
-    isUpdateConfirmation
+
+    
     // SURVEY CREATOR VARIABLES & SCHEME
 
     currentPage = 0;
