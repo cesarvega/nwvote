@@ -184,6 +184,11 @@
                 <mat-icon class="full-icon">delete_sweep
                 </mat-icon>
             </button>
+            <button *ngIf="true" (click)="saveData()" mat-icon-button matTooltip="upload template"
+                matTooltipPosition="right">
+                <mat-icon class="full-icon">cloud_upload
+                </mat-icon>
+            </button>
             <!-- <button *ngIf="true" (click)="bmxClientPageOverview=!bmxClientPageOverview" mat-icon-button matTooltip="reset template"
                 matTooltipPosition="right">
                 <mat-icon class="full-icon">visibility

@@ -44,7 +44,7 @@ export class SurveyCreationDesignComponent implements OnInit {
     templateName = '';
     selectedTemplateName = '';
 
-    
+
     // SURVEY CREATOR VARIABLES & SCHEME
 
     currentPage = 0;
@@ -103,10 +103,10 @@ export class SurveyCreationDesignComponent implements OnInit {
         }
         if (this.bmxPagesClient) {
             this.bmxPages = this.bmxPagesClient
-        }else {
+        } else {
             this.bmxPages = this.SAMPLE_BMX
         }
-        
+
     }
 
     toggleInstructions() {
@@ -172,6 +172,7 @@ export class SurveyCreationDesignComponent implements OnInit {
                     "columnWidth": 150,
                     "rationalewidth": 250,
                     "rowHeight": 2,
+                    "radioColumnsWidth": 75,
                     "categoryName": "Category Rate",
                     "categoryDescription": "This is Rate matrix",
                     "ratingScaleTitle": "RATING"
@@ -190,7 +191,7 @@ export class SurveyCreationDesignComponent implements OnInit {
                 this.TestNameDataModel.push({
                     name: 'TEST NAME ' + index,
                     rationale: 'Rationale of an undisclosed length',
-                    RATE: 0,
+                    RATE: -1, // it wont render since is not a string
                     STARS: this.createRankinScale()
                 })
             }
@@ -218,7 +219,7 @@ export class SurveyCreationDesignComponent implements OnInit {
             this.TestNameDataModel = [];
             this.TestNameDataModel.push({
                 // name: '',
-                name:'LOGO',
+                name: 'LOGO',
                 // logoURL:''
                 // STARS: this.createRatingStars()
             })
@@ -285,7 +286,7 @@ export class SurveyCreationDesignComponent implements OnInit {
 
             this.TestNameDataModel = [];
             this.TestNameDataModel.push({
-                name: 'Questions', 
+                name: 'Questions',
                 // rationale: 'RATIONALE',
                 STARS: this.createRatingStars()
             })
@@ -410,7 +411,7 @@ export class SurveyCreationDesignComponent implements OnInit {
         for (let index = 1; index <= 3; index++) {
             startCounter.push({
                 id: index,
-                icon: index ,
+                icon: index,
                 styleClass: 'rating-star'
             });
         }
@@ -418,10 +419,58 @@ export class SurveyCreationDesignComponent implements OnInit {
     }
 
     saveData() {
-        let projectInfo  = localStorage.getItem('fakeproject' + '_project_info');
-        
-        this.bmxPages
+        let projectInfo = localStorage.getItem('fakeproject' + '_project_info');
 
+        this.bmxPages.forEach(pageElement => {
+            pageElement.page.forEach(component => {
+                if (component.componentType == 'rate-scale') {
+                    this.calculateTableDefinitions(component)
+                }
+                else if (component.componentType == 'ranking-scale') {
+                   this.calculateTableDefinitions(component)
+                }
+                else if (component.componentType == 'image-rate-scale') {
+                   this.calculateTableDefinitions(component)
+                }
+                else if (component.componentType == 'narrow-down') {
+                   this.calculateTableDefinitions(component)
+                }
+                else if (component.componentType == 'question-answer') {
+                   this.calculateTableDefinitions(component)
+                }
+            });
+        });
+
+    }
+
+    calculateTableDefinitions(component){
+        let table = {
+            tableType: component.componentType,
+            tableRows:[]
+        }
+        component.componentText.forEach((element, rowIndex) => {
+            let columnNames = Object.keys(element)
+
+            let tableR = {rowRate : '', columnDefinition:[]}
+
+            tableR['rowRate'] =(rowIndex == 0)?'header': (element['RATE'])?element['RATE']:'not rated'
+            columnNames.forEach((columnName, order) => {
+                if (columnName != "STARS" && columnName != "CRITERIA" && columnName != "RATE") {
+                    element[columnName]
+                    tableR['columnDefinition'].push(
+                        {
+                            // componentType: component.componentType,
+                            columnName : columnName,
+                            columnDisplayName: element[columnName],
+                            ColumnOrder:order,
+                            // rate:(element['RATE'])?element['RATE']:'header'
+                        }
+                    )
+                }
+            });
+            table.tableRows.push(tableR)
+        });
+        console.log(table);
     }
 
     SAMPLE_BMX = [
@@ -2973,5 +3022,3 @@ export class SurveyCreationDesignComponent implements OnInit {
     ]
 
 }
-
-

@@ -136,7 +136,7 @@
 <div *ngIf="isColumnResizerOn && bmxClientPageOverview" class="" style="display: flex;
     flex-direction: row;
     justify-content: space-evenly;
-    width: 80%;
+    width: 75%;
     position: absolute;
     top: -50px;
     left: 40px;
@@ -164,6 +164,11 @@
         <input type="range" style="margin: 20px;width: 140px;" [(ngModel)]="bmxItem.componentSettings[0].rowHeight"
             class="slider-font-size" tickInterval="1" min="2" max="20" [value]="bmxItem.componentSettings[0].rowHeight">
     </div>
+    <div *ngIf="radioColumnCounter > 1" style="display: flex;flex-direction: column;align-items: center;">
+        <p style="margin: 0 0 -12px;color: grey;">radio Columns width: {{bmxItem.componentSettings[0].radioColumnsWidth}} px</p>
+        <input type="range" style="margin: 20px;width: 140px;" [(ngModel)]="bmxItem.componentSettings[0].radioColumnsWidth"
+            class="slider-font-size" tickInterval="1" min="50" max="100" [value]="bmxItem.componentSettings[0].radioColumnsWidth">
+    </div>
 </div>
 <!-- <mat-slider min="200" max="500" step="10" value="200" [(value)]="bmxItem.componentSettings[0].columnWidth"></mat-slider><p>{{bmxItem.componentSettings[0].columnWidth}}</p> -->
 <!-- ⏺⏺⏺⏺⏺⏺⏺⏺⏺⏺⏺⏺⏺⏺⏺⏺⏺⏺⏺⏺⏺⏺  END  ⏺⏺⏺⏺⏺⏺⏺⏺⏺⏺⏺⏺⏺⏺⏺⏺⏺⏺ -->
@@ -188,7 +193,9 @@
         <div class="test-name-table">
             <div *ngFor="let columnName of columnsNames; let e =  index"
                 style="display: flex;align-items: center;justify-content: center;" [ngClass]="(e%2==0)?'red':'blue'"
-                [style.width]="(columnName == 'rationale' )?bmxItem.componentSettings[0].rationalewidth + 'px':bmxItem.componentSettings[0].columnWidth +'px'">
+                [style.width]="(columnName == 'rationale')?bmxItem.componentSettings[0].rationalewidth + 'px': 
+                ( (columnName.includes('RadioColumn'))?bmxItem.componentSettings[0].radioColumnsWidth + 'px' :
+                bmxItem.componentSettings[0].columnWidth + 'px' )">
 
                 <div *ngIf="(y == 0)" class="header-title " (mouseenter)="selectedColumn = e"
                     (mouseleave)="selectedColumn = ''">
@@ -228,7 +235,7 @@
                 <div>
 
                     <!-- IF ELSE TEMPLATE INPUTS  -->
-                    <input *ngIf="y !== 0  &&  columnName.includes('RadioColumn') == true" type="radio" [name]="'rate' + y"
+                    <input  type="radio" *ngIf="y !== 0  &&  columnName.includes('RadioColumn') == true" [name]="'rate' + y"
                         [checked]="testName[columnName]" (change)="saveRadioColumValue(columnName, y)">
 
 

@@ -143,7 +143,7 @@
 <div *ngIf="isColumnResizerOn && bmxClientPageOverview" class="" style="display: flex;
     flex-direction: row;
     justify-content: space-evenly;
-    width: 80%;
+    wwidth: 75%;
     position: absolute;
     top: -50px;
     left: 40px;
@@ -263,7 +263,7 @@
                 <div>
 
                     <!-- IF ELSE TEMPLATE INPUTS  -- BELOW RADION BUTTONS COLUMN -->
-                    <input *ngIf="y !== 0  &&  columnName.includes('RadioColumn') == true" type="radio"
+                    <input type="radio" *ngIf="y !== 0  &&  columnName.includes('RadioColumn') == true" 
                         [name]="columnName + i" [checked]="testName[columnName]"
                         (change)="saveRadioColumValue(columnName, y)">
 
