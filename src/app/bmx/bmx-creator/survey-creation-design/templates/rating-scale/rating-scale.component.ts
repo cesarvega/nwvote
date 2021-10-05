@@ -21,7 +21,7 @@ export class RatingScaleComponent implements OnInit {
   isColumnResizerOn = true;
 
   selectedStarRatingIndex = ''
-  selectedRating = '';
+  selectedRating : any;
   editSingleTableCells = false
   // columnsSlider = 150
   // rowHeightSlider = 2
@@ -115,7 +115,7 @@ export class RatingScaleComponent implements OnInit {
       // }
     } else {
 
-      this.bmxItem.componentText[testNameId].RATE = rate
+      this.bmxItem.componentText[testNameId].RATE = rate 
     }
 
   }
@@ -182,7 +182,7 @@ export class RatingScaleComponent implements OnInit {
 
   createRatingStars(ratingScale, ratingScaleIcon) {
     let startCounter: any = []
-    for (let index = 0; index < ratingScale; index++) {
+    for (let index = 1; index <= ratingScale; index++) {
       startCounter.push({
         id: index,
         icon: ratingScaleIcon,
@@ -204,9 +204,14 @@ export class RatingScaleComponent implements OnInit {
 
       this.extraColumnCounter = 1
       this.columnsNames.forEach((column, index) => {
-        if (column == 'name candidates' || column == 'test names' || column == 'names') {
+        if (column == 'name candidates' || column == 'test names' || column == 'names' || column == 'questions') {
+          // if (this.bmxItem.componentType = 'image-rate-scale') {
+          //   this.columnsNames[index] = 'name'
+          // } else {
+          // }
+          
           this.columnsNames[index] = 'nameCandidates'
-        } else if (column == 'name rationale' || column == 'rationale' || column == 'rationales') {
+        } else if (column == 'name rationale' || column == 'rationale' || column == 'rationales' ) {
           this.columnsNames[index] = 'rationale'
         } else if (column == 'katakana') {
           this.columnsNames[index] = 'katakana'
@@ -292,10 +297,15 @@ export class RatingScaleComponent implements OnInit {
   }
 
   saveRadioColumValue(name, y) {
+    this.RadioColumnList = []
     let values = Object.keys(this.bmxItem.componentText[y])
     values.forEach(columnName => {
       if (columnName.includes('RadioColumn')) {
         this.bmxItem.componentText[y][columnName] = false
+      }
+      
+      if (columnName.includes('RadioColumn')) {
+        this.RadioColumnList.push(columnName)
       }
     });
     this.bmxItem.componentText[y][name] = true

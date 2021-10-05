@@ -78,12 +78,20 @@
     </div>
 
     <hr>
+    <div style="display: flex;flex-direction: row;justify-content: space-between;gap: 30px;">
     <input type="file" class="file-input" (change)="onFileSelected($event)" #fileUpload style="display: none;" multiple
         accept="image/*">
-    <button mat-raised-button style="background-color: #003180;color:white;margin: -3px -173px 0px 29px;"
-        (click)="fileUpload.click()">
-        Select files to upload
-    </button>
+   
+
+        <button mat-raised-button style="background-color: #003180;color:white;margin: -3px -173px 0px 29px;"
+            (click)="fileUpload.click()">
+            Select files to upload
+        </button>
+        <button *ngIf="IMAGES_UPLOADED.length > 0" mat-raised-button style="background-color: #ee7f25;color:white; margin-right: 33px;"
+            (click)="uploadAllImages()">
+            Upload Files
+        </button>
+    </div>
     <div style="display: flex;flex-direction: row; gap:10; padding-top: 10px;">
 
         <div class="template-list" [dragula]="'draggableBag'" [(dragulaModel)]="IMAGES_UPLOADED"

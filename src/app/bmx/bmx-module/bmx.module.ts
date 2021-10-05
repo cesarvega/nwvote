@@ -79,6 +79,8 @@ import { LogoHeaderComponent } from '../bmx-creator/survey-creation-design/templ
 import { TextParagraphComponent } from '../bmx-creator/survey-creation-design/templates/text-paragraph/text-paragraph.component';
 import { ProjectReportsComponent } from '../bmx-creator/project-reports/project-reports.component';
 import { NarrowDownComponent } from '../bmx-creator/survey-creation-design/templates/narrow-down/narrow-down.component';
+import { QuestionAnswerComponent } from '../bmx-creator/survey-creation-design/templates/question-answer/question-answer.component';
+import { SurveyMatrixComponent } from '../bmx-creator/survey-matrix/survey-matrix.component';
 export function loadEcharts() {
   return import('echarts');
 }
@@ -101,6 +103,8 @@ export function loadEcharts() {
     TextParagraphComponent,
     ProjectReportsComponent,
     NarrowDownComponent,
+    QuestionAnswerComponent,
+    SurveyMatrixComponent,
   ],
   imports: [
     BrowserModule,

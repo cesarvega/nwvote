@@ -314,7 +314,7 @@
                             <button *ngFor="let star of  testName.STARS; let x =  index" (click)="setRating(star.id,y)"
                                 [ngClass]="star.styleClass" (mouseenter)="selectStar(star.id , y)"
                                 (mouseleave)="leaveStar(y)" 
-                                style="outline: none;margin:-5px -10px;animation: bounce 1000ms ease-in-out  forwards  ;" mat-icon-button
+                                style="outline: none;margin:-5px -10px;" mat-icon-button
                                 aria-label="ranking">
                                 <mat-icon>{{star.icon}}</mat-icon>
                             </button>
