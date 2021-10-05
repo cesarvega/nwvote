@@ -11,6 +11,7 @@ export class SurveyCreationDesignComponent implements OnInit {
     @Input() bmxClientPageDesignMode;
     @Input() bmxClientPageOverview;
     @Input() bmxPagesClient;
+    @Input() isMobile;
 
     TEMPLATE_NAME = 'Standart Personal Preference'
 
@@ -417,8 +418,9 @@ export class SurveyCreationDesignComponent implements OnInit {
     }
 
     saveData() {
-
-        console.log('');
+        let projectInfo  = localStorage.getItem('fakeproject' + '_project_info');
+        
+        this.bmxPages
 
     }
 
