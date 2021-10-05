@@ -43,6 +43,7 @@ export class SurveyCreationDesignComponent implements OnInit {
     templateName = '';
     selectedTemplateName = '';
 
+    
     // SURVEY CREATOR VARIABLES & SCHEME
 
     currentPage = 0;
