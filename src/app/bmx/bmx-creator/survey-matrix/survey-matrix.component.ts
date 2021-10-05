@@ -56,6 +56,7 @@ export class SurveyMatrixComponent extends BmxCreatorComponent implements OnInit
     this.bmxClientPageDesignMode = false;
     this.bmxClientPageOverview = false;
     this.displayRightSideMenu = false;
+    this.isMobile = true
   }
   SAMPLE_BMX = [
     {

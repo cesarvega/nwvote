@@ -69,7 +69,6 @@ export class RatingScaleComponent implements OnInit {
         this.columnsNames.push(value)
       }
     });
-
   }
 
  
@@ -273,10 +272,14 @@ export class RatingScaleComponent implements OnInit {
 
   insertCommentBoxColumn() {
     this.columnsNames.push('Comments' + (this.commentColumnCounter));
-    this.bmxItem.componentText.forEach((object) => {
+    this.bmxItem.componentText.forEach((object, index) => {
       // object = this.addToObject(object, 'Comments' + (this.commentColumnCounter), 'CommentsTxt' + (this.commentColumnCounter), this.commentColumnCounter)
       let coulmnName = 'Comments' + this.commentColumnCounter
-      object[coulmnName] = 'General Comments'
+      if (index > 0) {
+        object[coulmnName] = ''
+      } else {
+        object[coulmnName] = 'General Comments'
+      }
     });
     this.commentColumnCounter++
   }

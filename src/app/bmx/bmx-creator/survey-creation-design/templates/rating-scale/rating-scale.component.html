@@ -136,7 +136,7 @@
 <div *ngIf="isColumnResizerOn && bmxClientPageOverview" class="" style="display: flex;
     flex-direction: row;
     justify-content: space-evenly;
-    width: 80%;
+    width: 75%;
     position: absolute;
     top: -50px;
     left: 40px;
@@ -164,6 +164,11 @@
         <input type="range" style="margin: 20px;width: 140px;" [(ngModel)]="bmxItem.componentSettings[0].rowHeight"
             class="slider-font-size" tickInterval="1" min="2" max="20" [value]="bmxItem.componentSettings[0].rowHeight">
     </div>
+    <div *ngIf="radioColumnCounter > 1" style="display: flex;flex-direction: column;align-items: center;">
+        <p style="margin: 0 0 -12px;color: grey;">radio Columns width: {{bmxItem.componentSettings[0].radioColumnsWidth}} px</p>
+        <input type="range" style="margin: 20px;width: 140px;" [(ngModel)]="bmxItem.componentSettings[0].radioColumnsWidth"
+            class="slider-font-size" tickInterval="1" min="50" max="100" [value]="bmxItem.componentSettings[0].radioColumnsWidth">
+    </div>
 </div>
 <!-- <mat-slider min="200" max="500" step="10" value="200" [(value)]="bmxItem.componentSettings[0].columnWidth"></mat-slider><p>{{bmxItem.componentSettings[0].columnWidth}}</p> -->
 <!-- ⏺⏺⏺⏺⏺⏺⏺⏺⏺⏺⏺⏺⏺⏺⏺⏺⏺⏺⏺⏺⏺⏺  END  ⏺⏺⏺⏺⏺⏺⏺⏺⏺⏺⏺⏺⏺⏺⏺⏺⏺⏺ -->
@@ -188,7 +193,9 @@
         <div class="test-name-table">
             <div *ngFor="let columnName of columnsNames; let e =  index"
                 style="display: flex;align-items: center;justify-content: center;" [ngClass]="(e%2==0)?'red':'blue'"
-                [style.width]="(columnName == 'rationale' )?bmxItem.componentSettings[0].rationalewidth + 'px':bmxItem.componentSettings[0].columnWidth +'px'">
+                [style.width]="(columnName == 'rationale')?bmxItem.componentSettings[0].rationalewidth + 'px': 
+                ( (columnName.includes('RadioColumn'))?bmxItem.componentSettings[0].radioColumnsWidth + 'px' :
+                bmxItem.componentSettings[0].columnWidth + 'px' )">
 
                 <div *ngIf="(y == 0)" class="header-title " (mouseenter)="selectedColumn = e"
                     (mouseleave)="selectedColumn = ''">
@@ -228,7 +235,7 @@
                 <div>
 
                     <!-- IF ELSE TEMPLATE INPUTS  -->
-                    <input *ngIf="y !== 0  &&  columnName.includes('RadioColumn') == true" type="radio" [name]="'rate' + y"
+                    <input  type="radio" *ngIf="y !== 0  &&  columnName.includes('RadioColumn') == true" [name]="'rate' + y"
                         [checked]="testName[columnName]" (change)="saveRadioColumValue(columnName, y)">
 
 
@@ -258,7 +265,7 @@
                 <!-- 🟡🟡🟡🟡🟡🟡🟡🟡🟡🟡🟡🟡🟡🟡 END TABLE CELLS 🟡🟡🟡🟡🟡🟡🟡🟡🟡🟡🟡🟡🟡🟡🟡🟡 -->
             </div>
             <!--⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️ STARS RENDERER ⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️ -->
-            <div style="min-width: 200px;background-color:white;display: flex;align-items: center;
+            <div style="min-width: 230px;background-color:white;display: flex;align-items: center;
                 justify-content: center;border-left: rgb(231, 230, 230) 1px solid;
                 border-right: rgb(231, 230, 230) 1px solid;border-top: rgb(231, 230, 230) 1px solid;">
                 <div *ngIf="(y !== 0)">
@@ -268,24 +275,19 @@
                             <span [style.font-size]="bmxItem.componentSettings[0].fontSize +'px'"
                                 style="padding-top:6px;max-width: 200px;">{{criteria.name}}</span>
                             <div style="min-width: 200px;padding-bottom:6px">
-                                <button *ngFor="let star of  criteria.STARS;" (click)="setCriteriaRating(star.id,x,y)"
+                                    <mat-icon *ngFor="let star of  criteria.STARS;" (click)="setCriteriaRating(star.id,x,y)"
                                     [ngClass]="star.styleClass" (mouseenter)="selectCriteriaStar(star.id,x,y)"
-                                    (mouseleave)="leaveCriteriaStar(y,x)" style="outline: none;margin:-5px -10px;"
-                                    mat-icon-button aria-label="ranking">
-                                    <mat-icon>{{star.icon}}</mat-icon>
-                                </button>
+                                    (mouseleave)="leaveCriteriaStar(y,x)" 
+                                    style="outline: none;margin:1px -1px;cursor: pointer;">{{star.icon}}</mat-icon>
                             </div>
                         </div>
                     </div>
                     <ng-template #elseBlock>
                         <div style="position: relative;top: -5px;">
-                            <button *ngFor="let star of  testName.STARS; let x =  index" (click)="setRating(star.id,y)"
+                                <mat-icon *ngFor="let star of  testName.STARS; let x =  index" (click)="setRating(star.id,y)"
                                 [ngClass]="star.styleClass" (mouseenter)="selectStar(star.id , y)"
                                 (mouseleave)="leaveStar(y)" 
-                                style="outline: none;margin:-5px -10px;animation: bounce 1000ms ease-in-out  forwards  ;" mat-icon-button
-                                aria-label="ranking">
-                                <mat-icon>{{star.icon}}</mat-icon>
-                            </button>
+                                style="outline: none;margin:1px -1px;cursor: pointer;">{{star.icon}}</mat-icon>
                         </div>
                     </ng-template>
                 </div>
@@ -293,7 +295,7 @@
                         [style.font-size]="bmxItem.componentSettings[0].fontSize +'px'"
                         style="text-align: center; font-weight: bold;color: #324395;" class="row-box"
                         [(ngModel)]="bmxItem.componentSettings[0].ratingScaleTitle" value="bmxItem.componentSettings[0].ratingScaleTitle"></textarea>
-                <div class="rating-text" *ngIf="y == 0 && !editSingleTableCells">{{bmxItem.componentSettings[0].ratingScaleTitle}}</div>
+                <div [style.font-size]="bmxItem.componentSettings[0].fontSize +'px'" class="rating-text" *ngIf="y == 0 && !editSingleTableCells">{{bmxItem.componentSettings[0].ratingScaleTitle}}</div>
             </div>
             <!--⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️ END STARS ⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️ -->
 
