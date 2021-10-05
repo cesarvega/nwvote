@@ -8,6 +8,7 @@ import { BsrComponent } from './bsr/bsr.component';
 import { NW3Component } from './nw3/nw3.component';
 import { BmxCreatorComponent } from './bmx/bmx-creator/bmx-creator.component';
 import { BmxComponent } from './bmx/bmx-survey/bmx.component';
+import { SurveyMatrixComponent } from './bmx/bmx-creator/survey-matrix/survey-matrix.component';
 // import { BmxCreatorComponent } from './bmx-creator/bmx-creator.component';
 
 const routes: Routes = [
@@ -36,8 +37,8 @@ const routes: Routes = [
    component: BmxCreatorComponent
   },
    {//BI BRAND MATRIX
-    path: 'bmx/:id',
-    component: BmxComponent
+    path: 'bmx/:id/:username',
+    component: SurveyMatrixComponent
   },
   // {//NW 3 BI PRESENTS NOMENCLATURE WORKSHOP V.3.0
   //   path: ':id',

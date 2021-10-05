@@ -122,7 +122,7 @@ export class BmxCreatorComponent implements OnInit {
 
 
   constructor(@Inject(DOCUMENT) private document: any,
-    private _NW3Service: Nw3Service, private activatedRoute: ActivatedRoute,
+     private activatedRoute: ActivatedRoute,
     private _hotkeysService: HotkeysService, private dragulaService: DragulaService, private _BmxService: BmxService) {
     // this.activatedRoute.params.subscribe(params => {
     //   this.projectName = params['id'];
@@ -133,7 +133,7 @@ export class BmxCreatorComponent implements OnInit {
     //   })
     // });
 
-    this.toggleMenuActive('isMenuActive11')
+    this.toggleMenuActive('isMenuActive10')
     this.isMainMenuActive = false;
 
 
