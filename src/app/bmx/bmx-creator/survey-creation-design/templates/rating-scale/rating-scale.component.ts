@@ -21,7 +21,7 @@ export class RatingScaleComponent implements OnInit {
   isColumnResizerOn = true;
 
   selectedStarRatingIndex = ''
-  selectedRating = '';
+  selectedRating : any;
   editSingleTableCells = false
   // columnsSlider = 150
   // rowHeightSlider = 2
@@ -115,7 +115,7 @@ export class RatingScaleComponent implements OnInit {
       // }
     } else {
 
-      this.bmxItem.componentText[testNameId].RATE = rate + 1
+      this.bmxItem.componentText[testNameId].RATE = rate 
     }
 
   }
@@ -182,7 +182,7 @@ export class RatingScaleComponent implements OnInit {
 
   createRatingStars(ratingScale, ratingScaleIcon) {
     let startCounter: any = []
-    for (let index = 0; index < ratingScale; index++) {
+    for (let index = 1; index <= ratingScale; index++) {
       startCounter.push({
         id: index,
         icon: ratingScaleIcon,
