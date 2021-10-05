@@ -1,6 +1,6 @@
 <div style="display: flex;">
-    <div style="flex-direction: column;" class="bmx-page" *ngIf="isMenuActive11" dragula="TASKS"
-        [(dragulaModel)]="bmxPages[currentPage].page" (dragulaModelChange)="checkDragEvetn($event);">
+    <div style="flex-direction: column;" class="bmx-page" *ngIf="isMenuActive11" [dragula]="(isMobile)?'TASKS':''"
+        (dragulaModelChange)="checkDragEvetn($event);">
 
 
         <!-- BRAND MATRIX MODULAR TEMPLATE COMPONENTS  🧑🏻‍🚀🧑🏻‍🚀🧑🏻‍🚀🧑🏻‍🚀🧑🏻‍🚀🧑🏻‍🚀🧑🏻‍🚀🧑🏻‍🚀🧑🏻‍🚀🧑🏻‍🚀🧑🏻‍🚀🧑🏻‍🚀🧑🏻‍🚀 -->
