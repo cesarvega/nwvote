@@ -427,12 +427,12 @@ export class SurveyCreationDesignComponent implements OnInit {
             "page": [
                 {
                     "componentType": "logo-header",
-                    "componentText": "PROJECT BLEND",
+                    "componentText": "PROJECT NAME",
                     "componentSettings": [
                         {
-                            "fontSize": "16",
+                            "fontSize": "16px",
                             "fontFace": "Arial",
-                            "fontColor": "red",
+                            "logoWidth": 100,
                             "brandInstituteURL": "./assets/img/bmx/BRANDMATRIX-DASHBOARD-LOGO.svg",
                             "companyLogoURL": "./assets/img/bmx/BD.png"
                         }
@@ -813,9 +813,9 @@ export class SurveyCreationDesignComponent implements OnInit {
                     "componentText": "PROJECT NAME",
                     "componentSettings": [
                         {
-                            "fontSize": "16",
+                            "fontSize": "16px",
                             "fontFace": "Arial",
-                            "fontColor": "red",
+                            "logoWidth": 100,
                             "brandInstituteURL": "./assets/img/bmx/BRANDMATRIX-DASHBOARD-LOGO.svg",
                             "companyLogoURL": "./assets/img/bmx/BD.png"
                         }
@@ -1394,9 +1394,9 @@ export class SurveyCreationDesignComponent implements OnInit {
                     "componentText": "PROJECT NAME",
                     "componentSettings": [
                         {
-                            "fontSize": "16",
+                            "fontSize": "16px",
                             "fontFace": "Arial",
-                            "fontColor": "red",
+                            "logoWidth": 100,
                             "brandInstituteURL": "./assets/img/bmx/BRANDMATRIX-DASHBOARD-LOGO.svg",
                             "companyLogoURL": "./assets/img/bmx/BD.png"
                         }
@@ -1712,7 +1712,7 @@ export class SurveyCreationDesignComponent implements OnInit {
                         {
                             "fontSize": "16px",
                             "fontFace": "Arial",
-                            "fontColor": "red",
+                            "logoWidth": 100,
                             "brandInstituteURL": "./assets/img/bmx/BRANDMATRIX-DASHBOARD-LOGO.svg",
                             "companyLogoURL": "./assets/img/bmx/BD.png"
                         }
@@ -1948,7 +1948,7 @@ export class SurveyCreationDesignComponent implements OnInit {
                         {
                             "fontSize": "16px",
                             "fontFace": "Arial",
-                            "fontColor": "red",
+                            "logoWidth": 100,
                             "brandInstituteURL": "./assets/img/bmx/BRANDMATRIX-DASHBOARD-LOGO.svg",
                             "companyLogoURL": "./assets/img/bmx/BD.png"
                         }
@@ -1984,16 +1984,6 @@ export class SurveyCreationDesignComponent implements OnInit {
                                     "id": 2,
                                     "icon": 3,
                                     "styleClass": "rating-star"
-                                },
-                                {
-                                    "id": 3,
-                                    "icon": 4,
-                                    "styleClass": "rating-star"
-                                },
-                                {
-                                    "id": 4,
-                                    "icon": 5,
-                                    "styleClass": "rating-star"
                                 }
                             ],
                             "nameCandidates": "Name Candidates",
@@ -2020,16 +2010,6 @@ export class SurveyCreationDesignComponent implements OnInit {
                                     "id": 2,
                                     "icon": 3,
                                     "styleClass": "rating-star"
-                                },
-                                {
-                                    "id": 3,
-                                    "icon": 4,
-                                    "styleClass": "rating-star"
-                                },
-                                {
-                                    "id": 4,
-                                    "icon": 5,
-                                    "styleClass": "rating-star"
                                 }
                             ],
                             "nameCandidates": "Pledge  ",
@@ -2039,7 +2019,7 @@ export class SurveyCreationDesignComponent implements OnInit {
                             "RadioColumn3": false,
                             "RadioColumn4": false,
                             "RadioColumn5": false,
-                            "RATE": 0
+                            "RATE": 5
                         },
                         {
                             "STARS": [
@@ -2056,16 +2036,6 @@ export class SurveyCreationDesignComponent implements OnInit {
                                 {
                                     "id": 2,
                                     "icon": 3,
-                                    "styleClass": "rating-star"
-                                },
-                                {
-                                    "id": 3,
-                                    "icon": 4,
-                                    "styleClass": "rating-star"
-                                },
-                                {
-                                    "id": 4,
-                                    "icon": 5,
                                     "styleClass": "rating-star"
                                 }
                             ],
@@ -2074,43 +2044,6 @@ export class SurveyCreationDesignComponent implements OnInit {
                             "RadioColumn1": false,
                             "RadioColumn2": true,
                             "RadioColumn3": false,
-                            "RadioColumn4": false,
-                            "RadioColumn5": false,
-                            "RATE": 2
-                        },
-                        {
-                            "STARS": [
-                                {
-                                    "id": 0,
-                                    "icon": 1,
-                                    "styleClass": "rating-star"
-                                },
-                                {
-                                    "id": 1,
-                                    "icon": 2,
-                                    "styleClass": "rating-star"
-                                },
-                                {
-                                    "id": 2,
-                                    "icon": 3,
-                                    "styleClass": "rating-star"
-                                },
-                                {
-                                    "id": 3,
-                                    "icon": 4,
-                                    "styleClass": "rating-star"
-                                },
-                                {
-                                    "id": 4,
-                                    "icon": 5,
-                                    "styleClass": "rating-star"
-                                }
-                            ],
-                            "nameCandidates": "SUSPEND  ",
-                            "rationale": "Study of UCB0599's Slowing of the Progression of Early Parkinson's Disease - Delay",
-                            "RadioColumn1": false,
-                            "RadioColumn2": false,
-                            "RadioColumn3": true,
                             "RadioColumn4": false,
                             "RadioColumn5": false,
                             "RATE": 3
@@ -2131,20 +2064,10 @@ export class SurveyCreationDesignComponent implements OnInit {
                                     "id": 2,
                                     "icon": 3,
                                     "styleClass": "rating-star"
-                                },
-                                {
-                                    "id": 3,
-                                    "icon": 4,
-                                    "styleClass": "rating-star"
-                                },
-                                {
-                                    "id": 4,
-                                    "icon": 5,
-                                    "styleClass": "rating-star"
                                 }
                             ],
-                            "nameCandidates": "Placid  ",
-                            "rationale": "Calm, Steady, Stable, Begins in P and Ends with D to Suggest Parkinson's Disease",
+                            "nameCandidates": "SUSPEND  ",
+                            "rationale": "Study of UCB0599's Slowing of the Progression of Early Parkinson's Disease - Delay",
                             "RadioColumn1": false,
                             "RadioColumn2": false,
                             "RadioColumn3": false,
@@ -2168,60 +2091,13 @@ export class SurveyCreationDesignComponent implements OnInit {
                                     "id": 2,
                                     "icon": 3,
                                     "styleClass": "rating-star"
-                                },
-                                {
-                                    "id": 3,
-                                    "icon": 4,
-                                    "styleClass": "rating-star"
-                                },
-                                {
-                                    "id": 4,
-                                    "icon": 5,
-                                    "styleClass": "rating-star"
                                 }
                             ],
-                            "nameCandidates": "At Dawn ",
-                            "rationale": "Suggests Early Treatment",
+                            "nameCandidates": "Placid  ",
+                            "rationale": "Calm, Steady, Stable, Begins in P and Ends with D to Suggest Parkinson's Disease",
                             "RadioColumn1": false,
                             "RadioColumn2": false,
-                            "RadioColumn3": false,
-                            "RadioColumn4": false,
-                            "RadioColumn5": true,
-                            "RATE": 5
-                        },
-                        {
-                            "STARS": [
-                                {
-                                    "id": 0,
-                                    "icon": 1,
-                                    "styleClass": "rating-star"
-                                },
-                                {
-                                    "id": 1,
-                                    "icon": 2,
-                                    "styleClass": "rating-star"
-                                },
-                                {
-                                    "id": 2,
-                                    "icon": 3,
-                                    "styleClass": "rating-star"
-                                },
-                                {
-                                    "id": 3,
-                                    "icon": 4,
-                                    "styleClass": "rating-star"
-                                },
-                                {
-                                    "id": 4,
-                                    "icon": 5,
-                                    "styleClass": "rating-star"
-                                }
-                            ],
-                            "nameCandidates": "Skylark  ",
-                            "rationale": "Type of Bird, May Connote Freedom or Taking Flight, Links to Parkinson's Disease",
-                            "RadioColumn1": true,
-                            "RadioColumn2": false,
-                            "RadioColumn3": false,
+                            "RadioColumn3": true,
                             "RadioColumn4": false,
                             "RadioColumn5": false,
                             "RATE": 1
@@ -2242,25 +2118,16 @@ export class SurveyCreationDesignComponent implements OnInit {
                                     "id": 2,
                                     "icon": 3,
                                     "styleClass": "rating-star"
-                                },
-                                {
-                                    "id": 3,
-                                    "icon": 4,
-                                    "styleClass": "rating-star"
-                                },
-                                {
-                                    "id": 4,
-                                    "icon": 5,
-                                    "styleClass": "rating-star"
                                 }
                             ],
-                            "nameCandidates": "Pearly  ",
-                            "rationale": "Shining Like a Pearl (May Suggest Hope), Implies Treating Parkinson's Disease (P-) Early",
+                            "nameCandidates": "At Dawn ",
+                            "rationale": "Suggests Early Treatment",
                             "RadioColumn1": false,
-                            "RadioColumn2": false,
+                            "RadioColumn2": true,
                             "RadioColumn3": false,
                             "RadioColumn4": false,
-                            "RadioColumn5": false
+                            "RadioColumn5": false,
+                            "RATE": 0
                         },
                         {
                             "STARS": [
@@ -2278,25 +2145,70 @@ export class SurveyCreationDesignComponent implements OnInit {
                                     "id": 2,
                                     "icon": 3,
                                     "styleClass": "rating-star"
-                                },
+                                }
+                            ],
+                            "nameCandidates": "Skylark  ",
+                            "rationale": "Type of Bird, May Connote Freedom or Taking Flight, Links to Parkinson's Disease",
+                            "RadioColumn1": false,
+                            "RadioColumn2": true,
+                            "RadioColumn3": false,
+                            "RadioColumn4": false,
+                            "RadioColumn5": false,
+                            "RATE": 0
+                        },
+                        {
+                            "STARS": [
                                 {
-                                    "id": 3,
-                                    "icon": 4,
+                                    "id": 0,
+                                    "icon": 1,
                                     "styleClass": "rating-star"
                                 },
                                 {
-                                    "id": 4,
-                                    "icon": 5,
+                                    "id": 1,
+                                    "icon": 2,
+                                    "styleClass": "rating-star"
+                                },
+                                {
+                                    "id": 2,
+                                    "icon": 3,
+                                    "styleClass": "rating-star"
+                                }
+                            ],
+                            "nameCandidates": "Pearly  ",
+                            "rationale": "Shining Like a Pearl (May Suggest Hope), Implies Treating Parkinson's Disease (P-) Early",
+                            "RadioColumn1": false,
+                            "RadioColumn2": true,
+                            "RadioColumn3": false,
+                            "RadioColumn4": false,
+                            "RadioColumn5": false,
+                            "RATE": 0
+                        },
+                        {
+                            "STARS": [
+                                {
+                                    "id": 0,
+                                    "icon": 1,
+                                    "styleClass": "rating-star"
+                                },
+                                {
+                                    "id": 1,
+                                    "icon": 2,
+                                    "styleClass": "rating-star"
+                                },
+                                {
+                                    "id": 2,
+                                    "icon": 3,
                                     "styleClass": "rating-star"
                                 }
                             ],
                             "nameCandidates": "STEADY  ",
                             "rationale": "Study Testing an Early Parkinson's Disease Therapy - Suggests Stabilizing Symptoms, Gaining Control",
                             "RadioColumn1": false,
-                            "RadioColumn2": false,
+                            "RadioColumn2": true,
                             "RadioColumn3": false,
                             "RadioColumn4": false,
-                            "RadioColumn5": false
+                            "RadioColumn5": false,
+                            "RATE": 2
                         }
                     ],
                     "componentSettings": [
@@ -2455,7 +2367,7 @@ export class SurveyCreationDesignComponent implements OnInit {
                             "nameCandidates": "Test 2",
                             "rationale": "Rationale of an undisclosed length",
                             "katakana": "片仮名、カタカナ",
-                            "SELECTED_ROW": false
+                            "SELECTED_ROW": true
                         },
                         {
                             "STARS": [
@@ -2857,6 +2769,373 @@ export class SurveyCreationDesignComponent implements OnInit {
                             "categoryName": "Category Logo Rating",
                             "categoryDescription": "This is logo rating matrix",
                             "ratingScaleTitle": "RANK"
+                        }
+                    ]
+                }
+            ]
+        },
+        {
+            "pageNumber": 8,
+            "page": [
+                {
+                    "componentType": "",
+                    "componentText": "",
+                    "componentSettings": [
+                        {
+                            "fontSize": "16px",
+                            "fontFace": "Arial",
+                            "fontColor": "red"
+                        }
+                    ]
+                },
+                {
+                    "componentType": "logo-header",
+                    "componentText": "PROJECT NAME",
+                    "componentSettings": [
+                        {
+                            "fontSize": "16px",
+                            "fontFace": "Arial",
+                            "logoWidth": 100,
+                            "brandInstituteURL": "./assets/img/bmx/BRANDMATRIX-DASHBOARD-LOGO.svg",
+                            "companyLogoURL": "./assets/img/bmx/BD.png"
+                        }
+                    ]
+                },
+                {
+                    "componentType": "text-editor",
+                    "componentText": "<p style=\"text-align:center\"><span style=\"font-size:72px\">Q &amp; A</span></p>\n",
+                    "componentSettings": [
+                        {
+                            "fontSize": "16px",
+                            "fontFace": "Arial",
+                            "fontColor": "red"
+                        }
+                    ]
+                },
+                {
+                    "componentType": "question-answer",
+                    "componentText": [
+                        {
+                            "STARS": [
+                                {
+                                    "id": 0,
+                                    "icon": "grade",
+                                    "styleClass": "rating-star"
+                                },
+                                {
+                                    "id": 1,
+                                    "icon": "grade",
+                                    "styleClass": "rating-star"
+                                },
+                                {
+                                    "id": 2,
+                                    "icon": "grade",
+                                    "styleClass": "rating-star"
+                                },
+                                {
+                                    "id": 3,
+                                    "icon": "grade",
+                                    "styleClass": "rating-star"
+                                },
+                                {
+                                    "id": 4,
+                                    "icon": "grade",
+                                    "styleClass": "rating-star"
+                                }
+                            ],
+                            "nameCandidates": "Questions",
+                            "Comments2": "Answers"
+                        },
+                        {
+                            "STARS": [
+                                {
+                                    "id": 0,
+                                    "icon": "grade",
+                                    "styleClass": "rating-star"
+                                },
+                                {
+                                    "id": 1,
+                                    "icon": "grade",
+                                    "styleClass": "rating-star"
+                                },
+                                {
+                                    "id": 2,
+                                    "icon": "grade",
+                                    "styleClass": "rating-star"
+                                },
+                                {
+                                    "id": 3,
+                                    "icon": "grade",
+                                    "styleClass": "rating-star"
+                                },
+                                {
+                                    "id": 4,
+                                    "icon": "grade",
+                                    "styleClass": "rating-star"
+                                }
+                            ],
+                            "nameCandidates": "What treatments can help my dog with congestive heart failure?",
+                            "Comments2": ""
+                        },
+                        {
+                            "STARS": [
+                                {
+                                    "id": 0,
+                                    "icon": "grade",
+                                    "styleClass": "rating-star"
+                                },
+                                {
+                                    "id": 1,
+                                    "icon": "grade",
+                                    "styleClass": "rating-star"
+                                },
+                                {
+                                    "id": 2,
+                                    "icon": "grade",
+                                    "styleClass": "rating-star"
+                                },
+                                {
+                                    "id": 3,
+                                    "icon": "grade",
+                                    "styleClass": "rating-star"
+                                },
+                                {
+                                    "id": 4,
+                                    "icon": "grade",
+                                    "styleClass": "rating-star"
+                                }
+                            ],
+                            "nameCandidates": "What are the symptoms that you may see as your dog's congestive heart failure gets worse?",
+                            "Comments2": ""
+                        },
+                        {
+                            "STARS": [
+                                {
+                                    "id": 0,
+                                    "icon": "grade",
+                                    "styleClass": "rating-star"
+                                },
+                                {
+                                    "id": 1,
+                                    "icon": "grade",
+                                    "styleClass": "rating-star"
+                                },
+                                {
+                                    "id": 2,
+                                    "icon": "grade",
+                                    "styleClass": "rating-star"
+                                },
+                                {
+                                    "id": 3,
+                                    "icon": "grade",
+                                    "styleClass": "rating-star"
+                                },
+                                {
+                                    "id": 4,
+                                    "icon": "grade",
+                                    "styleClass": "rating-star"
+                                }
+                            ],
+                            "nameCandidates": "What are the early symptoms of heart failure in dogs?",
+                            "Comments2": ""
+                        },
+                        {
+                            "STARS": [
+                                {
+                                    "id": 0,
+                                    "icon": "grade",
+                                    "styleClass": "rating-star"
+                                },
+                                {
+                                    "id": 1,
+                                    "icon": "grade",
+                                    "styleClass": "rating-star"
+                                },
+                                {
+                                    "id": 2,
+                                    "icon": "grade",
+                                    "styleClass": "rating-star"
+                                },
+                                {
+                                    "id": 3,
+                                    "icon": "grade",
+                                    "styleClass": "rating-star"
+                                },
+                                {
+                                    "id": 4,
+                                    "icon": "grade",
+                                    "styleClass": "rating-star"
+                                }
+                            ],
+                            "nameCandidates": "How do you treat liver disease in dogs?",
+                            "Comments2": ""
+                        },
+                        {
+                            "STARS": [
+                                {
+                                    "id": 0,
+                                    "icon": "grade",
+                                    "styleClass": "rating-star"
+                                },
+                                {
+                                    "id": 1,
+                                    "icon": "grade",
+                                    "styleClass": "rating-star"
+                                },
+                                {
+                                    "id": 2,
+                                    "icon": "grade",
+                                    "styleClass": "rating-star"
+                                },
+                                {
+                                    "id": 3,
+                                    "icon": "grade",
+                                    "styleClass": "rating-star"
+                                },
+                                {
+                                    "id": 4,
+                                    "icon": "grade",
+                                    "styleClass": "rating-star"
+                                }
+                            ],
+                            "nameCandidates": "What are symptoms of liver disease in dogs?",
+                            "Comments2": ""
+                        },
+                        {
+                            "STARS": [
+                                {
+                                    "id": 0,
+                                    "icon": "grade",
+                                    "styleClass": "rating-star"
+                                },
+                                {
+                                    "id": 1,
+                                    "icon": "grade",
+                                    "styleClass": "rating-star"
+                                },
+                                {
+                                    "id": 2,
+                                    "icon": "grade",
+                                    "styleClass": "rating-star"
+                                },
+                                {
+                                    "id": 3,
+                                    "icon": "grade",
+                                    "styleClass": "rating-star"
+                                },
+                                {
+                                    "id": 4,
+                                    "icon": "grade",
+                                    "styleClass": "rating-star"
+                                }
+                            ],
+                            "nameCandidates": "What happens after my dog gets a heartworm treatment?",
+                            "Comments2": ""
+                        },
+                        {
+                            "STARS": [
+                                {
+                                    "id": 0,
+                                    "icon": "grade",
+                                    "styleClass": "rating-star"
+                                },
+                                {
+                                    "id": 1,
+                                    "icon": "grade",
+                                    "styleClass": "rating-star"
+                                },
+                                {
+                                    "id": 2,
+                                    "icon": "grade",
+                                    "styleClass": "rating-star"
+                                },
+                                {
+                                    "id": 3,
+                                    "icon": "grade",
+                                    "styleClass": "rating-star"
+                                },
+                                {
+                                    "id": 4,
+                                    "icon": "grade",
+                                    "styleClass": "rating-star"
+                                }
+                            ],
+                            "nameCandidates": "What are the symptoms of pancreatitis in dogs?",
+                            "Comments2": ""
+                        },
+                        {
+                            "STARS": [
+                                {
+                                    "id": 0,
+                                    "icon": "grade",
+                                    "styleClass": "rating-star"
+                                },
+                                {
+                                    "id": 1,
+                                    "icon": "grade",
+                                    "styleClass": "rating-star"
+                                },
+                                {
+                                    "id": 2,
+                                    "icon": "grade",
+                                    "styleClass": "rating-star"
+                                },
+                                {
+                                    "id": 3,
+                                    "icon": "grade",
+                                    "styleClass": "rating-star"
+                                },
+                                {
+                                    "id": 4,
+                                    "icon": "grade",
+                                    "styleClass": "rating-star"
+                                }
+                            ],
+                            "nameCandidates": "What are the symptoms of seizures in dogs?",
+                            "Comments2": ""
+                        },
+                        {
+                            "STARS": [
+                                {
+                                    "id": 0,
+                                    "icon": "grade",
+                                    "styleClass": "rating-star"
+                                },
+                                {
+                                    "id": 1,
+                                    "icon": "grade",
+                                    "styleClass": "rating-star"
+                                },
+                                {
+                                    "id": 2,
+                                    "icon": "grade",
+                                    "styleClass": "rating-star"
+                                },
+                                {
+                                    "id": 3,
+                                    "icon": "grade",
+                                    "styleClass": "rating-star"
+                                },
+                                {
+                                    "id": 4,
+                                    "icon": "grade",
+                                    "styleClass": "rating-star"
+                                }
+                            ],
+                            "nameCandidates": "What is the treatment for pancreatitis in dogs?",
+                            "Comments2": ""
+                        }
+                    ],
+                    "componentSettings": [
+                        {
+                            "minRule": 0,
+                            "maxRule": 0,
+                            "fontSize": 16,
+                            "columnWidth": 600,
+                            "rationalewidth": 250,
+                            "rowHeight": 2,
+                            "categoryName": "Category Question & Answer",
+                            "categoryDescription": "Insert Comments box for answers"
                         }
                     ]
                 }
