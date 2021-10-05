@@ -10,6 +10,7 @@ export class SurveyCreationDesignComponent implements OnInit {
     @Input() isMenuActive11;
     @Input() bmxClientPageDesignMode;
     @Input() bmxClientPageOverview;
+    @Input() bmxPagesClient;
 
     TEMPLATE_NAME = 'Standart Personal Preference'
 
@@ -98,7 +99,12 @@ export class SurveyCreationDesignComponent implements OnInit {
         if (this.TEMPLATE_NAME === 'Standart Personal Preference') {
             this.createNewBmxComponent("rate-scale");
         }
-        this.bmxPages = this.SAMPLE_BMX
+        if (this.bmxPagesClient) {
+            this.bmxPages = this.bmxPagesClient
+        }else {
+            this.bmxPages = this.SAMPLE_BMX
+        }
+        
     }
 
     toggleInstructions() {
