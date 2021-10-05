@@ -297,10 +297,15 @@ export class RatingScaleComponent implements OnInit {
   }
 
   saveRadioColumValue(name, y) {
+    this.RadioColumnList = []
     let values = Object.keys(this.bmxItem.componentText[y])
     values.forEach(columnName => {
       if (columnName.includes('RadioColumn')) {
         this.bmxItem.componentText[y][columnName] = false
+      }
+      
+      if (columnName.includes('RadioColumn')) {
+        this.RadioColumnList.push(columnName)
       }
     });
     this.bmxItem.componentText[y][name] = true

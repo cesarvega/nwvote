@@ -184,7 +184,7 @@ export class SurveyCreationDesignComponent implements OnInit {
                 name: 'NAME', rationale: 'RATIONALE',
                 STARS: this.createRankinScale()
             })
-            for (let index = 0; index < 5; index++) {
+            for (let index = 0; index < 3; index++) {
                 this.TestNameDataModel.push({
                     name: 'TEST NAME ' + index,
                     rationale: 'Rationale of an undisclosed length',
