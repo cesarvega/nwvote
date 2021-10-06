@@ -30,9 +30,9 @@ export class QuestionAnswerComponent extends RatingScaleComponent implements OnI
   }
 
   insertAnswerColumn() {
-    this.columnsNames.push('Comments' + (this.commentColumnCounter));
+    this.columnsNames.push('Answers' + (this.commentColumnCounter));
     this.bmxItem.componentText.forEach((object, index) => {
-      let coulmnName = 'Comments' + this.commentColumnCounter
+      let coulmnName = 'Answers' + this.commentColumnCounter
       if (index > 0) {
         object[coulmnName] = ''
       } else {

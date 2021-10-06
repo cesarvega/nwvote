@@ -59,8 +59,6 @@ export class RatingScaleComponent implements OnInit {
   // });
   }
   ngOnInit(): void {
-    console.log('');
-
     // COLUMN NAMES
     let values = Object.keys(this.bmxItem.componentText[0])
 
@@ -224,7 +222,7 @@ export class RatingScaleComponent implements OnInit {
         if (rows[i] != "" && rows[i].length > 6) {
           let objectColumnDesign = {};
           if (this.ASSIGNED_CRITERIA.length > 0) {
-
+            this.bmxItem.componentSettings[0].CRITERIA = true
             for (let e = 0; e < this.columnsNames.length; e++) {
               if ((rows[i].split("\t").length > 0)) {
                 objectColumnDesign[this.columnsNames[e]] = rows[i].split("\t")[e]
@@ -239,7 +237,7 @@ export class RatingScaleComponent implements OnInit {
               })
             });
           } else {
-
+            this.bmxItem.componentSettings[0].CRITERIA = false
             objectColumnDesign['STARS'] = this.createRatingStars(this.rankingScaleValue, this.ratingScaleIcon);
             for (let e = 0; e < this.columnsNames.length; e++) {
               if ((rows[i].split("\t").length > 0)) {

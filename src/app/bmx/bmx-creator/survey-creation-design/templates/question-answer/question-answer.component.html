@@ -234,7 +234,7 @@
 
 
                     <!-- TEXT_AREA COLUMN-->
-                    <textarea *ngIf="y !== 0  && columnName.includes('Comments') == true"
+                    <textarea *ngIf="y !== 0  && columnName.includes('Answers') == true"
                         [style.width]="(columnName == 'rationale')?bmxItem.componentSettings[0].rationalewidth + 'px':bmxItem.componentSettings[0].columnWidth +'px'"
                         [style.font-size]="bmxItem.componentSettings[0].fontSize +'px'" cdkTextareaAutosize
                         [cdkAutosizeMinRows]="bmxItem.componentSettings[0].rowHeight"
@@ -244,14 +244,14 @@
 
                     <!-- TEXT AREA TO EDIT TABLE CELL CONTENT -->
                     <textarea
-                        *ngIf="y !== 0  && editSingleTableCells && (columnName.includes('RadioColumn') != true) &&  columnName.includes('Comments') != true"
+                        *ngIf="y !== 0  && editSingleTableCells && (columnName.includes('RadioColumn') != true) &&  columnName.includes('Answers') != true"
                         [style.width]="(columnName == 'rationale')?(bmxItem.componentSettings[0].rationalewidth - 10) + 'px':(bmxItem.componentSettings[0].columnWidth -10) +'px'"
                         [style.font-size]="bmxItem.componentSettings[0].fontSize +'px'" cdkTextareaAutosize
                         [cdkAutosizeMinRows]="bmxItem.componentSettings[0].rowHeight"
                         style="outline: none;text-align: initial;margin: 0 10px;" class="row-box"
                         [(ngModel)]="testName[columnName]"></textarea>
 
-                    <p *ngIf="y !== 0  && !editSingleTableCells && (columnName.includes('RadioColumn') != true) &&  columnName.includes('Comments') != true"
+                    <p *ngIf="y !== 0  && !editSingleTableCells && (columnName.includes('RadioColumn') != true) &&  columnName.includes('Answers') != true"
                         [style.font-size]="bmxItem.componentSettings[0].fontSize +'px'"
                         [style.width]="(columnName == 'rationale')?bmxItem.componentSettings[0].rationalewidth + 'px':bmxItem.componentSettings[0].columnWidth +'px'"
                         style="text-align: initial;margin: 0 0 0px;">{{testName[columnName]}}</p>

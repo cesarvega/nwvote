@@ -44,7 +44,11 @@ export class SurveyCreationDesignComponent implements OnInit {
     templateName = '';
     selectedTemplateName = '';
 
-
+    bmxCompleteObject = {
+        projectInfo: '',
+        bmx: '',
+        tables: []
+    }
     // SURVEY CREATOR VARIABLES & SCHEME
 
     currentPage = 0;
@@ -88,6 +92,7 @@ export class SurveyCreationDesignComponent implements OnInit {
 
 
     }
+    projectInfo: string;
 
     constructor() { }
 
@@ -129,7 +134,7 @@ export class SurveyCreationDesignComponent implements OnInit {
     }
 
     createNewBmxComponent(componentType) {
-        // ▶️▶️▶️▶️▶️▶️▶️▶️▶️▶️▶️▶️▶️▶️▶️▶️▶️▶️▶️▶️▶️▶️▶️▶️▶️▶️
+        // ☢️☢️☢️☢️☢️☢️☢️☢️☢️☢️☢️☢️☢️☢️☢️☢️☢️☢️☢️☢️☢️☢️☢️☢️☢️☢️☢️☢️☢️☢️☢️☢️☢️☢️☢️☢️☢️☢️
         if (componentType === 'logo-header') {
             this.bmxPages[this.currentPage].page.push({
                 componentType: componentType,
@@ -146,7 +151,7 @@ export class SurveyCreationDesignComponent implements OnInit {
                 componentType: componentType,
                 componentText: this.sampleHtml2,
                 componentSettings: [{ fontSize: '16px', fontFace: 'Arial', fontColor: 'red' }],
-            })// ▶️▶️▶️▶️▶️▶️▶️▶️▶️▶️▶️▶️▶️▶️▶️▶️▶️▶️▶️▶️▶️▶️▶️▶️▶️▶️
+            })// 💛💛💛💛💛💛💛💛💛💛💛💛💛💛💛💛💛💛💛💛💛💛💛💛💛💛💛💛💛💛💛💛💛💛💛💛💛
         } else if (componentType === 'rate-scale') {
 
             this.TestNameDataModel = [];
@@ -173,13 +178,14 @@ export class SurveyCreationDesignComponent implements OnInit {
                     "rationalewidth": 250,
                     "rowHeight": 2,
                     "radioColumnsWidth": 75,
+                    "CRITERIA": false,
                     "categoryName": "Category Rate",
                     "categoryDescription": "This is Rate matrix",
                     "ratingScaleTitle": "RATING"
                 }
                 ],
             })
-        }// ▶️▶️▶️▶️▶️▶️▶️▶️▶️▶️▶️▶️▶️▶️▶️▶️▶️▶️▶️▶️▶️▶️▶️▶️▶️▶️
+        }// 💚💚💚💚💚💚💚💚💚💚💚💚💚💚💚💚💚💚💚💚💚💚💚💚💚💚💚💚💚💚💚💚💚💚💚💚💚💚💚💚💚💚💚
         else if (componentType === 'ranking-scale') {
 
             this.TestNameDataModel = [];
@@ -213,7 +219,7 @@ export class SurveyCreationDesignComponent implements OnInit {
                 }
                 ],
             })
-        }// ▶️▶️▶️▶️▶️▶️▶️▶️▶️▶️▶️▶️▶️▶️▶️▶️▶️▶️▶️▶️▶️▶️▶️▶️▶️▶️
+        }// ❤️❤️❤️❤️❤️❤️❤️❤️❤️❤️❤️❤️❤️❤️❤️❤️❤️❤️❤️❤️❤️❤️❤️❤️❤️❤️❤️❤️❤️❤️❤️❤️❤️❤️❤️❤️❤️❤️
         else if (componentType === 'image-rate-scale') {
 
             this.TestNameDataModel = [];
@@ -243,13 +249,14 @@ export class SurveyCreationDesignComponent implements OnInit {
                     "columnWidth": 336,
                     "rationalewidth": 250,
                     "rowHeight": 2,
+                    "CRITERIA": false,
                     "categoryName": "Category Logo Rating",
                     "categoryDescription": "This is logo rating matrix",
                     "ratingScaleTitle": "Personal Preference"
                 }
                 ],
             })
-        }// ▶️▶️▶️▶️▶️▶️▶️▶️▶️▶️▶️▶️▶️▶️▶️▶️▶️▶️▶️▶️▶️▶️▶️▶️▶️▶️
+        }// 💜💜💜💜💜💜💜💜💜💜💜💜💜💜💜💜💜💜💜💜💜💜💜💜💜💜💜💜💜💜💜
         else if (componentType === 'narrow-down') {
 
             this.TestNameDataModel = [];
@@ -281,7 +288,7 @@ export class SurveyCreationDesignComponent implements OnInit {
                 }
                 ],
             })
-        }// ▶️▶️▶️▶️▶️▶️▶️▶️▶️▶️▶️▶️▶️▶️▶️▶️▶️▶️▶️▶️▶️▶️▶️▶️▶️▶️
+        }// 🤍🤍🤍🤍🤍🤍🤍🤍🤍🤍🤍🤍🤍🤍🤍🤍🤍🤍🤍🤍🤍🤍🤍🤍🤍🤍🤍🤍🤍🤍🤍🤍🤍
         else if (componentType === 'question-answer') {
 
             this.TestNameDataModel = [];
@@ -419,50 +426,75 @@ export class SurveyCreationDesignComponent implements OnInit {
     }
 
     saveData() {
-        let projectInfo = localStorage.getItem('fakeproject' + '_project_info');
+        this.projectInfo = JSON.parse(localStorage.getItem('fakeproject' + '_project_info'));
 
+
+        this.bmxCompleteObject = {
+            projectInfo: this.projectInfo,
+            bmx: this.bmxPages,
+            tables: []
+        }
         this.bmxPages.forEach(pageElement => {
             pageElement.page.forEach(component => {
                 if (component.componentType == 'rate-scale') {
                     this.calculateTableDefinitions(component)
                 }
                 else if (component.componentType == 'ranking-scale') {
-                   this.calculateTableDefinitions(component)
+                    this.calculateTableDefinitions(component)
                 }
                 else if (component.componentType == 'image-rate-scale') {
-                   this.calculateTableDefinitions(component)
+                    this.calculateTableDefinitions(component)
                 }
                 else if (component.componentType == 'narrow-down') {
-                   this.calculateTableDefinitions(component)
+                    this.calculateTableDefinitions(component)
                 }
                 else if (component.componentType == 'question-answer') {
-                   this.calculateTableDefinitions(component)
+                    this.calculateTableDefinitions(component)
                 }
             });
         });
 
     }
 
-    calculateTableDefinitions(component){
+    private calculateTableDefinitions(component) {
         let table = {
             tableType: component.componentType,
-            tableRows:[]
+            tableRows: []
         }
         component.componentText.forEach((element, rowIndex) => {
             let columnNames = Object.keys(element)
 
-            let tableR = {rowRate : '', columnDefinition:[]}
+            let tableR = { rowRate: {}, columnDefinition: [] }
 
-            tableR['rowRate'] =(rowIndex == 0)?'header': (element['RATE'])?element['RATE']:'not rated'
+            tableR['rowRate'] = (rowIndex == 0) ? 'header' : (element['RATE']) ? element['RATE'] : 'not rated'
+
+            if (component.componentSettings[0].rankType == 'dragAndDrop' && rowIndex != 0) {
+                tableR['rowRate'] = rowIndex
+            }
+            if (component.componentType == 'question-answer' ) {
+                tableR['rowRate'] = 'Q & A'
+            }
+            let tableL = { rowRate: [], columnDefinition: [] }
+            if (component.componentSettings[0].CRITERIA) {
+                element['CRITERIA'].forEach((Criteria) => {
+                    if (rowIndex == 0) {
+                        tableL['rowRate'].push({ rate: 'header', criteria: Criteria.name })
+                    } else {
+                        tableL['rowRate'].push({ rate: (Criteria.RATE == -1) ? 'not-rated' : Criteria.RATE, criteria: Criteria.name })
+                    }
+                });
+                tableR['rowRate'] = tableL['rowRate']
+            }
+
             columnNames.forEach((columnName, order) => {
                 if (columnName != "STARS" && columnName != "CRITERIA" && columnName != "RATE") {
                     element[columnName]
                     tableR['columnDefinition'].push(
                         {
                             // componentType: component.componentType,
-                            columnName : columnName,
+                            columnName: columnName,
                             columnDisplayName: element[columnName],
-                            ColumnOrder:order,
+                            ColumnOrder: order,
                             // rate:(element['RATE'])?element['RATE']:'header'
                         }
                     )
@@ -471,6 +503,8 @@ export class SurveyCreationDesignComponent implements OnInit {
             table.tableRows.push(tableR)
         });
         console.log(table);
+        this.bmxCompleteObject['tables'].push(table)
+
     }
 
     SAMPLE_BMX = [
@@ -895,11 +929,6 @@ export class SurveyCreationDesignComponent implements OnInit {
                                     "name": "Fit to Compound Concept",
                                     "STARS": [
                                         {
-                                            "id": 0,
-                                            "icon": "grade",
-                                            "styleClass": "rating-star"
-                                        },
-                                        {
                                             "id": 1,
                                             "icon": "grade",
                                             "styleClass": "rating-star"
@@ -935,11 +964,6 @@ export class SurveyCreationDesignComponent implements OnInit {
                                 {
                                     "name": "Overall Likeability",
                                     "STARS": [
-                                        {
-                                            "id": 0,
-                                            "icon": "grade",
-                                            "styleClass": "rating-star"
-                                        },
                                         {
                                             "id": 1,
                                             "icon": "grade",
@@ -984,11 +1008,6 @@ export class SurveyCreationDesignComponent implements OnInit {
                                     "name": "Fit to Compound Concept",
                                     "STARS": [
                                         {
-                                            "id": 0,
-                                            "icon": "grade",
-                                            "styleClass": "rating-star"
-                                        },
-                                        {
                                             "id": 1,
                                             "icon": "grade",
                                             "styleClass": "rating-star"
@@ -1024,11 +1043,6 @@ export class SurveyCreationDesignComponent implements OnInit {
                                 {
                                     "name": "Overall Likeability",
                                     "STARS": [
-                                        {
-                                            "id": 0,
-                                            "icon": "grade",
-                                            "styleClass": "rating-star"
-                                        },
                                         {
                                             "id": 1,
                                             "icon": "grade",
@@ -1073,11 +1087,6 @@ export class SurveyCreationDesignComponent implements OnInit {
                                     "name": "Fit to Compound Concept",
                                     "STARS": [
                                         {
-                                            "id": 0,
-                                            "icon": "grade",
-                                            "styleClass": "rating-star"
-                                        },
-                                        {
                                             "id": 1,
                                             "icon": "grade",
                                             "styleClass": "rating-star"
@@ -1113,11 +1122,6 @@ export class SurveyCreationDesignComponent implements OnInit {
                                 {
                                     "name": "Overall Likeability",
                                     "STARS": [
-                                        {
-                                            "id": 0,
-                                            "icon": "grade",
-                                            "styleClass": "rating-star"
-                                        },
                                         {
                                             "id": 1,
                                             "icon": "grade",
@@ -1162,11 +1166,6 @@ export class SurveyCreationDesignComponent implements OnInit {
                                     "name": "Fit to Compound Concept",
                                     "STARS": [
                                         {
-                                            "id": 0,
-                                            "icon": "grade",
-                                            "styleClass": "rating-star"
-                                        },
-                                        {
                                             "id": 1,
                                             "icon": "grade",
                                             "styleClass": "rating-star"
@@ -1202,11 +1201,6 @@ export class SurveyCreationDesignComponent implements OnInit {
                                 {
                                     "name": "Overall Likeability",
                                     "STARS": [
-                                        {
-                                            "id": 0,
-                                            "icon": "grade",
-                                            "styleClass": "rating-star"
-                                        },
                                         {
                                             "id": 1,
                                             "icon": "grade",
@@ -1251,11 +1245,6 @@ export class SurveyCreationDesignComponent implements OnInit {
                                     "name": "Fit to Compound Concept",
                                     "STARS": [
                                         {
-                                            "id": 0,
-                                            "icon": "grade",
-                                            "styleClass": "rating-star"
-                                        },
-                                        {
                                             "id": 1,
                                             "icon": "grade",
                                             "styleClass": "rating-star"
@@ -1291,11 +1280,6 @@ export class SurveyCreationDesignComponent implements OnInit {
                                 {
                                     "name": "Overall Likeability",
                                     "STARS": [
-                                        {
-                                            "id": 0,
-                                            "icon": "grade",
-                                            "styleClass": "rating-star"
-                                        },
                                         {
                                             "id": 1,
                                             "icon": "grade",
@@ -1340,11 +1324,6 @@ export class SurveyCreationDesignComponent implements OnInit {
                                     "name": "Fit to Compound Concept",
                                     "STARS": [
                                         {
-                                            "id": 0,
-                                            "icon": "grade",
-                                            "styleClass": "rating-star"
-                                        },
-                                        {
                                             "id": 1,
                                             "icon": "grade",
                                             "styleClass": "rating-star"
@@ -1380,11 +1359,6 @@ export class SurveyCreationDesignComponent implements OnInit {
                                 {
                                     "name": "Overall Likeability",
                                     "STARS": [
-                                        {
-                                            "id": 0,
-                                            "icon": "grade",
-                                            "styleClass": "rating-star"
-                                        },
                                         {
                                             "id": 1,
                                             "icon": "grade",
@@ -1430,6 +1404,7 @@ export class SurveyCreationDesignComponent implements OnInit {
                             "columnWidth": 275,
                             "rationalewidth": 490,
                             "rowHeight": 2,
+                            "CRITERIA": true,
                             "categoryName": "BTRX-335140 Name Candidates",
                             "categoryDescription": "category description",
                             "ratingScaleTitle": "CRITERIA"
@@ -1471,11 +1446,6 @@ export class SurveyCreationDesignComponent implements OnInit {
                         {
                             "STARS": [
                                 {
-                                    "id": 0,
-                                    "icon": 1,
-                                    "styleClass": "rating-star"
-                                },
-                                {
                                     "id": 1,
                                     "icon": 2,
                                     "styleClass": "rating-star"
@@ -1492,11 +1462,6 @@ export class SurveyCreationDesignComponent implements OnInit {
                         },
                         {
                             "STARS": [
-                                {
-                                    "id": 0,
-                                    "icon": 1,
-                                    "styleClass": "rating-star"
-                                },
                                 {
                                     "id": 1,
                                     "icon": 2,
@@ -1515,11 +1480,6 @@ export class SurveyCreationDesignComponent implements OnInit {
                         {
                             "STARS": [
                                 {
-                                    "id": 0,
-                                    "icon": 1,
-                                    "styleClass": "rating-star"
-                                },
-                                {
                                     "id": 1,
                                     "icon": 2,
                                     "styleClass": "rating-star"
@@ -1536,11 +1496,6 @@ export class SurveyCreationDesignComponent implements OnInit {
                         },
                         {
                             "STARS": [
-                                {
-                                    "id": 0,
-                                    "icon": 1,
-                                    "styleClass": "rating-star"
-                                },
                                 {
                                     "id": 1,
                                     "icon": 2,
@@ -1559,11 +1514,6 @@ export class SurveyCreationDesignComponent implements OnInit {
                         {
                             "STARS": [
                                 {
-                                    "id": 0,
-                                    "icon": 1,
-                                    "styleClass": "rating-star"
-                                },
-                                {
                                     "id": 1,
                                     "icon": 2,
                                     "styleClass": "rating-star"
@@ -1580,11 +1530,6 @@ export class SurveyCreationDesignComponent implements OnInit {
                         },
                         {
                             "STARS": [
-                                {
-                                    "id": 0,
-                                    "icon": 1,
-                                    "styleClass": "rating-star"
-                                },
                                 {
                                     "id": 1,
                                     "icon": 2,
@@ -1663,11 +1608,6 @@ export class SurveyCreationDesignComponent implements OnInit {
                         {
                             "STARS": [
                                 {
-                                    "id": 0,
-                                    "icon": 1,
-                                    "styleClass": "rating-star"
-                                },
-                                {
                                     "id": 1,
                                     "icon": 2,
                                     "styleClass": "rating-star"
@@ -1684,11 +1624,6 @@ export class SurveyCreationDesignComponent implements OnInit {
                         },
                         {
                             "STARS": [
-                                {
-                                    "id": 0,
-                                    "icon": 1,
-                                    "styleClass": "rating-star"
-                                },
                                 {
                                     "id": 1,
                                     "icon": 2,
@@ -1707,11 +1642,6 @@ export class SurveyCreationDesignComponent implements OnInit {
                         {
                             "STARS": [
                                 {
-                                    "id": 0,
-                                    "icon": 1,
-                                    "styleClass": "rating-star"
-                                },
-                                {
                                     "id": 1,
                                     "icon": 2,
                                     "styleClass": "rating-star"
@@ -1728,11 +1658,6 @@ export class SurveyCreationDesignComponent implements OnInit {
                         },
                         {
                             "STARS": [
-                                {
-                                    "id": 0,
-                                    "icon": 1,
-                                    "styleClass": "rating-star"
-                                },
                                 {
                                     "id": 1,
                                     "icon": 2,
@@ -1751,11 +1676,6 @@ export class SurveyCreationDesignComponent implements OnInit {
                         {
                             "STARS": [
                                 {
-                                    "id": 0,
-                                    "icon": 1,
-                                    "styleClass": "rating-star"
-                                },
-                                {
                                     "id": 1,
                                     "icon": 2,
                                     "styleClass": "rating-star"
@@ -1772,11 +1692,6 @@ export class SurveyCreationDesignComponent implements OnInit {
                         },
                         {
                             "STARS": [
-                                {
-                                    "id": 0,
-                                    "icon": 1,
-                                    "styleClass": "rating-star"
-                                },
                                 {
                                     "id": 1,
                                     "icon": 2,
@@ -1795,11 +1710,6 @@ export class SurveyCreationDesignComponent implements OnInit {
                         {
                             "STARS": [
                                 {
-                                    "id": 0,
-                                    "icon": 1,
-                                    "styleClass": "rating-star"
-                                },
-                                {
                                     "id": 1,
                                     "icon": 2,
                                     "styleClass": "rating-star"
@@ -1816,11 +1726,6 @@ export class SurveyCreationDesignComponent implements OnInit {
                         },
                         {
                             "STARS": [
-                                {
-                                    "id": 0,
-                                    "icon": 1,
-                                    "styleClass": "rating-star"
-                                },
                                 {
                                     "id": 1,
                                     "icon": 2,
@@ -1899,11 +1804,6 @@ export class SurveyCreationDesignComponent implements OnInit {
                         {
                             "STARS": [
                                 {
-                                    "id": 0,
-                                    "icon": 1,
-                                    "styleClass": "rating-star"
-                                },
-                                {
                                     "id": 1,
                                     "icon": 2,
                                     "styleClass": "rating-star"
@@ -1924,11 +1824,6 @@ export class SurveyCreationDesignComponent implements OnInit {
                         },
                         {
                             "STARS": [
-                                {
-                                    "id": 0,
-                                    "icon": 1,
-                                    "styleClass": "rating-star"
-                                },
                                 {
                                     "id": 1,
                                     "icon": 2,
@@ -1952,11 +1847,6 @@ export class SurveyCreationDesignComponent implements OnInit {
                         {
                             "STARS": [
                                 {
-                                    "id": 0,
-                                    "icon": 1,
-                                    "styleClass": "rating-star"
-                                },
-                                {
                                     "id": 1,
                                     "icon": 2,
                                     "styleClass": "rating-star"
@@ -1978,11 +1868,6 @@ export class SurveyCreationDesignComponent implements OnInit {
                         },
                         {
                             "STARS": [
-                                {
-                                    "id": 0,
-                                    "icon": 1,
-                                    "styleClass": "rating-star"
-                                },
                                 {
                                     "id": 1,
                                     "icon": 2,
@@ -2006,11 +1891,6 @@ export class SurveyCreationDesignComponent implements OnInit {
                         {
                             "STARS": [
                                 {
-                                    "id": 0,
-                                    "icon": 1,
-                                    "styleClass": "rating-star"
-                                },
-                                {
                                     "id": 1,
                                     "icon": 2,
                                     "styleClass": "rating-star"
@@ -2032,11 +1912,6 @@ export class SurveyCreationDesignComponent implements OnInit {
                         },
                         {
                             "STARS": [
-                                {
-                                    "id": 0,
-                                    "icon": 1,
-                                    "styleClass": "rating-star"
-                                },
                                 {
                                     "id": 1,
                                     "icon": 2,
@@ -2060,11 +1935,6 @@ export class SurveyCreationDesignComponent implements OnInit {
                         {
                             "STARS": [
                                 {
-                                    "id": 0,
-                                    "icon": 1,
-                                    "styleClass": "rating-star"
-                                },
-                                {
                                     "id": 1,
                                     "icon": 2,
                                     "styleClass": "rating-star"
@@ -2087,11 +1957,6 @@ export class SurveyCreationDesignComponent implements OnInit {
                         {
                             "STARS": [
                                 {
-                                    "id": 0,
-                                    "icon": 1,
-                                    "styleClass": "rating-star"
-                                },
-                                {
                                     "id": 1,
                                     "icon": 2,
                                     "styleClass": "rating-star"
@@ -2113,11 +1978,6 @@ export class SurveyCreationDesignComponent implements OnInit {
                         },
                         {
                             "STARS": [
-                                {
-                                    "id": 0,
-                                    "icon": 1,
-                                    "styleClass": "rating-star"
-                                },
                                 {
                                     "id": 1,
                                     "icon": 2,
