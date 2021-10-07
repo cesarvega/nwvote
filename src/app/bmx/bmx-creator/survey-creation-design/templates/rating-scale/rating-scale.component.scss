@@ -40,8 +40,11 @@
   // animation: bounce 1000ms 1000ms ease-in-out  forwards  ;
 }
 
+@media (min-width: 576px) {}
 
+@media (max-width: 576px) {
 
+}
 
 .red {
   background-color: white;
