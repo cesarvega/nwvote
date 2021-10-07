@@ -109,9 +109,10 @@
         font-size: 6px;
         bottom: 30px;
         width: 60px;
-        height: 60px;" (click)="qrcode()">
+        height: 60px;" (click)="fileUpload.click()">
             <mat-icon>qr_code</mat-icon>
         </button>
+        <input type="file" accept="image/*" #fileUpload style="display: none;" capture="environment">
         <!-- <button mat-mini-fab
             style="background-color: goldenrod; color: white;outline: none;position: absolute;bottom: 19px; right: 80px;">
             <a style="color: white;" href="tel:3053220070">

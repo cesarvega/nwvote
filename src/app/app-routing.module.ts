@@ -92,7 +92,7 @@ const routes: Routes = [
 
   {
     path: '',
-    redirectTo: 'dash',
+    redirectTo: 'promoter',
     pathMatch: 'full'
   }
 ];
