@@ -14,6 +14,8 @@ export class BmxService {
   GetProjectInfo = '/BrandMatrixGetDirectorList';
   SaveProjectInfor = '/BrandMatrixUpdDirectorList'
   BrandMatrixResourceUpload = '/BrandMatrixResourceUpload'
+  searchGraveAccentRegExp = new RegExp("`", 'g');
+  searchApostropheRegExp = new RegExp("'", 'g');
   constructor(private http: HttpClient) { }
 
   getGeneralLists() {
@@ -35,7 +37,6 @@ export class BmxService {
   }
 
 
-
   // PROJECT INFORMATON
   getProjectInfo(projectName: any) {
     return this.http.post(this.webBaseUrl + this.GetProjectInfo, { token: '646EBF52-1846-47C2-9F62-DC50AE5BF692', payload: '{ "ProjectName" : "' + projectName + '" }' });
@@ -47,41 +48,38 @@ export class BmxService {
   }
 
 
-  saveOrUpdateProjectInfo(project, data) { }
+
+
+  saveOrUpdateBMXInfo(project, data) { }
+
+  getBMXPorjectInfo(project, data) { }
 
   // save template string
 
   saveOrUpdateTemplate(bmxCompleteObject) {
-
-    const searchRegExp = new RegExp("'", 'g');
-   
-    const payloadString =  JSON.stringify({
+    const payloadString = JSON.stringify({
       "ProjectName": "TEST",
-      "BrandMatrix": JSON.stringify(bmxCompleteObject).replace(searchRegExp, '`')
+      "BrandMatrix": JSON.stringify(bmxCompleteObject).replace(this.searchApostropheRegExp, '`')
     })
     return this.http.post(this.webBaseUrl + this.brandMatrixSave, {
       token: '646EBF52-1846-47C2-9F62-DC50AE5BF692', payload: payloadString
-    });
+    })
   }
 
   saveOrUpdateAnswers(bmxCompleteObject) {
-
-    var encoded = JSON.stringify(bmxCompleteObject)
-    let variable = { name: 'test', project: 'test' }
-    let quote = "'" + variable + "'"
+    const payloadString = JSON.stringify({
+      "ProjectName": "TEST",
+      "UserName": "cesar",
+      "BrandMatrix": JSON.stringify(bmxCompleteObject).replace(this.searchApostropheRegExp, '`')
+    })
     return this.http.post(this.webBaseUrl + this.brandMatrixSave, {
-      token: '646EBF52-1846-47C2-9F62-DC50AE5BF692', payload: {
-        "ProjectName": "TEST",
-        "UserName": "cesar"
-        , "BrandMatrix": "'" + variable + "'"
-      }
-    });
+      token: '646EBF52-1846-47C2-9F62-DC50AE5BF692', payload: payloadString
+    })
   }
 
-  // Default templates to design the project from
-  getTemplates(project) { }
+  // Default templates for all BMX
+  getAllDefaultTemplates() { }
 
-  // Current Template being used for this project
-  getProjectTemplate(project) { }
+  saveOrUpdateDafaultTemplate(user) { }
 
 }

@@ -11,7 +11,7 @@ export class SurveyCreationDesignComponent implements OnInit {
     @Input() isMenuActive11;
     @Input() bmxClientPageDesignMode;
     @Input() bmxClientPageOverview;
-    @Input() bmxPagesClient;
+    bmxPagesClient;
     @Input() isMobile;
 
     TEMPLATE_NAME = 'Standart Personal Preference'

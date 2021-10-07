@@ -30,218 +30,70 @@
     }
 }
 
-//   BRAND MATRIX CREATOR DASH
-
-.main-container {
+.paragraph {
     display: flex;
-    flex-direction: row;
-
-    .logo-badge {
-        // border: solid 5px darkblue;
-        width: 15.5%;
-        height: 60px;
-        display: flex;
-        flex-direction: row;
-        align-items: center;
-        position: absolute;
-        background-color: white;
-        box-shadow: 0 6px 10px 0 rgb(0 0 0 / 14%), 0 1px 18px 0 rgb(0 0 0 / 12%), 0 3px 5px -1px rgb(0 0 0 / 20%);
-    }
-    .welcome {
-        // border: solid 5px #8b1500;
-        width: 15.5%;
-        height: 10%;
-        top: 67px;
-        display: flex;
-        flex-direction: row;
-        align-items: center;
-        position: absolute;
-        background-color: #353f4b;
-        box-shadow: 0 6px 10px 0 rgb(0 0 0 / 14%), 0 1px 18px 0 rgb(0 0 0 / 12%), 0 3px 5px -1px rgb(0 0 0 / 20%);
-    }
-
-    .menu {
-        display: flex;
-        flex-direction: column;
-        overflow-x: hidden;
-        top: 166px;
-        width: 15.5%;
-        position: absolute;
-        .menu-item {
-            cursor: pointer;
-            height: 70px;
-            display: flex;
-            flex-direction: row;
-            margin: 1px 0px;
-            align-items: center;
-            position: relative;
-            color: white;
-            background-color: #353f4b;
-            box-shadow: 0 6px 10px 0 rgb(0 0 0 / 14%), 0 1px 18px 0 rgb(0 0 0 / 12%), 0 3px 5px -1px rgb(0 0 0 / 20%);
-        }
-        .menu-item:hover {
-            cursor: pointer;
-            height: 75px;
-            display: flex;
-            flex-direction: row;
-            margin: 1px 0px;
-            align-items: center;
-            position: relative;
-            color: #353f4b;
-            background-color: #bdbdbd;
-            // transform: scale(1.1);
-            box-shadow: 0 6px 10px 0 rgb(0 0 0 / 14%), 0 1px 18px 0 rgb(0 0 0 / 12%), 0 3px 5px -1px rgb(0 0 0 / 20%);
-        }
-        .menu-active {
-            cursor: pointer;
-            height: 75px;
-            display: flex;
-            flex-direction: row;
-            margin: 1px 0px;
-            align-items: center;
-            position: relative;
-            color: #353f4b;
-            background-color: #bdbdbd;
-            // transform: scale(1.1);
-            box-shadow: 0 6px 10px 0 rgb(0 0 0 / 14%), 0 1px 18px 0 rgb(0 0 0 / 12%), 0 3px 5px -1px rgb(0 0 0 / 20%);
-        }
-    }
-
-    .development-border {
-        border: blue 1px solid;
-    }
-
-    .full-icon:hover {
-        transform: scale(2);
-        color: darkblue;
-    }
-    .full-icon {
-        color: grey;
-        font-size: 20px;
-        transition: all 0.1s ease-in-out;
-        text-shadow: 0 0.04em 0.04em rgba(0, 0, 0, 0.35);
-        box-shadow: inset inset 0px 0px 5px #c1c1c1;
-    }
-
-    .page-design::-webkit-scrollbar {
-        display: none;
-    }
-
-    .page-design {
-        width: 86%;
-        height: 91vh;
-        overflow-y: hidden;
-    }
-
-    .page-design-client {
-        position: absolute;
-        top: 53%;
-        left: 50%;
-        transform: translate(-50%, -53%);
-        width: 90%;
-        height: 97vh;
-        overflow: visible;
-        .project-info {
-            position: absolute;
-            right: -45px;
-            background: white;
-        }
-    }
-
-
-    // .emoji-handle {
-    //     // position: absolute;
-    //     top: 5px;
-    //     // border: red solid 1px;
-    //     right: 2px;
-    //     color: rgb(255, 255, 255);
-    //     cursor: move;
-    //     width: 100%;
-    //     position: absolute;
-    //     // height: 38px;
-    //     // z-index: 999999;
-    // }
-
-    // .paragraph {
-    //     margin-top: 10px;
-    //     position: relative;
-        
-    //     .save {
-    //         outline: none;
-    //         position: absolute;
-    //         margin: 10px;
-    //         right: 50px;
-    //         z-index: 999999;
-    //         bottom: -13px;
-    //     }
-    // }
-
-    // .paragraph:hover {
-    //     .edit-icon {
-    //         display: inline;
-    //         outline: none;
-    //         position: absolute;
-    //         margin: 10px;
-    //         top: 0;
-    //         right: 0;
-    //     }
-    // }
-
-    // .header {
-    //     cursor: pointer;
-    //     height: 100px;
-    //     display: flex;
-    //     flex-direction: row;
-    //     justify-content: space-between;
-    //     align-items: center;
-    //     font-size: 60px;
-    //     position: relative;
-    // }
-
-    // .test-name-table {
-    //     display: flex;
-    //     flex-direction: row;
-    //     // border: olive solid 1px;
-    //     text-align: center;
-    //     // justify-content: space-between;
-    //     align-content: center;
-    // }
-
-   
-
-    // .project-list::-webkit-scrollbar {
-    //     display: none;
-    // }
-    // .template-list::-webkit-scrollbar {
-    //     display: none;
-    // }
-
-    // .template-list-item {
-    //     display: flex;
-    //     flex-direction: row;
-    //     justify-content: center;
-    //     align-items: center;
-    //     width: 100px;
-    //     height: 100px;
-    //     //background-color: lightgray;
-    //     border: grey solid 1px;
-    //     margin: 20px;
-    // }
-    // .template-list-selected {
-    //     display: flex;
-    //     flex-direction: row;
-    //     justify-content: center;
-    //     align-items: center;
-    //     width: 200px;
-    //     height: 200px;
-    //     background-color: lightgray;
-    //     border: #01a6ff 4px solid;
-    //     margin: 20px;
-    // }
-    // .template-list-item:hover {
-    //     border: #76d354 4px solid;
-    // }
+    flex-direction: column;
+    position: relative;
 }
 
-// 💜 💜 💜 💜 💜 💜 💜 💜 💜 💜 💜 💜 💜 💜 💜 💜 💜 💜 💜 💜 💜 💜 💜 💜 💜 💜 💜 💜 💜 💜 💜 💜 💜 💜 💜 💜 💜 💜 💜 💜 💜 💜 💜
-// END OF THE SCSS PROJECT *******************************************************************************************
+.pageNumberActive {
+    min-width: 40px;
+    color: white;
+    background-color: #ee7f24;
+}
+.pageNumber {
+    min-width: 35px;
+    // background-color: greenyellow;
+}
+
+.page-buttons {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+}
+.page-buttons-heigth-minus-50 {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+    position: fixed;
+    bottom: 10px;
+}
+.page-buttons-heigth-40 {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+    position: fixed;
+    bottom: 40px;
+}
+
+.bmx-page {
+    // width: 628%;
+    height: 90.8vh;
+    width: 100vw;
+    overflow-y: scroll;
+    @include BoxShadow(2);
+}
+
+.bmx-page::-webkit-scrollbar {
+    display: none;
+}
+
+.save-template-box {
+    width: 370px;
+    height: 370px;
+    margin: 0;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    -ms-transform: translate(-50%, -53%);
+    transform: translate(-50%, -53%);
+    border-radius: 3px;
+    background-color: white;
+    border: solid 6px darkgray;
+    @include BoxShadow(6);
+}
+
+
