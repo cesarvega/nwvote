@@ -480,11 +480,6 @@ export class SurveyMatrixComponent extends BmxCreatorComponent implements OnInit
                                 "name": "Fit to Compound Concept",
                                 "STARS": [
                                     {
-                                        "id": 0,
-                                        "icon": "grade",
-                                        "styleClass": "rating-star"
-                                    },
-                                    {
                                         "id": 1,
                                         "icon": "grade",
                                         "styleClass": "rating-star"
@@ -520,11 +515,6 @@ export class SurveyMatrixComponent extends BmxCreatorComponent implements OnInit
                             {
                                 "name": "Overall Likeability",
                                 "STARS": [
-                                    {
-                                        "id": 0,
-                                        "icon": "grade",
-                                        "styleClass": "rating-star"
-                                    },
                                     {
                                         "id": 1,
                                         "icon": "grade",
@@ -569,11 +559,6 @@ export class SurveyMatrixComponent extends BmxCreatorComponent implements OnInit
                                 "name": "Fit to Compound Concept",
                                 "STARS": [
                                     {
-                                        "id": 0,
-                                        "icon": "grade",
-                                        "styleClass": "rating-star"
-                                    },
-                                    {
                                         "id": 1,
                                         "icon": "grade",
                                         "styleClass": "rating-star"
@@ -609,11 +594,6 @@ export class SurveyMatrixComponent extends BmxCreatorComponent implements OnInit
                             {
                                 "name": "Overall Likeability",
                                 "STARS": [
-                                    {
-                                        "id": 0,
-                                        "icon": "grade",
-                                        "styleClass": "rating-star"
-                                    },
                                     {
                                         "id": 1,
                                         "icon": "grade",
@@ -658,11 +638,6 @@ export class SurveyMatrixComponent extends BmxCreatorComponent implements OnInit
                                 "name": "Fit to Compound Concept",
                                 "STARS": [
                                     {
-                                        "id": 0,
-                                        "icon": "grade",
-                                        "styleClass": "rating-star"
-                                    },
-                                    {
                                         "id": 1,
                                         "icon": "grade",
                                         "styleClass": "rating-star"
@@ -698,11 +673,6 @@ export class SurveyMatrixComponent extends BmxCreatorComponent implements OnInit
                             {
                                 "name": "Overall Likeability",
                                 "STARS": [
-                                    {
-                                        "id": 0,
-                                        "icon": "grade",
-                                        "styleClass": "rating-star"
-                                    },
                                     {
                                         "id": 1,
                                         "icon": "grade",
@@ -747,11 +717,6 @@ export class SurveyMatrixComponent extends BmxCreatorComponent implements OnInit
                                 "name": "Fit to Compound Concept",
                                 "STARS": [
                                     {
-                                        "id": 0,
-                                        "icon": "grade",
-                                        "styleClass": "rating-star"
-                                    },
-                                    {
                                         "id": 1,
                                         "icon": "grade",
                                         "styleClass": "rating-star"
@@ -787,11 +752,6 @@ export class SurveyMatrixComponent extends BmxCreatorComponent implements OnInit
                             {
                                 "name": "Overall Likeability",
                                 "STARS": [
-                                    {
-                                        "id": 0,
-                                        "icon": "grade",
-                                        "styleClass": "rating-star"
-                                    },
                                     {
                                         "id": 1,
                                         "icon": "grade",
@@ -836,11 +796,6 @@ export class SurveyMatrixComponent extends BmxCreatorComponent implements OnInit
                                 "name": "Fit to Compound Concept",
                                 "STARS": [
                                     {
-                                        "id": 0,
-                                        "icon": "grade",
-                                        "styleClass": "rating-star"
-                                    },
-                                    {
                                         "id": 1,
                                         "icon": "grade",
                                         "styleClass": "rating-star"
@@ -876,11 +831,6 @@ export class SurveyMatrixComponent extends BmxCreatorComponent implements OnInit
                             {
                                 "name": "Overall Likeability",
                                 "STARS": [
-                                    {
-                                        "id": 0,
-                                        "icon": "grade",
-                                        "styleClass": "rating-star"
-                                    },
                                     {
                                         "id": 1,
                                         "icon": "grade",
@@ -925,11 +875,6 @@ export class SurveyMatrixComponent extends BmxCreatorComponent implements OnInit
                                 "name": "Fit to Compound Concept",
                                 "STARS": [
                                     {
-                                        "id": 0,
-                                        "icon": "grade",
-                                        "styleClass": "rating-star"
-                                    },
-                                    {
                                         "id": 1,
                                         "icon": "grade",
                                         "styleClass": "rating-star"
@@ -965,11 +910,6 @@ export class SurveyMatrixComponent extends BmxCreatorComponent implements OnInit
                             {
                                 "name": "Overall Likeability",
                                 "STARS": [
-                                    {
-                                        "id": 0,
-                                        "icon": "grade",
-                                        "styleClass": "rating-star"
-                                    },
                                     {
                                         "id": 1,
                                         "icon": "grade",
@@ -1015,6 +955,7 @@ export class SurveyMatrixComponent extends BmxCreatorComponent implements OnInit
                         "columnWidth": 275,
                         "rationalewidth": 490,
                         "rowHeight": 2,
+                        "CRITERIA": true,
                         "categoryName": "BTRX-335140 Name Candidates",
                         "categoryDescription": "category description",
                         "ratingScaleTitle": "CRITERIA"
@@ -1056,11 +997,6 @@ export class SurveyMatrixComponent extends BmxCreatorComponent implements OnInit
                     {
                         "STARS": [
                             {
-                                "id": 0,
-                                "icon": 1,
-                                "styleClass": "rating-star"
-                            },
-                            {
                                 "id": 1,
                                 "icon": 2,
                                 "styleClass": "rating-star"
@@ -1077,11 +1013,6 @@ export class SurveyMatrixComponent extends BmxCreatorComponent implements OnInit
                     },
                     {
                         "STARS": [
-                            {
-                                "id": 0,
-                                "icon": 1,
-                                "styleClass": "rating-star"
-                            },
                             {
                                 "id": 1,
                                 "icon": 2,
@@ -1100,11 +1031,6 @@ export class SurveyMatrixComponent extends BmxCreatorComponent implements OnInit
                     {
                         "STARS": [
                             {
-                                "id": 0,
-                                "icon": 1,
-                                "styleClass": "rating-star"
-                            },
-                            {
                                 "id": 1,
                                 "icon": 2,
                                 "styleClass": "rating-star"
@@ -1121,11 +1047,6 @@ export class SurveyMatrixComponent extends BmxCreatorComponent implements OnInit
                     },
                     {
                         "STARS": [
-                            {
-                                "id": 0,
-                                "icon": 1,
-                                "styleClass": "rating-star"
-                            },
                             {
                                 "id": 1,
                                 "icon": 2,
@@ -1144,11 +1065,6 @@ export class SurveyMatrixComponent extends BmxCreatorComponent implements OnInit
                     {
                         "STARS": [
                             {
-                                "id": 0,
-                                "icon": 1,
-                                "styleClass": "rating-star"
-                            },
-                            {
                                 "id": 1,
                                 "icon": 2,
                                 "styleClass": "rating-star"
@@ -1165,11 +1081,6 @@ export class SurveyMatrixComponent extends BmxCreatorComponent implements OnInit
                     },
                     {
                         "STARS": [
-                            {
-                                "id": 0,
-                                "icon": 1,
-                                "styleClass": "rating-star"
-                            },
                             {
                                 "id": 1,
                                 "icon": 2,
@@ -1248,11 +1159,6 @@ export class SurveyMatrixComponent extends BmxCreatorComponent implements OnInit
                     {
                         "STARS": [
                             {
-                                "id": 0,
-                                "icon": 1,
-                                "styleClass": "rating-star"
-                            },
-                            {
                                 "id": 1,
                                 "icon": 2,
                                 "styleClass": "rating-star"
@@ -1269,11 +1175,6 @@ export class SurveyMatrixComponent extends BmxCreatorComponent implements OnInit
                     },
                     {
                         "STARS": [
-                            {
-                                "id": 0,
-                                "icon": 1,
-                                "styleClass": "rating-star"
-                            },
                             {
                                 "id": 1,
                                 "icon": 2,
@@ -1292,11 +1193,6 @@ export class SurveyMatrixComponent extends BmxCreatorComponent implements OnInit
                     {
                         "STARS": [
                             {
-                                "id": 0,
-                                "icon": 1,
-                                "styleClass": "rating-star"
-                            },
-                            {
                                 "id": 1,
                                 "icon": 2,
                                 "styleClass": "rating-star"
@@ -1313,11 +1209,6 @@ export class SurveyMatrixComponent extends BmxCreatorComponent implements OnInit
                     },
                     {
                         "STARS": [
-                            {
-                                "id": 0,
-                                "icon": 1,
-                                "styleClass": "rating-star"
-                            },
                             {
                                 "id": 1,
                                 "icon": 2,
@@ -1336,11 +1227,6 @@ export class SurveyMatrixComponent extends BmxCreatorComponent implements OnInit
                     {
                         "STARS": [
                             {
-                                "id": 0,
-                                "icon": 1,
-                                "styleClass": "rating-star"
-                            },
-                            {
                                 "id": 1,
                                 "icon": 2,
                                 "styleClass": "rating-star"
@@ -1357,11 +1243,6 @@ export class SurveyMatrixComponent extends BmxCreatorComponent implements OnInit
                     },
                     {
                         "STARS": [
-                            {
-                                "id": 0,
-                                "icon": 1,
-                                "styleClass": "rating-star"
-                            },
                             {
                                 "id": 1,
                                 "icon": 2,
@@ -1380,11 +1261,6 @@ export class SurveyMatrixComponent extends BmxCreatorComponent implements OnInit
                     {
                         "STARS": [
                             {
-                                "id": 0,
-                                "icon": 1,
-                                "styleClass": "rating-star"
-                            },
-                            {
                                 "id": 1,
                                 "icon": 2,
                                 "styleClass": "rating-star"
@@ -1401,11 +1277,6 @@ export class SurveyMatrixComponent extends BmxCreatorComponent implements OnInit
                     },
                     {
                         "STARS": [
-                            {
-                                "id": 0,
-                                "icon": 1,
-                                "styleClass": "rating-star"
-                            },
                             {
                                 "id": 1,
                                 "icon": 2,
@@ -1497,6 +1368,16 @@ export class SurveyMatrixComponent extends BmxCreatorComponent implements OnInit
                                 "id": 2,
                                 "icon": 3,
                                 "styleClass": "rating-star"
+                            },
+                            {
+                                "id": 3,
+                                "icon": 4,
+                                "styleClass": "rating-star"
+                            },
+                            {
+                                "id": 4,
+                                "icon": 5,
+                                "styleClass": "rating-star"
                             }
                         ],
                         "nameCandidates": "Name Candidates",
@@ -1523,6 +1404,16 @@ export class SurveyMatrixComponent extends BmxCreatorComponent implements OnInit
                                 "id": 2,
                                 "icon": 3,
                                 "styleClass": "rating-star"
+                            },
+                            {
+                                "id": 3,
+                                "icon": 4,
+                                "styleClass": "rating-star"
+                            },
+                            {
+                                "id": 4,
+                                "icon": 5,
+                                "styleClass": "rating-star"
                             }
                         ],
                         "nameCandidates": "Pledge  ",
@@ -1531,8 +1422,7 @@ export class SurveyMatrixComponent extends BmxCreatorComponent implements OnInit
                         "RadioColumn2": false,
                         "RadioColumn3": false,
                         "RadioColumn4": false,
-                        "RadioColumn5": true,
-                        "RATE": 5
+                        "RadioColumn5": false
                     },
                     {
                         "STARS": [
@@ -1549,17 +1439,26 @@ export class SurveyMatrixComponent extends BmxCreatorComponent implements OnInit
                             {
                                 "id": 2,
                                 "icon": 3,
+                                "styleClass": "rating-star"
+                            },
+                            {
+                                "id": 3,
+                                "icon": 4,
+                                "styleClass": "rating-star"
+                            },
+                            {
+                                "id": 4,
+                                "icon": 5,
                                 "styleClass": "rating-star"
                             }
                         ],
                         "nameCandidates": "Opening  ",
                         "rationale": "Onset, Beginning (i.e., an Early Treatment)",
                         "RadioColumn1": false,
-                        "RadioColumn2": true,
+                        "RadioColumn2": false,
                         "RadioColumn3": false,
                         "RadioColumn4": false,
-                        "RadioColumn5": false,
-                        "RATE": 3
+                        "RadioColumn5": false
                     },
                     {
                         "STARS": [
@@ -1576,6 +1475,16 @@ export class SurveyMatrixComponent extends BmxCreatorComponent implements OnInit
                             {
                                 "id": 2,
                                 "icon": 3,
+                                "styleClass": "rating-star"
+                            },
+                            {
+                                "id": 3,
+                                "icon": 4,
+                                "styleClass": "rating-star"
+                            },
+                            {
+                                "id": 4,
+                                "icon": 5,
                                 "styleClass": "rating-star"
                             }
                         ],
@@ -1584,9 +1493,8 @@ export class SurveyMatrixComponent extends BmxCreatorComponent implements OnInit
                         "RadioColumn1": false,
                         "RadioColumn2": false,
                         "RadioColumn3": false,
-                        "RadioColumn4": true,
-                        "RadioColumn5": false,
-                        "RATE": 4
+                        "RadioColumn4": false,
+                        "RadioColumn5": false
                     },
                     {
                         "STARS": [
@@ -1603,6 +1511,16 @@ export class SurveyMatrixComponent extends BmxCreatorComponent implements OnInit
                             {
                                 "id": 2,
                                 "icon": 3,
+                                "styleClass": "rating-star"
+                            },
+                            {
+                                "id": 3,
+                                "icon": 4,
+                                "styleClass": "rating-star"
+                            },
+                            {
+                                "id": 4,
+                                "icon": 5,
                                 "styleClass": "rating-star"
                             }
                         ],
@@ -1610,10 +1528,9 @@ export class SurveyMatrixComponent extends BmxCreatorComponent implements OnInit
                         "rationale": "Calm, Steady, Stable, Begins in P and Ends with D to Suggest Parkinson's Disease",
                         "RadioColumn1": false,
                         "RadioColumn2": false,
-                        "RadioColumn3": true,
+                        "RadioColumn3": false,
                         "RadioColumn4": false,
-                        "RadioColumn5": false,
-                        "RATE": 1
+                        "RadioColumn5": false
                     },
                     {
                         "STARS": [
@@ -1630,17 +1547,26 @@ export class SurveyMatrixComponent extends BmxCreatorComponent implements OnInit
                             {
                                 "id": 2,
                                 "icon": 3,
+                                "styleClass": "rating-star"
+                            },
+                            {
+                                "id": 3,
+                                "icon": 4,
+                                "styleClass": "rating-star"
+                            },
+                            {
+                                "id": 4,
+                                "icon": 5,
                                 "styleClass": "rating-star"
                             }
                         ],
                         "nameCandidates": "At Dawn ",
                         "rationale": "Suggests Early Treatment",
                         "RadioColumn1": false,
-                        "RadioColumn2": true,
+                        "RadioColumn2": false,
                         "RadioColumn3": false,
                         "RadioColumn4": false,
-                        "RadioColumn5": false,
-                        "RATE": 0
+                        "RadioColumn5": false
                     },
                     {
                         "STARS": [
@@ -1657,17 +1583,26 @@ export class SurveyMatrixComponent extends BmxCreatorComponent implements OnInit
                             {
                                 "id": 2,
                                 "icon": 3,
+                                "styleClass": "rating-star"
+                            },
+                            {
+                                "id": 3,
+                                "icon": 4,
+                                "styleClass": "rating-star"
+                            },
+                            {
+                                "id": 4,
+                                "icon": 5,
                                 "styleClass": "rating-star"
                             }
                         ],
                         "nameCandidates": "Skylark  ",
                         "rationale": "Type of Bird, May Connote Freedom or Taking Flight, Links to Parkinson's Disease",
                         "RadioColumn1": false,
-                        "RadioColumn2": true,
+                        "RadioColumn2": false,
                         "RadioColumn3": false,
                         "RadioColumn4": false,
-                        "RadioColumn5": false,
-                        "RATE": 0
+                        "RadioColumn5": false
                     },
                     {
                         "STARS": [
@@ -1684,17 +1619,26 @@ export class SurveyMatrixComponent extends BmxCreatorComponent implements OnInit
                             {
                                 "id": 2,
                                 "icon": 3,
+                                "styleClass": "rating-star"
+                            },
+                            {
+                                "id": 3,
+                                "icon": 4,
+                                "styleClass": "rating-star"
+                            },
+                            {
+                                "id": 4,
+                                "icon": 5,
                                 "styleClass": "rating-star"
                             }
                         ],
                         "nameCandidates": "Pearly  ",
                         "rationale": "Shining Like a Pearl (May Suggest Hope), Implies Treating Parkinson's Disease (P-) Early",
                         "RadioColumn1": false,
-                        "RadioColumn2": true,
+                        "RadioColumn2": false,
                         "RadioColumn3": false,
                         "RadioColumn4": false,
-                        "RadioColumn5": false,
-                        "RATE": 0
+                        "RadioColumn5": false
                     },
                     {
                         "STARS": [
@@ -1712,16 +1656,205 @@ export class SurveyMatrixComponent extends BmxCreatorComponent implements OnInit
                                 "id": 2,
                                 "icon": 3,
                                 "styleClass": "rating-star"
+                            },
+                            {
+                                "id": 3,
+                                "icon": 4,
+                                "styleClass": "rating-star"
+                            },
+                            {
+                                "id": 4,
+                                "icon": 5,
+                                "styleClass": "rating-star"
                             }
                         ],
                         "nameCandidates": "STEADY  ",
                         "rationale": "Study Testing an Early Parkinson's Disease Therapy - Suggests Stabilizing Symptoms, Gaining Control",
                         "RadioColumn1": false,
-                        "RadioColumn2": true,
+                        "RadioColumn2": false,
                         "RadioColumn3": false,
                         "RadioColumn4": false,
-                        "RadioColumn5": false,
-                        "RATE": 0
+                        "RadioColumn5": false
+                    },
+                    {
+                        "STARS": [
+                            {
+                                "id": 0,
+                                "icon": 1,
+                                "styleClass": "rating-star"
+                            },
+                            {
+                                "id": 1,
+                                "icon": 2,
+                                "styleClass": "rating-star"
+                            },
+                            {
+                                "id": 2,
+                                "icon": 3,
+                                "styleClass": "rating-star"
+                            },
+                            {
+                                "id": 3,
+                                "icon": 4,
+                                "styleClass": "rating-star"
+                            },
+                            {
+                                "id": 4,
+                                "icon": 5,
+                                "styleClass": "rating-star"
+                            }
+                        ],
+                        "nameCandidates": "PositiveDirection ",
+                        "rationale": "A Hopeful Step Forward, Uses P and D for Parkinson's Disease",
+                        "RadioColumn1": false,
+                        "RadioColumn2": false,
+                        "RadioColumn3": false,
+                        "RadioColumn4": false,
+                        "RadioColumn5": false
+                    },
+                    {
+                        "STARS": [
+                            {
+                                "id": 0,
+                                "icon": 1,
+                                "styleClass": "rating-star"
+                            },
+                            {
+                                "id": 1,
+                                "icon": 2,
+                                "styleClass": "rating-star"
+                            },
+                            {
+                                "id": 2,
+                                "icon": 3,
+                                "styleClass": "rating-star"
+                            },
+                            {
+                                "id": 3,
+                                "icon": 4,
+                                "styleClass": "rating-star"
+                            },
+                            {
+                                "id": 4,
+                                "icon": 5,
+                                "styleClass": "rating-star"
+                            }
+                        ],
+                        "nameCandidates": "Moderato  ",
+                        "rationale": "A Moderate Musical Tempo (Suggests Slowing Disease Progression)",
+                        "RadioColumn1": false,
+                        "RadioColumn2": false,
+                        "RadioColumn3": false,
+                        "RadioColumn4": false,
+                        "RadioColumn5": false
+                    },
+                    {
+                        "STARS": [
+                            {
+                                "id": 0,
+                                "icon": 1,
+                                "styleClass": "rating-star"
+                            },
+                            {
+                                "id": 1,
+                                "icon": 2,
+                                "styleClass": "rating-star"
+                            },
+                            {
+                                "id": 2,
+                                "icon": 3,
+                                "styleClass": "rating-star"
+                            },
+                            {
+                                "id": 3,
+                                "icon": 4,
+                                "styleClass": "rating-star"
+                            },
+                            {
+                                "id": 4,
+                                "icon": 5,
+                                "styleClass": "rating-star"
+                            }
+                        ],
+                        "nameCandidates": "REINSPIRE ",
+                        "rationale": "Reviewing an Early Intervention for Slowing Parkinson's Disease Progression - Give Hope, Links to UCB's \"Inspired by Patients\"",
+                        "RadioColumn1": false,
+                        "RadioColumn2": false,
+                        "RadioColumn3": false,
+                        "RadioColumn4": false,
+                        "RadioColumn5": false
+                    },
+                    {
+                        "STARS": [
+                            {
+                                "id": 0,
+                                "icon": 1,
+                                "styleClass": "rating-star"
+                            },
+                            {
+                                "id": 1,
+                                "icon": 2,
+                                "styleClass": "rating-star"
+                            },
+                            {
+                                "id": 2,
+                                "icon": 3,
+                                "styleClass": "rating-star"
+                            },
+                            {
+                                "id": 3,
+                                "icon": 4,
+                                "styleClass": "rating-star"
+                            },
+                            {
+                                "id": 4,
+                                "icon": 5,
+                                "styleClass": "rating-star"
+                            }
+                        ],
+                        "nameCandidates": "Bloom  ",
+                        "rationale": "Symbolic of Tulips and a Brighter Future",
+                        "RadioColumn1": false,
+                        "RadioColumn2": false,
+                        "RadioColumn3": false,
+                        "RadioColumn4": false,
+                        "RadioColumn5": false
+                    },
+                    {
+                        "STARS": [
+                            {
+                                "id": 0,
+                                "icon": 1,
+                                "styleClass": "rating-star"
+                            },
+                            {
+                                "id": 1,
+                                "icon": 2,
+                                "styleClass": "rating-star"
+                            },
+                            {
+                                "id": 2,
+                                "icon": 3,
+                                "styleClass": "rating-star"
+                            },
+                            {
+                                "id": 3,
+                                "icon": 4,
+                                "styleClass": "rating-star"
+                            },
+                            {
+                                "id": 4,
+                                "icon": 5,
+                                "styleClass": "rating-star"
+                            }
+                        ],
+                        "nameCandidates": "Embark  ",
+                        "rationale": "To Set Out on a Journey, May Connote Optimism or Hope, Links to Parkinson's Disease",
+                        "RadioColumn1": false,
+                        "RadioColumn2": false,
+                        "RadioColumn3": false,
+                        "RadioColumn4": false,
+                        "RadioColumn5": false
                     }
                 ],
                 "componentSettings": [
@@ -1730,7 +1863,7 @@ export class SurveyMatrixComponent extends BmxCreatorComponent implements OnInit
                         "maxRule": 0,
                         "fontSize": 16,
                         "columnWidth": 150,
-                        "rationalewidth": 689,
+                        "rationalewidth": 250,
                         "rowHeight": 2,
                         "radioColumnsWidth": 75,
                         "categoryName": "Category Ranking",
@@ -2349,10 +2482,15 @@ export class SurveyMatrixComponent extends BmxCreatorComponent implements OnInit
                                 "id": 4,
                                 "icon": "grade",
                                 "styleClass": "rating-star"
+                            },
+                            {
+                                "id": 5,
+                                "icon": "grade",
+                                "styleClass": "rating-star"
                             }
                         ],
                         "nameCandidates": "Questions",
-                        "Comments2": "Answers"
+                        "Answers1": "Answers"
                     },
                     {
                         "STARS": [
@@ -2373,12 +2511,17 @@ export class SurveyMatrixComponent extends BmxCreatorComponent implements OnInit
                             },
                             {
                                 "id": 4,
+                                "icon": "grade",
+                                "styleClass": "rating-star"
+                            },
+                            {
+                                "id": 5,
                                 "icon": "grade",
                                 "styleClass": "rating-star"
                             }
                         ],
                         "nameCandidates": "What treatments can help my dog with congestive heart failure?",
-                        "Comments2": ""
+                        "Answers1": ""
                     },
                     {
                         "STARS": [
@@ -2399,12 +2542,17 @@ export class SurveyMatrixComponent extends BmxCreatorComponent implements OnInit
                             },
                             {
                                 "id": 4,
+                                "icon": "grade",
+                                "styleClass": "rating-star"
+                            },
+                            {
+                                "id": 5,
                                 "icon": "grade",
                                 "styleClass": "rating-star"
                             }
                         ],
                         "nameCandidates": "What are the symptoms that you may see as your dog's congestive heart failure gets worse?",
-                        "Comments2": ""
+                        "Answers1": ""
                     },
                     {
                         "STARS": [
@@ -2425,12 +2573,17 @@ export class SurveyMatrixComponent extends BmxCreatorComponent implements OnInit
                             },
                             {
                                 "id": 4,
+                                "icon": "grade",
+                                "styleClass": "rating-star"
+                            },
+                            {
+                                "id": 5,
                                 "icon": "grade",
                                 "styleClass": "rating-star"
                             }
                         ],
                         "nameCandidates": "What are the early symptoms of heart failure in dogs?",
-                        "Comments2": ""
+                        "Answers1": ""
                     },
                     {
                         "STARS": [
@@ -2451,12 +2604,17 @@ export class SurveyMatrixComponent extends BmxCreatorComponent implements OnInit
                             },
                             {
                                 "id": 4,
+                                "icon": "grade",
+                                "styleClass": "rating-star"
+                            },
+                            {
+                                "id": 5,
                                 "icon": "grade",
                                 "styleClass": "rating-star"
                             }
                         ],
                         "nameCandidates": "How do you treat liver disease in dogs?",
-                        "Comments2": ""
+                        "Answers1": ""
                     },
                     {
                         "STARS": [
@@ -2477,12 +2635,17 @@ export class SurveyMatrixComponent extends BmxCreatorComponent implements OnInit
                             },
                             {
                                 "id": 4,
+                                "icon": "grade",
+                                "styleClass": "rating-star"
+                            },
+                            {
+                                "id": 5,
                                 "icon": "grade",
                                 "styleClass": "rating-star"
                             }
                         ],
                         "nameCandidates": "What are symptoms of liver disease in dogs?",
-                        "Comments2": ""
+                        "Answers1": ""
                     },
                     {
                         "STARS": [
@@ -2503,12 +2666,17 @@ export class SurveyMatrixComponent extends BmxCreatorComponent implements OnInit
                             },
                             {
                                 "id": 4,
+                                "icon": "grade",
+                                "styleClass": "rating-star"
+                            },
+                            {
+                                "id": 5,
                                 "icon": "grade",
                                 "styleClass": "rating-star"
                             }
                         ],
                         "nameCandidates": "What happens after my dog gets a heartworm treatment?",
-                        "Comments2": ""
+                        "Answers1": ""
                     },
                     {
                         "STARS": [
@@ -2529,12 +2697,17 @@ export class SurveyMatrixComponent extends BmxCreatorComponent implements OnInit
                             },
                             {
                                 "id": 4,
+                                "icon": "grade",
+                                "styleClass": "rating-star"
+                            },
+                            {
+                                "id": 5,
                                 "icon": "grade",
                                 "styleClass": "rating-star"
                             }
                         ],
                         "nameCandidates": "What are the symptoms of pancreatitis in dogs?",
-                        "Comments2": ""
+                        "Answers1": ""
                     },
                     {
                         "STARS": [
@@ -2555,12 +2728,17 @@ export class SurveyMatrixComponent extends BmxCreatorComponent implements OnInit
                             },
                             {
                                 "id": 4,
+                                "icon": "grade",
+                                "styleClass": "rating-star"
+                            },
+                            {
+                                "id": 5,
                                 "icon": "grade",
                                 "styleClass": "rating-star"
                             }
                         ],
                         "nameCandidates": "What are the symptoms of seizures in dogs?",
-                        "Comments2": ""
+                        "Answers1": ""
                     },
                     {
                         "STARS": [
@@ -2583,10 +2761,15 @@ export class SurveyMatrixComponent extends BmxCreatorComponent implements OnInit
                                 "id": 4,
                                 "icon": "grade",
                                 "styleClass": "rating-star"
+                            },
+                            {
+                                "id": 5,
+                                "icon": "grade",
+                                "styleClass": "rating-star"
                             }
                         ],
                         "nameCandidates": "What is the treatment for pancreatitis in dogs?",
-                        "Comments2": ""
+                        "Answers1": ""
                     }
                 ],
                 "componentSettings": [
@@ -2598,7 +2781,8 @@ export class SurveyMatrixComponent extends BmxCreatorComponent implements OnInit
                         "rationalewidth": 250,
                         "rowHeight": 2,
                         "categoryName": "Category Question & Answer",
-                        "categoryDescription": "Insert Comments box for answers"
+                        "categoryDescription": "Insert Comments box for answers",
+                        "CRITERIA": false
                     }
                 ]
             }

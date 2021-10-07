@@ -283,18 +283,21 @@ export class RatingScaleComponent implements OnInit {
   }
 
   insertRadioColumn() {
-    this.columnsNames.push('RadioColumn' + (this.radioColumnCounter));
-    this.RadioColumnList.push('RadioColumn' + this.radioColumnCounter)
-    this.bmxItem.componentText.forEach((object, index) => {
-      let coulmnName = 'RadioColumn' + this.radioColumnCounter
-
-      if (index == 0) {
-        object[coulmnName] = this.radioColumnCounter
-      } else {
-        object[coulmnName] = false
-      }
-    });
-    this.radioColumnCounter++
+  
+      this.columnsNames.push('RadioColumn' + (this.radioColumnCounter));
+      this.RadioColumnList.push('RadioColumn' + this.radioColumnCounter)
+      this.bmxItem.componentText.forEach((object, index) => {
+        let coulmnName = 'RadioColumn' + this.radioColumnCounter
+  
+        if (index == 0) {
+          object[coulmnName] = this.radioColumnCounter
+        } else {
+          object[coulmnName] = false
+        }
+      });
+      this.radioColumnCounter++
+    
+  
   }
 
   saveRadioColumValue(name, y) {
@@ -311,18 +314,21 @@ export class RatingScaleComponent implements OnInit {
     });
     this.bmxItem.componentText[y][name] = true
     this.RadioColumnList.forEach((columnName, index) => {
-      if (columnName.includes('RadioColumn')) {
+      // if (columnName.includes('RadioColumn')) {
         if (this.bmxItem.componentText[y][columnName]) {
           if (this.bmxItem.componentType == 'ranking-scale') {
             this.bmxItem.componentText.forEach((element, i) => {
               if (element.RATE == index + 1) {
                 this.bmxItem.componentText[i].RATE = 0
+                this.RadioColumnList.forEach(radioColumnName => {
+                  this.bmxItem.componentText[i][radioColumnName] = false
+                });
               }
             });
           }
           this.bmxItem.componentText[y].RATE = index + 1
         }
-      }
+      // }
     });
   }
 

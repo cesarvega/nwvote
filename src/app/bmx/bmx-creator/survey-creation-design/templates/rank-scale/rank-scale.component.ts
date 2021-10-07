@@ -78,7 +78,7 @@ export class RankScaleComponent extends RatingScaleComponent implements OnInit {
 
       this.extraColumnCounter = 1
       this.columnsNames.forEach((column, index) => {
-        if (column == 'name candidates' || column == 'test names' || column == 'names') {
+        if (column == 'name candidates' || column == 'test names' || column == 'names' || column == 'name') {
           this.columnsNames[index] = 'nameCandidates'
           } else if (column == 'name rationale' || column == 'rationale' || column == 'rationales')  {
             this.columnsNames[index] = 'rationale'
@@ -127,7 +127,6 @@ export class RankScaleComponent extends RatingScaleComponent implements OnInit {
     } else {
       this.bmxItem.componentText.forEach((row, index) => {
         row.STARS = this.createRatingStars(this.rankingScaleValue, this.ratingScaleIcon)
-        // this.leaveStar(index);
       });
     }
   }

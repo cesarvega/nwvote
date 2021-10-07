@@ -149,98 +149,98 @@
     }
 
 
-    .emoji-handle {
-        // position: absolute;
-        top: 5px;
-        // border: red solid 1px;
-        right: 2px;
-        color: rgb(255, 255, 255);
-        cursor: move;
-        width: 100%;
-        position: absolute;
-        // height: 38px;
-        // z-index: 999999;
-    }
+    // .emoji-handle {
+    //     // position: absolute;
+    //     top: 5px;
+    //     // border: red solid 1px;
+    //     right: 2px;
+    //     color: rgb(255, 255, 255);
+    //     cursor: move;
+    //     width: 100%;
+    //     position: absolute;
+    //     // height: 38px;
+    //     // z-index: 999999;
+    // }
 
-    .paragraph {
-        margin-top: 10px;
-        position: relative;
+    // .paragraph {
+    //     margin-top: 10px;
+    //     position: relative;
         
-        .save {
-            outline: none;
-            position: absolute;
-            margin: 10px;
-            right: 50px;
-            z-index: 999999;
-            bottom: -13px;
-        }
-    }
+    //     .save {
+    //         outline: none;
+    //         position: absolute;
+    //         margin: 10px;
+    //         right: 50px;
+    //         z-index: 999999;
+    //         bottom: -13px;
+    //     }
+    // }
 
-    .paragraph:hover {
-        .edit-icon {
-            display: inline;
-            outline: none;
-            position: absolute;
-            margin: 10px;
-            top: 0;
-            right: 0;
-        }
-    }
+    // .paragraph:hover {
+    //     .edit-icon {
+    //         display: inline;
+    //         outline: none;
+    //         position: absolute;
+    //         margin: 10px;
+    //         top: 0;
+    //         right: 0;
+    //     }
+    // }
 
-    .header {
-        cursor: pointer;
-        height: 100px;
-        display: flex;
-        flex-direction: row;
-        justify-content: space-between;
-        align-items: center;
-        font-size: 60px;
-        position: relative;
-    }
+    // .header {
+    //     cursor: pointer;
+    //     height: 100px;
+    //     display: flex;
+    //     flex-direction: row;
+    //     justify-content: space-between;
+    //     align-items: center;
+    //     font-size: 60px;
+    //     position: relative;
+    // }
 
-    .test-name-table {
-        display: flex;
-        flex-direction: row;
-        // border: olive solid 1px;
-        text-align: center;
-        // justify-content: space-between;
-        align-content: center;
-    }
+    // .test-name-table {
+    //     display: flex;
+    //     flex-direction: row;
+    //     // border: olive solid 1px;
+    //     text-align: center;
+    //     // justify-content: space-between;
+    //     align-content: center;
+    // }
 
    
 
-    .project-list::-webkit-scrollbar {
-        display: none;
-    }
-    .template-list::-webkit-scrollbar {
-        display: none;
-    }
+    // .project-list::-webkit-scrollbar {
+    //     display: none;
+    // }
+    // .template-list::-webkit-scrollbar {
+    //     display: none;
+    // }
 
-    .template-list-item {
-        display: flex;
-        flex-direction: row;
-        justify-content: center;
-        align-items: center;
-        width: 100px;
-        height: 100px;
-        //background-color: lightgray;
-        border: grey solid 1px;
-        margin: 20px;
-    }
-    .template-list-selected {
-        display: flex;
-        flex-direction: row;
-        justify-content: center;
-        align-items: center;
-        width: 200px;
-        height: 200px;
-        background-color: lightgray;
-        border: #01a6ff 4px solid;
-        margin: 20px;
-    }
-    .template-list-item:hover {
-        border: #76d354 4px solid;
-    }
+    // .template-list-item {
+    //     display: flex;
+    //     flex-direction: row;
+    //     justify-content: center;
+    //     align-items: center;
+    //     width: 100px;
+    //     height: 100px;
+    //     //background-color: lightgray;
+    //     border: grey solid 1px;
+    //     margin: 20px;
+    // }
+    // .template-list-selected {
+    //     display: flex;
+    //     flex-direction: row;
+    //     justify-content: center;
+    //     align-items: center;
+    //     width: 200px;
+    //     height: 200px;
+    //     background-color: lightgray;
+    //     border: #01a6ff 4px solid;
+    //     margin: 20px;
+    // }
+    // .template-list-item:hover {
+    //     border: #76d354 4px solid;
+    // }
 }
 
 // 💜 💜 💜 💜 💜 💜 💜 💜 💜 💜 💜 💜 💜 💜 💜 💜 💜 💜 💜 💜 💜 💜 💜 💜 💜 💜 💜 💜 💜 💜 💜 💜 💜 💜 💜 💜 💜 💜 💜 💜 💜 💜 💜

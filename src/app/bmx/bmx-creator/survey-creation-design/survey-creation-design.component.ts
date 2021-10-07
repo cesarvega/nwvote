@@ -1,4 +1,5 @@
 import { Component, ElementRef, EventEmitter, Inject, Input, OnInit, Output, ViewChild, ViewEncapsulation } from '@angular/core';
+import { BmxService } from '../bmx.service';
 
 @Component({
     selector: 'app-survey-creation-design',
@@ -45,9 +46,10 @@ export class SurveyCreationDesignComponent implements OnInit {
     selectedTemplateName = '';
 
     bmxCompleteObject = {
+        userInfo: {},
         projectInfo: '',
         bmx: '',
-        tables: []
+        // tables: []
     }
     // SURVEY CREATOR VARIABLES & SCHEME
 
@@ -94,9 +96,9 @@ export class SurveyCreationDesignComponent implements OnInit {
     }
     projectInfo: string;
 
-    constructor() { }
+    constructor(private _BmxService: BmxService) { }
 
-    ngOnInit(): void {
+    ngOnInit( ): void {
 
         this.BIG_OBJECT = this.BIG_OBJECT
 
@@ -134,7 +136,7 @@ export class SurveyCreationDesignComponent implements OnInit {
     }
 
     createNewBmxComponent(componentType) {
-        // ☢️☢️☢️☢️☢️☢️☢️☢️☢️☢️☢️☢️☢️☢️☢️☢️☢️☢️☢️☢️☢️☢️☢️☢️☢️☢️☢️☢️☢️☢️☢️☢️☢️☢️☢️☢️☢️☢️
+        // ☢️☢️☢️☢️☢️☢️☢️☢️☢️☢️☢️☢️☢️☢️☢️☢️☢️☢️☢️☢️☢️☢️☢️☢️☢️☢️☢️☢️☢️☢️☢️☢️☢️☢️☢️☢️☢️☢️☢️☢️☢️☢️☢️
         if (componentType === 'logo-header') {
             this.bmxPages[this.currentPage].page.push({
                 componentType: componentType,
@@ -145,7 +147,7 @@ export class SurveyCreationDesignComponent implements OnInit {
                     companyLogoURL: "./assets/img/bmx/BD.png"
                 }],
             })
-        }// ▶️▶️▶️▶️▶️▶️▶️▶️▶️▶️▶️▶️▶️▶️▶️▶️▶️▶️▶️▶️▶️▶️▶️▶️▶️▶️
+        }// ▶️▶️▶️▶️▶️▶️▶️▶️▶️▶️▶️▶️▶️▶️▶️▶️▶️▶️▶️▶️▶️▶️▶️▶️▶️▶️▶️▶️▶️▶️▶️▶️▶️▶️▶️▶️▶️▶️▶️▶️▶️▶️▶️
         else if (componentType === 'text-editor') {
             this.bmxPages[this.currentPage].page.push({
                 componentType: componentType,
@@ -219,7 +221,7 @@ export class SurveyCreationDesignComponent implements OnInit {
                 }
                 ],
             })
-        }// ❤️❤️❤️❤️❤️❤️❤️❤️❤️❤️❤️❤️❤️❤️❤️❤️❤️❤️❤️❤️❤️❤️❤️❤️❤️❤️❤️❤️❤️❤️❤️❤️❤️❤️❤️❤️❤️❤️
+        }// ❤️❤️❤️❤️❤️❤️❤️❤️❤️❤️❤️❤️❤️❤️❤️❤️❤️❤️❤️❤️❤️❤️❤️❤️❤️❤️❤️❤️❤️❤️❤️❤️❤️❤️❤️❤️❤️❤️❤️❤️❤️❤️❤️
         else if (componentType === 'image-rate-scale') {
 
             this.TestNameDataModel = [];
@@ -256,7 +258,7 @@ export class SurveyCreationDesignComponent implements OnInit {
                 }
                 ],
             })
-        }// 💜💜💜💜💜💜💜💜💜💜💜💜💜💜💜💜💜💜💜💜💜💜💜💜💜💜💜💜💜💜💜
+        }// 💜💜💜💜💜💜💜💜💜💜💜💜💜💜💜💜💜💜💜💜💜💜💜💜💜💜💜💜💜💜💜💜💜💜💜💜💜💜💜💜💜💜💜
         else if (componentType === 'narrow-down') {
 
             this.TestNameDataModel = [];
@@ -288,7 +290,7 @@ export class SurveyCreationDesignComponent implements OnInit {
                 }
                 ],
             })
-        }// 🤍🤍🤍🤍🤍🤍🤍🤍🤍🤍🤍🤍🤍🤍🤍🤍🤍🤍🤍🤍🤍🤍🤍🤍🤍🤍🤍🤍🤍🤍🤍🤍🤍
+        }// 🤍🤍🤍🤍🤍🤍🤍🤍🤍🤍🤍🤍🤍🤍🤍🤍🤍🤍🤍🤍🤍🤍🤍🤍🤍🤍🤍🤍🤍🤍🤍🤍🤍🤍🤍🤍🤍🤍🤍🤍🤍🤍🤍
         else if (componentType === 'question-answer') {
 
             this.TestNameDataModel = [];
@@ -396,12 +398,34 @@ export class SurveyCreationDesignComponent implements OnInit {
         ]
     }
 
-
-    overviewPage() {
-
+    saveData() {
+        this.projectInfo = JSON.parse(localStorage.getItem('fakeproject' + '_project_info'));
+        this.bmxCompleteObject = {
+            userInfo: { username : 'John Smith'},
+            projectInfo: this.projectInfo,
+            bmx: this.bmxPages,
+            // tables: []
+        }
+        this.bmxPages.forEach(pageElement => {
+            pageElement.page.forEach(component => {
+                if (component.componentType == 'rate-scale'||
+                    component.componentType == 'ranking-scale' ||
+                    component.componentType == 'image-rate-scale'||
+                    component.componentType == 'narrow-down'||
+                    component.componentType == 'question-answer') {
+                    this.calculateTableDefinitions(component)
+                }
+            });
+        });
+        // console.log(this.bmxCompleteObject.bmx[4]["page"][3]['componentText']);
+        this._BmxService.saveOrUpdateTemplate(this.bmxCompleteObject).subscribe(res =>{
+            console.log(res);
+            
+        })
     }
 
-    // 🌭🌭🌭🌭🌭🌭🌭🌭🌭🌭🌭🌭🌭🌭PRIVATE METHODS 🌭🌭🌭🌭🌭🌭🌭🌭🌭🌭🌭🌭🌭🌭🌭🌭🌭🌭🌭🌭🌭🌭🌭🌭🌭🌭🌭🌭🌭
+    // 🌭🌭🌭🌭🌭🌭🌭🌭🌭🌭🌭🌭🌭🌭🌭🌭🌭🌭🌭🌭🌭🌭🌭PRIVATE METHODS 🌭🌭🌭🌭🌭🌭🌭🌭🌭🌭🌭🌭🌭🌭🌭🌭🌭🌭🌭🌭🌭🌭🌭
+
     createRatingStars() {
         let startCounter: any = []
         for (let index = 1; index <= this.ratingScale; index++) {
@@ -413,6 +437,7 @@ export class SurveyCreationDesignComponent implements OnInit {
         }
         return startCounter;
     }
+
     createRankinScale() {
         let startCounter: any = []
         for (let index = 1; index <= 3; index++) {
@@ -425,38 +450,7 @@ export class SurveyCreationDesignComponent implements OnInit {
         return startCounter;
     }
 
-    saveData() {
-        this.projectInfo = JSON.parse(localStorage.getItem('fakeproject' + '_project_info'));
-
-
-        this.bmxCompleteObject = {
-            projectInfo: this.projectInfo,
-            bmx: this.bmxPages,
-            tables: []
-        }
-        this.bmxPages.forEach(pageElement => {
-            pageElement.page.forEach(component => {
-                if (component.componentType == 'rate-scale') {
-                    this.calculateTableDefinitions(component)
-                }
-                else if (component.componentType == 'ranking-scale') {
-                    this.calculateTableDefinitions(component)
-                }
-                else if (component.componentType == 'image-rate-scale') {
-                    this.calculateTableDefinitions(component)
-                }
-                else if (component.componentType == 'narrow-down') {
-                    this.calculateTableDefinitions(component)
-                }
-                else if (component.componentType == 'question-answer') {
-                    this.calculateTableDefinitions(component)
-                }
-            });
-        });
-
-    }
-
-    private calculateTableDefinitions(component) {
+    calculateTableDefinitions(component) {
         let table = {
             tableType: component.componentType,
             tableRows: []
@@ -502,8 +496,8 @@ export class SurveyCreationDesignComponent implements OnInit {
             });
             table.tableRows.push(tableR)
         });
-        console.log(table);
-        this.bmxCompleteObject['tables'].push(table)
+        
+        // this.bmxCompleteObject['tables'].push(table)
 
     }
 
@@ -1804,6 +1798,11 @@ export class SurveyCreationDesignComponent implements OnInit {
                         {
                             "STARS": [
                                 {
+                                    "id": 0,
+                                    "icon": 1,
+                                    "styleClass": "rating-star"
+                                },
+                                {
                                     "id": 1,
                                     "icon": 2,
                                     "styleClass": "rating-star"
@@ -1811,6 +1810,16 @@ export class SurveyCreationDesignComponent implements OnInit {
                                 {
                                     "id": 2,
                                     "icon": 3,
+                                    "styleClass": "rating-star"
+                                },
+                                {
+                                    "id": 3,
+                                    "icon": 4,
+                                    "styleClass": "rating-star"
+                                },
+                                {
+                                    "id": 4,
+                                    "icon": 5,
                                     "styleClass": "rating-star"
                                 }
                             ],
@@ -1825,6 +1834,11 @@ export class SurveyCreationDesignComponent implements OnInit {
                         {
                             "STARS": [
                                 {
+                                    "id": 0,
+                                    "icon": 1,
+                                    "styleClass": "rating-star"
+                                },
+                                {
                                     "id": 1,
                                     "icon": 2,
                                     "styleClass": "rating-star"
@@ -1832,6 +1846,16 @@ export class SurveyCreationDesignComponent implements OnInit {
                                 {
                                     "id": 2,
                                     "icon": 3,
+                                    "styleClass": "rating-star"
+                                },
+                                {
+                                    "id": 3,
+                                    "icon": 4,
+                                    "styleClass": "rating-star"
+                                },
+                                {
+                                    "id": 4,
+                                    "icon": 5,
                                     "styleClass": "rating-star"
                                 }
                             ],
@@ -1841,11 +1865,15 @@ export class SurveyCreationDesignComponent implements OnInit {
                             "RadioColumn2": false,
                             "RadioColumn3": false,
                             "RadioColumn4": false,
-                            "RadioColumn5": true,
-                            "RATE": 5
+                            "RadioColumn5": false
                         },
                         {
                             "STARS": [
+                                {
+                                    "id": 0,
+                                    "icon": 1,
+                                    "styleClass": "rating-star"
+                                },
                                 {
                                     "id": 1,
                                     "icon": 2,
@@ -1854,20 +1882,34 @@ export class SurveyCreationDesignComponent implements OnInit {
                                 {
                                     "id": 2,
                                     "icon": 3,
+                                    "styleClass": "rating-star"
+                                },
+                                {
+                                    "id": 3,
+                                    "icon": 4,
+                                    "styleClass": "rating-star"
+                                },
+                                {
+                                    "id": 4,
+                                    "icon": 5,
                                     "styleClass": "rating-star"
                                 }
                             ],
                             "nameCandidates": "Opening  ",
                             "rationale": "Onset, Beginning (i.e., an Early Treatment)",
                             "RadioColumn1": false,
-                            "RadioColumn2": true,
+                            "RadioColumn2": false,
                             "RadioColumn3": false,
                             "RadioColumn4": false,
-                            "RadioColumn5": false,
-                            "RATE": 3
+                            "RadioColumn5": false
                         },
                         {
                             "STARS": [
+                                {
+                                    "id": 0,
+                                    "icon": 1,
+                                    "styleClass": "rating-star"
+                                },
                                 {
                                     "id": 1,
                                     "icon": 2,
@@ -1876,6 +1918,16 @@ export class SurveyCreationDesignComponent implements OnInit {
                                 {
                                     "id": 2,
                                     "icon": 3,
+                                    "styleClass": "rating-star"
+                                },
+                                {
+                                    "id": 3,
+                                    "icon": 4,
+                                    "styleClass": "rating-star"
+                                },
+                                {
+                                    "id": 4,
+                                    "icon": 5,
                                     "styleClass": "rating-star"
                                 }
                             ],
@@ -1884,12 +1936,16 @@ export class SurveyCreationDesignComponent implements OnInit {
                             "RadioColumn1": false,
                             "RadioColumn2": false,
                             "RadioColumn3": false,
-                            "RadioColumn4": true,
-                            "RadioColumn5": false,
-                            "RATE": 4
+                            "RadioColumn4": false,
+                            "RadioColumn5": false
                         },
                         {
                             "STARS": [
+                                {
+                                    "id": 0,
+                                    "icon": 1,
+                                    "styleClass": "rating-star"
+                                },
                                 {
                                     "id": 1,
                                     "icon": 2,
@@ -1898,6 +1954,16 @@ export class SurveyCreationDesignComponent implements OnInit {
                                 {
                                     "id": 2,
                                     "icon": 3,
+                                    "styleClass": "rating-star"
+                                },
+                                {
+                                    "id": 3,
+                                    "icon": 4,
+                                    "styleClass": "rating-star"
+                                },
+                                {
+                                    "id": 4,
+                                    "icon": 5,
                                     "styleClass": "rating-star"
                                 }
                             ],
@@ -1905,13 +1971,17 @@ export class SurveyCreationDesignComponent implements OnInit {
                             "rationale": "Calm, Steady, Stable, Begins in P and Ends with D to Suggest Parkinson's Disease",
                             "RadioColumn1": false,
                             "RadioColumn2": false,
-                            "RadioColumn3": true,
+                            "RadioColumn3": false,
                             "RadioColumn4": false,
-                            "RadioColumn5": false,
-                            "RATE": 1
+                            "RadioColumn5": false
                         },
                         {
                             "STARS": [
+                                {
+                                    "id": 0,
+                                    "icon": 1,
+                                    "styleClass": "rating-star"
+                                },
                                 {
                                     "id": 1,
                                     "icon": 2,
@@ -1920,20 +1990,34 @@ export class SurveyCreationDesignComponent implements OnInit {
                                 {
                                     "id": 2,
                                     "icon": 3,
+                                    "styleClass": "rating-star"
+                                },
+                                {
+                                    "id": 3,
+                                    "icon": 4,
+                                    "styleClass": "rating-star"
+                                },
+                                {
+                                    "id": 4,
+                                    "icon": 5,
                                     "styleClass": "rating-star"
                                 }
                             ],
                             "nameCandidates": "At Dawn ",
                             "rationale": "Suggests Early Treatment",
                             "RadioColumn1": false,
-                            "RadioColumn2": true,
+                            "RadioColumn2": false,
                             "RadioColumn3": false,
                             "RadioColumn4": false,
-                            "RadioColumn5": false,
-                            "RATE": 0
+                            "RadioColumn5": false
                         },
                         {
                             "STARS": [
+                                {
+                                    "id": 0,
+                                    "icon": 1,
+                                    "styleClass": "rating-star"
+                                },
                                 {
                                     "id": 1,
                                     "icon": 2,
@@ -1942,20 +2026,34 @@ export class SurveyCreationDesignComponent implements OnInit {
                                 {
                                     "id": 2,
                                     "icon": 3,
+                                    "styleClass": "rating-star"
+                                },
+                                {
+                                    "id": 3,
+                                    "icon": 4,
+                                    "styleClass": "rating-star"
+                                },
+                                {
+                                    "id": 4,
+                                    "icon": 5,
                                     "styleClass": "rating-star"
                                 }
                             ],
                             "nameCandidates": "Skylark  ",
                             "rationale": "Type of Bird, May Connote Freedom or Taking Flight, Links to Parkinson's Disease",
                             "RadioColumn1": false,
-                            "RadioColumn2": true,
+                            "RadioColumn2": false,
                             "RadioColumn3": false,
                             "RadioColumn4": false,
-                            "RadioColumn5": false,
-                            "RATE": 0
+                            "RadioColumn5": false
                         },
                         {
                             "STARS": [
+                                {
+                                    "id": 0,
+                                    "icon": 1,
+                                    "styleClass": "rating-star"
+                                },
                                 {
                                     "id": 1,
                                     "icon": 2,
@@ -1964,20 +2062,34 @@ export class SurveyCreationDesignComponent implements OnInit {
                                 {
                                     "id": 2,
                                     "icon": 3,
+                                    "styleClass": "rating-star"
+                                },
+                                {
+                                    "id": 3,
+                                    "icon": 4,
+                                    "styleClass": "rating-star"
+                                },
+                                {
+                                    "id": 4,
+                                    "icon": 5,
                                     "styleClass": "rating-star"
                                 }
                             ],
                             "nameCandidates": "Pearly  ",
                             "rationale": "Shining Like a Pearl (May Suggest Hope), Implies Treating Parkinson's Disease (P-) Early",
                             "RadioColumn1": false,
-                            "RadioColumn2": true,
+                            "RadioColumn2": false,
                             "RadioColumn3": false,
                             "RadioColumn4": false,
-                            "RadioColumn5": false,
-                            "RATE": 0
+                            "RadioColumn5": false
                         },
                         {
                             "STARS": [
+                                {
+                                    "id": 0,
+                                    "icon": 1,
+                                    "styleClass": "rating-star"
+                                },
                                 {
                                     "id": 1,
                                     "icon": 2,
@@ -1987,16 +2099,205 @@ export class SurveyCreationDesignComponent implements OnInit {
                                     "id": 2,
                                     "icon": 3,
                                     "styleClass": "rating-star"
+                                },
+                                {
+                                    "id": 3,
+                                    "icon": 4,
+                                    "styleClass": "rating-star"
+                                },
+                                {
+                                    "id": 4,
+                                    "icon": 5,
+                                    "styleClass": "rating-star"
                                 }
                             ],
                             "nameCandidates": "STEADY  ",
                             "rationale": "Study Testing an Early Parkinson's Disease Therapy - Suggests Stabilizing Symptoms, Gaining Control",
                             "RadioColumn1": false,
-                            "RadioColumn2": true,
+                            "RadioColumn2": false,
                             "RadioColumn3": false,
                             "RadioColumn4": false,
-                            "RadioColumn5": false,
-                            "RATE": 0
+                            "RadioColumn5": false
+                        },
+                        {
+                            "STARS": [
+                                {
+                                    "id": 0,
+                                    "icon": 1,
+                                    "styleClass": "rating-star"
+                                },
+                                {
+                                    "id": 1,
+                                    "icon": 2,
+                                    "styleClass": "rating-star"
+                                },
+                                {
+                                    "id": 2,
+                                    "icon": 3,
+                                    "styleClass": "rating-star"
+                                },
+                                {
+                                    "id": 3,
+                                    "icon": 4,
+                                    "styleClass": "rating-star"
+                                },
+                                {
+                                    "id": 4,
+                                    "icon": 5,
+                                    "styleClass": "rating-star"
+                                }
+                            ],
+                            "nameCandidates": "PositiveDirection ",
+                            "rationale": "A Hopeful Step Forward, Uses P and D for Parkinson's Disease",
+                            "RadioColumn1": false,
+                            "RadioColumn2": false,
+                            "RadioColumn3": false,
+                            "RadioColumn4": false,
+                            "RadioColumn5": false
+                        },
+                        {
+                            "STARS": [
+                                {
+                                    "id": 0,
+                                    "icon": 1,
+                                    "styleClass": "rating-star"
+                                },
+                                {
+                                    "id": 1,
+                                    "icon": 2,
+                                    "styleClass": "rating-star"
+                                },
+                                {
+                                    "id": 2,
+                                    "icon": 3,
+                                    "styleClass": "rating-star"
+                                },
+                                {
+                                    "id": 3,
+                                    "icon": 4,
+                                    "styleClass": "rating-star"
+                                },
+                                {
+                                    "id": 4,
+                                    "icon": 5,
+                                    "styleClass": "rating-star"
+                                }
+                            ],
+                            "nameCandidates": "Moderato  ",
+                            "rationale": "A Moderate Musical Tempo (Suggests Slowing Disease Progression)",
+                            "RadioColumn1": false,
+                            "RadioColumn2": false,
+                            "RadioColumn3": false,
+                            "RadioColumn4": false,
+                            "RadioColumn5": false
+                        },
+                        {
+                            "STARS": [
+                                {
+                                    "id": 0,
+                                    "icon": 1,
+                                    "styleClass": "rating-star"
+                                },
+                                {
+                                    "id": 1,
+                                    "icon": 2,
+                                    "styleClass": "rating-star"
+                                },
+                                {
+                                    "id": 2,
+                                    "icon": 3,
+                                    "styleClass": "rating-star"
+                                },
+                                {
+                                    "id": 3,
+                                    "icon": 4,
+                                    "styleClass": "rating-star"
+                                },
+                                {
+                                    "id": 4,
+                                    "icon": 5,
+                                    "styleClass": "rating-star"
+                                }
+                            ],
+                            "nameCandidates": "REINSPIRE ",
+                            "rationale": "Reviewing an Early Intervention for Slowing Parkinson's Disease Progression - Give Hope, Links to UCB's \"Inspired by Patients\"",
+                            "RadioColumn1": false,
+                            "RadioColumn2": false,
+                            "RadioColumn3": false,
+                            "RadioColumn4": false,
+                            "RadioColumn5": false
+                        },
+                        {
+                            "STARS": [
+                                {
+                                    "id": 0,
+                                    "icon": 1,
+                                    "styleClass": "rating-star"
+                                },
+                                {
+                                    "id": 1,
+                                    "icon": 2,
+                                    "styleClass": "rating-star"
+                                },
+                                {
+                                    "id": 2,
+                                    "icon": 3,
+                                    "styleClass": "rating-star"
+                                },
+                                {
+                                    "id": 3,
+                                    "icon": 4,
+                                    "styleClass": "rating-star"
+                                },
+                                {
+                                    "id": 4,
+                                    "icon": 5,
+                                    "styleClass": "rating-star"
+                                }
+                            ],
+                            "nameCandidates": "Bloom  ",
+                            "rationale": "Symbolic of Tulips and a Brighter Future",
+                            "RadioColumn1": false,
+                            "RadioColumn2": false,
+                            "RadioColumn3": false,
+                            "RadioColumn4": false,
+                            "RadioColumn5": false
+                        },
+                        {
+                            "STARS": [
+                                {
+                                    "id": 0,
+                                    "icon": 1,
+                                    "styleClass": "rating-star"
+                                },
+                                {
+                                    "id": 1,
+                                    "icon": 2,
+                                    "styleClass": "rating-star"
+                                },
+                                {
+                                    "id": 2,
+                                    "icon": 3,
+                                    "styleClass": "rating-star"
+                                },
+                                {
+                                    "id": 3,
+                                    "icon": 4,
+                                    "styleClass": "rating-star"
+                                },
+                                {
+                                    "id": 4,
+                                    "icon": 5,
+                                    "styleClass": "rating-star"
+                                }
+                            ],
+                            "nameCandidates": "Embark  ",
+                            "rationale": "To Set Out on a Journey, May Connote Optimism or Hope, Links to Parkinson's Disease",
+                            "RadioColumn1": false,
+                            "RadioColumn2": false,
+                            "RadioColumn3": false,
+                            "RadioColumn4": false,
+                            "RadioColumn5": false
                         }
                     ],
                     "componentSettings": [
@@ -2005,7 +2306,7 @@ export class SurveyCreationDesignComponent implements OnInit {
                             "maxRule": 0,
                             "fontSize": 16,
                             "columnWidth": 150,
-                            "rationalewidth": 689,
+                            "rationalewidth": 250,
                             "rowHeight": 2,
                             "radioColumnsWidth": 75,
                             "categoryName": "Category Ranking",
@@ -2624,10 +2925,15 @@ export class SurveyCreationDesignComponent implements OnInit {
                                     "id": 4,
                                     "icon": "grade",
                                     "styleClass": "rating-star"
+                                },
+                                {
+                                    "id": 5,
+                                    "icon": "grade",
+                                    "styleClass": "rating-star"
                                 }
                             ],
                             "nameCandidates": "Questions",
-                            "Comments2": "Answers"
+                            "Answers1": "Answers"
                         },
                         {
                             "STARS": [
@@ -2648,12 +2954,17 @@ export class SurveyCreationDesignComponent implements OnInit {
                                 },
                                 {
                                     "id": 4,
+                                    "icon": "grade",
+                                    "styleClass": "rating-star"
+                                },
+                                {
+                                    "id": 5,
                                     "icon": "grade",
                                     "styleClass": "rating-star"
                                 }
                             ],
                             "nameCandidates": "What treatments can help my dog with congestive heart failure?",
-                            "Comments2": ""
+                            "Answers1": ""
                         },
                         {
                             "STARS": [
@@ -2674,12 +2985,17 @@ export class SurveyCreationDesignComponent implements OnInit {
                                 },
                                 {
                                     "id": 4,
+                                    "icon": "grade",
+                                    "styleClass": "rating-star"
+                                },
+                                {
+                                    "id": 5,
                                     "icon": "grade",
                                     "styleClass": "rating-star"
                                 }
                             ],
                             "nameCandidates": "What are the symptoms that you may see as your dog's congestive heart failure gets worse?",
-                            "Comments2": ""
+                            "Answers1": ""
                         },
                         {
                             "STARS": [
@@ -2700,12 +3016,17 @@ export class SurveyCreationDesignComponent implements OnInit {
                                 },
                                 {
                                     "id": 4,
+                                    "icon": "grade",
+                                    "styleClass": "rating-star"
+                                },
+                                {
+                                    "id": 5,
                                     "icon": "grade",
                                     "styleClass": "rating-star"
                                 }
                             ],
                             "nameCandidates": "What are the early symptoms of heart failure in dogs?",
-                            "Comments2": ""
+                            "Answers1": ""
                         },
                         {
                             "STARS": [
@@ -2726,12 +3047,17 @@ export class SurveyCreationDesignComponent implements OnInit {
                                 },
                                 {
                                     "id": 4,
+                                    "icon": "grade",
+                                    "styleClass": "rating-star"
+                                },
+                                {
+                                    "id": 5,
                                     "icon": "grade",
                                     "styleClass": "rating-star"
                                 }
                             ],
                             "nameCandidates": "How do you treat liver disease in dogs?",
-                            "Comments2": ""
+                            "Answers1": ""
                         },
                         {
                             "STARS": [
@@ -2752,12 +3078,17 @@ export class SurveyCreationDesignComponent implements OnInit {
                                 },
                                 {
                                     "id": 4,
+                                    "icon": "grade",
+                                    "styleClass": "rating-star"
+                                },
+                                {
+                                    "id": 5,
                                     "icon": "grade",
                                     "styleClass": "rating-star"
                                 }
                             ],
                             "nameCandidates": "What are symptoms of liver disease in dogs?",
-                            "Comments2": ""
+                            "Answers1": ""
                         },
                         {
                             "STARS": [
@@ -2778,12 +3109,17 @@ export class SurveyCreationDesignComponent implements OnInit {
                                 },
                                 {
                                     "id": 4,
+                                    "icon": "grade",
+                                    "styleClass": "rating-star"
+                                },
+                                {
+                                    "id": 5,
                                     "icon": "grade",
                                     "styleClass": "rating-star"
                                 }
                             ],
                             "nameCandidates": "What happens after my dog gets a heartworm treatment?",
-                            "Comments2": ""
+                            "Answers1": ""
                         },
                         {
                             "STARS": [
@@ -2804,12 +3140,17 @@ export class SurveyCreationDesignComponent implements OnInit {
                                 },
                                 {
                                     "id": 4,
+                                    "icon": "grade",
+                                    "styleClass": "rating-star"
+                                },
+                                {
+                                    "id": 5,
                                     "icon": "grade",
                                     "styleClass": "rating-star"
                                 }
                             ],
                             "nameCandidates": "What are the symptoms of pancreatitis in dogs?",
-                            "Comments2": ""
+                            "Answers1": ""
                         },
                         {
                             "STARS": [
@@ -2830,12 +3171,17 @@ export class SurveyCreationDesignComponent implements OnInit {
                                 },
                                 {
                                     "id": 4,
+                                    "icon": "grade",
+                                    "styleClass": "rating-star"
+                                },
+                                {
+                                    "id": 5,
                                     "icon": "grade",
                                     "styleClass": "rating-star"
                                 }
                             ],
                             "nameCandidates": "What are the symptoms of seizures in dogs?",
-                            "Comments2": ""
+                            "Answers1": ""
                         },
                         {
                             "STARS": [
@@ -2858,10 +3204,15 @@ export class SurveyCreationDesignComponent implements OnInit {
                                     "id": 4,
                                     "icon": "grade",
                                     "styleClass": "rating-star"
+                                },
+                                {
+                                    "id": 5,
+                                    "icon": "grade",
+                                    "styleClass": "rating-star"
                                 }
                             ],
                             "nameCandidates": "What is the treatment for pancreatitis in dogs?",
-                            "Comments2": ""
+                            "Answers1": ""
                         }
                     ],
                     "componentSettings": [
@@ -2873,7 +3224,8 @@ export class SurveyCreationDesignComponent implements OnInit {
                             "rationalewidth": 250,
                             "rowHeight": 2,
                             "categoryName": "Category Question & Answer",
-                            "categoryDescription": "Insert Comments box for answers"
+                            "categoryDescription": "Insert Comments box for answers",
+                            "CRITERIA": false
                         }
                     ]
                 }
