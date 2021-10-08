@@ -40,6 +40,49 @@
   color: grey;
 }
 
+@media (min-width: 576px) {
+  .desktop {
+    display: flex;
+    flex-direction: column;
+  }
+
+  .mobile {
+    display: none;
+  }
+
+  .test-name-table {
+    display: flex;
+    flex-direction: row;
+  }
+}
+
+@media (max-width: 576px) {
+  .desktop {
+    display: none;
+  }
+  .test-name-table {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    border: 2px solid rgb(235, 235, 235);
+    border-radius: 5px;
+    width: 100vw;
+    overflow: hidden;
+
+  }
+
+  .mobile {
+    padding-bottom: 30px;
+  }
+
+  .selectedCard{
+   display: none;
+  }
+  .noSelectedCard{
+    right: 7px;
+  }
+
+}
 
 .red{
   background-color: white;
@@ -109,10 +152,6 @@
   color: grey;
 }
 
-.test-name-table {
-  display: flex;
-  flex-direction: row;
-}
 
 .test-name-table:hover {
   @include BoxShadow(6);

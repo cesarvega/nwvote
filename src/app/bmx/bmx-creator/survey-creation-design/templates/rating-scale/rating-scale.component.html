@@ -358,13 +358,8 @@
                 <!-- 🟢🟢🟢🟢🟢🟢🟢🟢🟢🟢🟢🟢🟢🟢 HEADER TEXT AREA 🟢🟢🟢🟢🟢🟢🟢🟢🟢🟢🟢🟢🟢🟢🟢🟢 -->
 
 
-                <div style="display: flex;
-                gap: 23px;
-                padding-top: 10px;
-                position: absolute;
-                right: 14px;">
+                <div style="display: flex;gap: 23px;padding-top: 10px;position: absolute;right: 24px;">
                     <div *ngFor="let criteria of testName.CRITERIA  let x =  index" >
-
                         <button *ngIf="criteria.RATE>0 && y != 0 "
                              style="background-color: #ee7f25;    
                              color: white;
@@ -372,16 +367,11 @@
                              line-height: 19px;
                              padding: 2px 0px;
                              position: absolute;
-                             animation: rubberBand 700ms ease-in  forwards; "
+                             animation: rubberBand 700ms ease-in  forwards;"
                             mat-button>{{criteria.RATE}}</button>
                     </div>
-
                 </div>
-
-
                 <div *ngFor="let columnName of columnsNames; let e =  index">
-
-
                     <!-- <div *ngIf="(y == 0)" class="header-title " >
                         <p style="text-align: center; font-weight: bold;color: #324395;margin: 0 0 0px;"
                             [style.font-size]="bmxItem.componentSettings[0].fontSize +'px'"

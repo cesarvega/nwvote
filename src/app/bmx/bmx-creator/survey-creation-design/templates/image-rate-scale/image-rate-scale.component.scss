@@ -38,27 +38,57 @@
 .rating-star {
   color: grey;
 }
-//desktop
+
 @media (min-width: 576px) {
+  .desktop {
+    display: flex;
+    flex-direction: column;
+  }
+
+  .mobile {
+    display: none;
+    padding-bottom: 30px;
+  }
 
   .test-name-table {
     display: flex;
     flex-direction: row;
   }
-
-  .test-name-table:hover {
-    @include BoxShadow(6);
-  }
-  
 }
-//mobile
-@media (max-width: 576px) {
 
+@media (max-width: 576px) {
+  .desktop {
+    display: none;
+  }
   .test-name-table {
     display: flex;
     flex-direction: column;
+    // gap: 16px;
+    // padding-top: 10px;
+    align-items: center;
+    border: 2px solid rgb(235, 235, 235);
+    border-radius: 5px;
+    width: 100vw;
+    overflow: hidden;
+
   }
+
+  .mobile {
+    padding-bottom: 30px;
+  }
+
+  .selectedCard{
+   display: none;
+  }
+  .noSelectedCard{
+    right: 7px;
+  }
+
 }
+.test-name-table:hover {
+  @include BoxShadow(6);
+}
+
 
 .red {
   background-color: white;
