@@ -1,26 +1,17 @@
-<div class="main-container">
+<div class="page-design">
   
-  
-
-    <div style="display: flex;">
+    <div class="display">
         <div style="flex-direction: column;" class="bmx-page" *ngIf="true" >
     
     
             <!-- BRAND MATRIX MODULAR TEMPLATE COMPONENTS  🧑🏻‍🚀🧑🏻‍🚀🧑🏻‍🚀🧑🏻‍🚀🧑🏻‍🚀🧑🏻‍🚀🧑🏻‍🚀🧑🏻‍🚀🧑🏻‍🚀🧑🏻‍🚀🧑🏻‍🚀🧑🏻‍🚀🧑🏻‍🚀 -->
             <div *ngFor="let bmxItem of bmxPagesClient[currentPage].page; let i = index"
-                style="display: flex;flex-direction: column;margin: 10px;align-content: center;">
+                style="display: flex;flex-direction: column;align-content: center;">
     
     
                 <!-- BMX HEADER 😋😋😋😋😋😋😋😋😋😋😋😋😋😋😋😋😋😋😋😋😋😋😋😋😋😋😋😋😋😋😋😋😋😋😋😋😋😋 -->
     
-                <div *ngIf="bmxItem.componentType === 'logo-header'" class="paragraph">
-                    <div style="position: absolute;right: 0px;">
-                        <button *ngIf="bmxClientPageOverview" matTooltip="double click to delete" matTooltipPosition="above"
-                            style="outline: none;color:#f10a0a;top: 19px;" mat-icon-button (dblclick)="deleteComponent(i)"
-                            aria-label="delte">
-                            <mat-icon style="font-size: 17px;">cancel</mat-icon>
-                        </button>
-                    </div>
+                <div *ngIf="bmxItem.componentType === 'logo-header'" >
                     <app-logo-header [bmxItem]="bmxItem" [i]="i" [bmxClientPageDesignMode]="bmxClientPageDesignMode"
                         [bmxClientPageOverview]="bmxClientPageOverview"></app-logo-header>
                 </div>
@@ -29,14 +20,6 @@
     
                 <!-- BMX PARAGRAPH EDITOR 📑📑📑📑📑📑📑📑📑📑📑📑📑📑📑📑📑📑📑📑📑📑📑📑📑📑📑📑📑📑 -->
                 <div *ngIf="bmxItem.componentType === 'text-editor'" class="paragraph">
-                    <div class="emoji-handle">.</div>
-                    <div style="position: absolute;right: 0px;">
-                        <button *ngIf="bmxClientPageOverview" matTooltip="double click to delete" matTooltipPosition="above"
-                            style="outline: none;color:#f10a0a;top: 60px;" mat-icon-button (dblclick)="deleteComponent(i)"
-                            aria-label="delte">
-                            <mat-icon style="font-size: 17px;">cancel</mat-icon>
-                        </button>
-                    </div>
                     <app-text-paragraph [bmxItem]="bmxItem" [i]="i" [bmxClientPageDesignMode]="bmxClientPageDesignMode"
                         [bmxClientPageOverview]="bmxClientPageOverview"></app-text-paragraph>
                 </div>
@@ -44,15 +27,7 @@
     
     
                 <!-- STARS SCALE 👽👽👽👽👽👽👽👽👽👽👽👽👽👽👽👽👽👽👽👽👽👽👽👽👽👽👽👽👽👽👽👽👽👽👽👽👽👽👽👽👽👽-->
-                <div *ngIf="bmxItem.componentType === 'rate-scale'" class="paragraph " style="margin-bottom: 30px;">
-                    <div class="emoji-handle">.</div>
-                    <div style="position: absolute;right: 0px;">
-                        <button *ngIf="bmxClientPageOverview" matTooltip="double click to delete" matTooltipPosition="above"
-                            style="outline: none;color:#f10a0a;top: 19px;" mat-icon-button (dblclick)="deleteComponent(i)"
-                            aria-label="delte">
-                            <mat-icon style="font-size: 17px;">cancel</mat-icon>
-                        </button>
-                    </div>
+                <div *ngIf="bmxItem.componentType === 'rate-scale'" class="paragraph " style="margin-bottom: 30px;">                   
                     <app-rating-scale [bmxItem]="bmxItem" [i]="i" [bmxClientPageDesignMode]="bmxClientPageDesignMode"
                         [bmxClientPageOverview]="bmxClientPageOverview"></app-rating-scale>
     
@@ -61,45 +36,22 @@
     
     
                 <!-- RANK SCALE 😭😭😭😭😭😭😭😭😭😭😭😭😭😭😭😭😭😭😭😭😭😭😭😭😭😭😭😭😭😭😭😭😭😭😭😭😭-->
-                <div *ngIf="bmxItem.componentType === 'ranking-scale'" class="paragraph">
-                    <div class="emoji-handle">.</div>
-                    <div style="position: absolute;right: 0px;">
-                        <button *ngIf="bmxClientPageOverview" matTooltip="double click to delete" matTooltipPosition="above"
-                            style="outline: none;color:#f10a0a;top: 19px;" mat-icon-button (dblclick)="deleteComponent(i)"
-                            aria-label="delte">
-                            <mat-icon style="font-size: 17px;">cancel</mat-icon>
-                        </button>
-                    </div>
+                <div *ngIf="bmxItem.componentType === 'ranking-scale'" class="paragraph">                   
+                    
                     <app-rank-scale [bmxItem]="bmxItem" [i]="i" [bmxClientPageDesignMode]="bmxClientPageDesignMode"
                         [bmxClientPageOverview]="bmxClientPageOverview"></app-rank-scale>
                 </div>
                 <!-- END RANK SCALE 😭😭😭😭😭😭😭😭😭😭😭😭😭😭😭😭😭😭😭😭😭😭😭😭😭😭😭😭😭😭😭😭😭😭😭😭😭 -->
     
                 <!-- NARROW DOWN SCALE 😭😭😭😭😭😭😭😭😭😭😭😭😭😭😭😭😭😭😭😭😭😭😭😭😭😭😭😭😭😭😭😭😭😭😭😭😭-->
-                <div *ngIf="bmxItem.componentType === 'narrow-down'" class="paragraph">
-                    <div class="emoji-handle">.</div>
-                    <div style="position: absolute;right: 0px;">
-                        <button *ngIf="bmxClientPageOverview" matTooltip="double click to delete" matTooltipPosition="above"
-                            style="outline: none;color:#f10a0a;top: 19px;" mat-icon-button (dblclick)="deleteComponent(i)"
-                            aria-label="delte">
-                            <mat-icon style="font-size: 17px;">cancel</mat-icon>
-                        </button>
-                    </div>
+                <div *ngIf="bmxItem.componentType === 'narrow-down'" class="paragraph">                   
                     <app-narrow-down [bmxItem]="bmxItem" [i]="i" [bmxClientPageDesignMode]="bmxClientPageDesignMode"
                         [bmxClientPageOverview]="bmxClientPageOverview"></app-narrow-down>
                 </div>
                 <!-- END NARROW DOWN SCALE 😭😭😭😭😭😭😭😭😭😭😭😭😭😭😭😭😭😭😭😭😭😭😭😭😭😭😭😭😭😭😭😭😭😭😭😭😭 -->
     
                 <!-- IMAGE SCALE 👀👀👀👀👀👀👀👀👀👀👀👀👀👀👀👀👀👀👀👀👀👀👀👀👀👀👀👀👀👀👀👀👀👀👀👀👀👀-->
-                <div *ngIf="bmxItem.componentType === 'image-rate-scale'" class="paragraph">
-                    <div class="emoji-handle">.</div>
-                    <div style="position: absolute;right: 0px;">
-                        <button *ngIf="bmxClientPageOverview" matTooltip="double click to delete" matTooltipPosition="above"
-                            style="outline: none;color:#f10a0a;top: 19px;" mat-icon-button (dblclick)="deleteComponent(i)"
-                            aria-label="delte">
-                            <mat-icon style="font-size: 17px;">cancel</mat-icon>
-                        </button>
-                    </div>
+                <div *ngIf="bmxItem.componentType === 'image-rate-scale'" class="paragraph">                   
                     <app-image-rate-scale [bmxItem]="bmxItem" [i]="i" [bmxClientPageDesignMode]="bmxClientPageDesignMode"
                         [bmxClientPageOverview]="bmxClientPageOverview"></app-image-rate-scale>
                 </div>
@@ -107,15 +59,7 @@
     
     
                 <!-- QUESTION AND ANSWER  ✒️✒️✒️✒️✒️✒️✒️✒️✒️✒️✒️✒️✒️✒️✒️✒️✒️✒️✒️✒️✒️✒️✒️✒️✒️✒️✒️✒️✒️✒️✒️✒️✒️✒️✒️✒️✒️✒️-->
-                <div *ngIf="bmxItem.componentType === 'question-answer'" class="paragraph">
-                    <div class="emoji-handle">.</div>
-                    <div style="position: absolute;right: 0px;">
-                        <button *ngIf="bmxClientPageOverview" matTooltip="double click to delete" matTooltipPosition="above"
-                            style="outline: none;color:#f10a0a;top: 19px;" mat-icon-button (dblclick)="deleteComponent(i)"
-                            aria-label="delte">
-                            <mat-icon style="font-size: 17px;">cancel</mat-icon>
-                        </button>
-                    </div>
+                <div *ngIf="bmxItem.componentType === 'question-answer'" class="paragraph">                   
                     <app-question-answer [bmxItem]="bmxItem" [i]="i" [bmxClientPageDesignMode]="bmxClientPageDesignMode"
                         [bmxClientPageOverview]="bmxClientPageOverview"></app-question-answer>
                 </div>
@@ -126,7 +70,7 @@
     
             <!-- PAGE BUTTONS AND DIRECTIONS 1 2 3 📲📲📲📲📲📲📲📲📲📲📲📲📲📲📲📲📲📲📲📲📲📲📲📲📲📲📲📲📲📲📲📲📲📲-->
             <div class="page-buttons">
-                <div [ngClass]="bmxClientPageDesignMode?'page-buttons-heigth-40':'page-buttons-heigth-minus-50'">
+                <div class="page-buttons-heigth-minus-50">
                     <button (click)="changePage('previous')" mat-icon-button>
                         <mat-icon class="full-icon">chevron_left</mat-icon>
                     </button>

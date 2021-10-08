@@ -38,6 +38,27 @@
 .rating-star {
   color: grey;
 }
+//desktop
+@media (min-width: 576px) {
+
+  .test-name-table {
+    display: flex;
+    flex-direction: row;
+  }
+
+  .test-name-table:hover {
+    @include BoxShadow(6);
+  }
+  
+}
+//mobile
+@media (max-width: 576px) {
+
+  .test-name-table {
+    display: flex;
+    flex-direction: column;
+  }
+}
 
 .red {
   background-color: white;
@@ -106,14 +127,7 @@
   color: grey;
 }
 
-.test-name-table {
-  display: flex;
-  flex-direction: row;
-}
 
-.test-name-table:hover {
-  @include BoxShadow(6);
-}
 
 .image-row {
   display: flex;

@@ -144,6 +144,7 @@ export class SurveyCreationDesignComponent implements OnInit {
                 componentSettings: [{
                     fontSize: '16px', fontFace: 'Arial', logoWidth: 100,
                     brandInstituteURL: "./assets/img/bmx/BRANDMATRIX-DASHBOARD-LOGO.svg",
+                    brandInstituteMobileURL: "./assets/img/bmx/bmxCube.jpg",
                     companyLogoURL: "./assets/img/bmx/BD.png"
                 }],
             })

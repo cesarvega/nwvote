@@ -89,6 +89,7 @@ export class SurveyMatrixComponent extends SurveyCreationDesignComponent impleme
                             "fontFace": "Arial",
                             "logoWidth": 100,
                             "brandInstituteURL": "./assets/img/bmx/BRANDMATRIX-DASHBOARD-LOGO.svg",
+                            "brandInstituteMobileURL": "./assets/img/bmx/bmxCube.jpg",
                             "companyLogoURL": "./assets/img/bmx/BD.png"
                         }
                     ]
@@ -147,7 +148,8 @@ export class SurveyMatrixComponent extends SurveyCreationDesignComponent impleme
                             ],
                             "nameCandidates": "Name Candidates",
                             "rationale": "Rationales",
-                            "Comments1": "General Comments"
+                            "Comments1": "General Comments",
+                            "RATE": -1
                         },
                         {
                             "STARS": [
@@ -187,9 +189,10 @@ export class SurveyMatrixComponent extends SurveyCreationDesignComponent impleme
                                     "styleClass": "rating-star"
                                 }
                             ],
-                            "nameCandidates": "TEMPORAL  ",
+                            "nameCandidates": "TEMPORAL  1",
                             "rationale": "Treatment to Slow Parkinson’s Given Orally",
-                            "Comments1": "General Comments"
+                            "Comments1": "General Comments",
+                            "RATE": -1
                         },
                         {
                             "STARS": [
@@ -231,7 +234,8 @@ export class SurveyMatrixComponent extends SurveyCreationDesignComponent impleme
                             ],
                             "nameCandidates": "Moderato  ",
                             "rationale": "A Moderate Musical Tempo (Suggests Slowing Disease Progression)",
-                            "Comments1": "General Comments"
+                            "Comments1": "General Comments",
+                            "RATE": -1
                         },
                         {
                             "STARS": [
@@ -273,7 +277,8 @@ export class SurveyMatrixComponent extends SurveyCreationDesignComponent impleme
                             ],
                             "nameCandidates": "REINSPIRE ",
                             "rationale": "Reviewing an Early Intervention for Slowing Parkinson's Disease Progression - Give Hope, Links to UCB's \"Inspired by Patients\"",
-                            "Comments1": "General Comments"
+                            "Comments1": "General Comments",
+                            "RATE": -1
                         },
                         {
                             "STARS": [
@@ -315,7 +320,8 @@ export class SurveyMatrixComponent extends SurveyCreationDesignComponent impleme
                             ],
                             "nameCandidates": "MILKY WAY  ",
                             "rationale": "MIsfolding Parkinson Study With Early Stage Patients",
-                            "Comments1": "General Comments"
+                            "Comments1": "General Comments",
+                            "RATE": -1
                         },
                         {
                             "STARS": [
@@ -357,7 +363,8 @@ export class SurveyMatrixComponent extends SurveyCreationDesignComponent impleme
                             ],
                             "nameCandidates": "Arkitect ",
                             "rationale": "\"Architect,\" Embeds Ark for Parkinson's Disease and Implies Stability or Planning Ahead",
-                            "Comments1": "General Comments"
+                            "Comments1": "General Comments",
+                            "RATE": -1
                         },
                         {
                             "STARS": [
@@ -399,7 +406,8 @@ export class SurveyMatrixComponent extends SurveyCreationDesignComponent impleme
                             ],
                             "nameCandidates": "Unfolding ",
                             "rationale": "A Slow Revealing, Suggests Slowing Disease Progression and Links to Alpha-Synuclein Misfolding",
-                            "Comments1": "General Comments"
+                            "Comments1": "General Comments",
+                            "RATE": -1
                         },
                         {
                             "STARS": [
@@ -441,7 +449,8 @@ export class SurveyMatrixComponent extends SurveyCreationDesignComponent impleme
                             ],
                             "nameCandidates": "ORCHESTRA  ",
                             "rationale": "ORal New Chemical Entity Aiming to Slow Disease Trajectory in Early Parkinson’s",
-                            "Comments1": "General Comments"
+                            "Comments1": "General Comments",
+                            "RATE": -1
                         }
                     ],
                     "componentSettings": [
@@ -472,6 +481,7 @@ export class SurveyMatrixComponent extends SurveyCreationDesignComponent impleme
                             "fontFace": "Arial",
                             "logoWidth": 100,
                             "brandInstituteURL": "./assets/img/bmx/BRANDMATRIX-DASHBOARD-LOGO.svg",
+                            "brandInstituteMobileURL": "./assets/img/bmx/bmxCube.jpg",
                             "companyLogoURL": "./assets/img/bmx/BD.png"
                         }
                     ]
@@ -994,6 +1004,7 @@ export class SurveyMatrixComponent extends SurveyCreationDesignComponent impleme
                             "fontFace": "Arial",
                             "logoWidth": 100,
                             "brandInstituteURL": "./assets/img/bmx/BRANDMATRIX-DASHBOARD-LOGO.svg",
+                            "brandInstituteMobileURL": "./assets/img/bmx/bmxCube.jpg",
                             "companyLogoURL": "./assets/img/bmx/BD.png"
                         }
                     ]
@@ -1156,6 +1167,7 @@ export class SurveyMatrixComponent extends SurveyCreationDesignComponent impleme
                             "fontFace": "Arial",
                             "logoWidth": 100,
                             "brandInstituteURL": "./assets/img/bmx/BRANDMATRIX-DASHBOARD-LOGO.svg",
+                            "brandInstituteMobileURL": "./assets/img/bmx/bmxCube.jpg",
                             "companyLogoURL": "./assets/img/bmx/BD.png"
                         }
                     ]
@@ -1352,6 +1364,7 @@ export class SurveyMatrixComponent extends SurveyCreationDesignComponent impleme
                             "fontFace": "Arial",
                             "logoWidth": 100,
                             "brandInstituteURL": "./assets/img/bmx/BRANDMATRIX-DASHBOARD-LOGO.svg",
+                            "brandInstituteMobileURL": "./assets/img/bmx/bmxCube.jpg",
                             "companyLogoURL": "./assets/img/bmx/BD.png"
                         }
                     ]
@@ -1916,6 +1929,7 @@ export class SurveyMatrixComponent extends SurveyCreationDesignComponent impleme
                             "fontFace": "Arial",
                             "logoWidth": 100,
                             "brandInstituteURL": "./assets/img/bmx/BRANDMATRIX-DASHBOARD-LOGO.svg",
+                            "brandInstituteMobileURL": "./assets/img/bmx/bmxCube.jpg",
                             "companyLogoURL": "./assets/img/bmx/BD.png"
                         }
                     ]
@@ -2206,6 +2220,7 @@ export class SurveyMatrixComponent extends SurveyCreationDesignComponent impleme
                             "fontFace": "Arial",
                             "logoWidth": 100,
                             "brandInstituteURL": "./assets/img/bmx/BRANDMATRIX-DASHBOARD-LOGO.svg",
+                            "brandInstituteMobileURL": "./assets/img/bmx/bmxCube.jpg",
                             "companyLogoURL": "./assets/img/bmx/BD.png"
                         }
                     ]
@@ -2461,6 +2476,7 @@ export class SurveyMatrixComponent extends SurveyCreationDesignComponent impleme
                             "fontFace": "Arial",
                             "logoWidth": 100,
                             "brandInstituteURL": "./assets/img/bmx/BRANDMATRIX-DASHBOARD-LOGO.svg",
+                            "brandInstituteMobileURL": "./assets/img/bmx/bmxCube.jpg",
                             "companyLogoURL": "./assets/img/bmx/BD.png"
                         }
                     ]

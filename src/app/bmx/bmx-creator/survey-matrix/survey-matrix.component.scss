@@ -29,6 +29,98 @@
             0 11px 15px -7px rgba(0, 0, 0, 0.2);
     }
 }
+.emoji-handle {
+    // position: absolute;
+    top: 5px;
+    // border: red solid 1px;
+    right: 2px;
+    color: rgb(255, 255, 255);
+    cursor: move;
+    width: 100%;
+    position: absolute;
+    // height: 38px;
+    // z-index: 999999;
+}
+//desktop
+@media (min-width: 576px) {
+    .page-design {
+        position: absolute;
+        top: 53%;
+        left: 50%;
+        transform: translate(-50%, -53%);
+        width: 90%;
+        height: 97vh;
+        overflow: visible;
+    }
+
+    .bmx-page {
+        // width: 628%;
+        height: 90.8vh;
+        width: 97vw;
+        overflow-y: scroll;
+        overflow-x: hidden;
+        @include BoxShadow(2);
+    }
+    .display{
+        display: flex;
+    }
+
+    .page-buttons {
+        display: flex;
+        flex-direction: row;
+        align-items: center;
+        justify-content: center;
+    }
+    .page-buttons-heigth-minus-50 {
+        display: flex;
+        flex-direction: row;
+        align-items: center;
+        justify-content: center;
+        position: fixed;
+        bottom: 10px;
+    }
+    
+
+}
+//mobile
+@media (max-width: 576px) {
+    .page-design {
+       
+        overflow-y: hidden;
+    }
+
+    .page-buttons {
+        display: flex;
+        flex-direction: row;
+        align-items: center;
+        justify-content: center;
+    }
+    .page-buttons-heigth-minus-50 {
+        width: 100%;
+            height: 41px;
+            display: flex;
+            flex-direction: row;
+            justify-content: space-between;
+            align-items: center;
+            position: fixed;
+            bottom: 20px;
+            background-color: rgba(255, 255, 255, 0.637);
+            z-index: 1;
+    }
+    
+
+   
+    // .page-design {
+    //     position: absolute;
+    //     top: 53%;
+    //     left: 50%;
+    //     transform: translate(-49%, -54%);
+    //     width: 99%;
+    //     height: 99vh;
+    //     overflow-y: visible;
+    //     overflow-x: hidden;
+    //     }
+}
 
 .paragraph {
     display: flex;
@@ -46,36 +138,7 @@
     // background-color: greenyellow;
 }
 
-.page-buttons {
-    display: flex;
-    flex-direction: row;
-    align-items: center;
-    justify-content: center;
-}
-.page-buttons-heigth-minus-50 {
-    display: flex;
-    flex-direction: row;
-    align-items: center;
-    justify-content: center;
-    position: fixed;
-    bottom: 10px;
-}
-.page-buttons-heigth-40 {
-    display: flex;
-    flex-direction: row;
-    align-items: center;
-    justify-content: center;
-    position: fixed;
-    bottom: 40px;
-}
 
-.bmx-page {
-    // width: 628%;
-    height: 90.8vh;
-    width: 100vw;
-    overflow-y: scroll;
-    @include BoxShadow(2);
-}
 
 .bmx-page::-webkit-scrollbar {
     display: none;
@@ -95,5 +158,3 @@
     border: solid 6px darkgray;
     @include BoxShadow(6);
 }
-
-

@@ -46,6 +46,7 @@ export class RatingScaleComponent implements OnInit {
   commentColumnCounter = 1
   rankingType = 'dropDown'
   RadioColumnList = []
+  selectedCard :any
 
 
 
@@ -63,7 +64,7 @@ export class RatingScaleComponent implements OnInit {
     let values = Object.keys(this.bmxItem.componentText[0])
 
     values.forEach(value => {
-      if (typeof value == "string" && value != "STARS" && value != "CRITERIA") {
+      if (typeof value == "string" && value != "STARS" && value != "CRITERIA" && value != "RATE") {
         this.columnsNames.push(value)
       }
     });
@@ -198,15 +199,9 @@ export class RatingScaleComponent implements OnInit {
       const rows = list.split("\n");
       this.columnsNames = [];
       this.columnsNames = rows[0].toLowerCase().split("\t");
-
       this.extraColumnCounter = 1
       this.columnsNames.forEach((column, index) => {
         if (column == 'name candidates' || column == 'test names' || column == 'names' || column == 'questions') {
-          // if (this.bmxItem.componentType = 'image-rate-scale') {
-          //   this.columnsNames[index] = 'name'
-          // } else {
-          // }
-          
           this.columnsNames[index] = 'nameCandidates'
         } else if (column == 'name rationale' || column == 'rationale' || column == 'rationales' ) {
           this.columnsNames[index] = 'rationale'
@@ -253,6 +248,7 @@ export class RatingScaleComponent implements OnInit {
     } else {
       this.bmxItem.componentText.forEach((row, index) => {
         row.STARS = this.createRatingStars(this.rankingScaleValue, this.ratingScaleIcon)
+        row.RATE= -1
         // this.leaveStar(index);
       });
     }
@@ -399,6 +395,9 @@ export class RatingScaleComponent implements OnInit {
     this.isColumnResizerOn = !this.isColumnResizerOn
   }
 
+  slert(index){
+    // this.selectedCard = index
+  }
 
   ASSIGNED_CRITERIA = []
   CRITERIA = [
