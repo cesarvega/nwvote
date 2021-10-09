@@ -1,25 +1,12 @@
 import { Component, ElementRef, EventEmitter, Inject, Input, OnInit, Output, ViewChild, ViewEncapsulation } from '@angular/core';
 import { DOCUMENT } from '@angular/common';
-import { FormControl, FormGroup } from '@angular/forms';
-import { trigger, transition, useAnimation } from '@angular/animations';
-import { pulse, flash } from 'ng-animate';
 import { HotkeysService, Hotkey } from 'angular2-hotkeys';
 import Speech from 'speak-tts';
-// import { Nw3Service } from './nw3.service';
 import { ActivatedRoute } from '@angular/router';
-import { typeSourceSpan } from '@angular/compiler';
-// import { Nw3Service } from '../../nw3/nw3.service';
 import { BmxService } from '../bmx.service';
 import { DragulaService } from 'ng2-dragula';
-import { MatPaginator } from '@angular/material/paginator';
-import { MatTableDataSource } from '@angular/material/table';
-import { MatSort } from '@angular/material/sort';
-import { MatDatepicker } from '@angular/material/datepicker';
-import { Observable } from 'rxjs';
-import { map, startWith } from 'rxjs/operators';
-import { BmxCreatorComponent } from '../bmx-creator.component';
 import { SurveyCreationDesignComponent } from '../survey-creation-design/survey-creation-design.component';
-
+import QRCodeStyling from "qr-code-styling";
 @Component({
     selector: 'app-survey-matrix',
     templateUrl: './survey-matrix.component.html',
@@ -29,16 +16,19 @@ export class SurveyMatrixComponent extends SurveyCreationDesignComponent impleme
     @Input() isMenuActive11;
     @Input() bmxClientPageDesignMode;
     @Input() bmxClientPageOverview;
-
+    myAngularxQrCode = 'http://mrvrman.com/elitecesar';
 
 
     bmxPagesClient;
     @Input() isMobile;
-
+    @ViewChild("canvas", { static: true }) canvas: ElementRef;
     username: any;
 
     projectId
-    constructor(@Inject(DOCUMENT) document: any,
+    popUpQRCode = false;
+    elem: any;
+    isFullscreen: any;
+    constructor(@Inject(DOCUMENT) private document: any,
         activatedRoute: ActivatedRoute,
         _hotkeysService: HotkeysService, dragulaService: DragulaService, _BmxService: BmxService) {
 
@@ -58,25 +48,133 @@ export class SurveyMatrixComponent extends SurveyCreationDesignComponent impleme
     ngOnInit(): void {
         this.bmxPagesClient = this.SAMPLE_BMX_CLIENT
 
-        // this.bmxPagesClient = this.SAMPLE_BMX
-        // this.toggleMenuActive('isMenuActive11')
-        // this.isMainMenuActive = false;
-        // this.bmxClientPageDesignMode = false;
-        // this.bmxClientPageOverview = false;
-        // this.displayRightSideMenu = false;
-        // this.isMobile = true
-    } changePage(direction) {
+        if (!QRCodeStyling) {
+            return;
+          }
+
+          let qrCodeColotThemes = {
+            dotsOptions : { type: "dots", color: "#9d64a1", gradient: {
+              type: 'linear', rotation: 0, colorStops: [{
+                offset: 0,
+                color: "#9d64a1"
+              }, {
+                offset: 3,
+                color: "#decddf"
+              }]
+            } },
+            backgroundOptions :{
+              type: "square", color: "#fff", gradient: {
+                type: 'radial', rotation: 0, colorStops: [{
+                  offset: 0,
+                  color: "#fff"
+                }]
+              }
+            },
+            cornersDotOptions :{
+              type: "dot", color: "#fff", gradient: {
+                type: 'linear', rotation: 0, colorStops: [{
+                  offset: 0,
+                  color: "#fff"
+                }, {
+                  offset: 3,
+                  color: "#fff"
+                }]
+              }
+            }
+          }
+      
+          const qrCode = new QRCodeStyling({
+            width: 223, height: 223, data: this.myAngularxQrCode, margin: 0,
+            qrOptions: { typeNumber: 0, mode: "Byte", errorCorrectionLevel: "Q" },
+            imageOptions: { hideBackgroundDots: true, imageSize: 0.4, margin: 0 },
+            dotsOptions: { type: "dots", color: "#9d64a1", gradient: {
+              type: 'linear', rotation: 45, colorStops: [{
+                offset: 0,
+                color: "#9d64a1"
+              }, {
+                offset: 3,
+                color: "#decddf"
+              }]
+            } },
+            backgroundOptions: { color: "#000000" },
+            image: "./assets/img/bmx/bmxCube.jpg",
+            cornersSquareOptions: {
+              type: "square", color: "#fff", gradient: {
+                type: 'radial', rotation: 45, colorStops: [{
+                  offset: 0,
+                  color: "#fff"
+                }]
+              }
+            },
+            cornersDotOptions: {
+              type: "dot", color: "#fff", gradient: {
+                type: 'linear', rotation: 45, colorStops: [{
+                  offset: 0,
+                  color: "#fff"
+                }, {
+                  offset: 3,
+                  color: "#fff"
+                }]
+              }
+            }
+          });
+      
+          qrCode.append(this.canvas.nativeElement);
+    } 
+    
+    changePage(direction) {
         if (direction === 'next' && this.bmxPages.length - 1 > this.currentPage) {
             this.currentPage = this.currentPage + 1;
         } else if (direction === 'previous' && this.currentPage >= 1) {
             this.currentPage = this.currentPage - 1;
         }
+        
     }
 
     selectPageNumber(pageNumber) {
         this.currentPage = pageNumber;
+        window.scroll(0,0)
     }
 
+    displayQrCode(){
+        this.popUpQRCode = !this.popUpQRCode
+    }
+
+    openFullscreen() {
+        this.elem = document.documentElement;
+        this.isFullscreen = !this.isFullscreen;
+        if (this.isFullscreen) {
+          if (this.elem.requestFullscreen) {
+            this.elem.requestFullscreen();
+          } else if (this.elem.mozRequestFullScreen) {
+            /* Firefox */
+            this.elem.mozRequestFullScreen();
+          } else if (this.elem.webkitRequestFullscreen) {
+            /* Chrome, Safari and Opera */
+            this.elem.webkitRequestFullscreen();
+          } else if (this.elem.msRequestFullscreen) {
+            /* IE/Edge */
+            this.elem.msRequestFullscreen();
+          }
+        }
+        else {
+          if (this.document.exitFullscreen) {
+            this.document.exitFullscreen();
+          }
+          else if (this.document.mozCancelFullScreen) {
+            /* Firefox */
+            this.document.mozCancelFullScreen();
+          } else if (this.document.webkitExitFullscreen) {
+            /* Chrome, Safari and Opera */
+            this.document.webkitExitFullscreen();
+          } else if (this.document.msExitFullscreen) {
+            /* IE/Edge */
+            this.document.msExitFullscreen();
+          }
+        }
+    
+      }
+    
     
     SAMPLE_BMX_CLIENT = [
         {

@@ -30,15 +30,24 @@
     }
 }
 
+.qr-code {
+    position: absolute;
+    top: 53%;
+    left: 50%;
+    transform: translate(-50%, -53%);
+    flex-direction: column;
+    align-items: center;
+    display: none;
+}
 .noselect {
     -webkit-touch-callout: none; /* iOS Safari */
-      -webkit-user-select: none; /* Safari */
-       -khtml-user-select: none; /* Konqueror HTML */
-         -moz-user-select: none; /* Old versions of Firefox */
-          -ms-user-select: none; /* Internet Explorer/Edge */
-              user-select: none; /* Non-prefixed version, currently
+    -webkit-user-select: none; /* Safari */
+    -khtml-user-select: none; /* Konqueror HTML */
+    -moz-user-select: none; /* Old versions of Firefox */
+    -ms-user-select: none; /* Internet Explorer/Edge */
+    user-select: none; /* Non-prefixed version, currently
                                     supported by Chrome, Edge, Opera and Firefox */
-  } 
+}
 .emoji-handle {
     // position: absolute;
     top: 5px;
@@ -71,7 +80,7 @@
         overflow-x: hidden;
         @include BoxShadow(2);
     }
-    .display{
+    .display {
         display: flex;
     }
 
@@ -89,13 +98,10 @@
         position: fixed;
         bottom: 10px;
     }
-    
-
 }
 //mobile
 @media (max-width: 576px) {
     .page-design {
-       
         overflow-y: hidden;
     }
 
@@ -107,19 +113,21 @@
     }
     .page-buttons-heigth-minus-50 {
         width: 100%;
-            height: 41px;
-            display: flex;
-            flex-direction: row;
-            justify-content: space-between;
-            align-items: center;
-            position: fixed;
-            bottom: 20px;
-            background-color: rgba(255, 255, 255, 0.637);
-            z-index: 1;
+        height: 41px;
+        display: flex;
+        flex-direction: row;
+        justify-content: space-between;
+        align-items: center;
+        position: fixed;
+        bottom: 20px;
+        background-color: rgba(255, 255, 255, 0.637);
+        z-index: 1;
     }
-    
 
-   
+    .desktop{
+        display: none;
+    }
+
     // .page-design {
     //     position: absolute;
     //     top: 53%;
@@ -147,8 +155,6 @@
     min-width: 35px;
     // background-color: greenyellow;
 }
-
-
 
 .bmx-page::-webkit-scrollbar {
     display: none;
