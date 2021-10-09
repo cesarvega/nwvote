@@ -333,13 +333,14 @@
                         </ng-template>
                     </div>
                       <!-- 🩸🩸🩸🩸🩸🩸🩸🩸🩸🩸🩸🩸🩸 RATE BUTTONS 🩸🩸🩸🩸🩸🩸🩸🩸🩸🩸🩸🩸🩸🩸🩸🩸🩸🩸🩸🩸🩸🩸🩸🩸 -->
-                      <div style="display: flex;">
-                        <button *ngIf="bmxItem.componentText[y]['RATE']>0 && y != 0 " style="background-color: #ee7f25;    
+                    <div style="display: flex;">
+                        <button (click)="bmxItem.componentText[y]['RATE'] = 0;leaveStar(y)"  *ngIf="bmxItem.componentText[y]['RATE']>0 && y != 0 "
+                            style="background-color: #ee7f25;    
                             color: white;
                             min-width: 20px;
                             line-height: 19px;
                             padding: 2px 0px;
-                            margin: -12px 9px;
+                            margin: -17px 9px;
                             position: absolute;
                             animation: rubberBand 700ms ease-in  forwards;"
                             mat-button>{{bmxItem.componentText[y]['RATE']}}</button>
@@ -347,7 +348,8 @@
 
                     <div style="display: flex;gap: 60px;flex-direction: column;">
                         <div *ngFor="let criteria of testName.CRITERIA  let x =  index">
-                            <button *ngIf="criteria.RATE>0 && y != 0 " style="background-color: #ee7f25;    
+                            <button (click)="criteria.RATE = 0;leaveCriteriaStar(y,x)"  *ngIf="criteria.RATE>0 && y != 0 " 
+                            style="background-color: #ee7f25;    
                              color: white;
                              min-width: 20px;
                              line-height: 19px;

@@ -186,6 +186,7 @@ export class SurveyCreationDesignComponent implements OnInit {
                     "rowHeight": 2,
                     "radioColumnsWidth": 75,
                     "CRITERIA": false,
+                    "categoryRulesPassed": true,
                     "categoryName": "Category Rate",
                     "categoryDescription": "This is Rate matrix",
                     "ratingScaleTitle": "RATING"
@@ -220,6 +221,7 @@ export class SurveyCreationDesignComponent implements OnInit {
                     "rowHeight": 2,
                     "radioColumnsWidth": 75,
                     "selectedRanking": 7,
+                    "categoryRulesPassed": true,
                     "categoryName": "Category Ranking",
                     "categoryDescription": "This is Ranking matrix",
                     "ratingScaleTitle": "RANK",
@@ -258,6 +260,7 @@ export class SurveyCreationDesignComponent implements OnInit {
                     "rationalewidth": 250,
                     "rowHeight": 2,
                     "CRITERIA": false,
+                    "categoryRulesPassed": true,
                     "categoryName": "Category Logo Rating",
                     "categoryDescription": "This is logo rating matrix",
                     "ratingScaleTitle": "Personal Preference"
@@ -290,6 +293,7 @@ export class SurveyCreationDesignComponent implements OnInit {
                     "columnWidth": 150,
                     "rationalewidth": 250,
                     "rowHeight": 2,
+                    "categoryRulesPassed": true,
                     "categoryName": "Category Rate",
                     "categoryDescription": "This is Rate matrix",
                     "ratingScaleTitle": "QUESTIONS"
@@ -323,6 +327,7 @@ export class SurveyCreationDesignComponent implements OnInit {
                     "columnWidth": 600,
                     "rationalewidth": 250,
                     "rowHeight": 2,
+                    "categoryRulesPassed": true,
                     "categoryName": "Category Question & Answer",
                     "categoryDescription": "Insert Comments box for answers",
                     // "ratingScaleTitle": "RATING"
@@ -342,7 +347,26 @@ export class SurveyCreationDesignComponent implements OnInit {
     }
 
     selectPageNumber(pageNumber) {
-        this.currentPage = pageNumber;
+      
+        if (this.currentPage < pageNumber) {
+            this.bmxPages[this.currentPage].page
+            .forEach(component => {
+                    if (component.componentType == 'rate-scale'||
+                        component.componentType == 'ranking-scale' ||
+                        component.componentType == 'image-rate-scale'||
+                        component.componentType == 'narrow-down'||
+                        component.componentType == 'question-answer') {
+                           
+                            component.componentSettings[0].maxRule
+                            if ( component.componentSettings[0].minRule == 0) {
+                                this.currentPage = pageNumber;
+                            }
+                    }
+               
+            });
+        } else {
+            this.currentPage = pageNumber;
+        }
     }
 
     deleteComponent(i) {
@@ -924,6 +948,7 @@ export class SurveyCreationDesignComponent implements OnInit {
                             "columnWidth": 191,
                             "rationalewidth": 804,
                             "rowHeight": 2,
+                            "categoryRulesPassed": true,
                             "categoryName": "Name Candidates",
                             "categoryDescription": "",
                             "ratingScaleTitle": "Rate from 1 to 7"
@@ -1446,6 +1471,7 @@ export class SurveyCreationDesignComponent implements OnInit {
                             "columnWidth": 275,
                             "rationalewidth": 490,
                             "rowHeight": 2,
+                            "categoryRulesPassed": true,
                             "CRITERIA": true,
                             "categoryName": "BTRX-335140 Name Candidates",
                             "categoryDescription": "category description",
@@ -2085,6 +2111,7 @@ export class SurveyCreationDesignComponent implements OnInit {
                             "columnWidth": 305,
                             "rationalewidth": 544,
                             "rowHeight": 2,
+                            "categoryRulesPassed": true,
                             "radioColumnsWidth": 75,
                             "selectedRanking": 7,
                             "categoryName": "Category Ranking",
@@ -2283,6 +2310,7 @@ export class SurveyCreationDesignComponent implements OnInit {
                             "columnWidth": 221,
                             "rationalewidth": 268,
                             "rowHeight": 2,
+                            "categoryRulesPassed": true,
                             "selectedRanking": 7,
                             "categoryName": "AZD2373 Nonproprietary Name Candidates",
                             "categoryDescription": "category description",
@@ -2851,6 +2879,7 @@ export class SurveyCreationDesignComponent implements OnInit {
                             "columnWidth": 150,
                             "rationalewidth": 250,
                             "rowHeight": 2,
+                            "categoryRulesPassed": true,
                             "radioColumnsWidth": 75,
                             "selectedRanking": 7,
                             "categoryName": "Category Ranking",
@@ -4299,6 +4328,7 @@ export class SurveyCreationDesignComponent implements OnInit {
                             "columnWidth": 221,
                             "rationalewidth": 452,
                             "rowHeight": 2,
+                            "categoryRulesPassed": true,
                             "categoryName": "Category Narrow Down",
                             "categoryDescription": "This is narrow down matrix",
                             "ratingScaleTitle": "RATING",
@@ -4557,6 +4587,7 @@ export class SurveyCreationDesignComponent implements OnInit {
                             "columnWidth": 336,
                             "rationalewidth": 375,
                             "rowHeight": 2,
+                            "categoryRulesPassed": true,
                             "categoryName": "Category Logo Rating",
                             "categoryDescription": "This is logo rating matrix",
                             "ratingScaleTitle": "RANK"
@@ -4926,6 +4957,7 @@ export class SurveyCreationDesignComponent implements OnInit {
                             "columnWidth": 600,
                             "rationalewidth": 250,
                             "rowHeight": 2,
+                            "categoryRulesPassed": true,
                             "categoryName": "Category Question & Answer",
                             "categoryDescription": "Insert Comments box for answers",
                             "CRITERIA": false

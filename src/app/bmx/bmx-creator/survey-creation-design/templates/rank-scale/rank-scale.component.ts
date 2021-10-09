@@ -2,6 +2,7 @@ import { Component, ElementRef, EventEmitter, Inject, Input, OnInit, Output, Vie
 import { CdkTextareaAutosize } from '@angular/cdk/text-field';
 import { DragulaService } from 'ng2-dragula';
 import { RatingScaleComponent } from '../rating-scale/rating-scale.component';
+import { MatSnackBar } from '@angular/material/snack-bar';
 
 @Component({
   selector: 'app-rank-scale',
@@ -23,8 +24,8 @@ export class RankScaleComponent extends RatingScaleComponent implements OnInit {
 
   allowScrolling = true
 
-  constructor(dragulaService: DragulaService) {
-   super(dragulaService)
+  constructor(dragulaService: DragulaService, _snackBar: MatSnackBar) {
+   super(dragulaService,_snackBar)
    
    }
    ngOnInit(): void {

@@ -1,18 +1,12 @@
 <div class="page-design noselect">
     <div class="desktop">
-        <button *ngIf="true" style="position: absolute;
-    bottom: 10px;color: grey;
-    z-index: 9999999999;
-    right: 33px;
-    outline: none;" (click)="displayQrCode()" mat-icon-button matTooltip="design tools" matTooltipPosition="above">
+        <button (click)="displayQrCode()" mat-icon-button matTooltip="design tools" matTooltipPosition="above"
+        *ngIf="true" style="position: absolute;bottom: 10px;color: grey;z-index: 9999999999;right: 33px;outline: none;" >
             <mat-icon class="full-icon" style="font-size: 35px;">qr_code
             </mat-icon>
         </button>
-        <button *ngIf="true" style="position: absolute;
-    bottom: 9px;color: grey;
-    z-index: 9999999999;
-    right: -3px;
-    outline: none;" (click)="openFullscreen()" mat-icon-button matTooltip="design tools" matTooltipPosition="above">
+        <button (click)="openFullscreen()" mat-icon-button matTooltip="design tools" matTooltipPosition="above" 
+        *ngIf="true" style="position: absolute;bottom: 9px;color: grey;z-index: 9999999999;right: -3px;outline: none;" >
             <mat-icon class="full-icon" style="font-size: 35px;">fullscreen
             </mat-icon>
         </button>

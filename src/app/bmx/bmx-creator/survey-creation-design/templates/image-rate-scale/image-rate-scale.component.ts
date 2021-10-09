@@ -4,6 +4,7 @@ import { DragulaService } from 'ng2-dragula';
 import { Subscription } from 'rxjs/internal/Subscription';
 import { BmxService } from '../../../bmx.service';
 import { RatingScaleComponent } from '../rating-scale/rating-scale.component';
+import { MatSnackBar } from '@angular/material/snack-bar';
 @Component({
   selector: 'app-image-rate-scale',
   templateUrl: './image-rate-scale.component.html',
@@ -42,7 +43,7 @@ export class ImageRateScaleComponent extends RatingScaleComponent implements OnI
   resourceData: any;
   logoWidth = 200
 
-  constructor(private _BmxService: BmxService,dragulaService: DragulaService) {super(dragulaService)}
+  constructor(private _BmxService: BmxService,dragulaService: DragulaService, _snackBar: MatSnackBar) {super(dragulaService,_snackBar)}
 
   ngOnInit(): void {
     let values = Object.keys(this.bmxItem.componentText[0])
