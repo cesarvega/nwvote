@@ -218,8 +218,8 @@
             {{bmxItem.componentSettings[0].categoryDescription}}</div>
 
     </div>
-    <div class="scroller-style main-container" style="margin-bottom: 45px;" dragula="DRAGGABLE_ROW" [(dragulaModel)]="bmxItem.componentText"
-        (dragulaModelChange)="checkDragEvetn($event);">
+    <div class="scroller-style main-container" style="margin-bottom: 45px;" dragula="DRAGGABLE_ROW"
+        [(dragulaModel)]="bmxItem.componentText" (dragulaModelChange)="checkDragEvetn($event);">
 
         <div *ngFor="let testName of bmxItem.componentText; let y = index">
 
@@ -301,7 +301,7 @@
                     <!-- 🟡🟡🟡🟡🟡🟡🟡🟡🟡🟡🟡🟡🟡🟡 END TABLE CELLS 🟡🟡🟡🟡🟡🟡🟡🟡🟡🟡🟡🟡🟡🟡🟡🟡 -->
                 </div>
                 <!--⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️ STARS RENDERER ⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️ -->
-                <div style="min-width: 200px;background-color:white;display: flex;align-items: center;
+                <div style="min-width: 260px;background-color:white;display: flex;align-items: center;
                 justify-content: center;border-left: rgb(231, 230, 230) 1px solid;
                 border-right: rgb(231, 230, 230) 1px solid;border-top: rgb(231, 230, 230) 1px solid;">
                     <div *ngIf="(y !== 0)">
@@ -332,6 +332,32 @@
                             </div>
                         </ng-template>
                     </div>
+                      <!-- 🩸🩸🩸🩸🩸🩸🩸🩸🩸🩸🩸🩸🩸 RATE BUTTONS 🩸🩸🩸🩸🩸🩸🩸🩸🩸🩸🩸🩸🩸🩸🩸🩸🩸🩸🩸🩸🩸🩸🩸🩸 -->
+                      <div style="display: flex;">
+                        <button *ngIf="bmxItem.componentText[y]['RATE']>0 && y != 0 " style="background-color: #ee7f25;    
+                            color: white;
+                            min-width: 20px;
+                            line-height: 19px;
+                            padding: 2px 0px;
+                            margin: -12px 9px;
+                            position: absolute;
+                            animation: rubberBand 700ms ease-in  forwards;"
+                            mat-button>{{bmxItem.componentText[y]['RATE']}}</button>
+                    </div>
+
+                    <div style="display: flex;gap: 60px;flex-direction: column;">
+                        <div *ngFor="let criteria of testName.CRITERIA  let x =  index">
+                            <button *ngIf="criteria.RATE>0 && y != 0 " style="background-color: #ee7f25;    
+                             color: white;
+                             min-width: 20px;
+                             line-height: 19px;
+                             padding: 2px 0px;
+                             margin: -3px 7px;
+                             position: absolute;
+                             animation: rubberBand 700ms ease-in  forwards;" mat-button>{{criteria.RATE}}</button>
+                        </div>
+                    </div>
+                    <!-- 🩸🩸🩸🩸🩸🩸🩸🩸🩸🩸🩸🩸🩸 END RATE BUTTONS 🩸🩸🩸🩸🩸🩸🩸🩸🩸🩸🩸🩸🩸🩸🩸🩸🩸🩸🩸🩸🩸🩸🩸🩸 -->
                     <textarea *ngIf="y == 0 && editSingleTableCells"
                         [style.font-size]="bmxItem.componentSettings[0].fontSize +'px'"
                         style="text-align: center; font-weight: bold;color: #324395;" class="row-box"
@@ -386,9 +412,7 @@
 
             <div class="test-name-table" *ngIf="(y != 0)" [style.height]="(selectedCard == y)?'':'100px'">
 
-                <button *ngIf="bmxItem.componentText[y]['RATE']>0 && y != 0 "
-                    
-                    style="background-color: #ee7f25;color: white;margin: 5px;width: 30px;
+                <button *ngIf="bmxItem.componentText[y]['RATE']>0 && y != 0 " style="background-color: #ee7f25;color: white;margin: 5px;width: 30px;
                     height: 30px;
                     line-height: 30px;right: 7px;
                     position: absolute;animation: rubberBand 700ms ease-in  forwards;"
@@ -427,7 +451,8 @@
                             [name]="'rate' + y" [checked]="testName[columnName]"
                             (change)="saveRadioColumValue(columnName, y)">
 
-                        <img (click)="(selectedCard == y)?selectedCard = '':selectedCard = y" class="row-box" style="width: 300px;" [src]="testName[columnName]"
+                        <img (click)="(selectedCard == y)?selectedCard = '':selectedCard = y" class="row-box"
+                            style="width: 300px;" [src]="testName[columnName]"
                             *ngIf="(y !== 0) && (columnName == 'name' || columnName == 'nameCandidates')">
 
                         <!-- TEXT_AREA COLUMN-->
@@ -485,7 +510,7 @@
                                     style="outline: none;margin:1px 5px;font-size: 40px;">{{star.icon}}</mat-icon>
                             </div>
                         </ng-template>
-                    </div>
+                    </div>                  
                     <textarea *ngIf="y == 0 && editSingleTableCells"
                         [style.font-size]="bmxItem.componentSettings[0].fontSize +'px'"
                         style="text-align: center; font-weight: bold;color: #324395;" class="row-box"

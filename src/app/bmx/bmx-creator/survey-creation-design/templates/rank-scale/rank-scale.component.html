@@ -200,9 +200,7 @@
             <div class="test-name-table" style="cursor: grab;">
 
                 <!--⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️ RANK RENDERER ⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️ -->
-                <div style="min-width: 200px;background-color:white;display: flex;align-items: center;
-            justify-content: center;border-left: rgb(231, 230, 230) 1px solid;
-            border-right: rgb(231, 230, 230) 1px solid;border-top: rgb(231, 230, 230) 1px solid;">
+                <div class="rank-column">
                     <div *ngIf="(y !== 0)">
                         <mat-form-field *ngIf="this.bmxItem.componentSettings[0].rankType == 'dropDown'"
                             appearance="outline" style="width: 130px;padding-top: 13px;height: 80px;">
@@ -214,12 +212,29 @@
                             </mat-select>
                         </mat-form-field>
 
-                        <button *ngIf="this.bmxItem.componentSettings[0].rankType == 'dragAndDrop'" mat-button
-                            style="background-color:#ee7f25 ;color: white;">{{y}}</button>
+                        <button *ngIf="this.bmxItem.componentSettings[0].rankType == 'dragAndDrop'" mat-button style="background-color:#ee7f25 ;color: white; 
+                            animation: rubberBand 700ms ease-in  forwards;">{{y}}</button>
 
-                        <button *ngIf="this.bmxItem.componentSettings[0].rankType == 'radio'" mat-button
-                            style="background-color:#ee7f25 ;color: white;">{{this.bmxItem.componentText[y].RATE}}</button>
+                        <button
+                            *ngIf="this.bmxItem.componentText[y].RATE && this.bmxItem.componentSettings[0].rankType == 'radio'"
+                            mat-button
+                            style="background-color:#ee7f25 ;color: white;
+                            animation: rubberBand 700ms ease-in  forwards;">{{this.bmxItem.componentText[y].RATE}}</button>
 
+                        <!-- 🩸🩸🩸🩸🩸🩸🩸🩸🩸🩸🩸🩸🩸 RATE BUTTONS 🩸🩸🩸🩸🩸🩸🩸🩸🩸🩸🩸🩸🩸🩸🩸🩸🩸🩸🩸🩸🩸🩸🩸🩸 -->
+                        <div style="display: flex;">
+                            <button *ngIf="bmxItem.componentText[y]['RATE']>0 && y != 0 && 
+                                this.bmxItem.componentSettings[0].rankType == 'dropDown'" 
+                                style="background-color: #ee7f25;    
+                                    color: white;
+                                    min-width: 20px;
+                                    line-height: 19px;
+                                    padding: 2px 0px;
+                                    margin: -45px 10px;
+                                    position: absolute;
+                                    animation: rubberBand 700ms ease-in  forwards;" mat-button>{{bmxItem.componentText[y]['RATE']}}</button>
+                        </div>
+                        <!-- 🩸🩸🩸🩸🩸🩸🩸🩸🩸🩸🩸🩸🩸 END RATE BUTTONS 🩸🩸🩸🩸🩸🩸🩸🩸🩸🩸🩸🩸🩸🩸🩸🩸🩸🩸🩸🩸🩸🩸🩸🩸 -->
                     </div>
                     <!-- COLUMN HEADER -->
                     <textarea *ngIf="y == 0 && editSingleTableCells"
@@ -316,34 +331,29 @@
 <div class="mobile">
     <div style="display: flex;flex-direction: column;text-align: center;align-items: center;">
 
-        <div  style="font-size: 25px;color: #324395;padding-bottom: 10px;">{{bmxItem.componentSettings[0].categoryName}}
+        <div style="font-size: 25px;color: #324395;padding-bottom: 10px;">{{bmxItem.componentSettings[0].categoryName}}
         </div>
         <div style="font-size: 18px;color: #ee7f25;padding-bottom: 20px;">
             {{bmxItem.componentSettings[0].categoryDescription}}</div>
-        <button  mat-raised-button  *ngIf="this.bmxItem.componentSettings[0].rankType == 'dragAndDrop'"
-          style="font-size: 18px;color: #ee7f25;width: 150;" (click)="toggleScrolling()" cdkDrag>
+        <button mat-raised-button *ngIf="this.bmxItem.componentSettings[0].rankType == 'dragAndDrop'"
+            style="font-size: 18px;color: #ee7f25;width: 150;" (click)="toggleScrolling()" cdkDrag>
             {{(allowScrolling)?'stop scrolling':'start scrolling'}} </button>
 
     </div>
-    <div class="scroller-style main-container" style="margin-bottom: 45px;" [dragula]="draggableBag" [(dragulaModel)]="bmxItem.componentText"
-    (dragulaModelChange)="checkDragEvetn($event);">
+    <div class="scroller-style main-container" style="margin-bottom: 45px;" [dragula]="draggableBag"
+        [(dragulaModel)]="bmxItem.componentText" (dragulaModelChange)="checkDragEvetn($event);">
 
         <div *ngFor="let testName of bmxItem.componentText; let y = index" style="margin-bottom: 10px;">
 
             <div class="test-name-table" *ngIf="(y != 0)" [style.height]="(selectedCard == y)?'':'45px'">
 
-                <button *ngIf="this.bmxItem.componentSettings[0].rankType == 'dragAndDrop'&& y != 0  "
-                    
-                    style="background-color: #ee7f25;color: white;margin: 5px;width: 30px;
+                <button *ngIf="this.bmxItem.componentSettings[0].rankType == 'dragAndDrop'&& y != 0  " style="background-color: #ee7f25;color: white;margin: 5px;width: 30px;
                     height: 30px;
                     line-height: 30px;right: 7px;
-                    position: absolute;animation: rubberBand 700ms ease-in  forwards;"
-                    mat-icon-button>{{y}}</button>
+                    position: absolute;animation: rubberBand 700ms ease-in  forwards;" mat-icon-button>{{y}}</button>
 
-                    
-                <button *ngIf="bmxItem.componentText[y]['RATE']>0 && y != 0 "
-                    
-                    style="background-color: #ee7f25;color: white;margin: 5px;width: 30px;
+
+                <button *ngIf="bmxItem.componentText[y]['RATE']>0 && y != 0 " style="background-color: #ee7f25;color: white;margin: 5px;width: 30px;
                     height: 30px;
                     line-height: 30px;right: 7px;
                     position: absolute;animation: rubberBand 700ms ease-in  forwards;"
@@ -372,7 +382,8 @@
                     <div>
 
                         <!-- IF ELSE TEMPLATE INPUTS  -->
-                        <span  *ngIf="y !== 0  &&  columnName.includes('RadioColumn') == true" style="padding-right: 8px;">{{e - 1}}</span>
+                        <span *ngIf="y !== 0  &&  columnName.includes('RadioColumn') == true"
+                            style="padding-right: 8px;">{{e - 1}}</span>
                         <input type="radio" *ngIf="y !== 0  &&  columnName.includes('RadioColumn') == true"
                             [name]="'rate' + y" [checked]="testName[columnName]"
                             (change)="saveRadioColumValue(columnName, y)">
@@ -388,7 +399,7 @@
                         </div>
 
                         <!-- TEST NAME CELL -->
-                        <p  (click)="(selectedCard == y)?selectedCard = '':selectedCard = y" *ngIf="y !== 0  && !editSingleTableCells && (columnName.includes('RadioColumn') != true) &&
+                        <p (click)="(selectedCard == y)?selectedCard = '':selectedCard = y" *ngIf="y !== 0  && !editSingleTableCells && (columnName.includes('RadioColumn') != true) &&
                               columnName.includes('Comments') != true &&
                               columnName.includes('kata') != true &&
                               columnName.includes('ratio') != true"
@@ -408,14 +419,14 @@
                     <!-- 🟡🟡🟡🟡🟡🟡🟡🟡🟡🟡🟡🟡🟡🟡 END TABLE CELLS 🟡🟡🟡🟡🟡🟡🟡🟡🟡🟡🟡🟡🟡🟡🟡🟡 -->
                 </div>
                 <mat-form-field *ngIf="this.bmxItem.componentSettings[0].rankType == 'dropDown' && selectedCard == y"
-                appearance="outline" style="width: 130px;padding-top: 13px;height: 80px;">
-                <mat-label>Rank 1 to {{rankingScaleValue}}</mat-label>
-                <mat-select matNativeControl [(ngModel)]="bmxItem.componentText[y].RATE"
-                    (selectionChange)="setRating(bmxItem.componentText[y].RATE,y)">
-                    <mat-option *ngFor="let star of  testName.STARS; let x =  index" [value]="star.icon">
-                        {{star.icon}}</mat-option>
-                </mat-select>
-            </mat-form-field>
+                    appearance="outline" style="width: 130px;padding-top: 13px;height: 80px;">
+                    <mat-label>Rank 1 to {{rankingScaleValue}}</mat-label>
+                    <mat-select matNativeControl [(ngModel)]="bmxItem.componentText[y].RATE"
+                        (selectionChange)="setRating(bmxItem.componentText[y].RATE,y)">
+                        <mat-option *ngFor="let star of  testName.STARS; let x =  index" [value]="star.icon">
+                            {{star.icon}}</mat-option>
+                    </mat-select>
+                </mat-form-field>
             </div>
 
         </div>
