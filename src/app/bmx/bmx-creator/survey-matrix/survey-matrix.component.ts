@@ -7,6 +7,7 @@ import { BmxService } from '../bmx.service';
 import { DragulaService } from 'ng2-dragula';
 import { SurveyCreationDesignComponent } from '../survey-creation-design/survey-creation-design.component';
 import QRCodeStyling from "qr-code-styling";
+import { MatSnackBar } from '@angular/material/snack-bar';
 @Component({
     selector: 'app-survey-matrix',
     templateUrl: './survey-matrix.component.html',
@@ -28,11 +29,14 @@ export class SurveyMatrixComponent extends SurveyCreationDesignComponent impleme
     popUpQRCode = false;
     elem: any;
     isFullscreen: any;
-    constructor(@Inject(DOCUMENT)  document: any,
+    constructor(@Inject(DOCUMENT) document: any,
         activatedRoute: ActivatedRoute,
-        _hotkeysService: HotkeysService, dragulaService: DragulaService, _BmxService: BmxService) {
+        _hotkeysService: HotkeysService, 
+        dragulaService: DragulaService,
+        public _snackBar: MatSnackBar,
+         _BmxService: BmxService) {
 
-        super(document,_BmxService)
+        super(document, _BmxService, _snackBar)
 
         activatedRoute.params.subscribe(params => {
             this.projectId = params['id'];
@@ -50,94 +54,119 @@ export class SurveyMatrixComponent extends SurveyCreationDesignComponent impleme
 
         if (!QRCodeStyling) {
             return;
-          }
+        }
 
-          let qrCodeColotThemes = {
-            dotsOptions : { type: "dots", color: "#9d64a1", gradient: {
-              type: 'linear', rotation: 0, colorStops: [{
-                offset: 0,
-                color: "#9d64a1"
-              }, {
-                offset: 3,
-                color: "#decddf"
-              }]
-            } },
-            backgroundOptions :{
-              type: "square", color: "#fff", gradient: {
-                type: 'radial', rotation: 0, colorStops: [{
-                  offset: 0,
-                  color: "#fff"
-                }]
-              }
+        let qrCodeColotThemes = {
+            dotsOptions: {
+                type: "dots", color: "#9d64a1", gradient: {
+                    type: 'linear', rotation: 0, colorStops: [{
+                        offset: 0,
+                        color: "#9d64a1"
+                    }, {
+                        offset: 3,
+                        color: "#decddf"
+                    }]
+                }
             },
-            cornersDotOptions :{
-              type: "dot", color: "#fff", gradient: {
-                type: 'linear', rotation: 0, colorStops: [{
-                  offset: 0,
-                  color: "#fff"
-                }, {
-                  offset: 3,
-                  color: "#fff"
-                }]
-              }
+            backgroundOptions: {
+                type: "square", color: "#fff", gradient: {
+                    type: 'radial', rotation: 0, colorStops: [{
+                        offset: 0,
+                        color: "#fff"
+                    }]
+                }
+            },
+            cornersDotOptions: {
+                type: "dot", color: "#fff", gradient: {
+                    type: 'linear', rotation: 0, colorStops: [{
+                        offset: 0,
+                        color: "#fff"
+                    }, {
+                        offset: 3,
+                        color: "#fff"
+                    }]
+                }
             }
-          }
-      
-          const qrCode = new QRCodeStyling({
+        }
+
+        const qrCode = new QRCodeStyling({
             width: 223, height: 223, data: this.myAngularxQrCode, margin: 0,
             qrOptions: { typeNumber: 0, mode: "Byte", errorCorrectionLevel: "Q" },
             imageOptions: { hideBackgroundDots: true, imageSize: 0.4, margin: 0 },
-            dotsOptions: { type: "dots", color: "#9d64a1", gradient: {
-              type: 'linear', rotation: 45, colorStops: [{
-                offset: 0,
-                color: "#9d64a1"
-              }, {
-                offset: 3,
-                color: "#decddf"
-              }]
-            } },
+            dotsOptions: {
+                type: "dots", color: "#9d64a1", gradient: {
+                    type: 'linear', rotation: 45, colorStops: [{
+                        offset: 0,
+                        color: "#9d64a1"
+                    }, {
+                        offset: 3,
+                        color: "#decddf"
+                    }]
+                }
+            },
             backgroundOptions: { color: "#000000" },
             image: "./assets/img/bmx/bmxCube.jpg",
             cornersSquareOptions: {
-              type: "square", color: "#fff", gradient: {
-                type: 'radial', rotation: 45, colorStops: [{
-                  offset: 0,
-                  color: "#fff"
-                }]
-              }
+                type: "square", color: "#fff", gradient: {
+                    type: 'radial', rotation: 45, colorStops: [{
+                        offset: 0,
+                        color: "#fff"
+                    }]
+                }
             },
             cornersDotOptions: {
-              type: "dot", color: "#fff", gradient: {
-                type: 'linear', rotation: 45, colorStops: [{
-                  offset: 0,
-                  color: "#fff"
-                }, {
-                  offset: 3,
-                  color: "#fff"
-                }]
-              }
+                type: "dot", color: "#fff", gradient: {
+                    type: 'linear', rotation: 45, colorStops: [{
+                        offset: 0,
+                        color: "#fff"
+                    }, {
+                        offset: 3,
+                        color: "#fff"
+                    }]
+                }
             }
-          });
-      
-          qrCode.append(this.canvas.nativeElement);
-    } 
-    
+        });
+
+        qrCode.append(this.canvas.nativeElement);
+    }
+
     changePage(direction) {
         if (direction === 'next' && this.bmxPages.length - 1 > this.currentPage) {
             this.currentPage = this.currentPage + 1;
         } else if (direction === 'previous' && this.currentPage >= 1) {
             this.currentPage = this.currentPage - 1;
         }
-        
+
     }
 
     selectPageNumber(pageNumber) {
-        this.currentPage = pageNumber;
-        window.scroll(0,0)
+        if (this.currentPage < pageNumber) {
+            this.bmxPages[this.currentPage].page
+                .forEach(component => {
+                    if (component.componentType == 'rate-scale' ||
+                        component.componentType == 'ranking-scale' ||
+                        component.componentType == 'image-rate-scale' ||
+                        component.componentType == 'narrow-down' ||
+                        component.componentType == 'question-answer') {
+                            if (component.componentSettings[0].minRule == 0 || component.componentSettings[0].categoryRulesPassed) {
+                            this.currentPage = pageNumber;
+                        } else {
+                            this._snackBar.open('You must rate at least ' + component.componentSettings[0].minRule + ' Test Names', 'OK', {
+                                duration: 5000,
+                                verticalPosition: 'top',
+                            })
+                        }
+                    }
+
+                });
+        } else {
+            this.currentPage = pageNumber;
+            window.scroll(0, 0)
+        }
     }
 
-  
-    
+
+
     SAMPLE_BMX_CLIENT = [
         {
             "pageNumber": 1,
@@ -196,16 +225,6 @@ export class SurveyMatrixComponent extends SurveyCreationDesignComponent impleme
                                     "id": 5,
                                     "icon": "grade",
                                     "styleClass": "rating-star"
-                                },
-                                {
-                                    "id": 6,
-                                    "icon": "grade",
-                                    "styleClass": "rating-star"
-                                },
-                                {
-                                    "id": 7,
-                                    "icon": "grade",
-                                    "styleClass": "rating-star"
                                 }
                             ],
                             "nameCandidates": "Name Candidates",
@@ -237,16 +256,6 @@ export class SurveyMatrixComponent extends SurveyCreationDesignComponent impleme
                                 },
                                 {
                                     "id": 5,
-                                    "icon": "grade",
-                                    "styleClass": "rating-star"
-                                },
-                                {
-                                    "id": 6,
-                                    "icon": "grade",
-                                    "styleClass": "rating-star"
-                                },
-                                {
-                                    "id": 7,
                                     "icon": "grade",
                                     "styleClass": "rating-star"
                                 }
@@ -282,16 +291,6 @@ export class SurveyMatrixComponent extends SurveyCreationDesignComponent impleme
                                     "id": 5,
                                     "icon": "grade",
                                     "styleClass": "rating-star"
-                                },
-                                {
-                                    "id": 6,
-                                    "icon": "grade",
-                                    "styleClass": "rating-star"
-                                },
-                                {
-                                    "id": 7,
-                                    "icon": "grade",
-                                    "styleClass": "rating-star"
                                 }
                             ],
                             "nameCandidates": "Moderato  ",
@@ -323,16 +322,6 @@ export class SurveyMatrixComponent extends SurveyCreationDesignComponent impleme
                                 },
                                 {
                                     "id": 5,
-                                    "icon": "grade",
-                                    "styleClass": "rating-star"
-                                },
-                                {
-                                    "id": 6,
-                                    "icon": "grade",
-                                    "styleClass": "rating-star"
-                                },
-                                {
-                                    "id": 7,
                                     "icon": "grade",
                                     "styleClass": "rating-star"
                                 }
@@ -368,16 +357,6 @@ export class SurveyMatrixComponent extends SurveyCreationDesignComponent impleme
                                     "id": 5,
                                     "icon": "grade",
                                     "styleClass": "rating-star"
-                                },
-                                {
-                                    "id": 6,
-                                    "icon": "grade",
-                                    "styleClass": "rating-star"
-                                },
-                                {
-                                    "id": 7,
-                                    "icon": "grade",
-                                    "styleClass": "rating-star"
                                 }
                             ],
                             "nameCandidates": "MILKY WAY  ",
@@ -409,16 +388,6 @@ export class SurveyMatrixComponent extends SurveyCreationDesignComponent impleme
                                 },
                                 {
                                     "id": 5,
-                                    "icon": "grade",
-                                    "styleClass": "rating-star"
-                                },
-                                {
-                                    "id": 6,
-                                    "icon": "grade",
-                                    "styleClass": "rating-star"
-                                },
-                                {
-                                    "id": 7,
                                     "icon": "grade",
                                     "styleClass": "rating-star"
                                 }
@@ -454,16 +423,6 @@ export class SurveyMatrixComponent extends SurveyCreationDesignComponent impleme
                                     "id": 5,
                                     "icon": "grade",
                                     "styleClass": "rating-star"
-                                },
-                                {
-                                    "id": 6,
-                                    "icon": "grade",
-                                    "styleClass": "rating-star"
-                                },
-                                {
-                                    "id": 7,
-                                    "icon": "grade",
-                                    "styleClass": "rating-star"
                                 }
                             ],
                             "nameCandidates": "Unfolding ",
@@ -497,16 +456,6 @@ export class SurveyMatrixComponent extends SurveyCreationDesignComponent impleme
                                     "id": 5,
                                     "icon": "grade",
                                     "styleClass": "rating-star"
-                                },
-                                {
-                                    "id": 6,
-                                    "icon": "grade",
-                                    "styleClass": "rating-star"
-                                },
-                                {
-                                    "id": 7,
-                                    "icon": "grade",
-                                    "styleClass": "rating-star"
                                 }
                             ],
                             "nameCandidates": "ORCHESTRA  ",
@@ -517,13 +466,14 @@ export class SurveyMatrixComponent extends SurveyCreationDesignComponent impleme
                     ],
                     "componentSettings": [
                         {
-                            "minRule": 0,
+                            "minRule": 3,
                             "maxRule": 4,
                             "fontSize": 16,
                             "columnWidth": 191,
                             "rationalewidth": 804,
                             "rowHeight": 2,
-                            "categoryRulesPassed": true,
+                            "categoryRulesPassed": false,
+                            "ratedCounter": 0,
                             "categoryName": "Name Candidates",
                             "categoryDescription": "With Max Rate Amount",
                             "ratingScaleTitle": "Rate from 1 to 7"
@@ -1046,7 +996,8 @@ export class SurveyMatrixComponent extends SurveyCreationDesignComponent impleme
                             "columnWidth": 275,
                             "rationalewidth": 490,
                             "rowHeight": 2,
-                            "categoryRulesPassed": true,
+                            "categoryRulesPassed": false,
+                            "ratedCounter": 0,
                             "CRITERIA": true,
                             "categoryName": "BTRX-335140 Name Candidates",
                             "categoryDescription": "category description",
@@ -1686,7 +1637,8 @@ export class SurveyMatrixComponent extends SurveyCreationDesignComponent impleme
                             "columnWidth": 305,
                             "rationalewidth": 544,
                             "rowHeight": 2,
-                            "categoryRulesPassed": true,
+                            "categoryRulesPassed": false,
+                            "ratedCounter": 0,
                             "radioColumnsWidth": 75,
                             "selectedRanking": 7,
                             "categoryName": "Category Ranking",
@@ -1885,7 +1837,8 @@ export class SurveyMatrixComponent extends SurveyCreationDesignComponent impleme
                             "columnWidth": 221,
                             "rationalewidth": 268,
                             "rowHeight": 2,
-                            "categoryRulesPassed": true,
+                            "categoryRulesPassed": false,
+                            "ratedCounter": 0,
                             "selectedRanking": 7,
                             "categoryName": "AZD2373 Nonproprietary Name Candidates",
                             "categoryDescription": "category description",
@@ -2454,7 +2407,8 @@ export class SurveyMatrixComponent extends SurveyCreationDesignComponent impleme
                             "columnWidth": 150,
                             "rationalewidth": 250,
                             "rowHeight": 2,
-                            "categoryRulesPassed": true,
+                            "categoryRulesPassed": false,
+                            "ratedCounter": 0,
                             "radioColumnsWidth": 75,
                             "selectedRanking": 7,
                             "categoryName": "Category Ranking",
@@ -3903,7 +3857,8 @@ export class SurveyMatrixComponent extends SurveyCreationDesignComponent impleme
                             "columnWidth": 221,
                             "rationalewidth": 452,
                             "rowHeight": 2,
-                            "categoryRulesPassed": true,
+                            "categoryRulesPassed": false,
+                            "ratedCounter": 0,
                             "categoryName": "Category Narrow Down",
                             "categoryDescription": "This is narrow down matrix",
                             "ratingScaleTitle": "RATING",
@@ -4162,7 +4117,8 @@ export class SurveyMatrixComponent extends SurveyCreationDesignComponent impleme
                             "columnWidth": 336,
                             "rationalewidth": 375,
                             "rowHeight": 2,
-                            "categoryRulesPassed": true,
+                            "categoryRulesPassed": false,
+                            "ratedCounter": 0,
                             "categoryName": "Category Logo Rating",
                             "categoryDescription": "This is logo rating matrix",
                             "ratingScaleTitle": "RANK"
@@ -4532,7 +4488,8 @@ export class SurveyMatrixComponent extends SurveyCreationDesignComponent impleme
                             "columnWidth": 600,
                             "rationalewidth": 250,
                             "rowHeight": 2,
-                            "categoryRulesPassed": true,
+                            "categoryRulesPassed": false,
+                            "ratedCounter": 0,
                             "categoryName": "Category Question & Answer",
                             "categoryDescription": "Insert Comments box for answers",
                             "CRITERIA": false

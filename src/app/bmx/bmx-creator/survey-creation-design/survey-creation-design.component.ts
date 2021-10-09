@@ -1,6 +1,7 @@
 import { Component, ElementRef, EventEmitter, Inject, Input, OnInit, Output, ViewChild, ViewEncapsulation } from '@angular/core';
 import { BmxService } from '../bmx.service';
 import { DOCUMENT } from '@angular/common';
+import { MatSnackBar } from '@angular/material/snack-bar';
 @Component({
     selector: 'app-survey-creation-design',
     templateUrl: './survey-creation-design.component.html',
@@ -100,7 +101,7 @@ export class SurveyCreationDesignComponent implements OnInit {
     }
     projectInfo: string;
 
-    constructor(@Inject(DOCUMENT) private document: any,private _BmxService: BmxService) { }
+    constructor(@Inject(DOCUMENT) private document: any,private _BmxService: BmxService,public _snackBar: MatSnackBar) { }
 
     ngOnInit( ): void {
 
@@ -186,7 +187,8 @@ export class SurveyCreationDesignComponent implements OnInit {
                     "rowHeight": 2,
                     "radioColumnsWidth": 75,
                     "CRITERIA": false,
-                    "categoryRulesPassed": true,
+                    "categoryRulesPassed": false,
+                    "ratedCounter": 0,
                     "categoryName": "Category Rate",
                     "categoryDescription": "This is Rate matrix",
                     "ratingScaleTitle": "RATING"
@@ -221,7 +223,8 @@ export class SurveyCreationDesignComponent implements OnInit {
                     "rowHeight": 2,
                     "radioColumnsWidth": 75,
                     "selectedRanking": 7,
-                    "categoryRulesPassed": true,
+                    "categoryRulesPassed": false,
+                    "ratedCounter": 0,
                     "categoryName": "Category Ranking",
                     "categoryDescription": "This is Ranking matrix",
                     "ratingScaleTitle": "RANK",
@@ -260,7 +263,8 @@ export class SurveyCreationDesignComponent implements OnInit {
                     "rationalewidth": 250,
                     "rowHeight": 2,
                     "CRITERIA": false,
-                    "categoryRulesPassed": true,
+                    "categoryRulesPassed": false,
+                    "ratedCounter": 0,
                     "categoryName": "Category Logo Rating",
                     "categoryDescription": "This is logo rating matrix",
                     "ratingScaleTitle": "Personal Preference"
@@ -272,7 +276,8 @@ export class SurveyCreationDesignComponent implements OnInit {
 
             this.TestNameDataModel = [];
             this.TestNameDataModel.push({
-                // name: 'NAME', rationale: 'RATIONALE',
+                name: 'NAME', 
+                rationale: 'RATIONALE',
                 // STARS: this.createRatingStars()
             })
             for (let index = 0; index < 5; index++) {
@@ -293,10 +298,11 @@ export class SurveyCreationDesignComponent implements OnInit {
                     "columnWidth": 150,
                     "rationalewidth": 250,
                     "rowHeight": 2,
-                    "categoryRulesPassed": true,
+                    "categoryRulesPassed": false,
+                    "ratedCounter": 0,
                     "categoryName": "Category Rate",
                     "categoryDescription": "This is Rate matrix",
-                    "ratingScaleTitle": "QUESTIONS"
+                    "ratingScaleTitle": "RATE"
                 }
                 ],
             })
@@ -327,7 +333,8 @@ export class SurveyCreationDesignComponent implements OnInit {
                     "columnWidth": 600,
                     "rationalewidth": 250,
                     "rowHeight": 2,
-                    "categoryRulesPassed": true,
+                    "categoryRulesPassed": false,
+                    "ratedCounter": 0,
                     "categoryName": "Category Question & Answer",
                     "categoryDescription": "Insert Comments box for answers",
                     // "ratingScaleTitle": "RATING"
@@ -350,22 +357,26 @@ export class SurveyCreationDesignComponent implements OnInit {
       
         if (this.currentPage < pageNumber) {
             this.bmxPages[this.currentPage].page
-            .forEach(component => {
-                    if (component.componentType == 'rate-scale'||
+                .forEach(component => {
+                    if (component.componentType == 'rate-scale' ||
                         component.componentType == 'ranking-scale' ||
-                        component.componentType == 'image-rate-scale'||
-                        component.componentType == 'narrow-down'||
+                        component.componentType == 'image-rate-scale' ||
+                        component.componentType == 'narrow-down' ||
                         component.componentType == 'question-answer') {
-                           
-                            component.componentSettings[0].maxRule
-                            if ( component.componentSettings[0].minRule == 0) {
-                                this.currentPage = pageNumber;
-                            }
+                        if (component.componentSettings[0].minRule == 0 || component.componentSettings[0].categoryRulesPassed) {
+                            this.currentPage = pageNumber;
+                        } else {
+                            this._snackBar.open('You must rate at least ' + component.componentSettings[0].minRule + ' Test Names', 'OK', {
+                                duration: 5000,
+                                verticalPosition: 'top',
+                            })
+                        }
                     }
-               
-            });
+
+                });
         } else {
             this.currentPage = pageNumber;
+            // window.scroll(0, 0)
         }
     }
 
@@ -629,16 +640,6 @@ export class SurveyCreationDesignComponent implements OnInit {
                                     "id": 5,
                                     "icon": "grade",
                                     "styleClass": "rating-star"
-                                },
-                                {
-                                    "id": 6,
-                                    "icon": "grade",
-                                    "styleClass": "rating-star"
-                                },
-                                {
-                                    "id": 7,
-                                    "icon": "grade",
-                                    "styleClass": "rating-star"
                                 }
                             ],
                             "nameCandidates": "Name Candidates",
@@ -670,16 +671,6 @@ export class SurveyCreationDesignComponent implements OnInit {
                                 },
                                 {
                                     "id": 5,
-                                    "icon": "grade",
-                                    "styleClass": "rating-star"
-                                },
-                                {
-                                    "id": 6,
-                                    "icon": "grade",
-                                    "styleClass": "rating-star"
-                                },
-                                {
-                                    "id": 7,
                                     "icon": "grade",
                                     "styleClass": "rating-star"
                                 }
@@ -715,16 +706,6 @@ export class SurveyCreationDesignComponent implements OnInit {
                                     "id": 5,
                                     "icon": "grade",
                                     "styleClass": "rating-star"
-                                },
-                                {
-                                    "id": 6,
-                                    "icon": "grade",
-                                    "styleClass": "rating-star"
-                                },
-                                {
-                                    "id": 7,
-                                    "icon": "grade",
-                                    "styleClass": "rating-star"
                                 }
                             ],
                             "nameCandidates": "Moderato  ",
@@ -756,16 +737,6 @@ export class SurveyCreationDesignComponent implements OnInit {
                                 },
                                 {
                                     "id": 5,
-                                    "icon": "grade",
-                                    "styleClass": "rating-star"
-                                },
-                                {
-                                    "id": 6,
-                                    "icon": "grade",
-                                    "styleClass": "rating-star"
-                                },
-                                {
-                                    "id": 7,
                                     "icon": "grade",
                                     "styleClass": "rating-star"
                                 }
@@ -801,16 +772,6 @@ export class SurveyCreationDesignComponent implements OnInit {
                                     "id": 5,
                                     "icon": "grade",
                                     "styleClass": "rating-star"
-                                },
-                                {
-                                    "id": 6,
-                                    "icon": "grade",
-                                    "styleClass": "rating-star"
-                                },
-                                {
-                                    "id": 7,
-                                    "icon": "grade",
-                                    "styleClass": "rating-star"
                                 }
                             ],
                             "nameCandidates": "MILKY WAY  ",
@@ -842,16 +803,6 @@ export class SurveyCreationDesignComponent implements OnInit {
                                 },
                                 {
                                     "id": 5,
-                                    "icon": "grade",
-                                    "styleClass": "rating-star"
-                                },
-                                {
-                                    "id": 6,
-                                    "icon": "grade",
-                                    "styleClass": "rating-star"
-                                },
-                                {
-                                    "id": 7,
                                     "icon": "grade",
                                     "styleClass": "rating-star"
                                 }
@@ -887,16 +838,6 @@ export class SurveyCreationDesignComponent implements OnInit {
                                     "id": 5,
                                     "icon": "grade",
                                     "styleClass": "rating-star"
-                                },
-                                {
-                                    "id": 6,
-                                    "icon": "grade",
-                                    "styleClass": "rating-star"
-                                },
-                                {
-                                    "id": 7,
-                                    "icon": "grade",
-                                    "styleClass": "rating-star"
                                 }
                             ],
                             "nameCandidates": "Unfolding ",
@@ -930,16 +871,6 @@ export class SurveyCreationDesignComponent implements OnInit {
                                     "id": 5,
                                     "icon": "grade",
                                     "styleClass": "rating-star"
-                                },
-                                {
-                                    "id": 6,
-                                    "icon": "grade",
-                                    "styleClass": "rating-star"
-                                },
-                                {
-                                    "id": 7,
-                                    "icon": "grade",
-                                    "styleClass": "rating-star"
                                 }
                             ],
                             "nameCandidates": "ORCHESTRA  ",
@@ -950,13 +881,14 @@ export class SurveyCreationDesignComponent implements OnInit {
                     ],
                     "componentSettings": [
                         {
-                            "minRule": 0,
+                            "minRule": 3,
                             "maxRule": 4,
                             "fontSize": 16,
                             "columnWidth": 191,
                             "rationalewidth": 804,
                             "rowHeight": 2,
-                            "categoryRulesPassed": true,
+                            "categoryRulesPassed": false,
+                            "ratedCounter": 0,
                             "categoryName": "Name Candidates",
                             "categoryDescription": "With Max Rate Amount",
                             "ratingScaleTitle": "Rate from 1 to 7"
@@ -1479,7 +1411,8 @@ export class SurveyCreationDesignComponent implements OnInit {
                             "columnWidth": 275,
                             "rationalewidth": 490,
                             "rowHeight": 2,
-                            "categoryRulesPassed": true,
+                            "categoryRulesPassed": false,
+                            "ratedCounter": 0,
                             "CRITERIA": true,
                             "categoryName": "BTRX-335140 Name Candidates",
                             "categoryDescription": "category description",
@@ -2119,7 +2052,8 @@ export class SurveyCreationDesignComponent implements OnInit {
                             "columnWidth": 305,
                             "rationalewidth": 544,
                             "rowHeight": 2,
-                            "categoryRulesPassed": true,
+                            "categoryRulesPassed": false,
+                            "ratedCounter": 0,
                             "radioColumnsWidth": 75,
                             "selectedRanking": 7,
                             "categoryName": "Category Ranking",
@@ -2318,7 +2252,8 @@ export class SurveyCreationDesignComponent implements OnInit {
                             "columnWidth": 221,
                             "rationalewidth": 268,
                             "rowHeight": 2,
-                            "categoryRulesPassed": true,
+                            "categoryRulesPassed": false,
+                            "ratedCounter": 0,
                             "selectedRanking": 7,
                             "categoryName": "AZD2373 Nonproprietary Name Candidates",
                             "categoryDescription": "category description",
@@ -2887,7 +2822,8 @@ export class SurveyCreationDesignComponent implements OnInit {
                             "columnWidth": 150,
                             "rationalewidth": 250,
                             "rowHeight": 2,
-                            "categoryRulesPassed": true,
+                            "categoryRulesPassed": false,
+                            "ratedCounter": 0,
                             "radioColumnsWidth": 75,
                             "selectedRanking": 7,
                             "categoryName": "Category Ranking",
@@ -4336,7 +4272,8 @@ export class SurveyCreationDesignComponent implements OnInit {
                             "columnWidth": 221,
                             "rationalewidth": 452,
                             "rowHeight": 2,
-                            "categoryRulesPassed": true,
+                            "categoryRulesPassed": false,
+                            "ratedCounter": 0,
                             "categoryName": "Category Narrow Down",
                             "categoryDescription": "This is narrow down matrix",
                             "ratingScaleTitle": "RATING",
@@ -4595,7 +4532,8 @@ export class SurveyCreationDesignComponent implements OnInit {
                             "columnWidth": 336,
                             "rationalewidth": 375,
                             "rowHeight": 2,
-                            "categoryRulesPassed": true,
+                            "categoryRulesPassed": false,
+                            "ratedCounter": 0,
                             "categoryName": "Category Logo Rating",
                             "categoryDescription": "This is logo rating matrix",
                             "ratingScaleTitle": "RANK"
@@ -4965,7 +4903,8 @@ export class SurveyCreationDesignComponent implements OnInit {
                             "columnWidth": 600,
                             "rationalewidth": 250,
                             "rowHeight": 2,
-                            "categoryRulesPassed": true,
+                            "categoryRulesPassed": false,
+                            "ratedCounter": 0,
                             "categoryName": "Category Question & Answer",
                             "categoryDescription": "Insert Comments box for answers",
                             "CRITERIA": false

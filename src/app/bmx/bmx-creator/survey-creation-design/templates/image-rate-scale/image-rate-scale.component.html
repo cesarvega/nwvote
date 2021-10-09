@@ -414,7 +414,7 @@
 
             <div class="test-name-table" *ngIf="(y != 0)" [style.height]="(selectedCard == y)?'':'100px'">
                 <!-- 🩸🩸🩸🩸🩸🩸🩸🩸🩸🩸🩸🩸🩸 RATE BUTTONS 🩸🩸🩸🩸🩸🩸🩸🩸🩸🩸🩸🩸🩸🩸🩸🩸🩸🩸🩸🩸🩸🩸🩸🩸 -->
-                <button (click)="bmxItem.componentText[y]['RATE'] = 0;leaveStar(y)"
+                <button (click)="maxRuleCounterMinus();bmxItem.componentText[y]['RATE'] = 0;leaveStar(y)"
                     *ngIf="bmxItem.componentText[y]['RATE']>0 && y != 0 " 
                     style="background-color: #ee7f25;color: white;margin: 5px;width: 30px;
                     height: 30px;

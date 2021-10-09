@@ -51,8 +51,6 @@ export class RatingScaleComponent implements OnInit {
   minRuleCounter = 0
   maxRuleCounter = 0
 
-
-
   constructor(dragulaService: DragulaService, private _snackBar: MatSnackBar) {
     //   dragulaService.createGroup('asasd', {
     //     moves: (el, container, handle, sibling) => {
@@ -73,21 +71,40 @@ export class RatingScaleComponent implements OnInit {
     });
   }
 
+  maxRuleCounterMinus(){
+    if (this.maxRuleCounter !=0) {
+      this.maxRuleCounter--;
+    }
+    if (this.bmxItem.componentSettings[0].ratedCounter >0) {
+      this.bmxItem.componentSettings[0].ratedCounter--;
+    }
 
+    if (this.bmxItem.componentSettings[0].ratedCounter >= this.bmxItem.componentSettings[0].minRule ) {
+      this.bmxItem.componentSettings[0].categoryRulesPassed = true
+    }else{this.bmxItem.componentSettings[0].categoryRulesPassed = false}
+  }
   // ⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️ STARS METHODS  ⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️
   setRating(rate, testNameId) {
     if (rate.target && this.bmxItem.componentType == 'narrow-down') {
       if (this.selectedRowCounter >= this.rankingScaleValue && !this.bmxItem.componentText[testNameId].SELECTED_ROW) {
+        
         for (let index = 0; index < this.bmxItem.componentText.length; index++) {
           // REMOVE FIRST CHECKED VALUE
-          if (this.bmxItem.componentText[index].SELECTED_ROW) {
+          if (this.bmxItem.componentText[index].SELECTED_ROW) {           
             this.bmxItem.componentText[index].SELECTED_ROW = false;
             break
           }
         }
-
-
+      } else {
+        if (this.bmxItem.componentText[testNameId]["CRITERIA"]) {
+          this.bmxItem.componentText[testNameId]["CRITERIA"].forEach(criteria => {
+            criteria.RATE = 0
+          });
+        }else {
+          this.bmxItem.componentText[testNameId]["RATE"] = 0
+        }
       }
+      
       this.bmxItem.componentText[testNameId].SELECTED_ROW = rate.target.checked
       this.selectedRowCounter = 0
       for (let index = 0; index < this.bmxItem.componentText.length; index++) {
@@ -107,10 +124,11 @@ export class RatingScaleComponent implements OnInit {
     } else {
       if (this.maxRuleCounter < this.bmxItem.componentSettings[0].maxRule || this.bmxItem.componentSettings[0].maxRule == 0) {
         if (this.bmxItem.componentSettings[0].maxRule > 0) { this.maxRuleCounter++ }
-
-        else {
-          this.bmxItem.componentText[testNameId].RATE = rate
-        }
+        this.bmxItem.componentText[testNameId].RATE = rate
+        this.bmxItem.componentSettings[0].ratedCounter++
+        if (this.bmxItem.componentSettings[0].ratedCounter >= this.bmxItem.componentSettings[0].minRule ) {
+          this.bmxItem.componentSettings[0].categoryRulesPassed = true
+        }else{this.bmxItem.componentSettings[0].categoryRulesPassed = false}
       } else {
         if (this.bmxItem.componentType != 'narrow-down' && this.bmxItem.componentSettings[0].maxRule > 0) {
           this._snackBar.open('you can only rate up to ' + this.bmxItem.componentSettings[0].maxRule + ' Test Names', 'OK', {

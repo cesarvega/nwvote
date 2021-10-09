@@ -192,7 +192,7 @@
                     <div *ngIf="(y !== 0)">
                       
                         <input type="checkbox" [disabled]="false" [checked]="this.bmxItem.componentText[y].SELECTED_ROW"
-                            (change)="setRating($event,y)">
+                            (change)="setRating($event,y);leaveStar(y)">
                     </div>
                     <!-- COLUMN HEADER -->
                     <textarea *ngIf="y == 0 && editSingleTableCells"
@@ -285,7 +285,8 @@
                     <div *ngIf="(y !== 0) && this.bmxItem.componentText[y].SELECTED_ROW">
                         <div *ngIf="testName.CRITERIA; else elseBlock">
                             <div *ngFor="let criteria of testName.CRITERIA  let x =  index"
-                                style="display: flex;flex-direction: column;justify-content: space-between;border-bottom: rgb(231, 230, 230) 1px solid;">
+                                style="display: flex;flex-direction: column;justify-content: space-between;
+                                border-bottom: rgb(231, 230, 230) 1px solid;">
                                 <span [style.font-size]="bmxItem.componentSettings[0].fontSize +'px'"
                                     style="padding-top:6px;max-width: 200px;">{{criteria.name}}</span>
                                 <div style="min-width: 200px;padding-bottom:6px">
@@ -391,7 +392,7 @@
             <div class="test-name-table" *ngIf="(y != 0)" [style.height]="(selectedCard == y)?'':'45px'">
 
                 <!-- 🩸🩸🩸🩸🩸🩸🩸🩸🩸🩸🩸🩸🩸 RATE BUTTONS 🩸🩸🩸🩸🩸🩸🩸🩸🩸🩸🩸🩸🩸🩸🩸🩸🩸🩸🩸🩸🩸🩸🩸🩸 -->
-                <button (click)="bmxItem.componentText[y]['RATE'] = 0;leaveStar(y)"
+                <button (click)="maxRuleCounterMinus();bmxItem.componentText[y]['RATE'] = 0;leaveStar(y)"
                     *ngIf="bmxItem.componentText[y]['RATE']>0 && y != 0 " 
                     style="background-color: #ee7f25;color: white;margin: 5px;width: 30px;
                     height: 30px;
@@ -423,7 +424,7 @@
                         <input type="checkbox" [disabled]="false" style="position: absolute;
                         left: 6px;
                         margin: -16px 8px;" [checked]="this.bmxItem.componentText[y].SELECTED_ROW"
-                            (change)="setRating($event,y)">
+                            (change)="setRating($event,y);leaveStar(y)">
                     </div>
                     <div style="display: flex;flex-direction: column;">
                         <div *ngFor="let columnName of columnsNames; let e =  index">

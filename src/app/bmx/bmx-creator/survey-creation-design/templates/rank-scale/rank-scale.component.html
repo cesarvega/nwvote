@@ -355,7 +355,7 @@
                     position: absolute;animation: rubberBand 700ms ease-in  forwards;" mat-icon-button>{{y}}</button>
 
 
-                <button (click)="bmxItem.componentText[y]['RATE'] = 0;saveRadioColumValue(columnName, y)"
+                <button (click)="bmxItem.componentText[y]['RATE'] = 0;saveRadioColumValue('', y)"
                 *ngIf="bmxItem.componentText[y]['RATE']>0 && y != 0 " 
                 style="background-color: #ee7f25;color: white;margin: 5px;width: 30px;
                     height: 30px;
