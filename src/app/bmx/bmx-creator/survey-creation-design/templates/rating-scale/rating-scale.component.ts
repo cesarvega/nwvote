@@ -97,22 +97,23 @@ export class RatingScaleComponent implements OnInit {
           this.bmxItem.componentText[index].SELECTED_ROW = false
         }
       }
+    } if (this.bmxItem.componentType == 'ranking-scale') {      
+      this.bmxItem.componentText.forEach((element, i) => {
+        if (element.RATE == rate) {
+          this.bmxItem.componentText[i].RATE = 0
+        }
+        this.bmxItem.componentText[testNameId].RATE = rate
+      });
     } else {
       if (this.maxRuleCounter < this.bmxItem.componentSettings[0].maxRule || this.bmxItem.componentSettings[0].maxRule == 0) {
         if (this.bmxItem.componentSettings[0].maxRule > 0) { this.maxRuleCounter++ }
-        if (this.bmxItem.componentType == 'ranking-scale') {
-          this.bmxItem.componentText.forEach((element, i) => {
-            if (element.RATE == rate) {
-              this.bmxItem.componentText[i].RATE = 0
-            }
-          });
-        }
+
         else {
           this.bmxItem.componentText[testNameId].RATE = rate
         }
       } else {
         if (this.bmxItem.componentType != 'narrow-down' && this.bmxItem.componentSettings[0].maxRule > 0) {
-          this._snackBar.open('you can only rate up to ' + this.bmxItem.componentSettings[0].maxRule +' Test Names','',{
+          this._snackBar.open('you can only rate up to ' + this.bmxItem.componentSettings[0].maxRule + ' Test Names', 'OK', {
             duration: 5000,
             verticalPosition: 'top',
           })

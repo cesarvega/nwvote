@@ -223,7 +223,8 @@
 
                         <!-- 🩸🩸🩸🩸🩸🩸🩸🩸🩸🩸🩸🩸🩸 RATE BUTTONS 🩸🩸🩸🩸🩸🩸🩸🩸🩸🩸🩸🩸🩸🩸🩸🩸🩸🩸🩸🩸🩸🩸🩸🩸 -->
                         <div style="display: flex;">
-                            <button *ngIf="bmxItem.componentText[y]['RATE']>0 && y != 0 && 
+                            <button (click)="bmxItem.componentText[y]['RATE'] = 0;leaveStar(y)"
+                            *ngIf="bmxItem.componentText[y]['RATE']>0 && y != 0 && 
                                 this.bmxItem.componentSettings[0].rankType == 'dropDown'" 
                                 style="background-color: #ee7f25;    
                                     color: white;
@@ -347,13 +348,16 @@
 
             <div class="test-name-table" *ngIf="(y != 0)" [style.height]="(selectedCard == y)?'':'45px'">
 
-                <button *ngIf="this.bmxItem.componentSettings[0].rankType == 'dragAndDrop'&& y != 0  " style="background-color: #ee7f25;color: white;margin: 5px;width: 30px;
+                <button *ngIf="this.bmxItem.componentSettings[0].rankType == 'dragAndDrop'&& y != 0  " 
+                style="background-color: #ee7f25;color: white;margin: 5px;width: 30px;
                     height: 30px;
                     line-height: 30px;right: 7px;
                     position: absolute;animation: rubberBand 700ms ease-in  forwards;" mat-icon-button>{{y}}</button>
 
 
-                <button *ngIf="bmxItem.componentText[y]['RATE']>0 && y != 0 " style="background-color: #ee7f25;color: white;margin: 5px;width: 30px;
+                <button (click)="bmxItem.componentText[y]['RATE'] = 0;saveRadioColumValue(columnName, y)"
+                *ngIf="bmxItem.componentText[y]['RATE']>0 && y != 0 " 
+                style="background-color: #ee7f25;color: white;margin: 5px;width: 30px;
                     height: 30px;
                     line-height: 30px;right: 7px;
                     position: absolute;animation: rubberBand 700ms ease-in  forwards;"

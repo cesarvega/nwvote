@@ -332,10 +332,10 @@
                             </div>
                         </ng-template>
                     </div>
-                      <!-- 🩸🩸🩸🩸🩸🩸🩸🩸🩸🩸🩸🩸🩸 RATE BUTTONS 🩸🩸🩸🩸🩸🩸🩸🩸🩸🩸🩸🩸🩸🩸🩸🩸🩸🩸🩸🩸🩸🩸🩸🩸 -->
+                    <!-- 🩸🩸🩸🩸🩸🩸🩸🩸🩸🩸🩸🩸🩸 RATE BUTTONS 🩸🩸🩸🩸🩸🩸🩸🩸🩸🩸🩸🩸🩸🩸🩸🩸🩸🩸🩸🩸🩸🩸🩸🩸 -->
                     <div style="display: flex;">
-                        <button (click)="bmxItem.componentText[y]['RATE'] = 0;leaveStar(y)"  *ngIf="bmxItem.componentText[y]['RATE']>0 && y != 0 "
-                            style="background-color: #ee7f25;    
+                        <button (click)="bmxItem.componentText[y]['RATE'] = 0;leaveStar(y)"
+                            *ngIf="bmxItem.componentText[y]['RATE']>0 && y != 0 " style="background-color: #ee7f25;    
                             color: white;
                             min-width: 20px;
                             line-height: 19px;
@@ -348,8 +348,8 @@
 
                     <div style="display: flex;gap: 60px;flex-direction: column;">
                         <div *ngFor="let criteria of testName.CRITERIA  let x =  index">
-                            <button (click)="criteria.RATE = 0;leaveCriteriaStar(y,x)"  *ngIf="criteria.RATE>0 && y != 0 " 
-                            style="background-color: #ee7f25;    
+                            <button (click)="criteria.RATE = 0;leaveCriteriaStar(y,x)"
+                                *ngIf="criteria.RATE>0 && y != 0 " style="background-color: #ee7f25;    
                              color: white;
                              min-width: 20px;
                              line-height: 19px;
@@ -413,8 +413,10 @@
         <div *ngFor="let testName of bmxItem.componentText; let y = index" style="margin-bottom: 10px;">
 
             <div class="test-name-table" *ngIf="(y != 0)" [style.height]="(selectedCard == y)?'':'100px'">
-
-                <button *ngIf="bmxItem.componentText[y]['RATE']>0 && y != 0 " style="background-color: #ee7f25;color: white;margin: 5px;width: 30px;
+                <!-- 🩸🩸🩸🩸🩸🩸🩸🩸🩸🩸🩸🩸🩸 RATE BUTTONS 🩸🩸🩸🩸🩸🩸🩸🩸🩸🩸🩸🩸🩸🩸🩸🩸🩸🩸🩸🩸🩸🩸🩸🩸 -->
+                <button (click)="bmxItem.componentText[y]['RATE'] = 0;leaveStar(y)"
+                    *ngIf="bmxItem.componentText[y]['RATE']>0 && y != 0 " 
+                    style="background-color: #ee7f25;color: white;margin: 5px;width: 30px;
                     height: 30px;
                     line-height: 30px;right: 7px;
                     position: absolute;animation: rubberBand 700ms ease-in  forwards;"
@@ -424,7 +426,9 @@
 
                 <div style="display: flex;gap: 23px;padding-top: 10px;position: absolute;right: 24px;">
                     <div *ngFor="let criteria of testName.CRITERIA  let x =  index">
-                        <button *ngIf="criteria.RATE>0 && y != 0 " style="background-color: #ee7f25;    
+                        <button (click)="criteria.RATE = 0;leaveCriteriaStar(y,x)"
+                         *ngIf="criteria.RATE>0 && y != 0 "
+                          style="background-color: #ee7f25;    
                              color: white;
                              min-width: 20px;
                              line-height: 19px;
@@ -433,6 +437,7 @@
                              animation: rubberBand 700ms ease-in  forwards;" mat-button>{{criteria.RATE}}</button>
                     </div>
                 </div>
+                 <!-- 🩸🩸🩸🩸🩸🩸🩸🩸🩸🩸🩸🩸🩸 END RATE BUTTONS 🩸🩸🩸🩸🩸🩸🩸🩸🩸🩸🩸🩸🩸🩸🩸🩸🩸🩸🩸🩸🩸🩸🩸🩸 -->
                 <div *ngFor="let columnName of columnsNames; let e =  index">
                     <!-- <div *ngIf="(y == 0)" class="header-title " >
                         <p style="text-align: center; font-weight: bold;color: #324395;margin: 0 0 0px;"
@@ -512,7 +517,7 @@
                                     style="outline: none;margin:1px 5px;font-size: 40px;">{{star.icon}}</mat-icon>
                             </div>
                         </ng-template>
-                    </div>                  
+                    </div>
                     <textarea *ngIf="y == 0 && editSingleTableCells"
                         [style.font-size]="bmxItem.componentSettings[0].fontSize +'px'"
                         style="text-align: center; font-weight: bold;color: #324395;" class="row-box"

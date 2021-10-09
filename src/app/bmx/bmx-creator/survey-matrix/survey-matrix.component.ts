@@ -210,7 +210,8 @@ export class SurveyMatrixComponent extends SurveyCreationDesignComponent impleme
                             ],
                             "nameCandidates": "Name Candidates",
                             "rationale": "Rationales",
-                            "Comments1": "General Comments"
+                            "Comments1": "General Comments",
+                            "RATE": -1
                         },
                         {
                             "STARS": [
@@ -252,7 +253,8 @@ export class SurveyMatrixComponent extends SurveyCreationDesignComponent impleme
                             ],
                             "nameCandidates": "TEMPORAL  ",
                             "rationale": "Treatment to Slow Parkinson’s Given Orally",
-                            "Comments1": "General Comments"
+                            "Comments1": "",
+                            "RATE": -1
                         },
                         {
                             "STARS": [
@@ -294,7 +296,8 @@ export class SurveyMatrixComponent extends SurveyCreationDesignComponent impleme
                             ],
                             "nameCandidates": "Moderato  ",
                             "rationale": "A Moderate Musical Tempo (Suggests Slowing Disease Progression)",
-                            "Comments1": "General Comments"
+                            "Comments1": "",
+                            "RATE": -1
                         },
                         {
                             "STARS": [
@@ -336,7 +339,8 @@ export class SurveyMatrixComponent extends SurveyCreationDesignComponent impleme
                             ],
                             "nameCandidates": "REINSPIRE ",
                             "rationale": "Reviewing an Early Intervention for Slowing Parkinson's Disease Progression - Give Hope, Links to UCB's \"Inspired by Patients\"",
-                            "Comments1": "General Comments"
+                            "Comments1": "",
+                            "RATE": -1
                         },
                         {
                             "STARS": [
@@ -378,7 +382,8 @@ export class SurveyMatrixComponent extends SurveyCreationDesignComponent impleme
                             ],
                             "nameCandidates": "MILKY WAY  ",
                             "rationale": "MIsfolding Parkinson Study With Early Stage Patients",
-                            "Comments1": "General Comments"
+                            "Comments1": "",
+                            "RATE": -1
                         },
                         {
                             "STARS": [
@@ -420,7 +425,8 @@ export class SurveyMatrixComponent extends SurveyCreationDesignComponent impleme
                             ],
                             "nameCandidates": "Arkitect ",
                             "rationale": "\"Architect,\" Embeds Ark for Parkinson's Disease and Implies Stability or Planning Ahead",
-                            "Comments1": "General Comments"
+                            "Comments1": "",
+                            "RATE": -1
                         },
                         {
                             "STARS": [
@@ -462,7 +468,8 @@ export class SurveyMatrixComponent extends SurveyCreationDesignComponent impleme
                             ],
                             "nameCandidates": "Unfolding ",
                             "rationale": "A Slow Revealing, Suggests Slowing Disease Progression and Links to Alpha-Synuclein Misfolding",
-                            "Comments1": "General Comments"
+                            "Comments1": "",
+                            "RATE": -1
                         },
                         {
                             "STARS": [
@@ -504,20 +511,21 @@ export class SurveyMatrixComponent extends SurveyCreationDesignComponent impleme
                             ],
                             "nameCandidates": "ORCHESTRA  ",
                             "rationale": "ORal New Chemical Entity Aiming to Slow Disease Trajectory in Early Parkinson’s",
-                            "Comments1": "General Comments"
+                            "Comments1": "",
+                            "RATE": -1
                         }
                     ],
                     "componentSettings": [
                         {
                             "minRule": 0,
-                            "maxRule": 0,
+                            "maxRule": 4,
                             "fontSize": 16,
                             "columnWidth": 191,
                             "rationalewidth": 804,
                             "rowHeight": 2,
                             "categoryRulesPassed": true,
                             "categoryName": "Name Candidates",
-                            "categoryDescription": "",
+                            "categoryDescription": "With Max Rate Amount",
                             "ratingScaleTitle": "Rate from 1 to 7"
                         }
                     ]
@@ -711,7 +719,7 @@ export class SurveyMatrixComponent extends SurveyCreationDesignComponent impleme
                                     "RATE": -1
                                 }
                             ],
-                            "Comments1": "Comments"
+                            "Comments1": ""
                         },
                         {
                             "nameCandidates": "selocaprant ",
@@ -790,7 +798,7 @@ export class SurveyMatrixComponent extends SurveyCreationDesignComponent impleme
                                     "RATE": -1
                                 }
                             ],
-                            "Comments1": "Comments"
+                            "Comments1": ""
                         },
                         {
                             "nameCandidates": "nelvecaprant ",
@@ -869,7 +877,7 @@ export class SurveyMatrixComponent extends SurveyCreationDesignComponent impleme
                                     "RATE": -1
                                 }
                             ],
-                            "Comments1": "Comments"
+                            "Comments1": ""
                         },
                         {
                             "nameCandidates": "exacaprant ",
@@ -948,7 +956,7 @@ export class SurveyMatrixComponent extends SurveyCreationDesignComponent impleme
                                     "RATE": -1
                                 }
                             ],
-                            "Comments1": "Comments"
+                            "Comments1": ""
                         },
                         {
                             "nameCandidates": "rasocaprant ",
@@ -1027,7 +1035,7 @@ export class SurveyMatrixComponent extends SurveyCreationDesignComponent impleme
                                     "RATE": -1
                                 }
                             ],
-                            "Comments1": "Comments"
+                            "Comments1": ""
                         }
                     ],
                     "componentSettings": [
@@ -4011,7 +4019,7 @@ export class SurveyMatrixComponent extends SurveyCreationDesignComponent impleme
                             "nameCandidates": "https://tools.brandinstitute.com/bmresources/103PED/logo1.JPG",
                             "rationale": "Rationale of an unthRationale of an unthdddd dddddddd dddddddd ddddddddddd ddddddd dddddddd",
                             "name": "https://tools.brandinstitute.com/bmresources/103PED/logo1.JPG",
-                            "Comments1": "General Comments"
+                            "Comments1": ""
                         },
                         {
                             "STARS": [
@@ -4044,7 +4052,7 @@ export class SurveyMatrixComponent extends SurveyCreationDesignComponent impleme
                             "nameCandidates": "https://tools.brandinstitute.com/bmresources/103PED/logo2.JPG",
                             "rationale": "Rationale of an undisclosed length",
                             "name": "https://tools.brandinstitute.com/bmresources/103PED/logo2.JPG",
-                            "Comments1": "General Comments"
+                            "Comments1": ""
                         },
                         {
                             "STARS": [
@@ -4077,7 +4085,7 @@ export class SurveyMatrixComponent extends SurveyCreationDesignComponent impleme
                             "nameCandidates": "https://tools.brandinstitute.com/bmresources/103PED/logo3.JPG",
                             "rationale": "Rationale of an undisclosed length",
                             "name": "https://tools.brandinstitute.com/bmresources/103PED/logo3.JPG",
-                            "Comments1": "General Comments"
+                            "Comments1": ""
                         },
                         {
                             "STARS": [
@@ -4110,7 +4118,7 @@ export class SurveyMatrixComponent extends SurveyCreationDesignComponent impleme
                             "nameCandidates": "https://tools.brandinstitute.com/bmresources/103PED/logo4.JPG",
                             "rationale": "Rationale of an losed length",
                             "name": "https://tools.brandinstitute.com/bmresources/103PED/logo4.JPG",
-                            "Comments1": "General Comments"
+                            "Comments1": ""
                         },
                         {
                             "STARS": [
@@ -4143,7 +4151,7 @@ export class SurveyMatrixComponent extends SurveyCreationDesignComponent impleme
                             "nameCandidates": "https://tools.brandinstitute.com/bmresources/103PED/logo5.JPG",
                             "rationale": "Rationale of an undisclosed length",
                             "name": "https://tools.brandinstitute.com/bmresources/103PED/logo5.JPG",
-                            "Comments1": "General Comments"
+                            "Comments1": ""
                         }
                     ],
                     "componentSettings": [
