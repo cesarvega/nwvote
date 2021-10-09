@@ -21,6 +21,8 @@ export class RankScaleComponent extends RatingScaleComponent implements OnInit {
   draggableBag
   isdropDown = true
 
+  allowScrolling = true
+
   constructor(dragulaService: DragulaService) {
    super(dragulaService)
    this.rankingScaleValue = 3
@@ -44,6 +46,8 @@ export class RankScaleComponent extends RatingScaleComponent implements OnInit {
       this.isdropDown = false
       this.radioColumnCounter = 1
       }
+
+     
 
     // COLUMN NAMES
     let values = Object.keys(this.bmxItem.componentText[0])
@@ -165,6 +169,19 @@ export class RankScaleComponent extends RatingScaleComponent implements OnInit {
   }
 
 
+  toggleScrolling(){
+    this.allowScrolling = !this.allowScrolling
+    if (this.allowScrolling) {
+      window.onscroll=function(){};      
+    } else {
+      var x=window.scrollX;
+      var y=window.scrollY;
+      window.onscroll=function(){window.scrollTo(x, y);};
+    }
+   
+  }
+
+ 
 
   ASSIGNED_CRITERIA = []
   CRITERIA = [

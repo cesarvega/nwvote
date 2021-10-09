@@ -314,20 +314,30 @@
 
 
 <div class="mobile">
-    <div style="display: flex;flex-direction: column;text-align: center;">
+    <div style="display: flex;flex-direction: column;text-align: center;align-items: center;">
 
-        <div style="font-size: 25px;color: #324395;padding-bottom: 10px;">{{bmxItem.componentSettings[0].categoryName}}
+        <div  style="font-size: 25px;color: #324395;padding-bottom: 10px;">{{bmxItem.componentSettings[0].categoryName}}
         </div>
         <div style="font-size: 18px;color: #ee7f25;padding-bottom: 20px;">
             {{bmxItem.componentSettings[0].categoryDescription}}</div>
+        <button  mat-raised-button  *ngIf="this.bmxItem.componentSettings[0].rankType == 'dragAndDrop'"
+          style="font-size: 18px;color: #ee7f25;width: 150;" (click)="toggleScrolling()" cdkDrag>
+            {{(allowScrolling)?'stop scrolling':'start scrolling'}} </button>
 
     </div>
-    <div class="scroller-style main-container">
+    <div class="scroller-style main-container" style="margin-bottom: 45px;" [dragula]="draggableBag" [(dragulaModel)]="bmxItem.componentText"
+    (dragulaModelChange)="checkDragEvetn($event);">
 
         <div *ngFor="let testName of bmxItem.componentText; let y = index" style="margin-bottom: 10px;">
 
             <div class="test-name-table" *ngIf="(y != 0)" [style.height]="(selectedCard == y)?'':'45px'">
 
+                <button *ngIf="this.bmxItem.componentSettings[0].rankType == 'dragAndDrop'&& y != 0  "
+                    [ngClass]="(selectedCard != y)?'noSelectedCard':'selectedCard'" style="background-color: #ee7f25;    color: white;
+                    position: absolute;animation: rubberBand 700ms ease-in  forwards;"
+                    mat-icon-button>{{y}}</button>
+
+                    
                 <button *ngIf="bmxItem.componentText[y]['RATE']>0 && y != 0 "
                     [ngClass]="(selectedCard != y)?'noSelectedCard':'selectedCard'" style="background-color: #ee7f25;    color: white;
                     position: absolute;animation: rubberBand 700ms ease-in  forwards;"
@@ -346,7 +356,8 @@
                              animation: rubberBand 700ms ease-in  forwards;" mat-button>{{criteria.RATE}}</button>
                     </div>
                 </div>
-                
+                <!-- <button *ngIf="this.bmxItem.componentSettings[0].rankType == 'dragAndDrop'" mat-button
+                style="background-color:#ee7f25 ;color: white;">{{y}}</button> -->
 
                 <div *ngFor="let columnName of columnsNames; let e =  index">
                     <!-- 🟢🟢🟢🟢🟢🟢🟢🟢🟢🟢🟢🟢🟢🟢 END HEADER TEXT AREA  🟢🟢🟢🟢🟢🟢🟢🟢🟢🟢🟢🟢🟢🟢🟢🟢 -->
@@ -370,7 +381,7 @@
                                 [(ngModel)]="testName[columnName]" placeholder="comments" rows="4" cols="50"></textarea>
                         </div>
 
-                        <p (click)="(selectedCard == y)?selectedCard = '':selectedCard = y" *ngIf="y !== 0  && !editSingleTableCells && (columnName.includes('RadioColumn') != true) &&
+                        <p  (click)="(selectedCard == y)?selectedCard = '':selectedCard = y" *ngIf="y !== 0  && !editSingleTableCells && (columnName.includes('RadioColumn') != true) &&
                               columnName.includes('Comments') != true &&
                               columnName.includes('kata') != true &&
                               columnName.includes('ratio') != true"

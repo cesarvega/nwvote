@@ -218,7 +218,7 @@
             {{bmxItem.componentSettings[0].categoryDescription}}</div>
 
     </div>
-    <div class="scroller-style main-container" dragula="DRAGGABLE_ROW" [(dragulaModel)]="bmxItem.componentText"
+    <div class="scroller-style main-container" style="margin-bottom: 45px;" dragula="DRAGGABLE_ROW" [(dragulaModel)]="bmxItem.componentText"
         (dragulaModelChange)="checkDragEvetn($event);">
 
         <div *ngFor="let testName of bmxItem.componentText; let y = index">

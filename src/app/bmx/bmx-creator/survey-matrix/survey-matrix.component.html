@@ -1,4 +1,4 @@
-<div class="page-design">
+<div class="page-design noselect" >
   
     <div class="display">
         <div style="flex-direction: column;" class="bmx-page" *ngIf="true" >
@@ -11,7 +11,7 @@
     
                 <!-- BMX HEADER 😋😋😋😋😋😋😋😋😋😋😋😋😋😋😋😋😋😋😋😋😋😋😋😋😋😋😋😋😋😋😋😋😋😋😋😋😋😋 -->
     
-                <div *ngIf="bmxItem.componentType === 'logo-header'" >
+                <div  *ngIf="bmxItem.componentType === 'logo-header'" >
                     <app-logo-header [bmxItem]="bmxItem" [i]="i" [bmxClientPageDesignMode]="bmxClientPageDesignMode"
                         [bmxClientPageOverview]="bmxClientPageOverview"></app-logo-header>
                 </div>

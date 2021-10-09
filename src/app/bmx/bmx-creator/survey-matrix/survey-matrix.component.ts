@@ -76,6 +76,8 @@ export class SurveyMatrixComponent extends SurveyCreationDesignComponent impleme
     selectPageNumber(pageNumber) {
         this.currentPage = pageNumber;
     }
+
+    
     SAMPLE_BMX_CLIENT = [
         {
             "pageNumber": 1,
