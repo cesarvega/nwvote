@@ -141,7 +141,7 @@ export class SurveyMatrixComponent extends SurveyCreationDesignComponent impleme
 
     selectPageNumber(pageNumber) {
         if (this.currentPage < pageNumber) {
-            this.bmxPages[this.currentPage].page
+            this.bmxPagesClient[this.currentPage].page
                 .forEach(component => {
                     if (component.componentType == 'rate-scale' ||
                         component.componentType == 'ranking-scale' ||
@@ -149,13 +149,13 @@ export class SurveyMatrixComponent extends SurveyCreationDesignComponent impleme
                         component.componentType == 'narrow-down' ||
                         component.componentType == 'question-answer') {
                             if (component.componentSettings[0].minRule == 0 || component.componentSettings[0].categoryRulesPassed) {
-                            this.currentPage = pageNumber;
-                        } else {
-                            this._snackBar.open('You must rate at least ' + component.componentSettings[0].minRule + ' Test Names', 'OK', {
-                                duration: 5000,
-                                verticalPosition: 'top',
-                            })
-                        }
+                                this.currentPage = pageNumber;
+                            } else {
+                                this._snackBar.open('You must rate at least ' + component.componentSettings[0].minRule + ' Test Names', 'OK', {
+                                    duration: 5000,
+                                    verticalPosition: 'top',
+                                })
+                            }
                     }
 
                 });
