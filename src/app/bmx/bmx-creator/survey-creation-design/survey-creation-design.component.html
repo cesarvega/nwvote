@@ -186,7 +186,7 @@
                 mat-icon-button color="warn" aria-label="aria">
                 <mat-icon class="full-icon">save</mat-icon>
             </button>
-            <button *ngIf="true" (click)="resetTemplate()" mat-icon-button matTooltip="reset template"
+            <button *ngIf="true" (dblclick)="resetTemplate()" mat-icon-button matTooltip="double click to reset template"
                 matTooltipPosition="right">
                 <mat-icon class="full-icon">delete_sweep
                 </mat-icon>
@@ -194,6 +194,11 @@
             <button *ngIf="true" (click)="saveData()" mat-icon-button matTooltip="upload template"
                 matTooltipPosition="right">
                 <mat-icon class="full-icon">cloud_upload
+                </mat-icon>
+            </button>
+            <button *ngIf="true" (click)="openFullscreen()" mat-icon-button matTooltip="full screen"
+                matTooltipPosition="right">
+                <mat-icon class="full-icon">fullscreen
                 </mat-icon>
             </button>
             <!-- <button *ngIf="true" (click)="bmxClientPageOverview=!bmxClientPageOverview" mat-icon-button matTooltip="reset template"

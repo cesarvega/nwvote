@@ -28,11 +28,11 @@ export class SurveyMatrixComponent extends SurveyCreationDesignComponent impleme
     popUpQRCode = false;
     elem: any;
     isFullscreen: any;
-    constructor(@Inject(DOCUMENT) private document: any,
+    constructor(@Inject(DOCUMENT)  document: any,
         activatedRoute: ActivatedRoute,
         _hotkeysService: HotkeysService, dragulaService: DragulaService, _BmxService: BmxService) {
 
-        super(_BmxService)
+        super(document,_BmxService)
 
         activatedRoute.params.subscribe(params => {
             this.projectId = params['id'];
@@ -136,45 +136,7 @@ export class SurveyMatrixComponent extends SurveyCreationDesignComponent impleme
         window.scroll(0,0)
     }
 
-    displayQrCode(){
-        this.popUpQRCode = !this.popUpQRCode
-    }
-
-    openFullscreen() {
-        this.elem = document.documentElement;
-        this.isFullscreen = !this.isFullscreen;
-        if (this.isFullscreen) {
-          if (this.elem.requestFullscreen) {
-            this.elem.requestFullscreen();
-          } else if (this.elem.mozRequestFullScreen) {
-            /* Firefox */
-            this.elem.mozRequestFullScreen();
-          } else if (this.elem.webkitRequestFullscreen) {
-            /* Chrome, Safari and Opera */
-            this.elem.webkitRequestFullscreen();
-          } else if (this.elem.msRequestFullscreen) {
-            /* IE/Edge */
-            this.elem.msRequestFullscreen();
-          }
-        }
-        else {
-          if (this.document.exitFullscreen) {
-            this.document.exitFullscreen();
-          }
-          else if (this.document.mozCancelFullScreen) {
-            /* Firefox */
-            this.document.mozCancelFullScreen();
-          } else if (this.document.webkitExitFullscreen) {
-            /* Chrome, Safari and Opera */
-            this.document.webkitExitFullscreen();
-          } else if (this.document.msExitFullscreen) {
-            /* IE/Edge */
-            this.document.msExitFullscreen();
-          }
-        }
-    
-      }
-    
+  
     
     SAMPLE_BMX_CLIENT = [
         {
@@ -1715,6 +1677,7 @@ export class SurveyMatrixComponent extends SurveyCreationDesignComponent impleme
                             "rationalewidth": 544,
                             "rowHeight": 2,
                             "radioColumnsWidth": 75,
+                            "selectedRanking": 7,
                             "categoryName": "Category Ranking",
                             "categoryDescription": "This is Ranking matrix",
                             "ratingScaleTitle": "RANK",
@@ -1911,6 +1874,7 @@ export class SurveyMatrixComponent extends SurveyCreationDesignComponent impleme
                             "columnWidth": 221,
                             "rationalewidth": 268,
                             "rowHeight": 2,
+                            "selectedRanking": 7,
                             "categoryName": "AZD2373 Nonproprietary Name Candidates",
                             "categoryDescription": "category description",
                             "ratingScaleTitle": "RANK",
@@ -2479,6 +2443,7 @@ export class SurveyMatrixComponent extends SurveyCreationDesignComponent impleme
                             "rationalewidth": 250,
                             "rowHeight": 2,
                             "radioColumnsWidth": 75,
+                            "selectedRanking": 7,
                             "categoryName": "Category Ranking",
                             "categoryDescription": "This is Ranking matrix",
                             "ratingScaleTitle": "RANK",

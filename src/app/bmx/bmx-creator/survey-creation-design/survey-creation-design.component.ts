@@ -1,6 +1,6 @@
 import { Component, ElementRef, EventEmitter, Inject, Input, OnInit, Output, ViewChild, ViewEncapsulation } from '@angular/core';
 import { BmxService } from '../bmx.service';
-
+import { DOCUMENT } from '@angular/common';
 @Component({
     selector: 'app-survey-creation-design',
     templateUrl: './survey-creation-design.component.html',
@@ -13,7 +13,11 @@ export class SurveyCreationDesignComponent implements OnInit {
     @Input() bmxClientPageOverview;
     bmxPagesClient;
     @Input() isMobile;
+    @ViewChild("canvas", { static: true }) canvas: ElementRef;
 
+    popUpQRCode = false;
+    elem: any;
+    isFullscreen: any;
     TEMPLATE_NAME = 'Standart Personal Preference'
 
     model = {
@@ -96,7 +100,7 @@ export class SurveyCreationDesignComponent implements OnInit {
     }
     projectInfo: string;
 
-    constructor(private _BmxService: BmxService) { }
+    constructor(@Inject(DOCUMENT) private document: any,private _BmxService: BmxService) { }
 
     ngOnInit( ): void {
 
@@ -215,6 +219,7 @@ export class SurveyCreationDesignComponent implements OnInit {
                     "rationalewidth": 250,
                     "rowHeight": 2,
                     "radioColumnsWidth": 75,
+                    "selectedRanking": 7,
                     "categoryName": "Category Ranking",
                     "categoryDescription": "This is Ranking matrix",
                     "ratingScaleTitle": "RANK",
@@ -501,6 +506,46 @@ export class SurveyCreationDesignComponent implements OnInit {
         // this.bmxCompleteObject['tables'].push(table)
 
     }
+
+    displayQrCode(){
+        this.popUpQRCode = !this.popUpQRCode
+    }
+
+    openFullscreen() {
+        this.elem = document.documentElement;
+        this.isFullscreen = !this.isFullscreen;
+        if (this.isFullscreen) {
+          if (this.elem.requestFullscreen) {
+            this.elem.requestFullscreen();
+          } else if (this.elem.mozRequestFullScreen) {
+            /* Firefox */
+            this.elem.mozRequestFullScreen();
+          } else if (this.elem.webkitRequestFullscreen) {
+            /* Chrome, Safari and Opera */
+            this.elem.webkitRequestFullscreen();
+          } else if (this.elem.msRequestFullscreen) {
+            /* IE/Edge */
+            this.elem.msRequestFullscreen();
+          }
+        }
+        else {
+          if (this.document.exitFullscreen) {
+            this.document.exitFullscreen();
+          }
+          else if (this.document.mozCancelFullScreen) {
+            /* Firefox */
+            this.document.mozCancelFullScreen();
+          } else if (this.document.webkitExitFullscreen) {
+            /* Chrome, Safari and Opera */
+            this.document.webkitExitFullscreen();
+          } else if (this.document.msExitFullscreen) {
+            /* IE/Edge */
+            this.document.msExitFullscreen();
+          }
+        }
+    
+      }
+    
 
     SAMPLE_BMX = [
         {
@@ -2041,6 +2086,7 @@ export class SurveyCreationDesignComponent implements OnInit {
                             "rationalewidth": 544,
                             "rowHeight": 2,
                             "radioColumnsWidth": 75,
+                            "selectedRanking": 7,
                             "categoryName": "Category Ranking",
                             "categoryDescription": "This is Ranking matrix",
                             "ratingScaleTitle": "RANK",
@@ -2237,6 +2283,7 @@ export class SurveyCreationDesignComponent implements OnInit {
                             "columnWidth": 221,
                             "rationalewidth": 268,
                             "rowHeight": 2,
+                            "selectedRanking": 7,
                             "categoryName": "AZD2373 Nonproprietary Name Candidates",
                             "categoryDescription": "category description",
                             "ratingScaleTitle": "RANK",
@@ -2805,6 +2852,7 @@ export class SurveyCreationDesignComponent implements OnInit {
                             "rationalewidth": 250,
                             "rowHeight": 2,
                             "radioColumnsWidth": 75,
+                            "selectedRanking": 7,
                             "categoryName": "Category Ranking",
                             "categoryDescription": "This is Ranking matrix",
                             "ratingScaleTitle": "RANK",

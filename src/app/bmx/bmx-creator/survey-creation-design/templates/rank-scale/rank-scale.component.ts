@@ -25,11 +25,11 @@ export class RankScaleComponent extends RatingScaleComponent implements OnInit {
 
   constructor(dragulaService: DragulaService) {
    super(dragulaService)
-   this.rankingScaleValue = 3
-   this.ratingScale = 3
+   
    }
    ngOnInit(): void {
-    
+    this.rankingScaleValue = this.bmxItem.componentSettings[0].selectedRanking
+   this.ratingScale = this.bmxItem.componentSettings[0].selectedRanking
     this.createRatingStars( this.ratingScale)
     // this.rankingTableType( this.bmxItem.componentSettings[0].rankType)
     this.rankingType = this.bmxItem.componentSettings[0].rankType
