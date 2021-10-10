@@ -352,9 +352,9 @@
         </div>
         <div style="font-size: 18px;color: #ee7f25;padding-bottom: 20px;">
             {{bmxItem.componentSettings[0].categoryDescription}}</div>
-        <button mat-raised-button *ngIf="this.bmxItem.componentSettings[0].rankType == 'dragAndDrop'"
+        <!-- <button mat-raised-button *ngIf="this.bmxItem.componentSettings[0].rankType == 'dragAndDrop'"
             style="font-size: 18px;color: #ee7f25;width: 150;" (click)="toggleScrolling()" cdkDrag>
-            {{(allowScrolling)?'DRAG':'SCROLL'}} </button>
+            {{(allowScrolling)?'DRAG':'SCROLL'}} </button> -->
 
     </div>
     <div class="scroller-style main-container" style="margin-bottom: 45px;" [dragula]="draggableBag"
@@ -363,9 +363,9 @@
         <div *ngFor="let testName of bmxItem.componentText; let y = index" style="margin-bottom: 10px;"
             [ngClass]="(y == 0)?'ROW-CERO':''">
 
-            <div class="test-name-table" *ngIf="(y != 0)"
-                        [style.height]="
-                        (selectedCard == y && this.bmxItem.componentSettings[0].rankType == 'radio')?'200px':(selectedCard == y)?'':'45px'">
+            <div class="test-name-table" *ngIf="(y != 0)" 
+                [style.touch-action]="(this.bmxItem.componentSettings[0].rankType == 'dragAndDrop')?'none':''"
+                [style.height]="(selectedCard == y && this.bmxItem.componentSettings[0].rankType == 'radio')?'200px':(selectedCard == y)?'':'45px'">
 
                 <button *ngIf="this.bmxItem.componentSettings[0].rankType == 'dragAndDrop'&& y != 0  " style="background-color: #ee7f25;color: white;margin: 5px;width: 30px;
                     height: 30px;
