@@ -204,7 +204,7 @@
                     <div *ngIf="(y !== 0)">
                       
                         <input type="checkbox" [disabled]="false" [checked]="this.bmxItem.componentText[y].SELECTED_ROW"
-                            (change)="setRating($event,y);leaveStar(y)" (click)="criteriaClick.click()">
+                            (change)="setRating($event,y);leaveStar(y);">
                     </div>
                     <!-- COLUMN HEADER -->
                     <textarea *ngIf="y == 0 && editSingleTableCells"
@@ -323,7 +323,8 @@
                     </div>
                        <!-- 🩸🩸🩸🩸🩸🩸🩸🩸🩸🩸🩸🩸🩸 RATE BUTTONS 🩸🩸🩸🩸🩸🩸🩸🩸🩸🩸🩸🩸🩸🩸🩸🩸🩸🩸🩸🩸🩸🩸🩸🩸 -->
                     <div style="display: flex;">
-                        <button (click)="bmxItem.componentText[y]['RATE'] = 0;leaveStar(y)"  *ngIf="bmxItem.componentText[y]['RATE']>0 && y != 0 "
+                        <button (click)="bmxItem.componentText[y]['RATE'] = 0;leaveStar(y)" 
+                         *ngIf="bmxItem.componentText[y]['RATE']>0 && y != 0 "
                             style="background-color: #ee7f25;    
                             color: white;
                             min-width: 20px;
@@ -337,7 +338,8 @@
 
                     <div style="display: flex;gap: 60px;flex-direction: column;">
                         <div *ngFor="let criteria of testName.CRITERIA  let x =  index">
-                            <button (click)="criteria.RATE = 0;leaveCriteriaStar(y,x)" #criteriaClick  *ngIf="criteria.RATE>0 && y != 0 " 
+                            <button (click)="criteria.RATE = 0;leaveCriteriaStar(y,x)"   
+                            *ngIf="criteria.RATE>0 && y != 0 " 
                             style="background-color: #ee7f25;    
                              color: white;
                              min-width: 20px;

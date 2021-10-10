@@ -165,15 +165,22 @@ export class RatingScaleComponent implements OnInit {
   }
 
   leaveStar(testNameId): void {
-    this.selectedRating = this.bmxItem.componentText[testNameId].RATE
-    this.bmxItem.componentText[testNameId].STARS.filter((star) => {
-      if (star.id <= this.selectedRating && this.selectedRating !== "") {
-        star.styleClass = (this.ratingScaleIcon === 'grade') ? 'active-rating-star' : 'active-rating-bar';
-      } else {
-        star.styleClass = 'rating-star';
-      }
-      return star;
-    });
+    if (this.bmxItem.componentText[testNameId].CRITERIA) {
+      this.bmxItem.componentText[testNameId].CRITERIA.forEach((criteria, index) => {
+        this.leaveCriteriaStar(testNameId, index)
+      });
+    }else{
+      this.selectedRating = this.bmxItem.componentText[testNameId].RATE
+      this.bmxItem.componentText[testNameId].STARS.filter((star) => {
+        if (star.id <= this.selectedRating && this.selectedRating !== "") {
+          star.styleClass = (this.ratingScaleIcon === 'grade') ? 'active-rating-star' : 'active-rating-bar';
+        } else {
+          star.styleClass = 'rating-star';
+        }
+        return star;
+      });
+    }
+  
   }
 
   // CRITERIA STARS
@@ -198,6 +205,7 @@ export class RatingScaleComponent implements OnInit {
   }
 
   leaveCriteriaStar(testNameId, criteriaId): void {
+
     this.selectedRating = this.bmxItem.componentText[testNameId].CRITERIA[criteriaId].RATE
     this.bmxItem.componentText[testNameId].CRITERIA[criteriaId].STARS.filter((star) => {
       if (star.id <= this.selectedRating && this.selectedRating !== "") {
