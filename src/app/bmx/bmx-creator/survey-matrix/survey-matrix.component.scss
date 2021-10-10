@@ -1,0 +1,171 @@
+@mixin BoxShadow($dp) {
+    @if $dp==0 {
+        box-shadow: none;
+    } @else if $dp==1 {
+        box-shadow: 0 1px 1px 0 rgba(0, 0, 0, 0.14), 0 2px 1px -1px rgba(0, 0, 0, 0.12), 0 1px 3px 0 rgba(0, 0, 0, 0.2);
+    } @else if $dp==2 {
+        box-shadow: 0 2px 2px 0 rgba(0, 0, 0, 0.14), 0 3px 1px -2px rgba(0, 0, 0, 0.12), 0 1px 5px 0 rgba(0, 0, 0, 0.2);
+    } @else if $dp==3 {
+        box-shadow: 0 3px 4px 0 rgba(0, 0, 0, 0.14), 0 3px 3px -2px rgba(0, 0, 0, 0.12), 0 1px 8px 0 rgba(0, 0, 0, 0.2);
+    } @else if $dp==4 {
+        box-shadow: 0 4px 5px 0 rgba(0, 0, 0, 0.14), 0 1px 10px 0 rgba(0, 0, 0, 0.12), 0 2px 4px -1px rgba(0, 0, 0, 0.2);
+    } @else if $dp==6 {
+        box-shadow: 0 6px 10px 0 rgba(0, 0, 0, 0.14), 0 1px 18px 0 rgba(0, 0, 0, 0.12),
+            0 3px 5px -1px rgba(0, 0, 0, 0.2);
+    } @else if $dp==8 {
+        box-shadow: 0 8px 10px 1px rgba(0, 0, 0, 0.14), 0 3px 14px 2px rgba(0, 0, 0, 0.12),
+            0 5px 5px -3px rgba(0, 0, 0, 0.2);
+    } @else if $dp==9 {
+        box-shadow: 0 9px 12px 1px rgba(0, 0, 0, 0.14), 0 3px 16px 2px rgba(0, 0, 0, 0.12),
+            0 5px 6px -3px rgba(0, 0, 0, 0.2);
+    } @else if $dp==12 {
+        box-shadow: 0 12px 17px 2px rgba(0, 0, 0, 0.14), 0 5px 22px 4px rgba(0, 0, 0, 0.12),
+            0 7px 8px -4px rgba(0, 0, 0, 0.2);
+    } @else if $dp==16 {
+        box-shadow: 0 16px 24px 2px rgba(0, 0, 0, 0.14), 0 6px 30px 5px rgba(0, 0, 0, 0.12),
+            0 8px 10px -5px rgba(0, 0, 0, 0.2);
+    } @else if $dp==24 {
+        box-shadow: 0 24px 38px 3px rgba(0, 0, 0, 0.14), 0 9px 46px 8px rgba(0, 0, 0, 0.12),
+            0 11px 15px -7px rgba(0, 0, 0, 0.2);
+    }
+}
+
+.qr-code {
+    position: absolute;
+    top: 53%;
+    left: 50%;
+    transform: translate(-50%, -53%);
+    flex-direction: column;
+    align-items: center;
+    display: none;
+}
+.noselect {
+    -webkit-touch-callout: none; /* iOS Safari */
+    -webkit-user-select: none; /* Safari */
+    -khtml-user-select: none; /* Konqueror HTML */
+    -moz-user-select: none; /* Old versions of Firefox */
+    -ms-user-select: none; /* Internet Explorer/Edge */
+    user-select: none; /* Non-prefixed version, currently
+                                    supported by Chrome, Edge, Opera and Firefox */
+}
+.emoji-handle {
+    // position: absolute;
+    top: 5px;
+    // border: red solid 1px;
+    right: 2px;
+    color: rgb(255, 255, 255);
+    cursor: move;
+    width: 100%;
+    position: absolute;
+    // height: 38px;
+    // z-index: 999999;
+}
+//desktop
+@media (min-width: 576px) {
+    .page-design {
+        position: absolute;
+        top: 53%;
+        left: 50%;
+        transform: translate(-50%, -53%);
+        width: 90%;
+        height: 97vh;
+        overflow: visible;
+    }
+
+    .bmx-page {
+        // width: 628%;
+        height: 90.8vh;
+        width: 97vw;
+        overflow-y: scroll;
+        overflow-x: hidden;
+        @include BoxShadow(2);
+    }
+    .display {
+        display: flex;
+    }
+
+    .page-buttons {
+        display: flex;
+        flex-direction: row;
+        align-items: center;
+        justify-content: center;
+    }
+    .page-buttons-heigth-minus-50 {
+        display: flex;
+        flex-direction: row;
+        align-items: center;
+        justify-content: center;
+        position: fixed;
+        bottom: 10px;
+    }
+}
+//mobile
+@media (max-width: 576px) {
+    .page-design {
+        overflow-y: hidden;
+    }
+
+    .page-buttons {
+        display: flex;
+        flex-direction: row;
+        align-items: center;
+        justify-content: center;
+    }
+    .page-buttons-heigth-minus-50 {
+        width: 100%;
+        height: 41px;
+        display: flex;
+        flex-direction: row;
+        justify-content: space-between;
+        align-items: center;
+        position: fixed;
+        bottom: 20px;
+        background-color: rgba(255, 255, 255, 0.637);
+        z-index: 1;
+    }
+
+    .desktop{
+        display: none;
+    }
+}
+
+.paragraph {
+    display: flex;
+    flex-direction: column;
+    position: relative;
+}
+
+.pageNumberActive {
+    min-width: 40px;
+    color: white;
+    background-color: #ee7f24;
+}
+.pageNumber {
+    min-width: 35px;
+    // background-color: greenyellow;
+}
+
+.bmx-page::-webkit-scrollbar {
+    display: none;
+}
+
+.save-template-box {
+    width: 370px;
+    height: 370px;
+    margin: 0;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    -ms-transform: translate(-50%, -53%);
+    transform: translate(-50%, -53%);
+    border-radius: 3px;
+    background-color: white;
+    border: solid 6px darkgray;
+    @include BoxShadow(6);
+}
+
+::ng-deep snack-bar-container {
+    color: white !important;
+    background: #324395 !important;
+  }
+  

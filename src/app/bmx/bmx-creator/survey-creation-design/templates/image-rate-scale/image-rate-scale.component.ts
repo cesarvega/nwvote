@@ -4,6 +4,7 @@ import { DragulaService } from 'ng2-dragula';
 import { Subscription } from 'rxjs/internal/Subscription';
 import { BmxService } from '../../../bmx.service';
 import { RatingScaleComponent } from '../rating-scale/rating-scale.component';
+import { MatSnackBar } from '@angular/material/snack-bar';
 @Component({
   selector: 'app-image-rate-scale',
   templateUrl: './image-rate-scale.component.html',
@@ -11,14 +12,21 @@ import { RatingScaleComponent } from '../rating-scale/rating-scale.component';
 })
 export class ImageRateScaleComponent extends RatingScaleComponent implements OnInit {
 
- 
+//  INTRUCTIONS : Load the excel firs and the the images
   @Input() bmxItem;
   @Input() i;
   @Input() bmxClientPageDesignMode;
   @Input() bmxClientPageOverview;
   @ViewChild('autosize') autosize: CdkTextareaAutosize;
 
-  IMAGES_UPLOADED = []
+  imageurls =[];
+
+
+
+  IMAGES_UPLOADED = [
+    
+  ];
+
   AUTOSIZE_OPTIONS = [
     { name: 'Client Logo', rationale: 'Sist, Assist, Syst' },
     { name: 'Test Logo', rationale: 'Hance, En-' },
@@ -33,9 +41,9 @@ export class ImageRateScaleComponent extends RatingScaleComponent implements OnI
   uploadProgress: number;
   uploadSub: Subscription;
   resourceData: any;
-  
+  logoWidth = 200
 
-  constructor(private _BmxService: BmxService) {super()}
+  constructor(private _BmxService: BmxService,dragulaService: DragulaService, _snackBar: MatSnackBar) {super(dragulaService,_snackBar)}
 
   ngOnInit(): void {
     let values = Object.keys(this.bmxItem.componentText[0])
@@ -49,18 +57,21 @@ export class ImageRateScaleComponent extends RatingScaleComponent implements OnI
 
   onFileSelected(event) {
     if (event.target.files && event.target.files[0]) {
-      var filesAmount = event.target.files.length;
+      let filesAmount = event.target.files.length;
       for (let i = 0; i < filesAmount; i++) {
-        var reader = new FileReader();
-        reader.onload = (event: any) => {
-          this.IMAGES_UPLOADED.push({ name: event.target.files[i].name, rationale: 'Sist, Assist, Syst', url: event.target.result });
+        let reader = new FileReader();
+        let FileName = event.target.files[i].name
+        let FileType =  event.target.files[i].type
+        reader.onload = (event: any) => {          
           this.resourceData = {
             "ProjectName": localStorage.getItem('projectName'),
-            "FileName": event.target.files[i].name,
+            "FileName": FileName.split(' ').join(''),
             "ItemType" : 'logo-rate',
-            "FileType" : event.target.files[i].type,
-            "FileContent" : event.target.result.split(event.target.result.split(",")[0] + ',').pop()
+            "FileType" : FileType,
+            "FileContent" : event.target.result
+            // "FileContent" : event.target.result.split(event.target.result.split(",")[0] + ',').pop()
           }
+          this.IMAGES_UPLOADED.push(this.resourceData);
         }
         reader.readAsDataURL(event.target.files[i]);
       }
@@ -73,9 +84,24 @@ export class ImageRateScaleComponent extends RatingScaleComponent implements OnI
   }
 
   uploadAllImages(){
-    this._BmxService.saveFileResources(JSON.stringify(this.resourceData)).subscribe(result => {
-      var so = result;
+    this.IMAGES_UPLOADED.forEach((imageObject , index) => {
+      imageObject['FileContent'] = imageObject['FileContent'].split(imageObject['FileContent'].split(",")[0] + ',').pop()
+      this._BmxService.saveFileResources(JSON.stringify(imageObject)).subscribe((result:any) => {
+        this.IMAGES_UPLOADED.shift()
+        // imageObject['FileContent'] = JSON.parse(result.d).FileUrl
+        this.bmxItem.componentText[index + 1].nameCandidates = JSON.parse(result.d).FileUrl
+        this.bmxItem.componentText[index + 1].name = JSON.parse(result.d).FileUrl
+      });
     });
+
+    setTimeout(() => {
+      this.selectedIndex = ''
+    }, 1000);
+   
+  }
+
+  deleteImage(index){
+    this.IMAGES_UPLOADED.splice(index, 1)
   }
 
   reset() {

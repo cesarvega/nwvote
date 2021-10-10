@@ -2,6 +2,7 @@ import { Component, ElementRef, EventEmitter, Inject, Input, OnInit, Output, Vie
 import { CdkTextareaAutosize } from '@angular/cdk/text-field';
 import { DragulaService } from 'ng2-dragula';
 import { RatingScaleComponent } from '../rating-scale/rating-scale.component';
+import { MatSnackBar } from '@angular/material/snack-bar';
 
 @Component({
   selector: 'app-rank-scale',
@@ -21,13 +22,15 @@ export class RankScaleComponent extends RatingScaleComponent implements OnInit {
   draggableBag
   isdropDown = true
 
-  constructor() {
-   super()
-   this.rankingScaleValue = 3
-   this.ratingScale = 3
+  allowScrolling = true
+
+  constructor(dragulaService: DragulaService, _snackBar: MatSnackBar) {
+   super(dragulaService,_snackBar)
+   
    }
    ngOnInit(): void {
-    
+    this.rankingScaleValue = this.bmxItem.componentSettings[0].selectedRanking
+   this.ratingScale = this.bmxItem.componentSettings[0].selectedRanking
     this.createRatingStars( this.ratingScale)
     // this.rankingTableType( this.bmxItem.componentSettings[0].rankType)
     this.rankingType = this.bmxItem.componentSettings[0].rankType
@@ -44,6 +47,8 @@ export class RankScaleComponent extends RatingScaleComponent implements OnInit {
       this.isdropDown = false
       this.radioColumnCounter = 1
       }
+
+     
 
     // COLUMN NAMES
     let values = Object.keys(this.bmxItem.componentText[0])
@@ -78,7 +83,7 @@ export class RankScaleComponent extends RatingScaleComponent implements OnInit {
 
       this.extraColumnCounter = 1
       this.columnsNames.forEach((column, index) => {
-        if (column == 'name candidates' || column == 'test names' || column == 'names') {
+        if (column == 'name candidates' || column == 'test names' || column == 'names' || column == 'name') {
           this.columnsNames[index] = 'nameCandidates'
           } else if (column == 'name rationale' || column == 'rationale' || column == 'rationales')  {
             this.columnsNames[index] = 'rationale'
@@ -127,7 +132,6 @@ export class RankScaleComponent extends RatingScaleComponent implements OnInit {
     } else {
       this.bmxItem.componentText.forEach((row, index) => {
         row.STARS = this.createRatingStars(this.rankingScaleValue, this.ratingScaleIcon)
-        // this.leaveStar(index);
       });
     }
   }
@@ -166,6 +170,19 @@ export class RankScaleComponent extends RatingScaleComponent implements OnInit {
   }
 
 
+  toggleScrolling(){
+    this.allowScrolling = !this.allowScrolling
+    if (this.allowScrolling) {
+      window.onscroll=function(){};      
+    } else {
+      var x=window.scrollX;
+      var y=window.scrollY;
+      window.onscroll=function(){window.scrollTo(x, y);};
+    }
+   
+  }
+
+ 
 
   ASSIGNED_CRITERIA = []
   CRITERIA = [

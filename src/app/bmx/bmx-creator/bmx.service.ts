@@ -9,12 +9,15 @@ export class BmxService {
   webBaseUrl = 'https://tools.brandinstitute.com//wsBrandMatrix/wsBrandMatrix.asmx';
   GetProjectList = '/GetProjectList';
   GetGeneralLists = '/GetGeneralLists';
+  brandMatrixSave = '/BrandMatrixSave';
   GetParticipantList = '/BrandMatrixGetParticipantList'
   GetProjectInfo = '/BrandMatrixGetDirectorList';
   SaveProjectInfor = '/BrandMatrixUpdDirectorList'
   BrandMatrixResourceUpload = '/BrandMatrixResourceUpload'
-  constructor(private http: HttpClient) {}
-   
+  searchGraveAccentRegExp = new RegExp("`", 'g');
+  searchApostropheRegExp = new RegExp("'", 'g');
+  constructor(private http: HttpClient) { }
+
   getGeneralLists() {
     return this.http.post(this.webBaseUrl + this.GetGeneralLists, { token: '646EBF52-1846-47C2-9F62-DC50AE5BF692', payload: '' });
     // return this.http.get(this.webBaseUrl + 'api/NW_GetProjectIdWithProjectName?projectName=' + projectName, httpOptions);
@@ -33,7 +36,6 @@ export class BmxService {
 
   }
 
-  
 
   // PROJECT INFORMATON
   getProjectInfo(projectName: any) {
@@ -41,21 +43,43 @@ export class BmxService {
     // return this.http.get(this.webBaseUrl + 'api/NW_GetProjectIdWithProjectName?projectName=' + projectName, httpOptions);
   }
 
-  saveFileResources(resourceData: any)
-  {
-    return this.http.post(this.webBaseUrl + this.BrandMatrixResourceUpload, { token: '646EBF52-1846-47C2-9F62-DC50AE5BF692', payload:  resourceData });
+  saveFileResources(resourceData: any) {
+    return this.http.post(this.webBaseUrl + this.BrandMatrixResourceUpload, { token: '646EBF52-1846-47C2-9F62-DC50AE5BF692', payload: resourceData });
   }
 
 
-  saveOrUpdateProjectInfo(project, data) {​ }​
 
-  // save template string
-  saveOrUpdateTemplate(project, template) {​ }​
 
-// Default templates to design the project from
-  getTemplates(project) {​ }​
+  saveOrUpdateBMXInfo(project, data) { }
 
-// Current Template being used for this project
-  getProjectTemplate(project) {​ }​
+  getBMXPorjectInfo(project, data) { }
+
+  // save template string
+
+  saveOrUpdateTemplate(bmxCompleteObject) {
+    const payloadString = JSON.stringify({
+      "ProjectName": "TEST",
+      "BrandMatrix": JSON.stringify(bmxCompleteObject).replace(this.searchApostropheRegExp, '`')
+    })
+    return this.http.post(this.webBaseUrl + this.brandMatrixSave, {
+      token: '646EBF52-1846-47C2-9F62-DC50AE5BF692', payload: payloadString
+    })
+  }
+
+  saveOrUpdateAnswers(bmxCompleteObject) {
+    const payloadString = JSON.stringify({
+      "ProjectName": "TEST",
+      "UserName": "cesar",
+      "BrandMatrix": JSON.stringify(bmxCompleteObject).replace(this.searchApostropheRegExp, '`')
+    })
+    return this.http.post(this.webBaseUrl + this.brandMatrixSave, {
+      token: '646EBF52-1846-47C2-9F62-DC50AE5BF692', payload: payloadString
+    })
+  }
+
+  // Default templates for all BMX
+  getAllDefaultTemplates() { }
+
+  saveOrUpdateDafaultTemplate(user) { }
 
 }

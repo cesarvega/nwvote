@@ -2,6 +2,7 @@ import { Component, ElementRef, EventEmitter, Inject, Input, OnInit, Output, Vie
 import { CdkTextareaAutosize } from '@angular/cdk/text-field';
 import { DragulaService } from 'ng2-dragula';
 import { RatingScaleComponent } from '../rating-scale/rating-scale.component';
+import { MatSnackBar } from '@angular/material/snack-bar';
 
 @Component({
   selector: 'app-narrow-down',
@@ -14,8 +15,8 @@ export class NarrowDownComponent extends RatingScaleComponent implements OnInit 
   @Input() bmxClientPageDesignMode;
   @Input() bmxClientPageOverview;
   SLECTED_ROWS = []
-  constructor() {
-    super()
+  constructor(dragulaService: DragulaService, _snackBar: MatSnackBar) {
+    super(dragulaService,_snackBar)
   }
 
   ngOnInit(): void {
@@ -24,7 +25,7 @@ export class NarrowDownComponent extends RatingScaleComponent implements OnInit 
     let values = Object.keys(this.bmxItem.componentText[0])
 
     values.forEach(value => {
-      if (typeof value == "string" && value != "STARS" && value != "CRITERIA" ) {
+      if (typeof value == "string" && value != "STARS" && value != "CRITERIA" && value != "SELECTED_ROW"  ) {
         this.columnsNames.push(value)
       }
     });
