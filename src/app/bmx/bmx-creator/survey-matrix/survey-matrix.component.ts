@@ -6,7 +6,6 @@ import { ActivatedRoute } from '@angular/router';
 import { BmxService } from '../bmx.service';
 import { DragulaService } from 'ng2-dragula';
 import { SurveyCreationDesignComponent } from '../survey-creation-design/survey-creation-design.component';
-import QRCodeStyling from "qr-code-styling";
 import { MatSnackBar } from '@angular/material/snack-bar';
 @Component({
     selector: 'app-survey-matrix',
@@ -31,7 +30,7 @@ export class SurveyMatrixComponent extends SurveyCreationDesignComponent impleme
     isFullscreen: any;
     constructor(@Inject(DOCUMENT) document: any,
         activatedRoute: ActivatedRoute,
-        _hotkeysService: HotkeysService, 
+        _hotkeysService: HotkeysService,
         dragulaService: DragulaService,
         public _snackBar: MatSnackBar,
          _BmxService: BmxService) {
@@ -44,90 +43,15 @@ export class SurveyMatrixComponent extends SurveyCreationDesignComponent impleme
             localStorage.setItem('projectId', this.projectId);
             // this.bsrService.getProjectData(this.projectId).subscribe(arg => {
             //   this.projectName = JSON.parse(arg[0].bsrData).projectdescription;
-            //   localStorage.setItem('projectName',  this.projectId);        
+            //   localStorage.setItem('projectName',  this.projectId);
             // });
         });
     }
 
     ngOnInit(): void {
         this.bmxPagesClient = this.SAMPLE_BMX_CLIENT
+        this.qrCode.append(this.canvas.nativeElement);
 
-        if (!QRCodeStyling) {
-            return;
-        }
-
-        let qrCodeColotThemes = {
-            dotsOptions: {
-                type: "dots", color: "#9d64a1", gradient: {
-                    type: 'linear', rotation: 0, colorStops: [{
-                        offset: 0,
-                        color: "#9d64a1"
-                    }, {
-                        offset: 3,
-                        color: "#decddf"
-                    }]
-                }
-            },
-            backgroundOptions: {
-                type: "square", color: "#fff", gradient: {
-                    type: 'radial', rotation: 0, colorStops: [{
-                        offset: 0,
-                        color: "#fff"
-                    }]
-                }
-            },
-            cornersDotOptions: {
-                type: "dot", color: "#fff", gradient: {
-                    type: 'linear', rotation: 0, colorStops: [{
-                        offset: 0,
-                        color: "#fff"
-                    }, {
-                        offset: 3,
-                        color: "#fff"
-                    }]
-                }
-            }
-        }
-
-        const qrCode = new QRCodeStyling({
-            width: 223, height: 223, data: this.myAngularxQrCode, margin: 0,
-            qrOptions: { typeNumber: 0, mode: "Byte", errorCorrectionLevel: "Q" },
-            imageOptions: { hideBackgroundDots: true, imageSize: 0.4, margin: 0 },
-            dotsOptions: {
-                type: "dots", color: "#9d64a1", gradient: {
-                    type: 'linear', rotation: 45, colorStops: [{
-                        offset: 0,
-                        color: "#9d64a1"
-                    }, {
-                        offset: 3,
-                        color: "#decddf"
-                    }]
-                }
-            },
-            backgroundOptions: { color: "#000000" },
-            image: "./assets/img/bmx/bmxCube.jpg",
-            cornersSquareOptions: {
-                type: "square", color: "#fff", gradient: {
-                    type: 'radial', rotation: 45, colorStops: [{
-                        offset: 0,
-                        color: "#fff"
-                    }]
-                }
-            },
-            cornersDotOptions: {
-                type: "dot", color: "#fff", gradient: {
-                    type: 'linear', rotation: 45, colorStops: [{
-                        offset: 0,
-                        color: "#fff"
-                    }, {
-                        offset: 3,
-                        color: "#fff"
-                    }]
-                }
-            }
-        });
-
-        qrCode.append(this.canvas.nativeElement);
     }
 
     changePage(direction) {
