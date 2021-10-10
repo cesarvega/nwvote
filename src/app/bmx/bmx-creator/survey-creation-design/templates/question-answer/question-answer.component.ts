@@ -15,6 +15,7 @@ export class QuestionAnswerComponent extends RatingScaleComponent implements OnI
   @Input() bmxClientPageDesignMode;
   @Input() bmxClientPageOverview;
   @ViewChild('autosize') autosize: CdkTextareaAutosize;
+  
   constructor(dragulaService: DragulaService, _snackBar: MatSnackBar) {
     super(dragulaService,_snackBar)
   }

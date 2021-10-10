@@ -24,17 +24,30 @@
         matTooltipPosition="above" mat-icon-button aria-label="ranking">
         <mat-icon style="font-size: 26px;" class="full-icon">vertical_distribute</mat-icon>
     </button>
-    <button (click)="editSingleTableCells = !editSingleTableCells" class="add-column" style="margin: -50px 185px;"
+    <button (click)="editSingleTableCells = !editSingleTableCells" 
+        [ngClass]="(!editSingleTableCells)?'add-column':'add-column-active'" style="margin: -50px 195px;"
         matTooltip="edit tabel cells" matTooltipPosition="above" mat-icon-button aria-label="ranking">
         <mat-icon style="font-size: 26px;" class="full-icon">explicit</mat-icon>
     </button>
-    <button (click)="toogleColumnResizer()" class="add-column" style="margin: -50px 215px;" matTooltip="row settings"
-        matTooltipPosition="above" mat-icon-button aria-label="ranking">
+    <button (click)="dragRows = !dragRows" 
+        [ngClass]="(!dragRows)?'add-column':'add-column-active'" style="margin: -50px  225px;"
+        matTooltip="drag rows" matTooltipPosition="above" mat-icon-button aria-label="ranking">
+        <mat-icon style="font-size: 26px;" class="full-icon">drag_indicator</mat-icon>
+    </button>
+    <button (click)="deleteRows = !deleteRows" 
+        [ngClass]="(!deleteRows)?'add-column':'add-column-active'" style="margin: -50px 255px;"
+        matTooltip="delete rows" matTooltipPosition="above" mat-icon-button aria-label="ranking">
+        <mat-icon style="font-size: 26px;" class="full-icon">delete_outline</mat-icon>
+    </button>
+    <button (click)="isColumnResizerOn = !isColumnResizerOn" 
+        [ngClass]="(!isColumnResizerOn)?'add-column':'add-column-active'" style="margin: -50px 290px;" 
+        matTooltip="columns width" matTooltipPosition="above" mat-icon-button aria-label="ranking">
         <mat-icon style="font-size: 26px;" class="full-icon">swap_horizontal_circle</mat-icon>
     </button>
 
 </div>
 <!-- ➗➗➗➗➗➗➗➗➗➗➗➗➗➗➗➗➗➗➗  END  ➗➗➗➗➗➗➗➗➗➗➗➗➗➗➗➗➗ -->
+
 
 
 <!-- 🔧🔧🔧🔧🔧🔧🔧🔧🔧🔧🔧🔧🔧🔧🔧🔧🔧🔧🔧🔧🔧 CONFIG BOX 🔧🔧🔧🔧🔧🔧🔧🔧🔧🔧🔧🔧🔧🔧🔧🔧🔧🔧🔧🔧🔧🔧🔧 -->
@@ -193,7 +206,9 @@
             {{bmxItem.componentSettings[0].categoryDescription}}</div>
 
     </div>
-    <div class="scroller-style main-container" [dragula]="draggableBag" [(dragulaModel)]="bmxItem.componentText"
+    <!--  [dragula]="draggableBag"  -->
+    <div class="scroller-style main-container" [dragula]="(dragRows)?'DRAGGABLE_ROW':(rankingType == 'dragAndDrop')?draggableBag:''"
+     [(dragulaModel)]="bmxItem.componentText"
         (dragulaModelChange)="checkDragEvetn($event);">
         <div *ngFor="let testName of bmxItem.componentText; let y = index">
 
@@ -316,7 +331,7 @@
                     </div>
                     <!-- 🟡🟡🟡🟡🟡🟡🟡🟡🟡🟡🟡🟡🟡🟡 END TABLE CELLS 🟡🟡🟡🟡🟡🟡🟡🟡🟡🟡🟡🟡🟡🟡🟡🟡 -->
                 </div>
-                <div *ngIf="(y !== 0) && bmxClientPageOverview"
+                <div *ngIf="(y !== 0) && bmxClientPageOverview && deleteRows"
                     style="min-width: 100px; position: absolute;right: 0px;">
                     <button style="outline: none;margin:3px -8px;" (dblclick)="deletRow(y)" mat-icon-button
                         matTooltip="doble click to delete row" matTooltipPosition="left" aria-label="ranking">
@@ -344,7 +359,7 @@
     <div class="scroller-style main-container" style="margin-bottom: 45px;" [dragula]="draggableBag"
         [(dragulaModel)]="bmxItem.componentText" (dragulaModelChange)="checkDragEvetn($event);">
 
-        <div *ngFor="let testName of bmxItem.componentText; let y = index" style="margin-bottom: 10px;">
+        <div *ngFor="let testName of bmxItem.componentText; let y = index" style="margin-bottom: 10px;" [ngClass]="(y == 0)?'ROW-CERO':''">
 
             <div class="test-name-table" *ngIf="(y != 0)" [style.height]="(selectedCard == y)?'':'45px'">
 

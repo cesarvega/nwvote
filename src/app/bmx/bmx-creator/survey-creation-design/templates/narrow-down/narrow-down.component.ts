@@ -15,6 +15,10 @@ export class NarrowDownComponent extends RatingScaleComponent implements OnInit 
   @Input() bmxClientPageDesignMode;
   @Input() bmxClientPageOverview;
   SLECTED_ROWS = []
+  deleteRows = false
+  dragRows = false
+  isColumnResizerOn = true;
+  editSingleTableCells = false
   constructor(dragulaService: DragulaService, _snackBar: MatSnackBar) {
     super(dragulaService,_snackBar)
   }

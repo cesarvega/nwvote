@@ -22,9 +22,9 @@ export class SurveyCreationDesignComponent implements OnInit {
   @Input() isMenuActive11;
   @Input() bmxClientPageDesignMode;
   @Input() bmxClientPageOverview;
-  bmxPagesClient;
   @Input() isMobile;
   @ViewChild('canvas', { static: true }) canvas: ElementRef;
+  bmxPagesClient;
   myAngularxQrCode = 'http://mrvrman.com/elitecesar';
   popUpQRCode = false;
   elem: any;
@@ -1042,7 +1042,7 @@ export class SurveyCreationDesignComponent implements OnInit {
                   ],
                   "componentSettings": [
                       {
-                          "minRule": 3,
+                          "minRule": 0,
                           "maxRule": 4,
                           "fontSize": 16,
                           "columnWidth": 191,

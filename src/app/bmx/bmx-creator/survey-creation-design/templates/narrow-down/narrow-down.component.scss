@@ -152,6 +152,15 @@
   color: grey;
 }
 
+.add-column-active {
+  outline: none;
+  float: right;
+  
+  mat-icon{
+    color: #324395;
+  }
+}
+
 
 .test-name-table:hover {
   @include BoxShadow(6);

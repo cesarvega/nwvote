@@ -18,11 +18,10 @@ export class RatingScaleComponent implements OnInit {
   selectedRowCounter = 0;
   selectedIndex: any
   displayInstructions = false;
-  isColumnResizerOn = true;
-
+ 
   selectedStarRatingIndex = ''
   selectedRating: any;
-  editSingleTableCells = false
+ 
   // columnsSlider = 150
   // rowHeightSlider = 2
   // fontSizeRow = 19
@@ -50,15 +49,25 @@ export class RatingScaleComponent implements OnInit {
 
   minRuleCounter = 0
   maxRuleCounter = 0
+  deleteRows = false
+  dragRows = false
+  isColumnResizerOn = true;
+  editSingleTableCells = false
 
-  constructor(dragulaService: DragulaService, private _snackBar: MatSnackBar) {
-    //   dragulaService.createGroup('asasd', {
+
+  constructor(private dragulaService: DragulaService, private _snackBar: MatSnackBar) {
+    //   dragulaService.createGroup('DRAGGABLE_ROW', {
     //     moves: (el, container, handle, sibling) => {
     //       if (el.classList.contains('ROW-CERO')) {
     //         return false
-    //       }
+    //       }else return true
     //     }
     // });
+
+    // dragulaService.createGroup("DRAGGABLE_ROW", {
+    //   removeOnSpill: true
+    // });
+
   }
   ngOnInit(): void {
     // COLUMN NAMES
