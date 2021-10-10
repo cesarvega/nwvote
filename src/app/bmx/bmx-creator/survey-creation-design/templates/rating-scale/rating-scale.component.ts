@@ -45,6 +45,7 @@ export class RatingScaleComponent implements OnInit {
   commentColumnCounter = 1
   rankingType = 'dropDown'
   RadioColumnList = []
+  disabledCheckBoxes = false
 
 
 
@@ -67,7 +68,7 @@ export class RatingScaleComponent implements OnInit {
   setRating(rate, testNameId) {
 
     if (this.selectedRowCounter >= this.rankingScaleValue) {
-      
+      // this.disabledCheckBoxes = true
     } else {
       this.selectedRowCounter++
     }
@@ -79,8 +80,11 @@ export class RatingScaleComponent implements OnInit {
         }
       });
     }
-    if (this.bmxItem.componentType == 'narrow-down') {
-      this.bmxItem.componentText[testNameId].RATE = rate.target.checked
+    if (rate.target) {
+      this.bmxItem.componentText[testNameId].SELECTED_ROW = rate.target.checked
+      if (!rate.target.checked) {
+        this.selectedRowCounter--
+      }
     } else {
 
       this.bmxItem.componentText[testNameId].RATE = rate

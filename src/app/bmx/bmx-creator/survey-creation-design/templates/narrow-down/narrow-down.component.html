@@ -184,7 +184,7 @@
 
         <!-- <div *ngIf="(y !== 0)" style="color: white;font-size: xx-small;">.</div> -->
         <div class="test-name-table">
-            
+
               <!--⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️ RANK RENDERER ⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️ -->
               <div style="min-width: 200px;background-color:white;display: flex;align-items: center;
               justify-content: center;border-left: rgb(231, 230, 230) 1px solid;
@@ -198,14 +198,14 @@
                                   {{star.icon}}</mat-option>
                           </mat-select>
                       </mat-form-field>
-  
+
                       <button  *ngIf="rankingType == 'dragAndDrop'"  mat-button style="background-color:#ee7f25 ;color: white;">{{y}}</button>
-                     
+
                       <button  *ngIf="rankingType == 'radio'"  mat-button style="background-color:#ee7f25 ;color: white;">{{this.bmxItem.componentText[y].RATE}}</button> -->
 
-                      <input type="checkbox" [disabled]="false"   (change)="setRating($event,y)">
+                      <input type="checkbox" [disabled]="disabledCheckBoxes" *ngIf="!this.bmxItem.componentText[y].SELECTED_ROW"   (change)="setRating($event,y)">
 
-  
+
                   </div>
                   <!-- COLUMN HEADER -->
                   <textarea *ngIf="y == 0 && editSingleTableCells"
@@ -237,8 +237,8 @@
                         style="text-align: center; font-weight: bold;color: #324395;" class="row-box"
                         [(ngModel)]="testName[columnName]" value="testName[columnName]"></textarea>
 
-                    <!-- <textarea *ngIf=" editSingleTableCells " 
-                        [style.width]="bmxItem.componentSettings[0].rationalewidth + 'px'" 
+                    <!-- <textarea *ngIf=" editSingleTableCells "
+                        [style.width]="bmxItem.componentSettings[0].rationalewidth + 'px'"
                             [style.font-size]="bmxItem.componentSettings[0].fontSize +'px'" cdkTextareaAutosize
                             [cdkAutosizeMinRows]="(testName[columnName].length > 50)?bmxItem.componentSettings[0].rowHeight:2"
                             style="outline: none;text-align: center;" class="row-box"
@@ -293,7 +293,7 @@
             <div *ngIf="selectedRowCounter >= rankingScaleValue" style="min-width: 200px;background-color:white;display: flex;align-items: center;
                 justify-content: center;border-left: rgb(231, 230, 230) 1px solid;
                 border-right: rgb(231, 230, 230) 1px solid;border-top: rgb(231, 230, 230) 1px solid;">
-                <div *ngIf="(y !== 0)">
+                <div *ngIf="(y !== 0) && this.bmxItem.componentText[y].SELECTED_ROW">
                     <div *ngIf="testName.CRITERIA; else elseBlock">
                         <div *ngFor="let criteria of testName.CRITERIA  let x =  index"
                             style="display: flex;flex-direction: column;justify-content: space-between;border-bottom: rgb(231, 230, 230) 1px solid;">
@@ -313,7 +313,7 @@
                         <div style="position: relative;top: -5px;">
                             <button *ngFor="let star of  testName.STARS; let x =  index" (click)="setRating(star.id,y)"
                                 [ngClass]="star.styleClass" (mouseenter)="selectStar(star.id , y)"
-                                (mouseleave)="leaveStar(y)" 
+                                (mouseleave)="leaveStar(y)"
                                 style="outline: none;margin:-5px -10px;animation: bounce 1000ms ease-in-out  forwards  ;" mat-icon-button
                                 aria-label="ranking">
                                 <mat-icon>{{star.icon}}</mat-icon>
