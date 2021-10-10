@@ -2,6 +2,7 @@ import { Component, ElementRef, EventEmitter, Inject, Input, OnInit, Output, Vie
 import { CdkTextareaAutosize } from '@angular/cdk/text-field';
 import { DragulaService } from 'ng2-dragula';
 import { MatSnackBar } from '@angular/material/snack-bar';
+import { Subscription } from 'rxjs';
 @Component({
   selector: 'app-rating-scale',
   templateUrl: './rating-scale.component.html',
@@ -54,7 +55,8 @@ export class RatingScaleComponent implements OnInit {
   isColumnResizerOn = true;
   editSingleTableCells = false
 
-
+  BAG = "DRAGGABLE_ROW";
+  subs = new Subscription();
   constructor(private dragulaService: DragulaService, private _snackBar: MatSnackBar) {
     //   dragulaService.createGroup('DRAGGABLE_ROW', {
     //     moves: (el, container, handle, sibling) => {
@@ -67,7 +69,7 @@ export class RatingScaleComponent implements OnInit {
     // dragulaService.createGroup("DRAGGABLE_ROW", {
     //   removeOnSpill: true
     // });
-
+   
   }
   ngOnInit(): void {
     // COLUMN NAMES
