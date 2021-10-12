@@ -505,7 +505,7 @@
                 </div>
                 <!--⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️ STARS RENDERER ⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️ -->
                 <div *ngIf="selectedCard == y" style="min-width: 230px;background-color:white;display: flex;align-items: center;
-                justify-content: center;animation: bounceIn 500ms ease-in  forwards;">
+                justify-content: center;animation: bounceIn 500ms ease-in  forwards;padding-top: 10px;">
                     <div *ngIf="(y !== 0)">
                         <div *ngIf="testName.CRITERIA; else elseBlock">
                             <div *ngFor="let criteria of testName.CRITERIA  let x =  index"

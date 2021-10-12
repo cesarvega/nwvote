@@ -19,10 +19,10 @@ export class RatingScaleComponent implements OnInit {
   selectedRowCounter = 0;
   selectedIndex: any
   displayInstructions = false;
- 
+
   selectedStarRatingIndex = ''
   selectedRating: any;
- 
+
   // columnsSlider = 150
   // rowHeightSlider = 2
   // fontSizeRow = 19
@@ -69,7 +69,7 @@ export class RatingScaleComponent implements OnInit {
     // dragulaService.createGroup("DRAGGABLE_ROW", {
     //   removeOnSpill: true
     // });
-   
+
   }
   ngOnInit(): void {
     // COLUMN NAMES
@@ -82,17 +82,17 @@ export class RatingScaleComponent implements OnInit {
     });
   }
 
-  maxRuleCounterMinus(){
-    if (this.maxRuleCounter !=0) {
+  maxRuleCounterMinus() {
+    if (this.maxRuleCounter != 0) {
       this.maxRuleCounter--;
     }
-    if (this.bmxItem.componentSettings[0].ratedCounter >0) {
+    if (this.bmxItem.componentSettings[0].ratedCounter > 0) {
       this.bmxItem.componentSettings[0].ratedCounter--;
     }
 
-    if (this.bmxItem.componentSettings[0].ratedCounter >= this.bmxItem.componentSettings[0].minRule ) {
+    if (this.bmxItem.componentSettings[0].ratedCounter >= this.bmxItem.componentSettings[0].minRule) {
       this.bmxItem.componentSettings[0].categoryRulesPassed = true
-    }else{this.bmxItem.componentSettings[0].categoryRulesPassed = false}
+    } else { this.bmxItem.componentSettings[0].categoryRulesPassed = false }
   }
   // ⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️ STARS METHODS  ⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️
   setRating(rate, testNameId) {
@@ -102,16 +102,23 @@ export class RatingScaleComponent implements OnInit {
         for (let index = 0; index < this.bmxItem.componentText.length; index++) {
           // REMOVE FIRST CHECKED VALUE
           if (this.bmxItem.componentText[index].SELECTED_ROW) {
+            // ASK BEFROE REMOVE IT 
+            this._snackBar.open(this.bmxItem.componentText[index].nameCandidates + ' was uncheck', 'OK', {
+              duration: 4000,
+              verticalPosition: 'bottom',
+            }).afterDismissed().subscribe(action => { })
+
             this.bmxItem.componentText[index].SELECTED_ROW = false;
             break
           }
         }
-      } else {
+      }
+      else {
         if (this.bmxItem.componentText[testNameId]["CRITERIA"]) {
           this.bmxItem.componentText[testNameId]["CRITERIA"].forEach(criteria => {
             criteria.RATE = 0
           });
-        }else {
+        } else {
           this.bmxItem.componentText[testNameId]["RATE"] = 0
         }
       }
@@ -121,25 +128,39 @@ export class RatingScaleComponent implements OnInit {
       for (let index = 0; index < this.bmxItem.componentText.length; index++) {
         if (this.bmxItem.componentText[index].SELECTED_ROW) {
           this.selectedRowCounter++
-        } else {
-          this.bmxItem.componentText[index].SELECTED_ROW = false
         }
+        //  else {
+        //   // this.bmxItem.componentText[index].SELECTED_ROW = false
+        // }
       }
-    } if (this.bmxItem.componentType == 'ranking-scale') {
-      this.bmxItem.componentText.forEach((element, i) => {
-        if (element.RATE == rate) {
+    }
+
+    if (this.bmxItem.componentType == 'ranking-scale') {
+
+
+      this.bmxItem.componentText.forEach((testnameRow, i) => {
+        if (testnameRow.RATE == rate) {
           this.bmxItem.componentText[i].RATE = 0
+          // ASK BEFROE REMOVE IT 
+          // this._snackBar.open(testnameRow.nameCandidates + 'was already rank ' + rate, 'ok', {
+          //   duration: 4000,
+          //   verticalPosition: 'bottom',
+          // })
         }
-        this.bmxItem.componentText[testNameId].RATE = rate
       });
-    } else {
+      this.bmxItem.componentText[testNameId].RATE = rate
+
+
+    }
+
+    else {
       if (this.maxRuleCounter < this.bmxItem.componentSettings[0].maxRule || this.bmxItem.componentSettings[0].maxRule == 0) {
         if (this.bmxItem.componentSettings[0].maxRule > 0) { this.maxRuleCounter++ }
         this.bmxItem.componentText[testNameId].RATE = rate
         this.bmxItem.componentSettings[0].ratedCounter++
-        if (this.bmxItem.componentSettings[0].ratedCounter >= this.bmxItem.componentSettings[0].minRule ) {
+        if (this.bmxItem.componentSettings[0].ratedCounter >= this.bmxItem.componentSettings[0].minRule) {
           this.bmxItem.componentSettings[0].categoryRulesPassed = true
-        }else{this.bmxItem.componentSettings[0].categoryRulesPassed = false}
+        } else { this.bmxItem.componentSettings[0].categoryRulesPassed = false }
       } else {
         if (this.bmxItem.componentType != 'narrow-down' && this.bmxItem.componentSettings[0].maxRule > 0) {
           this._snackBar.open('you can only rate up to ' + this.bmxItem.componentSettings[0].maxRule + ' Test Names', 'OK', {
@@ -171,7 +192,7 @@ export class RatingScaleComponent implements OnInit {
       this.bmxItem.componentText[testNameId].CRITERIA.forEach((criteria, index) => {
         this.leaveCriteriaStar(testNameId, index)
       });
-    }else{
+    } else {
       this.selectedRating = this.bmxItem.componentText[testNameId].RATE
       this.bmxItem.componentText[testNameId].STARS.filter((star) => {
         if (star.id <= this.selectedRating && this.selectedRating !== "") {
@@ -182,7 +203,7 @@ export class RatingScaleComponent implements OnInit {
         return star;
       });
     }
-  
+
   }
 
   // CRITERIA STARS

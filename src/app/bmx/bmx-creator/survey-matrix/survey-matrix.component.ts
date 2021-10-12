@@ -29,13 +29,13 @@ export class SurveyMatrixComponent extends SurveyCreationDesignComponent impleme
     elem: any;
     isFullscreen: any;
     constructor(@Inject(DOCUMENT) document: any,
-        activatedRoute: ActivatedRoute,
+         activatedRoute: ActivatedRoute,
         _hotkeysService: HotkeysService,
         dragulaService: DragulaService,
         public _snackBar: MatSnackBar,
          _BmxService: BmxService) {
 
-        super(document, _BmxService, _snackBar)
+        super(document, _BmxService, _snackBar, activatedRoute)
 
         activatedRoute.params.subscribe(params => {
             this.projectId = params['id'];
@@ -89,7 +89,11 @@ export class SurveyMatrixComponent extends SurveyCreationDesignComponent impleme
         }
     }
 
-
+    saveUserAnswers(){
+        this._BmxService.saveOrUpdateAnswers(this.bmxPages, this.projectId, this.username).subscribe(res =>{
+            
+        })
+    }
 
     SAMPLE_BMX_CLIENT = [
         {

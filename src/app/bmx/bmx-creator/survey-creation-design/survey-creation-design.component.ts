@@ -13,6 +13,7 @@ import { BmxService } from '../bmx.service';
 import { DOCUMENT } from '@angular/common';
 import QRCodeStyling from 'qr-code-styling';
 import { MatSnackBar } from '@angular/material/snack-bar';
+import { ActivatedRoute } from '@angular/router';
 @Component({
   selector: 'app-survey-creation-design',
   templateUrl: './survey-creation-design.component.html',
@@ -102,11 +103,14 @@ export class SurveyCreationDesignComponent implements OnInit {
 
   projectInfo: string;
   qrCode: QRCodeStyling;
+    projectId: any;
+    biUsername: any;
 
   constructor(
     @Inject(DOCUMENT) private document: any,
-    private _BmxService: BmxService,
-    public _snackBar: MatSnackBar
+    public _BmxService: BmxService,
+    public _snackBar: MatSnackBar, 
+    activatedRoute: ActivatedRoute
   ) {
     let qrCodeColotThemes = {
       dotsOptions: {
@@ -219,6 +223,16 @@ export class SurveyCreationDesignComponent implements OnInit {
           ],
         },
       },
+    });
+
+    activatedRoute.params.subscribe(params => {
+        this.projectId = params['id'];
+        this.biUsername = params['biUsername'];
+        localStorage.setItem('projectId', this.projectId);
+        // this.bsrService.getProjectData(this.projectId).subscribe(arg => {
+        //   this.projectName = JSON.parse(arg[0].bsrData).projectdescription;
+        //   localStorage.setItem('projectName',  this.projectId);
+        // });
     });
   }
 
@@ -612,7 +626,7 @@ export class SurveyCreationDesignComponent implements OnInit {
     });
     // console.log(this.bmxCompleteObject.bmx[4]["page"][3]['componentText']);
     this._BmxService
-      .saveOrUpdateTemplate(this.bmxCompleteObject)
+      .saveOrUpdateTemplate(this.bmxCompleteObject, 'BMX_TEST')
       .subscribe((res) => {
         console.log(res);
       });

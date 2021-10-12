@@ -39,7 +39,7 @@ export class ProjectReportsComponent
     public _snackBar: MatSnackBar,
     _BmxService: BmxService
   ) {
-    super(document, _BmxService, _snackBar);
+    super(document, _BmxService, _snackBar,activatedRoute);
   }
 
   ngOnInit(): void {}

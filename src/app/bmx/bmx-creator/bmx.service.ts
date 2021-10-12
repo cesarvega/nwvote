@@ -9,13 +9,22 @@ export class BmxService {
   webBaseUrl = 'https://tools.brandinstitute.com//wsBrandMatrix/wsBrandMatrix.asmx';
   GetProjectList = '/GetProjectList';
   GetGeneralLists = '/GetGeneralLists';
-  brandMatrixSave = '/BrandMatrixSave';
+
   GetParticipantList = '/BrandMatrixGetParticipantList'
   GetProjectInfo = '/BrandMatrixGetDirectorList';
   SaveProjectInfor = '/BrandMatrixUpdDirectorList'
-  BrandMatrixResourceUpload = '/BrandMatrixResourceUpload'
+  BrandMatrixResourceUpload = '/BrandMatrixResourceUpload'// SAVES FILES TO THE SERVER IN BASE64 AND RETURS A FILE PATH
   searchGraveAccentRegExp = new RegExp("`", 'g');
   searchApostropheRegExp = new RegExp("'", 'g');
+
+
+  brandMatrixSave = '/BrandMatrixSave'; // SAVES THE BRANDMATRIX PER PROJECT 
+  brandMatrixSaveUserAnswers = '/BrandMatrixSaveUserAnswers'; // SAVES THE BRANDMATRIX USER ANSWERS
+
+  
+  brandMatrixGetALLUserAnswers = '/BrandMatrixGetALLUserAnswers'; // GETS THE BRANDMATRIX ANSWERS
+  brandMatrixGetUserAnswers = '/BrandMatrixGetUserAnswers'; // GETS THE BRANDMATRIX SINGLE USER ANSWERS
+
   constructor(private http: HttpClient) { }
 
   getGeneralLists() {
@@ -56,9 +65,9 @@ export class BmxService {
 
   // save template string
 
-  saveOrUpdateTemplate(bmxCompleteObject) {
+  saveOrUpdateTemplate(bmxCompleteObject,projectName) {
     const payloadString = JSON.stringify({
-      "ProjectName": "TEST",
+      "ProjectName": projectName,
       "BrandMatrix": JSON.stringify(bmxCompleteObject).replace(this.searchApostropheRegExp, '`')
     })
     return this.http.post(this.webBaseUrl + this.brandMatrixSave, {
@@ -66,10 +75,10 @@ export class BmxService {
     })
   }
 
-  saveOrUpdateAnswers(bmxCompleteObject) {
+  saveOrUpdateAnswers(bmxCompleteObject,projectName, username) {
     const payloadString = JSON.stringify({
-      "ProjectName": "TEST",
-      "UserName": "cesar",
+      "ProjectName": projectName,
+      "UserName": username,
       "BrandMatrix": JSON.stringify(bmxCompleteObject).replace(this.searchApostropheRegExp, '`')
     })
     return this.http.post(this.webBaseUrl + this.brandMatrixSave, {

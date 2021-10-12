@@ -435,10 +435,9 @@
                 <!-- CHECKBOX & TABLE IN A ROW -->
                 <div style="display: flex;flex-direction: row;align-items: center;">
                     <div *ngIf="(y !== 0)" [ngClass]="(selectedCard != y)?'noSelectedCard':'selectedCard'">
-                        <input type="checkbox" [disabled]="false" style="position: absolute;
-                        left: 6px;
-                        margin: -16px 8px;" [checked]="this.bmxItem.componentText[y].SELECTED_ROW"
-                            (change)="setRating($event,y);leaveStar(y)">
+                        <input type="checkbox" [disabled]="false" style="position: absolute;left: 6px;margin: -16px 8px;" 
+                        [checked]="this.bmxItem.componentText[y].SELECTED_ROW"
+                            (change)="setRating($event,y);leaveStar(y);">
                     </div>
                     <div style="display: flex;flex-direction: column;">
                         <div *ngFor="let columnName of columnsNames; let e =  index">
@@ -484,11 +483,12 @@
                 </div>
                 <!--⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️ STARS RENDERER ⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️ -->
                 <div *ngIf="selectedCard == y" style="min-width: 230px;background-color:white;display: flex;align-items: center;
-                justify-content: center;animation: bounceIn 500ms ease-in  forwards;">
+                justify-content: center;animation: bounceIn 500ms ease-in  forwards;padding-top: 10px;">
                     <div *ngIf="(y !== 0) && this.bmxItem.componentText[y].SELECTED_ROW">
                         <div *ngIf="testName.CRITERIA; else elseBlock">
                             <div *ngFor="let criteria of testName.CRITERIA  let x =  index"
-                                style="display: flex;flex-direction: column;justify-content: space-between;border-bottom: rgb(231, 230, 230) 1px solid;">
+                                style="display: flex;flex-direction: column;justify-content: space-between;
+                                border-bottom: rgb(231, 230, 230) 1px solid;    align-items: center;">
                                 <span [style.font-size]="bmxItem.componentSettings[0].fontSize +'px'"
                                     style="padding-top:6px;max-width: 200px;">{{criteria.name}}</span>
                                 <div style="min-width: 200px;padding-bottom:6px">
