@@ -135,7 +135,7 @@ export class BmxCreatorComponent implements OnInit {
     // });
 
     this.toggleMenuActive('isMenuActive1')
-    this.isMainMenuActive = false;
+    this.isMainMenuActive = true;
 
 
     this._BmxService.getGeneralLists()
