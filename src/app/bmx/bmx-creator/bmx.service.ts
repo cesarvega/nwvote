@@ -21,6 +21,7 @@ export class BmxService {
   
   brandMatrixGetALLUserAnswers = '/BrandMatrixGetALLUserAnswers'; // GETS THE BRANDMATRIX ANSWERS
   brandMatrixGetUserAnswers = '/BrandMatrixGetUserAnswers'; // GETS THE BRANDMATRIX SINGLE USER ANSWERS
+  brandMatrixGet = '/BrandMatrixGet'; // GETS THE BRANDMATRIX BY PROJECT
 
 
   GetParticipantList = '/BrandMatrixGetParticipantList';
@@ -101,11 +102,15 @@ export class BmxService {
 
   saveOrUpdateBMXInfo(project, data) { }
 
-  getBMXPorjectInfo(project, data) { }
+  getBrandMatrixByProject(projectName) {
+    return this.http.post(this.webBaseUrl + this.brandMatrixGet, {
+      token: '646EBF52-1846-47C2-9F62-DC50AE5BF692', payload: JSON.stringify({"ProjectName": projectName})
+    })
+   }
 
   // save template string
 
-  saveOrUpdateTemplate(bmxCompleteObject,projectName) {
+  saveOrUpdateBradnMatrixTemplate(bmxCompleteObject,projectName) {
     const payloadString = JSON.stringify({
       "ProjectName": projectName,
       "BrandMatrix": JSON.stringify(bmxCompleteObject).replace(this.searchApostropheRegExp, '`')
