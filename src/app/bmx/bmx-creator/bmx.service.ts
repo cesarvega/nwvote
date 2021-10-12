@@ -65,7 +65,7 @@ export class BmxService {
   }
 
   saveProjectInfo(projectName: any, projectData: any, user: any) {
-    var input = JSON.stringify({ "ProjectName":projectName, "ParticipantList ":projectData, "Username":user});
+    var input = JSON.stringify({ "ProjectName":projectName, "ProjectInfo":projectData, "Username":user});
     return this.http.post(this.webBaseUrl + this.SaveProjectInfo, { token: '646EBF52-1846-47C2-9F62-DC50AE5BF692', payload: input});
     // return this.http.get(this.webBaseUrl + 'api/NW_GetProjectIdWithProjectName?projectName=' + projectName, httpOptions);
   }

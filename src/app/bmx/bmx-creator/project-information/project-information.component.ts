@@ -159,7 +159,7 @@ export class ProjectInformationComponent implements OnInit {
       "Client": this.bmxEditData.get('bmxCompany').value
     }*/
     const projectInfo: JSON = <JSON><unknown>{
-      "bmxSalesboard": this.bmxEditData.get('bmxSalesboard').value,
+      "bmxSalesboard": this.bmxEditData.get('bmxSalesboard').value.toString(),
       "bmxDepartment": this.bmxEditData.get('bmxDepartment').value.toString(),
       "bmxProjectName": this.bmxEditData.get('bmxProjectName').value.toString(),
       "bmxRegion": this.bmxEditData.get('bmxRegion').value.toString(),
