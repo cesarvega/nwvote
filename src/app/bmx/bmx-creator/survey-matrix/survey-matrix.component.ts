@@ -28,6 +28,7 @@ export class SurveyMatrixComponent extends SurveyCreationDesignComponent impleme
     popUpQRCode = false;
     elem: any;
     isFullscreen: any;
+    searchGraveAccentRegExp = new RegExp("`", 'g');
     constructor(@Inject(DOCUMENT) document: any,
          activatedRoute: ActivatedRoute,
         _hotkeysService: HotkeysService,
@@ -45,13 +46,21 @@ export class SurveyMatrixComponent extends SurveyCreationDesignComponent impleme
             //   this.projectName = JSON.parse(arg[0].bsrData).projectdescription;
             //   localStorage.setItem('projectName',  this.projectId);
             // });
+           
         });
     }
 
     ngOnInit(): void {
-        this.bmxPagesClient = this.SAMPLE_BMX_CLIENT
+       
         this.qrCode.append(this.canvas.nativeElement);
-
+         this.bmxPagesClient = this.SAMPLE_BMX_CLIENT
+         this._BmxService.getBrandMatrixByProject(this.projectId).subscribe((brandMatrix:any) =>{
+            this.bmxPagesClient = JSON.parse(brandMatrix.d.replace(this.searchGraveAccentRegExp, "'"))
+            this._snackBar.open('bmx loaded for  ' + this.username+ '  user', 'OK', {
+                duration: 5000,
+                verticalPosition: 'bottom',
+              })
+        })
     }
 
     changePage(direction) {
@@ -90,8 +99,12 @@ export class SurveyMatrixComponent extends SurveyCreationDesignComponent impleme
     }
 
     saveUserAnswers(){
-        this._BmxService.saveOrUpdateAnswers(this.bmxPages, this.projectId, this.username).subscribe(res =>{
-            
+        this._BmxService.saveOrUpdateAnswers(this.bmxPagesClient, this.projectId, this.username).subscribe(res =>{
+            console.log('%cANSWERS!', 'color:#007bff', res);
+            this._snackBar.open('brand matrix saved for  ' + this.username+ '  user', 'OK', {
+                duration: 5000,
+                verticalPosition: 'bottom',
+              })
         })
     }
 

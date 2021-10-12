@@ -246,11 +246,11 @@ export class SurveyCreationDesignComponent implements OnInit {
     if (this.bmxPagesClient) {
       this.bmxPages = this.bmxPagesClient;
     } else {
-    //   this.bmxPages = this.SAMPLE_BMX;
+      this.bmxPages = this.SAMPLE_BMX;
       
-      this._BmxService.getBrandMatrixByProject(this.projectId).subscribe((brandMatrix:any) =>{
-        this.bmxPages = JSON.parse(brandMatrix.d)
-    })
+    //   this._BmxService.getBrandMatrixByProject(this.projectId).subscribe((brandMatrix:any) =>{
+    //     this.bmxPages = JSON.parse(brandMatrix.d)
+    // })
     }
 
     if (!QRCodeStyling) {
