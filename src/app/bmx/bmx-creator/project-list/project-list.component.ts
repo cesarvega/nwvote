@@ -60,7 +60,7 @@ export class ProjectListComponent implements OnInit {
   sendEmail(option: string): void {
     var test = option;
     localStorage.setItem('projectName', option);
-    this.isMenuActive1Close.emit(false);
+    this.isMenuActive1Email.emit(false);
   }
 
   editBM(option: string): void {

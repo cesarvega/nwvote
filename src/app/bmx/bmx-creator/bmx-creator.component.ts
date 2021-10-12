@@ -151,6 +151,7 @@ export class BmxCreatorComponent implements OnInit {
       moves: (el, container, handle) => {
         return handle.classList.contains('emoji-handle');
       }
+      
     })
     // document.body.style.zoom = 1.10;
 

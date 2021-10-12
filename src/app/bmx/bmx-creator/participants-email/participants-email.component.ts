@@ -199,15 +199,17 @@ export class ParticipantsEmailComponent implements OnInit {
       "deptConfirm": this.deptConfirm,
       "emailTemp" : this.emailTemp,
       "linkType" : this.linkType,
-      "From" : 'kcabrera@brandinstitute.com',
+      "From" : 'cgomez@brandinstitute.com',
       /*"BCC" : this.BCC,
       "CC" : this.CC,*/
       "Subject" : this.Subject,
       "Message" : this.brandMatrixObjects[1].componentText,
       "TO" : 'kcabrera@brandinstitute.com',
-      "attachents" : this.attachments
+      "attachments" : this.attachments
     }
-    this._BmxService.sendEmail(JSON.stringify(rememberEmail)).subscribe(result => {
+    var finalString = JSON.stringify(rememberEmail);
+    finalString = finalString.replace("[\\u2022,\\u2023,\\u25E6,\\u2043,\\u2219]\\s\\d", '');
+    this._BmxService.sendEmail(finalString).subscribe(result => {
       var so = result;
     });
     localStorage.setItem('fakeprojectname' + '_emailInfo', JSON.stringify(rememberEmail));

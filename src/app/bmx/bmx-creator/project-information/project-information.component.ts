@@ -75,14 +75,14 @@ export class ProjectInformationComponent implements OnInit {
       this._BmxService.getProjectInfo(localStorage.getItem('projectName'))
         .subscribe((arg: any) => {
           var data = JSON.parse(arg.d);
-          this.bmxEditData.patchValue({ bmxSalesboard: data.SalesBoardProject });
-          this.bmxEditData.patchValue({ bmxProjectName: data.ProjectName });
-          //this.bmxEditData.patchValue({ bmxDepartment: data.SalesBoardProject });
-          this.bmxEditData.patchValue({ bmxRegion: data.Office });
-          this.bmxEditData.patchValue({ bmxLanguage: data.Language });
-          this.bmxEditData.patchValue({ bmxCompany: data.Client });
+          this.bmxEditData.patchValue({ bmxSalesboard: data.bmxSalesboard });
+          this.bmxEditData.patchValue({ bmxProjectName: data.bmxProjectName });
+          this.bmxEditData.patchValue({ bmxDepartment: data.bmxDepartment });
+          this.bmxEditData.patchValue({ bmxRegion: data.bmxRegion });
+          this.bmxEditData.patchValue({ bmxLanguage: data.bmxLanguage });
+          this.bmxEditData.patchValue({ bmxCompany: data.bmxCompany });
           var list;
-
+          /*
           for (let i = 0; i < data.DirectorList.length; i++) {
             let director: any = {}
             director.email = data.DirectorList[i].Email;
@@ -93,7 +93,8 @@ export class ProjectInformationComponent implements OnInit {
             director.ngModel = director.ngModel
             director.office = ''
             this.DIRECTORS.push(director);
-          }
+          }*/
+          this.DIRECTORS = data.bmxRegionalOffice;
           this.bmxEditData.patchValue({ bmxRegionalOffice: this.DIRECTORS });
 
         });
@@ -153,11 +154,24 @@ export class ProjectInformationComponent implements OnInit {
   }
 
   saveProjectInfo() {
-    localStorage.setItem('fakeproject' + '_project_info', JSON.stringify(this.bmxEditData.value));
+    //localStorage.setItem('fakeproject' + '_project_info', JSON.stringify(this.bmxEditData.value));
     /*const rememberUser:JSON = <JSON><unknown>{
       "Client": this.bmxEditData.get('bmxCompany').value
+    }*/
+    const projectInfo: JSON = <JSON><unknown>{
+      "bmxSalesboard": this.bmxEditData.get('bmxSalesboard').value,
+      "bmxDepartment": this.bmxEditData.get('bmxDepartment').value.toString(),
+      "bmxProjectName": this.bmxEditData.get('bmxProjectName').value.toString(),
+      "bmxRegion": this.bmxEditData.get('bmxRegion').value.toString(),
+      "bmxCompany": this.bmxEditData.get('bmxCompany').value.toString(),
+      "bmxLanguage": this.bmxEditData.get('bmxLanguage').value.toString(),
+      "bmxRegionalOffice": this.DIRECTORS,
     }
-    this._BmxService.setProjectInfo(localStorage.getItem('projectName'), JSON.stringify(rememberUser));*/
+    var finalString = JSON.stringify(projectInfo);
+    finalString = finalString.replace("[\\u2022,\\u2023,\\u25E6,\\u2043,\\u2219]\\s\\d", '');
+    this._BmxService.saveProjectInfo(localStorage.getItem('projectName'), finalString, 'user@bi.com').subscribe(result => {
+      var so = result;
+    });
     this._snackBar.open('Saved Succesfully');
   }
 
@@ -256,15 +270,16 @@ export class ProjectInformationComponent implements OnInit {
   }
 
   onChanges(): void {
+
     this.bmxEditData.get('bmxRegion').valueChanges.subscribe(val => {
-      if(val !== null || val != '')
-      {
+      if (val !== null || val != '') {
+        this.DIRECTORS = [];
         this.allDirectors.forEach(director => {
           if (director.office == val) {
             this.DIRECTORS.push(director);
           }
         })
-  
+
       }
     });
   }
