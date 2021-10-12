@@ -104,7 +104,7 @@ export class ProjectInformationComponent implements OnInit {
       .subscribe((arg: any) => {
         this.settingsData = JSON.parse(arg.d);
         this.settingsData.OfficeList.unshift('All');
-        console.log(JSON.parse(arg.d));
+        //console.log(JSON.parse(arg.d));
         //AUTOCOMPLETE 🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖
         this.settingsData.SalesBoardProjectList.forEach(myObject => { this.salesboardObj.push({ name: myObject['SalesBoardProjectList'] }) });
         this.settingsData.DirectorList.forEach(directorObj => {
@@ -141,7 +141,7 @@ export class ProjectInformationComponent implements OnInit {
   projectName: string;
   private _filter(value: string): string[] {
     const filterValue = value.toLowerCase();
-    console.log(value);
+    //console.log(value);
     return this.settingsData['SalesBoardProjectList'].filter(option => option.toLowerCase().includes(filterValue));
   }
   // END 🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖 AUTOCOMPLETE
@@ -150,7 +150,7 @@ export class ProjectInformationComponent implements OnInit {
   directorDetails = [];
   public onFocusOutEvent(event: any): void {
     localStorage.setItem('fakeproject' + '_project_info', JSON.stringify(this.bmxEditData.value));
-    console.log(this.bmxEditData.value);
+    //console.log(this.bmxEditData.value);
   }
 
   saveProjectInfo() {
@@ -210,7 +210,7 @@ export class ProjectInformationComponent implements OnInit {
   }
 
   caller(elementId: number): void {
-    console.log('New Director Selected Succesfully');
+    //console.log('New Director Selected Succesfully');
   }
 
   removeDirector(index) {
