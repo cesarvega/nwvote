@@ -30,11 +30,11 @@ export class SurveyMatrixComponent extends SurveyCreationDesignComponent impleme
     isFullscreen: any;
     searchGraveAccentRegExp = new RegExp("`", 'g');
     constructor(@Inject(DOCUMENT) document: any,
-         activatedRoute: ActivatedRoute,
+        activatedRoute: ActivatedRoute,
         _hotkeysService: HotkeysService,
         dragulaService: DragulaService,
         public _snackBar: MatSnackBar,
-         _BmxService: BmxService) {
+        _BmxService: BmxService) {
 
         super(document, _BmxService, _snackBar, activatedRoute)
 
@@ -46,20 +46,30 @@ export class SurveyMatrixComponent extends SurveyCreationDesignComponent impleme
             //   this.projectName = JSON.parse(arg[0].bsrData).projectdescription;
             //   localStorage.setItem('projectName',  this.projectId);
             // });
-           
+
         });
     }
 
     ngOnInit(): void {
-       
+
         this.qrCode.append(this.canvas.nativeElement);
-         this.bmxPagesClient = this.SAMPLE_BMX_CLIENT
-         this._BmxService.getBrandMatrixByProject(this.projectId).subscribe((brandMatrix:any) =>{
-            this.bmxPagesClient = JSON.parse(brandMatrix.d.replace(this.searchGraveAccentRegExp, "'"))
-            this._snackBar.open('bmx loaded for  ' + this.username+ '  user', 'OK', {
+        this.bmxPagesClient = this.SAMPLE_BMX_CLIENT
+        this._BmxService.getBrandMatrixByProjectAndUserAnswers(this.projectId, this.username).subscribe((brandMatrix: any) => {
+            if (brandMatrix.d.length > 0) {
+                this.bmxPagesClient = JSON.parse(brandMatrix.d.replace(this.searchGraveAccentRegExp, "'"))
+            }
+            else {
+                this._BmxService.getBrandMatrixByProject(this.projectId).subscribe((brandMatrix: any) => {
+                    this.bmxPagesClient = JSON.parse(brandMatrix.d.replace(this.searchGraveAccentRegExp, "'"))
+                })
+            }
+
+
+
+            this._snackBar.open('bmx loaded for  ' + this.username + '  user', 'OK', {
                 duration: 5000,
-                verticalPosition: 'bottom',
-              })
+                verticalPosition: 'top',
+            })
         })
     }
 
@@ -81,14 +91,14 @@ export class SurveyMatrixComponent extends SurveyCreationDesignComponent impleme
                         component.componentType == 'image-rate-scale' ||
                         component.componentType == 'narrow-down' ||
                         component.componentType == 'question-answer') {
-                            if (component.componentSettings[0].minRule == 0 || component.componentSettings[0].categoryRulesPassed) {
-                                this.currentPage = pageNumber;
-                            } else {
-                                this._snackBar.open('You must rate at least ' + component.componentSettings[0].minRule + ' Test Names', 'OK', {
-                                    duration: 5000,
-                                    verticalPosition: 'top',
-                                })
-                            }
+                        if (component.componentSettings[0].minRule == 0 || component.componentSettings[0].categoryRulesPassed) {
+                            this.currentPage = pageNumber;
+                        } else {
+                            this._snackBar.open('You must rate at least ' + component.componentSettings[0].minRule + ' Test Names', 'OK', {
+                                duration: 5000,
+                                verticalPosition: 'top',
+                            })
+                        }
                     }
 
                 });
@@ -98,13 +108,13 @@ export class SurveyMatrixComponent extends SurveyCreationDesignComponent impleme
         }
     }
 
-    saveUserAnswers(){
-        this._BmxService.saveOrUpdateAnswers(this.bmxPagesClient, this.projectId, this.username).subscribe(res =>{
+    saveUserAnswers() {
+        this._BmxService.saveOrUpdateAnswers(this.bmxPagesClient, this.projectId, this.username).subscribe(res => {
             console.log('%cANSWERS!', 'color:#007bff', res);
-            this._snackBar.open('brand matrix saved for  ' + this.username+ '  user', 'OK', {
+            this._snackBar.open('brand matrix saved for  ' + this.username + '  user', 'OK', {
                 duration: 5000,
-                verticalPosition: 'bottom',
-              })
+                verticalPosition: 'top',
+            })
         })
     }
 

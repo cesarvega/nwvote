@@ -246,11 +246,15 @@ export class SurveyCreationDesignComponent implements OnInit {
     if (this.bmxPagesClient) {
       this.bmxPages = this.bmxPagesClient;
     } else {
-      this.bmxPages = this.SAMPLE_BMX;
+    //   this.bmxPages = this.SAMPLE_BMX;
       
-    //   this._BmxService.getBrandMatrixByProject(this.projectId).subscribe((brandMatrix:any) =>{
-    //     this.bmxPages = JSON.parse(brandMatrix.d)
-    // })
+      this._BmxService.getBrandMatrixByProject(this.projectId).subscribe((brandMatrix:any) =>{
+        this.bmxPages = JSON.parse(brandMatrix.d)
+        this._snackBar.open('bmx LOADED for project  ' + this.projectId , 'OK', {
+            duration: 5000,
+            verticalPosition: 'top',
+          })
+    })
     }
 
     if (!QRCodeStyling) {
@@ -633,6 +637,10 @@ export class SurveyCreationDesignComponent implements OnInit {
       .saveOrUpdateBradnMatrixTemplate(this.bmxPages, 'BMX_TEST')
       .subscribe((res) => {
         console.log('%cBMX!', 'color:orange', res);
+        this._snackBar.open('bmx SAVED for project  ' + this.projectId, 'OK', {
+            duration: 5000,
+            verticalPosition: 'top',
+          })
       });
   }
 
