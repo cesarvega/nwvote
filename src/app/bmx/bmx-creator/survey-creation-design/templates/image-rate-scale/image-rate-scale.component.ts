@@ -4,6 +4,7 @@ import { DragulaService } from 'ng2-dragula';
 import { Subscription } from 'rxjs/internal/Subscription';
 import { BmxService } from '../../../bmx.service';
 import { RatingScaleComponent } from '../rating-scale/rating-scale.component';
+import { MatSnackBar } from '@angular/material/snack-bar';
 @Component({
   selector: 'app-image-rate-scale',
   templateUrl: './image-rate-scale.component.html',
@@ -11,7 +12,7 @@ import { RatingScaleComponent } from '../rating-scale/rating-scale.component';
 })
 export class ImageRateScaleComponent extends RatingScaleComponent implements OnInit {
 
- 
+//  INTRUCTIONS : Load the excel firs and the the images
   @Input() bmxItem;
   @Input() i;
   @Input() bmxClientPageDesignMode;
@@ -42,7 +43,7 @@ export class ImageRateScaleComponent extends RatingScaleComponent implements OnI
   resourceData: any;
   logoWidth = 200
 
-  constructor(private _BmxService: BmxService,dragulaService: DragulaService) {super(dragulaService)}
+  constructor(private _BmxService: BmxService,dragulaService: DragulaService, _snackBar: MatSnackBar) {super(dragulaService,_snackBar)}
 
   ngOnInit(): void {
     let values = Object.keys(this.bmxItem.componentText[0])
@@ -64,7 +65,7 @@ export class ImageRateScaleComponent extends RatingScaleComponent implements OnI
         reader.onload = (event: any) => {          
           this.resourceData = {
             "ProjectName": localStorage.getItem('projectName'),
-            "FileName": FileName,
+            "FileName": FileName.split(' ').join(''),
             "ItemType" : 'logo-rate',
             "FileType" : FileType,
             "FileContent" : event.target.result
@@ -83,9 +84,20 @@ export class ImageRateScaleComponent extends RatingScaleComponent implements OnI
   }
 
   uploadAllImages(){
-    this._BmxService.saveFileResources(JSON.stringify(this.resourceData)).subscribe(result => {
-      var so = result;
+    this.IMAGES_UPLOADED.forEach((imageObject , index) => {
+      imageObject['FileContent'] = imageObject['FileContent'].split(imageObject['FileContent'].split(",")[0] + ',').pop()
+      this._BmxService.saveFileResources(JSON.stringify(imageObject)).subscribe((result:any) => {
+        this.IMAGES_UPLOADED.shift()
+        // imageObject['FileContent'] = JSON.parse(result.d).FileUrl
+        this.bmxItem.componentText[index + 1].nameCandidates = JSON.parse(result.d).FileUrl
+        this.bmxItem.componentText[index + 1].name = JSON.parse(result.d).FileUrl
+      });
     });
+
+    setTimeout(() => {
+      this.selectedIndex = ''
+    }, 1000);
+   
   }
 
   deleteImage(index){

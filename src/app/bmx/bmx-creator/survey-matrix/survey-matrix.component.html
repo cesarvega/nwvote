@@ -1,0 +1,120 @@
+<div class="page-design noselect">
+    <div class="desktop">
+        <button (click)="displayQrCode()" mat-icon-button matTooltip="design tools" matTooltipPosition="above"
+        *ngIf="true" style="position: absolute;bottom: 10px;color: grey;z-index: 9999999999;right: 33px;outline: none;" >
+            <mat-icon class="full-icon" style="font-size: 35px;">qr_code
+            </mat-icon>
+        </button>
+        <button (click)="openFullscreen()" mat-icon-button matTooltip="design tools" matTooltipPosition="above" 
+        *ngIf="true" style="position: absolute;bottom: 9px;color: grey;z-index: 9999999999;right: -3px;outline: none;" >
+            <mat-icon class="full-icon" style="font-size: 35px;">fullscreen
+            </mat-icon>
+        </button>
+        <button (click)="saveUserAnswers()" mat-icon-button matTooltip="design tools" matTooltipPosition="above" 
+        *ngIf="true" style="position: absolute;bottom: 9px;color: grey;z-index: 9999999999;right: 66px;outline: none;" >
+            <mat-icon class="full-icon" style="font-size: 35px;">save
+            </mat-icon>
+        </button>
+    </div>
+    <div class="display">
+        <div style="flex-direction: column;" class="bmx-page" *ngIf="true">
+
+
+            <!-- BRAND MATRIX MODULAR TEMPLATE COMPONENTS  🧑🏻‍🚀🧑🏻‍🚀🧑🏻‍🚀🧑🏻‍🚀🧑🏻‍🚀🧑🏻‍🚀🧑🏻‍🚀🧑🏻‍🚀🧑🏻‍🚀🧑🏻‍🚀🧑🏻‍🚀🧑🏻‍🚀🧑🏻‍🚀 -->
+            <div *ngFor="let bmxItem of bmxPagesClient[currentPage].page; let i = index"
+                style="display: flex;flex-direction: column;align-content: center;">
+
+
+                <!-- BMX HEADER 😋😋😋😋😋😋😋😋😋😋😋😋😋😋😋😋😋😋😋😋😋😋😋😋😋😋😋😋😋😋😋😋😋😋😋😋😋😋 -->
+
+                <div *ngIf="bmxItem.componentType === 'logo-header'">
+                    <app-logo-header [bmxItem]="bmxItem" [i]="i" [bmxClientPageDesignMode]="bmxClientPageDesignMode"
+                        [bmxClientPageOverview]="bmxClientPageOverview"></app-logo-header>
+                </div>
+                <!--😋😋😋😋😋😋😋😋😋😋😋😋😋😋😋😋😋😋😋😋😋😋😋😋😋😋😋😋😋😋😋😋😋😋😋😋😋😋 END BMX HEADER  -->
+
+
+                <!-- BMX PARAGRAPH EDITOR 📑📑📑📑📑📑📑📑📑📑📑📑📑📑📑📑📑📑📑📑📑📑📑📑📑📑📑📑📑📑 -->
+                <div *ngIf="bmxItem.componentType === 'text-editor'" class="paragraph">
+                    <app-text-paragraph [bmxItem]="bmxItem" [i]="i" [bmxClientPageDesignMode]="bmxClientPageDesignMode"
+                        [bmxClientPageOverview]="bmxClientPageOverview"></app-text-paragraph>
+                </div>
+                <!-- 📑📑📑📑📑📑📑📑📑📑📑📑📑📑📑📑📑📑📑📑📑📑📑📑📑📑📑📑📑📑 END BMX PARAGRAPH EDITOR -->
+
+
+                <!-- STARS SCALE 👽👽👽👽👽👽👽👽👽👽👽👽👽👽👽👽👽👽👽👽👽👽👽👽👽👽👽👽👽👽👽👽👽👽👽👽👽👽👽👽👽👽-->
+                <div *ngIf="bmxItem.componentType === 'rate-scale'" class="paragraph " style="margin-bottom: 30px;">
+                    <app-rating-scale [bmxItem]="bmxItem" [i]="i" [bmxClientPageDesignMode]="bmxClientPageDesignMode"
+                        [bmxClientPageOverview]="bmxClientPageOverview"></app-rating-scale>
+
+                </div>
+                <!-- END STARS SCALE 👽👽👽👽👽👽👽👽👽👽👽👽👽👽👽👽👽👽👽👽👽👽👽👽👽👽👽👽👽👽👽👽👽👽👽👽👽👽👽👽 -->
+
+
+                <!-- RANK SCALE 😭😭😭😭😭😭😭😭😭😭😭😭😭😭😭😭😭😭😭😭😭😭😭😭😭😭😭😭😭😭😭😭😭😭😭😭😭-->
+                <div *ngIf="bmxItem.componentType === 'ranking-scale'" class="paragraph">
+
+                    <app-rank-scale [bmxItem]="bmxItem" [i]="i" [bmxClientPageDesignMode]="bmxClientPageDesignMode"
+                        [bmxClientPageOverview]="bmxClientPageOverview"></app-rank-scale>
+                </div>
+                <!-- END RANK SCALE 😭😭😭😭😭😭😭😭😭😭😭😭😭😭😭😭😭😭😭😭😭😭😭😭😭😭😭😭😭😭😭😭😭😭😭😭😭 -->
+
+                <!-- NARROW DOWN SCALE 😭😭😭😭😭😭😭😭😭😭😭😭😭😭😭😭😭😭😭😭😭😭😭😭😭😭😭😭😭😭😭😭😭😭😭😭😭-->
+                <div *ngIf="bmxItem.componentType === 'narrow-down'" class="paragraph">
+                    <app-narrow-down [bmxItem]="bmxItem" [i]="i" [bmxClientPageDesignMode]="bmxClientPageDesignMode"
+                        [bmxClientPageOverview]="bmxClientPageOverview"></app-narrow-down>
+                </div>
+                <!-- END NARROW DOWN SCALE 😭😭😭😭😭😭😭😭😭😭😭😭😭😭😭😭😭😭😭😭😭😭😭😭😭😭😭😭😭😭😭😭😭😭😭😭😭 -->
+
+                <!-- IMAGE SCALE 👀👀👀👀👀👀👀👀👀👀👀👀👀👀👀👀👀👀👀👀👀👀👀👀👀👀👀👀👀👀👀👀👀👀👀👀👀👀-->
+                <div *ngIf="bmxItem.componentType === 'image-rate-scale'" class="paragraph">
+                    <app-image-rate-scale [bmxItem]="bmxItem" [i]="i"
+                        [bmxClientPageDesignMode]="bmxClientPageDesignMode"
+                        [bmxClientPageOverview]="bmxClientPageOverview"></app-image-rate-scale>
+                </div>
+                <!-- END IMAGE SCALE 👀👀👀👀👀👀👀👀👀👀👀👀👀👀👀👀👀👀👀👀👀👀👀👀👀👀👀👀👀👀👀👀👀👀👀👀👀👀 -->
+
+
+                <!-- QUESTION AND ANSWER  ✒️✒️✒️✒️✒️✒️✒️✒️✒️✒️✒️✒️✒️✒️✒️✒️✒️✒️✒️✒️✒️✒️✒️✒️✒️✒️✒️✒️✒️✒️✒️✒️✒️✒️✒️✒️✒️✒️-->
+                <div *ngIf="bmxItem.componentType === 'question-answer'" class="paragraph">
+                    <app-question-answer [bmxItem]="bmxItem" [i]="i" [bmxClientPageDesignMode]="bmxClientPageDesignMode"
+                        [bmxClientPageOverview]="bmxClientPageOverview"></app-question-answer>
+                </div>
+                <!-- END QUESTION AND ANSWER  ✒️✒️✒️✒️✒️✒️✒️✒️✒️✒️✒️✒️✒️✒️✒️✒️✒️✒️✒️✒️✒️✒️✒️✒️✒️✒️✒️✒️✒️✒️✒️✒️✒️✒️✒️✒️✒️ -->
+
+            </div>
+
+
+            <!-- PAGE BUTTONS AND DIRECTIONS 1 2 3 📲📲📲📲📲📲📲📲📲📲📲📲📲📲📲📲📲📲📲📲📲📲📲📲📲📲📲📲📲📲📲📲📲📲-->
+            <div class="page-buttons">
+                <div class="page-buttons-heigth-minus-50">
+                    <button (click)="changePage('previous')" mat-icon-button>
+                        <mat-icon class="full-icon">chevron_left</mat-icon>
+                    </button>
+                    <div *ngFor="let page of bmxPagesClient; let pageIndex = index">
+                        <button style="min-width: 35px;" (click)="selectPageNumber(pageIndex)"
+                            [ngClass]="(currentPage === pageIndex)?'pageNumberActive':'pageNumber'" mat-raised-button>
+                            {{page.pageNumber}}
+                        </button>
+                    </div>
+
+                    <button (click)="changePage('next')" mat-icon-button>
+                        <mat-icon class="full-icon">chevron_right</mat-icon>
+                    </button>
+                </div>
+            </div>
+            <!-- 📲📲📲📲📲📲📲📲📲📲📲📲📲📲📲📲📲📲📲📲📲📲📲📲📲📲📲📲📲📲📲📲📲📲 END PAGE BUTTONS AND DIRECTIONS -->
+
+            <!-- END 🧑🏻‍🚀🧑🏻‍🚀🧑🏻‍🚀🧑🏻‍🚀🧑🏻‍🚀🧑🏻‍🚀🧑🏻‍🚀🧑🏻‍🚀🧑🏻‍🚀🧑🏻‍🚀🧑🏻‍🚀🧑🏻‍🚀🧑🏻‍🚀 BRAND MATRIX MODULAR LEGO TEMPLATE COMPONENTS   -->
+        </div>
+
+    </div>
+
+    <div [style.display]="(popUpQRCode)?'flex':'none'" class="qr-code">
+        <div style="position: absolute;top:71px" #canvas></div>
+        <img style="width: 360px;" src="./assets/img/bmx/qr/purpleBlack.png">
+    </div>
+
+
+
+</div>
