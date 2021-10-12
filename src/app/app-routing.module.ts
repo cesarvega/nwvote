@@ -46,7 +46,7 @@ const routes: Routes = [
   // },
   {
     path: '',
-    redirectTo: '/Blend/bi_cvega',
+    redirectTo: '/BMX_TEST/bi_cvega',
     pathMatch: 'full'
   } 
 ];

@@ -9,10 +9,10 @@ const routes: Routes = [
   //   path: ':id',
   //   component: BmxComponent
   // },
-  {//BI BRAND MATRIX CREATOR
-  path: ':id',
-   component: BmxCreatorComponent
-  },
+  // {//BI BRAND MATRIX CREATOR
+  // path: ':id',
+  //  component: BmxCreatorComponent
+  // },
   {
     path: '',
     redirectTo: '/id',
