@@ -1,7 +1,8 @@
 import { Component, ElementRef, EventEmitter, Inject, Input, OnInit, Output, ViewChild, ViewEncapsulation } from '@angular/core';
 import { CdkTextareaAutosize } from '@angular/cdk/text-field';
 import { DragulaService } from 'ng2-dragula';
-
+import { MatSnackBar } from '@angular/material/snack-bar';
+import { Subscription } from 'rxjs';
 @Component({
   selector: 'app-rating-scale',
   templateUrl: './rating-scale.component.html',
@@ -18,11 +19,10 @@ export class RatingScaleComponent implements OnInit {
   selectedRowCounter = 0;
   selectedIndex: any
   displayInstructions = false;
-  isColumnResizerOn = true;
 
   selectedStarRatingIndex = ''
-  selectedRating : any;
-  editSingleTableCells = false
+  selectedRating: any;
+
   // columnsSlider = 150
   // rowHeightSlider = 2
   // fontSizeRow = 19
@@ -46,77 +46,130 @@ export class RatingScaleComponent implements OnInit {
   commentColumnCounter = 1
   rankingType = 'dropDown'
   RadioColumnList = []
+  selectedCard: any
 
+  minRuleCounter = 0
+  maxRuleCounter = 0
+  deleteRows = false
+  dragRows = false
+  isColumnResizerOn = true;
+  editSingleTableCells = false
 
+  BAG = "DRAGGABLE_ROW";
+  subs = new Subscription();
+  constructor(private dragulaService: DragulaService, private _snackBar: MatSnackBar) {
+    //   dragulaService.createGroup('DRAGGABLE_ROW', {
+    //     moves: (el, container, handle, sibling) => {
+    //       if (el.classList.contains('ROW-CERO')) {
+    //         return false
+    //       }else return true
+    //     }
+    // });
 
-  constructor(dragulaService: DragulaService) { 
-  //   dragulaService.createGroup('asasd', {
-  //     moves: (el, container, handle, sibling) => {
-  //       if (el.classList.contains('ROW-CERO')) {          
-  //         return false
-  //       }
-  //     }
-  // });
+    // dragulaService.createGroup("DRAGGABLE_ROW", {
+    //   removeOnSpill: true
+    // });
+
   }
   ngOnInit(): void {
-    console.log('');
-
     // COLUMN NAMES
     let values = Object.keys(this.bmxItem.componentText[0])
 
     values.forEach(value => {
-      if (typeof value == "string" && value != "STARS" && value != "CRITERIA") {
+      if (typeof value == "string" && value != "STARS" && value != "CRITERIA" && value != "RATE") {
         this.columnsNames.push(value)
       }
     });
   }
 
- 
+  maxRuleCounterMinus() {
+    if (this.maxRuleCounter != 0) {
+      this.maxRuleCounter--;
+    }
+    if (this.bmxItem.componentSettings[0].ratedCounter > 0) {
+      this.bmxItem.componentSettings[0].ratedCounter--;
+    }
+
+    if (this.bmxItem.componentSettings[0].ratedCounter >= this.bmxItem.componentSettings[0].minRule) {
+      this.bmxItem.componentSettings[0].categoryRulesPassed = true
+    } else { this.bmxItem.componentSettings[0].categoryRulesPassed = false }
+  }
   // ⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️ STARS METHODS  ⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️
   setRating(rate, testNameId) {
-
-
-    if (this.bmxItem.componentType == 'ranking-scale') {
-      this.bmxItem.componentText.forEach((element, i) => {
-        if (element.RATE == rate) {
-          this.bmxItem.componentText[i].RATE = 0
-        }
-      });
-    }
     if (rate.target && this.bmxItem.componentType == 'narrow-down') {
-
       if (this.selectedRowCounter >= this.rankingScaleValue && !this.bmxItem.componentText[testNameId].SELECTED_ROW) {
+
         for (let index = 0; index < this.bmxItem.componentText.length; index++) {
           // REMOVE FIRST CHECKED VALUE
           if (this.bmxItem.componentText[index].SELECTED_ROW) {
+            // ASK BEFROE REMOVE IT 
+            this._snackBar.open(this.bmxItem.componentText[index].nameCandidates + ' was uncheck', 'OK', {
+              duration: 4000,
+              verticalPosition: 'bottom',
+            }).afterDismissed().subscribe(action => { })
+
             this.bmxItem.componentText[index].SELECTED_ROW = false;
             break
           }
         }
-
-
       }
-      this.bmxItem.componentText[testNameId].SELECTED_ROW = rate.target.checked
+      else {
+        if (this.bmxItem.componentText[testNameId]["CRITERIA"]) {
+          this.bmxItem.componentText[testNameId]["CRITERIA"].forEach(criteria => {
+            criteria.RATE = 0
+          });
+        } else {
+          this.bmxItem.componentText[testNameId]["RATE"] = 0
+        }
+      }
 
+      this.bmxItem.componentText[testNameId].SELECTED_ROW = rate.target.checked
       this.selectedRowCounter = 0
       for (let index = 0; index < this.bmxItem.componentText.length; index++) {
         if (this.bmxItem.componentText[index].SELECTED_ROW) {
           this.selectedRowCounter++
-        } else {
-          this.bmxItem.componentText[index].SELECTED_ROW = false
         }
+        //  else {
+        //   // this.bmxItem.componentText[index].SELECTED_ROW = false
+        // }
       }
-
-      // if (!rate.target.checked) {
-      //   this.selectedRowCounter = this.selectedRowCounter - 1
-      // } else {
-      //   this.selectedRowCounter++
-      // }
-    } else {
-
-      this.bmxItem.componentText[testNameId].RATE = rate 
     }
 
+    if (this.bmxItem.componentType == 'ranking-scale') {
+
+
+      this.bmxItem.componentText.forEach((testnameRow, i) => {
+        if (testnameRow.RATE == rate) {
+          this.bmxItem.componentText[i].RATE = 0
+          // ASK BEFROE REMOVE IT 
+          // this._snackBar.open(testnameRow.nameCandidates + 'was already rank ' + rate, 'ok', {
+          //   duration: 4000,
+          //   verticalPosition: 'bottom',
+          // })
+        }
+      });
+      this.bmxItem.componentText[testNameId].RATE = rate
+
+
+    }
+
+    else {
+      if (this.maxRuleCounter < this.bmxItem.componentSettings[0].maxRule || this.bmxItem.componentSettings[0].maxRule == 0) {
+        if (this.bmxItem.componentSettings[0].maxRule > 0) { this.maxRuleCounter++ }
+        this.bmxItem.componentText[testNameId].RATE = rate
+        this.bmxItem.componentSettings[0].ratedCounter++
+        if (this.bmxItem.componentSettings[0].ratedCounter >= this.bmxItem.componentSettings[0].minRule) {
+          this.bmxItem.componentSettings[0].categoryRulesPassed = true
+        } else { this.bmxItem.componentSettings[0].categoryRulesPassed = false }
+      } else {
+        if (this.bmxItem.componentType != 'narrow-down' && this.bmxItem.componentSettings[0].maxRule > 0) {
+          this._snackBar.open('you can only rate up to ' + this.bmxItem.componentSettings[0].maxRule + ' Test Names', 'OK', {
+            duration: 5000,
+            verticalPosition: 'top',
+          })
+        }
+      }
+    }
   }
 
   selectStar(starId, testNameId): void {
@@ -135,15 +188,22 @@ export class RatingScaleComponent implements OnInit {
   }
 
   leaveStar(testNameId): void {
-    this.selectedRating = this.bmxItem.componentText[testNameId].RATE
-    this.bmxItem.componentText[testNameId].STARS.filter((star) => {
-      if (star.id <= this.selectedRating && this.selectedRating !== "") {
-        star.styleClass = (this.ratingScaleIcon === 'grade') ? 'active-rating-star' : 'active-rating-bar';
-      } else {
-        star.styleClass = 'rating-star';
-      }
-      return star;
-    });
+    if (this.bmxItem.componentText[testNameId].CRITERIA) {
+      this.bmxItem.componentText[testNameId].CRITERIA.forEach((criteria, index) => {
+        this.leaveCriteriaStar(testNameId, index)
+      });
+    } else {
+      this.selectedRating = this.bmxItem.componentText[testNameId].RATE
+      this.bmxItem.componentText[testNameId].STARS.filter((star) => {
+        if (star.id <= this.selectedRating && this.selectedRating !== "") {
+          star.styleClass = (this.ratingScaleIcon === 'grade') ? 'active-rating-star' : 'active-rating-bar';
+        } else {
+          star.styleClass = 'rating-star';
+        }
+        return star;
+      });
+    }
+
   }
 
   // CRITERIA STARS
@@ -168,6 +228,7 @@ export class RatingScaleComponent implements OnInit {
   }
 
   leaveCriteriaStar(testNameId, criteriaId): void {
+
     this.selectedRating = this.bmxItem.componentText[testNameId].CRITERIA[criteriaId].RATE
     this.bmxItem.componentText[testNameId].CRITERIA[criteriaId].STARS.filter((star) => {
       if (star.id <= this.selectedRating && this.selectedRating !== "") {
@@ -200,17 +261,11 @@ export class RatingScaleComponent implements OnInit {
       const rows = list.split("\n");
       this.columnsNames = [];
       this.columnsNames = rows[0].toLowerCase().split("\t");
-
       this.extraColumnCounter = 1
       this.columnsNames.forEach((column, index) => {
         if (column == 'name candidates' || column == 'test names' || column == 'names' || column == 'questions') {
-          // if (this.bmxItem.componentType = 'image-rate-scale') {
-          //   this.columnsNames[index] = 'name'
-          // } else {
-          // }
-          
           this.columnsNames[index] = 'nameCandidates'
-        } else if (column == 'name rationale' || column == 'rationale' || column == 'rationales' ) {
+        } else if (column == 'name rationale' || column == 'rationale' || column == 'rationales') {
           this.columnsNames[index] = 'rationale'
         } else if (column == 'katakana') {
           this.columnsNames[index] = 'katakana'
@@ -224,7 +279,7 @@ export class RatingScaleComponent implements OnInit {
         if (rows[i] != "" && rows[i].length > 6) {
           let objectColumnDesign = {};
           if (this.ASSIGNED_CRITERIA.length > 0) {
-
+            this.bmxItem.componentSettings[0].CRITERIA = true
             for (let e = 0; e < this.columnsNames.length; e++) {
               if ((rows[i].split("\t").length > 0)) {
                 objectColumnDesign[this.columnsNames[e]] = rows[i].split("\t")[e]
@@ -239,7 +294,7 @@ export class RatingScaleComponent implements OnInit {
               })
             });
           } else {
-
+            this.bmxItem.componentSettings[0].CRITERIA = false
             objectColumnDesign['STARS'] = this.createRatingStars(this.rankingScaleValue, this.ratingScaleIcon);
             for (let e = 0; e < this.columnsNames.length; e++) {
               if ((rows[i].split("\t").length > 0)) {
@@ -255,6 +310,7 @@ export class RatingScaleComponent implements OnInit {
     } else {
       this.bmxItem.componentText.forEach((row, index) => {
         row.STARS = this.createRatingStars(this.rankingScaleValue, this.ratingScaleIcon)
+        row.RATE = -1
         // this.leaveStar(index);
       });
     }
@@ -285,6 +341,7 @@ export class RatingScaleComponent implements OnInit {
   }
 
   insertRadioColumn() {
+
     this.columnsNames.push('RadioColumn' + (this.radioColumnCounter));
     this.RadioColumnList.push('RadioColumn' + this.radioColumnCounter)
     this.bmxItem.componentText.forEach((object, index) => {
@@ -297,6 +354,8 @@ export class RatingScaleComponent implements OnInit {
       }
     });
     this.radioColumnCounter++
+
+
   }
 
   saveRadioColumValue(name, y) {
@@ -306,25 +365,28 @@ export class RatingScaleComponent implements OnInit {
       if (columnName.includes('RadioColumn')) {
         this.bmxItem.componentText[y][columnName] = false
       }
-      
+
       if (columnName.includes('RadioColumn')) {
         this.RadioColumnList.push(columnName)
       }
     });
     this.bmxItem.componentText[y][name] = true
     this.RadioColumnList.forEach((columnName, index) => {
-      if (columnName.includes('RadioColumn')) {
-        if (this.bmxItem.componentText[y][columnName]) {
-          if (this.bmxItem.componentType == 'ranking-scale') {
-            this.bmxItem.componentText.forEach((element, i) => {
-              if (element.RATE == index + 1) {
-                this.bmxItem.componentText[i].RATE = 0
-              }
-            });
-          }
-          this.bmxItem.componentText[y].RATE = index + 1
+      // if (columnName.includes('RadioColumn')) {
+      if (this.bmxItem.componentText[y][columnName]) {
+        if (this.bmxItem.componentType == 'ranking-scale') {
+          this.bmxItem.componentText.forEach((element, i) => {
+            if (element.RATE == index + 1) {
+              this.bmxItem.componentText[i].RATE = 0
+              this.RadioColumnList.forEach(radioColumnName => {
+                this.bmxItem.componentText[i][radioColumnName] = false
+              });
+            }
+          });
         }
+        this.bmxItem.componentText[y].RATE = index + 1
       }
+      // }
     });
   }
 
@@ -395,6 +457,9 @@ export class RatingScaleComponent implements OnInit {
     this.isColumnResizerOn = !this.isColumnResizerOn
   }
 
+  slert(index) {
+    // this.selectedCard = index
+  }
 
   ASSIGNED_CRITERIA = []
   CRITERIA = [

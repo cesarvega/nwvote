@@ -152,6 +152,7 @@ export class BmxCreatorComponent implements OnInit {
       moves: (el, container, handle) => {
         return handle.classList.contains('emoji-handle');
       }
+      
     })
     // document.body.style.zoom = 1.10;
 
@@ -238,6 +239,14 @@ export class BmxCreatorComponent implements OnInit {
     this.isMenuActive1 = event;
     this.isMainMenuActive = event;
     this.isMenuActive8 = !event;
+  }
+
+  emailBM(event)
+  {
+    console.log(event)
+    this.isMenuActive1 = event;
+    this.isMainMenuActive = event;
+    this.isMenuActive15 = !event;
   }
 
 }

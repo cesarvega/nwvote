@@ -9,10 +9,30 @@ export class BmxService {
   webBaseUrl = 'https://tools.brandinstitute.com//wsBrandMatrix/wsBrandMatrix.asmx';
   GetProjectList = '/GetProjectList';
   GetGeneralLists = '/GetGeneralLists';
-  GetParticipantList = '/BrandMatrixGetParticipantList'
-  GetProjectInfo = '/BrandMatrixGetDirectorList';
+
+  BrandMatrixResourceUpload = '/BrandMatrixResourceUpload'// SAVES FILES TO THE SERVER IN BASE64 AND RETURS A FILE PATH
+  searchGraveAccentRegExp = new RegExp("`", 'g');
+  searchApostropheRegExp = new RegExp("'", 'g');
+
+
+  brandMatrixSave = '/BrandMatrixSave'; // SAVES THE BRANDMATRIX PER PROJECT 
+  brandMatrixSaveUserAnswers = '/BrandMatrixSaveUserAnswers'; // SAVES THE BRANDMATRIX USER ANSWERS
+
+  
+  brandMatrixGetALLUserAnswers = '/BrandMatrixGetALLUserAnswers'; // GETS THE BRANDMATRIX ANSWERS
+  brandMatrixGetUserAnswers = '/BrandMatrixGetUserAnswers'; // GETS THE BRANDMATRIX SINGLE USER ANSWERS
+
+
+  GetParticipantList = '/BrandMatrixGetParticipantList';
+  SaveParticipantList = '/BrandMatrixAddParticipantList';
+  DelParticipantList = '/BrandMatrixDelParticipantList';
+  UptParticipantList = '/BrandMatrixUpdParticipantList';
+
+  GetProjectInfo = '/BrandMatrixProjectInfoGet';
+  SaveProjectInfo = '/BrandMatrixProjectInfoSave';
+  
   SaveProjectInfor = '/BrandMatrixUpdDirectorList'
-  BrandMatrixResourceUpload = '/BrandMatrixResourceUpload'
+  SendEmail = '/BrandMatrixSendEmail'
   constructor(private http: HttpClient) {}
    
   getGeneralLists() {
@@ -33,7 +53,32 @@ export class BmxService {
 
   }
 
-  
+  BrandMatrixDelParticipantList(projectName: any, partList: any) {
+    var input = JSON.stringify({ "ProjectName":projectName, "ParticipantList":partList});
+    return this.http.post(this.webBaseUrl + this.DelParticipantList, { token: '646EBF52-1846-47C2-9F62-DC50AE5BF692', payload: input });
+    // return this.http.get(this.webBaseUrl + 'api/NW_GetProjectIdWithProjectName?projectName=' + projectName, httpOptions);
+
+  }
+
+  BrandMatrixUptParticipantList(projectName: any, partList: any) {
+    var input = JSON.stringify({ "ProjectName":projectName, "ParticipantList":partList});
+    return this.http.post(this.webBaseUrl + this.UptParticipantList, { token: '646EBF52-1846-47C2-9F62-DC50AE5BF692', payload: input });
+    // return this.http.get(this.webBaseUrl + 'api/NW_GetProjectIdWithProjectName?projectName=' + projectName, httpOptions);
+
+  }
+
+  BrandMatrixSaveParticipantList(projectName: any, partList: any) {
+    var input = JSON.stringify({ "ProjectName":projectName, "ParticipantList":partList});
+    return this.http.post(this.webBaseUrl + this.SaveParticipantList, { token: '646EBF52-1846-47C2-9F62-DC50AE5BF692', payload: input });
+    // return this.http.get(this.webBaseUrl + 'api/NW_GetProjectIdWithProjectName?projectName=' + projectName, httpOptions);
+
+  }
+
+  saveProjectInfo(projectName: any, projectData: any, user: any) {
+    var input = JSON.stringify({ "ProjectName":projectName, "ParticipantList ":projectData, "Username":user});
+    return this.http.post(this.webBaseUrl + this.SaveProjectInfo, { token: '646EBF52-1846-47C2-9F62-DC50AE5BF692', payload: input});
+    // return this.http.get(this.webBaseUrl + 'api/NW_GetProjectIdWithProjectName?projectName=' + projectName, httpOptions);
+  }
 
   // PROJECT INFORMATON
   getProjectInfo(projectName: any) {
@@ -41,21 +86,49 @@ export class BmxService {
     // return this.http.get(this.webBaseUrl + 'api/NW_GetProjectIdWithProjectName?projectName=' + projectName, httpOptions);
   }
 
-  saveFileResources(resourceData: any)
+  saveFileResources(resourceData: any) {
+    return this.http.post(this.webBaseUrl + this.BrandMatrixResourceUpload, { token: '646EBF52-1846-47C2-9F62-DC50AE5BF692', payload: resourceData });
+  }
+
+  sendEmail(resourceData: any)
   {
-    return this.http.post(this.webBaseUrl + this.BrandMatrixResourceUpload, { token: '646EBF52-1846-47C2-9F62-DC50AE5BF692', payload:  resourceData });
+    return this.http.post(this.webBaseUrl + this.SendEmail, { token: '646EBF52-1846-47C2-9F62-DC50AE5BF692', payload: resourceData });
+
   }
 
 
-  saveOrUpdateProjectInfo(project, data) {​ }​
 
-  // save template string
-  saveOrUpdateTemplate(project, template) {​ }​
 
-// Default templates to design the project from
-  getTemplates(project) {​ }​
+  saveOrUpdateBMXInfo(project, data) { }
 
-// Current Template being used for this project
-  getProjectTemplate(project) {​ }​
+  getBMXPorjectInfo(project, data) { }
+
+  // save template string
+
+  saveOrUpdateTemplate(bmxCompleteObject,projectName) {
+    const payloadString = JSON.stringify({
+      "ProjectName": projectName,
+      "BrandMatrix": JSON.stringify(bmxCompleteObject).replace(this.searchApostropheRegExp, '`')
+    })
+    return this.http.post(this.webBaseUrl + this.brandMatrixSave, {
+      token: '646EBF52-1846-47C2-9F62-DC50AE5BF692', payload: payloadString
+    })
+  }
+
+  saveOrUpdateAnswers(bmxCompleteObject,projectName, username) {
+    const payloadString = JSON.stringify({
+      "ProjectName": projectName,
+      "UserName": username,
+      "BrandMatrix": JSON.stringify(bmxCompleteObject).replace(this.searchApostropheRegExp, '`')
+    })
+    return this.http.post(this.webBaseUrl + this.brandMatrixSave, {
+      token: '646EBF52-1846-47C2-9F62-DC50AE5BF692', payload: payloadString
+    })
+  }
+
+  // Default templates for all BMX
+  getAllDefaultTemplates() { }
+
+  saveOrUpdateDafaultTemplate(user) { }
 
 }

@@ -16,8 +16,8 @@ export class ParticipantsEmailComponent implements OnInit {
   allData;
 
   attachments = [];
-  dirConfirm;
-  deptConfirm;
+  dirConfirm = false;
+  deptConfirm = false;
   viewedData;
   selected;
   @Input() isMenuActive15;
@@ -199,14 +199,19 @@ export class ParticipantsEmailComponent implements OnInit {
       "deptConfirm": this.deptConfirm,
       "emailTemp" : this.emailTemp,
       "linkType" : this.linkType,
-      "From" : this.From,
-      "BCC" : this.BCC,
-      "CC" : this.CC,
+      "From" : 'cgomez@brandinstitute.com',
+      /*"BCC" : this.BCC,
+      "CC" : this.CC,*/
       "Subject" : this.Subject,
       "Message" : this.brandMatrixObjects[1].componentText,
-      "TO" : this.to,
-      "attachents" : this.attachments
+      "TO" : 'kcabrera@brandinstitute.com',
+      "attachments" : this.attachments
     }
+    var finalString = JSON.stringify(rememberEmail);
+    finalString = finalString.replace("[\\u2022,\\u2023,\\u25E6,\\u2043,\\u2219]\\s\\d", '');
+    this._BmxService.sendEmail(finalString).subscribe(result => {
+      var so = result;
+    });
     localStorage.setItem('fakeprojectname' + '_emailInfo', JSON.stringify(rememberEmail));
   }
 

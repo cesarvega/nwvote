@@ -96,9 +96,6 @@
                     </mat-select>
                 </mat-form-field>
 
-
-
-
                 <button mat-mini-fab style="background-color:#063074;outline: none;" matTooltip="add director"
                     matTooltipPosition="above" (click)="createDirector()">
                     <mat-icon class="full-icon" style="color: white;">add</mat-icon>
@@ -117,8 +114,8 @@
             <mat-card class="directorCard" style="margin:20px 0px;width: 400px;">
 
                 <div style="display: flex;flex-direction: row;">
-                    <div style="margin-right: 6px; color: #324395;" class="selectLabels">Director: </div>
-                    <input class="directorInfo" [(ngModel)]="DIRECTORS[i].name" placeholder="Director"
+                    <div style="margin-right: 6px; color: #324395;" class="selectLabels">Name: </div>
+                    <input class="directorInfo" [(ngModel)]="DIRECTORS[i].name" placeholder="Name"
                         [readonly]="i !== canEdit" matInput style="width:75%">
                 </div>
 

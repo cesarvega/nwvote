@@ -40,8 +40,50 @@
   // animation: bounce 1000ms 1000ms ease-in-out  forwards  ;
 }
 
+@media (min-width: 576px) {
+  .desktop {
+    display: flex;
+    flex-direction: column;
+  }
 
+  .mobile {
+    display: none;
+    padding-bottom: 30px;
+  }
 
+  .test-name-table {
+    display: flex;
+    flex-direction: row;
+  }
+}
+
+@media (max-width: 576px) {
+  .desktop {
+    display: none;
+  }
+  .test-name-table {
+    display: flex;
+    flex-direction: column;
+    // gap: 16px;
+    // padding-top: 10px;
+    align-items: center;
+    border: 2px solid rgb(235, 235, 235);
+    border-radius: 5px;
+    width: 100vw;
+    overflow: hidden;
+  }
+
+  .mobile {
+    padding-bottom: 30px;
+  }
+
+  .selectedCard {
+    display: none;
+  }
+  .noSelectedCard {
+    right: 7px;
+  }
+}
 
 .red {
   background-color: white;
@@ -88,7 +130,7 @@
 
 .header-delete-icon {
   cursor: pointer;
-  margin-right: 5px;
+  margin: -2px 5px;
   color: red;
   font-size: 20px;
 }
@@ -105,14 +147,17 @@
 
 .add-column {
   outline: none;
-
   float: right;
   color: grey;
 }
 
-.test-name-table {
-  display: flex;
-  flex-direction: row;
+.add-column-active {
+  outline: none;
+  float: right;
+  
+  mat-icon{
+    color: #324395;
+  }
 }
 
 .test-name-table:hover {
@@ -146,7 +191,6 @@ textarea {
   overflow: auto;
 }
 
-
 textarea::-webkit-scrollbar {
   width: 3px;
 }
@@ -174,14 +218,14 @@ textarea::-webkit-scrollbar-thumb:hover {
 textarea {
   -webkit-tap-highlight-color: transparent;
   width: 100%;
-  // min-height: 1.5rem; 
-  padding: 0.2rem 0.0rem;
+  // min-height: 1.5rem;
+  padding: 0.2rem 0rem;
   // font-size: 1rem;
   // line-height: 2rem;
   // font-weight: 300;
   background: #ffffff;
   justify-content: center;
-  
+
   border-radius: 6px;
   outline: none;
   // box-shadow: inset 5px 7px 7px #d1d9e9, inset -19px -31px 1px #ffffff;
@@ -204,7 +248,6 @@ textarea:focus {
 textarea:placeholder-shown {
   background: none;
 }
-
 
 /* Chrome/Opera/Safari */
 ::-webkit-input-placeholder {
