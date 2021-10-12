@@ -10,9 +10,6 @@ export class BmxService {
   GetProjectList = '/GetProjectList';
   GetGeneralLists = '/GetGeneralLists';
 
-  GetParticipantList = '/BrandMatrixGetParticipantList'
-  GetProjectInfo = '/BrandMatrixGetDirectorList';
-  SaveProjectInfor = '/BrandMatrixUpdDirectorList'
   BrandMatrixResourceUpload = '/BrandMatrixResourceUpload'// SAVES FILES TO THE SERVER IN BASE64 AND RETURS A FILE PATH
   searchGraveAccentRegExp = new RegExp("`", 'g');
   searchApostropheRegExp = new RegExp("'", 'g');
@@ -25,8 +22,19 @@ export class BmxService {
   brandMatrixGetALLUserAnswers = '/BrandMatrixGetALLUserAnswers'; // GETS THE BRANDMATRIX ANSWERS
   brandMatrixGetUserAnswers = '/BrandMatrixGetUserAnswers'; // GETS THE BRANDMATRIX SINGLE USER ANSWERS
 
-  constructor(private http: HttpClient) { }
 
+  GetParticipantList = '/BrandMatrixGetParticipantList';
+  SaveParticipantList = '/BrandMatrixAddParticipantList';
+  DelParticipantList = '/BrandMatrixDelParticipantList';
+  UptParticipantList = '/BrandMatrixUpdParticipantList';
+
+  GetProjectInfo = '/BrandMatrixProjectInfoGet';
+  SaveProjectInfo = '/BrandMatrixProjectInfoSave';
+  
+  SaveProjectInfor = '/BrandMatrixUpdDirectorList'
+  SendEmail = '/BrandMatrixSendEmail'
+  constructor(private http: HttpClient) {}
+   
   getGeneralLists() {
     return this.http.post(this.webBaseUrl + this.GetGeneralLists, { token: '646EBF52-1846-47C2-9F62-DC50AE5BF692', payload: '' });
     // return this.http.get(this.webBaseUrl + 'api/NW_GetProjectIdWithProjectName?projectName=' + projectName, httpOptions);
@@ -45,6 +53,32 @@ export class BmxService {
 
   }
 
+  BrandMatrixDelParticipantList(projectName: any, partList: any) {
+    var input = JSON.stringify({ "ProjectName":projectName, "ParticipantList":partList});
+    return this.http.post(this.webBaseUrl + this.DelParticipantList, { token: '646EBF52-1846-47C2-9F62-DC50AE5BF692', payload: input });
+    // return this.http.get(this.webBaseUrl + 'api/NW_GetProjectIdWithProjectName?projectName=' + projectName, httpOptions);
+
+  }
+
+  BrandMatrixUptParticipantList(projectName: any, partList: any) {
+    var input = JSON.stringify({ "ProjectName":projectName, "ParticipantList":partList});
+    return this.http.post(this.webBaseUrl + this.UptParticipantList, { token: '646EBF52-1846-47C2-9F62-DC50AE5BF692', payload: input });
+    // return this.http.get(this.webBaseUrl + 'api/NW_GetProjectIdWithProjectName?projectName=' + projectName, httpOptions);
+
+  }
+
+  BrandMatrixSaveParticipantList(projectName: any, partList: any) {
+    var input = JSON.stringify({ "ProjectName":projectName, "ParticipantList":partList});
+    return this.http.post(this.webBaseUrl + this.SaveParticipantList, { token: '646EBF52-1846-47C2-9F62-DC50AE5BF692', payload: input });
+    // return this.http.get(this.webBaseUrl + 'api/NW_GetProjectIdWithProjectName?projectName=' + projectName, httpOptions);
+
+  }
+
+  saveProjectInfo(projectName: any, projectData: any, user: any) {
+    var input = JSON.stringify({ "ProjectName":projectName, "ParticipantList ":projectData, "Username":user});
+    return this.http.post(this.webBaseUrl + this.SaveProjectInfo, { token: '646EBF52-1846-47C2-9F62-DC50AE5BF692', payload: input});
+    // return this.http.get(this.webBaseUrl + 'api/NW_GetProjectIdWithProjectName?projectName=' + projectName, httpOptions);
+  }
 
   // PROJECT INFORMATON
   getProjectInfo(projectName: any) {
@@ -54,6 +88,12 @@ export class BmxService {
 
   saveFileResources(resourceData: any) {
     return this.http.post(this.webBaseUrl + this.BrandMatrixResourceUpload, { token: '646EBF52-1846-47C2-9F62-DC50AE5BF692', payload: resourceData });
+  }
+
+  sendEmail(resourceData: any)
+  {
+    return this.http.post(this.webBaseUrl + this.SendEmail, { token: '646EBF52-1846-47C2-9F62-DC50AE5BF692', payload: resourceData });
+
   }
 
 

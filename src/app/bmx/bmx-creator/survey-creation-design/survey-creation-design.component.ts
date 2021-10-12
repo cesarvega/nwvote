@@ -26,7 +26,7 @@ export class SurveyCreationDesignComponent implements OnInit {
   @Input() isMobile;
   @ViewChild('canvas', { static: true }) canvas: ElementRef;
   bmxPagesClient;
-  myAngularxQrCode = 'http://mrvrman.com/elitecesar';
+  myAngularxQrCode = 'https://mrvrman.web.app/bmx';
   popUpQRCode = false;
   elem: any;
   isFullscreen: any;
