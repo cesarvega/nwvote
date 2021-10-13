@@ -84,9 +84,9 @@
             style="font-size: 20px;color: #ee7f25;padding-bottom: 20px;">
 
 
-        MIN<input type="number" [(ngModel)]="bmxItem.componentSettings[0].minRule" style="width: 50px;"
+        MIN<input type="number" min="0" [(ngModel)]="bmxItem.componentSettings[0].minRule" style="width: 50px;"
             [value]="bmxItem.componentSettings[0].minRule">
-        MAX<input type="number" [(ngModel)]="bmxItem.componentSettings[0].maxRule" style="width: 50px;"
+        MAX<input type="number" min="0" [(ngModel)]="bmxItem.componentSettings[0].maxRule" style="width: 50px;"
             [value]="bmxItem.componentSettings[0].maxRule">
 
     </div>

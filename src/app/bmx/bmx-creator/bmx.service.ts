@@ -152,9 +152,10 @@ export class BmxService {
     })
    }
 
-  deleteBrandMatrixTemplateByName(templateName) {
+  deleteBrandMatrixTemplateByName(templateName, username) {
     const payloadString = JSON.stringify({
       TemplateName: templateName,
+      Username: username,
     })
     return this.http.post(this.webBaseUrl + this.brandMatrixTemplateDelete, {
       token: '646EBF52-1846-47C2-9F62-DC50AE5BF692', payload: payloadString

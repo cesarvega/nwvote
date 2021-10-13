@@ -1,6 +1,6 @@
 <div style="display: flex;">
     <div style="flex-direction: column;" class="bmx-page" *ngIf="isMenuActive11" [dragula]="(isMobile)?'TASKS':''"
-        (dragulaModelChange)="checkDragEvetn($event);"  [(dragulaModel)]="bmxPages[currentPage].page">
+        (dragulaModelChange)="checkDragEvetn($event);" [(dragulaModel)]="bmxPages[currentPage].page">
 
 
         <!-- BRAND MATRIX MODULAR TEMPLATE COMPONENTS  🧑🏻‍🚀🧑🏻‍🚀🧑🏻‍🚀🧑🏻‍🚀🧑🏻‍🚀🧑🏻‍🚀🧑🏻‍🚀🧑🏻‍🚀🧑🏻‍🚀🧑🏻‍🚀🧑🏻‍🚀🧑🏻‍🚀🧑🏻‍🚀 -->
@@ -182,16 +182,16 @@
                 mat-icon-button aria-label="aria">
                 <mat-icon class="full-icon">post_add</mat-icon>
             </button>
-            <button *ngIf="!false" (dblclick)="deletePage()" matTooltip="double click to delete current page" matTooltipPosition="right"
-                mat-icon-button aria-label="aria">
+            <button *ngIf="!false" (dblclick)="deletePage()" matTooltip="double click to delete current page"
+                matTooltipPosition="right" mat-icon-button aria-label="aria">
                 <mat-icon class="full-icon">layers_clear</mat-icon>
             </button>
             <button (click)="openSaveTemplateBox()" matTooltip="save template" matTooltipPosition="right"
                 mat-icon-button color="warn" aria-label="aria">
                 <mat-icon class="full-icon">save</mat-icon>
             </button>
-            <button *ngIf="true" (dblclick)="resetTemplate()" mat-icon-button matTooltip="double click to reset template"
-                matTooltipPosition="right">
+            <button *ngIf="true" (dblclick)="resetTemplate()" mat-icon-button
+                matTooltip="double click to reset template" matTooltipPosition="right">
                 <mat-icon class="full-icon">delete_sweep
                 </mat-icon>
             </button>
@@ -240,7 +240,7 @@
         </mat-select>
     </mat-form-field>
     <div *ngIf="templateName.length > 3"
-        style="display: flex;flex-direction: row;justify-content: space-evenly; width: 200px;">
+        style="display: flex;flex-direction: row;justify-content: space-evenly; width: 300px;">
         <button *ngIf="!isSaveOrUpdate" (click)="saveOrUpdateTemplate(templateName)" mat-raised-button
             style="color: white;background-color: #2a3f8a">
             save
@@ -254,38 +254,11 @@
             style="color: white;background-color: #2a3f8a">
             load
         </button>
-    </div>
-</div>
-
-<!-- RULE BOX -->
-<div *ngIf="false" class="save-template-box"
-    style="display: flex;flex-direction: column;align-items: center;justify-content: space-around;">
-    <h2 style="text-align: center;padding-top: 5px;color: #2a3f8a;">{{'Rules Box'}}</h2>
-
-    
-    <p style="text-align: center;color: grey;" *ngIf="templateName.length == 0">or select one to load or update</p>
-    <mat-form-field *ngIf="templateName.length == 0" appearance="outline">
-        <mat-label>Templates</mat-label>
-        <mat-select [(ngModel)]="templateName" (selectionChange)="templateSelected()">
-            <mat-option *ngFor="let template of TEMPLATES " [value]="template">
-                {{template}}
-            </mat-option>
-        </mat-select>
-    </mat-form-field>
-    <div *ngIf="templateName.length > 3"
-        style="display: flex;flex-direction: row;justify-content: space-evenly; width: 200px;">
-        <button *ngIf="!isSaveOrUpdate" (click)="saveOrUpdateTemplate(templateName)" mat-raised-button
-            style="color: white;background-color: #2a3f8a">
-            save
-        </button>
-        <button *ngIf="isSaveOrUpdate" (click)="saveOrUpdateTemplate(templateName)" mat-raised-button
-            style="color: white;background-color: #8a2a5a">
-            update
-        </button>
         <p *ngIf="isSaveOrUpdate">or</p>
-        <button *ngIf="isSaveOrUpdate" (click)="loadTemplate(templateName)" mat-raised-button
-            style="color: white;background-color: #2a3f8a">
-            load
+        <button *ngIf="isSaveOrUpdate" (dblclick)="deleteTemplate(templateName)"  matTooltip="double click to delete template"
+        matTooltipPosition="below" mat-raised-button
+            style="color: white;background-color: #972044">
+            delete
         </button>
     </div>
 </div>

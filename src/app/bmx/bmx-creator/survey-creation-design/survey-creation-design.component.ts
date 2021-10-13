@@ -105,6 +105,7 @@ export class SurveyCreationDesignComponent implements OnInit {
   qrCode: QRCodeStyling;
     projectId: any;
     biUsername: any;
+    biUserId = 'user@bi.com';
 
   constructor(
     @Inject(DOCUMENT) private document: any,
@@ -575,8 +576,8 @@ export class SurveyCreationDesignComponent implements OnInit {
   saveOrUpdateTemplate(templateName) {
     localStorage.setItem(templateName, JSON.stringify(this.bmxPages));
    
-    this._BmxService.saveBrandMatrixTemplate(templateName, this.bmxPages, 'user@bi.com').subscribe((template:any)=> {            
-        this.templateTitle = "Template '" + templateName + "' saved";
+    this._BmxService.saveBrandMatrixTemplate(templateName, this.bmxPages, this.biUserId).subscribe((template:any)=> {            
+        this.templateTitle = "Template '" + templateName + "' saved 🧐";
         this._snackBar.open(this.templateTitle, 'OK', {
             duration: 5000,
             horizontalPosition: 'right',
@@ -598,12 +599,32 @@ export class SurveyCreationDesignComponent implements OnInit {
     //   this.bmxPages = JSON.parse(localStorage.getItem(templateName));
     // }
     this._BmxService.getBrandMatrixTemplateByName(templateName).subscribe((template:any)=> {    
-        this.bmxPages = JSON.parse(template.d);        
+        this.bmxPages = JSON.parse(template.d);  
+        this._snackBar.open('template '+ "'"+ templateName + "'" + ' loaded 😀', 'OK', {
+            duration: 5000,
+            horizontalPosition: 'right',
+            verticalPosition: 'top',
+          })          
+    })
+    this.openSaveTemplateBox();
+  }
+
+  deleteTemplate(templateName) {
+    // if (localStorage.getItem(templateName)) {
+    //   this.bmxPages = JSON.parse(localStorage.getItem(templateName));
+    // }
+    this._BmxService.deleteBrandMatrixTemplateByName(templateName, this.biUserId).subscribe((template:any)=> {    
+        this._snackBar.open('template '+ "'"+ templateName + "'" + ' deleted 😳', 'OK', {
+            duration: 5000,
+            horizontalPosition: 'right',
+            verticalPosition: 'top',
+          })       
     })
     
 
     this.openSaveTemplateBox();
   }
+   
 
   templateSelected() {
     this.isSaveOrUpdate = true;
