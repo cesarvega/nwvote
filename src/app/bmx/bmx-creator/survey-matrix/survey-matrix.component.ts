@@ -16,7 +16,7 @@ export class SurveyMatrixComponent extends SurveyCreationDesignComponent impleme
     @Input() isMenuActive11;
     @Input() bmxClientPageDesignMode;
     @Input() bmxClientPageOverview;
-    myAngularxQrCode = 'http://mrvrman.com/elitecesar';
+    myAngularxQrCode = 'tools.brandinstitute.com/bmx/PROJECT/USERNAME';
 
 
     bmxPagesClient;
@@ -51,10 +51,15 @@ export class SurveyMatrixComponent extends SurveyCreationDesignComponent impleme
     }
 
     ngOnInit(): void {
-
+        this._snackBar.open('Welcome  ' + this.username + ' 😉', 'OK', {
+            duration: 5000,
+            horizontalPosition:'right',
+            verticalPosition: 'top',
+        })
         this.qrCode.append(this.canvas.nativeElement);
         this.bmxPagesClient = this.SAMPLE_BMX_CLIENT
         this._BmxService.getBrandMatrixByProjectAndUserAnswers(this.projectId, this.username).subscribe((brandMatrix: any) => {
+        //    IF USER ALREADY HAVE ANSWERS
             if (brandMatrix.d.length > 0) {
                 let answers = JSON.parse(brandMatrix.d.replace(this.searchGraveAccentRegExp, "'"))
                 this._BmxService.getBrandMatrixByProject(this.projectId).subscribe((brandMatrix: any) => {
@@ -65,17 +70,25 @@ export class SurveyMatrixComponent extends SurveyCreationDesignComponent impleme
                 })
             }
             else {
+                // BMX TEMPLATE LOADER BY PROJECT
                 this._BmxService.getBrandMatrixByProject(this.projectId).subscribe((brandMatrix: any) => {
-                    this.bmxPagesClient = JSON.parse(brandMatrix.d.replace(this.searchGraveAccentRegExp, "'"))
+                    if (brandMatrix.d.length > 0) {
+                        this.bmxPagesClient = JSON.parse(brandMatrix.d.replace(this.searchGraveAccentRegExp, "'"))
+                        // this._snackBar.open('bmx LOADED for project  ' + this.projectId , 'OK', {
+                        //     duration: 5000,
+                        //     horizontalPosition: 'right',
+                        //     verticalPosition: 'top'
+                        //   })
+                      } else {
+                        this.bmxPages = this.SAMPLE_BMX_CLIENT
+                      }
                 })
             }
-
-
-
-            this._snackBar.open('bmx loaded for  ' + this.username + '  user', 'OK', {
-                duration: 5000,
-                verticalPosition: 'top',
-            })
+            // this._snackBar.open('bmx loaded for  ' + this.username + '  user', 'OK', {
+            //     duration: 5000,
+            //     horizontalPosition:'right',
+            //     verticalPosition: 'top',
+            // })
         })
     }
 

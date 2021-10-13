@@ -1,4 +1,5 @@
 import { Component, ElementRef, EventEmitter, Inject, Input, OnInit, Output, ViewChild, ViewEncapsulation } from '@angular/core';
+import { ActivatedRoute } from '@angular/router';
 import { BmxService } from '../../../bmx.service';
 @Component({
   selector: 'app-logo-header',
@@ -21,12 +22,13 @@ export class LogoHeaderComponent  implements OnInit {
     uploadProgress: number;
     resourceData: any;
     IMAGES_UPLOADED = []
-  constructor(private _BmxService: BmxService) {
-   
-   }
+  projectId: any;
+  biUsername: any;
+  constructor(private _BmxService: BmxService) {}
 
 
   ngOnInit(): void {
+    this.bmxItem.componentText =localStorage.getItem('projectId');
   }
   
 
