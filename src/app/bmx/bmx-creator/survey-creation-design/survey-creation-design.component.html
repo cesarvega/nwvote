@@ -182,6 +182,10 @@
                 mat-icon-button aria-label="aria">
                 <mat-icon class="full-icon">post_add</mat-icon>
             </button>
+            <button *ngIf="!false" (dblclick)="deletePage()" matTooltip="double click to delete current page" matTooltipPosition="right"
+                mat-icon-button aria-label="aria">
+                <mat-icon class="full-icon">layers_clear</mat-icon>
+            </button>
             <button (click)="openSaveTemplateBox()" matTooltip="save template" matTooltipPosition="right"
                 mat-icon-button color="warn" aria-label="aria">
                 <mat-icon class="full-icon">save</mat-icon>

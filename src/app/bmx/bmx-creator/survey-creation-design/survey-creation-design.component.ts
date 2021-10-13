@@ -57,12 +57,12 @@ export class SurveyCreationDesignComponent implements OnInit {
   isOverViewPageOn = false;
   templateTitle;
   TEMPLATES = [
-    'Standart Personal Preference',
-    'Ranking',
-    'NarrowDown',
-    'This or That',
-    'Naming Contest',
-    'Question & Answer',
+    { TemplateName:'Standart Personal Preference'},
+    { TemplateName:'Ranking'},
+    { TemplateName:'NarrowDown'},
+    { TemplateName:'This or That'},
+    { TemplateName:'Naming Contest'},
+    { TemplateName:'Question & Answer'},
   ];
   templateName = '';
   selectedTemplateName = '';
@@ -237,6 +237,14 @@ export class SurveyCreationDesignComponent implements OnInit {
   }
 
   ngOnInit(): void {
+
+    this._BmxService.getGeneralLists()
+    .subscribe((arg: any) => {;
+      this.TEMPLATES = (JSON.parse(arg.d).BrandMatrixTemplateList.length > 0)?
+      JSON.parse(arg.d).BrandMatrixTemplateList.map( obj => obj.TemplateName):
+      this.TEMPLATES
+    });
+
     // SAMPLE DATA FOR CKEDITOR
     this.model.editorData = this.sampleHtml;
     // TEMPLATE SELECTOR
@@ -252,7 +260,8 @@ export class SurveyCreationDesignComponent implements OnInit {
         this.bmxPages = JSON.parse(brandMatrix.d)
         this._snackBar.open('bmx LOADED for project  ' + this.projectId , 'OK', {
             duration: 5000,
-            verticalPosition: 'top',
+            horizontalPosition: 'right',
+            verticalPosition: 'top'
           })
     })
     }
@@ -272,6 +281,17 @@ export class SurveyCreationDesignComponent implements OnInit {
     console.log(e);
   }
 
+  deletePage() {
+    if (this.currentPage > 0) {
+        
+        this.bmxPages.splice(this.currentPage, 1)  
+        
+        this.bmxPages.forEach((page, index) => {
+            page.pageNumber = index + 1
+        });
+        this.currentPage--
+    }
+  }
   createPage() {
     this.bmxPages.push({
       pageNumber: this.bmxPages.length + 1,
@@ -534,6 +554,7 @@ export class SurveyCreationDesignComponent implements OnInit {
               'OK',
               {
                 duration: 5000,
+                horizontalPosition: 'right',
                 verticalPosition: 'top',
               }
             );
@@ -553,7 +574,15 @@ export class SurveyCreationDesignComponent implements OnInit {
   // TEMPLATE METHODS
   saveOrUpdateTemplate(templateName) {
     localStorage.setItem(templateName, JSON.stringify(this.bmxPages));
-    this.templateTitle = "Template '" + templateName + "' saved";
+   
+    this._BmxService.saveBrandMatrixTemplate(templateName, this.bmxPages, 'user@bi.com').subscribe((template:any)=> {            
+        this.templateTitle = "Template '" + templateName + "' saved";
+        this._snackBar.open(this.templateTitle, 'OK', {
+            duration: 5000,
+            horizontalPosition: 'right',
+            verticalPosition: 'top',
+          })
+    })
 
     if (this.TEMPLATES.indexOf(templateName) < 0) {
       this.TEMPLATES.push(templateName);
@@ -564,10 +593,15 @@ export class SurveyCreationDesignComponent implements OnInit {
     }, 1000);
   }
 
-  loadTemplate(templateName) {
-    if (localStorage.getItem(templateName)) {
-      this.bmxPages = JSON.parse(localStorage.getItem(templateName));
-    }
+   loadTemplate(templateName) {
+    // if (localStorage.getItem(templateName)) {
+    //   this.bmxPages = JSON.parse(localStorage.getItem(templateName));
+    // }
+    this._BmxService.getBrandMatrixTemplateByName(templateName).subscribe((template:any)=> {    
+        this.bmxPages = JSON.parse(template.d);        
+    })
+    
+
     this.openSaveTemplateBox();
   }
 
@@ -594,15 +628,15 @@ export class SurveyCreationDesignComponent implements OnInit {
             componentType: 'logo-header',
             componentText: 'PROJECT NAME',
             componentSettings: [
-              {
-                fontSize: '16px',
-                fontFace: 'Arial',
-                logoWidth: 100,
-                brandInstituteURL:
-                  './assets/img/bmx/BRANDMATRIX-DASHBOARD-LOGO.svg',
-                companyLogoURL: './assets/img/bmx/BD.png',
-              },
-            ],
+                {
+                  fontSize: '16px',
+                  fontFace: 'Arial',
+                  logoWidth: 100,
+                  brandInstituteURL:'./assets/img/bmx/BRANDMATRIX-DASHBOARD-LOGO.svg',
+                  brandInstituteMobileURL: './assets/img/bmx/bmxCube.jpg',
+                  companyLogoURL: './assets/img/bmx/BD.png',
+                },
+              ],
           },
         ],
       },
@@ -620,7 +654,7 @@ export class SurveyCreationDesignComponent implements OnInit {
       // tables: []
     };
     this.bmxPages.forEach((pageElement) => {
-      pageElement.page.forEach((component) => {
+      pageElement.page.forEach((component) => { 
         if (
           component.componentType == 'rate-scale' ||
           component.componentType == 'ranking-scale' ||

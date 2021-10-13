@@ -52,7 +52,7 @@ export class RatingScaleComponent implements OnInit {
   maxRuleCounter = 0
   deleteRows = false
   dragRows = false
-  isColumnResizerOn = true;
+  isColumnResizerOn = false;
   editSingleTableCells = false
 
   BAG = "DRAGGABLE_ROW";

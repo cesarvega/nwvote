@@ -141,8 +141,6 @@ export class BmxCreatorComponent implements OnInit {
     this._BmxService.getGeneralLists()
       .subscribe((arg: any) => {
         this.settingsData = JSON.parse(arg.d);
-        console.log(JSON.parse(arg.d));
-
       });
 
 

@@ -56,7 +56,13 @@ export class SurveyMatrixComponent extends SurveyCreationDesignComponent impleme
         this.bmxPagesClient = this.SAMPLE_BMX_CLIENT
         this._BmxService.getBrandMatrixByProjectAndUserAnswers(this.projectId, this.username).subscribe((brandMatrix: any) => {
             if (brandMatrix.d.length > 0) {
-                this.bmxPagesClient = JSON.parse(brandMatrix.d.replace(this.searchGraveAccentRegExp, "'"))
+                let answers = JSON.parse(brandMatrix.d.replace(this.searchGraveAccentRegExp, "'"))
+                this._BmxService.getBrandMatrixByProject(this.projectId).subscribe((brandMatrix: any) => {
+                   let template  = JSON.parse(brandMatrix.d.replace(this.searchGraveAccentRegExp, "'"))
+
+                    //  let merge = {...template, ...answers}
+                     this.bmxPagesClient = answers
+                })
             }
             else {
                 this._BmxService.getBrandMatrixByProject(this.projectId).subscribe((brandMatrix: any) => {
@@ -109,8 +115,9 @@ export class SurveyMatrixComponent extends SurveyCreationDesignComponent impleme
     }
 
     saveUserAnswers() {
-        this._BmxService.saveOrUpdateAnswers(this.bmxPagesClient, this.projectId, this.username).subscribe(res => {
+        this._BmxService.saveOrUpdateAnswers(this.bmxPagesClient, this.projectId, this.username).subscribe((res:any) => {
             console.log('%cANSWERS!', 'color:#007bff', res);
+            let page = res.d.replace(this.searchGraveAccentRegExp, "'")
             this._snackBar.open('brand matrix saved for  ' + this.username + '  user', 'OK', {
                 duration: 5000,
                 verticalPosition: 'top',

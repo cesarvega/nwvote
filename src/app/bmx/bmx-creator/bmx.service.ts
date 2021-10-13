@@ -23,6 +23,9 @@ export class BmxService {
   brandMatrixGetUserAnswers = '/BrandMatrixGetUserAnswers'; // GETS THE BRANDMATRIX SINGLE USER ANSWERS
   brandMatrixGet = '/BrandMatrixGet'; // GETS THE BRANDMATRIX BY PROJECT
 
+  brandMatrixTemplateSave = '/BrandMatrixTemplateSave'
+  brandMatrixTemplateGet = '/BrandMatrixTemplateGet'
+  brandMatrixTemplateDelete = '/BrandMatrixTemplateDelete'
 
   GetParticipantList = '/BrandMatrixGetParticipantList';
   SaveParticipantList = '/BrandMatrixAddParticipantList';
@@ -119,8 +122,8 @@ export class BmxService {
 
   saveOrUpdateBradnMatrixTemplate(bmxCompleteObject,projectName) {
     const payloadString = JSON.stringify({
-      "ProjectName": projectName,
-      "BrandMatrix": JSON.stringify(bmxCompleteObject).replace(this.searchApostropheRegExp, '`')
+      ProjectName: projectName,
+      BrandMatrix: JSON.stringify(bmxCompleteObject).replace(this.searchApostropheRegExp, '`')
     })
     return this.http.post(this.webBaseUrl + this.brandMatrixSave, {
       token: '646EBF52-1846-47C2-9F62-DC50AE5BF692', payload: payloadString
@@ -129,18 +132,44 @@ export class BmxService {
 
   saveOrUpdateAnswers(bmxCompleteObject,projectName, username) {
     const payloadString = JSON.stringify({
-      "ProjectName": projectName,
-      "UserName": username,
-      "BrandMatrix": JSON.stringify(bmxCompleteObject).replace(this.searchApostropheRegExp, '`')
+      ProjectName: projectName,
+      UserName: username,
+      BrandMatrix: JSON.stringify(bmxCompleteObject).replace(this.searchApostropheRegExp, '`')
     })
-    return this.http.post(this.webBaseUrl + this.brandMatrixSave, {
+    return this.http.post(this.webBaseUrl + this.brandMatrixSaveUserAnswers, {
       token: '646EBF52-1846-47C2-9F62-DC50AE5BF692', payload: payloadString
     })
   }
 
   // Default templates for all BMX
-  getAllDefaultTemplates() { }
 
-  saveOrUpdateDafaultTemplate(user) { }
+  getBrandMatrixTemplateByName(templateName) {
+    const payloadString = JSON.stringify({
+      TemplateName: templateName,
+    })
+    return this.http.post(this.webBaseUrl + this.brandMatrixTemplateGet, {
+      token: '646EBF52-1846-47C2-9F62-DC50AE5BF692', payload: payloadString
+    })
+   }
+
+  deleteBrandMatrixTemplateByName(templateName) {
+    const payloadString = JSON.stringify({
+      TemplateName: templateName,
+    })
+    return this.http.post(this.webBaseUrl + this.brandMatrixTemplateDelete, {
+      token: '646EBF52-1846-47C2-9F62-DC50AE5BF692', payload: payloadString
+    })
+   }
+
+  saveBrandMatrixTemplate(templateName, templateObj, username) { 
+    const payloadString = JSON.stringify({
+      TemplateName: templateName,
+      Username: username,
+      BrandMatrix: JSON.stringify(templateObj).replace(this.searchApostropheRegExp, '`')
+    })
+    return this.http.post(this.webBaseUrl + this.brandMatrixTemplateSave, {
+      token: '646EBF52-1846-47C2-9F62-DC50AE5BF692', payload: payloadString
+    })
+  }
 
 }
