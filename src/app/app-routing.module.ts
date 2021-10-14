@@ -33,11 +33,11 @@ const routes: Routes = [
   //   component: BsrComponent
   // },
   {//BI BRAND MATRIX CREATOR
-  path: ':id/:username',
+  path: ':id/:biUsername',
    component: BmxCreatorComponent
   },
    {//BI BRAND MATRIX
-    path: 'bmx/:id/:username',
+    path: 'survey/:id/:username',
     component: SurveyMatrixComponent
   },
   // {//NW 3 BI PRESENTS NOMENCLATURE WORKSHOP V.3.0
@@ -46,7 +46,7 @@ const routes: Routes = [
   // },
   {
     path: '',
-    redirectTo: '/BMX_TEST/bi_cvega',
+    redirectTo: '/Project Brand Matrix/cvega',
     pathMatch: 'full'
   } 
 ];

@@ -28,7 +28,7 @@
                 <!-- BMX HEADER 😋😋😋😋😋😋😋😋😋😋😋😋😋😋😋😋😋😋😋😋😋😋😋😋😋😋😋😋😋😋😋😋😋😋😋😋😋😋 -->
 
                 <div *ngIf="bmxItem.componentType === 'logo-header'">
-                    <app-logo-header [bmxItem]="bmxItem" [i]="i" [bmxClientPageDesignMode]="bmxClientPageDesignMode"
+                    <app-logo-header [isBrandMatrixSurvey]="isBrandMatrixSurvey"  [bmxItem]="bmxItem" [i]="i" [bmxClientPageDesignMode]="bmxClientPageDesignMode"
                         [bmxClientPageOverview]="bmxClientPageOverview"></app-logo-header>
                 </div>
                 <!--😋😋😋😋😋😋😋😋😋😋😋😋😋😋😋😋😋😋😋😋😋😋😋😋😋😋😋😋😋😋😋😋😋😋😋😋😋😋 END BMX HEADER  -->
@@ -88,7 +88,7 @@
             <!-- PAGE BUTTONS AND DIRECTIONS 1 2 3 📲📲📲📲📲📲📲📲📲📲📲📲📲📲📲📲📲📲📲📲📲📲📲📲📲📲📲📲📲📲📲📲📲📲-->
             <div class="page-buttons">
                 <div class="page-buttons-heigth-minus-50">
-                    <button (click)="changePage('previous')" mat-icon-button>
+                    <button *ngIf="!isBrandMatrixSurvey" (click)="changePage('previous')" mat-icon-button>
                         <mat-icon class="full-icon">chevron_left</mat-icon>
                     </button>
                     <div *ngFor="let page of bmxPagesClient; let pageIndex = index">
@@ -98,7 +98,7 @@
                         </button>
                     </div>
 
-                    <button (click)="changePage('next')" mat-icon-button>
+                    <button *ngIf="!isBrandMatrixSurvey" (click)="changePage('next')" mat-icon-button>
                         <mat-icon class="full-icon">chevron_right</mat-icon>
                     </button>
                 </div>

@@ -11,6 +11,7 @@ export class LogoHeaderComponent  implements OnInit {
   @Input() i;
   @Input() bmxClientPageDesignMode;
   @Input() bmxClientPageOverview;
+  @Input() isBrandMatrixSurvey;
   displayInstructions: boolean;
   openSettings = false
   displayLogoWidthRange = false

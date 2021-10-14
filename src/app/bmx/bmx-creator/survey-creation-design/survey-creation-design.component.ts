@@ -23,7 +23,8 @@ export class SurveyCreationDesignComponent implements OnInit {
   @Input() isMenuActive11;
   @Input() bmxClientPageDesignMode;
   @Input() bmxClientPageOverview;
-  @Input() isMobile;
+  isMobile = true
+  @Input() isBrandMatrixSurvey
   @ViewChild('canvas', { static: true }) canvas: ElementRef;
   bmxPagesClient;
   myAngularxQrCode = 'https://mrvrman.web.app/bmx';
@@ -104,7 +105,7 @@ export class SurveyCreationDesignComponent implements OnInit {
   projectInfo: string;
   qrCode: QRCodeStyling;
     projectId: any;
-    biUsername: any;
+    biUsername: string;
     biUserId = 'user@bi.com';
 
   constructor(
@@ -324,8 +325,8 @@ export class SurveyCreationDesignComponent implements OnInit {
             fontSize: '16px',
             fontFace: 'Arial',
             logoWidth: 100,
-            brandInstituteURL:
-              './assets/img/bmx/BRANDMATRIX-DASHBOARD-LOGO.svg',
+            brandInstituteLogoURL:'./assets/img/bmx/BRANDMATRIX-DASHBOARD-LOGO.svg',
+            brandInstituteSurveyLogoURL:'./assets/img/bmx/bm-logo-2020-high.png',
             brandInstituteMobileURL: './assets/img/bmx/bmxCube.jpg',
             companyLogoURL: './assets/img/bmx/BD.png',
           },
@@ -694,10 +695,10 @@ export class SurveyCreationDesignComponent implements OnInit {
     });
     // console.log(this.bmxCompleteObject.bmx[4]["page"][3]['componentText']);
     this._BmxService
-      .saveOrUpdateBradnMatrixTemplate(this.bmxPages, 'BMX_TEST')
+      .saveOrUpdateBradnMatrixTemplate(this.bmxPages, this.projectId)
       .subscribe((res) => {
         console.log('%cBMX!', 'color:orange', res);
-        this._snackBar.open('bmx SAVED for project  ' + this.projectId, 'OK', {
+        this._snackBar.open('Project ' + this.projectId + ' saved', 'OK', {
             duration: 5000,
             verticalPosition: 'top',
           })
@@ -829,6 +830,9 @@ export class SurveyCreationDesignComponent implements OnInit {
     }
   }
 
+  previewSurvey(){
+    window.open('survey/' + this.projectId + '/' + this.biUsername);
+  }
     SAMPLE_BMX = [
       {
           "pageNumber": 1,

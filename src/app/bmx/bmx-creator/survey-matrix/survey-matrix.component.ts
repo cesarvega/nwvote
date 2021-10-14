@@ -17,10 +17,10 @@ export class SurveyMatrixComponent extends SurveyCreationDesignComponent impleme
     @Input() bmxClientPageDesignMode;
     @Input() bmxClientPageOverview;
     myAngularxQrCode = 'tools.brandinstitute.com/bmx/PROJECT/USERNAME';
-
+    isBrandMatrixSurvey = true
 
     bmxPagesClient;
-    @Input() isMobile;
+
     @ViewChild("canvas", { static: true }) canvas: ElementRef;
     username: any;
 
@@ -51,8 +51,9 @@ export class SurveyMatrixComponent extends SurveyCreationDesignComponent impleme
     }
 
     ngOnInit(): void {
-        this._snackBar.open('Welcome  ' + this.username + ' 😉', 'OK', {
-            duration: 5000,
+        this.bmxClientPageDesignMode = true
+        this._snackBar.open('Welcome   ' + this.username.toUpperCase() + '  😉', '', {
+            duration: 4000,
             horizontalPosition:'right',
             verticalPosition: 'top',
         })
@@ -151,6 +152,7 @@ export class SurveyMatrixComponent extends SurveyCreationDesignComponent impleme
                         component.componentType == 'question-answer') {
                         if (component.componentSettings[0].minRule == 0 || component.componentSettings[0].categoryRulesPassed) {
                             this.currentPage = pageNumber;
+                            window.scroll(0, 0)
                         } else {
                             this._snackBar.open('You must rate at least ' + component.componentSettings[0].minRule + ' Test Names', 'OK', {
                                 duration: 5000,
