@@ -28,7 +28,7 @@ export class BmxCreatorComponent implements OnInit {
   bmxClientPageDesignMode = true;
   bmxClientPageOverview = true;
   displayRightSideMenu = true;
-  isMobile = true
+  isBrandMatrixSurvey = false
 
 
   projectName: any;

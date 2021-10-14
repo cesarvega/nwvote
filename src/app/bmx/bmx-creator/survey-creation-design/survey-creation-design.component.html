@@ -18,7 +18,7 @@
                         <mat-icon style="font-size: 17px;">cancel</mat-icon>
                     </button>
                 </div>
-                <app-logo-header [bmxItem]="bmxItem" [i]="i" [bmxClientPageDesignMode]="bmxClientPageDesignMode"
+                <app-logo-header [bmxItem]="bmxItem"  [isBrandMatrixSurvey]="isBrandMatrixSurvey" [i]="i" [bmxClientPageDesignMode]="bmxClientPageDesignMode" 
                     [bmxClientPageOverview]="bmxClientPageOverview"></app-logo-header>
             </div>
             <!--😋😋😋😋😋😋😋😋😋😋😋😋😋😋😋😋😋😋😋😋😋😋😋😋😋😋😋😋😋😋😋😋😋😋😋😋😋😋 END BMX HEADER  -->
@@ -203,6 +203,11 @@
             <button *ngIf="true" (click)="openFullscreen()" mat-icon-button matTooltip="full screen"
                 matTooltipPosition="right">
                 <mat-icon class="full-icon">fullscreen
+                </mat-icon>
+            </button>
+            <button *ngIf="true" (click)="previewSurvey()" mat-icon-button matTooltip="preview brand matrix"
+                matTooltipPosition="right">
+                <mat-icon class="full-icon">visibility
                 </mat-icon>
             </button>
             <!-- <button *ngIf="true" (click)="bmxClientPageOverview=!bmxClientPageOverview" mat-icon-button matTooltip="reset template"
