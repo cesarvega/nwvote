@@ -260,11 +260,11 @@ export class SurveyCreationDesignComponent implements OnInit {
       this._BmxService.getBrandMatrixByProject(this.projectId).subscribe((brandMatrix:any) =>{
           if (brandMatrix.d.length > 0) {
             this.bmxPages = JSON.parse(brandMatrix.d)
-            this._snackBar.open('bmx LOADED for project  ' + this.projectId , 'OK', {
-                duration: 5000,
-                horizontalPosition: 'right',
-                verticalPosition: 'top'
-              })
+            // this._snackBar.open('bmx LOADED for project  ' + this.projectId , 'OK', {
+            //     duration: 5000,
+            //     horizontalPosition: 'left',
+            //     verticalPosition: 'top'
+            //   })
           } else {
             this.bmxPages = this.SAMPLE_BMX
           }

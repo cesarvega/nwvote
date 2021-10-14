@@ -66,6 +66,24 @@ export class SurveyMatrixComponent extends SurveyCreationDesignComponent impleme
                    let template  = JSON.parse(brandMatrix.d.replace(this.searchGraveAccentRegExp, "'"))
 
                     //  let merge = {...template, ...answers}
+
+                    // template.forEach(page => {
+                    //     page.page.forEach(component => {
+                    //         if (
+                    //             component.componentType == 'rate-scale' ||
+                    //             component.componentType == 'ranking-scale' ||
+                    //             component.componentType == 'image-rate-scale' ||
+                    //             component.componentType == 'narrow-down' ||
+                    //             component.componentType == 'question-answer'
+                    //           ) {
+                    //             component.componentText.forEach(row => {                                    
+                    //                 this.matchMatrix(row, answers, component.componentType);
+                    //             });
+                    //           }
+                    //     });
+                    // });
+
+
                      this.bmxPagesClient = answers
                 })
             }
@@ -84,12 +102,33 @@ export class SurveyMatrixComponent extends SurveyCreationDesignComponent impleme
                       }
                 })
             }
-            // this._snackBar.open('bmx loaded for  ' + this.username + '  user', 'OK', {
-            //     duration: 5000,
-            //     horizontalPosition:'right',
-            //     verticalPosition: 'top',
-            // })
         })
+    }
+
+    matchMatrix(row, answers , componentType){
+
+        
+        answers.forEach(page => {
+            page.page.forEach(component => {
+                if (
+                    component.componentType == 'rate-scale' ||
+                    component.componentType == 'ranking-scale' ||
+                    component.componentType == 'image-rate-scale' ||
+                    component.componentType == 'narrow-down' ||
+                    component.componentType == 'question-answer'
+                  ) {
+                    component.componentText.forEach(rowAnswer => {        
+                        if (Object.keys(row).length == Object.keys(rowAnswer).length && component.componentType === componentType ) {
+                            for (const key in row) {
+                                row[key] = (rowAnswer[key])?rowAnswer[key]:''
+                             }
+                        }
+                       
+                    });
+                  }
+            });
+        });
+
     }
 
     changePage(direction) {
