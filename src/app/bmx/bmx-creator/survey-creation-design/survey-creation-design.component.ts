@@ -27,7 +27,7 @@ export class SurveyCreationDesignComponent implements OnInit {
   @Input() isBrandMatrixSurvey
   @ViewChild('canvas', { static: true }) canvas: ElementRef;
   bmxPagesClient;
-  myAngularxQrCode = 'https://mrvrman.web.app/bmx';
+  myAngularxQrCode = 'https://tools.brandinstitute.com/bmxtest/survey/';
   popUpQRCode = false;
   elem: any;
   isFullscreen: any;
@@ -175,52 +175,52 @@ export class SurveyCreationDesignComponent implements OnInit {
       imageOptions: { hideBackgroundDots: true, imageSize: 0.4, margin: 0 },
       dotsOptions: {
         type: 'dots',
-        color: '#9d64a1',
+        color: '#1023da',
         gradient: {
           type: 'linear',
           rotation: 45,
           colorStops: [
             {
               offset: 0,
-              color: '#9d64a1',
+              color: '#1023da',
             },
             {
               offset: 3,
-              color: '#decddf',
+              color: '#8831da',
             },
           ],
         },
       },
-      backgroundOptions: { color: '#000000' },
+      backgroundOptions: { color: '#fff' },
       image: './assets/img/bmx/bmxCube.jpg',
       cornersSquareOptions: {
         type: 'square',
-        color: '#fff',
+        color: '#000',
         gradient: {
           type: 'radial',
           rotation: 45,
           colorStops: [
             {
               offset: 0,
-              color: '#fff',
+              color: '#000',
             },
           ],
         },
       },
       cornersDotOptions: {
         type: 'dot',
-        color: '#fff',
+        color: '#000',
         gradient: {
           type: 'linear',
           rotation: 45,
           colorStops: [
             {
               offset: 0,
-              color: '#fff',
+              color: '#000',
             },
             {
               offset: 3,
-              color: '#fff',
+              color: '#000',
             },
           ],
         },
@@ -239,7 +239,7 @@ export class SurveyCreationDesignComponent implements OnInit {
   }
 
   ngOnInit(): void {
-
+    this.myAngularxQrCode = this.myAngularxQrCode + this.projectId + '/' + this.biUsername
     this._BmxService.getGeneralLists()
     .subscribe((arg: any) => {;
       this.TEMPLATES = (JSON.parse(arg.d).BrandMatrixTemplateList.length > 0)?

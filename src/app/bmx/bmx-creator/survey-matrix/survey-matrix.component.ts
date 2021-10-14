@@ -16,7 +16,7 @@ export class SurveyMatrixComponent extends SurveyCreationDesignComponent impleme
     @Input() isMenuActive11;
     @Input() bmxClientPageDesignMode;
     @Input() bmxClientPageOverview;
-    myAngularxQrCode = 'tools.brandinstitute.com/bmx/PROJECT/USERNAME';
+    myAngularxQrCode = 'https://tools.brandinstitute.com/bmxtest/survey/';
     isBrandMatrixSurvey = true
 
     bmxPagesClient;
@@ -52,6 +52,7 @@ export class SurveyMatrixComponent extends SurveyCreationDesignComponent impleme
 
     ngOnInit(): void {
         this.bmxClientPageDesignMode = true
+        this.myAngularxQrCode = this.myAngularxQrCode + this.projectId + '/' + this.username
         this._snackBar.open('Welcome   ' + this.username.toUpperCase() + '  😉', '', {
             duration: 4000,
             horizontalPosition:'right',
@@ -142,6 +143,7 @@ export class SurveyMatrixComponent extends SurveyCreationDesignComponent impleme
     }
 
     selectPageNumber(pageNumber) {
+        this.saveUserAnswers()
         if (this.currentPage < pageNumber) {
             this.bmxPagesClient[this.currentPage].page
                 .forEach(component => {
@@ -172,7 +174,7 @@ export class SurveyMatrixComponent extends SurveyCreationDesignComponent impleme
         this._BmxService.saveOrUpdateAnswers(this.bmxPagesClient, this.projectId, this.username).subscribe((res:any) => {
             console.log('%cANSWERS!', 'color:#007bff', res);
             let page = res.d.replace(this.searchGraveAccentRegExp, "'")
-            this._snackBar.open('brand matrix saved for  ' + this.username + '  user', 'OK', {
+            this._snackBar.open(this.username.toUpperCase() + ' your answers were saved  ' , 'OK', {
                 duration: 5000,
                 verticalPosition: 'top',
             })
