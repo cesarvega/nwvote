@@ -147,11 +147,13 @@ export class SurveyMatrixComponent extends SurveyCreationDesignComponent impleme
                                                         templateRow[key] = answerRow[key]
                                                         answerComponent.componentText.splice(index, 1)
                                                     }
-                                                    else if (key.includes('RadioColumn')) {
-                                                        if (index > 0) {
-                                                            templateRow[key] = answerRow[key]
-                                                        }
+                                                   
+                                                } else if (key.includes('RadioColumn')) {
+                                                    if (index > 0) {
+                                                        templateRow[key] = answerRow[key]
                                                     }
+                                                } else if(key == 'SELECTED_ROW'){
+                                                    templateRow[key] = answerRow[key]
                                                 }
                                             }
                                         }
@@ -183,11 +185,13 @@ export class SurveyMatrixComponent extends SurveyCreationDesignComponent impleme
                                                         templateRow[key] = answerRow[key]
                                                         answerComponent.componentText.splice(index, 1)
                                                     }
-                                                    else if (key.includes('RadioColumn')) {
-                                                        if (index > 0) {
-                                                            templateRow[key] = answerRow[key]
-                                                        }
+                                                   
+                                                } else if (key.includes('RadioColumn')) {
+                                                    if (index > 0) {
+                                                        templateRow[key] = answerRow[key]
                                                     }
+                                                }else if(key == 'SELECTED_ROW'){
+                                                    templateRow[key] = answerRow[key]
                                                 }
                                             }
                                         }
