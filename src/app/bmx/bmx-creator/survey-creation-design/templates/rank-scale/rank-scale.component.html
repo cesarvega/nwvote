@@ -307,10 +307,10 @@
 
                         <!-- TEXT_AREA COLUMN-->
                         <textarea *ngIf="y !== 0  && columnName.includes('Comments') == true"
-                            [style.width]="(columnName == 'rationale')?bmxItem.componentSettings[0].rationalewidth + 'px':bmxItem.componentSettings[0].columnWidth +'px'"
+                            [style.width]="(bmxItem.componentSettings[0].columnWidth - 20) +'px'"
                             [style.font-size]="bmxItem.componentSettings[0].fontSize +'px'" cdkTextareaAutosize
                             [cdkAutosizeMinRows]="bmxItem.componentSettings[0].rowHeight"
-                            style="text-align: center;height: 32px;width: 358px;font-size: 16px;border: 1px solid grey;"
+                            style="text-align: center;height: 32px;width: 358px;font-size: 16px;border: 1px solid #dddddd;"
                             class="row-box" [(ngModel)]="testName[columnName]" rows="4" cols="50"></textarea>
 
 

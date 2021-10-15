@@ -241,7 +241,7 @@ textarea::placeholder {
 }
 
 textarea:focus {
-  min-height: 3rem;
+  min-height: 1rem;
   cursor: text;
   box-shadow: inset 5px 7px 7px #d1d9e9, inset -19px -31px 1px #ffffff;
 }
