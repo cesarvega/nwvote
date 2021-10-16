@@ -128,6 +128,7 @@ export class SurveyMatrixComponent extends SurveyCreationDesignComponent impleme
 
 
                         if (!templateComponent.componentSettings[0].CRITERIA) {// no criteria
+                            // if (templateComponent.componentType == 'ranking-scale') {
                             if (templateComponent.componentType == answerComponent.componentType) {
                                 console.log('%cAnswersRow', 'color:blue');
                                 console.log(answerRow);
