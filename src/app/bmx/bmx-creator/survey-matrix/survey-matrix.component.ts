@@ -16,7 +16,7 @@ export class SurveyMatrixComponent extends SurveyCreationDesignComponent impleme
     @Input() isMenuActive11;
     @Input() bmxClientPageDesignMode;
     @Input() bmxClientPageOverview;
-    myAngularxQrCode = 'tools.brandinstitute.com/bmx/PROJECT/USERNAME';
+    myAngularxQrCode = 'https://tools.brandinstitute.com/bmxtest/survey/';
     isBrandMatrixSurvey = true
 
     bmxPagesClient;
@@ -52,40 +52,44 @@ export class SurveyMatrixComponent extends SurveyCreationDesignComponent impleme
 
     ngOnInit(): void {
         this.bmxClientPageDesignMode = true
+        this.myAngularxQrCode = this.myAngularxQrCode + this.projectId + '/' + this.username
         this._snackBar.open('Welcome   ' + this.username.toUpperCase() + '  😉', '', {
             duration: 4000,
-            horizontalPosition:'right',
+            horizontalPosition: 'right',
             verticalPosition: 'top',
         })
         this.qrCode.append(this.canvas.nativeElement);
         this.bmxPagesClient = this.SAMPLE_BMX_CLIENT
         this._BmxService.getBrandMatrixByProjectAndUserAnswers(this.projectId, this.username).subscribe((brandMatrix: any) => {
-        //    IF USER ALREADY HAVE ANSWERS
+            //    IF USER ALREADY HAVE ANSWERS
             if (brandMatrix.d.length > 0) {
                 let answers = JSON.parse(brandMatrix.d.replace(this.searchGraveAccentRegExp, "'"))
                 this._BmxService.getBrandMatrixByProject(this.projectId).subscribe((brandMatrix: any) => {
-                   let template  = JSON.parse(brandMatrix.d.replace(this.searchGraveAccentRegExp, "'"))
+                    let template = JSON.parse(brandMatrix.d.replace(this.searchGraveAccentRegExp, "'"))
 
                     //  let merge = {...template, ...answers}
 
-                    // template.forEach(page => {
-                    //     page.page.forEach(component => {
-                    //         if (
-                    //             component.componentType == 'rate-scale' ||
-                    //             component.componentType == 'ranking-scale' ||
-                    //             component.componentType == 'image-rate-scale' ||
-                    //             component.componentType == 'narrow-down' ||
-                    //             component.componentType == 'question-answer'
-                    //           ) {
-                    //             component.componentText.forEach(row => {                                    
-                    //                 this.matchMatrix(row, answers, component.componentType);
-                    //             });
-                    //           }
-                    //     });
-                    // });
+                    template.forEach(page => {
+                        page.page.forEach((component) => {
+                            if (
+                                component.componentType == 'rate-scale' ||
+                                component.componentType == 'ranking-scale' ||
+                                component.componentType == 'image-rate-scale' ||
+                                component.componentType == 'narrow-down' ||
+                                component.componentType == 'question-answer'
+                            ) {
+                                component.componentText.forEach((row, index) => {
+                                    if (index > 0) {
+                                        this.matchMatrix(row, answers, component);
+                                    }
+                                });
+                            }
+                        });
+                    });
 
 
-                     this.bmxPagesClient = answers
+                    this.bmxPagesClient = template
+                    //  this.bmxPagesClient = answers
                 })
             }
             else {
@@ -98,35 +102,367 @@ export class SurveyMatrixComponent extends SurveyCreationDesignComponent impleme
                         //     horizontalPosition: 'right',
                         //     verticalPosition: 'top'
                         //   })
-                      } else {
+                    } else {
                         this.bmxPages = this.SAMPLE_BMX_CLIENT
-                      }
+                    }
                 })
             }
         })
     }
 
-    matchMatrix(row, answers , componentType){
+    matchMatrix(templateRow, answers, templateComponent) {
 
-        
+        console.log('%cTemplateRow', 'color:orange');
+        console.log(templateRow);
+// 💜💜💜💜💜💜💜💜💜💜💜💜💜💜💜💜💜💜💜💜💜💜💜💜💜💜💜💜💜💜💜💜💜💜💜💜💜💜💜💜💜💜💜
         answers.forEach(page => {
-            page.page.forEach(component => {
+            page.page.forEach(answerComponent => {
                 if (
-                    component.componentType == 'rate-scale' ||
-                    component.componentType == 'ranking-scale' ||
-                    component.componentType == 'image-rate-scale' ||
-                    component.componentType == 'narrow-down' ||
-                    component.componentType == 'question-answer'
-                  ) {
-                    component.componentText.forEach(rowAnswer => {        
-                        if (Object.keys(row).length == Object.keys(rowAnswer).length && component.componentType === componentType ) {
-                            for (const key in row) {
-                                row[key] = (rowAnswer[key])?rowAnswer[key]:''
-                             }
+                    answerComponent.componentType == 'rate-scale' ||
+                    answerComponent.componentType == 'image-rate-scale' 
+                ) {
+                    answerComponent.componentText.forEach((answerRow, index) => {
+
+
+                        if (!templateComponent.componentSettings[0].CRITERIA) {// no criteria
+                            // if (templateComponent.componentType == 'ranking-scale') {
+                            if (templateComponent.componentType == answerComponent.componentType) {
+                                console.log('%cAnswersRow', 'color:blue');
+                                console.log(answerRow);
+                                if (index > 0) {
+                                    for (const key in templateRow) {
+                                        if (key === 'nameCandidates' && templateRow[key] === answerRow[key]) {
+                                          
+                                            templateRow.RATE = answerRow.RATE
+                                            templateRow.STARS.forEach(starRow => {
+                                                if (starRow.id <= answerRow.RATE) {
+                                                    starRow.styleClass = 'active-rating-star'
+                                                }
+                                            });
+                                            for (const key in templateRow) {
+                                                if (key.includes('Comments')) {
+                                                    if (index > 0) {
+                                                        templateRow[key] = answerRow[key]
+                                                        answerComponent.componentText.splice(index, 1)
+                                                    }
+                                                   
+                                                } else if (key.includes('RadioColumn')) {
+                                                    if (index > 0) {
+                                                        templateRow[key] = answerRow[key]
+                                                    }
+                                                } else if(key == 'SELECTED_ROW'){
+                                                    templateRow[key] = answerRow[key]
+                                                }
+                                            }
+                                        }
+                                    }
+                                }
+                            }
                         }
-                       
+                        else if(templateComponent.componentSettings[0].CRITERIA) {// with criteria
+
+                            if (templateComponent.componentType == answerComponent.componentType) {
+                                console.log('%cAnswersRow', 'color:blue');
+                                console.log(answerRow);
+                                if (index > 0) {
+                                    for (const key in templateRow) {
+                                        if (key === 'nameCandidates' && templateRow[key] === answerRow[key]) {
+                                            templateRow.CRITERIA.forEach((criteria, criteriaIndex) => {
+                                                criteria.RATE =  answerRow.CRITERIA[criteriaIndex].RATE
+                                                criteria.STARS.forEach((starRow) => {
+                                                    if (starRow.id <= answerRow.CRITERIA[criteriaIndex].RATE) {
+                                                        starRow.styleClass = 'active-rating-star'
+                                                    }
+                                                    
+                                                });
+                                                
+                                            });
+                                            for (const key in templateRow) {
+                                                if (key.includes('Comments')) {
+                                                    if (index > 0) {
+                                                        templateRow[key] = answerRow[key]
+                                                        answerComponent.componentText.splice(index, 1)
+                                                    }
+                                                   
+                                                } else if (key.includes('RadioColumn')) {
+                                                    if (index > 0) {
+                                                        templateRow[key] = answerRow[key]
+                                                    }
+                                                }else if(key == 'SELECTED_ROW'){
+                                                    templateRow[key] = answerRow[key]
+                                                }
+                                            }
+                                        }
+                                    }
+                                }
+                            }
+
+                        }
+
+
+
+
                     });
-                  }
+                }
+
+ // ❤️❤️❤️❤️❤️❤️❤️❤️❤️❤️❤️❤️❤️❤️❤️❤️❤️❤️❤️❤️❤️❤️❤️❤️❤️❤️❤️❤️❤️❤️❤️❤️❤️❤️❤️❤️❤️❤️❤️❤️❤️❤️❤️
+
+                else if ( answerComponent.componentType == 'ranking-scale' ) {
+                    
+                    answerComponent.componentText.forEach((answerRow, index) => {
+
+
+                        if (!templateComponent.componentSettings[0].CRITERIA) {// no criteria
+                            // if (templateComponent.componentType == 'ranking-scale') {
+                            if (templateComponent.componentType == answerComponent.componentType) {
+                                console.log('%cAnswersRow', 'color:blue');
+                                console.log(answerRow);
+                                if (index > 0) {
+                                    for (const key in templateRow) {
+                                        if (key === 'nameCandidates' && templateRow[key] === answerRow[key]) {
+                                          
+                                            templateRow.RATE = answerRow.RATE
+                                            templateRow.STARS.forEach(starRow => {
+                                                if (starRow.id <= answerRow.RATE) {
+                                                    starRow.styleClass = 'active-rating-star'
+                                                }
+                                            });
+                                            for (const key in templateRow) {
+                                                if (key.includes('Comments')) {
+                                                    if (index > 0) {
+                                                        templateRow[key] = answerRow[key]
+                                                        answerComponent.componentText.splice(index, 1)
+                                                    }
+                                                   
+                                                } else if (key.includes('RadioColumn')) {
+                                                    if (index > 0) {
+                                                        templateRow[key] = answerRow[key]
+                                                    }
+                                                } else if(key == 'SELECTED_ROW'){
+                                                    templateRow[key] = answerRow[key]
+                                                }
+                                            }
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                        else if(templateComponent.componentSettings[0].CRITERIA) {// with criteria
+
+                            if (templateComponent.componentType == answerComponent.componentType) {
+                                console.log('%cAnswersRow', 'color:blue');
+                                console.log(answerRow);
+                                if (index > 0) {
+                                    for (const key in templateRow) {
+                                        if (key === 'nameCandidates' && templateRow[key] === answerRow[key]) {
+                                            templateRow.CRITERIA.forEach((criteria, criteriaIndex) => {
+                                                criteria.RATE =  answerRow.CRITERIA[criteriaIndex].RATE
+                                                criteria.STARS.forEach((starRow) => {
+                                                    if (starRow.id <= answerRow.CRITERIA[criteriaIndex].RATE) {
+                                                        starRow.styleClass = 'active-rating-star'
+                                                    }
+                                                    
+                                                });
+                                                
+                                            });
+                                            for (const key in templateRow) {
+                                                if (key.includes('Comments')) {
+                                                    if (index > 0) {
+                                                        templateRow[key] = answerRow[key]
+                                                        answerComponent.componentText.splice(index, 1)
+                                                    }
+                                                   
+                                                } else if (key.includes('RadioColumn')) {
+                                                    if (index > 0) {
+                                                        templateRow[key] = answerRow[key]
+                                                    }
+                                                }else if(key == 'SELECTED_ROW'){
+                                                    templateRow[key] = answerRow[key]
+                                                }
+                                            }
+                                        }
+                                    }
+                                }
+                            }
+
+                        }
+                    });
+
+                } 
+
+
+
+
+// 💚💚💚💚💚💚💚💚💚💚💚💚💚💚💚💚💚💚💚💚💚💚💚💚💚💚💚💚💚💚💚💚💚💚💚💚💚💚💚💚💚💚💚
+                else if (answerComponent.componentType == 'narrow-down') {
+                    answerComponent.componentText.forEach((answerRow, index) => {
+
+
+                        if (!templateComponent.componentSettings[0].CRITERIA) {// no criteria
+                            // if (templateComponent.componentType == 'ranking-scale') {
+                            if (templateComponent.componentType == answerComponent.componentType) {
+                                console.log('%cAnswersRow', 'color:blue');
+                                console.log(answerRow);
+                                if (index > 0) {
+                                    for (const key in templateRow) {
+                                        if (key === 'nameCandidates' && templateRow[key] === answerRow[key]) {
+                                          
+                                            templateRow.RATE = answerRow.RATE
+                                            templateRow.STARS.forEach(starRow => {
+                                                if (starRow.id <= answerRow.RATE) {
+                                                    starRow.styleClass = 'active-rating-star'
+                                                }
+                                            });
+                                            for (const key in templateRow) {
+                                                if (key.includes('Comments')) {
+                                                    if (index > 0) {
+                                                        templateRow[key] = answerRow[key]
+                                                        answerComponent.componentText.splice(index, 1)
+                                                    }
+                                                   
+                                                } else if (key.includes('RadioColumn')) {
+                                                    if (index > 0) {
+                                                        templateRow[key] = answerRow[key]
+                                                    }
+                                                } else if(key == 'SELECTED_ROW'){
+                                                    templateRow[key] = answerRow[key]
+                                                }
+                                            }
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                        else if(templateComponent.componentSettings[0].CRITERIA) {// with criteria
+
+                            if (templateComponent.componentType == answerComponent.componentType) {
+                                console.log('%cAnswersRow', 'color:blue');
+                                console.log(answerRow);
+                                if (index > 0) {
+                                    for (const key in templateRow) {
+                                        if (key === 'nameCandidates' && templateRow[key] === answerRow[key]) {
+                                            templateRow.CRITERIA.forEach((criteria, criteriaIndex) => {
+                                                criteria.RATE =  answerRow.CRITERIA[criteriaIndex].RATE
+                                                criteria.STARS.forEach((starRow) => {
+                                                    if (starRow.id <= answerRow.CRITERIA[criteriaIndex].RATE) {
+                                                        starRow.styleClass = 'active-rating-star'
+                                                    }
+                                                    
+                                                });
+                                                
+                                            });
+                                            for (const key in templateRow) {
+                                                if (key.includes('Comments')) {
+                                                    if (index > 0) {
+                                                        templateRow[key] = answerRow[key]
+                                                        answerComponent.componentText.splice(index, 1)
+                                                    }
+                                                   
+                                                } else if (key.includes('RadioColumn')) {
+                                                    if (index > 0) {
+                                                        templateRow[key] = answerRow[key]
+                                                    }
+                                                }else if(key == 'SELECTED_ROW'){
+                                                    templateRow[key] = answerRow[key]
+                                                }
+                                            }
+                                        }
+                                    }
+                                }
+                            }
+
+                        }
+                    });
+                } 
+
+
+
+
+ // 💛💛💛💛💛💛💛💛💛💛💛💛💛💛💛💛💛💛💛💛💛💛💛💛💛💛💛💛💛💛💛💛💛💛💛💛💛
+
+
+                else if ( answerComponent.componentType == 'question-answer') {
+                    answerComponent.componentText.forEach((answerRow, index) => {
+
+
+                        if (!templateComponent.componentSettings[0].CRITERIA) {// no criteria
+                            // if (templateComponent.componentType == 'ranking-scale') {
+                            if (templateComponent.componentType == answerComponent.componentType) {
+                                console.log('%cAnswersRow', 'color:blue');
+                                console.log(answerRow);
+                                if (index > 0) {
+                                    for (const key in templateRow) {
+                                        if (key === 'nameCandidates' && templateRow[key] === answerRow[key]) {
+                                          
+                                            templateRow.RATE = answerRow.RATE
+                                            templateRow.STARS.forEach(starRow => {
+                                                if (starRow.id <= answerRow.RATE) {
+                                                    starRow.styleClass = 'active-rating-star'
+                                                }
+                                            });
+                                            for (const key in templateRow) {
+                                                if (key.includes('Answer')) {
+                                                    if (index > 0) {
+                                                        templateRow[key] = answerRow[key]
+                                                        answerComponent.componentText.splice(index, 1)
+                                                    }
+                                                   
+                                                } else if (key.includes('RadioColumn')) {
+                                                    if (index > 0) {
+                                                        templateRow[key] = answerRow[key]
+                                                    }
+                                                } else if(key == 'SELECTED_ROW'){
+                                                    templateRow[key] = answerRow[key]
+                                                }
+                                            }
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                        else if(templateComponent.componentSettings[0].CRITERIA) {// with criteria
+
+                            if (templateComponent.componentType == answerComponent.componentType) {
+                                console.log('%cAnswersRow', 'color:blue');
+                                console.log(answerRow);
+                                if (index > 0) {
+                                    for (const key in templateRow) {
+                                        if (key === 'nameCandidates' && templateRow[key] === answerRow[key]) {
+                                            templateRow.CRITERIA.forEach((criteria, criteriaIndex) => {
+                                                criteria.RATE =  answerRow.CRITERIA[criteriaIndex].RATE
+                                                criteria.STARS.forEach((starRow) => {
+                                                    if (starRow.id <= answerRow.CRITERIA[criteriaIndex].RATE) {
+                                                        starRow.styleClass = 'active-rating-star'
+                                                    }
+                                                    
+                                                });
+                                                
+                                            });
+                                            for (const key in templateRow) {
+                                                if (key.includes('Comments')) {
+                                                    if (index > 0) {
+                                                        templateRow[key] = answerRow[key]
+                                                        answerComponent.componentText.splice(index, 1)
+                                                    }
+                                                   
+                                                } else if (key.includes('RadioColumn')) {
+                                                    if (index > 0) {
+                                                        templateRow[key] = answerRow[key]
+                                                    }
+                                                }else if(key == 'SELECTED_ROW'){
+                                                    templateRow[key] = answerRow[key]
+                                                }
+                                            }
+                                        }
+                                    }
+                                }
+                            }
+
+                        }
+                    });
+                } 
+
+
             });
         });
 
@@ -142,6 +478,7 @@ export class SurveyMatrixComponent extends SurveyCreationDesignComponent impleme
     }
 
     selectPageNumber(pageNumber) {
+        this.saveUserAnswers()
         if (this.currentPage < pageNumber) {
             this.bmxPagesClient[this.currentPage].page
                 .forEach(component => {
@@ -169,10 +506,10 @@ export class SurveyMatrixComponent extends SurveyCreationDesignComponent impleme
     }
 
     saveUserAnswers() {
-        this._BmxService.saveOrUpdateAnswers(this.bmxPagesClient, this.projectId, this.username).subscribe((res:any) => {
+        this._BmxService.saveOrUpdateAnswers(this.bmxPagesClient, this.projectId, this.username).subscribe((res: any) => {
             console.log('%cANSWERS!', 'color:#007bff', res);
             let page = res.d.replace(this.searchGraveAccentRegExp, "'")
-            this._snackBar.open('brand matrix saved for  ' + this.username + '  user', 'OK', {
+            this._snackBar.open(this.username.toUpperCase() + ' your answers were saved  ', 'OK', {
                 duration: 5000,
                 verticalPosition: 'top',
             })
