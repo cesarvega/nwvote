@@ -527,6 +527,41 @@ export class SurveyCreationDesignComponent implements OnInit {
           },
         ],
       });
+    }// 🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥
+    else if (componentType === 'tinder') {
+      this.TestNameDataModel = [];
+      this.TestNameDataModel.push({
+        name: 'Questions',
+        // rationale: 'RATIONALE',
+        STARS: this.createRatingStars(),
+      });
+      for (let index = 0; index < 5; index++) {
+        this.TestNameDataModel.push({
+          name: 'QUESTION ' + index,
+          // rationale: 'Rationale of an undisclosed length',
+          RATE: -1,
+          STARS: this.createRatingStars(),
+        });
+      }
+      this.bmxPages[this.currentPage].page.push({
+        componentType: componentType,
+        componentText: this.TestNameDataModel,
+        componentSettings: [
+          {
+            minRule: 0,
+            maxRule: 0,
+            fontSize: 16,
+            columnWidth: 600,
+            rationalewidth: 250,
+            rowHeight: 2,
+            categoryRulesPassed: false,
+            ratedCounter: 0,
+            categoryName: 'Tinder Category 🔥',
+            categoryDescription: 'Swipe Left or right',
+            // "ratingScaleTitle": "RATING"
+          },
+        ],
+      });
     }
   }
 
