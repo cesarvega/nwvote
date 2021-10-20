@@ -192,6 +192,25 @@ export class ParticipantsEmailComponent implements OnInit {
     this.dataSource = new MatTableDataSource<any>(this.viewedData);
   }
 
+  changeTemplate(template: any): void 
+  {
+    if(template.name === 'Clinical Trial')
+    {
+      this.brandMatrixObjects[1].componentText = 'The top value is false';
+
+    }
+    else if(template.name === 'Consumer')
+    {
+      this.brandMatrixObjects[1].componentText = 'The bottom value is true';
+
+    }
+    else
+    {
+      this.brandMatrixObjects[1].componentText = 'Drugs are bad kids';
+
+    }
+  }
+
   sendEmail()
   {
     const rememberEmail:JSON = <JSON><unknown>{
