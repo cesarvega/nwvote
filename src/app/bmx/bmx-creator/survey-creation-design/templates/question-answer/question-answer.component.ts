@@ -15,7 +15,7 @@ export class QuestionAnswerComponent extends RatingScaleComponent implements OnI
   @Input() bmxClientPageDesignMode;
   @Input() bmxClientPageOverview;
   @ViewChild('autosize') autosize: CdkTextareaAutosize;
-  
+  allComplete: boolean = false;
   constructor(dragulaService: DragulaService, _snackBar: MatSnackBar) {
     super(dragulaService,_snackBar)
   }
@@ -92,8 +92,12 @@ export class QuestionAnswerComponent extends RatingScaleComponent implements OnI
     }
   }
 
-  saveMultipleChoice(columnNAme, indexRow, indexCheckBox){
-
+  saveMultipleChoice(checkBoxName, indexRow, value){
+    if (value.target.checked) {
+      this.bmxItem.componentText[indexRow]['multipleChoice'] = (!this.bmxItem.componentText[indexRow]['multipleChoice'])? checkBoxName + ',' : this.bmxItem.componentText[indexRow]['multipleChoice'] +=  checkBoxName + ','
+    }else {
+      this.bmxItem.componentText[indexRow]['multipleChoice'] = this.bmxItem.componentText[indexRow]['multipleChoice'].replace(checkBoxName + ',','')
+    }
   }
   
   insertAnswerColumn() {
