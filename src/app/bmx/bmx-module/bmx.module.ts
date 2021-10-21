@@ -81,6 +81,7 @@ import { ProjectReportsComponent } from '../bmx-creator/project-reports/project-
 import { NarrowDownComponent } from '../bmx-creator/survey-creation-design/templates/narrow-down/narrow-down.component';
 import { QuestionAnswerComponent } from '../bmx-creator/survey-creation-design/templates/question-answer/question-answer.component';
 import { SurveyMatrixComponent } from '../bmx-creator/survey-matrix/survey-matrix.component';
+import { TinderComponent } from '../bmx-creator/survey-creation-design/templates/tinder/tinder.component';
 export function loadEcharts() {
   return import('echarts');
 }
@@ -105,6 +106,7 @@ export function loadEcharts() {
     NarrowDownComponent,
     QuestionAnswerComponent,
     SurveyMatrixComponent,
+    TinderComponent,
   ],
   imports: [
     BrowserModule,

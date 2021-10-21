@@ -405,7 +405,7 @@
                         <!-- IF ELSE TEMPLATE INPUTS  -->
                         <div style="background-color: lightgray;">
                             <div *ngIf="selectedCard == y" style="position: absolute;margin-top: 5px;"
-                                [style.left.px]="(e * 49)">
+                                [style.left.px]="(e * 40)">
                                 <span *ngIf="y !== 0  &&  columnName.includes('RadioColumn') == true"
                                     style="padding-right: 8px;">{{e - 1}}</span>
                                 <input type="radio" *ngIf="y !== 0  &&  columnName.includes('RadioColumn') == true"
