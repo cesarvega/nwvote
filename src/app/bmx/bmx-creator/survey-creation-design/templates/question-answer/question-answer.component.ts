@@ -47,8 +47,7 @@ export class QuestionAnswerComponent extends RatingScaleComponent implements OnI
         } else if (column == 'katakana') {
           this.columnsNames[index] = 'katakana'
         } else if (column == 'options') {
-          this.columnsNames[index] = 'ExtraColumn' + this.extraColumnCounter
-          this.extraColumnCounter++
+          this.columnsNames[index] = 'options'
         }
       });
       this.TESTNAMES_LIST = [];
@@ -93,6 +92,10 @@ export class QuestionAnswerComponent extends RatingScaleComponent implements OnI
     }
   }
 
+  saveMultipleChoice(columnNAme, indexRow, indexCheckBox){
+
+  }
+  
   insertAnswerColumn() {
     this.columnsNames.push('Answers' + (this.commentColumnCounter));
     this.bmxItem.componentText.forEach((object, index) => {
