@@ -374,7 +374,7 @@ export class RatingScaleComponent implements OnInit {
     this.RadioColumnList.forEach((columnName, index) => {
       // if (columnName.includes('RadioColumn')) {
       if (this.bmxItem.componentText[y][columnName]) {
-        if (this.bmxItem.componentType == 'ranking-scale') {
+        if (this.bmxItem.componentType == 'ranking-scale' || true) {
           this.bmxItem.componentText.forEach((element, i) => {
             if (element.RATE == index + 1) {
               this.bmxItem.componentText[i].RATE = 0
