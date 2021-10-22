@@ -200,26 +200,46 @@
     </div>
     <div class="scroller-style main-container">
 
-        <div style="height: 442px;
-        width: 90%;display: flex;flex-direction:column;justify-content: space-around  ;align-items: center;gap: 10px">
-         
-                <div style="font-size: 80px;text-align: center;font-weight: bolder;">
-                    {{'TEST NAME'}}
+        <div style="display: flex;flex-direction: row;gap: 20px; align-items: center;width: 750px;">
+
+            <mat-icon (click)="moveleft()" style="font-size: 30px;color: grey;cursor: pointer;" class="full-icon">
+                chevron_left</mat-icon>
+
+            <div class="tinder-box">
+
+                <div
+                    style="font-size: 80px;text-align: center;font-weight: bolder;animation: fadeInRight 1s ease-in 0 1 forwards;">
+                    {{( bmxItem.componentText[testNameIndex].nameCandidates)?
+                    bmxItem.componentText[testNameIndex].nameCandidates:'TEST NAME'}}
                 </div>
-                <div style="font-size: 24px;text-align: center;color: #bababa;max-width: 60%;">
-                    {{'ORal New Chemical Entity Aiming to Slow Disease Trajectory in Early Parkinson’s'}}
+                <div style="font-size: 24px;text-align: center;color: #bababa;max-width: 80%;">
+                    {{( bmxItem.componentText[testNameIndex].rationale)?
+                    bmxItem.componentText[testNameIndex].rationale:'Rationale of an undisclosed length'}}
                 </div>
-                <textarea name="comments" placeholder="comments" style="max-width: 60%;
-                padding: 20px;" ></textarea>
+                <textarea name="comments" placeholder="comments" style="width: 100%;
+                padding: 20px;"></textarea>
                 <div style="display: flex;flex-direction:row;justify-content: center;align-items: center;gap: 110px;">
-                    <button matRipple [matRippleCentered]="true" mat-icon-button style="outline: none;">
-                        <mat-icon style="font-size: 65px;color: brown;" class="full-icon">cancel</mat-icon>
-                    </button>
-                    <button matRipple [matRippleCentered]="true" mat-icon-button style="outline: none;">
-                        <mat-icon style="font-size: 65px;color: green;" class="full-icon">check</mat-icon>
-                    </button>
+
+                    <!-- <mat-icon (click)="voteName('neutral')" style="font-size: 65px;color: #ee252f;cursor: pointer;" class="full-icon">highlight_off</mat-icon> -->
+                    <!-- <mat-icon style="font-size: 65px;color: #ee252f;cursor: pointer;" class="full-icon">close</mat-icon> -->
+
+
+                    <mat-icon (click)="voteName('negative')" style="font-size: 65px;color: #ee252f;cursor: pointer;"
+                        class="full-icon">highlight_off</mat-icon>
+                    <!-- <mat-icon style="font-size: 65px;color: #00cd38;cursor: pointer;" class="full-icon">favorite</mat-icon> -->
+                    <!-- <mat-icon style="font-size: 65px;color: #00cd38;cursor: pointer;" class="full-icon">thumb_up</mat-icon> -->
+
+                    <mat-icon (click)="voteName('positive')" style="font-size: 65px;color: #00cd38;cursor: pointer;"
+                        class="full-icon">sentiment_satisfied_alt</mat-icon>
+                    <!-- <mat-icon (click)="voteName('positive')" style="font-size: 65px;color: #00cd38;cursor: pointer;"
+                        class="full-icon">check_circle</mat-icon> -->
+                </div>
+
             </div>
-           
+
+            <mat-icon (click)="moveRight()" style="font-size: 30px;color: grey;cursor: pointer;" class="full-icon">
+                chevron_right</mat-icon>
+
         </div>
     </div>
 </div>
@@ -242,24 +262,24 @@
 
         <div style="border: #bababa 2px solid;height: 442px;
         width:310px;display: flex;flex-direction:column;justify-content: space-around  ;align-items: center;gap: 10px">
-         
-                <div style="font-size: 40px;text-align: center;font-weight: bolder;">
-                    {{'TEST NAME'}}
-                </div>
-                <div style="font-size: 20px;text-align: center;color: #bababa;max-width: 500px;">
-                    {{'ORal New Chemical Entity Aiming to Slow Disease Trajectory in Early Parkinson’s'}}
-                </div>
-                <textarea name="comments" placeholder="comments" style="max-width: 450px;
-                padding: 20px;" ></textarea>
-                <div style="display: flex;flex-direction:row;justify-content: center;align-items: center;gap: 110px;">
-                    <button matRipple [matRippleCentered]="true" mat-icon-button style="outline: none;">
-                        <mat-icon style="font-size: 65px;color: brown;" class="full-icon">cancel</mat-icon>
-                    </button>
-                    <button matRipple [matRippleCentered]="true" mat-icon-button style="outline: none;">
-                        <mat-icon style="font-size: 65px;color: green;" class="full-icon">check</mat-icon>
-                    </button>
+
+            <div style="font-size: 40px;text-align: center;font-weight: bolder;">
+                {{'TEST NAME'}}
             </div>
-           
+            <div style="font-size: 20px;text-align: center;color: #bababa;max-width: 500px;">
+                {{'ORal New Chemical Entity Aiming to Slow Disease Trajectory in Early Parkinson’s'}}
+            </div>
+            <textarea name="comments" placeholder="comments" style="max-width: 450px;
+                padding: 20px;"></textarea>
+            <div style="display: flex;flex-direction:row;justify-content: center;align-items: center;gap: 110px;">
+                <button matRipple [matRippleCentered]="true" mat-icon-button style="outline: none;">
+                    <mat-icon style="font-size: 65px;color: brown;" class="full-icon">cancel</mat-icon>
+                </button>
+                <button matRipple [matRippleCentered]="true" mat-icon-button style="outline: none;">
+                    <mat-icon style="font-size: 65px;color: green;" class="full-icon">check</mat-icon>
+                </button>
+            </div>
+
         </div>
 
     </div>

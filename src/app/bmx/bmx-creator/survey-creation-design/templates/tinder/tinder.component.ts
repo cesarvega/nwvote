@@ -9,58 +9,60 @@ import { MatSnackBar } from '@angular/material/snack-bar';
   templateUrl: './tinder.component.html',
   styleUrls: ['./tinder.component.scss']
 })
-export class TinderComponent extends RatingScaleComponent  implements OnInit {
+export class TinderComponent extends RatingScaleComponent implements OnInit {
 
   @Input() bmxItem;
   @Input() i;
   @Input() bmxClientPageDesignMode;
   @Input() bmxClientPageOverview;
- 
+
   rankingType = 'dropDown'
-  rankingTypeOptions = [ 'dropDown' , 'dragAndDrop', 'radio' ]
+  rankingTypeOptions = ['dropDown', 'dragAndDrop', 'radio']
 
   draggableBag
   isdropDown = true
 
   allowScrolling = true
 
+  testNameIndex = 1
+
   constructor(dragulaService: DragulaService, _snackBar: MatSnackBar) {
-   super(dragulaService,_snackBar)
-   
-   }
-   ngOnInit(): void {
+    super(dragulaService, _snackBar)
+
+  }
+  ngOnInit(): void {
     this.rankingScaleValue = this.bmxItem.componentSettings[0].selectedRanking
-   this.ratingScale = this.bmxItem.componentSettings[0].selectedRanking
-    this.createRatingStars( this.ratingScale)
+    this.ratingScale = this.bmxItem.componentSettings[0].selectedRanking
+    this.createRatingStars(this.ratingScale)
     // this.rankingTableType( this.bmxItem.componentSettings[0].rankType)
     this.rankingType = this.bmxItem.componentSettings[0].rankType
 
-    if (this.rankingType == 'dropDown' ) {
+    if (this.rankingType == 'dropDown') {
       this.draggableBag = ''
       this.isdropDown = true
     } else if (this.rankingType == 'dragAndDrop') {
       this.draggableBag = 'DRAGGABLE_RANK_ROW'
       this.isdropDown = false
-      
+
     } else if (this.rankingType == 'radio') {
       this.draggableBag = ''
       this.isdropDown = false
       this.radioColumnCounter = 1
-      }
+    }
 
-     
+
 
     // COLUMN NAMES
     let values = Object.keys(this.bmxItem.componentText[0])
 
     values.forEach(value => {
-      if (typeof value == "string" && value != "STARS" && value != "CRITERIA" ) {
+      if (typeof value == "string" && value != "STARS" && value != "CRITERIA") {
         this.columnsNames.push(value)
       }
     });
 
   }
-  
+
   createRatingStars(ratingScale, ratingScaleIcon?) {
     let startCounter: any = []
     for (let index = 0; index < ratingScale; index++) {
@@ -85,50 +87,33 @@ export class TinderComponent extends RatingScaleComponent  implements OnInit {
       this.columnsNames.forEach((column, index) => {
         if (column == 'name candidates' || column == 'test names' || column == 'names' || column == 'name') {
           this.columnsNames[index] = 'nameCandidates'
-          } else if (column == 'name rationale' || column == 'rationale' || column == 'rationales')  {
-            this.columnsNames[index] = 'rationale'
-          } else if (column == 'katakana')  {
-            this.columnsNames[index] = 'katakana'
-          } else {
-            this.columnsNames[index] = 'ExtraColumn' + this.extraColumnCounter
-            this.extraColumnCounter++
-          }      
+        } else if (column == 'name rationale' || column == 'rationale' || column == 'rationales') {
+          this.columnsNames[index] = 'rationale'
+        } else if (column == 'katakana') {
+          this.columnsNames[index] = 'katakana'
+        } else {
+          this.columnsNames[index] = 'ExtraColumn' + this.extraColumnCounter
+          this.extraColumnCounter++
+        }
       });
       this.TESTNAMES_LIST = [];
       for (let i = 0; i < rows.length; i++) {
         if (rows[i] != "" && rows[i].length > 6) {
           let objectColumnDesign = {};
-          if (this.ASSIGNED_CRITERIA.length > 0) {
-
-            for (let e = 0; e < this.columnsNames.length; e++) {
-              if ((rows[i].split("\t").length > 0)) {
-                objectColumnDesign[this.columnsNames[e]] = rows[i].split("\t")[e]
-              }
-            }
-            objectColumnDesign['CRITERIA'] = []
-            this.ASSIGNED_CRITERIA.forEach(criteria => {
-              objectColumnDesign['CRITERIA'].push({
-                name : criteria.name,
-                STARS : this.createRatingStars(this.rankingScaleValue, this.ratingScaleIcon),
-                RATE : -1,
-              })
-            });
-          } else {
-
             objectColumnDesign['STARS'] = this.createRatingStars(this.rankingScaleValue, this.ratingScaleIcon);
             for (let e = 0; e < this.columnsNames.length; e++) {
               if ((rows[i].split("\t").length > 0)) {
-                objectColumnDesign[this.columnsNames[e]] = rows[i].split("\t")[e]
+                objectColumnDesign[this.columnsNames[e]] = rows[i].split("\t")[e].trim()
               }
             }
-          }
+          
 
           this.TESTNAMES_LIST.push(objectColumnDesign);
         }
       }
       this.bmxItem.componentText = this.TESTNAMES_LIST;
-      this.rankingTableType( this.bmxItem.componentSettings[0].rankType)
-     
+      this.rankingTableType(this.bmxItem.componentSettings[0].rankType)
+
     } else {
       this.bmxItem.componentText.forEach((row, index) => {
         row.STARS = this.createRatingStars(this.rankingScaleValue, this.ratingScaleIcon)
@@ -137,13 +122,13 @@ export class TinderComponent extends RatingScaleComponent  implements OnInit {
   }
 
 
-  rankingTableType(rankingType){
+  rankingTableType(rankingType) {
     this.bmxItem.componentSettings[0].rankType = rankingType
     let values = Object.keys(this.bmxItem.componentText[0])
     this.columnsNames = []
     this.RadioColumnList = []
     values.forEach(value => {
-      if (typeof value == "string" && value != "STARS" && value != "CRITERIA" ) {
+      if (typeof value == "string" && value != "STARS" && value != "CRITERIA") {
         this.columnsNames.push(value)
       }
     });
@@ -152,37 +137,52 @@ export class TinderComponent extends RatingScaleComponent  implements OnInit {
         this.deleteColumn(columnName)
       }
     });
-    if (rankingType == 'dropDown' ) {
+    if (rankingType == 'dropDown') {
       this.draggableBag = ''
       this.isdropDown = true
     } else if (rankingType == 'dragAndDrop') {
       this.draggableBag = 'DRAGGABLE_RANK_ROW'
       this.isdropDown = false
-      
+
     } else if (rankingType == 'radio') {
       this.draggableBag = ''
       this.isdropDown = false
       this.radioColumnCounter = 1
       for (let index = 0; index < this.rankingScaleValue; index++) {
-        this.insertRadioColumn()        
+        this.insertRadioColumn()
       }
     }
   }
 
 
-  toggleScrolling(){
+  toggleScrolling() {
     this.allowScrolling = !this.allowScrolling
     if (this.allowScrolling) {
-      window.onscroll=function(){};      
+      window.onscroll = function () { };
     } else {
-      var x=window.scrollX;
-      var y=window.scrollY;
-      window.onscroll=function(){window.scrollTo(x, y);};
+      var x = window.scrollX;
+      var y = window.scrollY;
+      window.onscroll = function () { window.scrollTo(x, y); };
     }
-   
+
   }
 
- 
+
+  voteName(vote) {
+    this.bmxItem.componentText[this.testNameIndex]['vote'] = vote
+  }
+
+  moveRight() {
+    if (this.testNameIndex < this.bmxItem.componentText.length - 1) {
+      this.testNameIndex++
+    }
+  }
+
+  moveleft() {
+    if (1 < this.testNameIndex) {
+      this.testNameIndex--
+    }
+  }
 
   ASSIGNED_CRITERIA = []
   CRITERIA = [
