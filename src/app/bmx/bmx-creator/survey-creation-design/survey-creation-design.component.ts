@@ -601,6 +601,8 @@ export class SurveyCreationDesignComponent implements OnInit {
               }
             );
           }
+        } else {
+            this.currentPage = pageNumber;
         }
       });
     } else {

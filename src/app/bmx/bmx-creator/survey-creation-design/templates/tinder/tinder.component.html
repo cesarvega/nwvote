@@ -207,7 +207,7 @@
 
             <div class="tinder-box">
 
-                <div
+                <div [ngClass]="(!bmxItem.componentText[testNameIndex].vote)?'':(bmxItem.componentText[testNameIndex].vote === 'negative')?'positive':'negative'"
                     style="font-size: 80px;text-align: center;font-weight: bolder;animation: fadeInRight 1s ease-in 0 1 forwards;">
                     {{( bmxItem.componentText[testNameIndex].nameCandidates)?
                     bmxItem.componentText[testNameIndex].nameCandidates:'TEST NAME'}}
@@ -220,19 +220,13 @@
                 padding: 20px;"></textarea>
                 <div style="display: flex;flex-direction:row;justify-content: center;align-items: center;gap: 110px;">
 
-                    <!-- <mat-icon (click)="voteName('neutral')" style="font-size: 65px;color: #ee252f;cursor: pointer;" class="full-icon">highlight_off</mat-icon> -->
-                    <!-- <mat-icon style="font-size: 65px;color: #ee252f;cursor: pointer;" class="full-icon">close</mat-icon> -->
-
-
                     <mat-icon (click)="voteName('negative')" style="font-size: 65px;color: #ee252f;cursor: pointer;"
                         class="full-icon">highlight_off</mat-icon>
-                    <!-- <mat-icon style="font-size: 65px;color: #00cd38;cursor: pointer;" class="full-icon">favorite</mat-icon> -->
-                    <!-- <mat-icon style="font-size: 65px;color: #00cd38;cursor: pointer;" class="full-icon">thumb_up</mat-icon> -->
+                
 
                     <mat-icon (click)="voteName('positive')" style="font-size: 65px;color: #00cd38;cursor: pointer;"
                         class="full-icon">sentiment_satisfied_alt</mat-icon>
-                    <!-- <mat-icon (click)="voteName('positive')" style="font-size: 65px;color: #00cd38;cursor: pointer;"
-                        class="full-icon">check_circle</mat-icon> -->
+                  
                 </div>
 
             </div>
