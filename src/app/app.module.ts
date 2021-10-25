@@ -143,7 +143,7 @@ import { ServiceWorkerModule } from '@angular/service-worker';
     MatNativeDateModule,
     NgxKjuaModule,
     FontAwesomeModule,
-    // ServiceWorkerModule.register('ngsw-worker.js', { enabled: environment.production })
+    ServiceWorkerModule.register('ngsw-worker.js', { enabled: environment.production })
     // AngularEditorModule,
 
   ],

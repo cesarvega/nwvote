@@ -1,7 +1,8 @@
-import { AfterViewInit, Component, OnInit } from '@angular/core';
+import { AfterViewInit, Component, ElementRef, OnInit, ViewChild } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { faInstagram } from '@fortawesome/free-brands-svg-icons';
 import { EliteAuthService } from '../elite-auth/elite-auth.service';
+import QRCodeStyling from 'qr-code-styling';
 @Component({
   selector: 'app-elite-business-card',
   templateUrl: './elite-business-card.component.html',
@@ -12,7 +13,7 @@ export class EliteBusinessCardComponent implements OnInit, AfterViewInit {
   isRadialMenuOn = false;
   isSettingsOn = false;
   faInstagram = faInstagram
-
+  myAngularxQrCode = 'https://mrvrman.web.app/business-card';
   promoterId: any;
   qrcodeType: any;
   VenueId: any;
@@ -20,13 +21,13 @@ export class EliteBusinessCardComponent implements OnInit, AfterViewInit {
   mute: any;
   audiofile: string;
   soundVolume = 0;
-  themeIndex = 0;
+  themeIndex = 5;
   userIndex = 0;
 
   user = [{
     logoInitial: 'C',
-    username: 'Charlie V',
-    userDescription: 'CLUB MEMBER',
+    username: 'Cesar Vega',
+    userDescription: '',
     title: 'Elite'
   }]
 
@@ -90,7 +91,12 @@ export class EliteBusinessCardComponent implements OnInit, AfterViewInit {
     },
    
   ]
-  constructor(private paramsRouter: ActivatedRoute,public auth : EliteAuthService) { }
+ 
+  qrCode: QRCodeStyling;
+  @ViewChild("canvas", { static: true }) canvas: ElementRef;
+  constructor(private paramsRouter: ActivatedRoute,public auth : EliteAuthService) {
+   
+   }
 
   ngOnInit(): void {
     this.paramsRouter.params.subscribe(params => {
@@ -98,6 +104,73 @@ export class EliteBusinessCardComponent implements OnInit, AfterViewInit {
       this.qrcodeType = params['type'];
       this.VenueId = params['venueId'];
     });
+    this.qrCode = new QRCodeStyling({
+      width: 223,
+      height: 223,
+      data: this.myAngularxQrCode,
+      margin: 0,
+      qrOptions: { typeNumber: 0, mode: 'Byte', errorCorrectionLevel: 'Q' },
+      imageOptions: { hideBackgroundDots: true, imageSize: 0.4, margin: 0 },
+      dotsOptions: {
+        type: 'dots',
+        color: '#1023da',
+        gradient: {
+          type: 'linear',
+          rotation: 45,
+          colorStops: [
+            {
+              offset: 0,
+              color: '#1023da',
+            },
+            {
+              offset: 3,
+              color: '#8831da',
+            },
+          ],
+        },
+      },
+      backgroundOptions: { color: '#fff' },
+      image: './assets/img/elite/logo.png',
+      cornersSquareOptions: {
+        type: 'square',
+        color: '#000',
+        gradient: {
+          type: 'radial',
+          rotation: 45,
+          colorStops: [
+            {
+              offset: 0,
+              color: '#000',
+            },
+          ],
+        },
+      },
+      cornersDotOptions: {
+        type: 'dot',
+        color: '#000',
+        gradient: {
+          type: 'linear',
+          rotation: 45,
+          colorStops: [
+            {
+              offset: 0,
+              color: '#000',
+            },
+            {
+              offset: 3,
+              color: '#000',
+            },
+          ],
+        },
+      },
+    });
+    this.qrCode.append(this.canvas.nativeElement);
+    setTimeout(() => {
+      this.goVote()
+    
+    }, 4000);
+ 
+
   }
 
   ngAfterViewInit(): void {
@@ -138,7 +211,7 @@ export class EliteBusinessCardComponent implements OnInit, AfterViewInit {
     //  this.playSound('02 Alerts and Notifications/alert_high-intensity.wav', this.soundVolume);
 
     if (item === 'Instagram') {
-      window.open('https://www.instagram.com/cesarvega_2020/', "_parent");
+      window.open('https://www.instagram.com/charlie_v_elite/', "_parent");
     }
     else if (item === 'FaceBook') {
       window.open('https://facebook.com/cesarvega.col', "_parent");
