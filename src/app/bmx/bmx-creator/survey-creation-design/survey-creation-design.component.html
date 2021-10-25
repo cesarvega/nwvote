@@ -18,8 +18,9 @@
                         <mat-icon style="font-size: 17px;">cancel</mat-icon>
                     </button>
                 </div>
-                <app-logo-header [bmxItem]="bmxItem"  [isBrandMatrixSurvey]="isBrandMatrixSurvey" [i]="i" [bmxClientPageDesignMode]="bmxClientPageDesignMode" 
-                    [bmxClientPageOverview]="bmxClientPageOverview"></app-logo-header>
+                <app-logo-header [bmxItem]="bmxItem" [isBrandMatrixSurvey]="isBrandMatrixSurvey" [i]="i"
+                    [bmxClientPageDesignMode]="bmxClientPageDesignMode" [bmxClientPageOverview]="bmxClientPageOverview">
+                </app-logo-header>
             </div>
             <!--😋😋😋😋😋😋😋😋😋😋😋😋😋😋😋😋😋😋😋😋😋😋😋😋😋😋😋😋😋😋😋😋😋😋😋😋😋😋 END BMX HEADER  -->
 
@@ -118,6 +119,23 @@
             </div>
             <!-- END QUESTION AND ANSWER  ✒️✒️✒️✒️✒️✒️✒️✒️✒️✒️✒️✒️✒️✒️✒️✒️✒️✒️✒️✒️✒️✒️✒️✒️✒️✒️✒️✒️✒️✒️✒️✒️✒️✒️✒️✒️✒️ -->
 
+
+
+            <!-- TINDER  🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥-->
+            <div *ngIf="bmxItem.componentType === 'tinder'" class="paragraph">
+                <div class="emoji-handle">.</div>
+                <div style="position: absolute;right: 0px;">
+                    <button *ngIf="bmxClientPageOverview" matTooltip="double click to delete" matTooltipPosition="above"
+                        style="outline: none;color:#f10a0a;top: 19px;" mat-icon-button (dblclick)="deleteComponent(i)"
+                        aria-label="delte">
+                        <mat-icon style="font-size: 17px;">cancel</mat-icon>
+                    </button>
+                </div>
+                <app-tinder [bmxItem]="bmxItem" [i]="i" [bmxClientPageDesignMode]="bmxClientPageDesignMode"
+                    [bmxClientPageOverview]="bmxClientPageOverview"></app-tinder>
+            </div>
+            <!-- END TINDER  🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥 -->
+
         </div>
 
 
@@ -174,6 +192,10 @@
                 matTooltipPosition="right" mat-icon-button color="warn" aria-label="aria">
                 <mat-icon class="full-icon">image</mat-icon>
             </button>
+            <button (click)="createNewBmxComponent('tinder')" matTooltip="tinder matrix" matTooltipPosition="right"
+                mat-icon-button color="warn" aria-label="aria">
+                <mat-icon class="full-icon">local_fire_department</mat-icon>
+            </button>
             <button (click)="createNewBmxComponent('question-answer')" matTooltip="questions & answers"
                 matTooltipPosition="right" mat-icon-button color="warn" aria-label="aria">
                 <mat-icon class="full-icon">question_answer</mat-icon>
@@ -188,7 +210,7 @@
             </button>
             <button (click)="openSaveTemplateBox()" matTooltip="save template" matTooltipPosition="right"
                 mat-icon-button color="warn" aria-label="aria">
-                <mat-icon class="full-icon">save</mat-icon>
+                <mat-icon class="full-icon">category</mat-icon>
             </button>
             <button *ngIf="true" (dblclick)="resetTemplate()" mat-icon-button
                 matTooltip="double click to reset template" matTooltipPosition="right">
@@ -200,14 +222,14 @@
                 <mat-icon class="full-icon">cloud_upload
                 </mat-icon>
             </button>
-            <button *ngIf="true" (click)="openFullscreen()" mat-icon-button matTooltip="full screen"
-                matTooltipPosition="right">
-                <mat-icon class="full-icon">fullscreen
-                </mat-icon>
-            </button>
             <button *ngIf="true" (click)="previewSurvey()" mat-icon-button matTooltip="preview brand matrix"
                 matTooltipPosition="right">
                 <mat-icon class="full-icon">visibility
+                </mat-icon>
+            </button>
+            <button *ngIf="true" (click)="openFullscreen()" mat-icon-button matTooltip="full screen"
+                matTooltipPosition="right">
+                <mat-icon class="full-icon">fullscreen
                 </mat-icon>
             </button>
             <!-- <button *ngIf="true" (click)="bmxClientPageOverview=!bmxClientPageOverview" mat-icon-button matTooltip="reset template"
@@ -260,8 +282,8 @@
             load
         </button>
         <p *ngIf="isSaveOrUpdate">or</p>
-        <button *ngIf="isSaveOrUpdate" (dblclick)="deleteTemplate(templateName)"  matTooltip="double click to delete template"
-        matTooltipPosition="below" mat-raised-button
+        <button *ngIf="isSaveOrUpdate" (dblclick)="deleteTemplate(templateName)"
+            matTooltip="double click to delete template" matTooltipPosition="below" mat-raised-button
             style="color: white;background-color: #972044">
             delete
         </button>

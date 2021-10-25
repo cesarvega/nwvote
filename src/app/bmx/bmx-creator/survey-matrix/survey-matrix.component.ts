@@ -308,6 +308,7 @@ export class SurveyMatrixComponent extends SurveyCreationDesignComponent impleme
                                         if (key === 'nameCandidates' && templateRow[key] === answerRow[key]) {
                                           
                                             templateRow.RATE = answerRow.RATE
+                                            templateRow.SELECTED_ROW = answerRow.SELECTED_ROW
                                             templateRow.STARS.forEach(starRow => {
                                                 if (starRow.id <= answerRow.RATE) {
                                                     starRow.styleClass = 'active-rating-star'
