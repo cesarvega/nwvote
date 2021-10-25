@@ -142,7 +142,7 @@ export class ProjectInformationComponent implements OnInit {
   private _filter(value: string): string[] {
     const filterValue = value.toLowerCase();
     //console.log(value);
-    return this.settingsData['SalesBoardProjectList'].filter(option => option.toLowerCase().includes(filterValue));
+    return this.settingsData['SalesBoardProjectList'].filter(option => option.toLowerCase().includes(filterValue));/*.slice(0, 10);*/
   }
   // END 🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖 AUTOCOMPLETE
 
@@ -281,6 +281,9 @@ export class ProjectInformationComponent implements OnInit {
         })
 
       }
+    });
+    this.bmxEditData.get('bmxSalesboard').valueChanges.subscribe(val => {
+      this.bmxEditData.patchValue({ bmxProjectName: val });
     });
   }
 }

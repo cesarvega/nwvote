@@ -16,31 +16,31 @@
         matTooltipPosition="above" mat-icon-button aria-label="ranking">
         <mat-icon style="font-size: 26px;" class="full-icon">radio_button_checked</mat-icon>
     </button>
-    <button (click)="insertCommentBoxColumn()" class="add-column" style="margin: -50px 125px;"
-        matTooltip="add a Comment box column" matTooltipPosition="above" mat-icon-button aria-label="ranking">
+    <button (click)="insertAnswerColumn()" class="add-column" style="margin: -50px 125px;"
+        matTooltip="add comment box column" matTooltipPosition="above" mat-icon-button aria-label="ranking">
         <mat-icon style="font-size: 26px;" class="full-icon">wysiwyg</mat-icon>
     </button>
     <button (click)="insertRow()" class="add-column" style="margin: -50px 155px;" matTooltip="insert row"
         matTooltipPosition="above" mat-icon-button aria-label="ranking">
         <mat-icon style="font-size: 26px;" class="full-icon">vertical_distribute</mat-icon>
     </button>
-    <button (click)="editSingleTableCells = !editSingleTableCells" 
+    <button (click)="editSingleTableCells = !editSingleTableCells"
         [ngClass]="(!editSingleTableCells)?'add-column':'add-column-active'" style="margin: -50px 195px;"
         matTooltip="edit tabel cells" matTooltipPosition="above" mat-icon-button aria-label="ranking">
         <mat-icon style="font-size: 26px;" class="full-icon">explicit</mat-icon>
     </button>
-    <button (click)="dragRows = !dragRows" 
-        [ngClass]="(!dragRows)?'add-column':'add-column-active'" style="margin: -50px  225px;"
-        matTooltip="drag rows" matTooltipPosition="above" mat-icon-button aria-label="ranking">
+    <button (click)="dragRows = !dragRows" [ngClass]="(!dragRows)?'add-column':'add-column-active'"
+        style="margin: -50px  225px;" matTooltip="drag rows" matTooltipPosition="above" mat-icon-button
+        aria-label="ranking">
         <mat-icon style="font-size: 26px;" class="full-icon">drag_indicator</mat-icon>
     </button>
-    <button (click)="deleteRows = !deleteRows" 
-        [ngClass]="(!deleteRows)?'add-column':'add-column-active'" style="margin: -50px 255px;"
-        matTooltip="delete rows" matTooltipPosition="above" mat-icon-button aria-label="ranking">
+    <button (click)="deleteRows = !deleteRows" [ngClass]="(!deleteRows)?'add-column':'add-column-active'"
+        style="margin: -50px 255px;" matTooltip="delete rows" matTooltipPosition="above" mat-icon-button
+        aria-label="ranking">
         <mat-icon style="font-size: 26px;" class="full-icon">delete_outline</mat-icon>
     </button>
-    <button (click)="isColumnResizerOn = !isColumnResizerOn" 
-        [ngClass]="(!isColumnResizerOn)?'add-column':'add-column-active'" style="margin: -50px 290px;" 
+    <button (click)="isColumnResizerOn = !isColumnResizerOn"
+        [ngClass]="(!isColumnResizerOn)?'add-column':'add-column-active'" style="margin: -50px 290px;"
         matTooltip="columns width" matTooltipPosition="above" mat-icon-button aria-label="ranking">
         <mat-icon style="font-size: 26px;" class="full-icon">swap_horizontal_circle</mat-icon>
     </button>
@@ -160,12 +160,12 @@
             class="slider-font-size" tickInterval="1" min="50" max="1000"
             [value]="bmxItem.componentSettings[0].columnWidth">
     </div>
-    <div style="display: flex;flex-direction: column;align-items: center;">
+    <!-- <div style="display: flex;flex-direction: column;align-items: center;">
         <p style="margin: 0 0 -12px;color: grey;">ratinale width: {{bmxItem.componentSettings[0].rationalewidth}} px</p>
         <input type="range" style="margin: 20px;width: 140px;" [(ngModel)]="bmxItem.componentSettings[0].rationalewidth"
             class="slider-font-size" tickInterval="1" min="50" max="1000"
             [value]="bmxItem.componentSettings[0].rationalewidth">
-    </div>
+    </div> -->
     <div style="display: flex;flex-direction: column;align-items: center;">
         <p style="margin: 0 0 -12px;color: grey;">font size: {{bmxItem.componentSettings[0].fontSize}} px</p>
         <input type="range" style="margin: 20px;width: 140px;" [(ngModel)]="bmxItem.componentSettings[0].fontSize"
@@ -192,8 +192,8 @@
             {{bmxItem.componentSettings[0].categoryDescription}}</div>
 
     </div>
-    <div class="scroller-style main-container" [dragula]="(dragRows)?'DRAGGABLE_ROW':''"  [(dragulaModel)]="bmxItem.componentText"
-        (dragulaModelChange)="checkDragEvetn($event);">
+    <div class="scroller-style main-container" [dragula]="(dragRows)?'DRAGGABLE_ROW':''"
+        [(dragulaModel)]="bmxItem.componentText" (dragulaModelChange)="checkDragEvetn($event);">
 
         <div *ngFor="let testName of bmxItem.componentText; let y = index">
 
@@ -233,10 +233,15 @@
                     <div>
 
                         <!-- IF ELSE TEMPLATE INPUTS  -->
-                        <input *ngIf="y !== 0  &&  columnName.includes('RadioColumn') == true" type="radio"
-                            [name]="'rate' + y" [checked]="testName[columnName]"
-                            (change)="saveRadioColumValue(columnName, y)">
+                        <div *ngIf="y !== 0  &&  columnName.includes('options') == true">
+                            <div *ngFor="let checkBoxName of testName[columnName].split(','); let m = index" 
+                            style="display: flex;flex-direction: row;gap:10px; justify-content: space-between;  ">
+                                <label for="">{{checkBoxName}}</label>
+                                <input type="checkbox" [checked]="allComplete"
+                                    (change)="saveMultipleChoice(checkBoxName, y,  $event)">
 
+                            </div>
+                        </div>
 
                         <!-- TEXT_AREA COLUMN-->
                         <!-- <textarea *ngIf="y !== 0  && columnName.includes('Answers') == true"
@@ -246,7 +251,7 @@
                             style="text-align: initial;height: 32px;width: 358px;font-size: 16px;border: 1px solid grey;padding: 6px 10px;"
                             class="row-box" [(ngModel)]="testName[columnName]" rows="4" cols="50"></textarea> -->
 
-                            <textarea *ngIf="y !== 0  && columnName.includes('Answers') == true"
+                        <textarea *ngIf="y !== 0  && columnName.includes('Answers') == true"
                             [style.width]="(bmxItem.componentSettings[0].columnWidth - 20) +'px'"
                             [style.font-size]="bmxItem.componentSettings[0].fontSize +'px'" cdkTextareaAutosize
                             [cdkAutosizeMinRows]="bmxItem.componentSettings[0].rowHeight"
@@ -257,21 +262,21 @@
 
                         <!-- TEXT AREA TO EDIT TABLE CELL CONTENT -->
                         <textarea
-                            *ngIf="y !== 0  && editSingleTableCells && (columnName.includes('RadioColumn') != true) &&  columnName.includes('Answers') != true"
+                            *ngIf="y !== 0  && editSingleTableCells && (columnName.includes('options') != true) &&  columnName.includes('Answers') != true"
                             [style.width]="(columnName == 'rationale')?(bmxItem.componentSettings[0].rationalewidth - 10) + 'px':(bmxItem.componentSettings[0].columnWidth -10) +'px'"
                             [style.font-size]="bmxItem.componentSettings[0].fontSize +'px'" cdkTextareaAutosize
                             [cdkAutosizeMinRows]="bmxItem.componentSettings[0].rowHeight"
                             style="outline: none;text-align: initial;margin: 0 10px;" class="row-box"
                             [(ngModel)]="testName[columnName]"></textarea>
 
-                        <p *ngIf="y !== 0  && !editSingleTableCells && (columnName.includes('RadioColumn') != true) &&  columnName.includes('Answers') != true"
+                        <p *ngIf="y !== 0  && !editSingleTableCells && (columnName.includes('options') != true) &&  columnName.includes('Answers') != true"
                             [style.font-size]="bmxItem.componentSettings[0].fontSize +'px'"
                             [style.width]="(columnName == 'rationale')?bmxItem.componentSettings[0].rationalewidth + 'px':bmxItem.componentSettings[0].columnWidth +'px'"
                             style="text-align: initial;margin: 0 0 0px;">{{testName[columnName]}}</p>
                     </div>
                     <!-- 🟡🟡🟡🟡🟡🟡🟡🟡🟡🟡🟡🟡🟡🟡 END TABLE CELLS 🟡🟡🟡🟡🟡🟡🟡🟡🟡🟡🟡🟡🟡🟡🟡🟡 -->
                 </div>
-            
+
                 <div *ngIf="(y !== 0) && bmxClientPageOverview && deleteRows"
                     style="min-width: 100px; position: absolute;right: 0px;">
                     <button style="outline: none;margin:3px -8px;" (dblclick)="deletRow(y)" mat-icon-button
@@ -306,9 +311,9 @@
 
             <div class="test-name-table" *ngIf="(y != 0)" [style.height]="(selectedCard == y)?'':''">
 
-               
+
                 <div *ngFor="let columnName of columnsNames; let e =  index">
-                    
+
 
                     <!-- 🟢🟢🟢🟢🟢🟢🟢🟢🟢🟢🟢🟢🟢🟢 END HEADER TEXT AREA  🟢🟢🟢🟢🟢🟢🟢🟢🟢🟢🟢🟢🟢🟢🟢🟢 -->
 
@@ -317,17 +322,18 @@
                     <div>
 
                         <!-- IF ELSE TEMPLATE INPUTS  -->
-                
+
 
 
                         <!-- TEXT_AREA COLUMN-->
                         <div style="display: flex;
                         justify-content: center;">
-                            <textarea *ngIf="y !== 0  && columnName.includes('Answers') == true "
-                                [style.width]="'95%'" [style.font-size]="bmxItem.componentSettings[0].fontSize +'px'"
-                                cdkTextareaAutosize [cdkAutosizeMinRows]="bmxItem.componentSettings[0].rowHeight" style="text-align: center;height: 32px;width: 358px;font-size: 16px;border: 1px solid grey;
+                            <textarea *ngIf="y !== 0  && columnName.includes('Answers') == true " [style.width]="'95%'"
+                                [style.font-size]="bmxItem.componentSettings[0].fontSize +'px'" cdkTextareaAutosize
+                                [cdkAutosizeMinRows]="bmxItem.componentSettings[0].rowHeight" style="text-align: center;height: 32px;width: 358px;font-size: 16px;border: 1px solid grey;
                             animation: bounceIn 500ms ease-in forwards;padding: 0 4px" class="row-box"
-                                [(ngModel)]="testName[columnName]" placeholder="Type Your Answer" rows="4" cols="50"></textarea>
+                                [(ngModel)]="testName[columnName]" placeholder="Type Your Answer" rows="4"
+                                cols="50"></textarea>
                         </div>
 
                         <p (click)="(selectedCard == y)?selectedCard = '':selectedCard = y" *ngIf="y !== 0  && !editSingleTableCells && (columnName.includes('RadioColumn') != true) &&
@@ -349,7 +355,7 @@
                     </div>
                     <!-- 🟡🟡🟡🟡🟡🟡🟡🟡🟡🟡🟡🟡🟡🟡 END TABLE CELLS 🟡🟡🟡🟡🟡🟡🟡🟡🟡🟡🟡🟡🟡🟡🟡🟡 -->
                 </div>
-              
+
             </div>
 
         </div>

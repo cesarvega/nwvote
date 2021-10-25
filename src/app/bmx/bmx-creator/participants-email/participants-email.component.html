@@ -32,7 +32,7 @@
                             <div style="margin: 20px;font-size: 20px;color:#063074;font-weight: 800;">Templates</div>
                             <mat-form-field appearance="outline" style="margin-left: 20px;">
                                 <mat-label>Choose Template</mat-label>
-                                <mat-select class="selectLabels" [(ngModel)]="emailTemp">
+                                <mat-select class="selectLabels" [(ngModel)]="emailTemp" (selectionChange)="changeTemplate(emailTemp)">
                                     <mat-option *ngFor="let EMAIL_TEMPLATE of EMAIL_TEMPLATES" [value]="EMAIL_TEMPLATE">
                                         {{EMAIL_TEMPLATE.name}}
                                     </mat-option>
