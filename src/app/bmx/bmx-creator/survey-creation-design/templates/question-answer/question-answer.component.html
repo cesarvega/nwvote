@@ -321,9 +321,16 @@
                     <!-- 🟡🟡🟡🟡🟡🟡🟡🟡🟡🟡🟡🟡🟡🟡 TABLE CELLS  🟡🟡🟡🟡🟡🟡🟡🟡🟡🟡🟡🟡🟡🟡🟡🟡 -->
                     <div>
 
-                        <!-- IF ELSE TEMPLATE INPUTS  -->
+                          <!-- IF ELSE TEMPLATE INPUTS  -->
+                          <div *ngIf="y !== 0  &&  columnName.includes('options') == true">
+                            <div *ngFor="let checkBoxName of testName[columnName].split(','); let m = index" 
+                            style="display: flex;flex-direction: row;gap:10px; justify-content: space-between;  ">
+                                <label for="">{{checkBoxName}}</label>
+                                <input type="checkbox" [checked]="allComplete"
+                                    (change)="saveMultipleChoice(checkBoxName, y,  $event)">
 
-
+                            </div>
+                        </div>
 
                         <!-- TEXT_AREA COLUMN-->
                         <div style="display: flex;
@@ -336,7 +343,8 @@
                                 cols="50"></textarea>
                         </div>
 
-                        <p (click)="(selectedCard == y)?selectedCard = '':selectedCard = y" *ngIf="y !== 0  && !editSingleTableCells && (columnName.includes('RadioColumn') != true) &&
+                        <p (click)="(selectedCard == y)?selectedCard = '':selectedCard = y" 
+                        *ngIf="y !== 0  && !editSingleTableCells && (columnName.includes('options') != true) &&
                               columnName.includes('Comments') != true &&
                               columnName.includes('kata') != true &&
                               columnName.includes('ratio') != true"
@@ -344,7 +352,7 @@
                             [style.color]="(columnName.includes('name') == true)?'#324395':'#bababa'"
                             style="text-align: center;padding: 10px 4px;">{{testName[columnName]}}</p>
 
-                        <p *ngIf="y !== 0  && !editSingleTableCells && (columnName.includes('RadioColumn') != true) &&
+                        <p *ngIf="y !== 0  && !editSingleTableCells && (columnName.includes('options') != true) &&
                               columnName.includes('Comments') != true && selectedCard == y &&
                               columnName.includes('name') != true"
                             [style.font-size]=" (columnName.includes('name') == true)?'27px':'20px'"

@@ -498,7 +498,7 @@ export class SurveyMatrixComponent extends SurveyCreationDesignComponent impleme
                             })
                         }
                     }
-
+                    this.currentPage = pageNumber;
                 });
         } else {
             this.currentPage = pageNumber;
