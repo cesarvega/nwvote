@@ -30,106 +30,6 @@
     }
 }
 
-.qr-code {
-    position: absolute;
-    top: 53%;
-    left: 50%;
-    transform: translate(-50%, -53%);
-    flex-direction: column;
-    align-items: center;
-    display: none;
-}
-.noselect {
-    -webkit-touch-callout: none; /* iOS Safari */
-    -webkit-user-select: none; /* Safari */
-    -khtml-user-select: none; /* Konqueror HTML */
-    -moz-user-select: none; /* Old versions of Firefox */
-    -ms-user-select: none; /* Internet Explorer/Edge */
-    user-select: none; /* Non-prefixed version, currently
-                                    supported by Chrome, Edge, Opera and Firefox */
-}
-.emoji-handle {
-    // position: absolute;
-    top: 5px;
-    // border: red solid 1px;
-    right: 2px;
-    color: rgb(255, 255, 255);
-    cursor: move;
-    width: 100%;
-    position: absolute;
-    // height: 38px;
-    // z-index: 999999;
-}
-//desktop
-@media (min-width: 576px) {
-    .page-design {
-        position: absolute;
-        top: 53%;
-        left: 50%;
-        transform: translate(-50%, -53%);
-        width: 90%;
-        height: 97vh;
-        overflow: visible;
-    }
-
-    .bmx-page {
-        // width: 628%;
-        height: 90.8vh;
-        width: 97vw;
-        overflow-y: scroll;
-        overflow-x: hidden;
-        @include BoxShadow(2);
-    }
-    .display {
-        display: flex;
-    }
-
-    .page-buttons {
-        display: flex;
-        flex-direction: row;
-        align-items: center;
-        justify-content: center;
-    }
-    .page-buttons-heigth-minus-50 {
-        display: flex;
-        flex-direction: row;
-        align-items: center;
-        justify-content: center;
-        position: fixed;
-        bottom: 10px;
-    }
-}
-//mobile
-@media (max-width: 576px) {
-    .page-design {
-        overflow-y: hidden;
-    }
-
-    .page-buttons {
-        display: flex;
-        flex-direction: row;
-        align-items: center;
-        justify-content: center;
-    }
-    .page-buttons-heigth-minus-50 {
-        width: 94%;
-        height: 41px;
-        display: flex;
-        flex-direction: row;
-        justify-content: center;
-        gap: 5px;
-        align-items: center;
-        position: fixed;
-        bottom: 20px;
-        background-color: rgba(255, 255, 255, 0.637);
-        z-index: 1;
-    }
-
-    .desktop{
-        display: none;
-    }
-}
-
 .paragraph {
     display: flex;
     flex-direction: column;
@@ -144,6 +44,37 @@
 .pageNumber {
     min-width: 35px;
     // background-color: greenyellow;
+}
+
+.page-buttons {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+}
+.page-buttons-heigth-minus-50 {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+    position: fixed;
+    bottom: 10px;
+}
+.page-buttons-heigth-40 {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+    position: fixed;
+    bottom: 40px;
+}
+
+.bmx-page {
+    // width: 628%;
+    height: 90.8vh;
+    width: 100vw;
+    overflow-y: scroll;
+    @include BoxShadow(2);
 }
 
 .bmx-page::-webkit-scrollbar {
@@ -163,15 +94,19 @@
     background-color: white;
     border: solid 6px darkgray;
     @include BoxShadow(6);
+    color: #8831da;
 }
+
 
 ::ng-deep snack-bar-container {
     color: white !important;
     background: #324395 !important;
   }
-
-::ng-deep .mat-tooltip {
+  
+  ::ng-deep .mat-tooltip {
     background-color: #324395;
     font-size: 18px;
   }
   
+
+

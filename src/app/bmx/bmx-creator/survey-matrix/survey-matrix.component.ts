@@ -76,6 +76,7 @@ export class SurveyMatrixComponent extends SurveyCreationDesignComponent impleme
                                 component.componentType == 'ranking-scale' ||
                                 component.componentType == 'image-rate-scale' ||
                                 component.componentType == 'narrow-down' ||
+                                component.componentType == 'tinder' ||
                                 component.componentType == 'question-answer'
                             ) {
                                 component.componentText.forEach((row, index) => {
@@ -118,7 +119,7 @@ export class SurveyMatrixComponent extends SurveyCreationDesignComponent impleme
         answers.forEach(page => {
             page.page.forEach(answerComponent => {
                 if (
-                    answerComponent.componentType == 'rate-scale' ||
+                    answerComponent.componentType == 'rate-scale' ||                   
                     answerComponent.componentType == 'image-rate-scale' 
                 ) {
                     answerComponent.componentText.forEach((answerRow, index) => {
@@ -161,9 +162,7 @@ export class SurveyMatrixComponent extends SurveyCreationDesignComponent impleme
                         }
                         else if(templateComponent.componentSettings[0].CRITERIA) {// with criteria
 
-                            if (templateComponent.componentType == answerComponent.componentType) {
-                                console.log('%cAnswersRow', 'color:blue');
-                                console.log(answerRow);
+                            if (templateComponent.componentType == answerComponent.componentType) {                                
                                 if (index > 0) {
                                     for (const key in templateRow) {
                                         if (key === 'nameCandidates' && templateRow[key] === answerRow[key]) {
@@ -214,9 +213,7 @@ export class SurveyMatrixComponent extends SurveyCreationDesignComponent impleme
 
                         if (!templateComponent.componentSettings[0].CRITERIA) {// no criteria
                             // if (templateComponent.componentType == 'ranking-scale') {
-                            if (templateComponent.componentType == answerComponent.componentType) {
-                                console.log('%cAnswersRow', 'color:blue');
-                                console.log(answerRow);
+                            if (templateComponent.componentType == answerComponent.componentType) {                                
                                 if (index > 0) {
                                     for (const key in templateRow) {
                                         if (key === 'nameCandidates' && templateRow[key] === answerRow[key]) {
@@ -249,9 +246,7 @@ export class SurveyMatrixComponent extends SurveyCreationDesignComponent impleme
                         }
                         else if(templateComponent.componentSettings[0].CRITERIA) {// with criteria
 
-                            if (templateComponent.componentType == answerComponent.componentType) {
-                                console.log('%cAnswersRow', 'color:blue');
-                                console.log(answerRow);
+                            if (templateComponent.componentType == answerComponent.componentType) {                                
                                 if (index > 0) {
                                     for (const key in templateRow) {
                                         if (key === 'nameCandidates' && templateRow[key] === answerRow[key]) {
@@ -300,9 +295,7 @@ export class SurveyMatrixComponent extends SurveyCreationDesignComponent impleme
 
                         if (!templateComponent.componentSettings[0].CRITERIA) {// no criteria
                             // if (templateComponent.componentType == 'ranking-scale') {
-                            if (templateComponent.componentType == answerComponent.componentType) {
-                                console.log('%cAnswersRow', 'color:blue');
-                                console.log(answerRow);
+                            if (templateComponent.componentType == answerComponent.componentType) {                                
                                 if (index > 0) {
                                     for (const key in templateRow) {
                                         if (key === 'nameCandidates' && templateRow[key] === answerRow[key]) {
@@ -336,9 +329,7 @@ export class SurveyMatrixComponent extends SurveyCreationDesignComponent impleme
                         }
                         else if(templateComponent.componentSettings[0].CRITERIA) {// with criteria
 
-                            if (templateComponent.componentType == answerComponent.componentType) {
-                                console.log('%cAnswersRow', 'color:blue');
-                                console.log(answerRow);
+                            if (templateComponent.componentType == answerComponent.componentType) {                                
                                 if (index > 0) {
                                     for (const key in templateRow) {
                                         if (key === 'nameCandidates' && templateRow[key] === answerRow[key]) {
@@ -388,9 +379,7 @@ export class SurveyMatrixComponent extends SurveyCreationDesignComponent impleme
 
                         if (!templateComponent.componentSettings[0].CRITERIA) {// no criteria
                             // if (templateComponent.componentType == 'ranking-scale') {
-                            if (templateComponent.componentType == answerComponent.componentType) {
-                                console.log('%cAnswersRow', 'color:blue');
-                                console.log(answerRow);
+                            if (templateComponent.componentType == answerComponent.componentType) {                                
                                 if (index > 0) {
                                     for (const key in templateRow) {
                                         if (key === 'nameCandidates' && templateRow[key] === answerRow[key]) {
@@ -423,9 +412,80 @@ export class SurveyMatrixComponent extends SurveyCreationDesignComponent impleme
                         }
                         else if(templateComponent.componentSettings[0].CRITERIA) {// with criteria
 
-                            if (templateComponent.componentType == answerComponent.componentType) {
-                                console.log('%cAnswersRow', 'color:blue');
-                                console.log(answerRow);
+                            if (templateComponent.componentType == answerComponent.componentType) {                                
+                                if (index > 0) {
+                                    for (const key in templateRow) {
+                                        if (key === 'nameCandidates' && templateRow[key] === answerRow[key]) {
+                                            templateRow.CRITERIA.forEach((criteria, criteriaIndex) => {
+                                                criteria.RATE =  answerRow.CRITERIA[criteriaIndex].RATE
+                                                criteria.STARS.forEach((starRow) => {
+                                                    if (starRow.id <= answerRow.CRITERIA[criteriaIndex].RATE) {
+                                                        starRow.styleClass = 'active-rating-star'
+                                                    }
+                                                    
+                                                });
+                                                
+                                            });
+                                            for (const key in templateRow) {
+                                                if (key.includes('Comments')) {
+                                                    if (index > 0) {
+                                                        templateRow[key] = answerRow[key]
+                                                        answerComponent.componentText.splice(index, 1)
+                                                    }
+                                                   
+                                                } else if (key.includes('RadioColumn')) {
+                                                    if (index > 0) {
+                                                        templateRow[key] = answerRow[key]
+                                                    }
+                                                }else if(key == 'SELECTED_ROW'){
+                                                    templateRow[key] = answerRow[key]
+                                                }
+                                            }
+                                        }
+                                    }
+                                }
+                            }
+
+                        }
+                    });
+                } 
+                //🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥
+                else if ( answerComponent.componentType == 'tinder') {
+                    answerComponent.componentText.forEach((answerRow, index) => {
+
+
+                        if (!templateComponent.componentSettings[0].CRITERIA) {// no criteria
+                            // if (templateComponent.componentType == 'ranking-scale') {
+                            if (templateComponent.componentType == answerComponent.componentType) {                                
+                                if (index > 0) {
+                                    for (const key in templateRow) {
+                                        if (key === 'nameCandidates' && templateRow[key] === answerRow[key]) {
+                                          
+                                            templateRow.vote = answerRow.vote
+                                         
+                                            for (const key in templateRow) {
+                                                if (key.includes('Answer')) {
+                                                    if (index > 0) {
+                                                        templateRow[key] = answerRow[key]
+                                                        answerComponent.componentText.splice(index, 1)
+                                                    }
+                                                   
+                                                } else if (key.includes('RadioColumn')) {
+                                                    if (index > 0) {
+                                                        templateRow[key] = answerRow[key]
+                                                    }
+                                                } else if(key == 'SELECTED_ROW'){
+                                                    templateRow[key] = answerRow[key]
+                                                }
+                                            }
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                        else if(templateComponent.componentSettings[0].CRITERIA) {// with criteria
+
+                            if (templateComponent.componentType == answerComponent.componentType) {                                
                                 if (index > 0) {
                                     for (const key in templateRow) {
                                         if (key === 'nameCandidates' && templateRow[key] === answerRow[key]) {
