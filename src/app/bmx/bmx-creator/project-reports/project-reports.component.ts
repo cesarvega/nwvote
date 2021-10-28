@@ -235,14 +235,14 @@ export class ProjectReportsComponent
             localStorage.setItem('projectId', this.projectId);
             // this.bsrService.getProjectData(this.projectId).subscribe(arg => {
             //   this.projectName = JSON.parse(arg[0].bsrData).projectdescription;
-            //   localStorage.setItem('projectName',  this.projectId);
+            //   localStorage.setItem('projectName',  this.project Id);
             // });
         });
     }
 
     ngOnInit(): void {
         this.myAngularxQrCode = this.myAngularxQrCode + this.projectId + '/' + this.biUsername
-      
+
         // SAMPLE DATA FOR CKEDITOR
         this.model.editorData = this.sampleHtml;
         // TEMPLATE SELECTOR
@@ -257,7 +257,7 @@ export class ProjectReportsComponent
             this._BmxService.getBrandMatrixByProject(this.projectId).subscribe((brandMatrix: any) => {
                 if (brandMatrix.d.length > 0) {
                     this.bmxPages = JSON.parse(brandMatrix.d)
-                   
+
                     // this._snackBar.open('bmx LOADED for project  ' + this.projectId , 'OK', {
                     //     duration: 5000,
                     //     horizontalPosition: 'left',
@@ -271,11 +271,15 @@ export class ProjectReportsComponent
 
         }
 
-        this._BmxService.getBrandMatrixByProjectAllUserAnswers( this.projectId).subscribe((brandMatrix: any) => {
+        this._BmxService.getBrandMatrixByProjectAllUserAnswers(this.projectId).subscribe((brandMatrix: any) => {
             if (brandMatrix.d.length > 0) {
                 const answersByAllUsers = JSON.parse(brandMatrix.d)
-                answersByAllUsers.forEach(answer => {
-                    JSON.parse(answer.BrandMatrix).forEach((page) => {
+                let startTime  = new Date().getTime() / 1000
+                console.log('START: ' + startTime);
+                
+                answersByAllUsers.forEach((userAnswer, userAnswerIndex) => {
+
+                    JSON.parse(userAnswer.BrandMatrix).forEach((page, pageIndex) => {
                         page.page.forEach(component => {
                             if (
                                 component.componentType == 'rate-scale' ||
@@ -285,70 +289,140 @@ export class ProjectReportsComponent
                                 component.componentType == 'tinder' ||
                                 component.componentType == 'question-answer'
                             ) {
-                                component.componentText.forEach((row, index) => {
-                                    if (index > 0) {
-                                        this.matchMatrix(row, component);
+                                component.componentText.forEach((row, rowIndex) => {
+                                    if (rowIndex > 0) {
+                                        this.matchMatrix(row, component, userAnswer.Username, pageIndex, rowIndex);
                                     }
                                 });
                             }
                         });
-                       
+
                     });
                 });
-
+                console.table(this.REPORT_DATA);
+                console.log(this.REPORT_DATA);
+                console.log('END: ' + ((new Date().getTime() / 1000)- startTime) );
             }
-
         })
-
-        if (!QRCodeStyling) {
-            return;
-        }
-
 
     }
 
-    
-    matchMatrix(templateRow,  templateComponent) {
+    REPORT_DATA = []
+    matchMatrix(row, templateComponent, username, pageIndex, rowIndex) {
 
-        console.log('%cTemplateRow', 'color:orange');
-        console.log(templateRow);
-// 💜💜💜💜💜💜💜💜💜💜💜💜💜💜💜💜💜💜💜💜💜💜💜💜💜💜💜💜💜💜💜💜💜💜💜💜💜💜💜💜💜💜💜
-      
-                if (
-                    templateComponent.componentType == 'rate-scale' ||                   
-                    templateComponent.componentType == 'image-rate-scale' 
-                ) {
-                   
-                }
+        // console.log('%cTemplateRow', 'color:orange');
+        // console.log(row);
+        // 💜💜💜💜💜💜💜💜💜💜💜💜💜💜💜💜💜💜💜💜💜💜💜💜💜💜💜💜💜💜💜💜💜💜💜💜💜💜💜💜💜💜💜
+        // this.REPORT_DATA[pageIndex] =(this.REPORT_DATA[pageIndex])?[]:this.REPORT_DATA[pageIndex]
+        if (templateComponent.componentType == 'rate-scale') {
 
- // ❤️❤️❤️❤️❤️❤️❤️❤️❤️❤️❤️❤️❤️❤️❤️❤️❤️❤️❤️❤️❤️❤️❤️❤️❤️❤️❤️❤️❤️❤️❤️❤️❤️❤️❤️❤️❤️❤️❤️❤️❤️❤️❤️
 
-                else if ( templateComponent.componentType == 'ranking-scale' ) {
+            // this.REPORT_DATA[row.nameCandidates] = {
+            //     category:templateComponent.componentType, 
+            //     testName:row.nameCandidates,
+            //     rationale:row.rationale,
+            //     score:[row.RATE],
+            //     comments:[row.Comments1]
+            // }
+
+            // console.log(this.REPORT_DATA);
+
+
+
+            if (templateComponent.componentSettings[0].CRITERIA) {
+
+               
+
+                if (this.REPORT_DATA[row.nameCandidates]) {
+
+                        this.REPORT_DATA[row.nameCandidates].scores.forEach((Score, scoreIndex) => {
+                            Score.score += row.CRITERIA[scoreIndex].RATE
+                        });
+                        // this.REPORT_DATA[row.nameCandidates].totalScore += row.RATE
                     
-                
+                    if (row.Comments1.length > 0) {
+                        this.REPORT_DATA[row.nameCandidates].comments.push({ userName: username, comment: row.Comments1 })
+                    }
+                } else {
+                    let rateArray = []
+                    row.CRITERIA.forEach(criteria => {
+                        rateArray.push({ name: criteria.name, score: (criteria.RATE > 0) ? criteria.RATE : 0 })
+                    })
+                    let comment = (row.Comments1.length > 0) ? { userName: username, comment: row.Comments1 } : undefined
+                    this.REPORT_DATA[row.nameCandidates] = {
+                        category: templateComponent.componentType,
+                        testName: row.nameCandidates,
+                        rationale: row.rationale,
+                        comments: [comment],
+                        scores: rateArray,
+                        totalScore: rateArray
+                    }
+                }// 💜💜💜💜💜💜💜💜💜💜💜💜💜💜💜💜💜💜💜💜💜💜💜💜💜💜💜💜💜💜💜💜💜💜💜💜💜💜💜💜💜💜💜
+            } else {
+                if (this.REPORT_DATA[row.nameCandidates]) {
+                    if (row.RATE > 0) {
+                        this.REPORT_DATA[row.nameCandidates].scores.push(row.RATE)
+                        this.REPORT_DATA[row.nameCandidates].totalScore += row.RATE
+                    }
+                    if (row.Comments1.length > 0) {
+                        this.REPORT_DATA[row.nameCandidates].comments.push({ userName: username, comment: row.Comments1 })
+                    }
+                } else {
+                    let comment = (row.Comments1.length > 0) ? { userName: username, comment: row.Comments1 } : undefined
+                    this.REPORT_DATA[row.nameCandidates] = {
+                        category: templateComponent.componentType,
+                        testName: row.nameCandidates,
+                        rationale: row.rationale,
+                        comments: [comment],
+                        scores: [(row.RATE > 0) ? row.RATE : 0],
+                        totalScore: (row.RATE > 0) ? row.RATE : 0
+                    }
+                }
+            }
 
-                } 
 
-// 💚💚💚💚💚💚💚💚💚💚💚💚💚💚💚💚💚💚💚💚💚💚💚💚💚💚💚💚💚💚💚💚💚💚💚💚💚💚💚💚💚💚💚💚💚💚💚💚💚
-                else if (templateComponent.componentType == 'narrow-down') {
-                  
-                } 
+            // console.count('rows')
+            //    console.timeLog()
+        }
+
+        // 🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥
+
+        else if (templateComponent.componentType == 'image-rate-scale') {
 
 
- // 💛💛💛💛💛💛💛💛💛💛💛💛💛💛💛💛💛💛💛💛💛💛💛💛💛💛💛💛💛💛💛💛💛💛💛💛💛💛💛💛💛💛💛💛💛💛💛💛💛
+
+        }
+        // ❤️❤️❤️❤️❤️❤️❤️❤️❤️❤️❤️❤️❤️❤️❤️❤️❤️❤️❤️❤️❤️❤️❤️❤️❤️❤️❤️❤️❤️❤️❤️❤️❤️❤️❤️❤️❤️❤️❤️❤️❤️❤️❤️
+
+        else if (templateComponent.componentType == 'ranking-scale') {
 
 
-                else if ( templateComponent.componentType == 'question-answer') {
-                 
-                } 
 
-//🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥
+        }
 
-                else if ( templateComponent.componentType == 'tinder') {                 
-                  this.rowCalculator['test name'] = templateRow.nameCandidates
-                  this.rowCalculator['positiveRank'] += (templateRow.vote == 'positive')? 1 :''
-                  this.rowCalculator['negatvieRank'] += (templateRow.vote == 'negative')? 1 :''
-                } 
+        // 💚💚💚💚💚💚💚💚💚💚💚💚💚💚💚💚💚💚💚💚💚💚💚💚💚💚💚💚💚💚💚💚💚💚💚💚💚💚💚💚💚💚💚💚💚💚💚💚💚
+        else if (templateComponent.componentType == 'narrow-down') {
+
+        }
+
+
+        // 💛💛💛💛💛💛💛💛💛💛💛💛💛💛💛💛💛💛💛💛💛💛💛💛💛💛💛💛💛💛💛💛💛💛💛💛💛💛💛💛💛💛💛💛💛💛💛💛💛
+
+
+        else if (templateComponent.componentType == 'question-answer') {
+
+        }
+
+        //🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥
+
+        else if (templateComponent.componentType == 'tinder') {
+
+
+
+            this.rowCalculator['test name'] = row.nameCandidates
+            this.rowCalculator['positiveRank'] += (row.vote == 'positive') ? 1 : ''
+            this.rowCalculator['negatvieRank'] += (row.vote == 'negative') ? 1 : ''
+        }
     }
 
 
