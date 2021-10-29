@@ -263,6 +263,7 @@ export class RatingScaleComponent implements OnInit {
       this.columnsNames = rows[0].toLowerCase().split("\t");
       this.extraColumnCounter = 1
       this.columnsNames.forEach((column, index) => {
+        column = column.toLowerCase()
         if (column == 'name candidates' || column == 'test names' || column == 'names' || column == 'questions') {
           this.columnsNames[index] = 'nameCandidates'
         } else if (column == 'name rationale' || column == 'rationale' || column == 'rationales') {

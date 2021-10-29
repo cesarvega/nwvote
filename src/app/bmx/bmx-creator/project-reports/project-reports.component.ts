@@ -291,7 +291,7 @@ export class ProjectReportsComponent
                             ) {
                                 component.componentText.forEach((row, rowIndex) => {
                                     if (rowIndex > 0) {
-                                        this.matchMatrix(row, component, userAnswer.Username, pageIndex, rowIndex);
+                                        this.categoryReport(row, component, userAnswer.Username, pageIndex, rowIndex);
                                     }
                                 });
                             }
@@ -308,38 +308,17 @@ export class ProjectReportsComponent
     }
 
     REPORT_DATA = []
-    matchMatrix(row, templateComponent, username, pageIndex, rowIndex) {
+    categoryReport(row, templateComponent, username, pageIndex, rowIndex) {
 
         // console.log('%cTemplateRow', 'color:orange');
         // console.log(row);
         // 💜💜💜💜💜💜💜💜💜💜💜💜💜💜💜💜💜💜💜💜💜💜💜💜💜💜💜💜💜💜💜💜💜💜💜💜💜💜💜💜💜💜💜
-        // this.REPORT_DATA[pageIndex] =(this.REPORT_DATA[pageIndex])?[]:this.REPORT_DATA[pageIndex]
         if (templateComponent.componentType == 'rate-scale') {
-
-
-            // this.REPORT_DATA[row.nameCandidates] = {
-            //     category:templateComponent.componentType, 
-            //     testName:row.nameCandidates,
-            //     rationale:row.rationale,
-            //     score:[row.RATE],
-            //     comments:[row.Comments1]
-            // }
-
-            // console.log(this.REPORT_DATA);
-
-
-
             if (templateComponent.componentSettings[0].CRITERIA) {
-
-               
-
                 if (this.REPORT_DATA[row.nameCandidates]) {
-
                         this.REPORT_DATA[row.nameCandidates].scores.forEach((Score, scoreIndex) => {
                             Score.score += row.CRITERIA[scoreIndex].RATE
                         });
-                        // this.REPORT_DATA[row.nameCandidates].totalScore += row.RATE
-                    
                     if (row.Comments1.length > 0) {
                         this.REPORT_DATA[row.nameCandidates].comments.push({ userName: username, comment: row.Comments1 })
                     }
@@ -379,7 +358,6 @@ export class ProjectReportsComponent
                     }
                 }
             }
-
 
             // console.count('rows')
             //    console.timeLog()
