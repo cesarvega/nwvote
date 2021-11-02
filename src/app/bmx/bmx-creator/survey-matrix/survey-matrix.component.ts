@@ -113,8 +113,8 @@ export class SurveyMatrixComponent extends SurveyCreationDesignComponent impleme
 
     matchMatrix(templateRow, answers, templateComponent) {
 
-        console.log('%cTemplateRow', 'color:orange');
-        console.log(templateRow);
+        // console.log('%cTemplateRow', 'color:orange');
+        // console.log(templateRow);
 // 💜💜💜💜💜💜💜💜💜💜💜💜💜💜💜💜💜💜💜💜💜💜💜💜💜💜💜💜💜💜💜💜💜💜💜💜💜💜💜💜💜💜💜
         answers.forEach(page => {
             page.page.forEach(answerComponent => {

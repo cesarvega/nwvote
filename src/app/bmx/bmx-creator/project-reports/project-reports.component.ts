@@ -110,6 +110,9 @@ export class ProjectReportsComponent
     biUserId = 'user@bi.com';
     rowCalculator = [];
 
+    REPORT_DATA = []
+    REPORT_CATEGORIES = []
+
     constructor(
         @Inject(DOCUMENT) private document: any,
         public _BmxService: BmxService,
@@ -294,20 +297,20 @@ export class ProjectReportsComponent
                                         this.categoryReport(row, component, userAnswer.Username, pageIndex, rowIndex);
                                     }
                                 });
+                               
                             }
                         });
 
                     });
-                });
-                console.table(this.REPORT_DATA);
-                console.log(this.REPORT_DATA);
+                }); this.REPORT_CATEGORIES.push(this.REPORT_DATA)
+                this.REPORT_DATA = []
+                console.table(this.REPORT_CATEGORIES);
+                console.log(this.REPORT_CATEGORIES);
                 console.log('END: ' + ((new Date().getTime() / 1000)- startTime) );
             }
         })
-
     }
 
-    REPORT_DATA = []
     categoryReport(row, templateComponent, username, pageIndex, rowIndex) {
 
         // console.log('%cTemplateRow', 'color:orange');
@@ -319,7 +322,7 @@ export class ProjectReportsComponent
                         this.REPORT_DATA[row.nameCandidates].scores.forEach((Score, scoreIndex) => {
                             Score.score += row.CRITERIA[scoreIndex].RATE
                         });
-                    if (row.Comments1.length > 0) {
+                    if (row.Comments1?.length > 0) {
                         this.REPORT_DATA[row.nameCandidates].comments.push({ userName: username, comment: row.Comments1 })
                     }
                 } else {
@@ -327,7 +330,7 @@ export class ProjectReportsComponent
                     row.CRITERIA.forEach(criteria => {
                         rateArray.push({ name: criteria.name, score: (criteria.RATE > 0) ? criteria.RATE : 0 })
                     })
-                    let comment = (row.Comments1.length > 0) ? { userName: username, comment: row.Comments1 } : undefined
+                    let comment = (row.Comments1?.length > 0) ? { userName: username, comment: row.Comments1 } : undefined
                     this.REPORT_DATA[row.nameCandidates] = {
                         category: templateComponent.componentType,
                         testName: row.nameCandidates,
@@ -347,7 +350,7 @@ export class ProjectReportsComponent
                         this.REPORT_DATA[row.nameCandidates].comments.push({ userName: username, comment: row.Comments1 })
                     }
                 } else {
-                    let comment = (row.Comments1.length > 0) ? { userName: username, comment: row.Comments1 } : undefined
+                    let comment = (row.Comments1?.length > 0) ? { userName: username, comment: row.Comments1 } : undefined
                     this.REPORT_DATA[row.nameCandidates] = {
                         category: templateComponent.componentType,
                         testName: row.nameCandidates,
@@ -361,20 +364,37 @@ export class ProjectReportsComponent
 
             // console.count('rows')
             //    console.timeLog()
+        } 
+        
+        // ❤️❤️❤️❤️❤️❤️❤️❤️❤️❤️❤️❤️❤️❤️❤️❤️❤️❤️❤️❤️❤️❤️❤️❤️❤️❤️❤️❤️❤️❤️❤️❤️❤️❤️❤️❤️❤️❤️❤️❤️❤️❤️❤️
+
+        else if (templateComponent.componentType == 'ranking-scale') {
+            if (this.REPORT_DATA[row.nameCandidates]) {
+                if (row.RATE > 0) {
+                    this.REPORT_DATA[row.nameCandidates].scores.push(row.RATE)
+                    this.REPORT_DATA[row.nameCandidates].totalScore += row.RATE
+                }
+                if (row.Comments1?.length > 0) {
+                    this.REPORT_DATA[row.nameCandidates].comments.push({ userName: username, comment: row.Comments1 })
+                }
+            } else {
+                let comment = (row.Comments1?.length > 0) ? { userName: username, comment: row.Comments1 } : undefined
+                this.REPORT_DATA[row.nameCandidates] = {
+                    category: templateComponent.componentType,
+                    testName: row.nameCandidates,
+                    rationale: row.rationale,
+                    comments: [comment],
+                    scores: [(row.RATE > 0) ? row.RATE : 0],
+                    totalScore: (row.RATE > 0) ? row.RATE : 0
+                }
+            }
+
+
         }
 
         // 🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥
 
         else if (templateComponent.componentType == 'image-rate-scale') {
-
-
-
-        }
-        // ❤️❤️❤️❤️❤️❤️❤️❤️❤️❤️❤️❤️❤️❤️❤️❤️❤️❤️❤️❤️❤️❤️❤️❤️❤️❤️❤️❤️❤️❤️❤️❤️❤️❤️❤️❤️❤️❤️❤️❤️❤️❤️❤️
-
-        else if (templateComponent.componentType == 'ranking-scale') {
-
-
 
         }
 
@@ -382,20 +402,14 @@ export class ProjectReportsComponent
         else if (templateComponent.componentType == 'narrow-down') {
 
         }
-
-
         // 💛💛💛💛💛💛💛💛💛💛💛💛💛💛💛💛💛💛💛💛💛💛💛💛💛💛💛💛💛💛💛💛💛💛💛💛💛💛💛💛💛💛💛💛💛💛💛💛💛
-
 
         else if (templateComponent.componentType == 'question-answer') {
 
         }
-
         //🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥
 
         else if (templateComponent.componentType == 'tinder') {
-
-
 
             this.rowCalculator['test name'] = row.nameCandidates
             this.rowCalculator['positiveRank'] += (row.vote == 'positive') ? 1 : ''
