@@ -319,21 +319,39 @@ export class ProjectReportsComponent
                     const sortedCategory = Object.keys(category)[0]
                     Object.keys(category[sortedCategory]).forEach((key, keyIndex) => {
                         this.BMX_REPORT[categoryIndex][sortedCategory][key].totalScore
-                        sortIngArray.push({nameCandidates:key, score:this.BMX_REPORT[categoryIndex][sortedCategory][key].totalScore})
+                        sortIngArray.push({nameCandidates:key, 
+                            score:this.BMX_REPORT[categoryIndex][sortedCategory][key].totalScore,
+                            comments:this.BMX_REPORT[categoryIndex][sortedCategory][key].comments
+                        })
                     });
-                    catSortIngArray.push(sortIngArray.sort((a, b) => (a.score > b.score) ? -1 : 1))
+                    catSortIngArray.push(this.sortArrayByTwoPropeties(sortIngArray, 'score', 'nameCandidates'))
+                    // catSortIngArray.push(sortIngArray.sort((a, b) => (a.score > b.score) ? -1 : 1))
                     sortIngArray = []
                 });
-
-               
-
-                console.table( this.BMX_REPORT);
+                console.table( catSortIngArray[0]);
                 console.log( this.BMX_REPORT);
                 console.log(catSortIngArray);
             }
         })
     }
 
+    sortArrayByTwoPropeties(array, prop1, prop2) {  
+        return array.sort(function(b, a) {
+            if (a[prop1] < b[prop1]) {
+                return -1;
+            } else if (a[prop1] > b[prop1]) {
+                return 1;
+            } else {
+                if (a[prop2] > b[prop2]) {
+                    return -1;
+                } else if (a[prop2] > b[prop2]) {
+                    return 1;
+                } else {
+                    return 0;
+                }
+            }
+        });
+    }
 
     categoryReport(row, templateComponent, username, REPORT_DATA, rowIndex) {
 
