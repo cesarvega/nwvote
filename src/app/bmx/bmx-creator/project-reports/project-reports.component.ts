@@ -111,7 +111,10 @@ export class ProjectReportsComponent
     rowCalculator = [];
 
     REPORT_DATA = []
+    REPORT_DATA_MAP = new Map()
     REPORT_CATEGORIES = []
+    BMX_REPORT = []
+    categoryCounter = 0
 
     constructor(
         @Inject(DOCUMENT) private document: any,
@@ -281,8 +284,8 @@ export class ProjectReportsComponent
                 console.log('START: ' + startTime);
                 
                 answersByAllUsers.forEach((userAnswer, userAnswerIndex) => {
-
-                    JSON.parse(userAnswer.BrandMatrix).forEach((page, pageIndex) => {
+                    this.categoryCounter = 0
+                    JSON.parse(userAnswer.BrandMatrix).forEach(page => {
                         page.page.forEach(component => {
                             if (
                                 component.componentType == 'rate-scale' ||
@@ -291,39 +294,60 @@ export class ProjectReportsComponent
                                 component.componentType == 'narrow-down' ||
                                 component.componentType == 'tinder' ||
                                 component.componentType == 'question-answer'
-                            ) {
+                            ) { 
+                                this.categoryCounter++
+                                if (userAnswerIndex == 0) {
+                                    let categoryObj = new Object();
+                                    categoryObj['categoryName'+ this.categoryCounter] = []
+                                    this.BMX_REPORT.push(categoryObj)
+                                }
                                 component.componentText.forEach((row, rowIndex) => {
                                     if (rowIndex > 0) {
-                                        this.categoryReport(row, component, userAnswer.Username, pageIndex, rowIndex);
+                                        this.categoryReport(row, component, userAnswer.Username, 
+                                            this.BMX_REPORT[this.categoryCounter-1]['categoryName'+ (this.categoryCounter)], rowIndex);
                                     }
                                 });
-                               
+                                this.REPORT_DATA_MAP.set(this.categoryCounter, this.REPORT_DATA);
                             }
                         });
-
                     });
-                }); this.REPORT_CATEGORIES.push(this.REPORT_DATA)
-                this.REPORT_DATA = []
-                console.table(this.REPORT_CATEGORIES);
-                console.log(this.REPORT_CATEGORIES);
-                console.log('END: ' + ((new Date().getTime() / 1000)- startTime) );
+                }); 
+
+                let sortIngArray = []
+                let catSortIngArray = []
+                this.BMX_REPORT.forEach((category, categoryIndex) => {
+                    const sortedCategory = Object.keys(category)[0]
+                    Object.keys(category[sortedCategory]).forEach((key, keyIndex) => {
+                        this.BMX_REPORT[categoryIndex][sortedCategory][key].totalScore
+                        sortIngArray.push({nameCandidates:key, score:this.BMX_REPORT[categoryIndex][sortedCategory][key].totalScore})
+                    });
+                    catSortIngArray.push(sortIngArray.sort((a, b) => (a.score > b.score) ? -1 : 1))
+                    sortIngArray = []
+                });
+
+               
+
+                console.table( this.BMX_REPORT);
+                console.log( this.BMX_REPORT);
+                console.log(catSortIngArray);
             }
         })
     }
 
-    categoryReport(row, templateComponent, username, pageIndex, rowIndex) {
+
+    categoryReport(row, templateComponent, username, REPORT_DATA, rowIndex) {
 
         // console.log('%cTemplateRow', 'color:orange');
         // console.log(row);
         // 💜💜💜💜💜💜💜💜💜💜💜💜💜💜💜💜💜💜💜💜💜💜💜💜💜💜💜💜💜💜💜💜💜💜💜💜💜💜💜💜💜💜💜
         if (templateComponent.componentType == 'rate-scale') {
             if (templateComponent.componentSettings[0].CRITERIA) {
-                if (this.REPORT_DATA[row.nameCandidates]) {
-                        this.REPORT_DATA[row.nameCandidates].scores.forEach((Score, scoreIndex) => {
+                if (REPORT_DATA[row.nameCandidates]) {
+                        REPORT_DATA[row.nameCandidates].scores.forEach((Score, scoreIndex) => {
                             Score.score += row.CRITERIA[scoreIndex].RATE
                         });
                     if (row.Comments1?.length > 0) {
-                        this.REPORT_DATA[row.nameCandidates].comments.push({ userName: username, comment: row.Comments1 })
+                        REPORT_DATA[row.nameCandidates].comments.push({ userName: username, comment: row.Comments1 })
                     }
                 } else {
                     let rateArray = []
@@ -331,7 +355,7 @@ export class ProjectReportsComponent
                         rateArray.push({ name: criteria.name, score: (criteria.RATE > 0) ? criteria.RATE : 0 })
                     })
                     let comment = (row.Comments1?.length > 0) ? { userName: username, comment: row.Comments1 } : undefined
-                    this.REPORT_DATA[row.nameCandidates] = {
+                    REPORT_DATA[row.nameCandidates] = {
                         category: templateComponent.componentType,
                         testName: row.nameCandidates,
                         rationale: row.rationale,
@@ -341,17 +365,17 @@ export class ProjectReportsComponent
                     }
                 }// 💜💜💜💜💜💜💜💜💜💜💜💜💜💜💜💜💜💜💜💜💜💜💜💜💜💜💜💜💜💜💜💜💜💜💜💜💜💜💜💜💜💜💜
             } else {
-                if (this.REPORT_DATA[row.nameCandidates]) {
+                if (REPORT_DATA[row.nameCandidates]) {
                     if (row.RATE > 0) {
-                        this.REPORT_DATA[row.nameCandidates].scores.push(row.RATE)
-                        this.REPORT_DATA[row.nameCandidates].totalScore += row.RATE
+                        REPORT_DATA[row.nameCandidates].scores.push(row.RATE)
+                        REPORT_DATA[row.nameCandidates].totalScore += row.RATE
                     }
-                    if (row.Comments1.length > 0) {
-                        this.REPORT_DATA[row.nameCandidates].comments.push({ userName: username, comment: row.Comments1 })
+                    if (row.Comments1?.length > 0) {
+                        REPORT_DATA[row.nameCandidates].comments.push({ userName: username, comment: row.Comments1 })
                     }
                 } else {
                     let comment = (row.Comments1?.length > 0) ? { userName: username, comment: row.Comments1 } : undefined
-                    this.REPORT_DATA[row.nameCandidates] = {
+                    REPORT_DATA[row.nameCandidates] = {
                         category: templateComponent.componentType,
                         testName: row.nameCandidates,
                         rationale: row.rationale,
@@ -369,17 +393,17 @@ export class ProjectReportsComponent
         // ❤️❤️❤️❤️❤️❤️❤️❤️❤️❤️❤️❤️❤️❤️❤️❤️❤️❤️❤️❤️❤️❤️❤️❤️❤️❤️❤️❤️❤️❤️❤️❤️❤️❤️❤️❤️❤️❤️❤️❤️❤️❤️❤️
 
         else if (templateComponent.componentType == 'ranking-scale') {
-            if (this.REPORT_DATA[row.nameCandidates]) {
+            if (REPORT_DATA[row.nameCandidates]) {
                 if (row.RATE > 0) {
-                    this.REPORT_DATA[row.nameCandidates].scores.push(row.RATE)
-                    this.REPORT_DATA[row.nameCandidates].totalScore += row.RATE
+                    REPORT_DATA[row.nameCandidates].scores.push(row.RATE)
+                    REPORT_DATA[row.nameCandidates].totalScore += row.RATE
                 }
                 if (row.Comments1?.length > 0) {
-                    this.REPORT_DATA[row.nameCandidates].comments.push({ userName: username, comment: row.Comments1 })
+                    REPORT_DATA[row.nameCandidates].comments.push({ userName: username, comment: row.Comments1 })
                 }
             } else {
                 let comment = (row.Comments1?.length > 0) ? { userName: username, comment: row.Comments1 } : undefined
-                this.REPORT_DATA[row.nameCandidates] = {
+                REPORT_DATA[row.nameCandidates] = {
                     category: templateComponent.componentType,
                     testName: row.nameCandidates,
                     rationale: row.rationale,

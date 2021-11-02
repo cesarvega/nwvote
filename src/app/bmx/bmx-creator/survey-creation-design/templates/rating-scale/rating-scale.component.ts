@@ -17,7 +17,7 @@ export class RatingScaleComponent implements OnInit {
   @ViewChild('autosize') autosize: CdkTextareaAutosize;
   rankingScaleValue = 5;
   selectedRowCounter = 0;
-  selectedIndex: any
+  selectedIndex: any = ''
   displayInstructions = false;
 
   selectedStarRatingIndex = ''
@@ -51,7 +51,7 @@ export class RatingScaleComponent implements OnInit {
   minRuleCounter = 0
   maxRuleCounter = 0
   deleteRows = false
-  dragRows = false
+  dragRows = false;
   isColumnResizerOn = false;
   editSingleTableCells = false
 
@@ -255,6 +255,7 @@ export class RatingScaleComponent implements OnInit {
 
 
   upLoadNamesAndRationales(list: string) {
+    this.dragRows = true;
     if (!list) { list = this.listString; }
     if (list) {
       this.listString = list;
@@ -266,11 +267,14 @@ export class RatingScaleComponent implements OnInit {
         column = column.toLowerCase()
         if (column == 'name candidates' || column == 'test names' || column == 'names' || column == 'questions') {
           this.columnsNames[index] = 'nameCandidates'
-        } else if (column == 'name rationale' || column == 'rationale' || column == 'rationales') {
+        } else
+         if (column == 'name rationale' || column == 'rationale' || column == 'rationales') {
           this.columnsNames[index] = 'rationale'
-        } else if (column == 'katakana') {
+        }
+         else if (column == 'katakana') {
           this.columnsNames[index] = 'katakana'
-        } else {
+        } 
+        else {
           this.columnsNames[index] = 'ExtraColumn' + this.extraColumnCounter
           this.extraColumnCounter++
         }
@@ -303,7 +307,6 @@ export class RatingScaleComponent implements OnInit {
               }
             }
           }
-
           this.TESTNAMES_LIST.push(objectColumnDesign);
         }
       }
@@ -315,6 +318,9 @@ export class RatingScaleComponent implements OnInit {
         // this.leaveStar(index);
       });
     }
+    setTimeout(() => {
+      this.dragRows = false;
+    }, 1000);
   }
 
   // COLUMNS ADD AND REMOVE
@@ -330,7 +336,6 @@ export class RatingScaleComponent implements OnInit {
   insertCommentBoxColumn() {
     this.columnsNames.push('Comments' + (this.commentColumnCounter));
     this.bmxItem.componentText.forEach((object, index) => {
-      // object = this.addToObject(object, 'Comments' + (this.commentColumnCounter), 'CommentsTxt' + (this.commentColumnCounter), this.commentColumnCounter)
       let coulmnName = 'Comments' + this.commentColumnCounter
       if (index > 0) {
         object[coulmnName] = ''
@@ -398,7 +403,8 @@ export class RatingScaleComponent implements OnInit {
   }
 
   insertRow(): void {
-    this.bmxItem.componentText.push(this.bmxItem.componentText[0])
+    const newRow =  Object.assign({}, this.bmxItem.componentText[0]);
+    this.bmxItem.componentText.push(newRow)
   }
 
   deleteColumn(columnName) {
@@ -424,35 +430,6 @@ export class RatingScaleComponent implements OnInit {
   checkDragEvetn(e) {
     // console.log(e);
   }
-
-  private addToObject(obj, key, value, index) {
-    // Create a temp object and index variable
-    let temp = {};
-    let i = 0;
-    // Loop through the original object
-    for (let prop in obj) {
-      if (obj.hasOwnProperty(prop)) {
-
-        // If the indexes match, add the new item
-        if (i === index && key && value) {
-          temp[key] = value;
-        }
-        // Add the current item in the loop to the temp obj
-        temp[prop] = obj[prop];
-        // Increase the count
-        i++;
-      }
-    }
-
-    // If no index, add to the end
-    if (!index && key && value) {
-      temp[key] = value;
-    }
-
-    return temp;
-
-  };
-
 
   toogleColumnResizer() {
     this.isColumnResizerOn = !this.isColumnResizerOn
@@ -545,7 +522,4 @@ export class RatingScaleComponent implements OnInit {
     { name: 'Overall Likeability', rate: 0 },
     { name: 'How the test name works alongside the name CUVITRU?', rate: 0 },
   ]
-
-  openDelete
-
 }

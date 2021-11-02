@@ -30,8 +30,7 @@ export class RankScaleComponent extends RatingScaleComponent implements OnInit {
    }
    ngOnInit(): void {
     this.rankingScaleValue = this.bmxItem.componentSettings[0].selectedRanking
-   this.ratingScale = this.bmxItem.componentSettings[0].selectedRanking
-    this.createRatingStars( this.ratingScale)
+    this.createRatingStars(this.rankingScaleValue)
     // this.rankingTableType( this.bmxItem.componentSettings[0].rankType)
     this.rankingType = this.bmxItem.componentSettings[0].rankType
 
@@ -74,6 +73,7 @@ export class RankScaleComponent extends RatingScaleComponent implements OnInit {
   }
 
   upLoadNamesAndRationales(list: string) {
+    this.dragRows = true;
     if (!list) { list = this.listString; }
     if (list) {
       this.listString = list;
@@ -134,6 +134,10 @@ export class RankScaleComponent extends RatingScaleComponent implements OnInit {
         row.STARS = this.createRatingStars(this.rankingScaleValue, this.ratingScaleIcon)
       });
     }
+    setTimeout(() => {
+      this.dragRows = false;
+    }, 1000);
+    this.bmxItem.componentSettings[0].selectedRanking = this.rankingScaleValue
   }
 
 
