@@ -81,7 +81,7 @@ export class SurveyMatrixComponent extends SurveyCreationDesignComponent impleme
                             ) {
                                 component.componentText.forEach((row, index) => {
                                     if (index > 0) {
-                                        this.matchMatrix(row, answers, component);
+                                        this.matchAnswersAndTemplateMatrix(row, answers, component);
                                     }
                                 });
                             }
@@ -111,7 +111,7 @@ export class SurveyMatrixComponent extends SurveyCreationDesignComponent impleme
         })
     }
 
-    matchMatrix(templateRow, answers, templateComponent) {
+    matchAnswersAndTemplateMatrix(templateRow, answers, templateComponent) {
 
         // console.log('%cTemplateRow', 'color:orange');
         // console.log(templateRow);
@@ -123,8 +123,6 @@ export class SurveyMatrixComponent extends SurveyCreationDesignComponent impleme
                     answerComponent.componentType == 'image-rate-scale' 
                 ) {
                     answerComponent.componentText.forEach((answerRow, index) => {
-
-
                         if (!templateComponent.componentSettings[0].CRITERIA) {// no criteria
                             // if (templateComponent.componentType == 'ranking-scale') {
                             if (templateComponent.componentType == answerComponent.componentType) {
@@ -203,14 +201,9 @@ export class SurveyMatrixComponent extends SurveyCreationDesignComponent impleme
 
                     });
                 }
-
  // ❤️❤️❤️❤️❤️❤️❤️❤️❤️❤️❤️❤️❤️❤️❤️❤️❤️❤️❤️❤️❤️❤️❤️❤️❤️❤️❤️❤️❤️❤️❤️❤️❤️❤️❤️❤️❤️❤️❤️❤️❤️❤️❤️
-
                 else if ( answerComponent.componentType == 'ranking-scale' ) {
-                    
                     answerComponent.componentText.forEach((answerRow, index) => {
-
-
                         if (!templateComponent.componentSettings[0].CRITERIA) {// no criteria
                             // if (templateComponent.componentType == 'ranking-scale') {
                             if (templateComponent.componentType == answerComponent.componentType) {                                
@@ -291,8 +284,6 @@ export class SurveyMatrixComponent extends SurveyCreationDesignComponent impleme
 // 💚💚💚💚💚💚💚💚💚💚💚💚💚💚💚💚💚💚💚💚💚💚💚💚💚💚💚💚💚💚💚💚💚💚💚💚💚💚💚💚💚💚💚
                 else if (answerComponent.componentType == 'narrow-down') {
                     answerComponent.componentText.forEach((answerRow, index) => {
-
-
                         if (!templateComponent.componentSettings[0].CRITERIA) {// no criteria
                             // if (templateComponent.componentType == 'ranking-scale') {
                             if (templateComponent.componentType == answerComponent.componentType) {                                
@@ -375,8 +366,6 @@ export class SurveyMatrixComponent extends SurveyCreationDesignComponent impleme
 
                 else if ( answerComponent.componentType == 'question-answer') {
                     answerComponent.componentText.forEach((answerRow, index) => {
-
-
                         if (!templateComponent.componentSettings[0].CRITERIA) {// no criteria
                             // if (templateComponent.componentType == 'ranking-scale') {
                             if (templateComponent.componentType == answerComponent.componentType) {                                
@@ -411,7 +400,6 @@ export class SurveyMatrixComponent extends SurveyCreationDesignComponent impleme
                             }
                         }
                         else if(templateComponent.componentSettings[0].CRITERIA) {// with criteria
-
                             if (templateComponent.componentType == answerComponent.componentType) {                                
                                 if (index > 0) {
                                     for (const key in templateRow) {
