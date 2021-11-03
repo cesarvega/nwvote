@@ -280,10 +280,8 @@ export class ProjectReportsComponent
         this._BmxService.getBrandMatrixByProjectAllUserAnswers(this.projectId).subscribe((brandMatrix: any) => {
             if (brandMatrix.d.length > 0) {
                 const answersByAllUsers = JSON.parse(brandMatrix.d)
-                let startTime  = new Date().getTime() / 1000
-                console.log('START: ' + startTime);
-                
-                answersByAllUsers.forEach((userAnswer, userAnswerIndex) => {
+               const milUsers = this.diplicateArrayMultiple(answersByAllUsers, 1)
+                milUsers.forEach((userAnswer, userAnswerIndex) => {
                     this.categoryCounter = 0
                     JSON.parse(userAnswer.BrandMatrix).forEach(page => {
                         page.page.forEach(component => {
@@ -298,13 +296,13 @@ export class ProjectReportsComponent
                                 this.categoryCounter++
                                 if (userAnswerIndex == 0) {
                                     let categoryObj = new Object();
-                                    categoryObj['categoryName'+ this.categoryCounter] = []
+                                    categoryObj['category_'+ this.categoryCounter] = []
                                     this.BMX_REPORT.push(categoryObj)
                                 }
                                 component.componentText.forEach((row, rowIndex) => {
                                     if (rowIndex > 0) {
-                                        this.categoryReport(row, component, userAnswer.Username, 
-                                            this.BMX_REPORT[this.categoryCounter-1]['categoryName'+ (this.categoryCounter)], rowIndex);
+                                        this.computerReport(row, component, userAnswer.Username, 
+                                            this.BMX_REPORT[this.categoryCounter-1]['category_'+ (this.categoryCounter)]);
                                     }
                                 });
                                 this.REPORT_DATA_MAP.set(this.categoryCounter, this.REPORT_DATA);
@@ -314,7 +312,7 @@ export class ProjectReportsComponent
                 }); 
 
                 let sortIngArray = []
-                let catSortIngArray = []
+                let categorySortedgArray = []
                 this.BMX_REPORT.forEach((category, categoryIndex) => {
                     const sortedCategory = Object.keys(category)[0]
                     Object.keys(category[sortedCategory]).forEach((key, keyIndex) => {
@@ -324,41 +322,20 @@ export class ProjectReportsComponent
                             comments:this.BMX_REPORT[categoryIndex][sortedCategory][key].comments
                         })
                     });
-                    catSortIngArray.push(this.sortArrayByTwoPropeties(sortIngArray, 'score', 'nameCandidates'))
-                    // catSortIngArray.push(sortIngArray.sort((a, b) => (a.score > b.score) ? -1 : 1))
+                    categorySortedgArray.push(this.sortArrayByTwoProperties(sortIngArray, 'score', 'nameCandidates'))
                     sortIngArray = []
                 });
-                console.table( catSortIngArray[0]);
+                console.table( categorySortedgArray[0]);
                 console.log( this.BMX_REPORT);
-                console.log(catSortIngArray);
+                console.log(categorySortedgArray);
             }
         })
     }
 
-    sortArrayByTwoPropeties(array, prop1, prop2) {  
-        return array.sort(function(b, a) {
-            if (a[prop1] < b[prop1]) {
-                return -1;
-            } else if (a[prop1] > b[prop1]) {
-                return 1;
-            } else {
-                if (a[prop2] > b[prop2]) {
-                    return -1;
-                } else if (a[prop2] > b[prop2]) {
-                    return 1;
-                } else {
-                    return 0;
-                }
-            }
-        });
-    }
-
-    categoryReport(row, templateComponent, username, REPORT_DATA, rowIndex) {
-
-        // console.log('%cTemplateRow', 'color:orange');
-        // console.log(row);
+   
+    computerReport(row, templateComponent, username, REPORT_DATA) {
         // 💜💜💜💜💜💜💜💜💜💜💜💜💜💜💜💜💜💜💜💜💜💜💜💜💜💜💜💜💜💜💜💜💜💜💜💜💜💜💜💜💜💜💜
-        if (templateComponent.componentType == 'rate-scale') {
+        if (templateComponent.componentType == 'rate-scale' || templateComponent.componentType == 'image-rate-scale') {
             if (templateComponent.componentSettings[0].CRITERIA) {
                 if (REPORT_DATA[row.nameCandidates]) {
                         REPORT_DATA[row.nameCandidates].scores.forEach((Score, scoreIndex) => {
@@ -431,12 +408,6 @@ export class ProjectReportsComponent
                 }
             }
 
-
-        }
-
-        // 🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥
-
-        else if (templateComponent.componentType == 'image-rate-scale') {
 
         }
 
@@ -1050,6 +1021,35 @@ export class ProjectReportsComponent
     previewSurvey() {
         window.open('survey/' + this.projectId + '/' + this.biUsername);
     }
+
+    // PRIVATE FUNCTIONS
+    private sortArrayByTwoProperties(array, prop1, prop2) {  
+        return array.sort(function(b, a) {
+            if (a[prop1] < b[prop1]) {
+                return -1;
+            } else if (a[prop1] > b[prop1]) {
+                return 1;
+            } else {
+                if (a[prop2] > b[prop2]) {
+                    return -1;
+                } else if (a[prop2] > b[prop2]) {
+                    return 1;
+                } else {
+                    return 0;
+                }
+            }
+        });
+    }
+
+    private diplicateArrayMultiple(array, times) {
+        let result = [];
+        for (let i = 0; i < times; i++) {
+            result = result.concat(array);
+        }
+        return result;
+    }
+    
+
     SAMPLE_BMX = [
         {
             "pageNumber": 1,

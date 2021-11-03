@@ -413,13 +413,14 @@
                                     (change)="saveRadioColumValue(columnName, y)">
                             </div>
                         </div>
-                        <!-- TEXT_AREA COLUMN-->
+                        <!-- TEXT_AREA COMMENTS-->
                         <div style="display: flex;
                         justify-content: center;">
                             <textarea *ngIf="y !== 0  && columnName.includes('Comments') == true && selectedCard == y"
                                 [style.width]="'95%'" [style.font-size]="bmxItem.componentSettings[0].fontSize +'px'"
-                                cdkTextareaAutosize [cdkAutosizeMinRows]="bmxItem.componentSettings[0].rowHeight" style="text-align: center;height: 32px;width: 358px;font-size: 16px;border: 1px solid grey;
-                            animation: bounceIn 500ms ease-in forwards;padding: 0 4px" class="row-box"
+                                cdkTextareaAutosize [cdkAutosizeMinRows]="bmxItem.componentSettings[0].rowHeight" 
+                                style="text-align: center;height: 32px;width: 358px;font-size: 16px;border: 1px solid grey;
+                            animation: bounceIn 500ms ease-in forwards;padding: 0 4px;margin: 30px 0;" class="row-box"
                                 [(ngModel)]="testName[columnName]" placeholder="comments" rows="4" cols="50"></textarea>
                         </div>
 
