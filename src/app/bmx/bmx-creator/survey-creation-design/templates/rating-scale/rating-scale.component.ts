@@ -396,8 +396,6 @@ export class RatingScaleComponent implements OnInit {
     });
   }
 
-
-
   deletRow(option): void {
     this.bmxItem.componentText.splice(option, 1);
   }

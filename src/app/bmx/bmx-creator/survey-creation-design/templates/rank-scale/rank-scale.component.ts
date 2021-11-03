@@ -15,9 +15,9 @@ export class RankScaleComponent extends RatingScaleComponent implements OnInit {
   @Input() i;
   @Input() bmxClientPageDesignMode;
   @Input() bmxClientPageOverview;
- 
+
   rankingType = 'dropDown'
-  rankingTypeOptions = [ 'dropDown' , 'dragAndDrop', 'radio' ]
+  rankingTypeOptions = ['dropDown', 'dragAndDrop', 'radio']
 
   draggableBag
   isdropDown = true
@@ -25,41 +25,54 @@ export class RankScaleComponent extends RatingScaleComponent implements OnInit {
   allowScrolling = true
 
   constructor(dragulaService: DragulaService, _snackBar: MatSnackBar) {
-   super(dragulaService,_snackBar)
-   
-   }
-   ngOnInit(): void {
+    super(dragulaService, _snackBar)
+
+  }
+  ngOnInit(): void {
     this.rankingScaleValue = this.bmxItem.componentSettings[0].selectedRanking
     this.createRatingStars(this.rankingScaleValue)
     // this.rankingTableType( this.bmxItem.componentSettings[0].rankType)
     this.rankingType = this.bmxItem.componentSettings[0].rankType
 
-    if (this.rankingType == 'dropDown' ) {
+    if (this.rankingType == 'dropDown') {
       this.draggableBag = ''
       this.isdropDown = true
     } else if (this.rankingType == 'dragAndDrop') {
       this.draggableBag = 'DRAGGABLE_RANK_ROW'
       this.isdropDown = false
-      
+
     } else if (this.rankingType == 'radio') {
       this.draggableBag = ''
       this.isdropDown = false
       this.radioColumnCounter = 1
-      }
+    }
 
-     
+
 
     // COLUMN NAMES
     let values = Object.keys(this.bmxItem.componentText[0])
 
     values.forEach(value => {
-      if (typeof value == "string" && value != "STARS" && value != "CRITERIA" ) {
+      if (typeof value == "string" && value != "STARS" && value != "CRITERIA") {
         this.columnsNames.push(value)
       }
     });
 
   }
-  
+
+  checkDragEvetn(rows) {
+    if (this.bmxItem.componentSettings[0].rankType == 'dragAndDrop') {
+      rows.forEach((row , rowIndex) => {
+       if (rowIndex > 0) {         
+         row.RATE = rowIndex
+       }
+      })
+    }
+
+
+  }
+
+
   createRatingStars(ratingScale, ratingScaleIcon?) {
     let startCounter: any = []
     for (let index = 0; index < ratingScale; index++) {
@@ -85,14 +98,14 @@ export class RankScaleComponent extends RatingScaleComponent implements OnInit {
       this.columnsNames.forEach((column, index) => {
         if (column == 'name candidates' || column == 'test names' || column == 'names' || column == 'name') {
           this.columnsNames[index] = 'nameCandidates'
-          } else if (column == 'name rationale' || column == 'rationale' || column == 'rationales')  {
-            this.columnsNames[index] = 'rationale'
-          } else if (column == 'katakana')  {
-            this.columnsNames[index] = 'katakana'
-          } else {
-            this.columnsNames[index] = 'ExtraColumn' + this.extraColumnCounter
-            this.extraColumnCounter++
-          }      
+        } else if (column == 'name rationale' || column == 'rationale' || column == 'rationales') {
+          this.columnsNames[index] = 'rationale'
+        } else if (column == 'katakana') {
+          this.columnsNames[index] = 'katakana'
+        } else {
+          this.columnsNames[index] = 'ExtraColumn' + this.extraColumnCounter
+          this.extraColumnCounter++
+        }
       });
       this.TESTNAMES_LIST = [];
       for (let i = 0; i < rows.length; i++) {
@@ -108,9 +121,9 @@ export class RankScaleComponent extends RatingScaleComponent implements OnInit {
             objectColumnDesign['CRITERIA'] = []
             this.ASSIGNED_CRITERIA.forEach(criteria => {
               objectColumnDesign['CRITERIA'].push({
-                name : criteria.name,
-                STARS : this.createRatingStars(this.rankingScaleValue, this.ratingScaleIcon),
-                RATE : -1,
+                name: criteria.name,
+                STARS: this.createRatingStars(this.rankingScaleValue, this.ratingScaleIcon),
+                RATE: -1,
               })
             });
           } else {
@@ -127,8 +140,8 @@ export class RankScaleComponent extends RatingScaleComponent implements OnInit {
         }
       }
       this.bmxItem.componentText = this.TESTNAMES_LIST;
-      this.rankingTableType( this.bmxItem.componentSettings[0].rankType)
-     
+      this.rankingTableType(this.bmxItem.componentSettings[0].rankType)
+
     } else {
       this.bmxItem.componentText.forEach((row, index) => {
         row.STARS = this.createRatingStars(this.rankingScaleValue, this.ratingScaleIcon)
@@ -141,13 +154,13 @@ export class RankScaleComponent extends RatingScaleComponent implements OnInit {
   }
 
 
-  rankingTableType(rankingType){
+  rankingTableType(rankingType) {
     this.bmxItem.componentSettings[0].rankType = rankingType
     let values = Object.keys(this.bmxItem.componentText[0])
     this.columnsNames = []
     this.RadioColumnList = []
     values.forEach(value => {
-      if (typeof value == "string" && value != "STARS" && value != "CRITERIA" ) {
+      if (typeof value == "string" && value != "STARS" && value != "CRITERIA") {
         this.columnsNames.push(value)
       }
     });
@@ -156,37 +169,37 @@ export class RankScaleComponent extends RatingScaleComponent implements OnInit {
         this.deleteColumn(columnName)
       }
     });
-    if (rankingType == 'dropDown' ) {
+    if (rankingType == 'dropDown') {
       this.draggableBag = ''
       this.isdropDown = true
     } else if (rankingType == 'dragAndDrop') {
       this.draggableBag = 'DRAGGABLE_RANK_ROW'
       this.isdropDown = false
-      
+
     } else if (rankingType == 'radio') {
       this.draggableBag = ''
       this.isdropDown = false
       this.radioColumnCounter = 1
       for (let index = 0; index < this.rankingScaleValue; index++) {
-        this.insertRadioColumn()        
+        this.insertRadioColumn()
       }
     }
   }
 
 
-  toggleScrolling(){
+  toggleScrolling() {
     this.allowScrolling = !this.allowScrolling
     if (this.allowScrolling) {
-      window.onscroll=function(){};      
+      window.onscroll = function () { };
     } else {
-      var x=window.scrollX;
-      var y=window.scrollY;
-      window.onscroll=function(){window.scrollTo(x, y);};
+      var x = window.scrollX;
+      var y = window.scrollY;
+      window.onscroll = function () { window.scrollTo(x, y); };
     }
-   
+
   }
 
- 
+
 
   ASSIGNED_CRITERIA = []
   CRITERIA = [
