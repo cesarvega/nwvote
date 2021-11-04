@@ -310,7 +310,7 @@ export class RatingScaleComponent implements OnInit {
           this.TESTNAMES_LIST.push(objectColumnDesign);
         }
       }
-      this.bmxItem.componentText = this.TESTNAMES_LIST;
+      this.bmxItem.componentText = this.deleteDuplicates(this.TESTNAMES_LIST, 'nameCandidates');
     } else {
       this.bmxItem.componentText.forEach((row, index) => {
         row.STARS = this.createRatingStars(this.rankingScaleValue, this.ratingScaleIcon)
@@ -321,6 +321,46 @@ export class RatingScaleComponent implements OnInit {
     setTimeout(() => {
       this.dragRows = false;
     }, 1000);
+  }
+
+  // delete row diplictaes from array of object by property
+  deleteDuplicates(array, property) {
+    let newArray = [];
+    let lookupObject = {};
+
+    for (let i in array) {
+      lookupObject[array[i][property]] = array[i];
+    }
+
+    for (let i in lookupObject) {
+      newArray.push(lookupObject[i]);
+    }
+
+    if (array.length > newArray.length) {
+      const unionMinusInter  = this.unionMinusIntersection(array, newArray)
+      const nameCandidates = this.spreadArray(unionMinusInter)
+      this._snackBar.open(`You have  ${array.length - newArray.length} duplicates removed: "${nameCandidates.join(', ')}" 🍕`, 'OK', {
+        duration: 8000,
+        verticalPosition: 'top',
+      })
+    }
+    return newArray;
+  }
+// remove objects from array1 that are also in array2
+  unionMinusIntersection(array1, array2) {
+    let union = array1.concat(array2);
+    let intersection = array1.filter(x => array2.includes(x));
+    let unionMinusInter = union.filter(x => !intersection.includes(x));
+    return unionMinusInter;
+  }
+
+//  spread array of object to array of string by property
+  spreadArray(array) {
+    let newArray = [];
+    array.forEach(element => {
+      newArray.push(element.nameCandidates)
+    });
+    return newArray;
   }
 
   // COLUMNS ADD AND REMOVE

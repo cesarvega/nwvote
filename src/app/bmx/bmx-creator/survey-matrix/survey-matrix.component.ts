@@ -204,7 +204,6 @@ export class SurveyMatrixComponent extends SurveyCreationDesignComponent impleme
                 }
                 // ❤️❤️❤️❤️❤️❤️❤️❤️❤️❤️❤️❤️❤️❤️❤️❤️❤️❤️❤️❤️❤️❤️❤️❤️❤️❤️❤️❤️❤️❤️❤️❤️❤️❤️❤️❤️❤️❤️❤️❤️❤️❤️❤️
                 else if (answerComponent.componentType == 'ranking-scale') {
-
                     if (templateComponent.componentSettings[0].rankType == 'dragAndDrop' && answerComponent.componentText.length > 1
                         && this.dragAndDropCounter == 0) {
                         templateComponent.componentText = this.mergeObjectArrays(answerComponent.componentText, templateComponent.componentText, 'RATE')
@@ -290,7 +289,6 @@ export class SurveyMatrixComponent extends SurveyCreationDesignComponent impleme
                 else if (answerComponent.componentType == 'narrow-down') {
                     answerComponent.componentText.forEach((answerRow, index) => {
                         if (!templateComponent.componentSettings[0].CRITERIA) {// no criteria
-                            // if (templateComponent.componentType == 'ranking-scale') {
                             if (templateComponent.componentType == answerComponent.componentType) {
                                 if (index > 0) {
                                     for (const key in templateRow) {
@@ -513,9 +511,6 @@ export class SurveyMatrixComponent extends SurveyCreationDesignComponent impleme
         });
     }
 
-    // merge two object arrays and sort by property 
-    // and remove duplicates from left array and un
-    // shift the row column names
     mergeObjectArrays(answerArray, templateArray, property) {
         let result2 = [];
         if (templateArray.length >= answerArray.length) {
@@ -548,7 +543,6 @@ export class SurveyMatrixComponent extends SurveyCreationDesignComponent impleme
                 });
             });
         }
-
         result2.sort(function (a, b) {
             if (a[property] < b[property]) {
                 return -1;
@@ -560,9 +554,6 @@ export class SurveyMatrixComponent extends SurveyCreationDesignComponent impleme
         });
         return result2;
     }
-
-
-
 
     changePage(direction) {
         if (direction === 'next' && this.bmxPages.length - 1 > this.currentPage) {
