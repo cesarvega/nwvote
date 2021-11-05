@@ -485,6 +485,7 @@ export class SurveyCreationDesignComponent implements OnInit {
             rationalewidth: 250,
             rowHeight: 2,
             categoryRulesPassed: false,
+            selectedRowCounter: 0,
             ratedCounter: 0,
             categoryName: 'Category Narrow Down',
             categoryDescription: 'This is a narrow down matrix',

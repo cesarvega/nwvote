@@ -533,8 +533,7 @@ export class SurveyMatrixComponent extends SurveyCreationDesignComponent impleme
             });
         }
         else {
-            templateArray.forEach((row, rowIndex) => {
-
+            templateArray.forEach((row) => {
                 answerArray.forEach((resultRow) => {
                     if (resultRow['nameCandidates'] == row['nameCandidates']) {
                         row.RATE = (resultRow.RATE) ? resultRow.RATE : 0

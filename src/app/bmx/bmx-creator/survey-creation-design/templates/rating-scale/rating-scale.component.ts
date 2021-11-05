@@ -312,18 +312,37 @@ export class RatingScaleComponent implements OnInit {
       }
       this.bmxItem.componentText = this.deleteDuplicates(this.TESTNAMES_LIST, 'nameCandidates');
     } else {
-      this.bmxItem.componentText.forEach((row, index) => {
-        row.STARS = this.createRatingStars(this.rankingScaleValue, this.ratingScaleIcon)
-        row.RATE = -1
-        // this.leaveStar(index);
-      });
+      if (this.ASSIGNED_CRITERIA.length > 0) {
+        this.bmxItem.componentSettings[0].CRITERIA = true      
+        this.bmxItem.componentText.forEach((row, index) => {
+          let CRITERIA = [];
+          this.ASSIGNED_CRITERIA.forEach(criteria => {
+            CRITERIA.push({
+              name: criteria.name,
+              STARS: this.createRatingStars(this.rankingScaleValue, this.ratingScaleIcon),
+              RATE: -1,
+            })
+          });
+          row.CRITERIA = CRITERIA
+          delete row["'STARS'"];
+        });
+       }
+      else {
+        this.bmxItem.componentSettings[0].CRITERIA = false
+        this.bmxItem.componentText.forEach((row, index) => {
+          row.STARS = this.createRatingStars(this.rankingScaleValue, this.ratingScaleIcon)
+          row.RATE = -1
+          delete row['CRITERIA'];
+          // this.leaveStar(index);
+        });
+      }
     }
     setTimeout(() => {
       this.dragRows = false;
     }, 1000);
   }
 
-  // delete row diplictaes from array of object by property
+  // delete row diplicates from array of object by property
   deleteDuplicates(array, property) {
     let newArray = [];
     let lookupObject = {};
@@ -353,7 +372,6 @@ export class RatingScaleComponent implements OnInit {
     let unionMinusInter = union.filter(x => !intersection.includes(x));
     return unionMinusInter;
   }
-
 //  spread array of object to array of string by property
   spreadArray(array) {
     let newArray = [];

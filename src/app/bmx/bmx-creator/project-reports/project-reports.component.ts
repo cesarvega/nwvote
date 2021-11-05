@@ -335,7 +335,8 @@ export class ProjectReportsComponent
    
     computerReport(row, templateComponent, username, REPORT_DATA) {
         // 💜💜💜💜💜💜💜💜💜💜💜💜💜💜💜💜💜💜💜💜💜💜💜💜💜💜💜💜💜💜💜💜💜💜💜💜💜💜💜💜💜💜💜
-        if (templateComponent.componentType == 'rate-scale' || templateComponent.componentType == 'image-rate-scale') {
+        if (templateComponent.componentType == 'rate-scale' || templateComponent.componentType == 'image-rate-scale'|| 
+            templateComponent.componentType == 'ranking-scale') {
             if (templateComponent.componentSettings[0].CRITERIA) {
                 if (REPORT_DATA[row.nameCandidates]) {
                         REPORT_DATA[row.nameCandidates].scores.forEach((Score, scoreIndex) => {
@@ -387,7 +388,30 @@ export class ProjectReportsComponent
         
         // ❤️❤️❤️❤️❤️❤️❤️❤️❤️❤️❤️❤️❤️❤️❤️❤️❤️❤️❤️❤️❤️❤️❤️❤️❤️❤️❤️❤️❤️❤️❤️❤️❤️❤️❤️❤️❤️❤️❤️❤️❤️❤️❤️
 
-        else if (templateComponent.componentType == 'ranking-scale') {
+        // else if (templateComponent.componentType == 'ranking-scale') {
+        //     if (REPORT_DATA[row.nameCandidates]) {
+        //         if (row.RATE > 0) {
+        //             REPORT_DATA[row.nameCandidates].scores.push(row.RATE)
+        //             REPORT_DATA[row.nameCandidates].totalScore += row.RATE
+        //         }
+        //         if (row.Comments1?.length > 0) {
+        //             REPORT_DATA[row.nameCandidates].comments.push({ userName: username, comment: row.Comments1 })
+        //         }
+        //     } else {
+        //         let comment = (row.Comments1?.length > 0) ? { userName: username, comment: row.Comments1 } : undefined
+        //         REPORT_DATA[row.nameCandidates] = {
+        //             category: templateComponent.componentType,
+        //             testName: row.nameCandidates,
+        //             rationale: row.rationale,
+        //             comments: [comment],
+        //             scores: [(row.RATE > 0) ? row.RATE : 0],
+        //             totalScore: (row.RATE > 0) ? row.RATE : 0
+        //         }
+        //     }
+        // }
+
+        // 💚💚💚💚💚💚💚💚💚💚💚💚💚💚💚💚💚💚💚💚💚💚💚💚💚💚💚💚💚💚💚💚💚💚💚💚💚💚💚💚💚💚💚💚💚💚💚💚💚
+        else if (templateComponent.componentType == 'narrow-down') {
             if (REPORT_DATA[row.nameCandidates]) {
                 if (row.RATE > 0) {
                     REPORT_DATA[row.nameCandidates].scores.push(row.RATE)
@@ -407,13 +431,6 @@ export class ProjectReportsComponent
                     totalScore: (row.RATE > 0) ? row.RATE : 0
                 }
             }
-
-
-        }
-
-        // 💚💚💚💚💚💚💚💚💚💚💚💚💚💚💚💚💚💚💚💚💚💚💚💚💚💚💚💚💚💚💚💚💚💚💚💚💚💚💚💚💚💚💚💚💚💚💚💚💚
-        else if (templateComponent.componentType == 'narrow-down') {
-
         }
         // 💛💛💛💛💛💛💛💛💛💛💛💛💛💛💛💛💛💛💛💛💛💛💛💛💛💛💛💛💛💛💛💛💛💛💛💛💛💛💛💛💛💛💛💛💛💛💛💛💛
 
