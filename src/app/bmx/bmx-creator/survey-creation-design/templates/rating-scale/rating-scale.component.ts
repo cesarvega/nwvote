@@ -271,6 +271,7 @@ export class RatingScaleComponent implements OnInit {
       const rows = list.split("\n");
       this.columnsNames = [];
       this.columnsNames = rows[0].toLowerCase().split("\t");
+
       this.extraColumnCounter = 1
       this.columnsNames.forEach((column, index) => {
         column = column.toLowerCase()
@@ -288,6 +289,7 @@ export class RatingScaleComponent implements OnInit {
           this.extraColumnCounter++
         }
       });
+ 
       this.TESTNAMES_LIST = [];
       for (let i = 0; i < rows.length; i++) {
         if (rows[i] != "" && rows[i].length > 6) {
@@ -296,15 +298,15 @@ export class RatingScaleComponent implements OnInit {
             this.bmxItem.componentSettings[0].CRITERIA = true
             for (let e = 0; e < this.columnsNames.length; e++) {
               if ((rows[i].split("\t").length > 0)) {
-                objectColumnDesign[this.columnsNames[e]] = rows[i].split("\t")[e]
+                objectColumnDesign[this.columnsNames[e]] = rows[i].split("\t")[e].trim()
               }
             }
             objectColumnDesign['CRITERIA'] = []
-            this.ASSIGNED_CRITERIA.forEach(criteria => {
+            this.ASSIGNED_CRITERIA.forEach((criteria, index) => {
               objectColumnDesign['CRITERIA'].push({
                 name: criteria.name,
                 STARS: this.createRatingStars(this.rankingScaleValue, this.ratingScaleIcon),
-                RATE: -1,
+                RATE: index>0?-1:'RATE',
               })
             });
           } else {
@@ -312,7 +314,7 @@ export class RatingScaleComponent implements OnInit {
             objectColumnDesign['STARS'] = this.createRatingStars(this.rankingScaleValue, this.ratingScaleIcon);
             for (let e = 0; e < this.columnsNames.length; e++) {
               if ((rows[i].split("\t").length > 0)) {
-                objectColumnDesign[this.columnsNames[e]] = rows[i].split("\t")[e]
+                objectColumnDesign[this.columnsNames[e]] = rows[i].split("\t")[e].trim()
               }
             }
           }
@@ -320,6 +322,7 @@ export class RatingScaleComponent implements OnInit {
         }
       }
       this.bmxItem.componentText = this.deleteDuplicates(this.TESTNAMES_LIST, 'nameCandidates');
+      this.columnsNames.push('RATE')
     } else {
       if (this.ASSIGNED_CRITERIA.length > 0) {
         this.bmxItem.componentSettings[0].CRITERIA = true      
@@ -329,7 +332,7 @@ export class RatingScaleComponent implements OnInit {
             CRITERIA.push({
               name: criteria.name,
               STARS: this.createRatingStars(this.rankingScaleValue, this.ratingScaleIcon),
-              RATE: -1,
+              RATE: index>0?-1:'RATE',
             })
           });
           row.CRITERIA = CRITERIA
@@ -340,7 +343,7 @@ export class RatingScaleComponent implements OnInit {
         this.bmxItem.componentSettings[0].CRITERIA = false
         this.bmxItem.componentText.forEach((row, index) => {
           row.STARS = this.createRatingStars(this.rankingScaleValue, this.ratingScaleIcon)
-          row.RATE = -1
+          row.RATE = index>0?-1:'RATE',
           delete row['CRITERIA'];
           // this.leaveStar(index);
         });
@@ -471,6 +474,14 @@ export class RatingScaleComponent implements OnInit {
   insertRow(): void {
     const newRow =  Object.assign({}, this.bmxItem.componentText[0]);
     this.bmxItem.componentText.push(newRow)
+  }
+
+  swapColumns(index): void {
+    let temp = this.columnsNames[index];
+    for (let i = index; i < this.columnsNames.length - 1; i++) {
+      this.columnsNames[i] = this.columnsNames[i + 1];
+    }
+    this.columnsNames[this.columnsNames.length - 1] = temp;
   }
 
   deleteColumn(columnName) {

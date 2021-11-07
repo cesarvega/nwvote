@@ -139,8 +139,8 @@
                 <mat-icon style="color:#76d354;">grade</mat-icon>
                 <mat-radio-button value="grade">
                 </mat-radio-button>
-                <mat-icon style="color:#e6ad11;">settings_cell</mat-icon>
-                <mat-radio-button value="settings_cell">
+                <mat-icon style="color:#e6ad11;">rectangle</mat-icon>
+                <mat-radio-button value="rectangle">
                 </mat-radio-button>
             </mat-radio-group>
 
@@ -225,8 +225,8 @@
             <!-- <div *ngIf="(y !== 0)" style="color: white;font-size: xx-small;">.</div> -->
             <div class="test-name-table">
 
-                <div *ngFor="let columnName of columnsNames; let e =  index"
-                    style="display: flex;align-items: center;justify-content: center;" [ngClass]="(e%2==0)?'red':'blue'"
+                <div *ngFor="let columnName of columnsNames; let e =  index" style="display: flex;align-items: center;justify-content: center;" 
+                    [ngClass]="(columnName.includes('Comments') == true)?'red':'blue'"
                     [style.width]="(columnName == 'rationale')?bmxItem.componentSettings[0].rationalewidth + 'px': 
                 ( (columnName.includes('RadioColumn'))?bmxItem.componentSettings[0].radioColumnsWidth + 'px' :
                 bmxItem.componentSettings[0].columnWidth + 'px' )">
@@ -234,20 +234,24 @@
                     <!-- 🟢🟢🟢🟢🟢🟢🟢🟢🟢🟢🟢🟢🟢🟢 HEADER TEXT AREA 🟢🟢🟢🟢🟢🟢🟢🟢🟢🟢🟢🟢🟢🟢🟢🟢 -->
                     <div *ngIf="(y == 0)" class="header-title " (mouseenter)="selectedColumn = e"
                         (mouseleave)="selectedColumn = ''">
+                        <div style="display: flex;flex-direction: row;justify-content: space-between;">
+                           
+                            <span *ngIf="selectedColumn === e && bmxClientPageOverview" class="header-delete-icon"
+                                matTooltip="double click to delete column" matTooltipPosition="above"
+                                (dblclick)="deleteColumn(columnName)">x</span>
 
-                        <span *ngIf="selectedColumn === e && bmxClientPageOverview" class="header-delete-icon"
-                            matTooltip="double click to delete column" matTooltipPosition="above"
-                            (dblclick)="deleteColumn(columnName)">x</span>
+                            <textarea *ngIf="editSingleTableCells"
+                                [style.font-size]="bmxItem.componentSettings[0].fontSize +'px'"
+                                style="text-align: center; font-weight: bold;color: #324395;" class="row-box"
+                                [(ngModel)]="testName[columnName]" value="testName[columnName]"></textarea>
 
-                        <textarea *ngIf="editSingleTableCells"
-                            [style.font-size]="bmxItem.componentSettings[0].fontSize +'px'"
-                            style="text-align: center; font-weight: bold;color: #324395;" class="row-box"
-                            [(ngModel)]="testName[columnName]" value="testName[columnName]"></textarea>
-
-                        <p style="text-align: center; font-weight: bold;color: #324395;margin: 0 0 0px;"
-                            [style.font-size]="bmxItem.componentSettings[0].fontSize +'px'"
-                            *ngIf=" !editSingleTableCells">{{testName[columnName]}}
-                        </p>
+                            <p style="text-align: center; font-weight: bold;color: #324395;margin: 0 0 0px;"
+                                [style.font-size]="bmxItem.componentSettings[0].fontSize +'px'"
+                                *ngIf=" !editSingleTableCells">{{testName[columnName]}}
+                            </p>
+                            <mat-icon *ngIf="selectedColumn === e && bmxClientPageOverview" 
+                            style="cursor: pointer;" (click)="swapColumns(e)">chevron_right</mat-icon>
+                        </div>
                     </div>
 
                     <!-- 🟢🟢🟢🟢🟢🟢🟢🟢🟢🟢🟢🟢🟢🟢 END HEADER TEXT AREA  🟢🟢🟢🟢🟢🟢🟢🟢🟢🟢🟢🟢🟢🟢🟢🟢 -->
@@ -257,9 +261,8 @@
                     <div>
 
                         <!--⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️ STARS RENDERER ⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️ -->
-                        <div *ngIf="y !== 0  &&  columnName.includes('RATE') == true" style="display: flex;align-items: center;
-                justify-content: center;border-left: rgb(231, 230, 230) 1px solid;min-width: 260px;background-color:white;
-                border-right: rgb(231, 230, 230) 1px solid;border-top: rgb(231, 230, 230) 1px solid;">
+                        <div *ngIf="y !== 0  &&  columnName.includes('RATE') == true"
+                            style="display: flex;align-items: center;justify-content: center;">
                             <div *ngIf="(y !== 0)">
                                 <div *ngIf="testName.CRITERIA; else elseBlock">
                                     <div *ngFor="let criteria of testName.CRITERIA  let x =  index"
@@ -329,8 +332,6 @@
                         <!--⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️ END STARS ⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️ -->
 
 
-
-
                         <!-- IF ELSE TEMPLATE INPUTS  -->
                         <input type="radio" *ngIf="y !== 0  &&  columnName.includes('RadioColumn') == true"
                             [name]="'rate' + y" [checked]="testName[columnName]"
@@ -354,7 +355,7 @@
                             [(ngModel)]="testName[columnName]"></textarea>
 
                         <p *ngIf="y !== 0  && !editSingleTableCells && (columnName.includes('RadioColumn') != true)
-                         &&  columnName.includes('Comments') != true &&  columnName.includes('RATE') != true" 
+                         &&  columnName.includes('Comments') != true &&  columnName.includes('RATE') != true"
                             [style.font-size]="bmxItem.componentSettings[0].fontSize +'px'"
                             [style.width]="(columnName == 'rationale')?bmxItem.componentSettings[0].rationalewidth + 'px':bmxItem.componentSettings[0].columnWidth +'px'"
                             style="text-align: center;margin: 0 0 0px;">{{testName[columnName]}}</p>
