@@ -84,12 +84,14 @@
             style="font-size: 20px;color: #ee7f25;padding-bottom: 4px;padding-left: 7px;">
 
         <div style="display: flex;flex-direction: column;justify-content: center;gap: 10px;">
-            <div style="font-size: 16px;margin-top: 10px;color: #48535e;text-align: center;">MIN {{bmxItem.componentSettings[0].minRule}}</div>
+            <div style="font-size: 16px;margin-top: 10px;color: #48535e;text-align: center;">MIN
+                {{bmxItem.componentSettings[0].minRule}}</div>
             <input type="range" min="0" max="10" [(ngModel)]="bmxItem.componentSettings[0].minRule"
                 style="width:120px; padding: 0px 10px;" [value]="bmxItem.componentSettings[0].minRule">
         </div>
         <div style="display: flex;flex-direction: column;justify-content:center;gap: 10px;">
-            <div style="font-size: 16px;margin-top: 10px;color: #48535e;text-align: center;">MAX {{bmxItem.componentSettings[0].maxRule}}</div>
+            <div style="font-size: 16px;margin-top: 10px;color: #48535e;text-align: center;">MAX
+                {{bmxItem.componentSettings[0].maxRule}}</div>
             <input type="range" min="0" max="10" [(ngModel)]="bmxItem.componentSettings[0].maxRule"
                 style="width:120px; padding: 0px 10px;" [value]="bmxItem.componentSettings[0].maxRule">
         </div>
@@ -254,39 +256,42 @@
                     <!-- 🟡🟡🟡🟡🟡🟡🟡🟡🟡🟡🟡🟡🟡🟡 TABLE CELLS  🟡🟡🟡🟡🟡🟡🟡🟡🟡🟡🟡🟡🟡🟡🟡🟡 -->
                     <div>
 
-                            <!--⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️ STARS RENDERER ⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️ -->
-                <div *ngIf="y !== 0  &&  columnName.includes('RATE') == true" style="display: flex;align-items: center;
+                        <!--⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️ STARS RENDERER ⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️ -->
+                        <div *ngIf="y !== 0  &&  columnName.includes('RATE') == true" style="display: flex;align-items: center;
                 justify-content: center;border-left: rgb(231, 230, 230) 1px solid;min-width: 260px;background-color:white;
                 border-right: rgb(231, 230, 230) 1px solid;border-top: rgb(231, 230, 230) 1px solid;">
-                    <div *ngIf="(y !== 0)">
-                        <div *ngIf="testName.CRITERIA; else elseBlock">
-                            <div *ngFor="let criteria of testName.CRITERIA  let x =  index"
-                                style="display: flex;flex-direction: column;justify-content: space-between;text-align: center;">
-                                <span [style.font-size]="bmxItem.componentSettings[0].fontSize +'px'"
-                                    style="padding-top:6px;max-width: 200px;">{{criteria.name}}</span>
-                                <div style="min-width: 200px;padding-bottom:6px">
-                                    <mat-icon matRipple *ngFor="let star of  criteria.STARS;"
-                                        (click)="setCriteriaRating(star.id,x,y)" [ngClass]="star.styleClass"
-                                        (mouseenter)="selectCriteriaStar(star.id,x,y)"
-                                        (mouseleave)="leaveCriteriaStar(y,x)"
-                                        style="outline: none;margin:1px -1px;cursor: pointer;">{{star.icon}}</mat-icon>
+                            <div *ngIf="(y !== 0)">
+                                <div *ngIf="testName.CRITERIA; else elseBlock">
+                                    <div *ngFor="let criteria of testName.CRITERIA  let x =  index"
+                                        style="display: flex;flex-direction: column;justify-content: space-between;text-align: center;">
+                                        <span [style.font-size]="bmxItem.componentSettings[0].fontSize +'px'"
+                                            style="padding-top:6px;max-width: 200px;">{{criteria.name}}</span>
+                                        <div style="min-width: 200px;padding-bottom:6px">
+                                            <mat-icon matRipple *ngFor="let star of  criteria.STARS;"
+                                                (click)="setCriteriaRating(star.id,x,y)" [ngClass]="star.styleClass"
+                                                (mouseenter)="selectCriteriaStar(star.id,x,y)"
+                                                (mouseleave)="leaveCriteriaStar(y,x)"
+                                                style="outline: none;margin:1px -1px;cursor: pointer;">{{star.icon}}
+                                            </mat-icon>
+                                        </div>
+                                    </div>
                                 </div>
+                                <ng-template #elseBlock>
+                                    <div style="position: relative;">
+                                        <mat-icon matRipple *ngFor="let star of  testName.STARS; let x =  index"
+                                            (click)="setRating(star.id,y)" [ngClass]="star.styleClass"
+                                            (mouseenter)="selectStar(star.id , y)" (mouseleave)="leaveStar(y)"
+                                            style="outline: none;margin:1px -1px;cursor: pointer;">{{star.icon}}
+                                        </mat-icon>
+                                    </div>
+                                </ng-template>
                             </div>
-                        </div>
-                        <ng-template #elseBlock>
-                            <div style="position: relative;">
-                                <mat-icon matRipple *ngFor="let star of  testName.STARS; let x =  index"
-                                    (click)="setRating(star.id,y)" [ngClass]="star.styleClass"
-                                    (mouseenter)="selectStar(star.id , y)" (mouseleave)="leaveStar(y)"
-                                    style="outline: none;margin:1px -1px;cursor: pointer;">{{star.icon}}</mat-icon>
-                            </div>
-                        </ng-template>
-                    </div>
 
-                    <!-- 🩸🩸🩸🩸🩸🩸🩸🩸🩸🩸🩸🩸🩸 RATE BUTTONS 🩸🩸🩸🩸🩸🩸🩸🩸🩸🩸🩸🩸🩸🩸🩸🩸🩸🩸🩸🩸🩸🩸🩸🩸 -->
-                    <div style="display: flex;">
-                        <button (click)="maxRuleCounterMinus();bmxItem.componentText[y]['RATE'] = 0;leaveStar(y)"
-                            *ngIf="bmxItem.componentText[y]['RATE']>0 && y != 0 " style="background-color: #ee7f25;    
+                            <!-- 🩸🩸🩸🩸🩸🩸🩸🩸🩸🩸🩸🩸🩸 RATE BUTTONS 🩸🩸🩸🩸🩸🩸🩸🩸🩸🩸🩸🩸🩸🩸🩸🩸🩸🩸🩸🩸🩸🩸🩸🩸 -->
+                            <div style="display: flex;">
+                                <button
+                                    (click)="maxRuleCounterMinus();bmxItem.componentText[y]['RATE'] = 0;leaveStar(y)"
+                                    *ngIf="bmxItem.componentText[y]['RATE']>0 && y != 0 " style="background-color: #ee7f25;    
                             color: white;
                             min-width: 20px;
                             line-height: 19px;
@@ -294,13 +299,13 @@
                             margin: -17px 9px;
                             position: absolute;
                             animation: rubberBand 700ms ease-in  forwards;"
-                            mat-button>{{bmxItem.componentText[y]['RATE']}}</button>
-                    </div>
+                                    mat-button>{{bmxItem.componentText[y]['RATE']}}</button>
+                            </div>
 
-                    <div style="display: flex;gap: 60px;flex-direction: column;">
-                        <div *ngFor="let criteria of testName.CRITERIA  let x =  index">
-                            <button (click)="criteria.RATE = 0;leaveCriteriaStar(y,x)"
-                                *ngIf="criteria.RATE>0 && y != 0 " style="background-color: #ee7f25;    
+                            <div style="display: flex;gap: 60px;flex-direction: column;">
+                                <div *ngFor="let criteria of testName.CRITERIA  let x =  index">
+                                    <button (click)="criteria.RATE = 0;leaveCriteriaStar(y,x)"
+                                        *ngIf="criteria.RATE>0 && y != 0 " style="background-color: #ee7f25;    
                              color: white;
                              min-width: 20px;
                              line-height: 19px;
@@ -308,19 +313,20 @@
                              margin: -3px 7px;
                              position: absolute;
                              animation: rubberBand 700ms ease-in  forwards;" mat-button>{{criteria.RATE}}</button>
-                        </div>
-                    </div>
-                    <!-- 🩸🩸🩸🩸🩸🩸🩸🩸🩸🩸🩸🩸🩸 END RATE BUTTONS 🩸🩸🩸🩸🩸🩸🩸🩸🩸🩸🩸🩸🩸🩸🩸🩸🩸🩸🩸🩸🩸🩸🩸🩸 -->
+                                </div>
+                            </div>
+                            <!-- 🩸🩸🩸🩸🩸🩸🩸🩸🩸🩸🩸🩸🩸 END RATE BUTTONS 🩸🩸🩸🩸🩸🩸🩸🩸🩸🩸🩸🩸🩸🩸🩸🩸🩸🩸🩸🩸🩸🩸🩸🩸 -->
 
-                    <textarea *ngIf="y == 0 && editSingleTableCells"
-                        [style.font-size]="bmxItem.componentSettings[0].fontSize +'px'"
-                        style="text-align: center; font-weight: bold;color: #324395;" class="row-box"
-                        [(ngModel)]="bmxItem.componentSettings[0].ratingScaleTitle"
-                        value="bmxItem.componentSettings[0].ratingScaleTitle"></textarea>
-                    <div [style.font-size]="bmxItem.componentSettings[0].fontSize +'px'" class="rating-text"
-                        *ngIf="y == 0 && !editSingleTableCells">{{bmxItem.componentSettings[0].ratingScaleTitle}}</div>
-                </div>
-                <!--⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️ END STARS ⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️ -->
+                            <textarea *ngIf="y == 0 && editSingleTableCells"
+                                [style.font-size]="bmxItem.componentSettings[0].fontSize +'px'"
+                                style="text-align: center; font-weight: bold;color: #324395;" class="row-box"
+                                [(ngModel)]="bmxItem.componentSettings[0].ratingScaleTitle"
+                                value="bmxItem.componentSettings[0].ratingScaleTitle"></textarea>
+                            <div [style.font-size]="bmxItem.componentSettings[0].fontSize +'px'" class="rating-text"
+                                *ngIf="y == 0 && !editSingleTableCells">
+                                {{bmxItem.componentSettings[0].ratingScaleTitle}}</div>
+                        </div>
+                        <!--⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️ END STARS ⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️ -->
 
 
 
@@ -347,15 +353,16 @@
                             style="outline: none;text-align: center;margin: 0 10px;" class="row-box"
                             [(ngModel)]="testName[columnName]"></textarea>
 
-                        <p *ngIf="y !== 0  && !editSingleTableCells && (columnName.includes('RadioColumn') != true) &&  columnName.includes('Comments') != true"
+                        <p *ngIf="y !== 0  && !editSingleTableCells && (columnName.includes('RadioColumn') != true)
+                         &&  columnName.includes('Comments') != true &&  columnName.includes('RATE') != true" 
                             [style.font-size]="bmxItem.componentSettings[0].fontSize +'px'"
                             [style.width]="(columnName == 'rationale')?bmxItem.componentSettings[0].rationalewidth + 'px':bmxItem.componentSettings[0].columnWidth +'px'"
                             style="text-align: center;margin: 0 0 0px;">{{testName[columnName]}}</p>
                     </div>
                     <!-- 🟡🟡🟡🟡🟡🟡🟡🟡🟡🟡🟡🟡🟡🟡 END TABLE CELLS 🟡🟡🟡🟡🟡🟡🟡🟡🟡🟡🟡🟡🟡🟡🟡🟡 -->
                 </div>
-            
-              <!-- 👻 👻 👻 👻 👻 👻 👻 👻 👻 👻 👻 👻 👻 👻 👻 👻 👻 👻 👻 👻 👻 👻 👻 👻 👻 👻 👻 👻 👻 👻 👻 -->
+
+                <!-- 👻 👻 👻 👻 👻 👻 👻 👻 👻 👻 👻 👻 👻 👻 👻 👻 👻 👻 👻 👻 👻 👻 👻 👻 👻 👻 👻 👻 👻 👻 👻 -->
                 <!-- <div class="test-name-table">
 
                     <div *ngFor="let columnName of columnsNames; let e =  index">
@@ -483,14 +490,14 @@
                               columnName.includes('ratio') != true"
                             [style.font-size]=" (columnName.includes('name') == true)?'27px':'20px'"
                             [style.color]="(columnName.includes('name') == true)?'#324395':'#bababa'"
-                            style="text-align: center;padding: 10px 4px;">{{(testName[columnName].trim())}}</p>
+                            style="text-align: center;padding: 10px 4px;">{{(testName[columnName])}}</p>
 
                         <p *ngIf="y !== 0  && !editSingleTableCells && (columnName.includes('RadioColumn') != true) &&
                               columnName.includes('Comments') != true && selectedCard == y &&
                               columnName.includes('name') != true"
                             [style.font-size]=" (columnName.includes('name') == true)?'27px':'20px'"
                             [style.color]="(columnName.includes('name') == true)?'#324395':'#bababa'"
-                            style="text-align: center;padding: 5px 4px;">{{(testName[columnName].trim())}}</p>
+                            style="text-align: center;padding: 5px 4px;">{{(testName[columnName])}}</p>
 
 
                     </div>
