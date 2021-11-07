@@ -280,7 +280,7 @@ export class ProjectReportsComponent
         this._BmxService.getBrandMatrixByProjectAllUserAnswers(this.projectId).subscribe((brandMatrix: any) => {
             if (brandMatrix.d.length > 0) {
                 const answersByAllUsers = JSON.parse(brandMatrix.d)
-               const milUsers = this.diplicateArrayMultiple(answersByAllUsers, 1)
+               const milUsers = this.diplicateArrayMultiple(answersByAllUsers, 250)
                 milUsers.forEach((userAnswer, userAnswerIndex) => {
                     this.categoryCounter = 0
                     JSON.parse(userAnswer.BrandMatrix).forEach(page => {

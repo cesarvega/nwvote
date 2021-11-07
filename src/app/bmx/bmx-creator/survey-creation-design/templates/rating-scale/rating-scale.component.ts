@@ -80,6 +80,15 @@ export class RatingScaleComponent implements OnInit {
         this.columnsNames.push(value)
       }
     });
+    this.columnsNames.push('RATE')
+
+    if (this.bmxItem.componentSettings[0].CRITERIA) {
+      this.bmxItem.componentText.forEach((item, index) => {
+        if (index == 0 ) {
+        }
+      })
+    }
+    // this.selectedCriteria = 'Fit to Compound Concept, and Overall Likeability'
   }
 
   maxRuleCounterMinus() {
@@ -392,6 +401,12 @@ export class RatingScaleComponent implements OnInit {
   }
 
   insertCommentBoxColumn() {
+    this.columnsNames.forEach(columnName => {
+      if (columnName.includes('Comments')) {
+        this.commentColumnCounter++
+        // this.RadioColumnList.push('RadioColumn' + this.commentColumnCounter)
+      }
+    });
     this.columnsNames.push('Comments' + (this.commentColumnCounter));
     this.bmxItem.componentText.forEach((object, index) => {
       let coulmnName = 'Comments' + this.commentColumnCounter
@@ -405,12 +420,9 @@ export class RatingScaleComponent implements OnInit {
   }
 
   insertRadioColumn() {
-
     this.columnsNames.push('RadioColumn' + (this.radioColumnCounter));
-    this.RadioColumnList.push('RadioColumn' + this.radioColumnCounter)
     this.bmxItem.componentText.forEach((object, index) => {
       let coulmnName = 'RadioColumn' + this.radioColumnCounter
-
       if (index == 0) {
         object[coulmnName] = this.radioColumnCounter
       } else {
@@ -418,8 +430,6 @@ export class RatingScaleComponent implements OnInit {
       }
     });
     this.radioColumnCounter++
-
-
   }
 
   saveRadioColumValue(name, y) {
@@ -464,12 +474,15 @@ export class RatingScaleComponent implements OnInit {
   }
 
   deleteColumn(columnName) {
-
     let temporary = []
     // REMOVE THE COLUMN FROM THE COLUMNS
-    this.columnsNames.forEach(element => {
+    this.columnsNames.forEach((element, index) => {
       if (element !== columnName) {
         temporary.push(element)
+        if (element.includes('Comments')) {
+          // this.RadioColumnList['RadioColumn' + this.commentColumnCounter] = undefined
+          this.commentColumnCounter--
+        }
       }
     });
     this.columnsNames = temporary;

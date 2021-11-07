@@ -166,14 +166,14 @@ export class SurveyMatrixComponent extends SurveyCreationDesignComponent impleme
                                     for (const key in templateRow) {
                                         if (key === 'nameCandidates' && templateRow[key] === answerRow[key]) {
                                             templateRow.CRITERIA.forEach((criteria, criteriaIndex) => {
-                                                criteria.RATE = answerRow.CRITERIA[criteriaIndex].RATE
-                                                criteria.STARS.forEach((starRow) => {
-                                                    if (starRow.id <= answerRow.CRITERIA[criteriaIndex].RATE) {
-                                                        starRow.styleClass = 'active-rating-star'
-                                                    }
-
-                                                });
-
+                                                if (answerRow.CRITERIA) {
+                                                    criteria.RATE = answerRow.CRITERIA[criteriaIndex].RATE
+                                                    criteria.STARS.forEach((starRow) => {
+                                                        if (starRow.id <= answerRow.CRITERIA[criteriaIndex].RATE) {
+                                                            starRow.styleClass = 'active-rating-star'
+                                                        }
+                                                    });
+                                                }
                                             });
                                             for (const key in templateRow) {
                                                 if (key.includes('Comments')) {
@@ -196,10 +196,6 @@ export class SurveyMatrixComponent extends SurveyCreationDesignComponent impleme
                             }
 
                         }
-
-
-
-
                     });
                 }
                 // ❤️❤️❤️❤️❤️❤️❤️❤️❤️❤️❤️❤️❤️❤️❤️❤️❤️❤️❤️❤️❤️❤️❤️❤️❤️❤️❤️❤️❤️❤️❤️❤️❤️❤️❤️❤️❤️❤️❤️❤️❤️❤️❤️
@@ -293,7 +289,6 @@ export class SurveyMatrixComponent extends SurveyCreationDesignComponent impleme
                                 if (index > 0) {
                                     for (const key in templateRow) {
                                         if (key === 'nameCandidates' && templateRow[key] === answerRow[key]) {
-
                                             templateRow.RATE = answerRow.RATE
                                             templateRow.SELECTED_ROW = answerRow.SELECTED_ROW
                                             templateRow.STARS.forEach(starRow => {
@@ -328,14 +323,14 @@ export class SurveyMatrixComponent extends SurveyCreationDesignComponent impleme
                                     for (const key in templateRow) {
                                         if (key === 'nameCandidates' && templateRow[key] === answerRow[key]) {
                                             templateRow.CRITERIA.forEach((criteria, criteriaIndex) => {
-                                                criteria.RATE = answerRow.CRITERIA[criteriaIndex].RATE
-                                                criteria.STARS.forEach((starRow) => {
-                                                    if (starRow.id <= answerRow.CRITERIA[criteriaIndex].RATE) {
-                                                        starRow.styleClass = 'active-rating-star'
-                                                    }
-
-                                                });
-
+                                                if (answerRow.CRITERIA) {
+                                                    criteria.RATE = answerRow.CRITERIA[criteriaIndex].RATE
+                                                    criteria.STARS.forEach((starRow) => {
+                                                        if (starRow.id <= answerRow.CRITERIA[criteriaIndex].RATE) {
+                                                            starRow.styleClass = 'active-rating-star'
+                                                        }
+                                                    });
+                                                }
                                             });
                                             for (const key in templateRow) {
                                                 if (key.includes('Comments')) {
