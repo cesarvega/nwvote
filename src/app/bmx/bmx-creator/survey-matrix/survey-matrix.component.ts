@@ -110,7 +110,6 @@ export class SurveyMatrixComponent extends SurveyCreationDesignComponent impleme
             }
         })
     }
-
     dragAndDropCounter = 0
     matchAnswersAndTemplateMatrix(templateRow, answers, templateComponent) {
 
@@ -132,7 +131,6 @@ export class SurveyMatrixComponent extends SurveyCreationDesignComponent impleme
                                 if (index > 0) {
                                     for (const key in templateRow) {
                                         if (key === 'nameCandidates' && templateRow[key] === answerRow[key]) {
-
                                             templateRow.RATE = answerRow.RATE
                                             templateRow.STARS.forEach(starRow => {
                                                 if (starRow.id <= answerRow.RATE) {
@@ -145,7 +143,6 @@ export class SurveyMatrixComponent extends SurveyCreationDesignComponent impleme
                                                         templateRow[key] = answerRow[key]
                                                         answerComponent.componentText.splice(index, 1)
                                                     }
-
                                                 } else if (key.includes('RadioColumn')) {
                                                     if (index > 0) {
                                                         templateRow[key] = answerRow[key]

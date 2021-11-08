@@ -76,11 +76,11 @@ export class RatingScaleComponent implements OnInit {
     let values = Object.keys(this.bmxItem.componentText[0])
 
     values.forEach(value => {
-      if (typeof value == "string" && value != "STARS" && value != "CRITERIA" && value != "RATE") {
+      if (typeof value == "string" && value != "STARS" && value != "CRITERIA") {
         this.columnsNames.push(value)
       }
     });
-    this.columnsNames.push('RATE')
+    // this.columnsNames.push('RATE')
 
     if (this.bmxItem.componentSettings[0].CRITERIA) {
       this.bmxItem.componentText.forEach((item, index) => {
@@ -272,11 +272,13 @@ export class RatingScaleComponent implements OnInit {
       this.columnsNames = [];
       this.columnsNames = rows[0].toLowerCase().split("\t");
 
+      let nameCandidatesCounter = 0
       this.extraColumnCounter = 1
       this.columnsNames.forEach((column, index) => {
         column = column.toLowerCase()
-        if (column == 'name candidates' || column == 'test names' || column == 'names' || column == 'questions') {
+        if (nameCandidatesCounter == 0 && column.includes('candidates') || column == 'questions') {
           this.columnsNames[index] = 'nameCandidates'
+          nameCandidatesCounter++
         } else
          if (column == 'name rationale' || column == 'rationale' || column == 'rationales') {
           this.columnsNames[index] = 'rationale'
@@ -371,7 +373,7 @@ export class RatingScaleComponent implements OnInit {
       const unionMinusInter  = this.unionMinusIntersection(array, newArray)
       const nameCandidates = this.spreadArray(unionMinusInter)
       this._snackBar.open(`You have  ${array.length - newArray.length} duplicates removed: "${nameCandidates.join(', ')}" 🍕`, 'OK', {
-        duration: 8000,
+        duration: 10000,
         verticalPosition: 'top',
       })
     }
@@ -482,7 +484,33 @@ export class RatingScaleComponent implements OnInit {
       this.columnsNames[i] = this.columnsNames[i + 1];
     }
     this.columnsNames[this.columnsNames.length - 1] = temp;
+
+    let newRow = {}
+    this.bmxItem.componentText.forEach((row, rowIndex) => {
+      for (let i = 0; i < this.columnsNames.length - 1; i++) {
+        Object.keys(row).forEach(key => {  
+          if (this.columnsNames[i] == key) {
+            newRow[key] = row[key]
+          }
+        })
+      }
+      
+      this.bmxItem.componentText[rowIndex] = this.mergeObjects(newRow, row)
+    });
   }
+
+  mergeObjects(obj1, obj2) {
+    let obj3 = {};
+    for (let attrname in obj1) {
+      obj3[attrname] = obj1[attrname];
+    }
+
+    for (let attrname in obj2) {
+      obj3[attrname] = obj2[attrname];
+    }
+    return obj3;
+  }
+
 
   deleteColumn(columnName) {
     let temporary = []
@@ -602,4 +630,63 @@ export class RatingScaleComponent implements OnInit {
     { name: 'Overall Likeability', rate: 0 },
     { name: 'How the test name works alongside the name CUVITRU?', rate: 0 },
   ]
+
+    // digitsManipulations
+    // (n) {
+    //   let sum = 0;
+    //   let product = 1;
+    //   let num = n;
+
+    //   while (num > 0) {
+    //     sum += num % 10;
+    //     product *= num % 10;
+    //     num = Math.floor(num / 10);
+    //   }
+
+    //   return product - sum;
+    // }
+
+
+    // addKbeforeFs(s, k) {
+    //   let arr = s.split('');
+    //   let newArr = [];
+
+    //   for (let i = 0; i < arr.length; i++) {
+    //     if (arr[i] === 'f') {
+    //       newArr.push(k);
+    //     } else {
+    //       newArr.push(arr[i]);
+    //     }
+    //   }
+
+    //   return newArr.join('');
+    // }
+
+    // addKbeforeFs(text: string) {
+    //   let arr = text.split('');
+    //   let newArr = [];
+
+    //   for (let i = 0; i < arr.length; i++) {
+    //     if (arr[i] === 'f') {
+    //       newArr.push('k');
+    //     } else {
+    //       newArr.push(arr[i]);
+    //     }
+    //   }
+
+    //   return newArr.join('');
+    // }
+
+    // addKbeforeFs(text: string) {
+
+
+//  attribute selector directive
+//  <div [attr.class]="className"></div>
+//  <div [attr.class]="{'class1': true, 'class2': false}"></div>
+
+// at witch point of the application lifecycle a service is created
+//  ngOnInit() {
+
+
+
 }

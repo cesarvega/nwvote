@@ -21,7 +21,7 @@ import { ActivatedRoute } from '@angular/router';
 })
 export class ProjectReportsComponent
     implements OnInit {
-    @Input() isMenuActive11 = true;
+    @Input() isMenuActive11: boolean = true;
     @Input() bmxClientPageDesignMode = false;
     @Input() bmxClientPageOverview = false;
     isMobile = true

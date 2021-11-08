@@ -365,7 +365,7 @@ export class SurveyCreationDesignComponent implements OnInit {
             minRule: 0,
             maxRule: 0,
             fontSize: 16,
-            columnWidth: 150,
+            columnWidth: 175,
             rationalewidth: 250,
             rowHeight: 2,
             radioColumnsWidth: 75,
