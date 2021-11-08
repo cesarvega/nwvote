@@ -67,7 +67,7 @@
 
         <mat-form-field style="width: 90%;margin-left: 20px;" appearance="outline">
             <mat-label>Copy & Paste TEST NAMES</mat-label>
-            <textarea matInput rows="4" cols="50" [(ngModel)]="testNamesInput"
+            <textarea matInput rows="4" cols="50" [(ngModel)]="testNamesInput" (paste)="onPaste()"
                 placeholder="ENHANCE,Hance, En-,EVOLVE,Evo,GUARD,Gard, Guard,INVEST,In, Inv,OMNI,Omni,OPTIMAL"></textarea>
         </mat-form-field>
 
@@ -86,13 +86,13 @@
         <div style="display: flex;flex-direction: column;justify-content: center;gap: 10px;">
             <div style="font-size: 16px;margin-top: 10px;color: #48535e;text-align: center;">MIN:
                 {{bmxItem.componentSettings[0].minRule}}</div>
-            <input type="range" min="0" max="10" [(ngModel)]="bmxItem.componentSettings[0].minRule"
+            <input type="range" min="0" [max]="rowsCount" [(ngModel)]="bmxItem.componentSettings[0].minRule"
                 style="width:120px; padding: 0px 10px;" [value]="bmxItem.componentSettings[0].minRule">
         </div>
         <div style="display: flex;flex-direction: column;justify-content:center;gap: 10px;">
             <div style="font-size: 16px;margin-top: 10px;color: #48535e;text-align: center;">MAX:
                 {{bmxItem.componentSettings[0].maxRule}}</div>
-            <input type="range" min="0" max="10" [(ngModel)]="bmxItem.componentSettings[0].maxRule"
+            <input type="range" min="0" [max]="rowsCount" [(ngModel)]="bmxItem.componentSettings[0].maxRule"
                 style="width:120px; padding: 0px 10px;" [value]="bmxItem.componentSettings[0].maxRule">
         </div>
 
@@ -100,8 +100,30 @@
     </div>
     <hr>
 
-    <div
-        style="text-align: center;display: flex;flex-direction: row;justify-content: space-around;align-items: center;">
+    <div style="text-align: center;display: flex;flex-direction: row;justify-content: space-around;align-items: center;">
+
+
+        <div style="display: flex;flex-direction: column;">
+            <div style="font-size: 12px;color: #48535e;">TYPE NEW CRITERIA</div>
+            <div style="display: flex;">
+                <input type="text" [(ngModel)]="newCriteria"
+                style="font-size: 12px;color: #324395;padding-bottom: 7px;padding-left: 10px; width: 290px;">
+                <mat-icon style="cursor: pointer;font-size: 33px;color: #324395;" (click)="addCriteria(newCriteria);newCriteria=''">add_box</mat-icon>
+            </div>
+            <mat-form-field appearance="outline" style="margin: 0px;">
+                <mat-label>choose criteria</mat-label>
+                <mat-select multiple [(ngModel)]="selectedCriteria"
+                    (selectionChange)="criteriaSelection(selectedCriteria)" >
+                    <mat-option *ngFor="let cirteriaItem of CRITERIA; let c = index" [value]="cirteriaItem">{{cirteriaItem.name}}
+                        <mat-icon  matTooltip="double click to delete criteria" matTooltipPosition="right"
+                        style="cursor: pointer;font-size: 15px;color: #ee7f25;" (dblclick)="deleteCriteria(c);">cancel</mat-icon>
+                    </mat-option>
+                </mat-select>
+            </mat-form-field>
+
+
+        </div>
+
         <div>
             <div style="font-size: 16px;margin-top: 10px;color: #48535e;">SELECT RATING RANGE</div>
             <br>
@@ -112,23 +134,6 @@
             </div>
             <label for="volume">{{rankingScaleValue}}</label>
 
-
-        </div>
-
-        <div>
-            <!-- <mat-form-field appearance="outline">
-                <mat-label>choose criteria</mat-label>
-                <mat-select multiple [(ngModel)]="selectedCriteria"
-                    (selectionChange)="criteriaSelection(selectedCriteria)">
-                    <mat-option *ngFor="let cirteriaItem of CRITERIA" [value]="cirteriaItem">{{cirteriaItem.name}}
-                    </mat-option>
-                </mat-select>
-            </mat-form-field> -->
-            <div style="font-size: 16px;color: #48535e;">TYPE CRITERIA</div>
-            <br>
-            <input type="text" [(ngModel)]="selectedCriteria" [value]="selectedCriteria"
-                placeholder="type criteria e.g "
-                style="font-size: 12px;color: #324395;padding-bottom: 7px;padding-left: 10px; width: 380px;">
 
         </div>
 
@@ -225,9 +230,9 @@
             <!-- <div *ngIf="(y !== 0)" style="color: white;font-size: xx-small;">.</div> -->
             <div class="test-name-table">
 
-                <div *ngFor="let columnName of columnsNames; let e =  index" style="display: flex;align-items: center;justify-content: center;" 
-                    [ngClass]="(columnName.includes('Comments') == true)?'red':'blue'"
-                    [style.width]="(columnName == 'rationale')?bmxItem.componentSettings[0].rationalewidth + 'px': 
+                <div *ngFor="let columnName of columnsNames; let e =  index"
+                    style="display: flex;align-items: center;justify-content: center;"
+                    [ngClass]="(columnName.includes('Comments') == true)?'red':'blue'" [style.width]="(columnName == 'rationale')?bmxItem.componentSettings[0].rationalewidth + 'px': 
                 ( (columnName.includes('RadioColumn'))?bmxItem.componentSettings[0].radioColumnsWidth + 'px' :
                 bmxItem.componentSettings[0].columnWidth + 'px' )">
 
@@ -235,7 +240,7 @@
                     <div *ngIf="(y == 0)" class="header-title " (mouseenter)="selectedColumn = e"
                         (mouseleave)="selectedColumn = ''">
                         <div style="display: flex;flex-direction: row;justify-content: space-between;">
-                           
+
                             <span *ngIf="selectedColumn === e && bmxClientPageOverview" class="header-delete-icon"
                                 matTooltip="double click to delete column" matTooltipPosition="above"
                                 (dblclick)="deleteColumn(columnName)">x</span>
@@ -249,8 +254,8 @@
                                 [style.font-size]="bmxItem.componentSettings[0].fontSize +'px'"
                                 *ngIf=" !editSingleTableCells">{{testName[columnName]}}
                             </p>
-                            <mat-icon *ngIf="selectedColumn === e && bmxClientPageOverview" 
-                            style="cursor: pointer;" (click)="swapColumns(e)">chevron_right</mat-icon>
+                            <mat-icon *ngIf="selectedColumn === e && bmxClientPageOverview" style="cursor: pointer;"
+                                (click)="swapColumns(e)">chevron_right</mat-icon>
                         </div>
                     </div>
 
