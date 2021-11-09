@@ -32,7 +32,7 @@ export class ProjectInformationComponent implements OnInit {
   constructor(private _BmxService: BmxService, private _snackBar: MatSnackBar) { }
   settingsData = {
     SalesBoardProjectList: [],
-    DepartmentList: '',
+    DepartmentList: [],
     OfficeList: [],
     LanguageList: '',
     DirectorList: []
@@ -173,6 +173,7 @@ export class ProjectInformationComponent implements OnInit {
       var so = result;
     });
     this._snackBar.open('Saved Succesfully');
+    localStorage.setItem('department',  this.bmxEditData.get('bmxDepartment').value.toString());
   }
 
 

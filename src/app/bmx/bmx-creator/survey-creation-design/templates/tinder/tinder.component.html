@@ -1,14 +1,14 @@
 <!-- ➗➗➗➗➗➗➗➗➗➗➗➗➗➗➗➗➗➗➗  SETTINGS ICONS  ➗➗➗➗➗➗➗➗➗➗➗➗➗➗➗➗➗ -->
 <div *ngIf="bmxClientPageOverview">
-    <button (click)="selectedIndex = ''" class="add-column" matTooltip="cancel" matTooltipPosition="above"
+    <!-- <button (click)="selectedIndex = ''" class="add-column" matTooltip="cancel" matTooltipPosition="above"
         style=" margin: -50px 29px;" *ngIf="i === selectedIndex" mat-icon-button>
         <mat-icon style="font-size: 25px;" class="full-icon">check_circle</mat-icon>
-    </button>
+    </button> -->
     <button (click)="selectedIndex = i" class="add-column" matTooltip="edit table content & settings"
         matTooltipPosition="above" style=" margin: -50px 29px;" *ngIf="i !== selectedIndex" mat-icon-button>
         <mat-icon style="font-size: 25px;" class="full-icon">edit</mat-icon>
     </button>
-    <button (click)="insertTextColumn()" class="add-column" style=" margin: -50px 65px;" matTooltip="add Text column"
+    <!-- <button (click)="insertTextColumn()" class="add-column" style=" margin: -50px 65px;" matTooltip="add Text column"
         matTooltipPosition="above" mat-icon-button aria-label="ranking">
         <mat-icon style="font-size: 26px;" class="full-icon">view_list</mat-icon>
     </button>
@@ -33,17 +33,17 @@
         style="margin: -50px  225px;" matTooltip="drag rows" matTooltipPosition="above" mat-icon-button
         aria-label="ranking">
         <mat-icon style="font-size: 26px;" class="full-icon">drag_indicator</mat-icon>
-    </button>
-    <button (click)="deleteRows = !deleteRows" [ngClass]="(!deleteRows)?'add-column':'add-column-active'"
-        style="margin: -50px 255px;" matTooltip="delete rows" matTooltipPosition="above" mat-icon-button
+    </button>-->
+    <button (click)="resetVotes()" [ngClass]="(!deleteRows)?'add-column':'add-column-active'"
+        style=" margin: -50px 65px;" matTooltip="delete rows" matTooltipPosition="above" mat-icon-button
         aria-label="ranking">
         <mat-icon style="font-size: 26px;" class="full-icon">delete_outline</mat-icon>
     </button>
-    <button (click)="isColumnResizerOn = !isColumnResizerOn"
+    <!-- <button (click)="isColumnResizerOn = !isColumnResizerOn"
         [ngClass]="(!isColumnResizerOn)?'add-column':'add-column-active'" style="margin: -50px 290px;"
         matTooltip="columns width" matTooltipPosition="above" mat-icon-button aria-label="ranking">
         <mat-icon style="font-size: 26px;" class="full-icon">swap_horizontal_circle</mat-icon>
-    </button>
+    </button>  -->
 
 </div>
 <!-- ➗➗➗➗➗➗➗➗➗➗➗➗➗➗➗➗➗➗➗  END  ➗➗➗➗➗➗➗➗➗➗➗➗➗➗➗➗➗ -->
@@ -217,16 +217,16 @@
                     bmxItem.componentText[testNameIndex].rationale:'Rationale of an undisclosed length'}}
                 </div>
                 <textarea name="comments" placeholder="comments" style="width: 100%;
-                padding: 20px;"></textarea>
+                padding: 20px;"  [(ngModel)]="bmxItem.componentText[testNameIndex].comments"></textarea>
                 <div style="display: flex;flex-direction:row;justify-content: center;align-items: center;gap: 110px;">
 
                     <mat-icon (click)="voteName('negative')" style="font-size: 65px;color: #ee252f;cursor: pointer;"
                         class="full-icon">highlight_off</mat-icon>
-                
+
 
                     <mat-icon (click)="voteName('positive')" style="font-size: 65px;color: #00cd38;cursor: pointer;"
                         class="full-icon">sentiment_satisfied_alt</mat-icon>
-                  
+
                 </div>
 
             </div>
@@ -245,37 +245,51 @@
 <div class="mobile">
     <div style="display: flex;flex-direction: column;text-align: center;">
 
-        <div style="font-size: 25px;color: #324395;padding-bottom: 10px;margin: 5px;">
-            {{bmxItem.componentSettings[0].categoryName}}
+        <div style="font-size: 25px;color: #324395;padding-bottom: 10px;">{{bmxItem.componentSettings[0].categoryName}}
         </div>
-        <div style="font-size: 18px;color: #ee7f25;padding-bottom: 20px;margin: 10px;">
+        <div style="font-size: 18px;color: #ee7f25;padding-bottom: 20px;">
             {{bmxItem.componentSettings[0].categoryDescription}}</div>
 
     </div>
     <div class="scroller-style main-container">
 
-        <div style="border: #bababa 2px solid;height: 442px;
-        width:310px;display: flex;flex-direction:column;justify-content: space-around  ;align-items: center;gap: 10px">
+        <div style="display: flex;flex-direction: column;align-items: center;">
 
-            <div style="font-size: 40px;text-align: center;font-weight: bolder;">
-                {{'TEST NAME'}}
+
+            <div class="tinder-box">
+
+                <div [ngClass]="(!bmxItem.componentText[testNameIndex].vote)?'':(bmxItem.componentText[testNameIndex].vote === 'negative')?'positive':'negative'"
+                    style="font-size: 50px;text-align: center;font-weight: bolder;animation: fadeInRight 1s ease-in 0 1 forwards;">
+                    {{( bmxItem.componentText[testNameIndex].nameCandidates)?
+                    bmxItem.componentText[testNameIndex].nameCandidates:'TEST NAME'}}
+                </div>
+                <div style="font-size: 18px;text-align: center;color: #bababa;">
+                    {{( bmxItem.componentText[testNameIndex].rationale)?
+                    bmxItem.componentText[testNameIndex].rationale:'Rationale of an undisclosed length'}}
+                </div>
+                <textarea name="comments" placeholder="comments" style="width: 95%;
+                padding: 10px;height: 40px;" [(ngModel)]="bmxItem.componentText[testNameIndex].comments"></textarea>
+
+                <div style="display: flex;flex-direction:row;justify-content: space-around;align-items: center;width: 100%;position: absolute;
+                bottom: 80px;">
+
+                    <mat-icon (click)="moveleft()" style="font-size: 30px;color: grey;cursor: pointer;">
+                        chevron_left</mat-icon>
+
+                    <mat-icon (click)="voteName('negative')" style="font-size: 50px;color: #ee252f;cursor: pointer;">highlight_off</mat-icon>
+
+
+                    <mat-icon (click)="voteName('positive')" style="font-size: 50px;color: #00cd38;cursor: pointer;">sentiment_satisfied_alt</mat-icon>
+
+                    <mat-icon (click)="moveRight()" style="font-size: 30px;color: grey;cursor: pointer;">
+                        chevron_right</mat-icon>
+                </div>
+
             </div>
-            <div style="font-size: 20px;text-align: center;color: #bababa;max-width: 500px;">
-                {{'ORal New Chemical Entity Aiming to Slow Disease Trajectory in Early Parkinson’s'}}
-            </div>
-            <textarea name="comments" placeholder="comments" style="max-width: 450px;
-                padding: 20px;"></textarea>
-            <div style="display: flex;flex-direction:row;justify-content: center;align-items: center;gap: 110px;">
-                <button matRipple [matRippleCentered]="true" mat-icon-button style="outline: none;">
-                    <mat-icon style="font-size: 65px;color: brown;" class="full-icon">cancel</mat-icon>
-                </button>
-                <button matRipple [matRippleCentered]="true" mat-icon-button style="outline: none;">
-                    <mat-icon style="font-size: 65px;color: green;" class="full-icon">check</mat-icon>
-                </button>
-            </div>
+
+
 
         </div>
-
     </div>
 </div>
 

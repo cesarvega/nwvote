@@ -46,15 +46,17 @@ export class ParticipantsEmailComponent implements OnInit {
     { name: 'General Link', rationale: 'Hance, En-' },
   ];
 
-  EMAIL_TEMPLATES = [
-    { name: 'Clinical Trial', rationale: 'Sist, Assist, Syst' },
-    { name: 'Consumer', rationale: 'Hance, En-' },
+  /*EMAIL_TEMPLATES = [
+    { name: 'Design', rationale: 'Sist, Assist, Syst' },
+    { name: 'Creative', rationale: 'Hance, En-' },
     { name: 'Contest/Namepage', rationale: 'Evo' },
     { name: 'Nonproprietary Name', rationale: 'Gard, Guard' },
     { name: 'Nonproprietary Suffix', rationale: 'Gard, Guard' },
     { name: 'Logo', rationale: 'Gard, Guard' },
     { name: 'Pharmaceutical/Rx', rationale: 'Gard, Guard' }
-  ];
+  ];*/
+
+  EMAIL_TEMPLATES = ['Creative', 'Design', 'Nonproprietary'];
 
   model = {
     editorData: '',
@@ -101,8 +103,8 @@ export class ParticipantsEmailComponent implements OnInit {
       this.allData = JSON.parse(arg.d).ParticipantList;
       this.changeView();
     });
-
-
+    this.emailTemp = 'Creative';
+    this.changeTemplate('Creative');
 
    
     this.selection = new SelectionModel<any>(true, []);
@@ -194,19 +196,75 @@ export class ParticipantsEmailComponent implements OnInit {
 
   changeTemplate(template: any): void 
   {
-    if(template.name === 'Clinical Trial')
+    if(template === 'Creative')
     {
-      this.brandMatrixObjects[1].componentText = 'The top value is false';
+      this.brandMatrixObjects[1].componentText = `Dear NAMEOFUSER,<br><br>
+
+      Brand Institute has been contracted to create a brand name for (insert description of what is being named here).  The internal name for this project is PROJECTNAME.  You have been chosen to vote for your favorite names via our online BrandMatrix™ prioritization survey.<br><br>
+      
+      To access the online voting site, please click on the link below to be logged in automatically. Voting instructions are provided in the link and will only take a few minutes of your time.<br><br>
+      
+      Your link:<br>
+      https://brandmatrix.brandinstitute.com/SURVEYNAME/index.asp/custom_link<br>
+      (if you cannot click on the link, please copy and paste into your browser)<br><br>
+      
+      Your input is valued.  Please place your votes by (insert closing date and time). We hope you enjoy this interactive exercise!<br><br>  
+      
+      Best regards,<br><br>
+      
+      DIRECTOR NAME<br>
+      Email<br>
+      Number<br><br>
+      
+      Should you experience any difficulty with this survey, please contact us or your project team leader immediately.`
 
     }
-    else if(template.name === 'Consumer')
+    else if(template === 'Nonproprietary')
     {
-      this.brandMatrixObjects[1].componentText = 'The bottom value is true';
+      this.brandMatrixObjects[1].componentText = `Dear NAMEOFUSER,<br><br>
+
+      Brand Institute has been contracted to create a nonproprietary (USAN/INN) name for (insert nonproprietary name or product description).  The internal name for this project is PROJECTNAME.  You have been chosen to vote for your favorite names via our online BrandMatrix™ prioritization survey.<br><br>
+      
+      To access the online voting site, please click on the link below to be logged in automatically. Voting instructions are provided in the link and will only take a few minutes of your time.<br><br>
+      
+      Your link:<br>
+      https://brandmatrix.brandinstitute.com/SURVEYNAME/index.asp/custom_link<br>
+      (if you cannot click on the link, please copy and paste into your browser)<br><br>
+      
+      Your input is valued.  Please place your votes by (insert closing date and time). We hope you enjoy this interactive exercise!<br><br>  
+      
+      Best regards,<br><br>
+      
+      DIRECTOR NAME<br>
+      Email<br>
+      Number<br><br>
+      
+      Should you experience any difficulty with this survey, please contact us or your project team leader immediately.
+      `;
 
     }
     else
     {
-      this.brandMatrixObjects[1].componentText = 'Drugs are bad kids';
+      this.brandMatrixObjects[1].componentText = `Dear NAMEOFUSER,<br><br>
+
+      Brand Institute has been contracted to create a visual identity for (insert description of what the logo is being developed for).  The internal name for this project is PROJECTNAME.  You have been chosen to vote for your favorite logo options via our online BrandMatrix™ prioritization survey.<br><br>
+      
+      To access the online voting site, please click on the link below to be logged in automatically. Voting instructions are provided in the link and will only take a few minutes of your time.<br><br>
+      
+      Your link:<br>
+      https://brandmatrix.brandinstitute.com/SURVEYNAME/index.asp/custom_link<br>
+      (if you cannot click on the link, please copy and paste into your browser)<br><br>
+      
+      Your input is valued.  Please place your votes by (insert closing date and time). We hope you enjoy this interactive exercise!<br><br>
+      
+      Best regards,<br><br>
+      
+      DIRECTOR NAME<br>
+      Email<br>
+      Number<br><br>
+      
+      Should you experience any difficulty with this survey, please contact us or your project team leader immediately.
+      `;
 
     }
   }

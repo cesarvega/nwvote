@@ -29,15 +29,7 @@
   }
 }
 
-.tinder-box {
-  height: 442px;
-  width: 90%;
-  display: flex;
-  flex-direction: column;
-  justify-content: space-around;
-  align-items: center;
-  gap: 10px;
-}
+
 
 .positive{
   color: #ed252f;
@@ -72,6 +64,16 @@
     display: flex;
     flex-direction: row;
   }
+
+  .tinder-box {
+    height: 442px;
+    width: 90%;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+    align-items: center;
+    gap: 10px;
+  }
 }
 
 @media (max-width: 576px) {
@@ -92,7 +94,8 @@
   }
 
   .mobile {
-    padding-bottom: 30px;
+    padding-bottom: 40px;
+    height: 50vh;
   }
 
   .selectedCard {
@@ -100,6 +103,15 @@
   }
   .noSelectedCard {
     right: 7px;
+  }
+  .tinder-box {
+    // height: 442px;
+    width: 90%;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+    align-items: center;
+    gap: 30px;
   }
 }
 
