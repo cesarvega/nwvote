@@ -30,6 +30,34 @@
     }
 }
 
+@media print
+{    
+    .no-print, .no-print *
+    {
+        display: none !important;
+    }
+}
+
+.bmx-page {
+    // width: 628%;
+    height: 90.8vh;
+    width: 100vw;
+    overflow-y: unset !important;
+    box-shadow: unset !important;
+}
+
+.full-icon:hover {
+    transform: scale(2);
+    color: #ee7f25;
+}
+.full-icon {
+    color: #0bd659;
+    font-size: 20px;
+    transition: all 0.1s ease-in-out;
+    text-shadow: 0 0.04em 0.04em rgba(0, 0, 0, 0.35);
+    box-shadow: inset inset 0px 0px 5px #0bd659;
+}
+
 .paragraph {
     display: flex;
     flex-direction: column;

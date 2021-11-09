@@ -4926,4 +4926,44 @@ export class SurveyMatrixComponent extends SurveyCreationDesignComponent impleme
             ]
         }
     ]
+
+    bmxList = [
+        {
+            client: 'UCB',
+            salesBoard: 'BMTEST001',
+            projectName: 'BMTEST001',
+            department: 'creative',
+            office: 'Miami',
+            created: 'new date',
+            closeDate: 'new date',
+            directors: [],
+        },
+        {
+            client: 'UCB',
+            salesBoard: 'BMTEST002',
+            projectName: 'BMTEST002',
+            department: 'creative',
+            office: 'Miami',
+            created: 'new date',
+            closeDate: 'new date',
+            directors: [],
+        },
+        {
+            client: 'UCB',
+            salesBoard: 'BMTEST003',
+            projectName: 'BMTEST003',
+            department: 'creative',
+            office: 'Miami',
+            created: 'new date',
+            closeDate: 'new date',
+            directors: [],
+        },
+    ]
+
+
 }
+
+//create an object with fields client, salesBoard, projectName, department, office, created, closeDate, directors
+
+
+

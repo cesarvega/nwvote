@@ -21,7 +21,7 @@ import { ActivatedRoute } from '@angular/router';
 })
 export class ProjectReportsComponent
     implements OnInit {
-    @Input() isMenuActive11: boolean = true;
+    @Input() isMenuActive16: boolean = true;
     @Input() bmxClientPageDesignMode = false;
     @Input() bmxClientPageOverview = false;
     isMobile = true
@@ -280,7 +280,7 @@ export class ProjectReportsComponent
         this._BmxService.getBrandMatrixByProjectAllUserAnswers(this.projectId).subscribe((brandMatrix: any) => {
             if (brandMatrix.d.length > 0) {
                 const answersByAllUsers = JSON.parse(brandMatrix.d)
-               const milUsers = this.diplicateArrayMultiple(answersByAllUsers, 250)
+                const milUsers = this.diplicateArrayMultiple(answersByAllUsers, 250)
                 milUsers.forEach((userAnswer, userAnswerIndex) => {
                     this.categoryCounter = 0
                     JSON.parse(userAnswer.BrandMatrix).forEach(page => {
@@ -292,24 +292,24 @@ export class ProjectReportsComponent
                                 component.componentType == 'narrow-down' ||
                                 component.componentType == 'tinder' ||
                                 component.componentType == 'question-answer'
-                            ) { 
+                            ) {
                                 this.categoryCounter++
                                 if (userAnswerIndex == 0) {
                                     let categoryObj = new Object();
-                                    categoryObj['category_'+ this.categoryCounter] = []
+                                    categoryObj['category_' + this.categoryCounter] = []
                                     this.BMX_REPORT.push(categoryObj)
                                 }
                                 component.componentText.forEach((row, rowIndex) => {
                                     if (rowIndex > 0) {
-                                        this.computerReport(row, component, userAnswer.Username, 
-                                            this.BMX_REPORT[this.categoryCounter-1]['category_'+ (this.categoryCounter)]);
+                                        this.computerReport(row, component, userAnswer.Username,
+                                            this.BMX_REPORT[this.categoryCounter - 1]['category_' + (this.categoryCounter)]);
                                     }
                                 });
                                 this.REPORT_DATA_MAP.set(this.categoryCounter, this.REPORT_DATA);
                             }
                         });
                     });
-                }); 
+                });
 
                 let sortIngArray = []
                 let categorySortedgArray = []
@@ -317,31 +317,32 @@ export class ProjectReportsComponent
                     const sortedCategory = Object.keys(category)[0]
                     Object.keys(category[sortedCategory]).forEach((key, keyIndex) => {
                         this.BMX_REPORT[categoryIndex][sortedCategory][key].totalScore
-                        sortIngArray.push({nameCandidates:key, 
-                            score:this.BMX_REPORT[categoryIndex][sortedCategory][key].totalScore,
-                            comments:this.BMX_REPORT[categoryIndex][sortedCategory][key].comments
+                        sortIngArray.push({
+                            nameCandidates: key,
+                            score: this.BMX_REPORT[categoryIndex][sortedCategory][key].totalScore,
+                            comments: this.BMX_REPORT[categoryIndex][sortedCategory][key].comments
                         })
                     });
                     categorySortedgArray.push(this.sortArrayByTwoProperties(sortIngArray, 'score', 'nameCandidates'))
                     sortIngArray = []
                 });
-                console.table( categorySortedgArray[0]);
-                console.log( this.BMX_REPORT);
+                console.table(categorySortedgArray[0]);
+                console.log(this.BMX_REPORT);
                 console.log(categorySortedgArray);
             }
         })
     }
 
-   
+
     computerReport(row, templateComponent, username, REPORT_DATA) {
         // 💜💜💜💜💜💜💜💜💜💜💜💜💜💜💜💜💜💜💜💜💜💜💜💜💜💜💜💜💜💜💜💜💜💜💜💜💜💜💜💜💜💜💜
-        if (templateComponent.componentType == 'rate-scale' || templateComponent.componentType == 'image-rate-scale'|| 
+        if (templateComponent.componentType == 'rate-scale' || templateComponent.componentType == 'image-rate-scale' ||
             templateComponent.componentType == 'ranking-scale') {
             if (templateComponent.componentSettings[0].CRITERIA) {
                 if (REPORT_DATA[row.nameCandidates]) {
-                        REPORT_DATA[row.nameCandidates].scores.forEach((Score, scoreIndex) => {
-                            Score.score += row.CRITERIA[scoreIndex].RATE
-                        });
+                    REPORT_DATA[row.nameCandidates].scores.forEach((Score, scoreIndex) => {
+                        Score.score += row.CRITERIA[scoreIndex].RATE
+                    });
                     if (row.Comments1?.length > 0) {
                         REPORT_DATA[row.nameCandidates].comments.push({ userName: username, comment: row.Comments1 })
                     }
@@ -384,8 +385,8 @@ export class ProjectReportsComponent
 
             // console.count('rows')
             //    console.timeLog()
-        } 
-        
+        }
+
         // ❤️❤️❤️❤️❤️❤️❤️❤️❤️❤️❤️❤️❤️❤️❤️❤️❤️❤️❤️❤️❤️❤️❤️❤️❤️❤️❤️❤️❤️❤️❤️❤️❤️❤️❤️❤️❤️❤️❤️❤️❤️❤️❤️
 
         // else if (templateComponent.componentType == 'ranking-scale') {
@@ -1039,9 +1040,13 @@ export class ProjectReportsComponent
         window.open('survey/' + this.projectId + '/' + this.biUsername);
     }
 
+    print() {
+        window.print();
+    }
+
     // PRIVATE FUNCTIONS
-    private sortArrayByTwoProperties(array, prop1, prop2) {  
-        return array.sort(function(b, a) {
+    private sortArrayByTwoProperties(array, prop1, prop2) {
+        return array.sort(function (b, a) {
             if (a[prop1] < b[prop1]) {
                 return -1;
             } else if (a[prop1] > b[prop1]) {
@@ -1065,7 +1070,7 @@ export class ProjectReportsComponent
         }
         return result;
     }
-    
+
 
     SAMPLE_BMX = [
         {
