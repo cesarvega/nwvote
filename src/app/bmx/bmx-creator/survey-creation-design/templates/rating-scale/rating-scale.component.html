@@ -98,8 +98,8 @@
 
 
     </div>
-    <hr>
 
+    <hr>
     <div style="text-align: center;display: flex;flex-direction: row;justify-content: space-around;align-items: center;">
 
 
@@ -107,16 +107,19 @@
             <div style="font-size: 12px;color: #48535e;">TYPE NEW CRITERIA</div>
             <div style="display: flex;">
                 <input type="text" [(ngModel)]="newCriteria"
-                style="font-size: 12px;color: #324395;padding-bottom: 7px;padding-left: 10px; width: 290px;">
-                <mat-icon style="cursor: pointer;font-size: 33px;color: #324395;" (click)="addCriteria(newCriteria);newCriteria=''">add_box</mat-icon>
+                    style="font-size: 12px;color: #324395;padding-bottom: 7px;padding-left: 10px; width: 290px;">
+                <mat-icon style="cursor: pointer;font-size: 33px;color: #324395;"
+                    (click)="addCriteria(newCriteria);newCriteria=''">add_box</mat-icon>
             </div>
             <mat-form-field appearance="outline" style="margin: 0px;">
                 <mat-label>choose criteria</mat-label>
                 <mat-select multiple [(ngModel)]="selectedCriteria"
-                    (selectionChange)="criteriaSelection(selectedCriteria)" >
-                    <mat-option *ngFor="let cirteriaItem of CRITERIA; let c = index" [value]="cirteriaItem">{{cirteriaItem.name}}
-                        <mat-icon  matTooltip="double click to delete criteria" matTooltipPosition="right"
-                        style="cursor: pointer;font-size: 15px;color: #ee7f25;" (dblclick)="deleteCriteria(c);">cancel</mat-icon>
+                    (selectionChange)="criteriaSelection(selectedCriteria)">
+                    <mat-option *ngFor="let cirteriaItem of CRITERIA; let c = index" [value]="cirteriaItem">
+                        {{cirteriaItem.name}}
+                        <mat-icon matTooltip="double click to delete criteria" matTooltipPosition="right"
+                            style="cursor: pointer;font-size: 15px;color: #ee7f25;" (dblclick)="deleteCriteria(c);">
+                            cancel</mat-icon>
                     </mat-option>
                 </mat-select>
             </mat-form-field>
@@ -148,6 +151,17 @@
                 <mat-radio-button value="rectangle">
                 </mat-radio-button>
             </mat-radio-group>
+            <!-- <select>
+                <option value="">
+                    <mat-icon style="color:#e6ad11;">rectangle</mat-icon>
+                </option>
+                <option value="valid" selected>
+                    <mat-icon style="color:#76d354;">grade</mat-icon>
+                </option>
+                <option value="invalid">
+                    <mat-icon style="color:#e6ad11;">rectangle</mat-icon>
+                </option>
+            </select> -->
 
         </div>
         <button style="outline: none;color:#d35854;margin-bottom: 50px;" mat-icon-button (click)="selectedIndex = ''"
@@ -472,7 +486,73 @@
 
                     <!-- 🟡🟡🟡🟡🟡🟡🟡🟡🟡🟡🟡🟡🟡🟡 TABLE CELLS  🟡🟡🟡🟡🟡🟡🟡🟡🟡🟡🟡🟡🟡🟡🟡🟡 -->
                     <div>
+                        <!--⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️ STARS RENDERER ⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️ -->
+                        <div *ngIf="y !== 0  &&  columnName.includes('RATE') == true"
+                            style="display: flex;align-items: center;justify-content: center;">
+                            <div *ngIf="(y !== 0)">
+                                <div *ngIf="testName.CRITERIA; else elseBlock">
+                                    <div *ngFor="let criteria of testName.CRITERIA  let x =  index"
+                                        style="display: flex;flex-direction: column;justify-content: space-between;text-align: center;">
+                                        <span [style.font-size]="bmxItem.componentSettings[0].fontSize +'px'"
+                                            style="padding-top:6px;max-width: 200px;">{{criteria.name}}</span>
+                                        <div style="min-width: 200px;padding-bottom:6px">
+                                            <mat-icon *ngFor="let star of  criteria.STARS;"
+                                                (click)="setCriteriaRating(star.id,x,y)" [ngClass]="star.styleClass"
+                                                (mouseenter)="selectCriteriaStar(star.id,x,y)"
+                                                (mouseleave)="leaveCriteriaStar(y,x)"
+                                                style="outline: none;margin:1px 5px;font-size: 40px;">{{star.icon}}</mat-icon>
+                                        </div>
+                                    </div>
+                                </div>
+                                <ng-template #elseBlock>
+                                    <div style="position: relative;top: -5px;">
+                                        <mat-icon *ngFor="let star of  testName.STARS; let x =  index"
+                                            (click)="setRating(star.id,y)" [ngClass]="star.styleClass"
+                                            (mouseenter)="selectStar(star.id , y)" (mouseleave)="leaveStar(y)"
+                                            style="outline: none;margin:1px 5px;font-size: 40px;">{{star.icon}}</mat-icon>
+                                    </div>
+                                </ng-template>
+                            </div>
 
+                            <!-- 🩸🩸🩸🩸🩸🩸🩸🩸🩸🩸🩸🩸🩸 RATE BUTTONS 🩸🩸🩸🩸🩸🩸🩸🩸🩸🩸🩸🩸🩸🩸🩸🩸🩸🩸🩸🩸🩸🩸🩸🩸 -->
+                            <!-- <div style="display: flex;">
+                                <button
+                                    (click)="maxRuleCounterMinus();bmxItem.componentText[y]['RATE'] = 0;leaveStar(y)"
+                                    *ngIf="bmxItem.componentText[y]['RATE']>0 && y != 0 " style="background-color: #ee7f25;    
+                                    color: white;
+                                    min-width: 20px;
+                                    line-height: 19px;
+                                    padding: 2px 0px;
+                                    margin: -17px 9px;
+                                    position: absolute;
+                                    animation: rubberBand 700ms ease-in  forwards;" mat-button>{{bmxItem.componentText[y]['RATE']}}</button>
+                            </div> -->
+
+                            <!-- <div style="display: flex;gap: 60px;flex-direction: column;">
+                                <div *ngFor="let criteria of testName.CRITERIA  let x =  index">
+                                    <button (click)="criteria.RATE = 0;leaveCriteriaStar(y,x)"
+                                        *ngIf="criteria.RATE>0 && y != 0 " style="background-color: #ee7f25;    
+                                        color: white;
+                                        min-width: 20px;
+                                        line-height: 19px;
+                                        padding: 2px 0px;
+                                        margin: -3px 7px;
+                                        position: absolute;
+                                        animation: rubberBand 700ms ease-in  forwards;" mat-button>{{criteria.RATE}}</button>
+                                </div>
+                            </div> -->
+                            <!-- 🩸🩸🩸🩸🩸🩸🩸🩸🩸🩸🩸🩸🩸 END RATE BUTTONS 🩸🩸🩸🩸🩸🩸🩸🩸🩸🩸🩸🩸🩸🩸🩸🩸🩸🩸🩸🩸🩸🩸🩸🩸 -->
+
+                            <textarea *ngIf="y == 0 && editSingleTableCells"
+                                [style.font-size]="bmxItem.componentSettings[0].fontSize +'px'"
+                                style="text-align: center; font-weight: bold;color: #324395;" class="row-box"
+                                [(ngModel)]="bmxItem.componentSettings[0].ratingScaleTitle"
+                                value="bmxItem.componentSettings[0].ratingScaleTitle"></textarea>
+                            <div [style.font-size]="bmxItem.componentSettings[0].fontSize +'px'" class="rating-text"
+                                *ngIf="y == 0 && !editSingleTableCells">
+                                {{bmxItem.componentSettings[0].ratingScaleTitle}}</div>
+                        </div>
+                        <!--⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️ END STARS ⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️ -->
                         <!-- IF ELSE TEMPLATE INPUTS  -->
                         <input type="radio" *ngIf="y !== 0  &&  columnName.includes('RadioColumn') == true"
                             [name]="'rate' + y" [checked]="testName[columnName]"
@@ -485,13 +565,13 @@
                             <textarea *ngIf="y !== 0  && columnName.includes('Comments') == true && selectedCard == y"
                                 [style.width]="'95%'" [style.font-size]="bmxItem.componentSettings[0].fontSize +'px'"
                                 cdkTextareaAutosize [cdkAutosizeMinRows]="bmxItem.componentSettings[0].rowHeight" style="text-align: center;height: 32px;width: 358px;font-size: 16px;border: 1px solid grey;
-                            animation: bounceIn 500ms ease-in forwards;padding: 0 4px" class="row-box"
+                            animation: bounceIn 500ms ease-in forwards;padding: 0 4px;margin-bottom: 10px;" class="row-box"
                                 [(ngModel)]="testName[columnName]" placeholder="comments" rows="4" cols="50"></textarea>
                         </div>
 
                         <!-- TEST NAME -->
                         <p (click)="(selectedCard == y)?selectedCard = '':selectedCard = y" *ngIf="y !== 0  && !editSingleTableCells && (columnName.includes('RadioColumn') != true) &&
-                              columnName.includes('Comments') != true &&
+                              columnName.includes('Comments') != true &&  columnName.includes('RATE') != true &&
                               columnName.includes('kata') != true &&
                               columnName.includes('ratio') != true"
                             [style.font-size]=" (columnName.includes('name') == true)?'27px':'20px'"
@@ -499,7 +579,7 @@
                             style="text-align: center;padding: 10px 4px;">{{(testName[columnName])}}</p>
 
                         <p *ngIf="y !== 0  && !editSingleTableCells && (columnName.includes('RadioColumn') != true) &&
-                              columnName.includes('Comments') != true && selectedCard == y &&
+                              columnName.includes('Comments') != true && selectedCard == y &&  columnName.includes('RATE') != true &&
                               columnName.includes('name') != true"
                             [style.font-size]=" (columnName.includes('name') == true)?'27px':'20px'"
                             [style.color]="(columnName.includes('name') == true)?'#324395':'#bababa'"
@@ -510,7 +590,7 @@
                     <!-- 🟡🟡🟡🟡🟡🟡🟡🟡🟡🟡🟡🟡🟡🟡 END TABLE CELLS 🟡🟡🟡🟡🟡🟡🟡🟡🟡🟡🟡🟡🟡🟡🟡🟡 -->
                 </div>
                 <!--⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️ STARS RENDERER ⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️ -->
-                <div *ngIf="selectedCard == y" style="min-width: 230px;background-color:white;display: flex;align-items: center;
+                <!-- <div *ngIf="selectedCard == y" style="min-width: 230px;background-color:white;display: flex;align-items: center;
                 justify-content: center;animation: bounceIn 500ms ease-in  forwards;padding-top: 10px;">
                     <div *ngIf="(y !== 0)">
                         <div *ngIf="testName.CRITERIA; else elseBlock">
@@ -543,7 +623,7 @@
                         value="bmxItem.componentSettings[0].ratingScaleTitle"></textarea>
                     <div [style.font-size]="bmxItem.componentSettings[0].fontSize +'px'" class="rating-text"
                         *ngIf="y == 0 && !editSingleTableCells">{{bmxItem.componentSettings[0].ratingScaleTitle}}</div>
-                </div>
+                </div> -->
                 <!--⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️ END STARS ⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️ -->
 
             </div>
