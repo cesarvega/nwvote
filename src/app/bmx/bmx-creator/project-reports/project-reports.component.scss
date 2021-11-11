@@ -30,10 +30,9 @@
     }
 }
 
-@media print
-{    
-    .no-print, .no-print *
-    {
+@media print {
+    .no-print,
+    .no-print * {
         display: none !important;
     }
 }
@@ -41,7 +40,15 @@
 .bmx-page {
     // width: 628%;
     height: 90.8vh;
-    width: 100vw;
+    width: 80vw;
+    overflow-y: scroll !important;
+    box-shadow: unset !important;
+}
+
+.bmx-page-design {
+    // width: 628%;
+    height: 90.8vh;
+    width: 92vw;
     overflow-y: unset !important;
     box-shadow: unset !important;
 }
@@ -97,16 +104,10 @@
     bottom: 40px;
 }
 
-.bmx-page {
-    // width: 628%;
-    height: 90.8vh;
-    width: 100vw;
-    overflow-y: scroll;
-    @include BoxShadow(2);
-}
+
 
 .bmx-page::-webkit-scrollbar {
-    display: none;
+    display: none !important;
 }
 
 .save-template-box {
@@ -125,16 +126,12 @@
     color: #8831da;
 }
 
-
 ::ng-deep snack-bar-container {
     color: white !important;
     background: #324395 !important;
-  }
-  
-  ::ng-deep .mat-tooltip {
+}
+
+::ng-deep .mat-tooltip {
     background-color: #324395;
     font-size: 18px;
-  }
-  
-
-
+}

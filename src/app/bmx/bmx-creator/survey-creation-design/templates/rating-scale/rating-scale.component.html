@@ -377,7 +377,7 @@
                          &&  columnName.includes('Comments') != true &&  columnName.includes('RATE') != true"
                             [style.font-size]="bmxItem.componentSettings[0].fontSize +'px'"
                             [style.width]="(columnName == 'rationale')?bmxItem.componentSettings[0].rationalewidth + 'px':bmxItem.componentSettings[0].columnWidth +'px'"
-                            style="text-align: center;margin: 0 0 0px;" [innerHTML]="testName[columnName]"></p>
+                            style="text-align: center;margin: 0 0 0px;" [innerHTML]="testName[columnName] | safe: 'html'">{{testName[columnName]}}</p>
                     </div>
                     <!-- 🟡🟡🟡🟡🟡🟡🟡🟡🟡🟡🟡🟡🟡🟡 END TABLE CELLS 🟡🟡🟡🟡🟡🟡🟡🟡🟡🟡🟡🟡🟡🟡🟡🟡 -->
                 </div>
