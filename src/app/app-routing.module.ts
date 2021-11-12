@@ -92,7 +92,7 @@ const routes: Routes = [
 
   {
     path: '',
-    redirectTo: 'promoter',
+    redirectTo: 'business-card',
     pathMatch: 'full'
   }
 ];
