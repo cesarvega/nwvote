@@ -4926,4 +4926,5 @@ export class SurveyMatrixComponent extends SurveyCreationDesignComponent impleme
             ]
         }
     ]
+
 }

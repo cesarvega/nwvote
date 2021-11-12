@@ -1,16 +1,16 @@
 <div class="main-container">
   
-    <button *ngIf="isMenuActive11" style="position: absolute;bottom: 30px;z-index: 9999999999;right: 100px;outline: none;" 
+    <button *ngIf="isMenuActive11 || isMenuActive16" style="position: absolute;bottom: 30px;z-index: 9999999999;right: 100px;outline: none;" 
     (click)="toggleViewPageMode()" mat-icon-button matTooltip="design tools" matTooltipPosition="above">
         <mat-icon class="full-icon" style="font-size: 35px;">handyman
         </mat-icon>
     </button>
-    <button *ngIf="isMenuActive11 && bmxClientPageDesignMode" style="position: absolute;bottom: 30px;z-index: 9999999999;right: 30px;outline: none;" 
+    <button *ngIf="(isMenuActive11 && bmxClientPageDesignMode) || (isMenuActive16 && bmxClientPageDesignMode)" style="position: absolute;bottom: 30px;z-index: 9999999999;right: 30px;outline: none;" 
     (click)="toggleViewPageModeDesign()" mat-icon-button matTooltip="preview" matTooltipPosition="above">
         <mat-icon class="full-icon" style="font-size: 35px;">visibility
         </mat-icon>
     </button>
-    <button *ngIf="isMenuActive11 && !bmxClientPageDesignMode" style="position: absolute;bottom: 30px;z-index: 9999999999;right: 30px;outline: none;" 
+    <button *ngIf="(isMenuActive11 && !bmxClientPageDesignMode) || (isMenuActive16 && !bmxClientPageDesignMode)" style="position: absolute;bottom: 30px;z-index: 9999999999;right: 30px;outline: none;" 
     (click)="toggleViewPageModeDesign()" mat-icon-button matTooltip="menu" matTooltipPosition="above">
         <mat-icon class="full-icon" style="font-size: 35px;">menu
         </mat-icon>
@@ -364,8 +364,10 @@
 
 
     <!-- CONTACT 🎀🎀🎀🎀🎀🎀🎀🎀🎀🎀🎀🎀🎀🎀🎀🎀🎀🎀🎀🎀🎀🎀🎀🎀🎀🎀🎀🎀🎀🎀🎀🎀🎀🎀🎀🎀🎀🎀🎀🎀🎀🎀🎀🎀🎀🎀-->
-    <div class="templates" *ngIf="isMenuActive16" style="border: hotpink solid 0px; width: 60%; height: 100vw;">
-        <app-project-reports></app-project-reports>
+    <div [ngClass]="bmxClientPageDesignMode?'page-design':'page-design-client'" style="display: flex;
+    justify-content: center;" *ngIf="isMenuActive16" >
+        <app-project-reports  [isBrandMatrixSurvey]="isBrandMatrixSurvey"  [isMenuActive16]="isMenuActive16"
+         [bmxClientPageDesignMode]="bmxClientPageDesignMode" [bmxClientPageOverview]="bmxClientPageOverview"></app-project-reports>
     </div>
    
     <!-- END 🎀🎀🎀🎀🎀🎀🎀🎀🎀🎀🎀🎀🎀🎀🎀🎀🎀🎀🎀🎀🎀🎀🎀🎀🎀🎀🎀🎀🎀🎀🎀🎀🎀🎀🎀🎀🎀🎀🎀🎀🎀🎀🎀🎀🎀 CONTACT -->

@@ -21,7 +21,7 @@ import { ActivatedRoute } from '@angular/router';
 })
 export class ProjectReportsComponent
     implements OnInit {
-    @Input() isMenuActive11: boolean = true;
+    @Input() isMenuActive16: boolean = true;
     @Input() bmxClientPageDesignMode = false;
     @Input() bmxClientPageOverview = false;
     isMobile = true
@@ -115,7 +115,7 @@ export class ProjectReportsComponent
     REPORT_CATEGORIES = []
     BMX_REPORT = []
     categoryCounter = 0
-
+    categorySortedgArray = []
     constructor(
         @Inject(DOCUMENT) private document: any,
         public _BmxService: BmxService,
@@ -250,39 +250,40 @@ export class ProjectReportsComponent
         this.myAngularxQrCode = this.myAngularxQrCode + this.projectId + '/' + this.biUsername
 
         // SAMPLE DATA FOR CKEDITOR
-        this.model.editorData = this.sampleHtml;
-        // TEMPLATE SELECTOR
-        if (this.TEMPLATE_NAME === 'Standart Personal Preference') {
-            this.createNewBmxComponent('rate-scale');
-        }
-        if (this.bmxPagesClient) {
-            this.bmxPages = this.bmxPagesClient;
-        } else {
+        // this.model.editorData = this.sampleHtml;
+        // // TEMPLATE SELECTOR
+        // if (this.TEMPLATE_NAME === 'Standart Personal Preference') {
+        //     this.createNewBmxComponent('rate-scale');
+        // }
+        // if (this.bmxPagesClient) {
+        //     // this.bmxPages = this.bmxPagesClient;
+        // } else {
             //   this.bmxPages = this.SAMPLE_BMX;
 
-            this._BmxService.getBrandMatrixByProject(this.projectId).subscribe((brandMatrix: any) => {
-                if (brandMatrix.d.length > 0) {
-                    this.bmxPages = JSON.parse(brandMatrix.d)
+            // this._BmxService.getBrandMatrixByProject(this.projectId).subscribe((brandMatrix: any) => {
+            //     if (brandMatrix.d.length > 0) {
+            //         this.bmxPages = JSON.parse(brandMatrix.d)
 
-                    // this._snackBar.open('bmx LOADED for project  ' + this.projectId , 'OK', {
-                    //     duration: 5000,
-                    //     horizontalPosition: 'left',
-                    //     verticalPosition: 'top'
-                    //   })
-                } else {
-                    this.bmxPages = this.SAMPLE_BMX
-                }
+            //         // this._snackBar.open('bmx LOADED for project  ' + this.projectId , 'OK', {
+            //         //     duration: 5000,
+            //         //     horizontalPosition: 'left',
+            //         //     verticalPosition: 'top'
+            //         //   })
+            //     } else {
+            //         this.bmxPages = this.SAMPLE_BMX
+            //     }
 
-            })
+            // })
 
-        }
+        // }
 
         this._BmxService.getBrandMatrixByProjectAllUserAnswers(this.projectId).subscribe((brandMatrix: any) => {
             if (brandMatrix.d.length > 0) {
                 const answersByAllUsers = JSON.parse(brandMatrix.d)
-               const milUsers = this.diplicateArrayMultiple(answersByAllUsers, 250)
+                const milUsers = this.diplicateArrayMultiple(answersByAllUsers, 1)
                 milUsers.forEach((userAnswer, userAnswerIndex) => {
                     this.categoryCounter = 0
+                    let userCategory = []
                     JSON.parse(userAnswer.BrandMatrix).forEach(page => {
                         page.page.forEach(component => {
                             if (
@@ -292,63 +293,189 @@ export class ProjectReportsComponent
                                 component.componentType == 'narrow-down' ||
                                 component.componentType == 'tinder' ||
                                 component.componentType == 'question-answer'
-                            ) { 
+                            ) {
                                 this.categoryCounter++
                                 if (userAnswerIndex == 0) {
                                     let categoryObj = new Object();
-                                    categoryObj['category_'+ this.categoryCounter] = []
+                                    categoryObj['category_' + this.categoryCounter] = []
                                     this.BMX_REPORT.push(categoryObj)
                                 }
                                 component.componentText.forEach((row, rowIndex) => {
                                     if (rowIndex > 0) {
-                                        this.computerReport(row, component, userAnswer.Username, 
-                                            this.BMX_REPORT[this.categoryCounter-1]['category_'+ (this.categoryCounter)]);
+                                        this.computeReport(row, component, userAnswer.Username,
+                                            this.BMX_REPORT[this.categoryCounter - 1]['category_' + this.categoryCounter]);
                                     }
                                 });
-                                this.REPORT_DATA_MAP.set(this.categoryCounter, this.REPORT_DATA);
+                                let categroyName = 'category_' + this.categoryCounter
+                                let objectContainer = {}
+                                objectContainer[categroyName] = component.componentText
+                                userCategory.push(objectContainer)
+                                this.REPORT_DATA_MAP.set(userAnswer.Username, userCategory);
                             }
                         });
                     });
-                }); 
+                });
 
                 let sortIngArray = []
-                let categorySortedgArray = []
+
                 this.BMX_REPORT.forEach((category, categoryIndex) => {
                     const sortedCategory = Object.keys(category)[0]
                     Object.keys(category[sortedCategory]).forEach((key, keyIndex) => {
                         this.BMX_REPORT[categoryIndex][sortedCategory][key].totalScore
-                        sortIngArray.push({nameCandidates:key, 
-                            score:this.BMX_REPORT[categoryIndex][sortedCategory][key].totalScore,
-                            comments:this.BMX_REPORT[categoryIndex][sortedCategory][key].comments
+                        sortIngArray.push({
+                            nameCandidates: key,
+                            score: this.BMX_REPORT[categoryIndex][sortedCategory][key].totalScore,
+                            comments: this.BMX_REPORT[categoryIndex][sortedCategory][key].comments
                         })
                     });
-                    categorySortedgArray.push(this.sortArrayByTwoProperties(sortIngArray, 'score', 'nameCandidates'))
+                    this.categorySortedgArray.push(this.sortArrayByTwoProperties(sortIngArray, 'score', 'nameCandidates'))
                     sortIngArray = []
                 });
-                console.table( categorySortedgArray[0]);
-                console.log( this.BMX_REPORT);
-                console.log(categorySortedgArray);
+
+
+                this.bmxPages = [
+                    {
+                        "pageNumber": 1,
+                        "page": [
+                            {
+                                "componentType": "logo-header",
+                                "componentText": "PROJECT NAME",
+                                "componentSettings": [
+                                    {
+                                        "fontSize": "16px",
+                                        "fontFace": "Arial",
+                                        "logoWidth": 100,
+                                        "brandInstituteURL": "./assets/img/bmx/BRANDMATRIX-DASHBOARD-LOGO.svg",
+                                        "brandInstituteMobileURL": "./assets/img/bmx/bmxCube.jpg",
+                                        "companyLogoURL": "./assets/img/bmx/BD.png"
+                                    }
+                                ]
+                            },
+                            {
+                                "componentType": "text-editor",
+                                "componentText": "<p style=\"text-align:center\"><u>Instructions</u></p>\n\n<p style=\"text-align:center\">&nbsp;</p>\n\n<p style=\"text-align:justify\">&nbsp; &nbsp; &nbsp; &nbsp; &nbsp;Please select&nbsp;only&nbsp;the name candidates that you would categorize as&nbsp;<strong>neutral to positive</strong>&nbsp;</p>\n\n<p style=\"text-align:justify\">&nbsp; &nbsp; &nbsp; &nbsp; &nbsp;You should take into consideration any competitive brand name associations, pronunciation issues or negative connotations when making your selections.</p>\n\n<p style=\"text-align:justify\">&nbsp; &nbsp; &nbsp; &nbsp; &nbsp;To make a selection, simply click the check box to the left of the desired name candidate.</p>\n\n<p>&nbsp; &nbsp; &nbsp; &nbsp; &nbsp;After you make a selection, you will be asked to rate that name based on your&nbsp;<strong>Personal Preference</strong>:</p>\n\n<p>&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; Please rate each selected name candidate based on your own personal preference on a scale from <strong>1</strong> to <strong>7</strong>, <strong>1</strong> being neutral and <strong>7</strong> being the most liked.</p>\n\n<p>&nbsp; &nbsp; &nbsp; &nbsp; &nbsp;There is no ranking for negative as these names are not to be selected</p>\n\n<p>&nbsp; &nbsp; &nbsp; &nbsp; &nbsp;Once you have finished your selections, please click the &quot;Continue&quot; button on the bottom of the page to complete the survey.</p>\n",
+                                "componentSettings": [
+                                    {
+                                        "fontSize": "16",
+                                        "fontFace": "Arial",
+                                        "fontColor": "red"
+                                    }
+                                ]
+                            },
+                            {
+                                "componentType": "rate-scale",
+                                "componentText": [
+                                    {
+                                        "nameCandidates": "Name Candidates",
+                                        "rationale": "Rationales",
+                                        "Comments1": "General Comments",
+                                        "RATE": -1
+                                    },
+
+                                ],
+                                "componentSettings": [
+                                    {
+                                        "minRule": 0,
+                                        "maxRule": 4,
+                                        "fontSize": 16,
+                                        "columnWidth": 191,
+                                        "rationalewidth": 804,
+                                        "rowHeight": 2,
+                                        "categoryRulesPassed": false,
+                                        "ratedCounter": 0,
+                                        "categoryName": "Name Candidates",
+                                        "categoryDescription": "With Max Rate Amount",
+                                        "ratingScaleTitle": "Rate from 1 to 7"
+                                    }
+                                ]
+                            }
+                        ]
+                    }]
+
+                console.log(this.bmxPages[this.currentPage].page);
+
+                let component
+                let categoryArray =[]
+                console.log(this.BMX_REPORT);
+                console.log(this.categorySortedgArray);
+                // FIXING ARRAY TO BE DEPLAY ON THE PAGE
+                this.categorySortedgArray.forEach((category, categoryIndex) => {
+                    // if (categoryIndex == 0) {
+
+                        component = {
+                            "componentType": "rate-scale",
+                            "componentText": [
+                            ],
+                            "componentSettings": [
+                                {
+                                    "minRule": 0,
+                                    "maxRule": 4,
+                                    "fontSize": 16,
+                                    "columnWidth": 325,
+                                    "rationalewidth": 804,
+                                    "rowHeight": 2,
+                                    "categoryRulesPassed": false,
+                                    "ratedCounter": 0,
+                                    "categoryName": "Name Candidates",
+                                    "categoryDescription": "With Max Rate Amount",
+                                    "ratingScaleTitle": "Rate from 1 to 7"
+                                }
+                            ]
+                        }
+                        let comments
+                        category.forEach((row, rowIndex) => {
+                            if (rowIndex == 0) {
+                               const rowObj = {}
+                               Object.keys(row).forEach((key, keyIndex) => {
+                                rowObj[key] = key
+                                 
+                               })
+                               component.componentText.push(rowObj) 
+                            }
+                            else {
+                                component.componentText.push(row)
+                                row.comments.forEach((comment, index, commnetsArray) => {
+                                    if (comment) {
+                                       
+                                        comments = `<div style="color: blueviolet;">` + comment.userName + `: ` +
+                                                  `<span style="color: brown;">`+ comment.comment + `</span>`   + `</div>`
+                                        commnetsArray[index] = comments + `\n`
+                                    }
+                                });
+                                component.componentText[rowIndex].comments = row.comments.join('').toString()
+                            }
+                           
+                        });
+                    // }
+                    this.bmxPages[0].page.push(component)
+                });
+
+                // this.bmxPages[0].page[2] = component
+                // this.bmxPages[0].page.push(categoryArray)
             }
         })
     }
 
-   
-    computerReport(row, templateComponent, username, REPORT_DATA) {
+
+    computeReport(row, templateComponent, username, REPORT_DATA) {
         // 💜💜💜💜💜💜💜💜💜💜💜💜💜💜💜💜💜💜💜💜💜💜💜💜💜💜💜💜💜💜💜💜💜💜💜💜💜💜💜💜💜💜💜
-        if (templateComponent.componentType == 'rate-scale' || templateComponent.componentType == 'image-rate-scale'|| 
+        if (templateComponent.componentType == 'rate-scale' || templateComponent.componentType == 'image-rate-scale' ||
             templateComponent.componentType == 'ranking-scale') {
             if (templateComponent.componentSettings[0].CRITERIA) {
                 if (REPORT_DATA[row.nameCandidates]) {
-                        REPORT_DATA[row.nameCandidates].scores.forEach((Score, scoreIndex) => {
-                            Score.score += row.CRITERIA[scoreIndex].RATE
-                        });
+                    REPORT_DATA[row.nameCandidates].scores.forEach((Score, scoreIndex) => {
+                        Score.score += row.CRITERIA[scoreIndex].RATE
+                        REPORT_DATA[row.nameCandidates].totalScore += Score.score
+                    });
                     if (row.Comments1?.length > 0) {
                         REPORT_DATA[row.nameCandidates].comments.push({ userName: username, comment: row.Comments1 })
                     }
                 } else {
                     let rateArray = []
+                    let totalScore = 0
                     row.CRITERIA.forEach(criteria => {
                         rateArray.push({ name: criteria.name, score: (criteria.RATE > 0) ? criteria.RATE : 0 })
+                        totalScore += (criteria.RATE > 0) ? criteria.RATE : 0
                     })
                     let comment = (row.Comments1?.length > 0) ? { userName: username, comment: row.Comments1 } : undefined
                     REPORT_DATA[row.nameCandidates] = {
@@ -357,7 +484,7 @@ export class ProjectReportsComponent
                         rationale: row.rationale,
                         comments: [comment],
                         scores: rateArray,
-                        totalScore: rateArray
+                        totalScore: totalScore
                     }
                 }// 💜💜💜💜💜💜💜💜💜💜💜💜💜💜💜💜💜💜💜💜💜💜💜💜💜💜💜💜💜💜💜💜💜💜💜💜💜💜💜💜💜💜💜
             } else {
@@ -365,6 +492,7 @@ export class ProjectReportsComponent
                     if (row.RATE > 0) {
                         REPORT_DATA[row.nameCandidates].scores.push(row.RATE)
                         REPORT_DATA[row.nameCandidates].totalScore += row.RATE
+                        // REPORT_DATA[row.nameCandidates].row.push(row)
                     }
                     if (row.Comments1?.length > 0) {
                         REPORT_DATA[row.nameCandidates].comments.push({ userName: username, comment: row.Comments1 })
@@ -373,6 +501,8 @@ export class ProjectReportsComponent
                     let comment = (row.Comments1?.length > 0) ? { userName: username, comment: row.Comments1 } : undefined
                     REPORT_DATA[row.nameCandidates] = {
                         category: templateComponent.componentType,
+                        // row: [row],
+                        // user: username,
                         testName: row.nameCandidates,
                         rationale: row.rationale,
                         comments: [comment],
@@ -384,8 +514,8 @@ export class ProjectReportsComponent
 
             // console.count('rows')
             //    console.timeLog()
-        } 
-        
+        }
+
         // ❤️❤️❤️❤️❤️❤️❤️❤️❤️❤️❤️❤️❤️❤️❤️❤️❤️❤️❤️❤️❤️❤️❤️❤️❤️❤️❤️❤️❤️❤️❤️❤️❤️❤️❤️❤️❤️❤️❤️❤️❤️❤️❤️
 
         // else if (templateComponent.componentType == 'ranking-scale') {
@@ -1039,9 +1169,13 @@ export class ProjectReportsComponent
         window.open('survey/' + this.projectId + '/' + this.biUsername);
     }
 
+    print() {
+        window.print();
+    }
+
     // PRIVATE FUNCTIONS
-    private sortArrayByTwoProperties(array, prop1, prop2) {  
-        return array.sort(function(b, a) {
+    private sortArrayByTwoProperties(array, prop1, prop2) {
+        return array.sort(function (b, a) {
             if (a[prop1] < b[prop1]) {
                 return -1;
             } else if (a[prop1] > b[prop1]) {
@@ -1065,7 +1199,7 @@ export class ProjectReportsComponent
         }
         return result;
     }
-    
+
 
     SAMPLE_BMX = [
         {
