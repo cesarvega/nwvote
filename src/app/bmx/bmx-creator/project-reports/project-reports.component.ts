@@ -465,14 +465,17 @@ export class ProjectReportsComponent
                 if (REPORT_DATA[row.nameCandidates]) {
                     REPORT_DATA[row.nameCandidates].scores.forEach((Score, scoreIndex) => {
                         Score.score += row.CRITERIA[scoreIndex].RATE
+                        REPORT_DATA[row.nameCandidates].totalScore += Score.score
                     });
                     if (row.Comments1?.length > 0) {
                         REPORT_DATA[row.nameCandidates].comments.push({ userName: username, comment: row.Comments1 })
                     }
                 } else {
                     let rateArray = []
+                    let totalScore = 0
                     row.CRITERIA.forEach(criteria => {
                         rateArray.push({ name: criteria.name, score: (criteria.RATE > 0) ? criteria.RATE : 0 })
+                        totalScore += (criteria.RATE > 0) ? criteria.RATE : 0
                     })
                     let comment = (row.Comments1?.length > 0) ? { userName: username, comment: row.Comments1 } : undefined
                     REPORT_DATA[row.nameCandidates] = {
@@ -481,7 +484,7 @@ export class ProjectReportsComponent
                         rationale: row.rationale,
                         comments: [comment],
                         scores: rateArray,
-                        totalScore: rateArray
+                        totalScore: totalScore
                     }
                 }// 💜💜💜💜💜💜💜💜💜💜💜💜💜💜💜💜💜💜💜💜💜💜💜💜💜💜💜💜💜💜💜💜💜💜💜💜💜💜💜💜💜💜💜
             } else {

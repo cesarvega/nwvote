@@ -186,6 +186,20 @@
   background: #283e90;
 }
 
+
+.full-icon:hover {
+  transform: scale(2);
+  color: #ee7f25;
+}
+.full-icon {
+  color: #324395;
+  font-size: 20px;
+  transition: all 0.1s ease-in-out;
+  text-shadow: 0 0.04em 0.04em rgba(0, 0, 0, 0.35);
+  box-shadow: inset inset 0px 0px 5px #c1c1c1;
+}
+
+
 textarea {
   resize: none;
   outline: none;
