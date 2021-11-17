@@ -115,6 +115,9 @@ export class ProjectReportsComponent
     BMX_REPORT = []
     categoryCounter = 0
     categorySortedgArray = []
+
+    reportType = ''
+
     constructor(
         @Inject(DOCUMENT) private document: any,
         public _BmxService: BmxService,
@@ -268,14 +271,14 @@ export class ProjectReportsComponent
                 //     verticalPosition: 'top'
                 //   })
             } else {
-                this.bmxPages = this.SAMPLE_BMX
+              this.getAndCalculateReport()
             }
 
         })
 
-        // }
+    }
 
-
+    getAndCalculateReport() {
         this._BmxService.getBrandMatrixByProjectAllUserAnswers(this.projectId).subscribe((brandMatrix: any) => {
             if (brandMatrix.d.length > 0) {
                 const answersByAllUsers = JSON.parse(brandMatrix.d)
@@ -294,6 +297,7 @@ export class ProjectReportsComponent
                                 component.componentType == 'question-answer'
                             ) {
                                 // CATEGORIES 
+                                this.reportType = component.componentType
                                 this.categoryCounter++
                                 if (userAnswerIndex == 0) {
                                     let categoryObj = new Object();
@@ -307,7 +311,7 @@ export class ProjectReportsComponent
                                     }
                                 });
                                 //🌈🌈🌈🌈🌈🌈🌈🌈🌈🌈🌈🌈🌈🌈🌈🌈 USERS RESULTS
-                                let userName = { username: userAnswer.Username, content: component.componentText }
+                                let userName = { username: userAnswer.Username, content: component.componentText,componentType:component.componentType }
                                 this.REPORT_USER_DATA.push(userName);//🌈🌈🌈🌈🌈🌈🌈🌈🌈🌈🌈🌈🌈🌈🌈🌈
                             }
                         });
@@ -326,7 +330,11 @@ export class ProjectReportsComponent
                             comments: this.BMX_REPORT[categoryIndex][sortedCategory][key].comments
                         })
                     });
-                    this.categorySortedgArray.push(this.sortArrayByTwoProperties(sortIngArray, 'score', 'nameCandidates'))
+                    if (this.reportType === 'ranking-scale') {
+                        this.categorySortedgArray.push(this.inverseSortArrayByTwoProperties(sortIngArray, 'score', 'nameCandidates'))
+                    } else {
+                        this.categorySortedgArray.push(this.sortArrayByTwoProperties(sortIngArray, 'score', 'nameCandidates'))
+                    }
                     sortIngArray = []
                 });
 
@@ -350,7 +358,80 @@ export class ProjectReportsComponent
                             },
                             {
                                 "componentType": "text-editor",
-                                "componentText": "<p style=\"text-align:center\"><u>Instructions</u></p>\n\n<p style=\"text-align:center\">&nbsp;</p>\n\n<p style=\"text-align:justify\">&nbsp; &nbsp; &nbsp; &nbsp; &nbsp;Please select&nbsp;only&nbsp;the name candidates that you would categorize as&nbsp;<strong>neutral to positive</strong>&nbsp;</p>\n\n<p style=\"text-align:justify\">&nbsp; &nbsp; &nbsp; &nbsp; &nbsp;You should take into consideration any competitive brand name associations, pronunciation issues or negative connotations when making your selections.</p>\n\n<p style=\"text-align:justify\">&nbsp; &nbsp; &nbsp; &nbsp; &nbsp;To make a selection, simply click the check box to the left of the desired name candidate.</p>\n\n<p>&nbsp; &nbsp; &nbsp; &nbsp; &nbsp;After you make a selection, you will be asked to rate that name based on your&nbsp;<strong>Personal Preference</strong>:</p>\n\n<p>&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; Please rate each selected name candidate based on your own personal preference on a scale from <strong>1</strong> to <strong>7</strong>, <strong>1</strong> being neutral and <strong>7</strong> being the most liked.</p>\n\n<p>&nbsp; &nbsp; &nbsp; &nbsp; &nbsp;There is no ranking for negative as these names are not to be selected</p>\n\n<p>&nbsp; &nbsp; &nbsp; &nbsp; &nbsp;Once you have finished your selections, please click the &quot;Continue&quot; button on the bottom of the page to complete the survey.</p>\n",
+                                "componentText": `<p style="text-align:center">BrandMatrixTM Report</p>
+
+                                <p style="text-align:center">Project: ICELAND</p>
+                                
+                                <p style="text-align:center">&nbsp;</p>
+                                
+                                <p style="text-align:center">Created: Monday, January 20, 2020</p>
+                                
+                                <p style="text-align:center">&nbsp;</p>
+                                
+                                <p style="text-align:center">TABLE OF CONTENTS</p>
+                                
+                                <p style="text-align:center">&nbsp;</p>
+                                
+                                <p style="text-align:center">BRANDMATRIXTM OVERVIEW&nbsp;</p>
+                                
+                                <p style="text-align:center">PROJECT BACKGROUND&nbsp;</p>
+                                
+                                <p style="text-align:center">LEGEND&nbsp;</p>
+                                
+                                <p style="text-align:center">BRANDMATRIXTM COMPLETION STATUS&nbsp;</p>
+                                
+                                <p style="text-align:center">OVERALL RANKING BY TEST NAME&nbsp;</p>
+                                
+                                <p style="text-align:center">VOTES BY RESPONDENT&nbsp;</p>
+                                
+                                <p style="text-align:center">NEW NAME SUGGESTIONS&nbsp;</p>
+                                
+                                <p style="text-align:center">&nbsp;</p>
+                                
+                                <p style="text-align:center">&nbsp;</p>
+                                
+                                <p style="text-align:center">BRANDMATRIXTM OVERVIEW</p>
+                                
+                                <p>BrandMatrixTM is an online, interactive proprietary tool used to assist you in objectively selecting and ranking the name candidates for your new product. Team members confidentially select, rank, and evaluate their favorite name candidates. The BrandMatrixTM measures how well the name fits the product concept, overall likeability, and respondents&rsquo; comments, associations, or connotations.</p>
+                                
+                                <p>This report summarizes the BrandMatrixTM results providing a good assessment of favorable prospective names. The next step of the process will be a conference call to discuss the BrandMatrixTM results and identify the final name candidates to continue into the trademarks screening phase.</p>
+                                
+                                <p>&nbsp;</p>
+                                
+                                <p style="text-align:center">PROJECT BACKGROUND</p>
+                                
+                                <p>LEGEND</p>
+                                
+                                <p>The following names have been pre-screened for identical registered trademarks in the US Federal, US State, EUTM, WIPO and InterNIC registries. These name candidates appear free of prior registrations for services and products included in classes 5 and 10. This does not constitute Brand Institute&#39;s BrandSearchTM Intelligent Trademark Screening (IQ) or Full Legal Search.</p>
+                                
+                                <p>Please Note:</p>
+                                
+                                <p>(T) Denotes identical trademark registration</p>
+                                
+                                <p>(C) Denotes .com registration</p>
+                                
+                                <p>(CB) Denotes &quot;built-out&quot; .com website*</p>
+                                
+                                <p>(U/I) Denotes USAN/INN stem</p>
+                                
+                                <p>*The term &quot;built-out&quot; means that an actual website exists at this address and is not merely registered. Registered domain names are typically more obtainable than &quot;built-out&quot; websites.</p>
+                                
+                                <p>&nbsp;</p>
+                                
+                                <p style="text-align:center">&nbsp;</p>
+                                
+                                <p style="text-align:center">&nbsp;</p>
+                                
+                                <p style="text-align:center">BRANDMATRIXTM COMPLETION STATUS</p>
+                                
+                                <p style="text-align:center">This section details who participated in the BrandMatrixTM</p>
+                                
+                                <p style="text-align:center">Percentage of participants who have completed the BrandMatrixTM = 100%</p>
+                                
+                                <p style="text-align:center">(6 out of 6)</p>
+                                
+                                <p style="text-align:center">&nbsp;</p>
+                                `,
                                 "componentSettings": [
                                     {
                                         "fontSize": "16",
@@ -608,7 +689,11 @@ export class ProjectReportsComponent
 
             // sort rows by core and testname aphabetical
             let firstRowHeaders = newCat.splice(0, 1)[0]
-            newCat = this.sortArrayByTwoProperties(newCat, 'Score', 'nameCandidates')
+            if(category.componentType === 'ranking-scale'){
+                newCat = this.inverseSortArrayByTwoProperties(newCat, 'Score', 'nameCandidates')
+            } else {
+                newCat = this.sortArrayByTwoProperties(newCat, 'Score', 'nameCandidates')
+            }
             newCat.unshift(firstRowHeaders)
 
             component = {
@@ -619,7 +704,7 @@ export class ProjectReportsComponent
                         "minRule": 0,
                         "maxRule": 4,
                         "fontSize": 16,
-                        "columnWidth": 225,
+                        "columnWidth": 205,
                         "rationalewidth": 204,
                         "rowHeight": 2,
                         "categoryRulesPassed": false,
@@ -1250,6 +1335,17 @@ export class ProjectReportsComponent
                 } else {
                     return 0;
                 }
+            }
+        });
+    }
+    private inverseSortArrayByTwoProperties(array, prop1, prop2) {
+        return array.sort(function (b, a) {
+            if (a[prop1] > b[prop1]) {
+                return -1;
+            } else if (a[prop1] < b[prop1]) {
+                return 1;
+            } else {
+                    return 0;
             }
         });
     }

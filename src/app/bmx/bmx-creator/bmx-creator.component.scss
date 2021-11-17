@@ -30,6 +30,12 @@
     }
 }
 
+@media print {
+    .no-print,
+    .no-print * {
+        display: none !important;
+    }
+}
 //   BRAND MATRIX CREATOR DASH
 
 .main-container {
