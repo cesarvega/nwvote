@@ -32,17 +32,10 @@ const routes: Routes = [
   //   path: ':id',
   //   component: BsrComponent
   // },
-<<<<<<< HEAD
   // {//BI BRAND MATRIX CREATOR
-  // path: ':id/:username',
+  // path: ':id/:biUsername',
   //  component: BmxCreatorComponent
   // },
-=======
-  {//BI BRAND MATRIX CREATOR
-  path: ':id/:biUsername',
-   component: BmxCreatorComponent
-  },
->>>>>>> 640ed4bd7ec5691312fbc3dbe55adb83f9a2a4fa
    {//BI BRAND MATRIX
     path: 'survey/:id/:username',
     component: SurveyMatrixComponent
@@ -53,11 +46,7 @@ const routes: Routes = [
   // },
   {
     path: '',
-<<<<<<< HEAD
-    redirectTo: 'survey/BMX_TEST/cvega',
-=======
-    redirectTo: '/Project Brand Matrix/cvega',
->>>>>>> 640ed4bd7ec5691312fbc3dbe55adb83f9a2a4fa
+    redirectTo: 'survey/Project Brand Matrix/cvega',
     pathMatch: 'full'
   } 
 ];
