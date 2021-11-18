@@ -169,7 +169,7 @@ export class ProjectInformationComponent implements OnInit {
     }
     var finalString = JSON.stringify(projectInfo);
     finalString = finalString.replace("[\\u2022,\\u2023,\\u25E6,\\u2043,\\u2219]\\s\\d", '');
-    this._BmxService.saveProjectInfo(localStorage.getItem('projectName'), finalString, 'user@bi.com').subscribe(result => {
+    this._BmxService.saveProjectInfo(this.bmxEditData.get('bmxProjectName').value.toString(), finalString, 'user@bi.com').subscribe(result => {
       var so = result;
     });
     this._snackBar.open('Saved Succesfully');
