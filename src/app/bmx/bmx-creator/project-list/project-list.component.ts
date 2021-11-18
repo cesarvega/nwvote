@@ -80,16 +80,19 @@ export class ProjectListComponent implements OnInit {
       {
         if(this.selected == 'Live' && this.allData[i].Status == 'O')
         {
-          this.viewedData.push(this.allData[i])
+          this.viewedData.push(this.allData[i].ProjectInfo);
         }
         else if(this.selected == 'Closed' && this.allData[i].Close != 'O')
         {
-          this.viewedData.push(this.allData[i])
+          this.viewedData.push(this.allData[i].ProjectInfo)
         }
         else if(this.selected == 'All')
         {
-          this.viewedData = this.allData;
-          break;
+          if(this.allData[i].ProjectInfo != "" && this.allData[i].ProjectInfo != null)
+          {
+            var t = JSON.parse(this.allData[i].ProjectInfo);
+            this.viewedData.push(JSON.parse(this.allData[i].ProjectInfo));
+          }
         }
       }
       this.dataSource = new MatTableDataSource<any>(this.viewedData);
