@@ -1,5 +1,5 @@
 <div style="display: flex;">
-    <div style="flex-direction: column;" class="bmx-page" *ngIf="isMenuActive11" [dragula]="(isMobile)?'TASKS':''"
+    <div style="flex-direction: column;" [ngClass]="(bmxClientPageDesignMode)?'bmx-page':'bmx-page-design'"  *ngIf="isMenuActive16" [dragula]="(isMobile)?'TASKS':''"
         (dragulaModelChange)="checkDragEvetn($event);" [(dragulaModel)]="bmxPages[currentPage].page">
 
 
@@ -140,7 +140,7 @@
 
 
         <!-- PAGE BUTTONS AND DIRECTIONS 1 2 3 📲📲📲📲📲📲📲📲📲📲📲📲📲📲📲📲📲📲📲📲📲📲📲📲📲📲📲📲📲📲📲📲📲📲-->
-        <div class="page-buttons">
+        <div class="page-buttons no-print">
             <div [ngClass]="bmxClientPageDesignMode?'page-buttons-heigth-40':'page-buttons-heigth-minus-50'">
                 <button (click)="changePage('previous')" mat-icon-button>
                     <mat-icon class="full-icon">chevron_left</mat-icon>
@@ -165,7 +165,7 @@
 
     <!-- 🎵🎵🎵🎵🎵🎵🎵🎵🎵🎵🎵🎵🎵🎵🎵🎵🎵🎵🎵🎵🎵🎵🎵  RIGHT SIDE MENU 🎵🎵🎵🎵🎵🎵🎵🎵🎵🎵🎵🎵🎵🎵🎵🎵🎵🎵-->
     <!-- <div class="project-info" *ngIf="bmxClientPageDesignMode" style="border: pink solid 1px; width: 25%; height: 100vh;"> -->
-    <div class="project-info" *ngIf="true">
+    <div class="project-info no-print" *ngIf="true">
 
         <div style="display: flex;flex-direction: column;margin-top: 50px;">
             <button (click)="createNewBmxComponent('logo-header')" mat-icon-button matTooltip="header"
@@ -222,9 +222,8 @@
                 <mat-icon class="full-icon">cloud_upload
                 </mat-icon>
             </button>
-            <button *ngIf="true" (click)="previewSurvey()" mat-icon-button matTooltip="preview brand matrix"
-                matTooltipPosition="right">
-                <mat-icon class="full-icon">visibility
+            <button *ngIf="true" (click)="print()" mat-icon-button >
+                <mat-icon class="full-icon">print
                 </mat-icon>
             </button>
             <button *ngIf="true" (click)="openFullscreen()" mat-icon-button matTooltip="full screen"

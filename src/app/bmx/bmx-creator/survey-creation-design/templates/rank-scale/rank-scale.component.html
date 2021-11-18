@@ -217,6 +217,7 @@
                 <!--⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️ RANK RENDERER ⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️ -->
                 <div class="rank-column">
                     <div *ngIf="(y !== 0)">
+                         <!--☂️☂️☂️☂️☂️☂️☂️☂️☂️☂️☂️☂️☂️ DROP DOWN ☂️☂️☂️☂️☂️☂️☂️☂️☂️☂️☂️☂️☂️☂️☂️☂️-->
                         <mat-form-field *ngIf="this.bmxItem.componentSettings[0].rankType == 'dropDown'"
                             appearance="outline" style="width: 130px;padding-top: 13px;height: 80px;">
                             <mat-label>Rank 1 to {{rankingScaleValue}}</mat-label>
@@ -227,9 +228,14 @@
                             </mat-select>
                         </mat-form-field>
 
-                        <button *ngIf="this.bmxItem.componentSettings[0].rankType == 'dragAndDrop'" mat-button style="background-color:#ee7f25 ;color: white; 
+
+                          <!--☂️☂️☂️☂️☂️☂️☂️☂️☂️☂️☂️☂️☂️ DRAG AND DROP ☂️☂️☂️☂️☂️☂️☂️☂️☂️☂️☂️☂️☂️☂️☂️☂️-->      
+                        <button  *ngIf="this.bmxItem.componentSettings[0].rankType == 'dragAndDrop'" 
+                        mat-button style="background-color:#ee7f25 ;color: white; 
                             animation: rubberBand 700ms ease-in  forwards;">{{y}}</button>
 
+
+                          <!--☂️☂️☂️☂️☂️☂️☂️☂️☂️☂️☂️☂️☂️ RADIO ☂️☂️☂️☂️☂️☂️☂️☂️☂️☂️☂️☂️☂️☂️☂️☂️-->
                         <button
                             *ngIf="this.bmxItem.componentText[y].RATE && this.bmxItem.componentSettings[0].rankType == 'radio'"
                             mat-button
@@ -413,13 +419,14 @@
                                     (change)="saveRadioColumValue(columnName, y)">
                             </div>
                         </div>
-                        <!-- TEXT_AREA COLUMN-->
+                        <!-- TEXT_AREA COMMENTS-->
                         <div style="display: flex;
                         justify-content: center;">
                             <textarea *ngIf="y !== 0  && columnName.includes('Comments') == true && selectedCard == y"
                                 [style.width]="'95%'" [style.font-size]="bmxItem.componentSettings[0].fontSize +'px'"
-                                cdkTextareaAutosize [cdkAutosizeMinRows]="bmxItem.componentSettings[0].rowHeight" style="text-align: center;height: 32px;width: 358px;font-size: 16px;border: 1px solid grey;
-                            animation: bounceIn 500ms ease-in forwards;padding: 0 4px" class="row-box"
+                                cdkTextareaAutosize [cdkAutosizeMinRows]="bmxItem.componentSettings[0].rowHeight" 
+                                style="text-align: center;height: 32px;width: 358px;font-size: 16px;border: 1px solid grey;
+                            animation: bounceIn 500ms ease-in forwards;padding: 0 4px;margin: 30px 0;" class="row-box"
                                 [(ngModel)]="testName[columnName]" placeholder="comments" rows="4" cols="50"></textarea>
                         </div>
 
@@ -430,7 +437,7 @@
                               columnName.includes('ratio') != true"
                             [style.font-size]=" (columnName.includes('name') == true)?'27px':'20px'"
                             [style.color]="(columnName.includes('name') == true)?'#324395':'#bababa'"
-                            style="text-align: center;padding: 10px 4px;">{{(testName[columnName].trim())}}</p>
+                            style="text-align: center;padding: 10px 4px;">{{(testName[columnName])}}</p>
 
                         <p *ngIf="y !== 0  && !editSingleTableCells && (columnName.includes('RadioColumn') != true) &&
                               columnName.includes('Comments') != true && selectedCard == y &&
