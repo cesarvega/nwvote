@@ -30,6 +30,41 @@
     }
 }
 
+@media print {
+    .no-print,
+    .no-print * {
+        display: none !important;
+    }
+}
+
+.bmx-page {
+    // width: 628%;
+    height: 90.8vh;
+    width: 80vw;
+    overflow-y: scroll !important;
+    box-shadow: unset !important;
+}
+
+.bmx-page-design {
+    // width: 628%;
+    height: 90.8vh;
+    width: 92vw;
+    overflow-y: unset !important;
+    box-shadow: unset !important;
+}
+
+.full-icon:hover {
+    transform: scale(2);
+    color: #ee7f25;
+}
+.full-icon {
+    color: #0bd659;
+    font-size: 20px;
+    transition: all 0.1s ease-in-out;
+    text-shadow: 0 0.04em 0.04em rgba(0, 0, 0, 0.35);
+    box-shadow: inset inset 0px 0px 5px #0bd659;
+}
+
 .paragraph {
     display: flex;
     flex-direction: column;
@@ -69,16 +104,10 @@
     bottom: 40px;
 }
 
-.bmx-page {
-    // width: 628%;
-    height: 90.8vh;
-    width: 100vw;
-    overflow-y: scroll;
-    @include BoxShadow(2);
-}
+
 
 .bmx-page::-webkit-scrollbar {
-    display: none;
+    display: none !important;
 }
 
 .save-template-box {
@@ -97,16 +126,12 @@
     color: #8831da;
 }
 
-
 ::ng-deep snack-bar-container {
     color: white !important;
     background: #324395 !important;
-  }
-  
-  ::ng-deep .mat-tooltip {
+}
+
+::ng-deep .mat-tooltip {
     background-color: #324395;
     font-size: 18px;
-  }
-  
-
-
+}

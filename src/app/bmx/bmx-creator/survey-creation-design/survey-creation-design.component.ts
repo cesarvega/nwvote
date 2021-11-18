@@ -346,6 +346,7 @@ export class SurveyCreationDesignComponent implements OnInit {
       this.TestNameDataModel.push({
         name: 'NAME',
         rationale: 'RATIONALE',
+        RATE: 'RATE',
         STARS: this.createRatingStars(),
       });
       for (let index = 0; index < 5; index++) {
@@ -364,7 +365,7 @@ export class SurveyCreationDesignComponent implements OnInit {
             minRule: 0,
             maxRule: 0,
             fontSize: 16,
-            columnWidth: 150,
+            columnWidth: 175,
             rationalewidth: 250,
             rowHeight: 2,
             radioColumnsWidth: 75,
@@ -383,6 +384,7 @@ export class SurveyCreationDesignComponent implements OnInit {
       this.TestNameDataModel.push({
         name: 'NAME',
         rationale: 'RATIONALE',
+        RATE: 'RATE',
         STARS: this.createRankinScale(),
       });
       for (let index = 0; index < 3; index++) {
@@ -485,6 +487,7 @@ export class SurveyCreationDesignComponent implements OnInit {
             rationalewidth: 250,
             rowHeight: 2,
             categoryRulesPassed: false,
+            selectedRowCounter: 0,
             ratedCounter: 0,
             categoryName: 'Category Narrow Down',
             categoryDescription: 'This is a narrow down matrix',

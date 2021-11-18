@@ -17,7 +17,7 @@ export class RatingScaleComponent implements OnInit {
   @ViewChild('autosize') autosize: CdkTextareaAutosize;
   rankingScaleValue = 5;
   selectedRowCounter = 0;
-  selectedIndex: any
+  selectedIndex: any = ''
   displayInstructions = false;
 
   selectedStarRatingIndex = ''
@@ -41,6 +41,7 @@ export class RatingScaleComponent implements OnInit {
   selectedColumn
   ratingScaleIcon = 'grade';
   selectedCriteria
+  newCriteria = ''
   extraColumnCounter = 1
   radioColumnCounter = 1
   commentColumnCounter = 1
@@ -51,12 +52,13 @@ export class RatingScaleComponent implements OnInit {
   minRuleCounter = 0
   maxRuleCounter = 0
   deleteRows = false
-  dragRows = false
+  dragRows = false;
   isColumnResizerOn = false;
   editSingleTableCells = false
 
   BAG = "DRAGGABLE_ROW";
   subs = new Subscription();
+  rowsCount = 10
   constructor(private dragulaService: DragulaService, private _snackBar: MatSnackBar) {
     //   dragulaService.createGroup('DRAGGABLE_ROW', {
     //     moves: (el, container, handle, sibling) => {
@@ -76,10 +78,19 @@ export class RatingScaleComponent implements OnInit {
     let values = Object.keys(this.bmxItem.componentText[0])
 
     values.forEach(value => {
-      if (typeof value == "string" && value != "STARS" && value != "CRITERIA" && value != "RATE") {
+      if (typeof value == "string" && value != "STARS" && value != "CRITERIA") {
         this.columnsNames.push(value)
       }
     });
+    // this.columnsNames.push('RATE')
+
+    if (this.bmxItem.componentSettings[0].CRITERIA) {
+      this.bmxItem.componentText.forEach((item, index) => {
+        if (index == 0 ) {
+        }
+      })
+    }
+    // this.selectedCriteria = 'Fit to Compound Concept, and Overall Likeability'
   }
 
   maxRuleCounterMinus() {
@@ -255,26 +266,34 @@ export class RatingScaleComponent implements OnInit {
 
 
   upLoadNamesAndRationales(list: string) {
+    this.dragRows = true;
     if (!list) { list = this.listString; }
     if (list) {
       this.listString = list;
       const rows = list.split("\n");
       this.columnsNames = [];
       this.columnsNames = rows[0].toLowerCase().split("\t");
+
+      let nameCandidatesCounter = 0
       this.extraColumnCounter = 1
       this.columnsNames.forEach((column, index) => {
         column = column.toLowerCase()
-        if (column == 'name candidates' || column == 'test names' || column == 'names' || column == 'questions') {
+        if (nameCandidatesCounter == 0 && column.includes('candidates') || column == 'questions') {
           this.columnsNames[index] = 'nameCandidates'
-        } else if (column == 'name rationale' || column == 'rationale' || column == 'rationales') {
+          nameCandidatesCounter++
+        } else
+         if (column == 'name rationale' || column == 'rationale' || column == 'rationales') {
           this.columnsNames[index] = 'rationale'
-        } else if (column == 'katakana') {
+        }
+         else if (column == 'katakana') {
           this.columnsNames[index] = 'katakana'
-        } else {
+        } 
+        else {
           this.columnsNames[index] = 'ExtraColumn' + this.extraColumnCounter
           this.extraColumnCounter++
         }
       });
+ 
       this.TESTNAMES_LIST = [];
       for (let i = 0; i < rows.length; i++) {
         if (rows[i] != "" && rows[i].length > 6) {
@@ -283,15 +302,15 @@ export class RatingScaleComponent implements OnInit {
             this.bmxItem.componentSettings[0].CRITERIA = true
             for (let e = 0; e < this.columnsNames.length; e++) {
               if ((rows[i].split("\t").length > 0)) {
-                objectColumnDesign[this.columnsNames[e]] = rows[i].split("\t")[e]
+                objectColumnDesign[this.columnsNames[e]] = rows[i].split("\t")[e].trim()
               }
             }
             objectColumnDesign['CRITERIA'] = []
-            this.ASSIGNED_CRITERIA.forEach(criteria => {
+            this.ASSIGNED_CRITERIA.forEach((criteria, index) => {
               objectColumnDesign['CRITERIA'].push({
                 name: criteria.name,
                 STARS: this.createRatingStars(this.rankingScaleValue, this.ratingScaleIcon),
-                RATE: -1,
+                RATE: index>0?-1:'RATE',
               })
             });
           } else {
@@ -299,22 +318,83 @@ export class RatingScaleComponent implements OnInit {
             objectColumnDesign['STARS'] = this.createRatingStars(this.rankingScaleValue, this.ratingScaleIcon);
             for (let e = 0; e < this.columnsNames.length; e++) {
               if ((rows[i].split("\t").length > 0)) {
-                objectColumnDesign[this.columnsNames[e]] = rows[i].split("\t")[e]
+                objectColumnDesign[this.columnsNames[e]] = rows[i].split("\t")[e].trim()
               }
             }
           }
-
           this.TESTNAMES_LIST.push(objectColumnDesign);
         }
       }
-      this.bmxItem.componentText = this.TESTNAMES_LIST;
+      this.bmxItem.componentText = this.deleteDuplicates(this.TESTNAMES_LIST, 'nameCandidates');
+      this.columnsNames.push('RATE')
     } else {
-      this.bmxItem.componentText.forEach((row, index) => {
-        row.STARS = this.createRatingStars(this.rankingScaleValue, this.ratingScaleIcon)
-        row.RATE = -1
-        // this.leaveStar(index);
-      });
+      if (this.ASSIGNED_CRITERIA.length > 0) {
+        this.bmxItem.componentSettings[0].CRITERIA = true      
+        this.bmxItem.componentText.forEach((row, index) => {
+          let CRITERIA = [];
+          this.ASSIGNED_CRITERIA.forEach(criteria => {
+            CRITERIA.push({
+              name: criteria.name,
+              STARS: this.createRatingStars(this.rankingScaleValue, this.ratingScaleIcon),
+              RATE: index>0?-1:'RATE',
+            })
+          });
+          row.CRITERIA = CRITERIA
+          delete row["'STARS'"];
+        });
+       }
+      else {
+        this.bmxItem.componentSettings[0].CRITERIA = false
+        this.bmxItem.componentText.forEach((row, index) => {
+          row.STARS = this.createRatingStars(this.rankingScaleValue, this.ratingScaleIcon)
+          row.RATE = index>0?-1:'RATE',
+          delete row['CRITERIA'];
+          // this.leaveStar(index);
+        });
+      }
     }
+    setTimeout(() => {
+      this.dragRows = false;
+    }, 1000);
+  }
+
+  // delete row diplicates from array of object by property
+  deleteDuplicates(array, property) {
+    let newArray = [];
+    let lookupObject = {};
+
+    for (let i in array) {
+      lookupObject[array[i][property]] = array[i];
+    }
+
+    for (let i in lookupObject) {
+      newArray.push(lookupObject[i]);
+    }
+
+    if (array.length > newArray.length) {
+      const unionMinusInter  = this.unionMinusIntersection(array, newArray)
+      const nameCandidates = this.spreadArray(unionMinusInter)
+      this._snackBar.open(`You have  ${array.length - newArray.length} duplicates removed: "${nameCandidates.join(', ')}" 🍕`, 'OK', {
+        duration: 10000,
+        verticalPosition: 'top',
+      })
+    }
+    return newArray;
+  }
+// remove objects from array1 that are also in array2
+  unionMinusIntersection(array1, array2) {
+    let union = array1.concat(array2);
+    let intersection = array1.filter(x => array2.includes(x));
+    let unionMinusInter = union.filter(x => !intersection.includes(x));
+    return unionMinusInter;
+  }
+//  spread array of object to array of string by property
+  spreadArray(array) {
+    let newArray = [];
+    array.forEach(element => {
+      newArray.push(element.nameCandidates)
+    });
+    return newArray;
   }
 
   // COLUMNS ADD AND REMOVE
@@ -328,9 +408,14 @@ export class RatingScaleComponent implements OnInit {
   }
 
   insertCommentBoxColumn() {
+    this.columnsNames.forEach(columnName => {
+      if (columnName.includes('Comments')) {
+        this.commentColumnCounter++
+        // this.RadioColumnList.push('RadioColumn' + this.commentColumnCounter)
+      }
+    });
     this.columnsNames.push('Comments' + (this.commentColumnCounter));
     this.bmxItem.componentText.forEach((object, index) => {
-      // object = this.addToObject(object, 'Comments' + (this.commentColumnCounter), 'CommentsTxt' + (this.commentColumnCounter), this.commentColumnCounter)
       let coulmnName = 'Comments' + this.commentColumnCounter
       if (index > 0) {
         object[coulmnName] = ''
@@ -342,12 +427,9 @@ export class RatingScaleComponent implements OnInit {
   }
 
   insertRadioColumn() {
-
     this.columnsNames.push('RadioColumn' + (this.radioColumnCounter));
-    this.RadioColumnList.push('RadioColumn' + this.radioColumnCounter)
     this.bmxItem.componentText.forEach((object, index) => {
       let coulmnName = 'RadioColumn' + this.radioColumnCounter
-
       if (index == 0) {
         object[coulmnName] = this.radioColumnCounter
       } else {
@@ -355,8 +437,6 @@ export class RatingScaleComponent implements OnInit {
       }
     });
     this.radioColumnCounter++
-
-
   }
 
   saveRadioColumValue(name, y) {
@@ -391,23 +471,57 @@ export class RatingScaleComponent implements OnInit {
     });
   }
 
-
-
   deletRow(option): void {
     this.bmxItem.componentText.splice(option, 1);
   }
 
   insertRow(): void {
-    this.bmxItem.componentText.push(this.bmxItem.componentText[0])
+    const newRow =  Object.assign({}, this.bmxItem.componentText[0]);
+    this.bmxItem.componentText.push(newRow)
+  }
+
+  swapColumns(index): void {
+    let temp = this.columnsNames[index];
+    // update columnsNames array order
+    for (let i = index; i < this.columnsNames.length - 1; i++) {
+      this.columnsNames[i] = this.columnsNames[i + 1];
+    }
+    this.columnsNames[this.columnsNames.length - 1] = temp;
+    let newRow = {}
+    // re-order brand matrix columns
+    this.bmxItem.componentText.forEach((row, rowIndex) => {
+      for (let i = 0; i < this.columnsNames.length - 1; i++) {
+        Object.keys(row).forEach(key => {  
+          if (this.columnsNames[i] == key) {
+            newRow[key] = row[key]
+          }
+        })
+      }
+      this.bmxItem.componentText[rowIndex] = this.mergeObjects(newRow, row)
+    });
+  }
+
+  mergeObjects(obj1, obj2) {
+    let obj3 = {};
+    for (let attrname in obj1) {
+      obj3[attrname] = obj1[attrname];
+    }
+    for (let attrname in obj2) {
+      obj3[attrname] = obj2[attrname];
+    }
+    return obj3;
   }
 
   deleteColumn(columnName) {
-
     let temporary = []
     // REMOVE THE COLUMN FROM THE COLUMNS
-    this.columnsNames.forEach(element => {
+    this.columnsNames.forEach((element, index) => {
       if (element !== columnName) {
         temporary.push(element)
+        if (element.includes('Comments')) {
+          // this.RadioColumnList['RadioColumn' + this.commentColumnCounter] = undefined
+          this.commentColumnCounter--
+        }
       }
     });
     this.columnsNames = temporary;
@@ -421,38 +535,20 @@ export class RatingScaleComponent implements OnInit {
     this.ASSIGNED_CRITERIA = selectedCriteria
   }
 
+
+
+  addCriteria(newCriteria){
+    if (newCriteria.length > 0) {
+      this.CRITERIA.unshift({name: newCriteria})
+    }
+  }
+  deleteCriteria(index){
+      this.CRITERIA.splice(index, 1)
+  }
+
   checkDragEvetn(e) {
     // console.log(e);
   }
-
-  private addToObject(obj, key, value, index) {
-    // Create a temp object and index variable
-    let temp = {};
-    let i = 0;
-    // Loop through the original object
-    for (let prop in obj) {
-      if (obj.hasOwnProperty(prop)) {
-
-        // If the indexes match, add the new item
-        if (i === index && key && value) {
-          temp[key] = value;
-        }
-        // Add the current item in the loop to the temp obj
-        temp[prop] = obj[prop];
-        // Increase the count
-        i++;
-      }
-    }
-
-    // If no index, add to the end
-    if (!index && key && value) {
-      temp[key] = value;
-    }
-
-    return temp;
-
-  };
-
 
   toogleColumnResizer() {
     this.isColumnResizerOn = !this.isColumnResizerOn
@@ -462,90 +558,79 @@ export class RatingScaleComponent implements OnInit {
     // this.selectedCard = index
   }
 
+  onPaste(){
+    setTimeout(() => {
+      let rows = this.testNamesInput.split("\n");
+      this.rowsCount = rows.length-1
+    }, 1000);
+    
+
+
+  }
+
   ASSIGNED_CRITERIA = []
   CRITERIA = [
-    { name: 'Fit to Company Description', rate: 0 },
-    { name: 'Fit to Product Statement', rate: 0 },
-    { name: 'Fit to Product Overview', rate: 0 },
-    { name: 'Fit to Global Positioning', rate: 0 },
-    { name: 'Fit to Concept/Positioning', rate: 0 },
-    { name: 'Fit to Brand Vision', rate: 0 },
-    { name: 'Fit to Vision Statement or Product Description', rate: 0 },
-    { name: 'Fit to Product Concept/Description', rate: 0 },
-    { name: 'Fit to Product Line Concept', rate: 0 },
-    { name: 'Fit to Global Concept', rate: 0 },
-    { name: 'Fit to Program Concept', rate: 0 },
-    { name: 'Fit to Therapeutic Area', rate: 0 },
-    { name: 'Fit to Service Positioning', rate: 0 },
-    { name: 'Fit to Product Description', rate: 0 },
-    { name: 'Fit to Venue Concept', rate: 0 },
-    { name: 'Fit to Program Description', rate: 0 },
-    { name: 'Fit to Program Vision', rate: 0 },
-    { name: 'Fit to Value Proposition', rate: 0 },
-    { name: 'Fit to Technology Concept', rate: 0 },
-    { name: 'Fit to Vision', rate: 0 },
-    { name: 'Product Positioning', rate: 0 },
-    { name: 'Fit to Product Concept and Positioning', rate: 0 },
-    { name: 'Fit to Concept Statement', rate: 0 },
-    { name: 'Fit to Division Concept', rate: 0 },
-    { name: 'Fit to Mechanism of Action', rate: 0 },
-    { name: 'Fit to Brand Concept', rate: 0 },
-    { name: 'Fit to Product Range Concept', rate: 0 },
-    { name: 'Fit to Concept', rate: 0 },
-    { name: 'Fit to Trial Concept', rate: 0 },
-    { name: 'Fit to Product Features and Benefits', rate: 0 },
-    { name: 'Fit to Brand', rate: 0 },
-    { name: 'Fit to Company Concept', rate: 0 },
-    { name: 'S`adapter au Concept de produit', rate: 0 },
-    { name: 'Fit to Compound Concept', rate: 0 },
-    { name: 'Fit to Service Concept', rate: 0 },
-    { name: 'Fit to Product Vision', rate: 0 },
-    { name: 'Fit to Contract Concept', rate: 0 },
-    { name: 'Fit to Product', rate: 0 },
-    { name: 'Fit to Brand Essence', rate: 0 },
-    { name: 'Fit to Entity Objectives', rate: 0 },
-    { name: 'Brand Family Rankings', rate: 0 },
-    { name: 'Fit to Trial Overview', rate: 0 },
-    { name: 'Fit to Business Unit Concept', rate: 0 },
-    { name: 'Fit to X4P-001 WHIM Syndrome Program', rate: 0 },
-    { name: 'Fit to Product Positioning', rate: 0 },
-    { name: 'Fit to LEO Pharma Mission and Vision', rate: 0 },
-    { name: 'Fit to Product Profile', rate: 0 },
-    { name: 'Fit to Positioning', rate: 0 },
-    { name: 'Fit to Company Mission', rate: 0 },
-    { name: 'Fit to Therapy', rate: 0 },
-    { name: 'Fit to Class Concept', rate: 0 },
-    { name: '• S`adapter au Concept de produit', rate: 0 },
-    { name: 'Fit to Product Concept/S`adapter au Concept de produit', rate: 0 },
-    { name: 'Fit to Portfolio Concept', rate: 0 },
-    { name: 'Fit to Mission and Vision Statements', rate: 0 },
-    { name: 'Overall Feasibility', rate: 0 },
-    { name: 'Fit to Company Description/Mission', rate: 0 },
-    { name: 'Fit to Compound Character and Image', rate: 0 },
-    { name: 'Fit to Strategy', rate: 0 },
-    { name: 'Personal Preference', rate: 0 },
-    { name: 'OPSIRIA Likeness', rate: 0 },
-    { name: 'Appropriately describes the Flutiform breath triggered inhaler', rate: 0 },
-    { name: 'Overall strategic fit and likeability', rate: 0 },
-    { name: 'Uniqueness', rate: 0 },
-    { name: 'Fit to Category Concept', rate: 0 },
-    { name: 'Overall Preference', rate: 0 },
-    { name: 'Connection to Hemlibra', rate: 0 },
-    { name: 'Fit to Company Vision Statement', rate: 0 },
-    { name: 'Fit to Website Concept', rate: 0 },
-    { name: 'Dislike', rate: 0 },
-    { name: 'Like', rate: 0 },
-    { name: 'Negative/Offensive Communication', rate: 0 },
-    { name: 'Fit to Phase 2/3 HTE Trial', rate: 0 },
-    { name: 'Fit to Phase 2 VS Trial', rate: 0 },
-    { name: 'Exaggerative/Inappropriate Claim', rate: 0 },
-    { name: 'Fit to Product Concept', rate: 0 },
-    { name: 'Attribute Evaluations', rate: 0 },
-    { name: 'Memorability', rate: 0 },
-    { name: 'Overall Likeability', rate: 0 },
-    { name: 'How the test name works alongside the name CUVITRU?', rate: 0 },
+    { name: 'Fit to Compound Concept'},
+    { name: 'Fit to Corporate Mission'},
+    { name: 'Overall Likeability'},
   ]
 
-  openDelete
+    // digitsManipulations
+    // (n) {
+    //   let sum = 0;
+    //   let product = 1;
+    //   let num = n;
+
+    //   while (num > 0) {
+    //     sum += num % 10;
+    //     product *= num % 10;
+    //     num = Math.floor(num / 10);
+    //   }
+
+    //   return product - sum;
+    // }
+
+
+    // addKbeforeFs(s, k) {
+    //   let arr = s.split('');
+    //   let newArr = [];
+
+    //   for (let i = 0; i < arr.length; i++) {
+    //     if (arr[i] === 'f') {
+    //       newArr.push(k);
+    //     } else {
+    //       newArr.push(arr[i]);
+    //     }
+    //   }
+
+    //   return newArr.join('');
+    // }
+
+    // addKbeforeFs(text: string) {
+    //   let arr = text.split('');
+    //   let newArr = [];
+
+    //   for (let i = 0; i < arr.length; i++) {
+    //     if (arr[i] === 'f') {
+    //       newArr.push('k');
+    //     } else {
+    //       newArr.push(arr[i]);
+    //     }
+    //   }
+
+    //   return newArr.join('');
+    // }
+
+    // addKbeforeFs(text: string) {
+
+
+//  attribute selector directive
+//  <div [attr.class]="className"></div>
+//  <div [attr.class]="{'class1': true, 'class2': false}"></div>
+
+// at witch point of the application lifecycle a service is created
+//  ngOnInit() {
+
+
 
 }

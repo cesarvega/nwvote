@@ -202,7 +202,7 @@
               justify-content: center;border-left: rgb(231, 230, 230) 1px solid;
               border-right: rgb(231, 230, 230) 1px solid;border-top: rgb(231, 230, 230) 1px solid;">
                     <div *ngIf="(y !== 0)">
-
+                        <!-- CHECK BOX -->
                         <input type="checkbox" [disabled]="false" [checked]="this.bmxItem.componentText[y].SELECTED_ROW"
                             (change)="setRating($event,y);leaveStar(y);">
                     </div>
@@ -297,8 +297,8 @@
                 border-right: rgb(231, 230, 230) 1px solid;border-top: rgb(231, 230, 230) 1px solid;">
                     <div *ngIf="(y !== 0) && this.bmxItem.componentText[y].SELECTED_ROW">
                         <div *ngIf="testName.CRITERIA; else elseBlock">
-                            <div *ngFor="let criteria of testName.CRITERIA  let x =  index" style="display: flex;flex-direction: column;justify-content: space-between;
-                                border-bottom: rgb(231, 230, 230) 1px solid;">
+                            <div *ngFor="let criteria of testName.CRITERIA  let x =  index" 
+                            style="display: flex;flex-direction: column;justify-content: space-between;text-align: center;">
                                 <span [style.font-size]="bmxItem.componentSettings[0].fontSize +'px'"
                                     style="padding-top:6px;max-width: 200px;">{{criteria.name}}</span>
                                 <div style="min-width: 200px;padding-bottom:6px">
