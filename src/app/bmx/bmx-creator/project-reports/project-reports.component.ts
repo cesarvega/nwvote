@@ -111,11 +111,13 @@ export class ProjectReportsComponent
     rowCalculator = [];
 
     REPORT_DATA = []
-    REPORT_DATA_MAP = new Map()
-    REPORT_CATEGORIES = []
+    REPORT_USER_DATA = []
     BMX_REPORT = []
     categoryCounter = 0
     categorySortedgArray = []
+
+    reportType = ''
+
     constructor(
         @Inject(DOCUMENT) private document: any,
         public _BmxService: BmxService,
@@ -248,7 +250,6 @@ export class ProjectReportsComponent
 
     ngOnInit(): void {
         this.myAngularxQrCode = this.myAngularxQrCode + this.projectId + '/' + this.biUsername
-
         // SAMPLE DATA FOR CKEDITOR
         // this.model.editorData = this.sampleHtml;
         // // TEMPLATE SELECTOR
@@ -258,25 +259,28 @@ export class ProjectReportsComponent
         // if (this.bmxPagesClient) {
         //     // this.bmxPages = this.bmxPagesClient;
         // } else {
-            //   this.bmxPages = this.SAMPLE_BMX;
+        //   this.bmxPages = this.SAMPLE_BMX;
 
-            // this._BmxService.getBrandMatrixByProject(this.projectId).subscribe((brandMatrix: any) => {
-            //     if (brandMatrix.d.length > 0) {
-            //         this.bmxPages = JSON.parse(brandMatrix.d)
+        this._BmxService.getBrandMatrixByProject(this.projectId + '_REPORT').subscribe((brandMatrix: any) => {
+            if (brandMatrix.d.length > 0) {
+                this.bmxPages = JSON.parse(brandMatrix.d)
 
-            //         // this._snackBar.open('bmx LOADED for project  ' + this.projectId , 'OK', {
-            //         //     duration: 5000,
-            //         //     horizontalPosition: 'left',
-            //         //     verticalPosition: 'top'
-            //         //   })
-            //     } else {
-            //         this.bmxPages = this.SAMPLE_BMX
-            //     }
+                // this._snackBar.open('bmx LOADED for project  ' + this.projectId , 'OK', {
+                //     duration: 5000,
+                //     horizontalPosition: 'left',
+                //     verticalPosition: 'top'
+                //   })
+            } else {
+            //   this.getAndCalculateReport()
+            }
 
-            // })
+            this.bmxPages = this.SAMPLE_BMX;
 
-        // }
+        })
 
+    }
+
+    getAndCalculateReport() {
         this._BmxService.getBrandMatrixByProjectAllUserAnswers(this.projectId).subscribe((brandMatrix: any) => {
             if (brandMatrix.d.length > 0) {
                 const answersByAllUsers = JSON.parse(brandMatrix.d)
@@ -294,6 +298,8 @@ export class ProjectReportsComponent
                                 component.componentType == 'tinder' ||
                                 component.componentType == 'question-answer'
                             ) {
+                                // CATEGORIES 
+                                this.reportType = component.componentType
                                 this.categoryCounter++
                                 if (userAnswerIndex == 0) {
                                     let categoryObj = new Object();
@@ -306,18 +312,16 @@ export class ProjectReportsComponent
                                             this.BMX_REPORT[this.categoryCounter - 1]['category_' + this.categoryCounter]);
                                     }
                                 });
-                                let categroyName = 'category_' + this.categoryCounter
-                                let objectContainer = {}
-                                objectContainer[categroyName] = component.componentText
-                                userCategory.push(objectContainer)
-                                this.REPORT_DATA_MAP.set(userAnswer.Username, userCategory);
+                                //🌈🌈🌈🌈🌈🌈🌈🌈🌈🌈🌈🌈🌈🌈🌈🌈 USERS RESULTS
+                                let userName = { username: userAnswer.Username, content: component.componentText,componentType:component.componentType }
+                                this.REPORT_USER_DATA.push(userName);//🌈🌈🌈🌈🌈🌈🌈🌈🌈🌈🌈🌈🌈🌈🌈🌈
                             }
                         });
                     });
                 });
 
+                //  SORTING REPORT BY SCORE 🤩🤩🤩🤩🤩🤩🤩🤩🤩🤩🤩🤩🤩🤩🤩🤩🤩🤩🤩🤩🤩🤩🤩🤩
                 let sortIngArray = []
-
                 this.BMX_REPORT.forEach((category, categoryIndex) => {
                     const sortedCategory = Object.keys(category)[0]
                     Object.keys(category[sortedCategory]).forEach((key, keyIndex) => {
@@ -328,10 +332,13 @@ export class ProjectReportsComponent
                             comments: this.BMX_REPORT[categoryIndex][sortedCategory][key].comments
                         })
                     });
-                    this.categorySortedgArray.push(this.sortArrayByTwoProperties(sortIngArray, 'score', 'nameCandidates'))
+                    if (this.reportType === 'ranking-scale') {
+                        this.categorySortedgArray.push(this.inverseSortArrayByTwoProperties(sortIngArray, 'score', 'nameCandidates'))
+                    } else {
+                        this.categorySortedgArray.push(this.sortArrayByTwoProperties(sortIngArray, 'score', 'nameCandidates'))
+                    }
                     sortIngArray = []
                 });
-
 
                 this.bmxPages = [
                     {
@@ -353,7 +360,80 @@ export class ProjectReportsComponent
                             },
                             {
                                 "componentType": "text-editor",
-                                "componentText": "<p style=\"text-align:center\"><u>Instructions</u></p>\n\n<p style=\"text-align:center\">&nbsp;</p>\n\n<p style=\"text-align:justify\">&nbsp; &nbsp; &nbsp; &nbsp; &nbsp;Please select&nbsp;only&nbsp;the name candidates that you would categorize as&nbsp;<strong>neutral to positive</strong>&nbsp;</p>\n\n<p style=\"text-align:justify\">&nbsp; &nbsp; &nbsp; &nbsp; &nbsp;You should take into consideration any competitive brand name associations, pronunciation issues or negative connotations when making your selections.</p>\n\n<p style=\"text-align:justify\">&nbsp; &nbsp; &nbsp; &nbsp; &nbsp;To make a selection, simply click the check box to the left of the desired name candidate.</p>\n\n<p>&nbsp; &nbsp; &nbsp; &nbsp; &nbsp;After you make a selection, you will be asked to rate that name based on your&nbsp;<strong>Personal Preference</strong>:</p>\n\n<p>&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; Please rate each selected name candidate based on your own personal preference on a scale from <strong>1</strong> to <strong>7</strong>, <strong>1</strong> being neutral and <strong>7</strong> being the most liked.</p>\n\n<p>&nbsp; &nbsp; &nbsp; &nbsp; &nbsp;There is no ranking for negative as these names are not to be selected</p>\n\n<p>&nbsp; &nbsp; &nbsp; &nbsp; &nbsp;Once you have finished your selections, please click the &quot;Continue&quot; button on the bottom of the page to complete the survey.</p>\n",
+                                "componentText": `<p style="text-align:center">BrandMatrixTM Report</p>
+
+                                <p style="text-align:center">Project: ICELAND</p>
+                                
+                                <p style="text-align:center">&nbsp;</p>
+                                
+                                <p style="text-align:center">Created: Monday, January 20, 2020</p>
+                                
+                                <p style="text-align:center">&nbsp;</p>
+                                
+                                <p style="text-align:center">TABLE OF CONTENTS</p>
+                                
+                                <p style="text-align:center">&nbsp;</p>
+                                
+                                <p style="text-align:center">BRANDMATRIXTM OVERVIEW&nbsp;</p>
+                                
+                                <p style="text-align:center">PROJECT BACKGROUND&nbsp;</p>
+                                
+                                <p style="text-align:center">LEGEND&nbsp;</p>
+                                
+                                <p style="text-align:center">BRANDMATRIXTM COMPLETION STATUS&nbsp;</p>
+                                
+                                <p style="text-align:center">OVERALL RANKING BY TEST NAME&nbsp;</p>
+                                
+                                <p style="text-align:center">VOTES BY RESPONDENT&nbsp;</p>
+                                
+                                <p style="text-align:center">NEW NAME SUGGESTIONS&nbsp;</p>
+                                
+                                <p style="text-align:center">&nbsp;</p>
+                                
+                                <p style="text-align:center">&nbsp;</p>
+                                
+                                <p style="text-align:center">BRANDMATRIXTM OVERVIEW</p>
+                                
+                                <p>BrandMatrixTM is an online, interactive proprietary tool used to assist you in objectively selecting and ranking the name candidates for your new product. Team members confidentially select, rank, and evaluate their favorite name candidates. The BrandMatrixTM measures how well the name fits the product concept, overall likeability, and respondents&rsquo; comments, associations, or connotations.</p>
+                                
+                                <p>This report summarizes the BrandMatrixTM results providing a good assessment of favorable prospective names. The next step of the process will be a conference call to discuss the BrandMatrixTM results and identify the final name candidates to continue into the trademarks screening phase.</p>
+                                
+                                <p>&nbsp;</p>
+                                
+                                <p style="text-align:center">PROJECT BACKGROUND</p>
+                                
+                                <p>LEGEND</p>
+                                
+                                <p>The following names have been pre-screened for identical registered trademarks in the US Federal, US State, EUTM, WIPO and InterNIC registries. These name candidates appear free of prior registrations for services and products included in classes 5 and 10. This does not constitute Brand Institute&#39;s BrandSearchTM Intelligent Trademark Screening (IQ) or Full Legal Search.</p>
+                                
+                                <p>Please Note:</p>
+                                
+                                <p>(T) Denotes identical trademark registration</p>
+                                
+                                <p>(C) Denotes .com registration</p>
+                                
+                                <p>(CB) Denotes &quot;built-out&quot; .com website*</p>
+                                
+                                <p>(U/I) Denotes USAN/INN stem</p>
+                                
+                                <p>*The term &quot;built-out&quot; means that an actual website exists at this address and is not merely registered. Registered domain names are typically more obtainable than &quot;built-out&quot; websites.</p>
+                                
+                                <p>&nbsp;</p>
+                                
+                                <p style="text-align:center">&nbsp;</p>
+                                
+                                <p style="text-align:center">&nbsp;</p>
+                                
+                                <p style="text-align:center">BRANDMATRIXTM COMPLETION STATUS</p>
+                                
+                                <p style="text-align:center">This section details who participated in the BrandMatrixTM</p>
+                                
+                                <p style="text-align:center">Percentage of participants who have completed the BrandMatrixTM = 100%</p>
+                                
+                                <p style="text-align:center">(6 out of 6)</p>
+                                
+                                <p style="text-align:center">&nbsp;</p>
+                                `,
                                 "componentSettings": [
                                     {
                                         "fontSize": "16",
@@ -393,69 +473,15 @@ export class ProjectReportsComponent
                     }]
 
                 console.log(this.bmxPages[this.currentPage].page);
-
-                let component
-                let categoryArray =[]
                 console.log(this.BMX_REPORT);
                 console.log(this.categorySortedgArray);
-                // FIXING ARRAY TO BE DEPLAY ON THE PAGE
-                this.categorySortedgArray.forEach((category, categoryIndex) => {
-                    // if (categoryIndex == 0) {
 
-                        component = {
-                            "componentType": "rate-scale",
-                            "componentText": [
-                            ],
-                            "componentSettings": [
-                                {
-                                    "minRule": 0,
-                                    "maxRule": 4,
-                                    "fontSize": 16,
-                                    "columnWidth": 325,
-                                    "rationalewidth": 804,
-                                    "rowHeight": 2,
-                                    "categoryRulesPassed": false,
-                                    "ratedCounter": 0,
-                                    "categoryName": "Name Candidates",
-                                    "categoryDescription": "With Max Rate Amount",
-                                    "ratingScaleTitle": "Rate from 1 to 7"
-                                }
-                            ]
-                        }
-                        let comments
-                        category.forEach((row, rowIndex) => {
-                            if (rowIndex == 0) {
-                               const rowObj = {}
-                               Object.keys(row).forEach((key, keyIndex) => {
-                                rowObj[key] = key
-                                 
-                               })
-                               component.componentText.push(rowObj) 
-                            }
-                            else {
-                                component.componentText.push(row)
-                                row.comments.forEach((comment, index, commnetsArray) => {
-                                    if (comment) {
-                                       
-                                        comments = `<div style="color: blueviolet;">` + comment.userName + `: ` +
-                                                  `<span style="color: brown;">`+ comment.comment + `</span>`   + `</div>`
-                                        commnetsArray[index] = comments + `\n`
-                                    }
-                                });
-                                component.componentText[rowIndex].comments = row.comments.join('').toString()
-                            }
-                           
-                        });
-                    // }
-                    this.bmxPages[0].page.push(component)
-                });
-
-                // this.bmxPages[0].page[2] = component
-                // this.bmxPages[0].page.push(categoryArray)
+                //🌈🌈🌈🌈🌈🌈🌈🌈🌈🌈🌈🌈🌈🌈🌈🌈//🌈🌈🌈🌈🌈🌈🌈🌈🌈🌈🌈🌈🌈🌈🌈🌈//🌈🌈🌈🌈🌈🌈🌈🌈🌈🌈🌈🌈🌈🌈🌈🌈//🌈🌈🌈🌈🌈🌈🌈🌈🌈🌈🌈🌈🌈🌈🌈🌈//🌈🌈🌈🌈🌈🌈🌈🌈🌈🌈🌈🌈🌈🌈🌈🌈//🌈🌈🌈🌈🌈🌈🌈🌈🌈🌈🌈🌈🌈🌈🌈🌈//🌈🌈🌈🌈🌈🌈🌈🌈🌈🌈🌈🌈🌈🌈🌈🌈//🌈🌈🌈🌈🌈🌈🌈🌈🌈🌈🌈🌈🌈🌈🌈🌈              
+                this.createReportPerCategory(this.categorySortedgArray)
+                this.createReportByUsername(this.REPORT_USER_DATA)
             }
         })
     }
-
 
     computeReport(row, templateComponent, username, REPORT_DATA) {
         // 💜💜💜💜💜💜💜💜💜💜💜💜💜💜💜💜💜💜💜💜💜💜💜💜💜💜💜💜💜💜💜💜💜💜💜💜💜💜💜💜💜💜💜
@@ -575,6 +601,126 @@ export class ProjectReportsComponent
             this.rowCalculator['positiveRank'] += (row.vote == 'positive') ? 1 : ''
             this.rowCalculator['negatvieRank'] += (row.vote == 'negative') ? 1 : ''
         }
+    }
+
+    createReportPerCategory(category) {
+        let component
+        category.forEach((category, categoryIndex) => {
+            // if (categoryIndex == 0) {
+
+            component = {
+                "componentType": "rate-scale",
+                "componentText": [
+                ],
+                "componentSettings": [
+                    {
+                        "minRule": 0,
+                        "maxRule": 4,
+                        "fontSize": 16,
+                        "columnWidth": 325,
+                        "rationalewidth": 804,
+                        "rowHeight": 2,
+                        "categoryRulesPassed": false,
+                        "ratedCounter": 0,
+                        "categoryName": "Name Candidates",
+                        "categoryDescription": "With Max Rate Amount",
+                        "ratingScaleTitle": "Rate from 1 to 7"
+                    }
+                ]
+            }
+            let comments
+            category.forEach((row, rowIndex) => {
+                if (rowIndex == 0) {
+                    const rowObj = {}
+                    //    CALUCULATING THE ROW HEEADERS 
+                    Object.keys(row).forEach((key, keyIndex) => {
+                        rowObj[key] = key
+
+                    })
+                    component.componentText.push(rowObj)
+                }
+                else {
+                    component.componentText.push(row)
+                    row.comments.forEach((comment, index, commnetsArray) => {
+                        if (comment) {
+
+                            comments = `<div style="color: blueviolet;">` + comment.userName + `: ` +
+                                `<span style="color: brown;">` + comment.comment + `</span>` + `</div>`
+                            commnetsArray[index] = comments + `\n`
+                        }
+                    });
+                    component.componentText[rowIndex].comments = row.comments.join('').toString()
+                }
+
+            });
+            // }
+            this.bmxPages[0].page.push(component)
+        });
+    }
+
+    createReportByUsername(usersData) {
+        let component
+        usersData.forEach((category, categoryIndex) => {
+            // if (categoryIndex == 0) {
+
+            // recreate rows to be display by the master matrix
+            let newCat = category.content.map((row, rowIndex) => {
+                let newRow = {}
+                Object.keys(row).forEach(key => {
+                    if (rowIndex === 0) {
+                        newRow['Score'] = 'Score'
+                    }
+                    if (rowIndex === 0) {
+                        newRow['Rank'] = 'Rank'
+                    } else {
+                        newRow['Rank'] = rowIndex
+                    }
+                    if (key === 'RATE') {
+                        if (rowIndex !== 0) {
+                            newRow['Score'] = (row[key] == undefined) ? '0' : row[key]
+                        }
+                    } else if (key === 'STARS') {
+                        // newRow[key] = row[key]
+                    }
+                    else {
+                        newRow[key] = row[key]
+                    }
+                })
+                return newRow
+            })
+
+            // sort rows by core and testname aphabetical
+            let firstRowHeaders = newCat.splice(0, 1)[0]
+            if(category.componentType === 'ranking-scale'){
+                newCat = this.inverseSortArrayByTwoProperties(newCat, 'Score', 'nameCandidates')
+            } else {
+                newCat = this.sortArrayByTwoProperties(newCat, 'Score', 'nameCandidates')
+            }
+            newCat.unshift(firstRowHeaders)
+
+            component = {
+                "componentType": "rate-scale",
+                "componentText": newCat,
+                "componentSettings": [
+                    {
+                        "minRule": 0,
+                        "maxRule": 4,
+                        "fontSize": 16,
+                        "columnWidth": 205,
+                        "rationalewidth": 204,
+                        "rowHeight": 2,
+                        "categoryRulesPassed": false,
+                        "ratedCounter": 0,
+                        "categoryName": category.username,
+                        "categoryDescription": "results by user sorted",
+                        "ratingScaleTitle": "Rate from 1 to 7"
+                    }
+                ]
+            }
+
+            this.bmxPages[0].page.push(component)
+        });
+
     }
 
 
@@ -1029,6 +1175,9 @@ export class ProjectReportsComponent
             });
         });
         // console.log(this.bmxCompleteObject.bmx[4]["page"][3]['componentText']);
+
+        this.projectId = this.projectId + '_REPORT'
+
         this._BmxService
             .saveOrUpdateBradnMatrixTemplate(this.bmxPages, this.projectId)
             .subscribe((res) => {
@@ -1191,6 +1340,17 @@ export class ProjectReportsComponent
             }
         });
     }
+    private inverseSortArrayByTwoProperties(array, prop1, prop2) {
+        return array.sort(function (b, a) {
+            if (a[prop1] > b[prop1]) {
+                return -1;
+            } else if (a[prop1] < b[prop1]) {
+                return 1;
+            } else {
+                    return 0;
+            }
+        });
+    }
 
     private diplicateArrayMultiple(array, times) {
         let result = [];
@@ -1200,20 +1360,20 @@ export class ProjectReportsComponent
         return result;
     }
 
-
     SAMPLE_BMX = [
         {
             "pageNumber": 1,
             "page": [
                 {
                     "componentType": "logo-header",
-                    "componentText": "PROJECT NAME",
+                    "componentText": "ratetoprank",
                     "componentSettings": [
                         {
                             "fontSize": "16px",
                             "fontFace": "Arial",
                             "logoWidth": 100,
-                            "brandInstituteURL": "./assets/img/bmx/BRANDMATRIX-DASHBOARD-LOGO.svg",
+                            "brandInstituteLogoURL": "./assets/img/bmx/BRANDMATRIX-DASHBOARD-LOGO.svg",
+                            "brandInstituteSurveyLogoURL": "./assets/img/bmx/bm-logo-2020-high.png",
                             "brandInstituteMobileURL": "./assets/img/bmx/bmxCube.jpg",
                             "companyLogoURL": "./assets/img/bmx/BD.png"
                         }
@@ -1221,7 +1381,7 @@ export class ProjectReportsComponent
                 },
                 {
                     "componentType": "text-editor",
-                    "componentText": "<p style=\"text-align:center\"><u>Instructions</u></p>\n\n<p style=\"text-align:center\">&nbsp;</p>\n\n<p style=\"text-align:justify\">&nbsp; &nbsp; &nbsp; &nbsp; &nbsp;Please select&nbsp;only&nbsp;the name candidates that you would categorize as&nbsp;<strong>neutral to positive</strong>&nbsp;</p>\n\n<p style=\"text-align:justify\">&nbsp; &nbsp; &nbsp; &nbsp; &nbsp;You should take into consideration any competitive brand name associations, pronunciation issues or negative connotations when making your selections.</p>\n\n<p style=\"text-align:justify\">&nbsp; &nbsp; &nbsp; &nbsp; &nbsp;To make a selection, simply click the check box to the left of the desired name candidate.</p>\n\n<p>&nbsp; &nbsp; &nbsp; &nbsp; &nbsp;After you make a selection, you will be asked to rate that name based on your&nbsp;<strong>Personal Preference</strong>:</p>\n\n<p>&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; Please rate each selected name candidate based on your own personal preference on a scale from <strong>1</strong> to <strong>7</strong>, <strong>1</strong> being neutral and <strong>7</strong> being the most liked.</p>\n\n<p>&nbsp; &nbsp; &nbsp; &nbsp; &nbsp;There is no ranking for negative as these names are not to be selected</p>\n\n<p>&nbsp; &nbsp; &nbsp; &nbsp; &nbsp;Once you have finished your selections, please click the &quot;Continue&quot; button on the bottom of the page to complete the survey.</p>\n",
+                    "componentText": "<p style=\"text-align:center\">BrandMatrixTM Report</p>\n\n                                <p style=\"text-align:center\">Project: ICELAND</p>\n                                \n                                <p style=\"text-align:center\">&nbsp;</p>\n                                \n                                <p style=\"text-align:center\">Created: Monday, January 20, 2020</p>\n                                \n                                <p style=\"text-align:center\">&nbsp;</p>\n                                \n                                <p style=\"text-align:center\">TABLE OF CONTENTS</p>\n                                \n                                <p style=\"text-align:center\">&nbsp;</p>\n                                \n                                <p style=\"text-align:center\">BRANDMATRIXTM OVERVIEW&nbsp;</p>\n                                \n                                <p style=\"text-align:center\">PROJECT BACKGROUND&nbsp;</p>\n                                \n                                <p style=\"text-align:center\">LEGEND&nbsp;</p>\n                                \n                                <p style=\"text-align:center\">BRANDMATRIXTM COMPLETION STATUS&nbsp;</p>\n                                \n                                <p style=\"text-align:center\">OVERALL RANKING BY TEST NAME&nbsp;</p>\n                                \n                                <p style=\"text-align:center\">VOTES BY RESPONDENT&nbsp;</p>\n                                \n                                <p style=\"text-align:center\">NEW NAME SUGGESTIONS&nbsp;</p>\n                                \n                                <p style=\"text-align:center\">&nbsp;</p>\n                                \n                                <p style=\"text-align:center\">&nbsp;</p>\n                                \n                                <p style=\"text-align:center\">BRANDMATRIXTM OVERVIEW</p>\n                                \n                                <p>BrandMatrixTM is an online, interactive proprietary tool used to assist you in objectively selecting and ranking the name candidates for your new product. Team members confidentially select, rank, and evaluate their favorite name candidates. The BrandMatrixTM measures how well the name fits the product concept, overall likeability, and respondents&rsquo; comments, associations, or connotations.</p>\n                                \n                                <p>This report summarizes the BrandMatrixTM results providing a good assessment of favorable prospective names. The next step of the process will be a conference call to discuss the BrandMatrixTM results and identify the final name candidates to continue into the trademarks screening phase.</p>\n                                \n                                <p>&nbsp;</p>\n                                \n                                <p style=\"text-align:center\">PROJECT BACKGROUND</p>\n                                \n                                <p>LEGEND</p>\n                                \n                                <p>The following names have been pre-screened for identical registered trademarks in the US Federal, US State, EUTM, WIPO and InterNIC registries. These name candidates appear free of prior registrations for services and products included in classes 5 and 10. This does not constitute Brand Institute&#39;s BrandSearchTM Intelligent Trademark Screening (IQ) or Full Legal Search.</p>\n                                \n                                <p>Please Note:</p>\n                                \n                                <p>(T) Denotes identical trademark registration</p>\n                                \n                                <p>(C) Denotes .com registration</p>\n                                \n                                <p>(CB) Denotes &quot;built-out&quot; .com website*</p>\n                                \n                                <p>(U/I) Denotes USAN/INN stem</p>\n                                \n                                <p>*The term &quot;built-out&quot; means that an actual website exists at this address and is not merely registered. Registered domain names are typically more obtainable than &quot;built-out&quot; websites.</p>\n                                \n                                <p>&nbsp;</p>\n                                \n                                <p style=\"text-align:center\">&nbsp;</p>\n                                \n                                <p style=\"text-align:center\">&nbsp;</p>\n                                \n                                <p style=\"text-align:center\">BRANDMATRIXTM COMPLETION STATUS</p>\n                                \n                                <p style=\"text-align:center\">This section details who participated in the BrandMatrixTM</p>\n                                \n                                <p style=\"text-align:center\">Percentage of participants who have completed the BrandMatrixTM = 100%</p>\n                                \n                                <p style=\"text-align:center\">(6 out of 6)</p>\n                                \n                                <p style=\"text-align:center\">&nbsp;</p>\n                                ",
                     "componentSettings": [
                         {
                             "fontSize": "16",
@@ -1261,10 +1421,9 @@ export class ProjectReportsComponent
                                     "styleClass": "rating-star"
                                 }
                             ],
-                            "nameCandidates": "Name Candidates",
-                            "rationale": "Rationales",
-                            "Comments1": "General Comments",
-                            "RATE": -1
+                            "nameCandidates": "NameCandidates",
+                            "ExtraColumn1": "Email",
+                            "ExtraColumn2": "Status"
                         },
                         {
                             "STARS": [
@@ -1294,10 +1453,9 @@ export class ProjectReportsComponent
                                     "styleClass": "rating-star"
                                 }
                             ],
-                            "nameCandidates": "TEMPORAL  ",
-                            "rationale": "Treatment to Slow Parkinson’s Given Orally",
-                            "Comments1": "",
-                            "RATE": -1
+                            "nameCandidates": "Andrew Levin",
+                            "ExtraColumn1": "alevin@racap.com",
+                            "ExtraColumn2": "BM Completed"
                         },
                         {
                             "STARS": [
@@ -1327,10 +1485,9 @@ export class ProjectReportsComponent
                                     "styleClass": "rating-star"
                                 }
                             ],
-                            "nameCandidates": "Moderato  ",
-                            "rationale": "A Moderate Musical Tempo (Suggests Slowing Disease Progression)",
-                            "Comments1": "",
-                            "RATE": -1
+                            "nameCandidates": "DA Gros",
+                            "ExtraColumn1": "dag@imbria.com",
+                            "ExtraColumn2": "BM Completed"
                         },
                         {
                             "STARS": [
@@ -1360,10 +1517,9 @@ export class ProjectReportsComponent
                                     "styleClass": "rating-star"
                                 }
                             ],
-                            "nameCandidates": "REINSPIRE ",
-                            "rationale": "Reviewing an Early Intervention for Slowing Parkinson's Disease Progression - Give Hope, Links to UCB's \"Inspired by Patients\"",
-                            "Comments1": "",
-                            "RATE": -1
+                            "nameCandidates": "Jai Patel",
+                            "ExtraColumn1": "jp@imbria.com",
+                            "ExtraColumn2": "BM Completed"
                         },
                         {
                             "STARS": [
@@ -1393,10 +1549,9 @@ export class ProjectReportsComponent
                                     "styleClass": "rating-star"
                                 }
                             ],
-                            "nameCandidates": "MILKY WAY  ",
-                            "rationale": "MIsfolding Parkinson Study With Early Stage Patients",
-                            "Comments1": "",
-                            "RATE": -1
+                            "nameCandidates": "Neil Buckley",
+                            "ExtraColumn1": "neil.buckley@carnotpharma.com",
+                            "ExtraColumn2": "BM Completed"
                         },
                         {
                             "STARS": [
@@ -1426,10 +1581,9 @@ export class ProjectReportsComponent
                                     "styleClass": "rating-star"
                                 }
                             ],
-                            "nameCandidates": "Arkitect ",
-                            "rationale": "\"Architect,\" Embeds Ark for Parkinson's Disease and Implies Stability or Planning Ahead",
-                            "Comments1": "",
-                            "RATE": -1
+                            "nameCandidates": "Paul Chamberlain",
+                            "ExtraColumn1": "pc@imbria.com",
+                            "ExtraColumn2": "BM Completed"
                         },
                         {
                             "STARS": [
@@ -1459,43 +1613,9 @@ export class ProjectReportsComponent
                                     "styleClass": "rating-star"
                                 }
                             ],
-                            "nameCandidates": "Unfolding ",
-                            "rationale": "A Slow Revealing, Suggests Slowing Disease Progression and Links to Alpha-Synuclein Misfolding",
-                            "Comments1": "",
-                            "RATE": -1
-                        },
-                        {
-                            "STARS": [
-                                {
-                                    "id": 1,
-                                    "icon": "grade",
-                                    "styleClass": "rating-star"
-                                },
-                                {
-                                    "id": 2,
-                                    "icon": "grade",
-                                    "styleClass": "rating-star"
-                                },
-                                {
-                                    "id": 3,
-                                    "icon": "grade",
-                                    "styleClass": "rating-star"
-                                },
-                                {
-                                    "id": 4,
-                                    "icon": "grade",
-                                    "styleClass": "rating-star"
-                                },
-                                {
-                                    "id": 5,
-                                    "icon": "grade",
-                                    "styleClass": "rating-star"
-                                }
-                            ],
-                            "nameCandidates": "ORCHESTRA  ",
-                            "rationale": "ORal New Chemical Entity Aiming to Slow Disease Trajectory in Early Parkinson’s",
-                            "Comments1": "",
-                            "RATE": -1
+                            "nameCandidates": "Rose Harrison",
+                            "ExtraColumn1": "rharrison@racap.com",
+                            "ExtraColumn2": "BM Completed"
                         }
                     ],
                     "componentSettings": [
@@ -1503,42 +1623,24 @@ export class ProjectReportsComponent
                             "minRule": 0,
                             "maxRule": 4,
                             "fontSize": 16,
-                            "columnWidth": 191,
+                            "columnWidth": 349,
                             "rationalewidth": 804,
                             "rowHeight": 2,
                             "categoryRulesPassed": false,
                             "ratedCounter": 0,
-                            "categoryName": "Name Candidates",
-                            "categoryDescription": "With Max Rate Amount",
-                            "ratingScaleTitle": "Rate from 1 to 7"
-                        }
-                    ]
-                }
-            ]
-        },
-        {
-            "pageNumber": 2,
-            "page": [
-                {
-                    "componentType": "logo-header",
-                    "componentText": "PROJECT NAME",
-                    "componentSettings": [
-                        {
-                            "fontSize": "16px",
-                            "fontFace": "Arial",
-                            "logoWidth": 100,
-                            "brandInstituteURL": "./assets/img/bmx/BRANDMATRIX-DASHBOARD-LOGO.svg",
-                            "brandInstituteMobileURL": "./assets/img/bmx/bmxCube.jpg",
-                            "companyLogoURL": "./assets/img/bmx/BD.png"
+                            "categoryName": "Participants",
+                            "categoryDescription": "status of completion",
+                            "ratingScaleTitle": "Rate from 1 to 7",
+                            "CRITERIA": false
                         }
                     ]
                 },
                 {
                     "componentType": "text-editor",
-                    "componentText": "<p style=\"text-align:center\"><u>Instructions</u>:</p>\n\n<p><br />\nThe primary consideration for selection of a nonproprietary name is usefulness to health care practitioners; names should be accurately reflective of the substance they represent and easily distinguished from other existing nonproprietary names. Other aspects that enhance usefulness are brevity, memorability, and facility of pronunciation across multiple languages. Names should be free of promotional, numerical, and anatomical connotations; representations of chemical structure or mechanism-of-action should be restricted to the suffix portion of the name.<br />\n<br />\nPlease&nbsp;select all of the name candidates that you would categorize as&nbsp;neutral to positive. You should take into consideration any competitive name associations, pronunciation issues or negative connotations when making your selections.<br />\n<br />\nTo make a selection, simply click the check box to the left of the desired name candidate.<br />\n<br />\nAfter you make a selection, you will be asked to rate that name based on a set of criteria:<br />\n<br />\n<strong>Fit to Compound Concept:</strong><br />\n<br />\nPlease rate each selected name candidate based on how well it fits the compound concept on a scale from 1 to 7, 1 being average and 7 being excellent.<br />\n<br />\n<strong>Overall Likeability:</strong><br />\n<br />\nPlease rate each selected name candidate based on your own personal preference on a scale from 1 to 7, 1 being neutral and 7 being the most liked.<br />\n<br />\nYou can also provide comments in the text box titled&nbsp;General Comments.<br />\n<br />\nOnce you have finished your selections, please click the &quot;Continue&quot; button on the bottom of the page to proceed to the next evaluation section.<br />\n<br />\n&nbsp;</p>\n\n<p style=\"text-align:center\"><u>Concept Statement:</u></p>\n\n<p><br />\n<br />\nBlackThorn Therapeutics is developing BTRX-335140, a selective a Kappa opioid receptor (KOR) antagonist, under development for the treatment of major depressive disorder.<br />\n<br />\nThe USAN/INN Expert Group has defined the stem &ndash;caprant&nbsp;for selective kappa opioid receptor antagonist. The stem &ndash;caprant&nbsp;was used in the recent nonproprietary name aticaprant (pINN 119/rINN 81) for another kappa opioid receptor antagonist and is appropriate for use in the nonproprietary name of BTRX-335140. The purpose of this BrandMatrix exercise is to select a nonproprietary name for BTRX-335140 that is appropriate and appealing.</p>\n",
+                    "componentText": "<p style=\"text-align:center\"><span style=\"font-size:48px\">OVERALL RANKING BY TEST NAME</span></p>\n",
                     "componentSettings": [
                         {
-                            "fontSize": "16",
+                            "fontSize": "16px",
                             "fontFace": "Arial",
                             "fontColor": "red"
                         }
@@ -1548,3985 +1650,756 @@ export class ProjectReportsComponent
                     "componentType": "rate-scale",
                     "componentText": [
                         {
-                            "nameCandidates": "Name Candidates",
-                            "rationale": "Rationales",
-                            "CRITERIA": [
-                                {
-                                    "name": "Fit to Compound Concept",
-                                    "STARS": [
-                                        {
-                                            "id": 1,
-                                            "icon": "grade",
-                                            "styleClass": "rating-star"
-                                        },
-                                        {
-                                            "id": 2,
-                                            "icon": "grade",
-                                            "styleClass": "rating-star"
-                                        },
-                                        {
-                                            "id": 3,
-                                            "icon": "grade",
-                                            "styleClass": "rating-star"
-                                        },
-                                        {
-                                            "id": 4,
-                                            "icon": "grade",
-                                            "styleClass": "rating-star"
-                                        },
-                                        {
-                                            "id": 5,
-                                            "icon": "grade",
-                                            "styleClass": "rating-star"
-                                        },
-                                        {
-                                            "id": 6,
-                                            "icon": "grade",
-                                            "styleClass": "rating-star"
-                                        }
-                                    ],
-                                    "RATE": -1
-                                },
-                                {
-                                    "name": "Overall Likeability",
-                                    "STARS": [
-                                        {
-                                            "id": 1,
-                                            "icon": "grade",
-                                            "styleClass": "rating-star"
-                                        },
-                                        {
-                                            "id": 2,
-                                            "icon": "grade",
-                                            "styleClass": "rating-star"
-                                        },
-                                        {
-                                            "id": 3,
-                                            "icon": "grade",
-                                            "styleClass": "rating-star"
-                                        },
-                                        {
-                                            "id": 4,
-                                            "icon": "grade",
-                                            "styleClass": "rating-star"
-                                        },
-                                        {
-                                            "id": 5,
-                                            "icon": "grade",
-                                            "styleClass": "rating-star"
-                                        },
-                                        {
-                                            "id": 6,
-                                            "icon": "grade",
-                                            "styleClass": "rating-star"
-                                        }
-                                    ],
-                                    "RATE": -1
-                                }
-                            ],
-                            "Comments1": "General Comments"
+                            "nameCandidates": "nameCandidates",
+                            "score": "score",
+                            "comments": "comments"
                         },
                         {
-                            "nameCandidates": "talorcaprant ",
-                            "rationale": "Grab MDD By Talons",
-                            "CRITERIA": [
-                                {
-                                    "name": "Fit to Compound Concept",
-                                    "STARS": [
-                                        {
-                                            "id": 1,
-                                            "icon": "grade",
-                                            "styleClass": "rating-star"
-                                        },
-                                        {
-                                            "id": 2,
-                                            "icon": "grade",
-                                            "styleClass": "rating-star"
-                                        },
-                                        {
-                                            "id": 3,
-                                            "icon": "grade",
-                                            "styleClass": "rating-star"
-                                        },
-                                        {
-                                            "id": 4,
-                                            "icon": "grade",
-                                            "styleClass": "rating-star"
-                                        },
-                                        {
-                                            "id": 5,
-                                            "icon": "grade",
-                                            "styleClass": "rating-star"
-                                        },
-                                        {
-                                            "id": 6,
-                                            "icon": "grade",
-                                            "styleClass": "rating-star"
-                                        }
-                                    ],
-                                    "RATE": -1
-                                },
-                                {
-                                    "name": "Overall Likeability",
-                                    "STARS": [
-                                        {
-                                            "id": 1,
-                                            "icon": "grade",
-                                            "styleClass": "rating-star"
-                                        },
-                                        {
-                                            "id": 2,
-                                            "icon": "grade",
-                                            "styleClass": "rating-star"
-                                        },
-                                        {
-                                            "id": 3,
-                                            "icon": "grade",
-                                            "styleClass": "rating-star"
-                                        },
-                                        {
-                                            "id": 4,
-                                            "icon": "grade",
-                                            "styleClass": "rating-star"
-                                        },
-                                        {
-                                            "id": 5,
-                                            "icon": "grade",
-                                            "styleClass": "rating-star"
-                                        },
-                                        {
-                                            "id": 6,
-                                            "icon": "grade",
-                                            "styleClass": "rating-star"
-                                        }
-                                    ],
-                                    "RATE": -1
-                                }
-                            ],
-                            "Comments1": ""
+                            "nameCandidates": "REINSPIRE",
+                            "score": 13,
+                            "comments": "<div style=\"color: blueviolet;\">cvega: <span style=\"color: brown;\">comment cvega</span></div>\n<div style=\"color: blueviolet;\">cvega1: <span style=\"color: brown;\">comment cvega</span></div>\n<div style=\"color: blueviolet;\">cvega2: <span style=\"color: brown;\">comment cvega</span></div>\n<div style=\"color: blueviolet;\">cvega3: <span style=\"color: brown;\">comment cvega</span></div>\n"
                         },
                         {
-                            "nameCandidates": "selocaprant ",
-                            "rationale": "Selective",
-                            "CRITERIA": [
-                                {
-                                    "name": "Fit to Compound Concept",
-                                    "STARS": [
-                                        {
-                                            "id": 1,
-                                            "icon": "grade",
-                                            "styleClass": "rating-star"
-                                        },
-                                        {
-                                            "id": 2,
-                                            "icon": "grade",
-                                            "styleClass": "rating-star"
-                                        },
-                                        {
-                                            "id": 3,
-                                            "icon": "grade",
-                                            "styleClass": "rating-star"
-                                        },
-                                        {
-                                            "id": 4,
-                                            "icon": "grade",
-                                            "styleClass": "rating-star"
-                                        },
-                                        {
-                                            "id": 5,
-                                            "icon": "grade",
-                                            "styleClass": "rating-star"
-                                        },
-                                        {
-                                            "id": 6,
-                                            "icon": "grade",
-                                            "styleClass": "rating-star"
-                                        }
-                                    ],
-                                    "RATE": -1
-                                },
-                                {
-                                    "name": "Overall Likeability",
-                                    "STARS": [
-                                        {
-                                            "id": 1,
-                                            "icon": "grade",
-                                            "styleClass": "rating-star"
-                                        },
-                                        {
-                                            "id": 2,
-                                            "icon": "grade",
-                                            "styleClass": "rating-star"
-                                        },
-                                        {
-                                            "id": 3,
-                                            "icon": "grade",
-                                            "styleClass": "rating-star"
-                                        },
-                                        {
-                                            "id": 4,
-                                            "icon": "grade",
-                                            "styleClass": "rating-star"
-                                        },
-                                        {
-                                            "id": 5,
-                                            "icon": "grade",
-                                            "styleClass": "rating-star"
-                                        },
-                                        {
-                                            "id": 6,
-                                            "icon": "grade",
-                                            "styleClass": "rating-star"
-                                        }
-                                    ],
-                                    "RATE": -1
-                                }
-                            ],
-                            "Comments1": ""
+                            "nameCandidates": "Arkitect",
+                            "score": 14,
+                            "comments": "<div style=\"color: blueviolet;\">cvega: <span style=\"color: brown;\">comment cvega</span></div>\n<div style=\"color: blueviolet;\">cvega1: <span style=\"color: brown;\">comment cvega</span></div>\n<div style=\"color: blueviolet;\">cvega2: <span style=\"color: brown;\">comment cvega</span></div>\n<div style=\"color: blueviolet;\">cvega3: <span style=\"color: brown;\">comment cvega</span></div>\n"
                         },
                         {
-                            "nameCandidates": "nelvecaprant ",
-                            "rationale": "New/Novel",
-                            "CRITERIA": [
-                                {
-                                    "name": "Fit to Compound Concept",
-                                    "STARS": [
-                                        {
-                                            "id": 1,
-                                            "icon": "grade",
-                                            "styleClass": "rating-star"
-                                        },
-                                        {
-                                            "id": 2,
-                                            "icon": "grade",
-                                            "styleClass": "rating-star"
-                                        },
-                                        {
-                                            "id": 3,
-                                            "icon": "grade",
-                                            "styleClass": "rating-star"
-                                        },
-                                        {
-                                            "id": 4,
-                                            "icon": "grade",
-                                            "styleClass": "rating-star"
-                                        },
-                                        {
-                                            "id": 5,
-                                            "icon": "grade",
-                                            "styleClass": "rating-star"
-                                        },
-                                        {
-                                            "id": 6,
-                                            "icon": "grade",
-                                            "styleClass": "rating-star"
-                                        }
-                                    ],
-                                    "RATE": -1
-                                },
-                                {
-                                    "name": "Overall Likeability",
-                                    "STARS": [
-                                        {
-                                            "id": 1,
-                                            "icon": "grade",
-                                            "styleClass": "rating-star"
-                                        },
-                                        {
-                                            "id": 2,
-                                            "icon": "grade",
-                                            "styleClass": "rating-star"
-                                        },
-                                        {
-                                            "id": 3,
-                                            "icon": "grade",
-                                            "styleClass": "rating-star"
-                                        },
-                                        {
-                                            "id": 4,
-                                            "icon": "grade",
-                                            "styleClass": "rating-star"
-                                        },
-                                        {
-                                            "id": 5,
-                                            "icon": "grade",
-                                            "styleClass": "rating-star"
-                                        },
-                                        {
-                                            "id": 6,
-                                            "icon": "grade",
-                                            "styleClass": "rating-star"
-                                        }
-                                    ],
-                                    "RATE": -1
-                                }
-                            ],
-                            "Comments1": ""
+                            "nameCandidates": "ORCHESTRA",
+                            "score": 14,
+                            "comments": "<div style=\"color: blueviolet;\">cvega: <span style=\"color: brown;\">comment cvega</span></div>\n<div style=\"color: blueviolet;\">cvega1: <span style=\"color: brown;\">comment cvega</span></div>\n<div style=\"color: blueviolet;\">cvega2: <span style=\"color: brown;\">comment cvega</span></div>\n<div style=\"color: blueviolet;\">cvega3: <span style=\"color: brown;\">comment cvega</span></div>\n"
                         },
                         {
-                            "nameCandidates": "exacaprant ",
-                            "rationale": "Exact - Speaks To Precision",
-                            "CRITERIA": [
-                                {
-                                    "name": "Fit to Compound Concept",
-                                    "STARS": [
-                                        {
-                                            "id": 1,
-                                            "icon": "grade",
-                                            "styleClass": "rating-star"
-                                        },
-                                        {
-                                            "id": 2,
-                                            "icon": "grade",
-                                            "styleClass": "rating-star"
-                                        },
-                                        {
-                                            "id": 3,
-                                            "icon": "grade",
-                                            "styleClass": "rating-star"
-                                        },
-                                        {
-                                            "id": 4,
-                                            "icon": "grade",
-                                            "styleClass": "rating-star"
-                                        },
-                                        {
-                                            "id": 5,
-                                            "icon": "grade",
-                                            "styleClass": "rating-star"
-                                        },
-                                        {
-                                            "id": 6,
-                                            "icon": "grade",
-                                            "styleClass": "rating-star"
-                                        }
-                                    ],
-                                    "RATE": -1
-                                },
-                                {
-                                    "name": "Overall Likeability",
-                                    "STARS": [
-                                        {
-                                            "id": 1,
-                                            "icon": "grade",
-                                            "styleClass": "rating-star"
-                                        },
-                                        {
-                                            "id": 2,
-                                            "icon": "grade",
-                                            "styleClass": "rating-star"
-                                        },
-                                        {
-                                            "id": 3,
-                                            "icon": "grade",
-                                            "styleClass": "rating-star"
-                                        },
-                                        {
-                                            "id": 4,
-                                            "icon": "grade",
-                                            "styleClass": "rating-star"
-                                        },
-                                        {
-                                            "id": 5,
-                                            "icon": "grade",
-                                            "styleClass": "rating-star"
-                                        },
-                                        {
-                                            "id": 6,
-                                            "icon": "grade",
-                                            "styleClass": "rating-star"
-                                        }
-                                    ],
-                                    "RATE": -1
-                                }
-                            ],
-                            "Comments1": ""
+                            "nameCandidates": "Moderato",
+                            "score": 16,
+                            "comments": "<div style=\"color: blueviolet;\">cvega: <span style=\"color: brown;\">comment cvega</span></div>\n<div style=\"color: blueviolet;\">cvega1: <span style=\"color: brown;\">comment cvega</span></div>\n<div style=\"color: blueviolet;\">cvega2: <span style=\"color: brown;\">comment cvega</span></div>\n<div style=\"color: blueviolet;\">cvega3: <span style=\"color: brown;\">comment cvega</span></div>\n"
                         },
                         {
-                            "nameCandidates": "rasocaprant ",
-                            "rationale": "Raise Mood",
-                            "CRITERIA": [
-                                {
-                                    "name": "Fit to Compound Concept",
-                                    "STARS": [
-                                        {
-                                            "id": 1,
-                                            "icon": "grade",
-                                            "styleClass": "rating-star"
-                                        },
-                                        {
-                                            "id": 2,
-                                            "icon": "grade",
-                                            "styleClass": "rating-star"
-                                        },
-                                        {
-                                            "id": 3,
-                                            "icon": "grade",
-                                            "styleClass": "rating-star"
-                                        },
-                                        {
-                                            "id": 4,
-                                            "icon": "grade",
-                                            "styleClass": "rating-star"
-                                        },
-                                        {
-                                            "id": 5,
-                                            "icon": "grade",
-                                            "styleClass": "rating-star"
-                                        },
-                                        {
-                                            "id": 6,
-                                            "icon": "grade",
-                                            "styleClass": "rating-star"
-                                        }
-                                    ],
-                                    "RATE": -1
-                                },
-                                {
-                                    "name": "Overall Likeability",
-                                    "STARS": [
-                                        {
-                                            "id": 1,
-                                            "icon": "grade",
-                                            "styleClass": "rating-star"
-                                        },
-                                        {
-                                            "id": 2,
-                                            "icon": "grade",
-                                            "styleClass": "rating-star"
-                                        },
-                                        {
-                                            "id": 3,
-                                            "icon": "grade",
-                                            "styleClass": "rating-star"
-                                        },
-                                        {
-                                            "id": 4,
-                                            "icon": "grade",
-                                            "styleClass": "rating-star"
-                                        },
-                                        {
-                                            "id": 5,
-                                            "icon": "grade",
-                                            "styleClass": "rating-star"
-                                        },
-                                        {
-                                            "id": 6,
-                                            "icon": "grade",
-                                            "styleClass": "rating-star"
-                                        }
-                                    ],
-                                    "RATE": -1
-                                }
-                            ],
-                            "Comments1": ""
+                            "nameCandidates": "MILKY WAY",
+                            "score": 17,
+                            "comments": "<div style=\"color: blueviolet;\">cvega: <span style=\"color: brown;\">comment cvega</span></div>\n<div style=\"color: blueviolet;\">cvega1: <span style=\"color: brown;\">comment cvega</span></div>\n<div style=\"color: blueviolet;\">cvega2: <span style=\"color: brown;\">comment cvega</span></div>\n<div style=\"color: blueviolet;\">cvega3: <span style=\"color: brown;\">comment cvega</span></div>\n"
+                        },
+                        {
+                            "nameCandidates": "Unfolding",
+                            "score": 17,
+                            "comments": "<div style=\"color: blueviolet;\">cvega: <span style=\"color: brown;\">comment cvega`</span></div>\n<div style=\"color: blueviolet;\">cvega1: <span style=\"color: brown;\">comment cvega</span></div>\n<div style=\"color: blueviolet;\">cvega2: <span style=\"color: brown;\">comment cvega</span></div>\n<div style=\"color: blueviolet;\">cvega3: <span style=\"color: brown;\">comment cvega</span></div>\n"
                         }
                     ],
                     "componentSettings": [
                         {
                             "minRule": 0,
-                            "maxRule": 0,
+                            "maxRule": 4,
                             "fontSize": 16,
-                            "columnWidth": 275,
-                            "rationalewidth": 490,
+                            "columnWidth": 325,
+                            "rationalewidth": 804,
                             "rowHeight": 2,
                             "categoryRulesPassed": false,
                             "ratedCounter": 0,
-                            "CRITERIA": true,
-                            "categoryName": "BTRX-335140 Name Candidates",
-                            "categoryDescription": "category description",
-                            "ratingScaleTitle": "CRITERIA"
+                            "categoryName": "Rating with stars matrix",
+                            "categoryDescription": "rating ",
+                            "ratingScaleTitle": "Rate from 1 to 7"
                         }
                     ]
-                }
-            ]
-        },
-        {
-            "pageNumber": 3,
-            "page": [
+                },
                 {
-                    "componentType": "logo-header",
-                    "componentText": "PROJECT NAME",
+                    "componentType": "rate-scale",
+                    "componentText": [
+                        {
+                            "nameCandidates": "nameCandidates",
+                            "score": "score",
+                            "comments": "comments"
+                        },
+                        {
+                            "nameCandidates": "risimapolirsen",
+                            "score": 10,
+                            "comments": ""
+                        },
+                        {
+                            "nameCandidates": "berlifapolirsen",
+                            "score": 12,
+                            "comments": ""
+                        },
+                        {
+                            "nameCandidates": "vidnulapolirsen",
+                            "score": 13,
+                            "comments": ""
+                        },
+                        {
+                            "nameCandidates": "beritapolirsen",
+                            "score": 14,
+                            "comments": ""
+                        },
+                        {
+                            "nameCandidates": "ipazapolirsen",
+                            "score": 16,
+                            "comments": ""
+                        },
+                        {
+                            "nameCandidates": "pecilapolirsen",
+                            "score": 19,
+                            "comments": ""
+                        }
+                    ],
                     "componentSettings": [
                         {
-                            "fontSize": "16px",
-                            "fontFace": "Arial",
-                            "logoWidth": 100,
-                            "brandInstituteURL": "./assets/img/bmx/BRANDMATRIX-DASHBOARD-LOGO.svg",
-                            "brandInstituteMobileURL": "./assets/img/bmx/bmxCube.jpg",
-                            "companyLogoURL": "./assets/img/bmx/BD.png"
+                            "minRule": 0,
+                            "maxRule": 4,
+                            "fontSize": 16,
+                            "columnWidth": 325,
+                            "rationalewidth": 804,
+                            "rowHeight": 2,
+                            "categoryRulesPassed": false,
+                            "ratedCounter": 0,
+                            "categoryName": "Top Ranking Matrix",
+                            "categoryDescription": "ranked test names from 1 to 6 inverse score",
+                            "ratingScaleTitle": "Rate from 1 to 7"
                         }
                     ]
                 },
                 {
                     "componentType": "text-editor",
-                    "componentText": "<p style=\"text-align:center\"><u><span style=\"font-size:22px\">Instructions</span></u></p>\n\n<p><br />\n<span style=\"font-size:22px\">Please rank your&nbsp;top 5&nbsp;brand name candidates below based on your Personal Preference.</span></p>\n\n<p><span style=\"font-size:22px\">Please select &quot;1&quot; for your favorite name, &quot;2&quot; for your second favorite name, &quot;3&quot; for your third favorite name, &quot;4&quot; for your fourth favorite name, and &quot;5&quot; for your fifth favorite name. Feel free to provide comments next to any of the names (optional).</span></p>\n\n<p><span style=\"font-size:22px\">Once you have finished, please click &quot;Continue&quot; to proceed with the survey.</span><br />\n&nbsp;</p>\n\n<p>&nbsp;</p>\n\n<p style=\"text-align:center\"><u><span style=\"font-size:22px\">Concept Statement</span></u></p>\n\n<p><br />\n<br />\n<span style=\"font-size:22px\">XXX</span></p>\n\n<p style=\"text-align:center\">&nbsp;</p>\n",
+                    "componentText": "<p style=\"text-align:center\"><span style=\"font-size:48px\">VOTES BY RESPONDENT</span></p>\n",
                     "componentSettings": [
                         {
-                            "fontSize": "16",
+                            "fontSize": "16px",
                             "fontFace": "Arial",
                             "fontColor": "red"
                         }
                     ]
                 },
                 {
-                    "componentType": "ranking-scale",
+                    "componentType": "rate-scale",
                     "componentText": [
                         {
-                            "STARS": [
-                                {
-                                    "id": 0,
-                                    "icon": 1,
-                                    "styleClass": "rating-star"
-                                },
-                                {
-                                    "id": 1,
-                                    "icon": 2,
-                                    "styleClass": "rating-star"
-                                },
-                                {
-                                    "id": 2,
-                                    "icon": 3,
-                                    "styleClass": "rating-star"
-                                },
-                                {
-                                    "id": 3,
-                                    "icon": 4,
-                                    "styleClass": "rating-star"
-                                },
-                                {
-                                    "id": 4,
-                                    "icon": 5,
-                                    "styleClass": "rating-star"
-                                },
-                                {
-                                    "id": 5,
-                                    "icon": 6,
-                                    "styleClass": "rating-star"
-                                },
-                                {
-                                    "id": 6,
-                                    "icon": 7,
-                                    "styleClass": "rating-star"
-                                }
-                            ],
-                            "nameCandidates": "Name Candidates",
-                            "rationale": "Rationale",
+                            "Score": "Score",
+                            "Rank": "Rank",
+                            "nameCandidates": "Name Candidates 1",
+                            "ExtraColumn1": "Name Candidates 2",
+                            "rationale": "Rationales",
                             "Comments1": "General Comments"
                         },
                         {
-                            "STARS": [
-                                {
-                                    "id": 0,
-                                    "icon": 1,
-                                    "styleClass": "rating-star"
-                                },
-                                {
-                                    "id": 1,
-                                    "icon": 2,
-                                    "styleClass": "rating-star"
-                                },
-                                {
-                                    "id": 2,
-                                    "icon": 3,
-                                    "styleClass": "rating-star"
-                                },
-                                {
-                                    "id": 3,
-                                    "icon": 4,
-                                    "styleClass": "rating-star"
-                                },
-                                {
-                                    "id": 4,
-                                    "icon": 5,
-                                    "styleClass": "rating-star"
-                                },
-                                {
-                                    "id": 5,
-                                    "icon": 6,
-                                    "styleClass": "rating-star"
-                                },
-                                {
-                                    "id": 6,
-                                    "icon": 7,
-                                    "styleClass": "rating-star"
-                                }
-                            ],
-                            "nameCandidates": "Pledge  ",
-                            "rationale": "A Promise or Oath, Embeds P and D for Parkinson's Disease",
-                            "Comments1": "",
-                            "RATE": 1
+                            "Rank": 7,
+                            "nameCandidates": "ORCHESTRA",
+                            "ExtraColumn1": "ORCHESTRA",
+                            "rationale": "ORal New Chemical Entity Aiming to Slow Disease Trajectory in Early Parkinson’s",
+                            "Score": 7,
+                            "Comments1": "comment cvega"
                         },
                         {
-                            "STARS": [
-                                {
-                                    "id": 0,
-                                    "icon": 1,
-                                    "styleClass": "rating-star"
-                                },
-                                {
-                                    "id": 1,
-                                    "icon": 2,
-                                    "styleClass": "rating-star"
-                                },
-                                {
-                                    "id": 2,
-                                    "icon": 3,
-                                    "styleClass": "rating-star"
-                                },
-                                {
-                                    "id": 3,
-                                    "icon": 4,
-                                    "styleClass": "rating-star"
-                                },
-                                {
-                                    "id": 4,
-                                    "icon": 5,
-                                    "styleClass": "rating-star"
-                                },
-                                {
-                                    "id": 5,
-                                    "icon": 6,
-                                    "styleClass": "rating-star"
-                                },
-                                {
-                                    "id": 6,
-                                    "icon": 7,
-                                    "styleClass": "rating-star"
-                                }
-                            ],
-                            "nameCandidates": "Opening  ",
-                            "rationale": "Onset, Beginning (i.e., an Early Treatment)",
-                            "Comments1": "",
-                            "RATE": 6
+                            "Rank": 6,
+                            "nameCandidates": "Unfolding",
+                            "ExtraColumn1": "Skylark",
+                            "rationale": "A Slow Revealing, Suggests Slowing Disease Progression and Links to Alpha-Synuclein Misfolding",
+                            "Score": 6,
+                            "Comments1": "comment cvega`"
                         },
                         {
-                            "STARS": [
-                                {
-                                    "id": 0,
-                                    "icon": 1,
-                                    "styleClass": "rating-star"
-                                },
-                                {
-                                    "id": 1,
-                                    "icon": 2,
-                                    "styleClass": "rating-star"
-                                },
-                                {
-                                    "id": 2,
-                                    "icon": 3,
-                                    "styleClass": "rating-star"
-                                },
-                                {
-                                    "id": 3,
-                                    "icon": 4,
-                                    "styleClass": "rating-star"
-                                },
-                                {
-                                    "id": 4,
-                                    "icon": 5,
-                                    "styleClass": "rating-star"
-                                },
-                                {
-                                    "id": 5,
-                                    "icon": 6,
-                                    "styleClass": "rating-star"
-                                },
-                                {
-                                    "id": 6,
-                                    "icon": 7,
-                                    "styleClass": "rating-star"
-                                }
-                            ],
-                            "nameCandidates": "SUSPEND  ",
-                            "rationale": "Study of UCB0599's Slowing of the Progression of Early Parkinson's Disease - Delay",
-                            "Comments1": ""
+                            "Rank": 5,
+                            "nameCandidates": "Arkitect",
+                            "ExtraColumn1": "talrapolirsen",
+                            "rationale": "\"Architect,\" Embeds Ark for Parkinson`s Disease and Implies Stability or Planning Ahead",
+                            "Score": 5,
+                            "Comments1": "comment cvega"
                         },
                         {
-                            "STARS": [
-                                {
-                                    "id": 0,
-                                    "icon": 1,
-                                    "styleClass": "rating-star"
-                                },
-                                {
-                                    "id": 1,
-                                    "icon": 2,
-                                    "styleClass": "rating-star"
-                                },
-                                {
-                                    "id": 2,
-                                    "icon": 3,
-                                    "styleClass": "rating-star"
-                                },
-                                {
-                                    "id": 3,
-                                    "icon": 4,
-                                    "styleClass": "rating-star"
-                                },
-                                {
-                                    "id": 4,
-                                    "icon": 5,
-                                    "styleClass": "rating-star"
-                                },
-                                {
-                                    "id": 5,
-                                    "icon": 6,
-                                    "styleClass": "rating-star"
-                                },
-                                {
-                                    "id": 6,
-                                    "icon": 7,
-                                    "styleClass": "rating-star"
-                                }
-                            ],
-                            "nameCandidates": "Placid  ",
-                            "rationale": "Calm, Steady, Stable, Begins in P and Ends with D to Suggest Parkinson's Disease",
-                            "Comments1": ""
+                            "Rank": 4,
+                            "nameCandidates": "MILKY WAY",
+                            "ExtraColumn1": "risimapolirsen",
+                            "rationale": "MIsfolding Parkinson Study With Early Stage Patients",
+                            "Score": 4,
+                            "Comments1": "comment cvega"
                         },
                         {
-                            "STARS": [
-                                {
-                                    "id": 0,
-                                    "icon": 1,
-                                    "styleClass": "rating-star"
-                                },
-                                {
-                                    "id": 1,
-                                    "icon": 2,
-                                    "styleClass": "rating-star"
-                                },
-                                {
-                                    "id": 2,
-                                    "icon": 3,
-                                    "styleClass": "rating-star"
-                                },
-                                {
-                                    "id": 3,
-                                    "icon": 4,
-                                    "styleClass": "rating-star"
-                                },
-                                {
-                                    "id": 4,
-                                    "icon": 5,
-                                    "styleClass": "rating-star"
-                                },
-                                {
-                                    "id": 5,
-                                    "icon": 6,
-                                    "styleClass": "rating-star"
-                                },
-                                {
-                                    "id": 6,
-                                    "icon": 7,
-                                    "styleClass": "rating-star"
-                                }
-                            ],
-                            "nameCandidates": "At Dawn ",
-                            "rationale": "Suggests Early Treatment",
-                            "Comments1": ""
+                            "Rank": 3,
+                            "nameCandidates": "REINSPIRE",
+                            "ExtraColumn1": "berlifapolirsen",
+                            "rationale": "",
+                            "Score": 3,
+                            "Comments1": "comment cvega"
                         },
                         {
-                            "STARS": [
-                                {
-                                    "id": 0,
-                                    "icon": 1,
-                                    "styleClass": "rating-star"
-                                },
-                                {
-                                    "id": 1,
-                                    "icon": 2,
-                                    "styleClass": "rating-star"
-                                },
-                                {
-                                    "id": 2,
-                                    "icon": 3,
-                                    "styleClass": "rating-star"
-                                },
-                                {
-                                    "id": 3,
-                                    "icon": 4,
-                                    "styleClass": "rating-star"
-                                },
-                                {
-                                    "id": 4,
-                                    "icon": 5,
-                                    "styleClass": "rating-star"
-                                },
-                                {
-                                    "id": 5,
-                                    "icon": 6,
-                                    "styleClass": "rating-star"
-                                },
-                                {
-                                    "id": 6,
-                                    "icon": 7,
-                                    "styleClass": "rating-star"
-                                }
-                            ],
-                            "nameCandidates": "Skylark  ",
-                            "rationale": "Type of Bird, May Connote Freedom or Taking Flight, Links to Parkinson's Disease",
-                            "Comments1": ""
-                        },
-                        {
-                            "STARS": [
-                                {
-                                    "id": 0,
-                                    "icon": 1,
-                                    "styleClass": "rating-star"
-                                },
-                                {
-                                    "id": 1,
-                                    "icon": 2,
-                                    "styleClass": "rating-star"
-                                },
-                                {
-                                    "id": 2,
-                                    "icon": 3,
-                                    "styleClass": "rating-star"
-                                },
-                                {
-                                    "id": 3,
-                                    "icon": 4,
-                                    "styleClass": "rating-star"
-                                },
-                                {
-                                    "id": 4,
-                                    "icon": 5,
-                                    "styleClass": "rating-star"
-                                },
-                                {
-                                    "id": 5,
-                                    "icon": 6,
-                                    "styleClass": "rating-star"
-                                },
-                                {
-                                    "id": 6,
-                                    "icon": 7,
-                                    "styleClass": "rating-star"
-                                }
-                            ],
-                            "nameCandidates": "Pearly  ",
-                            "rationale": "Shining Like a Pearl (May Suggest Hope), Implies Treating Parkinson's Disease (P-) Early",
-                            "Comments1": ""
-                        },
-                        {
-                            "STARS": [
-                                {
-                                    "id": 0,
-                                    "icon": 1,
-                                    "styleClass": "rating-star"
-                                },
-                                {
-                                    "id": 1,
-                                    "icon": 2,
-                                    "styleClass": "rating-star"
-                                },
-                                {
-                                    "id": 2,
-                                    "icon": 3,
-                                    "styleClass": "rating-star"
-                                },
-                                {
-                                    "id": 3,
-                                    "icon": 4,
-                                    "styleClass": "rating-star"
-                                },
-                                {
-                                    "id": 4,
-                                    "icon": 5,
-                                    "styleClass": "rating-star"
-                                },
-                                {
-                                    "id": 5,
-                                    "icon": 6,
-                                    "styleClass": "rating-star"
-                                },
-                                {
-                                    "id": 6,
-                                    "icon": 7,
-                                    "styleClass": "rating-star"
-                                }
-                            ],
-                            "nameCandidates": "STEADY  ",
-                            "rationale": "Study Testing an Early Parkinson's Disease Therapy - Suggests Stabilizing Symptoms, Gaining Control",
-                            "Comments1": ""
-                        },
-                        {
-                            "STARS": [
-                                {
-                                    "id": 0,
-                                    "icon": 1,
-                                    "styleClass": "rating-star"
-                                },
-                                {
-                                    "id": 1,
-                                    "icon": 2,
-                                    "styleClass": "rating-star"
-                                },
-                                {
-                                    "id": 2,
-                                    "icon": 3,
-                                    "styleClass": "rating-star"
-                                },
-                                {
-                                    "id": 3,
-                                    "icon": 4,
-                                    "styleClass": "rating-star"
-                                },
-                                {
-                                    "id": 4,
-                                    "icon": 5,
-                                    "styleClass": "rating-star"
-                                },
-                                {
-                                    "id": 5,
-                                    "icon": 6,
-                                    "styleClass": "rating-star"
-                                },
-                                {
-                                    "id": 6,
-                                    "icon": 7,
-                                    "styleClass": "rating-star"
-                                }
-                            ],
-                            "nameCandidates": "PositiveDirection ",
-                            "rationale": "A Hopeful Step Forward, Uses P and D for Parkinson's Disease",
-                            "Comments1": ""
-                        },
-                        {
-                            "STARS": [
-                                {
-                                    "id": 0,
-                                    "icon": 1,
-                                    "styleClass": "rating-star"
-                                },
-                                {
-                                    "id": 1,
-                                    "icon": 2,
-                                    "styleClass": "rating-star"
-                                },
-                                {
-                                    "id": 2,
-                                    "icon": 3,
-                                    "styleClass": "rating-star"
-                                },
-                                {
-                                    "id": 3,
-                                    "icon": 4,
-                                    "styleClass": "rating-star"
-                                },
-                                {
-                                    "id": 4,
-                                    "icon": 5,
-                                    "styleClass": "rating-star"
-                                },
-                                {
-                                    "id": 5,
-                                    "icon": 6,
-                                    "styleClass": "rating-star"
-                                },
-                                {
-                                    "id": 6,
-                                    "icon": 7,
-                                    "styleClass": "rating-star"
-                                }
-                            ],
-                            "nameCandidates": "Moderato  ",
+                            "Rank": 2,
+                            "nameCandidates": "Moderato",
+                            "ExtraColumn1": "ipazapolirsen",
                             "rationale": "A Moderate Musical Tempo (Suggests Slowing Disease Progression)",
-                            "Comments1": ""
+                            "Score": 2,
+                            "Comments1": "comment cvega"
                         },
                         {
-                            "STARS": [
-                                {
-                                    "id": 0,
-                                    "icon": 1,
-                                    "styleClass": "rating-star"
-                                },
-                                {
-                                    "id": 1,
-                                    "icon": 2,
-                                    "styleClass": "rating-star"
-                                },
-                                {
-                                    "id": 2,
-                                    "icon": 3,
-                                    "styleClass": "rating-star"
-                                },
-                                {
-                                    "id": 3,
-                                    "icon": 4,
-                                    "styleClass": "rating-star"
-                                },
-                                {
-                                    "id": 4,
-                                    "icon": 5,
-                                    "styleClass": "rating-star"
-                                },
-                                {
-                                    "id": 5,
-                                    "icon": 6,
-                                    "styleClass": "rating-star"
-                                },
-                                {
-                                    "id": 6,
-                                    "icon": 7,
-                                    "styleClass": "rating-star"
-                                }
-                            ],
-                            "nameCandidates": "REINSPIRE ",
-                            "rationale": "Reviewing an Early Intervention for Slowing Parkinson's Disease Progression - Give Hope, Links to UCB's \"Inspired by Patients\"",
-                            "Comments1": ""
-                        },
-                        {
-                            "STARS": [
-                                {
-                                    "id": 0,
-                                    "icon": 1,
-                                    "styleClass": "rating-star"
-                                },
-                                {
-                                    "id": 1,
-                                    "icon": 2,
-                                    "styleClass": "rating-star"
-                                },
-                                {
-                                    "id": 2,
-                                    "icon": 3,
-                                    "styleClass": "rating-star"
-                                },
-                                {
-                                    "id": 3,
-                                    "icon": 4,
-                                    "styleClass": "rating-star"
-                                },
-                                {
-                                    "id": 4,
-                                    "icon": 5,
-                                    "styleClass": "rating-star"
-                                },
-                                {
-                                    "id": 5,
-                                    "icon": 6,
-                                    "styleClass": "rating-star"
-                                },
-                                {
-                                    "id": 6,
-                                    "icon": 7,
-                                    "styleClass": "rating-star"
-                                }
-                            ],
-                            "nameCandidates": "Bloom  ",
-                            "rationale": "Symbolic of Tulips and a Brighter Future",
-                            "Comments1": ""
-                        },
-                        {
-                            "STARS": [
-                                {
-                                    "id": 0,
-                                    "icon": 1,
-                                    "styleClass": "rating-star"
-                                },
-                                {
-                                    "id": 1,
-                                    "icon": 2,
-                                    "styleClass": "rating-star"
-                                },
-                                {
-                                    "id": 2,
-                                    "icon": 3,
-                                    "styleClass": "rating-star"
-                                },
-                                {
-                                    "id": 3,
-                                    "icon": 4,
-                                    "styleClass": "rating-star"
-                                },
-                                {
-                                    "id": 4,
-                                    "icon": 5,
-                                    "styleClass": "rating-star"
-                                },
-                                {
-                                    "id": 5,
-                                    "icon": 6,
-                                    "styleClass": "rating-star"
-                                },
-                                {
-                                    "id": 6,
-                                    "icon": 7,
-                                    "styleClass": "rating-star"
-                                }
-                            ],
-                            "nameCandidates": "Embark  ",
-                            "rationale": "To Set Out on a Journey, May Connote Optimism or Hope, Links to Parkinson's Disease",
-                            "Comments1": ""
+                            "Rank": 1,
+                            "nameCandidates": "TEMPORAL",
+                            "ExtraColumn1": "pecilapolirsen",
+                            "rationale": "Treatment to Slow Parkinson’s Given Orally",
+                            "Score": 1,
+                            "Comments1": "comment cvega"
                         }
                     ],
                     "componentSettings": [
                         {
                             "minRule": 0,
-                            "maxRule": 0,
+                            "maxRule": 4,
                             "fontSize": 16,
-                            "columnWidth": 305,
-                            "rationalewidth": 544,
+                            "columnWidth": 205,
+                            "rationalewidth": 204,
                             "rowHeight": 2,
                             "categoryRulesPassed": false,
                             "ratedCounter": 0,
-                            "radioColumnsWidth": 75,
-                            "selectedRanking": 7,
-                            "categoryName": "Category Ranking",
-                            "categoryDescription": "This is Ranking matrix",
-                            "ratingScaleTitle": "RANK",
-                            "rankType": "dropDown"
-                        }
-                    ]
-                }
-            ]
-        },
-        {
-            "pageNumber": 4,
-            "page": [
-                {
-                    "componentType": "",
-                    "componentText": "",
-                    "componentSettings": [
-                        {
-                            "fontSize": "16px",
-                            "fontFace": "Arial",
-                            "fontColor": "red"
+                            "categoryName": "cvega",
+                            "categoryDescription": "results by user sorted",
+                            "ratingScaleTitle": "Rate from 1 to 7"
                         }
                     ]
                 },
                 {
-                    "componentType": "logo-header",
-                    "componentText": "PROJECT NAME",
-                    "componentSettings": [
-                        {
-                            "fontSize": "16px",
-                            "fontFace": "Arial",
-                            "logoWidth": 100,
-                            "brandInstituteURL": "./assets/img/bmx/BRANDMATRIX-DASHBOARD-LOGO.svg",
-                            "brandInstituteMobileURL": "./assets/img/bmx/bmxCube.jpg",
-                            "companyLogoURL": "./assets/img/bmx/BD.png"
-                        }
-                    ]
-                },
-                {
-                    "componentType": "text-editor",
-                    "componentText": "<p style=\"text-align:center\"><u>Instructions</u></p>\n\n<p><br />\nPlease rank your&nbsp;top 6&nbsp;nonproprietary name candidates below based on your Personal Preference.</p>\n\n<p>Please select &quot;1&quot; for your favorite name, &quot;2&quot; for your second favorite name, &quot;3&quot; for your third favorite name, &quot;4&quot; for your fourth favorite name, &quot;5&quot; for your fifth favorite name and &quot;6&quot; for your sixth favorite name. Feel free to provide comments next to any of the names (optional).</p>\n\n<p>Once you have finished, please click &quot;Continue&quot; to proceed with the survey.<br />\n&nbsp;</p>\n\n<p>&nbsp;</p>\n\n<p style=\"text-align:center\"><u>Concept Statement</u></p>\n\n<p><br />\n<br />\nAstraZeneca is developing AZD2373, an antisense oligonucleotide that inhibits synthesis of APOL1 protein for the treatment of chronic kidney disease.<br />\n<br />\nThe USAN/INN Expert Group has defined the -rsen&nbsp;suffix stem for antisense oligonucleotides. No antisense oligonucleotide against APOL1 has been named thus far, therefore we have devised the suffixes -aplorsen&nbsp;and -apolirsen&nbsp;to connote APOL1. As an antisense oligonucleotide targeting APOL1, this nomenclature is appropriate for use in the nonproprietary name of AZD2373. The purpose of this Brand Matrix exercise is to select a nonproprietary name for AZD2373that is appropriate and appealing.</p>\n",
-                    "componentSettings": [
-                        {
-                            "fontSize": "16px",
-                            "fontFace": "Arial",
-                            "fontColor": "red"
-                        }
-                    ]
-                },
-                {
-                    "componentType": "ranking-scale",
+                    "componentType": "rate-scale",
                     "componentText": [
                         {
-                            "STARS": [
-                                {
-                                    "id": 1,
-                                    "icon": 2,
-                                    "styleClass": "rating-star"
-                                },
-                                {
-                                    "id": 2,
-                                    "icon": 3,
-                                    "styleClass": "rating-star"
-                                }
-                            ],
+                            "Score": "Score",
+                            "Rank": "Rank",
                             "nameCandidates": "Name Candidates",
                             "rationale": "Rationales",
-                            "Comments2": "General Comments"
+                            "Comments1": "General Comments"
                         },
                         {
-                            "STARS": [
-                                {
-                                    "id": 1,
-                                    "icon": 2,
-                                    "styleClass": "rating-star"
-                                },
-                                {
-                                    "id": 2,
-                                    "icon": 3,
-                                    "styleClass": "rating-star"
-                                }
-                            ],
-                            "nameCandidates": "sivuzaplorsen ",
-                            "rationale": "Individualized",
-                            "Comments2": "Comments"
-                        },
-                        {
-                            "STARS": [
-                                {
-                                    "id": 1,
-                                    "icon": 2,
-                                    "styleClass": "rating-star"
-                                },
-                                {
-                                    "id": 2,
-                                    "icon": 3,
-                                    "styleClass": "rating-star"
-                                }
-                            ],
-                            "nameCandidates": "ofasaplorsen ",
-                            "rationale": "Blank Canvas",
-                            "Comments2": "Comments"
-                        },
-                        {
-                            "STARS": [
-                                {
-                                    "id": 1,
-                                    "icon": 2,
-                                    "styleClass": "rating-star"
-                                },
-                                {
-                                    "id": 2,
-                                    "icon": 3,
-                                    "styleClass": "rating-star"
-                                }
-                            ],
-                            "nameCandidates": "beritapolirsen ",
-                            "rationale": "Connotes Liberty",
-                            "Comments2": "Comments"
-                        },
-                        {
-                            "STARS": [
-                                {
-                                    "id": 1,
-                                    "icon": 2,
-                                    "styleClass": "rating-star"
-                                },
-                                {
-                                    "id": 2,
-                                    "icon": 3,
-                                    "styleClass": "rating-star"
-                                }
-                            ],
-                            "nameCandidates": "talrapolirsen ",
-                            "rationale": "Tailored",
-                            "Comments2": "Comments"
-                        },
-                        {
-                            "STARS": [
-                                {
-                                    "id": 1,
-                                    "icon": 2,
-                                    "styleClass": "rating-star"
-                                },
-                                {
-                                    "id": 2,
-                                    "icon": 3,
-                                    "styleClass": "rating-star"
-                                }
-                            ],
-                            "nameCandidates": "pemapolirsen ",
-                            "rationale": "Hope",
-                            "Comments2": "Comments"
-                        },
-                        {
-                            "STARS": [
-                                {
-                                    "id": 1,
-                                    "icon": 2,
-                                    "styleClass": "rating-star"
-                                },
-                                {
-                                    "id": 2,
-                                    "icon": 3,
-                                    "styleClass": "rating-star"
-                                }
-                            ],
-                            "nameCandidates": "pelcirapolirsen ",
+                            "Rank": 1,
+                            "nameCandidates": "pecilapolirsen",
                             "rationale": "Precision Medicine",
-                            "Comments2": "Comments"
+                            "Comments1": "",
+                            "Score": 1
                         },
                         {
-                            "STARS": [
-                                {
-                                    "id": 1,
-                                    "icon": 2,
-                                    "styleClass": "rating-star"
-                                },
-                                {
-                                    "id": 2,
-                                    "icon": 3,
-                                    "styleClass": "rating-star"
-                                }
-                            ],
-                            "nameCandidates": "vidnulapolirsen ",
+                            "Rank": 2,
+                            "nameCandidates": "vidnulapolirsen",
                             "rationale": "Individualized",
-                            "Comments2": "Comments"
+                            "Comments1": "",
+                            "Score": 2
+                        },
+                        {
+                            "Rank": 3,
+                            "nameCandidates": "ipazapolirsen",
+                            "rationale": "Blank Canvas",
+                            "Comments1": "",
+                            "Score": 3
+                        },
+                        {
+                            "Rank": 6,
+                            "nameCandidates": "risimapolirsen",
+                            "rationale": "Remission",
+                            "Comments1": "",
+                            "Score": 4
+                        },
+                        {
+                            "Rank": 4,
+                            "nameCandidates": "beritapolirsen",
+                            "rationale": "Connotes Liberty",
+                            "Comments1": "",
+                            "Score": 5
+                        },
+                        {
+                            "Rank": 5,
+                            "nameCandidates": "berlifapolirsen",
+                            "rationale": "Better Life",
+                            "Comments1": "",
+                            "Score": 6
+                        },
+                        {
+                            "Rank": 7,
+                            "nameCandidates": "talrapolirsen",
+                            "rationale": "Tailored",
+                            "Comments1": ""
                         }
                     ],
                     "componentSettings": [
                         {
                             "minRule": 0,
-                            "maxRule": 0,
+                            "maxRule": 4,
                             "fontSize": 16,
-                            "columnWidth": 221,
-                            "rationalewidth": 268,
+                            "columnWidth": 205,
+                            "rationalewidth": 204,
                             "rowHeight": 2,
                             "categoryRulesPassed": false,
                             "ratedCounter": 0,
-                            "selectedRanking": 7,
-                            "categoryName": "AZD2373 Nonproprietary Name Candidates",
-                            "categoryDescription": "category description",
-                            "ratingScaleTitle": "RANK",
-                            "rankType": "dragAndDrop",
-                            "radioColumnsWidth": 95
-                        }
-                    ]
-                }
-            ]
-        },
-        {
-            "pageNumber": 5,
-            "page": [
-                {
-                    "componentType": "",
-                    "componentText": "",
-                    "componentSettings": [
-                        {
-                            "fontSize": "16px",
-                            "fontFace": "Arial",
-                            "fontColor": "red"
+                            "categoryName": "cvega",
+                            "categoryDescription": "results by user sorted",
+                            "ratingScaleTitle": "Rate from 1 to 7"
                         }
                     ]
                 },
                 {
-                    "componentType": "logo-header",
-                    "componentText": "PROJECT NAME",
-                    "componentSettings": [
-                        {
-                            "fontSize": "16px",
-                            "fontFace": "Arial",
-                            "logoWidth": 100,
-                            "brandInstituteURL": "./assets/img/bmx/BRANDMATRIX-DASHBOARD-LOGO.svg",
-                            "brandInstituteMobileURL": "./assets/img/bmx/bmxCube.jpg",
-                            "companyLogoURL": "./assets/img/bmx/BD.png"
-                        }
-                    ]
-                },
-                {
-                    "componentType": "text-editor",
-                    "componentText": "<p style=\"text-align:center\"><u>Instructions</u></p>\n\n<p><br />\nPlease select your favorite logo candidates based on your&nbsp;personal preference&nbsp;on a scale from 1 to 5: 1 being negative, 3 being average and 5 being excellent. Once you have finished your selections, please click the &quot;Continue&quot; button on the bottom of the page to proceed to the next evaluation section.</p>\n",
-                    "componentSettings": [
-                        {
-                            "fontSize": "16px",
-                            "fontFace": "Arial",
-                            "fontColor": "red"
-                        }
-                    ]
-                },
-                {
-                    "componentType": "ranking-scale",
+                    "componentType": "rate-scale",
                     "componentText": [
                         {
-                            "STARS": [
-                                {
-                                    "id": 0,
-                                    "icon": 1,
-                                    "styleClass": "rating-star"
-                                },
-                                {
-                                    "id": 1,
-                                    "icon": 2,
-                                    "styleClass": "rating-star"
-                                },
-                                {
-                                    "id": 2,
-                                    "icon": 3,
-                                    "styleClass": "rating-star"
-                                },
-                                {
-                                    "id": 3,
-                                    "icon": 4,
-                                    "styleClass": "rating-star"
-                                },
-                                {
-                                    "id": 4,
-                                    "icon": 5,
-                                    "styleClass": "rating-star"
-                                }
-                            ],
-                            "nameCandidates": "Name Candidates",
-                            "rationale": "Rationale",
-                            "RadioColumn1": 1,
-                            "RadioColumn2": 2,
-                            "RadioColumn3": 3,
-                            "RadioColumn4": 4,
-                            "RadioColumn5": 5
-                        },
-                        {
-                            "STARS": [
-                                {
-                                    "id": 0,
-                                    "icon": 1,
-                                    "styleClass": "rating-star"
-                                },
-                                {
-                                    "id": 1,
-                                    "icon": 2,
-                                    "styleClass": "rating-star"
-                                },
-                                {
-                                    "id": 2,
-                                    "icon": 3,
-                                    "styleClass": "rating-star"
-                                },
-                                {
-                                    "id": 3,
-                                    "icon": 4,
-                                    "styleClass": "rating-star"
-                                },
-                                {
-                                    "id": 4,
-                                    "icon": 5,
-                                    "styleClass": "rating-star"
-                                }
-                            ],
-                            "nameCandidates": "Pledge  ",
-                            "rationale": "A Promise or Oath, Embeds P and D for Parkinson's Disease",
-                            "RadioColumn1": false,
-                            "RadioColumn2": false,
-                            "RadioColumn3": false,
-                            "RadioColumn4": false,
-                            "RadioColumn5": false
-                        },
-                        {
-                            "STARS": [
-                                {
-                                    "id": 0,
-                                    "icon": 1,
-                                    "styleClass": "rating-star"
-                                },
-                                {
-                                    "id": 1,
-                                    "icon": 2,
-                                    "styleClass": "rating-star"
-                                },
-                                {
-                                    "id": 2,
-                                    "icon": 3,
-                                    "styleClass": "rating-star"
-                                },
-                                {
-                                    "id": 3,
-                                    "icon": 4,
-                                    "styleClass": "rating-star"
-                                },
-                                {
-                                    "id": 4,
-                                    "icon": 5,
-                                    "styleClass": "rating-star"
-                                }
-                            ],
-                            "nameCandidates": "Opening  ",
-                            "rationale": "Onset, Beginning (i.e., an Early Treatment)",
-                            "RadioColumn1": false,
-                            "RadioColumn2": false,
-                            "RadioColumn3": false,
-                            "RadioColumn4": false,
-                            "RadioColumn5": false
-                        },
-                        {
-                            "STARS": [
-                                {
-                                    "id": 0,
-                                    "icon": 1,
-                                    "styleClass": "rating-star"
-                                },
-                                {
-                                    "id": 1,
-                                    "icon": 2,
-                                    "styleClass": "rating-star"
-                                },
-                                {
-                                    "id": 2,
-                                    "icon": 3,
-                                    "styleClass": "rating-star"
-                                },
-                                {
-                                    "id": 3,
-                                    "icon": 4,
-                                    "styleClass": "rating-star"
-                                },
-                                {
-                                    "id": 4,
-                                    "icon": 5,
-                                    "styleClass": "rating-star"
-                                }
-                            ],
-                            "nameCandidates": "SUSPEND  ",
-                            "rationale": "Study of UCB0599's Slowing of the Progression of Early Parkinson's Disease - Delay",
-                            "RadioColumn1": false,
-                            "RadioColumn2": false,
-                            "RadioColumn3": false,
-                            "RadioColumn4": false,
-                            "RadioColumn5": false
-                        },
-                        {
-                            "STARS": [
-                                {
-                                    "id": 0,
-                                    "icon": 1,
-                                    "styleClass": "rating-star"
-                                },
-                                {
-                                    "id": 1,
-                                    "icon": 2,
-                                    "styleClass": "rating-star"
-                                },
-                                {
-                                    "id": 2,
-                                    "icon": 3,
-                                    "styleClass": "rating-star"
-                                },
-                                {
-                                    "id": 3,
-                                    "icon": 4,
-                                    "styleClass": "rating-star"
-                                },
-                                {
-                                    "id": 4,
-                                    "icon": 5,
-                                    "styleClass": "rating-star"
-                                }
-                            ],
-                            "nameCandidates": "Placid  ",
-                            "rationale": "Calm, Steady, Stable, Begins in P and Ends with D to Suggest Parkinson's Disease",
-                            "RadioColumn1": false,
-                            "RadioColumn2": false,
-                            "RadioColumn3": false,
-                            "RadioColumn4": false,
-                            "RadioColumn5": false
-                        },
-                        {
-                            "STARS": [
-                                {
-                                    "id": 0,
-                                    "icon": 1,
-                                    "styleClass": "rating-star"
-                                },
-                                {
-                                    "id": 1,
-                                    "icon": 2,
-                                    "styleClass": "rating-star"
-                                },
-                                {
-                                    "id": 2,
-                                    "icon": 3,
-                                    "styleClass": "rating-star"
-                                },
-                                {
-                                    "id": 3,
-                                    "icon": 4,
-                                    "styleClass": "rating-star"
-                                },
-                                {
-                                    "id": 4,
-                                    "icon": 5,
-                                    "styleClass": "rating-star"
-                                }
-                            ],
-                            "nameCandidates": "At Dawn ",
-                            "rationale": "Suggests Early Treatment",
-                            "RadioColumn1": false,
-                            "RadioColumn2": false,
-                            "RadioColumn3": false,
-                            "RadioColumn4": false,
-                            "RadioColumn5": false
-                        },
-                        {
-                            "STARS": [
-                                {
-                                    "id": 0,
-                                    "icon": 1,
-                                    "styleClass": "rating-star"
-                                },
-                                {
-                                    "id": 1,
-                                    "icon": 2,
-                                    "styleClass": "rating-star"
-                                },
-                                {
-                                    "id": 2,
-                                    "icon": 3,
-                                    "styleClass": "rating-star"
-                                },
-                                {
-                                    "id": 3,
-                                    "icon": 4,
-                                    "styleClass": "rating-star"
-                                },
-                                {
-                                    "id": 4,
-                                    "icon": 5,
-                                    "styleClass": "rating-star"
-                                }
-                            ],
-                            "nameCandidates": "Skylark  ",
-                            "rationale": "Type of Bird, May Connote Freedom or Taking Flight, Links to Parkinson's Disease",
-                            "RadioColumn1": false,
-                            "RadioColumn2": false,
-                            "RadioColumn3": false,
-                            "RadioColumn4": false,
-                            "RadioColumn5": false,
-                            "RATE": 0
-                        },
-                        {
-                            "STARS": [
-                                {
-                                    "id": 0,
-                                    "icon": 1,
-                                    "styleClass": "rating-star"
-                                },
-                                {
-                                    "id": 1,
-                                    "icon": 2,
-                                    "styleClass": "rating-star"
-                                },
-                                {
-                                    "id": 2,
-                                    "icon": 3,
-                                    "styleClass": "rating-star"
-                                },
-                                {
-                                    "id": 3,
-                                    "icon": 4,
-                                    "styleClass": "rating-star"
-                                },
-                                {
-                                    "id": 4,
-                                    "icon": 5,
-                                    "styleClass": "rating-star"
-                                }
-                            ],
-                            "nameCandidates": "Pearly  ",
-                            "rationale": "Shining Like a Pearl (May Suggest Hope), Implies Treating Parkinson's Disease (P-) Early",
-                            "RadioColumn1": true,
-                            "RadioColumn2": false,
-                            "RadioColumn3": false,
-                            "RadioColumn4": false,
-                            "RadioColumn5": false,
-                            "RATE": 1
-                        },
-                        {
-                            "STARS": [
-                                {
-                                    "id": 0,
-                                    "icon": 1,
-                                    "styleClass": "rating-star"
-                                },
-                                {
-                                    "id": 1,
-                                    "icon": 2,
-                                    "styleClass": "rating-star"
-                                },
-                                {
-                                    "id": 2,
-                                    "icon": 3,
-                                    "styleClass": "rating-star"
-                                },
-                                {
-                                    "id": 3,
-                                    "icon": 4,
-                                    "styleClass": "rating-star"
-                                },
-                                {
-                                    "id": 4,
-                                    "icon": 5,
-                                    "styleClass": "rating-star"
-                                }
-                            ],
-                            "nameCandidates": "STEADY  ",
-                            "rationale": "Study Testing an Early Parkinson's Disease Therapy - Suggests Stabilizing Symptoms, Gaining Control",
-                            "RadioColumn1": false,
-                            "RadioColumn2": false,
-                            "RadioColumn3": false,
-                            "RadioColumn4": false,
-                            "RadioColumn5": false
-                        },
-                        {
-                            "STARS": [
-                                {
-                                    "id": 0,
-                                    "icon": 1,
-                                    "styleClass": "rating-star"
-                                },
-                                {
-                                    "id": 1,
-                                    "icon": 2,
-                                    "styleClass": "rating-star"
-                                },
-                                {
-                                    "id": 2,
-                                    "icon": 3,
-                                    "styleClass": "rating-star"
-                                },
-                                {
-                                    "id": 3,
-                                    "icon": 4,
-                                    "styleClass": "rating-star"
-                                },
-                                {
-                                    "id": 4,
-                                    "icon": 5,
-                                    "styleClass": "rating-star"
-                                }
-                            ],
-                            "nameCandidates": "PositiveDirection ",
-                            "rationale": "A Hopeful Step Forward, Uses P and D for Parkinson's Disease",
-                            "RadioColumn1": false,
-                            "RadioColumn2": false,
-                            "RadioColumn3": false,
-                            "RadioColumn4": false,
-                            "RadioColumn5": false
-                        },
-                        {
-                            "STARS": [
-                                {
-                                    "id": 0,
-                                    "icon": 1,
-                                    "styleClass": "rating-star"
-                                },
-                                {
-                                    "id": 1,
-                                    "icon": 2,
-                                    "styleClass": "rating-star"
-                                },
-                                {
-                                    "id": 2,
-                                    "icon": 3,
-                                    "styleClass": "rating-star"
-                                },
-                                {
-                                    "id": 3,
-                                    "icon": 4,
-                                    "styleClass": "rating-star"
-                                },
-                                {
-                                    "id": 4,
-                                    "icon": 5,
-                                    "styleClass": "rating-star"
-                                }
-                            ],
-                            "nameCandidates": "Moderato  ",
-                            "rationale": "A Moderate Musical Tempo (Suggests Slowing Disease Progression)",
-                            "RadioColumn1": false,
-                            "RadioColumn2": false,
-                            "RadioColumn3": false,
-                            "RadioColumn4": false,
-                            "RadioColumn5": false
-                        },
-                        {
-                            "STARS": [
-                                {
-                                    "id": 0,
-                                    "icon": 1,
-                                    "styleClass": "rating-star"
-                                },
-                                {
-                                    "id": 1,
-                                    "icon": 2,
-                                    "styleClass": "rating-star"
-                                },
-                                {
-                                    "id": 2,
-                                    "icon": 3,
-                                    "styleClass": "rating-star"
-                                },
-                                {
-                                    "id": 3,
-                                    "icon": 4,
-                                    "styleClass": "rating-star"
-                                },
-                                {
-                                    "id": 4,
-                                    "icon": 5,
-                                    "styleClass": "rating-star"
-                                }
-                            ],
-                            "nameCandidates": "REINSPIRE ",
-                            "rationale": "Reviewing an Early Intervention for Slowing Parkinson's Disease Progression - Give Hope, Links to UCB's \"Inspired by Patients\"",
-                            "RadioColumn1": false,
-                            "RadioColumn2": false,
-                            "RadioColumn3": false,
-                            "RadioColumn4": false,
-                            "RadioColumn5": false
-                        },
-                        {
-                            "STARS": [
-                                {
-                                    "id": 0,
-                                    "icon": 1,
-                                    "styleClass": "rating-star"
-                                },
-                                {
-                                    "id": 1,
-                                    "icon": 2,
-                                    "styleClass": "rating-star"
-                                },
-                                {
-                                    "id": 2,
-                                    "icon": 3,
-                                    "styleClass": "rating-star"
-                                },
-                                {
-                                    "id": 3,
-                                    "icon": 4,
-                                    "styleClass": "rating-star"
-                                },
-                                {
-                                    "id": 4,
-                                    "icon": 5,
-                                    "styleClass": "rating-star"
-                                }
-                            ],
-                            "nameCandidates": "Bloom  ",
-                            "rationale": "Symbolic of Tulips and a Brighter Future",
-                            "RadioColumn1": false,
-                            "RadioColumn2": false,
-                            "RadioColumn3": false,
-                            "RadioColumn4": false,
-                            "RadioColumn5": false
-                        },
-                        {
-                            "STARS": [
-                                {
-                                    "id": 0,
-                                    "icon": 1,
-                                    "styleClass": "rating-star"
-                                },
-                                {
-                                    "id": 1,
-                                    "icon": 2,
-                                    "styleClass": "rating-star"
-                                },
-                                {
-                                    "id": 2,
-                                    "icon": 3,
-                                    "styleClass": "rating-star"
-                                },
-                                {
-                                    "id": 3,
-                                    "icon": 4,
-                                    "styleClass": "rating-star"
-                                },
-                                {
-                                    "id": 4,
-                                    "icon": 5,
-                                    "styleClass": "rating-star"
-                                }
-                            ],
-                            "nameCandidates": "Embark  ",
-                            "rationale": "To Set Out on a Journey, May Connote Optimism or Hope, Links to Parkinson's Disease",
-                            "RadioColumn1": false,
-                            "RadioColumn2": false,
-                            "RadioColumn3": false,
-                            "RadioColumn4": false,
-                            "RadioColumn5": false
-                        }
-                    ],
-                    "componentSettings": [
-                        {
-                            "minRule": 0,
-                            "maxRule": 0,
-                            "fontSize": 16,
-                            "columnWidth": 150,
-                            "rationalewidth": 250,
-                            "rowHeight": 2,
-                            "categoryRulesPassed": false,
-                            "ratedCounter": 0,
-                            "radioColumnsWidth": 75,
-                            "selectedRanking": 7,
-                            "categoryName": "Category Ranking",
-                            "categoryDescription": "This is Ranking matrix",
-                            "ratingScaleTitle": "RANK",
-                            "rankType": "radio"
-                        }
-                    ]
-                }
-            ]
-        },
-        {
-            "pageNumber": 6,
-            "page": [
-                {
-                    "componentType": "",
-                    "componentText": "",
-                    "componentSettings": [
-                        {
-                            "fontSize": "16px",
-                            "fontFace": "Arial",
-                            "fontColor": "red"
-                        }
-                    ]
-                },
-                {
-                    "componentType": "logo-header",
-                    "componentText": "PROJECT NAME",
-                    "componentSettings": [
-                        {
-                            "fontSize": "16px",
-                            "fontFace": "Arial",
-                            "logoWidth": 100,
-                            "brandInstituteURL": "./assets/img/bmx/BRANDMATRIX-DASHBOARD-LOGO.svg",
-                            "brandInstituteMobileURL": "./assets/img/bmx/bmxCube.jpg",
-                            "companyLogoURL": "./assets/img/bmx/BD.png"
-                        }
-                    ]
-                },
-                {
-                    "componentType": "text-editor",
-                    "componentText": "<p style=\"text-align:center\"><u>Instructions</u></p>\n\n<p><br />\nPlease select&nbsp;only&nbsp;the name candidates that you would categorize as&nbsp;<strong>neutral to positive</strong>.</p>\n\n<p>You should take into consideration any competitive brand name associations, pronunciation issues or negative connotations when making your selections.</p>\n\n<p>To make a selection, simply click the check box to the left of the desired name candidate.</p>\n\n<p>After you make a selection, you will be asked to rate that name based on your&nbsp;<strong>Personal Preference</strong>:</p>\n\n<p>Please rate each selected name candidate based on your own personal preference on a scale from 1 to 7, 1 being neutral and 7 being the most liked.</p>\n\n<p>There is no ranking for negative as these names are not to be selected</p>\n\n<p>Once you have finished your selections, please click the &quot;Continue&quot; button on the bottom of the page to complete the survey.</p>\n",
-                    "componentSettings": [
-                        {
-                            "fontSize": "16px",
-                            "fontFace": "Arial",
-                            "fontColor": "red"
-                        }
-                    ]
-                },
-                {
-                    "componentType": "narrow-down",
-                    "componentText": [
-                        {
-                            "nameCandidates": "Name Candidates",
-                            "rationale": "Rationale",
-                            "CRITERIA": [
-                                {
-                                    "name": "Fit to Company Description",
-                                    "STARS": [
-                                        {
-                                            "id": 1,
-                                            "icon": "grade",
-                                            "styleClass": "rating-star"
-                                        },
-                                        {
-                                            "id": 2,
-                                            "icon": "grade",
-                                            "styleClass": "rating-star"
-                                        },
-                                        {
-                                            "id": 3,
-                                            "icon": "grade",
-                                            "styleClass": "rating-star"
-                                        },
-                                        {
-                                            "id": 4,
-                                            "icon": "grade",
-                                            "styleClass": "rating-star"
-                                        },
-                                        {
-                                            "id": 5,
-                                            "icon": "grade",
-                                            "styleClass": "rating-star"
-                                        },
-                                        {
-                                            "id": 6,
-                                            "icon": "grade",
-                                            "styleClass": "rating-star"
-                                        },
-                                        {
-                                            "id": 7,
-                                            "icon": "grade",
-                                            "styleClass": "rating-star"
-                                        },
-                                        {
-                                            "id": 8,
-                                            "icon": "grade",
-                                            "styleClass": "rating-star"
-                                        }
-                                    ],
-                                    "RATE": -1
-                                },
-                                {
-                                    "name": "Fit to Product Statement",
-                                    "STARS": [
-                                        {
-                                            "id": 1,
-                                            "icon": "grade",
-                                            "styleClass": "rating-star"
-                                        },
-                                        {
-                                            "id": 2,
-                                            "icon": "grade",
-                                            "styleClass": "rating-star"
-                                        },
-                                        {
-                                            "id": 3,
-                                            "icon": "grade",
-                                            "styleClass": "rating-star"
-                                        },
-                                        {
-                                            "id": 4,
-                                            "icon": "grade",
-                                            "styleClass": "rating-star"
-                                        },
-                                        {
-                                            "id": 5,
-                                            "icon": "grade",
-                                            "styleClass": "rating-star"
-                                        },
-                                        {
-                                            "id": 6,
-                                            "icon": "grade",
-                                            "styleClass": "rating-star"
-                                        },
-                                        {
-                                            "id": 7,
-                                            "icon": "grade",
-                                            "styleClass": "rating-star"
-                                        },
-                                        {
-                                            "id": 8,
-                                            "icon": "grade",
-                                            "styleClass": "rating-star"
-                                        }
-                                    ],
-                                    "RATE": -1
-                                }
-                            ],
-                            "SELECTED_ROW": false
-                        },
-                        {
-                            "nameCandidates": "Pledge  ",
-                            "rationale": "A Promise or Oath, Embeds P and D for Parkinson's Disease",
-                            "CRITERIA": [
-                                {
-                                    "name": "Fit to Company Description",
-                                    "STARS": [
-                                        {
-                                            "id": 1,
-                                            "icon": "grade",
-                                            "styleClass": "rating-star"
-                                        },
-                                        {
-                                            "id": 2,
-                                            "icon": "grade",
-                                            "styleClass": "rating-star"
-                                        },
-                                        {
-                                            "id": 3,
-                                            "icon": "grade",
-                                            "styleClass": "rating-star"
-                                        },
-                                        {
-                                            "id": 4,
-                                            "icon": "grade",
-                                            "styleClass": "rating-star"
-                                        },
-                                        {
-                                            "id": 5,
-                                            "icon": "grade",
-                                            "styleClass": "rating-star"
-                                        },
-                                        {
-                                            "id": 6,
-                                            "icon": "grade",
-                                            "styleClass": "rating-star"
-                                        },
-                                        {
-                                            "id": 7,
-                                            "icon": "grade",
-                                            "styleClass": "rating-star"
-                                        },
-                                        {
-                                            "id": 8,
-                                            "icon": "grade",
-                                            "styleClass": "rating-star"
-                                        }
-                                    ],
-                                    "RATE": -1
-                                },
-                                {
-                                    "name": "Fit to Product Statement",
-                                    "STARS": [
-                                        {
-                                            "id": 1,
-                                            "icon": "grade",
-                                            "styleClass": "rating-star"
-                                        },
-                                        {
-                                            "id": 2,
-                                            "icon": "grade",
-                                            "styleClass": "rating-star"
-                                        },
-                                        {
-                                            "id": 3,
-                                            "icon": "grade",
-                                            "styleClass": "rating-star"
-                                        },
-                                        {
-                                            "id": 4,
-                                            "icon": "grade",
-                                            "styleClass": "rating-star"
-                                        },
-                                        {
-                                            "id": 5,
-                                            "icon": "grade",
-                                            "styleClass": "rating-star"
-                                        },
-                                        {
-                                            "id": 6,
-                                            "icon": "grade",
-                                            "styleClass": "rating-star"
-                                        },
-                                        {
-                                            "id": 7,
-                                            "icon": "grade",
-                                            "styleClass": "rating-star"
-                                        },
-                                        {
-                                            "id": 8,
-                                            "icon": "grade",
-                                            "styleClass": "rating-star"
-                                        }
-                                    ],
-                                    "RATE": -1
-                                }
-                            ],
-                            "SELECTED_ROW": false
-                        },
-                        {
-                            "nameCandidates": "Opening  ",
-                            "rationale": "Onset, Beginning (i.e., an Early Treatment)",
-                            "CRITERIA": [
-                                {
-                                    "name": "Fit to Company Description",
-                                    "STARS": [
-                                        {
-                                            "id": 1,
-                                            "icon": "grade",
-                                            "styleClass": "rating-star"
-                                        },
-                                        {
-                                            "id": 2,
-                                            "icon": "grade",
-                                            "styleClass": "rating-star"
-                                        },
-                                        {
-                                            "id": 3,
-                                            "icon": "grade",
-                                            "styleClass": "rating-star"
-                                        },
-                                        {
-                                            "id": 4,
-                                            "icon": "grade",
-                                            "styleClass": "rating-star"
-                                        },
-                                        {
-                                            "id": 5,
-                                            "icon": "grade",
-                                            "styleClass": "rating-star"
-                                        },
-                                        {
-                                            "id": 6,
-                                            "icon": "grade",
-                                            "styleClass": "rating-star"
-                                        },
-                                        {
-                                            "id": 7,
-                                            "icon": "grade",
-                                            "styleClass": "rating-star"
-                                        },
-                                        {
-                                            "id": 8,
-                                            "icon": "grade",
-                                            "styleClass": "rating-star"
-                                        }
-                                    ],
-                                    "RATE": -1
-                                },
-                                {
-                                    "name": "Fit to Product Statement",
-                                    "STARS": [
-                                        {
-                                            "id": 1,
-                                            "icon": "grade",
-                                            "styleClass": "rating-star"
-                                        },
-                                        {
-                                            "id": 2,
-                                            "icon": "grade",
-                                            "styleClass": "rating-star"
-                                        },
-                                        {
-                                            "id": 3,
-                                            "icon": "grade",
-                                            "styleClass": "rating-star"
-                                        },
-                                        {
-                                            "id": 4,
-                                            "icon": "grade",
-                                            "styleClass": "rating-star"
-                                        },
-                                        {
-                                            "id": 5,
-                                            "icon": "grade",
-                                            "styleClass": "rating-star"
-                                        },
-                                        {
-                                            "id": 6,
-                                            "icon": "grade",
-                                            "styleClass": "rating-star"
-                                        },
-                                        {
-                                            "id": 7,
-                                            "icon": "grade",
-                                            "styleClass": "rating-star"
-                                        },
-                                        {
-                                            "id": 8,
-                                            "icon": "grade",
-                                            "styleClass": "rating-star"
-                                        }
-                                    ],
-                                    "RATE": -1
-                                }
-                            ],
-                            "SELECTED_ROW": false
-                        },
-                        {
-                            "nameCandidates": "SUSPEND  ",
-                            "rationale": "Study of UCB0599's Slowing of the Progression of Early Parkinson's Disease - Delay",
-                            "CRITERIA": [
-                                {
-                                    "name": "Fit to Company Description",
-                                    "STARS": [
-                                        {
-                                            "id": 1,
-                                            "icon": "grade",
-                                            "styleClass": "rating-star"
-                                        },
-                                        {
-                                            "id": 2,
-                                            "icon": "grade",
-                                            "styleClass": "rating-star"
-                                        },
-                                        {
-                                            "id": 3,
-                                            "icon": "grade",
-                                            "styleClass": "rating-star"
-                                        },
-                                        {
-                                            "id": 4,
-                                            "icon": "grade",
-                                            "styleClass": "rating-star"
-                                        },
-                                        {
-                                            "id": 5,
-                                            "icon": "grade",
-                                            "styleClass": "rating-star"
-                                        },
-                                        {
-                                            "id": 6,
-                                            "icon": "grade",
-                                            "styleClass": "rating-star"
-                                        },
-                                        {
-                                            "id": 7,
-                                            "icon": "grade",
-                                            "styleClass": "rating-star"
-                                        },
-                                        {
-                                            "id": 8,
-                                            "icon": "grade",
-                                            "styleClass": "rating-star"
-                                        }
-                                    ],
-                                    "RATE": -1
-                                },
-                                {
-                                    "name": "Fit to Product Statement",
-                                    "STARS": [
-                                        {
-                                            "id": 1,
-                                            "icon": "grade",
-                                            "styleClass": "rating-star"
-                                        },
-                                        {
-                                            "id": 2,
-                                            "icon": "grade",
-                                            "styleClass": "rating-star"
-                                        },
-                                        {
-                                            "id": 3,
-                                            "icon": "grade",
-                                            "styleClass": "rating-star"
-                                        },
-                                        {
-                                            "id": 4,
-                                            "icon": "grade",
-                                            "styleClass": "rating-star"
-                                        },
-                                        {
-                                            "id": 5,
-                                            "icon": "grade",
-                                            "styleClass": "rating-star"
-                                        },
-                                        {
-                                            "id": 6,
-                                            "icon": "grade",
-                                            "styleClass": "rating-star"
-                                        },
-                                        {
-                                            "id": 7,
-                                            "icon": "grade",
-                                            "styleClass": "rating-star"
-                                        },
-                                        {
-                                            "id": 8,
-                                            "icon": "grade",
-                                            "styleClass": "rating-star"
-                                        }
-                                    ],
-                                    "RATE": -1
-                                }
-                            ],
-                            "SELECTED_ROW": false
-                        },
-                        {
-                            "nameCandidates": "Placid  ",
-                            "rationale": "Calm, Steady, Stable, Begins in P and Ends with D to Suggest Parkinson's Disease",
-                            "CRITERIA": [
-                                {
-                                    "name": "Fit to Company Description",
-                                    "STARS": [
-                                        {
-                                            "id": 1,
-                                            "icon": "grade",
-                                            "styleClass": "rating-star"
-                                        },
-                                        {
-                                            "id": 2,
-                                            "icon": "grade",
-                                            "styleClass": "rating-star"
-                                        },
-                                        {
-                                            "id": 3,
-                                            "icon": "grade",
-                                            "styleClass": "rating-star"
-                                        },
-                                        {
-                                            "id": 4,
-                                            "icon": "grade",
-                                            "styleClass": "rating-star"
-                                        },
-                                        {
-                                            "id": 5,
-                                            "icon": "grade",
-                                            "styleClass": "rating-star"
-                                        },
-                                        {
-                                            "id": 6,
-                                            "icon": "grade",
-                                            "styleClass": "rating-star"
-                                        },
-                                        {
-                                            "id": 7,
-                                            "icon": "grade",
-                                            "styleClass": "rating-star"
-                                        },
-                                        {
-                                            "id": 8,
-                                            "icon": "grade",
-                                            "styleClass": "rating-star"
-                                        }
-                                    ],
-                                    "RATE": -1
-                                },
-                                {
-                                    "name": "Fit to Product Statement",
-                                    "STARS": [
-                                        {
-                                            "id": 1,
-                                            "icon": "grade",
-                                            "styleClass": "rating-star"
-                                        },
-                                        {
-                                            "id": 2,
-                                            "icon": "grade",
-                                            "styleClass": "rating-star"
-                                        },
-                                        {
-                                            "id": 3,
-                                            "icon": "grade",
-                                            "styleClass": "rating-star"
-                                        },
-                                        {
-                                            "id": 4,
-                                            "icon": "grade",
-                                            "styleClass": "rating-star"
-                                        },
-                                        {
-                                            "id": 5,
-                                            "icon": "grade",
-                                            "styleClass": "rating-star"
-                                        },
-                                        {
-                                            "id": 6,
-                                            "icon": "grade",
-                                            "styleClass": "rating-star"
-                                        },
-                                        {
-                                            "id": 7,
-                                            "icon": "grade",
-                                            "styleClass": "rating-star"
-                                        },
-                                        {
-                                            "id": 8,
-                                            "icon": "grade",
-                                            "styleClass": "rating-star"
-                                        }
-                                    ],
-                                    "RATE": -1
-                                }
-                            ],
-                            "SELECTED_ROW": false
-                        },
-                        {
-                            "nameCandidates": "At Dawn ",
-                            "rationale": "Suggests Early Treatment",
-                            "CRITERIA": [
-                                {
-                                    "name": "Fit to Company Description",
-                                    "STARS": [
-                                        {
-                                            "id": 1,
-                                            "icon": "grade",
-                                            "styleClass": "rating-star"
-                                        },
-                                        {
-                                            "id": 2,
-                                            "icon": "grade",
-                                            "styleClass": "rating-star"
-                                        },
-                                        {
-                                            "id": 3,
-                                            "icon": "grade",
-                                            "styleClass": "rating-star"
-                                        },
-                                        {
-                                            "id": 4,
-                                            "icon": "grade",
-                                            "styleClass": "rating-star"
-                                        },
-                                        {
-                                            "id": 5,
-                                            "icon": "grade",
-                                            "styleClass": "rating-star"
-                                        },
-                                        {
-                                            "id": 6,
-                                            "icon": "grade",
-                                            "styleClass": "rating-star"
-                                        },
-                                        {
-                                            "id": 7,
-                                            "icon": "grade",
-                                            "styleClass": "rating-star"
-                                        },
-                                        {
-                                            "id": 8,
-                                            "icon": "grade",
-                                            "styleClass": "rating-star"
-                                        }
-                                    ],
-                                    "RATE": -1
-                                },
-                                {
-                                    "name": "Fit to Product Statement",
-                                    "STARS": [
-                                        {
-                                            "id": 1,
-                                            "icon": "grade",
-                                            "styleClass": "rating-star"
-                                        },
-                                        {
-                                            "id": 2,
-                                            "icon": "grade",
-                                            "styleClass": "rating-star"
-                                        },
-                                        {
-                                            "id": 3,
-                                            "icon": "grade",
-                                            "styleClass": "rating-star"
-                                        },
-                                        {
-                                            "id": 4,
-                                            "icon": "grade",
-                                            "styleClass": "rating-star"
-                                        },
-                                        {
-                                            "id": 5,
-                                            "icon": "grade",
-                                            "styleClass": "rating-star"
-                                        },
-                                        {
-                                            "id": 6,
-                                            "icon": "grade",
-                                            "styleClass": "rating-star"
-                                        },
-                                        {
-                                            "id": 7,
-                                            "icon": "grade",
-                                            "styleClass": "rating-star"
-                                        },
-                                        {
-                                            "id": 8,
-                                            "icon": "grade",
-                                            "styleClass": "rating-star"
-                                        }
-                                    ],
-                                    "RATE": -1
-                                }
-                            ],
-                            "SELECTED_ROW": false
-                        },
-                        {
-                            "nameCandidates": "Skylark  ",
-                            "rationale": "Type of Bird, May Connote Freedom or Taking Flight, Links to Parkinson's Disease",
-                            "CRITERIA": [
-                                {
-                                    "name": "Fit to Company Description",
-                                    "STARS": [
-                                        {
-                                            "id": 1,
-                                            "icon": "grade",
-                                            "styleClass": "rating-star"
-                                        },
-                                        {
-                                            "id": 2,
-                                            "icon": "grade",
-                                            "styleClass": "rating-star"
-                                        },
-                                        {
-                                            "id": 3,
-                                            "icon": "grade",
-                                            "styleClass": "rating-star"
-                                        },
-                                        {
-                                            "id": 4,
-                                            "icon": "grade",
-                                            "styleClass": "rating-star"
-                                        },
-                                        {
-                                            "id": 5,
-                                            "icon": "grade",
-                                            "styleClass": "rating-star"
-                                        },
-                                        {
-                                            "id": 6,
-                                            "icon": "grade",
-                                            "styleClass": "rating-star"
-                                        },
-                                        {
-                                            "id": 7,
-                                            "icon": "grade",
-                                            "styleClass": "rating-star"
-                                        },
-                                        {
-                                            "id": 8,
-                                            "icon": "grade",
-                                            "styleClass": "rating-star"
-                                        }
-                                    ],
-                                    "RATE": -1
-                                },
-                                {
-                                    "name": "Fit to Product Statement",
-                                    "STARS": [
-                                        {
-                                            "id": 1,
-                                            "icon": "grade",
-                                            "styleClass": "rating-star"
-                                        },
-                                        {
-                                            "id": 2,
-                                            "icon": "grade",
-                                            "styleClass": "rating-star"
-                                        },
-                                        {
-                                            "id": 3,
-                                            "icon": "grade",
-                                            "styleClass": "rating-star"
-                                        },
-                                        {
-                                            "id": 4,
-                                            "icon": "grade",
-                                            "styleClass": "rating-star"
-                                        },
-                                        {
-                                            "id": 5,
-                                            "icon": "grade",
-                                            "styleClass": "rating-star"
-                                        },
-                                        {
-                                            "id": 6,
-                                            "icon": "grade",
-                                            "styleClass": "rating-star"
-                                        },
-                                        {
-                                            "id": 7,
-                                            "icon": "grade",
-                                            "styleClass": "rating-star"
-                                        },
-                                        {
-                                            "id": 8,
-                                            "icon": "grade",
-                                            "styleClass": "rating-star"
-                                        }
-                                    ],
-                                    "RATE": -1
-                                }
-                            ],
-                            "SELECTED_ROW": false
-                        },
-                        {
-                            "nameCandidates": "Pearly  ",
-                            "rationale": "Shining Like a Pearl (May Suggest Hope), Implies Treating Parkinson's Disease (P-) Early",
-                            "CRITERIA": [
-                                {
-                                    "name": "Fit to Company Description",
-                                    "STARS": [
-                                        {
-                                            "id": 1,
-                                            "icon": "grade",
-                                            "styleClass": "rating-star"
-                                        },
-                                        {
-                                            "id": 2,
-                                            "icon": "grade",
-                                            "styleClass": "rating-star"
-                                        },
-                                        {
-                                            "id": 3,
-                                            "icon": "grade",
-                                            "styleClass": "rating-star"
-                                        },
-                                        {
-                                            "id": 4,
-                                            "icon": "grade",
-                                            "styleClass": "rating-star"
-                                        },
-                                        {
-                                            "id": 5,
-                                            "icon": "grade",
-                                            "styleClass": "rating-star"
-                                        },
-                                        {
-                                            "id": 6,
-                                            "icon": "grade",
-                                            "styleClass": "rating-star"
-                                        },
-                                        {
-                                            "id": 7,
-                                            "icon": "grade",
-                                            "styleClass": "rating-star"
-                                        },
-                                        {
-                                            "id": 8,
-                                            "icon": "grade",
-                                            "styleClass": "rating-star"
-                                        }
-                                    ],
-                                    "RATE": -1
-                                },
-                                {
-                                    "name": "Fit to Product Statement",
-                                    "STARS": [
-                                        {
-                                            "id": 1,
-                                            "icon": "grade",
-                                            "styleClass": "rating-star"
-                                        },
-                                        {
-                                            "id": 2,
-                                            "icon": "grade",
-                                            "styleClass": "rating-star"
-                                        },
-                                        {
-                                            "id": 3,
-                                            "icon": "grade",
-                                            "styleClass": "rating-star"
-                                        },
-                                        {
-                                            "id": 4,
-                                            "icon": "grade",
-                                            "styleClass": "rating-star"
-                                        },
-                                        {
-                                            "id": 5,
-                                            "icon": "grade",
-                                            "styleClass": "rating-star"
-                                        },
-                                        {
-                                            "id": 6,
-                                            "icon": "grade",
-                                            "styleClass": "rating-star"
-                                        },
-                                        {
-                                            "id": 7,
-                                            "icon": "grade",
-                                            "styleClass": "rating-star"
-                                        },
-                                        {
-                                            "id": 8,
-                                            "icon": "grade",
-                                            "styleClass": "rating-star"
-                                        }
-                                    ],
-                                    "RATE": -1
-                                }
-                            ],
-                            "SELECTED_ROW": false
-                        },
-                        {
-                            "nameCandidates": "STEADY  ",
-                            "rationale": "Study Testing an Early Parkinson's Disease Therapy - Suggests Stabilizing Symptoms, Gaining Control",
-                            "CRITERIA": [
-                                {
-                                    "name": "Fit to Company Description",
-                                    "STARS": [
-                                        {
-                                            "id": 1,
-                                            "icon": "grade",
-                                            "styleClass": "rating-star"
-                                        },
-                                        {
-                                            "id": 2,
-                                            "icon": "grade",
-                                            "styleClass": "rating-star"
-                                        },
-                                        {
-                                            "id": 3,
-                                            "icon": "grade",
-                                            "styleClass": "rating-star"
-                                        },
-                                        {
-                                            "id": 4,
-                                            "icon": "grade",
-                                            "styleClass": "rating-star"
-                                        },
-                                        {
-                                            "id": 5,
-                                            "icon": "grade",
-                                            "styleClass": "rating-star"
-                                        },
-                                        {
-                                            "id": 6,
-                                            "icon": "grade",
-                                            "styleClass": "rating-star"
-                                        },
-                                        {
-                                            "id": 7,
-                                            "icon": "grade",
-                                            "styleClass": "rating-star"
-                                        },
-                                        {
-                                            "id": 8,
-                                            "icon": "grade",
-                                            "styleClass": "rating-star"
-                                        }
-                                    ],
-                                    "RATE": -1
-                                },
-                                {
-                                    "name": "Fit to Product Statement",
-                                    "STARS": [
-                                        {
-                                            "id": 1,
-                                            "icon": "grade",
-                                            "styleClass": "rating-star"
-                                        },
-                                        {
-                                            "id": 2,
-                                            "icon": "grade",
-                                            "styleClass": "rating-star"
-                                        },
-                                        {
-                                            "id": 3,
-                                            "icon": "grade",
-                                            "styleClass": "rating-star"
-                                        },
-                                        {
-                                            "id": 4,
-                                            "icon": "grade",
-                                            "styleClass": "rating-star"
-                                        },
-                                        {
-                                            "id": 5,
-                                            "icon": "grade",
-                                            "styleClass": "rating-star"
-                                        },
-                                        {
-                                            "id": 6,
-                                            "icon": "grade",
-                                            "styleClass": "rating-star"
-                                        },
-                                        {
-                                            "id": 7,
-                                            "icon": "grade",
-                                            "styleClass": "rating-star"
-                                        },
-                                        {
-                                            "id": 8,
-                                            "icon": "grade",
-                                            "styleClass": "rating-star"
-                                        }
-                                    ],
-                                    "RATE": -1
-                                }
-                            ],
-                            "SELECTED_ROW": false
-                        },
-                        {
-                            "nameCandidates": "PositiveDirection ",
-                            "rationale": "A Hopeful Step Forward, Uses P and D for Parkinson's Disease",
-                            "CRITERIA": [
-                                {
-                                    "name": "Fit to Company Description",
-                                    "STARS": [
-                                        {
-                                            "id": 1,
-                                            "icon": "grade",
-                                            "styleClass": "rating-star"
-                                        },
-                                        {
-                                            "id": 2,
-                                            "icon": "grade",
-                                            "styleClass": "rating-star"
-                                        },
-                                        {
-                                            "id": 3,
-                                            "icon": "grade",
-                                            "styleClass": "rating-star"
-                                        },
-                                        {
-                                            "id": 4,
-                                            "icon": "grade",
-                                            "styleClass": "rating-star"
-                                        },
-                                        {
-                                            "id": 5,
-                                            "icon": "grade",
-                                            "styleClass": "rating-star"
-                                        },
-                                        {
-                                            "id": 6,
-                                            "icon": "grade",
-                                            "styleClass": "rating-star"
-                                        },
-                                        {
-                                            "id": 7,
-                                            "icon": "grade",
-                                            "styleClass": "rating-star"
-                                        },
-                                        {
-                                            "id": 8,
-                                            "icon": "grade",
-                                            "styleClass": "rating-star"
-                                        }
-                                    ],
-                                    "RATE": -1
-                                },
-                                {
-                                    "name": "Fit to Product Statement",
-                                    "STARS": [
-                                        {
-                                            "id": 1,
-                                            "icon": "grade",
-                                            "styleClass": "rating-star"
-                                        },
-                                        {
-                                            "id": 2,
-                                            "icon": "grade",
-                                            "styleClass": "rating-star"
-                                        },
-                                        {
-                                            "id": 3,
-                                            "icon": "grade",
-                                            "styleClass": "rating-star"
-                                        },
-                                        {
-                                            "id": 4,
-                                            "icon": "grade",
-                                            "styleClass": "rating-star"
-                                        },
-                                        {
-                                            "id": 5,
-                                            "icon": "grade",
-                                            "styleClass": "rating-star"
-                                        },
-                                        {
-                                            "id": 6,
-                                            "icon": "grade",
-                                            "styleClass": "rating-star"
-                                        },
-                                        {
-                                            "id": 7,
-                                            "icon": "grade",
-                                            "styleClass": "rating-star"
-                                        },
-                                        {
-                                            "id": 8,
-                                            "icon": "grade",
-                                            "styleClass": "rating-star"
-                                        }
-                                    ],
-                                    "RATE": -1
-                                }
-                            ],
-                            "SELECTED_ROW": false
-                        },
-                        {
-                            "nameCandidates": "Moderato  ",
-                            "rationale": "A Moderate Musical Tempo (Suggests Slowing Disease Progression)",
-                            "CRITERIA": [
-                                {
-                                    "name": "Fit to Company Description",
-                                    "STARS": [
-                                        {
-                                            "id": 1,
-                                            "icon": "grade",
-                                            "styleClass": "rating-star"
-                                        },
-                                        {
-                                            "id": 2,
-                                            "icon": "grade",
-                                            "styleClass": "rating-star"
-                                        },
-                                        {
-                                            "id": 3,
-                                            "icon": "grade",
-                                            "styleClass": "rating-star"
-                                        },
-                                        {
-                                            "id": 4,
-                                            "icon": "grade",
-                                            "styleClass": "rating-star"
-                                        },
-                                        {
-                                            "id": 5,
-                                            "icon": "grade",
-                                            "styleClass": "rating-star"
-                                        },
-                                        {
-                                            "id": 6,
-                                            "icon": "grade",
-                                            "styleClass": "rating-star"
-                                        },
-                                        {
-                                            "id": 7,
-                                            "icon": "grade",
-                                            "styleClass": "rating-star"
-                                        },
-                                        {
-                                            "id": 8,
-                                            "icon": "grade",
-                                            "styleClass": "rating-star"
-                                        }
-                                    ],
-                                    "RATE": -1
-                                },
-                                {
-                                    "name": "Fit to Product Statement",
-                                    "STARS": [
-                                        {
-                                            "id": 1,
-                                            "icon": "grade",
-                                            "styleClass": "rating-star"
-                                        },
-                                        {
-                                            "id": 2,
-                                            "icon": "grade",
-                                            "styleClass": "rating-star"
-                                        },
-                                        {
-                                            "id": 3,
-                                            "icon": "grade",
-                                            "styleClass": "rating-star"
-                                        },
-                                        {
-                                            "id": 4,
-                                            "icon": "grade",
-                                            "styleClass": "rating-star"
-                                        },
-                                        {
-                                            "id": 5,
-                                            "icon": "grade",
-                                            "styleClass": "rating-star"
-                                        },
-                                        {
-                                            "id": 6,
-                                            "icon": "grade",
-                                            "styleClass": "rating-star"
-                                        },
-                                        {
-                                            "id": 7,
-                                            "icon": "grade",
-                                            "styleClass": "rating-star"
-                                        },
-                                        {
-                                            "id": 8,
-                                            "icon": "grade",
-                                            "styleClass": "rating-star"
-                                        }
-                                    ],
-                                    "RATE": -1
-                                }
-                            ],
-                            "SELECTED_ROW": false
-                        },
-                        {
-                            "nameCandidates": "REINSPIRE ",
-                            "rationale": "Reviewing an Early Intervention for Slowing Parkinson's Disease Progression - Give Hope, Links to UCB's \"Inspired by Patients\"",
-                            "CRITERIA": [
-                                {
-                                    "name": "Fit to Company Description",
-                                    "STARS": [
-                                        {
-                                            "id": 1,
-                                            "icon": "grade",
-                                            "styleClass": "rating-star"
-                                        },
-                                        {
-                                            "id": 2,
-                                            "icon": "grade",
-                                            "styleClass": "rating-star"
-                                        },
-                                        {
-                                            "id": 3,
-                                            "icon": "grade",
-                                            "styleClass": "rating-star"
-                                        },
-                                        {
-                                            "id": 4,
-                                            "icon": "grade",
-                                            "styleClass": "rating-star"
-                                        },
-                                        {
-                                            "id": 5,
-                                            "icon": "grade",
-                                            "styleClass": "rating-star"
-                                        },
-                                        {
-                                            "id": 6,
-                                            "icon": "grade",
-                                            "styleClass": "rating-star"
-                                        },
-                                        {
-                                            "id": 7,
-                                            "icon": "grade",
-                                            "styleClass": "rating-star"
-                                        },
-                                        {
-                                            "id": 8,
-                                            "icon": "grade",
-                                            "styleClass": "rating-star"
-                                        }
-                                    ],
-                                    "RATE": -1
-                                },
-                                {
-                                    "name": "Fit to Product Statement",
-                                    "STARS": [
-                                        {
-                                            "id": 1,
-                                            "icon": "grade",
-                                            "styleClass": "rating-star"
-                                        },
-                                        {
-                                            "id": 2,
-                                            "icon": "grade",
-                                            "styleClass": "rating-star"
-                                        },
-                                        {
-                                            "id": 3,
-                                            "icon": "grade",
-                                            "styleClass": "rating-star"
-                                        },
-                                        {
-                                            "id": 4,
-                                            "icon": "grade",
-                                            "styleClass": "rating-star"
-                                        },
-                                        {
-                                            "id": 5,
-                                            "icon": "grade",
-                                            "styleClass": "rating-star"
-                                        },
-                                        {
-                                            "id": 6,
-                                            "icon": "grade",
-                                            "styleClass": "rating-star"
-                                        },
-                                        {
-                                            "id": 7,
-                                            "icon": "grade",
-                                            "styleClass": "rating-star"
-                                        },
-                                        {
-                                            "id": 8,
-                                            "icon": "grade",
-                                            "styleClass": "rating-star"
-                                        }
-                                    ],
-                                    "RATE": -1
-                                }
-                            ],
-                            "SELECTED_ROW": false
-                        },
-                        {
-                            "nameCandidates": "Bloom  ",
-                            "rationale": "Symbolic of Tulips and a Brighter Future",
-                            "CRITERIA": [
-                                {
-                                    "name": "Fit to Company Description",
-                                    "STARS": [
-                                        {
-                                            "id": 1,
-                                            "icon": "grade",
-                                            "styleClass": "rating-star"
-                                        },
-                                        {
-                                            "id": 2,
-                                            "icon": "grade",
-                                            "styleClass": "rating-star"
-                                        },
-                                        {
-                                            "id": 3,
-                                            "icon": "grade",
-                                            "styleClass": "rating-star"
-                                        },
-                                        {
-                                            "id": 4,
-                                            "icon": "grade",
-                                            "styleClass": "rating-star"
-                                        },
-                                        {
-                                            "id": 5,
-                                            "icon": "grade",
-                                            "styleClass": "rating-star"
-                                        },
-                                        {
-                                            "id": 6,
-                                            "icon": "grade",
-                                            "styleClass": "rating-star"
-                                        },
-                                        {
-                                            "id": 7,
-                                            "icon": "grade",
-                                            "styleClass": "rating-star"
-                                        },
-                                        {
-                                            "id": 8,
-                                            "icon": "grade",
-                                            "styleClass": "rating-star"
-                                        }
-                                    ],
-                                    "RATE": -1
-                                },
-                                {
-                                    "name": "Fit to Product Statement",
-                                    "STARS": [
-                                        {
-                                            "id": 1,
-                                            "icon": "grade",
-                                            "styleClass": "rating-star"
-                                        },
-                                        {
-                                            "id": 2,
-                                            "icon": "grade",
-                                            "styleClass": "rating-star"
-                                        },
-                                        {
-                                            "id": 3,
-                                            "icon": "grade",
-                                            "styleClass": "rating-star"
-                                        },
-                                        {
-                                            "id": 4,
-                                            "icon": "grade",
-                                            "styleClass": "rating-star"
-                                        },
-                                        {
-                                            "id": 5,
-                                            "icon": "grade",
-                                            "styleClass": "rating-star"
-                                        },
-                                        {
-                                            "id": 6,
-                                            "icon": "grade",
-                                            "styleClass": "rating-star"
-                                        },
-                                        {
-                                            "id": 7,
-                                            "icon": "grade",
-                                            "styleClass": "rating-star"
-                                        },
-                                        {
-                                            "id": 8,
-                                            "icon": "grade",
-                                            "styleClass": "rating-star"
-                                        }
-                                    ],
-                                    "RATE": -1
-                                }
-                            ],
-                            "SELECTED_ROW": false
-                        },
-                        {
-                            "nameCandidates": "Embark  ",
-                            "rationale": "To Set Out on a Journey, May Connote Optimism or Hope, Links to Parkinson's Disease",
-                            "CRITERIA": [
-                                {
-                                    "name": "Fit to Company Description",
-                                    "STARS": [
-                                        {
-                                            "id": 1,
-                                            "icon": "grade",
-                                            "styleClass": "rating-star"
-                                        },
-                                        {
-                                            "id": 2,
-                                            "icon": "grade",
-                                            "styleClass": "rating-star"
-                                        },
-                                        {
-                                            "id": 3,
-                                            "icon": "grade",
-                                            "styleClass": "rating-star"
-                                        },
-                                        {
-                                            "id": 4,
-                                            "icon": "grade",
-                                            "styleClass": "rating-star"
-                                        },
-                                        {
-                                            "id": 5,
-                                            "icon": "grade",
-                                            "styleClass": "rating-star"
-                                        },
-                                        {
-                                            "id": 6,
-                                            "icon": "grade",
-                                            "styleClass": "rating-star"
-                                        },
-                                        {
-                                            "id": 7,
-                                            "icon": "grade",
-                                            "styleClass": "rating-star"
-                                        },
-                                        {
-                                            "id": 8,
-                                            "icon": "grade",
-                                            "styleClass": "rating-star"
-                                        }
-                                    ],
-                                    "RATE": -1
-                                },
-                                {
-                                    "name": "Fit to Product Statement",
-                                    "STARS": [
-                                        {
-                                            "id": 1,
-                                            "icon": "grade",
-                                            "styleClass": "rating-star"
-                                        },
-                                        {
-                                            "id": 2,
-                                            "icon": "grade",
-                                            "styleClass": "rating-star"
-                                        },
-                                        {
-                                            "id": 3,
-                                            "icon": "grade",
-                                            "styleClass": "rating-star"
-                                        },
-                                        {
-                                            "id": 4,
-                                            "icon": "grade",
-                                            "styleClass": "rating-star"
-                                        },
-                                        {
-                                            "id": 5,
-                                            "icon": "grade",
-                                            "styleClass": "rating-star"
-                                        },
-                                        {
-                                            "id": 6,
-                                            "icon": "grade",
-                                            "styleClass": "rating-star"
-                                        },
-                                        {
-                                            "id": 7,
-                                            "icon": "grade",
-                                            "styleClass": "rating-star"
-                                        },
-                                        {
-                                            "id": 8,
-                                            "icon": "grade",
-                                            "styleClass": "rating-star"
-                                        }
-                                    ],
-                                    "RATE": -1
-                                }
-                            ],
-                            "SELECTED_ROW": false
-                        }
-                    ],
-                    "componentSettings": [
-                        {
-                            "minRule": 0,
-                            "maxRule": 0,
-                            "fontSize": 16,
-                            "columnWidth": 221,
-                            "rationalewidth": 452,
-                            "rowHeight": 2,
-                            "categoryRulesPassed": false,
-                            "ratedCounter": 0,
-                            "categoryName": "Category Narrow Down",
-                            "categoryDescription": "This is narrow down matrix",
-                            "ratingScaleTitle": "RATING",
-                            "ratingScaleNarrowDownTitle": "SELECT 5 OUT OF 10",
-                            "CRITERIA": true
-                        }
-                    ]
-                }
-            ]
-        },
-        {
-            "pageNumber": 7,
-            "page": [
-                {
-                    "componentType": "",
-                    "componentText": "",
-                    "componentSettings": [
-                        {
-                            "fontSize": "16px",
-                            "fontFace": "Arial",
-                            "fontColor": "red"
-                        }
-                    ]
-                },
-                {
-                    "componentType": "logo-header",
-                    "componentText": "PROJECT NAME",
-                    "componentSettings": [
-                        {
-                            "fontSize": "16px",
-                            "fontFace": "Arial",
-                            "logoWidth": 100,
-                            "brandInstituteURL": "./assets/img/bmx/BRANDMATRIX-DASHBOARD-LOGO.svg",
-                            "brandInstituteMobileURL": "./assets/img/bmx/bmxCube.jpg",
-                            "companyLogoURL": "./assets/img/bmx/BD.png"
-                        }
-                    ]
-                },
-                {
-                    "componentType": "text-editor",
-                    "componentText": "<p style=\"text-align:center\">Instructions</p>\n\n<p><br />\nPlease select your favorite logo candidates based on your&nbsp;personal preference&nbsp;on a scale from 1 to 7: 1 being negative, 4 being average and 7 being excellent. Once you have finished your selections, please click the &quot;Continue&quot; button on the bottom of the page to proceed to the next evaluation section.</p>\n",
-                    "componentSettings": [
-                        {
-                            "fontSize": "16px",
-                            "fontFace": "Arial",
-                            "fontColor": "red"
-                        }
-                    ]
-                },
-                {
-                    "componentType": "image-rate-scale",
-                    "componentText": [
-                        {
-                            "STARS": [
-                                {
-                                    "id": 1,
-                                    "icon": "grade",
-                                    "styleClass": "rating-star"
-                                },
-                                {
-                                    "id": 2,
-                                    "icon": "grade",
-                                    "styleClass": "rating-star"
-                                },
-                                {
-                                    "id": 3,
-                                    "icon": "grade",
-                                    "styleClass": "rating-star"
-                                },
-                                {
-                                    "id": 4,
-                                    "icon": "grade",
-                                    "styleClass": "rating-star"
-                                },
-                                {
-                                    "id": 5,
-                                    "icon": "grade",
-                                    "styleClass": "rating-star"
-                                }
-                            ],
-                            "nameCandidates": "Name Candidates",
-                            "rationale": "Rationale",
+                            "Score": "Score",
+                            "Rank": "Rank",
+                            "nameCandidates": "Name Candidates 1",
+                            "ExtraColumn1": "Name Candidates 2",
+                            "rationale": "Rationales",
                             "Comments1": "General Comments"
                         },
                         {
-                            "STARS": [
-                                {
-                                    "id": 1,
-                                    "icon": "grade",
-                                    "styleClass": "rating-star"
-                                },
-                                {
-                                    "id": 2,
-                                    "icon": "grade",
-                                    "styleClass": "rating-star"
-                                },
-                                {
-                                    "id": 3,
-                                    "icon": "grade",
-                                    "styleClass": "rating-star"
-                                },
-                                {
-                                    "id": 4,
-                                    "icon": "grade",
-                                    "styleClass": "rating-star"
-                                },
-                                {
-                                    "id": 5,
-                                    "icon": "grade",
-                                    "styleClass": "rating-star"
-                                }
-                            ],
-                            "nameCandidates": "https://tools.brandinstitute.com/bmresources/103PED/logo1.JPG",
-                            "rationale": "Rationale of an unthRationale of an unthdddd dddddddd dddddddd ddddddddddd ddddddd dddddddd",
-                            "name": "https://tools.brandinstitute.com/bmresources/103PED/logo1.JPG",
-                            "Comments1": ""
+                            "Rank": 1,
+                            "nameCandidates": "TEMPORAL",
+                            "ExtraColumn1": "pecilapolirsen",
+                            "rationale": "Treatment to Slow Parkinson’s Given Orally",
+                            "Score": 7,
+                            "Comments1": "comment cvega1"
                         },
                         {
-                            "STARS": [
-                                {
-                                    "id": 1,
-                                    "icon": "grade",
-                                    "styleClass": "rating-star"
-                                },
-                                {
-                                    "id": 2,
-                                    "icon": "grade",
-                                    "styleClass": "rating-star"
-                                },
-                                {
-                                    "id": 3,
-                                    "icon": "grade",
-                                    "styleClass": "rating-star"
-                                },
-                                {
-                                    "id": 4,
-                                    "icon": "grade",
-                                    "styleClass": "rating-star"
-                                },
-                                {
-                                    "id": 5,
-                                    "icon": "grade",
-                                    "styleClass": "rating-star"
-                                }
-                            ],
-                            "nameCandidates": "https://tools.brandinstitute.com/bmresources/103PED/logo2.JPG",
-                            "rationale": "Rationale of an undisclosed length",
-                            "name": "https://tools.brandinstitute.com/bmresources/103PED/logo2.JPG",
-                            "Comments1": ""
+                            "Rank": 2,
+                            "nameCandidates": "Moderato",
+                            "ExtraColumn1": "ipazapolirsen",
+                            "rationale": "A Moderate Musical Tempo (Suggests Slowing Disease Progression)",
+                            "Score": 6,
+                            "Comments1": "comment cvega"
                         },
                         {
-                            "STARS": [
-                                {
-                                    "id": 1,
-                                    "icon": "grade",
-                                    "styleClass": "rating-star"
-                                },
-                                {
-                                    "id": 2,
-                                    "icon": "grade",
-                                    "styleClass": "rating-star"
-                                },
-                                {
-                                    "id": 3,
-                                    "icon": "grade",
-                                    "styleClass": "rating-star"
-                                },
-                                {
-                                    "id": 4,
-                                    "icon": "grade",
-                                    "styleClass": "rating-star"
-                                },
-                                {
-                                    "id": 5,
-                                    "icon": "grade",
-                                    "styleClass": "rating-star"
-                                }
-                            ],
-                            "nameCandidates": "https://tools.brandinstitute.com/bmresources/103PED/logo3.JPG",
-                            "rationale": "Rationale of an undisclosed length",
-                            "name": "https://tools.brandinstitute.com/bmresources/103PED/logo3.JPG",
-                            "Comments1": ""
+                            "Rank": 4,
+                            "nameCandidates": "MILKY WAY",
+                            "ExtraColumn1": "risimapolirsen",
+                            "rationale": "MIsfolding Parkinson Study With Early Stage Patients",
+                            "Score": 5,
+                            "Comments1": "comment cvega"
                         },
                         {
-                            "STARS": [
-                                {
-                                    "id": 1,
-                                    "icon": "grade",
-                                    "styleClass": "rating-star"
-                                },
-                                {
-                                    "id": 2,
-                                    "icon": "grade",
-                                    "styleClass": "rating-star"
-                                },
-                                {
-                                    "id": 3,
-                                    "icon": "grade",
-                                    "styleClass": "rating-star"
-                                },
-                                {
-                                    "id": 4,
-                                    "icon": "grade",
-                                    "styleClass": "rating-star"
-                                },
-                                {
-                                    "id": 5,
-                                    "icon": "grade",
-                                    "styleClass": "rating-star"
-                                }
-                            ],
-                            "nameCandidates": "https://tools.brandinstitute.com/bmresources/103PED/logo4.JPG",
-                            "rationale": "Rationale of an losed length",
-                            "name": "https://tools.brandinstitute.com/bmresources/103PED/logo4.JPG",
-                            "Comments1": ""
+                            "Rank": 3,
+                            "nameCandidates": "REINSPIRE",
+                            "ExtraColumn1": "berlifapolirsen",
+                            "rationale": "",
+                            "Score": 5,
+                            "Comments1": "comment cvega"
                         },
                         {
-                            "STARS": [
-                                {
-                                    "id": 1,
-                                    "icon": "grade",
-                                    "styleClass": "rating-star"
-                                },
-                                {
-                                    "id": 2,
-                                    "icon": "grade",
-                                    "styleClass": "rating-star"
-                                },
-                                {
-                                    "id": 3,
-                                    "icon": "grade",
-                                    "styleClass": "rating-star"
-                                },
-                                {
-                                    "id": 4,
-                                    "icon": "grade",
-                                    "styleClass": "rating-star"
-                                },
-                                {
-                                    "id": 5,
-                                    "icon": "grade",
-                                    "styleClass": "rating-star"
-                                }
-                            ],
-                            "nameCandidates": "https://tools.brandinstitute.com/bmresources/103PED/logo5.JPG",
-                            "rationale": "Rationale of an undisclosed length",
-                            "name": "https://tools.brandinstitute.com/bmresources/103PED/logo5.JPG",
-                            "Comments1": ""
+                            "Rank": 5,
+                            "nameCandidates": "Arkitect",
+                            "ExtraColumn1": "talrapolirsen",
+                            "rationale": "\"Architect,\" Embeds Ark for Parkinson`s Disease and Implies Stability or Planning Ahead",
+                            "Score": 4,
+                            "Comments1": "comment cvega"
+                        },
+                        {
+                            "Rank": 6,
+                            "nameCandidates": "Unfolding",
+                            "ExtraColumn1": "Skylark",
+                            "rationale": "A Slow Revealing, Suggests Slowing Disease Progression and Links to Alpha-Synuclein Misfolding",
+                            "Score": 3,
+                            "Comments1": "comment cvega"
+                        },
+                        {
+                            "Rank": 7,
+                            "nameCandidates": "ORCHESTRA",
+                            "ExtraColumn1": "ORCHESTRA",
+                            "rationale": "ORal New Chemical Entity Aiming to Slow Disease Trajectory in Early Parkinson’s",
+                            "Score": 2,
+                            "Comments1": "comment cvega"
                         }
                     ],
                     "componentSettings": [
                         {
                             "minRule": 0,
-                            "maxRule": 0,
+                            "maxRule": 4,
                             "fontSize": 16,
-                            "columnWidth": 336,
-                            "rationalewidth": 375,
+                            "columnWidth": 205,
+                            "rationalewidth": 204,
                             "rowHeight": 2,
                             "categoryRulesPassed": false,
                             "ratedCounter": 0,
-                            "categoryName": "Category Logo Rating",
-                            "categoryDescription": "This is logo rating matrix",
-                            "ratingScaleTitle": "RANK"
-                        }
-                    ]
-                }
-            ]
-        },
-        {
-            "pageNumber": 8,
-            "page": [
-                {
-                    "componentType": "",
-                    "componentText": "",
-                    "componentSettings": [
-                        {
-                            "fontSize": "16px",
-                            "fontFace": "Arial",
-                            "fontColor": "red"
+                            "categoryName": "cvega1",
+                            "categoryDescription": "results by user sorted",
+                            "ratingScaleTitle": "Rate from 1 to 7"
                         }
                     ]
                 },
                 {
-                    "componentType": "logo-header",
-                    "componentText": "PROJECT NAME",
-                    "componentSettings": [
-                        {
-                            "fontSize": "16px",
-                            "fontFace": "Arial",
-                            "logoWidth": 100,
-                            "brandInstituteURL": "./assets/img/bmx/BRANDMATRIX-DASHBOARD-LOGO.svg",
-                            "brandInstituteMobileURL": "./assets/img/bmx/bmxCube.jpg",
-                            "companyLogoURL": "./assets/img/bmx/BD.png"
-                        }
-                    ]
-                },
-                {
-                    "componentType": "text-editor",
-                    "componentText": "<p style=\"text-align:center\"><span style=\"font-size:72px\">Q &amp; A</span></p>\n",
-                    "componentSettings": [
-                        {
-                            "fontSize": "16px",
-                            "fontFace": "Arial",
-                            "fontColor": "red"
-                        }
-                    ]
-                },
-                {
-                    "componentType": "question-answer",
+                    "componentType": "rate-scale",
                     "componentText": [
                         {
-                            "STARS": [
-                                {
-                                    "id": 1,
-                                    "icon": "grade",
-                                    "styleClass": "rating-star"
-                                },
-                                {
-                                    "id": 2,
-                                    "icon": "grade",
-                                    "styleClass": "rating-star"
-                                },
-                                {
-                                    "id": 3,
-                                    "icon": "grade",
-                                    "styleClass": "rating-star"
-                                },
-                                {
-                                    "id": 4,
-                                    "icon": "grade",
-                                    "styleClass": "rating-star"
-                                },
-                                {
-                                    "id": 5,
-                                    "icon": "grade",
-                                    "styleClass": "rating-star"
-                                }
-                            ],
-                            "nameCandidates": "Questions",
-                            "Answers1": "Answers"
+                            "Score": "Score",
+                            "Rank": "Rank",
+                            "nameCandidates": "Name Candidates",
+                            "rationale": "Rationales",
+                            "Comments1": "General Comments"
                         },
                         {
-                            "STARS": [
-                                {
-                                    "id": 1,
-                                    "icon": "grade",
-                                    "styleClass": "rating-star"
-                                },
-                                {
-                                    "id": 2,
-                                    "icon": "grade",
-                                    "styleClass": "rating-star"
-                                },
-                                {
-                                    "id": 3,
-                                    "icon": "grade",
-                                    "styleClass": "rating-star"
-                                },
-                                {
-                                    "id": 4,
-                                    "icon": "grade",
-                                    "styleClass": "rating-star"
-                                },
-                                {
-                                    "id": 5,
-                                    "icon": "grade",
-                                    "styleClass": "rating-star"
-                                }
-                            ],
-                            "nameCandidates": "What treatments can help my dog with congestive heart failure?",
-                            "Answers1": ""
+                            "Rank": 6,
+                            "nameCandidates": "risimapolirsen",
+                            "rationale": "Remission",
+                            "Comments1": "",
+                            "Score": 1
                         },
                         {
-                            "STARS": [
-                                {
-                                    "id": 1,
-                                    "icon": "grade",
-                                    "styleClass": "rating-star"
-                                },
-                                {
-                                    "id": 2,
-                                    "icon": "grade",
-                                    "styleClass": "rating-star"
-                                },
-                                {
-                                    "id": 3,
-                                    "icon": "grade",
-                                    "styleClass": "rating-star"
-                                },
-                                {
-                                    "id": 4,
-                                    "icon": "grade",
-                                    "styleClass": "rating-star"
-                                },
-                                {
-                                    "id": 5,
-                                    "icon": "grade",
-                                    "styleClass": "rating-star"
-                                }
-                            ],
-                            "nameCandidates": "What are the symptoms that you may see as your dog's congestive heart failure gets worse?",
-                            "Answers1": ""
+                            "Rank": 5,
+                            "nameCandidates": "berlifapolirsen",
+                            "rationale": "Better Life",
+                            "Comments1": "",
+                            "Score": 2
                         },
                         {
-                            "STARS": [
-                                {
-                                    "id": 1,
-                                    "icon": "grade",
-                                    "styleClass": "rating-star"
-                                },
-                                {
-                                    "id": 2,
-                                    "icon": "grade",
-                                    "styleClass": "rating-star"
-                                },
-                                {
-                                    "id": 3,
-                                    "icon": "grade",
-                                    "styleClass": "rating-star"
-                                },
-                                {
-                                    "id": 4,
-                                    "icon": "grade",
-                                    "styleClass": "rating-star"
-                                },
-                                {
-                                    "id": 5,
-                                    "icon": "grade",
-                                    "styleClass": "rating-star"
-                                }
-                            ],
-                            "nameCandidates": "What are the early symptoms of heart failure in dogs?",
-                            "Answers1": ""
+                            "Rank": 4,
+                            "nameCandidates": "beritapolirsen",
+                            "rationale": "Connotes Liberty",
+                            "Comments1": "",
+                            "Score": 3
                         },
                         {
-                            "STARS": [
-                                {
-                                    "id": 1,
-                                    "icon": "grade",
-                                    "styleClass": "rating-star"
-                                },
-                                {
-                                    "id": 2,
-                                    "icon": "grade",
-                                    "styleClass": "rating-star"
-                                },
-                                {
-                                    "id": 3,
-                                    "icon": "grade",
-                                    "styleClass": "rating-star"
-                                },
-                                {
-                                    "id": 4,
-                                    "icon": "grade",
-                                    "styleClass": "rating-star"
-                                },
-                                {
-                                    "id": 5,
-                                    "icon": "grade",
-                                    "styleClass": "rating-star"
-                                }
-                            ],
-                            "nameCandidates": "How do you treat liver disease in dogs?",
-                            "Answers1": ""
+                            "Rank": 3,
+                            "nameCandidates": "ipazapolirsen",
+                            "rationale": "Blank Canvas",
+                            "Comments1": "",
+                            "Score": 4
                         },
                         {
-                            "STARS": [
-                                {
-                                    "id": 1,
-                                    "icon": "grade",
-                                    "styleClass": "rating-star"
-                                },
-                                {
-                                    "id": 2,
-                                    "icon": "grade",
-                                    "styleClass": "rating-star"
-                                },
-                                {
-                                    "id": 3,
-                                    "icon": "grade",
-                                    "styleClass": "rating-star"
-                                },
-                                {
-                                    "id": 4,
-                                    "icon": "grade",
-                                    "styleClass": "rating-star"
-                                },
-                                {
-                                    "id": 5,
-                                    "icon": "grade",
-                                    "styleClass": "rating-star"
-                                }
-                            ],
-                            "nameCandidates": "What are symptoms of liver disease in dogs?",
-                            "Answers1": ""
+                            "Rank": 2,
+                            "nameCandidates": "vidnulapolirsen",
+                            "rationale": "Individualized",
+                            "Comments1": "",
+                            "Score": 5
                         },
                         {
-                            "STARS": [
-                                {
-                                    "id": 1,
-                                    "icon": "grade",
-                                    "styleClass": "rating-star"
-                                },
-                                {
-                                    "id": 2,
-                                    "icon": "grade",
-                                    "styleClass": "rating-star"
-                                },
-                                {
-                                    "id": 3,
-                                    "icon": "grade",
-                                    "styleClass": "rating-star"
-                                },
-                                {
-                                    "id": 4,
-                                    "icon": "grade",
-                                    "styleClass": "rating-star"
-                                },
-                                {
-                                    "id": 5,
-                                    "icon": "grade",
-                                    "styleClass": "rating-star"
-                                }
-                            ],
-                            "nameCandidates": "What happens after my dog gets a heartworm treatment?",
-                            "Answers1": ""
+                            "Rank": 1,
+                            "nameCandidates": "pecilapolirsen",
+                            "rationale": "Precision Medicine",
+                            "Comments1": "",
+                            "Score": 6
                         },
                         {
-                            "STARS": [
-                                {
-                                    "id": 1,
-                                    "icon": "grade",
-                                    "styleClass": "rating-star"
-                                },
-                                {
-                                    "id": 2,
-                                    "icon": "grade",
-                                    "styleClass": "rating-star"
-                                },
-                                {
-                                    "id": 3,
-                                    "icon": "grade",
-                                    "styleClass": "rating-star"
-                                },
-                                {
-                                    "id": 4,
-                                    "icon": "grade",
-                                    "styleClass": "rating-star"
-                                },
-                                {
-                                    "id": 5,
-                                    "icon": "grade",
-                                    "styleClass": "rating-star"
-                                }
-                            ],
-                            "nameCandidates": "What are the symptoms of pancreatitis in dogs?",
-                            "Answers1": ""
-                        },
-                        {
-                            "STARS": [
-                                {
-                                    "id": 1,
-                                    "icon": "grade",
-                                    "styleClass": "rating-star"
-                                },
-                                {
-                                    "id": 2,
-                                    "icon": "grade",
-                                    "styleClass": "rating-star"
-                                },
-                                {
-                                    "id": 3,
-                                    "icon": "grade",
-                                    "styleClass": "rating-star"
-                                },
-                                {
-                                    "id": 4,
-                                    "icon": "grade",
-                                    "styleClass": "rating-star"
-                                },
-                                {
-                                    "id": 5,
-                                    "icon": "grade",
-                                    "styleClass": "rating-star"
-                                }
-                            ],
-                            "nameCandidates": "What are the symptoms of seizures in dogs?",
-                            "Answers1": ""
-                        },
-                        {
-                            "STARS": [
-                                {
-                                    "id": 1,
-                                    "icon": "grade",
-                                    "styleClass": "rating-star"
-                                },
-                                {
-                                    "id": 2,
-                                    "icon": "grade",
-                                    "styleClass": "rating-star"
-                                },
-                                {
-                                    "id": 3,
-                                    "icon": "grade",
-                                    "styleClass": "rating-star"
-                                },
-                                {
-                                    "id": 4,
-                                    "icon": "grade",
-                                    "styleClass": "rating-star"
-                                },
-                                {
-                                    "id": 5,
-                                    "icon": "grade",
-                                    "styleClass": "rating-star"
-                                }
-                            ],
-                            "nameCandidates": "What is the treatment for pancreatitis in dogs?",
-                            "Answers1": ""
+                            "Rank": 7,
+                            "nameCandidates": "talrapolirsen",
+                            "rationale": "Tailored",
+                            "Comments1": ""
                         }
                     ],
                     "componentSettings": [
                         {
                             "minRule": 0,
-                            "maxRule": 0,
+                            "maxRule": 4,
                             "fontSize": 16,
-                            "columnWidth": 600,
-                            "rationalewidth": 250,
+                            "columnWidth": 205,
+                            "rationalewidth": 204,
                             "rowHeight": 2,
                             "categoryRulesPassed": false,
                             "ratedCounter": 0,
-                            "categoryName": "Category Question & Answer",
-                            "categoryDescription": "Insert Comments box for answers",
-                            "CRITERIA": false
+                            "categoryName": "cvega1",
+                            "categoryDescription": "results by user sorted",
+                            "ratingScaleTitle": "Rate from 1 to 7"
+                        }
+                    ]
+                },
+                {
+                    "componentType": "rate-scale",
+                    "componentText": [
+                        {
+                            "Score": "Score",
+                            "Rank": "Rank",
+                            "nameCandidates": "Name Candidates 1",
+                            "ExtraColumn1": "Name Candidates 2",
+                            "rationale": "Rationales",
+                            "Comments1": "General Comments"
+                        },
+                        {
+                            "Rank": 4,
+                            "nameCandidates": "MILKY WAY",
+                            "ExtraColumn1": "risimapolirsen",
+                            "rationale": "MIsfolding Parkinson Study With Early Stage Patients",
+                            "Score": 7,
+                            "Comments1": "comment cvega"
+                        },
+                        {
+                            "Rank": 2,
+                            "nameCandidates": "Moderato",
+                            "ExtraColumn1": "ipazapolirsen",
+                            "rationale": "A Moderate Musical Tempo (Suggests Slowing Disease Progression)",
+                            "Score": 7,
+                            "Comments1": "comment cvega"
+                        },
+                        {
+                            "Rank": 6,
+                            "nameCandidates": "Unfolding",
+                            "ExtraColumn1": "Skylark",
+                            "rationale": "A Slow Revealing, Suggests Slowing Disease Progression and Links to Alpha-Synuclein Misfolding",
+                            "Score": 7,
+                            "Comments1": "comment cvega"
+                        },
+                        {
+                            "Rank": 5,
+                            "nameCandidates": "Arkitect",
+                            "ExtraColumn1": "talrapolirsen",
+                            "rationale": "\"Architect,\" Embeds Ark for Parkinson`s Disease and Implies Stability or Planning Ahead",
+                            "Score": 4,
+                            "Comments1": "comment cvega"
+                        },
+                        {
+                            "Rank": 7,
+                            "nameCandidates": "ORCHESTRA",
+                            "ExtraColumn1": "ORCHESTRA",
+                            "rationale": "ORal New Chemical Entity Aiming to Slow Disease Trajectory in Early Parkinson’s",
+                            "Score": 4,
+                            "Comments1": "comment cvega"
+                        },
+                        {
+                            "Rank": 3,
+                            "nameCandidates": "REINSPIRE",
+                            "ExtraColumn1": "berlifapolirsen",
+                            "rationale": "",
+                            "Score": 4,
+                            "Comments1": "comment cvega"
+                        },
+                        {
+                            "Rank": 1,
+                            "nameCandidates": "TEMPORAL",
+                            "ExtraColumn1": "pecilapolirsen",
+                            "rationale": "Treatment to Slow Parkinson’s Given Orally",
+                            "Score": 4,
+                            "Comments1": "comment cvega"
+                        }
+                    ],
+                    "componentSettings": [
+                        {
+                            "minRule": 0,
+                            "maxRule": 4,
+                            "fontSize": 16,
+                            "columnWidth": 205,
+                            "rationalewidth": 204,
+                            "rowHeight": 2,
+                            "categoryRulesPassed": false,
+                            "ratedCounter": 0,
+                            "categoryName": "cvega2",
+                            "categoryDescription": "results by user sorted",
+                            "ratingScaleTitle": "Rate from 1 to 7"
+                        }
+                    ]
+                },
+                {
+                    "componentType": "rate-scale",
+                    "componentText": [
+                        {
+                            "Score": "Score",
+                            "Rank": "Rank",
+                            "nameCandidates": "Name Candidates",
+                            "rationale": "Rationales",
+                            "Comments1": "General Comments"
+                        },
+                        {
+                            "Rank": 2,
+                            "nameCandidates": "vidnulapolirsen",
+                            "rationale": "Individualized",
+                            "Comments1": "",
+                            "Score": 1
+                        },
+                        {
+                            "Rank": 5,
+                            "nameCandidates": "berlifapolirsen",
+                            "rationale": "Better Life",
+                            "Comments1": "",
+                            "Score": 2
+                        },
+                        {
+                            "Rank": 4,
+                            "nameCandidates": "beritapolirsen",
+                            "rationale": "Connotes Liberty",
+                            "Comments1": "",
+                            "Score": 3
+                        },
+                        {
+                            "Rank": 6,
+                            "nameCandidates": "risimapolirsen",
+                            "rationale": "Remission",
+                            "Comments1": "",
+                            "Score": 4
+                        },
+                        {
+                            "Rank": 3,
+                            "nameCandidates": "ipazapolirsen",
+                            "rationale": "Blank Canvas",
+                            "Comments1": "",
+                            "Score": 5
+                        },
+                        {
+                            "Rank": 1,
+                            "nameCandidates": "pecilapolirsen",
+                            "rationale": "Precision Medicine",
+                            "Comments1": "",
+                            "Score": 6
+                        },
+                        {
+                            "Rank": 7,
+                            "nameCandidates": "talrapolirsen",
+                            "rationale": "Tailored",
+                            "Comments1": ""
+                        }
+                    ],
+                    "componentSettings": [
+                        {
+                            "minRule": 0,
+                            "maxRule": 4,
+                            "fontSize": 16,
+                            "columnWidth": 205,
+                            "rationalewidth": 204,
+                            "rowHeight": 2,
+                            "categoryRulesPassed": false,
+                            "ratedCounter": 0,
+                            "categoryName": "cvega2",
+                            "categoryDescription": "results by user sorted",
+                            "ratingScaleTitle": "Rate from 1 to 7"
+                        }
+                    ]
+                },
+                {
+                    "componentType": "rate-scale",
+                    "componentText": [
+                        {
+                            "Score": "Score",
+                            "Rank": "Rank",
+                            "nameCandidates": "Name Candidates 1",
+                            "ExtraColumn1": "Name Candidates 2",
+                            "rationale": "Rationales",
+                            "Comments1": "General Comments"
+                        },
+                        {
+                            "Rank": 5,
+                            "nameCandidates": "Arkitect",
+                            "ExtraColumn1": "talrapolirsen",
+                            "rationale": "\"Architect,\" Embeds Ark for Parkinson`s Disease and Implies Stability or Planning Ahead",
+                            "Score": 1,
+                            "Comments1": "comment cvega"
+                        },
+                        {
+                            "Rank": 4,
+                            "nameCandidates": "MILKY WAY",
+                            "ExtraColumn1": "risimapolirsen",
+                            "rationale": "MIsfolding Parkinson Study With Early Stage Patients",
+                            "Score": 1,
+                            "Comments1": "comment cvega"
+                        },
+                        {
+                            "Rank": 2,
+                            "nameCandidates": "Moderato",
+                            "ExtraColumn1": "ipazapolirsen",
+                            "rationale": "A Moderate Musical Tempo (Suggests Slowing Disease Progression)",
+                            "Score": 1,
+                            "Comments1": "comment cvega"
+                        },
+                        {
+                            "Rank": 7,
+                            "nameCandidates": "ORCHESTRA",
+                            "ExtraColumn1": "ORCHESTRA",
+                            "rationale": "ORal New Chemical Entity Aiming to Slow Disease Trajectory in Early Parkinson’s",
+                            "Score": 1,
+                            "Comments1": "comment cvega"
+                        },
+                        {
+                            "Rank": 3,
+                            "nameCandidates": "REINSPIRE",
+                            "ExtraColumn1": "berlifapolirsen",
+                            "rationale": "",
+                            "Score": 1,
+                            "Comments1": "comment cvega"
+                        },
+                        {
+                            "Rank": 1,
+                            "nameCandidates": "TEMPORAL",
+                            "ExtraColumn1": "pecilapolirsen",
+                            "rationale": "Treatment to Slow Parkinson’s Given Orally",
+                            "Score": 1,
+                            "Comments1": "comment cvega"
+                        },
+                        {
+                            "Rank": 6,
+                            "nameCandidates": "Unfolding",
+                            "ExtraColumn1": "Skylark",
+                            "rationale": "A Slow Revealing, Suggests Slowing Disease Progression and Links to Alpha-Synuclein Misfolding",
+                            "Score": 1,
+                            "Comments1": "comment cvega"
+                        }
+                    ],
+                    "componentSettings": [
+                        {
+                            "minRule": 0,
+                            "maxRule": 4,
+                            "fontSize": 16,
+                            "columnWidth": 205,
+                            "rationalewidth": 204,
+                            "rowHeight": 2,
+                            "categoryRulesPassed": false,
+                            "ratedCounter": 0,
+                            "categoryName": "cvega3",
+                            "categoryDescription": "results by user sorted",
+                            "ratingScaleTitle": "Rate from 1 to 7"
+                        }
+                    ]
+                },
+                {
+                    "componentType": "rate-scale",
+                    "componentText": [
+                        {
+                            "Score": "Score",
+                            "Rank": "Rank",
+                            "nameCandidates": "Name Candidates",
+                            "rationale": "Rationales",
+                            "Comments1": "General Comments"
+                        },
+                        {
+                            "Rank": 6,
+                            "nameCandidates": "risimapolirsen",
+                            "rationale": "Remission",
+                            "Comments1": "",
+                            "Score": 1
+                        },
+                        {
+                            "Rank": 5,
+                            "nameCandidates": "berlifapolirsen",
+                            "rationale": "Better Life",
+                            "Comments1": "",
+                            "Score": 2
+                        },
+                        {
+                            "Rank": 4,
+                            "nameCandidates": "beritapolirsen",
+                            "rationale": "Connotes Liberty",
+                            "Comments1": "",
+                            "Score": 3
+                        },
+                        {
+                            "Rank": 3,
+                            "nameCandidates": "ipazapolirsen",
+                            "rationale": "Blank Canvas",
+                            "Comments1": "",
+                            "Score": 4
+                        },
+                        {
+                            "Rank": 2,
+                            "nameCandidates": "vidnulapolirsen",
+                            "rationale": "Individualized",
+                            "Comments1": "",
+                            "Score": 5
+                        },
+                        {
+                            "Rank": 1,
+                            "nameCandidates": "pecilapolirsen",
+                            "rationale": "Precision Medicine",
+                            "Comments1": "",
+                            "Score": 6
+                        },
+                        {
+                            "Rank": 7,
+                            "nameCandidates": "talrapolirsen",
+                            "rationale": "Tailored",
+                            "Comments1": ""
+                        }
+                    ],
+                    "componentSettings": [
+                        {
+                            "minRule": 0,
+                            "maxRule": 4,
+                            "fontSize": 16,
+                            "columnWidth": 205,
+                            "rationalewidth": 204,
+                            "rowHeight": 2,
+                            "categoryRulesPassed": false,
+                            "ratedCounter": 0,
+                            "categoryName": "cvega3",
+                            "categoryDescription": "results by user sorted",
+                            "ratingScaleTitle": "Rate from 1 to 7"
                         }
                     ]
                 }
