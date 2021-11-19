@@ -271,7 +271,7 @@ export class ProjectReportsComponent
                 //     verticalPosition: 'top'
                 //   })
             } else {
-            //   this.getAndCalculateReport()
+              this.getAndCalculateReport()
             }
 
             this.bmxPages = this.SAMPLE_BMX;
@@ -327,6 +327,7 @@ export class ProjectReportsComponent
                     Object.keys(category[sortedCategory]).forEach((key, keyIndex) => {
                         this.BMX_REPORT[categoryIndex][sortedCategory][key].totalScore
                         sortIngArray.push({
+                            rank:categoryIndex+1,
                             nameCandidates: key,
                             score: this.BMX_REPORT[categoryIndex][sortedCategory][key].totalScore,
                             comments: this.BMX_REPORT[categoryIndex][sortedCategory][key].comments
@@ -346,13 +347,14 @@ export class ProjectReportsComponent
                         "page": [
                             {
                                 "componentType": "logo-header",
-                                "componentText": "PROJECT NAME",
+                                "componentText": "ratetoprank",
                                 "componentSettings": [
                                     {
                                         "fontSize": "16px",
                                         "fontFace": "Arial",
                                         "logoWidth": 100,
-                                        "brandInstituteURL": "./assets/img/bmx/BRANDMATRIX-DASHBOARD-LOGO.svg",
+                                        "brandInstituteLogoURL": "./assets/img/bmx/BRANDMATRIX-DASHBOARD-LOGO.svg",
+                                        "brandInstituteSurveyLogoURL": "./assets/img/bmx/bm-logo-2020-high.png",
                                         "brandInstituteMobileURL": "./assets/img/bmx/bmxCube.jpg",
                                         "companyLogoURL": "./assets/img/bmx/BD.png"
                                     }
@@ -441,34 +443,7 @@ export class ProjectReportsComponent
                                         "fontColor": "red"
                                     }
                                 ]
-                            },
-                            {
-                                "componentType": "rate-scale",
-                                "componentText": [
-                                    {
-                                        "nameCandidates": "Name Candidates",
-                                        "rationale": "Rationales",
-                                        "Comments1": "General Comments",
-                                        "RATE": -1
-                                    },
-
-                                ],
-                                "componentSettings": [
-                                    {
-                                        "minRule": 0,
-                                        "maxRule": 4,
-                                        "fontSize": 16,
-                                        "columnWidth": 191,
-                                        "rationalewidth": 804,
-                                        "rowHeight": 2,
-                                        "categoryRulesPassed": false,
-                                        "ratedCounter": 0,
-                                        "categoryName": "Name Candidates",
-                                        "categoryDescription": "With Max Rate Amount",
-                                        "ratingScaleTitle": "Rate from 1 to 7"
-                                    }
-                                ]
-                            }
+                            }                           
                         ]
                     }]
 
@@ -617,7 +592,7 @@ export class ProjectReportsComponent
                         "minRule": 0,
                         "maxRule": 4,
                         "fontSize": 16,
-                        "columnWidth": 325,
+                        "columnWidth": 250,
                         "rationalewidth": 804,
                         "rowHeight": 2,
                         "categoryRulesPassed": false,
@@ -638,14 +613,15 @@ export class ProjectReportsComponent
 
                     })
                     component.componentText.push(rowObj)
+                    component.componentText.push(row)
                 }
                 else {
                     component.componentText.push(row)
                     row.comments.forEach((comment, index, commnetsArray) => {
                         if (comment) {
 
-                            comments = `<div style="color: blueviolet;">` + comment.userName + `: ` +
-                                `<span style="color: brown;">` + comment.comment + `</span>` + `</div>`
+                            comments = `<div style="color: #ee7f25;">` + comment.userName + `: ` +
+                                `<span style="color: #324395;">` + comment.comment + `</span>` + `</div>`
                             commnetsArray[index] = comments + `\n`
                         }
                     });
@@ -1330,7 +1306,7 @@ export class ProjectReportsComponent
             } else if (a[prop1] > b[prop1]) {
                 return 1;
             } else {
-                if (a[prop2] > b[prop2]) {
+                if (a[prop2] < b[prop2]) {
                     return -1;
                 } else if (a[prop2] > b[prop2]) {
                     return 1;

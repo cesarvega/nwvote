@@ -1,4 +1,4 @@
-<div style="display: flex;">
+<div  style="display: flex;">
     <div style="flex-direction: column;" class="bmx-page" *ngIf="isMenuActive11" [dragula]="(isMobile)?'TASKS':''"
         (dragulaModelChange)="checkDragEvetn($event);" [(dragulaModel)]="bmxPages[currentPage].page">
 
@@ -200,23 +200,25 @@
                 matTooltipPosition="right" mat-icon-button color="warn" aria-label="aria">
                 <mat-icon class="full-icon">question_answer</mat-icon>
             </button>
+            <br>
             <button *ngIf="!false" (click)="createPage()" matTooltip="Create New Page" matTooltipPosition="right"
                 mat-icon-button aria-label="aria">
-                <mat-icon class="full-icon">post_add</mat-icon>
+                <mat-icon class="full-icon-secondary">post_add</mat-icon>
             </button>
             <button *ngIf="!false" (dblclick)="deletePage()" matTooltip="double click to delete current page"
                 matTooltipPosition="right" mat-icon-button aria-label="aria">
-                <mat-icon class="full-icon">layers_clear</mat-icon>
+                <mat-icon class="full-icon-secondary">layers_clear</mat-icon>
             </button>
             <button (click)="openSaveTemplateBox()" matTooltip="save template" matTooltipPosition="right"
                 mat-icon-button color="warn" aria-label="aria">
-                <mat-icon class="full-icon">category</mat-icon>
+                <mat-icon class="full-icon-secondary">category</mat-icon>
             </button>
             <button *ngIf="true" (dblclick)="resetTemplate()" mat-icon-button
                 matTooltip="double click to reset template" matTooltipPosition="right">
-                <mat-icon class="full-icon">delete_sweep
+                <mat-icon class="full-icon-secondary">delete_sweep
                 </mat-icon>
             </button>
+            <br>
             <button *ngIf="true" (click)="saveData()" mat-icon-button matTooltip="upload template"
                 matTooltipPosition="right">
                 <mat-icon class="full-icon">cloud_upload
@@ -288,4 +290,6 @@
             delete
         </button>
     </div>
+    <mat-icon (click)="isTemplateBoxOn = false" style="cursor: pointer;" class="full-icon">close
+    </mat-icon>
 </div>

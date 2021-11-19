@@ -168,19 +168,19 @@
     <div class="project-info no-print" *ngIf="true">
 
         <div style="display: flex;flex-direction: column;margin-top: 50px;">
-            <button (click)="createNewBmxComponent('logo-header')" mat-icon-button matTooltip="header"
+            <button (click)="createNewBmxComponent('logo-header')" mat-icon-button matTooltip="insert header"
                 matTooltipPosition="right">
                 <mat-icon class="full-icon">account_circle</mat-icon>
             </button>
-            <button (click)="createNewBmxComponent('text-editor')" mat-icon-button matTooltip="paragraph"
+            <button (click)="createNewBmxComponent('text-editor')" mat-icon-button matTooltip="insert paragraph"
                 matTooltipPosition="right">
                 <mat-icon class="full-icon">article</mat-icon>
             </button>
-            <button (click)="createNewBmxComponent('rate-scale')" matTooltip="rate matrix" matTooltipPosition="right"
+            <button (click)="createNewBmxComponent('rate-scale')" matTooltip="insert table" matTooltipPosition="right"
                 mat-icon-button color="warn" aria-label="aria">
                 <mat-icon class="full-icon">star_border</mat-icon>
             </button>
-            <button (click)="createNewBmxComponent('ranking-scale')" matTooltip="rank matrix" matTooltipPosition="right"
+            <!-- <button (click)="createNewBmxComponent('ranking-scale')" matTooltip="rank matrix" matTooltipPosition="right"
                 mat-icon-button color="warn" aria-label="aria">
                 <mat-icon class="full-icon">military_tech</mat-icon>
             </button>
@@ -195,29 +195,31 @@
             <button (click)="createNewBmxComponent('tinder')" matTooltip="tinder matrix" matTooltipPosition="right"
                 mat-icon-button color="warn" aria-label="aria">
                 <mat-icon class="full-icon">local_fire_department</mat-icon>
-            </button>
+            </button> -->
             <button (click)="createNewBmxComponent('question-answer')" matTooltip="questions & answers"
                 matTooltipPosition="right" mat-icon-button color="warn" aria-label="aria">
                 <mat-icon class="full-icon">question_answer</mat-icon>
             </button>
-            <button *ngIf="!false" (click)="createPage()" matTooltip="Create New Page" matTooltipPosition="right"
+            <br>
+            <button *ngIf="!false" (dblclick)="createPage()" matTooltip="double click to create new page" matTooltipPosition="right"
                 mat-icon-button aria-label="aria">
-                <mat-icon class="full-icon">post_add</mat-icon>
+                <mat-icon class="full-icon-secondary">post_add</mat-icon>
             </button>
             <button *ngIf="!false" (dblclick)="deletePage()" matTooltip="double click to delete current page"
                 matTooltipPosition="right" mat-icon-button aria-label="aria">
-                <mat-icon class="full-icon">layers_clear</mat-icon>
+                <mat-icon class="full-icon-secondary">layers_clear</mat-icon>
             </button>
             <button (click)="openSaveTemplateBox()" matTooltip="save template" matTooltipPosition="right"
                 mat-icon-button color="warn" aria-label="aria">
-                <mat-icon class="full-icon">category</mat-icon>
+                <mat-icon class="full-icon-secondary">category</mat-icon>
             </button>
             <button *ngIf="true" (dblclick)="resetTemplate()" mat-icon-button
                 matTooltip="double click to reset template" matTooltipPosition="right">
-                <mat-icon class="full-icon">delete_sweep
+                <mat-icon class="full-icon-secondary">delete_sweep
                 </mat-icon>
             </button>
-            <button *ngIf="true" (click)="saveData()" mat-icon-button matTooltip="upload template"
+            <br>
+            <button *ngIf="true" (dblclick)="saveData()" mat-icon-button matTooltip="double click to upload template"
                 matTooltipPosition="right">
                 <mat-icon class="full-icon">cloud_upload
                 </mat-icon>
@@ -287,4 +289,7 @@
             delete
         </button>
     </div>
+    <mat-icon (click)="isTemplateBoxOn = false" style="cursor: pointer;" class="full-icon">close
+    </mat-icon>
+    
 </div>
