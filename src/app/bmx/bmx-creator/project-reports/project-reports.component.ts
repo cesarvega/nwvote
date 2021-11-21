@@ -452,7 +452,9 @@ export class ProjectReportsComponent
                 console.log(this.categorySortedgArray);
 
                 //🌈🌈🌈🌈🌈🌈🌈🌈🌈🌈🌈🌈🌈🌈🌈🌈//🌈🌈🌈🌈🌈🌈🌈🌈🌈🌈🌈🌈🌈🌈🌈🌈//🌈🌈🌈🌈🌈🌈🌈🌈🌈🌈🌈🌈🌈🌈🌈🌈//🌈🌈🌈🌈🌈🌈🌈🌈🌈🌈🌈🌈🌈🌈🌈🌈//🌈🌈🌈🌈🌈🌈🌈🌈🌈🌈🌈🌈🌈🌈🌈🌈//🌈🌈🌈🌈🌈🌈🌈🌈🌈🌈🌈🌈🌈🌈🌈🌈//🌈🌈🌈🌈🌈🌈🌈🌈🌈🌈🌈🌈🌈🌈🌈🌈//🌈🌈🌈🌈🌈🌈🌈🌈🌈🌈🌈🌈🌈🌈🌈🌈              
+                this.createNewBmxComponent('text-editor')
                 this.createReportPerCategory()
+                this.createNewBmxComponent('text-editor')
                 this.createReportByUsername()
             }
         })
@@ -465,8 +467,7 @@ export class ProjectReportsComponent
             if (templateComponent.componentSettings[0].CRITERIA) {
                 if (REPORT_DATA[row.nameCandidates]) {
                     REPORT_DATA[row.nameCandidates].scores.forEach((Score, scoreIndex) => {
-                        Score.score += row.CRITERIA[scoreIndex].RATE
-                        REPORT_DATA[row.nameCandidates].totalScore += Score.score
+                        REPORT_DATA[row.nameCandidates].totalScore += (row.CRITERIA[scoreIndex].RATE < 0) ? 0 : row.CRITERIA[scoreIndex].RATE
                     });
                     if (row.Comments1?.length > 0) {
                         REPORT_DATA[row.nameCandidates].comments.push({ userName: username, comment: row.Comments1 })
