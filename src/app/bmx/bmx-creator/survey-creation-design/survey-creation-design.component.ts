@@ -239,6 +239,9 @@ export class SurveyCreationDesignComponent implements OnInit {
   }
 
   ngOnInit(): void {
+    this._BmxService.currentProjectName.subscribe(projectName => {
+        this.projectId = (projectName !== '') ? projectName : this.projectId;
+    })
     this.myAngularxQrCode = this.myAngularxQrCode + this.projectId + '/' + this.biUsername
     this._BmxService.getGeneralLists()
     .subscribe((arg: any) => {;

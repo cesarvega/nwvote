@@ -59,6 +59,7 @@ export class ProjectInformationComponent implements OnInit {
     this.createForm();
     this.onChanges();
     var items = localStorage.getItem('projectName');
+    this._BmxService.setProjectName(items);
     if (items != undefined || items != null) {
       this._BmxService.getProjectInfo(localStorage.getItem('projectName'))
         .subscribe((arg: any) => {
@@ -142,6 +143,7 @@ export class ProjectInformationComponent implements OnInit {
   }
 
   saveProjectInfo() {
+    this._BmxService.setProjectName(this.bmxEditData.get('bmxProjectName').value.toString());
     const projectInfo: JSON = <JSON><unknown>{
       "bmxSalesboard": this.bmxEditData.get('bmxSalesboard').value.toString(),
       "bmxDepartment": this.bmxEditData.get('bmxDepartment').value.toString(),
