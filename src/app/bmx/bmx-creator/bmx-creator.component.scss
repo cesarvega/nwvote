@@ -38,6 +38,10 @@
 }
 //   BRAND MATRIX CREATOR DASH
 
+.report-container::-webkit-scrollbar {
+    display: none;
+}
+
 .main-container {
     display: flex;
     flex-direction: row;
@@ -155,6 +159,7 @@
     }
 
 
+   
     .emoji-handle {
         // position: absolute;
         top: 5px;

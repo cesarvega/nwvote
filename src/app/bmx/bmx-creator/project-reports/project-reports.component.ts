@@ -271,7 +271,7 @@ export class ProjectReportsComponent
                 //     verticalPosition: 'top'
                 //   })
             } else {
-            //   this.getAndCalculateReport()
+                this.getAndCalculateReport()
             }
 
             this.bmxPages = this.SAMPLE_BMX;
@@ -279,7 +279,7 @@ export class ProjectReportsComponent
         })
 
     }
-
+    // ☢️☢️☢️☢️☢️☢️☢️☢️☢️☢️☢️☢️☢️☢️☢️☢️☢️☢️☢️☢️☢️☢️☢️☢️☢️☢️☢️☢️☢️☢️☢️☢️☢️☢️☢️☢️☢️☢️☢️☢️☢️☢️☢️
     getAndCalculateReport() {
         this._BmxService.getBrandMatrixByProjectAllUserAnswers(this.projectId).subscribe((brandMatrix: any) => {
             if (brandMatrix.d.length > 0) {
@@ -313,7 +313,7 @@ export class ProjectReportsComponent
                                     }
                                 });
                                 //🌈🌈🌈🌈🌈🌈🌈🌈🌈🌈🌈🌈🌈🌈🌈🌈 USERS RESULTS
-                                let userName = { username: userAnswer.Username, content: component.componentText,componentType:component.componentType }
+                                let userName = { username: userAnswer.Username, content: component.componentText, componentType: component.componentType }
                                 this.REPORT_USER_DATA.push(userName);//🌈🌈🌈🌈🌈🌈🌈🌈🌈🌈🌈🌈🌈🌈🌈🌈
                             }
                         });
@@ -327,6 +327,7 @@ export class ProjectReportsComponent
                     Object.keys(category[sortedCategory]).forEach((key, keyIndex) => {
                         this.BMX_REPORT[categoryIndex][sortedCategory][key].totalScore
                         sortIngArray.push({
+                            rank: categoryIndex + 1,
                             nameCandidates: key,
                             score: this.BMX_REPORT[categoryIndex][sortedCategory][key].totalScore,
                             comments: this.BMX_REPORT[categoryIndex][sortedCategory][key].comments
@@ -346,13 +347,14 @@ export class ProjectReportsComponent
                         "page": [
                             {
                                 "componentType": "logo-header",
-                                "componentText": "PROJECT NAME",
+                                "componentText": "ratetoprank",
                                 "componentSettings": [
                                     {
                                         "fontSize": "16px",
                                         "fontFace": "Arial",
                                         "logoWidth": 100,
-                                        "brandInstituteURL": "./assets/img/bmx/BRANDMATRIX-DASHBOARD-LOGO.svg",
+                                        "brandInstituteLogoURL": "./assets/img/bmx/BRANDMATRIX-DASHBOARD-LOGO.svg",
+                                        "brandInstituteSurveyLogoURL": "./assets/img/bmx/bm-logo-2020-high.png",
                                         "brandInstituteMobileURL": "./assets/img/bmx/bmxCube.jpg",
                                         "companyLogoURL": "./assets/img/bmx/BD.png"
                                     }
@@ -441,33 +443,6 @@ export class ProjectReportsComponent
                                         "fontColor": "red"
                                     }
                                 ]
-                            },
-                            {
-                                "componentType": "rate-scale",
-                                "componentText": [
-                                    {
-                                        "nameCandidates": "Name Candidates",
-                                        "rationale": "Rationales",
-                                        "Comments1": "General Comments",
-                                        "RATE": -1
-                                    },
-
-                                ],
-                                "componentSettings": [
-                                    {
-                                        "minRule": 0,
-                                        "maxRule": 4,
-                                        "fontSize": 16,
-                                        "columnWidth": 191,
-                                        "rationalewidth": 804,
-                                        "rowHeight": 2,
-                                        "categoryRulesPassed": false,
-                                        "ratedCounter": 0,
-                                        "categoryName": "Name Candidates",
-                                        "categoryDescription": "With Max Rate Amount",
-                                        "ratingScaleTitle": "Rate from 1 to 7"
-                                    }
-                                ]
                             }
                         ]
                     }]
@@ -477,12 +452,14 @@ export class ProjectReportsComponent
                 console.log(this.categorySortedgArray);
 
                 //🌈🌈🌈🌈🌈🌈🌈🌈🌈🌈🌈🌈🌈🌈🌈🌈//🌈🌈🌈🌈🌈🌈🌈🌈🌈🌈🌈🌈🌈🌈🌈🌈//🌈🌈🌈🌈🌈🌈🌈🌈🌈🌈🌈🌈🌈🌈🌈🌈//🌈🌈🌈🌈🌈🌈🌈🌈🌈🌈🌈🌈🌈🌈🌈🌈//🌈🌈🌈🌈🌈🌈🌈🌈🌈🌈🌈🌈🌈🌈🌈🌈//🌈🌈🌈🌈🌈🌈🌈🌈🌈🌈🌈🌈🌈🌈🌈🌈//🌈🌈🌈🌈🌈🌈🌈🌈🌈🌈🌈🌈🌈🌈🌈🌈//🌈🌈🌈🌈🌈🌈🌈🌈🌈🌈🌈🌈🌈🌈🌈🌈              
-                this.createReportPerCategory(this.categorySortedgArray)
-                this.createReportByUsername(this.REPORT_USER_DATA)
+                this.createNewBmxComponent('text-editor')
+                this.createReportPerCategory()
+                this.createNewBmxComponent('text-editor')
+                this.createReportByUsername()
             }
         })
     }
-
+    // ▶️▶️▶️▶️▶️▶️▶️▶️▶️▶️▶️▶️▶️▶️▶️▶️▶️▶️▶️▶️▶️▶️▶️▶️▶️▶️▶️▶️▶️▶️▶️▶️▶️▶️▶️▶️▶️▶️▶️▶️▶️▶️▶️
     computeReport(row, templateComponent, username, REPORT_DATA) {
         // 💜💜💜💜💜💜💜💜💜💜💜💜💜💜💜💜💜💜💜💜💜💜💜💜💜💜💜💜💜💜💜💜💜💜💜💜💜💜💜💜💜💜💜
         if (templateComponent.componentType == 'rate-scale' || templateComponent.componentType == 'image-rate-scale' ||
@@ -490,8 +467,7 @@ export class ProjectReportsComponent
             if (templateComponent.componentSettings[0].CRITERIA) {
                 if (REPORT_DATA[row.nameCandidates]) {
                     REPORT_DATA[row.nameCandidates].scores.forEach((Score, scoreIndex) => {
-                        Score.score += row.CRITERIA[scoreIndex].RATE
-                        REPORT_DATA[row.nameCandidates].totalScore += Score.score
+                        REPORT_DATA[row.nameCandidates].totalScore += (row.CRITERIA[scoreIndex].RATE < 0) ? 0 : row.CRITERIA[scoreIndex].RATE
                     });
                     if (row.Comments1?.length > 0) {
                         REPORT_DATA[row.nameCandidates].comments.push({ userName: username, comment: row.Comments1 })
@@ -537,9 +513,6 @@ export class ProjectReportsComponent
                     }
                 }
             }
-
-            // console.count('rows')
-            //    console.timeLog()
         }
 
         // ❤️❤️❤️❤️❤️❤️❤️❤️❤️❤️❤️❤️❤️❤️❤️❤️❤️❤️❤️❤️❤️❤️❤️❤️❤️❤️❤️❤️❤️❤️❤️❤️❤️❤️❤️❤️❤️❤️❤️❤️❤️❤️❤️
@@ -602,10 +575,10 @@ export class ProjectReportsComponent
             this.rowCalculator['negatvieRank'] += (row.vote == 'negative') ? 1 : ''
         }
     }
-
-    createReportPerCategory(category) {
+    // 💚💚💚💚💚💚💚💚💚💚💚💚💚💚💚💚💚💚💚💚💚💚💚💚💚💚💚💚💚💚💚💚💚💚💚💚💚💚💚💚💚💚💚
+    createReportPerCategory() {
         let component
-        category.forEach((category, categoryIndex) => {
+        this.categorySortedgArray.forEach((category, categoryIndex) => {
             // if (categoryIndex == 0) {
 
             component = {
@@ -617,7 +590,7 @@ export class ProjectReportsComponent
                         "minRule": 0,
                         "maxRule": 4,
                         "fontSize": 16,
-                        "columnWidth": 325,
+                        "columnWidth": 250,
                         "rationalewidth": 804,
                         "rowHeight": 2,
                         "categoryRulesPassed": false,
@@ -630,72 +603,119 @@ export class ProjectReportsComponent
             }
             let comments
             category.forEach((row, rowIndex) => {
+                const rowObj = {}
+                row['rank'] = rowIndex + 1
                 if (rowIndex == 0) {
-                    const rowObj = {}
                     //    CALUCULATING THE ROW HEEADERS 
                     Object.keys(row).forEach((key, keyIndex) => {
                         rowObj[key] = key
-
                     })
                     component.componentText.push(rowObj)
+                    row['Rank']= rowIndex + 1
+                    component.componentText.push(row)
                 }
                 else {
-                    component.componentText.push(row)
-                    row.comments.forEach((comment, index, commnetsArray) => {
-                        if (comment) {
+                        component.componentText.push(row)
+                    if (Array.isArray(row.comments)) {
+ 
 
-                            comments = `<div style="color: blueviolet;">` + comment.userName + `: ` +
-                                `<span style="color: brown;">` + comment.comment + `</span>` + `</div>`
-                            commnetsArray[index] = comments + `\n`
-                        }
-                    });
-                    component.componentText[rowIndex].comments = row.comments.join('').toString()
+                        row.comments.forEach((comment, index, commnetsArray) => {
+                            if (comment) {
+
+                                comments = `<div style="color: #ee7f25;">` + comment.userName + `: ` +
+                                    `<span style="color: #324395;">` + comment.comment + `</span>` + `</div>`
+                                commnetsArray[index] = comments + `\n`
+                            }
+                        });
+                        component.componentText[rowIndex].comments = row.comments.join('').toString()
+                    } else {
+                        component.componentText[rowIndex].comments = row.comments
+                    }
                 }
 
             });
             // }
-            this.bmxPages[0].page.push(component)
+            this.bmxPages[this.currentPage].page.push(component)
         });
     }
-
-    createReportByUsername(usersData) {
+    // ❤️❤️❤️❤️❤️❤️❤️❤️❤️❤️❤️❤️❤️❤️❤️❤️❤️❤️❤️❤️❤️❤️❤️❤️❤️❤️❤️❤️❤️❤️❤️❤️❤️❤️❤️❤️❤️❤️❤️❤️❤️❤️❤️
+    createReportByUsername() {
         let component
-        usersData.forEach((category, categoryIndex) => {
-            // if (categoryIndex == 0) {
-
+        this.REPORT_USER_DATA.forEach((category ,categoryIndex) => {
             // recreate rows to be display by the master matrix
             let newCat = category.content.map((row, rowIndex) => {
                 let newRow = {}
-                Object.keys(row).forEach(key => {
-                    if (rowIndex === 0) {
-                        newRow['Score'] = 'Score'
-                    }
-                    if (rowIndex === 0) {
-                        newRow['Rank'] = 'Rank'
-                    } else {
-                        newRow['Rank'] = rowIndex
-                    }
-                    if (key === 'RATE') {
-                        if (rowIndex !== 0) {
-                            newRow['Score'] = (row[key] == undefined) ? '0' : row[key]
+                if (row.CRITERIA) { // IF CRITERIA
+                        row.CRITERIA.forEach((criteria) => {
+                            newRow[criteria.name] = criteria.name
+                        })
+
+                    // CALUCULATING THE ROW HEEADERS
+                    Object.keys(row).forEach(key => {
+                        if (rowIndex === 0) {
+                            newRow['Score'] = 'Score'
+                            // newRow['Rank'] = 'Rank'
+                        } else {
+                            newRow['Score'] = 0
                         }
-                    } else if (key === 'STARS') {
-                        // newRow[key] = row[key]
-                    }
-                    else {
-                        newRow[key] = row[key]
-                    }
-                })
+                        if (key === 'STARS' || key === 'RATE') {
+                            // newRow[key] = row[key]
+                        }
+                        else {
+                            newRow[key] = row[key]
+                        }
+                    })
+                    // CALCULATIN SCORES FOR EACH ROW
+                    Object.keys(newRow).forEach(key => {
+                        if (rowIndex !== 0) {
+                            row.CRITERIA.forEach((criteria) => {
+                                if (key === criteria.name) {
+                                    newRow[key] = (criteria.RATE > 0) ? criteria.RATE : 0
+                                    newRow['Score'] += (criteria.RATE > 0) ? criteria.RATE : 0
+                                }
+                                // newRow['Rank'] = rowIndex
+                            })
+                        }
+                       
+                    })
+
+                }
+                else {
+                    Object.keys(row).forEach(key => {
+                        if (rowIndex === 0) {
+                            newRow['Score'] = 'Score'
+                        }
+                        if (rowIndex === 0) {
+                            newRow['Rank'] = 'Rank'
+                        } else {
+                            newRow['Rank'] = rowIndex
+                        }
+                        if (key === 'RATE') {
+                            if (rowIndex !== 0) {
+                                newRow['Score'] = (row[key] == undefined) ? '0' : row[key]
+                            }
+                        } else if (key === 'STARS') {
+                            // newRow[key] = row[key]
+                        }
+                        else {
+                            newRow[key] = row[key]
+                        }
+                    })
+                }
                 return newRow
             })
 
             // sort rows by core and testname aphabetical
             let firstRowHeaders = newCat.splice(0, 1)[0]
-            if(category.componentType === 'ranking-scale'){
+            firstRowHeaders = {Rank:'Rank', ...firstRowHeaders}
+            if (category.componentType === 'ranking-scale') {
                 newCat = this.inverseSortArrayByTwoProperties(newCat, 'Score', 'nameCandidates')
             } else {
                 newCat = this.sortArrayByTwoProperties(newCat, 'Score', 'nameCandidates')
             }
+            newCat.forEach((row, rowIndex) => {
+                row['Rank'] = rowIndex + 1
+            });
             newCat.unshift(firstRowHeaders)
 
             component = {
@@ -706,7 +726,7 @@ export class ProjectReportsComponent
                         "minRule": 0,
                         "maxRule": 4,
                         "fontSize": 16,
-                        "columnWidth": 205,
+                        "columnWidth": 150,
                         "rationalewidth": 204,
                         "rowHeight": 2,
                         "categoryRulesPassed": false,
@@ -718,11 +738,10 @@ export class ProjectReportsComponent
                 ]
             }
 
-            this.bmxPages[0].page.push(component)
+            this.bmxPages[this.currentPage].page.push(component)
         });
 
     }
-
 
     toggleInstructions() {
         this.displayInstructions = !this.displayInstructions;
@@ -1330,7 +1349,7 @@ export class ProjectReportsComponent
             } else if (a[prop1] > b[prop1]) {
                 return 1;
             } else {
-                if (a[prop2] > b[prop2]) {
+                if (a[prop2] < b[prop2]) {
                     return -1;
                 } else if (a[prop2] > b[prop2]) {
                     return 1;
@@ -1347,7 +1366,7 @@ export class ProjectReportsComponent
             } else if (a[prop1] < b[prop1]) {
                 return 1;
             } else {
-                    return 0;
+                return 0;
             }
         });
     }

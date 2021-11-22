@@ -43,9 +43,9 @@
                             <div style="margin: 20px;font-size: 20px;color:#063074;font-weight: 800;">Link Type</div>
                             <mat-form-field appearance="outline" style="margin-left: 20px;">
                                 <mat-label>Direct Link</mat-label>
-                                <mat-select class="selectLabels" [(ngModel)]="linkType">
+                                <mat-select class="selectLabels" [(ngModel)]="linkType" (selectionChange)="changeLink(linkType)">
                                     <mat-option *ngFor="let link of LINK_TYPE" [value]="link">
-                                        {{link.name}}
+                                        {{link}}
                                     </mat-option>
                                 </mat-select>
                             </mat-form-field>
@@ -195,6 +195,5 @@
 
         </div>
     </div>
-
-
 </div>
+

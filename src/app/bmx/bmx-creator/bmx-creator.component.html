@@ -364,9 +364,9 @@
 
 
     <!-- CONTACT 🎀🎀🎀🎀🎀🎀🎀🎀🎀🎀🎀🎀🎀🎀🎀🎀🎀🎀🎀🎀🎀🎀🎀🎀🎀🎀🎀🎀🎀🎀🎀🎀🎀🎀🎀🎀🎀🎀🎀🎀🎀🎀🎀🎀🎀🎀-->
-    <div [ngClass]="bmxClientPageDesignMode?'page-design':'page-design-client'" style="display: flex;
+    <div class="report-container" [ngClass]="bmxClientPageDesignMode?'page-design':'page-design-client'" style="display: flex;
     justify-content: center;" *ngIf="isMenuActive16" >
-        <app-project-reports  [isBrandMatrixSurvey]="isBrandMatrixSurvey"  [isMenuActive16]="isMenuActive16"
+        <app-project-reports class="report-container" [isBrandMatrixSurvey]="isBrandMatrixSurvey"  [isMenuActive16]="isMenuActive16"
          [bmxClientPageDesignMode]="bmxClientPageDesignMode" [bmxClientPageOverview]="bmxClientPageOverview"></app-project-reports>
     </div>
    

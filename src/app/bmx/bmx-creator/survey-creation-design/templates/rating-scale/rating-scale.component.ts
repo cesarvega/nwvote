@@ -554,18 +554,12 @@ export class RatingScaleComponent implements OnInit {
     this.isColumnResizerOn = !this.isColumnResizerOn
   }
 
-  slert(index) {
-    // this.selectedCard = index
-  }
 
   onPaste(){
     setTimeout(() => {
       let rows = this.testNamesInput.split("\n");
       this.rowsCount = rows.length-1
     }, 1000);
-    
-
-
   }
 
   ASSIGNED_CRITERIA = []
@@ -574,63 +568,5 @@ export class RatingScaleComponent implements OnInit {
     { name: 'Fit to Corporate Mission'},
     { name: 'Overall Likeability'},
   ]
-
-    // digitsManipulations
-    // (n) {
-    //   let sum = 0;
-    //   let product = 1;
-    //   let num = n;
-
-    //   while (num > 0) {
-    //     sum += num % 10;
-    //     product *= num % 10;
-    //     num = Math.floor(num / 10);
-    //   }
-
-    //   return product - sum;
-    // }
-
-
-    // addKbeforeFs(s, k) {
-    //   let arr = s.split('');
-    //   let newArr = [];
-
-    //   for (let i = 0; i < arr.length; i++) {
-    //     if (arr[i] === 'f') {
-    //       newArr.push(k);
-    //     } else {
-    //       newArr.push(arr[i]);
-    //     }
-    //   }
-
-    //   return newArr.join('');
-    // }
-
-    // addKbeforeFs(text: string) {
-    //   let arr = text.split('');
-    //   let newArr = [];
-
-    //   for (let i = 0; i < arr.length; i++) {
-    //     if (arr[i] === 'f') {
-    //       newArr.push('k');
-    //     } else {
-    //       newArr.push(arr[i]);
-    //     }
-    //   }
-
-    //   return newArr.join('');
-    // }
-
-    // addKbeforeFs(text: string) {
-
-
-//  attribute selector directive
-//  <div [attr.class]="className"></div>
-//  <div [attr.class]="{'class1': true, 'class2': false}"></div>
-
-// at witch point of the application lifecycle a service is created
-//  ngOnInit() {
-
-
 
 }

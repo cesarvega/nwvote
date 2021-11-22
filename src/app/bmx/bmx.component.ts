@@ -3,7 +3,6 @@ import { DOCUMENT } from '@angular/common';
 import { trigger, transition, useAnimation } from '@angular/animations';
 import { pulse, flash } from 'ng-animate';
 import { HotkeysService, Hotkey } from 'angular2-hotkeys';
-import { BmxService } from './bmx.service';
 import { Router, ActivatedRoute } from '@angular/router';
 import Speech from 'speak-tts';
 
