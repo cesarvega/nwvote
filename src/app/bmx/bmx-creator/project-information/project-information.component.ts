@@ -5,6 +5,7 @@ import { BmxService } from '../bmx.service';
 import { Observable } from 'rxjs';
 import { map, startWith } from 'rxjs/operators';
 import { MatSelectChange } from '@angular/material/select';
+import { Validators } from '@angular/forms';
 
 
 @Component({
@@ -41,20 +42,21 @@ export class ProjectInformationComponent implements OnInit {
   canEdit;
   isDisplay = true;
 
-  bmxEditData = new FormGroup({
-    bmxSalesboard: new FormControl(),
-    bmxDepartment: new FormControl(),
-    bmxProjectName: new FormControl(),
-    bmxRegion: new FormControl(),
-    bmxCompany: new FormControl(),
-    bmxLanguage: new FormControl(),
-    bmxRegionalOffice: new FormControl(),
-    bmxRegionalDirector: new FormControl(),
-  });
+  bmxEditData: FormGroup;
+  bmxSalesboard: FormControl;
+  bmxDepartment: FormControl;
+  bmxProjectName: FormControl;
+  bmxRegion: FormControl;
+  bmxCompany: FormControl;
+  bmxLanguage: FormControl;
+  bmxRegionalOffice: FormControl;
+  bmxRegionalDirector: FormControl;
+
 
   ngOnInit(): void {
     this.canEdit = null;
-    this.initForm();
+    this.createFormControls();
+    this.createForm();
     this.onChanges();
     var items = localStorage.getItem('projectName');
     if (items != undefined || items != null) {
@@ -155,7 +157,7 @@ export class ProjectInformationComponent implements OnInit {
       var so = result;
     });
     this._snackBar.open('Saved Succesfully');
-    localStorage.setItem('department',  this.bmxEditData.get('bmxDepartment').value.toString());
+    localStorage.setItem('department', this.bmxEditData.get('bmxDepartment').value.toString());
   }
 
 
@@ -231,16 +233,51 @@ export class ProjectInformationComponent implements OnInit {
 
 
 
-  initForm() {
+  createFormControls() {
+
+    this.bmxSalesboard = new FormControl(
+      '', [
+      Validators.required,
+    ]);
+    this.bmxDepartment = new FormControl(
+      '', [
+      Validators.required,
+    ]);
+    this.bmxProjectName = new FormControl(
+      '', [
+      Validators.required,
+      Validators.pattern("^[a-zA-Z0-9]+$")
+    ]);
+    this.bmxRegion = new FormControl(
+      '', [
+      Validators.required,
+    ]);
+    this.bmxCompany = new FormControl(
+      '', [
+      Validators.required,
+      Validators.pattern("^[a-zA-Z0-9]+$")
+    ]);
+    this.bmxLanguage = new FormControl(
+      '', [
+      Validators.required,
+    ]);
+    this.bmxRegionalOffice = new FormControl(
+      '', [
+      Validators.required,
+    ]);
+    this.bmxRegionalDirector = new FormControl();
+  }
+
+  createForm() {
     this.bmxEditData = new FormGroup({
-      bmxSalesboard: new FormControl(),
-      bmxDepartment: new FormControl(),
-      bmxProjectName: new FormControl(),
-      bmxRegion: new FormControl(),
-      bmxCompany: new FormControl(),
-      bmxLanguage: new FormControl(),
-      bmxRegionalOffice: new FormControl(),
-      bmxRegionalDirector: new FormControl(),
+      bmxSalesboard: this.bmxSalesboard,
+      bmxDepartment: this.bmxDepartment,
+      bmxProjectName: this.bmxProjectName,
+      bmxRegion: this.bmxRegion,
+      bmxCompany: this.bmxCompany,
+      bmxLanguage: this.bmxLanguage,
+      bmxRegionalOffice: this.bmxRegionalOffice,
+      bmxRegionalDirector: this.bmxRegionalDirector,
     });
   }
 

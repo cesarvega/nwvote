@@ -19,19 +19,19 @@
                     <!-- Position Column -->
                     <ng-container matColumnDef="Client">
                         <th mat-header-cell *matHeaderCellDef mat-sort-header> Client</th>
-                        <td mat-cell *matCellDef="let element"> {{element.Companyname}} </td>
+                        <td mat-cell *matCellDef="let element"> {{element.bmxCompany}} </td>
                     </ng-container>
                     <ng-container matColumnDef="ProjectName">
                         <th mat-header-cell *matHeaderCellDef mat-sort-header> Project Name </th>
-                        <td mat-cell *matCellDef="let element"> {{element.ProjectName}} </td>
+                        <td mat-cell *matCellDef="let element"> {{element.bmxProjectName}} </td>
                     </ng-container>
                     <ng-container matColumnDef="Department">
                         <th mat-header-cell *matHeaderCellDef mat-sort-header> Department </th>
-                        <td mat-cell *matCellDef="let element"> {{element.Department}} </td>
+                        <td mat-cell *matCellDef="let element"> {{element.bmxDepartment}} </td>
                     </ng-container>
                     <ng-container matColumnDef="Office">
                         <th mat-header-cell *matHeaderCellDef mat-sort-header> Office </th>
-                        <td mat-cell *matCellDef="let element"> {{element.Office}} </td>
+                        <td mat-cell *matCellDef="let element"> {{element.bmxRegion}} </td>
                     </ng-container>
                     <ng-container matColumnDef="Created">
                         <th mat-header-cell *matHeaderCellDef mat-sort-header> Created </th>
@@ -54,7 +54,7 @@
                         <th mat-header-cell *matHeaderCellDef mat-sort-header style="width: 3.33%;"> </th>
                         <td mat-cell *matCellDef="let element">
                             <button mat-icon-button  style="color: #48bcb4;" aria-label="Example icon button with a home icon"
-                                (click)="editBM(element.ProjectName)">
+                                (click)="editBM(element.bmxProjectName)">
                                 <mat-icon>build</mat-icon>
                             </button>
                         </td>
