@@ -443,6 +443,252 @@ export class ProjectReportsComponent
                                         "fontColor": "red"
                                     }
                                 ]
+                            },
+                            {
+                                "componentType": "rate-scale",
+                                "componentText": [
+                                    {
+                                        "STARS": [
+                                            {
+                                                "id": 1,
+                                                "icon": "grade",
+                                                "styleClass": "rating-star"
+                                            },
+                                            {
+                                                "id": 2,
+                                                "icon": "grade",
+                                                "styleClass": "rating-star"
+                                            },
+                                            {
+                                                "id": 3,
+                                                "icon": "grade",
+                                                "styleClass": "rating-star"
+                                            },
+                                            {
+                                                "id": 4,
+                                                "icon": "grade",
+                                                "styleClass": "rating-star"
+                                            },
+                                            {
+                                                "id": 5,
+                                                "icon": "grade",
+                                                "styleClass": "rating-star"
+                                            }
+                                        ],
+                                        "nameCandidates": "NameCandidates",
+                                        "ExtraColumn1": "Email",
+                                        "ExtraColumn2": "Status"
+                                    },
+                                    {
+                                        "STARS": [
+                                            {
+                                                "id": 1,
+                                                "icon": "grade",
+                                                "styleClass": "rating-star"
+                                            },
+                                            {
+                                                "id": 2,
+                                                "icon": "grade",
+                                                "styleClass": "rating-star"
+                                            },
+                                            {
+                                                "id": 3,
+                                                "icon": "grade",
+                                                "styleClass": "rating-star"
+                                            },
+                                            {
+                                                "id": 4,
+                                                "icon": "grade",
+                                                "styleClass": "rating-star"
+                                            },
+                                            {
+                                                "id": 5,
+                                                "icon": "grade",
+                                                "styleClass": "rating-star"
+                                            }
+                                        ],
+                                        "nameCandidates": "Andrew Levin",
+                                        "ExtraColumn1": "alevin@racap.com",
+                                        "ExtraColumn2": "BM Completed"
+                                    },
+                                    {
+                                        "STARS": [
+                                            {
+                                                "id": 1,
+                                                "icon": "grade",
+                                                "styleClass": "rating-star"
+                                            },
+                                            {
+                                                "id": 2,
+                                                "icon": "grade",
+                                                "styleClass": "rating-star"
+                                            },
+                                            {
+                                                "id": 3,
+                                                "icon": "grade",
+                                                "styleClass": "rating-star"
+                                            },
+                                            {
+                                                "id": 4,
+                                                "icon": "grade",
+                                                "styleClass": "rating-star"
+                                            },
+                                            {
+                                                "id": 5,
+                                                "icon": "grade",
+                                                "styleClass": "rating-star"
+                                            }
+                                        ],
+                                        "nameCandidates": "DA Gros",
+                                        "ExtraColumn1": "dag@imbria.com",
+                                        "ExtraColumn2": "BM Completed"
+                                    },
+                                    {
+                                        "STARS": [
+                                            {
+                                                "id": 1,
+                                                "icon": "grade",
+                                                "styleClass": "rating-star"
+                                            },
+                                            {
+                                                "id": 2,
+                                                "icon": "grade",
+                                                "styleClass": "rating-star"
+                                            },
+                                            {
+                                                "id": 3,
+                                                "icon": "grade",
+                                                "styleClass": "rating-star"
+                                            },
+                                            {
+                                                "id": 4,
+                                                "icon": "grade",
+                                                "styleClass": "rating-star"
+                                            },
+                                            {
+                                                "id": 5,
+                                                "icon": "grade",
+                                                "styleClass": "rating-star"
+                                            }
+                                        ],
+                                        "nameCandidates": "Jai Patel",
+                                        "ExtraColumn1": "jp@imbria.com",
+                                        "ExtraColumn2": "BM Completed"
+                                    },
+                                    {
+                                        "STARS": [
+                                            {
+                                                "id": 1,
+                                                "icon": "grade",
+                                                "styleClass": "rating-star"
+                                            },
+                                            {
+                                                "id": 2,
+                                                "icon": "grade",
+                                                "styleClass": "rating-star"
+                                            },
+                                            {
+                                                "id": 3,
+                                                "icon": "grade",
+                                                "styleClass": "rating-star"
+                                            },
+                                            {
+                                                "id": 4,
+                                                "icon": "grade",
+                                                "styleClass": "rating-star"
+                                            },
+                                            {
+                                                "id": 5,
+                                                "icon": "grade",
+                                                "styleClass": "rating-star"
+                                            }
+                                        ],
+                                        "nameCandidates": "Neil Buckley",
+                                        "ExtraColumn1": "neil.buckley@carnotpharma.com",
+                                        "ExtraColumn2": "BM Completed"
+                                    },
+                                    {
+                                        "STARS": [
+                                            {
+                                                "id": 1,
+                                                "icon": "grade",
+                                                "styleClass": "rating-star"
+                                            },
+                                            {
+                                                "id": 2,
+                                                "icon": "grade",
+                                                "styleClass": "rating-star"
+                                            },
+                                            {
+                                                "id": 3,
+                                                "icon": "grade",
+                                                "styleClass": "rating-star"
+                                            },
+                                            {
+                                                "id": 4,
+                                                "icon": "grade",
+                                                "styleClass": "rating-star"
+                                            },
+                                            {
+                                                "id": 5,
+                                                "icon": "grade",
+                                                "styleClass": "rating-star"
+                                            }
+                                        ],
+                                        "nameCandidates": "Paul Chamberlain",
+                                        "ExtraColumn1": "pc@imbria.com",
+                                        "ExtraColumn2": "BM Completed"
+                                    },
+                                    {
+                                        "STARS": [
+                                            {
+                                                "id": 1,
+                                                "icon": "grade",
+                                                "styleClass": "rating-star"
+                                            },
+                                            {
+                                                "id": 2,
+                                                "icon": "grade",
+                                                "styleClass": "rating-star"
+                                            },
+                                            {
+                                                "id": 3,
+                                                "icon": "grade",
+                                                "styleClass": "rating-star"
+                                            },
+                                            {
+                                                "id": 4,
+                                                "icon": "grade",
+                                                "styleClass": "rating-star"
+                                            },
+                                            {
+                                                "id": 5,
+                                                "icon": "grade",
+                                                "styleClass": "rating-star"
+                                            }
+                                        ],
+                                        "nameCandidates": "Rose Harrison",
+                                        "ExtraColumn1": "rharrison@racap.com",
+                                        "ExtraColumn2": "BM Completed"
+                                    }
+                                ],
+                                "componentSettings": [
+                                    {
+                                        "minRule": 0,
+                                        "maxRule": 0,
+                                        "fontSize": 16,
+                                        "columnWidth": 308,
+                                        "rationalewidth": 250,
+                                        "rowHeight": 2,
+                                        "radioColumnsWidth": 75,
+                                        "CRITERIA": false,
+                                        "categoryRulesPassed": false,
+                                        "ratedCounter": 0,
+                                        "categoryName": "",
+                                        "categoryDescription": "",
+                                        "ratingScaleTitle": "RATING"
+                                    }
+                                ]
                             }
                         ]
                     }]
@@ -452,10 +698,13 @@ export class ProjectReportsComponent
                 console.log(this.categorySortedgArray);
 
                 //🌈🌈🌈🌈🌈🌈🌈🌈🌈🌈🌈🌈🌈🌈🌈🌈//🌈🌈🌈🌈🌈🌈🌈🌈🌈🌈🌈🌈🌈🌈🌈🌈//🌈🌈🌈🌈🌈🌈🌈🌈🌈🌈🌈🌈🌈🌈🌈🌈//🌈🌈🌈🌈🌈🌈🌈🌈🌈🌈🌈🌈🌈🌈🌈🌈//🌈🌈🌈🌈🌈🌈🌈🌈🌈🌈🌈🌈🌈🌈🌈🌈//🌈🌈🌈🌈🌈🌈🌈🌈🌈🌈🌈🌈🌈🌈🌈🌈//🌈🌈🌈🌈🌈🌈🌈🌈🌈🌈🌈🌈🌈🌈🌈🌈//🌈🌈🌈🌈🌈🌈🌈🌈🌈🌈🌈🌈🌈🌈🌈🌈              
+                this.sampleHtml2 = '<P style="text-align: center;font-size: 30px;color: #324395;">OVERALL RANKING BY TEST NAME</P>'
                 this.createNewBmxComponent('text-editor')
                 this.createReportPerCategory()
+                this.sampleHtml2 = '<P style="text-align: center;font-size: 30px;color: #324395;">VOTES BY RESPONDENT</P>'
                 this.createNewBmxComponent('text-editor')
                 this.createReportByUsername()
+                this.sampleHtml2 = `<p style="text-align:center;color:#324395;font-weight: 500;font-size: 25px;">USE THE EDITOR TO EDIT THIS TEXT</p>`;
             }
         })
     }
@@ -1197,15 +1446,15 @@ export class ProjectReportsComponent
 
         this.projectId = this.projectId + '_REPORT'
 
-        this._BmxService
-            .saveOrUpdateBradnMatrixTemplate(this.bmxPages, this.projectId)
-            .subscribe((res) => {
-                console.log('%cBMX!', 'color:orange', res);
-                this._snackBar.open('Project ' + this.projectId + ' saved', 'OK', {
-                    duration: 5000,
-                    verticalPosition: 'top',
-                })
-            });
+        // this._BmxService
+        //     .saveOrUpdateBradnMatrixTemplate(this.bmxPages, this.projectId)
+        //     .subscribe((res) => {
+        //         console.log('%cBMX!', 'color:orange', res);
+        //         this._snackBar.open('Project ' + this.projectId + ' saved', 'OK', {
+        //             duration: 5000,
+        //             verticalPosition: 'top',
+        //         })
+        //     });
     }
 
     // 🌭🌭🌭🌭🌭🌭🌭🌭🌭🌭🌭🌭🌭🌭🌭🌭🌭🌭🌭🌭🌭🌭🌭PRIVATE METHODS 🌭🌭🌭🌭🌭🌭🌭🌭🌭🌭🌭🌭🌭🌭🌭🌭🌭🌭🌭🌭🌭🌭🌭
@@ -1385,7 +1634,7 @@ export class ProjectReportsComponent
             "page": [
                 {
                     "componentType": "logo-header",
-                    "componentText": "ratetoprank",
+                    "componentText": "Project Brand Matrix",
                     "componentSettings": [
                         {
                             "fontSize": "16px",
@@ -1640,23 +1889,24 @@ export class ProjectReportsComponent
                     "componentSettings": [
                         {
                             "minRule": 0,
-                            "maxRule": 4,
+                            "maxRule": 0,
                             "fontSize": 16,
-                            "columnWidth": 349,
-                            "rationalewidth": 804,
+                            "columnWidth": 308,
+                            "rationalewidth": 250,
                             "rowHeight": 2,
+                            "radioColumnsWidth": 75,
+                            "CRITERIA": false,
                             "categoryRulesPassed": false,
                             "ratedCounter": 0,
-                            "categoryName": "Participants",
-                            "categoryDescription": "status of completion",
-                            "ratingScaleTitle": "Rate from 1 to 7",
-                            "CRITERIA": false
+                            "categoryName": "Category Rate",
+                            "categoryDescription": "This is Rate matrix",
+                            "ratingScaleTitle": "RATING"
                         }
                     ]
                 },
                 {
                     "componentType": "text-editor",
-                    "componentText": "<p style=\"text-align:center\"><span style=\"font-size:48px\">OVERALL RANKING BY TEST NAME</span></p>\n",
+                    "componentText": "<P style=\"text-align: center;font-size: 30px;color: #324395;\">OVERALL RANKING BY TEST NAME</P>",
                     "componentSettings": [
                         {
                             "fontSize": "16px",
@@ -1669,94 +1919,55 @@ export class ProjectReportsComponent
                     "componentType": "rate-scale",
                     "componentText": [
                         {
+                            "rank": "rank",
                             "nameCandidates": "nameCandidates",
                             "score": "score",
                             "comments": "comments"
                         },
                         {
-                            "nameCandidates": "REINSPIRE",
-                            "score": 13,
-                            "comments": "<div style=\"color: blueviolet;\">cvega: <span style=\"color: brown;\">comment cvega</span></div>\n<div style=\"color: blueviolet;\">cvega1: <span style=\"color: brown;\">comment cvega</span></div>\n<div style=\"color: blueviolet;\">cvega2: <span style=\"color: brown;\">comment cvega</span></div>\n<div style=\"color: blueviolet;\">cvega3: <span style=\"color: brown;\">comment cvega</span></div>\n"
+                            "rank": 1,
+                            "nameCandidates": "Test 2",
+                            "score": 28,
+                            "comments": "<div style=\"color: #ee7f25;\">cvega1: <span style=\"color: #324395;\">2dos comment</span></div>\n",
+                            "Rank": 1
                         },
                         {
-                            "nameCandidates": "Arkitect",
-                            "score": 14,
-                            "comments": "<div style=\"color: blueviolet;\">cvega: <span style=\"color: brown;\">comment cvega</span></div>\n<div style=\"color: blueviolet;\">cvega1: <span style=\"color: brown;\">comment cvega</span></div>\n<div style=\"color: blueviolet;\">cvega2: <span style=\"color: brown;\">comment cvega</span></div>\n<div style=\"color: blueviolet;\">cvega3: <span style=\"color: brown;\">comment cvega</span></div>\n"
-                        },
-                        {
-                            "nameCandidates": "ORCHESTRA",
-                            "score": 14,
-                            "comments": "<div style=\"color: blueviolet;\">cvega: <span style=\"color: brown;\">comment cvega</span></div>\n<div style=\"color: blueviolet;\">cvega1: <span style=\"color: brown;\">comment cvega</span></div>\n<div style=\"color: blueviolet;\">cvega2: <span style=\"color: brown;\">comment cvega</span></div>\n<div style=\"color: blueviolet;\">cvega3: <span style=\"color: brown;\">comment cvega</span></div>\n"
-                        },
-                        {
-                            "nameCandidates": "Moderato",
-                            "score": 16,
-                            "comments": "<div style=\"color: blueviolet;\">cvega: <span style=\"color: brown;\">comment cvega</span></div>\n<div style=\"color: blueviolet;\">cvega1: <span style=\"color: brown;\">comment cvega</span></div>\n<div style=\"color: blueviolet;\">cvega2: <span style=\"color: brown;\">comment cvega</span></div>\n<div style=\"color: blueviolet;\">cvega3: <span style=\"color: brown;\">comment cvega</span></div>\n"
-                        },
-                        {
-                            "nameCandidates": "MILKY WAY",
-                            "score": 17,
-                            "comments": "<div style=\"color: blueviolet;\">cvega: <span style=\"color: brown;\">comment cvega</span></div>\n<div style=\"color: blueviolet;\">cvega1: <span style=\"color: brown;\">comment cvega</span></div>\n<div style=\"color: blueviolet;\">cvega2: <span style=\"color: brown;\">comment cvega</span></div>\n<div style=\"color: blueviolet;\">cvega3: <span style=\"color: brown;\">comment cvega</span></div>\n"
-                        },
-                        {
-                            "nameCandidates": "Unfolding",
-                            "score": 17,
-                            "comments": "<div style=\"color: blueviolet;\">cvega: <span style=\"color: brown;\">comment cvega`</span></div>\n<div style=\"color: blueviolet;\">cvega1: <span style=\"color: brown;\">comment cvega</span></div>\n<div style=\"color: blueviolet;\">cvega2: <span style=\"color: brown;\">comment cvega</span></div>\n<div style=\"color: blueviolet;\">cvega3: <span style=\"color: brown;\">comment cvega</span></div>\n"
-                        }
-                    ],
-                    "componentSettings": [
-                        {
-                            "minRule": 0,
-                            "maxRule": 4,
-                            "fontSize": 16,
-                            "columnWidth": 325,
-                            "rationalewidth": 804,
-                            "rowHeight": 2,
-                            "categoryRulesPassed": false,
-                            "ratedCounter": 0,
-                            "categoryName": "Rating with stars matrix",
-                            "categoryDescription": "rating ",
-                            "ratingScaleTitle": "Rate from 1 to 7"
-                        }
-                    ]
-                },
-                {
-                    "componentType": "rate-scale",
-                    "componentText": [
-                        {
-                            "nameCandidates": "nameCandidates",
-                            "score": "score",
-                            "comments": "comments"
-                        },
-                        {
-                            "nameCandidates": "risimapolirsen",
-                            "score": 10,
+                            "rank": 2,
+                            "nameCandidates": "Test 3",
+                            "score": 20,
                             "comments": ""
                         },
                         {
-                            "nameCandidates": "berlifapolirsen",
+                            "rank": 3,
+                            "nameCandidates": "Test 6",
+                            "score": 19,
+                            "comments": "<div style=\"color: #ee7f25;\">cvega: <span style=\"color: #324395;\">1 comment</span></div>\n<div style=\"color: #ee7f25;\">cvega vega: <span style=\"color: #324395;\">comment3</span></div>\n<div style=\"color: #ee7f25;\">cvega1: <span style=\"color: #324395;\">2 comment</span></div>\n"
+                        },
+                        {
+                            "rank": 4,
+                            "nameCandidates": "Test 1",
+                            "score": 16,
+                            "comments": "<div style=\"color: #ee7f25;\">cvega: <span style=\"color: #324395;\">2nd commetn</span></div>\n"
+                        },
+                        {
+                            "rank": 5,
+                            "nameCandidates": "Test 4",
+                            "score": 14,
+                            "comments": ""
+                        },
+                        {
+                            "rank": 6,
+                            "nameCandidates": "Test 5",
                             "score": 12,
                             "comments": ""
                         },
                         {
-                            "nameCandidates": "vidnulapolirsen",
-                            "score": 13,
-                            "comments": ""
-                        },
-                        {
-                            "nameCandidates": "beritapolirsen",
-                            "score": 14,
-                            "comments": ""
-                        },
-                        {
-                            "nameCandidates": "ipazapolirsen",
-                            "score": 16,
-                            "comments": ""
-                        },
-                        {
-                            "nameCandidates": "pecilapolirsen",
-                            "score": 19,
-                            "comments": ""
+                            "rank": 7,
+                            "nameCandidates": "Test 7",
+                            "score": 3,
+                            "comments": [
+                                null
+                            ]
                         }
                     ],
                     "componentSettings": [
@@ -1764,20 +1975,20 @@ export class ProjectReportsComponent
                             "minRule": 0,
                             "maxRule": 4,
                             "fontSize": 16,
-                            "columnWidth": 325,
+                            "columnWidth": 250,
                             "rationalewidth": 804,
                             "rowHeight": 2,
                             "categoryRulesPassed": false,
                             "ratedCounter": 0,
-                            "categoryName": "Top Ranking Matrix",
-                            "categoryDescription": "ranked test names from 1 to 6 inverse score",
+                            "categoryName": "Name Candidates",
+                            "categoryDescription": "With Max Rate Amount",
                             "ratingScaleTitle": "Rate from 1 to 7"
                         }
                     ]
                 },
                 {
                     "componentType": "text-editor",
-                    "componentText": "<p style=\"text-align:center\"><span style=\"font-size:48px\">VOTES BY RESPONDENT</span></p>\n",
+                    "componentText": "<P style=\"text-align: center;font-size: 30px;color: #324395;\">VOTES BY RESPONDENT</P>",
                     "componentSettings": [
                         {
                             "fontSize": "16px",
@@ -1790,68 +2001,60 @@ export class ProjectReportsComponent
                     "componentType": "rate-scale",
                     "componentText": [
                         {
-                            "Score": "Score",
                             "Rank": "Rank",
-                            "nameCandidates": "Name Candidates 1",
-                            "ExtraColumn1": "Name Candidates 2",
-                            "rationale": "Rationales",
+                            "Score": "Score",
+                            "nameCandidates": "Name Candidates",
+                            "rationale": "Rationale",
                             "Comments1": "General Comments"
                         },
                         {
-                            "Rank": 7,
-                            "nameCandidates": "ORCHESTRA",
-                            "ExtraColumn1": "ORCHESTRA",
-                            "rationale": "ORal New Chemical Entity Aiming to Slow Disease Trajectory in Early Parkinson’s",
-                            "Score": 7,
-                            "Comments1": "comment cvega"
-                        },
-                        {
-                            "Rank": 6,
-                            "nameCandidates": "Unfolding",
-                            "ExtraColumn1": "Skylark",
-                            "rationale": "A Slow Revealing, Suggests Slowing Disease Progression and Links to Alpha-Synuclein Misfolding",
-                            "Score": 6,
-                            "Comments1": "comment cvega`"
-                        },
-                        {
-                            "Rank": 5,
-                            "nameCandidates": "Arkitect",
-                            "ExtraColumn1": "talrapolirsen",
-                            "rationale": "\"Architect,\" Embeds Ark for Parkinson`s Disease and Implies Stability or Planning Ahead",
-                            "Score": 5,
-                            "Comments1": "comment cvega"
-                        },
-                        {
-                            "Rank": 4,
-                            "nameCandidates": "MILKY WAY",
-                            "ExtraColumn1": "risimapolirsen",
-                            "rationale": "MIsfolding Parkinson Study With Early Stage Patients",
-                            "Score": 4,
-                            "Comments1": "comment cvega"
-                        },
-                        {
-                            "Rank": 3,
-                            "nameCandidates": "REINSPIRE",
-                            "ExtraColumn1": "berlifapolirsen",
-                            "rationale": "",
-                            "Score": 3,
-                            "Comments1": "comment cvega"
+                            "Rank": 1,
+                            "nameCandidates": "Test 2",
+                            "rationale": "Rationale of an undisclosed length",
+                            "Comments1": "",
+                            "Score": 10
                         },
                         {
                             "Rank": 2,
-                            "nameCandidates": "Moderato",
-                            "ExtraColumn1": "ipazapolirsen",
-                            "rationale": "A Moderate Musical Tempo (Suggests Slowing Disease Progression)",
-                            "Score": 2,
-                            "Comments1": "comment cvega"
+                            "nameCandidates": "Test 6",
+                            "rationale": "Rationale of an undisclosed length",
+                            "Comments1": "",
+                            "Score": 8
                         },
                         {
-                            "Rank": 1,
-                            "nameCandidates": "TEMPORAL",
-                            "ExtraColumn1": "pecilapolirsen",
-                            "rationale": "Treatment to Slow Parkinson’s Given Orally",
-                            "Score": 1,
-                            "Comments1": "comment cvega"
+                            "Rank": 3,
+                            "nameCandidates": "Test 1",
+                            "rationale": "Rationale of an unthRationale of an unthdddd dddddddd dddddddd ddddddddddd ddddddd dddddddd",
+                            "Comments1": "1 comment",
+                            "Score": 4
+                        },
+                        {
+                            "Rank": 4,
+                            "nameCandidates": "Test 4",
+                            "rationale": "Rationale of an losed length",
+                            "Comments1": "2nd commetn",
+                            "Score": 3
+                        },
+                        {
+                            "Rank": 5,
+                            "nameCandidates": "Test 5",
+                            "rationale": "Rationale of an undisclosed length",
+                            "Comments1": "",
+                            "Score": 2
+                        },
+                        {
+                            "Rank": 6,
+                            "nameCandidates": "Test 7",
+                            "rationale": "Rationale of an unlosed lengthRationale of an undisclosed lengthRationale of an undisclosed lengthRationale of an undisclosed lengthRationale of an undisclosed length",
+                            "Comments1": "",
+                            "Score": 1
+                        },
+                        {
+                            "Rank": 7,
+                            "nameCandidates": "Test 3",
+                            "rationale": "Rationale of an undisclosed length",
+                            "Comments1": "",
+                            "Score": 1
                         }
                     ],
                     "componentSettings": [
@@ -1859,7 +2062,7 @@ export class ProjectReportsComponent
                             "minRule": 0,
                             "maxRule": 4,
                             "fontSize": 16,
-                            "columnWidth": 205,
+                            "columnWidth": 150,
                             "rationalewidth": 204,
                             "rowHeight": 2,
                             "categoryRulesPassed": false,
@@ -1874,59 +2077,60 @@ export class ProjectReportsComponent
                     "componentType": "rate-scale",
                     "componentText": [
                         {
-                            "Score": "Score",
                             "Rank": "Rank",
+                            "Score": "Score",
                             "nameCandidates": "Name Candidates",
-                            "rationale": "Rationales",
+                            "rationale": "Rationale",
                             "Comments1": "General Comments"
                         },
                         {
                             "Rank": 1,
-                            "nameCandidates": "pecilapolirsen",
-                            "rationale": "Precision Medicine",
+                            "nameCandidates": "Test 3",
+                            "rationale": "Rationale of an undisclosed length",
                             "Comments1": "",
-                            "Score": 1
+                            "Score": 10
                         },
                         {
                             "Rank": 2,
-                            "nameCandidates": "vidnulapolirsen",
-                            "rationale": "Individualized",
+                            "nameCandidates": "Test 2",
+                            "rationale": "Rationale of an undisclosed length",
+                            "Comments1": "",
+                            "Score": 9
+                        },
+                        {
+                            "Rank": 3,
+                            "nameCandidates": "Test 4",
+                            "rationale": "Rationale of an losed length",
                             "Comments1": "",
                             "Score": 2
                         },
                         {
-                            "Rank": 3,
-                            "nameCandidates": "ipazapolirsen",
-                            "rationale": "Blank Canvas",
-                            "Comments1": "",
-                            "Score": 3
-                        },
-                        {
-                            "Rank": 6,
-                            "nameCandidates": "risimapolirsen",
-                            "rationale": "Remission",
-                            "Comments1": "",
-                            "Score": 4
-                        },
-                        {
                             "Rank": 4,
-                            "nameCandidates": "beritapolirsen",
-                            "rationale": "Connotes Liberty",
-                            "Comments1": "",
-                            "Score": 5
+                            "nameCandidates": "Test 1",
+                            "rationale": "Rationale of an unthRationale of an unthdddd dddddddd dddddddd ddddddddddd ddddddd dddddddd",
+                            "Comments1": "comment3",
+                            "Score": 2
                         },
                         {
                             "Rank": 5,
-                            "nameCandidates": "berlifapolirsen",
-                            "rationale": "Better Life",
+                            "nameCandidates": "Test 7",
+                            "rationale": "Rationale of an unlosed lengthRationale of an undisclosed lengthRationale of an undisclosed lengthRationale of an undisclosed lengthRationale of an undisclosed length",
                             "Comments1": "",
-                            "Score": 6
+                            "Score": 1
+                        },
+                        {
+                            "Rank": 6,
+                            "nameCandidates": "Test 6",
+                            "rationale": "Rationale of an undisclosed length",
+                            "Comments1": "",
+                            "Score": 1
                         },
                         {
                             "Rank": 7,
-                            "nameCandidates": "talrapolirsen",
-                            "rationale": "Tailored",
-                            "Comments1": ""
+                            "nameCandidates": "Test 5",
+                            "rationale": "Rationale of an undisclosed length",
+                            "Comments1": "",
+                            "Score": 1
                         }
                     ],
                     "componentSettings": [
@@ -1934,12 +2138,12 @@ export class ProjectReportsComponent
                             "minRule": 0,
                             "maxRule": 4,
                             "fontSize": 16,
-                            "columnWidth": 205,
+                            "columnWidth": 150,
                             "rationalewidth": 204,
                             "rowHeight": 2,
                             "categoryRulesPassed": false,
                             "ratedCounter": 0,
-                            "categoryName": "cvega",
+                            "categoryName": "cvega vega",
                             "categoryDescription": "results by user sorted",
                             "ratingScaleTitle": "Rate from 1 to 7"
                         }
@@ -1949,68 +2153,60 @@ export class ProjectReportsComponent
                     "componentType": "rate-scale",
                     "componentText": [
                         {
-                            "Score": "Score",
                             "Rank": "Rank",
-                            "nameCandidates": "Name Candidates 1",
-                            "ExtraColumn1": "Name Candidates 2",
-                            "rationale": "Rationales",
+                            "Score": "Score",
+                            "nameCandidates": "Name Candidates",
+                            "rationale": "Rationale",
                             "Comments1": "General Comments"
                         },
                         {
                             "Rank": 1,
-                            "nameCandidates": "TEMPORAL",
-                            "ExtraColumn1": "pecilapolirsen",
-                            "rationale": "Treatment to Slow Parkinson’s Given Orally",
-                            "Score": 7,
-                            "Comments1": "comment cvega1"
+                            "nameCandidates": "Test 6",
+                            "rationale": "Rationale of an undisclosed length",
+                            "Comments1": "",
+                            "Score": 10
                         },
                         {
                             "Rank": 2,
-                            "nameCandidates": "Moderato",
-                            "ExtraColumn1": "ipazapolirsen",
-                            "rationale": "A Moderate Musical Tempo (Suggests Slowing Disease Progression)",
-                            "Score": 6,
-                            "Comments1": "comment cvega"
-                        },
-                        {
-                            "Rank": 4,
-                            "nameCandidates": "MILKY WAY",
-                            "ExtraColumn1": "risimapolirsen",
-                            "rationale": "MIsfolding Parkinson Study With Early Stage Patients",
-                            "Score": 5,
-                            "Comments1": "comment cvega"
+                            "nameCandidates": "Test 1",
+                            "rationale": "Rationale of an unthRationale of an unthdddd dddddddd dddddddd ddddddddddd ddddddd dddddddd",
+                            "Comments1": "2 comment",
+                            "Score": 10
                         },
                         {
                             "Rank": 3,
-                            "nameCandidates": "REINSPIRE",
-                            "ExtraColumn1": "berlifapolirsen",
-                            "rationale": "",
-                            "Score": 5,
-                            "Comments1": "comment cvega"
+                            "nameCandidates": "Test 5",
+                            "rationale": "Rationale of an undisclosed length",
+                            "Comments1": "",
+                            "Score": 9
+                        },
+                        {
+                            "Rank": 4,
+                            "nameCandidates": "Test 4",
+                            "rationale": "Rationale of an losed length",
+                            "Comments1": "",
+                            "Score": 9
                         },
                         {
                             "Rank": 5,
-                            "nameCandidates": "Arkitect",
-                            "ExtraColumn1": "talrapolirsen",
-                            "rationale": "\"Architect,\" Embeds Ark for Parkinson`s Disease and Implies Stability or Planning Ahead",
-                            "Score": 4,
-                            "Comments1": "comment cvega"
+                            "nameCandidates": "Test 3",
+                            "rationale": "Rationale of an undisclosed length",
+                            "Comments1": "2dos comment",
+                            "Score": 9
                         },
                         {
                             "Rank": 6,
-                            "nameCandidates": "Unfolding",
-                            "ExtraColumn1": "Skylark",
-                            "rationale": "A Slow Revealing, Suggests Slowing Disease Progression and Links to Alpha-Synuclein Misfolding",
-                            "Score": 3,
-                            "Comments1": "comment cvega"
+                            "nameCandidates": "Test 2",
+                            "rationale": "Rationale of an undisclosed length",
+                            "Comments1": "",
+                            "Score": 9
                         },
                         {
                             "Rank": 7,
-                            "nameCandidates": "ORCHESTRA",
-                            "ExtraColumn1": "ORCHESTRA",
-                            "rationale": "ORal New Chemical Entity Aiming to Slow Disease Trajectory in Early Parkinson’s",
-                            "Score": 2,
-                            "Comments1": "comment cvega"
+                            "nameCandidates": "Test 7",
+                            "rationale": "Rationale of an unlosed lengthRationale of an undisclosed lengthRationale of an undisclosed lengthRationale of an undisclosed lengthRationale of an undisclosed length",
+                            "Comments1": "",
+                            "Score": 1
                         }
                     ],
                     "componentSettings": [
@@ -2018,405 +2214,12 @@ export class ProjectReportsComponent
                             "minRule": 0,
                             "maxRule": 4,
                             "fontSize": 16,
-                            "columnWidth": 205,
+                            "columnWidth": 150,
                             "rationalewidth": 204,
                             "rowHeight": 2,
                             "categoryRulesPassed": false,
                             "ratedCounter": 0,
                             "categoryName": "cvega1",
-                            "categoryDescription": "results by user sorted",
-                            "ratingScaleTitle": "Rate from 1 to 7"
-                        }
-                    ]
-                },
-                {
-                    "componentType": "rate-scale",
-                    "componentText": [
-                        {
-                            "Score": "Score",
-                            "Rank": "Rank",
-                            "nameCandidates": "Name Candidates",
-                            "rationale": "Rationales",
-                            "Comments1": "General Comments"
-                        },
-                        {
-                            "Rank": 6,
-                            "nameCandidates": "risimapolirsen",
-                            "rationale": "Remission",
-                            "Comments1": "",
-                            "Score": 1
-                        },
-                        {
-                            "Rank": 5,
-                            "nameCandidates": "berlifapolirsen",
-                            "rationale": "Better Life",
-                            "Comments1": "",
-                            "Score": 2
-                        },
-                        {
-                            "Rank": 4,
-                            "nameCandidates": "beritapolirsen",
-                            "rationale": "Connotes Liberty",
-                            "Comments1": "",
-                            "Score": 3
-                        },
-                        {
-                            "Rank": 3,
-                            "nameCandidates": "ipazapolirsen",
-                            "rationale": "Blank Canvas",
-                            "Comments1": "",
-                            "Score": 4
-                        },
-                        {
-                            "Rank": 2,
-                            "nameCandidates": "vidnulapolirsen",
-                            "rationale": "Individualized",
-                            "Comments1": "",
-                            "Score": 5
-                        },
-                        {
-                            "Rank": 1,
-                            "nameCandidates": "pecilapolirsen",
-                            "rationale": "Precision Medicine",
-                            "Comments1": "",
-                            "Score": 6
-                        },
-                        {
-                            "Rank": 7,
-                            "nameCandidates": "talrapolirsen",
-                            "rationale": "Tailored",
-                            "Comments1": ""
-                        }
-                    ],
-                    "componentSettings": [
-                        {
-                            "minRule": 0,
-                            "maxRule": 4,
-                            "fontSize": 16,
-                            "columnWidth": 205,
-                            "rationalewidth": 204,
-                            "rowHeight": 2,
-                            "categoryRulesPassed": false,
-                            "ratedCounter": 0,
-                            "categoryName": "cvega1",
-                            "categoryDescription": "results by user sorted",
-                            "ratingScaleTitle": "Rate from 1 to 7"
-                        }
-                    ]
-                },
-                {
-                    "componentType": "rate-scale",
-                    "componentText": [
-                        {
-                            "Score": "Score",
-                            "Rank": "Rank",
-                            "nameCandidates": "Name Candidates 1",
-                            "ExtraColumn1": "Name Candidates 2",
-                            "rationale": "Rationales",
-                            "Comments1": "General Comments"
-                        },
-                        {
-                            "Rank": 4,
-                            "nameCandidates": "MILKY WAY",
-                            "ExtraColumn1": "risimapolirsen",
-                            "rationale": "MIsfolding Parkinson Study With Early Stage Patients",
-                            "Score": 7,
-                            "Comments1": "comment cvega"
-                        },
-                        {
-                            "Rank": 2,
-                            "nameCandidates": "Moderato",
-                            "ExtraColumn1": "ipazapolirsen",
-                            "rationale": "A Moderate Musical Tempo (Suggests Slowing Disease Progression)",
-                            "Score": 7,
-                            "Comments1": "comment cvega"
-                        },
-                        {
-                            "Rank": 6,
-                            "nameCandidates": "Unfolding",
-                            "ExtraColumn1": "Skylark",
-                            "rationale": "A Slow Revealing, Suggests Slowing Disease Progression and Links to Alpha-Synuclein Misfolding",
-                            "Score": 7,
-                            "Comments1": "comment cvega"
-                        },
-                        {
-                            "Rank": 5,
-                            "nameCandidates": "Arkitect",
-                            "ExtraColumn1": "talrapolirsen",
-                            "rationale": "\"Architect,\" Embeds Ark for Parkinson`s Disease and Implies Stability or Planning Ahead",
-                            "Score": 4,
-                            "Comments1": "comment cvega"
-                        },
-                        {
-                            "Rank": 7,
-                            "nameCandidates": "ORCHESTRA",
-                            "ExtraColumn1": "ORCHESTRA",
-                            "rationale": "ORal New Chemical Entity Aiming to Slow Disease Trajectory in Early Parkinson’s",
-                            "Score": 4,
-                            "Comments1": "comment cvega"
-                        },
-                        {
-                            "Rank": 3,
-                            "nameCandidates": "REINSPIRE",
-                            "ExtraColumn1": "berlifapolirsen",
-                            "rationale": "",
-                            "Score": 4,
-                            "Comments1": "comment cvega"
-                        },
-                        {
-                            "Rank": 1,
-                            "nameCandidates": "TEMPORAL",
-                            "ExtraColumn1": "pecilapolirsen",
-                            "rationale": "Treatment to Slow Parkinson’s Given Orally",
-                            "Score": 4,
-                            "Comments1": "comment cvega"
-                        }
-                    ],
-                    "componentSettings": [
-                        {
-                            "minRule": 0,
-                            "maxRule": 4,
-                            "fontSize": 16,
-                            "columnWidth": 205,
-                            "rationalewidth": 204,
-                            "rowHeight": 2,
-                            "categoryRulesPassed": false,
-                            "ratedCounter": 0,
-                            "categoryName": "cvega2",
-                            "categoryDescription": "results by user sorted",
-                            "ratingScaleTitle": "Rate from 1 to 7"
-                        }
-                    ]
-                },
-                {
-                    "componentType": "rate-scale",
-                    "componentText": [
-                        {
-                            "Score": "Score",
-                            "Rank": "Rank",
-                            "nameCandidates": "Name Candidates",
-                            "rationale": "Rationales",
-                            "Comments1": "General Comments"
-                        },
-                        {
-                            "Rank": 2,
-                            "nameCandidates": "vidnulapolirsen",
-                            "rationale": "Individualized",
-                            "Comments1": "",
-                            "Score": 1
-                        },
-                        {
-                            "Rank": 5,
-                            "nameCandidates": "berlifapolirsen",
-                            "rationale": "Better Life",
-                            "Comments1": "",
-                            "Score": 2
-                        },
-                        {
-                            "Rank": 4,
-                            "nameCandidates": "beritapolirsen",
-                            "rationale": "Connotes Liberty",
-                            "Comments1": "",
-                            "Score": 3
-                        },
-                        {
-                            "Rank": 6,
-                            "nameCandidates": "risimapolirsen",
-                            "rationale": "Remission",
-                            "Comments1": "",
-                            "Score": 4
-                        },
-                        {
-                            "Rank": 3,
-                            "nameCandidates": "ipazapolirsen",
-                            "rationale": "Blank Canvas",
-                            "Comments1": "",
-                            "Score": 5
-                        },
-                        {
-                            "Rank": 1,
-                            "nameCandidates": "pecilapolirsen",
-                            "rationale": "Precision Medicine",
-                            "Comments1": "",
-                            "Score": 6
-                        },
-                        {
-                            "Rank": 7,
-                            "nameCandidates": "talrapolirsen",
-                            "rationale": "Tailored",
-                            "Comments1": ""
-                        }
-                    ],
-                    "componentSettings": [
-                        {
-                            "minRule": 0,
-                            "maxRule": 4,
-                            "fontSize": 16,
-                            "columnWidth": 205,
-                            "rationalewidth": 204,
-                            "rowHeight": 2,
-                            "categoryRulesPassed": false,
-                            "ratedCounter": 0,
-                            "categoryName": "cvega2",
-                            "categoryDescription": "results by user sorted",
-                            "ratingScaleTitle": "Rate from 1 to 7"
-                        }
-                    ]
-                },
-                {
-                    "componentType": "rate-scale",
-                    "componentText": [
-                        {
-                            "Score": "Score",
-                            "Rank": "Rank",
-                            "nameCandidates": "Name Candidates 1",
-                            "ExtraColumn1": "Name Candidates 2",
-                            "rationale": "Rationales",
-                            "Comments1": "General Comments"
-                        },
-                        {
-                            "Rank": 5,
-                            "nameCandidates": "Arkitect",
-                            "ExtraColumn1": "talrapolirsen",
-                            "rationale": "\"Architect,\" Embeds Ark for Parkinson`s Disease and Implies Stability or Planning Ahead",
-                            "Score": 1,
-                            "Comments1": "comment cvega"
-                        },
-                        {
-                            "Rank": 4,
-                            "nameCandidates": "MILKY WAY",
-                            "ExtraColumn1": "risimapolirsen",
-                            "rationale": "MIsfolding Parkinson Study With Early Stage Patients",
-                            "Score": 1,
-                            "Comments1": "comment cvega"
-                        },
-                        {
-                            "Rank": 2,
-                            "nameCandidates": "Moderato",
-                            "ExtraColumn1": "ipazapolirsen",
-                            "rationale": "A Moderate Musical Tempo (Suggests Slowing Disease Progression)",
-                            "Score": 1,
-                            "Comments1": "comment cvega"
-                        },
-                        {
-                            "Rank": 7,
-                            "nameCandidates": "ORCHESTRA",
-                            "ExtraColumn1": "ORCHESTRA",
-                            "rationale": "ORal New Chemical Entity Aiming to Slow Disease Trajectory in Early Parkinson’s",
-                            "Score": 1,
-                            "Comments1": "comment cvega"
-                        },
-                        {
-                            "Rank": 3,
-                            "nameCandidates": "REINSPIRE",
-                            "ExtraColumn1": "berlifapolirsen",
-                            "rationale": "",
-                            "Score": 1,
-                            "Comments1": "comment cvega"
-                        },
-                        {
-                            "Rank": 1,
-                            "nameCandidates": "TEMPORAL",
-                            "ExtraColumn1": "pecilapolirsen",
-                            "rationale": "Treatment to Slow Parkinson’s Given Orally",
-                            "Score": 1,
-                            "Comments1": "comment cvega"
-                        },
-                        {
-                            "Rank": 6,
-                            "nameCandidates": "Unfolding",
-                            "ExtraColumn1": "Skylark",
-                            "rationale": "A Slow Revealing, Suggests Slowing Disease Progression and Links to Alpha-Synuclein Misfolding",
-                            "Score": 1,
-                            "Comments1": "comment cvega"
-                        }
-                    ],
-                    "componentSettings": [
-                        {
-                            "minRule": 0,
-                            "maxRule": 4,
-                            "fontSize": 16,
-                            "columnWidth": 205,
-                            "rationalewidth": 204,
-                            "rowHeight": 2,
-                            "categoryRulesPassed": false,
-                            "ratedCounter": 0,
-                            "categoryName": "cvega3",
-                            "categoryDescription": "results by user sorted",
-                            "ratingScaleTitle": "Rate from 1 to 7"
-                        }
-                    ]
-                },
-                {
-                    "componentType": "rate-scale",
-                    "componentText": [
-                        {
-                            "Score": "Score",
-                            "Rank": "Rank",
-                            "nameCandidates": "Name Candidates",
-                            "rationale": "Rationales",
-                            "Comments1": "General Comments"
-                        },
-                        {
-                            "Rank": 6,
-                            "nameCandidates": "risimapolirsen",
-                            "rationale": "Remission",
-                            "Comments1": "",
-                            "Score": 1
-                        },
-                        {
-                            "Rank": 5,
-                            "nameCandidates": "berlifapolirsen",
-                            "rationale": "Better Life",
-                            "Comments1": "",
-                            "Score": 2
-                        },
-                        {
-                            "Rank": 4,
-                            "nameCandidates": "beritapolirsen",
-                            "rationale": "Connotes Liberty",
-                            "Comments1": "",
-                            "Score": 3
-                        },
-                        {
-                            "Rank": 3,
-                            "nameCandidates": "ipazapolirsen",
-                            "rationale": "Blank Canvas",
-                            "Comments1": "",
-                            "Score": 4
-                        },
-                        {
-                            "Rank": 2,
-                            "nameCandidates": "vidnulapolirsen",
-                            "rationale": "Individualized",
-                            "Comments1": "",
-                            "Score": 5
-                        },
-                        {
-                            "Rank": 1,
-                            "nameCandidates": "pecilapolirsen",
-                            "rationale": "Precision Medicine",
-                            "Comments1": "",
-                            "Score": 6
-                        },
-                        {
-                            "Rank": 7,
-                            "nameCandidates": "talrapolirsen",
-                            "rationale": "Tailored",
-                            "Comments1": ""
-                        }
-                    ],
-                    "componentSettings": [
-                        {
-                            "minRule": 0,
-                            "maxRule": 4,
-                            "fontSize": 16,
-                            "columnWidth": 205,
-                            "rationalewidth": 204,
-                            "rowHeight": 2,
-                            "categoryRulesPassed": false,
-                            "ratedCounter": 0,
-                            "categoryName": "cvega3",
                             "categoryDescription": "results by user sorted",
                             "ratingScaleTitle": "Rate from 1 to 7"
                         }
