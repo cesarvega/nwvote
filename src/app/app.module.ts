@@ -53,6 +53,7 @@ import { MatPaginatorModule } from '@angular/material/paginator';
 import { MatSnackBarModule, MAT_SNACK_BAR_DEFAULT_OPTIONS } from '@angular/material/snack-bar';
 import { MatRadioModule } from '@angular/material/radio';
 import { BmxModule } from './bmx/bmx-module/bmx.module';
+import { TestComponent } from './test/test/test.component';
 
 export function loadEcharts() {
   return import('echarts');
@@ -72,6 +73,7 @@ export function loadEcharts() {
     NW3Component,
     // BmxComponent,
     SchedulerComponent,
+    TestComponent,
    
 
 
