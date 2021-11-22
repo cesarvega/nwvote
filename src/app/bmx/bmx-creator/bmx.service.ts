@@ -6,6 +6,16 @@ import { BehaviorSubject } from 'rxjs';
   providedIn: 'root'
 })
 export class BmxService {
+
+  private projectName$ = new BehaviorSubject<string>('');
+
+  currentProjectName = this.projectName$.asObservable();
+
+  setProjectName(projectName: any) {
+    this.projectName$.next(projectName);
+  }
+
+
   webBaseUrl = 'https://tools.brandinstitute.com//wsBrandMatrix/wsBrandMatrix.asmx';
   GetProjectList = '/GetProjectList';
   GetGeneralLists = '/GetGeneralLists';

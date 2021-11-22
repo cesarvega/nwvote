@@ -1,23 +1,9 @@
 import { MatSnackBar } from '@angular/material/snack-bar';
-import { Component, ElementRef, EventEmitter, Inject, Input, OnInit, Output, ViewChild, ViewEncapsulation } from '@angular/core';
-import { DOCUMENT } from '@angular/common';
-import { FormControl, FormGroup, FormBuilder, FormArray } from '@angular/forms';
-import { trigger, transition, useAnimation } from '@angular/animations';
-import { pulse, flash } from 'ng-animate';
-import { HotkeysService, Hotkey } from 'angular2-hotkeys';
-import Speech from 'speak-tts';
-// import { Nw3Service } from './nw3.service';
-import { ActivatedRoute } from '@angular/router';
-import { typeSourceSpan } from '@angular/compiler';
+import { Component, OnInit } from '@angular/core';
+import { FormControl, FormGroup } from '@angular/forms';
 import { BmxService } from '../bmx.service';
-import { DragulaService } from 'ng2-dragula';
-import { MatPaginator } from '@angular/material/paginator';
-import { MatTableDataSource } from '@angular/material/table';
-import { MatSort } from '@angular/material/sort';
-import { MatDatepicker } from '@angular/material/datepicker';
 import { Observable } from 'rxjs';
-import { filter, map, startWith } from 'rxjs/operators';
-import { JsonpClientBackend } from '@angular/common/http';
+import { map, startWith } from 'rxjs/operators';
 import { MatSelectChange } from '@angular/material/select';
 
 
@@ -154,10 +140,6 @@ export class ProjectInformationComponent implements OnInit {
   }
 
   saveProjectInfo() {
-    //localStorage.setItem('fakeproject' + '_project_info', JSON.stringify(this.bmxEditData.value));
-    /*const rememberUser:JSON = <JSON><unknown>{
-      "Client": this.bmxEditData.get('bmxCompany').value
-    }*/
     const projectInfo: JSON = <JSON><unknown>{
       "bmxSalesboard": this.bmxEditData.get('bmxSalesboard').value.toString(),
       "bmxDepartment": this.bmxEditData.get('bmxDepartment').value.toString(),
