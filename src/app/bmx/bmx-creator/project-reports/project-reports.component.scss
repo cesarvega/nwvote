@@ -35,6 +35,11 @@
     .no-print * {
         display: none !important;
     }
+
+    .pagebreak {
+        clear: both;
+        page-break-after: always;
+    }
 }
 
 .bmx-page {
@@ -114,8 +119,6 @@
     position: fixed;
     bottom: 40px;
 }
-
-
 
 .bmx-page::-webkit-scrollbar {
     display: none !important;
