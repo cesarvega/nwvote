@@ -8,6 +8,22 @@
         <div *ngFor="let bmxItem of bmxPages[currentPage].page; let i = index"
             style="display: flex;flex-direction: column;margin: 10px;align-content: center;">
 
+            <!-- REPORT COMPONENTS -->
+            <div *ngIf="bmxItem.componentType === 'page-title'" class="paragraph">
+                <div class="emoji-handle">.</div>
+                <div style="position: absolute;right: 0px;">
+                    <button *ngIf="bmxClientPageOverview" matTooltip="double click to delete" matTooltipPosition="above"
+                        style="outline: none;color:#f10a0a;top: 60px;" mat-icon-button (dblclick)="deleteComponent(i)"
+                        aria-label="delte">
+                        <mat-icon style="font-size: 17px;">cancel</mat-icon>
+                    </button>
+                </div>
+                <app-page-title [bmxItem]="bmxItem"
+                [isBrandMatrixSurvey]="isBrandMatrixSurvey" [i]="i" [bmxClientPageDesignMode]="bmxClientPageDesignMode"
+                [bmxClientPageOverview]="bmxClientPageOverview">
+                </app-page-title>
+            </div>
+
             <div *ngIf="bmxItem.componentType === 'page-line-break'" class="paragraph">
                 <div class="emoji-handle">.</div>
                 <div style="position: absolute;right: 0px;">
@@ -17,10 +33,9 @@
                         <mat-icon style="font-size: 17px;">cancel</mat-icon>
                     </button>
                 </div>
-                <app-page-line-break >
+                <app-page-line-break>
                 </app-page-line-break>
             </div>
-          
 
             <!-- FISRT PAGE OF THE REPORT DOCUMENT -->
             <app-report-first-page *ngIf="bmxItem.componentType === 'first-page'" [bmxItem]="bmxItem"
@@ -28,6 +43,7 @@
                 [bmxClientPageOverview]="bmxClientPageOverview"></app-report-first-page>
             <p style="page-break-after: always;">&nbsp;</p>
             <p style="page-break-before: always;">&nbsp;</p>
+            <!-- REPORT COMPONENTS -->
 
             <!-- BMX HEADER 😋😋😋😋😋😋😋😋😋😋😋😋😋😋😋😋😋😋😋😋😋😋😋😋😋😋😋😋😋😋😋😋😋😋😋😋😋😋 -->
             <div *ngIf="bmxItem.componentType === 'logo-header'" class="paragraph">
@@ -43,7 +59,7 @@
                 </app-logo-header>
             </div>
             <!--😋😋😋😋😋😋😋😋😋😋😋😋😋😋😋😋😋😋😋😋😋😋😋😋😋😋😋😋😋😋😋😋😋😋😋😋😋😋 END BMX HEADER  -->
-            
+
 
             <p style="page-break-after: always;">&nbsp;</p>
             <p style="page-break-before: always;">&nbsp;</p>
@@ -61,7 +77,7 @@
                     [bmxClientPageOverview]="bmxClientPageOverview"></app-text-paragraph>
             </div>
             <!-- 📑📑📑📑📑📑📑📑📑📑📑📑📑📑📑📑📑📑📑📑📑📑📑📑📑📑📑📑📑📑 END BMX PARAGRAPH EDITOR -->
-           
+
 
             <!-- STARS SCALE 👽👽👽👽👽👽👽👽👽👽👽👽👽👽👽👽👽👽👽👽👽👽👽👽👽👽👽👽👽👽👽👽👽👽👽👽👽👽👽👽👽👽-->
             <div *ngIf="bmxItem.componentType === 'rate-scale'" class="paragraph " style="margin-bottom: 30px;">
@@ -73,7 +89,7 @@
                         <mat-icon style="font-size: 17px;">cancel</mat-icon>
                     </button>
                 </div>
-                <app-rating-scale [bmxItem]="bmxItem" [i]="i" [bmxClientPageDesignMode]="bmxClientPageDesignMode"
+                <app-rating-scale class="table break-page" [bmxItem]="bmxItem" [i]="i" [bmxClientPageDesignMode]="bmxClientPageDesignMode"
                     [bmxClientPageOverview]="bmxClientPageOverview"></app-rating-scale>
 
             </div>
@@ -217,9 +233,13 @@
                 mat-icon-button color="warn" aria-label="aria">
                 <mat-icon class="full-icon-secondary">person_outline</mat-icon>
             </button>
-            <button (click)="createNewBmxComponent('page-line-break')" matTooltip="votes by respondent" matTooltipPosition="right"
-                mat-icon-button color="warn" aria-label="aria">
+            <button (click)="createNewBmxComponent('page-line-break')" matTooltip="votes by respondent"
+                matTooltipPosition="right" mat-icon-button color="warn" aria-label="aria">
                 <mat-icon class="full-icon-secondary">insert_page_break</mat-icon>
+            </button>
+            <button (click)="createNewBmxComponent('page-title')" matTooltip="votes by respondent"
+                matTooltipPosition="right" mat-icon-button color="warn" aria-label="aria">
+                <mat-icon class="full-icon-secondary">title</mat-icon>
             </button>
             <!-- <button (click)="createNewBmxComponent('image-rate-scale')" matTooltip="image rate matrix"
                 matTooltipPosition="right" mat-icon-button color="warn" aria-label="aria">

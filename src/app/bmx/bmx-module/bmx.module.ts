@@ -84,6 +84,7 @@ import { SurveyMatrixComponent } from '../bmx-creator/survey-matrix/survey-matri
 import { TinderComponent } from '../bmx-creator/survey-creation-design/templates/tinder/tinder.component';
 import { ReportFirstPageComponent } from '../bmx-creator/project-reports/templates/report-first-page/report-first-page.component';
 import { PageLineBreakComponent } from '../bmx-creator/project-reports/templates/page-line-break/page-line-break.component';
+import { PageTitleComponent } from '../bmx-creator/project-reports/templates/page-title/page-title.component';
 export function loadEcharts() {
   return import('echarts');
 }
@@ -111,6 +112,7 @@ export function loadEcharts() {
     TinderComponent,
     ReportFirstPageComponent,
     PageLineBreakComponent,
+    PageTitleComponent,
 
   ],
   imports: [

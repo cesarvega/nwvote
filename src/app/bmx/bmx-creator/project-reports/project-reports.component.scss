@@ -35,13 +35,19 @@
     .no-print * {
         display: none !important;
     }
-
-    .pagebreak {
-        clear: both;
+    .break-page {
+        display: block;
+        page-break-before: always;
         page-break-after: always;
     }
-}
 
+    .table {
+        page-break-inside: avoid;
+    }
+}
+.break-page {
+    page-break-after: always;
+}
 .bmx-page {
     // width: 628%;
     height: 90.8vh;

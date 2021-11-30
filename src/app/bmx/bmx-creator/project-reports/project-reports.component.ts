@@ -1213,7 +1213,7 @@ export class ProjectReportsComponent
                     },
                 ],
             });
-        }
+        }  // ☢️☢️☢️☢️☢️☢️☢️☢️☢️☢️☢️☢️☢️☢️☢️☢️☢️☢️☢️☢️☢️☢️☢️☢️☢️☢️☢️☢️☢️☢️☢️☢️☢️☢️☢️☢️☢️☢️☢️☢️☢️☢️☢️
         else if (componentType === 'page-line-break') {
             this.TestNameDataModel = [];
             this.TestNameDataModel.push({
@@ -1229,7 +1229,7 @@ export class ProjectReportsComponent
                     STARS: this.createRatingStars(),
                 });
             }
-            this.bmxPages[this.currentPage].page.push({
+            this.bmxPages[this.currentPage].page.unshift({
                 componentType: componentType,
                 componentText: this.TestNameDataModel,
                 componentSettings: [
@@ -1246,6 +1246,38 @@ export class ProjectReportsComponent
                         categoryDescription: 'Swipe Left or right',
                         // "ratingScaleTitle": "RATING"
                     },
+                ],
+            });
+        }
+        else if (componentType === 'page-title') {
+            this.TestNameDataModel = [];
+            this.TestNameDataModel.push({
+                name: 'Questions',
+                // rationale: 'RATIONALE',
+                STARS: this.createRatingStars(),
+            });
+            for (let index = 0; index < 5; index++) {
+                this.TestNameDataModel.push({
+                    name: 'QUESTION ' + index,
+                    // rationale: 'Rationale of an undisclosed length',
+                    RATE: -1,
+                    STARS: this.createRatingStars(),
+                });
+            }
+            this.bmxPages[this.currentPage].page.unshift({
+                componentType: componentType,
+                componentText: this.TestNameDataModel,
+                componentSettings: [
+                    {
+                        "fontSize": "16px",
+                        "fontFace": "Arial",
+                        "logoWidth": 250,
+                        "brandInstituteLogoURL": "./assets/img/bmx/BILogo-Regular_.png",
+                        "DSILogo": "./assets/img/bmx/DSI-LOGO.svg",
+                        "brandInstituteMobileURL": "./assets/img/bmx/bmxCube.jpg",
+                        "backgroundgraphic": "./assets/img/bmx/cover-graphic.jpg",
+                        "companyLogoURL": "./assets/img/bmx/insertLogo.jpg"
+                    }
                 ],
             });
         }
