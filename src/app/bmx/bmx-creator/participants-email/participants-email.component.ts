@@ -5,7 +5,9 @@ import { HighlightSpanKind } from 'typescript';
 import { BmxService } from '../bmx.service';
 import { DragulaService } from 'ng2-dragula';
 import { HotkeysService, Hotkey } from 'angular2-hotkeys';
-
+import { MatSort } from '@angular/material/sort';
+import { CdkDragStart, CdkDropList, moveItemInArray } from '@angular/cdk/drag-drop';
+import { MatPaginator } from '@angular/material/paginator';
 
 @Component({
   selector: 'app-participants-email',
@@ -22,12 +24,13 @@ export class ParticipantsEmailComponent implements OnInit {
   selected;
   @Input() isMenuActive15;
   displayedColumns: string[] = ['select', 'FirstName', 'LastName', 'group', 'SubGroup', 'Status'];
-  RESPONDENTS_LIST;
+  RESPONDENTS_LIST = [];
   to;
   dataSource;
   selection;
   ckconfig: any;
-  selectedIndex: any
+  selectedIndex: any;
+  fixedString;
   sampleHtml = `Dear PARTICIPANT,
   You have been selected to participate in the brand name selection for BI Pharma's new ADSSK & CCC Inhibitor for the treatment of multiple cancer types. 
   In this survey, you'll be voting on multiple name candidates that have been developed specifically for this compound. The survey will guide you, and an instructions button is available at any time for your assistance.
@@ -42,19 +45,20 @@ export class ParticipantsEmailComponent implements OnInit {
   CC;
   Subject;
   LINK_TYPE = [
-    { name: 'Direct Link', rationale: 'Sist, Assist, Syst' },
-    { name: 'General Link', rationale: 'Hance, En-' },
+    'Direct Link', 'General Link'
   ];
 
-  EMAIL_TEMPLATES = [
-    { name: 'Clinical Trial', rationale: 'Sist, Assist, Syst' },
-    { name: 'Consumer', rationale: 'Hance, En-' },
+  /*EMAIL_TEMPLATES = [
+    { name: 'Design', rationale: 'Sist, Assist, Syst' },
+    { name: 'Creative', rationale: 'Hance, En-' },
     { name: 'Contest/Namepage', rationale: 'Evo' },
     { name: 'Nonproprietary Name', rationale: 'Gard, Guard' },
     { name: 'Nonproprietary Suffix', rationale: 'Gard, Guard' },
     { name: 'Logo', rationale: 'Gard, Guard' },
     { name: 'Pharmaceutical/Rx', rationale: 'Gard, Guard' }
-  ];
+  ];*/
+
+  EMAIL_TEMPLATES = ['Creative', 'Design', 'Nonproprietary'];
 
   model = {
     editorData: '',
@@ -93,18 +97,16 @@ export class ParticipantsEmailComponent implements OnInit {
 
   ngOnInit(): void {
     this.selected = 'All';
-    
-    
 
     this._BmxService.BrandMatrixGetParticipantList(localStorage.getItem('projectName'))
-    .subscribe((arg:any) => {
-      this.allData = JSON.parse(arg.d).ParticipantList;
-      this.changeView();
-    });
+      .subscribe((arg: any) => {
+        this.allData = JSON.parse(arg.d).ParticipantList;
+        this.changeView();
+      });
+    this.emailTemp = 'Creative';
+    this.changeTemplate('Creative');
 
 
-
-   
     this.selection = new SelectionModel<any>(true, []);
     this.to = '';
     this.ckconfig = {
@@ -146,14 +148,16 @@ export class ParticipantsEmailComponent implements OnInit {
   masterToggle() {
     if (this.isAllSelected()) {
       this.selection.clear();
+      this.RESPONDENTS_LIST = [];
       this.to = '';
     }
     else {
       this.dataSource.data.forEach(row => {
+
         this.selection.select(row);
         if (!this.to.includes(row.FirstName)) {
           this.to += row.FirstName + '; ';
-
+          this.RESPONDENTS_LIST.push(row);
         }
       });
 
@@ -164,9 +168,16 @@ export class ParticipantsEmailComponent implements OnInit {
   selectRow($event, dataSource) {
     if ($event.checked) {
       this.to += dataSource.Email + '; ';
+      this.RESPONDENTS_LIST.push(dataSource);
     }
     else {
       this.to = this.to.replace(dataSource.Email + '; ', "");
+      for (var i = 0; i < this.RESPONDENTS_LIST.length; i++) {
+        if (this.RESPONDENTS_LIST[i] == dataSource) {
+          this.RESPONDENTS_LIST.splice(i, 1);
+          break;
+        }
+      }
     }
   }
 
@@ -184,7 +195,7 @@ export class ParticipantsEmailComponent implements OnInit {
       else if (this.selected == 'F' && this.allData[i].Status == 'F') {
         this.viewedData.push(this.allData[i])
       }
-      else if(this.selected == 'All') {
+      else if (this.selected == 'All') {
         this.viewedData = this.allData;
         break;
       }
@@ -192,27 +203,116 @@ export class ParticipantsEmailComponent implements OnInit {
     this.dataSource = new MatTableDataSource<any>(this.viewedData);
   }
 
-  sendEmail()
-  {
-    const rememberEmail:JSON = <JSON><unknown>{
-      "dirConfirm": this.dirConfirm,
-      "deptConfirm": this.deptConfirm,
-      "emailTemp" : this.emailTemp,
-      "linkType" : this.linkType,
-      "From" : 'cgomez@brandinstitute.com',
-      /*"BCC" : this.BCC,
-      "CC" : this.CC,*/
-      "Subject" : this.Subject,
-      "Message" : this.brandMatrixObjects[1].componentText,
-      "TO" : 'kcabrera@brandinstitute.com',
-      "attachments" : this.attachments
+  changeTemplate(template: any): void {
+    if (template === 'Creative') {
+      this.brandMatrixObjects[1].componentText = `Dear NAMEOFUSER,<br><br>
+
+      Brand Institute has been contracted to create a brand name for (insert description of what is being named here).  The internal name for this project is projectName.  You have been chosen to vote for your favorite names via our online BrandMatrix™ prioritization survey.<br><br>
+      
+      To access the online voting site, please click on the link below to be logged in automatically. Voting instructions are provided in the link and will only take a few minutes of your time.<br><br>
+      
+      Your link:<br>
+      https://tools.brandinstitute.com/bmxtest/survey/projectName/Username<br>
+      (if you cannot click on the link, please copy and paste into your browser)<br><br>
+      
+      Your input is valued.  Please place your votes by (insert closing date and time). We hope you enjoy this interactive exercise!<br><br>  
+      
+      Best regards,<br><br>
+      
+      DIRECTOR NAME<br>
+      Email<br>
+      Number<br><br>
+      
+      Should you experience any difficulty with this survey, please contact us or your project team leader immediately.`
+
     }
-    var finalString = JSON.stringify(rememberEmail);
-    finalString = finalString.replace("[\\u2022,\\u2023,\\u25E6,\\u2043,\\u2219]\\s\\d", '');
-    this._BmxService.sendEmail(finalString).subscribe(result => {
-      var so = result;
-    });
-    localStorage.setItem('fakeprojectname' + '_emailInfo', JSON.stringify(rememberEmail));
+    else if (template === 'Nonproprietary') {
+      this.brandMatrixObjects[1].componentText = `Dear NAMEOFUSER,<br><br>
+
+      Brand Institute has been contracted to create a nonproprietary (USAN/INN) name for (insert nonproprietary name or product description).  The internal name for this project is projectName.  You have been chosen to vote for your favorite names via our online BrandMatrix™ prioritization survey.<br><br>
+      
+      To access the online voting site, please click on the link below to be logged in automatically. Voting instructions are provided in the link and will only take a few minutes of your time.<br><br>
+      
+      Your link:<br>
+      https://tools.brandinstitute.com/bmxtest/survey/projectName/Username<br>
+      (if you cannot click on the link, please copy and paste into your browser)<br><br>
+      
+      Your input is valued.  Please place your votes by (insert closing date and time). We hope you enjoy this interactive exercise!<br><br>  
+      
+      Best regards,<br><br>
+      
+      DIRECTOR NAME<br>
+      Email<br>
+      Number<br><br>
+      
+      Should you experience any difficulty with this survey, please contact us or your project team leader immediately.
+      `;
+
+    }
+    else {
+      this.brandMatrixObjects[1].componentText = `Dear NAMEOFUSER,<br><br>
+
+      Brand Institute has been contracted to create a visual identity for (insert description of what the logo is being developed for).  The internal name for this project is projectName.  You have been chosen to vote for your favorite logo options via our online BrandMatrix™ prioritization survey.<br><br>
+      
+      To access the online voting site, please click on the link below to be logged in automatically. Voting instructions are provided in the link and will only take a few minutes of your time.<br><br>
+      
+      Your link:<br>
+      https://tools.brandinstitute.com/bmxtest/survey/projectName/Username<br>
+      (if you cannot click on the link, please copy and paste into your browser)<br><br>
+
+      Your input is valued.  Please place your votes by (insert closing date and time). We hope you enjoy this interactive exercise!<br><br>
+      
+      Best regards,<br><br>
+      
+      DIRECTOR NAME<br>
+      Email<br>
+      Number<br><br>
+      
+      Should you experience any difficulty with this survey, please contact us or your project team leader immediately.
+      `;
+
+    }
+  }
+
+  changeLink(template: any): void {
+    if (template === 'Direct Link') {
+      this.brandMatrixObjects[1].componentText = this.brandMatrixObjects[1].componentText.replace("projectName", "projectName/Username");
+    }
+    else if (template === 'General Link') {
+      this.brandMatrixObjects[1].componentText = this.brandMatrixObjects[1].componentText.replace("projectName/Username", "projectName");
+    }
+  }
+
+  replaceEmailInfo(Fname: string, Lname: string) {
+    this.fixedString = this.fixedString.replace("NAMEOFUSER", Fname + " " + Lname);
+    this.fixedString = this.fixedString.replace("projectName", localStorage.getItem('projectName'));
+    this.fixedString = this.fixedString.replace("Username", Fname[0] + Lname);
+  }
+
+  sendEmail() {
+    for (var i = 0; i < this.RESPONDENTS_LIST.length; i++) {
+      this.fixedString = this.brandMatrixObjects[1].componentText;
+      this.replaceEmailInfo(this.RESPONDENTS_LIST[i].FirstName, this.RESPONDENTS_LIST[i].LastName);
+      const rememberEmail: JSON = <JSON><unknown>{
+        "dirConfirm": this.dirConfirm,
+        "deptConfirm": this.deptConfirm,
+        "emailTemp": this.emailTemp,
+        "linkType": this.linkType,
+        "From": 'cgomez@brandinstitute.com',
+        /*"BCC" : this.BCC,
+        "CC" : this.CC,*/
+        "Subject": this.Subject,
+        "Message": this.fixedString,
+        "TO": this.RESPONDENTS_LIST[i].Email,
+        "attachments": this.attachments
+      }
+      var finalString = JSON.stringify(rememberEmail);
+      finalString = finalString.replace("[\\u2022,\\u2023,\\u25E6,\\u2043,\\u2219]\\s\\d", '');
+      this._BmxService.sendEmail(finalString).subscribe(result => {
+        var so = result;
+      });
+    }
+    //localStorage.setItem('fakeprojectName' + '_emailInfo', JSON.stringify(rememberEmail));
   }
 
   onFileSelected(event) {
@@ -223,12 +323,12 @@ export class ParticipantsEmailComponent implements OnInit {
         var reader = new FileReader();
         reader.onload = (event: any) => {
           const filedata = event.target.result.split(",")[0];
-          const resourceData:JSON = <JSON><unknown>{
-            "ProjectName": localStorage.getItem('projectName'),
+          const resourceData: JSON = <JSON><unknown>{
+            "projectName": localStorage.getItem('projectName'),
             "FileName": filearray[i].name,
-            "ItemType" : 'TestName',
-            "FileType" : filedata,
-            "FileContent" : event.target.result.split(event.target.result.split(",")[0] + ',').pop()
+            "ItemType": 'TestName',
+            "FileType": filedata,
+            "FileContent": event.target.result.split(event.target.result.split(",")[0] + ',').pop()
           }
           this.attachments.push(resourceData);
         }
@@ -238,8 +338,7 @@ export class ParticipantsEmailComponent implements OnInit {
     const t = this.attachments;
   }
 
-  deleteFile(index)
-  {
+  deleteFile(index) {
     this.attachments.splice(index, 1);
   }
 

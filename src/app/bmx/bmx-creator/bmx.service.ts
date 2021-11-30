@@ -6,6 +6,16 @@ import { BehaviorSubject } from 'rxjs';
   providedIn: 'root'
 })
 export class BmxService {
+
+  private projectName$ = new BehaviorSubject<string>('');
+
+  currentProjectName$ = this.projectName$.asObservable();
+
+  setProjectName(projectName: any) {
+    this.projectName$.next(projectName);
+  }
+
+
   webBaseUrl = 'https://tools.brandinstitute.com//wsBrandMatrix/wsBrandMatrix.asmx';
   GetProjectList = '/GetProjectList';
   GetGeneralLists = '/GetGeneralLists';
@@ -115,6 +125,12 @@ export class BmxService {
   getBrandMatrixByProjectAndUserAnswers(projectName, username) {
     return this.http.post(this.webBaseUrl + this.brandMatrixGetUserAnswers, {
       token: '646EBF52-1846-47C2-9F62-DC50AE5BF692', payload: JSON.stringify({"ProjectName": projectName ,"UserName": username })
+    })
+   }
+
+  getBrandMatrixByProjectAllUserAnswers(projectName) {
+    return this.http.post(this.webBaseUrl + this.brandMatrixGetALLUserAnswers, {
+      token: '646EBF52-1846-47C2-9F62-DC50AE5BF692', payload: JSON.stringify({"ProjectName": projectName })
     })
    }
 

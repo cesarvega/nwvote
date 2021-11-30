@@ -89,6 +89,7 @@
 .red {
   background-color: white;
   border-left: rgb(231, 230, 230) 1px solid;
+  border-right: rgb(231, 230, 230) 1px solid;
   border-top: rgb(231, 230, 230) 1px solid;
   padding: 20px;
   // margin: 5px;
@@ -97,6 +98,7 @@
 .blue {
   background-color: white;
   border-left: rgb(230, 230, 230) 1px solid;
+  border-right: rgb(231, 230, 230) 1px solid;// COMMENT IF YOU WANT SINGLE LINES
   border-top: rgb(231, 230, 230) 1px solid;
   padding: 20px;
   // margin: 5px;
@@ -184,6 +186,20 @@
 .scroller-style::-webkit-scrollbar-thumb:hover {
   background: #283e90;
 }
+
+
+.full-icon:hover {
+  transform: scale(2);
+  color: #ee7f25;
+}
+.full-icon {
+  color: #324395;
+  font-size: 20px;
+  transition: all 0.1s ease-in-out;
+  text-shadow: 0 0.04em 0.04em rgba(0, 0, 0, 0.35);
+  box-shadow: inset inset 0px 0px 5px #c1c1c1;
+}
+
 
 textarea {
   resize: none;

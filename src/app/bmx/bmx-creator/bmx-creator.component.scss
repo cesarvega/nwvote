@@ -30,7 +30,21 @@
     }
 }
 
+@media print {
+    .no-print,
+    .no-print * {
+        display: none !important;
+    }
+
+    .break-page {
+        page-break-after: always;
+    }
+}
 //   BRAND MATRIX CREATOR DASH
+
+.report-container::-webkit-scrollbar {
+    display: none;
+}
 
 .main-container {
     display: flex;
@@ -113,14 +127,14 @@
 
     .full-icon:hover {
         transform: scale(2);
-        color: darkblue;
+        color: #ee7f25;
     }
     .full-icon {
-        color: grey;
-        font-size: 20px;
+        color: #324395;
+        font-size: 25px;
         transition: all 0.1s ease-in-out;
         text-shadow: 0 0.04em 0.04em rgba(0, 0, 0, 0.35);
-        box-shadow: inset inset 0px 0px 5px #c1c1c1;
+        box-shadow: inset inset 0px 0px 5px #0bd659;
     }
 
     .page-design::-webkit-scrollbar {
@@ -149,6 +163,7 @@
     }
 
 
+   
     .emoji-handle {
         // position: absolute;
         top: 5px;

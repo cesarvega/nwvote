@@ -1,17 +1,20 @@
-<div class="page-design noselect">
+<div class="page-design noselect disable-dbl-tap-zoom">
     <div class="desktop">
         <button (click)="displayQrCode()" mat-icon-button matTooltip="design tools" matTooltipPosition="above"
-        *ngIf="true" style="position: absolute;bottom: 10px;color: grey;z-index: 9999999999;right: 33px;outline: none;" >
+            *ngIf="true"
+            style="position: absolute;bottom: 10px;color: grey;z-index: 9999999999;right: 33px;outline: none;">
             <mat-icon class="full-icon" style="font-size: 35px;">qr_code
             </mat-icon>
         </button>
-        <button (click)="openFullscreen()" mat-icon-button matTooltip="design tools" matTooltipPosition="above" 
-        *ngIf="true" style="position: absolute;bottom: 9px;color: grey;z-index: 9999999999;right: -3px;outline: none;" >
+        <button (click)="openFullscreen()" mat-icon-button matTooltip="design tools" matTooltipPosition="above"
+            *ngIf="true"
+            style="position: absolute;bottom: 9px;color: grey;z-index: 9999999999;right: -3px;outline: none;">
             <mat-icon class="full-icon" style="font-size: 35px;">fullscreen
             </mat-icon>
         </button>
-        <button (click)="saveUserAnswers()" mat-icon-button matTooltip="save answers" matTooltipPosition="above" 
-        *ngIf="true" style="position: absolute;bottom: 9px;color: grey;z-index: 9999999999;right: 66px;outline: none;" >
+        <button (click)="saveUserAnswers()" mat-icon-button matTooltip="save answers" matTooltipPosition="above"
+            *ngIf="true"
+            style="position: absolute;bottom: 9px;color: grey;z-index: 9999999999;right: 66px;outline: none;">
             <mat-icon class="full-icon" style="font-size: 35px;">save
             </mat-icon>
         </button>
@@ -28,7 +31,8 @@
                 <!-- BMX HEADER 😋😋😋😋😋😋😋😋😋😋😋😋😋😋😋😋😋😋😋😋😋😋😋😋😋😋😋😋😋😋😋😋😋😋😋😋😋😋 -->
 
                 <div *ngIf="bmxItem.componentType === 'logo-header'">
-                    <app-logo-header [isBrandMatrixSurvey]="isBrandMatrixSurvey"  [bmxItem]="bmxItem" [i]="i" [bmxClientPageDesignMode]="bmxClientPageDesignMode"
+                    <app-logo-header [isBrandMatrixSurvey]="isBrandMatrixSurvey" [bmxItem]="bmxItem" [i]="i"
+                        [bmxClientPageDesignMode]="bmxClientPageDesignMode"
                         [bmxClientPageOverview]="bmxClientPageOverview"></app-logo-header>
                 </div>
                 <!--😋😋😋😋😋😋😋😋😋😋😋😋😋😋😋😋😋😋😋😋😋😋😋😋😋😋😋😋😋😋😋😋😋😋😋😋😋😋 END BMX HEADER  -->
@@ -82,6 +86,22 @@
                 </div>
                 <!-- END QUESTION AND ANSWER  ✒️✒️✒️✒️✒️✒️✒️✒️✒️✒️✒️✒️✒️✒️✒️✒️✒️✒️✒️✒️✒️✒️✒️✒️✒️✒️✒️✒️✒️✒️✒️✒️✒️✒️✒️✒️✒️ -->
 
+
+                <!-- TINDER  🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥-->
+                <div *ngIf="bmxItem.componentType === 'tinder'" class="paragraph">
+                    <div class="emoji-handle">.</div>
+                    <div style="position: absolute;right: 0px;">
+                        <button *ngIf="bmxClientPageOverview" matTooltip="double click to delete"
+                            matTooltipPosition="above" style="outline: none;color:#f10a0a;top: 19px;" mat-icon-button
+                            (dblclick)="deleteComponent(i)" aria-label="delte">
+                            <mat-icon style="font-size: 17px;">cancel</mat-icon>
+                        </button>
+                    </div>
+                    <app-tinder [bmxItem]="bmxItem" [i]="i" [bmxClientPageDesignMode]="bmxClientPageDesignMode"
+                        [bmxClientPageOverview]="bmxClientPageOverview"></app-tinder>
+                </div>
+                <!-- END TINDER  🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥 -->
+
             </div>
 
 
@@ -113,6 +133,7 @@
     <div [style.display]="(popUpQRCode)?'flex':'none'" class="qr-code">
         <div style="position: absolute;top:71px" #canvas></div>
         <img style="width: 360px;" src="./assets/img/bmx/qr/darkBlueW.png">
+        <p>{{myAngularxQrCode}}</p>
     </div>
 
 

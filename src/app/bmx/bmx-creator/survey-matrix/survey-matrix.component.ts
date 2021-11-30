@@ -76,13 +76,14 @@ export class SurveyMatrixComponent extends SurveyCreationDesignComponent impleme
                                 component.componentType == 'ranking-scale' ||
                                 component.componentType == 'image-rate-scale' ||
                                 component.componentType == 'narrow-down' ||
+                                component.componentType == 'tinder' ||
                                 component.componentType == 'question-answer'
                             ) {
                                 component.componentText.forEach((row, index) => {
                                     if (index > 0) {
-                                        this.matchMatrix(row, answers, component);
+                                        this.matchAnswersAndTemplateMatrix(row, answers, component);
                                     }
-                                });
+                                })
                             }
                         });
                     });
@@ -109,21 +110,19 @@ export class SurveyMatrixComponent extends SurveyCreationDesignComponent impleme
             }
         })
     }
+    dragAndDropCounter = 0
+    matchAnswersAndTemplateMatrix(templateRow, answers, templateComponent) {
 
-    matchMatrix(templateRow, answers, templateComponent) {
-
-        console.log('%cTemplateRow', 'color:orange');
-        console.log(templateRow);
-// 💜💜💜💜💜💜💜💜💜💜💜💜💜💜💜💜💜💜💜💜💜💜💜💜💜💜💜💜💜💜💜💜💜💜💜💜💜💜💜💜💜💜💜
+        // console.log('%cTemplateRow', 'color:orange');
+        // console.log(templateRow);
+        // 💜💜💜💜💜💜💜💜💜💜💜💜💜💜💜💜💜💜💜💜💜💜💜💜💜💜💜💜💜💜💜💜💜💜💜💜💜💜💜💜💜💜💜
         answers.forEach(page => {
             page.page.forEach(answerComponent => {
                 if (
                     answerComponent.componentType == 'rate-scale' ||
-                    answerComponent.componentType == 'image-rate-scale' 
+                    answerComponent.componentType == 'image-rate-scale'
                 ) {
                     answerComponent.componentText.forEach((answerRow, index) => {
-
-
                         if (!templateComponent.componentSettings[0].CRITERIA) {// no criteria
                             // if (templateComponent.componentType == 'ranking-scale') {
                             if (templateComponent.componentType == answerComponent.componentType) {
@@ -132,7 +131,6 @@ export class SurveyMatrixComponent extends SurveyCreationDesignComponent impleme
                                 if (index > 0) {
                                     for (const key in templateRow) {
                                         if (key === 'nameCandidates' && templateRow[key] === answerRow[key]) {
-                                          
                                             templateRow.RATE = answerRow.RATE
                                             templateRow.STARS.forEach(starRow => {
                                                 if (starRow.id <= answerRow.RATE) {
@@ -145,12 +143,11 @@ export class SurveyMatrixComponent extends SurveyCreationDesignComponent impleme
                                                         templateRow[key] = answerRow[key]
                                                         answerComponent.componentText.splice(index, 1)
                                                     }
-                                                   
                                                 } else if (key.includes('RadioColumn')) {
                                                     if (index > 0) {
                                                         templateRow[key] = answerRow[key]
                                                     }
-                                                } else if(key == 'SELECTED_ROW'){
+                                                } else if (key == 'SELECTED_ROW') {
                                                     templateRow[key] = answerRow[key]
                                                 }
                                             }
@@ -159,23 +156,21 @@ export class SurveyMatrixComponent extends SurveyCreationDesignComponent impleme
                                 }
                             }
                         }
-                        else if(templateComponent.componentSettings[0].CRITERIA) {// with criteria
+                        else if (templateComponent.componentSettings[0].CRITERIA) {// with criteria
 
                             if (templateComponent.componentType == answerComponent.componentType) {
-                                console.log('%cAnswersRow', 'color:blue');
-                                console.log(answerRow);
                                 if (index > 0) {
                                     for (const key in templateRow) {
                                         if (key === 'nameCandidates' && templateRow[key] === answerRow[key]) {
                                             templateRow.CRITERIA.forEach((criteria, criteriaIndex) => {
-                                                criteria.RATE =  answerRow.CRITERIA[criteriaIndex].RATE
-                                                criteria.STARS.forEach((starRow) => {
-                                                    if (starRow.id <= answerRow.CRITERIA[criteriaIndex].RATE) {
-                                                        starRow.styleClass = 'active-rating-star'
-                                                    }
-                                                    
-                                                });
-                                                
+                                                if (answerRow.CRITERIA) {
+                                                    criteria.RATE = answerRow.CRITERIA[criteriaIndex].RATE
+                                                    criteria.STARS.forEach((starRow) => {
+                                                        if (starRow.id <= answerRow.CRITERIA[criteriaIndex].RATE) {
+                                                            starRow.styleClass = 'active-rating-star'
+                                                        }
+                                                    });
+                                                }
                                             });
                                             for (const key in templateRow) {
                                                 if (key.includes('Comments')) {
@@ -183,12 +178,12 @@ export class SurveyMatrixComponent extends SurveyCreationDesignComponent impleme
                                                         templateRow[key] = answerRow[key]
                                                         answerComponent.componentText.splice(index, 1)
                                                     }
-                                                   
+
                                                 } else if (key.includes('RadioColumn')) {
                                                     if (index > 0) {
                                                         templateRow[key] = answerRow[key]
                                                     }
-                                                }else if(key == 'SELECTED_ROW'){
+                                                } else if (key == 'SELECTED_ROW') {
                                                     templateRow[key] = answerRow[key]
                                                 }
                                             }
@@ -198,116 +193,101 @@ export class SurveyMatrixComponent extends SurveyCreationDesignComponent impleme
                             }
 
                         }
-
-
-
-
                     });
+                }
+                // ❤️❤️❤️❤️❤️❤️❤️❤️❤️❤️❤️❤️❤️❤️❤️❤️❤️❤️❤️❤️❤️❤️❤️❤️❤️❤️❤️❤️❤️❤️❤️❤️❤️❤️❤️❤️❤️❤️❤️❤️❤️❤️❤️
+                else if (answerComponent.componentType == 'ranking-scale') {
+                    if (templateComponent.componentSettings[0].rankType == 'dragAndDrop' && answerComponent.componentText.length > 1
+                        && this.dragAndDropCounter == 0) {
+                        templateComponent.componentText = this.mergeObjectArrays(answerComponent.componentText, templateComponent.componentText, 'RATE')
+                        this.dragAndDropCounter++
+                    } else {
+                        answerComponent.componentText.forEach((answerRow, index) => {
+                            if (!templateComponent.componentSettings[0].CRITERIA) {// no criteria
+                                // if (templateComponent.componentType == 'ranking-scale') {
+                                if (templateComponent.componentType == answerComponent.componentType) {
+                                    if (index > 0) {
+                                        for (const key in templateRow) {
+                                            if (key === 'nameCandidates' && templateRow[key] === answerRow[key]) {
+
+                                                templateRow.RATE = answerRow.RATE
+                                                templateRow.STARS.forEach(starRow => {
+                                                    if (starRow.id <= answerRow.RATE) {
+                                                        starRow.styleClass = 'active-rating-star'
+                                                    }
+                                                });
+                                                for (const key in templateRow) {
+                                                    if (key.includes('Comments')) {
+                                                        if (index > 0) {
+                                                            templateRow[key] = answerRow[key]
+                                                            answerComponent.componentText.splice(index, 1)
+                                                        }
+
+                                                    } else if (key.includes('RadioColumn')) {
+                                                        if (index > 0) {
+                                                            templateRow[key] = answerRow[key]
+                                                        }
+                                                    } else if (key == 'SELECTED_ROW') {
+                                                        templateRow[key] = answerRow[key]
+                                                    }
+                                                }
+                                            }
+                                        }
+                                    }
+                                }
+                            }
+                            // THERE IS NOT CRITERIA, THIS CODE IS NOT USED
+                            else if (templateComponent.componentSettings[0].CRITERIA) {// with criteria
+
+                                if (templateComponent.componentType == answerComponent.componentType) {
+                                    if (index > 0) {
+                                        for (const key in templateRow) {
+                                            if (key === 'nameCandidates' && templateRow[key] === answerRow[key]) {
+                                                templateRow.CRITERIA.forEach((criteria, criteriaIndex) => {
+                                                    criteria.RATE = answerRow.CRITERIA[criteriaIndex].RATE
+                                                    criteria.STARS.forEach((starRow) => {
+                                                        if (starRow.id <= answerRow.CRITERIA[criteriaIndex].RATE) {
+                                                            starRow.styleClass = 'active-rating-star'
+                                                        }
+
+                                                    });
+
+                                                });
+                                                for (const key in templateRow) {
+                                                    if (key.includes('Comments')) {
+                                                        if (index > 0) {
+                                                            templateRow[key] = answerRow[key]
+                                                            answerComponent.componentText.splice(index, 1)
+                                                        }
+
+                                                    } else if (key.includes('RadioColumn')) {
+                                                        if (index > 0) {
+                                                            templateRow[key] = answerRow[key]
+                                                        }
+                                                    } else if (key == 'SELECTED_ROW') {
+                                                        templateRow[key] = answerRow[key]
+                                                    }
+                                                }
+                                            }
+                                        }
+                                    }
+                                }
+
+                            }
+                        });
+
+                    }
                 }
-
- // ❤️❤️❤️❤️❤️❤️❤️❤️❤️❤️❤️❤️❤️❤️❤️❤️❤️❤️❤️❤️❤️❤️❤️❤️❤️❤️❤️❤️❤️❤️❤️❤️❤️❤️❤️❤️❤️❤️❤️❤️❤️❤️❤️
-
-                else if ( answerComponent.componentType == 'ranking-scale' ) {
-                    
-                    answerComponent.componentText.forEach((answerRow, index) => {
-
-
-                        if (!templateComponent.componentSettings[0].CRITERIA) {// no criteria
-                            // if (templateComponent.componentType == 'ranking-scale') {
-                            if (templateComponent.componentType == answerComponent.componentType) {
-                                console.log('%cAnswersRow', 'color:blue');
-                                console.log(answerRow);
-                                if (index > 0) {
-                                    for (const key in templateRow) {
-                                        if (key === 'nameCandidates' && templateRow[key] === answerRow[key]) {
-                                          
-                                            templateRow.RATE = answerRow.RATE
-                                            templateRow.STARS.forEach(starRow => {
-                                                if (starRow.id <= answerRow.RATE) {
-                                                    starRow.styleClass = 'active-rating-star'
-                                                }
-                                            });
-                                            for (const key in templateRow) {
-                                                if (key.includes('Comments')) {
-                                                    if (index > 0) {
-                                                        templateRow[key] = answerRow[key]
-                                                        answerComponent.componentText.splice(index, 1)
-                                                    }
-                                                   
-                                                } else if (key.includes('RadioColumn')) {
-                                                    if (index > 0) {
-                                                        templateRow[key] = answerRow[key]
-                                                    }
-                                                } else if(key == 'SELECTED_ROW'){
-                                                    templateRow[key] = answerRow[key]
-                                                }
-                                            }
-                                        }
-                                    }
-                                }
-                            }
-                        }
-                        else if(templateComponent.componentSettings[0].CRITERIA) {// with criteria
-
-                            if (templateComponent.componentType == answerComponent.componentType) {
-                                console.log('%cAnswersRow', 'color:blue');
-                                console.log(answerRow);
-                                if (index > 0) {
-                                    for (const key in templateRow) {
-                                        if (key === 'nameCandidates' && templateRow[key] === answerRow[key]) {
-                                            templateRow.CRITERIA.forEach((criteria, criteriaIndex) => {
-                                                criteria.RATE =  answerRow.CRITERIA[criteriaIndex].RATE
-                                                criteria.STARS.forEach((starRow) => {
-                                                    if (starRow.id <= answerRow.CRITERIA[criteriaIndex].RATE) {
-                                                        starRow.styleClass = 'active-rating-star'
-                                                    }
-                                                    
-                                                });
-                                                
-                                            });
-                                            for (const key in templateRow) {
-                                                if (key.includes('Comments')) {
-                                                    if (index > 0) {
-                                                        templateRow[key] = answerRow[key]
-                                                        answerComponent.componentText.splice(index, 1)
-                                                    }
-                                                   
-                                                } else if (key.includes('RadioColumn')) {
-                                                    if (index > 0) {
-                                                        templateRow[key] = answerRow[key]
-                                                    }
-                                                }else if(key == 'SELECTED_ROW'){
-                                                    templateRow[key] = answerRow[key]
-                                                }
-                                            }
-                                        }
-                                    }
-                                }
-                            }
-
-                        }
-                    });
-
-                } 
-
-
-
-
-// 💚💚💚💚💚💚💚💚💚💚💚💚💚💚💚💚💚💚💚💚💚💚💚💚💚💚💚💚💚💚💚💚💚💚💚💚💚💚💚💚💚💚💚
+                // 💚💚💚💚💚💚💚💚💚💚💚💚💚💚💚💚💚💚💚💚💚💚💚💚💚💚💚💚💚💚💚💚💚💚💚💚💚💚💚💚💚💚💚
                 else if (answerComponent.componentType == 'narrow-down') {
                     answerComponent.componentText.forEach((answerRow, index) => {
-
-
                         if (!templateComponent.componentSettings[0].CRITERIA) {// no criteria
-                            // if (templateComponent.componentType == 'ranking-scale') {
                             if (templateComponent.componentType == answerComponent.componentType) {
-                                console.log('%cAnswersRow', 'color:blue');
-                                console.log(answerRow);
                                 if (index > 0) {
                                     for (const key in templateRow) {
                                         if (key === 'nameCandidates' && templateRow[key] === answerRow[key]) {
-                                          
                                             templateRow.RATE = answerRow.RATE
+                                            templateRow.SELECTED_ROW = answerRow.SELECTED_ROW
                                             templateRow.STARS.forEach(starRow => {
                                                 if (starRow.id <= answerRow.RATE) {
                                                     starRow.styleClass = 'active-rating-star'
@@ -319,12 +299,12 @@ export class SurveyMatrixComponent extends SurveyCreationDesignComponent impleme
                                                         templateRow[key] = answerRow[key]
                                                         answerComponent.componentText.splice(index, 1)
                                                     }
-                                                   
+
                                                 } else if (key.includes('RadioColumn')) {
                                                     if (index > 0) {
                                                         templateRow[key] = answerRow[key]
                                                     }
-                                                } else if(key == 'SELECTED_ROW'){
+                                                } else if (key == 'SELECTED_ROW') {
                                                     templateRow[key] = answerRow[key]
                                                 }
                                             }
@@ -333,23 +313,21 @@ export class SurveyMatrixComponent extends SurveyCreationDesignComponent impleme
                                 }
                             }
                         }
-                        else if(templateComponent.componentSettings[0].CRITERIA) {// with criteria
+                        else if (templateComponent.componentSettings[0].CRITERIA) {// with criteria
 
                             if (templateComponent.componentType == answerComponent.componentType) {
-                                console.log('%cAnswersRow', 'color:blue');
-                                console.log(answerRow);
                                 if (index > 0) {
                                     for (const key in templateRow) {
                                         if (key === 'nameCandidates' && templateRow[key] === answerRow[key]) {
                                             templateRow.CRITERIA.forEach((criteria, criteriaIndex) => {
-                                                criteria.RATE =  answerRow.CRITERIA[criteriaIndex].RATE
-                                                criteria.STARS.forEach((starRow) => {
-                                                    if (starRow.id <= answerRow.CRITERIA[criteriaIndex].RATE) {
-                                                        starRow.styleClass = 'active-rating-star'
-                                                    }
-                                                    
-                                                });
-                                                
+                                                if (answerRow.CRITERIA) {
+                                                    criteria.RATE = answerRow.CRITERIA[criteriaIndex].RATE
+                                                    criteria.STARS.forEach((starRow) => {
+                                                        if (starRow.id <= answerRow.CRITERIA[criteriaIndex].RATE) {
+                                                            starRow.styleClass = 'active-rating-star'
+                                                        }
+                                                    });
+                                                }
                                             });
                                             for (const key in templateRow) {
                                                 if (key.includes('Comments')) {
@@ -357,12 +335,12 @@ export class SurveyMatrixComponent extends SurveyCreationDesignComponent impleme
                                                         templateRow[key] = answerRow[key]
                                                         answerComponent.componentText.splice(index, 1)
                                                     }
-                                                   
+
                                                 } else if (key.includes('RadioColumn')) {
                                                     if (index > 0) {
                                                         templateRow[key] = answerRow[key]
                                                     }
-                                                }else if(key == 'SELECTED_ROW'){
+                                                } else if (key == 'SELECTED_ROW') {
                                                     templateRow[key] = answerRow[key]
                                                 }
                                             }
@@ -373,27 +351,17 @@ export class SurveyMatrixComponent extends SurveyCreationDesignComponent impleme
 
                         }
                     });
-                } 
-
-
-
-
- // 💛💛💛💛💛💛💛💛💛💛💛💛💛💛💛💛💛💛💛💛💛💛💛💛💛💛💛💛💛💛💛💛💛💛💛💛💛
-
-
-                else if ( answerComponent.componentType == 'question-answer') {
+                }
+                // 💛💛💛💛💛💛💛💛💛💛💛💛💛💛💛💛💛💛💛💛💛💛💛💛💛💛💛💛💛💛💛💛💛💛💛💛💛
+                else if (answerComponent.componentType == 'question-answer') {
                     answerComponent.componentText.forEach((answerRow, index) => {
-
-
                         if (!templateComponent.componentSettings[0].CRITERIA) {// no criteria
                             // if (templateComponent.componentType == 'ranking-scale') {
                             if (templateComponent.componentType == answerComponent.componentType) {
-                                console.log('%cAnswersRow', 'color:blue');
-                                console.log(answerRow);
                                 if (index > 0) {
                                     for (const key in templateRow) {
                                         if (key === 'nameCandidates' && templateRow[key] === answerRow[key]) {
-                                          
+
                                             templateRow.RATE = answerRow.RATE
                                             templateRow.STARS.forEach(starRow => {
                                                 if (starRow.id <= answerRow.RATE) {
@@ -406,12 +374,12 @@ export class SurveyMatrixComponent extends SurveyCreationDesignComponent impleme
                                                         templateRow[key] = answerRow[key]
                                                         answerComponent.componentText.splice(index, 1)
                                                     }
-                                                   
+
                                                 } else if (key.includes('RadioColumn')) {
                                                     if (index > 0) {
                                                         templateRow[key] = answerRow[key]
                                                     }
-                                                } else if(key == 'SELECTED_ROW'){
+                                                } else if (key == 'SELECTED_ROW') {
                                                     templateRow[key] = answerRow[key]
                                                 }
                                             }
@@ -420,23 +388,20 @@ export class SurveyMatrixComponent extends SurveyCreationDesignComponent impleme
                                 }
                             }
                         }
-                        else if(templateComponent.componentSettings[0].CRITERIA) {// with criteria
-
+                        else if (templateComponent.componentSettings[0].CRITERIA) {// with criteria
                             if (templateComponent.componentType == answerComponent.componentType) {
-                                console.log('%cAnswersRow', 'color:blue');
-                                console.log(answerRow);
                                 if (index > 0) {
                                     for (const key in templateRow) {
                                         if (key === 'nameCandidates' && templateRow[key] === answerRow[key]) {
                                             templateRow.CRITERIA.forEach((criteria, criteriaIndex) => {
-                                                criteria.RATE =  answerRow.CRITERIA[criteriaIndex].RATE
+                                                criteria.RATE = answerRow.CRITERIA[criteriaIndex].RATE
                                                 criteria.STARS.forEach((starRow) => {
                                                     if (starRow.id <= answerRow.CRITERIA[criteriaIndex].RATE) {
                                                         starRow.styleClass = 'active-rating-star'
                                                     }
-                                                    
+
                                                 });
-                                                
+
                                             });
                                             for (const key in templateRow) {
                                                 if (key.includes('Comments')) {
@@ -444,12 +409,12 @@ export class SurveyMatrixComponent extends SurveyCreationDesignComponent impleme
                                                         templateRow[key] = answerRow[key]
                                                         answerComponent.componentText.splice(index, 1)
                                                     }
-                                                   
+
                                                 } else if (key.includes('RadioColumn')) {
                                                     if (index > 0) {
                                                         templateRow[key] = answerRow[key]
                                                     }
-                                                }else if(key == 'SELECTED_ROW'){
+                                                } else if (key == 'SELECTED_ROW') {
                                                     templateRow[key] = answerRow[key]
                                                 }
                                             }
@@ -460,12 +425,125 @@ export class SurveyMatrixComponent extends SurveyCreationDesignComponent impleme
 
                         }
                     });
-                } 
+                }
+                //🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥
+                else if (answerComponent.componentType == 'tinder') {
+                    answerComponent.componentText.forEach((answerRow, index) => {
 
 
+                        if (!templateComponent.componentSettings[0].CRITERIA) {// no criteria
+                            // if (templateComponent.componentType == 'ranking-scale') {
+                            if (templateComponent.componentType == answerComponent.componentType) {
+                                if (index > 0) {
+                                    for (const key in templateRow) {
+                                        if (key === 'nameCandidates' && templateRow[key] === answerRow[key]) {
+
+                                            templateRow.vote = answerRow.vote
+
+                                            for (const key in templateRow) {
+                                                if (key.includes('Answer')) {
+                                                    if (index > 0) {
+                                                        templateRow[key] = answerRow[key]
+                                                        answerComponent.componentText.splice(index, 1)
+                                                    }
+
+                                                } else if (key.includes('RadioColumn')) {
+                                                    if (index > 0) {
+                                                        templateRow[key] = answerRow[key]
+                                                    }
+                                                } else if (key == 'SELECTED_ROW') {
+                                                    templateRow[key] = answerRow[key]
+                                                }
+                                            }
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                        else if (templateComponent.componentSettings[0].CRITERIA) {// with criteria
+
+                            if (templateComponent.componentType == answerComponent.componentType) {
+                                if (index > 0) {
+                                    for (const key in templateRow) {
+                                        if (key === 'nameCandidates' && templateRow[key] === answerRow[key]) {
+                                            templateRow.CRITERIA.forEach((criteria, criteriaIndex) => {
+                                                criteria.RATE = answerRow.CRITERIA[criteriaIndex].RATE
+                                                criteria.STARS.forEach((starRow) => {
+                                                    if (starRow.id <= answerRow.CRITERIA[criteriaIndex].RATE) {
+                                                        starRow.styleClass = 'active-rating-star'
+                                                    }
+
+                                                });
+
+                                            });
+                                            for (const key in templateRow) {
+                                                if (key.includes('Comments')) {
+                                                    if (index > 0) {
+                                                        templateRow[key] = answerRow[key]
+                                                        answerComponent.componentText.splice(index, 1)
+                                                    }
+
+                                                } else if (key.includes('RadioColumn')) {
+                                                    if (index > 0) {
+                                                        templateRow[key] = answerRow[key]
+                                                    }
+                                                } else if (key == 'SELECTED_ROW') {
+                                                    templateRow[key] = answerRow[key]
+                                                }
+                                            }
+                                        }
+                                    }
+                                }
+                            }
+
+                        }
+                    });
+                }
             });
         });
+    }
 
+    mergeObjectArrays(answerArray, templateArray, property) {
+        let result2 = [];
+        if (templateArray.length >= answerArray.length) {
+            let result = answerArray.concat(templateArray);
+            result.forEach((row) => {
+                if (result2.length == 0) {
+                    result2.push(row)
+                } else {
+                    let found = false;
+                    result2.forEach((resultRow) => {
+                        if (row.nameCandidates == resultRow.nameCandidates) {
+                            found = true;
+                        }
+                    });
+                    if (!found) {
+
+                        result2.push(row)
+                    }
+                }
+            });
+        }
+        else {
+            templateArray.forEach((row) => {
+                answerArray.forEach((resultRow) => {
+                    if (resultRow['nameCandidates'] == row['nameCandidates']) {
+                        row.RATE = (resultRow.RATE) ? resultRow.RATE : 0
+                        result2.push(row)
+                    }
+                });
+            });
+        }
+        result2.sort(function (a, b) {
+            if (a[property] < b[property]) {
+                return -1;
+            }
+            if (a[property] > b[property]) {
+                return 1;
+            }
+            return 0;
+        });
+        return result2;
     }
 
     changePage(direction) {
@@ -497,7 +575,7 @@ export class SurveyMatrixComponent extends SurveyCreationDesignComponent impleme
                             })
                         }
                     }
-
+                    this.currentPage = pageNumber;
                 });
         } else {
             this.currentPage = pageNumber;
@@ -4848,4 +4926,8 @@ export class SurveyMatrixComponent extends SurveyCreationDesignComponent impleme
             ]
         }
     ]
+
+    
+
+
 }

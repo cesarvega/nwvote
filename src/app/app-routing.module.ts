@@ -50,7 +50,7 @@ const routes: Routes = [
   },
   {
     path: '',
-    redirectTo: '/Project Brand Matrix/cvega',
+    redirectTo: '/survey/Project Brand Matrix/cvega',
     pathMatch: 'full'
   } 
 ];

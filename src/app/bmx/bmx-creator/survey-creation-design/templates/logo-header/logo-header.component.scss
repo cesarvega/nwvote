@@ -119,3 +119,15 @@ input[type="range"]:focus::-ms-fill-upper {
     z-index: 1;
   }
 }
+.emoji-handle {
+  // position: absolute;
+  top: 5px;
+  // border: red solid 1px;
+  right: 2px;
+  color: rgb(255, 255, 255);
+  cursor: move;
+  width: 100%;
+  position: absolute;
+  // height: 38px;
+  // z-index: 999999;
+}
