@@ -3,10 +3,18 @@
         *ngIf="isMenuActive16" [dragula]="(isMobile)?'TASKS':''" (dragulaModelChange)="checkDragEvetn($event);"
         [(dragulaModel)]="bmxPages[currentPage].page">
 
-
+        <button (dblclick)="deletePageMarker()" *ngFor="let item of pageBreakArray;let c = index"
+        [style.top.px]="1600*c"
+        style="position: fixed;
+        right: -10px;z-index: -1;" matTooltip="page Marker" matTooltipPosition="right"
+            mat-icon-button color="warn" aria-label="aria">
+            <mat-icon class="page-break-icon full-icon">arrow_right_alt</mat-icon>
+        </button>
         <!-- BRAND MATRIX MODULAR TEMPLATE COMPONENTS  🧑🏻‍🚀🧑🏻‍🚀🧑🏻‍🚀🧑🏻‍🚀🧑🏻‍🚀🧑🏻‍🚀🧑🏻‍🚀🧑🏻‍🚀🧑🏻‍🚀🧑🏻‍🚀🧑🏻‍🚀🧑🏻‍🚀🧑🏻‍🚀 -->
         <div *ngFor="let bmxItem of bmxPages[currentPage].page; let i = index"
             style="display: flex;flex-direction: column;margin: 10px;align-content: center;">
+
+            <textarea class="handle" style="width: 98%;border: none;" name="" id="" cols="1" rows="1"></textarea>
 
             <!-- REPORT COMPONENTS -->
             <div *ngIf="bmxItem.componentType === 'page-title'" class="paragraph">
@@ -18,9 +26,8 @@
                         <mat-icon style="font-size: 17px;">cancel</mat-icon>
                     </button>
                 </div>
-                <app-page-title [bmxItem]="bmxItem"
-                [isBrandMatrixSurvey]="isBrandMatrixSurvey" [i]="i" [bmxClientPageDesignMode]="bmxClientPageDesignMode"
-                [bmxClientPageOverview]="bmxClientPageOverview">
+                <app-page-title [bmxItem]="bmxItem" [isBrandMatrixSurvey]="isBrandMatrixSurvey" [i]="i"
+                    [bmxClientPageDesignMode]="bmxClientPageDesignMode" [bmxClientPageOverview]="bmxClientPageOverview">
                 </app-page-title>
             </div>
 
@@ -41,8 +48,8 @@
             <app-report-first-page *ngIf="bmxItem.componentType === 'first-page'" [bmxItem]="bmxItem"
                 [isBrandMatrixSurvey]="isBrandMatrixSurvey" [i]="i" [bmxClientPageDesignMode]="bmxClientPageDesignMode"
                 [bmxClientPageOverview]="bmxClientPageOverview"></app-report-first-page>
-            <p style="page-break-after: always;">&nbsp;</p>
-            <p style="page-break-before: always;">&nbsp;</p>
+            <!-- <p style="page-break-after: always;">&nbsp;</p>
+            <p style="page-break-before: always;">&nbsp;</p> -->
             <!-- REPORT COMPONENTS -->
 
             <!-- BMX HEADER 😋😋😋😋😋😋😋😋😋😋😋😋😋😋😋😋😋😋😋😋😋😋😋😋😋😋😋😋😋😋😋😋😋😋😋😋😋😋 -->
@@ -61,8 +68,8 @@
             <!--😋😋😋😋😋😋😋😋😋😋😋😋😋😋😋😋😋😋😋😋😋😋😋😋😋😋😋😋😋😋😋😋😋😋😋😋😋😋 END BMX HEADER  -->
 
 
-            <p style="page-break-after: always;">&nbsp;</p>
-            <p style="page-break-before: always;">&nbsp;</p>
+            <!-- <p style="page-break-after: always;">&nbsp;</p>
+            <p style="page-break-before: always;">&nbsp;</p> -->
             <!-- BMX PARAGRAPH EDITOR 📑📑📑📑📑📑📑📑📑📑📑📑📑📑📑📑📑📑📑📑📑📑📑📑📑📑📑📑📑📑 -->
             <div *ngIf="bmxItem.componentType === 'text-editor'" class="paragraph">
                 <div class="emoji-handle">.</div>
@@ -89,13 +96,14 @@
                         <mat-icon style="font-size: 17px;">cancel</mat-icon>
                     </button>
                 </div>
-                <app-rating-scale class="table break-page" [bmxItem]="bmxItem" [i]="i" [bmxClientPageDesignMode]="bmxClientPageDesignMode"
-                    [bmxClientPageOverview]="bmxClientPageOverview"></app-rating-scale>
+                <app-rating-scale class="table break-page" [bmxItem]="bmxItem" [i]="i"
+                    [bmxClientPageDesignMode]="bmxClientPageDesignMode" [bmxClientPageOverview]="bmxClientPageOverview">
+                </app-rating-scale>
 
             </div>
             <!-- END STARS SCALE 👽👽👽👽👽👽👽👽👽👽👽👽👽👽👽👽👽👽👽👽👽👽👽👽👽👽👽👽👽👽👽👽👽👽👽👽👽👽👽👽 -->
-            <p style="page-break-after: always;">&nbsp;</p>
-            <p style="page-break-before: always;">&nbsp;</p>
+            <!-- <p style="page-break-after: always;">&nbsp;</p>
+            <p style="page-break-before: always;">&nbsp;</p> -->
 
             <!-- RANK SCALE 😭😭😭😭😭😭😭😭😭😭😭😭😭😭😭😭😭😭😭😭😭😭😭😭😭😭😭😭😭😭😭😭😭😭😭😭😭-->
             <div *ngIf="bmxItem.componentType === 'ranking-scale'" class="paragraph">
@@ -174,8 +182,8 @@
                     [bmxClientPageOverview]="bmxClientPageOverview"></app-tinder>
             </div>
             <!-- END TINDER  🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥 -->
-            <p style="page-break-after: always;">&nbsp;</p>
-            <p style="page-break-before: always;">&nbsp;</p>
+            <!-- <p style="page-break-after: always;">&nbsp;</p>
+            <p style="page-break-before: always;">&nbsp;</p> -->
         </div>
 
 

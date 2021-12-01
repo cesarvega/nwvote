@@ -14,6 +14,7 @@ import { DOCUMENT } from '@angular/common';
 import QRCodeStyling from 'qr-code-styling';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { ActivatedRoute } from '@angular/router';
+import { HotkeysService, Hotkey } from 'angular2-hotkeys';
 @Component({
     selector: 'app-project-reports',
     templateUrl: './project-reports.component.html',
@@ -115,13 +116,14 @@ export class ProjectReportsComponent
     BMX_REPORT = []
     categoryCounter = 0
     categorySortedgArray = []
+    pageBreakArray = [1,2,3,4,5,6,7,8,9]
 
     reportType = ''
 
     constructor(
         @Inject(DOCUMENT) private document: any,
         public _BmxService: BmxService,
-        public _snackBar: MatSnackBar,
+        public _snackBar: MatSnackBar,private _hotkeysService: HotkeysService,
         activatedRoute: ActivatedRoute
     ) {
         let qrCodeColotThemes = {
@@ -246,6 +248,11 @@ export class ProjectReportsComponent
             //   localStorage.setItem('projectName',  this.project Id);
             // });
         });
+
+        this._hotkeysService.add(new Hotkey('ctrl+`', (event: KeyboardEvent): boolean => {
+            alert('hello world')
+            return false;
+          }, undefined, 'Hide/Show slide overview'));
     }
 
     ngOnInit(): void {
@@ -1596,6 +1603,13 @@ export class ProjectReportsComponent
         window.print();
     }
 
+    createPageMarker(){
+        this.pageBreakArray.push(1)
+    }
+    deletePageMarker(){
+        this.pageBreakArray.pop()
+    }
+
     // PRIVATE FUNCTIONS
     private sortArrayByTwoProperties(array, prop1, prop2) {
         return array.sort(function (b, a) {
@@ -2235,3 +2249,5 @@ export class ProjectReportsComponent
         }
     ]
 }
+
+
