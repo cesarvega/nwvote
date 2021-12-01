@@ -9,7 +9,7 @@ export class BmxService {
 
   private projectName$ = new BehaviorSubject<string>('');
 
-  currentProjectName = this.projectName$.asObservable();
+  currentProjectName$ = this.projectName$.asObservable();
 
   setProjectName(projectName: any) {
     this.projectName$.next(projectName);

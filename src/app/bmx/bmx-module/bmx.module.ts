@@ -82,6 +82,9 @@ import { NarrowDownComponent } from '../bmx-creator/survey-creation-design/templ
 import { QuestionAnswerComponent } from '../bmx-creator/survey-creation-design/templates/question-answer/question-answer.component';
 import { SurveyMatrixComponent } from '../bmx-creator/survey-matrix/survey-matrix.component';
 import { TinderComponent } from '../bmx-creator/survey-creation-design/templates/tinder/tinder.component';
+import { ReportFirstPageComponent } from '../bmx-creator/project-reports/templates/report-first-page/report-first-page.component';
+import { PageLineBreakComponent } from '../bmx-creator/project-reports/templates/page-line-break/page-line-break.component';
+import { PageTitleComponent } from '../bmx-creator/project-reports/templates/page-title/page-title.component';
 export function loadEcharts() {
   return import('echarts');
 }
@@ -107,6 +110,10 @@ export function loadEcharts() {
     QuestionAnswerComponent,
     SurveyMatrixComponent,
     TinderComponent,
+    ReportFirstPageComponent,
+    PageLineBreakComponent,
+    PageTitleComponent,
+
   ],
   imports: [
     BrowserModule,

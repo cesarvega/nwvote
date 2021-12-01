@@ -14,6 +14,7 @@ import { DOCUMENT } from '@angular/common';
 import QRCodeStyling from 'qr-code-styling';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { ActivatedRoute } from '@angular/router';
+import { HotkeysService, Hotkey } from 'angular2-hotkeys';
 @Component({
     selector: 'app-project-reports',
     templateUrl: './project-reports.component.html',
@@ -115,13 +116,14 @@ export class ProjectReportsComponent
     BMX_REPORT = []
     categoryCounter = 0
     categorySortedgArray = []
+    pageBreakArray = [1,2,3,4,5,6,7,8,9]
 
     reportType = ''
 
     constructor(
         @Inject(DOCUMENT) private document: any,
         public _BmxService: BmxService,
-        public _snackBar: MatSnackBar,
+        public _snackBar: MatSnackBar,private _hotkeysService: HotkeysService,
         activatedRoute: ActivatedRoute
     ) {
         let qrCodeColotThemes = {
@@ -246,6 +248,11 @@ export class ProjectReportsComponent
             //   localStorage.setItem('projectName',  this.project Id);
             // });
         });
+
+        this._hotkeysService.add(new Hotkey('ctrl+`', (event: KeyboardEvent): boolean => {
+            alert('hello world')
+            return false;
+          }, undefined, 'Hide/Show slide overview'));
     }
 
     ngOnInit(): void {
@@ -346,85 +353,24 @@ export class ProjectReportsComponent
                         "pageNumber": 1,
                         "page": [
                             {
-                                "componentType": "logo-header",
+                                "componentType": "first-page",
                                 "componentText": "ratetoprank",
                                 "componentSettings": [
                                     {
                                         "fontSize": "16px",
                                         "fontFace": "Arial",
-                                        "logoWidth": 100,
-                                        "brandInstituteLogoURL": "./assets/img/bmx/BRANDMATRIX-DASHBOARD-LOGO.svg",
-                                        "brandInstituteSurveyLogoURL": "./assets/img/bmx/bm-logo-2020-high.png",
+                                        "logoWidth": 250,
+                                        "brandInstituteLogoURL": "./assets/img/bmx/BILogo-Regular_.png",
+                                        "DSILogo": "./assets/img/bmx/DSI-LOGO.svg",
                                         "brandInstituteMobileURL": "./assets/img/bmx/bmxCube.jpg",
-                                        "companyLogoURL": "./assets/img/bmx/BD.png"
+                                        "backgroundgraphic": "./assets/img/bmx/cover-graphic.jpg",
+                                        "companyLogoURL": "./assets/img/bmx/insertLogo.jpg"
                                     }
                                 ]
                             },
                             {
                                 "componentType": "text-editor",
-                                "componentText": `<p style="text-align:center">BrandMatrixTM Report</p>
-
-                                <p style="text-align:center">Project: ICELAND</p>
-                                
-                                <p style="text-align:center">&nbsp;</p>
-                                
-                                <p style="text-align:center">Created: Monday, January 20, 2020</p>
-                                
-                                <p style="text-align:center">&nbsp;</p>
-                                
-                                <p style="text-align:center">TABLE OF CONTENTS</p>
-                                
-                                <p style="text-align:center">&nbsp;</p>
-                                
-                                <p style="text-align:center">BRANDMATRIXTM OVERVIEW&nbsp;</p>
-                                
-                                <p style="text-align:center">PROJECT BACKGROUND&nbsp;</p>
-                                
-                                <p style="text-align:center">LEGEND&nbsp;</p>
-                                
-                                <p style="text-align:center">BRANDMATRIXTM COMPLETION STATUS&nbsp;</p>
-                                
-                                <p style="text-align:center">OVERALL RANKING BY TEST NAME&nbsp;</p>
-                                
-                                <p style="text-align:center">VOTES BY RESPONDENT&nbsp;</p>
-                                
-                                <p style="text-align:center">NEW NAME SUGGESTIONS&nbsp;</p>
-                                
-                                <p style="text-align:center">&nbsp;</p>
-                                
-                                <p style="text-align:center">&nbsp;</p>
-                                
-                                <p style="text-align:center">BRANDMATRIXTM OVERVIEW</p>
-                                
-                                <p>BrandMatrixTM is an online, interactive proprietary tool used to assist you in objectively selecting and ranking the name candidates for your new product. Team members confidentially select, rank, and evaluate their favorite name candidates. The BrandMatrixTM measures how well the name fits the product concept, overall likeability, and respondents&rsquo; comments, associations, or connotations.</p>
-                                
-                                <p>This report summarizes the BrandMatrixTM results providing a good assessment of favorable prospective names. The next step of the process will be a conference call to discuss the BrandMatrixTM results and identify the final name candidates to continue into the trademarks screening phase.</p>
-                                
-                                <p>&nbsp;</p>
-                                
-                                <p style="text-align:center">PROJECT BACKGROUND</p>
-                                
-                                <p>LEGEND</p>
-                                
-                                <p>The following names have been pre-screened for identical registered trademarks in the US Federal, US State, EUTM, WIPO and InterNIC registries. These name candidates appear free of prior registrations for services and products included in classes 5 and 10. This does not constitute Brand Institute&#39;s BrandSearchTM Intelligent Trademark Screening (IQ) or Full Legal Search.</p>
-                                
-                                <p>Please Note:</p>
-                                
-                                <p>(T) Denotes identical trademark registration</p>
-                                
-                                <p>(C) Denotes .com registration</p>
-                                
-                                <p>(CB) Denotes &quot;built-out&quot; .com website*</p>
-                                
-                                <p>(U/I) Denotes USAN/INN stem</p>
-                                
-                                <p>*The term &quot;built-out&quot; means that an actual website exists at this address and is not merely registered. Registered domain names are typically more obtainable than &quot;built-out&quot; websites.</p>
-                                
-                                <p>&nbsp;</p>
-                                
-                                <p style="text-align:center">&nbsp;</p>
-                                
-                                <p style="text-align:center">&nbsp;</p>
+                                "componentText": `
                                 
                                 <p style="text-align:center">BRANDMATRIXTM COMPLETION STATUS</p>
                                 
@@ -1274,6 +1220,73 @@ export class ProjectReportsComponent
                     },
                 ],
             });
+        }  // ☢️☢️☢️☢️☢️☢️☢️☢️☢️☢️☢️☢️☢️☢️☢️☢️☢️☢️☢️☢️☢️☢️☢️☢️☢️☢️☢️☢️☢️☢️☢️☢️☢️☢️☢️☢️☢️☢️☢️☢️☢️☢️☢️
+        else if (componentType === 'page-line-break') {
+            this.TestNameDataModel = [];
+            this.TestNameDataModel.push({
+                name: 'Questions',
+                // rationale: 'RATIONALE',
+                STARS: this.createRatingStars(),
+            });
+            for (let index = 0; index < 5; index++) {
+                this.TestNameDataModel.push({
+                    name: 'QUESTION ' + index,
+                    // rationale: 'Rationale of an undisclosed length',
+                    RATE: -1,
+                    STARS: this.createRatingStars(),
+                });
+            }
+            this.bmxPages[this.currentPage].page.unshift({
+                componentType: componentType,
+                componentText: this.TestNameDataModel,
+                componentSettings: [
+                    {
+                        minRule: 0,
+                        maxRule: 0,
+                        fontSize: 16,
+                        columnWidth: 600,
+                        rationalewidth: 250,
+                        rowHeight: 2,
+                        categoryRulesPassed: false,
+                        ratedCounter: 0,
+                        categoryName: 'Tinder Category 🔥',
+                        categoryDescription: 'Swipe Left or right',
+                        // "ratingScaleTitle": "RATING"
+                    },
+                ],
+            });
+        }
+        else if (componentType === 'page-title') {
+            this.TestNameDataModel = [];
+            this.TestNameDataModel.push({
+                name: 'Questions',
+                // rationale: 'RATIONALE',
+                STARS: this.createRatingStars(),
+            });
+            for (let index = 0; index < 5; index++) {
+                this.TestNameDataModel.push({
+                    name: 'QUESTION ' + index,
+                    // rationale: 'Rationale of an undisclosed length',
+                    RATE: -1,
+                    STARS: this.createRatingStars(),
+                });
+            }
+            this.bmxPages[this.currentPage].page.unshift({
+                componentType: componentType,
+                componentText: this.TestNameDataModel,
+                componentSettings: [
+                    {
+                        "fontSize": "16px",
+                        "fontFace": "Arial",
+                        "logoWidth": 250,
+                        "brandInstituteLogoURL": "./assets/img/bmx/BILogo-Regular_.png",
+                        "DSILogo": "./assets/img/bmx/DSI-LOGO.svg",
+                        "brandInstituteMobileURL": "./assets/img/bmx/bmxCube.jpg",
+                        "backgroundgraphic": "./assets/img/bmx/cover-graphic.jpg",
+                        "companyLogoURL": "./assets/img/bmx/insertLogo.jpg"
+                    }
+                ],
+            });
         }
     }
 
@@ -1588,6 +1601,13 @@ export class ProjectReportsComponent
 
     print() {
         window.print();
+    }
+
+    createPageMarker(){
+        this.pageBreakArray.push(1)
+    }
+    deletePageMarker(){
+        this.pageBreakArray.pop()
     }
 
     // PRIVATE FUNCTIONS
@@ -2229,3 +2249,5 @@ export class ProjectReportsComponent
         }
     ]
 }
+
+

@@ -3,14 +3,56 @@
         *ngIf="isMenuActive16" [dragula]="(isMobile)?'TASKS':''" (dragulaModelChange)="checkDragEvetn($event);"
         [(dragulaModel)]="bmxPages[currentPage].page">
 
-
+        <button (dblclick)="deletePageMarker()" *ngFor="let item of pageBreakArray;let c = index"
+        [style.top.px]="1600*c"
+        style="position: fixed;
+        right: -10px;z-index: -1;" matTooltip="page Marker" matTooltipPosition="right"
+            mat-icon-button color="warn" aria-label="aria">
+            <mat-icon class="page-break-icon full-icon">arrow_right_alt</mat-icon>
+        </button>
         <!-- BRAND MATRIX MODULAR TEMPLATE COMPONENTS  🧑🏻‍🚀🧑🏻‍🚀🧑🏻‍🚀🧑🏻‍🚀🧑🏻‍🚀🧑🏻‍🚀🧑🏻‍🚀🧑🏻‍🚀🧑🏻‍🚀🧑🏻‍🚀🧑🏻‍🚀🧑🏻‍🚀🧑🏻‍🚀 -->
         <div *ngFor="let bmxItem of bmxPages[currentPage].page; let i = index"
             style="display: flex;flex-direction: column;margin: 10px;align-content: center;">
 
+            <textarea class="handle" style="width: 98%;border: none;" name="" id="" cols="1" rows="1"></textarea>
+
+            <!-- REPORT COMPONENTS -->
+            <div *ngIf="bmxItem.componentType === 'page-title'" class="paragraph">
+                <div class="emoji-handle">.</div>
+                <div style="position: absolute;right: 0px;">
+                    <button *ngIf="bmxClientPageOverview" matTooltip="double click to delete" matTooltipPosition="above"
+                        style="outline: none;color:#f10a0a;top: 60px;" mat-icon-button (dblclick)="deleteComponent(i)"
+                        aria-label="delte">
+                        <mat-icon style="font-size: 17px;">cancel</mat-icon>
+                    </button>
+                </div>
+                <app-page-title [bmxItem]="bmxItem" [isBrandMatrixSurvey]="isBrandMatrixSurvey" [i]="i"
+                    [bmxClientPageDesignMode]="bmxClientPageDesignMode" [bmxClientPageOverview]="bmxClientPageOverview">
+                </app-page-title>
+            </div>
+
+            <div *ngIf="bmxItem.componentType === 'page-line-break'" class="paragraph">
+                <div class="emoji-handle">.</div>
+                <div style="position: absolute;right: 0px;">
+                    <button *ngIf="bmxClientPageOverview" matTooltip="double click to delete" matTooltipPosition="above"
+                        style="outline: none;color:#f10a0a;top: 60px;" mat-icon-button (dblclick)="deleteComponent(i)"
+                        aria-label="delte">
+                        <mat-icon style="font-size: 17px;">cancel</mat-icon>
+                    </button>
+                </div>
+                <app-page-line-break>
+                </app-page-line-break>
+            </div>
+
+            <!-- FISRT PAGE OF THE REPORT DOCUMENT -->
+            <app-report-first-page *ngIf="bmxItem.componentType === 'first-page'" [bmxItem]="bmxItem"
+                [isBrandMatrixSurvey]="isBrandMatrixSurvey" [i]="i" [bmxClientPageDesignMode]="bmxClientPageDesignMode"
+                [bmxClientPageOverview]="bmxClientPageOverview"></app-report-first-page>
+            <!-- <p style="page-break-after: always;">&nbsp;</p>
+            <p style="page-break-before: always;">&nbsp;</p> -->
+            <!-- REPORT COMPONENTS -->
 
             <!-- BMX HEADER 😋😋😋😋😋😋😋😋😋😋😋😋😋😋😋😋😋😋😋😋😋😋😋😋😋😋😋😋😋😋😋😋😋😋😋😋😋😋 -->
-
             <div *ngIf="bmxItem.componentType === 'logo-header'" class="paragraph">
                 <div style="position: absolute;right: 0px;">
                     <button *ngIf="bmxClientPageOverview" matTooltip="double click to delete" matTooltipPosition="above"
@@ -26,6 +68,8 @@
             <!--😋😋😋😋😋😋😋😋😋😋😋😋😋😋😋😋😋😋😋😋😋😋😋😋😋😋😋😋😋😋😋😋😋😋😋😋😋😋 END BMX HEADER  -->
 
 
+            <!-- <p style="page-break-after: always;">&nbsp;</p>
+            <p style="page-break-before: always;">&nbsp;</p> -->
             <!-- BMX PARAGRAPH EDITOR 📑📑📑📑📑📑📑📑📑📑📑📑📑📑📑📑📑📑📑📑📑📑📑📑📑📑📑📑📑📑 -->
             <div *ngIf="bmxItem.componentType === 'text-editor'" class="paragraph">
                 <div class="emoji-handle">.</div>
@@ -52,12 +96,14 @@
                         <mat-icon style="font-size: 17px;">cancel</mat-icon>
                     </button>
                 </div>
-                <app-rating-scale [bmxItem]="bmxItem" [i]="i" [bmxClientPageDesignMode]="bmxClientPageDesignMode"
-                    [bmxClientPageOverview]="bmxClientPageOverview"></app-rating-scale>
+                <app-rating-scale class="table break-page" [bmxItem]="bmxItem" [i]="i"
+                    [bmxClientPageDesignMode]="bmxClientPageDesignMode" [bmxClientPageOverview]="bmxClientPageOverview">
+                </app-rating-scale>
 
             </div>
             <!-- END STARS SCALE 👽👽👽👽👽👽👽👽👽👽👽👽👽👽👽👽👽👽👽👽👽👽👽👽👽👽👽👽👽👽👽👽👽👽👽👽👽👽👽👽 -->
-
+            <!-- <p style="page-break-after: always;">&nbsp;</p>
+            <p style="page-break-before: always;">&nbsp;</p> -->
 
             <!-- RANK SCALE 😭😭😭😭😭😭😭😭😭😭😭😭😭😭😭😭😭😭😭😭😭😭😭😭😭😭😭😭😭😭😭😭😭😭😭😭😭-->
             <div *ngIf="bmxItem.componentType === 'ranking-scale'" class="paragraph">
@@ -136,12 +182,13 @@
                     [bmxClientPageOverview]="bmxClientPageOverview"></app-tinder>
             </div>
             <!-- END TINDER  🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥 -->
-
+            <!-- <p style="page-break-after: always;">&nbsp;</p>
+            <p style="page-break-before: always;">&nbsp;</p> -->
         </div>
 
 
         <!-- PAGE BUTTONS AND DIRECTIONS 1 2 3 📲📲📲📲📲📲📲📲📲📲📲📲📲📲📲📲📲📲📲📲📲📲📲📲📲📲📲📲📲📲📲📲📲📲-->
-        <div class="page-buttons no-print">
+        <!-- <div class="page-buttons no-print">
             <div [ngClass]="bmxClientPageDesignMode?'page-buttons-heigth-40':'page-buttons-heigth-minus-50'">
                 <button (click)="changePage('previous')" mat-icon-button>
                     <mat-icon class="full-icon">chevron_left</mat-icon>
@@ -157,7 +204,7 @@
                     <mat-icon class="full-icon">chevron_right</mat-icon>
                 </button>
             </div>
-        </div>
+        </div> -->
         <!-- 📲📲📲📲📲📲📲📲📲📲📲📲📲📲📲📲📲📲📲📲📲📲📲📲📲📲📲📲📲📲📲📲📲📲 END PAGE BUTTONS AND DIRECTIONS -->
 
         <!-- END 🧑🏻‍🚀🧑🏻‍🚀🧑🏻‍🚀🧑🏻‍🚀🧑🏻‍🚀🧑🏻‍🚀🧑🏻‍🚀🧑🏻‍🚀🧑🏻‍🚀🧑🏻‍🚀🧑🏻‍🚀🧑🏻‍🚀🧑🏻‍🚀 BRAND MATRIX MODULAR LEGO TEMPLATE COMPONENTS   -->
@@ -181,18 +228,26 @@
                 mat-icon-button color="warn" aria-label="aria">
                 <mat-icon class="full-icon">star_border</mat-icon>
             </button>
-            <button (click)="createNewBmxComponent('question-answer')" matTooltip="questions & answers"
+            <button (click)="createNewBmxComponent('page-line-break')" matTooltip="questions & answers"
                 matTooltipPosition="right" mat-icon-button color="warn" aria-label="aria">
                 <mat-icon class="full-icon">question_answer</mat-icon>
             </button>
             <br>
             <button (click)="createReportPerCategory()" matTooltip="overall ranking by test name"
                 matTooltipPosition="right" mat-icon-button color="warn" aria-label="aria">
-                <mat-icon class="full-icon">summarize</mat-icon>
+                <mat-icon class="full-icon-secondary">summarize</mat-icon>
             </button>
-            <button (click)="createReportByUsername()" matTooltip="votes by respondent"
+            <button (click)="createReportByUsername()" matTooltip="votes by respondent" matTooltipPosition="right"
+                mat-icon-button color="warn" aria-label="aria">
+                <mat-icon class="full-icon-secondary">person_outline</mat-icon>
+            </button>
+            <button (click)="createNewBmxComponent('page-line-break')" matTooltip="votes by respondent"
                 matTooltipPosition="right" mat-icon-button color="warn" aria-label="aria">
-                <mat-icon class="full-icon">person_outline</mat-icon>
+                <mat-icon class="full-icon-secondary">insert_page_break</mat-icon>
+            </button>
+            <button (click)="createNewBmxComponent('page-title')" matTooltip="votes by respondent"
+                matTooltipPosition="right" mat-icon-button color="warn" aria-label="aria">
+                <mat-icon class="full-icon-secondary">title</mat-icon>
             </button>
             <!-- <button (click)="createNewBmxComponent('image-rate-scale')" matTooltip="image rate matrix"
                 matTooltipPosition="right" mat-icon-button color="warn" aria-label="aria">
@@ -204,7 +259,7 @@
             </button> -->
 
             <br>
-            <button *ngIf="!false" (dblclick)="createPage()" matTooltip="double click to create new page"
+            <!-- <button *ngIf="!false" (dblclick)="createPage()" matTooltip="double click to create new page"
                 matTooltipPosition="right" mat-icon-button aria-label="aria">
                 <mat-icon class="full-icon-secondary">post_add</mat-icon>
             </button>
@@ -220,7 +275,7 @@
                 matTooltip="double click to reset template" matTooltipPosition="right">
                 <mat-icon class="full-icon-secondary">delete_sweep
                 </mat-icon>
-            </button>
+            </button> -->
             <br>
             <button *ngIf="true" (dblclick)="saveData()" mat-icon-button matTooltip="double click to upload template"
                 matTooltipPosition="right">
@@ -250,7 +305,7 @@
 </div>
 
 <!-- TEMPLATE BOX SAVE AND UPDATE -->
-<div *ngIf="isTemplateBoxOn" class="save-template-box"
+<!-- <div *ngIf="isTemplateBoxOn" class="save-template-box"
     style="display: flex;flex-direction: column;align-items: center;justify-content: space-around;">
     <h2 style="text-align: center;padding-top: 5px;color: #2a3f8a;">{{templateTitle}}</h2>
 
@@ -295,4 +350,4 @@
     <mat-icon (click)="isTemplateBoxOn = false" style="cursor: pointer;" class="full-icon">close
     </mat-icon>
 
-</div>
+</div> -->
