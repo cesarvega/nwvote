@@ -1,6 +1,7 @@
 import { AfterViewInit, Component, ElementRef, OnInit, ViewChild } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { faInstagram } from '@fortawesome/free-brands-svg-icons';
+import { faLinkedin } from '@fortawesome/free-brands-svg-icons';
 import { EliteAuthService } from '../elite-auth/elite-auth.service';
 import QRCodeStyling from 'qr-code-styling';
 @Component({
@@ -13,6 +14,7 @@ export class EliteBusinessCardComponent implements OnInit, AfterViewInit {
   isRadialMenuOn = false;
   isSettingsOn = false;
   faInstagram = faInstagram
+  faLinkedin = faLinkedin
   myAngularxQrCode = 'https://mrvrman.web.app/business-card';
   promoterId: any;
   qrcodeType: any;
@@ -211,7 +213,7 @@ export class EliteBusinessCardComponent implements OnInit, AfterViewInit {
     //  this.playSound('02 Alerts and Notifications/alert_high-intensity.wav', this.soundVolume);
 
     if (item === 'Instagram') {
-      window.open('https://www.instagram.com/charlie_v_elite/', "_parent");
+      window.open('https://www.instagram.com/zesar1600/', "_parent");
     }
     else if (item === 'FaceBook') {
       window.open('https://facebook.com/cesarvega.col', "_parent");

@@ -25,8 +25,8 @@
             <mat-icon>whatsapp</mat-icon>
         </button>
 
-        <button (click)="sendQrCode('Phone')" *ngIf="isRadialMenuOn" class="G2 GG" mat-icon-button>
-            <mat-icon>phone_in_talk</mat-icon>
+        <button (click)="sendQrCode('LinkIn')" *ngIf="isRadialMenuOn" class="G2 GG" mat-icon-button>
+            <fa-icon [icon]="faLinkedin"></fa-icon>
         </button>
 
         <button (click)="sendQrCode('Instagram')" *ngIf="isRadialMenuOn" class="G3 GG" mat-icon-button>

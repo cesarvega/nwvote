@@ -163,7 +163,7 @@ export class EliteBusinessComponent implements OnInit {
   sendQrCode(item) {
 
     if (item.name === 'Instagram') {
-      window.open('https://www.instagram.com/cesarvega_2020/', "_blank");
+      window.open('https://www.instagram.com/zesar1600/', "_blank");
     }
     else if (item.name === 'FaceBook') {
       window.open('https://facebook.com/cesarvega.col', "_blank");
