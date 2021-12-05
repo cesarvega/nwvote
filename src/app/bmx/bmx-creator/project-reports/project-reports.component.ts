@@ -250,7 +250,7 @@ export class ProjectReportsComponent
         });
 
         this._hotkeysService.add(new Hotkey('ctrl+`', (event: KeyboardEvent): boolean => {
-            alert('hello world')
+            this.bmxClientPageOverview = !this.bmxClientPageOverview;
             return false;
           }, undefined, 'Hide/Show slide overview'));
     }
@@ -975,7 +975,7 @@ export class ProjectReportsComponent
     createNewBmxComponent(componentType) {
         // ☢️☢️☢️☢️☢️☢️☢️☢️☢️☢️☢️☢️☢️☢️☢️☢️☢️☢️☢️☢️☢️☢️☢️☢️☢️☢️☢️☢️☢️☢️☢️☢️☢️☢️☢️☢️☢️☢️☢️☢️☢️☢️☢️
         if (componentType === 'logo-header') {
-            this.bmxPages[this.currentPage].page.push({
+            this.bmxPages[this.currentPage].page.unshift({
                 componentType: componentType,
                 componentText: 'PROJECT NAME',
                 componentSettings: [
@@ -1014,7 +1014,7 @@ export class ProjectReportsComponent
                     STARS: this.createRatingStars(),
                 });
             }
-            this.bmxPages[this.currentPage].page.push({
+            this.bmxPages[this.currentPage].page.unshift({
                 componentType: componentType,
                 componentText: this.TestNameDataModel,
                 componentSettings: [

@@ -3,12 +3,13 @@
         *ngIf="isMenuActive16" [dragula]="(isMobile)?'TASKS':''" (dragulaModelChange)="checkDragEvetn($event);"
         [(dragulaModel)]="bmxPages[currentPage].page">
 
-        <button (dblclick)="deletePageMarker()" *ngFor="let item of pageBreakArray;let c = index"
-        [style.top.px]="1600*c"
-        style="position: fixed;
-        right: -10px;z-index: -1;" matTooltip="page Marker" matTooltipPosition="right"
-            mat-icon-button color="warn" aria-label="aria">
-            <mat-icon class="page-break-icon full-icon">arrow_right_alt</mat-icon>
+        <button class="no-print" (dblclick)="deletePageMarker()" *ngFor="let item of pageBreakArray;let c = index"
+            [style.top.px]="1600*c" style="position: fixed;
+        left: -210px;z-index: -1;" matTooltip="page Marker" matTooltipPosition="right" mat-icon-button color="warn"
+            aria-label="aria">
+            <div *ngIf="c > 0">
+                _____________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________
+            </div>
         </button>
         <!-- BRAND MATRIX MODULAR TEMPLATE COMPONENTS  🧑🏻‍🚀🧑🏻‍🚀🧑🏻‍🚀🧑🏻‍🚀🧑🏻‍🚀🧑🏻‍🚀🧑🏻‍🚀🧑🏻‍🚀🧑🏻‍🚀🧑🏻‍🚀🧑🏻‍🚀🧑🏻‍🚀🧑🏻‍🚀 -->
         <div *ngFor="let bmxItem of bmxPages[currentPage].page; let i = index"
@@ -216,10 +217,10 @@
     <div class="project-info no-print" *ngIf="true">
 
         <div style="display: flex;flex-direction: column;margin-top: 50px;">
-            <button (click)="createNewBmxComponent('logo-header')" mat-icon-button matTooltip="insert header"
+            <!-- <button (click)="createNewBmxComponent('logo-header')" mat-icon-button matTooltip="insert header"
                 matTooltipPosition="right">
                 <mat-icon class="full-icon">account_circle</mat-icon>
-            </button>
+            </button> -->
             <button (click)="createNewBmxComponent('text-editor')" mat-icon-button matTooltip="insert paragraph"
                 matTooltipPosition="right">
                 <mat-icon class="full-icon">article</mat-icon>
@@ -228,24 +229,26 @@
                 mat-icon-button color="warn" aria-label="aria">
                 <mat-icon class="full-icon">star_border</mat-icon>
             </button>
-            <button (click)="createNewBmxComponent('page-line-break')" matTooltip="questions & answers"
+            <!-- <button (click)="createNewBmxComponent('page-line-break')" matTooltip="questions & answers"
                 matTooltipPosition="right" mat-icon-button color="warn" aria-label="aria">
                 <mat-icon class="full-icon">question_answer</mat-icon>
-            </button>
+            </button> -->
+
             <br>
-            <button (click)="createReportPerCategory()" matTooltip="overall ranking by test name"
+
+            <!-- <button (click)="createReportPerCategory()" matTooltip="overall ranking by test name"
                 matTooltipPosition="right" mat-icon-button color="warn" aria-label="aria">
                 <mat-icon class="full-icon-secondary">summarize</mat-icon>
             </button>
             <button (click)="createReportByUsername()" matTooltip="votes by respondent" matTooltipPosition="right"
                 mat-icon-button color="warn" aria-label="aria">
                 <mat-icon class="full-icon-secondary">person_outline</mat-icon>
-            </button>
-            <button (click)="createNewBmxComponent('page-line-break')" matTooltip="votes by respondent"
+            </button> -->
+            <!-- <button (click)="createNewBmxComponent('page-line-break')" matTooltip="votes by respondent"
                 matTooltipPosition="right" mat-icon-button color="warn" aria-label="aria">
                 <mat-icon class="full-icon-secondary">insert_page_break</mat-icon>
-            </button>
-            <button (click)="createNewBmxComponent('page-title')" matTooltip="votes by respondent"
+            </button> -->
+            <button (click)="createNewBmxComponent('page-title')" matTooltip="title box"
                 matTooltipPosition="right" mat-icon-button color="warn" aria-label="aria">
                 <mat-icon class="full-icon-secondary">title</mat-icon>
             </button>
