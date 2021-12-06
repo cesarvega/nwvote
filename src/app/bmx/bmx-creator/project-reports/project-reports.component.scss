@@ -35,14 +35,14 @@
     .no-print * {
         display: none !important;
     }
-    .break-page {
-        display: block;
-        page-break-before: always;
-        page-break-after: always;
+
+    .page-break-icon{
+        color: white !important;
     }
 
-    .table {
-        page-break-inside: avoid;
+    .handle
+    {
+        resize: none;
     }
 }
 .break-page {
@@ -155,3 +155,69 @@
     background-color: #324395;
     font-size: 18px;
 }
+
+
+textarea {
+    resize: none;
+    outline: none;
+    height: auto;
+    overflow: auto;
+  }
+  
+  textarea::-webkit-scrollbar {
+    width: 3px;
+  }
+  
+  /* Track */
+  textarea::-webkit-scrollbar-track {
+    background: white;
+  }
+  
+  /* Handle */
+  textarea::-webkit-scrollbar-thumb {
+    background: #f1f1f1;
+    border-radius: 10px;
+  }
+  
+  /* Handle on hover */
+  textarea::-webkit-scrollbar-thumb:hover {
+    background: #283e90;
+  }
+  
+  // textarea::-webkit-scrollbar {
+  //   display: none;
+  // }
+  
+  textarea {
+    -webkit-tap-highlight-color: transparent;
+    width: 100%;
+    // min-height: 1.5rem;
+    padding: 0.2rem 0rem;
+    // font-size: 1rem;
+    // line-height: 2rem;
+    // font-weight: 300;
+    background: #ffffff;
+    justify-content: center;
+  
+    border-radius: 6px;
+    outline: none;
+    // box-shadow: inset 5px 7px 7px #d1d9e9, inset -19px -31px 1px #ffffff;
+    // box-shadow: 5px 7px 7px #d1d9e9, 15px 0px 1px #ffffff;
+    resize: vertical;
+    transition: ease 0.2s;
+    cursor: pointer;
+  }
+  
+  textarea::placeholder {
+    color: #9fa8da;
+  }
+  
+  textarea:focus {
+    min-height: 1rem;
+    cursor: text;
+    box-shadow: inset 5px 7px 7px #d1d9e9, inset -19px -31px 1px #ffffff;
+  }
+  
+  textarea:placeholder-shown {
+    background: none;
+  }

@@ -58,7 +58,7 @@ export class SurveyCreationDesignComponent implements OnInit {
     isOverViewPageOn = false;
     templateTitle;
     TEMPLATES = [
-        { TemplateName: 'Standart Personal Preference' },
+        { TemplateName: 'Standard Personal Preference' },
         { TemplateName: 'Ranking' },
         { TemplateName: 'NarrowDown' },
         { TemplateName: 'This or That' },
@@ -5211,109 +5211,44 @@ export class SurveyCreationDesignComponent implements OnInit {
             ]
         }
     ]
+
+    
+ rotationalCipher(input, rotationFactor) {
+    // Write your code here
+    let upperAlphabet ='A,B,C,D,E,F,G,H,I,J,K,L,M,N,O,P,Q,R,S,T,U,V,W,X,Y,Z'
+    let lowercaseAlphabet = upperAlphabet.toLowerCase();
+    
+    let alphabetLower =  lowercaseAlphabet.split(',')
+    let alphabetUpper =  upperAlphabet.split(',')
+    let alphabetLength = alphabetUpper.length;
+     
+    input = input.split('')
+    let numbers = ['0','1','2','3','4','5','6','7','8','9']
+    let newOutput  = ''
+    input.forEach(character => {
+      if(character.match(/[A-Z]/g)){
+        let charIndex = alphabetUpper.indexOf(character)
+        let newCharIndex = (charIndex + rotationFactor) % alphabetLength;
+         newOutput+= alphabetUpper[newCharIndex]
+      }
+      else if(character.match(/[a-z]/g)) //lowercase
+      {
+        let charIndex = alphabetLower.indexOf(character)
+        let newCharIndex = (charIndex + rotationFactor) % alphabetLength;
+        newOutput+= alphabetLower[newCharIndex]
+      } else if(character.match(/[0-9]/g)){
+        let charIndex = numbers.indexOf(character)
+        let newCharIndex = (charIndex + rotationFactor) % numbers.length;
+         newOutput+= numbers[newCharIndex]
+      } else if(character.match(/[!@#$%^&*()_+\-=\[\]{};':"\\|,.<>\/?]/g)){
+        newOutput+= character
+      }
+  
+    })
+    
+    return newOutput;
+  }
+  
+
 }
 
-
-let s = [
-,
-    'exdafbnobg',
-'eagemhdygyv',
-'mpgqsvxrijpombyv',
-'kvugevicpsdf',
-'lekgdisnsbfdzpqlkg',
-'kvugevicpsdf',
-'exdafbnobg',
-'qhootohpnfvbl',
-'eagemhdygyv',
-'kvugevicpsdf',
-'suffrbmqgnln',
-'jwvwwnrhuai',
-'lekgdisnsbfdzpqlkg',
-'lekgdisnsbfdzpqlkg',
-'mpgqsvxrijpombyv',
-'jwvwwnrhuai',
-'kvugevicpsdf',
-'lekgdisnsbfdzpqlkg',
-'exdafbnobg',
-'suffrbmqgnln',
-'qhootohpnfvbl',
-'eagemhdygyv',
-'exdafbnobg',
-'suffrbmqgnln',
-'jwvwwnrhuai',
-'qhootohpnfvbl',
-'eagemhdygyv',
-'exdafbnobg',
-'exdafbnobg',
-'jwvwwnrhuai',
-'qhootohpnfvbl',
-'lxyqetmgdbmh',
-'qhootohpnfvbl',
-'suffrbmqgnln',
-'lxyqetmgdbmh',
-'qhootohpnfvbl',
-'eagemhdygyv',
-'jwvwwnrhuai',
-'eagemhdygyv',
-'qhootohpnfvbl',
-'mpgqsvxrijpombyv',
-'qhootohpnfvbl',
-'jwvwwnrhuai',
-'exdafbnobg',
-'eagemhdygyv',
-'eagemhdygyv',
-'kvugevicpsdf',
-'kvugevicpsdf',
-'jwvwwnrhuai',
-'urcadmrwlqe',
-'lxyqetmgdbmh',
-'qhootohpnfvbl',
-'exdafbnobg',
-'exdafbnobg',
-'eagemhdygyv',
-'qhootohpnfvbl',
-'exdafbnobg',
-'exdafbnobg',
-'lekgdisnsbfdzpqlkg',
-'jwvwwnrhuai',
-'eagemhdygyv',
-'urcadmrwlqe',
-'kvugevicpsdf',
-'lekgdisnsbfdzpqlkg',
-'jwvwwnrhuai',
-'eagemhdygyv',
-'lekgdisnsbfdzpqlkg',
-'exdafbnobg',
-'kvugevicpsdf',
-'jwvwwnrhuai',
-'exdafbnobg',
-'lxyqetmgdbmh',
-'exdafbnobg',
-'lxyqetmgdbmh',
-'jwvwwnrhuai',
-'mpgqsvxrijpombyv',
-'eagemhdygyv',
-'urcadmrwlqe',
-'kvugevicpsdf',
-'qhootohpnfvbl',
-'jwvwwnrhuai',
-'eagemhdygyv',
-'urcadmrwlqe',
-'urcadmrwlqe',
-'exdafbnobg',
-'qhootohpnfvbl',
-'exdafbnobg',
-'eagemhdygyv',
-'exdafbnobg',
-'jwvwwnrhuai',
-'eagemhdygyv',
-'jwvwwnrhuai',
-'mpgqsvxrijpombyv',
-'urcadmrwlqe',
-'urcadmrwlqe',
-'eagemhdygyv',
-'eagemhdygyv',
-'jwvwwnrhuai',
-'suffrbmqgnln',
-'eagemhdygyv'
-]
