@@ -292,11 +292,8 @@ export class ProjectReportsComponent
                     }
                 })
             }
-
             this.bmxPages = this.SAMPLE_BMX;
-
         })
-
     }
     // ☢️☢️☢️☢️☢️☢️☢️☢️☢️☢️☢️☢️☢️☢️☢️☢️☢️☢️☢️☢️☢️☢️☢️☢️☢️☢️☢️☢️☢️☢️☢️☢️☢️☢️☢️☢️☢️☢️☢️☢️☢️☢️☢️
     getAndCalculateReport(milUsers) {
