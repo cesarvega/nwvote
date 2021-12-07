@@ -15,9 +15,10 @@ export class PageTitleComponent implements OnInit {
   openSettings = false
   displayLogoWidthRange = false
   headerTitle = 'BRANDMATRIXTM COMPLETION STATUS'
-  headerContent = `This section details who participated in the BrandMatrixTM \n
-                Percentage of participants who have completed the BrandMatrixTM\n
-                                        (6 out of 6)`
+  headerContent = `
+  This section details who participated in the BrandMatrixTM 
+  Percentage of participants who have completed the BrandMatrixTM
+  (6 out of 6)`
   
   constructor() { }
 

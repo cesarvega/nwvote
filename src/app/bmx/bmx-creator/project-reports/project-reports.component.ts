@@ -119,6 +119,8 @@ export class ProjectReportsComponent
     pageBreakArray = [1,2,3,4,5,6,7,8,9]
 
     reportType = ''
+    usersList: any[];
+    answersByAllUsers: any;
 
     constructor(
         @Inject(DOCUMENT) private document: any,
@@ -250,7 +252,7 @@ export class ProjectReportsComponent
         });
 
         this._hotkeysService.add(new Hotkey('ctrl+`', (event: KeyboardEvent): boolean => {
-            alert('hello world')
+            this.bmxClientPageOverview = !this.bmxClientPageOverview;
             return false;
           }, undefined, 'Hide/Show slide overview'));
     }
@@ -278,7 +280,17 @@ export class ProjectReportsComponent
                 //     verticalPosition: 'top'
                 //   })
             } else {
-                this.getAndCalculateReport()
+                this._BmxService.getBrandMatrixByProjectAllUserAnswers(this.projectId).subscribe((brandMatrix: any) => {
+                    if (brandMatrix.d.length > 0) {
+                        this.answersByAllUsers = JSON.parse(brandMatrix.d)
+
+                        // Simulate multiple users function, for testing only
+                        const milUsers = this.diplicateArrayMultiple(this.answersByAllUsers, 1)
+
+                        this.getAndCalculateReport(milUsers)
+                        this.usersList = milUsers.map(user => user.Username)
+                    }
+                })
             }
 
             this.bmxPages = this.SAMPLE_BMX;
@@ -287,11 +299,10 @@ export class ProjectReportsComponent
 
     }
     // ☢️☢️☢️☢️☢️☢️☢️☢️☢️☢️☢️☢️☢️☢️☢️☢️☢️☢️☢️☢️☢️☢️☢️☢️☢️☢️☢️☢️☢️☢️☢️☢️☢️☢️☢️☢️☢️☢️☢️☢️☢️☢️☢️
-    getAndCalculateReport() {
-        this._BmxService.getBrandMatrixByProjectAllUserAnswers(this.projectId).subscribe((brandMatrix: any) => {
-            if (brandMatrix.d.length > 0) {
-                const answersByAllUsers = JSON.parse(brandMatrix.d)
-                const milUsers = this.diplicateArrayMultiple(answersByAllUsers, 1)
+    getAndCalculateReport(milUsers) {
+        this.BMX_REPORT = []
+        this.REPORT_USER_DATA = []
+        this.categorySortedgArray = []
                 milUsers.forEach((userAnswer, userAnswerIndex) => {
                     this.categoryCounter = 0
                     let userCategory = []
@@ -651,9 +662,8 @@ export class ProjectReportsComponent
                 this.createNewBmxComponent('text-editor')
                 this.createReportByUsername()
                 this.sampleHtml2 = `<p style="text-align:center;color:#324395;font-weight: 500;font-size: 25px;">USE THE EDITOR TO EDIT THIS TEXT</p>`;
-            }
-        })
     }
+
     // ▶️▶️▶️▶️▶️▶️▶️▶️▶️▶️▶️▶️▶️▶️▶️▶️▶️▶️▶️▶️▶️▶️▶️▶️▶️▶️▶️▶️▶️▶️▶️▶️▶️▶️▶️▶️▶️▶️▶️▶️▶️▶️▶️
     computeReport(row, templateComponent, username, REPORT_DATA) {
         // 💜💜💜💜💜💜💜💜💜💜💜💜💜💜💜💜💜💜💜💜💜💜💜💜💜💜💜💜💜💜💜💜💜💜💜💜💜💜💜💜💜💜💜
@@ -770,6 +780,7 @@ export class ProjectReportsComponent
             this.rowCalculator['negatvieRank'] += (row.vote == 'negative') ? 1 : ''
         }
     }
+
     // 💚💚💚💚💚💚💚💚💚💚💚💚💚💚💚💚💚💚💚💚💚💚💚💚💚💚💚💚💚💚💚💚💚💚💚💚💚💚💚💚💚💚💚
     createReportPerCategory() {
         let component
@@ -833,6 +844,7 @@ export class ProjectReportsComponent
             this.bmxPages[this.currentPage].page.push(component)
         });
     }
+
     // ❤️❤️❤️❤️❤️❤️❤️❤️❤️❤️❤️❤️❤️❤️❤️❤️❤️❤️❤️❤️❤️❤️❤️❤️❤️❤️❤️❤️❤️❤️❤️❤️❤️❤️❤️❤️❤️❤️❤️❤️❤️❤️❤️
     createReportByUsername() {
         let component
@@ -938,6 +950,21 @@ export class ProjectReportsComponent
 
     }
 
+    filterReport(){
+        let filteredReport = ['cvega1', ]
+
+       const filtered =  this.answersByAllUsers.filter(user => {
+            if (filteredReport.indexOf(user.Username)>=0) {
+                return user
+            }
+        })
+
+        // Simulate multiple users function, for testing only
+        const milUsers = this.diplicateArrayMultiple(filtered, 1)
+
+        this.getAndCalculateReport(milUsers)
+    }
+
     toggleInstructions() {
         this.displayInstructions = !this.displayInstructions;
     }
@@ -975,7 +1002,7 @@ export class ProjectReportsComponent
     createNewBmxComponent(componentType) {
         // ☢️☢️☢️☢️☢️☢️☢️☢️☢️☢️☢️☢️☢️☢️☢️☢️☢️☢️☢️☢️☢️☢️☢️☢️☢️☢️☢️☢️☢️☢️☢️☢️☢️☢️☢️☢️☢️☢️☢️☢️☢️☢️☢️
         if (componentType === 'logo-header') {
-            this.bmxPages[this.currentPage].page.push({
+            this.bmxPages[this.currentPage].page.unshift({
                 componentType: componentType,
                 componentText: 'PROJECT NAME',
                 componentSettings: [
@@ -1014,7 +1041,7 @@ export class ProjectReportsComponent
                     STARS: this.createRatingStars(),
                 });
             }
-            this.bmxPages[this.currentPage].page.push({
+            this.bmxPages[this.currentPage].page.unshift({
                 componentType: componentType,
                 componentText: this.TestNameDataModel,
                 componentSettings: [
@@ -1647,6 +1674,8 @@ export class ProjectReportsComponent
         }
         return result;
     }
+
+
 
     SAMPLE_BMX = [
         {
