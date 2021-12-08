@@ -14,12 +14,6 @@ export class PageTitleComponent implements OnInit {
   displayInstructions: boolean;
   openSettings = false
   displayLogoWidthRange = false
-  headerTitle = 'BRANDMATRIXTM COMPLETION STATUS'
-  headerContent = `
-  This section details who participated in the BrandMatrixTM 
-  Percentage of participants who have completed the BrandMatrixTM
-  (6 out of 6)`
-  
   constructor() { }
 
   ngOnInit(): void {
