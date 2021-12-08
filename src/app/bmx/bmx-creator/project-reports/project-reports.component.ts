@@ -1303,14 +1303,19 @@ export class ProjectReportsComponent
                 componentText: this.TestNameDataModel,
                 componentSettings: [
                     {
-                        "fontSize": "16px",
-                        "fontFace": "Arial",
-                        "logoWidth": 250,
-                        "brandInstituteLogoURL": "./assets/img/bmx/BILogo-Regular_.png",
-                        "DSILogo": "./assets/img/bmx/DSI-LOGO.svg",
-                        "brandInstituteMobileURL": "./assets/img/bmx/bmxCube.jpg",
-                        "backgroundgraphic": "./assets/img/bmx/cover-graphic.jpg",
-                        "companyLogoURL": "./assets/img/bmx/insertLogo.jpg"
+                        fontSize: "16px",
+                        fontFace: "Arial",
+                        logoWidth: 250,
+                        pageTitle: 'TEXT TITLE',
+                        pageContent: `
+                        This section details who participated in the BrandMatrixTM 
+                        Percentage of participants who have completed the BrandMatrixTM
+                        (6 out of 6)`,
+                        brandInstituteLogoURL: "./assets/img/bmx/BILogo-Regular_.png",
+                        DSILogo: "./assets/img/bmx/DSI-LOGO.svg",
+                        brandInstituteMobileURL: "./assets/img/bmx/bmxCube.jpg",
+                        backgroundgraphic: "./assets/img/bmx/cover-graphic.jpg",
+                        companyLogoURL: "./assets/img/bmx/insertLogo.jpg"
                     }
                 ],
             });
