@@ -79,7 +79,7 @@ export class SurveyCreationDesignComponent implements OnInit {
     currentPage = 0;
 
     brandMatrixObjects = [
-       
+
     ];
 
     bmxPages: any = [
@@ -230,7 +230,7 @@ export class SurveyCreationDesignComponent implements OnInit {
     ngOnInit(): void {
 
 
-        
+
         this.isBrandMatrixSurvey = false;
 
         this._BmxService.currentProjectName$.subscribe(projectName => {
@@ -283,15 +283,18 @@ export class SurveyCreationDesignComponent implements OnInit {
     }
 
     deletePage() {
-        if (this.currentPage > 0) {
+        if (confirm("Are you sure you want to delete this page?")) {
+            if (this.currentPage > 0) {
 
-            this.bmxPages.splice(this.currentPage, 1)
+                this.bmxPages.splice(this.currentPage, 1)
 
-            this.bmxPages.forEach((page, index) => {
-                page.pageNumber = index + 1
-            });
-            this.currentPage--
+                this.bmxPages.forEach((page, index) => {
+                    page.pageNumber = index + 1
+                });
+                this.currentPage--
+            }
         }
+
     }
     createPage() {
         this.bmxPages.push({
@@ -654,29 +657,33 @@ export class SurveyCreationDesignComponent implements OnInit {
     }
 
     deleteComponent(i) {
-        this.bmxPages[this.currentPage].page.splice(i, 1);
+        if (confirm('Are you sure you want to delete this component?')) {
+            this.bmxPages[this.currentPage].page.splice(i, 1);
+        }
     }
 
     // TEMPLATE METHODS
     saveOrUpdateTemplate(templateName) {
-        localStorage.setItem(templateName, JSON.stringify(this.bmxPages));
+        if (confirm('Are you sure you want to save or update ' + templateName + ' template?')) {
+            localStorage.setItem(templateName, JSON.stringify(this.bmxPages));
 
-        this._BmxService.saveBrandMatrixTemplate(templateName, this.bmxPages, this.biUserId).subscribe((template: any) => {
-            this.templateTitle = "Template '" + templateName + "' saved 🧐";
-            this._snackBar.open(this.templateTitle, 'OK', {
-                duration: 5000,
-                horizontalPosition: 'right',
-                verticalPosition: 'top',
+            this._BmxService.saveBrandMatrixTemplate(templateName, this.bmxPages, this.biUserId).subscribe((template: any) => {
+                this.templateTitle = "Template '" + templateName + "' saved 🧐";
+                this._snackBar.open(this.templateTitle, 'OK', {
+                    duration: 5000,
+                    horizontalPosition: 'right',
+                    verticalPosition: 'top',
+                })
             })
-        })
 
-        if (this.TEMPLATES.indexOf(templateName) < 0) {
-            this.TEMPLATES.push(templateName);
+            if (this.TEMPLATES.indexOf(templateName) < 0) {
+                this.TEMPLATES.push(templateName);
+            }
+
+            setTimeout(() => {
+                this.openSaveTemplateBox();
+            }, 1000);
         }
-
-        setTimeout(() => {
-            this.openSaveTemplateBox();
-        }, 1000);
     }
 
     loadTemplate(templateName) {
@@ -698,16 +705,46 @@ export class SurveyCreationDesignComponent implements OnInit {
         // if (localStorage.getItem(templateName)) {
         //   this.bmxPages = JSON.parse(localStorage.getItem(templateName));
         // }
-        this._BmxService.deleteBrandMatrixTemplateByName(templateName, this.biUserId).subscribe((template: any) => {
-            this._snackBar.open('template ' + "'" + templateName + "'" + ' deleted 😳', 'OK', {
-                duration: 5000,
-                horizontalPosition: 'right',
-                verticalPosition: 'top',
+        if (confirm('Are you sure you want to delete ' + templateName + ' template?')) {
+            this._BmxService.deleteBrandMatrixTemplateByName(templateName, this.biUserId).subscribe((template: any) => {
+                this._snackBar.open('template ' + "'" + templateName + "'" + ' deleted 😳', 'OK', {
+                    duration: 5000,
+                    horizontalPosition: 'right',
+                    verticalPosition: 'top',
+                })
             })
-        })
+        }
 
 
         this.openSaveTemplateBox();
+    }
+
+    resetTemplate() {
+        if (confirm("Are you sure you want to reset this template?")) {
+
+            this.bmxPages = [
+                {
+                    pageNumber: 1,
+                    page: [
+                        {
+                            "componentType": "logo-header",
+                            "componentText": "templates2",
+                            "componentSettings": [
+                                {
+                                    "fontSize": "16px",
+                                    "fontFace": "Arial",
+                                    "logoWidth": 100,
+                                    "brandInstituteLogoURL": "./assets/img/bmx/BRANDMATRIX-DASHBOARD-LOGO.svg",
+                                    "brandInstituteSurveyLogoURL": "./assets/img/bmx/bm-logo-2020-high.png",
+                                    "brandInstituteMobileURL": "./assets/img/bmx/bmxCube.jpg",
+                                    "companyLogoURL": "./assets/img/bmx/insertLogo.jpg"
+                                }
+                            ]
+                        }
+                    ]
+                },
+            ];
+        }
     }
 
 
@@ -715,9 +752,11 @@ export class SurveyCreationDesignComponent implements OnInit {
         this.isSaveOrUpdate = true;
     }
 
+
     delete() {
         this.isTemplateBoxOn = true;
     }
+
 
     openSaveTemplateBox() {
         this.templateName = '';
@@ -725,30 +764,6 @@ export class SurveyCreationDesignComponent implements OnInit {
         this.isTemplateBoxOn = !this.isTemplateBoxOn;
     }
 
-    resetTemplate() {
-        this.bmxPages = [
-            {
-                pageNumber: 1,
-                page: [
-                    {
-                        "componentType": "logo-header",
-                        "componentText": "templates2",
-                        "componentSettings": [
-                            {
-                                "fontSize": "16px",
-                                "fontFace": "Arial",
-                                "logoWidth": 100,
-                                "brandInstituteLogoURL": "./assets/img/bmx/BRANDMATRIX-DASHBOARD-LOGO.svg",
-                                "brandInstituteSurveyLogoURL": "./assets/img/bmx/bm-logo-2020-high.png",
-                                "brandInstituteMobileURL": "./assets/img/bmx/bmxCube.jpg",
-                                "companyLogoURL": "./assets/img/bmx/insertLogo.jpg"
-                            }
-                        ]
-                    }
-                ]
-            },
-        ];
-    }
 
     saveData() {
         this.projectInfo = JSON.parse(
@@ -912,9 +927,9 @@ export class SurveyCreationDesignComponent implements OnInit {
 
     previewSurvey() {
         window.open('survey/' + this.projectId + '/' + this.biUsername);
-        const queries= ['abcde', 'sdaklfj', 'asdjf', 'na', 'basdn',]
+        const queries = ['abcde', 'sdaklfj', 'asdjf', 'na', 'basdn',]
 
-        const strin= ['abcde', 'sdaklfj', 'asdjf', 'na', 'basdn', 'sdaklfj', 'asdjf', 'na', 'asdjf', 'na', 'basdn', 'sdaklfj', 'asdjf',]
+        const strin = ['abcde', 'sdaklfj', 'asdjf', 'na', 'basdn', 'sdaklfj', 'asdjf', 'na', 'asdjf', 'na', 'basdn', 'sdaklfj', 'asdjf',]
     }
 
 
@@ -941,43 +956,43 @@ export class SurveyCreationDesignComponent implements OnInit {
         }
     ]
 
-    
- rotationalCipher(input, rotationFactor) {
-    // Write your code here
-    let upperAlphabet ='A,B,C,D,E,F,G,H,I,J,K,L,M,N,O,P,Q,R,S,T,U,V,W,X,Y,Z'
-    let lowercaseAlphabet = upperAlphabet.toLowerCase();
-    
-    let alphabetLower =  lowercaseAlphabet.split(',')
-    let alphabetUpper =  upperAlphabet.split(',')
-    let alphabetLength = alphabetUpper.length;
-     
-    input = input.split('')
-    let numbers = ['0','1','2','3','4','5','6','7','8','9']
-    let newOutput  = ''
-    input.forEach(character => {
-      if(character.match(/[A-Z]/g)){
-        let charIndex = alphabetUpper.indexOf(character)
-        let newCharIndex = (charIndex + rotationFactor) % alphabetLength;
-         newOutput+= alphabetUpper[newCharIndex]
-      }
-      else if(character.match(/[a-z]/g)) //lowercase
-      {
-        let charIndex = alphabetLower.indexOf(character)
-        let newCharIndex = (charIndex + rotationFactor) % alphabetLength;
-        newOutput+= alphabetLower[newCharIndex]
-      } else if(character.match(/[0-9]/g)){
-        let charIndex = numbers.indexOf(character)
-        let newCharIndex = (charIndex + rotationFactor) % numbers.length;
-         newOutput+= numbers[newCharIndex]
-      } else if(character.match(/[!@#$%^&*()_+\-=\[\]{};':"\\|,.<>\/?]/g)){
-        newOutput+= character
-      }
-  
-    })
-    
-    return newOutput;
-  }
-  
+
+    rotationalCipher(input, rotationFactor) {
+        // Write your code here
+        let upperAlphabet = 'A,B,C,D,E,F,G,H,I,J,K,L,M,N,O,P,Q,R,S,T,U,V,W,X,Y,Z'
+        let lowercaseAlphabet = upperAlphabet.toLowerCase();
+
+        let alphabetLower = lowercaseAlphabet.split(',')
+        let alphabetUpper = upperAlphabet.split(',')
+        let alphabetLength = alphabetUpper.length;
+
+        input = input.split('')
+        let numbers = ['0', '1', '2', '3', '4', '5', '6', '7', '8', '9']
+        let newOutput = ''
+        input.forEach(character => {
+            if (character.match(/[A-Z]/g)) {
+                let charIndex = alphabetUpper.indexOf(character)
+                let newCharIndex = (charIndex + rotationFactor) % alphabetLength;
+                newOutput += alphabetUpper[newCharIndex]
+            }
+            else if (character.match(/[a-z]/g)) //lowercase
+            {
+                let charIndex = alphabetLower.indexOf(character)
+                let newCharIndex = (charIndex + rotationFactor) % alphabetLength;
+                newOutput += alphabetLower[newCharIndex]
+            } else if (character.match(/[0-9]/g)) {
+                let charIndex = numbers.indexOf(character)
+                let newCharIndex = (charIndex + rotationFactor) % numbers.length;
+                newOutput += numbers[newCharIndex]
+            } else if (character.match(/[!@#$%^&*()_+\-=\[\]{};':"\\|,.<>\/?]/g)) {
+                newOutput += character
+            }
+
+        })
+
+        return newOutput;
+    }
+
 
 }
 

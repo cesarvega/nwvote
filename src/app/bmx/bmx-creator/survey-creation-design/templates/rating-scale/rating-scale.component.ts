@@ -86,7 +86,7 @@ export class RatingScaleComponent implements OnInit {
 
     if (this.bmxItem.componentSettings[0].CRITERIA) {
       this.bmxItem.componentText.forEach((item, index) => {
-        if (index == 0 ) {
+        if (index == 0) {
         }
       })
     }
@@ -282,18 +282,18 @@ export class RatingScaleComponent implements OnInit {
           this.columnsNames[index] = 'nameCandidates'
           nameCandidatesCounter++
         } else
-         if (column == 'name rationale' || column == 'rationale' || column == 'rationales') {
-          this.columnsNames[index] = 'rationale'
-        }
-         else if (column == 'katakana') {
-          this.columnsNames[index] = 'katakana'
-        } 
-        else {
-          this.columnsNames[index] = 'ExtraColumn' + this.extraColumnCounter
-          this.extraColumnCounter++
-        }
+          if (column == 'name rationale' || column == 'rationale' || column == 'rationales') {
+            this.columnsNames[index] = 'rationale'
+          }
+          else if (column == 'katakana') {
+            this.columnsNames[index] = 'katakana'
+          }
+          else {
+            this.columnsNames[index] = 'ExtraColumn' + this.extraColumnCounter
+            this.extraColumnCounter++
+          }
       });
- 
+
       this.TESTNAMES_LIST = [];
       for (let i = 0; i < rows.length; i++) {
         if (rows[i] != "" && rows[i].length > 6) {
@@ -310,17 +310,17 @@ export class RatingScaleComponent implements OnInit {
               objectColumnDesign['CRITERIA'].push({
                 name: criteria.name,
                 STARS: this.createRatingStars(this.rankingScaleValue, this.ratingScaleIcon),
-                RATE: index>0?-1:'RATE',
+                RATE: index > 0 ? -1 : 'RATE',
               })
             });
           } else {
             this.bmxItem.componentSettings[0].CRITERIA = false
             objectColumnDesign['STARS'] = this.createRatingStars(this.rankingScaleValue, this.ratingScaleIcon);
-            objectColumnDesign['RATE'] = i>0?-1:'RATE'
+            objectColumnDesign['RATE'] = i > 0 ? -1 : 'RATE'
             for (let e = 0; e < this.columnsNames.length; e++) {
               if ((rows[i].split("\t").length > 0)) {
                 objectColumnDesign[this.columnsNames[e]] = rows[i].split("\t")[e].trim()
-             
+
               }
             }
           }
@@ -331,26 +331,26 @@ export class RatingScaleComponent implements OnInit {
       this.columnsNames.push('RATE')
     } else {
       if (this.ASSIGNED_CRITERIA.length > 0) {
-        this.bmxItem.componentSettings[0].CRITERIA = true      
+        this.bmxItem.componentSettings[0].CRITERIA = true
         this.bmxItem.componentText.forEach((row, index) => {
           let CRITERIA = [];
           this.ASSIGNED_CRITERIA.forEach(criteria => {
             CRITERIA.push({
               name: criteria.name,
               STARS: this.createRatingStars(this.rankingScaleValue, this.ratingScaleIcon),
-              RATE: index>0?-1:'RATE',
+              RATE: index > 0 ? -1 : 'RATE',
             })
           });
           row.CRITERIA = CRITERIA
           delete row["'STARS'"];
         });
-       }
+      }
       else {
         this.bmxItem.componentSettings[0].CRITERIA = false
         this.bmxItem.componentText.forEach((row, index) => {
           row.STARS = this.createRatingStars(this.rankingScaleValue, this.ratingScaleIcon)
-          row.RATE = index>0?-1:'RATE',
-          delete row['CRITERIA'];
+          row.RATE = index > 0 ? -1 : 'RATE',
+            delete row['CRITERIA'];
           // this.leaveStar(index);
         });
       }
@@ -374,7 +374,7 @@ export class RatingScaleComponent implements OnInit {
     }
 
     if (array.length > newArray.length) {
-      const unionMinusInter  = this.unionMinusIntersection(array, newArray)
+      const unionMinusInter = this.unionMinusIntersection(array, newArray)
       const nameCandidates = this.spreadArray(unionMinusInter)
       this._snackBar.open(`You have  ${array.length - newArray.length} duplicates removed: "${nameCandidates.join(', ')}" 🍕`, 'OK', {
         duration: 10000,
@@ -383,14 +383,14 @@ export class RatingScaleComponent implements OnInit {
     }
     return newArray;
   }
-// remove objects from array1 that are also in array2
+  // remove objects from array1 that are also in array2
   unionMinusIntersection(array1, array2) {
     let union = array1.concat(array2);
     let intersection = array1.filter(x => array2.includes(x));
     let unionMinusInter = union.filter(x => !intersection.includes(x));
     return unionMinusInter;
   }
-//  spread array of object to array of string by property
+  //  spread array of object to array of string by property
   spreadArray(array) {
     let newArray = [];
     array.forEach(element => {
@@ -474,11 +474,13 @@ export class RatingScaleComponent implements OnInit {
   }
 
   deletRow(option): void {
-    this.bmxItem.componentText.splice(option, 1);
+    if (confirm('Are you sure you want to delete this row?')) {
+      this.bmxItem.componentText.splice(option, 1);
+    }
   }
 
   insertRow(): void {
-    const newRow =  Object.assign({}, this.bmxItem.componentText[0]);
+    const newRow = Object.assign({}, this.bmxItem.componentText[0]);
     this.bmxItem.componentText.push(newRow)
   }
 
@@ -493,7 +495,7 @@ export class RatingScaleComponent implements OnInit {
     // re-order brand matrix columns
     this.bmxItem.componentText.forEach((row, rowIndex) => {
       for (let i = 0; i < this.columnsNames.length - 1; i++) {
-        Object.keys(row).forEach(key => {  
+        Object.keys(row).forEach(key => {
           if (this.columnsNames[i] == key) {
             newRow[key] = row[key]
           }
@@ -515,22 +517,24 @@ export class RatingScaleComponent implements OnInit {
   }
 
   deleteColumn(columnName) {
-    let temporary = []
-    // REMOVE THE COLUMN FROM THE COLUMNS
-    this.columnsNames.forEach((element, index) => {
-      if (element !== columnName) {
-        temporary.push(element)
-        if (element.includes('Comments')) {
-          // this.RadioColumnList['RadioColumn' + this.commentColumnCounter] = undefined
-          this.commentColumnCounter--
+    if (confirm('Are you sure you want to delete ' + columnName + ' column?')) {
+      let temporary = []
+      // REMOVE THE COLUMN FROM THE COLUMNS
+      this.columnsNames.forEach((element, index) => {
+        if (element !== columnName) {
+          temporary.push(element)
+          if (element.includes('Comments')) {
+            // this.RadioColumnList['RadioColumn' + this.commentColumnCounter] = undefined
+            this.commentColumnCounter--
+          }
         }
-      }
-    });
-    this.columnsNames = temporary;
-    this.bmxItem.componentText.forEach((object, index) => {
-      delete this.bmxItem.componentText[index][columnName]
-    });
-    this.bmxItem.componentText = this.bmxItem.componentText;
+      });
+      this.columnsNames = temporary;
+      this.bmxItem.componentText.forEach((object, index) => {
+        delete this.bmxItem.componentText[index][columnName]
+      });
+      this.bmxItem.componentText = this.bmxItem.componentText;
+    }
   }
 
   criteriaSelection(selectedCriteria) {
@@ -539,13 +543,15 @@ export class RatingScaleComponent implements OnInit {
 
 
 
-  addCriteria(newCriteria){
+  addCriteria(newCriteria) {
     if (newCriteria.length > 0) {
-      this.CRITERIA.unshift({name: newCriteria})
+      this.CRITERIA.unshift({ name: newCriteria })
     }
   }
-  deleteCriteria(index){
+  deleteCriteria(index) {
+    if (confirm('Are you sure you want to delete criteria?')) {
       this.CRITERIA.splice(index, 1)
+    }
   }
 
   checkDragEvetn(e) {
@@ -557,18 +563,18 @@ export class RatingScaleComponent implements OnInit {
   }
 
 
-  onPaste(){
+  onPaste() {
     setTimeout(() => {
       let rows = this.testNamesInput.split("\n");
-      this.rowsCount = rows.length-1
+      this.rowsCount = rows.length - 1
     }, 1000);
   }
 
   ASSIGNED_CRITERIA = []
   CRITERIA = [
-    { name: 'Fit to Compound Concept'},
-    { name: 'Fit to Corporate Mission'},
-    { name: 'Overall Likeability'},
+    { name: 'Fit to Compound Concept' },
+    { name: 'Fit to Corporate Mission' },
+    { name: 'Overall Likeability' },
   ]
 
 }
