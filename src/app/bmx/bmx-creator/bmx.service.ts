@@ -8,11 +8,17 @@ import { BehaviorSubject } from 'rxjs';
 export class BmxService {
 
   private projectName$ = new BehaviorSubject<string>('');
+  private projectData$ = new BehaviorSubject<string>('');
 
   currentProjectName$ = this.projectName$.asObservable();
+  currentprojectData$ = this.projectData$.asObservable();
 
   setProjectName(projectName: any) {
     this.projectName$.next(projectName);
+  }
+  
+  setprojectData(projectData: any) {
+    this.projectData$.next(projectData);
   }
 
 
