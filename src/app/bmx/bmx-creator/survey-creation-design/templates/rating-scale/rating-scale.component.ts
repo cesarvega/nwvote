@@ -59,6 +59,9 @@ export class RatingScaleComponent implements OnInit {
   BAG = "DRAGGABLE_ROW";
   subs = new Subscription();
   rowsCount = 10
+
+  HISTORY = []
+
   constructor(private dragulaService: DragulaService, private _snackBar: MatSnackBar) {
     //   dragulaService.createGroup('DRAGGABLE_ROW', {
     //     moves: (el, container, handle, sibling) => {

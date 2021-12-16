@@ -373,7 +373,8 @@
 
                         <!-- TEXT AREA TO EDIT TABLE CELL CONTENT -->
                         <textarea
-                            *ngIf="y !== 0  && editSingleTableCells && (columnName.includes('RadioColumn') != true) &&  columnName.includes('Comments') != true"
+                            *ngIf="y !== 0  && editSingleTableCells && (columnName.includes('RadioColumn') != true) &&
+                              columnName.includes('Comments') != true &&  columnName.includes('RATE') != true"
                             [style.width]="(columnName == 'rationale')?(bmxItem.componentSettings[0].rationalewidth - 10) + 'px':(bmxItem.componentSettings[0].columnWidth -10) +'px'"
                             [style.font-size]="bmxItem.componentSettings[0].fontSize +'px'" cdkTextareaAutosize
                             [cdkAutosizeMinRows]="bmxItem.componentSettings[0].rowHeight"

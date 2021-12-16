@@ -223,7 +223,6 @@
         </div>
         <div style="font-size: 18px;color: #ee7f25;padding-bottom: 20px;">
             {{bmxItem.componentSettings[0].categoryDescription}}</div>
-
     </div>
     <!--  [dragula]="draggableBag"  -->
     <div class="scroller-style main-container"
@@ -340,7 +339,8 @@
 
                         <!-- TEXT AREA TO EDIT TABLE CELL CONTENT -->
                         <textarea
-                            *ngIf="y !== 0  && editSingleTableCells && (columnName.includes('RadioColumn') != true) &&  columnName.includes('Comments') != true"
+                            *ngIf="y !== 0  && editSingleTableCells && (columnName.includes('RadioColumn') != true) &&
+                              columnName.includes('Comments') != true &&  columnName.includes('RATE') != true"
                             [style.width]="(columnName == 'rationale')?bmxItem.componentSettings[0].rationalewidth + 'px':bmxItem.componentSettings[0].columnWidth +'px'"
                             [style.font-size]="bmxItem.componentSettings[0].fontSize +'px'" cdkTextareaAutosize
                             [cdkAutosizeMinRows]="bmxItem.componentSettings[0].rowHeight"
