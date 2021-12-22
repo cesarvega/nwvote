@@ -61,6 +61,7 @@ export class RatingScaleComponent implements OnInit {
   rowsCount = 10
 
   HISTORY = []
+  RANGEARRAY = ['columnWidth1', 'columnWidth2', 'columnWidth3']
 
   constructor(private dragulaService: DragulaService, private _snackBar: MatSnackBar) {
     //   dragulaService.createGroup('DRAGGABLE_ROW', {
@@ -280,6 +281,8 @@ export class RatingScaleComponent implements OnInit {
 
       let nameCandidatesCounter = 0
       this.extraColumnCounter = 1
+
+      // COLUMNS NAMES CHECK
       this.columnsNames.forEach((column, index) => {
         column = column.toLowerCase()
         if (nameCandidatesCounter == 0 && column.includes('candidates') || column == 'questions') {
@@ -299,6 +302,8 @@ export class RatingScaleComponent implements OnInit {
       });
 
       this.TESTNAMES_LIST = [];
+      
+      // TEST NAMES CHECK
       for (let i = 0; i < rows.length; i++) {
         if (rows[i] != "" && rows[i].length > 6) {
           let objectColumnDesign = {};
@@ -403,6 +408,10 @@ export class RatingScaleComponent implements OnInit {
       newArray.push(element.nameCandidates)
     });
     return newArray;
+  }
+
+  autoSizeColumns() {
+    
   }
 
   // COLUMNS ADD AND REMOVE
