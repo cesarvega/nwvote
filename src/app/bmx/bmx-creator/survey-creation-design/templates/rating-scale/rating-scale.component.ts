@@ -302,7 +302,7 @@ export class RatingScaleComponent implements OnInit {
       });
 
       this.TESTNAMES_LIST = [];
-      
+      this.autoSizeColumns('RATE', '', this.rankingScaleValue)
       // TEST NAMES CHECK
       for (let i = 0; i < rows.length; i++) {
         if (rows[i] != "" && rows[i].length > 6) {
@@ -311,7 +311,12 @@ export class RatingScaleComponent implements OnInit {
             this.bmxItem.componentSettings[0].CRITERIA = true
             for (let e = 0; e < this.columnsNames.length; e++) {
               if ((rows[i].split("\t").length > 0)) {
-                objectColumnDesign[this.columnsNames[e]] = rows[i].split("\t")[e].trim()
+                const columnName = this.columnsNames[e]
+                const columnValue = rows[i].split("\t")[e].trim()
+                objectColumnDesign[columnName] = columnValue
+                if (i != 0) {
+                  this.autoSizeColumns(columnName, columnValue)
+                  }
               }
             }
             objectColumnDesign['CRITERIA'] = []
@@ -327,8 +332,12 @@ export class RatingScaleComponent implements OnInit {
             objectColumnDesign['STARS'] = this.createRatingStars(this.rankingScaleValue, this.ratingScaleIcon);
             for (let e = 0; e < this.columnsNames.length; e++) {
               if ((rows[i].split("\t").length > 0)) {
-                objectColumnDesign[this.columnsNames[e]] = rows[i].split("\t")[e].trim()
-
+                const columnName = this.columnsNames[e]
+                const columnValue = rows[i].split("\t")[e].trim()
+                objectColumnDesign[columnName] = columnValue
+                if (i != 0) {
+                this.autoSizeColumns(columnName, columnValue)
+                }
               }
             }
             objectColumnDesign['RATE'] = i > 0 ? -1 : 'RATE'
@@ -339,6 +348,7 @@ export class RatingScaleComponent implements OnInit {
       this.bmxItem.componentText = this.deleteDuplicates(this.TESTNAMES_LIST, 'nameCandidates');
       this.columnsNames.push('RATE')
     } else {
+      this.autoSizeColumns('RATE', '', this.rankingScaleValue)
       if (this.ASSIGNED_CRITERIA.length > 0) {
         this.bmxItem.componentSettings[0].CRITERIA = true
         this.bmxItem.componentText.forEach((row, index) => {
@@ -410,8 +420,54 @@ export class RatingScaleComponent implements OnInit {
     return newArray;
   }
 
-  autoSizeColumns() {
-    
+  autoSizeColumns(columnName, testName, rankingValue?) {
+    let testNameLength = testName.length
+    if (columnName == 'nameCandidates') {
+      if (testNameLength > 10 && this.bmxItem.componentSettings[0].nameCandidatesWidth < 150) {
+        this.bmxItem.componentSettings[0].nameCandidatesWidth = 150
+      } else if (testNameLength > 13) {
+        this.bmxItem.componentSettings[0].nameCandidatesWidth = 175
+      }
+    } else if (columnName == 'rationale') {
+      if (testNameLength > 10 && this.bmxItem.componentSettings[0].rationalewidth < 150) {
+        this.bmxItem.componentSettings[0].rationalewidth = 150
+      } else if (testNameLength > 15) {
+        this.bmxItem.componentSettings[0].rationalewidth = 300
+      }
+    } else if (columnName == 'RATE') {
+      if (rankingValue == 5) {
+        this.bmxItem.componentSettings[0].rateWidth = 155
+      } else if (rankingValue == 6) {
+        this.bmxItem.componentSettings[0].rateWidth = 165
+      }else if (rankingValue == 7) {
+        this.bmxItem.componentSettings[0].rateWidth = 185
+      }else if (rankingValue == 8) {
+        this.bmxItem.componentSettings[0].rateWidth = 205
+      }else if (rankingValue == 9) {
+        this.bmxItem.componentSettings[0].rateWidth = 225
+      }else if (rankingValue == 10) {
+        this.bmxItem.componentSettings[0].rateWidth = 245
+      }
+    } else if (columnName == 'ExtraColumn1') {
+      if (testNameLength > 10  && this.bmxItem.componentSettings[0].columnWidth < 150) {
+        this.bmxItem.componentSettings[0].columnWidth = 150
+      } else if (testNameLength > 13) {
+        this.bmxItem.componentSettings[0].columnWidth = 175
+      }
+    } else if (columnName == 'ExtraColumn2') {
+      if (testNameLength > 10 && this.bmxItem.componentSettings[0].columnWidth < 150) {
+        this.bmxItem.componentSettings[0].columnWidth = 150
+      } else if (testNameLength > 13) {
+        this.bmxItem.componentSettings[0].columnWidth = 175
+      }
+    } else {
+      if (testNameLength > 10 && this.bmxItem.componentSettings[0].columnWidth < 150) {
+        this.bmxItem.componentSettings[0].columnWidth = 150
+      } else if (testNameLength > 13) {
+        this.bmxItem.componentSettings[0].columnWidth = 175
+      }
+    }
+
   }
 
   // COLUMNS ADD AND REMOVE
