@@ -269,6 +269,7 @@ export class RatingScaleComponent implements OnInit {
 
 
   upLoadNamesAndRationales(list: string) {
+    this.recordHistory()
     this.dragRows = true;
     if (!list) { list = this.listString; }
     if (list) {
@@ -319,13 +320,13 @@ export class RatingScaleComponent implements OnInit {
           } else {
             this.bmxItem.componentSettings[0].CRITERIA = false
             objectColumnDesign['STARS'] = this.createRatingStars(this.rankingScaleValue, this.ratingScaleIcon);
-            objectColumnDesign['RATE'] = i > 0 ? -1 : 'RATE'
             for (let e = 0; e < this.columnsNames.length; e++) {
               if ((rows[i].split("\t").length > 0)) {
                 objectColumnDesign[this.columnsNames[e]] = rows[i].split("\t")[e].trim()
 
               }
             }
+            objectColumnDesign['RATE'] = i > 0 ? -1 : 'RATE'
           }
           this.TESTNAMES_LIST.push(objectColumnDesign);
         }
@@ -361,6 +362,8 @@ export class RatingScaleComponent implements OnInit {
     setTimeout(() => {
       this.dragRows = false;
     }, 1000);
+
+    // this.swapColumns(0)
   }
 
   // delete row diplicates from array of object by property
@@ -404,6 +407,7 @@ export class RatingScaleComponent implements OnInit {
 
   // COLUMNS ADD AND REMOVE
   insertTextColumn() {
+    this.recordHistory()
     this.columnsNames.push('ExtraColumn' + (this.extraColumnCounter));
     this.bmxItem.componentText.forEach((object) => {
       let coulmnName = 'ExtraColumn' + this.extraColumnCounter
@@ -413,6 +417,7 @@ export class RatingScaleComponent implements OnInit {
   }
 
   insertCommentBoxColumn() {
+    this.recordHistory()
     this.columnsNames.forEach(columnName => {
       if (columnName.includes('Comments')) {
         this.commentColumnCounter++
@@ -432,6 +437,7 @@ export class RatingScaleComponent implements OnInit {
   }
 
   insertRadioColumn() {
+    this.recordHistory()
     this.columnsNames.push('RadioColumn' + (this.radioColumnCounter));
     this.bmxItem.componentText.forEach((object, index) => {
       let coulmnName = 'RadioColumn' + this.radioColumnCounter
@@ -478,16 +484,19 @@ export class RatingScaleComponent implements OnInit {
 
   deletRow(option): void {
     if (confirm('Are you sure you want to delete this row?')) {
+      this.recordHistory()
       this.bmxItem.componentText.splice(option, 1);
     }
   }
 
   insertRow(): void {
+    this.recordHistory()
     const newRow = Object.assign({}, this.bmxItem.componentText[0]);
     this.bmxItem.componentText.push(newRow)
   }
 
   swapColumns(index): void {
+    this.recordHistory()
     let temp = this.columnsNames[index];
     // update columnsNames array order
     for (let i = index; i < this.columnsNames.length - 1; i++) {
@@ -506,6 +515,7 @@ export class RatingScaleComponent implements OnInit {
       }
       this.bmxItem.componentText[rowIndex] = this.mergeObjects(newRow, row)
     });
+
   }
 
   mergeObjects(obj1, obj2) {
@@ -521,6 +531,7 @@ export class RatingScaleComponent implements OnInit {
 
   deleteColumn(columnName) {
     if (confirm('Are you sure you want to delete ' + columnName + ' column?')) {
+      this.recordHistory()
       let temporary = []
       // REMOVE THE COLUMN FROM THE COLUMNS
       this.columnsNames.forEach((element, index) => {
@@ -544,13 +555,12 @@ export class RatingScaleComponent implements OnInit {
     this.ASSIGNED_CRITERIA = selectedCriteria
   }
 
-
-
   addCriteria(newCriteria) {
     if (newCriteria.length > 0) {
       this.CRITERIA.unshift({ name: newCriteria })
     }
   }
+
   deleteCriteria(index) {
     if (confirm('Are you sure you want to delete criteria?')) {
       this.CRITERIA.splice(index, 1)
@@ -571,6 +581,25 @@ export class RatingScaleComponent implements OnInit {
       let rows = this.testNamesInput.split("\n");
       this.rowsCount = rows.length - 1
     }, 1000);
+  }
+
+  recordHistory() {
+    const history = JSON.parse(JSON.stringify(this.bmxItem))
+    const columsNames = JSON.parse(JSON.stringify(this.columnsNames))
+    this.HISTORY.push([history, columsNames])
+  }
+
+  undo() {
+    if (this.HISTORY.length > 0) {
+      this.dragRows = true;
+      const temp = this.HISTORY.pop()
+      Object.assign(this.bmxItem, temp[0])
+      // Object.assign(this.columnsNames, temp[1])
+      this.columnsNames = temp[1]
+      setTimeout(() => {
+        this.dragRows = false;
+      }, 1000);
+    }
   }
 
   ASSIGNED_CRITERIA = []
