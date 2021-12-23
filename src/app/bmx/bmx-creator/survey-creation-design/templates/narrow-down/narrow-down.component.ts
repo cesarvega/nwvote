@@ -29,7 +29,7 @@ export class NarrowDownComponent extends RatingScaleComponent implements OnInit 
     let values = Object.keys(this.bmxItem.componentText[0])
 
     values.forEach(value => {
-      if (typeof value == "string" && value != "STARS" && value != "CRITERIA" && value != "SELECTED_ROW" && value != "RATE"  ) {
+      if (typeof value == "string" && value != "STARS" && value != "CRITERIA" && value != "SELECTED_ROW"   ) {
         this.columnsNames.push(value)
       }
     });
