@@ -349,14 +349,14 @@ export class SurveyCreationDesignComponent implements OnInit {
         } else if (componentType === 'rate-scale') {
             this.TestNameDataModel = [];
             this.TestNameDataModel.push({
-                name: 'NAME',
+                nameCandidates: 'NAME',
                 rationale: 'RATIONALE',
                 RATE: 'RATE',
                 STARS: this.createRatingStars(),
             });
             for (let index = 0; index < 5; index++) {
                 this.TestNameDataModel.push({
-                    name: 'TEST NAME ' + index,
+                    nameCandidates: 'TEST NAME ' + index,
                     rationale: 'Rationale of an undisclosed length',
                     RATE: -1,
                     STARS: this.createRatingStars(),
@@ -374,9 +374,9 @@ export class SurveyCreationDesignComponent implements OnInit {
                         rationalewidth: 250,
                         rowHeight: 0,
                         radioColumnsWidth: 75,
-                        nameCandidatesWidth:  175,
-                        rateWidth:  175,
-                        commentsWidth:  175,
+                        nameCandidatesWidth:  135,
+                        rateWidth:  135,
+                        commentsWidth:  135,
                         CRITERIA: false,
                         categoryRulesPassed: false,
                         ratedCounter: 0,
@@ -390,14 +390,14 @@ export class SurveyCreationDesignComponent implements OnInit {
         else if (componentType === 'ranking-scale') {
             this.TestNameDataModel = [];
             this.TestNameDataModel.push({
-                name: 'NAME',
+                nameCandidates: 'NAME',
                 rationale: 'RATIONALE',
                 RATE: 'RATE',
                 STARS: this.createRankinScale(),
             });
-            for (let index = 0; index < 3; index++) {
+            for (let index = 0; index < 5; index++) {
                 this.TestNameDataModel.push({
-                    name: 'TEST NAME ' + index,
+                    nameCandidates: 'TEST NAME ' + index,
                     rationale: 'Rationale of an undisclosed length',
                     RATE: -1, // it wont render since is not a string
                     STARS: this.createRankinScale(),
@@ -413,8 +413,11 @@ export class SurveyCreationDesignComponent implements OnInit {
                         fontSize: 16,
                         columnWidth: 150,
                         rationalewidth: 250,
-                        rowHeight: 2,
+                        rowHeight: 0,
                         radioColumnsWidth: 75,
+                        nameCandidatesWidth:  135,
+                        rateWidth:  135,
+                        commentsWidth:  135,
                         selectedRanking: 7,
                         categoryRulesPassed: false,
                         ratedCounter: 0,
@@ -430,7 +433,7 @@ export class SurveyCreationDesignComponent implements OnInit {
             this.TestNameDataModel = [];
             this.TestNameDataModel.push({
                 // name: '',
-                name: 'LOGO',
+                nameCandidates: 'LOGO',
                 // logoURL:''
                 // STARS: this.createRatingStars()
             });
@@ -438,7 +441,7 @@ export class SurveyCreationDesignComponent implements OnInit {
                 let imageIndex = index + 1;
                 this.TestNameDataModel.push({
                     // name: 'TEST NAME ' + index,
-                    name:
+                    nameCandidates:
                         './assets/img/bmx/logoTestNames/logo' +
                         imageIndex.toString() +
                         '.JPG',
@@ -457,7 +460,11 @@ export class SurveyCreationDesignComponent implements OnInit {
                         fontSize: 16,
                         columnWidth: 336,
                         rationalewidth: 250,
-                        rowHeight: 2,
+                        rowHeight: 0,
+                        radioColumnsWidth: 75,
+                        nameCandidatesWidth:  135,
+                        rateWidth:  135,
+                        commentsWidth:  135,
                         CRITERIA: false,
                         categoryRulesPassed: false,
                         ratedCounter: 0,
@@ -493,7 +500,11 @@ export class SurveyCreationDesignComponent implements OnInit {
                         fontSize: 16,
                         columnWidth: 150,
                         rationalewidth: 250,
-                        rowHeight: 2,
+                        rowHeight: 0,
+                        radioColumnsWidth: 75,
+                        nameCandidatesWidth:  135,
+                        rateWidth:  135,
+                        commentsWidth:  135,
                         categoryRulesPassed: false,
                         selectedRowCounter: 0,
                         ratedCounter: 0,

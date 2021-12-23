@@ -10,10 +10,10 @@
     <div *ngIf="isColumnResizerOn && bmxClientPageOverview" class="" style="    display: flex;
     flex-direction: row;
     justify-content: start;background: #ffffffd9;
-    gap: 50px;position: absolute;left: -1058px;z-index: 1;border: 2px dashed #324395;">
+    gap: 0px;position: absolute;left: -713px;z-index: 1;border: 2px dashed #324395;">
         <!-- NAME CANDIATES -->
         <div style="display: flex;flex-direction: column;align-items: center;">
-            <p style="margin: 0 0 -12px;color: #324395;">candidates
+            <p style="margin: 0 0 -12px;color: #324395;">candidates 
             </p>
             <input type="range" style="margin: 20px;width: 50px;"
                 [(ngModel)]="bmxItem.componentSettings[0].nameCandidatesWidth" class="slider-font-size" tickInterval="0.5"
@@ -67,7 +67,7 @@
 
         <!-- FONT -->
         <div style="display: flex;flex-direction: column;align-items: center;">
-            <p style="margin: 0 0 -12px;color: #324395;">font size: {{bmxItem.componentSettings[0].fontSize}} px</p>
+            <p style="margin: 0 0 -12px;color: #324395;">font size: {{bmxItem.componentSettings[0].fontSize}}</p>
             <input type="range" style="margin: 20px;width: 50px;" [(ngModel)]="bmxItem.componentSettings[0].fontSize"
                 class="slider-font-size" tickInterval="0.1" min="2" max="40"
                 [value]="bmxItem.componentSettings[0].fontSize">
@@ -333,7 +333,7 @@
 
                         <!--⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️ STARS RENDERER ⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️ -->
                         <div *ngIf="y !== 0  &&  columnName.includes('RATE') == true"
-                            style="display: flex;align-items: center;justify-content: center;">
+                            style="display: flex;align-items: center;justify-content: center;padding-right: 10px;">
                             <div *ngIf="(y !== 0)">
                                 <div *ngIf="testName.CRITERIA; else elseBlock">
                                     <div *ngFor="let criteria of testName.CRITERIA  let x =  index"
@@ -369,8 +369,8 @@
                             color: white;
                             min-width: 20px;
                             line-height: 19px;
-                            padding: 2px 0px;
-                            margin: -17px 9px;
+                            padding: 1px 0px;
+                            margin: -12px 0px;
                             position: absolute;
                             animation: rubberBand 700ms ease-in  forwards;"
                                     mat-button>{{bmxItem.componentText[y]['RATE']}}</button>
