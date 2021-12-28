@@ -328,7 +328,7 @@
 
                 <div *ngFor="let columnName of columnsNames; let e =  index"
                     style="display: flex;align-items: center;justify-content: center;" [ngClass]="(e%2==0)?'red':'blue'"
-                    [style.padding]="bmxItem.componentSettings[0].rowHeight"
+                    [style.padding]="bmxItem.componentSettings[0].rowHeight + 'px'"
                     [style.width]="(columnName == 'rationale')?bmxItem.componentSettings[0].rationalewidth + 'px': 
                     (columnName == 'RATE')?bmxItem.componentSettings[0].rateWidth + 'px':
                     (columnName == 'nameCandidates')?bmxItem.componentSettings[0].nameCandidatesWidth + 'px':
