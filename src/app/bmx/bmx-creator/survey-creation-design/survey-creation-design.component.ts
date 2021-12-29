@@ -481,6 +481,7 @@ export class SurveyCreationDesignComponent implements OnInit {
             this.TestNameDataModel.push({
                 name: 'NAME',
                 rationale: 'RATIONALE',
+                RATE: 'RATE',
                 // STARS: this.createRatingStars()
             });
             for (let index = 0; index < 5; index++) {
@@ -496,7 +497,7 @@ export class SurveyCreationDesignComponent implements OnInit {
                 componentText: this.TestNameDataModel,
                 componentSettings: [
                     {
-                        minRule: 0,
+                        minRule: 3,
                         maxRule: 0,
                         fontSize: 16,
                         columnWidth: 150,
