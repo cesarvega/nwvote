@@ -527,7 +527,7 @@ export class RatingScaleComponent implements OnInit {
         this.RadioColumnList.push(columnName)
       }
     });
-    this.bmxItem.componentText[y][name] = true
+    this.bmxItem.componentText[y][name] = !this.bmxItem.componentText[y][name]
     this.RadioColumnList.forEach((columnName, index) => {
       // if (columnName.includes('RadioColumn')) {
       if (this.bmxItem.componentText[y][columnName]) {
