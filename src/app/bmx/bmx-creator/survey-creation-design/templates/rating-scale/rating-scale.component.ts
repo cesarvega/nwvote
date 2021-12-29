@@ -309,11 +309,15 @@ export class RatingScaleComponent implements OnInit {
           let objectColumnDesign = {};
           if (this.ASSIGNED_CRITERIA.length > 0) {// CRITERIA
             this.bmxItem.componentSettings[0].CRITERIA = true
+            this.bmxItem.componentSettings[0].rateWidth = 220
             for (let e = 0; e < this.columnsNames.length; e++) {
               if ((rows[i].split("\t").length > 0)) {
                 const columnName = this.columnsNames[e]
                 const columnValue = rows[i].split("\t")[e].trim()
                 objectColumnDesign[columnName] = columnValue
+                if(i == 0){
+                  objectColumnDesign['RATE'] = 'RATE'
+                }
                 if (i != 0) {
                   this.autoSizeColumns(columnName, columnValue)
                   }
@@ -324,7 +328,7 @@ export class RatingScaleComponent implements OnInit {
               objectColumnDesign['CRITERIA'].push({
                 name: criteria.name,
                 STARS: this.createRatingStars(this.rankingScaleValue, this.ratingScaleIcon),
-                RATE: index > 0 ? -1 : 'RATE',
+                RATE: -1,
               })
             });
           } else {
