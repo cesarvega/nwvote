@@ -119,9 +119,9 @@ export class RatingScaleComponent implements OnInit {
           if (this.bmxItem.componentText[index].SELECTED_ROW) {
             // ASK BEFROE REMOVE IT 
             this._snackBar.open(this.bmxItem.componentText[index].nameCandidates + ' was uncheck becuse you can only select up to ' + this.bmxItem.componentSettings[0].minRule
-             + ' test names ', 'OK', {
+              + ' test names ', 'OK', {
               duration: 6000,
-              verticalPosition: 'bottom',
+              verticalPosition: 'top',
             }).afterDismissed().subscribe(action => { })
 
             this.bmxItem.componentText[index].SELECTED_ROW = false;
@@ -149,6 +149,19 @@ export class RatingScaleComponent implements OnInit {
         //   // this.bmxItem.componentText[index].SELECTED_ROW = false
         // }
       }
+
+      if (this.selectedRowCounter == this.bmxItem.componentSettings[0].minRule) {
+        this.bmxItem.componentSettings[0].categoryRulesPassed = true
+        setTimeout(() => {
+          this._snackBar.open('Great you have  ' + this.bmxItem.componentSettings[0].minRule
+            + ' test names selected now rate them', 'OK', {
+            duration: 6000,
+            verticalPosition: 'bottom',
+          }).afterDismissed().subscribe(action => { })
+        }, 4000);
+
+      }
+
     }
 
     if (this.bmxItem.componentType == 'ranking-scale') {
@@ -310,18 +323,18 @@ export class RatingScaleComponent implements OnInit {
           let objectColumnDesign = {};
           if (this.ASSIGNED_CRITERIA.length > 0) {// CRITERIA
             this.bmxItem.componentSettings[0].CRITERIA = true
-            this.bmxItem.componentSettings[0].rateWidth = (this.bmxItem.componentSettings[0].rateWidth < 220)?220:this.bmxItem.componentSettings[0].rateWidth
+            this.bmxItem.componentSettings[0].rateWidth = (this.bmxItem.componentSettings[0].rateWidth < 220) ? 220 : this.bmxItem.componentSettings[0].rateWidth
             for (let e = 0; e < this.columnsNames.length; e++) {
               if ((rows[i].split("\t").length > 0)) {
                 const columnName = this.columnsNames[e]
                 const columnValue = rows[i].split("\t")[e].trim()
                 objectColumnDesign[columnName] = columnValue
-                if(i == 0){
+                if (i == 0) {
                   objectColumnDesign['RATE'] = 'RATE'
                 }
                 if (i != 0) {
                   this.autoSizeColumns(columnName, columnValue)
-                  }
+                }
               }
             }
             objectColumnDesign['CRITERIA'] = []
@@ -341,7 +354,7 @@ export class RatingScaleComponent implements OnInit {
                 const columnValue = rows[i].split("\t")[e].trim()
                 objectColumnDesign[columnName] = columnValue
                 if (i != 0) {
-                this.autoSizeColumns(columnName, columnValue)
+                  this.autoSizeColumns(columnName, columnValue)
                 }
               }
             }
@@ -444,17 +457,17 @@ export class RatingScaleComponent implements OnInit {
         this.bmxItem.componentSettings[0].rateWidth = 155
       } else if (rankingValue == 6) {
         this.bmxItem.componentSettings[0].rateWidth = 165
-      }else if (rankingValue == 7) {
+      } else if (rankingValue == 7) {
         this.bmxItem.componentSettings[0].rateWidth = 185
-      }else if (rankingValue == 8) {
+      } else if (rankingValue == 8) {
         this.bmxItem.componentSettings[0].rateWidth = 205
-      }else if (rankingValue == 9) {
+      } else if (rankingValue == 9) {
         this.bmxItem.componentSettings[0].rateWidth = 225
-      }else if (rankingValue == 10) {
+      } else if (rankingValue == 10) {
         this.bmxItem.componentSettings[0].rateWidth = 245
       }
     } else if (columnName == 'ExtraColumn1') {
-      if (testNameLength > 10  && this.bmxItem.componentSettings[0].columnWidth < 150) {
+      if (testNameLength > 10 && this.bmxItem.componentSettings[0].columnWidth < 150) {
         this.bmxItem.componentSettings[0].columnWidth = 150
       } else if (testNameLength > 13) {
         this.bmxItem.componentSettings[0].columnWidth = 175
