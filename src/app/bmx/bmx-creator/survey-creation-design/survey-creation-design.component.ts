@@ -435,6 +435,7 @@ export class SurveyCreationDesignComponent implements OnInit {
                 // name: '',
                 nameCandidates: 'LOGO',
                 // logoURL:''
+                RATE: 'RATE',
                 // STARS: this.createRatingStars()
             });
             for (let index = 0; index < 5; index++) {
@@ -462,7 +463,7 @@ export class SurveyCreationDesignComponent implements OnInit {
                         rationalewidth: 250,
                         rowHeight: 0,
                         radioColumnsWidth: 75,
-                        nameCandidatesWidth:  135,
+                        nameCandidatesWidth:  323,
                         rateWidth:  135,
                         commentsWidth:  135,
                         CRITERIA: false,
