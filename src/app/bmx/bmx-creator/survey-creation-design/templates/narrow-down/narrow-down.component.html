@@ -194,10 +194,7 @@
     </div>
 
     <hr>
-    <div
-        style="text-align: center;display: flex;flex-direction: row;justify-content: space-around;align-items: center;">
-
-
+    <div style="text-align: center;display: flex;flex-direction: row;justify-content: space-around;align-items: center;">
         <div style="display: flex;flex-direction: column;">
             <div style="font-size: 12px;color: #48535e;">TYPE NEW CRITERIA</div>
             <div style="display: flex;">
@@ -227,7 +224,7 @@
             <br>
 
             <div style="text-align: center;display: flex;flex-direction: row;justify-content: space-around;">
-                5 <input [(ngModel)]="rankingScaleValue" type="range" id="volume" name="volume" min="5" max="10">
+                3 <input [(ngModel)]="rankingScaleValue" type="range" id="volume" name="volume" min="3" max="10">
                 10 <br>
             </div>
             <label for="volume">{{rankingScaleValue}}</label>
@@ -433,14 +430,13 @@
                             (change)="saveRadioColumValue(columnName, y)">
 
 
-                        <!-- TEXT_AREA COLUMN-->
-
+                        <!-- TEXT_AREA COLUMN COMMENTS-->
                         <textarea *ngIf="y !== 0  && columnName.includes('Comments') == true"
-                            [style.width]="(bmxItem.componentSettings[0].columnWidth - 20) +'px'"
+                            [style.width]="(bmxItem.componentSettings[0].commentsWidth - 20) +'px'"
                             [style.font-size]="bmxItem.componentSettings[0].fontSize +'px'" cdkTextareaAutosize
                             [cdkAutosizeMinRows]="bmxItem.componentSettings[0].rowHeight"
                             style="text-align: center;height: 32px;width: 358px;font-size: 16px;border: 1px solid #dddddd;"
-                            class="row-box" [(ngModel)]="testName[columnName]" rows="4" cols="50"></textarea>
+                            class="row-box" [(ngModel)]="testName[columnName]"></textarea>
 
 
                         <!-- TEXT AREA TO EDIT TABLE CELL CONTENT -->
