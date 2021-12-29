@@ -153,8 +153,8 @@ export class RatingScaleComponent implements OnInit {
       if (this.selectedRowCounter == this.bmxItem.componentSettings[0].minRule) {
         this.bmxItem.componentSettings[0].categoryRulesPassed = true
         setTimeout(() => {
-          this._snackBar.open('Great you have  ' + this.bmxItem.componentSettings[0].minRule
-            + ' test names selected now rate them', 'OK', {
+          this._snackBar.open('Great ' + this.bmxItem.componentSettings[0].minRule
+            + ' test names were selected, now rate them', 'OK', {
             duration: 6000,
             verticalPosition: 'bottom',
           }).afterDismissed().subscribe(action => { })
