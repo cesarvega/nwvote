@@ -294,8 +294,8 @@
 
 
                         <!--☂️☂️☂️☂️☂️☂️☂️☂️☂️☂️☂️☂️☂️ RADIO ☂️☂️☂️☂️☂️☂️☂️☂️☂️☂️☂️☂️☂️☂️☂️☂️-->
-                        <button  (click)="bmxItem.componentText[y]['RATE'] = 0;leaveStar(y)" 
-                            *ngIf="this.bmxItem.componentText[y].RATE && this.bmxItem.componentSettings[0].rankType == 'radio'"
+                        <button  (click)="bmxItem.componentText[y]['RATE'] = 0;leaveStar(y);" 
+                            *ngIf="this.bmxItem.componentText[y].RATE > 0 && this.bmxItem.componentSettings[0].rankType == 'radio'"
                             mat-button
                             style="background-color:#ee7f25 ;color: white;
                             animation: rubberBand 700ms ease-in  forwards;">{{this.bmxItem.componentText[y].RATE}}</button>
@@ -369,7 +369,7 @@
                         <!-- IF ELSE TEMPLATE INPUTS  -- BELOW RADION BUTTONS COLUMN -->
                         <input type="radio" *ngIf="y !== 0  &&  columnName.includes('RadioColumn') == true"
                             [name]="columnName + i" [checked]="testName[columnName]"
-                            (change)="saveRadioColumValue(columnName, y)">
+                            (click)="saveRadioColumValue(columnName, y)">
 
 
                         <!-- TEXT_AREA COLUMN COMMENTS-->
