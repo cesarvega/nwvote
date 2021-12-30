@@ -119,7 +119,6 @@ export class RatingScaleComponent implements OnInit {
           // REMOVE FIRST CHECKED VALUE
           if (this.bmxItem.componentText[index].SELECTED_ROW) {
             // ASK BEFROE REMOVE IT 
-
             this._snackBar.open(this.bmxItem.componentText[index].nameCandidates + ' was uncheck becuse you can only select up to ' + this.bmxItem.componentSettings[0].minRule
               + ' test names ', 'OK', {
               duration: 6000,
