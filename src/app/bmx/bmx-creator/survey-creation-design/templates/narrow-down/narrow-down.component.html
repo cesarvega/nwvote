@@ -532,7 +532,7 @@
                 <div style="display: flex;flex-direction: row;align-items: center;">
                     <div *ngIf="(y !== 0)" [ngClass]="(selectedCard != y)?'noSelectedCard':'selectedCard'">
                         <input type="checkbox" [disabled]="false"
-                            style="position: absolute;left: 6px;margin: -16px 8px;"
+                            style="position: absolute;left: 6px;margin: -40px 8px;"
                             [checked]="this.bmxItem.componentText[y].SELECTED_ROW"
                             (change)="setRating($event,y);leaveStar(y);">
                     </div>
@@ -557,7 +557,8 @@
                                         rows="4" cols="50"></textarea>
                                 </div>
 
-                                <p (click)="(selectedCard == y)?selectedCard = '':selectedCard = y" *ngIf="y !== 0  && !editSingleTableCells && (columnName.includes('RadioColumn') != true) &&
+                                <p (click)="(selectedCard == y)?selectedCard = '':selectedCard = y" 
+                                *ngIf="y !== 0  && !editSingleTableCells && (columnName.includes('RadioColumn') != true) &&
                                             columnName.includes('Comments') != true &&
                                             columnName.includes('kata') != true &&
                                             columnName.includes('ratio') != true"
@@ -567,7 +568,7 @@
 
                                 <p *ngIf="y !== 0  && !editSingleTableCells && (columnName.includes('RadioColumn') != true) &&
                                             columnName.includes('Comments') != true && selectedCard == y &&
-                                            columnName.includes('name') != true"
+                                            columnName.includes('name') != true &&  columnName.includes('RATE') != true"
                                     [style.font-size]=" (columnName.includes('name') == true)?'27px':'20px'"
                                     [style.color]="(columnName.includes('name') == true)?'#324395':'#bababa'"
                                     style="text-align: center;padding: 5px 4px;"

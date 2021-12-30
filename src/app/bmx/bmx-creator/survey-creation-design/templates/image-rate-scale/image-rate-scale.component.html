@@ -686,11 +686,11 @@
                             *ngIf="(y !== 0) && (columnName == 'name' || columnName == 'nameCandidates')">
 
                         <!-- TEXT_AREA COLUMN-->
-                        <div style="display: flex;
-                        justify-content: center;">
+                        <div style="display: flex;justify-content: center;">
                             <textarea *ngIf="y !== 0  && columnName.includes('Comments') == true && selectedCard == y"
                                 [style.width]="'95%'" [style.font-size]="bmxItem.componentSettings[0].fontSize +'px'"
-                                cdkTextareaAutosize [cdkAutosizeMinRows]="bmxItem.componentSettings[0].rowHeight" style="text-align: center;height: 32px;width: 358px;font-size: 16px;border: 1px solid grey;
+                                cdkTextareaAutosize [cdkAutosizeMinRows]="bmxItem.componentSettings[0].rowHeight + 2" 
+                                style="text-align: center;height: 32px;width: 358px;font-size: 16px;border: 1px solid grey;
                             animation: bounceIn 500ms ease-in forwards;padding: 0 4px;margin-bottom: 10px;"
                                 class="row-box" [(ngModel)]="testName[columnName]" placeholder="comments" rows="4"
                                 cols="50"></textarea>
@@ -706,7 +706,7 @@
 
                         <p *ngIf="y !== 0  && !editSingleTableCells && (columnName.includes('RadioColumn') != true) &&
                               columnName.includes('Comments') != true && selectedCard == y &&
-                              columnName.includes('name') != true"
+                              columnName.includes('name') != true &&  columnName.includes('RATE') != true"
                             [style.font-size]=" (columnName.includes('name') == true)?'27px':'20px'"
                             [style.color]="(columnName.includes('name') == true)?'#324395':'#bababa'"
                             style="text-align: center;padding: 5px 4px;"
