@@ -62,6 +62,7 @@ export class RatingScaleComponent implements OnInit {
 
   HISTORY = []
   RANGEARRAY = ['columnWidth1', 'columnWidth2', 'columnWidth3']
+  selectedNarrowDownTimer = 0;
 
   constructor(private dragulaService: DragulaService, private _snackBar: MatSnackBar) {
     //   dragulaService.createGroup('DRAGGABLE_ROW', {
@@ -113,16 +114,19 @@ export class RatingScaleComponent implements OnInit {
   setRating(rate, testNameId) {
     if (rate.target && this.bmxItem.componentType == 'narrow-down') {
       if (this.selectedRowCounter >= this.bmxItem.componentSettings[0].minRule && !this.bmxItem.componentText[testNameId].SELECTED_ROW) {
-
+        this.selectedNarrowDownTimer = 4000
         for (let index = 0; index < this.bmxItem.componentText.length; index++) {
           // REMOVE FIRST CHECKED VALUE
           if (this.bmxItem.componentText[index].SELECTED_ROW) {
             // ASK BEFROE REMOVE IT 
+
             this._snackBar.open(this.bmxItem.componentText[index].nameCandidates + ' was uncheck becuse you can only select up to ' + this.bmxItem.componentSettings[0].minRule
               + ' test names ', 'OK', {
               duration: 6000,
               verticalPosition: 'top',
-            }).afterDismissed().subscribe(action => { })
+            }).afterDismissed().subscribe(action => { 
+              
+            })
 
             this.bmxItem.componentText[index].SELECTED_ROW = false;
             break
@@ -158,15 +162,12 @@ export class RatingScaleComponent implements OnInit {
             duration: 6000,
             verticalPosition: 'bottom',
           }).afterDismissed().subscribe(action => { })
-        }, 4000);
+        }, this.selectedNarrowDownTimer);
 
       }
 
     }
-
     if (this.bmxItem.componentType == 'ranking-scale') {
-
-
       this.bmxItem.componentText.forEach((testnameRow, i) => {
         if (testnameRow.RATE == rate) {
           this.bmxItem.componentText[i].RATE = 0
@@ -178,8 +179,6 @@ export class RatingScaleComponent implements OnInit {
         }
       });
       this.bmxItem.componentText[testNameId].RATE = rate
-
-
     }
 
     else {
