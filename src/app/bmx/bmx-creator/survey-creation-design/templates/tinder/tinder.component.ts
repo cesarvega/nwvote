@@ -171,16 +171,18 @@ export class TinderComponent extends RatingScaleComponent implements OnInit {
   voteName(vote) {
     this.bmxItem.componentText[this.testNameIndex]['vote'] = vote
     setTimeout(() => {
-      this.moveRight()
+      // this.moveRight()
     }, 1000);
   }
 
   resetVotes() {
-    this.bmxItem.componentText.forEach((row, index) => {
-      if (index>0) {
-        row['vote'] = undefined
-      }
-    });
+    if (confirm('Are you sure you want to reset the votes?')) {
+      this.bmxItem.componentText.forEach((row, index) => {
+        if (index>0) {
+          row['vote'] = undefined
+        }
+      });
+    }
   }
 
   moveRight() {

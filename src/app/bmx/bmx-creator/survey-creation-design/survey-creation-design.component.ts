@@ -374,9 +374,9 @@ export class SurveyCreationDesignComponent implements OnInit {
                         rationalewidth: 250,
                         rowHeight: 0,
                         radioColumnsWidth: 75,
-                        nameCandidatesWidth:  135,
-                        rateWidth:  135,
-                        commentsWidth:  135,
+                        nameCandidatesWidth: 135,
+                        rateWidth: 135,
+                        commentsWidth: 135,
                         CRITERIA: false,
                         categoryRulesPassed: false,
                         ratedCounter: 0,
@@ -415,9 +415,9 @@ export class SurveyCreationDesignComponent implements OnInit {
                         rationalewidth: 250,
                         rowHeight: 0,
                         radioColumnsWidth: 75,
-                        nameCandidatesWidth:  135,
-                        rateWidth:  135,
-                        commentsWidth:  135,
+                        nameCandidatesWidth: 135,
+                        rateWidth: 135,
+                        commentsWidth: 135,
                         selectedRanking: 7,
                         categoryRulesPassed: false,
                         ratedCounter: 0,
@@ -463,9 +463,9 @@ export class SurveyCreationDesignComponent implements OnInit {
                         rationalewidth: 250,
                         rowHeight: 0,
                         radioColumnsWidth: 75,
-                        nameCandidatesWidth:  323,
-                        rateWidth:  135,
-                        commentsWidth:  135,
+                        nameCandidatesWidth: 323,
+                        rateWidth: 135,
+                        commentsWidth: 135,
                         CRITERIA: false,
                         categoryRulesPassed: false,
                         ratedCounter: 0,
@@ -504,9 +504,9 @@ export class SurveyCreationDesignComponent implements OnInit {
                         rationalewidth: 250,
                         rowHeight: 0,
                         radioColumnsWidth: 75,
-                        nameCandidatesWidth:  135,
-                        rateWidth:  135,
-                        commentsWidth:  135,
+                        nameCandidatesWidth: 135,
+                        rateWidth: 135,
+                        commentsWidth: 135,
                         categoryRulesPassed: false,
                         selectedRowCounter: 0,
                         ratedCounter: 0,
@@ -783,38 +783,40 @@ export class SurveyCreationDesignComponent implements OnInit {
 
 
     saveData() {
-        this.projectInfo = JSON.parse(
-            localStorage.getItem('fakeproject' + '_project_info')
-        );
-        this.bmxCompleteObject = {
-            userInfo: { username: 'John Smith' },
-            projectInfo: this.projectInfo,
-            bmx: this.bmxPages,
-            // tables: []
-        };
-        this.bmxPages.forEach((pageElement) => {
-            pageElement.page.forEach((component) => {
-                if (
-                    component.componentType == 'rate-scale' ||
-                    component.componentType == 'ranking-scale' ||
-                    component.componentType == 'image-rate-scale' ||
-                    component.componentType == 'narrow-down' ||
-                    component.componentType == 'question-answer'
-                ) {
-                    this.calculateTableDefinitions(component);
-                }
+        if (confirm('Are you sure you want save overwrite this project?')) {
+            this.projectInfo = JSON.parse(
+                localStorage.getItem('fakeproject' + '_project_info')
+            );
+            this.bmxCompleteObject = {
+                userInfo: { username: 'John Smith' },
+                projectInfo: this.projectInfo,
+                bmx: this.bmxPages,
+                // tables: []
+            };
+            this.bmxPages.forEach((pageElement) => {
+                pageElement.page.forEach((component) => {
+                    if (
+                        component.componentType == 'rate-scale' ||
+                        component.componentType == 'ranking-scale' ||
+                        component.componentType == 'image-rate-scale' ||
+                        component.componentType == 'narrow-down' ||
+                        component.componentType == 'question-answer'
+                    ) {
+                        this.calculateTableDefinitions(component);
+                    }
+                });
             });
-        });
-        // console.log(this.bmxCompleteObject.bmx[4]["page"][3]['componentText']);
-        this._BmxService
-            .saveOrUpdateBradnMatrixTemplate(this.bmxPages, this.projectId)
-            .subscribe((res) => {
-                console.log('%cBMX!', 'color:orange', res);
-                this._snackBar.open('Project ' + this.projectId + ' saved', 'OK', {
-                    duration: 5000,
-                    verticalPosition: 'top',
-                })
-            });
+            // console.log(this.bmxCompleteObject.bmx[4]["page"][3]['componentText']);
+            this._BmxService
+                .saveOrUpdateBradnMatrixTemplate(this.bmxPages, this.projectId)
+                .subscribe((res) => {
+                    console.log('%cBMX!', 'color:orange', res);
+                    this._snackBar.open('Project ' + this.projectId + ' saved', 'OK', {
+                        duration: 5000,
+                        verticalPosition: 'top',
+                    })
+                });
+        }
     }
 
     // 🌭🌭🌭🌭🌭🌭🌭🌭🌭🌭🌭🌭🌭🌭🌭🌭🌭🌭🌭🌭🌭🌭🌭PRIVATE METHODS 🌭🌭🌭🌭🌭🌭🌭🌭🌭🌭🌭🌭🌭🌭🌭🌭🌭🌭🌭🌭🌭🌭🌭
