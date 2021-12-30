@@ -42,9 +42,9 @@ export class ImageRateScaleComponent extends RatingScaleComponent implements OnI
   uploadSub: Subscription;
   resourceData: any;
   logoWidth = 200
+  uploadImagesBox = false;
 
   constructor(private _BmxService: BmxService,dragulaService: DragulaService, _snackBar: MatSnackBar) {super(dragulaService,_snackBar)}
-
   ngOnInit(): void {
     let values = Object.keys(this.bmxItem.componentText[0])
     values.forEach(value => {
@@ -95,13 +95,18 @@ export class ImageRateScaleComponent extends RatingScaleComponent implements OnI
     });
 
     setTimeout(() => {
-      this.selectedIndex = ''
+      this.uploadImagesBox = false;    
     }, 1000);
    
   }
 
   deleteImage(index){
     this.IMAGES_UPLOADED.splice(index, 1)
+  }
+
+
+  toggleImageUploadBox(){
+    this.uploadImagesBox = !this.uploadImagesBox
   }
 
   reset() {

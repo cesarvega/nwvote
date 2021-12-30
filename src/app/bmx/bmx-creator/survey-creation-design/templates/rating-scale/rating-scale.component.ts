@@ -22,7 +22,7 @@ export class RatingScaleComponent implements OnInit {
 
   selectedStarRatingIndex = ''
   selectedRating: any;
-
+  uploadImagesIcon = false
   // columnsSlider = 150
   // rowHeightSlider = 2
   // fontSizeRow = 19
@@ -284,6 +284,7 @@ export class RatingScaleComponent implements OnInit {
 
 
   upLoadNamesAndRationales(list: string) {
+    this.uploadImagesIcon = true
     this.recordHistory()
     this.dragRows = true;
     if (!list) { list = this.listString; }
