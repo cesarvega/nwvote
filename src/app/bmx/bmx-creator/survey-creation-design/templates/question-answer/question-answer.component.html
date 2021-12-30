@@ -319,7 +319,8 @@
                         <p *ngIf="y !== 0  && !editSingleTableCells && (columnName.includes('options') != true) &&  columnName.includes('Answers') != true"
                             [style.font-size]="bmxItem.componentSettings[0].fontSize +'px'"
                             [style.width]="(columnName == 'rationale')?bmxItem.componentSettings[0].rationalewidth + 'px':bmxItem.componentSettings[0].columnWidth +'px'"
-                            style="text-align: initial;margin: 0 0 0px;">{{testName[columnName]}}</p>
+                            style="text-align: initial;margin: 0 0 0px;"
+                            [innerHTML]="testName[columnName] | safe: 'html'">{{testName[columnName]}}</p>
                     </div>
                     <!-- 🟡🟡🟡🟡🟡🟡🟡🟡🟡🟡🟡🟡🟡🟡 END TABLE CELLS 🟡🟡🟡🟡🟡🟡🟡🟡🟡🟡🟡🟡🟡🟡🟡🟡 -->
                 </div>
@@ -404,7 +405,8 @@
                               columnName.includes('name') != true"
                             [style.font-size]=" (columnName.includes('name') == true)?'27px':'20px'"
                             [style.color]="(columnName.includes('name') == true)?'#324395':'#bababa'"
-                            style="text-align: center;padding: 5px 4px;">{{testName[columnName]}}</p>
+                            style="text-align: center;padding: 5px 4px;"
+                            [innerHTML]="testName[columnName] | safe: 'html'">{{testName[columnName]}}</p>
 
 
                     </div>
