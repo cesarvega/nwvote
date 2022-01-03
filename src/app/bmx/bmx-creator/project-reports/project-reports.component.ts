@@ -997,9 +997,9 @@ export class ProjectReportsComponent
     }
 
     createNewBmxComponent(componentType) {
-        // ☢️☢️☢️☢️☢️☢️☢️☢️☢️☢️☢️☢️☢️☢️☢️☢️☢️☢️☢️☢️☢️☢️☢️☢️☢️☢️☢️☢️☢️☢️☢️☢️☢️☢️☢️☢️☢️☢️☢️☢️☢️☢️☢️
-        if (componentType === 'logo-header') {
-            this.bmxPages[this.currentPage].page.unshift({
+          // ☢️☢️☢️☢️☢️☢️☢️☢️☢️☢️☢️☢️☢️☢️☢️☢️☢️☢️☢️☢️☢️☢️☢️☢️☢️☢️☢️☢️☢️☢️☢️☢️☢️☢️☢️☢️☢️☢️☢️☢️☢️☢️☢️
+          if (componentType === 'logo-header') {
+            this.bmxPages[this.currentPage].page.push({
                 componentType: componentType,
                 componentText: 'PROJECT NAME',
                 componentSettings: [
@@ -1010,7 +1010,7 @@ export class ProjectReportsComponent
                         brandInstituteLogoURL: './assets/img/bmx/BRANDMATRIX-DASHBOARD-LOGO.svg',
                         brandInstituteSurveyLogoURL: './assets/img/bmx/bm-logo-2020-high.png',
                         brandInstituteMobileURL: './assets/img/bmx/bmxCube.jpg',
-                        companyLogoURL: './assets/img/bmx/BD.png',
+                        companyLogoURL: './assets/img/bmx/insertLogo.jpg',
                     },
                 ],
             });
@@ -1026,19 +1026,20 @@ export class ProjectReportsComponent
         } else if (componentType === 'rate-scale') {
             this.TestNameDataModel = [];
             this.TestNameDataModel.push({
-                name: 'NAME',
+                nameCandidates: 'NAME',
                 rationale: 'RATIONALE',
+                RATE: 'RATE',
                 STARS: this.createRatingStars(),
             });
             for (let index = 0; index < 5; index++) {
                 this.TestNameDataModel.push({
-                    name: 'TEST NAME ' + index,
+                    nameCandidates: 'TEST NAME ' + index,
                     rationale: 'Rationale of an undisclosed length',
                     RATE: -1,
                     STARS: this.createRatingStars(),
                 });
             }
-            this.bmxPages[this.currentPage].page.unshift({
+            this.bmxPages[this.currentPage].page.push({
                 componentType: componentType,
                 componentText: this.TestNameDataModel,
                 componentSettings: [
@@ -1046,16 +1047,19 @@ export class ProjectReportsComponent
                         minRule: 0,
                         maxRule: 0,
                         fontSize: 16,
-                        columnWidth: 150,
+                        columnWidth: 175,
                         rationalewidth: 250,
-                        rowHeight: 2,
+                        rowHeight: 0,
                         radioColumnsWidth: 75,
+                        nameCandidatesWidth: 135,
+                        rateWidth: 135,
+                        commentsWidth: 135,
                         CRITERIA: false,
                         categoryRulesPassed: false,
                         ratedCounter: 0,
                         categoryName: 'Category Rate',
                         categoryDescription: 'This is Rate matrix',
-                        ratingScaleTitle: 'RATING',
+                        ratingScaleTitle: 'RATING'
                     },
                 ],
             });
@@ -1063,13 +1067,14 @@ export class ProjectReportsComponent
         else if (componentType === 'ranking-scale') {
             this.TestNameDataModel = [];
             this.TestNameDataModel.push({
-                name: 'NAME',
+                nameCandidates: 'NAME',
                 rationale: 'RATIONALE',
+                RATE: 'RATE',
                 STARS: this.createRankinScale(),
             });
-            for (let index = 0; index < 3; index++) {
+            for (let index = 0; index < 5; index++) {
                 this.TestNameDataModel.push({
-                    name: 'TEST NAME ' + index,
+                    nameCandidates: 'TEST NAME ' + index,
                     rationale: 'Rationale of an undisclosed length',
                     RATE: -1, // it wont render since is not a string
                     STARS: this.createRankinScale(),
@@ -1085,8 +1090,11 @@ export class ProjectReportsComponent
                         fontSize: 16,
                         columnWidth: 150,
                         rationalewidth: 250,
-                        rowHeight: 2,
+                        rowHeight: 0,
                         radioColumnsWidth: 75,
+                        nameCandidatesWidth: 135,
+                        rateWidth: 135,
+                        commentsWidth: 135,
                         selectedRanking: 7,
                         categoryRulesPassed: false,
                         ratedCounter: 0,
@@ -1102,15 +1110,16 @@ export class ProjectReportsComponent
             this.TestNameDataModel = [];
             this.TestNameDataModel.push({
                 // name: '',
-                name: 'LOGO',
+                nameCandidates: 'LOGO',
                 // logoURL:''
+                RATE: 'RATE',
                 // STARS: this.createRatingStars()
             });
             for (let index = 0; index < 5; index++) {
                 let imageIndex = index + 1;
                 this.TestNameDataModel.push({
                     // name: 'TEST NAME ' + index,
-                    name:
+                    nameCandidates:
                         './assets/img/bmx/logoTestNames/logo' +
                         imageIndex.toString() +
                         '.JPG',
@@ -1129,7 +1138,11 @@ export class ProjectReportsComponent
                         fontSize: 16,
                         columnWidth: 336,
                         rationalewidth: 250,
-                        rowHeight: 2,
+                        rowHeight: 0,
+                        radioColumnsWidth: 75,
+                        nameCandidatesWidth: 323,
+                        rateWidth: 135,
+                        commentsWidth: 135,
                         CRITERIA: false,
                         categoryRulesPassed: false,
                         ratedCounter: 0,
@@ -1145,6 +1158,7 @@ export class ProjectReportsComponent
             this.TestNameDataModel.push({
                 name: 'NAME',
                 rationale: 'RATIONALE',
+                RATE: 'RATE',
                 // STARS: this.createRatingStars()
             });
             for (let index = 0; index < 5; index++) {
@@ -1160,14 +1174,20 @@ export class ProjectReportsComponent
                 componentText: this.TestNameDataModel,
                 componentSettings: [
                     {
-                        minRule: 0,
+                        minRule: 3,
                         maxRule: 0,
                         fontSize: 16,
                         columnWidth: 150,
                         rationalewidth: 250,
-                        rowHeight: 2,
+                        rowHeight: 0,
+                        radioColumnsWidth: 75,
+                        nameCandidatesWidth: 135,
+                        rateWidth: 135,
+                        commentsWidth: 135,
                         categoryRulesPassed: false,
+                        selectedRowCounter: 0,
                         ratedCounter: 0,
+                        ratingScaleNarrowDownTitle: 'SELECT',
                         categoryName: 'Category Narrow Down',
                         categoryDescription: 'This is a narrow down matrix',
                         ratingScaleTitle: 'RATE',
