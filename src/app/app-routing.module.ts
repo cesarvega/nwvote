@@ -32,10 +32,10 @@ const routes: Routes = [
   //   path: ':id',
   //   component: BsrComponent
   // },
-  // {//BI BRAND MATRIX CREATOR
-  // path: ':id/:biUsername',
-  //  component: BmxCreatorComponent
-  // },
+  {//BI BRAND MATRIX CREATOR
+  path: ':id/:biUsername',
+   component: BmxCreatorComponent
+  },
    {//BI BRAND MATRIX
     path: 'survey/:id/:username',
     component: SurveyMatrixComponent
