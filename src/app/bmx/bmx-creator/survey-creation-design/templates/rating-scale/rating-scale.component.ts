@@ -22,7 +22,7 @@ export class RatingScaleComponent implements OnInit {
 
   selectedStarRatingIndex = ''
   selectedRating: any;
-
+  uploadImagesIcon = false
   // columnsSlider = 150
   // rowHeightSlider = 2
   // fontSizeRow = 19
@@ -59,6 +59,11 @@ export class RatingScaleComponent implements OnInit {
   BAG = "DRAGGABLE_ROW";
   subs = new Subscription();
   rowsCount = 10
+
+  HISTORY = []
+  RANGEARRAY = ['columnWidth1', 'columnWidth2', 'columnWidth3']
+  selectedNarrowDownTimer = 0;
+
   constructor(private dragulaService: DragulaService, private _snackBar: MatSnackBar) {
     //   dragulaService.createGroup('DRAGGABLE_ROW', {
     //     moves: (el, container, handle, sibling) => {
@@ -86,7 +91,7 @@ export class RatingScaleComponent implements OnInit {
 
     if (this.bmxItem.componentSettings[0].CRITERIA) {
       this.bmxItem.componentText.forEach((item, index) => {
-        if (index == 0 ) {
+        if (index == 0) {
         }
       })
     }
@@ -105,19 +110,22 @@ export class RatingScaleComponent implements OnInit {
       this.bmxItem.componentSettings[0].categoryRulesPassed = true
     } else { this.bmxItem.componentSettings[0].categoryRulesPassed = false }
   }
-  // ⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️ STARS METHODS  ⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️
+  // ⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️ STARS METHODS  ⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️
   setRating(rate, testNameId) {
     if (rate.target && this.bmxItem.componentType == 'narrow-down') {
-      if (this.selectedRowCounter >= this.rankingScaleValue && !this.bmxItem.componentText[testNameId].SELECTED_ROW) {
-
+      if (this.selectedRowCounter >= this.bmxItem.componentSettings[0].minRule && !this.bmxItem.componentText[testNameId].SELECTED_ROW) {
+        this.selectedNarrowDownTimer = 4000
         for (let index = 0; index < this.bmxItem.componentText.length; index++) {
           // REMOVE FIRST CHECKED VALUE
           if (this.bmxItem.componentText[index].SELECTED_ROW) {
             // ASK BEFROE REMOVE IT 
-            this._snackBar.open(this.bmxItem.componentText[index].nameCandidates + ' was uncheck', 'OK', {
-              duration: 4000,
-              verticalPosition: 'bottom',
-            }).afterDismissed().subscribe(action => { })
+            this._snackBar.open(this.bmxItem.componentText[index].nameCandidates + ' was uncheck becuse you can only select up to ' + this.bmxItem.componentSettings[0].minRule
+              + ' test names ', 'OK', {
+              duration: 6000,
+              verticalPosition: 'top',
+            }).afterDismissed().subscribe(action => { 
+              
+            })
 
             this.bmxItem.componentText[index].SELECTED_ROW = false;
             break
@@ -144,11 +152,21 @@ export class RatingScaleComponent implements OnInit {
         //   // this.bmxItem.componentText[index].SELECTED_ROW = false
         // }
       }
+
+      if (this.selectedRowCounter == this.bmxItem.componentSettings[0].minRule) {
+        this.bmxItem.componentSettings[0].categoryRulesPassed = true
+        setTimeout(() => {
+          this._snackBar.open('Great ' + this.bmxItem.componentSettings[0].minRule
+            + ' test names were selected, now rate them', 'OK', {
+            duration: 6000,
+            verticalPosition: 'bottom',
+          }).afterDismissed().subscribe(action => { })
+        }, this.selectedNarrowDownTimer);
+
+      }
+
     }
-
     if (this.bmxItem.componentType == 'ranking-scale') {
-
-
       this.bmxItem.componentText.forEach((testnameRow, i) => {
         if (testnameRow.RATE == rate) {
           this.bmxItem.componentText[i].RATE = 0
@@ -160,8 +178,6 @@ export class RatingScaleComponent implements OnInit {
         }
       });
       this.bmxItem.componentText[testNameId].RATE = rate
-
-
     }
 
     else {
@@ -262,10 +278,12 @@ export class RatingScaleComponent implements OnInit {
     }
     return startCounter;
   }
-  // ⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️ END STARS METHODS  ⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️
+  // ⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️ END STARS METHODS  ⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️
 
 
   upLoadNamesAndRationales(list: string) {
+    this.uploadImagesIcon = true
+    this.recordHistory()
     this.dragRows = true;
     if (!list) { list = this.listString; }
     if (list) {
@@ -276,33 +294,46 @@ export class RatingScaleComponent implements OnInit {
 
       let nameCandidatesCounter = 0
       this.extraColumnCounter = 1
+
+      // COLUMNS NAMES CHECK
       this.columnsNames.forEach((column, index) => {
         column = column.toLowerCase()
         if (nameCandidatesCounter == 0 && column.includes('candidates') || column == 'questions') {
           this.columnsNames[index] = 'nameCandidates'
           nameCandidatesCounter++
         } else
-         if (column == 'name rationale' || column == 'rationale' || column == 'rationales') {
-          this.columnsNames[index] = 'rationale'
-        }
-         else if (column == 'katakana') {
-          this.columnsNames[index] = 'katakana'
-        } 
-        else {
-          this.columnsNames[index] = 'ExtraColumn' + this.extraColumnCounter
-          this.extraColumnCounter++
-        }
+          if (column == 'name rationale' || column == 'rationale' || column == 'rationales') {
+            this.columnsNames[index] = 'rationale'
+          }
+          else if (column == 'katakana') {
+            this.columnsNames[index] = 'katakana'
+          }
+          else {
+            this.columnsNames[index] = 'ExtraColumn' + this.extraColumnCounter
+            this.extraColumnCounter++
+          }
       });
- 
+
       this.TESTNAMES_LIST = [];
+      this.autoSizeColumns('RATE', '', this.rankingScaleValue)
+      // TEST NAMES CHECK
       for (let i = 0; i < rows.length; i++) {
         if (rows[i] != "" && rows[i].length > 6) {
           let objectColumnDesign = {};
-          if (this.ASSIGNED_CRITERIA.length > 0) {
+          if (this.ASSIGNED_CRITERIA.length > 0) {// CRITERIA
             this.bmxItem.componentSettings[0].CRITERIA = true
+            this.bmxItem.componentSettings[0].rateWidth = (this.bmxItem.componentSettings[0].rateWidth < 220) ? 220 : this.bmxItem.componentSettings[0].rateWidth
             for (let e = 0; e < this.columnsNames.length; e++) {
               if ((rows[i].split("\t").length > 0)) {
-                objectColumnDesign[this.columnsNames[e]] = rows[i].split("\t")[e].trim()
+                const columnName = this.columnsNames[e]
+                const columnValue = rows[i].split("\t")[e].trim()
+                objectColumnDesign[columnName] = columnValue
+                if (i == 0) {
+                  objectColumnDesign['RATE'] = 'RATE'
+                }
+                if (i != 0) {
+                  this.autoSizeColumns(columnName, columnValue)
+                }
               }
             }
             objectColumnDesign['CRITERIA'] = []
@@ -310,7 +341,7 @@ export class RatingScaleComponent implements OnInit {
               objectColumnDesign['CRITERIA'].push({
                 name: criteria.name,
                 STARS: this.createRatingStars(this.rankingScaleValue, this.ratingScaleIcon),
-                RATE: index>0?-1:'RATE',
+                RATE: -1,
               })
             });
           } else {
@@ -318,9 +349,15 @@ export class RatingScaleComponent implements OnInit {
             objectColumnDesign['STARS'] = this.createRatingStars(this.rankingScaleValue, this.ratingScaleIcon);
             for (let e = 0; e < this.columnsNames.length; e++) {
               if ((rows[i].split("\t").length > 0)) {
-                objectColumnDesign[this.columnsNames[e]] = rows[i].split("\t")[e].trim()
+                const columnName = this.columnsNames[e]
+                const columnValue = rows[i].split("\t")[e].trim()
+                objectColumnDesign[columnName] = columnValue
+                if (i != 0) {
+                  this.autoSizeColumns(columnName, columnValue)
+                }
               }
             }
+            objectColumnDesign['RATE'] = i > 0 ? -1 : 'RATE'
           }
           this.TESTNAMES_LIST.push(objectColumnDesign);
         }
@@ -328,27 +365,28 @@ export class RatingScaleComponent implements OnInit {
       this.bmxItem.componentText = this.deleteDuplicates(this.TESTNAMES_LIST, 'nameCandidates');
       this.columnsNames.push('RATE')
     } else {
+      this.autoSizeColumns('RATE', '', this.rankingScaleValue)
       if (this.ASSIGNED_CRITERIA.length > 0) {
-        this.bmxItem.componentSettings[0].CRITERIA = true      
+        this.bmxItem.componentSettings[0].CRITERIA = true
         this.bmxItem.componentText.forEach((row, index) => {
           let CRITERIA = [];
           this.ASSIGNED_CRITERIA.forEach(criteria => {
             CRITERIA.push({
               name: criteria.name,
               STARS: this.createRatingStars(this.rankingScaleValue, this.ratingScaleIcon),
-              RATE: index>0?-1:'RATE',
+              RATE: index > 0 ? -1 : 'RATE',
             })
           });
           row.CRITERIA = CRITERIA
           delete row["'STARS'"];
         });
-       }
+      }
       else {
         this.bmxItem.componentSettings[0].CRITERIA = false
         this.bmxItem.componentText.forEach((row, index) => {
           row.STARS = this.createRatingStars(this.rankingScaleValue, this.ratingScaleIcon)
-          row.RATE = index>0?-1:'RATE',
-          delete row['CRITERIA'];
+          row.RATE = index > 0 ? -1 : 'RATE',
+            delete row['CRITERIA'];
           // this.leaveStar(index);
         });
       }
@@ -356,6 +394,8 @@ export class RatingScaleComponent implements OnInit {
     setTimeout(() => {
       this.dragRows = false;
     }, 1000);
+
+    // this.swapColumns(0)
   }
 
   // delete row diplicates from array of object by property
@@ -372,7 +412,7 @@ export class RatingScaleComponent implements OnInit {
     }
 
     if (array.length > newArray.length) {
-      const unionMinusInter  = this.unionMinusIntersection(array, newArray)
+      const unionMinusInter = this.unionMinusIntersection(array, newArray)
       const nameCandidates = this.spreadArray(unionMinusInter)
       this._snackBar.open(`You have  ${array.length - newArray.length} duplicates removed: "${nameCandidates.join(', ')}" 🍕`, 'OK', {
         duration: 10000,
@@ -381,14 +421,14 @@ export class RatingScaleComponent implements OnInit {
     }
     return newArray;
   }
-// remove objects from array1 that are also in array2
+  // remove objects from array1 that are also in array2
   unionMinusIntersection(array1, array2) {
     let union = array1.concat(array2);
     let intersection = array1.filter(x => array2.includes(x));
     let unionMinusInter = union.filter(x => !intersection.includes(x));
     return unionMinusInter;
   }
-//  spread array of object to array of string by property
+  //  spread array of object to array of string by property
   spreadArray(array) {
     let newArray = [];
     array.forEach(element => {
@@ -397,8 +437,59 @@ export class RatingScaleComponent implements OnInit {
     return newArray;
   }
 
+  autoSizeColumns(columnName, testName, rankingValue?) {
+    let testNameLength = testName.length
+    if (columnName == 'nameCandidates') {
+      if (testNameLength > 10 && this.bmxItem.componentSettings[0].nameCandidatesWidth < 150) {
+        this.bmxItem.componentSettings[0].nameCandidatesWidth = 150
+      } else if (testNameLength > 13) {
+        this.bmxItem.componentSettings[0].nameCandidatesWidth = 175
+      }
+    } else if (columnName == 'rationale') {
+      if (testNameLength > 10 && this.bmxItem.componentSettings[0].rationalewidth < 150) {
+        this.bmxItem.componentSettings[0].rationalewidth = 150
+      } else if (testNameLength > 15) {
+        this.bmxItem.componentSettings[0].rationalewidth = 300
+      }
+    } else if (columnName == 'RATE') {
+      if (rankingValue == 5) {
+        this.bmxItem.componentSettings[0].rateWidth = 155
+      } else if (rankingValue == 6) {
+        this.bmxItem.componentSettings[0].rateWidth = 165
+      } else if (rankingValue == 7) {
+        this.bmxItem.componentSettings[0].rateWidth = 185
+      } else if (rankingValue == 8) {
+        this.bmxItem.componentSettings[0].rateWidth = 205
+      } else if (rankingValue == 9) {
+        this.bmxItem.componentSettings[0].rateWidth = 225
+      } else if (rankingValue == 10) {
+        this.bmxItem.componentSettings[0].rateWidth = 245
+      }
+    } else if (columnName == 'ExtraColumn1') {
+      if (testNameLength > 10 && this.bmxItem.componentSettings[0].columnWidth < 150) {
+        this.bmxItem.componentSettings[0].columnWidth = 150
+      } else if (testNameLength > 13) {
+        this.bmxItem.componentSettings[0].columnWidth = 175
+      }
+    } else if (columnName == 'ExtraColumn2') {
+      if (testNameLength > 10 && this.bmxItem.componentSettings[0].columnWidth < 150) {
+        this.bmxItem.componentSettings[0].columnWidth = 150
+      } else if (testNameLength > 13) {
+        this.bmxItem.componentSettings[0].columnWidth = 175
+      }
+    } else {
+      if (testNameLength > 10 && this.bmxItem.componentSettings[0].columnWidth < 150) {
+        this.bmxItem.componentSettings[0].columnWidth = 150
+      } else if (testNameLength > 13) {
+        this.bmxItem.componentSettings[0].columnWidth = 175
+      }
+    }
+
+  }
+
   // COLUMNS ADD AND REMOVE
   insertTextColumn() {
+    this.recordHistory()
     this.columnsNames.push('ExtraColumn' + (this.extraColumnCounter));
     this.bmxItem.componentText.forEach((object) => {
       let coulmnName = 'ExtraColumn' + this.extraColumnCounter
@@ -408,6 +499,7 @@ export class RatingScaleComponent implements OnInit {
   }
 
   insertCommentBoxColumn() {
+    this.recordHistory()
     this.columnsNames.forEach(columnName => {
       if (columnName.includes('Comments')) {
         this.commentColumnCounter++
@@ -427,6 +519,7 @@ export class RatingScaleComponent implements OnInit {
   }
 
   insertRadioColumn() {
+    this.recordHistory()
     this.columnsNames.push('RadioColumn' + (this.radioColumnCounter));
     this.bmxItem.componentText.forEach((object, index) => {
       let coulmnName = 'RadioColumn' + this.radioColumnCounter
@@ -451,7 +544,7 @@ export class RatingScaleComponent implements OnInit {
         this.RadioColumnList.push(columnName)
       }
     });
-    this.bmxItem.componentText[y][name] = true
+    this.bmxItem.componentText[y][name] = !this.bmxItem.componentText[y][name]
     this.RadioColumnList.forEach((columnName, index) => {
       // if (columnName.includes('RadioColumn')) {
       if (this.bmxItem.componentText[y][columnName]) {
@@ -472,15 +565,20 @@ export class RatingScaleComponent implements OnInit {
   }
 
   deletRow(option): void {
-    this.bmxItem.componentText.splice(option, 1);
+    if (confirm('Are you sure you want to delete this row?')) {
+      this.recordHistory()
+      this.bmxItem.componentText.splice(option, 1);
+    }
   }
 
   insertRow(): void {
-    const newRow =  Object.assign({}, this.bmxItem.componentText[0]);
+    this.recordHistory()
+    const newRow = Object.assign({}, this.bmxItem.componentText[0]);
     this.bmxItem.componentText.push(newRow)
   }
 
   swapColumns(index): void {
+    this.recordHistory()
     let temp = this.columnsNames[index];
     // update columnsNames array order
     for (let i = index; i < this.columnsNames.length - 1; i++) {
@@ -491,7 +589,7 @@ export class RatingScaleComponent implements OnInit {
     // re-order brand matrix columns
     this.bmxItem.componentText.forEach((row, rowIndex) => {
       for (let i = 0; i < this.columnsNames.length - 1; i++) {
-        Object.keys(row).forEach(key => {  
+        Object.keys(row).forEach(key => {
           if (this.columnsNames[i] == key) {
             newRow[key] = row[key]
           }
@@ -499,6 +597,7 @@ export class RatingScaleComponent implements OnInit {
       }
       this.bmxItem.componentText[rowIndex] = this.mergeObjects(newRow, row)
     });
+
   }
 
   mergeObjects(obj1, obj2) {
@@ -513,37 +612,41 @@ export class RatingScaleComponent implements OnInit {
   }
 
   deleteColumn(columnName) {
-    let temporary = []
-    // REMOVE THE COLUMN FROM THE COLUMNS
-    this.columnsNames.forEach((element, index) => {
-      if (element !== columnName) {
-        temporary.push(element)
-        if (element.includes('Comments')) {
-          // this.RadioColumnList['RadioColumn' + this.commentColumnCounter] = undefined
-          this.commentColumnCounter--
+    if (confirm('Are you sure you want to delete ' + columnName + ' column?')) {
+      this.recordHistory()
+      let temporary = []
+      // REMOVE THE COLUMN FROM THE COLUMNS
+      this.columnsNames.forEach((element, index) => {
+        if (element !== columnName) {
+          temporary.push(element)
+          if (element.includes('Comments')) {
+            // this.RadioColumnList['RadioColumn' + this.commentColumnCounter] = undefined
+            this.commentColumnCounter--
+          }
         }
-      }
-    });
-    this.columnsNames = temporary;
-    this.bmxItem.componentText.forEach((object, index) => {
-      delete this.bmxItem.componentText[index][columnName]
-    });
-    this.bmxItem.componentText = this.bmxItem.componentText;
+      });
+      this.columnsNames = temporary;
+      this.bmxItem.componentText.forEach((object, index) => {
+        delete this.bmxItem.componentText[index][columnName]
+      });
+      this.bmxItem.componentText = this.bmxItem.componentText;
+    }
   }
 
   criteriaSelection(selectedCriteria) {
     this.ASSIGNED_CRITERIA = selectedCriteria
   }
 
-
-
-  addCriteria(newCriteria){
+  addCriteria(newCriteria) {
     if (newCriteria.length > 0) {
-      this.CRITERIA.unshift({name: newCriteria})
+      this.CRITERIA.unshift({ name: newCriteria })
     }
   }
-  deleteCriteria(index){
+
+  deleteCriteria(index) {
+    if (confirm('Are you sure you want to delete criteria?')) {
       this.CRITERIA.splice(index, 1)
+    }
   }
 
   checkDragEvetn(e) {
@@ -555,18 +658,37 @@ export class RatingScaleComponent implements OnInit {
   }
 
 
-  onPaste(){
+  onPaste() {
     setTimeout(() => {
       let rows = this.testNamesInput.split("\n");
-      this.rowsCount = rows.length-1
+      this.rowsCount = rows.length - 1
     }, 1000);
+  }
+
+  recordHistory() {
+    const history = JSON.parse(JSON.stringify(this.bmxItem))
+    const columsNames = JSON.parse(JSON.stringify(this.columnsNames))
+    this.HISTORY.push([history, columsNames])
+  }
+
+  undo() {
+    if (this.HISTORY.length > 0) {
+      this.dragRows = true;
+      const temp = this.HISTORY.pop()
+      Object.assign(this.bmxItem, temp[0])
+      // Object.assign(this.columnsNames, temp[1])
+      this.columnsNames = temp[1]
+      setTimeout(() => {
+        this.dragRows = false;
+      }, 1000);
+    }
   }
 
   ASSIGNED_CRITERIA = []
   CRITERIA = [
-    { name: 'Fit to Compound Concept'},
-    { name: 'Fit to Corporate Mission'},
-    { name: 'Overall Likeability'},
+    { name: 'Fit to Compound Concept' },
+    { name: 'Fit to Corporate Mission' },
+    { name: 'Overall Likeability' },
   ]
 
 }

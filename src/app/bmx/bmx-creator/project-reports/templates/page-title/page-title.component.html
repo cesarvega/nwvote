@@ -6,9 +6,9 @@
         flex-direction: column;
         justify-content: space-around;">
 
-            <input type="text" [value]="headerTitle">
+            <input type="text" [value]="this.bmxItem.componentSettings[0].pageTitle">
 
-            <textarea name="" id="" cols="30" rows="5">{{headerContent}}</textarea>
+            <textarea name="" id="" cols="30" rows="5">{{this.bmxItem.componentSettings[0].pageContent}}</textarea>
         </div>
 
     </div>

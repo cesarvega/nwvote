@@ -158,6 +158,7 @@ export class ProjectInformationComponent implements OnInit {
     this._BmxService.saveProjectInfo(this.bmxEditData.get('bmxProjectName').value.toString(), finalString, 'user@bi.com').subscribe(result => {
       var so = result;
     });
+    this._BmxService.setprojectData(finalString)
     this._snackBar.open('Saved Succesfully');
     localStorage.setItem('department', this.bmxEditData.get('bmxDepartment').value.toString());
   }
