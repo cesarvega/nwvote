@@ -46,6 +46,7 @@ const routes: Routes = [
   // },
   {
     path: '',
+    // redirectTo: '/rg2327',
     redirectTo: '/Project Brand Matrix/cvega',
     pathMatch: 'full'
   } 
@@ -56,3 +57,5 @@ const routes: Routes = [
   exports: [RouterModule]
 })
 export class AppRoutingModule { }
+
+
