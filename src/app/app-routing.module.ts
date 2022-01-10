@@ -20,10 +20,10 @@ const routes: Routes = [
   //   path: 'vote',
   //   component: NwVoteComponent
   // },
-  {// BSR-Mobile http://mynamepage.com/te2687
-    path: ':id',
-    component: BsrMobileComponent
-  },
+  // {// BSR-Mobile http://mynamepage.com/te2687
+  //   path: ':id',
+  //   component: BsrMobileComponent
+  // },
   // {// SCHEDULER
   //   path: ':id',
   //   component: SchedulerComponent
@@ -32,22 +32,22 @@ const routes: Routes = [
   //   path: ':id',
   //   component: BsrComponent
   // },
-  // {//BI BRAND MATRIX CREATOR
-  // path: ':id/:biUsername',
-  //  component: BmxCreatorComponent
-  // },
-  //  {//BI BRAND MATRIX
-  //   path: 'survey/:id/:username',
-  //   component: SurveyMatrixComponent
-  // },
+  {//BI BRAND MATRIX CREATOR
+  path: ':id/:biUsername',
+   component: BmxCreatorComponent
+  },
+   {//BI BRAND MATRIX
+    path: 'survey/:id/:username',
+    component: SurveyMatrixComponent
+  },
   // {//NW 3 BI PRESENTS NOMENCLATURE WORKSHOP V.3.0
   //   path: ':id',
   //   component: NW3Component
   // },
   {
     path: '',
-    redirectTo: '/rg2327',
-    // redirectTo: '/Project Brand Matrix/cvega',
+    // redirectTo: '/rg2327',
+    redirectTo: '/Project Brand Matrix/cvega',
     pathMatch: 'full'
   }
 ];
