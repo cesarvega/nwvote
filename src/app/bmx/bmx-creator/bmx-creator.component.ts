@@ -56,7 +56,7 @@ export class BmxCreatorComponent implements OnInit {
   isSelectedButton = '';
 
   isMainMenuActive = true;
-  
+
 
   model = {
     editorData: '',
@@ -66,9 +66,9 @@ export class BmxCreatorComponent implements OnInit {
   ckconfig: any;
   selectedIndex: any
   sampleHtml = `Dear PARTICIPANT,
-  You have been selected to participate in the brand name selection for BI Pharma's new ADSSK & CCC Inhibitor for the treatment of multiple cancer types. 
+  You have been selected to participate in the brand name selection for BI Pharma's new ADSSK & CCC Inhibitor for the treatment of multiple cancer types.
   In this survey, you'll be voting on multiple name candidates that have been developed specifically for this compound. The survey will guide you, and an instructions button is available at any time for your assistance.
-  We hope you enjoy this piece of your branding process. Please select Continue below to officially start your survey. 
+  We hope you enjoy this piece of your branding process. Please select Continue below to officially start your survey.
   Best,
   The Brand Institute Team`
   selectedOption: any;
@@ -135,7 +135,7 @@ export class BmxCreatorComponent implements OnInit {
     // });
 
     this.toggleMenuActive('isMenuActive16')
-    
+
     this.isMainMenuActive = false;
 
 
@@ -151,7 +151,7 @@ export class BmxCreatorComponent implements OnInit {
       moves: (el, container, handle) => {
         return handle.classList.contains('emoji-handle');
       }
-      
+
     })
     // document.body.style.zoom = 1.10;
 
@@ -222,12 +222,12 @@ export class BmxCreatorComponent implements OnInit {
   checkDragEvetn(e) {
     console.log(e);
   }
-  
-  
+
+
   toggleViewPageModeDesign() {
     this.bmxClientPageDesignMode = !this.bmxClientPageDesignMode;
   }
-  
+
   toggleViewPageMode() {
     this.bmxClientPageOverview = !this.bmxClientPageOverview;
   }
