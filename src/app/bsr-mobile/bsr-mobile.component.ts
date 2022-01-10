@@ -15,6 +15,7 @@ export class BsrMobileComponent implements OnInit {
 
   isUserLogged = false;
   isUserLeaving = false;
+  isBSROpen = false;
   newNames = [];
   userEmail;
   loginForm: FormGroup;
@@ -38,6 +39,11 @@ export class BsrMobileComponent implements OnInit {
       localStorage.setItem('projectId',  this.projectId);
       this.bsrService.getProjectData(this.projectId).subscribe(arg => {
         this.projectName = JSON.parse(arg[0].bsrData).projectdescription;
+        if(JSON.parse(arg[0].bsrData).presentationstatus !== 'OPEN'){
+          this.isBSROpen = true;
+          this.isUserLogged = false;
+          this.isUserLeaving = false;
+        }
         localStorage.setItem('projectName',  this.projectId);        
       });
     });
