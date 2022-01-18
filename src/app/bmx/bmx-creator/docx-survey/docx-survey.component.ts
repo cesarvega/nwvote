@@ -1492,7 +1492,7 @@ export class DocxSurveyComponent implements OnInit {
               alignment: AlignmentType.CENTER,
               children: [
                 new TextRun({
-                  text: "",
+                  text: "delet this",
                   break: 9,
                   size: 20,
                 }),
