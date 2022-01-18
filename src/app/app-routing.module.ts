@@ -16,7 +16,7 @@ const routes: Routes = [
   //   path: 'login',
   //   component: LoginComponent
   // },
-  // {// VOTE COMPONENT 
+  // {// VOTE COMPONENT
   //   path: 'vote',
   //   component: NwVoteComponent
   // },
@@ -26,7 +26,7 @@ const routes: Routes = [
   // },
   // {// SCHEDULER
   //   path: ':id',
-  //   component: SchedulerComponent  
+  //   component: SchedulerComponent
   // },
   // {//BSR  color of the bar #002f5b
   //   path: ':id',
@@ -46,8 +46,10 @@ const routes: Routes = [
   // },
   {
     path: '',
-    component: BmxCreatorComponent
-  } 
+    // redirectTo: '/rg2327',
+    redirectTo: '/Project Brand Matrix/cvega',
+    pathMatch: 'full'
+  }
 ];
 
 @NgModule({
@@ -55,3 +57,5 @@ const routes: Routes = [
   exports: [RouterModule]
 })
 export class AppRoutingModule { }
+
+
