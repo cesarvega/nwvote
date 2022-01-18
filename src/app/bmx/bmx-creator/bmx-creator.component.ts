@@ -25,7 +25,7 @@ import { map, startWith } from 'rxjs/operators';
 })
 export class BmxCreatorComponent implements OnInit {
   // https://getemoji.com/
-  bmxClientPageDesignMode = false;
+  bmxClientPageDesignMode = true;
   bmxClientPageOverview = false;
   displayRightSideMenu = false;
   isBrandMatrixSurvey = true
@@ -134,9 +134,9 @@ export class BmxCreatorComponent implements OnInit {
     //   })
     // });
 
-    this.toggleMenuActive('isMenuActive11')
+    this.toggleMenuActive('isMenuActive1')
 
-    this.isMainMenuActive = false;
+    this.isMainMenuActive = true;
 
 
 
