@@ -225,14 +225,16 @@ export class SurveyCreationDesignComponent implements OnInit {
             //   localStorage.setItem('projectName',  this.projectId);
             // });
         });
+
+        this._BmxService. currentprojectData$.subscribe(arg => {
+            this.projectInfo = arg;
+            localStorage.setItem('projectInfo', this.projectInfo);
+        })
+
     }
 
     ngOnInit(): void {
-
-
-
         this.isBrandMatrixSurvey = false;
-
         this._BmxService.currentProjectName$.subscribe(projectName => {
             this.projectId = (projectName !== '') ? projectName : this.projectId;
         })
@@ -613,7 +615,7 @@ export class SurveyCreationDesignComponent implements OnInit {
                         logoWidth: 250,
                         pageTitle: 'TEXT TITLE',
                         pageContent: `
-                        This section details who participated in the BrandMatrixTM 
+                        This section details who participated in the BrandMatrixTM
                         Percentage of participants who have completed the BrandMatrixTM
                         (6 out of 6)`,
                         brandInstituteLogoURL: "./assets/img/bmx/BILogo-Regular_.png",
