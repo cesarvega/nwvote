@@ -1,5 +1,39 @@
 // INPUT RANGE STYLE
 
+//desktop
+@media (min-width: 576px) {
+  .desktop {
+    display: flex;
+    flex-direction: column;
+  }
+
+  .mobile{
+    display: none;
+  }
+  .spacer{
+    display: none;
+  }
+}
+//mobile
+@media (max-width: 576px) {
+  .desktop {
+    display: none;
+  }
+
+  .mobile{
+    width: 100%;
+    height: 90px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    align-items: center;
+    position: fixed;
+    top: 0px;
+    background-color: #fff;
+    z-index: 1;
+  }
+}
+
 input[type="range"] {
   -webkit-appearance: none;
   margin: 7px 8px;
@@ -86,39 +120,7 @@ input[type="range"]:focus::-ms-fill-upper {
   background: #ef7f25;
 }
 
-//desktop
-@media (min-width: 576px) {
-  .desktop {
-    display: flex;
-    flex-direction: column;
-  }
 
-  .mobile{
-    display: none;
-  }
-  .spacer{
-    display: none;
-  }
-}
-//mobile
-@media (max-width: 576px) {
-  .desktop {
-    display: none;
-  }
-
-  .mobile{
-    width: 100%;
-    height: 90px;
-    display: flex;
-    flex-direction: column;
-    justify-content: space-between;
-    align-items: center;
-    position: fixed;
-    top: 0px;
-    background-color: #fff;
-    z-index: 1;
-  }
-}
 .emoji-handle {
   // position: absolute;
   top: 5px;

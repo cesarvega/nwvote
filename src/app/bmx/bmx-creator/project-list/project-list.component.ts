@@ -44,7 +44,7 @@ export class ProjectListComponent implements OnInit {
     .subscribe((arg:any) => {
       this.allData = JSON.parse(arg.d);
       // this.allData = JSON.parse(obj);
-      this.changeView();     
+      this.changeView();
     });
   }
 
@@ -59,11 +59,13 @@ export class ProjectListComponent implements OnInit {
 
   sendEmail(option: string): void {
     var test = option;
+    this._BmxService.setProjectName(option);
     localStorage.setItem('projectName', option);
     this.isMenuActive1Email.emit(false);
   }
 
   editBM(option: string): void {
+    this._BmxService.setProjectName(option);
     var test = option;
     localStorage.setItem('projectName', option);
     this.isMenuActive1Close.emit(false);
@@ -114,6 +116,6 @@ export class ProjectListComponent implements OnInit {
     return day !== 0 && day !== 6 ;
   }
 
-  
+
 
 }
