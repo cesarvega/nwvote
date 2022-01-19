@@ -66,7 +66,7 @@ export class DocxSurveyComponent implements OnInit {
   ngOnInit(): void {
     this.selection = new SelectionModel<any>(true, []);
     
-    this._BmxService.getBrandMatrixByProjectAllUserAnswers("rateStarCriteria")
+    this._BmxService.getBrandMatrixByProjectAllUserAnswers("topRankDropDown")
       .subscribe(async (arg: any) => {
         this.user = await this.createDataObject(JSON.parse(arg.d));
         this.changeView();
@@ -897,8 +897,8 @@ export class DocxSurveyComponent implements OnInit {
     }
     else {
       this.dataSource.data.forEach(row => {
-
         this.selection.select(row);
+        this.RESPONDENTS_LIST.push(row);
       });
 
     }
