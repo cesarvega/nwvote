@@ -120,9 +120,9 @@ export class BmxCreatorComponent implements OnInit {
     //   })
     // });
 
-    this.toggleMenuActive('isMenuActive1')
-
-    this.isMainMenuActive = true;
+    this.toggleMenuActive('isMenuActive16')
+    this.bmxClientPageDesignMode = false;
+    this.isMainMenuActive = false;
 
 
 

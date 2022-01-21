@@ -290,6 +290,9 @@
                 <mat-icon class="full-icon">print
                 </mat-icon>
             </button>
+            <button *ngIf="true" (click)="print()" mat-icon-button>
+              <i class="fas fa-file-word"></i>
+            </button>
             <button *ngIf="true" (click)="openFullscreen()" mat-icon-button matTooltip="full screen"
                 matTooltipPosition="right">
                 <mat-icon class="full-icon">fullscreen
