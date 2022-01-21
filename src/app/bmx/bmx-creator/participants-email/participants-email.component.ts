@@ -30,6 +30,7 @@ export class ParticipantsEmailComponent implements OnInit {
   selection;
   ckconfig: any;
   selectedIndex: any;
+  projectId;
   fixedString;
   sampleHtml = `Dear PARTICIPANT,
   You have been selected to participate in the brand name selection for BI Pharma's new ADSSK & CCC Inhibitor for the treatment of multiple cancer types. 
@@ -98,11 +99,18 @@ export class ParticipantsEmailComponent implements OnInit {
   ngOnInit(): void {
     this.selected = 'All';
 
+    this._BmxService.currentProjectName$.subscribe((projectName) => {
+      this.projectId = projectName !== '' ? projectName : this.projectId;
+      localStorage.setItem('projectName', this.projectId);
+    });
+    
     this._BmxService.BrandMatrixGetParticipantList(localStorage.getItem('projectName'))
       .subscribe((arg: any) => {
         this.allData = JSON.parse(arg.d).ParticipantList;
         this.changeView();
       });
+   // this.allData = JSON.parse(localStorage.getItem('fakeprojectname' + '_repondants list'));
+    //this.changeView();
     this.emailTemp = 'Creative';
     this.changeTemplate('Creative');
 
@@ -212,7 +220,7 @@ export class ParticipantsEmailComponent implements OnInit {
       To access the online voting site, please click on the link below to be logged in automatically. Voting instructions are provided in the link and will only take a few minutes of your time.<br><br>
       
       Your link:<br>
-      https://tools.brandinstitute.com/bmxtest/survey/projectName/Username<br>
+      https://tools.brandinstitute.com/bmx/survey/projectName/Username<br>
       (if you cannot click on the link, please copy and paste into your browser)<br><br>
       
       Your input is valued.  Please place your votes by (insert closing date and time). We hope you enjoy this interactive exercise!<br><br>  
@@ -234,7 +242,7 @@ export class ParticipantsEmailComponent implements OnInit {
       To access the online voting site, please click on the link below to be logged in automatically. Voting instructions are provided in the link and will only take a few minutes of your time.<br><br>
       
       Your link:<br>
-      https://tools.brandinstitute.com/bmxtest/survey/projectName/Username<br>
+      https://tools.brandinstitute.com/bmx/survey/projectName/Username<br>
       (if you cannot click on the link, please copy and paste into your browser)<br><br>
       
       Your input is valued.  Please place your votes by (insert closing date and time). We hope you enjoy this interactive exercise!<br><br>  
@@ -257,7 +265,7 @@ export class ParticipantsEmailComponent implements OnInit {
       To access the online voting site, please click on the link below to be logged in automatically. Voting instructions are provided in the link and will only take a few minutes of your time.<br><br>
       
       Your link:<br>
-      https://tools.brandinstitute.com/bmxtest/survey/projectName/Username<br>
+      https://tools.brandinstitute.com/bmx/survey/projectName/Username<br>
       (if you cannot click on the link, please copy and paste into your browser)<br><br>
 
       Your input is valued.  Please place your votes by (insert closing date and time). We hope you enjoy this interactive exercise!<br><br>
@@ -285,7 +293,7 @@ export class ParticipantsEmailComponent implements OnInit {
 
   replaceEmailInfo(Fname: string, Lname: string) {
     this.fixedString = this.fixedString.replace("NAMEOFUSER", Fname + " " + Lname);
-    this.fixedString = this.fixedString.replace("projectName", localStorage.getItem('projectName'));
+    this.fixedString = this.fixedString.replaceAll("projectName", this.projectId.toString());
     this.fixedString = this.fixedString.replace("Username", Fname[0] + Lname);
   }
 
