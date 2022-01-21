@@ -86,6 +86,7 @@ import { ReportFirstPageComponent } from '../bmx-creator/project-reports/templat
 import { PageLineBreakComponent } from '../bmx-creator/project-reports/templates/page-line-break/page-line-break.component';
 import { PageTitleComponent } from '../bmx-creator/project-reports/templates/page-title/page-title.component';
 import { DocxSurveyComponent } from '../bmx-creator/docx-survey/docx-survey.component';
+import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 
 export function loadEcharts() {
   return import('echarts');
@@ -163,7 +164,8 @@ export function loadEcharts() {
     MatPaginatorModule,
     CommonModule,
     BmxRoutingModule,
-    MatAutocompleteModule
+    MatAutocompleteModule,
+    FontAwesomeModule,
   ]
 })
 export class BmxModule { }

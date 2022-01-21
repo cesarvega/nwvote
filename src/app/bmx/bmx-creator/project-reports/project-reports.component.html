@@ -290,8 +290,8 @@
                 <mat-icon class="full-icon">print
                 </mat-icon>
             </button>
-            <button *ngIf="true" (click)="print()" mat-icon-button>
-              <i class="fas fa-file-word"></i>
+            <button *ngIf="true" (click)="displayWordDocumentWindow()" mat-icon-button>
+              <fa-icon class="full-icon" [icon]="wordIcon"></fa-icon>
             </button>
             <button *ngIf="true" (click)="openFullscreen()" mat-icon-button matTooltip="full screen"
                 matTooltipPosition="right">
@@ -312,49 +312,13 @@
 </div>
 
 <!-- TEMPLATE BOX SAVE AND UPDATE -->
-<!-- <div *ngIf="isTemplateBoxOn" class="save-template-box"
+<div *ngIf="displayWordDocument" class="save-template-box"
     style="display: flex;flex-direction: column;align-items: center;justify-content: space-around;">
-    <h2 style="text-align: center;padding-top: 5px;color: #2a3f8a;">{{templateTitle}}</h2>
+    <h2 style="text-align: center;padding-top: 5px;color: #2a3f8a;">{{projectId}}</h2>
 
-    <mat-form-field appearance="outline">
-        <mat-label>New Template Name</mat-label>
-        <input matInput [(ngModel)]="templateName" placeholder="New Name" (click)="isSaveOrUpdate = false">
-        <button *ngIf="templateName" matSuffix mat-icon-button aria-label="Clear" (click)="templateName=''">
-            <mat-icon>close</mat-icon>
-        </button>
-    </mat-form-field>
-    <p style="text-align: center;color: grey;" *ngIf="templateName.length == 0">or select one to load or update</p>
-    <mat-form-field *ngIf="templateName.length == 0" appearance="outline">
-        <mat-label>Templates</mat-label>
-        <mat-select [(ngModel)]="templateName" (selectionChange)="templateSelected()">
-            <mat-option *ngFor="let template of TEMPLATES " [value]="template">
-                {{template}}
-            </mat-option>
-        </mat-select>
-    </mat-form-field>
-    <div *ngIf="templateName.length > 3"
-        style="display: flex;flex-direction: row;justify-content: space-evenly; width: 300px;">
-        <button *ngIf="!isSaveOrUpdate" (click)="saveOrUpdateTemplate(templateName)" mat-raised-button
-            style="color: white;background-color: #2a3f8a">
-            save
-        </button>
-        <button *ngIf="isSaveOrUpdate" (click)="saveOrUpdateTemplate(templateName)" mat-raised-button
-            style="color: white;background-color: #8a2a5a">
-            update
-        </button>
-        <p *ngIf="isSaveOrUpdate">or</p>
-        <button *ngIf="isSaveOrUpdate" (click)="loadTemplate(templateName)" mat-raised-button
-            style="color: white;background-color: #2a3f8a">
-            load
-        </button>
-        <p *ngIf="isSaveOrUpdate">or</p>
-        <button *ngIf="isSaveOrUpdate" (dblclick)="deleteTemplate(templateName)"
-            matTooltip="double click to delete template" matTooltipPosition="below" mat-raised-button
-            style="color: white;background-color: #972044">
-            delete
-        </button>
-    </div>
-    <mat-icon (click)="isTemplateBoxOn = false" style="cursor: pointer;" class="full-icon">close
+    <app-docx-survey> [isMenuActive5]="true"></app-docx-survey>
+
+    <mat-icon (click)="displayWordDocument = false" style="cursor: pointer;" class="full-icon">close
     </mat-icon>
 
-</div> -->
+</div>
