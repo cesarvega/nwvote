@@ -8,7 +8,7 @@
             <mat-option value="F">Finished</mat-option>
         </mat-select>
     </mat-form-field>
-    <table mat-table [dataSource]="dataSource" class="mat-elevation-z8"
+    <table mat-table [dataSource]="dataSource" class=""
         style="width: 100%; margin-bottom: 20px; overflow-y: auto;">
 
         <!-- Checkbox Column -->
@@ -28,7 +28,7 @@
         </ng-container>
 
         <ng-container matColumnDef="Name">
-            <th mat-header-cell *matHeaderCellDef> Name </th>
+            <th mat-header-cell *matHeaderCellDef> Select All </th>
             <td mat-cell *matCellDef="let element"> {{element.email}} </td>
         </ng-container>
 
