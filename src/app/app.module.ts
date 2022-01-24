@@ -58,7 +58,6 @@ import { CdkTableModule } from '@angular/cdk/table';
 import { ScrollingModule } from '@angular/cdk/scrolling';
 import { CdkTreeModule } from '@angular/cdk/tree';
 import { A11yModule } from '@angular/cdk/a11y';
-
 export function loadEcharts() {
   return import('echarts');
 }
@@ -141,6 +140,7 @@ export function loadEcharts() {
     CdkTableModule,
     CdkTreeModule,
     A11yModule,
+
   ],
   entryComponents: [
     editPost, editName

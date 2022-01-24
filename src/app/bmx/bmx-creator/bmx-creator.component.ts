@@ -1,22 +1,9 @@
-import { Component, ElementRef, EventEmitter, Inject, Input, OnInit, Output, ViewChild, ViewEncapsulation } from '@angular/core';
+import { Component, Inject, OnInit, ViewEncapsulation } from '@angular/core';
 import { DOCUMENT } from '@angular/common';
-import { FormControl, FormGroup } from '@angular/forms';
-import { trigger, transition, useAnimation } from '@angular/animations';
-import { pulse, flash } from 'ng-animate';
-import { HotkeysService, Hotkey } from 'angular2-hotkeys';
-import Speech from 'speak-tts';
-// import { Nw3Service } from './nw3.service';
+import { HotkeysService } from 'angular2-hotkeys';
 import { ActivatedRoute } from '@angular/router';
-import { typeSourceSpan } from '@angular/compiler';
-import { Nw3Service } from '../../nw3/nw3.service';
 import { BmxService } from './bmx.service';
 import { DragulaService } from 'ng2-dragula';
-import { MatPaginator } from '@angular/material/paginator';
-import { MatTableDataSource } from '@angular/material/table';
-import { MatSort } from '@angular/material/sort';
-import { MatDatepicker } from '@angular/material/datepicker';
-import { Observable } from 'rxjs';
-import { map, startWith } from 'rxjs/operators';
 @Component({
   selector: 'app-bmx-creator',
   templateUrl: './bmx-creator.component.html',
@@ -25,11 +12,10 @@ import { map, startWith } from 'rxjs/operators';
 })
 export class BmxCreatorComponent implements OnInit {
   // https://getemoji.com/
-  bmxClientPageDesignMode = false;
+  bmxClientPageDesignMode = true;  // false to hide the side menu
   bmxClientPageOverview = false;
   displayRightSideMenu = false;
   isBrandMatrixSurvey = true
-
 
   projectName: any;
   projectId: any;
@@ -134,9 +120,16 @@ export class BmxCreatorComponent implements OnInit {
     //   })
     // });
 
-    this.toggleMenuActive('isMenuActive11')
+  // PRODUCTION INITIAL MENU
+    this.toggleMenuActive('isMenuActive1')
+    this.bmxClientPageDesignMode = true;
+    this.isMainMenuActive = true;
 
-    this.isMainMenuActive = false;
+    // TESTING SETTINGS
+    // this.toggleMenuActive('isMenuActive16')
+    // this.bmxClientPageDesignMode = false;
+    // this.isMainMenuActive = false;
+
 
 
     this._BmxService.getGeneralLists()
@@ -193,6 +186,15 @@ export class BmxCreatorComponent implements OnInit {
 
   // menu functionallity toggles the active link scss
   toggleMenuActive(menuItem) {
+    this._BmxService.currentprojectData$.subscribe((data: any) => {
+      if (data.length > 0) {
+        this.projectName = data[0].ProjectName;
+        this.projectId = data[0].PresentationId;
+        // localStorage.setItem('projectName', this.projectName);
+        // localStorage.setItem('data', this.projectId);
+      }
+    });
+
     if(menuItem === 'isMenuActive1')
     { this.isMainMenuActive = true;
       localStorage.removeItem('projectName');
@@ -234,7 +236,6 @@ export class BmxCreatorComponent implements OnInit {
 
   editBM(event)
   {
-    console.log(event)
     this.isMenuActive1 = event;
     this.isMainMenuActive = event;
     this.isMenuActive8 = !event;
@@ -242,7 +243,6 @@ export class BmxCreatorComponent implements OnInit {
 
   emailBM(event)
   {
-    console.log(event)
     this.isMenuActive1 = event;
     this.isMainMenuActive = event;
     this.isMenuActive15 = !event;

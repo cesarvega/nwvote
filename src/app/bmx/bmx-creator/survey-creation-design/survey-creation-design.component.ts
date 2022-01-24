@@ -216,27 +216,32 @@ export class SurveyCreationDesignComponent implements OnInit {
             },
         });
 
-        activatedRoute.params.subscribe(params => {
-            this.projectId = params['id'];
-            this.biUsername = params['biUsername'];
-            localStorage.setItem('projectId', this.projectId);
-            // this.bsrService.getProjectData(this.projectId).subscribe(arg => {
-            //   this.projectName = JSON.parse(arg[0].bsrData).projectdescription;
-            //   localStorage.setItem('projectName',  this.projectId);
-            // });
-        });
+        // activatedRoute.params.subscribe(params => {
+        //     this.projectId = params['id'];
+        //     this.biUsername = params['biUsername'];
+        //     localStorage.setItem('projectId', this.projectId);
+        //     // this.bsrService.getProjectData(this.projectId).subscribe(arg => {
+        //     //   this.projectName = JSON.parse(arg[0].bsrData).projectdescription;
+        //     //   localStorage.setItem('projectName',  this.projectId);
+        //     // });
+        // });
+
+        this._BmxService. currentprojectData$.subscribe(arg => {
+            this.projectInfo = arg;
+            localStorage.setItem('projectInfo', this.projectInfo);
+        })
+
     }
 
     ngOnInit(): void {
-
-
-
         this.isBrandMatrixSurvey = false;
-
         this._BmxService.currentProjectName$.subscribe(projectName => {
             this.projectId = (projectName !== '') ? projectName : this.projectId;
+            localStorage.setItem('projectName',  this.projectId);
         })
+
         this.myAngularxQrCode = this.myAngularxQrCode + this.projectId + '/' + this.biUsername
+
         this._BmxService.getGeneralLists()
             .subscribe((arg: any) => {
                 this.TEMPLATES = (JSON.parse(arg.d).BrandMatrixTemplateList.length > 0) ?
@@ -296,6 +301,7 @@ export class SurveyCreationDesignComponent implements OnInit {
         }
 
     }
+
     createPage() {
         this.bmxPages.push({
             pageNumber: this.bmxPages.length + 1,
@@ -613,7 +619,7 @@ export class SurveyCreationDesignComponent implements OnInit {
                         logoWidth: 250,
                         pageTitle: 'TEXT TITLE',
                         pageContent: `
-                        This section details who participated in the BrandMatrixTM 
+                        This section details who participated in the BrandMatrixTM
                         Percentage of participants who have completed the BrandMatrixTM
                         (6 out of 6)`,
                         brandInstituteLogoURL: "./assets/img/bmx/BILogo-Regular_.png",
@@ -945,10 +951,7 @@ export class SurveyCreationDesignComponent implements OnInit {
     }
 
     previewSurvey() {
-        window.open('survey/' + this.projectId + '/' + this.biUsername);
-        const queries = ['abcde', 'sdaklfj', 'asdjf', 'na', 'basdn',]
-
-        const strin = ['abcde', 'sdaklfj', 'asdjf', 'na', 'basdn', 'sdaklfj', 'asdjf', 'na', 'asdjf', 'na', 'basdn', 'sdaklfj', 'asdjf',]
+        window.open('survey/' + this.projectId + '/' + (this.biUsername ? this.biUsername : 'guest'));
     }
 
 
