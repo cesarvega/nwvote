@@ -349,6 +349,7 @@ export class NW3Component implements OnInit {
   neutralIcon = 'thumb_up';
   negativeIcon = 'thumb_down';
   infoIcon = 'info';
+  TestnameImagePath: any;
 
 
   constructor(@Inject(DOCUMENT) private document: any,
@@ -525,6 +526,7 @@ export class NW3Component implements OnInit {
     this.projectName = JSON.parse(this.projectData)[0].DisplayName;
     this.testName = projectData[this.pageNumber - 1].SlideDescription;
 
+
     //  FONTS INITIAL PARAMETERS FOR SLIDERS
     this.groupTestNameFontSize = (localStorage.getItem(this.projectName + '_groupTestNameFontSize')) ? localStorage.getItem(this.projectName + '_groupTestNameFontSize') : '50';
     this.groupSlideHeihtValue = (localStorage.getItem(this.projectName + '_groupSlideHeihtValue')) ? localStorage.getItem(this.projectName + '_groupSlideHeihtValue') : '5000';
@@ -666,7 +668,7 @@ export class NW3Component implements OnInit {
     let lastVisitedPageNumber: any;
     this.previousSlideType = this.slideType;
     this.slideType = '';
-
+  
     if (projectData[this.pageNumber - 1].SlideType.trim() === 'NameSummary') {
       this.slideType = 'NameSummary';
       // this.getSelectedRank('chart')
@@ -719,31 +721,25 @@ export class NW3Component implements OnInit {
       this.negativeChecked) {
       this.slideModel.NameRanking = 'Negative'
     }
-
-
     this.saveData(JSON.stringify(this.slideModel));
   }
 
 
   saveData(savingObj) {
-
-
     if (this.positiveChecked || this.neutralChecked || this.negativeChecked) {
       // this.slideModel.NameRanking = option;
     }
-
     const temp = JSON.parse(savingObj);
     temp.KanaNamesNegative = this.negativePronunciation.join(',');
     temp.recraft = (this.recraftChecked) ? 1 : 0;
     // savingObj = JSON.stringify(savingObj);
     this._NW3Service.getSaveNSlideInfo(savingObj).subscribe(
       data => {
-
-
         this.isNonProp = (data[0].PresentationType === 'Nonproprietary') ? true : false;
         this.japanese = (data[0].PresentationType === 'Katakana') ? true : false;
         this.isKatakana_BigJap = (data[0].PresentationType === 'Katakana_BigJap') ? true : false;
         this.recraftChecked = (data[0].Recraft === "False") ? false : true;
+        this.TestnameImagePath = 'http://bipresents.com/nw2/' + data[0].TestnameImagePath ;
         if (this.isKatakana_BigJap) { 
           this.japanese = true;
         }

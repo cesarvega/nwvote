@@ -2,7 +2,6 @@
 <div (click)="noClickanyWhere()" class="page">
     <div class="mainContainerPresent mat-elevation-z8" [style.background-image]="slideNameBackground">
 
-        <!-- <div class="mainContainerPresent mat-elevation-z8" > -->
         <mat-progress-bar mode="determinate" [value]="currentProgress" color="warn" style="z-index: 99999;height: 3px;">
         </mat-progress-bar>
 
@@ -17,7 +16,6 @@
         </div>
 
         <!--⚙️⚙️⚙️⚙️⚙️⚙️⚙️⚙️⚙️⚙️⚙️⚙️⚙️⚙️⚙️⚙️⚙️⚙️⚙️ SETTINGS BOX ⚙️⚙️⚙️⚙️⚙️⚙️⚙️⚙️⚙️⚙️⚙️⚙️⚙️-->
-        <!-- <div *ngIf="isSettings" class="settingsBox"> -->
         <div *ngIf="isSettings" class="settingsBox">
 
             <div>Settings</div>
@@ -67,7 +65,9 @@
         <!--  ❤️💔💔💔💔💔💔💔💔💔💔💔💔💔💔 TEMPLATES FOR SLIDES , GROUP NAMES, SINGLE NAME, IMAGE SLIDE 💔💔💔💔💔💔💔💔💔💔💔💔💔💔💔💔💔💔💔💔💔💔-->
 
         <!-- IMAGE SLIDE  -->
-        <div *ngIf="(slideType === 'Image')" class="imagePresentar" [style.background]="slideBackground"></div>
+        <div *ngIf="(slideType === 'Image')" class="imagePresentar" [style.background]="slideBackground">
+
+        </div>
         <!-- {{slideBackground}} -->
 
         <!-- 📊📊📊📊📊📊📊📊📊📊📊📊📊📊📊📊📊📊📊📊 SUMMARY SLIDE  📊📊📊📊📊📊📊📊📊📊📊📊📊📊📊📊📊📊📊📊-->
@@ -156,24 +156,19 @@
         <!-- isKatakana_BigJap -->
         <div *ngIf="(slideType === 'NameEvaluation')">
             <div class="singleNameSlide">
-
                 <div class="nameContainer">
                     <div [style.font-family]="font2" [style.font-size]="'30px'" class="item1">{{category}}</div>
                     <div class="testName" [style.font-family]="font2" Comirnaty
-                        [style.font-size]="(testName.length>8)?'150px':'190px'" [innerHTML]="testName">
-
+                        [style.font-size]="(testName.length>8)?'150px':'190px'" [innerHTML]="TestnameImagePath">
                     </div>
+                    <img [src]="TestnameImagePath" alt="">IMAGE
                     <!-- <div [style.font-family]="font3" [style.font-size]="'30px'" class="pronounciation">comir-nati</div> -->
                     <div [style.font-family]="font2" [style.font-size]="'35px'"
                         style="text-align: center;line-height: 40px;" class="rationale">{{rationale}}
                     </div>
                 </div>
-
-
                 <!--VOTE EMOJI BUTTONS 👽-->
                 <div class="voteIcons">
-
-
                     <!-- POSITIVE BUTTON  -->
                     <div>
                         <button *ngIf="displayPositiveBox && (nwPositiveVoteUsers.length > 0)"
