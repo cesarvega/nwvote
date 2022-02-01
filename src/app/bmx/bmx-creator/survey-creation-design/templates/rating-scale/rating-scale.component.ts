@@ -63,6 +63,7 @@ export class RatingScaleComponent implements OnInit {
   HISTORY = []
   RANGEARRAY = ['columnWidth1', 'columnWidth2', 'columnWidth3']
   selectedNarrowDownTimer = 0;
+  columnFontSize = 15;
 
   constructor(private dragulaService: DragulaService, private _snackBar: MatSnackBar) {
     //   dragulaService.createGroup('DRAGGABLE_ROW', {
@@ -123,8 +124,8 @@ export class RatingScaleComponent implements OnInit {
               + ' test names ', 'OK', {
               duration: 6000,
               verticalPosition: 'top',
-            }).afterDismissed().subscribe(action => { 
-              
+            }).afterDismissed().subscribe(action => {
+
             })
 
             this.bmxItem.componentText[index].SELECTED_ROW = false;
@@ -530,6 +531,23 @@ export class RatingScaleComponent implements OnInit {
       }
     });
     this.radioColumnCounter++
+  }
+
+  columnFontSizeAdjust(columnName, direction) {
+    if (!columnName.includes('RATE') && !columnName.includes('RadioColumn') && !columnName.includes('Comments')) {
+      if (direction == 'increase') {
+        this.columnFontSize += 1
+      } else {
+        this.columnFontSize -= 1
+      }
+      this.bmxItem.componentText.forEach((row, index) => {
+        if (index > 0) {
+          var regex = /(<([^>]+)>)/ig
+          row[columnName] = row[columnName].replace(regex, "");
+          row[columnName] = '<span ' + 'style="font-size:' + this.columnFontSize + 'px">' + row[columnName] + '</span>'
+        }
+      });
+    }
   }
 
   saveRadioColumValue(name, y) {

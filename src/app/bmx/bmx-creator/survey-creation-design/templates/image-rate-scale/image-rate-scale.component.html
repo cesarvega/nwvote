@@ -421,6 +421,16 @@
                             </p>
                             <mat-icon *ngIf="selectedColumn === e && bmxClientPageOverview" style="cursor: pointer;"
                                 (click)="swapColumns(e)">chevron_right</mat-icon>
+
+                            <mat-icon *ngIf="selectedColumn === e && bmxClientPageOverview" style="cursor: pointer;"
+                                (click)="columnFontSizeAdjust(columnName, 'decrease')">remove</mat-icon>
+
+                            <mat-icon *ngIf="selectedColumn === e && bmxClientPageOverview" style="cursor: pointer;">
+                                text_format
+                            </mat-icon>
+
+                            <mat-icon *ngIf="selectedColumn === e && bmxClientPageOverview" style="cursor: pointer;"
+                                (click)="columnFontSizeAdjust(columnName, 'increase')">add</mat-icon>
                         </div>
                     </div>
                     <!-- 🟢🟢🟢🟢🟢🟢🟢🟢🟢🟢🟢🟢🟢🟢 END HEADER TEXT AREA  🟢🟢🟢🟢🟢🟢🟢🟢🟢🟢🟢🟢🟢🟢🟢🟢 -->
@@ -429,7 +439,7 @@
                     <!-- 🟡🟡🟡🟡🟡🟡🟡🟡🟡🟡🟡🟡🟡🟡 TABLE CELLS  🟡🟡🟡🟡🟡🟡🟡🟡🟡🟡🟡🟡🟡🟡🟡🟡 -->
                     <div>
 
-                      
+
                         <!--⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️ STARS RENDERER ⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️ -->
                         <div *ngIf="y !== 0  &&  columnName.includes('RATE') == true"
                             style="display: flex;align-items: center;justify-content: center;padding-right: 10px;">
@@ -689,7 +699,7 @@
                         <div style="display: flex;justify-content: center;">
                             <textarea *ngIf="y !== 0  && columnName.includes('Comments') == true && selectedCard == y"
                                 [style.width]="'95%'" [style.font-size]="bmxItem.componentSettings[0].fontSize +'px'"
-                                cdkTextareaAutosize [cdkAutosizeMinRows]="bmxItem.componentSettings[0].rowHeight + 2" 
+                                cdkTextareaAutosize [cdkAutosizeMinRows]="bmxItem.componentSettings[0].rowHeight + 2"
                                 style="text-align: center;height: 32px;width: 358px;font-size: 16px;border: 1px solid grey;
                             animation: bounceIn 500ms ease-in forwards;padding: 0 4px;margin-bottom: 10px;"
                                 class="row-box" [(ngModel)]="testName[columnName]" placeholder="comments" rows="4"
