@@ -690,15 +690,17 @@ export class RatingScaleComponent implements OnInit {
   }
 
   undo() {
-    if (this.HISTORY.length > 0) {
-      this.dragRows = true;
-      const temp = this.HISTORY.pop()
-      Object.assign(this.bmxItem, temp[0])
-      // Object.assign(this.columnsNames, temp[1])
-      this.columnsNames = temp[1]
-      setTimeout(() => {
-        this.dragRows = false;
-      }, 1000);
+    if (confirm('Are you sure you want undo last change?')) {
+      if (this.HISTORY.length > 0) {
+        this.dragRows = true;
+        const temp = this.HISTORY.pop()
+        Object.assign(this.bmxItem, temp[0])
+        // Object.assign(this.columnsNames, temp[1])
+        this.columnsNames = temp[1]
+        setTimeout(() => {
+          this.dragRows = false;
+        }, 1000);
+      }
     }
   }
 
