@@ -194,7 +194,8 @@
     </div>
 
     <hr>
-    <div style="text-align: center;display: flex;flex-direction: row;justify-content: space-around;align-items: center;">
+    <div
+        style="text-align: center;display: flex;flex-direction: row;justify-content: space-around;align-items: center;">
         <div style="display: flex;flex-direction: column;">
             <div style="font-size: 12px;color: #48535e;">TYPE NEW CRITERIA</div>
             <div style="display: flex;">
@@ -312,8 +313,7 @@
                 <div *ngFor="let columnName of columnsNames; let e =  index"
                     style="display: flex;align-items: center;justify-content: center;"
                     [ngClass]="(columnName.includes('Comments') == true)?'red':'blue'"
-                    [style.padding]="bmxItem.componentSettings[0].rowHeight + 'px'"
-                    [style.width]="(columnName == 'rationale')?bmxItem.componentSettings[0].rationalewidth + 'px': 
+                    [style.padding]="bmxItem.componentSettings[0].rowHeight + 'px'" [style.width]="(columnName == 'rationale')?bmxItem.componentSettings[0].rationalewidth + 'px': 
                      (columnName == 'RATE')?bmxItem.componentSettings[0].rateWidth + 'px':
                      (columnName == 'nameCandidates')?bmxItem.componentSettings[0].nameCandidatesWidth + 'px':
                      (columnName.includes('Comments'))?bmxItem.componentSettings[0].commentsWidth + 'px':
@@ -343,6 +343,16 @@
                         </p>
                         <mat-icon *ngIf="selectedColumn === e && bmxClientPageOverview" style="cursor: pointer;"
                             (click)="swapColumns(e)">chevron_right</mat-icon>
+
+                        <mat-icon *ngIf="selectedColumn === e && bmxClientPageOverview" style="cursor: pointer;"
+                            (click)="columnFontSizeAdjust(columnName, 'decrease')">remove</mat-icon>
+
+                        <mat-icon *ngIf="selectedColumn === e && bmxClientPageOverview" style="cursor: pointer;">
+                            text_format
+                        </mat-icon>
+
+                        <mat-icon *ngIf="selectedColumn === e && bmxClientPageOverview" style="cursor: pointer;"
+                            (click)="columnFontSizeAdjust(columnName, 'increase')">add</mat-icon>
                     </div>
 
                     <!-- 🟢🟢🟢🟢🟢🟢🟢🟢🟢🟢🟢🟢🟢🟢 END HEADER TEXT AREA  🟢🟢🟢🟢🟢🟢🟢🟢🟢🟢🟢🟢🟢🟢🟢🟢 -->
@@ -469,7 +479,7 @@
                 <div *ngIf="(y !== 0) && bmxClientPageOverview && deleteRows"
                     style="min-width: 100px; position: absolute;right: 0px;">
                     <button style="outline: none;margin:3px -8px;" (dblclick)="deletRow(y)" mat-icon-button
-                        matTooltip="doble click to delete row" matTooltipPosition="left" aria-label="ranking">
+                        matTooltip="double click to delete row" matTooltipPosition="left" aria-label="ranking">
                         <mat-icon>delete_outline</mat-icon>
                     </button>
                 </div>
@@ -557,8 +567,7 @@
                                         rows="4" cols="50"></textarea>
                                 </div>
 
-                                <p (click)="(selectedCard == y)?selectedCard = '':selectedCard = y" 
-                                *ngIf="y !== 0  && !editSingleTableCells && (columnName.includes('RadioColumn') != true) &&
+                                <p (click)="(selectedCard == y)?selectedCard = '':selectedCard = y" *ngIf="y !== 0  && !editSingleTableCells && (columnName.includes('RadioColumn') != true) &&
                                             columnName.includes('Comments') != true &&
                                             columnName.includes('kata') != true &&
                                             columnName.includes('ratio') != true"

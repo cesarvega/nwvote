@@ -305,7 +305,7 @@
                     <!-- 🟢🟢🟢🟢🟢🟢🟢🟢🟢🟢🟢🟢🟢🟢 HEADER TEXT AREA 🟢🟢🟢🟢🟢🟢🟢🟢🟢🟢🟢🟢🟢🟢🟢🟢 -->
                     <div *ngIf="(y == 0)" class="header-title " (mouseenter)="selectedColumn = e"
                         (mouseleave)="selectedColumn = ''">
-                        <div style="display: flex;flex-direction: row;justify-content: space-between;">
+                        <div style="display: flex;flex-direction: row;justify-content: space-around;">
 
                             <span *ngIf="selectedColumn === e && bmxClientPageOverview" class="header-delete-icon"
                                 matTooltip="double click to delete column" matTooltipPosition="above"
@@ -322,6 +322,14 @@
                             </p>
                             <mat-icon *ngIf="selectedColumn === e && bmxClientPageOverview" style="cursor: pointer;"
                                 (click)="swapColumns(e)">chevron_right</mat-icon>
+
+                            <mat-icon *ngIf="selectedColumn === e && bmxClientPageOverview" style="cursor: pointer;"
+                                (click)="columnFontSizeAdjust(columnName, 'decrease')">remove</mat-icon>
+
+                            <mat-icon *ngIf="selectedColumn === e && bmxClientPageOverview" style="cursor: pointer;">text_format</mat-icon>
+
+                            <mat-icon *ngIf="selectedColumn === e && bmxClientPageOverview" style="cursor: pointer;"
+                                (click)="columnFontSizeAdjust(columnName, 'increase')">add</mat-icon>
                         </div>
                     </div>
 
@@ -473,7 +481,7 @@
                 <div *ngIf="(y !== 0) && bmxClientPageOverview && deleteRows"
                     style="min-width: 100px; position: absolute;right: 0px;display: flex;">
                     <button style="outline: none;margin:3px -8px;" (dblclick)="deletRow(y)" mat-icon-button
-                        matTooltip="doble click to delete row" matTooltipPosition="left" aria-label="ranking">
+                        matTooltip="double click to delete row" matTooltipPosition="left" aria-label="ranking">
                         <mat-icon>delete_outline</mat-icon>
                     </button>
                 </div>
