@@ -48,7 +48,7 @@ const routes: Routes = [
   {
     path: '',
     // redirectTo: '/rg2327',
-    redirectTo: 'bmx',
+    redirectTo: 'survey/noProject/no_user',
     pathMatch: 'full'
   }
 ];
