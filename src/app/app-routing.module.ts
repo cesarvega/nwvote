@@ -16,7 +16,7 @@ const routes: Routes = [
   //   path: 'login',
   //   component: LoginComponent
   // },
-  // {// VOTE COMPONENT 
+  // {// VOTE COMPONENT
   //   path: 'vote',
   //   component: NwVoteComponent
   // },
@@ -26,14 +26,15 @@ const routes: Routes = [
   // },
   // {// SCHEDULER
   //   path: ':id',
-  //   component: SchedulerComponent  
+  //   component: SchedulerComponent
   // },
   // {//BSR  color of the bar #002f5b
   //   path: ':id',
   //   component: BsrComponent
   // },
   {//BI BRAND MATRIX CREATOR
-  path: ':id/:biUsername',
+  // path: ':id/:biUsername',
+  path: 'bmx',
    component: BmxCreatorComponent
   },
    {//BI BRAND MATRIX
@@ -50,10 +51,11 @@ const routes: Routes = [
   },
   {
     path: '',
-    // redirectTo: '/rg2327',
-    redirectTo: '/Project Brand Matrix/cvega',
+    // redirectTo: '/no_id/n_user',
+    redirectTo: 'bmx',
+    // redirectTo: 'survey/noProject/no_user',
     pathMatch: 'full'
-  } 
+  }
 ];
 
 @NgModule({

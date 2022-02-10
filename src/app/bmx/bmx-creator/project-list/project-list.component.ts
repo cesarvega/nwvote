@@ -16,8 +16,8 @@ import { BmxService } from '../bmx.service';
 })
 export class ProjectListComponent implements OnInit {
   @Input() isMenuActive1;
-  @Output() isMenuActive1Close: EventEmitter<boolean>=new EventEmitter<boolean>();
-  @Output() isMenuActive1Email: EventEmitter<boolean>=new EventEmitter<boolean>();
+  @Output() isMenuActive1Close: EventEmitter<boolean> = new EventEmitter<boolean>();
+  @Output() isMenuActive1Email: EventEmitter<boolean> = new EventEmitter<boolean>();
   @ViewChild(MatSort) sort: MatSort;
   @ViewChild(MatPaginator) paginator: MatPaginator;
   dataSource;
@@ -35,18 +35,19 @@ export class ProjectListComponent implements OnInit {
   DayAndDate: string;
   projectName: any;
   projectId: any;
-  constructor(@Inject(DOCUMENT) private document: any,private activatedRoute: ActivatedRoute,
-  private _hotkeysService: HotkeysService, private dragulaService: DragulaService, private _BmxService: BmxService) { }
+  constructor(@Inject(DOCUMENT) private document: any, private activatedRoute: ActivatedRoute,
+    private _hotkeysService: HotkeysService, private dragulaService: DragulaService, private _BmxService: BmxService) { }
 
   ngOnInit(): void {
     this.selected = 'Live'
     this._BmxService.getGetProjectList()
-    .subscribe((arg:any) => {
-      this.allData = JSON.parse(arg.d);
-      // this.allData = JSON.parse(obj);
-      this.changeView();     
-    });
+      .subscribe((arg: any) => {
+        this.allData = JSON.parse(arg.d);
+        // this.allData = JSON.parse(obj);
+        this.changeView();
+      });
   }
+
 
   applyFilter(filterValue: string): void {
     filterValue = filterValue.trim(); // Remove whitespace
@@ -59,11 +60,13 @@ export class ProjectListComponent implements OnInit {
 
   sendEmail(option: string): void {
     var test = option;
+    this._BmxService.setProjectName(option);
     localStorage.setItem('projectName', option);
     this.isMenuActive1Email.emit(false);
   }
 
   editBM(option: string): void {
+    this._BmxService.setProjectName(option);
     var test = option;
     localStorage.setItem('projectName', option);
     this.isMenuActive1Close.emit(false);
@@ -73,31 +76,25 @@ export class ProjectListComponent implements OnInit {
     var test = option;
   }
 
-  changeView(): void
-  {
+  changeView(): void {
     this.viewedData = [];
-      for(let i = 0; i < this.allData.length; i++)
-      {
-        if(this.selected == 'Live' && this.allData[i].Status == 'O')
-        {
-          this.viewedData.push(this.allData[i].ProjectInfo);
-        }
-        else if(this.selected == 'Closed' && this.allData[i].Close != 'O')
-        {
-          this.viewedData.push(this.allData[i].ProjectInfo)
-        }
-        else if(this.selected == 'All')
-        {
-          if(this.allData[i].ProjectInfo != "" && this.allData[i].ProjectInfo != null)
-          {
-            var t = JSON.parse(this.allData[i].ProjectInfo);
-            this.viewedData.push(JSON.parse(this.allData[i].ProjectInfo));
-          }
+    for (let i = 0; i < this.allData.length; i++) {
+      if (this.selected == 'Live' && this.allData[i].Status == 'O') {
+        this.viewedData.push(this.allData[i].ProjectInfo);
+      }
+      else if (this.selected == 'Closed' && this.allData[i].Close != 'O') {
+        this.viewedData.push(this.allData[i].ProjectInfo)
+      }
+      else if (this.selected == 'All') {
+        if (this.allData[i].ProjectInfo != "" && this.allData[i].ProjectInfo != null) {
+          var t = JSON.parse(this.allData[i].ProjectInfo);
+          this.viewedData.push(JSON.parse(this.allData[i].ProjectInfo));
         }
       }
-      this.dataSource = new MatTableDataSource<any>(this.viewedData);
-      this.dataSource.paginator = this.paginator;
-      this.dataSource.sort = this.sort;
+    }
+    this.dataSource = new MatTableDataSource<any>(this.viewedData);
+    this.dataSource.paginator = this.paginator;
+    this.dataSource.sort = this.sort;
   }
 
   onSelect(event) {
@@ -111,9 +108,9 @@ export class ProjectListComponent implements OnInit {
   myDateFilter = (d: Date): boolean => {
     const day = d.getDay();
     // Prevent Saturday and Sunday from being selected.
-    return day !== 0 && day !== 6 ;
+    return day !== 0 && day !== 6;
   }
 
-  
+
 
 }

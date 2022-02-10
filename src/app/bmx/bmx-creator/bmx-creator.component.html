@@ -40,7 +40,7 @@
                 <mat-icon>account_circle</mat-icon>
             </button>
             <div style="color: white; text-align: end;font-family: Arial, Helvetica, sans-serif;font-size: 20px;">
-                {{' welcome Alexa!'}}
+                welcome {{userName}} !
             </div>
         </div>
 
@@ -55,7 +55,7 @@
                     {{'Project List'}}
                 </div>
             </div>
-            <div [ngClass]="(isMenuActive2)?'menu-active':'menu-item'" (click)="toggleMenuActive('isMenuActive2')">
+            <!-- <div [ngClass]="(isMenuActive2)?'menu-active':'menu-item'" (click)="toggleMenuActive('isMenuActive2')">
                 <button mat-icon-button style="margin: 0 20px 0 10px">
                     <mat-icon style="font-size: 40px;">open_in_full</mat-icon>
                 </button>
@@ -71,8 +71,8 @@
                         {{'Stats'}}
                     </div>
                 </div>
-            </div>
-            <div [ngClass]="(isMenuActive3)?'menu-active':'menu-item'" (click)="toggleMenuActive('isMenuActive3')">
+            </div> -->
+            <!-- <div [ngClass]="(isMenuActive3)?'menu-active':'menu-item'" (click)="toggleMenuActive('isMenuActive3')">
                 <button mat-icon-button style="margin: 0 20px 0 10px">
                     <mat-icon style="font-size: 40px;">mail</mat-icon>
                 </button>
@@ -80,7 +80,7 @@
                     style=" text-align: end;font-family: Arial, Helvetica, sans-serif;font-size: 20px;">
                     {{'Matrix Invites'}}
                 </div>
-            </div>
+            </div> -->
             <div [ngClass]="(isMenuActive4)?'menu-active':'menu-item'"
                 (click)="toggleMenuActive('isMenuActive8');isMainMenuActive = false ">
                 <button mat-icon-button style="margin: 0 20px 0 10px">
@@ -90,7 +90,7 @@
                     {{'Create/Edit Matrix'}}
                 </div>
             </div>
-            <div [ngClass]="(isMenuActive5)?'menu-active':'menu-item'" (click)="toggleMenuActive('isMenuActive5')">
+            <!-- <div [ngClass]="(isMenuActive5)?'menu-active':'menu-item'" (click)="toggleMenuActive('isMenuActive5')">
                 <button mat-icon-button style="margin: 0 20px 0 10px">
                     <mat-icon style="font-size: 40px;">stacked_bar_chart</mat-icon>
                 </button>
@@ -105,7 +105,7 @@
                 <div style=" text-align: end;font-family: Arial, Helvetica, sans-serif;font-size: 20px;">
                     {{'Settings'}}
                 </div>
-            </div>
+            </div> -->
         </div>
         <!--🎀🎀🎀🎀🎀🎀🎀🎀🎀🎀🎀🎀🎀🎀🎀🎀🎀🎀🎀🎀🎀🎀🎀🎀🎀🎀🎀🎀🎀🎀🎀🎀🎀🎀🎀🎀🎀🎀🎀🎀🎀 END SIDE MENU -->
 
@@ -209,12 +209,9 @@
     <!-- 🧧🧧🧧🧧🧧🧧🧧🧧🧧🧧🧧🧧🧧🧧🧧🧧🧧🧧🧧🧧🧧🧧🧧🧧🧧🧧🧧🧧🧧🧧🧧🧧🧧🧧🧧🧧🧧🧧🧧🧧🧧🧧🧧🧧🧧🧧🧧🧧🧧🧧🧧🧧🧧🧧🧧🧧🧧END MATRIX INVITES -->
 
 
-    <!-- REPORTS 📗📗📗📗📗📗📗📗📗📗📗📗📗📗📗📗📗📗📗📗📗📗📗📗📗📗📗📗📗📗📗📗📗📗📗📗📗📗📗📗📗📗📗📗📗📗📗📗📗📗-->
-    <div class="reports" *ngIf="isMenuActive5" style="border: hotpink solid 1px; width: 60%; height: 100vh;">REPORTS
+    <div class="reports" *ngIf="isMenuActive5" style="border: hotpink solid 0px; width: 75%; height: 100vh;">
+        <app-docx-survey> [isMenuActive5]="isMenuActive5"></app-docx-survey>
     </div>
-    <div class="reports" *ngIf="isMenuActive5" div style="border: pink solid 1px; width: 25%; height: 100vh;">SIDE
-        PANEL5</div>
-    <!--📗📗📗📗📗📗📗📗📗📗📗📗📗📗📗📗📗📗📗📗📗📗📗📗📗📗📗📗📗📗📗📗📗📗📗📗📗📗📗📗📗📗📗📗📗📗📗📗📗📗 END REPORTS -->
 
 
     <!-- SETTINGS ⚙️⚙️⚙️⚙️⚙️⚙️⚙️⚙️⚙️⚙️⚙️⚙️⚙️⚙️⚙️⚙️⚙️⚙️⚙️⚙️⚙️⚙️⚙️⚙️⚙️⚙️⚙️⚙️⚙️⚙️⚙️⚙️⚙️⚙️⚙️⚙️⚙️⚙️⚙️⚙️⚙️⚙️⚙️⚙️⚙️-->

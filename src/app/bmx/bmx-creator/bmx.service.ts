@@ -152,9 +152,10 @@ export class BmxService {
     })
   }
 
-  saveOrUpdateAnswers(bmxCompleteObject,projectName, username) {
+  saveOrUpdateAnswers(bmxCompleteObject,projectName, username, status?) {
     const payloadString = JSON.stringify({
       ProjectName: projectName,
+      status: status,
       UserName: username,
       BrandMatrix: JSON.stringify(bmxCompleteObject).replace(this.searchApostropheRegExp, '`')
     })

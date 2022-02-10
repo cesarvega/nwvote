@@ -9,7 +9,7 @@ describe('NwvoteService', () => {
     TestBed.configureTestingModule({});
     service = TestBed.inject(NwvoteService);
   });
-
+6666
   it('should be created', () => {
     expect(service).toBeTruthy();
   });

@@ -305,7 +305,7 @@
                     <!-- 🟢🟢🟢🟢🟢🟢🟢🟢🟢🟢🟢🟢🟢🟢 HEADER TEXT AREA 🟢🟢🟢🟢🟢🟢🟢🟢🟢🟢🟢🟢🟢🟢🟢🟢 -->
                     <div *ngIf="(y == 0)" class="header-title " (mouseenter)="selectedColumn = e"
                         (mouseleave)="selectedColumn = ''">
-                        <div style="display: flex;flex-direction: row;justify-content: space-between;">
+                        <div style="display: flex;flex-direction: row;justify-content: space-around;">
 
                             <span *ngIf="selectedColumn === e && bmxClientPageOverview" class="header-delete-icon"
                                 matTooltip="double click to delete column" matTooltipPosition="above"
@@ -322,6 +322,14 @@
                             </p>
                             <mat-icon *ngIf="selectedColumn === e && bmxClientPageOverview" style="cursor: pointer;"
                                 (click)="swapColumns(e)">chevron_right</mat-icon>
+
+                            <mat-icon *ngIf="selectedColumn === e && bmxClientPageOverview" style="cursor: pointer;"
+                                (click)="columnFontSizeAdjust(columnName, 'decrease')">remove</mat-icon>
+
+                            <mat-icon *ngIf="selectedColumn === e && bmxClientPageOverview" style="cursor: pointer;">text_format</mat-icon>
+
+                            <mat-icon *ngIf="selectedColumn === e && bmxClientPageOverview" style="cursor: pointer;"
+                                (click)="columnFontSizeAdjust(columnName, 'increase')">add</mat-icon>
                         </div>
                     </div>
 
@@ -378,7 +386,7 @@
 
                             <div style="display: flex;gap: 60px;flex-direction: column;">
                                 <div *ngFor="let criteria of testName.CRITERIA  let x =  index">
-                                    <button (click)="criteria.RATE = 0;leaveCriteriaStar(y,x)"
+                                    <button (click)="criteria.RATE = 0;leaveCriteriaStar(y,x);maxRuleCounterMinus()"
                                         *ngIf="criteria.RATE>0 && y != 0 " style="background-color: #ee7f25;    
                              color: white;
                              min-width: 20px;
@@ -473,7 +481,7 @@
                 <div *ngIf="(y !== 0) && bmxClientPageOverview && deleteRows"
                     style="min-width: 100px; position: absolute;right: 0px;display: flex;">
                     <button style="outline: none;margin:3px -8px;" (dblclick)="deletRow(y)" mat-icon-button
-                        matTooltip="doble click to delete row" matTooltipPosition="left" aria-label="ranking">
+                        matTooltip="double click to delete row" matTooltipPosition="left" aria-label="ranking">
                         <mat-icon>delete_outline</mat-icon>
                     </button>
                 </div>
@@ -504,7 +512,8 @@
 
                 <!-- 🩸🩸🩸🩸🩸🩸🩸🩸🩸🩸🩸🩸🩸 RATE BUTTONS 🩸🩸🩸🩸🩸🩸🩸🩸🩸🩸🩸🩸🩸🩸🩸🩸🩸🩸🩸🩸🩸🩸🩸🩸 -->
                 <button (click)="maxRuleCounterMinus();bmxItem.componentText[y]['RATE'] = 0;leaveStar(y)"
-                    *ngIf="bmxItem.componentText[y]['RATE']>0 && y != 0 " style="background-color: #ee7f25;color: white;margin: 5px;width: 30px;
+                    *ngIf="bmxItem.componentText[y]['RATE']>0 && y != 0 " 
+                    style="background-color: #ee7f25;color: white;margin: 5px;width: 30px;
                  height: 30px;
                  line-height: 30px;right: 7px;
                  position: absolute;animation: rubberBand 500ms ease-in  forwards;"
@@ -514,7 +523,7 @@
 
                 <div style="display: flex;gap: 23px;padding-top: 10px;position: absolute;right: 24px;">
                     <div *ngFor="let criteria of testName.CRITERIA  let x =  index">
-                        <button (click)="criteria.RATE = 0;leaveCriteriaStar(y,x)" *ngIf="criteria.RATE>0 && y != 0 "
+                        <button (click)="criteria.RATE = 0;leaveCriteriaStar(y,x);maxRuleCounterMinus()" *ngIf="criteria.RATE>0 && y != 0 "
                             style="background-color: #ee7f25;    
                           color: white;
                           min-width: 20px;
@@ -550,7 +559,7 @@
                                             style="padding-top:6px;max-width: 200px;">{{criteria.name}}</span>
                                         <div style="min-width: 200px;padding-bottom:6px">
                                             <mat-icon *ngFor="let star of  criteria.STARS;"
-                                                (click)="setCriteriaRating(star.id,x,y)" [ngClass]="star.styleClass"
+                                                (click)="setCriteriaRating(star.id,x,y)" [ngClass]="star.styleClass" 
                                                 (mouseenter)="selectCriteriaStar(star.id,x,y)"
                                                 (mouseleave)="leaveCriteriaStar(y,x)"
                                                 style="outline: none;margin:1px 5px;font-size: 40px;">{{star.icon}}

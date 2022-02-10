@@ -85,6 +85,9 @@ import { TinderComponent } from '../bmx-creator/survey-creation-design/templates
 import { ReportFirstPageComponent } from '../bmx-creator/project-reports/templates/report-first-page/report-first-page.component';
 import { PageLineBreakComponent } from '../bmx-creator/project-reports/templates/page-line-break/page-line-break.component';
 import { PageTitleComponent } from '../bmx-creator/project-reports/templates/page-title/page-title.component';
+import { DocxSurveyComponent } from '../bmx-creator/docx-survey/docx-survey.component';
+import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
+
 export function loadEcharts() {
   return import('echarts');
 }
@@ -113,7 +116,7 @@ export function loadEcharts() {
     ReportFirstPageComponent,
     PageLineBreakComponent,
     PageTitleComponent,
-
+    DocxSurveyComponent
   ],
   imports: [
     BrowserModule,
@@ -161,7 +164,8 @@ export function loadEcharts() {
     MatPaginatorModule,
     CommonModule,
     BmxRoutingModule,
-    MatAutocompleteModule
+    MatAutocompleteModule,
+    FontAwesomeModule,
   ]
 })
 export class BmxModule { }

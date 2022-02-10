@@ -1,22 +1,9 @@
-import { Component, ElementRef, EventEmitter, Inject, Input, OnInit, Output, ViewChild, ViewEncapsulation } from '@angular/core';
+import { Component, Inject, OnInit, ViewEncapsulation } from '@angular/core';
 import { DOCUMENT } from '@angular/common';
-import { FormControl, FormGroup } from '@angular/forms';
-import { trigger, transition, useAnimation } from '@angular/animations';
-import { pulse, flash } from 'ng-animate';
-import { HotkeysService, Hotkey } from 'angular2-hotkeys';
-import Speech from 'speak-tts';
-// import { Nw3Service } from './nw3.service';
+import { HotkeysService } from 'angular2-hotkeys';
 import { ActivatedRoute } from '@angular/router';
-import { typeSourceSpan } from '@angular/compiler';
-import { Nw3Service } from '../../nw3/nw3.service';
 import { BmxService } from './bmx.service';
 import { DragulaService } from 'ng2-dragula';
-import { MatPaginator } from '@angular/material/paginator';
-import { MatTableDataSource } from '@angular/material/table';
-import { MatSort } from '@angular/material/sort';
-import { MatDatepicker } from '@angular/material/datepicker';
-import { Observable } from 'rxjs';
-import { map, startWith } from 'rxjs/operators';
 @Component({
   selector: 'app-bmx-creator',
   templateUrl: './bmx-creator.component.html',
@@ -25,11 +12,11 @@ import { map, startWith } from 'rxjs/operators';
 })
 export class BmxCreatorComponent implements OnInit {
   // https://getemoji.com/
-  bmxClientPageDesignMode = true;
-  bmxClientPageOverview = true;
-  displayRightSideMenu = true;
-  isBrandMatrixSurvey = false
-
+  userName = 'Alexa';
+  bmxClientPageDesignMode = true;  // false to hide the side menu
+  bmxClientPageOverview = false;
+  displayRightSideMenu = false;
+  isBrandMatrixSurvey = true
 
   projectName: any;
   projectId: any;
@@ -56,7 +43,7 @@ export class BmxCreatorComponent implements OnInit {
   isSelectedButton = '';
 
   isMainMenuActive = true;
-  
+
 
   model = {
     editorData: '',
@@ -66,9 +53,9 @@ export class BmxCreatorComponent implements OnInit {
   ckconfig: any;
   selectedIndex: any
   sampleHtml = `Dear PARTICIPANT,
-  You have been selected to participate in the brand name selection for BI Pharma's new ADSSK & CCC Inhibitor for the treatment of multiple cancer types. 
+  You have been selected to participate in the brand name selection for BI Pharma's new ADSSK & CCC Inhibitor for the treatment of multiple cancer types.
   In this survey, you'll be voting on multiple name candidates that have been developed specifically for this compound. The survey will guide you, and an instructions button is available at any time for your assistance.
-  We hope you enjoy this piece of your branding process. Please select Continue below to officially start your survey. 
+  We hope you enjoy this piece of your branding process. Please select Continue below to officially start your survey.
   Best,
   The Brand Institute Team`
   selectedOption: any;
@@ -125,17 +112,22 @@ export class BmxCreatorComponent implements OnInit {
   constructor(@Inject(DOCUMENT) private document: any,
      private activatedRoute: ActivatedRoute,
     private _hotkeysService: HotkeysService, private dragulaService: DragulaService, private _BmxService: BmxService) {
-    // this.activatedRoute.params.subscribe(params => {
-    //   this.projectName = params['id'];
-    //   localStorage.setItem('projectName', this.projectName);
-    //   this._NW3Service.getProjectId(this.projectName).subscribe((data: any) => {
-    //     this.projectId = data[0].PresentationId;
-    //     localStorage.setItem('data', data[0].PresentationId);
-    //   })
-    // });
+      this.activatedRoute.params.subscribe(params => {
+        this.projectId = params['id'];
+        this.userName = params['biUsername'];
+        localStorage.setItem('projectId',  this.projectId);
+      });
 
-    this.toggleMenuActive('isMenuActive11')
-    this.isMainMenuActive = false;
+  // PRODUCTION INITIAL MENU
+    this.toggleMenuActive('isMenuActive1')
+    this.bmxClientPageDesignMode = true;
+    this.isMainMenuActive = true;
+
+    // TESTING SETTINGS
+    // this.toggleMenuActive('isMenuActive16')
+    // this.bmxClientPageDesignMode = false;
+    // this.isMainMenuActive = false;
+
 
 
     this._BmxService.getGeneralLists()
@@ -150,7 +142,7 @@ export class BmxCreatorComponent implements OnInit {
       moves: (el, container, handle) => {
         return handle.classList.contains('emoji-handle');
       }
-      
+
     })
     // document.body.style.zoom = 1.10;
 
@@ -192,6 +184,15 @@ export class BmxCreatorComponent implements OnInit {
 
   // menu functionallity toggles the active link scss
   toggleMenuActive(menuItem) {
+    this._BmxService.currentprojectData$.subscribe((data: any) => {
+      if (data.length > 0) {
+        this.projectName = data[0].ProjectName;
+        this.projectId = data[0].PresentationId;
+        // localStorage.setItem('projectName', this.projectName);
+        // localStorage.setItem('data', this.projectId);
+      }
+    });
+
     if(menuItem === 'isMenuActive1')
     { this.isMainMenuActive = true;
       localStorage.removeItem('projectName');
@@ -221,19 +222,18 @@ export class BmxCreatorComponent implements OnInit {
   checkDragEvetn(e) {
     console.log(e);
   }
-  
-  
+
+
   toggleViewPageModeDesign() {
     this.bmxClientPageDesignMode = !this.bmxClientPageDesignMode;
   }
-  
+
   toggleViewPageMode() {
     this.bmxClientPageOverview = !this.bmxClientPageOverview;
   }
 
   editBM(event)
   {
-    console.log(event)
     this.isMenuActive1 = event;
     this.isMainMenuActive = event;
     this.isMenuActive8 = !event;
@@ -241,7 +241,6 @@ export class BmxCreatorComponent implements OnInit {
 
   emailBM(event)
   {
-    console.log(event)
     this.isMenuActive1 = event;
     this.isMainMenuActive = event;
     this.isMenuActive15 = !event;
