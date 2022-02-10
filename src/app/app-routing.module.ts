@@ -47,7 +47,7 @@ const routes: Routes = [
   // },
   {
     path: '',
-    redirectTo: '/no_id/no_user',
+    redirectTo: '/no_id/n_user',
     // redirectTo: 'survey/noProject/no_user',
     pathMatch: 'full'
   }

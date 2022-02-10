@@ -12,6 +12,7 @@ import { DragulaService } from 'ng2-dragula';
 })
 export class BmxCreatorComponent implements OnInit {
   // https://getemoji.com/
+  userName = 'Alexa';
   bmxClientPageDesignMode = true;  // false to hide the side menu
   bmxClientPageOverview = false;
   displayRightSideMenu = false;
@@ -111,14 +112,11 @@ export class BmxCreatorComponent implements OnInit {
   constructor(@Inject(DOCUMENT) private document: any,
      private activatedRoute: ActivatedRoute,
     private _hotkeysService: HotkeysService, private dragulaService: DragulaService, private _BmxService: BmxService) {
-    // this.activatedRoute.params.subscribe(params => {
-    //   this.projectName = params['id'];
-    //   localStorage.setItem('projectName', this.projectName);
-    //   this._NW3Service.getProjectId(this.projectName).subscribe((data: any) => {
-    //     this.projectId = data[0].PresentationId;
-    //     localStorage.setItem('data', data[0].PresentationId);
-    //   })
-    // });
+      this.activatedRoute.params.subscribe(params => {
+        this.projectId = params['id'];
+        this.userName = params['biUsername'];
+        localStorage.setItem('projectId',  this.projectId);
+      });
 
   // PRODUCTION INITIAL MENU
     this.toggleMenuActive('isMenuActive1')
