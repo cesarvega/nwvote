@@ -402,7 +402,11 @@ export class RatingScaleComponent implements OnInit {
     }
     setTimeout(() => {
       this.bmxItem.componentSettings[0].minRule = ( this.bmxItem.componentSettings[0].minRule == 0)? this.bmxItem.componentText.length -1 : this.bmxItem.componentSettings[0].minRule
-      this.dragRows = false;
+      if(this.bmxItem.componentSettings[0].CRITERIA){
+        //MULTIPLY FOR THE AMOUNT OF CRITERIA
+        this.bmxItem.componentSettings[0].minRule =  this.bmxItem.componentSettings[0].minRule* this.bmxItem.componentText[0].CRITERIA.length
+      }
+        this.dragRows = false;
     }, 1000);
 
     // this.swapColumns(0)

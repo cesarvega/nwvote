@@ -569,7 +569,7 @@ export class SurveyMatrixComponent extends SurveyCreationDesignComponent impleme
                             this.currentPage = pageNumber;
                             window.scroll(0, 0)
                             setTimeout(() => {
-                                this.saveUserAnswers()
+                                this.saveUserAnswers(pageNumber)
                             }, 2000);
                         } else {
                             this._snackBar.open('You must rate at least ' + component.componentSettings[0].minRule + ' Test Names', 'OK', {
@@ -586,8 +586,8 @@ export class SurveyMatrixComponent extends SurveyCreationDesignComponent impleme
         }
     }
 
-    saveUserAnswers() {
-        this._BmxService.saveOrUpdateAnswers(this.bmxPagesClient, this.projectId, this.username).subscribe((res: any) => {
+    saveUserAnswers(pageNumber?) {
+        this._BmxService.saveOrUpdateAnswers(this.bmxPagesClient, this.projectId, this.username, pageNumber).subscribe((res: any) => {
             console.log('%cANSWERS!', 'color:#007bff', res);
             let page = res.d.replace(this.searchGraveAccentRegExp, "'")
             this._snackBar.open(this.username.toUpperCase() + ' your answers were saved  ', 'OK', {
