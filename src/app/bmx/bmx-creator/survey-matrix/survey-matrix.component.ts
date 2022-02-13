@@ -24,6 +24,7 @@ export class SurveyMatrixComponent extends SurveyCreationDesignComponent impleme
     @ViewChild("canvas", { static: true }) canvas: ElementRef;
     username: any;
 
+    bradmatrixAnswer
     projectId
     popUpQRCode = false;
     elem: any;
@@ -62,6 +63,7 @@ export class SurveyMatrixComponent extends SurveyCreationDesignComponent impleme
         this.bmxPagesClient = this.SAMPLE_BMX_CLIENT
         this._BmxService.getBrandMatrixByProjectAndUserAnswers(this.projectId, this.username).subscribe((brandMatrix: any) => {
             //    IF USER ALREADY HAVE ANSWERS
+            
             if (brandMatrix.d.length > 0) {
                 let answers = JSON.parse(brandMatrix.d.replace(this.searchGraveAccentRegExp, "'"))
                 this._BmxService.getBrandMatrixByProject(this.projectId).subscribe((brandMatrix: any) => {
@@ -547,7 +549,7 @@ export class SurveyMatrixComponent extends SurveyCreationDesignComponent impleme
     }
 
     changePage(direction) {
-        if (direction === 'next' && this.bmxPages.length - 1 > this.currentPage) {
+        if (direction === 'next' &&  this.bmxPagesClient.length - 1 >= this.currentPage) {
             this.currentPage = this.currentPage + 1;
         } else if (direction === 'previous' && this.currentPage >= 1) {
             this.currentPage = this.currentPage - 1;
@@ -578,7 +580,7 @@ export class SurveyMatrixComponent extends SurveyCreationDesignComponent impleme
                             })
                         }
                     }
-                    // this.currentPage = pageNumber;
+                    this.currentPage = pageNumber;
                 });
         } else {
             this.currentPage = pageNumber;

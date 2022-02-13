@@ -13,7 +13,7 @@ import { DragulaService } from 'ng2-dragula';
 export class BmxCreatorComponent implements OnInit {
   // https://getemoji.com/
   userName = 'Alexa';
-  bmxClientPageDesignMode = true;  // false to hide the side menu
+  bmxClientPageDesignMode = false;  // false to hide the side menu
   bmxClientPageOverview = false;
   displayRightSideMenu = false;
   isBrandMatrixSurvey = true
@@ -124,9 +124,9 @@ export class BmxCreatorComponent implements OnInit {
     this.isMainMenuActive = true;
 
     // TESTING SETTINGS
-    // this.toggleMenuActive('isMenuActive16')
-    // this.bmxClientPageDesignMode = false;
-    // this.isMainMenuActive = false;
+    this.toggleMenuActive('isMenuActive11')
+    this.bmxClientPageDesignMode = false;
+    this.isMainMenuActive = false;
 
 
 

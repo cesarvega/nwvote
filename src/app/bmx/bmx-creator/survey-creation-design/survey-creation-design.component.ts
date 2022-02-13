@@ -216,29 +216,31 @@ export class SurveyCreationDesignComponent implements OnInit {
             },
         });
 
-        // activatedRoute.params.subscribe(params => {
-        //     this.projectId = params['id'];
-        //     this.biUsername = params['biUsername'];
-        //     localStorage.setItem('projectId', this.projectId);
-        //     // this.bsrService.getProjectData(this.projectId).subscribe(arg => {
-        //     //   this.projectName = JSON.parse(arg[0].bsrData).projectdescription;
-        //     //   localStorage.setItem('projectName',  this.projectId);
-        //     // });
-        // });
+        // TESTING ROUTER DATA
+        activatedRoute.params.subscribe(params => {
+            this.projectId = params['id'];
+            this.biUsername = params['biUsername'];
+            localStorage.setItem('projectId', this.projectId);
+            // this.bsrService.getProjectData(this.projectId).subscribe(arg => {
+            //   this.projectName = JSON.parse(arg[0].bsrData).projectdescription;
+            //   localStorage.setItem('projectName',  this.projectId);
+            // });
+        });
 
-        this._BmxService. currentprojectData$.subscribe(arg => {
-            this.projectInfo = arg;
-            localStorage.setItem('projectInfo', this.projectInfo);
-        })
+        // PRODUCTION DATA
+        // this._BmxService. currentprojectData$.subscribe(arg => {
+        //     this.projectInfo = arg;
+        //     localStorage.setItem('projectInfo', this.projectInfo);
+        // })
 
     }
 
     ngOnInit(): void {
         this.isBrandMatrixSurvey = false;
-        this._BmxService.currentProjectName$.subscribe(projectName => {
-            this.projectId = (projectName !== '') ? projectName : this.projectId;
-            localStorage.setItem('projectName',  this.projectId);
-        })
+        // this._BmxService.currentProjectName$.subscribe(projectName => {
+        //     this.projectId = (projectName !== '') ? projectName : this.projectId;
+        //     localStorage.setItem('projectName',  this.projectId);
+        // })
 
         this.myAngularxQrCode = this.myAngularxQrCode + this.projectId + '/' + this.biUsername
 

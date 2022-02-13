@@ -34,7 +34,7 @@ const routes: Routes = [
   // },
   {//BI BRAND MATRIX CREATOR
   // path: ':id/:biUsername',
-  path: 'bmx',
+  path: 'bmx/:id/:username',
    component: BmxCreatorComponent
   },
    {//BI BRAND MATRIX

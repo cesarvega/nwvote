@@ -120,17 +120,28 @@
             <!-- PAGE BUTTONS AND DIRECTIONS 1 2 3 📲📲📲📲📲📲📲📲📲📲📲📲📲📲📲📲📲📲📲📲📲📲📲📲📲📲📲📲📲📲📲📲📲📲-->
             <div class="page-buttons">
                 <div class="page-buttons-heigth-minus-50">
-                    <button *ngIf="!isBrandMatrixSurvey" (click)="changePage('previous')" mat-icon-button>
+                    
+                    <button *ngIf="isBrandMatrixSurvey" (click)="changePage('previous')" mat-icon-button>
                         <mat-icon class="full-icon">chevron_left</mat-icon>
                     </button>
+                    <button *ngIf="isBrandMatrixSurvey" (click)="changePage('previous')" mat-icon-button>
+                        Prev
+                    </button>
                     <div *ngFor="let page of bmxPagesClient; let pageIndex = index">
-                        <button style="min-width: 35px;" (click)="selectPageNumber(pageIndex)"
+                        <button style="min-width: 35px;" 
                             [ngClass]="(currentPage === pageIndex)?'pageNumberActive':'pageNumber'" mat-raised-button>
                             {{page.pageNumber}}
                         </button>
+                        <!-- DISBLE CLICKING ON THE BUTTONS -->
+                        <!-- <button style="min-width: 35px;" (click)="selectPageNumber(pageIndex)"
+                            [ngClass]="(currentPage === pageIndex)?'pageNumberActive':'pageNumber'" mat-raised-button>
+                            {{page.pageNumber}}
+                        </button> -->
                     </div>
-
-                    <button *ngIf="!isBrandMatrixSurvey" (click)="changePage('next')" mat-icon-button>
+                    <button *ngIf="isBrandMatrixSurvey" (click)="changePage('next')" mat-icon-button>
+                        Next 
+                     </button>
+                    <button *ngIf="isBrandMatrixSurvey" (click)="changePage('next')" mat-icon-button>
                         <mat-icon class="full-icon">chevron_right</mat-icon>
                     </button>
                 </div>
