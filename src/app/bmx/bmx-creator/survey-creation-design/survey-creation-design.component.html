@@ -155,6 +155,9 @@
         <!-- PAGE BUTTONS AND DIRECTIONS 1 2 3 📲📲📲📲📲📲📲📲📲📲📲📲📲📲📲📲📲📲📲📲📲📲📲📲📲📲📲📲📲📲📲📲📲📲-->
         <div class="page-buttons">
             <div [ngClass]="bmxClientPageDesignMode?'page-buttons-heigth-40':'page-buttons-heigth-minus-50'">
+                <button (click)="changePage('previous')" mat-raised-button>
+                    back
+                </button>
                 <button (click)="changePage('previous')" mat-icon-button>
                     <mat-icon class="full-icon">chevron_left</mat-icon>
                 </button>
@@ -165,9 +168,13 @@
                     </button>
                 </div>
 
+            
                 <button (click)="changePage('next')" mat-icon-button>
-                    <mat-icon class="full-icon">chevron_right</mat-icon>
+                   <mat-icon class="full-icon">chevron_right</mat-icon>
                 </button>
+                <button  (click)="changePage('next')" mat-raised-button>
+                    continue 
+                 </button>
             </div>
         </div>
         <!-- 📲📲📲📲📲📲📲📲📲📲📲📲📲📲📲📲📲📲📲📲📲📲📲📲📲📲📲📲📲📲📲📲📲📲 END PAGE BUTTONS AND DIRECTIONS -->
