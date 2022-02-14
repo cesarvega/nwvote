@@ -24,8 +24,7 @@ import { MatSnackBar } from '@angular/material/snack-bar';
 })
 export class SurveyMatrixComponent
   extends SurveyCreationDesignComponent
-  implements OnInit
-{
+  implements OnInit {
   @Input() isMenuActive11;
   @Input() bmxClientPageDesignMode;
   @Input() bmxClientPageOverview;
@@ -709,15 +708,15 @@ export class SurveyMatrixComponent
                 this.saveUserAnswers(pageNumber);
               }, 2000);
             } else {
-              let  minRule = component.componentSettings[0].minRule
+              let minRule = component.componentSettings[0].minRule
               if (component.componentSettings[0].CRITERIA) {
-                minRule =  component.componentSettings[0].minRule / component.componentText[1].CRITERIA.length
+                minRule = component.componentSettings[0].minRule / component.componentText[1].CRITERIA.length
               }
 
               this._snackBar.open(
                 'You must rate at least ' +
-                  minRule +
-                  ' Test Names',
+                minRule +
+                ' Test Names',
                 'OK',
                 {
                   duration: 5000,
