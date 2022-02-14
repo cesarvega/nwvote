@@ -550,9 +550,9 @@ export class SurveyMatrixComponent extends SurveyCreationDesignComponent impleme
 
     changePage(direction) {
         if (direction === 'next' &&  this.bmxPagesClient.length - 1 >= this.currentPage) {
-            this.currentPage = this.currentPage + 1;
+            this.selectPageNumber(this.currentPage + 1)
         } else if (direction === 'previous' && this.currentPage >= 1) {
-            this.currentPage = this.currentPage - 1;
+            this.selectPageNumber( this.currentPage - 1)
         }
 
     }
@@ -579,8 +579,10 @@ export class SurveyMatrixComponent extends SurveyCreationDesignComponent impleme
                                 verticalPosition: 'top',
                             })
                         }
+                    } else {
+
+                        this.currentPage = pageNumber;
                     }
-                    this.currentPage = pageNumber;
                 });
         } else {
             this.currentPage = pageNumber;
