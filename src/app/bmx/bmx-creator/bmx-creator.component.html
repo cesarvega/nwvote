@@ -1,28 +1,39 @@
 <div class="main-container">
-  
-    <button class="no-print" *ngIf="isMenuActive11 || isMenuActive16" style="position: absolute;bottom: 30px;z-index: 9999999999;right: 100px;outline: none;" 
+
+  <button class="no-print" *ngIf="globalProjectName.length > 0"
+    style="position: absolute;bottom: 30px;z-index: 9999999999;right: 150px;outline: none;"
+     mat-raised-button  class="project-name-global">
+    PROJECT: {{globalProjectName}}
+  </button>
+
+  <button class="no-print" *ngIf="isMenuActive11 || isMenuActive16"
+    style="position: absolute;bottom: 30px;z-index: 9999999999;right: 100px;outline: none;"
     (click)="toggleViewPageMode()" mat-icon-button matTooltip="design tools" matTooltipPosition="above">
-        <mat-icon class="full-icon" style="font-size: 35px;">handyman
-        </mat-icon>
-    </button>
-    <button class="no-print" *ngIf="(isMenuActive11 && bmxClientPageDesignMode) || (isMenuActive16 && bmxClientPageDesignMode)" style="position: absolute;bottom: 30px;z-index: 9999999999;right: 30px;outline: none;" 
+    <mat-icon class="full-icon" style="font-size: 35px;">handyman
+    </mat-icon>
+  </button>
+  <button class="no-print"
+    *ngIf="(isMenuActive11 && bmxClientPageDesignMode) || (isMenuActive16 && bmxClientPageDesignMode)"
+    style="position: absolute;bottom: 30px;z-index: 9999999999;right: 30px;outline: none;"
     (click)="toggleViewPageModeDesign()" mat-icon-button matTooltip="preview" matTooltipPosition="above">
-        <mat-icon class="full-icon" style="font-size: 35px;">visibility
-        </mat-icon>
-    </button>
-    <button class="no-print" *ngIf="(isMenuActive11 && !bmxClientPageDesignMode) || (isMenuActive16 && !bmxClientPageDesignMode)" style="position: absolute;bottom: 30px;z-index: 9999999999;right: 30px;outline: none;" 
+    <mat-icon class="full-icon" style="font-size: 35px;">visibility
+    </mat-icon>
+  </button>
+  <button class="no-print"
+    *ngIf="(isMenuActive11 && !bmxClientPageDesignMode) || (isMenuActive16 && !bmxClientPageDesignMode)"
+    style="position: absolute;bottom: 30px;z-index: 9999999999;right: 30px;outline: none;"
     (click)="toggleViewPageModeDesign()" mat-icon-button matTooltip="menu" matTooltipPosition="above">
-        <mat-icon class="full-icon" style="font-size: 35px;">menu
-        </mat-icon>
-    </button>
-    <div *ngIf="bmxClientPageDesignMode" style="display: flex;border:brown 0px solid;width: 17%; height: 100vh;">
+    <mat-icon class="full-icon" style="font-size: 35px;">menu
+    </mat-icon>
+  </button>
+  <div *ngIf="bmxClientPageDesignMode" style="display: flex;border:brown 0px solid;width: 17%; height: 100vh;">
 
-        <!-- LOGO BRANDING 🎭🎭🎭🎭🎭🎭🎭🎭🎭🎭🎭🎭🎭🎭🎭🎭🎭🎭🎭🎭🎭🎭🎭🎭🎭🎭🎭🎭🎭🎭🎭🎭🎭-->
-        <div class="logo-badge" style="font-size: 21px;overflow-x: hidden;">
+    <!-- LOGO BRANDING 🎭🎭🎭🎭🎭🎭🎭🎭🎭🎭🎭🎭🎭🎭🎭🎭🎭🎭🎭🎭🎭🎭🎭🎭🎭🎭🎭🎭🎭🎭🎭🎭🎭-->
+    <div class="logo-badge" style="font-size: 21px;overflow-x: hidden;">
 
-            <img style="width: 253px;margin-left: 18px;" src="./assets/img/bmx/BRANDMATRIX-DASHBOARD-LOGO.svg">
-            <div style="display: flex;flex-direction: column;">
-                <!-- <div class="title secondary-text"
+      <img style="width: 253px;margin-left: 18px;" src="./assets/img/bmx/BRANDMATRIX-DASHBOARD-LOGO.svg">
+      <div style="display: flex;flex-direction: column;">
+        <!-- <div class="title secondary-text"
                     style="color: #004684; margin-top: 10px;text-align: center;font-family: Arial, Helvetica, sans-serif;font-weight: 800;">
                     {{'BRANDMATRIX'}}
                 </div>
@@ -30,32 +41,32 @@
                     style="color: #004684; text-align: end;font-family: Arial, Helvetica, sans-serif;font-weight: 600;">
                     {{'Dashboard'}}
                 </div> -->
-            </div>
+      </div>
+    </div>
+    <!--🎭🎭🎭🎭🎭🎭🎭🎭🎭🎭🎭🎭🎭🎭🎭🎭🎭🎭🎭🎭🎭🎭🎭🎭🎭🎭🎭🎭🎭🎭🎭 END LOGO BRANDING -->
+
+
+    <div class="welcome">
+      <button mat-icon-button style="background-color: white;margin: 0 20px 0 20px">
+        <mat-icon>account_circle</mat-icon>
+      </button>
+      <div style="color: white; text-align: end;font-family: Arial, Helvetica, sans-serif;font-size: 20px;">
+        welcome {{userName}} !
+      </div>
+    </div>
+
+
+    <!-- SIDE MENU 🎀🎀🎀🎀🎀🎀🎀🎀🎀🎀🎀🎀🎀🎀🎀🎀🎀🎀🎀🎀🎀🎀🎀🎀🎀🎀🎀🎀🎀🎀🎀🎀🎀🎀🎀🎀🎀🎀🎀🎀 -->
+    <div class="menu" *ngIf="isMainMenuActive">
+      <div [ngClass]="(isMenuActive1)?'menu-active':'menu-item'" (click)="toggleMenuActive('isMenuActive1')">
+        <button mat-icon-button style="margin: 0 20px 0 10px">
+          <mat-icon style="font-size: 40px;">list</mat-icon>
+        </button>
+        <div style=" text-align: end;font-family: Arial, Helvetica, sans-serif;font-size: 20px;">
+          {{'Project List'}}
         </div>
-        <!--🎭🎭🎭🎭🎭🎭🎭🎭🎭🎭🎭🎭🎭🎭🎭🎭🎭🎭🎭🎭🎭🎭🎭🎭🎭🎭🎭🎭🎭🎭🎭 END LOGO BRANDING -->
-
-
-        <div class="welcome">
-            <button mat-icon-button style="background-color: white;margin: 0 20px 0 20px">
-                <mat-icon>account_circle</mat-icon>
-            </button>
-            <div style="color: white; text-align: end;font-family: Arial, Helvetica, sans-serif;font-size: 20px;">
-                welcome {{userName}} !
-            </div>
-        </div>
-
-
-        <!-- SIDE MENU 🎀🎀🎀🎀🎀🎀🎀🎀🎀🎀🎀🎀🎀🎀🎀🎀🎀🎀🎀🎀🎀🎀🎀🎀🎀🎀🎀🎀🎀🎀🎀🎀🎀🎀🎀🎀🎀🎀🎀🎀 -->
-        <div class="menu" *ngIf="isMainMenuActive">
-            <div [ngClass]="(isMenuActive1)?'menu-active':'menu-item'" (click)="toggleMenuActive('isMenuActive1')">
-                <button mat-icon-button style="margin: 0 20px 0 10px">
-                    <mat-icon style="font-size: 40px;">list</mat-icon>
-                </button>
-                <div style=" text-align: end;font-family: Arial, Helvetica, sans-serif;font-size: 20px;">
-                    {{'Project List'}}
-                </div>
-            </div>
-            <!-- <div [ngClass]="(isMenuActive2)?'menu-active':'menu-item'" (click)="toggleMenuActive('isMenuActive2')">
+      </div>
+      <!-- <div [ngClass]="(isMenuActive2)?'menu-active':'menu-item'" (click)="toggleMenuActive('isMenuActive2')">
                 <button mat-icon-button style="margin: 0 20px 0 10px">
                     <mat-icon style="font-size: 40px;">open_in_full</mat-icon>
                 </button>
@@ -72,7 +83,7 @@
                     </div>
                 </div>
             </div> -->
-            <!-- <div [ngClass]="(isMenuActive3)?'menu-active':'menu-item'" (click)="toggleMenuActive('isMenuActive3')">
+      <!-- <div [ngClass]="(isMenuActive3)?'menu-active':'menu-item'" (click)="toggleMenuActive('isMenuActive3')">
                 <button mat-icon-button style="margin: 0 20px 0 10px">
                     <mat-icon style="font-size: 40px;">mail</mat-icon>
                 </button>
@@ -81,16 +92,16 @@
                     {{'Matrix Invites'}}
                 </div>
             </div> -->
-            <div [ngClass]="(isMenuActive4)?'menu-active':'menu-item'"
-                (click)="toggleMenuActive('isMenuActive8');isMainMenuActive = false ">
-                <button mat-icon-button style="margin: 0 20px 0 10px">
-                    <mat-icon style="font-size: 40px;">edit</mat-icon>
-                </button>
-                <div style=" text-align: end;font-family: Arial, Helvetica, sans-serif;font-size: 20px;">
-                    {{'Create/Edit Matrix'}}
-                </div>
-            </div>
-            <!-- <div [ngClass]="(isMenuActive5)?'menu-active':'menu-item'" (click)="toggleMenuActive('isMenuActive5')">
+      <div [ngClass]="(isMenuActive4)?'menu-active':'menu-item'"
+        (click)="toggleMenuActive('isMenuActive8');isMainMenuActive = false ">
+        <button mat-icon-button style="margin: 0 20px 0 10px">
+          <mat-icon style="font-size: 40px;">edit</mat-icon>
+        </button>
+        <div style=" text-align: end;font-family: Arial, Helvetica, sans-serif;font-size: 20px;">
+          {{'Create/Edit Matrix'}}
+        </div>
+      </div>
+      <!-- <div [ngClass]="(isMenuActive5)?'menu-active':'menu-item'" (click)="toggleMenuActive('isMenuActive5')">
                 <button mat-icon-button style="margin: 0 20px 0 10px">
                     <mat-icon style="font-size: 40px;">stacked_bar_chart</mat-icon>
                 </button>
@@ -106,20 +117,19 @@
                     {{'Settings'}}
                 </div>
             </div> -->
+    </div>
+    <!--🎀🎀🎀🎀🎀🎀🎀🎀🎀🎀🎀🎀🎀🎀🎀🎀🎀🎀🎀🎀🎀🎀🎀🎀🎀🎀🎀🎀🎀🎀🎀🎀🎀🎀🎀🎀🎀🎀🎀🎀🎀 END SIDE MENU -->
+
+
+    <!-- SIDE MENU 🎀🎀🎀🎀🎀🎀🎀🎀🎀🎀🎀🎀🎀🎀🎀🎀🎀🎀🎀🎀🎀🎀🎀🎀🎀🎀🎀🎀🎀🎀🎀🎀🎀🎀🎀🎀🎀🎀🎀🎀 -->
+    <div class="menu" *ngIf="!isMainMenuActive">
+      <div [ngClass]="(isMenuActive8)?'menu-active':'menu-item'" (click)="toggleMenuActive('isMenuActive8')">
+
+        <div style=" text-align: end;font-family: Arial, Helvetica, sans-serif;font-size: 20px;padding-left:20px">
+          {{'Project Information'}}
         </div>
-        <!--🎀🎀🎀🎀🎀🎀🎀🎀🎀🎀🎀🎀🎀🎀🎀🎀🎀🎀🎀🎀🎀🎀🎀🎀🎀🎀🎀🎀🎀🎀🎀🎀🎀🎀🎀🎀🎀🎀🎀🎀🎀 END SIDE MENU -->
-
-
-        <!-- SIDE MENU 🎀🎀🎀🎀🎀🎀🎀🎀🎀🎀🎀🎀🎀🎀🎀🎀🎀🎀🎀🎀🎀🎀🎀🎀🎀🎀🎀🎀🎀🎀🎀🎀🎀🎀🎀🎀🎀🎀🎀🎀 -->
-        <div class="menu" *ngIf="!isMainMenuActive">
-            <div [ngClass]="(isMenuActive8)?'menu-active':'menu-item'" (click)="toggleMenuActive('isMenuActive8')">
-
-                <div
-                    style=" text-align: end;font-family: Arial, Helvetica, sans-serif;font-size: 20px;padding-left:20px">
-                    {{'Project Information'}}
-                </div>
-            </div>
-            <!-- <div [ngClass]="(isMenuActive9)?'menu-active':'menu-item'" (click)="toggleMenuActive('isMenuActive9')">
+      </div>
+      <!-- <div [ngClass]="(isMenuActive9)?'menu-active':'menu-item'" (click)="toggleMenuActive('isMenuActive9')">
                 <div style=" display: flex;flex-direction: column;align-items: flex-start;">
                     <div
                         style=" text-align: end;font-family: Arial, Helvetica, sans-serif;font-size: 20px;padding-left:20px">
@@ -128,19 +138,18 @@
 
                 </div>
             </div>-->
-            <!-- <div [ngClass]="(isMenuActive10)?'menu-active':'menu-item'" (click)="toggleMenuActive('isMenuActive10')">
+      <!-- <div [ngClass]="(isMenuActive10)?'menu-active':'menu-item'" (click)="toggleMenuActive('isMenuActive10')">
                 <div class="title secondary-text"
                     style=" text-align: end;font-family: Arial, Helvetica, sans-serif;font-size: 20px;padding-left:20px">
                     {{'Image Uploader'}}
                 </div>
             </div> -->
-            <div [ngClass]="(isMenuActive11)?'menu-active':'menu-item'" (click)="toggleMenuActive('isMenuActive11')">
-                <div
-                    style=" text-align: end;font-family: Arial, Helvetica, sans-serif;font-size: 20px;padding-left:20px">
-                    {{'Survey Creation & Design'}}
-                </div>
-            </div>
-            <!-- <div [ngClass]="(isMenuActive12)?'menu-active':'menu-item'" (click)="toggleMenuActive('isMenuActive12')">
+      <div [ngClass]="(isMenuActive11)?'menu-active':'menu-item'" (click)="toggleMenuActive('isMenuActive11')">
+        <div style=" text-align: end;font-family: Arial, Helvetica, sans-serif;font-size: 20px;padding-left:20px">
+          {{'Survey Creation & Design'}}
+        </div>
+      </div>
+      <!-- <div [ngClass]="(isMenuActive12)?'menu-active':'menu-item'" (click)="toggleMenuActive('isMenuActive12')">
                 <div
                     style=" text-align: end;font-family: Arial, Helvetica, sans-serif;font-size: 20px;padding-left:20px">
                     {{'Introduction'}}
@@ -152,193 +161,192 @@
                     {{'Page Modules'}}
                 </div>
             </div> -->
-            <div [ngClass]="(isMenuActive14)?'menu-active':'menu-item'" (click)="toggleMenuActive('isMenuActive14')">
-                <div
-                    style=" text-align: end;font-family: Arial, Helvetica, sans-serif;font-size: 20px;padding-left:20px">
-                    {{'Participants'}}
-                </div>
-            </div>
-            <div [ngClass]="(isMenuActive15)?'menu-active':'menu-item'" (click)="toggleMenuActive('isMenuActive15')">
-                <div
-                    style=" text-align: end;font-family: Arial, Helvetica, sans-serif;font-size: 20px;padding-left:20px">
-                    {{'Survey Participants/Email'}}
-                </div>
-            </div>
-            <div [ngClass]="(isMenuActive16)?'menu-active':'menu-item'" (click)="toggleMenuActive('isMenuActive16')">
-                <div
-                    style=" text-align: end;font-family: Arial, Helvetica, sans-serif;font-size: 20px;padding-left:20px">
-                    {{'Reports'}}
-                </div>
-            </div>
-            <div [ngClass]="'menu-item'" (click)="toggleMenuActive('isMenuActive1');isMainMenuActive = true">
-                <button mat-icon-button style="color:white;margin: 0 20px 0 20px;">
-                    <mat-icon style="transform: rotate(-90deg);margin-right: 10px;">arrow_circle_up</mat-icon>BACK
-                </button>
-            </div>
+      <div [ngClass]="(isMenuActive14)?'menu-active':'menu-item'" (click)="toggleMenuActive('isMenuActive14')">
+        <div style=" text-align: end;font-family: Arial, Helvetica, sans-serif;font-size: 20px;padding-left:20px">
+          {{'Participants'}}
         </div>
-        <!--🎀🎀🎀🎀🎀🎀🎀🎀🎀🎀🎀🎀🎀🎀🎀🎀🎀🎀🎀🎀🎀🎀🎀🎀🎀🎀🎀🎀🎀🎀🎀🎀🎀🎀🎀🎀🎀🎀🎀🎀🎀 END SIDE MENU -->
+      </div>
+      <div [ngClass]="(isMenuActive15)?'menu-active':'menu-item'" (click)="toggleMenuActive('isMenuActive15')">
+        <div style=" text-align: end;font-family: Arial, Helvetica, sans-serif;font-size: 20px;padding-left:20px">
+          {{'Survey Participants/Email'}}
+        </div>
+      </div>
+      <div [ngClass]="(isMenuActive16)?'menu-active':'menu-item'" (click)="toggleMenuActive('isMenuActive16')">
+        <div style=" text-align: end;font-family: Arial, Helvetica, sans-serif;font-size: 20px;padding-left:20px">
+          {{'Reports'}}
+        </div>
+      </div>
+      <div [ngClass]="'menu-item'" (click)="toggleMenuActive('isMenuActive1');isMainMenuActive = true">
+        <button mat-icon-button style="color:white;margin: 0 20px 0 20px;">
+          <mat-icon style="transform: rotate(-90deg);margin-right: 10px;">arrow_circle_up</mat-icon>BACK
+        </button>
+      </div>
     </div>
+    <!--🎀🎀🎀🎀🎀🎀🎀🎀🎀🎀🎀🎀🎀🎀🎀🎀🎀🎀🎀🎀🎀🎀🎀🎀🎀🎀🎀🎀🎀🎀🎀🎀🎀🎀🎀🎀🎀🎀🎀🎀🎀 END SIDE MENU -->
+  </div>
 
 
 
-    <!-- PROJECT LIST COMPONENT 📀📀📀📀📀📀📀📀📀📀📀📀📀📀📀📀📀📀📀📀📀📀📀📀📀📀📀📀📀📀📀📀📀📀📀📀📀📀📀-->
-    <div class="project-list" *ngIf="isMenuActive1" style="border: hotpink solid 0px; width: 75%; height: 100vh;">
-        <app-project-list [isMenuActive1]="isMenuActive1" (isMenuActive1Close)="editBM($event)" (isMenuActive1Email)="emailBM($event)"></app-project-list>
-    </div>
+  <!-- PROJECT LIST COMPONENT 📀📀📀📀📀📀📀📀📀📀📀📀📀📀📀📀📀📀📀📀📀📀📀📀📀📀📀📀📀📀📀📀📀📀📀📀📀📀📀-->
+  <div class="project-list" *ngIf="isMenuActive1" style="border: hotpink solid 0px; width: 75%; height: 100vh;">
+    <app-project-list [isMenuActive1]="isMenuActive1" (isMenuActive1Close)="editBM($event)"
+      (isMenuActive1Email)="emailBM($event)"></app-project-list>
+  </div>
 
 
-    <!--
+  <!--
     <app-project-list class="project-list" [isMenuActive1]="isMenuActive1"
         style="border: hotpink solid 0px;height: 100vh;overflow-y: scroll;"></app-project-list>
     📀📀📀📀📀📀📀📀📀📀📀📀📀📀📀📀📀📀📀📀📀📀📀📀📀📀📀📀📀📀📀📀📀📀📀📀📀📀📀📀📀📀📀📀END  PROJECT LIST-->
 
 
-    <!-- OPEN LINKS 🦠🦠🦠🦠🦠🦠🦠🦠🦠🦠🦠🦠🦠🦠🦠🦠🦠🦠🦠🦠🦠🦠🦠🦠🦠🦠🦠🦠🦠🦠🦠🦠🦠🦠🦠🦠🦠🦠🦠🦠🦠🦠🦠🦠-->
-    <div class="open-links" *ngIf="isMenuActive2" style="border: hotpink solid 1px; width: 60%; height: 100vh;">OPEN
-        LINKS</div>
-    <div class="open-links" *ngIf="isMenuActive2" style="border: pink solid 1px; width: 25%; height: 100vh;">side panel
-        2</div>
-    <!--🦠🦠🦠🦠🦠🦠🦠🦠🦠🦠🦠🦠🦠🦠🦠🦠🦠🦠🦠🦠🦠🦠🦠🦠🦠🦠🦠🦠🦠🦠🦠🦠🦠🦠🦠🦠🦠🦠🦠🦠🦠🦠🦠🦠🦠END OPEN LINKS-->
+  <!-- OPEN LINKS 🦠🦠🦠🦠🦠🦠🦠🦠🦠🦠🦠🦠🦠🦠🦠🦠🦠🦠🦠🦠🦠🦠🦠🦠🦠🦠🦠🦠🦠🦠🦠🦠🦠🦠🦠🦠🦠🦠🦠🦠🦠🦠🦠🦠-->
+  <div class="open-links" *ngIf="isMenuActive2" style="border: hotpink solid 1px; width: 60%; height: 100vh;">OPEN
+    LINKS</div>
+  <div class="open-links" *ngIf="isMenuActive2" style="border: pink solid 1px; width: 25%; height: 100vh;">side panel
+    2</div>
+  <!--🦠🦠🦠🦠🦠🦠🦠🦠🦠🦠🦠🦠🦠🦠🦠🦠🦠🦠🦠🦠🦠🦠🦠🦠🦠🦠🦠🦠🦠🦠🦠🦠🦠🦠🦠🦠🦠🦠🦠🦠🦠🦠🦠🦠🦠END OPEN LINKS-->
 
 
-    <!-- MATRIX INVITES 🧧🧧🧧🧧🧧🧧🧧🧧🧧🧧🧧🧧🧧🧧🧧🧧🧧🧧🧧🧧🧧🧧🧧🧧🧧🧧🧧🧧🧧🧧🧧🧧🧧🧧🧧🧧🧧🧧🧧🧧🧧🧧🧧🧧🧧🧧🧧🧧🧧🧧🧧🧧-->
-    <div class="matrix-invites" *ngIf="isMenuActive3" style="border: hotpink solid 1px; width: 60%; height: 100vh;">
-        MATRIX INVITES</div>
-    <div class="matrix-invites" *ngIf="isMenuActive3" style="border: pink solid 1px; width: 25%; height: 100vh;">side
-        panel 3</div>
-    <!-- 🧧🧧🧧🧧🧧🧧🧧🧧🧧🧧🧧🧧🧧🧧🧧🧧🧧🧧🧧🧧🧧🧧🧧🧧🧧🧧🧧🧧🧧🧧🧧🧧🧧🧧🧧🧧🧧🧧🧧🧧🧧🧧🧧🧧🧧🧧🧧🧧🧧🧧🧧🧧🧧🧧🧧🧧🧧END MATRIX INVITES -->
+  <!-- MATRIX INVITES 🧧🧧🧧🧧🧧🧧🧧🧧🧧🧧🧧🧧🧧🧧🧧🧧🧧🧧🧧🧧🧧🧧🧧🧧🧧🧧🧧🧧🧧🧧🧧🧧🧧🧧🧧🧧🧧🧧🧧🧧🧧🧧🧧🧧🧧🧧🧧🧧🧧🧧🧧🧧-->
+  <div class="matrix-invites" *ngIf="isMenuActive3" style="border: hotpink solid 1px; width: 60%; height: 100vh;">
+    MATRIX INVITES</div>
+  <div class="matrix-invites" *ngIf="isMenuActive3" style="border: pink solid 1px; width: 25%; height: 100vh;">side
+    panel 3</div>
+  <!-- 🧧🧧🧧🧧🧧🧧🧧🧧🧧🧧🧧🧧🧧🧧🧧🧧🧧🧧🧧🧧🧧🧧🧧🧧🧧🧧🧧🧧🧧🧧🧧🧧🧧🧧🧧🧧🧧🧧🧧🧧🧧🧧🧧🧧🧧🧧🧧🧧🧧🧧🧧🧧🧧🧧🧧🧧🧧END MATRIX INVITES -->
 
 
-    <div class="reports" *ngIf="isMenuActive5" style="border: hotpink solid 0px; width: 75%; height: 100vh;">
-        <app-docx-survey> [isMenuActive5]="isMenuActive5"></app-docx-survey>
-    </div>
+  <div class="reports" *ngIf="isMenuActive5" style="border: hotpink solid 0px; width: 75%; height: 100vh;">
+    <app-docx-survey> [isMenuActive5]="isMenuActive5"></app-docx-survey>
+  </div>
 
 
-    <!-- SETTINGS ⚙️⚙️⚙️⚙️⚙️⚙️⚙️⚙️⚙️⚙️⚙️⚙️⚙️⚙️⚙️⚙️⚙️⚙️⚙️⚙️⚙️⚙️⚙️⚙️⚙️⚙️⚙️⚙️⚙️⚙️⚙️⚙️⚙️⚙️⚙️⚙️⚙️⚙️⚙️⚙️⚙️⚙️⚙️⚙️⚙️-->
-    <div class="settings" *ngIf="isMenuActive6" style="border: hotpink solid 1px; width: 60%; height: 100vh;">SETTINGS
-    </div>
-    <div class="settings" *ngIf="isMenuActive6" div style="border: pink solid 1px; width: 25%; height: 100vh;">SIDE
-        PANEL 6</div>
-    <!--⚙️⚙️⚙️⚙️⚙️⚙️⚙️⚙️⚙️⚙️⚙️⚙️⚙️⚙️⚙️⚙️⚙️⚙️⚙️⚙️⚙️⚙️⚙️⚙️⚙️⚙️⚙️⚙️⚙️⚙️⚙️⚙️⚙️⚙️⚙️⚙️⚙️⚙️⚙️⚙️⚙️⚙️⚙️⚙️⚙️⚙️⚙️⚙️END SETTINGS -->
-
-
-
-
-    <!-- 📌📌📌📌📌📌📌📌📌📌📌📌📌📌📌📌📌📌📌📌📌📌📌SECOND MENU SECTION PAGES  📌📌📌📌📌📌📌📌📌📌📌📌📌📌📌📌📌📌📌📌📌📌📌📌📌📌📌📌-->
+  <!-- SETTINGS ⚙️⚙️⚙️⚙️⚙️⚙️⚙️⚙️⚙️⚙️⚙️⚙️⚙️⚙️⚙️⚙️⚙️⚙️⚙️⚙️⚙️⚙️⚙️⚙️⚙️⚙️⚙️⚙️⚙️⚙️⚙️⚙️⚙️⚙️⚙️⚙️⚙️⚙️⚙️⚙️⚙️⚙️⚙️⚙️⚙️-->
+  <div class="settings" *ngIf="isMenuActive6" style="border: hotpink solid 1px; width: 60%; height: 100vh;">SETTINGS
+  </div>
+  <div class="settings" *ngIf="isMenuActive6" div style="border: pink solid 1px; width: 25%; height: 100vh;">SIDE
+    PANEL 6</div>
+  <!--⚙️⚙️⚙️⚙️⚙️⚙️⚙️⚙️⚙️⚙️⚙️⚙️⚙️⚙️⚙️⚙️⚙️⚙️⚙️⚙️⚙️⚙️⚙️⚙️⚙️⚙️⚙️⚙️⚙️⚙️⚙️⚙️⚙️⚙️⚙️⚙️⚙️⚙️⚙️⚙️⚙️⚙️⚙️⚙️⚙️⚙️⚙️⚙️END SETTINGS -->
 
 
 
-    <!-- PROJECT INFORMATION  🧠🧠🧠🧠🧠🧠🧠🧠🧠🧠🧠🧠🧠🧠🧠🧠🧠🧠🧠🧠🧠🧠🧠🧠🧠🧠🧠🧠🧠🧠🧠🧠🧠🧠🧠🧠🧠🧠🧠🧠🧠-->
-    <div class="project-info" *ngIf="isMenuActive8">
-        <app-project-information></app-project-information>
-    </div>
-    <!--🧠🧠🧠🧠🧠🧠🧠🧠🧠🧠🧠🧠🧠🧠🧠🧠🧠🧠🧠🧠🧠🧠🧠🧠🧠🧠🧠🧠🧠🧠🧠🧠🧠🧠🧠🧠🧠🧠🧠🧠🧠 END PROJECT INFORMATION-->
+
+  <!-- 📌📌📌📌📌📌📌📌📌📌📌📌📌📌📌📌📌📌📌📌📌📌📌SECOND MENU SECTION PAGES  📌📌📌📌📌📌📌📌📌📌📌📌📌📌📌📌📌📌📌📌📌📌📌📌📌📌📌📌-->
 
 
-    <!-- TEMPLATES 📐📐📐📐📐📐📐📐📐📐📐📐📐📐📐📐📐🔴🔴🔴🔴🔴📐📐📐📐📐📐📐📐📐📐📐📐📐📐📐📐📐📐📐📐📐📐📐-->
-    <div class="templates" *ngIf="isMenuActive9"
-        style="border: hotpink solid 0px; width: 1000px; height: 100vh;overflow-y: hidden;">
 
-        <h2 style="margin: 20px;">Project TEST BrandMatrix Setup</h2>
-        <!-- HEADER INPUTS -->
-        <div style="margin: 20px;font-size: 20px;color:#063074;font-weight: 800;">Choose a Template</div>
+  <!-- PROJECT INFORMATION  🧠🧠🧠🧠🧠🧠🧠🧠🧠🧠🧠🧠🧠🧠🧠🧠🧠🧠🧠🧠🧠🧠🧠🧠🧠🧠🧠🧠🧠🧠🧠🧠🧠🧠🧠🧠🧠🧠🧠🧠🧠-->
+  <div class="project-info" *ngIf="isMenuActive8">
+    <app-project-information></app-project-information>
+  </div>
+  <!--🧠🧠🧠🧠🧠🧠🧠🧠🧠🧠🧠🧠🧠🧠🧠🧠🧠🧠🧠🧠🧠🧠🧠🧠🧠🧠🧠🧠🧠🧠🧠🧠🧠🧠🧠🧠🧠🧠🧠🧠🧠 END PROJECT INFORMATION-->
 
-        <div style="display: flex;flex-direction: row;
+
+  <!-- TEMPLATES 📐📐📐📐📐📐📐📐📐📐📐📐📐📐📐📐📐🔴🔴🔴🔴🔴📐📐📐📐📐📐📐📐📐📐📐📐📐📐📐📐📐📐📐📐📐📐📐-->
+  <div class="templates" *ngIf="isMenuActive9"
+    style="border: hotpink solid 0px; width: 1000px; height: 100vh;overflow-y: hidden;">
+
+    <h2 style="margin: 20px;">Project TEST BrandMatrix Setup</h2>
+    <!-- HEADER INPUTS -->
+    <div style="margin: 20px;font-size: 20px;color:#063074;font-weight: 800;">Choose a Template</div>
+
+    <div style="display: flex;flex-direction: row;
         justify-content: space-between;">
-            <div style="margin: 20px; ">
-                <mat-form-field appearance="outline">
-                    <mat-label>Department</mat-label>
-                    <mat-select class="selectLabels">
-                        <mat-option *ngFor="let settingsList of settingsData.DepartmentList" [value]="settingsList">
-                            {{settingsList}}
-                        </mat-option>
-                    </mat-select>
-                </mat-form-field>
-            </div>
-            <div style="margin: 20px 60px 0px 0px;">
-                <mat-icon style="margin-right: 10px;font-size: 30px;">search</mat-icon>
-                <mat-form-field appearance="outline">
-                    <mat-label>Find Template</mat-label>
-                    <input matInput type="Searh" placeholder="template name">
-                </mat-form-field>
-            </div>
-        </div>
-
-        <!--END HEADER INPUTS -->
-
-        <div class="template-list" style="margin-top:20px;display: flex;flex-direction: row; height: 100vh;overflow-y: scroll;
-         justify-content: flex-start;width: 100%;flex-wrap: wrap;text-align: center;">
-            <div *ngFor="let template of TEMPLATES; let i = index">
-                {{template.name}}
-                <div [ngClass]="(isSelectedButton === i)?'template-list-selected':'template-list-item'"
-                    (mouseenter)="isTemplateSelected = i" (mouseleave)="isTemplateSelected = ''">
-                    <button (click)="isSelectedButton = i" *ngIf="isTemplateSelected === i && isSelectedButton !== i"
-                        mat-raised-button style="background-color: #76d354;color:white;margin: 0 20px 0 20px;">
-                        SELECT
-                    </button>
-                    <button *ngIf="isSelectedButton === i" mat-raised-button
-                        style="background-color: #01a6ff;color:white;margin: 0 20px 0 20px;">
-                        SELECTED
-                    </button>
-
-                </div>
-            </div>
-        </div>
-
+      <div style="margin: 20px; ">
+        <mat-form-field appearance="outline">
+          <mat-label>Department</mat-label>
+          <mat-select class="selectLabels">
+            <mat-option *ngFor="let settingsList of settingsData.DepartmentList" [value]="settingsList">
+              {{settingsList}}
+            </mat-option>
+          </mat-select>
+        </mat-form-field>
+      </div>
+      <div style="margin: 20px 60px 0px 0px;">
+        <mat-icon style="margin-right: 10px;font-size: 30px;">search</mat-icon>
+        <mat-form-field appearance="outline">
+          <mat-label>Find Template</mat-label>
+          <input matInput type="Searh" placeholder="template name">
+        </mat-form-field>
+      </div>
     </div>
-    <!-- <div class="templates" *ngIf="isMenuActive9" div style="border: pink solid 1px; width: 25%; height: 100vh;">SIDE
+
+    <!--END HEADER INPUTS -->
+
+    <div class="template-list" style="margin-top:20px;display: flex;flex-direction: row; height: 100vh;overflow-y: scroll;
+         justify-content: flex-start;width: 100%;flex-wrap: wrap;text-align: center;">
+      <div *ngFor="let template of TEMPLATES; let i = index">
+        {{template.name}}
+        <div [ngClass]="(isSelectedButton === i)?'template-list-selected':'template-list-item'"
+          (mouseenter)="isTemplateSelected = i" (mouseleave)="isTemplateSelected = ''">
+          <button (click)="isSelectedButton = i" *ngIf="isTemplateSelected === i && isSelectedButton !== i"
+            mat-raised-button style="background-color: #76d354;color:white;margin: 0 20px 0 20px;">
+            SELECT
+          </button>
+          <button *ngIf="isSelectedButton === i" mat-raised-button
+            style="background-color: #01a6ff;color:white;margin: 0 20px 0 20px;">
+            SELECTED
+          </button>
+
+        </div>
+      </div>
+    </div>
+
+  </div>
+  <!-- <div class="templates" *ngIf="isMenuActive9" div style="border: pink solid 1px; width: 25%; height: 100vh;">SIDE
         PANEL 9</div> -->
-    <!-- END 📐📐📐📐📐📐📐📐📐📐📐📐📐📐📐📐📐📐📐🔴🔴🔴🔴🔴📐📐📐📐📐📐📐📐📐📐📐📐📐📐📐📐📐 TEMPLATES -->
+  <!-- END 📐📐📐📐📐📐📐📐📐📐📐📐📐📐📐📐📐📐📐🔴🔴🔴🔴🔴📐📐📐📐📐📐📐📐📐📐📐📐📐📐📐📐📐 TEMPLATES -->
 
 
-    <!-- IMAGE UPLOADER 🎎🎎🎎🎎🎎🎎🎎🎎🎎🎎🎎🎎🎎🔴🔴🔴🔴🔴🔴🎎🎎🎎🎎🎎🎎🎎🎎🎎🎎🎎🎎🎎🎎🎎🎎🎎🎎🎎🎎🎎🎎🎎-->
-    <!--<div class="Image-Uploader" *ngIf="isMenuActive10" style="border: hotpink solid 0px; width: auto; height: 100vh;">
+  <!-- IMAGE UPLOADER 🎎🎎🎎🎎🎎🎎🎎🎎🎎🎎🎎🎎🎎🔴🔴🔴🔴🔴🔴🎎🎎🎎🎎🎎🎎🎎🎎🎎🎎🎎🎎🎎🎎🎎🎎🎎🎎🎎🎎🎎🎎🎎-->
+  <!--<div class="Image-Uploader" *ngIf="isMenuActive10" style="border: hotpink solid 0px; width: auto; height: 100vh;">
         <app-image-uploader></app-image-uploader>
     </div>-->
 
-    <div class="Image-Uploader" *ngIf="isMenuActive10" style="border: hotpink solid 0px; width: 75%; height: 100vh;">
-        <app-image-uploader [isMenuActive10]="isMenuActive10"></app-image-uploader>
-    </div>
+  <div class="Image-Uploader" *ngIf="isMenuActive10" style="border: hotpink solid 0px; width: 75%; height: 100vh;">
+    <app-image-uploader [isMenuActive10]="isMenuActive10"></app-image-uploader>
+  </div>
 
-    <!-- <div class="Image-Uploader" *ngIf="isMenuActive10" div style="border: pink solid 1px; width: 25%; height: 100vh;">
+  <!-- <div class="Image-Uploader" *ngIf="isMenuActive10" div style="border: pink solid 1px; width: 25%; height: 100vh;">
         SIDE
         PANEL 10</div> -->
-    <!-- END 🎎🎎🎎🎎🎎🎎🎎🎎🎎🎎🎎🎎🎎🎎🎎🎎🎎🎎🎎🔴🔴🔴🔴🔴🔴🎎🎎🎎🎎🎎🎎🎎🎎🎎🎎🎎🎎🎎🎎🎎🎎 IMAGE UPLOADER -->
+  <!-- END 🎎🎎🎎🎎🎎🎎🎎🎎🎎🎎🎎🎎🎎🎎🎎🎎🎎🎎🎎🔴🔴🔴🔴🔴🔴🎎🎎🎎🎎🎎🎎🎎🎎🎎🎎🎎🎎🎎🎎🎎🎎 IMAGE UPLOADER -->
 
 
 
-    <!--  SURVEY CREATION & DESIGN 🧿🧿🧿🧿🧿🧿🧿🧿🧿🧿🧿🧿🧿🧿🧿🧿🧿🧿🧿🧿🧿🧿🧿🧿🧿🧿🧿🧿🧿🧿🧿🧿🧿🧿🧿🧿🧿🧿🧿🧿🧿-->
-    <div [ngClass]="bmxClientPageDesignMode?'page-design':'page-design-client'" *ngIf="isMenuActive11">
-        <app-survey-creation-design  [isBrandMatrixSurvey]="isBrandMatrixSurvey"  [isMenuActive11]="isMenuActive11" [bmxClientPageDesignMode]="bmxClientPageDesignMode" [bmxClientPageOverview]="bmxClientPageOverview">
-        </app-survey-creation-design>
-    </div>
-    <!-- END 🧿🧿🧿🧿🧿🧿🧿🧿🧿🧿🧿🧿🧿🧿🧿🧿🧿🧿🧿🧿🧿🧿🧿🧿🧿🧿🧿🧿🧿🧿🧿🧿🧿🧿🧿🧿🧿🧿🧿🧿  SURVEY CREATION & DESIGN -->
+  <!--  SURVEY CREATION & DESIGN 🧿🧿🧿🧿🧿🧿🧿🧿🧿🧿🧿🧿🧿🧿🧿🧿🧿🧿🧿🧿🧿🧿🧿🧿🧿🧿🧿🧿🧿🧿🧿🧿🧿🧿🧿🧿🧿🧿🧿🧿🧿-->
+  <div [ngClass]="bmxClientPageDesignMode?'page-design':'page-design-client'" *ngIf="isMenuActive11">
+    <app-survey-creation-design [isBrandMatrixSurvey]="isBrandMatrixSurvey" [isMenuActive11]="isMenuActive11"
+      [bmxClientPageDesignMode]="bmxClientPageDesignMode" [bmxClientPageOverview]="bmxClientPageOverview">
+    </app-survey-creation-design>
+  </div>
+  <!-- END 🧿🧿🧿🧿🧿🧿🧿🧿🧿🧿🧿🧿🧿🧿🧿🧿🧿🧿🧿🧿🧿🧿🧿🧿🧿🧿🧿🧿🧿🧿🧿🧿🧿🧿🧿🧿🧿🧿🧿🧿  SURVEY CREATION & DESIGN -->
 
 
 
-    <!-- INTRODUCTION 🚰🚰🚰🚰🚰🚰🚰🚰🚰🚰🚰🚰🚰🚰🚰🚰🔴🔴🔴🔴🚰🚰🚰🚰🚰🚰🚰🚰🚰🚰🚰🚰🚰🚰🚰🚰🚰🚰🚰🚰🚰-->
-    <div class="introduction" *ngIf="isMenuActive12" style="border: hotpink solid 1px; width: 60%; height: 100vh;">
-        INTRODUCTION
-    </div>
-    <div class="introduction" *ngIf="isMenuActive12" div style="border: pink solid 1px; width: 25%; height: 100vh;">SIDE
-        PANEL 12</div>
-    <!-- END 🚰🚰🚰🚰🚰🚰🚰🚰🚰🚰🚰🚰🚰🚰🚰🚰🚰🚰🔴🔴🔴🔴🔴🚰🚰🚰🚰🚰🚰🚰🚰🚰🚰🚰🚰🚰🚰🚰🚰🚰🚰 INTRODUCTION -->
+  <!-- INTRODUCTION 🚰🚰🚰🚰🚰🚰🚰🚰🚰🚰🚰🚰🚰🚰🚰🚰🔴🔴🔴🔴🚰🚰🚰🚰🚰🚰🚰🚰🚰🚰🚰🚰🚰🚰🚰🚰🚰🚰🚰🚰🚰-->
+  <div class="introduction" *ngIf="isMenuActive12" style="border: hotpink solid 1px; width: 60%; height: 100vh;">
+    INTRODUCTION
+  </div>
+  <div class="introduction" *ngIf="isMenuActive12" div style="border: pink solid 1px; width: 25%; height: 100vh;">SIDE
+    PANEL 12</div>
+  <!-- END 🚰🚰🚰🚰🚰🚰🚰🚰🚰🚰🚰🚰🚰🚰🚰🚰🚰🚰🔴🔴🔴🔴🔴🚰🚰🚰🚰🚰🚰🚰🚰🚰🚰🚰🚰🚰🚰🚰🚰🚰🚰 INTRODUCTION -->
 
 
-    <!-- PAGE MODULES 💊💊💊💊💊💊💊💊💊💊💊💊💊💊💊🔴🔴🔴🔴💊💊💊💊💊💊💊💊💊💊💊💊💊💊💊💊💊💊💊💊-->
-    <div class="page-modules" *ngIf="isMenuActive13" style="border: hotpink solid 1px; width: 60%; height: 100vh;">PAGE
-        MODULES
-    </div>
-    <div class="page-modules" *ngIf="isMenuActive13" div style="border: pink solid 1px; width: 25%; height: 100vh;">SIDE
-        PANEL 13</div>
-    <!-- END 💊💊💊💊💊💊💊💊💊💊💊💊💊💊💊💊💊💊💊🔴🔴🔴🔴💊💊💊💊💊💊💊💊💊💊💊💊💊💊💊💊 PAGE MODULES -->
+  <!-- PAGE MODULES 💊💊💊💊💊💊💊💊💊💊💊💊💊💊💊🔴🔴🔴🔴💊💊💊💊💊💊💊💊💊💊💊💊💊💊💊💊💊💊💊💊-->
+  <div class="page-modules" *ngIf="isMenuActive13" style="border: hotpink solid 1px; width: 60%; height: 100vh;">PAGE
+    MODULES
+  </div>
+  <div class="page-modules" *ngIf="isMenuActive13" div style="border: pink solid 1px; width: 25%; height: 100vh;">SIDE
+    PANEL 13</div>
+  <!-- END 💊💊💊💊💊💊💊💊💊💊💊💊💊💊💊💊💊💊💊🔴🔴🔴🔴💊💊💊💊💊💊💊💊💊💊💊💊💊💊💊💊 PAGE MODULES -->
 
 
-    <!-- RESPONDANTS 📩📩📩📩📩📩📩📩📩📩📩📩📩📩📩📩📩📩📩📩📩📩📩📩📩📩📩📩📩📩📩📩📩📩📩📩📩📩📩📩📩-->
-    <div class="page-modules" *ngIf="isMenuActive14" style="border: hotpink solid 0px; width: 75%; height: 100vh;">
-        <app-respondents [isMenuActive14]="isMenuActive14"></app-respondents>
-    </div>
-    <!--
+  <!-- RESPONDANTS 📩📩📩📩📩📩📩📩📩📩📩📩📩📩📩📩📩📩📩📩📩📩📩📩📩📩📩📩📩📩📩📩📩📩📩📩📩📩📩📩📩-->
+  <div class="page-modules" *ngIf="isMenuActive14" style="border: hotpink solid 0px; width: 75%; height: 100vh;">
+    <app-respondents [isMenuActive14]="isMenuActive14"></app-respondents>
+  </div>
+  <!--
     <div class="page-modules" *ngIf="isMenuActive14" div style="border: pink solid 1px; width: 25%; height: 100vh;">SIDE
         PANEL 13</div>
     <!-END 📩📩📩📩📩📩📩📩📩📩📩📩📩📩📩📩📩📩📩📩📩📩📩📩📩📩📩📩📩📩📩📩📩📩📩📩📩📩📩📩📩 RESPONDANTS -->
@@ -346,29 +354,30 @@
 
 
 
-    <!--  EMAILS 📗📗📗📗📗📗📗📗📗📗📗📗📗📗📗📗📗📗📗📗📗📗📗📗📗📗📗📗📗📗📗📗📗📗📗📗📗📗📗📗📗📗📗📗📗📗
+  <!--  EMAILS 📗📗📗📗📗📗📗📗📗📗📗📗📗📗📗📗📗📗📗📗📗📗📗📗📗📗📗📗📗📗📗📗📗📗📗📗📗📗📗📗📗📗📗📗📗📗
     <div class="emails" *ngIf="isMenuActive15" style="border: hotpink solid 0px; height: 100vh;">
-        <app-participants-email></app-participants-email>      
+        <app-participants-email></app-participants-email>
     </div>-->
 
-    <div class="emails" *ngIf="isMenuActive15" style="border: hotpink solid 0px; width: 75%; height: 100vh;">
-        <app-participants-email> [isMenuActive15]="isMenuActive15"></app-participants-email>
-    </div>
-    <!-- <div class="emails" *ngIf="isMenuActive14" div
+  <div class="emails" *ngIf="isMenuActive15" style="border: hotpink solid 0px; width: 75%; height: 100vh;">
+    <app-participants-email> [isMenuActive15]="isMenuActive15"></app-participants-email>
+  </div>
+  <!-- <div class="emails" *ngIf="isMenuActive14" div
         style="border: pink solid 1px; width: 25%; height: 100vh;">SIDE
          EMAILS 14</div> -->
-    <!-- END 📗📗📗📗📗📗📗📗📗📗📗📗📗📗📗📗📗📗📗📗📗📗📗📗📗📗📗📗📗📗📗📗📗📗📗📗📗📗📗📗📗📗📗📗📗📗  EMAILS -->
+  <!-- END 📗📗📗📗📗📗📗📗📗📗📗📗📗📗📗📗📗📗📗📗📗📗📗📗📗📗📗📗📗📗📗📗📗📗📗📗📗📗📗📗📗📗📗📗📗📗  EMAILS -->
 
 
-    <!-- CONTACT 🎀🎀🎀🎀🎀🎀🎀🎀🎀🎀🎀🎀🎀🎀🎀🎀🎀🎀🎀🎀🎀🎀🎀🎀🎀🎀🎀🎀🎀🎀🎀🎀🎀🎀🎀🎀🎀🎀🎀🎀🎀🎀🎀🎀🎀🎀-->
-    <div class="report-container" [ngClass]="bmxClientPageDesignMode?'page-design':'page-design-client'" style="display: flex;
-    justify-content: center;" *ngIf="isMenuActive16" >
-        <app-project-reports class="report-container" [isBrandMatrixSurvey]="isBrandMatrixSurvey"  [isMenuActive16]="isMenuActive16"
-         [bmxClientPageDesignMode]="bmxClientPageDesignMode" [bmxClientPageOverview]="bmxClientPageOverview"></app-project-reports>
-    </div>
-   
-    <!-- END 🎀🎀🎀🎀🎀🎀🎀🎀🎀🎀🎀🎀🎀🎀🎀🎀🎀🎀🎀🎀🎀🎀🎀🎀🎀🎀🎀🎀🎀🎀🎀🎀🎀🎀🎀🎀🎀🎀🎀🎀🎀🎀🎀🎀🎀 CONTACT -->
+  <!-- CONTACT 🎀🎀🎀🎀🎀🎀🎀🎀🎀🎀🎀🎀🎀🎀🎀🎀🎀🎀🎀🎀🎀🎀🎀🎀🎀🎀🎀🎀🎀🎀🎀🎀🎀🎀🎀🎀🎀🎀🎀🎀🎀🎀🎀🎀🎀🎀-->
+  <div class="report-container" [ngClass]="bmxClientPageDesignMode?'page-design':'page-design-client'" style="display: flex;
+    justify-content: center;" *ngIf="isMenuActive16">
+    <app-project-reports class="report-container" [isBrandMatrixSurvey]="isBrandMatrixSurvey"
+      [isMenuActive16]="isMenuActive16" [bmxClientPageDesignMode]="bmxClientPageDesignMode"
+      [bmxClientPageOverview]="bmxClientPageOverview"></app-project-reports>
+  </div>
 
-    <!-- END  📌📌📌📌📌📌📌📌📌📌📌📌📌📌📌📌📌📌📌📌📌📌📌📌📌📌📌📌📌📌📌📌📌📌📌📌📌📌📌 SECOND MENU SECTION PAGES -->
+  <!-- END 🎀🎀🎀🎀🎀🎀🎀🎀🎀🎀🎀🎀🎀🎀🎀🎀🎀🎀🎀🎀🎀🎀🎀🎀🎀🎀🎀🎀🎀🎀🎀🎀🎀🎀🎀🎀🎀🎀🎀🎀🎀🎀🎀🎀🎀 CONTACT -->
+
+  <!-- END  📌📌📌📌📌📌📌📌📌📌📌📌📌📌📌📌📌📌📌📌📌📌📌📌📌📌📌📌📌📌📌📌📌📌📌📌📌📌📌 SECOND MENU SECTION PAGES -->
 
 </div>
