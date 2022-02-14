@@ -713,6 +713,7 @@ export class SurveyMatrixComponent
               if (component.componentSettings[0].CRITERIA) {
                 minRule =  component.componentSettings[0].minRule / component.componentText[1].CRITERIA.length
               }
+
               this._snackBar.open(
                 'You must rate at least ' +
                   minRule +
