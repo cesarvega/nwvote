@@ -97,7 +97,8 @@ export class SurveyMatrixComponent
               );
 
               //  FILL THE TEMPLATE WTIHT USER ANSWERS
-              template.forEach((page) => {
+              template.forEach((page, index) => {
+                this.isCategoryPage[index] = { isCategory: false };
                 page.page.forEach((component) => {
                   if (
                     component.componentType == 'rate-scale' ||
@@ -107,6 +108,9 @@ export class SurveyMatrixComponent
                     component.componentType == 'tinder' ||
                     component.componentType == 'question-answer'
                   ) {
+                    if (!this.isCategoryPage[index]['isCategory']) {
+                      this.isCategoryPage[index]['isCategory'] = true;
+                    }
                     component.componentText.forEach((row, index) => {
                       if (index > 0) {
                         this.matchAnswersAndTemplateMatrix(
@@ -117,6 +121,11 @@ export class SurveyMatrixComponent
                       }
                     });
                   }
+                  else {
+                    if (!this.isCategoryPage[index]['isCategory']) {
+                      this.isCategoryPage[index]['isCategory'] = false;
+                    }
+                  }
                 });
               });
 
@@ -124,6 +133,9 @@ export class SurveyMatrixComponent
               this.bmxPagesClient = template;
               //  this.bmxPagesClient = answers
             });
+
+
+
         } else {
           // BMX TEMPLATE LOADER BY PROJECT
           this._BmxService
@@ -148,8 +160,7 @@ export class SurveyMatrixComponent
                       component.componentType == 'image-rate-scale' ||
                       component.componentType == 'narrow-down' ||
                       component.componentType == 'tinder' ||
-                      component.componentType == 'question-answer'
-                    ) {
+                      component.componentType == 'question-answer') {
                       if (!this.isCategoryPage[index]['isCategory']) {
                         this.isCategoryPage[index]['isCategory'] = true;
                       }
@@ -691,12 +702,7 @@ export class SurveyMatrixComponent
     if (this.isCategoryPage[this.currentPage]['isCategory']) {
       if (this.currentPage < pageNumber) {
         this.bmxPagesClient[this.currentPage].page.forEach((component) => {
-          if (
-            component.componentType == 'rate-scale' ||
-            component.componentType == 'ranking-scale' ||
-            component.componentType == 'image-rate-scale' ||
-            component.componentType == 'narrow-down' ||
-            component.componentType == 'question-answer'
+          if (component.componentType == 'rate-scale' ||component.componentType == 'ranking-scale' ||component.componentType == 'image-rate-scale' ||component.componentType == 'narrow-down' ||component.componentType == 'question-answer'
           ) {
             if (
               component.componentSettings[0].minRule == 0 ||
@@ -739,12 +745,7 @@ export class SurveyMatrixComponent
 
   saveUserAnswers(pageNumber?) {
     this._BmxService
-      .saveOrUpdateAnswers(
-        this.bmxPagesClient,
-        this.projectId,
-        this.username,
-        pageNumber
-      )
+      .saveOrUpdateAnswers(this.bmxPagesClient,this.projectId,this.username,pageNumber)
       .subscribe((res: any) => {
         console.log('%cANSWERS!', 'color:#007bff', res);
         let page = res.d.replace(this.searchGraveAccentRegExp, "'");
