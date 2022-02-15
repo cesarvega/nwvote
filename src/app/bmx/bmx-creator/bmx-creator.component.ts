@@ -126,7 +126,7 @@ export class BmxCreatorComponent implements OnInit {
     });
 
     this._BmxService.currentProjectName$.subscribe(res=>{
-      this.globalProjectName = res
+      this.globalProjectName = (res)? res : '';
     })
 
     // PRODUCTION INITIAL MENU
