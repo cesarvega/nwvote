@@ -68,12 +68,14 @@ export class QuestionAnswerComponent extends RatingScaleComponent implements OnI
                 RATE: -1,
               })
             });
-          } else {
+          }//NOT CRITERIA
+           else {
             this.bmxItem.componentSettings[0].CRITERIA = false
             objectColumnDesign['STARS'] = this.createRatingStars(this.rankingScaleValue, this.ratingScaleIcon);
             for (let e = 0; e < this.columnsNames.length; e++) {
               if ((rows[i].split("\t").length > 0)) {
                 objectColumnDesign[this.columnsNames[e]] = rows[i].split("\t")[e]
+                // objectColumnDesign[this.columnsNames[e]] = 'multipleChoice'
               }
             }
           }
@@ -98,7 +100,7 @@ export class QuestionAnswerComponent extends RatingScaleComponent implements OnI
       this.bmxItem.componentText[indexRow]['multipleChoice'] = this.bmxItem.componentText[indexRow]['multipleChoice'].replace(checkBoxName + ',','')
     }
   }
-  
+
   insertAnswerColumn() {
     this.columnsNames.push('Answers' + (this.commentColumnCounter));
     this.bmxItem.componentText.forEach((object, index) => {

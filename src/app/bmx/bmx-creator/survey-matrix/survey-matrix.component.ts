@@ -84,7 +84,6 @@ export class SurveyMatrixComponent
       .getBrandMatrixByProjectAndUserAnswers(this.projectId, this.username)
       .subscribe((brandMatrix: any) => {
         //    IF USER ALREADY HAVE ANSWERS
-
         if (brandMatrix.d.length > 0) {
           let answers = JSON.parse(
             brandMatrix.d.replace(this.searchGraveAccentRegExp, "'")
@@ -478,8 +477,7 @@ export class SurveyMatrixComponent
         else if (answerComponent.componentType == 'question-answer') {
           answerComponent.componentText.forEach((answerRow, index) => {
             if (!templateComponent.componentSettings[0].CRITERIA) {
-              // no criteria
-              // if (templateComponent.componentType == 'ranking-scale') {
+              // ITERATE OVER EACH ANSWER ROW
               if (
                 templateComponent.componentType == answerComponent.componentType
               ) {
@@ -487,6 +485,7 @@ export class SurveyMatrixComponent
                   for (const key in templateRow) {
                     if (
                       key === 'nameCandidates' &&
+                      // IF THE TESTNAME IS THE SAME TRANSFER THE ANSWER TO THE TEMPLATE
                       templateRow[key] === answerRow[key]
                     ) {
                       templateRow.RATE = answerRow.RATE;
@@ -505,8 +504,13 @@ export class SurveyMatrixComponent
                           if (index > 0) {
                             templateRow[key] = answerRow[key];
                           }
-                        } else if (key == 'SELECTED_ROW') {
+                        } else if (key == 'options') {
                           templateRow[key] = answerRow[key];
+                          for(let key in answerRow) {
+                            if (key.includes('multipleChoice')) {
+                              templateRow[key] = answerRow[key]
+                            }
+                          }
                         }
                       }
                     }
@@ -687,13 +691,12 @@ export class SurveyMatrixComponent
   }
 
   changePage(direction) {
-    if (
-      direction === 'next' &&
-      this.bmxPagesClient.length - 1 >= this.currentPage
-    ) {
+    if (direction === 'next' &&this.bmxPagesClient.length - 1 >= this.currentPage) {
       this.selectPageNumber(this.currentPage + 1);
     } else if (direction === 'previous' && this.currentPage >= 1) {
       this.selectPageNumber(this.currentPage - 1);
+    } else{
+      this.selectPageNumber(this.currentPage = 1);
     }
   }
 
@@ -745,7 +748,7 @@ export class SurveyMatrixComponent
 
   saveUserAnswers(pageNumber?) {
     this._BmxService
-      .saveOrUpdateAnswers(this.bmxPagesClient,this.projectId,this.username,pageNumber)
+      .saveOrUpdateAnswers(this.bmxPagesClient,this.projectId,this.username,(pageNumber ? pageNumber : this.currentPage + 1))
       .subscribe((res: any) => {
         console.log('%cANSWERS!', 'color:#007bff', res);
         let page = res.d.replace(this.searchGraveAccentRegExp, "'");
