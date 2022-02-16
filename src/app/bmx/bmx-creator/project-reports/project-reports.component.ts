@@ -124,7 +124,10 @@ export class ProjectReportsComponent implements OnInit {
   usersList: any[];
   answersByAllUsers: any;
   displayWordDocument: boolean;
-
+  checked = false;
+  indeterminate = false;
+  labelPosition: 'before' | 'after' = 'after';
+  disabled = false;
   constructor(
     @Inject(DOCUMENT) private document: any,
     public _BmxService: BmxService,
