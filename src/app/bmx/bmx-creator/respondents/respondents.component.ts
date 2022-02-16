@@ -42,29 +42,9 @@ export class RespondentsComponent implements OnInit {
   constructor(private _hotkeysService: HotkeysService, private dragulaService: DragulaService, private _BmxService: BmxService) { }
 
   ngOnInit(): void {
-    //grab project name from local
 
-    /*
-    this.headers = [
-      { field: 'A', index: 0 },
-      { field: 'B', index: 1 },
-      { field: 'C', index: 2 }
-    ];
-
-    this.data = [
-      { A: 22, B: 55, C: 98 },
-      { A: 14, B: 90, C: 134 },
-      { A: 567, B: 1234, C: 567 }
-    ];
-
-    this.setDisplayedColumns();
-
-    this.dataSource2 = new MatTableDataSource(this.data);
-    console.log(this.dataSource.data);
-    */
     this._BmxService.currentProjectName$.subscribe((projectName) => {
       this.projectId = projectName !== '' ? projectName : this.projectId;
-      localStorage.setItem('projectName', this.projectId);
     });
 
     this._BmxService.BrandMatrixGetParticipantList(this.projectId)
@@ -118,7 +98,11 @@ export class RespondentsComponent implements OnInit {
   }
 
   public onFocusOutEvent(event: any): void {
-    localStorage.setItem('fakeprojectname' + '_repondants list', JSON.stringify(this.RESPONDENTS_LIST))
+    var finalString = JSON.stringify(this.RESPONDENTS_LIST);
+    finalString = finalString.replace("[\\u2022,\\u2023,\\u25E6,\\u2043,\\u2219]\\s\\d", '');
+    this._BmxService.BrandMatrixUptParticipantList(this.projectId, this.RESPONDENTS_LIST).subscribe(result => {
+      var so = result;
+    });
   }
 
   setDisplayedColumns() {

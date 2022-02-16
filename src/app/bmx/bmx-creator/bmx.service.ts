@@ -50,6 +50,9 @@ export class BmxService {
 
   GetProjectInfo = '/BrandMatrixProjectInfoGet';
   SaveProjectInfo = '/BrandMatrixProjectInfoSave';
+
+  getEmail = '/BrandMatrixEmailTemplateGet';
+  SaveEmail = '/BrandMatrixEmailTemplateSave';
   
   SaveProjectInfor = '/BrandMatrixUpdDirectorList'
   SendEmail = '/BrandMatrixSendEmail'
@@ -116,8 +119,15 @@ export class BmxService {
 
   }
 
+  getCustomEmail(projectName: any) {
+    return this.http.post(this.webBaseUrl + this.getEmail, { token: '646EBF52-1846-47C2-9F62-DC50AE5BF692', payload: '{ "ProjectName" : "' + projectName + '" }' });
+    // return this.http.get(this.webBaseUrl + 'api/NW_GetProjectIdWithProjectName?projectName=' + projectName, httpOptions);
+  }
 
-
+  setCustomEmail(resourceData: any) {
+    return this.http.post(this.webBaseUrl + this.SaveEmail, { token: '646EBF52-1846-47C2-9F62-DC50AE5BF692', payload: resourceData});
+    // return this.http.get(this.webBaseUrl + 'api/NW_GetProjectIdWithProjectName?projectName=' + projectName, httpOptions);
+  }
 
   saveOrUpdateBMXInfo(project, data) { }
 

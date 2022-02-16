@@ -23,7 +23,7 @@ export class ProjectListComponent implements OnInit {
   dataSource;
   allData;
   viewedData;
-  displayedColumns = ['Client', 'ProjectName', 'Department', 'Office', 'Created', 'Close', 'Email', 'Edit', 'Delete'];
+  displayedColumns = ['bmxCompany', 'bmxProjectName', 'bmxDepartment', 'bmxRegion', 'Created', 'Close', 'Email', 'Edit', 'Delete'];
   selected;
 
   title = 'ng-calendar-demo';

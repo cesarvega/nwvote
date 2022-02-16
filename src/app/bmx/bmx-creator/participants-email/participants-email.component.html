@@ -43,7 +43,7 @@
                             <div style="margin: 20px;font-size: 20px;color:#063074;font-weight: 800;">Link Type</div>
                             <mat-form-field appearance="outline" style="margin-left: 20px;">
                                 <mat-label>Direct Link</mat-label>
-                                <mat-select class="selectLabels" [(ngModel)]="linkType" (selectionChange)="changeLink(linkType)">
+                                <mat-select class="selectLabels" [(ngModel)]="linkType">
                                     <mat-option *ngFor="let link of LINK_TYPE" [value]="link">
                                         {{link}}
                                     </mat-option>
@@ -116,7 +116,8 @@
                             (click)="sendEmail()">
                             Send Invite
                         </button>
-                        <button mat-raised-button style="background-color: #003180;color:white;margin:20px 0px">
+                        <button mat-raised-button style="background-color: #003180;color:white;margin:20px 0px"
+                        (click)="previewEmail()">
                             Preview Invite
                         </button>
                     </div>

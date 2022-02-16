@@ -58,6 +58,7 @@ import { CdkTableModule } from '@angular/cdk/table';
 import { ScrollingModule } from '@angular/cdk/scrolling';
 import { CdkTreeModule } from '@angular/cdk/tree';
 import { A11yModule } from '@angular/cdk/a11y';
+import { DialogComponent } from './bmx/bmx-creator/participants-email/dialog/dialog.component';
 export function loadEcharts() {
   return import('echarts');
 }
@@ -76,6 +77,7 @@ export function loadEcharts() {
     NW3Component,
     // BmxComponent,
     SchedulerComponent,
+    DialogComponent,
 
 
 
@@ -143,7 +145,7 @@ export function loadEcharts() {
 
   ],
   entryComponents: [
-    editPost, editName
+    editPost, editName, DialogComponent
   ],
   providers: [NwvoteService, BsrMobileService, Nw3Service,
     { provide: MAT_SNACK_BAR_DEFAULT_OPTIONS, useValue: { duration: 1000 } }],
