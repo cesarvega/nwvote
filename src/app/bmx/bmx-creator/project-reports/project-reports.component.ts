@@ -124,7 +124,14 @@ export class ProjectReportsComponent implements OnInit {
   usersList: any[];
   answersByAllUsers: any;
   displayWordDocument: boolean;
-  checked = false;
+  reportSettings = {
+    displayCompletionStatus: true,
+    displayOverallRanking: false,
+    OverallRankingWithRespondents: false,
+    openEndedQuestions: false,
+    openEndedWithRepondents: false,
+    displayResultsByRespondents: false,
+  }
   indeterminate = false;
   labelPosition: 'before' | 'after' = 'after';
   disabled = false;
