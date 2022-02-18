@@ -126,15 +126,16 @@ export class ProjectReportsComponent implements OnInit {
   displayWordDocument: boolean;
   reportSettings = {
     displayCompletionStatus: true,
-    displayOverallRanking: false,
-    OverallRankingWithRespondents: false,
-    openEndedQuestions: false,
-    openEndedWithRepondents: false,
-    displayResultsByRespondents: false,
+    displayOverallRanking: true,
+    OverallRankingWithRespondents: true,
+    openEndedQuestions: true,
+    openEndedWithRepondents: true,
+    displayResultsByRespondents: true,
   }
   indeterminate = false;
   labelPosition: 'before' | 'after' = 'after';
   disabled = false;
+  numberOfpages: any;
   constructor(
     @Inject(DOCUMENT) private document: any,
     public _BmxService: BmxService,
@@ -255,15 +256,15 @@ export class ProjectReportsComponent implements OnInit {
       },
     });
 
-    // activatedRoute.params.subscribe(params => {
-    //     this.projectId = params['id'];
-    //     this.biUsername = params['biUsername'];
-    //     localStorage.setItem('projectId', this.projectId);
-    //     // this.bsrService.getProjectData(this.projectId).subscribe(arg => {
-    //     //   this.projectName = JSON.parse(arg[0].bsrData).projectdescription;
-    //     //   localStorage.setItem('projectName',  this.project Id);
-    //     // });
-    // });
+    activatedRoute.params.subscribe(params => {
+        this.projectId = params['id'];
+        this.biUsername = params['biUsername'];
+        localStorage.setItem('projectId', this.projectId);
+        // this.bsrService.getProjectData(this.projectId).subscribe(arg => {
+        //   this.projectName = JSON.parse(arg[0].bsrData).projectdescription;
+        //   localStorage.setItem('projectName',  this.project Id);
+        // });
+    });
 
     this._BmxService.currentProjectName$.subscribe((projectName) => {
       this.projectId = projectName !== '' ? projectName : this.projectId;
@@ -327,6 +328,7 @@ export class ProjectReportsComponent implements OnInit {
     milUsers.forEach((userAnswer, userAnswerIndex) => {
       this.categoryCounter = 0;
       let userCategory = [];
+      this.numberOfpages = JSON.parse(userAnswer.BrandMatrix).map(res => res.pageNumber)
       JSON.parse(userAnswer.BrandMatrix).forEach((page) => {
         page.page.forEach((component) => {
           if (

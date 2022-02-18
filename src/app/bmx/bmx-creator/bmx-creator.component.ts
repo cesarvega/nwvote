@@ -13,7 +13,7 @@ import { DragulaService } from 'ng2-dragula';
 export class BmxCreatorComponent implements OnInit {
   // https://getemoji.com/
   userName = 'Alexa';
-  bmxClientPageDesignMode = false; // TURN FALSE TO PLAY ON DEVELOPMENT
+  bmxClientPageDesignMode = true; // TURN FALSE TO PLAY ON DEVELOPMENT
   bmxClientPageOverview = false;
   displayRightSideMenu = false;
   isBrandMatrixSurvey = true;

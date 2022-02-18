@@ -1,7 +1,4 @@
-
-
-
-<div *ngIf="true" class="feature-modal-box" >
+<div *ngIf="true" class="feature-modal-box">
   <mat-card class="flex-column ">
     <mat-icon style="font-size: 35px;color: #032c72; animation: fadeIn 0.6s ease-in-out 0.3s backwards;">
       summarize
@@ -10,21 +7,42 @@
     <h1>REPORT GENERATOR OPTIONS</h1><br>
     <mat-card-content style="width: 730px;">
       <div style="display:flex;flex-direction: row;justify-content: space-around;gap: 10px;">
-        <mat-checkbox class="example-margin" [(ngModel)]="reportSettings.displayCompletionStatus">Display Completion Status</mat-checkbox>
+        <mat-checkbox class="example-margin" [(ngModel)]="reportSettings.displayCompletionStatus">Display Completion
+          Status</mat-checkbox>
+      </div>
+      <hr>
+      <div class="page-buttons">
+          <div *ngFor="let page of numberOfpages; let pageIndex = index">
+            <button style="min-width: 35px;" [ngClass]="(currentPage === pageIndex)?'pageNumberActive':'pageNumber'"
+              mat-raised-button>
+              {{page}}
+            </button>
+            <!-- DISBLE CLICKING ON THE BUTTONS -->
+            <!-- <button style="min-width: 35px;" (click)="selectPageNumber(pageIndex)"
+            [ngClass]="(currentPage === pageIndex)?'pageNumberActive':'pageNumber'" mat-raised-button>
+            {{page.pageNumber}}
+        </button> -->
+        </div>
+      </div>
+      <hr>
+
+      <div style="display:flex;flex-direction: row;justify-content: space-around;gap: 20px;">
+        <mat-checkbox class="example-margin" [(ngModel)]="reportSettings.displayOverallRanking">Display Overall Ranking
+          By Test Name</mat-checkbox>
+        <mat-checkbox class="example-margin" [disabled]="!reportSettings.displayOverallRanking"
+          [(ngModel)]="reportSettings.OverallRankingWithRespondents">With Respondents </mat-checkbox>
       </div>
       <hr>
       <div style="display:flex;flex-direction: row;justify-content: space-around;gap: 20px;">
-        <mat-checkbox class="example-margin" [(ngModel)]="reportSettings.displayOverallRanking">Display Overall Ranking By Test Name</mat-checkbox>
-        <mat-checkbox class="example-margin" [disabled]="!reportSettings.displayOverallRanking" [(ngModel)]="reportSettings.OverallRankingWithRespondents">With Respondents </mat-checkbox>
+        <mat-checkbox class="example-margin" [(ngModel)]="reportSettings.openEndedQuestions">Open Ended Questions
+        </mat-checkbox>
+        <mat-checkbox class="example-margin" [disabled]="!reportSettings.openEndedQuestions"
+          [(ngModel)]="reportSettings.openEndedWithRepondents">With Respondents </mat-checkbox>
       </div>
       <hr>
       <div style="display:flex;flex-direction: row;justify-content: space-around;gap: 20px;">
-        <mat-checkbox class="example-margin" [(ngModel)]="reportSettings.openEndedQuestions">Open Ended Questions</mat-checkbox>
-        <mat-checkbox class="example-margin"  [disabled]="!reportSettings.openEndedQuestions" [(ngModel)]="reportSettings.openEndedWithRepondents">With Respondents </mat-checkbox>
-      </div>
-      <hr>
-      <div style="display:flex;flex-direction: row;justify-content: space-around;gap: 20px;">
-        <mat-checkbox class="example-margin" [(ngModel)]="reportSettings.displayResultsByRespondents">Display Result by Respondents </mat-checkbox>
+        <mat-checkbox class="example-margin" [(ngModel)]="reportSettings.displayResultsByRespondents">Display Result by
+          Respondents </mat-checkbox>
       </div>
       <hr>
       <div style="display:flex;flex-direction: column;justify-content: center;align-items: center;">
