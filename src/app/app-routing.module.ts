@@ -10,7 +10,6 @@ import { BmxCreatorComponent } from './bmx/bmx-creator/bmx-creator.component';
 import { BmxComponent } from './bmx/bmx-survey/bmx.component';
 import { SurveyMatrixComponent } from './bmx/bmx-creator/survey-matrix/survey-matrix.component';
 // import { BmxCreatorComponent } from './bmx-creator/bmx-creator.component';
-import { TestComponent } from './test/test/test.component';
 const routes: Routes = [
   // {// NAME VOTE LOGIN https://bipresents.com/namevote/login?project=Test_WELL_PLATFORM
   //   path: 'login',
@@ -37,18 +36,14 @@ const routes: Routes = [
   path: 'bmx/:id',
    component: BmxCreatorComponent
   },
-  //  {//BI BRAND MATRIX
-  //   path: 'survey/:id/:username',
-  //   component: SurveyMatrixComponent
-  // },
+   {//BI BRAND MATRIX
+    path: 'survey/:id/:username',
+    component: SurveyMatrixComponent
+  },
   // {//NW 3 BI PRESENTS NOMENCLATURE WORKSHOP V.3.0
   //   path: ':id',
   //   component: NW3Component
   // },
-  {//NW 3 BI PRESENTS NOMENCLATURE WORKSHOP V.3.0
-    path: 'test',
-    component: TestComponent
-  },
   {
     path: '',
     // redirectTo: '/no_id/n_user',

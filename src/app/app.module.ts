@@ -53,7 +53,6 @@ import { MatPaginatorModule } from '@angular/material/paginator';
 import { MatSnackBarModule, MAT_SNACK_BAR_DEFAULT_OPTIONS } from '@angular/material/snack-bar';
 import { MatRadioModule } from '@angular/material/radio';
 import { BmxModule } from './bmx/bmx-module/bmx.module';
-import { TestComponent } from './test/test/test.component';
 import { TinderComponent } from './bmx/bmx-creator/survey-creation-design/templates/tinder/tinder.component';
 import { CdkTableModule } from '@angular/cdk/table';
 import { ScrollingModule } from '@angular/cdk/scrolling';
@@ -77,7 +76,6 @@ export function loadEcharts() {
     NW3Component,
     // BmxComponent,
     SchedulerComponent,
-    TestComponent,
    
 
 
