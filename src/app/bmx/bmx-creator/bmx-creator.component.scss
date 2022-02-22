@@ -46,6 +46,34 @@
     display: none;
 }
 
+.userModal {
+    width: 800px;
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    -ms-transform: translate(-50%, -110%);
+    transform: translate(-50%, -110%);
+    border-radius: 3px;
+    background-color: white;
+    border: solid 1px #022d71;
+    @include BoxShadow(6);
+    overflow: hidden;
+    .flex-column {
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+      }
+      .flex-row {
+        display: flex;
+        flex-direction: row;
+        justify-content: center;
+        align-items: center;
+      }
+  }
+
+
+
 .main-container {
     display: flex;
     flex-direction: row;
@@ -66,8 +94,9 @@
         width: 15.5%;
         height: 10%;
         top: 67px;
+        margin: 10px 0px;
         display: flex;
-        flex-direction: row;
+        flex-direction: column;
         align-items: center;
         position: absolute;
         background-color: #353f4b;
@@ -136,6 +165,13 @@
         text-shadow: 0 0.04em 0.04em rgba(0, 0, 0, 0.35);
         box-shadow: inset inset 0px 0px 5px #0bd659;
     }
+    .project-name-global{
+        color: #324395;
+        font-size: 25px;
+        transition: all 0.1s ease-in-out;
+        text-shadow: 0 0.04em 0.04em rgba(0, 0, 0, 0.35);
+        box-shadow: inset inset 0px 0px 5px #0bd659;
+    }
 
     .page-design::-webkit-scrollbar {
         display: none;
@@ -163,7 +199,7 @@
     }
 
 
-   
+
     .emoji-handle {
         // position: absolute;
         top: 5px;
@@ -180,7 +216,7 @@
     .paragraph {
         margin-top: 10px;
         position: relative;
-        
+
         .save {
             outline: none;
             position: absolute;
@@ -222,7 +258,7 @@
         align-content: center;
     }
 
-   
+
 
     .project-list::-webkit-scrollbar {
         display: none;
@@ -257,7 +293,9 @@
         border: #76d354 4px solid;
     }
 
-    
+
+
+
 }
 
 // 💜 💜 💜 💜 💜 💜 💜 💜 💜 💜 💜 💜 💜 💜 💜 💜 💜 💜 💜 💜 💜 💜 💜 💜 💜 💜 💜 💜 💜 💜 💜 💜 💜 💜 💜 💜 💜 💜 💜 💜 💜 💜 💜

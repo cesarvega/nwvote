@@ -12,10 +12,11 @@ import { DragulaService } from 'ng2-dragula';
 })
 export class BmxCreatorComponent implements OnInit {
   // https://getemoji.com/
-  bmxClientPageDesignMode = true;  // false to hide the side menu
+  userName = 'Alexa';
+  bmxClientPageDesignMode = true; // TURN FALSE TO PLAY ON DEVELOPMENT
   bmxClientPageOverview = false;
   displayRightSideMenu = false;
-  isBrandMatrixSurvey = true
+  isBrandMatrixSurvey = true;
 
   projectName: any;
   projectId: any;
@@ -43,20 +44,19 @@ export class BmxCreatorComponent implements OnInit {
 
   isMainMenuActive = true;
 
-
   model = {
     editorData: '',
-    namesData: ''
+    namesData: '',
   };
 
   ckconfig: any;
-  selectedIndex: any
+  selectedIndex: any;
   sampleHtml = `Dear PARTICIPANT,
   You have been selected to participate in the brand name selection for BI Pharma's new ADSSK & CCC Inhibitor for the treatment of multiple cancer types.
   In this survey, you'll be voting on multiple name candidates that have been developed specifically for this compound. The survey will guide you, and an instructions button is available at any time for your assistance.
   We hope you enjoy this piece of your branding process. Please select Continue below to officially start your survey.
   Best,
-  The Brand Institute Team`
+  The Brand Institute Team`;
   selectedOption: any;
 
   // SURVEY CREATOR VARIABLES & SCHEME
@@ -64,27 +64,32 @@ export class BmxCreatorComponent implements OnInit {
     {
       componentType: 'logo-header',
       componentText: this.sampleHtml,
-      componentSettings: [{ fontSize: '16px', fontFace: 'Arial', fontColor: 'red' }],
+      componentSettings: [
+        { fontSize: '16px', fontFace: 'Arial', fontColor: 'red' },
+      ],
     },
     {
       componentType: 'text-editor',
       componentText: this.sampleHtml,
-      componentSettings: [{ fontSize: '16px', fontFace: 'Arial', fontColor: 'red' }],
+      componentSettings: [
+        { fontSize: '16px', fontFace: 'Arial', fontColor: 'red' },
+      ],
     },
     {
       componentType: 'ranking-scale',
       componentText: this.sampleHtml,
-      componentSettings: [{ fontSize: '16px', fontFace: 'Arial', fontColor: 'red' }],
+      componentSettings: [
+        { fontSize: '16px', fontFace: 'Arial', fontColor: 'red' },
+      ],
     },
     {
       componentType: 'text-editor',
       componentText: this.sampleHtml,
-      componentSettings: [{ fontSize: '16px', fontFace: 'Arial', fontColor: 'red' }],
-
-
+      componentSettings: [
+        { fontSize: '16px', fontFace: 'Arial', fontColor: 'red' },
+      ],
     },
   ];
-
 
   TEMPLATES = [
     { name: 'Standart Personal Preference', rationale: 'Sist, Assist, Syst' },
@@ -96,58 +101,80 @@ export class BmxCreatorComponent implements OnInit {
     { name: 'Build Your Own', rationale: 'Opti, Opt, Op' },
   ];
 
-
   settingsData = {
     SalesBoardProjectList: [],
     DepartmentList: '',
     OfficeList: '',
     LanguageList: '',
-    DirectorList: ''
+    DirectorList: '',
   };
 
   testProject: any;
+  globalProjectName: any;
+  userGUI: any;
+  userFullName: any;
+  userOffice: any;
+  userRole: any;
+  Role: any;
+  userDepartment: string;
 
+  constructor(
+    @Inject(DOCUMENT) private document: any,
+    private activatedRoute: ActivatedRoute,
+    private _hotkeysService: HotkeysService,
+    private dragulaService: DragulaService,
+    private _BmxService: BmxService
+  ) {
+    this.activatedRoute.params.subscribe((params) => {
+      this.userGUI = params['id'];
 
-  constructor(@Inject(DOCUMENT) private document: any,
-     private activatedRoute: ActivatedRoute,
-    private _hotkeysService: HotkeysService, private dragulaService: DragulaService, private _BmxService: BmxService) {
-    // this.activatedRoute.params.subscribe(params => {
-    //   this.projectName = params['id'];
-    //   localStorage.setItem('projectName', this.projectName);
-    //   this._NW3Service.getProjectId(this.projectName).subscribe((data: any) => {
-    //     this.projectId = data[0].PresentationId;
-    //     localStorage.setItem('data', data[0].PresentationId);
-    //   })
-    // });
+      // localStorage.setItem('projectId', this.projectId);
+      this._BmxService.getMatrixUser( this.userGUI).subscribe((data:any) => {
+        data  = JSON.parse(data.d);
+        this.userName = data.UserName
+        this.userFullName = data.FullName
+        this.userOffice = data.Office
+        this.userRole = data.Role
+        this.userDepartment = data.Department
 
-  // PRODUCTION INITIAL MENU
-    this.toggleMenuActive('isMenuActive1')
+        // TEST DATA
+        this.userOffice = 'Miami'
+        // this.userOffice = 'Basel 1'
+        this.userRole = 'director' // director restriced
+        this.userRole = 'creative'
+        // this.userRole = 'user'
+        this.userRole = 'admin'  // no restrictions
+        this.userDepartment = 'Creative'
+        // this.userDepartment = 'Design'
+
+      })
+    });
+
+    this._BmxService.currentProjectName$.subscribe(res=>{
+      this.globalProjectName = (res)? res : '';
+    })
+
+    // PRODUCTION INITIAL MENU
+    this.toggleMenuActive('isMenuActive1');
     this.bmxClientPageDesignMode = true;
     this.isMainMenuActive = true;
 
     // TESTING SETTINGS
-    // this.toggleMenuActive('isMenuActive16')
+    // this.toggleMenuActive('isMenuActive16');
     // this.bmxClientPageDesignMode = false;
     // this.isMainMenuActive = false;
 
-
-
-    this._BmxService.getGeneralLists()
-      .subscribe((arg: any) => {
-        this.settingsData = JSON.parse(arg.d);
-      });
-
-
+    this._BmxService.getGeneralLists().subscribe((arg: any) => {
+      this.settingsData = JSON.parse(arg.d);
+    });
 
     // DRAGGING SERVICE FOR SURVEY CREATOR
     dragulaService.createGroup('TASKS', {
       moves: (el, container, handle) => {
         return handle.classList.contains('emoji-handle');
-      }
-
-    })
+      },
+    });
     // document.body.style.zoom = 1.10;
-
   }
 
   ngOnInit(): void {
@@ -155,7 +182,7 @@ export class BmxCreatorComponent implements OnInit {
     this.ckconfig = {
       allowedContent: false,
       width: '99.6%',
-      contentsCss: ["body {font-size: 24px;}"],
+      contentsCss: ['body {font-size: 24px;}'],
       height: 280,
       forcePasteAsPlainText: true,
       toolbarLocation: 'top',
@@ -168,21 +195,22 @@ export class BmxCreatorComponent implements OnInit {
         { name: 'others' },
         { name: 'basicstyles', groups: ['basicstyles', 'cleanup'] },
         { name: 'colors' },
-        { name: 'paragraph', groups: ['list', 'indent', 'blocks', 'align', 'bidi'] },
+        {
+          name: 'paragraph',
+          groups: ['list', 'indent', 'blocks', 'align', 'bidi'],
+        },
         { name: 'styles' },
         { name: 'links' },
-        { name: 'about' }
+        { name: 'about' },
       ],
       addPlugins: 'simplebox,tabletools',
       removePlugins: 'horizontalrule,specialchar,about,others',
-      removeButtons: 'Smiley,tableselection,Image,Superscript,Subscript,Save,NewPage,Preview,Print,Templates,Replace,SelectAll,Form,Checkbox,Radio,TextField,Textarea,Find,Select,Button,ImageButton,HiddenField,CopyFormatting,CreateDiv,BidiLtr,BidiRtl,Language,Flash,PageBreak,Iframe,ShowBlocks,Cut,Copy,Paste,Table,Format,Source,Maximize,Styles,Anchor,SpecialChar,PasteFromWord,PasteText,Scayt,RemoveFormat,Indent,Outdent,Blockquote'
-
-    }
+      removeButtons:
+        'Smiley,tableselection,Image,Superscript,Subscript,Save,NewPage,Preview,Print,Templates,Replace,SelectAll,Form,Checkbox,Radio,TextField,Textarea,Find,Select,Button,ImageButton,HiddenField,CopyFormatting,CreateDiv,BidiLtr,BidiRtl,Language,Flash,PageBreak,Iframe,ShowBlocks,Cut,Copy,Paste,Table,Format,Source,Maximize,Styles,Anchor,SpecialChar,PasteFromWord,PasteText,Scayt,RemoveFormat,Indent,Outdent,Blockquote',
+    };
     // SAMPLE DATA FOR CKEDITOR
     this.model.editorData = this.sampleHtml;
   }
-
-
 
   // menu functionallity toggles the active link scss
   toggleMenuActive(menuItem) {
@@ -195,36 +223,35 @@ export class BmxCreatorComponent implements OnInit {
       }
     });
 
-    if(menuItem === 'isMenuActive1')
-    { this.isMainMenuActive = true;
+    if (menuItem === 'isMenuActive1') {
+      this.isMainMenuActive = true;
       localStorage.removeItem('projectName');
-    } else if(menuItem === 'isMenuActive11'){
+    } else if (menuItem === 'isMenuActive11') {
       this.bmxClientPageDesignMode = false;
       this.bmxClientPageOverview = true;
       this.isMainMenuActive = false;
-     }
-    this.isMenuActive1 = (menuItem === 'isMenuActive1') ? true : false;
-    this.isMenuActive2 = (menuItem === 'isMenuActive2') ? true : false;
-    this.isMenuActive3 = (menuItem === 'isMenuActive3') ? true : false;
-    this.isMenuActive4 = (menuItem === 'isMenuActive4') ? true : false;
-    this.isMenuActive5 = (menuItem === 'isMenuActive5') ? true : false;
-    this.isMenuActive6 = (menuItem === 'isMenuActive6') ? true : false;
-    this.isMenuActive7 = (menuItem === 'isMenuActive7') ? true : false;
-    this.isMenuActive8 = (menuItem === 'isMenuActive8') ? true : false;
-    this.isMenuActive9 = (menuItem === 'isMenuActive9') ? true : false;
-    this.isMenuActive10 = (menuItem === 'isMenuActive10') ? true : false;
-    this.isMenuActive11 = (menuItem === 'isMenuActive11') ? true : false;
-    this.isMenuActive12 = (menuItem === 'isMenuActive12') ? true : false;
-    this.isMenuActive13 = (menuItem === 'isMenuActive13') ? true : false;
-    this.isMenuActive14 = (menuItem === 'isMenuActive14') ? true : false;
-    this.isMenuActive15 = (menuItem === 'isMenuActive15') ? true : false;
-    this.isMenuActive16 = (menuItem === 'isMenuActive16') ? true : false;
+    }
+    this.isMenuActive1 = menuItem === 'isMenuActive1' ? true : false;
+    this.isMenuActive2 = menuItem === 'isMenuActive2' ? true : false;
+    this.isMenuActive3 = menuItem === 'isMenuActive3' ? true : false;
+    this.isMenuActive4 = menuItem === 'isMenuActive4' ? true : false;
+    this.isMenuActive5 = menuItem === 'isMenuActive5' ? true : false;
+    this.isMenuActive6 = menuItem === 'isMenuActive6' ? true : false;
+    this.isMenuActive7 = menuItem === 'isMenuActive7' ? true : false;
+    this.isMenuActive8 = menuItem === 'isMenuActive8' ? true : false;
+    this.isMenuActive9 = menuItem === 'isMenuActive9' ? true : false;
+    this.isMenuActive10 = menuItem === 'isMenuActive10' ? true : false;
+    this.isMenuActive11 = menuItem === 'isMenuActive11' ? true : false;
+    this.isMenuActive12 = menuItem === 'isMenuActive12' ? true : false;
+    this.isMenuActive13 = menuItem === 'isMenuActive13' ? true : false;
+    this.isMenuActive14 = menuItem === 'isMenuActive14' ? true : false;
+    this.isMenuActive15 = menuItem === 'isMenuActive15' ? true : false;
+    this.isMenuActive16 = menuItem === 'isMenuActive16' ? true : false;
   }
 
   checkDragEvetn(e) {
     console.log(e);
   }
-
 
   toggleViewPageModeDesign() {
     this.bmxClientPageDesignMode = !this.bmxClientPageDesignMode;
@@ -234,18 +261,15 @@ export class BmxCreatorComponent implements OnInit {
     this.bmxClientPageOverview = !this.bmxClientPageOverview;
   }
 
-  editBM(event)
-  {
+  editBM(event) {
     this.isMenuActive1 = event;
     this.isMainMenuActive = event;
     this.isMenuActive8 = !event;
   }
 
-  emailBM(event)
-  {
+  emailBM(event) {
     this.isMenuActive1 = event;
     this.isMainMenuActive = event;
     this.isMenuActive15 = !event;
   }
-
 }
