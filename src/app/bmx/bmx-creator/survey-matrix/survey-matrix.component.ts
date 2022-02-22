@@ -691,13 +691,11 @@ export class SurveyMatrixComponent
   }
 
   changePage(direction) {
-    if (direction === 'next' &&this.bmxPagesClient.length - 1 >= this.currentPage) {
+    if (direction === 'next' &&this.bmxPagesClient.length - 1 > this.currentPage) {
       this.selectPageNumber(this.currentPage + 1);
-    } else if (direction === 'previous' && this.currentPage >= 1) {
+    } else if (direction === 'previous' && this.currentPage > 0) {
       this.selectPageNumber(this.currentPage - 1);
-    } else{
-      this.selectPageNumber(this.currentPage = 1);
-    }
+    } 
   }
 
   selectPageNumber(pageNumber) {

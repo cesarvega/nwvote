@@ -90,12 +90,25 @@ export class RatingScaleComponent implements OnInit {
     });
     // this.columnsNames.push('RATE')
 
-    if (this.bmxItem.componentSettings[0].CRITERIA) {
-      this.bmxItem.componentText.forEach((item, index) => {
-        if (index == 0) {
+    // IF RATING SCALE IS SET
+    let amountOfAnswersRateCounter = 0
+    this.bmxItem.componentText.forEach((item, index) => {
+      if (index > 0) {
+        if(item.RATE > 0 ){
+          amountOfAnswersRateCounter++
+          if(this.bmxItem.componentText.length -1 == amountOfAnswersRateCounter){
+            this.bmxItem.componentSettings[0].categoryRulesPassed = true
+          }
         }
-      })
-    }
+      }
+    })
+
+    // if (this.bmxItem.componentSettings[0].CRITERIA) {
+    //   this.bmxItem.componentText.forEach((item, index) => {
+    //     if (index == 0) {
+    //     }
+    //   })
+    // }
     // this.selectedCriteria = 'Fit to Compound Concept, and Overall Likeability'
   }
 

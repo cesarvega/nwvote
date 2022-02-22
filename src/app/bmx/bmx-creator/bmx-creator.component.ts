@@ -133,15 +133,17 @@ export class BmxCreatorComponent implements OnInit {
         data  = JSON.parse(data.d);
         this.userName = data.UserName
         this.userFullName = data.FullName
-        // this.userOffice = data.Office
+        this.userOffice = data.Office
+        this.userRole = data.Role
+        this.userDepartment = data.Department
+
+        // TEST DATA
         this.userOffice = 'Miami'
         // this.userOffice = 'Basel 1'
-        // this.userRole = data.Role
         this.userRole = 'director' // director restriced
         this.userRole = 'creative'
         // this.userRole = 'user'
-        // this.userRole = 'admin'  // no restrictions
-        this.userDepartment = data.Department
+        this.userRole = 'admin'  // no restrictions
         this.userDepartment = 'Creative'
         // this.userDepartment = 'Design'
 
