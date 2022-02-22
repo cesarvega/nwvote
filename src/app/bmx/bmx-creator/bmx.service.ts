@@ -16,7 +16,7 @@ export class BmxService {
   setProjectName(projectName: any) {
     this.projectName$.next(projectName);
   }
-  
+
   setprojectData(projectData: any) {
     this.projectData$.next(projectData);
   }
@@ -31,10 +31,10 @@ export class BmxService {
   searchApostropheRegExp = new RegExp("'", 'g');
 
 
-  brandMatrixSave = '/BrandMatrixSave'; // SAVES THE BRANDMATRIX PER PROJECT 
+  brandMatrixSave = '/BrandMatrixSave'; // SAVES THE BRANDMATRIX PER PROJECT
   brandMatrixSaveUserAnswers = '/BrandMatrixSaveUserAnswers'; // SAVES THE BRANDMATRIX USER ANSWERS
 
-  
+
   brandMatrixGetALLUserAnswers = '/BrandMatrixGetALLUserAnswers'; // GETS THE BRANDMATRIX ANSWERS
   brandMatrixGetUserAnswers = '/BrandMatrixGetUserAnswers'; // GETS THE BRANDMATRIX SINGLE USER ANSWERS
   brandMatrixGet = '/BrandMatrixGet'; // GETS THE BRANDMATRIX BY PROJECT
@@ -51,13 +51,13 @@ export class BmxService {
 
   GetProjectInfo = '/BrandMatrixProjectInfoGet';
   SaveProjectInfo = '/BrandMatrixProjectInfoSave';
-  
+
   SaveProjectInfor = '/BrandMatrixUpdDirectorList'
   SendEmail = '/BrandMatrixSendEmail'
   constructor(private http: HttpClient) {}
-   
+
   getGeneralLists() {
-    return this.http.post(this.webBaseUrl + this.brandMatrixUserGet, { token: '646EBF52-1846-47C2-9F62-DC50AE5BF692', payload: '' });
+    return this.http.post(this.webBaseUrl + this.GetGeneralLists, { token: '646EBF52-1846-47C2-9F62-DC50AE5BF692', payload: '' });
     // return this.http.get(this.webBaseUrl + 'api/NW_GetProjectIdWithProjectName?projectName=' + projectName, httpOptions);
 
   }
@@ -192,7 +192,7 @@ export class BmxService {
     })
    }
 
-  saveBrandMatrixTemplate(templateName, templateObj, username) { 
+  saveBrandMatrixTemplate(templateName, templateObj, username) {
     const payloadString = JSON.stringify({
       TemplateName: templateName,
       Username: username,

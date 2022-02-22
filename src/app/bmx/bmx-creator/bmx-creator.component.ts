@@ -127,7 +127,7 @@ export class BmxCreatorComponent implements OnInit {
   ) {
     this.activatedRoute.params.subscribe((params) => {
       this.userGUI = params['id'];
-     
+
       // localStorage.setItem('projectId', this.projectId);
       this._BmxService.getMatrixUser( this.userGUI).subscribe((data:any) => {
         data  = JSON.parse(data.d);
@@ -139,12 +139,12 @@ export class BmxCreatorComponent implements OnInit {
         // this.userRole = data.Role
         this.userRole = 'director' // director restriced
         this.userRole = 'creative'
-        this.userRole = 'user'
+        // this.userRole = 'user'
         // this.userRole = 'admin'  // no restrictions
         this.userDepartment = data.Department
         this.userDepartment = 'Creative'
         // this.userDepartment = 'Design'
-        
+
       })
     });
 

@@ -46,11 +46,9 @@
     <!--🎭🎭🎭🎭🎭🎭🎭🎭🎭🎭🎭🎭🎭🎭🎭🎭🎭🎭🎭🎭🎭🎭🎭🎭🎭🎭🎭🎭🎭🎭🎭 END LOGO BRANDING -->
 
     <div class="welcome">
-      <button mat-icon-button style="background-color: white;margin: 0 20px 0 20px">
-        <mat-icon>account_circle</mat-icon>
-      </button>
-      <div style="color: white; text-align: start;font-family: Arial, Helvetica, sans-serif;font-size: 16px;">
-        welcome {{userFullName}} !
+        <mat-icon style="color: white;padding: 15px;">account_circle</mat-icon>
+      <div style="color: white; width: 100%;text-align: center;font-family: Arial, Helvetica, sans-serif;font-size: 16px;margin-top: 10px;">
+        Welcome {{userFullName}}
       </div>
     </div>
 
@@ -381,15 +379,15 @@
 
 </div>
 
-<div *ngIf="userRole =='user'" class="userModal" cdkDrag>
+<div *ngIf="userRole =='user'" class="userModal" >
   <mat-card class="flex-column ">
     <mat-icon style="font-weight: bold;font-size: 35px;color: #032c72; animation: fadeIn 0.6s ease-in-out 0.3s backwards;">info
     </mat-icon>
     <br>
-    <h1 >{{userFullName}} you dont have acces to the Brand Matrix </h1>
+    <h1 >{{userFullName}} you don't have acces to the Brand Matrix </h1>
     <mat-card-content class="">
-      <h3><span style="font-weight: bold;">Please contact IS Department </span></h3>
-    
+      <h3><span style="font-weight: bold;">Please contact the IS Department </span></h3>
+
     </mat-card-content>
   </mat-card>
   <mat-card class="flex-column ">

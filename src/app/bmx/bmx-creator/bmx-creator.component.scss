@@ -49,9 +49,10 @@
 .userModal {
     width: 800px;
     position: fixed;
-    top: 23vh;
-    left: 29vw;
-    // transform: translate(-50%, -53%);
+    top: 50%;
+    left: 50%;
+    -ms-transform: translate(-50%, -110%);
+    transform: translate(-50%, -110%);
     border-radius: 3px;
     background-color: white;
     border: solid 1px #022d71;
@@ -71,7 +72,7 @@
       }
   }
 
-  
+
 
 .main-container {
     display: flex;
@@ -93,8 +94,9 @@
         width: 15.5%;
         height: 10%;
         top: 67px;
+        margin: 10px 0px;
         display: flex;
-        flex-direction: row;
+        flex-direction: column;
         align-items: center;
         position: absolute;
         background-color: #353f4b;
@@ -291,7 +293,7 @@
         border: #76d354 4px solid;
     }
 
-    
+
 
 
 }
