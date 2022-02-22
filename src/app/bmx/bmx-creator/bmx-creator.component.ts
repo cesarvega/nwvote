@@ -111,6 +111,12 @@ export class BmxCreatorComponent implements OnInit {
 
   testProject: any;
   globalProjectName: any;
+  userGUI: any;
+  userFullName: any;
+  userOffice: any;
+  userRole: any;
+  Role: any;
+  userDepartment: string;
 
   constructor(
     @Inject(DOCUMENT) private document: any,
@@ -120,9 +126,26 @@ export class BmxCreatorComponent implements OnInit {
     private _BmxService: BmxService
   ) {
     this.activatedRoute.params.subscribe((params) => {
-      this.projectId = params['id'];
-      this.userName = params['biUsername'];
-      localStorage.setItem('projectId', this.projectId);
+      this.userGUI = params['id'];
+     
+      // localStorage.setItem('projectId', this.projectId);
+      this._BmxService.getMatrixUser( this.userGUI).subscribe((data:any) => {
+        data  = JSON.parse(data.d);
+        this.userName = data.UserName
+        this.userFullName = data.FullName
+        // this.userOffice = data.Office
+        this.userOffice = 'Miami'
+        // this.userOffice = 'Basel 1'
+        // this.userRole = data.Role
+        this.userRole = 'director' // director restriced
+        this.userRole = 'creative'
+        this.userRole = 'user'
+        // this.userRole = 'admin'  // no restrictions
+        this.userDepartment = data.Department
+        this.userDepartment = 'Creative'
+        // this.userDepartment = 'Design'
+        
+      })
     });
 
     this._BmxService.currentProjectName$.subscribe(res=>{
@@ -135,9 +158,9 @@ export class BmxCreatorComponent implements OnInit {
     this.isMainMenuActive = true;
 
     // TESTING SETTINGS
-    this.toggleMenuActive('isMenuActive16');
-    this.bmxClientPageDesignMode = false;
-    this.isMainMenuActive = false;
+    // this.toggleMenuActive('isMenuActive16');
+    // this.bmxClientPageDesignMode = false;
+    // this.isMainMenuActive = false;
 
     this._BmxService.getGeneralLists().subscribe((arg: any) => {
       this.settingsData = JSON.parse(arg.d);

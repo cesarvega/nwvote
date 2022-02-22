@@ -46,6 +46,33 @@
     display: none;
 }
 
+.userModal {
+    width: 800px;
+    position: fixed;
+    top: 23vh;
+    left: 29vw;
+    // transform: translate(-50%, -53%);
+    border-radius: 3px;
+    background-color: white;
+    border: solid 1px #022d71;
+    @include BoxShadow(6);
+    overflow: hidden;
+    .flex-column {
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+      }
+      .flex-row {
+        display: flex;
+        flex-direction: row;
+        justify-content: center;
+        align-items: center;
+      }
+  }
+
+  
+
 .main-container {
     display: flex;
     flex-direction: row;
@@ -263,6 +290,8 @@
     .template-list-item:hover {
         border: #76d354 4px solid;
     }
+
+    
 
 
 }

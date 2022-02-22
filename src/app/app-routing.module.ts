@@ -34,7 +34,7 @@ const routes: Routes = [
   // },
   {//BI BRAND MATRIX CREATOR
   // path: ':id/:biUsername',
-  path: 'bmx/:id/:username',
+  path: 'bmx/:id',
    component: BmxCreatorComponent
   },
    {//BI BRAND MATRIX
@@ -52,7 +52,7 @@ const routes: Routes = [
   {
     path: '',
     // redirectTo: '/no_id/n_user',
-    redirectTo: 'bmx',
+    redirectTo: 'bmx/99CB72BF-D163-46A6-8A0D-E1531EC7FEDC',
     // redirectTo: 'survey/noProject/no_user',
     pathMatch: 'full'
   }
