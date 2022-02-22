@@ -135,7 +135,7 @@ export class ProjectReportsComponent implements OnInit {
   indeterminate = false;
   labelPosition: 'before' | 'after' = 'after';
   disabled = false;
-  numberOfpages: any;
+  numberOfpages = [];
   constructor(
     @Inject(DOCUMENT) private document: any,
     public _BmxService: BmxService,
@@ -325,10 +325,29 @@ export class ProjectReportsComponent implements OnInit {
     this.BMX_REPORT = [];
     this.REPORT_USER_DATA = [];
     this.categorySortedgArray = [];
+
+   JSON.parse(milUsers[0].BrandMatrix).map(res => {
+      res.page.forEach(page => {
+        if (
+          page.componentType == 'rate-scale' ||
+          page.componentType == 'ranking-scale' ||
+          page.componentType == 'image-rate-scale' ||
+          page.componentType == 'narrow-down' ||
+          page.componentType == 'tinder' ||
+          page.componentType == 'question-answer'
+        ) {
+          this.numberOfpages.push(res.pageNumber)
+      }
+      })
+    })
+
+
+
     milUsers.forEach((userAnswer, userAnswerIndex) => {
       this.categoryCounter = 0;
       let userCategory = [];
-      this.numberOfpages = JSON.parse(userAnswer.BrandMatrix).map(res => res.pageNumber)
+      // RETURN THE NUMBER OF PAGES 
+     
       JSON.parse(userAnswer.BrandMatrix).forEach((page) => {
         page.page.forEach((component) => {
           if (

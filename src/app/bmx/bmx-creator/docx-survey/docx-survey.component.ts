@@ -91,6 +91,8 @@ export class DocxSurveyComponent implements OnInit {
         });
     });
 
+    console.log(this.reportSettings);
+    
 
 
 
