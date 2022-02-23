@@ -124,14 +124,17 @@ export class ProjectReportsComponent implements OnInit {
   usersList: any[];
   answersByAllUsers: any;
   displayWordDocument: boolean;
+
+  // REPORT GENERATION SETTINGS
   reportSettings = {
+    reportType: 'QA',
     displayCompletionStatus: true,
     displayOverallRanking: true,
     OverallRankingWithRespondents: true,
     openEndedQuestions: true,
     openEndedWithRepondents: true,
     displayResultsByRespondents: true,
-  }
+  };
   indeterminate = false;
   labelPosition: 'before' | 'after' = 'after';
   disabled = false;
@@ -257,9 +260,9 @@ export class ProjectReportsComponent implements OnInit {
     });
 
     // TESTING CODE WHEN YOU COME STARIGHT TO THIS PAGE
-      this.projectId = 'QA'
-      this.biUsername = 'guest';
-      localStorage.setItem('projectId', this.projectId);
+    this.projectId = 'QA';
+    this.biUsername = 'guest';
+    localStorage.setItem('projectId', this.projectId);
 
     // COMMENT IN TESTING
     // this._BmxService.currentProjectName$.subscribe((projectName) => {
@@ -317,10 +320,9 @@ export class ProjectReportsComponent implements OnInit {
       });
   }
 
-  togglePaeToPrint(pageIndex: number){
+  togglePaeToPrint(pageIndex: number) {
     this.numberOfpages[pageIndex].print = !this.numberOfpages[pageIndex].print;
   }
-
 
   // ☢️☢️☢️☢️☢️☢️☢️☢️☢️☢️☢️☢️☢️☢️☢️☢️☢️☢️☢️☢️☢️☢️☢️☢️☢️☢️☢️☢️☢️☢️☢️☢️☢️☢️☢️☢️☢️☢️☢️☢️☢️☢️☢️
   getAndCalculateReport(milUsers) {
@@ -329,8 +331,8 @@ export class ProjectReportsComponent implements OnInit {
     this.categorySortedgArray = [];
 
     // RETURN THE NUMBER OF PAGES
-    JSON.parse(milUsers[0].BrandMatrix).map(res => {
-      res.page.forEach(page => {
+    JSON.parse(milUsers[0].BrandMatrix).map((res) => {
+      res.page.forEach((page) => {
         if (
           page.componentType == 'rate-scale' ||
           page.componentType == 'ranking-scale' ||
@@ -339,10 +341,14 @@ export class ProjectReportsComponent implements OnInit {
           page.componentType == 'tinder' ||
           page.componentType == 'question-answer'
         ) {
-          this.numberOfpages.push({print:true, number:res.pageNumber, type :page.componentType})
+          this.numberOfpages.push({
+            print: true,
+            number: res.pageNumber,
+            type: page.componentType,
+          });
         }
-      })
-    })
+      });
+    });
 
     milUsers.forEach((userAnswer, userAnswerIndex) => {
       this.categoryCounter = 0;
@@ -372,14 +378,14 @@ export class ProjectReportsComponent implements OnInit {
                   component,
                   userAnswer.Username,
                   this.BMX_REPORT[this.categoryCounter - 1][
-                  'category_' + this.categoryCounter
+                    'category_' + this.categoryCounter
                   ],
                   this.reportType
                 );
                 console.log(
                   'COMPUTED',
                   this.BMX_REPORT[this.categoryCounter - 1][
-                  'category_' + this.categoryCounter
+                    'category_' + this.categoryCounter
                   ]
                 );
               }
@@ -1512,8 +1518,8 @@ export class ProjectReportsComponent implements OnInit {
           } else {
             this._snackBar.open(
               'You must rate at least ' +
-              component.componentSettings[0].minRule +
-              ' Test Names',
+                component.componentSettings[0].minRule +
+                ' Test Names',
               'OK',
               {
                 duration: 5000,
@@ -1719,8 +1725,8 @@ export class ProjectReportsComponent implements OnInit {
         rowIndex == 0
           ? 'header'
           : element['RATE']
-            ? element['RATE']
-            : 'not rated';
+          ? element['RATE']
+          : 'not rated';
 
       if (
         component.componentSettings[0].rankType == 'dragAndDrop' &&

@@ -106,19 +106,30 @@
   // background-color: greenyellow;
 }
 
-.page-buttons {
+.pages-to-print {
   display: flex;
-  flex-direction: row;
-  align-items: center;
+  flex-direction: column;
   justify-content: center;
-  gap: 20px;
-  .label-buttons {
+  align-items: center;
+  h3{
+    padding-left: 20px;
+  }
+  .page-buttons {
     display: flex;
-    flex-direction: column;
-    justify-content: center;
+    flex-direction: row;
     align-items: center;
+    justify-content: center;
+    gap: 20px;
+
+    .label-buttons {
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+    }
   }
 }
+
 .page-buttons-heigth-minus-50 {
   display: flex;
   flex-direction: row;

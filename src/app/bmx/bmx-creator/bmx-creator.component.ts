@@ -125,40 +125,40 @@ export class BmxCreatorComponent implements OnInit {
       this.userGUI = params['id'];
 
       // localStorage.setItem('projectId', this.projectId);
-      this._BmxService.getMatrixUser( this.userGUI).subscribe((data:any) => {
-        data  = JSON.parse(data.d);
-        this.userName = data.UserName
-        this.userFullName = data.FullName
-        this.userOffice = data.Office
-        this.userRole = data.Role
-        this.userDepartment = data.Department
+      this._BmxService.getMatrixUser(this.userGUI).subscribe((data: any) => {
+        data = JSON.parse(data.d);
+        this.userName = data.UserName;
+        this.userFullName = data.FullName;
+        this.userOffice = data.Office;
+        this.userRole = data.Role;
+        this.userDepartment = data.Department;
 
         // TEST DATA
-        this.userOffice = 'Miami'
+        this.userOffice = 'Miami';
         // this.userOffice = 'Basel 1'
-        this.userRole = 'director' // director restriced
-        this.userRole = 'creative'
+        this.userRole = 'director'; // director restriced
+        this.userRole = 'creative';
         // this.userRole = 'user'
-        this.userRole = 'admin'  // no restrictions
-        this.userDepartment = 'Creative'
+        this.userRole = 'admin'; // no restrictions
+        this.userDepartment = 'Creative';
         // this.userDepartment = 'Design'
-
-      })
+      });
     });
 
-    this._BmxService.currentProjectName$.subscribe(res=>{
-      this.globalProjectName = (res)? res : '';
-    })
+    this._BmxService.currentProjectName$.subscribe((res) => {
+      this.globalProjectName = res ? res : '';
+    });
 
     // PRODUCTION INITIAL MENU
     this.toggleMenuActive('isMenuActive1');
     this.bmxClientPageDesignMode = true;
     this.isMainMenuActive = true;
 
-    // TESTING SETTINGS
+    // TESTING SETTINGS 🍎🍎🍎🍎🍎🍎🍎🍎🍎🍎🍎🍎🍎🍎🍎🍎🍎🍎🍎🍎🍎🍎🍎🍎🍎🍎🍎🍎🍎🍎🍎🍎🍎🍎🍎
     this.toggleMenuActive('isMenuActive16');
     this.bmxClientPageDesignMode = false;
     this.isMainMenuActive = false;
+    // END TESTING SETTINGS 🍎🍎🍎🍎🍎🍎🍎🍎🍎🍎🍎🍎🍎🍎🍎🍎🍎🍎🍎🍎🍎🍎🍎🍎🍎🍎🍎🍎🍎🍎🍎🍎🍎🍎🍎🍎🍎🍎🍎🍎🍎🍎🍎
 
     this._BmxService.getGeneralLists().subscribe((arg: any) => {
       this.settingsData = JSON.parse(arg.d);
