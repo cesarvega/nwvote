@@ -1211,7 +1211,7 @@ export class DocxSurveyComponent implements OnInit {
   }
 
   answerBYPage(): any {
-    let comments = new Map();
+    
     type user = { name: string; comment: string; };
     let a: user[];
     var output = [];
@@ -1219,6 +1219,7 @@ export class DocxSurveyComponent implements OnInit {
     for (var i = 0; i < this.user.length; i++) {
       var x = this.user[i];
       for (var j = 0; j < x.responses.length; j++) {
+        let comments = new Map();
         var y = x.responses[j];
         for (var k = 0; k < y.answers.length; k++) {
           a = [];
@@ -1233,7 +1234,11 @@ export class DocxSurveyComponent implements OnInit {
           }
 
         }
-        output.push(Array.from(comments));
+        if(Array.from(comments).length > 0)
+        {
+          output.push(Array.from(comments));
+        }
+        
       }
     }
     return output;
@@ -1243,7 +1248,6 @@ export class DocxSurveyComponent implements OnInit {
     var overall = this.answerbyRespondat();
     let row: Array<TableRow>;
     row = [];
-
 
     row.push(
       this.createHeader(["Name", "Question", "Answer",])
@@ -1484,9 +1488,1048 @@ export class DocxSurveyComponent implements OnInit {
     }
   }
 
+
   report(): void {
     var temp = this.user;
     this.user = this.RESPONDENTS_LIST
+    let reportParts: Array<any>;
+    reportParts = [];
+    reportParts.push(new Paragraph({
+      alignment: AlignmentType.LEFT,
+      children: [
+        new ImageRun({
+          data: Buffer.from(this.bi, "base64"),
+          transformation: {
+            width: 100,
+            height: 100,
+          },
+          floating: {
+            zIndex: 5,
+            horizontalPosition: {
+              relative: HorizontalPositionRelativeFrom.CHARACTER,
+              align: HorizontalPositionAlign.LEFT,
+            },
+            verticalPosition: {
+              relative: VerticalPositionRelativeFrom.PARAGRAPH,
+              align: VerticalPositionAlign.OUTSIDE,
+            },
+          },
+        }),
+        new ImageRun({
+          data: this.image,
+          transformation: {
+            width: 100,
+            height: 100,
+          },
+          floating: {
+            zIndex: 5,
+            horizontalPosition: {
+              relative: HorizontalPositionRelativeFrom.COLUMN,
+              align: HorizontalPositionAlign.RIGHT,
+            },
+            verticalPosition: {
+              relative: VerticalPositionRelativeFrom.PARAGRAPH,
+              align: VerticalPositionAlign.OUTSIDE,
+            },
+          },
+        }),
+        new TextRun({
+          break: 4,
+          size: 24
+        }),
+      ],
+    }
+    ),
+    new Paragraph({
+      spacing: {
+        before: 200,
+        after: 200,
+      },
+      children: [
+        new TextRun({
+          break: 4,
+          size: 24
+        }),
+        new TextRun({
+          text: "",
+          bold: true,
+          font: {
+            name: "Calibri",
+          },
+          size: 24,
+        }),
+      ],
+    }),
+    new Table({
+      width: {
+        size: 95,
+        type: WidthType.PERCENTAGE,
+      },
+      rows: [
+        new TableRow({
+          children: [
+            new TableCell(
+              {
+                width: {
+                  size: 50,
+                  type: WidthType.PERCENTAGE,
+                },
+                children:
+                  [
+                    new Paragraph({
+                      children:
+                        [
+                          new TextRun
+                            (
+                              {
+                                text: "  Brand Institute, Inc.",
+                                bold: true,
+                                font:
+                                {
+                                  name: "Calibri",
+                                },
+                                size: 20,
+                              }
+                            ),
+                          new TextRun
+                            (
+                              {
+                                text: "  200 SE 1ST STREET – 12TH FL",
+                                font: {
+                                  name: "Calibri",
+                                },
+                                size: 20,
+                                break: 1
+                              }
+                            ),
+                          new TextRun({
+                            text: "  Miami, FL 33131",
+                            font: {
+                              name: "Calibri",
+                            },
+                            size: 20,
+                            break: 1
+                          }),
+                          new TextRun({
+                            text: "  P ",
+                            bold: true,
+                            font: {
+                              name: "Calibri",
+                            },
+                            size: 20,
+                            break: 1,
+                          }),
+                          new TextRun({
+                            text: "305 374 2500",
+                            font: {
+                              name: "Calibri",
+                            },
+                            size: 20,
+                          }),
+                          new TextRun({
+                            text: "  E ",
+                            bold: true,
+                            font: {
+                              name: "Calibri",
+                            },
+                            size: 20,
+                            break: 1,
+                          }),
+                          new TextRun({
+                            text: "info@brandinstitute.com",
+                            font: {
+                              name: "Calibri",
+                            },
+                            size: 20,
+                            style: "Hyperlink",
+                          }),
+                          new TextRun({
+                            text: "",
+                            break: 1,
+                            size: 28,
+                          }),
+                        ],
+                    }),
+                  ],
+                borders: {
+                  top: {
+                    style: BorderStyle.NIL,
+                  },
+                  bottom: {
+                    style: BorderStyle.NIL,
+                  },
+                  left: {
+                    style: BorderStyle.SINGLE,
+                    size: .5,
+                    color: "D9D9D9",
+                  },
+                  right: {
+                    style: BorderStyle.NIL,
+                  },
+                },
+              }),
+            new TableCell({
+              width: {
+                size: 50,
+                type: WidthType.PERCENTAGE,
+              },
+              children:
+                [
+                  new Paragraph({
+                    children:
+                      [
+                        new TextRun
+                          (
+                            {
+                              text: "  Contact Person – New York Office",
+                              font:
+                              {
+                                name: "Calibri",
+                              },
+                              size: 20,
+                            }
+                          ),
+                        new TextRun
+                          (
+                            {
+                              text: "  William Johnson",
+                              bold: true,
+                              font: {
+                                name: "Calibri",
+                              },
+                              size: 20,
+                              break: 1
+                            }
+                          ),
+                        new TextRun({
+                          text: "  Global President, Brand Institute",
+                          font: {
+                            name: "Calibri",
+                          },
+                          size: 20,
+                          color: "7F7F7F",
+                          break: 1
+                        }),
+                        new TextRun({
+                          text: "  P ",
+                          bold: true,
+                          font: {
+                            name: "Calibri",
+                          },
+                          size: 20,
+                          break: 1
+                        }),
+                        new TextRun({
+                          text: "212 557 2100",
+                          font: {
+                            name: "Calibri",
+                          },
+                          size: 20,
+                        }),
+                        new TextRun({
+                          text: "  E ",
+                          bold: true,
+                          font: {
+                            name: "Calibri",
+                          },
+                          size: 20,
+                          break: 1
+                        }),
+                        new TextRun({
+                          text: "wjohnson@brandinstitute.com",
+                          font: {
+                            name: "Calibri",
+                          },
+                          size: 20,
+                          style: "Hyperlink",
+                        }),
+                        new TextRun({
+                          text: "",
+                          break: 1,
+                        }),
+                      ],
+                  }),
+                ],
+              borders: {
+                top: {
+                  style: BorderStyle.NIL,
+                },
+                bottom: {
+                  style: BorderStyle.NIL,
+                },
+                left: {
+                  style: BorderStyle.SINGLE,
+                  size: .5,
+                  color: "D9D9D9",
+                },
+                right: {
+                  style: BorderStyle.NIL,
+                },
+              },
+            }),
+          ],
+        }),
+
+      ],
+    }),
+    new Paragraph({
+      alignment: AlignmentType.CENTER,
+      children: [
+        new TextRun({
+          text: "",
+          break: 2,
+        }),
+      ]
+    }),
+    new Paragraph({
+      alignment: AlignmentType.CENTER,
+      children: [
+        new TextRun({
+          text: "",
+          break: 5,
+          size: 20,
+        }),
+        new TextRun({
+          text: "BRANDMATRIX",
+          color: "FFFFFF",
+          bold: true,
+          font: {
+            name: "Calibri",
+          },
+          size: 60,
+        }),
+        new TextRun({
+          text: "TM",
+          color: "FFFFFF",
+          bold: true,
+          superScript: true,
+          font: {
+            name: "Calibri",
+          },
+          size: 52,
+        }),
+        new TextRun({
+          text: " Report",
+          color: "FFFFFF",
+          bold: true,
+          font: {
+            name: "Calibri",
+          },
+          size: 60,
+        }),
+        new TextRun({
+          text: "PROJECT: " + this.projectName,
+          break: 1,
+          color: "FFFFFF",
+          font: {
+            name: "Calibri",
+          },
+          size: 48,
+        }),
+        new ImageRun({
+          data: Buffer.from(this.cover, "base64"),
+          transformation: {
+            width: 849,
+            height: 282,
+          },
+          floating: {
+            zIndex: 5,
+            horizontalPosition: {
+              relative: HorizontalPositionRelativeFrom.LEFT_MARGIN,
+              align: HorizontalPositionAlign.LEFT,
+            },
+            behindDocument: true,
+            verticalPosition: {
+              relative: VerticalPositionRelativeFrom.PARAGRAPH,
+              align: VerticalPositionAlign.OUTSIDE,
+            },
+          },
+        }),]
+    }),
+    new Paragraph({
+      alignment: AlignmentType.CENTER,
+      children: [
+        new TextRun({
+          text: "",
+          break: 9,
+          size: 20,
+        }),
+      ]
+    }),
+    new Table({
+      rows: [
+        new TableRow({
+
+          children: [
+            new TableCell({
+              width: {
+                size: 60,
+                type: WidthType.PERCENTAGE,
+              },
+              children: [
+                new Paragraph({
+                  alignment: AlignmentType.LEFT,
+                  spacing: {
+                    after: 200,
+                  },
+
+                  children:
+                    [
+                      new TextRun
+                        (
+                          {
+                            text: "Prepared for:",
+                            font:
+                            {
+                              name: "Calibri",
+                            },
+                            size: 20,
+                          }
+                        ),
+                      new TextRun
+                        (
+                          {
+                            text: "",
+                            font: {
+                              name: "Calibri",
+                            },
+                            size: 20,
+                            break: 2
+                          }
+                        ),
+                      new TextRun
+                        (
+                          {
+                            text: "CONTACTNAME",
+                            font: {
+                              name: "Calibri",
+                            },
+                            size: 40,
+                          }
+                        ),
+                      new TextRun({
+                        text: "Contact Title",
+                        font: {
+                          name: "Calibri",
+                        },
+                        size: 20,
+                        break: 1
+                      }),
+                      new TextRun({
+                        text: "COMPANYNAME",
+                        bold: true,
+                        font: {
+                          name: "Calibri",
+                        },
+                        size: 20,
+                        break: 2,
+                      }),
+                      new TextRun({
+                        text: "ADDRESS INFORMATION",
+                        font: {
+                          name: "Calibri",
+                        },
+                        break: 1,
+                        size: 20,
+                      }),
+                      new TextRun({
+                        text: "P ",
+                        bold: true,
+                        font: {
+                          name: "Calibri",
+                        },
+                        size: 20,
+                        break: 1,
+                      }),
+                      new TextRun({
+                        text: "555-555-5555 | ",
+                        font: {
+                          name: "Calibri",
+                        },
+                        size: 20,
+                        italics: true,
+                      }),
+                      new TextRun({
+                        text: "E ",
+                        bold: true,
+                        font: {
+                          name: "Calibri",
+                        },
+                        size: 20,
+                      }),
+                      new TextRun({
+                        text: "FirstLastname@companyname.com",
+                        font: {
+                          name: "Calibri",
+                        },
+                        size: 20,
+                        style: "Hyperlink",
+                      }),
+                    ],
+                }),
+              ],
+              rowSpan: 2,
+            }),
+            new TableCell({
+
+              children: [
+                new Paragraph({
+                  alignment: AlignmentType.CENTER,
+                  children: [
+                    new ImageRun({
+                      data: Buffer.from(this.bi, "base64"),
+                      transformation: {
+                        width: 100,
+                        height: 100,
+                      },
+                    }),
+                  ]
+                })
+              ],
+            }),
+          ],
+        }),
+        new TableRow({
+
+          children: [
+            new TableCell({
+              verticalAlign: VerticalAlign.CENTER,
+              children: [
+                new Paragraph({
+                  alignment: AlignmentType.CENTER,
+                  children: [
+                    new TextRun({
+                      text: "Report Generated",
+                      size: 20,
+                    }),
+                    new TextRun({
+                      text: "11.22.21",
+                      size: 28,
+                      break: 1,
+                      bold: true,
+                    }),
+                  ]
+                })
+              ],
+            }),
+          ],
+        }),
+      ],
+      width: {
+        size: 100,
+        type: WidthType.PERCENTAGE,
+      },
+    }),
+    new Paragraph({
+      pageBreakBefore: true,
+    }),
+    new Paragraph({
+      text: "TABLE OF CONTENTS",
+      style: "MySpectacularStyle",
+      shading: {
+        type: ShadingType.SOLID,
+        color: "0F6FC6",
+        fill: "0F6FC6",
+      },
+      border: {
+        top: {
+          color: "0F6FC6",
+          space: 1,
+          style: BorderStyle.SINGLE,
+          size: 6,
+        },
+        bottom: {
+          color: "0F6FC6",
+          space: 1,
+          style: BorderStyle.SINGLE,
+          size: 6,
+        },
+        left: {
+          color: "0F6FC6",
+          space: 1,
+          style: BorderStyle.SINGLE,
+          size: 6,
+        },
+        right: {
+          color: "0F6FC6",
+          space: 1,
+          style: BorderStyle.SINGLE,
+          size: 6,
+        },
+      },
+      heading: HeadingLevel.HEADING_1,
+    }),
+    new Paragraph({
+      spacing: {
+        before: 200,
+        after: 200,
+      },
+      alignment: AlignmentType.RIGHT,
+      children:
+        [
+          new TextRun({
+            text: "Page",
+            bold: true,
+            font:
+            {
+              name: "Calibri",
+            },
+            size: 24,
+          })
+        ],
+
+
+    }),
+
+    new TableOfContents("Summary", {
+      hyperlink: true,
+      headingStyleRange: "1-5",
+      stylesWithLevels: [new StyleLevel("MySpectacularStyle", 1)],
+    }),
+    new Paragraph({
+      children: [
+        new TextRun({
+          text: "BRANDMATRIX",
+
+        }),
+        new TextRun({
+          text: "TM",
+          superScript: true,
+        }),
+        new TextRun({
+          text: " COMPLETION STATUS",
+        }),
+      ],
+      pageBreakBefore: true,
+      style: "MySpectacularStyle",
+      shading: {
+        type: ShadingType.SOLID,
+        color: "0F6FC6",
+        fill: "0F6FC6",
+      },
+      border: {
+        top: {
+          color: "0F6FC6",
+          space: 1,
+          style: BorderStyle.SINGLE,
+          size: 6,
+        },
+        bottom: {
+          color: "0F6FC6",
+          space: 1,
+          style: BorderStyle.SINGLE,
+          size: 6,
+        },
+        left: {
+          color: "0F6FC6",
+          space: 1,
+          style: BorderStyle.SINGLE,
+          size: 6,
+        },
+        right: {
+          color: "0F6FC6",
+          space: 1,
+          style: BorderStyle.SINGLE,
+          size: 6,
+        },
+      },
+      heading: HeadingLevel.HEADING_1,
+    }),
+    new Paragraph
+      ({
+        spacing: {
+          before: 200,
+          after: 200,
+        },
+        children: [
+          new TextRun({
+            text: "This section details who participated in the BrandMatrix",
+            font:
+            {
+              name: "Calibri",
+            },
+            size: 20,
+          }),
+          new TextRun({
+            text: "TM",
+            superScript: true,
+            font:
+            {
+              name: "Calibri",
+            },
+            size: 20,
+          }),
+          new TextRun({
+            text: " COMPLETION STATUS",
+            font:
+            {
+              name: "Calibri",
+            },
+            size: 20,
+          }),
+          new TextRun({
+            break: 1.5
+          }),
+          new TextRun({
+            text: "Percentage of participants who have completed the BrandMatrix",
+            font:
+            {
+              name: "Calibri",
+            },
+            size: 20,
+          }),
+          new TextRun({
+            text: "TM",
+            superScript: true,
+            font:
+            {
+              name: "Calibri",
+            },
+            size: 20,
+          }),
+          new TextRun({
+            text: "TM = " + (Math.floor(this.completed / this.total) * 100).toString() + "%",
+            font:
+            {
+              name: "Calibri",
+            },
+            size: 20,
+          }),
+          new TextRun({
+            break: 1.5
+          }),
+          new TextRun({
+            text: "(" + this.completed + " out of " + this.total + ")",
+            font:
+            {
+              name: "Calibri",
+            },
+            size: 20,
+          }),
+        ],
+      }),
+    new Table({
+      rows: [
+        new TableRow({
+
+          children: [
+            new TableCell({
+              shading: {
+                fill: "F48613",
+                type: ShadingType.CLEAR,
+                color: "auto",
+              },
+
+              width: {
+                size: ((this.completed / this.total) * 100),
+                type: WidthType.PERCENTAGE,
+              },
+              children: [
+                new Paragraph({
+                  alignment: AlignmentType.LEFT,
+                  spacing: {
+                    after: 200,
+                  },
+
+                  children:
+                    [
+                      new TextRun
+                        (
+                          {
+
+                            font:
+                            {
+                              name: "Calibri",
+                            },
+                            size: 20,
+                          }
+                        ),
+                    ],
+                }),
+              ],
+            }),
+            new TableCell({
+
+              shading: {
+                fill: "B6B6CE",
+                type: ShadingType.CLEAR,
+                color: "auto",
+              },
+              children: [
+                new Paragraph({
+                  alignment: AlignmentType.CENTER,
+                  children: [
+                  ]
+                })
+              ],
+            }),
+          ],
+        }),
+      ],
+      width: {
+        size: 95,
+        type: WidthType.PERCENTAGE,
+      },
+    }),
+    new Paragraph
+      ({
+        spacing: {
+          before: 200,
+          after: 200,
+        },
+        children: [
+        ],
+      }),
+    this.createTable(),
+    new Paragraph
+      ({
+        spacing: {
+          before: 200,
+          after: 200,
+        },
+        children: [
+        ],
+      }),
+    new Paragraph({
+      children: [
+        new TextRun({
+          text: "OVERALL RANKING",
+
+        }),
+      ],
+      pageBreakBefore: true,
+      style: "MySpectacularStyle",
+      shading: {
+        type: ShadingType.SOLID,
+        color: "0F6FC6",
+        fill: "0F6FC6",
+      },
+      border: {
+        top: {
+          color: "0F6FC6",
+          space: 1,
+          style: BorderStyle.SINGLE,
+          size: 6,
+        },
+        bottom: {
+          color: "0F6FC6",
+          space: 1,
+          style: BorderStyle.SINGLE,
+          size: 6,
+        },
+        left: {
+          color: "0F6FC6",
+          space: 1,
+          style: BorderStyle.SINGLE,
+          size: 6,
+        },
+        right: {
+          color: "0F6FC6",
+          space: 1,
+          style: BorderStyle.SINGLE,
+          size: 6,
+        },
+      },
+      heading: HeadingLevel.HEADING_1,
+    }),
+    new Paragraph
+      ({
+        spacing: {
+          before: 200,
+          after: 200,
+        },
+        children: [
+          new TextRun({
+            text: "",
+            font:
+            {
+              name: "Calibri",
+            },
+            size: 20,
+          }),
+        ],
+      }),
+    this.overallMultipleChoice(),
+    new Paragraph({
+      children: [
+        new TextRun({
+          text: "BY PAGE",
+
+        }),
+      ],
+      pageBreakBefore: true,
+      style: "MySpectacularStyle",
+      shading: {
+        type: ShadingType.SOLID,
+        color: "0F6FC6",
+        fill: "0F6FC6",
+      },
+      border: {
+        top: {
+          color: "0F6FC6",
+          space: 1,
+          style: BorderStyle.SINGLE,
+          size: 6,
+        },
+        bottom: {
+          color: "0F6FC6",
+          space: 1,
+          style: BorderStyle.SINGLE,
+          size: 6,
+        },
+        left: {
+          color: "0F6FC6",
+          space: 1,
+          style: BorderStyle.SINGLE,
+          size: 6,
+        },
+        right: {
+          color: "0F6FC6",
+          space: 1,
+          style: BorderStyle.SINGLE,
+          size: 6,
+        },
+      },
+      heading: HeadingLevel.HEADING_1,
+    }),
+    new Paragraph
+      ({
+        spacing: {
+          before: 200,
+          after: 200,
+        },
+        children: [
+          new TextRun({
+            text: "",
+            font:
+            {
+              name: "Calibri",
+            },
+            size: 20,
+          }),
+        ],
+      }),
+    this.byPage(),
+    new Paragraph({
+      children: [
+        new TextRun({
+          text: "BY PART",
+
+        }),
+      ],
+      pageBreakBefore: true,
+      style: "MySpectacularStyle",
+      shading: {
+        type: ShadingType.SOLID,
+        color: "0F6FC6",
+        fill: "0F6FC6",
+      },
+      border: {
+        top: {
+          color: "0F6FC6",
+          space: 1,
+          style: BorderStyle.SINGLE,
+          size: 6,
+        },
+        bottom: {
+          color: "0F6FC6",
+          space: 1,
+          style: BorderStyle.SINGLE,
+          size: 6,
+        },
+        left: {
+          color: "0F6FC6",
+          space: 1,
+          style: BorderStyle.SINGLE,
+          size: 6,
+        },
+        right: {
+          color: "0F6FC6",
+          space: 1,
+          style: BorderStyle.SINGLE,
+          size: 6,
+        },
+      },
+      heading: HeadingLevel.HEADING_1,
+    }),
+    new Paragraph
+      ({
+        spacing: {
+          before: 200,
+          after: 200,
+        },
+        children: [
+          new TextRun({
+            text: "",
+            font:
+            {
+              name: "Calibri",
+            },
+            size: 20,
+          }),
+        ],
+      }),
+    this.byRespondant(),
+    new Paragraph({
+      children: [
+        new TextRun({
+          text: "COMMENTS BY NAMES",
+        }),
+      ],
+      pageBreakBefore: true,
+      style: "MySpectacularStyle",
+      shading: {
+        type: ShadingType.SOLID,
+        color: "0F6FC6",
+        fill: "0F6FC6",
+      },
+      border: {
+        top: {
+          color: "0F6FC6",
+          space: 1,
+          style: BorderStyle.SINGLE,
+          size: 6,
+        },
+        bottom: {
+          color: "0F6FC6",
+          space: 1,
+          style: BorderStyle.SINGLE,
+          size: 6,
+        },
+        left: {
+          color: "0F6FC6",
+          space: 1,
+          style: BorderStyle.SINGLE,
+          size: 6,
+        },
+        right: {
+          color: "0F6FC6",
+          space: 1,
+          style: BorderStyle.SINGLE,
+          size: 6,
+        },
+      },
+      heading: HeadingLevel.HEADING_1,
+    }),
+    new Paragraph
+      ({
+        spacing: {
+          before: 200,
+          after: 200,
+        },
+        children: [
+          new TextRun({
+            text: "",
+            font:
+            {
+              name: "Calibri",
+            },
+            size: 20,
+          }),
+        ],
+      }),
+    this.commentTable(),)
+
 
     this.doc = new Document({
       features: {
@@ -1700,1043 +2743,7 @@ export class DocxSurveyComponent implements OnInit {
               ],
             }),
           },
-          children: [
-            new Paragraph({
-              alignment: AlignmentType.LEFT,
-              children: [
-                new ImageRun({
-                  data: Buffer.from(this.bi, "base64"),
-                  transformation: {
-                    width: 100,
-                    height: 100,
-                  },
-                  floating: {
-                    zIndex: 5,
-                    horizontalPosition: {
-                      relative: HorizontalPositionRelativeFrom.CHARACTER,
-                      align: HorizontalPositionAlign.LEFT,
-                    },
-                    verticalPosition: {
-                      relative: VerticalPositionRelativeFrom.PARAGRAPH,
-                      align: VerticalPositionAlign.OUTSIDE,
-                    },
-                  },
-                }),
-                new ImageRun({
-                  data: this.image,
-                  transformation: {
-                    width: 100,
-                    height: 100,
-                  },
-                  floating: {
-                    zIndex: 5,
-                    horizontalPosition: {
-                      relative: HorizontalPositionRelativeFrom.COLUMN,
-                      align: HorizontalPositionAlign.RIGHT,
-                    },
-                    verticalPosition: {
-                      relative: VerticalPositionRelativeFrom.PARAGRAPH,
-                      align: VerticalPositionAlign.OUTSIDE,
-                    },
-                  },
-                }),
-                new TextRun({
-                  break: 4,
-                  size: 24
-                }),
-              ],
-            }
-            ),
-            new Paragraph({
-              spacing: {
-                before: 200,
-                after: 200,
-              },
-              children: [
-                new TextRun({
-                  break: 4,
-                  size: 24
-                }),
-                new TextRun({
-                  text: "",
-                  bold: true,
-                  font: {
-                    name: "Calibri",
-                  },
-                  size: 24,
-                }),
-              ],
-            }),
-            new Table({
-              width: {
-                size: 95,
-                type: WidthType.PERCENTAGE,
-              },
-              rows: [
-                new TableRow({
-                  children: [
-                    new TableCell(
-                      {
-                        width: {
-                          size: 50,
-                          type: WidthType.PERCENTAGE,
-                        },
-                        children:
-                          [
-                            new Paragraph({
-                              children:
-                                [
-                                  new TextRun
-                                    (
-                                      {
-                                        text: "  Brand Institute, Inc.",
-                                        bold: true,
-                                        font:
-                                        {
-                                          name: "Calibri",
-                                        },
-                                        size: 20,
-                                      }
-                                    ),
-                                  new TextRun
-                                    (
-                                      {
-                                        text: "  200 SE 1ST STREET – 12TH FL",
-                                        font: {
-                                          name: "Calibri",
-                                        },
-                                        size: 20,
-                                        break: 1
-                                      }
-                                    ),
-                                  new TextRun({
-                                    text: "  Miami, FL 33131",
-                                    font: {
-                                      name: "Calibri",
-                                    },
-                                    size: 20,
-                                    break: 1
-                                  }),
-                                  new TextRun({
-                                    text: "  P ",
-                                    bold: true,
-                                    font: {
-                                      name: "Calibri",
-                                    },
-                                    size: 20,
-                                    break: 1,
-                                  }),
-                                  new TextRun({
-                                    text: "305 374 2500",
-                                    font: {
-                                      name: "Calibri",
-                                    },
-                                    size: 20,
-                                  }),
-                                  new TextRun({
-                                    text: "  E ",
-                                    bold: true,
-                                    font: {
-                                      name: "Calibri",
-                                    },
-                                    size: 20,
-                                    break: 1,
-                                  }),
-                                  new TextRun({
-                                    text: "info@brandinstitute.com",
-                                    font: {
-                                      name: "Calibri",
-                                    },
-                                    size: 20,
-                                    style: "Hyperlink",
-                                  }),
-                                  new TextRun({
-                                    text: "",
-                                    break: 1,
-                                    size: 28,
-                                  }),
-                                ],
-                            }),
-                          ],
-                        borders: {
-                          top: {
-                            style: BorderStyle.NIL,
-                          },
-                          bottom: {
-                            style: BorderStyle.NIL,
-                          },
-                          left: {
-                            style: BorderStyle.SINGLE,
-                            size: .5,
-                            color: "D9D9D9",
-                          },
-                          right: {
-                            style: BorderStyle.NIL,
-                          },
-                        },
-                      }),
-                    new TableCell({
-                      width: {
-                        size: 50,
-                        type: WidthType.PERCENTAGE,
-                      },
-                      children:
-                        [
-                          new Paragraph({
-                            children:
-                              [
-                                new TextRun
-                                  (
-                                    {
-                                      text: "  Contact Person – New York Office",
-                                      font:
-                                      {
-                                        name: "Calibri",
-                                      },
-                                      size: 20,
-                                    }
-                                  ),
-                                new TextRun
-                                  (
-                                    {
-                                      text: "  William Johnson",
-                                      bold: true,
-                                      font: {
-                                        name: "Calibri",
-                                      },
-                                      size: 20,
-                                      break: 1
-                                    }
-                                  ),
-                                new TextRun({
-                                  text: "  Global President, Brand Institute",
-                                  font: {
-                                    name: "Calibri",
-                                  },
-                                  size: 20,
-                                  color: "7F7F7F",
-                                  break: 1
-                                }),
-                                new TextRun({
-                                  text: "  P ",
-                                  bold: true,
-                                  font: {
-                                    name: "Calibri",
-                                  },
-                                  size: 20,
-                                  break: 1
-                                }),
-                                new TextRun({
-                                  text: "212 557 2100",
-                                  font: {
-                                    name: "Calibri",
-                                  },
-                                  size: 20,
-                                }),
-                                new TextRun({
-                                  text: "  E ",
-                                  bold: true,
-                                  font: {
-                                    name: "Calibri",
-                                  },
-                                  size: 20,
-                                  break: 1
-                                }),
-                                new TextRun({
-                                  text: "wjohnson@brandinstitute.com",
-                                  font: {
-                                    name: "Calibri",
-                                  },
-                                  size: 20,
-                                  style: "Hyperlink",
-                                }),
-                                new TextRun({
-                                  text: "",
-                                  break: 1,
-                                }),
-                              ],
-                          }),
-                        ],
-                      borders: {
-                        top: {
-                          style: BorderStyle.NIL,
-                        },
-                        bottom: {
-                          style: BorderStyle.NIL,
-                        },
-                        left: {
-                          style: BorderStyle.SINGLE,
-                          size: .5,
-                          color: "D9D9D9",
-                        },
-                        right: {
-                          style: BorderStyle.NIL,
-                        },
-                      },
-                    }),
-                  ],
-                }),
-
-              ],
-            }),
-            new Paragraph({
-              alignment: AlignmentType.CENTER,
-              children: [
-                new TextRun({
-                  text: "",
-                  break: 2,
-                }),
-              ]
-            }),
-            new Paragraph({
-              alignment: AlignmentType.CENTER,
-              children: [
-                new TextRun({
-                  text: "",
-                  break: 5,
-                  size: 20,
-                }),
-                new TextRun({
-                  text: "BRANDMATRIX",
-                  color: "FFFFFF",
-                  bold: true,
-                  font: {
-                    name: "Calibri",
-                  },
-                  size: 60,
-                }),
-                new TextRun({
-                  text: "TM",
-                  color: "FFFFFF",
-                  bold: true,
-                  superScript: true,
-                  font: {
-                    name: "Calibri",
-                  },
-                  size: 52,
-                }),
-                new TextRun({
-                  text: " Report",
-                  color: "FFFFFF",
-                  bold: true,
-                  font: {
-                    name: "Calibri",
-                  },
-                  size: 60,
-                }),
-                new TextRun({
-                  text: "PROJECT: " + this.projectName,
-                  break: 1,
-                  color: "FFFFFF",
-                  font: {
-                    name: "Calibri",
-                  },
-                  size: 48,
-                }),
-                new ImageRun({
-                  data: Buffer.from(this.cover, "base64"),
-                  transformation: {
-                    width: 849,
-                    height: 282,
-                  },
-                  floating: {
-                    zIndex: 5,
-                    horizontalPosition: {
-                      relative: HorizontalPositionRelativeFrom.LEFT_MARGIN,
-                      align: HorizontalPositionAlign.LEFT,
-                    },
-                    behindDocument: true,
-                    verticalPosition: {
-                      relative: VerticalPositionRelativeFrom.PARAGRAPH,
-                      align: VerticalPositionAlign.OUTSIDE,
-                    },
-                  },
-                }),]
-            }),
-            new Paragraph({
-              alignment: AlignmentType.CENTER,
-              children: [
-                new TextRun({
-                  text: "",
-                  break: 9,
-                  size: 20,
-                }),
-              ]
-            }),
-            new Table({
-              rows: [
-                new TableRow({
-
-                  children: [
-                    new TableCell({
-                      width: {
-                        size: 60,
-                        type: WidthType.PERCENTAGE,
-                      },
-                      children: [
-                        new Paragraph({
-                          alignment: AlignmentType.LEFT,
-                          spacing: {
-                            after: 200,
-                          },
-
-                          children:
-                            [
-                              new TextRun
-                                (
-                                  {
-                                    text: "Prepared for:",
-                                    font:
-                                    {
-                                      name: "Calibri",
-                                    },
-                                    size: 20,
-                                  }
-                                ),
-                              new TextRun
-                                (
-                                  {
-                                    text: "",
-                                    font: {
-                                      name: "Calibri",
-                                    },
-                                    size: 20,
-                                    break: 2
-                                  }
-                                ),
-                              new TextRun
-                                (
-                                  {
-                                    text: "CONTACTNAME",
-                                    font: {
-                                      name: "Calibri",
-                                    },
-                                    size: 40,
-                                  }
-                                ),
-                              new TextRun({
-                                text: "Contact Title",
-                                font: {
-                                  name: "Calibri",
-                                },
-                                size: 20,
-                                break: 1
-                              }),
-                              new TextRun({
-                                text: "COMPANYNAME",
-                                bold: true,
-                                font: {
-                                  name: "Calibri",
-                                },
-                                size: 20,
-                                break: 2,
-                              }),
-                              new TextRun({
-                                text: "ADDRESS INFORMATION",
-                                font: {
-                                  name: "Calibri",
-                                },
-                                break: 1,
-                                size: 20,
-                              }),
-                              new TextRun({
-                                text: "P ",
-                                bold: true,
-                                font: {
-                                  name: "Calibri",
-                                },
-                                size: 20,
-                                break: 1,
-                              }),
-                              new TextRun({
-                                text: "555-555-5555 | ",
-                                font: {
-                                  name: "Calibri",
-                                },
-                                size: 20,
-                                italics: true,
-                              }),
-                              new TextRun({
-                                text: "E ",
-                                bold: true,
-                                font: {
-                                  name: "Calibri",
-                                },
-                                size: 20,
-                              }),
-                              new TextRun({
-                                text: "FirstLastname@companyname.com",
-                                font: {
-                                  name: "Calibri",
-                                },
-                                size: 20,
-                                style: "Hyperlink",
-                              }),
-                            ],
-                        }),
-                      ],
-                      rowSpan: 2,
-                    }),
-                    new TableCell({
-
-                      children: [
-                        new Paragraph({
-                          alignment: AlignmentType.CENTER,
-                          children: [
-                            new ImageRun({
-                              data: Buffer.from(this.bi, "base64"),
-                              transformation: {
-                                width: 100,
-                                height: 100,
-                              },
-                            }),
-                          ]
-                        })
-                      ],
-                    }),
-                  ],
-                }),
-                new TableRow({
-
-                  children: [
-                    new TableCell({
-                      verticalAlign: VerticalAlign.CENTER,
-                      children: [
-                        new Paragraph({
-                          alignment: AlignmentType.CENTER,
-                          children: [
-                            new TextRun({
-                              text: "Report Generated",
-                              size: 20,
-                            }),
-                            new TextRun({
-                              text: "11.22.21",
-                              size: 28,
-                              break: 1,
-                              bold: true,
-                            }),
-                          ]
-                        })
-                      ],
-                    }),
-                  ],
-                }),
-              ],
-              width: {
-                size: 100,
-                type: WidthType.PERCENTAGE,
-              },
-            }),
-            new Paragraph({
-              pageBreakBefore: true,
-            }),
-            new Paragraph({
-              text: "TABLE OF CONTENTS",
-              style: "MySpectacularStyle",
-              shading: {
-                type: ShadingType.SOLID,
-                color: "0F6FC6",
-                fill: "0F6FC6",
-              },
-              border: {
-                top: {
-                  color: "0F6FC6",
-                  space: 1,
-                  style: BorderStyle.SINGLE,
-                  size: 6,
-                },
-                bottom: {
-                  color: "0F6FC6",
-                  space: 1,
-                  style: BorderStyle.SINGLE,
-                  size: 6,
-                },
-                left: {
-                  color: "0F6FC6",
-                  space: 1,
-                  style: BorderStyle.SINGLE,
-                  size: 6,
-                },
-                right: {
-                  color: "0F6FC6",
-                  space: 1,
-                  style: BorderStyle.SINGLE,
-                  size: 6,
-                },
-              },
-              heading: HeadingLevel.HEADING_1,
-            }),
-            new Paragraph({
-              spacing: {
-                before: 200,
-                after: 200,
-              },
-              alignment: AlignmentType.RIGHT,
-              children:
-                [
-                  new TextRun({
-                    text: "Page",
-                    bold: true,
-                    font:
-                    {
-                      name: "Calibri",
-                    },
-                    size: 24,
-                  })
-                ],
-
-
-            }),
-
-            new TableOfContents("Summary", {
-              hyperlink: true,
-              headingStyleRange: "1-5",
-              stylesWithLevels: [new StyleLevel("MySpectacularStyle", 1)],
-            }),
-            new Paragraph({
-              children: [
-                new TextRun({
-                  text: "BRANDMATRIX",
-
-                }),
-                new TextRun({
-                  text: "TM",
-                  superScript: true,
-                }),
-                new TextRun({
-                  text: " COMPLETION STATUS",
-                }),
-              ],
-              pageBreakBefore: true,
-              style: "MySpectacularStyle",
-              shading: {
-                type: ShadingType.SOLID,
-                color: "0F6FC6",
-                fill: "0F6FC6",
-              },
-              border: {
-                top: {
-                  color: "0F6FC6",
-                  space: 1,
-                  style: BorderStyle.SINGLE,
-                  size: 6,
-                },
-                bottom: {
-                  color: "0F6FC6",
-                  space: 1,
-                  style: BorderStyle.SINGLE,
-                  size: 6,
-                },
-                left: {
-                  color: "0F6FC6",
-                  space: 1,
-                  style: BorderStyle.SINGLE,
-                  size: 6,
-                },
-                right: {
-                  color: "0F6FC6",
-                  space: 1,
-                  style: BorderStyle.SINGLE,
-                  size: 6,
-                },
-              },
-              heading: HeadingLevel.HEADING_1,
-            }),
-            new Paragraph
-              ({
-                spacing: {
-                  before: 200,
-                  after: 200,
-                },
-                children: [
-                  new TextRun({
-                    text: "This section details who participated in the BrandMatrix",
-                    font:
-                    {
-                      name: "Calibri",
-                    },
-                    size: 20,
-                  }),
-                  new TextRun({
-                    text: "TM",
-                    superScript: true,
-                    font:
-                    {
-                      name: "Calibri",
-                    },
-                    size: 20,
-                  }),
-                  new TextRun({
-                    text: " COMPLETION STATUS",
-                    font:
-                    {
-                      name: "Calibri",
-                    },
-                    size: 20,
-                  }),
-                  new TextRun({
-                    break: 1.5
-                  }),
-                  new TextRun({
-                    text: "Percentage of participants who have completed the BrandMatrix",
-                    font:
-                    {
-                      name: "Calibri",
-                    },
-                    size: 20,
-                  }),
-                  new TextRun({
-                    text: "TM",
-                    superScript: true,
-                    font:
-                    {
-                      name: "Calibri",
-                    },
-                    size: 20,
-                  }),
-                  new TextRun({
-                    text: "TM = " + (Math.floor(this.completed / this.total) * 100).toString() + "%",
-                    font:
-                    {
-                      name: "Calibri",
-                    },
-                    size: 20,
-                  }),
-                  new TextRun({
-                    break: 1.5
-                  }),
-                  new TextRun({
-                    text: "(" + this.completed + " out of " + this.total + ")",
-                    font:
-                    {
-                      name: "Calibri",
-                    },
-                    size: 20,
-                  }),
-                ],
-              }),
-            new Table({
-              rows: [
-                new TableRow({
-
-                  children: [
-                    new TableCell({
-                      shading: {
-                        fill: "F48613",
-                        type: ShadingType.CLEAR,
-                        color: "auto",
-                      },
-
-                      width: {
-                        size: ((this.completed / this.total) * 100),
-                        type: WidthType.PERCENTAGE,
-                      },
-                      children: [
-                        new Paragraph({
-                          alignment: AlignmentType.LEFT,
-                          spacing: {
-                            after: 200,
-                          },
-
-                          children:
-                            [
-                              new TextRun
-                                (
-                                  {
-
-                                    font:
-                                    {
-                                      name: "Calibri",
-                                    },
-                                    size: 20,
-                                  }
-                                ),
-                            ],
-                        }),
-                      ],
-                    }),
-                    new TableCell({
-
-                      shading: {
-                        fill: "B6B6CE",
-                        type: ShadingType.CLEAR,
-                        color: "auto",
-                      },
-                      children: [
-                        new Paragraph({
-                          alignment: AlignmentType.CENTER,
-                          children: [
-                          ]
-                        })
-                      ],
-                    }),
-                  ],
-                }),
-              ],
-              width: {
-                size: 95,
-                type: WidthType.PERCENTAGE,
-              },
-            }),
-            new Paragraph
-              ({
-                spacing: {
-                  before: 200,
-                  after: 200,
-                },
-                children: [
-                ],
-              }),
-            this.createTable(),
-            new Paragraph
-              ({
-                spacing: {
-                  before: 200,
-                  after: 200,
-                },
-                children: [
-                ],
-              }),
-            new Paragraph({
-              children: [
-                new TextRun({
-                  text: "OVERALL RANKING",
-
-                }),
-              ],
-              pageBreakBefore: true,
-              style: "MySpectacularStyle",
-              shading: {
-                type: ShadingType.SOLID,
-                color: "0F6FC6",
-                fill: "0F6FC6",
-              },
-              border: {
-                top: {
-                  color: "0F6FC6",
-                  space: 1,
-                  style: BorderStyle.SINGLE,
-                  size: 6,
-                },
-                bottom: {
-                  color: "0F6FC6",
-                  space: 1,
-                  style: BorderStyle.SINGLE,
-                  size: 6,
-                },
-                left: {
-                  color: "0F6FC6",
-                  space: 1,
-                  style: BorderStyle.SINGLE,
-                  size: 6,
-                },
-                right: {
-                  color: "0F6FC6",
-                  space: 1,
-                  style: BorderStyle.SINGLE,
-                  size: 6,
-                },
-              },
-              heading: HeadingLevel.HEADING_1,
-            }),
-            new Paragraph
-              ({
-                spacing: {
-                  before: 200,
-                  after: 200,
-                },
-                children: [
-                  new TextRun({
-                    text: "",
-                    font:
-                    {
-                      name: "Calibri",
-                    },
-                    size: 20,
-                  }),
-                ],
-              }),
-            this.overallMultipleChoice(),
-            new Paragraph({
-              children: [
-                new TextRun({
-                  text: "BY PAGE",
-
-                }),
-              ],
-              pageBreakBefore: true,
-              style: "MySpectacularStyle",
-              shading: {
-                type: ShadingType.SOLID,
-                color: "0F6FC6",
-                fill: "0F6FC6",
-              },
-              border: {
-                top: {
-                  color: "0F6FC6",
-                  space: 1,
-                  style: BorderStyle.SINGLE,
-                  size: 6,
-                },
-                bottom: {
-                  color: "0F6FC6",
-                  space: 1,
-                  style: BorderStyle.SINGLE,
-                  size: 6,
-                },
-                left: {
-                  color: "0F6FC6",
-                  space: 1,
-                  style: BorderStyle.SINGLE,
-                  size: 6,
-                },
-                right: {
-                  color: "0F6FC6",
-                  space: 1,
-                  style: BorderStyle.SINGLE,
-                  size: 6,
-                },
-              },
-              heading: HeadingLevel.HEADING_1,
-            }),
-            new Paragraph
-              ({
-                spacing: {
-                  before: 200,
-                  after: 200,
-                },
-                children: [
-                  new TextRun({
-                    text: "",
-                    font:
-                    {
-                      name: "Calibri",
-                    },
-                    size: 20,
-                  }),
-                ],
-              }),
-            this.byPage(),
-            new Paragraph({
-              children: [
-                new TextRun({
-                  text: "BY PART",
-
-                }),
-              ],
-              pageBreakBefore: true,
-              style: "MySpectacularStyle",
-              shading: {
-                type: ShadingType.SOLID,
-                color: "0F6FC6",
-                fill: "0F6FC6",
-              },
-              border: {
-                top: {
-                  color: "0F6FC6",
-                  space: 1,
-                  style: BorderStyle.SINGLE,
-                  size: 6,
-                },
-                bottom: {
-                  color: "0F6FC6",
-                  space: 1,
-                  style: BorderStyle.SINGLE,
-                  size: 6,
-                },
-                left: {
-                  color: "0F6FC6",
-                  space: 1,
-                  style: BorderStyle.SINGLE,
-                  size: 6,
-                },
-                right: {
-                  color: "0F6FC6",
-                  space: 1,
-                  style: BorderStyle.SINGLE,
-                  size: 6,
-                },
-              },
-              heading: HeadingLevel.HEADING_1,
-            }),
-            new Paragraph
-              ({
-                spacing: {
-                  before: 200,
-                  after: 200,
-                },
-                children: [
-                  new TextRun({
-                    text: "",
-                    font:
-                    {
-                      name: "Calibri",
-                    },
-                    size: 20,
-                  }),
-                ],
-              }),
-            this.byRespondant(),
-            new Paragraph({
-              children: [
-                new TextRun({
-                  text: "COMMENTS BY NAMES",
-                }),
-              ],
-              pageBreakBefore: true,
-              style: "MySpectacularStyle",
-              shading: {
-                type: ShadingType.SOLID,
-                color: "0F6FC6",
-                fill: "0F6FC6",
-              },
-              border: {
-                top: {
-                  color: "0F6FC6",
-                  space: 1,
-                  style: BorderStyle.SINGLE,
-                  size: 6,
-                },
-                bottom: {
-                  color: "0F6FC6",
-                  space: 1,
-                  style: BorderStyle.SINGLE,
-                  size: 6,
-                },
-                left: {
-                  color: "0F6FC6",
-                  space: 1,
-                  style: BorderStyle.SINGLE,
-                  size: 6,
-                },
-                right: {
-                  color: "0F6FC6",
-                  space: 1,
-                  style: BorderStyle.SINGLE,
-                  size: 6,
-                },
-              },
-              heading: HeadingLevel.HEADING_1,
-            }),
-            new Paragraph
-              ({
-                spacing: {
-                  before: 200,
-                  after: 200,
-                },
-                children: [
-                  new TextRun({
-                    text: "",
-                    font:
-                    {
-                      name: "Calibri",
-                    },
-                    size: 20,
-                  }),
-                ],
-              }),
-            this.commentTable(),
-          ],
+          children: reportParts
         },
       ],
     });
