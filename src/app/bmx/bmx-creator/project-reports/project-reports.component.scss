@@ -36,12 +36,11 @@
         display: none !important;
     }
 
-    .page-break-icon{
+    .page-break-icon {
         color: white !important;
     }
 
-    .handle
-    {
+    .handle {
         resize: none;
     }
 }
@@ -156,39 +155,38 @@
     font-size: 18px;
 }
 
-
 textarea {
     resize: none;
     outline: none;
     height: auto;
     overflow: auto;
-  }
+}
 
-  textarea::-webkit-scrollbar {
+textarea::-webkit-scrollbar {
     width: 3px;
-  }
+}
 
-  /* Track */
-  textarea::-webkit-scrollbar-track {
+/* Track */
+textarea::-webkit-scrollbar-track {
     background: white;
-  }
+}
 
-  /* Handle */
-  textarea::-webkit-scrollbar-thumb {
+/* Handle */
+textarea::-webkit-scrollbar-thumb {
     background: #f1f1f1;
     border-radius: 10px;
-  }
+}
 
-  /* Handle on hover */
-  textarea::-webkit-scrollbar-thumb:hover {
+/* Handle on hover */
+textarea::-webkit-scrollbar-thumb:hover {
     background: #283e90;
-  }
+}
 
-  // textarea::-webkit-scrollbar {
-  //   display: none;
-  // }
+// textarea::-webkit-scrollbar {
+//   display: none;
+// }
 
-  textarea {
+textarea {
     -webkit-tap-highlight-color: transparent;
     width: 100%;
     // min-height: 1.5rem;
@@ -206,18 +204,74 @@ textarea {
     resize: vertical;
     transition: ease 0.2s;
     cursor: pointer;
-  }
+}
 
-  textarea::placeholder {
+textarea::placeholder {
     color: #9fa8da;
-  }
+}
 
-  textarea:focus {
+textarea:focus {
     min-height: 1rem;
     cursor: text;
     box-shadow: inset 5px 7px 7px #d1d9e9, inset -19px -31px 1px #ffffff;
-  }
+}
 
-  textarea:placeholder-shown {
+textarea:placeholder-shown {
     background: none;
-  }
+}
+
+.feature-modal-box {
+    width: 800px;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    -ms-transform: translate(-50%, -53%);
+    transform: translate(-50%, -53%);
+    border-radius: 3px;
+    background-color: white;
+    // border: solid 1px #022d71;
+    // @include BoxShadow(6);
+    overflow: hidden;
+}
+
+.buttons-home-page {
+    display: flex;
+    gap: 30px;
+    .button {
+        width: 221px;
+        height: 63px;
+        font-family: Roboto;
+        font-size: 16px;
+        text-transform: uppercase;
+        color: white;
+    }
+    .active {
+        border: 2px solid #fff;
+        background-color: #032c72;
+        box-shadow: 0 0 0 2px #032c72;
+        .icon {
+            color: white;
+        }
+    }
+    .done {
+        border: 2px solid #fff;
+        background-color: #032c72;
+        box-shadow: 0 0 0 2px #032c72;
+        .icon {
+            color: white;
+        }
+    }
+}
+
+.flex-column {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+.flex-row {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+}

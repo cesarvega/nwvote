@@ -33,6 +33,7 @@ export class DocxSurveyComponent implements OnInit {
 
 
   @Input() isMenuActive5;
+  @Input() reportSettings;
   dataSource: any;
   ELEMENT_DATA: any;
   displayedColumns = ['select', 'Name', 'Status'];
