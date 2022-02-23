@@ -58,9 +58,6 @@ export class DocxSurveyComponent implements OnInit {
   RESPONDENTS_LIST = [];
   projectId = 'QA';
   constructor(private _hotkeysService: HotkeysService, private dragulaService: DragulaService, private _BmxService: BmxService) {
-    // _BmxService.currentProjectName$.subscribe((projectName: any) => {
-    //   this.projectName = projectName;
-    // });
   }
   ngOnInit(): void {
     this.selection = new SelectionModel<any>(true, []);

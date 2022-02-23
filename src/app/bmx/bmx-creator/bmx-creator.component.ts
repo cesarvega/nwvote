@@ -155,9 +155,9 @@ export class BmxCreatorComponent implements OnInit {
     this.isMainMenuActive = true;
 
     // TESTING SETTINGS 🍎🍎🍎🍎🍎🍎🍎🍎🍎🍎🍎🍎🍎🍎🍎🍎🍎🍎🍎🍎🍎🍎🍎🍎🍎🍎🍎🍎🍎🍎🍎🍎🍎🍎🍎
-    this.toggleMenuActive('isMenuActive16');
-    this.bmxClientPageDesignMode = false;
-    this.isMainMenuActive = false;
+    // this.toggleMenuActive('isMenuActive16');
+    // this.bmxClientPageDesignMode = false;
+    // this.isMainMenuActive = false;
     // END TESTING SETTINGS 🍎🍎🍎🍎🍎🍎🍎🍎🍎🍎🍎🍎🍎🍎🍎🍎🍎🍎🍎🍎🍎🍎🍎🍎🍎🍎🍎🍎🍎🍎🍎🍎🍎🍎🍎🍎🍎🍎🍎🍎🍎🍎🍎
 
     this._BmxService.getGeneralLists().subscribe((arg: any) => {
