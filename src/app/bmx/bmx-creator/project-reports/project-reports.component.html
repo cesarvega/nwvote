@@ -12,11 +12,13 @@
       </div>
       <hr>
       <div class="page-buttons">
-          <div *ngFor="let page of numberOfpages; let pageIndex = index">
-            <button style="min-width: 35px;" [ngClass]="(currentPage === pageIndex)?'pageNumberActive':'pageNumber'"
+          <div *ngFor="let page of numberOfpages; let pageIndex = index" class="label-buttons">
+            <button style="min-width: 35px;" (click)="togglePaeToPrint(pageIndex)"
+            [ngClass]="page.print?'pageNumberActive':'pageNumber'"
               mat-raised-button>
-              {{page}}
+              {{page.number}}
             </button>
+            <p>{{page.type}}</p>
             <!-- DISBLE CLICKING ON THE BUTTONS -->
             <!-- <button style="min-width: 35px;" (click)="selectPageNumber(pageIndex)"
             [ngClass]="(currentPage === pageIndex)?'pageNumberActive':'pageNumber'" mat-raised-button>

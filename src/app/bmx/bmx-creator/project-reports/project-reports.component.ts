@@ -256,20 +256,16 @@ export class ProjectReportsComponent implements OnInit {
       },
     });
 
-    activatedRoute.params.subscribe(params => {
-      this.projectId = params['id'];
-      this.biUsername = params['biUsername'];
+    // TESTING CODE WHEN YOU COME STARIGHT TO THIS PAGE
+      this.projectId = 'QA'
+      this.biUsername = 'guest';
       localStorage.setItem('projectId', this.projectId);
-      // this.bsrService.getProjectData(this.projectId).subscribe(arg => {
-      //   this.projectName = JSON.parse(arg[0].bsrData).projectdescription;
-      //   localStorage.setItem('projectName',  this.project Id);
-      // });
-    });
 
-    this._BmxService.currentProjectName$.subscribe((projectName) => {
-      this.projectId = projectName !== '' ? projectName : this.projectId;
-      localStorage.setItem('projectName', this.projectId);
-    });
+    // COMMENT IN TESTING
+    // this._BmxService.currentProjectName$.subscribe((projectName) => {
+    //   this.projectId = projectName !== '' ? projectName : this.projectId;
+    //   localStorage.setItem('projectName', this.projectId);
+    // });
 
     this._hotkeysService.add(
       new Hotkey(
@@ -320,13 +316,19 @@ export class ProjectReportsComponent implements OnInit {
         this.bmxPages = this.SAMPLE_BMX;
       });
   }
+
+  togglePaeToPrint(pageIndex: number){
+    this.numberOfpages[pageIndex].print = !this.numberOfpages[pageIndex].print;
+  }
+
+
   // ☢️☢️☢️☢️☢️☢️☢️☢️☢️☢️☢️☢️☢️☢️☢️☢️☢️☢️☢️☢️☢️☢️☢️☢️☢️☢️☢️☢️☢️☢️☢️☢️☢️☢️☢️☢️☢️☢️☢️☢️☢️☢️☢️
   getAndCalculateReport(milUsers) {
     this.BMX_REPORT = [];
     this.REPORT_USER_DATA = [];
     this.categorySortedgArray = [];
 
-    // RETURN THE NUMBER OF PAGES 
+    // RETURN THE NUMBER OF PAGES
     JSON.parse(milUsers[0].BrandMatrix).map(res => {
       res.page.forEach(page => {
         if (
@@ -337,7 +339,7 @@ export class ProjectReportsComponent implements OnInit {
           page.componentType == 'tinder' ||
           page.componentType == 'question-answer'
         ) {
-          this.numberOfpages.push(res.pageNumber)
+          this.numberOfpages.push({print:true, number:res.pageNumber, type :page.componentType})
         }
       })
     })

@@ -1,6 +1,4 @@
-import { Component, Inject, OnInit, ViewEncapsulation } from '@angular/core';
-import { DOCUMENT } from '@angular/common';
-import { HotkeysService } from 'angular2-hotkeys';
+import { Component, OnInit, ViewEncapsulation } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { BmxService } from './bmx.service';
 import { DragulaService } from 'ng2-dragula';
@@ -119,10 +117,8 @@ export class BmxCreatorComponent implements OnInit {
   userDepartment: string;
 
   constructor(
-    @Inject(DOCUMENT) private document: any,
     private activatedRoute: ActivatedRoute,
-    private _hotkeysService: HotkeysService,
-    private dragulaService: DragulaService,
+    dragulaService: DragulaService,
     private _BmxService: BmxService
   ) {
     this.activatedRoute.params.subscribe((params) => {
@@ -160,9 +156,9 @@ export class BmxCreatorComponent implements OnInit {
     this.isMainMenuActive = true;
 
     // TESTING SETTINGS
-    // this.toggleMenuActive('isMenuActive16');
-    // this.bmxClientPageDesignMode = false;
-    // this.isMainMenuActive = false;
+    this.toggleMenuActive('isMenuActive16');
+    this.bmxClientPageDesignMode = false;
+    this.isMainMenuActive = false;
 
     this._BmxService.getGeneralLists().subscribe((arg: any) => {
       this.settingsData = JSON.parse(arg.d);
