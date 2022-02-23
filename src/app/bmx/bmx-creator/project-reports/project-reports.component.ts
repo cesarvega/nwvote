@@ -257,13 +257,13 @@ export class ProjectReportsComponent implements OnInit {
     });
 
     activatedRoute.params.subscribe(params => {
-        this.projectId = params['id'];
-        this.biUsername = params['biUsername'];
-        localStorage.setItem('projectId', this.projectId);
-        // this.bsrService.getProjectData(this.projectId).subscribe(arg => {
-        //   this.projectName = JSON.parse(arg[0].bsrData).projectdescription;
-        //   localStorage.setItem('projectName',  this.project Id);
-        // });
+      this.projectId = params['id'];
+      this.biUsername = params['biUsername'];
+      localStorage.setItem('projectId', this.projectId);
+      // this.bsrService.getProjectData(this.projectId).subscribe(arg => {
+      //   this.projectName = JSON.parse(arg[0].bsrData).projectdescription;
+      //   localStorage.setItem('projectName',  this.project Id);
+      // });
     });
 
     this._BmxService.currentProjectName$.subscribe((projectName) => {
@@ -326,7 +326,8 @@ export class ProjectReportsComponent implements OnInit {
     this.REPORT_USER_DATA = [];
     this.categorySortedgArray = [];
 
-   JSON.parse(milUsers[0].BrandMatrix).map(res => {
+    // RETURN THE NUMBER OF PAGES 
+    JSON.parse(milUsers[0].BrandMatrix).map(res => {
       res.page.forEach(page => {
         if (
           page.componentType == 'rate-scale' ||
@@ -337,17 +338,13 @@ export class ProjectReportsComponent implements OnInit {
           page.componentType == 'question-answer'
         ) {
           this.numberOfpages.push(res.pageNumber)
-      }
+        }
       })
     })
-
-
 
     milUsers.forEach((userAnswer, userAnswerIndex) => {
       this.categoryCounter = 0;
       let userCategory = [];
-      // RETURN THE NUMBER OF PAGES 
-     
       JSON.parse(userAnswer.BrandMatrix).forEach((page) => {
         page.page.forEach((component) => {
           if (
@@ -373,14 +370,14 @@ export class ProjectReportsComponent implements OnInit {
                   component,
                   userAnswer.Username,
                   this.BMX_REPORT[this.categoryCounter - 1][
-                    'category_' + this.categoryCounter
+                  'category_' + this.categoryCounter
                   ],
                   this.reportType
                 );
                 console.log(
                   'COMPUTED',
                   this.BMX_REPORT[this.categoryCounter - 1][
-                    'category_' + this.categoryCounter
+                  'category_' + this.categoryCounter
                   ]
                 );
               }
@@ -1513,8 +1510,8 @@ export class ProjectReportsComponent implements OnInit {
           } else {
             this._snackBar.open(
               'You must rate at least ' +
-                component.componentSettings[0].minRule +
-                ' Test Names',
+              component.componentSettings[0].minRule +
+              ' Test Names',
               'OK',
               {
                 duration: 5000,
@@ -1720,8 +1717,8 @@ export class ProjectReportsComponent implements OnInit {
         rowIndex == 0
           ? 'header'
           : element['RATE']
-          ? element['RATE']
-          : 'not rated';
+            ? element['RATE']
+            : 'not rated';
 
       if (
         component.componentSettings[0].rankType == 'dragAndDrop' &&
