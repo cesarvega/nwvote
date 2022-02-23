@@ -144,6 +144,9 @@ export class DocxSurveyComponent implements OnInit {
           questyonType: "",
           answers: []
         }
+
+        if(s[x].page[1]){//CV💑💑💑💑💑💑💑💑💑💑💑💑💑💑
+
         response.page = s[x].pageNumber;
         if (s[x].page[1].componentType.includes("image")) {
           this.design = true;
@@ -269,6 +272,7 @@ export class DocxSurveyComponent implements OnInit {
             }
           }*/
         }
+      }//CV💑💑💑💑💑💑💑💑💑💑💑💑💑💑💑💑💑💑💑💑💑
         recept.responses.push(response);
       }
       done.push(recept);
@@ -2199,6 +2203,7 @@ export class DocxSurveyComponent implements OnInit {
           }),
         ],
       }),
+
     new Table({
       rows: [
         new TableRow({
@@ -2262,6 +2267,8 @@ export class DocxSurveyComponent implements OnInit {
         type: WidthType.PERCENTAGE,
       },
     }),
+
+    
     new Paragraph
       ({
         spacing: {
@@ -2281,6 +2288,7 @@ export class DocxSurveyComponent implements OnInit {
         children: [
         ],
       }),
+      
     new Paragraph({
       children: [
         new TextRun({
