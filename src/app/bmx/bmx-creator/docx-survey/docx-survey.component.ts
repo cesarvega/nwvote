@@ -91,7 +91,6 @@ export class DocxSurveyComponent implements OnInit {
 
         });
     });
-    // console.log(this.reportSettings);
   }
 
   criteriaTable(): Table {
@@ -1481,6 +1480,7 @@ export class DocxSurveyComponent implements OnInit {
 
 
   report(): void {
+    console.log(this.reportSettings);
     var temp = this.user;
     this.user = this.RESPONDENTS_LIST
     let reportParts: Array<any>;

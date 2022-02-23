@@ -134,6 +134,7 @@ export class ProjectReportsComponent implements OnInit {
     openEndedQuestions: true,
     openEndedWithRepondents: true,
     displayResultsByRespondents: true,
+    numberOfpagesToPrint: []
   };
   indeterminate = false;
   labelPosition: 'before' | 'after' = 'after';
@@ -346,6 +347,7 @@ export class ProjectReportsComponent implements OnInit {
             number: res.pageNumber,
             type: page.componentType,
           });
+          this.reportSettings.numberOfpagesToPrint.push(res.pageNumber);
         }
       });
     });
