@@ -382,12 +382,6 @@ export class ProjectReportsComponent implements OnInit {
                   ],
                   this.reportType
                 );
-                console.log(
-                  'COMPUTED',
-                  this.BMX_REPORT[this.categoryCounter - 1][
-                    'category_' + this.categoryCounter
-                  ]
-                );
               }
             });
             //🌈🌈🌈🌈🌈🌈🌈🌈🌈🌈🌈🌈🌈🌈🌈🌈 USERS RESULTS
@@ -724,9 +718,9 @@ export class ProjectReportsComponent implements OnInit {
       },
     ];
 
-    console.log(this.bmxPages[this.currentPage].page);
-    console.log(this.BMX_REPORT);
-    console.log(this.categorySortedgArray);
+    // console.log(this.bmxPages[this.currentPage].page);
+    // console.log(this.BMX_REPORT);
+    // console.log(this.categorySortedgArray);
 
     //🌈🌈🌈🌈🌈🌈🌈🌈🌈🌈🌈🌈🌈🌈🌈🌈//🌈🌈🌈🌈🌈🌈🌈🌈🌈🌈🌈🌈🌈🌈🌈🌈//🌈🌈🌈🌈🌈🌈🌈🌈🌈🌈🌈🌈🌈🌈🌈🌈//🌈🌈🌈🌈🌈🌈🌈🌈🌈🌈🌈🌈🌈🌈🌈🌈//🌈🌈🌈🌈🌈🌈🌈🌈🌈🌈🌈🌈🌈🌈🌈🌈//🌈🌈🌈🌈🌈🌈🌈🌈🌈🌈🌈🌈🌈🌈🌈🌈//🌈🌈🌈🌈🌈🌈🌈🌈🌈🌈🌈🌈🌈🌈🌈🌈//🌈🌈🌈🌈🌈🌈🌈🌈🌈🌈🌈🌈🌈🌈🌈🌈
     this.sampleHtml2 =

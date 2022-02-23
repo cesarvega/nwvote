@@ -94,7 +94,7 @@ export class DocxSurveyComponent implements OnInit {
 
         });
     });
-    console.log(this.reportSettings);
+    // console.log(this.reportSettings);
   }
 
   criteriaTable(): Table {
