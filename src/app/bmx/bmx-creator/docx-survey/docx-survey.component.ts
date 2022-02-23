@@ -56,8 +56,12 @@ export class DocxSurveyComponent implements OnInit {
   selection;
   viewedData;
   RESPONDENTS_LIST = [];
-  projectId = 'topRankDropDown';
-  constructor(private _hotkeysService: HotkeysService, private dragulaService: DragulaService, private _BmxService: BmxService) { }
+  projectId = 'QA';
+  constructor(private _hotkeysService: HotkeysService, private dragulaService: DragulaService, private _BmxService: BmxService) {
+    // _BmxService.currentProjectName$.subscribe((projectName: any) => {
+    //   this.projectName = projectName;
+    // });
+  }
   ngOnInit(): void {
     this.selection = new SelectionModel<any>(true, []);
     this._BmxService.currentProjectName$.subscribe((projectName) => {
@@ -90,17 +94,8 @@ export class DocxSurveyComponent implements OnInit {
 
         });
     });
-
-
-
-
-
-
-
-
-
+    // console.log(this.reportSettings);
   }
-
 
   criteriaTable(): Table {
     var overall = this.sortOverall();
@@ -110,7 +105,6 @@ export class DocxSurveyComponent implements OnInit {
     row.push(
       this.createHeader(this.headers)
     )
-
     const table = new Table({
       width: {
         size: 100,
@@ -121,7 +115,6 @@ export class DocxSurveyComponent implements OnInit {
     });
     row = [];
     return table
-
   }
 
   async createDataObject(t: any): Promise<any> {
@@ -1074,7 +1067,7 @@ export class DocxSurveyComponent implements OnInit {
     )
     for (var i = 0; i < overall.length; i++) {
 
-      
+
       for (var j = 0; j < overall[i].length; j++) {
         let partInfo = []
         let textRow = [];
@@ -1254,7 +1247,7 @@ export class DocxSurveyComponent implements OnInit {
       this.createHeader(["Name", "Question", "Answer",])
     )
     for (var i = 0; i < overall.length; i++) {
-      
+
       for (var j = 0; j < overall[i][1].length; j++) {
         let partInfo = []
         let textRow = [];
