@@ -216,20 +216,22 @@ export class SurveyCreationDesignComponent implements OnInit {
             },
         });
 
-        // activatedRoute.params.subscribe(params => {
-        //     this.projectId = params['id'];
-        //     this.biUsername = params['biUsername'];
-        //     localStorage.setItem('projectId', this.projectId);
-        //     // this.bsrService.getProjectData(this.projectId).subscribe(arg => {
-        //     //   this.projectName = JSON.parse(arg[0].bsrData).projectdescription;
-        //     //   localStorage.setItem('projectName',  this.projectId);
-        //     // });
-        // });
+        // TESTING ROUTER DATA
+        activatedRoute.params.subscribe(params => {
+            this.projectId = params['id'];
+            this.biUsername = params['biUsername'];
+            localStorage.setItem('projectId', this.projectId);
+            // this.bsrService.getProjectData(this.projectId).subscribe(arg => {
+            //   this.projectName = JSON.parse(arg[0].bsrData).projectdescription;
+            //   localStorage.setItem('projectName',  this.projectId);
+            // });
+        });
 
-        this._BmxService. currentprojectData$.subscribe(arg => {
-            this.projectInfo = arg;
-            localStorage.setItem('projectInfo', this.projectInfo);
-        })
+        // PRODUCTION DATA
+        // this._BmxService. currentprojectData$.subscribe(arg => {
+        //     this.projectInfo = arg;
+        //     localStorage.setItem('projectInfo', this.projectInfo);
+        // })
 
     }
 
@@ -977,44 +979,6 @@ export class SurveyCreationDesignComponent implements OnInit {
             ]
         }
     ]
-
-
-    rotationalCipher(input, rotationFactor) {
-        // Write your code here
-        let upperAlphabet = 'A,B,C,D,E,F,G,H,I,J,K,L,M,N,O,P,Q,R,S,T,U,V,W,X,Y,Z'
-        let lowercaseAlphabet = upperAlphabet.toLowerCase();
-
-        let alphabetLower = lowercaseAlphabet.split(',')
-        let alphabetUpper = upperAlphabet.split(',')
-        let alphabetLength = alphabetUpper.length;
-
-        input = input.split('')
-        let numbers = ['0', '1', '2', '3', '4', '5', '6', '7', '8', '9']
-        let newOutput = ''
-        input.forEach(character => {
-            if (character.match(/[A-Z]/g)) {
-                let charIndex = alphabetUpper.indexOf(character)
-                let newCharIndex = (charIndex + rotationFactor) % alphabetLength;
-                newOutput += alphabetUpper[newCharIndex]
-            }
-            else if (character.match(/[a-z]/g)) //lowercase
-            {
-                let charIndex = alphabetLower.indexOf(character)
-                let newCharIndex = (charIndex + rotationFactor) % alphabetLength;
-                newOutput += alphabetLower[newCharIndex]
-            } else if (character.match(/[0-9]/g)) {
-                let charIndex = numbers.indexOf(character)
-                let newCharIndex = (charIndex + rotationFactor) % numbers.length;
-                newOutput += numbers[newCharIndex]
-            } else if (character.match(/[!@#$%^&*()_+\-=\[\]{};':"\\|,.<>\/?]/g)) {
-                newOutput += character
-            }
-
-        })
-
-        return newOutput;
-    }
-
 
 }
 

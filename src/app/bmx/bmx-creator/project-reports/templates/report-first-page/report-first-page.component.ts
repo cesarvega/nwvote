@@ -14,6 +14,23 @@ export class ReportFirstPageComponent implements OnInit {
   displayInstructions: boolean;
   openSettings = false
   displayLogoWidthRange = false
+
+  reportObject = {
+    
+    companyAddress: "",
+    companyPhone: "",
+    companyEmail: "",
+    companyContact: "",
+    companyOffice: "",
+    companyDirectors:[{name:'',position:'',office:'',email:''}],
+    reportPrepareFor: [{name:'',position:'',office:'',email:'',phone:''}],
+    reportProjecName: "",
+    reportDescription: "",
+    reportDate: new Date(),
+    reportLogoMarginLeft: "",
+  }
+
+
   constructor() { }
 
   ngOnInit(): void {

@@ -90,12 +90,25 @@ export class RatingScaleComponent implements OnInit {
     });
     // this.columnsNames.push('RATE')
 
-    if (this.bmxItem.componentSettings[0].CRITERIA) {
-      this.bmxItem.componentText.forEach((item, index) => {
-        if (index == 0) {
+    // IF RATING SCALE IS SET
+    let amountOfAnswersRateCounter = 0
+    this.bmxItem.componentText.forEach((item, index) => {
+      if (index > 0) {
+        if(item.RATE > 0 ){
+          amountOfAnswersRateCounter++
+          if(this.bmxItem.componentText.length -1 == amountOfAnswersRateCounter){
+            this.bmxItem.componentSettings[0].categoryRulesPassed = true
+          }
         }
-      })
-    }
+      }
+    })
+
+    // if (this.bmxItem.componentSettings[0].CRITERIA) {
+    //   this.bmxItem.componentText.forEach((item, index) => {
+    //     if (index == 0) {
+    //     }
+    //   })
+    // }
     // this.selectedCriteria = 'Fit to Compound Concept, and Overall Likeability'
   }
 
@@ -237,7 +250,15 @@ export class RatingScaleComponent implements OnInit {
   // CRITERIA STARS
 
   setCriteriaRating(starId, criteriaId, testNameId) {
-    this.bmxItem.componentText[testNameId].CRITERIA[criteriaId].RATE = starId
+    if (this.maxRuleCounter < this.bmxItem.componentSettings[0].maxRule || this.bmxItem.componentSettings[0].maxRule == 0) {
+      if (this.bmxItem.componentSettings[0].maxRule > 0) { this.maxRuleCounter++ }
+      this.bmxItem.componentText[testNameId].CRITERIA[criteriaId].RATE = starId
+      this.bmxItem.componentSettings[0].ratedCounter++
+      if (this.bmxItem.componentSettings[0].ratedCounter >= this.bmxItem.componentSettings[0].minRule) {
+        this.bmxItem.componentSettings[0].categoryRulesPassed = true
+      } else { this.bmxItem.componentSettings[0].categoryRulesPassed = false }
+    }
+    
   }
 
   selectCriteriaStar(starId, criteriaId, testNameId): void {
@@ -393,7 +414,12 @@ export class RatingScaleComponent implements OnInit {
       }
     }
     setTimeout(() => {
-      this.dragRows = false;
+      this.bmxItem.componentSettings[0].minRule = ( this.bmxItem.componentSettings[0].minRule == 0)? this.bmxItem.componentText.length -1 : this.bmxItem.componentSettings[0].minRule
+      if(this.bmxItem.componentSettings[0].CRITERIA){
+        //MULTIPLY FOR THE AMOUNT OF CRITERIA
+        this.bmxItem.componentSettings[0].minRule =  this.bmxItem.componentSettings[0].minRule* this.bmxItem.componentText[0].CRITERIA.length
+      }
+        this.dragRows = false;
     }, 1000);
 
     // this.swapColumns(0)

@@ -219,6 +219,17 @@ export class ProjectInformationComponent implements OnInit {
     }
   }
 
+  replaceMainDirector(index) {
+    let temp = this.DIRECTORS[index];
+    this.DIRECTORS.splice(index, 1);
+    this.DIRECTORS.unshift(temp);
+    //this.DIRECTORS[0] = this.DIRECTORS[index]
+    //this.DIRECTORS[index] = temp;
+
+    // this.directors = [...this.directors.splice(index, 1)];
+
+  }
+
 
   officeSelected(officeName) {
     if (officeName != '' && officeName != 'All') {

@@ -10,7 +10,6 @@ import { BmxCreatorComponent } from './bmx/bmx-creator/bmx-creator.component';
 import { BmxComponent } from './bmx/bmx-survey/bmx.component';
 import { SurveyMatrixComponent } from './bmx/bmx-creator/survey-matrix/survey-matrix.component';
 // import { BmxCreatorComponent } from './bmx-creator/bmx-creator.component';
-
 const routes: Routes = [
   // {// NAME VOTE LOGIN https://bipresents.com/namevote/login?project=Test_WELL_PLATFORM
   //   path: 'login',
@@ -32,12 +31,11 @@ const routes: Routes = [
   //   path: ':id',
   //   component: BsrComponent
   // },
-  // {//BI BRAND MATRIX CREATOR
+  {//BI BRAND MATRIX CREATOR
   // path: ':id/:biUsername',
-  // // path: 'bmx',
-  //  component: BmxCreatorComponent
-  // }
-  // ,
+  path: 'bmx/:id',
+   component: BmxCreatorComponent
+  },
    {//BI BRAND MATRIX
     path: 'survey/:id/:username',
     component: SurveyMatrixComponent
@@ -48,8 +46,10 @@ const routes: Routes = [
   // },
   {
     path: '',
-    // redirectTo: '/no_id/no_user',
-    redirectTo: 'survey/noProject/no_user',
+    redirectTo: 'bmx/58B303F8-D19C-4DEC-9EC5-361CE4EFBA71',
+    // redirectTo: '/no_id/n_user',
+    // redirectTo: 'bmx/99CB72BF-D163-46A6-8A0D-E1531EC7FEDC',
+    // redirectTo: 'survey/noProject/no_user',
     pathMatch: 'full'
   }
 ];

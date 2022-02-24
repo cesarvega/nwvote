@@ -21,6 +21,7 @@ export class RespondentsComponent implements OnInit {
   allData;
   @ViewChild('respondants') myTestDiv: ElementRef;
   testPrct = 'BATTLESTARbm_test'
+  projectId;
 
   dataSource2 = new MatTableDataSource();
 
@@ -41,29 +42,12 @@ export class RespondentsComponent implements OnInit {
   constructor(private _hotkeysService: HotkeysService, private dragulaService: DragulaService, private _BmxService: BmxService) { }
 
   ngOnInit(): void {
-    //grab project name from local
 
-    /*
-    this.headers = [
-      { field: 'A', index: 0 },
-      { field: 'B', index: 1 },
-      { field: 'C', index: 2 }
-    ];
+    this._BmxService.currentProjectName$.subscribe((projectName) => {
+      this.projectId = projectName !== '' ? projectName : this.projectId;
+    });
 
-    this.data = [
-      { A: 22, B: 55, C: 98 },
-      { A: 14, B: 90, C: 134 },
-      { A: 567, B: 1234, C: 567 }
-    ];
-
-    this.setDisplayedColumns();
-
-    this.dataSource2 = new MatTableDataSource(this.data);
-    console.log(this.dataSource.data);
-    */
-
-
-    this._BmxService.BrandMatrixGetParticipantList(localStorage.getItem('projectName'))
+    this._BmxService.BrandMatrixGetParticipantList(this.projectId)
       .subscribe((arg: any) => {
         this.RESPONDENTS_LIST = JSON.parse(arg.d).ParticipantList;
         this.dataSource = new MatTableDataSource<any>(this.RESPONDENTS_LIST);
@@ -75,10 +59,10 @@ export class RespondentsComponent implements OnInit {
     const temp = list.split("\n");
     for (var i = 0; i < temp.length; i++) {
       if (temp[i] != "" && temp[i].includes('\t')) {
-        this.RESPONDENTS_LIST.push({ 'ProjectName': localStorage.getItem('projectName'), 'UserId': (this.RESPONDENTS_LIST.length + 1), 'Password': '', 'FirstName': temp[i].split("\t")[0], 'LastName': temp[i].split("\t")[1], 'Email': temp[i].split("\t")[2], 'Type': temp[i].split("\t")[3], 'Status': '', 'SubGroup': temp[i].split("\t")[4], 'AnswerWeight': temp[i].split("\t")[5] });
+        this.RESPONDENTS_LIST.push({ 'ProjectName': this.projectId, 'UserId': (this.RESPONDENTS_LIST.length + 1), 'Password': '', 'FirstName': temp[i].split("\t")[0], 'LastName': temp[i].split("\t")[1], 'Email': temp[i].split("\t")[2], 'Type': temp[i].split("\t")[3], 'Status': '', 'SubGroup': temp[i].split("\t")[4], 'AnswerWeight': temp[i].split("\t")[5] });
       }
       else if (temp[i] != "") {
-        this.RESPONDENTS_LIST.push({ 'ProjectName': localStorage.getItem('projectName'), 'UserId': (this.RESPONDENTS_LIST.length + 1), 'Password': '', 'FirstName': temp[i].split(" ")[0], 'LastName': temp[i].split(" ")[1], 'Email': temp[i].split(" ")[2], 'Type': temp[i].split(" ")[3], 'Status': '', 'SubGroup': temp[i].split(" ")[4], 'AnswerWeight': temp[i].split(" ")[5] });
+        this.RESPONDENTS_LIST.push({ 'ProjectName': this.projectId, 'UserId': (this.RESPONDENTS_LIST.length + 1), 'Password': '', 'FirstName': temp[i].split(" ")[0], 'LastName': temp[i].split(" ")[1], 'Email': temp[i].split(" ")[2], 'Type': temp[i].split(" ")[3], 'Status': '', 'SubGroup': temp[i].split(" ")[4], 'AnswerWeight': temp[i].split(" ")[5] });
       }
     }
     this.myTestDiv.nativeElement.value = '';
@@ -87,7 +71,7 @@ export class RespondentsComponent implements OnInit {
 
     var finalString = JSON.stringify(this.RESPONDENTS_LIST);
     finalString = finalString.replace("[\\u2022,\\u2023,\\u25E6,\\u2043,\\u2219]\\s\\d", '');
-    this._BmxService.BrandMatrixSaveParticipantList(localStorage.getItem('projectName'), this.RESPONDENTS_LIST).subscribe(result => {
+    this._BmxService.BrandMatrixSaveParticipantList(this.projectId, this.RESPONDENTS_LIST).subscribe(result => {
       var so = result;
     });
     localStorage.setItem('fakeprojectname' + '_repondants list', JSON.stringify(this.RESPONDENTS_LIST))
@@ -106,7 +90,7 @@ export class RespondentsComponent implements OnInit {
       this.dataSource = new MatTableDataSource<any>(this.RESPONDENTS_LIST);
       var finalString = JSON.stringify(this.RESPONDENTS_LIST);
       finalString = finalString.replace("[\\u2022,\\u2023,\\u25E6,\\u2043,\\u2219]\\s\\d", '');
-      this._BmxService.BrandMatrixDelParticipantList(localStorage.getItem('projectName'), deletedObj).subscribe(result => {
+      this._BmxService.BrandMatrixDelParticipantList(this.projectId, deletedObj).subscribe(result => {
         var so = result;
       });
       localStorage.setItem('fakeprojectname' + '_repondants list', JSON.stringify(this.RESPONDENTS_LIST));
@@ -114,7 +98,11 @@ export class RespondentsComponent implements OnInit {
   }
 
   public onFocusOutEvent(event: any): void {
-    localStorage.setItem('fakeprojectname' + '_repondants list', JSON.stringify(this.RESPONDENTS_LIST))
+    var finalString = JSON.stringify(this.RESPONDENTS_LIST);
+    finalString = finalString.replace("[\\u2022,\\u2023,\\u25E6,\\u2043,\\u2219]\\s\\d", '');
+    this._BmxService.BrandMatrixUptParticipantList(this.projectId, this.RESPONDENTS_LIST).subscribe(result => {
+      var so = result;
+    });
   }
 
   setDisplayedColumns() {

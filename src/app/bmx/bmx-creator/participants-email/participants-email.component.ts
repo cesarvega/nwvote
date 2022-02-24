@@ -8,6 +8,10 @@ import { HotkeysService, Hotkey } from 'angular2-hotkeys';
 import { MatSort } from '@angular/material/sort';
 import { CdkDragStart, CdkDropList, moveItemInArray } from '@angular/cdk/drag-drop';
 import { MatPaginator } from '@angular/material/paginator';
+import { MatSnackBar } from '@angular/material/snack-bar';
+import { MatDialog, MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
+import { DialogComponent } from './dialog/dialog.component';
+
 
 @Component({
   selector: 'app-participants-email',
@@ -16,7 +20,7 @@ import { MatPaginator } from '@angular/material/paginator';
 })
 export class ParticipantsEmailComponent implements OnInit {
   allData;
-
+  DIRECTORS;
   attachments = [];
   dirConfirm = false;
   deptConfirm = false;
@@ -30,6 +34,7 @@ export class ParticipantsEmailComponent implements OnInit {
   selection;
   ckconfig: any;
   selectedIndex: any;
+  projectId;
   fixedString;
   sampleHtml = `Dear PARTICIPANT,
   You have been selected to participate in the brand name selection for BI Pharma's new ADSSK & CCC Inhibitor for the treatment of multiple cancer types. 
@@ -91,20 +96,52 @@ export class ParticipantsEmailComponent implements OnInit {
     },
   ];
 
-  constructor(private _hotkeysService: HotkeysService, private dragulaService: DragulaService, private _BmxService: BmxService) {
+  constructor(private _hotkeysService: HotkeysService, private dragulaService: DragulaService, private _BmxService: BmxService, private _snackBar: MatSnackBar, private dialog: MatDialog) {
 
   }
 
   ngOnInit(): void {
     this.selected = 'All';
 
-    this._BmxService.BrandMatrixGetParticipantList(localStorage.getItem('projectName'))
+    this._BmxService.currentProjectName$.subscribe(projectName => {
+      this.projectId = (projectName !== '') ? projectName : this.projectId;
+    })
+
+    this._BmxService.getProjectInfo(this.projectId)
+      .subscribe((arg: any) => {
+        var data = JSON.parse(arg.d);
+        this.DIRECTORS = data.bmxRegionalOffice;
+      });
+
+    this._BmxService.BrandMatrixGetParticipantList(this.projectId)
       .subscribe((arg: any) => {
         this.allData = JSON.parse(arg.d).ParticipantList;
+        for (let p of this.allData) {
+          if (Number(p.Status) < 0) {
+            p.Status = 'NS'
+          }
+          else if (Number(p.Status) === 999) {
+            p.Status = 'F'
+          }
+        }
         this.changeView();
       });
-    this.emailTemp = 'Creative';
-    this.changeTemplate('Creative');
+
+    this._BmxService.getCustomEmail(this.projectId)
+      .subscribe((arg: any) => {
+        this.sampleHtml = arg.d;
+        //var data = JSON.parse(arg.d);
+        if (arg.d === '') {
+          this.emailTemp = 'Creative';
+          this.changeTemplate('Creative');
+        }
+        else
+        {
+          this.brandMatrixObjects[1].componentText = arg.d;
+        }
+        //this.DIRECTORS = data.bmxRegionalOffice;
+      });
+
 
 
     this.selection = new SelectionModel<any>(true, []);
@@ -136,7 +173,7 @@ export class ParticipantsEmailComponent implements OnInit {
 
     }
     // SAMPLE DATA FOR CKEDITOR
-    this.model.editorData = this.sampleHtml;
+    //this.model.editorData = this.sampleHtml;
   }
 
   isAllSelected() {
@@ -185,10 +222,9 @@ export class ParticipantsEmailComponent implements OnInit {
     this.viewedData = [];
     for (let i = 0; i < this.allData.length; i++) {
       if (this.selected == 'NS' && this.allData[i].Status == 'NS') {
-
         this.viewedData.push(this.allData[i])
       }
-      else if (this.selected == 'NF' && this.allData[i].Status == 'NF') {
+      else if (this.selected == 'NF' && Number(this.allData[i].Status) >= 0) {
 
         this.viewedData.push(this.allData[i])
       }
@@ -205,68 +241,62 @@ export class ParticipantsEmailComponent implements OnInit {
 
   changeTemplate(template: any): void {
     if (template === 'Creative') {
-      this.brandMatrixObjects[1].componentText = `Dear NAMEOFUSER,<br><br>
+      this.brandMatrixObjects[1].componentText = `Dear BI_PARTNAME,<br><br>
 
-      Brand Institute has been contracted to create a brand name for (insert description of what is being named here).  The internal name for this project is projectName.  You have been chosen to vote for your favorite names via our online BrandMatrix™ prioritization survey.<br><br>
+      Brand Institute has been contracted to create a brand name for (insert description of what is being named here).  The internal name for this project is PROJECTNAME.  You have been chosen to vote for your favorite names via our online BrandMatrix™ prioritization survey.<br><br>
       
       To access the online voting site, please click on the link below to be logged in automatically. Voting instructions are provided in the link and will only take a few minutes of your time.<br><br>
       
       Your link:<br>
-      https://tools.brandinstitute.com/bmxtest/survey/projectName/Username<br>
+      BI_LINK<br>
       (if you cannot click on the link, please copy and paste into your browser)<br><br>
       
       Your input is valued.  Please place your votes by (insert closing date and time). We hope you enjoy this interactive exercise!<br><br>  
       
       Best regards,<br><br>
       
-      DIRECTOR NAME<br>
-      Email<br>
-      Number<br><br>
+      BI_DIRECTOR 
       
       Should you experience any difficulty with this survey, please contact us or your project team leader immediately.`
 
     }
     else if (template === 'Nonproprietary') {
-      this.brandMatrixObjects[1].componentText = `Dear NAMEOFUSER,<br><br>
+      this.brandMatrixObjects[1].componentText = `Dear BI_PARTNAME,<br><br>
 
-      Brand Institute has been contracted to create a nonproprietary (USAN/INN) name for (insert nonproprietary name or product description).  The internal name for this project is projectName.  You have been chosen to vote for your favorite names via our online BrandMatrix™ prioritization survey.<br><br>
+      Brand Institute has been contracted to create a nonproprietary (USAN/INN) name for (insert nonproprietary name or product description).  The internal name for this project is PROJECTNAME.  You have been chosen to vote for your favorite names via our online BrandMatrix™ prioritization survey.<br><br>
       
       To access the online voting site, please click on the link below to be logged in automatically. Voting instructions are provided in the link and will only take a few minutes of your time.<br><br>
       
       Your link:<br>
-      https://tools.brandinstitute.com/bmxtest/survey/projectName/Username<br>
+      BI_LINK<br>
       (if you cannot click on the link, please copy and paste into your browser)<br><br>
       
       Your input is valued.  Please place your votes by (insert closing date and time). We hope you enjoy this interactive exercise!<br><br>  
       
       Best regards,<br><br>
       
-      DIRECTOR NAME<br>
-      Email<br>
-      Number<br><br>
+      BI_DIRECTOR 
       
       Should you experience any difficulty with this survey, please contact us or your project team leader immediately.
       `;
 
     }
     else {
-      this.brandMatrixObjects[1].componentText = `Dear NAMEOFUSER,<br><br>
+      this.brandMatrixObjects[1].componentText = `Dear BI_PARTNAME,<br><br>
 
-      Brand Institute has been contracted to create a visual identity for (insert description of what the logo is being developed for).  The internal name for this project is projectName.  You have been chosen to vote for your favorite logo options via our online BrandMatrix™ prioritization survey.<br><br>
+      Brand Institute has been contracted to create a visual identity for (insert description of what the logo is being developed for).  The internal name for this project is PROJECTNAME.  You have been chosen to vote for your favorite logo options via our online BrandMatrix™ prioritization survey.<br><br>
       
       To access the online voting site, please click on the link below to be logged in automatically. Voting instructions are provided in the link and will only take a few minutes of your time.<br><br>
       
       Your link:<br>
-      https://tools.brandinstitute.com/bmxtest/survey/projectName/Username<br>
+      BI_LINK<br>
       (if you cannot click on the link, please copy and paste into your browser)<br><br>
 
       Your input is valued.  Please place your votes by (insert closing date and time). We hope you enjoy this interactive exercise!<br><br>
       
       Best regards,<br><br>
       
-      DIRECTOR NAME<br>
-      Email<br>
-      Number<br><br>
+      BI_DIRECTOR 
       
       Should you experience any difficulty with this survey, please contact us or your project team leader immediately.
       `;
@@ -274,6 +304,7 @@ export class ParticipantsEmailComponent implements OnInit {
     }
   }
 
+  /*
   changeLink(template: any): void {
     if (template === 'Direct Link') {
       this.brandMatrixObjects[1].componentText = this.brandMatrixObjects[1].componentText.replace("projectName", "projectName/Username");
@@ -281,18 +312,42 @@ export class ParticipantsEmailComponent implements OnInit {
     else if (template === 'General Link') {
       this.brandMatrixObjects[1].componentText = this.brandMatrixObjects[1].componentText.replace("projectName/Username", "projectName");
     }
-  }
+  }*/
 
-  replaceEmailInfo(Fname: string, Lname: string) {
-    this.fixedString = this.fixedString.replace("NAMEOFUSER", Fname + " " + Lname);
-    this.fixedString = this.fixedString.replace("projectName", localStorage.getItem('projectName'));
-    this.fixedString = this.fixedString.replace("Username", Fname[0] + Lname);
+  replaceEmailInfo(Fname: string, Lname: string, id: string) {
+    this.fixedString = this.fixedString.replace("BI_LINK", "https://brandmatrix.brandinstitute.com/BMX/" + id);
+    if (this.linkType === 'Direct Link') {
+      this.brandMatrixObjects[1].componentText = this.brandMatrixObjects[1].componentText.replace("PROJECTNAME", "PROJECTNAME/Username");
+    }
+    else if (this.linkType === 'General Link') {
+      this.brandMatrixObjects[1].componentText = this.brandMatrixObjects[1].componentText.replace("PROJECTNAME/Username", "PROJECTNAME");
+    }
+    this.fixedString = this.fixedString.replace("BI_PARTNAME", Fname + " " + Lname);
+    this.fixedString = this.fixedString.replaceAll("PROJECTNAME", this.projectId.toString());
+    let str = ""
+    for (let d of this.DIRECTORS) {
+      str += d.name.toString().trim() + "<br>" + d.title.toString().trim() + "<br>" + d.phone.toString().trim() + " " + d.email.toString().trim() + "<br><br>"
+    }
+    this.fixedString = this.fixedString.replace("BI_DIRECTOR ", str);
   }
 
   sendEmail() {
+    this._snackBar.open('Sending emails!');
+    const emailTemplate: JSON = <JSON><unknown>{
+      "ProjectName": this.projectId,
+      "EmailTemplate": this.brandMatrixObjects[1].componentText
+    }
+    this._BmxService.setCustomEmail(JSON.stringify(emailTemplate))
+      .subscribe(result => {
+        var so = result;
+      });
+
+
+
+
     for (var i = 0; i < this.RESPONDENTS_LIST.length; i++) {
       this.fixedString = this.brandMatrixObjects[1].componentText;
-      this.replaceEmailInfo(this.RESPONDENTS_LIST[i].FirstName, this.RESPONDENTS_LIST[i].LastName);
+      this.replaceEmailInfo(this.RESPONDENTS_LIST[i].FirstName, this.RESPONDENTS_LIST[i].LastName, this.RESPONDENTS_LIST[i].NewId);
       const rememberEmail: JSON = <JSON><unknown>{
         "dirConfirm": this.dirConfirm,
         "deptConfirm": this.deptConfirm,
@@ -312,6 +367,7 @@ export class ParticipantsEmailComponent implements OnInit {
         var so = result;
       });
     }
+    this._snackBar.open('All emails sent!');
     //localStorage.setItem('fakeprojectName' + '_emailInfo', JSON.stringify(rememberEmail));
   }
 
@@ -324,7 +380,7 @@ export class ParticipantsEmailComponent implements OnInit {
         reader.onload = (event: any) => {
           const filedata = event.target.result.split(",")[0];
           const resourceData: JSON = <JSON><unknown>{
-            "projectName": localStorage.getItem('projectName'),
+            "projectName": this.projectId,
             "FileName": filearray[i].name,
             "ItemType": 'TestName',
             "FileType": filedata,
@@ -340,6 +396,16 @@ export class ParticipantsEmailComponent implements OnInit {
 
   deleteFile(index) {
     this.attachments.splice(index, 1);
+  }
+
+  previewEmail() {
+    let temp = this.brandMatrixObjects[1].componentText;
+    this.fixedString = this.brandMatrixObjects[1].componentText;
+    this.fixedString = this.Subject + "<br><br>" + this.fixedString;
+    this.replaceEmailInfo('tester', 'tester', '***************');
+    let email = this.fixedString;
+    this.fixedString = temp;
+    this.dialog.open(DialogComponent, { data: { email: email } });
   }
 
 }
