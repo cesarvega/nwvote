@@ -100,7 +100,6 @@ export class ProjectListComponent implements OnInit {
       }
     }
 
-
     // FILTERING BY DEPARTMENT & OFFICE
     if (this.viewedData.length> 0) {
       if (this.userRole == 'Director') {
