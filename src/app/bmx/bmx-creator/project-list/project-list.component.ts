@@ -112,6 +112,7 @@ export class ProjectListComponent implements OnInit {
           });
       }
     }
+    
 
     this.dataSource = new MatTableDataSource<any>(this.viewedData);
     this.dataSource.paginator = this.paginator;
