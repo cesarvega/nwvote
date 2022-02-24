@@ -11,7 +11,7 @@ import { DragulaService } from 'ng2-dragula';
 export class BmxCreatorComponent implements OnInit {
   // https://getemoji.com/
   userName = 'Alexa';
-  bmxClientPageDesignMode = true; // TURN FALSE TO PLAY ON DEVELOPMENT
+  bmxClientPageDesignMode = false; // TURN FALSE TO PLAY ON DEVELOPMENT
   bmxClientPageOverview = false;
   displayRightSideMenu = false;
   isBrandMatrixSurvey = true;
@@ -134,13 +134,13 @@ export class BmxCreatorComponent implements OnInit {
         this.userDepartment = data.Department;
 
         // TEST DATA
-        this.userOffice = 'Miami';
+        // this.userOffice = 'Miami';
         // this.userOffice = 'Basel 1'
-        this.userRole = 'director'; // director restriced
-        this.userRole = 'creative';
+        // this.userRole = 'director'; // director restriced
+        // this.userRole = 'creative';
         // this.userRole = 'user'
-        this.userRole = 'admin'; // no restrictions
-        this.userDepartment = 'Creative';
+        // this.userRole = 'admin'; // no restrictions
+        // this.userDepartment = 'Creative';
         // this.userDepartment = 'Design'
       });
     });
