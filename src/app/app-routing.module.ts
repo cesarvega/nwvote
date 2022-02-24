@@ -32,11 +32,12 @@ const routes: Routes = [
   //   path: ':id',
   //   component: BsrComponent
   // },
-  {//BI BRAND MATRIX CREATOR
-  path: ':id/:biUsername',
-  // path: 'bmx',
-   component: BmxCreatorComponent
-  },
+  // {//BI BRAND MATRIX CREATOR
+  // path: ':id/:biUsername',
+  // // path: 'bmx',
+  //  component: BmxCreatorComponent
+  // }
+  // ,
    {//BI BRAND MATRIX
     path: 'survey/:id/:username',
     component: SurveyMatrixComponent
@@ -47,8 +48,8 @@ const routes: Routes = [
   // },
   {
     path: '',
-    redirectTo: '/no_id/n_user',
-    // redirectTo: 'survey/noProject/no_user',
+    // redirectTo: '/no_id/no_user',
+    redirectTo: 'survey/noProject/no_user',
     pathMatch: 'full'
   }
 ];
