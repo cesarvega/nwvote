@@ -134,13 +134,13 @@ export class BmxCreatorComponent implements OnInit {
         this.userDepartment = data.Department;
 
         // TEST DATA
-        this.userOffice = 'Miami';
+        // this.userOffice = 'Miami';
+        // this.userRole = 'admin'; // no restrictions
+        // this.userDepartment = 'Creative';
         // this.userOffice = 'Basel 1'
         // this.userRole = 'director'; // director restriced
         // this.userRole = 'creative';
         // this.userRole = 'user'
-        this.userRole = 'admin'; // no restrictions
-        this.userDepartment = 'Creative';
         // this.userDepartment = 'Design'
       });
     });
