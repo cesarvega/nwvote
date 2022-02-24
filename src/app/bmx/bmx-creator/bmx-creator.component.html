@@ -1,4 +1,4 @@
-<div *ngIf="userRole != 'user'" class="main-container">
+<div *ngIf="userRole != 'User'" class="main-container">
 
   <button class="no-print" *ngIf="globalProjectName.length > 0"
     style="position: absolute;bottom: 30px;z-index: 9999999999;right: 150px;outline: none;"
@@ -379,7 +379,7 @@
 
 </div>
 
-<div *ngIf="userRole =='user'" class="userModal" >
+<div *ngIf="userRole =='User'" class="userModal" >
   <mat-card class="flex-column ">
     <mat-icon style="font-weight: bold;font-size: 35px;color: #032c72; animation: fadeIn 0.6s ease-in-out 0.3s backwards;">info
     </mat-icon>

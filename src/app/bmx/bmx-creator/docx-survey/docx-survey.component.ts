@@ -2267,7 +2267,6 @@ export class DocxSurveyComponent implements OnInit {
         type: WidthType.PERCENTAGE,
       },
     }),
-
     
     new Paragraph
       ({
@@ -2288,7 +2287,6 @@ export class DocxSurveyComponent implements OnInit {
         children: [
         ],
       }),
-      
     new Paragraph({
       children: [
         new TextRun({
