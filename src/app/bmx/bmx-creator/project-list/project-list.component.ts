@@ -107,9 +107,12 @@ export class ProjectListComponent implements OnInit {
       } if (this.userRole == 'Administrator') {
         // this.viewedData = this.viewedData.filter((filterByDepartment: any) => filterByDepartment.bmxDepartment == this.userDepartment);
       } else {
-        this.viewedData = this.viewedData.filter((filterByDepartment: any) => filterByDepartment.bmxDepartment == this.userDepartment);
+        this.viewedData = this.viewedData.filter((filterByDepartment: any) =>{
+           filterByDepartment.bmxDepartment == this.userDepartment
+          });
       }
     }
+    
 
     this.dataSource = new MatTableDataSource<any>(this.viewedData);
     this.dataSource.paginator = this.paginator;
