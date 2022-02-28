@@ -44,14 +44,14 @@ const routes: Routes = [
   //   path: ':id',
   //   component: NW3Component
   // },
-  {
-    path: '',
-    redirectTo: 'bmx/58B303F8-D19C-4DEC-9EC5-361CE4EFBA71',
-    // redirectTo: '/no_id/n_user',
-    // redirectTo: 'bmx/99CB72BF-D163-46A6-8A0D-E1531EC7FEDC',
-    // redirectTo: 'survey/noProject/no_user',
-    pathMatch: 'full'
-  }
+  // {
+  //   path: '',
+  //   redirectTo: 'bmx/58B303F8-D19C-4DEC-9EC5-361CE4EFBA71',
+  //   // redirectTo: '/no_id/n_user',
+  //   // redirectTo: 'bmx/99CB72BF-D163-46A6-8A0D-E1531EC7FEDC',
+  //   // redirectTo: 'survey/noProject/no_user',
+  //   pathMatch: 'full'
+  // }
 ];
 
 @NgModule({
