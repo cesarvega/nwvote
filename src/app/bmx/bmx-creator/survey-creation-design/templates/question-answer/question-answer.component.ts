@@ -102,6 +102,13 @@ export class QuestionAnswerComponent extends RatingScaleComponent implements OnI
   }
 
   insertAnswerColumn() {
+    this.commentColumnCounter = 0
+    this.columnsNames.forEach(columnName => {
+      if (columnName.includes('Answers')) {
+        this.commentColumnCounter++
+        // this.RadioColumnList.push('RadioColumn' + this.commentColumnCounter)
+      }
+    });
     this.columnsNames.push('Answers' + (this.commentColumnCounter));
     this.bmxItem.componentText.forEach((object, index) => {
       let coulmnName = 'Answers' + this.commentColumnCounter
@@ -111,6 +118,6 @@ export class QuestionAnswerComponent extends RatingScaleComponent implements OnI
         object[coulmnName] = 'Answers'
       }
     });
-    this.commentColumnCounter++
+    // this.commentColumnCounter++
   }
 }
