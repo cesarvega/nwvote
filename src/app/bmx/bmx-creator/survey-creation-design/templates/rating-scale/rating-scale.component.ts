@@ -94,9 +94,9 @@ export class RatingScaleComponent implements OnInit {
     let amountOfAnswersRateCounter = 0
     this.bmxItem.componentText.forEach((item, index) => {
       if (index > 0) {
-        if(item.RATE > 0 ){
+        if (item.RATE > 0) {
           amountOfAnswersRateCounter++
-          if(this.bmxItem.componentText.length -1 == amountOfAnswersRateCounter){
+          if (this.bmxItem.componentText.length - 1 == amountOfAnswersRateCounter) {
             this.bmxItem.componentSettings[0].categoryRulesPassed = true
           }
         }
@@ -258,7 +258,7 @@ export class RatingScaleComponent implements OnInit {
         this.bmxItem.componentSettings[0].categoryRulesPassed = true
       } else { this.bmxItem.componentSettings[0].categoryRulesPassed = false }
     }
-    
+
   }
 
   selectCriteriaStar(starId, criteriaId, testNameId): void {
@@ -414,12 +414,12 @@ export class RatingScaleComponent implements OnInit {
       }
     }
     setTimeout(() => {
-      this.bmxItem.componentSettings[0].minRule = ( this.bmxItem.componentSettings[0].minRule == 0)? this.bmxItem.componentText.length -1 : this.bmxItem.componentSettings[0].minRule
-      if(this.bmxItem.componentSettings[0].CRITERIA){
+      this.bmxItem.componentSettings[0].minRule = (this.bmxItem.componentSettings[0].minRule == 0) ? this.bmxItem.componentText.length - 1 : this.bmxItem.componentSettings[0].minRule
+      if (this.bmxItem.componentSettings[0].CRITERIA) {
         //MULTIPLY FOR THE AMOUNT OF CRITERIA
-        this.bmxItem.componentSettings[0].minRule =  this.bmxItem.componentSettings[0].minRule* this.bmxItem.componentText[0].CRITERIA.length
+        this.bmxItem.componentSettings[0].minRule = this.bmxItem.componentSettings[0].minRule * this.bmxItem.componentText[0].CRITERIA.length
       }
-        this.dragRows = false;
+      this.dragRows = false;
     }, 1000);
 
     // this.swapColumns(0)
@@ -527,6 +527,7 @@ export class RatingScaleComponent implements OnInit {
 
   insertCommentBoxColumn() {
     this.recordHistory()
+    this.commentColumnCounter = 0
     this.columnsNames.forEach(columnName => {
       if (columnName.includes('Comments')) {
         this.commentColumnCounter++
@@ -542,7 +543,7 @@ export class RatingScaleComponent implements OnInit {
         object[coulmnName] = 'General Comments'
       }
     });
-    this.commentColumnCounter++
+    
   }
 
   insertRadioColumn() {
@@ -659,14 +660,13 @@ export class RatingScaleComponent implements OnInit {
     if (confirm('Are you sure you want to delete ' + columnName + ' column?')) {
       this.recordHistory()
       let temporary = []
+      if (columnName.includes('Comments') && this.commentColumnCounter > 0) {
+        this.commentColumnCounter--
+      }
       // REMOVE THE COLUMN FROM THE COLUMNS
       this.columnsNames.forEach((element, index) => {
         if (element !== columnName) {
           temporary.push(element)
-          if (element.includes('Comments')) {
-            // this.RadioColumnList['RadioColumn' + this.commentColumnCounter] = undefined
-            this.commentColumnCounter--
-          }
         }
       });
       this.columnsNames = temporary;
