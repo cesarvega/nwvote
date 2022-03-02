@@ -84,6 +84,8 @@ export class ProjectInformationComponent implements OnInit {
           this.DIRECTORS = data.bmxRegionalOffice;
           this.bmxEditData.patchValue({ bmxRegionalOffice: this.DIRECTORS });
 
+          this._BmxService.setprojectData(this.bmxEditData.value)
+
         });
     }
 

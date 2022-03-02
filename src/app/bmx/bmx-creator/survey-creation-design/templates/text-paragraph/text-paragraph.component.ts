@@ -1,4 +1,5 @@
 import { Component, ElementRef, EventEmitter, Inject, Input, OnInit, Output, ViewChild, ViewEncapsulation } from '@angular/core';
+import { BmxService } from '../../../bmx.service';
 
 @Component({
   selector: 'app-text-paragraph',
@@ -13,7 +14,8 @@ export class TextParagraphComponent implements OnInit {
 
   openSettings = false
   ckconfig;
-  constructor() { }
+  projectName: any;
+  constructor(private _bmxService:BmxService) { }
 
   ngOnInit(): void {
     this.ckconfig = {
@@ -42,6 +44,16 @@ export class TextParagraphComponent implements OnInit {
       removeButtons: 'Smiley,tableselection,Image,Save,NewPage,Preview,Print,Templates,Replace,SelectAll,Form,Checkbox,Radio,TextField,Textarea,Find,Select,Button,ImageButton,HiddenField,CopyFormatting,CreateDiv,BidiLtr,BidiRtl,Language,Flash,PageBreak,Iframe,ShowBlocks,Cut,Copy,Paste,Table,Format,Source,Maximize,Styles,Anchor,SpecialChar,PasteFromWord,PasteText,Scayt,RemoveFormat,Indent,Outdent,Blockquote'
 
     }
+  }
+
+  replaceBiI_Markers(){
+    this._bmxService.currentprojectData$.subscribe(arg => {
+      this.projectName = arg
+      
+      this.bmxItem.componentText.replace('BI_PROJECTNAME', this.projectName);
+
+    });
+    
   }
 
 }

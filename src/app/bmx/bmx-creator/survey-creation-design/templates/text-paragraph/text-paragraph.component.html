@@ -3,7 +3,7 @@
     <mat-icon class="full-icon" style="font-size: 25px;">check_circle</mat-icon>
 </button>
 <button *ngIf="!openSettings && bmxClientPageOverview" mat-icon-button class="edit-icon"
-    (click)="openSettings = !openSettings">
+    (click)="openSettings = !openSettings; replaceBiI_Markers()">
     <mat-icon class="full-icon" style="font-size: 25px;">edit</mat-icon>
 </button>
 <div style="margin: 30px;font-size: 20px;" [innerHTML]="bmxItem.componentText | safe: 'html'"></div>
