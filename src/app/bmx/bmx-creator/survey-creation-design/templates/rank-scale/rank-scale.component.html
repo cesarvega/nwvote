@@ -170,6 +170,8 @@
         <input type="text" [(ngModel)]="bmxItem.componentSettings[0].categoryDescription"
             [value]="bmxItem.componentSettings[0].categoryDescription"
             style="font-size: 20px;color: #ee7f25;padding-bottom: 4px;padding-left: 7px;">
+            
+        <mat-checkbox [(ngModel)]="randomizeTestNames">Randomize Names</mat-checkbox>
 
         <div style="display: flex;flex-direction: column;justify-content: center;gap: 10px;">
             <div style="font-size: 16px;margin-top: 10px;color: #48535e;text-align: center;">MIN:
@@ -268,7 +270,7 @@
         [(dragulaModel)]="bmxItem.componentText" (dragulaModelChange)="checkDragEvetn($event);">
         <div *ngFor="let testName of bmxItem.componentText; let y = index">
 
-            <div class="test-name-table" style="cursor: grab;">
+            <div class="test-name-table" >
 
                 <!--⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️ RANK RENDERER ⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️ -->
                 <div [ngClass]="(this.bmxItem.componentSettings[0].rankType == 'dragAndDrop')?'rank-column':
@@ -336,38 +338,35 @@
 
                     <!-- 🟢🟢🟢🟢🟢🟢🟢🟢🟢🟢🟢🟢🟢🟢 HEADER TEXT AREA 🟢🟢🟢🟢🟢🟢🟢🟢🟢🟢🟢🟢🟢🟢🟢🟢 -->
 
-                    <div *ngIf="(y == 0)" class="header-title" (mouseenter)="selectedColumn = e"
-                        (mouseleave)="selectedColumn = ''">
+                    <div *ngIf="(y == 0)" class="header-title" (mouseenter)="selectedColumn = e">
+                        <div>
+                            <textarea *ngIf="editSingleTableCells"
+                                [style.font-size]="bmxItem.componentSettings[0].fontSize +'px'"
+                                style="text-align: center; font-weight: bold;color: #324395;" class="row-box"
+                                [(ngModel)]="testName[columnName]" value="testName[columnName]"></textarea>
 
-                        <!-- IF YOU WANT TO DELET ALL COLUMNS PASS THE COLUMN NAME  NOT testName[columnName]-->
-                        <span *ngIf="selectedColumn === e && bmxClientPageOverview && !editSingleTableCells"
-                            class="header-delete-icon" matTooltip="double click to delete column"
-                            matTooltipPosition="above" (dblclick)="deleteColumn(columnName)">x</span>
+                            <p style="text-align: center; font-weight: bold;color: #324395;margin: 0 0 0px;padding:5px 1px"
+                                [style.font-size]="bmxItem.componentSettings[0].fontSize +'px'"
+                                *ngIf=" !editSingleTableCells">{{testName[columnName]}}
+                            </p>
+                        </div>
+                        <div *ngIf="selectedColumn === e && bmxClientPageOverview && !editSingleTableCells" style="display: flex;flex-direction: row;justify-content: space-around;
+                        position: absolute;top: 35px;background: white;border: #324395 dashed 1px;"  (mouseleave)="selectedColumn = ''">
+                            <span  class="header-delete-icon"
+                                matTooltip="double click to delete column" matTooltipPosition="above"
+                                (dblclick)="deleteColumn(columnName)">x</span>
+                            <mat-icon  style="cursor: pointer;"
+                                (click)="swapColumns(e)">chevron_right</mat-icon>
 
+                            <mat-icon  style="cursor: pointer;"
+                                (click)="columnFontSizeAdjust(columnName, 'decrease')">remove</mat-icon>
 
-                        <textarea *ngIf="y == 0 && editSingleTableCells"
-                            [style.font-size]="bmxItem.componentSettings[0].fontSize +'px'"
-                            style="text-align: center; font-weight: bold;color: #324395;" class="row-box"
-                            [(ngModel)]="testName[columnName]" value="testName[columnName]"></textarea>
+                            <mat-icon 
+                                style="cursor: pointer;">text_format</mat-icon>
 
-
-                        <p style="text-align: center; font-weight: bold;color: #324395;margin: 0 0 0px;"
-                            [style.font-size]="bmxItem.componentSettings[0].fontSize +'px'"
-                            *ngIf=" !editSingleTableCells">
-                            {{testName[columnName]}}
-                        </p>
-                        <mat-icon *ngIf="selectedColumn === e && bmxClientPageOverview" style="cursor: pointer;"
-                            (click)="swapColumns(e)">chevron_right</mat-icon>
-
-                        <mat-icon *ngIf="selectedColumn === e && bmxClientPageOverview" style="cursor: pointer;"
-                            (click)="columnFontSizeAdjust(columnName, 'decrease')">remove</mat-icon>
-
-                        <mat-icon *ngIf="selectedColumn === e && bmxClientPageOverview" style="cursor: pointer;">
-                            text_format
-                        </mat-icon>
-
-                        <mat-icon *ngIf="selectedColumn === e && bmxClientPageOverview" style="cursor: pointer;"
-                            (click)="columnFontSizeAdjust(columnName, 'increase')">add</mat-icon>
+                            <mat-icon  style="cursor: pointer;"
+                                (click)="columnFontSizeAdjust(columnName, 'increase')">add</mat-icon>
+                        </div>
                     </div>
 
                     <!-- 🟢🟢🟢🟢🟢🟢🟢🟢🟢🟢🟢🟢🟢🟢 END HEADER TEXT AREA  🟢🟢🟢🟢🟢🟢🟢🟢🟢🟢🟢🟢🟢🟢🟢🟢 -->
