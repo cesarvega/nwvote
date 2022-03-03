@@ -64,6 +64,7 @@ export class RatingScaleComponent implements OnInit {
   RANGEARRAY = ['columnWidth1', 'columnWidth2', 'columnWidth3']
   selectedNarrowDownTimer = 0;
   columnFontSize = 15;
+  randomizeTestNames = false
 
   constructor(private dragulaService: DragulaService, private _snackBar: MatSnackBar) {
     //   dragulaService.createGroup('DRAGGABLE_ROW', {
@@ -384,8 +385,24 @@ export class RatingScaleComponent implements OnInit {
           this.TESTNAMES_LIST.push(objectColumnDesign);
         }
       }
-      this.bmxItem.componentText = this.deleteDuplicates(this.TESTNAMES_LIST, 'nameCandidates');
-      this.columnsNames.push('RATE')
+
+      // RANDOMIZE TEST NAMES
+
+
+        if (this.randomizeTestNames) {
+          let headerRow = this.TESTNAMES_LIST[0]
+          this.TESTNAMES_LIST.pop()
+          this.ramdomizeArray()
+          this.TESTNAMES_LIST.unshift(headerRow)
+          this.bmxItem.componentText = this.deleteDuplicates(this.TESTNAMES_LIST, 'nameCandidates');
+          this.columnsNames.push('RATE')
+        }else{
+          this.bmxItem.componentText = this.deleteDuplicates(this.TESTNAMES_LIST, 'nameCandidates');
+          this.columnsNames.push('RATE')
+        }
+
+
+
     } else {
       this.autoSizeColumns('RATE', '', this.rankingScaleValue)
       if (this.ASSIGNED_CRITERIA.length > 0) {
@@ -423,6 +440,10 @@ export class RatingScaleComponent implements OnInit {
     }, 1000);
 
     // this.swapColumns(0)
+  }
+
+  ramdomizeArray() {
+    this.TESTNAMES_LIST.sort(() => Math.random() - 0.5);
   }
 
   // delete row diplicates from array of object by property
@@ -543,7 +564,7 @@ export class RatingScaleComponent implements OnInit {
         object[coulmnName] = 'General Comments'
       }
     });
-    
+
   }
 
   insertRadioColumn() {

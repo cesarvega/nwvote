@@ -15,7 +15,7 @@ export class TextParagraphComponent implements OnInit {
   openSettings = false
   ckconfig;
   projectName: any;
-  constructor(private _bmxService:BmxService) { }
+  constructor(private _bmxService: BmxService) { }
 
   ngOnInit(): void {
     this.ckconfig = {
@@ -46,14 +46,42 @@ export class TextParagraphComponent implements OnInit {
     }
   }
 
-  replaceBiI_Markers(){
-    this._bmxService.currentprojectData$.subscribe(arg => {
-      this.projectName = arg
-      
-      this.bmxItem.componentText.replace('BI_PROJECTNAME', this.projectName);
+  replaceBiI_Markers() {
+    this._bmxService.currentprojectData$.subscribe((arg: any) => {
+      this.projectName = arg.bmxProjectName
+
+      this.bmxItem.componentText = this.bmxItem.componentText.replace('BI_PROJECTNAME', this.projectName);
+
+      arg.bmxRegionalOffice.forEach((director: any, index: number) => {
+
+     
+    let directorString =  `<div style="display: flex;justify-content: space-evenly; align-items: center;width: 90vw;">
+        <div style="text-align: left;width: 400px;">
+            <div >${director.name.trim()}</div>
+            <div style="font-family: auto;
+            font-size: 16px;
+            font-style: italic;">${director.title.trim()}</div>
+        </div>
+        <div style="text-align: left;width: 300px;">${director.email.trim()}</div>
+        <div style="text-align: left;width: 300px;">${director.phone.trim()}</div>
+      </div>
+      `
+
+        if (index == 0) {
+          this.bmxItem.componentText = this.bmxItem.componentText.replace('BI_DIRECTOR',directorString);
+        } else if (index == 1) {
+          this.bmxItem.componentText = this.bmxItem.componentText.replace('BI_DIRECTOR1',directorString);
+        } else if (index == 2) {
+          this.bmxItem.componentText = this.bmxItem.componentText.replace('BI_DIRECTOR2',directorString);
+        } else if (index == 3) {
+          this.bmxItem.componentText = this.bmxItem.componentText.replace('BI_DIRECTOR3',directorString);
+        } else if (index == 4) {
+          this.bmxItem.componentText = this.bmxItem.componentText.replace('BI_DIRECTOR4',directorString);
+        }
+      });
 
     });
-    
+
   }
 
 }

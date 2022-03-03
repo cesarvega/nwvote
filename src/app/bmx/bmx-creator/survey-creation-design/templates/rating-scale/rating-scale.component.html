@@ -175,6 +175,8 @@
             [value]="bmxItem.componentSettings[0].categoryDescription"
             style="font-size: 20px;color: #ee7f25;padding-bottom: 4px;padding-left: 7px;">
 
+        <mat-checkbox [(ngModel)]="randomizeTestNames" >Randomize Names</mat-checkbox>
+
         <div style="display: flex;flex-direction: column;justify-content: center;gap: 10px;">
             <div style="font-size: 16px;margin-top: 10px;color: #48535e;text-align: center;">MIN:
                 {{bmxItem.componentSettings[0].minRule}}</div>
