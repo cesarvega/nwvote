@@ -1,9 +1,9 @@
-<button *ngIf="openSettings && bmxClientPageOverview" class="cancel" (click)="openSettings = !openSettings"
+<button *ngIf="openSettings && bmxClientPageOverview" class="cancel" (click)=" replaceBiI_Markers(); openSettings = !openSettings"
     mat-icon-button>
     <mat-icon class="full-icon" style="font-size: 25px;">check_circle</mat-icon>
 </button>
 <button *ngIf="!openSettings && bmxClientPageOverview" mat-icon-button class="edit-icon"
-    (click)="openSettings = !openSettings">
+    (click)="openSettings = !openSettings;">
     <mat-icon class="full-icon" style="font-size: 25px;">edit</mat-icon>
 </button>
 <div style="margin: 30px;font-size: 20px;" [innerHTML]="bmxItem.componentText | safe: 'html'"></div>
@@ -13,3 +13,12 @@
         [(ngModel)]="bmxItem.componentText" [data]="bmxItem.componentText" [config]="ckconfig">
     </ckeditor>
 </div>
+
+<!-- <div style="display: flex;justify-content: space-around; align-items: center;width: 90vw;">
+    <div style="text-align: left;width: 400px;">
+        <div >Name</div>
+        <div >Title</div>
+    </div>
+    <div style="text-align: left;width: 300px;">email</div>
+    <div style="text-align: left;width: 300px;">phone</div>
+</div> -->
