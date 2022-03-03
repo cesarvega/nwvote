@@ -119,16 +119,16 @@
 
             <!-- PAGE BUTTONS AND DIRECTIONS 1 2 3 📲📲📲📲📲📲📲📲📲📲📲📲📲📲📲📲📲📲📲📲📲📲📲📲📲📲📲📲📲📲📲📲📲📲-->
             <div class="page-buttons">
-                <div class="page-buttons-heigth-minus-50">
+                <div class="page-buttons-heigth-minus-50"style="gap:10px">
 
-                    <button *ngIf="isBrandMatrixSurvey" (click)="changePage('previous')" mat-icon-button>
+                    <!-- <button *ngIf="isBrandMatrixSurvey" (click)="changePage('previous')" mat-icon-button>
                         <mat-icon class="full-icon">chevron_left</mat-icon>
-                    </button>
-                    <button *ngIf="isBrandMatrixSurvey" (click)="changePage('previous')" mat-icon-button>
-                        Prev
+                    </button> -->
+                    <button style="background: #324395;color: white;" *ngIf="isBrandMatrixSurvey" (click)="changePage('previous')" mat-raised-button>
+                        <mat-icon class="full-icon">chevron_left</mat-icon> Prev 
                     </button>
                     <div *ngFor="let page of bmxPagesClient; let pageIndex = index">
-                        <button style="min-width: 35px;"
+                        <button disableRipple style="min-width: 35px;cursor: auto;outline: none;"
                             [ngClass]="(currentPage === pageIndex)?'pageNumberActive':'pageNumber'" mat-raised-button>
                             {{page.pageNumber}}
                         </button>
@@ -138,12 +138,12 @@
                             {{page.pageNumber}}
                         </button> -->
                     </div>
-                    <button *ngIf="isBrandMatrixSurvey" (click)="changePage('next')" mat-icon-button>
-                        Next
+                    <button style="background: #324395;color: white;" *ngIf="isBrandMatrixSurvey" (click)="changePage('next')" mat-raised-button>
+                        Next<mat-icon class="full-icon">chevron_right</mat-icon>
                      </button>
-                    <button *ngIf="isBrandMatrixSurvey" (click)="changePage('next')" mat-icon-button>
+                    <!-- <button *ngIf="isBrandMatrixSurvey" (click)="changePage('next')" mat-icon-button>
                         <mat-icon class="full-icon">chevron_right</mat-icon>
-                    </button>
+                    </button> -->
                 </div>
             </div>
             <!-- 📲📲📲📲📲📲📲📲📲📲📲📲📲📲📲📲📲📲📲📲📲📲📲📲📲📲📲📲📲📲📲📲📲📲 END PAGE BUTTONS AND DIRECTIONS -->
