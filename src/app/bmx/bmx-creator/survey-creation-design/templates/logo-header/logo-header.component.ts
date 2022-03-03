@@ -36,6 +36,8 @@ export class LogoHeaderComponent implements OnInit {
   projectId: any;
   biUsername: any;
   imageLogoSrc 
+  showLogoIcon = false
+
   constructor(private _BmxService: BmxService) {}
 
   ngOnInit(): void {

@@ -1,32 +1,33 @@
-<div class="desktop">
+<div class="desktop"  (mouseenter)="showLogoIcon = true" (mouseleave)="showLogoIcon = false">
     <!-- <span
         style="color: #053074;font-size: 30px;outline: none;font-family: Arial, Helvetica, 
         sans-serif;text-align: center;padding-top: 20px;">{{bmxItem.componentText}}</span> -->
-        <div class="emoji-handle">.</div>
+    <div class="emoji-handle">.</div>
     <div
         style="display: flex;flex-direction: row;justify-items: center;justify-content: space-between;align-items: center;margin: -30px 35px;">
         <div>
-            <img style="width: 231px;margin-left: 8px;margin-top: 60px;"
-                [src]="(isBrandMatrixSurvey)?bmxItem.componentSettings[0].brandInstituteSurveyLogoURL:
+            <img style="width: 231px;margin-left: 8px;margin-top: 60px;" [src]="(isBrandMatrixSurvey)?bmxItem.componentSettings[0].brandInstituteSurveyLogoURL:
                 bmxItem.componentSettings[0].brandInstituteLogoURL">
         </div>
         <div>
-            <input  type="file" class="file-input" (change)="onFileSelected($event)" #fileUpload style="display: none;"
+            <input type="file" class="file-input" (change)="onFileSelected($event)" #fileUpload style="display: none;"
                 accept="image/x-png,image/gif,image/jpeg">
-                
+
+
+            <mat-icon *ngIf="showLogoIcon" matTooltip="click to hide" matTooltipPosition="left"
+                style="cursor: pointer;position: absolute;top: 19px;right: 167px;z-index: 999;" (click)="deleteIcon()">
+                add_circle</mat-icon>
+
             <div *ngIf="displayLogoWidthRange && bmxClientPageOverview" (mouseleave)="displayLogoWidthRange = false"
                 style="position: absolute;top: -15px;right: 0px;">
 
-                <mat-icon 
-                 matTooltip="click to hide" matTooltipPosition="left" 
-                 style="cursor: pointer;position: absolute;top: 19px;right: 167px;z-index: 999;"
-                (click)="deleteIcon()">cancel</mat-icon>
+
 
                 <p style="margin: 0 0 -12px;color: grey;">logo width: {{bmxItem.componentSettings[0].logoWidth}} px</p>
                 <input type="range" style="margin: 20px;width: 140px;    text-align: center;"
                     [(ngModel)]="bmxItem.componentSettings[0].logoWidth" class="slider-font-size" tickInterval="1"
                     min="50" max="500" [value]="bmxItem.componentSettings[0].logoWidth">
-                
+
             </div>
 
             <img (mouseenter)="displayLogoWidthRange = true" (dblclick)="fileUpload.click()"
@@ -43,8 +44,7 @@
     <div
         style="display: flex;flex-direction: column;justify-items: center;justify-content: space-between;align-items: center;">
         <div>
-            <img style="width: 50px; margin-bottom: 13px;"
-                [src]="bmxItem.componentSettings[0].brandInstituteMobileURL">
+            <img style="width: 50px; margin-bottom: 13px;" [src]="bmxItem.componentSettings[0].brandInstituteMobileURL">
         </div>
         <div>
             <!-- <img (mouseenter)="displayLogoWidthRange = true" (dblclick)="fileUpload.click()"
@@ -53,7 +53,7 @@
         </div>
         <div>
             <span
-        style="color: #053074;font-size: 20px;outline: none;font-family: Arial, Helvetica, sans-serif;text-align: center;padding-top: 20px;">{{bmxItem.componentText}}</span>
+                style="color: #053074;font-size: 20px;outline: none;font-family: Arial, Helvetica, sans-serif;text-align: center;padding-top: 20px;">{{bmxItem.componentText}}</span>
         </div>
     </div>
 </div>
