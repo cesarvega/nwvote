@@ -247,7 +247,7 @@ export class SurveyCreationDesignComponent implements OnInit {
         this.isBrandMatrixSurvey = false;
         this._BmxService.currentProjectName$.subscribe(projectName => {
             this.projectId = (projectName !== '') ? projectName : this.projectId;
-            localStorage.setItem('projectName',  this.projectId);
+            localStorage.setItem('projectName', this.projectId);
         })
 
         this.myAngularxQrCode = this.myAngularxQrCode + this.projectId + '/' + this.biUsername
@@ -716,6 +716,7 @@ export class SurveyCreationDesignComponent implements OnInit {
             setTimeout(() => {
                 this.openSaveTemplateBox();
             }, 1000);
+
         }
     }
 
@@ -799,6 +800,55 @@ export class SurveyCreationDesignComponent implements OnInit {
 
 
     saveData() {
+        // RESET VOTES IN TEMPLATE
+        this.bmxPages.forEach((pageToreset: any) => {
+            pageToreset.page.forEach(category => {
+                if (
+                    category.componentType == 'rate-scale' ||
+                    category.componentType == 'ranking-scale' ||
+                    category.componentType == 'image-rate-scale' ||
+                    category.componentType == 'narrow-down' ||
+                    category.componentType == 'question-answer'
+                ) {
+                    if (category.componentSettings[0].CRITERIA) {
+                        category.componentText.forEach((row: any, index: number) => {
+                            if (index > 0) {                               
+                                row.CRITERIA.forEach((criteria: any) => {
+                                    criteria.RATE = -1;
+                                    criteria.STARS.forEach((star: any) => {
+                                        star.styleClass = 'rating-star'
+                                    });
+                                });
+                            }
+                        });
+                    } else {
+                        if (
+                            category.componentType == 'rate-scale' ||
+                            category.componentType == 'ranking-scale' ||
+                            category.componentType == 'image-rate-scale' ||
+                            category.componentType == 'narrow-down' ||
+                            category.componentType == 'question-answer'
+                        ) {
+                            category.componentText.forEach((row: any, index: number) => {
+                                if (index > 0) {
+                                    row.RATE = -1;
+                                    row.STARS.forEach((star: any) => {
+                                        star.styleClass = 'rating-star'
+                                    });
+                                }
+
+                            });
+                        }
+                    }
+
+
+                }
+
+            });
+        });
+        console.log('test');
+
+
         if (confirm('Are you sure you want save overwrite this project?')) {
             this.projectInfo = JSON.parse(
                 localStorage.getItem('fakeproject' + '_project_info')
