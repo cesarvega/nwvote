@@ -15,6 +15,7 @@ export class TextParagraphComponent implements OnInit {
   openSettings = false
   ckconfig;
   projectName: any;
+  previousText = ''
   constructor(private _bmxService: BmxService) { }
 
   ngOnInit(): void {
@@ -44,9 +45,11 @@ export class TextParagraphComponent implements OnInit {
       removeButtons: 'Smiley,tableselection,Image,Save,NewPage,Preview,Print,Templates,Replace,SelectAll,Form,Checkbox,Radio,TextField,Textarea,Find,Select,Button,ImageButton,HiddenField,CopyFormatting,CreateDiv,BidiLtr,BidiRtl,Language,Flash,PageBreak,Iframe,ShowBlocks,Cut,Copy,Paste,Table,Format,Source,Maximize,Styles,Anchor,SpecialChar,PasteFromWord,PasteText,Scayt,RemoveFormat,Indent,Outdent,Blockquote'
 
     }
+    this.previousText = this.bmxItem.componentText
   }
 
   replaceBiI_Markers() {
+    this.previousText = this.bmxItem.componentText
     this._bmxService.currentprojectData$.subscribe((arg: any) => {
       this.projectName = arg.bmxProjectName
 
@@ -82,6 +85,10 @@ export class TextParagraphComponent implements OnInit {
 
     });
 
+  }
+
+  editTextWithEditor(){
+    this.bmxItem.componentText = this.previousText
   }
 
 }
