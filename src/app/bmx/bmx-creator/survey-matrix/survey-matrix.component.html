@@ -125,7 +125,7 @@
                         <mat-icon class="full-icon">chevron_left</mat-icon>
                     </button> -->
                     <button style="background: #324395;color: white;" *ngIf="isBrandMatrixSurvey" (click)="changePage('previous')" mat-raised-button>
-                        <mat-icon class="full-icon">chevron_left</mat-icon> Prev 
+                        <mat-icon class="full-icon">chevron_left</mat-icon> Previous
                     </button>
                     <div *ngFor="let page of bmxPagesClient; let pageIndex = index">
                         <button disableRipple style="min-width: 35px;cursor: auto;outline: none;"
@@ -139,7 +139,7 @@
                         </button> -->
                     </div>
                     <button style="background: #324395;color: white;" *ngIf="isBrandMatrixSurvey" (click)="changePage('next')" mat-raised-button>
-                        Next<mat-icon class="full-icon">chevron_right</mat-icon>
+                        Continue<mat-icon class="full-icon">chevron_right</mat-icon>
                      </button>
                     <!-- <button *ngIf="isBrandMatrixSurvey" (click)="changePage('next')" mat-icon-button>
                         <mat-icon class="full-icon">chevron_right</mat-icon>
