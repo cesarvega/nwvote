@@ -11,17 +11,21 @@
           Status</mat-checkbox>
       </div>
       <hr>
-      <div class="page-buttons">
-          <div *ngFor="let page of numberOfpages; let pageIndex = index">
-            <button style="min-width: 35px;" [ngClass]="(currentPage === pageIndex)?'pageNumberActive':'pageNumber'"
-              mat-raised-button>
-              {{page}}
+      <div class="pages-to-print">
+        <h3>pages to be printed</h3>
+        <div class="page-buttons">
+          <div *ngFor="let page of numberOfpages; let pageIndex = index" class="label-buttons">
+            <button style="min-width: 35px;" (click)="togglePaeToPrint(pageIndex)"
+              [ngClass]="page.print?'pageNumberActive':'pageNumber'" mat-raised-button>
+              {{page.number}}
             </button>
+            <p>{{page.type}}</p>
             <!-- DISBLE CLICKING ON THE BUTTONS -->
             <!-- <button style="min-width: 35px;" (click)="selectPageNumber(pageIndex)"
             [ngClass]="(currentPage === pageIndex)?'pageNumberActive':'pageNumber'" mat-raised-button>
             {{page.pageNumber}}
-        </button> -->
+          </button> -->
+          </div>
         </div>
       </div>
       <hr>
@@ -47,7 +51,7 @@
       <hr>
       <div style="display:flex;flex-direction: column;justify-content: center;align-items: center;">
         <h3><span style="font-weight: bold;">SELECT RESPONDENTS</span></h3>
-        <app-docx-survey> [reportSettings]="reportSettings" [isMenuActive5]="true"></app-docx-survey>
+        <app-docx-survey [reportSettings]="reportSettings" [isMenuActive5]="true"></app-docx-survey>
       </div>
     </mat-card-content>
   </mat-card>

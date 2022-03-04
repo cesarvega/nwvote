@@ -1,6 +1,4 @@
-import { Component, Inject, OnInit, ViewEncapsulation } from '@angular/core';
-import { DOCUMENT } from '@angular/common';
-import { HotkeysService } from 'angular2-hotkeys';
+import { Component, OnInit, ViewEncapsulation } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { BmxService } from './bmx.service';
 import { DragulaService } from 'ng2-dragula';
@@ -13,7 +11,7 @@ import { DragulaService } from 'ng2-dragula';
 export class BmxCreatorComponent implements OnInit {
   // https://getemoji.com/
   userName = 'Alexa';
-  bmxClientPageDesignMode = true; // TURN FALSE TO PLAY ON DEVELOPMENT
+  bmxClientPageDesignMode = false; // TURN FALSE TO PLAY ON DEVELOPMENT
   bmxClientPageOverview = false;
   displayRightSideMenu = false;
   isBrandMatrixSurvey = true;
@@ -119,50 +117,48 @@ export class BmxCreatorComponent implements OnInit {
   userDepartment: string;
 
   constructor(
-    @Inject(DOCUMENT) private document: any,
     private activatedRoute: ActivatedRoute,
-    private _hotkeysService: HotkeysService,
-    private dragulaService: DragulaService,
+    dragulaService: DragulaService,
     private _BmxService: BmxService
   ) {
     this.activatedRoute.params.subscribe((params) => {
       this.userGUI = params['id'];
 
       // localStorage.setItem('projectId', this.projectId);
-      this._BmxService.getMatrixUser( this.userGUI).subscribe((data:any) => {
-        data  = JSON.parse(data.d);
-        this.userName = data.UserName
-        this.userFullName = data.FullName
-        this.userOffice = data.Office
-        this.userRole = data.Role
-        this.userDepartment = data.Department
+      this._BmxService.getMatrixUser(this.userGUI).subscribe((data: any) => {
+        data = JSON.parse(data.d);
+        this.userName = data.UserName;
+        this.userFullName = data.FullName;
+        this.userOffice = data.Office;
+        this.userRole = data.Role;
+        this.userDepartment = data.Role;
 
         // TEST DATA
-        this.userOffice = 'Miami'
+        // this.userOffice = 'Miami';
+        // this.userRole = 'admin'; // no restrictions
+        // this.userDepartment = 'Creative';
         // this.userOffice = 'Basel 1'
-        this.userRole = 'director' // director restriced
-        this.userRole = 'creative'
+        // this.userRole = 'director'; // director restriced
+        // this.userRole = 'creative';
         // this.userRole = 'user'
-        this.userRole = 'admin'  // no restrictions
-        this.userDepartment = 'Creative'
         // this.userDepartment = 'Design'
-
-      })
+      });
     });
 
-    this._BmxService.currentProjectName$.subscribe(res=>{
-      this.globalProjectName = (res)? res : '';
-    })
+    this._BmxService.currentProjectName$.subscribe((res) => {
+      this.globalProjectName = res ? res : '';
+    });
 
     // PRODUCTION INITIAL MENU
     this.toggleMenuActive('isMenuActive1');
     this.bmxClientPageDesignMode = true;
     this.isMainMenuActive = true;
 
-    // TESTING SETTINGS
+    // TESTING SETTINGS 🍎🍎🍎🍎🍎🍎🍎🍎🍎🍎🍎🍎🍎🍎🍎🍎🍎🍎🍎🍎🍎🍎🍎🍎🍎🍎🍎🍎🍎🍎🍎🍎🍎🍎🍎
     // this.toggleMenuActive('isMenuActive16');
     // this.bmxClientPageDesignMode = false;
     // this.isMainMenuActive = false;
+    // END TESTING SETTINGS 🍎🍎🍎🍎🍎🍎🍎🍎🍎🍎🍎🍎🍎🍎🍎🍎🍎🍎🍎🍎🍎🍎🍎🍎🍎🍎🍎🍎🍎🍎🍎🍎🍎🍎🍎🍎🍎🍎🍎🍎🍎🍎🍎
 
     this._BmxService.getGeneralLists().subscribe((arg: any) => {
       this.settingsData = JSON.parse(arg.d);

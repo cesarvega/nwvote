@@ -144,8 +144,17 @@ export class RankScaleComponent extends RatingScaleComponent implements OnInit {
           this.TESTNAMES_LIST.push(objectColumnDesign);
         }
       }
-      this.bmxItem.componentText = this.deleteDuplicates(this.TESTNAMES_LIST, 'nameCandidates');
-      this.rankingTableType(this.bmxItem.componentSettings[0].rankType)
+      if (this.randomizeTestNames) {
+        let headerRow = this.TESTNAMES_LIST[0]
+        this.TESTNAMES_LIST.pop()
+        this.ramdomizeArray()
+        this.TESTNAMES_LIST.unshift(headerRow)
+        this.bmxItem.componentText = this.deleteDuplicates(this.TESTNAMES_LIST, 'nameCandidates');
+        this.columnsNames.push('RATE')
+      }else{
+        this.bmxItem.componentText = this.deleteDuplicates(this.TESTNAMES_LIST, 'nameCandidates');
+        this.columnsNames.push('RATE')
+      }
 
     } else {
       this.bmxItem.componentText.forEach((row, index) => {

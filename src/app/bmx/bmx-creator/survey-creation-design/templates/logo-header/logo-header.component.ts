@@ -35,10 +35,14 @@ export class LogoHeaderComponent implements OnInit {
   IMAGES_UPLOADED = [];
   projectId: any;
   biUsername: any;
+  imageLogoSrc 
+  showLogoIcon = false
+
   constructor(private _BmxService: BmxService) {}
 
   ngOnInit(): void {
     this.bmxItem.componentText = (localStorage.getItem('projectName'))?localStorage.getItem('projectName'):this.bmxItem.componentText;
+    this.imageLogoSrc = this.bmxItem.componentSettings[0].companyLogoURL
   }
 
   onFileSelected(event) {
@@ -69,6 +73,7 @@ export class LogoHeaderComponent implements OnInit {
               this.bmxItem.componentSettings[0].companyLogoURL = JSON.parse(
                 result.d
               ).FileUrl;
+              this.imageLogoSrc = this.bmxItem.componentSettings[0].companyLogoURL
             });
         };
         reader.readAsDataURL(event.target.files[i]);
@@ -88,6 +93,12 @@ export class LogoHeaderComponent implements OnInit {
         var so = result;
       });
   }
+
+  deleteIcon(){
+    this.bmxItem.componentSettings[0].companyLogoURL = (this.bmxItem.componentSettings[0].companyLogoURL == '')?this.imageLogoSrc:'';
+  }
+
+  addLogo
 
   reset() {
     this.uploadProgress = null;

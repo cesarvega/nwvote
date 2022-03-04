@@ -100,17 +100,17 @@ export class ProjectListComponent implements OnInit {
       }
     }
 
-
     // FILTERING BY DEPARTMENT & OFFICE
     if (this.viewedData.length> 0) {
-      if (this.userRole == 'director') {
+      if (this.userRole == 'Director') {
         this.viewedData = this.viewedData.filter((filterByOffice: any) => filterByOffice.bmxRegion == this.userOffice);
-      } if (this.userRole == 'admin') {
+      } if (this.userRole == 'Administrator' || this.userRole == 'Adminstrator') {
         // this.viewedData = this.viewedData.filter((filterByDepartment: any) => filterByDepartment.bmxDepartment == this.userDepartment);
-      } else {
-        this.viewedData = this.viewedData.filter((filterByDepartment: any) => filterByDepartment.bmxDepartment == this.userDepartment);
+      } else if (this.userRole == 'Creative' || this.userRole == 'Nonprop' || this.userRole == 'Design') {
+        this.viewedData = this.viewedData.filter((filterByDepartment: any) =>filterByDepartment.bmxDepartment == this.userDepartment);
       }
     }
+
 
     this.dataSource = new MatTableDataSource<any>(this.viewedData);
     this.dataSource.paginator = this.paginator;

@@ -124,18 +124,22 @@ export class ProjectReportsComponent implements OnInit {
   usersList: any[];
   answersByAllUsers: any;
   displayWordDocument: boolean;
+
+  // REPORT GENERATION SETTINGS
   reportSettings = {
+    reportType: 'QA',
     displayCompletionStatus: true,
     displayOverallRanking: true,
     OverallRankingWithRespondents: true,
     openEndedQuestions: true,
     openEndedWithRepondents: true,
     displayResultsByRespondents: true,
-  }
+    numberOfpagesToPrint: []
+  };
   indeterminate = false;
   labelPosition: 'before' | 'after' = 'after';
   disabled = false;
-  numberOfpages: any;
+  numberOfpages = [];
   constructor(
     @Inject(DOCUMENT) private document: any,
     public _BmxService: BmxService,
@@ -256,20 +260,16 @@ export class ProjectReportsComponent implements OnInit {
       },
     });
 
-    activatedRoute.params.subscribe(params => {
-        this.projectId = params['id'];
-        this.biUsername = params['biUsername'];
-        localStorage.setItem('projectId', this.projectId);
-        // this.bsrService.getProjectData(this.projectId).subscribe(arg => {
-        //   this.projectName = JSON.parse(arg[0].bsrData).projectdescription;
-        //   localStorage.setItem('projectName',  this.project Id);
-        // });
-    });
+    // TESTING CODE WHEN YOU COME STARIGHT TO THIS PAGE
+    this.projectId = 'QA';
+    this.biUsername = 'guest';
+    localStorage.setItem('projectId', this.projectId);
 
-    this._BmxService.currentProjectName$.subscribe((projectName) => {
-      this.projectId = projectName !== '' ? projectName : this.projectId;
-      localStorage.setItem('projectName', this.projectId);
-    });
+    // COMMENT IN TESTING
+    // this._BmxService.currentProjectName$.subscribe((projectName) => {
+    //   this.projectId = projectName !== '' ? projectName : this.projectId;
+    //   localStorage.setItem('projectName', this.projectId);
+    // });
 
     this._hotkeysService.add(
       new Hotkey(
@@ -320,15 +320,41 @@ export class ProjectReportsComponent implements OnInit {
         this.bmxPages = this.SAMPLE_BMX;
       });
   }
+
+  togglePaeToPrint(pageIndex: number) {
+    this.numberOfpages[pageIndex].print = !this.numberOfpages[pageIndex].print;
+  }
+
   // ☢️☢️☢️☢️☢️☢️☢️☢️☢️☢️☢️☢️☢️☢️☢️☢️☢️☢️☢️☢️☢️☢️☢️☢️☢️☢️☢️☢️☢️☢️☢️☢️☢️☢️☢️☢️☢️☢️☢️☢️☢️☢️☢️
   getAndCalculateReport(milUsers) {
     this.BMX_REPORT = [];
     this.REPORT_USER_DATA = [];
     this.categorySortedgArray = [];
+
+    // RETURN THE NUMBER OF PAGES
+    JSON.parse(milUsers[0].BrandMatrix).map((res) => {
+      res.page.forEach((page) => {
+        if (
+          page.componentType == 'rate-scale' ||
+          page.componentType == 'ranking-scale' ||
+          page.componentType == 'image-rate-scale' ||
+          page.componentType == 'narrow-down' ||
+          page.componentType == 'tinder' ||
+          page.componentType == 'question-answer'
+        ) {
+          this.numberOfpages.push({
+            print: true,
+            number: res.pageNumber,
+            type: page.componentType,
+          });
+          this.reportSettings.numberOfpagesToPrint.push(res.pageNumber);
+        }
+      });
+    });
+
     milUsers.forEach((userAnswer, userAnswerIndex) => {
       this.categoryCounter = 0;
       let userCategory = [];
-      this.numberOfpages = JSON.parse(userAnswer.BrandMatrix).map(res => res.pageNumber)
       JSON.parse(userAnswer.BrandMatrix).forEach((page) => {
         page.page.forEach((component) => {
           if (
@@ -357,12 +383,6 @@ export class ProjectReportsComponent implements OnInit {
                     'category_' + this.categoryCounter
                   ],
                   this.reportType
-                );
-                console.log(
-                  'COMPUTED',
-                  this.BMX_REPORT[this.categoryCounter - 1][
-                    'category_' + this.categoryCounter
-                  ]
                 );
               }
             });
@@ -700,9 +720,9 @@ export class ProjectReportsComponent implements OnInit {
       },
     ];
 
-    console.log(this.bmxPages[this.currentPage].page);
-    console.log(this.BMX_REPORT);
-    console.log(this.categorySortedgArray);
+    // console.log(this.bmxPages[this.currentPage].page);
+    // console.log(this.BMX_REPORT);
+    // console.log(this.categorySortedgArray);
 
     //🌈🌈🌈🌈🌈🌈🌈🌈🌈🌈🌈🌈🌈🌈🌈🌈//🌈🌈🌈🌈🌈🌈🌈🌈🌈🌈🌈🌈🌈🌈🌈🌈//🌈🌈🌈🌈🌈🌈🌈🌈🌈🌈🌈🌈🌈🌈🌈🌈//🌈🌈🌈🌈🌈🌈🌈🌈🌈🌈🌈🌈🌈🌈🌈🌈//🌈🌈🌈🌈🌈🌈🌈🌈🌈🌈🌈🌈🌈🌈🌈🌈//🌈🌈🌈🌈🌈🌈🌈🌈🌈🌈🌈🌈🌈🌈🌈🌈//🌈🌈🌈🌈🌈🌈🌈🌈🌈🌈🌈🌈🌈🌈🌈🌈//🌈🌈🌈🌈🌈🌈🌈🌈🌈🌈🌈🌈🌈🌈🌈🌈
     this.sampleHtml2 =

@@ -41,7 +41,15 @@ export class SurveyCreationDesignComponent implements OnInit {
     ckconfig: any;
     selectedIndex: any;
     sampleHtml = `<p style="text-align:center;color:red">Instructions</p>\n\n<p style=\"text-align:justify\"><br />\nPlease select at least three &quot;themes&quot; you would consider to move forward for the Line Draw Family.</p>\n\n<p style=\"text-align:justify\"><strong>What do we mean by &quot;theme&quot;:</strong></p>\n\n<p style=\"text-align:justify\">We will develop names that pertain to an overarching theme. Each individual name candidate will have potential to be used as an ingredient brand to be used across all Line Draw Family concepts or as it pertains to each individual concept. In the latter scenario, we will develop names with a common word part and this word part will be included in each concept name. For example, if you choose the &quot;Optimized&quot; theme, we will develop candidates around the Op/Opt/Opti word parts.</p>\n\n<p style=\"text-align:justify\"><strong>How many themes should I vote on?</strong></p>\n\n<p style=\"text-align:justify\">You can select as many as you&rsquo;d like but we request that you select at least 3 themes. Based on the vote, we will select three to five themes for full creative exploration. How do I provide a vote? To make a selection, simply click the checkbox to the left of the desired name candidate. After you make a selection, you will be asked to rate that theme based on your own personal preference on a scale from 1 to 7, 1 being neutral and 7 being the most liked.</p>\n\n<p style=\"text-align:justify\">Once you have finished your selections, please click the &quot;Continue&quot; button on the bottom of the page to proceed to the next evaluation section.</p>\n`;
-    sampleHtml2 = `<p style="text-align:center;color:#324395;font-weight: 500;font-size: 25px;">USE THE EDITOR TO EDIT THIS TEXT</p>`;
+    sampleHtml2 = `
+    You have been chosen to participate in the selection process for Integrated BioTherapeutics' new tagline (Project Code Name: BI_PROJECTNAME). In this interactive BrandMatrix evaluation, you will be asked to identify and evaluate your favorite tagline options. 
+    
+    Should you have any questions or comments regarding the BrandMatrixTM, please contact one of the following individuals:
+    
+    BI_DIRECTOR
+    
+    BI_DIRECTOR1
+    `;
     selectedOption: any;
     rankingScaleValue = 5;
 
@@ -239,7 +247,7 @@ export class SurveyCreationDesignComponent implements OnInit {
         this.isBrandMatrixSurvey = false;
         this._BmxService.currentProjectName$.subscribe(projectName => {
             this.projectId = (projectName !== '') ? projectName : this.projectId;
-            localStorage.setItem('projectName',  this.projectId);
+            localStorage.setItem('projectName', this.projectId);
         })
 
         this.myAngularxQrCode = this.myAngularxQrCode + this.projectId + '/' + this.biUsername
@@ -708,6 +716,7 @@ export class SurveyCreationDesignComponent implements OnInit {
             setTimeout(() => {
                 this.openSaveTemplateBox();
             }, 1000);
+
         }
     }
 
@@ -791,6 +800,55 @@ export class SurveyCreationDesignComponent implements OnInit {
 
 
     saveData() {
+        // RESET VOTES IN TEMPLATE
+        this.bmxPages.forEach((pageToreset: any) => {
+            pageToreset.page.forEach(category => {
+                if (
+                    category.componentType == 'rate-scale' ||
+                    category.componentType == 'ranking-scale' ||
+                    category.componentType == 'image-rate-scale' ||
+                    category.componentType == 'narrow-down' ||
+                    category.componentType == 'question-answer'
+                ) {
+                    if (category.componentSettings[0].CRITERIA) {
+                        category.componentText.forEach((row: any, index: number) => {
+                            if (index > 0) {                               
+                                row.CRITERIA.forEach((criteria: any) => {
+                                    criteria.RATE = -1;
+                                    criteria.STARS.forEach((star: any) => {
+                                        star.styleClass = 'rating-star'
+                                    });
+                                });
+                            }
+                        });
+                    } else {
+                        if (
+                            category.componentType == 'rate-scale' ||
+                            category.componentType == 'ranking-scale' ||
+                            category.componentType == 'image-rate-scale' ||
+                            category.componentType == 'narrow-down' ||
+                            category.componentType == 'question-answer'
+                        ) {
+                            category.componentText.forEach((row: any, index: number) => {
+                                if (index > 0) {
+                                    row.RATE = -1;
+                                    row.STARS.forEach((star: any) => {
+                                        star.styleClass = 'rating-star'
+                                    });
+                                }
+
+                            });
+                        }
+                    }
+
+
+                }
+
+            });
+        });
+        console.log('test');
+
+
         if (confirm('Are you sure you want save overwrite this project?')) {
             this.projectInfo = JSON.parse(
                 localStorage.getItem('fakeproject' + '_project_info')
