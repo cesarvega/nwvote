@@ -383,6 +383,8 @@ export class SurveyCreationDesignComponent implements OnInit {
                 componentText: this.TestNameDataModel,
                 componentSettings: [
                     {
+                        randomizeTestNames:false,
+                        language:'english',
                         minRule: 0,
                         maxRule: 0,
                         fontSize: 16,
@@ -424,6 +426,8 @@ export class SurveyCreationDesignComponent implements OnInit {
                 componentText: this.TestNameDataModel,
                 componentSettings: [
                     {
+                        randomizeTestNames:false,
+                        language:'english',
                         minRule: 0,
                         maxRule: 0,
                         fontSize: 16,
@@ -472,6 +476,8 @@ export class SurveyCreationDesignComponent implements OnInit {
                 componentText: this.TestNameDataModel,
                 componentSettings: [
                     {
+                        randomizeTestNames:false,
+                        language:'english',
                         minRule: 0,
                         maxRule: 0,
                         fontSize: 16,
@@ -554,6 +560,8 @@ export class SurveyCreationDesignComponent implements OnInit {
                 componentText: this.TestNameDataModel,
                 componentSettings: [
                     {
+                        randomizeTestNames:false,
+                        language:'english',
                         minRule: 0,
                         maxRule: 0,
                         fontSize: 16,
@@ -589,6 +597,8 @@ export class SurveyCreationDesignComponent implements OnInit {
                 componentText: this.TestNameDataModel,
                 componentSettings: [
                     {
+                        randomizeTestNames:false,
+                        language:'english',
                         minRule: 0,
                         maxRule: 0,
                         fontSize: 16,

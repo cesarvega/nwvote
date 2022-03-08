@@ -3,6 +3,7 @@ import { CdkTextareaAutosize } from '@angular/cdk/text-field';
 import { DragulaService } from 'ng2-dragula';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { Subscription } from 'rxjs';
+import { BmxService } from '../../../bmx.service';
 @Component({
   selector: 'app-rating-scale',
   templateUrl: './rating-scale.component.html',
@@ -66,7 +67,7 @@ export class RatingScaleComponent implements OnInit {
   columnFontSize = 15;
   randomizeTestNames = false
 
-  constructor(private dragulaService: DragulaService, private _snackBar: MatSnackBar) {
+  constructor(private dragulaService: DragulaService, private _snackBar: MatSnackBar, private _bmxService: BmxService) {
     //   dragulaService.createGroup('DRAGGABLE_ROW', {
     //     moves: (el, container, handle, sibling) => {
     //       if (el.classList.contains('ROW-CERO')) {
@@ -102,6 +103,14 @@ export class RatingScaleComponent implements OnInit {
           }
         }
       }
+
+       // SET THE SURVEY LANGUAGE
+       this._bmxService.currentprojectData$.subscribe((projectData:any) => {
+        if (projectData.bmxLanguage == 'Japanese') {
+          this.bmxItem.componentSettings[0].language = 'Japanese'   
+        }
+      })
+
     })
 
     // if (this.bmxItem.componentSettings[0].CRITERIA) {
@@ -385,23 +394,22 @@ export class RatingScaleComponent implements OnInit {
           this.TESTNAMES_LIST.push(objectColumnDesign);
         }
       }
+   
 
-      // RANDOMIZE TEST NAMES
+      //   RANDOMIZE TEST NAMES
+      if (this.randomizeTestNames) {
+        this.bmxItem.componentSettings[0].randomizeTestNames = true
+        // DEPRECATED
+        // let headerRow = this.TESTNAMES_LIST[0]
+        // this.TESTNAMES_LIST.pop()
+        // this.ramdomizeArray()
+        // this.TESTNAMES_LIST.unshift(headerRow)
+        // this.bmxItem.componentText = this.deleteDuplicates(this.TESTNAMES_LIST, 'nameCandidates');
+        // this.columnsNames.push('RATE')
+      }
 
-
-        if (this.randomizeTestNames) {
-          let headerRow = this.TESTNAMES_LIST[0]
-          this.TESTNAMES_LIST.pop()
-          this.ramdomizeArray()
-          this.TESTNAMES_LIST.unshift(headerRow)
-          this.bmxItem.componentText = this.deleteDuplicates(this.TESTNAMES_LIST, 'nameCandidates');
-          this.columnsNames.push('RATE')
-        }else{
-          this.bmxItem.componentText = this.deleteDuplicates(this.TESTNAMES_LIST, 'nameCandidates');
-          this.columnsNames.push('RATE')
-        }
-
-
+      this.bmxItem.componentText = this.deleteDuplicates(this.TESTNAMES_LIST, 'nameCandidates');
+      this.columnsNames.push('RATE')
 
     } else {
       this.autoSizeColumns('RATE', '', this.rankingScaleValue)
@@ -442,6 +450,7 @@ export class RatingScaleComponent implements OnInit {
     // this.swapColumns(0)
   }
 
+  // DEPRECATED
   ramdomizeArray() {
     this.TESTNAMES_LIST.sort(() => Math.random() - 0.5);
   }

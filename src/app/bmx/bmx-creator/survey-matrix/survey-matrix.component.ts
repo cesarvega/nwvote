@@ -44,6 +44,7 @@ export class SurveyMatrixComponent
   elem: any;
   isFullscreen: any;
   searchGraveAccentRegExp = new RegExp('`', 'g');
+  surveyLanguage: any;
   constructor(
     @Inject(DOCUMENT) document: any,
     activatedRoute: ActivatedRoute,
@@ -69,15 +70,8 @@ export class SurveyMatrixComponent
     this.bmxClientPageDesignMode = true;
     this.myAngularxQrCode =
       this.myAngularxQrCode + this.projectId + '/' + this.username;
-    this._snackBar.open(
-      'Welcome   ' + this.username.toUpperCase() + '  😉',
-      '',
-      {
-        duration: 4000,
-        horizontalPosition: 'right',
-        verticalPosition: 'top',
-      }
-    );
+
+
     this.qrCode.append(this.canvas.nativeElement);
     this.bmxPagesClient = this.SAMPLE_BMX_CLIENT;
     this._BmxService
@@ -107,6 +101,42 @@ export class SurveyMatrixComponent
                     component.componentType == 'tinder' ||
                     component.componentType == 'question-answer'
                   ) {
+                    // RAMDOMIZE THE TEST NAMES
+                    if (component.componentSettings[0].randomizeTestNames) {
+                      let headerRow = component.componentText[0]
+                      component.componentText.shift()
+                      this.radomizedTestNames(component.componentText)
+                      component.componentText.unshift(headerRow)
+                    }
+
+                    // SET SURVEY LANGUAGE
+                    if (component.componentSettings[0].language == 'Japanese') {
+                      this.surveyLanguage = component.componentSettings[0].language;
+
+
+
+                    }
+                    // GREETING MESSAGE
+                    let message = ''
+                    if (this.surveyLanguage == 'Japanese') {
+                      message = ' ようこそ '
+                    } else {
+                      message = 'Welcome   '
+                    }
+
+                    setTimeout(() => {
+                      this._snackBar.open(
+                        message + this.username.toUpperCase() + '  😉',
+                        '',
+                        {
+                          duration: 4000,
+                          horizontalPosition: 'right',
+                          verticalPosition: 'top',
+                        }
+                      );
+                    }, 1000);
+
+
                     if (!this.isCategoryPage[index]['isCategory']) {
                       this.isCategoryPage[index]['isCategory'] = true;
                     }
@@ -160,6 +190,38 @@ export class SurveyMatrixComponent
                       component.componentType == 'narrow-down' ||
                       component.componentType == 'tinder' ||
                       component.componentType == 'question-answer') {
+                      // RAMDOMIZE THE TEST NAMES
+                      if (component.componentSettings[0].randomizeTestNames) {
+                        let headerRow = component.componentText[0]
+                        component.componentText.shift()
+                        this.radomizedTestNames(component.componentText)
+                        component.componentText.unshift(headerRow)
+                      }
+                      // SET SURVEY LANGUAGE
+                      if (component.componentSettings[0].language == 'Japanese') {
+                        this.surveyLanguage = component.componentSettings[0].language;
+                      }
+
+                      // GREETING MESSAGE
+                      let message = ''
+                      if (this.surveyLanguage == 'Japanese') {
+                        message = ' ようこそ '
+                      } else {
+                        message = 'Welcome   '
+                      }
+
+                      setTimeout(() => {
+                        this._snackBar.open(
+                          message + this.username.toUpperCase() + '  😉',
+                          '',
+                          {
+                            duration: 4000,
+                            horizontalPosition: 'right',
+                            verticalPosition: 'top',
+                          }
+                        );
+                      }, 1000);
+
                       if (!this.isCategoryPage[index]['isCategory']) {
                         this.isCategoryPage[index]['isCategory'] = true;
                       }
@@ -182,6 +244,13 @@ export class SurveyMatrixComponent
             });
         }
       });
+
+
+
+  }
+
+  radomizedTestNames(component) {
+    component.sort(() => Math.random() - 0.5);
   }
   dragAndDropCounter = 0;
   matchAnswersAndTemplateMatrix(templateRow, answers, templateComponent) {
@@ -506,7 +575,7 @@ export class SurveyMatrixComponent
                           }
                         } else if (key == 'options') {
                           templateRow[key] = answerRow[key];
-                          for(let key in answerRow) {
+                          for (let key in answerRow) {
                             if (key.includes('multipleChoice')) {
                               templateRow[key] = answerRow[key]
                             }
@@ -691,11 +760,11 @@ export class SurveyMatrixComponent
   }
 
   changePage(direction) {
-    if (direction === 'next' &&this.bmxPagesClient.length - 1 > this.currentPage) {
+    if (direction === 'next' && this.bmxPagesClient.length - 1 > this.currentPage) {
       this.selectPageNumber(this.currentPage + 1);
     } else if (direction === 'previous' && this.currentPage > 0) {
       this.selectPageNumber(this.currentPage - 1);
-    } 
+    }
   }
 
   selectPageNumber(pageNumber) {
@@ -703,7 +772,7 @@ export class SurveyMatrixComponent
     if (this.isCategoryPage[this.currentPage]['isCategory']) {
       if (this.currentPage < pageNumber) {
         this.bmxPagesClient[this.currentPage].page.forEach((component) => {
-          if (component.componentType == 'rate-scale' ||component.componentType == 'ranking-scale' ||component.componentType == 'image-rate-scale' ||component.componentType == 'narrow-down' ||component.componentType == 'question-answer'
+          if (component.componentType == 'rate-scale' || component.componentType == 'ranking-scale' || component.componentType == 'image-rate-scale' || component.componentType == 'narrow-down' || component.componentType == 'question-answer'
           ) {
             if (
               component.componentSettings[0].minRule == 0 ||
@@ -719,12 +788,23 @@ export class SurveyMatrixComponent
               if (component.componentSettings[0].CRITERIA) {
                 minRule = component.componentSettings[0].minRule / component.componentText[1].CRITERIA.length
               }
-
+              let message1 = ''
+              let message2 = ''
+              let ok = ''
+              if (this.surveyLanguage == 'Japanese') {
+                message1 = ' 最低 '
+                message2 = ' ネーム案以上を選択して下さい  '
+                ok = 'OK'
+              } else {
+                message1 = ' You must rate at least '
+                message2 = ' Test Names '
+                ok = 'OK'
+              }
               this._snackBar.open(
-                'You must rate at least ' +
+                message1 +
                 minRule +
-                ' Test Names',
-                'OK',
+                message2,
+                ok,
                 {
                   duration: 5000,
                   verticalPosition: 'top',
@@ -746,12 +826,19 @@ export class SurveyMatrixComponent
 
   saveUserAnswers(pageNumber?) {
     this._BmxService
-      .saveOrUpdateAnswers(this.bmxPagesClient,this.projectId,this.username,(pageNumber ? pageNumber : this.currentPage + 1))
+      .saveOrUpdateAnswers(this.bmxPagesClient, this.projectId, this.username, (pageNumber ? pageNumber : this.currentPage + 1))
       .subscribe((res: any) => {
         console.log('%cANSWERS!', 'color:#007bff', res);
         let page = res.d.replace(this.searchGraveAccentRegExp, "'");
+        let message = ''
+        if (this.surveyLanguage == 'Japanese') {
+          message = ' ご投票頂いた内容を確かに保存いたしました。'
+        } else {
+          message = ' your answers were saved  '
+        }
+
         this._snackBar.open(
-          this.username.toUpperCase() + ' your answers were saved  ',
+          this.username.toUpperCase() + message,
           'OK',
           {
             duration: 5000,
