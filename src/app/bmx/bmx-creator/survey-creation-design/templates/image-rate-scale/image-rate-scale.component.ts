@@ -44,7 +44,8 @@ export class ImageRateScaleComponent extends RatingScaleComponent implements OnI
   logoWidth = 200
   uploadImagesBox = false;
 
-  constructor(private _BmxService: BmxService,dragulaService: DragulaService, _snackBar: MatSnackBar) {super(dragulaService,_snackBar)}
+  constructor(private _BmxService: BmxService,dragulaService: DragulaService, _snackBar: MatSnackBar,  _bmxService: BmxService)
+   {super(dragulaService,_snackBar,_bmxService)}
   ngOnInit(): void {
     let values = Object.keys(this.bmxItem.componentText[0])
     values.forEach(value => {

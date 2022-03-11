@@ -3,6 +3,7 @@ import { CdkTextareaAutosize } from '@angular/cdk/text-field';
 import { DragulaService } from 'ng2-dragula';
 import { RatingScaleComponent } from '../rating-scale/rating-scale.component';
 import { MatSnackBar } from '@angular/material/snack-bar';
+import { BmxService } from '../../../bmx.service';
 
 @Component({
   selector: 'app-question-answer',
@@ -16,8 +17,8 @@ export class QuestionAnswerComponent extends RatingScaleComponent implements OnI
   @Input() bmxClientPageOverview;
   @ViewChild('autosize') autosize: CdkTextareaAutosize;
   allComplete: boolean = false;
-  constructor(dragulaService: DragulaService, _snackBar: MatSnackBar) {
-    super(dragulaService,_snackBar)
+  constructor(dragulaService: DragulaService, _snackBar: MatSnackBar,  _bmxService: BmxService) {
+    super(dragulaService,_snackBar,_bmxService);
   }
 
   ngOnInit(): void {
