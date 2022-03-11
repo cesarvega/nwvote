@@ -48,6 +48,9 @@ export class DocxSurveyComponent implements OnInit {
   total;
   completed = 0;
   design = false;
+
+  reportType;
+
   image;
   headers = [];
   criteria = false;
@@ -135,6 +138,7 @@ export class DocxSurveyComponent implements OnInit {
     var done = [];
     this.projectName = t[0].ProjectName;
     for (var z = 0; z < t.length; z++) {
+      var hasData = false;
       var recept =
       {
         name: "",
@@ -165,154 +169,53 @@ export class DocxSurveyComponent implements OnInit {
         response.page = s[x].pageNumber;
         var quir = s[x].page
         var r;
-        if (s[x].page.length < 2) {
-          r = "";
-        }
-        else {
-          r = s[x].page[1].componentText;
-        }
+        for (var w = 0; w < quir.length; w++) {
+          if (Array.isArray(s[x].page[w].componentText)) {
+            r = s[x].page[w].componentText;
+            hasData = true;
+            for (var y = 1; y < r.length; y++) {
+              var p = r[y];
+              if (r[y].multipleChoice !== undefined) {
+                response.questyonType = "multipleChoice";
+                this.reportType = "multipleChoice";
+                var answMC =
+                {
+                  comment: "",
+                  nameCandidate: "",
+                  score: []
+                }
+                answMC.comment = r[y].Answers0;
+                answMC.nameCandidate = r[y].nameCandidates;
+                answMC.score = r[y].multipleChoice.split(",");
+                if (answMC.score.length > 0) {
+                  answMC.score.pop()
+                }
+                response.answers.push(answMC);
+              }
+              else if (r[y].RATE !== undefined) {
+                response.questyonType = "rate";
+                var answRT =
+                {
+                  comment: "",
+                  nameCandidate: "",
+                  score: 0
+                }
+                answRT.comment = r[y].Answers2;
+                answRT.nameCandidate = r[y].nameCandidates;
+                answRT.score = r[y].RATE;
+                if (answRT.score != 0) {
+                  response.answers.push(answRT);
+                }
 
-        if (Array.isArray(r)) {
-          for (var y = 1; y < r.length; y++) {
-            var p = r[y];
-            if (r[y].multipleChoice !== undefined) {
-              response.questyonType = "multipleChoice";
-              var answMC =
-              {
-                comment: "",
-                nameCandidate: "",
-                score: []
-              }
-              answMC.comment = r[y].Answers2;
-              answMC.nameCandidate = r[y].nameCandidates;
-              answMC.score = r[y].multipleChoice.split(",");
-              if (answMC.score.length > 0) {
-                answMC.score.pop()
-              }
-              response.answers.push(answMC);
-            }
-            else if (r[y].RATE !== undefined) {
-              response.questyonType = "rate";
-              var answRT =
-              {
-                comment: "",
-                nameCandidate: "",
-                score: 0
-              }
-              answRT.comment = r[y].Answers2;
-              answRT.nameCandidate = r[y].nameCandidates;
-              answRT.score = r[y].RATE;
-              if (answRT.score != 0) {
-                response.answers.push(answRT);
-              }
-
-            }
-            /*
-            if (r[y].CRITERIA === undefined && r[y].vote === undefined) {
-              var answ =
-              {
-                comment: "",
-                nameCandidate: "",
-                score: ""
-              }
-              answ.comment = r[y].Comments1;
-              answ.nameCandidate = r[y].nameCandidates;
-              if (r[y].RATE !== undefined) {
-                answ.score = r[y].RATE.toString();
-              }
-              if (y === 0 && x === 0 && z === 1) {
-                //this.headers.push(r[y].CRITERIA[i].name)
-              }
-              else if (y !== 0) {
-                if (this.design) {
-                  var imageSrcString;
-                  imageSrcString = await this.getBase64ImageFromUrl(answ.nameCandidate)
-                  var img = new Image();
-                  var width
-                  var height
-                  img.src = imageSrcString;
-                  img.onload = () => console.log(img.width);
-                  answ.nameCandidate = imageSrcString.split(imageSrcString.split(",")[0] + ',').pop()
-                }
-                response.answers.push(answ);
               }
             }
-            else if (r[y].vote !== undefined) {
-              var answc =
-              {
-                comment: "",
-                nameCandidate: "",
-                score: ""
-              }
-              answc.comment = r[y].Comments1;
-              answc.nameCandidate = r[y].nameCandidates;
-              answc.score = r[y].vote.toString();
-              if (y === 0 && x === 0 && z === 1) {
-                //this.headers.push(r[y].CRITERIA[i].name)
-              }
-              else if (y !== 0) {
-                if (this.design) {
-                  var imageSrcString;
-                  imageSrcString = await this.getBase64ImageFromUrl(answc.nameCandidate)
-                  var img = new Image();
-                  var width
-                  var height
-                  img.src = imageSrcString;
-                  img.onload = () => console.log(img.width);
-                  answc.nameCandidate = imageSrcString.split(imageSrcString.split(",")[0] + ',').pop()
-                }
-                response.answers.push(answc);
-              }
-  
-            }
-            else if(r[y].multipleChoice !== undefined)
-            {
-              var answMC =
-              {
-                comment: "",
-                nameCandidate: "",
-                score: []
-              }
-              answMC.comment = r[y].Answers2;
-              answMC.nameCandidate = r[y].nameCandidates;
-              answMC.score =  r[y].vote.split(",");
-            }
-            else {
-              this.criteria = true;
-              var scores = [];
-              for (var i = 0; i < r[y].CRITERIA.length; i++) {
-                if (y === 0 && x === 0 && z === 1) {
-                  this.headers.push(r[y].CRITERIA[i].name)
-                }
-                else if (y !== 0) {
-                  scores.push(r[y].CRITERIA[i].RATE.toString())
-                }
-              }
-              var answ2 =
-              {
-                comment: r[y].Comments1,
-                nameCandidate: r[y].nameCandidates,
-                score: scores
-              }
-              if (y !== 0) {
-                if (this.design) {
-                  var imageSrcString;
-                  imageSrcString = await this.getBase64ImageFromUrl(answ2.nameCandidate)
-                  var img = new Image();
-                  var width
-                  var height
-                  img.src = imageSrcString;
-                  img.onload = () => console.log(img.width);
-                  answ2.nameCandidate = imageSrcString.split(imageSrcString.split(",")[0] + ',').pop()
-                }
-                response.answers.push(answ2);
-              }
-            }*/
+            recept.responses.push(response);
           }
-          recept.responses.push(response);
         }
       }
-      done.push(recept);
+      if (hasData) {
+        done.push(recept);
+      }
     }
     this.total = done.length;
     return done;
@@ -828,8 +731,9 @@ export class DocxSurveyComponent implements OnInit {
             for (var l = 0; l < y.answers[k].score.length; l++) {
               if (rankings.has(y.answers[k].nameCandidate)) {
                 var temp = rankings.get(y.answers[k].nameCandidate)
-                if (temp.has(y.answers[k].score)) {
-                  temp.set(y.answers[k].score, temp.get(y.answers[k].score[l]) + 1);
+                if (temp.has(y.answers[k].score[l])) 
+                {
+                  temp.set(y.answers[k].score[l], (temp.get(y.answers[k].score[l]) + 1));
                   rankings.set(y.answers[k].nameCandidate, temp);
                 }
                 else {
@@ -1059,7 +963,7 @@ export class DocxSurveyComponent implements OnInit {
       var x = this.user[i];
       for (var j = 0; j < x.responses.length; j++) {
         var y = x.responses[j];
-        var checker = j+1
+        var checker = j + 1
         if (this.reportSettings.numberOfpagesToPrint.includes((checker))) {
           for (var k = 0; k < y.answers.length; k++) {
             a = [];
@@ -1099,6 +1003,7 @@ export class DocxSurveyComponent implements OnInit {
             new TextRun
               (
                 {
+                  
                   text: overall[i].page.toString(),
                   font:
                   {
@@ -1175,8 +1080,9 @@ export class DocxSurveyComponent implements OnInit {
                       before: 200,
                       after: 200,
                     },
-                    alignment: AlignmentType.LEFT,
+                    alignment: AlignmentType.CENTER,
                     children: textRow
+                    
                   })],
                 }),
                 new TableCell({
@@ -1373,7 +1279,7 @@ export class DocxSurveyComponent implements OnInit {
                       before: 200,
                       after: 200,
                     },
-                    alignment: AlignmentType.LEFT,
+                    alignment: AlignmentType.CENTER,
                     children: textRow
                   })],
                 }),
@@ -2420,8 +2326,16 @@ export class DocxSurveyComponent implements OnInit {
               }),
             ],
           }),
-        this.overallTable(),
+        
       )
+      if(this.reportType === "multipleChoice")
+      {
+        reportParts.push(this.overallMultipleChoice(),)
+      }
+      else
+      {
+        reportParts.push(this.overallTable(),)
+      }
       if (this.reportSettings.OverallRankingWithRespondents)
         reportParts.push(
           new Paragraph({
