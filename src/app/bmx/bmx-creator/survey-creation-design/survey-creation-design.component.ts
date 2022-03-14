@@ -886,7 +886,7 @@ export class SurveyCreationDesignComponent implements OnInit {
             this._BmxService
                 .saveOrUpdateBradnMatrixTemplate(this.bmxPages, this.projectId)
                 .subscribe((res) => {
-                    console.log('%cBMX!', 'color:orange', res);
+                    // console.log('%cBMX!', 'color:orange', res);
                     this._snackBar.open('Project ' + this.projectId + ' saved', 'OK', {
                         duration: 5000,
                         verticalPosition: 'top',
