@@ -3,6 +3,7 @@ import { Component, ElementRef, EventEmitter, Inject, Input, OnInit, Output, Vie
 import { CdkTextareaAutosize } from '@angular/cdk/text-field';
 import { RatingScaleComponent } from '../rating-scale/rating-scale.component';
 import { MatSnackBar } from '@angular/material/snack-bar';
+import { BmxService } from '../../../bmx.service';
 
 @Component({
   selector: 'app-rank-scale',
@@ -24,8 +25,8 @@ export class RankScaleComponent extends RatingScaleComponent implements OnInit {
 
   allowScrolling = true
 
-  constructor(dragulaService: DragulaService, _snackBar: MatSnackBar) {
-    super(dragulaService, _snackBar)
+  constructor(dragulaService: DragulaService, _snackBar: MatSnackBar,  _bmxService: BmxService) {
+    super(dragulaService, _snackBar, _bmxService)
   }
 
   ngOnInit(): void {
@@ -161,6 +162,7 @@ export class RankScaleComponent extends RatingScaleComponent implements OnInit {
         row.STARS = this.createRatingStars(this.rankingScaleValue, this.ratingScaleIcon)
       });
     }
+    this.rankingTableType(this.bmxItem.componentSettings[0].rankType)
     setTimeout(() => {
       this.dragRows = false;
     }, 1000);
