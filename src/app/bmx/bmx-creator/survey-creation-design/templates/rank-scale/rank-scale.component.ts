@@ -162,6 +162,7 @@ export class RankScaleComponent extends RatingScaleComponent implements OnInit {
         row.STARS = this.createRatingStars(this.rankingScaleValue, this.ratingScaleIcon)
       });
     }
+    this.rankingTableType(this.bmxItem.componentSettings[0].rankType)
     setTimeout(() => {
       this.dragRows = false;
     }, 1000);
