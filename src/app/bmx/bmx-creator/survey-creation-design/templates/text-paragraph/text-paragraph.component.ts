@@ -51,6 +51,9 @@ export class TextParagraphComponent implements OnInit {
   replaceBiI_Markers() {
     this.previousText = this.bmxItem.componentText
     this._bmxService.currentprojectData$.subscribe((arg: any) => {
+      if (!arg.bmxProjectName) {
+        arg = JSON.parse(arg)
+      }
       this.projectName = arg.bmxProjectName
 
       this.bmxItem.componentText = this.bmxItem.componentText.replace('BI_PROJECTNAME', this.projectName);
