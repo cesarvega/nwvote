@@ -167,7 +167,7 @@ export class DocxSurveyComponent implements OnInit {
                   nameCandidate: "",
                   score: []
                 }
-                answMC.comment = r[y].Answers0;
+                answMC.comment = r[y].Comments0;
                 if (r[y].nameCandidates.includes("tools.brandinstitute")) {
                   this.design = true;
                   answMC.nameCandidate = await this.imageToBuffer(r[y].nameCandidates);
