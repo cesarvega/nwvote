@@ -107,7 +107,7 @@ export class RatingScaleComponent implements OnInit {
        // SET THE SURVEY LANGUAGE
        this._bmxService.currentprojectData$.subscribe((projectData:any) => {
         if (projectData.bmxLanguage == 'Japanese') {
-          this.bmxItem.componentSettings[0].language = 'Japanese'   
+          this.bmxItem.componentSettings[0].language = 'Japanese'
         }
       })
 
@@ -142,7 +142,7 @@ export class RatingScaleComponent implements OnInit {
         for (let index = 0; index < this.bmxItem.componentText.length; index++) {
           // REMOVE FIRST CHECKED VALUE
           if (this.bmxItem.componentText[index].SELECTED_ROW) {
-            // ASK BEFROE REMOVE IT 
+            // ASK BEFROE REMOVE IT
             this._snackBar.open(this.bmxItem.componentText[index].nameCandidates + ' was uncheck becuse you can only select up to ' + this.bmxItem.componentSettings[0].minRule
               + ' test names ', 'OK', {
               duration: 6000,
@@ -194,7 +194,7 @@ export class RatingScaleComponent implements OnInit {
       this.bmxItem.componentText.forEach((testnameRow, i) => {
         if (testnameRow.RATE == rate) {
           this.bmxItem.componentText[i].RATE = 0
-          // ASK BEFROE REMOVE IT 
+          // ASK BEFROE REMOVE IT
           // this._snackBar.open(testnameRow.nameCandidates + 'was already rank ' + rate, 'ok', {
           //   duration: 4000,
           //   verticalPosition: 'bottom',
@@ -391,10 +391,13 @@ export class RatingScaleComponent implements OnInit {
             }
             objectColumnDesign['RATE'] = i > 0 ? -1 : 'RATE'
           }
+          if (this.bmxItem.componentType == 'narrow-down') {
+            objectColumnDesign['SELECTED_ROW'] = false
+          }
           this.TESTNAMES_LIST.push(objectColumnDesign);
         }
       }
-   
+
 
       //   RANDOMIZE TEST NAMES
       if (this.randomizeTestNames) {
