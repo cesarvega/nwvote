@@ -1092,6 +1092,7 @@ export class DocxSurveyComponent implements OnInit {
     row.push(
       this.createHeader(["Page", this.nameTyping, "Answer",])
     )
+    var skip = false;
     for (var i = 0; i < overall.length; i++) {
       for (var j = 0; j < overall[i].question.length; j++) {
         let textRow = [];
@@ -1149,23 +1150,30 @@ export class DocxSurveyComponent implements OnInit {
             )
           }
           else if (this.reportType === "criteria") {
-            partInfo.push(
-              new TextRun
-                (
-                  {
-                    text: "[" + overall[i].question[j].resp[k].name + "]" + " " + overall[i].question[j].resp[k].value[0].RATE.toString() + " " + overall[i].question[j].resp[k].value[1].RATE.toString(),
-                    font:
+            if(overall[i].question[j].resp[k].value[0].RATE.toString() != "-1")
+            {
+              skip = false;
+              partInfo.push(
+                new TextRun
+                  (
                     {
-                      name: "Calibri",
-                    },
-                    color: "000000",
-                    size: 20,
-                  }
-                ),
-            )
+                      text: "[" + overall[i].question[j].resp[k].name + "]" + " " + overall[i].question[j].resp[k].value[0].RATE.toString() + " " + overall[i].question[j].resp[k].value[1].RATE.toString(),
+                      font:
+                      {
+                        name: "Calibri",
+                      },
+                      color: "000000",
+                      size: 20,
+                    }
+                  ),
+              )
+            }
+            else
+            {
+              skip = true;
+            }
           }
-
-          if (k != overall[i].question[j].resp.length - 1) {
+          if (k != overall[i].question[j].resp.length - 1 && !skip) {
             partInfo.push(
               new TextRun
                 (
@@ -1538,7 +1546,7 @@ export class DocxSurveyComponent implements OnInit {
                 new TextRun
                   (
                     {
-                      text: overall[0][1][0].score[0].RATE,
+                      text: overall[i][1][j].score[0].RATE,
                       font:
                       {
                         name: "Calibri",
@@ -1563,7 +1571,7 @@ export class DocxSurveyComponent implements OnInit {
                 new TextRun
                   (
                     {
-                      text: overall[0][1][0].score[1].RATE,
+                      text: overall[i][1][j].score[1].RATE,
                       font:
                       {
                         name: "Calibri",
