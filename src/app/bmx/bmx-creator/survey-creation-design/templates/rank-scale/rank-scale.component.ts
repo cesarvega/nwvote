@@ -25,7 +25,7 @@ export class RankScaleComponent extends RatingScaleComponent implements OnInit {
 
   allowScrolling = true
 
-  constructor(dragulaService: DragulaService, _snackBar: MatSnackBar,  _bmxService: BmxService) {
+  constructor(dragulaService: DragulaService, _snackBar: MatSnackBar, _bmxService: BmxService) {
     super(dragulaService, _snackBar, _bmxService)
   }
 
@@ -59,14 +59,16 @@ export class RankScaleComponent extends RatingScaleComponent implements OnInit {
       }
     });
 
+    this.randomizeTestNames = this.bmxItem.componentSettings[0].randomizeTestNames
+
   }
 
   checkDragEvetn(rows) {
     if (this.bmxItem.componentSettings[0].rankType == 'dragAndDrop') {
-      rows.forEach((row , rowIndex) => {
-       if (rowIndex > 0) {         
-         row.RATE = rowIndex
-       }
+      rows.forEach((row, rowIndex) => {
+        if (rowIndex > 0) {
+          row.RATE = rowIndex
+        }
       })
     }
   }
@@ -86,6 +88,7 @@ export class RankScaleComponent extends RatingScaleComponent implements OnInit {
 
   upLoadNamesAndRationales(list: string) {
     this.dragRows = true;
+    this.bmxItem.componentSettings[0].randomizeTestNames = (this.randomizeTestNames) ? true : false
     if (!list) { list = this.listString; }
     if (list) {
       this.listString = list;
@@ -145,18 +148,8 @@ export class RankScaleComponent extends RatingScaleComponent implements OnInit {
           this.TESTNAMES_LIST.push(objectColumnDesign);
         }
       }
-      if (this.randomizeTestNames) {
-        let headerRow = this.TESTNAMES_LIST[0]
-        this.TESTNAMES_LIST.pop()
-        this.ramdomizeArray()
-        this.TESTNAMES_LIST.unshift(headerRow)
-        this.bmxItem.componentText = this.deleteDuplicates(this.TESTNAMES_LIST, 'nameCandidates');
-        this.columnsNames.push('RATE')
-      }else{
-        this.bmxItem.componentText = this.deleteDuplicates(this.TESTNAMES_LIST, 'nameCandidates');
-        this.columnsNames.push('RATE')
-      }
-
+      this.bmxItem.componentText = this.deleteDuplicates(this.TESTNAMES_LIST, 'nameCandidates');
+      this.columnsNames.push('RATE')
     } else {
       this.bmxItem.componentText.forEach((row, index) => {
         row.STARS = this.createRatingStars(this.rankingScaleValue, this.ratingScaleIcon)
@@ -219,5 +212,5 @@ export class RankScaleComponent extends RatingScaleComponent implements OnInit {
   }
 
   ASSIGNED_CRITERIA = []
-  
+
 }

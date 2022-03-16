@@ -68,18 +68,6 @@ export class RatingScaleComponent implements OnInit {
   randomizeTestNames = false
 
   constructor(private dragulaService: DragulaService, private _snackBar: MatSnackBar, private _bmxService: BmxService) {
-    //   dragulaService.createGroup('DRAGGABLE_ROW', {
-    //     moves: (el, container, handle, sibling) => {
-    //       if (el.classList.contains('ROW-CERO')) {
-    //         return false
-    //       }else return true
-    //     }
-    // });
-
-    // dragulaService.createGroup("DRAGGABLE_ROW", {
-    //   removeOnSpill: true
-    // });
-
   }
   ngOnInit(): void {
     // COLUMN NAMES
@@ -104,8 +92,8 @@ export class RatingScaleComponent implements OnInit {
         }
       }
 
-       // SET THE SURVEY LANGUAGE
-       this._bmxService.currentprojectData$.subscribe((projectData:any) => {
+      // SET THE SURVEY LANGUAGE
+      this._bmxService.currentprojectData$.subscribe((projectData: any) => {
         if (projectData.bmxLanguage == 'Japanese') {
           this.bmxItem.componentSettings[0].language = 'Japanese'
         }
@@ -113,13 +101,7 @@ export class RatingScaleComponent implements OnInit {
 
     })
 
-    // if (this.bmxItem.componentSettings[0].CRITERIA) {
-    //   this.bmxItem.componentText.forEach((item, index) => {
-    //     if (index == 0) {
-    //     }
-    //   })
-    // }
-    // this.selectedCriteria = 'Fit to Compound Concept, and Overall Likeability'
+    this.randomizeTestNames = this.bmxItem.componentSettings[0].randomizeTestNames
   }
 
   maxRuleCounterMinus() {
@@ -315,6 +297,7 @@ export class RatingScaleComponent implements OnInit {
 
   upLoadNamesAndRationales(list: string) {
     this.uploadImagesIcon = true
+    this.bmxItem.componentSettings[0].randomizeTestNames = (this.randomizeTestNames) ? true : false
     this.recordHistory()
     this.dragRows = true;
     if (!list) { list = this.listString; }
@@ -396,19 +379,6 @@ export class RatingScaleComponent implements OnInit {
           }
           this.TESTNAMES_LIST.push(objectColumnDesign);
         }
-      }
-
-
-      //   RANDOMIZE TEST NAMES
-      if (this.randomizeTestNames) {
-        this.bmxItem.componentSettings[0].randomizeTestNames = true
-        // DEPRECATED
-        // let headerRow = this.TESTNAMES_LIST[0]
-        // this.TESTNAMES_LIST.pop()
-        // this.ramdomizeArray()
-        // this.TESTNAMES_LIST.unshift(headerRow)
-        // this.bmxItem.componentText = this.deleteDuplicates(this.TESTNAMES_LIST, 'nameCandidates');
-        // this.columnsNames.push('RATE')
       }
 
       this.bmxItem.componentText = this.deleteDuplicates(this.TESTNAMES_LIST, 'nameCandidates');
