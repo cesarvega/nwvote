@@ -2,7 +2,7 @@
 <div *ngIf="bmxClientPageOverview" style="display: flex;
     flex-direction: row-reverse;
     justify-content: end;
-    right: 50px;border: 2px dashed #324395;padding-right: 10px;background: #ffffffd9;
+    right: 50px;top: -50px;border: 2px dashed #324395;padding-right: 10px;background: #ffffffd9;
     position: absolute;height: 54px;align-items: center;padding-right: 38px;">
 
     <!-- ⏺⏺⏺⏺⏺⏺⏺⏺⏺⏺⏺⏺⏺⏺⏺⏺⏺⏺⏺⏺RAGE INPUTS FOR COLUMN SETTINGS ⏺⏺⏺⏺⏺⏺⏺⏺⏺⏺⏺⏺⏺⏺⏺⏺⏺⏺⏺ -->
@@ -313,7 +313,7 @@
                 <div *ngFor="let columnName of columnsNames; let e =  index"
                     style="display: flex;align-items: center;justify-content: center;"
                     [ngClass]="(columnName.includes('Comments') == true)?'red':'blue'"
-                    [style.padding]="bmxItem.componentSettings[0].rowHeight + 'px'" [style.width]="(columnName == 'rationale')?bmxItem.componentSettings[0].rationalewidth + 'px': 
+                    [style.padding]="bmxItem.componentSettings[0].rowHeight + 'px'" [style.width]="(columnName == 'rationale')?bmxItem.componentSettings[0].rationalewidth + 'px':
                      (columnName == 'RATE')?bmxItem.componentSettings[0].rateWidth + 'px':
                      (columnName == 'nameCandidates')?bmxItem.componentSettings[0].nameCandidatesWidth + 'px':
                      (columnName.includes('Comments'))?bmxItem.componentSettings[0].commentsWidth + 'px':
@@ -396,7 +396,7 @@
                             <div style="display: flex;">
                                 <button
                                     (click)="maxRuleCounterMinus();bmxItem.componentText[y]['RATE'] = 0;leaveStar(y)"
-                                    *ngIf="bmxItem.componentText[y]['RATE']>0 && y != 0 " style="background-color: #ee7f25;    
+                                    *ngIf="bmxItem.componentText[y]['RATE']>0 && y != 0 " style="background-color: #ee7f25;
                            color: white;
                            min-width: 20px;
                            line-height: 19px;
@@ -410,7 +410,7 @@
                             <div style="display: flex;gap: 60px;flex-direction: column;">
                                 <div *ngFor="let criteria of testName.CRITERIA  let x =  index">
                                     <button (click)="criteria.RATE = 0;leaveCriteriaStar(y,x)"
-                                        *ngIf="criteria.RATE>0 && y != 0 " style="background-color: #ee7f25;    
+                                        *ngIf="criteria.RATE>0 && y != 0 " style="background-color: #ee7f25;
                             color: white;
                             min-width: 20px;
                             line-height: 19px;
@@ -458,7 +458,7 @@
                             style="outline: none;text-align: center;" class="row-box"
                             [(ngModel)]="testName[columnName]"></textarea>
 
-                        <p *ngIf="y !== 0  && !editSingleTableCells && (columnName.includes('RadioColumn') != true) && 
+                        <p *ngIf="y !== 0  && !editSingleTableCells && (columnName.includes('RadioColumn') != true) &&
                          columnName.includes('Comments') != true &&  columnName.includes('RATE') != true"
                             [style.font-size]="bmxItem.componentSettings[0].fontSize +'px'"
                             [style.width]="(columnName == 'rationale')?bmxItem.componentSettings[0].rationalewidth + 'px':bmxItem.componentSettings[0].columnWidth +'px'"
@@ -526,7 +526,7 @@
                 <div style="display: flex;gap: 23px;padding-top: 10px;position: absolute;right: 24px;">
                     <div *ngFor="let criteria of testName.CRITERIA  let x =  index">
                         <button (click)="criteria.RATE = 0;leaveCriteriaStar(y,x)" *ngIf="criteria.RATE>0 && y != 0 "
-                            style="background-color: #ee7f25;    
+                            style="background-color: #ee7f25;
                              color: white;
                              min-width: 20px;
                              line-height: 19px;
