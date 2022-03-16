@@ -243,17 +243,15 @@ textarea:placeholder-shown {
 }
 
 .feature-modal-box {
-  width: 800px;
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  -ms-transform: translate(-50%, -53%);
-  transform: translate(-50%, -53%);
+  display: flex;
+  /* top: 76%; */
+  /* left: 50%; */
+  /* transform: translate(-50%, -53%); */
   border-radius: 3px;
   background-color: white;
-  // border: solid 1px #022d71;
-  // @include BoxShadow(6);
   overflow: hidden;
+  justify-content: center;
+  align-items: center;
 }
 
 .buttons-home-page {
