@@ -261,15 +261,15 @@ export class ProjectReportsComponent implements OnInit {
     });
 
     // TESTING CODE WHEN YOU COME STARIGHT TO THIS PAGE
-    this.projectId = 'QA';
-    this.biUsername = 'guest';
-    localStorage.setItem('projectId', this.projectId);
+    // this.projectId = 'QA';
+    // this.biUsername = 'guest';
+    // localStorage.setItem('projectId', this.projectId);
 
     // COMMENT IN TESTING
-    // this._BmxService.currentProjectName$.subscribe((projectName) => {
-    //   this.projectId = projectName !== '' ? projectName : this.projectId;
-    //   localStorage.setItem('projectName', this.projectId);
-    // });
+    this._BmxService.currentProjectName$.subscribe((projectName) => {
+      this.projectId = projectName !== '' ? projectName : this.projectId;
+      localStorage.setItem('projectName', this.projectId);
+    });
 
     this._hotkeysService.add(
       new Hotkey(
@@ -323,6 +323,7 @@ export class ProjectReportsComponent implements OnInit {
 
   togglePaeToPrint(pageIndex: number) {
     this.numberOfpages[pageIndex].print = !this.numberOfpages[pageIndex].print;
+    this.reportSettings.numberOfpagesToPrint = this.numberOfpages
   }
 
   // ☢️☢️☢️☢️☢️☢️☢️☢️☢️☢️☢️☢️☢️☢️☢️☢️☢️☢️☢️☢️☢️☢️☢️☢️☢️☢️☢️☢️☢️☢️☢️☢️☢️☢️☢️☢️☢️☢️☢️☢️☢️☢️☢️
@@ -347,7 +348,7 @@ export class ProjectReportsComponent implements OnInit {
             number: res.pageNumber,
             type: page.componentType,
           });
-          this.reportSettings.numberOfpagesToPrint.push(res.pageNumber);
+          this.reportSettings.numberOfpagesToPrint = this.numberOfpages
         }
       });
     });
