@@ -51,8 +51,6 @@ export class TinderComponent extends RatingScaleComponent implements OnInit {
       this.radioColumnCounter = 1
     }
 
-
-
     // COLUMN NAMES
     let values = Object.keys(this.bmxItem.componentText[0])
 
@@ -62,7 +60,6 @@ export class TinderComponent extends RatingScaleComponent implements OnInit {
       }
     });
     this.randomizeTestNames = this.bmxItem.componentSettings[0].randomizeTestNames
-
   }
 
   createRatingStars(ratingScale, ratingScaleIcon?) {
@@ -109,8 +106,6 @@ export class TinderComponent extends RatingScaleComponent implements OnInit {
                 objectColumnDesign[this.columnsNames[e]] = rows[i].split("\t")[e].trim()
               }
             }
-          
-
           this.TESTNAMES_LIST.push(objectColumnDesign);
         }
       }
