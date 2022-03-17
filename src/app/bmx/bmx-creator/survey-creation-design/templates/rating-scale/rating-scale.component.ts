@@ -59,7 +59,7 @@ export class RatingScaleComponent implements OnInit {
 
   BAG = "DRAGGABLE_ROW";
   subs = new Subscription();
-  rowsCount = 10
+  rowsCount = 0
 
   HISTORY = []
   RANGEARRAY = ['columnWidth1', 'columnWidth2', 'columnWidth3']
@@ -412,6 +412,7 @@ export class RatingScaleComponent implements OnInit {
       }
     }
     setTimeout(() => {
+      this.rowsCount = this.bmxItem.componentText.length - 1;
       this.bmxItem.componentSettings[0].minRule = (this.bmxItem.componentSettings[0].minRule == 0) ? this.bmxItem.componentText.length - 1 : this.bmxItem.componentSettings[0].minRule
       if (this.bmxItem.componentSettings[0].CRITERIA) {
         //MULTIPLY FOR THE AMOUNT OF CRITERIA

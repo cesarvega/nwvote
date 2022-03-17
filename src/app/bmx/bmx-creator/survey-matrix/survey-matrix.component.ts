@@ -45,13 +45,7 @@ export class SurveyMatrixComponent
   isFullscreen: any;
   searchGraveAccentRegExp = new RegExp('`', 'g');
   surveyLanguage: any;
-  constructor(
-    @Inject(DOCUMENT) document: any,
-    activatedRoute: ActivatedRoute,
-    _hotkeysService: HotkeysService,
-    dragulaService: DragulaService,
-    public _snackBar: MatSnackBar,
-    _BmxService: BmxService
+  constructor( @Inject(DOCUMENT) document: any, activatedRoute: ActivatedRoute, _hotkeysService: HotkeysService, dragulaService: DragulaService, public _snackBar: MatSnackBar, _BmxService: BmxService
   ) {
     super(document, _BmxService, _snackBar, activatedRoute);
 
@@ -244,9 +238,6 @@ export class SurveyMatrixComponent
             });
         }
       });
-
-
-
   }
 
   radomizedTestNames(component) {

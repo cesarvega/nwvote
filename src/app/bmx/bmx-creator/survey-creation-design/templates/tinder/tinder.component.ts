@@ -61,6 +61,7 @@ export class TinderComponent extends RatingScaleComponent implements OnInit {
         this.columnsNames.push(value)
       }
     });
+    this.randomizeTestNames = this.bmxItem.componentSettings[0].randomizeTestNames
 
   }
 
@@ -77,6 +78,7 @@ export class TinderComponent extends RatingScaleComponent implements OnInit {
   }
 
   upLoadNamesAndRationales(list: string) {
+    this.bmxItem.componentSettings[0].randomizeTestNames = (this.randomizeTestNames) ? true : false
     if (!list) { list = this.listString; }
     if (list) {
       this.listString = list;
