@@ -776,30 +776,49 @@ export class SurveyMatrixComponent
             component.componentText.forEach((row, index) => {
               if (component.componentSettings[0].CRITERIA) {
                 row.CRITERIA.forEach((criteria) => {
-                  let rater = row.CRITERIA.filter((criteria) => (criteria.RATE == -1  || criteria.RATE == 0))
+                  let rater = row.CRITERIA.filter((criteria) => (criteria.RATE == -1 || criteria.RATE == 0))
                   if (component.componentSettings[0].categoryRulesPassed) {
                     component.componentSettings[0].categoryRulesPassed = (index > 0 && rater.length > 0) ? false : true;
                   }
-                  if(index > 0 && rater.length == 0) {
+                  if (index > 0 && rater.length == 0) {
                     minRuleCounter++
                   }
                 });
-               
+
               } else {
-                if(index > 0 && (row.RATE != -1 && row.RATE != 0)) {
-                  minRuleCounter++
-                }
-                if (component.componentSettings[0].categoryRulesPassed) {
-                  component.componentSettings[0].categoryRulesPassed = (row.RATE == -1 || row.RATE == 0) ? false : true;
+                // ONLY NARROWDOWN
+                if (component.componentType == 'narrow-down') {
+
+                  if (row.SELECTED_ROW) {
+                    if (index > 0 && (row.RATE != -1 && row.RATE != 0) && typeof row.RATE == 'number') {
+                      minRuleCounter++
+                    }
+                    if (component.componentSettings[0].categoryRulesPassed) {
+                      component.componentSettings[0].categoryRulesPassed = (row.RATE == -1 || row.RATE == 0 || typeof row.RATE != 'number') ? false : true;
+                    }
+                  }
+
+
+                } else {
+                  if (index > 0 && (row.RATE != -1 && row.RATE != 0)) {
+                    minRuleCounter++
+                  }
+                  if (component.componentSettings[0].categoryRulesPassed) {
+                    component.componentSettings[0].categoryRulesPassed = (row.RATE == -1 || row.RATE == 0) ? false : true;
+                  }
                 }
               }
             });
 
-            if(component.componentSettings[0].CRITERIA){
-              minRuleCounter  = minRuleCounter/2
+            if (component.componentType == 'narrow-down') {
+              component.componentSettings[0].categoryRulesPassed = (minRuleCounter != component.componentSettings[0].minRule)? false : true;
             }
 
-            if(component.componentSettings[0].minRule == minRuleCounter){
+            if (component.componentSettings[0].CRITERIA) {
+              minRuleCounter = minRuleCounter / 2
+            }
+
+            if (component.componentSettings[0].minRule == minRuleCounter) {
               component.componentSettings[0].categoryRulesPassed = true;
             }
 
@@ -816,7 +835,7 @@ export class SurveyMatrixComponent
             } else {
               let minRule = component.componentSettings[0].minRule
               if (component.componentSettings[0].CRITERIA) {
-                minRule = component.componentSettings[0].minRule 
+                minRule = component.componentSettings[0].minRule
                 // minRule = component.componentSettings[0].minRule / component.componentText[1].CRITERIA.length
               }
               let message1 = ''
