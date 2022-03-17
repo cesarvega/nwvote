@@ -547,6 +547,7 @@ export class RatingScaleComponent implements OnInit {
       }
     });
 
+    this.bmxItem.componentSettings[0].commentsWidth = 165
   }
 
   insertRadioColumn() {

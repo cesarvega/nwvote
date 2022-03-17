@@ -304,7 +304,7 @@
                     <!-- COLUMN HEADER -->
                     <textarea *ngIf="y == 0 && editSingleTableCells"
                         [style.font-size]="bmxItem.componentSettings[0].fontSize +'px'"
-                        style="text-align: center; font-weight: bold;color: #324395;min-width: 200px;" class="row-box"
+                        style="text-align: center; font-weight: bold;color: #324395;min-width: 100px;" class="row-box"
                         [(ngModel)]="bmxItem.componentSettings[0].ratingScaleNarrowDownTitle"
                         value="bmxItem.componentSettings[0].ratingScaleNarrowDownTitle"></textarea>
                     <div [style.font-size]="bmxItem.componentSettings[0].fontSize +'px'" class="rating-text"
@@ -324,8 +324,7 @@
                      bmxItem.componentSettings[0].columnWidth + 'px'">
 
 
-                    <div *ngIf="(y == 0)" class="header-title" (mouseenter)="selectedColumn = e"
-                        (mouseleave)="selectedColumn = ''">
+                    <div *ngIf="(y == 0)" class="header-title" (mouseenter)="selectedColumn = e">
 
                         <!-- IF YOU WANT TO DELET ALL COLUMNS PASS THE COLUMN NAME  NOT testName[columnName]-->
 
@@ -344,19 +343,21 @@
 
 
                         <div *ngIf="selectedColumn === e && bmxClientPageOverview && !editSingleTableCells" style="display: flex;flex-direction: row;justify-content: space-around;
-                            position: absolute;top: 35px;background: white;border: #324395 dashed 1px;"
-                            (mouseleave)="selectedColumn = ''">
-                            <span class="header-delete-icon" matTooltip="double click to delete column"
-                                matTooltipPosition="above" (dblclick)="deleteColumn(columnName)">x</span>
-                            <mat-icon style="cursor: pointer;" (click)="swapColumns(e)">chevron_right</mat-icon>
+                        position: absolute;top: 35px;background: white;border: #324395 dashed 1px;"  (mouseleave)="selectedColumn = ''">
+                            <span  class="header-delete-icon"
+                                matTooltip="double click to delete column" matTooltipPosition="above"
+                                (dblclick)="deleteColumn(columnName)">x</span>
+                            <mat-icon  style="cursor: pointer;"
+                                (click)="swapColumns(e)">chevron_right</mat-icon>
 
-                            <mat-icon style="cursor: pointer;" (click)="columnFontSizeAdjust(columnName, 'decrease')">
-                                remove</mat-icon>
+                            <mat-icon  style="cursor: pointer;"
+                                (click)="columnFontSizeAdjust(columnName, 'decrease')">remove</mat-icon>
 
-                            <mat-icon style="cursor: pointer;">text_format</mat-icon>
+                            <mat-icon 
+                                style="cursor: pointer;">text_format</mat-icon>
 
-                            <mat-icon style="cursor: pointer;" (click)="columnFontSizeAdjust(columnName, 'increase')">
-                                add</mat-icon>
+                            <mat-icon  style="cursor: pointer;"
+                                (click)="columnFontSizeAdjust(columnName, 'increase')">add</mat-icon>
                         </div>
 
                     </div>
