@@ -2,6 +2,7 @@
 <div *ngIf="bmxClientPageOverview" style="display: flex;
     flex-direction: row-reverse;
     justify-content: end;
+    top: -30px;
     right: 50px;border: 2px dashed #324395;padding-right: 10px;background: #ffffffd9;
     position: absolute;height: 54px;align-items: center;padding-right: 38px;">
 
@@ -165,17 +166,26 @@
     <div style="display: flex;flex-direction: row;justify-content: space-around;gap: 30px;">
 
         <input type="text" [(ngModel)]="bmxItem.componentSettings[0].categoryName"
-            [value]="bmxItem.componentSettings[0].categoryName"
+            [value]="bmxItem.componentSettings[0].categoryName" placeholder="Category Name"
             style="font-size: 20px;color: #324395;padding-bottom: 10px;">
         <input type="text" [(ngModel)]="bmxItem.componentSettings[0].categoryDescription"
-            [value]="bmxItem.componentSettings[0].categoryDescription"
+            [value]="bmxItem.componentSettings[0].categoryDescription" placeholder="Category Description"
             style="font-size: 20px;color: #ee7f25;padding-bottom: 20px;">
 
+            <mat-checkbox [(ngModel)]="randomizeTestNames">Randomize Questions</mat-checkbox>
 
-        MIN<input type="number" [(ngModel)]="bmxItem.componentSettings[0].minRule" style="width: 50px;"
-            [value]="bmxItem.componentSettings[0].minRule">
-        MAX<input type="number" [(ngModel)]="bmxItem.componentSettings[0].maxRule" style="width: 50px;"
-            [value]="bmxItem.componentSettings[0].maxRule">
+        <div style="display: flex;flex-direction: column;justify-content: center;gap: 10px;">
+            <div style="font-size: 16px;margin-top: 10px;color: #48535e;text-align: center;">MIN:
+                {{bmxItem.componentSettings[0].minRule}}</div>
+            <input type="range" min="0" [max]="rowsCount" [(ngModel)]="bmxItem.componentSettings[0].minRule"
+                style="width:120px; padding: 0px 10px;" [value]="bmxItem.componentSettings[0].minRule">
+        </div>
+        <div style="display: flex;flex-direction: column;justify-content:center;gap: 10px;">
+            <div style="font-size: 16px;margin-top: 10px;color: #48535e;text-align: center;">MAX:
+                {{bmxItem.componentSettings[0].maxRule}}</div>
+            <input type="range" min="0" [max]="rowsCount" [(ngModel)]="bmxItem.componentSettings[0].maxRule"
+                style="width:120px; padding: 0px 10px;" [value]="bmxItem.componentSettings[0].maxRule">
+        </div>
         <button style="outline: none;color:#76d354;margin-bottom: 50px;" mat-icon-button
             (click)="selectedIndex = '';upLoadNamesAndRationales(testNamesInput)" aria-label="ranking">
             <mat-icon>check_circle</mat-icon><br> DONE

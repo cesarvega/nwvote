@@ -2,6 +2,7 @@
 <div *ngIf="bmxClientPageOverview" style="display: flex;
     flex-direction: row-reverse;
     justify-content: end;
+    top: -30px;
     right: 50px;border: 2px dashed #324395;padding-right: 10px;background: #ffffffd9;
     position: absolute;height: 54px;align-items: center;padding-right: 38px;">
 
@@ -165,10 +166,10 @@
     <div style="display: flex;flex-direction: row;justify-content: space-around;gap: 30px;">
 
         <input type="text" [(ngModel)]="bmxItem.componentSettings[0].categoryName"
-            [value]="bmxItem.componentSettings[0].categoryName"
+            [value]="bmxItem.componentSettings[0].categoryName" placeholder="Category Name"
             style="font-size: 20px;color: #324395;padding-bottom: 7px;padding-left: 10px;">
         <input type="text" [(ngModel)]="bmxItem.componentSettings[0].categoryDescription"
-            [value]="bmxItem.componentSettings[0].categoryDescription"
+            [value]="bmxItem.componentSettings[0].categoryDescription" placeholder="Category Description"
             style="font-size: 20px;color: #ee7f25;padding-bottom: 4px;padding-left: 7px;">
             
         <mat-checkbox [(ngModel)]="randomizeTestNames">Randomize Names</mat-checkbox>

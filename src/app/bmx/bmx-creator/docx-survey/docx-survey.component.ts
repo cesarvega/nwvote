@@ -48,6 +48,12 @@ export class DocxSurveyComponent implements OnInit {
   total;
   completed = 0;
   design = false;
+
+  reportType;
+  nameTyping;
+  rational;
+  rating;
+
   image;
   headers = [];
   criteria = false;
@@ -108,39 +114,17 @@ export class DocxSurveyComponent implements OnInit {
 
   }
 
-
-  criteriaTable(): Table {
-    var overall = this.sortOverall();
-    let row: Array<TableRow>;
-    row = [];
-
-    row.push(
-      this.createHeader(this.headers)
-    )
-
-    const table = new Table({
-      width: {
-        size: 100,
-        type: WidthType.PERCENTAGE,
-      },
-      rows: row
-
-    });
-    row = [];
-    return table
-
-  }
-
   async createDataObject(t: any): Promise<any> {
     var done = [];
     this.projectName = t[0].ProjectName;
     for (var z = 0; z < t.length; z++) {
+      var hasData = false;
       var recept =
       {
         name: "",
         email: "",
         Status: "",
-        responses: []
+        responses: [],
       }
       recept.name = t[z].FirstName + " " + t[z].LastName;
       recept.email = t[z].Username;
@@ -165,166 +149,122 @@ export class DocxSurveyComponent implements OnInit {
         response.page = s[x].pageNumber;
         var quir = s[x].page
         var r;
-        if (s[x].page.length < 2) {
-          r = "";
-        }
-        else {
-          r = s[x].page[1].componentText;
-        }
+        for (var w = 0; w < quir.length; w++) {
+          if (Array.isArray(s[x].page[w].componentText)) {
+            r = s[x].page[w].componentText;
+            hasData = true;
+            this.nameTyping = r[0].nameCandidates;
+            this.rating = r[0].RATE;
+            this.rational = r[0].rationale;
+            for (var y = 1; y < r.length; y++) {
+              var p = r[y];
+              if (r[y].multipleChoice !== undefined) {
+                response.questyonType = "multipleChoice";
+                this.reportType = "multipleChoice";
+                var answMC =
+                {
+                  comment: "",
+                  nameCandidate: "",
+                  score: []
+                }
+                answMC.comment = r[y].Comments0;
+                if (r[y].nameCandidates.includes("tools.brandinstitute")) {
+                  this.design = true;
+                  answMC.nameCandidate = await this.imageToBuffer(r[y].nameCandidates);
+                }
+                else {
+                  answMC.nameCandidate = r[y].nameCandidates;
+                }
 
-        if (Array.isArray(r)) {
-          for (var y = 1; y < r.length; y++) {
-            var p = r[y];
-            if (r[y].multipleChoice !== undefined) {
-              response.questyonType = "multipleChoice";
-              var answMC =
-              {
-                comment: "",
-                nameCandidate: "",
-                score: []
+                answMC.score = r[y].multipleChoice.split(",");
+                if (answMC.score.length > 0) {
+                  answMC.score.pop()
+                }
+                response.answers.push(answMC);
               }
-              answMC.comment = r[y].Answers2;
-              answMC.nameCandidate = r[y].nameCandidates;
-              answMC.score = r[y].multipleChoice.split(",");
-              if (answMC.score.length > 0) {
-                answMC.score.pop()
-              }
-              response.answers.push(answMC);
-            }
-            else if (r[y].RATE !== undefined) {
-              response.questyonType = "rate";
-              var answRT =
-              {
-                comment: "",
-                nameCandidate: "",
-                score: 0
-              }
-              answRT.comment = r[y].Answers2;
-              answRT.nameCandidate = r[y].nameCandidates;
-              answRT.score = r[y].RATE;
-              if (answRT.score != 0) {
-                response.answers.push(answRT);
-              }
+              else if (r[y].RATE !== undefined) {
+                if (r[y].CRITERIA !== undefined) {
+                  response.questyonType = "criteria";
+                  this.reportType = "criteria";
+                  var answCR =
+                  {
+                    comment: "",
+                    nameCandidate: "",
+                    score: []
+                  }
+                  answCR.comment = r[y].Comments0;
+                  answCR.nameCandidate = r[y].nameCandidates;
+                  if (r[y].nameCandidates.includes("tools.brandinstitute")) {
+                    this.design = true;
+                    answCR.nameCandidate = await this.imageToBuffer(r[y].nameCandidates);
+                  }
+                  else {
+                    answCR.nameCandidate = r[y].nameCandidates;
+                  }
+                  answCR.score = r[y].CRITERIA;
+                  response.answers.push(answCR);
 
-            }
-            /*
-            if (r[y].CRITERIA === undefined && r[y].vote === undefined) {
-              var answ =
-              {
-                comment: "",
-                nameCandidate: "",
-                score: ""
-              }
-              answ.comment = r[y].Comments1;
-              answ.nameCandidate = r[y].nameCandidates;
-              if (r[y].RATE !== undefined) {
-                answ.score = r[y].RATE.toString();
-              }
-              if (y === 0 && x === 0 && z === 1) {
-                //this.headers.push(r[y].CRITERIA[i].name)
-              }
-              else if (y !== 0) {
-                if (this.design) {
-                  var imageSrcString;
-                  imageSrcString = await this.getBase64ImageFromUrl(answ.nameCandidate)
-                  var img = new Image();
-                  var width
-                  var height
-                  img.src = imageSrcString;
-                  img.onload = () => console.log(img.width);
-                  answ.nameCandidate = imageSrcString.split(imageSrcString.split(",")[0] + ',').pop()
                 }
-                response.answers.push(answ);
+                else {
+                  this.reportType = "rate";
+                  response.questyonType = "rate";
+                  var answRT =
+                  {
+                    comment: "",
+                    nameCandidate: "",
+                    score: 0
+                  }
+                  answRT.comment = r[y].Answers0;
+                  answRT.nameCandidate = r[y].nameCandidates;
+                  if (r[y].nameCandidates.includes("tools.brandinstitute")) {
+                    this.design = true;
+                    answRT.nameCandidate = await this.imageToBuffer(r[y].nameCandidates);
+                  }
+                  else {
+                    answRT.nameCandidate = r[y].nameCandidates;
+                  }
+                  answRT.score = r[y].RATE;
+                  if (answRT.score > 0) {
+                    response.answers.push(answRT);
+                  }
+                }
               }
             }
-            else if (r[y].vote !== undefined) {
-              var answc =
-              {
-                comment: "",
-                nameCandidate: "",
-                score: ""
-              }
-              answc.comment = r[y].Comments1;
-              answc.nameCandidate = r[y].nameCandidates;
-              answc.score = r[y].vote.toString();
-              if (y === 0 && x === 0 && z === 1) {
-                //this.headers.push(r[y].CRITERIA[i].name)
-              }
-              else if (y !== 0) {
-                if (this.design) {
-                  var imageSrcString;
-                  imageSrcString = await this.getBase64ImageFromUrl(answc.nameCandidate)
-                  var img = new Image();
-                  var width
-                  var height
-                  img.src = imageSrcString;
-                  img.onload = () => console.log(img.width);
-                  answc.nameCandidate = imageSrcString.split(imageSrcString.split(",")[0] + ',').pop()
-                }
-                response.answers.push(answc);
-              }
-  
-            }
-            else if(r[y].multipleChoice !== undefined)
-            {
-              var answMC =
-              {
-                comment: "",
-                nameCandidate: "",
-                score: []
-              }
-              answMC.comment = r[y].Answers2;
-              answMC.nameCandidate = r[y].nameCandidates;
-              answMC.score =  r[y].vote.split(",");
-            }
-            else {
-              this.criteria = true;
-              var scores = [];
-              for (var i = 0; i < r[y].CRITERIA.length; i++) {
-                if (y === 0 && x === 0 && z === 1) {
-                  this.headers.push(r[y].CRITERIA[i].name)
-                }
-                else if (y !== 0) {
-                  scores.push(r[y].CRITERIA[i].RATE.toString())
-                }
-              }
-              var answ2 =
-              {
-                comment: r[y].Comments1,
-                nameCandidate: r[y].nameCandidates,
-                score: scores
-              }
-              if (y !== 0) {
-                if (this.design) {
-                  var imageSrcString;
-                  imageSrcString = await this.getBase64ImageFromUrl(answ2.nameCandidate)
-                  var img = new Image();
-                  var width
-                  var height
-                  img.src = imageSrcString;
-                  img.onload = () => console.log(img.width);
-                  answ2.nameCandidate = imageSrcString.split(imageSrcString.split(",")[0] + ',').pop()
-                }
-                response.answers.push(answ2);
-              }
-            }*/
+            recept.responses.push(response);
           }
-          recept.responses.push(response);
         }
       }
-      done.push(recept);
+      if (hasData) {
+        done.push(recept);
+      }
     }
     this.total = done.length;
     return done;
   }
 
+  async imageToBuffer(t: string): Promise<string> {
+    var imageSrcString;
+    imageSrcString = await this.getBase64ImageFromUrl(t)
+    var img = new Image();
+    var width
+    var height
+    img.src = imageSrcString;
+    img.onload = () => console.log(img.width);
+    return imageSrcString.split(imageSrcString.split(",")[0] + ',').pop()
+  }
+
   createHeader(t: any): TableRow {
     var arr = [];
     for (let i = 0; i < t.length; i++) {
+      var size = 33;
+      if(this.reportType === "criteria" && (i === 2 || i === 3))
+      {
+        size = size/2;
+      }
       arr.push(
         new TableCell({
           width: {
-            size: 33,
+            size: size,
             type: WidthType.PERCENTAGE,
           },
           shading: {
@@ -828,8 +768,8 @@ export class DocxSurveyComponent implements OnInit {
             for (var l = 0; l < y.answers[k].score.length; l++) {
               if (rankings.has(y.answers[k].nameCandidate)) {
                 var temp = rankings.get(y.answers[k].nameCandidate)
-                if (temp.has(y.answers[k].score)) {
-                  temp.set(y.answers[k].score, temp.get(y.answers[k].score[l]) + 1);
+                if (temp.has(y.answers[k].score[l])) {
+                  temp.set(y.answers[k].score[l], (temp.get(y.answers[k].score[l]) + 1));
                   rankings.set(y.answers[k].nameCandidate, temp);
                 }
                 else {
@@ -947,59 +887,110 @@ export class DocxSurveyComponent implements OnInit {
 
         )
       }
-
-      row.push(new TableRow
-        (
-          {
-            children: [
-              new TableCell({
-                width: {
-                  size: 33,
-                  type: WidthType.PERCENTAGE,
-                },
-                children: [new Paragraph({
-                  spacing: {
-                    before: 200,
-                    after: 200,
+      if (!this.design) {
+        row.push(new TableRow
+          (
+            {
+              children: [
+                new TableCell({
+                  width: {
+                    size: 33,
+                    type: WidthType.PERCENTAGE,
                   },
-                  alignment: AlignmentType.LEFT,
-                  children:
-                    [
-                      new TextRun
-                        (
-                          {
-                            text: overall[i][0],
-                            bold: true,
-                            font:
+                  children: [new Paragraph({
+                    spacing: {
+                      before: 200,
+                      after: 200,
+                    },
+                    alignment: AlignmentType.LEFT,
+                    children:
+                      [
+                        new TextRun
+                          (
                             {
-                              name: "Calibri",
-                            },
-                            color: "000000",
-                            size: 20,
-                          }
-                        ),
-                    ]
-                })],
-              }),
-              new TableCell({
-                width: {
-                  size: 33,
-                  type: WidthType.PERCENTAGE,
-                },
-                children: [new Paragraph({
-                  spacing: {
-                    before: 200,
-                    after: 200,
+                              text: overall[i][0],
+                              bold: true,
+                              font:
+                              {
+                                name: "Calibri",
+                              },
+                              color: "000000",
+                              size: 20,
+                            }
+                          ),
+                      ]
+                  })],
+                }),
+                new TableCell({
+                  width: {
+                    size: 33,
+                    type: WidthType.PERCENTAGE,
                   },
-                  alignment: AlignmentType.LEFT,
-                  children: a
-                })],
-              }),
-            ],
-          }
-        )
+                  children: [new Paragraph({
+                    spacing: {
+                      before: 200,
+                      after: 200,
+                    },
+                    alignment: AlignmentType.LEFT,
+                    children: a
+                  })],
+                }),
+              ],
+            }
+          )
 
-      )
+        )
+      }
+      else {
+        row.push(new TableRow
+          (
+            {
+              children: [
+
+                new TableCell({
+                  width: {
+                    size: 33,
+                    type: WidthType.PERCENTAGE,
+                  },
+                  children: [new Paragraph({
+                    spacing: {
+                      before: 200,
+                      after: 200,
+                    },
+                    alignment: AlignmentType.CENTER,
+                    children:
+                      [
+                        new ImageRun({
+                          data: Buffer.from(overall[i][0], "base64"),
+                          transformation: {
+                            width: 286,
+                            height: 217,
+                          },
+                        }),
+                      ]
+                  })],
+                }),
+                new TableCell({
+                  width: {
+                    size: 33,
+                    type: WidthType.PERCENTAGE,
+                  },
+                  children: [new Paragraph({
+                    spacing: {
+                      before: 200,
+                      after: 200,
+                    },
+                    alignment: AlignmentType.LEFT,
+                    children: a
+                  })],
+                }),
+              ],
+            }
+          )
+
+        )
+      }
+
     }
 
 
@@ -1022,7 +1013,7 @@ export class DocxSurveyComponent implements OnInit {
       var x = this.user[i];
       for (var j = 0; j < x.responses.length; j++) {
         var y = x.responses[j];
-        if (y.questyonType !== 'multipleChoice') {
+        if (y.questyonType === 'rate') {
           for (var k = 0; k < y.answers.length; k++) {
 
             if (rankings.has(y.answers[k].nameCandidate)) {
@@ -1035,6 +1026,18 @@ export class DocxSurveyComponent implements OnInit {
 
           }
 
+        }
+        else if (y.questyonType === 'criteria') {
+          for (var k = 0; k < y.answers.length; k++) {
+            if (rankings.has(y.answers[k].nameCandidate)) {
+              rankings.set(y.answers[k].nameCandidate, (rankings.get(y.answers[k].nameCandidate) + y.answers[k].score[0].RATE + y.answers[k].score[1].RATE));
+            }
+            else {
+              rankings.set(y.answers[k].nameCandidate, (y.answers[k].score[0].RATE + y.answers[k].score[1].RATE));
+            }
+
+
+          }
         }
       }
     }
@@ -1059,7 +1062,7 @@ export class DocxSurveyComponent implements OnInit {
       var x = this.user[i];
       for (var j = 0; j < x.responses.length; j++) {
         var y = x.responses[j];
-        var checker = j+1
+        var checker = j + 1
         if (this.reportSettings.numberOfpagesToPrint.includes((checker))) {
           for (var k = 0; k < y.answers.length; k++) {
             a = [];
@@ -1086,11 +1089,10 @@ export class DocxSurveyComponent implements OnInit {
     var overall = this.answerBYPage();
     let row: Array<TableRow>;
     row = [];
-
-
     row.push(
-      this.createHeader(["Page", "Question", "Answer",])
+      this.createHeader(["Page", this.nameTyping, "Answer",])
     )
+    var skip = false;
     for (var i = 0; i < overall.length; i++) {
       for (var j = 0; j < overall[i].question.length; j++) {
         let textRow = [];
@@ -1099,6 +1101,7 @@ export class DocxSurveyComponent implements OnInit {
             new TextRun
               (
                 {
+
                   text: overall[i].page.toString(),
                   font:
                   {
@@ -1130,21 +1133,47 @@ export class DocxSurveyComponent implements OnInit {
         let n = overall[i].question[j].resp;
         var partInfo = []
         for (var k = 0; k < overall[i].question[j].resp.length; k++) {
-          partInfo.push(
-            new TextRun
-              (
-                {
-                  text: "[" + overall[i].question[j].resp[k].name + "]" + " " + overall[i].question[j].resp[k].value.toString(),
-                  font:
+          if (this.reportType === "rate") {
+            partInfo.push(
+              new TextRun
+                (
                   {
-                    name: "Calibri",
-                  },
-                  color: "000000",
-                  size: 20,
-                }
-              ),
-          )
-          if (k != overall[i].question[j].resp.length - 1) {
+                    text: "[" + overall[i].question[j].resp[k].name + "]" + " " + overall[i].question[j].resp[k].value.toString(),
+                    font:
+                    {
+                      name: "Calibri",
+                    },
+                    color: "000000",
+                    size: 20,
+                  }
+                ),
+            )
+          }
+          else if (this.reportType === "criteria") {
+            if(overall[i].question[j].resp[k].value[0].RATE.toString() != "-1")
+            {
+              skip = false;
+              partInfo.push(
+                new TextRun
+                  (
+                    {
+                      text: "[" + overall[i].question[j].resp[k].name + "]" + " " + overall[i].question[j].resp[k].value[0].RATE.toString() + " " + overall[i].question[j].resp[k].value[1].RATE.toString(),
+                      font:
+                      {
+                        name: "Calibri",
+                      },
+                      color: "000000",
+                      size: 20,
+                    }
+                  ),
+              )
+            }
+            else
+            {
+              skip = true;
+            }
+          }
+          if (k != overall[i].question[j].resp.length - 1 && !skip) {
             partInfo.push(
               new TextRun
                 (
@@ -1161,70 +1190,135 @@ export class DocxSurveyComponent implements OnInit {
             )
           }
         }
-        row.push(new TableRow
-          (
-            {
-              children: [
-                new TableCell({
-                  width: {
-                    size: 33,
-                    type: WidthType.PERCENTAGE,
-                  },
-                  children: [new Paragraph({
-                    spacing: {
-                      before: 200,
-                      after: 200,
+        if (!this.design) {
+          row.push(new TableRow
+            (
+              {
+                children: [
+                  new TableCell({
+                    width: {
+                      size: 33,
+                      type: WidthType.PERCENTAGE,
                     },
-                    alignment: AlignmentType.LEFT,
-                    children: textRow
-                  })],
-                }),
-                new TableCell({
-                  width: {
-                    size: 33,
-                    type: WidthType.PERCENTAGE,
-                  },
-                  children: [new Paragraph({
-                    spacing: {
-                      before: 200,
-                      after: 200,
+                    children: [new Paragraph({
+                      spacing: {
+                        before: 200,
+                        after: 200,
+                      },
+                      alignment: AlignmentType.CENTER,
+                      children: textRow
+
+                    })],
+                  }),
+                  new TableCell({
+                    width: {
+                      size: 33,
+                      type: WidthType.PERCENTAGE,
                     },
-                    alignment: AlignmentType.LEFT,
-                    children: [
-                      new TextRun
-                        (
-                          {
-                            text: overall[i].question[j].question,
-                            font:
+                    children: [new Paragraph({
+                      spacing: {
+                        before: 200,
+                        after: 200,
+                      },
+                      alignment: AlignmentType.LEFT,
+                      children: [
+                        new TextRun
+                          (
                             {
-                              name: "Calibri",
-                            },
-                            color: "000000",
-                            size: 20,
-                          }
-                        ),
-                    ]
-                  })],
-                }),
-                new TableCell({
-                  width: {
-                    size: 33,
-                    type: WidthType.PERCENTAGE,
-                  },
-                  children: [new Paragraph({
-                    spacing: {
-                      before: 200,
-                      after: 200,
+                              text: overall[i].question[j].question,
+                              font:
+                              {
+                                name: "Calibri",
+                              },
+                              color: "000000",
+                              size: 20,
+                            }
+                          ),
+                      ]
+                    })],
+                  }),
+                  new TableCell({
+                    width: {
+                      size: 33,
+                      type: WidthType.PERCENTAGE,
                     },
-                    alignment: AlignmentType.LEFT,
-                    children: partInfo
-                  })],
-                })
-              ]
-            }))
+                    children: [new Paragraph({
+                      spacing: {
+                        before: 200,
+                        after: 200,
+                      },
+                      alignment: AlignmentType.LEFT,
+                      children: partInfo
+                    })],
+                  })
+                ]
+              }))
+        }
+        else {
+          row.push(new TableRow
+            (
+              {
+                children: [
+                  new TableCell({
+                    width: {
+                      size: 33,
+                      type: WidthType.PERCENTAGE,
+                    },
+                    children: [new Paragraph({
+                      spacing: {
+                        before: 200,
+                        after: 200,
+                      },
+                      alignment: AlignmentType.CENTER,
+                      children: textRow
+
+                    })],
+                  }),
+                  new TableCell({
+                    width: {
+                      size: 33,
+                      type: WidthType.PERCENTAGE,
+                    },
+                    children: [new Paragraph({
+                      spacing: {
+                        before: 200,
+                        after: 200,
+                      },
+                      alignment: AlignmentType.CENTER,
+                      children:
+                        [
+                          new ImageRun({
+                            data: Buffer.from(overall[i].question[j].question, "base64"),
+                            transformation: {
+                              width: 286,
+                              height: 217,
+                            },
+                          }),
+                        ]
+                    })],
+                  }),
+                  new TableCell({
+                    width: {
+                      size: 33,
+                      type: WidthType.PERCENTAGE,
+                    },
+                    children: [new Paragraph({
+                      spacing: {
+                        before: 200,
+                        after: 200,
+                      },
+                      alignment: AlignmentType.LEFT,
+                      children: partInfo
+                    })],
+                  })
+                ]
+              }))
+        }
         let y = "mdaskndlas";
       }
     }
+
+
 
 
     const table = new Table({
@@ -1315,10 +1409,17 @@ export class DocxSurveyComponent implements OnInit {
     var overall = this.answerbyRespondat();
     let row: Array<TableRow>;
     row = [];
-
-    row.push(
-      this.createHeader(["Name", "Question", "Answer",])
-    )
+    if (this.reportType === "rate") {
+      row.push(
+        this.createHeader(["Name", this.nameTyping, "Answer",])
+      )
+    }
+    else if (this.reportType === "criteria") {
+      var test = overall[0][1][0].score[0].name
+      row.push(
+        this.createHeader(["Name", this.nameTyping, overall[0][1][0].score[0].name, overall[0][1][0].score[1].name])
+      )
+    }
     for (var i = 0; i < overall.length; i++) {
 
       for (var j = 0; j < overall[i][1].length; j++) {
@@ -1357,85 +1458,174 @@ export class DocxSurveyComponent implements OnInit {
               ),
           )
         }
+        let cell: Array<TableCell>;
+        cell = [];
 
+        cell.push(new TableCell({
+          width: {
+            size: 33,
+            type: WidthType.PERCENTAGE,
+          },
+          children: [new Paragraph({
+            spacing: {
+              before: 200,
+              after: 200,
+            },
+            alignment: AlignmentType.CENTER,
+            children: textRow
+          })],
+        }),)
 
-        row.push(new TableRow
-          (
-            {
+        if (!this.design)
+        {
+          cell.push(new TableCell({
+            width: {
+              size: 33,
+              type: WidthType.PERCENTAGE,
+            },
+            children: [new Paragraph({
+              spacing: {
+                before: 200,
+                after: 200,
+              },
+              alignment: AlignmentType.LEFT,
               children: [
-                new TableCell({
-                  width: {
-                    size: 33,
-                    type: WidthType.PERCENTAGE,
-                  },
-                  children: [new Paragraph({
-                    spacing: {
-                      before: 200,
-                      after: 200,
+                new TextRun
+                  (
+                    {
+                      text: overall[i][1][j].question,
+                      font:
+                      {
+                        name: "Calibri",
+                      },
+                      color: "000000",
+                      size: 20,
+                    }
+                  ),
+              ]
+            })],
+          }),)
+        }
+        else
+        {
+          cell.push(new TableCell({
+            width: {
+              size: 33,
+              type: WidthType.PERCENTAGE,
+            },
+            children: [new Paragraph({
+              spacing: {
+                before: 200,
+                after: 200,
+              },
+              alignment: AlignmentType.CENTER,
+              children:
+                [
+                  new ImageRun({
+                    data: Buffer.from(overall[i][1][j].question, "base64"),
+                    transformation: {
+                      width: 286,
+                      height: 217,
                     },
-                    alignment: AlignmentType.LEFT,
-                    children: textRow
-                  })],
-                }),
-                new TableCell({
-                  width: {
-                    size: 33,
-                    type: WidthType.PERCENTAGE,
-                  },
-                  children: [new Paragraph({
-                    spacing: {
-                      before: 200,
-                      after: 200,
-                    },
-                    alignment: AlignmentType.LEFT,
-                    children: [
-                      new TextRun
-                        (
-                          {
-                            text: overall[i][1][j].question,
-                            font:
-                            {
-                              name: "Calibri",
-                            },
-                            color: "000000",
-                            size: 20,
-                          }
-                        ),
-                    ]
-                  })],
-                }),
-                new TableCell({
-                  width: {
-                    size: 33,
-                    type: WidthType.PERCENTAGE,
-                  },
-                  children: [new Paragraph({
-                    spacing: {
-                      before: 200,
-                      after: 200,
-                    },
-                    alignment: AlignmentType.LEFT,
-                    children: [
-                      new TextRun
-                        (
-                          {
-                            text: overall[i][1][j].score,
-                            font:
-                            {
-                              name: "Calibri",
-                            },
-                            color: "000000",
-                            size: 20,
-                          }
-                        ),
-                    ]
-                  })],
-                }),
-              ],
-            }
-          )
+                  }),
+                ]
+            })],
+          }),)
+        }
 
-        )
+        if(this.reportType === "criteria")
+        {
+          cell.push(new TableCell({
+            children: [new Paragraph({
+              spacing: {
+                before: 200,
+                after: 200,
+              },
+              alignment: AlignmentType.CENTER,
+              children: [
+                new TextRun
+                  (
+                    {
+                      text: overall[i][1][j].score[0].RATE,
+                      font:
+                      {
+                        name: "Calibri",
+                      },
+                      color: "000000",
+                      size: 20,
+                    }
+                  ),
+              ]
+            })],
+          })
+          
+          ,)
+          cell.push(new TableCell({
+            children: [new Paragraph({
+              spacing: {
+                before: 200,
+                after: 200,
+              },
+              alignment: AlignmentType.CENTER,
+              children: [
+                new TextRun
+                  (
+                    {
+                      text: overall[i][1][j].score[1].RATE,
+                      font:
+                      {
+                        name: "Calibri",
+                      },
+                      color: "000000",
+                      size: 20,
+                    }
+                  ),
+              ]
+            })],
+          }))
+
+        }
+        else
+        {
+          cell.push(new TableCell({
+            width: {
+              size: 33,
+              type: WidthType.PERCENTAGE,
+            },
+            children: [new Paragraph({
+              spacing: {
+                before: 200,
+                after: 200,
+              },
+              alignment: AlignmentType.LEFT,
+              children: [
+                new TextRun
+                  (
+                    {
+                      text: overall[i][1][j].score,
+                      font:
+                      {
+                        name: "Calibri",
+                      },
+                      color: "000000",
+                      size: 20,
+                    }
+                  ),
+              ]
+            })],
+          }),)
+        }
+
+
+          row.push(new TableRow
+            (
+              {
+                children: cell
+              }
+            )
+
+          )
+        
       }
 
 
@@ -1457,31 +1647,64 @@ export class DocxSurveyComponent implements OnInit {
 
   answerbyRespondat(): any {
     let comments = new Map();
-    type user = { question: string; score: string; };
-    let a: user[];
 
-    for (var i = 0; i < this.user.length; i++) {
-      var x = this.user[i];
-      for (var j = 0; j < x.responses.length; j++) {
-        var y = x.responses[j];
-        for (var k = 0; k < y.answers.length; k++) {
-          a = [];
-          if (comments.has(x.email) && y.answers[k].score.length !== 0) {
-            a = comments.get(x.email)
-            a.push({ question: y.answers[k].nameCandidate, score: y.answers[k].score.toString() })
-            comments.set(x.email, a);
-          }
-          else if (!comments.has(x.email) && y.answers[k].score.length !== 0) {
-            a.push({ question: y.answers[k].nameCandidate, score: y.answers[k].score.toString() })
-            comments.set(x.email, a);
-          }
 
+    if (this.reportType === "rate") {
+      type user = { question: string; score: string; };
+      let a: user[];
+
+      for (var i = 0; i < this.user.length; i++) {
+        var x = this.user[i];
+        for (var j = 0; j < x.responses.length; j++) {
+          var y = x.responses[j];
+          for (var k = 0; k < y.answers.length; k++) {
+            a = [];
+
+            if (comments.has(x.email) && y.answers[k].score.length !== 0) {
+              a = comments.get(x.email)
+              a.push({ question: y.answers[k].nameCandidate, score: y.answers[k].score.toString() })
+              comments.set(x.email, a);
+            }
+            else if (!comments.has(x.email) && y.answers[k].score.length !== 0) {
+              a.push({ question: y.answers[k].nameCandidate, score: y.answers[k].score.toString() })
+              comments.set(x.email, a);
+            }
+          }
+        }
+      }
+
+    }
+    else if (this.reportType === "criteria") {
+      type user = { question: string; score: []; };
+      let a: user[];
+
+      for (var i = 0; i < this.user.length; i++) {
+        var x = this.user[i];
+        for (var j = 0; j < x.responses.length; j++) {
+          var y = x.responses[j];
+          for (var k = 0; k < y.answers.length; k++) {
+            a = [];
+
+            if (comments.has(x.email) && y.answers[k].score.length !== 0) {
+              a = comments.get(x.email)
+              a.push({ question: y.answers[k].nameCandidate, score: y.answers[k].score })
+              comments.set(x.email, a);
+            }
+            else if (!comments.has(x.email) && y.answers[k].score.length !== 0) {
+              a.push({ question: y.answers[k].nameCandidate, score: y.answers[k].score })
+              comments.set(x.email, a);
+            }
+          }
         }
       }
     }
+
+
     var test = Array.from(comments);
     return test;
   }
+
+
 
   async getBase64ImageFromUrl(imageUrl) {
     var res = await fetch(imageUrl);
@@ -2420,8 +2643,14 @@ export class DocxSurveyComponent implements OnInit {
               }),
             ],
           }),
-        this.overallTable(),
+
       )
+      if (this.reportType === "multipleChoice") {
+        reportParts.push(this.overallMultipleChoice(),)
+      }
+      else {
+        reportParts.push(this.overallTable(),)
+      }
       if (this.reportSettings.OverallRankingWithRespondents)
         reportParts.push(
           new Paragraph({

@@ -59,7 +59,7 @@ export class RatingScaleComponent implements OnInit {
 
   BAG = "DRAGGABLE_ROW";
   subs = new Subscription();
-  rowsCount = 10
+  rowsCount = 0
 
   HISTORY = []
   RANGEARRAY = ['columnWidth1', 'columnWidth2', 'columnWidth3']
@@ -68,18 +68,6 @@ export class RatingScaleComponent implements OnInit {
   randomizeTestNames = false
 
   constructor(private dragulaService: DragulaService, private _snackBar: MatSnackBar, private _bmxService: BmxService) {
-    //   dragulaService.createGroup('DRAGGABLE_ROW', {
-    //     moves: (el, container, handle, sibling) => {
-    //       if (el.classList.contains('ROW-CERO')) {
-    //         return false
-    //       }else return true
-    //     }
-    // });
-
-    // dragulaService.createGroup("DRAGGABLE_ROW", {
-    //   removeOnSpill: true
-    // });
-
   }
   ngOnInit(): void {
     // COLUMN NAMES
@@ -104,22 +92,16 @@ export class RatingScaleComponent implements OnInit {
         }
       }
 
-       // SET THE SURVEY LANGUAGE
-       this._bmxService.currentprojectData$.subscribe((projectData:any) => {
+      // SET THE SURVEY LANGUAGE
+      this._bmxService.currentprojectData$.subscribe((projectData: any) => {
         if (projectData.bmxLanguage == 'Japanese') {
-          this.bmxItem.componentSettings[0].language = 'Japanese'   
+          this.bmxItem.componentSettings[0].language = 'Japanese'
         }
       })
 
     })
 
-    // if (this.bmxItem.componentSettings[0].CRITERIA) {
-    //   this.bmxItem.componentText.forEach((item, index) => {
-    //     if (index == 0) {
-    //     }
-    //   })
-    // }
-    // this.selectedCriteria = 'Fit to Compound Concept, and Overall Likeability'
+    this.randomizeTestNames = this.bmxItem.componentSettings[0].randomizeTestNames
   }
 
   maxRuleCounterMinus() {
@@ -142,7 +124,7 @@ export class RatingScaleComponent implements OnInit {
         for (let index = 0; index < this.bmxItem.componentText.length; index++) {
           // REMOVE FIRST CHECKED VALUE
           if (this.bmxItem.componentText[index].SELECTED_ROW) {
-            // ASK BEFROE REMOVE IT 
+            // ASK BEFROE REMOVE IT
             this._snackBar.open(this.bmxItem.componentText[index].nameCandidates + ' was uncheck becuse you can only select up to ' + this.bmxItem.componentSettings[0].minRule
               + ' test names ', 'OK', {
               duration: 6000,
@@ -194,7 +176,7 @@ export class RatingScaleComponent implements OnInit {
       this.bmxItem.componentText.forEach((testnameRow, i) => {
         if (testnameRow.RATE == rate) {
           this.bmxItem.componentText[i].RATE = 0
-          // ASK BEFROE REMOVE IT 
+          // ASK BEFROE REMOVE IT
           // this._snackBar.open(testnameRow.nameCandidates + 'was already rank ' + rate, 'ok', {
           //   duration: 4000,
           //   verticalPosition: 'bottom',
@@ -315,6 +297,7 @@ export class RatingScaleComponent implements OnInit {
 
   upLoadNamesAndRationales(list: string) {
     this.uploadImagesIcon = true
+    this.bmxItem.componentSettings[0].randomizeTestNames = (this.randomizeTestNames) ? true : false
     this.recordHistory()
     this.dragRows = true;
     if (!list) { list = this.listString; }
@@ -391,21 +374,11 @@ export class RatingScaleComponent implements OnInit {
             }
             objectColumnDesign['RATE'] = i > 0 ? -1 : 'RATE'
           }
+          if (this.bmxItem.componentType == 'narrow-down') {
+            objectColumnDesign['SELECTED_ROW'] = false
+          }
           this.TESTNAMES_LIST.push(objectColumnDesign);
         }
-      }
-   
-
-      //   RANDOMIZE TEST NAMES
-      if (this.randomizeTestNames) {
-        this.bmxItem.componentSettings[0].randomizeTestNames = true
-        // DEPRECATED
-        // let headerRow = this.TESTNAMES_LIST[0]
-        // this.TESTNAMES_LIST.pop()
-        // this.ramdomizeArray()
-        // this.TESTNAMES_LIST.unshift(headerRow)
-        // this.bmxItem.componentText = this.deleteDuplicates(this.TESTNAMES_LIST, 'nameCandidates');
-        // this.columnsNames.push('RATE')
       }
 
       this.bmxItem.componentText = this.deleteDuplicates(this.TESTNAMES_LIST, 'nameCandidates');
@@ -439,6 +412,7 @@ export class RatingScaleComponent implements OnInit {
       }
     }
     setTimeout(() => {
+      this.rowsCount = this.bmxItem.componentText.length - 1;
       this.bmxItem.componentSettings[0].minRule = (this.bmxItem.componentSettings[0].minRule == 0) ? this.bmxItem.componentText.length - 1 : this.bmxItem.componentSettings[0].minRule
       if (this.bmxItem.componentSettings[0].CRITERIA) {
         //MULTIPLY FOR THE AMOUNT OF CRITERIA
@@ -574,6 +548,7 @@ export class RatingScaleComponent implements OnInit {
       }
     });
 
+    this.bmxItem.componentSettings[0].commentsWidth = 165
   }
 
   insertRadioColumn() {
