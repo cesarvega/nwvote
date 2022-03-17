@@ -167,12 +167,14 @@
     <div style="display: flex;flex-direction: row;justify-content: space-around;gap: 30px;">
 
         <input type="text" [(ngModel)]="bmxItem.componentSettings[0].categoryName"
-            [value]="bmxItem.componentSettings[0].categoryName"
+            [value]="bmxItem.componentSettings[0].categoryName" [placeholder]="'Category Name'"
             style="font-size: 20px;color: #324395;padding-bottom: 7px;padding-left: 10px;">
         <input type="text" [(ngModel)]="bmxItem.componentSettings[0].categoryDescription"
-            [value]="bmxItem.componentSettings[0].categoryDescription"
+            [value]="bmxItem.componentSettings[0].categoryDescription" placeholder="Category Description"
             style="font-size: 20px;color: #ee7f25;padding-bottom: 4px;padding-left: 7px;">
 
+        <mat-checkbox [(ngModel)]="randomizeTestNames">Randomize Logos</mat-checkbox>
+         
         <div style="display: flex;flex-direction: column;justify-content: center;gap: 10px;">
             <div style="font-size: 16px;margin-top: 10px;color: #48535e;text-align: center;">MIN:
                 {{bmxItem.componentSettings[0].minRule}}</div>
@@ -592,8 +594,8 @@
 
                 <div style="display: flex;gap: 23px;padding-top: 10px;position: absolute;right: 24px;">
                     <div *ngFor="let criteria of testName.CRITERIA  let x =  index">
-                        <button (click)="criteria.RATE = 0;leaveCriteriaStar(y,x);maxRuleCounterMinus()" *ngIf="criteria.RATE>0 && y != 0 "
-                            style="background-color: #ee7f25;    
+                        <button (click)="criteria.RATE = 0;leaveCriteriaStar(y,x);maxRuleCounterMinus()"
+                            *ngIf="criteria.RATE>0 && y != 0 " style="background-color: #ee7f25;    
                              color: white;
                              min-width: 20px;
                              line-height: 19px;
