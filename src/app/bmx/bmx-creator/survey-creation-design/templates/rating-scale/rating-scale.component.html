@@ -168,16 +168,13 @@
 
     <hr>
     <div style="display: flex;flex-direction: row;justify-content: space-around;gap: 30px;">
-
         <input type="text" [(ngModel)]="bmxItem.componentSettings[0].categoryName"
             [value]="bmxItem.componentSettings[0].categoryName" placeholder="Category Name"
             style="font-size: 20px;color: #324395;padding-bottom: 7px;padding-left: 10px;">
         <input type="text" [(ngModel)]="bmxItem.componentSettings[0].categoryDescription"
             [value]="bmxItem.componentSettings[0].categoryDescription" placeholder="Category Description"
             style="font-size: 20px;color: #ee7f25;padding-bottom: 4px;padding-left: 7px;">
-
         <mat-checkbox [(ngModel)]="randomizeTestNames">Randomize Names</mat-checkbox>
-
         <div style="display: flex;flex-direction: column;justify-content: center;gap: 10px;">
             <div style="font-size: 16px;margin-top: 10px;color: #48535e;text-align: center;">MIN:
                 {{bmxItem.componentSettings[0].minRule}}</div>
@@ -190,8 +187,6 @@
             <input type="range" min="0" [max]="rowsCount" [(ngModel)]="bmxItem.componentSettings[0].maxRule"
                 style="width:120px; padding: 0px 10px;" [value]="bmxItem.componentSettings[0].maxRule">
         </div>
-
-
     </div>
 
     <hr>
@@ -632,9 +627,10 @@
                         justify-content: center;">
                             <textarea *ngIf="y !== 0  && columnName.includes('Comments') == true && selectedCard == y"
                                 [style.width]="'95%'" [style.font-size]="bmxItem.componentSettings[0].fontSize +'px'"
-                                cdkTextareaAutosize [cdkAutosizeMinRows]="bmxItem.componentSettings[0].rowHeight" style="text-align: center;height: 32px;width: 358px;font-size: 16px;border: 1px solid grey;
+                                cdkTextareaAutosize [cdkAutosizeMinRows]="bmxItem.componentSettings[0].rowHeight"
+                                 style="text-align: center;height: 32px;width: 358px;font-size: 16px;border: 1px solid grey;
                             animation: bounceIn 500ms ease-in forwards;padding: 0 4px;margin-bottom: 10px;"
-                                class="row-box" [(ngModel)]="testName[columnName]" placeholder="comments" rows="4"
+                                class="row-box" [(ngModel)]="testName[columnName]" placeholder="comments cv" rows="4"
                                 cols="50"></textarea>
                         </div>
 

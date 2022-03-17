@@ -61,16 +61,33 @@ export class TextParagraphComponent implements OnInit {
       arg.bmxRegionalOffice.forEach((director: any, index: number) => {
 
      
-    let directorString =  `<div style="display: flex;justify-content: space-evenly; align-items: center;width: 90vw;">
-        <div style="text-align: left;width: 400px;">
-            <div >${director.name.trim()}</div>
-            <div style="font-family: auto;
-            font-size: 16px;
-            font-style: italic;">${director.title.trim()}</div>
-        </div>
-        <div style="text-align: left;width: 300px;">${director.email.trim()}</div>
-        <div style="text-align: left;width: 300px;">${director.phone.trim()}</div>
+    // let directorString =  `<div style="display: flex;justify-content: space-evenly; align-items: center;width: 90vw;">
+    //     <div style="text-align: left;width: 400px;">
+    //         <div >${director.name.trim()}</div>
+    //         <div style="font-family: auto;
+    //         font-size: 16px;
+    //         font-style: italic;">${director.title.trim()}</div>
+    //     </div>
+    //     <div style="text-align: left;width: 300px;">${director.email.trim()}</div>
+    //     <div style="text-align: left;width: 300px;">${director.phone.trim()}</div>
+    //   </div>
+    //   `
+    let directorString =  `
+    <div style="display: flex;flex-direction: column;justify-content: center;align-items: center;">
+        <div style="font-family: auto;
+        font-size: 23px;
+        ">${director.name.trim()}</div>
+        <div style="font-family: auto;
+        font-size: 18px;
+        font-style: italic;">${director.title.trim()}</div>
+        <div style="font-family: auto;
+        font-size: 18px;
+        font-style: italic;">${director.email.trim()}</div>
+        <div style="font-family: auto;
+        font-size: 18px;
+        font-style: italic;">${director.phone.trim()}</div>
       </div>
+      <br>
       `
 
         if (index == 0) {
