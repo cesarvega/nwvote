@@ -20,6 +20,8 @@ import { map } from 'rxjs/operators';
 import { JAN } from '@angular/material/core';
 import { MatTableDataSource } from '@angular/material/table';
 import { SelectionModel } from '@angular/cdk/collections';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
+
 
 
 @Component({
@@ -64,10 +66,11 @@ export class DocxSurveyComponent implements OnInit {
   RESPONDENTS_LIST = [];
   projectId = 'topRankDropDown';
   data;
+  biLogo;
 
-
-  constructor(private _hotkeysService: HotkeysService, private dragulaService: DragulaService, private _BmxService: BmxService) { }
+  constructor(private _hotkeysService: HotkeysService, private dragulaService: DragulaService, private _BmxService: BmxService, private http: HttpClient) { }
   ngOnInit(): void {
+    const fs = require('fs');
     this.selection = new SelectionModel<any>(true, []);
     this._BmxService.currentprojectData$.subscribe((projectData) => {
       this.data = projectData !== '' ? projectData : this.projectId;
@@ -104,8 +107,11 @@ export class DocxSurveyComponent implements OnInit {
         });
     });
 
+    this.http.get('./assets/img/logoSite.jpg', { responseType: 'blob' })
+      .subscribe(data => {
 
-
+        this.biLogo = new Blob([data], { type: "image/jpg" })
+      });
 
 
 
@@ -214,7 +220,7 @@ export class DocxSurveyComponent implements OnInit {
                     nameCandidate: "",
                     score: 0
                   }
-                  answRT.comment = r[y].Answers0;
+                  answRT.comment = r[y].Comments0;
                   answRT.nameCandidate = r[y].nameCandidates;
                   if (r[y].nameCandidates.includes("tools.brandinstitute")) {
                     this.design = true;
@@ -257,9 +263,8 @@ export class DocxSurveyComponent implements OnInit {
     var arr = [];
     for (let i = 0; i < t.length; i++) {
       var size = 33;
-      if(this.reportType === "criteria" && (i === 2 || i === 3))
-      {
-        size = size/2;
+      if (this.reportType === "criteria" && (i === 2 || i === 3)) {
+        size = size / 2;
       }
       arr.push(
         new TableCell({
@@ -328,7 +333,7 @@ export class DocxSurveyComponent implements OnInit {
                     before: 200,
                     after: 200,
                   },
-                  alignment: AlignmentType.LEFT,
+                  alignment: AlignmentType.CENTER,
                   children:
                     [
                       new TextRun
@@ -357,7 +362,7 @@ export class DocxSurveyComponent implements OnInit {
                     before: 200,
                     after: 200,
                   },
-                  alignment: AlignmentType.LEFT,
+                  alignment: AlignmentType.CENTER,
                   children:
                     [
                       new TextRun
@@ -386,7 +391,7 @@ export class DocxSurveyComponent implements OnInit {
                     before: 200,
                     after: 200,
                   },
-                  alignment: AlignmentType.LEFT,
+                  alignment: AlignmentType.CENTER,
                   children:
                     [
                       new TextRun
@@ -424,8 +429,8 @@ export class DocxSurveyComponent implements OnInit {
     return table
   }
 
-  overallTable(): Table {
-    var overall = this.sortOverall();
+  overallTable(pagesPring: any): Table {
+    var overall = this.sortOverall(pagesPring);
     let row: Array<TableRow>;
     row = [];
 
@@ -638,8 +643,8 @@ export class DocxSurveyComponent implements OnInit {
     return table
   }
 
-  overallMultipleChoice(): Table {
-    var overall = this.sortMultipleChoice();
+  overallMultipleChoice(pagesPring: any): Table {
+    var overall = this.sortMultipleChoice(pagesPring);
     let row: Array<TableRow>;
     row = [];
 
@@ -756,37 +761,38 @@ export class DocxSurveyComponent implements OnInit {
 
   }
 
-  sortMultipleChoice(): any {
+  sortMultipleChoice(pagesPring: any): any {
     let rankings = new Map();
     let answer = new Map();
     for (var i = 0; i < this.user.length; i++) {
       var x = this.user[i];
       for (var j = 0; j < x.responses.length; j++) {
         var y = x.responses[j];
-        if (y.questyonType === "multipleChoice") {
-          for (var k = 0; k < y.answers.length; k++) {
-            for (var l = 0; l < y.answers[k].score.length; l++) {
-              if (rankings.has(y.answers[k].nameCandidate)) {
-                var temp = rankings.get(y.answers[k].nameCandidate)
-                if (temp.has(y.answers[k].score[l])) {
-                  temp.set(y.answers[k].score[l], (temp.get(y.answers[k].score[l]) + 1));
-                  rankings.set(y.answers[k].nameCandidate, temp);
+        if (pagesPring.includes(y.page)) {
+          if (y.questyonType === "multipleChoice") {
+            for (var k = 0; k < y.answers.length; k++) {
+              for (var l = 0; l < y.answers[k].score.length; l++) {
+                if (rankings.has(y.answers[k].nameCandidate)) {
+                  var temp = rankings.get(y.answers[k].nameCandidate)
+                  if (temp.has(y.answers[k].score[l])) {
+                    temp.set(y.answers[k].score[l], (temp.get(y.answers[k].score[l]) + 1));
+                    rankings.set(y.answers[k].nameCandidate, temp);
+                  }
+                  else {
+                    temp.set(y.answers[k].score[l], 1)
+                    rankings.set(y.answers[k].nameCandidate, temp);
+                  }
                 }
                 else {
-                  temp.set(y.answers[k].score[l], 1)
-                  rankings.set(y.answers[k].nameCandidate, temp);
+                  answer = new Map();
+                  answer.set(y.answers[k].score[l], 1)
+                  rankings.set(y.answers[k].nameCandidate, answer);
                 }
-              }
-              else {
-                answer = new Map();
-                answer.set(y.answers[k].score[l], 1)
-                rankings.set(y.answers[k].nameCandidate, answer);
               }
             }
           }
+
         }
-
-
       }
     }
 
@@ -812,8 +818,8 @@ export class DocxSurveyComponent implements OnInit {
     return output;
   }
 
-  commentTable(): Table {
-    var overall = this.grabComments();
+  commentTable(pagesPring: any): Table {
+    var overall = this.grabComments(pagesPring);
     let row: Array<TableRow>;
     let a: Array<TextRun>
     row = [];
@@ -1006,39 +1012,42 @@ export class DocxSurveyComponent implements OnInit {
     return table
   }
 
-  sortOverall(): any {
+  sortOverall(pagesPring: any): any {
 
     let rankings = new Map();
     for (var i = 0; i < this.user.length; i++) {
       var x = this.user[i];
       for (var j = 0; j < x.responses.length; j++) {
         var y = x.responses[j];
-        if (y.questyonType === 'rate') {
-          for (var k = 0; k < y.answers.length; k++) {
+        if (pagesPring.includes(y.page)) {
+          if (y.questyonType === 'rate') {
+            for (var k = 0; k < y.answers.length; k++) {
 
-            if (rankings.has(y.answers[k].nameCandidate)) {
-              rankings.set(y.answers[k].nameCandidate, (Number(rankings.get(y.answers[k].nameCandidate)) + Number((y.answers[k].score))));
-            }
-            else {
-              rankings.set(y.answers[k].nameCandidate, Number((y.answers[k].score)));
-            }
+              if (rankings.has(y.answers[k].nameCandidate)) {
+                rankings.set(y.answers[k].nameCandidate, (Number(rankings.get(y.answers[k].nameCandidate)) + Number((y.answers[k].score))));
+              }
+              else {
+                rankings.set(y.answers[k].nameCandidate, Number((y.answers[k].score)));
+              }
 
+
+            }
 
           }
+          else if (y.questyonType === 'criteria') {
+            for (var k = 0; k < y.answers.length; k++) {
+              if (rankings.has(y.answers[k].nameCandidate)) {
+                rankings.set(y.answers[k].nameCandidate, (rankings.get(y.answers[k].nameCandidate) + y.answers[k].score[0].RATE + y.answers[k].score[1].RATE));
+              }
+              else {
+                rankings.set(y.answers[k].nameCandidate, (y.answers[k].score[0].RATE + y.answers[k].score[1].RATE));
+              }
 
-        }
-        else if (y.questyonType === 'criteria') {
-          for (var k = 0; k < y.answers.length; k++) {
-            if (rankings.has(y.answers[k].nameCandidate)) {
-              rankings.set(y.answers[k].nameCandidate, (rankings.get(y.answers[k].nameCandidate) + y.answers[k].score[0].RATE + y.answers[k].score[1].RATE));
+
             }
-            else {
-              rankings.set(y.answers[k].nameCandidate, (y.answers[k].score[0].RATE + y.answers[k].score[1].RATE));
-            }
-
-
           }
         }
+
       }
     }
     var test = Array.from(rankings);
@@ -1053,7 +1062,7 @@ export class DocxSurveyComponent implements OnInit {
     return test;
   }
 
-  grabComments(): any {
+  grabComments(pagesPring: any): any {
     let comments = new Map();
     type user = { name: string; comment: string; };
     let a: user[];
@@ -1062,8 +1071,7 @@ export class DocxSurveyComponent implements OnInit {
       var x = this.user[i];
       for (var j = 0; j < x.responses.length; j++) {
         var y = x.responses[j];
-        var checker = j + 1
-        if (this.reportSettings.numberOfpagesToPrint.includes((checker))) {
+        if (pagesPring.includes(y.page)) {
           for (var k = 0; k < y.answers.length; k++) {
             a = [];
             if (comments.has(y.answers[k].nameCandidate) && (y.answers[k].comment !== "" && y.answers[k].comment !== undefined)) {
@@ -1077,16 +1085,16 @@ export class DocxSurveyComponent implements OnInit {
             }
 
           }
-        }
 
+        }
       }
     }
     var test = Array.from(comments);
     return test;
   }
 
-  byPage(): Table {
-    var overall = this.answerBYPage();
+  byPage(pagesPring: any): Table {
+    var overall = this.answerBYPage(pagesPring);
     let row: Array<TableRow>;
     row = [];
     row.push(
@@ -1150,8 +1158,7 @@ export class DocxSurveyComponent implements OnInit {
             )
           }
           else if (this.reportType === "criteria") {
-            if(overall[i].question[j].resp[k].value[0].RATE.toString() != "-1")
-            {
+            if (overall[i].question[j].resp[k].value[0].RATE.toString() != "-1") {
               skip = false;
               partInfo.push(
                 new TextRun
@@ -1168,8 +1175,7 @@ export class DocxSurveyComponent implements OnInit {
                   ),
               )
             }
-            else
-            {
+            else {
               skip = true;
             }
           }
@@ -1333,7 +1339,7 @@ export class DocxSurveyComponent implements OnInit {
     return table
   }
 
-  answerBYPage(): any {
+  answerBYPage(pagesPring: any): any {
 
     type user = { name: string; value: string; };
     let a: user[];
@@ -1345,28 +1351,31 @@ export class DocxSurveyComponent implements OnInit {
       var x = this.user[i];
       for (var j = 0; j < x.responses.length; j++) {
         var y = x.responses[j];
-        for (var k = 0; k < y.answers.length; k++) {
-          a = [];
-          if (page.has(y.page)) {
-            var temp = page.get(y.page)
-            if (temp.has(y.answers[k].nameCandidate)) {
-              a = temp.get(y.answers[k].nameCandidate);
-              a.push({ name: this.user[i].email, value: y.answers[k].score })
-              temp.set(y.answers[k].nameCandidate, a)
-              page.set(y.page, temp)
+        if (pagesPring.includes(y.page)) {
+          for (var k = 0; k < y.answers.length; k++) {
+            a = [];
+            if (page.has(y.page)) {
+              var temp = page.get(y.page)
+              if (temp.has(y.answers[k].nameCandidate)) {
+                a = temp.get(y.answers[k].nameCandidate);
+                a.push({ name: this.user[i].email, value: y.answers[k].score })
+                temp.set(y.answers[k].nameCandidate, a)
+                page.set(y.page, temp)
+              }
+              else {
+                a.push({ name: this.user[i].email, value: y.answers[k].score })
+                temp.set(y.answers[k].nameCandidate, a)
+                page.set(y.page, temp);
+              }
             }
             else {
               a.push({ name: this.user[i].email, value: y.answers[k].score })
-              temp.set(y.answers[k].nameCandidate, a)
-              page.set(y.page, temp);
+              var names = new Map();
+              names.set(y.answers[k].nameCandidate, a)
+              page.set(y.page, names);
             }
           }
-          else {
-            a.push({ name: this.user[i].email, value: y.answers[k].score })
-            var names = new Map();
-            names.set(y.answers[k].nameCandidate, a)
-            page.set(y.page, names);
-          }
+
         }
       }
     }
@@ -1405,8 +1414,8 @@ export class DocxSurveyComponent implements OnInit {
     return output;
   }
 
-  byRespondant(): Table {
-    var overall = this.answerbyRespondat();
+  byRespondant(pagesPring: any): Table {
+    var overall = this.answerbyRespondat(pagesPring);
     let row: Array<TableRow>;
     row = [];
     if (this.reportType === "rate") {
@@ -1474,10 +1483,9 @@ export class DocxSurveyComponent implements OnInit {
             alignment: AlignmentType.CENTER,
             children: textRow
           })],
-        }),)
+        }))
 
-        if (!this.design)
-        {
+        if (!this.design) {
           cell.push(new TableCell({
             width: {
               size: 33,
@@ -1504,10 +1512,9 @@ export class DocxSurveyComponent implements OnInit {
                   ),
               ]
             })],
-          }),)
+          }))
         }
-        else
-        {
+        else {
           cell.push(new TableCell({
             width: {
               size: 33,
@@ -1530,11 +1537,10 @@ export class DocxSurveyComponent implements OnInit {
                   }),
                 ]
             })],
-          }),)
+          }))
         }
 
-        if(this.reportType === "criteria")
-        {
+        if (this.reportType === "criteria") {
           cell.push(new TableCell({
             children: [new Paragraph({
               spacing: {
@@ -1558,7 +1564,7 @@ export class DocxSurveyComponent implements OnInit {
               ]
             })],
           })
-          
+
           ,)
           cell.push(new TableCell({
             children: [new Paragraph({
@@ -1585,8 +1591,7 @@ export class DocxSurveyComponent implements OnInit {
           }))
 
         }
-        else
-        {
+        else {
           cell.push(new TableCell({
             width: {
               size: 33,
@@ -1613,19 +1618,19 @@ export class DocxSurveyComponent implements OnInit {
                   ),
               ]
             })],
-          }),)
+          }))
         }
 
 
-          row.push(new TableRow
-            (
-              {
-                children: cell
-              }
-            )
-
+        row.push(new TableRow
+          (
+            {
+              children: cell
+            }
           )
-        
+
+        )
+
       }
 
 
@@ -1645,7 +1650,7 @@ export class DocxSurveyComponent implements OnInit {
     return table
   }
 
-  answerbyRespondat(): any {
+  answerbyRespondat(pagesPring: any): any {
     let comments = new Map();
 
 
@@ -1657,19 +1662,23 @@ export class DocxSurveyComponent implements OnInit {
         var x = this.user[i];
         for (var j = 0; j < x.responses.length; j++) {
           var y = x.responses[j];
-          for (var k = 0; k < y.answers.length; k++) {
-            a = [];
+          if (pagesPring.includes(y.page)) {
+            for (var k = 0; k < y.answers.length; k++) {
+              a = [];
 
-            if (comments.has(x.email) && y.answers[k].score.length !== 0) {
-              a = comments.get(x.email)
-              a.push({ question: y.answers[k].nameCandidate, score: y.answers[k].score.toString() })
-              comments.set(x.email, a);
-            }
-            else if (!comments.has(x.email) && y.answers[k].score.length !== 0) {
-              a.push({ question: y.answers[k].nameCandidate, score: y.answers[k].score.toString() })
-              comments.set(x.email, a);
+              if (comments.has(x.email) && y.answers[k].score.length !== 0) {
+                a = comments.get(x.email)
+                a.push({ question: y.answers[k].nameCandidate, score: y.answers[k].score.toString() })
+                comments.set(x.email, a);
+              }
+              else if (!comments.has(x.email) && y.answers[k].score.length !== 0) {
+                a.push({ question: y.answers[k].nameCandidate, score: y.answers[k].score.toString() })
+                comments.set(x.email, a);
+              }
             }
           }
+
+
         }
       }
 
@@ -1780,8 +1789,19 @@ export class DocxSurveyComponent implements OnInit {
 
 
   report(): void {
+
+    
+
     var temp = this.user;
     this.user = this.RESPONDENTS_LIST
+    let printPages = [];
+
+    for (var i = 0; i < this.reportSettings.numberOfpagesToPrint.length; i++) {
+      if (this.reportSettings.numberOfpagesToPrint[i].print) {
+        printPages.push(this.reportSettings.numberOfpagesToPrint[i].number)
+      }
+    }
+
     let reportParts: Array<any>;
 
     let directorInfo = []
@@ -1865,7 +1885,7 @@ export class DocxSurveyComponent implements OnInit {
         alignment: AlignmentType.LEFT,
         children: [
           new ImageRun({
-            data: Buffer.from(this.bi, "base64"),
+            data: this.biLogo/*Buffer.from(this.bi, "base64")*/,
             transformation: {
               width: 100,
               height: 100,
@@ -2646,10 +2666,10 @@ export class DocxSurveyComponent implements OnInit {
 
       )
       if (this.reportType === "multipleChoice") {
-        reportParts.push(this.overallMultipleChoice(),)
+        reportParts.push(this.overallMultipleChoice(printPages),)
       }
       else {
-        reportParts.push(this.overallTable(),)
+        reportParts.push(this.overallTable(printPages),)
       }
       if (this.reportSettings.OverallRankingWithRespondents)
         reportParts.push(
@@ -2712,7 +2732,7 @@ export class DocxSurveyComponent implements OnInit {
                 }),
               ],
             }),
-          this.byPage(),
+          this.byPage(printPages),
         )
     }
 
@@ -2776,7 +2796,7 @@ export class DocxSurveyComponent implements OnInit {
               }),
             ],
           }),
-        this.byRespondant());
+        this.byRespondant(printPages));
     }
 
     if (this.reportSettings.openEndedQuestions) {
@@ -2838,7 +2858,7 @@ export class DocxSurveyComponent implements OnInit {
               }),
             ],
           }),
-        this.commentTable());
+        this.commentTable(printPages));
 
     }
 
