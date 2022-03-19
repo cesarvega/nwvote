@@ -383,8 +383,8 @@ export class SurveyCreationDesignComponent implements OnInit {
                 componentText: this.TestNameDataModel,
                 componentSettings: [
                     {
-                        randomizeTestNames:false,
-                        language:'english',
+                        randomizeTestNames: false,
+                        language: 'english',
                         minRule: 0,
                         maxRule: 0,
                         fontSize: 16,
@@ -426,8 +426,8 @@ export class SurveyCreationDesignComponent implements OnInit {
                 componentText: this.TestNameDataModel,
                 componentSettings: [
                     {
-                        randomizeTestNames:false,
-                        language:'english',
+                        randomizeTestNames: false,
+                        language: 'english',
                         minRule: 0,
                         maxRule: 0,
                         fontSize: 16,
@@ -446,6 +446,11 @@ export class SurveyCreationDesignComponent implements OnInit {
                         ratingScaleTitle: 'RANK',
                         rankType: 'dropDown',
                     },
+                    {
+                        isImageType: false,
+                        categoryTobeRender: '',
+                        isSpecialRquest: false,
+                    }
                 ],
             });
         } // ❤️❤️❤️❤️❤️❤️❤️❤️❤️❤️❤️❤️❤️❤️❤️❤️❤️❤️❤️❤️❤️❤️❤️❤️❤️❤️❤️❤️❤️❤️❤️❤️❤️❤️❤️❤️❤️❤️❤️❤️❤️❤️❤️
@@ -476,8 +481,8 @@ export class SurveyCreationDesignComponent implements OnInit {
                 componentText: this.TestNameDataModel,
                 componentSettings: [
                     {
-                        randomizeTestNames:false,
-                        language:'english',
+                        randomizeTestNames: false,
+                        language: 'english',
                         minRule: 0,
                         maxRule: 0,
                         fontSize: 16,
@@ -560,8 +565,8 @@ export class SurveyCreationDesignComponent implements OnInit {
                 componentText: this.TestNameDataModel,
                 componentSettings: [
                     {
-                        randomizeTestNames:false,
-                        language:'english',
+                        randomizeTestNames: false,
+                        language: 'english',
                         minRule: 0,
                         maxRule: 0,
                         fontSize: 16,
@@ -597,8 +602,8 @@ export class SurveyCreationDesignComponent implements OnInit {
                 componentText: this.TestNameDataModel,
                 componentSettings: [
                     {
-                        randomizeTestNames:false,
-                        language:'english',
+                        randomizeTestNames: false,
+                        language: 'english',
                         minRule: 0,
                         maxRule: 0,
                         fontSize: 16,
@@ -822,7 +827,7 @@ export class SurveyCreationDesignComponent implements OnInit {
                 ) {
                     if (category.componentSettings[0].CRITERIA) {
                         category.componentText.forEach((row: any, index: number) => {
-                            if (index > 0) {                               
+                            if (index > 0) {
                                 row.CRITERIA.forEach((criteria: any) => {
                                     criteria.RATE = -1;
                                     criteria.STARS.forEach((star: any) => {

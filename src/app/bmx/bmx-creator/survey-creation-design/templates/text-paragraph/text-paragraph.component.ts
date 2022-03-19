@@ -72,6 +72,8 @@ export class TextParagraphComponent implements OnInit {
     //     <div style="text-align: left;width: 300px;">${director.phone.trim()}</div>
     //   </div>
     //   `
+
+    // ENHANCED FOR MOBILE
     let directorString =  `
     <div style="display: flex;flex-direction: column;justify-content: center;align-items: center;">
         <div style="font-family: auto;

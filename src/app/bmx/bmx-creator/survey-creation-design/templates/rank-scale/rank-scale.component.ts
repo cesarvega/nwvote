@@ -17,6 +17,8 @@ export class RankScaleComponent extends RatingScaleComponent implements OnInit {
   @Input() bmxClientPageDesignMode;
   @Input() bmxClientPageOverview;
 
+  isImageType = true
+
   rankingType = 'dropDown'
   rankingTypeOptions = ['dropDown', 'dragAndDrop', 'radio']
 
@@ -60,6 +62,15 @@ export class RankScaleComponent extends RatingScaleComponent implements OnInit {
     });
 
     this.randomizeTestNames = this.bmxItem.componentSettings[0].randomizeTestNames
+
+    
+    // HANDLIN SPECIAL REQUEST
+    if (this.bmxItem.componentSettings[1].isImageType) {
+      this._bmxService.specialDataObservable$.subscribe((arg: any) => {
+        this.bmxItem.componentSettings[0].categoryName = 'Category ' + arg.tesName
+      });
+
+    }
 
   }
 
@@ -155,6 +166,17 @@ export class RankScaleComponent extends RatingScaleComponent implements OnInit {
         row.STARS = this.createRatingStars(this.rankingScaleValue, this.ratingScaleIcon)
       });
     }
+
+    setTimeout(() => {
+      this.rowsCount = this.bmxItem.componentText.length - 1;
+      this.bmxItem.componentSettings[0].minRule = (this.bmxItem.componentSettings[0].minRule == 0) ? this.bmxItem.componentText.length - 1 : this.bmxItem.componentSettings[0].minRule
+      if (this.bmxItem.componentSettings[0].CRITERIA) {
+        //MULTIPLY FOR THE AMOUNT OF CRITERIA
+        this.bmxItem.componentSettings[0].minRule = this.bmxItem.componentSettings[0].minRule * this.bmxItem.componentText[0].CRITERIA.length
+      }
+      this.dragRows = false;
+    }, 1000);
+
     this.rankingTableType(this.bmxItem.componentSettings[0].rankType)
     setTimeout(() => {
       this.dragRows = false;

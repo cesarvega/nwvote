@@ -95,6 +95,8 @@ export class SurveyMatrixComponent
                     component.componentType == 'tinder' ||
                     component.componentType == 'question-answer'
                   ) {
+
+
                     // RAMDOMIZE THE TEST NAMES
                     if (component.componentSettings[0].randomizeTestNames) {
                       let headerRow = component.componentText[0]
