@@ -184,14 +184,14 @@ export class RatingScaleComponent implements OnInit {
         }
       });
 
-      // HANDLIN SPECIAL REQUEST
       this.bmxItem.componentText[testNameId].RATE = rate
-      if (!this.bmxItem.componentSettings[1].isImageType && rate == 1) {
-        let payload = {
-          tesName: this.bmxItem.componentText[testNameId].nameCandidates
-        }
-        this._bmxService.setSpecialDataObservable(payload)
-      }
+      // HANDLIN SPECIAL REQUEST
+      // if (!this.bmxItem.componentSettings[1].isImageType && rate == 1) {
+      //   let payload = {
+      //     tesName: this.bmxItem.componentText[testNameId].nameCandidates
+      //   }
+      //   this._bmxService.setSpecialDataObservable(payload)
+      // }
     }
 
     else {

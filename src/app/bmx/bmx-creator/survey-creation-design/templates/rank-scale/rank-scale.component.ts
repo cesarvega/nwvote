@@ -65,9 +65,9 @@ export class RankScaleComponent extends RatingScaleComponent implements OnInit {
 
     
     // HANDLIN SPECIAL REQUEST
-    if (this.bmxItem.componentSettings[1].isImageType) {
+    if (this.bmxItem.componentSettings[1].isImageType && !this.bmxClientPageOverview) {
       this._bmxService.specialDataObservable$.subscribe((arg: any) => {
-        this.bmxItem.componentSettings[0].categoryName = 'Category ' + arg.tesName
+        this.bmxItem.componentSettings[1].categoryTobeRender = 'Category ' + arg.tesName
       });
 
     }
