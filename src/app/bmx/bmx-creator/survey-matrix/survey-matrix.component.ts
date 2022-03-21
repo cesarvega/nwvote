@@ -95,6 +95,8 @@ export class SurveyMatrixComponent
                     component.componentType == 'tinder' ||
                     component.componentType == 'question-answer'
                   ) {
+
+
                     // RAMDOMIZE THE TEST NAMES
                     if (component.componentSettings[0].randomizeTestNames) {
                       let headerRow = component.componentText[0]
@@ -760,6 +762,9 @@ export class SurveyMatrixComponent
 
   selectPageNumber(pageNumber) {
 
+
+
+
     // IF PAGE IS NOT CATEGORY PAGE PASS THE PAGE
     if (this.isCategoryPage[this.currentPage]['isCategory']) {
       if (this.currentPage < pageNumber) {
@@ -771,35 +776,80 @@ export class SurveyMatrixComponent
             component.componentType == 'question-answer'
           ) {
 
+
             // ANSWERS COUNTER
             let minRuleCounter = 0
             component.componentText.forEach((row, index) => {
+
+              // HANDLING SPECAIL REQUEST ******************************************//
+              if (!component.componentSettings[1].isImageType && row.RATE == 1) {
+                let payload = {
+                  tesName: row.nameCandidates
+                }
+                this._BmxService.setSpecialDataObservable(payload)
+              }
+              // HANDLING SPECAIL REQUEST END******************************************//
+              
               if (component.componentSettings[0].CRITERIA) {
+
+
                 row.CRITERIA.forEach((criteria) => {
-                  let rater = row.CRITERIA.filter((criteria) => (criteria.RATE == -1  || criteria.RATE == 0))
-                  if (component.componentSettings[0].categoryRulesPassed) {
-                    component.componentSettings[0].categoryRulesPassed = (index > 0 && rater.length > 0) ? false : true;
-                  }
-                  if(index > 0 && rater.length == 0) {
-                    minRuleCounter++
+                  // NARROW DOWN WITH CRITERIA
+                  if (component.componentType == 'narrow-down') {
+                    if (row.SELECTED_ROW) {
+                      let rater = row.CRITERIA.filter((criteria) => (criteria.RATE == -1 || criteria.RATE == 0))
+                      if (component.componentSettings[0].categoryRulesPassed) {
+                        component.componentSettings[0].categoryRulesPassed = (index > 0 && rater.length > 0) ? false : true;
+                      }
+                      if (index > 0 && rater.length == 0) {
+                        minRuleCounter++
+                      }
+                    }
+                  } else {
+
+                    let rater = row.CRITERIA.filter((criteria) => (criteria.RATE == -1 || criteria.RATE == 0))
+                    if (component.componentSettings[0].categoryRulesPassed) {
+                      component.componentSettings[0].categoryRulesPassed = (index > 0 && rater.length > 0) ? false : true;
+                    }
+                    if (index > 0 && rater.length == 0) {
+                      minRuleCounter++
+                    }
                   }
                 });
-               
               } else {
-                if(index > 0 && (row.RATE != -1 && row.RATE != 0)) {
-                  minRuleCounter++
-                }
-                if (component.componentSettings[0].categoryRulesPassed) {
-                  component.componentSettings[0].categoryRulesPassed = (row.RATE == -1 || row.RATE == 0) ? false : true;
+                // ONLY NARROWDOWN
+                if (component.componentType == 'narrow-down') {
+                  if (row.SELECTED_ROW) {
+                    if (index > 0 && (row.RATE != -1 && row.RATE != 0) && typeof row.RATE == 'number') {
+                      minRuleCounter++
+                    }
+                    if (component.componentSettings[0].categoryRulesPassed) {
+                      component.componentSettings[0].categoryRulesPassed = (row.RATE == -1 || row.RATE == 0 || typeof row.RATE != 'number') ? false : true;
+                    }
+                  }
+                } else {
+                  // THE OTHER COMPONENTS
+                  if (index > 0 && (row.RATE != -1 && row.RATE != 0)) {
+                    minRuleCounter++
+                  }
+                  if (component.componentSettings[0].categoryRulesPassed) {
+                    component.componentSettings[0].categoryRulesPassed = (row.RATE == -1 || row.RATE == 0) ? false : true;
+                  }
                 }
               }
             });
 
-            if(component.componentSettings[0].CRITERIA){
-              minRuleCounter  = minRuleCounter/2
+            // EVALUATION AFTER COUNTING
+
+            if (component.componentSettings[0].CRITERIA) {
+              minRuleCounter = minRuleCounter / 2
             }
 
-            if(component.componentSettings[0].minRule == minRuleCounter){
+            if (component.componentType == 'narrow-down') {
+              component.componentSettings[0].categoryRulesPassed = (minRuleCounter != component.componentSettings[0].minRule) ? false : true;
+            }
+
+            if (component.componentSettings[0].minRule == minRuleCounter) {
               component.componentSettings[0].categoryRulesPassed = true;
             }
 
@@ -816,7 +866,7 @@ export class SurveyMatrixComponent
             } else {
               let minRule = component.componentSettings[0].minRule
               if (component.componentSettings[0].CRITERIA) {
-                minRule = component.componentSettings[0].minRule 
+                minRule = component.componentSettings[0].minRule
                 // minRule = component.componentSettings[0].minRule / component.componentText[1].CRITERIA.length
               }
               let message1 = ''

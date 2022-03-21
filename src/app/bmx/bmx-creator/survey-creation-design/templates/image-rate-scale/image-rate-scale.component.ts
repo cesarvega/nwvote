@@ -20,7 +20,7 @@ export class ImageRateScaleComponent extends RatingScaleComponent implements OnI
   @ViewChild('autosize') autosize: CdkTextareaAutosize;
 
   imageurls =[];
-
+ 
 
 
   IMAGES_UPLOADED = [

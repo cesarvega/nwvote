@@ -9,9 +9,11 @@ export class BmxService {
 
   private projectName$ = new BehaviorSubject<string>('');
   private projectData$ = new BehaviorSubject<string>('');
+  private specialData$ = new BehaviorSubject<string>('');
 
   currentProjectName$ = this.projectName$.asObservable();
   currentprojectData$ = this.projectData$.asObservable();
+  specialDataObservable$ = this.specialData$.asObservable();
 
   setProjectName(projectName: any) {
     this.projectName$.next(projectName);
@@ -19,6 +21,9 @@ export class BmxService {
 
   setprojectData(projectData: any) {
     this.projectData$.next(projectData);
+  }
+  setSpecialDataObservable(projectData: any) {
+    this.specialData$.next(projectData);
   }
 
 

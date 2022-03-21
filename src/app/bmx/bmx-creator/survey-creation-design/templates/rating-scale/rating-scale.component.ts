@@ -67,7 +67,7 @@ export class RatingScaleComponent implements OnInit {
   columnFontSize = 15;
   randomizeTestNames = false
 
-  constructor(private dragulaService: DragulaService, private _snackBar: MatSnackBar, private _bmxService: BmxService) {
+  constructor(private dragulaService: DragulaService, private _snackBar: MatSnackBar,public _bmxService: BmxService) {
   }
   ngOnInit(): void {
     // COLUMN NAMES
@@ -183,7 +183,15 @@ export class RatingScaleComponent implements OnInit {
           // })
         }
       });
+
       this.bmxItem.componentText[testNameId].RATE = rate
+      // HANDLIN SPECIAL REQUEST
+      // if (!this.bmxItem.componentSettings[1].isImageType && rate == 1) {
+      //   let payload = {
+      //     tesName: this.bmxItem.componentText[testNameId].nameCandidates
+      //   }
+      //   this._bmxService.setSpecialDataObservable(payload)
+      // }
     }
 
     else {
