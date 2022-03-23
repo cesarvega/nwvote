@@ -782,14 +782,16 @@ export class SurveyMatrixComponent
             component.componentText.forEach((row, index) => {
 
               // HANDLING SPECAIL REQUEST ******************************************//
-              if (!component.componentSettings[1].isImageType && row.RATE == 1) {
-                let payload = {
-                  tesName: row.nameCandidates
+              if (component.componentSettings[1]) {
+                if (!component.componentSettings[1].isImageType && row.RATE == 1) {
+                  let payload = {
+                    tesName: row.nameCandidates
+                  }
+                  this._BmxService.setSpecialDataObservable(payload)
                 }
-                this._BmxService.setSpecialDataObservable(payload)
               }
-              // HANDLING SPECAIL REQUEST END******************************************//
-              
+              // HANDLING SPECAIL REQUEST END  ******************************************//
+
               if (component.componentSettings[0].CRITERIA) {
 
 
@@ -856,7 +858,7 @@ export class SurveyMatrixComponent
             if (
               component.componentSettings[0].minRule == 0 ||
               component.componentSettings[0].categoryRulesPassed ||
-              (component.componentSettings[0].minRule - minRuleCounter) === 0
+              (component.componentSettings[0].minRule - minRuleCounter) <= 0
             ) {
               this.currentPage = pageNumber;
               window.scroll(0, 0);
