@@ -761,10 +761,6 @@ export class SurveyMatrixComponent
   }
 
   selectPageNumber(pageNumber) {
-
-
-
-
     // IF PAGE IS NOT CATEGORY PAGE PASS THE PAGE
     if (this.isCategoryPage[this.currentPage]['isCategory']) {
       if (this.currentPage < pageNumber) {
@@ -776,20 +772,21 @@ export class SurveyMatrixComponent
             component.componentType == 'question-answer'
           ) {
 
-
             // ANSWERS COUNTER
             let minRuleCounter = 0
             component.componentText.forEach((row, index) => {
 
               // HANDLING SPECAIL REQUEST ******************************************//
-              if (!component.componentSettings[1].isImageType && row.RATE == 1) {
-                let payload = {
-                  tesName: row.nameCandidates
+              if (component.componentSettings[1]) {
+                if (!component.componentSettings[1].isImageType && row.RATE == 1) {
+                  let payload = {
+                    tesName: row.nameCandidates
+                  }
+                  this._BmxService.setSpecialDataObservable(payload)
                 }
-                this._BmxService.setSpecialDataObservable(payload)
               }
-              // HANDLING SPECAIL REQUEST END******************************************//
-              
+              // HANDLING SPECAIL REQUEST END  ******************************************//
+
               if (component.componentSettings[0].CRITERIA) {
 
 
@@ -856,7 +853,7 @@ export class SurveyMatrixComponent
             if (
               component.componentSettings[0].minRule == 0 ||
               component.componentSettings[0].categoryRulesPassed ||
-              (component.componentSettings[0].minRule - minRuleCounter) === 0
+              (component.componentSettings[0].minRule - minRuleCounter) <= 0
             ) {
               this.currentPage = pageNumber;
               window.scroll(0, 0);

@@ -63,15 +63,22 @@ export class RankScaleComponent extends RatingScaleComponent implements OnInit {
 
     this.randomizeTestNames = this.bmxItem.componentSettings[0].randomizeTestNames
 
-    
+
     // HANDLIN SPECIAL REQUEST
-    if (this.bmxItem.componentSettings[1].isImageType && !this.bmxClientPageOverview) {
-      this._bmxService.specialDataObservable$.subscribe((arg: any) => {
-        this.bmxItem.componentSettings[1].categoryTobeRender = 'Category ' + arg.tesName
-      });
+    if (this.bmxItem.componentSettings[1]) {
+      if (this.bmxItem.componentSettings[1].isImageType && !this.bmxClientPageOverview) {
+        this._bmxService.specialDataObservable$.subscribe((arg: any) => {
+          this.bmxItem.componentSettings[1].categoryTobeRender = 'Category ' + arg.tesName
+        });
 
+      }
+    } else {
+      this.bmxItem.componentSettings.push({
+        isImageType: false,
+        categoryTobeRender: '',
+        isSpecialRquest: false,
+      })
     }
-
   }
 
   checkDragEvetn(rows) {

@@ -391,7 +391,8 @@
                             class="row-box" [(ngModel)]="testName[columnName]"></textarea>
 
                         <img class="row-box" style="width: 300px;" [src]="testName[columnName]"
-                            *ngIf=" bmxItem.componentSettings[1].isImageType && (y !== 0) && (columnName == 'name' || columnName == 'nameCandidates')">
+                            *ngIf=" bmxItem.componentSettings[1].isImageType && (y !== 0) && (columnName == 'name' ||
+                             columnName == 'nameCandidates')">
 
 
                         <!-- TEXT AREA TO EDIT TABLE CELL CONTENT -->
@@ -497,10 +498,10 @@
                                     (change)="saveRadioColumValue(columnName, y)">
                             </div>
                         </div>
-<!-- 
+
                         <img (click)="(selectedCard == y)?selectedCard = '':selectedCard = y" class="row-box"
                         style="width: 300px;" [src]="testName[columnName]"
-                        *ngIf="(y !== 0) && (columnName == 'name' || columnName == 'nameCandidates')"> -->
+                        *ngIf=" bmxItem.componentSettings[1].isImageType && (y !== 0) && (columnName == 'name' || columnName == 'nameCandidates')">
                         <!-- TEXT_AREA COMMENTS-->
                         <div style="display: flex;
                         justify-content: center;">
