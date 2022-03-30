@@ -761,10 +761,6 @@ export class SurveyMatrixComponent
   }
 
   selectPageNumber(pageNumber) {
-
-
-
-
     // IF PAGE IS NOT CATEGORY PAGE PASS THE PAGE
     if (this.isCategoryPage[this.currentPage]['isCategory']) {
       if (this.currentPage < pageNumber) {
@@ -775,7 +771,6 @@ export class SurveyMatrixComponent
             component.componentType == 'narrow-down' ||
             component.componentType == 'question-answer'
           ) {
-
 
             // ANSWERS COUNTER
             let minRuleCounter = 0
