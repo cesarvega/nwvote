@@ -2,6 +2,7 @@
 <div *ngIf="bmxClientPageOverview" style="display: flex;
     flex-direction: row-reverse;
     justify-content: end;
+    top: -30px;
     right: 50px;border: 2px dashed #324395;padding-right: 10px;background: #ffffffd9;
     position: absolute;height: 54px;align-items: center;padding-right: 38px;">
 
@@ -165,13 +166,15 @@
     <div style="display: flex;flex-direction: row;justify-content: space-around;gap: 30px;">
 
         <input type="text" [(ngModel)]="bmxItem.componentSettings[0].categoryName"
-            [value]="bmxItem.componentSettings[0].categoryName"
+            [value]="bmxItem.componentSettings[0].categoryName" placeholder="Category Name"
             style="font-size: 20px;color: #324395;padding-bottom: 7px;padding-left: 10px;">
         <input type="text" [(ngModel)]="bmxItem.componentSettings[0].categoryDescription"
-            [value]="bmxItem.componentSettings[0].categoryDescription"
+            [value]="bmxItem.componentSettings[0].categoryDescription" placeholder="Category Description"
             style="font-size: 20px;color: #ee7f25;padding-bottom: 4px;padding-left: 7px;">
-            
+
         <mat-checkbox [(ngModel)]="randomizeTestNames">Randomize Names</mat-checkbox>
+
+        <mat-checkbox [(ngModel)]="bmxItem.componentSettings[1].isImageType">Rank Logos</mat-checkbox>
 
         <div style="display: flex;flex-direction: column;justify-content: center;gap: 10px;">
             <div style="font-size: 16px;margin-top: 10px;color: #48535e;text-align: center;">MIN:
@@ -196,7 +199,7 @@
             <br>
 
             <div style="text-align: center;display: flex;flex-direction: row;justify-content: space-around;">
-                3 <input [(ngModel)]="rankingScaleValue" type="range" id="volume" name="volume" min="3" max="10">
+                2 <input [(ngModel)]="rankingScaleValue" type="range" id="volume" name="volume" min="2" max="10">
                 10 <br>
             </div>
             <label for="volume">{{rankingScaleValue}}</label>
@@ -256,7 +259,7 @@
 
 
 <!--💲💲💲💲💲💲💲💲💲💲💲💲💲💲💲💲💲💲💲💲💲💲💲💲💲💲💲💲💲💲💲💲💲 TABLE GENERATOR 💲💲💲💲💲💲💲💲💲💲💲💲💲💲💲💲💲💲💲💲💲💲💲💲💲💲💲💲💲💲💲💲💲💲-->
-<div class="desktop">
+<div *ngIf="bmxItem.componentSettings[1].categoryTobeRender == '' || bmxItem.componentSettings[1].categoryTobeRender == bmxItem.componentSettings[0].categoryName " class="desktop">
     <div style="display: flex;flex-direction: column;padding-left: 40px;">
 
         <div style="font-size: 25px;color: #324395;padding-bottom: 10px;">{{bmxItem.componentSettings[0].categoryName}}
@@ -270,7 +273,7 @@
         [(dragulaModel)]="bmxItem.componentText" (dragulaModelChange)="checkDragEvetn($event);">
         <div *ngFor="let testName of bmxItem.componentText; let y = index">
 
-            <div class="test-name-table" >
+            <div class="test-name-table">
 
                 <!--⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️ RANK RENDERER ⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️ -->
                 <div [ngClass]="(this.bmxItem.componentSettings[0].rankType == 'dragAndDrop')?'rank-column':
@@ -351,21 +354,19 @@
                             </p>
                         </div>
                         <div *ngIf="selectedColumn === e && bmxClientPageOverview && !editSingleTableCells" style="display: flex;flex-direction: row;justify-content: space-around;
-                        position: absolute;top: 35px;background: white;border: #324395 dashed 1px;"  (mouseleave)="selectedColumn = ''">
-                            <span  class="header-delete-icon"
-                                matTooltip="double click to delete column" matTooltipPosition="above"
-                                (dblclick)="deleteColumn(columnName)">x</span>
-                            <mat-icon  style="cursor: pointer;"
-                                (click)="swapColumns(e)">chevron_right</mat-icon>
+                        position: absolute;top: 35px;background: white;border: #324395 dashed 1px;"
+                            (mouseleave)="selectedColumn = ''">
+                            <span class="header-delete-icon" matTooltip="double click to delete column"
+                                matTooltipPosition="above" (dblclick)="deleteColumn(columnName)">x</span>
+                            <mat-icon style="cursor: pointer;" (click)="swapColumns(e)">chevron_right</mat-icon>
 
-                            <mat-icon  style="cursor: pointer;"
-                                (click)="columnFontSizeAdjust(columnName, 'decrease')">remove</mat-icon>
+                            <mat-icon style="cursor: pointer;" (click)="columnFontSizeAdjust(columnName, 'decrease')">
+                                remove</mat-icon>
 
-                            <mat-icon 
-                                style="cursor: pointer;">text_format</mat-icon>
+                            <mat-icon style="cursor: pointer;">text_format</mat-icon>
 
-                            <mat-icon  style="cursor: pointer;"
-                                (click)="columnFontSizeAdjust(columnName, 'increase')">add</mat-icon>
+                            <mat-icon style="cursor: pointer;" (click)="columnFontSizeAdjust(columnName, 'increase')">
+                                add</mat-icon>
                         </div>
                     </div>
 
@@ -382,12 +383,16 @@
 
 
                         <!-- TEXT_AREA COLUMN COMMENTS-->
-                        <textarea *ngIf="y !== 0  && columnName.includes('Comments') == true"
+                        <textarea *ngIf="y !== 0  && columnName.includes('Comments') == true "
                             [style.width]="(bmxItem.componentSettings[0].commentsWidth - 20) +'px'"
                             [style.font-size]="bmxItem.componentSettings[0].fontSize +'px'" cdkTextareaAutosize
                             [cdkAutosizeMinRows]="bmxItem.componentSettings[0].rowHeight"
                             style="text-align: center;height: 32px;width: 358px;font-size: 16px;border: 1px solid #dddddd;"
                             class="row-box" [(ngModel)]="testName[columnName]"></textarea>
+
+                        <img class="row-box" style="width: 300px;" [src]="testName[columnName]"
+                            *ngIf=" bmxItem.componentSettings[1].isImageType && (y !== 0) && (columnName == 'name' ||
+                             columnName == 'nameCandidates')">
 
 
                         <!-- TEXT AREA TO EDIT TABLE CELL CONTENT -->
@@ -400,7 +405,8 @@
                             [(ngModel)]="testName[columnName]"></textarea>
 
                         <p *ngIf="y !== 0  && !editSingleTableCells && (columnName.includes('RadioColumn') != true) &&
-                          columnName.includes('Comments') != true &&  columnName.includes('RATE') != true"
+                          columnName.includes('Comments') != true &&  columnName.includes('RATE') != true &&
+                           ((columnName.includes('name') != true)||!bmxItem.componentSettings[1].isImageType)"
                             [style.font-size]="bmxItem.componentSettings[0].fontSize +'px'"
                             [style.width]="(columnName == 'rationale')?bmxItem.componentSettings[0].rationalewidth + 'px':bmxItem.componentSettings[0].columnWidth +'px'"
                             style="text-align: center;margin: 0 0 0px;"
@@ -423,7 +429,7 @@
 
 
 <!--📱📱📱📱📱📱📱📱📱📱📱📱📱📱📱📱📱📱📱📱📱📱📱📱📱📱📱📱📱📱📱 TABLE 📱 MOBILE 📱 GENERATOR 📱📱📱📱📱📱📱📱📱📱📱📱📱📱📱📱📱📱📱📱📱📱📱📱📱📱📱📱📱📱📱📱📱📱-->
-<div class="mobile">
+<div *ngIf="bmxItem.componentSettings[1].categoryTobeRender == '' || bmxItem.componentSettings[1].categoryTobeRender == bmxItem.componentSettings[0].categoryName " class="mobile">
     <div style="display: flex;flex-direction: column;text-align: center;align-items: center;">
 
         <div style="font-size: 25px;color: #324395;padding-bottom: 10px;margin: 5px;">
@@ -492,6 +498,10 @@
                                     (change)="saveRadioColumValue(columnName, y)">
                             </div>
                         </div>
+
+                        <img (click)="(selectedCard == y)?selectedCard = '':selectedCard = y" class="row-box"
+                        style="width: 300px;" [src]="testName[columnName]"
+                        *ngIf=" bmxItem.componentSettings[1].isImageType && (y !== 0) && (columnName == 'name' || columnName == 'nameCandidates')">
                         <!-- TEXT_AREA COMMENTS-->
                         <div style="display: flex;
                         justify-content: center;">
@@ -502,6 +512,7 @@
                                 [(ngModel)]="testName[columnName]" placeholder="comments" rows="4" cols="50"></textarea>
                         </div>
 
+                      
                         <!-- TEST NAME CELL -->
                         <p (click)="(selectedCard == y)?selectedCard = '':selectedCard = y" *ngIf="y !== 0  && !editSingleTableCells && (columnName.includes('RadioColumn') != true) &&
                               columnName.includes('Comments') != true &&

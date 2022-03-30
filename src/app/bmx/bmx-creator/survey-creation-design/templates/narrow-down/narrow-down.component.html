@@ -2,6 +2,7 @@
 <div *ngIf="bmxClientPageOverview" style="display: flex;
     flex-direction: row-reverse;
     justify-content: end;
+    top: -30px;
     right: 50px;top: -50px;border: 2px dashed #324395;padding-right: 10px;background: #ffffffd9;
     position: absolute;height: 54px;align-items: center;padding-right: 38px;">
 
@@ -177,6 +178,8 @@
             [value]="bmxItem.componentSettings[0].categoryDescription"
             style="font-size: 20px;color: #ee7f25;padding-bottom: 4px;padding-left: 7px;">
 
+        <mat-checkbox [(ngModel)]="randomizeTestNames">Randomize Names</mat-checkbox>
+
         <div style="display: flex;flex-direction: column;justify-content: center;gap: 10px;">
             <div style="font-size: 16px;margin-top: 10px;color: #48535e;text-align: center;">MIN:
                 {{bmxItem.componentSettings[0].minRule}}</div>
@@ -301,7 +304,7 @@
                     <!-- COLUMN HEADER -->
                     <textarea *ngIf="y == 0 && editSingleTableCells"
                         [style.font-size]="bmxItem.componentSettings[0].fontSize +'px'"
-                        style="text-align: center; font-weight: bold;color: #324395;min-width: 200px;" class="row-box"
+                        style="text-align: center; font-weight: bold;color: #324395;min-width: 100px;" class="row-box"
                         [(ngModel)]="bmxItem.componentSettings[0].ratingScaleNarrowDownTitle"
                         value="bmxItem.componentSettings[0].ratingScaleNarrowDownTitle"></textarea>
                     <div [style.font-size]="bmxItem.componentSettings[0].fontSize +'px'" class="rating-text"
@@ -321,13 +324,9 @@
                      bmxItem.componentSettings[0].columnWidth + 'px'">
 
 
-                    <div *ngIf="(y == 0)" class="header-title" (mouseenter)="selectedColumn = e"
-                        (mouseleave)="selectedColumn = ''">
+                    <div *ngIf="(y == 0)" class="header-title" (mouseenter)="selectedColumn = e">
 
                         <!-- IF YOU WANT TO DELET ALL COLUMNS PASS THE COLUMN NAME  NOT testName[columnName]-->
-                        <span *ngIf="selectedColumn === e && bmxClientPageOverview" class="header-delete-icon"
-                            matTooltip="double click to delete column" matTooltipPosition="above"
-                            (dblclick)="deleteColumn(columnName)">x</span>
 
                         <!-- 🟢🟢🟢🟢🟢🟢🟢🟢🟢🟢🟢🟢🟢🟢 HEADER TEXT AREA 🟢🟢🟢🟢🟢🟢🟢🟢🟢🟢🟢🟢🟢🟢🟢🟢 -->
 
@@ -341,18 +340,26 @@
                             [style.font-size]="bmxItem.componentSettings[0].fontSize +'px'"
                             *ngIf=" !editSingleTableCells">{{testName[columnName]}}
                         </p>
-                        <mat-icon *ngIf="selectedColumn === e && bmxClientPageOverview" style="cursor: pointer;"
-                            (click)="swapColumns(e)">chevron_right</mat-icon>
 
-                        <mat-icon *ngIf="selectedColumn === e && bmxClientPageOverview" style="cursor: pointer;"
-                            (click)="columnFontSizeAdjust(columnName, 'decrease')">remove</mat-icon>
 
-                        <mat-icon *ngIf="selectedColumn === e && bmxClientPageOverview" style="cursor: pointer;">
-                            text_format
-                        </mat-icon>
+                        <div *ngIf="selectedColumn === e && bmxClientPageOverview && !editSingleTableCells" style="display: flex;flex-direction: row;justify-content: space-around;
+                        position: absolute;top: 35px;background: white;border: #324395 dashed 1px;"  (mouseleave)="selectedColumn = ''">
+                            <span  class="header-delete-icon"
+                                matTooltip="double click to delete column" matTooltipPosition="above"
+                                (dblclick)="deleteColumn(columnName)">x</span>
+                            <mat-icon  style="cursor: pointer;"
+                                (click)="swapColumns(e)">chevron_right</mat-icon>
 
-                        <mat-icon *ngIf="selectedColumn === e && bmxClientPageOverview" style="cursor: pointer;"
-                            (click)="columnFontSizeAdjust(columnName, 'increase')">add</mat-icon>
+                            <mat-icon  style="cursor: pointer;"
+                                (click)="columnFontSizeAdjust(columnName, 'decrease')">remove</mat-icon>
+
+                            <mat-icon 
+                                style="cursor: pointer;">text_format</mat-icon>
+
+                            <mat-icon  style="cursor: pointer;"
+                                (click)="columnFontSizeAdjust(columnName, 'increase')">add</mat-icon>
+                        </div>
+
                     </div>
 
                     <!-- 🟢🟢🟢🟢🟢🟢🟢🟢🟢🟢🟢🟢🟢🟢 END HEADER TEXT AREA  🟢🟢🟢🟢🟢🟢🟢🟢🟢🟢🟢🟢🟢🟢🟢🟢 -->

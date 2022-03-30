@@ -20,7 +20,7 @@ export class ImageRateScaleComponent extends RatingScaleComponent implements OnI
   @ViewChild('autosize') autosize: CdkTextareaAutosize;
 
   imageurls =[];
-
+ 
 
 
   IMAGES_UPLOADED = [
@@ -53,6 +53,8 @@ export class ImageRateScaleComponent extends RatingScaleComponent implements OnI
         this.columnsNames.push(value)
       }
     });
+    
+    this.randomizeTestNames = this.bmxItem.componentSettings[0].randomizeTestNames
   }
 
 

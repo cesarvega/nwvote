@@ -17,8 +17,8 @@ export class QuestionAnswerComponent extends RatingScaleComponent implements OnI
   @Input() bmxClientPageOverview;
   @ViewChild('autosize') autosize: CdkTextareaAutosize;
   allComplete: boolean = false;
-  constructor(dragulaService: DragulaService, _snackBar: MatSnackBar,  _bmxService: BmxService) {
-    super(dragulaService,_snackBar,_bmxService);
+  constructor(dragulaService: DragulaService, _snackBar: MatSnackBar, _bmxService: BmxService) {
+    super(dragulaService, _snackBar, _bmxService);
   }
 
   ngOnInit(): void {
@@ -29,9 +29,11 @@ export class QuestionAnswerComponent extends RatingScaleComponent implements OnI
         this.columnsNames.push(value)
       }
     });
+    this.randomizeTestNames = this.bmxItem.componentSettings[0].randomizeTestNames
   }
 
   upLoadNamesAndRationales(list: string) {
+    this.bmxItem.componentSettings[0].randomizeTestNames = (this.randomizeTestNames) ? true : false
     if (!list) { list = this.listString; }
     if (list) {
       this.listString = list;
@@ -54,7 +56,7 @@ export class QuestionAnswerComponent extends RatingScaleComponent implements OnI
       for (let i = 0; i < rows.length; i++) {
         if (rows[i] != "" && rows[i].length > 6) {
           let objectColumnDesign = {};
-          if (this.ASSIGNED_CRITERIA.length > 0) {
+          if (this.ASSIGNED_CRITERIA.length > 0) {//NO APLICA
             this.bmxItem.componentSettings[0].CRITERIA = true
             for (let e = 0; e < this.columnsNames.length; e++) {
               if ((rows[i].split("\t").length > 0)) {
@@ -70,9 +72,9 @@ export class QuestionAnswerComponent extends RatingScaleComponent implements OnI
               })
             });
           }//NOT CRITERIA
-           else {
+          else {
             this.bmxItem.componentSettings[0].CRITERIA = false
-            objectColumnDesign['STARS'] = this.createRatingStars(this.rankingScaleValue, this.ratingScaleIcon);
+            // objectColumnDesign['STARS'] = this.createRatingStars(this.rankingScaleValue, this.ratingScaleIcon);
             for (let e = 0; e < this.columnsNames.length; e++) {
               if ((rows[i].split("\t").length > 0)) {
                 objectColumnDesign[this.columnsNames[e]] = rows[i].split("\t")[e]
@@ -86,19 +88,19 @@ export class QuestionAnswerComponent extends RatingScaleComponent implements OnI
       }
       this.bmxItem.componentText = this.TESTNAMES_LIST;
     } else {
-      this.bmxItem.componentText.forEach((row, index) => {
-        row.STARS = this.createRatingStars(this.rankingScaleValue, this.ratingScaleIcon)
-        row.RATE = -1
-        // this.leaveStar(index);
-      });
+      // this.bmxItem.componentText.forEach((row, index) => {
+      //   row.STARS = this.createRatingStars(this.rankingScaleValue, this.ratingScaleIcon)
+      //   row.RATE = -1
+      //   // this.leaveStar(index);
+      // });
     }
   }
 
-  saveMultipleChoice(checkBoxName, indexRow, value){
+  saveMultipleChoice(checkBoxName, indexRow, value) {
     if (value.target.checked) {
-      this.bmxItem.componentText[indexRow]['multipleChoice'] = (!this.bmxItem.componentText[indexRow]['multipleChoice'])? checkBoxName + ',' : this.bmxItem.componentText[indexRow]['multipleChoice'] +=  checkBoxName + ','
-    }else {
-      this.bmxItem.componentText[indexRow]['multipleChoice'] = this.bmxItem.componentText[indexRow]['multipleChoice'].replace(checkBoxName + ',','')
+      this.bmxItem.componentText[indexRow]['multipleChoice'] = (!this.bmxItem.componentText[indexRow]['multipleChoice']) ? checkBoxName + ',' : this.bmxItem.componentText[indexRow]['multipleChoice'] += checkBoxName + ','
+    } else {
+      this.bmxItem.componentText[indexRow]['multipleChoice'] = this.bmxItem.componentText[indexRow]['multipleChoice'].replace(checkBoxName + ',', '')
     }
   }
 

@@ -45,13 +45,7 @@ export class SurveyMatrixComponent
   isFullscreen: any;
   searchGraveAccentRegExp = new RegExp('`', 'g');
   surveyLanguage: any;
-  constructor(
-    @Inject(DOCUMENT) document: any,
-    activatedRoute: ActivatedRoute,
-    _hotkeysService: HotkeysService,
-    dragulaService: DragulaService,
-    public _snackBar: MatSnackBar,
-    _BmxService: BmxService
+  constructor(@Inject(DOCUMENT) document: any, activatedRoute: ActivatedRoute, _hotkeysService: HotkeysService, dragulaService: DragulaService, public _snackBar: MatSnackBar, _BmxService: BmxService
   ) {
     super(document, _BmxService, _snackBar, activatedRoute);
 
@@ -101,6 +95,8 @@ export class SurveyMatrixComponent
                     component.componentType == 'tinder' ||
                     component.componentType == 'question-answer'
                   ) {
+
+
                     // RAMDOMIZE THE TEST NAMES
                     if (component.componentSettings[0].randomizeTestNames) {
                       let headerRow = component.componentText[0]
@@ -244,9 +240,6 @@ export class SurveyMatrixComponent
             });
         }
       });
-
-
-
   }
 
   radomizedTestNames(component) {
@@ -768,15 +761,104 @@ export class SurveyMatrixComponent
   }
 
   selectPageNumber(pageNumber) {
+
+
+
+
     // IF PAGE IS NOT CATEGORY PAGE PASS THE PAGE
     if (this.isCategoryPage[this.currentPage]['isCategory']) {
       if (this.currentPage < pageNumber) {
         this.bmxPagesClient[this.currentPage].page.forEach((component) => {
-          if (component.componentType == 'rate-scale' || component.componentType == 'ranking-scale' || component.componentType == 'image-rate-scale' || component.componentType == 'narrow-down' || component.componentType == 'question-answer'
+          if (component.componentType == 'rate-scale' ||
+            component.componentType == 'ranking-scale' ||
+            component.componentType == 'image-rate-scale' ||
+            component.componentType == 'narrow-down' ||
+            component.componentType == 'question-answer'
           ) {
+
+
+            // ANSWERS COUNTER
+            let minRuleCounter = 0
+            component.componentText.forEach((row, index) => {
+
+              // HANDLING SPECAIL REQUEST ******************************************//
+              if (component.componentSettings[1]) {
+                if (!component.componentSettings[1].isImageType && row.RATE == 1) {
+                  let payload = {
+                    tesName: row.nameCandidates
+                  }
+                  this._BmxService.setSpecialDataObservable(payload)
+                }
+              }
+              // HANDLING SPECAIL REQUEST END  ******************************************//
+
+              if (component.componentSettings[0].CRITERIA) {
+
+
+                row.CRITERIA.forEach((criteria) => {
+                  // NARROW DOWN WITH CRITERIA
+                  if (component.componentType == 'narrow-down') {
+                    if (row.SELECTED_ROW) {
+                      let rater = row.CRITERIA.filter((criteria) => (criteria.RATE == -1 || criteria.RATE == 0))
+                      if (component.componentSettings[0].categoryRulesPassed) {
+                        component.componentSettings[0].categoryRulesPassed = (index > 0 && rater.length > 0) ? false : true;
+                      }
+                      if (index > 0 && rater.length == 0) {
+                        minRuleCounter++
+                      }
+                    }
+                  } else {
+
+                    let rater = row.CRITERIA.filter((criteria) => (criteria.RATE == -1 || criteria.RATE == 0))
+                    if (component.componentSettings[0].categoryRulesPassed) {
+                      component.componentSettings[0].categoryRulesPassed = (index > 0 && rater.length > 0) ? false : true;
+                    }
+                    if (index > 0 && rater.length == 0) {
+                      minRuleCounter++
+                    }
+                  }
+                });
+              } else {
+                // ONLY NARROWDOWN
+                if (component.componentType == 'narrow-down') {
+                  if (row.SELECTED_ROW) {
+                    if (index > 0 && (row.RATE != -1 && row.RATE != 0) && typeof row.RATE == 'number') {
+                      minRuleCounter++
+                    }
+                    if (component.componentSettings[0].categoryRulesPassed) {
+                      component.componentSettings[0].categoryRulesPassed = (row.RATE == -1 || row.RATE == 0 || typeof row.RATE != 'number') ? false : true;
+                    }
+                  }
+                } else {
+                  // THE OTHER COMPONENTS
+                  if (index > 0 && (row.RATE != -1 && row.RATE != 0)) {
+                    minRuleCounter++
+                  }
+                  if (component.componentSettings[0].categoryRulesPassed) {
+                    component.componentSettings[0].categoryRulesPassed = (row.RATE == -1 || row.RATE == 0) ? false : true;
+                  }
+                }
+              }
+            });
+
+            // EVALUATION AFTER COUNTING
+
+            if (component.componentSettings[0].CRITERIA) {
+              minRuleCounter = minRuleCounter / 2
+            }
+
+            if (component.componentType == 'narrow-down') {
+              component.componentSettings[0].categoryRulesPassed = (minRuleCounter != component.componentSettings[0].minRule) ? false : true;
+            }
+
+            if (component.componentSettings[0].minRule == minRuleCounter) {
+              component.componentSettings[0].categoryRulesPassed = true;
+            }
+
             if (
               component.componentSettings[0].minRule == 0 ||
-              component.componentSettings[0].categoryRulesPassed
+              component.componentSettings[0].categoryRulesPassed ||
+              (component.componentSettings[0].minRule - minRuleCounter) <= 0
             ) {
               this.currentPage = pageNumber;
               window.scroll(0, 0);
@@ -786,7 +868,8 @@ export class SurveyMatrixComponent
             } else {
               let minRule = component.componentSettings[0].minRule
               if (component.componentSettings[0].CRITERIA) {
-                minRule = component.componentSettings[0].minRule / component.componentText[1].CRITERIA.length
+                minRule = component.componentSettings[0].minRule
+                // minRule = component.componentSettings[0].minRule / component.componentText[1].CRITERIA.length
               }
               let message1 = ''
               let message2 = ''
