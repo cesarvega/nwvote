@@ -55,6 +55,8 @@ export class DocxSurveyComponent implements OnInit {
   nameTyping;
   rational;
   rating;
+  imgHeight;
+
 
   image;
   headers = [];
@@ -255,7 +257,7 @@ export class DocxSurveyComponent implements OnInit {
     var width
     var height
     img.src = imageSrcString;
-    img.onload = () => console.log(img.width);
+    this.imgHeight = img.height;
     return imageSrcString.split(imageSrcString.split(",")[0] + ',').pop()
   }
 
@@ -586,7 +588,7 @@ export class DocxSurveyComponent implements OnInit {
                           data: Buffer.from(overall[i][0], "base64"),
                           transformation: {
                             width: 286,
-                            height: 217,
+                            height: this.imgHeight,
                           },
                         }),
                       ]
@@ -970,7 +972,7 @@ export class DocxSurveyComponent implements OnInit {
                           data: Buffer.from(overall[i][0], "base64"),
                           transformation: {
                             width: 286,
-                            height: 217,
+                            height: this.imgHeight,
                           },
                         }),
                       ]
@@ -1297,7 +1299,7 @@ export class DocxSurveyComponent implements OnInit {
                             data: Buffer.from(overall[i].question[j].question, "base64"),
                             transformation: {
                               width: 286,
-                              height: 217,
+                              height: this.imgHeight,
                             },
                           }),
                         ]
@@ -1532,7 +1534,7 @@ export class DocxSurveyComponent implements OnInit {
                     data: Buffer.from(overall[i][1][j].question, "base64"),
                     transformation: {
                       width: 286,
-                      height: 217,
+                      height: this.imgHeight,
                     },
                   }),
                 ]
