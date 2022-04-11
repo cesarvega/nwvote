@@ -11,10 +11,10 @@ import { BmxComponent } from './bmx/bmx-survey/bmx.component';
 import { SurveyMatrixComponent } from './bmx/bmx-creator/survey-matrix/survey-matrix.component';
 // import { BmxCreatorComponent } from './bmx-creator/bmx-creator.component';
 const routes: Routes = [
-  // {// NAME VOTE LOGIN https://bipresents.com/namevote/login?project=Test_WELL_PLATFORM
-  //   path: 'login',
-  //   component: LoginComponent
-  // },
+  {// NAME VOTE LOGIN https://bipresents.com/namevote/login?project=Test_WELL_PLATFORM
+    path: 'login',
+    component: LoginComponent
+  },
   // {// VOTE COMPONENT
   //   path: 'vote',
   //   component: NwVoteComponent
@@ -60,3 +60,28 @@ const routes: Routes = [
 export class AppRoutingModule { }
 
 
+// http://bmcreator2.brandinstitute.com/survey/ImageStarRate/guest
+
+// http://bmcreator2.brandinstitute.com/survey/ImageStarRateCriteria/guest
+
+// http://bmcreator2.brandinstitute.com/survey/rateEstrella/guest
+
+// http://bmcreator2.brandinstitute.com/survey/StartRateCriteria/guest
+
+// http://bmcreator2.brandinstitute.com/survey/TopRankDragAndDrop/guest
+
+// http://bmcreator2.brandinstitute.com/survey/TopRankDropDown/guest
+
+// http://bmcreator2.brandinstitute.com/survey/TopRankRadio/guest
+
+// http://bmcreator2.brandinstitute.com/survey/MiltipleChoice/guest
+
+// http://bmcreator2.brandinstitute.com/survey/MultipleChoiceWithComments/guest
+
+// http://bmcreator2.brandinstitute.com/survey/NarrowDown/guest
+
+// http://bmcreator2.brandinstitute.com/survey/NarrowDownCriteria/guest
+
+// http://bmcreator2.brandinstitute.com/survey/SpecialRequestLogos/guest
+
+// http://bmcreator2.brandinstitute.com/survey/Tinder/guest

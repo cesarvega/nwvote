@@ -847,9 +847,11 @@ export class SurveyCreationDesignComponent implements OnInit {
                             category.componentText.forEach((row: any, index: number) => {
                                 if (index > 0) {
                                     row.RATE = -1;
-                                    row.STARS.forEach((star: any) => {
-                                        star.styleClass = 'rating-star'
-                                    });
+                                    if (row.STARS) {
+                                        row.STARS.forEach((star: any) => {
+                                            star.styleClass = 'rating-star'
+                                        });
+                                    }
                                 }
 
                             });

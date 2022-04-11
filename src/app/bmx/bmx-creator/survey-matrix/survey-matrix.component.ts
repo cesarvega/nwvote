@@ -45,6 +45,9 @@ export class SurveyMatrixComponent
   isFullscreen: any;
   searchGraveAccentRegExp = new RegExp('`', 'g');
   surveyLanguage: any;
+
+  totalOfpages = 0
+
   constructor(@Inject(DOCUMENT) document: any, activatedRoute: ActivatedRoute, _hotkeysService: HotkeysService, dragulaService: DragulaService, public _snackBar: MatSnackBar, _BmxService: BmxService
   ) {
     super(document, _BmxService, _snackBar, activatedRoute);
@@ -63,19 +66,20 @@ export class SurveyMatrixComponent
   ngOnInit(): void {
     this.bmxClientPageDesignMode = true;
     this.myAngularxQrCode =
-      this.myAngularxQrCode + this.projectId + '/' + this.username;
-
+    this.myAngularxQrCode + this.projectId + '/' + this.username;
 
     this.qrCode.append(this.canvas.nativeElement);
     this.bmxPagesClient = this.SAMPLE_BMX_CLIENT;
     this._BmxService
       .getBrandMatrixByProjectAndUserAnswers(this.projectId, this.username)
       .subscribe((brandMatrix: any) => {
+
         //    IF USER ALREADY HAVE ANSWERS
         if (brandMatrix.d.length > 0) {
           let answers = JSON.parse(
             brandMatrix.d.replace(this.searchGraveAccentRegExp, "'")
           );
+          this.totalOfpages = answers.length
           this._BmxService
             .getBrandMatrixByProject(this.projectId)
             .subscribe((brandMatrix: any) => {
@@ -162,7 +166,7 @@ export class SurveyMatrixComponent
 
 
         } else {
-          // BMX TEMPLATE LOADER BY PROJECT
+          // USER NEVER ANSWERED LOAD TEMPLATE
           this._BmxService
             .getBrandMatrixByProject(this.projectId)
             .subscribe((brandMatrix: any) => {
@@ -171,6 +175,8 @@ export class SurveyMatrixComponent
                 let template = JSON.parse(
                   brandMatrix.d.replace(this.searchGraveAccentRegExp, "'")
                 );
+
+                this.totalOfpages = template.length
                 this.bmxPagesClient = JSON.parse(
                   brandMatrix.d.replace(this.searchGraveAccentRegExp, "'")
                 );
@@ -903,8 +909,10 @@ export class SurveyMatrixComponent
   }
 
   saveUserAnswers(pageNumber?) {
+    let pageStatus = (this.totalOfpages == this.currentPage + 1)?999: this.currentPage + 1;
     this._BmxService
-      .saveOrUpdateAnswers(this.bmxPagesClient, this.projectId, this.username, (pageNumber ? pageNumber : this.currentPage + 1))
+      // .saveOrUpdateAnswers(this.bmxPagesClient, this.projectId, this.username, (pageNumber ? pageNumber : pageStatus))
+      .saveOrUpdateAnswers(this.bmxPagesClient, this.projectId, this.username, pageStatus)
       .subscribe((res: any) => {
         console.log('%cANSWERS!', 'color:#007bff', res);
         let page = res.d.replace(this.searchGraveAccentRegExp, "'");
