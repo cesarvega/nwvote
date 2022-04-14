@@ -16,7 +16,7 @@
 // have to load a single css file for Angular Material in your app.
 // Be sure that you only ever include this mixin once!
 $custom-typography: mat-typography-config(
-    $font-family: 'sofia-pro'
+    $font-family: 'Poppins'
 );
 
 
@@ -63,28 +63,13 @@ $firestarter-accent: mat-palette($mat-orange, A700, A100, A400);
 
 // The warn palette is optional (defaults to red).
 $firestarter-warn: mat-palette($mat-red);
-
-
 // Create the theme object (a Sass map containing all of the palettes).
 $firestarter-theme: mat-light-theme($firestarter-primary, $firestarter-accent, $firestarter-warn);
-
 // Include theme styles for core and each component used in your app.
 // Alternatively, you can import and @include the theme mixins for each component
 // that you are using.
 @include angular-material-theme($firestarter-theme);
 
 /* You can add global styles to this file, and also import other style files */
-
-
-
 html, body { height: 100%; }
-body { margin: 0; font-family: sofia-pro, sans-serif; }
-a {
-    color: white;
-    text-decoration: none;
-}
-@import '~animate.css/animate.min';
-
-
-html, body { height: 100%; }
-body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
+body { margin: 0; font-family:"Poppins", sans-serif; }

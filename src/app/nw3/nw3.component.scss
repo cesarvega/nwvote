@@ -1,3 +1,7 @@
+@import "../../styles/mixins";
+@import "../../styles/variables";
+
+
 @mixin BoxShadow($dp) {
     @if $dp==0 {
         box-shadow: none;
@@ -29,10 +33,10 @@
             0 11px 15px -7px rgba(0, 0, 0, 0.2);
     }
 }
-
+$bi-gray: #464646;
 .mainContainerPresent {
     background-color: white;
-    border: solid 5px darkgray;
+    border: solid 5px #6b6b6b;
     width: 948px;
     height: 714px;
     margin: 0;
@@ -109,7 +113,7 @@
     -ms-transform: translate(-50%, -53%);
     transform: translate(-50%, -53%);
     border-radius: 3px;
-    @include BoxShadow(6);
+    // @include BoxShadow(6);
 }
 .summaryPresentar {
     border: solid 5px darkgrey;
@@ -205,11 +209,25 @@
     width: 260px;
     height: 714px;
     margin: 10px;
-    border: solid 3px darkblue;
+    border: solid 1px darkblue;
     overflow: hidden;
-    animation: bounceInLeft 1000ms ease-out 1ms forwards 1, fadeIn 1000ms ease-out 1ms forwards 1;
-    transform: translate(-500px, 0px);
+    // animation: fadeIn 90ms ease-out 100ms forwards 1;
+    // transform: translate(-500px, 0px);
     @include BoxShadow(6);
+    &::-webkit-scrollbar {
+        width: 0px;
+    }
+    &::-webkit-scrollbar-track {
+        background: var(--wow-white-smoke);
+    }
+    &::-webkit-scrollbar-thumb {
+        background: var(--wow-blue);
+        border-radius: 10px;
+        cursor: pointer;
+    }
+    &::-webkit-scrollbar-thumb:hover {
+        background: var(--wow-blue);
+    }
 }
 
 .settingsBox {
@@ -219,7 +237,7 @@
     width: 260px;
     height: 714px;
     margin: 10px;
-    border: solid 3px darkblue;
+    border: solid 1px darkblue;
     overflow: hidden;
     animation: fadeIn;
     // transform: translate(0px, 100px);
@@ -247,6 +265,10 @@
     height: 85px;
     outline: none;
 
+    mat-icon{
+        font-size: 50px;
+    }
+
     .voteIconButton1 {
         .mat-badge-content {
             position: absolute;
@@ -263,7 +285,7 @@
         width: 30px;
         height: 30px;
         line-height: 20px;
-        @include BoxShadow(6);
+        // @include BoxShadow(6);
         transform: scale(1.2);
 
         .mat-badge-content {
@@ -291,7 +313,7 @@
         width: 30px;
         height: 30px;
         line-height: 20px;
-        @include BoxShadow(6);
+        // @include BoxShadow(6);
         transform: scale(1.2);
         .mat-badge-content {
             position: absolute;
@@ -316,7 +338,7 @@
         width: 30px;
         height: 30px;
         line-height: 20px;
-        @include BoxShadow(6);
+        // @include BoxShadow(6);
         transform: scale(1.2);
         .mat-badge-content {
             position: absolute;
@@ -342,7 +364,7 @@
         width: 30px;
         height: 30px;
         line-height: 20px;
-        @include BoxShadow(6);
+        // @include BoxShadow(6);
         transform: scale(1.2);
         .mat-badge-content {
             position: absolute;
@@ -355,7 +377,7 @@
 }
 
 .voteIconButton {
-    color: darkblue;
+    color: $bi-gray;
     outline: none;
     width: 30px;
     height: 30px;
@@ -369,7 +391,7 @@
     position: relative;
     top: -2px;
     transform: scale(1.2);
-    @include BoxShadow(6);
+    // @include BoxShadow(6);
 }
 
 // .voteOverview {
@@ -383,23 +405,22 @@
 //     outline: none;
 // }
 
-
 $voteIconsColor: #008d05, #f2ce00, #f50c0c, #4c00ff, #4c00ff;
 @for $i from 1 through 5 {
     .voteIconButton:nth-child(#{$i}) {
         // color: nth($voteIconsColor, $i);
-        animation: fadeIn 0.2s ease-in-out backwards;
+        // animation: fadeIn 0.2s ease-in-out backwards;
         animation-iteration-count: 1;
         animation-delay: $i * 0.15 + s;
-        @include BoxShadow(2);
+        // @include BoxShadow(2);
     }
 
     .voteIconButton:hover:nth-child(#{$i}) {
         // color: nth($voteIconsColor, $i);
-        transition: all 2ms ease-in-out;
+        // transition: all 2ms ease-in-out;
         position: relative;
         top: -2px;
-        transform: scale(2);
+        // transform: scale(2);
         background: white;
     }
 
@@ -430,7 +451,6 @@ $voteIconsColor: #008d05, #f2ce00, #f50c0c, #4c00ff, #4c00ff;
         background: white;
     }
 }
-
 
 .voteOverviewBox {
     border: blue 1px solid;
@@ -497,16 +517,16 @@ $voteIconsColor: #008d05, #f2ce00, #f50c0c, #4c00ff, #4c00ff;
 .GO {
     width: 70px;
     height: 70px;
-    border: 5px solid darkblue;
+    border: 5px solid $bi-gray;
     position: absolute;
     right: 434px;
     bottom: -35px;
     outline: none;
-    font-size: 45px;
+    font-size: 30px;
     line-height: 31px;
     background-color: white;
-    color: darkblue;
-    font-family: auto;
+    color: $bi-gray;
+    font-family: 'Poppins', sans-serif;
     z-index: 2;
     animation: tada 1000ms ease-in-out 1ms forwards;
     text-shadow: 0 0.04em 0.04em rgba(0, 0, 0, 0.35);
@@ -516,6 +536,7 @@ $voteIconsColor: #008d05, #f2ce00, #f50c0c, #4c00ff, #4c00ff;
 
 .GO_Off:hover {
     transform: scale(1.2);
+    
 }
 
 .GO_Off {
@@ -526,11 +547,11 @@ $voteIconsColor: #008d05, #f2ce00, #f50c0c, #4c00ff, #4c00ff;
     right: 434px;
     bottom: -35px;
     outline: none;
-    font-size: 45px;
+    font-size: 30px;
     line-height: 30px;
-    background-color: darkblue;
+    background-color: $bi-gray;
     color: white;
-    font-family: auto;
+    font-family: 'Poppins', sans-serif;
     z-index: 2;
     transition: all 100ms ease-in-out;
     text-shadow: 0 0.04em 0.04em rgba(0, 0, 0, 0.35);
@@ -554,7 +575,7 @@ $voteIconsColor: #008d05, #f2ce00, #f50c0c, #4c00ff, #4c00ff;
     z-index: 2;
     animation: tada 1000ms ease-in-out 1ms forwards;
     text-shadow: 0 0.04em 0.04em rgba(0, 0, 0, 0.35);
-    box-shadow: inset inset 0px 0px 5px #c1c1c1;      
+    box-shadow: inset inset 0px 0px 5px #c1c1c1;
     @include BoxShadow(6);
     transform: scale(1.2);
 }
@@ -698,7 +719,6 @@ $voteIconsColor: #008d05, #f2ce00, #f50c0c, #4c00ff, #4c00ff;
     }
 }
 
-
 .goButton {
     border-radius: 11px;
     border: 5px solid black;
@@ -744,14 +764,14 @@ $voteIconsColor: #008d05, #f2ce00, #f50c0c, #4c00ff, #4c00ff;
     align-items: center;
     .commentsLabel {
         position: absolute;
-        bottom: 0px;
+        bottom: 17px;
         right: 200px;
         text-shadow: 0 0.04em 0.04em rgba(0, 0, 0, 0.35);
         box-shadow: inset inset 0px 0px 5px #c1c1c1;
     }
     .newNamesLabel {
         position: absolute;
-        bottom: 0px;
+        bottom: 17px;
         left: 200px;
         text-shadow: 0 0.04em 0.04em rgba(0, 0, 0, 0.35);
         box-shadow: inset inset 0px 0px 5px #c1c1c1;

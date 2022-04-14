@@ -6,14 +6,8 @@
         </mat-progress-bar>
 
         <!-- TABLE OF CONTENT  -->
-        <div *ngIf="isTableOfContent" class="tableOfContent" style="overflow-y:scroll ; overflow-x: hidden;">
-            <div>Table Of Content</div>
-            <div style="font-size: 20px;padding: 10px;" *ngFor="let item of slideData; let i = index"
-                (click)="pageNumberChange(i+1)">
-                <span> {{(item.SlideDescription.length >0)?item.SlideDescription:item.SlideType}}</span>
-                <img [src]="'http://bipresents.com/nw2/' + item.SlideBGFileName" style="width: 100px;">
-            </div>
-        </div>
+        <app-table-of-content *ngIf="isTableOfContent" class="tableOfContent" style="overflow-y:scroll ; overflow-x: hidden;" [slideData]="slideData"  (pageNumberChange)="pageNumberChange($event)"></app-table-of-content>
+
 
         <!--⚙️⚙️⚙️⚙️⚙️⚙️⚙️⚙️⚙️⚙️⚙️⚙️⚙️⚙️⚙️⚙️⚙️⚙️⚙️ SETTINGS BOX ⚙️⚙️⚙️⚙️⚙️⚙️⚙️⚙️⚙️⚙️⚙️⚙️⚙️-->
         <div *ngIf="isSettings" class="settingsBox">
@@ -66,7 +60,7 @@
 
         <!-- IMAGE SLIDE  -->
         <div *ngIf="(slideType === 'Image')" class="imagePresentar" [style.background]="slideBackground">
-
+         
         </div>
         <!-- {{slideBackground}} -->
 
@@ -157,17 +151,22 @@
         <div *ngIf="(slideType === 'NameEvaluation')">
             <div class="singleNameSlide">
                 <div class="nameContainer">
-                    <div [style.font-family]="font2" [style.font-size]="'30px'" class="item1">{{category}}</div>
+                    <div [style.font-family]="font2" [style.font-size]="'30px'" class="item1" style="color: #6c7983;">{{category}}</div>
                     <div class="testName" [style.font-family]="font2" Comirnaty
-                        [style.font-size]="(testName.length>8)?'150px':'190px'" [innerHTML]="TestnameImagePath">
+                        [style.font-size]="(testName.length>8)?'120px':'150px'" [innerHTML]="testName">
                     </div>
-                    <img [src]="TestnameImagePath" alt="">IMAGE
+                    <!-- <img [src]="TestnameImagePath" alt="">IMAGE -->
                     <!-- <div [style.font-family]="font3" [style.font-size]="'30px'" class="pronounciation">comir-nati</div> -->
                     <div [style.font-family]="font2" [style.font-size]="'35px'"
-                        style="text-align: center;line-height: 40px;" class="rationale">{{rationale}}
+                        style="text-align: center;
+                        line-height: 40px;
+                        font-family: sans-serif;
+                        font-size: 30px;
+                        color: #6c7983;
+                        width: 45vw;" class="rationale">{{rationale}}
                     </div>
                 </div>
-                <!--VOTE EMOJI BUTTONS 👽-->
+                <!--👽👽👽👽👽👽👽👽👽👽👽👽👽👽👽👽👽👽VOTE EMOJI BUTTONS 👽👽👽👽👽👽👽👽👽👽👽👽👽👽👽👽👽👽👽👽👽-->
                 <div class="voteIcons">
                     <!-- POSITIVE BUTTON  -->
                     <div>
@@ -188,6 +187,7 @@
                                 <mat-icon>toggle_off</mat-icon>
                             </button>
                         </div>
+                        <span>positive</span>
                     </div>
                     <!-- NEUTRAL BUTTON -->
                     <div>
@@ -208,6 +208,7 @@
                                 <mat-icon>toggle_off</mat-icon>
                             </button>
                         </div>
+                        <span>neutral</span>
                     </div>
                     <!-- NEGATIVE BUTTON -->
                     <div>
@@ -217,6 +218,7 @@
                                 <span *ngFor="let item of nwNegativeVoteUsers">{{item}}</span>
                             </div>
                         </button>
+                     
                         <div (mouseenter)="displayOverviewBox('negativeBox')">
                             <button *ngIf="negativeChecked" [matBadge]="NegativeUsersVote" class="voteIconButtonRed"
                                 (click)="selectedOpt('Negative');" mat-icon-button>
@@ -228,6 +230,7 @@
                                 <mat-icon>toggle_off</mat-icon>
                             </button>
                         </div>
+                        <span>negative</span>
                     </div>
                     <!-- RECRAFT BUTTON -->
                     <div>
@@ -252,6 +255,7 @@
                                 <mat-icon>toggle_off</mat-icon>
                             </button>
                         </div>
+                        <span>re-craft</span>
                     </div>
                 </div>
 
@@ -277,18 +281,18 @@
 
                 <!-- COMMENT AND NEW NAMES TEXTAREAS -->
                 <div class="textareas">
-                    <mat-form-field fxFlex="50" id="newNameFormField" appearance=""
+                    <mat-form-field fxFlex="50" id="newNameFormField" appearance="outline"
                         style="max-width: 45%; padding: 15px 20px;">
                         <input #txtNewName matInput placeholder="" [(ngModel)]="newNames"
                             style="font-size: 30px;text-align: center;">
                     </mat-form-field>
-                    <mat-label class="newNamesLabel" style="color: darkblue;">new names</mat-label>
-                    <mat-form-field fxFlex="50" id="commentsFormField" appearance=""
+                    <mat-label class="newNamesLabel" style="color: #454e56;">new names</mat-label>
+                    <mat-form-field fxFlex="50" id="commentsFormField" appearance="outline"
                         style="max-width: 45%; padding: 15px 20px;">
                         <input #txtComments matInput placeholder="" [(ngModel)]="newComments"
                             style="font-size: 30px;text-align: center;">
                     </mat-form-field>
-                    <mat-label class="commentsLabel" style="color: darkblue;">comments</mat-label>
+                    <mat-label class="commentsLabel" style="color: #454e56;">comments</mat-label>
                 </div>
 
 

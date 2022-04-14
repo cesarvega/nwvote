@@ -1,0 +1,7 @@
+
+<h2 style="text-align: center;font-family: 'Poppins';">Table Of Content</h2>
+<div style="font-size: 20px;padding: 10px;text-align: center;border: 1px solid darkgrey;margin-bottom: 11px;" *ngFor="let item of slideData; let i = index"
+    (click)="pageNumberChangeEvent(i+1)">
+    <span style="font-family: 'Poppins';margin-bottom: 10px;"> {{(item.SlideDescription.length >0)?item.SlideDescription:item.SlideType}}</span><br>
+    <img [src]="'http://bipresents.com/nw2/' + item.SlideBGFileName" style="width: 100%;padding-top: 10px;">
+</div>
