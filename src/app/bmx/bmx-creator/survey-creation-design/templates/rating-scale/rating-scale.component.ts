@@ -66,9 +66,11 @@ export class RatingScaleComponent implements OnInit {
   selectedNarrowDownTimer = 0;
   columnFontSize = 15;
   randomizeTestNames = false
+  displaySound = true
 
   constructor(private dragulaService: DragulaService, private _snackBar: MatSnackBar,public _bmxService: BmxService) {
   }
+
   ngOnInit(): void {
     // COLUMN NAMES
     let values = Object.keys(this.bmxItem.componentText[0])
@@ -116,6 +118,7 @@ export class RatingScaleComponent implements OnInit {
       this.bmxItem.componentSettings[0].categoryRulesPassed = true
     } else { this.bmxItem.componentSettings[0].categoryRulesPassed = false }
   }
+  
   // ⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️ STARS METHODS  ⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️
   setRating(rate, testNameId) {
     if (rate.target && this.bmxItem.componentType == 'narrow-down') {
@@ -741,6 +744,20 @@ export class RatingScaleComponent implements OnInit {
         }, 1000);
       }
     }
+  }
+
+  playTestNameSound( testNameSound : string ) {
+    let audio = new Audio();
+    testNameSound = '01 Hero Sounds/hero_decorative-celebration-01'
+    audio.src = "assets/sound/wav/" + testNameSound + ".wav";
+    audio.volume = 0.8;
+    audio.load();
+    audio.play();
+  }
+
+  
+  playSound(soundEffect, volume) {
+    
   }
 
   ASSIGNED_CRITERIA = []
