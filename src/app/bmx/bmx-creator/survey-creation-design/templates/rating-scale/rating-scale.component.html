@@ -314,20 +314,18 @@
                                 </p>
                             </div>
                             <div *ngIf="selectedColumn === e && bmxClientPageOverview && !editSingleTableCells" style="display: flex;flex-direction: row;justify-content: space-around;
-                            position: absolute;top: 35px;background: white;border: #324395 dashed 1px;"  (mouseleave)="selectedColumn = ''">
-                                <span  class="header-delete-icon"
-                                    matTooltip="double click to delete column" matTooltipPosition="above"
-                                    (dblclick)="deleteColumn(columnName)">x</span>
-                                <mat-icon  style="cursor: pointer;"
-                                    (click)="swapColumns(e)">chevron_right</mat-icon>
+                            position: absolute;top: 35px;background: white;border: #324395 dashed 1px;"
+                                (mouseleave)="selectedColumn = ''">
+                                <span class="header-delete-icon" matTooltip="double click to delete column"
+                                    matTooltipPosition="above" (dblclick)="deleteColumn(columnName)">x</span>
+                                <mat-icon style="cursor: pointer;" (click)="swapColumns(e)">chevron_right</mat-icon>
 
-                                <mat-icon  style="cursor: pointer;"
+                                <mat-icon style="cursor: pointer;"
                                     (click)="columnFontSizeAdjust(columnName, 'decrease')">remove</mat-icon>
 
-                                <mat-icon 
-                                    style="cursor: pointer;">text_format</mat-icon>
+                                <mat-icon style="cursor: pointer;">text_format</mat-icon>
 
-                                <mat-icon  style="cursor: pointer;"
+                                <mat-icon style="cursor: pointer;"
                                     (click)="columnFontSizeAdjust(columnName, 'increase')">add</mat-icon>
                             </div>
                         </div>
@@ -433,12 +431,20 @@
                             style="outline: none;text-align: center;margin: 0 10px;" class="row-box"
                             [(ngModel)]="testName[columnName]"></textarea>
 
-                        <p *ngIf="y !== 0  && !editSingleTableCells && (columnName.includes('RadioColumn') != true)
-                         &&  columnName.includes('Comments') != true &&  columnName.includes('RATE') != true"
-                            [style.font-size]="bmxItem.componentSettings[0].fontSize +'px'"
-                            [style.width]="(columnName == 'rationale')?bmxItem.componentSettings[0].rationalewidth + 'px':bmxItem.componentSettings[0].columnWidth +'px'"
-                            style="text-align: center;margin: 0 0 0px;padding: 4px;"
-                            [innerHTML]="testName[columnName] | safe: 'html'">{{testName[columnName]}}</p>
+                        <div style="display: flex;">
+                            <mat-icon style="cursor: pointer;" (click)="playTestNameSound(testName[columnName])"
+                                *ngIf="y !== 0  && !editSingleTableCells && (columnName.includes('nameCandidates') == true) && displaySound">
+                                volume_up
+                            </mat-icon>
+                            <p *ngIf="y !== 0  && !editSingleTableCells && (columnName.includes('RadioColumn') != true)
+                                &&  columnName.includes('Comments') != true &&  columnName.includes('RATE') != true"
+                                [style.font-size]="bmxItem.componentSettings[0].fontSize +'px'"
+                                [style.width]="(columnName == 'rationale')?bmxItem.componentSettings[0].rationalewidth + 'px':bmxItem.componentSettings[0].columnWidth +'px'"
+                                style="text-align: center;margin: 0 0 0px;padding: 4px;"
+                                [innerHTML]="testName[columnName] | safe: 'html'">{{testName[columnName]}}
+                            </p>
+
+                        </div>
                     </div>
                     <!-- 🟡🟡🟡🟡🟡🟡🟡🟡🟡🟡🟡🟡🟡🟡 END TABLE CELLS 🟡🟡🟡🟡🟡🟡🟡🟡🟡🟡🟡🟡🟡🟡🟡🟡 -->
                 </div>
@@ -627,30 +633,44 @@
                         justify-content: center;">
                             <textarea *ngIf="y !== 0  && columnName.includes('Comments') == true && selectedCard == y"
                                 [style.width]="'95%'" [style.font-size]="bmxItem.componentSettings[0].fontSize +'px'"
-                                cdkTextareaAutosize [cdkAutosizeMinRows]="bmxItem.componentSettings[0].rowHeight"
-                                 style="text-align: center;height: 32px;width: 358px;font-size: 16px;border: 1px solid grey;
+                                cdkTextareaAutosize [cdkAutosizeMinRows]="bmxItem.componentSettings[0].rowHeight" style="text-align: center;height: 32px;width: 358px;font-size: 16px;border: 1px solid grey;
                             animation: bounceIn 500ms ease-in forwards;padding: 0 4px;margin-bottom: 10px;"
                                 class="row-box" [(ngModel)]="testName[columnName]" placeholder="comments " rows="4"
                                 cols="50"></textarea>
                         </div>
 
                         <!-- TEST NAME -->
-                        <p (click)="(selectedCard == y)?selectedCard = '':selectedCard = y" *ngIf="y !== 0  && !editSingleTableCells && (columnName.includes('RadioColumn') != true) &&
+                        <div style="display: flex;align-items: center;justify-content: space-evenly;">
+                            <mat-icon style="cursor: pointer;position: absolute;left: 20px;" (click)="playTestNameSound(testName[columnName])"
+                                *ngIf="y !== 0  && !editSingleTableCells && (columnName.includes('nameCandidates') == true) &&
+                                 displaySound">
+                                volume_up
+                            </mat-icon>
+                        <p (click)="(selectedCard == y)?selectedCard = '':selectedCard = y" 
+                        *ngIf="y !== 0  && !editSingleTableCells && (columnName.includes('RadioColumn') != true) &&
                               columnName.includes('Comments') != true &&  columnName.includes('RATE') != true &&
                               columnName.includes('kata') != true &&
                               columnName.includes('ratio') != true"
                             [style.font-size]=" (columnName.includes('name') == true)?'27px':'20px'"
                             [style.color]="(columnName.includes('name') == true)?'#324395':'#bababa'"
                             style="text-align: center;padding: 10px 4px;">{{(testName[columnName])}}</p>
-
-                        <p *ngIf="y !== 0  && !editSingleTableCells && (columnName.includes('RadioColumn') != true) &&
+                        </div>
+                        <!-- <p *ngIf="y !== 0  && !editSingleTableCells && (columnName.includes('RadioColumn') != true) &&
                               columnName.includes('Comments') != true && selectedCard == y &&  columnName.includes('RATE') != true &&
                               columnName.includes('name') != true"
                             [style.font-size]=" (columnName.includes('name') == true)?'27px':'20px'"
                             [style.color]="(columnName.includes('name') == true)?'#324395':'#bababa'"
                             style="text-align: center;padding: 5px 4px;"
-                            [innerHTML]="testName[columnName] | safe: 'html'">{{(testName[columnName])}}</p>
+                            [innerHTML]="testName[columnName] | safe: 'html'">{{(testName[columnName])}}</p> -->
 
+                   
+                            <p *ngIf="y !== 0  && !editSingleTableCells && (columnName.includes('RadioColumn') != true) &&
+                              columnName.includes('Comments') != true && selectedCard == y &&  columnName.includes('RATE') != true &&
+                              columnName.includes('name') != true"
+                                [style.font-size]=" (columnName.includes('name') == true)?'27px':'20px'"
+                                [style.color]="(columnName.includes('name') == true)?'#324395':'#bababa'"
+                                style="text-align: center;padding: 5px 4px;"
+                                [innerHTML]="testName[columnName] | safe: 'html'">{{(testName[columnName])}}</p>
 
                     </div>
                     <!-- 🟡🟡🟡🟡🟡🟡🟡🟡🟡🟡🟡🟡🟡🟡 END TABLE CELLS 🟡🟡🟡🟡🟡🟡🟡🟡🟡🟡🟡🟡🟡🟡🟡🟡 -->

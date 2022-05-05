@@ -259,7 +259,8 @@
 
 
 <!--💲💲💲💲💲💲💲💲💲💲💲💲💲💲💲💲💲💲💲💲💲💲💲💲💲💲💲💲💲💲💲💲💲 TABLE GENERATOR 💲💲💲💲💲💲💲💲💲💲💲💲💲💲💲💲💲💲💲💲💲💲💲💲💲💲💲💲💲💲💲💲💲💲-->
-<div *ngIf="bmxItem.componentSettings[1].categoryTobeRender == '' || bmxItem.componentSettings[1].categoryTobeRender == bmxItem.componentSettings[0].categoryName " class="desktop">
+<div *ngIf="bmxItem.componentSettings[1].categoryTobeRender == '' || bmxItem.componentSettings[1].categoryTobeRender == bmxItem.componentSettings[0].categoryName "
+    class="desktop">
     <div style="display: flex;flex-direction: column;padding-left: 40px;">
 
         <div style="font-size: 25px;color: #324395;padding-bottom: 10px;">{{bmxItem.componentSettings[0].categoryName}}
@@ -390,8 +391,7 @@
                             style="text-align: center;height: 32px;width: 358px;font-size: 16px;border: 1px solid #dddddd;"
                             class="row-box" [(ngModel)]="testName[columnName]"></textarea>
 
-                        <img class="row-box" style="width: 300px;" [src]="testName[columnName]"
-                            *ngIf=" bmxItem.componentSettings[1].isImageType && (y !== 0) && (columnName == 'name' ||
+                        <img class="row-box" style="width: 300px;" [src]="testName[columnName]" *ngIf=" bmxItem.componentSettings[1].isImageType && (y !== 0) && (columnName == 'name' ||
                              columnName == 'nameCandidates')">
 
 
@@ -404,13 +404,28 @@
                             style="outline: none;text-align: center;margin: 0 10px;" class="row-box"
                             [(ngModel)]="testName[columnName]"></textarea>
 
-                        <p *ngIf="y !== 0  && !editSingleTableCells && (columnName.includes('RadioColumn') != true) &&
+                        <!-- <p *ngIf="y !== 0  && !editSingleTableCells && (columnName.includes('RadioColumn') != true) &&
                           columnName.includes('Comments') != true &&  columnName.includes('RATE') != true &&
                            ((columnName.includes('name') != true)||!bmxItem.componentSettings[1].isImageType)"
                             [style.font-size]="bmxItem.componentSettings[0].fontSize +'px'"
                             [style.width]="(columnName == 'rationale')?bmxItem.componentSettings[0].rationalewidth + 'px':bmxItem.componentSettings[0].columnWidth +'px'"
                             style="text-align: center;margin: 0 0 0px;"
-                            [innerHTML]="testName[columnName] | safe: 'html'">{{testName[columnName]}}</p>
+                            [innerHTML]="testName[columnName] | safe: 'html'">{{testName[columnName]}}</p> -->
+
+                        <div style="display: flex;">
+                            <mat-icon style="cursor: pointer;" (click)="playTestNameSound(testName[columnName])"
+                                *ngIf="y !== 0  && !editSingleTableCells && (columnName.includes('nameCandidates') == true) && displaySound">
+                                volume_up
+                            </mat-icon>
+                            <p *ngIf="y !== 0  && !editSingleTableCells && (columnName.includes('RadioColumn') != true)
+                                    &&  columnName.includes('Comments') != true &&  columnName.includes('RATE') != true"
+                                [style.font-size]="bmxItem.componentSettings[0].fontSize +'px'"
+                                [style.width]="(columnName == 'rationale')?bmxItem.componentSettings[0].rationalewidth + 'px':bmxItem.componentSettings[0].columnWidth +'px'"
+                                style="text-align: center;margin: 0 0 0px;padding: 4px;"
+                                [innerHTML]="testName[columnName] | safe: 'html'">{{testName[columnName]}}
+                            </p>
+
+                        </div>
                     </div>
                     <!-- 🟡🟡🟡🟡🟡🟡🟡🟡🟡🟡🟡🟡🟡🟡 END TABLE CELLS 🟡🟡🟡🟡🟡🟡🟡🟡🟡🟡🟡🟡🟡🟡🟡🟡 -->
                 </div>
@@ -429,7 +444,8 @@
 
 
 <!--📱📱📱📱📱📱📱📱📱📱📱📱📱📱📱📱📱📱📱📱📱📱📱📱📱📱📱📱📱📱📱 TABLE 📱 MOBILE 📱 GENERATOR 📱📱📱📱📱📱📱📱📱📱📱📱📱📱📱📱📱📱📱📱📱📱📱📱📱📱📱📱📱📱📱📱📱📱-->
-<div *ngIf="bmxItem.componentSettings[1].categoryTobeRender == '' || bmxItem.componentSettings[1].categoryTobeRender == bmxItem.componentSettings[0].categoryName " class="mobile">
+<div *ngIf="bmxItem.componentSettings[1].categoryTobeRender == '' || bmxItem.componentSettings[1].categoryTobeRender == bmxItem.componentSettings[0].categoryName "
+    class="mobile">
     <div style="display: flex;flex-direction: column;text-align: center;align-items: center;">
 
         <div style="font-size: 25px;color: #324395;padding-bottom: 10px;margin: 5px;">
@@ -500,8 +516,8 @@
                         </div>
 
                         <img (click)="(selectedCard == y)?selectedCard = '':selectedCard = y" class="row-box"
-                        style="width: 300px;" [src]="testName[columnName]"
-                        *ngIf=" bmxItem.componentSettings[1].isImageType && (y !== 0) && (columnName == 'name' || columnName == 'nameCandidates')">
+                            style="width: 300px;" [src]="testName[columnName]"
+                            *ngIf=" bmxItem.componentSettings[1].isImageType && (y !== 0) && (columnName == 'name' || columnName == 'nameCandidates')">
                         <!-- TEXT_AREA COMMENTS-->
                         <div style="display: flex;
                         justify-content: center;">
@@ -512,15 +528,30 @@
                                 [(ngModel)]="testName[columnName]" placeholder="comments" rows="4" cols="50"></textarea>
                         </div>
 
-                      
+
                         <!-- TEST NAME CELL -->
-                        <p (click)="(selectedCard == y)?selectedCard = '':selectedCard = y" *ngIf="y !== 0  && !editSingleTableCells && (columnName.includes('RadioColumn') != true) &&
+                        <!-- <p (click)="(selectedCard == y)?selectedCard = '':selectedCard = y" *ngIf="y !== 0  && !editSingleTableCells && (columnName.includes('RadioColumn') != true) &&
                               columnName.includes('Comments') != true &&
                               columnName.includes('kata') != true &&
                               columnName.includes('ratio') != true"
                             [style.font-size]=" (columnName.includes('name') == true)?'27px':'20px'"
                             [style.color]="(columnName.includes('name') == true)?'#324395':'#bababa'"
-                            style="text-align: center;padding: 10px 4px;">{{(testName[columnName])}}</p>
+                            style="text-align: center;padding: 10px 4px;">{{(testName[columnName])}}</p> -->
+                        <div style="display: flex;align-items: center;justify-content: space-evenly;">
+                            <mat-icon style="cursor: pointer;position: absolute;left: 20px;"
+                                (click)="playTestNameSound(testName[columnName])" *ngIf="y !== 0  && !editSingleTableCells && (columnName.includes('nameCandidates') == true) &&
+                                     displaySound">
+                                volume_up
+                            </mat-icon>
+                            <p (click)="(selectedCard == y)?selectedCard = '':selectedCard = y" *ngIf="y !== 0  && !editSingleTableCells && (columnName.includes('RadioColumn') != true) &&
+                                  columnName.includes('Comments') != true &&  columnName.includes('RATE') != true &&
+                                  columnName.includes('kata') != true &&
+                                  columnName.includes('ratio') != true"
+                                [style.font-size]=" (columnName.includes('name') == true)?'27px':'20px'"
+                                [style.color]="(columnName.includes('name') == true)?'#324395':'#bababa'"
+                                style="text-align: center;padding: 10px 4px;">{{(testName[columnName])}}</p>
+                        </div>
+
 
                         <p *ngIf="y !== 0  && !editSingleTableCells && (columnName.includes('RadioColumn') != true) &&
                               columnName.includes('Comments') != true && selectedCard == y &&
