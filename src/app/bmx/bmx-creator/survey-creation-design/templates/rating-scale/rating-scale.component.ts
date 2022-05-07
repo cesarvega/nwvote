@@ -1,8 +1,10 @@
-import { Component, ElementRef, EventEmitter, Inject, Input, OnInit, Output, ViewChild, ViewEncapsulation } from '@angular/core';
+import { Component, ElementRef, EventEmitter, HostListener, Inject, Input, OnInit, Output, ViewChild, ViewEncapsulation } from '@angular/core';
 import { CdkTextareaAutosize } from '@angular/cdk/text-field';
 import { DragulaService } from 'ng2-dragula';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { Subscription } from 'rxjs';
+import * as  dragula from 'dragula';
+import autoScroll from 'dom-autoscroller';
 import { BmxService } from '../../../bmx.service';
 @Component({
   selector: 'app-rating-scale',
@@ -10,7 +12,6 @@ import { BmxService } from '../../../bmx.service';
   styleUrls: ['./rating-scale.component.scss']
 })
 export class RatingScaleComponent implements OnInit {
-
   @Input() bmxItem;
   @Input() i;
   @Input() bmxClientPageDesignMode;
@@ -57,7 +58,7 @@ export class RatingScaleComponent implements OnInit {
   isColumnResizerOn = false;
   editSingleTableCells = false
 
-  BAG = "DRAGGABLE_ROW";
+  BAG = "DRAGGABLE_RANK_ROW";
   subs = new Subscription();
   rowsCount = 0
 
@@ -66,9 +67,52 @@ export class RatingScaleComponent implements OnInit {
   selectedNarrowDownTimer = 0;
   columnFontSize = 15;
   randomizeTestNames = false
-  displaySound = true
+  displaySound = false
 
-  constructor(private dragulaService: DragulaService, private _snackBar: MatSnackBar,public _bmxService: BmxService) {
+  scroll: any;
+  constructor(private dragulaService: DragulaService, private _snackBar: MatSnackBar, public _bmxService: BmxService) {
+    // DRAG AND DROP
+    let drake = dragula();
+    // this.dragulaService.add(this.BAG, drake);
+
+
+    this.dragulaService.drag(this.BAG)
+      .subscribe(({ el }) => {
+        console.log('drag' + el);
+      })
+    this.subs.add(this.dragulaService.drop(this.BAG)
+      .subscribe(({ el }) => {
+        console.log('drop' + el);
+      })
+    );
+    this.subs.add(this.dragulaService.over(this.BAG)
+      .subscribe(({ el, container }) => {
+
+        console.log('over', container);
+      })
+    );
+    this.subs.add(this.dragulaService.out(this.BAG)
+      .subscribe(({ el, container }) => {
+
+        console.log('out', container);
+      })
+    );
+
+    this.scroll = autoScroll(
+      // can also be an array of elements if they're { overflow: auto; max-height: XXpx } containers.
+      // i.e. [someViewChild.nativeElement]
+      window,
+      {
+        margin: 30,
+        maxSpeed: 25,
+        scrollWhenOutside: true,
+
+        autoScroll: function () { // don't use () => {} syntax, we want to keep the 'this'
+          // Only scroll when the pointer is down, and there is a child being dragged. 
+          return this.down && drake.dragging;
+        }
+      });
+
   }
 
   ngOnInit(): void {
@@ -118,7 +162,7 @@ export class RatingScaleComponent implements OnInit {
       this.bmxItem.componentSettings[0].categoryRulesPassed = true
     } else { this.bmxItem.componentSettings[0].categoryRulesPassed = false }
   }
-  
+
   // ⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️ STARS METHODS  ⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️
   setRating(rate, testNameId) {
     if (rate.target && this.bmxItem.componentType == 'narrow-down') {
@@ -746,18 +790,18 @@ export class RatingScaleComponent implements OnInit {
     }
   }
 
-  playTestNameSound( testNameSound : string ) {
+  playTestNameSound(testNameSound: string) {
     let audio = new Audio();
-    testNameSound = '01 Hero Sounds/hero_decorative-celebration-01'
-    audio.src = "assets/sound/wav/" + testNameSound + ".wav";
+    // testNameSound = 'names/hero_decorative-celebration-01'
+    audio.src = "assets/sound/names/" + testNameSound + ".mp3";
     audio.volume = 0.8;
     audio.load();
     audio.play();
   }
 
-  
+
   playSound(soundEffect, volume) {
-    
+
   }
 
   ASSIGNED_CRITERIA = []
