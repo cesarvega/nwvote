@@ -77,6 +77,7 @@ export function loadEcharts() {
     // BmxComponent,
     SchedulerComponent,
     DialogComponent,
+   
     
 
 
