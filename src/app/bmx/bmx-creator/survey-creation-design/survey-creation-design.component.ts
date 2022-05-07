@@ -1054,6 +1054,17 @@ export class SurveyCreationDesignComponent implements OnInit {
             ]
         }
     ]
-
 }
-
+// https://brandmatrix.brandinstitute.com/BMX/survey/ImageStarRate/guest
+// https://brandmatrix.brandinstitute.com/BMX/survey/ImageStarRateCriteria/guest
+// https://brandmatrix.brandinstitute.com/BMX/survey/rateEstrella/guest
+// https://brandmatrix.brandinstitute.com/BMX/survey/StartRateCriteria/guest
+// https://brandmatrix.brandinstitute.com/BMX/survey/TopRankDragAndDrop/guest
+// https://brandmatrix.brandinstitute.com/BMX/survey/TopRankDropDown/guest
+// https://brandmatrix.brandinstitute.com/BMX/survey/TopRankRadio/guest
+// https://brandmatrix.brandinstitute.com/BMX/survey/MiltipleChoice/guest
+// https://brandmatrix.brandinstitute.com/BMX/survey/MultipleChoiceWithComments/guest
+// https://brandmatrix.brandinstitute.com/BMX/survey/NarrowDown/guest
+// https://brandmatrix.brandinstitute.com/BMX/survey/NarrowDownCriteria/guest
+// https://brandmatrix.brandinstitute.com/BMX/survey/SpecialRequestLogos/guest
+// https://brandmatrix.brandinstitute.com/BMX/survey/Tinder/guest

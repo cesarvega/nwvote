@@ -432,7 +432,7 @@
                             [(ngModel)]="testName[columnName]"></textarea>
 
                         <div style="display: flex;">
-                            <mat-icon style="cursor: pointer;" (click)="playTestNameSound(testName[columnName])"
+                            <mat-icon style="cursor: pointer;color: #324395;" (click)="playTestNameSound(testName[columnName])"
                                 *ngIf="y !== 0  && !editSingleTableCells && (columnName.includes('nameCandidates') == true) && displaySound">
                                 volume_up
                             </mat-icon>
@@ -641,7 +641,7 @@
 
                         <!-- TEST NAME -->
                         <div style="display: flex;align-items: center;justify-content: space-evenly;">
-                            <mat-icon style="cursor: pointer;position: absolute;left: 20px;" (click)="playTestNameSound(testName[columnName])"
+                            <mat-icon style="cursor: pointer;position: absolute;left: 20px;color: #324395;" (click)="playTestNameSound(testName[columnName])"
                                 *ngIf="y !== 0  && !editSingleTableCells && (columnName.includes('nameCandidates') == true) &&
                                  displaySound">
                                 volume_up
