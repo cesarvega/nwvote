@@ -462,10 +462,10 @@
     <div class="scroller-style main-container" style="margin-bottom: 45px;" [dragula]="draggableBag"
         [(dragulaModel)]="bmxItem.componentText" (dragulaModelChange)="checkDragEvetn($event);">
 
-        <div *ngFor="let testName of bmxItem.componentText; let y = index" style="margin-bottom: 10px;" (drag)="drag()"
+        <div *ngFor="let testName of bmxItem.componentText; let y = index" style="margin-bottom: 10px;" 
             [ngClass]="(y == 0)?'ROW-CERO':''">
 
-            <div class="test-name-table" *ngIf="(y != 0)" (drag)="drag()"
+            <div class="test-name-table" *ngIf="(y != 0)" 
                 [style.touch-action]="(this.bmxItem.componentSettings[0].rankType == 'dragAndDrop')?'none':''"
                 [style.height]="(selectedCard == y && this.bmxItem.componentSettings[0].rankType == 'radio')?'200px':(selectedCard == y)?'':'45px'">
 
@@ -516,10 +516,11 @@
                             </div>
                         </div>
 
-                        <img (click)="(selectedCard == y)?selectedCard = '':selectedCard = y" class="row-box"
-                            style="width: 300px;" [src]="testName[columnName]"
+                        <img  class="row-box"
+                            style="width: 300px;position: relative;" [src]="testName[columnName]"
                             *ngIf=" bmxItem.componentSettings[1].isImageType && (y !== 0) && (columnName == 'name' || columnName == 'nameCandidates')">
-                        <!-- TEXT_AREA COMMENTS-->
+                        
+                            <!-- TEXT_AREA COMMENTS-->
                         <div style="display: flex;
                         justify-content: center;">
                             <textarea *ngIf="y !== 0  && columnName.includes('Comments') == true && selectedCard == y"

@@ -77,12 +77,21 @@
 
 
                 <!--IMAGE RANK SCALE 👽👽👽👽👽👽👽👽👽👽👽👽👽👽👽👽👽👽👽👽👽👽👽👽👽👽👽👽👽👽👽👽👽👽👽👽👽👽👽👽👽-->
-                <div *ngIf="bmxItem.componentType === 'ranking-scale'" class="paragraph">
+                <!-- <div *ngIf="bmxItem.componentType === 'ranking-scale'" class="paragraph">
 
                     <app-image-rank [bmxItem]="bmxItem" [i]="i" [bmxClientPageDesignMode]="bmxClientPageDesignMode"
                         [bmxClientPageOverview]="bmxClientPageOverview"></app-image-rank>
-                </div>
+                </div> -->
                 <!-- END RANK SCALE 👽👽👽👽👽👽👽👽👽👽👽👽👽👽👽👽👽👽👽👽👽👽👽👽👽👽👽👽👽👽👽👽👽👽👽👽👽👽👽👽👽 -->
+
+
+                <!--IMAGE RANK DRAG 👽👽👽👽👽👽👽👽👽👽👽👽👽👽👽👽👽👽👽👽👽👽👽👽👽👽👽👽👽👽👽👽👽👽👽👽👽👽👽👽👽-->
+                <div *ngIf="bmxItem.componentType === 'ranking-scale'" class="paragraph">
+
+                    <app-image-rank-drag [bmxItem]="bmxItem" [i]="i" [bmxClientPageDesignMode]="bmxClientPageDesignMode"
+                        [bmxClientPageOverview]="bmxClientPageOverview"></app-image-rank-drag>
+                </div>
+                <!-- END RANK DRAG 👽👽👽👽👽👽👽👽👽👽👽👽👽👽👽👽👽👽👽👽👽👽👽👽👽👽👽👽👽👽👽👽👽👽👽👽👽👽👽👽👽 -->
 
                 <!-- NARROW DOWN SCALE 😭😭😭😭😭😭😭😭😭😭😭😭😭😭😭😭😭😭😭😭😭😭😭😭😭😭😭😭😭😭😭😭😭😭😭😭😭-->
                 <div *ngIf="bmxItem.componentType === 'narrow-down'" class="paragraph">
