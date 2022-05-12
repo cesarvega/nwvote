@@ -578,7 +578,7 @@
             {{bmxItem.componentSettings[0].categoryDescription}}</div>
     </div>
     <div class="scroller-style main-container" cdkDropList  (cdkDropListDropped)="checkDragEvetn($event)" 
-    [cdkDropListAutoScrollDisabled]="false" 
+    [cdkDropListAutoScrollDisabled]="false"
      [cdkDropListLockAxis]="'y'">
 
         <div *ngFor="let testName of bmxItem.componentText; let y = index" style="margin-bottom: 10px;" cdkDrag>
@@ -591,6 +591,11 @@
                     line-height: 30px;right: 7px;
                     position: absolute;animation: rubberBand 700ms ease-in  forwards;"
                     mat-icon-button>{{bmxItem.componentText[y]['RATE']}}</button>
+
+                    <button *ngIf=" y != 0  " style="background-color: #ee7f25;color: white;margin: 5px;width: 30px;
+                    height: 30px;
+                    line-height: 30px;right: 7px;
+                    position: absolute;animation: rubberBand 700ms ease-in  forwards;" mat-icon-button>{{y}}</button>
                 <!-- 🟢🟢🟢🟢🟢🟢🟢🟢🟢🟢🟢🟢🟢🟢 HEADER TEXT AREA 🟢🟢🟢🟢🟢🟢🟢🟢🟢🟢🟢🟢🟢🟢🟢🟢 -->
 
 
@@ -614,10 +619,7 @@
                             *ngIf=" !editSingleTableCells">{{testName[columnName]}}
                         </p>
                     </div> -->
-
-
                     <!-- 🟢🟢🟢🟢🟢🟢🟢🟢🟢🟢🟢🟢🟢🟢 END HEADER TEXT AREA  🟢🟢🟢🟢🟢🟢🟢🟢🟢🟢🟢🟢🟢🟢🟢🟢 -->
-
 
                     <!-- 🟡🟡🟡🟡🟡🟡🟡🟡🟡🟡🟡🟡🟡🟡 TABLE CELLS  🟡🟡🟡🟡🟡🟡🟡🟡🟡🟡🟡🟡🟡🟡🟡🟡 -->
                     <div>
@@ -726,16 +728,11 @@
                             [style.color]="(columnName.includes('name') == true)?'#324395':'#bababa'"
                             style="text-align: center;padding: 5px 4px;"
                             [innerHTML]="testName[columnName] | safe: 'html'">{{testName[columnName]}}</p>
-
-
                     </div>
                     <!-- 🟡🟡🟡🟡🟡🟡🟡🟡🟡🟡🟡🟡🟡🟡 END TABLE CELLS 🟡🟡🟡🟡🟡🟡🟡🟡🟡🟡🟡🟡🟡🟡🟡🟡 -->
                 </div>
-
             </div>
-
         </div>
-
     </div>
 </div>
 
