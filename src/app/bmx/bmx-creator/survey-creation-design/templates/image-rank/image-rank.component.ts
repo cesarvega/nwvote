@@ -28,18 +28,6 @@ export class ImageRankComponent  extends RatingScaleComponent implements OnInit 
 
   allowScrolling = true
 
-  movies = [
-    'Episode I - The Phantom Menace',
-    'Episode II - Attack of the Clones',
-    'Episode III - Revenge of the Sith',
-    'Episode IV - A New Hope',
-    'Episode V - The Empire Strikes Back',
-    'Episode VI - Return of the Jedi',
-    'Episode VII - The Force Awakens',
-    'Episode VIII - The Last Jedi',
-    'Episode IX – The Rise of Skywalker',
-  ];
-
   constructor(dragulaService: DragulaService, _snackBar: MatSnackBar, _bmxService: BmxService) {
     super(dragulaService, _snackBar, _bmxService)
   }
@@ -254,10 +242,7 @@ export class ImageRankComponent  extends RatingScaleComponent implements OnInit 
 
   }
 
-  drag(){
-    console.log('drag');
-    
-   }
+  
 
   ASSIGNED_CRITERIA = []
 

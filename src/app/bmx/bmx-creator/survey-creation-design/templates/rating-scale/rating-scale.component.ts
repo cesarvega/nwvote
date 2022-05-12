@@ -148,6 +148,11 @@ export class RatingScaleComponent implements OnInit {
     })
 
     this.randomizeTestNames = this.bmxItem.componentSettings[0].randomizeTestNames
+
+    if (this.bmxItem.componentSettings[0]['displaySound'] == true) {
+      this.displaySound = true;
+    }
+
   }
 
   maxRuleCounterMinus() {
@@ -796,12 +801,15 @@ export class RatingScaleComponent implements OnInit {
     audio.src = "assets/sound/names/" + testNameSound + ".mp3";
     audio.volume = 0.8;
     audio.load();
+    audio.addEventListener("error", function (e) {
+      alert('No audio file found at url: ' + this.src);
+    });
     audio.play();
   }
 
-
-  playSound(soundEffect, volume) {
-
+  setPronunciation() {
+    this.bmxItem.componentSettings[0]['displaySound'] = !this.displaySound
+    this.displaySound = !this.displaySound
   }
 
   ASSIGNED_CRITERIA = []
