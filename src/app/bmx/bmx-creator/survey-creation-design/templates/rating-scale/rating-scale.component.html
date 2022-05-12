@@ -134,6 +134,10 @@
             mat-icon-button aria-label="ranking">
             <mat-icon style="font-size: 26px;" class="full-icon">undo</mat-icon>
         </button>
+        <button (click)="setPronunciation()" class="add-column" matTooltip="speech" matTooltipPosition="above"
+            mat-icon-button aria-label="ranking">
+            <mat-icon style="font-size: 26px;" class="full-icon">mic</mat-icon>
+        </button>
     </div>
 </div>
 <!-- ➗➗➗➗➗➗➗➗➗➗➗➗➗➗➗➗➗➗➗  END  ➗➗➗➗➗➗➗➗➗➗➗➗➗➗➗➗➗ -->
@@ -641,7 +645,7 @@
 
                         <!-- TEST NAME -->
                         <div style="display: flex;align-items: center;justify-content: space-evenly;">
-                            <mat-icon style="cursor: pointer;position: absolute;left: 20px;color: #324395;" (click)="playTestNameSound(testName[columnName])"
+                            <mat-icon style="cursor: pointer;position: absolute;left: 20px;color: #324395;margin-top: -10px;" (click)="playTestNameSound(testName[columnName])"
                                 *ngIf="y !== 0  && !editSingleTableCells && (columnName.includes('nameCandidates') == true) &&
                                  displaySound">
                                 volume_up

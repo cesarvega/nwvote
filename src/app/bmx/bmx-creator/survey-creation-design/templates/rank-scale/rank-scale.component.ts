@@ -79,6 +79,10 @@ export class RankScaleComponent extends RatingScaleComponent implements OnInit {
         isSpecialRquest: false,
       })
     }
+
+    if (this.bmxItem.componentSettings[0]['displaySound'] == true) {
+      this.displaySound = true;
+    }
   }
 
   checkDragEvetn(rows) {
