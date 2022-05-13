@@ -5,6 +5,7 @@ import { Subscription } from 'rxjs/internal/Subscription';
 import { BmxService } from '../../../bmx.service';
 import { RatingScaleComponent } from '../rating-scale/rating-scale.component';
 import { MatSnackBar } from '@angular/material/snack-bar';
+import { CdkDragDrop, moveItemInArray } from '@angular/cdk/drag-drop';
 @Component({
   selector: 'app-image-rank-drag',
   templateUrl: './image-rank-drag.component.html',
@@ -133,6 +134,18 @@ export class ImageRankDragComponent extends RatingScaleComponent implements OnIn
   reset() {
     this.uploadProgress = null;
     this.uploadSub = null;
+  }
+
+  checkDragEvetn(event: CdkDragDrop<string[]>) {
+    if (event.currentIndex > 0) {
+      console.log('drag eventtrt');
+      moveItemInArray(this.bmxItem.componentText, event.previousIndex, event.currentIndex);
+      this.bmxItem.componentText.forEach((row, rowIndex) => {
+        if (rowIndex > 0) {
+          row.RATE = rowIndex
+        }
+      })
+    }
   }
 }
 
