@@ -453,6 +453,55 @@ export class SurveyCreationDesignComponent implements OnInit {
                     }
                 ],
             });
+        } // 💚💚💚💚💚💚💚💚💚💚💚💚💚💚💚💚💚💚💚💚💚💚💚💚💚💚💚💚💚💚💚💚💚💚💚💚💚💚💚💚💚💚💚
+        else if (componentType === 'image-rank-drag') {
+            this.TestNameDataModel = [];
+            this.TestNameDataModel.push({
+                nameCandidates: 'NAME',
+                rationale: 'RATIONALE',
+                RATE: 'RATE',
+                STARS: this.createRankinScale(),
+            });
+            for (let index = 0; index < 5; index++) {
+                this.TestNameDataModel.push({
+                    nameCandidates: 'TEST NAME ' + index,
+                    rationale: 'Rationale of an undisclosed length',
+                    RATE: -1, // it wont render since is not a string
+                    STARS: this.createRankinScale(),
+                });
+            }
+            this.bmxPages[this.currentPage].page.push({
+                componentType: componentType,
+                componentText: this.TestNameDataModel,
+                componentSettings: [
+                    {
+                        randomizeTestNames: false,
+                        language: 'english',
+                        minRule: 0,
+                        maxRule: 0,
+                        fontSize: 16,
+                        columnWidth: 150,
+                        rationalewidth: 250,
+                        rowHeight: 0,
+                        radioColumnsWidth: 75,
+                        nameCandidatesWidth: 135,
+                        rateWidth: 135,
+                        commentsWidth: 165,
+                        selectedRanking: 7,
+                        categoryRulesPassed: false,
+                        ratedCounter: 0,
+                        categoryName: 'Category image-rank-drag',
+                        categoryDescription: 'This is image-rank-drag matrix',
+                        ratingScaleTitle: 'RANK',
+                        rankType: 'dragAndDrop',
+                    },
+                    {
+                        isImageType: false,
+                        categoryTobeRender: '',
+                        isSpecialRquest: false,
+                    }
+                ],
+            });
         } // ❤️❤️❤️❤️❤️❤️❤️❤️❤️❤️❤️❤️❤️❤️❤️❤️❤️❤️❤️❤️❤️❤️❤️❤️❤️❤️❤️❤️❤️❤️❤️❤️❤️❤️❤️❤️❤️❤️❤️❤️❤️❤️❤️
         else if (componentType === 'image-rate-scale') {
             this.TestNameDataModel = [];

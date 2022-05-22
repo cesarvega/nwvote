@@ -72,7 +72,7 @@
 
 
             <!-- RANK SCALE 😭😭😭😭😭😭😭😭😭😭😭😭😭😭😭😭😭😭😭😭😭😭😭😭😭😭😭😭😭😭😭😭😭😭😭😭😭-->
-            <!-- <div *ngIf="bmxItem.componentType === 'ranking-scale'" class="paragraph">
+            <div *ngIf="bmxItem.componentType === 'ranking-scale'" class="paragraph">
                 <div class="emoji-handle">.</div>
                 <div style="position: absolute;right: 0px;">
                     <button *ngIf="bmxClientPageOverview" matTooltip="double click to delete" matTooltipPosition="above"
@@ -83,12 +83,19 @@
                 </div>
                 <app-rank-scale [bmxItem]="bmxItem" [i]="i" [bmxClientPageDesignMode]="bmxClientPageDesignMode"
                     [bmxClientPageOverview]="bmxClientPageOverview"></app-rank-scale>
-            </div> -->
+            </div>
             <!-- END RANK SCALE 😭😭😭😭😭😭😭😭😭😭😭😭😭😭😭😭😭😭😭😭😭😭😭😭😭😭😭😭😭😭😭😭😭😭😭😭😭 -->
 
              <!--IMAGE RANK DRAG 👽👽👽👽👽👽👽👽👽👽👽👽👽👽👽👽👽👽👽👽👽👽👽👽👽👽👽👽👽👽👽👽👽👽👽👽👽👽👽👽👽-->
-             <div *ngIf="bmxItem.componentType === 'ranking-scale'" class="paragraph">
-
+             <div *ngIf="bmxItem.componentType === 'image-rank-drag'" class="paragraph">
+                <div class="emoji-handle">.</div>
+                <div style="position: absolute;right: 0px;">
+                    <button *ngIf="bmxClientPageOverview" matTooltip="double click to delete" matTooltipPosition="above"
+                        style="outline: none;color:#f10a0a;top: 19px;" mat-icon-button (dblclick)="deleteComponent(i)"
+                        aria-label="delte">
+                        <mat-icon style="font-size: 17px;">cancel</mat-icon>
+                    </button>
+                </div>
                 <app-image-rank-drag [bmxItem]="bmxItem" [i]="i" [bmxClientPageDesignMode]="bmxClientPageDesignMode"
                     [bmxClientPageOverview]="bmxClientPageOverview"></app-image-rank-drag>
             </div>
@@ -224,6 +231,10 @@
             <button (click)="createNewBmxComponent('image-rate-scale')" matTooltip="image rate matrix"
                 matTooltipPosition="right" mat-icon-button color="warn" aria-label="aria">
                 <mat-icon class="full-icon">image</mat-icon>
+            </button>
+            <button (click)="createNewBmxComponent('image-rank-drag')" matTooltip="image drag and drop matrix"
+                matTooltipPosition="right" mat-icon-button color="warn" aria-label="aria">
+                <mat-icon class="full-icon">tune</mat-icon>
             </button>
             <button (click)="createNewBmxComponent('tinder')" matTooltip="tinder matrix" matTooltipPosition="right"
                 mat-icon-button color="warn" aria-label="aria">
