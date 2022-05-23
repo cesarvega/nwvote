@@ -273,10 +273,12 @@
             {{bmxItem.componentSettings[0].categoryDescription}}</div>
     </div>
     <!--  [dragula]="draggableBag"  -->
-    <div class="scroller-style main-container"
+    <div class="scroller-style main-container" cdkDropList (cdkDropListDropped)="checkDragEvetn($event)"
+        [cdkDropListAutoScrollDisabled]="false" [cdkDropListLockAxis]="'y'"
         [dragula]="(dragRows)?'DRAGGABLE_ROW':(rankingType == 'dragAndDrop')?draggableBag:''"
         [(dragulaModel)]="bmxItem.componentText" (dragulaModelChange)="checkDragEvetn($event);">
-        <div *ngFor="let testName of bmxItem.componentText; let y = index">
+
+        <div *ngFor="let testName of bmxItem.componentText; let y = index" cdkDrag>
 
             <div class="test-name-table">
 
@@ -463,11 +465,18 @@
             {{(allowScrolling)?'DRAG':'SCROLL'}} </button> -->
 
     </div>
-    <div class="scroller-style main-container" style="margin-bottom: 45px;" [dragula]="draggableBag"
-        [(dragulaModel)]="bmxItem.componentText" (dragulaModelChange)="checkDragEvetn($event);">
 
-        <div *ngFor="let testName of bmxItem.componentText; let y = index" style="margin-bottom: 10px;"
-            [ngClass]="(y == 0)?'ROW-CERO':''">
+    <!-- <div class="scroller-style main-container" style="margin-bottom: 45px;" cdkDropList
+    (cdkDropListDropped)="checkDragEvetn($event)" [cdkDropListAutoScrollDisabled]="false"
+    [cdkDropListLockAxis]="'y'">
+
+        <div *ngFor="let testName of bmxItem.componentText; let y = index" style="margin-bottom: 10px;" cdkDrag
+            [ngClass]="(y == 0)?'ROW-CERO':''"> -->
+
+    <div class="scroller-style main-container" cdkDropList (cdkDropListDropped)="checkDragEvetn($event)"
+        [cdkDropListAutoScrollDisabled]="false" [cdkDropListLockAxis]="'y'">
+
+        <div *ngFor="let testName of bmxItem.componentText; let y = index" style="margin-bottom: 10px;" cdkDrag>
 
             <div class="test-name-table" *ngIf="(y != 0)"
                 [style.touch-action]="(this.bmxItem.componentSettings[0].rankType == 'dragAndDrop')?'none':''"
@@ -543,7 +552,8 @@
                             [style.color]="(columnName.includes('name') == true)?'#324395':'#bababa'"
                             style="text-align: center;padding: 10px 4px;">{{(testName[columnName])}}</p> -->
                         <div style="display: flex;align-items: center;justify-content: space-evenly;">
-                            <mat-icon style="cursor: pointer;position: absolute;left: 20px;color: #324395;margin-top: -10px;"
+                            <mat-icon
+                                style="cursor: pointer;position: absolute;left: 20px;color: #324395;margin-top: -10px;"
                                 (click)="playTestNameSound(testName[columnName])" *ngIf="y !== 0  && !editSingleTableCells && (columnName.includes('nameCandidates') == true) &&
                                      displaySound">
                                 volume_up
