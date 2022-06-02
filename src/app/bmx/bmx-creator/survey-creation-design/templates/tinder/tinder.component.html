@@ -110,7 +110,7 @@
 
         <div style="display: flex;flex-direction: row;gap: 20px; align-items: center;width: 750px;">
 
-            <mat-icon (click)="moveleft()" style="font-size: 30px;color: grey;cursor: pointer;" class="full-icon">
+            <mat-icon (click)="moveleft(bmxItem.componentText[testNameIndex].nameCandidates)" style="font-size: 30px;color: grey;cursor: pointer;" class="full-icon">
                 chevron_left</mat-icon>
 
             <div class="tinder-box">
@@ -141,7 +141,7 @@
                         class="full-icon">sentiment_satisfied_alt</mat-icon>
                 </div>
             </div>
-            <mat-icon (click)="moveRight()" style="font-size: 30px;color: grey;cursor: pointer;" class="full-icon">
+            <mat-icon (click)="moveRight(bmxItem.componentText[testNameIndex].nameCandidates)" style="font-size: 30px;color: grey;cursor: pointer;" class="full-icon">
                 chevron_right</mat-icon>
 
         </div>
@@ -183,8 +183,8 @@
                 <div style="display: flex;flex-direction:row;justify-content: space-around;align-items: center;width: 100%;position: absolute;
                 bottom: 80px;">
 
-                    <mat-icon (click)="moveleft()" style="font-size: 30px;color: grey;cursor: pointer;">
-                        chevron_left</mat-icon>
+                    <!-- <mat-icon (click)="moveleft()" style="font-size: 30px;color: grey;cursor: pointer;">
+                        chevron_left</mat-icon> -->
 
                     <mat-icon (click)="voteName('negative')" style="font-size: 50px;color: #ee252f;cursor: pointer;">
                         highlight_off</mat-icon>
@@ -193,8 +193,8 @@
                     <mat-icon (click)="voteName('positive')" style="font-size: 50px;color: #00cd38;cursor: pointer;">
                         sentiment_satisfied_alt</mat-icon>
 
-                    <mat-icon (click)="moveRight()" style="font-size: 30px;color: grey;cursor: pointer;">
-                        chevron_right</mat-icon>
+                    <!-- <mat-icon (click)="moveRight()" style="font-size: 30px;color: grey;cursor: pointer;">
+                        chevron_right</mat-icon> -->
                 </div>
 
             </div>

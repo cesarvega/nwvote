@@ -271,7 +271,7 @@ export class ProjectInformationComponent implements OnInit {
     this.bmxCompany = new FormControl(
       '', [
       Validators.required,
-      Validators.pattern("^[a-zA-Z0-9]+$")
+      // Validators.pattern("^[a-zA-Z0-9]+$")
     ]);
     this.bmxLanguage = new FormControl(
       '', [
