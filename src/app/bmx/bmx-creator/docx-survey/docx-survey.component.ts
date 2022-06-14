@@ -1604,7 +1604,7 @@ export class DocxSurveyComponent implements OnInit {
                 before: 200,
                 after: 200,
               },
-              alignment: AlignmentType.LEFT,
+              alignment: AlignmentType.CENTER,
               children: [
                 new TextRun
                   (
@@ -1884,7 +1884,7 @@ export class DocxSurveyComponent implements OnInit {
 
     reportParts.push(
       new Paragraph({
-        alignment: AlignmentType.CENTER,
+        alignment: AlignmentType.LEFT,
         children: [
           new ImageRun({
             data: this.biLogo/*Buffer.from(this.bi, "base64")*/,
@@ -2291,7 +2291,7 @@ export class DocxSurveyComponent implements OnInit {
 
                 children: [
                   new Paragraph({
-                    alignment: AlignmentType.CENTER,
+                    alignment: AlignmentType.LEFT,
                     children: [
                       new ImageRun({
                         data: Buffer.from(this.bi, "base64"),
