@@ -144,7 +144,7 @@ export class DocxSurveyComponent implements OnInit {
         recept.Status = 'F'
       }
       else {
-        recept.Status = 'NF'
+        Number(recept.Status)
       }
       var s = JSON.parse(t[z].BrandMatrix);
       for (var x = 0; x < s.length; x++) {
@@ -163,7 +163,7 @@ export class DocxSurveyComponent implements OnInit {
             hasData = true;
             this.nameTyping = r[0].nameCandidates;
             this.rating = r[0].RATE;
-            this.rational = r[0].rationale;
+            
             for (var y = 1; y < r.length; y++) {
               var p = r[y];
               if (r[y].multipleChoice !== undefined) {
@@ -181,7 +181,7 @@ export class DocxSurveyComponent implements OnInit {
                   answMC.nameCandidate = await this.imageToBuffer(r[y].nameCandidates);
                 }
                 else {
-                  answMC.nameCandidate = r[y].nameCandidates;
+                  answMC.nameCandidate = r[y].nameCandidates + " " + r[y].rationale;
                 }
 
                 answMC.score = r[y].multipleChoice.split(",");
@@ -207,7 +207,7 @@ export class DocxSurveyComponent implements OnInit {
                     answCR.nameCandidate = await this.imageToBuffer(r[y].nameCandidates);
                   }
                   else {
-                    answCR.nameCandidate = r[y].nameCandidates;
+                    answCR.nameCandidate = r[y].nameCandidates + " " + r[y].rationale;
                   }
                   answCR.score = r[y].CRITERIA;
                   response.answers.push(answCR);
@@ -229,7 +229,7 @@ export class DocxSurveyComponent implements OnInit {
                     answRT.nameCandidate = await this.imageToBuffer(r[y].nameCandidates);
                   }
                   else {
-                    answRT.nameCandidate = r[y].nameCandidates;
+                    answRT.nameCandidate = r[y].nameCandidates + " " + r[y].rationale;
                   }
                   answRT.score = r[y].RATE;
                   if (answRT.score > 0) {
@@ -455,7 +455,7 @@ export class DocxSurveyComponent implements OnInit {
                       before: 200,
                       after: 200,
                     },
-                    alignment: AlignmentType.LEFT,
+                    alignment: AlignmentType.CENTER,
                     children:
                       [
                         new TextRun
@@ -484,7 +484,7 @@ export class DocxSurveyComponent implements OnInit {
                       before: 200,
                       after: 200,
                     },
-                    alignment: AlignmentType.LEFT,
+                    alignment: AlignmentType.CENTER,
                     children:
                       [
                         new TextRun
@@ -513,7 +513,7 @@ export class DocxSurveyComponent implements OnInit {
                       before: 200,
                       after: 200,
                     },
-                    alignment: AlignmentType.LEFT,
+                    alignment: AlignmentType.CENTER,
                     children:
                       [
                         new TextRun
@@ -552,7 +552,7 @@ export class DocxSurveyComponent implements OnInit {
                       before: 200,
                       after: 200,
                     },
-                    alignment: AlignmentType.LEFT,
+                    alignment: AlignmentType.CENTER,
                     children:
                       [
                         new TextRun
@@ -605,7 +605,7 @@ export class DocxSurveyComponent implements OnInit {
                       before: 200,
                       after: 200,
                     },
-                    alignment: AlignmentType.LEFT,
+                    alignment: AlignmentType.CENTER,
                     children:
                       [
                         new TextRun
@@ -910,7 +910,7 @@ export class DocxSurveyComponent implements OnInit {
                       before: 200,
                       after: 200,
                     },
-                    alignment: AlignmentType.LEFT,
+                    alignment: AlignmentType.CENTER,
                     children:
                       [
                         new TextRun
@@ -1228,7 +1228,7 @@ export class DocxSurveyComponent implements OnInit {
                         before: 200,
                         after: 200,
                       },
-                      alignment: AlignmentType.LEFT,
+                      alignment: AlignmentType.CENTER,
                       children: [
                         new TextRun
                           (
@@ -1498,7 +1498,7 @@ export class DocxSurveyComponent implements OnInit {
                 before: 200,
                 after: 200,
               },
-              alignment: AlignmentType.LEFT,
+              alignment: AlignmentType.CENTER,
               children: [
                 new TextRun
                   (
@@ -1884,7 +1884,7 @@ export class DocxSurveyComponent implements OnInit {
 
     reportParts.push(
       new Paragraph({
-        alignment: AlignmentType.LEFT,
+        alignment: AlignmentType.CENTER,
         children: [
           new ImageRun({
             data: this.biLogo/*Buffer.from(this.bi, "base64")*/,
