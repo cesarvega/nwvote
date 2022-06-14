@@ -2291,7 +2291,7 @@ export class DocxSurveyComponent implements OnInit {
 
                 children: [
                   new Paragraph({
-                    alignment: AlignmentType.LEFT,
+                    alignment: AlignmentType.CENTER,
                     children: [
                       new ImageRun({
                         data: Buffer.from(this.bi, "base64"),
