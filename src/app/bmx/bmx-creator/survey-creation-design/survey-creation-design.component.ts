@@ -383,8 +383,8 @@ export class SurveyCreationDesignComponent implements OnInit {
                 componentText: this.TestNameDataModel,
                 componentSettings: [
                     {
-                        randomizeTestNames:false,
-                        language:'english',
+                        randomizeTestNames: false,
+                        language: 'english',
                         minRule: 0,
                         maxRule: 0,
                         fontSize: 16,
@@ -394,7 +394,7 @@ export class SurveyCreationDesignComponent implements OnInit {
                         radioColumnsWidth: 75,
                         nameCandidatesWidth: 135,
                         rateWidth: 135,
-                        commentsWidth: 135,
+                        commentsWidth: 165,
                         CRITERIA: false,
                         categoryRulesPassed: false,
                         ratedCounter: 0,
@@ -426,8 +426,8 @@ export class SurveyCreationDesignComponent implements OnInit {
                 componentText: this.TestNameDataModel,
                 componentSettings: [
                     {
-                        randomizeTestNames:false,
-                        language:'english',
+                        randomizeTestNames: false,
+                        language: 'english',
                         minRule: 0,
                         maxRule: 0,
                         fontSize: 16,
@@ -437,7 +437,7 @@ export class SurveyCreationDesignComponent implements OnInit {
                         radioColumnsWidth: 75,
                         nameCandidatesWidth: 135,
                         rateWidth: 135,
-                        commentsWidth: 135,
+                        commentsWidth: 165,
                         selectedRanking: 7,
                         categoryRulesPassed: false,
                         ratedCounter: 0,
@@ -446,6 +446,60 @@ export class SurveyCreationDesignComponent implements OnInit {
                         ratingScaleTitle: 'RANK',
                         rankType: 'dropDown',
                     },
+                    {
+                        isImageType: false,
+                        categoryTobeRender: '',
+                        isSpecialRquest: false,
+                    }
+                ],
+            });
+        } // 💚💚💚💚💚💚💚💚💚💚💚💚💚💚💚💚💚💚💚💚💚💚💚💚💚💚💚💚💚💚💚💚💚💚💚💚💚💚💚💚💚💚💚
+        else if (componentType === 'image-rank-drag') {
+            this.TestNameDataModel = [];
+            this.TestNameDataModel.push({
+                nameCandidates: 'NAME',
+                rationale: 'RATIONALE',
+                RATE: 'RATE',
+                STARS: this.createRankinScale(),
+            });
+            for (let index = 0; index < 5; index++) {
+                this.TestNameDataModel.push({
+                    nameCandidates: 'TEST NAME ' + index,
+                    rationale: 'Rationale of an undisclosed length',
+                    RATE: -1, // it wont render since is not a string
+                    STARS: this.createRankinScale(),
+                });
+            }
+            this.bmxPages[this.currentPage].page.push({
+                componentType: componentType,
+                componentText: this.TestNameDataModel,
+                componentSettings: [
+                    {
+                        randomizeTestNames: false,
+                        language: 'english',
+                        minRule: 0,
+                        maxRule: 0,
+                        fontSize: 16,
+                        columnWidth: 150,
+                        rationalewidth: 250,
+                        rowHeight: 0,
+                        radioColumnsWidth: 75,
+                        nameCandidatesWidth: 135,
+                        rateWidth: 135,
+                        commentsWidth: 165,
+                        selectedRanking: 7,
+                        categoryRulesPassed: false,
+                        ratedCounter: 0,
+                        categoryName: 'Category image-rank-drag',
+                        categoryDescription: 'This is image-rank-drag matrix',
+                        ratingScaleTitle: 'RANK',
+                        rankType: 'dragAndDrop',
+                    },
+                    {
+                        isImageType: false,
+                        categoryTobeRender: '',
+                        isSpecialRquest: false,
+                    }
                 ],
             });
         } // ❤️❤️❤️❤️❤️❤️❤️❤️❤️❤️❤️❤️❤️❤️❤️❤️❤️❤️❤️❤️❤️❤️❤️❤️❤️❤️❤️❤️❤️❤️❤️❤️❤️❤️❤️❤️❤️❤️❤️❤️❤️❤️❤️
@@ -476,8 +530,8 @@ export class SurveyCreationDesignComponent implements OnInit {
                 componentText: this.TestNameDataModel,
                 componentSettings: [
                     {
-                        randomizeTestNames:false,
-                        language:'english',
+                        randomizeTestNames: false,
+                        language: 'english',
                         minRule: 0,
                         maxRule: 0,
                         fontSize: 16,
@@ -487,7 +541,7 @@ export class SurveyCreationDesignComponent implements OnInit {
                         radioColumnsWidth: 75,
                         nameCandidatesWidth: 323,
                         rateWidth: 135,
-                        commentsWidth: 135,
+                        commentsWidth: 165,
                         CRITERIA: false,
                         categoryRulesPassed: false,
                         ratedCounter: 0,
@@ -528,7 +582,7 @@ export class SurveyCreationDesignComponent implements OnInit {
                         radioColumnsWidth: 75,
                         nameCandidatesWidth: 135,
                         rateWidth: 135,
-                        commentsWidth: 135,
+                        commentsWidth: 165,
                         categoryRulesPassed: false,
                         selectedRowCounter: 0,
                         ratedCounter: 0,
@@ -560,8 +614,8 @@ export class SurveyCreationDesignComponent implements OnInit {
                 componentText: this.TestNameDataModel,
                 componentSettings: [
                     {
-                        randomizeTestNames:false,
-                        language:'english',
+                        randomizeTestNames: false,
+                        language: 'english',
                         minRule: 0,
                         maxRule: 0,
                         fontSize: 16,
@@ -597,8 +651,8 @@ export class SurveyCreationDesignComponent implements OnInit {
                 componentText: this.TestNameDataModel,
                 componentSettings: [
                     {
-                        randomizeTestNames:false,
-                        language:'english',
+                        randomizeTestNames: false,
+                        language: 'english',
                         minRule: 0,
                         maxRule: 0,
                         fontSize: 16,
@@ -822,7 +876,7 @@ export class SurveyCreationDesignComponent implements OnInit {
                 ) {
                     if (category.componentSettings[0].CRITERIA) {
                         category.componentText.forEach((row: any, index: number) => {
-                            if (index > 0) {                               
+                            if (index > 0) {
                                 row.CRITERIA.forEach((criteria: any) => {
                                     criteria.RATE = -1;
                                     criteria.STARS.forEach((star: any) => {
@@ -842,9 +896,11 @@ export class SurveyCreationDesignComponent implements OnInit {
                             category.componentText.forEach((row: any, index: number) => {
                                 if (index > 0) {
                                     row.RATE = -1;
-                                    row.STARS.forEach((star: any) => {
-                                        star.styleClass = 'rating-star'
-                                    });
+                                    if (row.STARS) {
+                                        row.STARS.forEach((star: any) => {
+                                            star.styleClass = 'rating-star'
+                                        });
+                                    }
                                 }
 
                             });
@@ -1047,6 +1103,17 @@ export class SurveyCreationDesignComponent implements OnInit {
             ]
         }
     ]
-
 }
-
+// https://brandmatrix.brandinstitute.com/BMX/survey/ImageStarRate/guest
+// https://brandmatrix.brandinstitute.com/BMX/survey/ImageStarRateCriteria/guest
+// https://brandmatrix.brandinstitute.com/BMX/survey/rateEstrella/guest
+// https://brandmatrix.brandinstitute.com/BMX/survey/StartRateCriteria/guest
+// https://brandmatrix.brandinstitute.com/BMX/survey/TopRankDragAndDrop/guest
+// https://brandmatrix.brandinstitute.com/BMX/survey/TopRankDropDown/guest
+// https://brandmatrix.brandinstitute.com/BMX/survey/TopRankRadio/guest
+// https://brandmatrix.brandinstitute.com/BMX/survey/MiltipleChoice/guest
+// https://brandmatrix.brandinstitute.com/BMX/survey/MultipleChoiceWithComments/guest
+// https://brandmatrix.brandinstitute.com/BMX/survey/NarrowDown/guest
+// https://brandmatrix.brandinstitute.com/BMX/survey/NarrowDownCriteria/guest
+// https://brandmatrix.brandinstitute.com/BMX/survey/SpecialRequestLogos/guest
+// https://brandmatrix.brandinstitute.com/BMX/survey/Tinder/guest

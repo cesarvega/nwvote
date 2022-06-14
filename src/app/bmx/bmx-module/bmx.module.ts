@@ -87,6 +87,8 @@ import { PageLineBreakComponent } from '../bmx-creator/project-reports/templates
 import { PageTitleComponent } from '../bmx-creator/project-reports/templates/page-title/page-title.component';
 import { DocxSurveyComponent } from '../bmx-creator/docx-survey/docx-survey.component';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
+import { ImageRankComponent } from '../bmx-creator/survey-creation-design/templates/image-rank/image-rank.component';
+import { ImageRankDragComponent } from '../bmx-creator/survey-creation-design/templates/image-rank-drag/image-rank-drag.component';
 
 export function loadEcharts() {
   return import('echarts');
@@ -106,6 +108,8 @@ export function loadEcharts() {
     RatingScaleComponent,
     RankScaleComponent,
     ImageRateScaleComponent,
+    ImageRankComponent,
+    ImageRankDragComponent,
     LogoHeaderComponent,
     TextParagraphComponent,
     ProjectReportsComponent,

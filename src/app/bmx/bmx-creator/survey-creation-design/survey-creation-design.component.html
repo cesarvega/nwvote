@@ -86,6 +86,22 @@
             </div>
             <!-- END RANK SCALE 😭😭😭😭😭😭😭😭😭😭😭😭😭😭😭😭😭😭😭😭😭😭😭😭😭😭😭😭😭😭😭😭😭😭😭😭😭 -->
 
+             <!--IMAGE RANK DRAG 👽👽👽👽👽👽👽👽👽👽👽👽👽👽👽👽👽👽👽👽👽👽👽👽👽👽👽👽👽👽👽👽👽👽👽👽👽👽👽👽👽-->
+             <div *ngIf="bmxItem.componentType === 'image-rank-drag'" class="paragraph">
+                <div class="emoji-handle">.</div>
+                <div style="position: absolute;right: 0px;">
+                    <button *ngIf="bmxClientPageOverview" matTooltip="double click to delete" matTooltipPosition="above"
+                        style="outline: none;color:#f10a0a;top: 19px;" mat-icon-button (dblclick)="deleteComponent(i)"
+                        aria-label="delte">
+                        <mat-icon style="font-size: 17px;">cancel</mat-icon>
+                    </button>
+                </div>
+                <app-image-rank-drag [bmxItem]="bmxItem" [i]="i" [bmxClientPageDesignMode]="bmxClientPageDesignMode"
+                    [bmxClientPageOverview]="bmxClientPageOverview"></app-image-rank-drag>
+            </div>
+            <!-- END RANK DRAG 👽👽👽👽👽👽👽👽👽👽👽👽👽👽👽👽👽👽👽👽👽👽👽👽👽👽👽👽👽👽👽👽👽👽👽👽👽👽👽👽👽 -->
+
+
             <!-- NARROW DOWN SCALE 😭😭😭😭😭😭😭😭😭😭😭😭😭😭😭😭😭😭😭😭😭😭😭😭😭😭😭😭😭😭😭😭😭😭😭😭😭-->
             <div *ngIf="bmxItem.componentType === 'narrow-down'" class="paragraph">
                 <div class="emoji-handle">.</div>
@@ -216,6 +232,10 @@
                 matTooltipPosition="right" mat-icon-button color="warn" aria-label="aria">
                 <mat-icon class="full-icon">image</mat-icon>
             </button>
+            <button (click)="createNewBmxComponent('image-rank-drag')" matTooltip="image drag and drop matrix"
+                matTooltipPosition="right" mat-icon-button color="warn" aria-label="aria">
+                <mat-icon class="full-icon">tune</mat-icon>
+            </button>
             <button (click)="createNewBmxComponent('tinder')" matTooltip="tinder matrix" matTooltipPosition="right"
                 mat-icon-button color="warn" aria-label="aria">
                 <mat-icon class="full-icon">local_fire_department</mat-icon>
@@ -271,7 +291,7 @@
 
 </div>
 
-<!-- TEMPLATE BOX SAVE AND UPDATE -->
+<!--  MODAL BOX TO SAVE AND UPDATE TEMPLATES -->
 <div *ngIf="isTemplateBoxOn" class="save-template-box"
     style="display: flex;flex-direction: column;align-items: center;justify-content: space-around;">
     <h2 style="text-align: center;padding-top: 5px;color: #2a3f8a;">{{templateTitle}}</h2>

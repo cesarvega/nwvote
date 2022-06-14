@@ -1,8 +1,10 @@
-import { Component, ElementRef, EventEmitter, Inject, Input, OnInit, Output, ViewChild, ViewEncapsulation } from '@angular/core';
+import { Component, ElementRef, EventEmitter, HostListener, Inject, Input, OnInit, Output, ViewChild, ViewEncapsulation } from '@angular/core';
 import { CdkTextareaAutosize } from '@angular/cdk/text-field';
 import { DragulaService } from 'ng2-dragula';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { Subscription } from 'rxjs';
+import * as  dragula from 'dragula';
+import autoScroll from 'dom-autoscroller';
 import { BmxService } from '../../../bmx.service';
 @Component({
   selector: 'app-rating-scale',
@@ -10,7 +12,6 @@ import { BmxService } from '../../../bmx.service';
   styleUrls: ['./rating-scale.component.scss']
 })
 export class RatingScaleComponent implements OnInit {
-
   @Input() bmxItem;
   @Input() i;
   @Input() bmxClientPageDesignMode;
@@ -57,30 +58,63 @@ export class RatingScaleComponent implements OnInit {
   isColumnResizerOn = false;
   editSingleTableCells = false
 
-  BAG = "DRAGGABLE_ROW";
+  BAG = "DRAGGABLE_RANK_ROW";
   subs = new Subscription();
-  rowsCount = 10
+  rowsCount = 0
 
   HISTORY = []
   RANGEARRAY = ['columnWidth1', 'columnWidth2', 'columnWidth3']
   selectedNarrowDownTimer = 0;
   columnFontSize = 15;
   randomizeTestNames = false
+  displaySound = false
 
-  constructor(private dragulaService: DragulaService, private _snackBar: MatSnackBar, private _bmxService: BmxService) {
-    //   dragulaService.createGroup('DRAGGABLE_ROW', {
-    //     moves: (el, container, handle, sibling) => {
-    //       if (el.classList.contains('ROW-CERO')) {
-    //         return false
-    //       }else return true
-    //     }
-    // });
+  scroll: any;
+  constructor(private dragulaService: DragulaService, private _snackBar: MatSnackBar, public _bmxService: BmxService) {
+    // DRAG AND DROP
+    let drake = dragula();
+    // this.dragulaService.add(this.BAG, drake);
 
-    // dragulaService.createGroup("DRAGGABLE_ROW", {
-    //   removeOnSpill: true
-    // });
+
+    this.dragulaService.drag(this.BAG)
+      .subscribe(({ el }) => {
+        console.log('drag' + el);
+      })
+    this.subs.add(this.dragulaService.drop(this.BAG)
+      .subscribe(({ el }) => {
+        console.log('drop' + el);
+      })
+    );
+    this.subs.add(this.dragulaService.over(this.BAG)
+      .subscribe(({ el, container }) => {
+
+        console.log('over', container);
+      })
+    );
+    this.subs.add(this.dragulaService.out(this.BAG)
+      .subscribe(({ el, container }) => {
+
+        console.log('out', container);
+      })
+    );
+
+    this.scroll = autoScroll(
+      // can also be an array of elements if they're { overflow: auto; max-height: XXpx } containers.
+      // i.e. [someViewChild.nativeElement]
+      window,
+      {
+        margin: 30,
+        maxSpeed: 25,
+        scrollWhenOutside: true,
+
+        autoScroll: function () { // don't use () => {} syntax, we want to keep the 'this'
+          // Only scroll when the pointer is down, and there is a child being dragged. 
+          return this.down && drake.dragging;
+        }
+      });
 
   }
+
   ngOnInit(): void {
     // COLUMN NAMES
     let values = Object.keys(this.bmxItem.componentText[0])
@@ -104,8 +138,8 @@ export class RatingScaleComponent implements OnInit {
         }
       }
 
-       // SET THE SURVEY LANGUAGE
-       this._bmxService.currentprojectData$.subscribe((projectData:any) => {
+      // SET THE SURVEY LANGUAGE
+      this._bmxService.currentprojectData$.subscribe((projectData: any) => {
         if (projectData.bmxLanguage == 'Japanese') {
           this.bmxItem.componentSettings[0].language = 'Japanese'
         }
@@ -113,13 +147,12 @@ export class RatingScaleComponent implements OnInit {
 
     })
 
-    // if (this.bmxItem.componentSettings[0].CRITERIA) {
-    //   this.bmxItem.componentText.forEach((item, index) => {
-    //     if (index == 0) {
-    //     }
-    //   })
-    // }
-    // this.selectedCriteria = 'Fit to Compound Concept, and Overall Likeability'
+    this.randomizeTestNames = this.bmxItem.componentSettings[0].randomizeTestNames
+
+    if (this.bmxItem.componentSettings[0]['displaySound'] == true) {
+      this.displaySound = true;
+    }
+
   }
 
   maxRuleCounterMinus() {
@@ -134,6 +167,7 @@ export class RatingScaleComponent implements OnInit {
       this.bmxItem.componentSettings[0].categoryRulesPassed = true
     } else { this.bmxItem.componentSettings[0].categoryRulesPassed = false }
   }
+
   // ⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️ STARS METHODS  ⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️
   setRating(rate, testNameId) {
     if (rate.target && this.bmxItem.componentType == 'narrow-down') {
@@ -201,7 +235,15 @@ export class RatingScaleComponent implements OnInit {
           // })
         }
       });
+
       this.bmxItem.componentText[testNameId].RATE = rate
+      // HANDLIN SPECIAL REQUEST
+      // if (!this.bmxItem.componentSettings[1].isImageType && rate == 1) {
+      //   let payload = {
+      //     tesName: this.bmxItem.componentText[testNameId].nameCandidates
+      //   }
+      //   this._bmxService.setSpecialDataObservable(payload)
+      // }
     }
 
     else {
@@ -315,6 +357,7 @@ export class RatingScaleComponent implements OnInit {
 
   upLoadNamesAndRationales(list: string) {
     this.uploadImagesIcon = true
+    this.bmxItem.componentSettings[0].randomizeTestNames = (this.randomizeTestNames) ? true : false
     this.recordHistory()
     this.dragRows = true;
     if (!list) { list = this.listString; }
@@ -398,19 +441,6 @@ export class RatingScaleComponent implements OnInit {
         }
       }
 
-
-      //   RANDOMIZE TEST NAMES
-      if (this.randomizeTestNames) {
-        this.bmxItem.componentSettings[0].randomizeTestNames = true
-        // DEPRECATED
-        // let headerRow = this.TESTNAMES_LIST[0]
-        // this.TESTNAMES_LIST.pop()
-        // this.ramdomizeArray()
-        // this.TESTNAMES_LIST.unshift(headerRow)
-        // this.bmxItem.componentText = this.deleteDuplicates(this.TESTNAMES_LIST, 'nameCandidates');
-        // this.columnsNames.push('RATE')
-      }
-
       this.bmxItem.componentText = this.deleteDuplicates(this.TESTNAMES_LIST, 'nameCandidates');
       this.columnsNames.push('RATE')
 
@@ -442,6 +472,7 @@ export class RatingScaleComponent implements OnInit {
       }
     }
     setTimeout(() => {
+      this.rowsCount = this.bmxItem.componentText.length - 1;
       this.bmxItem.componentSettings[0].minRule = (this.bmxItem.componentSettings[0].minRule == 0) ? this.bmxItem.componentText.length - 1 : this.bmxItem.componentSettings[0].minRule
       if (this.bmxItem.componentSettings[0].CRITERIA) {
         //MULTIPLY FOR THE AMOUNT OF CRITERIA
@@ -577,6 +608,7 @@ export class RatingScaleComponent implements OnInit {
       }
     });
 
+    this.bmxItem.componentSettings[0].commentsWidth = 165
   }
 
   insertRadioColumn() {
@@ -761,6 +793,23 @@ export class RatingScaleComponent implements OnInit {
         }, 1000);
       }
     }
+  }
+
+  playTestNameSound(testNameSound: string) {
+    let audio = new Audio();
+    // testNameSound = 'names/hero_decorative-celebration-01'
+    audio.src = "assets/sound/names/" + testNameSound + ".mp3";
+    audio.volume = 0.8;
+    audio.load();
+    audio.addEventListener("error", function (e) {
+      alert('No audio file found at url: ' + this.src);
+    });
+    audio.play();
+  }
+
+  setPronunciation() {
+    this.bmxItem.componentSettings[0]['displaySound'] = !this.displaySound
+    this.displaySound = !this.displaySound
   }
 
   ASSIGNED_CRITERIA = []
