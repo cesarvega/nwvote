@@ -60,12 +60,9 @@ export class SurveyMatrixComponent extends SurveyCreationDesignComponent impleme
   ngOnInit(): void {
     if(!this.username){
       this._BmxService.getMatrixClient(this.projectId).subscribe((data: any) => {
-
         this.bmxClientPageDesignMode = true;
-        this.myAngularxQrCode =
+        this.myAngularxQrCode =  this.myAngularxQrCode + this.projectId
         // this.myAngularxQrCode + this.projectId + '/' + this.username;
-        this.myAngularxQrCode + this.projectId
-
         data = JSON.parse(data.d);
         this.username = data.UserName
         this.projectId = data.ProjectName
