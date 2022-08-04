@@ -56,147 +56,252 @@ export class SurveyMatrixComponent
       this.projectId = params['id'];
       this.username = params['username'];
       localStorage.setItem('projectId', this.projectId);
-      // this.bsrService.getProjectData(this.projectId).subscribe(arg => {
-      //   this.projectName = JSON.parse(arg[0].bsrData).projectdescription;
-      //   localStorage.setItem('projectName',  this.projectId);
-      // });
-    });
 
-    this._BmxService.getMatrixUser(this.username).subscribe((data: any) => {
-      data = JSON.parse(data.d);
      
     });
+
+   
   }
 
   ngOnInit(): void {
-    this.bmxClientPageDesignMode = true;
-    this.myAngularxQrCode =
-    this.myAngularxQrCode + this.projectId + '/' + this.username;
 
-    this.qrCode.append(this.canvas.nativeElement);
-    this.bmxPagesClient = this.SAMPLE_BMX_CLIENT;
-    this._BmxService
-      .getBrandMatrixByProjectAndUserAnswers(this.projectId, this.username)
-      .subscribe((brandMatrix: any) => {
+    if(!this.username){
+      this._BmxService.getMatrixClient(this.projectId).subscribe((data: any) => {
 
-        //    IF USER ALREADY HAVE ANSWERS
-        if (brandMatrix.d.length > 0) {
-          let answers = JSON.parse(
-            brandMatrix.d.replace(this.searchGraveAccentRegExp, "'")
-          );
-          this.totalOfpages = answers.length
-          this._BmxService
-            .getBrandMatrixByProject(this.projectId)
-            .subscribe((brandMatrix: any) => {
-              let template = JSON.parse(
+        this.bmxClientPageDesignMode = true;
+        this.myAngularxQrCode =
+        this.myAngularxQrCode + this.projectId + '/' + this.username;
+
+        data = JSON.parse(data.d);
+        this.username = data.UserName
+        this.projectId = data.ProjectName
+
+        this.qrCode.append(this.canvas.nativeElement);
+        this.bmxPagesClient = this.SAMPLE_BMX_CLIENT;
+        this._BmxService
+          .getBrandMatrixByProjectAndUserAnswers(this.projectId, this.username)
+          .subscribe((brandMatrix: any) => {
+    
+            //    IF USER ALREADY HAVE ANSWERS
+            if (brandMatrix.d.length > 0) {
+              let answers = JSON.parse(
                 brandMatrix.d.replace(this.searchGraveAccentRegExp, "'")
               );
-
-              //  FILL THE TEMPLATE WTIHT USER ANSWERS
-              template.forEach((page, index) => {
-                this.isCategoryPage[index] = { isCategory: false };
-                page.page.forEach((component) => {
-                  if (
-                    component.componentType == 'rate-scale' ||
-                    component.componentType == 'ranking-scale' ||
-                    component.componentType == 'image-rate-scale' ||
-                    component.componentType == 'narrow-down' ||
-                    component.componentType == 'tinder' ||
-                    component.componentType == 'question-answer'
-                  ) {
-
-
-                    // RAMDOMIZE THE TEST NAMES
-                    if (component.componentSettings[0].randomizeTestNames) {
-                      let headerRow = component.componentText[0]
-                      component.componentText.shift()
-                      this.radomizedTestNames(component.componentText)
-                      component.componentText.unshift(headerRow)
-                    }
-
-                    // SET SURVEY LANGUAGE
-                    if (component.componentSettings[0].language == 'Japanese') {
-                      this.surveyLanguage = component.componentSettings[0].language;
-
-
-
-                    }
-                    // GREETING MESSAGE
-                    let message = ''
-                    if (this.surveyLanguage == 'Japanese') {
-                      message = ' ようこそ '
-                    } else {
-                      message = 'Welcome   '
-                    }
-
-                    setTimeout(() => {
-                      this._snackBar.open(
-                        message + this.username.toUpperCase() + '  😉',
-                        '',
-                        {
-                          duration: 4000,
-                          horizontalPosition: 'right',
-                          verticalPosition: 'top',
+              this.totalOfpages = answers.length
+              this._BmxService
+                .getBrandMatrixByProject(this.projectId)
+                .subscribe((brandMatrix: any) => {
+                  let template = JSON.parse(
+                    brandMatrix.d.replace(this.searchGraveAccentRegExp, "'")
+                  );
+    
+                  //  FILL THE TEMPLATE WTIHT USER ANSWERS
+                  template.forEach((page, index) => {
+                    this.isCategoryPage[index] = { isCategory: false };
+                    page.page.forEach((component) => {
+                      if (
+                        component.componentType == 'rate-scale' ||
+                        component.componentType == 'ranking-scale' ||
+                        component.componentType == 'image-rate-scale' ||
+                        component.componentType == 'narrow-down' ||
+                        component.componentType == 'tinder' ||
+                        component.componentType == 'question-answer'
+                      ) {
+    
+    
+                        // RAMDOMIZE THE TEST NAMES
+                        if (component.componentSettings[0].randomizeTestNames) {
+                          let headerRow = component.componentText[0]
+                          component.componentText.shift()
+                          this.radomizedTestNames(component.componentText)
+                          component.componentText.unshift(headerRow)
                         }
-                      );
-                    }, 1000);
-
-
-                    if (!this.isCategoryPage[index]['isCategory']) {
-                      this.isCategoryPage[index]['isCategory'] = true;
-                    }
-                    component.componentText.forEach((row, index) => {
-                      if (index > 0) {
-                        this.matchAnswersAndTemplateMatrix(
-                          row,
-                          answers,
-                          component
-                        );
+    
+                        // SET SURVEY LANGUAGE
+                        if (component.componentSettings[0].language == 'Japanese') {
+                          this.surveyLanguage = component.componentSettings[0].language;
+    
+    
+    
+                        }
+                        // GREETING MESSAGE
+                        let message = ''
+                        if (this.surveyLanguage == 'Japanese') {
+                          message = ' ようこそ '
+                        } else {
+                          message = 'Welcome   '
+                        }
+    
+                        setTimeout(() => {
+                          this._snackBar.open(
+                            message + this.username.toUpperCase() + '  😉',
+                            '',
+                            {
+                              duration: 4000,
+                              horizontalPosition: 'right',
+                              verticalPosition: 'top',
+                            }
+                          );
+                        }, 1000);
+    
+    
+                        if (!this.isCategoryPage[index]['isCategory']) {
+                          this.isCategoryPage[index]['isCategory'] = true;
+                        }
+                        component.componentText.forEach((row, index) => {
+                          if (index > 0) {
+                            this.matchAnswersAndTemplateMatrix(
+                              row,
+                              answers,
+                              component
+                            );
+                          }
+                        });
+                      }
+                      else {
+                        if (!this.isCategoryPage[index]['isCategory']) {
+                          this.isCategoryPage[index]['isCategory'] = false;
+                        }
                       }
                     });
-                  }
-                  else {
-                    if (!this.isCategoryPage[index]['isCategory']) {
-                      this.isCategoryPage[index]['isCategory'] = false;
-                    }
+                  });
+    
+                  //  FILL THE TEMPLATE WTIHT USER ANSWERS END
+                  this.bmxPagesClient = template;
+                  //  this.bmxPagesClient = answers
+                });
+    
+    
+    
+            } else {
+              // USER NEVER ANSWERED LOAD TEMPLATE
+              this._BmxService
+                .getBrandMatrixByProject(this.projectId)
+                .subscribe((brandMatrix: any) => {
+                  if (brandMatrix.d.length > 0) {
+                    // NEW ANSWERS NEW TEMPLATE
+                    let template = JSON.parse(
+                      brandMatrix.d.replace(this.searchGraveAccentRegExp, "'")
+                    );
+    
+                    this.totalOfpages = template.length
+                    this.bmxPagesClient = JSON.parse(
+                      brandMatrix.d.replace(this.searchGraveAccentRegExp, "'")
+                    );
+                    // CHECK IF THE PAGE IS CATEGORY PAGE
+                    this.bmxPagesClient.forEach((page, index) => {
+                      this.isCategoryPage[index] = { isCategory: false };
+                      page.page.forEach((component) => {
+                        this.isCRITERIA = component.componentSettings[0].CRITERIA;
+                        if (
+                          component.componentType == 'rate-scale' ||
+                          component.componentType == 'ranking-scale' ||
+                          component.componentType == 'image-rate-scale' ||
+                          component.componentType == 'narrow-down' ||
+                          component.componentType == 'tinder' ||
+                          component.componentType == 'question-answer') {
+                          // RAMDOMIZE THE TEST NAMES
+                          if (component.componentSettings[0].randomizeTestNames) {
+                            let headerRow = component.componentText[0]
+                            component.componentText.shift()
+                            this.radomizedTestNames(component.componentText)
+                            component.componentText.unshift(headerRow)
+                          }
+                          // SET SURVEY LANGUAGE
+                          if (component.componentSettings[0].language == 'Japanese') {
+                            this.surveyLanguage = component.componentSettings[0].language;
+                          }
+    
+                          // GREETING MESSAGE
+                          let message = ''
+                          if (this.surveyLanguage == 'Japanese') {
+                            message = ' ようこそ '
+                          } else {
+                            message = 'Welcome   '
+                          }
+    
+                          setTimeout(() => {
+                            this._snackBar.open(
+                              message + this.username.toUpperCase() + '  😉',
+                              '',
+                              {
+                                duration: 4000,
+                                horizontalPosition: 'right',
+                                verticalPosition: 'top',
+                              }
+                            );
+                          }, 1000);
+    
+                          if (!this.isCategoryPage[index]['isCategory']) {
+                            this.isCategoryPage[index]['isCategory'] = true;
+                          }
+                        } else {
+                          if (!this.isCategoryPage[index]['isCategory']) {
+                            this.isCategoryPage[index]['isCategory'] = false;
+                          }
+                        }
+                      });
+                    });
+    
+                    // this._snackBar.open('bmx LOADED for project  ' + this.projectId , 'OK', {
+                    //     duration: 5000,
+                    //     horizontalPosition: 'right',
+                    //     verticalPosition: 'top'
+                    //   })
+                  } else {
+                    this.bmxPages = this.SAMPLE_BMX_CLIENT;
                   }
                 });
-              });
-
-              //  FILL THE TEMPLATE WTIHT USER ANSWERS END
-              this.bmxPagesClient = template;
-              //  this.bmxPagesClient = answers
-            });
+            }
+          });
 
 
 
-        } else {
-          // USER NEVER ANSWERED LOAD TEMPLATE
-          this._BmxService
-            .getBrandMatrixByProject(this.projectId)
-            .subscribe((brandMatrix: any) => {
-              if (brandMatrix.d.length > 0) {
-                // NEW ANSWERS NEW TEMPLATE
+
+
+
+
+
+
+      });
+    } else {
+      this.bmxClientPageDesignMode = true;
+      this.myAngularxQrCode =
+      this.myAngularxQrCode + this.projectId + '/' + this.username;
+  
+      this.qrCode.append(this.canvas.nativeElement);
+      this.bmxPagesClient = this.SAMPLE_BMX_CLIENT;
+      this._BmxService
+        .getBrandMatrixByProjectAndUserAnswers(this.projectId, this.username)
+        .subscribe((brandMatrix: any) => {
+  
+          //    IF USER ALREADY HAVE ANSWERS
+          if (brandMatrix.d.length > 0) {
+            let answers = JSON.parse(
+              brandMatrix.d.replace(this.searchGraveAccentRegExp, "'")
+            );
+            this.totalOfpages = answers.length
+            this._BmxService
+              .getBrandMatrixByProject(this.projectId)
+              .subscribe((brandMatrix: any) => {
                 let template = JSON.parse(
                   brandMatrix.d.replace(this.searchGraveAccentRegExp, "'")
                 );
-
-                this.totalOfpages = template.length
-                this.bmxPagesClient = JSON.parse(
-                  brandMatrix.d.replace(this.searchGraveAccentRegExp, "'")
-                );
-                // CHECK IF THE PAGE IS CATEGORY PAGE
-                this.bmxPagesClient.forEach((page, index) => {
+  
+                //  FILL THE TEMPLATE WTIHT USER ANSWERS
+                template.forEach((page, index) => {
                   this.isCategoryPage[index] = { isCategory: false };
                   page.page.forEach((component) => {
-                    this.isCRITERIA = component.componentSettings[0].CRITERIA;
                     if (
                       component.componentType == 'rate-scale' ||
                       component.componentType == 'ranking-scale' ||
                       component.componentType == 'image-rate-scale' ||
                       component.componentType == 'narrow-down' ||
                       component.componentType == 'tinder' ||
-                      component.componentType == 'question-answer') {
+                      component.componentType == 'question-answer'
+                    ) {
+  
+  
                       // RAMDOMIZE THE TEST NAMES
                       if (component.componentSettings[0].randomizeTestNames) {
                         let headerRow = component.componentText[0]
@@ -204,11 +309,14 @@ export class SurveyMatrixComponent
                         this.radomizedTestNames(component.componentText)
                         component.componentText.unshift(headerRow)
                       }
+  
                       // SET SURVEY LANGUAGE
                       if (component.componentSettings[0].language == 'Japanese') {
                         this.surveyLanguage = component.componentSettings[0].language;
+  
+  
+  
                       }
-
                       // GREETING MESSAGE
                       let message = ''
                       if (this.surveyLanguage == 'Japanese') {
@@ -216,7 +324,7 @@ export class SurveyMatrixComponent
                       } else {
                         message = 'Welcome   '
                       }
-
+  
                       setTimeout(() => {
                         this._snackBar.open(
                           message + this.username.toUpperCase() + '  😉',
@@ -228,29 +336,120 @@ export class SurveyMatrixComponent
                           }
                         );
                       }, 1000);
-
+  
+  
                       if (!this.isCategoryPage[index]['isCategory']) {
                         this.isCategoryPage[index]['isCategory'] = true;
                       }
-                    } else {
+                      component.componentText.forEach((row, index) => {
+                        if (index > 0) {
+                          this.matchAnswersAndTemplateMatrix(
+                            row,
+                            answers,
+                            component
+                          );
+                        }
+                      });
+                    }
+                    else {
                       if (!this.isCategoryPage[index]['isCategory']) {
                         this.isCategoryPage[index]['isCategory'] = false;
                       }
                     }
                   });
                 });
+  
+                //  FILL THE TEMPLATE WTIHT USER ANSWERS END
+                this.bmxPagesClient = template;
+                //  this.bmxPagesClient = answers
+              });
+  
+  
+  
+          } else {
+            // USER NEVER ANSWERED LOAD TEMPLATE
+            this._BmxService
+              .getBrandMatrixByProject(this.projectId)
+              .subscribe((brandMatrix: any) => {
+                if (brandMatrix.d.length > 0) {
+                  // NEW ANSWERS NEW TEMPLATE
+                  let template = JSON.parse(
+                    brandMatrix.d.replace(this.searchGraveAccentRegExp, "'")
+                  );
+  
+                  this.totalOfpages = template.length
+                  this.bmxPagesClient = JSON.parse(
+                    brandMatrix.d.replace(this.searchGraveAccentRegExp, "'")
+                  );
+                  // CHECK IF THE PAGE IS CATEGORY PAGE
+                  this.bmxPagesClient.forEach((page, index) => {
+                    this.isCategoryPage[index] = { isCategory: false };
+                    page.page.forEach((component) => {
+                      this.isCRITERIA = component.componentSettings[0].CRITERIA;
+                      if (
+                        component.componentType == 'rate-scale' ||
+                        component.componentType == 'ranking-scale' ||
+                        component.componentType == 'image-rate-scale' ||
+                        component.componentType == 'narrow-down' ||
+                        component.componentType == 'tinder' ||
+                        component.componentType == 'question-answer') {
+                        // RAMDOMIZE THE TEST NAMES
+                        if (component.componentSettings[0].randomizeTestNames) {
+                          let headerRow = component.componentText[0]
+                          component.componentText.shift()
+                          this.radomizedTestNames(component.componentText)
+                          component.componentText.unshift(headerRow)
+                        }
+                        // SET SURVEY LANGUAGE
+                        if (component.componentSettings[0].language == 'Japanese') {
+                          this.surveyLanguage = component.componentSettings[0].language;
+                        }
+  
+                        // GREETING MESSAGE
+                        let message = ''
+                        if (this.surveyLanguage == 'Japanese') {
+                          message = ' ようこそ '
+                        } else {
+                          message = 'Welcome   '
+                        }
+  
+                        setTimeout(() => {
+                          this._snackBar.open(
+                            message + this.username.toUpperCase() + '  😉',
+                            '',
+                            {
+                              duration: 4000,
+                              horizontalPosition: 'right',
+                              verticalPosition: 'top',
+                            }
+                          );
+                        }, 1000);
+  
+                        if (!this.isCategoryPage[index]['isCategory']) {
+                          this.isCategoryPage[index]['isCategory'] = true;
+                        }
+                      } else {
+                        if (!this.isCategoryPage[index]['isCategory']) {
+                          this.isCategoryPage[index]['isCategory'] = false;
+                        }
+                      }
+                    });
+                  });
+  
+                  // this._snackBar.open('bmx LOADED for project  ' + this.projectId , 'OK', {
+                  //     duration: 5000,
+                  //     horizontalPosition: 'right',
+                  //     verticalPosition: 'top'
+                  //   })
+                } else {
+                  this.bmxPages = this.SAMPLE_BMX_CLIENT;
+                }
+              });
+          }
+        });
+    }
 
-                // this._snackBar.open('bmx LOADED for project  ' + this.projectId , 'OK', {
-                //     duration: 5000,
-                //     horizontalPosition: 'right',
-                //     verticalPosition: 'top'
-                //   })
-              } else {
-                this.bmxPages = this.SAMPLE_BMX_CLIENT;
-              }
-            });
-        }
-      });
+  
   }
 
   radomizedTestNames(component) {

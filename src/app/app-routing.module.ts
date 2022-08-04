@@ -36,8 +36,12 @@ const routes: Routes = [
   path: 'bmx/:id',
    component: BmxCreatorComponent
   },
-   {//BI BRAND MATRIX
+   {//BI BRAND MATRIX SURVEY
     path: 'survey/:id/:username',
+    component: SurveyMatrixComponent
+  },
+   {//BI BRAND MATRIX SURVEY
+    path: ':id',
     component: SurveyMatrixComponent
   },
   // {//NW 3 BI PRESENTS NOMENCLATURE WORKSHOP V.3.0
