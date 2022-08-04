@@ -30,7 +30,7 @@ export class ProjectReportsComponent implements OnInit {
   wordIcon = faFileWord;
 
   bmxPagesClient;
-  myAngularxQrCode = 'https://tools.brandinstitute.com/bmxtest/survey/';
+  myAngularxQrCode = 'https://brandmatrix.brandinstitute.com/BMX/';
   popUpQRCode = false;
   elem: any;
   isFullscreen: any;
