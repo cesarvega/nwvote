@@ -470,17 +470,12 @@ export class SurveyMatrixComponent
             if (!templateComponent.componentSettings[0].CRITERIA) {
               // no criteria
               // if (templateComponent.componentType == 'ranking-scale') {
-              if (
-                templateComponent.componentType == answerComponent.componentType
-              ) {
-                console.log('%cAnswersRow', 'color:blue');
-                console.log(answerRow);
+              if (templateComponent.componentType == answerComponent.componentType) {
+                // console.log('%cAnswersRow', 'color:blue');
+                // console.log(answerRow);
                 if (index > 0) {
                   for (const key in templateRow) {
-                    if (
-                      key === 'nameCandidates' &&
-                      templateRow[key] === answerRow[key]
-                    ) {
+                    if (key === 'nameCandidates' &&templateRow[key] === answerRow[key]) {
                       templateRow.RATE = answerRow.RATE;
                       templateRow.STARS.forEach((starRow) => {
                         if (starRow.id <= answerRow.RATE) {
@@ -491,7 +486,9 @@ export class SurveyMatrixComponent
                         if (key.includes('Comments')) {
                           if (index > 0) {
                             templateRow[key] = answerRow[key];
-                            answerComponent.componentText.splice(index, 1);
+                            // THERE IS A BUG WHEN 2 OR MORE COMMENTS COLUMNS ARE IN THE MATRIX
+                            // SO FOR NOW I COMMENT THE LINE BELOW 
+                            // answerComponent.componentText.splice(index, 1);
                           }
                         } else if (key.includes('RadioColumn')) {
                           if (index > 0) {
