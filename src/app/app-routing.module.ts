@@ -31,11 +31,11 @@ const routes: Routes = [
   //   path: ':id',
   //   component: BsrComponent
   // },
-  // {//BI BRAND MATRIX CREATOR
-  // // path: ':id/:biUsername',
-  // path: 'bmx/:id',
-  //  component: BmxCreatorComponent
-  // },
+  {//BI BRAND MATRIX CREATOR
+  // path: ':id/:biUsername',
+  path: 'bmx/:id',
+   component: BmxCreatorComponent
+  },
    {//BI BRAND MATRIX SURVEY
     path: 'survey/:id/:username',
     component: SurveyMatrixComponent
@@ -44,7 +44,7 @@ const routes: Routes = [
     path: ':id',
     component: SurveyMatrixComponent
   },
-
+  
   // {//NW 3 BI PRESENTS NOMENCLATURE WORKSHOP V.3.0
   //   path: ':id',
   //   component: NW3Component
