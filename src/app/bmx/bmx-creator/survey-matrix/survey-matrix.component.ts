@@ -17,6 +17,7 @@ import { BmxService } from '../bmx.service';
 import { DragulaService } from 'ng2-dragula';
 import { SurveyCreationDesignComponent } from '../survey-creation-design/survey-creation-design.component';
 import { MatSnackBar } from '@angular/material/snack-bar';
+import QRCodeStyling from 'qr-code-styling';
 @Component({
   selector: 'app-survey-matrix',
   templateUrl: './survey-matrix.component.html',
@@ -63,6 +64,70 @@ export class SurveyMatrixComponent extends SurveyCreationDesignComponent impleme
         this.bmxClientPageDesignMode = true;
         this.myAngularxQrCode =  this.myAngularxQrCode + this.projectId
         // this.myAngularxQrCode + this.projectId + '/' + this.username;
+
+
+        this.qrCode = new QRCodeStyling({
+          width: 223,
+          height: 223,
+          data: this.myAngularxQrCode,
+          margin: 0,
+          qrOptions: { typeNumber: 0, mode: 'Byte', errorCorrectionLevel: 'Q' },
+          imageOptions: { hideBackgroundDots: true, imageSize: 0.4, margin: 0 },
+          dotsOptions: {
+              type: 'dots',
+              color: '#1023da',
+              gradient: {
+                  type: 'linear',
+                  rotation: 45,
+                  colorStops: [
+                      {
+                          offset: 0,
+                          color: '#1023da',
+                      },
+                      {
+                          offset: 3,
+                          color: '#8831da',
+                      },
+                  ],
+              },
+          },
+          backgroundOptions: { color: '#fff' },
+          image: './assets/img/bmx/bmxCube.jpg',
+          cornersSquareOptions: {
+              type: 'square',
+              color: '#000',
+              gradient: {
+                  type: 'radial',
+                  rotation: 45,
+                  colorStops: [
+                      {
+                          offset: 0,
+                          color: '#000',
+                      },
+                  ],
+              },
+          },
+          cornersDotOptions: {
+              type: 'dot',
+              color: '#000',
+              gradient: {
+                  type: 'linear',
+                  rotation: 45,
+                  colorStops: [
+                      {
+                          offset: 0,
+                          color: '#000',
+                      },
+                      {
+                          offset: 3,
+                          color: '#000',
+                      },
+                  ],
+              },
+          },
+      });
+
+
         data = JSON.parse(data.d);
         this.username = data.UserName
         this.projectId = data.ProjectName
