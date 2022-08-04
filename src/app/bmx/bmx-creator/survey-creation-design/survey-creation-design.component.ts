@@ -27,7 +27,7 @@ export class SurveyCreationDesignComponent implements OnInit {
     @Input() isBrandMatrixSurvey
     @ViewChild('canvas', { static: true }) canvas: ElementRef;
     bmxPagesClient;
-    myAngularxQrCode = 'https://tools.brandinstitute.com/bmxtest/survey/';
+    myAngularxQrCode = 'https://brandmatrix.brandinstitute.com/BMX/';
     popUpQRCode = false;
     elem: any;
     isFullscreen: any;

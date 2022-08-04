@@ -22,18 +22,16 @@ import { MatSnackBar } from '@angular/material/snack-bar';
   templateUrl: './survey-matrix.component.html',
   styleUrls: ['./survey-matrix.component.scss'],
 })
-export class SurveyMatrixComponent
-  extends SurveyCreationDesignComponent
-  implements OnInit {
+export class SurveyMatrixComponent extends SurveyCreationDesignComponent implements OnInit {
+
   @Input() isMenuActive11;
   @Input() bmxClientPageDesignMode;
   @Input() bmxClientPageOverview;
-  myAngularxQrCode = 'https://tools.brandinstitute.com/bmxtest/survey/';
+  myAngularxQrCode = 'https://brandmatrix.brandinstitute.com/BMX/';
   isBrandMatrixSurvey = true;
   isCategoryPage = [];
 
   bmxPagesClient;
-
   @ViewChild('canvas', { static: true }) canvas: ElementRef;
   username: any;
 
@@ -48,29 +46,25 @@ export class SurveyMatrixComponent
 
   totalOfpages = 0
 
-  constructor(@Inject(DOCUMENT) document: any, activatedRoute: ActivatedRoute, _hotkeysService: HotkeysService, dragulaService: DragulaService, public _snackBar: MatSnackBar, _BmxService: BmxService
+  constructor(@Inject(DOCUMENT) document: any, activatedRoute: ActivatedRoute,
+   _hotkeysService: HotkeysService, dragulaService: DragulaService, public _snackBar: MatSnackBar, _BmxService: BmxService
   ) {
     super(document, _BmxService, _snackBar, activatedRoute);
-
     activatedRoute.params.subscribe((params) => {
       this.projectId = params['id'];
       this.username = params['username'];
       localStorage.setItem('projectId', this.projectId);
-
-     
     });
-
-   
   }
 
   ngOnInit(): void {
-
     if(!this.username){
       this._BmxService.getMatrixClient(this.projectId).subscribe((data: any) => {
 
         this.bmxClientPageDesignMode = true;
         this.myAngularxQrCode =
-        this.myAngularxQrCode + this.projectId + '/' + this.username;
+        // this.myAngularxQrCode + this.projectId + '/' + this.username;
+        this.myAngularxQrCode + this.projectId
 
         data = JSON.parse(data.d);
         this.username = data.UserName
