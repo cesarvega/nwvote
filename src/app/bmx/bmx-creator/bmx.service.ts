@@ -44,6 +44,7 @@ export class BmxService {
   brandMatrixGetUserAnswers = '/BrandMatrixGetUserAnswers'; // GETS THE BRANDMATRIX SINGLE USER ANSWERS
   brandMatrixGet = '/BrandMatrixGet'; // GETS THE BRANDMATRIX BY PROJECT
   brandMatrixUserGet = '/BrandMatrixUserGet';
+  brandMatrixLoadFromNewId = '/BrandMatrixLoadFromNewId';// load the client info from a gui number in the url 
 
   brandMatrixTemplateSave = '/BrandMatrixTemplateSave'
   brandMatrixTemplateGet = '/BrandMatrixTemplateGet'
@@ -79,6 +80,13 @@ export class BmxService {
   getMatrixUser(userGUid: any) {
     var input = JSON.stringify({ "UserId":userGUid });
     return this.http.post(this.webBaseUrl + this.brandMatrixUserGet, { token: '646EBF52-1846-47C2-9F62-DC50AE5BF692', payload: input });
+    // return this.http.get(this.webBaseUrl + 'api/NW_GetProjectIdWithProjectName?projectName=' + projectName, httpOptions);
+
+  }
+
+  getMatrixClient(userGUid: any) {
+    var input = JSON.stringify({ "Newid":userGUid });
+    return this.http.post(this.webBaseUrl + this.brandMatrixLoadFromNewId, { token: '646EBF52-1846-47C2-9F62-DC50AE5BF692', payload: input });
     // return this.http.get(this.webBaseUrl + 'api/NW_GetProjectIdWithProjectName?projectName=' + projectName, httpOptions);
 
   }
