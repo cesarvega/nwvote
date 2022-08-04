@@ -61,6 +61,11 @@ export class SurveyMatrixComponent
       //   localStorage.setItem('projectName',  this.projectId);
       // });
     });
+
+    this._BmxService.getMatrixUser(this.username).subscribe((data: any) => {
+      data = JSON.parse(data.d);
+     
+    });
   }
 
   ngOnInit(): void {
