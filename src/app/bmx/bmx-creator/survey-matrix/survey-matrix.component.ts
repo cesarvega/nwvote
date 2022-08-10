@@ -35,6 +35,8 @@ export class SurveyMatrixComponent extends SurveyCreationDesignComponent impleme
   bmxPagesClient;
   @ViewChild('canvas', { static: true }) canvas: ElementRef;
   username: any;
+  firstName: any;
+  lastName: any;
 
   bradmatrixAnswer;
   projectId;
@@ -59,77 +61,76 @@ export class SurveyMatrixComponent extends SurveyCreationDesignComponent impleme
   }
 
   ngOnInit(): void {
+    this.qrCode = new QRCodeStyling({
+      width: 223,
+      height: 223,
+      data: this.myAngularxQrCode,
+      margin: 0,
+      qrOptions: { typeNumber: 0, mode: 'Byte', errorCorrectionLevel: 'Q' },
+      imageOptions: { hideBackgroundDots: true, imageSize: 0.4, margin: 0 },
+      dotsOptions: {
+          type: 'dots',
+          color: '#1023da',
+          gradient: {
+              type: 'linear',
+              rotation: 45,
+              colorStops: [
+                  {
+                      offset: 0,
+                      color: '#1023da',
+                  },
+                  {
+                      offset: 3,
+                      color: '#8831da',
+                  },
+              ],
+          },
+      },
+      backgroundOptions: { color: '#fff' },
+      image: './assets/img/bmx/bmxCube.jpg',
+      cornersSquareOptions: {
+          type: 'square',
+          color: '#000',
+          gradient: {
+              type: 'radial',
+              rotation: 45,
+              colorStops: [
+                  {
+                      offset: 0,
+                      color: '#000',
+                  },
+              ],
+          },
+      },
+      cornersDotOptions: {
+          type: 'dot',
+          color: '#000',
+          gradient: {
+              type: 'linear',
+              rotation: 45,
+              colorStops: [
+                  {
+                      offset: 0,
+                      color: '#000',
+                  },
+                  {
+                      offset: 3,
+                      color: '#000',
+                  },
+              ],
+          },
+      },
+  });
     if(!this.username){
       this._BmxService.getMatrixClient(this.projectId).subscribe((data: any) => {
         this.bmxClientPageDesignMode = true;
         this.myAngularxQrCode =  this.myAngularxQrCode + this.projectId
         // this.myAngularxQrCode + this.projectId + '/' + this.username;
 
-
-        this.qrCode = new QRCodeStyling({
-          width: 223,
-          height: 223,
-          data: this.myAngularxQrCode,
-          margin: 0,
-          qrOptions: { typeNumber: 0, mode: 'Byte', errorCorrectionLevel: 'Q' },
-          imageOptions: { hideBackgroundDots: true, imageSize: 0.4, margin: 0 },
-          dotsOptions: {
-              type: 'dots',
-              color: '#1023da',
-              gradient: {
-                  type: 'linear',
-                  rotation: 45,
-                  colorStops: [
-                      {
-                          offset: 0,
-                          color: '#1023da',
-                      },
-                      {
-                          offset: 3,
-                          color: '#8831da',
-                      },
-                  ],
-              },
-          },
-          backgroundOptions: { color: '#fff' },
-          image: './assets/img/bmx/bmxCube.jpg',
-          cornersSquareOptions: {
-              type: 'square',
-              color: '#000',
-              gradient: {
-                  type: 'radial',
-                  rotation: 45,
-                  colorStops: [
-                      {
-                          offset: 0,
-                          color: '#000',
-                      },
-                  ],
-              },
-          },
-          cornersDotOptions: {
-              type: 'dot',
-              color: '#000',
-              gradient: {
-                  type: 'linear',
-                  rotation: 45,
-                  colorStops: [
-                      {
-                          offset: 0,
-                          color: '#000',
-                      },
-                      {
-                          offset: 3,
-                          color: '#000',
-                      },
-                  ],
-              },
-          },
-      });
-
-
         data = JSON.parse(data.d);
         this.username = data.UserName
+        this.firstName = data.FirstName
+        this.lastName = data.LastName
         this.projectId = data.ProjectName
 
         this.qrCode.append(this.canvas.nativeElement);
@@ -187,10 +188,10 @@ export class SurveyMatrixComponent extends SurveyCreationDesignComponent impleme
                         } else {
                           message = 'Welcome   '
                         }
-    
                         setTimeout(() => {
                           this._snackBar.open(
-                            message + this.username.toUpperCase() + '  😉',
+
+                            message + this.firstName.toUpperCase() + '  😉',
                             '',
                             {
                               duration: 4000,
@@ -278,7 +279,7 @@ export class SurveyMatrixComponent extends SurveyCreationDesignComponent impleme
     
                           setTimeout(() => {
                             this._snackBar.open(
-                              message + this.username.toUpperCase() + '  😉',
+                              message + this.firstName.toUpperCase() + '  😉',
                               '',
                               {
                                 duration: 4000,
