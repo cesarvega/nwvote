@@ -120,7 +120,7 @@ export class SurveyMatrixComponent extends SurveyCreationDesignComponent impleme
               ],
           },
       },
-  });
+    });
     if(!this.username){
       this._BmxService.getMatrixClient(this.projectId).subscribe((data: any) => {
         this.bmxClientPageDesignMode = true;
@@ -1182,7 +1182,8 @@ export class SurveyMatrixComponent extends SurveyCreationDesignComponent impleme
         }
 
         this._snackBar.open(
-          this.username.toUpperCase() + message,
+            message,
+          // this.username.toUpperCase() + message,
           'OK',
           {
             duration: 5000,
