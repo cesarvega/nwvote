@@ -161,10 +161,12 @@
                     </div>
                     <button  style="background: #324395;color: white;" *ngIf="isBrandMatrixSurvey && surveyLanguage != 'Japanese'" 
                                 (click)="changePage('next')" mat-raised-button>
-                        <span class="menu-descriptions">{{continueButtonToComple}}</span> <mat-icon class="full-icon">chevron_right</mat-icon>
+                        <span class="menu-descriptions">{{continueButtonToComple}}</span> <mat-icon class="full-icon">
+                           {{ (continueButtonToComple != 'Complete')?'chevron_right':'task_alt'}}</mat-icon>
                      </button>
                     <button  style="background: #324395;color: white;" *ngIf="isBrandMatrixSurvey && surveyLanguage == 'Japanese'" (click)="changePage('next')" mat-raised-button>
-                        <span class="menu-descriptions">続き </span><mat-icon class="full-icon">chevron_right</mat-icon>
+                        <span class="menu-descriptions">続き </span><mat-icon class="full-icon">
+                            {{(continueButtonToComple != 'Complete')?'chevron_right':'task_alt'}}</mat-icon>
                      </button>
                     <!-- <button *ngIf="isBrandMatrixSurvey" (click)="changePage('next')" mat-icon-button>
                         <mat-icon class="full-icon">chevron_right</mat-icon>
@@ -187,3 +189,15 @@
 
 
 </div>
+
+
+<lottie-player class="lottie-player" *ngIf="loadingLottie" style="
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    z-index: 999;    
+    width: 465px;animation: 
+    fadeIn 3s ease 4s forwards;" slot="end" autoplay loop
+    [src]="'https://assets9.lottiefiles.com/packages/lf20_a2chheio.json'">
+</lottie-player>
