@@ -159,8 +159,9 @@
                             {{page.pageNumber}}
                         </button> -->
                     </div>
-                    <button  style="background: #324395;color: white;" *ngIf="isBrandMatrixSurvey && surveyLanguage != 'Japanese'" (click)="changePage('next')" mat-raised-button>
-                        <span class="menu-descriptions">Continue</span> <mat-icon class="full-icon">chevron_right</mat-icon>
+                    <button  style="background: #324395;color: white;" *ngIf="isBrandMatrixSurvey && surveyLanguage != 'Japanese'" 
+                                (click)="changePage('next')" mat-raised-button>
+                        <span class="menu-descriptions">{{continueButtonToComple}}</span> <mat-icon class="full-icon">chevron_right</mat-icon>
                      </button>
                     <button  style="background: #324395;color: white;" *ngIf="isBrandMatrixSurvey && surveyLanguage == 'Japanese'" (click)="changePage('next')" mat-raised-button>
                         <span class="menu-descriptions">続き </span><mat-icon class="full-icon">chevron_right</mat-icon>
