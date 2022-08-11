@@ -18,13 +18,15 @@ import { DragulaService } from 'ng2-dragula';
 import { SurveyCreationDesignComponent } from '../survey-creation-design/survey-creation-design.component';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import QRCodeStyling from 'qr-code-styling';
+import { defineCustomElements } from '@teamhive/lottie-player/loader';
+defineCustomElements(window);
 @Component({
   selector: 'app-survey-matrix',
   templateUrl: './survey-matrix.component.html',
   styleUrls: ['./survey-matrix.component.scss'],
 })
 export class SurveyMatrixComponent extends SurveyCreationDesignComponent implements OnInit {
-
+  loadingLottie = false
   @Input() isMenuActive11;
   @Input() bmxClientPageDesignMode;
   @Input() bmxClientPageOverview;
@@ -1027,6 +1029,9 @@ export class SurveyMatrixComponent extends SurveyCreationDesignComponent impleme
         window.open('https://www.brandinstitute.com/', '_self');
       }
     }
+    if(this.totalOfpages == this.currentPage + 1){
+      this.loadingLottie = true;
+    }
   }
 
   selectPageNumber(pageNumber) {
@@ -1172,12 +1177,15 @@ export class SurveyMatrixComponent extends SurveyCreationDesignComponent impleme
   }
 
   saveUserAnswers(pageNumber?) {
+    
     let pageStatus = (this.totalOfpages == this.currentPage + 1)?999: this.currentPage + 1;
     this.continueButtonToComple = (this.totalOfpages == this.currentPage + 1)?'Complete': 'Continue';
+    
     this._BmxService
       // .saveOrUpdateAnswers(this.bmxPagesClient, this.projectId, this.username, (pageNumber ? pageNumber : pageStatus))
       .saveOrUpdateAnswers(this.bmxPagesClient, this.projectId, this.username, pageStatus)
       .subscribe((res: any) => {
+        this.loadingLottie = false;
         console.log('%cANSWERS!', 'color:#007bff', res);
         let page = res.d.replace(this.searchGraveAccentRegExp, "'");
         let message = ''
