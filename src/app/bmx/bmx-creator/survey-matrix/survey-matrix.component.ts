@@ -48,6 +48,7 @@ export class SurveyMatrixComponent extends SurveyCreationDesignComponent impleme
   surveyLanguage: any;
 
   totalOfpages = 0
+  continueButtonToComple = 'Continue';
 
   constructor(@Inject(DOCUMENT) document: any, activatedRoute: ActivatedRoute,
    _hotkeysService: HotkeysService, dragulaService: DragulaService, public _snackBar: MatSnackBar, _BmxService: BmxService
@@ -1021,6 +1022,10 @@ export class SurveyMatrixComponent extends SurveyCreationDesignComponent impleme
       this.selectPageNumber(this.currentPage + 1);
     } else if (direction === 'previous' && this.currentPage > 0) {
       this.selectPageNumber(this.currentPage - 1);
+    } else {
+      if (this.continueButtonToComple  == 'Complete') {
+        window.open('https://www.brandinstitute.com/', '_self');
+      }
     }
   }
 
@@ -1168,6 +1173,7 @@ export class SurveyMatrixComponent extends SurveyCreationDesignComponent impleme
 
   saveUserAnswers(pageNumber?) {
     let pageStatus = (this.totalOfpages == this.currentPage + 1)?999: this.currentPage + 1;
+    this.continueButtonToComple = (this.totalOfpages == this.currentPage + 1)?'Complete': 'Continue';
     this._BmxService
       // .saveOrUpdateAnswers(this.bmxPagesClient, this.projectId, this.username, (pageNumber ? pageNumber : pageStatus))
       .saveOrUpdateAnswers(this.bmxPagesClient, this.projectId, this.username, pageStatus)
