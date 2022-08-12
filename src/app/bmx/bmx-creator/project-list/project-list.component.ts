@@ -15,13 +15,15 @@ import { BmxService } from '../bmx.service';
   styleUrls: ['./project-list.component.scss']
 })
 export class ProjectListComponent implements OnInit {
-
+  @Input() isMenuActive1;
+  @Output() isMenuActive1Close: EventEmitter<boolean> = new EventEmitter<boolean>();
+  @Output() isMenuActive1Email: EventEmitter<boolean> = new EventEmitter<boolean>();
   @ViewChild(MatSort) sort: MatSort;
   @ViewChild(MatPaginator) paginator: MatPaginator;
   dataSource;
   allData;
   viewedData;
-  displayedColumns = ['Client', 'ProjectName', 'Department', 'Office', 'Created', 'Close', 'Email', 'Edit', 'Delete'];
+  displayedColumns = ['bmxCompany', 'bmxProjectName', 'bmxDepartment', 'bmxRegion', 'Created', 'Close', 'Email', 'Edit', 'Delete'];
   selected;
 
   title = 'ng-calendar-demo';
@@ -33,21 +35,26 @@ export class ProjectListComponent implements OnInit {
   DayAndDate: string;
   projectName: any;
   projectId: any;
-  @Input() isMenuActive1 ;
-  constructor(@Inject(DOCUMENT) private document: any,private activatedRoute: ActivatedRoute,
-  private _hotkeysService: HotkeysService, private dragulaService: DragulaService, private _BmxService: BmxService) { }
+
+
+
+  @Input() userOffice
+  @Input() userDepartment
+  @Input() userRole
+
+  constructor(@Inject(DOCUMENT) private document: any, private activatedRoute: ActivatedRoute,
+    private _hotkeysService: HotkeysService, private dragulaService: DragulaService, private _BmxService: BmxService) { }
 
   ngOnInit(): void {
     this.selected = 'Live'
-    this.isMenuActive1 = !true;
     this._BmxService.getGetProjectList()
-    .subscribe((arg:any) => {
-      let obj = '[{"ProjectName":"test33333","ProjectId":616,"Status":"C","Department":"","Office":"","Created":null,"Close":null},{"ProjectName":"test2","ProjectId":616,"Status":"C","Department":"","Office":"","Created":null,"Close":"123456"},{"ProjectName":"test3","ProjectId":616,"Status":"C","Department":"","Office":"","Created":null,"Close":null},{"ProjectName":"test4","ProjectId":616,"Status":"C","Department":"","Office":"","Created":null,"Close":null},{"ProjectName":"test5","ProjectId":616,"Status":"C","Department":"","Office":"","Created":null,"Close":null},{"ProjectName":"test6","ProjectId":616,"Status":"C","Department":"","Office":"","Created":null,"Close":"56456"},{"ProjectName":"test7","ProjectId":616,"Status":"C","Department":"","Office":"","Created":null,"Close":null},{"ProjectName":"test1","ProjectId":616,"Status":"C","Department":"","Office":"","Created":null,"Close":null},{"ProjectName":"test2","ProjectId":616,"Status":"C","Department":"","Office":"","Created":null,"Close":"123456"},{"ProjectName":"test3","ProjectId":616,"Status":"C","Department":"","Office":"","Created":null,"Close":null},{"ProjectName":"test4","ProjectId":616,"Status":"C","Department":"","Office":"","Created":null,"Close":null},{"ProjectName":"test5","ProjectId":616,"Status":"C","Department":"","Office":"","Created":null,"Close":null},{"ProjectName":"test6","ProjectId":616,"Status":"C","Department":"","Office":"","Created":null,"Close":"56456"},{"ProjectName":"test777777","ProjectId":616,"Status":"C","Department":"","Office":"","Created":null,"Close":null}]';
-      this.allData = JSON.parse(arg.d);
-      // this.allData = JSON.parse(obj);
-      this.changeView();     
-    });
+      .subscribe((arg: any) => {
+        this.allData = JSON.parse(arg.d);
+        // this.allData = JSON.parse(obj);
+        this.changeView();
+      });
   }
+
 
   applyFilter(filterValue: string): void {
     filterValue = filterValue.trim(); // Remove whitespace
@@ -60,38 +67,54 @@ export class ProjectListComponent implements OnInit {
 
   sendEmail(option: string): void {
     var test = option;
+    this._BmxService.setProjectName(option);
+    localStorage.setItem('projectName', option);
+    this.isMenuActive1Email.emit(false);
   }
 
   editBM(option: string): void {
+    this._BmxService.setProjectName(option);
     var test = option;
+    localStorage.setItem('projectName', option);
+    this.isMenuActive1Close.emit(false);
   }
 
   deleteBM(option: string): void {
     var test = option;
   }
 
-  changeView(): void
-  {
+  changeView(): void {
     this.viewedData = [];
-      for(let i = 0; i < this.allData.length; i++)
-      {
-        if(this.selected == 'Live' && this.allData[i].Status == 'O')
-        {
-          this.viewedData.push(this.allData[i])
-        }
-        else if(this.selected == 'Closed' && this.allData[i].Close != 'O')
-        {
-          this.viewedData.push(this.allData[i])
-        }
-        else if(this.selected == 'All')
-        {
-          this.viewedData = this.allData;
-          break;
+    for (let i = 0; i < this.allData.length; i++) {
+      if (this.selected == 'Live' && this.allData[i].Status == 'O') {
+        this.viewedData.push(this.allData[i].ProjectInfo);
+      }
+      else if (this.selected == 'Closed' && this.allData[i].Close != 'O') {
+        this.viewedData.push(this.allData[i].ProjectInfo)
+      }
+      else if (this.selected == 'All') {
+        if (this.allData[i].ProjectInfo != "" && this.allData[i].ProjectInfo != null) {
+          var t = JSON.parse(this.allData[i].ProjectInfo);
+          this.viewedData.push(JSON.parse(this.allData[i].ProjectInfo));
         }
       }
-      this.dataSource = new MatTableDataSource<any>(this.viewedData);
-      this.dataSource.paginator = this.paginator;
-      this.dataSource.sort = this.sort;
+    }
+
+    // FILTERING BY DEPARTMENT & OFFICE
+    if (this.viewedData.length> 0) {
+      if (this.userRole == 'Director') {
+        this.viewedData = this.viewedData.filter((filterByOffice: any) => filterByOffice.bmxRegion == this.userOffice);
+      } if (this.userRole == 'Administrator' || this.userRole == 'Adminstrator') {
+        // this.viewedData = this.viewedData.filter((filterByDepartment: any) => filterByDepartment.bmxDepartment == this.userDepartment);
+      } else if (this.userRole == 'Creative' || this.userRole == 'Nonprop' || this.userRole == 'Design') {
+        this.viewedData = this.viewedData.filter((filterByDepartment: any) =>filterByDepartment.bmxDepartment == this.userDepartment);
+      }
+    }
+
+
+    this.dataSource = new MatTableDataSource<any>(this.viewedData);
+    this.dataSource.paginator = this.paginator;
+    this.dataSource.sort = this.sort;
   }
 
   onSelect(event) {
@@ -105,7 +128,9 @@ export class ProjectListComponent implements OnInit {
   myDateFilter = (d: Date): boolean => {
     const day = d.getDay();
     // Prevent Saturday and Sunday from being selected.
-    return day !== 0 && day !== 6 ;
+    return day !== 0 && day !== 6;
   }
+
+
 
 }

@@ -99,7 +99,7 @@ export class BmxComponent implements OnInit {
     }
 
 //PINCH EVENT
- hammer = new Hammer(document.documentElement);
+//  hammer = new Hammer(document.documentElement);
 //  onPinch(event){
   // this.hammer.get('pinch').set({ enable: true });
   //  this.hammer.on('pinch', (event) => {
@@ -109,13 +109,13 @@ export class BmxComponent implements OnInit {
 
   ngOnInit(): void {
     window.scrollTo(0, 1);
-    this.hammer.get('pinch').set({ enable: true });
-    this.hammer.on('pinch', (event) => {
-    console.log(event.type);
-    if(event.type === 'pinch'){
-      this._snackBar.open('You\'re pinching me!');
-    }
-  });
+  //   this.hammer.get('pinch').set({ enable: true });
+  //   this.hammer.on('pinch', (event) => {
+  //   console.log(event.type);
+  //   if(event.type === 'pinch'){
+  //     this._snackBar.open('You\'re pinching me!');
+  //   }
+  // });
   }
 
   

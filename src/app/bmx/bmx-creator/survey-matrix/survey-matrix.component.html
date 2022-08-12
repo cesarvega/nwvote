@@ -1,0 +1,196 @@
+<div class="page-design noselect disable-dbl-tap-zoom">
+    <div class="desktop">
+        <button (click)="displayQrCode()" mat-icon-button matTooltip="design tools" matTooltipPosition="above"
+            *ngIf="true"
+            style="position: absolute;bottom: 10px;color: grey;z-index: 9999999999;right: 33px;outline: none;">
+            <mat-icon class="full-icon" style="font-size: 35px;">qr_code
+            </mat-icon>
+        </button>
+        <button (click)="openFullscreen()" mat-icon-button matTooltip="design tools" matTooltipPosition="above"
+            *ngIf="true"
+            style="position: absolute;bottom: 9px;color: grey;z-index: 9999999999;right: -3px;outline: none;">
+            <mat-icon class="full-icon" style="font-size: 35px;">fullscreen
+            </mat-icon>
+        </button>
+        <button (click)="saveUserAnswers()" mat-icon-button matTooltip="save answers" matTooltipPosition="above"
+            *ngIf="true"
+            style="position: absolute;bottom: 9px;color: grey;z-index: 9999999999;right: 66px;outline: none;">
+            <mat-icon class="full-icon" style="font-size: 35px;">save
+            </mat-icon>
+        </button>
+    </div>
+    <div class="display">
+        <div style="flex-direction: column;" class="bmx-page" *ngIf="true">
+
+
+            <!-- BRAND MATRIX MODULAR TEMPLATE COMPONENTS  🧑🏻‍🚀🧑🏻‍🚀🧑🏻‍🚀🧑🏻‍🚀🧑🏻‍🚀🧑🏻‍🚀🧑🏻‍🚀🧑🏻‍🚀🧑🏻‍🚀🧑🏻‍🚀🧑🏻‍🚀🧑🏻‍🚀🧑🏻‍🚀 -->
+            <div *ngFor="let bmxItem of bmxPagesClient[currentPage].page; let i = index"
+                style="display: flex;flex-direction: column;align-content: center;">
+
+                <div *ngIf="bmxItem.componentType === 'page-title'" class="paragraph">
+                    <div class="emoji-handle">.</div>
+                    <div style="position: absolute;right: 0px;">
+                        <button *ngIf="bmxClientPageOverview" matTooltip="double click to delete" matTooltipPosition="above"
+                            style="outline: none;color:#f10a0a;top: 60px;" mat-icon-button (dblclick)="deleteComponent(i)"
+                            aria-label="delte">
+                            <mat-icon style="font-size: 17px;">cancel</mat-icon>
+                        </button>
+                    </div>
+                    <app-page-title [bmxItem]="bmxItem" [isBrandMatrixSurvey]="isBrandMatrixSurvey" [i]="i"
+                        [bmxClientPageDesignMode]="bmxClientPageDesignMode" [bmxClientPageOverview]="bmxClientPageOverview">
+                    </app-page-title>
+                </div>
+                <!-- BMX HEADER 😋😋😋😋😋😋😋😋😋😋😋😋😋😋😋😋😋😋😋😋😋😋😋😋😋😋😋😋😋😋😋😋😋😋😋😋😋😋 -->
+
+                <div *ngIf="bmxItem.componentType === 'logo-header'">
+                    <app-logo-header [isBrandMatrixSurvey]="isBrandMatrixSurvey" [bmxItem]="bmxItem" [i]="i"
+                        [bmxClientPageDesignMode]="bmxClientPageDesignMode"
+                        [bmxClientPageOverview]="bmxClientPageOverview"></app-logo-header>
+                </div>
+                <!--😋😋😋😋😋😋😋😋😋😋😋😋😋😋😋😋😋😋😋😋😋😋😋😋😋😋😋😋😋😋😋😋😋😋😋😋😋😋 END BMX HEADER  -->
+
+
+                <!-- BMX PARAGRAPH EDITOR 📑📑📑📑📑📑📑📑📑📑📑📑📑📑📑📑📑📑📑📑📑📑📑📑📑📑📑📑📑📑 -->
+                <div *ngIf="bmxItem.componentType === 'text-editor'" class="paragraph">
+                    <app-text-paragraph [bmxItem]="bmxItem" [i]="i" [bmxClientPageDesignMode]="bmxClientPageDesignMode"
+                        [bmxClientPageOverview]="bmxClientPageOverview"></app-text-paragraph>
+                </div>
+                <!-- 📑📑📑📑📑📑📑📑📑📑📑📑📑📑📑📑📑📑📑📑📑📑📑📑📑📑📑📑📑📑 END BMX PARAGRAPH EDITOR -->
+
+
+                <!-- STARS SCALE 👽👽👽👽👽👽👽👽👽👽👽👽👽👽👽👽👽👽👽👽👽👽👽👽👽👽👽👽👽👽👽👽👽👽👽👽👽👽👽👽👽👽-->
+                <div *ngIf="bmxItem.componentType === 'rate-scale'" class="paragraph " style="margin-bottom: 30px;">
+                    <app-rating-scale [bmxItem]="bmxItem" [i]="i" [bmxClientPageDesignMode]="bmxClientPageDesignMode"
+                        [bmxClientPageOverview]="bmxClientPageOverview"></app-rating-scale>
+
+                </div>
+                <!-- END STARS SCALE 👽👽👽👽👽👽👽👽👽👽👽👽👽👽👽👽👽👽👽👽👽👽👽👽👽👽👽👽👽👽👽👽👽👽👽👽👽👽👽👽 -->
+
+
+                <!-- RANK SCALE 😭😭😭😭😭😭😭😭😭😭😭😭😭😭😭😭😭😭😭😭😭😭😭😭😭😭😭😭😭😭😭😭😭😭😭😭😭-->
+                <div *ngIf="bmxItem.componentType === 'ranking-scale'" class="paragraph">
+
+                    <app-rank-scale [bmxItem]="bmxItem" [i]="i" [bmxClientPageDesignMode]="bmxClientPageDesignMode"
+                        [bmxClientPageOverview]="bmxClientPageOverview"></app-rank-scale>
+                </div>
+                <!-- END RANK SCALE 😭😭😭😭😭😭😭😭😭😭😭😭😭😭😭😭😭😭😭😭😭😭😭😭😭😭😭😭😭😭😭😭😭😭😭😭😭 -->
+
+
+                <!--IMAGE RANK SCALE 👽👽👽👽👽👽👽👽👽👽👽👽👽👽👽👽👽👽👽👽👽👽👽👽👽👽👽👽👽👽👽👽👽👽👽👽👽👽👽👽👽-->
+                <!-- <div *ngIf="bmxItem.componentType === 'ranking-scale'" class="paragraph">
+
+                    <app-image-rank [bmxItem]="bmxItem" [i]="i" [bmxClientPageDesignMode]="bmxClientPageDesignMode"
+                        [bmxClientPageOverview]="bmxClientPageOverview"></app-image-rank>
+                </div> -->
+                <!-- END RANK SCALE 👽👽👽👽👽👽👽👽👽👽👽👽👽👽👽👽👽👽👽👽👽👽👽👽👽👽👽👽👽👽👽👽👽👽👽👽👽👽👽👽👽 -->
+
+
+                <!--IMAGE RANK DRAG 👽👽👽👽👽👽👽👽👽👽👽👽👽👽👽👽👽👽👽👽👽👽👽👽👽👽👽👽👽👽👽👽👽👽👽👽👽👽👽👽👽-->
+                <div *ngIf="bmxItem.componentType === 'image-rank-drag'" class="paragraph">
+
+                    <app-image-rank-drag [bmxItem]="bmxItem" [i]="i" [bmxClientPageDesignMode]="bmxClientPageDesignMode"
+                        [bmxClientPageOverview]="bmxClientPageOverview"></app-image-rank-drag>
+                </div>
+                <!-- END RANK DRAG 👽👽👽👽👽👽👽👽👽👽👽👽👽👽👽👽👽👽👽👽👽👽👽👽👽👽👽👽👽👽👽👽👽👽👽👽👽👽👽👽👽 -->
+
+                <!-- NARROW DOWN SCALE 😭😭😭😭😭😭😭😭😭😭😭😭😭😭😭😭😭😭😭😭😭😭😭😭😭😭😭😭😭😭😭😭😭😭😭😭😭-->
+                <div *ngIf="bmxItem.componentType === 'narrow-down'" class="paragraph">
+                    <app-narrow-down [bmxItem]="bmxItem" [i]="i" [bmxClientPageDesignMode]="bmxClientPageDesignMode"
+                        [bmxClientPageOverview]="bmxClientPageOverview"></app-narrow-down>
+                </div>
+                <!-- END NARROW DOWN SCALE 😭😭😭😭😭😭😭😭😭😭😭😭😭😭😭😭😭😭😭😭😭😭😭😭😭😭😭😭😭😭😭😭😭😭😭😭😭 -->
+
+                <!-- IMAGE SCALE 👀👀👀👀👀👀👀👀👀👀👀👀👀👀👀👀👀👀👀👀👀👀👀👀👀👀👀👀👀👀👀👀👀👀👀👀👀👀-->
+                <div *ngIf="bmxItem.componentType === 'image-rate-scale'" class="paragraph">
+                    <app-image-rate-scale [bmxItem]="bmxItem" [i]="i"
+                        [bmxClientPageDesignMode]="bmxClientPageDesignMode"
+                        [bmxClientPageOverview]="bmxClientPageOverview"></app-image-rate-scale>
+                </div>
+                <!-- END IMAGE SCALE 👀👀👀👀👀👀👀👀👀👀👀👀👀👀👀👀👀👀👀👀👀👀👀👀👀👀👀👀👀👀👀👀👀👀👀👀👀👀 -->
+
+
+                <!-- QUESTION AND ANSWER  ✒️✒️✒️✒️✒️✒️✒️✒️✒️✒️✒️✒️✒️✒️✒️✒️✒️✒️✒️✒️✒️✒️✒️✒️✒️✒️✒️✒️✒️✒️✒️✒️✒️✒️✒️✒️✒️✒️-->
+                <div *ngIf="bmxItem.componentType === 'question-answer'" class="paragraph">
+                    <app-question-answer [bmxItem]="bmxItem" [i]="i" [bmxClientPageDesignMode]="bmxClientPageDesignMode"
+                        [bmxClientPageOverview]="bmxClientPageOverview"></app-question-answer>
+                </div>
+                <!-- END QUESTION AND ANSWER  ✒️✒️✒️✒️✒️✒️✒️✒️✒️✒️✒️✒️✒️✒️✒️✒️✒️✒️✒️✒️✒️✒️✒️✒️✒️✒️✒️✒️✒️✒️✒️✒️✒️✒️✒️✒️✒️ -->
+
+
+                <!-- TINDER  🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥-->
+                <div *ngIf="bmxItem.componentType === 'tinder'" class="paragraph">
+                    <div class="emoji-handle">.</div>
+                    <div style="position: absolute;right: 0px;">
+                        <button *ngIf="bmxClientPageOverview" matTooltip="double click to delete"
+                            matTooltipPosition="above" style="outline: none;color:#f10a0a;top: 19px;" mat-icon-button
+                            (dblclick)="deleteComponent(i)" aria-label="delte">
+                            <mat-icon style="font-size: 17px;">cancel</mat-icon>
+                        </button>
+                    </div>
+                    <app-tinder [bmxItem]="bmxItem" [i]="i" [bmxClientPageDesignMode]="bmxClientPageDesignMode"
+                        [bmxClientPageOverview]="bmxClientPageOverview"></app-tinder>
+                </div>
+                <!-- END TINDER  🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥 -->
+
+            </div>
+
+
+            <!-- PAGE BUTTONS AND DIRECTIONS 1 2 3 📲📲📲📲📲📲📲📲📲📲📲📲📲📲📲📲📲📲📲📲📲📲📲📲📲📲📲📲📲📲📲📲📲📲-->
+            <div class="page-buttons">
+                <div class="page-buttons-heigth-minus-50"style="gap:10px">
+
+                    <!-- <button *ngIf="isBrandMatrixSurvey" (click)="changePage('previous')" mat-icon-button>
+                        <mat-icon class="full-icon">chevron_left</mat-icon>
+                    </button> -->
+                    <button  style="background: #324395;color: white;" *ngIf="isBrandMatrixSurvey && surveyLanguage != 'Japanese'" (click)="changePage('previous')" mat-raised-button>
+                        <mat-icon class="full-icon">chevron_left</mat-icon> <span class="menu-descriptions">Previous</span>
+                    </button>
+                    <button  style="background: #324395;color: white;" *ngIf="isBrandMatrixSurvey && surveyLanguage == 'Japanese'" (click)="changePage('previous')" mat-raised-button>
+                        <mat-icon class="full-icon">chevron_left</mat-icon> <span class="menu-descriptions">戻る</span>
+                    </button>
+                    <div *ngFor="let page of bmxPagesClient; let pageIndex = index">
+                        <button disableRipple style="min-width: 35px;cursor: auto;outline: none;"
+                            [ngClass]="(currentPage === pageIndex)?'pageNumberActive':'pageNumber'" mat-raised-button>
+                            {{page.pageNumber}}
+                        </button>
+                        <!-- DISBLE CLICKING ON THE BUTTONS -->
+                        <!-- <button style="min-width: 35px;" (click)="selectPageNumber(pageIndex)"
+                            [ngClass]="(currentPage === pageIndex)?'pageNumberActive':'pageNumber'" mat-raised-button>
+                            {{page.pageNumber}}
+                        </button> -->
+                    </div>
+                    <button  style="background: #324395;color: white;" *ngIf="isBrandMatrixSurvey && surveyLanguage != 'Japanese'" 
+                                (click)="changePage('next')" mat-raised-button>
+                        <span class="menu-descriptions">{{continueButtonToComple}}</span> <mat-icon class="full-icon">
+                           {{ (continueButtonToComple != 'Complete')?'chevron_right':'task_alt'}}</mat-icon>
+                     </button>
+                    <button  style="background: #324395;color: white;" *ngIf="isBrandMatrixSurvey && surveyLanguage == 'Japanese'" (click)="changePage('next')" mat-raised-button>
+                        <span class="menu-descriptions">続き </span><mat-icon class="full-icon">
+                            {{(continueButtonToComple != 'Complete')?'chevron_right':'task_alt'}}</mat-icon>
+                     </button>
+                    <!-- <button *ngIf="isBrandMatrixSurvey" (click)="changePage('next')" mat-icon-button>
+                        <mat-icon class="full-icon">chevron_right</mat-icon>
+                    </button> -->
+                </div>
+            </div>
+            <!-- 📲📲📲📲📲📲📲📲📲📲📲📲📲📲📲📲📲📲📲📲📲📲📲📲📲📲📲📲📲📲📲📲📲📲 END PAGE BUTTONS AND DIRECTIONS -->
+            <!-- END 🧑🏻‍🚀🧑🏻‍🚀🧑🏻‍🚀🧑🏻‍🚀🧑🏻‍🚀🧑🏻‍🚀🧑🏻‍🚀🧑🏻‍🚀🧑🏻‍🚀🧑🏻‍🚀🧑🏻‍🚀🧑🏻‍🚀🧑🏻‍🚀 BRAND MATRIX MODULAR LEGO TEMPLATE COMPONENTS   -->
+        </div>
+    </div>
+    <div [style.display]="(popUpQRCode)?'flex':'none'" class="qr-code">
+        <div style="position: absolute;top:71px" #canvas></div>
+        <img style="width: 360px;" src="./assets/img/bmx/qr/darkBlueW.png">
+        <p>{{myAngularxQrCode}}</p>
+    </div>
+</div>
+
+<lottie-player class="lottie-player" *ngIf="loadingLottie" style="
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    z-index: 999;    
+    width: 465px;animation: 
+    fadeIn 3s ease 4s forwards;" slot="end" autoplay loop
+    [src]="'https://assets9.lottiefiles.com/packages/lf20_a2chheio.json'">
+</lottie-player>

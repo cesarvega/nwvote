@@ -1,4 +1,4 @@
-import { NgModule } from '@angular/core';
+import { CUSTOM_ELEMENTS_SCHEMA, NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { BmxCreatorComponent } from '../bmx-creator/bmx-creator.component';
 import { BrowserModule } from '@angular/platform-browser';
@@ -47,9 +47,9 @@ import { DeviceDetectorModule } from 'ngx-device-detector';
 import { HammerGestureConfig, HAMMER_GESTURE_CONFIG, HammerModule } from '@angular/platform-browser';
 // import { SchedulerComponent } from './scheduler/scheduler.component';
 import { AngularDateTimePickerModule } from 'angular2-datetimepicker';
-import {MatDatepickerModule} from '@angular/material/datepicker';
+import { MatDatepickerModule } from '@angular/material/datepicker';
 import { MatNativeDateModule } from '@angular/material/core';
-import {MatProgressBarModule} from '@angular/material/progress-bar';
+import { MatProgressBarModule } from '@angular/material/progress-bar';
 import { DragulaModule } from 'ng2-dragula';
 import { MatListModule } from '@angular/material/list';
 import { NgxEchartsModule } from 'ngx-echarts';
@@ -58,7 +58,7 @@ import { NgxChartsModule } from '@swimlane/ngx-charts';
 import { MatSortModule } from '@angular/material/sort';
 import { MatPaginatorModule } from '@angular/material/paginator';
 import { MatSnackBarModule, MAT_SNACK_BAR_DEFAULT_OPTIONS } from '@angular/material/snack-bar';
-import {MatRadioModule} from '@angular/material/radio';
+import { MatRadioModule } from '@angular/material/radio';
 // import { BmxCreatorComponent } from './bmx-creator/bmx-creator.component';
 import { SafePipe } from './safe.pipe';
 import { BmxRoutingModule } from './bmx-routing.module';
@@ -67,9 +67,29 @@ import { ProjectListComponent } from '../bmx-creator/project-list/project-list.c
 import { RespondentsComponent } from '../bmx-creator/respondents/respondents.component';
 import { SurveyCreationDesignComponent } from '../bmx-creator/survey-creation-design/survey-creation-design.component';
 import { ImageUploaderComponent } from '../bmx-creator/image-uploader/image-uploader.component';
+import { ParticipantsEmailComponent } from '../bmx-creator/participants-email/participants-email.component';
 // import { RespondentsComponent } from '../bmx-creator/respodents/RespondentsComponent';
 // import { BmxModule } from './bmx/bmx/bmx.module';
 import { MatAutocompleteModule } from '@angular/material/autocomplete';
+import { ProjectInformationComponent } from '../bmx-creator/project-information/project-information.component';
+import { RatingScaleComponent } from '../bmx-creator/survey-creation-design/templates/rating-scale/rating-scale.component';
+import { RankScaleComponent } from '../bmx-creator/survey-creation-design/templates/rank-scale/rank-scale.component';
+import { ImageRateScaleComponent } from '../bmx-creator/survey-creation-design/templates/image-rate-scale/image-rate-scale.component';
+import { LogoHeaderComponent } from '../bmx-creator/survey-creation-design/templates/logo-header/logo-header.component';
+import { TextParagraphComponent } from '../bmx-creator/survey-creation-design/templates/text-paragraph/text-paragraph.component';
+import { ProjectReportsComponent } from '../bmx-creator/project-reports/project-reports.component';
+import { NarrowDownComponent } from '../bmx-creator/survey-creation-design/templates/narrow-down/narrow-down.component';
+import { QuestionAnswerComponent } from '../bmx-creator/survey-creation-design/templates/question-answer/question-answer.component';
+import { SurveyMatrixComponent } from '../bmx-creator/survey-matrix/survey-matrix.component';
+import { TinderComponent } from '../bmx-creator/survey-creation-design/templates/tinder/tinder.component';
+import { ReportFirstPageComponent } from '../bmx-creator/project-reports/templates/report-first-page/report-first-page.component';
+import { PageLineBreakComponent } from '../bmx-creator/project-reports/templates/page-line-break/page-line-break.component';
+import { PageTitleComponent } from '../bmx-creator/project-reports/templates/page-title/page-title.component';
+import { DocxSurveyComponent } from '../bmx-creator/docx-survey/docx-survey.component';
+import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
+import { ImageRankComponent } from '../bmx-creator/survey-creation-design/templates/image-rank/image-rank.component';
+import { ImageRankDragComponent } from '../bmx-creator/survey-creation-design/templates/image-rank-drag/image-rank-drag.component';
+
 export function loadEcharts() {
   return import('echarts');
 }
@@ -80,9 +100,27 @@ export function loadEcharts() {
     BmxCreatorComponent,
     SafePipe,
     ProjectListComponent,
-    RespondentsComponent,    
+    RespondentsComponent,
     SurveyCreationDesignComponent,
-    ImageUploaderComponent
+    ImageUploaderComponent,
+    ParticipantsEmailComponent,
+    ProjectInformationComponent,
+    RatingScaleComponent,
+    RankScaleComponent,
+    ImageRateScaleComponent,
+    ImageRankComponent,
+    ImageRankDragComponent,
+    LogoHeaderComponent,
+    TextParagraphComponent,
+    ProjectReportsComponent,
+    NarrowDownComponent,
+    QuestionAnswerComponent,
+    SurveyMatrixComponent,
+    TinderComponent,
+    ReportFirstPageComponent,
+    PageLineBreakComponent,
+    PageTitleComponent,
+    DocxSurveyComponent
   ],
   imports: [
     BrowserModule,
@@ -114,6 +152,7 @@ export function loadEcharts() {
     MatSliderModule,
     MatTabsModule,
     QRCodeModule,
+    MatRadioModule,
     DeviceDetectorModule,
     AngularDateTimePickerModule,
     MatDatepickerModule,
@@ -123,13 +162,14 @@ export function loadEcharts() {
     NgxChartsModule,
     DragulaModule.forRoot(),
     MatListModule,
-    NgxEchartsModule.forRoot({echarts: loadEcharts}),
+    NgxEchartsModule.forRoot({ echarts: loadEcharts }),
     MatSnackBarModule,
     MatSortModule,
     MatPaginatorModule,
     CommonModule,
     BmxRoutingModule,
-    MatAutocompleteModule
-  ]
+    MatAutocompleteModule,
+    FontAwesomeModule,
+  ], schemas: [ CUSTOM_ELEMENTS_SCHEMA ],
 })
 export class BmxModule { }

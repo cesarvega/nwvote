@@ -1,0 +1,208 @@
+<!-- ➗➗➗➗➗➗➗➗➗➗➗➗➗➗➗➗➗➗➗  SETTINGS ICONS  ➗➗➗➗➗➗➗➗➗➗➗➗➗➗➗➗➗ -->
+<div *ngIf="bmxClientPageOverview" style="display: flex;
+    flex-direction: row-reverse;
+    justify-content: end;
+    top: -30px;
+    right: 50px;border: 2px dashed #324395;padding-right: 10px;background: #ffffffd9;
+    position: absolute;height: 54px;align-items: center;padding-right: 38px;">
+
+    <div>
+        <button (click)="selectedIndex = ''" class="add-column" matTooltip="cancel" matTooltipPosition="above"
+            *ngIf="i === selectedIndex" mat-icon-button>
+            <mat-icon style="font-size: 25px;" class="full-icon">check_circle</mat-icon>
+        </button>
+        <button (click)="selectedIndex = i" class="add-column" matTooltip="insert test names" matTooltipPosition="above"
+            *ngIf="i !== selectedIndex" mat-icon-button>
+            <mat-icon style="font-size: 25px;" class="full-icon">edit</mat-icon>
+        </button>
+
+        <button (dblclick)="resetVotes()" [ngClass]="(!deleteRows)?'add-column':'add-column-active'"
+            matTooltip="double click to reset votes" matTooltipPosition="above" mat-icon-button aria-label="ranking">
+            <mat-icon style="font-size: 26px;" class="full-icon">delete_outline</mat-icon>
+        </button>
+        <!-- <button (click)="isColumnResizerOn = !isColumnResizerOn"
+            [ngClass]="(!isColumnResizerOn)?'add-column':'add-column-active'" matTooltip="columns width"
+            matTooltipPosition="above" mat-icon-button aria-label="ranking">
+            <mat-icon style="font-size: 26px;    z-index: 9;" class="full-icon">swap_horizontal_circle</mat-icon>
+        </button> -->
+        <button (click)="undo()" class="add-column" matTooltip="undo last change" matTooltipPosition="above"
+            mat-icon-button aria-label="ranking">
+            <mat-icon style="font-size: 26px;" class="full-icon">undo</mat-icon>
+        </button>
+        <button (click)="setPronunciation()" class="add-column" matTooltip="speech" matTooltipPosition="above"
+            mat-icon-button aria-label="ranking">
+            <mat-icon style="font-size: 26px;" class="full-icon">mic</mat-icon>
+        </button>
+    </div>
+</div>
+<!-- ➗➗➗➗➗➗➗➗➗➗➗➗➗➗➗➗➗➗➗  END  ➗➗➗➗➗➗➗➗➗➗➗➗➗➗➗➗➗ -->
+
+
+
+<!-- 🔧🔧🔧🔧🔧🔧🔧🔧🔧🔧🔧🔧🔧🔧🔧🔧🔧🔧🔧🔧🔧 CONFIG BOX 🔧🔧🔧🔧🔧🔧🔧🔧🔧🔧🔧🔧🔧🔧🔧🔧🔧🔧🔧🔧🔧🔧🔧 -->
+<div *ngIf="i === selectedIndex" class="mat-elevation-z4" cdkDrag
+    style="position: absolute;width: 62vw;background: #fafafa;z-index: 1;top: -8px;left: 15%;border: lightgrey 3px solid;">
+    <div style="position: absolute;
+    top: 10px;
+    right: 10px;
+    color: #ccc;
+    cursor: move;
+    width: 1024px;
+    height: 54px;" cdkDragHandle> </div>
+    <div style="text-align: center;">
+        <div style="font-size: 16px;margin: 20px;color: #48535e;">Copy & Paste TEST NAMES</div>
+        <!-- <div style="font-size: 14px;margin-bottom: 20px;color: lightgray;">Brief Description Here</div> -->
+    </div>
+    <div style="display: flex;justify-content: center;justify-items: center;">
+
+        <mat-form-field style="width: 90%;margin-left: 20px;" appearance="outline">
+            <mat-label>Copy & Paste TEST NAMES</mat-label>
+            <textarea matInput rows="4" cols="50" [(ngModel)]="testNamesInput"
+                placeholder="ENHANCE,Hance, En-,EVOLVE,Evo,GUARD,Gard, Guard,INVEST,In, Inv,OMNI,Omni,OPTIMAL"></textarea>
+        </mat-form-field>
+
+    </div>
+
+    <hr>
+    <div style="display: flex;flex-direction: row;justify-content: space-around;gap: 30px;">
+
+        <input type="text" [(ngModel)]="bmxItem.componentSettings[0].categoryName"
+            [value]="bmxItem.componentSettings[0].categoryName" placeholder="Category Name"
+            style="font-size: 20px;color: #324395;padding-bottom: 10px;">
+        <mat-checkbox [(ngModel)]="randomizeTestNames">Randomize Names</mat-checkbox>
+        <input type="text" [(ngModel)]="bmxItem.componentSettings[0].categoryDescription"
+            [value]="bmxItem.componentSettings[0].categoryDescription" placeholder="Category Description"
+            style="font-size: 20px;color: #ee7f25;padding-bottom: 20px;">
+
+
+    </div>
+
+    <hr>
+    <div style="text-align: center;display: flex;flex-direction: row;justify-content: space-around;">
+        <button style="outline: none;color:#d35854;margin-bottom: 50px;" mat-icon-button (click)="selectedIndex = ''"
+            aria-label="ranking">
+            <mat-icon>cancel</mat-icon><br>Cancel
+        </button>
+
+        <button style="outline: none;color:#76d354;margin-bottom: 50px;" mat-icon-button
+            (click)="selectedIndex = '';upLoadNamesAndRationales(testNamesInput)" aria-label="ranking">
+            <mat-icon>check_circle</mat-icon><br> DONE
+        </button>
+    </div>
+</div>
+<!-- 🔧🔧🔧🔧🔧🔧🔧🔧🔧🔧🔧🔧🔧🔧🔧🔧🔧🔧🔧🔧🔧🔧END CONFIG BOX 🔧🔧🔧🔧🔧🔧🔧🔧🔧🔧🔧🔧🔧🔧🔧🔧🔧🔧🔧🔧🔧 -->
+
+
+
+<!--🥑🥑🥑🥑🥑🥑🥑🥑🥑🥑🥑🥑🥑🥑🥑🥑🥑🥑🥑🥑🥑🥑🥑🥑🥑 RATING TABLE 🥑🥑🥑🥑🥑🥑🥑🥑🥑🥑🥑🥑🥑🥑🥑🥑🥑🥑🥑🥑🥑🥑🥑-->
+
+
+<!--💲💲💲💲💲💲💲💲💲💲💲💲💲💲💲💲💲💲💲💲💲💲💲💲💲💲💲💲💲💲💲💲💲 TABLE 💻 DESKTOP 💻 GENERATOR 💲💲💲💲💲💲💲💲💲💲💲💲💲💲💲💲💲💲💲💲💲💲💲💲💲💲💲💲💲💲💲💲💲💲-->
+<div class="desktop">
+    <div style="display: flex;flex-direction: column;padding-left: 40px;">
+
+        <div style="font-size: 25px;color: #324395;padding-bottom: 10px;">{{bmxItem.componentSettings[0].categoryName}}
+        </div>
+        <div style="font-size: 18px;color: #ee7f25;padding-bottom: 20px;">
+            {{bmxItem.componentSettings[0].categoryDescription}}</div>
+    </div>
+    <div class="scroller-style main-container">
+
+        <div style="display: flex;flex-direction: row;gap: 20px; align-items: center;width: 750px;">
+
+            <mat-icon (click)="moveleft(bmxItem.componentText[testNameIndex].nameCandidates)" style="font-size: 30px;color: grey;cursor: pointer;" class="full-icon">
+                chevron_left</mat-icon>
+
+            <div class="tinder-box">
+
+                <div [ngClass]="(!bmxItem.componentText[testNameIndex].vote)?'':(bmxItem.componentText[testNameIndex].vote === 'negative')?'positive':'negative'"
+                    style="font-size: 80px;text-align: center;font-weight: bolder;animation: fadeInRight 1s ease-in 0 1 forwards;">
+                    {{( bmxItem.componentText[testNameIndex].nameCandidates)?
+                    bmxItem.componentText[testNameIndex].nameCandidates:'TEST NAME'}}
+                </div>
+                <div style="font-size: 24px;text-align: center;color: #bababa;max-width: 80%;">
+                    {{( bmxItem.componentText[testNameIndex].rationale)?
+                    bmxItem.componentText[testNameIndex].rationale:'Rationale of an undisclosed length'}}
+                </div>
+                <textarea name="comments" placeholder="comments" style="width: 100%;
+                padding: 20px;" [(ngModel)]="bmxItem.componentText[testNameIndex].comments"></textarea>
+                <div style="display: flex;flex-direction:row;justify-content: center;align-items: center;gap: 110px;">
+
+                    <mat-icon (click)="voteName('negative')" style="font-size: 65px;color: #ee252f;cursor: pointer;"
+                        class="full-icon">highlight_off</mat-icon>
+
+                    <mat-icon style="cursor: pointer;color: #324395;" 
+                    (click)="playTestNameSound(bmxItem.componentText[testNameIndex].nameCandidates)"
+                        *ngIf="!editSingleTableCells && displaySound">
+                        volume_up
+                    </mat-icon>
+
+                    <mat-icon (click)="voteName('positive')" style="font-size: 65px;color: #00cd38;cursor: pointer;"
+                        class="full-icon">sentiment_satisfied_alt</mat-icon>
+                </div>
+            </div>
+            <mat-icon (click)="moveRight(bmxItem.componentText[testNameIndex].nameCandidates)" style="font-size: 30px;color: grey;cursor: pointer;" class="full-icon">
+                chevron_right</mat-icon>
+
+        </div>
+    </div>
+</div>
+<!--💲💲💲💲💲💲💲💲💲💲💲💲💲💲💲💲💲💲💲💲💲💲💲💲💲💲💲💲💲💲💲💲💲 END TABLE GENERATOR 💲💲💲💲💲💲💲💲💲💲💲💲💲💲💲💲💲💲💲💲💲💲💲💲💲💲💲💲💲💲💲💲💲💲-->
+
+
+
+<!--📱📱📱📱📱📱📱📱📱📱📱📱📱📱📱📱📱📱📱📱📱📱📱📱📱📱📱📱📱📱📱 TABLE 📱 MOBILE 📱 GENERATOR 📱📱📱📱📱📱📱📱📱📱📱📱📱📱📱📱📱📱📱📱📱📱📱📱📱📱📱📱📱📱📱📱📱📱-->
+<div class="mobile">
+    <div style="display: flex;flex-direction: column;text-align: center;">
+
+        <div style="font-size: 25px;color: #324395;padding-bottom: 10px;">{{bmxItem.componentSettings[0].categoryName}}
+        </div>
+        <div style="font-size: 18px;color: #ee7f25;padding-bottom: 20px;">
+            {{bmxItem.componentSettings[0].categoryDescription}}</div>
+
+    </div>
+    <div class="scroller-style main-container">
+
+        <div style="display: flex;flex-direction: column;align-items: center;">
+
+
+            <div class="tinder-box">
+
+                <div [ngClass]="(!bmxItem.componentText[testNameIndex].vote)?'':(bmxItem.componentText[testNameIndex].vote === 'negative')?'positive':'negative'"
+                    style="font-size: 50px;text-align: center;font-weight: bolder;animation: fadeInRight 1s ease-in 0 1 forwards;">
+                    {{( bmxItem.componentText[testNameIndex].nameCandidates)?
+                    bmxItem.componentText[testNameIndex].nameCandidates:'TEST NAME'}}
+                </div>
+                <div style="font-size: 18px;text-align: center;color: #bababa;">
+                    {{( bmxItem.componentText[testNameIndex].rationale)?
+                    bmxItem.componentText[testNameIndex].rationale:'Rationale of an undisclosed length'}}
+                </div>
+                <textarea name="comments" placeholder="comments" style="width: 95%;
+                padding: 10px;height: 40px;" [(ngModel)]="bmxItem.componentText[testNameIndex].comments"></textarea>
+
+                <div style="display: flex;flex-direction:row;justify-content: space-around;align-items: center;width: 100%;position: absolute;
+                bottom: 80px;">
+
+                    <!-- <mat-icon (click)="moveleft()" style="font-size: 30px;color: grey;cursor: pointer;">
+                        chevron_left</mat-icon> -->
+
+                    <mat-icon (click)="voteName('negative')" style="font-size: 50px;color: #ee252f;cursor: pointer;">
+                        highlight_off</mat-icon>
+
+
+                    <mat-icon (click)="voteName('positive')" style="font-size: 50px;color: #00cd38;cursor: pointer;">
+                        sentiment_satisfied_alt</mat-icon>
+
+                    <!-- <mat-icon (click)="moveRight()" style="font-size: 30px;color: grey;cursor: pointer;">
+                        chevron_right</mat-icon> -->
+                </div>
+
+            </div>
+
+
+
+        </div>
+    </div>
+</div>
+
+<!--📱📱📱📱📱📱📱📱📱📱📱📱📱📱📱📱📱📱📱📱📱📱📱📱📱📱📱📱📱📱📱 END TABLE GENERATOR 📱📱📱📱📱📱📱📱📱📱📱📱📱📱📱📱📱📱📱📱📱📱📱📱📱📱📱📱📱📱📱📱📱📱-->

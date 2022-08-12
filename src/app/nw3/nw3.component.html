@@ -18,7 +18,7 @@
             </div>
         </div>
 
-        <!-- SETTINGS BOX -->
+        <!--⚙️⚙️⚙️⚙️⚙️⚙️⚙️⚙️⚙️⚙️⚙️⚙️⚙️⚙️⚙️⚙️⚙️⚙️⚙️ SETTINGS BOX ⚙️⚙️⚙️⚙️⚙️⚙️⚙️⚙️⚙️⚙️⚙️⚙️⚙️-->
         <!-- <div *ngIf="isSettings" class="settingsBox"> -->
         <div *ngIf="isSettings" class="settingsBox">
 
@@ -49,7 +49,7 @@
                 [value]="cardWidthValue"> -->
 
         </div>
-
+        <!--⚙️⚙️⚙️⚙️⚙️⚙️⚙️⚙️⚙️⚙️⚙️⚙️⚙️⚙️⚙️⚙️⚙️ END SETTINGS BOX ⚙️⚙️⚙️⚙️⚙️⚙️⚙️⚙️⚙️⚙️⚙️⚙️⚙️-->
 
         <!-- <div *ngIf="true" class="settingsBox">
             <div>Table Of Content</div>
@@ -196,12 +196,12 @@
                         <div (mouseenter)="displayOverviewBox('positiveBox')">
                             <button *ngIf="positiveChecked" [matBadge]="positiveUsersVote" class="voteIconButtonGreen"
                                 (click)="selectedOpt('Positive');" mat-icon-button>
-                                <mat-icon>sentiment_very_satisfied</mat-icon>
+                                <mat-icon>toggle_on</mat-icon>
                             </button>
                             <button *ngIf="!positiveChecked" [matBadge]="positiveUsersVote"
                                 class="voteIconButton voteIconButton1" (click)="selectedOpt('Positive');"
                                 mat-icon-button>
-                                <mat-icon>sentiment_very_satisfied</mat-icon>
+                                <mat-icon>toggle_off</mat-icon>
                             </button>
                         </div>
                     </div>
@@ -216,12 +216,12 @@
                         <div (mouseenter)="displayOverviewBox('neutralBox')">
                             <button *ngIf="neutralChecked" [matBadge]="NeutralUsersVote" class="voteIconButtonYellow"
                                 (click)="selectedOpt('Neutral');" mat-icon-button>
-                                <mat-icon>sentiment_neutral</mat-icon>
+                                <mat-icon>toggle_on</mat-icon>
                             </button>
                             <button *ngIf="!neutralChecked" [matBadge]="NeutralUsersVote"
                                 class="voteIconButton voteIconButton2" (click)="selectedOpt('Neutral');"
                                 mat-icon-button>
-                                <mat-icon>sentiment_neutral</mat-icon>
+                                <mat-icon>toggle_off</mat-icon>
                             </button>
                         </div>
                     </div>
@@ -236,12 +236,12 @@
                         <div (mouseenter)="displayOverviewBox('negativeBox')">
                             <button *ngIf="negativeChecked" [matBadge]="NegativeUsersVote" class="voteIconButtonRed"
                                 (click)="selectedOpt('Negative');" mat-icon-button>
-                                <mat-icon>sentiment_very_dissatisfied</mat-icon>
+                                <mat-icon>toggle_on</mat-icon>
                             </button>
                             <button *ngIf="!negativeChecked" [matBadge]="NegativeUsersVote"
                                 class="voteIconButton voteIconButton3" (click)="selectedOpt('Negative');"
                                 mat-icon-button>
-                                <mat-icon>sentiment_very_dissatisfied</mat-icon>
+                                <mat-icon>toggle_off</mat-icon>
                             </button>
                         </div>
                     </div>
@@ -261,11 +261,11 @@
                         <div (mouseenter)="displayOverviewBox('allUsersBox')">
                             <button *ngIf="recraftChecked" [matBadge]="allVoters" class="voteIconButtonPurple"
                                 (click)="recraft();" mat-icon-button>
-                                <mat-icon>sync</mat-icon>
+                                <mat-icon>toggle_on</mat-icon>
                             </button>
                             <button *ngIf="!recraftChecked" [matBadge]="allVoters"
                                 class="voteIconButton voteIconButton4" (click)="recraft();" mat-icon-button>
-                                <mat-icon>sync</mat-icon>
+                                <mat-icon>toggle_off</mat-icon>
                             </button>
                         </div>
                     </div>
@@ -312,7 +312,7 @@
             <!--🎃🎃🎃🎃🎃🎃🎃🎃🎃🎃🎃🎃🎃🎃🎃🎃🎃🎃🎃🎃🎃🎃🎃🎃🎃🎃🎃🎃🎃🎃🎃🎃🎃 END  BI BRAND GO VOTE BUTTON -->
         </div>
 
-           <!--💲💲💲💲💲💲💲💲💲💲💲💲💲💲💲💲💲💲💲💲💲💲💲💲💲💲💲💲💲💲💲💲💲💲💲💲💲💲💲💲💲💲💲💲💲💲💲💲💲💲💲💲💲💲💲💲💲💲💲💲💲💲💲💲💲💲 END SINGLE NAME -->
+        <!--💲💲💲💲💲💲💲💲💲💲💲💲💲💲💲💲💲💲💲💲💲💲💲💲💲💲💲💲💲💲💲💲💲💲💲💲💲💲💲💲💲💲💲💲💲💲💲💲💲💲💲💲💲💲💲💲💲💲💲💲💲💲💲💲💲💲 END SINGLE NAME -->
 
         <!-- MULTIPLE NAME -->
 
@@ -368,8 +368,8 @@
                 </div>
             </div>
 
-            <!-- FAVORITE RANK ALL ICON -->
-            <button [ngClass]="(isFavoriteOn)?'heart-favorite':'heart-favorite-Off'" mat-icon-button
+            <!-- FAVORITE RANK ALL ICON DEPRECTED-->
+            <!-- <button [ngClass]="(isFavoriteOn)?'heart-favorite':'heart-favorite-Off'" mat-icon-button
                 (click)="setAllNamesIcon('favorite', '#ee0278')">
                 <mat-icon class="heart-favorite-icon">favorite</mat-icon>
             </button>
@@ -378,7 +378,20 @@
             </button>
             <button class="G4 GG" mat-icon-button (click)="setAllNamesIcon('thumb_down_off_alt', '#0278ee')">
                 <mat-icon>thumb_down_off_alt</mat-icon>
+            </button> -->
+            <!-- FAVORITE RANK ALL ICON -->
+            <button [ngClass]="(isFavoriteOn)?'heart-favorite':'heart-favorite-Off'" mat-icon-button
+                (click)="setAllNamesIcon('check', '#09bf06')">
+                <mat-icon class="heart-favorite-icon">task_alt</mat-icon>
             </button>
+            <button class="G1 GG" mat-icon-button (click)="setAllNamesIcon('thumb_up', '#ee7802')">
+                <mat-icon>thumb_up</mat-icon>
+            </button>
+            <button class="G4 GG" mat-icon-button (click)="setAllNamesIcon('thumb_down', '#0278ee')">
+                <mat-icon>thumb_down</mat-icon>
+            </button>
+
+
 
 
             <!-- <button class="G2 GG" mat-icon-button>
