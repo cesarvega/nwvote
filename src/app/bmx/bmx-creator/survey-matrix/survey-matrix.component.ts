@@ -64,6 +64,11 @@ export class SurveyMatrixComponent extends SurveyCreationDesignComponent impleme
   }
 
   ngOnInit(): void {
+    if(!this.username){
+      this.myAngularxQrCode =  this.myAngularxQrCode + this.projectId
+    }else{
+      this.myAngularxQrCode + this.projectId + '/' + this.username;
+    }
     this.qrCode = new QRCodeStyling({
       width: 223,
       height: 223,
@@ -326,7 +331,7 @@ export class SurveyMatrixComponent extends SurveyCreationDesignComponent impleme
       });
     } else {
       this.bmxClientPageDesignMode = true;
-      this.myAngularxQrCode =
+      // this.myAngularxQrCode =
       this.myAngularxQrCode + this.projectId + '/' + this.username;
   
       this.qrCode.append(this.canvas.nativeElement);

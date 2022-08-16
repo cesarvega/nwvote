@@ -194,3 +194,13 @@
     fadeIn 3s ease 4s forwards;" slot="end" autoplay loop
     [src]="'./assets/img/cube.json'">
 </lottie-player>
+<lottie-player class="lottie-player" *ngIf="loadingLottie" style="
+    position: absolute;
+    top: 40%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    z-index: 999;    
+    width: 80px;animation: 
+    fadeIn 3s ease 4s forwards;" slot="end" autoplay loop
+    [src]="'./assets/img/sphere.json'">
+</lottie-player>
