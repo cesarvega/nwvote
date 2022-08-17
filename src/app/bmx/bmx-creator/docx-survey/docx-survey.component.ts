@@ -161,11 +161,12 @@ export class DocxSurveyComponent implements OnInit {
           if (Array.isArray(s[x].page[w].componentText)) {
             r = s[x].page[w].componentText;
             hasData = true;
-            this.nameTyping = r[0].nameCandidates;
+            this.nameTyping = this.getModTestName(r[0].nameCandidates);
             this.rating = r[0].RATE;
             
             for (var y = 1; y < r.length; y++) {
               var p = r[y];
+              var test = r[y].RATE; 
               if (r[y].multipleChoice !== undefined) {
                 response.questyonType = "multipleChoice";
                 this.reportType = "multipleChoice";
@@ -173,7 +174,8 @@ export class DocxSurveyComponent implements OnInit {
                 {
                   comment: "",
                   nameCandidate: "",
-                  score: []
+                  score: [],
+                  rational: ""
                 }
                 answMC.comment = r[y].Comments0;
                 if (r[y].nameCandidates.includes("tools.brandinstitute")) {
@@ -181,9 +183,9 @@ export class DocxSurveyComponent implements OnInit {
                   answMC.nameCandidate = await this.imageToBuffer(r[y].nameCandidates);
                 }
                 else {
-                  answMC.nameCandidate = r[y].nameCandidates + " " + r[y].rationale;
+                  answMC.nameCandidate = this.getModTestName(r[y].nameCandidates);
                 }
-
+                answMC.rational = r[y].rationale
                 answMC.score = r[y].multipleChoice.split(",");
                 if (answMC.score.length > 0) {
                   answMC.score.pop()
@@ -198,17 +200,18 @@ export class DocxSurveyComponent implements OnInit {
                   {
                     comment: "",
                     nameCandidate: "",
-                    score: []
+                    score: [],
+                    rationale: ""
                   }
                   answCR.comment = r[y].Comments0;
-                  answCR.nameCandidate = r[y].nameCandidates;
                   if (r[y].nameCandidates.includes("tools.brandinstitute")) {
                     this.design = true;
                     answCR.nameCandidate = await this.imageToBuffer(r[y].nameCandidates);
                   }
                   else {
-                    answCR.nameCandidate = r[y].nameCandidates + " " + r[y].rationale;
+                    answCR.nameCandidate = this.getModTestName(r[y].nameCandidates);
                   }
+                  answCR.rationale = r[y].rationale;
                   answCR.score = r[y].CRITERIA;
                   response.answers.push(answCR);
 
@@ -220,7 +223,8 @@ export class DocxSurveyComponent implements OnInit {
                   {
                     comment: "",
                     nameCandidate: "",
-                    score: 0
+                    score: 0,
+                    rationale: ""
                   }
                   answRT.comment = r[y].Comments0;
                   answRT.nameCandidate = r[y].nameCandidates;
@@ -229,8 +233,9 @@ export class DocxSurveyComponent implements OnInit {
                     answRT.nameCandidate = await this.imageToBuffer(r[y].nameCandidates);
                   }
                   else {
-                    answRT.nameCandidate = r[y].nameCandidates + " " + r[y].rationale;
+                    answRT.nameCandidate = this.getModTestName(r[y].nameCandidates);
                   }
+                  answRT.rationale = r[y].rationale;
                   answRT.score = r[y].RATE;
                   if (answRT.score > 0) {
                     response.answers.push(answRT);
@@ -261,12 +266,36 @@ export class DocxSurveyComponent implements OnInit {
     return imageSrcString.split(imageSrcString.split(",")[0] + ',').pop()
   }
 
-  createHeader(t: any): TableRow {
+  createHeader(t: any, tableType: string): TableRow {
     var arr = [];
     for (let i = 0; i < t.length; i++) {
       var size = 33;
       if (this.reportType === "criteria" && (i === 2 || i === 3)) {
         size = size / 2;
+      }
+      else if(t.length == 4 && (i === 0 || i === 3) && tableType == "overall")
+      {
+        size = 10;
+      }
+      else if(t.length == 4 && (i === 1 || i === 2) && tableType == "overall")
+      {
+        size = 40;
+      }
+      else if(t.length == 4 && (i === 0) && tableType == "byPage")
+      {
+        size = 10;
+      }
+      else if(t.length == 4 && (i !== 0) && tableType == "byPage")
+      {
+        size = 30;
+      }
+      else if(t.length == 4 && (i === 4) && tableType == "byRespondants")
+      {
+        size = 10;
+      }
+      else if(t.length == 4 && (i !== 4) && tableType == "byRespondants")
+      {
+        size = 30;
       }
       arr.push(
         new TableCell({
@@ -317,7 +346,7 @@ export class DocxSurveyComponent implements OnInit {
     row = [];
 
     row.push(
-      this.createHeader(["Name", "Email", "Status"])
+      this.createHeader(["Name", "Email", "Status"], "receptHeader")
     );
 
     for (var i = 0; i < this.user.length; i++) {
@@ -437,7 +466,7 @@ export class DocxSurveyComponent implements OnInit {
     row = [];
 
     row.push(
-      this.createHeader(["Rank", "TestNames", "Scores"])
+      this.createHeader(["Rank", "TestNames", "Rationale","Scores"], "overall")
     )
     for (var i = 0; i < overall.length; i++) {
       if (!this.design) {
@@ -447,7 +476,7 @@ export class DocxSurveyComponent implements OnInit {
               children: [
                 new TableCell({
                   width: {
-                    size: 33,
+                    size: 10,
                     type: WidthType.PERCENTAGE,
                   },
                   children: [new Paragraph({
@@ -476,7 +505,7 @@ export class DocxSurveyComponent implements OnInit {
                 }),
                 new TableCell({
                   width: {
-                    size: 33,
+                    size: 40,
                     type: WidthType.PERCENTAGE,
                   },
                   children: [new Paragraph({
@@ -490,7 +519,7 @@ export class DocxSurveyComponent implements OnInit {
                         new TextRun
                           (
                             {
-                              text: overall[i][0],
+                              text: overall[i][0].split("*")[0],
                               font:
                               {
                                 name: "Calibri",
@@ -504,7 +533,36 @@ export class DocxSurveyComponent implements OnInit {
                 }),
                 new TableCell({
                   width: {
-                    size: 33,
+                    size: 40,
+                    type: WidthType.PERCENTAGE,
+                  },
+
+                  children: [new Paragraph({
+                    spacing: {
+                      before: 200,
+                      after: 200,
+                    },
+                    alignment: AlignmentType.CENTER,
+                    children:
+                      [
+                        new TextRun
+                          (
+                            {
+                              text: overall[i][0].split("*")[1],
+                              font:
+                              {
+                                name: "Calibri",
+                              },
+                              color: "000000",
+                              size: 20,
+                            }
+                          ),
+                      ]
+                  })],
+                }),
+                new TableCell({
+                  width: {
+                    size: 10,
                     type: WidthType.PERCENTAGE,
                   },
 
@@ -652,7 +710,7 @@ export class DocxSurveyComponent implements OnInit {
 
 
     row.push(
-      this.createHeader(["Question", "Scores",])
+      this.createHeader(["Question", "Scores",], "hello")
     )
     for (var i = 0; i < overall.length; i++) {
 
@@ -733,6 +791,7 @@ export class DocxSurveyComponent implements OnInit {
                 },
                 children: [new Paragraph({
                   spacing: {
+                    
                     before: 200,
                     after: 200,
                   },
@@ -828,7 +887,7 @@ export class DocxSurveyComponent implements OnInit {
 
 
     row.push(
-      this.createHeader(["Name", "Comments"])
+      this.createHeader(["Name", "Rationale", "Comments"], "byComment")
     )
     for (var i = 0; i < overall.length; i++) {
       a = [];
@@ -916,7 +975,36 @@ export class DocxSurveyComponent implements OnInit {
                         new TextRun
                           (
                             {
-                              text: overall[i][0],
+                              text: overall[i][0].split("*")[0],
+                              bold: true,
+                              font:
+                              {
+                                name: "Calibri",
+                              },
+                              color: "000000",
+                              size: 20,
+                            }
+                          ),
+                      ]
+                  })],
+                }),
+                new TableCell({
+                  width: {
+                    size: 33,
+                    type: WidthType.PERCENTAGE,
+                  },
+                  children: [new Paragraph({
+                    spacing: {
+                      before: 200,
+                      after: 200,
+                    },
+                    alignment: AlignmentType.CENTER,
+                    children:
+                      [
+                        new TextRun
+                          (
+                            {
+                              text: overall[i][0].split("*")[1],
                               bold: true,
                               font:
                               {
@@ -1026,10 +1114,10 @@ export class DocxSurveyComponent implements OnInit {
             for (var k = 0; k < y.answers.length; k++) {
 
               if (rankings.has(y.answers[k].nameCandidate)) {
-                rankings.set(y.answers[k].nameCandidate, (Number(rankings.get(y.answers[k].nameCandidate)) + Number((y.answers[k].score))));
+                rankings.set(y.answers[k].nameCandidate + "*" + y.answers[k].rationale, (Number(rankings.get(y.answers[k].nameCandidate)) + Number((y.answers[k].score))),);
               }
               else {
-                rankings.set(y.answers[k].nameCandidate, Number((y.answers[k].score)));
+                rankings.set(y.answers[k].nameCandidate + "*" + y.answers[k].rationale, Number((y.answers[k].score)));
               }
 
 
@@ -1039,10 +1127,10 @@ export class DocxSurveyComponent implements OnInit {
           else if (y.questyonType === 'criteria') {
             for (var k = 0; k < y.answers.length; k++) {
               if (rankings.has(y.answers[k].nameCandidate)) {
-                rankings.set(y.answers[k].nameCandidate, (rankings.get(y.answers[k].nameCandidate) + y.answers[k].score[0].RATE + y.answers[k].score[1].RATE));
+                rankings.set(y.answers[k].nameCandidate+ "*" + y.answers[k].rationale, (rankings.get(y.answers[k].nameCandidate) + y.answers[k].score[0].RATE + y.answers[k].score[1].RATE));
               }
               else {
-                rankings.set(y.answers[k].nameCandidate, (y.answers[k].score[0].RATE + y.answers[k].score[1].RATE));
+                rankings.set(y.answers[k].nameCandidate+ "*" + y.answers[k].rationale, (y.answers[k].score[0].RATE + y.answers[k].score[1].RATE));
               }
 
 
@@ -1076,14 +1164,14 @@ export class DocxSurveyComponent implements OnInit {
         if (pagesPring.includes(y.page)) {
           for (var k = 0; k < y.answers.length; k++) {
             a = [];
-            if (comments.has(y.answers[k].nameCandidate) && (y.answers[k].comment !== "" && y.answers[k].comment !== undefined)) {
-              a = comments.get(y.answers[k].nameCandidate)
+            if (comments.has(y.answers[k].nameCandidate+ "*" + y.answers[k].rationale) && (y.answers[k].comment !== "" && y.answers[k].comment !== undefined)) {
+              a = comments.get(y.answers[k].nameCandidate+ "*" + y.answers[k].rationale)
               a.push({ name: this.user[i].email, comment: y.answers[k].comment })
-              comments.set(y.answers[k].nameCandidate, a);
+              comments.set(y.answers[k].nameCandidate+ "*" + y.answers[k].rationale, a);
             }
-            else if (!comments.has(y.answers[k].nameCandidate) && (y.answers[k].comment !== "" && y.answers[k].comment !== undefined)) {
+            else if (!comments.has(y.answers[k].nameCandidate+ "*" + y.answers[k].rationale) && (y.answers[k].comment !== "" && y.answers[k].comment !== undefined)) {
               a.push({ name: this.user[i].email, comment: y.answers[k].comment })
-              comments.set(y.answers[k].nameCandidate, a);
+              comments.set(y.answers[k].nameCandidate+ "*" + y.answers[k].rationale, a);
             }
 
           }
@@ -1100,7 +1188,7 @@ export class DocxSurveyComponent implements OnInit {
     let row: Array<TableRow>;
     row = [];
     row.push(
-      this.createHeader(["Page", this.nameTyping, "Answer",])
+      this.createHeader(["Page", this.nameTyping, "Rationale", "Answer",], "byPage")
     )
     var skip = false;
     for (var i = 0; i < overall.length; i++) {
@@ -1205,7 +1293,7 @@ export class DocxSurveyComponent implements OnInit {
                 children: [
                   new TableCell({
                     width: {
-                      size: 33,
+                      size: 10,
                       type: WidthType.PERCENTAGE,
                     },
                     children: [new Paragraph({
@@ -1220,7 +1308,7 @@ export class DocxSurveyComponent implements OnInit {
                   }),
                   new TableCell({
                     width: {
-                      size: 33,
+                      size: 30,
                       type: WidthType.PERCENTAGE,
                     },
                     children: [new Paragraph({
@@ -1233,7 +1321,7 @@ export class DocxSurveyComponent implements OnInit {
                         new TextRun
                           (
                             {
-                              text: overall[i].question[j].question,
+                              text: overall[i].question[j].question.split("*")[0],
                               font:
                               {
                                 name: "Calibri",
@@ -1247,7 +1335,34 @@ export class DocxSurveyComponent implements OnInit {
                   }),
                   new TableCell({
                     width: {
-                      size: 33,
+                      size: 30,
+                      type: WidthType.PERCENTAGE,
+                    },
+                    children: [new Paragraph({
+                      spacing: {
+                        before: 200,
+                        after: 200,
+                      },
+                      alignment: AlignmentType.CENTER,
+                      children: [
+                        new TextRun
+                          (
+                            {
+                              text: overall[i].question[j].question.split("*")[1],
+                              font:
+                              {
+                                name: "Calibri",
+                              },
+                              color: "000000",
+                              size: 20,
+                            }
+                          ),
+                      ]
+                    })],
+                  }),
+                  new TableCell({
+                    width: {
+                      size: 30,
                       type: WidthType.PERCENTAGE,
                     },
                     children: [new Paragraph({
@@ -1358,22 +1473,22 @@ export class DocxSurveyComponent implements OnInit {
             a = [];
             if (page.has(y.page)) {
               var temp = page.get(y.page)
-              if (temp.has(y.answers[k].nameCandidate)) {
-                a = temp.get(y.answers[k].nameCandidate);
+              if (temp.has(y.answers[k].nameCandidate+ "*" + y.answers[k].rationale)) {
+                a = temp.get(y.answers[k].nameCandidate+ "*" + y.answers[k].rationale);
                 a.push({ name: this.user[i].email, value: y.answers[k].score })
-                temp.set(y.answers[k].nameCandidate, a)
+                temp.set(y.answers[k].nameCandidate+ "*" + y.answers[k].rationale, a)
                 page.set(y.page, temp)
               }
               else {
                 a.push({ name: this.user[i].email, value: y.answers[k].score })
-                temp.set(y.answers[k].nameCandidate, a)
+                temp.set(y.answers[k].nameCandidate+ "*" + y.answers[k].rationale, a)
                 page.set(y.page, temp);
               }
             }
             else {
               a.push({ name: this.user[i].email, value: y.answers[k].score })
               var names = new Map();
-              names.set(y.answers[k].nameCandidate, a)
+              names.set(y.answers[k].nameCandidate+ "*" + y.answers[k].rationale, a)
               page.set(y.page, names);
             }
           }
@@ -1422,13 +1537,13 @@ export class DocxSurveyComponent implements OnInit {
     row = [];
     if (this.reportType === "rate") {
       row.push(
-        this.createHeader(["Name", this.nameTyping, "Answer",])
+        this.createHeader(["Name", this.nameTyping, "Rationale", "Answer",], "byRespondants")
       )
     }
     else if (this.reportType === "criteria") {
       var test = overall[0][1][0].score[0].name
       row.push(
-        this.createHeader(["Name", this.nameTyping, overall[0][1][0].score[0].name, overall[0][1][0].score[1].name])
+        this.createHeader(["Name", this.nameTyping, "Rationale", overall[0][1][0].score[0].name, overall[0][1][0].score[1].name], "criteria")
       )
     }
     for (var i = 0; i < overall.length; i++) {
@@ -1474,7 +1589,7 @@ export class DocxSurveyComponent implements OnInit {
 
         cell.push(new TableCell({
           width: {
-            size: 33,
+            size: 30,
             type: WidthType.PERCENTAGE,
           },
           children: [new Paragraph({
@@ -1490,7 +1605,7 @@ export class DocxSurveyComponent implements OnInit {
         if (!this.design) {
           cell.push(new TableCell({
             width: {
-              size: 33,
+              size: 30,
               type: WidthType.PERCENTAGE,
             },
             children: [new Paragraph({
@@ -1503,7 +1618,34 @@ export class DocxSurveyComponent implements OnInit {
                 new TextRun
                   (
                     {
-                      text: overall[i][1][j].question,
+                      text: overall[i][1][j].question.split("*")[0],
+                      font:
+                      {
+                        name: "Calibri",
+                      },
+                      color: "000000",
+                      size: 20,
+                    }
+                  ),
+              ]
+            })],
+          }));
+          cell.push(new TableCell({
+            width: {
+              size: 30,
+              type: WidthType.PERCENTAGE,
+            },
+            children: [new Paragraph({
+              spacing: {
+                before: 200,
+                after: 200,
+              },
+              alignment: AlignmentType.CENTER,
+              children: [
+                new TextRun
+                  (
+                    {
+                      text: overall[i][1][j].question.split("*")[1],
                       font:
                       {
                         name: "Calibri",
@@ -1596,7 +1738,7 @@ export class DocxSurveyComponent implements OnInit {
         else {
           cell.push(new TableCell({
             width: {
-              size: 33,
+              size: 10,
               type: WidthType.PERCENTAGE,
             },
             children: [new Paragraph({
@@ -1670,11 +1812,11 @@ export class DocxSurveyComponent implements OnInit {
 
               if (comments.has(x.email) && y.answers[k].score.length !== 0) {
                 a = comments.get(x.email)
-                a.push({ question: y.answers[k].nameCandidate, score: y.answers[k].score.toString() })
+                a.push({ question: y.answers[k].nameCandidate+ "*" + y.answers[k].rationale, score: y.answers[k].score.toString() })
                 comments.set(x.email, a);
               }
               else if (!comments.has(x.email) && y.answers[k].score.length !== 0) {
-                a.push({ question: y.answers[k].nameCandidate, score: y.answers[k].score.toString() })
+                a.push({ question: y.answers[k].nameCandidate+ "*" + y.answers[k].rationale, score: y.answers[k].score.toString() })
                 comments.set(x.email, a);
               }
             }
@@ -1698,11 +1840,11 @@ export class DocxSurveyComponent implements OnInit {
 
             if (comments.has(x.email) && y.answers[k].score.length !== 0) {
               a = comments.get(x.email)
-              a.push({ question: y.answers[k].nameCandidate, score: y.answers[k].score })
+              a.push({ question: y.answers[k].nameCandidate + "*" + y.answers[k].rationale, score: y.answers[k].score })
               comments.set(x.email, a);
             }
             else if (!comments.has(x.email) && y.answers[k].score.length !== 0) {
-              a.push({ question: y.answers[k].nameCandidate, score: y.answers[k].score })
+              a.push({ question: y.answers[k].nameCandidate+ "*" + y.answers[k].rationale, score: y.answers[k].score })
               comments.set(x.email, a);
             }
           }
@@ -1715,7 +1857,16 @@ export class DocxSurveyComponent implements OnInit {
     return test;
   }
 
-
+  getModTestName(testname: string)
+  {
+    if(testname.includes('<span'))
+    {
+      return  testname.substring(
+        testname.indexOf(">") + 1, 
+        testname.lastIndexOf("</")
+    );
+    }
+  }
 
   async getBase64ImageFromUrl(imageUrl) {
     var res = await fetch(imageUrl);
@@ -1742,8 +1893,8 @@ export class DocxSurveyComponent implements OnInit {
       }
       else if (this.selected == 'NF' && this.user[i].Status == 'NF') {
         this.viewedData.push(this.user[i])
-      }
-      else if (this.selected == 'F' && this.user[i].Status == 'F') {
+      } 
+      else if (this.selected == 'F' && this.user[i].Status == 'F') { 
         this.viewedData.push(this.user[i])
       }
       else if (this.selected == 'All') {
