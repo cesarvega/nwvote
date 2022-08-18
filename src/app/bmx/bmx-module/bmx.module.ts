@@ -1,4 +1,4 @@
-import { NgModule } from '@angular/core';
+import { CUSTOM_ELEMENTS_SCHEMA, NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { BmxCreatorComponent } from '../bmx-creator/bmx-creator.component';
 import { BrowserModule } from '@angular/platform-browser';
@@ -170,6 +170,6 @@ export function loadEcharts() {
     BmxRoutingModule,
     MatAutocompleteModule,
     FontAwesomeModule,
-  ]
+  ], schemas: [ CUSTOM_ELEMENTS_SCHEMA ],
 })
 export class BmxModule { }

@@ -27,7 +27,7 @@ export class SurveyCreationDesignComponent implements OnInit {
     @Input() isBrandMatrixSurvey
     @ViewChild('canvas', { static: true }) canvas: ElementRef;
     bmxPagesClient;
-    myAngularxQrCode = 'https://tools.brandinstitute.com/bmxtest/survey/';
+    myAngularxQrCode = 'https://brandmatrix.brandinstitute.com/BMX/';
     popUpQRCode = false;
     elem: any;
     isFullscreen: any;
@@ -163,66 +163,66 @@ export class SurveyCreationDesignComponent implements OnInit {
                 },
             },
         };
-        this.qrCode = new QRCodeStyling({
-            width: 223,
-            height: 223,
-            data: this.myAngularxQrCode,
-            margin: 0,
-            qrOptions: { typeNumber: 0, mode: 'Byte', errorCorrectionLevel: 'Q' },
-            imageOptions: { hideBackgroundDots: true, imageSize: 0.4, margin: 0 },
-            dotsOptions: {
-                type: 'dots',
-                color: '#1023da',
-                gradient: {
-                    type: 'linear',
-                    rotation: 45,
-                    colorStops: [
-                        {
-                            offset: 0,
-                            color: '#1023da',
-                        },
-                        {
-                            offset: 3,
-                            color: '#8831da',
-                        },
-                    ],
-                },
-            },
-            backgroundOptions: { color: '#fff' },
-            image: './assets/img/bmx/bmxCube.jpg',
-            cornersSquareOptions: {
-                type: 'square',
-                color: '#000',
-                gradient: {
-                    type: 'radial',
-                    rotation: 45,
-                    colorStops: [
-                        {
-                            offset: 0,
-                            color: '#000',
-                        },
-                    ],
-                },
-            },
-            cornersDotOptions: {
-                type: 'dot',
-                color: '#000',
-                gradient: {
-                    type: 'linear',
-                    rotation: 45,
-                    colorStops: [
-                        {
-                            offset: 0,
-                            color: '#000',
-                        },
-                        {
-                            offset: 3,
-                            color: '#000',
-                        },
-                    ],
-                },
-            },
-        });
+        // this.qrCode = new QRCodeStyling({
+        //     width: 223,
+        //     height: 223,
+        //     data: this.myAngularxQrCode,
+        //     margin: 0,
+        //     qrOptions: { typeNumber: 0, mode: 'Byte', errorCorrectionLevel: 'Q' },
+        //     imageOptions: { hideBackgroundDots: true, imageSize: 0.4, margin: 0 },
+        //     dotsOptions: {
+        //         type: 'dots',
+        //         color: '#1023da',
+        //         gradient: {
+        //             type: 'linear',
+        //             rotation: 45,
+        //             colorStops: [
+        //                 {
+        //                     offset: 0,
+        //                     color: '#1023da',
+        //                 },
+        //                 {
+        //                     offset: 3,
+        //                     color: '#8831da',
+        //                 },
+        //             ],
+        //         },
+        //     },
+        //     backgroundOptions: { color: '#fff' },
+        //     image: './assets/img/bmx/bmxCube.jpg',
+        //     cornersSquareOptions: {
+        //         type: 'square',
+        //         color: '#000',
+        //         gradient: {
+        //             type: 'radial',
+        //             rotation: 45,
+        //             colorStops: [
+        //                 {
+        //                     offset: 0,
+        //                     color: '#000',
+        //                 },
+        //             ],
+        //         },
+        //     },
+        //     cornersDotOptions: {
+        //         type: 'dot',
+        //         color: '#000',
+        //         gradient: {
+        //             type: 'linear',
+        //             rotation: 45,
+        //             colorStops: [
+        //                 {
+        //                     offset: 0,
+        //                     color: '#000',
+        //                 },
+        //                 {
+        //                     offset: 3,
+        //                     color: '#000',
+        //                 },
+        //             ],
+        //         },
+        //     },
+        // });
 
         // TESTING ROUTER DATA
         activatedRoute.params.subscribe(params => {
