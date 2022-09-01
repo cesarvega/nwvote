@@ -517,8 +517,18 @@
     <div class="scroller-style main-container">
 
         <div *ngFor="let testName of bmxItem.componentText; let y = index" style="margin-bottom: 10px;">
-
-            <div class="test-name-table" *ngIf="(y != 0)" [style.height]="(selectedCard == y)?'':'45px'">
+          
+            <div  class="test-name-table" *ngIf="(y != 0)" [style.height]="(selectedCard == y)?'':'45px'">
+                <button mat-mini-fab style="cursor: pointer;position: absolute;left: 7px;
+                line-height: 40px;    background-color: lightgray;color: white;box-shadow: none;"
+                 *ngIf="(selectedCard == y)?false :true" (click)="(selectedCard == y)?selectedCard = '':selectedCard = y">
+                <mat-icon  >expand_more</mat-icon>
+                </button>
+                <button mat-mini-fab style="cursor: pointer;position: absolute;left: 7px;
+                line-height: 40px;    background-color: lightgray;color: white;box-shadow: none;" 
+                *ngIf="(selectedCard != y)?false :true" (click)="(selectedCard == y)?selectedCard = '':selectedCard = y" >
+                <mat-icon >expand_less</mat-icon>
+                </button>
 
                 <!-- 🩸🩸🩸🩸🩸🩸🩸🩸🩸🩸🩸🩸🩸 RATE BUTTONS 🩸🩸🩸🩸🩸🩸🩸🩸🩸🩸🩸🩸🩸🩸🩸🩸🩸🩸🩸🩸🩸🩸🩸🩸 -->
                 <button (click)="maxRuleCounterMinus();bmxItem.componentText[y]['RATE'] = 0;leaveStar(y)"
@@ -559,13 +569,13 @@
                     <div>
                         <!--⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️ STARS RENDERER ⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️ -->
                         <div *ngIf="y !== 0  &&  columnName.includes('RATE') == true"
-                            style="display: flex;align-items: center;justify-content: center;">
+                            style="display: flex;align-items: center;justify-content: center;">                           
                             <div *ngIf="(y !== 0)">
                                 <div *ngIf="testName.CRITERIA; else elseBlock">
                                     <div *ngFor="let criteria of testName.CRITERIA  let x =  index"
                                         style="display: flex;flex-direction: column;justify-content: space-between;text-align: center;">
                                         <span [style.font-size]="bmxItem.componentSettings[0].fontSize +'px'"
-                                            style="padding-top:6px;max-width: 200px;">{{criteria.name}}</span>
+                                            style="padding-top:6px;max-width: 200px;">{{criteria.name}}</span>                                     
                                         <div style="min-width: 200px;padding-bottom:6px">
                                             <mat-icon *ngFor="let star of  criteria.STARS;"
                                                 (click)="setCriteriaRating(star.id,x,y)" [ngClass]="star.styleClass"
@@ -577,7 +587,7 @@
                                     </div>
                                 </div>
                                 <ng-template #elseBlock>
-                                    <div style="position: relative;top: -5px;">
+                                    <div style="position: relative;top: -5px;">                                       
                                         <mat-icon *ngFor="let star of  testName.STARS; let x =  index"
                                             (click)="setRating(star.id,y)" [ngClass]="star.styleClass"
                                             (mouseenter)="selectStar(star.id , y)" (mouseleave)="leaveStar(y)"
@@ -651,7 +661,7 @@
                                  displaySound">
                                 volume_up
                             </mat-icon>
-                        <p (click)="(selectedCard == y)?selectedCard = '':selectedCard = y" 
+                        <p  
                         *ngIf="y !== 0  && !editSingleTableCells && (columnName.includes('RadioColumn') != true) &&
                               columnName.includes('Comments') != true &&  columnName.includes('RATE') != true &&
                               columnName.includes('kata') != true &&
@@ -675,7 +685,7 @@
                                 [style.font-size]=" (columnName.includes('name') == true)?'27px':'20px'"
                                 [style.color]="(columnName.includes('name') == true)?'#324395':'#bababa'"
                                 style="text-align: center;padding: 5px 4px;"
-                                [innerHTML]="testName[columnName] | safe: 'html'">{{(testName[columnName])}}</p>
+                                [innerHTML]="testName[columnName] | safe: 'html'">{{(testName[columnName])}}hola</p>
 
                     </div>
                     <!-- 🟡🟡🟡🟡🟡🟡🟡🟡🟡🟡🟡🟡🟡🟡 END TABLE CELLS 🟡🟡🟡🟡🟡🟡🟡🟡🟡🟡🟡🟡🟡🟡🟡🟡 -->
