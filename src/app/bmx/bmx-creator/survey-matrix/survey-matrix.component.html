@@ -159,13 +159,13 @@
                             {{page.pageNumber}}
                         </button> -->
                     </div>
-                    <button  style="background: #324395;color: white;" *ngIf="isBrandMatrixSurvey && surveyLanguage != 'Japanese'" 
+                    <button  [style.background]="(continueButtonToComple == 'Complete')?'#05b85e':'#324395'" style="color: white;" *ngIf="isBrandMatrixSurvey && surveyLanguage != 'Japanese'" 
                                 (click)="changePage('next')" mat-raised-button>
                         <span class="menu-descriptions">{{continueButtonToComple}}</span> <mat-icon class="full-icon">
                            {{ (continueButtonToComple != 'Complete')?'chevron_right':'task_alt'}}</mat-icon>
                      </button>
-                    <button  style="background: #324395;color: white;" *ngIf="isBrandMatrixSurvey && surveyLanguage == 'Japanese'" (click)="changePage('next')" mat-raised-button>
-                        <span class="menu-descriptions">続き </span><mat-icon class="full-icon">
+                    <button [style.background]="(continueButtonToComple == 'Complete')?'#05b85e':'#324395'" style="color: white;" *ngIf="isBrandMatrixSurvey && surveyLanguage == 'Japanese'" (click)="changePage('next')" mat-raised-button>
+                        <span class="menu-descriptions">続き </span><mat-icon style="margin-left: 10px;" class="full-icon">
                             {{(continueButtonToComple != 'Complete')?'chevron_right':'task_alt'}}</mat-icon>
                      </button>
                     <!-- <button *ngIf="isBrandMatrixSurvey" (click)="changePage('next')" mat-icon-button>
@@ -186,11 +186,21 @@
 
 <lottie-player class="lottie-player" *ngIf="loadingLottie" style="
     position: absolute;
-    top: 50%;
+    top: 40%;
     left: 50%;
     transform: translate(-50%, -50%);
     z-index: 999;    
     width: 465px;animation: 
     fadeIn 3s ease 4s forwards;" slot="end" autoplay loop
-    [src]="'https://assets9.lottiefiles.com/packages/lf20_a2chheio.json'">
+    [src]="'./assets/img/cubo.json'">
+</lottie-player>
+<lottie-player class="lottie-player" *ngIf="loadingLottie" style="
+    position: absolute;
+    top: 40%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    z-index: 999;    
+    width: 70px;animation: 
+    fadeIn 3s ease 4s forwards;" slot="end" autoplay loop
+    [src]="'./assets/img/esfera.json'">
 </lottie-player>

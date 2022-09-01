@@ -4,7 +4,6 @@ import { DragulaService } from 'ng2-dragula';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { Subscription } from 'rxjs';
 import * as  dragula from 'dragula';
-import autoScroll from 'dom-autoscroller';
 import { BmxService } from '../../../bmx.service';
 @Component({
   selector: 'app-rating-scale',
@@ -97,22 +96,6 @@ export class RatingScaleComponent implements OnInit {
         console.log('out', container);
       })
     );
-
-    this.scroll = autoScroll(
-      // can also be an array of elements if they're { overflow: auto; max-height: XXpx } containers.
-      // i.e. [someViewChild.nativeElement]
-      window,
-      {
-        margin: 30,
-        maxSpeed: 25,
-        scrollWhenOutside: true,
-
-        autoScroll: function () { // don't use () => {} syntax, we want to keep the 'this'
-          // Only scroll when the pointer is down, and there is a child being dragged. 
-          return this.down && drake.dragging;
-        }
-      });
-
   }
 
   ngOnInit(): void {

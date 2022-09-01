@@ -658,7 +658,7 @@
                               columnName.includes('ratio') != true"
                             [style.font-size]=" (columnName.includes('name') == true)?'27px':'20px'"
                             [style.color]="(columnName.includes('name') == true)?'#324395':'#bababa'"
-                            style="text-align: center;padding: 10px 4px;">{{(testName[columnName])}}</p>
+                            style="text-align: center;padding: 10px 4px;"  [innerHTML]="testName[columnName] | safe: 'html'">{{(testName[columnName])}}</p>
                         </div>
                         <!-- <p *ngIf="y !== 0  && !editSingleTableCells && (columnName.includes('RadioColumn') != true) &&
                               columnName.includes('Comments') != true && selectedCard == y &&  columnName.includes('RATE') != true &&
