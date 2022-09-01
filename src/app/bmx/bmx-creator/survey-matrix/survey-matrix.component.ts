@@ -137,8 +137,8 @@ export class SurveyMatrixComponent extends SurveyCreationDesignComponent impleme
 
         data = JSON.parse(data.d);
         this.username = data.UserName
-        this.firstName = data.FirstName
-        this.lastName = data.LastName
+        this.firstName = data.FirstName.replace(/,/g, ' ');
+        this.lastName = data.LastName.replace(/,/g, ' ');
         this.projectId = data.ProjectName
 
         this.qrCode.append(this.canvas.nativeElement);
@@ -199,7 +199,7 @@ export class SurveyMatrixComponent extends SurveyCreationDesignComponent impleme
                         setTimeout(() => {
                           this._snackBar.open(
 
-                            message + this.firstName.toUpperCase() + '  😉',
+                            message + this.firstName.toUpperCase() + ' ' + this.lastName.toUpperCase()  + '  😉',
                             '',
                             {
                               duration: 4000,
@@ -287,7 +287,7 @@ export class SurveyMatrixComponent extends SurveyCreationDesignComponent impleme
     
                           setTimeout(() => {
                             this._snackBar.open(
-                              message + this.firstName.toUpperCase() + '  😉',
+                              message + this.firstName.toUpperCase() + ' ' + this.lastName.toUpperCase()  + '  😉',
                               '',
                               {
                                 duration: 4000,

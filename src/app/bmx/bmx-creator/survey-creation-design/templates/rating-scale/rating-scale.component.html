@@ -519,7 +519,8 @@
         <div *ngFor="let testName of bmxItem.componentText; let y = index" style="margin-bottom: 10px;">
           
             <div (click)="(selectedCard == y)?selectedCard = '':selectedCard = y" class="test-name-table" *ngIf="(y != 0)" [style.height]="(selectedCard == y)?'':'45px'">
-                <mat-icon style="cursor: pointer;position: absolute;left: 0">expand_more</mat-icon>
+                <mat-icon style="cursor: pointer;position: absolute;left: 7px;
+                line-height: 40px;">expand_more</mat-icon>
 
                 <!-- 🩸🩸🩸🩸🩸🩸🩸🩸🩸🩸🩸🩸🩸 RATE BUTTONS 🩸🩸🩸🩸🩸🩸🩸🩸🩸🩸🩸🩸🩸🩸🩸🩸🩸🩸🩸🩸🩸🩸🩸🩸 -->
                 <button (click)="maxRuleCounterMinus();bmxItem.componentText[y]['RATE'] = 0;leaveStar(y)"
