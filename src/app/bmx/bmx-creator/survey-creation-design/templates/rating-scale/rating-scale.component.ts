@@ -69,6 +69,9 @@ export class RatingScaleComponent implements OnInit {
   displaySound = false
 
   scroll: any;
+
+  openElements: any[]=[];
+  
   constructor(private dragulaService: DragulaService, private _snackBar: MatSnackBar, public _bmxService: BmxService) {
     // DRAG AND DROP
     let drake = dragula();
@@ -134,8 +137,38 @@ export class RatingScaleComponent implements OnInit {
 
     if (this.bmxItem.componentSettings[0]['displaySound'] == true) {
       this.displaySound = true;
+    }  
+
+  }
+
+  openSelected(y: any){
+
+    if (this.openElements.indexOf(y) === -1) {
+      this.openElements.push(y);
+    } else {
+      this.openElements.splice(this.openElements.indexOf(y),1);
     }
 
+    console.log(this.openElements)   
+
+  }
+
+  closeSelected(y: any){
+    console.log(this.openElements)
+    this.openElements.splice(this.openElements.indexOf(y),1)
+    console.log(this.openElements)
+    console.log(this.openElements)
+  }
+
+  open(y: any){
+
+    if(this.openElements.indexOf(y) == -1){
+      return false;
+    }else{
+      console.log('true')
+      return true;
+    }
+    
   }
 
   maxRuleCounterMinus() {

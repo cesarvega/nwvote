@@ -518,27 +518,34 @@
 
         <div *ngFor="let testName of bmxItem.componentText; let y = index" style="margin-bottom: 10px;">
 
-            <div  class="test-name-table" *ngIf="(y != 0)" [style.height]="(selectedCard == y)?'':'45px'">
+            <div  class="test-name-table" *ngIf="(y != 0)" [style.height]="(open(y))?'':'45px'">
                 <button mat-mini-fab style="cursor: pointer;position: absolute;left: 7px;
-                line-height: 40px;    background-color: lightgray;color: white;box-shadow: none;"
-                 *ngIf="(selectedCard == y)?false :true" (click)="(selectedCard == y)?selectedCard = '':selectedCard = y">
-                <mat-icon  >expand_more</mat-icon>
+                    line-height: 40px;    background-color: lightgray;color: white;box-shadow: none;"
+                    *ngIf="!open(y)"
+                    (click)="(selectedCard == y)?selectedCard = '':selectedCard = y ; openSelected(y)">
+                    <mat-icon >expand_more</mat-icon>
                 </button>
+                <!-- <button mat-mini-fab style="cursor: pointer;position: absolute;left: 7px;
+                    line-height: 40px;    background-color: lightgray;color: white;box-shadow: none;"
+                    *ngIf="(selectedCard == y)?false :true"
+                    (click)="(selectedCard == y)?selectedCard = '':selectedCard = y">
+                    <mat-icon >expand_more</mat-icon>
+                </button> -->
                 <button mat-mini-fab style="cursor: pointer;position: absolute;left: 7px;
                     line-height: 40px;    background-color: lightgray;color: white;box-shadow: none;" 
-                    *ngIf="(selectedCard != y)?false :true" (click)="(selectedCard == y)?selectedCard = '':selectedCard = y" >
+                    *ngIf="open(y)" (click)="(selectedCard == y)?selectedCard = '':selectedCard = y; openSelected(y)" >
                     <mat-icon >expand_less</mat-icon>
                 </button>
-                
+
                 <!-- 🩸🩸🩸🩸🩸🩸🩸🩸🩸🩸🩸🩸🩸 RATE BUTTONS 🩸🩸🩸🩸🩸🩸🩸🩸🩸🩸🩸🩸🩸🩸🩸🩸🩸🩸🩸🩸🩸🩸🩸🩸 -->
                 <button (click)="maxRuleCounterMinus();bmxItem.componentText[y]['RATE'] = 0;leaveStar(y)"
                     *ngIf="bmxItem.componentText[y]['RATE']>0 && y != 0 " style="background-color: #ee7f25;color: white;margin: 5px;width: 30px;
-                 height: 30px;
-                 line-height: 30px;right: 7px;
-                 position: absolute;animation: rubberBand 500ms ease-in  forwards;"
-                    mat-icon-button>{{bmxItem.componentText[y]['RATE']}}</button>
+                    height: 30px;
+                    line-height: 30px;right: 7px;
+                    position: absolute;animation: rubberBand 500ms ease-in  forwards;"
+                    mat-icon-button>{{bmxItem.componentText[y]['RATE']}}
+                </button>
                 <!-- 🟢🟢🟢🟢🟢🟢🟢🟢🟢🟢🟢🟢🟢🟢 HEADER TEXT AREA 🟢🟢🟢🟢🟢🟢🟢🟢🟢🟢🟢🟢🟢🟢🟢🟢 -->
-
 
                 <div style="display: flex;gap: 23px;padding-top: 10px;position: absolute;right: 24px;">
                     <div *ngFor="let criteria of testName.CRITERIA  let x =  index">
@@ -549,7 +556,8 @@
                           line-height: 19px;
                           padding: 2px 0px;
                           position: absolute;
-                          animation: rubberBand 500ms ease-in  forwards;" mat-button>{{criteria.RATE}}</button>
+                          animation: rubberBand 500ms ease-in  forwards;" mat-button>{{criteria.RATE}}
+                        </button>
                     </div>
                 </div>
                 <!-- 🩸🩸🩸🩸🩸🩸🩸🩸🩸🩸🩸🩸🩸 END RATE BUTTONS 🩸🩸🩸🩸🩸🩸🩸🩸🩸🩸🩸🩸🩸🩸🩸🩸🩸🩸🩸🩸🩸🩸🩸🩸 -->
@@ -630,10 +638,12 @@
                                 [style.font-size]="bmxItem.componentSettings[0].fontSize +'px'"
                                 style="text-align: center; font-weight: bold;color: #324395;" class="row-box"
                                 [(ngModel)]="bmxItem.componentSettings[0].ratingScaleTitle"
-                                value="bmxItem.componentSettings[0].ratingScaleTitle"></textarea>
+                                value="bmxItem.componentSettings[0].ratingScaleTitle">
+                            </textarea>
                             <div [style.font-size]="bmxItem.componentSettings[0].fontSize +'px'" class="rating-text"
                                 *ngIf="y == 0 && !editSingleTableCells">
-                                {{bmxItem.componentSettings[0].ratingScaleTitle}}</div>
+                                {{bmxItem.componentSettings[0].ratingScaleTitle}}
+                            </div>
                         </div>
                         <!--⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️ END STARS ⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️ -->
                         <!-- IF ELSE TEMPLATE INPUTS  -->
@@ -641,17 +651,25 @@
                             [name]="'rate' + y" [checked]="testName[columnName]"
                             (change)="saveRadioColumValue(columnName, y)">
 
-
                         <!-- TEXT_AREA COLUMN-->
                         <div style="display: flex;
-                        justify-content: center;">
-                            <textarea *ngIf="y !== 0  && columnName.includes('Comments') == true && selectedCard == y"
+                            justify-content: center;">
+                            <textarea *ngIf="y !== 0  && columnName.includes('Comments') == true && open(y)"
                                 [style.width]="'95%'" [style.font-size]="bmxItem.componentSettings[0].fontSize +'px'"
                                 cdkTextareaAutosize [cdkAutosizeMinRows]="bmxItem.componentSettings[0].rowHeight" style="text-align: center;height: 32px;width: 358px;font-size: 16px;border: 1px solid grey;
-                            animation: bounceIn 500ms ease-in forwards;padding: 0 4px;margin-bottom: 10px;"
+                                animation: bounceIn 500ms ease-in forwards;padding: 0 4px;margin-bottom: 10px;"
                                 class="row-box" [(ngModel)]="testName[columnName]"
-                                 [placeholder]="(columnName=='Comments0')?'comments':(columnName=='Comments1')?'name suggestions':'type here' "  rows="4"
-                                cols="50"></textarea>
+                                 [placeholder]="(columnName=='Comments0')?'comments':(columnName=='Comments1')?'name suggestions':'type here' " rows="4"
+                                cols="50">
+                            </textarea>
+                            <!-- <textarea *ngIf="y !== 0  && columnName.includes('Comments') == true && selectedCard == y"
+                                [style.width]="'95%'" [style.font-size]="bmxItem.componentSettings[0].fontSize +'px'"
+                                cdkTextareaAutosize [cdkAutosizeMinRows]="bmxItem.componentSettings[0].rowHeight" style="text-align: center;height: 32px;width: 358px;font-size: 16px;border: 1px solid grey;
+                                animation: bounceIn 500ms ease-in forwards;padding: 0 4px;margin-bottom: 10px;"
+                                class="row-box" [(ngModel)]="testName[columnName]"
+                                 [placeholder]="(columnName=='Comments0')?'comments':(columnName=='Comments1')?'name suggestions':'type here' " rows="4"
+                                cols="50">
+                            </textarea> -->
                         </div>
 
                         <!-- TEST NAME -->
@@ -661,14 +679,14 @@
                                  displaySound">
                                 volume_up
                             </mat-icon>
-                        <p  
-                        *ngIf="y !== 0  && !editSingleTableCells && (columnName.includes('RadioColumn') != true) &&
-                              columnName.includes('Comments') != true &&  columnName.includes('RATE') != true &&
-                              columnName.includes('kata') != true &&
-                              columnName.includes('ratio') != true"
-                            [style.font-size]=" (columnName.includes('name') == true)?'27px':'20px'"
-                            [style.color]="(columnName.includes('name') == true)?'#324395':'#bababa'"
-                            style="text-align: center;padding: 10px 4px;"  [innerHTML]="testName[columnName] | safe: 'html'">{{(testName[columnName])}}</p>
+                            <p *ngIf="y !== 0  && !editSingleTableCells && (columnName.includes('RadioColumn') != true) &&
+                                columnName.includes('Comments') != true &&  columnName.includes('RATE') != true &&
+                                columnName.includes('kata') != true &&
+                                columnName.includes('ratio') != true"
+                                [style.font-size]=" (columnName.includes('name') == true)?'27px':'20px'"
+                                [style.color]="(columnName.includes('name') == true)?'#324395':'#bababa'"
+                                style="text-align: center;padding: 10px 4px;"  [innerHTML]="testName[columnName] | safe: 'html'">{{(testName[columnName])}}
+                            </p>
                         </div>
                         <!-- <p *ngIf="y !== 0  && !editSingleTableCells && (columnName.includes('RadioColumn') != true) &&
                               columnName.includes('Comments') != true && selectedCard == y &&  columnName.includes('RATE') != true &&
@@ -680,13 +698,13 @@
 
                    
                             <p *ngIf="y !== 0  && !editSingleTableCells && (columnName.includes('RadioColumn') != true) &&
-                              columnName.includes('Comments') != true && selectedCard == y &&  columnName.includes('RATE') != true &&
+                              columnName.includes('Comments') != true && open(y) &&  columnName.includes('RATE') != true &&
                               columnName.includes('name') != true"
                                 [style.font-size]=" (columnName.includes('name') == true)?'27px':'20px'"
                                 [style.color]="(columnName.includes('name') == true)?'#324395':'#bababa'"
                                 style="text-align: center;padding: 5px 4px;"
-                                [innerHTML]="testName[columnName] | safe: 'html'">{{(testName[columnName])}}hola</p>
-
+                                [innerHTML]="testName[columnName] | safe: 'html'">{{(testName[columnName])}}
+                            </p>
                     </div>
                     <!-- 🟡🟡🟡🟡🟡🟡🟡🟡🟡🟡🟡🟡🟡🟡 END TABLE CELLS 🟡🟡🟡🟡🟡🟡🟡🟡🟡🟡🟡🟡🟡🟡🟡🟡 -->
                 </div>
