@@ -519,6 +519,7 @@
         <div *ngFor="let testName of bmxItem.componentText; let y = index" style="margin-bottom: 10px;">
 
             <div  class="test-name-table" *ngIf="(y != 0)" [style.height]="(open(y))?'':'45px'">
+
                 <button mat-mini-fab style="cursor: pointer;position: absolute;left: 7px;
                     line-height: 40px;    background-color: lightgray;color: white;box-shadow: none;"
                     *ngIf="!open(y)"
