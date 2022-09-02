@@ -517,10 +517,19 @@
     <div class="scroller-style main-container">
 
         <div *ngFor="let testName of bmxItem.componentText; let y = index" style="margin-bottom: 10px;">
-          
-            <div (click)="(selectedCard == y)?selectedCard = '':selectedCard = y" class="test-name-table" *ngIf="(y != 0)" [style.height]="(selectedCard == y)?'':'45px'">
-                <mat-icon style="cursor: pointer;position: absolute;left: 0">expand_more</mat-icon>
 
+            <div  class="test-name-table" *ngIf="(y != 0)" [style.height]="(selectedCard == y)?'':'45px'">
+                <button mat-mini-fab style="cursor: pointer;position: absolute;left: 7px;
+                line-height: 40px;    background-color: lightgray;color: white;box-shadow: none;"
+                 *ngIf="(selectedCard == y)?false :true" (click)="(selectedCard == y)?selectedCard = '':selectedCard = y">
+                <mat-icon  >expand_more</mat-icon>
+                </button>
+                <button mat-mini-fab style="cursor: pointer;position: absolute;left: 7px;
+                    line-height: 40px;    background-color: lightgray;color: white;box-shadow: none;" 
+                    *ngIf="(selectedCard != y)?false :true" (click)="(selectedCard == y)?selectedCard = '':selectedCard = y" >
+                    <mat-icon >expand_less</mat-icon>
+                </button>
+                
                 <!-- 🩸🩸🩸🩸🩸🩸🩸🩸🩸🩸🩸🩸🩸 RATE BUTTONS 🩸🩸🩸🩸🩸🩸🩸🩸🩸🩸🩸🩸🩸🩸🩸🩸🩸🩸🩸🩸🩸🩸🩸🩸 -->
                 <button (click)="maxRuleCounterMinus();bmxItem.componentText[y]['RATE'] = 0;leaveStar(y)"
                     *ngIf="bmxItem.componentText[y]['RATE']>0 && y != 0 " style="background-color: #ee7f25;color: white;margin: 5px;width: 30px;
