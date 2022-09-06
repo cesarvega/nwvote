@@ -525,13 +525,7 @@
                     *ngIf="!open(y)"
                     (click)="(selectedCard == y)?selectedCard = '':selectedCard = y ; openSelected(y)">
                     <mat-icon >expand_more</mat-icon>
-                </button>
-                <!-- <button mat-mini-fab style="cursor: pointer;position: absolute;left: 7px;
-                    line-height: 40px;    background-color: lightgray;color: white;box-shadow: none;"
-                    *ngIf="(selectedCard == y)?false :true"
-                    (click)="(selectedCard == y)?selectedCard = '':selectedCard = y">
-                    <mat-icon >expand_more</mat-icon>
-                </button> -->
+                </button>   
                 <button mat-mini-fab style="cursor: pointer;position: absolute;left: 7px;
                     line-height: 40px;    background-color: lightgray;color: white;box-shadow: none;" 
                     *ngIf="open(y)" (click)="(selectedCard == y)?selectedCard = '':selectedCard = y; openSelected(y)" >
@@ -662,15 +656,7 @@
                                 class="row-box" [(ngModel)]="testName[columnName]"
                                  [placeholder]="(columnName=='Comments0')?'comments':(columnName=='Comments1')?'name suggestions':'type here' " rows="4"
                                 cols="50">
-                            </textarea>
-                            <!-- <textarea *ngIf="y !== 0  && columnName.includes('Comments') == true && selectedCard == y"
-                                [style.width]="'95%'" [style.font-size]="bmxItem.componentSettings[0].fontSize +'px'"
-                                cdkTextareaAutosize [cdkAutosizeMinRows]="bmxItem.componentSettings[0].rowHeight" style="text-align: center;height: 32px;width: 358px;font-size: 16px;border: 1px solid grey;
-                                animation: bounceIn 500ms ease-in forwards;padding: 0 4px;margin-bottom: 10px;"
-                                class="row-box" [(ngModel)]="testName[columnName]"
-                                 [placeholder]="(columnName=='Comments0')?'comments':(columnName=='Comments1')?'name suggestions':'type here' " rows="4"
-                                cols="50">
-                            </textarea> -->
+                            </textarea>                            
                         </div>
 
                         <!-- TEST NAME -->
@@ -686,7 +672,7 @@
                                 columnName.includes('ratio') != true"
                                 [style.font-size]=" (columnName.includes('name') == true)?'27px':'20px'"
                                 [style.color]="(columnName.includes('name') == true)?'#324395':'#bababa'"
-                                style="text-align: center;padding: 10px 4px;"  [innerHTML]="testName[columnName] | safe: 'html'">{{(testName[columnName])}}
+                                style="text-align: center;padding: 10px 4px;" [innerHTML]="testName[columnName] | safe: 'html'">{{(testName[columnName])}}
                             </p>
                         </div>
                         <!-- <p *ngIf="y !== 0  && !editSingleTableCells && (columnName.includes('RadioColumn') != true) &&
