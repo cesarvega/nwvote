@@ -99,7 +99,7 @@
         justify-content: center;
         position: fixed;
         bottom: 10px;
-    }
+    }    
 }
 //mobile
 @media (max-width: 576px) {
@@ -131,17 +131,22 @@
         display: none;
     }
 
-
     .menu-descriptions{
         display: none;
     }
+
+       
+    p{
+        line-height: 25px;
+    }
+    
 
 }
 
 .paragraph {
     display: flex;
     flex-direction: column;
-    position: relative;
+    position: relative;   
 }
 
 .pageNumberActive {
