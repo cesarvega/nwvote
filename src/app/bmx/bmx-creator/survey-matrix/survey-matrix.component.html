@@ -184,7 +184,7 @@
     </div>
 </div>
 
-<lottie-player class="lottie-player" *ngIf="true" style="
+<lottie-player class="lottie-player" *ngIf="loadingLottie" style="
     position: absolute;
     top: 40%;
     left: 50%;
@@ -194,7 +194,7 @@
     fadeIn 3s ease 4s forwards;" slot="end" autoplay loop
     [src]="'./assets/img/cubo.json'">
 </lottie-player>
-<lottie-player class="lottie-player" *ngIf="true" style="
+<lottie-player class="lottie-player" *ngIf="loadingLottie" style="
     position: absolute;
     top: 40%;
     left: 50%;
