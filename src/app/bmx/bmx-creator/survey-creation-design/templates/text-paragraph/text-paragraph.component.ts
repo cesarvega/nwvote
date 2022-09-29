@@ -1,5 +1,6 @@
-import { Component, ElementRef, EventEmitter, Inject, Input, OnInit, Output, ViewChild, ViewEncapsulation } from '@angular/core';
+import { Component,AfterViewInit, ElementRef, EventEmitter, Inject, Input, OnInit, Output, ViewChild, ViewEncapsulation } from '@angular/core';
 import { BmxService } from '../../../bmx.service';
+import { ShowVideoComponent } from '../show-video/show-video.component';
 
 @Component({
   selector: 'app-text-paragraph',
@@ -15,7 +16,11 @@ export class TextParagraphComponent implements OnInit {
   openSettings = false
   ckconfig;
   projectName: any;
-  previousText = ''
+  previousText = '';
+  videoPath= '/assets/img/bmx/Robot.mp4';
+  showModalVideo: boolean = true;
+
+  @ViewChild('videoLand') videoLand: ElementRef | any;
   constructor(private _bmxService: BmxService) { }
 
   ngOnInit(): void {
@@ -46,6 +51,16 @@ export class TextParagraphComponent implements OnInit {
 
     }
     this.previousText = this.bmxItem.componentText
+  }
+
+  ngAfterViewInit(): void {
+    setTimeout(() => {
+      if (this.videoLand) {
+        const media = this.videoLand.nativeElement;
+        media.muted = true; // without this line it's not working although I have "muted" in HTML
+        media.play();
+      }
+    }, 0);
   }
 
   replaceBiI_Markers() {
