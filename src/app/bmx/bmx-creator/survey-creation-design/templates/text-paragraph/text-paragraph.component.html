@@ -1,13 +1,17 @@
 <!-- <app-show-video></app-show-video> -->
 <div *ngIf="showModalVideo" id="myModal" class="modal-video">
-    <div class="modal-content">
+    <label class="container-checkbox">No volver a mostrar
+        <input (click)="saveSelection()" type="checkbox" value="Bike" #modalChecked> 
+        <span class="checkmark">&#x2714;</span>
         <span class="close-modal" (click)="showModalVideo=false">&times;</span>
-        <video autoplay  muted="muted" playsinline loop #videoLand>
-            <source [src]="videoPath" type="video/mp4">
-                Your browser does not support the video tag.
-        </video>
+    </label>
+    
+    
+    <div class="modal-content">
+        <img *ngFor="let path of VIDEO_PATH" [src]="path" alt="Girl in a jacket" style="margin-bottom: 10px">
     </div>
 </div>
+<!-- modal end -->
 <button *ngIf="openSettings && bmxClientPageOverview" class="cancel" (click)=" replaceBiI_Markers(); openSettings = !openSettings"
     mat-icon-button>
     <mat-icon class="full-icon" style="font-size: 25px;">check_circle</mat-icon>

@@ -18,39 +18,113 @@
     z-index: 999; /* Sit on top */
    
     width: 100%; /* Full width */
-    height: 100%; /* Full height */
-    overflow: auto; /* Enable scroll if needed */
+    height: 95%; /* Full height */
+    overflow-y: hidden; /* Enable scroll if needed */
     background-color: rgb(0,0,0); /* Fallback color */
     background-color: rgb(0 0 0 / 50%); /* Black w/ opacity */
 
     /* Modal Content/Box */
     .modal-content {
         background-color: #fefefe;
-        top: 20%;
+        top: 25%;
         margin: 2% auto; /* 15% from the top and centered */
-        margin-left: auto;
+        margin-left: 2.5%;
         // padding: 20px;
         // border: 1px solid #888;
         width: 95%; /* Could be more or less, depending on screen size */
+        height: 25%;
+        overflow: scroll;
     
     }
-  }
-.close-modal {
-    // margin-bottom: 5px;
-    color: black;
-    background-color: rgb(0 0 0/ 33%);
-    float: right;
-    font-size: 28px;
-    font-weight: bold;
-    text-align: right;
-    height: 25px
+    .close-modal {
+        // margin-bottom: 5px;
+        color: black;
+        background-color: rgb(0 0 0/ 30%);
+        float: right;
+        font-size: 28px;
+        font-weight: bold;
+        text-align: center;
+        height: 25px;
+        width: 25px;
+    }
+    
+    .close-modal:hover,
+    .close-modal:focus {
+      color: black;
+      text-decoration: none;
+      cursor: pointer;
+    }
 }
 
-.close-modal:hover,
-.close-modal:focus {
-  color: black;
-  text-decoration: none;
-  cursor: pointer;
+// .modal-video input[type="checkbox"] {
+//     height: 25px;
+//     width: 25px;
+  
+// }
+
+.container-checkbox input:checked ~ .checkmark {
+    background-color: black;
+    }
+
+/* Contenedor */
+.container-checkbox {
+    display: block;
+    position: relative;
+    padding-left: 35px;
+    margin-bottom: 12px;
+    cursor: pointer;
+    font-size: 22px;
+}
+
+/* escondemos el default checkbox */
+.modal-video input[type="checkbox"] {
+    position: absolute;
+    opacity: 0;
+    cursor: pointer;
+    height: 0;
+    width: 0;
+}
+
+.checkmark {
+    position: absolute;
+    top: 0;
+    left: 0;
+    height: 25px;
+    width: 25px;
+    background-color: #e9ecef;  
+    font-size: 18px;
+    text-align: center;
+    color: #e9ecef; 
+}
+
+/* Al pasar el mouse encima, lo ponemos gris */
+// .container-checkbox:hover input ~ .checkmark {
+//     background-color: #ccc;
+// }
+
+/* creamos el marcador (escondido al no seleccionar) */
+.checkmark:after {
+    content: "";
+    position: absolute;
+    display: none;
+}
+
+/* mostramos el marcador al seleccionar */
+.container-checkbox input:checked ~ .checkmark:after {
+    display: block;
+}
+
+/* estilo del marcador */
+.container-checkboxr .checkmark:after {
+    left: 9px;
+    top: 5px;
+    width: 5px;
+    height: 10px;
+    border: solid white;
+    border-width: 0 3px 3px 0;
+    -webkit-transform: rotate(45deg);
+    -ms-transform: rotate(45deg);
+    transform: rotate(45deg);
 }
 
 @media (max-width: 912px){

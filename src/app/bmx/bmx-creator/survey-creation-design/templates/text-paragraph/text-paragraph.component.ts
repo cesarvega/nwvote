@@ -17,10 +17,25 @@ export class TextParagraphComponent implements OnInit {
   ckconfig;
   projectName: any;
   previousText = '';
-  videoPath= '/assets/img/bmx/Robot.mp4';
+
+  VIDEO_PATH: any[] = [];
+
+  PATH1: any[] = [
+    '/assets/img/bmx/imagen1.JPG',
+    '/assets/img/bmx/imagen2.JPG',
+    '/assets/img/bmx/imagen3.JPG',
+  ]
+
+  PATH2: any[] = [
+    '/assets/img/bmx/imagen1.JPG',
+    '/assets/img/bmx/imagen2.JPG',
+    '/assets/img/bmx/imagen3.JPG',
+  ]
+  
   showModalVideo: boolean = true;
 
-  @ViewChild('videoLand') videoLand: ElementRef | any;
+  @ViewChild('modalChecked') modalChecked: ElementRef | any;
+
   constructor(private _bmxService: BmxService) { }
 
   ngOnInit(): void {
@@ -50,17 +65,39 @@ export class TextParagraphComponent implements OnInit {
       removeButtons: 'Smiley,tableselection,Image,Save,NewPage,Preview,Print,Templates,Replace,SelectAll,Form,Checkbox,Radio,TextField,Textarea,Find,Select,Button,ImageButton,HiddenField,CopyFormatting,CreateDiv,BidiLtr,BidiRtl,Language,Flash,PageBreak,Iframe,ShowBlocks,Cut,Copy,Paste,Table,Format,Source,Maximize,Styles,Anchor,SpecialChar,PasteFromWord,PasteText,Scayt,RemoveFormat,Indent,Outdent,Blockquote'
 
     }
+
     this.previousText = this.bmxItem.componentText
+    
+    if(localStorage.getItem('showModal') == "false"){
+      this.showModalVideo = false;
+    }
+
+    this.VIDEO_PATH = this.PATH1;
   }
 
+  // ngAfterViewInit(): void {
+  //   setTimeout(() => {
+  //     if (this.videoLand) {
+  //       const media = this.videoLand.nativeElement;
+  //       media.muted = true; // without this line it's not working although I have "muted" in HTML
+  //       media.play();
+  //     }
+  //   }, 0);
+  // }
+
   ngAfterViewInit(): void {
-    setTimeout(() => {
-      if (this.videoLand) {
-        const media = this.videoLand.nativeElement;
-        media.muted = true; // without this line it's not working although I have "muted" in HTML
-        media.play();
-      }
-    }, 0);
+    console.log(this.modalChecked.nativeElement.checked)
+  }
+
+  saveSelection(){
+   if(this.modalChecked.nativeElement.checked){
+      console.log('es verdadero')
+      localStorage.setItem('showModal', JSON.stringify(false));
+      console.log(JSON.parse(localStorage.getItem('showModal')));
+   }else{
+    console.log('es falso')
+   }
+    
   }
 
   replaceBiI_Markers() {
