@@ -67,7 +67,7 @@ export class TextParagraphComponent implements OnInit {
     }
 
     this.previousText = this.bmxItem.componentText
-    
+
     if(localStorage.getItem('showModal') == "false"){
       this.showModalVideo = false;
     }
@@ -86,7 +86,10 @@ export class TextParagraphComponent implements OnInit {
   // }
 
   ngAfterViewInit(): void {
-    console.log(this.modalChecked.nativeElement.checked)
+    if(this.modalChecked){
+      console.log(this.modalChecked.nativeElement.checked)
+    }
+    
   }
 
   saveSelection(){
