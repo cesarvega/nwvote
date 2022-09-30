@@ -8,7 +8,7 @@ import { Component, OnInit } from '@angular/core';
 
 export class ShowVideoComponent implements OnInit {
 
-  videoPath= '/assets/img/bmx/Robot.mp4';
+  videoPath= '/assets/img/bmx/tutorial/imageq.jpg';
   showModalVideo: boolean = true;
 
   constructor() { }
