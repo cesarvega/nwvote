@@ -23,7 +23,11 @@ export class TextParagraphComponent implements OnInit {
   PATH1: any[] = [
     '/assets/img/bmx/imagen1.JPG',
     '/assets/img/bmx/imagen2.JPG',
+    '/assets/img/bmx/imagen3-1.JPG',
+    '/assets/img/bmx/imagen6.JPG',
     '/assets/img/bmx/imagen3.JPG',
+    '/assets/img/bmx/imagen5.JPG',
+    '/assets/img/bmx/imagen7.JPG',
   ]
 
   PATH2: any[] = [

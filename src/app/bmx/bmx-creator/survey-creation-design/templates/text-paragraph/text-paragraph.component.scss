@@ -25,27 +25,31 @@
 
     /* Modal Content/Box */
     .modal-content {
-        background-color: #fefefe;
-        top: 25%;
+        background-color: rgb(0 0 0);
+        top: 20%;
         margin: 2% auto; /* 15% from the top and centered */
         margin-left: 2.5%;
         // padding: 20px;
         // border: 1px solid #888;
         width: 95%; /* Could be more or less, depending on screen size */
-        height: 25%;
+        height: 35%;
         overflow: scroll;
     
     }
     .close-modal {
         // margin-bottom: 5px;
+        position: absolute;
+        top: 65%;
+        margin-left: 36.5%;
         color: black;
-        background-color: rgb(0 0 0/ 30%);
+        background-color: #e9ecef;
         float: right;
-        font-size: 28px;
+        font-size: 22px;
         font-weight: bold;
         text-align: center;
         height: 25px;
-        width: 25px;
+        width: 25%;
+        border-radius: 5px;
     }
     
     .close-modal:hover,
@@ -74,6 +78,8 @@
     margin-bottom: 12px;
     cursor: pointer;
     font-size: 22px;
+    color: #e9ecef;
+
 }
 
 /* escondemos el default checkbox */

@@ -1,15 +1,14 @@
 <!-- <app-show-video></app-show-video> -->
 <div *ngIf="showModalVideo" id="myModal" class="modal-video">
-    <label class="container-checkbox">No volver a mostrar
+    <label class="container-checkbox">Don't show again
         <input (click)="saveSelection()" type="checkbox" value="Bike" #modalChecked> 
-        <span class="checkmark">&#x2714;</span>
-        <span class="close-modal" (click)="showModalVideo=false">&times;</span>
+        <span class="checkmark">&#x2714;</span>        
     </label>
-    
-    
+
     <div class="modal-content">
-        <img *ngFor="let path of VIDEO_PATH" [src]="path" alt="Girl in a jacket" style="margin-bottom: 10px">
+        <img *ngFor="let path of VIDEO_PATH" [src]="path" alt="Girl in a jacket" style="margin-bottom: 15px">
     </div>
+    <span class="close-modal" (click)="showModalVideo=false">Close</span>
 </div>
 <!-- modal end -->
 <button *ngIf="openSettings && bmxClientPageOverview" class="cancel" (click)=" replaceBiI_Markers(); openSettings = !openSettings"
