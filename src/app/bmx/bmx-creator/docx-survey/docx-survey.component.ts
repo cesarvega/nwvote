@@ -135,7 +135,7 @@ export class DocxSurveyComponent implements OnInit {
         responses: [],
       }
       recept.name = t[z].FirstName + " " + t[z].LastName;
-      recept.email = t[z].Username;
+      recept.email = t[z].Email;
       recept.Status = t[z].Status.toString();
       if (Number(recept.Status) < 0) {
         recept.Status = 'NS'
@@ -1166,11 +1166,11 @@ export class DocxSurveyComponent implements OnInit {
             a = [];
             if (comments.has(y.answers[k].nameCandidate+ "*" + y.answers[k].rationale) && (y.answers[k].comment !== "" && y.answers[k].comment !== undefined)) {
               a = comments.get(y.answers[k].nameCandidate+ "*" + y.answers[k].rationale)
-              a.push({ name: this.user[i].email, comment: y.answers[k].comment })
+              a.push({ name: this.user[i].name, comment: y.answers[k].comment })
               comments.set(y.answers[k].nameCandidate+ "*" + y.answers[k].rationale, a);
             }
             else if (!comments.has(y.answers[k].nameCandidate+ "*" + y.answers[k].rationale) && (y.answers[k].comment !== "" && y.answers[k].comment !== undefined)) {
-              a.push({ name: this.user[i].email, comment: y.answers[k].comment })
+              a.push({ name: this.user[i].name, comment: y.answers[k].comment })
               comments.set(y.answers[k].nameCandidate+ "*" + y.answers[k].rationale, a);
             }
 
@@ -1475,18 +1475,18 @@ export class DocxSurveyComponent implements OnInit {
               var temp = page.get(y.page)
               if (temp.has(y.answers[k].nameCandidate+ "*" + y.answers[k].rationale)) {
                 a = temp.get(y.answers[k].nameCandidate+ "*" + y.answers[k].rationale);
-                a.push({ name: this.user[i].email, value: y.answers[k].score })
+                a.push({ name: this.user[i].name, value: y.answers[k].score })
                 temp.set(y.answers[k].nameCandidate+ "*" + y.answers[k].rationale, a)
                 page.set(y.page, temp)
               }
               else {
-                a.push({ name: this.user[i].email, value: y.answers[k].score })
+                a.push({ name: this.user[i].name, value: y.answers[k].score })
                 temp.set(y.answers[k].nameCandidate+ "*" + y.answers[k].rationale, a)
                 page.set(y.page, temp);
               }
             }
             else {
-              a.push({ name: this.user[i].email, value: y.answers[k].score })
+              a.push({ name: this.user[i].name, value: y.answers[k].score })
               var names = new Map();
               names.set(y.answers[k].nameCandidate+ "*" + y.answers[k].rationale, a)
               page.set(y.page, names);
@@ -1810,14 +1810,14 @@ export class DocxSurveyComponent implements OnInit {
             for (var k = 0; k < y.answers.length; k++) {
               a = [];
 
-              if (comments.has(x.email) && y.answers[k].score.length !== 0) {
-                a = comments.get(x.email)
+              if (comments.has(x.name) && y.answers[k].score.length !== 0) {
+                a = comments.get(x.name)
                 a.push({ question: y.answers[k].nameCandidate+ "*" + y.answers[k].rationale, score: y.answers[k].score.toString() })
-                comments.set(x.email, a);
+                comments.set(x.name, a);
               }
-              else if (!comments.has(x.email) && y.answers[k].score.length !== 0) {
+              else if (!comments.has(x.name) && y.answers[k].score.length !== 0) {
                 a.push({ question: y.answers[k].nameCandidate+ "*" + y.answers[k].rationale, score: y.answers[k].score.toString() })
-                comments.set(x.email, a);
+                comments.set(x.name, a);
               }
             }
           }
@@ -1838,14 +1838,14 @@ export class DocxSurveyComponent implements OnInit {
           for (var k = 0; k < y.answers.length; k++) {
             a = [];
 
-            if (comments.has(x.email) && y.answers[k].score.length !== 0) {
-              a = comments.get(x.email)
+            if (comments.has(x.name) && y.answers[k].score.length !== 0) {
+              a = comments.get(x.name)
               a.push({ question: y.answers[k].nameCandidate + "*" + y.answers[k].rationale, score: y.answers[k].score })
-              comments.set(x.email, a);
+              comments.set(x.name, a);
             }
-            else if (!comments.has(x.email) && y.answers[k].score.length !== 0) {
+            else if (!comments.has(x.name) && y.answers[k].score.length !== 0) {
               a.push({ question: y.answers[k].nameCandidate+ "*" + y.answers[k].rationale, score: y.answers[k].score })
-              comments.set(x.email, a);
+              comments.set(x.name, a);
             }
           }
         }
