@@ -58,6 +58,8 @@ import { ScrollingModule } from '@angular/cdk/scrolling';
 import { CdkTreeModule } from '@angular/cdk/tree';
 import { A11yModule } from '@angular/cdk/a11y';
 import { DialogComponent } from './bmx/bmx-creator/participants-email/dialog/dialog.component';
+import { ShowVideoComponent } from './bmx/bmx-creator/survey-creation-design/templates/show-video/show-video.component';
+
 export function loadEcharts() {
   return import('echarts');
 }
@@ -77,16 +79,7 @@ export function loadEcharts() {
     // BmxComponent,
     SchedulerComponent,
     DialogComponent,
-   
-    
-
-
-
-
-
-
-
-
+    ShowVideoComponent,
     // BmxCreatorComponent,
     // SafePipe,
     // OrderDasboardComponent
