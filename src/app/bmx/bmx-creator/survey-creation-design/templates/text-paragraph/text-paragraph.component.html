@@ -1,3 +1,16 @@
+<!-- <app-show-video></app-show-video> -->
+<!-- <div *ngIf="showModalVideo" id="myModal" class="modal-video">
+    <label class="container-checkbox">Don't show again
+        <input (click)="saveSelection()" type="checkbox" value="Bike" #modalChecked> 
+        <span class="checkmark">&#x2714;</span>        
+    </label>
+
+    <div class="modal-content">
+        <img *ngFor="let path of VIDEO_PATH" [src]="path" alt="Girl in a jacket">
+    </div>
+    <span class="close-modal" (click)="showModalVideo=false">Close</span>
+</div> -->
+<!-- modal end -->
 <button *ngIf="openSettings && bmxClientPageOverview" class="cancel" (click)=" replaceBiI_Markers(); openSettings = !openSettings"
     mat-icon-button>
     <mat-icon class="full-icon" style="font-size: 25px;">check_circle</mat-icon>
@@ -11,8 +24,9 @@
     <ckeditor *ngIf="openSettings && bmxClientPageOverview" id="txtTexto" class="ckeditorcev"
         style="animation: fadeIn 0.5s ease forwards;" [ngModelOptions]="{standalone: true}"
         [(ngModel)]="bmxItem.componentText" [data]="bmxItem.componentText" [config]="ckconfig">
-    </ckeditor>
+    </ckeditor>    
 </div>
+
 
 <!-- <div style="display: flex;justify-content: space-around; align-items: center;width: 90vw;">
     <div style="text-align: left;width: 400px;">

@@ -620,7 +620,7 @@ export class RatingScaleComponent implements OnInit {
       if (index > 0) {
         object[coulmnName] = ''
       } else {
-        object[coulmnName] = 'General Comments'
+        object[coulmnName] = 'Comments'
       }
     });
 
