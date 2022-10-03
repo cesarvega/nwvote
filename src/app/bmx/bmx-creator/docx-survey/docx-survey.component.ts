@@ -69,9 +69,10 @@ export class DocxSurveyComponent implements OnInit {
   projectId = 'topRankDropDown';
   data;
   biLogo;
+  companyLogo;
 
   constructor(private _hotkeysService: HotkeysService, private dragulaService: DragulaService, private _BmxService: BmxService, private http: HttpClient) { }
-  ngOnInit(): void {
+  ngOnInit(): any {
     const fs = require('fs');
     this.selection = new SelectionModel<any>(true, []);
     this._BmxService.currentprojectData$.subscribe((projectData) => {
@@ -83,6 +84,8 @@ export class DocxSurveyComponent implements OnInit {
       localStorage.setItem('projectName', this.projectId);
       this._BmxService.getBrandMatrixByProjectAllUserAnswers(this.projectId)
         .subscribe(async (arg: any) => {
+          const data = JSON.parse(arg.d);
+          this.companyLogo = JSON.parse(data[0].BrandMatrix)[0].page[0].componentSettings[0].companyLogoURL;
           this.user = await this.createDataObject(JSON.parse(arg.d));
           this.changeView();
           //this.completedStatus(this.user);
@@ -108,22 +111,11 @@ export class DocxSurveyComponent implements OnInit {
 
         });
     });
-
-    this.http.get('./assets/img/logoSite.jpg', { responseType: 'blob' })
-      .subscribe(data => {
-
-        this.biLogo = new Blob([data], { type: "image/jpg" })
-      });
-
-
-
-
-
-
   }
 
   async createDataObject(t: any): Promise<any> {
     var done = [];
+    this.companyLogo = await this.imageToBuffer(this.companyLogo);
     this.projectName = t[0].ProjectName;
     for (var z = 0; z < t.length; z++) {
       var hasData = false;
@@ -135,7 +127,7 @@ export class DocxSurveyComponent implements OnInit {
         responses: [],
       }
       recept.name = t[z].FirstName + " " + t[z].LastName;
-      recept.email = t[z].Username;
+      recept.email = t[z].Email;
       recept.Status = t[z].Status.toString();
       if (Number(recept.Status) < 0) {
         recept.Status = 'NS'
@@ -1166,11 +1158,11 @@ export class DocxSurveyComponent implements OnInit {
             a = [];
             if (comments.has(y.answers[k].nameCandidate+ "*" + y.answers[k].rationale) && (y.answers[k].comment !== "" && y.answers[k].comment !== undefined)) {
               a = comments.get(y.answers[k].nameCandidate+ "*" + y.answers[k].rationale)
-              a.push({ name: this.user[i].email, comment: y.answers[k].comment })
+              a.push({ name: this.user[i].name, comment: y.answers[k].comment })
               comments.set(y.answers[k].nameCandidate+ "*" + y.answers[k].rationale, a);
             }
             else if (!comments.has(y.answers[k].nameCandidate+ "*" + y.answers[k].rationale) && (y.answers[k].comment !== "" && y.answers[k].comment !== undefined)) {
-              a.push({ name: this.user[i].email, comment: y.answers[k].comment })
+              a.push({ name: this.user[i].name, comment: y.answers[k].comment })
               comments.set(y.answers[k].nameCandidate+ "*" + y.answers[k].rationale, a);
             }
 
@@ -1475,18 +1467,18 @@ export class DocxSurveyComponent implements OnInit {
               var temp = page.get(y.page)
               if (temp.has(y.answers[k].nameCandidate+ "*" + y.answers[k].rationale)) {
                 a = temp.get(y.answers[k].nameCandidate+ "*" + y.answers[k].rationale);
-                a.push({ name: this.user[i].email, value: y.answers[k].score })
+                a.push({ name: this.user[i].name, value: y.answers[k].score })
                 temp.set(y.answers[k].nameCandidate+ "*" + y.answers[k].rationale, a)
                 page.set(y.page, temp)
               }
               else {
-                a.push({ name: this.user[i].email, value: y.answers[k].score })
+                a.push({ name: this.user[i].name, value: y.answers[k].score })
                 temp.set(y.answers[k].nameCandidate+ "*" + y.answers[k].rationale, a)
                 page.set(y.page, temp);
               }
             }
             else {
-              a.push({ name: this.user[i].email, value: y.answers[k].score })
+              a.push({ name: this.user[i].name, value: y.answers[k].score })
               var names = new Map();
               names.set(y.answers[k].nameCandidate+ "*" + y.answers[k].rationale, a)
               page.set(y.page, names);
@@ -1810,14 +1802,14 @@ export class DocxSurveyComponent implements OnInit {
             for (var k = 0; k < y.answers.length; k++) {
               a = [];
 
-              if (comments.has(x.email) && y.answers[k].score.length !== 0) {
-                a = comments.get(x.email)
+              if (comments.has(x.name) && y.answers[k].score.length !== 0) {
+                a = comments.get(x.name)
                 a.push({ question: y.answers[k].nameCandidate+ "*" + y.answers[k].rationale, score: y.answers[k].score.toString() })
-                comments.set(x.email, a);
+                comments.set(x.name, a);
               }
-              else if (!comments.has(x.email) && y.answers[k].score.length !== 0) {
+              else if (!comments.has(x.name) && y.answers[k].score.length !== 0) {
                 a.push({ question: y.answers[k].nameCandidate+ "*" + y.answers[k].rationale, score: y.answers[k].score.toString() })
-                comments.set(x.email, a);
+                comments.set(x.name, a);
               }
             }
           }
@@ -1838,14 +1830,14 @@ export class DocxSurveyComponent implements OnInit {
           for (var k = 0; k < y.answers.length; k++) {
             a = [];
 
-            if (comments.has(x.email) && y.answers[k].score.length !== 0) {
-              a = comments.get(x.email)
+            if (comments.has(x.name) && y.answers[k].score.length !== 0) {
+              a = comments.get(x.name)
               a.push({ question: y.answers[k].nameCandidate + "*" + y.answers[k].rationale, score: y.answers[k].score })
-              comments.set(x.email, a);
+              comments.set(x.name, a);
             }
-            else if (!comments.has(x.email) && y.answers[k].score.length !== 0) {
+            else if (!comments.has(x.name) && y.answers[k].score.length !== 0) {
               a.push({ question: y.answers[k].nameCandidate+ "*" + y.answers[k].rationale, score: y.answers[k].score })
-              comments.set(x.email, a);
+              comments.set(x.name, a);
             }
           }
         }
@@ -1943,7 +1935,6 @@ export class DocxSurveyComponent implements OnInit {
 
   report(): void {
 
-    
 
     var temp = this.user;
     this.user = this.RESPONDENTS_LIST
@@ -2038,7 +2029,7 @@ export class DocxSurveyComponent implements OnInit {
         alignment: AlignmentType.LEFT,
         children: [
           new ImageRun({
-            data: this.biLogo/*Buffer.from(this.bi, "base64")*/,
+            data: Buffer.from(this.bi, "base64"),
             transformation: {
               width: 100,
               height: 100,
@@ -2056,11 +2047,11 @@ export class DocxSurveyComponent implements OnInit {
             },
           }),
           new ImageRun({
-            data: this.image,
-            transformation: {
-              width: 100,
-              height: 100,
-            },
+            data: Buffer.from(this.companyLogo, "base64"),
+                    transformation: {
+                      width: 280,
+                      height: 56,
+                    },
             floating: {
               zIndex: 5,
               horizontalPosition: {
