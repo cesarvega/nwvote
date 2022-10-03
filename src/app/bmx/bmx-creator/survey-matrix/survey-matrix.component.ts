@@ -69,15 +69,14 @@ export class SurveyMatrixComponent extends SurveyCreationDesignComponent impleme
   ]
 
   PATH2: any[] = [
-    '/assets/img/bmx/imagen1.JPG',
-    '/assets/img/bmx/imagen2.JPG',
-    '/assets/img/bmx/imagen3.JPG',
+    '/assets/img/bmx/tutorial/img-desktop1.JPG',
+    '/assets/img/bmx/tutorial/img-desktop2.JPG',  
   ]
 
 
   //----------end modal------//
 
-  constructor(@Inject(DOCUMENT) document: any, activatedRoute: ActivatedRoute,
+  constructor(@Inject(DOCUMENT) document: any, activatedRoute: ActivatedRoute,private route: ActivatedRoute,
    _hotkeysService: HotkeysService, dragulaService: DragulaService, public _snackBar: MatSnackBar, _BmxService: BmxService
   ) {
     super(document, _BmxService, _snackBar, activatedRoute);
@@ -154,6 +153,7 @@ export class SurveyMatrixComponent extends SurveyCreationDesignComponent impleme
           },
       },
     });
+    
     if(!this.username){
       this._BmxService.getMatrixClient(this.projectId).subscribe((data: any) => {
         this.bmxClientPageDesignMode = true;
@@ -344,15 +344,6 @@ export class SurveyMatrixComponent extends SurveyCreationDesignComponent impleme
                 });
             }
           });
-
-
-
-
-
-
-
-
-
       });
     } else {
       this.bmxClientPageDesignMode = true;
@@ -403,9 +394,6 @@ export class SurveyMatrixComponent extends SurveyCreationDesignComponent impleme
                       // SET SURVEY LANGUAGE
                       if (component.componentSettings[0].language == 'Japanese') {
                         this.surveyLanguage = component.componentSettings[0].language;
-  
-  
-  
                       }
                       // GREETING MESSAGE
                       let message = ''
@@ -543,7 +531,16 @@ export class SurveyMatrixComponent extends SurveyCreationDesignComponent impleme
       this.showModalVideo = false;
     }
 
-    this.VIDEO_PATH = this.PATH1
+    const typeDevice = this.route.snapshot.paramMap.get('id');
+    console.log(typeof typeDevice);
+
+    if(typeDevice == '3CA87AA8-E8B4-4417-B8D5-9621F4A47A54'){
+      this.VIDEO_PATH = this.PATH1;
+    }else{
+      this.VIDEO_PATH = this.PATH2;
+    }
+
+    
   
   }
 
