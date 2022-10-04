@@ -2,7 +2,6 @@
     <div style="flex-direction: column;" class="bmx-page" *ngIf="isMenuActive11" [dragula]="(isMobile)?'TASKS':''"
         (dragulaModelChange)="checkDragEvetn($event);" [(dragulaModel)]="bmxPages[currentPage].page">
 
-
         <!-- BRAND MATRIX MODULAR TEMPLATE COMPONENTS  🧑🏻‍🚀🧑🏻‍🚀🧑🏻‍🚀🧑🏻‍🚀🧑🏻‍🚀🧑🏻‍🚀🧑🏻‍🚀🧑🏻‍🚀🧑🏻‍🚀🧑🏻‍🚀🧑🏻‍🚀🧑🏻‍🚀🧑🏻‍🚀 -->
         <div *ngFor="let bmxItem of bmxPages[currentPage].page; let i = index"
             style="display: flex;flex-direction: column;margin: 10px;align-content: center;">
@@ -37,7 +36,7 @@
             </div>
             <!--😋😋😋😋😋😋😋😋😋😋😋😋😋😋😋😋😋😋😋😋😋😋😋😋😋😋😋😋😋😋😋😋😋😋😋😋😋😋 END BMX HEADER  -->
 
-
+            
             <!-- BMX PARAGRAPH EDITOR 📑📑📑📑📑📑📑📑📑📑📑📑📑📑📑📑📑📑📑📑📑📑📑📑📑📑📑📑📑📑 -->
             <div *ngIf="bmxItem.componentType === 'text-editor'" class="paragraph">
                 <div class="emoji-handle">.</div>
@@ -47,7 +46,7 @@
                         aria-label="delte">
                         <mat-icon style="font-size: 17px;">cancel</mat-icon>
                     </button>
-                </div>
+                </div>                    
                 <app-text-paragraph [bmxItem]="bmxItem" [i]="i" [bmxClientPageDesignMode]="bmxClientPageDesignMode"
                     [bmxClientPageOverview]="bmxClientPageOverview"></app-text-paragraph>
             </div>

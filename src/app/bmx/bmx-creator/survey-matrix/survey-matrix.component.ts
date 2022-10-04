@@ -52,6 +52,31 @@ export class SurveyMatrixComponent extends SurveyCreationDesignComponent impleme
   totalOfpages = 0
   continueButtonToComple = 'Continue';
 
+  //------modal-----------//
+  showModalVideo: boolean = true;
+  @ViewChild('modalChecked') modalChecked: ElementRef | any;
+
+  VIDEO_PATH: any[] = [];
+
+  PATH1: any[] = [
+    '/assets/img/bmx/tutorial/imagen1.JPG',
+    '/assets/img/bmx/tutorial/imagen2.JPG',
+    '/assets/img/bmx/tutorial/imagen3-1.JPG',
+    '/assets/img/bmx/tutorial/imagen6.JPG',
+    '/assets/img/bmx/tutorial/imagen3.JPG',
+    '/assets/img/bmx/tutorial/imagen5.JPG',
+    '/assets/img/bmx/tutorial/imagen7.JPG',
+  ]
+
+  PATH2: any[] = [
+    '/assets/img/bmx/imagen1.JPG',
+    '/assets/img/bmx/imagen2.JPG',
+    '/assets/img/bmx/imagen3.JPG',
+  ]
+
+
+  //----------end modal------//
+
   constructor(@Inject(DOCUMENT) document: any, activatedRoute: ActivatedRoute,
    _hotkeysService: HotkeysService, dragulaService: DragulaService, public _snackBar: MatSnackBar, _BmxService: BmxService
   ) {
@@ -137,8 +162,8 @@ export class SurveyMatrixComponent extends SurveyCreationDesignComponent impleme
 
         data = JSON.parse(data.d);
         this.username = data.UserName
-        this.firstName = data.FirstName
-        this.lastName = data.LastName
+        this.firstName = data.FirstName.replace(/,/g, ' ');
+        this.lastName = data.LastName.replace(/,/g, ' ');
         this.projectId = data.ProjectName
 
         this.qrCode.append(this.canvas.nativeElement);
@@ -199,7 +224,7 @@ export class SurveyMatrixComponent extends SurveyCreationDesignComponent impleme
                         setTimeout(() => {
                           this._snackBar.open(
 
-                            message + this.firstName.toUpperCase() + '  😉',
+                            message + this.firstName.toUpperCase() + ' ' + this.lastName.toUpperCase()  + '  😉',
                             '',
                             {
                               duration: 4000,
@@ -287,7 +312,7 @@ export class SurveyMatrixComponent extends SurveyCreationDesignComponent impleme
     
                           setTimeout(() => {
                             this._snackBar.open(
-                              message + this.firstName.toUpperCase() + '  😉',
+                              message + this.firstName.toUpperCase() + ' ' + this.lastName.toUpperCase()  + '  😉',
                               '',
                               {
                                 duration: 4000,
@@ -514,7 +539,35 @@ export class SurveyMatrixComponent extends SurveyCreationDesignComponent impleme
         });
     }
 
+    if(localStorage.getItem('showModal') == "false"){
+      this.showModalVideo = false;
+    }
+
+    this.VIDEO_PATH = this.PATH1
   
+  }
+
+  ngAfterViewInit(): void {
+    if(this.modalChecked){
+      console.log(this.modalChecked.nativeElement.checked)
+    }
+    
+  }
+
+  saveSelection(){
+    if(this.modalChecked.nativeElement.checked){
+       console.log('es verdadero')
+       localStorage.setItem('showModal', JSON.stringify(false));
+       console.log(JSON.parse(localStorage.getItem('showModal')));
+    }else{
+     console.log('es falso')
+    }
+  }
+
+  seeTutorial(){
+    localStorage.removeItem('showModal');
+    this.showModalVideo = true;
+    
   }
 
   radomizedTestNames(component) {
