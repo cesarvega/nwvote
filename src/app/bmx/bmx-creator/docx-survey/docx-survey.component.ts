@@ -329,6 +329,7 @@ export class DocxSurveyComponent implements OnInit {
       )
     }
     return new TableRow({
+      tableHeader: true,
       children: arr,
     });
 
@@ -2927,8 +2928,17 @@ export class DocxSurveyComponent implements OnInit {
 
         ],
       },
+      
       sections: [
         {
+          properties: {
+            page: {
+                margin:{
+                  left: 500,
+                  right: 500
+                }
+            },
+        },
           footers: {
             default: new Footer({
               children: [
@@ -3091,6 +3101,7 @@ export class DocxSurveyComponent implements OnInit {
               ],
             }),
           },
+          
           children: reportParts
         },
       ],
