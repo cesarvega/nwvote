@@ -223,6 +223,12 @@
         bottom: 10px;
     }    
 }
+
+.see-tutorial{
+    right: 10%;
+    top: -8%
+}
+
 //mobile
 @media (max-width: 576px) {
     .page-design {
@@ -278,6 +284,11 @@
     .modal-video .close-modal{
         margin-left: 42.5%;
         width: 15%;
+    }
+
+    .see-tutorial{
+        right: 2%;
+        top: -12%
     }
     
 }
