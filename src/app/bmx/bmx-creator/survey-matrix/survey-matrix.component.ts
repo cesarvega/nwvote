@@ -19,6 +19,8 @@ import { SurveyCreationDesignComponent } from '../survey-creation-design/survey-
 import { MatSnackBar } from '@angular/material/snack-bar';
 import QRCodeStyling from 'qr-code-styling';
 import { defineCustomElements } from '@teamhive/lottie-player/loader';
+import { DeviceDetectorService } from 'ngx-device-detector';
+
 defineCustomElements(window);
 @Component({
   selector: 'app-survey-matrix',
@@ -73,10 +75,12 @@ export class SurveyMatrixComponent extends SurveyCreationDesignComponent impleme
     '/assets/img/bmx/tutorial/img-desktop2.JPG',  
   ]
 
+  deviceInfo = null;
+  public isDesktopDevice: any = null;
 
   //----------end modal------//
 
-  constructor(@Inject(DOCUMENT) document: any, activatedRoute: ActivatedRoute,private route: ActivatedRoute,
+  constructor(@Inject(DOCUMENT) document: any, activatedRoute: ActivatedRoute,private deviceService: DeviceDetectorService,
    _hotkeysService: HotkeysService, dragulaService: DragulaService, public _snackBar: MatSnackBar, _BmxService: BmxService
   ) {
     super(document, _BmxService, _snackBar, activatedRoute);
@@ -85,9 +89,23 @@ export class SurveyMatrixComponent extends SurveyCreationDesignComponent impleme
       this.username = params['username'];
       localStorage.setItem('projectId', this.projectId);
     });
+    this.epicFunction();    
+  }
+
+  epicFunction() {
+    console.log('hello `Home` component');
+    this.deviceInfo = this.deviceService.getDeviceInfo();
+    const isMobile = this.deviceService.isMobile();
+    const isTablet = this.deviceService.isTablet();
+    this.isDesktopDevice = this.deviceService.isDesktop();
+    console.log(this.deviceInfo);
+    console.log(isMobile);  // returns if the device is a mobile device (android / iPhone / windows-phone etc)
+    console.log(isTablet);  // returns if the device us a tablet (iPad etc)
+    //console.log(isDesktopDevice); // returns if the app is running on a Desktop browser.
   }
 
   ngOnInit(): void {
+   
     if(!this.username){
       this.myAngularxQrCode =  this.myAngularxQrCode + this.projectId
     }else{
@@ -210,9 +228,6 @@ export class SurveyMatrixComponent extends SurveyCreationDesignComponent impleme
                         // SET SURVEY LANGUAGE
                         if (component.componentSettings[0].language == 'Japanese') {
                           this.surveyLanguage = component.componentSettings[0].language;
-    
-    
-    
                         }
                         // GREETING MESSAGE
                         let message = ''
@@ -531,17 +546,11 @@ export class SurveyMatrixComponent extends SurveyCreationDesignComponent impleme
       this.showModalVideo = false;
     }
 
-    const typeDevice = this.route.snapshot.paramMap.get('id');
-    console.log(typeof typeDevice);
-
-    if(typeDevice == '3CA87AA8-E8B4-4417-B8D5-9621F4A47A54'){
-      this.VIDEO_PATH = this.PATH1;
-    }else{
+    if(this.isDesktopDevice){
       this.VIDEO_PATH = this.PATH2;
+    }else{
+      this.VIDEO_PATH = this.PATH1;
     }
-
-    
-  
   }
 
   ngAfterViewInit(): void {
