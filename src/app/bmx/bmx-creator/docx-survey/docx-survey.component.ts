@@ -116,6 +116,7 @@ export class DocxSurveyComponent implements OnInit {
   async createDataObject(t: any): Promise<any> {
     var done = [];
     this.companyLogo = await this.imageToBuffer(this.companyLogo);
+    this.biLogo = await this.imageToBuffer('https://tools.brandinstitute.com/bmresources/brandInstituteAssets/bi-logo.PNG');
     this.projectName = t[0].ProjectName;
     for (var z = 0; z < t.length; z++) {
       var hasData = false;
@@ -130,10 +131,11 @@ export class DocxSurveyComponent implements OnInit {
       recept.email = t[z].Email;
       recept.Status = t[z].Status.toString();
       if (Number(recept.Status) < 0) {
-        recept.Status = 'NS'
+        recept.Status = 'Not started'
       }
       else if (Number(recept.Status) === 999) {
-        recept.Status = 'F'
+        recept.Status = 'Finished'
+        this.completed++;
       }
       else {
         Number(recept.Status)
@@ -327,6 +329,7 @@ export class DocxSurveyComponent implements OnInit {
       )
     }
     return new TableRow({
+      tableHeader: true,
       children: arr,
     });
 
@@ -528,7 +531,11 @@ export class DocxSurveyComponent implements OnInit {
                     size: 40,
                     type: WidthType.PERCENTAGE,
                   },
-
+                  margins:
+                  {
+                    left: 500,
+                    right: 500
+                  },
                   children: [new Paragraph({
                     spacing: {
                       before: 200,
@@ -985,6 +992,11 @@ export class DocxSurveyComponent implements OnInit {
                     size: 33,
                     type: WidthType.PERCENTAGE,
                   },
+                  margins:
+                  {
+                    left: 500,
+                    right: 500
+                  },
                   children: [new Paragraph({
                     spacing: {
                       before: 200,
@@ -1330,6 +1342,11 @@ export class DocxSurveyComponent implements OnInit {
                       size: 30,
                       type: WidthType.PERCENTAGE,
                     },
+                    margins:
+                  {
+                    left: 500,
+                    right: 500
+                  },
                     children: [new Paragraph({
                       spacing: {
                         before: 200,
@@ -1627,6 +1644,11 @@ export class DocxSurveyComponent implements OnInit {
               size: 30,
               type: WidthType.PERCENTAGE,
             },
+            margins:
+                  {
+                    left: 500,
+                    right: 500
+                  },
             children: [new Paragraph({
               spacing: {
                 before: 200,
@@ -1880,13 +1902,13 @@ export class DocxSurveyComponent implements OnInit {
   changeView(): void {
     this.viewedData = [];
     for (let i = 0; i < this.user.length; i++) {
-      if (this.selected == 'NS' && this.user[i].Status == 'NS') {
+      if (this.selected == 'NS' && this.user[i].Status == 'Not started') {
         this.viewedData.push(this.user[i])
       }
-      else if (this.selected == 'NF' && this.user[i].Status == 'NF') {
+      else if (this.selected == 'NF' && this.user[i].Status != 'Not started' && this.user[i].Status != 'Finished') {
         this.viewedData.push(this.user[i])
       } 
-      else if (this.selected == 'F' && this.user[i].Status == 'F') { 
+      else if (this.selected == 'F' && this.user[i].Status == 'Finished') { 
         this.viewedData.push(this.user[i])
       }
       else if (this.selected == 'All') {
@@ -2029,10 +2051,10 @@ export class DocxSurveyComponent implements OnInit {
         alignment: AlignmentType.LEFT,
         children: [
           new ImageRun({
-            data: Buffer.from(this.bi, "base64"),
+            data: Buffer.from(this.biLogo, "base64"),
             transformation: {
-              width: 100,
-              height: 100,
+              width: 120,
+              height: 75,
             },
             floating: {
               zIndex: 5,
@@ -2315,170 +2337,6 @@ export class DocxSurveyComponent implements OnInit {
           }),
         ]
       }),
-      new Table({
-        rows: [
-          new TableRow({
-
-            children: [
-              new TableCell({
-                width: {
-                  size: 60,
-                  type: WidthType.PERCENTAGE,
-                },
-                children: [
-                  new Paragraph({
-                    alignment: AlignmentType.LEFT,
-                    spacing: {
-                      after: 200,
-                    },
-
-                    children:
-                      [
-                        new TextRun
-                          (
-                            {
-                              text: "Prepared for:",
-                              font:
-                              {
-                                name: "Calibri",
-                              },
-                              size: 20,
-                            }
-                          ),
-                        new TextRun
-                          (
-                            {
-                              text: "",
-                              font: {
-                                name: "Calibri",
-                              },
-                              size: 20,
-                              break: 2
-                            }
-                          ),
-                        new TextRun
-                          (
-                            {
-                              text: "CONTACTNAME",
-                              font: {
-                                name: "Calibri",
-                              },
-                              size: 40,
-                            }
-                          ),
-                        new TextRun({
-                          text: "Contact Title",
-                          font: {
-                            name: "Calibri",
-                          },
-                          size: 20,
-                          break: 1
-                        }),
-                        new TextRun({
-                          text: "COMPANYNAME",
-                          bold: true,
-                          font: {
-                            name: "Calibri",
-                          },
-                          size: 20,
-                          break: 2,
-                        }),
-                        new TextRun({
-                          text: "ADDRESS INFORMATION",
-                          font: {
-                            name: "Calibri",
-                          },
-                          break: 1,
-                          size: 20,
-                        }),
-                        new TextRun({
-                          text: "P ",
-                          bold: true,
-                          font: {
-                            name: "Calibri",
-                          },
-                          size: 20,
-                          break: 1,
-                        }),
-                        new TextRun({
-                          text: "555-555-5555 | ",
-                          font: {
-                            name: "Calibri",
-                          },
-                          size: 20,
-                          italics: true,
-                        }),
-                        new TextRun({
-                          text: "E ",
-                          bold: true,
-                          font: {
-                            name: "Calibri",
-                          },
-                          size: 20,
-                        }),
-                        new TextRun({
-                          text: "FirstLastname@companyname.com",
-                          font: {
-                            name: "Calibri",
-                          },
-                          size: 20,
-                          style: "Hyperlink",
-                        }),
-                      ],
-                  }),
-                ],
-                rowSpan: 2,
-              }),
-              new TableCell({
-
-                children: [
-                  new Paragraph({
-                    alignment: AlignmentType.CENTER,
-                    children: [
-                      new ImageRun({
-                        data: Buffer.from(this.bi, "base64"),
-                        transformation: {
-                          width: 100,
-                          height: 100,
-                        },
-                      }),
-                    ]
-                  })
-                ],
-              }),
-            ],
-          }),
-          new TableRow({
-
-            children: [
-              new TableCell({
-                verticalAlign: VerticalAlign.CENTER,
-                children: [
-                  new Paragraph({
-                    alignment: AlignmentType.CENTER,
-                    children: [
-                      new TextRun({
-                        text: "Report Generated",
-                        size: 20,
-                      }),
-                      new TextRun({
-                        text: "11.22.21",
-                        size: 28,
-                        break: 1,
-                        bold: true,
-                      }),
-                    ]
-                  })
-                ],
-              }),
-            ],
-          }),
-        ],
-        width: {
-          size: 100,
-          type: WidthType.PERCENTAGE,
-        },
-      }),
       new Paragraph({
         pageBreakBefore: true,
       }),
@@ -2487,30 +2345,30 @@ export class DocxSurveyComponent implements OnInit {
         style: "MySpectacularStyle",
         shading: {
           type: ShadingType.SOLID,
-          color: "0F6FC6",
-          fill: "0F6FC6",
+          color: "0021A5",
+          fill: "0021A5",
         },
         border: {
           top: {
-            color: "0F6FC6",
+            color: "0021A5",
             space: 1,
             style: BorderStyle.SINGLE,
             size: 6,
           },
           bottom: {
-            color: "0F6FC6",
+            color: "0021A5",
             space: 1,
             style: BorderStyle.SINGLE,
             size: 6,
           },
           left: {
-            color: "0F6FC6",
+            color: "0021A5",
             space: 1,
             style: BorderStyle.SINGLE,
             size: 6,
           },
           right: {
-            color: "0F6FC6",
+            color: "0021A5",
             space: 1,
             style: BorderStyle.SINGLE,
             size: 6,
@@ -2539,12 +2397,12 @@ export class DocxSurveyComponent implements OnInit {
 
 
       }),
-
+      
       new TableOfContents("Summary", {
         hyperlink: true,
         headingStyleRange: "1-5",
-        stylesWithLevels: [new StyleLevel("MySpectacularStyle", 1)],
-      }),
+        stylesWithLevels: [new StyleLevel("TOC1", 1)],
+    }),
     )
 
     if (this.reportSettings.displayCompletionStatus) {
@@ -2566,30 +2424,30 @@ export class DocxSurveyComponent implements OnInit {
         style: "MySpectacularStyle",
         shading: {
           type: ShadingType.SOLID,
-          color: "0F6FC6",
-          fill: "0F6FC6",
+          color: "0021A5",
+          fill: "0021A5",
         },
         border: {
           top: {
-            color: "0F6FC6",
+            color: "0021A5",
             space: 1,
             style: BorderStyle.SINGLE,
             size: 6,
           },
           bottom: {
-            color: "0F6FC6",
+            color: "0021A5",
             space: 1,
             style: BorderStyle.SINGLE,
             size: 6,
           },
           left: {
-            color: "0F6FC6",
+            color: "0021A5",
             space: 1,
             style: BorderStyle.SINGLE,
             size: 6,
           },
           right: {
-            color: "0F6FC6",
+            color: "0021A5",
             space: 1,
             style: BorderStyle.SINGLE,
             size: 6,
@@ -2677,7 +2535,7 @@ export class DocxSurveyComponent implements OnInit {
               children: [
                 new TableCell({
                   shading: {
-                    fill: "F48613",
+                    fill: "FF4616",
                     type: ShadingType.CLEAR,
                     color: "auto",
                   },
@@ -2759,30 +2617,30 @@ export class DocxSurveyComponent implements OnInit {
           style: "MySpectacularStyle",
           shading: {
             type: ShadingType.SOLID,
-            color: "0F6FC6",
-            fill: "0F6FC6",
+            color: "0021A5",
+            fill: "0021A5",
           },
           border: {
             top: {
-              color: "0F6FC6",
+              color: "0021A5",
               space: 1,
               style: BorderStyle.SINGLE,
               size: 6,
             },
             bottom: {
-              color: "0F6FC6",
+              color: "0021A5",
               space: 1,
               style: BorderStyle.SINGLE,
               size: 6,
             },
             left: {
-              color: "0F6FC6",
+              color: "0021A5",
               space: 1,
               style: BorderStyle.SINGLE,
               size: 6,
             },
             right: {
-              color: "0F6FC6",
+              color: "0021A5",
               space: 1,
               style: BorderStyle.SINGLE,
               size: 6,
@@ -2828,30 +2686,30 @@ export class DocxSurveyComponent implements OnInit {
             style: "MySpectacularStyle",
             shading: {
               type: ShadingType.SOLID,
-              color: "0F6FC6",
-              fill: "0F6FC6",
+              color: "0021A5",
+              fill: "0021A5",
             },
             border: {
               top: {
-                color: "0F6FC6",
+                color: "0021A5",
                 space: 1,
                 style: BorderStyle.SINGLE,
                 size: 6,
               },
               bottom: {
-                color: "0F6FC6",
+                color: "0021A5",
                 space: 1,
                 style: BorderStyle.SINGLE,
                 size: 6,
               },
               left: {
-                color: "0F6FC6",
+                color: "0021A5",
                 space: 1,
                 style: BorderStyle.SINGLE,
                 size: 6,
               },
               right: {
-                color: "0F6FC6",
+                color: "0021A5",
                 space: 1,
                 style: BorderStyle.SINGLE,
                 size: 6,
@@ -2892,30 +2750,30 @@ export class DocxSurveyComponent implements OnInit {
         style: "MySpectacularStyle",
         shading: {
           type: ShadingType.SOLID,
-          color: "0F6FC6",
-          fill: "0F6FC6",
+          color: "0021A5",
+          fill: "0021A5",
         },
         border: {
           top: {
-            color: "0F6FC6",
+            color: "0021A5",
             space: 1,
             style: BorderStyle.SINGLE,
             size: 6,
           },
           bottom: {
-            color: "0F6FC6",
+            color: "0021A5",
             space: 1,
             style: BorderStyle.SINGLE,
             size: 6,
           },
           left: {
-            color: "0F6FC6",
+            color: "0021A5",
             space: 1,
             style: BorderStyle.SINGLE,
             size: 6,
           },
           right: {
-            color: "0F6FC6",
+            color: "0021A5",
             space: 1,
             style: BorderStyle.SINGLE,
             size: 6,
@@ -2954,30 +2812,30 @@ export class DocxSurveyComponent implements OnInit {
         style: "MySpectacularStyle",
         shading: {
           type: ShadingType.SOLID,
-          color: "0F6FC6",
-          fill: "0F6FC6",
+          color: "0021A5",
+          fill: "0021A5",
         },
         border: {
           top: {
-            color: "0F6FC6",
+            color: "0021A5",
             space: 1,
             style: BorderStyle.SINGLE,
             size: 6,
           },
           bottom: {
-            color: "0F6FC6",
+            color: "0021A5",
             space: 1,
             style: BorderStyle.SINGLE,
             size: 6,
           },
           left: {
-            color: "0F6FC6",
+            color: "0021A5",
             space: 1,
             style: BorderStyle.SINGLE,
             size: 6,
           },
           right: {
-            color: "0F6FC6",
+            color: "0021A5",
             space: 1,
             style: BorderStyle.SINGLE,
             size: 6,
@@ -3028,8 +2886,8 @@ export class DocxSurveyComponent implements OnInit {
               size: 22,
               shading: {
                 type: ShadingType.SOLID,
-                color: "0F6FC6",
-                fill: "0F6FC6",
+                color: "0021A5",
+                fill: "0021A5",
               },
             },
 
@@ -3052,10 +2910,35 @@ export class DocxSurveyComponent implements OnInit {
               },
             },
           },
+
+            {
+              id: 'TOC1',
+              name: 'toc 1',
+              basedOn: 'Normal',
+              next: 'Normal',
+              quickFormat: true,
+              paragraph: {},
+              run: {
+                font: 'Calibri',
+                bold: true,
+                color: '#1C205C',
+                size: 22
+              },
+            }
+
         ],
       },
+      
       sections: [
         {
+          properties: {
+            page: {
+                margin:{
+                  left: 500,
+                  right: 500
+                }
+            },
+        },
           footers: {
             default: new Footer({
               children: [
@@ -3218,6 +3101,7 @@ export class DocxSurveyComponent implements OnInit {
               ],
             }),
           },
+          
           children: reportParts
         },
       ],
@@ -3232,6 +3116,10 @@ export class DocxSurveyComponent implements OnInit {
 
     this.user = temp;
   }
+
+
+
+
 
   bi = `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`;
 
