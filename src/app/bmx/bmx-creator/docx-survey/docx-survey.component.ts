@@ -2052,7 +2052,7 @@ export class DocxSurveyComponent implements OnInit {
           new ImageRun({
             data: Buffer.from(this.biLogo, "base64"),
             transformation: {
-              width: 100,
+              width: 120,
               height: 75,
             },
             floating: {
