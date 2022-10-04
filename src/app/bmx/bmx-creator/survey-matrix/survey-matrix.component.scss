@@ -221,12 +221,15 @@
         justify-content: center;
         position: fixed;
         bottom: 10px;
-    }    
-}
-
-.see-tutorial{
-    right: 10%;
-    top: -8%
+    }
+    .see-tutorial-mobil{
+        display: none;
+    }
+    .see-tutorial{
+        bottom: 10px;
+        right: 98px;
+    }
+        
 }
 
 //mobile
@@ -262,10 +265,14 @@
     .menu-descriptions{
         display: none;
     }
-
        
     p{
         line-height: 25px;
+    }
+
+    .see-tutorial-mobil{
+        right: 10%;
+        top: -10%;
     }
 }
 
@@ -284,13 +291,7 @@
     .modal-video .close-modal{
         margin-left: 42.5%;
         width: 15%;
-    }
-
-    .see-tutorial{
-        right: 2%;
-        top: -12%
-    }
-    
+    }    
 }
 
 //---------end modal------------//

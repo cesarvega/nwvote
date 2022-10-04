@@ -62,12 +62,7 @@ export class SurveyMatrixComponent extends SurveyCreationDesignComponent impleme
 
   PATH1: any[] = [
     '/assets/img/bmx/tutorial/imagen1.JPG',
-    '/assets/img/bmx/tutorial/imagen2.JPG',
-    '/assets/img/bmx/tutorial/imagen3-1.JPG',
-    '/assets/img/bmx/tutorial/imagen6.JPG',
-    '/assets/img/bmx/tutorial/imagen3.JPG',
-    '/assets/img/bmx/tutorial/imagen5.JPG',
-    '/assets/img/bmx/tutorial/imagen7.JPG',
+    '/assets/img/bmx/tutorial/imagen2.JPG',    
   ]
 
   PATH2: any[] = [
