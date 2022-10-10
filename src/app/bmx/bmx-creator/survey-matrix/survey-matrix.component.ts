@@ -61,13 +61,13 @@ export class SurveyMatrixComponent extends SurveyCreationDesignComponent impleme
   VIDEO_PATH: any[] = [];
 
   PATH1: any[] = [
-    '/assets/img/bmx/tutorial/imagen1.JPG',
-    '/assets/img/bmx/tutorial/imagen2.JPG',    
+    'assets/img/bmx/tutorial/imagen1.JPG',
+    'assets/img/bmx/tutorial/imagen2.JPG',    
   ]
 
   PATH2: any[] = [
-    '/assets/img/bmx/tutorial/img-desktop1.JPG',
-    '/assets/img/bmx/tutorial/img-desktop2.JPG',  
+    'assets/img/bmx/tutorial/img-desktop1.JPG',
+    'assets/img/bmx/tutorial/img-desktop2.JPG',  
   ]
 
   deviceInfo = null;
