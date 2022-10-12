@@ -58,9 +58,18 @@
 
                 <!-- BMX PARAGRAPH EDITOR 📑📑📑📑📑📑📑📑📑📑📑📑📑📑📑📑📑📑📑📑📑📑📑📑📑📑📑📑📑📑 -->
                 <div *ngIf="bmxItem.componentType === 'text-editor'" class="paragraph">
+                    
+                    <app-text-paragraph [bmxItem]="bmxItem" [i]="i" [bmxClientPageDesignMode]="bmxClientPageDesignMode"
+                        [bmxClientPageOverview]="bmxClientPageOverview"></app-text-paragraph>
+                </div>
+                <!-- 📑📑📑📑📑📑📑📑📑📑📑📑📑📑📑📑📑📑📑📑📑📑📑📑📑📑📑📑📑📑 END BMX PARAGRAPH EDITOR -->
+
+
+                <!-- STARS SCALE 👽👽👽👽👽👽👽👽👽👽👽👽👽👽👽👽👽👽👽👽👽👽👽👽👽👽👽👽👽👽👽👽👽👽👽👽👽👽👽👽👽👽-->
+                <div *ngIf="bmxItem.componentType === 'rate-scale'" class="paragraph " style="margin-bottom: 30px;">
                     <button *ngIf="!showModalVideo" (click)="seeTutorial()" class="see-tutorial-mobil" mat-icon-button matTooltip="See tutorial" matTooltipPosition="above"
                  
-                        style="position: absolute;color: grey;z-index: 9999999999;outline: none;">
+                        style="position: fixed;color: grey;z-index: 9999999999;outline: none;">
                         <mat-icon class="full-icon" style="font-size: 36px;">contact_support
                         </mat-icon>
                     </button>
@@ -78,16 +87,9 @@
                         <span class="close-modal" (click)="showModalVideo=false">Close</span>
                     </div>
                     <!-- modal end -->
-                    <app-text-paragraph [bmxItem]="bmxItem" [i]="i" [bmxClientPageDesignMode]="bmxClientPageDesignMode"
-                        [bmxClientPageOverview]="bmxClientPageOverview"></app-text-paragraph>
-                </div>
-                <!-- 📑📑📑📑📑📑📑📑📑📑📑📑📑📑📑📑📑📑📑📑📑📑📑📑📑📑📑📑📑📑 END BMX PARAGRAPH EDITOR -->
-
-
-                <!-- STARS SCALE 👽👽👽👽👽👽👽👽👽👽👽👽👽👽👽👽👽👽👽👽👽👽👽👽👽👽👽👽👽👽👽👽👽👽👽👽👽👽👽👽👽👽-->
-                <div *ngIf="bmxItem.componentType === 'rate-scale'" class="paragraph " style="margin-bottom: 30px;">
+                  
                     <app-rating-scale [bmxItem]="bmxItem" [i]="i" [bmxClientPageDesignMode]="bmxClientPageDesignMode"
-                        [bmxClientPageOverview]="bmxClientPageOverview"></app-rating-scale>
+                        [bmxClientPageOverview]="bmxClientPageOverview" (launchPathModal)="setPath($event)"></app-rating-scale>
 
                 </div>
                 <!-- END STARS SCALE 👽👽👽👽👽👽👽👽👽👽👽👽👽👽👽👽👽👽👽👽👽👽👽👽👽👽👽👽👽👽👽👽👽👽👽👽👽👽👽👽 -->
@@ -113,9 +115,28 @@
 
                 <!--IMAGE RANK DRAG 👽👽👽👽👽👽👽👽👽👽👽👽👽👽👽👽👽👽👽👽👽👽👽👽👽👽👽👽👽👽👽👽👽👽👽👽👽👽👽👽👽-->
                 <div *ngIf="bmxItem.componentType === 'image-rank-drag'" class="paragraph">
+                    <button *ngIf="!showModalVideo" (click)="seeTutorial()" class="see-tutorial-mobil" mat-icon-button matTooltip="See tutorial" matTooltipPosition="above"
+                 
+                        style="position: fixed;color: grey;z-index: 9999999999;outline: none;">
+                        <mat-icon class="full-icon" style="font-size: 36px;">contact_support
+                        </mat-icon>
+                    </button>
+                    <!-- modal -->
+                    <div *ngIf="showModalVideo" id="myModal" class="modal-video">
+                        <label class="container-checkbox">Don't show again
+                            <input (click)="saveSelection()" type="checkbox" value="Bike" #modalChecked> 
+                            <span class="checkmark">&#x2714;</span>        
+                        </label>
+                    
+                        <div class="modal-content">
+                            <img *ngFor="let path of VIDEO_PATH" [src]="path" alt="Girl in a jacket">
+                        </div>
+                        <span class="close-modal" (click)="showModalVideo=false">Close</span>
+                    </div>
+                    <!-- modal end -->                   
 
                     <app-image-rank-drag [bmxItem]="bmxItem" [i]="i" [bmxClientPageDesignMode]="bmxClientPageDesignMode"
-                        [bmxClientPageOverview]="bmxClientPageOverview"></app-image-rank-drag>
+                        [bmxClientPageOverview]="bmxClientPageOverview" (launchPathModal)="setPath($event)"></app-image-rank-drag>
                 </div>
                 <!-- END RANK DRAG 👽👽👽👽👽👽👽👽👽👽👽👽👽👽👽👽👽👽👽👽👽👽👽👽👽👽👽👽👽👽👽👽👽👽👽👽👽👽👽👽👽 -->
 
@@ -128,9 +149,29 @@
 
                 <!-- IMAGE SCALE 👀👀👀👀👀👀👀👀👀👀👀👀👀👀👀👀👀👀👀👀👀👀👀👀👀👀👀👀👀👀👀👀👀👀👀👀👀👀-->
                 <div *ngIf="bmxItem.componentType === 'image-rate-scale'" class="paragraph">
+                    <button *ngIf="!showModalVideo" (click)="seeTutorial()" class="see-tutorial-mobil" mat-icon-button matTooltip="See tutorial" matTooltipPosition="above"
+                 
+                        style="position: fixed;color: grey;z-index: 9999999999;outline: none;">
+                        <mat-icon class="full-icon" style="font-size: 36px;">contact_support
+                        </mat-icon>
+                    </button>
+                    <!-- modal -->
+                    <div *ngIf="showModalVideo" id="myModal" class="modal-video">
+                        <label class="container-checkbox">Don't show again
+                            <input (click)="saveSelection()" type="checkbox" value="Bike" #modalChecked> 
+                            <span class="checkmark">&#x2714;</span>        
+                        </label>
+                    
+                        <div class="modal-content">
+                            <img *ngFor="let path of VIDEO_PATH" [src]="path" alt="Girl in a jacket">
+                        </div>
+                        <span class="close-modal" (click)="showModalVideo=false">Close</span>
+                    </div>
+                    <!-- modal end -->
+
                     <app-image-rate-scale [bmxItem]="bmxItem" [i]="i"
                         [bmxClientPageDesignMode]="bmxClientPageDesignMode"
-                        [bmxClientPageOverview]="bmxClientPageOverview"></app-image-rate-scale>
+                        [bmxClientPageOverview]="bmxClientPageOverview" (launchPathModal)="setPath($event)"></app-image-rate-scale>
                 </div>
                 <!-- END IMAGE SCALE 👀👀👀👀👀👀👀👀👀👀👀👀👀👀👀👀👀👀👀👀👀👀👀👀👀👀👀👀👀👀👀👀👀👀👀👀👀👀 -->
 

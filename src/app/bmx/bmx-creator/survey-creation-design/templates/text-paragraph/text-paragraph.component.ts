@@ -18,28 +18,6 @@ export class TextParagraphComponent implements OnInit {
   projectName: any;
   previousText = '';
 
-  // VIDEO_PATH: any[] = [];
-
-  // PATH1: any[] = [
-  //   '/assets/img/bmx/tutorial/imagen1.JPG',
-  //   '/assets/img/bmx/tutorial/imagen2.JPG',
-  //   '/assets/img/bmx/tutorial/imagen3-1.JPG',
-  //   '/assets/img/bmx/tutorial/imagen6.JPG',
-  //   '/assets/img/bmx/tutorial/imagen3.JPG',
-  //   '/assets/img/bmx/tutorial/imagen5.JPG',
-  //   '/assets/img/bmx/tutorial/imagen7.JPG',
-  // ]
-
-  // PATH2: any[] = [
-  //   '/assets/img/bmx/imagen1.JPG',
-  //   '/assets/img/bmx/imagen2.JPG',
-  //   '/assets/img/bmx/imagen3.JPG',
-  // ]
-  
-  //showModalVideo: boolean = true;
-
-  //@ViewChild('modalChecked') modalChecked: ElementRef | any;
-
   constructor(private _bmxService: BmxService) { }
 
   ngOnInit(): void {
@@ -72,40 +50,7 @@ export class TextParagraphComponent implements OnInit {
 
     this.previousText = this.bmxItem.componentText
 
-    // if(localStorage.getItem('showModal') == "false"){
-    //   this.showModalVideo = false;
-    // }
-
-    // this.VIDEO_PATH = this.PATH1;
-  }
-
-  // ngAfterViewInit(): void {
-  //   setTimeout(() => {
-  //     if (this.videoLand) {
-  //       const media = this.videoLand.nativeElement;
-  //       media.muted = true; // without this line it's not working although I have "muted" in HTML
-  //       media.play();
-  //     }
-  //   }, 0);
-  // }
-
-  // ngAfterViewInit(): void {
-  //   if(this.modalChecked){
-  //     console.log(this.modalChecked.nativeElement.checked)
-  //   }
-    
-  // }
-
-  // saveSelection(){
-  //  if(this.modalChecked.nativeElement.checked){
-  //     console.log('es verdadero')
-  //     localStorage.setItem('showModal', JSON.stringify(false));
-  //     console.log(JSON.parse(localStorage.getItem('showModal')));
-  //  }else{
-  //   console.log('es falso')
-  //  }
-    
-  // }
+  } 
 
   replaceBiI_Markers() {
     this.previousText = this.bmxItem.componentText

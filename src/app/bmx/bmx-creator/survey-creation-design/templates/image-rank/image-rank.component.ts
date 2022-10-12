@@ -4,13 +4,14 @@ import { CdkTextareaAutosize } from '@angular/cdk/text-field';
 import { RatingScaleComponent } from '../rating-scale/rating-scale.component';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { BmxService } from '../../../bmx.service';
-
+import { DeviceDetectorService } from 'ngx-device-detector';
 
 @Component({
   selector: 'app-image-rank',
   templateUrl: './image-rank.component.html',
   styleUrls: ['./image-rank.component.scss']
 })
+
 export class ImageRankComponent  extends RatingScaleComponent implements OnInit {
 
   @Input() bmxItem;
@@ -28,8 +29,8 @@ export class ImageRankComponent  extends RatingScaleComponent implements OnInit 
 
   allowScrolling = true
 
-  constructor(dragulaService: DragulaService, _snackBar: MatSnackBar, _bmxService: BmxService) {
-    super(dragulaService, _snackBar, _bmxService)
+  constructor(dragulaService: DragulaService, _snackBar: MatSnackBar, _bmxService: BmxService,public deviceService: DeviceDetectorService) {
+    super(dragulaService, _snackBar, _bmxService,deviceService)
   }
 
   ngOnInit(): void {
