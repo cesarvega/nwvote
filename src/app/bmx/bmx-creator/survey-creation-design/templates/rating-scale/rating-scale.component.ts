@@ -5,6 +5,7 @@ import { MatSnackBar } from '@angular/material/snack-bar';
 import { Subscription } from 'rxjs';
 import * as  dragula from 'dragula';
 import { BmxService } from '../../../bmx.service';
+import { DeviceDetectorService } from 'ngx-device-detector';
 @Component({
   selector: 'app-rating-scale',
   templateUrl: './rating-scale.component.html',
@@ -70,13 +71,34 @@ export class RatingScaleComponent implements OnInit {
 
   scroll: any;
 
+  @Output() launchPathModal = new EventEmitter();
+
   openElements: any[]=[];
+
+   //------modal-----------//
+   
+ 
+   VIDEO_PATH: any[] = [];
+ 
+   PATH1: any[] = [
+     'assets/img/bmx/tutorial/imagen1.JPG',
+     'assets/img/bmx/tutorial/imagen2.JPG',    
+   ]
+ 
+   PATH2: any[] = [
+     'assets/img/bmx/tutorial/img-desktop1.JPG',
+     'assets/img/bmx/tutorial/img-desktop2.JPG',  
+   ]
+ 
+   deviceInfo = null;
+   public isDesktopDevice: any = null;
+ 
+   //----------end modal------//
   
-  constructor(private dragulaService: DragulaService, private _snackBar: MatSnackBar, public _bmxService: BmxService) {
+  constructor(private dragulaService: DragulaService, private _snackBar: MatSnackBar, public _bmxService: BmxService,public deviceService: DeviceDetectorService) {
     // DRAG AND DROP
     let drake = dragula();
     // this.dragulaService.add(this.BAG, drake);
-
 
     this.dragulaService.drag(this.BAG)
       .subscribe(({ el }) => {
@@ -99,6 +121,16 @@ export class RatingScaleComponent implements OnInit {
         console.log('out', container);
       })
     );
+  }
+
+  epicFunction() {
+    this.deviceInfo = this.deviceService.getDeviceInfo();
+    const isMobile = this.deviceService.isMobile();
+    const isTablet = this.deviceService.isTablet();
+    this.isDesktopDevice = this.deviceService.isDesktop();
+    console.log(this.deviceInfo);
+    console.log(isMobile);  // returns if the device is a mobile device (android / iPhone / windows-phone etc)
+    console.log(isTablet);  // returns if the device us a tablet (iPad etc)
   }
 
   ngOnInit(): void {
@@ -137,9 +169,21 @@ export class RatingScaleComponent implements OnInit {
 
     if (this.bmxItem.componentSettings[0]['displaySound'] == true) {
       this.displaySound = true;
-    }  
+    }
+
+    this.epicFunction();
+
+    if(this.isDesktopDevice){
+      this.VIDEO_PATH = this.PATH2;
+    }else{
+      this.VIDEO_PATH = this.PATH1;
+    }
+
+    this.launchPathModal.emit(this.VIDEO_PATH)
 
   }
+
+  
 
   openSelected(y: any){
 
@@ -148,16 +192,6 @@ export class RatingScaleComponent implements OnInit {
     } else {
       this.openElements.splice(this.openElements.indexOf(y),1);
     }
-
-    console.log(this.openElements)   
-
-  }
-
-  closeSelected(y: any){
-    console.log(this.openElements)
-    this.openElements.splice(this.openElements.indexOf(y),1)
-    console.log(this.openElements)
-    console.log(this.openElements)
   }
 
   open(y: any){
