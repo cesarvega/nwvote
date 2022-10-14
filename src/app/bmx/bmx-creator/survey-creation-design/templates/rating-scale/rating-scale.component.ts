@@ -127,15 +127,13 @@ export class RatingScaleComponent implements OnInit {
     this.deviceInfo = this.deviceService.getDeviceInfo();
     const isMobile = this.deviceService.isMobile();
     const isTablet = this.deviceService.isTablet();
-    this.isDesktopDevice = this.deviceService.isDesktop();
-    console.log(this.deviceInfo);
-    console.log(isMobile);  // returns if the device is a mobile device (android / iPhone / windows-phone etc)
-    console.log(isTablet);  // returns if the device us a tablet (iPad etc)
+    this.isDesktopDevice = this.deviceService.isDesktop(); 
   }
 
   ngOnInit(): void {
     // COLUMN NAMES
     let values = Object.keys(this.bmxItem.componentText[0])
+    this.rowsCount =  this.bmxItem.componentText.length - 1
 
     values.forEach(value => {
       if (typeof value == "string" && value != "STARS" && value != "CRITERIA") {
@@ -178,12 +176,8 @@ export class RatingScaleComponent implements OnInit {
     }else{
       this.VIDEO_PATH = this.PATH1;
     }
-
     this.launchPathModal.emit(this.VIDEO_PATH)
-
   }
-
-  
 
   openSelected(y: any){
 
@@ -522,7 +516,8 @@ export class RatingScaleComponent implements OnInit {
       }
     }
     setTimeout(() => {
-      this.rowsCount = this.bmxItem.componentText.length - 1;
+      this.rowsCount = this.bmxItem.componentText.length - 1; 
+      console.log(this.rowsCount)    
       this.bmxItem.componentSettings[0].minRule = (this.bmxItem.componentSettings[0].minRule == 0) ? this.bmxItem.componentText.length - 1 : this.bmxItem.componentSettings[0].minRule
       if (this.bmxItem.componentSettings[0].CRITERIA) {
         //MULTIPLY FOR THE AMOUNT OF CRITERIA
