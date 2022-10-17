@@ -91,6 +91,8 @@ export class ImageRankDragComponent extends RatingScaleComponent implements OnIn
       }
     });
 
+    this.rowsCount = this.bmxItem.componentText.length - 1;
+
     this.randomizeTestNames = this.bmxItem.componentSettings[0].randomizeTestNames
 
     if (this.rankingType == 'dropDown') {
