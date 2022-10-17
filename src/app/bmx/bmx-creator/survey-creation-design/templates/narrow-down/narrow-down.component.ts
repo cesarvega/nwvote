@@ -37,6 +37,7 @@ export class NarrowDownComponent extends RatingScaleComponent implements OnInit 
     });
 
     this.randomizeTestNames = this.bmxItem.componentSettings[0].randomizeTestNames
+    this.rowsCount = this.bmxItem.componentText.length - 1;
 
     if (this.bmxItem.componentSettings[0]['displaySound'] == true) {
       this.displaySound = true;

@@ -37,6 +37,7 @@ export class RankScaleComponent extends RatingScaleComponent implements OnInit {
     this.createRatingStars(this.rankingScaleValue)
     // this.rankingTableType( this.bmxItem.componentSettings[0].rankType)
     this.rankingType = this.bmxItem.componentSettings[0].rankType
+    this.rowsCount =  this.bmxItem.componentText.length - 1
 
     if (this.rankingType == 'dropDown') {
       this.draggableBag = ''

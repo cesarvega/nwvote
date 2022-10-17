@@ -31,6 +31,7 @@ export class QuestionAnswerComponent extends RatingScaleComponent implements OnI
       }
     });
     this.randomizeTestNames = this.bmxItem.componentSettings[0].randomizeTestNames
+    this.rowsCount = this.bmxItem.componentText.length - 1;
   }
 
   upLoadNamesAndRationales(list: string) {
