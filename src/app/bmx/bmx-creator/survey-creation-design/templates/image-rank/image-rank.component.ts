@@ -38,6 +38,7 @@ export class ImageRankComponent  extends RatingScaleComponent implements OnInit 
     this.createRatingStars(this.rankingScaleValue)
     // this.rankingTableType( this.bmxItem.componentSettings[0].rankType)
     this.rankingType = this.bmxItem.componentSettings[0].rankType
+    this.rowsCount =  this.bmxItem.componentText.length - 1
 
     if (this.rankingType == 'dropDown') {
       this.draggableBag = ''
@@ -51,8 +52,6 @@ export class ImageRankComponent  extends RatingScaleComponent implements OnInit 
       this.isdropDown = false
       this.radioColumnCounter = 1
     }
-
-
 
     // COLUMN NAMES
     let values = Object.keys(this.bmxItem.componentText[0])
