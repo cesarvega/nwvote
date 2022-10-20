@@ -6,6 +6,7 @@ import { BmxService } from '../../../bmx.service';
 import { RatingScaleComponent } from '../rating-scale/rating-scale.component';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { CdkDragDrop, moveItemInArray } from '@angular/cdk/drag-drop';
+import { DeviceDetectorService } from 'ngx-device-detector';
 @Component({
   selector: 'app-image-rank-drag',
   templateUrl: './image-rank-drag.component.html',
@@ -22,7 +23,7 @@ export class ImageRankDragComponent extends RatingScaleComponent implements OnIn
 
   imageurls = [];
 
-
+  @Output() launchPathModal = new EventEmitter();
 
   IMAGES_UPLOADED = [
 
@@ -49,7 +50,39 @@ export class ImageRankDragComponent extends RatingScaleComponent implements OnIn
   draggableBag
   isdropDown = true
 
-  constructor(private _BmxService: BmxService, dragulaService: DragulaService, _snackBar: MatSnackBar, _bmxService: BmxService) { super(dragulaService, _snackBar, _bmxService) }
+  //------modal-----------//
+ 
+
+  VIDEO_PATH: any[] = [];
+
+  PATH1: any[] = [
+    'assets/img/bmx/tutorial/image-drag.JPG',
+    
+  ]
+
+  PATH2: any[] = [
+    'assets/img/bmx/tutorial/image-drag2.JPG',  
+  ]
+
+  deviceInfo = null;
+  public isDesktopDevice: any = null;
+
+  //----------end modal--------//
+
+  //--------open cards---------//
+  openElements: any[]=[];
+  //selectedCard: any
+
+  constructor(private _BmxService: BmxService, dragulaService: DragulaService, _snackBar: MatSnackBar, _bmxService: BmxService,public deviceService: DeviceDetectorService) { super(dragulaService, _snackBar, _bmxService,deviceService); this.epicFunction(); }
+  epicFunction() {
+    this.deviceInfo = this.deviceService.getDeviceInfo();
+    const isMobile = this.deviceService.isMobile();
+    const isTablet = this.deviceService.isTablet();
+    this.isDesktopDevice = this.deviceService.isDesktop();
+    console.log(this.deviceInfo);
+    console.log(isMobile);  // returns if the device is a mobile device (android / iPhone / windows-phone etc)
+    console.log(isTablet);  // returns if the device us a tablet (iPad etc)
+  }
   ngOnInit(): void {
     let values = Object.keys(this.bmxItem.componentText[0])
     values.forEach(value => {
@@ -57,6 +90,8 @@ export class ImageRankDragComponent extends RatingScaleComponent implements OnIn
         this.columnsNames.push(value)
       }
     });
+
+    this.rowsCount = this.bmxItem.componentText.length - 1;
 
     this.randomizeTestNames = this.bmxItem.componentSettings[0].randomizeTestNames
 
@@ -74,7 +109,16 @@ export class ImageRankDragComponent extends RatingScaleComponent implements OnIn
       this.isdropDown = false
       this.radioColumnCounter = 1
     }
+
+    if(this.isDesktopDevice){
+      this.VIDEO_PATH = this.PATH2;
+    }else{
+      this.VIDEO_PATH = this.PATH1;
+    }
+    this.launchPathModal.emit(this.VIDEO_PATH)    
   }
+
+ 
 
 
   onFileSelected(event) {
@@ -99,6 +143,31 @@ export class ImageRankDragComponent extends RatingScaleComponent implements OnIn
       }
     }
   }
+
+  //----------open cards-----------//
+
+  openSelected(y: any){
+
+    if (this.openElements.indexOf(y) === -1) {
+      this.openElements.push(y);
+    } else {
+      this.openElements.splice(this.openElements.indexOf(y),1);
+    }
+    console.log(this.openElements)
+  } 
+
+  open(y: any){
+
+    if(this.openElements.indexOf(y) == -1){
+      return false;
+    }else{
+      console.log('true')
+      return true;
+    }
+    
+  }
+
+  //---------end open cards--------------//  
 
   cancelUpload() {
     this.uploadSub.unsubscribe();

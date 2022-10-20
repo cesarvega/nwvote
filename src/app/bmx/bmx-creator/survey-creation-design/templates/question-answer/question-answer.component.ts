@@ -4,6 +4,7 @@ import { DragulaService } from 'ng2-dragula';
 import { RatingScaleComponent } from '../rating-scale/rating-scale.component';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { BmxService } from '../../../bmx.service';
+import { DeviceDetectorService } from 'ngx-device-detector';
 
 @Component({
   selector: 'app-question-answer',
@@ -17,8 +18,8 @@ export class QuestionAnswerComponent extends RatingScaleComponent implements OnI
   @Input() bmxClientPageOverview;
   @ViewChild('autosize') autosize: CdkTextareaAutosize;
   allComplete: boolean = false;
-  constructor(dragulaService: DragulaService, _snackBar: MatSnackBar, _bmxService: BmxService) {
-    super(dragulaService, _snackBar, _bmxService);
+  constructor(dragulaService: DragulaService, _snackBar: MatSnackBar, _bmxService: BmxService,public deviceService: DeviceDetectorService) {
+    super(dragulaService, _snackBar, _bmxService,deviceService);
   }
 
   ngOnInit(): void {
@@ -30,6 +31,7 @@ export class QuestionAnswerComponent extends RatingScaleComponent implements OnI
       }
     });
     this.randomizeTestNames = this.bmxItem.componentSettings[0].randomizeTestNames
+    this.rowsCount = this.bmxItem.componentText.length - 1;
   }
 
   upLoadNamesAndRationales(list: string) {
