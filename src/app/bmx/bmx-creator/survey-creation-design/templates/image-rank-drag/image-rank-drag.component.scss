@@ -28,6 +28,23 @@
         0 11px 15px -7px rgba(0, 0, 0, 0.2);
     }
   }
+
+  .modal-video {
+    /*display: block;  Hidden by default */
+    position: fixed; /* Stay in place */
+    top: -2%;  
+    z-index: 999; /* Sit on top */
+   
+    width: 100%; /* Full width */
+    height:100%; /* Full height */
+    overflow: hidden; /* Enable scroll if needed */
+    background-color: rgb(0 0 0 / 50%); /* Black w/ opacity */
+
+  }
+  
+  .container-checkbox input:checked ~ .checkmark {
+    background-color: black;
+  }
   
   .active-rating-star {
     color: #76d354;
@@ -56,7 +73,7 @@
     }
   }
   
-  @media (max-width: 576px) {
+  @media (max-width: 576px) {   
     .desktop {
       display: none;
     }
@@ -85,10 +102,10 @@
     }
   
   }
+
   .test-name-table:hover {
     @include BoxShadow(6);
   }
-  
   
   .red {
     background-color: white;

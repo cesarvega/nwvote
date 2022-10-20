@@ -4,6 +4,7 @@ import { CdkTextareaAutosize } from '@angular/cdk/text-field';
 import { RatingScaleComponent } from '../rating-scale/rating-scale.component';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { BmxService } from '../../../bmx.service';
+import { DeviceDetectorService } from 'ngx-device-detector';
 
 @Component({
   selector: 'app-rank-scale',
@@ -27,8 +28,8 @@ export class RankScaleComponent extends RatingScaleComponent implements OnInit {
 
   allowScrolling = true
 
-  constructor(dragulaService: DragulaService, _snackBar: MatSnackBar, _bmxService: BmxService) {
-    super(dragulaService, _snackBar, _bmxService)
+  constructor(dragulaService: DragulaService, _snackBar: MatSnackBar, _bmxService: BmxService,public deviceService: DeviceDetectorService) {
+    super(dragulaService, _snackBar, _bmxService,deviceService)
   }
 
   ngOnInit(): void {
@@ -36,6 +37,7 @@ export class RankScaleComponent extends RatingScaleComponent implements OnInit {
     this.createRatingStars(this.rankingScaleValue)
     // this.rankingTableType( this.bmxItem.componentSettings[0].rankType)
     this.rankingType = this.bmxItem.componentSettings[0].rankType
+    this.rowsCount =  this.bmxItem.componentText.length - 1
 
     if (this.rankingType == 'dropDown') {
       this.draggableBag = ''

@@ -88,7 +88,6 @@ export class SurveyMatrixComponent extends SurveyCreationDesignComponent impleme
   }
 
   epicFunction() {
-    console.log('hello `Home` component');
     this.deviceInfo = this.deviceService.getDeviceInfo();
     const isMobile = this.deviceService.isMobile();
     const isTablet = this.deviceService.isTablet();
@@ -96,7 +95,6 @@ export class SurveyMatrixComponent extends SurveyCreationDesignComponent impleme
     console.log(this.deviceInfo);
     console.log(isMobile);  // returns if the device is a mobile device (android / iPhone / windows-phone etc)
     console.log(isTablet);  // returns if the device us a tablet (iPad etc)
-    //console.log(isDesktopDevice); // returns if the app is running on a Desktop browser.
   }
 
   ngOnInit(): void {
@@ -452,8 +450,6 @@ export class SurveyMatrixComponent extends SurveyCreationDesignComponent impleme
                 //  this.bmxPagesClient = answers
               });
   
-  
-  
           } else {
             // USER NEVER ANSWERED LOAD TEMPLATE
             this._BmxService
@@ -541,11 +537,11 @@ export class SurveyMatrixComponent extends SurveyCreationDesignComponent impleme
       this.showModalVideo = false;
     }
 
-    if(this.isDesktopDevice){
-      this.VIDEO_PATH = this.PATH2;
-    }else{
-      this.VIDEO_PATH = this.PATH1;
-    }
+    // if(this.isDesktopDevice){
+    //   this.VIDEO_PATH = this.PATH2;
+    // }else{
+    //   this.VIDEO_PATH = this.PATH1;
+    // }
   }
 
   ngAfterViewInit(): void {
@@ -555,11 +551,15 @@ export class SurveyMatrixComponent extends SurveyCreationDesignComponent impleme
     
   }
 
+  setPath(path: any){  
+    this.VIDEO_PATH = path;    
+  }
+
   saveSelection(){
+
     if(this.modalChecked.nativeElement.checked){
-       console.log('es verdadero')
        localStorage.setItem('showModal', JSON.stringify(false));
-       console.log(JSON.parse(localStorage.getItem('showModal')));
+
     }else{
      console.log('es falso')
     }

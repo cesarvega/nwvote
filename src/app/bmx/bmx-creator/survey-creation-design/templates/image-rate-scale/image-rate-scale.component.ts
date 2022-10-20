@@ -5,6 +5,8 @@ import { Subscription } from 'rxjs/internal/Subscription';
 import { BmxService } from '../../../bmx.service';
 import { RatingScaleComponent } from '../rating-scale/rating-scale.component';
 import { MatSnackBar } from '@angular/material/snack-bar';
+import { DeviceDetectorService } from 'ngx-device-detector';
+
 @Component({
   selector: 'app-image-rate-scale',
   templateUrl: './image-rate-scale.component.html',
@@ -19,9 +21,10 @@ export class ImageRateScaleComponent extends RatingScaleComponent implements OnI
   @Input() bmxClientPageOverview;
   @ViewChild('autosize') autosize: CdkTextareaAutosize;
 
-  imageurls =[];
- 
+  @Output() launchTutorial = new EventEmitter(); 
+  
 
+  imageurls =[];
 
   IMAGES_UPLOADED = [
     
@@ -44,8 +47,31 @@ export class ImageRateScaleComponent extends RatingScaleComponent implements OnI
   logoWidth = 200
   uploadImagesBox = false;
 
-  constructor(private _BmxService: BmxService,dragulaService: DragulaService, _snackBar: MatSnackBar,  _bmxService: BmxService)
-   {super(dragulaService,_snackBar,_bmxService)}
+ 
+  //------modal-----------//
+  @Output() launchPathModal = new EventEmitter(); 
+
+  VIDEO_PATH: any[] = [];
+
+  PATH1: any[] = [
+    'assets/img/bmx/tutorial/image-rate-scale-mobil.jpg',
+    'assets/img/bmx/tutorial/image-rate-scale-mobil2.jpg',    
+  ]
+
+  PATH2: any[] = [
+    'assets/img/bmx/tutorial/image-rate-scale-desktop.JPG',
+    'assets/img/bmx/tutorial/image-rate-scale-desktop2.JPG',  
+  ]
+
+  deviceInfo = null;
+  public isDesktopDevice: any = null;
+
+  //--------open cards---------//
+   openElements: any[]=[];
+  //selectedCard: any
+
+  constructor(private _BmxService: BmxService,dragulaService: DragulaService, _snackBar: MatSnackBar,  _bmxService: BmxService,public deviceService: DeviceDetectorService)
+   {super(dragulaService,_snackBar,_bmxService,deviceService); this.epicFunction();}
   ngOnInit(): void {
     let values = Object.keys(this.bmxItem.componentText[0])
     values.forEach(value => {
@@ -55,8 +81,26 @@ export class ImageRateScaleComponent extends RatingScaleComponent implements OnI
     });
     
     this.randomizeTestNames = this.bmxItem.componentSettings[0].randomizeTestNames
+    this.rowsCount = this.bmxItem.componentText.length - 1;
+
+    if(this.isDesktopDevice){
+      this.VIDEO_PATH = this.PATH2;
+    }else{
+      this.VIDEO_PATH = this.PATH1;
+    }
+
+    this.launchPathModal.emit(this.VIDEO_PATH)
   }
 
+  epicFunction() {
+    this.deviceInfo = this.deviceService.getDeviceInfo();
+    const isMobile = this.deviceService.isMobile();
+    const isTablet = this.deviceService.isTablet();
+    this.isDesktopDevice = this.deviceService.isDesktop();
+    console.log(this.deviceInfo);
+    console.log(isMobile);  // returns if the device is a mobile device (android / iPhone / windows-phone etc)
+    console.log(isTablet);  // returns if the device us a tablet (iPad etc)
+  }
 
   onFileSelected(event) {
     if (event.target.files && event.target.files[0]) {
@@ -80,6 +124,31 @@ export class ImageRateScaleComponent extends RatingScaleComponent implements OnI
       }
     }
   }
+
+  //----------open cards-----------//
+
+  openSelected(y: any){
+
+    if (this.openElements.indexOf(y) === -1) {
+      this.openElements.push(y);
+    } else {
+      this.openElements.splice(this.openElements.indexOf(y),1);
+    }
+    console.log(this.openElements)
+  } 
+
+  open(y: any){
+
+    if(this.openElements.indexOf(y) == -1){
+      return false;
+    }else{
+      console.log('true')
+      return true;
+    }
+    
+  }
+
+  //---------end open cards--------------//
 
   cancelUpload() {
     this.uploadSub.unsubscribe();
