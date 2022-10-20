@@ -51,9 +51,9 @@ const routes: Routes = [
   // },
   {
     path: '',
-    // redirectTo: 'bmx/58B303F8-D19C-4DEC-9EC5-361CE4EFBA71',
-    redirectTo: '/no_id/n_user',
-    // redirectTo: 'bmx/99CB72BF-D163-46A6-8A0D-E1531EC7FEDC',
+    // redirectTo: '/no_id/n_user',
+    // redirectTo: 'bmx/99CB72BF-D163-46A6-8A0D-E1531EC7FEDC', // creative 
+    redirectTo: 'bmx/E9096C9-084F-4D10-81C2-C72B70E5D782', // admin
     // redirectTo: 'survey/noProject/no_user',
     pathMatch: 'full'
   }
