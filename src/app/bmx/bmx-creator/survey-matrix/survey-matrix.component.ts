@@ -1090,6 +1090,7 @@ export class SurveyMatrixComponent extends SurveyCreationDesignComponent impleme
     }
     if(this.totalOfpages == this.currentPage + 1){
       this.loadingLottie = true;
+      console.log(this.loadingLottie)
     }
   }
 
