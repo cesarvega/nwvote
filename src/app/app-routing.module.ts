@@ -19,31 +19,31 @@ const routes: Routes = [
   //   path: 'vote',
   //   component: NwVoteComponent
   // },
-  // {// BSR-Mobile http://mynamepage.com/te2687
-  //   path: ':id',
-  //   component: BsrMobileComponent
-  // },
+  {// BSR-Mobile http://mynamepage.com/te2687
+    path: ':id',
+    component: BsrMobileComponent
+  },
   // {// SCHEDULER
   //   path: ':id',
   //   component: SchedulerComponent
   // },
-  // {//BSR  color of the bar #002f5b
+  // {//BSR  color of the bar #002f5b  https://www.bipresents.com/pa3930
   //   path: ':id',
   //   component: BsrComponent
   // },
-  {//BI BRAND MATRIX CREATOR
-  // path: ':id/:biUsername',
-  path: 'bmx/:id',
-   component: BmxCreatorComponent
-  },
-   {//BI BRAND MATRIX SURVEY
-    path: 'survey/:id/:username',
-    component: SurveyMatrixComponent
-  },
-   {//BI BRAND MATRIX SURVEY WITH GUI 
-    path: ':id',
-    component: SurveyMatrixComponent
-  },
+  // {//BI BRAND MATRIX CREATOR
+  // // path: ':id/:biUsername',
+  // path: 'bmx/:id',
+  //  component: BmxCreatorComponent
+  // },
+  //  {//BI BRAND MATRIX SURVEY
+  //   path: 'survey/:id/:username',
+  //   component: SurveyMatrixComponent
+  // },
+  //  {//BI BRAND MATRIX SURVEY WITH GUI 
+  //   path: ':id',
+  //   component: SurveyMatrixComponent
+  // },
   
   // {//NW 3 BI PRESENTS NOMENCLATURE WORKSHOP V.3.0
   //   path: ':id',
@@ -51,9 +51,9 @@ const routes: Routes = [
   // },
   {
     path: '',
-    // redirectTo: '/no_id/n_user',
+    redirectTo: '/',
     // redirectTo: 'bmx/99CB72BF-D163-46A6-8A0D-E1531EC7FEDC', // creative 
-    redirectTo: 'bmx/E9096C9-084F-4D10-81C2-C72B70E5D782', // admin
+    // redirectTo: 'bmx/E9096C9-084F-4D10-81C2-C72B70E5D782', // admin  
     // redirectTo: 'survey/noProject/no_user',
     pathMatch: 'full'
   }

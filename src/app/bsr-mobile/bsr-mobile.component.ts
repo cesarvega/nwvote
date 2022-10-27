@@ -27,6 +27,7 @@ export class BsrMobileComponent implements OnInit {
   wholeData: any;
   anoni: string = '';
   isEmojiTime = false;
+  displayBulletPoints = false;
   summarized: any;
   deviceInfo: any;
   constructor(private _formBuilder: FormBuilder, private bsrService: BsrMobileService,
@@ -44,7 +45,10 @@ export class BsrMobileComponent implements OnInit {
           this.isUserLogged = false;
           this.isUserLeaving = false;
         }
-        localStorage.setItem('projectName',  this.projectId);        
+        localStorage.setItem('projectName',  this.projectId); 
+        if(this.projectId== 'pa3930' || this.projectId== 'st3929 '){
+          this.displayBulletPoints = true;
+        }
       });
     });
   }
