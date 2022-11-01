@@ -28,6 +28,7 @@ export class BsrMobileComponent implements OnInit {
   anoni: string = '';
   isEmojiTime = false;
   displayBulletPoints = false;
+  bulletPointLine = '';
   summarized: any;
   deviceInfo: any;
   constructor(private _formBuilder: FormBuilder, private bsrService: BsrMobileService,
@@ -46,8 +47,14 @@ export class BsrMobileComponent implements OnInit {
           this.isUserLeaving = false;
         }
         localStorage.setItem('projectName',  this.projectId); 
-        if(this.projectId== 'pa3930' || this.projectId== 'st3929 '){
+        if(this.projectId== 'pa3930' || this.projectId== 'st3929'){
           this.displayBulletPoints = true;
+          if (this.projectId== 'pa3930'){
+            this.bulletPointLine = 'Name must end with -melanant (i.e. cesamelanant)';
+          }
+          if (this.projectId== 'st3929'){
+            this.bulletPointLine = 'Name must end with -sotine (i.e. cesasotine)';
+          }
         }
       });
     });

@@ -139,17 +139,16 @@
                             <br>
                             <div *ngIf="displayBulletPoints" style="display: flex;flex-direction: column;">
                                 <p>Key Nonproprietary Naming Rules </p>
-                            <ul style="font-size: 10px;
-                            text-align: initial;">
-                                <li>Name must end with -sotine (i.e. cesasotine)</li>
+                            <ul style="font-size: 10px;text-align: initial;">
+                                <li>{{bulletPointLine}}</li>
                                 <li>H, J, K, W & Y forbidden for global harmonization </li>
                                 <li>No beginning with CRI (Crinetics- Company name) </li>
                                 <li>No Double consonants and double vowels </li>
                             </ul>
                             </div>
-                            <br>
-                            <br>
-                            <br>
+                            <br *ngIf="!displayBulletPoints">
+                            <br *ngIf="!displayBulletPoints">
+                            <br *ngIf="!displayBulletPoints">
                         </div>
 
                         <div class="col">
