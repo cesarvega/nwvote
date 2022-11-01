@@ -29,6 +29,17 @@ export class ImageRankComponent  extends RatingScaleComponent implements OnInit 
 
   allowScrolling = true
 
+  VIDEO_PATH: any[] = [];
+
+  PATH1: any[] = [
+    'assets/img/bmx/tutorial/image-drag.JPG',
+    
+  ]
+
+  PATH2: any[] = [
+    'assets/img/bmx/tutorial/image-drag2.JPG',  
+  ]
+
   constructor(dragulaService: DragulaService, _snackBar: MatSnackBar, _bmxService: BmxService,public deviceService: DeviceDetectorService) {
     super(dragulaService, _snackBar, _bmxService,deviceService)
   }
@@ -80,6 +91,12 @@ export class ImageRankComponent  extends RatingScaleComponent implements OnInit 
         categoryTobeRender: '',
         isSpecialRquest: false,
       })
+    }
+
+    if(window.innerWidth <= 1023){
+      this.VIDEO_PATH = this.PATH1;
+    }else{
+      this.VIDEO_PATH = this.PATH2;
     }
   }
 

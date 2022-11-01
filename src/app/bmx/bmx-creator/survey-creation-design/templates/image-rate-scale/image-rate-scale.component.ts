@@ -72,7 +72,15 @@ export class ImageRateScaleComponent extends RatingScaleComponent implements OnI
 
   constructor(private _BmxService: BmxService,dragulaService: DragulaService, _snackBar: MatSnackBar,  _bmxService: BmxService,public deviceService: DeviceDetectorService)
    {super(dragulaService,_snackBar,_bmxService,deviceService); this.epicFunction();}
-  ngOnInit(): void {
+
+  ngOnInit(): void {  
+
+    if(window.innerWidth <= 1023){
+      this.VIDEO_PATH = this.PATH1;
+    }else{
+      this.VIDEO_PATH = this.PATH2;
+    }
+    
     let values = Object.keys(this.bmxItem.componentText[0])
     values.forEach(value => {
       if (typeof value == "string" && value != "STARS" && value != "CRITERIA" ) {
@@ -83,11 +91,11 @@ export class ImageRateScaleComponent extends RatingScaleComponent implements OnI
     this.randomizeTestNames = this.bmxItem.componentSettings[0].randomizeTestNames
     this.rowsCount = this.bmxItem.componentText.length - 1;
 
-    if(this.isDesktopDevice){
-      this.VIDEO_PATH = this.PATH2;
-    }else{
-      this.VIDEO_PATH = this.PATH1;
-    }
+    // if(this.isDesktopDevice){
+    //   this.VIDEO_PATH = this.PATH2;
+    // }else{
+    //   this.VIDEO_PATH = this.PATH1;
+    // }
 
     this.launchPathModal.emit(this.VIDEO_PATH)
   }
