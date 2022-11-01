@@ -171,10 +171,16 @@ export class RatingScaleComponent implements OnInit {
 
     this.epicFunction();
 
-    if(this.isDesktopDevice){
-      this.VIDEO_PATH = this.PATH2;
-    }else{
+    // if(this.isDesktopDevice){
+    //   this.VIDEO_PATH = this.PATH2;
+    // }else{
+    //   this.VIDEO_PATH = this.PATH1;
+    // }
+
+    if(window.innerWidth <= 1023){
       this.VIDEO_PATH = this.PATH1;
+    }else{
+      this.VIDEO_PATH = this.PATH2;
     }
     this.launchPathModal.emit(this.VIDEO_PATH)
   }
