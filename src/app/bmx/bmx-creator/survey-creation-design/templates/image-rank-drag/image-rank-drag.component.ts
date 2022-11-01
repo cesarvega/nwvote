@@ -116,7 +116,7 @@ export class ImageRankDragComponent extends RatingScaleComponent implements OnIn
     //   this.VIDEO_PATH = this.PATH1;
     // }
 
-    if(window.innerWidth <= 1023){
+    if(window.innerWidth <= 1024){
       this.VIDEO_PATH = this.PATH1;
     }else{
       this.VIDEO_PATH = this.PATH2;
