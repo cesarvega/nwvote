@@ -180,7 +180,7 @@
     transform: rotate(45deg);
 }
 //desktop
-@media (min-width: 1025px) {
+@media (min-width: 1026px) {
     .page-design {
         position: absolute;
         top: 53%;
@@ -228,7 +228,7 @@
 }
 
 //mobile
-@media (max-width: 1024px) {
+@media (max-width: 1025px) {
     .page-design {
         overflow-y: hidden;
     }
@@ -272,7 +272,7 @@
 }
 
 //-------------modal-----------------//
-@media (min-width: 1025px){  
+@media (min-width: 1026px){  
     
     .modal-video .modal-content {        
         top: 0%;

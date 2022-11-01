@@ -93,7 +93,7 @@ export class ImageRankComponent  extends RatingScaleComponent implements OnInit 
       })
     }
 
-    if(window.innerWidth <= 1024){
+    if(window.innerWidth <= 1025){
       this.VIDEO_PATH = this.PATH1;
     }else{
       this.VIDEO_PATH = this.PATH2;

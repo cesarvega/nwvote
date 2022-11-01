@@ -39,7 +39,7 @@
     color: grey;
   }
   
-  @media (min-width: 1025px) {
+  @media (min-width: 1026px) {
     .desktop {
       display: flex;
       flex-direction: column;
@@ -55,7 +55,7 @@
     }
   }
   
-  @media (max-width: 1024px) {
+  @media (max-width: 1025px) {
     .desktop {
       display: none;
     }
