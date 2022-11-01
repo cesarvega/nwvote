@@ -110,16 +110,19 @@ export class ImageRankDragComponent extends RatingScaleComponent implements OnIn
       this.radioColumnCounter = 1
     }
 
-    if(this.isDesktopDevice){
-      this.VIDEO_PATH = this.PATH2;
-    }else{
+    // if(this.isDesktopDevice){
+    //   this.VIDEO_PATH = this.PATH2;
+    // }else{
+    //   this.VIDEO_PATH = this.PATH1;
+    // }
+
+    if(window.innerWidth <= 1023){
       this.VIDEO_PATH = this.PATH1;
+    }else{
+      this.VIDEO_PATH = this.PATH2;
     }
     this.launchPathModal.emit(this.VIDEO_PATH)    
   }
-
- 
-
 
   onFileSelected(event) {
     if (event.target.files && event.target.files[0]) {
