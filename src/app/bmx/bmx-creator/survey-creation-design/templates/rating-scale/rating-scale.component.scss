@@ -40,7 +40,7 @@
   // animation: bounce 1000ms 1000ms ease-in-out  forwards  ;
 }
 
-@media (min-width: 1026) {
+@media (min-width: 1025px) {
   .desktop {
     display: flex;
     flex-direction: column;
@@ -57,7 +57,7 @@
   }
 }
 
-@media (max-width: 1025px) {
+@media (max-width: 1024px) {
   .desktop {
     display: none;
   }
