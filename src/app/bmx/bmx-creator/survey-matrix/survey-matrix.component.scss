@@ -80,13 +80,13 @@
     /* Modal Content/Box */
     .modal-content {
         background-color: rgba(0, 0, 0, 0);
-        top: 0%;
+        top: 10%;
         margin: 2% auto; /* 15% from the top and centered */
-        margin-left: 15%;
+        margin-left: 10%;
         // padding: 20px;
         // border: 1px solid #888;
-        width: 70%; /* Could be more or less, depending on screen size */
-        height: 82%;
+        width: 80%; /* Could be more or less, depending on screen size */
+        height: 70%;
         overflow: scroll;
         img{
             margin-bottom: 15px;
@@ -99,7 +99,7 @@
     .close-modal {
         // margin-bottom: 5px;
         position: absolute;
-        // top: 65%;
+        top: 88%;
         margin-left: 36.5%;
         color: black;
         background-color: #e9ecef;
@@ -275,18 +275,36 @@
 @media (min-width: 1025px){  
     
     .modal-video .modal-content {        
-        top: 0%;
+        top: 10%;
         margin: 1% auto;
         margin-left: auto;
-        width: 75%;
-        height: 70%;
+        width: 90%;
+        height: 55%;
         overflow: scroll;
     }
 
     .modal-video .close-modal{
         margin-left: 42.5%;
         width: 15%;
+        top: 75%;
     }    
+}
+
+@media only screen and (min-width: 576px) and (max-width: 1024px) {
+	.modal-video .modal-content {        
+        top: 10%;
+        margin: 1% auto;
+        margin-left: auto;
+        width: 50%;
+        height: 70%;    
+        overflow: scroll;
+    }
+
+    .modal-video .close-modal{
+        margin-left: 42.5%;
+        width: 15%;
+        top: 90%;
+    }
 }
 
 //---------end modal------------//
