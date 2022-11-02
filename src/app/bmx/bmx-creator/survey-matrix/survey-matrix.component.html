@@ -85,7 +85,7 @@
                         <div class="modal-content">
                             <img *ngFor="let path of VIDEO_PATH" [src]="path" alt="Girl in a jacket">
                         </div>
-                        <span class="close-modal" (click)="showModalVideo=false">Close</span>
+                        <button class="close-modal" (click)="showModalVideo=false">Close</button>
                     </div>
                     <!-- modal end -->
                   
@@ -130,7 +130,7 @@
                         <div class="modal-content">
                             <img *ngFor="let path of VIDEO_PATH" [src]="path" alt="Girl in a jacket">
                         </div>
-                        <span class="close-modal" (click)="showModalVideo=false">Close</span>
+                        <button class="close-modal" (click)="showModalVideo=false">Close</button>
                     </div>
                     <!-- modal end -->                   
 
@@ -156,12 +156,12 @@
                     </button>
                     <!-- modal -->
                     <div *ngIf="showModalVideo" id="myModal" class="modal-video">
-                        <mat-checkbox (click)="saveSelection()" class="example-margin container-checkbox" >Don't show again</mat-checkbox>>
+                        <mat-checkbox (click)="saveSelection()" class="example-margin container-checkbox" >Don't show again</mat-checkbox>
                     
                         <div class="modal-content">
                             <img *ngFor="let path of VIDEO_PATH" [src]="path" alt="Girl in a jacket">
                         </div>
-                        <span class="close-modal" (click)="showModalVideo=false">Close</span>
+                        <button class="close-modal" (click)="showModalVideo=false">Close</button>
                     </div>
                     <!-- modal end -->
 
