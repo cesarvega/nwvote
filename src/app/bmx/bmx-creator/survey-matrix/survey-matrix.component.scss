@@ -82,14 +82,15 @@
         background-color: rgba(0, 0, 0, 0);
         top: 10%;
         margin: 2% auto; /* 15% from the top and centered */
-        margin-left: 10%;
+        // margin-left: 15%;
         // padding: 20px;
         // border: 1px solid #888;
-        width: 70%; /* Could be more or less, depending on screen size */
-        height: 60%;
+        width: 55%; /* Could be more or less, depending on screen size */
+        height: 75%;
         overflow: scroll;
         img{
             margin-bottom: 15px;
+            height: auto;
         }
         img:last-child{
             margin-bottom: 0;
@@ -107,7 +108,7 @@
         color: black;
         background-color: #e9ecef;
         // float: right;
-        font-size: 22px;
+        // font-size: 22px;
         // font-weight: bold;
         text-align: center;
         height: 25px;      
@@ -129,9 +130,9 @@
     display: block;
     position: relative;
     top: 10%;
-    padding-left: 35px;
+    // padding-left: 35px;
     // margin-top: 2.5%;
-    margin-left: 3%;
+    margin-left: 23%;
     margin-bottom: 12px;
     cursor: pointer;
     font-size: 22px;
@@ -227,6 +228,9 @@
         bottom: 10px;
         right: 98px;
     }
+    .container-checkbox{
+        margin-left: 10%;
+    }
         
 }
 
@@ -281,8 +285,8 @@
         top: 10%;
         margin: 1% auto;
         margin-left: auto;
-        width: 90%;
-        height: 55%;
+        width: 80%;
+        height: 50%;
         overflow: scroll;
     }
 
@@ -295,19 +299,23 @@
 
 @media only screen and (min-width: 576px) and (max-width: 1024px) {
 	.modal-video .modal-content {        
-        top: 10%;
+        top: 4%;
         margin: 1% auto;
         margin-left: auto;
         width: 45%;
-        height: 60%;    
+        height: 80%;    
         overflow: scroll;
+    }
+
+    .container-checkbox{
+        margin-left: 28%;
+        top: 5%
     }
 
     .modal-video .close-modal{
         position: relative;
-        // margin-left: 42.5%;
-      
-        top: 12%;
+        // margin-left: 42.5%;      
+        top: 5%;
     }
 }
 
