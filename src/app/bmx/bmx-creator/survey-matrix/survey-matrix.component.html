@@ -76,16 +76,15 @@
                    
                     <!-- modal -->
                     <div *ngIf="showModalVideo" id="myModal" class="modal-video">
-                        <!-- <label class="container-checkbox">Don't show again
+                        <label class="container-checkbox">Don't show again
                             <input (click)="saveSelection()" type="checkbox" value="Bike" #modalChecked> 
                             <span class="checkmark">&#x2714;</span>        
-                        </label> -->
-                        <mat-checkbox (click)="saveSelection()" color="primary" class="example-margin container-checkbox" #modalChecked>Don't show again</mat-checkbox>
+                        </label>
                     
                         <div class="modal-content">
                             <img *ngFor="let path of VIDEO_PATH" [src]="path" alt="Girl in a jacket">
                         </div>
-                        <button class="close-modal" (click)="showModalVideo=false">Close</button>
+                        <span class="close-modal" (click)="showModalVideo=false">Close</span>
                     </div>
                     <!-- modal end -->
                   
@@ -124,13 +123,15 @@
                     </button>
                     <!-- modal -->
                     <div *ngIf="showModalVideo" id="myModal" class="modal-video">
-                        
-                        <mat-checkbox (click)="saveSelection()" color="primary" class="example-margin container-checkbox" #modalChecked>Don't show again</mat-checkbox>
+                        <label class="container-checkbox">Don't show again
+                            <input (click)="saveSelection()" type="checkbox" value="Bike" #modalChecked> 
+                            <span class="checkmark">&#x2714;</span>        
+                        </label>
                     
                         <div class="modal-content">
                             <img *ngFor="let path of VIDEO_PATH" [src]="path" alt="Girl in a jacket">
                         </div>
-                        <button class="close-modal" (click)="showModalVideo=false">Close</button>
+                        <span class="close-modal" (click)="showModalVideo=false">Close</span>
                     </div>
                     <!-- modal end -->                   
 
@@ -156,12 +157,15 @@
                     </button>
                     <!-- modal -->
                     <div *ngIf="showModalVideo" id="myModal" class="modal-video">
-                        <mat-checkbox (click)="saveSelection()" color="primary" class="example-margin container-checkbox" #modalChecked>Don't show again</mat-checkbox>
+                        <label class="container-checkbox">Don't show again
+                            <input (click)="saveSelection()" type="checkbox" value="Bike" #modalChecked> 
+                            <span class="checkmark">&#x2714;</span>        
+                        </label>
                     
                         <div class="modal-content">
                             <img *ngFor="let path of VIDEO_PATH" [src]="path" alt="Girl in a jacket">
                         </div>
-                        <button class="close-modal" (click)="showModalVideo=false">Close</button>
+                        <span class="close-modal" (click)="showModalVideo=false">Close</span>
                     </div>
                     <!-- modal end -->
 
@@ -255,7 +259,7 @@
     z-index: 999;    
     width: 465px;animation: 
     fadeIn 3s ease 4s forwards;" slot="end" autoplay loop
-    [src]="'/assets/img/cubo.json'">
+    [src]="'./assets/img/cubo.json'">
 </lottie-player>
 <lottie-player class="lottie-player" *ngIf="loadingLottie" style="
     position: absolute;
@@ -265,5 +269,5 @@
     z-index: 999;    
     width: 70px;animation: 
     fadeIn 3s ease 4s forwards;" slot="end" autoplay loop
-    [src]="'/assets/img/esfera.json'">
+    [src]="'./assets/img/esfera.json'">
 </lottie-player>
