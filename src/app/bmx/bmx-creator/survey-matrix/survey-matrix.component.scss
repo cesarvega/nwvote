@@ -134,7 +134,6 @@
     // margin-top: 2.5%;
     margin-left: 23%;
     margin-bottom: 12px;
-    cursor: pointer;
     font-size: 22px;
     color: #e9ecef;
 }
@@ -285,31 +284,82 @@
         top: 10%;
         margin: 1% auto;
         margin-left: auto;
-        width: 80%;
+        width: 55%;
         height: 50%;
         overflow: scroll;
     }
 
     .modal-video .close-modal{
         // margin-left: 42.5%;
-      
         top: 12%;
-    }    
+    } 
+
+    .container-checkbox{
+        margin-left: 23%;
+        top: 12%
+    }
+       
 }
 
-@media only screen and (min-width: 576px) and (max-width: 1024px) {
+//-------------modal mobil-----------------------//
+
+@media only screen and (min-width: 993px) and (max-width: 1024px) {
 	.modal-video .modal-content {        
-        top: 4%;
+        top: 3%;
         margin: 1% auto;
         margin-left: auto;
-        width: 45%;
+        width: 30%;
         height: 80%;    
         overflow: scroll;
     }
 
     .container-checkbox{
-        margin-left: 28%;
+        margin-left: 35%;
         top: 5%
+    }
+
+    .modal-video .close-modal{
+        position: relative;
+        // margin-left: 42.5%;      
+        top: 5%;
+    }
+}
+
+@media only screen and (min-width: 769px) and (max-width: 992px) {
+	.modal-video .modal-content {        
+        top: 4%;
+        margin: 1% auto;
+        margin-left: auto;
+        width: 30%;
+        height: 80%;    
+        overflow: scroll;
+    }
+
+    .container-checkbox{
+        margin-left: 35%;
+        top: 5%
+    }
+
+    .modal-video .close-modal{
+        position: relative;
+        // margin-left: 42.5%;      
+        top: 5%;
+    }
+}
+
+@media only screen and (min-width: 576px) and (max-width: 768px) {
+	.modal-video .modal-content {        
+        top: 4%;
+        margin: 1% auto;
+        margin-left: auto;
+        width: 40%;
+        height: 80%;    
+        overflow: scroll;
+    }
+
+    .container-checkbox{
+        margin-left: 30%;
+        top: 6%
     }
 
     .modal-video .close-modal{
