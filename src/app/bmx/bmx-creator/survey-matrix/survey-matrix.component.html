@@ -80,7 +80,7 @@
                             <input (click)="saveSelection()" type="checkbox" value="Bike" #modalChecked> 
                             <span class="checkmark">&#x2714;</span>        
                         </label> -->
-                        <mat-checkbox (click)="saveSelection()" class="example-margin container-checkbox" >Don't show again</mat-checkbox>
+                        <mat-checkbox (click)="saveSelection()" color="primary" class="example-margin container-checkbox" #modalChecked>Don't show again</mat-checkbox>
                     
                         <div class="modal-content">
                             <img *ngFor="let path of VIDEO_PATH" [src]="path" alt="Girl in a jacket">
@@ -125,7 +125,7 @@
                     <!-- modal -->
                     <div *ngIf="showModalVideo" id="myModal" class="modal-video">
                         
-                        <mat-checkbox (click)="saveSelection()" class="example-margin container-checkbox" >Don't show again</mat-checkbox>
+                        <mat-checkbox (click)="saveSelection()" color="primary" class="example-margin container-checkbox" #modalChecked>Don't show again</mat-checkbox>
                     
                         <div class="modal-content">
                             <img *ngFor="let path of VIDEO_PATH" [src]="path" alt="Girl in a jacket">
@@ -156,7 +156,7 @@
                     </button>
                     <!-- modal -->
                     <div *ngIf="showModalVideo" id="myModal" class="modal-video">
-                        <mat-checkbox (click)="saveSelection()" class="example-margin container-checkbox" >Don't show again</mat-checkbox>
+                        <mat-checkbox (click)="saveSelection()" color="primary" class="example-margin container-checkbox" #modalChecked>Don't show again</mat-checkbox>
                     
                         <div class="modal-content">
                             <img *ngFor="let path of VIDEO_PATH" [src]="path" alt="Girl in a jacket">
