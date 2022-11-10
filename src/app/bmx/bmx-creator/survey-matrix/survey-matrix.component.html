@@ -216,7 +216,7 @@
                         <mat-icon class="full-icon">chevron_left</mat-icon> <span class="menu-descriptions">戻る</span>
                     </button>
                     <div *ngFor="let page of bmxPagesClient; let pageIndex = index">
-                        <button disableRipple style="min-width: 35px;cursor: auto;outline: none;"
+                        <button disableRipple style="min-width: 35px;cursor: auto;outline: none; box-shadow: none;"
                             [ngClass]="(currentPage === pageIndex)?'pageNumberActive':'pageNumber'" mat-raised-button>
                             {{page.pageNumber}}
                         </button>
