@@ -85,7 +85,7 @@
         // margin-left: 15%;
         // padding: 20px;
         // border: 1px solid #888;
-        width: 55%; /* Could be more or less, depending on screen size */
+        width: 50%; /* Could be more or less, depending on screen size */
         height: 75%;
         overflow: scroll;
         img{
@@ -100,26 +100,43 @@
     .close-modal {
         // margin-bottom: 5px;
         position: relative;
+        display: flex;
+        justify-content: center;
         top: 12%;
-        left: 42.5%;
-        width: 15%;
+        // left: 42.5%;
+        // width: 15%;
         padding: 0px 5px;
         // margin-left: 36.5%;
-        color: white;
-        background-color: #324395;
+      
         // float: right;
         // font-size: 22px;
         // font-weight: bold;
-        text-align: center;
-        cursor: pointer;
-        height: 25px;      
-        border-radius: 5px;
+        
+        // height: 25px;      
+        // border-radius: 5px;
+        border: none;      
+        transition: background-color 0.5s, color 0.5s;
+    }
+
+    .close-modal button{
+        // margin-bottom: 5px;
+      
+        // margin-left: 36.5%;
+        color: white;
+        background-color: #324395;   
+        // float: right;
+        // font-size: 22px;
+        // font-weight: bold;
+    
+        // cursor: pointer;
+         
+        // border-radius: 5px;
         border: none;      
         transition: background-color 0.5s, color 0.5s;
     }
     
-    .close-modal:hover,
-    .close-modal:focus {
+    .close-modal button:hover,
+    .close-modal button:focus {
         // background-color: black;                        
         // color: white;
         text-decoration: none;
@@ -236,7 +253,6 @@
     .container-checkbox{
         margin-left: 10%;
     }
-        
 }
 
 //mobile
@@ -324,9 +340,7 @@
         top: 5%
     }
 
-    .modal-video .close-modal{
-        position: relative;
-        // margin-left: 42.5%;      
+    .modal-video .close-modal{      
         top: 5%;
     }
 }
@@ -346,8 +360,7 @@
         top: 5%
     }
 
-    .modal-video .close-modal{
-        position: relative;
+    .modal-video .close-modal{       
         // margin-left: 42.5%;      
         top: 5%;
     }
@@ -368,8 +381,7 @@
         top: 6%
     }
 
-    .modal-video .close-modal{
-        position: relative;
+    .modal-video .close-modal{      
         // margin-left: 42.5%;      
         top: 5%;
     }
