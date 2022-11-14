@@ -100,13 +100,14 @@
     .close-modal {
         // margin-bottom: 5px;
         position: relative;
-        display: flex;
-        justify-content: center;
+    
         top: 12%;
-        // left: 42.5%;
-        // width: 15%;
+        left: 42.5%;
+        width: 15%;
         padding: 0px 5px;
-        // margin-left: 36.5%;
+        color: white;
+        background-color: #324395;
+        //margin-left: 36.5%;
       
         // float: right;
         // font-size: 22px;
@@ -116,27 +117,10 @@
         // border-radius: 5px;
         border: none;      
         transition: background-color 0.5s, color 0.5s;
-    }
-
-    .close-modal button{
-        // margin-bottom: 5px;
-      
-        // margin-left: 36.5%;
-        color: white;
-        background-color: #324395;   
-        // float: right;
-        // font-size: 22px;
-        // font-weight: bold;
+    }  
     
-        // cursor: pointer;
-         
-        // border-radius: 5px;
-        border: none;      
-        transition: background-color 0.5s, color 0.5s;
-    }
-    
-    .close-modal button:hover,
-    .close-modal button:focus {
+    .close-modal:hover,
+    .close-modal:focus {
         // background-color: black;                        
         // color: white;
         text-decoration: none;
