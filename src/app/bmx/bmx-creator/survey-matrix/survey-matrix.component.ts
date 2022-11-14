@@ -20,7 +20,6 @@ import { MatSnackBar } from '@angular/material/snack-bar';
 import QRCodeStyling from 'qr-code-styling';
 import { defineCustomElements } from '@teamhive/lottie-player/loader';
 import { DeviceDetectorService } from 'ngx-device-detector';
-import { MatCheckboxModule } from '@angular/material/checkbox';
 
 defineCustomElements(window);
 @Component({
@@ -57,7 +56,7 @@ export class SurveyMatrixComponent extends SurveyCreationDesignComponent impleme
 
   //------modal-----------//
   showModalVideo: boolean = true;
-  @ViewChild('modalChecked') modalChecked: MatCheckboxModule | any;
+  @ViewChild('modalChecked') modalChecked: ElementRef | any;
 
   VIDEO_PATH: any[] = [];
 
@@ -557,8 +556,8 @@ export class SurveyMatrixComponent extends SurveyCreationDesignComponent impleme
   }
 
   saveSelection(){
-    console.log(this.modalChecked._checked)
-    if(!this.modalChecked._checked){
+
+    if(this.modalChecked.nativeElement.checked){
        localStorage.setItem('showModal', JSON.stringify(false));
 
     }else{

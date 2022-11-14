@@ -85,13 +85,13 @@ export class TextParagraphComponent implements OnInit {
         ">${director.name.trim()}</div>
         <div style="font-family: auto;
         font-size: 18px;
-        font-style: italic;">${director.title.trim()}</div>
+        font-style: sofia-pro;">${director.title.trim()}</div>
         <div style="font-family: auto;
         font-size: 18px;
-        font-style: italic;">${director.email.trim()}</div>
+        font-style: sofia-pro;">${director.email.trim()}</div>
         <div style="font-family: auto;
         font-size: 18px;
-        font-style: italic;">${director.phone.trim()}</div>
+        font-style: sofia-pro;">${director.phone.trim()}</div>
       </div>
       <br>
       `
