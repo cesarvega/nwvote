@@ -75,16 +75,17 @@
                     </button>
                    
                     <!-- modal -->
-                    <div *ngIf="showModalVideo" id="myModal" class="modal-video">
-                        <label class="container-checkbox">Don't show again
+                    <div *ngIf="showModalVideo" id="myModal" class="modal-video" style="display: flex;flex-direction: column;gap: 2px;">
+                        <!-- <label class="container-checkbox">Don't show again
                             <input (click)="saveSelection()" type="checkbox" value="Bike" #modalChecked> 
                             <span class="checkmark">&#x2714;</span>        
-                        </label>
+                        </label> -->
+                        <mat-checkbox (click)="saveSelection()" class="example-margin container-checkbox" >Don't show again</mat-checkbox>
                     
                         <div class="modal-content">
-                            <img *ngFor="let path of VIDEO_PATH" [src]="path" alt="Girl in a jacket">
+                            <img *ngFor="let path of VIDEO_PATH" [src]="path" alt="tutorial">
                         </div>
-                        <button class="close-modal" (click)="showModalVideo=false">Close</button>
+                        <button class="btn btn-raised close-modal" (click)="showModalVideo=false">close</button>
                     </div>
                     <!-- modal end -->
                   
@@ -122,17 +123,15 @@
                         </mat-icon>
                     </button>
                     <!-- modal -->
-                    <div *ngIf="showModalVideo" id="myModal" class="modal-video">
-                        <label class="container-checkbox">Don't show again
-                            <input (click)="saveSelection()" type="checkbox" value="Bike" #modalChecked> 
-                            <span class="checkmark">&#x2714;</span>        
-                        </label>
+                    <!-- <div *ngIf="showModalVideo" id="myModal" class="modal-video"> CV
+                        
+                        <mat-checkbox (click)="saveSelection()" class="example-margin container-checkbox" >Don't show again</mat-checkbox>
                     
                         <div class="modal-content">
                             <img *ngFor="let path of VIDEO_PATH" [src]="path" alt="Girl in a jacket">
                         </div>
                         <button class="close-modal" (click)="showModalVideo=false">Close</button>
-                    </div>
+                    </div> -->
                     <!-- modal end -->                   
 
                     <app-image-rank-drag [bmxItem]="bmxItem" [i]="i" [bmxClientPageDesignMode]="bmxClientPageDesignMode"
@@ -156,17 +155,15 @@
                         </mat-icon>
                     </button>
                     <!-- modal -->
-                    <div *ngIf="showModalVideo" id="myModal" class="modal-video">
-                        <label class="container-checkbox">Don't show again
-                            <input (click)="saveSelection()" type="checkbox" value="Bike" #modalChecked> 
-                            <span class="checkmark">&#x2714;</span>        
-                        </label>
+                    <!-- <div *ngIf="showModalVideo" id="myModal" class="modal-video" CV
+                    style="display: flex;flex-direction: column;gap: 6px;">
+                        <mat-checkbox (click)="saveSelection()" class="example-margin container-checkbox" >Don't show again</mat-checkbox>
                     
                         <div class="modal-content">
                             <img *ngFor="let path of VIDEO_PATH" [src]="path" alt="Girl in a jacket">
                         </div>
                         <button class="close-modal" (click)="showModalVideo=false">Close</button>
-                    </div>
+                    </div> -->
                     <!-- modal end -->
 
                     <app-image-rate-scale [bmxItem]="bmxItem" [i]="i"
@@ -216,7 +213,7 @@
                         <mat-icon class="full-icon">chevron_left</mat-icon> <span class="menu-descriptions">戻る</span>
                     </button>
                     <div *ngFor="let page of bmxPagesClient; let pageIndex = index">
-                        <button disableRipple style="min-width: 35px;cursor: auto;outline: none; box-shadow: none;"
+                        <button disableRipple style="min-width: 35px;cursor: auto;outline: none;box-shadow:none;"
                             [ngClass]="(currentPage === pageIndex)?'pageNumberActive':'pageNumber'" mat-raised-button>
                             {{page.pageNumber}}
                         </button>
@@ -250,7 +247,6 @@
         <p>{{myAngularxQrCode}}</p>
     </div>
 </div>
-
 <lottie-player class="lottie-player" *ngIf="loadingLottie" style="
     position: absolute;
     top: 40%;
