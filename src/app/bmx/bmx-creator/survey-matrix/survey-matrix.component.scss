@@ -85,8 +85,8 @@
         // margin-left: 15%;
         // padding: 20px;
         // border: 1px solid #888;
-        width: 55%; /* Could be more or less, depending on screen size */
-        height: 75%;
+        width: 45%; /* Could be more or less, depending on screen size */
+        height: 70%;
         overflow: scroll;
         img{
             margin-bottom: 15px;
@@ -110,9 +110,9 @@
         // float: right;
         // font-size: 22px;
         // font-weight: bold;
-        text-align: center;
+        // text-align: center;
         height: 25px;      
-        border-radius: 5px;
+        // border-radius: 5px;
         transition: background-color 0.5s, color 0.5s;
     }
     
@@ -137,7 +137,7 @@
     top: 10%;
     // padding-left: 35px;
     // margin-top: 2.5%;
-    margin-left: 23%;
+    margin-left: 28%;
     margin-bottom: 12px;
     font-size: 22px;
     color: #e9ecef;
@@ -314,13 +314,13 @@
         margin: 1% auto;
         margin-left: auto;
         width: 30%;
-        height: 80%;    
+        height: 75%;    
         overflow: scroll;
     }
 
     .container-checkbox{
         margin-left: 35%;
-        top: 5%
+        top: 3%
     }
 
     .modal-video .close-modal{
@@ -336,7 +336,7 @@
         margin: 1% auto;
         margin-left: auto;
         width: 30%;
-        height: 80%;    
+        height: 75%;    
         overflow: scroll;
     }
 
@@ -358,7 +358,7 @@
         margin: 1% auto;
         margin-left: auto;
         width: 40%;
-        height: 80%;    
+        height: 75%;    
         overflow: scroll;
     }
 
