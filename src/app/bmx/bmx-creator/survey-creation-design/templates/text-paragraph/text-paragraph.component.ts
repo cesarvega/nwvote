@@ -82,17 +82,24 @@ export class TextParagraphComponent implements OnInit {
     <div style="display: flex;flex-direction: column;justify-content: center;align-items: center;">
         <div style="
         font-size: 23px;
-        font-family: sofia-pro
+        font-family: sofia-pro;
+        line-height: 1.5
         ">${director.name.trim()}</div>
         <div style="
         font-size: 18px;
-        font-family: sofia-pro;">${director.title.trim()}</div>
+        font-family: sofia-pro;
+        line-height: 1.5
+        ">${director.title.trim()}</div>
         <div style="font-family: auto;
         font-size: 18px;
-        font-family: sofia-pro;">${director.email.trim()}</div>
+        font-family: sofia-pro;
+        line-height: 1.5
+        ">${director.email.trim()}</div>
         <div style="font-family: auto;
         font-size: 18px;
-        font-family: sofia-pro;">${director.phone.trim()}</div>
+        font-family: sofia-pro;
+        line-height: 1.5
+        ">${director.phone.trim()}</div>
       </div>
       <br>
       `
