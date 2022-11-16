@@ -95,11 +95,12 @@
         img:last-child {
             margin-bottom: 0;
         }
-    }
+    }    
 
     .close-modal {
         // margin-bottom: 5px;
         position: relative;
+    
         top: 12%;
         left: 42.5%;
         width: 15%;
@@ -121,7 +122,6 @@
         background-color: #283e90;
         color: white;
         text-decoration: none;
-        cursor: pointer;
     }
 }
 
@@ -141,8 +141,13 @@
     margin-bottom: 12px;
     font-size: 22px;
     color: #e9ecef;
+    
 }
 
+::ng-deep .mat-checkbox-background, 
+.mat-checkbox-background{
+    background-color: #e9ecef80;
+}
 /* escondemos el default checkbox */
 .modal-video input[type="checkbox"] {
     position: absolute;
