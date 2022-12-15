@@ -1026,6 +1026,11 @@ export class DocxSurveyComponent implements OnInit {
                     size: 33,
                     type: WidthType.PERCENTAGE,
                   },
+                  margins:
+                  {
+                    left: 500,
+                    right: 500
+                  },
                   children: [new Paragraph({
                     spacing: {
                       before: 200,
@@ -1234,6 +1239,7 @@ export class DocxSurveyComponent implements OnInit {
         let m = overall[i].question[j].question;
         let n = overall[i].question[j].resp;
         var partInfo = []
+
         for (var k = 0; k < overall[i].question[j].resp.length; k++) {
           if (this.reportType === "rate") {
             partInfo.push(
@@ -2299,7 +2305,7 @@ export class DocxSurveyComponent implements OnInit {
             size: 60,
           }),
           new TextRun({
-            text: "PROJECT: " + this.data.bmxProjectName,
+            text: "Project " + this.data.bmxProjectName,
             break: 1,
             color: "FFFFFF",
             font: {
@@ -2404,7 +2410,6 @@ export class DocxSurveyComponent implements OnInit {
         stylesWithLevels: [new StyleLevel("TOC1", 1)],
     }),
     )
-
     if (this.reportSettings.displayCompletionStatus) {
       reportParts.push(new Paragraph({
         children: [
@@ -2679,7 +2684,6 @@ export class DocxSurveyComponent implements OnInit {
             children: [
               new TextRun({
                 text: "BY PAGE",
-
               }),
             ],
             pageBreakBefore: true,
@@ -3110,7 +3114,7 @@ export class DocxSurveyComponent implements OnInit {
 
     Packer.toBlob(this.doc).then((blob) => {
       console.log(blob);
-      saveAs(blob, "example.docx");
+      saveAs(blob, this.data.bmxProjectName + ".docx");
       console.log("Document created successfully");
     });
 
