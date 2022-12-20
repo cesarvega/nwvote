@@ -105,14 +105,16 @@ export class ParticipantsEmailComponent implements OnInit {
 
     this._BmxService.currentProjectName$.subscribe(projectName => {
       this.projectId = (projectName !== '') ? projectName : this.projectId;
+      this.Subject = this.projectId.toString().trim() + ' Naming Initiative';
     })
 
     this._BmxService.getProjectInfo(this.projectId)
       .subscribe((arg: any) => {
         var data = JSON.parse(arg.d);
         this.DIRECTORS = data.bmxRegionalOffice;
+        this.From = this.DIRECTORS[0].email.trim();
       });
-
+      
     this._BmxService.BrandMatrixGetParticipantList(this.projectId)
       .subscribe((arg: any) => {
         this.allData = JSON.parse(arg.d).ParticipantList;
@@ -174,6 +176,7 @@ export class ParticipantsEmailComponent implements OnInit {
     }
     // SAMPLE DATA FOR CKEDITOR
     //this.model.editorData = this.sampleHtml;
+    
   }
 
   isAllSelected() {
@@ -357,7 +360,7 @@ export class ParticipantsEmailComponent implements OnInit {
         "deptConfirm": this.deptConfirm,
         "emailTemp": this.emailTemp,
         "linkType": this.linkType,
-        "From": 'cgomez@brandinstitute.com',
+        "From": this.From,
         "BCC" : this.BCC,
         /*"CC" : this.CC,*/
         "Subject": this.Subject,
