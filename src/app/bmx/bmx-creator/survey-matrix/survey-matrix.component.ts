@@ -18,11 +18,9 @@ import { DragulaService } from 'ng2-dragula';
 import { SurveyCreationDesignComponent } from '../survey-creation-design/survey-creation-design.component';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import QRCodeStyling from 'qr-code-styling';
-import { defineCustomElements } from '@teamhive/lottie-player/loader';
 import { DeviceDetectorService } from 'ngx-device-detector';
 import { MatCheckboxModule } from '@angular/material/checkbox';
 
-defineCustomElements(window);
 @Component({
   selector: 'app-survey-matrix',
   templateUrl: './survey-matrix.component.html',
