@@ -31,6 +31,9 @@ export class SurveyCreationDesignComponent implements OnInit {
     popUpQRCode = false;
     elem: any;
     isFullscreen: any;
+
+    showMenuCreator: boolean =  false;
+    iconMenuShow: string = "add_circle_outline";
     TEMPLATE_NAME = 'Standart Personal Preference';
 
     model = {
@@ -1103,6 +1106,15 @@ export class SurveyCreationDesignComponent implements OnInit {
             ]
         }
     ]
+
+    showMenucreateNewBmx(){
+        this.showMenuCreator = !this.showMenuCreator;
+        if(this.showMenuCreator){
+            this.iconMenuShow = "remove_circle_outline"
+        }else{
+            this.iconMenuShow = "add_circle_outline"
+        }
+    }
 }
 // https://brandmatrix.brandinstitute.com/BMX/survey/ImageStarRate/guest
 // https://brandmatrix.brandinstitute.com/BMX/survey/ImageStarRateCriteria/guest

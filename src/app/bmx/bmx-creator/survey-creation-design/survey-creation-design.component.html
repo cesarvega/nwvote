@@ -201,12 +201,12 @@
     <!-- 🎵🎵🎵🎵🎵🎵🎵🎵🎵🎵🎵🎵🎵🎵🎵🎵🎵🎵🎵🎵🎵🎵🎵  RIGHT SIDE MENU 🎵🎵🎵🎵🎵🎵🎵🎵🎵🎵🎵🎵🎵🎵🎵🎵🎵🎵-->
     <!-- <div class="project-info" *ngIf="bmxClientPageDesignMode" style="border: pink solid 1px; width: 25%; height: 100vh;"> -->
     <div class="project-info" *ngIf="true">
-        <button (click)="createNewBmxComponent('logo-header')" mat-icon-button matTooltip="header"
+        <button (click)="showMenucreateNewBmx()" mat-icon-button matTooltip="open menu"
                 matTooltipPosition="right">
-                <mat-icon class="full-icon">more_vert</mat-icon>
+                <mat-icon class="full-icon">{{iconMenuShow}}</mat-icon>
             </button>
 
-        <div style="display: flex;flex-direction: column;margin-top: 50px;">
+        <div [ngClass]="showMenuCreator?'menuCreatorBmx':'hideMenuCreatorBmx'">
             
             <button (click)="createNewBmxComponent('logo-header')" mat-icon-button matTooltip="header"
                 matTooltipPosition="right">
@@ -249,6 +249,8 @@
                 <mat-icon class="full-icon">question_answer</mat-icon>
             </button>
             <br>
+        </div>
+        <div style="display: flex;flex-direction: column;" >  
             <button *ngIf="!false" (click)="createPage()" matTooltip="Create New Page" matTooltipPosition="right"
                 mat-icon-button aria-label="aria">
                 <mat-icon class="full-icon-secondary">post_add</mat-icon>

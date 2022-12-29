@@ -131,6 +131,16 @@
     background-color: #324395;
     font-size: 18px;
   }
+
+  .menuCreatorBmx{
+    display: flex;
+    flex-direction: column;
+    margin-top: 15px;
+  }
+
+  .hideMenuCreatorBmx{
+    display: none;
+  }
   
 
 
