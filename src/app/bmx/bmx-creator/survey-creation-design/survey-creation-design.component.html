@@ -201,8 +201,13 @@
     <!-- 🎵🎵🎵🎵🎵🎵🎵🎵🎵🎵🎵🎵🎵🎵🎵🎵🎵🎵🎵🎵🎵🎵🎵  RIGHT SIDE MENU 🎵🎵🎵🎵🎵🎵🎵🎵🎵🎵🎵🎵🎵🎵🎵🎵🎵🎵-->
     <!-- <div class="project-info" *ngIf="bmxClientPageDesignMode" style="border: pink solid 1px; width: 25%; height: 100vh;"> -->
     <div class="project-info" *ngIf="true">
+        <button (click)="createNewBmxComponent('logo-header')" mat-icon-button matTooltip="header"
+                matTooltipPosition="right">
+                <mat-icon class="full-icon">more_vert</mat-icon>
+            </button>
 
         <div style="display: flex;flex-direction: column;margin-top: 50px;">
+            
             <button (click)="createNewBmxComponent('logo-header')" mat-icon-button matTooltip="header"
                 matTooltipPosition="right">
                 <mat-icon class="full-icon">account_circle</mat-icon>

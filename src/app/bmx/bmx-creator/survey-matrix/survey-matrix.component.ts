@@ -1092,12 +1092,15 @@ export class SurveyMatrixComponent extends SurveyCreationDesignComponent impleme
     if(this.totalOfpages == this.currentPage + 1){
       this.loadingLottie = true;
       console.log(this.loadingLottie)
-    }
+      console.log(this.totalOfpages)
+      console.log(this.currentPage)
+    }    
   }
 
   selectPageNumber(pageNumber) {
     // IF PAGE IS NOT CATEGORY PAGE PASS THE PAGE
-    if (this.isCategoryPage[this.currentPage]['isCategory']) {
+    
+    if (this.isCategoryPage[this.currentPage]['isCategory']) {      
       if (this.currentPage < pageNumber) {
         this.bmxPagesClient[this.currentPage].page.forEach((component) => {
           if (component.componentType == 'rate-scale' ||
@@ -1190,6 +1193,7 @@ export class SurveyMatrixComponent extends SurveyCreationDesignComponent impleme
               component.componentSettings[0].categoryRulesPassed ||
               (component.componentSettings[0].minRule - minRuleCounter) <= 0
             ) {
+              
               this.currentPage = pageNumber;
               window.scroll(0, 0);
               setTimeout(() => {
@@ -1232,7 +1236,7 @@ export class SurveyMatrixComponent extends SurveyCreationDesignComponent impleme
         this.currentPage = pageNumber;
         window.scroll(0, 0);
       }
-    } else {
+    } else {      
       this.currentPage = pageNumber;
     }
   }
