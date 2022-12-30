@@ -65,6 +65,7 @@ export class SurveyCreationDesignComponent implements OnInit {
 
     // TEMPLATE BOX
     isTemplateBoxOn = false;
+    isTemplateUpdate = false;
     isSaveOrUpdate = false;
     isOverViewPageOn = false;
     templateTitle;
@@ -781,7 +782,7 @@ export class SurveyCreationDesignComponent implements OnInit {
             }
 
             setTimeout(() => {
-                this.openSaveTemplateBox();
+                //this.openSaveTemplateBox();
             }, 1000);
 
         }
@@ -799,7 +800,7 @@ export class SurveyCreationDesignComponent implements OnInit {
                 verticalPosition: 'top',
             })
         })
-        this.openSaveTemplateBox();
+        //this.openSaveTemplateBox();
     }
 
     deleteTemplate(templateName) {
@@ -861,10 +862,15 @@ export class SurveyCreationDesignComponent implements OnInit {
 
     openSaveTemplateBox() {
         this.templateName = '';
-        this.templateTitle = 'save, update or load a template';
+        this.templateTitle = 'save';
         this.isTemplateBoxOn = !this.isTemplateBoxOn;
     }
 
+    openUploadDeleteLoadTemplateBox() {
+        this.templateName = '';
+        this.templateTitle = 'update or load a template';
+        this.isTemplateUpdate = !this.isTemplateUpdate;
+    }
 
     saveData() {
         // RESET VOTES IN TEMPLATE

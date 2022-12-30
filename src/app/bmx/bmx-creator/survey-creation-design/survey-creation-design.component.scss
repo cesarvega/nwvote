@@ -141,6 +141,31 @@
   .hideMenuCreatorBmx{
     display: none;
   }
+
+  .list-save-template{
+    display: none;
+    min-width: 200px;
+    background-color: #324395;
+      
+    position: absolute;
+    z-index: 1;
+    top: 8px;
+    right: 42px;    
+    border-radius: 5px;
+    
+    mat-list-item{
+        color: white;    }
+
+    mat-list-item:hover{
+        background-color: white;
+        color: #324395;
+    }
+  }
+
+  #openSaveTamplate:hover .list-save-template{
+    display: block;
+    
+  }
   
 
 
