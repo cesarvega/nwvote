@@ -92,7 +92,7 @@
     .welcome {
         // border: solid 5px #8b1500;
         width: 15.5%;
-        height: 10%;
+        // height: 10%;
         top: 67px;
         margin: 10px 0px;
         display: flex;
@@ -300,6 +300,42 @@
     Helvetica, sans-serif;
     font-size: 18px;
     padding-left:20px
+}
+
+.welcome-role{
+    font-size: 90%;
+}
+
+.welcome .mat-icon{
+    width: unset;
+}
+
+.create-edit-matrix{
+    font-size: 18px;
+}
+
+@media (min-width: 1280px) and (max-width: 1380px){
+    .create-edit-matrix{
+        font-size: 16px;
+    }    
+}
+
+@media (min-width: 1180px) and (max-width: 1279px){
+    .create-edit-matrix{
+        font-size: 14px;
+    }    
+}
+
+@media (max-width: 1179px){
+    .create-edit-matrix{
+        font-size: 11px;
+    }    
+}
+
+@media (max-width: 879px){
+    .welcome-role{
+        font-size: 84%;
+    }    
 }
 
 @media (min-width: 1025px) and (max-width: 1440px) {   
