@@ -292,11 +292,29 @@
     .template-list-item:hover {
         border: #76d354 4px solid;
     }
-
-
-
-
 }
+
+.link-bmx-creator{
+    text-align: end;
+    font-family: Arial, 
+    Helvetica, sans-serif;
+    font-size: 18px;
+    padding-left:20px
+}
+
+@media (min-width: 1025px) and (max-width: 1440px) {   
+    .link-bmx-creator{           
+        font-size: 13px;
+    }
+}
+
+@media (max-width: 1024px){   
+    .link-bmx-creator{           
+        font-size: 12px;
+    }
+}
+
+
 
 // 💜 💜 💜 💜 💜 💜 💜 💜 💜 💜 💜 💜 💜 💜 💜 💜 💜 💜 💜 💜 💜 💜 💜 💜 💜 💜 💜 💜 💜 💜 💜 💜 💜 💜 💜 💜 💜 💜 💜 💜 💜 💜 💜
 // END OF THE SCSS PROJECT *******************************************************************************************

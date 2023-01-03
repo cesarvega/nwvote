@@ -31,6 +31,9 @@ export class SurveyCreationDesignComponent implements OnInit {
     popUpQRCode = false;
     elem: any;
     isFullscreen: any;
+
+    showMenuCreator: boolean =  false;
+    iconMenuShow: string = "add_circle_outline";
     TEMPLATE_NAME = 'Standart Personal Preference';
 
     model = {
@@ -62,6 +65,7 @@ export class SurveyCreationDesignComponent implements OnInit {
 
     // TEMPLATE BOX
     isTemplateBoxOn = false;
+    isTemplateUpdate = false;
     isSaveOrUpdate = false;
     isOverViewPageOn = false;
     templateTitle;
@@ -778,7 +782,7 @@ export class SurveyCreationDesignComponent implements OnInit {
             }
 
             setTimeout(() => {
-                this.openSaveTemplateBox();
+                //this.openSaveTemplateBox();
             }, 1000);
 
         }
@@ -796,7 +800,7 @@ export class SurveyCreationDesignComponent implements OnInit {
                 verticalPosition: 'top',
             })
         })
-        this.openSaveTemplateBox();
+        //this.openSaveTemplateBox();
     }
 
     deleteTemplate(templateName) {
@@ -858,10 +862,15 @@ export class SurveyCreationDesignComponent implements OnInit {
 
     openSaveTemplateBox() {
         this.templateName = '';
-        this.templateTitle = 'save, update or load a template';
+        this.templateTitle = 'save';
         this.isTemplateBoxOn = !this.isTemplateBoxOn;
     }
 
+    openUploadDeleteLoadTemplateBox() {
+        this.templateName = '';
+        this.templateTitle = 'update or load a template';
+        this.isTemplateUpdate = !this.isTemplateUpdate;
+    }
 
     saveData() {
         // RESET VOTES IN TEMPLATE
@@ -1103,6 +1112,15 @@ export class SurveyCreationDesignComponent implements OnInit {
             ]
         }
     ]
+
+    showMenucreateNewBmx(){
+        this.showMenuCreator = !this.showMenuCreator;
+        if(this.showMenuCreator){
+            this.iconMenuShow = "remove_circle_outline"
+        }else{
+            this.iconMenuShow = "add_circle_outline"
+        }
+    }
 }
 // https://brandmatrix.brandinstitute.com/BMX/survey/ImageStarRate/guest
 // https://brandmatrix.brandinstitute.com/BMX/survey/ImageStarRateCriteria/guest
