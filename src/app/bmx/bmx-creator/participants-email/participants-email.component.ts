@@ -105,14 +105,16 @@ export class ParticipantsEmailComponent implements OnInit {
 
     this._BmxService.currentProjectName$.subscribe(projectName => {
       this.projectId = (projectName !== '') ? projectName : this.projectId;
+      this.Subject = this.projectId.toString().trim() + ' Naming Initiative';
     })
 
     this._BmxService.getProjectInfo(this.projectId)
       .subscribe((arg: any) => {
         var data = JSON.parse(arg.d);
         this.DIRECTORS = data.bmxRegionalOffice;
+        this.From = this.DIRECTORS[0].email.trim();
       });
-
+      
     this._BmxService.BrandMatrixGetParticipantList(this.projectId)
       .subscribe((arg: any) => {
         this.allData = JSON.parse(arg.d).ParticipantList;
@@ -174,6 +176,7 @@ export class ParticipantsEmailComponent implements OnInit {
     }
     // SAMPLE DATA FOR CKEDITOR
     //this.model.editorData = this.sampleHtml;
+    
   }
 
   isAllSelected() {
@@ -192,8 +195,8 @@ export class ParticipantsEmailComponent implements OnInit {
       this.dataSource.data.forEach(row => {
 
         this.selection.select(row);
-        if (!this.to.includes(row.FirstName)) {
-          this.to += row.FirstName + '; ';
+        if (!this.to.includes(row.Email)) {
+          this.to += row.Email + '; ';
           this.RESPONDENTS_LIST.push(row);
         }
       });
@@ -258,7 +261,7 @@ export class ParticipantsEmailComponent implements OnInit {
       BI_DIRECTOR 
       
       Should you experience any difficulty with this survey, please contact us or your project team leader immediately.`
-
+      this.BCC = 'creative@brandinstitute.com;'
     }
     else if (template === 'Nonproprietary') {
       this.brandMatrixObjects[1].componentText = `Dear BI_PARTNAME,<br><br>
@@ -279,7 +282,7 @@ export class ParticipantsEmailComponent implements OnInit {
       
       Should you experience any difficulty with this survey, please contact us or your project team leader immediately.
       `;
-
+      this.BCC = 'chicago-nonproprietary@brandinstitute.com;';
     }
     else {
       this.brandMatrixObjects[1].componentText = `Dear BI_PARTNAME,<br><br>
@@ -300,8 +303,12 @@ export class ParticipantsEmailComponent implements OnInit {
       
       Should you experience any difficulty with this survey, please contact us or your project team leader immediately.
       `;
-
+      this.BCC = 'design@brandinstitute.com;'
     }
+    for(var i = 0; i < this.DIRECTORS.length; i++)
+      {
+        this.BCC = this.DIRECTORS[i].email.trim() + '; ' + this.BCC;
+      }
   }
 
   /*
@@ -342,7 +349,7 @@ export class ParticipantsEmailComponent implements OnInit {
         var so = result;
       });
 
-
+      
 
 
     for (var i = 0; i < this.RESPONDENTS_LIST.length; i++) {
@@ -353,9 +360,9 @@ export class ParticipantsEmailComponent implements OnInit {
         "deptConfirm": this.deptConfirm,
         "emailTemp": this.emailTemp,
         "linkType": this.linkType,
-        "From": 'cgomez@brandinstitute.com',
-        /*"BCC" : this.BCC,
-        "CC" : this.CC,*/
+        "From": this.From,
+        "BCC" : this.BCC,
+        /*"CC" : this.CC,*/
         "Subject": this.Subject,
         "Message": this.fixedString,
         "TO": this.RESPONDENTS_LIST[i].Email,
