@@ -67,6 +67,7 @@ export class LogoHeaderComponent implements OnInit {
               .split(event.target.result.split(',')[0] + ',')
               .pop(),
           };
+          console.log(this.resourceData)
           this._BmxService
             .saveFileResources(JSON.stringify(this.resourceData))
             .subscribe((result: any) => {

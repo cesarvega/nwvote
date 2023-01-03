@@ -195,7 +195,7 @@ export class SurveyMatrixComponent extends SurveyCreationDesignComponent impleme
                 .subscribe((brandMatrix: any) => {
                   let template = JSON.parse(
                     brandMatrix.d.replace(this.searchGraveAccentRegExp, "'")
-                  );
+                  );                  
     
                   //  FILL THE TEMPLATE WTIHT USER ANSWERS
                   template.forEach((page, index) => {
