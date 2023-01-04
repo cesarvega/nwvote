@@ -276,7 +276,14 @@ export class SurveyCreationDesignComponent implements OnInit {
 
             this._BmxService.getBrandMatrixByProject(this.projectId).subscribe((brandMatrix: any) => {
                 if (brandMatrix.d.length > 0) {
+                    let logoUrl = ""
                     this.bmxPages = JSON.parse(brandMatrix.d)
+                    logoUrl = this.bmxPages[0].page[0].componentSettings[0].companyLogoURL;
+
+                    for (let index = 0; index < this.bmxPages.length; index++) {
+                        this.bmxPages[index].page[0].componentSettings[0].companyLogoURL = logoUrl                        
+                    }
+                    //console.log(this.bmxPages)
                     // this._snackBar.open('bmx LOADED for project  ' + this.projectId , 'OK', {
                     //     duration: 5000,
                     //     horizontalPosition: 'left',
@@ -714,8 +721,10 @@ export class SurveyCreationDesignComponent implements OnInit {
     changePage(direction) {
         if (direction === 'next' && this.bmxPages.length - 1 > this.currentPage) {
             this.currentPage = this.currentPage + 1;
+            
         } else if (direction === 'previous' && this.currentPage >= 1) {
             this.currentPage = this.currentPage - 1;
+          
         }
     }
 
@@ -950,7 +959,14 @@ export class SurveyCreationDesignComponent implements OnInit {
             // console.log(this.bmxCompleteObject.bmx[4]["page"][3]['componentText']);
             this._BmxService
                 .saveOrUpdateBradnMatrixTemplate(this.bmxPages, this.projectId)
-                .subscribe((res) => {
+                .subscribe((res:any) => {
+                    let logoUrl = ""
+                    this.bmxPages = JSON.parse(res.d)
+                    logoUrl = this.bmxPages[0].page[0].componentSettings[0].companyLogoURL;
+
+                    for (let index = 0; index < this.bmxPages.length; index++) {
+                        this.bmxPages[index].page[0].componentSettings[0].companyLogoURL = logoUrl                        
+                    }
                     // console.log('%cBMX!', 'color:orange', res);
                     this._snackBar.open('Project ' + this.projectId + ' saved', 'OK', {
                         duration: 5000,
@@ -1120,6 +1136,12 @@ export class SurveyCreationDesignComponent implements OnInit {
         }else{
             this.iconMenuShow = "add_circle_outline"
         }
+    }
+
+    logoChanged(logoUrl: any){
+        for (let index = 0; index < this.bmxPages.length; index++) {
+            this.bmxPages[index].page[0].componentSettings[0].companyLogoURL = logoUrl                        
+        }        
     }
 }
 // https://brandmatrix.brandinstitute.com/BMX/survey/ImageStarRate/guest

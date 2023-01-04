@@ -26,6 +26,8 @@ export class LogoHeaderComponent implements OnInit {
   openSettings = false;
   displayLogoWidthRange = false;
 
+  @Output() logoChanged = new EventEmitter();
+
   // TEMPLATE SELECTOR VARABLES
   isTemplateSelected = '';
   isSelectedButton = '';
@@ -67,6 +69,7 @@ export class LogoHeaderComponent implements OnInit {
               .split(event.target.result.split(',')[0] + ',')
               .pop(),
           };
+          console.log(this.resourceData)
           this._BmxService
             .saveFileResources(JSON.stringify(this.resourceData))
             .subscribe((result: any) => {
@@ -74,6 +77,7 @@ export class LogoHeaderComponent implements OnInit {
                 result.d
               ).FileUrl;
               this.imageLogoSrc = this.bmxItem.componentSettings[0].companyLogoURL
+              this.logoChanged.emit(this.imageLogoSrc)
             });
         };
         reader.readAsDataURL(event.target.files[i]);

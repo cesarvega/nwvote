@@ -31,7 +31,7 @@
     <!-- LOGO BRANDING 🎭🎭🎭🎭🎭🎭🎭🎭🎭🎭🎭🎭🎭🎭🎭🎭🎭🎭🎭🎭🎭🎭🎭🎭🎭🎭🎭🎭🎭🎭🎭🎭🎭-->
     <div class="logo-badge" style="font-size: 21px;overflow-x: hidden;">
 
-      <img style="width: 253px;margin-left: 18px;" src="./assets/img/bmx/BRANDMATRIX-DASHBOARD-LOGO.svg">
+      <img style="width: 253px;margin-left: 16px;margin-right: 16px;" src="./assets/img/bmx/BRANDMATRIX-DASHBOARD-LOGO.svg">
       <div style="display: flex;flex-direction: column;">
         <!-- <div class="title secondary-text"
                     style="color: #004684; margin-top: 10px;text-align: center;font-family: Arial, Helvetica, sans-serif;font-weight: 800;">
@@ -46,8 +46,8 @@
     <!--🎭🎭🎭🎭🎭🎭🎭🎭🎭🎭🎭🎭🎭🎭🎭🎭🎭🎭🎭🎭🎭🎭🎭🎭🎭🎭🎭🎭🎭🎭🎭 END LOGO BRANDING -->
 
     <div class="welcome">
-        <mat-icon style="color: white;padding: 15px;">account_circle</mat-icon>
-      <div style="color: white; width: 100%;text-align: center;font-family: Arial, Helvetica, sans-serif;font-size: 16px;margin-top: 10px;">
+      <mat-icon style="color: white;padding: 15px;">account_circle</mat-icon>
+      <div class="welcome-role" style="color: white; width: 100%;text-align: center;font-family: Arial, Helvetica, sans-serif;margin-top: 10px;">
         Welcome {{userFullName}}
         <br>
         Role: {{userRole}}
@@ -61,7 +61,7 @@
         <button mat-icon-button style="margin: 0 20px 0 10px">
           <mat-icon style="font-size: 40px;">list</mat-icon>
         </button>
-        <div style=" text-align: end;font-family: Arial, Helvetica, sans-serif;font-size: 18px;">
+        <div class="create-edit-matrix" style=" text-align: end;font-family: Arial, Helvetica, sans-serif">
           {{'Project List'}}
         </div>
       </div>
@@ -94,9 +94,9 @@
       <div *ngIf="!(userRole == 'Director')" [ngClass]="(isMenuActive4)?'menu-active':'menu-item'"
         (click)="toggleMenuActive('isMenuActive8');isMainMenuActive = false ">
         <button mat-icon-button style="margin: 0 20px 0 10px">
-          <mat-icon style="font-size: 40px;">edit</mat-icon>
+          <mat-icon style="font-size: 35px;">edit</mat-icon>
         </button>
-        <div style=" text-align: end;font-family: Arial, Helvetica, sans-serif;font-size: 18px;">
+        <div class="create-edit-matrix" style=" text-align: end;font-family: Arial, Helvetica, sans-serif">
           {{'Create/Edit Matrix'}}
         </div>
       </div>
