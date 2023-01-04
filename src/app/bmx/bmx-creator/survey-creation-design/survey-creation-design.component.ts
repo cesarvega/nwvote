@@ -1137,6 +1137,12 @@ export class SurveyCreationDesignComponent implements OnInit {
             this.iconMenuShow = "add_circle_outline"
         }
     }
+
+    logoChanged(logoUrl: any){
+        for (let index = 0; index < this.bmxPages.length; index++) {
+            this.bmxPages[index].page[0].componentSettings[0].companyLogoURL = logoUrl                        
+        }        
+    }
 }
 // https://brandmatrix.brandinstitute.com/BMX/survey/ImageStarRate/guest
 // https://brandmatrix.brandinstitute.com/BMX/survey/ImageStarRateCriteria/guest

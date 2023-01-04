@@ -26,6 +26,8 @@ export class LogoHeaderComponent implements OnInit {
   openSettings = false;
   displayLogoWidthRange = false;
 
+  @Output() logoChanged = new EventEmitter();
+
   // TEMPLATE SELECTOR VARABLES
   isTemplateSelected = '';
   isSelectedButton = '';
@@ -75,6 +77,7 @@ export class LogoHeaderComponent implements OnInit {
                 result.d
               ).FileUrl;
               this.imageLogoSrc = this.bmxItem.componentSettings[0].companyLogoURL
+              this.logoChanged.emit(this.imageLogoSrc)
             });
         };
         reader.readAsDataURL(event.target.files[i]);

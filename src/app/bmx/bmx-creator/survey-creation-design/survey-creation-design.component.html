@@ -30,7 +30,7 @@
                         <mat-icon style="font-size: 17px;">cancel</mat-icon>
                     </button>
                 </div>
-                <app-logo-header [bmxItem]="bmxItem" [isBrandMatrixSurvey]="isBrandMatrixSurvey" [i]="i"
+                <app-logo-header [bmxItem]="bmxItem" [isBrandMatrixSurvey]="isBrandMatrixSurvey" [i]="i" (logoChanged)="logoChanged($event)"
                     [bmxClientPageDesignMode]="bmxClientPageDesignMode" [bmxClientPageOverview]="bmxClientPageOverview">
                 </app-logo-header>
             </div>
