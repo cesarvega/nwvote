@@ -1,5 +1,5 @@
 import { MatSnackBar } from '@angular/material/snack-bar';
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit,Output, EventEmitter } from '@angular/core';
 import { FormControl, FormGroup } from '@angular/forms';
 import { BmxService } from '../bmx.service';
 import { Observable } from 'rxjs';
@@ -27,6 +27,8 @@ export class ProjectInformationComponent implements OnInit {
   stringBmxEditData: any;
 
   DIRECTORS: Array<any> = [];
+
+  @Output() saveProjectSuccess = new EventEmitter();
 
   selectedDirector;
   officeLocations: Array<any> = [];
@@ -157,6 +159,7 @@ export class ProjectInformationComponent implements OnInit {
     finalString = finalString.replace("[\\u2022,\\u2023,\\u25E6,\\u2043,\\u2219]\\s\\d", '');
     this._BmxService.saveProjectInfo(this.bmxEditData.get('bmxProjectName').value.toString(), finalString, 'user@bi.com').subscribe(result => {
       var so = result;
+      this.saveProjectSuccess.emit(true)
     });
 
     // SET DATA STREAM TO AN OBSERVABLE
