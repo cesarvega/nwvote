@@ -15,6 +15,7 @@ export class BmxCreatorComponent implements OnInit {
   bmxClientPageOverview = false;
   displayRightSideMenu = false;
   isBrandMatrixSurvey = true;
+  saveProjectSuccess = false;
 
   projectName: any;
   projectId: any;
@@ -267,5 +268,8 @@ export class BmxCreatorComponent implements OnInit {
     this.isMenuActive1 = event;
     this.isMainMenuActive = event;
     this.isMenuActive15 = !event;
+  }
+  saveProject(event: boolean){
+    this.saveProjectSuccess = event;
   }
 }
