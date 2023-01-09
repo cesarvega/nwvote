@@ -144,7 +144,7 @@
                 </div>
             </div> -->
       <div *ngIf="!(userRole == 'Director')">
-        <div *ngIf="saveProjectSuccess; else noSave" [ngClass]="(isMenuActive11)?'menu-active':'menu-item'" (click)="toggleMenuActive('isMenuActive11')">
+        <div *ngIf="globalProjectName.length > 0; else noSave" [ngClass]="(isMenuActive11)?'menu-active':'menu-item'" (click)="toggleMenuActive('isMenuActive11')">
           <div class="link-bmx-creator">
             {{'Survey Creation & Design'}}
           </div>
