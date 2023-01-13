@@ -47,6 +47,8 @@ export class ImageRateScaleComponent extends RatingScaleComponent implements OnI
   logoWidth = 200
   uploadImagesBox = false;
 
+  numRatingScale: number = 0;
+
  
   //------modal-----------//
   @Output() launchPathModal = new EventEmitter(); 
@@ -74,7 +76,10 @@ export class ImageRateScaleComponent extends RatingScaleComponent implements OnI
    {super(dragulaService,_snackBar,_bmxService,deviceService); this.epicFunction();}
 
   ngOnInit(): void {  
-
+    
+    this.numRatingScale = this.bmxItem.componentText[0].STARS.length
+    this.rankingScaleValue = this.numRatingScale;
+    
     if(window.innerWidth <= 1024){
       this.VIDEO_PATH = this.PATH1;
     }else{

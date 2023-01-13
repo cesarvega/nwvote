@@ -21,11 +21,15 @@ export class NarrowDownComponent extends RatingScaleComponent implements OnInit 
   dragRows = false
   isColumnResizerOn = true;
   editSingleTableCells = false
+  numRatingScale: number = 0;
   constructor(dragulaService: DragulaService, _snackBar: MatSnackBar,  _bmxService: BmxService,public deviceService: DeviceDetectorService) {
     super(dragulaService,_snackBar, _bmxService,deviceService)
   }
 
   ngOnInit(): void {
+
+    this.numRatingScale = this.bmxItem.componentText[0].STARS.length
+    this.rankingScaleValue = this.numRatingScale;
 
     // COLUMN NAMES
     let values = Object.keys(this.bmxItem.componentText[0])

@@ -232,7 +232,7 @@
             <br>
 
             <div style="text-align: center;display: flex;flex-direction: row;justify-content: space-around;">
-                3 <input [(ngModel)]="rankingScaleValue" type="range" id="volume" name="volume" min="3" max="10">
+                {{numRatingScale}} <input [(ngModel)]="rankingScaleValue" type="range" id="volume" name="volume" min="3" max="10">
                 10 <br>
             </div>
             <label for="volume">{{rankingScaleValue}}</label>
