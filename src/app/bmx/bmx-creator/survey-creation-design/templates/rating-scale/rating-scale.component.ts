@@ -35,6 +35,7 @@ export class RatingScaleComponent implements OnInit {
   testNamesInput: string
   TestNameDataModel: any[];
   ratingScale = 5;
+  numRatingScale: number = 0;
   TESTNAMES_LIST = [];
   columnsNames = [];
   columnsNamesHeader: string[];
@@ -132,6 +133,8 @@ export class RatingScaleComponent implements OnInit {
 
   ngOnInit(): void {
     // COLUMN NAMES
+    this.numRatingScale = this.bmxItem.componentText[0].STARS.length
+    this.rankingScaleValue = this.numRatingScale;
     let values = Object.keys(this.bmxItem.componentText[0])
     this.rowsCount =  this.bmxItem.componentText.length - 1
 
