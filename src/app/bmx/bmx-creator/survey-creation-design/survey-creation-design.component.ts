@@ -298,6 +298,7 @@ export class SurveyCreationDesignComponent implements OnInit {
         if (!QRCodeStyling) {
             return;
         }
+
     }
 
     toggleInstructions() {
@@ -882,8 +883,12 @@ export class SurveyCreationDesignComponent implements OnInit {
     }
 
     saveData() {
+        let LOGO_WIDTH: number[] = []
         // RESET VOTES IN TEMPLATE
-        this.bmxPages.forEach((pageToreset: any) => {
+        this.bmxPages.forEach((pageToreset: any) => {    
+
+            LOGO_WIDTH.push(pageToreset.page[0].componentSettings[0].logoWidth)         
+
             pageToreset.page.forEach(category => {
                 if (
                     category.componentType == 'rate-scale' ||
@@ -930,10 +935,29 @@ export class SurveyCreationDesignComponent implements OnInit {
 
             });
         });
-        console.log('test');
-
 
         if (confirm('Are you sure you want save overwrite this project?')) {
+
+            let arrLehgth = LOGO_WIDTH.length
+            let lWidth = this.bmxPages[0].page[0].componentSettings[0].logoWidth;
+
+            LOGO_WIDTH.forEach((a)=>{
+                let count = 0;
+                for(let i = 0; i < arrLehgth; i++){
+
+                    if (a == LOGO_WIDTH[i]) {
+                        count++;
+                    }
+                }                
+                if(count == 1){
+                    lWidth = a;
+                    this.bmxPages.forEach((pageToreset: any) => {
+                        pageToreset.page[0].componentSettings[0].logoWidth = lWidth
+                    })                     
+                    return true;
+                }
+            })
+
             this.projectInfo = JSON.parse(
                 localStorage.getItem('fakeproject' + '_project_info')
             );

@@ -409,6 +409,7 @@ export class RatingScaleComponent implements OnInit {
 
 
   upLoadNamesAndRationales(list: string) {
+  
     this.uploadImagesIcon = true
     this.bmxItem.componentSettings[0].randomizeTestNames = (this.randomizeTestNames) ? true : false
     this.recordHistory()
@@ -524,10 +525,9 @@ export class RatingScaleComponent implements OnInit {
         });
       }
     }
-    setTimeout(() => {
+    setTimeout(() => {     
       this.rowsCount = this.bmxItem.componentText.length - 1; 
-      console.log(this.rowsCount)    
-      this.bmxItem.componentSettings[0].minRule = (this.bmxItem.componentSettings[0].minRule == 0) ? this.bmxItem.componentText.length - 1 : this.bmxItem.componentSettings[0].minRule
+      //this.bmxItem.componentSettings[0].minRule = (this.bmxItem.componentSettings[0].minRule == 0) ? this.bmxItem.componentText.length - 1 : this.bmxItem.componentSettings[0].minRule
       if (this.bmxItem.componentSettings[0].CRITERIA) {
         //MULTIPLY FOR THE AMOUNT OF CRITERIA
         this.bmxItem.componentSettings[0].minRule = this.bmxItem.componentSettings[0].minRule * this.bmxItem.componentText[0].CRITERIA.length
