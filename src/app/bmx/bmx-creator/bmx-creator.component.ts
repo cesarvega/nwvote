@@ -131,7 +131,7 @@ export class BmxCreatorComponent implements OnInit {
         this.userName = data.UserName;
         this.userFullName = data.FullName;
         this.userOffice = data.Office;
-        this.userRole = data.Role;
+        this.userRole = (data.Role == 'Adminstrator')?'Administrator':data.Role;
         this.userDepartment = data.Role;
 
         // TEST DATA
