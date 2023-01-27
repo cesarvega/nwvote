@@ -17,6 +17,8 @@ export class BmxCreatorComponent implements OnInit {
   isBrandMatrixSurvey = true;
   saveProjectSuccess = false;
 
+  widthtTemporary: string = ""
+
   projectName: any;
   projectId: any;
   soundVolume = 0.2;
@@ -176,6 +178,11 @@ export class BmxCreatorComponent implements OnInit {
 
   ngOnInit(): void {
     //localStorage.removeItem('projectName');
+
+    this._BmxService.getLogoTemporaryWidth$().subscribe((data: any) =>{
+      this.widthtTemporary = data
+    })
+
     this.ckconfig = {
       allowedContent: false,
       width: '99.6%',

@@ -6,12 +6,12 @@
             <mat-icon class="full-icon" style="font-size: 36px;">contact_support
             </mat-icon>
         </button>
-        <button (click)="displayQrCode()" mat-icon-button matTooltip="design tools" matTooltipPosition="above"
+        <!-- <button (click)="displayQrCode()" mat-icon-button matTooltip="design tools" matTooltipPosition="above"
             *ngIf="true"
             style="position: absolute;bottom: 10px;color: grey;z-index: 9999999999;right: 33px;outline: none;">
             <mat-icon class="full-icon" style="font-size: 35px;">qr_code
             </mat-icon>
-        </button>
+        </button> -->
         <button (click)="openFullscreen()" mat-icon-button matTooltip="design tools" matTooltipPosition="above"
             *ngIf="true"
             style="position: absolute;bottom: 9px;color: grey;z-index: 9999999999;right: -3px;outline: none;">
@@ -20,7 +20,7 @@
         </button>
         <button (click)="saveUserAnswers()" mat-icon-button matTooltip="save answers" matTooltipPosition="above"
             *ngIf="true"
-            style="position: absolute;bottom: 9px;color: grey;z-index: 9999999999;right: 66px;outline: none;">
+            style="position: absolute;bottom: 9px;color: grey;z-index: 9999999999;right: 25px;outline: none;">
             <mat-icon class="full-icon" style="font-size: 35px;">save
             </mat-icon>
         </button>        
@@ -60,7 +60,7 @@
                 <div *ngIf="bmxItem.componentType === 'text-editor'" class="paragraph">
                     
                     <app-text-paragraph [bmxItem]="bmxItem" [i]="i" [bmxClientPageDesignMode]="bmxClientPageDesignMode"
-                        [bmxClientPageOverview]="bmxClientPageOverview"></app-text-paragraph>
+                        [bmxClientPageOverview]="bmxClientPageOverview" style="margin-top: 25px"></app-text-paragraph>
                 </div>
                 <!-- 📑📑📑📑📑📑📑📑📑📑📑📑📑📑📑📑📑📑📑📑📑📑📑📑📑📑📑📑📑📑 END BMX PARAGRAPH EDITOR -->
 
