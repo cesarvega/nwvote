@@ -5,6 +5,8 @@ import { RatingScaleComponent } from '../rating-scale/rating-scale.component';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { BmxService } from '../../../bmx.service';
 import { DeviceDetectorService } from 'ngx-device-detector';
+//import {ProgressBarMode} from '@angular/material/progress-bar';
+//import { ThemePalette } from '@angular/material/core';
 
 @Component({
   selector: 'app-tinder',
@@ -12,6 +14,12 @@ import { DeviceDetectorService } from 'ngx-device-detector';
   styleUrls: ['./tinder.component.scss']
 })
 export class TinderComponent extends RatingScaleComponent implements OnInit {
+
+  // color: ThemePalette = 'primary';
+  // mode: ProgressBarMode = 'determinate';
+  value = 0;
+  //bufferValue;
+  xpercent: number = 0;
 
   @Input() bmxItem;
   @Input() i;
@@ -33,6 +41,8 @@ export class TinderComponent extends RatingScaleComponent implements OnInit {
 
   }
   ngOnInit(): void {
+    this.xpercent = 100 / (this.bmxItem.componentText.length - 1);
+    this.value = this.xpercent;
     this.rankingScaleValue = this.bmxItem.componentSettings[0].selectedRanking
     this.ratingScale = this.bmxItem.componentSettings[0].selectedRanking
     this.createRatingStars(this.ratingScale)
@@ -189,16 +199,23 @@ export class TinderComponent extends RatingScaleComponent implements OnInit {
   }
 
   moveRight(testName:string) {
-    if (this.testNameIndex < this.bmxItem.componentText.length - 1) {
-      this.testNameIndex++
-      this.bmxItem.componentText[testName].comments = this.bmxItem.componentText[testName].comments
-    }
+    if(this.value <= 100){
+      this.value = this.value + this.xpercent;
+      if (this.testNameIndex < this.bmxItem.componentText.length - 1) {
+        this.testNameIndex++
+        this.bmxItem.componentText[this.testNameIndex].comments = this.bmxItem.componentText[this.testNameIndex].comments
+      }      
+    }    
+    
   }
 
   moveleft(testName:string) {
     if (1 < this.testNameIndex) {
+      this.value = this.value - this.xpercent;
       this.testNameIndex--
       this.bmxItem.componentText[testName].comments = this.bmxItem.componentText[testName].comments
     }
   }
+
+  
 }

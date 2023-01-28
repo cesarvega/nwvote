@@ -132,7 +132,6 @@ export class RatingScaleComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    console.log(this.bmxItem)
     // COLUMN NAMES
     this.numRatingScale = this.bmxItem.componentText[0].STARS.length
     this.rankingScaleValue = this.numRatingScale;
@@ -410,7 +409,6 @@ export class RatingScaleComponent implements OnInit {
 
 
   upLoadNamesAndRationales(list: string) {
-  
     this.uploadImagesIcon = true
     this.bmxItem.componentSettings[0].randomizeTestNames = (this.randomizeTestNames) ? true : false
     this.recordHistory()

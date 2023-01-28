@@ -64,16 +64,15 @@
     </div>
 
     <hr>
-    <div style="display: flex;flex-direction: row;justify-content: space-around;gap: 30px;">
+    <div style="display: flex;flex-direction: row;;padding: 0 20px;justify-content: space-around;gap: 30px;">
 
         <input type="text" [(ngModel)]="bmxItem.componentSettings[0].categoryName"
             [value]="bmxItem.componentSettings[0].categoryName" placeholder="Category Name"
             style="font-size: 20px;color: #324395;padding-bottom: 10px;">
-        <mat-checkbox [(ngModel)]="randomizeTestNames">Randomize Names</mat-checkbox>
         <input type="text" [(ngModel)]="bmxItem.componentSettings[0].categoryDescription"
             [value]="bmxItem.componentSettings[0].categoryDescription" placeholder="Category Description"
             style="font-size: 20px;color: #ee7f25;padding-bottom: 20px;">
-
+        <mat-checkbox [(ngModel)]="randomizeTestNames">Randomize Names</mat-checkbox>
 
     </div>
 
@@ -125,7 +124,11 @@
                     bmxItem.componentText[testNameIndex].rationale:'Rationale of an undisclosed length'}}
                 </div>
                 <textarea name="comments" placeholder="comments" style="width: 100%;
-                padding: 20px;" [(ngModel)]="bmxItem.componentText[testNameIndex].comments"></textarea>
+                    padding: 20px;" [(ngModel)]="bmxItem.componentText[testNameIndex].comments"></textarea>
+                    <div class="container-bar">
+                        <div class="bar-progress" [ngStyle]="{'width.%':value}"></div>
+                    </div>
+                 
                 <div style="display: flex;flex-direction:row;justify-content: center;align-items: center;gap: 110px;">
 
                     <mat-icon (click)="voteName('negative')" style="font-size: 65px;color: #ee252f;cursor: pointer;"

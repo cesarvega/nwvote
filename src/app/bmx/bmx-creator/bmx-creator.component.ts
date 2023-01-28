@@ -17,7 +17,7 @@ export class BmxCreatorComponent implements OnInit {
   isBrandMatrixSurvey = true;
   saveProjectSuccess = false;
 
-  widthtTemporary: string = ""
+  widthTemporary: string = ""
 
   projectName: any;
   projectId: any;
@@ -180,7 +180,7 @@ export class BmxCreatorComponent implements OnInit {
     //localStorage.removeItem('projectName');
 
     this._BmxService.getLogoTemporaryWidth$().subscribe((data: any) =>{
-      this.widthtTemporary = data
+      this.widthTemporary = data
     })
 
     this.ckconfig = {
