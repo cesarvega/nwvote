@@ -143,6 +143,7 @@
                     <mat-icon (click)="voteName('positive')" style="font-size: 65px;color: #00cd38;cursor: pointer;"
                         class="full-icon">sentiment_satisfied_alt</mat-icon>
                 </div>
+                <button mat-raised-button color="primary" (click)="this.showModal = true" style="color: white; margin-top: 25px">Update names</button>
             </div>
             <mat-icon (click)="moveRight(bmxItem.componentText[testNameIndex].nameCandidates)" style="font-size: 30px;color: grey;cursor: pointer;" class="full-icon">
                 chevron_right</mat-icon>
@@ -202,10 +203,41 @@
 
             </div>
 
-
-
         </div>
     </div>
 </div>
 
 <!--📱📱📱📱📱📱📱📱📱📱📱📱📱📱📱📱📱📱📱📱📱📱📱📱📱📱📱📱📱📱📱 END TABLE GENERATOR 📱📱📱📱📱📱📱📱📱📱📱📱📱📱📱📱📱📱📱📱📱📱📱📱📱📱📱📱📱📱📱📱📱📱-->
+
+<div *ngIf="showModal" id="myModal" class="modal-video" style="display: flex;flex-direction: column;gap: 2px;">
+
+    <div class="modal-content">
+        <div class="content-button">
+            <button mat-button (click)="showModal = false">Close</button>
+        </div>
+        <div class="content-table">
+            <table mat-table [dataSource]="dataSource" class="mat-elevation-z8">
+
+                <!--- Note that these columns can be defined in any order.
+                      The actual rendered columns are set as a property on the row definition" -->
+              
+                <!-- Position Column -->
+                <ng-container matColumnDef="nameCandidates">
+                  <th mat-header-cell *matHeaderCellDef> Name candidates</th>
+                  <td mat-cell *matCellDef="let element"><input type="text" matInput [(ngModel)]="element.nameCandidates" [value]="element.nameCandidates"></td>
+                </ng-container>
+                <ng-container matColumnDef="rationale">
+                    <th mat-header-cell *matHeaderCellDef> Rationales</th>
+                    <td mat-cell *matCellDef="let element"><input type="text" matInput [(ngModel)]="element.rationale" [value]="element.rationale"></td>
+                  </ng-container>
+              
+                <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+                <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+            </table>            
+        </div>
+        <!-- <div class="content-button-save">
+            <button mat-raised-button color="primary" (click)="uploadNames()">Save</button>
+        </div> -->
+    </div>
+</div>
+

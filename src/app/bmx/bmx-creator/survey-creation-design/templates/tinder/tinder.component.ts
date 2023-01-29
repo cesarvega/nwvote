@@ -5,8 +5,7 @@ import { RatingScaleComponent } from '../rating-scale/rating-scale.component';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { BmxService } from '../../../bmx.service';
 import { DeviceDetectorService } from 'ngx-device-detector';
-//import {ProgressBarMode} from '@angular/material/progress-bar';
-//import { ThemePalette } from '@angular/material/core';
+import {MatDialog} from '@angular/material/dialog';
 
 @Component({
   selector: 'app-tinder',
@@ -15,11 +14,9 @@ import { DeviceDetectorService } from 'ngx-device-detector';
 })
 export class TinderComponent extends RatingScaleComponent implements OnInit {
 
-  // color: ThemePalette = 'primary';
-  // mode: ProgressBarMode = 'determinate';
   value = 0;
-  //bufferValue;
   xpercent: number = 0;
+  showModal: boolean = false;
 
   @Input() bmxItem;
   @Input() i;
@@ -36,11 +33,16 @@ export class TinderComponent extends RatingScaleComponent implements OnInit {
 
   testNameIndex = 1
 
-  constructor(dragulaService: DragulaService, _snackBar: MatSnackBar,   _bmxService: BmxService,public deviceService: DeviceDetectorService) {
+  dataSource: any[]=[]
+  displayedColumns: string[] = ['nameCandidates', 'rationale'];
+
+  constructor(dragulaService: DragulaService, _snackBar: MatSnackBar,   _bmxService: BmxService,public deviceService: DeviceDetectorService,public dialog: MatDialog) {
     super(dragulaService, _snackBar, _bmxService,deviceService)
 
   }
   ngOnInit(): void {
+    console.log(this.bmxItem.componentText)
+    this.dataSource = this.bmxItem.componentText.slice(1)
     this.xpercent = 100 / (this.bmxItem.componentText.length - 1);
     this.value = this.xpercent;
     this.rankingScaleValue = this.bmxItem.componentSettings[0].selectedRanking
@@ -213,9 +215,13 @@ export class TinderComponent extends RatingScaleComponent implements OnInit {
     if (1 < this.testNameIndex) {
       this.value = this.value - this.xpercent;
       this.testNameIndex--
-      this.bmxItem.componentText[testName].comments = this.bmxItem.componentText[testName].comments
+      this.bmxItem.componentText[this.testNameIndex].comments = this.bmxItem.componentText[this.testNameIndex].comments
     }
+  }  
+  
+  uploadNames(){
+    console.log("guardar")
   }
 
-  
 }
+
