@@ -1,4 +1,4 @@
-import { Component, OnInit, Input } from '@angular/core';
+import { Component, OnInit, Input, ViewChild } from '@angular/core';
 import { MatTableDataSource } from '@angular/material/table';
 import { SelectionModel } from '@angular/cdk/collections';
 import { HighlightSpanKind } from 'typescript';
@@ -27,8 +27,9 @@ export class ParticipantsEmailComponent implements OnInit {
   viewedData;
   selected;
   @Input() isMenuActive15;
-  displayedColumns: string[] = ['select', 'FirstName', 'LastName', 'group', 'SubGroup', 'Status'];
+  displayedColumns: string[] = ['select', 'FirstName', 'LastName', 'Type', 'SubGroup', 'Status'];
   RESPONDENTS_LIST = [];
+  @ViewChild(MatSort) sort: MatSort;
   to;
   dataSource;
   selection;
@@ -128,6 +129,8 @@ export class ParticipantsEmailComponent implements OnInit {
         }
         this.changeView();
       });
+
+      
 
     this._BmxService.getCustomEmail(this.projectId)
       .subscribe((arg: any) => {
@@ -240,6 +243,7 @@ export class ParticipantsEmailComponent implements OnInit {
       }
     }
     this.dataSource = new MatTableDataSource<any>(this.viewedData);
+    this.dataSource.sort = this.sort;
   }
 
   changeTemplate(template: any): void {
@@ -251,7 +255,7 @@ export class ParticipantsEmailComponent implements OnInit {
       To access the online voting site, please click on the link below to be logged in automatically. Voting instructions are provided in the link and will only take a few minutes of your time.<br><br>
       
       Your link:<br>
-      BI_LINK<br>
+      <a href="BI_LINK">BI_LINK</a><br>
       (if you cannot click on the link, please copy and paste into your browser)<br><br>
       
       Your input is valued.  Please place your votes by (insert closing date and time). We hope you enjoy this interactive exercise!<br><br>  
@@ -261,7 +265,7 @@ export class ParticipantsEmailComponent implements OnInit {
       BI_DIRECTOR 
       
       Should you experience any difficulty with this survey, please contact us or your project team leader immediately.`
-      this.BCC = 'creative@brandinstitute.com;'
+      this.BCC = 'creative@brandinstitute.com'
     }
     else if (template === 'Nonproprietary') {
       this.brandMatrixObjects[1].componentText = `Dear BI_PARTNAME,<br><br>
@@ -271,7 +275,7 @@ export class ParticipantsEmailComponent implements OnInit {
       To access the online voting site, please click on the link below to be logged in automatically. Voting instructions are provided in the link and will only take a few minutes of your time.<br><br>
       
       Your link:<br>
-      BI_LINK<br>
+      <a href="BI_LINK">BI_LINK</a><br>
       (if you cannot click on the link, please copy and paste into your browser)<br><br>
       
       Your input is valued.  Please place your votes by (insert closing date and time). We hope you enjoy this interactive exercise!<br><br>  
@@ -282,7 +286,7 @@ export class ParticipantsEmailComponent implements OnInit {
       
       Should you experience any difficulty with this survey, please contact us or your project team leader immediately.
       `;
-      this.BCC = 'chicago-nonproprietary@brandinstitute.com;';
+      this.BCC = 'chicago-nonproprietary@brandinstitute.com';
     }
     else {
       this.brandMatrixObjects[1].componentText = `Dear BI_PARTNAME,<br><br>
@@ -292,7 +296,7 @@ export class ParticipantsEmailComponent implements OnInit {
       To access the online voting site, please click on the link below to be logged in automatically. Voting instructions are provided in the link and will only take a few minutes of your time.<br><br>
       
       Your link:<br>
-      BI_LINK<br>
+      <a href="BI_LINK">BI_LINK</a><br>
       (if you cannot click on the link, please copy and paste into your browser)<br><br>
 
       Your input is valued.  Please place your votes by (insert closing date and time). We hope you enjoy this interactive exercise!<br><br>
@@ -303,7 +307,7 @@ export class ParticipantsEmailComponent implements OnInit {
       
       Should you experience any difficulty with this survey, please contact us or your project team leader immediately.
       `;
-      this.BCC = 'design@brandinstitute.com;'
+      this.BCC = 'design@brandinstitute.com'
     }
     for(var i = 0; i < this.DIRECTORS.length; i++)
       {
@@ -322,6 +326,7 @@ export class ParticipantsEmailComponent implements OnInit {
   }*/
 
   replaceEmailInfo(Fname: string, Lname: string, id: string) {
+    this.fixedString = this.fixedString.replace("BI_LINK", "https://brandmatrix.brandinstitute.com/BMX/" + id);
     this.fixedString = this.fixedString.replace("BI_LINK", "https://brandmatrix.brandinstitute.com/BMX/" + id);
     if (this.linkType === 'Direct Link') {
       this.brandMatrixObjects[1].componentText = this.brandMatrixObjects[1].componentText.replace("PROJECTNAME", "PROJECTNAME/Username");
@@ -375,6 +380,7 @@ export class ParticipantsEmailComponent implements OnInit {
       });
     }
     this._snackBar.open('All emails sent!');
+    this.sendConfirm();
     //localStorage.setItem('fakeprojectName' + '_emailInfo', JSON.stringify(rememberEmail));
   }
 
@@ -411,8 +417,76 @@ export class ParticipantsEmailComponent implements OnInit {
     this.fixedString = this.Subject + "<br><br>" + this.fixedString;
     this.replaceEmailInfo('tester', 'tester', '***************');
     let email = this.fixedString;
+    for (let d of this.DIRECTORS) {
+      email += d.name.toString().trim() + "<br>" + d.title.toString().trim() + "<br>" + d.phone.toString().trim() + " " + d.email.toString().trim() + "<br><br>"
+    }
+    this.fixedString = this.fixedString.replace("BI_DIRECTOR ", email);
     this.fixedString = temp;
     this.dialog.open(DialogComponent, { data: { email: email } });
   }
+
+  getTitle(option: string)
+  {
+    if(option == "NS")
+      {
+        return "Not Started";
+      }
+      else if(option == "F")
+      {
+        return "Finished";
+      }
+      else 
+      {
+        return "On page " + option;
+      }
+    return option;
+  }
+
+  sendConfirm()
+  {
+    let confirmEmail = "<u>Sent Emails</u><br>";
+
+    for (var i = 0; i < this.RESPONDENTS_LIST.length; i++) 
+    {
+      confirmEmail = confirmEmail + this.RESPONDENTS_LIST[i].FirstName + " " + this.RESPONDENTS_LIST[i].LastName + " " + this.RESPONDENTS_LIST[i].Email + "<br>"
+    }
+    
+    confirmEmail = confirmEmail + "----------------------------------------------------------------------------" + "<br><br>";
+    
+    
+
+    let temp = this.brandMatrixObjects[1].componentText;
+    this.fixedString = this.brandMatrixObjects[1].componentText;
+    this.fixedString = this.Subject + "<br><br>" + this.fixedString;
+    this.replaceEmailInfo('tester', 'tester', '***************');
+    let email = this.fixedString;
+    for (let d of this.DIRECTORS) {
+      email += d.name.toString().trim() + "<br>" + d.title.toString().trim() + "<br>" + d.phone.toString().trim() + " " + d.email.toString().trim() + "<br><br>"
+    }
+    this.fixedString = this.fixedString.replace("BI_DIRECTOR ", email);
+    this.fixedString = temp;
+
+    confirmEmail = confirmEmail + email;
+
+    const rememberEmail: JSON = <JSON><unknown>{
+      "dirConfirm": this.dirConfirm,
+      "deptConfirm": this.deptConfirm,
+      "emailTemp": this.emailTemp,
+      "linkType": this.linkType,
+      "From": this.From,
+      "BCC" : "",
+      /*"CC" : this.CC,*/
+      "Subject": this.Subject,
+      "Message": confirmEmail,
+      "TO": this.BCC,
+      "attachments": this.attachments
+    }
+    var finalString = JSON.stringify(rememberEmail);
+    finalString = finalString.replace("[\\u2022,\\u2023,\\u25E6,\\u2043,\\u2219]\\s\\d", '');
+    this._BmxService.sendEmail(finalString).subscribe(result => {
+      var so = result;
+    });
+  }
+  
 
 }
