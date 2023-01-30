@@ -6,6 +6,7 @@ import { MatSnackBar } from '@angular/material/snack-bar';
 import { BmxService } from '../../../bmx.service';
 import { DeviceDetectorService } from 'ngx-device-detector';
 import {MatDialog} from '@angular/material/dialog';
+import {MatTable} from '@angular/material/table';
 
 @Component({
   selector: 'app-tinder',
@@ -14,9 +15,19 @@ import {MatDialog} from '@angular/material/dialog';
 })
 export class TinderComponent extends RatingScaleComponent implements OnInit {
 
+  @ViewChild(MatTable) table: MatTable<any>;
+
   value = 0;
   xpercent: number = 0;
-  showModal: boolean = false;
+  showModalTable: boolean = false;
+  showModalAddRow: boolean = false;
+  showNeutralIcon: boolean = false;
+  showNewInput: boolean = false;
+
+  newCandidate: any = {
+    "nameCandidates": "",
+    "rationale": ""
+  }
 
   @Input() bmxItem;
   @Input() i;
@@ -34,7 +45,7 @@ export class TinderComponent extends RatingScaleComponent implements OnInit {
   testNameIndex = 1
 
   dataSource: any[]=[]
-  displayedColumns: string[] = ['nameCandidates', 'rationale'];
+  displayedColumns: string[] = ['nameCandidates', 'rationale','delete'];
 
   constructor(dragulaService: DragulaService, _snackBar: MatSnackBar,   _bmxService: BmxService,public deviceService: DeviceDetectorService,public dialog: MatDialog) {
     super(dragulaService, _snackBar, _bmxService,deviceService)
@@ -42,7 +53,7 @@ export class TinderComponent extends RatingScaleComponent implements OnInit {
   }
   ngOnInit(): void {
     console.log(this.bmxItem.componentText)
-    this.dataSource = this.bmxItem.componentText.slice(1)
+    this.getDataSource()    
     this.xpercent = 100 / (this.bmxItem.componentText.length - 1);
     this.value = this.xpercent;
     this.rankingScaleValue = this.bmxItem.componentSettings[0].selectedRanking
@@ -220,7 +231,26 @@ export class TinderComponent extends RatingScaleComponent implements OnInit {
   }  
   
   uploadNames(){
-    console.log("guardar")
+    this.bmxItem.componentText.push(this.newCandidate)
+    this.dataSource.push(this.newCandidate)
+    this.newCandidate.nameCandidates = "";
+    this.newCandidate.rationale = "";
+    this.showModalAddRow = false;
+  }
+
+  deleteName(element: any){  
+    let x  
+    x =  this.bmxItem.componentText.splice(this.bmxItem.componentText.indexOf(element), 1);
+   
+    if(x[0].nameCandidates == element.nameCandidates){
+      this.dataSource.splice(this.dataSource.indexOf(element), 1);      
+    }
+
+    this.table.renderRows();
+  }
+
+  getDataSource(){
+    this.dataSource = this.bmxItem.componentText.slice(1)
   }
 
 }

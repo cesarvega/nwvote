@@ -570,14 +570,16 @@ input[type="range"]:focus::-ms-fill-upper {
         justify-content: end;
         width: 90%;
         margin: 0 auto;
+        padding: 2px;
         background: white;       
       }
 
       .content-button-save{
         display: flex;
         justify-content: end;
-        width: 90%;
+        width: 100%;
         margin: 0 auto;
+        padding: 5px;
         background: white;
         button{
           color: white;
@@ -611,6 +613,19 @@ input[type="range"]:focus::-ms-fill-upper {
       background-color: #283e90;
       color: white;
       text-decoration: none;
+  }
+
+  .modal-content-add-row{
+    background-color: rgba(0, 0, 0, 0);    
+    margin: 2% auto; /* 15% from the top and centered */
+    width: 75%;
+    .example-form {
+      width: 100%;
+    }
+    
+    .example-full-width {
+      width: 100%;
+    }
   }
 }
 
