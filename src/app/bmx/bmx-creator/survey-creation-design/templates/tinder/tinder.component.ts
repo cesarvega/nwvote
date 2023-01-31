@@ -205,6 +205,7 @@ export class TinderComponent extends RatingScaleComponent implements OnInit {
 
   voteName(vote) {
     this.bmxItem.componentText[this.testNameIndex]['vote'] = vote
+   
     this.hasVoted = true
     setTimeout(() => {
       // this.moveRight()
