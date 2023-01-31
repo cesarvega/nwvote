@@ -91,9 +91,6 @@ export class SurveyMatrixComponent extends SurveyCreationDesignComponent impleme
     const isMobile = this.deviceService.isMobile();
     const isTablet = this.deviceService.isTablet();
     this.isDesktopDevice = this.deviceService.isDesktop();
-    console.log(this.deviceInfo);
-    console.log(isMobile);  // returns if the device is a mobile device (android / iPhone / windows-phone etc)
-    console.log(isTablet);  // returns if the device us a tablet (iPad etc)
   }
 
   ngOnInit(): void {
@@ -208,7 +205,6 @@ export class SurveyMatrixComponent extends SurveyCreationDesignComponent impleme
                         component.componentType == 'question-answer'
                       ) {
     
-    
                         // RAMDOMIZE THE TEST NAMES
                         if (component.componentSettings[0].randomizeTestNames) {
                           let headerRow = component.componentText[0]
@@ -297,6 +293,7 @@ export class SurveyMatrixComponent extends SurveyCreationDesignComponent impleme
                           component.componentType == 'narrow-down' ||
                           component.componentType == 'tinder' ||
                           component.componentType == 'question-answer') {
+                            
                           // RAMDOMIZE THE TEST NAMES
                           if (component.componentSettings[0].randomizeTestNames) {
                             let headerRow = component.componentText[0]
@@ -388,8 +385,7 @@ export class SurveyMatrixComponent extends SurveyCreationDesignComponent impleme
                       component.componentType == 'tinder' ||
                       component.componentType == 'question-answer'
                     ) {
-  
-  
+                      
                       // RAMDOMIZE THE TEST NAMES
                       if (component.componentSettings[0].randomizeTestNames) {
                         let headerRow = component.componentText[0]
@@ -552,11 +548,9 @@ export class SurveyMatrixComponent extends SurveyCreationDesignComponent impleme
 
   setPath(path: any){  
     this.VIDEO_PATH = path;
-    console.log(path)    
   }
 
   saveSelection(){
-    console.log(this.modalChecked._checked)
     if(!this.modalChecked._checked){
        localStorage.setItem('showModal', JSON.stringify(false));
 
@@ -1079,6 +1073,7 @@ export class SurveyMatrixComponent extends SurveyCreationDesignComponent impleme
   }
 
   changePage(direction) {
+    
     if (direction === 'next' && this.bmxPagesClient.length - 1 > this.currentPage) {
       this.selectPageNumber(this.currentPage + 1);
     } else if (direction === 'previous' && this.currentPage > 0) {
@@ -1089,10 +1084,7 @@ export class SurveyMatrixComponent extends SurveyCreationDesignComponent impleme
       }
     }
     if(this.totalOfpages == this.currentPage + 1){
-      this.loadingLottie = true;
-      console.log(this.loadingLottie)
-      console.log(this.totalOfpages)
-      console.log(this.currentPage)
+      this.loadingLottie = true;     
     }    
   }
 
@@ -1101,12 +1093,14 @@ export class SurveyMatrixComponent extends SurveyCreationDesignComponent impleme
     
     if (this.isCategoryPage[this.currentPage]['isCategory']) {      
       if (this.currentPage < pageNumber) {
+        
         this.bmxPagesClient[this.currentPage].page.forEach((component) => {
           if (component.componentType == 'rate-scale' ||
             component.componentType == 'ranking-scale' ||
             component.componentType == 'image-rate-scale' ||
             component.componentType == 'narrow-down' ||
-            component.componentType == 'question-answer'
+            component.componentType == 'question-answer'||
+            component.componentType == 'tinder'
           ) {
 
             // ANSWERS COUNTER
@@ -1187,12 +1181,13 @@ export class SurveyMatrixComponent extends SurveyCreationDesignComponent impleme
               component.componentSettings[0].categoryRulesPassed = true;
             }
 
-            if (
+            if (              
               component.componentSettings[0].minRule == 0 ||
               component.componentSettings[0].categoryRulesPassed ||
               (component.componentSettings[0].minRule - minRuleCounter) <= 0
             ) {
-              
+              //console.log(minRuleCounter)
+              //console.log(component.componentSettings[0])              
               this.currentPage = pageNumber;
               window.scroll(0, 0);
               setTimeout(() => {
@@ -1204,6 +1199,7 @@ export class SurveyMatrixComponent extends SurveyCreationDesignComponent impleme
                 minRule = component.componentSettings[0].minRule
                 // minRule = component.componentSettings[0].minRule / component.componentText[1].CRITERIA.length
               }
+                console.log(component.componentSettings[0])
               let message1 = ''
               let message2 = ''
               let ok = ''
