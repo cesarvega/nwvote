@@ -29,11 +29,15 @@
         <button (click)="undo()" class="add-column" matTooltip="undo last change" matTooltipPosition="above"
             mat-icon-button aria-label="ranking">
             <mat-icon style="font-size: 26px;" class="full-icon">undo</mat-icon>
+        </button>
+        <button (click)="showModalTable = true" class="add-column" matTooltip="Update names" matTooltipPosition="above"
+            *ngIf="i !== selectedIndex" mat-icon-button>
+            <mat-icon style="font-size: 25px;" class="full-icon"> text_fields</mat-icon>
         </button> 
         <button (click)="selectedIndex = i" class="add-column" matTooltip="insert test names" matTooltipPosition="above"
-        *ngIf="i !== selectedIndex" mat-icon-button>
-        <mat-icon style="font-size: 25px;" class="full-icon">edit</mat-icon>
-    </button>    
+            *ngIf="i !== selectedIndex" mat-icon-button>
+            <mat-icon style="font-size: 25px;" class="full-icon">edit</mat-icon>
+        </button>    
     </div>
 </div>
 <!-- ➗➗➗➗➗➗➗➗➗➗➗➗➗➗➗➗➗➗➗  END  ➗➗➗➗➗➗➗➗➗➗➗➗➗➗➗➗➗ -->
@@ -123,7 +127,7 @@
                     {{( bmxItem.componentText[testNameIndex].nameCandidates)?
                     bmxItem.componentText[testNameIndex].nameCandidates:'TEST NAME'}}
                 </div>
-                <div style="font-size: 24px;text-align: center;color: #bababa;max-width: 80%;">
+                <div style="font-size: 24px;text-align: center;color: #bababa;max-width: 80%;margin: 30px 0 0 0;">
                     {{( bmxItem.componentText[testNameIndex].rationale)?
                     bmxItem.componentText[testNameIndex].rationale:'Rationale of an undisclosed length'}}
                 </div>
@@ -138,7 +142,7 @@
                  
                 <div style="display: flex;flex-direction:row;justify-content: center;align-items: center;gap: 110px;">
 
-                    <mat-icon (click)="voteName('negative')" style="font-size: 65px;color: #ee252f;cursor: pointer;"
+                    <mat-icon (click)="voteName('negative')" style="font-size: 65px;color: #ee252f;cursor: pointer;width: 100%"
                         class="full-icon">highlight_off</mat-icon>
 
                     <mat-icon style="cursor: pointer;color: #324395;" 
@@ -149,13 +153,16 @@
                     <mat-icon *ngIf="showNeutralIcon" (click)="voteName('positive')" class="full-icon" style="font-size: 65px;color: #fffb07fd;cursor: pointer;">
                         sentiment_satisfied</mat-icon>
 
-                    <mat-icon (click)="voteName('positive')" style="font-size: 65px;color: #00cd38;cursor: pointer;"
+                    <mat-icon (click)="voteName('positive')" style="font-size: 65px;color: #00cd38;cursor: pointer;width: 100%"
                         class="full-icon">sentiment_satisfied_alt</mat-icon>
                 </div>
-                <button  *ngIf="bmxClientPageOverview" mat-raised-button color="primary" (click)="showModalTable = true" style="color: white; margin-top: 25px">Update names</button>
             </div>
-            <mat-icon (click)="moveRight(bmxItem.componentText[testNameIndex].nameCandidates)" style="font-size: 30px;color: grey;cursor: pointer;" class="full-icon">
-                chevron_right</mat-icon>
+            <mat-icon *ngIf="hasVoted; else noHasVoted" (click)="moveRight(bmxItem.componentText[testNameIndex].nameCandidates)" style="font-size: 30px;color: grey;cursor: pointer;" class="full-icon">
+                chevron_right
+            </mat-icon>
+            <ng-template #noHasVoted><mat-icon style="font-size: 30px;color: grey" class="full-icon">
+                    chevron_right</mat-icon>
+            </ng-template>
 
         </div>
     </div>
