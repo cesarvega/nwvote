@@ -152,7 +152,7 @@
                     <mat-icon (click)="voteName('positive')" style="font-size: 65px;color: #00cd38;cursor: pointer;"
                         class="full-icon">sentiment_satisfied_alt</mat-icon>
                 </div>
-                <button mat-raised-button color="primary" (click)="showModalTable = true" style="color: white; margin-top: 25px">Update names</button>
+                <button  *ngIf="bmxClientPageOverview" mat-raised-button color="primary" (click)="showModalTable = true" style="color: white; margin-top: 25px">Update names</button>
             </div>
             <mat-icon (click)="moveRight(bmxItem.componentText[testNameIndex].nameCandidates)" style="font-size: 30px;color: grey;cursor: pointer;" class="full-icon">
                 chevron_right</mat-icon>
