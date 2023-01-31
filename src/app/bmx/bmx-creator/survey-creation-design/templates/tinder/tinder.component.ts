@@ -5,6 +5,8 @@ import { RatingScaleComponent } from '../rating-scale/rating-scale.component';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { BmxService } from '../../../bmx.service';
 import { DeviceDetectorService } from 'ngx-device-detector';
+import {MatDialog} from '@angular/material/dialog';
+import {MatTable} from '@angular/material/table';
 
 @Component({
   selector: 'app-tinder',
@@ -13,10 +15,31 @@ import { DeviceDetectorService } from 'ngx-device-detector';
 })
 export class TinderComponent extends RatingScaleComponent implements OnInit {
 
+  @ViewChild(MatTable) table: MatTable<any>;
+
+  value = 0;
+  xpercent: number = 0;
+  showModalTable: boolean = false;
+  showModalAddRow: boolean = false;
+  showNeutralIcon: boolean = false;
+  showNewInput: boolean = false;
+
+  newCandidate: any = {
+    "nameCandidates": "",
+    "rationale": ""
+  }
+
   @Input() bmxItem;
   @Input() i;
   @Input() bmxClientPageDesignMode;
   @Input() bmxClientPageOverview;
+
+  @Output() launchPathModal = new EventEmitter();
+
+  PATH1: any[] = [
+    'assets/img/bmx/tutorial/tutorial-tinder1.JPG',
+    'assets/img/bmx/tutorial/tutorial-tinder2.JPG',    
+  ]
 
   rankingType = 'dropDown'
   rankingTypeOptions = ['dropDown', 'dragAndDrop', 'radio']
@@ -28,11 +51,17 @@ export class TinderComponent extends RatingScaleComponent implements OnInit {
 
   testNameIndex = 1
 
-  constructor(dragulaService: DragulaService, _snackBar: MatSnackBar,   _bmxService: BmxService,public deviceService: DeviceDetectorService) {
+  dataSource: any[]=[]
+  displayedColumns: string[] = ['nameCandidates', 'rationale','delete'];
+
+  constructor(dragulaService: DragulaService, _snackBar: MatSnackBar,   _bmxService: BmxService,public deviceService: DeviceDetectorService,public dialog: MatDialog) {
     super(dragulaService, _snackBar, _bmxService,deviceService)
 
   }
   ngOnInit(): void {
+    this.getDataSource()    
+    this.xpercent = 100 / (this.bmxItem.componentText.length - 1);
+    this.value = this.xpercent;
     this.rankingScaleValue = this.bmxItem.componentSettings[0].selectedRanking
     this.ratingScale = this.bmxItem.componentSettings[0].selectedRanking
     this.createRatingStars(this.ratingScale)
@@ -65,6 +94,8 @@ export class TinderComponent extends RatingScaleComponent implements OnInit {
     if (this.bmxItem.componentSettings[0]['displaySound'] == true) {
       this.displaySound = true;
     }
+    this.VIDEO_PATH = this.PATH1;
+    this.launchPathModal.emit(this.VIDEO_PATH)
   }
 
   createRatingStars(ratingScale, ratingScaleIcon?) {
@@ -189,16 +220,46 @@ export class TinderComponent extends RatingScaleComponent implements OnInit {
   }
 
   moveRight(testName:string) {
-    if (this.testNameIndex < this.bmxItem.componentText.length - 1) {
-      this.testNameIndex++
-      this.bmxItem.componentText[testName].comments = this.bmxItem.componentText[testName].comments
-    }
+    if(this.value <= 100){
+      this.value = this.value + this.xpercent;
+      if (this.testNameIndex < this.bmxItem.componentText.length - 1) {
+        this.testNameIndex++
+        this.bmxItem.componentText[this.testNameIndex].comments = this.bmxItem.componentText[this.testNameIndex].comments
+      }      
+    }    
+    
   }
 
   moveleft(testName:string) {
     if (1 < this.testNameIndex) {
+      this.value = this.value - this.xpercent;
       this.testNameIndex--
-      this.bmxItem.componentText[testName].comments = this.bmxItem.componentText[testName].comments
+      this.bmxItem.componentText[this.testNameIndex].comments = this.bmxItem.componentText[this.testNameIndex].comments
     }
+  }  
+  
+  uploadNames(){
+    this.bmxItem.componentText.push(this.newCandidate)
+    this.dataSource.push(this.newCandidate)
+    this.newCandidate.nameCandidates = "";
+    this.newCandidate.rationale = "";
+    this.showModalAddRow = false;
   }
+
+  deleteName(element: any){  
+    let x  
+    x =  this.bmxItem.componentText.splice(this.bmxItem.componentText.indexOf(element), 1);
+   
+    if(x[0].nameCandidates == element.nameCandidates){
+      this.dataSource.splice(this.dataSource.indexOf(element), 1);      
+    }
+
+    this.table.renderRows();
+  }
+
+  getDataSource(){
+    this.dataSource = this.bmxItem.componentText.slice(1)
+  }
+
 }
+

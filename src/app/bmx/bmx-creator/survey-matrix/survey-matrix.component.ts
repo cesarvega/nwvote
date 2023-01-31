@@ -551,7 +551,8 @@ export class SurveyMatrixComponent extends SurveyCreationDesignComponent impleme
   }
 
   setPath(path: any){  
-    this.VIDEO_PATH = path;    
+    this.VIDEO_PATH = path;
+    console.log(path)    
   }
 
   saveSelection(){
@@ -1255,7 +1256,7 @@ export class SurveyMatrixComponent extends SurveyCreationDesignComponent impleme
         if (this.surveyLanguage == 'Japanese') {
           message = ' ご投票頂いた内容を確かに保存いたしました。'
         } else {
-          message = ' your answers were saved  '
+          message = ' Your answers were saved.  '
         }
 
         this._snackBar.open(

@@ -52,8 +52,6 @@ export class RankScaleComponent extends RatingScaleComponent implements OnInit {
       this.radioColumnCounter = 1
     }
 
-
-
     // COLUMN NAMES
     let values = Object.keys(this.bmxItem.componentText[0])
 
@@ -96,7 +94,6 @@ export class RankScaleComponent extends RatingScaleComponent implements OnInit {
       })
     }
   }
-
 
   createRatingStars(ratingScale, ratingScaleIcon?) {
     let startCounter: any = []

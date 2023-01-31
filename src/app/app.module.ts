@@ -136,7 +136,6 @@ export function loadEcharts() {
     CdkTableModule,
     CdkTreeModule,
     A11yModule,
-
   ],
   entryComponents: [
     editPost, editName, DialogComponent

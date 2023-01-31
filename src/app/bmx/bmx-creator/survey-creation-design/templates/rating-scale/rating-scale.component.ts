@@ -409,7 +409,6 @@ export class RatingScaleComponent implements OnInit {
 
 
   upLoadNamesAndRationales(list: string) {
-  
     this.uploadImagesIcon = true
     this.bmxItem.componentSettings[0].randomizeTestNames = (this.randomizeTestNames) ? true : false
     this.recordHistory()

@@ -21,11 +21,8 @@
             <div *ngIf="displayLogoWidthRange && bmxClientPageOverview" (mouseleave)="displayLogoWidthRange = false"
                 style="position: absolute;top: -15px;right: 0px;">
 
-
-
                 <p style="margin: 0 0 -12px;color: grey;">logo width: {{bmxItem.componentSettings[0].logoWidth}} px</p>
-                <input type="range" style="margin: 20px;width: 140px;    text-align: center;"
-                    [(ngModel)]="bmxItem.componentSettings[0].logoWidth" class="slider-font-size" tickInterval="1"
+                <input type="range" (change)="resizeLogo($event.target.value)" style="margin: 20px;width: 140px;text-align: center;" [(ngModel)]="bmxItem.componentSettings[0].logoWidth" class="slider-font-size" tickInterval="1"
                     min="50" max="500" [value]="bmxItem.componentSettings[0].logoWidth">
 
             </div>

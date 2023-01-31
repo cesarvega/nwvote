@@ -30,7 +30,7 @@
                         <mat-icon style="font-size: 17px;">cancel</mat-icon>
                     </button>
                 </div>
-                <app-logo-header [bmxItem]="bmxItem" [isBrandMatrixSurvey]="isBrandMatrixSurvey" [i]="i" (logoChanged)="logoChanged($event)"
+                <app-logo-header [bmxItem]="bmxItem" [isBrandMatrixSurvey]="isBrandMatrixSurvey" [i]="i" (logoChanged)="logoChanged($event)" (resizeWidthLogo)="resizeWidthLogo($event)"
                     [bmxClientPageDesignMode]="bmxClientPageDesignMode" [bmxClientPageOverview]="bmxClientPageOverview">
                 </app-logo-header>
             </div>
@@ -48,7 +48,7 @@
                     </button>
                 </div>                    
                 <app-text-paragraph [bmxItem]="bmxItem" [i]="i" [bmxClientPageDesignMode]="bmxClientPageDesignMode"
-                    [bmxClientPageOverview]="bmxClientPageOverview"></app-text-paragraph>
+                    [bmxClientPageOverview]="bmxClientPageOverview" style="margin-top: 25px"></app-text-paragraph>
             </div>
             <!-- 📑📑📑📑📑📑📑📑📑📑📑📑📑📑📑📑📑📑📑📑📑📑📑📑📑📑📑📑📑📑 END BMX PARAGRAPH EDITOR -->
 

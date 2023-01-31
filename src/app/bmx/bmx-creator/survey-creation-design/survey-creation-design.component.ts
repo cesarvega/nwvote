@@ -32,6 +32,8 @@ export class SurveyCreationDesignComponent implements OnInit {
     elem: any;
     isFullscreen: any;
 
+    @Input() widthLogo: string = "";
+
     showMenuCreator: boolean =  false;
     iconMenuShow: string = "add_circle_outline";
     TEMPLATE_NAME = 'Standart Personal Preference';
@@ -247,7 +249,10 @@ export class SurveyCreationDesignComponent implements OnInit {
 
     }
 
-    ngOnInit(): void {
+    temporalWidthLogo: string = "";
+
+    ngOnInit(): void {   
+
         this.isBrandMatrixSurvey = false;
         this._BmxService.currentProjectName$.subscribe(projectName => {
             this.projectId = (projectName !== '') ? projectName : this.projectId;
@@ -270,7 +275,8 @@ export class SurveyCreationDesignComponent implements OnInit {
         //     this.createNewBmxComponent('rate-scale');
         // }
         if (this.bmxPagesClient) {
-            this.bmxPages = this.bmxPagesClient;
+            this.bmxPages = this.bmxPagesClient;            
+            
         } else {
             //   this.bmxPages = this.SAMPLE_BMX;
 
@@ -284,6 +290,12 @@ export class SurveyCreationDesignComponent implements OnInit {
                         this.bmxPages[index].page[0].componentSettings[0].companyLogoURL = logoUrl                        
                     }
                     //console.log(this.bmxPages)
+                    if(this.widthLogo != "" && this.widthLogo != undefined){
+            
+                        this.bmxPages.forEach((pageToreset: any) => {
+                            pageToreset.page[0].componentSettings[0].logoWidth = this.widthLogo;
+                        }) 
+                    }
                     // this._snackBar.open('bmx LOADED for project  ' + this.projectId , 'OK', {
                     //     duration: 5000,
                     //     horizontalPosition: 'left',
@@ -887,7 +899,7 @@ export class SurveyCreationDesignComponent implements OnInit {
         // RESET VOTES IN TEMPLATE
         this.bmxPages.forEach((pageToreset: any) => {    
 
-            LOGO_WIDTH.push(pageToreset.page[0].componentSettings[0].logoWidth)         
+            //LOGO_WIDTH.push(pageToreset.page[0].componentSettings[0].logoWidth)         
 
             pageToreset.page.forEach(category => {
                 if (
@@ -930,7 +942,6 @@ export class SurveyCreationDesignComponent implements OnInit {
                         }
                     }
 
-
                 }
 
             });
@@ -938,25 +949,26 @@ export class SurveyCreationDesignComponent implements OnInit {
 
         if (confirm('Are you sure you want save overwrite this project?')) {
 
+            //resize logo
             let arrLehgth = LOGO_WIDTH.length
             let lWidth = this.bmxPages[0].page[0].componentSettings[0].logoWidth;
 
-            LOGO_WIDTH.forEach((a)=>{
-                let count = 0;
-                for(let i = 0; i < arrLehgth; i++){
+            // LOGO_WIDTH.forEach((a)=>{
+            //     let count = 0;
+            //     for(let i = 0; i < arrLehgth; i++){
 
-                    if (a == LOGO_WIDTH[i]) {
-                        count++;
-                    }
-                }                
-                if(count == 1){
-                    lWidth = a;
-                    this.bmxPages.forEach((pageToreset: any) => {
-                        pageToreset.page[0].componentSettings[0].logoWidth = lWidth
-                    })                     
-                    return true;
-                }
-            })
+            //         if (a == LOGO_WIDTH[i]) {
+            //             count++;
+            //         }
+            //     }                
+            //     if(count == 1){
+            //         lWidth = a;
+            //         this.bmxPages.forEach((pageToreset: any) => {
+            //             pageToreset.page[0].componentSettings[0].logoWidth = lWidth
+            //         })                     
+            //         return true;
+            //     }
+            // })
 
             this.projectInfo = JSON.parse(
                 localStorage.getItem('fakeproject' + '_project_info')
@@ -1166,6 +1178,13 @@ export class SurveyCreationDesignComponent implements OnInit {
         for (let index = 0; index < this.bmxPages.length; index++) {
             this.bmxPages[index].page[0].componentSettings[0].companyLogoURL = logoUrl                        
         }        
+    }
+
+    resizeWidthLogo(event: any){
+        this.temporalWidthLogo = event;
+        this.bmxPages.forEach((pageToreset: any) => {
+            pageToreset.page[0].componentSettings[0].logoWidth = this.temporalWidthLogo
+        }) 
     }
 }
 // https://brandmatrix.brandinstitute.com/BMX/survey/ImageStarRate/guest

@@ -11,15 +11,16 @@
             *ngIf="i === selectedIndex" mat-icon-button>
             <mat-icon style="font-size: 25px;" class="full-icon">check_circle</mat-icon>
         </button>
-        <button (click)="selectedIndex = i" class="add-column" matTooltip="insert test names" matTooltipPosition="above"
-            *ngIf="i !== selectedIndex" mat-icon-button>
-            <mat-icon style="font-size: 25px;" class="full-icon">edit</mat-icon>
-        </button>
+       
 
         <button (dblclick)="resetVotes()" [ngClass]="(!deleteRows)?'add-column':'add-column-active'"
             matTooltip="double click to reset votes" matTooltipPosition="above" mat-icon-button aria-label="ranking">
             <mat-icon style="font-size: 26px;" class="full-icon">delete_outline</mat-icon>
         </button>
+        <button (click)="setPronunciation()" class="add-column" matTooltip="speech" matTooltipPosition="above"
+            mat-icon-button aria-label="ranking">
+            <mat-icon style="font-size: 26px;" class="full-icon">mic</mat-icon>
+        </button>        
         <!-- <button (click)="isColumnResizerOn = !isColumnResizerOn"
             [ngClass]="(!isColumnResizerOn)?'add-column':'add-column-active'" matTooltip="columns width"
             matTooltipPosition="above" mat-icon-button aria-label="ranking">
@@ -28,11 +29,11 @@
         <button (click)="undo()" class="add-column" matTooltip="undo last change" matTooltipPosition="above"
             mat-icon-button aria-label="ranking">
             <mat-icon style="font-size: 26px;" class="full-icon">undo</mat-icon>
-        </button>
-        <button (click)="setPronunciation()" class="add-column" matTooltip="speech" matTooltipPosition="above"
-            mat-icon-button aria-label="ranking">
-            <mat-icon style="font-size: 26px;" class="full-icon">mic</mat-icon>
-        </button>
+        </button> 
+        <button (click)="selectedIndex = i" class="add-column" matTooltip="insert test names" matTooltipPosition="above"
+        *ngIf="i !== selectedIndex" mat-icon-button>
+        <mat-icon style="font-size: 25px;" class="full-icon">edit</mat-icon>
+    </button>    
     </div>
 </div>
 <!-- ➗➗➗➗➗➗➗➗➗➗➗➗➗➗➗➗➗➗➗  END  ➗➗➗➗➗➗➗➗➗➗➗➗➗➗➗➗➗ -->
@@ -58,23 +59,25 @@
         <mat-form-field style="width: 90%;margin-left: 20px;" appearance="outline">
             <mat-label>Copy & Paste TEST NAMES</mat-label>
             <textarea matInput rows="4" cols="50" [(ngModel)]="testNamesInput"
-                placeholder="ENHANCE,Hance, En-,EVOLVE,Evo,GUARD,Gard, Guard,INVEST,In, Inv,OMNI,Omni,OPTIMAL"></textarea>
+                placeholder=""></textarea>
         </mat-form-field>
 
     </div>
 
     <hr>
-    <div style="display: flex;flex-direction: row;justify-content: space-around;gap: 30px;">
+    <div style="display: flex;flex-direction: row;;padding: 0 20px;justify-content: space-around;gap: 30px;">
 
         <input type="text" [(ngModel)]="bmxItem.componentSettings[0].categoryName"
             [value]="bmxItem.componentSettings[0].categoryName" placeholder="Category Name"
             style="font-size: 20px;color: #324395;padding-bottom: 10px;">
-        <mat-checkbox [(ngModel)]="randomizeTestNames">Randomize Names</mat-checkbox>
         <input type="text" [(ngModel)]="bmxItem.componentSettings[0].categoryDescription"
             [value]="bmxItem.componentSettings[0].categoryDescription" placeholder="Category Description"
             style="font-size: 20px;color: #ee7f25;padding-bottom: 20px;">
 
-
+        <div style="display: flex; flex-direction: column">
+            <mat-checkbox [(ngModel)]="randomizeTestNames">Randomize Names</mat-checkbox>
+            <mat-checkbox #showIcon [(ngModel)]="showNeutralIcon">Add Neutral Button</mat-checkbox>
+        </div>
     </div>
 
     <hr>
@@ -124,8 +127,15 @@
                     {{( bmxItem.componentText[testNameIndex].rationale)?
                     bmxItem.componentText[testNameIndex].rationale:'Rationale of an undisclosed length'}}
                 </div>
-                <textarea name="comments" placeholder="comments" style="width: 100%;
-                padding: 20px;" [(ngModel)]="bmxItem.componentText[testNameIndex].comments"></textarea>
+                <textarea name="comments" placeholder="Comments" style="width: 100%;
+                    padding: 20px;" [(ngModel)]="bmxItem.componentText[testNameIndex].comments"></textarea>
+                    <div class="container-bar">
+                        <div class="bar-progress" [ngStyle]="{'width.%':value}"></div>
+                    </div>
+                    <span style="font-size: 25px">
+                        {{testNameIndex}} / {{bmxItem.componentText.length - 1}}
+                    </span>
+                 
                 <div style="display: flex;flex-direction:row;justify-content: center;align-items: center;gap: 110px;">
 
                     <mat-icon (click)="voteName('negative')" style="font-size: 65px;color: #ee252f;cursor: pointer;"
@@ -136,10 +146,13 @@
                         *ngIf="!editSingleTableCells && displaySound">
                         volume_up
                     </mat-icon>
+                    <mat-icon *ngIf="showNeutralIcon" (click)="voteName('positive')" class="full-icon" style="font-size: 65px;color: #fffb07fd;cursor: pointer;">
+                        sentiment_satisfied</mat-icon>
 
                     <mat-icon (click)="voteName('positive')" style="font-size: 65px;color: #00cd38;cursor: pointer;"
                         class="full-icon">sentiment_satisfied_alt</mat-icon>
                 </div>
+                <button mat-raised-button color="primary" (click)="showModalTable = true" style="color: white; margin-top: 25px">Update names</button>
             </div>
             <mat-icon (click)="moveRight(bmxItem.componentText[testNameIndex].nameCandidates)" style="font-size: 30px;color: grey;cursor: pointer;" class="full-icon">
                 chevron_right</mat-icon>
@@ -188,8 +201,7 @@
 
                     <mat-icon (click)="voteName('negative')" style="font-size: 50px;color: #ee252f;cursor: pointer;">
                         highlight_off</mat-icon>
-
-
+                    
                     <mat-icon (click)="voteName('positive')" style="font-size: 50px;color: #00cd38;cursor: pointer;">
                         sentiment_satisfied_alt</mat-icon>
 
@@ -199,10 +211,70 @@
 
             </div>
 
-
-
         </div>
     </div>
 </div>
 
 <!--📱📱📱📱📱📱📱📱📱📱📱📱📱📱📱📱📱📱📱📱📱📱📱📱📱📱📱📱📱📱📱 END TABLE GENERATOR 📱📱📱📱📱📱📱📱📱📱📱📱📱📱📱📱📱📱📱📱📱📱📱📱📱📱📱📱📱📱📱📱📱📱-->
+
+<div *ngIf="showModalTable" id="myModal" class="modal-video" style="display: flex;flex-direction: column;gap: 2px;">
+
+    <div class="modal-content">
+        <div class="content-button">
+            <button mat-button (click)="showModalTable = false">Close</button>
+        </div>
+        <div class="content-table">
+            <table mat-table [dataSource]="dataSource" class="mat-elevation-z8">
+
+                <!--- Note that these columns can be defined in any order.
+                      The actual rendered columns are set as a property on the row definition" -->
+              
+                <!-- Position Column -->
+                <ng-container matColumnDef="nameCandidates">
+                  <th mat-header-cell *matHeaderCellDef> Name candidates</th>
+                  <td mat-cell *matCellDef="let element"><input type="text" matInput [(ngModel)]="element.nameCandidates" [value]="element.nameCandidates"></td>
+                </ng-container>
+                <ng-container matColumnDef="rationale">
+                    <th mat-header-cell *matHeaderCellDef> Rationales</th>
+                    <td mat-cell *matCellDef="let element"><input type="text" matInput [(ngModel)]="element.rationale" [value]="element.rationale"></td>
+                </ng-container>
+                <ng-container matColumnDef="delete">
+                    <th mat-header-cell *matHeaderCellDef> Delete</th>
+                    <td mat-cell *matCellDef="let element"><mat-icon (dblclick)="deleteName(element)" style="margin-left: 15px; cursor: pointer">delete</mat-icon></td>
+                </ng-container>
+                <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+                <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+            </table>           
+        </div>
+        <div class="content-button">
+            <button mat-button *ngIf="!showNewInput" (click)="showModalAddRow = true; showModalTable = false"><mat-icon>add_box</mat-icon></button>
+        </div>
+    
+    </div>
+    
+</div>
+
+<!-- modal add row -->
+
+<div *ngIf="showModalAddRow" id="myModalrow" class="modal-video">
+
+    <div class="modal-content-add-row" style="background: white; padding: 15px">
+        <div class="content-input">
+            <mat-form-field class="example-full-width">
+                <mat-label>Name Candidates</mat-label>
+                <input matInput [(ngModel)]="newCandidate.nameCandidates" value="{{newCandidate.nameCandidates}}">
+            </mat-form-field>
+            <mat-form-field class="example-full-width" >
+                <mat-label>Rationales</mat-label>
+                <textarea rows="4" matInput [(ngModel)]="newCandidate.rationale" value="{{newCandidate.rationale}}"></textarea>
+            </mat-form-field>
+            <button mat-raised-button color="primary" (click)="uploadNames()" style="color: white">Save</button>
+            <button mat-raised-button (click)="showModalAddRow = false" style="margin-left: 2px;">Cancel</button>
+        
+        </div>       
+       
+    </div>
+    
+</div>
+
+

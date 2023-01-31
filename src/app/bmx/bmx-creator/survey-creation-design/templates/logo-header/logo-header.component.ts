@@ -27,6 +27,7 @@ export class LogoHeaderComponent implements OnInit {
   displayLogoWidthRange = false;
 
   @Output() logoChanged = new EventEmitter();
+  @Output() resizeWidthLogo = new EventEmitter();
 
   // TEMPLATE SELECTOR VARABLES
   isTemplateSelected = '';
@@ -83,6 +84,11 @@ export class LogoHeaderComponent implements OnInit {
         reader.readAsDataURL(event.target.files[i]);
       }
     }
+  }
+
+  resizeLogo(event: any){
+    this.resizeWidthLogo.emit(event)
+    this._BmxService.setLogoTemporaryWidth(event)
   }
 
   cancelUpload() {
