@@ -59,7 +59,7 @@
                 <!-- BMX PARAGRAPH EDITOR 📑📑📑📑📑📑📑📑📑📑📑📑📑📑📑📑📑📑📑📑📑📑📑📑📑📑📑📑📑📑 -->
                 <div *ngIf="bmxItem.componentType === 'text-editor'" class="paragraph">
                     
-                    <app-text-paragraph [bmxItem]="bmxItem" [i]="i" [bmxClientPageDesignMode]="bmxClientPageDesignMode"
+                    <app-text-paragraph [bmxItem]="bmxItem" [i]="i" [bmxClientPageDesignMode]="bmxClientPageDesignMode" [currentPage]="currentPage"
                         [bmxClientPageOverview]="bmxClientPageOverview" style="margin-top: 25px"></app-text-paragraph>
                 </div>
                 <!-- 📑📑📑📑📑📑📑📑📑📑📑📑📑📑📑📑📑📑📑📑📑📑📑📑📑📑📑📑📑📑 END BMX PARAGRAPH EDITOR -->
@@ -183,6 +183,26 @@
 
                 <!-- TINDER  🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥-->
                 <div *ngIf="bmxItem.componentType === 'tinder'" class="paragraph">
+                    <button *ngIf="!showModalVideo" (click)="seeTutorial()" class="see-tutorial-mobil" mat-icon-button matTooltip="See tutorial" matTooltipPosition="above"
+                 
+                        style="position: fixed;color: grey;z-index: 9999999999;outline: none;">
+                        <mat-icon class="full-icon" style="font-size: 36px;">contact_support
+                        </mat-icon>
+                    </button>
+                    <!-- modal -->
+                    <div *ngIf="showModalVideo" id="myModal" class="modal-video" style="display: flex;flex-direction: column;gap: 2px;">
+                        <!-- <label class="container-checkbox">Don't show again
+                            <input (click)="saveSelection()" type="checkbox" value="Bike" #modalChecked> 
+                            <span class="checkmark">&#x2714;</span>        
+                        </label> -->
+                        <mat-checkbox (click)="saveSelection()" class="example-margin container-checkbox" >Don't show again</mat-checkbox>
+                    
+                        <div class="modal-content">
+                            <img *ngFor="let path of VIDEO_PATH" [src]="path" alt="tutorial">
+                        </div>
+                        <button class="btn btn-raised close-modal" (click)="showModalVideo=false">close</button>
+                    </div>
+                    <!-- modal end -->
                     <div class="emoji-handle">.</div>
                     <div style="position: absolute;right: 0px;">
                         <button *ngIf="bmxClientPageOverview" matTooltip="double click to delete"
@@ -191,7 +211,7 @@
                             <mat-icon style="font-size: 17px;">cancel</mat-icon>
                         </button>
                     </div>
-                    <app-tinder [bmxItem]="bmxItem" [i]="i" [bmxClientPageDesignMode]="bmxClientPageDesignMode"
+                    <app-tinder [bmxItem]="bmxItem" [i]="i" [bmxClientPageDesignMode]="bmxClientPageDesignMode" (launchPathModal)="setPath($event)"
                         [bmxClientPageOverview]="bmxClientPageOverview"></app-tinder>
                 </div>
                 <!-- END TINDER  🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥 -->

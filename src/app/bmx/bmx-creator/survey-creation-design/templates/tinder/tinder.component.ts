@@ -34,6 +34,13 @@ export class TinderComponent extends RatingScaleComponent implements OnInit {
   @Input() bmxClientPageDesignMode;
   @Input() bmxClientPageOverview;
 
+  @Output() launchPathModal = new EventEmitter();
+
+  PATH1: any[] = [
+    'assets/img/bmx/tutorial/tutorial-tinder1.JPG',
+    'assets/img/bmx/tutorial/tutorial-tinder2.JPG',    
+  ]
+
   rankingType = 'dropDown'
   rankingTypeOptions = ['dropDown', 'dragAndDrop', 'radio']
 
@@ -52,7 +59,6 @@ export class TinderComponent extends RatingScaleComponent implements OnInit {
 
   }
   ngOnInit(): void {
-    console.log(this.bmxItem.componentText)
     this.getDataSource()    
     this.xpercent = 100 / (this.bmxItem.componentText.length - 1);
     this.value = this.xpercent;
@@ -88,6 +94,8 @@ export class TinderComponent extends RatingScaleComponent implements OnInit {
     if (this.bmxItem.componentSettings[0]['displaySound'] == true) {
       this.displaySound = true;
     }
+    this.VIDEO_PATH = this.PATH1;
+    this.launchPathModal.emit(this.VIDEO_PATH)
   }
 
   createRatingStars(ratingScale, ratingScaleIcon?) {

@@ -551,7 +551,8 @@ export class SurveyMatrixComponent extends SurveyCreationDesignComponent impleme
   }
 
   setPath(path: any){  
-    this.VIDEO_PATH = path;    
+    this.VIDEO_PATH = path;
+    console.log(path)    
   }
 
   saveSelection(){
