@@ -169,6 +169,7 @@
                     </div>
                 </div>
 
+                <button mat-raised-button (click)="resetVotes()">Reset Votes</button>
 
             </div>
             <mat-icon *ngIf="survey==false; else isSurvey" (click)="moveRight(bmxItem.componentText[testNameIndex].nameCandidates)" style="font-size: 30px;color: grey;cursor: pointer;" class="full-icon">
