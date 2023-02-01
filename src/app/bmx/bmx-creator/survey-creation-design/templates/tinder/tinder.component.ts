@@ -27,6 +27,7 @@ export class TinderComponent extends RatingScaleComponent implements OnInit {
   ranking: boolean = true;
   rankingAmount = [1,2,3,4,5,6,7]
   currentrank = undefined;
+  colorText:  string = "";
 
   newCandidate: any = {
     "nameCandidates": "",
@@ -208,10 +209,23 @@ export class TinderComponent extends RatingScaleComponent implements OnInit {
 
 
   voteName(vote) {
+    console.log(vote)
     if (!this.ranking) {
       this.bmxItem.componentText[this.testNameIndex]['vote'] = vote
+
+      if(vote == "positive"){
+        this.colorText = "#00cd38"
+      }
+      if(vote == "negative"){
+        this.colorText = "#ed252f"
+      }
+      if(vote == "neutral"){
+        this.colorText = "#fffb07fd"
+      }
+      
     } else {
       this.bmxItem.componentText[this.testNameIndex]['RATE'] = vote
+      this.colorText = "#00cd38"
       this.currentrank = vote - 1;
     }
     this.hasVoted = true
@@ -246,7 +260,13 @@ export class TinderComponent extends RatingScaleComponent implements OnInit {
 
         this.bmxItem.componentText[this.testNameIndex].comments = this.bmxItem.componentText[this.testNameIndex].comments
       }      
-    }    
+    }
+    
+    if(this.hasVoted && this.ranking){
+      this.colorText = "#00cd38"
+    }else{
+      this.colorText = ""
+    }
     
   }
 
@@ -260,6 +280,12 @@ export class TinderComponent extends RatingScaleComponent implements OnInit {
         this.hasVoted = false; 
       }
       this.bmxItem.componentText[this.testNameIndex].comments = this.bmxItem.componentText[this.testNameIndex].comments
+    }
+
+    if(this.hasVoted && this.ranking){
+      this.colorText = "#00cd38"
+    }else{
+      this.colorText = ""
     }
   }  
   
