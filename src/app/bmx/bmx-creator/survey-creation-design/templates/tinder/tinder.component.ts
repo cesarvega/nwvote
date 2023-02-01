@@ -64,8 +64,36 @@ export class TinderComponent extends RatingScaleComponent implements OnInit {
 
   }
   ngOnInit(): void {
+
     this.getDataSource()
-    this.dataSource[0].vote != undefined?this.hasVoted = true:this.hasVoted = false
+    if(this.dataSource[0].vote != undefined ||  this.dataSource[0].RATE != undefined){
+      this.hasVoted = true
+      if(this.ranking ){
+        if(this.dataSource[0].RATE != undefined){
+          this.colorText = "#00cd38";
+          this.currentrank = this.bmxItem.componentText[this.testNameIndex]['RATE'] - 1;
+        }else{
+          this.colorText = "";
+          this.currentrank = undefined;
+          this.hasVoted = false
+        }
+        
+      }else{
+
+        if(this.bmxItem.componentText[this.testNameIndex]['vote']  == "positive"){
+          this.colorText = "#00cd38"
+        }
+        if(this.bmxItem.componentText[this.testNameIndex]['vote']  == "negative"){
+          this.colorText = "#ed252f"
+        }
+        if(this.bmxItem.componentText[this.testNameIndex]['vote']  == "neutral"){
+          this.colorText = "#fffb07fd"
+        }
+      }
+
+    }else{
+      this.hasVoted = false
+    }
     this.xpercent = 100 / (this.bmxItem.componentText.length - 1);
     this.value = this.xpercent;
     this.rankingScaleValue = this.bmxItem.componentSettings[0].selectedRanking
@@ -257,7 +285,26 @@ export class TinderComponent extends RatingScaleComponent implements OnInit {
         if(this.bmxItem.componentText[this.testNameIndex]['vote'] != undefined || this.bmxItem.componentText[this.testNameIndex]['RATE'] != undefined){
           this.hasVoted = true;
           if(this.ranking){
-            this.currentrank = this.bmxItem.componentText[this.testNameIndex]['RATE'] - 1;
+            if(this.dataSource[0].RATE != undefined){
+              this.colorText = "#00cd38";
+              this.currentrank = this.bmxItem.componentText[this.testNameIndex]['RATE'] - 1;
+            }else{
+              this.colorText = "";
+              this.currentrank = undefined;
+              this.hasVoted = false
+            }
+          }else{
+            
+            if(this.bmxItem.componentText[this.testNameIndex]['vote']  == "positive"){
+              this.colorText = "#00cd38"
+            }
+            if(this.bmxItem.componentText[this.testNameIndex]['vote']  == "negative"){
+              this.colorText = "#ed252f"
+            }
+            if(this.bmxItem.componentText[this.testNameIndex]['vote']  == "neutral"){
+              this.colorText = "#fffb07fd"
+            }
+
           }
         }else{
           this.hasVoted = false; 
@@ -265,15 +312,8 @@ export class TinderComponent extends RatingScaleComponent implements OnInit {
         }
 
         this.bmxItem.componentText[this.testNameIndex].comments = this.bmxItem.componentText[this.testNameIndex].comments
-      }      
+      } 
     }
-    
-    if(this.hasVoted && this.ranking){
-      this.colorText = "#00cd38"
-    }else{
-      this.colorText = ""
-    }
-       
   }
 
   moveleft(testName:string) {
@@ -283,7 +323,24 @@ export class TinderComponent extends RatingScaleComponent implements OnInit {
       if(this.bmxItem.componentText[this.testNameIndex]['vote'] != undefined || this.bmxItem.componentText[this.testNameIndex]['RATE'] != undefined){
         this.hasVoted = true;
         if(this.ranking){
-          this.currentrank = this.bmxItem.componentText[this.testNameIndex]['RATE'] - 1;
+          if(this.dataSource[0].RATE != undefined){
+            this.colorText = "#00cd38";
+            this.currentrank = this.bmxItem.componentText[this.testNameIndex]['RATE'] - 1;
+          }else{
+            this.colorText = "";
+            this.currentrank = undefined;
+            this.hasVoted = false
+          }
+        }else{
+          if(this.bmxItem.componentText[this.testNameIndex]['vote']  == "positive"){
+            this.colorText = "#00cd38"
+          }
+          if(this.bmxItem.componentText[this.testNameIndex]['vote']  == "negative"){
+            this.colorText = "#ed252f"
+          }
+          if(this.bmxItem.componentText[this.testNameIndex]['vote']  == "neutral"){
+            this.colorText = "#fffb07fd"
+          }
         }
            
       }else{
@@ -291,11 +348,7 @@ export class TinderComponent extends RatingScaleComponent implements OnInit {
       }
       this.bmxItem.componentText[this.testNameIndex].comments = this.bmxItem.componentText[this.testNameIndex].comments
     }
-    if(this.hasVoted && this.ranking){
-      this.colorText = "#00cd38"
-    }else{
-      this.colorText = ""
-    }
+    
   }  
   
   uploadNames(){
@@ -319,7 +372,18 @@ export class TinderComponent extends RatingScaleComponent implements OnInit {
 
   getDataSource(){
     this.dataSource = this.bmxItem.componentText.slice(1)
+    if(this.bmxItem.componentSettings[0].ranking == undefined){
+      this.bmxItem.componentSettings[0].ranking = this.ranking
+    }else{
+      this.ranking = this.bmxItem.componentSettings[0].ranking
+    }
     console.log(this.dataSource)
+    
+  }
+
+  changePreferenceScore(){
+    this.bmxItem.componentSettings[0].ranking = !this.ranking
+    
   }
 
 }

@@ -961,6 +961,7 @@ export class SurveyMatrixComponent extends SurveyCreationDesignComponent impleme
                       templateRow[key] === answerRow[key]
                     ) {
                       templateRow.vote = answerRow.vote;
+                      templateRow.RATE = answerRow.RATE;                     
 
                       for (const key in templateRow) {
                         if (key.includes('Answer')) {

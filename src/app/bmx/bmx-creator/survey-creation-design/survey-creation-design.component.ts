@@ -899,8 +899,7 @@ export class SurveyCreationDesignComponent implements OnInit {
         let LOGO_WIDTH: number[] = []
         // RESET VOTES IN TEMPLATE
         this.bmxPages.forEach((pageToreset: any) => {    
-
-            //LOGO_WIDTH.push(pageToreset.page[0].componentSettings[0].logoWidth)         
+            //LOGO_WIDTH.push(pageToreset.page[0].componentSettings[0].logoWidth)
 
             pageToreset.page.forEach(category => {
                 if (
