@@ -170,14 +170,17 @@
 
 
             </div>
-            <mat-icon *ngIf="hasVoted; else noHasVoted" (click)="moveRight(bmxItem.componentText[testNameIndex].nameCandidates)" 
-            style="font-size: 30px;color: grey;cursor: pointer;" class="full-icon">
+            <mat-icon *ngIf="survey==false; else isSurvey" (click)="moveRight(bmxItem.componentText[testNameIndex].nameCandidates)" style="font-size: 30px;color: grey;cursor: pointer;" class="full-icon">
                 chevron_right
             </mat-icon>
-            <ng-template #noHasVoted><mat-icon style="font-size: 30px;color: grey;cursor: pointer;" class="full-icon">
-                    chevron_right</mat-icon>
+            <ng-template #isSurvey>
+                <mat-icon *ngIf="hasVoted; else noHasVoted" (click)="moveRight(bmxItem.componentText[testNameIndex].nameCandidates)" style="font-size: 30px;color: grey;cursor: pointer;" class="full-icon">
+                    chevron_right
+                </mat-icon>
+                <ng-template #noHasVoted><mat-icon style="font-size: 30px;color: grey" class="full-icon">
+                        chevron_right</mat-icon>
+                </ng-template>
             </ng-template>
-
         </div>
     </div>
 </div>

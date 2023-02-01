@@ -23,6 +23,7 @@ export class SurveyCreationDesignComponent implements OnInit {
     @Input() isMenuActive11;
     @Input() bmxClientPageDesignMode;
     @Input() bmxClientPageOverview;
+    
     isMobile = true
     @Input() isBrandMatrixSurvey
     @ViewChild('canvas', { static: true }) canvas: ElementRef;
@@ -109,7 +110,7 @@ export class SurveyCreationDesignComponent implements OnInit {
     biUsername: string;
     biUserId = 'user@bi.com';
 
-    UNDO = []
+    UNDO = [] 
 
     constructor(
         @Inject(DOCUMENT) private document: any,
