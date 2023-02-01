@@ -267,7 +267,7 @@ export class TinderComponent extends RatingScaleComponent implements OnInit {
     }else{
       this.colorText = ""
     }
-    
+    this.currentrank = undefined;    
   }
 
   moveleft(testName:string) {
@@ -310,6 +310,7 @@ export class TinderComponent extends RatingScaleComponent implements OnInit {
 
   getDataSource(){
     this.dataSource = this.bmxItem.componentText.slice(1)
+    console.log(this.dataSource)
   }
 
 }
