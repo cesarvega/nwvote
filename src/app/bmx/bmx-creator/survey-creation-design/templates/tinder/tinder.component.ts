@@ -209,7 +209,7 @@ export class TinderComponent extends RatingScaleComponent implements OnInit {
 
 
   voteName(vote) {
-    console.log(vote)
+    
     if (!this.ranking) {
       this.bmxItem.componentText[this.testNameIndex]['vote'] = vote
 
@@ -225,6 +225,7 @@ export class TinderComponent extends RatingScaleComponent implements OnInit {
       
     } else {
       this.bmxItem.componentText[this.testNameIndex]['RATE'] = vote
+      console.log(this.bmxItem.componentText[this.testNameIndex])
       this.colorText = "#00cd38"
       this.currentrank = vote - 1;
     }
@@ -254,9 +255,13 @@ export class TinderComponent extends RatingScaleComponent implements OnInit {
         this.testNameIndex++
 
         if(this.bmxItem.componentText[this.testNameIndex]['vote'] != undefined || this.bmxItem.componentText[this.testNameIndex]['RATE'] != undefined){
-          this.hasVoted = true;      
+          this.hasVoted = true;
+          if(this.ranking){
+            this.currentrank = this.bmxItem.componentText[this.testNameIndex]['RATE'] - 1;
+          }
         }else{
           this.hasVoted = false; 
+          this.currentrank = undefined;
         }
 
         this.bmxItem.componentText[this.testNameIndex].comments = this.bmxItem.componentText[this.testNameIndex].comments
@@ -268,7 +273,7 @@ export class TinderComponent extends RatingScaleComponent implements OnInit {
     }else{
       this.colorText = ""
     }
-    this.currentrank = undefined;    
+       
   }
 
   moveleft(testName:string) {
@@ -276,13 +281,16 @@ export class TinderComponent extends RatingScaleComponent implements OnInit {
       this.value = this.value - this.xpercent;
       this.testNameIndex--
       if(this.bmxItem.componentText[this.testNameIndex]['vote'] != undefined || this.bmxItem.componentText[this.testNameIndex]['RATE'] != undefined){
-        this.hasVoted = true;      
+        this.hasVoted = true;
+        if(this.ranking){
+          this.currentrank = this.bmxItem.componentText[this.testNameIndex]['RATE'] - 1;
+        }
+           
       }else{
         this.hasVoted = false; 
       }
       this.bmxItem.componentText[this.testNameIndex].comments = this.bmxItem.componentText[this.testNameIndex].comments
     }
-
     if(this.hasVoted && this.ranking){
       this.colorText = "#00cd38"
     }else{
