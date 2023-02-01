@@ -34,8 +34,9 @@ export class TinderComponent extends RatingScaleComponent implements OnInit {
   @Input() i;
   @Input() bmxClientPageDesignMode;
   @Input() bmxClientPageOverview;
+  @Input() survey;
 
-  @Output() launchPathModal = new EventEmitter();
+  @Output() launchPathModal = new EventEmitter(); 
 
   PATH1: any[] = [
     'assets/img/bmx/tutorial/tutorial-tinder1.JPG',
@@ -60,7 +61,8 @@ export class TinderComponent extends RatingScaleComponent implements OnInit {
 
   }
   ngOnInit(): void {
-    this.getDataSource()    
+    this.getDataSource()
+    this.dataSource[0].vote != undefined?this.hasVoted = true:this.hasVoted = false
     this.xpercent = 100 / (this.bmxItem.componentText.length - 1);
     this.value = this.xpercent;
     this.rankingScaleValue = this.bmxItem.componentSettings[0].selectedRanking
