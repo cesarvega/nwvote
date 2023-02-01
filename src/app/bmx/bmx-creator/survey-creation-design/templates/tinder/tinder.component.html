@@ -141,8 +141,8 @@
                         {{testNameIndex}} / {{bmxItem.componentText.length - 1}}
                     </span>
                  
-                <div style="display: flex;flex-direction:row;justify-content: center;align-items: center;gap: 110px;">
-
+                <!-- LIKE OR DISLIKE SYSTEM -->
+                <div *ngIf="!ranking" style="display: flex;flex-direction:row;justify-content: center;align-items: center;gap: 110px;">
                     <mat-icon (click)="voteName('negative')" style="font-size: 65px;color: #ee252f;cursor: pointer;width: 100%"
                         class="full-icon">highlight_off</mat-icon>
 
@@ -157,11 +157,24 @@
                     <mat-icon (click)="voteName('positive')" style="font-size: 65px;color: #00cd38;cursor: pointer;width: 100%"
                         class="full-icon">sentiment_satisfied_alt</mat-icon>
                 </div>
+
+                <!-- RANKING SYSTEM -->
+                <div *ngIf="ranking" style="display: flex;flex-direction:row;justify-content: center;align-items: center;gap: 35px;">
+                    <div *ngFor="let rank of rankingAmount; let rankIndex = index">
+                        <button style="min-width: 35px;" (click)="voteName(rank)"
+                            [ngClass]="(currentrank === rankIndex)?'rankNumberActive':'rankNumber'" mat-raised-button>
+                            {{rank}}
+                        </button>
+                    </div>
+                </div>
+
+
             </div>
-            <mat-icon *ngIf="hasVoted; else noHasVoted" (click)="moveRight(bmxItem.componentText[testNameIndex].nameCandidates)" style="font-size: 30px;color: grey;cursor: pointer;" class="full-icon">
+            <mat-icon *ngIf="hasVoted; else noHasVoted" (click)="moveRight(bmxItem.componentText[testNameIndex].nameCandidates)" 
+            style="font-size: 30px;color: grey;cursor: pointer;" class="full-icon">
                 chevron_right
             </mat-icon>
-            <ng-template #noHasVoted><mat-icon style="font-size: 30px;color: grey" class="full-icon">
+            <ng-template #noHasVoted><mat-icon style="font-size: 30px;color: grey;cursor: pointer;" class="full-icon">
                     chevron_right</mat-icon>
             </ng-template>
 
@@ -224,21 +237,21 @@
 
 <!--📱📱📱📱📱📱📱📱📱📱📱📱📱📱📱📱📱📱📱📱📱📱📱📱📱📱📱📱📱📱📱 END TABLE GENERATOR 📱📱📱📱📱📱📱📱📱📱📱📱📱📱📱📱📱📱📱📱📱📱📱📱📱📱📱📱📱📱📱📱📱📱-->
 
-<div *ngIf="showModalTable" id="myModal" class="modal-video" style="display: flex;flex-direction: column;gap: 2px;">
+<div *ngIf="showModalTable" class="modal-video" style="display: flex;flex-direction: column;gap: 2px;">
 
     <div class="modal-content">
         <div class="content-button">
-            <button mat-button (click)="showModalTable = false">Close</button>
+            <button mat-button (click)="showModalTable = false">Save</button>
         </div>
         <div class="content-table">
-            <table mat-table [dataSource]="dataSource" class="mat-elevation-z8">
+            <table mat-table [dataSource]="dataSource" class="mat-elevation-z8" >
 
                 <!--- Note that these columns can be defined in any order.
                       The actual rendered columns are set as a property on the row definition" -->
               
                 <!-- Position Column -->
                 <ng-container matColumnDef="nameCandidates">
-                  <th mat-header-cell *matHeaderCellDef> Name candidates</th>
+                  <th mat-header-cell *matHeaderCellDef> Name Candidates</th>
                   <td mat-cell *matCellDef="let element"><input type="text" matInput [(ngModel)]="element.nameCandidates" [value]="element.nameCandidates"></td>
                 </ng-container>
                 <ng-container matColumnDef="rationale">

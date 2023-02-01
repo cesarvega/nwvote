@@ -634,3 +634,14 @@ input[type="range"]:focus::-ms-fill-upper {
 table {
   width: 100%;
 }
+
+.rankNumberActive {
+  min-width: 40px;
+  color: white;
+  background-color: #ee7f24;
+}
+.rankNumber {
+  min-width: 35px;
+  // background-color: greenyellow;
+}
+
