@@ -43,7 +43,6 @@ export class TinderComponent extends RatingScaleComponent implements OnInit {
 
   PATH1: any[] = [
     'assets/img/bmx/tutorial/tutorial-tinder1.JPG',
-    'assets/img/bmx/tutorial/tutorial-tinder2.JPG',    
   ]
 
   rankingType = 'dropDown'
