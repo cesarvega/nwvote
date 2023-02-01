@@ -239,6 +239,7 @@ export class TinderComponent extends RatingScaleComponent implements OnInit {
       this.bmxItem.componentText.forEach((row, index) => {
         if (index>0) {
           row['vote'] = undefined
+          row['RATE'] = undefined
         }
       });
     }
