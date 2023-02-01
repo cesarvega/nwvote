@@ -24,6 +24,9 @@ export class TinderComponent extends RatingScaleComponent implements OnInit {
   showNeutralIcon: boolean = false;
   showNewInput: boolean = false;
   hasVoted: boolean = false;
+  ranking: boolean = true;
+  rankingAmount = [1,2,3,4,5,6,7]
+  currentrank = 2;
 
   newCandidate: any = {
     "nameCandidates": "",
