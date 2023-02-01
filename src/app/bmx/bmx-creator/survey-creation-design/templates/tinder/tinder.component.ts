@@ -26,7 +26,7 @@ export class TinderComponent extends RatingScaleComponent implements OnInit {
   hasVoted: boolean = false;
   ranking: boolean = true;
   rankingAmount = [1,2,3,4,5,6,7]
-  currentrank = 2;
+  currentrank = undefined;
 
   newCandidate: any = {
     "nameCandidates": "",
@@ -213,6 +213,7 @@ export class TinderComponent extends RatingScaleComponent implements OnInit {
       this.bmxItem.componentText[this.testNameIndex]['vote'] = vote
     } else {
       this.bmxItem.componentText[this.testNameIndex]['RATE'] = vote
+      this.currentrank = vote - 1;
     }
     this.hasVoted = true
     setTimeout(() => {
@@ -238,7 +239,7 @@ export class TinderComponent extends RatingScaleComponent implements OnInit {
         
         this.testNameIndex++
 
-        if(this.bmxItem.componentText[this.testNameIndex]['vote'] != undefined){
+        if(this.bmxItem.componentText[this.testNameIndex]['vote'] != undefined || this.bmxItem.componentText[this.testNameIndex]['RATE'] != undefined){
           this.hasVoted = true;      
         }else{
           this.hasVoted = false; 
@@ -254,7 +255,7 @@ export class TinderComponent extends RatingScaleComponent implements OnInit {
     if (1 < this.testNameIndex) {
       this.value = this.value - this.xpercent;
       this.testNameIndex--
-      if(this.bmxItem.componentText[this.testNameIndex]['vote'] != undefined){
+      if(this.bmxItem.componentText[this.testNameIndex]['vote'] != undefined || this.bmxItem.componentText[this.testNameIndex]['RATE'] != undefined){
         this.hasVoted = true;      
       }else{
         this.hasVoted = false; 
