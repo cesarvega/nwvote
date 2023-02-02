@@ -19,7 +19,7 @@ const routes: Routes = [
   //   path: 'vote',
   //   component: NwVoteComponent
   // },
-  // {// BSR-Mobile http://mynamepage.com/te2687
+  // {// BSR-Mobile https://mynamepage.com/te2687
   //   path: ':id',
   //   component: BsrMobileComponent
   // },

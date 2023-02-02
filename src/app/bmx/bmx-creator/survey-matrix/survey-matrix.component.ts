@@ -18,11 +18,9 @@ import { DragulaService } from 'ng2-dragula';
 import { SurveyCreationDesignComponent } from '../survey-creation-design/survey-creation-design.component';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import QRCodeStyling from 'qr-code-styling';
-import { defineCustomElements } from '@teamhive/lottie-player/loader';
 import { DeviceDetectorService } from 'ngx-device-detector';
 import { MatCheckboxModule } from '@angular/material/checkbox';
 
-defineCustomElements(window);
 @Component({
   selector: 'app-survey-matrix',
   templateUrl: './survey-matrix.component.html',
@@ -93,9 +91,6 @@ export class SurveyMatrixComponent extends SurveyCreationDesignComponent impleme
     const isMobile = this.deviceService.isMobile();
     const isTablet = this.deviceService.isTablet();
     this.isDesktopDevice = this.deviceService.isDesktop();
-    console.log(this.deviceInfo);
-    console.log(isMobile);  // returns if the device is a mobile device (android / iPhone / windows-phone etc)
-    console.log(isTablet);  // returns if the device us a tablet (iPad etc)
   }
 
   ngOnInit(): void {
@@ -195,7 +190,7 @@ export class SurveyMatrixComponent extends SurveyCreationDesignComponent impleme
                 .subscribe((brandMatrix: any) => {
                   let template = JSON.parse(
                     brandMatrix.d.replace(this.searchGraveAccentRegExp, "'")
-                  );
+                  );                  
     
                   //  FILL THE TEMPLATE WTIHT USER ANSWERS
                   template.forEach((page, index) => {
@@ -209,7 +204,6 @@ export class SurveyMatrixComponent extends SurveyCreationDesignComponent impleme
                         component.componentType == 'tinder' ||
                         component.componentType == 'question-answer'
                       ) {
-    
     
                         // RAMDOMIZE THE TEST NAMES
                         if (component.componentSettings[0].randomizeTestNames) {
@@ -299,6 +293,7 @@ export class SurveyMatrixComponent extends SurveyCreationDesignComponent impleme
                           component.componentType == 'narrow-down' ||
                           component.componentType == 'tinder' ||
                           component.componentType == 'question-answer') {
+                            
                           // RAMDOMIZE THE TEST NAMES
                           if (component.componentSettings[0].randomizeTestNames) {
                             let headerRow = component.componentText[0]
@@ -390,8 +385,7 @@ export class SurveyMatrixComponent extends SurveyCreationDesignComponent impleme
                       component.componentType == 'tinder' ||
                       component.componentType == 'question-answer'
                     ) {
-  
-  
+                      
                       // RAMDOMIZE THE TEST NAMES
                       if (component.componentSettings[0].randomizeTestNames) {
                         let headerRow = component.componentText[0]
@@ -553,11 +547,11 @@ export class SurveyMatrixComponent extends SurveyCreationDesignComponent impleme
   }
 
   setPath(path: any){  
-    this.VIDEO_PATH = path;    
+    this.VIDEO_PATH = path;
   }
 
   saveSelection(){
-    console.log(this.modalChecked._checked)
+
     if(!this.modalChecked._checked){
        localStorage.setItem('showModal', JSON.stringify(false));
 
@@ -968,6 +962,7 @@ export class SurveyMatrixComponent extends SurveyCreationDesignComponent impleme
                       templateRow[key] === answerRow[key]
                     ) {
                       templateRow.vote = answerRow.vote;
+                      templateRow.RATE = answerRow.RATE;                     
 
                       for (const key in templateRow) {
                         if (key.includes('Answer')) {
@@ -1080,6 +1075,7 @@ export class SurveyMatrixComponent extends SurveyCreationDesignComponent impleme
   }
 
   changePage(direction) {
+    
     if (direction === 'next' && this.bmxPagesClient.length - 1 > this.currentPage) {
       this.selectPageNumber(this.currentPage + 1);
     } else if (direction === 'previous' && this.currentPage > 0) {
@@ -1090,22 +1086,24 @@ export class SurveyMatrixComponent extends SurveyCreationDesignComponent impleme
       }
     }
     if(this.totalOfpages == this.currentPage + 1){
-      this.loadingLottie = true;
-      console.log(this.loadingLottie)
-    }
+      this.loadingLottie = true;     
+    }    
   }
 
   selectPageNumber(pageNumber) {
     // IF PAGE IS NOT CATEGORY PAGE PASS THE PAGE
-    if (this.isCategoryPage[this.currentPage]['isCategory']) {
+    
+    if (this.isCategoryPage[this.currentPage]['isCategory']) {      
       if (this.currentPage < pageNumber) {
+        
         this.bmxPagesClient[this.currentPage].page.forEach((component) => {
           if (component.componentType == 'rate-scale' ||
             component.componentType == 'ranking-scale' ||
             component.componentType == 'image-rate-scale' ||
             component.componentType == 'narrow-down' ||
-            component.componentType == 'question-answer'
-          ) {
+            component.componentType == 'question-answer'||
+            component.componentType == 'tinder'
+          ) {           
 
             // ANSWERS COUNTER
             let minRuleCounter = 0
@@ -1124,7 +1122,6 @@ export class SurveyMatrixComponent extends SurveyCreationDesignComponent impleme
 
               if (component.componentSettings[0].CRITERIA) {
 
-
                 row.CRITERIA.forEach((criteria) => {
                   // NARROW DOWN WITH CRITERIA
                   if (component.componentType == 'narrow-down') {
@@ -1134,7 +1131,7 @@ export class SurveyMatrixComponent extends SurveyCreationDesignComponent impleme
                         component.componentSettings[0].categoryRulesPassed = (index > 0 && rater.length > 0) ? false : true;
                       }
                       if (index > 0 && rater.length == 0) {
-                        minRuleCounter++
+                        minRuleCounter++                       
                       }
                     }
                   } else {
@@ -1144,7 +1141,7 @@ export class SurveyMatrixComponent extends SurveyCreationDesignComponent impleme
                       component.componentSettings[0].categoryRulesPassed = (index > 0 && rater.length > 0) ? false : true;
                     }
                     if (index > 0 && rater.length == 0) {
-                      minRuleCounter++
+                      minRuleCounter++                     
                     }
                   }
                 });
@@ -1153,20 +1150,31 @@ export class SurveyMatrixComponent extends SurveyCreationDesignComponent impleme
                 if (component.componentType == 'narrow-down') {
                   if (row.SELECTED_ROW) {
                     if (index > 0 && (row.RATE != -1 && row.RATE != 0) && typeof row.RATE == 'number') {
-                      minRuleCounter++
+                      minRuleCounter++                      
                     }
                     if (component.componentSettings[0].categoryRulesPassed) {
                       component.componentSettings[0].categoryRulesPassed = (row.RATE == -1 || row.RATE == 0 || typeof row.RATE != 'number') ? false : true;
                     }
                   }
-                } else {
+                } else if (component.componentType == 'tinder') {
+
+                    if(component.componentSettings[0].ranking){
+                      if(row.RATE != undefined){
+                        minRuleCounter++
+                      }
+                    }else{
+                      if(row.vote != undefined){
+                        minRuleCounter++
+                      }
+                    }
+                }else{
                   // THE OTHER COMPONENTS
-                  if (index > 0 && (row.RATE != -1 && row.RATE != 0)) {
+                  if (index > 0 && (row.RATE != -1 && row.RATE != 0 && row.RATE != undefined)) {
                     minRuleCounter++
                   }
                   if (component.componentSettings[0].categoryRulesPassed) {
                     component.componentSettings[0].categoryRulesPassed = (row.RATE == -1 || row.RATE == 0) ? false : true;
-                  }
+                  }                  
                 }
               }
             });
@@ -1185,7 +1193,7 @@ export class SurveyMatrixComponent extends SurveyCreationDesignComponent impleme
               component.componentSettings[0].categoryRulesPassed = true;
             }
 
-            if (
+            if (              
               component.componentSettings[0].minRule == 0 ||
               component.componentSettings[0].categoryRulesPassed ||
               (component.componentSettings[0].minRule - minRuleCounter) <= 0
@@ -1232,7 +1240,7 @@ export class SurveyMatrixComponent extends SurveyCreationDesignComponent impleme
         this.currentPage = pageNumber;
         window.scroll(0, 0);
       }
-    } else {
+    } else {      
       this.currentPage = pageNumber;
     }
   }
@@ -1253,7 +1261,7 @@ export class SurveyMatrixComponent extends SurveyCreationDesignComponent impleme
         if (this.surveyLanguage == 'Japanese') {
           message = ' ご投票頂いた内容を確かに保存いたしました。'
         } else {
-          message = ' your answers were saved  '
+          message = ' Your answers were saved.  '
         }
 
         this._snackBar.open(

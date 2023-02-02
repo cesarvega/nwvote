@@ -35,6 +35,7 @@ export class RatingScaleComponent implements OnInit {
   testNamesInput: string
   TestNameDataModel: any[];
   ratingScale = 5;
+  numRatingScale: number = 0;
   TESTNAMES_LIST = [];
   columnsNames = [];
   columnsNamesHeader: string[];
@@ -95,7 +96,7 @@ export class RatingScaleComponent implements OnInit {
  
    //----------end modal------//
   
-  constructor(private dragulaService: DragulaService, private _snackBar: MatSnackBar, public _bmxService: BmxService,public deviceService: DeviceDetectorService) {
+  constructor(private dragulaService: DragulaService, public _snackBar: MatSnackBar, public _bmxService: BmxService,public deviceService: DeviceDetectorService) {
     // DRAG AND DROP
     let drake = dragula();
     // this.dragulaService.add(this.BAG, drake);
@@ -132,6 +133,8 @@ export class RatingScaleComponent implements OnInit {
 
   ngOnInit(): void {
     // COLUMN NAMES
+    this.numRatingScale = this.bmxItem.componentText[0].STARS.length
+    this.rankingScaleValue = this.numRatingScale;
     let values = Object.keys(this.bmxItem.componentText[0])
     this.rowsCount =  this.bmxItem.componentText.length - 1
 
@@ -521,10 +524,9 @@ export class RatingScaleComponent implements OnInit {
         });
       }
     }
-    setTimeout(() => {
+    setTimeout(() => {     
       this.rowsCount = this.bmxItem.componentText.length - 1; 
-      console.log(this.rowsCount)    
-      this.bmxItem.componentSettings[0].minRule = (this.bmxItem.componentSettings[0].minRule == 0) ? this.bmxItem.componentText.length - 1 : this.bmxItem.componentSettings[0].minRule
+      //this.bmxItem.componentSettings[0].minRule = (this.bmxItem.componentSettings[0].minRule == 0) ? this.bmxItem.componentText.length - 1 : this.bmxItem.componentSettings[0].minRule
       if (this.bmxItem.componentSettings[0].CRITERIA) {
         //MULTIPLY FOR THE AMOUNT OF CRITERIA
         this.bmxItem.componentSettings[0].minRule = this.bmxItem.componentSettings[0].minRule * this.bmxItem.componentText[0].CRITERIA.length

@@ -15,6 +15,9 @@ export class BmxCreatorComponent implements OnInit {
   bmxClientPageOverview = false;
   displayRightSideMenu = false;
   isBrandMatrixSurvey = true;
+  saveProjectSuccess = false;
+
+  widthTemporary: string = ""
 
   projectName: any;
   projectId: any;
@@ -130,7 +133,7 @@ export class BmxCreatorComponent implements OnInit {
         this.userName = data.UserName;
         this.userFullName = data.FullName;
         this.userOffice = data.Office;
-        this.userRole = data.Role;
+        this.userRole = (data.Role == 'Adminstrator')?'Administrator':data.Role;
         this.userDepartment = data.Role;
 
         // TEST DATA
@@ -175,6 +178,11 @@ export class BmxCreatorComponent implements OnInit {
 
   ngOnInit(): void {
     //localStorage.removeItem('projectName');
+
+    this._BmxService.getLogoTemporaryWidth$().subscribe((data: any) =>{
+      this.widthTemporary = data
+    })
+
     this.ckconfig = {
       allowedContent: false,
       width: '99.6%',
@@ -267,5 +275,8 @@ export class BmxCreatorComponent implements OnInit {
     this.isMenuActive1 = event;
     this.isMainMenuActive = event;
     this.isMenuActive15 = !event;
+  }
+  saveProject(event: boolean){
+    this.saveProjectSuccess = event;
   }
 }

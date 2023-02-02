@@ -5,6 +5,8 @@ import { RatingScaleComponent } from '../rating-scale/rating-scale.component';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { BmxService } from '../../../bmx.service';
 import { DeviceDetectorService } from 'ngx-device-detector';
+import {MatDialog} from '@angular/material/dialog';
+import {MatTable} from '@angular/material/table';
 
 @Component({
   selector: 'app-tinder',
@@ -13,10 +15,36 @@ import { DeviceDetectorService } from 'ngx-device-detector';
 })
 export class TinderComponent extends RatingScaleComponent implements OnInit {
 
+  @ViewChild(MatTable) table: MatTable<any>;
+
+  value = 0;
+  xpercent: number = 0;
+  showModalTable: boolean = false;
+  showModalAddRow: boolean = false;
+  showNeutralIcon: boolean = false;
+  showNewInput: boolean = false;
+  hasVoted: boolean = false;
+  ranking: boolean = true;
+  rankingAmount = [1,2,3,4,5,6,7]
+  currentrank = undefined;
+  colorText:  string = "";
+
+  newCandidate: any = {
+    "nameCandidates": "",
+    "rationale": ""
+  }
+
   @Input() bmxItem;
   @Input() i;
   @Input() bmxClientPageDesignMode;
   @Input() bmxClientPageOverview;
+  @Input() survey;
+
+  @Output() launchPathModal = new EventEmitter(); 
+
+  PATH1: any[] = [
+    'assets/img/bmx/tutorial/tutorial-tinder1.JPG',
+  ]
 
   rankingType = 'dropDown'
   rankingTypeOptions = ['dropDown', 'dragAndDrop', 'radio']
@@ -28,11 +56,46 @@ export class TinderComponent extends RatingScaleComponent implements OnInit {
 
   testNameIndex = 1
 
-  constructor(dragulaService: DragulaService, _snackBar: MatSnackBar,   _bmxService: BmxService,public deviceService: DeviceDetectorService) {
+  dataSource: any[]=[]
+  displayedColumns: string[] = ['nameCandidates', 'rationale','delete'];
+
+  constructor(dragulaService: DragulaService, _snackBar: MatSnackBar,   _bmxService: BmxService,public deviceService: DeviceDetectorService,public dialog: MatDialog) {
     super(dragulaService, _snackBar, _bmxService,deviceService)
 
   }
   ngOnInit(): void {
+
+    this.getDataSource()
+    if(this.dataSource[0].vote != undefined ||  this.dataSource[0].RATE != undefined){
+      this.hasVoted = true
+      if(this.ranking ){
+        if(this.dataSource[0].RATE != undefined){
+          this.colorText = "#00cd38";
+          this.currentrank = this.bmxItem.componentText[this.testNameIndex]['RATE'] - 1;
+        }else{
+          this.colorText = "";
+          this.currentrank = undefined;
+          this.hasVoted = false
+        }
+        
+      }else{
+
+        if(this.bmxItem.componentText[this.testNameIndex]['vote']  == "positive"){
+          this.colorText = "#00cd38"
+        }
+        if(this.bmxItem.componentText[this.testNameIndex]['vote']  == "negative"){
+          this.colorText = "#ed252f"
+        }
+        if(this.bmxItem.componentText[this.testNameIndex]['vote']  == "neutral"){
+          this.colorText = "#fffb07fd"
+        }
+      }
+
+    }else{
+      this.hasVoted = false
+    }
+    this.xpercent = 100 / (this.bmxItem.componentText.length - 1);
+    this.value = this.xpercent;
     this.rankingScaleValue = this.bmxItem.componentSettings[0].selectedRanking
     this.ratingScale = this.bmxItem.componentSettings[0].selectedRanking
     this.createRatingStars(this.ratingScale)
@@ -65,6 +128,8 @@ export class TinderComponent extends RatingScaleComponent implements OnInit {
     if (this.bmxItem.componentSettings[0]['displaySound'] == true) {
       this.displaySound = true;
     }
+    this.VIDEO_PATH = this.PATH1;
+    this.launchPathModal.emit(this.VIDEO_PATH)
   }
 
   createRatingStars(ratingScale, ratingScaleIcon?) {
@@ -101,6 +166,7 @@ export class TinderComponent extends RatingScaleComponent implements OnInit {
           this.extraColumnCounter++
         }
       });
+      
       this.TESTNAMES_LIST = [];
       for (let i = 0; i < rows.length; i++) {
         if (rows[i] != "" && rows[i].length > 6) {
@@ -114,7 +180,10 @@ export class TinderComponent extends RatingScaleComponent implements OnInit {
           this.TESTNAMES_LIST.push(objectColumnDesign);
         }
       }
-      this.bmxItem.componentText = this.TESTNAMES_LIST;
+      this.bmxItem.componentText = this.deleteDuplicates(this.TESTNAMES_LIST, 'nameCandidates');
+      this.bmxItem.componentSettings[0].minRule = this.bmxItem.componentText.length - 1;
+      
+      // this.bmxItem.componentText = this.TESTNAMES_LIST;
       this.rankingTableType(this.bmxItem.componentSettings[0].rankType)
 
     } else {
@@ -124,7 +193,44 @@ export class TinderComponent extends RatingScaleComponent implements OnInit {
     }
   }
 
+  // delete row diplicates from array of object by property
+  deleteDuplicates(array, property) {
+    let newArray = [];
+    let lookupObject = {};
 
+    for (let i in array) {
+      lookupObject[array[i][property]] = array[i];
+    }
+
+    for (let i in lookupObject) {
+      newArray.push(lookupObject[i]);
+    }
+
+    if (array.length > newArray.length) {
+      const unionMinusInter = this.unionMinusIntersection(array, newArray)
+      const nameCandidates = this.spreadArray(unionMinusInter)
+      this._snackBar.open(`You have  ${array.length - newArray.length} duplicates removed: "${nameCandidates.join(', ')}" 🍕`, 'OK', {
+        duration: 10000,
+        verticalPosition: 'top',
+      })
+    }
+    return newArray;
+  }
+  // remove objects from array1 that are also in array2
+  unionMinusIntersection(array1, array2) {
+    let union = array1.concat(array2);
+    let intersection = array1.filter(x => array2.includes(x));
+    let unionMinusInter = union.filter(x => !intersection.includes(x));
+    return unionMinusInter;
+  }
+  //  spread array of object to array of string by property
+  spreadArray(array) {
+    let newArray = [];
+    array.forEach(element => {
+      newArray.push(element.nameCandidates)
+    });
+    return newArray;
+  }
   rankingTableType(rankingType) {
     this.bmxItem.componentSettings[0].rankType = rankingType
     let values = Object.keys(this.bmxItem.componentText[0])
@@ -157,7 +263,6 @@ export class TinderComponent extends RatingScaleComponent implements OnInit {
     }
   }
 
-
   toggleScrolling() {
     this.allowScrolling = !this.allowScrolling
     if (this.allowScrolling) {
@@ -170,9 +275,28 @@ export class TinderComponent extends RatingScaleComponent implements OnInit {
 
   }
 
-
   voteName(vote) {
-    this.bmxItem.componentText[this.testNameIndex]['vote'] = vote
+    
+    if (!this.ranking) {
+      this.bmxItem.componentText[this.testNameIndex]['vote'] = vote
+
+      if(vote == "positive"){
+        this.colorText = "#00cd38"
+      }
+      if(vote == "negative"){
+        this.colorText = "#ed252f"
+      }
+      if(vote == "neutral"){
+        this.colorText = "#fffb07fd"
+      }
+      
+    } else {
+      this.bmxItem.componentText[this.testNameIndex]['RATE'] = vote
+      console.log(this.bmxItem.componentText[this.testNameIndex])
+      this.colorText = "#00cd38"
+      this.currentrank = vote - 1;
+    }
+    this.hasVoted = true
     setTimeout(() => {
       // this.moveRight()
     }, 1000);
@@ -182,23 +306,126 @@ export class TinderComponent extends RatingScaleComponent implements OnInit {
     if (confirm('Are you sure you want to reset the votes?')) {
       this.bmxItem.componentText.forEach((row, index) => {
         if (index>0) {
-          row['vote'] = undefined
+          row['vote'] = undefined;
+          row['RATE'] = undefined;
+          this.colorText = "";
+          this.hasVoted = false;
         }
       });
     }
   }
 
-  moveRight(testName:string) {
-    if (this.testNameIndex < this.bmxItem.componentText.length - 1) {
-      this.testNameIndex++
-      this.bmxItem.componentText[testName].comments = this.bmxItem.componentText[testName].comments
+  moveRight(testName:string) {   
+
+    if(this.value <= 100){
+      this.value = this.value + this.xpercent;
+      if (this.testNameIndex < this.bmxItem.componentText.length - 1) {
+        
+        this.testNameIndex++
+
+        if(this.bmxItem.componentText[this.testNameIndex]['vote'] != undefined || this.bmxItem.componentText[this.testNameIndex]['RATE'] != undefined){
+          this.hasVoted = true;
+          if(this.ranking){
+            if(this.bmxItem.componentText[this.testNameIndex]['RATE'] != undefined){
+              console.log("estoy aca")
+              this.colorText = "#00cd38";
+              this.currentrank = this.bmxItem.componentText[this.testNameIndex]['RATE'] - 1;
+            }else{
+              this.colorText = "";
+              this.currentrank = undefined;
+              this.hasVoted = false
+            }
+          }else{
+            
+            if(this.bmxItem.componentText[this.testNameIndex]['vote']  == "positive"){
+              this.colorText = "#00cd38"
+            }
+            if(this.bmxItem.componentText[this.testNameIndex]['vote']  == "negative"){
+              this.colorText = "#ed252f"
+            }
+            if(this.bmxItem.componentText[this.testNameIndex]['vote']  == "neutral"){
+              this.colorText = "#fffb07fd"
+            }
+
+          }
+        }else{
+          this.hasVoted = false; 
+          this.currentrank = undefined;
+          this.colorText = ""
+        }
+
+        this.bmxItem.componentText[this.testNameIndex].comments = this.bmxItem.componentText[this.testNameIndex].comments
+      } 
     }
   }
 
   moveleft(testName:string) {
     if (1 < this.testNameIndex) {
+      this.value = this.value - this.xpercent;
       this.testNameIndex--
-      this.bmxItem.componentText[testName].comments = this.bmxItem.componentText[testName].comments
+      if(this.bmxItem.componentText[this.testNameIndex]['vote'] != undefined || this.bmxItem.componentText[this.testNameIndex]['RATE'] != undefined){
+        this.hasVoted = true;
+        if(this.ranking){
+          if(this.dataSource[0].RATE != undefined){
+            this.colorText = "#00cd38";
+            this.currentrank = this.bmxItem.componentText[this.testNameIndex]['RATE'] - 1;
+          }else{
+            this.colorText = "";
+            this.currentrank = undefined;
+            this.hasVoted = false
+          }
+        }else{
+          if(this.bmxItem.componentText[this.testNameIndex]['vote']  == "positive"){
+            this.colorText = "#00cd38"
+          }
+          if(this.bmxItem.componentText[this.testNameIndex]['vote']  == "negative"){
+            this.colorText = "#ed252f"
+          }
+          if(this.bmxItem.componentText[this.testNameIndex]['vote']  == "neutral"){
+            this.colorText = "#fffb07fd"
+          }
+        }
+           
+      }else{
+        this.hasVoted = false; 
+      }
+      this.bmxItem.componentText[this.testNameIndex].comments = this.bmxItem.componentText[this.testNameIndex].comments
     }
+    
+  }  
+  
+  uploadNames(){
+    this.bmxItem.componentText.push(this.newCandidate)
+    this.dataSource.push(this.newCandidate)
+    this.newCandidate.nameCandidates = "";
+    this.newCandidate.rationale = "";
+    this.showModalAddRow = false;
   }
+
+  deleteName(element: any){  
+    let x  
+    x =  this.bmxItem.componentText.splice(this.bmxItem.componentText.indexOf(element), 1);
+   
+    if(x[0].nameCandidates == element.nameCandidates){
+      this.dataSource.splice(this.dataSource.indexOf(element), 1);      
+    }
+
+    this.table.renderRows();
+  }
+
+  getDataSource(){
+    this.dataSource = this.bmxItem.componentText.slice(1)
+    console.log(this.bmxItem.componentText.slice(1))
+    if(this.bmxItem.componentSettings[0].ranking == undefined){
+      this.bmxItem.componentSettings[0].ranking = this.ranking
+    }else{
+      this.ranking = this.bmxItem.componentSettings[0].ranking
+    }    
+  }
+
+  changePreferenceScore(){
+    this.bmxItem.componentSettings[0].ranking = !this.ranking
+  }
+
 }
+

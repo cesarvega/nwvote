@@ -45,7 +45,8 @@ export class ImageRankDragComponent extends RatingScaleComponent implements OnIn
   resourceData: any;
   logoWidth = 200
   uploadImagesBox = false;
-
+  
+  numRatingScale: number = 0;
 
   draggableBag
   isdropDown = true
@@ -84,6 +85,8 @@ export class ImageRankDragComponent extends RatingScaleComponent implements OnIn
     console.log(isTablet);  // returns if the device us a tablet (iPad etc)
   }
   ngOnInit(): void {
+    this.numRatingScale = this.bmxItem.componentText[0].STARS.length
+    this.rankingScaleValue = this.numRatingScale;
     let values = Object.keys(this.bmxItem.componentText[0])
     values.forEach(value => {
       if (typeof value == "string" && value != "STARS" && value != "CRITERIA") {
