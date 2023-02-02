@@ -96,7 +96,7 @@ export class RatingScaleComponent implements OnInit {
  
    //----------end modal------//
   
-  constructor(private dragulaService: DragulaService, private _snackBar: MatSnackBar, public _bmxService: BmxService,public deviceService: DeviceDetectorService) {
+  constructor(private dragulaService: DragulaService, public _snackBar: MatSnackBar, public _bmxService: BmxService,public deviceService: DeviceDetectorService) {
     // DRAG AND DROP
     let drake = dragula();
     // this.dragulaService.add(this.BAG, drake);

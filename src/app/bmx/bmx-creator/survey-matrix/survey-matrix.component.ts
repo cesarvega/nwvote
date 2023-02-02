@@ -1169,7 +1169,7 @@ export class SurveyMatrixComponent extends SurveyCreationDesignComponent impleme
                     }
                 }else{
                   // THE OTHER COMPONENTS
-                  if (index > 0 && (row.RATE != -1 && row.RATE != 0)) {
+                  if (index > 0 && (row.RATE != -1 && row.RATE != 0 && row.RATE != undefined)) {
                     minRuleCounter++
                   }
                   if (component.componentSettings[0].categoryRulesPassed) {
