@@ -166,6 +166,7 @@ export class TinderComponent extends RatingScaleComponent implements OnInit {
           this.extraColumnCounter++
         }
       });
+      
       this.TESTNAMES_LIST = [];
       for (let i = 0; i < rows.length; i++) {
         if (rows[i] != "" && rows[i].length > 6) {
@@ -179,7 +180,10 @@ export class TinderComponent extends RatingScaleComponent implements OnInit {
           this.TESTNAMES_LIST.push(objectColumnDesign);
         }
       }
-      this.bmxItem.componentText = this.TESTNAMES_LIST;
+      this.bmxItem.componentText = this.deleteDuplicates(this.TESTNAMES_LIST, 'nameCandidates');
+      this.bmxItem.componentSettings[0].minRule = this.bmxItem.componentText.length - 1;
+      
+      // this.bmxItem.componentText = this.TESTNAMES_LIST;
       this.rankingTableType(this.bmxItem.componentSettings[0].rankType)
 
     } else {
@@ -189,6 +193,45 @@ export class TinderComponent extends RatingScaleComponent implements OnInit {
     }
   }
 
+
+  // delete row diplicates from array of object by property
+  deleteDuplicates(array, property) {
+    let newArray = [];
+    let lookupObject = {};
+
+    for (let i in array) {
+      lookupObject[array[i][property]] = array[i];
+    }
+
+    for (let i in lookupObject) {
+      newArray.push(lookupObject[i]);
+    }
+
+    if (array.length > newArray.length) {
+      const unionMinusInter = this.unionMinusIntersection(array, newArray)
+      const nameCandidates = this.spreadArray(unionMinusInter)
+      this._snackBar.open(`You have  ${array.length - newArray.length} duplicates removed: "${nameCandidates.join(', ')}" 🍕`, 'OK', {
+        duration: 10000,
+        verticalPosition: 'top',
+      })
+    }
+    return newArray;
+  }
+  // remove objects from array1 that are also in array2
+  unionMinusIntersection(array1, array2) {
+    let union = array1.concat(array2);
+    let intersection = array1.filter(x => array2.includes(x));
+    let unionMinusInter = union.filter(x => !intersection.includes(x));
+    return unionMinusInter;
+  }
+  //  spread array of object to array of string by property
+  spreadArray(array) {
+    let newArray = [];
+    array.forEach(element => {
+      newArray.push(element.nameCandidates)
+    });
+    return newArray;
+  }
 
   rankingTableType(rankingType) {
     this.bmxItem.componentSettings[0].rankType = rankingType
