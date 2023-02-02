@@ -144,7 +144,7 @@
                     <mat-option value="F">Finished</mat-option>
                 </mat-select>
             </mat-form-field>
-            <table mat-table [dataSource]="dataSource" matSort class="mat-elevation-z8"
+            <table mat-table [dataSource]="dataSource" class="mat-elevation-z8"
                 style="width: 100%; margin-bottom: 20px; overflow-y: auto;">
 
                 <!-- Checkbox Column -->
@@ -164,28 +164,28 @@
                 </ng-container>
 
                 <ng-container matColumnDef="FirstName">
-                    <th mat-header-cell *matHeaderCellDef mat-sort-header> First Name </th>
+                    <th mat-header-cell *matHeaderCellDef> First Name </th>
                     <td mat-cell *matCellDef="let element"> {{element.FirstName}} </td>
                 </ng-container>
 
                 <ng-container matColumnDef="LastName">
-                    <th mat-header-cell *matHeaderCellDef mat-sort-header> Last Name </th>
+                    <th mat-header-cell *matHeaderCellDef> Last Name </th>
                     <td mat-cell *matCellDef="let element"> {{element.LastName}} </td>
                 </ng-container>
 
-                <ng-container matColumnDef="Type">
-                    <th mat-header-cell *matHeaderCellDef mat-sort-header> Group </th>
-                    <td mat-cell *matCellDef="let element"> {{element.Type}} </td>
+                <ng-container matColumnDef="group">
+                    <th mat-header-cell *matHeaderCellDef> Group </th>
+                    <td mat-cell *matCellDef="let element"> {{element.group}} </td>
                 </ng-container>
 
                 <ng-container matColumnDef="SubGroup">
-                    <th mat-header-cell *matHeaderCellDef mat-sort-header> Subgroup </th>
+                    <th mat-header-cell *matHeaderCellDef> Subgroup </th>
                     <td mat-cell *matCellDef="let element"> {{element.SubGroup}} </td>
                 </ng-container>
 
                 <ng-container matColumnDef="Status">
-                    <th mat-header-cell *matHeaderCellDef mat-sort-header> Status </th>
-                    <td mat-cell title="{{getTitle(element.Status)}}" *matCellDef="let element"> {{element.Status}} </td>
+                    <th mat-header-cell *matHeaderCellDef> Status </th>
+                    <td mat-cell *matCellDef="let element"> {{element.Status}} </td>
                 </ng-container>
 
                 <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
