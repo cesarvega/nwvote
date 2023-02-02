@@ -46,6 +46,10 @@ export class TinderComponent extends RatingScaleComponent implements OnInit {
     'assets/img/bmx/tutorial/tutorial-tinder1.JPG',
   ]
 
+  PATH2: any[] = [
+    'assets/img/bmx/tutorial/tutorial-tinder-rate.JPG',
+  ]
+
   rankingType = 'dropDown'
   rankingTypeOptions = ['dropDown', 'dragAndDrop', 'radio']
 
@@ -128,7 +132,8 @@ export class TinderComponent extends RatingScaleComponent implements OnInit {
     if (this.bmxItem.componentSettings[0]['displaySound'] == true) {
       this.displaySound = true;
     }
-    this.VIDEO_PATH = this.PATH1;
+
+    this.ranking?this.VIDEO_PATH = this.PATH2:this.VIDEO_PATH = this.PATH1
     this.launchPathModal.emit(this.VIDEO_PATH)
   }
 
