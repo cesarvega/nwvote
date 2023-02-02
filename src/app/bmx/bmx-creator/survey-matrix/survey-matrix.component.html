@@ -80,7 +80,7 @@
                             <input (click)="saveSelection()" type="checkbox" value="Bike" #modalChecked> 
                             <span class="checkmark">&#x2714;</span>        
                         </label> -->
-                        <mat-checkbox (click)="saveSelection()" class="example-margin container-checkbox" >Don't show again</mat-checkbox>
+                        <mat-checkbox #modalChecked (click)="saveSelection()" class="example-margin container-checkbox" >Don't show again</mat-checkbox>
                     
                         <div class="modal-content">
                             <img *ngFor="let path of VIDEO_PATH" [src]="path" alt="tutorial">
@@ -195,7 +195,7 @@
                             <input (click)="saveSelection()" type="checkbox" value="Bike" #modalChecked> 
                             <span class="checkmark">&#x2714;</span>        
                         </label> -->
-                        <mat-checkbox (click)="saveSelection()" class="example-margin container-checkbox" >Don't show again</mat-checkbox>
+                        <mat-checkbox #modalChecked (click)="saveSelection()" class="example-margin container-checkbox" >Don't show again</mat-checkbox>
                     
                         <div class="modal-content">
                             <img *ngFor="let path of VIDEO_PATH" [src]="path" alt="tutorial">

@@ -551,6 +551,7 @@ export class SurveyMatrixComponent extends SurveyCreationDesignComponent impleme
   }
 
   saveSelection(){
+
     if(!this.modalChecked._checked){
        localStorage.setItem('showModal', JSON.stringify(false));
 
@@ -1102,7 +1103,7 @@ export class SurveyMatrixComponent extends SurveyCreationDesignComponent impleme
             component.componentType == 'narrow-down' ||
             component.componentType == 'question-answer'||
             component.componentType == 'tinder'
-          ) {
+          ) {           
 
             // ANSWERS COUNTER
             let minRuleCounter = 0
@@ -1121,7 +1122,6 @@ export class SurveyMatrixComponent extends SurveyCreationDesignComponent impleme
 
               if (component.componentSettings[0].CRITERIA) {
 
-
                 row.CRITERIA.forEach((criteria) => {
                   // NARROW DOWN WITH CRITERIA
                   if (component.componentType == 'narrow-down') {
@@ -1131,7 +1131,7 @@ export class SurveyMatrixComponent extends SurveyCreationDesignComponent impleme
                         component.componentSettings[0].categoryRulesPassed = (index > 0 && rater.length > 0) ? false : true;
                       }
                       if (index > 0 && rater.length == 0) {
-                        minRuleCounter++
+                        minRuleCounter++                       
                       }
                     }
                   } else {
@@ -1141,7 +1141,7 @@ export class SurveyMatrixComponent extends SurveyCreationDesignComponent impleme
                       component.componentSettings[0].categoryRulesPassed = (index > 0 && rater.length > 0) ? false : true;
                     }
                     if (index > 0 && rater.length == 0) {
-                      minRuleCounter++
+                      minRuleCounter++                     
                     }
                   }
                 });
@@ -1150,20 +1150,31 @@ export class SurveyMatrixComponent extends SurveyCreationDesignComponent impleme
                 if (component.componentType == 'narrow-down') {
                   if (row.SELECTED_ROW) {
                     if (index > 0 && (row.RATE != -1 && row.RATE != 0) && typeof row.RATE == 'number') {
-                      minRuleCounter++
+                      minRuleCounter++                      
                     }
                     if (component.componentSettings[0].categoryRulesPassed) {
                       component.componentSettings[0].categoryRulesPassed = (row.RATE == -1 || row.RATE == 0 || typeof row.RATE != 'number') ? false : true;
                     }
                   }
-                } else {
+                } else if (component.componentType == 'tinder') {
+
+                    if(component.componentSettings[0].ranking){
+                      if(row.RATE != undefined){
+                        minRuleCounter++
+                      }
+                    }else{
+                      if(row.vote != undefined){
+                        minRuleCounter++
+                      }
+                    }
+                }else{
                   // THE OTHER COMPONENTS
                   if (index > 0 && (row.RATE != -1 && row.RATE != 0)) {
                     minRuleCounter++
                   }
                   if (component.componentSettings[0].categoryRulesPassed) {
                     component.componentSettings[0].categoryRulesPassed = (row.RATE == -1 || row.RATE == 0) ? false : true;
-                  }
+                  }                  
                 }
               }
             });
@@ -1187,8 +1198,6 @@ export class SurveyMatrixComponent extends SurveyCreationDesignComponent impleme
               component.componentSettings[0].categoryRulesPassed ||
               (component.componentSettings[0].minRule - minRuleCounter) <= 0
             ) {
-              //console.log(minRuleCounter)
-              //console.log(component.componentSettings[0])              
               this.currentPage = pageNumber;
               window.scroll(0, 0);
               setTimeout(() => {
@@ -1200,7 +1209,6 @@ export class SurveyMatrixComponent extends SurveyCreationDesignComponent impleme
                 minRule = component.componentSettings[0].minRule
                 // minRule = component.componentSettings[0].minRule / component.componentText[1].CRITERIA.length
               }
-                console.log(component.componentSettings[0])
               let message1 = ''
               let message2 = ''
               let ok = ''

@@ -189,7 +189,6 @@ export class TinderComponent extends RatingScaleComponent implements OnInit {
     }
   }
 
-
   rankingTableType(rankingType) {
     this.bmxItem.componentSettings[0].rankType = rankingType
     let values = Object.keys(this.bmxItem.componentText[0])
@@ -222,7 +221,6 @@ export class TinderComponent extends RatingScaleComponent implements OnInit {
     }
   }
 
-
   toggleScrolling() {
     this.allowScrolling = !this.allowScrolling
     if (this.allowScrolling) {
@@ -234,7 +232,6 @@ export class TinderComponent extends RatingScaleComponent implements OnInit {
     }
 
   }
-
 
   voteName(vote) {
     
@@ -267,8 +264,10 @@ export class TinderComponent extends RatingScaleComponent implements OnInit {
     if (confirm('Are you sure you want to reset the votes?')) {
       this.bmxItem.componentText.forEach((row, index) => {
         if (index>0) {
-          row['vote'] = undefined
-          row['RATE'] = undefined
+          row['vote'] = undefined;
+          row['RATE'] = undefined;
+          this.colorText = "";
+          this.hasVoted = false;
         }
       });
     }
@@ -285,7 +284,8 @@ export class TinderComponent extends RatingScaleComponent implements OnInit {
         if(this.bmxItem.componentText[this.testNameIndex]['vote'] != undefined || this.bmxItem.componentText[this.testNameIndex]['RATE'] != undefined){
           this.hasVoted = true;
           if(this.ranking){
-            if(this.dataSource[0].RATE != undefined){
+            if(this.bmxItem.componentText[this.testNameIndex]['RATE'] != undefined){
+              console.log("estoy aca")
               this.colorText = "#00cd38";
               this.currentrank = this.bmxItem.componentText[this.testNameIndex]['RATE'] - 1;
             }else{
@@ -309,6 +309,7 @@ export class TinderComponent extends RatingScaleComponent implements OnInit {
         }else{
           this.hasVoted = false; 
           this.currentrank = undefined;
+          this.colorText = ""
         }
 
         this.bmxItem.componentText[this.testNameIndex].comments = this.bmxItem.componentText[this.testNameIndex].comments
@@ -372,18 +373,16 @@ export class TinderComponent extends RatingScaleComponent implements OnInit {
 
   getDataSource(){
     this.dataSource = this.bmxItem.componentText.slice(1)
+    console.log(this.bmxItem.componentText.slice(1))
     if(this.bmxItem.componentSettings[0].ranking == undefined){
       this.bmxItem.componentSettings[0].ranking = this.ranking
     }else{
       this.ranking = this.bmxItem.componentSettings[0].ranking
-    }
-    console.log(this.dataSource)
-    
+    }    
   }
 
   changePreferenceScore(){
     this.bmxItem.componentSettings[0].ranking = !this.ranking
-    
   }
 
 }
