@@ -7,7 +7,6 @@
     (click)="editTextWithEditor();openSettings = !openSettings;">
     <mat-icon class="full-icon" style="font-size: 25px;">edit</mat-icon>
 </button>
-<!-- <div class="paragram-mobile" *ngIf="currentPage != 2" style="margin: 30px;font-size: 20px;" [innerHTML]="bmxItem.componentText | safe: 'html'"></div> -->
 <div class="paragram-mobile" style="margin: 30px;font-size: 20px;" [innerHTML]="bmxItem.componentText | safe: 'html'"></div>
 <div cdkDrag>
     <ckeditor *ngIf="openSettings && bmxClientPageOverview" id="txtTexto" class="ckeditorcev"
