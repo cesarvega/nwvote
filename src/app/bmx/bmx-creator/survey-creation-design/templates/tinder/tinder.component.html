@@ -218,20 +218,66 @@
                 <textarea name="comments" placeholder="comments" style="width: 95%;
                 padding: 10px;height: 40px;" [(ngModel)]="bmxItem.componentText[testNameIndex].comments"></textarea>
 
-                <div style="display: flex;flex-direction:row;justify-content: space-around;align-items: center;width: 100%;position: absolute;
-                bottom: 80px;">
+                <!-- LIKE OR DISLIKE -->
+                <div *ngIf="!ranking" style="display: flex;flex-direction:row;justify-content: space-around;align-items: center;width: 100%;position: relative;
+                bottom: 15px;">
 
-                    <!-- <mat-icon (click)="moveleft()" style="font-size: 30px;color: grey;cursor: pointer;">
-                        chevron_left</mat-icon> -->
+                    <mat-icon (click)="moveleft(bmxItem.componentText[testNameIndex].nameCandidates)" style="font-size: 30px;color: grey;cursor: pointer;">
+                        chevron_left
+                    </mat-icon>
 
-                    <mat-icon (click)="voteName('negative')" style="font-size: 50px;color: #ee252f;cursor: pointer;">
-                        highlight_off</mat-icon>
+                    <div style="display: flex; justify-content: center">
+                        <mat-icon (click)="voteName('negative')" style="font-size: 50px;color: #ee252f;cursor: pointer;width: 100%">
+                            highlight_off</mat-icon>
+                        
+                        <mat-icon (click)="voteName('positive')" style="font-size: 50px;color: #00cd38;cursor: pointer;width: 100%">
+                            sentiment_satisfied_alt
+                        </mat-icon>
+                    </div>
+
+                    <mat-icon *ngIf="survey==false; else isSurvey" (click)="moveRight(bmxItem.componentText[testNameIndex].nameCandidates)" style="font-size: 30px;color: grey;cursor: pointer;">
+                        chevron_right
+                    </mat-icon>
+                    <ng-template #isSurvey>
+                        <mat-icon *ngIf="hasVoted; else noHasVoted" (click)="moveRight(bmxItem.componentText[testNameIndex].nameCandidates)" style="font-size: 30px;color: grey;cursor: pointer;" class="full-icon">
+                            chevron_right
+                        </mat-icon>
+                        <ng-template #noHasVoted><mat-icon style="font-size: 30px;color: grey" class="full-icon">
+                                chevron_right</mat-icon>
+                        </ng-template>
+                    </ng-template>
+                </div>
+
+
+                <!-- RANKING SYSTEM -->
+                <div *ngIf="ranking" style="display: flex;flex-direction:column;justify-content: center;align-items: center;gap: 30px;">
                     
-                    <mat-icon (click)="voteName('positive')" style="font-size: 50px;color: #00cd38;cursor: pointer;">
-                        sentiment_satisfied_alt</mat-icon>
-
-                    <!-- <mat-icon (click)="moveRight()" style="font-size: 30px;color: grey;cursor: pointer;">
-                        chevron_right</mat-icon> -->
+                    <div style="width: 100%;display: flex;justify-content: space-around">
+                        <mat-icon (click)="moveleft(bmxItem.componentText[testNameIndex].nameCandidates)" style="font-size: 30px;color: grey;cursor: pointer;">
+                            chevron_left
+                        </mat-icon>
+                        
+                        <mat-icon *ngIf="survey==false; else isSurvey" (click)="moveRight(bmxItem.componentText[testNameIndex].nameCandidates)" style="font-size: 30px;color: grey;cursor: pointer;">
+                            chevron_right
+                        </mat-icon>
+                        <ng-template #isSurvey>
+                            <mat-icon *ngIf="hasVoted; else noHasVoted" (click)="moveRight(bmxItem.componentText[testNameIndex].nameCandidates)" style="font-size: 30px;color: grey;cursor: pointer;" class="full-icon">
+                                chevron_right
+                            </mat-icon>
+                            <ng-template #noHasVoted><mat-icon style="font-size: 30px;color: grey" class="full-icon">
+                                    chevron_right</mat-icon>
+                            </ng-template>
+                        </ng-template>
+                    </div>
+                    <div style="display: flex; gap: 5px">
+                       <div *ngFor="let rank of rankingAmount; let rankIndex = index">
+                            <button style="min-width: 35px;" (click)="voteName(rank)"
+                                [ngClass]="(currentrank === rankIndex)?'rankNumberActive':'rankNumber'" mat-raised-button>
+                                {{rank}}
+                            </button>
+                        </div> 
+                    </div>
+                                       
                 </div>
 
             </div>

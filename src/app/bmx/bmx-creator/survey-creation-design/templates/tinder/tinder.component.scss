@@ -96,8 +96,9 @@
   }
 
   .mobile {
-    padding-bottom: 40px;
-    height: 50vh;
+    padding-bottom: 75px;
+    // height: 75vh;
+    overflow-y: auto;
   }
 
   .selectedCard {

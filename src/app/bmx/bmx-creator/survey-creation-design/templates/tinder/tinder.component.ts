@@ -74,7 +74,7 @@ export class TinderComponent extends RatingScaleComponent implements OnInit {
       this.hasVoted = true
       if(this.ranking ){
         if(this.dataSource[0].RATE != undefined){
-          this.colorText = "#00cd38";
+          this.setRateColor(this.dataSource[0].RATE)
           this.currentrank = this.bmxItem.componentText[this.testNameIndex]['RATE'] - 1;
         }else{
           this.colorText = "";
@@ -135,6 +135,16 @@ export class TinderComponent extends RatingScaleComponent implements OnInit {
 
     this.ranking?this.VIDEO_PATH = this.PATH2:this.VIDEO_PATH = this.PATH1
     this.launchPathModal.emit(this.VIDEO_PATH)
+  }
+
+  setRateColor(rate: number){
+    if(rate > 0 && rate <= 3){
+      this.colorText = "#ed252f"
+    }else if(rate >= 4 && rate <= 5){
+      this.colorText = "#fffb07fd"
+    }else{
+      this.colorText = "#00cd38"
+    }
   }
 
   createRatingStars(ratingScale, ratingScaleIcon?) {
@@ -297,8 +307,7 @@ export class TinderComponent extends RatingScaleComponent implements OnInit {
       
     } else {
       this.bmxItem.componentText[this.testNameIndex]['RATE'] = vote
-      console.log(this.bmxItem.componentText[this.testNameIndex])
-      this.colorText = "#00cd38"
+      this.setRateColor(this.bmxItem.componentText[this.testNameIndex]['RATE'])
       this.currentrank = vote - 1;
     }
     this.hasVoted = true
@@ -332,8 +341,7 @@ export class TinderComponent extends RatingScaleComponent implements OnInit {
           this.hasVoted = true;
           if(this.ranking){
             if(this.bmxItem.componentText[this.testNameIndex]['RATE'] != undefined){
-              console.log("estoy aca")
-              this.colorText = "#00cd38";
+              this.setRateColor(this.bmxItem.componentText[this.testNameIndex]['RATE'])
               this.currentrank = this.bmxItem.componentText[this.testNameIndex]['RATE'] - 1;
             }else{
               this.colorText = "";
@@ -372,7 +380,7 @@ export class TinderComponent extends RatingScaleComponent implements OnInit {
         this.hasVoted = true;
         if(this.ranking){
           if(this.dataSource[0].RATE != undefined){
-            this.colorText = "#00cd38";
+            this.setRateColor(this.bmxItem.componentText[this.testNameIndex]['RATE'])
             this.currentrank = this.bmxItem.componentText[this.testNameIndex]['RATE'] - 1;
           }else{
             this.colorText = "";
@@ -420,7 +428,7 @@ export class TinderComponent extends RatingScaleComponent implements OnInit {
 
   getDataSource(){
     this.dataSource = this.bmxItem.componentText.slice(1)
-    console.log(this.bmxItem.componentText.slice(1))
+    console.log(this.bmxItem)
     if(this.bmxItem.componentSettings[0].ranking == undefined){
       this.bmxItem.componentSettings[0].ranking = this.ranking
     }else{

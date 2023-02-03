@@ -36,6 +36,7 @@ export class SurveyMatrixComponent extends SurveyCreationDesignComponent impleme
   isCategoryPage = [];
 
   bmxPagesClient;
+  tinderInstruction: any;
   @ViewChild('canvas', { static: true }) canvas: ElementRef;
   username: any;
   firstName: any;
@@ -93,7 +94,7 @@ export class SurveyMatrixComponent extends SurveyCreationDesignComponent impleme
     this.isDesktopDevice = this.deviceService.isDesktop();
   }
 
-  ngOnInit(): void {
+  ngOnInit(): void {    
    
     if(!this.username){
       this.myAngularxQrCode =  this.myAngularxQrCode + this.projectId
@@ -261,10 +262,9 @@ export class SurveyMatrixComponent extends SurveyCreationDesignComponent impleme
     
                   //  FILL THE TEMPLATE WTIHT USER ANSWERS END
                   this.bmxPagesClient = template;
+
                   //  this.bmxPagesClient = answers
-                });
-    
-    
+                });  
     
             } else {
               // USER NEVER ANSWERED LOAD TEMPLATE
@@ -349,7 +349,7 @@ export class SurveyMatrixComponent extends SurveyCreationDesignComponent impleme
             }
           });
       });
-    } else {
+    } else {    
       this.bmxClientPageDesignMode = true;
       // this.myAngularxQrCode =
       this.myAngularxQrCode + this.projectId + '/' + this.username;
@@ -438,11 +438,13 @@ export class SurveyMatrixComponent extends SurveyCreationDesignComponent impleme
                       }
                     }
                   });
-                });
-  
+                });  
                 //  FILL THE TEMPLATE WTIHT USER ANSWERS END
                 this.bmxPagesClient = template;
-                //  this.bmxPagesClient = answers
+                if(this.bmxPagesClient[1].page[2].componentType == "tinder"){
+                  this.tinderInstruction = this.bmxPagesClient[1].page[1].componentText
+                  this.bmxPagesClient[1].page[1].componentText = ""
+                }
               });
   
           } else {
@@ -460,7 +462,7 @@ export class SurveyMatrixComponent extends SurveyCreationDesignComponent impleme
                   this.bmxPagesClient = JSON.parse(
                     brandMatrix.d.replace(this.searchGraveAccentRegExp, "'")
                   );
-                  // CHECK IF THE PAGE IS CATEGORY PAGE
+                  // CHECK IF THE PAGE IS CATEGORY PAGE                  
                   this.bmxPagesClient.forEach((page, index) => {
                     this.isCategoryPage[index] = { isCategory: false };
                     page.page.forEach((component) => {
