@@ -443,7 +443,7 @@ export class SurveyMatrixComponent extends SurveyCreationDesignComponent impleme
                 this.bmxPagesClient = template;
                 if(this.bmxPagesClient[1].page[2].componentType == "tinder"){
                   this.tinderInstruction = this.bmxPagesClient[1].page[1].componentText
-                  this.bmxPagesClient[1].page[1].componentText = ""
+                  //this.bmxPagesClient[1].page[1].componentText = ""
                 }
                 console.log(this.tinderInstruction)
               });
