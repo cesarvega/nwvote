@@ -359,8 +359,7 @@ export class SurveyMatrixComponent extends SurveyCreationDesignComponent impleme
       this.bmxPagesClient = this.SAMPLE_BMX_CLIENT;
       this._BmxService
         .getBrandMatrixByProjectAndUserAnswers(this.projectId, this.username)
-        .subscribe((brandMatrix: any) => {
-  
+        .subscribe((brandMatrix: any) => {         
           //    IF USER ALREADY HAVE ANSWERS
           if (brandMatrix.d.length > 0) {
             let answers = JSON.parse(
@@ -373,7 +372,6 @@ export class SurveyMatrixComponent extends SurveyCreationDesignComponent impleme
                 let template = JSON.parse(
                   brandMatrix.d.replace(this.searchGraveAccentRegExp, "'")
                 );
-  
                 //  FILL THE TEMPLATE WTIHT USER ANSWERS
                 template.forEach((page, index) => {
                   this.isCategoryPage[index] = { isCategory: false };
@@ -444,6 +442,7 @@ export class SurveyMatrixComponent extends SurveyCreationDesignComponent impleme
                 this.bmxPagesClient = template;
                 this.typeTemplate = this.bmxPagesClient[1].page[2].componentType;
                 if(this.typeTemplate == "tinder"){
+                  this.bmxPagesClient = answers;                
                   this.tinderInstruction = this.bmxPagesClient[1].page[1].componentText
                 }
               });
@@ -1249,7 +1248,7 @@ export class SurveyMatrixComponent extends SurveyCreationDesignComponent impleme
   }
 
   saveUserAnswers(pageNumber?) {
-    
+        
     let pageStatus = (this.totalOfpages == this.currentPage + 1)?999: this.currentPage + 1;
     this.continueButtonToComple = (this.totalOfpages == this.currentPage + 1)?'Complete': 'Continue';
     
@@ -1258,6 +1257,7 @@ export class SurveyMatrixComponent extends SurveyCreationDesignComponent impleme
       .saveOrUpdateAnswers(this.bmxPagesClient, this.projectId, this.username, pageStatus)
       .subscribe((res: any) => {
         this.loadingLottie = false;
+        let newResp = JSON.parse(res.d)
         console.log('%cANSWERS!', 'color:#007bff', res);
         let page = res.d.replace(this.searchGraveAccentRegExp, "'");
         let message = ''

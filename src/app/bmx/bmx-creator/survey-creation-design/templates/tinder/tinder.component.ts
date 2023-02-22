@@ -428,7 +428,7 @@ export class TinderComponent extends RatingScaleComponent implements OnInit {
 
   getDataSource(){
     this.dataSource = this.bmxItem.componentText.slice(1)
-    console.log(this.bmxItem)
+    console.log(this.bmxItem.componentText)
     if(this.bmxItem.componentSettings[0].ranking == undefined){
       this.bmxItem.componentSettings[0].ranking = this.ranking
     }else{
