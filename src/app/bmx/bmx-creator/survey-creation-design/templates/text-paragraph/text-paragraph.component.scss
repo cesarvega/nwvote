@@ -11,9 +11,15 @@
     display: none;    
 }
 
+.paragram-desktop{
+    display: block;
+}
+
 @media (max-width: 912px){
+    .paragram-desktop{
+        display: none;
+    }
     .paragram-mobile{
         line-height: 25px;        
     }
-  
 }

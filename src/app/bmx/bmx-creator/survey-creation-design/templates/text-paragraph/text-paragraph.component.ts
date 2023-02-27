@@ -13,6 +13,7 @@ export class TextParagraphComponent implements OnInit {
   @Input() bmxClientPageDesignMode;
   @Input() bmxClientPageOverview;
   @Input() currentPage;
+  @Input() template;
 
   openSettings = false
   ckconfig;
