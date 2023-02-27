@@ -36,6 +36,8 @@ export class SurveyMatrixComponent extends SurveyCreationDesignComponent impleme
   isCategoryPage = [];
 
   bmxPagesClient;
+  tinderInstruction: any;
+  typeTemplate: string = "";
   @ViewChild('canvas', { static: true }) canvas: ElementRef;
   username: any;
   firstName: any;
@@ -93,7 +95,7 @@ export class SurveyMatrixComponent extends SurveyCreationDesignComponent impleme
     this.isDesktopDevice = this.deviceService.isDesktop();
   }
 
-  ngOnInit(): void {
+  ngOnInit(): void {    
    
     if(!this.username){
       this.myAngularxQrCode =  this.myAngularxQrCode + this.projectId
@@ -261,10 +263,9 @@ export class SurveyMatrixComponent extends SurveyCreationDesignComponent impleme
     
                   //  FILL THE TEMPLATE WTIHT USER ANSWERS END
                   this.bmxPagesClient = template;
+
                   //  this.bmxPagesClient = answers
-                });
-    
-    
+                });  
     
             } else {
               // USER NEVER ANSWERED LOAD TEMPLATE
@@ -349,7 +350,7 @@ export class SurveyMatrixComponent extends SurveyCreationDesignComponent impleme
             }
           });
       });
-    } else {
+    } else {    
       this.bmxClientPageDesignMode = true;
       // this.myAngularxQrCode =
       this.myAngularxQrCode + this.projectId + '/' + this.username;
@@ -358,8 +359,7 @@ export class SurveyMatrixComponent extends SurveyCreationDesignComponent impleme
       this.bmxPagesClient = this.SAMPLE_BMX_CLIENT;
       this._BmxService
         .getBrandMatrixByProjectAndUserAnswers(this.projectId, this.username)
-        .subscribe((brandMatrix: any) => {
-  
+        .subscribe((brandMatrix: any) => {         
           //    IF USER ALREADY HAVE ANSWERS
           if (brandMatrix.d.length > 0) {
             let answers = JSON.parse(
@@ -372,7 +372,6 @@ export class SurveyMatrixComponent extends SurveyCreationDesignComponent impleme
                 let template = JSON.parse(
                   brandMatrix.d.replace(this.searchGraveAccentRegExp, "'")
                 );
-  
                 //  FILL THE TEMPLATE WTIHT USER ANSWERS
                 template.forEach((page, index) => {
                   this.isCategoryPage[index] = { isCategory: false };
@@ -438,11 +437,14 @@ export class SurveyMatrixComponent extends SurveyCreationDesignComponent impleme
                       }
                     }
                   });
-                });
-  
+                });  
                 //  FILL THE TEMPLATE WTIHT USER ANSWERS END
                 this.bmxPagesClient = template;
-                //  this.bmxPagesClient = answers
+                this.typeTemplate = this.bmxPagesClient[1].page[2].componentType;
+                if(this.typeTemplate == "tinder"){
+                  this.bmxPagesClient = answers;                
+                  this.tinderInstruction = this.bmxPagesClient[1].page[1].componentText
+                }
               });
   
           } else {
@@ -460,7 +462,7 @@ export class SurveyMatrixComponent extends SurveyCreationDesignComponent impleme
                   this.bmxPagesClient = JSON.parse(
                     brandMatrix.d.replace(this.searchGraveAccentRegExp, "'")
                   );
-                  // CHECK IF THE PAGE IS CATEGORY PAGE
+                  // CHECK IF THE PAGE IS CATEGORY PAGE                  
                   this.bmxPagesClient.forEach((page, index) => {
                     this.isCategoryPage[index] = { isCategory: false };
                     page.page.forEach((component) => {
@@ -1246,7 +1248,7 @@ export class SurveyMatrixComponent extends SurveyCreationDesignComponent impleme
   }
 
   saveUserAnswers(pageNumber?) {
-    
+        
     let pageStatus = (this.totalOfpages == this.currentPage + 1)?999: this.currentPage + 1;
     this.continueButtonToComple = (this.totalOfpages == this.currentPage + 1)?'Complete': 'Continue';
     
@@ -1255,6 +1257,7 @@ export class SurveyMatrixComponent extends SurveyCreationDesignComponent impleme
       .saveOrUpdateAnswers(this.bmxPagesClient, this.projectId, this.username, pageStatus)
       .subscribe((res: any) => {
         this.loadingLottie = false;
+        let newResp = JSON.parse(res.d)
         console.log('%cANSWERS!', 'color:#007bff', res);
         let page = res.d.replace(this.searchGraveAccentRegExp, "'");
         let message = ''
