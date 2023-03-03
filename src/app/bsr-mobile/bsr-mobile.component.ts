@@ -38,6 +38,10 @@ export class BsrMobileComponent implements OnInit {
 
     this.activatedRoute.params.subscribe(params => {
       this.projectId = params['id'];
+
+      console.log('this.projectId', this.projectId);
+
+
       localStorage.setItem('projectId',  this.projectId);
       this.bsrService.getProjectData(this.projectId).subscribe(arg => {
         this.projectName = JSON.parse(arg[0].bsrData).projectdescription;
@@ -46,7 +50,7 @@ export class BsrMobileComponent implements OnInit {
           this.isUserLogged = false;
           this.isUserLeaving = false;
         }
-        localStorage.setItem('projectName',  this.projectId); 
+        localStorage.setItem('projectName',  this.projectId);
         if(this.projectId== 'pa3930' || this.projectId== 'st3929'){
           this.displayBulletPoints = true;
           if (this.projectId== 'pa3930'){
@@ -61,7 +65,7 @@ export class BsrMobileComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    //clean local storage 
+    //clean local storage
     localStorage.setItem('userTokenId', '');
     localStorage.setItem('project', '');
     localStorage.setItem('summarized', '');
@@ -82,10 +86,10 @@ export class BsrMobileComponent implements OnInit {
 
 
     // setTimeout(() => {
-    //   this.submitCredentials()      
+    //   this.submitCredentials()
     //   setTimeout(() => {
     //     this.finish();
-    //     setTimeout(() => {          
+    //     setTimeout(() => {
     //       location.reload();
     //     }, 50000);
     //   }, 700000);
@@ -99,7 +103,7 @@ export class BsrMobileComponent implements OnInit {
     this.userEmail = this.loginForm.value.email;
     localStorage.setItem('userEmail', this.userEmail);
     this.username = this.loginForm.value.name;
-    localStorage.setItem('username', this.username);    
+    localStorage.setItem('username', this.username);
     this.summarized = this.loginForm.value.suma;
     localStorage.setItem('summarized', this.summarized.toString());
     this.bsrService.login(this.loginForm.value, this.projectId).subscribe((res: any) => {
@@ -136,7 +140,7 @@ export class BsrMobileComponent implements OnInit {
   openDialog(item, nameid, rationale, favourite,source): void {
     const dialogRef = this.dialog.open(editName, {
       // width: '250px',
-      data: { 
+      data: {
           name: item,
           nameId: nameid,
           rationale: rationale,
@@ -150,25 +154,25 @@ export class BsrMobileComponent implements OnInit {
       if (result) {
         if (result.form.value.name && result.form.value.name === 'like') {
 
-          this.bsrService.sendName(result.form.value.name, result.oldValue, 
+          this.bsrService.sendName(result.form.value.name, result.oldValue,
             result.form.value.rationale, result.form.value.favourite,result.form.value.source).subscribe(arg => {
             this.bsrService.login({ email: this.userEmail, name: this.username }, this.projectId).subscribe((res: any) => {
               this.newNames = JSON.parse('[' + res[0].Names + ']');
               this.isUserLogged = true;
             })
           });
-        } 
+        }
         else if (result.form.value.name && result.form.value.name !== 'delete') {
 
-          this.bsrService.sendName(result.form.value.name, result.oldValue, 
+          this.bsrService.sendName(result.form.value.name, result.oldValue,
             result.form.value.rationale, result.form.value.favourite,result.form.value.source).subscribe(arg => {
             this.bsrService.login({ email: this.userEmail, name: this.username }, this.projectId).subscribe((res: any) => {
               this.newNames = JSON.parse('[' + res[0].Names + ']');
               this.isUserLogged = true;
             })
           });
-        } 
-        
+        }
+
         else {
           this.bsrService.deleteName(result.oldValue).subscribe(arg => {
             this.bsrService.login({ email: this.userEmail, name: this.username }, this.projectId).subscribe((res: any) => {
@@ -223,7 +227,7 @@ export interface DialogData {
   styleUrls: ['./bsr-mobile.component.scss']
 })
 export class editName {
-  
+
   loginForm: FormGroup;
   isDeleting = true;
   infoMessage = true;
@@ -231,14 +235,14 @@ export class editName {
   editName: string;
   favourite: boolean;
   source: string;
-  // @HostBinding('attr.role') role = 'admin'; 
- 
+  // @HostBinding('attr.role') role = 'admin';
+
   constructor(
     public dialogRef: MatDialogRef<editName>,
     @Inject(MAT_DIALOG_DATA) public data: DialogData, private _formBuilder: FormBuilder) {
 
 
-      
+
     this.editName = this.data.name;
     this.source = this.data.source;
     this.favourite = (this.data.favourite==='true')?true:false;
@@ -250,7 +254,7 @@ export class editName {
       console.log(this.data.name);
       this.loginForm = this._formBuilder.group({
         rationale: [this.data.rationale],
-        name: [this.data.name],        
+        name: [this.data.name],
         favourite: [this.data.favourite],
         source: [this.data.source],
       });
@@ -297,7 +301,7 @@ export class editName {
           oldValue: this.data.name,
         }
         this.dialogRef.close(this.popupwindowData);
-      
+
     }
     else if (option === 'dismiss') {
       this.dialogRef.close(this.popupwindowData);
