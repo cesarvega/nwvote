@@ -27,10 +27,10 @@ const routes: Routes = [
   //   path: ':id',
   //   component: SchedulerComponent
   // },
-  {//BSR  color of the bar #002f5b  https://www.bipresents.com/pa3930
-    path: ':id',
-    component: BsrComponent
-  },
+  // {//BSR  color of the bar #002f5b  https://www.bipresents.com/pa3930
+  //   path: ':id',
+  //   component: BsrComponent
+  // },
   // {//BI BRAND MATRIX CREATOR
   // // path: ':id/:biUsername',
   // path: 'bmx/:id',
@@ -45,10 +45,10 @@ const routes: Routes = [
   //   component: SurveyMatrixComponent
   // },
 
-  // {//NW 3 BI PRESENTS NOMENCLATURE WORKSHOP V.3.0
-  //   path: ':id',
-  //   component: NW3Component
-  // },
+  {//NW 3 BI PRESENTS NOMENCLATURE WORKSHOP V.3.0 // Test_WELL_PLATFORM
+    path: ':id',
+    component: NW3Component
+  },
   {
     path: '',
     // redirectTo: '/',
