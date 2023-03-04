@@ -38,10 +38,6 @@ export class BsrMobileComponent implements OnInit {
 
     this.activatedRoute.params.subscribe(params => {
       this.projectId = params['id'];
-
-      console.log('this.projectId', this.projectId);
-
-
       localStorage.setItem('projectId',  this.projectId);
       this.bsrService.getProjectData(this.projectId).subscribe(arg => {
         this.projectName = JSON.parse(arg[0].bsrData).projectdescription;

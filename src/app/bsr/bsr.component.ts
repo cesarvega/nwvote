@@ -11,7 +11,7 @@ import { DOCUMENT } from '@angular/common';
 
 
 ///CKEDITOR NOTES, para que el toolbar del editor pueda ser configurado
-//  es necesario de instalar el ckeditor4  y el ckeditor5 y 
+//  es necesario de instalar el ckeditor4  y el ckeditor5 y
 //  en el index.html importar el script <script src="https://cdn.ckeditor.com/4.14.1/full-all/ckeditor.js"></script>
 //  <ckeditor  [(ngModel)]="model.editorData" [data]="dataEditor" [config]="ckconfig"></ckeditor>
 
@@ -76,6 +76,7 @@ export class BsrComponent implements OnInit {
   isFullscreen = false;
   namesBoxIndexValue = 52;
   namesBoxIndex = 0;
+  wideScreen = false;
   constructor(@Inject(DOCUMENT) private document: any, private _formBuilder: FormBuilder,
     private _hotkeysService: HotkeysService,
     private _BsrService: BsrService, public dialog: MatDialog, private activatedRoute: ActivatedRoute,
@@ -316,7 +317,7 @@ export class BsrComponent implements OnInit {
   }
 
 
-  // TOOLBAR MENU ACTIONS 
+  // TOOLBAR MENU ACTIONS
   moveForward() {
     this.searchBoxLeftProperty = '611px;';
     this.appSearchSlidesData = [];
@@ -452,11 +453,11 @@ export class BsrComponent implements OnInit {
           });
 
 
-          // SUMMIRIZE COMMENTS INTO A POST IT 
+          // SUMMIRIZE COMMENTS INTO A POST IT
           let comments = '';
 
           res.forEach(element => {
-            comments += "<p>" + element.Comments + "<p>" 
+            comments += "<p>" + element.Comments + "<p>"
           });
 
 
@@ -702,7 +703,7 @@ export class BsrComponent implements OnInit {
 
 
   setFontSize() {
-    // console.log(this.font_size);    
+    // console.log(this.font_size);
     this.font_size_text = this.font_size + 'px';
     localStorage.setItem(this.projectName + '_font_size_text', this.font_size_text);
     localStorage.setItem(this.projectName + '_font_size', this.font_size);
