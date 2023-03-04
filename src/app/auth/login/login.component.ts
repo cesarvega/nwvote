@@ -12,13 +12,13 @@ export class LoginComponent implements OnInit {
 
   loginForm: FormGroup;
   projectname =''
-  constructor(private _formBuilder: FormBuilder, 
+  constructor(private _formBuilder: FormBuilder,
     public _NwvoteService: NwvoteService,private activatedRoute: ActivatedRoute,
     private router: Router) { }
 
   ngOnInit(): void {
 
-    //clean local storage 
+    //clean local storage
     localStorage.setItem('userTokenId', '');
     localStorage.setItem('project', '');
 
@@ -27,16 +27,12 @@ export class LoginComponent implements OnInit {
       suma: [''],
       name: ['', Validators.required]
   });
-
- 
     this.projectname = this.activatedRoute.snapshot.queryParamMap.get('project');
-   
-
   }
 
   submitCredentials(){
     this._NwvoteService.login(this.loginForm.value, this.projectname ).subscribe((res: any)=>{
-      if (JSON.parse(res.d)[0].userToken) {        
+      if (JSON.parse(res.d)[0]) {
         localStorage.setItem('username', JSON.parse(res.d)[0].username);
         localStorage.setItem('userTokenId', JSON.parse(res.d)[0].userToken);
         localStorage.setItem('project', this.projectname);
