@@ -24,7 +24,7 @@ export class TinderComponent extends RatingScaleComponent implements OnInit {
   showNeutralIcon: boolean = false;
   showNewInput: boolean = false;
   hasVoted: boolean = false;
-  ranking: boolean = true;
+  ranking: boolean = false;
   rankingAmount = [1,2,3,4,5,6,7]
   currentrank = undefined;
   colorText:  string = "";
@@ -72,7 +72,7 @@ export class TinderComponent extends RatingScaleComponent implements OnInit {
     this.getDataSource()
     if(this.dataSource[0].vote != undefined ||  this.dataSource[0].RATE != undefined){
       this.hasVoted = true
-      if(this.ranking ){
+      if(this.ranking){
         if(this.dataSource[0].RATE != undefined){
           this.setRateColor(this.dataSource[0].RATE)
           this.currentrank = this.bmxItem.componentText[this.testNameIndex]['RATE'] - 1;
@@ -428,7 +428,7 @@ export class TinderComponent extends RatingScaleComponent implements OnInit {
 
   getDataSource(){
     this.dataSource = this.bmxItem.componentText.slice(1)
-    console.log(this.bmxItem.componentText)
+    console.log(this.bmxItem)
     if(this.bmxItem.componentSettings[0].ranking == undefined){
       this.bmxItem.componentSettings[0].ranking = this.ranking
     }else{

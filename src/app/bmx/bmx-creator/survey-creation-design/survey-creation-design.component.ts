@@ -899,7 +899,6 @@ export class SurveyCreationDesignComponent implements OnInit {
         let LOGO_WIDTH: number[] = []
         // RESET VOTES IN TEMPLATE
         this.bmxPages.forEach((pageToreset: any) => {    
-            //LOGO_WIDTH.push(pageToreset.page[0].componentSettings[0].logoWidth)
 
             pageToreset.page.forEach(category => {
                 if (
@@ -993,11 +992,12 @@ export class SurveyCreationDesignComponent implements OnInit {
                 });
             });
             // console.log(this.bmxCompleteObject.bmx[4]["page"][3]['componentText']);
+            console.log(this.bmxPages)
             this._BmxService
                 .saveOrUpdateBradnMatrixTemplate(this.bmxPages, this.projectId)
-                .subscribe((res:any) => {
+                .subscribe((res:any) => {                    
                     let logoUrl = ""
-                    this.bmxPages = JSON.parse(res.d)
+                    this.bmxPages = JSON.parse(res.d)                    
                     logoUrl = this.bmxPages[0].page[0].componentSettings[0].companyLogoURL;
 
                     for (let index = 0; index < this.bmxPages.length; index++) {
