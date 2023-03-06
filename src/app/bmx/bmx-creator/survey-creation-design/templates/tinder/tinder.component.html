@@ -320,13 +320,11 @@
         <div class="content-button">
             <button mat-button *ngIf="!showNewInput" (click)="showModalAddRow = true; showModalTable = false"><mat-icon>add_box</mat-icon></button>
         </div>
-
     </div>
 
 </div>
 
 <!-- modal add row -->
-
 <div *ngIf="showModalAddRow" id="myModalrow" class="modal-video">
 
     <div class="modal-content-add-row" style="background: white; padding: 15px">
@@ -341,11 +339,8 @@
             </mat-form-field>
             <button mat-raised-button color="primary" (click)="uploadNames()" style="color: white">Save</button>
             <button mat-raised-button (click)="showModalAddRow = false" style="margin-left: 2px;">Cancel</button>
-
         </div>
-
     </div>
-
 </div>
 
 

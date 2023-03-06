@@ -952,6 +952,7 @@ export class SurveyMatrixComponent extends SurveyCreationDesignComponent impleme
         else if (answerComponent.componentType == 'tinder') {
           answerComponent.componentText.forEach((answerRow, index) => {
             if (!templateComponent.componentSettings[0].CRITERIA) {
+              answerComponent.componentSettings[0].ranking = templateComponent.componentSettings[0].ranking
               // no criteria
               // if (templateComponent.componentType == 'ranking-scale') {
               if (
@@ -1159,6 +1160,10 @@ export class SurveyMatrixComponent extends SurveyCreationDesignComponent impleme
                     }
                   }
                 } else if (component.componentType == 'tinder') {
+                  
+                    if (component.componentSettings[0].categoryRulesPassed) {                      
+                      component.componentSettings[0].categoryRulesPassed = (row.RATE == -1 || row.RATE == 0 || typeof row.RATE != 'number') ? false : true;
+                    }
 
                     if(component.componentSettings[0].ranking){
                       if(row.RATE != undefined){
