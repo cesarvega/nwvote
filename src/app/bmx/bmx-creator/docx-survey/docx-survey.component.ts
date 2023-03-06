@@ -56,8 +56,8 @@ export class DocxSurveyComponent implements OnInit {
   rational;
   rating;
   imgHeight;
-
-
+  compWidth = 0;
+  compHeight = 0;
   image;
   headers = [];
   criteria = false;
@@ -308,12 +308,30 @@ export class DocxSurveyComponent implements OnInit {
     var imageSrcString;
     imageSrcString = await this.getBase64ImageFromUrl(t)
     var img = new Image();
-    var width
-    var height
-    img.src = imageSrcString;
-    this.imgHeight = img.height;
+    let dimesions  = await this.getDimensions(imageSrcString);
+    var width = dimesions["width"];
+    var height = dimesions["height"];
+    if(this.compHeight == 0)
+    {
+      this.compHeight = height;
+      this.compWidth = width;
+    }
+    this.imgHeight = height;
     return imageSrcString.split(imageSrcString.split(",")[0] + ',').pop()
   }
+
+  getDimensions(image : string){
+    return new Promise((resolve, reject)=>{
+ 
+        var img = new Image();
+        img.src = image;
+ 
+        img.onload = () => {
+           resolve({width: img.width, height: img.height})
+       }
+ 
+    })
+ }
 
   createHeader(t: any, tableType: string): TableRow {
     var arr = [];
@@ -1179,12 +1197,13 @@ export class DocxSurveyComponent implements OnInit {
         if (pagesPring.includes(y.page)) {
           if (y.questyonType === 'rate') {
             for (var k = 0; k < y.answers.length; k++) {
+              var combinedStr = y.answers[k].nameCandidate + "*" + y.answers[k].rationale;
 
-              if (rankings.has(y.answers[k].nameCandidate)) {
-                rankings.set(y.answers[k].nameCandidate + "*" + y.answers[k].rationale, (Number(rankings.get(y.answers[k].nameCandidate)) + Number((y.answers[k].score))),);
+              if (rankings.has(combinedStr)) {
+                rankings.set(combinedStr, (Number(rankings.get(combinedStr)) + Number((y.answers[k].score))));
               }
               else {
-                rankings.set(y.answers[k].nameCandidate + "*" + y.answers[k].rationale, Number((y.answers[k].score)));
+                rankings.set(combinedStr, Number((y.answers[k].score)));
               }
 
 
@@ -1193,11 +1212,12 @@ export class DocxSurveyComponent implements OnInit {
           }
           else if (y.questyonType === 'criteria') {
             for (var k = 0; k < y.answers.length; k++) {
-              if (rankings.has(y.answers[k].nameCandidate)) {
-                rankings.set(y.answers[k].nameCandidate + "*" + y.answers[k].rationale, (rankings.get(y.answers[k].nameCandidate) + y.answers[k].score[0].RATE + y.answers[k].score[1].RATE));
+              var combinedStr = y.answers[k].nameCandidate + "*" + y.answers[k].rationale;
+              if (rankings.has(combinedStr)) {
+                rankings.set(combinedStr, (rankings.get(combinedStr) + y.answers[k].score[0].RATE + y.answers[k].score[1].RATE));
               }
               else {
-                rankings.set(y.answers[k].nameCandidate + "*" + y.answers[k].rationale, (y.answers[k].score[0].RATE + y.answers[k].score[1].RATE));
+                rankings.set(combinedStr, (y.answers[k].score[0].RATE + y.answers[k].score[1].RATE));
               }
 
 
@@ -1205,12 +1225,13 @@ export class DocxSurveyComponent implements OnInit {
           }
           else if (y.questyonType === 'vote') {
             for (var k = 0; k < y.answers.length; k++) {
+              var combinedStr = y.answers[k].nameCandidate + "*" + y.answers[k].rationale;
               if (y.answers[k].score == 1) {
-                if (rankings.has(y.answers[k].nameCandidate)) {
-                  rankings.set(y.answers[k].nameCandidate + "*" + y.answers[k].rationale, (Number(rankings.get(y.answers[k].nameCandidate)) + Number((y.answers[k].score))),);
+                if (rankings.has(combinedStr)) {
+                  rankings.set(combinedStr, (Number(rankings.get(combinedStr)) + Number((y.answers[k].score))),);
                 }
                 else {
-                  rankings.set(y.answers[k].nameCandidate + "*" + y.answers[k].rationale, Number((y.answers[k].score)));
+                  rankings.set(combinedStr, Number((y.answers[k].score)));
                 }
               }
             }
@@ -1243,14 +1264,15 @@ export class DocxSurveyComponent implements OnInit {
         if (pagesPring.includes(y.page)) {
           for (var k = 0; k < y.answers.length; k++) {
             a = [];
-            if (comments.has(y.answers[k].nameCandidate + "*" + y.answers[k].rationale) && (y.answers[k].comment !== "" && y.answers[k].comment !== undefined)) {
-              a = comments.get(y.answers[k].nameCandidate + "*" + y.answers[k].rationale)
+            var combinedStr = y.answers[k].nameCandidate + "*" + y.answers[k].rationale;
+            if (comments.has(combinedStr) && (y.answers[k].comment !== "" && y.answers[k].comment !== undefined)) {
+              a = comments.get(combinedStr)
               a.push({ name: this.user[i].name, comment: y.answers[k].comment })
-              comments.set(y.answers[k].nameCandidate + "*" + y.answers[k].rationale, a);
+              comments.set(combinedStr, a);
             }
-            else if (!comments.has(y.answers[k].nameCandidate + "*" + y.answers[k].rationale) && (y.answers[k].comment !== "" && y.answers[k].comment !== undefined)) {
+            else if (!comments.has(combinedStr) && (y.answers[k].comment !== "" && y.answers[k].comment !== undefined)) {
               a.push({ name: this.user[i].name, comment: y.answers[k].comment })
-              comments.set(y.answers[k].nameCandidate + "*" + y.answers[k].rationale, a);
+              comments.set(combinedStr, a);
             }
 
           }
@@ -1579,24 +1601,25 @@ export class DocxSurveyComponent implements OnInit {
         if (pagesPring.includes(y.page)) {
           for (var k = 0; k < y.answers.length; k++) {
             a = [];
+            var combinedStr = y.answers[k].nameCandidate + "*" + y.answers[k].rationale;
             if (page.has(y.page)) {
               var temp = page.get(y.page)
-              if (temp.has(y.answers[k].nameCandidate + "*" + y.answers[k].rationale)) {
-                a = temp.get(y.answers[k].nameCandidate + "*" + y.answers[k].rationale);
+              if (temp.has(combinedStr)) {
+                a = temp.get(combinedStr);
                 a.push({ name: this.user[i].name, value: y.answers[k].score })
-                temp.set(y.answers[k].nameCandidate + "*" + y.answers[k].rationale, a)
+                temp.set(combinedStr, a)
                 page.set(y.page, temp)
               }
               else {
                 a.push({ name: this.user[i].name, value: y.answers[k].score })
-                temp.set(y.answers[k].nameCandidate + "*" + y.answers[k].rationale, a)
+                temp.set(combinedStr, a)
                 page.set(y.page, temp);
               }
             }
             else {
               a.push({ name: this.user[i].name, value: y.answers[k].score })
               var names = new Map();
-              names.set(y.answers[k].nameCandidate + "*" + y.answers[k].rationale, a)
+              names.set(combinedStr, a)
               page.set(y.page, names);
             }
           }
@@ -1963,14 +1986,14 @@ export class DocxSurveyComponent implements OnInit {
           if (pagesPring.includes(y.page)) {
             for (var k = 0; k < y.answers.length; k++) {
               a = [];
-
+              var combinedStr = y.answers[k].nameCandidate + "*" + y.answers[k].rationale;
               if (comments.has(x.name) && y.answers[k].score.length !== 0) {
                 a = comments.get(x.name)
-                a.push({ question: y.answers[k].nameCandidate + "*" + y.answers[k].rationale, score: y.answers[k].score.toString() })
+                a.push({ question: combinedStr, score: y.answers[k].score.toString() })
                 comments.set(x.name, a);
               }
               else if (!comments.has(x.name) && y.answers[k].score.length !== 0) {
-                a.push({ question: y.answers[k].nameCandidate + "*" + y.answers[k].rationale, score: y.answers[k].score.toString() })
+                a.push({ question: combinedStr, score: y.answers[k].score.toString() })
                 comments.set(x.name, a);
               }
             }
@@ -1991,14 +2014,14 @@ export class DocxSurveyComponent implements OnInit {
           var y = x.responses[j];
           for (var k = 0; k < y.answers.length; k++) {
             a = [];
-
+            var combinedStr = y.answers[k].nameCandidate + "*" + y.answers[k].rationale;
             if (comments.has(x.name) && y.answers[k].score.length !== 0) {
               a = comments.get(x.name)
-              a.push({ question: y.answers[k].nameCandidate + "*" + y.answers[k].rationale, score: y.answers[k].score })
+              a.push({ question: combinedStr, score: y.answers[k].score })
               comments.set(x.name, a);
             }
             else if (!comments.has(x.name) && y.answers[k].score.length !== 0) {
-              a.push({ question: y.answers[k].nameCandidate + "*" + y.answers[k].rationale, score: y.answers[k].score })
+              a.push({ question: combinedStr, score: y.answers[k].score })
               comments.set(x.name, a);
             }
           }
@@ -2212,8 +2235,8 @@ export class DocxSurveyComponent implements OnInit {
           new ImageRun({
             data: Buffer.from(this.companyLogo, "base64"),
             transformation: {
-              width: 280,
-              height: 56,
+              width: this.compWidth,
+              height: this.compHeight,
             },
             floating: {
               zIndex: 5,
@@ -2648,7 +2671,7 @@ export class DocxSurveyComponent implements OnInit {
                 size: 20,
               }),
               new TextRun({
-                text: "TM = " + (Math.floor(this.completed / this.total) * 100).toString() + "%",
+                text: "TM = " + ((this.completed / this.total) * 100).toFixed(2).toString() + "%",
                 font:
                 {
                   name: "Calibri",

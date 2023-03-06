@@ -28,6 +28,9 @@ export class TinderComponent extends RatingScaleComponent implements OnInit {
   rankingAmount = [1,2,3,4,5,6,7]
   currentrank = undefined;
   colorText:  string = "";
+  greenColor = '#00c600';
+  redColor = '#e800d7';
+  neutralColor = '#f37e00';
 
   newCandidate: any = {
     "nameCandidates": "",
@@ -40,7 +43,7 @@ export class TinderComponent extends RatingScaleComponent implements OnInit {
   @Input() bmxClientPageOverview;
   @Input() survey;
 
-  @Output() launchPathModal = new EventEmitter(); 
+  @Output() launchPathModal = new EventEmitter();
 
   PATH1: any[] = [
     'assets/img/bmx/tutorial/tutorial-tinder1.JPG',
@@ -81,17 +84,17 @@ export class TinderComponent extends RatingScaleComponent implements OnInit {
           this.currentrank = undefined;
           this.hasVoted = false
         }
-        
+
       }else{
 
         if(this.bmxItem.componentText[this.testNameIndex]['vote']  == "positive"){
-          this.colorText = "#00cd38"
+          this.colorText = this.greenColor
         }
         if(this.bmxItem.componentText[this.testNameIndex]['vote']  == "negative"){
-          this.colorText = "#ed252f"
+          this.colorText = this.redColor
         }
         if(this.bmxItem.componentText[this.testNameIndex]['vote']  == "neutral"){
-          this.colorText = "#fffb07fd"
+          this.colorText = this.neutralColor
         }
       }
 
@@ -139,11 +142,11 @@ export class TinderComponent extends RatingScaleComponent implements OnInit {
 
   setRateColor(rate: number){
     if(rate > 0 && rate <= 3){
-      this.colorText = "#ed252f"
+      this.colorText = this.redColor
     }else if(rate >= 4 && rate <= 5){
-      this.colorText = "#fffb07fd"
+      this.colorText = this.neutralColor
     }else{
-      this.colorText = "#00cd38"
+      this.colorText = this.greenColor
     }
   }
 
@@ -181,7 +184,7 @@ export class TinderComponent extends RatingScaleComponent implements OnInit {
           this.extraColumnCounter++
         }
       });
-      
+
       this.TESTNAMES_LIST = [];
       for (let i = 0; i < rows.length; i++) {
         if (rows[i] != "" && rows[i].length > 6) {
@@ -197,7 +200,7 @@ export class TinderComponent extends RatingScaleComponent implements OnInit {
       }
       this.bmxItem.componentText = this.deleteDuplicates(this.TESTNAMES_LIST, 'nameCandidates');
       this.bmxItem.componentSettings[0].minRule = this.bmxItem.componentText.length - 1;
-      
+
       // this.bmxItem.componentText = this.TESTNAMES_LIST;
       this.rankingTableType(this.bmxItem.componentSettings[0].rankType)
 
@@ -291,20 +294,20 @@ export class TinderComponent extends RatingScaleComponent implements OnInit {
   }
 
   voteName(vote) {
-    
+
     if (!this.ranking) {
       this.bmxItem.componentText[this.testNameIndex]['vote'] = vote
 
       if(vote == "positive"){
-        this.colorText = "#00cd38"
+        this.colorText = this.greenColor
       }
       if(vote == "negative"){
-        this.colorText = "#ed252f"
+        this.colorText = this.redColor
       }
       if(vote == "neutral"){
-        this.colorText = "#fffb07fd"
+        this.colorText = this.neutralColor
       }
-      
+
     } else {
       this.bmxItem.componentText[this.testNameIndex]['RATE'] = vote
       this.setRateColor(this.bmxItem.componentText[this.testNameIndex]['RATE'])
@@ -329,12 +332,12 @@ export class TinderComponent extends RatingScaleComponent implements OnInit {
     }
   }
 
-  moveRight(testName:string) {   
+  moveRight(testName:string) {
 
     if(this.value <= 100){
       this.value = this.value + this.xpercent;
       if (this.testNameIndex < this.bmxItem.componentText.length - 1) {
-        
+
         this.testNameIndex++
 
         if(this.bmxItem.componentText[this.testNameIndex]['vote'] != undefined || this.bmxItem.componentText[this.testNameIndex]['RATE'] != undefined){
@@ -349,26 +352,26 @@ export class TinderComponent extends RatingScaleComponent implements OnInit {
               this.hasVoted = false
             }
           }else{
-            
+
             if(this.bmxItem.componentText[this.testNameIndex]['vote']  == "positive"){
-              this.colorText = "#00cd38"
+              this.colorText = this.greenColor
             }
             if(this.bmxItem.componentText[this.testNameIndex]['vote']  == "negative"){
-              this.colorText = "#ed252f"
+              this.colorText = this.redColor
             }
             if(this.bmxItem.componentText[this.testNameIndex]['vote']  == "neutral"){
-              this.colorText = "#fffb07fd"
+              this.colorText = this.neutralColor
             }
 
           }
         }else{
-          this.hasVoted = false; 
+          this.hasVoted = false;
           this.currentrank = undefined;
           this.colorText = ""
         }
 
         this.bmxItem.componentText[this.testNameIndex].comments = this.bmxItem.componentText[this.testNameIndex].comments
-      } 
+      }
     }
   }
 
@@ -389,24 +392,24 @@ export class TinderComponent extends RatingScaleComponent implements OnInit {
           }
         }else{
           if(this.bmxItem.componentText[this.testNameIndex]['vote']  == "positive"){
-            this.colorText = "#00cd38"
+            this.colorText = this.greenColor
           }
           if(this.bmxItem.componentText[this.testNameIndex]['vote']  == "negative"){
-            this.colorText = "#ed252f"
+            this.colorText = this.redColor
           }
           if(this.bmxItem.componentText[this.testNameIndex]['vote']  == "neutral"){
-            this.colorText = "#fffb07fd"
+            this.colorText = this.neutralColor
           }
         }
-           
+
       }else{
-        this.hasVoted = false; 
+        this.hasVoted = false;
       }
       this.bmxItem.componentText[this.testNameIndex].comments = this.bmxItem.componentText[this.testNameIndex].comments
     }
-    
-  }  
-  
+
+  }
+
   uploadNames(){
     this.bmxItem.componentText.push(this.newCandidate)
     this.dataSource.push(this.newCandidate)
@@ -415,12 +418,12 @@ export class TinderComponent extends RatingScaleComponent implements OnInit {
     this.showModalAddRow = false;
   }
 
-  deleteName(element: any){  
-    let x  
+  deleteName(element: any){
+    let x
     x =  this.bmxItem.componentText.splice(this.bmxItem.componentText.indexOf(element), 1);
-   
+
     if(x[0].nameCandidates == element.nameCandidates){
-      this.dataSource.splice(this.dataSource.indexOf(element), 1);      
+      this.dataSource.splice(this.dataSource.indexOf(element), 1);
     }
 
     this.table.renderRows();
@@ -433,7 +436,7 @@ export class TinderComponent extends RatingScaleComponent implements OnInit {
       this.bmxItem.componentSettings[0].ranking = this.ranking
     }else{
       this.ranking = this.bmxItem.componentSettings[0].ranking
-    }    
+    }
   }
 
   changePreferenceScore(){
