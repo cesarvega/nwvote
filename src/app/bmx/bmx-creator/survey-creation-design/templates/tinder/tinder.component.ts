@@ -44,6 +44,7 @@ export class TinderComponent extends RatingScaleComponent implements OnInit {
   @Input() survey;
 
   @Output() launchPathModal = new EventEmitter();
+  @Output() autoSave = new EventEmitter();
 
   PATH1: any[] = [
     'assets/img/bmx/tutorial/tutorial-tinder1.JPG',
@@ -313,6 +314,7 @@ export class TinderComponent extends RatingScaleComponent implements OnInit {
       this.setRateColor(this.bmxItem.componentText[this.testNameIndex]['RATE'])
       this.currentrank = vote - 1;
     }
+    this.autoSave.emit();
     this.hasVoted = true
     setTimeout(() => {
       // this.moveRight()

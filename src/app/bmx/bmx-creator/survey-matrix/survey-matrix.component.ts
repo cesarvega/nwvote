@@ -1252,6 +1252,10 @@ export class SurveyMatrixComponent extends SurveyCreationDesignComponent impleme
     }
   }
 
+  autoSave(){
+    this.saveUserAnswers();
+  }
+
   saveUserAnswers(pageNumber?) {
         
     let pageStatus = (this.totalOfpages == this.currentPage + 1)?999: this.currentPage + 1;
