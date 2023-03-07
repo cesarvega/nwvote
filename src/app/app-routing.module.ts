@@ -45,7 +45,7 @@ const routes: Routes = [
     component: SurveyMatrixComponent
   },
 
-  // {//NW 3 BI PRESENTS NOMENCLATURE WORKSHOP V.3.0
+  // {//NW 3 BI PRESENTS NOMENCLATURE WORKSHOP V.3.0 // Test_WELL_PLATFORM
   //   path: ':id',
   //   component: NW3Component
   // },

@@ -62,8 +62,14 @@
 .presentation-box::-webkit-scrollbar {
   display: none;
 }
-
+.container{
+  // max-width: 2000px !important;
+}
 .slide-box {
+  // width: 2000px;
+  // height: 700px;
+  // max-width: 2000px;
+  // max-height: 800px;
   width: 968px;
   height: 727px;
   border: solid 4px lightgray;
