@@ -59,7 +59,7 @@
                 <!-- BMX PARAGRAPH EDITOR 📑📑📑📑📑📑📑📑📑📑📑📑📑📑📑📑📑📑📑📑📑📑📑📑📑📑📑📑📑📑 -->
                 <div *ngIf="bmxItem.componentType === 'text-editor'" class="paragraph">
                     
-                    <app-text-paragraph [bmxItem]="bmxItem" [i]="i" [bmxClientPageDesignMode]="bmxClientPageDesignMode" [currentPage]="currentPage" [template]="typeTemplate "
+                    <app-text-paragraph [bmxItem]="bmxItem" [i]="i" [bmxClientPageDesignMode]="bmxClientPageDesignMode" [currentPage]="currentPage" [template]="typeTemplate"
                         [bmxClientPageOverview]="bmxClientPageOverview" style="margin-top: 25px"></app-text-paragraph>
                 </div>
                 <!-- 📑📑📑📑📑📑📑📑📑📑📑📑📑📑📑📑📑📑📑📑📑📑📑📑📑📑📑📑📑📑 END BMX PARAGRAPH EDITOR -->
@@ -194,10 +194,11 @@
                                              <mat-checkbox #modalChecked (click)="saveSelection()" class="example-margin container-checkbox" >Don't show again</mat-checkbox>
                     
                         <div class="modal-content" style="height: auto">
-                            <mat-tab-group style="background-color: white" >
+                            <mat-tab-group *ngIf="!isDesktopDevice; else modalNormal" style="background-color: white" >
+                                <mat-tab label="Instrucciones"> <div [innerHTML]="tinderInstruction | safe: 'html'" style=" padding: 15px"></div></mat-tab>
                                 <mat-tab label="Tutorial"> <img *ngFor="let path of VIDEO_PATH" [src]="path" alt="tutorial" style="width: 100%"> </mat-tab>
-                                <mat-tab label="Instructions"> <div [innerHTML]="tinderInstruction | safe: 'html'" style=" padding: 15px"></div></mat-tab>
-                            </mat-tab-group>                             
+                            </mat-tab-group>
+                            <ng-template #modalNormal><img *ngFor="let path of VIDEO_PATH" [src]="path" alt="tutorial"></ng-template>
                         </div>
                         <button class="btn btn-raised close-modal" (click)="showModalVideo=false">close</button>
                     </div>

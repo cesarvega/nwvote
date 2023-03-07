@@ -85,7 +85,7 @@ export class SurveyMatrixComponent extends SurveyCreationDesignComponent impleme
       this.username = params['username'];
       localStorage.setItem('projectId', this.projectId);
     });
-    this.epicFunction();    
+    this.epicFunction();
   }
 
   epicFunction() {
