@@ -28,6 +28,7 @@ export class NwVoteComponent implements OnInit {
     setInterval(() => {
       this.callNewName();
     }, 3000);
+
     this.projectName = localStorage.getItem('project');
     this.userToken = localStorage.getItem('userTokenId');
     if (!this.userToken && !this.name) {
