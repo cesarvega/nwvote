@@ -1,0 +1,279 @@
+[33mcommit 2b46534a9f429ff79fc5cd5f8fed3c804156f5ab[m[33m ([m[1;36mHEAD -> [m[1;32ms-bmx[m[33m, [m[1;31morigin/s-bmx[m[33m)[m
+Author: saray <gonzalezmeneses1234@gmail.com>
+Date:   Mon Mar 13 17:27:28 2023 -0500
+
+    buttons
+
+[33mcommit e6a8b133382fb0ea771a2bf39927237235d81adc[m
+Author: saray <gonzalezmeneses1234@gmail.com>
+Date:   Fri Mar 10 12:04:53 2023 -0500
+
+    button
+
+[33mcommit 01a362e59c4950c9b6fe320f370b53d9f08e89b5[m
+Author: saray <gonzalezmeneses1234@gmail.com>
+Date:   Fri Mar 10 11:55:13 2023 -0500
+
+    button
+
+[33mcommit 7e17a722d0f3d500ebe261ac48bb31a6e7576be9[m
+Author: saray <gonzalezmeneses1234@gmail.com>
+Date:   Fri Mar 10 11:47:03 2023 -0500
+
+    button2
+
+[33mcommit 9e65870ff65f722370d63b00dde924bd9b4862f4[m
+Author: saray <gonzalezmeneses1234@gmail.com>
+Date:   Fri Mar 10 11:41:40 2023 -0500
+
+    button
+
+[33mcommit 71aeb2a2758d844499d39582346264690bbe58ce[m
+Author: saray <gonzalezmeneses1234@gmail.com>
+Date:   Fri Mar 10 11:39:58 2023 -0500
+
+    button
+
+[33mcommit 0959a0e65b2e2640d85563226a05cebec4136b6c[m[33m ([m[1;31morigin/j-bmx[m[33m, [m[1;32mj-bmx[m[33m)[m
+Author: jair silva <harryhaller30@gmail.com>
+Date:   Wed Mar 8 10:07:50 2023 -0500
+
+    ajuste color iconos tinder
+
+[33mcommit ee5f01dde66632634d032e121be656b4b6d4f5b9[m
+Author: jair silva <harryhaller30@gmail.com>
+Date:   Tue Mar 7 16:17:48 2023 -0500
+
+    tinder modal mobil ajuste
+
+[33mcommit 8eb28a9b6f3e3056a95478f0debade2a3fe18656[m
+Author: jair silva <harryhaller30@gmail.com>
+Date:   Tue Mar 7 12:39:52 2023 -0500
+
+    cambio iconos panel rpor rating scale en image rate
+
+[33mcommit fb5df64f8a3df2c70579c9dffba18994adee158b[m[33m ([m[1;31morigin/b-bmx[m[33m)[m
+Author: jair silva <harryhaller30@gmail.com>
+Date:   Mon Mar 6 17:36:30 2023 -0500
+
+    answear save user
+
+[33mcommit 53ce0250edbd5a13380c2bac0a1931a4bd4c0feb[m
+Author: jair silva <harryhaller30@gmail.com>
+Date:   Mon Mar 6 16:41:04 2023 -0500
+
+    ajuste save answer
+
+[33mcommit 2c74cb2a8c9399b89af5592aa8f6ce20c65c1f9b[m
+Merge: fdfb2a4 38cf9bb
+Author: jair silva <harryhaller30@gmail.com>
+Date:   Mon Mar 6 12:15:44 2023 -0500
+
+    var ranking merge
+
+[33mcommit fdfb2a411ddb9dc08e35c92f2ecb3e9d80fcc62d[m
+Author: jair silva <harryhaller30@gmail.com>
+Date:   Mon Mar 6 12:05:40 2023 -0500
+
+    var ranking
+
+[33mcommit 38cf9bbe4ca55837fb45c3328fe2bb1f9b45fa5c[m
+Author: cesarvega <cesarvega.col@gmail.com>
+Date:   Sat Mar 4 04:40:58 2023 -0500
+
+    new colors for tinder template
+
+[33mcommit cc59d5cd55ed11987c024e4018263652deab51fa[m
+Author: cesarvega <cesarvega.col@gmail.com>
+Date:   Sat Mar 4 03:51:50 2023 -0500
+
+    ergin tinder code
+
+[33mcommit 830e63030cdaa141f503dc281bb853c288bd327c[m
+Author: cesarvega <cesarvega.col@gmail.com>
+Date:   Sat Mar 4 02:08:15 2023 -0500
+
+    cleaning branches
+
+[33mcommit e9ba70158de12d566196a9a12f13f9175e08f98c[m
+Author: cesarvega <cesarvega.col@gmail.com>
+Date:   Thu Mar 2 19:39:39 2023 -0500
+
+    BSR modification for particular projects
+
+[33mcommit 7232e183dbd1a08050a7130122178b8c5d401223[m
+Merge: 06c8e3a 275d4b7
+Author: cesarvega <cesarvega.col@gmail.com>
+Date:   Mon Feb 27 12:40:59 2023 -0500
+
+    Merge branch 'kenneth-bmx' into j-bmx
+
+[33mcommit 275d4b72fa7006ce4f59de88f813c5cf2ddbdadf[m[33m ([m[1;31morigin/kenneth-bmx[m[33m)[m
+Merge: 3ce37e4 ddc2680
+Author: cesarvega <cesarvega.col@gmail.com>
+Date:   Mon Feb 27 12:10:22 2023 -0500
+
+    Merge branch 'bmx' into kenneth-bmx
+
+[33mcommit ddc26805024ab3c47dbeaf4cc18fa520650471af[m
+Author: cesarvega <cesarvega.col@gmail.com>
+Date:   Mon Feb 27 12:03:37 2023 -0500
+
+    comments bugs fixed
+
+[33mcommit 06c8e3a8406b43f33daa8648e069ee4d05cc9aa7[m
+Author: cesarvega <cesarvega.col@gmail.com>
+Date:   Mon Feb 27 12:01:54 2023 -0500
+
+    comments bug fixed
+
+[33mcommit 87d46369485054788cd1a4d05db948ca1cd9d2a6[m
+Author: jair silva <harryhaller30@gmail.com>
+Date:   Wed Feb 22 18:52:10 2023 -0500
+
+    render comments tinder
+
+[33mcommit 3ce37e4f46b2071196c4430bd3b8826b0b3bc45c[m
+Author: Kenneth Cabrera <kcabrera@brandinstitute.com>
+Date:   Mon Feb 13 11:47:08 2023 -0500
+
+    fixed bug with logo sizing
+
+[33mcommit 15f769da1ba6c51fc484393d3f3963aec6b1a2c2[m
+Author: jair silva <harryhaller30@gmail.com>
+Date:   Mon Feb 6 13:46:02 2023 -0500
+
+    instruction none mobil tinder
+
+[33mcommit 848b76bea650d5857ee76abbfbd95c31b9bea6e1[m
+Author: jair silva <harryhaller30@gmail.com>
+Date:   Mon Feb 6 11:28:41 2023 -0500
+
+    sshow instruccion desktop
+
+[33mcommit 650a2ae9ab21cca17ed8a15a4267c8a337e10902[m
+Author: jair silva <harryhaller30@gmail.com>
+Date:   Mon Feb 6 10:31:20 2023 -0500
+
+    ajuste rate and instruction modal
+
+[33mcommit 5b0412cd074aa6cc46b7bc4d89b11ccbb4c407de[m
+Author: jair silva <harryhaller30@gmail.com>
+Date:   Fri Feb 3 18:46:54 2023 -0500
+
+    ajuste mobiñ color rate and instruction modal
+
+[33mcommit f67eb3b6db96f2691b701fa54fe7b012166f1f05[m
+Author: jair silva <harryhaller30@gmail.com>
+Date:   Thu Feb 2 11:34:50 2023 -0500
+
+    tutorial rate imagen center
+
+[33mcommit 09af0fcf2c7d344b0633a18c19945bd3a1d05e01[m
+Merge: c019e13 67eda1a
+Author: jair silva <harryhaller30@gmail.com>
+Date:   Thu Feb 2 11:18:16 2023 -0500
+
+    Merge branch 'j-bmx' of https://github.com/cesarvega/nwvote into j-bmx
+    
+    commir despues del pull 2/02/2020 11:18 am
+
+[33mcommit c019e13b7e70813a3d72f59fbe9c63c14da152f4[m
+Author: jair silva <harryhaller30@gmail.com>
+Date:   Thu Feb 2 11:17:04 2023 -0500
+
+    tutorial rate tinder
+
+[33mcommit 67eda1af74950893187fc53b57dfe597d832e80c[m
+Author: bi\cvega <cvega@brandinstitute.com>
+Date:   Thu Feb 2 11:07:04 2023 -0500
+
+    merge with reports
+
+[33mcommit d861d52ca8600aa8d770074826c7d5b2f5f00af2[m
+Author: bi\cvega <cvega@brandinstitute.com>
+Date:   Thu Feb 2 11:00:23 2023 -0500
+
+    report not working
+
+[33mcommit 627b37c603f632a562277c86d465905a17a2c37b[m
+Author: cesarvega <cesarvega.col@gmail.com>
+Date:   Thu Feb 2 10:46:12 2023 -0500
+
+    report changes merged
+
+[33mcommit c55d97f46b1ee219d557c8d9037cc1cc57b73009[m
+Merge: 5778b22 2bf3e39
+Author: cesarvega <cesarvega.col@gmail.com>
+Date:   Thu Feb 2 10:38:36 2023 -0500
+
+    Merge branch 'bmx' into j-bmx
+
+[33mcommit 2bf3e3914488433752192e1f1d6963a266115a65[m
+Merge: 66829d6 4229a2a
+Author: cesarvega <cesarvega.col@gmail.com>
+Date:   Thu Feb 2 10:33:54 2023 -0500
+
+    Merge branch 'kenneth-bmx' into bmx
+
+[33mcommit 66829d6db5f0d0badefc66b8fc1d5d7b149d28ce[m
+Merge: 3952817 6746d9e
+Author: cesarvega <cesarvega.col@gmail.com>
+Date:   Thu Feb 2 09:59:54 2023 -0500
+
+    tinder template in progress
+
+[33mcommit 39528170d33960d21a10ed6b9c9178593ee8c759[m
+Author: cesarvega <cesarvega.col@gmail.com>
+Date:   Thu Feb 2 09:57:36 2023 -0500
+
+    tinder template in progress
+
+[33mcommit 5778b22ec674fa4268f17b1e249238ba07dd6990[m
+Merge: f38dccc d1f3cbe
+Author: jair silva <harryhaller30@gmail.com>
+Date:   Thu Feb 2 09:36:59 2023 -0500
+
+    despues del pull 2/02/23
+
+[33mcommit f38dccc3cf5b4b0f55d97a8b006fd2750102cd9f[m
+Author: jair silva <harryhaller30@gmail.com>
+Date:   Thu Feb 2 09:25:29 2023 -0500
+
+    restriccion tinder
+
+[33mcommit d1f3cbe337c949fd656c466c1e61ecfab5fb5af9[m
+Author: cesarvega <cesarvega.col@gmail.com>
+Date:   Wed Feb 1 21:25:13 2023 -0500
+
+    new min runle added automatically
+
+[33mcommit ca969749545145fa5517981d5511fc0283ff5f8a[m
+Author: jair silva <harryhaller30@gmail.com>
+Date:   Wed Feb 1 18:00:07 2023 -0500
+
+    style color preference/no preference
+
+[33mcommit a4a4e0f209851c19b6db697e7d8ab30c892cbd47[m
+Author: jair silva <harryhaller30@gmail.com>
+Date:   Wed Feb 1 15:10:02 2023 -0500
+
+    boton color rated
+
+[33mcommit 232f48957a3907fc82924bb2dba9ffe0a36ffb9c[m
+Merge: 5038215 1d5ba36
+Author: jair silva <harryhaller30@gmail.com>
+Date:   Wed Feb 1 14:16:22 2023 -0500
+
+    Merge branch 'j-bmx' of https://github.com/cesarvega/nwvote into j-bmx
+    commit despues pull 1/02/2023 2:16
+
+[33mcommit 50382151ac679f19471ce6d22d571287f6759369[m
+Author: jair silva <harryhaller30@gmail.com>
+Date:   Wed Feb 1 14:16:06 2023 -0500
+
+    reset bacgroung boton tinder
+
+[33mcommit 1d5ba360c749e21dd59c86e3d5d5736b01e15498[m
+Author: cesarvega <cesarvega.col@gmail.com>
+Date: 
