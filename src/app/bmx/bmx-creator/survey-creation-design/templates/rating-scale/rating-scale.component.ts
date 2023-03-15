@@ -131,12 +131,14 @@ export class RatingScaleComponent implements OnInit {
     this.isDesktopDevice = this.deviceService.isDesktop(); 
   }
 
-  ngOnInit(): void {
+  ngOnInit(): void {    
     // COLUMN NAMES
     this.numRatingScale = this.bmxItem.componentText[0].STARS.length
     this.rankingScaleValue = this.numRatingScale;
     let values = Object.keys(this.bmxItem.componentText[0])
     this.rowsCount =  this.bmxItem.componentText.length - 1
+    this.bmxItem.componentSettings[0].minRule = this.rowsCount;
+    this.bmxItem.componentSettings[0].maxRule = this.rowsCount;
 
     values.forEach(value => {
       if (typeof value == "string" && value != "STARS" && value != "CRITERIA") {
@@ -409,6 +411,7 @@ export class RatingScaleComponent implements OnInit {
 
 
   upLoadNamesAndRationales(list: string) {
+    
     this.uploadImagesIcon = true
     this.bmxItem.componentSettings[0].randomizeTestNames = (this.randomizeTestNames) ? true : false
     this.recordHistory()
@@ -563,6 +566,8 @@ export class RatingScaleComponent implements OnInit {
         verticalPosition: 'top',
       })
     }
+    this.bmxItem.componentSettings[0].minRule = newArray.length-1;
+    this.bmxItem.componentSettings[0].maxRule = newArray.length-1;
     return newArray;
   }
   // remove objects from array1 that are also in array2

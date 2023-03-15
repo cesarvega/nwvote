@@ -75,9 +75,12 @@ export class ImageRateScaleComponent extends RatingScaleComponent implements OnI
   constructor(private _BmxService: BmxService,dragulaService: DragulaService, _snackBar: MatSnackBar,  _bmxService: BmxService,public deviceService: DeviceDetectorService)
    {super(dragulaService,_snackBar,_bmxService,deviceService); this.epicFunction();}
 
-  ngOnInit(): void {  
+  ngOnInit(): void {
     
-    this.numRatingScale = this.bmxItem.componentText[0].STARS.length
+    if(this.bmxItem.componentText[0].hasOwnProperty("STARS")){
+      this.numRatingScale = this.bmxItem.componentText[0].STARS.length
+    }
+
     this.rankingScaleValue = this.numRatingScale;
     
     if(window.innerWidth <= 1024){
@@ -110,7 +113,6 @@ export class ImageRateScaleComponent extends RatingScaleComponent implements OnI
     const isMobile = this.deviceService.isMobile();
     const isTablet = this.deviceService.isTablet();
     this.isDesktopDevice = this.deviceService.isDesktop();
-    console.log(this.deviceInfo);
     console.log(isMobile);  // returns if the device is a mobile device (android / iPhone / windows-phone etc)
     console.log(isTablet);  // returns if the device us a tablet (iPad etc)
   }
@@ -169,6 +171,7 @@ export class ImageRateScaleComponent extends RatingScaleComponent implements OnI
   }
 
   uploadAllImages(){
+    console.log("upload")
     this.IMAGES_UPLOADED.forEach((imageObject , index) => {
       imageObject['FileContent'] = imageObject['FileContent'].split(imageObject['FileContent'].split(",")[0] + ',').pop()
       this._BmxService.saveFileResources(JSON.stringify(imageObject)).subscribe((result:any) => {
