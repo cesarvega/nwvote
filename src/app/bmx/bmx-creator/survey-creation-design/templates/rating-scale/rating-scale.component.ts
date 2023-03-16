@@ -127,7 +127,7 @@ export class RatingScaleComponent implements OnInit {
     this.deviceInfo = this.deviceService.getDeviceInfo();
     const isMobile = this.deviceService.isMobile();
     const isTablet = this.deviceService.isTablet();
-    this.isDesktopDevice = this.deviceService.isDesktop(); 
+    this.isDesktopDevice = this.deviceService.isDesktop();
   }
 
   ngOnInit(): void {    
@@ -138,7 +138,6 @@ export class RatingScaleComponent implements OnInit {
     this.rowsCount =  this.bmxItem.componentText.length - 1
     this.bmxItem.componentSettings[0].minRule = this.bmxItem.componentSettings[0].minRule == 0?this.rowsCount:this.bmxItem.componentSettings[0].minRule;
     this.bmxItem.componentSettings[0].maxRule = this.bmxItem.componentSettings[0].maxRule == 0?this.rowsCount:this.bmxItem.componentSettings[0].maxRule;
-
     
     values.forEach(value => {
       if (typeof value == "string" && value != "STARS" && value != "CRITERIA") {
@@ -182,32 +181,32 @@ export class RatingScaleComponent implements OnInit {
     //   this.VIDEO_PATH = this.PATH1;
     // }
 
-    if(window.innerWidth <= 1024){
+    if (window.innerWidth <= 1024) {
       this.VIDEO_PATH = this.PATH1;
-    }else{
+    } else {
       this.VIDEO_PATH = this.PATH2;
     }
     this.launchPathModal.emit(this.VIDEO_PATH)
   }
 
-  openSelected(y: any){
+  openSelected(y: any) {
 
     if (this.openElements.indexOf(y) === -1) {
       this.openElements.push(y);
     } else {
-      this.openElements.splice(this.openElements.indexOf(y),1);
+      this.openElements.splice(this.openElements.indexOf(y), 1);
     }
   }
 
-  open(y: any){
+  open(y: any) {
 
-    if(this.openElements.indexOf(y) == -1){
+    if (this.openElements.indexOf(y) == -1) {
       return false;
-    }else{
+    } else {
       console.log('true')
       return true;
     }
-    
+
   }
 
   maxRuleCounterMinus() {
@@ -409,7 +408,6 @@ export class RatingScaleComponent implements OnInit {
   }
   // ⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️ END STARS METHODS  ⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️
 
-
   upLoadNamesAndRationales(list: string) {
     this.uploadImagesIcon = true
     this.bmxItem.componentSettings[0].randomizeTestNames = (this.randomizeTestNames) ? true : false
@@ -480,7 +478,12 @@ export class RatingScaleComponent implements OnInit {
             for (let e = 0; e < this.columnsNames.length; e++) {
               if ((rows[i].split("\t").length > 0)) {
                 const columnName = this.columnsNames[e]
-                const columnValue = rows[i].split("\t")[e].trim()
+                let columnValue
+                if(this.bmxItem.componentText.length>i) {
+                   columnValue = this.bmxItem.componentText[i].nameCandidates
+                }else{
+                   columnValue = rows[i].split("\t")[e].trim()
+                }
                 objectColumnDesign[columnName] = columnValue
                 if (i != 0) {
                   this.autoSizeColumns(columnName, columnValue)
@@ -498,6 +501,9 @@ export class RatingScaleComponent implements OnInit {
 
       this.bmxItem.componentText = this.deleteDuplicates(this.TESTNAMES_LIST, 'nameCandidates');
       this.columnsNames.push('RATE')
+      rows.forEach((row, index)=>{
+        this.bmxItem.componentText[index].name = row
+      })
 
     } else {
       this.autoSizeColumns('RATE', '', this.rankingScaleValue)
@@ -541,9 +547,9 @@ export class RatingScaleComponent implements OnInit {
       }
       this.dragRows = false;
     }, 1000);
-
     // this.swapColumns(0)
   }
+
 
   // DEPRECATED
   ramdomizeArray() {
