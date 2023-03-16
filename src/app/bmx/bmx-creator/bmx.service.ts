@@ -187,7 +187,6 @@ export class BmxService {
   // save template string
 
   saveOrUpdateBradnMatrixTemplate(bmxCompleteObject,projectName) {
-    debugger
     const payloadString = JSON.stringify({
       ProjectName: projectName,
       BrandMatrix: JSON.stringify(bmxCompleteObject).replace(this.searchApostropheRegExp, '`')

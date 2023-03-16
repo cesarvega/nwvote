@@ -51,7 +51,7 @@ export class RatingScaleComponent implements OnInit {
   rankingType = 'dropDown'
   RadioColumnList = []
   selectedCard: any
-
+  newSet:boolean = false;
   minRuleCounter = 0
   maxRuleCounter = 0
   deleteRows = false
@@ -76,8 +76,7 @@ export class RatingScaleComponent implements OnInit {
 
   openElements: any[]=[];
 
-   //------modal-----------//
-   
+   //------modal-----------//   
  
    VIDEO_PATH: any[] = [];
  
@@ -137,9 +136,10 @@ export class RatingScaleComponent implements OnInit {
     this.rankingScaleValue = this.numRatingScale;
     let values = Object.keys(this.bmxItem.componentText[0])
     this.rowsCount =  this.bmxItem.componentText.length - 1
-    this.bmxItem.componentSettings[0].minRule = this.rowsCount;
-    this.bmxItem.componentSettings[0].maxRule = this.rowsCount;
+    this.bmxItem.componentSettings[0].minRule = this.bmxItem.componentSettings[0].minRule == 0?this.rowsCount:this.bmxItem.componentSettings[0].minRule;
+    this.bmxItem.componentSettings[0].maxRule = this.bmxItem.componentSettings[0].maxRule == 0?this.rowsCount:this.bmxItem.componentSettings[0].maxRule;
 
+    
     values.forEach(value => {
       if (typeof value == "string" && value != "STARS" && value != "CRITERIA") {
         this.columnsNames.push(value)
@@ -411,7 +411,6 @@ export class RatingScaleComponent implements OnInit {
 
 
   upLoadNamesAndRationales(list: string) {
-    
     this.uploadImagesIcon = true
     this.bmxItem.componentSettings[0].randomizeTestNames = (this.randomizeTestNames) ? true : false
     this.recordHistory()
@@ -528,8 +527,14 @@ export class RatingScaleComponent implements OnInit {
       }
     }
     setTimeout(() => {     
-      this.rowsCount = this.bmxItem.componentText.length - 1; 
-      //this.bmxItem.componentSettings[0].minRule = (this.bmxItem.componentSettings[0].minRule == 0) ? this.bmxItem.componentText.length - 1 : this.bmxItem.componentSettings[0].minRule
+      this.rowsCount = this.bmxItem.componentText.length - 1;
+
+      if(this.newSet){
+        this.bmxItem.componentSettings[0].minRule = this.rowsCount;
+        this.bmxItem.componentSettings[0].maxRule = this.rowsCount;        
+        this.newSet = false;
+      }
+      
       if (this.bmxItem.componentSettings[0].CRITERIA) {
         //MULTIPLY FOR THE AMOUNT OF CRITERIA
         this.bmxItem.componentSettings[0].minRule = this.bmxItem.componentSettings[0].minRule * this.bmxItem.componentText[0].CRITERIA.length
@@ -565,9 +570,7 @@ export class RatingScaleComponent implements OnInit {
         duration: 10000,
         verticalPosition: 'top',
       })
-    }
-    this.bmxItem.componentSettings[0].minRule = newArray.length-1;
-    this.bmxItem.componentSettings[0].maxRule = newArray.length-1;
+    }    
     return newArray;
   }
   // remove objects from array1 that are also in array2
@@ -633,7 +636,6 @@ export class RatingScaleComponent implements OnInit {
         this.bmxItem.componentSettings[0].columnWidth = 175
       }
     }
-
   }
 
   // COLUMNS ADD AND REMOVE
@@ -828,7 +830,8 @@ export class RatingScaleComponent implements OnInit {
   onPaste() {
     setTimeout(() => {
       let rows = this.testNamesInput.split("\n");
-      this.rowsCount = rows.length - 1
+      this.newSet = true;
+      this.rowsCount = rows.length - 1      
     }, 1000);
   }
 

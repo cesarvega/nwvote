@@ -936,6 +936,7 @@ export class SurveyCreationDesignComponent implements OnInit {
                                         });
                                     }
                                 }
+
                             });
                         }
                     }
@@ -946,7 +947,7 @@ export class SurveyCreationDesignComponent implements OnInit {
         });
 
         if (confirm('Are you sure you want save overwrite this project?')) {
-          
+
             this.projectInfo = JSON.parse(
                 localStorage.getItem('fakeproject' + '_project_info')
             );
