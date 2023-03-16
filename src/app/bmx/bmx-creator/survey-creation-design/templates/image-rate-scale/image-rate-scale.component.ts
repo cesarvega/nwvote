@@ -97,7 +97,10 @@ export class ImageRateScaleComponent extends RatingScaleComponent implements OnI
     });
     
     this.randomizeTestNames = this.bmxItem.componentSettings[0].randomizeTestNames
-    this.rowsCount = this.bmxItem.componentText.length - 1;
+   
+    this.rowsCount =  this.bmxItem.componentText.length - 1
+    this.bmxItem.componentSettings[0].minRule = this.bmxItem.componentSettings[0].minRule == 0?this.rowsCount:this.bmxItem.componentSettings[0].minRule;
+    this.bmxItem.componentSettings[0].maxRule = this.bmxItem.componentSettings[0].maxRule == 0?this.rowsCount:this.bmxItem.componentSettings[0].maxRule;
 
     // if(this.isDesktopDevice){
     //   this.VIDEO_PATH = this.PATH2;
@@ -171,7 +174,6 @@ export class ImageRateScaleComponent extends RatingScaleComponent implements OnI
   }
 
   uploadAllImages(){
-    console.log("upload")
     this.IMAGES_UPLOADED.forEach((imageObject , index) => {
       imageObject['FileContent'] = imageObject['FileContent'].split(imageObject['FileContent'].split(",")[0] + ',').pop()
       this._BmxService.saveFileResources(JSON.stringify(imageObject)).subscribe((result:any) => {
