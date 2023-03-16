@@ -479,6 +479,7 @@ export class RatingScaleComponent implements OnInit {
               if ((rows[i].split("\t").length > 0)) {
                 const columnName = this.columnsNames[e]
                 let columnValue
+        
                 if(this.bmxItem.componentText.length>i) {
                    columnValue = this.bmxItem.componentText[i].nameCandidates
                 }else{
@@ -501,10 +502,6 @@ export class RatingScaleComponent implements OnInit {
 
       this.bmxItem.componentText = this.deleteDuplicates(this.TESTNAMES_LIST, 'nameCandidates');
       this.columnsNames.push('RATE')
-      rows.forEach((row, index)=>{
-        this.bmxItem.componentText[index].name = row
-      })
-
     } else {
       this.autoSizeColumns('RATE', '', this.rankingScaleValue)
       if (this.ASSIGNED_CRITERIA.length > 0) {
