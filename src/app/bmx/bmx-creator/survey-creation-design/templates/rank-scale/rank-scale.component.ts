@@ -89,11 +89,10 @@ export class RankScaleComponent extends RatingScaleComponent implements OnInit {
   }
 
   checkDragEvetn(rows) {
-    console.log(rows)
     if (this.bmxItem.componentSettings[0].rankType == 'dragAndDrop') {
       rows.forEach((row, rowIndex) => {
         if (rowIndex > 0) {
-          row.RATE = rowIndex+1
+          row.RATE = rowIndex
         }
       })
     }
