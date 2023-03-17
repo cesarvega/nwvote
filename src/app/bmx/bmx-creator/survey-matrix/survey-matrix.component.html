@@ -89,7 +89,7 @@
                     </div>
                     <!-- modal end -->
                   
-                    <app-rating-scale [bmxItem]="bmxItem" [i]="i" [bmxClientPageDesignMode]="bmxClientPageDesignMode"
+                    <app-rating-scale [bmxItem]="bmxItem" [i]="i" [bmxClientPageDesignMode]="bmxClientPageDesignMode" (autoSave)="autoSave()"
                         [bmxClientPageOverview]="bmxClientPageOverview" (launchPathModal)="setPath($event)"></app-rating-scale>
 
                 </div>

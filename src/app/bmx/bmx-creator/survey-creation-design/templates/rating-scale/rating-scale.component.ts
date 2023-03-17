@@ -17,6 +17,7 @@ export class RatingScaleComponent implements OnInit {
   @Input() bmxClientPageDesignMode;
   @Input() bmxClientPageOverview;
   @ViewChild('autosize') autosize: CdkTextareaAutosize;
+  @Output() autoSave = new EventEmitter();
   rankingScaleValue = 5;
   selectedRowCounter = 0;
   selectedIndex: any = ''
@@ -224,6 +225,8 @@ export class RatingScaleComponent implements OnInit {
 
   // ⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️ STARS METHODS  ⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️
   setRating(rate, testNameId) {
+    console.log(rate)
+    console.log(testNameId)
     if (rate.target && this.bmxItem.componentType == 'narrow-down') {
       if (this.selectedRowCounter >= this.bmxItem.componentSettings[0].minRule && !this.bmxItem.componentText[testNameId].SELECTED_ROW) {
         this.selectedNarrowDownTimer = 4000
@@ -276,8 +279,8 @@ export class RatingScaleComponent implements OnInit {
         }, this.selectedNarrowDownTimer);
 
       }
-
     }
+
     if (this.bmxItem.componentType == 'ranking-scale') {
       this.bmxItem.componentText.forEach((testnameRow, i) => {
         if (testnameRow.RATE == rate) {
@@ -298,9 +301,7 @@ export class RatingScaleComponent implements OnInit {
       //   }
       //   this._bmxService.setSpecialDataObservable(payload)
       // }
-    }
-
-    else {
+    }else {
       if (this.maxRuleCounter < this.bmxItem.componentSettings[0].maxRule || this.bmxItem.componentSettings[0].maxRule == 0) {
         if (this.bmxItem.componentSettings[0].maxRule > 0) { this.maxRuleCounter++ }
         this.bmxItem.componentText[testNameId].RATE = rate
@@ -308,6 +309,8 @@ export class RatingScaleComponent implements OnInit {
         if (this.bmxItem.componentSettings[0].ratedCounter >= this.bmxItem.componentSettings[0].minRule) {
           this.bmxItem.componentSettings[0].categoryRulesPassed = true
         } else { this.bmxItem.componentSettings[0].categoryRulesPassed = false }
+        //aqui va
+        this.autoSave.emit();
       } else {
         if (this.bmxItem.componentType != 'narrow-down' && this.bmxItem.componentSettings[0].maxRule > 0) {
           this._snackBar.open('you can only rate up to ' + this.bmxItem.componentSettings[0].maxRule + ' Test Names', 'OK', {
