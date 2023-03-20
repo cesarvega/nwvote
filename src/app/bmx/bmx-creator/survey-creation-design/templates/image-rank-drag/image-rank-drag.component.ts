@@ -20,7 +20,7 @@ export class ImageRankDragComponent extends RatingScaleComponent implements OnIn
   @Input() bmxClientPageDesignMode;
   @Input() bmxClientPageOverview;
   @ViewChild('autosize') autosize: CdkTextareaAutosize;
-
+  @Output() autoSave = new EventEmitter();
   imageurls = [];
 
   @Output() launchPathModal = new EventEmitter();
@@ -50,6 +50,9 @@ export class ImageRankDragComponent extends RatingScaleComponent implements OnIn
 
   draggableBag
   isdropDown = true
+
+  ratedCounter = 0
+  actualRate = 0
 
   //------modal-----------//
  
@@ -85,6 +88,7 @@ export class ImageRankDragComponent extends RatingScaleComponent implements OnIn
     console.log(isTablet);  // returns if the device us a tablet (iPad etc)
   }
   ngOnInit(): void {
+  
     this.numRatingScale = this.bmxItem.componentText[0].STARS.length
     this.rankingScaleValue = this.numRatingScale;
     let values = Object.keys(this.bmxItem.componentText[0])
@@ -211,9 +215,30 @@ export class ImageRankDragComponent extends RatingScaleComponent implements OnIn
     this.uploadSub = null;
   }
 
+  saveRate(testNameId:any){
+    this.actualRate = this.bmxItem.componentText[testNameId].RATE
+  }
+
+  checkAutosave(testNameId:any) {
+    console.log(this.bmxItem.componentText[testNameId].RATE)
+     if (this.ratedCounter < this.bmxItem.componentSettings[0].maxRule && this.actualRate == 0|| this.bmxItem.componentSettings[0].maxRule == 0  ) {
+        this.ratedCounter = this.ratedCounter + 1
+        this.autoSave.emit()
+    } else if(this.ratedCounter <= this.bmxItem.componentSettings[0].maxRule && this.actualRate != 0){
+      this.autoSave.next()    
+    } 
+  }
+
   checkDragEvetn(event: CdkDragDrop<string[]>) {
     if (event.currentIndex > 0) {
-      console.log('drag eventtrt');
+      if (this.maxRuleCounter <= this.bmxItem.componentSettings[0].maxRule || this.bmxItem.componentSettings[0].maxRule == 0  ) {
+        if (this.maxRuleCounter == this.bmxItem.componentSettings[0].maxRule){
+          this.maxRuleCounter++
+          this.autoSave.emit()
+        }else{
+          this.autoSave.emit()
+        }
+      }
       moveItemInArray(this.bmxItem.componentText, event.previousIndex, event.currentIndex);
       this.bmxItem.componentText.forEach((row, rowIndex) => {
         if (rowIndex > 0) {
