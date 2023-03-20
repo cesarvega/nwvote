@@ -20,7 +20,7 @@ export class ImageRateScaleComponent extends RatingScaleComponent implements OnI
   @Input() bmxClientPageDesignMode;
   @Input() bmxClientPageOverview;
   @ViewChild('autosize') autosize: CdkTextareaAutosize;
-
+  @Output() autoSave = new EventEmitter();
   @Output() launchTutorial = new EventEmitter(); 
   
   firstTime = true
@@ -47,10 +47,9 @@ export class ImageRateScaleComponent extends RatingScaleComponent implements OnI
   resourceData: any;
   logoWidth = 200
   uploadImagesBox = false;
-
   numRatingScale: number = 0;
-
- 
+  ratedCounter = 0
+  actualRate = 0
   //------modal-----------//
   @Output() launchPathModal = new EventEmitter(); 
 
@@ -76,8 +75,15 @@ export class ImageRateScaleComponent extends RatingScaleComponent implements OnI
   constructor(private _BmxService: BmxService,dragulaService: DragulaService, _snackBar: MatSnackBar,  _bmxService: BmxService,public deviceService: DeviceDetectorService)
    {super(dragulaService,_snackBar,_bmxService,deviceService); this.epicFunction();}
 
-  ngOnInit(): void {
-    
+  ngOnInit(): void {  
+    this.bmxItem.componentText.forEach(data =>{
+      if (data.RATE>0){
+        this.ratedCounter++
+        this.maxRuleCounter++
+      }
+    })
+ 
+
     if(this.bmxItem.componentText[0].hasOwnProperty("STARS")){
       this.numRatingScale = this.bmxItem.componentText[0].STARS.length
     }
@@ -111,6 +117,7 @@ export class ImageRateScaleComponent extends RatingScaleComponent implements OnI
 
     this.launchPathModal.emit(this.VIDEO_PATH)
     console.log(this.bmxItem)
+    console.log(this.bmxItem.componentText)
   }
 
   epicFunction() {
@@ -214,5 +221,23 @@ export class ImageRateScaleComponent extends RatingScaleComponent implements OnI
   reset() {
     this.uploadProgress = null;
     this.uploadSub = null;
+  }
+
+  substractRatedCounter(){
+    this.ratedCounter--
+  }
+
+  saveRate(testNameId:any){
+    this.actualRate = this.bmxItem.componentText[testNameId].RATE
+  }
+
+  checkAutosave(testNameId:any) {
+    console.log(this.bmxItem.componentText[testNameId].RATE)
+     if (this.ratedCounter < this.bmxItem.componentSettings[0].maxRule && this.actualRate == 0|| this.bmxItem.componentSettings[0].maxRule == 0  ) {
+        this.ratedCounter = this.ratedCounter + 1
+        this.autoSave.emit()
+    } else if(this.ratedCounter <= this.bmxItem.componentSettings[0].maxRule && this.actualRate != 0){
+      this.autoSave.next()    
+    } 
   }
 }
