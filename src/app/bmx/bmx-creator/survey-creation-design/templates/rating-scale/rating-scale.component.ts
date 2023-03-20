@@ -17,6 +17,8 @@ export class RatingScaleComponent implements OnInit {
   @Input() bmxClientPageDesignMode;
   @Input() bmxClientPageOverview;
   @ViewChild('autosize') autosize: CdkTextareaAutosize;
+  @Output() autoSave = new EventEmitter();
+
   rankingScaleValue = 5;
   selectedRowCounter = 0;
   selectedIndex: any = ''
@@ -300,13 +302,16 @@ export class RatingScaleComponent implements OnInit {
     }
 
     else {
-      if (this.maxRuleCounter < this.bmxItem.componentSettings[0].maxRule || this.bmxItem.componentSettings[0].maxRule == 0) {
+      if (this.maxRuleCounter < this.bmxItem.componentSettings[0].maxRule && this.bmxItem.componentText[testNameId].RATE == 0 || this.bmxItem.componentSettings[0].maxRule == 0) {
         if (this.bmxItem.componentSettings[0].maxRule > 0) { this.maxRuleCounter++ }
         this.bmxItem.componentText[testNameId].RATE = rate
         this.bmxItem.componentSettings[0].ratedCounter++
         if (this.bmxItem.componentSettings[0].ratedCounter >= this.bmxItem.componentSettings[0].minRule) {
           this.bmxItem.componentSettings[0].categoryRulesPassed = true
+
         } else { this.bmxItem.componentSettings[0].categoryRulesPassed = false }
+      } else if(this.maxRuleCounter <= this.bmxItem.componentSettings[0].maxRule && this.bmxItem.componentText[testNameId].RATE != 0){
+        this.bmxItem.componentText[testNameId].RATE = rate
       } else {
         if (this.bmxItem.componentType != 'narrow-down' && this.bmxItem.componentSettings[0].maxRule > 0) {
           this._snackBar.open('you can only rate up to ' + this.bmxItem.componentSettings[0].maxRule + ' Test Names', 'OK', {
