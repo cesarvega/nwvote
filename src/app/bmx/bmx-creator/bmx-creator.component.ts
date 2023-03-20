@@ -129,7 +129,7 @@ export class BmxCreatorComponent implements OnInit {
 
       // localStorage.setItem('projectId', this.projectId);
       this._BmxService.getMatrixUser(this.userGUI).subscribe((data: any) => {
-        data = JSON.parse(data.d);
+        data = JSON.parse(data.d);        
         this.userName = data.UserName;
         this.userFullName = data.FullName;
         this.userOffice = data.Office;

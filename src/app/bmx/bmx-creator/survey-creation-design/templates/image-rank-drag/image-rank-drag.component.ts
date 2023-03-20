@@ -94,8 +94,10 @@ export class ImageRankDragComponent extends RatingScaleComponent implements OnIn
       }
     });
 
-    this.rowsCount = this.bmxItem.componentText.length - 1;
-
+    this.rowsCount =  this.bmxItem.componentText.length - 1
+    this.bmxItem.componentSettings[0].minRule = this.bmxItem.componentSettings[0].minRule == 0?this.rowsCount:this.bmxItem.componentSettings[0].minRule;
+    this.bmxItem.componentSettings[0].maxRule = this.bmxItem.componentSettings[0].maxRule == 0?this.rowsCount:this.bmxItem.componentSettings[0].maxRule;
+    
     this.randomizeTestNames = this.bmxItem.componentSettings[0].randomizeTestNames
 
     if (this.rankingType == 'dropDown') {
@@ -200,7 +202,6 @@ export class ImageRankDragComponent extends RatingScaleComponent implements OnIn
   deleteImage(index) {
     this.IMAGES_UPLOADED.splice(index, 1)
   }
-
 
   toggleImageUploadBox() {
     this.uploadImagesBox = !this.uploadImagesBox

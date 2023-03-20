@@ -24,7 +24,7 @@ const routes: Routes = [
   //   component: BsrMobileComponent
   // },
   // {// SCHEDULER
-  //   path: ':id',
+  //   path: 'scheduler',
   //   component: SchedulerComponent
   // },
   // {//BSR  color of the bar #002f5b  https://www.bipresents.com/pa3930
@@ -52,7 +52,7 @@ const routes: Routes = [
   {
     path: '',
     // redirectTo: '/',
-    // redirectTo: 'bmx/99CB72BF-D163-46A6-8A0D-E1531EC7FEDC', // creative
+    //redirectTo: 'bmx/99CB72BF-D163-46A6-8A0D-E1531EC7FEDC', // creative
     redirectTo: 'bmx/E9096C9-084F-4D10-81C2-C72B70E5D782', // admin
     // redirectTo: 'survey/noProject/no_user',
     // redirectTo: '/',

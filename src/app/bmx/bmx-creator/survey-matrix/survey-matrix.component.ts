@@ -949,11 +949,11 @@ export class SurveyMatrixComponent extends SurveyCreationDesignComponent impleme
           });
         }
         //🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥
-        else if (answerComponent.componentType == 'tinder') {
+        else if (answerComponent.componentType == 'tinder') {          
           answerComponent.componentText.forEach((answerRow, index) => {
             if (!templateComponent.componentSettings[0].CRITERIA) {
               answerComponent.componentSettings[0].ranking = templateComponent.componentSettings[0].ranking
-              // no criteria
+                            // no criteria
               // if (templateComponent.componentType == 'ranking-scale') {
               if (
                 templateComponent.componentType == answerComponent.componentType
