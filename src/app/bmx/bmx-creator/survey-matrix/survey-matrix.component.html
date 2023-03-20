@@ -141,7 +141,7 @@
 
                 <!-- NARROW DOWN SCALE 😭😭😭😭😭😭😭😭😭😭😭😭😭😭😭😭😭😭😭😭😭😭😭😭😭😭😭😭😭😭😭😭😭😭😭😭😭-->
                 <div *ngIf="bmxItem.componentType === 'narrow-down'" class="paragraph">
-                    <app-narrow-down [bmxItem]="bmxItem" [i]="i" [bmxClientPageDesignMode]="bmxClientPageDesignMode"
+                    <app-narrow-down [bmxItem]="bmxItem" [i]="i" [bmxClientPageDesignMode]="bmxClientPageDesignMode" (autoSave)="autoSave()"
                         [bmxClientPageOverview]="bmxClientPageOverview"></app-narrow-down>
                 </div>
                 <!-- END NARROW DOWN SCALE 😭😭😭😭😭😭😭😭😭😭😭😭😭😭😭😭😭😭😭😭😭😭😭😭😭😭😭😭😭😭😭😭😭😭😭😭😭 -->

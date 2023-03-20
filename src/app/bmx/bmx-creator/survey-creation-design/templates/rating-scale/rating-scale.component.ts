@@ -225,9 +225,9 @@ export class RatingScaleComponent implements OnInit {
 
   // ⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️ STARS METHODS  ⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️
   setRating(rate, testNameId) {
-    console.log(rate)
-    console.log(testNameId)
+      
     if (rate.target && this.bmxItem.componentType == 'narrow-down') {
+      
       if (this.selectedRowCounter >= this.bmxItem.componentSettings[0].minRule && !this.bmxItem.componentText[testNameId].SELECTED_ROW) {
         this.selectedNarrowDownTimer = 4000
         for (let index = 0; index < this.bmxItem.componentText.length; index++) {
@@ -246,8 +246,7 @@ export class RatingScaleComponent implements OnInit {
             break
           }
         }
-      }
-      else {
+      }else {
         if (this.bmxItem.componentText[testNameId]["CRITERIA"]) {
           this.bmxItem.componentText[testNameId]["CRITERIA"].forEach(criteria => {
             criteria.RATE = 0
@@ -278,8 +277,8 @@ export class RatingScaleComponent implements OnInit {
           }).afterDismissed().subscribe(action => { })
         }, this.selectedNarrowDownTimer);
 
-      }
-    }
+      }      
+    }   
 
     if (this.bmxItem.componentType == 'ranking-scale') {
       this.bmxItem.componentText.forEach((testnameRow, i) => {
@@ -309,7 +308,7 @@ export class RatingScaleComponent implements OnInit {
         if (this.bmxItem.componentSettings[0].ratedCounter >= this.bmxItem.componentSettings[0].minRule) {
           this.bmxItem.componentSettings[0].categoryRulesPassed = true
         } else { this.bmxItem.componentSettings[0].categoryRulesPassed = false }
-        //aqui va
+        //autosave
         this.autoSave.emit();
       } else {
         if (this.bmxItem.componentType != 'narrow-down' && this.bmxItem.componentSettings[0].maxRule > 0) {
@@ -367,7 +366,8 @@ export class RatingScaleComponent implements OnInit {
         this.bmxItem.componentSettings[0].categoryRulesPassed = true
       } else { this.bmxItem.componentSettings[0].categoryRulesPassed = false }
     }
-
+    //autosave
+    this.autoSave.emit();
   }
 
   selectCriteriaStar(starId, criteriaId, testNameId): void {
@@ -412,6 +412,7 @@ export class RatingScaleComponent implements OnInit {
   // ⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️ END STARS METHODS  ⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️
 
   upLoadNamesAndRationales(list: string) {
+    console.log(list)  
     this.uploadImagesIcon = true
     this.bmxItem.componentSettings[0].randomizeTestNames = (this.randomizeTestNames) ? true : false
     this.recordHistory()
@@ -419,10 +420,10 @@ export class RatingScaleComponent implements OnInit {
     if (!list) { list = this.listString; }
     if (list) {
       this.listString = list;
-      const rows = list.split("\n");
+      const rows = list.split("\n");      
       this.columnsNames = [];
       this.columnsNames = rows[0].toLowerCase().split("\t");
-
+      
       let nameCandidatesCounter = 0
       this.extraColumnCounter = 1
 
@@ -432,6 +433,7 @@ export class RatingScaleComponent implements OnInit {
         if (nameCandidatesCounter == 0 && column.includes('candidates') || column == 'questions') {
           this.columnsNames[index] = 'nameCandidates'
           nameCandidatesCounter++
+          console.log(this.columnsNames)
         } else
           if (column == 'name rationale' || column == 'rationale' || column == 'rationales') {
             this.columnsNames[index] = 'rationale'
@@ -500,6 +502,7 @@ export class RatingScaleComponent implements OnInit {
             objectColumnDesign['SELECTED_ROW'] = false
           }
           this.TESTNAMES_LIST.push(objectColumnDesign);
+          console.log(this.TESTNAMES_LIST)
         }
       }
 
@@ -596,7 +599,10 @@ export class RatingScaleComponent implements OnInit {
   }
 
   autoSizeColumns(columnName, testName, rankingValue?) {
-    let testNameLength = testName.length
+
+    let testNameLength;
+    testNameLength = testName != undefined?testName.length:0; 
+
     if (columnName == 'nameCandidates') {
       if (testNameLength > 10 && this.bmxItem.componentSettings[0].nameCandidatesWidth < 150) {
         this.bmxItem.componentSettings[0].nameCandidatesWidth = 150

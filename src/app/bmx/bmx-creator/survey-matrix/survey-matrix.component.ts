@@ -1253,6 +1253,7 @@ export class SurveyMatrixComponent extends SurveyCreationDesignComponent impleme
   }
 
   autoSave(){
+    console.log(" es el auto save")
     this.saveUserAnswers();
   }
 
