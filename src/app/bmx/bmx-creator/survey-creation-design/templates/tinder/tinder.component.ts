@@ -143,8 +143,7 @@ export class TinderComponent extends RatingScaleComponent implements OnInit {
     this.ranking?this.VIDEO_PATH = this.PATH2:this.VIDEO_PATH = this.PATH1
     this.launchPathModal.emit(this.VIDEO_PATH)
     this.rankingAmountArr = Array(this.rankingAmount).fill(0).map((_, index) => index+1);
-    this.rankingScaleValue = this.rankingAmount
-    console.log(this.rankingAmountArr)
+    this.rankingScaleValue = this.rankingAmount;
   }
 
   setRateColor(rate: number){

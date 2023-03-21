@@ -90,7 +90,7 @@
                     <!-- modal end -->
                   
                     <app-rating-scale [bmxItem]="bmxItem" [i]="i" [bmxClientPageDesignMode]="bmxClientPageDesignMode"
-                        [bmxClientPageOverview]="bmxClientPageOverview" (launchPathModal)="setPath($event)"></app-rating-scale>
+                        [bmxClientPageOverview]="bmxClientPageOverview" (launchPathModal)="setPath($event)" (autoSave)="autoSave()"></app-rating-scale>
 
                 </div>
                 <!-- END STARS SCALE 👽👽👽👽👽👽👽👽👽👽👽👽👽👽👽👽👽👽👽👽👽👽👽👽👽👽👽👽👽👽👽👽👽👽👽👽👽👽👽👽 -->
@@ -135,13 +135,13 @@
                     <!-- modal end -->                   
 
                     <app-image-rank-drag [bmxItem]="bmxItem" [i]="i" [bmxClientPageDesignMode]="bmxClientPageDesignMode"
-                        [bmxClientPageOverview]="bmxClientPageOverview" (launchPathModal)="setPath($event)"></app-image-rank-drag>
+                        [bmxClientPageOverview]="bmxClientPageOverview" (launchPathModal)="setPath($event)" (autoSave)="autoSave()"></app-image-rank-drag>
                 </div>
                 <!-- END RANK DRAG 👽👽👽👽👽👽👽👽👽👽👽👽👽👽👽👽👽👽👽👽👽👽👽👽👽👽👽👽👽👽👽👽👽👽👽👽👽👽👽👽👽 -->
 
                 <!-- NARROW DOWN SCALE 😭😭😭😭😭😭😭😭😭😭😭😭😭😭😭😭😭😭😭😭😭😭😭😭😭😭😭😭😭😭😭😭😭😭😭😭😭-->
                 <div *ngIf="bmxItem.componentType === 'narrow-down'" class="paragraph">
-                    <app-narrow-down [bmxItem]="bmxItem" [i]="i" [bmxClientPageDesignMode]="bmxClientPageDesignMode"
+                    <app-narrow-down [bmxItem]="bmxItem" [i]="i" [bmxClientPageDesignMode]="bmxClientPageDesignMode" (autoSave)="autoSave()"
                         [bmxClientPageOverview]="bmxClientPageOverview"></app-narrow-down>
                 </div>
                 <!-- END NARROW DOWN SCALE 😭😭😭😭😭😭😭😭😭😭😭😭😭😭😭😭😭😭😭😭😭😭😭😭😭😭😭😭😭😭😭😭😭😭😭😭😭 -->
@@ -168,7 +168,7 @@
 
                     <app-image-rate-scale [bmxItem]="bmxItem" [i]="i"
                         [bmxClientPageDesignMode]="bmxClientPageDesignMode"
-                        [bmxClientPageOverview]="bmxClientPageOverview" (launchPathModal)="setPath($event)"></app-image-rate-scale>
+                        [bmxClientPageOverview]="bmxClientPageOverview" (launchPathModal)="setPath($event)"  (autoSave)="autoSave()"></app-image-rate-scale>
                 </div>
                 <!-- END IMAGE SCALE 👀👀👀👀👀👀👀👀👀👀👀👀👀👀👀👀👀👀👀👀👀👀👀👀👀👀👀👀👀👀👀👀👀👀👀👀👀👀 -->
 

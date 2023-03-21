@@ -896,7 +896,6 @@ export class SurveyCreationDesignComponent implements OnInit {
     }
 
     saveData() {
-        let LOGO_WIDTH: number[] = []
         // RESET VOTES IN TEMPLATE
         this.bmxPages.forEach((pageToreset: any) => {    
 

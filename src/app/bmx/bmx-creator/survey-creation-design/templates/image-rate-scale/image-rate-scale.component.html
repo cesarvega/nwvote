@@ -440,7 +440,7 @@
                                 <ng-template #elseBlock>
                                     <div style="position: relative;">
                                         <mat-icon matRipple *ngFor="let star of  testName.STARS; let x =  index"
-                                            (click)="setRating(star.id,y)" [ngClass]="star.styleClass"
+                                       (click)="saveRate(y);setRating(star.id,y)"   (click)="checkAutosave(y)" [ngClass]="star.styleClass"
                                             (mouseenter)="selectStar(star.id , y)" (mouseleave)="leaveStar(y)"
                                             style="outline: none;margin:1px -1px;cursor: pointer;">{{star.icon}}
                                         </mat-icon>
@@ -451,7 +451,7 @@
                             <!-- 🩸🩸🩸🩸🩸🩸🩸🩸🩸🩸🩸🩸🩸 RATE BUTTONS 🩸🩸🩸🩸🩸🩸🩸🩸🩸🩸🩸🩸🩸🩸🩸🩸🩸🩸🩸🩸🩸🩸🩸🩸 -->
                             <div style="display: flex;">
                                 <button
-                                    (click)="maxRuleCounterMinus();bmxItem.componentText[y]['RATE'] = 0;leaveStar(y)"
+                                    (click)="maxRuleCounterMinus();bmxItem.componentText[y]['RATE'] = 0;leaveStar(y);substractRatedCounter()"
                                     *ngIf="bmxItem.componentText[y]['RATE']>0 && y != 0 " style="background-color: #ee7f25;    
                             color: white;
                             min-width: 20px;
