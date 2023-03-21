@@ -281,6 +281,7 @@ export class RatingScaleComponent implements OnInit {
     }   
 
     if (this.bmxItem.componentType == 'ranking-scale') {
+      
       this.bmxItem.componentText.forEach((testnameRow, i) => {
         if (testnameRow.RATE == rate) {
           this.bmxItem.componentText[i].RATE = 0
@@ -293,6 +294,8 @@ export class RatingScaleComponent implements OnInit {
       });
 
       this.bmxItem.componentText[testNameId].RATE = rate
+      //autosave
+      this.autoSave.emit();
       // HANDLIN SPECIAL REQUEST
       // if (!this.bmxItem.componentSettings[1].isImageType && rate == 1) {
       //   let payload = {
@@ -417,7 +420,6 @@ export class RatingScaleComponent implements OnInit {
   // ⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️ END STARS METHODS  ⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️
 
   upLoadNamesAndRationales(list: string) {
-    console.log(list)  
     this.uploadImagesIcon = true
     this.bmxItem.componentSettings[0].randomizeTestNames = (this.randomizeTestNames) ? true : false
     this.recordHistory()
@@ -438,7 +440,6 @@ export class RatingScaleComponent implements OnInit {
         if (nameCandidatesCounter == 0 && column.includes('candidates') || column == 'questions') {
           this.columnsNames[index] = 'nameCandidates'
           nameCandidatesCounter++
-          console.log(this.columnsNames)
         } else
           if (column == 'name rationale' || column == 'rationale' || column == 'rationales') {
             this.columnsNames[index] = 'rationale'
@@ -507,7 +508,6 @@ export class RatingScaleComponent implements OnInit {
             objectColumnDesign['SELECTED_ROW'] = false
           }
           this.TESTNAMES_LIST.push(objectColumnDesign);
-          console.log(this.TESTNAMES_LIST)
         }
       }
 
@@ -720,6 +720,7 @@ export class RatingScaleComponent implements OnInit {
   }
 
   saveRadioColumValue(name, y) {
+    
     this.RadioColumnList = []
     let values = Object.keys(this.bmxItem.componentText[y])
     values.forEach(columnName => {
@@ -747,8 +748,10 @@ export class RatingScaleComponent implements OnInit {
         }
         this.bmxItem.componentText[y].RATE = index + 1
       }
-      // }
+      // } 
     });
+    //autosave
+    this.autoSave.emit();
   }
 
   deletRow(option): void {
