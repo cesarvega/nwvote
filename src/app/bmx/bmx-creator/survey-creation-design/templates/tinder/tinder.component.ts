@@ -75,7 +75,7 @@ export class TinderComponent extends RatingScaleComponent implements OnInit {
 
   }
   ngOnInit(): void {
-    
+
     this.getDataSource()
     if(this.dataSource[0].vote != undefined ||  this.dataSource[0].RATE != undefined){
       this.hasVoted = true
