@@ -5,6 +5,8 @@ import { RatingScaleComponent } from '../rating-scale/rating-scale.component';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { BmxService } from '../../../bmx.service';
 import { DeviceDetectorService } from 'ngx-device-detector';
+import { CdkDragDrop, moveItemInArray } from '@angular/cdk/drag-drop';
+
 
 @Component({
   selector: 'app-rank-scale',
@@ -17,6 +19,7 @@ export class RankScaleComponent extends RatingScaleComponent implements OnInit {
   @Input() i;
   @Input() bmxClientPageDesignMode;
   @Input() bmxClientPageOverview;
+  @Output() autoSave = new EventEmitter();
 
   isImageType = true
 
@@ -88,14 +91,16 @@ export class RankScaleComponent extends RatingScaleComponent implements OnInit {
     }
   }
 
-  checkDragEvetn(rows) {
+  checkDragEvetn(event: CdkDragDrop<string[]>) {
     if (this.bmxItem.componentSettings[0].rankType == 'dragAndDrop') {
-      rows.forEach((row, rowIndex) => {
+      moveItemInArray(this.bmxItem.componentText, event.previousIndex, event.currentIndex);
+      this.bmxItem.componentText.forEach((row, rowIndex) => {
         if (rowIndex > 0) {
           row.RATE = rowIndex
         }
       })
     }
+    this.autoSave.emit()
   }
 
   createRatingStars(ratingScale, ratingScaleIcon?) {
