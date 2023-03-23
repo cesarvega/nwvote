@@ -20,7 +20,6 @@ export class ImageRankDragComponent extends RatingScaleComponent implements OnIn
   @Input() bmxClientPageDesignMode;
   @Input() bmxClientPageOverview;
   @ViewChild('autosize') autosize: CdkTextareaAutosize;
-  @Output() autoSave = new EventEmitter();
   imageurls = [];
 
   @Output() launchPathModal = new EventEmitter();
@@ -231,22 +230,14 @@ export class ImageRankDragComponent extends RatingScaleComponent implements OnIn
   }
 
   checkDragEvetn(event: CdkDragDrop<string[]>) {
-    if (event.currentIndex > 0) {
-      if (this.maxRuleCounter <= this.bmxItem.componentSettings[0].maxRule || this.bmxItem.componentSettings[0].maxRule == 0  ) {
-        if (this.maxRuleCounter == this.bmxItem.componentSettings[0].maxRule){
-          this.maxRuleCounter++
-          this.autoSave.emit()
-        }else{
-          this.autoSave.emit()
-        }
-      }
+
       moveItemInArray(this.bmxItem.componentText, event.previousIndex, event.currentIndex);
       this.bmxItem.componentText.forEach((row, rowIndex) => {
         if (rowIndex > 0) {
           row.RATE = rowIndex
         }
       })
-    }
+      this.autoSave.emit()
   }
 }
 
