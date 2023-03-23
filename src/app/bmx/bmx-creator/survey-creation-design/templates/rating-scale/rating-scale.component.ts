@@ -484,7 +484,7 @@ export class RatingScaleComponent implements OnInit {
                 const columnName = this.columnsNames[e]
                 let columnValue
                 console.log(this.bmxItem.componentText[i])
-                if(this.bmxItem.componentText.length>i ) {
+                if(this.bmxItem.componentText.length>i &&   this.bmxItem.componentText[0].nameCandidates == "LOGO" ) {
                    columnValue = this.bmxItem.componentText[i].nameCandidates
                 }else{
                    columnValue = rows[i].split("\t")[e].trim()
