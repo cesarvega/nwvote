@@ -182,21 +182,19 @@ export class ImageRateScaleComponent extends RatingScaleComponent implements OnI
 
   uploadAllImages(){
     
-   
-    if( this.firstTime){
-      this.bmxItem.componentText= this.bmxItem.componentText.filter(component=>component.nameCandidates=='LOGO')
-      this.firstTime=false
-    }
-   
+
     this.IMAGES_UPLOADED.forEach((imageObject , index) => {
       imageObject['FileContent'] = imageObject['FileContent'].split(imageObject['FileContent'].split(",")[0] + ',').pop()
       this._BmxService.saveFileResources(JSON.stringify(imageObject)).subscribe((result:any) => {
         this.IMAGES_UPLOADED.shift()
-        // imageObject['FileContent'] = JSON.parse(result.d).FileUrl
-       
+       console.log(index)
+        if(index==0){
+          this.bmxItem.componentText[index ].name = "LOGO"
+          this.bmxItem.componentText[index ].nameCandidates = "LOGO"
+        }
         if( this.bmxItem.componentText[index + 1]){
-          this.bmxItem.componentText[index + 1].name = JSON.parse(result.d).FileUrl
-          this.bmxItem.componentText[index + 1].nameCandidates = JSON.parse(result.d).FileUrl
+          this.bmxItem.componentText[index +1].name = JSON.parse(result.d).FileUrl
+          this.bmxItem.componentText[index +1].nameCandidates = JSON.parse(result.d).FileUrl
         }else{
           this.bmxItem.componentText.push({name : JSON.parse(result.d).FileUrl,nameCandidates:JSON.parse(result.d).FileUrl})
         }
