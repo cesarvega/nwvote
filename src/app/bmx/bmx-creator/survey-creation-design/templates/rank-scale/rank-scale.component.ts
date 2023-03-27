@@ -174,9 +174,9 @@ export class RankScaleComponent extends RatingScaleComponent implements OnInit {
             }
           }
 
-          this.TESTNAMES_LIST.push(objectColumnDesign);
+          this.TESTNAMES_LIST.push(objectColumnDesign);         
         }
-      }
+      }      
       this.bmxItem.componentText = this.deleteDuplicates(this.TESTNAMES_LIST, 'nameCandidates');
       this.columnsNames.push('RATE')
     } else {

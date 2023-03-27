@@ -970,7 +970,7 @@ export class SurveyCreationDesignComponent implements OnInit {
                 });
             });
             // console.log(this.bmxCompleteObject.bmx[4]["page"][3]['componentText']);
-            console.log(this.bmxPages)
+            
             this._BmxService
                 .saveOrUpdateBradnMatrixTemplate(this.bmxPages, this.projectId)
                 .subscribe((res:any) => {                    

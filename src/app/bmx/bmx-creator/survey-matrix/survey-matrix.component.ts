@@ -368,10 +368,10 @@ export class SurveyMatrixComponent extends SurveyCreationDesignComponent impleme
             this.totalOfpages = answers.length
             this._BmxService
               .getBrandMatrixByProject(this.projectId)
-              .subscribe((brandMatrix: any) => {
+              .subscribe((brandMatrix: any) => {                
                 let template = JSON.parse(
                   brandMatrix.d.replace(this.searchGraveAccentRegExp, "'")
-                );
+                ); 
                 //  FILL THE TEMPLATE WTIHT USER ANSWERS
                 template.forEach((page, index) => {
                   this.isCategoryPage[index] = { isCategory: false };
@@ -1093,12 +1093,11 @@ export class SurveyMatrixComponent extends SurveyCreationDesignComponent impleme
     }
   }
 
-  selectPageNumber(pageNumber) {
-    // IF PAGE IS NOT CATEGORY PAGE PASS THE PAGE
-
+  selectPageNumber(pageNumber) {    
+    // IF PAGE IS NOT CATEGORY PAGE PASS THE PAGE    
     if (this.isCategoryPage[this.currentPage]['isCategory']) {
+      
       if (this.currentPage < pageNumber) {
-
         this.bmxPagesClient[this.currentPage].page.forEach((component) => {
           if (component.componentType == 'rate-scale' ||
             component.componentType == 'ranking-scale' ||
@@ -1174,7 +1173,7 @@ export class SurveyMatrixComponent extends SurveyCreationDesignComponent impleme
                         minRuleCounter++
                       }
                     }
-                }else{
+                }else{                  
                   // THE OTHER COMPONENTS
                   if (index > 0 && (row.RATE != -1 && row.RATE != 0 && row.RATE != undefined)) {
                     minRuleCounter++
@@ -1204,7 +1203,7 @@ export class SurveyMatrixComponent extends SurveyCreationDesignComponent impleme
               component.componentSettings[0].minRule == 0 ||
               component.componentSettings[0].categoryRulesPassed ||
               (component.componentSettings[0].minRule - minRuleCounter) <= 0
-            ) {
+            ) {              
               this.currentPage = pageNumber;
               window.scroll(0, 0);
               setTimeout(() => {
@@ -1247,7 +1246,7 @@ export class SurveyMatrixComponent extends SurveyCreationDesignComponent impleme
         this.currentPage = pageNumber;
         window.scroll(0, 0);
       }
-    } else {
+    } else {      
       this.currentPage = pageNumber;
     }
   }
