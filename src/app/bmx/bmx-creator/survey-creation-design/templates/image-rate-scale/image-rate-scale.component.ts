@@ -190,14 +190,12 @@ export class ImageRateScaleComponent extends RatingScaleComponent implements OnI
       this._BmxService.saveFileResources(JSON.stringify(imageObject)).subscribe((result:any) => {
         this.IMAGES_UPLOADED.shift()
         if(index==0){
-          this.bmxItem.componentText[index ].name = "LOGO"
           this.bmxItem.componentText[index ].nameCandidates = "LOGO"
         }
         if( this.bmxItem.componentText[index + 1]){
-          this.bmxItem.componentText[index +1].name = JSON.parse(result.d).FileUrl
           this.bmxItem.componentText[index +1].nameCandidates = JSON.parse(result.d).FileUrl
         }else{
-          this.bmxItem.componentText.push({name : JSON.parse(result.d).FileUrl,nameCandidates:JSON.parse(result.d).FileUrl})
+          this.bmxItem.componentText.push({nameCandidates:JSON.parse(result.d).FileUrl})
         }
         
       });

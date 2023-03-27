@@ -162,7 +162,7 @@ export class SurveyMatrixComponent extends SurveyCreationDesignComponent impleme
           },
       },
     });
-    
+
     if(!this.username){
       this._BmxService.getMatrixClient(this.projectId).subscribe((data: any) => {
         this.bmxClientPageDesignMode = true;
@@ -177,6 +177,7 @@ export class SurveyMatrixComponent extends SurveyCreationDesignComponent impleme
 
         this.qrCode.append(this.canvas.nativeElement);
         this.bmxPagesClient = this.SAMPLE_BMX_CLIENT;
+ 
         this._BmxService
           .getBrandMatrixByProjectAndUserAnswers(this.projectId, this.username)
           .subscribe((brandMatrix: any) => {
@@ -204,7 +205,9 @@ export class SurveyMatrixComponent extends SurveyCreationDesignComponent impleme
                         component.componentType == 'image-rate-scale' ||
                         component.componentType == 'narrow-down' ||
                         component.componentType == 'tinder' ||
-                        component.componentType == 'question-answer'
+                        component.componentType == 'question-answer' ||
+                        component.componentType == 'image-rank-drag'
+
                       ) {
     
                         // RAMDOMIZE THE TEST NAMES
@@ -293,7 +296,9 @@ export class SurveyMatrixComponent extends SurveyCreationDesignComponent impleme
                           component.componentType == 'image-rate-scale' ||
                           component.componentType == 'narrow-down' ||
                           component.componentType == 'tinder' ||
-                          component.componentType == 'question-answer') {
+                          component.componentType == 'question-answer'||
+                          component.componentType == 'image-rank-drag'
+                          ) {
                             
                           // RAMDOMIZE THE TEST NAMES
                           if (component.componentSettings[0].randomizeTestNames) {
@@ -382,7 +387,8 @@ export class SurveyMatrixComponent extends SurveyCreationDesignComponent impleme
                       component.componentType == 'image-rate-scale' ||
                       component.componentType == 'narrow-down' ||
                       component.componentType == 'tinder' ||
-                      component.componentType == 'question-answer'
+                      component.componentType == 'question-answer'||
+                      component.componentType == 'image-rank-drag'
                     ) {
                       
                       // RAMDOMIZE THE TEST NAMES
@@ -473,7 +479,9 @@ export class SurveyMatrixComponent extends SurveyCreationDesignComponent impleme
                         component.componentType == 'image-rate-scale' ||
                         component.componentType == 'narrow-down' ||
                         component.componentType == 'tinder' ||
-                        component.componentType == 'question-answer') {
+                        component.componentType == 'question-answer'||
+                        component.componentType == 'image-rank-drag'
+                        ) {
                         // RAMDOMIZE THE TEST NAMES
                         if (component.componentSettings[0].randomizeTestNames) {
                           let headerRow = component.componentText[0]
@@ -668,7 +676,7 @@ export class SurveyMatrixComponent extends SurveyCreationDesignComponent impleme
           });
         }
         // ❤️❤️❤️❤️❤️❤️❤️❤️❤️❤️❤️❤️❤️❤️❤️❤️❤️❤️❤️❤️❤️❤️❤️❤️❤️❤️❤️❤️❤️❤️❤️❤️❤️❤️❤️❤️❤️❤️❤️❤️❤️❤️❤️
-        else if (answerComponent.componentType == 'ranking-scale') {
+        else if (answerComponent.componentType == 'ranking-scale' || answerComponent.componentType == 'image-rank-drag') {
           if (
             templateComponent.componentSettings[0].rankType == 'dragAndDrop' &&
             answerComponent.componentText.length > 1 &&
@@ -1095,7 +1103,6 @@ export class SurveyMatrixComponent extends SurveyCreationDesignComponent impleme
 
   selectPageNumber(pageNumber) {
     // IF PAGE IS NOT CATEGORY PAGE PASS THE PAGE
-    
     if (this.isCategoryPage[this.currentPage]['isCategory']) {      
       if (this.currentPage < pageNumber) {
         
@@ -1105,7 +1112,8 @@ export class SurveyMatrixComponent extends SurveyCreationDesignComponent impleme
             component.componentType == 'image-rate-scale' ||
             component.componentType == 'narrow-down' ||
             component.componentType == 'question-answer'||
-            component.componentType == 'tinder'
+            component.componentType == 'tinder'||
+            component.componentType == 'image-rank-drag'
           ) {           
 
             // ANSWERS COUNTER
@@ -1251,7 +1259,7 @@ export class SurveyMatrixComponent extends SurveyCreationDesignComponent impleme
       this.currentPage = pageNumber;
     }
   }
-
+  
   autoSave(){
     this.saveUserAnswers();
   }
