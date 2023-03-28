@@ -21,14 +21,14 @@ export class ImageRateScaleComponent extends RatingScaleComponent implements OnI
   @Input() bmxClientPageOverview;
   @ViewChild('autosize') autosize: CdkTextareaAutosize;
   @Output() autoSave = new EventEmitter();
-  @Output() launchTutorial = new EventEmitter();
-
+  @Output() launchTutorial = new EventEmitter(); 
+  
   firstTime = true
 
   imageurls =[];
 
   IMAGES_UPLOADED = [
-
+    
   ];
 
   AUTOSIZE_OPTIONS = [
@@ -51,18 +51,18 @@ export class ImageRateScaleComponent extends RatingScaleComponent implements OnI
   ratedCounter = 0
   actualRate = 0
   //------modal-----------//
-  @Output() launchPathModal = new EventEmitter();
+  @Output() launchPathModal = new EventEmitter(); 
 
   VIDEO_PATH: any[] = [];
 
   PATH1: any[] = [
     'assets/img/bmx/tutorial/image-rate-scale-mobil.jpg',
-    'assets/img/bmx/tutorial/image-rate-scale-mobil2.jpg',
+    'assets/img/bmx/tutorial/image-rate-scale-mobil2.jpg',    
   ]
 
   PATH2: any[] = [
     'assets/img/bmx/tutorial/image-rate-scale-desktop.JPG',
-    'assets/img/bmx/tutorial/image-rate-scale-desktop2.JPG',
+    'assets/img/bmx/tutorial/image-rate-scale-desktop2.JPG',  
   ]
 
   deviceInfo = null;
@@ -75,14 +75,14 @@ export class ImageRateScaleComponent extends RatingScaleComponent implements OnI
   constructor(private _BmxService: BmxService,dragulaService: DragulaService, _snackBar: MatSnackBar,  _bmxService: BmxService,public deviceService: DeviceDetectorService)
    {super(dragulaService,_snackBar,_bmxService,deviceService); this.epicFunction();}
 
-  ngOnInit(): void {
+  ngOnInit(): void {  
     this.bmxItem.componentText.forEach(data =>{
       if (data.RATE>0){
         this.ratedCounter++
         this.maxRuleCounter++
       }
     })
-
+ 
 
     if(this.bmxItem.componentText[0].hasOwnProperty("STARS")){
       this.numRatingScale = this.bmxItem.componentText[0].STARS.length
@@ -95,19 +95,16 @@ export class ImageRateScaleComponent extends RatingScaleComponent implements OnI
     }else{
       this.VIDEO_PATH = this.PATH2;
     }
-
+    
     let values = Object.keys(this.bmxItem.componentText[0])
     values.forEach(value => {
       if (typeof value == "string" && value != "STARS" && value != "CRITERIA" ) {
         this.columnsNames.push(value)
       }
     });
-
+    
     this.randomizeTestNames = this.bmxItem.componentSettings[0].randomizeTestNames
-
-    this.rowsCount =  this.bmxItem.componentText.length - 1
-    this.bmxItem.componentSettings[0].minRule = this.bmxItem.componentSettings[0].minRule == 0?this.rowsCount:this.bmxItem.componentSettings[0].minRule;
-    this.bmxItem.componentSettings[0].maxRule = this.bmxItem.componentSettings[0].maxRule == 0?this.rowsCount:this.bmxItem.componentSettings[0].maxRule;
+    this.rowsCount = this.bmxItem.componentText.length - 1;
 
     // if(this.isDesktopDevice){
     //   this.VIDEO_PATH = this.PATH2;
@@ -117,6 +114,7 @@ export class ImageRateScaleComponent extends RatingScaleComponent implements OnI
 
     this.launchPathModal.emit(this.VIDEO_PATH)
     console.log(this.bmxItem)
+    console.log(this.bmxItem.componentText)
   }
 
   epicFunction() {
@@ -135,7 +133,7 @@ export class ImageRateScaleComponent extends RatingScaleComponent implements OnI
         let reader = new FileReader();
         let FileName = event.target.files[i].name
         let FileType =  event.target.files[i].type
-        reader.onload = (event: any) => {
+        reader.onload = (event: any) => {          
           this.resourceData = {
             "ProjectName": localStorage.getItem('projectName'),
             "FileName": FileName.split(' ').join(''),
@@ -161,7 +159,7 @@ export class ImageRateScaleComponent extends RatingScaleComponent implements OnI
       this.openElements.splice(this.openElements.indexOf(y),1);
     }
     console.log(this.openElements)
-  }
+  } 
 
   open(y: any){
 
@@ -171,7 +169,7 @@ export class ImageRateScaleComponent extends RatingScaleComponent implements OnI
       console.log('true')
       return true;
     }
-
+    
   }
 
   //---------end open cards--------------//
@@ -181,30 +179,33 @@ export class ImageRateScaleComponent extends RatingScaleComponent implements OnI
     this.reset();
   }
 
-  uploadAllImages(){
-
+  uploadAllImages(){    
+   
     if( this.firstTime){
       this.bmxItem.componentText= this.bmxItem.componentText.filter(component=>component.nameCandidates=='LOGO')
       this.firstTime=false
     }
-
+    
+    if(this.IMAGES_UPLOADED.length<this.bmxItem.componentText.length){
+      this.bmxItem.componentText.splice(this.IMAGES_UPLOADED.length+1, this.bmxItem.componentText.length+1)
+    }
     this.IMAGES_UPLOADED.forEach((imageObject , index) => {
       imageObject['FileContent'] = imageObject['FileContent'].split(imageObject['FileContent'].split(",")[0] + ',').pop()
       this._BmxService.saveFileResources(JSON.stringify(imageObject)).subscribe((result:any) => {
         this.IMAGES_UPLOADED.shift()
-        // imageObject['FileContent'] = JSON.parse(result.d).FileUrl
-
-        if( this.bmxItem.componentText[index + 1]){
-          this.bmxItem.componentText[index + 1].name = JSON.parse(result.d).FileUrl
-          this.bmxItem.componentText[index + 1].nameCandidates = JSON.parse(result.d).FileUrl
-        }else{
-          this.bmxItem.componentText.push({name : JSON.parse(result.d).FileUrl,nameCandidates:JSON.parse(result.d).FileUrl})
+        if(index==0){
+          this.bmxItem.componentText[index ].nameCandidates = "LOGO"
         }
-
+        if( this.bmxItem.componentText[index + 1]){
+          this.bmxItem.componentText[index +1].nameCandidates = JSON.parse(result.d).FileUrl
+        }else{
+          this.bmxItem.componentText.push({nameCandidates:JSON.parse(result.d).FileUrl})
+        }
+        
       });
     });
     setTimeout(() => {
-      this.uploadImagesBox = false;
+      this.uploadImagesBox = false;    
     }, 1000);
     console.log(this.bmxItem.componentText)
   }
@@ -236,7 +237,7 @@ export class ImageRateScaleComponent extends RatingScaleComponent implements OnI
         this.ratedCounter = this.ratedCounter + 1
         this.autoSave.emit()
     } else if(this.ratedCounter <= this.bmxItem.componentSettings[0].maxRule && this.actualRate != 0){
-      this.autoSave.next()
-    }
+      this.autoSave.next()    
+    } 
   }
 }

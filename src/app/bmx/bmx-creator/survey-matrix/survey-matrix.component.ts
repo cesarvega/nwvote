@@ -63,12 +63,12 @@ export class SurveyMatrixComponent extends SurveyCreationDesignComponent impleme
 
   PATH1: any[] = [
     'assets/img/bmx/tutorial/imagen1.JPG',
-    'assets/img/bmx/tutorial/imagen2.JPG',
+    'assets/img/bmx/tutorial/imagen2.JPG',    
   ]
 
   PATH2: any[] = [
     'assets/img/bmx/tutorial/img-desktop1.JPG',
-    'assets/img/bmx/tutorial/img-desktop2.JPG',
+    'assets/img/bmx/tutorial/img-desktop2.JPG',  
   ]
 
   deviceInfo = null;
@@ -95,8 +95,8 @@ export class SurveyMatrixComponent extends SurveyCreationDesignComponent impleme
     this.isDesktopDevice = this.deviceService.isDesktop();
   }
 
-  ngOnInit(): void {
-
+  ngOnInit(): void {    
+   
     if(!this.username){
       this.myAngularxQrCode =  this.myAngularxQrCode + this.projectId
     }else{
@@ -177,10 +177,11 @@ export class SurveyMatrixComponent extends SurveyCreationDesignComponent impleme
 
         this.qrCode.append(this.canvas.nativeElement);
         this.bmxPagesClient = this.SAMPLE_BMX_CLIENT;
+ 
         this._BmxService
           .getBrandMatrixByProjectAndUserAnswers(this.projectId, this.username)
           .subscribe((brandMatrix: any) => {
-
+    
             //    IF USER ALREADY HAVE ANSWERS
             if (brandMatrix.d.length > 0) {
               let answers = JSON.parse(
@@ -192,8 +193,8 @@ export class SurveyMatrixComponent extends SurveyCreationDesignComponent impleme
                 .subscribe((brandMatrix: any) => {
                   let template = JSON.parse(
                     brandMatrix.d.replace(this.searchGraveAccentRegExp, "'")
-                  );
-
+                  );                  
+    
                   //  FILL THE TEMPLATE WTIHT USER ANSWERS
                   template.forEach((page, index) => {
                     this.isCategoryPage[index] = { isCategory: false };
@@ -204,9 +205,11 @@ export class SurveyMatrixComponent extends SurveyCreationDesignComponent impleme
                         component.componentType == 'image-rate-scale' ||
                         component.componentType == 'narrow-down' ||
                         component.componentType == 'tinder' ||
-                        component.componentType == 'question-answer'
-                      ) {
+                        component.componentType == 'question-answer' ||
+                        component.componentType == 'image-rank-drag'
 
+                      ) {
+    
                         // RAMDOMIZE THE TEST NAMES
                         if (component.componentSettings[0].randomizeTestNames) {
                           let headerRow = component.componentText[0]
@@ -214,7 +217,7 @@ export class SurveyMatrixComponent extends SurveyCreationDesignComponent impleme
                           this.radomizedTestNames(component.componentText)
                           component.componentText.unshift(headerRow)
                         }
-
+    
                         // SET SURVEY LANGUAGE
                         if (component.componentSettings[0].language == 'Japanese') {
                           this.surveyLanguage = component.componentSettings[0].language;
@@ -238,8 +241,8 @@ export class SurveyMatrixComponent extends SurveyCreationDesignComponent impleme
                             }
                           );
                         }, 1000);
-
-
+    
+    
                         if (!this.isCategoryPage[index]['isCategory']) {
                           this.isCategoryPage[index]['isCategory'] = true;
                         }
@@ -260,13 +263,13 @@ export class SurveyMatrixComponent extends SurveyCreationDesignComponent impleme
                       }
                     });
                   });
-
+    
                   //  FILL THE TEMPLATE WTIHT USER ANSWERS END
                   this.bmxPagesClient = template;
 
                   //  this.bmxPagesClient = answers
-                });
-
+                });  
+    
             } else {
               // USER NEVER ANSWERED LOAD TEMPLATE
               this._BmxService
@@ -277,7 +280,7 @@ export class SurveyMatrixComponent extends SurveyCreationDesignComponent impleme
                     let template = JSON.parse(
                       brandMatrix.d.replace(this.searchGraveAccentRegExp, "'")
                     );
-
+    
                     this.totalOfpages = template.length
                     this.bmxPagesClient = JSON.parse(
                       brandMatrix.d.replace(this.searchGraveAccentRegExp, "'")
@@ -293,8 +296,10 @@ export class SurveyMatrixComponent extends SurveyCreationDesignComponent impleme
                           component.componentType == 'image-rate-scale' ||
                           component.componentType == 'narrow-down' ||
                           component.componentType == 'tinder' ||
-                          component.componentType == 'question-answer') {
-
+                          component.componentType == 'question-answer'||
+                          component.componentType == 'image-rank-drag'
+                          ) {
+                            
                           // RAMDOMIZE THE TEST NAMES
                           if (component.componentSettings[0].randomizeTestNames) {
                             let headerRow = component.componentText[0]
@@ -306,7 +311,7 @@ export class SurveyMatrixComponent extends SurveyCreationDesignComponent impleme
                           if (component.componentSettings[0].language == 'Japanese') {
                             this.surveyLanguage = component.componentSettings[0].language;
                           }
-
+    
                           // GREETING MESSAGE
                           let message = ''
                           if (this.surveyLanguage == 'Japanese') {
@@ -314,7 +319,7 @@ export class SurveyMatrixComponent extends SurveyCreationDesignComponent impleme
                           } else {
                             message = 'Welcome   '
                           }
-
+    
                           setTimeout(() => {
                             this._snackBar.open(
                               message + this.firstName.toUpperCase() + ' ' + this.lastName.toUpperCase()  + '  😉',
@@ -326,7 +331,7 @@ export class SurveyMatrixComponent extends SurveyCreationDesignComponent impleme
                               }
                             );
                           }, 1000);
-
+    
                           if (!this.isCategoryPage[index]['isCategory']) {
                             this.isCategoryPage[index]['isCategory'] = true;
                           }
@@ -337,7 +342,7 @@ export class SurveyMatrixComponent extends SurveyCreationDesignComponent impleme
                         }
                       });
                     });
-
+    
                     // this._snackBar.open('bmx LOADED for project  ' + this.projectId , 'OK', {
                     //     duration: 5000,
                     //     horizontalPosition: 'right',
@@ -350,16 +355,16 @@ export class SurveyMatrixComponent extends SurveyCreationDesignComponent impleme
             }
           });
       });
-    } else {
+    } else {    
       this.bmxClientPageDesignMode = true;
       // this.myAngularxQrCode =
       this.myAngularxQrCode + this.projectId + '/' + this.username;
-
+  
       this.qrCode.append(this.canvas.nativeElement);
       this.bmxPagesClient = this.SAMPLE_BMX_CLIENT;
       this._BmxService
         .getBrandMatrixByProjectAndUserAnswers(this.projectId, this.username)
-        .subscribe((brandMatrix: any) => {
+        .subscribe((brandMatrix: any) => {         
           //    IF USER ALREADY HAVE ANSWERS
           if (brandMatrix.d.length > 0) {
             let answers = JSON.parse(
@@ -382,9 +387,10 @@ export class SurveyMatrixComponent extends SurveyCreationDesignComponent impleme
                       component.componentType == 'image-rate-scale' ||
                       component.componentType == 'narrow-down' ||
                       component.componentType == 'tinder' ||
-                      component.componentType == 'question-answer'
+                      component.componentType == 'question-answer'||
+                      component.componentType == 'image-rank-drag'
                     ) {
-
+                      
                       // RAMDOMIZE THE TEST NAMES
                       if (component.componentSettings[0].randomizeTestNames) {
                         let headerRow = component.componentText[0]
@@ -392,7 +398,7 @@ export class SurveyMatrixComponent extends SurveyCreationDesignComponent impleme
                         this.radomizedTestNames(component.componentText)
                         component.componentText.unshift(headerRow)
                       }
-
+  
                       // SET SURVEY LANGUAGE
                       if (component.componentSettings[0].language == 'Japanese') {
                         this.surveyLanguage = component.componentSettings[0].language;
@@ -404,7 +410,7 @@ export class SurveyMatrixComponent extends SurveyCreationDesignComponent impleme
                       } else {
                         message = 'Welcome   '
                       }
-
+  
                       setTimeout(() => {
                         this._snackBar.open(
                           message + this.username.toUpperCase() + '  😉',
@@ -416,8 +422,8 @@ export class SurveyMatrixComponent extends SurveyCreationDesignComponent impleme
                           }
                         );
                       }, 1000);
-
-
+  
+  
                       if (!this.isCategoryPage[index]['isCategory']) {
                         this.isCategoryPage[index]['isCategory'] = true;
                       }
@@ -442,11 +448,11 @@ export class SurveyMatrixComponent extends SurveyCreationDesignComponent impleme
                 this.bmxPagesClient = template;
                 this.typeTemplate = this.bmxPagesClient[1].page[this.bmxPagesClient[1].page.length-1].componentType;
                 if(this.typeTemplate == "tinder"){
-                  this.bmxPagesClient = answers;
+                  this.bmxPagesClient = answers;                
                   this.tinderInstruction = this.bmxPagesClient[1].page[1].componentText
                 }
               });
-
+  
           } else {
             // USER NEVER ANSWERED LOAD TEMPLATE
             this._BmxService
@@ -457,12 +463,12 @@ export class SurveyMatrixComponent extends SurveyCreationDesignComponent impleme
                   let template = JSON.parse(
                     brandMatrix.d.replace(this.searchGraveAccentRegExp, "'")
                   );
-
+  
                   this.totalOfpages = template.length
                   this.bmxPagesClient = JSON.parse(
                     brandMatrix.d.replace(this.searchGraveAccentRegExp, "'")
                   );
-                  // CHECK IF THE PAGE IS CATEGORY PAGE
+                  // CHECK IF THE PAGE IS CATEGORY PAGE                  
                   this.bmxPagesClient.forEach((page, index) => {
                     this.isCategoryPage[index] = { isCategory: false };
                     page.page.forEach((component) => {
@@ -473,7 +479,9 @@ export class SurveyMatrixComponent extends SurveyCreationDesignComponent impleme
                         component.componentType == 'image-rate-scale' ||
                         component.componentType == 'narrow-down' ||
                         component.componentType == 'tinder' ||
-                        component.componentType == 'question-answer') {
+                        component.componentType == 'question-answer'||
+                        component.componentType == 'image-rank-drag'
+                        ) {
                         // RAMDOMIZE THE TEST NAMES
                         if (component.componentSettings[0].randomizeTestNames) {
                           let headerRow = component.componentText[0]
@@ -485,7 +493,7 @@ export class SurveyMatrixComponent extends SurveyCreationDesignComponent impleme
                         if (component.componentSettings[0].language == 'Japanese') {
                           this.surveyLanguage = component.componentSettings[0].language;
                         }
-
+  
                         // GREETING MESSAGE
                         let message = ''
                         if (this.surveyLanguage == 'Japanese') {
@@ -493,7 +501,7 @@ export class SurveyMatrixComponent extends SurveyCreationDesignComponent impleme
                         } else {
                           message = 'Welcome   '
                         }
-
+  
                         setTimeout(() => {
                           this._snackBar.open(
                             message + this.username.toUpperCase() + '  😉',
@@ -505,7 +513,7 @@ export class SurveyMatrixComponent extends SurveyCreationDesignComponent impleme
                             }
                           );
                         }, 1000);
-
+  
                         if (!this.isCategoryPage[index]['isCategory']) {
                           this.isCategoryPage[index]['isCategory'] = true;
                         }
@@ -516,7 +524,7 @@ export class SurveyMatrixComponent extends SurveyCreationDesignComponent impleme
                       }
                     });
                   });
-
+  
                   // this._snackBar.open('bmx LOADED for project  ' + this.projectId , 'OK', {
                   //     duration: 5000,
                   //     horizontalPosition: 'right',
@@ -545,10 +553,10 @@ export class SurveyMatrixComponent extends SurveyCreationDesignComponent impleme
     if(this.modalChecked){
       console.log(this.modalChecked.nativeElement.checked)
     }
-
+    
   }
 
-  setPath(path: any){
+  setPath(path: any){  
     this.VIDEO_PATH = path;
   }
 
@@ -565,7 +573,7 @@ export class SurveyMatrixComponent extends SurveyCreationDesignComponent impleme
   seeTutorial(){
     localStorage.removeItem('showModal');
     this.showModalVideo = true;
-
+    
   }
 
   radomizedTestNames(component) {
@@ -603,7 +611,7 @@ export class SurveyMatrixComponent extends SurveyCreationDesignComponent impleme
                           if (index > 0) {
                             templateRow[key] = answerRow[key];
                             // THERE IS A BUG WHEN 2 OR MORE COMMENTS COLUMNS ARE IN THE MATRIX
-                            // SO FOR NOW I COMMENT THE LINE BELOW
+                            // SO FOR NOW I COMMENT THE LINE BELOW 
                             // answerComponent.componentText.splice(index, 1);
                           }
                         } else if (key.includes('RadioColumn')) {
@@ -668,7 +676,7 @@ export class SurveyMatrixComponent extends SurveyCreationDesignComponent impleme
           });
         }
         // ❤️❤️❤️❤️❤️❤️❤️❤️❤️❤️❤️❤️❤️❤️❤️❤️❤️❤️❤️❤️❤️❤️❤️❤️❤️❤️❤️❤️❤️❤️❤️❤️❤️❤️❤️❤️❤️❤️❤️❤️❤️❤️❤️
-        else if (answerComponent.componentType == 'ranking-scale') {
+        else if (answerComponent.componentType == 'ranking-scale' || answerComponent.componentType == 'image-rank-drag') {
           if (
             templateComponent.componentSettings[0].rankType == 'dragAndDrop' &&
             answerComponent.componentText.length > 1 &&
@@ -949,7 +957,7 @@ export class SurveyMatrixComponent extends SurveyCreationDesignComponent impleme
           });
         }
         //🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥
-        else if (answerComponent.componentType == 'tinder') {
+        else if (answerComponent.componentType == 'tinder') {          
           answerComponent.componentText.forEach((answerRow, index) => {
             if (!templateComponent.componentSettings[0].CRITERIA) {
               answerComponent.componentSettings[0].ranking = templateComponent.componentSettings[0].ranking
@@ -965,7 +973,7 @@ export class SurveyMatrixComponent extends SurveyCreationDesignComponent impleme
                       templateRow[key] === answerRow[key]
                     ) {
                       templateRow.vote = answerRow.vote;
-                      templateRow.RATE = answerRow.RATE;
+                      templateRow.RATE = answerRow.RATE;                     
 
                       for (const key in templateRow) {
                         if (key.includes('Answer')) {
@@ -1078,7 +1086,7 @@ export class SurveyMatrixComponent extends SurveyCreationDesignComponent impleme
   }
 
   changePage(direction) {
-
+    
     if (direction === 'next' && this.bmxPagesClient.length - 1 > this.currentPage) {
       this.selectPageNumber(this.currentPage + 1);
     } else if (direction === 'previous' && this.currentPage > 0) {
@@ -1089,24 +1097,24 @@ export class SurveyMatrixComponent extends SurveyCreationDesignComponent impleme
       }
     }
     if(this.totalOfpages == this.currentPage + 1){
-      this.loadingLottie = true;
-    }
+      this.loadingLottie = true;     
+    }    
   }
 
   selectPageNumber(pageNumber) {
     // IF PAGE IS NOT CATEGORY PAGE PASS THE PAGE
-
-    if (this.isCategoryPage[this.currentPage]['isCategory']) {
+    if (this.isCategoryPage[this.currentPage]['isCategory']) {      
       if (this.currentPage < pageNumber) {
-
+        
         this.bmxPagesClient[this.currentPage].page.forEach((component) => {
           if (component.componentType == 'rate-scale' ||
             component.componentType == 'ranking-scale' ||
             component.componentType == 'image-rate-scale' ||
             component.componentType == 'narrow-down' ||
             component.componentType == 'question-answer'||
-            component.componentType == 'tinder'
-          ) {
+            component.componentType == 'tinder'||
+            component.componentType == 'image-rank-drag'
+          ) {           
 
             // ANSWERS COUNTER
             let minRuleCounter = 0
@@ -1134,7 +1142,7 @@ export class SurveyMatrixComponent extends SurveyCreationDesignComponent impleme
                         component.componentSettings[0].categoryRulesPassed = (index > 0 && rater.length > 0) ? false : true;
                       }
                       if (index > 0 && rater.length == 0) {
-                        minRuleCounter++
+                        minRuleCounter++                       
                       }
                     }
                   } else {
@@ -1144,7 +1152,7 @@ export class SurveyMatrixComponent extends SurveyCreationDesignComponent impleme
                       component.componentSettings[0].categoryRulesPassed = (index > 0 && rater.length > 0) ? false : true;
                     }
                     if (index > 0 && rater.length == 0) {
-                      minRuleCounter++
+                      minRuleCounter++                     
                     }
                   }
                 });
@@ -1153,15 +1161,15 @@ export class SurveyMatrixComponent extends SurveyCreationDesignComponent impleme
                 if (component.componentType == 'narrow-down') {
                   if (row.SELECTED_ROW) {
                     if (index > 0 && (row.RATE != -1 && row.RATE != 0) && typeof row.RATE == 'number') {
-                      minRuleCounter++
+                      minRuleCounter++                      
                     }
                     if (component.componentSettings[0].categoryRulesPassed) {
                       component.componentSettings[0].categoryRulesPassed = (row.RATE == -1 || row.RATE == 0 || typeof row.RATE != 'number') ? false : true;
                     }
                   }
                 } else if (component.componentType == 'tinder') {
-
-                    if (component.componentSettings[0].categoryRulesPassed) {
+                  
+                    if (component.componentSettings[0].categoryRulesPassed) {                      
                       component.componentSettings[0].categoryRulesPassed = (row.RATE == -1 || row.RATE == 0 || typeof row.RATE != 'number') ? false : true;
                     }
 
@@ -1181,7 +1189,7 @@ export class SurveyMatrixComponent extends SurveyCreationDesignComponent impleme
                   }
                   if (component.componentSettings[0].categoryRulesPassed) {
                     component.componentSettings[0].categoryRulesPassed = (row.RATE == -1 || row.RATE == 0) ? false : true;
-                  }
+                  }                  
                 }
               }
             });
@@ -1200,7 +1208,7 @@ export class SurveyMatrixComponent extends SurveyCreationDesignComponent impleme
               component.componentSettings[0].categoryRulesPassed = true;
             }
 
-            if (
+            if (              
               component.componentSettings[0].minRule == 0 ||
               component.componentSettings[0].categoryRulesPassed ||
               (component.componentSettings[0].minRule - minRuleCounter) <= 0
@@ -1247,20 +1255,20 @@ export class SurveyMatrixComponent extends SurveyCreationDesignComponent impleme
         this.currentPage = pageNumber;
         window.scroll(0, 0);
       }
-    } else {
+    } else {      
       this.currentPage = pageNumber;
     }
   }
-
+  
   autoSave(){
     this.saveUserAnswers();
   }
 
   saveUserAnswers(pageNumber?) {
-
+        
     let pageStatus = (this.totalOfpages == this.currentPage + 1)?999: this.currentPage + 1;
     this.continueButtonToComple = (this.totalOfpages == this.currentPage + 1)?'Complete': 'Continue';
-
+    
     this._BmxService
       // .saveOrUpdateAnswers(this.bmxPagesClient, this.projectId, this.username, (pageNumber ? pageNumber : pageStatus))
       .saveOrUpdateAnswers(this.bmxPagesClient, this.projectId, this.username, pageStatus)

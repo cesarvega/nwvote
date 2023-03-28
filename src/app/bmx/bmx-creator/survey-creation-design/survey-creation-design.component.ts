@@ -750,7 +750,8 @@ export class SurveyCreationDesignComponent implements OnInit {
                     component.componentType == 'ranking-scale' ||
                     component.componentType == 'image-rate-scale' ||
                     component.componentType == 'narrow-down' ||
-                    component.componentType == 'question-answer'
+                    component.componentType == 'question-answer'||
+                    component.componentType ==  'image-rank-drag'
                 ) {
                     if (
                         component.componentSettings[0].minRule == 0 ||
@@ -905,7 +906,8 @@ export class SurveyCreationDesignComponent implements OnInit {
                     category.componentType == 'ranking-scale' ||
                     category.componentType == 'image-rate-scale' ||
                     category.componentType == 'narrow-down' ||
-                    category.componentType == 'question-answer'
+                    category.componentType == 'question-answer'||
+                    category.componentType ==  'image-rank-drag'
                 ) {
                     if (category.componentSettings[0].CRITERIA) {
                         category.componentText.forEach((row: any, index: number) => {
@@ -924,7 +926,8 @@ export class SurveyCreationDesignComponent implements OnInit {
                             category.componentType == 'ranking-scale' ||
                             category.componentType == 'image-rate-scale' ||
                             category.componentType == 'narrow-down' ||
-                            category.componentType == 'question-answer'
+                            category.componentType == 'question-answer'||
+                            category.componentType ==  'image-rank-drag'
                         ) {
                             category.componentText.forEach((row: any, index: number) => {
                                 if (index > 0) {
@@ -963,14 +966,15 @@ export class SurveyCreationDesignComponent implements OnInit {
                         component.componentType == 'ranking-scale' ||
                         component.componentType == 'image-rate-scale' ||
                         component.componentType == 'narrow-down' ||
-                        component.componentType == 'question-answer'
+                        component.componentType == 'question-answer'||
+                        component.componentType ==  'image-rank-drag'
                     ) {
                         this.calculateTableDefinitions(component);
                     }
                 });
             });
             // console.log(this.bmxCompleteObject.bmx[4]["page"][3]['componentText']);
-            console.log(this.bmxPages)
+            
             this._BmxService
                 .saveOrUpdateBradnMatrixTemplate(this.bmxPages, this.projectId)
                 .subscribe((res:any) => {                    
