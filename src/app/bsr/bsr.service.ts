@@ -64,7 +64,7 @@ export class BsrService {
 
 
   constructor(private http: HttpClient) {
-    if (this.actualSite.includes('https://d3lyn5npnikbck.cloudfront.net') || this.actualSite.includes('http://localhost:4333/')) {
+    if (this.actualSite.includes('https://d3lyn5npnikbck.cloudfront.net') && this.actualSite.includes('http://localhost:4333/')) {
       this.baseUrl = "https://bitools.s3.amazonaws.com/nw-resources/"
     } else {
       this.baseUrl = "http://bipresents.com/nw2/"
