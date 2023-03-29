@@ -138,10 +138,10 @@ export class BsrComponent implements OnInit {
   ngOnInit(): void {
 
     this.baseUrl = this._BsrService.getBaseUrlForResources();
-    
+
     if (this.baseUrl === 'https://bitools.s3.amazonaws.com/nw-resources/') {
       this.BackgroundUrl = 'https://d3lyn5npnikbck.cloudfront.net/'
-    } 
+    }
     console.log(this.BackgroundUrl)
 
     this.font_size_text = (localStorage.getItem(this.projectName + '_font_size_text')) ? localStorage.getItem(this.projectName + '_font_size_text') : '26px';
@@ -150,7 +150,7 @@ export class BsrComponent implements OnInit {
 
       // set project ID as localstorage identifier 03/16/21
       this.projectName = params['id'];
-      //this._BsrService.setProjectName(this.projectName);
+      this._BsrService.setProjectName(this.projectName);
       localStorage.setItem(this.projectName + '_projectId', this.projectName);
       localStorage.setItem(this.projectName + '_projectName', this.projectName);
       this.projectId = this.projectName;
