@@ -30,6 +30,10 @@ export class BsrService {
   // projectId = 'ca2456'
   // projectId = 'te2381'
 
+  actualSite =  window.location.href
+  baseUrl: any;
+  restUrl: any;
+
 
   // urlPlusPost = '[BI_GUIDELINES].[dbo].[bsr_updConceptData] ' + "'" + localStorage.getItem('projectId') + "'";
  
@@ -46,9 +50,17 @@ export class BsrService {
   isNSR: any;
   projectName: any;
 
+  // constructor(private http: HttpClient) {
+  //   this._SP_CHANGE_POST_IT_ORDER = '[BI_GUIDELINES].[dbo].[bsr_updConceptOrder] N' + "'" + JSON.stringify(this.conceptsOrder) + "'";
+  //  }
+
   constructor(private http: HttpClient) {
-    this._SP_CHANGE_POST_IT_ORDER = '[BI_GUIDELINES].[dbo].[bsr_updConceptOrder] N' + "'" + JSON.stringify(this.conceptsOrder) + "'";
-   }
+    if(this.actualSite.includes('https://d3lyn5npnikbck.cloudfront.net') || this.actualSite.includes('http://localhost:4200/') ){
+      this.baseUrl = "https://bitools.s3.amazonaws.com/nw-resources/"
+    }else{
+        this.baseUrl = "http://bipresents.com/nw2/"
+    }
+  }
 
   sendNewName(nameContainer, isNSR, conceptid?, nameid? ) {
     this.projectId = localStorage.getItem(this.projectName + '_projectId');
@@ -186,6 +198,9 @@ export class BsrService {
   //     self.newNameFromDirector = '';
   //   };
 
+  getBaseUrlForResources(): string {
+    return this.baseUrl;
+  }
 
 }
 
