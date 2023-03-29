@@ -14,6 +14,7 @@ export class BsrService {
 
   conceptsOrder: any;
   webBaseUrl = 'https://tools.brandinstitute.com/BIWebServices/';
+  // webBaseUrl = 'http://localhost:64378/';
   webBaseUrlVote = 'https://tools.brandinstitute.com/wsGeneral/wsNWVote.asmx/';
   apiCall = 'api/BiFormCreator/';
   _SP_GetCandidateNames = '[BI_GUIDELINES].[dbo].[bsr_getNameCandidates] ';
@@ -80,7 +81,7 @@ export class BsrService {
   }
 
   getNameCandidates(projectId) {
-    return this.http.post(this.webBaseUrl + this.apiCall, JSON.stringify(this._SP_GetCandidateNames + projectId), httpOptions);
+    return this.http.post(this.webBaseUrl + this.apiCall, JSON.stringify(this._SP_GetCandidateNames + "'" + projectId + "'"), httpOptions);
 
   }
   getSlides(projectId) {
@@ -188,4 +189,3 @@ export class BsrService {
 
 
 }
-
