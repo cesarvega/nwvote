@@ -142,8 +142,6 @@ export class BsrComponent implements OnInit {
     if (this.baseUrl === 'https://bitools.s3.amazonaws.com/nw-resources/') {
       this.BackgroundUrl = 'https://d3lyn5npnikbck.cloudfront.net/'
     } 
-    console.log(this.BackgroundUrl)
-
     this.font_size_text = (localStorage.getItem(this.projectName + '_font_size_text')) ? localStorage.getItem(this.projectName + '_font_size_text') : '26px';
     this.font_size = (localStorage.getItem(this.projectName + '_font_size')) ? localStorage.getItem(this.projectName + '_font_size') : '26';
     this.activatedRoute.params.subscribe(params => {
