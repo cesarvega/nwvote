@@ -20,9 +20,10 @@ export class ImageRateScaleComponent extends RatingScaleComponent implements OnI
   @Input() bmxClientPageDesignMode;
   @Input() bmxClientPageOverview;
   @ViewChild('autosize') autosize: CdkTextareaAutosize;
-
+  @Output() autoSave = new EventEmitter();
   @Output() launchTutorial = new EventEmitter(); 
   
+  firstTime = true
 
   imageurls =[];
 
@@ -46,10 +47,9 @@ export class ImageRateScaleComponent extends RatingScaleComponent implements OnI
   resourceData: any;
   logoWidth = 200
   uploadImagesBox = false;
-
   numRatingScale: number = 0;
-
- 
+  ratedCounter = 0
+  actualRate = 0
   //------modal-----------//
   @Output() launchPathModal = new EventEmitter(); 
 
@@ -76,10 +76,20 @@ export class ImageRateScaleComponent extends RatingScaleComponent implements OnI
    {super(dragulaService,_snackBar,_bmxService,deviceService); this.epicFunction();}
 
   ngOnInit(): void {  
-    
-    this.numRatingScale = this.bmxItem.componentText[0].STARS.length
+    this.bmxItem.componentText.forEach(data =>{
+      if (data.RATE>0){
+        this.ratedCounter++
+        this.maxRuleCounter++
+      }
+    })
+ 
+
+    if(this.bmxItem.componentText[0].hasOwnProperty("STARS")){
+      this.numRatingScale = this.bmxItem.componentText[0].STARS.length
+    }
+
     this.rankingScaleValue = this.numRatingScale;
-    
+
     if(window.innerWidth <= 1024){
       this.VIDEO_PATH = this.PATH1;
     }else{
@@ -103,6 +113,8 @@ export class ImageRateScaleComponent extends RatingScaleComponent implements OnI
     // }
 
     this.launchPathModal.emit(this.VIDEO_PATH)
+    console.log(this.bmxItem)
+    console.log(this.bmxItem.componentText)
   }
 
   epicFunction() {
@@ -110,7 +122,6 @@ export class ImageRateScaleComponent extends RatingScaleComponent implements OnI
     const isMobile = this.deviceService.isMobile();
     const isTablet = this.deviceService.isTablet();
     this.isDesktopDevice = this.deviceService.isDesktop();
-    console.log(this.deviceInfo);
     console.log(isMobile);  // returns if the device is a mobile device (android / iPhone / windows-phone etc)
     console.log(isTablet);  // returns if the device us a tablet (iPad etc)
   }
@@ -168,27 +179,40 @@ export class ImageRateScaleComponent extends RatingScaleComponent implements OnI
     this.reset();
   }
 
-  uploadAllImages(){
+  uploadAllImages(){    
+   
+    if( this.firstTime){
+      this.bmxItem.componentText= this.bmxItem.componentText.filter(component=>component.nameCandidates=='LOGO')
+      this.firstTime=false
+    }
+    
+    if(this.IMAGES_UPLOADED.length<this.bmxItem.componentText.length){
+      this.bmxItem.componentText.splice(this.IMAGES_UPLOADED.length+1, this.bmxItem.componentText.length+1)
+    }
     this.IMAGES_UPLOADED.forEach((imageObject , index) => {
       imageObject['FileContent'] = imageObject['FileContent'].split(imageObject['FileContent'].split(",")[0] + ',').pop()
       this._BmxService.saveFileResources(JSON.stringify(imageObject)).subscribe((result:any) => {
         this.IMAGES_UPLOADED.shift()
-        // imageObject['FileContent'] = JSON.parse(result.d).FileUrl
-        this.bmxItem.componentText[index + 1].nameCandidates = JSON.parse(result.d).FileUrl
-        this.bmxItem.componentText[index + 1].name = JSON.parse(result.d).FileUrl
+        if(index==0){
+          this.bmxItem.componentText[index ].nameCandidates = "LOGO"
+        }
+        if( this.bmxItem.componentText[index + 1]){
+          this.bmxItem.componentText[index +1].nameCandidates = JSON.parse(result.d).FileUrl
+        }else{
+          this.bmxItem.componentText.push({nameCandidates:JSON.parse(result.d).FileUrl})
+        }
+        
       });
     });
-
     setTimeout(() => {
       this.uploadImagesBox = false;    
     }, 1000);
-   
+    console.log(this.bmxItem.componentText)
   }
 
   deleteImage(index){
     this.IMAGES_UPLOADED.splice(index, 1)
   }
-
 
   toggleImageUploadBox(){
     this.uploadImagesBox = !this.uploadImagesBox
@@ -197,5 +221,23 @@ export class ImageRateScaleComponent extends RatingScaleComponent implements OnI
   reset() {
     this.uploadProgress = null;
     this.uploadSub = null;
+  }
+
+  substractRatedCounter(){
+    this.ratedCounter--
+  }
+
+  saveRate(testNameId:any){
+    this.actualRate = this.bmxItem.componentText[testNameId].RATE
+  }
+
+  checkAutosave(testNameId:any) {
+    console.log(this.bmxItem.componentText[testNameId].RATE)
+     if (this.ratedCounter < this.bmxItem.componentSettings[0].maxRule && this.actualRate == 0|| this.bmxItem.componentSettings[0].maxRule == 0  ) {
+        this.ratedCounter = this.ratedCounter + 1
+        this.autoSave.emit()
+    } else if(this.ratedCounter <= this.bmxItem.componentSettings[0].maxRule && this.actualRate != 0){
+      this.autoSave.next()    
+    } 
   }
 }

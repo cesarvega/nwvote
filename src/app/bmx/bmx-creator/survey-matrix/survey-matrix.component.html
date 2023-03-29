@@ -59,7 +59,7 @@
                 <!-- BMX PARAGRAPH EDITOR 📑📑📑📑📑📑📑📑📑📑📑📑📑📑📑📑📑📑📑📑📑📑📑📑📑📑📑📑📑📑 -->
                 <div *ngIf="bmxItem.componentType === 'text-editor'" class="paragraph">
                     
-                    <app-text-paragraph [bmxItem]="bmxItem" [i]="i" [bmxClientPageDesignMode]="bmxClientPageDesignMode" [currentPage]="currentPage" [template]="typeTemplate "
+                    <app-text-paragraph [bmxItem]="bmxItem" [i]="i" [bmxClientPageDesignMode]="bmxClientPageDesignMode" [currentPage]="currentPage" [template]="typeTemplate"
                         [bmxClientPageOverview]="bmxClientPageOverview" style="margin-top: 25px"></app-text-paragraph>
                 </div>
                 <!-- 📑📑📑📑📑📑📑📑📑📑📑📑📑📑📑📑📑📑📑📑📑📑📑📑📑📑📑📑📑📑 END BMX PARAGRAPH EDITOR -->
@@ -90,7 +90,7 @@
                     <!-- modal end -->
                   
                     <app-rating-scale [bmxItem]="bmxItem" [i]="i" [bmxClientPageDesignMode]="bmxClientPageDesignMode"
-                        [bmxClientPageOverview]="bmxClientPageOverview" (launchPathModal)="setPath($event)"></app-rating-scale>
+                        [bmxClientPageOverview]="bmxClientPageOverview" (launchPathModal)="setPath($event)" (autoSave)="autoSave()"></app-rating-scale>
 
                 </div>
                 <!-- END STARS SCALE 👽👽👽👽👽👽👽👽👽👽👽👽👽👽👽👽👽👽👽👽👽👽👽👽👽👽👽👽👽👽👽👽👽👽👽👽👽👽👽👽 -->
@@ -100,7 +100,7 @@
                 <div *ngIf="bmxItem.componentType === 'ranking-scale'" class="paragraph">
 
                     <app-rank-scale [bmxItem]="bmxItem" [i]="i" [bmxClientPageDesignMode]="bmxClientPageDesignMode"
-                        [bmxClientPageOverview]="bmxClientPageOverview"></app-rank-scale>
+                        [bmxClientPageOverview]="bmxClientPageOverview" (autoSave)="autoSave()"></app-rank-scale>
                 </div>
                 <!-- END RANK SCALE 😭😭😭😭😭😭😭😭😭😭😭😭😭😭😭😭😭😭😭😭😭😭😭😭😭😭😭😭😭😭😭😭😭😭😭😭😭 -->
 
@@ -135,13 +135,13 @@
                     <!-- modal end -->                   
 
                     <app-image-rank-drag [bmxItem]="bmxItem" [i]="i" [bmxClientPageDesignMode]="bmxClientPageDesignMode"
-                        [bmxClientPageOverview]="bmxClientPageOverview" (launchPathModal)="setPath($event)"></app-image-rank-drag>
+                        [bmxClientPageOverview]="bmxClientPageOverview" (launchPathModal)="setPath($event)" (autoSave)="autoSave()"></app-image-rank-drag>
                 </div>
                 <!-- END RANK DRAG 👽👽👽👽👽👽👽👽👽👽👽👽👽👽👽👽👽👽👽👽👽👽👽👽👽👽👽👽👽👽👽👽👽👽👽👽👽👽👽👽👽 -->
 
                 <!-- NARROW DOWN SCALE 😭😭😭😭😭😭😭😭😭😭😭😭😭😭😭😭😭😭😭😭😭😭😭😭😭😭😭😭😭😭😭😭😭😭😭😭😭-->
                 <div *ngIf="bmxItem.componentType === 'narrow-down'" class="paragraph">
-                    <app-narrow-down [bmxItem]="bmxItem" [i]="i" [bmxClientPageDesignMode]="bmxClientPageDesignMode"
+                    <app-narrow-down [bmxItem]="bmxItem" [i]="i" [bmxClientPageDesignMode]="bmxClientPageDesignMode" (autoSave)="autoSave()"
                         [bmxClientPageOverview]="bmxClientPageOverview"></app-narrow-down>
                 </div>
                 <!-- END NARROW DOWN SCALE 😭😭😭😭😭😭😭😭😭😭😭😭😭😭😭😭😭😭😭😭😭😭😭😭😭😭😭😭😭😭😭😭😭😭😭😭😭 -->
@@ -168,7 +168,7 @@
 
                     <app-image-rate-scale [bmxItem]="bmxItem" [i]="i"
                         [bmxClientPageDesignMode]="bmxClientPageDesignMode"
-                        [bmxClientPageOverview]="bmxClientPageOverview" (launchPathModal)="setPath($event)"></app-image-rate-scale>
+                        [bmxClientPageOverview]="bmxClientPageOverview" (launchPathModal)="setPath($event)"  (autoSave)="autoSave()"></app-image-rate-scale>
                 </div>
                 <!-- END IMAGE SCALE 👀👀👀👀👀👀👀👀👀👀👀👀👀👀👀👀👀👀👀👀👀👀👀👀👀👀👀👀👀👀👀👀👀👀👀👀👀👀 -->
 
@@ -194,10 +194,11 @@
                                              <mat-checkbox #modalChecked (click)="saveSelection()" class="example-margin container-checkbox" >Don't show again</mat-checkbox>
                     
                         <div class="modal-content" style="height: auto">
-                            <mat-tab-group style="background-color: white" >
+                            <mat-tab-group *ngIf="!isDesktopDevice; else modalNormal" style="background-color: white" >
+                                <mat-tab label="Instrucciones"> <div [innerHTML]="tinderInstruction | safe: 'html'" style=" padding: 15px"></div></mat-tab>
                                 <mat-tab label="Tutorial"> <img *ngFor="let path of VIDEO_PATH" [src]="path" alt="tutorial" style="width: 100%"> </mat-tab>
-                                <mat-tab label="Instructions"> <div [innerHTML]="tinderInstruction | safe: 'html'" style=" padding: 15px"></div></mat-tab>
-                            </mat-tab-group>                             
+                            </mat-tab-group>
+                            <ng-template #modalNormal><img *ngFor="let path of VIDEO_PATH" [src]="path" alt="tutorial"></ng-template>
                         </div>
                         <button class="btn btn-raised close-modal" (click)="showModalVideo=false">close</button>
                     </div>
@@ -211,7 +212,7 @@
                         </button>
                     </div>
                     <app-tinder [bmxItem]="bmxItem" [i]="i" [bmxClientPageDesignMode]="bmxClientPageDesignMode" (launchPathModal)="setPath($event)" [survey]="true"
-                        [bmxClientPageOverview]="bmxClientPageOverview"></app-tinder>
+                        [bmxClientPageOverview]="bmxClientPageOverview" (autoSave)="autoSave()"></app-tinder>
                 </div>
                 <!-- END TINDER  🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥 -->
 

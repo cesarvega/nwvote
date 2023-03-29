@@ -18,14 +18,17 @@ export class TinderComponent extends RatingScaleComponent implements OnInit {
   @ViewChild(MatTable) table: MatTable<any>;
 
   value = 0;
+  numRatingScale: number = 3;
   xpercent: number = 0;
   showModalTable: boolean = false;
   showModalAddRow: boolean = false;
   showNeutralIcon: boolean = false;
   showNewInput: boolean = false;
   hasVoted: boolean = false;
-  ranking: boolean = true;
-  rankingAmount = [1,2,3,4,5,6,7]
+  ranking: any;
+  rankingAmount = 7
+  rankingAmountArr: number[];
+  rankingScaleValue = 0;
   currentrank = undefined;
   colorText:  string = "";
   greenColor = '#00c600';
@@ -44,6 +47,7 @@ export class TinderComponent extends RatingScaleComponent implements OnInit {
   @Input() survey;
 
   @Output() launchPathModal = new EventEmitter();
+  @Output() autoSave = new EventEmitter();
 
   PATH1: any[] = [
     'assets/img/bmx/tutorial/tutorial-tinder1.JPG',
@@ -75,7 +79,7 @@ export class TinderComponent extends RatingScaleComponent implements OnInit {
     this.getDataSource()
     if(this.dataSource[0].vote != undefined ||  this.dataSource[0].RATE != undefined){
       this.hasVoted = true
-      if(this.ranking ){
+      if(this.ranking){
         if(this.dataSource[0].RATE != undefined){
           this.setRateColor(this.dataSource[0].RATE)
           this.currentrank = this.bmxItem.componentText[this.testNameIndex]['RATE'] - 1;
@@ -138,6 +142,9 @@ export class TinderComponent extends RatingScaleComponent implements OnInit {
 
     this.ranking?this.VIDEO_PATH = this.PATH2:this.VIDEO_PATH = this.PATH1
     this.launchPathModal.emit(this.VIDEO_PATH)
+    this.rankingAmountArr = Array(this.rankingAmount).fill(0).map((_, index) => index+1);
+    this.rankingScaleValue = this.rankingAmount
+    console.log(this.rankingAmountArr)
   }
 
   setRateColor(rate: number){
@@ -313,6 +320,7 @@ export class TinderComponent extends RatingScaleComponent implements OnInit {
       this.setRateColor(this.bmxItem.componentText[this.testNameIndex]['RATE'])
       this.currentrank = vote - 1;
     }
+    this.autoSave.emit();
     this.hasVoted = true
     setTimeout(() => {
       // this.moveRight()
