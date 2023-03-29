@@ -32,19 +32,6 @@ const routes: Routes = [
     path: ':id',
     component: BsrComponent
   },
-  // {//BI BRAND MATRIX CREATOR
-  // // path: ':id/:biUsername',
-  // path: 'bmx/:id',
-  //  component: BmxCreatorComponent
-  // },
-  //  {//BI BRAND MATRIX SURVEY
-  //   path: 'survey/:id/:username',
-  //   component: SurveyMatrixComponent
-  // },
-  //  {//BI BRAND MATRIX SURVEY WITH GUI
-  //   path: ':id',
-  //   component: SurveyMatrixComponent
-  // },
 
   // {//BI BRAND MATRIX CREATOR
   // // path: ':id/:biUsername',

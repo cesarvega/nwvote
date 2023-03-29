@@ -8,6 +8,7 @@ import { BsrService } from './bsr.service';
 import { FormBuilder, Validators, FormGroup } from '@angular/forms';
 import { MatDialog, MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { DOCUMENT } from '@angular/common';
+//import { BsrService } from './services/bsr.service';
 
 
 ///CKEDITOR NOTES, para que el toolbar del editor pueda ser configurado
@@ -77,6 +78,11 @@ export class BsrComponent implements OnInit {
   namesBoxIndexValue = 52;
   namesBoxIndex = 0;
   wideScreen = false;
+  BackgroundUrl = 'url(http://bipresents.com/nw2/assets/';
+  BackgroundUrlOff = 'url(http://bipresents.com/nw2/assets/images/BackGrounds/Backgrounds2019/';
+  baseUrl: any;
+  restUrl: any;
+
   constructor(@Inject(DOCUMENT) private document: any, private _formBuilder: FormBuilder,
     private _hotkeysService: HotkeysService,
     private _BsrService: BsrService, public dialog: MatDialog, private activatedRoute: ActivatedRoute,
@@ -131,6 +137,13 @@ export class BsrComponent implements OnInit {
 
   ngOnInit(): void {
 
+    this.baseUrl = this._BsrService.getBaseUrlForResources();
+
+    if (this.baseUrl === 'https://bitools.s3.amazonaws.com/nw-resources/') {
+      this.BackgroundUrl = 'https://d3lyn5npnikbck.cloudfront.net/'
+    }
+    console.log(this.BackgroundUrl)
+
     this.font_size_text = (localStorage.getItem(this.projectName + '_font_size_text')) ? localStorage.getItem(this.projectName + '_font_size_text') : '26px';
     this.font_size = (localStorage.getItem(this.projectName + '_font_size')) ? localStorage.getItem(this.projectName + '_font_size') : '26';
     this.activatedRoute.params.subscribe(params => {
@@ -154,6 +167,7 @@ export class BsrComponent implements OnInit {
       localStorage.setItem(this.projectName + '_appSlideData', JSON.stringify(res));
       this.totalNumberOfSlides = res.length;
       this.pageCounter = '1/' + (parseInt(this.totalNumberOfSlides));
+      console.log(this.slideBackground + res)
       this.slideBackground = this.slideBackground + res[0].SlideBGFileName + ')';
       this.appSlidesData.forEach(element => {
         if (element.SlideType === "NameSummary") {
