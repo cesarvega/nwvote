@@ -1,1 +1,65 @@
-<p>project-reports works!</p>
+<div *ngIf="true" class="feature-modal-box">
+  <mat-card class="flex-column ">
+    <mat-icon style="font-size: 35px;color: #032c72; animation: fadeIn 0.6s ease-in-out 0.3s backwards;">
+      summarize
+    </mat-icon>
+    <br>
+    <h1>REPORT GENERATOR OPTIONS</h1><br>
+    <mat-card-content style="width: 730px;">
+      <div style="display:flex;flex-direction: row;justify-content: space-around;gap: 10px;">
+        <mat-checkbox class="example-margin" [(ngModel)]="reportSettings.displayCompletionStatus">Display Completion
+          Status</mat-checkbox>
+      </div>
+      <hr>
+      <div class="pages-to-print">
+        <h3>pages to be printed</h3>
+        <div class="page-buttons">
+          <div *ngFor="let page of numberOfpages; let pageIndex = index" class="label-buttons">
+            <button style="min-width: 35px;" (click)="togglePaeToPrint(pageIndex)"
+              [ngClass]="page.print?'pageNumberActive':'pageNumber'" mat-raised-button>
+              {{page.number}}
+            </button>
+            <p>{{page.type}}</p>
+            <!-- DISBLE CLICKING ON THE BUTTONS -->
+            <!-- <button style="min-width: 35px;" (click)="selectPageNumber(pageIndex)"
+            [ngClass]="(currentPage === pageIndex)?'pageNumberActive':'pageNumber'" mat-raised-button>
+            {{page.pageNumber}}
+          </button> -->
+          </div>
+        </div>
+      </div>
+      <hr>
+
+      <div style="display:flex;flex-direction: row;justify-content: space-around;gap: 20px;">
+        <mat-checkbox class="example-margin" [(ngModel)]="reportSettings.displayOverallRanking">Display Overall Ranking
+          By Test Name</mat-checkbox>
+        <mat-checkbox class="example-margin" [disabled]="!reportSettings.displayOverallRanking"
+          [(ngModel)]="reportSettings.OverallRankingWithRespondents">With Respondents </mat-checkbox>
+      </div>
+      <hr>
+      <div style="display:flex;flex-direction: row;justify-content: space-around;gap: 20px;">
+        <mat-checkbox class="example-margin" [(ngModel)]="reportSettings.openEndedQuestions">Open Ended Questions
+        </mat-checkbox>
+        <mat-checkbox class="example-margin" [disabled]="!reportSettings.openEndedQuestions"
+          [(ngModel)]="reportSettings.openEndedWithRepondents">With Respondents </mat-checkbox>
+      </div>
+      <hr>
+      <div style="display:flex;flex-direction: row;justify-content: space-around;gap: 20px;">
+        <mat-checkbox class="example-margin" [(ngModel)]="reportSettings.displayResultsByRespondents">Display Result by
+          Respondents </mat-checkbox>
+      </div>
+      <hr>
+      <div style="display:flex;flex-direction: column;justify-content: center;align-items: center; width: 100%;">
+        <h3><span style="font-weight: bold; width: 100%;">SELECT RESPONDENTS</span></h3>
+        <app-docx-survey style="width: 100%;" [reportSettings]="reportSettings" [isMenuActive5]="true"></app-docx-survey>
+      </div>
+    </mat-card-content>
+  </mat-card>
+  <!-- <mat-card class="flex-column ">
+    <div class="buttons-home-page">
+      <button class="button" mat-raised-button
+        style="color: #032c72;background: white;box-shadow: 0 1px 8px 0 rgb(0 0 0 / 40%);">cancel</button>
+      <button class="button" [ngClass]="(true)?'active':'no-active'" mat-raised-button>submit</button>
+    </div>
+  </mat-card> -->
+</div>

@@ -62,8 +62,14 @@
 .presentation-box::-webkit-scrollbar {
   display: none;
 }
-
+.container{
+  // max-width: 2000px !important;
+}
 .slide-box {
+  // width: 2000px;
+  // height: 700px;
+  // max-width: 2000px;
+  // max-height: 800px;
   width: 968px;
   height: 727px;
   border: solid 4px lightgray;
@@ -685,8 +691,8 @@ mat-tab-group ::-webkit-scrollbar {
 
 .menu-right-icon {
   position: relative;
-  right: -1424px;
-  top: -303px;
+  right: -1425px;
+  top: -290px;
   z-index: 99;
   outline: none;
   :hover {

@@ -32,9 +32,9 @@
                             <div style="margin: 20px;font-size: 20px;color:#063074;font-weight: 800;">Templates</div>
                             <mat-form-field appearance="outline" style="margin-left: 20px;">
                                 <mat-label>Choose Template</mat-label>
-                                <mat-select class="selectLabels" [(ngModel)]="emailTemp">
+                                <mat-select class="selectLabels" [(ngModel)]="emailTemp" (selectionChange)="changeTemplate(emailTemp)">
                                     <mat-option *ngFor="let EMAIL_TEMPLATE of EMAIL_TEMPLATES" [value]="EMAIL_TEMPLATE">
-                                        {{EMAIL_TEMPLATE.name}}
+                                        {{EMAIL_TEMPLATE}}
                                     </mat-option>
                                 </mat-select>
                             </mat-form-field>
@@ -45,7 +45,7 @@
                                 <mat-label>Direct Link</mat-label>
                                 <mat-select class="selectLabels" [(ngModel)]="linkType">
                                     <mat-option *ngFor="let link of LINK_TYPE" [value]="link">
-                                        {{link.name}}
+                                        {{link}}
                                     </mat-option>
                                 </mat-select>
                             </mat-form-field>
@@ -116,7 +116,8 @@
                             (click)="sendEmail()">
                             Send Invite
                         </button>
-                        <button mat-raised-button style="background-color: #003180;color:white;margin:20px 0px">
+                        <button mat-raised-button style="background-color: #003180;color:white;margin:20px 0px"
+                        (click)="previewEmail()">
                             Preview Invite
                         </button>
                     </div>
@@ -143,7 +144,7 @@
                     <mat-option value="F">Finished</mat-option>
                 </mat-select>
             </mat-form-field>
-            <table mat-table [dataSource]="dataSource" class="mat-elevation-z8"
+            <table mat-table [dataSource]="dataSource" matSort class="mat-elevation-z8"
                 style="width: 100%; margin-bottom: 20px; overflow-y: auto;">
 
                 <!-- Checkbox Column -->
@@ -163,28 +164,28 @@
                 </ng-container>
 
                 <ng-container matColumnDef="FirstName">
-                    <th mat-header-cell *matHeaderCellDef> First Name </th>
+                    <th mat-header-cell *matHeaderCellDef mat-sort-header> First Name </th>
                     <td mat-cell *matCellDef="let element"> {{element.FirstName}} </td>
                 </ng-container>
 
                 <ng-container matColumnDef="LastName">
-                    <th mat-header-cell *matHeaderCellDef> Last Name </th>
+                    <th mat-header-cell *matHeaderCellDef mat-sort-header> Last Name </th>
                     <td mat-cell *matCellDef="let element"> {{element.LastName}} </td>
                 </ng-container>
 
-                <ng-container matColumnDef="group">
-                    <th mat-header-cell *matHeaderCellDef> Group </th>
-                    <td mat-cell *matCellDef="let element"> {{element.group}} </td>
+                <ng-container matColumnDef="Type">
+                    <th mat-header-cell *matHeaderCellDef mat-sort-header> Group </th>
+                    <td mat-cell *matCellDef="let element"> {{element.Type}} </td>
                 </ng-container>
 
                 <ng-container matColumnDef="SubGroup">
-                    <th mat-header-cell *matHeaderCellDef> Subgroup </th>
+                    <th mat-header-cell *matHeaderCellDef mat-sort-header> Subgroup </th>
                     <td mat-cell *matCellDef="let element"> {{element.SubGroup}} </td>
                 </ng-container>
 
                 <ng-container matColumnDef="Status">
-                    <th mat-header-cell *matHeaderCellDef> Status </th>
-                    <td mat-cell *matCellDef="let element"> {{element.Status}} </td>
+                    <th mat-header-cell *matHeaderCellDef mat-sort-header> Status </th>
+                    <td mat-cell title="{{getTitle(element.Status)}}" *matCellDef="let element"> {{element.Status}} </td>
                 </ng-container>
 
                 <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
@@ -195,6 +196,5 @@
 
         </div>
     </div>
-
-
 </div>
+

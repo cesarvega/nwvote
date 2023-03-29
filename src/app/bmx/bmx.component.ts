@@ -3,7 +3,6 @@ import { DOCUMENT } from '@angular/common';
 import { trigger, transition, useAnimation } from '@angular/animations';
 import { pulse, flash } from 'ng-animate';
 import { HotkeysService, Hotkey } from 'angular2-hotkeys';
-import { BmxService } from './bmx.service';
 import { Router, ActivatedRoute } from '@angular/router';
 import Speech from 'speak-tts';
 
@@ -48,6 +47,7 @@ export class BmxComponent implements OnInit {
   constructor(private activatedRoute: ActivatedRoute,) {
     this.activatedRoute.params.subscribe(params => {
       this.projectId = params['id'];
+      this.userName = params['biUsername'];
       localStorage.setItem('projectId',  this.projectId);
       // this.bsrService.getProjectData(this.projectId).subscribe(arg => {
       //   this.projectName = JSON.parse(arg[0].bsrData).projectdescription;

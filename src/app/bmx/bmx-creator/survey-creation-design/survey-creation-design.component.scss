@@ -58,7 +58,7 @@
     align-items: center;
     justify-content: center;
     position: fixed;
-    bottom: 10px;
+    bottom: -7px;
 }
 .page-buttons-heigth-40 {
     display: flex;
@@ -97,6 +97,30 @@
     color: #8831da;
 }
 
+.full-icon:hover {
+    transform: scale(2);
+    color: #ee7f25;
+}
+.full-icon {
+    color: #324395;
+    font-size: 25px;
+    transition: all 0.1s ease-in-out;
+    text-shadow: 0 0.04em 0.04em rgba(0, 0, 0, 0.35);
+    box-shadow: inset inset 0px 0px 5px #0bd659;
+}
+.full-icon-secondary:hover {
+    transform: scale(2);
+    color: #324395;
+}
+.full-icon-secondary {
+    color: #ee7f25;
+    font-size: 25px;
+    transition: all 0.1s ease-in-out;
+    text-shadow: 0 0.04em 0.04em rgba(0, 0, 0, 0.35);
+    box-shadow: inset inset 0px 0px 5px #0bd659;
+}
+
+
 
 ::ng-deep snack-bar-container {
     color: white !important;
@@ -106,6 +130,41 @@
   ::ng-deep .mat-tooltip {
     background-color: #324395;
     font-size: 18px;
+  }
+
+  .menuCreatorBmx{
+    display: flex;
+    flex-direction: column;
+    margin-top: 15px;
+  }
+
+  .hideMenuCreatorBmx{
+    display: none;
+  }
+
+  .list-save-template{
+    display: none;
+    min-width: 200px;
+    background-color: #324395;
+      
+    position: absolute;
+    z-index: 1;
+    top: 8px;
+    right: 42px;    
+    border-radius: 5px;
+    
+    mat-list-item{
+        color: white;    }
+
+    mat-list-item:hover{
+        background-color: white;
+        color: #324395;
+    }
+  }
+
+  #openSaveTamplate:hover .list-save-template{
+    display: block;
+    
   }
   
 

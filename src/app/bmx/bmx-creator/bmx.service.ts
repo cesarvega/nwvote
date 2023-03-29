@@ -1,11 +1,33 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
-import { BehaviorSubject } from 'rxjs';
+import { BehaviorSubject, Observable, Subject } from 'rxjs';
 
 @Injectable({
   providedIn: 'root'
 })
 export class BmxService {
+
+  private logoTemporaryWidth$: Subject<string> = new Subject()
+  private projectName$ = new BehaviorSubject<string>('');
+  private projectData$ = new BehaviorSubject<string>('');
+  private specialData$ = new BehaviorSubject<string>('');
+
+  currentProjectName$ = this.projectName$.asObservable();
+  currentprojectData$ = this.projectData$.asObservable();
+  specialDataObservable$ = this.specialData$.asObservable();
+
+  setProjectName(projectName: any) {
+    this.projectName$.next(projectName);
+  }
+
+  setprojectData(projectData: any) {
+    this.projectData$.next(projectData);
+  }
+  setSpecialDataObservable(projectData: any) {
+    this.specialData$.next(projectData);
+  }
+
+
   webBaseUrl = 'https://tools.brandinstitute.com//wsBrandMatrix/wsBrandMatrix.asmx';
   GetProjectList = '/GetProjectList';
   GetGeneralLists = '/GetGeneralLists';
@@ -15,13 +37,15 @@ export class BmxService {
   searchApostropheRegExp = new RegExp("'", 'g');
 
 
-  brandMatrixSave = '/BrandMatrixSave'; // SAVES THE BRANDMATRIX PER PROJECT 
+  brandMatrixSave = '/BrandMatrixSave'; // SAVES THE BRANDMATRIX PER PROJECT
   brandMatrixSaveUserAnswers = '/BrandMatrixSaveUserAnswers'; // SAVES THE BRANDMATRIX USER ANSWERS
 
-  
+
   brandMatrixGetALLUserAnswers = '/BrandMatrixGetALLUserAnswers'; // GETS THE BRANDMATRIX ANSWERS
   brandMatrixGetUserAnswers = '/BrandMatrixGetUserAnswers'; // GETS THE BRANDMATRIX SINGLE USER ANSWERS
   brandMatrixGet = '/BrandMatrixGet'; // GETS THE BRANDMATRIX BY PROJECT
+  brandMatrixUserGet = '/BrandMatrixUserGet';
+  brandMatrixLoadFromNewId = '/BrandMatrixLoadFromNewId';// load the client info from a gui number in the url 
 
   brandMatrixTemplateSave = '/BrandMatrixTemplateSave'
   brandMatrixTemplateGet = '/BrandMatrixTemplateGet'
@@ -34,13 +58,42 @@ export class BmxService {
 
   GetProjectInfo = '/BrandMatrixProjectInfoGet';
   SaveProjectInfo = '/BrandMatrixProjectInfoSave';
+
+  getEmail = '/BrandMatrixEmailTemplateGet';
+  SaveEmail = '/BrandMatrixEmailTemplateSave';
   
   SaveProjectInfor = '/BrandMatrixUpdDirectorList'
   SendEmail = '/BrandMatrixSendEmail'
   constructor(private http: HttpClient) {}
-   
+
+  setLogoTemporaryWidth(width: string){
+    this.logoTemporaryWidth$.next(width)
+  }
+
+  getLogoTemporaryWidth$(): Observable<string>{
+    return this.logoTemporaryWidth$.asObservable();
+  }
+  
   getGeneralLists() {
     return this.http.post(this.webBaseUrl + this.GetGeneralLists, { token: '646EBF52-1846-47C2-9F62-DC50AE5BF692', payload: '' });
+    // return this.http.get(this.webBaseUrl + 'api/NW_GetProjectIdWithProjectName?projectName=' + projectName, httpOptions);
+  }
+
+  getBiLogo()
+  {
+    return this.http.get("assets/img/bmxLogo.png");
+  }
+
+  getMatrixUser(userGUid: any) {
+    var input = JSON.stringify({ "UserId":userGUid });
+    return this.http.post(this.webBaseUrl + this.brandMatrixUserGet, { token: '646EBF52-1846-47C2-9F62-DC50AE5BF692', payload: input });
+    // return this.http.get(this.webBaseUrl + 'api/NW_GetProjectIdWithProjectName?projectName=' + projectName, httpOptions);
+
+  }
+
+  getMatrixClient(userGUid: any) {
+    var input = JSON.stringify({ "Newid":userGUid });
+    return this.http.post(this.webBaseUrl + this.brandMatrixLoadFromNewId, { token: '646EBF52-1846-47C2-9F62-DC50AE5BF692', payload: input });
     // return this.http.get(this.webBaseUrl + 'api/NW_GetProjectIdWithProjectName?projectName=' + projectName, httpOptions);
 
   }
@@ -100,8 +153,15 @@ export class BmxService {
 
   }
 
+  getCustomEmail(projectName: any) {
+    return this.http.post(this.webBaseUrl + this.getEmail, { token: '646EBF52-1846-47C2-9F62-DC50AE5BF692', payload: '{ "ProjectName" : "' + projectName + '" }' });
+    // return this.http.get(this.webBaseUrl + 'api/NW_GetProjectIdWithProjectName?projectName=' + projectName, httpOptions);
+  }
 
-
+  setCustomEmail(resourceData: any) {
+    return this.http.post(this.webBaseUrl + this.SaveEmail, { token: '646EBF52-1846-47C2-9F62-DC50AE5BF692', payload: resourceData});
+    // return this.http.get(this.webBaseUrl + 'api/NW_GetProjectIdWithProjectName?projectName=' + projectName, httpOptions);
+  }
 
   saveOrUpdateBMXInfo(project, data) { }
 
@@ -118,6 +178,12 @@ export class BmxService {
     })
    }
 
+  getBrandMatrixByProjectAllUserAnswers(projectName) {
+    return this.http.post(this.webBaseUrl + this.brandMatrixGetALLUserAnswers, {
+      token: '646EBF52-1846-47C2-9F62-DC50AE5BF692', payload: JSON.stringify({"ProjectName": projectName })
+    })
+   }
+
   // save template string
 
   saveOrUpdateBradnMatrixTemplate(bmxCompleteObject,projectName) {
@@ -130,9 +196,11 @@ export class BmxService {
     })
   }
 
-  saveOrUpdateAnswers(bmxCompleteObject,projectName, username) {
+  saveOrUpdateAnswers(bmxCompleteObject,projectName, username, status?) {
+    //debugger
     const payloadString = JSON.stringify({
       ProjectName: projectName,
+      status: status,
       UserName: username,
       BrandMatrix: JSON.stringify(bmxCompleteObject).replace(this.searchApostropheRegExp, '`')
     })
@@ -162,7 +230,7 @@ export class BmxService {
     })
    }
 
-  saveBrandMatrixTemplate(templateName, templateObj, username) { 
+  saveBrandMatrixTemplate(templateName, templateObj, username) {
     const payloadString = JSON.stringify({
       TemplateName: templateName,
       Username: username,

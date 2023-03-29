@@ -83,18 +83,7 @@
             <div *ngFor="let template of IMAGES_UPLOADED; let i = index">
 
                 <input type="text" [placeholder]="template.name">
-                <div [style.background-image]="'url(' + template.url + ')'" style="background-size: contain;"
-                    [ngClass]="(isSelectedButton === i)?'template-list-selected':'template-list-item'"
-                    (mouseenter)="isTemplateSelected = i" (mouseleave)="isTemplateSelected = ''">
-                    <button (click)="isSelectedButton = i" *ngIf="isTemplateSelected === i && isSelectedButton !== i"
-                        mat-raised-button style="background-color: #76d354;color:white;margin: 0 20px 0 20px;">
-                        SELECT
-                    </button>
-                    <button *ngIf="isSelectedButton === i" mat-raised-button
-                        style="background-color: #01a6ff;color:white;margin: 0 20px 0 20px;">
-                        SELECTED
-                    </button>
-                </div>
+                
             </div>
         </div>
 

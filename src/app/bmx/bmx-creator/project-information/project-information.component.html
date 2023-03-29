@@ -3,7 +3,7 @@
     <h2 style="margin: 20px;">Project TEST BrandMatrix Setup</h2>
     <div style="margin: 20px;font-size: 20px;color:#063074;font-weight: 800;">Basic Project Information</div>
     <button mat-raised-button color="success"
-        style="position: absolute;right: 79px;background-color:#063074;color: white;"
+        style="position: absolute;right: -100px;top: 482px; background-color:#063074;color: white;"
         (click)="saveProjectInfo()">Save</button>
     <br>
     <br>
@@ -33,12 +33,12 @@
                 </mat-form-field>
 
             </div>
-
             <div class="row-field">
                 <label class="selectLabels">Project</label>
                 <mat-form-field appearance="outline">
                     <mat-label>Enter Project Name</mat-label>
                     <input type="text" matInput formControlName="bmxProjectName">
+                    <p *ngIf="bmxProjectName.invalid && bmxProjectName.dirty">Project Name is required only A-Z, a-z, 0-9 allowed</p>
                 </mat-form-field>
                 <label class="selectLabels">Region</label>
                 <mat-form-field appearance="outline">
@@ -57,6 +57,7 @@
                 <mat-form-field appearance="outline">
                     <mat-label>Enter Company</mat-label>
                     <input type="text" matInput formControlName="bmxCompany">
+                    <p *ngIf="bmxCompany.invalid && bmxCompany.dirty">Company is required only A-Z, a-z, 0-9 allowed</p>
                 </mat-form-field>
                 <label class="selectLabels">Language</label>
                 <mat-form-field appearance="outline">
@@ -140,10 +141,10 @@
                 <div class="optionButton">
                     <div *ngIf="canEdit !== i; else elseBlock">
                         <button mat-icon-button style="position: absolute; top: 9px; right: 5px;color: #053074;"
-                            (click)="editDirector(i)" >
+                            (click)="editDirector(i)">
                             <mat-icon>edit</mat-icon>
                         </button>
-    
+
                     </div>
                     <ng-template #elseBlock>
                         <button mat-icon-button style="position: absolute; top: 9px; right: 5px;color: #ee7f25;"
@@ -151,11 +152,14 @@
                             <mat-icon>check_circle</mat-icon>
                         </button>
                     </ng-template>
-                    <button mat-icon-button style="position: absolute; top: 45px; right: 5px;color: red;"
+                    <button mat-icon-button  matTooltip="double click" matTooltipPosition="right" style="position: absolute; top: 45px; right: 5px;color: red;"
                         (dblclick)="removeDirector(i)">
                         <mat-icon>delete</mat-icon>
                     </button>
-
+                    <button mat-icon-button matTooltip="double click" matTooltipPosition="right" style="position: absolute; top: 72px; right: 5px;color: goldenrod;"
+                        (dblclick)="replaceMainDirector(i)">
+                        <mat-icon>star</mat-icon>
+                    </button>
                 </div>
 
             </mat-card>

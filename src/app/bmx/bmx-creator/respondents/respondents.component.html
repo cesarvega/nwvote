@@ -1,18 +1,19 @@
 <div style="width: 100%;">
 
-    <div style= "width: 75%;">
+    <div style="width: 75%;">
         <div style="margin: 20px;font-size: 20px;color:#063074;font-weight: 800;">Send</div>
 
         <mat-form-field style="  width: 94%;margin: 20px;" appearance="outline">
             <mat-label>Copy & Paste Respondents</mat-label>
-            <textarea matInput rows="4" cols="50" #respondants placeholder="First name, Last Name, respondentName@email.com"></textarea>
+            <textarea matInput rows="4" cols="50" #respondants
+                placeholder="First name, Last Name, respondentName@email.com"></textarea>
         </mat-form-field>
         <div style="display: flex;flex-direction: row;">
-        
-        
+
+
             <!-- CHNAGE THE DROP DOWN FOR CHECK BoXES Select All/Deselect All checkbox & a Select All Not Completed -->
-        
-            
+
+
             <!--
                     <mat-form-field appearance="outline" style="margin-left: 20px;">
                 <mat-label>Select not completed</mat-label>
@@ -26,16 +27,17 @@
             -->
             <div style="display: flex;flex-direction: column;">
                 <div>
-                    <button mat-raised-button style="background-color: #003180;color:white;margin: 5px 20px 0 20px;" (click)="upLoadResp(respondants.value)" > 
+                    <button mat-raised-button style="background-color: #003180;color:white;margin: 5px 20px 0 20px;"
+                        (click)="upLoadResp(respondants.value)">
                         Upload Participants
-                        
+
                     </button>
                 </div>
                 <!--<div style="position: relative;left: 89px;top: 2px;color: grey;">{{'0 Participants'}}</div>-->
             </div>
         </div>
-        
-        
+
+
         <br>
         <br>
         <br>
@@ -44,50 +46,60 @@
             <table mat-table [dataSource]="dataSource" matSort class="mat-elevation-z8">
                 <!-- Position Column -->
                 <ng-container matColumnDef="FirstName">
-                    <th mat-header-cell *matHeaderCellDef style="width: 15%;" > First Name </th>
-                    <td mat-cell *matCellDef="let element"> 
-                        <input matInput placeholder="First Name " [value]="element.FirstName" [(ngModel)]="element.FirstName" (focusout)="onFocusOutEvent($event)">
+                    <th mat-header-cell *matHeaderCellDef  style="width: 15%;"> First Name </th>
+                    <td mat-cell *matCellDef="let element">
+                        <input matInput placeholder="First Name " [value]="element.FirstName"
+                            [(ngModel)]="element.FirstName" (focusout)="onFocusOutEvent($event)">
                     </td>
                 </ng-container>
-                
+
                 <ng-container matColumnDef="LastName">
-                    <th mat-header-cell *matHeaderCellDef style="width: 15%;"> Last Name </th>
-                    <td mat-cell *matCellDef="let element"> 
-                        <input matInput placeholder="Last Name" [value]="element.LastName" [(ngModel)]="element.LastName" (focusout)="onFocusOutEvent($event)">
-                         </td>
+                    <th mat-header-cell *matHeaderCellDef  style="width: 15%;"> Last Name </th>
+                    <td mat-cell *matCellDef="let element">
+                        <input matInput placeholder="Last Name" [value]="element.LastName"
+                            [(ngModel)]="element.LastName" (focusout)="onFocusOutEvent($event)">
+                    </td>
                 </ng-container>
                 <ng-container matColumnDef="Email">
-                    <th mat-header-cell *matHeaderCellDef style="width: 30%;"> Email </th>
-                    <td mat-cell *matCellDef="let element"> 
-                        <input matInput placeholder="Email" [value]="element.Email" [(ngModel)]="element.Email" (focusout)="onFocusOutEvent($event)">
-    
-                         </td>
+                    <th mat-header-cell *matHeaderCellDef  style="width: 30%;"> Email </th>
+                    <td mat-cell *matCellDef="let element">
+                        <input matInput placeholder="Email" [value]="element.Email" [(ngModel)]="element.Email"
+                            (focusout)="onFocusOutEvent($event)">
+
+                    </td>
                 </ng-container>
                 <ng-container matColumnDef="Type">
-                    <th mat-header-cell *matHeaderCellDef style="width: 5%;"> Group </th>
-                    <td mat-cell *matCellDef="let element"> 
-                        <input matInput placeholder="" [value]="element.Type" [(ngModel)]="element.Type" (focusout)="onFocusOutEvent($event)">
-    
-                         </td>
+                    <th mat-header-cell *matHeaderCellDef  style="width: 5%;"> Group </th>
+                    <td mat-cell *matCellDef="let element">
+                        <input matInput placeholder="" [value]="element.Type" [(ngModel)]="element.Type"
+                            (focusout)="onFocusOutEvent($event)">
+
+                    </td>
                 </ng-container>
                 <ng-container matColumnDef="SubGroup">
-                    <th mat-header-cell *matHeaderCellDef style="width: 5%;"> Subgroup </th>
-                    <td mat-cell *matCellDef="let element"> 
-                        <input matInput placeholder="" [value]="element.SubGroup" [(ngModel)]="element.SubGroup" (focusout)="onFocusOutEvent($event)">
-    
-                         </td>
+                    <th mat-header-cell *matHeaderCellDef  style="width: 5%;"> Subgroup </th>
+                    <td mat-cell *matCellDef="let element">
+                        <input matInput placeholder="" [value]="element.SubGroup" [(ngModel)]="element.SubGroup"
+                            (focusout)="onFocusOutEvent($event)">
+
+                    </td>
                 </ng-container>
                 <ng-container matColumnDef="AnswerWeight">
-                    <th mat-header-cell *matHeaderCellDef style="width: 5%;"> Weight </th>
+                    <th mat-header-cell *matHeaderCellDef  style="width: 5%;"> Weight </th>
                     <td mat-cell *matCellDef="let element">
-                        <input matInput placeholder="" [value]="element.AnswerWeight" [(ngModel)]="element.AnswerWeight" (focusout)="onFocusOutEvent($event)">
-                         </td>
+                        <input matInput placeholder="" [value]="element.AnswerWeight" [(ngModel)]="element.AnswerWeight"
+                            (focusout)="onFocusOutEvent($event)">
+                    </td>
                 </ng-container>
                 <ng-container matColumnDef="delete">
-                    <th mat-header-cell *matHeaderCellDef style="width: 3.33%;"> </th>
+                    <th mat-header-cell *matHeaderCellDef  style="width: 3.33%;">
+                        <button mat-icon-button style="color: #bc488a;"
+                        aria-label="Example icon button with a home icon" (click)="deletPart('all')">
+                        <mat-icon>delete</mat-icon>
+                    </button> </th>
                     <td mat-cell *matCellDef="let element">
-                        <button mat-icon-button  style="color: #bc488a;" aria-label="Example icon button with a home icon"
-                            (click)="deletPart(element.FirstName)">
+                        <button mat-icon-button style="color: #bc488a;"
+                            aria-label="Example icon button with a home icon" (click)="deletPart(element.FirstName)">
                             <mat-icon>delete</mat-icon>
                         </button>
                     </td>
@@ -96,11 +108,28 @@
                 <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
             </table>
         </div>
+        <!--
+            <div>
+            <table mat-table #table [dataSource]="dataSource2" cdkDropListOrientation="horizontal"
+                cdkDropListLockAxis="x" cdkDropList (cdkDropListDropped)="dropListDropped($event)">
+                <ng-container *ngFor="let disCol of headers; let colIndex = index" matColumnDef="{{disCol.field}}">
+                    <th mat-header-cell layout-align="start center" class="centered" *matHeaderCellDef cdkDrag>
+                        {{disCol.field}}
+                    </th>
+                    <td mat-cell layout-align="start center" class="centered" *matCellDef="let row ">
+                        {{row[disCol.field]}}
+                    </td>
+                </ng-container>
+
+                <tr mat-header-row *matHeaderRowDef="displayedColumns2"></tr>
+                <tr mat-row *matRowDef="let row; columns: displayedColumns2;" style="pointer-events: none;">
+                </tr>
+            </table>
+        </div>
+        -->
         
 
-        
+
     </div>
 
 </div>
-
-    

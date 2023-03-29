@@ -30,7 +30,49 @@
     }
 }
 
+@media print {
+    .no-print,
+    .no-print * {
+        display: none !important;
+    }
+
+    .break-page {
+        page-break-after: always;
+    }
+}
 //   BRAND MATRIX CREATOR DASH
+
+.report-container::-webkit-scrollbar {
+    display: none;
+}
+
+.userModal {
+    width: 800px;
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    -ms-transform: translate(-50%, -110%);
+    transform: translate(-50%, -110%);
+    border-radius: 3px;
+    background-color: white;
+    border: solid 1px #022d71;
+    @include BoxShadow(6);
+    overflow: hidden;
+    .flex-column {
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+      }
+      .flex-row {
+        display: flex;
+        flex-direction: row;
+        justify-content: center;
+        align-items: center;
+      }
+  }
+
+
 
 .main-container {
     display: flex;
@@ -50,10 +92,11 @@
     .welcome {
         // border: solid 5px #8b1500;
         width: 15.5%;
-        height: 10%;
+        // height: 10%;
         top: 67px;
+        margin: 10px 0px;
         display: flex;
-        flex-direction: row;
+        flex-direction: column;
         align-items: center;
         position: absolute;
         background-color: #353f4b;
@@ -113,14 +156,21 @@
 
     .full-icon:hover {
         transform: scale(2);
-        color: darkblue;
+        color: #ee7f25;
     }
     .full-icon {
-        color: grey;
-        font-size: 20px;
+        color: #324395;
+        font-size: 25px;
         transition: all 0.1s ease-in-out;
         text-shadow: 0 0.04em 0.04em rgba(0, 0, 0, 0.35);
-        box-shadow: inset inset 0px 0px 5px #c1c1c1;
+        box-shadow: inset inset 0px 0px 5px #0bd659;
+    }
+    .project-name-global{
+        color: #324395;
+        font-size: 25px;
+        transition: all 0.1s ease-in-out;
+        text-shadow: 0 0.04em 0.04em rgba(0, 0, 0, 0.35);
+        box-shadow: inset inset 0px 0px 5px #0bd659;
     }
 
     .page-design::-webkit-scrollbar {
@@ -149,6 +199,7 @@
     }
 
 
+
     .emoji-handle {
         // position: absolute;
         top: 5px;
@@ -165,7 +216,7 @@
     .paragraph {
         margin-top: 10px;
         position: relative;
-        
+
         .save {
             outline: none;
             position: absolute;
@@ -173,7 +224,7 @@
             right: 50px;
             z-index: 999999;
             bottom: -13px;
-        }
+        }     
     }
 
     .paragraph:hover {
@@ -207,7 +258,7 @@
         align-content: center;
     }
 
-   
+
 
     .project-list::-webkit-scrollbar {
         display: none;
@@ -241,9 +292,65 @@
     .template-list-item:hover {
         border: #76d354 4px solid;
     }
-
-    
 }
+
+.link-bmx-creator{
+    text-align: end;
+    font-family: Arial, 
+    Helvetica, sans-serif;
+    font-size: 17px;
+    padding-left:20px
+}
+
+.welcome-role{
+    font-size: 90%;
+}
+
+.welcome .mat-icon{
+    width: unset;
+}
+
+.create-edit-matrix{
+    font-size: 18px;
+}
+
+@media (min-width: 1280px) and (max-width: 1380px){
+    .create-edit-matrix{
+        font-size: 16px;
+    }    
+}
+
+@media (min-width: 1180px) and (max-width: 1279px){
+    .create-edit-matrix{
+        font-size: 14px;
+    }    
+}
+
+@media (max-width: 1179px){
+    .create-edit-matrix{
+        font-size: 11px;
+    }    
+}
+
+@media (max-width: 879px){
+    .welcome-role{
+        font-size: 84%;
+    }    
+}
+
+@media (min-width: 1025px) and (max-width: 1440px) {   
+    .link-bmx-creator{           
+        font-size: 13px;
+    }
+}
+
+@media (max-width: 1024px){   
+    .link-bmx-creator{           
+        font-size: 12px;
+    }
+}
+
+
 
 // 💜 💜 💜 💜 💜 💜 💜 💜 💜 💜 💜 💜 💜 💜 💜 💜 💜 💜 💜 💜 💜 💜 💜 💜 💜 💜 💜 💜 💜 💜 💜 💜 💜 💜 💜 💜 💜 💜 💜 💜 💜 💜 💜
 // END OF THE SCSS PROJECT *******************************************************************************************

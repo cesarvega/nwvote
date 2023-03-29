@@ -1,5 +1,5 @@
 import { BrowserModule } from '@angular/platform-browser';
-import { NgModule } from '@angular/core';
+import { CUSTOM_ELEMENTS_SCHEMA, NgModule } from '@angular/core';
 import { FlexLayoutModule } from '@angular/flex-layout';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
@@ -41,9 +41,9 @@ import { Nw3Service } from './nw3/nw3.service';
 import { HammerGestureConfig, HAMMER_GESTURE_CONFIG, HammerModule } from '@angular/platform-browser';
 import { SchedulerComponent } from './scheduler/scheduler.component';
 import { AngularDateTimePickerModule } from 'angular2-datetimepicker';
-import {MatDatepickerModule} from '@angular/material/datepicker';
+import { MatDatepickerModule } from '@angular/material/datepicker';
 import { MatNativeDateModule } from '@angular/material/core';
-import {MatProgressBarModule} from '@angular/material/progress-bar';
+import { MatProgressBarModule } from '@angular/material/progress-bar';
 import { DragulaModule } from 'ng2-dragula';
 import { MatListModule } from '@angular/material/list';
 import { NgxEchartsModule } from 'ngx-echarts';
@@ -53,7 +53,12 @@ import { MatPaginatorModule } from '@angular/material/paginator';
 import { MatSnackBarModule, MAT_SNACK_BAR_DEFAULT_OPTIONS } from '@angular/material/snack-bar';
 import { MatRadioModule } from '@angular/material/radio';
 import { BmxModule } from './bmx/bmx-module/bmx.module';
-import { TinderComponent } from './bmx/bmx-creator/survey-creation-design/templates/tinder/tinder.component';
+import { CdkTableModule } from '@angular/cdk/table';
+import { ScrollingModule } from '@angular/cdk/scrolling';
+import { CdkTreeModule } from '@angular/cdk/tree';
+import { A11yModule } from '@angular/cdk/a11y';
+import { DialogComponent } from './bmx/bmx-creator/participants-email/dialog/dialog.component';
+import { ShowVideoComponent } from './bmx/bmx-creator/survey-creation-design/templates/show-video/show-video.component';
 
 export function loadEcharts() {
   return import('echarts');
@@ -73,12 +78,8 @@ export function loadEcharts() {
     NW3Component,
     // BmxComponent,
     SchedulerComponent,
-
-   
-
-
-    
-
+    DialogComponent,
+    ShowVideoComponent,
     // BmxCreatorComponent,
     // SafePipe,
     // OrderDasboardComponent
@@ -125,18 +126,23 @@ export function loadEcharts() {
     // AngularEditorModule,
     DragulaModule.forRoot(),
     MatListModule,
-    NgxEchartsModule.forRoot({echarts: loadEcharts}),
+    NgxEchartsModule.forRoot({ echarts: loadEcharts }),
     MatSnackBarModule,
     MatSortModule,
     MatPaginatorModule,
     BmxModule,
+    DragDropModule,
+    ScrollingModule,
+    CdkTableModule,
+    CdkTreeModule,
+    A11yModule,
   ],
   entryComponents: [
-    editPost, editName
+    editPost, editName, DialogComponent
   ],
   providers: [NwvoteService, BsrMobileService, Nw3Service,
-    {provide: MAT_SNACK_BAR_DEFAULT_OPTIONS, useValue: {duration: 1000}}],
-  
+    { provide: MAT_SNACK_BAR_DEFAULT_OPTIONS, useValue: { duration: 1000 } }],
+
   bootstrap: [AppComponent]
 })
 export class AppModule { }

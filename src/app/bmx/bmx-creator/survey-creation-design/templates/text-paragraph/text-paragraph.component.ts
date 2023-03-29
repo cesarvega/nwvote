@@ -1,4 +1,6 @@
-import { Component, ElementRef, EventEmitter, Inject, Input, OnInit, Output, ViewChild, ViewEncapsulation } from '@angular/core';
+import { Component,AfterViewInit, ElementRef, EventEmitter, Inject, Input, OnInit, Output, ViewChild, ViewEncapsulation } from '@angular/core';
+import { BmxService } from '../../../bmx.service';
+import { ShowVideoComponent } from '../show-video/show-video.component';
 
 @Component({
   selector: 'app-text-paragraph',
@@ -10,12 +12,17 @@ export class TextParagraphComponent implements OnInit {
   @Input() i;
   @Input() bmxClientPageDesignMode;
   @Input() bmxClientPageOverview;
+  @Input() currentPage;
+  @Input() template;
 
   openSettings = false
   ckconfig;
-  constructor() { }
+  projectName: any;
+  previousText = '';
 
-  ngOnInit(): void {
+  constructor(private _bmxService: BmxService) { }
+
+  ngOnInit(): void {    
     this.ckconfig = {
       allowedContent: false,
       width: '99.6%',
@@ -39,9 +46,83 @@ export class TextParagraphComponent implements OnInit {
       ],
       addPlugins: 'simplebox,tabletools',
       removePlugins: 'horizontalrule,specialchar,about,others',
-      removeButtons: 'Smiley,tableselection,Image,Superscript,Subscript,Save,NewPage,Preview,Print,Templates,Replace,SelectAll,Form,Checkbox,Radio,TextField,Textarea,Find,Select,Button,ImageButton,HiddenField,CopyFormatting,CreateDiv,BidiLtr,BidiRtl,Language,Flash,PageBreak,Iframe,ShowBlocks,Cut,Copy,Paste,Table,Format,Source,Maximize,Styles,Anchor,SpecialChar,PasteFromWord,PasteText,Scayt,RemoveFormat,Indent,Outdent,Blockquote'
+      removeButtons: 'Smiley,tableselection,Image,Save,NewPage,Preview,Print,Templates,Replace,SelectAll,Form,Checkbox,Radio,TextField,Textarea,Find,Select,Button,ImageButton,HiddenField,CopyFormatting,CreateDiv,BidiLtr,BidiRtl,Language,Flash,PageBreak,Iframe,ShowBlocks,Cut,Copy,Paste,Table,Format,Source,Maximize,Styles,Anchor,SpecialChar,PasteFromWord,PasteText,Scayt,RemoveFormat,Indent,Outdent,Blockquote'
 
     }
+    this.previousText = this.bmxItem.componentText  
+  } 
+
+  replaceBiI_Markers() {
+    this.previousText = this.bmxItem.componentText
+    this._bmxService.currentprojectData$.subscribe((arg: any) => {
+      if (!arg.bmxProjectName) {
+        arg = JSON.parse(arg)
+      }
+      this.projectName = arg.bmxProjectName
+
+      this.bmxItem.componentText = this.bmxItem.componentText.replace('BI_PROJECTNAME', this.projectName);
+
+      arg.bmxRegionalOffice.forEach((director: any, index: number) => {
+
+     
+    // let directorString =  `<div style="display: flex;justify-content: space-evenly; align-items: center;width: 90vw;">
+    //     <div style="text-align: left;width: 400px;">
+    //         <div >${director.name.trim()}</div>
+    //         <div style="font-family: auto;
+    //         font-size: 16px;
+    //         font-style: italic;">${director.title.trim()}</div>
+    //     </div>
+    //     <div style="text-align: left;width: 300px;">${director.email.trim()}</div>
+    //     <div style="text-align: left;width: 300px;">${director.phone.trim()}</div>
+    //   </div>
+    //   `
+
+    // ENHANCED FOR MOBILE
+    let directorString =  `
+    <div style="display: flex;flex-direction: column;justify-content: center;align-items: center;">
+        <div style="
+        font-size: 23px;
+        font-family: sofia-pro;
+        line-height: 1.5
+        ">${director.name.trim()}</div>
+        <div style="
+        font-size: 18px;
+        font-family: sofia-pro;
+        line-height: 1.5
+        ">${director.title.trim()}</div>
+        <div style="font-family: auto;
+        font-size: 18px;
+        font-family: sofia-pro;
+        line-height: 1.5
+        ">${director.email.trim()}</div>
+        <div style="font-family: auto;
+        font-size: 18px;
+        font-family: sofia-pro;
+        line-height: 1.5
+        ">${director.phone.trim()}</div>
+      </div>
+      <br>
+      `
+
+        if (index == 0) {
+          this.bmxItem.componentText = this.bmxItem.componentText.replace('BI_DIRECTOR',directorString);
+        } else if (index == 1) {
+          this.bmxItem.componentText = this.bmxItem.componentText.replace('BI_DIRECTOR1',directorString);
+        } else if (index == 2) {
+          this.bmxItem.componentText = this.bmxItem.componentText.replace('BI_DIRECTOR2',directorString);
+        } else if (index == 3) {
+          this.bmxItem.componentText = this.bmxItem.componentText.replace('BI_DIRECTOR3',directorString);
+        } else if (index == 4) {
+          this.bmxItem.componentText = this.bmxItem.componentText.replace('BI_DIRECTOR4',directorString);
+        }
+      });
+
+    });
+
+  }
+
+  editTextWithEditor(){
+    this.bmxItem.componentText = this.previousText
   }
 
 }

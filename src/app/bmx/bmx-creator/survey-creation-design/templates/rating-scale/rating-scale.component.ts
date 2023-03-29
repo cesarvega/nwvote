@@ -1,28 +1,31 @@
-import { Component, ElementRef, EventEmitter, Inject, Input, OnInit, Output, ViewChild, ViewEncapsulation } from '@angular/core';
+import { Component, ElementRef, EventEmitter, HostListener, Inject, Input, OnInit, Output, ViewChild, ViewEncapsulation } from '@angular/core';
 import { CdkTextareaAutosize } from '@angular/cdk/text-field';
 import { DragulaService } from 'ng2-dragula';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { Subscription } from 'rxjs';
+import * as  dragula from 'dragula';
+import { BmxService } from '../../../bmx.service';
+import { DeviceDetectorService } from 'ngx-device-detector';
 @Component({
   selector: 'app-rating-scale',
   templateUrl: './rating-scale.component.html',
   styleUrls: ['./rating-scale.component.scss']
 })
 export class RatingScaleComponent implements OnInit {
-
   @Input() bmxItem;
   @Input() i;
   @Input() bmxClientPageDesignMode;
   @Input() bmxClientPageOverview;
   @ViewChild('autosize') autosize: CdkTextareaAutosize;
+  @Output() autoSave = new EventEmitter();
   rankingScaleValue = 5;
   selectedRowCounter = 0;
-  selectedIndex: any
+  selectedIndex: any = ''
   displayInstructions = false;
 
   selectedStarRatingIndex = ''
   selectedRating: any;
-
+  uploadImagesIcon = false
   // columnsSlider = 150
   // rowHeightSlider = 2
   // fontSizeRow = 19
@@ -33,6 +36,7 @@ export class RatingScaleComponent implements OnInit {
   testNamesInput: string
   TestNameDataModel: any[];
   ratingScale = 5;
+  numRatingScale: number = 0;
   TESTNAMES_LIST = [];
   columnsNames = [];
   columnsNamesHeader: string[];
@@ -41,45 +45,169 @@ export class RatingScaleComponent implements OnInit {
   selectedColumn
   ratingScaleIcon = 'grade';
   selectedCriteria
+  newCriteria = ''
   extraColumnCounter = 1
   radioColumnCounter = 1
   commentColumnCounter = 1
   rankingType = 'dropDown'
   RadioColumnList = []
   selectedCard: any
-
+  newSet:boolean = false;
   minRuleCounter = 0
   maxRuleCounter = 0
   deleteRows = false
-  dragRows = false
+  dragRows = false;
   isColumnResizerOn = false;
   editSingleTableCells = false
 
-  BAG = "DRAGGABLE_ROW";
+  BAG = "DRAGGABLE_RANK_ROW";
   subs = new Subscription();
-  constructor(private dragulaService: DragulaService, private _snackBar: MatSnackBar) {
-    //   dragulaService.createGroup('DRAGGABLE_ROW', {
-    //     moves: (el, container, handle, sibling) => {
-    //       if (el.classList.contains('ROW-CERO')) {
-    //         return false
-    //       }else return true
-    //     }
-    // });
+  rowsCount = 0
 
-    // dragulaService.createGroup("DRAGGABLE_ROW", {
-    //   removeOnSpill: true
-    // });
+  HISTORY = []
+  RANGEARRAY = ['columnWidth1', 'columnWidth2', 'columnWidth3']
+  selectedNarrowDownTimer = 0;
+  columnFontSize = 15;
+  randomizeTestNames = false
+  displaySound = false
 
+  scroll: any;
+
+  @Output() launchPathModal = new EventEmitter();
+
+  openElements: any[]=[];
+
+   //------modal-----------//   
+ 
+   VIDEO_PATH: any[] = [];
+ 
+   PATH1: any[] = [
+     'assets/img/bmx/tutorial/imagen1.JPG',
+     'assets/img/bmx/tutorial/imagen2.JPG',    
+   ]
+ 
+   PATH2: any[] = [
+     'assets/img/bmx/tutorial/img-desktop1.JPG',
+     'assets/img/bmx/tutorial/img-desktop2.JPG',  
+   ]
+ 
+   deviceInfo = null;
+   public isDesktopDevice: any = null;
+ 
+   //----------end modal------//
+  
+  constructor(private dragulaService: DragulaService, public _snackBar: MatSnackBar, public _bmxService: BmxService,public deviceService: DeviceDetectorService) {
+    // DRAG AND DROP
+    let drake = dragula();
+    // this.dragulaService.add(this.BAG, drake);
+
+    this.dragulaService.drag(this.BAG)
+      .subscribe(({ el }) => {
+        console.log('drag' + el);
+      })
+    this.subs.add(this.dragulaService.drop(this.BAG)
+      .subscribe(({ el }) => {
+        console.log('drop' + el);
+      })
+    );
+    this.subs.add(this.dragulaService.over(this.BAG)
+      .subscribe(({ el, container }) => {
+
+        console.log('over', container);
+      })
+    );
+    this.subs.add(this.dragulaService.out(this.BAG)
+      .subscribe(({ el, container }) => {
+
+        console.log('out', container);
+      })
+    );
   }
-  ngOnInit(): void {
-    // COLUMN NAMES
-    let values = Object.keys(this.bmxItem.componentText[0])
 
+  epicFunction() {
+    this.deviceInfo = this.deviceService.getDeviceInfo();
+    const isMobile = this.deviceService.isMobile();
+    const isTablet = this.deviceService.isTablet();
+    this.isDesktopDevice = this.deviceService.isDesktop();
+  }
+
+  ngOnInit(): void {    
+    // COLUMN NAMES
+    this.numRatingScale = this.bmxItem.componentText[0].STARS.length
+    this.rankingScaleValue = this.numRatingScale;
+    let values = Object.keys(this.bmxItem.componentText[0])
+    this.rowsCount =  this.bmxItem.componentText.length - 1
+    this.bmxItem.componentSettings[0].minRule = this.bmxItem.componentSettings[0].minRule == 0?this.rowsCount:this.bmxItem.componentSettings[0].minRule;
+    this.bmxItem.componentSettings[0].maxRule = this.bmxItem.componentSettings[0].maxRule == 0?this.rowsCount:this.bmxItem.componentSettings[0].maxRule;
+    
     values.forEach(value => {
-      if (typeof value == "string" && value != "STARS" && value != "CRITERIA" && value != "RATE") {
+      if (typeof value == "string" && value != "STARS" && value != "CRITERIA") {
         this.columnsNames.push(value)
       }
     });
+    // this.columnsNames.push('RATE')
+
+    // IF RATING SCALE IS SET
+    let amountOfAnswersRateCounter = 0
+    this.bmxItem.componentText.forEach((item, index) => {
+      if (index > 0) {
+        if (item.RATE > 0) {
+          amountOfAnswersRateCounter++
+          if (this.bmxItem.componentText.length - 1 == amountOfAnswersRateCounter) {
+            this.bmxItem.componentSettings[0].categoryRulesPassed = true
+          }
+        }
+      }
+
+      // SET THE SURVEY LANGUAGE
+      this._bmxService.currentprojectData$.subscribe((projectData: any) => {
+        if (projectData.bmxLanguage == 'Japanese') {
+          this.bmxItem.componentSettings[0].language = 'Japanese'
+        }
+      })
+
+    })
+
+    this.randomizeTestNames = this.bmxItem.componentSettings[0].randomizeTestNames
+
+    if (this.bmxItem.componentSettings[0]['displaySound'] == true) {
+      this.displaySound = true;
+    }
+
+    this.epicFunction();
+
+    // if(this.isDesktopDevice){
+    //   this.VIDEO_PATH = this.PATH2;
+    // }else{
+    //   this.VIDEO_PATH = this.PATH1;
+    // }
+
+    if (window.innerWidth <= 1024) {
+      this.VIDEO_PATH = this.PATH1;
+    } else {
+      this.VIDEO_PATH = this.PATH2;
+    }
+    this.launchPathModal.emit(this.VIDEO_PATH)
+  }
+
+  openSelected(y: any) {
+
+    if (this.openElements.indexOf(y) === -1) {
+      this.openElements.push(y);
+    } else {
+      this.openElements.splice(this.openElements.indexOf(y), 1);
+    }
+  }
+
+  open(y: any) {
+
+    if (this.openElements.indexOf(y) == -1) {
+      return false;
+    } else {
+      console.log('true')
+      return true;
+    }
+
   }
 
   maxRuleCounterMinus() {
@@ -94,26 +222,31 @@ export class RatingScaleComponent implements OnInit {
       this.bmxItem.componentSettings[0].categoryRulesPassed = true
     } else { this.bmxItem.componentSettings[0].categoryRulesPassed = false }
   }
-  // ⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️ STARS METHODS  ⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️
-  setRating(rate, testNameId) {
-    if (rate.target && this.bmxItem.componentType == 'narrow-down') {
-      if (this.selectedRowCounter >= this.rankingScaleValue && !this.bmxItem.componentText[testNameId].SELECTED_ROW) {
 
+  // ⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️ STARS METHODS  ⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️
+  setRating(rate, testNameId) {
+      
+    if (rate.target && this.bmxItem.componentType == 'narrow-down') {
+      
+      if (this.selectedRowCounter >= this.bmxItem.componentSettings[0].minRule && !this.bmxItem.componentText[testNameId].SELECTED_ROW) {
+        this.selectedNarrowDownTimer = 4000
         for (let index = 0; index < this.bmxItem.componentText.length; index++) {
           // REMOVE FIRST CHECKED VALUE
           if (this.bmxItem.componentText[index].SELECTED_ROW) {
-            // ASK BEFROE REMOVE IT 
-            this._snackBar.open(this.bmxItem.componentText[index].nameCandidates + ' was uncheck', 'OK', {
-              duration: 4000,
-              verticalPosition: 'bottom',
-            }).afterDismissed().subscribe(action => { })
+            // ASK BEFROE REMOVE IT
+            this._snackBar.open(this.bmxItem.componentText[index].nameCandidates + ' was uncheck becuse you can only select up to ' + this.bmxItem.componentSettings[0].minRule
+              + ' test names ', 'OK', {
+              duration: 6000,
+              verticalPosition: 'top',
+            }).afterDismissed().subscribe(action => {
+
+            })
 
             this.bmxItem.componentText[index].SELECTED_ROW = false;
             break
           }
         }
-      }
-      else {
+      }else {
         if (this.bmxItem.componentText[testNameId]["CRITERIA"]) {
           this.bmxItem.componentText[testNameId]["CRITERIA"].forEach(criteria => {
             criteria.RATE = 0
@@ -133,34 +266,58 @@ export class RatingScaleComponent implements OnInit {
         //   // this.bmxItem.componentText[index].SELECTED_ROW = false
         // }
       }
-    }
+
+      if (this.selectedRowCounter == this.bmxItem.componentSettings[0].minRule) {
+        this.bmxItem.componentSettings[0].categoryRulesPassed = true
+        setTimeout(() => {
+          this._snackBar.open('Great ' + this.bmxItem.componentSettings[0].minRule
+            + ' test names were selected, now rate them', 'OK', {
+            duration: 6000,
+            verticalPosition: 'bottom',
+          }).afterDismissed().subscribe(action => { })
+        }, this.selectedNarrowDownTimer);
+
+      }      
+    }   
 
     if (this.bmxItem.componentType == 'ranking-scale') {
-
-
+      
       this.bmxItem.componentText.forEach((testnameRow, i) => {
         if (testnameRow.RATE == rate) {
           this.bmxItem.componentText[i].RATE = 0
-          // ASK BEFROE REMOVE IT 
+          // ASK BEFROE REMOVE IT
           // this._snackBar.open(testnameRow.nameCandidates + 'was already rank ' + rate, 'ok', {
           //   duration: 4000,
           //   verticalPosition: 'bottom',
           // })
         }
       });
+
       this.bmxItem.componentText[testNameId].RATE = rate
-
-
-    }
-
-    else {
-      if (this.maxRuleCounter < this.bmxItem.componentSettings[0].maxRule || this.bmxItem.componentSettings[0].maxRule == 0) {
+      //autosave
+      this.autoSave.emit();
+      // HANDLIN SPECIAL REQUEST
+      // if (!this.bmxItem.componentSettings[1].isImageType && rate == 1) {
+      //   let payload = {
+      //     tesName: this.bmxItem.componentText[testNameId].nameCandidates
+      //   }
+      //   this._bmxService.setSpecialDataObservable(payload)
+      // }
+    }else {      
+      if (this.maxRuleCounter < this.bmxItem.componentSettings[0].maxRule && this.bmxItem.componentText[testNameId].RATE == 0 || this.bmxItem.componentSettings[0].maxRule == 0) {
+        
         if (this.bmxItem.componentSettings[0].maxRule > 0) { this.maxRuleCounter++ }
         this.bmxItem.componentText[testNameId].RATE = rate
-        this.bmxItem.componentSettings[0].ratedCounter++
+        this.bmxItem.componentSettings[0].ratedCounter++         
         if (this.bmxItem.componentSettings[0].ratedCounter >= this.bmxItem.componentSettings[0].minRule) {
-          this.bmxItem.componentSettings[0].categoryRulesPassed = true
+          this.bmxItem.componentSettings[0].categoryRulesPassed = true         
         } else { this.bmxItem.componentSettings[0].categoryRulesPassed = false }
+        //autosave
+        this.autoSave.emit();
+      } else if(this.maxRuleCounter <= this.bmxItem.componentSettings[0].maxRule && this.bmxItem.componentText[testNameId].RATE != 0){
+        this.bmxItem.componentText[testNameId].RATE = rate
+        //autosave
+        this.autoSave.emit();
       } else {
         if (this.bmxItem.componentType != 'narrow-down' && this.bmxItem.componentSettings[0].maxRule > 0) {
           this._snackBar.open('you can only rate up to ' + this.bmxItem.componentSettings[0].maxRule + ' Test Names', 'OK', {
@@ -209,7 +366,16 @@ export class RatingScaleComponent implements OnInit {
   // CRITERIA STARS
 
   setCriteriaRating(starId, criteriaId, testNameId) {
-    this.bmxItem.componentText[testNameId].CRITERIA[criteriaId].RATE = starId
+    if (this.maxRuleCounter < this.bmxItem.componentSettings[0].maxRule || this.bmxItem.componentSettings[0].maxRule == 0) {
+      if (this.bmxItem.componentSettings[0].maxRule > 0) { this.maxRuleCounter++ }
+      this.bmxItem.componentText[testNameId].CRITERIA[criteriaId].RATE = starId
+      this.bmxItem.componentSettings[0].ratedCounter++
+      if (this.bmxItem.componentSettings[0].ratedCounter >= this.bmxItem.componentSettings[0].minRule) {
+        this.bmxItem.componentSettings[0].categoryRulesPassed = true
+      } else { this.bmxItem.componentSettings[0].categoryRulesPassed = false }
+    }
+    //autosave
+    this.autoSave.emit();
   }
 
   selectCriteriaStar(starId, criteriaId, testNameId): void {
@@ -251,42 +417,66 @@ export class RatingScaleComponent implements OnInit {
     }
     return startCounter;
   }
-  // ⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️ END STARS METHODS  ⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️
-
+  // ⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️ END STARS METHODS  ⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️
 
   upLoadNamesAndRationales(list: string) {
+    this.uploadImagesIcon = true
+    this.bmxItem.componentSettings[0].randomizeTestNames = (this.randomizeTestNames) ? true : false
+    this.recordHistory()
+    this.dragRows = true;
     if (!list) { list = this.listString; }
     if (list) {
       this.listString = list;
-      const rows = list.split("\n");
+      const rows = list.split("\n");      
       this.columnsNames = [];
       this.columnsNames = rows[0].toLowerCase().split("\t");
+      
+      let nameCandidatesCounter = 0
       this.extraColumnCounter = 1
+
+      // COLUMNS NAMES CHECK
       this.columnsNames.forEach((column, index) => {
-        if (column == 'name candidates' || column == 'test names' || column == 'names' || column == 'questions') {
+        column = column.toLowerCase()
+        if (nameCandidatesCounter == 0 && column.includes('candidates') || column == 'questions') {
           this.columnsNames[index] = 'nameCandidates'
-        } else if (column == 'name rationale' || column == 'rationale' || column == 'rationales') {
-          this.columnsNames[index] = 'rationale'
-        } else if (column == 'katakana') {
-          this.columnsNames[index] = 'katakana'
-        } else {
-          this.columnsNames[index] = 'ExtraColumn' + this.extraColumnCounter
-          this.extraColumnCounter++
-        }
+          nameCandidatesCounter++
+        } else
+          if (column == 'name rationale' || column == 'rationale' || column == 'rationales') {
+            this.columnsNames[index] = 'rationale'
+          }
+          else if (column == 'katakana') {
+            this.columnsNames[index] = 'katakana'
+          }
+          else {
+            this.columnsNames[index] = 'ExtraColumn' + this.extraColumnCounter
+            this.extraColumnCounter++
+          }
       });
+
       this.TESTNAMES_LIST = [];
+      this.autoSizeColumns('RATE', '', this.rankingScaleValue)
+      // TEST NAMES CHECK
       for (let i = 0; i < rows.length; i++) {
         if (rows[i] != "" && rows[i].length > 6) {
           let objectColumnDesign = {};
-          if (this.ASSIGNED_CRITERIA.length > 0) {
+          if (this.ASSIGNED_CRITERIA.length > 0) {// CRITERIA
             this.bmxItem.componentSettings[0].CRITERIA = true
+            this.bmxItem.componentSettings[0].rateWidth = (this.bmxItem.componentSettings[0].rateWidth < 220) ? 220 : this.bmxItem.componentSettings[0].rateWidth
             for (let e = 0; e < this.columnsNames.length; e++) {
               if ((rows[i].split("\t").length > 0)) {
-                objectColumnDesign[this.columnsNames[e]] = rows[i].split("\t")[e]
+                const columnName = this.columnsNames[e]
+                const columnValue = rows[i].split("\t")[e].trim()
+                objectColumnDesign[columnName] = columnValue
+                if (i == 0) {
+                  objectColumnDesign['RATE'] = 'RATE'
+                }
+                if (i != 0) {
+                  this.autoSizeColumns(columnName, columnValue)
+                }
               }
             }
             objectColumnDesign['CRITERIA'] = []
-            this.ASSIGNED_CRITERIA.forEach(criteria => {
+            this.ASSIGNED_CRITERIA.forEach((criteria, index) => {
               objectColumnDesign['CRITERIA'].push({
                 name: criteria.name,
                 STARS: this.createRatingStars(this.rankingScaleValue, this.ratingScaleIcon),
@@ -298,26 +488,176 @@ export class RatingScaleComponent implements OnInit {
             objectColumnDesign['STARS'] = this.createRatingStars(this.rankingScaleValue, this.ratingScaleIcon);
             for (let e = 0; e < this.columnsNames.length; e++) {
               if ((rows[i].split("\t").length > 0)) {
-                objectColumnDesign[this.columnsNames[e]] = rows[i].split("\t")[e]
+                const columnName = this.columnsNames[e]
+                let columnValue
+                console.log(this.bmxItem.componentText[i])
+                if(this.bmxItem.componentText.length>i &&   this.bmxItem.componentText[0].nameCandidates == "LOGO" ) {
+                   columnValue = this.bmxItem.componentText[i].nameCandidates
+                }else{
+                   columnValue = rows[i].split("\t")[e].trim()
+                }
+                objectColumnDesign[columnName] = columnValue
+                if (i != 0) {
+                  this.autoSizeColumns(columnName, columnValue)
+                }
               }
             }
+            objectColumnDesign['RATE'] = i > 0 ? -1 : 'RATE'
           }
-
+          if (this.bmxItem.componentType == 'narrow-down') {
+            objectColumnDesign['SELECTED_ROW'] = false
+          }
           this.TESTNAMES_LIST.push(objectColumnDesign);
         }
       }
-      this.bmxItem.componentText = this.TESTNAMES_LIST;
+
+      this.bmxItem.componentText = this.deleteDuplicates(this.TESTNAMES_LIST, 'nameCandidates');
+      this.columnsNames.push('RATE')
     } else {
-      this.bmxItem.componentText.forEach((row, index) => {
-        row.STARS = this.createRatingStars(this.rankingScaleValue, this.ratingScaleIcon)
-        row.RATE = -1
-        // this.leaveStar(index);
-      });
+      this.autoSizeColumns('RATE', '', this.rankingScaleValue)
+      if (this.ASSIGNED_CRITERIA.length > 0) {
+        this.bmxItem.componentSettings[0].CRITERIA = true
+        this.bmxItem.componentText.forEach((row, index) => {
+          let CRITERIA = [];
+          this.ASSIGNED_CRITERIA.forEach(criteria => {
+            CRITERIA.push({
+              name: criteria.name,
+              STARS: this.createRatingStars(this.rankingScaleValue, this.ratingScaleIcon),
+              RATE: index > 0 ? -1 : 'RATE',
+            })
+          });
+          row.CRITERIA = CRITERIA
+          delete row["'STARS'"];
+        });
+      }
+      else {
+        this.bmxItem.componentSettings[0].CRITERIA = false
+        this.bmxItem.componentText.forEach((row, index) => {
+          row.STARS = this.createRatingStars(this.rankingScaleValue, this.ratingScaleIcon)
+          row.RATE = index > 0 ? -1 : 'RATE',
+            delete row['CRITERIA'];
+          // this.leaveStar(index);
+        });
+      }
+    }
+    setTimeout(() => {     
+      this.rowsCount = this.bmxItem.componentText.length - 1;
+
+      if(this.newSet){
+        this.bmxItem.componentSettings[0].minRule = this.rowsCount;
+        this.bmxItem.componentSettings[0].maxRule = this.rowsCount;        
+        this.newSet = false;
+      }
+      
+      if (this.bmxItem.componentSettings[0].CRITERIA) {
+        //MULTIPLY FOR THE AMOUNT OF CRITERIA
+        this.bmxItem.componentSettings[0].minRule = this.bmxItem.componentSettings[0].minRule * this.bmxItem.componentText[0].CRITERIA.length
+      }
+      this.dragRows = false;
+    }, 1000);
+    // this.swapColumns(0)
+  }
+
+
+  // DEPRECATED
+  ramdomizeArray() {
+    this.TESTNAMES_LIST.sort(() => Math.random() - 0.5);
+  }
+
+  // delete row diplicates from array of object by property
+  deleteDuplicates(array, property) {
+    let newArray = [];
+    let lookupObject = {};
+
+    for (let i in array) {
+      lookupObject[array[i][property]] = array[i];
+    }
+
+    for (let i in lookupObject) {
+      newArray.push(lookupObject[i]);
+    }
+
+    if (array.length > newArray.length) {
+      const unionMinusInter = this.unionMinusIntersection(array, newArray)
+      const nameCandidates = this.spreadArray(unionMinusInter)
+      this._snackBar.open(`You have  ${array.length - newArray.length} duplicates removed: "${nameCandidates.join(', ')}" 🍕`, 'OK', {
+        duration: 10000,
+        verticalPosition: 'top',
+      })
+    }    
+    return newArray;
+  }
+  // remove objects from array1 that are also in array2
+  unionMinusIntersection(array1, array2) {
+    let union = array1.concat(array2);
+    let intersection = array1.filter(x => array2.includes(x));
+    let unionMinusInter = union.filter(x => !intersection.includes(x));
+    return unionMinusInter;
+  }
+  //  spread array of object to array of string by property
+  spreadArray(array) {
+    let newArray = [];
+    array.forEach(element => {
+      newArray.push(element.nameCandidates)
+    });
+    return newArray;
+  }
+
+  autoSizeColumns(columnName, testName, rankingValue?) {
+
+    let testNameLength;
+    testNameLength = testName != undefined?testName.length:0; 
+
+    if (columnName == 'nameCandidates') {
+      if (testNameLength > 10 && this.bmxItem.componentSettings[0].nameCandidatesWidth < 150) {
+        this.bmxItem.componentSettings[0].nameCandidatesWidth = 150
+      } else if (testNameLength > 13) {
+        this.bmxItem.componentSettings[0].nameCandidatesWidth = 175
+      }
+    } else if (columnName == 'rationale') {
+      if (testNameLength > 10 && this.bmxItem.componentSettings[0].rationalewidth < 150) {
+        this.bmxItem.componentSettings[0].rationalewidth = 150
+      } else if (testNameLength > 15) {
+        this.bmxItem.componentSettings[0].rationalewidth = 300
+      }
+    } else if (columnName == 'RATE') {
+      if (rankingValue == 5) {
+        this.bmxItem.componentSettings[0].rateWidth = 155
+      } else if (rankingValue == 6) {
+        this.bmxItem.componentSettings[0].rateWidth = 165
+      } else if (rankingValue == 7) {
+        this.bmxItem.componentSettings[0].rateWidth = 185
+      } else if (rankingValue == 8) {
+        this.bmxItem.componentSettings[0].rateWidth = 205
+      } else if (rankingValue == 9) {
+        this.bmxItem.componentSettings[0].rateWidth = 225
+      } else if (rankingValue == 10) {
+        this.bmxItem.componentSettings[0].rateWidth = 245
+      }
+    } else if (columnName == 'ExtraColumn1') {
+      if (testNameLength > 10 && this.bmxItem.componentSettings[0].columnWidth < 150) {
+        this.bmxItem.componentSettings[0].columnWidth = 150
+      } else if (testNameLength > 13) {
+        this.bmxItem.componentSettings[0].columnWidth = 175
+      }
+    } else if (columnName == 'ExtraColumn2') {
+      if (testNameLength > 10 && this.bmxItem.componentSettings[0].columnWidth < 150) {
+        this.bmxItem.componentSettings[0].columnWidth = 150
+      } else if (testNameLength > 13) {
+        this.bmxItem.componentSettings[0].columnWidth = 175
+      }
+    } else {
+      if (testNameLength > 10 && this.bmxItem.componentSettings[0].columnWidth < 150) {
+        this.bmxItem.componentSettings[0].columnWidth = 150
+      } else if (testNameLength > 13) {
+        this.bmxItem.componentSettings[0].columnWidth = 175
+      }
     }
   }
 
   // COLUMNS ADD AND REMOVE
   insertTextColumn() {
+    this.recordHistory()
     this.columnsNames.push('ExtraColumn' + (this.extraColumnCounter));
     this.bmxItem.componentText.forEach((object) => {
       let coulmnName = 'ExtraColumn' + this.extraColumnCounter
@@ -327,26 +667,32 @@ export class RatingScaleComponent implements OnInit {
   }
 
   insertCommentBoxColumn() {
+    this.recordHistory()
+    this.commentColumnCounter = 0
+    this.columnsNames.forEach(columnName => {
+      if (columnName.includes('Comments')) {
+        this.commentColumnCounter++
+        // this.RadioColumnList.push('RadioColumn' + this.commentColumnCounter)
+      }
+    });
     this.columnsNames.push('Comments' + (this.commentColumnCounter));
     this.bmxItem.componentText.forEach((object, index) => {
-      // object = this.addToObject(object, 'Comments' + (this.commentColumnCounter), 'CommentsTxt' + (this.commentColumnCounter), this.commentColumnCounter)
       let coulmnName = 'Comments' + this.commentColumnCounter
       if (index > 0) {
         object[coulmnName] = ''
       } else {
-        object[coulmnName] = 'General Comments'
+        object[coulmnName] = 'Comments'
       }
     });
-    this.commentColumnCounter++
+
+    this.bmxItem.componentSettings[0].commentsWidth = 165
   }
 
   insertRadioColumn() {
-
+    this.recordHistory()
     this.columnsNames.push('RadioColumn' + (this.radioColumnCounter));
-    this.RadioColumnList.push('RadioColumn' + this.radioColumnCounter)
     this.bmxItem.componentText.forEach((object, index) => {
       let coulmnName = 'RadioColumn' + this.radioColumnCounter
-
       if (index == 0) {
         object[coulmnName] = this.radioColumnCounter
       } else {
@@ -354,11 +700,27 @@ export class RatingScaleComponent implements OnInit {
       }
     });
     this.radioColumnCounter++
+  }
 
-
+  columnFontSizeAdjust(columnName, direction) {
+    if (!columnName.includes('RATE') && !columnName.includes('RadioColumn') && !columnName.includes('Comments')) {
+      if (direction == 'increase') {
+        this.columnFontSize += 1
+      } else {
+        this.columnFontSize -= 1
+      }
+      this.bmxItem.componentText.forEach((row, index) => {
+        if (index > 0) {
+          var regex = /(<([^>]+)>)/ig
+          row[columnName] = row[columnName].replace(regex, "");
+          row[columnName] = '<span ' + 'style="font-size:' + this.columnFontSize + 'px">' + row[columnName] + '</span>'
+        }
+      });
+    }
   }
 
   saveRadioColumValue(name, y) {
+    
     this.RadioColumnList = []
     let values = Object.keys(this.bmxItem.componentText[y])
     values.forEach(columnName => {
@@ -370,11 +732,11 @@ export class RatingScaleComponent implements OnInit {
         this.RadioColumnList.push(columnName)
       }
     });
-    this.bmxItem.componentText[y][name] = true
+    this.bmxItem.componentText[y][name] = !this.bmxItem.componentText[y][name]
     this.RadioColumnList.forEach((columnName, index) => {
       // if (columnName.includes('RadioColumn')) {
       if (this.bmxItem.componentText[y][columnName]) {
-        if (this.bmxItem.componentType == 'ranking-scale') {
+        if (this.bmxItem.componentType == 'ranking-scale' || true) {
           this.bmxItem.componentText.forEach((element, i) => {
             if (element.RATE == index + 1) {
               this.bmxItem.componentText[i].RATE = 0
@@ -386,165 +748,156 @@ export class RatingScaleComponent implements OnInit {
         }
         this.bmxItem.componentText[y].RATE = index + 1
       }
-      // }
+      // } 
     });
+    //autosave
+    this.autoSave.emit();
   }
 
-
-
   deletRow(option): void {
-    this.bmxItem.componentText.splice(option, 1);
+    if (confirm('Are you sure you want to delete this row?')) {
+      this.recordHistory()
+      this.bmxItem.componentText.splice(option, 1);
+    }
   }
 
   insertRow(): void {
-    this.bmxItem.componentText.push(this.bmxItem.componentText[0])
+    this.recordHistory()
+    const newRow = Object.assign({}, this.bmxItem.componentText[0]);
+    this.bmxItem.componentText.push(newRow)
+  }
+
+  swapColumns(index): void {
+    this.recordHistory()
+    let temp = this.columnsNames[index];
+    // update columnsNames array order
+    for (let i = index; i < this.columnsNames.length - 1; i++) {
+      this.columnsNames[i] = this.columnsNames[i + 1];
+    }
+    this.columnsNames[this.columnsNames.length - 1] = temp;
+    let newRow = {}
+    // re-order brand matrix columns
+    this.bmxItem.componentText.forEach((row, rowIndex) => {
+      for (let i = 0; i < this.columnsNames.length - 1; i++) {
+        Object.keys(row).forEach(key => {
+          if (this.columnsNames[i] == key) {
+            newRow[key] = row[key]
+          }
+        })
+      }
+      this.bmxItem.componentText[rowIndex] = this.mergeObjects(newRow, row)
+    });
+
+  }
+
+  mergeObjects(obj1, obj2) {
+    let obj3 = {};
+    for (let attrname in obj1) {
+      obj3[attrname] = obj1[attrname];
+    }
+    for (let attrname in obj2) {
+      obj3[attrname] = obj2[attrname];
+    }
+    return obj3;
   }
 
   deleteColumn(columnName) {
-
-    let temporary = []
-    // REMOVE THE COLUMN FROM THE COLUMNS
-    this.columnsNames.forEach(element => {
-      if (element !== columnName) {
-        temporary.push(element)
+    if (confirm('Are you sure you want to delete ' + columnName + ' column?')) {
+      this.recordHistory()
+      let temporary = []
+      if (columnName.includes('Comments') && this.commentColumnCounter > 0) {
+        this.commentColumnCounter--
       }
-    });
-    this.columnsNames = temporary;
-    this.bmxItem.componentText.forEach((object, index) => {
-      delete this.bmxItem.componentText[index][columnName]
-    });
-    this.bmxItem.componentText = this.bmxItem.componentText;
+      // REMOVE THE COLUMN FROM THE COLUMNS
+      this.columnsNames.forEach((element, index) => {
+        if (element !== columnName) {
+          temporary.push(element)
+        }
+      });
+      this.columnsNames = temporary;
+      this.bmxItem.componentText.forEach((object, index) => {
+        delete this.bmxItem.componentText[index][columnName]
+      });
+      this.bmxItem.componentText = this.bmxItem.componentText;
+    }
   }
 
   criteriaSelection(selectedCriteria) {
     this.ASSIGNED_CRITERIA = selectedCriteria
   }
 
+  addCriteria(newCriteria) {
+    if (newCriteria.length > 0) {
+      this.CRITERIA.unshift({ name: newCriteria })
+    }
+  }
+
+  deleteCriteria(index) {
+    if (confirm('Are you sure you want to delete criteria?')) {
+      this.CRITERIA.splice(index, 1)
+    }
+  }
+
   checkDragEvetn(e) {
     // console.log(e);
   }
-
-  private addToObject(obj, key, value, index) {
-    // Create a temp object and index variable
-    let temp = {};
-    let i = 0;
-    // Loop through the original object
-    for (let prop in obj) {
-      if (obj.hasOwnProperty(prop)) {
-
-        // If the indexes match, add the new item
-        if (i === index && key && value) {
-          temp[key] = value;
-        }
-        // Add the current item in the loop to the temp obj
-        temp[prop] = obj[prop];
-        // Increase the count
-        i++;
-      }
-    }
-
-    // If no index, add to the end
-    if (!index && key && value) {
-      temp[key] = value;
-    }
-
-    return temp;
-
-  };
-
 
   toogleColumnResizer() {
     this.isColumnResizerOn = !this.isColumnResizerOn
   }
 
-  slert(index) {
-    // this.selectedCard = index
+
+  onPaste() {
+    setTimeout(() => {
+      let rows = this.testNamesInput.split("\n");
+      this.newSet = true;
+      this.rowsCount = rows.length - 1      
+    }, 1000);
+  }
+
+  recordHistory() {
+    const history = JSON.parse(JSON.stringify(this.bmxItem))
+    const columsNames = JSON.parse(JSON.stringify(this.columnsNames))
+    this.HISTORY.push([history, columsNames])
+  }
+
+  undo() {
+    if (confirm('Are you sure you want undo last change?')) {
+      if (this.HISTORY.length > 0) {
+        this.dragRows = true;
+        const temp = this.HISTORY.pop()
+        Object.assign(this.bmxItem, temp[0])
+        // Object.assign(this.columnsNames, temp[1])
+        this.columnsNames = temp[1]
+        setTimeout(() => {
+          this.dragRows = false;
+        }, 1000);
+      }
+    }
+  }
+
+  playTestNameSound(testNameSound: string) {
+    let audio = new Audio();
+    // testNameSound = 'names/hero_decorative-celebration-01'
+    audio.src = "assets/sound/names/" + testNameSound + ".mp3";
+    audio.volume = 0.8;
+    audio.load();
+    audio.addEventListener("error", function (e) {
+      alert('No audio file found at url: ' + this.src);
+    });
+    audio.play();
+  }
+
+  setPronunciation() {
+    this.bmxItem.componentSettings[0]['displaySound'] = !this.displaySound
+    this.displaySound = !this.displaySound
   }
 
   ASSIGNED_CRITERIA = []
   CRITERIA = [
-    { name: 'Fit to Company Description', rate: 0 },
-    { name: 'Fit to Product Statement', rate: 0 },
-    { name: 'Fit to Product Overview', rate: 0 },
-    { name: 'Fit to Global Positioning', rate: 0 },
-    { name: 'Fit to Concept/Positioning', rate: 0 },
-    { name: 'Fit to Brand Vision', rate: 0 },
-    { name: 'Fit to Vision Statement or Product Description', rate: 0 },
-    { name: 'Fit to Product Concept/Description', rate: 0 },
-    { name: 'Fit to Product Line Concept', rate: 0 },
-    { name: 'Fit to Global Concept', rate: 0 },
-    { name: 'Fit to Program Concept', rate: 0 },
-    { name: 'Fit to Therapeutic Area', rate: 0 },
-    { name: 'Fit to Service Positioning', rate: 0 },
-    { name: 'Fit to Product Description', rate: 0 },
-    { name: 'Fit to Venue Concept', rate: 0 },
-    { name: 'Fit to Program Description', rate: 0 },
-    { name: 'Fit to Program Vision', rate: 0 },
-    { name: 'Fit to Value Proposition', rate: 0 },
-    { name: 'Fit to Technology Concept', rate: 0 },
-    { name: 'Fit to Vision', rate: 0 },
-    { name: 'Product Positioning', rate: 0 },
-    { name: 'Fit to Product Concept and Positioning', rate: 0 },
-    { name: 'Fit to Concept Statement', rate: 0 },
-    { name: 'Fit to Division Concept', rate: 0 },
-    { name: 'Fit to Mechanism of Action', rate: 0 },
-    { name: 'Fit to Brand Concept', rate: 0 },
-    { name: 'Fit to Product Range Concept', rate: 0 },
-    { name: 'Fit to Concept', rate: 0 },
-    { name: 'Fit to Trial Concept', rate: 0 },
-    { name: 'Fit to Product Features and Benefits', rate: 0 },
-    { name: 'Fit to Brand', rate: 0 },
-    { name: 'Fit to Company Concept', rate: 0 },
-    { name: 'S`adapter au Concept de produit', rate: 0 },
-    { name: 'Fit to Compound Concept', rate: 0 },
-    { name: 'Fit to Service Concept', rate: 0 },
-    { name: 'Fit to Product Vision', rate: 0 },
-    { name: 'Fit to Contract Concept', rate: 0 },
-    { name: 'Fit to Product', rate: 0 },
-    { name: 'Fit to Brand Essence', rate: 0 },
-    { name: 'Fit to Entity Objectives', rate: 0 },
-    { name: 'Brand Family Rankings', rate: 0 },
-    { name: 'Fit to Trial Overview', rate: 0 },
-    { name: 'Fit to Business Unit Concept', rate: 0 },
-    { name: 'Fit to X4P-001 WHIM Syndrome Program', rate: 0 },
-    { name: 'Fit to Product Positioning', rate: 0 },
-    { name: 'Fit to LEO Pharma Mission and Vision', rate: 0 },
-    { name: 'Fit to Product Profile', rate: 0 },
-    { name: 'Fit to Positioning', rate: 0 },
-    { name: 'Fit to Company Mission', rate: 0 },
-    { name: 'Fit to Therapy', rate: 0 },
-    { name: 'Fit to Class Concept', rate: 0 },
-    { name: '• S`adapter au Concept de produit', rate: 0 },
-    { name: 'Fit to Product Concept/S`adapter au Concept de produit', rate: 0 },
-    { name: 'Fit to Portfolio Concept', rate: 0 },
-    { name: 'Fit to Mission and Vision Statements', rate: 0 },
-    { name: 'Overall Feasibility', rate: 0 },
-    { name: 'Fit to Company Description/Mission', rate: 0 },
-    { name: 'Fit to Compound Character and Image', rate: 0 },
-    { name: 'Fit to Strategy', rate: 0 },
-    { name: 'Personal Preference', rate: 0 },
-    { name: 'OPSIRIA Likeness', rate: 0 },
-    { name: 'Appropriately describes the Flutiform breath triggered inhaler', rate: 0 },
-    { name: 'Overall strategic fit and likeability', rate: 0 },
-    { name: 'Uniqueness', rate: 0 },
-    { name: 'Fit to Category Concept', rate: 0 },
-    { name: 'Overall Preference', rate: 0 },
-    { name: 'Connection to Hemlibra', rate: 0 },
-    { name: 'Fit to Company Vision Statement', rate: 0 },
-    { name: 'Fit to Website Concept', rate: 0 },
-    { name: 'Dislike', rate: 0 },
-    { name: 'Like', rate: 0 },
-    { name: 'Negative/Offensive Communication', rate: 0 },
-    { name: 'Fit to Phase 2/3 HTE Trial', rate: 0 },
-    { name: 'Fit to Phase 2 VS Trial', rate: 0 },
-    { name: 'Exaggerative/Inappropriate Claim', rate: 0 },
-    { name: 'Fit to Product Concept', rate: 0 },
-    { name: 'Attribute Evaluations', rate: 0 },
-    { name: 'Memorability', rate: 0 },
-    { name: 'Overall Likeability', rate: 0 },
-    { name: 'How the test name works alongside the name CUVITRU?', rate: 0 },
+    { name: 'Fit to Compound Concept' },
+    { name: 'Fit to Corporate Mission' },
+    { name: 'Overall Likeability' },
   ]
-
-  openDelete
 
 }
