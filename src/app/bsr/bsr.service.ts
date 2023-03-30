@@ -211,9 +211,14 @@ export class BsrService {
       , method: 'newPost'
       , concept: newConcept
     }
-    return this.http.post(this.awsBaseUrl, JSON.stringify(data), httpOptions);
+    return this.http.post(this.awsBaseUrl, JSON.stringify(data), httpOptions).pipe(map(
+      (response: string) => {
+        const data = JSON.parse(response);
+        //console.log(data)
+        return data;
 
-
+      }
+    ));
   }
 
   updatePost(updateConcept) {
@@ -304,7 +309,14 @@ export class BsrService {
       , method: 'sendComment'
       , param: comment
     }
-    return this.http.post(this.awsBaseUrl, JSON.stringify(data), httpOptions);
+    return this.http.post(this.awsBaseUrl, JSON.stringify(data), httpOptions).pipe(map(
+      (response: string) => {
+        const data = JSON.parse(response);
+        //console.log(data)
+        return data;
+
+      }
+    ));
 
 
   }
@@ -326,9 +338,14 @@ export class BsrService {
       , project: this.projectId
       , pagenumber: slideIndex
     }
-    return this.http.post(this.awsBaseUrl, JSON.stringify(data), httpOptions);
+    return this.http.post(this.awsBaseUrl, JSON.stringify(data), httpOptions).pipe(map(
+      (response: string) => {
+        const data = JSON.parse(response);
+        //console.log(data)
+        return data;
 
-
+      }
+    ));
 
   }
 
