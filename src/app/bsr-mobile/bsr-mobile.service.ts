@@ -2,6 +2,10 @@ import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { THIS_EXPR } from '@angular/compiler/src/output/output_ast';
 import { DeviceDetectorService } from 'ngx-device-detector';
+import { map } from "rxjs/operators"; 
+import { Server } from 'http';
+
+
 const httpOptions = {
   headers: new HttpHeaders({ 'Content-Type': 'application/json' })
 };
@@ -40,6 +44,13 @@ export class BsrMobileService {
   // webBaseUrl = 'http://localhost:64378/';
 
 
+  // CG
+  awsBaseUrl = "https://0hq9qn97gk.execute-api.us-east-1.amazonaws.com/prod-bitools01/tmx" ; 
+  awsToken = "38230499-A056-4498-80CF-D63D948AA57F";
+  awsResourcesUrl = "https://bitools.s3.amazonaws.com/nw-resources/"
+
+
+
 
   login(data: any, projectId: string) {
     this.name = data.name;
@@ -54,17 +65,65 @@ export class BsrMobileService {
     JSON.stringify(this.deviceInfo) + "'";
 
 
-    this.http.post(this.webBaseUrl + this.apiCall, JSON.stringify(this._deviceUserData), httpOptions).subscribe(res => {
+    //this.http.post(this.webBaseUrl + this.apiCall, JSON.stringify(this._deviceUserData), httpOptions).subscribe(res => {});
 
-    });
+    //// this.dataLogin.summarize = (data.suma) ? '1' : '0';
+    //return this.http.post(this.webBaseUrl + this.apiCall, JSON.stringify(this._SP_GetCreatedNamesByEmail), httpOptions);
 
-    // this.dataLogin.summarize = (data.suma) ? '1' : '0';
-    return this.http.post(this.webBaseUrl + this.apiCall, JSON.stringify(this._SP_GetCreatedNamesByEmail), httpOptions);
+    // CG
+
+    let param = this.projectId + "," + this.name + "," + this.email + "," + summa + "," + JSON.stringify(this.deviceInfo)
+
+    const xdata = {
+      token: '38230499-A056-4498-80CF-D63D948AA57F'
+      , app : 'namepage'
+      , method : 'DeviceUserData'
+      , param : param 
+    }
+    this.http.post(this.awsBaseUrl , JSON.stringify(xdata), httpOptions).subscribe(res => {});
+
+    const ydata = {
+      token: '38230499-A056-4498-80CF-D63D948AA57F'
+      , app : 'namepage'
+      , method : 'getNameCandidatesByUser'
+      , projectid : this.projectId
+      , email : this.email
+    }
+    return this.http.post(this.awsBaseUrl , JSON.stringify(ydata), httpOptions)
+    .pipe(map(
+      (response : string ) => {
+        const data =  JSON.parse(response);
+        //console.log(data)
+        return data;
+        
+      }
+    ));  
+    
+  
   }
 
   getProjectData(projectId) {
     this._SP_getProjectData = '[BI_GUIDELINES].[dbo].[bsr_GetProjectData] ' + "'" + projectId + "'";
-    return this.http.post(this.webBaseUrl + this.apiCall, JSON.stringify(this._SP_getProjectData), httpOptions);
+    //return this.http.post(this.webBaseUrl + this.apiCall, JSON.stringify(this._SP_getProjectData), httpOptions);
+
+    // CG
+
+    const data = {
+      token: '38230499-A056-4498-80CF-D63D948AA57F'
+      , app : 'namepage'
+      , method : 'getProjectData'
+      , projectid : projectId
+    }
+    return this.http.post(this.awsBaseUrl , JSON.stringify(data), httpOptions) 
+    .pipe(map(
+      (response : string ) => {
+        const data =  JSON.parse(response);
+        //console.log(data)
+        return data;
+        
+      }
+    ));  
+
   }
 
 
@@ -91,19 +150,69 @@ export class BsrMobileService {
     }
 
     this._SP_Saving_New_Names_Mobile = "[BI_GUIDELINES].[bsrv2].[bsr_mobAddNames] N'" + this.projectId + ',' + JSON.stringify(this.sendNewNamesObj) + "'";
-    return this.http.post(this.webBaseUrl + this.apiCall, JSON.stringify(this._SP_Saving_New_Names_Mobile), httpOptions);
+    //return this.http.post(this.webBaseUrl + this.apiCall, JSON.stringify(this._SP_Saving_New_Names_Mobile), httpOptions);
+
+    let param = this.projectId + ',' + JSON.stringify(this.sendNewNamesObj)
+
+    const data = {
+      token: '38230499-A056-4498-80CF-D63D948AA57F'
+      , app : 'namepage'
+      , method : 'sendName'
+      , param : param 
+    }
+    return this.http.post(this.awsBaseUrl , JSON.stringify(data), httpOptions)
+    .pipe(map(
+      (response : string ) => {
+        const data =  JSON.parse(response);
+        //console.log(data)
+        return data;
+        
+      }
+    )); 
+
+
+
   }
 
   deleteName(NameId) {
     this.projectId = localStorage.getItem('projectId');
     let deleteNames = "[BI_GUIDELINES].[dbo].[bsr_delName] " + this.projectId.replace(/\D+/g, '') + "," + NameId;
-    return this.http.post(this.webBaseUrl + this.apiCall, JSON.stringify(deleteNames), httpOptions);
+    //return this.http.post(this.webBaseUrl + this.apiCall, JSON.stringify(deleteNames), httpOptions);
+
+    // CG
+    const data = {
+      token: '38230499-A056-4498-80CF-D63D948AA57F'
+      , app : 'namepage'
+      , method : 'deleteName'
+      , projectid  :  this.projectId.replace(/\D+/g, '')
+      , nameid : NameId 
+    }
+    return this.http.post(this.awsBaseUrl , JSON.stringify(data), httpOptions)
+    .pipe(map(
+      (response : string ) => {
+        const data =  JSON.parse(response);
+        //console.log(data)
+        return data;
+        
+      }
+    )); 
   }
 
   goToLogout() {
     this.projectId = localStorage.getItem('projectId');
     const sendEmail = "[BI_GUIDELINES].[dbo].[bsr_AddEmailResultsRequest] '" + this.projectId + "','" + this.email + "','" + this.name + "'";
-    return this.http.post(this.webBaseUrl + this.apiCall, JSON.stringify(sendEmail), httpOptions);
+    //return this.http.post(this.webBaseUrl + this.apiCall, JSON.stringify(sendEmail), httpOptions);
+
+// CG
+const data = {
+  token: '38230499-A056-4498-80CF-D63D948AA57F'
+  , app : 'namepage'
+  , projectid  :  this.projectId
+  , email : this.email 
+  , name : this.name 
+}
+return this.http.post(this.awsBaseUrl , JSON.stringify(data), httpOptions); 
+
   }
 
 
