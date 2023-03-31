@@ -27,8 +27,8 @@ export class BmxService {
     this.specialData$.next(projectData);
   }
 
-
-  webBaseUrl = 'https://tools.brandinstitute.com//wsBrandMatrix/wsBrandMatrix.asmx';
+  //webBaseUrl = 'https://tools.brandinstitute.com//wsBrandMatrix/wsBrandMatrix.asmx';
+  webBaseUrl: string = "";
   GetProjectList = '/GetProjectList';
   GetGeneralLists = '/GetGeneralLists';
 
@@ -63,8 +63,20 @@ export class BmxService {
   SaveEmail = '/BrandMatrixEmailTemplateSave';
   
   SaveProjectInfor = '/BrandMatrixUpdDirectorList'
-  SendEmail = '/BrandMatrixSendEmail'
-  constructor(private http: HttpClient) {}
+  SendEmail = '/BrandMatrixSendEmail';
+  actualSite = window.location.href;
+  baseUrl: any;
+  restUrl: any;
+
+  constructor(private http: HttpClient) {
+
+    if (this.actualSite.includes('https://d3lyn5npnikbck.cloudfront.net')) {
+      this.webBaseUrl = "https://bitools.s3.amazonaws.com/nw-resources/"
+    } else {
+      this.webBaseUrl = 'https://tools.brandinstitute.com//wsBrandMatrix/wsBrandMatrix.asmx';
+    }
+    
+  }
 
   setLogoTemporaryWidth(width: string){
     this.logoTemporaryWidth$.next(width)
