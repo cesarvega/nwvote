@@ -59,12 +59,9 @@ export class BsrService {
   awsToken = "38230499-A056-4498-80CF-D63D948AA57F";
   awsResourcesUrl = "https://bitools.s3.amazonaws.com/nw-resources/"
 
-
-
-
-
   constructor(private http: HttpClient) {
-    if (this.actualSite.includes('https://d3lyn5npnikbck.cloudfront.net') || this.actualSite.includes('http://localhost:4333/')) {
+    console.log(window.location.host)
+    if (this.actualSite.includes('https://d3lyn5npnikbck.cloudfront.net') || this.actualSite.includes('http://localhost:4200/')) {
       this.baseUrl = "https://bitools.s3.amazonaws.com/nw-resources/"
     } else {
       this.baseUrl = "http://bipresents.com/nw2/"
@@ -138,6 +135,7 @@ export class BsrService {
     //return this.http.post(this.webBaseUrl + this.apiCall, JSON.stringify(this._SP_GetCandidateNames + "'" + projectId + "'"), httpOptions);
 
     // CG
+    console.log("name candidates")
     const data = {
       token: this.awsToken
       , app: 'BSR'

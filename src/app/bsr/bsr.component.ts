@@ -78,7 +78,7 @@ export class BsrComponent implements OnInit {
   namesBoxIndexValue = 52;
   namesBoxIndex = 0;
   wideScreen = false;
-  BackgroundUrl = 'url(http://bipresents.com/nw2/assets/';
+  BackgroundUrl = 'http://bipresents.com/nw2/';
   BackgroundUrlOff = 'url(http://bipresents.com/nw2/assets/images/BackGrounds/Backgrounds2019/';
   baseUrl: any;
   restUrl: any;
@@ -168,7 +168,8 @@ export class BsrComponent implements OnInit {
       this.totalNumberOfSlides = res.length;
       this.pageCounter = '1/' + (parseInt(this.totalNumberOfSlides));
       console.log(this.slideBackground + res)
-      this.slideBackground = this.slideBackground + res[0].SlideBGFileName + ')';
+      let slideRes = res[0].SlideBGFileName
+      this.slideBackground = this.slideBackground + slideRes + ')';
       this.appSlidesData.forEach(element => {
         if (element.SlideType === "NameSummary") {
           this.postItPresentationIndex = parseInt(element.$id) - 1;
@@ -206,7 +207,7 @@ export class BsrComponent implements OnInit {
         });
         this.nameCandidates = (res.length > 0) ? res : [];
       });
-    }, 300);
+    }, 1000);
 
     this.getCommentsByIndex(0);
     this.loginForm = this._formBuilder.group({
@@ -520,11 +521,13 @@ export class BsrComponent implements OnInit {
       this.createPostIt = true;
 
     } else {
-      this.slideBackground = this.baseBackgroundUrl + this.appSlidesData[i].SlideBGFileName + ')';
+      if(i){
+        let slideBG = this.appSlidesData[i].SlideBGFileName;
+        this.slideBackground = this.baseBackgroundUrl + slideBG + ')';
+      }      
 
       this.createPostIt = false;
     }
-
 
     this.pageCounter = i + 1 + '/' + this.totalNumberOfSlides;
   }
