@@ -48,7 +48,7 @@ const routes: Routes = [
   path: 'bmx/:id',
    component: BmxCreatorComponent
   },
-   {//BI BRAND MATRIX SURVEY
+   {//BI BRAND MATRIX SURVEY PREVIEW FROM CREATOR
     path: 'survey/:id/:username',
     component: SurveyMatrixComponent
   },
