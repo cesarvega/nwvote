@@ -73,7 +73,7 @@ export class RatingScaleComponent implements OnInit {
   showMatrixMenu: boolean = false;
   iconMenuShow: string = "add_circle_outline";
 
-  scroll: any;
+  scroll: any;s
 
   @Output() launchPathModal = new EventEmitter();
 
