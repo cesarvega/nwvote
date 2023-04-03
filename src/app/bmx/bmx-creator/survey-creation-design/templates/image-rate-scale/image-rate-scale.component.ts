@@ -235,4 +235,12 @@ export class ImageRateScaleComponent extends RatingScaleComponent implements OnI
       this.autoSave.next()    
     } 
   }
+  showMatrixMenuBmx(){
+    this.showMatrixMenu = !this.showMatrixMenu;
+      if(this.showMatrixMenu){
+        this.iconMenuShow = "remove_circle_outline"
+      }else{
+        this.iconMenuShow = "add_circle_outline"
+      }
+  }
 }
