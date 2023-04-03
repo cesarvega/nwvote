@@ -70,6 +70,8 @@ export class RatingScaleComponent implements OnInit {
   columnFontSize = 15;
   randomizeTestNames = false
   displaySound = false
+  showMatrixMenu: boolean = false;
+  iconMenuShow: string = "add_circle_outline";
 
   scroll: any;
 
@@ -899,5 +901,15 @@ export class RatingScaleComponent implements OnInit {
     { name: 'Fit to Corporate Mission' },
     { name: 'Overall Likeability' },
   ]
+
+  showMatrixMenuBmx(){
+    this.showMatrixMenu = !this.showMatrixMenu;
+        if(this.showMatrixMenu ){
+            this.iconMenuShow = "remove_circle_outline"
+        }else{
+            this.iconMenuShow = "add_circle_outline"
+        }
+  }
+  
 
 }
