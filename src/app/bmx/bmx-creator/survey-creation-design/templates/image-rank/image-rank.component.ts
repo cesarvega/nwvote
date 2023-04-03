@@ -30,7 +30,8 @@ export class ImageRankComponent  extends RatingScaleComponent implements OnInit 
   allowScrolling = true
 
   VIDEO_PATH: any[] = [];
-
+  showMatrixMenu: boolean = false;
+  iconMenuShow: string = "add_circle_outline"
   PATH1: any[] = [
     'assets/img/bmx/tutorial/image-drag.JPG',
     
@@ -49,7 +50,10 @@ export class ImageRankComponent  extends RatingScaleComponent implements OnInit 
     this.createRatingStars(this.rankingScaleValue)
     // this.rankingTableType( this.bmxItem.componentSettings[0].rankType)
     this.rankingType = this.bmxItem.componentSettings[0].rankType
+
     this.rowsCount =  this.bmxItem.componentText.length - 1
+    this.bmxItem.componentSettings[0].minRule = this.bmxItem.componentSettings[0].minRule == 0?this.rowsCount:this.bmxItem.componentSettings[0].minRule;
+    this.bmxItem.componentSettings[0].maxRule = this.bmxItem.componentSettings[0].maxRule == 0?this.rowsCount:this.bmxItem.componentSettings[0].maxRule;
 
     if (this.rankingType == 'dropDown') {
       this.draggableBag = ''
@@ -75,7 +79,6 @@ export class ImageRankComponent  extends RatingScaleComponent implements OnInit 
     });
 
     this.randomizeTestNames = this.bmxItem.componentSettings[0].randomizeTestNames
-
 
     // HANDLIN SPECIAL REQUEST
     if (this.bmxItem.componentSettings[1]) {
@@ -195,7 +198,13 @@ export class ImageRankComponent  extends RatingScaleComponent implements OnInit 
 
     setTimeout(() => {
       this.rowsCount = this.bmxItem.componentText.length - 1;
-      this.bmxItem.componentSettings[0].minRule = (this.bmxItem.componentSettings[0].minRule == 0) ? this.bmxItem.componentText.length - 1 : this.bmxItem.componentSettings[0].minRule
+      
+      if(this.newSet){
+        this.bmxItem.componentSettings[0].minRule = this.rowsCount;
+        this.bmxItem.componentSettings[0].maxRule = this.rowsCount;        
+        this.newSet = false;
+      }
+      
       if (this.bmxItem.componentSettings[0].CRITERIA) {
         //MULTIPLY FOR THE AMOUNT OF CRITERIA
         this.bmxItem.componentSettings[0].minRule = this.bmxItem.componentSettings[0].minRule * this.bmxItem.componentText[0].CRITERIA.length
@@ -259,6 +268,14 @@ export class ImageRankComponent  extends RatingScaleComponent implements OnInit 
 
   }
 
+  showMatrixMenuBmx(){
+    this.showMatrixMenu = !this.showMatrixMenu;
+      if(this.showMatrixMenu){
+        this.iconMenuShow = "remove_circle_outline"
+      }else{
+        this.iconMenuShow = "add_circle_outline"
+      }
+  }
   
 
   ASSIGNED_CRITERIA = []
