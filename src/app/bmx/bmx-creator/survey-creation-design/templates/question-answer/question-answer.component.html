@@ -4,14 +4,14 @@
     justify-content: end;
     top: -30px;
     right: 50px;border: 2px dashed #324395;padding-right: 10px;background: #ffffffd9;
-    position: absolute;height: 54px;align-items: center;padding-right: 38px;">
+    position: absolute;height: 54px;align-items: center">
 
     <!-- ⏺⏺⏺⏺⏺⏺⏺⏺⏺⏺⏺⏺⏺⏺⏺⏺⏺⏺⏺⏺RAGE INPUTS FOR COLUMN SETTINGS ⏺⏺⏺⏺⏺⏺⏺⏺⏺⏺⏺⏺⏺⏺⏺⏺⏺⏺⏺ -->
 
     <div *ngIf="isColumnResizerOn && bmxClientPageOverview" class="" style="    display: flex;
-    flex-direction: row;
-    justify-content: start;background: #ffffffd9;
-    gap: 0px;position: absolute;left: -713px;z-index: 1;border: 2px dashed #324395;">
+        flex-direction: row;
+        justify-content: start;background: #ffffffd9;
+        gap: 0px;position: absolute;left: -713px;z-index: 1;border: 2px dashed #324395;">
         <!-- NAME CANDIATES -->
         <div style="display: flex;flex-direction: column;align-items: center;">
             <p style="margin: 0 0 -12px;color: #324395;">candidates
@@ -86,53 +86,61 @@
     <!-- <mat-slider min="200" max="500" step="10" value="200" [(value)]="bmxItem.componentSettings[0].columnWidth"></mat-slider><p>{{bmxItem.componentSettings[0].columnWidth}}</p> -->
     <!-- ⏺⏺⏺⏺⏺⏺⏺⏺⏺⏺⏺⏺⏺⏺⏺⏺⏺⏺⏺⏺⏺⏺  END  ⏺⏺⏺⏺⏺⏺⏺⏺⏺⏺⏺⏺⏺⏺⏺⏺⏺⏺ -->
 
-    <div>
-        <button (click)="undo();editSingleTableCells = false" class="add-column" matTooltip="undo last change" matTooltipPosition="above"
-        mat-icon-button aria-label="ranking">
-        <mat-icon style="font-size: 26px;" class="full-icon">undo</mat-icon>
-    </button>
-<button (click)="selectedIndex = ''; editSingleTableCells = false" class="add-column" matTooltip="cancel" matTooltipPosition="above"
-        *ngIf="i === selectedIndex" mat-icon-button>
-        <mat-icon style="font-size: 25px;" class="full-icon">check_circle</mat-icon>
-    </button>
-<button (click)="deleteRows = !deleteRows;editSingleTableCells = false" [ngClass]="(!deleteRows)?'add-column':'add-column-active'"
-        matTooltip="delete rows" matTooltipPosition="above" mat-icon-button aria-label="ranking">
-        <mat-icon style="font-size: 26px;" class="full-icon">delete_outline</mat-icon>
-    </button>
-<button (click)="insertTextColumn(); editSingleTableCells = false" class="add-column" matTooltip="add text column" matTooltipPosition="above"
-        mat-icon-button aria-label="ranking">
-        <mat-icon style="font-size: 26px;" class="full-icon">view_list</mat-icon>
-    </button>
-<!-- <button (click)="insertRadioColumn()" class="add-column"  matTooltip="add radio column"
-    matTooltipPosition="above" mat-icon-button aria-label="ranking">
-    <mat-icon style="font-size: 26px;" class="full-icon">radio_button_checked</mat-icon>
-</button> -->
-<button (click)="insertAnswerColumn(); editSingleTableCells = false" class="add-column" matTooltip="add comments column"
-        matTooltipPosition="above" mat-icon-button aria-label="ranking">
-        <mat-icon style="font-size: 26px;" class="full-icon">wysiwyg</mat-icon>
-    </button>
-<button (click)="insertRow(); editSingleTableCells = false" class="add-column" matTooltip="insert row" matTooltipPosition="above"
-        mat-icon-button aria-label="ranking">
-        <mat-icon style="font-size: 26px;" class="full-icon">vertical_distribute</mat-icon>
-    </button>
-<button (click)="dragRows = !dragRows; editSingleTableCells = false" [ngClass]="(!dragRows)?'add-column':'add-column-active'"
-        matTooltip="drag rows" matTooltipPosition="above" mat-icon-button aria-label="ranking">
-        <mat-icon style="font-size: 26px;" class="full-icon">drag_indicator</mat-icon>
-    </button>
-<button (click)="isColumnResizerOn = !isColumnResizerOn;editSingleTableCells = false"
-        [ngClass]="(!isColumnResizerOn)?'add-column':'add-column-active'" matTooltip="columns width"
-        matTooltipPosition="above" mat-icon-button aria-label="ranking">
-        <mat-icon style="font-size: 26px;    z-index: 9;" class="full-icon">swap_horizontal_circle</mat-icon>
-    </button>
-<button (click)="editSingleTableCells = !editSingleTableCells"
-        [ngClass]="(!editSingleTableCells)?'add-column':'add-column-active'" matTooltip="edit table cells"
-        matTooltipPosition="above" mat-icon-button aria-label="ranking">
-        <mat-icon style="font-size: 26px;" class="full-icon">explicit</mat-icon>
-    </button>
-<button (click)="selectedIndex = i; editSingleTableCells = false" class="add-column" matTooltip="insert test names"
-        matTooltipPosition="above" *ngIf="i !== selectedIndex" mat-icon-button>
-        <mat-icon style="font-size: 25px;" class="full-icon">edit</mat-icon>
-    </button>
+    <div style="display: flex; flex-direction: row-reverse;">
+        <div *ngIf="showMatrixMenu">
+            <button (click)="undo();editSingleTableCells = false" class="add-column" matTooltip="undo last change" matTooltipPosition="above"
+            mat-icon-button aria-label="ranking">
+            <mat-icon style="font-size: 26px;" class="full-icon">undo</mat-icon>
+            </button>
+            <button (click)="selectedIndex = ''; editSingleTableCells = false" class="add-column" matTooltip="cancel" matTooltipPosition="above"
+                *ngIf="i === selectedIndex" mat-icon-button>
+                <mat-icon style="font-size: 25px;" class="full-icon">check_circle</mat-icon>
+            </button>
+            <button (click)="deleteRows = !deleteRows;editSingleTableCells = false" [ngClass]="(!deleteRows)?'add-column':'add-column-active'"
+                matTooltip="delete rows" matTooltipPosition="above" mat-icon-button aria-label="ranking">
+                <mat-icon style="font-size: 26px;" class="full-icon">delete_outline</mat-icon>
+            </button>
+            <button (click)="insertTextColumn(); editSingleTableCells = false" class="add-column" matTooltip="add text column" matTooltipPosition="above"
+                mat-icon-button aria-label="ranking">
+                <mat-icon style="font-size: 26px;" class="full-icon">view_list</mat-icon>
+            </button>
+            <!-- <button (click)="insertRadioColumn()" class="add-column"  matTooltip="add radio column"
+                matTooltipPosition="above" mat-icon-button aria-label="ranking">
+                <mat-icon style="font-size: 26px;" class="full-icon">radio_button_checked</mat-icon>
+            </button> -->
+        
+            <button (click)="insertRow(); editSingleTableCells = false" class="add-column" matTooltip="insert row" matTooltipPosition="above"
+                mat-icon-button aria-label="ranking">
+                <mat-icon style="font-size: 26px;" class="full-icon">vertical_distribute</mat-icon>
+            </button>
+            <button (click)="dragRows = !dragRows; editSingleTableCells = false" [ngClass]="(!dragRows)?'add-column':'add-column-active'"
+                matTooltip="drag rows" matTooltipPosition="above" mat-icon-button aria-label="ranking">
+                <mat-icon style="font-size: 26px;" class="full-icon">drag_indicator</mat-icon>
+            </button>
+        
+            <button (click)="editSingleTableCells = !editSingleTableCells"
+                [ngClass]="(!editSingleTableCells)?'add-column':'add-column-active'" matTooltip="edit table cells"
+                matTooltipPosition="above" mat-icon-button aria-label="ranking">
+                <mat-icon style="font-size: 26px;" class="full-icon">explicit</mat-icon>
+            </button>
+        </div>
+        <button (click)="insertAnswerColumn(); editSingleTableCells = false" class="add-column" matTooltip="add comments column"
+            matTooltipPosition="above" mat-icon-button aria-label="ranking">
+            <mat-icon style="font-size: 26px;" class="full-icon">wysiwyg</mat-icon>
+        </button>
+        <button (click)="isColumnResizerOn = !isColumnResizerOn;editSingleTableCells = false"
+            [ngClass]="(!isColumnResizerOn)?'add-column':'add-column-active'" matTooltip="columns width"
+            matTooltipPosition="above" mat-icon-button aria-label="ranking">
+            <mat-icon style="font-size: 26px;    z-index: 9;" class="full-icon">swap_horizontal_circle</mat-icon>
+        </button>
+        <button (click)="selectedIndex = i; editSingleTableCells = false" class="add-column" matTooltip="insert test names"
+                matTooltipPosition="above" *ngIf="i !== selectedIndex" mat-icon-button>
+                <mat-icon style="font-size: 25px;" class="full-icon">edit</mat-icon>
+        </button>
+        <button (click)="showMatrixMenuBmx()" mat-icon-button matTooltip="open menu"
+                matTooltipPosition="right">
+                <mat-icon class="full-icon">{{iconMenuShow}}</mat-icon>
+        </button>
     </div>
 </div>
 <!-- ➗➗➗➗➗➗➗➗➗➗➗➗➗➗➗➗➗➗➗  END  ➗➗➗➗➗➗➗➗➗➗➗➗➗➗➗➗➗ -->

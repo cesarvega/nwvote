@@ -11,14 +11,6 @@ import { BmxComponent } from './bmx/bmx-survey/bmx.component';
 import { SurveyMatrixComponent } from './bmx/bmx-creator/survey-matrix/survey-matrix.component';
 // import { BmxCreatorComponent } from './bmx-creator/bmx-creator.component';
 const routes: Routes = [
-  /**
-   * 1. NameVote
-   * 2. BSR-Mobile
-   * 3. Scheduler
-   * 4. BSR
-   * 5. NW3
-   */
-
   // {// NAME VOTE LOGIN https://bipresents.com/namevote/login?project=Test_WELL_PLATFORM
   //   path: 'login',
   //   component: LoginComponent
@@ -27,22 +19,18 @@ const routes: Routes = [
   //   path: 'vote',
   //   component: NwVoteComponent
   // },
-
   // {// BSR-Mobile https://mynamepage.com/te2687
   //   path: ':id',
   //   component: BsrMobileComponent
   // },
-
   // {// SCHEDULER
-  //   path: 'scheduler',
+  //   path: ':id',
   //   component: SchedulerComponent
   // },
-
   // {//BSR  color of the bar #002f5b  https://www.bipresents.com/pa3930
   //   path: ':id',
   //   component: BsrComponent
   // },
-
   {//BI BRAND MATRIX CREATOR
   // path: ':id/:biUsername',
   path: 'bmx/:id',
@@ -63,7 +51,6 @@ const routes: Routes = [
   // },
   {
     path: '',
-    // redirectTo: 'scheduler',
     // redirectTo: '/',
     //redirectTo: 'bmx/99CB72BF-D163-46A6-8A0D-E1531EC7FEDC', // creative
     redirectTo: 'bmx/E9096C9-084F-4D10-81C2-C72B70E5D782', // admin
@@ -105,3 +92,4 @@ export class AppRoutingModule { }
 // http://bmcreator2.brandinstitute.com/survey/SpecialRequestLogos/guest
 
 // http://bmcreator2.brandinstitute.com/survey/Tinder/guest
+

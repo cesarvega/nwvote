@@ -30,7 +30,8 @@ export class ImageRankComponent  extends RatingScaleComponent implements OnInit 
   allowScrolling = true
 
   VIDEO_PATH: any[] = [];
-
+  showMatrixMenu: boolean = false;
+  iconMenuShow: string = "add_circle_outline"
   PATH1: any[] = [
     'assets/img/bmx/tutorial/image-drag.JPG',
     
@@ -267,6 +268,14 @@ export class ImageRankComponent  extends RatingScaleComponent implements OnInit 
 
   }
 
+  showMatrixMenuBmx(){
+    this.showMatrixMenu = !this.showMatrixMenu;
+      if(this.showMatrixMenu){
+        this.iconMenuShow = "remove_circle_outline"
+      }else{
+        this.iconMenuShow = "add_circle_outline"
+      }
+  }
   
 
   ASSIGNED_CRITERIA = []

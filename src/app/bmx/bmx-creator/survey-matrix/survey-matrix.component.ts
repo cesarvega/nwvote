@@ -1273,7 +1273,7 @@ export class SurveyMatrixComponent extends SurveyCreationDesignComponent impleme
       // .saveOrUpdateAnswers(this.bmxPagesClient, this.projectId, this.username, (pageNumber ? pageNumber : pageStatus))
       .saveOrUpdateAnswers(this.bmxPagesClient, this.projectId, this.username, pageStatus)
       .subscribe((res: any) => {
-        this.loadingLottie = false;
+        this.loadingLottie = true;
         let newResp = JSON.parse(res.d)
         console.log('%cANSWERS!', 'color:#007bff', res);
         let page = res.d.replace(this.searchGraveAccentRegExp, "'");

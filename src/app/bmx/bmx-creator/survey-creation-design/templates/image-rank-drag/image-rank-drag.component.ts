@@ -44,7 +44,8 @@ export class ImageRankDragComponent extends RatingScaleComponent implements OnIn
   resourceData: any;
   logoWidth = 200
   uploadImagesBox = false;
-  
+  showMatrixMenu: boolean = false;
+  iconMenuShow: string = "add_circle_outline"
   numRatingScale: number = 0;
 
   draggableBag
@@ -236,6 +237,14 @@ export class ImageRankDragComponent extends RatingScaleComponent implements OnIn
         }
       })
       this.autoSave.emit()
+  }
+  showMatrixMenuBmx(){
+    this.showMatrixMenu = !this.showMatrixMenu;
+      if(this.showMatrixMenu){
+        this.iconMenuShow = "remove_circle_outline"
+      }else{
+        this.iconMenuShow = "add_circle_outline"
+      }
   }
 }
 
