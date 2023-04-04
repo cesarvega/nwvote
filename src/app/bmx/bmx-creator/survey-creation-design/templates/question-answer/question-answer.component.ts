@@ -16,6 +16,7 @@ export class QuestionAnswerComponent extends RatingScaleComponent implements OnI
   @Input() i;
   @Input() bmxClientPageDesignMode;
   @Input() bmxClientPageOverview;
+  @Output() autoSave = new EventEmitter();
   @ViewChild('autosize') autosize: CdkTextareaAutosize;
   allComplete: boolean = false;
   constructor(dragulaService: DragulaService, _snackBar: MatSnackBar, _bmxService: BmxService,public deviceService: DeviceDetectorService) {
@@ -124,5 +125,9 @@ export class QuestionAnswerComponent extends RatingScaleComponent implements OnI
       }
     });
     // this.commentColumnCounter++
+  }
+
+  autosaveAnswer(event: any){
+    this.autoSave.emit();
   }
 }

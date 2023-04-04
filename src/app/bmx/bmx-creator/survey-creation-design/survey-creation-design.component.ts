@@ -980,7 +980,6 @@ export class SurveyCreationDesignComponent implements OnInit {
                 .subscribe((res:any) => {                    
                     let logoUrl = ""
                     this.bmxPages = JSON.parse(res.d)
-                    console.log(this.bmxPages)                    
                     logoUrl = this.bmxPages[0].page[0].componentSettings[0].companyLogoURL;
 
                     for (let index = 0; index < this.bmxPages.length; index++) {
