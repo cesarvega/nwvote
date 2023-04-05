@@ -492,9 +492,13 @@ export class RatingScaleComponent implements OnInit {
               if ((rows[i].split("\t").length > 0)) {
                 const columnName = this.columnsNames[e]
                 let columnValue
-                console.log(this.bmxItem.componentText[i])
-                if(this.bmxItem.componentText.length>i &&   this.bmxItem.componentText[0].nameCandidates == "LOGO" ) {
-                   columnValue = this.bmxItem.componentText[i].nameCandidates
+                console.log(columnName)
+                if(this.bmxItem.componentText.length>i && columnName =='nameCandidates') {
+                  if(this.bmxItem.componentText[0].nameCandidates == "LOGO"){
+                    columnValue = this.bmxItem.componentText[i].nameCandidates
+                  }else{
+                    columnValue = rows[i].split("\t")[e].trim()
+                  }
                 }else{
                    columnValue = rows[i].split("\t")[e].trim()
                 }
@@ -904,14 +908,12 @@ export class RatingScaleComponent implements OnInit {
 
   showMatrixMenuBmx(){
     this.showMatrixMenu = !this.showMatrixMenu;
-    if(this.showMatrixMenu ){
-      this.iconMenuShow = "remove_circle_outline"
-      this.textToolTip = "close menu";      
-    }else{
-      this.iconMenuShow = "add_circle_outline";
-      this.textToolTip = "open menu";
-    }
+        if(this.showMatrixMenu ){
+            this.iconMenuShow = "remove_circle_outline"
+            this.textToolTip = "close menu";
+        }else{
+            this.iconMenuShow = "add_circle_outline"
+            this.textToolTip = 'open menu'
+        }
   }
-  
-
 }

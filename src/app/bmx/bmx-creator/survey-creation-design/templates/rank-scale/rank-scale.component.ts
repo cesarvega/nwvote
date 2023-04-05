@@ -93,7 +93,6 @@ export class RankScaleComponent extends RatingScaleComponent implements OnInit {
   }
 
   checkDragEvetn(event: CdkDragDrop<string[]>) {
-    console.log(event)
     if (this.bmxItem.componentSettings[0].rankType == 'dragAndDrop') {
       moveItemInArray(this.bmxItem.componentText, event.previousIndex, event.currentIndex);
       this.bmxItem.componentText.forEach((row, rowIndex) => {

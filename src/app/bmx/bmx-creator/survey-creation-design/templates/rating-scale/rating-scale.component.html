@@ -6,7 +6,7 @@
     justify-content: end;
     top: -30px;
     right: 50px;border: 2px dashed #324395;padding-right: 10px;background: #ffffffd9;
-    position: absolute;height: 54px;align-items: center">
+    position: absolute;height: 54px;align-items: center;padding-right: 38px;">
 
     <!-- ⏺⏺⏺⏺⏺⏺⏺⏺⏺⏺⏺⏺⏺⏺⏺⏺⏺⏺⏺⏺RAGE INPUTS FOR COLUMN SETTINGS ⏺⏺⏺⏺⏺⏺⏺⏺⏺⏺⏺⏺⏺⏺⏺⏺⏺⏺⏺ -->
 
@@ -192,13 +192,13 @@
             <div style="font-size: 16px;margin-top: 10px;color: #48535e;text-align: center;">MIN:
                 {{bmxItem.componentSettings[0].minRule}}</div>
             <input type="range" min="0" [max]="rowsCount" [(ngModel)]="bmxItem.componentSettings[0].minRule"
-                style="width:120px; padding: 0px 10px;">
+                style="width:120px; padding: 0px 10px;" [value]="bmxItem.componentSettings[0].minRule">
         </div>
         <div style="display: flex;flex-direction: column;justify-content:center;gap: 10px;">
             <div style="font-size: 16px;margin-top: 10px;color: #48535e;text-align: center;">MAX:
                 {{bmxItem.componentSettings[0].maxRule}}</div>
             <input type="range" min="0" [max]="rowsCount" [(ngModel)]="bmxItem.componentSettings[0].maxRule"
-                style="width:120px; padding: 0px 10px;">
+                style="width:120px; padding: 0px 10px;" [value]="bmxItem.componentSettings[0].maxRule">
         </div>
     </div>
 
@@ -234,11 +234,14 @@
         <div>
             <div style="font-size: 16px;margin-top: 10px;color: #48535e;">SELECT RATING RANGE</div>
             <br>
+
             <div style="text-align: center;display: flex;flex-direction: row;justify-content: space-around;">
                 {{numRatingScale}} <input [(ngModel)]="rankingScaleValue" type="range" id="volume" name="volume" min="0" max="10">
                 10 <br>
             </div>
             <label for="volume">{{rankingScaleValue}}</label>
+
+
         </div>
 
         <div>

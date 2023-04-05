@@ -750,8 +750,7 @@ export class SurveyCreationDesignComponent implements OnInit {
                     component.componentType == 'ranking-scale' ||
                     component.componentType == 'image-rate-scale' ||
                     component.componentType == 'narrow-down' ||
-                    component.componentType == 'question-answer'||
-                    component.componentType ==  'image-rank-drag'
+                    component.componentType == 'question-answer'
                 ) {
                     if (
                         component.componentSettings[0].minRule == 0 ||
@@ -906,8 +905,7 @@ export class SurveyCreationDesignComponent implements OnInit {
                     category.componentType == 'ranking-scale' ||
                     category.componentType == 'image-rate-scale' ||
                     category.componentType == 'narrow-down' ||
-                    category.componentType == 'question-answer'||
-                    category.componentType ==  'image-rank-drag'
+                    category.componentType == 'question-answer'
                 ) {
                     if (category.componentSettings[0].CRITERIA) {
                         category.componentText.forEach((row: any, index: number) => {
@@ -926,8 +924,7 @@ export class SurveyCreationDesignComponent implements OnInit {
                             category.componentType == 'ranking-scale' ||
                             category.componentType == 'image-rate-scale' ||
                             category.componentType == 'narrow-down' ||
-                            category.componentType == 'question-answer'||
-                            category.componentType ==  'image-rank-drag'
+                            category.componentType == 'question-answer'
                         ) {
                             category.componentText.forEach((row: any, index: number) => {
                                 if (index > 0) {
@@ -966,8 +963,7 @@ export class SurveyCreationDesignComponent implements OnInit {
                         component.componentType == 'ranking-scale' ||
                         component.componentType == 'image-rate-scale' ||
                         component.componentType == 'narrow-down' ||
-                        component.componentType == 'question-answer'||
-                        component.componentType ==  'image-rank-drag'
+                        component.componentType == 'question-answer'
                     ) {
                         this.calculateTableDefinitions(component);
                     }
