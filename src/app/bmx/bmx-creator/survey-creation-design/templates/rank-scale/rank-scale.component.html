@@ -369,7 +369,7 @@
                             </p>
                         </div>
                         <div *ngIf="selectedColumn === e && bmxClientPageOverview && !editSingleTableCells" style="display: flex;flex-direction: row;justify-content: space-around;
-                        position: absolute;top: 35px;background: white;border: #324395 dashed 1px;"
+                            position: absolute;top: 35px;background: white;border: #324395 dashed 1px;"
                             (mouseleave)="selectedColumn = ''">
                             <span class="header-delete-icon" matTooltip="double click to delete column"
                                 matTooltipPosition="above" (dblclick)="deleteColumn(columnName)">x</span>
@@ -435,11 +435,10 @@
                             <p *ngIf="y !== 0  && !editSingleTableCells && (columnName.includes('RadioColumn') != true)
                                     &&  columnName.includes('Comments') != true &&  columnName.includes('RATE') != true"
                                 [style.font-size]="bmxItem.componentSettings[0].fontSize +'px'"
-                                [style.width]="(columnName == 'rationale')?bmxItem.componentSettings[0].rationalewidth + 'px':bmxItem.componentSettings[0].columnWidth +'px'"
-                                style="text-align: center;margin: 0 0 0px;padding: 4px;"
+                                [style.width]="(columnName == 'rationale')?bmxItem.componentSettings[0].rationalewidth + 'px':(columnName == 'nameCandidates')?100 +'%':bmxItem.componentSettings[0].rationalewidth + 'px'"
+                                style="text-align: center;margin: 0 0 0px;padding: 4px"
                                 [innerHTML]="testName[columnName] | safe: 'html'">{{testName[columnName]}}
                             </p>
-
                         </div>
                     </div>
                     <!-- 🟡🟡🟡🟡🟡🟡🟡🟡🟡🟡🟡🟡🟡🟡 END TABLE CELLS 🟡🟡🟡🟡🟡🟡🟡🟡🟡🟡🟡🟡🟡🟡🟡🟡 -->

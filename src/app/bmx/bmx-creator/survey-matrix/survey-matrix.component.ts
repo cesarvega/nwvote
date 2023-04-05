@@ -176,7 +176,7 @@ export class SurveyMatrixComponent extends SurveyCreationDesignComponent impleme
         this.projectId = data.ProjectName
 
         this.qrCode.append(this.canvas.nativeElement);
-        this.bmxPagesClient = this.SAMPLE_BMX_CLIENT;
+        this.bmxPagesClient = this.SAMPLE_BMX_CLIENT;        
  
         this._BmxService
           .getBrandMatrixByProjectAndUserAnswers(this.projectId, this.username)
@@ -361,7 +361,7 @@ export class SurveyMatrixComponent extends SurveyCreationDesignComponent impleme
       this.myAngularxQrCode + this.projectId + '/' + this.username;
   
       this.qrCode.append(this.canvas.nativeElement);
-      this.bmxPagesClient = this.SAMPLE_BMX_CLIENT;
+      this.bmxPagesClient = this.SAMPLE_BMX_CLIENT;      
       this._BmxService
         .getBrandMatrixByProjectAndUserAnswers(this.projectId, this.username)
         .subscribe((brandMatrix: any) => {         
@@ -446,6 +446,7 @@ export class SurveyMatrixComponent extends SurveyCreationDesignComponent impleme
                 });
                 //  FILL THE TEMPLATE WTIHT USER ANSWERS END
                 this.bmxPagesClient = template;
+                console.log(this.bmxPagesClient)
                 this.typeTemplate = this.bmxPagesClient[1].page[this.bmxPagesClient[1].page.length-1].componentType;
                 if(this.typeTemplate == "tinder"){
                   this.bmxPagesClient = answers;                

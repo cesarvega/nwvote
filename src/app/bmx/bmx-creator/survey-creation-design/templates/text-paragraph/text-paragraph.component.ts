@@ -1,6 +1,5 @@
 import { Component,AfterViewInit, ElementRef, EventEmitter, Inject, Input, OnInit, Output, ViewChild, ViewEncapsulation } from '@angular/core';
 import { BmxService } from '../../../bmx.service';
-import { ShowVideoComponent } from '../show-video/show-video.component';
 
 @Component({
   selector: 'app-text-paragraph',
