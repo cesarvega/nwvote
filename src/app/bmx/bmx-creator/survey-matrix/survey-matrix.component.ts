@@ -85,7 +85,7 @@ export class SurveyMatrixComponent extends SurveyCreationDesignComponent impleme
       this.username = params['username'];
       localStorage.setItem('projectId', this.projectId);
     });
-    this.epicFunction();    
+    this.epicFunction();
   }
 
   epicFunction() {
@@ -443,10 +443,10 @@ export class SurveyMatrixComponent extends SurveyCreationDesignComponent impleme
                       }
                     }
                   });
-                });  
+                });
                 //  FILL THE TEMPLATE WTIHT USER ANSWERS END
                 this.bmxPagesClient = template;
-                this.typeTemplate = this.bmxPagesClient[1].page[2]?.componentType;
+                this.typeTemplate = this.bmxPagesClient[1].page[this.bmxPagesClient[1].page.length-1].componentType;
                 if(this.typeTemplate == "tinder"){
                   this.bmxPagesClient = answers;                
                   this.tinderInstruction = this.bmxPagesClient[1].page[1].componentText
@@ -882,11 +882,13 @@ export class SurveyMatrixComponent extends SurveyCreationDesignComponent impleme
                       templateRow[key] === answerRow[key]
                     ) {
                       templateRow.RATE = answerRow.RATE;
-                      templateRow.STARS.forEach((starRow) => {
-                        if (starRow.id <= answerRow.RATE) {
-                          starRow.styleClass = 'active-rating-star';
-                        }
-                      });
+                      if(templateRow.hasOwnProperty("STARS")){
+                        templateRow.STARS.forEach((starRow) => {
+                          if (starRow.id <= answerRow.RATE) {
+                            starRow.styleClass = 'active-rating-star';
+                          }
+                        });
+                      }                      
                       for (const key in templateRow) {
                         if (key.includes('Answer')) {
                           if (index > 0) {
@@ -957,11 +959,11 @@ export class SurveyMatrixComponent extends SurveyCreationDesignComponent impleme
           });
         }
         //🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥
-        else if (answerComponent.componentType == 'tinder') {
+        else if (answerComponent.componentType == 'tinder') {          
           answerComponent.componentText.forEach((answerRow, index) => {
             if (!templateComponent.componentSettings[0].CRITERIA) {
               answerComponent.componentSettings[0].ranking = templateComponent.componentSettings[0].ranking
-              // no criteria
+                            // no criteria
               // if (templateComponent.componentType == 'ranking-scale') {
               if (
                 templateComponent.componentType == answerComponent.componentType
@@ -1264,8 +1266,7 @@ export class SurveyMatrixComponent extends SurveyCreationDesignComponent impleme
     this.saveUserAnswers();
   }
 
-  saveUserAnswers(pageNumber?) {
-        
+  saveUserAnswers(pageNumber?) {        
     let pageStatus = (this.totalOfpages == this.currentPage + 1)?999: this.currentPage + 1;
     this.continueButtonToComple = (this.totalOfpages == this.currentPage + 1)?'Complete': 'Continue';
     
@@ -1273,7 +1274,7 @@ export class SurveyMatrixComponent extends SurveyCreationDesignComponent impleme
       // .saveOrUpdateAnswers(this.bmxPagesClient, this.projectId, this.username, (pageNumber ? pageNumber : pageStatus))
       .saveOrUpdateAnswers(this.bmxPagesClient, this.projectId, this.username, pageStatus)
       .subscribe((res: any) => {
-        this.loadingLottie = false;
+        this.loadingLottie = true;
         let newResp = JSON.parse(res.d)
         console.log('%cANSWERS!', 'color:#007bff', res);
         let page = res.d.replace(this.searchGraveAccentRegExp, "'");

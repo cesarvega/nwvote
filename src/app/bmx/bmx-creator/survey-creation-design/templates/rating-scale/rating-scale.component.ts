@@ -71,13 +71,13 @@ export class RatingScaleComponent implements OnInit {
   randomizeTestNames = false
   displaySound = false
   showMatrixMenu: boolean = false;
-  iconMenuShow: string = "add_circle_outline"
-  
-  scroll: any;
+  iconMenuShow: string = "add_circle_outline";
+
+  scroll: any;s
 
   @Output() launchPathModal = new EventEmitter();
 
-  openElements: any[] = [];
+  openElements: any[]=[];
 
    //------modal-----------//   
  
@@ -99,7 +99,6 @@ export class RatingScaleComponent implements OnInit {
    //----------end modal------//
   
   constructor(private dragulaService: DragulaService, public _snackBar: MatSnackBar, public _bmxService: BmxService,public deviceService: DeviceDetectorService) {
-
     // DRAG AND DROP
     let drake = dragula();
     // this.dragulaService.add(this.BAG, drake);
@@ -139,12 +138,10 @@ export class RatingScaleComponent implements OnInit {
     this.numRatingScale = this.bmxItem.componentText[0].STARS.length
     this.rankingScaleValue = this.numRatingScale;
     let values = Object.keys(this.bmxItem.componentText[0])
-
     this.rowsCount =  this.bmxItem.componentText.length - 1
     this.bmxItem.componentSettings[0].minRule = this.bmxItem.componentSettings[0].minRule == 0?this.rowsCount:this.bmxItem.componentSettings[0].minRule;
     this.bmxItem.componentSettings[0].maxRule = this.bmxItem.componentSettings[0].maxRule == 0?this.rowsCount:this.bmxItem.componentSettings[0].maxRule;
     
-
     values.forEach(value => {
       if (typeof value == "string" && value != "STARS" && value != "CRITERIA") {
         this.columnsNames.push(value)
@@ -311,7 +308,6 @@ export class RatingScaleComponent implements OnInit {
     }else {      
       if (this.maxRuleCounter < this.bmxItem.componentSettings[0].maxRule && this.bmxItem.componentText[testNameId].RATE == 0 || this.bmxItem.componentSettings[0].maxRule == 0) {
         
-
         if (this.bmxItem.componentSettings[0].maxRule > 0) { this.maxRuleCounter++ }
         this.bmxItem.componentText[testNameId].RATE = rate
         this.bmxItem.componentSettings[0].ratedCounter++         
@@ -324,7 +320,6 @@ export class RatingScaleComponent implements OnInit {
         this.bmxItem.componentText[testNameId].RATE = rate
         //autosave
         this.autoSave.emit();
-
       } else {
         if (this.bmxItem.componentType != 'narrow-down' && this.bmxItem.componentSettings[0].maxRule > 0) {
           this._snackBar.open('you can only rate up to ' + this.bmxItem.componentSettings[0].maxRule + ' Test Names', 'OK', {
@@ -497,9 +492,13 @@ export class RatingScaleComponent implements OnInit {
               if ((rows[i].split("\t").length > 0)) {
                 const columnName = this.columnsNames[e]
                 let columnValue
-                console.log(this.bmxItem.componentText[i])
-                if(this.bmxItem.componentText.length>i &&   this.bmxItem.componentText[0].nameCandidates == "LOGO" ) {
-                   columnValue = this.bmxItem.componentText[i].nameCandidates
+                console.log(columnName)
+                if(this.bmxItem.componentText.length>i && columnName =='nameCandidates') {
+                  if(this.bmxItem.componentText[0].nameCandidates == "LOGO"){
+                    columnValue = this.bmxItem.componentText[i].nameCandidates
+                  }else{
+                    columnValue = rows[i].split("\t")[e].trim()
+                  }
                 }else{
                    columnValue = rows[i].split("\t")[e].trim()
                 }
@@ -906,12 +905,15 @@ export class RatingScaleComponent implements OnInit {
     { name: 'Fit to Corporate Mission' },
     { name: 'Overall Likeability' },
   ]
+
   showMatrixMenuBmx(){
     this.showMatrixMenu = !this.showMatrixMenu;
-      if(this.showMatrixMenu){
-        this.iconMenuShow = "remove_circle_outline"
-      }else{
-        this.iconMenuShow = "add_circle_outline"
-      }
+        if(this.showMatrixMenu ){
+            this.iconMenuShow = "remove_circle_outline"
+        }else{
+            this.iconMenuShow = "add_circle_outline"
+        }
   }
+  
+
 }
