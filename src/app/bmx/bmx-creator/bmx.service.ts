@@ -76,10 +76,10 @@ export class BmxService {
 
 
     // CG
-    awsBaseUrl = "https://0hq9qn97gk.execute-api.us-east-1.amazonaws.com/prod-bitools01/tmx" ; 
+    awsBaseUrl = "https://0hq9qn97gk.execute-api.us-east-1.amazonaws.com/prod-bitools01/tmx" ;
     awsToken = "38230499-A056-4498-80CF-D63D948AA57F";
     awsResourcesUrl = "https://bitools.s3.amazonaws.com/nw-resources/"
-  
+
 
 
 
@@ -113,7 +113,7 @@ export class BmxService {
       , method : 'GetGeneralLists'
       , payload : ''
     }
-    
+
     return this.http.post(this.awsBaseUrl , JSON.stringify(data), httpOptions).pipe(map(
         (response : string ) => {
           const data = {
@@ -570,7 +570,7 @@ export class BmxService {
       token: '38230499-A056-4498-80CF-D63D948AA57F'
       , app : 'BrandMatrix'
       , method : 'BrandMatrixSave'
-      , payload : payloadString 
+      , payload : payloadString
     }
 
     return this.http.post(this.awsBaseUrl , JSON.stringify(data), httpOptions).pipe(map(
@@ -605,7 +605,7 @@ export class BmxService {
       token: '38230499-A056-4498-80CF-D63D948AA57F'
       , app : 'BrandMatrix'
       , method : 'BrandMatrixSaveUserAnswers'
-      , payload : payloadString 
+      , payload : payloadString
     }
 
     return this.http.post(this.awsBaseUrl , JSON.stringify(data), httpOptions).pipe(map(
@@ -638,7 +638,7 @@ export class BmxService {
       token: '38230499-A056-4498-80CF-D63D948AA57F'
       , app : 'BrandMatrix'
       , method : 'BrandMatrixTemplateGet'
-      , payload : payloadString 
+      , payload : payloadString
     }
 
     return this.http.post(this.awsBaseUrl , JSON.stringify(data), httpOptions).pipe(map(
@@ -669,7 +669,7 @@ export class BmxService {
       token: '38230499-A056-4498-80CF-D63D948AA57F'
       , app : 'BrandMatrix'
       , method : 'BrandMatrixTemplateDelete'
-      , payload : payloadString 
+      , payload : payloadString
     }
 
     return this.http.post(this.awsBaseUrl , JSON.stringify(data), httpOptions).pipe(map(
@@ -700,7 +700,7 @@ export class BmxService {
       token: '38230499-A056-4498-80CF-D63D948AA57F'
       , app : 'BrandMatrix'
       , method : 'BrandMatrixTemplateSave'
-      , payload : payloadString 
+      , payload : payloadString
     }
 
     return this.http.post(this.awsBaseUrl , JSON.stringify(data), httpOptions).pipe(map(
