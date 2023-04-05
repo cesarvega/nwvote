@@ -72,7 +72,7 @@ export class RatingScaleComponent implements OnInit {
   displaySound = false
   showMatrixMenu: boolean = false;
   iconMenuShow: string = "add_circle_outline";
-
+  textToolTip: string = "open menu";
   scroll: any;s
 
   @Output() launchPathModal = new EventEmitter();
@@ -910,10 +910,10 @@ export class RatingScaleComponent implements OnInit {
     this.showMatrixMenu = !this.showMatrixMenu;
         if(this.showMatrixMenu ){
             this.iconMenuShow = "remove_circle_outline"
+            this.textToolTip = "close menu";
         }else{
             this.iconMenuShow = "add_circle_outline"
+            this.textToolTip = 'open menu'
         }
   }
-  
-
 }

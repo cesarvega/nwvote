@@ -59,7 +59,7 @@
                 <!-- BMX PARAGRAPH EDITOR 📑📑📑📑📑📑📑📑📑📑📑📑📑📑📑📑📑📑📑📑📑📑📑📑📑📑📑📑📑📑 -->
                 <div *ngIf="bmxItem.componentType === 'text-editor'" class="paragraph">
                     
-                    <app-text-paragraph [bmxItem]="bmxItem" [i]="i" [bmxClientPageDesignMode]="bmxClientPageDesignMode" [currentPage]="currentPage" [template]="typeTemplate "
+                    <app-text-paragraph [bmxItem]="bmxItem" [i]="i" [bmxClientPageDesignMode]="bmxClientPageDesignMode" [currentPage]="currentPage" [template]="typeTemplate"
                         [bmxClientPageOverview]="bmxClientPageOverview" style="margin-top: 25px"></app-text-paragraph>
                 </div>
                 <!-- 📑📑📑📑📑📑📑📑📑📑📑📑📑📑📑📑📑📑📑📑📑📑📑📑📑📑📑📑📑📑 END BMX PARAGRAPH EDITOR -->
@@ -141,7 +141,7 @@
 
                 <!-- NARROW DOWN SCALE 😭😭😭😭😭😭😭😭😭😭😭😭😭😭😭😭😭😭😭😭😭😭😭😭😭😭😭😭😭😭😭😭😭😭😭😭😭-->
                 <div *ngIf="bmxItem.componentType === 'narrow-down'" class="paragraph">
-                    <app-narrow-down [bmxItem]="bmxItem" [i]="i" [bmxClientPageDesignMode]="bmxClientPageDesignMode"
+                    <app-narrow-down [bmxItem]="bmxItem" [i]="i" [bmxClientPageDesignMode]="bmxClientPageDesignMode" (autoSave)="autoSave()"
                         [bmxClientPageOverview]="bmxClientPageOverview"></app-narrow-down>
                 </div>
                 <!-- END NARROW DOWN SCALE 😭😭😭😭😭😭😭😭😭😭😭😭😭😭😭😭😭😭😭😭😭😭😭😭😭😭😭😭😭😭😭😭😭😭😭😭😭 -->
@@ -172,14 +172,12 @@
                 </div>
                 <!-- END IMAGE SCALE 👀👀👀👀👀👀👀👀👀👀👀👀👀👀👀👀👀👀👀👀👀👀👀👀👀👀👀👀👀👀👀👀👀👀👀👀👀👀 -->
 
-
                 <!-- QUESTION AND ANSWER  ✒️✒️✒️✒️✒️✒️✒️✒️✒️✒️✒️✒️✒️✒️✒️✒️✒️✒️✒️✒️✒️✒️✒️✒️✒️✒️✒️✒️✒️✒️✒️✒️✒️✒️✒️✒️✒️✒️-->
                 <div *ngIf="bmxItem.componentType === 'question-answer'" class="paragraph">
-                    <app-question-answer [bmxItem]="bmxItem" [i]="i" [bmxClientPageDesignMode]="bmxClientPageDesignMode"
+                    <app-question-answer [bmxItem]="bmxItem" [i]="i" [bmxClientPageDesignMode]="bmxClientPageDesignMode" (autoSave)="autoSave()"
                         [bmxClientPageOverview]="bmxClientPageOverview"></app-question-answer>
                 </div>
                 <!-- END QUESTION AND ANSWER  ✒️✒️✒️✒️✒️✒️✒️✒️✒️✒️✒️✒️✒️✒️✒️✒️✒️✒️✒️✒️✒️✒️✒️✒️✒️✒️✒️✒️✒️✒️✒️✒️✒️✒️✒️✒️✒️ -->
-
 
                 <!-- TINDER  🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥-->
                 <div *ngIf="bmxItem.componentType === 'tinder'" class="paragraph">
@@ -194,10 +192,11 @@
                                              <mat-checkbox #modalChecked (click)="saveSelection()" class="example-margin container-checkbox" >Don't show again</mat-checkbox>
                     
                         <div class="modal-content" style="height: auto">
-                            <mat-tab-group style="background-color: white" >
+                            <mat-tab-group *ngIf="!isDesktopDevice; else modalNormal" style="background-color: white" >
+                                <mat-tab label="Instrucciones"> <div [innerHTML]="tinderInstruction | safe: 'html'" style=" padding: 15px"></div></mat-tab>
                                 <mat-tab label="Tutorial"> <img *ngFor="let path of VIDEO_PATH" [src]="path" alt="tutorial" style="width: 100%"> </mat-tab>
-                                <mat-tab label="Instructions"> <div [innerHTML]="tinderInstruction | safe: 'html'" style=" padding: 15px"></div></mat-tab>
-                            </mat-tab-group>                             
+                            </mat-tab-group>
+                            <ng-template #modalNormal><img *ngFor="let path of VIDEO_PATH" [src]="path" alt="tutorial"></ng-template>
                         </div>
                         <button class="btn btn-raised close-modal" (click)="showModalVideo=false">close</button>
                     </div>
@@ -274,7 +273,7 @@
     z-index: 999;    
     width: 465px;animation: 
     fadeIn 3s ease 4s forwards;" slot="end" autoplay loop
-    [src]="'/assets/img/cubo.json'">
+    [src]="'assets/img/cubo.json'">
 </lottie-player>
 <lottie-player class="lottie-player" *ngIf="loadingLottie" style="
     position: absolute;
@@ -284,5 +283,5 @@
     z-index: 999;    
     width: 70px;animation: 
     fadeIn 3s ease 4s forwards;" slot="end" autoplay loop
-    [src]="'/assets/img/esfera.json'">
+    [src]="'assets/img/esfera.json'">
 </lottie-player>

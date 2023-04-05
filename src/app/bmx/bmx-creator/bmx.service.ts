@@ -27,8 +27,8 @@ export class BmxService {
     this.specialData$.next(projectData);
   }
 
-
-  webBaseUrl = 'https://tools.brandinstitute.com//wsBrandMatrix/wsBrandMatrix.asmx';
+  //webBaseUrl = 'https://tools.brandinstitute.com//wsBrandMatrix/wsBrandMatrix.asmx';
+  webBaseUrl: string = "";
   GetProjectList = '/GetProjectList';
   GetGeneralLists = '/GetGeneralLists';
 
@@ -45,7 +45,7 @@ export class BmxService {
   brandMatrixGetUserAnswers = '/BrandMatrixGetUserAnswers'; // GETS THE BRANDMATRIX SINGLE USER ANSWERS
   brandMatrixGet = '/BrandMatrixGet'; // GETS THE BRANDMATRIX BY PROJECT
   brandMatrixUserGet = '/BrandMatrixUserGet';
-  brandMatrixLoadFromNewId = '/BrandMatrixLoadFromNewId';// load the client info from a gui number in the url 
+  brandMatrixLoadFromNewId = '/BrandMatrixLoadFromNewId';// load the client info from a gui number in the url
 
   brandMatrixTemplateSave = '/BrandMatrixTemplateSave'
   brandMatrixTemplateGet = '/BrandMatrixTemplateGet'
@@ -61,10 +61,21 @@ export class BmxService {
 
   getEmail = '/BrandMatrixEmailTemplateGet';
   SaveEmail = '/BrandMatrixEmailTemplateSave';
-  
+
   SaveProjectInfor = '/BrandMatrixUpdDirectorList'
   SendEmail = '/BrandMatrixSendEmail'
-  constructor(private http: HttpClient) {}
+  actualSite = window.location.href;
+  baseUrl: any;
+  restUrl: any;
+
+  constructor(private http: HttpClient) {
+
+    if (this.actualSite.includes('https://d3lyn5npnikbck.cloudfront.net')) {
+      this.webBaseUrl = "https://bitools.s3.amazonaws.com/nw-resources/"
+    } else {
+      this.webBaseUrl = 'https://tools.brandinstitute.com//wsBrandMatrix/wsBrandMatrix.asmx';
+    }
+  }
 
   setLogoTemporaryWidth(width: string){
     this.logoTemporaryWidth$.next(width)
@@ -73,7 +84,7 @@ export class BmxService {
   getLogoTemporaryWidth$(): Observable<string>{
     return this.logoTemporaryWidth$.asObservable();
   }
-  
+
   getGeneralLists() {
     return this.http.post(this.webBaseUrl + this.GetGeneralLists, { token: '646EBF52-1846-47C2-9F62-DC50AE5BF692', payload: '' });
     // return this.http.get(this.webBaseUrl + 'api/NW_GetProjectIdWithProjectName?projectName=' + projectName, httpOptions);

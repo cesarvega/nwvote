@@ -122,7 +122,6 @@ export class ImageRateScaleComponent extends RatingScaleComponent implements OnI
     const isMobile = this.deviceService.isMobile();
     const isTablet = this.deviceService.isTablet();
     this.isDesktopDevice = this.deviceService.isDesktop();
-    console.log(this.deviceInfo);
     console.log(isMobile);  // returns if the device is a mobile device (android / iPhone / windows-phone etc)
     console.log(isTablet);  // returns if the device us a tablet (iPad etc)
   }
@@ -180,7 +179,12 @@ export class ImageRateScaleComponent extends RatingScaleComponent implements OnI
     this.reset();
   }
 
-  uploadAllImages(){
+  uploadAllImages(){    
+   
+    if( this.firstTime){
+      this.bmxItem.componentText= this.bmxItem.componentText.filter(component=>component.nameCandidates=='LOGO')
+      this.firstTime=false
+    }
     
     if(this.IMAGES_UPLOADED.length<this.bmxItem.componentText.length){
       this.bmxItem.componentText.splice(this.IMAGES_UPLOADED.length+1, this.bmxItem.componentText.length+1)

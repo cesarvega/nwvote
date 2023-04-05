@@ -896,7 +896,6 @@ export class SurveyCreationDesignComponent implements OnInit {
     }
 
     saveData() {
-        let LOGO_WIDTH: number[] = []
         // RESET VOTES IN TEMPLATE
         this.bmxPages.forEach((pageToreset: any) => {    
 
@@ -948,27 +947,6 @@ export class SurveyCreationDesignComponent implements OnInit {
 
         if (confirm('Are you sure you want save overwrite this project?')) {
 
-            //resize logo
-            let arrLehgth = LOGO_WIDTH.length
-            let lWidth = this.bmxPages[0].page[0].componentSettings[0].logoWidth;
-
-            // LOGO_WIDTH.forEach((a)=>{
-            //     let count = 0;
-            //     for(let i = 0; i < arrLehgth; i++){
-
-            //         if (a == LOGO_WIDTH[i]) {
-            //             count++;
-            //         }
-            //     }                
-            //     if(count == 1){
-            //         lWidth = a;
-            //         this.bmxPages.forEach((pageToreset: any) => {
-            //             pageToreset.page[0].componentSettings[0].logoWidth = lWidth
-            //         })                     
-            //         return true;
-            //     }
-            // })
-
             this.projectInfo = JSON.parse(
                 localStorage.getItem('fakeproject' + '_project_info')
             );
@@ -992,13 +970,12 @@ export class SurveyCreationDesignComponent implements OnInit {
                 });
             });
             // console.log(this.bmxCompleteObject.bmx[4]["page"][3]['componentText']);
-            console.log(this.bmxPages)
+            
             this._BmxService
                 .saveOrUpdateBradnMatrixTemplate(this.bmxPages, this.projectId)
                 .subscribe((res:any) => {                    
                     let logoUrl = ""
                     this.bmxPages = JSON.parse(res.d)
-                    console.log(this.bmxPages)                    
                     logoUrl = this.bmxPages[0].page[0].componentSettings[0].companyLogoURL;
 
                     for (let index = 0; index < this.bmxPages.length; index++) {

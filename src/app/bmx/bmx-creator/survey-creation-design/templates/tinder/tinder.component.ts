@@ -18,6 +18,7 @@ export class TinderComponent extends RatingScaleComponent implements OnInit {
   @ViewChild(MatTable) table: MatTable<any>;
 
   value = 0;
+  numRatingScale: number = 3;
   xpercent: number = 0;
   showModalTable: boolean = false;
   showModalAddRow: boolean = false;
@@ -25,7 +26,9 @@ export class TinderComponent extends RatingScaleComponent implements OnInit {
   showNewInput: boolean = false;
   hasVoted: boolean = false;
   ranking: any;
-  rankingAmount = [1,2,3,4,5,6,7]
+  rankingAmount = 7
+  rankingAmountArr: number[];
+  rankingScaleValue = 0;
   currentrank = undefined;
   colorText:  string = "";
   greenColor = '#00c600';
@@ -72,7 +75,7 @@ export class TinderComponent extends RatingScaleComponent implements OnInit {
 
   }
   ngOnInit(): void {
-    
+
     this.getDataSource()
     if(this.dataSource[0].vote != undefined ||  this.dataSource[0].RATE != undefined){
       this.hasVoted = true
@@ -139,6 +142,9 @@ export class TinderComponent extends RatingScaleComponent implements OnInit {
 
     this.ranking?this.VIDEO_PATH = this.PATH2:this.VIDEO_PATH = this.PATH1
     this.launchPathModal.emit(this.VIDEO_PATH)
+    this.rankingAmountArr = Array(this.rankingAmount).fill(0).map((_, index) => index+1);
+    this.rankingScaleValue = this.rankingAmount
+    console.log(this.rankingAmountArr)
   }
 
   setRateColor(rate: number){
@@ -433,7 +439,7 @@ export class TinderComponent extends RatingScaleComponent implements OnInit {
 
   getDataSource(){
     this.dataSource = this.bmxItem.componentText.slice(1)
-    console.log(this.bmxItem.componentText)
+    // console.log(this.bmxItem)
     if(this.bmxItem.componentSettings[0].ranking == undefined){
       this.bmxItem.componentSettings[0].ranking = this.ranking
     }else{

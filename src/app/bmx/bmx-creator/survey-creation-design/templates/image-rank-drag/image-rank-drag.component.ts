@@ -45,7 +45,6 @@ export class ImageRankDragComponent extends RatingScaleComponent implements OnIn
   logoWidth = 200
   uploadImagesBox = false;
   showMatrixMenu: boolean = false;
-  iconMenuShow: string = "add_circle_outline"
   numRatingScale: number = 0;
 
   draggableBag
@@ -83,7 +82,6 @@ export class ImageRankDragComponent extends RatingScaleComponent implements OnIn
     const isMobile = this.deviceService.isMobile();
     const isTablet = this.deviceService.isTablet();
     this.isDesktopDevice = this.deviceService.isDesktop();
-    console.log(this.deviceInfo);
     console.log(isMobile);  // returns if the device is a mobile device (android / iPhone / windows-phone etc)
     console.log(isTablet);  // returns if the device us a tablet (iPad etc)
   }
@@ -98,8 +96,10 @@ export class ImageRankDragComponent extends RatingScaleComponent implements OnIn
       }
     });
 
-    this.rowsCount = this.bmxItem.componentText.length - 1;
-
+    this.rowsCount =  this.bmxItem.componentText.length - 1
+    this.bmxItem.componentSettings[0].minRule = this.bmxItem.componentSettings[0].minRule == 0?this.rowsCount:this.bmxItem.componentSettings[0].minRule;
+    this.bmxItem.componentSettings[0].maxRule = this.bmxItem.componentSettings[0].maxRule == 0?this.rowsCount:this.bmxItem.componentSettings[0].maxRule;
+    
     this.randomizeTestNames = this.bmxItem.componentSettings[0].randomizeTestNames
 
     if (this.rankingType == 'dropDown') {
@@ -214,7 +214,6 @@ export class ImageRankDragComponent extends RatingScaleComponent implements OnIn
     this.IMAGES_UPLOADED.splice(index, 1)
   }
 
-
   toggleImageUploadBox() {
     this.uploadImagesBox = !this.uploadImagesBox
   }
@@ -229,7 +228,6 @@ export class ImageRankDragComponent extends RatingScaleComponent implements OnIn
   }
 
   checkAutosave(testNameId:any) {
-    console.log(this.bmxItem.componentText[testNameId].RATE)
      if (this.ratedCounter < this.bmxItem.componentSettings[0].maxRule && this.actualRate == 0|| this.bmxItem.componentSettings[0].maxRule == 0  ) {
         this.ratedCounter = this.ratedCounter + 1
         this.autoSave.emit()
@@ -250,13 +248,5 @@ export class ImageRankDragComponent extends RatingScaleComponent implements OnIn
     }
   }
 
-  showMatrixMenuBmx(){
-    this.showMatrixMenu = !this.showMatrixMenu;
-      if(this.showMatrixMenu){
-        this.iconMenuShow = "remove_circle_outline"
-      }else{
-        this.iconMenuShow = "add_circle_outline"
-      }
-  }
 }
 
