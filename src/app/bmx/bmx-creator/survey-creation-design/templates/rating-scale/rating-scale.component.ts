@@ -33,7 +33,6 @@ export class RatingScaleComponent implements OnInit {
   // fontSizeRow = 19
   // rationalewidth = this.columnsSlider + 100
 
-
   // CONFIGURATION VARIABLES
   testNamesInput: string
   TestNameDataModel: any[];
@@ -75,7 +74,7 @@ export class RatingScaleComponent implements OnInit {
   showMatrixMenu: boolean = false;
   iconMenuShow: string = "add_circle_outline";
   textToolTip: string = "open menu";
-  scroll: any;s
+  scroll: any;
   @ViewChild('modalChecked') modalChecked: MatCheckboxModule | any;
 
   @Output() launchPathModal = new EventEmitter();
@@ -898,6 +897,7 @@ export class RatingScaleComponent implements OnInit {
   ]
 
   showMatrixMenuBmx(){
+    console.log("open close")
     this.showMatrixMenu = !this.showMatrixMenu;
         if(this.showMatrixMenu ){
             this.iconMenuShow = "remove_circle_outline"

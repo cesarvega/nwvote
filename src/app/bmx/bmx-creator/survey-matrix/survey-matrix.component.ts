@@ -71,6 +71,8 @@ export class SurveyMatrixComponent extends SurveyCreationDesignComponent impleme
     'assets/img/bmx/tutorial/img-desktop2.JPG',  
   ]
 
+  numPage: any;
+
   deviceInfo = null;
   public isDesktopDevice: any = null;
 
@@ -176,7 +178,7 @@ export class SurveyMatrixComponent extends SurveyCreationDesignComponent impleme
         this.projectId = data.ProjectName
 
         this.qrCode.append(this.canvas.nativeElement);
-        this.bmxPagesClient = this.SAMPLE_BMX_CLIENT;
+        this.bmxPagesClient = this.SAMPLE_BMX_CLIENT;        
  
         this._BmxService
           .getBrandMatrixByProjectAndUserAnswers(this.projectId, this.username)
@@ -245,7 +247,7 @@ export class SurveyMatrixComponent extends SurveyCreationDesignComponent impleme
     
                         if (!this.isCategoryPage[index]['isCategory']) {
                           this.isCategoryPage[index]['isCategory'] = true;
-                        }
+                        }                        
                         component.componentText.forEach((row, index) => {
                           if (index > 0) {
                             this.matchAnswersAndTemplateMatrix(
@@ -361,7 +363,7 @@ export class SurveyMatrixComponent extends SurveyCreationDesignComponent impleme
       this.myAngularxQrCode + this.projectId + '/' + this.username;
   
       this.qrCode.append(this.canvas.nativeElement);
-      this.bmxPagesClient = this.SAMPLE_BMX_CLIENT;
+      this.bmxPagesClient = this.SAMPLE_BMX_CLIENT;      
       this._BmxService
         .getBrandMatrixByProjectAndUserAnswers(this.projectId, this.username)
         .subscribe((brandMatrix: any) => {         
@@ -379,6 +381,7 @@ export class SurveyMatrixComponent extends SurveyCreationDesignComponent impleme
                 );
                 //  FILL THE TEMPLATE WTIHT USER ANSWERS
                 template.forEach((page, index) => {
+                  let thePageComponent = page.pageNumber;
                   this.isCategoryPage[index] = { isCategory: false };
                   page.page.forEach((component) => {
                     if (
@@ -428,7 +431,9 @@ export class SurveyMatrixComponent extends SurveyCreationDesignComponent impleme
                         this.isCategoryPage[index]['isCategory'] = true;
                       }
                       component.componentText.forEach((row, index) => {
+                                               
                         if (index > 0) {
+                          this.numPage = thePageComponent;
                           this.matchAnswersAndTemplateMatrix(
                             row,
                             answers,
@@ -566,7 +571,7 @@ export class SurveyMatrixComponent extends SurveyCreationDesignComponent impleme
        localStorage.setItem('showModal', JSON.stringify(false));
 
     }else{
-     console.log('es falso')
+     console.log('false')
     }
   }
 
@@ -582,21 +587,20 @@ export class SurveyMatrixComponent extends SurveyCreationDesignComponent impleme
   dragAndDropCounter = 0;
   matchAnswersAndTemplateMatrix(templateRow, answers, templateComponent) {
     // console.log('%cTemplateRow', 'color:orange');
-    // console.log(templateRow);
     // 💜💜💜💜💜💜💜💜💜💜💜💜💜💜💜💜💜💜💜💜💜💜💜💜💜💜💜💜💜💜💜💜💜💜💜💜💜💜💜💜💜💜💜
+    
     answers.forEach((page) => {
       page.page.forEach((answerComponent) => {
         if (
           answerComponent.componentType == 'rate-scale' ||
           answerComponent.componentType == 'image-rate-scale'
         ) {
-          answerComponent.componentText.forEach((answerRow, index) => {
+          answerComponent.componentText.forEach((answerRow, index) => {            
             if (!templateComponent.componentSettings[0].CRITERIA) {
               // no criteria
               // if (templateComponent.componentType == 'ranking-scale') {
               if (templateComponent.componentType == answerComponent.componentType) {
                 // console.log('%cAnswersRow', 'color:blue');
-                // console.log(answerRow);
                 if (index > 0) {
                   for (const key in templateRow) {
                     if (key === 'nameCandidates' &&templateRow[key] === answerRow[key]) {
@@ -642,7 +646,7 @@ export class SurveyMatrixComponent extends SurveyCreationDesignComponent impleme
                         (criteria, criteriaIndex) => {
                           if (answerRow.CRITERIA) {
                             criteria.RATE =
-                              answerRow.CRITERIA[criteriaIndex].RATE;
+                            answerRow.CRITERIA[criteriaIndex].RATE;
                             criteria.STARS.forEach((starRow) => {
                               if (
                                 starRow.id <=
@@ -688,22 +692,24 @@ export class SurveyMatrixComponent extends SurveyCreationDesignComponent impleme
               'RATE'
             );
             this.dragAndDropCounter++;
-          } else {
+          } else {            
             answerComponent.componentText.forEach((answerRow, index) => {
+              answerRow.pageNumber = page.pageNumber;
               if (!templateComponent.componentSettings[0].CRITERIA) {
                 // no criteria
                 // if (templateComponent.componentType == 'ranking-scale') {
                 if (
-                  templateComponent.componentType ==
-                  answerComponent.componentType
+                  templateComponent.componentType == answerComponent.componentType
                 ) {
-                  if (index > 0) {
+                  
+                  if (index > 0) {                   
+                                    
                     for (const key in templateRow) {
                       if (
-                        key === 'nameCandidates' &&
-                        templateRow[key] === answerRow[key]
+                        key === 'nameCandidates' && templateRow[key] === answerRow[key] && this.numPage === answerRow.pageNumber 
                       ) {
                         templateRow.RATE = answerRow.RATE;
+                        delete answerRow.pageNumber;
                         templateRow.STARS.forEach((starRow) => {
                           if (starRow.id <= answerRow.RATE) {
                             starRow.styleClass = 'active-rating-star';
