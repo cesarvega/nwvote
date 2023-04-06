@@ -245,7 +245,7 @@ export class SurveyMatrixComponent extends SurveyCreationDesignComponent impleme
     
                         if (!this.isCategoryPage[index]['isCategory']) {
                           this.isCategoryPage[index]['isCategory'] = true;
-                        }
+                        }                        
                         component.componentText.forEach((row, index) => {
                           if (index > 0) {
                             this.matchAnswersAndTemplateMatrix(
@@ -379,6 +379,7 @@ export class SurveyMatrixComponent extends SurveyCreationDesignComponent impleme
                 );
                 //  FILL THE TEMPLATE WTIHT USER ANSWERS
                 template.forEach((page, index) => {
+                  let thePageComponent = page.pageNumber;
                   this.isCategoryPage[index] = { isCategory: false };
                   page.page.forEach((component) => {
                     if (
@@ -428,6 +429,7 @@ export class SurveyMatrixComponent extends SurveyCreationDesignComponent impleme
                         this.isCategoryPage[index]['isCategory'] = true;
                       }
                       component.componentText.forEach((row, index) => {
+                        row.numPage = thePageComponent;                        
                         if (index > 0) {
                           this.matchAnswersAndTemplateMatrix(
                             row,
@@ -446,7 +448,6 @@ export class SurveyMatrixComponent extends SurveyCreationDesignComponent impleme
                 });
                 //  FILL THE TEMPLATE WTIHT USER ANSWERS END
                 this.bmxPagesClient = template;
-                console.log(this.bmxPagesClient)
                 this.typeTemplate = this.bmxPagesClient[1].page[this.bmxPagesClient[1].page.length-1].componentType;
                 if(this.typeTemplate == "tinder"){
                   this.bmxPagesClient = answers;                
@@ -583,21 +584,20 @@ export class SurveyMatrixComponent extends SurveyCreationDesignComponent impleme
   dragAndDropCounter = 0;
   matchAnswersAndTemplateMatrix(templateRow, answers, templateComponent) {
     // console.log('%cTemplateRow', 'color:orange');
-    // console.log(templateRow);
     // 💜💜💜💜💜💜💜💜💜💜💜💜💜💜💜💜💜💜💜💜💜💜💜💜💜💜💜💜💜💜💜💜💜💜💜💜💜💜💜💜💜💜💜
+    
     answers.forEach((page) => {
       page.page.forEach((answerComponent) => {
         if (
           answerComponent.componentType == 'rate-scale' ||
           answerComponent.componentType == 'image-rate-scale'
         ) {
-          answerComponent.componentText.forEach((answerRow, index) => {
+          answerComponent.componentText.forEach((answerRow, index) => {            
             if (!templateComponent.componentSettings[0].CRITERIA) {
               // no criteria
               // if (templateComponent.componentType == 'ranking-scale') {
               if (templateComponent.componentType == answerComponent.componentType) {
                 // console.log('%cAnswersRow', 'color:blue');
-                // console.log(answerRow);
                 if (index > 0) {
                   for (const key in templateRow) {
                     if (key === 'nameCandidates' &&templateRow[key] === answerRow[key]) {
@@ -689,20 +689,21 @@ export class SurveyMatrixComponent extends SurveyCreationDesignComponent impleme
               'RATE'
             );
             this.dragAndDropCounter++;
-          } else {
+          } else {            
             answerComponent.componentText.forEach((answerRow, index) => {
+              answerRow.pageNumber = page.pageNumber;
               if (!templateComponent.componentSettings[0].CRITERIA) {
                 // no criteria
                 // if (templateComponent.componentType == 'ranking-scale') {
                 if (
-                  templateComponent.componentType ==
-                  answerComponent.componentType
+                  templateComponent.componentType == answerComponent.componentType
                 ) {
-                  if (index > 0) {
+                  
+                  if (index > 0) {                   
+                                    
                     for (const key in templateRow) {
                       if (
-                        key === 'nameCandidates' &&
-                        templateRow[key] === answerRow[key]
+                        key === 'nameCandidates' && templateRow[key] === answerRow[key] && templateRow.numPage === answerRow.pageNumber 
                       ) {
                         templateRow.RATE = answerRow.RATE;
                         templateRow.STARS.forEach((starRow) => {
