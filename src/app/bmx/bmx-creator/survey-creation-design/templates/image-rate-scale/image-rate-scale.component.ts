@@ -53,17 +53,8 @@ export class ImageRateScaleComponent extends RatingScaleComponent implements OnI
   //------modal-----------//
   @Output() launchPathModal = new EventEmitter(); 
 
-  VIDEO_PATH: any[] = [];
+  VIDEO_PATH="assets/videos/imageRate.mp4" 
 
-  PATH1: any[] = [
-    'assets/img/bmx/tutorial/image-rate-scale-mobil.jpg',
-    'assets/img/bmx/tutorial/image-rate-scale-mobil2.jpg',    
-  ]
-
-  PATH2: any[] = [
-    'assets/img/bmx/tutorial/image-rate-scale-desktop.JPG',
-    'assets/img/bmx/tutorial/image-rate-scale-desktop2.JPG',  
-  ]
 
   deviceInfo = null;
   public isDesktopDevice: any = null;
@@ -90,12 +81,6 @@ export class ImageRateScaleComponent extends RatingScaleComponent implements OnI
 
     this.rankingScaleValue = this.numRatingScale;
 
-    if(window.innerWidth <= 1024){
-      this.VIDEO_PATH = this.PATH1;
-    }else{
-      this.VIDEO_PATH = this.PATH2;
-    }
-    
     let values = Object.keys(this.bmxItem.componentText[0])
     values.forEach(value => {
       if (typeof value == "string" && value != "STARS" && value != "CRITERIA" ) {

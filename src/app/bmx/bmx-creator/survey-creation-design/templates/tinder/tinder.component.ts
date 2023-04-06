@@ -48,14 +48,8 @@ export class TinderComponent extends RatingScaleComponent implements OnInit {
 
   @Output() launchPathModal = new EventEmitter();
   @Output() autoSave = new EventEmitter();
+  VIDEO_PATH="assets/videos/tinder.mp4" 
 
-  PATH1: any[] = [
-    'assets/img/bmx/tutorial/tutorial-tinder1.JPG',
-  ]
-
-  PATH2: any[] = [
-    'assets/img/bmx/tutorial/tutorial-tinder-rate.JPG',
-  ]
 
   rankingType = 'dropDown'
   rankingTypeOptions = ['dropDown', 'dragAndDrop', 'radio']
@@ -140,7 +134,6 @@ export class TinderComponent extends RatingScaleComponent implements OnInit {
       this.displaySound = true;
     }
 
-    this.ranking?this.VIDEO_PATH = this.PATH2:this.VIDEO_PATH = this.PATH1
     this.launchPathModal.emit(this.VIDEO_PATH)
     this.rankingAmountArr = Array(this.rankingAmount).fill(0).map((_, index) => index+1);
     this.rankingScaleValue = this.rankingAmount
