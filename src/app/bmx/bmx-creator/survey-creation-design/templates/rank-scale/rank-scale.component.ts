@@ -20,8 +20,17 @@ export class RankScaleComponent extends RatingScaleComponent implements OnInit {
   @Input() bmxClientPageDesignMode;
   @Input() bmxClientPageOverview;
   @Output() autoSave = new EventEmitter();
-  VIDEO_PATH="assets/videos/RankMatrix.mp4" 
+  CREATION_VIDEO_PATH="assets/videos/RankMatrix.mp4" 
+  VIDEO_PATH: any[] = [];
 
+  PATH1: any[] = [
+    'assets/img/bmx/tutorial/image-drag.JPG',
+    
+  ]
+
+  PATH2: any[] = [
+    'assets/img/bmx/tutorial/image-drag2.JPG',  
+  ]
   isImageType = true
 
   rankingType = 'dropDown'

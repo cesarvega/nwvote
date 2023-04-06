@@ -56,7 +56,18 @@ export class ImageRankDragComponent extends RatingScaleComponent implements OnIn
   //------modal-----------//
  
 
-  VIDEO_PATH="assets/videos/imageDragAndDrop.mp4" 
+  CREATION_VIDEO_PATH="assets/videos/imageDragAndDrop.mp4" 
+  
+  VIDEO_PATH: any[] = [];
+
+  PATH1: any[] = [
+    'assets/img/bmx/tutorial/image-drag.JPG',
+    
+  ]
+
+  PATH2: any[] = [
+    'assets/img/bmx/tutorial/image-drag2.JPG',  
+  ]
   deviceInfo = null;
   public isDesktopDevice: any = null;
 
@@ -112,6 +123,12 @@ export class ImageRankDragComponent extends RatingScaleComponent implements OnIn
     // }else{
     //   this.VIDEO_PATH = this.PATH1;
     // }
+    if(window.innerWidth <= 1024){
+      this.VIDEO_PATH = this.PATH1;
+    }else{
+      this.VIDEO_PATH = this.PATH2;
+    }
+    this.launchPathModal.emit(this.VIDEO_PATH)    
 
     this.launchPathModal.emit(this.VIDEO_PATH)    
   }
