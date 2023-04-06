@@ -29,16 +29,17 @@ export class ImageRankComponent  extends RatingScaleComponent implements OnInit 
 
   allowScrolling = true
 
-  VIDEO_PATH: any[] = [];
+  VIDEO_PATH=''
+  // VIDEO_PATH: any[] = [];
   showMatrixMenu: boolean = false;
   iconMenuShow: string = "add_circle_outline"
   PATH1: any[] = [
     'assets/img/bmx/tutorial/image-drag.JPG',
-    
+
   ]
 
   PATH2: any[] = [
-    'assets/img/bmx/tutorial/image-drag2.JPG',  
+    'assets/img/bmx/tutorial/image-drag2.JPG',
   ]
 
   constructor(dragulaService: DragulaService, _snackBar: MatSnackBar, _bmxService: BmxService,public deviceService: DeviceDetectorService) {
@@ -75,7 +76,7 @@ export class ImageRankComponent  extends RatingScaleComponent implements OnInit 
       if (typeof value == "string" && value != "STARS" && value != "CRITERIA" && value != "RATE") {
         this.columnsNames.push(value)
       }
-      
+
     });
 
     this.randomizeTestNames = this.bmxItem.componentSettings[0].randomizeTestNames
@@ -96,11 +97,6 @@ export class ImageRankComponent  extends RatingScaleComponent implements OnInit 
       })
     }
 
-    if(window.innerWidth <= 1024){
-      this.VIDEO_PATH = this.PATH1;
-    }else{
-      this.VIDEO_PATH = this.PATH2;
-    }
   }
 
   checkDragEvetn(rows) {
@@ -198,13 +194,13 @@ export class ImageRankComponent  extends RatingScaleComponent implements OnInit 
 
     setTimeout(() => {
       this.rowsCount = this.bmxItem.componentText.length - 1;
-      
+
       if(this.newSet){
         this.bmxItem.componentSettings[0].minRule = this.rowsCount;
-        this.bmxItem.componentSettings[0].maxRule = this.rowsCount;        
+        this.bmxItem.componentSettings[0].maxRule = this.rowsCount;
         this.newSet = false;
       }
-      
+
       if (this.bmxItem.componentSettings[0].CRITERIA) {
         //MULTIPLY FOR THE AMOUNT OF CRITERIA
         this.bmxItem.componentSettings[0].minRule = this.bmxItem.componentSettings[0].minRule * this.bmxItem.componentText[0].CRITERIA.length
@@ -267,17 +263,6 @@ export class ImageRankComponent  extends RatingScaleComponent implements OnInit 
     }
 
   }
-
-  showMatrixMenuBmx(){
-    this.showMatrixMenu = !this.showMatrixMenu;
-      if(this.showMatrixMenu){
-        this.iconMenuShow = "remove_circle_outline"
-      }else{
-        this.iconMenuShow = "add_circle_outline"
-      }
-  }
-  
-
   ASSIGNED_CRITERIA = []
 
 }

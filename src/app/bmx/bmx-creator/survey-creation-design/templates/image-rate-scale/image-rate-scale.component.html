@@ -1,5 +1,18 @@
 
+
+<div *ngIf="showModalVideo && bmxClientPageOverview"  id="myModal" class="modal-video" style="display: flex;flex-direction: column;gap: 2px;">
+    <!-- <label class="container-checkbox">Don't show again
+        <input (click)="saveSelection()" type="checkbox" value="Bike" #modalChecked>
+        <span class="checkmark">&#x2714;</span>
+    </label> -->
+    <div class="modal-content">
+        <video src='{{VIDEO_PATH}}'controls></video>
+
+    </div>
+    <button class="btn btn-raised close-modal" (click)="showModalVideo=false">close</button>
+</div>
 <!-- ➗➗➗➗➗➗➗➗➗➗➗➗➗➗➗➗➗➗➗  SETTINGS ICONS  ➗➗➗➗➗➗➗➗➗➗➗➗➗➗➗➗➗ -->
+
 <div *ngIf="bmxClientPageOverview" style="display: flex;
     flex-direction: row-reverse;
     justify-content: end;
@@ -87,6 +100,9 @@
     <!-- <mat-slider min="200" max="500" step="10" value="200" [(value)]="bmxItem.componentSettings[0].columnWidth"></mat-slider><p>{{bmxItem.componentSettings[0].columnWidth}}</p> -->
     <!-- ⏺⏺⏺⏺⏺⏺⏺⏺⏺⏺⏺⏺⏺⏺⏺⏺⏺⏺⏺⏺⏺⏺  END  ⏺⏺⏺⏺⏺⏺⏺⏺⏺⏺⏺⏺⏺⏺⏺⏺⏺⏺ -->
     <div style="display: flex; flex-direction: row-reverse;">
+        <button (click)="showMatrixMenuBmx()" mat-icon-button matTooltip="{{textToolTip}}">
+            <mat-icon style="font-size: 26px;" class="full-icon">{{iconMenuShow}}</mat-icon>
+        </button>
         <div *ngIf="showMatrixMenu">
             <button (click)="undo(); editSingleTableCells = false" class="add-column" matTooltip="undo last change"
                 matTooltipPosition="above" mat-icon-button aria-label="ranking">
@@ -131,6 +147,13 @@
             </button>
         </div>
 
+<<<<<<< HEAD
+        <button (click)="showModalVideo=true; editSingleTableCells = false" class="add-column" matTooltip="see tutorial"
+                matTooltipPosition="above" mat-icon-button aria-label="ranking">
+                <mat-icon style="font-size: 26px;" class="full-icon">video_library</mat-icon>
+        </button>
+=======
+>>>>>>> bmx
         <button (click)="insertCommentBoxColumn(); editSingleTableCells = false" class="add-column"
             matTooltip="add comments column" matTooltipPosition="above" mat-icon-button aria-label="ranking">
             <mat-icon style="font-size: 26px;" class="full-icon">wysiwyg</mat-icon>
@@ -141,12 +164,6 @@
             [ngClass]="(!isColumnResizerOn)?'add-column':'add-column-active'" matTooltip="columns width"
             matTooltipPosition="above" mat-icon-button aria-label="ranking">
             <mat-icon style="font-size: 26px;    z-index: 9;" class="full-icon">swap_horizontal_circle</mat-icon>
-        </button>
-
-        <button *ngIf="uploadImagesIcon" (click)="toggleImageUploadBox(); editSingleTableCells = false"
-            class="add-column" matTooltip="uploadImages" matTooltipPosition="above" mat-icon-button
-            aria-label="ranking">
-            <mat-icon style="font-size: 26px;" class="full-icon">collections</mat-icon>
         </button>
 
         <button (click)="selectedIndex = i; editSingleTableCells = false" class="add-column"
@@ -385,7 +402,7 @@
                 <div *ngFor="let columnName of columnsNames; let e =  index"
                     style="display: flex;align-items: center;justify-content: center;"
                     [ngClass]="(columnName.includes('Comments') == true)?'red':'blue'"
-                    [style.padding]="bmxItem.componentSettings[0].rowHeight + 'px'" [style.width]="(columnName == 'rationale')?bmxItem.componentSettings[0].rationalewidth + 'px': 
+                    [style.padding]="bmxItem.componentSettings[0].rowHeight + 'px'" [style.width]="(columnName == 'rationale')?bmxItem.componentSettings[0].rationalewidth + 'px':
                 (columnName == 'RATE')?bmxItem.componentSettings[0].rateWidth + 'px':
                 (columnName == 'nameCandidates')?bmxItem.componentSettings[0].nameCandidatesWidth + 'px':
                 (columnName.includes('Comments'))?bmxItem.componentSettings[0].commentsWidth + 'px':
@@ -465,7 +482,7 @@
                             <div style="display: flex;">
                                 <button
                                     (click)="maxRuleCounterMinus();bmxItem.componentText[y]['RATE'] = 0;leaveStar(y);substractRatedCounter()"
-                                    *ngIf="bmxItem.componentText[y]['RATE']>0 && y != 0 " style="background-color: #ee7f25;    
+                                    *ngIf="bmxItem.componentText[y]['RATE']>0 && y != 0 " style="background-color: #ee7f25;
                             color: white;
                             min-width: 20px;
                             line-height: 19px;
@@ -479,7 +496,7 @@
                             <div style="display: flex;gap: 60px;flex-direction: column;">
                                 <div *ngFor="let criteria of testName.CRITERIA  let x =  index">
                                     <button (click)="criteria.RATE = 0;leaveCriteriaStar(y,x);maxRuleCounterMinus()"
-                                        *ngIf="criteria.RATE>0 && y != 0 " style="background-color: #ee7f25;    
+                                        *ngIf="criteria.RATE>0 && y != 0 " style="background-color: #ee7f25;
                              color: white;
                              min-width: 20px;
                              line-height: 19px;
@@ -523,7 +540,7 @@
 
 
                         <!-- TEXT AREA TO EDIT TABLE CELL CONTENT -->
-                        <textarea *ngIf="y !== 0  && editSingleTableCells && (columnName.includes('RadioColumn') != true) && 
+                        <textarea *ngIf="y !== 0  && editSingleTableCells && (columnName.includes('RadioColumn') != true) &&
                              columnName.includes('Comments') != true &&  columnName.includes('RATE') != true"
                             [style.width]="(columnName == 'rationale')?bmxItem.componentSettings[0].rationalewidth + 'px':bmxItem.componentSettings[0].columnWidth +'px'"
                             [style.font-size]="bmxItem.componentSettings[0].fontSize +'px'" cdkTextareaAutosize
@@ -531,7 +548,7 @@
                             style="outline: none;text-align: center;" class="row-box"
                             [(ngModel)]="testName[columnName]"></textarea>
 
-                        <p *ngIf="y !== 0  && !editSingleTableCells && (columnName.includes('name') != true) && 
+                        <p *ngIf="y !== 0  && !editSingleTableCells && (columnName.includes('name') != true) &&
                         (columnName.includes('RadioColumn') != true) &&  columnName.includes('Comments') != true &&
                           columnName.includes('RATE') != true"
                             [style.font-size]="bmxItem.componentSettings[0].fontSize +'px'"
@@ -571,7 +588,7 @@
 
             <div (click)="openSelected(y)" class="test-name-table" *ngIf="(y != 0)" [style.height]="(open(y))?'':'100px'">
                 <!-- 🩸🩸🩸🩸🩸🩸🩸🩸🩸🩸🩸🩸🩸 RATE BUTTONS 🩸🩸🩸🩸🩸🩸🩸🩸🩸🩸🩸🩸🩸🩸🩸🩸🩸🩸🩸🩸🩸🩸🩸🩸 -->
-            
+
                 <button (click)="maxRuleCounterMinus();bmxItem.componentText[y]['RATE'] = 0;leaveStar(y)"
                     *ngIf="bmxItem.componentText[y]['RATE']>0 && y != 0 " style="background-color: #ee7f25;color: white;margin: 5px;width: 30px;
                     height: 30px;
@@ -584,7 +601,7 @@
                 <div style="display: flex;gap: 23px;padding-top: 10px;position: absolute;right: 24px;">
                     <div *ngFor="let criteria of testName.CRITERIA  let x =  index">
                         <button (click)="criteria.RATE = 0;leaveCriteriaStar(y,x);maxRuleCounterMinus()"
-                            *ngIf="criteria.RATE>0 && y != 0 " style="background-color: #ee7f25;    
+                            *ngIf="criteria.RATE>0 && y != 0 " style="background-color: #ee7f25;
                              color: white;
                              min-width: 20px;
                              line-height: 19px;
@@ -642,7 +659,7 @@
                             <!-- <div style="display: flex;">
                               <button
                                   (click)="maxRuleCounterMinus();bmxItem.componentText[y]['RATE'] = 0;leaveStar(y)"
-                                  *ngIf="bmxItem.componentText[y]['RATE']>0 && y != 0 " style="background-color: #ee7f25;    
+                                  *ngIf="bmxItem.componentText[y]['RATE']>0 && y != 0 " style="background-color: #ee7f25;
                                   color: white;
                                   min-width: 20px;
                                   line-height: 19px;
@@ -655,7 +672,7 @@
                             <!-- <div style="display: flex;gap: 60px;flex-direction: column;">
                               <div *ngFor="let criteria of testName.CRITERIA  let x =  index">
                                   <button (click)="criteria.RATE = 0;leaveCriteriaStar(y,x)"
-                                      *ngIf="criteria.RATE>0 && y != 0 " style="background-color: #ee7f25;    
+                                      *ngIf="criteria.RATE>0 && y != 0 " style="background-color: #ee7f25;
                                       color: white;
                                       min-width: 20px;
                                       line-height: 19px;

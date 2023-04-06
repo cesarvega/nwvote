@@ -22,7 +22,8 @@ export class NarrowDownComponent extends RatingScaleComponent implements OnInit 
   isColumnResizerOn = true;
   editSingleTableCells = false
   numRatingScale: number = 0;
-  
+  VIDEO_PATH="assets/videos/NarrowDown.mp4"
+
   constructor(dragulaService: DragulaService, _snackBar: MatSnackBar,  _bmxService: BmxService,public deviceService: DeviceDetectorService) {
     super(dragulaService,_snackBar, _bmxService,deviceService)
   }
@@ -31,7 +32,7 @@ export class NarrowDownComponent extends RatingScaleComponent implements OnInit 
     if(this.bmxItem.componentText[0].hasOwnProperty("STARS")){
       this.numRatingScale = this.bmxItem.componentText[0].STARS.length
     }
-    
+
     this.rankingScaleValue = this.numRatingScale;
 
     // COLUMN NAMES
@@ -52,15 +53,6 @@ export class NarrowDownComponent extends RatingScaleComponent implements OnInit 
     if (this.bmxItem.componentSettings[0]['displaySound'] == true) {
       this.displaySound = true;
     }
-    
-  }
-  showMatrixMenuBmx(){
-    this.showMatrixMenu = !this.showMatrixMenu;
-      if(this.showMatrixMenu){
-        this.iconMenuShow = "remove_circle_outline"
-      }else{
-        this.iconMenuShow = "add_circle_outline"
-      }
-  }
 
+  }
 }

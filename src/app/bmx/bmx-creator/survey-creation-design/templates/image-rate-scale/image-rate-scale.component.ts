@@ -21,14 +21,14 @@ export class ImageRateScaleComponent extends RatingScaleComponent implements OnI
   @Input() bmxClientPageOverview;
   @ViewChild('autosize') autosize: CdkTextareaAutosize;
   @Output() autoSave = new EventEmitter();
-  @Output() launchTutorial = new EventEmitter(); 
-  
+  @Output() launchTutorial = new EventEmitter();
+
   firstTime = true
 
   imageurls =[];
 
   IMAGES_UPLOADED = [
-    
+
   ];
 
   AUTOSIZE_OPTIONS = [
@@ -51,19 +51,10 @@ export class ImageRateScaleComponent extends RatingScaleComponent implements OnI
   ratedCounter = 0
   actualRate = 0
   //------modal-----------//
-  @Output() launchPathModal = new EventEmitter(); 
+  @Output() launchPathModal = new EventEmitter();
 
-  VIDEO_PATH: any[] = [];
+  VIDEO_PATH="assets/videos/imageRate.mp4"
 
-  PATH1: any[] = [
-    'assets/img/bmx/tutorial/image-rate-scale-mobil.jpg',
-    'assets/img/bmx/tutorial/image-rate-scale-mobil2.jpg',    
-  ]
-
-  PATH2: any[] = [
-    'assets/img/bmx/tutorial/image-rate-scale-desktop.JPG',
-    'assets/img/bmx/tutorial/image-rate-scale-desktop2.JPG',  
-  ]
 
   deviceInfo = null;
   public isDesktopDevice: any = null;
@@ -75,14 +66,14 @@ export class ImageRateScaleComponent extends RatingScaleComponent implements OnI
   constructor(private _BmxService: BmxService,dragulaService: DragulaService, _snackBar: MatSnackBar,  _bmxService: BmxService,public deviceService: DeviceDetectorService)
    {super(dragulaService,_snackBar,_bmxService,deviceService); this.epicFunction();}
 
-  ngOnInit(): void {  
+  ngOnInit(): void {
     this.bmxItem.componentText.forEach(data =>{
       if (data.RATE>0){
         this.ratedCounter++
         this.maxRuleCounter++
       }
     })
- 
+
 
     if(this.bmxItem.componentText[0].hasOwnProperty("STARS")){
       this.numRatingScale = this.bmxItem.componentText[0].STARS.length
@@ -90,19 +81,13 @@ export class ImageRateScaleComponent extends RatingScaleComponent implements OnI
 
     this.rankingScaleValue = this.numRatingScale;
 
-    if(window.innerWidth <= 1024){
-      this.VIDEO_PATH = this.PATH1;
-    }else{
-      this.VIDEO_PATH = this.PATH2;
-    }
-    
     let values = Object.keys(this.bmxItem.componentText[0])
     values.forEach(value => {
       if (typeof value == "string" && value != "STARS" && value != "CRITERIA" ) {
         this.columnsNames.push(value)
       }
     });
-    
+
     this.randomizeTestNames = this.bmxItem.componentSettings[0].randomizeTestNames
     this.rowsCount = this.bmxItem.componentText.length - 1;
 
@@ -133,7 +118,7 @@ export class ImageRateScaleComponent extends RatingScaleComponent implements OnI
         let reader = new FileReader();
         let FileName = event.target.files[i].name
         let FileType =  event.target.files[i].type
-        reader.onload = (event: any) => {          
+        reader.onload = (event: any) => {
           this.resourceData = {
             "ProjectName": localStorage.getItem('projectName'),
             "FileName": FileName.split(' ').join(''),
@@ -159,7 +144,7 @@ export class ImageRateScaleComponent extends RatingScaleComponent implements OnI
       this.openElements.splice(this.openElements.indexOf(y),1);
     }
     console.log(this.openElements)
-  } 
+  }
 
   open(y: any){
 
@@ -169,7 +154,7 @@ export class ImageRateScaleComponent extends RatingScaleComponent implements OnI
       console.log('true')
       return true;
     }
-    
+
   }
 
   //---------end open cards--------------//
@@ -179,13 +164,13 @@ export class ImageRateScaleComponent extends RatingScaleComponent implements OnI
     this.reset();
   }
 
-  uploadAllImages(){    
-   
+  uploadAllImages(){
+
     if( this.firstTime){
       this.bmxItem.componentText= this.bmxItem.componentText.filter(component=>component.nameCandidates=='LOGO')
       this.firstTime=false
     }
-    
+
     if(this.IMAGES_UPLOADED.length<this.bmxItem.componentText.length){
       this.bmxItem.componentText.splice(this.IMAGES_UPLOADED.length+1, this.bmxItem.componentText.length+1)
     }
@@ -201,11 +186,11 @@ export class ImageRateScaleComponent extends RatingScaleComponent implements OnI
         }else{
           this.bmxItem.componentText.push({nameCandidates:JSON.parse(result.d).FileUrl})
         }
-        
+
       });
     });
     setTimeout(() => {
-      this.uploadImagesBox = false;    
+      this.uploadImagesBox = false;
     }, 1000);
     console.log(this.bmxItem.componentText)
   }
@@ -237,15 +222,7 @@ export class ImageRateScaleComponent extends RatingScaleComponent implements OnI
         this.ratedCounter = this.ratedCounter + 1
         this.autoSave.emit()
     } else if(this.ratedCounter <= this.bmxItem.componentSettings[0].maxRule && this.actualRate != 0){
-      this.autoSave.next()    
-    } 
-  }
-  showMatrixMenuBmx(){
-    this.showMatrixMenu = !this.showMatrixMenu;
-      if(this.showMatrixMenu){
-        this.iconMenuShow = "remove_circle_outline"
-      }else{
-        this.iconMenuShow = "add_circle_outline"
-      }
+      this.autoSave.next()
+    }
   }
 }

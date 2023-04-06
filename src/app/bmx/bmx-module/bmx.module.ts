@@ -120,7 +120,7 @@ export function loadEcharts() {
     ReportFirstPageComponent,
     PageLineBreakComponent,
     PageTitleComponent,
-    DocxSurveyComponent
+    DocxSurveyComponent,
   ],
   imports: [
     BrowserModule,
@@ -154,7 +154,7 @@ export function loadEcharts() {
     QRCodeModule,
     MatRadioModule,
     DeviceDetectorModule,
-    AngularDateTimePickerModule,
+    //AngularDateTimePickerModule,
     MatDatepickerModule,
     MatSelectModule,
     MatNativeDateModule,

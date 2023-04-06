@@ -33,8 +33,8 @@ export class BmxService {
     this.specialData$.next(projectData);
   }
 
-
-  webBaseUrl = 'https://tools.brandinstitute.com//wsBrandMatrix/wsBrandMatrix.asmx';
+  //webBaseUrl = 'https://tools.brandinstitute.com//wsBrandMatrix/wsBrandMatrix.asmx';
+  webBaseUrl: string = "";
   GetProjectList = '/GetProjectList';
   GetGeneralLists = '/GetGeneralLists';
 
@@ -91,7 +91,6 @@ export class BmxService {
     } else {
       this.webBaseUrl = 'https://tools.brandinstitute.com//wsBrandMatrix/wsBrandMatrix.asmx';
     }
-
   }
 
   setLogoTemporaryWidth(width: string){

@@ -45,7 +45,6 @@ export class ImageRankDragComponent extends RatingScaleComponent implements OnIn
   logoWidth = 200
   uploadImagesBox = false;
   showMatrixMenu: boolean = false;
-  iconMenuShow: string = "add_circle_outline"
   numRatingScale: number = 0;
 
   draggableBag
@@ -55,19 +54,9 @@ export class ImageRankDragComponent extends RatingScaleComponent implements OnIn
   actualRate = 0
 
   //------modal-----------//
- 
 
-  VIDEO_PATH: any[] = [];
 
-  PATH1: any[] = [
-    'assets/img/bmx/tutorial/image-drag.JPG',
-    
-  ]
-
-  PATH2: any[] = [
-    'assets/img/bmx/tutorial/image-drag2.JPG',  
-  ]
-
+  VIDEO_PATH="assets/videos/imageDragAndDrop.mp4"
   deviceInfo = null;
   public isDesktopDevice: any = null;
 
@@ -87,7 +76,7 @@ export class ImageRankDragComponent extends RatingScaleComponent implements OnIn
     console.log(isTablet);  // returns if the device us a tablet (iPad etc)
   }
   ngOnInit(): void {
-  
+
     this.numRatingScale = this.bmxItem.componentText[0].STARS.length
     this.rankingScaleValue = this.numRatingScale;
     let values = Object.keys(this.bmxItem.componentText[0])
@@ -100,7 +89,7 @@ export class ImageRankDragComponent extends RatingScaleComponent implements OnIn
     this.rowsCount =  this.bmxItem.componentText.length - 1
     this.bmxItem.componentSettings[0].minRule = this.bmxItem.componentSettings[0].minRule == 0?this.rowsCount:this.bmxItem.componentSettings[0].minRule;
     this.bmxItem.componentSettings[0].maxRule = this.bmxItem.componentSettings[0].maxRule == 0?this.rowsCount:this.bmxItem.componentSettings[0].maxRule;
-    
+
     this.randomizeTestNames = this.bmxItem.componentSettings[0].randomizeTestNames
 
     if (this.rankingType == 'dropDown') {
@@ -124,12 +113,7 @@ export class ImageRankDragComponent extends RatingScaleComponent implements OnIn
     //   this.VIDEO_PATH = this.PATH1;
     // }
 
-    if(window.innerWidth <= 1024){
-      this.VIDEO_PATH = this.PATH1;
-    }else{
-      this.VIDEO_PATH = this.PATH2;
-    }
-    this.launchPathModal.emit(this.VIDEO_PATH)    
+    this.launchPathModal.emit(this.VIDEO_PATH)
   }
 
   onFileSelected(event) {
@@ -165,7 +149,7 @@ export class ImageRankDragComponent extends RatingScaleComponent implements OnIn
       this.openElements.splice(this.openElements.indexOf(y),1);
     }
     console.log(this.openElements)
-  } 
+  }
 
   open(y: any){
 
@@ -175,31 +159,40 @@ export class ImageRankDragComponent extends RatingScaleComponent implements OnIn
       console.log('true')
       return true;
     }
-    
+
   }
 
-  //---------end open cards--------------//  
+  //---------end open cards--------------//
 
   cancelUpload() {
     this.uploadSub.unsubscribe();
     this.reset();
   }
 
-  uploadAllImages() {
-    this.IMAGES_UPLOADED.forEach((imageObject, index) => {
+  uploadAllImages(){
+
+    if(this.IMAGES_UPLOADED.length<this.bmxItem.componentText.length){
+      this.bmxItem.componentText.splice(this.IMAGES_UPLOADED.length+1, this.bmxItem.componentText.length+1)
+    }
+    this.IMAGES_UPLOADED.forEach((imageObject , index) => {
       imageObject['FileContent'] = imageObject['FileContent'].split(imageObject['FileContent'].split(",")[0] + ',').pop()
-      this._BmxService.saveFileResources(JSON.stringify(imageObject)).subscribe((result: any) => {
+      this._BmxService.saveFileResources(JSON.stringify(imageObject)).subscribe((result:any) => {
         this.IMAGES_UPLOADED.shift()
-        // imageObject['FileContent'] = JSON.parse(result.d).FileUrl
-        this.bmxItem.componentText[index + 1].nameCandidates = JSON.parse(result.d).FileUrl
-        this.bmxItem.componentText[index + 1].name = JSON.parse(result.d).FileUrl
+        if(index==0){
+          this.bmxItem.componentText[index ].nameCandidates = "LOGO"
+        }
+        if( this.bmxItem.componentText[index + 1]){
+          this.bmxItem.componentText[index +1].nameCandidates = JSON.parse(result.d).FileUrl
+        }else{
+          this.bmxItem.componentText.push({nameCandidates:JSON.parse(result.d).FileUrl})
+        }
+
       });
     });
-
     setTimeout(() => {
       this.uploadImagesBox = false;
     }, 1000);
-
+    console.log(this.bmxItem.componentText)
   }
 
   deleteImage(index) {
@@ -224,12 +217,12 @@ export class ImageRankDragComponent extends RatingScaleComponent implements OnIn
         this.ratedCounter = this.ratedCounter + 1
         this.autoSave.emit()
     } else if(this.ratedCounter <= this.bmxItem.componentSettings[0].maxRule && this.actualRate != 0){
-      this.autoSave.next()    
-    } 
+      this.autoSave.next()
+    }
   }
 
   checkDragEvetn(event: CdkDragDrop<string[]>) {
-
+    if (event.previousIndex > 0) {
       moveItemInArray(this.bmxItem.componentText, event.previousIndex, event.currentIndex);
       this.bmxItem.componentText.forEach((row, rowIndex) => {
         if (rowIndex > 0) {
@@ -237,14 +230,7 @@ export class ImageRankDragComponent extends RatingScaleComponent implements OnIn
         }
       })
       this.autoSave.emit()
-  }
-  showMatrixMenuBmx(){
-    this.showMatrixMenu = !this.showMatrixMenu;
-      if(this.showMatrixMenu){
-        this.iconMenuShow = "remove_circle_outline"
-      }else{
-        this.iconMenuShow = "add_circle_outline"
-      }
+    }
   }
 }
 
