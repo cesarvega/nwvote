@@ -36,13 +36,14 @@ export class RankScaleComponent extends RatingScaleComponent implements OnInit {
   }
 
   ngOnInit(): void {
+    console.log(this.bmxItem)
     this.rankingScaleValue = this.bmxItem.componentSettings[0].selectedRanking
     this.createRatingStars(this.rankingScaleValue)
     // this.rankingTableType( this.bmxItem.componentSettings[0].rankType)
     this.rankingType = this.bmxItem.componentSettings[0].rankType
 
     this.rowsCount =  this.bmxItem.componentText.length - 1;
-    this.bmxItem.componentSettings[0].minRule = this.bmxItem.componentSettings[0].minRule == 0?this.rowsCount:this.bmxItem.componentSettings[0].minRule;
+    this.bmxItem.componentSettings[0].minRule = this.bmxItem.componentSettings[0].minRule == 0?this.rankingScaleValue:this.bmxItem.componentSettings[0].minRule;
     this.bmxItem.componentSettings[0].maxRule = this.bmxItem.componentSettings[0].maxRule == 0?this.rowsCount:this.bmxItem.componentSettings[0].maxRule;
 
     if (this.rankingType == 'dropDown') {
@@ -92,7 +93,6 @@ export class RankScaleComponent extends RatingScaleComponent implements OnInit {
   }
 
   checkDragEvetn(event: CdkDragDrop<string[]>) {
-    console.log(event)
     if (this.bmxItem.componentSettings[0].rankType == 'dragAndDrop') {
       moveItemInArray(this.bmxItem.componentText, event.previousIndex, event.currentIndex);
       this.bmxItem.componentText.forEach((row, rowIndex) => {

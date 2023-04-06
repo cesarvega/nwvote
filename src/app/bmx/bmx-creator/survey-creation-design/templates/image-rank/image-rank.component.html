@@ -86,6 +86,9 @@
     <!-- <mat-slider min="200" max="500" step="10" value="200" [(value)]="bmxItem.componentSettings[0].columnWidth"></mat-slider><p>{{bmxItem.componentSettings[0].columnWidth}}</p> -->
     <!-- ⏺⏺⏺⏺⏺⏺⏺⏺⏺⏺⏺⏺⏺⏺⏺⏺⏺⏺⏺⏺⏺⏺  END  ⏺⏺⏺⏺⏺⏺⏺⏺⏺⏺⏺⏺⏺⏺⏺⏺⏺ -->
     <div style="display: flex; flex-direction: row-reverse;">
+        <button (click)="showMatrixMenuBmx()" mat-icon-button matTooltip="{{textToolTip}}">
+            <mat-icon style="font-size: 26px;" class="full-icon">{{iconMenuShow}}</mat-icon>
+        </button>
         <div *ngIf="showMatrixMenu">
             <button (click)="undo(); editSingleTableCells = false" class="add-column" matTooltip="undo last change"
                 matTooltipPosition="above" mat-icon-button aria-label="ranking">
@@ -139,9 +142,7 @@
             matTooltip="insert test names" matTooltipPosition="above" *ngIf="i !== selectedIndex" mat-icon-button>
             <mat-icon style="font-size: 25px;" class="full-icon">edit</mat-icon>
         </button>
-        <button (click)="showMatrixMenuBmx()" mat-icon-button matToolTip="open menu">
-            <mat-icon style="font-size: 26px;" class="full-icon">{{iconMenuShow}}</mat-icon>
-        </button>
+       
     </div>
 </div>
 <!-- ➗➗➗➗➗➗➗➗➗➗➗➗➗➗➗➗➗➗➗  END  ➗➗➗➗➗➗➗➗➗➗➗➗➗➗➗➗➗ -->

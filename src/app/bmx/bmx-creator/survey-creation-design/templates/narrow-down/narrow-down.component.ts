@@ -54,13 +54,4 @@ export class NarrowDownComponent extends RatingScaleComponent implements OnInit 
     }
     
   }
-  showMatrixMenuBmx(){
-    this.showMatrixMenu = !this.showMatrixMenu;
-      if(this.showMatrixMenu){
-        this.iconMenuShow = "remove_circle_outline"
-      }else{
-        this.iconMenuShow = "add_circle_outline"
-      }
-  }
-
 }

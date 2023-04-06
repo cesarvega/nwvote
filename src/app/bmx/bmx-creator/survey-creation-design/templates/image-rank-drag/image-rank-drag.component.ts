@@ -45,7 +45,6 @@ export class ImageRankDragComponent extends RatingScaleComponent implements OnIn
   logoWidth = 200
   uploadImagesBox = false;
   showMatrixMenu: boolean = false;
-  iconMenuShow: string = "add_circle_outline"
   numRatingScale: number = 0;
 
   draggableBag
@@ -185,21 +184,30 @@ export class ImageRankDragComponent extends RatingScaleComponent implements OnIn
     this.reset();
   }
 
-  uploadAllImages() {
-    this.IMAGES_UPLOADED.forEach((imageObject, index) => {
+  uploadAllImages(){
+    
+    if(this.IMAGES_UPLOADED.length<this.bmxItem.componentText.length){
+      this.bmxItem.componentText.splice(this.IMAGES_UPLOADED.length+1, this.bmxItem.componentText.length+1)
+    }
+    this.IMAGES_UPLOADED.forEach((imageObject , index) => {
       imageObject['FileContent'] = imageObject['FileContent'].split(imageObject['FileContent'].split(",")[0] + ',').pop()
-      this._BmxService.saveFileResources(JSON.stringify(imageObject)).subscribe((result: any) => {
+      this._BmxService.saveFileResources(JSON.stringify(imageObject)).subscribe((result:any) => {
         this.IMAGES_UPLOADED.shift()
-        // imageObject['FileContent'] = JSON.parse(result.d).FileUrl
-        this.bmxItem.componentText[index + 1].nameCandidates = JSON.parse(result.d).FileUrl
-        this.bmxItem.componentText[index + 1].name = JSON.parse(result.d).FileUrl
+        if(index==0){
+          this.bmxItem.componentText[index ].nameCandidates = "LOGO"
+        }
+        if( this.bmxItem.componentText[index + 1]){
+          this.bmxItem.componentText[index +1].nameCandidates = JSON.parse(result.d).FileUrl
+        }else{
+          this.bmxItem.componentText.push({nameCandidates:JSON.parse(result.d).FileUrl})
+        }
+        
       });
     });
-
     setTimeout(() => {
-      this.uploadImagesBox = false;
+      this.uploadImagesBox = false;    
     }, 1000);
-
+    console.log(this.bmxItem.componentText)
   }
 
   deleteImage(index) {
@@ -229,7 +237,7 @@ export class ImageRankDragComponent extends RatingScaleComponent implements OnIn
   }
 
   checkDragEvetn(event: CdkDragDrop<string[]>) {
-
+    if (event.previousIndex > 0) {
       moveItemInArray(this.bmxItem.componentText, event.previousIndex, event.currentIndex);
       this.bmxItem.componentText.forEach((row, rowIndex) => {
         if (rowIndex > 0) {
@@ -237,14 +245,8 @@ export class ImageRankDragComponent extends RatingScaleComponent implements OnIn
         }
       })
       this.autoSave.emit()
+    }
   }
-  showMatrixMenuBmx(){
-    this.showMatrixMenu = !this.showMatrixMenu;
-      if(this.showMatrixMenu){
-        this.iconMenuShow = "remove_circle_outline"
-      }else{
-        this.iconMenuShow = "add_circle_outline"
-      }
-  }
+
 }
 
