@@ -29,7 +29,7 @@ export class ImageRankComponent  extends RatingScaleComponent implements OnInit 
 
   allowScrolling = true
 
-  VIDEO_PATH=''
+  CREATION_VIDEO_PATH=''
 
   constructor(dragulaService: DragulaService, _snackBar: MatSnackBar, _bmxService: BmxService,public deviceService: DeviceDetectorService) {
     super(dragulaService, _snackBar, _bmxService,deviceService)

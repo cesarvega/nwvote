@@ -33,6 +33,7 @@ export class RatingScaleComponent implements OnInit {
   // fontSizeRow = 19
   // rationalewidth = this.columnsSlider + 100
 
+
   // CONFIGURATION VARIABLES
   testNamesInput: string
   TestNameDataModel: any[];
@@ -74,19 +75,26 @@ export class RatingScaleComponent implements OnInit {
   showMatrixMenu: boolean = false;
   iconMenuShow: string = "add_circle_outline";
   textToolTip: string = "open menu";
-  scroll: any;
+  scroll: any;s
   @ViewChild('modalChecked') modalChecked: MatCheckboxModule | any;
 
   @Output() launchPathModal = new EventEmitter();
-  showModalVideo: boolean = false;
-
+  showModalVideo: boolean = true;
+  showCreationModalVideo: boolean = false
   openElements: any[]=[];
-
+  CREATION_VIDEO_PATH="assets/videos/RateMatrix.mp4" 
    //------modal-----------//   
+   VIDEO_PATH: any[] = [];
  
-   VIDEO_PATH = "assets/videos/RateMatrix.mp4" 
+   PATH1: any[] = [
+     'assets/img/bmx/tutorial/imagen1.JPG',
+     'assets/img/bmx/tutorial/imagen2.JPG',    
+   ]
  
-  
+   PATH2: any[] = [
+     'assets/img/bmx/tutorial/img-desktop1.JPG',
+     'assets/img/bmx/tutorial/img-desktop2.JPG',  
+   ]
    deviceInfo = null;
    public isDesktopDevice: any = null;
  
@@ -178,6 +186,11 @@ export class RatingScaleComponent implements OnInit {
     //   this.VIDEO_PATH = this.PATH1;
     // }
 
+    if(window.innerWidth <= 1024){
+      this.VIDEO_PATH = this.PATH1;
+    }else{
+      this.VIDEO_PATH = this.PATH2;
+    }
     this.launchPathModal.emit(this.VIDEO_PATH)
   }
 
@@ -896,7 +909,6 @@ export class RatingScaleComponent implements OnInit {
   ]
 
   showMatrixMenuBmx(){
-    console.log("open close")
     this.showMatrixMenu = !this.showMatrixMenu;
         if(this.showMatrixMenu ){
             this.iconMenuShow = "remove_circle_outline"
