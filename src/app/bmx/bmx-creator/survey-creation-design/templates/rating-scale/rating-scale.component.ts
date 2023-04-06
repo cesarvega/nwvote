@@ -907,6 +907,7 @@ export class RatingScaleComponent implements OnInit {
   ]
 
   showMatrixMenuBmx(){
+    console.log("open close")
     this.showMatrixMenu = !this.showMatrixMenu;
         if(this.showMatrixMenu ){
             this.iconMenuShow = "remove_circle_outline"

@@ -87,6 +87,10 @@
     <!-- ⏺⏺⏺⏺⏺⏺⏺⏺⏺⏺⏺⏺⏺⏺⏺⏺⏺⏺⏺⏺⏺⏺  END  ⏺⏺⏺⏺⏺⏺⏺⏺⏺⏺⏺⏺⏺⏺⏺⏺⏺⏺ -->
 
     <div style="display: flex; flex-direction: row-reverse;">
+        <button (click)="showMatrixMenuBmx()" mat-icon-button matTooltip="{{textToolTip}}"
+            matTooltipPosition="right">
+            <mat-icon class="full-icon">{{iconMenuShow}}</mat-icon>
+        </button> 
         <div *ngIf="showMatrixMenu">
             <button (click)="undo(); editSingleTableCells = false" class="add-column" matTooltip="undo last change" matTooltipPosition="above"
                 mat-icon-button aria-label="ranking">
@@ -141,10 +145,6 @@
             *ngIf="i !== selectedIndex" mat-icon-button>
             <mat-icon style="font-size: 25px;" class="full-icon">edit</mat-icon>
         </button>
-        <button (click)="showMatrixMenuBmx()" mat-icon-button matTooltip="open menu"
-                matTooltipPosition="right">
-            <mat-icon class="full-icon">{{iconMenuShow}}</mat-icon>
-        </button> 
     </div>
 </div>
 <!-- ➗➗➗➗➗➗➗➗➗➗➗➗➗➗➗➗➗➗➗  END  ➗➗➗➗➗➗➗➗➗➗➗➗➗➗➗➗➗ -->
@@ -339,9 +339,11 @@
                         [style.font-size]="bmxItem.componentSettings[0].fontSize +'px'"
                         style="text-align: center; font-weight: bold;color: #324395;min-width: 200px;" class="row-box"
                         [(ngModel)]="bmxItem.componentSettings[0].ratingScaleTitle"
-                        value="bmxItem.componentSettings[0].ratingScaleTitle"></textarea>
+                        value="bmxItem.componentSettings[0].ratingScaleTitle">
+                    </textarea>
                     <div class="rating-text" *ngIf="y == 0 && !editSingleTableCells">
-                        {{bmxItem.componentSettings[0].ratingScaleTitle}}</div>
+                        {{bmxItem.componentSettings[0].ratingScaleTitle}}
+                    </div>
                 </div>
                 <!--⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️ RANK STARS ⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️ -->
 
