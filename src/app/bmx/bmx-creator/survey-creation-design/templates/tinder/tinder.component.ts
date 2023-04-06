@@ -443,6 +443,5 @@ export class TinderComponent extends RatingScaleComponent implements OnInit {
   changePreferenceScore(){
     this.bmxItem.componentSettings[0].ranking = !this.ranking
   }
-
 }
 

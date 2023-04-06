@@ -178,7 +178,6 @@ export class RatingScaleComponent implements OnInit {
     //   this.VIDEO_PATH = this.PATH1;
     // }
 
-
     this.launchPathModal.emit(this.VIDEO_PATH)
   }
 
