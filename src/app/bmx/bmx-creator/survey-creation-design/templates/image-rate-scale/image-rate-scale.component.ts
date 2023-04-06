@@ -53,8 +53,18 @@ export class ImageRateScaleComponent extends RatingScaleComponent implements OnI
   //------modal-----------//
   @Output() launchPathModal = new EventEmitter(); 
 
-  VIDEO_PATH="assets/videos/imageRate.mp4" 
+  CREATION_VIDEO_PATH="assets/videos/imageRate.mp4" 
+  VIDEO_PATH: any[] = [];
 
+  PATH1: any[] = [
+    'assets/img/bmx/tutorial/image-rate-scale-mobil.jpg',
+    'assets/img/bmx/tutorial/image-rate-scale-mobil2.jpg',    
+  ]
+
+  PATH2: any[] = [
+    'assets/img/bmx/tutorial/image-rate-scale-desktop.JPG',
+    'assets/img/bmx/tutorial/image-rate-scale-desktop2.JPG',  
+  ]
 
   deviceInfo = null;
   public isDesktopDevice: any = null;
@@ -74,7 +84,6 @@ export class ImageRateScaleComponent extends RatingScaleComponent implements OnI
       }
     })
  
-
     if(this.bmxItem.componentText[0].hasOwnProperty("STARS")){
       this.numRatingScale = this.bmxItem.componentText[0].STARS.length
     }
@@ -96,6 +105,11 @@ export class ImageRateScaleComponent extends RatingScaleComponent implements OnI
     // }else{
     //   this.VIDEO_PATH = this.PATH1;
     // }
+    if(window.innerWidth <= 1024){
+      this.VIDEO_PATH = this.PATH1;
+    }else{
+      this.VIDEO_PATH = this.PATH2;
+    }
 
     this.launchPathModal.emit(this.VIDEO_PATH)
     console.log(this.bmxItem)

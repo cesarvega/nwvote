@@ -48,7 +48,7 @@ export class TinderComponent extends RatingScaleComponent implements OnInit {
 
   @Output() launchPathModal = new EventEmitter();
   @Output() autoSave = new EventEmitter();
-  VIDEO_PATH="assets/videos/tinder.mp4" 
+  CREATION_VIDEO_PATH="assets/videos/tinder.mp4" 
 
 
   rankingType = 'dropDown'
@@ -443,6 +443,5 @@ export class TinderComponent extends RatingScaleComponent implements OnInit {
   changePreferenceScore(){
     this.bmxItem.componentSettings[0].ranking = !this.ranking
   }
-
 }
 
