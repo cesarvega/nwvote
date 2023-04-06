@@ -882,13 +882,11 @@ export class SurveyMatrixComponent extends SurveyCreationDesignComponent impleme
                       templateRow[key] === answerRow[key]
                     ) {
                       templateRow.RATE = answerRow.RATE;
-                      if(templateRow.hasOwnProperty("STARS")){
-                        templateRow.STARS.forEach((starRow) => {
-                          if (starRow.id <= answerRow.RATE) {
-                            starRow.styleClass = 'active-rating-star';
-                          }
-                        });
-                      }                      
+                      templateRow.STARS.forEach((starRow) => {
+                        if (starRow.id <= answerRow.RATE) {
+                          starRow.styleClass = 'active-rating-star';
+                        }
+                      });
                       for (const key in templateRow) {
                         if (key.includes('Answer')) {
                           if (index > 0) {
@@ -1266,7 +1264,8 @@ export class SurveyMatrixComponent extends SurveyCreationDesignComponent impleme
     this.saveUserAnswers();
   }
 
-  saveUserAnswers(pageNumber?) {        
+  saveUserAnswers(pageNumber?) {
+        
     let pageStatus = (this.totalOfpages == this.currentPage + 1)?999: this.currentPage + 1;
     this.continueButtonToComple = (this.totalOfpages == this.currentPage + 1)?'Complete': 'Continue';
     

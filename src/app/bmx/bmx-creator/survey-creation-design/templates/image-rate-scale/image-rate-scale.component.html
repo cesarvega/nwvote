@@ -1,5 +1,18 @@
 
+
+<div *ngIf="showModalVideo && bmxClientPageOverview"  id="myModal" class="modal-video" style="display: flex;flex-direction: column;gap: 2px;">
+    <!-- <label class="container-checkbox">Don't show again
+        <input (click)="saveSelection()" type="checkbox" value="Bike" #modalChecked> 
+        <span class="checkmark">&#x2714;</span>        
+    </label> -->
+    <div class="modal-content">
+        <video src='{{VIDEO_PATH}}'controls></video>
+
+    </div>
+    <button class="btn btn-raised close-modal" (click)="showModalVideo=false">close</button>
+</div>
 <!-- ➗➗➗➗➗➗➗➗➗➗➗➗➗➗➗➗➗➗➗  SETTINGS ICONS  ➗➗➗➗➗➗➗➗➗➗➗➗➗➗➗➗➗ -->
+
 <div *ngIf="bmxClientPageOverview" style="display: flex;
     flex-direction: row-reverse;
     justify-content: end;
@@ -134,6 +147,10 @@
             </button>
         </div>
 
+        <button (click)="showModalVideo=true; editSingleTableCells = false" class="add-column" matTooltip="see tutorial"
+                matTooltipPosition="above" mat-icon-button aria-label="ranking">
+                <mat-icon style="font-size: 26px;" class="full-icon">video_library</mat-icon>
+        </button>
         <button (click)="insertCommentBoxColumn(); editSingleTableCells = false" class="add-column"
             matTooltip="add comments column" matTooltipPosition="above" mat-icon-button aria-label="ranking">
             <mat-icon style="font-size: 26px;" class="full-icon">wysiwyg</mat-icon>

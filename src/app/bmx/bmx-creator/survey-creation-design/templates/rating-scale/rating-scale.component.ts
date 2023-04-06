@@ -6,6 +6,8 @@ import { Subscription } from 'rxjs';
 import * as  dragula from 'dragula';
 import { BmxService } from '../../../bmx.service';
 import { DeviceDetectorService } from 'ngx-device-detector';
+import { MatCheckboxModule } from '@angular/material/checkbox';
+
 @Component({
   selector: 'app-rating-scale',
   templateUrl: './rating-scale.component.html',
@@ -74,25 +76,18 @@ export class RatingScaleComponent implements OnInit {
   iconMenuShow: string = "add_circle_outline";
   textToolTip: string = "open menu";
   scroll: any;s
+  @ViewChild('modalChecked') modalChecked: MatCheckboxModule | any;
 
   @Output() launchPathModal = new EventEmitter();
+  showModalVideo: boolean = false;
 
   openElements: any[]=[];
 
    //------modal-----------//   
  
-   VIDEO_PATH: any[] = [];
+   VIDEO_PATH = "assets/videos/RateMatrix.mp4" 
  
-   PATH1: any[] = [
-     'assets/img/bmx/tutorial/imagen1.JPG',
-     'assets/img/bmx/tutorial/imagen2.JPG',    
-   ]
- 
-   PATH2: any[] = [
-     'assets/img/bmx/tutorial/img-desktop1.JPG',
-     'assets/img/bmx/tutorial/img-desktop2.JPG',  
-   ]
- 
+  
    deviceInfo = null;
    public isDesktopDevice: any = null;
  
@@ -184,11 +179,7 @@ export class RatingScaleComponent implements OnInit {
     //   this.VIDEO_PATH = this.PATH1;
     // }
 
-    if (window.innerWidth <= 1024) {
-      this.VIDEO_PATH = this.PATH1;
-    } else {
-      this.VIDEO_PATH = this.PATH2;
-    }
+
     this.launchPathModal.emit(this.VIDEO_PATH)
   }
 
@@ -916,4 +907,14 @@ export class RatingScaleComponent implements OnInit {
             this.textToolTip = 'open menu'
         }
   }
+  saveSelection(){
+
+    if(!this.modalChecked._checked){
+       localStorage.setItem('showModal', JSON.stringify(false));
+
+    }else{
+     console.log('es falso')
+    }
+  }
+
 }

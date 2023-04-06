@@ -20,6 +20,7 @@ export class RankScaleComponent extends RatingScaleComponent implements OnInit {
   @Input() bmxClientPageDesignMode;
   @Input() bmxClientPageOverview;
   @Output() autoSave = new EventEmitter();
+  VIDEO_PATH="assets/videos/RankMatrix.mp4" 
 
   isImageType = true
 
