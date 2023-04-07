@@ -1,8 +1,8 @@
 <div *ngIf="showCreationModalVideo && bmxClientPageOverview" id="myModal" class="modal-video"
     style="display: flex;flex-direction: column;gap: 2px;">
     <!-- <label class="container-checkbox">Don't show again
-        <input (click)="saveSelection()" type="checkbox" value="Bike" #modalChecked> 
-        <span class="checkmark">&#x2714;</span>        
+        <input (click)="saveSelection()" type="checkbox" value="Bike" #modalChecked>
+        <span class="checkmark">&#x2714;</span>
     </label> -->
     <div class="modal-content">
         <video src='{{CREATION_VIDEO_PATH}}' controls></video>
@@ -127,34 +127,31 @@
             <!-- <button (click)="insertRadioColumn()" class="add-column"  matTooltip="add radio column"
             matTooltipPosition="above" mat-icon-button aria-label="ranking">
             <mat-icon style="font-size: 26px;" class="full-icon">radio_button_checked</mat-icon>
-        </button> -->
-
-            <button (click)="insertRow(); editSingleTableCells = false" class="add-column" matTooltip="insert row"
-                matTooltipPosition="above" mat-icon-button aria-label="ranking">
+            </button> -->
+        
+            <button (click)="insertRow(); editSingleTableCells = false" class="add-column" matTooltip="insert row" matTooltipPosition="above"
+                mat-icon-button aria-label="ranking">
                 <mat-icon style="font-size: 26px;" class="full-icon">vertical_distribute</mat-icon>
             </button>
-            <button (click)="dragRows = !dragRows; editSingleTableCells = false"
-                [ngClass]="(!dragRows)?'add-column':'add-column-active'" matTooltip="drag rows"
-                matTooltipPosition="above" mat-icon-button aria-label="ranking">
+            <button (click)="dragRows = !dragRows; editSingleTableCells = false" [ngClass]="(!dragRows)?'add-column':'add-column-active'"
+                matTooltip="drag rows" matTooltipPosition="above" mat-icon-button aria-label="ranking">
                 <mat-icon style="font-size: 26px;" class="full-icon">drag_indicator</mat-icon>
             </button>
-
             <button (click)="editSingleTableCells = !editSingleTableCells"
                 [ngClass]="(!editSingleTableCells)?'add-column':'add-column-active'" matTooltip="edit table cells"
                 matTooltipPosition="above" mat-icon-button aria-label="ranking">
                 <mat-icon style="font-size: 26px;" class="full-icon">explicit</mat-icon>
             </button>
         </div>
+
         <button (click)="showCreationModalVideo=true; editSingleTableCells = false" class="add-column" matTooltip="see tutorial"
                 matTooltipPosition="above" mat-icon-button aria-label="ranking">
                 <mat-icon style="font-size: 26px;" class="full-icon">video_library</mat-icon>
         </button>
-        
-        <button (click)="insertCommentBoxColumn(); editSingleTableCells = false" class="add-column"
-            matTooltip="add comments column" matTooltipPosition="above" mat-icon-button aria-label="ranking">
+        <button (click)="insertCommentBoxColumn(); editSingleTableCells = false" class="add-column" matTooltip="add comments column"
+            matTooltipPosition="above" mat-icon-button aria-label="ranking">
             <mat-icon style="font-size: 26px;" class="full-icon">wysiwyg</mat-icon>
         </button>
-
         <button (click)="isColumnResizerOn = !isColumnResizerOn; editSingleTableCells = false"
             [ngClass]="(!isColumnResizerOn)?'add-column':'add-column-active'" matTooltip="columns width"
             matTooltipPosition="above" mat-icon-button aria-label="ranking">
@@ -164,15 +161,9 @@
             matTooltip="insert test names" matTooltipPosition="above" *ngIf="i !== selectedIndex" mat-icon-button>
             <mat-icon style="font-size: 25px;" class="full-icon">edit</mat-icon>
         </button>
-
     </div>
 </div>
 <!-- ➗➗➗➗➗➗➗➗➗➗➗➗➗➗➗➗➗➗➗  END  ➗➗➗➗➗➗➗➗➗➗➗➗➗➗➗➗➗ -->
-
-
-
-
-
 
 <!--🥑🥑🥑🥑🥑🥑🥑🥑🥑🥑🥑🥑🥑🥑🥑🥑🥑🥑🥑🥑 CONFIGURATION BOX 🥑🥑🥑🥑🥑🥑🥑🥑🥑🥑🥑🥑🥑🥑🥑🥑🥑🥑-->
 
