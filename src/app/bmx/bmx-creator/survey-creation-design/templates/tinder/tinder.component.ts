@@ -48,8 +48,14 @@ export class TinderComponent extends RatingScaleComponent implements OnInit {
 
   @Output() launchPathModal = new EventEmitter();
   @Output() autoSave = new EventEmitter();
-  CREATION_VIDEO_PATH="assets/videos/tinder.mp4" 
+  CREATION_VIDEO_PATH="assets/videos/tinder.mp4"
+  PATH1: any[] = [
+    'assets/img/bmx/tutorial/tutorial-tinder1.JPG',
+  ]
 
+  PATH2: any[] = [
+    'assets/img/bmx/tutorial/tutorial-tinder-rate.JPG',
+  ]
 
   rankingType = 'dropDown'
   rankingTypeOptions = ['dropDown', 'dragAndDrop', 'radio']
@@ -69,7 +75,7 @@ export class TinderComponent extends RatingScaleComponent implements OnInit {
 
   }
   ngOnInit(): void {
-
+    console.log(this.bmxItem)
     this.getDataSource()
     if(this.dataSource[0].vote != undefined ||  this.dataSource[0].RATE != undefined){
       this.hasVoted = true
@@ -134,10 +140,10 @@ export class TinderComponent extends RatingScaleComponent implements OnInit {
       this.displaySound = true;
     }
 
+    this.ranking?this.VIDEO_PATH = this.PATH2:this.VIDEO_PATH = this.PATH1
     this.launchPathModal.emit(this.VIDEO_PATH)
-    this.rankingAmountArr = Array(this.rankingAmount).fill(0).map((_, index) => index+1);
-    this.rankingScaleValue = this.rankingAmount
-    console.log(this.rankingAmountArr)
+    this.rankingAmountArr = Array(this.bmxItem.componentText[0].STARS.length).fill(0).map((_, index) => index+1);
+    this.rankingScaleValue =this.bmxItem.componentText[0].STARS.length
   }
 
   setRateColor(rate: number){
@@ -164,6 +170,7 @@ export class TinderComponent extends RatingScaleComponent implements OnInit {
 
   upLoadNamesAndRationales(list: string) {
     this.bmxItem.componentSettings[0].randomizeTestNames = (this.randomizeTestNames) ? true : false
+    this.rankingAmountArr = Array(this.rankingScaleValue).fill(0).map((_, index) => index+1);
     if (!list) { list = this.listString; }
     if (list) {
       this.listString = list;
@@ -209,6 +216,7 @@ export class TinderComponent extends RatingScaleComponent implements OnInit {
         row.STARS = this.createRatingStars(this.rankingScaleValue, this.ratingScaleIcon)
       });
     }
+ 
   }
 
   // delete row diplicates from array of object by property
