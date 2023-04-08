@@ -143,7 +143,6 @@ export class RatingScaleComponent implements OnInit {
     this.rowsCount =  this.bmxItem.componentText.length - 1
     this.bmxItem.componentSettings[0].minRule = this.bmxItem.componentSettings[0].minRule == 0?this.rowsCount:this.bmxItem.componentSettings[0].minRule;
     this.bmxItem.componentSettings[0].maxRule = this.bmxItem.componentSettings[0].maxRule == 0?this.rowsCount:this.bmxItem.componentSettings[0].maxRule;
-    
     values.forEach(value => {
       if (typeof value == "string" && value != "STARS" && value != "CRITERIA") {
         this.columnsNames.push(value)
@@ -469,11 +468,21 @@ export class RatingScaleComponent implements OnInit {
             for (let e = 0; e < this.columnsNames.length; e++) {
               if ((rows[i].split("\t").length > 0)) {
                 const columnName = this.columnsNames[e]
-                const columnValue = rows[i].split("\t")[e].trim()
-                objectColumnDesign[columnName] = columnValue
+                let columnValue
+                console.log(columnName)
+                if(this.bmxItem.componentText.length>i && columnName =='nameCandidates') {
+                  if(this.bmxItem.componentText[0].nameCandidates == "LOGO"){
+                    columnValue = this.bmxItem.componentText[i].nameCandidates
+                  }else{
+                    columnValue = rows[i].split("\t")[e].trim()
+                  }
+                }else{
+                   columnValue = rows[i].split("\t")[e].trim()
+                }
                 if (i == 0) {
                   objectColumnDesign['RATE'] = 'RATE'
                 }
+                objectColumnDesign[columnName] = columnValue
                 if (i != 0) {
                   this.autoSizeColumns(columnName, columnValue)
                 }

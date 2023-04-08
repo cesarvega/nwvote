@@ -18,6 +18,7 @@ export class TinderComponent extends RatingScaleComponent implements OnInit {
   @ViewChild(MatTable) table: MatTable<any>;
 
   value = 0;
+  numRatingScale: number = 3;
   xpercent: number = 0;
   showModalTable: boolean = false;
   showModalAddRow: boolean = false;
@@ -25,7 +26,9 @@ export class TinderComponent extends RatingScaleComponent implements OnInit {
   showNewInput: boolean = false;
   hasVoted: boolean = false;
   ranking: any;
-  rankingAmount = [1,2,3,4,5,6,7]
+  rankingAmount = 7
+  rankingAmountArr: number[];
+  rankingScaleValue = 0;
   currentrank = undefined;
   colorText:  string = "";
   greenColor = '#00c600';
@@ -45,8 +48,7 @@ export class TinderComponent extends RatingScaleComponent implements OnInit {
 
   @Output() launchPathModal = new EventEmitter();
   @Output() autoSave = new EventEmitter();
-  CREATION_VIDEO_PATH="assets/videos/tinder.mp4" 
-
+  CREATION_VIDEO_PATH="assets/videos/tinder.mp4"
   PATH1: any[] = [
     'assets/img/bmx/tutorial/tutorial-tinder1.JPG',
   ]
@@ -73,7 +75,7 @@ export class TinderComponent extends RatingScaleComponent implements OnInit {
 
   }
   ngOnInit(): void {
-    
+    console.log(this.bmxItem)
     this.getDataSource()
     if(this.dataSource[0].vote != undefined ||  this.dataSource[0].RATE != undefined){
       this.hasVoted = true
@@ -140,6 +142,8 @@ export class TinderComponent extends RatingScaleComponent implements OnInit {
 
     this.ranking?this.VIDEO_PATH = this.PATH2:this.VIDEO_PATH = this.PATH1
     this.launchPathModal.emit(this.VIDEO_PATH)
+    this.rankingAmountArr = Array(this.bmxItem.componentText[0].STARS.length).fill(0).map((_, index) => index+1);
+    this.rankingScaleValue =this.bmxItem.componentText[0].STARS.length
   }
 
   setRateColor(rate: number){
@@ -166,6 +170,7 @@ export class TinderComponent extends RatingScaleComponent implements OnInit {
 
   upLoadNamesAndRationales(list: string) {
     this.bmxItem.componentSettings[0].randomizeTestNames = (this.randomizeTestNames) ? true : false
+    this.rankingAmountArr = Array(this.rankingScaleValue).fill(0).map((_, index) => index+1);
     if (!list) { list = this.listString; }
     if (list) {
       this.listString = list;
@@ -211,6 +216,7 @@ export class TinderComponent extends RatingScaleComponent implements OnInit {
         row.STARS = this.createRatingStars(this.rankingScaleValue, this.ratingScaleIcon)
       });
     }
+ 
   }
 
   // delete row diplicates from array of object by property
@@ -434,7 +440,7 @@ export class TinderComponent extends RatingScaleComponent implements OnInit {
 
   getDataSource(){
     this.dataSource = this.bmxItem.componentText.slice(1)
-    console.log(this.bmxItem.componentText)
+    // console.log(this.bmxItem)
     if(this.bmxItem.componentSettings[0].ranking == undefined){
       this.bmxItem.componentSettings[0].ranking = this.ranking
     }else{

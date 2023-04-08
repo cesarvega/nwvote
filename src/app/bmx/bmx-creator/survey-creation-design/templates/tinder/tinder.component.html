@@ -107,6 +107,16 @@
             aria-label="ranking">
             <mat-icon>cancel</mat-icon><br>Cancel
         </button>
+        <div>
+            <div style="font-size: 16px;margin-top: 10px;color: #48535e;">SELECT RATING RANGE</div>
+            <br>
+            <div style="text-align: center;display: flex;flex-direction: row;justify-content: space-around;">
+                {{numRatingScale}}
+                <input [(ngModel)]="rankingScaleValue" type="range" id="volume" name="volume" min="3" max="10">
+                10 <br>
+            </div>
+            <label for="volume">{{rankingScaleValue}}</label>
+        </div>
 
         <button style="outline: none;color:#76d354;margin-bottom: 50px;" mat-icon-button
             (click)="selectedIndex = '';upLoadNamesAndRationales(testNamesInput)" aria-label="ranking">
@@ -183,7 +193,7 @@
                 <!-- RANKING SYSTEM -->
                 <div *ngIf="ranking"
                     style="display: flex;flex-direction:row;justify-content: center;align-items: center;gap: 35px;">
-                    <div *ngFor="let rank of rankingAmount; let rankIndex = index">
+                    <div *ngFor="let rank of rankingAmountArr; let rankIndex = index">
                         <button style="min-width: 35px;" (click)="voteName(rank)"
                             [ngClass]="(currentrank === rankIndex)?'rankNumberActive':'rankNumber'" mat-raised-button>
                             {{rank}}
@@ -309,7 +319,7 @@
                         </ng-template>
                     </div>
                     <div style="display: flex; gap: 5px">
-                        <div *ngFor="let rank of rankingAmount; let rankIndex = index">
+                        <div *ngFor="let rank of rankingAmountArr; let rankIndex = index">
                             <button style="min-width: 35px;" (click)="voteName(rank)"
                                 [ngClass]="(currentrank === rankIndex)?'rankNumberActive':'rankNumber'"
                                 mat-raised-button>
