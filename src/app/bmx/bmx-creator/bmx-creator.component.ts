@@ -18,7 +18,9 @@ export class BmxCreatorComponent implements OnInit {
   saveProjectSuccess = false;
 
   widthTemporary: string = ""
-
+  CREATION_VIDEO_PATH="assets/videos/projectCreation.mp4" 
+  showCreationModalVideo: boolean = false
+  
   projectName: any;
   projectId: any;
   soundVolume = 0.2;
