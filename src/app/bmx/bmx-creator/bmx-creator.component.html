@@ -1,8 +1,20 @@
+<div *ngIf="showCreationModalVideo" id="myModal" class="modal-video"
+  style="display: flex;flex-direction: column;gap: 2px;">
+  <!-- <label class="container-checkbox">Don't show again
+      <input (click)="saveSelection()" type="checkbox" value="Bike" #modalChecked> 
+      <span class="checkmark">&#x2714;</span>        
+  </label> -->
+  <div class="modal-content">
+    <video src='{{CREATION_VIDEO_PATH}}' controls></video>
+
+  </div>
+  <button class="btn btn-raised close-modal" (click)="showCreationModalVideo=false">close</button>
+</div>
 <div *ngIf="userRole != 'User'" class="main-container">
 
   <button class="no-print" *ngIf="globalProjectName.length > 0"
-    style="position: absolute;bottom: -65px;z-index: 9999999999;right: 183px;outline: none;"
-     mat-raised-button  class="project-name-global">
+    style="position: absolute;bottom: -65px;z-index: 9999999999;right: 183px;outline: none;" mat-raised-button
+    class="project-name-global">
     PROJECT: {{globalProjectName}}
   </button>
 
@@ -21,8 +33,8 @@
   </button>
   <button class="no-print"
     *ngIf="(isMenuActive11 && !bmxClientPageDesignMode) || (isMenuActive16 && !bmxClientPageDesignMode)"
-    style="position: absolute;top: 10px;outline: none;"
-    (click)="toggleViewPageModeDesign()" mat-icon-button matTooltip="menu" matTooltipPosition="above">
+    style="position: absolute;top: 10px;outline: none;" (click)="toggleViewPageModeDesign()" mat-icon-button
+    matTooltip="menu" matTooltipPosition="above">
     <mat-icon class="full-icon" style="font-size: 35px;">menu
     </mat-icon>
   </button>
@@ -31,7 +43,8 @@
     <!-- LOGO BRANDING 🎭🎭🎭🎭🎭🎭🎭🎭🎭🎭🎭🎭🎭🎭🎭🎭🎭🎭🎭🎭🎭🎭🎭🎭🎭🎭🎭🎭🎭🎭🎭🎭🎭-->
     <div class="logo-badge" style="font-size: 21px;overflow-x: hidden;">
 
-      <img style="width: 253px;margin-left: 16px;margin-right: 16px;" src="./assets/img/bmx/BRANDMATRIX-DASHBOARD-LOGO.svg">
+      <img style="width: 253px;margin-left: 16px;margin-right: 16px;"
+        src="./assets/img/bmx/BRANDMATRIX-DASHBOARD-LOGO.svg">
       <div style="display: flex;flex-direction: column;">
         <!-- <div class="title secondary-text"
                     style="color: #004684; margin-top: 10px;text-align: center;font-family: Arial, Helvetica, sans-serif;font-weight: 800;">
@@ -47,7 +60,8 @@
 
     <div class="welcome">
       <mat-icon style="color: white;padding: 15px;">account_circle</mat-icon>
-      <div class="welcome-role" style="color: white; width: 100%;text-align: center;font-family: Arial, Helvetica, sans-serif;margin-top: 10px;">
+      <div class="welcome-role"
+        style="color: white; width: 100%;text-align: center;font-family: Arial, Helvetica, sans-serif;margin-top: 10px;">
         Welcome {{userFullName}}
         <br>
         Role: {{userRole}}
@@ -91,14 +105,28 @@
                     {{'Matrix Invites'}}
                 </div>
             </div> -->
-      <div *ngIf="!(userRole == 'Director')" [ngClass]="(isMenuActive4)?'menu-active':'menu-item'"
-        (click)="toggleMenuActive('isMenuActive8');isMainMenuActive = false ">
-        <button mat-icon-button style="margin: 0 20px 0 10px">
-          <mat-icon style="font-size: 30px;">edit</mat-icon>
-        </button>
-        <div class="create-edit-matrix" style=" text-align: end;font-family: Arial, Helvetica, sans-serif">
-          {{'Create/Edit Matrix'}}
+      <div style="justify-content: left;">
+        <div *ngIf="!(userRole == 'Director')" [ngClass]="(isMenuActive4)?'menu-active':'menu-item'"  style="justify-content: space-between">
+          <div (click)="toggleMenuActive('isMenuActive8');isMainMenuActive = false "
+            style="display: flex; justify-content: center;">
+            <button mat-icon-button style="margin: 0 20px 0 10px">
+              <mat-icon style="font-size: 30px;">edit</mat-icon>
+            </button>
+            <div class="create-edit-matrix"
+              style="margin-top: 10px; text-align: end;font-family: Arial, Helvetica, sans-serif; text-align: center;">
+              {{'Create/Edit Matrix'}}
+            </div>
+
+          </div>
+          <div class="video-button">
+            <button (click)="showCreationModalVideo=true" class="add-column" matTooltip="see tutorial"
+            matTooltipPosition="above" mat-icon-button aria-label="ranking">
+            <mat-icon style="font-size: 26px; color: white; " class="full-icon">video_library</mat-icon>
+          </button>
+          </div>
+          
         </div>
+
       </div>
       <!-- <div [ngClass]="(isMenuActive5)?'menu-active':'menu-item'" (click)="toggleMenuActive('isMenuActive5')">
                 <button mat-icon-button style="margin: 0 20px 0 10px">
@@ -121,8 +149,9 @@
 
 
     <!-- SIDE MENU 🎀🎀🎀🎀🎀🎀🎀🎀🎀🎀🎀🎀🎀🎀🎀🎀🎀🎀🎀🎀🎀🎀🎀🎀🎀🎀🎀🎀🎀🎀🎀🎀🎀🎀🎀🎀🎀🎀🎀🎀 -->
-    <div class="menu" *ngIf="!isMainMenuActive">
-      <div *ngIf="!(userRole == 'Director')" [ngClass]="(isMenuActive8)?'menu-active':'menu-item'" (click)="toggleMenuActive('isMenuActive8')">
+    <div class="menu" *ngIf="!isMainMenuActive" style="justify-content: space-between;">
+      <div *ngIf="!(userRole == 'Director')" [ngClass]="(isMenuActive8)?'menu-active':'menu-item'"
+        (click)="toggleMenuActive('isMenuActive8')">
 
         <div style=" text-align: end;font-family: Arial, Helvetica, sans-serif;font-size: 18px;padding-left:20px">
           {{'Project Information'}}
@@ -144,7 +173,8 @@
                 </div>
             </div> -->
       <div *ngIf="!(userRole == 'Director')">
-        <div *ngIf="globalProjectName.length > 0; else noSave" [ngClass]="(isMenuActive11)?'menu-active':'menu-item'" (click)="toggleMenuActive('isMenuActive11')">
+        <div *ngIf="globalProjectName.length > 0; else noSave" [ngClass]="(isMenuActive11)?'menu-active':'menu-item'"
+          (click)="toggleMenuActive('isMenuActive11')">
           <div class="link-bmx-creator">
             {{'Survey Creation & Design'}}
           </div>
@@ -169,19 +199,40 @@
                     {{'Page Modules'}}
                 </div>
             </div> -->
-      <div [ngClass]="(isMenuActive14)?'menu-active':'menu-item'" (click)="toggleMenuActive('isMenuActive14')">
+      <div [ngClass]="(isMenuActive14)?'menu-active':'menu-item'" style="justify-content: space-between" (click)="toggleMenuActive('isMenuActive14')">
         <div class="link-bmx-creator">
           {{'Participants'}}
         </div>
-      </div>
-      <div [ngClass]="(isMenuActive15)?'menu-active':'menu-item'" (click)="toggleMenuActive('isMenuActive15')">
-        <div class="link-bmx-creator">
-          {{'Survey Participants/Email'}}
+        <div >
+          <button (click)="CREATION_VIDEO_PATH='assets/videos/participants.mp4' ; showCreationModalVideo=true; "
+            class="video-button" matTooltip="see tutorial" matTooltipPosition="above" mat-icon-button
+            aria-label="ranking">
+            <mat-icon style="font-size: 26px; color: white; " class="full-icon">video_library</mat-icon>
+          </button>
         </div>
       </div>
-      <div [ngClass]="(isMenuActive16)?'menu-active':'menu-item'" (click)="toggleMenuActive('isMenuActive16')">
+      <div [ngClass]="(isMenuActive15)?'menu-active':'menu-item'"  style="justify-content: space-between" (click)="toggleMenuActive('isMenuActive15')">
+        <div class="link-bmx-creator" style="text-align:start;">
+          {{'Survey Participants/Email'}}
+        </div>
+        <div >
+          <button (click)="CREATION_VIDEO_PATH='assets/videos/emails.mp4' ; showCreationModalVideo=true; "
+            class="video-button" matTooltip="see tutorial" matTooltipPosition="above" mat-icon-button
+            aria-label="ranking">
+            <mat-icon style="font-size: 26px; color: white; " class="full-icon">video_library</mat-icon>
+          </button>
+        </div>
+      </div>
+      <div [ngClass]="(isMenuActive16)?'menu-active':'menu-item'"  style="justify-content: space-between" (click)="toggleMenuActive('isMenuActive16')">
         <div class="link-bmx-creator">
           {{'Reports'}}
+        </div>
+        <div>
+          <button (click)="CREATION_VIDEO_PATH='assets/videos/Reports.mp4' ; showCreationModalVideo=true; "
+            class="video-button" matTooltip="see tutorial" matTooltipPosition="above" mat-icon-button
+            aria-label="ranking">
+            <mat-icon style="font-size: 26px; color: white; " class="full-icon">video_library</mat-icon>
+          </button>
         </div>
       </div>
       <div [ngClass]="'menu-item'" (click)="toggleMenuActive('isMenuActive1');isMainMenuActive = true">
@@ -197,7 +248,8 @@
 
   <!-- PROJECT LIST COMPONENT 📀📀📀📀📀📀📀📀📀📀📀📀📀📀📀📀📀📀📀📀📀📀📀📀📀📀📀📀📀📀📀📀📀📀📀📀📀📀📀-->
   <div class="project-list" *ngIf="isMenuActive1" style="border: hotpink solid 0px; width: 75%; height: 100vh;">
-    <app-project-list [isMenuActive1]="isMenuActive1" [userRole]="userRole" [userOffice]="userOffice" [userDepartment]="userDepartment" (isMenuActive1Close)="editBM($event)"
+    <app-project-list [isMenuActive1]="isMenuActive1" [userRole]="userRole" [userOffice]="userOffice"
+      [userDepartment]="userDepartment" (isMenuActive1Close)="editBM($event)"
       (isMenuActive1Email)="emailBM($event)"></app-project-list>
   </div>
 
@@ -325,7 +377,8 @@
   <!--  SURVEY CREATION & DESIGN 🧿🧿🧿🧿🧿🧿🧿🧿🧿🧿🧿🧿🧿🧿🧿🧿🧿🧿🧿🧿🧿🧿🧿🧿🧿🧿🧿🧿🧿🧿🧿🧿🧿🧿🧿🧿🧿🧿🧿🧿🧿-->
   <div [ngClass]="bmxClientPageDesignMode?'page-design':'page-design-client'" *ngIf="isMenuActive11">
     <app-survey-creation-design [isBrandMatrixSurvey]="isBrandMatrixSurvey" [isMenuActive11]="isMenuActive11"
-      [bmxClientPageDesignMode]="bmxClientPageDesignMode" [bmxClientPageOverview]="bmxClientPageOverview" [widthLogo]="widthTemporary">
+      [bmxClientPageDesignMode]="bmxClientPageDesignMode" [bmxClientPageOverview]="bmxClientPageOverview"
+      [widthLogo]="widthTemporary">
     </app-survey-creation-design>
   </div>
   <!-- END 🧿🧿🧿🧿🧿🧿🧿🧿🧿🧿🧿🧿🧿🧿🧿🧿🧿🧿🧿🧿🧿🧿🧿🧿🧿🧿🧿🧿🧿🧿🧿🧿🧿🧿🧿🧿🧿🧿🧿🧿  SURVEY CREATION & DESIGN -->
@@ -390,12 +443,13 @@
 
 </div>
 
-<div *ngIf="userRole =='User'" class="userModal" >
+<div *ngIf="userRole =='User'" class="userModal">
   <mat-card class="flex-column ">
-    <mat-icon style="font-weight: bold;font-size: 35px;color: #032c72; animation: fadeIn 0.6s ease-in-out 0.3s backwards;">info
+    <mat-icon
+      style="font-weight: bold;font-size: 35px;color: #032c72; animation: fadeIn 0.6s ease-in-out 0.3s backwards;">info
     </mat-icon>
     <br>
-    <h1 >{{userFullName}} you don't have acces to the Brand Matrix </h1>
+    <h1>{{userFullName}} you don't have acces to the Brand Matrix </h1>
     <mat-card-content class="">
       <h3><span style="font-weight: bold;">Please contact the IS Department </span></h3>
 
