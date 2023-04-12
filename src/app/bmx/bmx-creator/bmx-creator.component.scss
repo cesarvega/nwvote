@@ -371,8 +371,7 @@
       // padding: 20px;
       // border: 1px solid #888;
       width: 70%; /* Could be more or less, depending on screen size */
-      height: 70%;
-      overflow: scroll;
+      height: auto;
       img {
           margin-bottom: 15px;
           height: auto;
@@ -426,8 +425,8 @@
       margin-left: auto;
       width: 55%;
       // height: auto;
-      height: 50%;
-      overflow-y: scroll;
+      height: auto;
+      overflow-y: hidden;
       overflow-x: hidden;
   }
 
@@ -465,8 +464,7 @@
       margin: 1% auto;
       margin-left: auto;
       width: 30%;
-      height: 75%;
-      overflow: scroll;
+      height: auto;
   }
 
   
@@ -484,8 +482,7 @@
       margin: 1% auto;
       margin-left: auto;
       width: 30%;
-      height: 75%;
-      overflow: scroll;
+      height: auto;
   }
 
   .modal-video .close-modal {
@@ -501,8 +498,7 @@
       margin: 1% auto;
       margin-left: auto;
       width: 40%;
-      height: 75%;
-      overflow: scroll;
+      height: auto;
   }
 
 

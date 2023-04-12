@@ -502,7 +502,6 @@ input[type="range"]:focus::-ms-fill-upper {
     }
   }
 }
-
 .modal-video {
   /*display: block;  Hidden by default */
   position: fixed; /* Stay in place */
@@ -524,8 +523,7 @@ input[type="range"]:focus::-ms-fill-upper {
       // padding: 20px;
       // border: 1px solid #888;
       width: 70%; /* Could be more or less, depending on screen size */
-      height: 70%;
-      overflow: scroll;
+      height: auto;
       img {
           margin-bottom: 15px;
           height: auto;
@@ -571,42 +569,6 @@ input[type="range"]:focus::-ms-fill-upper {
   width: 0;
 }
 
-.checkmark {
-  position: absolute;
-  top: 0;
-  left: 0;
-  height: 25px;
-  width: 25px;
-  background-color: #e9ecef;
-  font-size: 18px;
-  text-align: center;
-  color: #e9ecef;
-}
-
-.checkmark:after {
-  content: "";
-  position: absolute;
-  display: none;
-}
-
-/* mostramos el marcador al seleccionar */
-.container-checkbox input:checked ~ .checkmark:after {
-  display: block;
-}
-
-/* estilo del marcador */
-.container-checkboxr .checkmark:after {
-  left: 9px;
-  top: 5px;
-  width: 5px;
-  height: 10px;
-  border: solid white;
-  border-width: 0 3px 3px 0;
-  -webkit-transform: rotate(45deg);
-  -ms-transform: rotate(45deg);
-  transform: rotate(45deg);
-}
-
 //-------------modal-----------------//
 @media (min-width: 1025px) {
   .modal-video .modal-content {
@@ -615,18 +577,13 @@ input[type="range"]:focus::-ms-fill-upper {
       margin-left: auto;
       width: 55%;
       // height: auto;
-      height: 50%;
-      overflow-y: scroll;
+      height: auto;
+      overflow-y: hidden;
       overflow-x: hidden;
   }
 
   .modal-video .close-modal {
       // margin-left: 42.5%;
-      top: 12%;
-  }
-
-  .container-checkbox {
-      margin-left: 23%;
       top: 12%;
   }
 
@@ -659,14 +616,10 @@ input[type="range"]:focus::-ms-fill-upper {
       margin: 1% auto;
       margin-left: auto;
       width: 30%;
-      height: 75%;
-      overflow: scroll;
+      height: auto;
   }
 
-  .container-checkbox {
-      margin-left: 35%;
-      top: 3%;
-  }
+  
 
   .modal-video .close-modal {
       position: relative;
@@ -681,13 +634,7 @@ input[type="range"]:focus::-ms-fill-upper {
       margin: 1% auto;
       margin-left: auto;
       width: 30%;
-      height: 75%;
-      overflow: scroll;
-  }
-
-  .container-checkbox {
-      margin-left: 35%;
-      top: 5%;
+      height: auto;
   }
 
   .modal-video .close-modal {
@@ -703,14 +650,9 @@ input[type="range"]:focus::-ms-fill-upper {
       margin: 1% auto;
       margin-left: auto;
       width: 40%;
-      height: 75%;
-      overflow: scroll;
+      height: auto;
   }
 
-  .container-checkbox {
-      margin-left: 30%;
-      top: 6%;
-  }
 
   .modal-video .close-modal {
       position: relative;
@@ -718,3 +660,8 @@ input[type="range"]:focus::-ms-fill-upper {
       top: 5%;
   }
 }
+
+
+
+// 💜 💜 💜 💜 💜 💜 💜 💜 💜 💜 💜 💜 💜 💜 💜 💜 💜 💜 💜 💜 💜 💜 💜 💜 💜 💜 💜 💜 💜 💜 💜 💜 💜 💜 💜 💜 💜 💜 💜 💜 💜 💜 💜
+// END OF THE SCSS PROJECT *******************************************************************************************
