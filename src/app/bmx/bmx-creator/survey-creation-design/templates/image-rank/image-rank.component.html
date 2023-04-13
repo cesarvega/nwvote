@@ -142,7 +142,7 @@
             matTooltip="insert test names" matTooltipPosition="above" *ngIf="i !== selectedIndex" mat-icon-button>
             <mat-icon style="font-size: 25px;" class="full-icon">edit</mat-icon>
         </button>
-
+       
     </div>
 </div>
 <!-- ➗➗➗➗➗➗➗➗➗➗➗➗➗➗➗➗➗➗➗  END  ➗➗➗➗➗➗➗➗➗➗➗➗➗➗➗➗➗ -->
@@ -303,7 +303,7 @@
 
 
                         <!--☂️☂️☂️☂️☂️☂️☂️☂️☂️☂️☂️☂️☂️ DRAG AND DROP ☂️☂️☂️☂️☂️☂️☂️☂️☂️☂️☂️☂️☂️☂️☂️☂️-->
-                        <button *ngIf="this.bmxItem.componentSettings[0].rankType == 'dragAndDrop'" mat-button style="background-color:#ee7f25 ;color: white;
+                        <button *ngIf="this.bmxItem.componentSettings[0].rankType == 'dragAndDrop'" mat-button style="background-color:#ee7f25 ;color: white; 
                             animation: rubberBand 700ms ease-in  forwards;">{{y}}</button>
 
 
@@ -316,8 +316,8 @@
 
                         <!-- 🩸🩸🩸🩸🩸🩸🩸🩸🩸🩸🩸🩸🩸 RATE BUTTONS 🩸🩸🩸🩸🩸🩸🩸🩸🩸🩸🩸🩸🩸🩸🩸🩸🩸🩸🩸🩸🩸🩸🩸🩸 -->
                         <div style="display: flex;">
-                            <button (click)="bmxItem.componentText[y]['RATE'] = 0;leaveStar(y)" *ngIf="bmxItem.componentText[y]['RATE']>0 && y != 0 &&
-                                this.bmxItem.componentSettings[0].rankType == 'dropDown'" style="background-color: #ee7f25;
+                            <button (click)="bmxItem.componentText[y]['RATE'] = 0;leaveStar(y)" *ngIf="bmxItem.componentText[y]['RATE']>0 && y != 0 && 
+                                this.bmxItem.componentSettings[0].rankType == 'dropDown'" style="background-color: #ee7f25;    
                                     color: white;
                                     min-width: 20px;
                                     line-height: 19px;
@@ -342,7 +342,7 @@
 
                 <div *ngFor="let columnName of columnsNames; let e =  index"
                     style="display: flex;align-items: center;justify-content: center;" [ngClass]="(e%2==0)?'red':'blue'"
-                    [style.padding]="bmxItem.componentSettings[0].rowHeight + 'px'" [style.width]="(columnName == 'rationale')?bmxItem.componentSettings[0].rationalewidth + 'px':
+                    [style.padding]="bmxItem.componentSettings[0].rowHeight + 'px'" [style.width]="(columnName == 'rationale')?bmxItem.componentSettings[0].rationalewidth + 'px': 
                     (columnName == 'RATE')?bmxItem.componentSettings[0].rateWidth + 'px':
                     (columnName == 'nameCandidates')?bmxItem.componentSettings[0].nameCandidatesWidth + 'px':
                     (columnName.includes('Comments'))?bmxItem.componentSettings[0].commentsWidth + 'px':
@@ -494,7 +494,7 @@
 
                 <div style="display: flex;gap: 23px;padding-top: 10px;position: absolute;right: 24px;">
                     <div *ngFor="let criteria of testName.CRITERIA  let x =  index">
-                        <button *ngIf="criteria.RATE>0 && y != 0 " style="background-color: #ee7f25;
+                        <button *ngIf="criteria.RATE>0 && y != 0 " style="background-color: #ee7f25;    
                              color: white;
                              min-width: 20px;
                              line-height: 20px;
