@@ -31,8 +31,8 @@ export class TinderComponent extends RatingScaleComponent implements OnInit {
   rankingScaleValue = 0;
   currentrank = undefined;
   colorText:  string = "";
-  greenColor = '#00c600';
-  redColor = '#e800d7';
+  greenColor = '#12772F';
+  redColor = '#C50A19';
   neutralColor = '#f37e00';
 
   newCandidate: any = {
