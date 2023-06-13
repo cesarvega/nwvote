@@ -1,90 +1,105 @@
-    <div style="width: 100%; display: flex; align-items: flex-start;">
-        <div style="width: 75%;">
-            <div  style="display: flex;justify-content: space-between; margin-top: 20px;">
-                <div style="margin: 20px;font-size: 20px;color:#063074;font-weight: 800;">MATRIX LIST</div>
-                <mat-form-field style="float:right; padding-right: 20px"  appearance="outline">
-                    <input matInput (keyup)="applyFilter($event.target.value)" placeholder="Search">
-                </mat-form-field>
-                <mat-form-field appearance="outline" style="border-radius: 0px">
-                    <mat-label>Sort By</mat-label>
-                    <mat-select [(value)]="selected" (selectionChange)="changeView()">
-                        <mat-option value="Live">Live</mat-option>
-                        <mat-option value="Closed">Closed</mat-option>
-                        <mat-option value="All">All</mat-option>
-                    </mat-select>
-                </mat-form-field>         
-            </div>
-            <div>
-                <table mat-table [dataSource]="dataSource" matSort class="mat-elevation-z8" style="width: 100%;">
-                    <!-- Position Column -->
-                    <ng-container matColumnDef="bmxCompany">
-                        <th mat-header-cell *matHeaderCellDef mat-sort-header> Client</th>
-                        <td mat-cell *matCellDef="let element"> {{element.bmxCompany}} </td>
-                    </ng-container>
-                    <ng-container matColumnDef="bmxProjectName">
-                        <th mat-header-cell *matHeaderCellDef mat-sort-header> Project Name </th>
-                        <td mat-cell *matCellDef="let element"> {{element.bmxProjectName}} </td>
-                    </ng-container>
-                    <ng-container matColumnDef="bmxDepartment">
-                        <th mat-header-cell *matHeaderCellDef mat-sort-header> Department </th>
-                        <td mat-cell *matCellDef="let element"> {{element.bmxDepartment}} </td>
-                    </ng-container>
-                    <ng-container matColumnDef="bmxRegion">
-                        <th mat-header-cell *matHeaderCellDef mat-sort-header> Office </th>
-                        <td mat-cell *matCellDef="let element"> {{element.bmxRegion}} </td>
-                    </ng-container>
-                    <ng-container matColumnDef="Created">
-                        <th mat-header-cell *matHeaderCellDef mat-sort-header> Created </th>
-                        <td mat-cell *matCellDef="let element"> {{element.Created}} </td>
-                    </ng-container>
-                    <ng-container matColumnDef="Close">
-                        <th mat-header-cell *matHeaderCellDef mat-sort-header> Close </th>
-                        <td mat-cell *matCellDef="let element"> {{element.Close}} </td>
-                    </ng-container>
-                    <ng-container matColumnDef="Email">
-                        <th mat-header-cell *matHeaderCellDef mat-sort-header style="width: 3.33%;"> </th>
-                        <td mat-cell *matCellDef="let element">
-                            <button mat-icon-button  style="color: #488abc;" aria-label="Example icon button with a home icon"
-                                (click)="sendEmail(element.bmxProjectName)">
-                                <mat-icon>email</mat-icon>
-                            </button>
-                        </td>
-                    </ng-container>
-                    <ng-container matColumnDef="Edit">
-                        <th mat-header-cell *matHeaderCellDef mat-sort-header style="width: 3.33%;"> </th>
-                        <td mat-cell *matCellDef="let element">
-                            <button mat-icon-button  style="color: #48bcb4;" aria-label="Example icon button with a home icon"
-                                (click)="editBM(element.bmxProjectName)">
-                                <mat-icon>build</mat-icon>
-                            </button>
-                        </td>
-                    </ng-container>
-                    <ng-container matColumnDef="Delete">
-                        <th mat-header-cell *matHeaderCellDef mat-sort-header style="width: 3.33%;"> </th>
-                        <td mat-cell *matCellDef="let element">
-                            <button mat-icon-button  style="color: #bc488a;" aria-label="Example icon button with a home icon"
-                                (click)="deleteBM(element.ProjectId)">
-                                <mat-icon>delete</mat-icon>
-                            </button>
-                        </td>
-                    </ng-container>
-    
-                    <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
-                    <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
-                </table>
-                <mat-paginator [pageSizeOptions]="[10, 15, 20]" showFirstLastButtons></mat-paginator>
-            </div>
+<div style="width: 100%; display: flex; align-items: flex-start;">
+    <div style="width: 75%;">
+        <div style="display: flex;justify-content: space-between; margin-top: 20px;">
+            <div style="margin: 20px;font-size: 20px;color:#063074;font-weight: 800;">MATRIX LIST</div>
+            <mat-form-field style="float:right; padding-right: 20px" appearance="outline">
+                <input matInput (keyup)="applyFilter($event.target.value)" placeholder="Search">
+            </mat-form-field>
+            <mat-form-field appearance="outline" style="border-radius: 0px">
+                <mat-label>Sort By</mat-label>
+                <mat-select [(value)]="selected" (selectionChange)="changeView()">
+                    <mat-option value="Live">Live</mat-option>
+                    <mat-option value="Closed">Closed</mat-option>
+                    <mat-option value="All">All</mat-option>
+                </mat-select>
+            </mat-form-field>
         </div>
-        <!-- CALENDAR  📆📆📆📆📆📆📆📆📆-->
-        <div style="width: 25%;position: relative;
-        left: 40px;">
-            <div style="width: 100%;">
-                <mat-card class="demo-inline-calendar-card">
-                    <mat-calendar (selectedChange)="selected = $event"></mat-calendar>
-                </mat-card>
-            </div>
-        </div>        
+        <div>
+            <table mat-table [dataSource]="dataSource" matSort class="mat-elevation-z8" style="width: 100%;">
+                <!-- Position Column -->
+                <ng-container matColumnDef="bmxCompany">
+                    <th mat-header-cell *matHeaderCellDef mat-sort-header> Client</th>
+                    <td mat-cell *matCellDef="let element"> {{element.bmxCompany}} </td>
+                </ng-container>
+                <ng-container matColumnDef="bmxProjectName">
+                    <th mat-header-cell *matHeaderCellDef mat-sort-header> Project Name </th>
+                    <td mat-cell *matCellDef="let element"> {{element.bmxProjectName}} </td>
+                </ng-container>
+                <ng-container matColumnDef="bmxDepartment">
+                    <th mat-header-cell *matHeaderCellDef mat-sort-header> Department </th>
+                    <td mat-cell *matCellDef="let element"> {{element.bmxDepartment}} </td>
+                </ng-container>
+                <ng-container matColumnDef="bmxRegion">
+                    <th mat-header-cell *matHeaderCellDef mat-sort-header> Office </th>
+                    <td mat-cell *matCellDef="let element"> {{element.bmxRegion}} </td>
+                </ng-container>
+                <ng-container matColumnDef="Created">
+                    <th mat-header-cell *matHeaderCellDef mat-sort-header> Created </th>
+                    <td mat-cell *matCellDef="let element"> {{element.Created}} </td>
+                </ng-container>
+                <ng-container matColumnDef="Close">
+                    <th mat-header-cell *matHeaderCellDef mat-sort-header> Close </th>
+                    <td mat-cell *matCellDef="let element"> {{element.Close}} </td>
+                </ng-container>
+                <ng-container matColumnDef="Active">
+                    <th mat-header-cell *matHeaderCellDef mat-sort-header> Active </th>
+                    <td mat-cell *matCellDef="let element">
+                        <button mat-icon-button  aria-label="Example icon button with a home icon"
+                            (click)="setBMStatus(element)">
+                            <ng-container *ngIf="element.bmxStatus === 'close'; else activeIcon" >
+                                <mat-icon style="color: red">close</mat-icon>
+                            </ng-container>
+                            <ng-template #activeIcon  >
+                                <mat-icon style="color: green;">done</mat-icon>
+                            </ng-template>
+                        </button>
+                    </td>
+                </ng-container>
+                
+                <ng-container matColumnDef="Email">
+                    <th mat-header-cell *matHeaderCellDef mat-sort-header style="width: 3.33%;"> </th>
+                    <td mat-cell *matCellDef="let element">
+                        <button mat-icon-button style="color: #488abc;"
+                            aria-label="Example icon button with a home icon"
+                            (click)="sendEmail(element.bmxProjectName)">
+                            <mat-icon>email</mat-icon>
+                        </button>
+                    </td>
+                </ng-container>
+                <ng-container matColumnDef="Edit">
+                    <th mat-header-cell *matHeaderCellDef mat-sort-header style="width: 3.33%;"> </th>
+                    <td mat-cell *matCellDef="let element">
+                        <button mat-icon-button style="color: #48bcb4;"
+                            aria-label="Example icon button with a home icon" (click)="editBM(element.bmxProjectName)">
+                            <mat-icon>build</mat-icon>
+                        </button>
+                    </td>
+                </ng-container>
+                <ng-container matColumnDef="Delete">
+                    <th mat-header-cell *matHeaderCellDef mat-sort-header style="width: 3.33%;"> </th>
+                    <td mat-cell *matCellDef="let element">
+                        <button mat-icon-button style="color: #bc488a;"
+                            aria-label="Example icon button with a home icon" (click)="deleteBM(element.ProjectId)">
+                            <mat-icon>delete</mat-icon>
+                        </button>
+                    </td>
+                </ng-container>
+
+                <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+                <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+            </table>
+            <mat-paginator [pageSizeOptions]="[10, 15, 20]" showFirstLastButtons></mat-paginator>
+        </div>
     </div>
-    
-    <!--   📆📆📆📆📆📆📆📆📆 END CALENDAR-->
-   
+    <!-- CALENDAR  📆📆📆📆📆📆📆📆📆-->
+    <div style="width: 25%;position: relative;
+        left: 40px;">
+        <div style="width: 100%;">
+            <mat-card class="demo-inline-calendar-card">
+                <mat-calendar (selectedChange)="selected = $event"></mat-calendar>
+            </mat-card>
+        </div>
+    </div>
+</div>
+
+<!--   📆📆📆📆📆📆📆📆📆 END CALENDAR-->

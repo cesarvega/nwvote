@@ -51,7 +51,7 @@ export class ProjectInformationComponent implements OnInit {
   bmxLanguage: FormControl;
   bmxRegionalOffice: FormControl;
   bmxRegionalDirector: FormControl;
-
+  status = "open"
 
   ngOnInit(): void {
     this.canEdit = null;
@@ -70,6 +70,12 @@ export class ProjectInformationComponent implements OnInit {
           this.bmxEditData.patchValue({ bmxRegion: data.bmxRegion });
           this.bmxEditData.patchValue({ bmxLanguage: data.bmxLanguage });
           this.bmxEditData.patchValue({ bmxCompany: data.bmxCompany });
+          this.bmxEditData.patchValue({ bmxStatus: data.bmxStatus });
+          if(!data.bmxStatus || data.bmxStatus == "open"){
+            this.status = "open"
+          }else if(data.bmxStatus== "close"){
+            this.status = "close"
+          }
           var list;
           /*
           for (let i = 0; i < data.DirectorList.length; i++) {
@@ -154,6 +160,7 @@ export class ProjectInformationComponent implements OnInit {
       "bmxCompany": this.bmxEditData.get('bmxCompany').value.toString(),
       "bmxLanguage": this.bmxEditData.get('bmxLanguage').value.toString(),
       "bmxRegionalOffice": this.DIRECTORS,
+      "bmxStatus": this.status
     }
     var finalString = JSON.stringify(projectInfo);
     finalString = finalString.replace("[\\u2022,\\u2023,\\u25E6,\\u2043,\\u2219]\\s\\d", '');

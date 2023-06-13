@@ -8,6 +8,7 @@ import { MatPaginator } from '@angular/material/paginator';
 import { MatTableDataSource } from '@angular/material/table';
 import { MatSort } from '@angular/material/sort';
 import { BmxService } from '../bmx.service';
+import { stat } from 'fs';
 
 @Component({
   selector: 'app-project-list',
@@ -23,7 +24,7 @@ export class ProjectListComponent implements OnInit {
   dataSource;
   allData;
   viewedData;
-  displayedColumns = ['bmxCompany', 'bmxProjectName', 'bmxDepartment', 'bmxRegion', 'Created', 'Close', 'Email', 'Edit', 'Delete'];
+  displayedColumns = ['bmxCompany', 'bmxProjectName', 'bmxDepartment', 'bmxRegion', 'Created', 'Close','Active','Email', 'Edit' ,'Delete'];
   selected;
 
   title = 'ng-calendar-demo';
@@ -79,6 +80,28 @@ export class ProjectListComponent implements OnInit {
     this.isMenuActive1Close.emit(false);
   }
 
+  setBMStatus(option):void{
+    if (confirm('Are you sure you want to change this project status?')) {
+      
+    let status
+    if(!option.bmxStatus || option.bmxStatus == "open"){
+      status = "close"
+    }else if(option.bmxStatus=="close"){
+      status = "open"
+    }
+    let projectInfo = {
+      ...option,
+      "bmxStatus": status
+    }
+    let payload = JSON.stringify(projectInfo)
+    this._BmxService.saveProjectInfo(option.bmxProjectName, payload, 'user@bi.com').subscribe(result => {
+      var so = result;
+    });
+    this._BmxService.setprojectData(payload)
+    option.bmxStatus = status
+    }
+    
+  }
   deleteBM(option: string): void {
     var test = option;
   }
@@ -111,6 +134,7 @@ export class ProjectListComponent implements OnInit {
       }
     }
 
+    console.log()
 
     this.dataSource = new MatTableDataSource<any>(this.viewedData);
     this.dataSource.paginator = this.paginator;
