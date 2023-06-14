@@ -82,7 +82,6 @@ export class ProjectListComponent implements OnInit {
 
   setBMStatus(option):void{
     if (confirm('Are you sure you want to change this project status?')) {
-      
     let status
     if(!option.bmxStatus || option.bmxStatus == "open"){
       status = "close"
@@ -133,8 +132,6 @@ export class ProjectListComponent implements OnInit {
         this.viewedData = this.viewedData.filter((filterByDepartment: any) =>filterByDepartment.bmxDepartment == this.userDepartment);
       }
     }
-
-    console.log()
 
     this.dataSource = new MatTableDataSource<any>(this.viewedData);
     this.dataSource.paginator = this.paginator;

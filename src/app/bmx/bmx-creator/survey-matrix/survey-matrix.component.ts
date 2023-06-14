@@ -51,6 +51,7 @@ export class SurveyMatrixComponent extends SurveyCreationDesignComponent impleme
   isFullscreen: any;
   searchGraveAccentRegExp = new RegExp('`', 'g');
   surveyLanguage: any;
+  status:any
 
   totalOfpages = 0
   continueButtonToComple = 'Continue';
@@ -96,7 +97,10 @@ export class SurveyMatrixComponent extends SurveyCreationDesignComponent impleme
   }
 
   ngOnInit(): void {    
+    this._BmxService.getProjectInfo(this.projectId).subscribe((arg: any)=>{
+      this.status = JSON.parse(arg.d).bmxStatus
    
+    
     if(!this.username){
       this.myAngularxQrCode =  this.myAngularxQrCode + this.projectId
     }else{
@@ -174,8 +178,9 @@ export class SurveyMatrixComponent extends SurveyCreationDesignComponent impleme
         this.firstName = data.FirstName.replace(/,/g, ' ');
         this.lastName = data.LastName.replace(/,/g, ' ');
         this.projectId = data.ProjectName
-
-        this.qrCode.append(this.canvas.nativeElement);
+       
+          this.qrCode.append(this.canvas.nativeElement);
+       
         this.bmxPagesClient = this.SAMPLE_BMX_CLIENT;
  
         this._BmxService
@@ -360,7 +365,9 @@ export class SurveyMatrixComponent extends SurveyCreationDesignComponent impleme
       // this.myAngularxQrCode =
       this.myAngularxQrCode + this.projectId + '/' + this.username;
   
-      this.qrCode.append(this.canvas.nativeElement);
+      if(this.status!='close'){
+        this.qrCode.append(this.canvas.nativeElement);
+      }
       this.bmxPagesClient = this.SAMPLE_BMX_CLIENT;
       this._BmxService
         .getBrandMatrixByProjectAndUserAnswers(this.projectId, this.username)
@@ -537,7 +544,7 @@ export class SurveyMatrixComponent extends SurveyCreationDesignComponent impleme
           }
         });
     }
-
+  })
     if(localStorage.getItem('showModal') == "false"){
       this.showModalVideo = false;
     }
