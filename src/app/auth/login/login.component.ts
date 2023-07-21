@@ -2,7 +2,8 @@ import { Component, OnInit } from '@angular/core';
 import { NwvoteService } from '../../nw-vote/nwvote.service';
 import { FormBuilder, Validators, FormGroup } from '@angular/forms';
 import { Router, ActivatedRoute } from '@angular/router';
-
+import { MsalService } from '@azure/msal-angular';
+import { HttpClient } from '@angular/common/http';
 @Component({
   selector: 'app-login',
   templateUrl: './login.component.html',
@@ -14,10 +15,14 @@ export class LoginComponent implements OnInit {
   projectname =''
   constructor(private _formBuilder: FormBuilder, 
     public _NwvoteService: NwvoteService,private activatedRoute: ActivatedRoute,
-    private router: Router) { }
+    private router: Router, private msalService: MsalService, private http: HttpClient) { }
 
   ngOnInit(): void {
-
+    this.msalService.handleRedirectObservable().subscribe((result) => {
+      if (result && result.account) {
+        this.msalService.instance.setActiveAccount(result.account);
+      }
+    });
     //clean local storage 
     localStorage.setItem('userTokenId', '');
     localStorage.setItem('project', '');
@@ -44,6 +49,27 @@ export class LoginComponent implements OnInit {
       }
 
     })
+  }
+  
+  signIn() {
+    this.msalService.loginRedirect();
+  }
+
+  signOut() {
+    this.msalService.logout();
+  }
+
+  async callGraphAPI() {
+    const tokenResponse = await this.msalService.acquireTokenSilent({
+      scopes: ['https://graph.microsoft.com/user.read'], // Replace with the required scopes
+    }).toPromise();
+
+    if (tokenResponse) {
+      const headers = { Authorization: `Bearer ${tokenResponse.accessToken}` };
+      this.http.get('https://graph.microsoft.com/v1.0/me', { headers }).subscribe((response) => {
+        console.log(response);
+      });
+    }
   }
 
 }

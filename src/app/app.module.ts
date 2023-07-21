@@ -58,13 +58,27 @@ import { ScrollingModule } from '@angular/cdk/scrolling';
 import { CdkTreeModule } from '@angular/cdk/tree';
 import { A11yModule } from '@angular/cdk/a11y';
 import { DialogComponent } from './bmx/bmx-creator/participants-email/dialog/dialog.component';
+import { InteractionType, IPublicClientApplication, PublicClientApplication } from '@azure/msal-browser';
+import { MSAL_INSTANCE, MsalService } from '@azure/msal-angular';
 
 export function loadEcharts() {
   return import('echarts');
 }
 
-// NOTES : Enable BmxModule to make the Brand Matrix Apps work
 
+export function MSALInstanceFactory(): IPublicClientApplication {
+  return new PublicClientApplication({
+    auth: {
+      clientId: 'fbcbd5db-c816-4ffb-8310-316cf7781c45',
+      authority: 'https://login.microsoftonline.com/f010ce16-e13d-4c24-87af-3a1eb4d11de6', 
+      redirectUri: 'http://localhost:4200',
+    },
+    cache: {
+      cacheLocation: 'localStorage',
+      storeAuthStateInCookie: false,
+    },
+  });
+}
 @NgModule({
   declarations: [
     AppComponent,
@@ -134,11 +148,12 @@ export function loadEcharts() {
     CdkTableModule,
     CdkTreeModule,
     A11yModule,
+    
   ],
   entryComponents: [
     editPost, editName, DialogComponent
   ],
-  providers: [NwvoteService, BsrMobileService, Nw3Service,
+  providers: [NwvoteService, BsrMobileService, Nw3Service, {provide: MSAL_INSTANCE, useFactory:MSALInstanceFactory}, MsalService,
     { provide: MAT_SNACK_BAR_DEFAULT_OPTIONS, useValue: { duration: 1000 } }],
 
   bootstrap: [AppComponent]

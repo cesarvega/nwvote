@@ -27,6 +27,8 @@
     "@angular/platform-browser": "~9.1.0",
     "@angular/platform-browser-dynamic": "~9.1.0",
     "@angular/router": "~9.1.0",
+    "@azure/msal-angular": "^2.5.9",
+    "@azure/msal-browser": "^2.38.0",
     "@capacitor/cli": "^3.0.1",
     "@capacitor/core": "^3.0.1",
     "@capacitor/haptics": "^1.0.1",
@@ -69,7 +71,6 @@
     "qr-code-styling": "^1.6.0-rc.1",
     "rxjs": "^6.5.5",
     "speak-tts": "^2.0.8",
-    "tslib": "^1.10.0",
     "zone.js": "~0.10.2"
   },
   "devDependencies": {
