@@ -224,7 +224,10 @@ export class BmxCreatorComponent implements OnInit {
       this.router.navigate(['/login']);
     }
   }
-
+  signOut() {
+    this.msalService.logout();
+    window.location.href = '/login'
+  }
   // menu functionallity toggles the active link scss
   toggleMenuActive(menuItem) {
     this._BmxService.currentprojectData$.subscribe((data: any) => {

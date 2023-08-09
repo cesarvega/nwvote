@@ -106,7 +106,8 @@
                 </div>
             </div> -->
       <div style="justify-content: left;">
-        <div *ngIf="!(userRole == 'Director')" [ngClass]="(isMenuActive4)?'menu-active':'menu-item'"  style="justify-content: space-between">
+        <div *ngIf="!(userRole == 'Director')" [ngClass]="(isMenuActive4)?'menu-active':'menu-item'"
+          style="justify-content: space-between">
           <div (click)="toggleMenuActive('isMenuActive8');isMainMenuActive = false "
             style="display: flex; justify-content: center;">
             <button mat-icon-button style="margin: 0 20px 0 10px">
@@ -120,11 +121,11 @@
           </div>
           <div class="video-button">
             <button (click)="showCreationModalVideo=true" class="add-column" matTooltip="see tutorial"
-            matTooltipPosition="above" mat-icon-button aria-label="ranking">
-            <mat-icon style="font-size: 26px; color: white; " class="full-icon">video_library</mat-icon>
-          </button>
+              matTooltipPosition="above" mat-icon-button aria-label="ranking">
+              <mat-icon style="font-size: 26px; color: white; " class="full-icon">video_library</mat-icon>
+            </button>
           </div>
-          
+
         </div>
 
       </div>
@@ -144,6 +145,14 @@
                     {{'Settings'}}
                 </div>
             </div> -->
+      <div [ngClass]="'menu-item'" (click)="signOut()">
+        <button mat-icon-button style="margin: 0 20px 0 10px">
+          <mat-icon style="font-size: 35px;">logout</mat-icon>
+        </button>
+        <div class="create-edit-matrix" style=" text-align: end;font-family: Arial, Helvetica, sans-serif">
+          Sign out
+        </div>
+      </div>
     </div>
     <!--🎀🎀🎀🎀🎀🎀🎀🎀🎀🎀🎀🎀🎀🎀🎀🎀🎀🎀🎀🎀🎀🎀🎀🎀🎀🎀🎀🎀🎀🎀🎀🎀🎀🎀🎀🎀🎀🎀🎀🎀🎀 END SIDE MENU -->
 
@@ -199,11 +208,12 @@
                     {{'Page Modules'}}
                 </div>
             </div> -->
-      <div [ngClass]="(isMenuActive14)?'menu-active':'menu-item'" style="justify-content: space-between" (click)="toggleMenuActive('isMenuActive14')">
+      <div [ngClass]="(isMenuActive14)?'menu-active':'menu-item'" style="justify-content: space-between"
+        (click)="toggleMenuActive('isMenuActive14')">
         <div class="link-bmx-creator">
           {{'Participants'}}
         </div>
-        <div >
+        <div>
           <button (click)="CREATION_VIDEO_PATH='assets/videos/participants.mp4' ; showCreationModalVideo=true; "
             class="video-button" matTooltip="see tutorial" matTooltipPosition="above" mat-icon-button
             aria-label="ranking">
@@ -211,11 +221,12 @@
           </button>
         </div>
       </div>
-      <div [ngClass]="(isMenuActive15)?'menu-active':'menu-item'"  style="justify-content: space-between" (click)="toggleMenuActive('isMenuActive15')">
+      <div [ngClass]="(isMenuActive15)?'menu-active':'menu-item'" style="justify-content: space-between"
+        (click)="toggleMenuActive('isMenuActive15')">
         <div class="link-bmx-creator" style="text-align:start;">
           {{'Survey Participants/Email'}}
         </div>
-        <div >
+        <div>
           <button (click)="CREATION_VIDEO_PATH='assets/videos/emails.mp4' ; showCreationModalVideo=true; "
             class="video-button" matTooltip="see tutorial" matTooltipPosition="above" mat-icon-button
             aria-label="ranking">
@@ -223,7 +234,8 @@
           </button>
         </div>
       </div>
-      <div [ngClass]="(isMenuActive16)?'menu-active':'menu-item'"  style="justify-content: space-between" (click)="toggleMenuActive('isMenuActive16')">
+      <div [ngClass]="(isMenuActive16)?'menu-active':'menu-item'" style="justify-content: space-between"
+        (click)="toggleMenuActive('isMenuActive16')">
         <div class="link-bmx-creator">
           {{'Reports'}}
         </div>
