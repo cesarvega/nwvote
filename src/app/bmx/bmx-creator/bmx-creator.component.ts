@@ -188,7 +188,6 @@ export class BmxCreatorComponent implements OnInit {
     this._BmxService.getLogoTemporaryWidth$().subscribe((data: any) =>{
       this.widthTemporary = data
     })
-
     this.ckconfig = {
       allowedContent: false,
       width: '99.6%',
