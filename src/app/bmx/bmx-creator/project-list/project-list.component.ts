@@ -99,7 +99,11 @@ export class ProjectListComponent implements OnInit {
       this._BmxService.setprojectData(payload)
       option.bmxStatus = status
     }
-
+    this._BmxService.getGetProjectList()
+      .subscribe((arg: any) => {
+        this.allData = JSON.parse(arg.d);
+        this.changeView();
+      });
   }
   deleteBM(option: string): void {
     var test = option;
@@ -109,16 +113,17 @@ export class ProjectListComponent implements OnInit {
 
     this.viewedData = [];
     for (let i = 0; i < this.allData.length; i++) {
-      if (this.selected == 'Live' && JSON.parse(this.allData[i].ProjectInfo).bmxStatus !="close") {
+      if (this.selected == 'Live' && JSON.parse(this.allData[i].ProjectInfo).bmxStatus != "close") {
         this.viewedData.push(JSON.parse(this.allData[i].ProjectInfo));
       }
-      else if (this.selected == 'Closed' && JSON.parse(this.allData[i].ProjectInfo).bmxStatus== 'close') {
+      else if (this.selected == 'Closed' && JSON.parse(this.allData[i].ProjectInfo).bmxStatus == 'close') {
         this.viewedData.push(JSON.parse(this.allData[i].ProjectInfo))
       }
       else if (this.selected == 'All') {
         if (this.allData[i].ProjectInfo != "" && this.allData[i].ProjectInfo != null) {
           var t = JSON.parse(this.allData[i].ProjectInfo);
           this.viewedData.push(JSON.parse(this.allData[i].ProjectInfo));
+
         }
       }
     }
