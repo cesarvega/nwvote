@@ -1,7 +1,9 @@
 import { Component, OnInit, ViewEncapsulation } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
+import {Router, ActivatedRoute } from '@angular/router';
 import { BmxService } from './bmx.service';
 import { DragulaService } from 'ng2-dragula';
+import { MsalService } from '@azure/msal-angular';
+
 @Component({
   selector: 'app-bmx-creator',
   templateUrl: './bmx-creator.component.html',
@@ -16,7 +18,7 @@ export class BmxCreatorComponent implements OnInit {
   displayRightSideMenu = false;
   isBrandMatrixSurvey = true;
   saveProjectSuccess = false;
-
+  isLoggedIn = false
   widthTemporary: string = ""
   CREATION_VIDEO_PATH="assets/videos/projectCreation.mp4" 
   showCreationModalVideo: boolean = false
@@ -124,7 +126,9 @@ export class BmxCreatorComponent implements OnInit {
   constructor(
     private activatedRoute: ActivatedRoute,
     dragulaService: DragulaService,
-    private _BmxService: BmxService
+    private _BmxService: BmxService,
+    private msalService: MsalService,
+    private router: Router
   ) {
     this.activatedRoute.params.subscribe((params) => {
       this.userGUI = params['id'];
@@ -216,6 +220,10 @@ export class BmxCreatorComponent implements OnInit {
     };
     // SAMPLE DATA FOR CKEDITOR
     this.model.editorData = this.sampleHtml;
+    this.isLoggedIn =  this.msalService.instance.getActiveAccount() != null
+    if (!this.isLoggedIn) {
+      this.router.navigate(['/login']);
+    }
   }
 
   // menu functionallity toggles the active link scss

@@ -35,7 +35,11 @@ export class LoginComponent implements OnInit {
 
  
     this.projectname = this.activatedRoute.snapshot.queryParamMap.get('project');
-   
+    this.handleLoginRedirectCallback().then((response) => {
+      if (response !== null) {
+        this.router.navigate(['/bmx', '99CB72BF-D163-46A6-8A0D-E1531EC7FEDC']);
+      } 
+    });
 
   }
 
@@ -50,9 +54,13 @@ export class LoginComponent implements OnInit {
 
     })
   }
-  
   signIn() {
-    this.msalService.loginRedirect();
+    this.msalService.loginRedirect()
+  }
+
+  async handleLoginRedirectCallback() {
+    const response = await this.msalService.instance.handleRedirectPromise();
+    return response
   }
 
   signOut() {
@@ -61,7 +69,7 @@ export class LoginComponent implements OnInit {
 
   async callGraphAPI() {
     const tokenResponse = await this.msalService.acquireTokenSilent({
-      scopes: ['https://graph.microsoft.com/user.read'], // Replace with the required scopes
+      scopes: ['https://graph.microsoft.com/user.read'], 
     }).toPromise();
 
     if (tokenResponse) {

@@ -13,8 +13,14 @@ import { SurveyMatrixComponent } from './bmx/bmx-creator/survey-matrix/survey-ma
 const routes: Routes = [
   {// NAME VOTE LOGIN https://bipresents.com/namevote/login?project=Test_WELL_PLATFORM
     path: 'login',
-    component: LoginComponent
+    component: LoginComponent,
+     pathMatch: 'full'
   },
+    {// NAME VOTE LOGIN https://bipresents.com/namevote/login?project=Test_WELL_PLATFORM
+      path: '',
+      redirectTo: 'login',
+       pathMatch: 'full'
+    },
   // {// VOTE COMPONENT
   //   path: 'vote',
   //   component: NwVoteComponent
@@ -49,15 +55,15 @@ const routes: Routes = [
   //   path: ':id',
   //   component: NW3Component
   // },
-  {
-    path: '',
-    // redirectTo: '/',
-    redirectTo: 'bmx/99CB72BF-D163-46A6-8A0D-E1531EC7FEDC', // creative
-    // redirectTo: 'bmx/E9096C9-084F-4D10-81C2-C72B70E5D782', // admin
-    // redirectTo: 'survey/noProject/no_user',
-    // redirectTo: '/',
-    pathMatch: 'full'
-  }
+  // {
+  //   path: '',
+  //   // redirectTo: '/',
+  //   redirectTo: 'bmx/99CB72BF-D163-46A6-8A0D-E1531EC7FEDC', // creative
+  //   // redirectTo: 'bmx/E9096C9-084F-4D10-81C2-C72B70E5D782', // admin
+  //   // redirectTo: 'survey/noProject/no_user',
+  //   // redirectTo: '/',
+   
+  // }
 ];
 
 @NgModule({
