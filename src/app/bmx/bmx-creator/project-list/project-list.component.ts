@@ -24,7 +24,7 @@ export class ProjectListComponent implements OnInit {
   dataSource;
   allData;
   viewedData;
-  displayedColumns = ['bmxCompany', 'bmxProjectName', 'bmxDepartment', 'bmxRegion', 'Created', 'Close','Active','Email', 'Edit' ,'Delete'];
+  displayedColumns = ['bmxCompany', 'bmxProjectName', 'bmxDepartment', 'bmxRegion', 'Created', 'Close', 'Active', 'Email', 'Edit', 'Delete'];
   selected;
 
   title = 'ng-calendar-demo';
@@ -80,39 +80,40 @@ export class ProjectListComponent implements OnInit {
     this.isMenuActive1Close.emit(false);
   }
 
-  setBMStatus(option):void{
+  setBMStatus(option): void {
     if (confirm('Are you sure you want to change this project status?')) {
-    let status
-    if(!option.bmxStatus || option.bmxStatus == "open"){
-      status = "close"
-    }else if(option.bmxStatus=="close"){
-      status = "open"
+      let status
+      if (!option.bmxStatus || option.bmxStatus == "open") {
+        status = "close"
+      } else if (option.bmxStatus == "close") {
+        status = "open"
+      }
+      let projectInfo = {
+        ...option,
+        "bmxStatus": status
+      }
+      let payload = JSON.stringify(projectInfo)
+      this._BmxService.saveProjectInfo(option.bmxProjectName, payload, 'user@bi.com').subscribe(result => {
+        var so = result;
+      });
+      this._BmxService.setprojectData(payload)
+      option.bmxStatus = status
     }
-    let projectInfo = {
-      ...option,
-      "bmxStatus": status
-    }
-    let payload = JSON.stringify(projectInfo)
-    this._BmxService.saveProjectInfo(option.bmxProjectName, payload, 'user@bi.com').subscribe(result => {
-      var so = result;
-    });
-    this._BmxService.setprojectData(payload)
-    option.bmxStatus = status
-    }
-    
+
   }
   deleteBM(option: string): void {
     var test = option;
   }
 
   changeView(): void {
+
     this.viewedData = [];
     for (let i = 0; i < this.allData.length; i++) {
-      if (this.selected == 'Live' && this.allData[i].Status == 'O') {
-        this.viewedData.push(this.allData[i].ProjectInfo);
+      if (this.selected == 'Live' && JSON.parse(this.allData[i].ProjectInfo).bmxStatus !="close") {
+        this.viewedData.push(JSON.parse(this.allData[i].ProjectInfo));
       }
-      else if (this.selected == 'Closed' && this.allData[i].Close != 'O') {
-        this.viewedData.push(this.allData[i].ProjectInfo)
+      else if (this.selected == 'Closed' && JSON.parse(this.allData[i].ProjectInfo).bmxStatus== 'close') {
+        this.viewedData.push(JSON.parse(this.allData[i].ProjectInfo))
       }
       else if (this.selected == 'All') {
         if (this.allData[i].ProjectInfo != "" && this.allData[i].ProjectInfo != null) {
@@ -123,13 +124,13 @@ export class ProjectListComponent implements OnInit {
     }
 
     // FILTERING BY DEPARTMENT & OFFICE
-    if (this.viewedData.length> 0) {
+    if (this.viewedData.length > 0) {
       if (this.userRole == 'Director') {
         this.viewedData = this.viewedData.filter((filterByOffice: any) => filterByOffice.bmxRegion == this.userOffice);
       } if (this.userRole == 'Administrator' || this.userRole == 'Adminstrator') {
         // this.viewedData = this.viewedData.filter((filterByDepartment: any) => filterByDepartment.bmxDepartment == this.userDepartment);
       } else if (this.userRole == 'Creative' || this.userRole == 'Nonprop' || this.userRole == 'Design') {
-        this.viewedData = this.viewedData.filter((filterByDepartment: any) =>filterByDepartment.bmxDepartment == this.userDepartment);
+        this.viewedData = this.viewedData.filter((filterByDepartment: any) => filterByDepartment.bmxDepartment == this.userDepartment);
       }
     }
 
