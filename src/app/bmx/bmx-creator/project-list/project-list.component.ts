@@ -28,7 +28,7 @@ export class ProjectListComponent implements OnInit {
   selected;
 
   title = 'ng-calendar-demo';
-  selectedDate = new Date('2019/09/26');
+  selectedDate = null;
   startAt = new Date('2019/09/11');
   minDate = new Date('2019/09/14');
   maxDate = new Date(new Date().setMonth(new Date().getMonth() + 1));
@@ -99,11 +99,6 @@ export class ProjectListComponent implements OnInit {
       this._BmxService.setprojectData(payload)
       option.bmxStatus = status
     }
-    this._BmxService.getGetProjectList()
-      .subscribe((arg: any) => {
-        this.allData = JSON.parse(arg.d);
-        this.changeView();
-      });
   }
   deleteBM(option: string): void {
     var test = option;
@@ -113,10 +108,10 @@ export class ProjectListComponent implements OnInit {
 
     this.viewedData = [];
     for (let i = 0; i < this.allData.length; i++) {
-      if (this.selected == 'Live' && JSON.parse(this.allData[i].ProjectInfo).bmxStatus != "close") {
+      if (this.selected == 'Live' && JSON.parse(this.allData[i].ProjectInfo).bmxStatus == 'open') {
         this.viewedData.push(JSON.parse(this.allData[i].ProjectInfo));
       }
-      else if (this.selected == 'Closed' && JSON.parse(this.allData[i].ProjectInfo).bmxStatus == 'close') {
+      else if (this.selected == 'Closed' && JSON.parse(this.allData[i].ProjectInfo).bmxStatus == "close") {
         this.viewedData.push(JSON.parse(this.allData[i].ProjectInfo))
       }
       else if (this.selected == 'All') {
@@ -126,6 +121,10 @@ export class ProjectListComponent implements OnInit {
 
         }
       }
+    }
+
+    if (this.selectedDate) {
+      this.viewedData = this.viewedData.filter(project=>project.bmxClosingDate == this.selectedDate.toISOString())
     }
 
     // FILTERING BY DEPARTMENT & OFFICE
@@ -138,7 +137,6 @@ export class ProjectListComponent implements OnInit {
         this.viewedData = this.viewedData.filter((filterByDepartment: any) => filterByDepartment.bmxDepartment == this.userDepartment);
       }
     }
-
     this.dataSource = new MatTableDataSource<any>(this.viewedData);
     this.dataSource.paginator = this.paginator;
     this.dataSource.sort = this.sort;
@@ -150,6 +148,12 @@ export class ProjectListComponent implements OnInit {
     const dateValue = dateString.split(' ');
     this.year = dateValue[3];
     this.DayAndDate = dateValue[0] + ',' + ' ' + dateValue[1] + ' ' + dateValue[2];
+    this.changeView()
+  }
+
+  onDeselect(){
+    this.selectedDate = null
+    this.changeView()
   }
 
   myDateFilter = (d: Date): boolean => {

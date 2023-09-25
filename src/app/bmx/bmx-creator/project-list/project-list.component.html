@@ -100,8 +100,11 @@
         left: 40px;">
         <div style="width: 100%;">
             <mat-card class="demo-inline-calendar-card">
-                <mat-calendar (selectedChange)="selected = $event"></mat-calendar>
+                <mat-calendar  [selected]="selectedDate" (selectedChange)="onSelect($event)"></mat-calendar>
+                <button mat-button (click)="onDeselect()">Reset date</button>
+
             </mat-card>
+
         </div>
     </div>
 </div>
