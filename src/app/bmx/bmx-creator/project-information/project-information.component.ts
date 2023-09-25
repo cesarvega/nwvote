@@ -52,7 +52,7 @@ export class ProjectInformationComponent implements OnInit {
   bmxRegionalOffice: FormControl;
   bmxRegionalDirector: FormControl;
   status = "open"
-
+  selectedDate:any 
   ngOnInit(): void {
     this.canEdit = null;
     this.createFormControls();
@@ -149,8 +149,12 @@ export class ProjectInformationComponent implements OnInit {
     localStorage.setItem('fakeproject' + '_project_info', JSON.stringify(this.bmxEditData.value));
     //console.log(this.bmxEditData.value);
   }
-
+  onSelect(event){
+    console.log(event);
+    this.selectedDate= event;
+  }
   saveProjectInfo() {
+    console.log(this.selectedDate)
     this._BmxService.setProjectName(this.bmxEditData.get('bmxProjectName').value.toString());
     const projectInfo: JSON = <JSON><unknown>{
       "bmxSalesboard": this.bmxEditData.get('bmxSalesboard').value.toString(),
@@ -160,7 +164,8 @@ export class ProjectInformationComponent implements OnInit {
       "bmxCompany": this.bmxEditData.get('bmxCompany').value.toString(),
       "bmxLanguage": this.bmxEditData.get('bmxLanguage').value.toString(),
       "bmxRegionalOffice": this.DIRECTORS,
-      "bmxStatus": this.status
+      "bmxStatus": this.status.toString,
+      "bmxClosingDate": this.selectedDate,
     }
     var finalString = JSON.stringify(projectInfo);
     finalString = finalString.replace("[\\u2022,\\u2023,\\u25E6,\\u2043,\\u2219]\\s\\d", '');

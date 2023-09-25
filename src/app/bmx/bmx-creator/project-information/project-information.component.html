@@ -2,9 +2,7 @@
 
     <h2 style="margin: 20px;">Project TEST BrandMatrix Setup</h2>
     <div style="margin: 20px;font-size: 20px;color:#063074;font-weight: 800;">Basic Project Information</div>
-    <button mat-raised-button color="success"
-        style="position: absolute;right: -100px;top: 482px; background-color:#063074;color: white;"
-        (click)="saveProjectInfo()">Save</button>
+
     <br>
     <br>
     <br>
@@ -38,7 +36,8 @@
                 <mat-form-field appearance="outline">
                     <mat-label>Enter Project Name</mat-label>
                     <input type="text" matInput formControlName="bmxProjectName">
-                    <p *ngIf="bmxProjectName.invalid && bmxProjectName.dirty">Project Name is required only A-Z, a-z, 0-9 allowed</p>
+                    <p *ngIf="bmxProjectName.invalid && bmxProjectName.dirty">Project Name is required only A-Z, a-z,
+                        0-9 allowed</p>
                 </mat-form-field>
                 <label class="selectLabels">Region</label>
                 <mat-form-field appearance="outline">
@@ -70,8 +69,15 @@
                 </mat-form-field>
 
             </div>
-            <div></div>
+            <div style="width: 30%; margin-left: 50px;">
+                <mat-card class="demo-inline-calendar-card">
+                    <mat-calendar [selected]="selectedDate" (selectedChange)="onSelect($event)"></mat-calendar>
+                </mat-card>
+            </div>
 
+            <div></div>
+            <button mat-raised-button color="success" style="position: absolute;right: 40px;
+            top: 650px; background-color:#063074;color: white;" (click)="saveProjectInfo()">Save</button>
         </div>
         <div style="margin: 20px;font-size: 20px;color:#063074;font-weight: 800;">Manage Directors</div>
 
@@ -152,11 +158,12 @@
                             <mat-icon>check_circle</mat-icon>
                         </button>
                     </ng-template>
-                    <button mat-icon-button  matTooltip="double click" matTooltipPosition="right" style="position: absolute; top: 45px; right: 5px;color: red;"
-                        (dblclick)="removeDirector(i)">
+                    <button mat-icon-button matTooltip="double click" matTooltipPosition="right"
+                        style="position: absolute; top: 45px; right: 5px;color: red;" (dblclick)="removeDirector(i)">
                         <mat-icon>delete</mat-icon>
                     </button>
-                    <button mat-icon-button matTooltip="double click" matTooltipPosition="right" style="position: absolute; top: 72px; right: 5px;color: goldenrod;"
+                    <button mat-icon-button matTooltip="double click" matTooltipPosition="right"
+                        style="position: absolute; top: 72px; right: 5px;color: goldenrod;"
                         (dblclick)="replaceMainDirector(i)">
                         <mat-icon>star</mat-icon>
                     </button>
