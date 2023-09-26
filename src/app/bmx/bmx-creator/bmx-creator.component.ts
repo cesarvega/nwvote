@@ -18,7 +18,6 @@ export class BmxCreatorComponent implements OnInit {
   displayRightSideMenu = false;
   isBrandMatrixSurvey = true;
   saveProjectSuccess = false;
-  isLoggedIn = false
   widthTemporary: string = ""
   CREATION_VIDEO_PATH="assets/videos/projectCreation.mp4" 
   showCreationModalVideo: boolean = false
@@ -219,10 +218,7 @@ export class BmxCreatorComponent implements OnInit {
     };
     // SAMPLE DATA FOR CKEDITOR
     this.model.editorData = this.sampleHtml;
-    this.isLoggedIn =  this.msalService.instance.getActiveAccount() != null
-    if (!this.isLoggedIn) {
-      this.router.navigate(['/login']);
-    }
+
   }
   signOut() {
     this.msalService.logout();

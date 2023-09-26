@@ -11,21 +11,15 @@ import { BmxComponent } from './bmx/bmx-survey/bmx.component';
 import { SurveyMatrixComponent } from './bmx/bmx-creator/survey-matrix/survey-matrix.component';
 // import { BmxCreatorComponent } from './bmx-creator/bmx-creator.component';
 const routes: Routes = [
-  {// NAME VOTE LOGIN https://bipresents.com/namevote/login?project=Test_WELL_PLATFORM
-    path: 'login',
-    component: LoginComponent,
-     pathMatch: 'full'
-  },
-    {// NAME VOTE LOGIN https://bipresents.com/namevote/login?project=Test_WELL_PLATFORM
-      path: '',
-      redirectTo: 'login',
-       pathMatch: 'full'
-    },
+  // {// NAME VOTE LOGIN https://bipresents.com/namevote/login?project=Test_WELL_PLATFORM
+  //   path: 'login',
+  //   component: LoginComponent
+  // },
   // {// VOTE COMPONENT
   //   path: 'vote',
   //   component: NwVoteComponent
   // },
-  // {// BSR-Mobile https://mynamepage.com/te2687
+  // {// BSR-Mobile http://mynamepage.com/te2687
   //   path: ':id',
   //   component: BsrMobileComponent
   // },
@@ -33,7 +27,7 @@ const routes: Routes = [
   //   path: ':id',
   //   component: SchedulerComponent
   // },
-  // {//BSR  color of the bar #002f5b  https://www.bipresents.com/pa3930
+  // {//BSR  color of the bar #002f5b
   //   path: ':id',
   //   component: BsrComponent
   // },
@@ -42,28 +36,21 @@ const routes: Routes = [
   path: 'bmx/:id',
    component: BmxCreatorComponent
   },
-   {//BI BRAND MATRIX SURVEY PREVIEW FROM CREATOR
+   {//BI BRAND MATRIX
     path: 'survey/:id/:username',
     component: SurveyMatrixComponent
   },
-   {//BI BRAND MATRIX SURVEY WITH GUI
-    path: ':id',
-    component: SurveyMatrixComponent
-  },
-
-  // {//NW 3 BI PRESENTS NOMENCLATURE WORKSHOP V.3.0 // Test_WELL_PLATFORM
+  // {//NW 3 BI PRESENTS NOMENCLATURE WORKSHOP V.3.0
   //   path: ':id',
   //   component: NW3Component
   // },
-  // {
-  //   path: '',
-  //   // redirectTo: '/',
-  //   redirectTo: 'bmx/99CB72BF-D163-46A6-8A0D-E1531EC7FEDC', // creative
-  //   // redirectTo: 'bmx/E9096C9-084F-4D10-81C2-C72B70E5D782', // admin
-  //   // redirectTo: 'survey/noProject/no_user',
-  //   // redirectTo: '/',
-   
-  // }
+  {
+    path: '',
+    // redirectTo: '/no_id/n_user',
+    redirectTo: 'bmx/99CB72BF-D163-46A6-8A0D-E1531EC7FEDC',
+    // redirectTo: 'survey/noProject/no_user',
+    pathMatch: 'full'
+  }
 ];
 
 @NgModule({

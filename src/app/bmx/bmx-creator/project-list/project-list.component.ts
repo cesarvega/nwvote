@@ -99,6 +99,11 @@ export class ProjectListComponent implements OnInit {
       this._BmxService.setprojectData(payload)
       option.bmxStatus = status
     }
+    this._BmxService.getGetProjectList()
+    .subscribe((arg: any) => {
+      this.allData = JSON.parse(arg.d);
+      this.changeView();
+    });
   }
   deleteBM(option: string): void {
     var test = option;
