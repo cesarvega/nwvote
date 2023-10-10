@@ -11,10 +11,7 @@ import { BmxComponent } from './bmx/bmx-survey/bmx.component';
 import { SurveyMatrixComponent } from './bmx/bmx-creator/survey-matrix/survey-matrix.component';
 // import { BmxCreatorComponent } from './bmx-creator/bmx-creator.component';
 const routes: Routes = [
-  // {// NAME VOTE LOGIN https://bipresents.com/namevote/login?project=Test_WELL_PLATFORM
-  //   path: 'login',
-  //   component: LoginComponent
-  // },
+ 
   // {// VOTE COMPONENT
   //   path: 'vote',
   //   component: NwVoteComponent
