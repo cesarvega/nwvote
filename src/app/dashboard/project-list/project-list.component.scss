@@ -1,0 +1,42 @@
+.container {
+  width: 100%;
+  display: flex;
+  align-items: flex-start;
+  flex-direction: row-reverse;
+  justify-content: space-between;
+
+  .calendar-container {
+    width: 20%;
+    position: relative;
+    margin: 15px;
+  }
+
+  .table-container {
+    width: 100%;
+    overflow-x: auto;
+  }
+
+  .responsive-table {
+    width: 100%;
+    max-width: 100%;
+  }
+
+  button {
+    background-color: transparent;
+    border: none;
+  }
+}
+
+
+@media (max-width: 750px) {
+  .container {
+    flex-direction: column;
+    align-content: center;
+    flex-wrap: wrap;
+
+    .calendar-container {
+      width: 70%
+    }
+  }
+
+}
