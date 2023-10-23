@@ -60,6 +60,8 @@ import { A11yModule } from '@angular/cdk/a11y';
 import { DialogComponent } from './bmx/bmx-creator/participants-email/dialog/dialog.component';
 import { InteractionType, IPublicClientApplication, PublicClientApplication } from '@azure/msal-browser';
 import { MSAL_INSTANCE, MsalService } from '@azure/msal-angular';
+import { MenuComponent } from './bmx/dashboard/menu/menu.component';
+import { DashboardComponent } from './bmx/dashboard/dashboard.component';
 
 export function loadEcharts() {
   return import('echarts');
@@ -92,6 +94,8 @@ export function MSALInstanceFactory(): IPublicClientApplication {
     // BmxComponent,
     SchedulerComponent,
     DialogComponent,
+    DashboardComponent,
+    MenuComponent,
     // BmxCreatorComponent,
     // SafePipe,
     // OrderDasboardComponent

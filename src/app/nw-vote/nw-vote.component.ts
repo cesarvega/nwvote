@@ -30,9 +30,9 @@ export class NwVoteComponent implements OnInit {
     }, 3000);
     this.projectName = localStorage.getItem('project');
     this.userToken = localStorage.getItem('userTokenId');
-    if (!this.userToken && !this.name) {
-      this.router.navigate(['/', 'login']);
-    }
+    // if (!this.userToken && !this.name) {
+    //   this.router.navigate(['/', 'login']);
+    // }
 
   }
 
