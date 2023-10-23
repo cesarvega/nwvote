@@ -23,7 +23,7 @@ const routes: Routes = [
   {path: 'participants-emails',component: ParticipantsEmailComponent},
   // {path: 'login', component: LoginComponent},
   {path: 'signout', component: LoginComponent},
-  { path: '**', redirectTo: 'dashboard/99CB72BF-D163-46A6-8A0D-E1531EC7FEDC' },
+  { path: '**', redirectTo: 'dashboard' },
  
 ];
 
