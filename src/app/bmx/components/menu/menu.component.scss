@@ -1,0 +1,120 @@
+
+.general-container{
+  width: 300px;
+}
+.menu-container {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 1px;
+  font-family: Arial, sans-serif;
+  margin-left: -8px;
+  width: 80%;
+}
+.logo-container {
+  display: flex;
+  width: 84%;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 1px;
+  font-family: Arial, sans-serif;
+  margin-left: -8px;
+  box-shadow: 0 6px 10px 0 rgba(0,0,0,.14), 0 1px 18px 0 rgba(0,0,0,.12), 0 3px 5px -1px rgba(0,0,0,.2);
+  margin-bottom: 10px;
+  height: 76px;
+  justify-content: center;
+  padding: 10px;
+}
+.button-menu{
+width: 87%!important;
+}
+.menu-container {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 1px;
+  font-family: Arial, sans-serif;
+  margin-left: -8px;
+  width: 80%;
+}
+.menu-item-Light{
+  padding: 26px 20px;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  background-color: #BDBDBD;
+  width: 100%;
+  cursor: pointer;
+  transition: background-color 0.3s;
+}
+.menu-item-Dark {
+  padding: 23px 20px;
+  display: flex;
+  align-items: center;
+  color: white;
+  gap: 10px;
+  background-color: #353F4B;
+  width: 100%;
+  cursor: pointer;
+  transition: background-color 0.3s;
+  justify-content: space-between;
+}
+.icon-play{
+ display: flex;
+}
+
+
+.menu-item .selected {
+  border: 2px solid ;
+}
+
+/* Estilos para móvil */
+@media (max-width: 992px) {
+  .general-container{
+    display: flex;
+    width: 100%;
+    flex-direction: column;
+    justify-content: space-between;
+  }
+.button-menu{width: 109% !important;
+  width: 100% !important;
+  padding: 11px 14px;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  width: 100%;
+  cursor: pointer;
+  transition: background-color 0.3s;
+  justify-content: space-between;
+}
+  .menu-container {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 1px;
+    font-family: Arial, sans-serif;
+    top: 11%;
+    background: #fff;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+    margin-top: 37px;
+
+width: 100%;
+  }
+  .logo-container {
+    gap: 32px;
+    margin-bottom: 10px;
+    height: 49px;
+    width: 63%;
+
+
+
+  }
+
+  .menu-btn {
+    display: block;
+    top: 10px;
+    right: 10px;
+    cursor: pointer;
+    font-size: 24px;
+  }
+}

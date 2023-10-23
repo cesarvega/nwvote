@@ -6,13 +6,13 @@ import {
   OnInit,
   ViewChild,
 } from '@angular/core';
-import { BmxService } from '../bmx.service';
 import { DOCUMENT } from '@angular/common';
 import QRCodeStyling from 'qr-code-styling';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { ActivatedRoute } from '@angular/router';
 import { HotkeysService, Hotkey } from 'angular2-hotkeys';
 import { faFileWord } from '@fortawesome/free-solid-svg-icons';
+import { BmxService } from '../bmx-creator/bmx.service';
 
 @Component({
   selector: 'app-project-reports',

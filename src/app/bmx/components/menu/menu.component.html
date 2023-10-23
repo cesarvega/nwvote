@@ -1,0 +1,68 @@
+<div *ngIf="!isDashboardMenu" class="general-container">
+  <div class="logo-container">
+    <img style="    width: 100%;" src="assets/img/bmx/bm-logo-2020-md.png" alt="logo" />
+  </div>
+  <div class="movil">
+    <button type="button"  id="menuToggleBtn" (click)="toggleMenu()" class="button-menu"><i class="bi bi-list"></i></button>
+  <div class="menu-container" *ngIf="isMenuVisible">
+    <div class="menu-item-Light" (click)="navigateTo('dashboard')">
+      <i class="bi bi-list-task"></i> dashboard
+    </div>
+    <div class="menu-item-Dark" style="justify-content: flex-start;" (click)="navigateTo('project-information')">
+      <i class="bi bi-pencil-fill"></i> Create/Edit Matrix
+      <i style="    margin-left: 32px;" class="bi bi-play-btn-fill"></i>
+    </div>
+   
+    
+    <div class="menu-item-Dark" (click)="navigateTo('bmx-creation')">
+      Survey Creation & Design
+    </div>
+    <div class="menu-item-Dark"(click)="navigateTo('participants')" >
+      Participants
+      <div class="icon-play"> <i class="bi bi-play-btn-fill"></i></div>
+    </div>
+    <div class="menu-item-Dark" (click)="navigateTo('participants-emails')">
+      Survey Participants/Email <div class="icon-play"> <i class="bi bi-play-btn-fill"></i></div>
+    </div>
+    <div class="menu-item-Dark" (click)="navigateTo('reports')">
+      Reports <div class="icon-play"> <i class="bi bi-play-btn-fill"></i></div>
+    </div>
+    <div class="menu-item-Dark" style="justify-content: flex-start;">
+      <i class="bi bi-box-arrow-right"></i> Sign out
+    </div>
+
+    <div class="menu-item-Dark" style="justify-content: flex-start;" (click)="navigateBack()">
+      <i class="bi bi-arrow-left-circle"></i>
+      BACK
+    </div>
+  </div>
+  </div>
+</div>
+
+
+<div *ngIf="isDashboardMenu" class="general-container">
+  <div class="logo-container">
+      <img style="    width: 100%;" src="assets/img/bmx/bm-logo-2020-md.png" alt="logo" />
+  </div>
+  <div class="movil">
+      <button type="button" id="menuToggleBtn" (click)="toggleMenu()" class="button-menu"><i
+              class="bi bi-list"></i></button>
+      <div class="menu-container" *ngIf="isMenuVisible">
+          <div class="menu-item-Light" (click)="navigateTo('dashboard')">
+              <i class="bi bi-list-task"></i> dashboard
+          </div>
+          <div class="menu-item-Dark" style="justify-content: flex-start;"
+              (click)="navigateTo('project-information')">
+              <i class="bi bi-pencil-fill"></i> Create/Edit Matrix
+              <i style="    margin-left: 32px;" class="bi bi-play-btn-fill"></i>
+          </div>
+          <div class="menu-item-Dark" style="justify-content: flex-start;">
+              <i class="bi bi-box-arrow-right"></i> Sign out
+          </div>
+          <div class="menu-item-Dark" style="justify-content: flex-start;" (click)="navigateBack()">
+              <i class="bi bi-arrow-left-circle"></i>
+              BACK
+          </div>
+      </div>
+  </div>
+</div>

@@ -52,16 +52,41 @@ import { MatSortModule } from '@angular/material/sort';
 import { MatPaginatorModule } from '@angular/material/paginator';
 import { MatSnackBarModule, MAT_SNACK_BAR_DEFAULT_OPTIONS } from '@angular/material/snack-bar';
 import { MatRadioModule } from '@angular/material/radio';
-import { BmxModule } from './bmx/bmx-module/bmx.module';
 import { CdkTableModule } from '@angular/cdk/table';
 import { ScrollingModule } from '@angular/cdk/scrolling';
 import { CdkTreeModule } from '@angular/cdk/tree';
 import { A11yModule } from '@angular/cdk/a11y';
-import { DialogComponent } from './bmx/bmx-creator/participants-email/dialog/dialog.component';
 import { InteractionType, IPublicClientApplication, PublicClientApplication } from '@azure/msal-browser';
 import { MSAL_INSTANCE, MsalService } from '@azure/msal-angular';
-import { MenuComponent } from './bmx/dashboard/menu/menu.component';
-import { DashboardComponent } from './bmx/dashboard/dashboard.component';
+import { MenuComponent } from './bmx/components/menu/menu.component';
+import { DashboardComponent } from './bmx/components/dashboard/dashboard.component';
+import { ParticipantsEmailComponent } from './bmx/components/participants-email/participants-email.component';
+import { ProjectInformationComponent } from './bmx/components/project-information/project-information.component';
+import { DialogComponent } from './bmx/components/participants-email/dialog/dialog.component';
+import { RespondentsComponent } from './bmx/components/respondents/respondents.component';
+import { ProjectReportsComponent } from './bmx/components/project-reports/project-reports.component';
+import { ProjectListComponent } from './bmx/components/project-list/project-list.component';
+import { MatAutocompleteModule } from '@angular/material/autocomplete';
+import {DocxSurveyComponent} from './bmx/components/docx-survey/docx-survey.component'
+import {BmxComponent} from './bmx/components/bmx-survey/bmx.component'
+import {BmxCreatorComponent} from './bmx/components/bmx-creator/bmx-creator.component'
+import {SurveyCreationDesignComponent} from './bmx/components/bmx-creator/survey-creation-design/survey-creation-design.component'
+import {SurveyMatrixComponent} from './bmx/components/bmx-creator/survey-matrix/survey-matrix.component'
+import {ImageUploaderComponent} from './bmx/components/bmx-creator/image-uploader/image-uploader.component'
+import {PageLineBreakComponent} from './bmx/components/project-reports/templates/page-line-break/page-line-break.component'
+import {PageTitleComponent} from './bmx/components/project-reports/templates/page-title/page-title.component'
+import {ReportFirstPageComponent} from './bmx/components/project-reports/templates/report-first-page/report-first-page.component'
+import {ImageRankComponent} from './bmx/components/bmx-creator/survey-creation-design/templates/image-rank/image-rank.component'
+import {ImageRankDragComponent} from './bmx/components/bmx-creator/survey-creation-design/templates/image-rank-drag/image-rank-drag.component'
+import {ImageRateScaleComponent} from './bmx/components/bmx-creator/survey-creation-design/templates/image-rate-scale/image-rate-scale.component'
+import {LogoHeaderComponent} from './bmx/components/bmx-creator/survey-creation-design/templates/logo-header/logo-header.component'
+import {NarrowDownComponent} from './bmx/components/bmx-creator/survey-creation-design/templates/narrow-down/narrow-down.component'
+import {QuestionAnswerComponent} from './bmx/components/bmx-creator/survey-creation-design/templates/question-answer/question-answer.component'
+import {RankScaleComponent} from './bmx/components/bmx-creator/survey-creation-design/templates/rank-scale/rank-scale.component'
+import {RatingScaleComponent} from './bmx/components/bmx-creator/survey-creation-design/templates/rating-scale/rating-scale.component'
+import {TextParagraphComponent} from './bmx/components/bmx-creator/survey-creation-design/templates/text-paragraph/text-paragraph.component'
+import {TinderComponent} from './bmx/components/bmx-creator/survey-creation-design/templates/tinder/tinder.component'
+import {SafePipe} from './bmx/components/bmx-creator/safe.pipe'
 
 export function loadEcharts() {
   return import('echarts');
@@ -93,9 +118,35 @@ export function MSALInstanceFactory(): IPublicClientApplication {
     NW3Component,
     // BmxComponent,
     SchedulerComponent,
-    DialogComponent,
     DashboardComponent,
+    DialogComponent,
     MenuComponent,
+    ParticipantsEmailComponent,
+    ProjectInformationComponent,
+    RespondentsComponent,
+    ParticipantsEmailComponent,
+    ProjectReportsComponent,
+    ProjectListComponent,
+    DocxSurveyComponent,
+    BmxComponent,
+    BmxCreatorComponent,
+    SurveyCreationDesignComponent,
+    SurveyMatrixComponent,
+    ImageUploaderComponent,
+    PageLineBreakComponent,
+    PageTitleComponent,
+    ReportFirstPageComponent,
+    ImageRankComponent,
+    ImageRankDragComponent,
+    ImageRateScaleComponent,
+    LogoHeaderComponent,
+    NarrowDownComponent,
+    QuestionAnswerComponent,
+    RankScaleComponent,
+    RatingScaleComponent,
+    TextParagraphComponent,
+    TinderComponent,
+    SafePipe
     // BmxCreatorComponent,
     // SafePipe,
     // OrderDasboardComponent
@@ -146,13 +197,12 @@ export function MSALInstanceFactory(): IPublicClientApplication {
     MatSnackBarModule,
     MatSortModule,
     MatPaginatorModule,
-    BmxModule,
     DragDropModule,
     ScrollingModule,
     CdkTableModule,
     CdkTreeModule,
     A11yModule,
-    
+    MatAutocompleteModule
   ],
   entryComponents: [
     editPost, editName, DialogComponent

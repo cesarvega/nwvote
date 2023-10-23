@@ -1,7 +1,6 @@
 import { Component, OnInit, Input, ViewChild } from '@angular/core';
 import { HotkeysService, Hotkey } from 'angular2-hotkeys';
 import { DragulaService } from 'ng2-dragula';
-import { BmxService } from '../bmx.service';
 import {
   Document, Packer, Paragraph, TextRun, ImageRun, HorizontalPositionAlign,
   HorizontalPositionRelativeFrom,
@@ -12,15 +11,11 @@ import {
 } from "docx";
 import { saveAs } from 'file-saver';
 import { Buffer } from 'buffer';
-import { HyperlinkStyle } from 'docx/build/file/styles/style';
-import { BoundElementProperty } from '@angular/compiler';
-import { QuestionAnswerComponent } from '../survey-creation-design/templates/question-answer/question-answer.component';
-import { table } from 'console';
-import { map } from 'rxjs/operators';
-import { JAN } from '@angular/material/core';
+
 import { MatTableDataSource } from '@angular/material/table';
 import { SelectionModel } from '@angular/cdk/collections';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { BmxService } from '../bmx-creator/bmx.service';
 
 
 

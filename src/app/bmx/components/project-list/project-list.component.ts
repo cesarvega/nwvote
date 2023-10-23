@@ -1,14 +1,14 @@
 import { Component, ElementRef, EventEmitter, Inject, Input, OnInit, Output, ViewChild, ViewEncapsulation } from '@angular/core';
 import { DOCUMENT } from '@angular/common';
 import { HotkeysService, Hotkey } from 'angular2-hotkeys';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { typeSourceSpan } from '@angular/compiler';
 import { DragulaService } from 'ng2-dragula';
 import { MatPaginator } from '@angular/material/paginator';
 import { MatTableDataSource } from '@angular/material/table';
 import { MatSort } from '@angular/material/sort';
-import { BmxService } from '../bmx.service';
 import { stat } from 'fs';
+import { BmxService } from '../bmx-creator/bmx.service';
 
 @Component({
   selector: 'app-project-list',
@@ -43,8 +43,8 @@ export class ProjectListComponent implements OnInit {
   @Input() userDepartment
   @Input() userRole
 
-  constructor(@Inject(DOCUMENT) private document: any, private activatedRoute: ActivatedRoute,
-    private _hotkeysService: HotkeysService, private dragulaService: DragulaService, private _BmxService: BmxService) { }
+  constructor(@Inject(DOCUMENT) private document: any, private activatedRoute: ActivatedRoute, 
+    private _hotkeysService: HotkeysService, private dragulaService: DragulaService, private _BmxService: BmxService, private router: Router) { }
 
   ngOnInit(): void {
     this.selected = 'Live'
@@ -78,6 +78,7 @@ export class ProjectListComponent implements OnInit {
     var test = option;
     localStorage.setItem('projectName', option);
     this.isMenuActive1Close.emit(false);
+    this.router.navigate(['project-information'])
   }
 
   setBMStatus(option): void {

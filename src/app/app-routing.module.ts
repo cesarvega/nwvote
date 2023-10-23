@@ -6,56 +6,25 @@ import { BsrMobileComponent } from './bsr-mobile/bsr-mobile.component';
 import { SchedulerComponent } from './scheduler/scheduler.component';
 import { BsrComponent } from './bsr/bsr.component';
 import { NW3Component } from './nw3/nw3.component';
-import { BmxCreatorComponent } from './bmx/bmx-creator/bmx-creator.component';
-import { BmxComponent } from './bmx/bmx-survey/bmx.component';
-import { SurveyMatrixComponent } from './bmx/bmx-creator/survey-matrix/survey-matrix.component';
-import { DashboardComponent } from './bmx/dashboard/dashboard.component';
+
+import { DashboardComponent } from './bmx/components/dashboard/dashboard.component';
+import { ProjectInformationComponent } from './bmx/components/project-information/project-information.component';
+import { SurveyCreationDesignComponent } from './bmx/components/bmx-creator/survey-creation-design/survey-creation-design.component';
+import { ParticipantsEmailComponent } from './bmx/components/participants-email/participants-email.component';
+import { ProjectReportsComponent } from './bmx/components/project-reports/project-reports.component';
+import { RespondentsComponent } from './bmx/components/respondents/respondents.component';
 // import { BmxCreatorComponent } from './bmx-creator/bmx-creator.component';
 const routes: Routes = [
-  // {// NAME VOTE LOGIN https://bipresents.com/namevote/login?project=Test_WELL_PLATFORM
-  //   path: 'login',
-  //   component: LoginComponent
-  // },
-  // {// VOTE COMPONENT
-  //   path: 'vote',
-  //   component: NwVoteComponent
-  // },
-  // {// BSR-Mobile http://mynamepage.com/te2687
-  //   path: ':id',
-  //   component: BsrMobileComponent
-  // },
-  // {// SCHEDULER
-  //   path: ':id',
-  //   component: SchedulerComponent
-  // },
-  // {//BSR  color of the bar #002f5b
-  //   path: ':id',
-  //   component: BsrComponent
-  // },
-  {//BI BRAND MATRIX CREATOR
-  // path: ':id/:biUsername',
-  path: 'bmx/:id',
-   component: BmxCreatorComponent
-  },
-   {//BI BRAND MATRIX
-    path: 'survey/:id/:username',
-    component: SurveyMatrixComponent
-  },
-    {//BI BRAND MATRIX
-      path: 'dashboard/:id',
-      component: DashboardComponent
-    },
-  // {//NW 3 BI PRESENTS NOMENCLATURE WORKSHOP V.3.0
-  //   path: ':id',
-  //   component: NW3Component
-  // },
-  {
-    path: '',
-    // redirectTo: '/no_id/n_user',
-    redirectTo: 'bmx/99CB72BF-D163-46A6-8A0D-E1531EC7FEDC',
-    // redirectTo: 'survey/noProject/no_user',
-    pathMatch: 'full'
-  }
+  {path: 'dashboard', component: DashboardComponent},
+  {path: 'bmx-creation', component:SurveyCreationDesignComponent },
+  {path: 'project-information', component: ProjectInformationComponent},
+  {path: 'participants', component: RespondentsComponent },
+  {path: 'reports', component: ProjectReportsComponent},
+  {path: 'participants-emails',component: ParticipantsEmailComponent},
+  // {path: 'login', component: LoginComponent},
+  {path: 'signout', component: LoginComponent},
+  { path: '**', redirectTo: 'dashboard/99CB72BF-D163-46A6-8A0D-E1531EC7FEDC' },
+ 
 ];
 
 @NgModule({

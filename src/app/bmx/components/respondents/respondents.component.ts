@@ -3,12 +3,11 @@ import { MatPaginator } from '@angular/material/paginator';
 import { MatTableDataSource } from '@angular/material/table';
 import { HotkeysService, Hotkey } from 'angular2-hotkeys';
 import { ActivatedRoute } from '@angular/router';
-import { BmxService } from '../bmx.service';
 import { DragulaService } from 'ng2-dragula';
 import { MatTable } from '@angular/material/table';
 import { MatSort } from '@angular/material/sort';
 import { CdkDragStart, CdkDropList, moveItemInArray, CdkDragDrop } from '@angular/cdk/drag-drop';
-
+import { BmxService } from '../bmx-creator/bmx.service';
 
 @Component({
   selector: 'app-respondents',
