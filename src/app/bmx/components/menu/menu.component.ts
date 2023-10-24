@@ -30,6 +30,7 @@ export class MenuComponent implements OnInit {
        this.hideMenu = event.url.includes('survey') 
          ;
       }
+      
     });
   }
 
@@ -52,6 +53,9 @@ export class MenuComponent implements OnInit {
     if (value ==="dashboard") {
       this.isDashboardMenu = true;
     } else {
+      if(value === 'project-information'){
+        localStorage.clear();
+      }
       this.isDashboardMenu = false;    }
       this.router.navigate(['/'+value]);   
   }
