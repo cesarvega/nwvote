@@ -13,10 +13,13 @@ import { SurveyCreationDesignComponent } from './bmx/components/bmx-creator/surv
 import { ParticipantsEmailComponent } from './bmx/components/participants-email/participants-email.component';
 import { ProjectReportsComponent } from './bmx/components/project-reports/project-reports.component';
 import { RespondentsComponent } from './bmx/components/respondents/respondents.component';
-// import { BmxCreatorComponent } from './bmx-creator/bmx-creator.component';
+import {BmxCreatorComponent} from './bmx/components/bmx-creator/bmx-creator.component'
+
+
+
 const routes: Routes = [
   {path: 'dashboard', component: DashboardComponent},
-  {path: 'bmx-creation', component:SurveyCreationDesignComponent },
+  {path: 'bmx-creation/:id', component:SurveyCreationDesignComponent },
   {path: 'project-information', component: ProjectInformationComponent},
   {path: 'participants', component: RespondentsComponent },
   {path: 'reports', component: ProjectReportsComponent},

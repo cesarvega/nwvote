@@ -54,7 +54,7 @@ export class MenuComponent implements OnInit {
   }
 
   navigateBack() {
-    this.location.back();
+    this.router.navigate(['/']); 
   }
   
 }

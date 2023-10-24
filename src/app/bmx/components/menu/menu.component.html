@@ -66,14 +66,16 @@
     </div>
   </div>
   <div class="movil">
-   
+
     <div class="menu-container" *ngIf="isMenuVisible">
-     
+      <div class="menu-item-Light" (click)="navigateTo('dashboard')">
+        <i class="bi bi-list-task"></i> Project List
+      </div>
       <div class="menu-item-Light" (click)="navigateTo('project-information')">
-        <i class="bi bi-list-task"></i> Project Information
+      Project Information
       </div>
 
-      <div class="menu-item-Dark" (click)="navigateTo('bmx-creation')">
+      <div class="menu-item-Dark" (click)="navigateTo('bmx-creation/99CB72BF-D163-46A6-8A0D-E1531EC7FEDC')">
         Survey Creation & Design
       </div>
       <div class="menu-item-Dark" (click)="navigateTo('participants')">

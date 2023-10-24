@@ -174,11 +174,7 @@ export class BmxCreatorComponent implements OnInit {
     });
 
     // DRAGGING SERVICE FOR SURVEY CREATOR
-    dragulaService.createGroup('TASKS', {
-      moves: (el, container, handle) => {
-        return handle.classList.contains('emoji-handle');
-      },
-    });
+   
     // document.body.style.zoom = 1.10;
   }
 
@@ -219,10 +215,10 @@ export class BmxCreatorComponent implements OnInit {
     };
     // SAMPLE DATA FOR CKEDITOR
     this.model.editorData = this.sampleHtml;
-    this.isLoggedIn =  this.msalService.instance.getActiveAccount() != null
-    if (!this.isLoggedIn) {
-      this.router.navigate(['/login']);
-    }
+    // this.isLoggedIn =  this.msalService.instance.getActiveAccount() != null
+    // if (!this.isLoggedIn) {
+    //   this.router.navigate(['/login']);
+    // }
   }
   signOut() {
     this.msalService.logout();
