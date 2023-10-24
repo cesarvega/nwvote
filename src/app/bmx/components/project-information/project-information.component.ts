@@ -52,7 +52,7 @@ export class ProjectInformationComponent implements OnInit {
   bmxRegionalOffice: FormControl;
   bmxRegionalDirector: FormControl;
   status = "open"
-  selectedDate:any 
+  selectedDate:Date 
   ngOnInit(): void {
     this.canEdit = null;
     this.createFormControls();

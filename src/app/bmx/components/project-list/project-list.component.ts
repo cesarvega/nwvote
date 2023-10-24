@@ -1,7 +1,7 @@
 import { Component, ElementRef, EventEmitter, Inject, Input, OnInit, Output, ViewChild, ViewEncapsulation } from '@angular/core';
 import { DOCUMENT } from '@angular/common';
 import { HotkeysService, Hotkey } from 'angular2-hotkeys';
-import { ActivatedRoute, Router } from '@angular/router';
+import { ActivatedRoute,Router } from '@angular/router';
 import { typeSourceSpan } from '@angular/compiler';
 import { DragulaService } from 'ng2-dragula';
 import { MatPaginator } from '@angular/material/paginator';
@@ -44,7 +44,7 @@ export class ProjectListComponent implements OnInit {
   @Input() userRole
 
   constructor(@Inject(DOCUMENT) private document: any, private activatedRoute: ActivatedRoute, 
-    private _hotkeysService: HotkeysService, private dragulaService: DragulaService, private _BmxService: BmxService, private router: Router) { }
+    private _hotkeysService: HotkeysService, private dragulaService: DragulaService, private _BmxService: BmxService, private router: Router,) { }
 
   ngOnInit(): void {
     this.selected = 'Live'
@@ -100,6 +100,11 @@ export class ProjectListComponent implements OnInit {
       this._BmxService.setprojectData(payload)
       option.bmxStatus = status
     }
+    this._BmxService.getGetProjectList()
+    .subscribe((arg: any) => {
+      this.allData = JSON.parse(arg.d);
+      this.changeView();
+    });
   }
   deleteBM(option: string): void {
     var test = option;

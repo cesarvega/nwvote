@@ -11,14 +11,17 @@ export class MenuComponent implements OnInit {
   isMenuVisible: boolean = true;
   selectedMenuItem: number | null = null;
   isDashboardMenu: boolean = true;
-  
+  userFullName : string = "Carlos Gomez"
+  userRole : string = "Creative"
+  CREATION_VIDEO_PATH: string = ''
+  showCreationModalVideo:boolean = false
   constructor(private router: Router, private location: Location) {}
 
   ngOnInit(): void {
     this.router.events.subscribe((event) => {
       if (event instanceof NavigationEnd) {
         // Verificar si la URL actual contiene "dashboard"
-        this.isDashboardMenu = event.url.includes('dashboard');
+        this.isDashboardMenu = event.url.includes('dashboard') || event.url === '/' ;
       }
     });
   }
