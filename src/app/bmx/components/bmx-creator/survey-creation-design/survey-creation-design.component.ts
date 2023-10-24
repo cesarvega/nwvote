@@ -253,6 +253,7 @@ export class SurveyCreationDesignComponent implements OnInit {
     temporalWidthLogo: string = "";
 
     ngOnInit(): void {   
+        this.bmxClientPageOverview=true
 
         this.isBrandMatrixSurvey = false;
         this._BmxService.currentProjectName$.subscribe(projectName => {

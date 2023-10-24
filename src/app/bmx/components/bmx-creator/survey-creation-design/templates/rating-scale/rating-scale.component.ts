@@ -72,7 +72,7 @@ export class RatingScaleComponent implements OnInit {
   columnFontSize = 15;
   randomizeTestNames = false
   displaySound = false
-  showMatrixMenu: boolean = false;
+  showMatrixMenu: boolean = true;
   iconMenuShow: string = "add_circle_outline";
   textToolTip: string = "open menu";
   scroll: any;s

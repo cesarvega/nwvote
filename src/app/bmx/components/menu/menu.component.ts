@@ -15,13 +15,20 @@ export class MenuComponent implements OnInit {
   userRole : string = "Creative"
   CREATION_VIDEO_PATH: string = ''
   showCreationModalVideo:boolean = false
+  hideMenu: boolean = false;
   constructor(private router: Router, private location: Location) {}
 
   ngOnInit(): void {
     this.router.events.subscribe((event) => {
+      
       if (event instanceof NavigationEnd) {
         // Verificar si la URL actual contiene "dashboard"
         this.isDashboardMenu = event.url.includes('dashboard') || event.url === '/' ;
+      }
+      if (event instanceof NavigationEnd) {
+        // Verificar si la URL actual contiene "dashboard"
+       this.hideMenu = event.url.includes('survey') 
+         ;
       }
     });
   }

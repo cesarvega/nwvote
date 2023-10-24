@@ -14,12 +14,17 @@ import { ParticipantsEmailComponent } from './bmx/components/participants-email/
 import { ProjectReportsComponent } from './bmx/components/project-reports/project-reports.component';
 import { RespondentsComponent } from './bmx/components/respondents/respondents.component';
 import {BmxCreatorComponent} from './bmx/components/bmx-creator/bmx-creator.component'
+import { SurveyMatrixComponent } from './bmx/components/bmx-creator/survey-matrix/survey-matrix.component';
 
 
 
 const routes: Routes = [
   {path: 'dashboard', component: DashboardComponent},
   {path: 'bmx-creation/:id', component:SurveyCreationDesignComponent },
+   {//BI BRAND MATRIX
+    path: 'survey/:id/:username',
+    component: SurveyMatrixComponent
+  },
   {path: 'project-information', component: ProjectInformationComponent},
   {path: 'participants', component: RespondentsComponent },
   {path: 'reports', component: ProjectReportsComponent},
