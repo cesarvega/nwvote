@@ -2,7 +2,10 @@
     width: 100%;">
     <div style="flex-direction: column;" class="bmx-page" [dragula]="(isMobile)?'TASKS':''"
         (dragulaModelChange)="checkDragEvetn($event);" [(dragulaModel)]="bmxPages[currentPage].page">
-
+        <div style="width: 100%;">
+            &nbsp;
+        </div>
+       
         <!-- BRAND MATRIX MODULAR TEMPLATE COMPONENTS  🧑🏻‍🚀🧑🏻‍🚀🧑🏻‍🚀🧑🏻‍🚀🧑🏻‍🚀🧑🏻‍🚀🧑🏻‍🚀🧑🏻‍🚀🧑🏻‍🚀🧑🏻‍🚀🧑🏻‍🚀🧑🏻‍🚀🧑🏻‍🚀 -->
         <div *ngFor="let bmxItem of bmxPages[currentPage].page; let i = index"
             style="display: flex;flex-direction: column;margin: 10px;align-content: center;">
