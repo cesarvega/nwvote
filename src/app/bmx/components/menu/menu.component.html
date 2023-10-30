@@ -1,8 +1,8 @@
 <div *ngIf="showCreationModalVideo && !hideMenu" id="myModal" class="modal-video"
   style="display: flex;flex-direction: column;gap: 2px;">
   <!-- <label class="container-checkbox">Don't show again
-      <input (click)="saveSelection()" type="checkbox" value="Bike" #modalChecked> 
-      <span class="checkmark">&#x2714;</span>        
+      <input (click)="saveSelection()" type="checkbox" value="Bike" #modalChecked>
+      <span class="checkmark">&#x2714;</span>
   </label> -->
   <div class="modal-content">
     <video src='{{CREATION_VIDEO_PATH}}' controls></video>
@@ -42,10 +42,10 @@
       <!-- <div class="menu-item-Dark" style="justify-content: flex-start;">
         <i class="bi bi-box-arrow-right"></i> Sign out
       </div> -->
-      <div class="menu-item-Dark" style="justify-content: flex-start;" (click)="navigateBack()">
+      <!-- <div class="menu-item-Dark" style="justify-content: flex-start;" (click)="navigateBack()">
         <i class="bi bi-arrow-left-circle"></i>
         BACK
-      </div>
+      </div> -->
     </div>
   </div>
 </div>
@@ -110,10 +110,10 @@
         <i class="bi bi-box-arrow-right"></i> Sign out
       </div> -->
 
-      <div class="menu-item-Dark" style="justify-content: flex-start;" (click)="navigateBack()">
+      <!-- <div class="menu-item-Dark" style="justify-content: flex-start;" (click)="navigateBack()">
         <i class="bi bi-arrow-left-circle"></i>
         BACK
-      </div>
+      </div> -->
     </div>
   </div>
 </div>
