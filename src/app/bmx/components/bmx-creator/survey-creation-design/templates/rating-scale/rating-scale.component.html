@@ -219,30 +219,6 @@
   <div
     style="text-align: center;display: flex;flex-direction: column;justify-content: space-around;align-items: center;">
 
-
-    <div style="display: flex;flex-direction: column;">
-      <div style="font-size: 12px;color: #48535e;">TYPE NEW CRITERIA</div>
-      <div style="display: flex;">
-        <input type="text" [(ngModel)]="newCriteria"
-          style="font-size: 12px;color: #324395;padding-bottom: 7px;padding-left: 10px; width: 100%">
-        <mat-icon style="cursor: pointer;font-size: 33px;color: #324395;"
-          (click)="addCriteria(newCriteria);newCriteria=''">add_box</mat-icon>
-      </div>
-      <mat-form-field appearance="outline" style="margin: 0px;">
-        <mat-label>choose criteria</mat-label>
-        <mat-select multiple [(ngModel)]="selectedCriteria" (selectionChange)="criteriaSelection(selectedCriteria)">
-          <mat-option *ngFor="let cirteriaItem of CRITERIA; let c = index" [value]="cirteriaItem">
-            {{cirteriaItem.name}}
-            <mat-icon matTooltip="double click to delete criteria" matTooltipPosition="right"
-              style="cursor: pointer;font-size: 15px;color: #ee7f25;" (dblclick)="deleteCriteria(c);">
-              cancel</mat-icon>
-          </mat-option>
-        </mat-select>
-      </mat-form-field>
-
-
-    </div>
-
     <div>
       <div style="font-size: 16px;margin-top: 10px;color: #48535e;">SELECT RATING RANGE</div>
       <br>
@@ -254,6 +230,28 @@
       </div>
       <label for="volume">{{rankingScaleValue}}</label>
 
+      <div style="display: flex;flex-direction: column;">
+        <div style="font-size: 12px;color: #48535e;">TYPE NEW CRITERIA</div>
+        <div style="display: flex;">
+          <input type="text" [(ngModel)]="newCriteria"
+            style="font-size: 12px;color: #324395;padding-bottom: 7px;padding-left: 10px; width: 100%">
+          <mat-icon style="cursor: pointer;font-size: 33px;color: #324395;"
+            (click)="addCriteria(newCriteria);newCriteria=''">add_box</mat-icon>
+        </div>
+        <mat-form-field appearance="outline" style="margin: 0px;">
+          <mat-label>choose criteria</mat-label>
+          <mat-select multiple [(ngModel)]="selectedCriteria" (selectionChange)="criteriaSelection(selectedCriteria)">
+            <mat-option *ngFor="let cirteriaItem of CRITERIA; let c = index" [value]="cirteriaItem">
+              {{cirteriaItem.name}}
+              <mat-icon matTooltip="double click to delete criteria" matTooltipPosition="right"
+                style="cursor: pointer;font-size: 15px;color: #ee7f25;" (dblclick)="deleteCriteria(c);">
+                cancel</mat-icon>
+            </mat-option>
+          </mat-select>
+        </mat-form-field>
+
+
+      </div>
 
     </div>
 
