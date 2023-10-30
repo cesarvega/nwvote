@@ -16,6 +16,7 @@ export class MenuComponent implements OnInit {
   CREATION_VIDEO_PATH: string = ''
   showCreationModalVideo:boolean = false
   hideMenu: boolean = false;
+  showMenu: boolean = false;
   constructor(private router: Router, private location: Location) {}
 
   ngOnInit(): void {
@@ -25,17 +26,12 @@ export class MenuComponent implements OnInit {
         // Verificar si la URL actual contiene "dashboard"
         this.isDashboardMenu = event.url.includes('dashboard') || event.url === '/' ;
       }
-      if (event instanceof NavigationEnd) {
-        // Verificar si la URL actual contiene "dashboard"
-       this.hideMenu = event.url.includes('survey') 
-         ;
-      }
-      
+     
     });
   }
 
   toggleMenu() {
-    this.isMenuVisible = !this.isMenuVisible;
+    this.hideMenu = !this.hideMenu;
 }
 
   goToBmxCreator(): void {
@@ -52,7 +48,10 @@ export class MenuComponent implements OnInit {
     
     if (value ==="dashboard") {
       this.isDashboardMenu = true;
-    } else {
+    }else if (value.includes('bmx-creation')){
+      this.hideMenu = true;
+    } 
+    else {
       if(value === 'project-information'){
         localStorage.clear();
       }

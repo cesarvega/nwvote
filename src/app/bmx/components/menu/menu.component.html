@@ -10,6 +10,27 @@
   </div>
   <button class="btn btn-raised close-modal" (click)="showCreationModalVideo=false">close</button>
 </div>
+<div *ngIf="hideMenu" class="corner_bar_menu">
+  <button *ngIf="false" matTooltip="new post it" matTooltipPosition="above" mat-icon-button color="warn"
+      aria-label="aria">
+      <mat-icon class="full-icon">note_add</mat-icon>
+  </button>
+  <!-- <button *ngIf="true" mat-icon-button matTooltip="vote" matTooltipPosition="above" mat-icon-button
+      style="border-radius: 50%; border: 2px solid grey;outline: none;" aria-label="aria">
+      GO
+  </button> -->
+  <!-- <button mat-icon-button aria-label="Proprietary" style="width: 200px;">
+    Proprietary & Confidential
+  </button> -->
+  <button (click)="toggleMenu()" matTooltip="" matTooltipPosition="above" mat-icon-button color="warn"
+      aria-label="aria">
+      <mat-icon class="full-icon">menu</mat-icon>
+  </button>
+  <!-- <button class="goButton" *ngIf="true" mat-icon-button matTooltip="vote" matTooltipPosition="above" mat-icon-button
+      aria-label="aria">
+      GO
+  </button> -->
+</div>
 <div *ngIf="isDashboardMenu" class="general-container">
   <div class="logo-container">
     <img style="    width: 100%;" src="assets/img/bmx/bm-logo-2020-md.png" alt="logo" />
@@ -25,7 +46,7 @@
   </div>
   <div class="movil">
 
-    <div class="menu-container" *ngIf="isMenuVisible">
+    <div class="menu-container" >
       <div class="menu-item-Light" (click)="navigateTo('dashboard')">
         <i class="bi bi-list-task"></i> Project List
       </div>
@@ -67,7 +88,7 @@
   </div>
   <div class="movil">
 
-    <div class="menu-container" *ngIf="isMenuVisible">
+    <div class="menu-container" >
       <div class="menu-item-Light" (click)="navigateTo('dashboard')">
         <i class="bi bi-list-task"></i> Project List
       </div>
