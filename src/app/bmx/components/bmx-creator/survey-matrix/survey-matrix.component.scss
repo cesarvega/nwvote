@@ -248,15 +248,17 @@
         display: flex;
         flex-direction: row;
         align-items: center;
+        position: absolute;
         justify-content: center;
+        bottom: 10px;
+        left: 50%;
     }
     .page-buttons-heigth-minus-50 {
         display: flex;
         flex-direction: row;
         align-items: center;
         justify-content: center;
-        position: fixed;
-        bottom: 10px;
+        position: absolute;
     }
     .see-tutorial-mobil {
         display: none;

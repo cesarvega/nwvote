@@ -55,7 +55,8 @@ export class SurveyMatrixComponent extends SurveyCreationDesignComponent impleme
 
   totalOfpages = 0
   continueButtonToComple = 'Continue';
-
+  globalProjectName = ''
+  
   //------modal-----------//
   showModalVideo: boolean = true;
   @ViewChild('modalChecked') modalChecked: MatCheckboxModule | any;
@@ -96,7 +97,9 @@ export class SurveyMatrixComponent extends SurveyCreationDesignComponent impleme
     this.isDesktopDevice = this.deviceService.isDesktop();
   }
 
-  ngOnInit(): void {    
+  ngOnInit(): void {      this._BmxService.currentProjectName$.subscribe((res) => {
+    this.globalProjectName = res ? res : '';
+  });
     this._BmxService.getProjectInfo(this.projectId).subscribe((arg: any)=>{
       this.status = JSON.parse(arg.d).bmxStatus
       this.bmxClientPageOverview=false

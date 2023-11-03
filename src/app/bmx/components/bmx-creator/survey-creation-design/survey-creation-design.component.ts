@@ -23,7 +23,7 @@ export class SurveyCreationDesignComponent implements OnInit {
     @Input() isMenuActive11;
     @Input() bmxClientPageDesignMode;
     @Input() bmxClientPageOverview;
-    
+
     isMobile = true
     @Input() isBrandMatrixSurvey
     @ViewChild('canvas', { static: true }) canvas: ElementRef;
@@ -35,7 +35,7 @@ export class SurveyCreationDesignComponent implements OnInit {
 
     @Input() widthLogo: string = "";
 
-    showMenuCreator: boolean =  false;
+    showMenuCreator: boolean = false;
     iconMenuShow: string = "add_circle_outline";
     TEMPLATE_NAME = 'Standart Personal Preference';
 
@@ -110,7 +110,8 @@ export class SurveyCreationDesignComponent implements OnInit {
     biUsername: string;
     biUserId = 'user@bi.com';
 
-    UNDO = [] 
+    UNDO = []
+    globalProjectName = '';
 
     constructor(
         @Inject(DOCUMENT) private document: any,
@@ -247,13 +248,15 @@ export class SurveyCreationDesignComponent implements OnInit {
         //     this.projectInfo = arg;
         //     localStorage.setItem('projectInfo', this.projectInfo);
         // })
-
+        this._BmxService.currentProjectName$.subscribe((res) => {
+            this.globalProjectName = res ? res : '';
+        });
     }
 
     temporalWidthLogo: string = "";
 
-    ngOnInit(): void {   
-        this.bmxClientPageOverview=true
+    ngOnInit(): void {
+        this.bmxClientPageOverview = true
 
         this.isBrandMatrixSurvey = false;
         this._BmxService.currentProjectName$.subscribe(projectName => {
@@ -277,8 +280,8 @@ export class SurveyCreationDesignComponent implements OnInit {
         //     this.createNewBmxComponent('rate-scale');
         // }
         if (this.bmxPagesClient) {
-            this.bmxPages = this.bmxPagesClient;            
-            
+            this.bmxPages = this.bmxPagesClient;
+
         } else {
             //   this.bmxPages = this.SAMPLE_BMX;
 
@@ -289,14 +292,14 @@ export class SurveyCreationDesignComponent implements OnInit {
                     logoUrl = this.bmxPages[0].page[0].componentSettings[0].companyLogoURL;
 
                     for (let index = 0; index < this.bmxPages.length; index++) {
-                        this.bmxPages[index].page[0].componentSettings[0].companyLogoURL = logoUrl                        
+                        this.bmxPages[index].page[0].componentSettings[0].companyLogoURL = logoUrl
                     }
                     //console.log(this.bmxPages)
-                    if(this.widthLogo != "" && this.widthLogo != undefined){
-            
+                    if (this.widthLogo != "" && this.widthLogo != undefined) {
+
                         this.bmxPages.forEach((pageToreset: any) => {
                             pageToreset.page[0].componentSettings[0].logoWidth = this.widthLogo;
-                        }) 
+                        })
                     }
                     // this._snackBar.open('bmx LOADED for project  ' + this.projectId , 'OK', {
                     //     duration: 5000,
@@ -736,10 +739,10 @@ export class SurveyCreationDesignComponent implements OnInit {
     changePage(direction) {
         if (direction === 'next' && this.bmxPages.length - 1 > this.currentPage) {
             this.currentPage = this.currentPage + 1;
-            
+
         } else if (direction === 'previous' && this.currentPage >= 1) {
             this.currentPage = this.currentPage - 1;
-          
+
         }
     }
 
@@ -898,7 +901,7 @@ export class SurveyCreationDesignComponent implements OnInit {
 
     saveData() {
         // RESET VOTES IN TEMPLATE
-        this.bmxPages.forEach((pageToreset: any) => {    
+        this.bmxPages.forEach((pageToreset: any) => {
 
             pageToreset.page.forEach(category => {
                 if (
@@ -971,16 +974,16 @@ export class SurveyCreationDesignComponent implements OnInit {
                 });
             });
             // console.log(this.bmxCompleteObject.bmx[4]["page"][3]['componentText']);
-            
+
             this._BmxService
                 .saveOrUpdateBradnMatrixTemplate(this.bmxPages, this.projectId)
-                .subscribe((res:any) => {                    
+                .subscribe((res: any) => {
                     let logoUrl = ""
                     this.bmxPages = JSON.parse(res.d)
                     logoUrl = this.bmxPages[0].page[0].componentSettings[0].companyLogoURL;
 
                     for (let index = 0; index < this.bmxPages.length; index++) {
-                        this.bmxPages[index].page[0].componentSettings[0].companyLogoURL = logoUrl                        
+                        this.bmxPages[index].page[0].componentSettings[0].companyLogoURL = logoUrl
                     }
                     // console.log('%cBMX!', 'color:orange', res);
                     this._snackBar.open('Project ' + this.projectId + ' saved', 'OK', {
@@ -1144,26 +1147,26 @@ export class SurveyCreationDesignComponent implements OnInit {
         }
     ]
 
-    showMenucreateNewBmx(){
+    showMenucreateNewBmx() {
         this.showMenuCreator = !this.showMenuCreator;
-        if(this.showMenuCreator){
+        if (this.showMenuCreator) {
             this.iconMenuShow = "remove_circle_outline"
-        }else{
+        } else {
             this.iconMenuShow = "add_circle_outline"
         }
     }
 
-    logoChanged(logoUrl: any){
+    logoChanged(logoUrl: any) {
         for (let index = 0; index < this.bmxPages.length; index++) {
-            this.bmxPages[index].page[0].componentSettings[0].companyLogoURL = logoUrl                        
-        }        
+            this.bmxPages[index].page[0].componentSettings[0].companyLogoURL = logoUrl
+        }
     }
 
-    resizeWidthLogo(event: any){
+    resizeWidthLogo(event: any) {
         this.temporalWidthLogo = event;
         this.bmxPages.forEach((pageToreset: any) => {
             pageToreset.page[0].componentSettings[0].logoWidth = this.temporalWidthLogo
-        }) 
+        })
     }
 }
 // https://brandmatrix.brandinstitute.com/BMX/survey/ImageStarRate/guest

@@ -118,8 +118,10 @@
       display: flex;
       flex-direction: row;
       align-items: center;
+      position: absolute;
       justify-content: center;
-      gap: 20px;
+      bottom: 10px;
+      left: 50%;
   
       .label-buttons {
         display: flex;
