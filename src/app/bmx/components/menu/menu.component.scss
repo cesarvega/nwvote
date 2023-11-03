@@ -13,7 +13,7 @@
 }
 .logo-container {
   display: flex;
-  width: 84%;
+  width: 80%;
   flex-direction: column;
   align-items: flex-start;
   gap: 1px;
@@ -70,12 +70,7 @@ width: 87%!important;
 
 /* Estilos para móvil */
 @media (max-width: 992px) {
-  .general-container{
-    display: flex;
-    width: 100%;
-    flex-direction: column;
-    justify-content: space-between;
-  }
+
 .button-menu{
   padding: 11px 14px;
   display: flex;
@@ -95,17 +90,18 @@ width: 87%!important;
     top: 11%;
     background: #fff;
     box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
-    margin-top: 37px;
-
-width: 100%;
-  }
-  .logo-container {
-    gap: 32px;
-    margin-bottom: 10px;
-    height: 49px;
-    width: 63%;
 
   }
+  // .welcome {
+
+
+  // .logo-container {
+  //   gap: 32px;
+  //   margin-bottom: 10px;
+  //   height: 49px;
+  //   width: 63%;
+
+  // }
 
   .menu-btn {
     display: block;
@@ -115,9 +111,11 @@ width: 100%;
     font-size: 24px;
   }
 }
-
+.cont-welcome{
+  width: 100%;
+}
 .welcome {
-  width: 80%;
+  width: 77%;
   top: 67px;
   margin: 10px 0px;
   display: flex;
@@ -128,17 +126,13 @@ width: 100%;
 }
 
 .welcome-role{
-  font-size: 90%;
+  font-size: 100%;
 }
 
 .welcome .mat-icon{
   width: unset;
 }
-@media (max-width: 879px){
-  .welcome-role{
-      font-size: 84%;
-  }    
-}
+
 
 .full-icon:hover {
   transform: scale(1.5);
@@ -186,12 +180,12 @@ width: 100%;
       img:last-child {
           margin-bottom: 0;
       }
-  }    
+  }
 
   .close-modal {
       // margin-bottom: 5px;
       position: relative;
-  
+
       // top: 12%;
       left: 42.5%;
       width: 15%;
@@ -265,53 +259,50 @@ width: 100%;
 
 //-------------modal mobil-----------------------//
 
-@media only screen and (min-width: 993px) and (max-width: 1024px) {
-  .modal-video .modal-content {
-      top: 3%;
-      margin: 1% auto;
-      margin-left: auto;
-      width: 30%;
-      height: auto;
-  }
-
-  
-
-  .modal-video .close-modal {
-      position: relative;
-      // margin-left: 42.5%;
-      top: 5%;
-  }
-}
-
-@media only screen and (min-width: 769px) and (max-width: 992px) {
-  .modal-video .modal-content {
-      top: 4%;
-      margin: 1% auto;
-      margin-left: auto;
-      width: 30%;
-      height: auto;
-  }
-
-  .modal-video .close-modal {
-      position: relative;
-      // margin-left: 42.5%;
-      top: 5%;
-  }
-}
-
-@media only screen and (min-width: 576px) and (max-width: 768px) {
-  .modal-video .modal-content {
-      top: 4%;
-      margin: 1% auto;
-      margin-left: auto;
-      width: 40%;
-      height: auto;
-  }
+// @media only screen and (min-width: 993px) and (max-width: 1024px) {
+//   .modal-video .modal-content {
+//       top: 3%;
+//       margin: 1% auto;
+//       margin-left: auto;
+//       width: 30%;
+//       height: auto;
+//   }
 
 
-  .modal-video .close-modal {
-      position: relative;
-      // margin-left: 42.5%;
-      top: 5%;
-  }
-}
+
+//   .modal-video .close-modal {
+//       position: relative;
+//       top: 5%;
+//   }
+// }
+
+// @media only screen and (min-width: 769px) and (max-width: 992px) {
+//   .modal-video .modal-content {
+//       top: 4%;
+//       margin: 1% auto;
+//       margin-left: auto;
+//       width: 30%;
+//       height: auto;
+//   }
+
+//   .modal-video .close-modal {
+//       position: relative;
+//       top: 5%;
+//   }
+// }
+
+// @media only screen and (min-width: 576px) and (max-width: 768px) {
+//   .modal-video .modal-content {
+//       top: 4%;
+//       margin: 1% auto;
+//       margin-left: auto;
+//       width: 40%;
+//       height: auto;
+//   }
+
+
+//   .modal-video .close-modal {
+//       position: relative;
+//       top: 5%;
+//   }
+// }

@@ -51,6 +51,7 @@
     flex-direction: row;
     align-items: center;
     justify-content: center;
+
 }
 .page-buttons-heigth-minus-50 {
     display: flex;
@@ -59,6 +60,7 @@
     justify-content: center;
     position: fixed;
     bottom: -7px;
+    top: 52rem;
 }
 .page-buttons-heigth-40 {
     display: flex;
@@ -126,7 +128,7 @@
     color: white !important;
     background: #324395 !important;
   }
-  
+
   ::ng-deep .mat-tooltip {
     background-color: #324395;
     font-size: 18px;
@@ -146,13 +148,13 @@
     display: none;
     min-width: 200px;
     background-color: #324395;
-      
+
     position: absolute;
     z-index: 1;
     top: 8px;
-    right: 42px;    
+    right: 42px;
     border-radius: 5px;
-    
+
     mat-list-item{
         color: white;    }
 
@@ -164,8 +166,8 @@
 
   #openSaveTamplate:hover .list-save-template{
     display: block;
-    
+
   }
-  
+
 
 

@@ -69,14 +69,19 @@
                 </mat-form-field>
 
             </div>
-            <div style="width: 30%; margin-left: 30px;">
-                <label class="selectLabels">Closing date</label>
+            <div style="display: flex;
+            flex-direction: row;
+            justify-content: flex-start;
+            align-items: baseline;">
+            <div style="width: 30%; margin-left: 78px;">
+                <label class="selectLabels">Closing date: </label>
                 <mat-form-field>
                     <input matInput [matDatepicker]="picker" placeholder="Elija una fecha"  (dateChange)="onSelect($event.value)">
                     <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
                     <mat-datepicker #picker></mat-datepicker>
                   </mat-form-field>
             </div>
+          </div>
 
             <div></div>
             <!-- <button mat-raised-button color="success" style="position: absolute;right: 40px;
