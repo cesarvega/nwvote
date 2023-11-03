@@ -17,16 +17,19 @@ export class MenuComponent implements OnInit {
   showCreationModalVideo:boolean = false
   hideMenu: boolean = false;
   showMenu: boolean = false;
+  isPreviewView: boolean = true
+
   constructor(private router: Router, private location: Location) {}
 
   ngOnInit(): void {
+ 
     this.router.events.subscribe((event) => {
       
       if (event instanceof NavigationEnd) {
-        // Verificar si la URL actual contiene "dashboard"
         this.isDashboardMenu = event.url.includes('dashboard') || event.url === '/' ;
+        this.isPreviewView = event.url.includes('survey')
       }
-     
+    
     });
   }
 
