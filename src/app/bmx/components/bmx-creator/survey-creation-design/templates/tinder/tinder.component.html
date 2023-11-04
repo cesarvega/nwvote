@@ -74,25 +74,35 @@
         <div style="font-size: 16px;margin: 20px;color: #48535e;">Copy & Paste TEST NAMES</div>
         <!-- <div style="font-size: 14px;margin-bottom: 20px;color: lightgray;">Brief Description Here</div> -->
     </div>
-    <div style="display: flex;justify-content: center;justify-items: center;">
+    <div style="display: flex;justify-content: center;justify-items: center; flex-direction: column;">
 
         <mat-form-field style="width: 90%;margin-left: 20px;" appearance="outline">
             <mat-label>Copy & Paste TEST NAMES</mat-label>
             <textarea matInput rows="4" cols="50" [(ngModel)]="testNamesInput" placeholder=""></textarea>
         </mat-form-field>
-
+        <p style="margin-left: 30px; color: #757575;">
+            Add the names you want to test
+        </p>
     </div>
 
     <hr>
     <div style="display: flex;flex-direction: row;;padding: 0 20px;justify-content: space-around;gap: 30px;">
-
-        <input type="text" [(ngModel)]="bmxItem.componentSettings[0].categoryName"
-            [value]="bmxItem.componentSettings[0].categoryName" placeholder="Category Name"
-            style="font-size: 20px;color: #324395;padding-bottom: 10px;">
-        <input type="text" [(ngModel)]="bmxItem.componentSettings[0].categoryDescription"
-            [value]="bmxItem.componentSettings[0].categoryDescription" placeholder="Category Description"
-            style="font-size: 20px;color: #ee7f25;padding-bottom: 20px;">
-
+        <div style="display: flex; flex-direction: column;">
+            <input type="text" [(ngModel)]="bmxItem.componentSettings[0].categoryName"
+                [value]="bmxItem.componentSettings[0].categoryName" placeholder="Category Name"
+                style="font-size: 10px;color: #324395;padding-bottom: 10px;">
+            <p style=" color: #757575;">
+                Add a category to the left side
+            </p>
+        </div>
+        <div style="display: flex; flex-direction: column;">
+            <input type="text" [(ngModel)]="bmxItem.componentSettings[0].categoryDescription"
+                [value]="bmxItem.componentSettings[0].categoryDescription" placeholder="Category Description"
+                style="font-size: 20px;color: #ee7f25;padding-bottom: 20px;">
+            <p style="margin-left: 25px; color: #757575;">
+                Add a rate matrix subtitle
+            </p>
+        </div>
         <div style="display: flex; flex-direction: column">
             <mat-checkbox [(ngModel)]="randomizeTestNames">Randomize Names</mat-checkbox>
             <mat-checkbox #showIcon [(ngModel)]="showNeutralIcon">Add Neutral Button</mat-checkbox>
