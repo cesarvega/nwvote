@@ -117,7 +117,7 @@ export class ProjectInformationComponent implements OnInit {
 
         });
         this.currentDirectorList = this.allDirectors;
-        for (var i = 0; i < this.DIRECTORS.length; i++) {
+        for (var i = 0; i < this.DIRECTORS?.length; i++) {
           this.DIRECTORS[i] = this.allDirectors.find(o => o.name === this.DIRECTORS[i].name);
         }
         this.filteredOptions = this.bmxEditData.controls['bmxSalesboard'].valueChanges

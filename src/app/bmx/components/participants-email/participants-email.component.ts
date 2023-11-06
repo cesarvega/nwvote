@@ -106,12 +106,12 @@ export class ParticipantsEmailComponent implements OnInit {
 
     this._BmxService.currentProjectName$.subscribe(projectName => {
       this.projectId = (projectName !== '') ? projectName : this.projectId;
-      this.Subject = this.projectId.toString().trim() + ' Naming Initiative';
+      this.Subject = this.projectId?.toString().trim() + ' Naming Initiative';
     })
 
     this._BmxService.getProjectInfo(this.projectId)
       .subscribe((arg: any) => {
-        var data = JSON.parse(arg.d);
+        var data = JSON.parse(arg.d)
         this.DIRECTORS = data.bmxRegionalOffice;
         this.From = this.DIRECTORS[0].email.trim();
       });
@@ -309,7 +309,7 @@ export class ParticipantsEmailComponent implements OnInit {
       `;
       this.BCC = 'design@brandinstitute.com'
     }
-    for(var i = 0; i < this.DIRECTORS.length; i++)
+    for(var i = 0; i < this.DIRECTORS?.length; i++)
       {
         this.BCC = this.DIRECTORS[i].email.trim() + '; ' + this.BCC;
       }
