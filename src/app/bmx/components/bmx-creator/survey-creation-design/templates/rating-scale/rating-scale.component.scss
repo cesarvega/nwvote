@@ -44,22 +44,32 @@
   flex-direction: column;
   gap: 10px;
   align-items: center;
+  width: 100%;
+
+}
+.direction-MinMax{
+  width: 40%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
 
 }
 .row-boxSM{
   display: flex;
-  gap: 1rem;
+  gap: 2rem;
   flex-direction: row;
   justify-content: center;
+  width: 100%;
 
 }
 .column-boxSM{
   display: flex;
-  gap: 1rem;
-  flex-direction: column;
-  justify-content: center;
+  gap: 2rem;
+  flex-direction: row;
+  align-items: flex-end;
+  width: 100%;
+  justify-content: center;}
 
-}
 .section3{
   text-align: center;
   display: flex;
@@ -67,6 +77,8 @@
   justify-content: space-around;
   align-items: center;
   padding: 1.2rem;
+  width: 100%;
+  gap: 1rem;
 }
 @media (min-width: 1025px) {
   .desktop {
@@ -285,11 +297,11 @@ textarea::placeholder {
   color: #9fa8da;
 }
 
-textarea:focus {
-  min-height: 1rem;
-  cursor: text;
-  box-shadow: inset 5px 7px 7px #d1d9e9, inset -19px -31px 1px #ffffff;
-}
+// textarea:focus {
+//   min-height: 1rem;
+//   cursor: text;
+//   box-shadow: inset 5px 7px 7px #d1d9e9, inset -19px -31px 1px #ffffff;
+// }
 
 textarea:placeholder-shown {
   background: none;

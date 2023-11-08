@@ -261,10 +261,17 @@ export class SurveyCreationDesignComponent implements OnInit {
         this.bmxClientPageOverview = true
 
         this.isBrandMatrixSurvey = false;
-        this._BmxService.currentProjectName$.subscribe(projectName => {
-            this.projectId = (projectName !== '') ? projectName : this.projectId;
-            localStorage.setItem('projectName', this.projectId);
-        })
+        if(localStorage.getItem('projectName')){
+            this.projectId = localStorage.getItem('projectName');
+            this.globalProjectName = this.projectId 
+        }else{
+            this._BmxService.currentProjectName$.subscribe(projectName => {
+                this.projectId = (projectName !== '') ? projectName : this.projectId;
+
+                localStorage.setItem('projectName', this.projectId);
+            })
+        }
+        
 
         this.myAngularxQrCode = this.myAngularxQrCode + this.projectId + '/' + this.biUsername
 
@@ -286,9 +293,9 @@ export class SurveyCreationDesignComponent implements OnInit {
 
         } else {
             //   this.bmxPages = this.SAMPLE_BMX;
-
             this._BmxService.getBrandMatrixByProject(this.projectId).subscribe((brandMatrix: any) => {
-                if (brandMatrix.d.length > 0) {
+                if (brandMatrix.d.length > 0) {                    
+                    let objeto = JSON.parse(brandMatrix.d);
                     let logoUrl = ""
                     this.bmxPages = JSON.parse(brandMatrix.d)
                     logoUrl = this.bmxPages[0].page[0].componentSettings[0].companyLogoURL;
@@ -877,16 +884,13 @@ export class SurveyCreationDesignComponent implements OnInit {
         }
     }
 
-
     templateSelected() {
         this.isSaveOrUpdate = true;
     }
 
-
     delete() {
         this.isTemplateBoxOn = true;
     }
-
 
     openSaveTemplateBox() {
         this.templateName = '';
@@ -975,7 +979,6 @@ export class SurveyCreationDesignComponent implements OnInit {
                 });
             });
             // console.log(this.bmxCompleteObject.bmx[4]["page"][3]['componentText']);
-
             this._BmxService
                 .saveOrUpdateBradnMatrixTemplate(this.bmxPages, this.projectId)
                 .subscribe((res: any) => {
