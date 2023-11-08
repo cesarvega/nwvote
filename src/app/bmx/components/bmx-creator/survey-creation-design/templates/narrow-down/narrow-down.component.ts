@@ -29,6 +29,8 @@ export class NarrowDownComponent extends RatingScaleComponent implements OnInit 
   }
 
   ngOnInit(): void {
+    this.showDialog = false
+
     if(this.bmxItem.componentText[0].hasOwnProperty("STARS")){
       this.numRatingScale = this.bmxItem.componentText[0].STARS.length
     }

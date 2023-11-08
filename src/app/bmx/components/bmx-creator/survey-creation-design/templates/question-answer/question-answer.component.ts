@@ -26,6 +26,8 @@ export class QuestionAnswerComponent extends RatingScaleComponent implements OnI
   }
 
   ngOnInit(): void {
+    this.showDialog = false
+
     // COLUMN NAMES
     let values = Object.keys(this.bmxItem.componentText[0])
     values.forEach(value => {

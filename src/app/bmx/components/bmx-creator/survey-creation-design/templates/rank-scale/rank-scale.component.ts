@@ -46,6 +46,8 @@ export class RankScaleComponent extends RatingScaleComponent implements OnInit {
   }
 
   ngOnInit(): void {
+    this.showDialog = false
+
     console.log(this.bmxItem)
     this.rankingScaleValue = this.bmxItem.componentSettings[0].selectedRanking
     this.createRatingStars(this.rankingScaleValue)
