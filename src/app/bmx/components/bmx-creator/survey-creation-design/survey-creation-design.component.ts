@@ -32,6 +32,7 @@ export class SurveyCreationDesignComponent implements OnInit {
     popUpQRCode = false;
     elem: any;
     isFullscreen: any;
+    showDialog = false
 
     @Input() widthLogo: string = "";
 
@@ -65,7 +66,7 @@ export class SurveyCreationDesignComponent implements OnInit {
     selectedRating = 0;
     newTestNames = [];
     ratingScale = 5;
-
+    dialogText = 'Are you sure you want to delete this component?'
     // TEMPLATE BOX
     isTemplateBoxOn = false;
     isTemplateUpdate = false;
@@ -112,6 +113,7 @@ export class SurveyCreationDesignComponent implements OnInit {
 
     UNDO = []
     globalProjectName = '';
+    templateToDelete: any;
 
     constructor(
         @Inject(DOCUMENT) private document: any,
@@ -785,9 +787,8 @@ export class SurveyCreationDesignComponent implements OnInit {
     }
 
     deleteComponent(i) {
-        if (confirm('Are you sure you want to delete this component?')) {
-            this.bmxPages[this.currentPage].page.splice(i, 1);
-        }
+        this.bmxPages[this.currentPage].page.splice(i, 1);
+        this.showDialog = false
     }
 
     // TEMPLATE METHODS
@@ -1160,6 +1161,15 @@ export class SurveyCreationDesignComponent implements OnInit {
         for (let index = 0; index < this.bmxPages.length; index++) {
             this.bmxPages[index].page[0].componentSettings[0].companyLogoURL = logoUrl
         }
+    }
+
+    closeDialog() {
+        this.showDialog = false
+    }
+
+    openDialog(template: any) {
+        this.templateToDelete = template
+        this.showDialog = true
     }
 
     resizeWidthLogo(event: any) {

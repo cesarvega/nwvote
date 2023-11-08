@@ -86,7 +86,8 @@ import {RankScaleComponent} from './bmx/components/bmx-creator/survey-creation-d
 import {RatingScaleComponent} from './bmx/components/bmx-creator/survey-creation-design/templates/rating-scale/rating-scale.component'
 import {TextParagraphComponent} from './bmx/components/bmx-creator/survey-creation-design/templates/text-paragraph/text-paragraph.component'
 import {TinderComponent} from './bmx/components/bmx-creator/survey-creation-design/templates/tinder/tinder.component'
-import {SafePipe} from './bmx/components/bmx-creator/safe.pipe'
+import {SafePipe} from './bmx/components/bmx-creator/safe.pipe';
+import { SurveyDialogComponent } from './bmx/components/survey-dialog/survey-dialog.component'
 
 export function loadEcharts() {
   return import('echarts');
@@ -146,7 +147,8 @@ export function MSALInstanceFactory(): IPublicClientApplication {
     RatingScaleComponent,
     TextParagraphComponent,
     TinderComponent,
-    SafePipe
+    SafePipe,
+    SurveyDialogComponent
     // BmxCreatorComponent,
     // SafePipe,
     // OrderDasboardComponent

@@ -1,3 +1,8 @@
+<div *ngIf="showDialog">
+    <app-survey-dialog  (onConfirm)="deleteComponent(templateToDelete)" (onCancel)="closeDialog()" [dialogText]="dialogText"></app-survey-dialog>
+</div>
+
+
 <div style="display: flex; margin: 0px;
     width: 100%;">
     <div style="flex-direction: column;" class="bmx-page" [dragula]="(isMobile)?'TASKS':''"
@@ -14,7 +19,7 @@
                 <div class="emoji-handle">.</div>
                 <div style="position: absolute;right: 0px;">
                     <button *ngIf="bmxClientPageOverview" matTooltip="double click to delete" matTooltipPosition="above"
-                        style="outline: none;color:#f10a0a;top: 60px;" mat-icon-button (dblclick)="deleteComponent(i)"
+                        style="outline: none;color:#f10a0a;top: 60px;" mat-icon-button (dblclick)="openDialog(i)"
                         aria-label="delte">
                         <mat-icon style="font-size: 17px;">cancel</mat-icon>
                     </button>
@@ -29,7 +34,7 @@
             <div *ngIf="bmxItem.componentType === 'logo-header'" class="paragraph">
                 <div style="position: absolute;right: 0px;">
                     <button *ngIf="bmxClientPageOverview" matTooltip="double click to delete" matTooltipPosition="above"
-                        style="outline: none;color:#f10a0a;top: 19px;" mat-icon-button (dblclick)="deleteComponent(i)"
+                        style="outline: none;color:#f10a0a;top: 19px;" mat-icon-button (dblclick)="openDialog(i)"
                         aria-label="delte">
                         <mat-icon style="font-size: 17px;">cancel</mat-icon>
                     </button>
@@ -47,7 +52,7 @@
                 <div class="emoji-handle">.</div>
                 <div style="position: absolute;right: 0px;">
                     <button *ngIf="bmxClientPageOverview" matTooltip="double click to delete" matTooltipPosition="above"
-                        style="outline: none;color:#f10a0a;top: 30px;" mat-icon-button (dblclick)="deleteComponent(i)"
+                        style="outline: none;color:#f10a0a;top: 30px;" mat-icon-button (dblclick)="openDialog(i)"
                         aria-label="delte">
                         <mat-icon style="font-size: 17px;">cancel</mat-icon>
                     </button>
@@ -63,7 +68,7 @@
                 <div class="emoji-handle">.</div>
                 <div style="position: absolute;right: 0px;">
                     <button *ngIf="bmxClientPageOverview" matTooltip="double click to delete" matTooltipPosition="above"
-                        style="outline: none;color:#f10a0a;top: 7px;" mat-icon-button (dblclick)="deleteComponent(i)"
+                        style="outline: none;color:#f10a0a;top: 7px;" mat-icon-button (dblclick)="openDialog(i)"
                         aria-label="delte">
                         <mat-icon style="font-size: 17px;">cancel</mat-icon>
                     </button>
@@ -80,7 +85,7 @@
                 <div class="emoji-handle">.</div>
                 <div style="position: absolute;right: 0px;">
                     <button *ngIf="bmxClientPageOverview" matTooltip="double click to delete" matTooltipPosition="above"
-                        style="outline: none;color:#f10a0a;top: 19px;" mat-icon-button (dblclick)="deleteComponent(i)"
+                        style="outline: none;color:#f10a0a;top: 19px;" mat-icon-button (dblclick)="openDialog(i)"
                         aria-label="delte">
                         <mat-icon style="font-size: 17px;">cancel</mat-icon>
                     </button>
@@ -95,7 +100,7 @@
                 <div class="emoji-handle">.</div>
                 <div style="position: absolute;right: 0px;">
                     <button *ngIf="bmxClientPageOverview" matTooltip="double click to delete" matTooltipPosition="above"
-                        style="outline: none;color:#f10a0a;top: 19px;" mat-icon-button (dblclick)="deleteComponent(i)"
+                        style="outline: none;color:#f10a0a;top: 19px;" mat-icon-button (dblclick)="openDialog(i)"
                         aria-label="delte">
                         <mat-icon style="font-size: 17px;">cancel</mat-icon>
                     </button>
@@ -111,7 +116,7 @@
                 <div class="emoji-handle">.</div>
                 <div style="position: absolute;right: 0px;">
                     <button *ngIf="bmxClientPageOverview" matTooltip="double click to delete" matTooltipPosition="above"
-                        style="outline: none;color:#f10a0a;top: 19px;" mat-icon-button (dblclick)="deleteComponent(i)"
+                        style="outline: none;color:#f10a0a;top: 19px;" mat-icon-button (dblclick)="openDialog(i)"
                         aria-label="delte">
                         <mat-icon style="font-size: 17px;">cancel</mat-icon>
                     </button>
@@ -126,7 +131,7 @@
                 <div class="emoji-handle">.</div>
                 <div style="position: absolute;right: 0px;">
                     <button *ngIf="bmxClientPageOverview" matTooltip="double click to delete" matTooltipPosition="above"
-                        style="outline: none;color:#f10a0a;top: 19px;" mat-icon-button (dblclick)="deleteComponent(i)"
+                        style="outline: none;color:#f10a0a;top: 19px;" mat-icon-button (dblclick)="openDialog(i)"
                         aria-label="delte">
                         <mat-icon style="font-size: 17px;">cancel</mat-icon>
                     </button>
@@ -142,7 +147,7 @@
                 <div class="emoji-handle">.</div>
                 <div style="position: absolute;right: 0px;">
                     <button *ngIf="bmxClientPageOverview" matTooltip="double click to delete" matTooltipPosition="above"
-                        style="outline: none;color:#f10a0a;top: 19px;" mat-icon-button (dblclick)="deleteComponent(i)"
+                        style="outline: none;color:#f10a0a;top: 19px;" mat-icon-button (dblclick)="openDialog(i)"
                         aria-label="delte">
                         <mat-icon style="font-size: 17px;">cancel</mat-icon>
                     </button>
@@ -159,7 +164,7 @@
                 <div class="emoji-handle">.</div>
                 <div style="position: absolute;right: 0px;">
                     <button *ngIf="bmxClientPageOverview" matTooltip="double click to delete" matTooltipPosition="above"
-                        style="outline: none;color:#f10a0a;top: 19px;" mat-icon-button (dblclick)="deleteComponent(i)"
+                        style="outline: none;color:#f10a0a;top: 19px;" mat-icon-button (dblclick)="openDialog(i)"
                         aria-label="delte">
                         <mat-icon style="font-size: 17px;">cancel</mat-icon>
                     </button>
@@ -374,4 +379,5 @@
     </div>
     <mat-icon (click)="isTemplateUpdate = false" style="cursor: pointer;" class="full-icon">close
     </mat-icon>
+    
 </div>
