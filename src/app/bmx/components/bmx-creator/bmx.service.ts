@@ -180,8 +180,7 @@ export class BmxService {
     return this.http.post(this.webBaseUrl + this.brandMatrixGet, {
       token: '646EBF52-1846-47C2-9F62-DC50AE5BF692', payload: JSON.stringify({"ProjectName": projectName})
     })
-   }
-
+  }
 
   getBrandMatrixByProjectAndUserAnswers(projectName, username) {
     return this.http.post(this.webBaseUrl + this.brandMatrixGetUserAnswers, {
