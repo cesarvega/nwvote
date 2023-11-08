@@ -268,17 +268,15 @@ export class SurveyCreationDesignComponent implements OnInit {
 
                 localStorage.setItem('projectName', this.projectId);
             })
-        }
-        
+        }        
 
         this.myAngularxQrCode = this.myAngularxQrCode + this.projectId + '/' + this.biUsername
 
-        this._BmxService.getGeneralLists()
-            .subscribe((arg: any) => {
-                this.TEMPLATES = (JSON.parse(arg.d).BrandMatrixTemplateList.length > 0) ?
-                    JSON.parse(arg.d).BrandMatrixTemplateList.map(obj => obj.TemplateName) :
-                    this.TEMPLATES
-            });
+        this._BmxService.getGeneralLists().subscribe((arg: any) => {
+            this.TEMPLATES = (JSON.parse(arg.d).BrandMatrixTemplateList.length > 0) ?
+                JSON.parse(arg.d).BrandMatrixTemplateList.map(obj => obj.TemplateName) :
+                this.TEMPLATES
+        });
 
         // SAMPLE DATA FOR CKEDITOR
         this.model.editorData = this.sampleHtml;

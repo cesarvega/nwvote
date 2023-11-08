@@ -19,12 +19,15 @@ export class ProjectInformationComponent implements OnInit {
   constructor(private _BmxService: BmxService, private _snackBar: MatSnackBar) { }
   settingsData = {
     SalesBoardProjectList: [],
+    BrandMatrixTemplateList: [],
     DepartmentList: [],
     OfficeList: [],
     LanguageList: '',
     DirectorList: []
   };
   stringBmxEditData: any;
+  isSaveOrUpdate = false;
+  templateName = '';
 
   DIRECTORS: Array<any> = [];
 
@@ -49,10 +52,19 @@ export class ProjectInformationComponent implements OnInit {
   bmxRegion: FormControl;
   bmxCompany: FormControl;
   bmxLanguage: FormControl;
+  bmxTemplates: FormControl;
   bmxRegionalOffice: FormControl;
   bmxRegionalDirector: FormControl;
   status = "open"
-  selectedDate:Date 
+  selectedDate:Date
+  TEMPLATES = [
+    { TemplateName: 'Standard Personal Preference' },
+    { TemplateName: 'Ranking' },
+    { TemplateName: 'NarrowDown' },
+    { TemplateName: 'This or That' },
+    { TemplateName: 'Naming Contest' },
+    { TemplateName: 'Question & Answer' },
+  ]; 
   ngOnInit(): void {
     this.canEdit = null;
     this.createFormControls();
@@ -100,6 +112,7 @@ export class ProjectInformationComponent implements OnInit {
     this._BmxService.getGeneralLists()
       .subscribe((arg: any) => {
         this.settingsData = JSON.parse(arg.d);
+        this.TEMPLATES = (this.settingsData.BrandMatrixTemplateList.length) > 0?JSON.parse(arg.d).BrandMatrixTemplateList.map(obj => obj.TemplateName):this.TEMPLATES
         this.settingsData.OfficeList.unshift('All');
         //console.log(JSON.parse(arg.d));
         //AUTOCOMPLETE 🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖
@@ -154,7 +167,6 @@ export class ProjectInformationComponent implements OnInit {
     this.selectedDate= event;
   }
   saveProjectInfo() {
-    console.log(this.selectedDate)
     this._BmxService.setProjectName(this.bmxEditData.get('bmxProjectName').value.toString());
     const projectInfo: JSON = <JSON><unknown>{
       "bmxSalesboard": this.bmxEditData.get('bmxSalesboard').value.toString(),
@@ -336,5 +348,9 @@ export class ProjectInformationComponent implements OnInit {
     this.bmxEditData.get('bmxSalesboard').valueChanges.subscribe(val => {
       this.bmxEditData.patchValue({ bmxProjectName: val });
     });
+  }
+
+  templateSelected() {
+    this.isSaveOrUpdate = true;
   }
 }
