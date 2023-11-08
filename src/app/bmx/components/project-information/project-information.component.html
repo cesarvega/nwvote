@@ -67,22 +67,26 @@
                         </mat-option>
                     </mat-select>
                 </mat-form-field>
-
             </div>
-            <div style="display: flex;
-            flex-direction: row;
-            justify-content: flex-start;
-            align-items: baseline;">
-            <div style="width: 30%; margin-left: 96px;">
+            <div class="row-field"> 
                 <label class="selectLabels">Closing date: </label>
+                <div>
+                    <mat-form-field appearance="outline" id="project-datepicker" style="width:84%">
+                        <input matInput [matDatepicker]="picker" placeholder="Elija una fecha"  (dateChange)="onSelect($event.value)">
+                        <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+                        <mat-datepicker #picker></mat-datepicker>
+                    </mat-form-field>
+                </div>             
+                <label class="selectLabels">Template</label>                                    
                 <mat-form-field appearance="outline">
-                    <input matInput [matDatepicker]="picker" placeholder="Elija una fecha"  (dateChange)="onSelect($event.value)">
-                    <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
-                    <mat-datepicker #picker></mat-datepicker>
-                  </mat-form-field>
-            </div>
-          </div>
-
+                    <mat-label>Load a template</mat-label>
+                    <mat-select formControlName="bmxTemplates">
+                        <mat-option *ngFor="let template of TEMPLATES " [value]="template">
+                            {{template}}
+                        </mat-option>
+                    </mat-select>
+                </mat-form-field>                    
+            </div>           
             <div></div>
             <!-- <button mat-raised-button color="success" style="position: absolute;right: 40px;
             top: 650px; background-color:#063074;color: white;" (click)="saveProjectInfo()">Save</button> -->
