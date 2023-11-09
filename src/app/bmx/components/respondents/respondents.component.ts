@@ -58,20 +58,21 @@ export class RespondentsComponent implements OnInit {
 
     this._BmxService.getProjectInfo(this.projectId)
       .subscribe((arg: any) => {
-        var data = JSON.parse(arg.d);
-        this.DIRECTORS = data.bmxRegionalOffice;
-        this.DIRECTORS.forEach(director => {
-          if (this.RESPONDENTS_LIST.map(e => e.Email).indexOf(director.email.trim()) == -1) {
-            this.RESPONDENTS_LIST.push({ 'ProjectName': this.projectId, 'UserId': (this.RESPONDENTS_LIST.length + 1), 'Password': '', 'FirstName': director.name.split(" ")[0], 'LastName': director.name.split(" ")[1], 'Email': director.email.trim(), 'Type': "A", 'Status': '', 'SubGroup': '1', 'AnswerWeight': '1' });
-            var finalString = JSON.stringify(this.RESPONDENTS_LIST);
-            finalString = finalString.replace("[\\u2022,\\u2023,\\u25E6,\\u2043,\\u2219]\\s\\d", '');
-            this._BmxService.BrandMatrixSaveParticipantList(this.projectId, this.RESPONDENTS_LIST).subscribe(result => {
-              var so = result;
-            });
-          }
+        if (arg.d && arg.d.length > 0) {
+          var data = JSON.parse(arg.d);
+          this.DIRECTORS = data.bmxRegionalOffice;
+          this.DIRECTORS.forEach(director => {
+            if (this.RESPONDENTS_LIST.map(e => e.Email).indexOf(director.email.trim()) == -1) {
+              this.RESPONDENTS_LIST.push({ 'ProjectName': this.projectId, 'UserId': (this.RESPONDENTS_LIST.length + 1), 'Password': '', 'FirstName': director.name.split(" ")[0], 'LastName': director.name.split(" ")[1], 'Email': director.email.trim(), 'Type': "A", 'Status': '', 'SubGroup': '1', 'AnswerWeight': '1' });
+              var finalString = JSON.stringify(this.RESPONDENTS_LIST);
+              finalString = finalString.replace("[\\u2022,\\u2023,\\u25E6,\\u2043,\\u2219]\\s\\d", '');
+              this._BmxService.BrandMatrixSaveParticipantList(this.projectId, this.RESPONDENTS_LIST).subscribe(result => {
+                var so = result;
+              });
+            }
 
-        })
-
+          })
+        }
         this.RESPONDENTS_LIST.sort((a, b) => a.FirstName.localeCompare(b.FirstName));
         this.dataSource = new MatTableDataSource<any>(this.RESPONDENTS_LIST);
 

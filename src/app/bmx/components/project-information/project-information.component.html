@@ -80,7 +80,7 @@
                 <label class="selectLabels">Template</label>                                    
                 <mat-form-field appearance="outline">
                     <mat-label>Load a template</mat-label>
-                    <mat-select formControlName="bmxTemplates">
+                    <mat-select >
                         <mat-option *ngFor="let template of TEMPLATES " [value]="template">
                             {{template}}
                         </mat-option>

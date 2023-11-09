@@ -79,31 +79,33 @@ export class DocxSurveyComponent implements OnInit {
       localStorage.setItem('projectName', this.projectId);
       this._BmxService.getBrandMatrixByProjectAllUserAnswers(this.projectId)
         .subscribe(async (arg: any) => {
-          const data = JSON.parse(arg.d);
-          this.companyLogo = JSON.parse(data[0].BrandMatrix)[0].page[0].componentSettings[0].companyLogoURL;
-          this.user = await this.createDataObject(JSON.parse(arg.d));
-          this.changeView();
-          //this.completedStatus(this.user);
-          //var imageSrcString;
-          //imageSrcString = await this.getBase64ImageFromUrl("https://tools.brandinstitute.com/bmresources/te2647/logo5.JPG")
-          let fruits: Array<TextRun>;
-          fruits = [];
-          for (let i = 0; i < 10; i++) {
-            fruits.push(new TextRun
-              (
-                {
-                  text: i.toString(),
-                  font:
+          if (arg.d && arg.d.length > 0  ) {
+            const data = JSON.parse(arg.d);
+            if(data[0]?.BrandMatrix){
+            this.companyLogo = JSON.parse(data[0]?.BrandMatrix)[0].page[0].componentSettings[0].companyLogoURL;
+            this.user = await this.createDataObject(JSON.parse(arg.d));
+            this.changeView();
+            //this.completedStatus(this.user);
+            //var imageSrcString;
+            //imageSrcString = await this.getBase64ImageFromUrl("https://tools.brandinstitute.com/bmresources/te2647/logo5.JPG")
+            let fruits: Array<TextRun>;
+            fruits = [];
+            for (let i = 0; i < 10; i++) {
+              fruits.push(new TextRun
+                (
                   {
-                    name: "Calibri",
-                  },
-                  size: 20,
-                }
+                    text: i.toString(),
+                    font:
+                    {
+                      name: "Calibri",
+                    },
+                    size: 20,
+                  }
+                )
+
               )
-
-            )
-          }
-
+            }
+          }}
         });
     });
   }
@@ -303,11 +305,10 @@ export class DocxSurveyComponent implements OnInit {
     var imageSrcString;
     imageSrcString = await this.getBase64ImageFromUrl(t)
     var img = new Image();
-    let dimesions  = await this.getDimensions(imageSrcString);
+    let dimesions = await this.getDimensions(imageSrcString);
     var width = dimesions["width"];
     var height = dimesions["height"];
-    if(this.compHeight == 0)
-    {
+    if (this.compHeight == 0) {
       this.compHeight = height;
       this.compWidth = width;
     }
@@ -315,18 +316,18 @@ export class DocxSurveyComponent implements OnInit {
     return imageSrcString.split(imageSrcString.split(",")[0] + ',').pop()
   }
 
-  getDimensions(image : string){
-    return new Promise((resolve, reject)=>{
- 
-        var img = new Image();
-        img.src = image;
- 
-        img.onload = () => {
-           resolve({width: img.width, height: img.height})
-       }
- 
+  getDimensions(image: string) {
+    return new Promise((resolve, reject) => {
+
+      var img = new Image();
+      img.src = image;
+
+      img.onload = () => {
+        resolve({ width: img.width, height: img.height })
+      }
+
     })
- }
+  }
 
   createHeader(t: any, tableType: string): TableRow {
     var arr = [];
@@ -521,19 +522,17 @@ export class DocxSurveyComponent implements OnInit {
     var overall = this.sortOverall(pagesPring);
     let row: Array<TableRow>;
     row = [];
-    if(this.reportType == 'vote')
-    {
+    if (this.reportType == 'vote') {
       row.push(
         this.createHeader(["Rank", "Test Names", "Rationale", "Strike Rate"], "overall")
       )
     }
-    else
-    {
+    else {
       row.push(
         this.createHeader(["Rank", "Test Names", "Rationale", "Scores"], "overall")
       )
     }
-    
+
     for (var i = 0; i < overall.length; i++) {
       if (!this.design) {
         row.push(new TableRow
@@ -1346,14 +1345,12 @@ export class DocxSurveyComponent implements OnInit {
           }
           else if (this.reportType === "vote") {
             var state = "";
-            if(overall[i].question[j].resp[k].value.toString() == '1')
-            {
+            if (overall[i].question[j].resp[k].value.toString() == '1') {
               state = "Positive"
             }
-            else
-              {
-                state = "Negative";
-              }
+            else {
+              state = "Negative";
+            }
             partInfo.push(
               new TextRun
                 (
@@ -1845,7 +1842,7 @@ export class DocxSurveyComponent implements OnInit {
             })],
           })
 
-          ,)
+            ,)
           cell.push(new TableCell({
             children: [new Paragraph({
               spacing: {
