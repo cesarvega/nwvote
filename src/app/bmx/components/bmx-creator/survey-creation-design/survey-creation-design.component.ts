@@ -314,7 +314,12 @@ export class SurveyCreationDesignComponent implements OnInit {
                     //     verticalPosition: 'top'
                     //   })
                 } else {
-                    this.bmxPages = this.SAMPLE_BMX
+                    if(localStorage.getItem('template')){
+                        this.bmxPages = JSON.parse(localStorage.getItem('template'))
+                    }else{
+                        this.bmxPages = this.SAMPLE_BMX
+                    }
+                    
                 }
 
             })
@@ -800,8 +805,11 @@ export class SurveyCreationDesignComponent implements OnInit {
     saveOrUpdateTemplate(templateName) {
         if (confirm('Are you sure you want to save or update ' + templateName + ' template?')) {
             localStorage.setItem(templateName, JSON.stringify(this.bmxPages));
-
+            console.log(this.bmxPages)
             this._BmxService.saveBrandMatrixTemplate(templateName, this.bmxPages, this.biUserId).subscribe((template: any) => {
+                
+                let x1 = JSON.parse(template.d)
+                console.log(x1)
                 this.templateTitle = "Template '" + templateName + "' saved 🧐";
                 this._snackBar.open(this.templateTitle, 'OK', {
                     duration: 5000,
@@ -827,6 +835,7 @@ export class SurveyCreationDesignComponent implements OnInit {
         // }
         this._BmxService.getBrandMatrixTemplateByName(templateName).subscribe((template: any) => {
             this.bmxPages = JSON.parse(template.d);
+            console.log(this.bmxPages)
             this._snackBar.open('template ' + "'" + templateName + "'" + ' loaded 😀', 'OK', {
                 duration: 5000,
                 horizontalPosition: 'right',
@@ -849,8 +858,6 @@ export class SurveyCreationDesignComponent implements OnInit {
                 })
             })
         }
-
-
         this.openSaveTemplateBox();
     }
 
