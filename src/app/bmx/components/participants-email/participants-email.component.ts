@@ -111,11 +111,13 @@ export class ParticipantsEmailComponent implements OnInit {
 
     this._BmxService.getProjectInfo(this.projectId)
       .subscribe((arg: any) => {
-        var data = JSON.parse(arg.d)
-        this.DIRECTORS = data.bmxRegionalOffice;
-        this.From = this.DIRECTORS[0].email.trim();
+        if (arg.d && arg.d.length > 0) {
+          var data = JSON.parse(arg.d)
+          this.DIRECTORS = data.bmxRegionalOffice;
+          this.From = this.DIRECTORS[0].email.trim();
+        }
       });
-      
+
     this._BmxService.BrandMatrixGetParticipantList(this.projectId)
       .subscribe((arg: any) => {
         this.allData = JSON.parse(arg.d).ParticipantList;
@@ -130,7 +132,7 @@ export class ParticipantsEmailComponent implements OnInit {
         this.changeView();
       });
 
-      
+
 
     this._BmxService.getCustomEmail(this.projectId)
       .subscribe((arg: any) => {
@@ -140,8 +142,7 @@ export class ParticipantsEmailComponent implements OnInit {
           this.emailTemp = 'Creative';
           this.changeTemplate('Creative');
         }
-        else
-        {
+        else {
           this.brandMatrixObjects[1].componentText = arg.d;
         }
         //this.DIRECTORS = data.bmxRegionalOffice;
@@ -179,7 +180,7 @@ export class ParticipantsEmailComponent implements OnInit {
     }
     // SAMPLE DATA FOR CKEDITOR
     //this.model.editorData = this.sampleHtml;
-    
+
   }
 
   isAllSelected() {
@@ -309,10 +310,9 @@ export class ParticipantsEmailComponent implements OnInit {
       `;
       this.BCC = 'design@brandinstitute.com'
     }
-    for(var i = 0; i < this.DIRECTORS?.length; i++)
-      {
-        this.BCC = this.DIRECTORS[i].email.trim() + '; ' + this.BCC;
-      }
+    for (var i = 0; i < this.DIRECTORS?.length; i++) {
+      this.BCC = this.DIRECTORS[i].email.trim() + '; ' + this.BCC;
+    }
   }
 
   /*
@@ -354,7 +354,7 @@ export class ParticipantsEmailComponent implements OnInit {
         var so = result;
       });
 
-      
+
 
 
     for (var i = 0; i < this.RESPONDENTS_LIST.length; i++) {
@@ -366,7 +366,7 @@ export class ParticipantsEmailComponent implements OnInit {
         "emailTemp": this.emailTemp,
         "linkType": this.linkType,
         "From": this.From,
-        "BCC" : this.BCC,
+        "BCC": this.BCC,
         /*"CC" : this.CC,*/
         "Subject": this.Subject,
         "Message": this.fixedString,
@@ -425,35 +425,29 @@ export class ParticipantsEmailComponent implements OnInit {
     this.dialog.open(DialogComponent, { data: { email: email } });
   }
 
-  getTitle(option: string)
-  {
-    if(option == "NS")
-      {
-        return "Not Started";
-      }
-      else if(option == "F")
-      {
-        return "Finished";
-      }
-      else 
-      {
-        return "On page " + option;
-      }
+  getTitle(option: string) {
+    if (option == "NS") {
+      return "Not Started";
+    }
+    else if (option == "F") {
+      return "Finished";
+    }
+    else {
+      return "On page " + option;
+    }
     return option;
   }
 
-  sendConfirm()
-  {
+  sendConfirm() {
     let confirmEmail = "<u>Sent Emails</u><br>";
 
-    for (var i = 0; i < this.RESPONDENTS_LIST.length; i++) 
-    {
+    for (var i = 0; i < this.RESPONDENTS_LIST.length; i++) {
       confirmEmail = confirmEmail + this.RESPONDENTS_LIST[i].FirstName + " " + this.RESPONDENTS_LIST[i].LastName + " " + this.RESPONDENTS_LIST[i].Email + "<br>"
     }
-    
+
     confirmEmail = confirmEmail + "----------------------------------------------------------------------------" + "<br><br>";
-    
-    
+
+
 
     let temp = this.brandMatrixObjects[1].componentText;
     this.fixedString = this.brandMatrixObjects[1].componentText;
@@ -474,7 +468,7 @@ export class ParticipantsEmailComponent implements OnInit {
       "emailTemp": this.emailTemp,
       "linkType": this.linkType,
       "From": this.From,
-      "BCC" : "",
+      "BCC": "",
       /*"CC" : this.CC,*/
       "Subject": this.Subject,
       "Message": confirmEmail,
@@ -487,6 +481,6 @@ export class ParticipantsEmailComponent implements OnInit {
       var so = result;
     });
   }
-  
+
 
 }

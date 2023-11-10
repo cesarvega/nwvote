@@ -33,7 +33,7 @@ export class SurveyCreationDesignComponent implements OnInit {
     elem: any;
     isFullscreen: any;
     showDialog = false
-
+    actionType: any
     @Input() widthLogo: string = "";
 
     showMenuCreator: boolean = false;
@@ -261,16 +261,17 @@ export class SurveyCreationDesignComponent implements OnInit {
         this.bmxClientPageOverview = true
 
         this.isBrandMatrixSurvey = false;
-        if(localStorage.getItem('projectName')){
+        if (localStorage.getItem('projectName')) {
             this.projectId = localStorage.getItem('projectName');
-            this.globalProjectName = this.projectId 
-        }else{
+            this.globalProjectName = this.projectId
+        } else {
             this._BmxService.currentProjectName$.subscribe(projectName => {
                 this.projectId = (projectName !== '') ? projectName : this.projectId;
 
                 localStorage.setItem('projectName', this.projectId);
             })
-        }        
+        }
+
 
         this.myAngularxQrCode = this.myAngularxQrCode + this.projectId + '/' + this.biUsername
 
@@ -292,7 +293,7 @@ export class SurveyCreationDesignComponent implements OnInit {
         } else {
             //   this.bmxPages = this.SAMPLE_BMX;
             this._BmxService.getBrandMatrixByProject(this.projectId).subscribe((brandMatrix: any) => {
-                if (brandMatrix.d.length > 0) {                    
+                if (brandMatrix.d.length > 0) {
                     let objeto = JSON.parse(brandMatrix.d);
                     let logoUrl = ""
                     this.bmxPages = JSON.parse(brandMatrix.d)
@@ -959,48 +960,46 @@ export class SurveyCreationDesignComponent implements OnInit {
             });
         });
 
-        if (confirm('Are you sure you want save overwrite this project?')) {
-
-            this.projectInfo = JSON.parse(
-                localStorage.getItem('fakeproject' + '_project_info')
-            );
-            this.bmxCompleteObject = {
-                userInfo: { username: 'John Smith' },
-                projectInfo: this.projectInfo,
-                bmx: this.bmxPages,
-                // tables: []
-            };
-            this.bmxPages.forEach((pageElement) => {
-                pageElement.page.forEach((component) => {
-                    if (
-                        component.componentType == 'rate-scale' ||
-                        component.componentType == 'ranking-scale' ||
-                        component.componentType == 'image-rate-scale' ||
-                        component.componentType == 'narrow-down' ||
-                        component.componentType == 'question-answer'
-                    ) {
-                        this.calculateTableDefinitions(component);
-                    }
-                });
+        this.projectInfo = JSON.parse(
+            localStorage.getItem('fakeproject' + '_project_info')
+        );
+        this.bmxCompleteObject = {
+            userInfo: { username: 'John Smith' },
+            projectInfo: this.projectInfo,
+            bmx: this.bmxPages,
+            // tables: []
+        };
+        this.bmxPages.forEach((pageElement) => {
+            pageElement.page.forEach((component) => {
+                if (
+                    component.componentType == 'rate-scale' ||
+                    component.componentType == 'ranking-scale' ||
+                    component.componentType == 'image-rate-scale' ||
+                    component.componentType == 'narrow-down' ||
+                    component.componentType == 'question-answer'
+                ) {
+                    this.calculateTableDefinitions(component);
+                }
             });
-            // console.log(this.bmxCompleteObject.bmx[4]["page"][3]['componentText']);
-            this._BmxService
-                .saveOrUpdateBradnMatrixTemplate(this.bmxPages, this.projectId)
-                .subscribe((res: any) => {
-                    let logoUrl = ""
-                    this.bmxPages = JSON.parse(res.d)
-                    logoUrl = this.bmxPages[0].page[0].componentSettings[0].companyLogoURL;
+        });
+        // console.log(this.bmxCompleteObject.bmx[4]["page"][3]['componentText']);
+        this._BmxService
+            .saveOrUpdateBradnMatrixTemplate(this.bmxPages, this.projectId)
+            .subscribe((res: any) => {
+                let logoUrl = ""
+                this.bmxPages = JSON.parse(res.d)
+                logoUrl = this.bmxPages[0].page[0].componentSettings[0].companyLogoURL;
 
-                    for (let index = 0; index < this.bmxPages.length; index++) {
-                        this.bmxPages[index].page[0].componentSettings[0].companyLogoURL = logoUrl
-                    }
-                    // console.log('%cBMX!', 'color:orange', res);
-                    this._snackBar.open('Project ' + this.projectId + ' saved', 'OK', {
-                        duration: 5000,
-                        verticalPosition: 'top',
-                    })
-                });
-        }
+                for (let index = 0; index < this.bmxPages.length; index++) {
+                    this.bmxPages[index].page[0].componentSettings[0].companyLogoURL = logoUrl
+                }
+                // console.log('%cBMX!', 'color:orange', res);
+                this._snackBar.open('Project ' + this.projectId + ' saved', 'OK', {
+                    duration: 5000,
+                    verticalPosition: 'top',
+                })
+            });
+        this.showDialog = false
     }
 
     // 🌭🌭🌭🌭🌭🌭🌭🌭🌭🌭🌭🌭🌭🌭🌭🌭🌭🌭🌭🌭🌭🌭🌭PRIVATE METHODS 🌭🌭🌭🌭🌭🌭🌭🌭🌭🌭🌭🌭🌭🌭🌭🌭🌭🌭🌭🌭🌭🌭🌭
@@ -1175,9 +1174,23 @@ export class SurveyCreationDesignComponent implements OnInit {
         this.showDialog = false
     }
 
-    openDialog(template: any) {
-        this.templateToDelete = template
+    openDialog(type: any, component?: any) {
+        if (type === 'delete') {
+            this.templateToDelete = component
+
+        } if (type === 'save') {
+            this.dialogText == "Are you sure you want to overwrite the current project?"
+        }
+        this.actionType = type
         this.showDialog = true
+    }
+
+    confirmAction() {
+        if (this.actionType === 'delete') {
+            this.deleteComponent(this.templateToDelete)
+        } else if (this.actionType === 'save') {
+            this.saveData()
+        }
     }
 
     resizeWidthLogo(event: any) {

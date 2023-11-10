@@ -76,7 +76,10 @@ export class ImageRateScaleComponent extends RatingScaleComponent implements OnI
   constructor(private _BmxService: BmxService,dragulaService: DragulaService, _snackBar: MatSnackBar,  _bmxService: BmxService,public deviceService: DeviceDetectorService)
    {super(dragulaService,_snackBar,_bmxService,deviceService); this.epicFunction();}
 
-  ngOnInit(): void {  
+  ngOnInit(): void { 
+    this.showDialog = false
+ 
+    this.showDialog = false
     this.bmxItem.componentText.forEach(data =>{
       if (data.RATE>0){
         this.ratedCounter++

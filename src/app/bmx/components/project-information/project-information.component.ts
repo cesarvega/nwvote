@@ -1,5 +1,5 @@
 import { MatSnackBar } from '@angular/material/snack-bar';
-import { Component, OnInit,Output, EventEmitter } from '@angular/core';
+import { Component, OnInit, Output, EventEmitter } from '@angular/core';
 import { FormControl, FormGroup } from '@angular/forms';
 import { Observable } from 'rxjs';
 import { map, startWith } from 'rxjs/operators';
@@ -56,7 +56,7 @@ export class ProjectInformationComponent implements OnInit {
   bmxRegionalOffice: FormControl;
   bmxRegionalDirector: FormControl;
   status = "open"
-  selectedDate:Date
+  selectedDate: Date
   TEMPLATES = [
     { TemplateName: 'Standard Personal Preference' },
     { TemplateName: 'Ranking' },
@@ -87,44 +87,45 @@ export class ProjectInformationComponent implements OnInit {
     if (items != undefined || items != null) {
       this._BmxService.getProjectInfo(localStorage.getItem('projectName'))
         .subscribe((arg: any) => {
-          var data = JSON.parse(arg.d);
-          this.bmxEditData.patchValue({ bmxSalesboard: data.bmxSalesboard });
-          this.bmxEditData.patchValue({ bmxProjectName: data.bmxProjectName });
-          this.bmxEditData.patchValue({ bmxDepartment: data.bmxDepartment });
-          this.bmxEditData.patchValue({ bmxRegion: data.bmxRegion });
-          this.bmxEditData.patchValue({ bmxLanguage: data.bmxLanguage });
-          this.bmxEditData.patchValue({ bmxCompany: data.bmxCompany });
-          this.bmxEditData.patchValue({ bmxStatus: data.bmxStatus });
-          if(!data.bmxStatus || data.bmxStatus == "open"){
-            this.status = "open"
-          }else if(data.bmxStatus== "close"){
-            this.status = "close"
+          if (arg.d && arg.d.length > 0) {
+            var data = JSON.parse(arg.d);
+            this.bmxEditData.patchValue({ bmxSalesboard: data.bmxSalesboard });
+            this.bmxEditData.patchValue({ bmxProjectName: data.bmxProjectName });
+            this.bmxEditData.patchValue({ bmxDepartment: data.bmxDepartment });
+            this.bmxEditData.patchValue({ bmxRegion: data.bmxRegion });
+            this.bmxEditData.patchValue({ bmxLanguage: data.bmxLanguage });
+            this.bmxEditData.patchValue({ bmxCompany: data.bmxCompany });
+            this.bmxEditData.patchValue({ bmxStatus: data.bmxStatus });
+            if (!data.bmxStatus || data.bmxStatus == "open") {
+              this.status = "open"
+            } else if (data.bmxStatus == "close") {
+              this.status = "close"
+            }
+            var list;
+            /*
+            for (let i = 0; i < data.DirectorList.length; i++) {
+              let director: any = {}
+              director.email = data.DirectorList[i].Email;
+              director.id = ""
+              director.name = data.DirectorList[i].Director
+              director.phone = data.DirectorList[i].Phone
+              director.title = data.DirectorList[i].Title
+              director.ngModel = director.ngModel
+              director.office = ''
+              this.DIRECTORS.push(director);
+            }*/
+            this.DIRECTORS = data.bmxRegionalOffice;
+            this.bmxEditData.patchValue({ bmxRegionalOffice: this.DIRECTORS });
+
+            this._BmxService.setprojectData(this.bmxEditData.value)
           }
-          var list;
-          /*
-          for (let i = 0; i < data.DirectorList.length; i++) {
-            let director: any = {}
-            director.email = data.DirectorList[i].Email;
-            director.id = ""
-            director.name = data.DirectorList[i].Director
-            director.phone = data.DirectorList[i].Phone
-            director.title = data.DirectorList[i].Title
-            director.ngModel = director.ngModel
-            director.office = ''
-            this.DIRECTORS.push(director);
-          }*/
-          this.DIRECTORS = data.bmxRegionalOffice;
-          this.bmxEditData.patchValue({ bmxRegionalOffice: this.DIRECTORS });
-
-          this._BmxService.setprojectData(this.bmxEditData.value)
-
         });
     }
 
     this._BmxService.getGeneralLists()
       .subscribe((arg: any) => {
         this.settingsData = JSON.parse(arg.d);
-        this.TEMPLATES = (this.settingsData.BrandMatrixTemplateList.length) > 0?JSON.parse(arg.d).BrandMatrixTemplateList.map(obj => obj.TemplateName):this.TEMPLATES
+        this.TEMPLATES = (this.settingsData.BrandMatrixTemplateList.length) > 0 ? JSON.parse(arg.d).BrandMatrixTemplateList.map(obj => obj.TemplateName) : this.TEMPLATES
         this.settingsData.OfficeList.unshift('All');
         //console.log(JSON.parse(arg.d));
         //AUTOCOMPLETE 🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖
@@ -174,9 +175,9 @@ export class ProjectInformationComponent implements OnInit {
     localStorage.setItem('fakeproject' + '_project_info', JSON.stringify(this.bmxEditData.value));
     //console.log(this.bmxEditData.value);
   }
-  onSelect(event){
+  onSelect(event) {
     console.log(event);
-    this.selectedDate= event;
+    this.selectedDate = event;
   }
   saveProjectInfo() {
     this._BmxService.setProjectName(this.bmxEditData.get('bmxProjectName').value.toString());

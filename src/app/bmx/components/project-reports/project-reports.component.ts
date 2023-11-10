@@ -333,26 +333,27 @@ export class ProjectReportsComponent implements OnInit {
     this.categorySortedgArray = [];
 
     // RETURN THE NUMBER OF PAGES
-    JSON.parse(milUsers[0].BrandMatrix).map((res) => {
-      res.page.forEach((page) => {
-        if (
-          page.componentType == 'rate-scale' ||
-          page.componentType == 'ranking-scale' ||
-          page.componentType == 'image-rate-scale' ||
-          page.componentType == 'narrow-down' ||
-          page.componentType == 'tinder' ||
-          page.componentType == 'question-answer'
-        ) {
-          this.numberOfpages.push({
-            print: true,
-            number: res.pageNumber,
-            type: page.componentType,
-          });
-          this.reportSettings.numberOfpagesToPrint = this.numberOfpages
-        }
+    if (milUsers[0]?.BrandMatrix) {
+      JSON.parse(milUsers[0]?.BrandMatrix).map((res) => {
+        res.page.forEach((page) => {
+          if (
+            page.componentType == 'rate-scale' ||
+            page.componentType == 'ranking-scale' ||
+            page.componentType == 'image-rate-scale' ||
+            page.componentType == 'narrow-down' ||
+            page.componentType == 'tinder' ||
+            page.componentType == 'question-answer'
+          ) {
+            this.numberOfpages.push({
+              print: true,
+              number: res.pageNumber,
+              type: page.componentType,
+            });
+            this.reportSettings.numberOfpagesToPrint = this.numberOfpages
+          }
+        });
       });
-    });
-
+    }
     milUsers.forEach((userAnswer, userAnswerIndex) => {
       this.categoryCounter = 0;
       let userCategory = [];
@@ -381,7 +382,7 @@ export class ProjectReportsComponent implements OnInit {
                   component,
                   userAnswer.Username,
                   this.BMX_REPORT[this.categoryCounter - 1][
-                    'category_' + this.categoryCounter
+                  'category_' + this.categoryCounter
                   ],
                   this.reportType
                 );
@@ -1515,8 +1516,8 @@ export class ProjectReportsComponent implements OnInit {
           } else {
             this._snackBar.open(
               'You must rate at least ' +
-                component.componentSettings[0].minRule +
-                ' Test Names',
+              component.componentSettings[0].minRule +
+              ' Test Names',
               'OK',
               {
                 duration: 5000,
@@ -1722,8 +1723,8 @@ export class ProjectReportsComponent implements OnInit {
         rowIndex == 0
           ? 'header'
           : element['RATE']
-          ? element['RATE']
-          : 'not rated';
+            ? element['RATE']
+            : 'not rated';
 
       if (
         component.componentSettings[0].rankType == 'dragAndDrop' &&
