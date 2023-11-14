@@ -337,6 +337,7 @@ export class ProjectInformationComponent implements OnInit {
       bmxRegion: this.bmxRegion,
       bmxCompany: this.bmxCompany,
       bmxLanguage: this.bmxLanguage,
+      bmxTemplates: this.bmxTemplates,
       bmxRegionalOffice: this.bmxRegionalOffice,
       bmxRegionalDirector: this.bmxRegionalDirector,
     });

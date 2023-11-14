@@ -81,7 +81,7 @@
     position: absolute;
     justify-content: center;
     bottom: 10px;
-    left: 45%;
+    left: 40%;
 }
 .page-buttons-heigth-minus-50 {
     display: flex;
@@ -126,7 +126,7 @@
 }
 
 .full-icon:hover {
-    transform: scale(2);
+    transform: scale(1.5);
     color: #ee7f25;
 }
 .full-icon {
@@ -137,7 +137,7 @@
     box-shadow: inset inset 0px 0px 5px #0bd659;
 }
 .full-icon-secondary:hover {
-    transform: scale(2);
+    transform: scale(1.5);
     color: #324395;
 }
 .full-icon-secondary {

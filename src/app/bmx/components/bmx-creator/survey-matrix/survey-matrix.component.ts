@@ -35,6 +35,31 @@ export class SurveyMatrixComponent extends SurveyCreationDesignComponent impleme
   isBrandMatrixSurvey = true;
   isCategoryPage = [];
 
+  SAMPLE_BMX_CLIENT = [
+    {
+      pageNumber: 1,
+      page: [
+        {
+          componentType: 'logo-header',
+          componentText: 'WRONG PROJECT OR USERNAME ',
+          componentSettings: [
+            {
+              fontSize: '16px',
+              fontFace: 'Arial',
+              logoWidth: 100,
+              brandInstituteLogoURL:
+                './assets/img/bmx/BRANDMATRIX-DASHBOARD-LOGO.svg',
+              brandInstituteSurveyLogoURL:
+                './assets/img/bmx/bm-logo-2020-high.png',
+              brandInstituteMobileURL: './assets/img/bmx/bmxCube.jpg',
+              companyLogoURL: './assets/img/bmx/insertLogo.jpg',
+            },
+          ],
+        },
+      ],
+    },
+  ];
+
   bmxPagesClient;
   tinderInstruction: any;
   typeTemplate: string = "";
@@ -88,6 +113,7 @@ export class SurveyMatrixComponent extends SurveyCreationDesignComponent impleme
       localStorage.setItem('projectId', this.projectId);
     });
     this.epicFunction();
+    this.bmxPagesClient = this.SAMPLE_BMX_CLIENT;
   }
 
   epicFunction() {
@@ -103,7 +129,7 @@ export class SurveyMatrixComponent extends SurveyCreationDesignComponent impleme
     });
     this._BmxService.getProjectInfo(this.projectId).subscribe((arg: any) => {
       this.status = JSON.parse(arg.d).bmxStatus
-      this.bmxClientPageOverview = false
+      this.bmxClientPageOverview = false     
 
       if (!this.username) {
         this.myAngularxQrCode = this.myAngularxQrCode + this.projectId
@@ -272,10 +298,8 @@ export class SurveyMatrixComponent extends SurveyCreationDesignComponent impleme
                         }
                       });
                     });
-
                     //  FILL THE TEMPLATE WTIHT USER ANSWERS END
                     this.bmxPagesClient = template;
-
                     //  this.bmxPagesClient = answers
                   });
 
@@ -1306,29 +1330,5 @@ export class SurveyMatrixComponent extends SurveyCreationDesignComponent impleme
         );
       });
   }
-
-  SAMPLE_BMX_CLIENT = [
-    {
-      pageNumber: 1,
-      page: [
-        {
-          componentType: 'logo-header',
-          componentText: 'WRONG PROJECT OR USERNAME ',
-          componentSettings: [
-            {
-              fontSize: '16px',
-              fontFace: 'Arial',
-              logoWidth: 100,
-              brandInstituteLogoURL:
-                './assets/img/bmx/BRANDMATRIX-DASHBOARD-LOGO.svg',
-              brandInstituteSurveyLogoURL:
-                './assets/img/bmx/bm-logo-2020-high.png',
-              brandInstituteMobileURL: './assets/img/bmx/bmxCube.jpg',
-              companyLogoURL: './assets/img/bmx/insertLogo.jpg',
-            },
-          ],
-        },
-      ],
-    },
-  ];
+  
 }
