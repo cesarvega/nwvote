@@ -1,20 +1,25 @@
-<div class="container-fluid login-container mat-elevation-z4">
-    <mat-toolbar class="toolbar">{{projectname}}</mat-toolbar>
-    <div id="login" fxLayout="column">
+<div style="width: 100%;  width: 100vw;
+height: 100vh;">
 
-        <div id="login-form-wrapper" fxLayout="column" fxLayoutAlign="center center">
+    <div class="container-fluid login-container mat-elevation-z4">
+        <mat-toolbar class="toolbar">{{projectname}}</mat-toolbar>
+        <div id="login" fxLayout="column">
 
-            <div id="login-form">
+            <div id="login-form-wrapper" fxLayout="column" fxLayoutAlign="center center">
+
+                <div id="login-form">
 
 
-                <img class="logo" src="assets/img/bi-logo-with-tagline.svg">
+                    <img class="logo" src="assets/img/bi-logo-with-tagline.svg">
 
-                <div class="mat-subheading-1 secondary-text">Welcome to NameVote </div>
+                    <div class="mat-subheading-1 secondary-text">Welcome to NameVote </div>
 
-                <form name="loginForm" [formGroup]="loginForm" novalidate class="open-close-container">
-                    <button   class="submit-button"   mat-raised-button style="color: white;" color="primary"(click)="signIn()">Sign In</button>
-                    <button   class="submit-button"   mat-raised-button  style="color: white;" color="primary"(click)="signOut()">Sign Out</button>
-                    <!-- <mat-form-field appearance="outline">
+                    <form name="loginForm" [formGroup]="loginForm" novalidate class="open-close-container">
+                        <button class="submit-button" mat-raised-button style="color: white;" color="primary"
+                            (click)="signIn()">Sign In</button>
+                        <button class="submit-button" mat-raised-button style="color: white;" color="primary"
+                            (click)="signOut()">Sign Out</button>
+                        <!-- <mat-form-field appearance="outline">
                         <mat-label>Email</mat-label>
                         <input matInput placeholder="Email" formControlName="email">
                         <mat-error *ngIf="loginForm.get('email').hasError('required')">
@@ -34,11 +39,11 @@
                         </mat-error>
                     </mat-form-field> -->
 
-                    <mat-error *ngIf="false">
-                        Username or password incorrect or not register
-                    </mat-error>
+                        <mat-error *ngIf="false">
+                            Username or password incorrect or not register
+                        </mat-error>
 
-                    <!-- <div class="remember-forgot-password" fxLayout="row" fxLayout.xs="column"
+                        <!-- <div class="remember-forgot-password" fxLayout="row" fxLayout.xs="column"
                     fxLayoutAlign="space-between center">
                     <mat-checkbox matInput  formControlName="suma" class="remember-me secondary-text" aria-label="Remember Me">
                         Summarize your input once finished?
@@ -49,21 +54,23 @@
                     </a>
                 </div> -->
 
-                    <!-- <button (click)="submitCredentials()" mat-raised-button style="color: white;" color="primary"
+                        <!-- <button (click)="submitCredentials()" mat-raised-button style="color: white;" color="primary"
                         class="submit-button" aria-label="LOG IN" [disabled]="loginForm.invalid">
                         SUBMIT
                     </button> -->
 
-                </form>
+                    </form>
 
-                <!-- <div class="register" fxLayout="column" fxLayoutAlign="center center">
+                    <!-- <div class="register" fxLayout="column" fxLayoutAlign="center center">
                 <span class="text secondary-text">Don't have an account?</span>
                 <a class="link" [routerLink]="'/apps/register/auth/register'">Create an account</a>
                 <a class="link" [routerLink]="'/apps/contacts'">Contact us</a>
             </div> -->
 
-            </div>
+                </div>
 
+            </div>
         </div>
     </div>
+
 </div>

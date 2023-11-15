@@ -11,31 +11,32 @@ export class MenuComponent implements OnInit {
   isMenuVisible: boolean = true;
   selectedMenuItem: number | null = null;
   isDashboardMenu: boolean = true;
-  userFullName : string = "Carlos Gomez"
-  userRole : string = "Creative"
+  userFullName: string = "Carlos Gomez"
+  userRole: string = "Creative"
   CREATION_VIDEO_PATH: string = ''
-  showCreationModalVideo:boolean = false
+  showCreationModalVideo: boolean = false
   hideMenu: boolean = false;
   showMenu: boolean = false;
   isPreviewView: boolean = true
-
-  constructor(private router: Router, private location: Location) {}
+  login = true
+  constructor(private router: Router, private location: Location) { }
 
   ngOnInit(): void {
- 
+
     this.router.events.subscribe((event) => {
-      
+
       if (event instanceof NavigationEnd) {
-        this.isDashboardMenu = event.url.includes('dashboard') || event.url === '/' ;
+        this.isDashboardMenu = event.url.includes('dashboard') || event.url === '/';
         this.isPreviewView = event.url.includes('survey')
+        this.login = event.url.includes('login')
       }
-    
+
     });
   }
 
   toggleMenu() {
     this.hideMenu = !this.hideMenu;
-}
+  }
 
   goToBmxCreator(): void {
     this.isDashboardMenu = false;
@@ -48,18 +49,19 @@ export class MenuComponent implements OnInit {
   }
 
   navigateTo(value: string): void {
-    
-    if (value ==="dashboard") {
+
+    if (value === "dashboard") {
       this.isDashboardMenu = true;
-    }else if (value.includes('bmx-creation')){
+    } else if (value.includes('bmx-creation')) {
       this.hideMenu = true;
-    } 
+    }
     else {
-      if(value === 'project-information'){
+      if (value === 'project-information') {
         localStorage.clear();
       }
-      this.isDashboardMenu = false;    }
-      this.router.navigate(['/'+value]);   
+      this.isDashboardMenu = false;
+    }
+    this.router.navigate(['/' + value]);
   }
 
   selectMenuItem(index: number): void {
@@ -67,7 +69,7 @@ export class MenuComponent implements OnInit {
   }
 
   navigateBack() {
-    this.router.navigate(['/']); 
+    this.router.navigate(['/']);
   }
-  
+
 }

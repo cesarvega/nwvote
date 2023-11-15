@@ -29,7 +29,7 @@ const routes: Routes = [
   {path: 'participants', component: RespondentsComponent },
   {path: 'reports', component: ProjectReportsComponent},
   {path: 'participants-emails',component: ParticipantsEmailComponent},
-  // {path: 'login', component: LoginComponent},
+  {path: 'login', component: LoginComponent},
   {path: 'signout', component: LoginComponent},
   { path: '**', redirectTo: 'dashboard' },
  
