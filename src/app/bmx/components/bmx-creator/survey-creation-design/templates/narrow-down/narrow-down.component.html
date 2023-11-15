@@ -172,151 +172,167 @@
 <!--🥑🥑🥑🥑🥑🥑🥑🥑🥑🥑🥑🥑🥑🥑🥑🥑🥑🥑🥑🥑 CONFIGURATION BOX 🥑🥑🥑🥑🥑🥑🥑🥑🥑🥑🥑🥑🥑🥑🥑🥑🥑🥑-->
 
 <div *ngIf="i === selectedIndex" class="mat-elevation-z4" cdkDrag
-    style="position: absolute;width: 62vw;background: #fafafa;z-index: 1;top: -8px;left: 15%;border: lightgrey 3px solid;">
-    <div style="position: absolute;
-    top: 10px;
-    right: 10px;
-    color: #ccc;
-    cursor: move;
-    width: 1024px;
-    height: 54px;" cdkDragHandle> </div>
-    <div style="text-align: center;">
-        <div style="font-size: 16px;margin: 20px;color: #48535e;">Copy & Paste TEST NAMES</div>
-        <!-- <div style="font-size: 14px;margin-bottom: 20px;color: lightgray;">Brief Description Here</div> -->
-    </div>
-    <div style="display: flex;justify-content: center;justify-items: center; flex-direction: column;">
+    style="position: absolute;width: 50%;background: #fafafa;z-index: 1;top: -65px;left: 25%;border: lightgrey 3px solid; overflow: auto;
+       max-height: 36rem;
+    bottom: -2; ">
 
-        <mat-form-field style="width: 90%;margin-left: 20px;" appearance="outline">
-            <mat-label>Copy & Paste TEST NAMES</mat-label>
-            <textarea matInput rows="4" cols="50" [(ngModel)]="testNamesInput" (paste)="onPaste()"
-                placeholder=""></textarea>
+<div class="example-handle" cdkDragHandle>WWW</div>
+     <!-- Cards Criteria-->
+     <mat-card class="example-card">
+      <mat-card-header>
+        <mat-card-title>Criteria</mat-card-title>
+      </mat-card-header>
+      <br>
+      <div class="sm-section2-rkScale" >
+        <div class="sm-column-box-rkScale">
+          <mat-form-field appearance="outline" style="width: 40%">
+            <mat-label>Category Name</mat-label>
+            <input matInput [(ngModel)]="bmxItem.componentSettings[0].categoryName" placeholder="Category Name" style="font-size: 20px;color: #324395;">
+            <mat-hint>Enter the name of the category</mat-hint> <!-- Hint text for Category Name -->
+          </mat-form-field>
+
+          <mat-form-field appearance="outline" style="width: 40%">
+            <mat-label>Category Description</mat-label>
+            <input matInput [(ngModel)]="bmxItem.componentSettings[0].categoryDescription" placeholder="Category Description" style="font-size: 20px;color: #ee7f25;">
+            <mat-hint>Enter a brief description of the category</mat-hint> <!-- Hint text for Category Description -->
+          </mat-form-field>
+        </div>
+<br>
+          <mat-checkbox [(ngModel)]="randomizeTestNames">Randomize Names</mat-checkbox>
+          <div class="sm-row-box-rkScale">
+           <div> <div style="font-size: 16px;color: #48535e;">MAX NUMBER OF CRITERIA</div>
+
+           <div style="display: flex;flex-direction: column;justify-content: center;gap: 10px;align-items: center; " >
+               <div style="font-size: 16px;margin-top: 10px;color: #48535e;text-align: center;">MIN:
+                   {{bmxItem.componentSettings[0].minRule}}</div>
+               <input type="range" min="0" [max]="rowsCount" [(ngModel)]="bmxItem.componentSettings[0].minRule"
+                   style="width:120px; padding: 0px 10px;" [value]="bmxItem.componentSettings[0].minRule">
+           </div></div>
+          <div>
+            <div style="font-size: 16px;color: #48535e;">MIN NUMBER OF CRITERIA</div>
+
+          <div style="display: flex;flex-direction: column;justify-content:center;gap: 10px;align-items: center;">
+              <div style="font-size: 16px;margin-top: 10px;color: #48535e;text-align: center;">MAX:
+                  {{bmxItem.componentSettings[0].maxRule}}</div>
+              <input type="range" min="0" [max]="rowsCount" [(ngModel)]="bmxItem.componentSettings[0].maxRule"
+                  style="width:120px; padding: 0px 10px;" [value]="bmxItem.componentSettings[0].maxRule">
+          </div></div>
+          </div>
+      </div>
+      <mat-card-content>
+
+      </mat-card-content>
+
+    </mat-card>
+<br>
+    <!-- Cards Test Name-->
+    <mat-card class="example-card">
+      <mat-card-header>
+        <mat-card-title>Test Name</mat-card-title>
+      </mat-card-header>
+      <mat-card-content>
+        <div style="text-align: center;">
+          <div style="font-size: 16px;margin: 20px;color: #48535e;">Copy & Paste TEST NAMES</div>
+          <!-- <div style="font-size: 14px;margin-bottom: 20px;color: lightgray;">Brief Description Here</div> -->
+      </div>
+      <div style="display: flex; justify-content: center; align-items: center;">
+        <mat-form-field style="width: 90%; margin-left: 20px;" appearance="outline">
+          <mat-label>Copy & Paste TEST NAMES</mat-label>
+          <textarea matInput [(ngModel)]="testNamesInput" (paste)="onPaste()"
+              placeholder="Paste test names here" cdkTextareaAutosize
+              cdkAutosizeMinRows="2" cdkAutosizeMaxRows="5"></textarea>
+          <mat-hint>Type or paste the test names here that you want to include</mat-hint>
         </mat-form-field>
-        <p style="margin-left: 30px; color: #757575;">
-            Add the names you want to test
-        </p>
-    </div>
+      </div>
 
-    <hr>
-    <div style="display: flex;flex-direction: row;justify-content: space-around;gap: 30px;">
-        <div style="display: flex; flex-direction: column;">
-            <input type="text" [(ngModel)]="bmxItem.componentSettings[0].categoryName"
-                [value]="bmxItem.componentSettings[0].categoryName"
-                style="font-size: 20px;color: #324395;padding-bottom: 7px;padding-left: 10px;">
-            <p style=" color: #757575;">
-                Add a category to the left side
-            </p>
-        </div>
+      </mat-card-content>
 
-        <div style="display: flex; flex-direction: column;">
-            <input type="text" [(ngModel)]="bmxItem.componentSettings[0].categoryDescription"
-                [value]="bmxItem.componentSettings[0].categoryDescription"
-                style="font-size: 20px;color: #ee7f25;padding-bottom: 4px;padding-left: 7px;">
-            <p style="color: #757575;">
-                Add a rate matrix subtitle
-            </p>
-        </div>
+    </mat-card>
+<br>
 
-        <mat-checkbox [(ngModel)]="randomizeTestNames">Randomize Names</mat-checkbox>
+   <!-- Cards Select Ranking-->
+    <mat-card class="example-card">
+      <mat-card-header>
+        <mat-card-title>Select Ranking</mat-card-title>
+      </mat-card-header>
+      <mat-card-content>
+        <div class="sm-section3-rkScale">
 
-        <div style="display: flex;flex-direction: column;justify-content: center;gap: 10px;">
-            <div style="font-size: 16px;margin-top: 10px;color: #48535e;text-align: center;">MIN:
-                {{bmxItem.componentSettings[0].minRule}}</div>
-            <input type="range" min="0" [max]="rowsCount" [(ngModel)]="bmxItem.componentSettings[0].minRule"
-                style="width:120px; padding: 0px 10px;">
-        </div>
-        <div style="display: flex;flex-direction: column;justify-content:center;gap: 10px;">
-            <div style="font-size: 16px;margin-top: 10px;color: #48535e;text-align: center;">MAX:
-                {{bmxItem.componentSettings[0].maxRule}}</div>
-            <input type="range" min="0" [max]="rowsCount" [(ngModel)]="bmxItem.componentSettings[0].maxRule"
-                style="width:120px; padding: 0px 10px;">
-        </div>
-
-
-    </div>
-
-    <hr>
-    <div
-        style="text-align: center;display: flex;flex-direction: row;justify-content: space-around;align-items: center;">
-        <div style="display: flex;flex-direction: column;">
-            <div style="font-size: 12px;color: #48535e;">TYPE NEW CRITERIA</div>
-            <div style="display: flex; flex-direction: column;">
-                <div style="display: flex;">
-                    <input type="text" [(ngModel)]="newCriteria"
-                        style="font-size: 12px;color: #324395;padding-bottom: 7px;padding-left: 10px; width: 290px;">
-                    <mat-icon style="cursor: pointer;font-size: 33px;color: #324395;"
-                        (click)="addCriteria(newCriteria);newCriteria=''">add_box</mat-icon>
-                </div>
-                <p style="margin-left: 25px; color: #757575;">
-                    Add new criteria types
-                </p>
-            </div>
-            <div style="display: flex; flex-direction: column;">
-                <mat-form-field appearance="outline" style="margin: 0px;">
-                    <mat-label>choose criteria</mat-label>
-                    <mat-select multiple [(ngModel)]="selectedCriteria"
-                        (selectionChange)="criteriaSelection(selectedCriteria)">
-                        <mat-option *ngFor="let cirteriaItem of CRITERIA; let c = index" [value]="cirteriaItem">
-                            {{cirteriaItem.name}}
-                            <mat-icon matTooltip="double click to delete criteria" matTooltipPosition="right"
-                                style="cursor: pointer;font-size: 15px;color: #ee7f25;" (dblclick)="deleteCriteria(c);">
-                                cancel</mat-icon>
-                        </mat-option>
-                    </mat-select>
+          <div class="sm-column-box-rkScale" style="gap: 4rem;">
+            <div style="display: flex; flex-direction: column; width: 40%;">
+              <div style="font-size: 12px; color: #48535e;">TYPE NEW CRITERIA</div>
+              <div style="display: flex;">
+                <mat-form-field style="flex: 1; width: 100%;" appearance="outline">
+                  <mat-label>New Criteria</mat-label>
+                  <input matInput [(ngModel)]="newCriteria" style="font-size: 12px;">
+                  <mat-hint>Enter a criterion and click add</mat-hint> <!-- Hint for New Criteria -->
                 </mat-form-field>
-                <p style="margin-left: 25px; color: #757575;">
-                    Select the type of criteria
-                </p>
+                <mat-icon style="cursor: pointer; font-size: 33px; color: #324395;"
+                          (click)="addCriteria(newCriteria); newCriteria=''">add_box</mat-icon>
+              </div>
             </div>
-        </div>
 
-        <div>
-            <div style="font-size: 16px;margin-top: 10px;color: #48535e;">SELECT RATING RANGE</div>
-            <br>
-
-            <div style="text-align: center;display: flex;flex-direction: row;justify-content: space-around;">
-                {{numRatingScale}} <input [(ngModel)]="rankingScaleValue" type="range" id="volume" name="volume" min="3"
-                    max="10">
-                10 <br>
+            <div style="display: flex; flex-direction: column; width: 40%;">
+              <mat-form-field appearance="outline" style="margin: 0px; width: 100%;">
+                <mat-label>Choose Criteria</mat-label>
+                <mat-select multiple [(ngModel)]="selectedCriteria"
+                    (selectionChange)="criteriaSelection(selectedCriteria)">
+                  <mat-option *ngFor="let criteriaItem of CRITERIA; let c = index" [value]="criteriaItem">
+                    {{criteriaItem.name}}
+                    <mat-icon matTooltip="Double click to delete criteria" matTooltipPosition="right"
+                        style="cursor: pointer; font-size: 15px; color: #ee7f25;" (dblclick)="deleteCriteria(c);">
+                        cancel</mat-icon>
+                  </mat-option>
+                </mat-select>
+                <mat-hint>Select one or more criteria from the list</mat-hint> <!-- Hint for Choose Criteria -->
+              </mat-form-field>
             </div>
-            <label for="volume">{{rankingScaleValue}}</label>
+          </div>
 
+          <div class="sm-row-box-rkScale">
+          <div>
+              <div style="font-size: 16px;margin-top: 10px;color: #48535e;">SELECT RATING RANGE</div>
+              <br>
+              <div style="text-align: center;display: flex;flex-direction: row;justify-content: space-around;">
+                  {{numRatingScale}} <input [(ngModel)]="rankingScaleValue" type="range" id="volume" name="volume" min="0"
+                      max="10">
+                  10 <br>
+              </div>
+              <label for="volume">{{rankingScaleValue}}</label>
 
-        </div>
+          </div>
+          <div style="    margin-top: 0.5rem;
+        ">
+              <div style="font-size: 16px;color: #48535e;">CHOOSE RATING ICON</div>
+              <br>
+              <mat-radio-group aria-label="Select an option" [(ngModel)]="ratingScaleIcon">
+                  <mat-icon style="color:#76d354;">grade</mat-icon>
+                  <mat-radio-button value="grade">
+                  </mat-radio-button>
+                  <mat-icon style="color:#e6ad11;">rectangle</mat-icon>
+                  <mat-radio-button value="rectangle">
+                  </mat-radio-button>
+              </mat-radio-group>
+          </div>
 
-        <div>
-            <div style="font-size: 16px;color: #48535e;">CHOOSE RATING ICON</div>
-            <br>
-            <mat-radio-group aria-label="Select an option" [(ngModel)]="ratingScaleIcon">
-                <mat-icon style="color:#76d354;">grade</mat-icon>
-                <mat-radio-button value="grade">
-                </mat-radio-button>
-                <mat-icon style="color:#e6ad11;">rectangle</mat-icon>
-                <mat-radio-button value="rectangle">
-                </mat-radio-button>
-            </mat-radio-group>
-            <!-- <select>
-                <option value="">
-                    <mat-icon style="color:#e6ad11;">rectangle</mat-icon>
-                </option>
-                <option value="valid" selected>
-                    <mat-icon style="color:#76d354;">grade</mat-icon>
-                </option>
-                <option value="invalid">
-                    <mat-icon style="color:#e6ad11;">rectangle</mat-icon>
-                </option>
-            </select> -->
+          </div>
+          </div>
+      </mat-card-content>
 
-        </div>
-        <button style="outline: none;color:#d35854;margin-bottom: 50px;" mat-icon-button (click)="selectedIndex = ''"
-            aria-label="ranking">
-            <mat-icon>cancel</mat-icon><br>Cancel
-        </button>
-        <button style="outline: none;color:#76d354;margin-bottom: 50px;" mat-icon-button
-            (click)="selectedIndex = '';upLoadNamesAndRationales(testNamesInput)" [disabled]="false"
-            aria-label="ranking">
-            <mat-icon>check_circle</mat-icon><br> Done
-        </button>
-    </div>
+    </mat-card>
+
+    <!-- BUTTON-->
+    <div class="sm-row-box-rkScale">
+      <button style="outline: none;color:#d35854;margin-bottom: 50px;" mat-icon-button (click)="selectedIndex = ''"
+          aria-label="ranking">
+          <mat-icon>cancel</mat-icon><br>Cancel
+      </button>
+      <button style="outline: none;color:#76d354;margin-bottom: 50px;" mat-icon-button
+          (click)="selectedIndex = '';upLoadNamesAndRationales(testNamesInput)" [disabled]="false"
+          aria-label="ranking">
+          <mat-icon>check_circle</mat-icon><br> Done
+      </button>
+  </div>
 </div>
 
 <!--🥑🥑🥑🥑🥑🥑🥑🥑🥑🥑🥑🥑🥑🥑🥑🥑🥑🥑🥑🥑 CONFIGURATION BOX 🥑🥑🥑🥑🥑🥑🥑🥑🥑🥑🥑🥑🥑🥑🥑🥑🥑🥑-->

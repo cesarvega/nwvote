@@ -38,7 +38,8 @@
 .rating-star {
   color: grey;
 }
-.section2{
+// 🔧🔧🔧🔧 CONFIG BOX 🔧🔧🔧🔧🔧🔧
+.sm-section2-rkScale{
   display: flex;
   flex-direction: column;
   gap: 10px;
@@ -46,14 +47,8 @@
   width: 100%;
 
 }
-.direction-MinMax{
-  width: 40%;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
 
-}
-.row-boxSM{
+.sm-row-box-rkScale{
   display: flex;
   gap: 2rem;
   flex-direction: row;
@@ -61,7 +56,7 @@
   width: 100%;
 
 }
-.column-boxSM{
+.sm-column-box-rkScale{
   display: flex;
   gap: 2rem;
   flex-direction: row;
@@ -69,7 +64,7 @@
   width: 100%;
   justify-content: center;}
 
-.section3{
+.sm-section3-rkScale{
   text-align: center;
   display: flex;
   flex-direction: column;
@@ -79,6 +74,7 @@
   width: 100%;
   gap: 1rem;
 }
+
 @media (min-width: 1025px) {
   .desktop {
     display: flex;
