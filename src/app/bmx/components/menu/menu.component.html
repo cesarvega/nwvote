@@ -52,10 +52,10 @@
     <div class="movil">
 
       <div class="menu-container">
-        <div class="menu-item-Light" (click)="navigateTo('dashboard')">
+        <div class="menu-item-Light" [ngClass]=""(click)="navigateTo('dashboard')">
           <i class="bi bi-list-task"></i> Project List
         </div>
-        <div class="menu-item-Dark" style="justify-content: flex-start;" (click)="navigateTo('project-information')">
+        <div class="menu-item-Dark" [ngClass]="{'menu-item-Light': selectedMenuItem === 'project-information', 'menu-item-Dark': selectedMenuItem !== 'project-information'}" style="justify-content: flex-start;" (click)="navigateTo('project-information')">
           <i class="bi bi-pencil-fill"></i> Create/Edit Matrix
           <div>
             <button (click)="CREATION_VIDEO_PATH='assets/videos/participants.mp4' ; showCreationModalVideo=true; "
@@ -94,17 +94,17 @@
     <div class="movil">
 
       <div class="menu-container">
-        <div class="menu-item-Light" (click)="navigateTo('dashboard')">
+        <div class="menu-item-Dark" (click)="navigateTo('dashboard')">
           <i class="bi bi-list-task"></i> Project List
         </div>
-        <div class="menu-item-Light" (click)="navigateTo('project-information')">
+        <div [ngClass]="{'menu-item-Light': selectedMenuItem === 'project-information', 'menu-item-Dark': selectedMenuItem !== 'project-information'}"  (click)="navigateTo('project-information')">
           Project Information
         </div>
 
-        <div class="menu-item-Dark" (click)="navigateTo('bmx-creation/99CB72BF-D163-46A6-8A0D-E1531EC7FEDC')">
+        <div [ngClass]="{'menu-item-Light': selectedMenuItem === 'bmx-creation/99CB72BF-D163-46A6-8A0D-E1531EC7FEDC', 'menu-item-Dark': selectedMenuItem !== 'bmx-creation/99CB72BF-D163-46A6-8A0D-E1531EC7FEDC'}"  (click)="navigateTo('bmx-creation/99CB72BF-D163-46A6-8A0D-E1531EC7FEDC')">
           Survey Creation & Design
         </div>
-        <div class="menu-item-Dark" (click)="navigateTo('participants')">
+        <div [ngClass]="{'menu-item-Light': selectedMenuItem === 'participants', 'menu-item-Dark': selectedMenuItem !== 'participants'}" (click)="navigateTo('participants')">
           Participants
           <div class="video-container">
             <button (click)="CREATION_VIDEO_PATH='assets/videos/participants.mp4' ; showCreationModalVideo=true; "
@@ -114,7 +114,7 @@
             </button>
           </div>
         </div>
-        <div class="menu-item-Dark" (click)="navigateTo('participants-emails')">
+        <div [ngClass]="{'menu-item-Light': selectedMenuItem === 'participants-emails', 'menu-item-Dark': selectedMenuItem !== 'participants-emails'}" (click)="navigateTo('participants-emails')">
           Survey Participants/Email <div>
             <button (click)="CREATION_VIDEO_PATH='assets/videos/participants.mp4' ; showCreationModalVideo=true; "
               class="video-button" matTooltip="see tutorial" matTooltipPosition="above" mat-icon-button
@@ -123,7 +123,7 @@
             </button>
           </div>
         </div>
-        <div class="menu-item-Dark" (click)="navigateTo('reports')">
+        <div [ngClass]="{'menu-item-Light': selectedMenuItem === 'reports', 'menu-item-Dark': selectedMenuItem !== 'reports'}" (click)="navigateTo('reports')">
           Reports <div>
             <button (click)="CREATION_VIDEO_PATH='assets/videos/participants.mp4' ; showCreationModalVideo=true; "
               class="video-button" matTooltip="see tutorial" matTooltipPosition="above" mat-icon-button

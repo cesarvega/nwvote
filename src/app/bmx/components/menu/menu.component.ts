@@ -9,7 +9,6 @@ import { Location } from '@angular/common';
 })
 export class MenuComponent implements OnInit {
   isMenuVisible: boolean = true;
-  selectedMenuItem: number | null = null;
   isDashboardMenu: boolean = true;
   userFullName: string = "Carlos Gomez"
   userRole: string = "Creative"
@@ -19,6 +18,8 @@ export class MenuComponent implements OnInit {
   showMenu: boolean = false;
   isPreviewView: boolean = true
   login = true
+  selectedMenuItem: string = 'dashboard';
+  
   constructor(private router: Router, private location: Location) { }
 
   ngOnInit(): void {
@@ -28,6 +29,7 @@ export class MenuComponent implements OnInit {
       if (event instanceof NavigationEnd) {
         this.isDashboardMenu = event.url.includes('dashboard') || event.url === '/';
         this.isPreviewView = event.url.includes('survey')
+        this.selectedMenuItem = event.url.slice(1)
         this.login = event.url.includes('login')
       }
 
@@ -49,7 +51,7 @@ export class MenuComponent implements OnInit {
   }
 
   navigateTo(value: string): void {
-
+    this.selectedMenuItem=value;
     if (value === "dashboard") {
       this.isDashboardMenu = true;
     } else if (value.includes('bmx-creation')) {
@@ -62,10 +64,6 @@ export class MenuComponent implements OnInit {
       this.isDashboardMenu = false;
     }
     this.router.navigate(['/' + value]);
-  }
-
-  selectMenuItem(index: number): void {
-    this.selectedMenuItem = index;
   }
 
   navigateBack() {
