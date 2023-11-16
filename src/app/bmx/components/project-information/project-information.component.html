@@ -7,87 +7,105 @@
     <br>
     <br>
     <form [formGroup]="bmxEditData">
-        <div style="display: flex;flex-direction: column;">
-
-            <div class="row-field">
-                <label class="selectLabels">Salesboard</label>
-                <mat-form-field appearance="outline">
-                    <input type="text" placeholder="Enter Salesboard Project" formControlName="bmxSalesboard" matInput
-                        [matAutocomplete]="auto">
-                    <mat-autocomplete #auto="matAutocomplete">
-                        <mat-option *ngFor="let settingsList of filteredOptions | async" [value]="settingsList">
-                            {{settingsList}}
-                        </mat-option>
-                    </mat-autocomplete>
-                </mat-form-field>
-                <label class="selectLabels">Department</label>
-                <mat-form-field appearance="outline">
-                    <mat-label>Select Department</mat-label>
-                    <mat-select formControlName="bmxDepartment">
-                        <mat-option *ngFor="let settingsList of settingsData.DepartmentList" [value]="settingsList">
-                            {{settingsList}}
-                        </mat-option>
-                    </mat-select>
-                </mat-form-field>
-
-            </div>
-            <div class="row-field">
-                <label class="selectLabels">Project</label>
-                <mat-form-field appearance="outline">
-                    <mat-label>Enter Project Name</mat-label>
-                    <input type="text" matInput formControlName="bmxProjectName">
-                    <p *ngIf="bmxProjectName.invalid && bmxProjectName.dirty">Project Name is required only A-Z, a-z,
-                        0-9 allowed</p>
-                </mat-form-field>
-                <label class="selectLabels">Region</label>
-                <mat-form-field appearance="outline">
-                    <mat-label>Select Region</mat-label>
-                    <mat-select formControlName="bmxRegion">
-                        <mat-option *ngFor="let settingsList of settingsData.OfficeList" [value]="settingsList">
-                            {{settingsList}}
-                        </mat-option>
-                    </mat-select>
-                </mat-form-field>
-
-            </div>
-
-            <div class="row-field">
-                <label class="selectLabels">Company</label>
-                <mat-form-field appearance="outline">
-                    <mat-label>Enter Company</mat-label>
-                    <input type="text" matInput formControlName="bmxCompany">
-                    <p *ngIf="bmxCompany.invalid && bmxCompany.dirty">Company is required only A-Z, a-z, 0-9 allowed</p>
-                </mat-form-field>
-                <label class="selectLabels">Language</label>
-                <mat-form-field appearance="outline">
-                    <mat-label>Select Language</mat-label>
-                    <mat-select formControlName="bmxLanguage">
-                        <mat-option *ngFor="let settingsList of settingsData.LanguageList" [value]="settingsList">
-                            {{settingsList}}
-                        </mat-option>
-                    </mat-select>
-                </mat-form-field>
-            </div>
-            <div class="row-field"> 
-                <label class="selectLabels">Closing date: </label>
-                <div>
-                    <mat-form-field appearance="outline" id="project-datepicker" style="width:84%">
-                        <input matInput [matDatepicker]="picker" placeholder="Elija una fecha"  (dateChange)="onSelect($event.value)">
-                        <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
-                        <mat-datepicker #picker></mat-datepicker>
+        <div style="display: flex;flex-direction: row;">
+            <div>
+                <div class="row-field">
+                    <label class="selectLabels">Salesboard</label>
+                    <mat-form-field appearance="outline">
+                        <input type="text" placeholder="Enter Salesboard Project" formControlName="bmxSalesboard"
+                            matInput [matAutocomplete]="auto">
+                        <mat-autocomplete #auto="matAutocomplete">
+                            <mat-option *ngFor="let settingsList of filteredOptions | async" [value]="settingsList">
+                                {{settingsList}}
+                            </mat-option>
+                        </mat-autocomplete>
                     </mat-form-field>
-                </div>             
-                <label class="selectLabels">Template</label>                                    
-                <mat-form-field appearance="outline">
-                    <mat-label>Load a template</mat-label>
-                    <mat-select [(ngModel)]="templateName" (selectionChange)="templateSelected($event.value)" formControlName="bmxTemplates">
-                        <mat-option *ngFor="let template of TEMPLATES " [value]="template">
-                            {{template}}
-                        </mat-option>
-                    </mat-select>
-                </mat-form-field>                    
-            </div>           
-            <div></div>
+
+
+                </div>
+                <div class="row-field">
+                    <label class="selectLabels">Project</label>
+                    <mat-form-field appearance="outline">
+                        <mat-label>Enter Project Name</mat-label>
+                        <input type="text" matInput formControlName="bmxProjectName">
+                        <p *ngIf="bmxProjectName.invalid && bmxProjectName.dirty">Project Name is required only A-Z,
+                            a-z,
+                            0-9 allowed</p>
+                    </mat-form-field>
+
+
+                </div>
+
+                <div class="row-field">
+                    <label class="selectLabels">Company</label>
+                    <mat-form-field appearance="outline">
+                        <mat-label>Enter Company</mat-label>
+                        <input type="text" matInput formControlName="bmxCompany">
+                        <p *ngIf="bmxCompany.invalid && bmxCompany.dirty">Company is required only A-Z, a-z, 0-9 allowed
+                        </p>
+                    </mat-form-field>
+
+                </div>
+                <div class="row-field">
+                    <label class="selectLabels">Closing date: </label>
+                    <div>
+                        <mat-form-field appearance="outline" id="project-datepicker" style="width:84%">
+                            <input matInput [matDatepicker]="picker" placeholder="Elija una fecha"
+                                (dateChange)="onSelect($event.value)">
+                            <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+                            <mat-datepicker #picker></mat-datepicker>
+                        </mat-form-field>
+                    </div>
+
+                </div>
+            </div>
+            <div>
+                <div class="row-field">
+                    <label class="selectLabels">Department</label>
+                    <mat-form-field appearance="outline">
+                        <mat-label>Select Department</mat-label>
+                        <mat-select formControlName="bmxDepartment">
+                            <mat-option *ngFor="let settingsList of settingsData.DepartmentList" [value]="settingsList">
+                                {{settingsList}}
+                            </mat-option>
+                        </mat-select>
+                    </mat-form-field>
+                </div>
+                <div class="row-field">
+                    <label class="selectLabels">Region</label>
+                    <mat-form-field appearance="outline">
+                        <mat-label>Select Region</mat-label>
+                        <mat-select formControlName="bmxRegion">
+                            <mat-option *ngFor="let settingsList of settingsData.OfficeList" [value]="settingsList">
+                                {{settingsList}}
+                            </mat-option>
+                        </mat-select>
+                    </mat-form-field>
+                </div>
+                <div class="row-field">
+                    <label class="selectLabels">Language</label>
+                    <mat-form-field appearance="outline">
+                        <mat-label>Select Language</mat-label>
+                        <mat-select formControlName="bmxLanguage">
+                            <mat-option *ngFor="let settingsList of settingsData.LanguageList" [value]="settingsList">
+                                {{settingsList}}
+                            </mat-option>
+                        </mat-select>
+                    </mat-form-field>
+                </div>
+                <div class="row-field">
+                    <label class="selectLabels">Template</label>
+                    <mat-form-field appearance="outline">
+                        <mat-label>Load a template</mat-label>
+                        <mat-select [(ngModel)]="templateName" (selectionChange)="templateSelected($event.value)"
+                            formControlName="bmxTemplates">
+                            <mat-option *ngFor="let template of TEMPLATES " [value]="template">
+                                {{template}}
+                            </mat-option>
+                        </mat-select>
+                    </mat-form-field>
+                </div>
+            </div>
             <!-- <button mat-raised-button color="success" style="position: absolute;right: 40px;
             top: 650px; background-color:#063074;color: white;" (click)="saveProjectInfo()">Save</button> -->
         </div>
