@@ -15,11 +15,8 @@ height: 100vh;">
                     <div class="mat-subheading-1 secondary-text">Welcome to NameVote </div>
 
                     <form name="loginForm" [formGroup]="loginForm" novalidate class="open-close-container">
-                        <button class="submit-button" mat-raised-button style="color: white;" color="primary"
-                            (click)="signIn()">Sign In</button>
-                        <button class="submit-button" mat-raised-button style="color: white;" color="primary"
-                            (click)="signOut()">Sign Out</button>
-                        <!-- <mat-form-field appearance="outline">
+                   
+                        <mat-form-field appearance="outline">
                         <mat-label>Email</mat-label>
                         <input matInput placeholder="Email" formControlName="email">
                         <mat-error *ngIf="loginForm.get('email').hasError('required')">
@@ -37,8 +34,11 @@ height: 100vh;">
                         <mat-error>
                             name is required
                         </mat-error>
-                    </mat-form-field> -->
-
+                    </mat-form-field>
+                    <button class="submit-button" mat-raised-button style="color: white;" color="primary"
+                    (click)="submitCredentials()">Sign In</button>
+                    <button class="submit-button" mat-raised-button style="color: white;" color="primary"
+                    (click)="signInMicrosoft()">Sign In width microsoft</button>
                         <mat-error *ngIf="false">
                             Username or password incorrect or not register
                         </mat-error>

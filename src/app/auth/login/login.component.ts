@@ -51,7 +51,7 @@ export class LoginComponent implements OnInit {
 
     })
   }
-  signIn() {
+  signInMicrosoft() {
     this.msalService.loginRedirect()
   }
 
