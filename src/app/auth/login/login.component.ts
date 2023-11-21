@@ -41,7 +41,9 @@ export class LoginComponent implements OnInit {
   }
 
   submitCredentials() {
+    console.log(this.projectname)
     this._NwvoteService.login(this.loginForm.value, this.projectname).subscribe((res: any) => {
+      console.log(res)
       if (JSON.parse(res.d)[0].userToken) {
         localStorage.setItem('username', JSON.parse(res.d)[0].username);
         localStorage.setItem('userTokenId', JSON.parse(res.d)[0].userToken);
