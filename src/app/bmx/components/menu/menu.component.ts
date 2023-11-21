@@ -21,42 +21,34 @@ export class MenuComponent implements OnInit {
   login = true
   selectedMenuItem: string = 'dashboard';
   userGUI: any;
-  userName= ''
+  userName = ''
   userDepartment: string;
   userOffice: any;
-  
-  constructor(private router: Router, private location: Location, private _BmxService: BmxService, private activatedRoute: ActivatedRoute,) { 
-    this.activatedRoute.params.subscribe((params) => {
-      this.userGUI = params['id'];
+  id: string;
 
-      // localStorage.setItem('projectId', this.projectId);
-      this._BmxService.getMatrixUser(this.userGUI).subscribe((data: any) => {
-        data = JSON.parse(data.d);
-        this.userName = data.UserName;
-        this.userFullName = data.FullName;
-        this.userOffice = data.Office;
-        this.userRole = data.Role;
-        this.userDepartment = data.Role;
+  constructor(private router: Router, private _BmxService: BmxService, private activatedRoute: ActivatedRoute,) {
 
-        // TEST DATA
-        // this.userOffice = 'Miami';
-        // this.userRole = 'admin'; // no restrictions
-        // this.userDepartment = 'Creative';
-        // this.userOffice = 'Basel 1'
-        // this.userRole = 'director'; // director restriced
-        // this.userRole = 'creative';
-        // this.userRole = 'user'
-        // this.userDepartment = 'Design'
-      });
-    });
 
   }
 
   ngOnInit(): void {
 
+    //clean local storage
     this.router.events.subscribe((event) => {
 
       if (event instanceof NavigationEnd) {
+        this.id = this.activatedRoute.snapshot.queryParamMap.get('id');
+
+        // localStorage.setItem('projectId', this.projectId);
+        this._BmxService.getMatrixUser(this.id).subscribe((data: any) => {
+          data = JSON.parse(data.d);
+          localStorage.setItem('userData', JSON.stringify(data))
+          this.userFullName = data.FullName;
+          this.userRole = data.Role;
+          this.userName = data.UserName;
+          this.userOffice = data.Office;
+          this.userDepartment = data.Role;
+        });
         this.isDashboardMenu = event.url.includes('dashboard') || event.url === '/';
         this.isPreviewView = event.url.includes('survey')
         this.selectedMenuItem = event.url.slice(1)
@@ -65,6 +57,7 @@ export class MenuComponent implements OnInit {
 
     });
   }
+
 
   toggleMenu() {
     this.hideMenu = !this.hideMenu;
@@ -81,7 +74,7 @@ export class MenuComponent implements OnInit {
   }
 
   navigateTo(value: string): void {
-    this.selectedMenuItem=value;
+    this.selectedMenuItem = value;
     if (value === "dashboard") {
       this.isDashboardMenu = true;
     } else if (value.includes('bmx-creation')) {

@@ -18,8 +18,8 @@ export class LoginComponent implements OnInit {
     private router: Router, private msalService: MsalService, private http: HttpClient) { }
 
   ngOnInit(): void {
-  
-    //clean local storage 
+
+    //clean local storage
     localStorage.setItem('userTokenId', '');
     localStorage.setItem('project', '');
 
