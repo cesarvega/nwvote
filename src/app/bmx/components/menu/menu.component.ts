@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { Router, NavigationEnd, ActivatedRoute } from '@angular/router';
 import { Location } from '@angular/common';
 import { BmxService } from '../bmx-creator/bmx.service';
+import { MatSnackBar } from '@angular/material/snack-bar';
 
 @Component({
   selector: 'app-menu',
@@ -21,33 +22,38 @@ export class MenuComponent implements OnInit {
   login = true
   selectedMenuItem: string = 'dashboard';
   userGUI: any;
-  userName= ''
+  userName = ''
   userDepartment: string;
   userOffice: any;
-  
-  constructor(private router: Router, private location: Location, private _BmxService: BmxService, private activatedRoute: ActivatedRoute,) { 
+  projectId: string;
+  globalProjectName: string;
+
+  constructor(private router: Router, private location: Location, private _BmxService: BmxService, private activatedRoute: ActivatedRoute, public _snackBar: MatSnackBar,) {
     this.activatedRoute.params.subscribe((params) => {
       this.userGUI = params['id'];
 
       // localStorage.setItem('projectId', this.projectId);
       this._BmxService.getMatrixUser(this.userGUI).subscribe((data: any) => {
-        data = JSON.parse(data.d);
-        this.userName = data.UserName;
-        this.userFullName = data.FullName;
-        this.userOffice = data.Office;
-        this.userRole = data.Role;
-        this.userDepartment = data.Role;
+        if (data.d != '') {
+          data = JSON.parse(data.d);
+          this.userName = data.UserName;
+          this.userFullName = data.FullName;
+          this.userOffice = data.Office;
+          this.userRole = data.Role;
+          this.userDepartment = data.Role;
 
-        // TEST DATA
-        // this.userOffice = 'Miami';
-        // this.userRole = 'admin'; // no restrictions
-        // this.userDepartment = 'Creative';
-        // this.userOffice = 'Basel 1'
-        // this.userRole = 'director'; // director restriced
-        // this.userRole = 'creative';
-        // this.userRole = 'user'
-        // this.userDepartment = 'Design'
+          // TEST DATA
+          // this.userOffice = 'Miami';
+          // this.userRole = 'admin'; // no restrictions
+          // this.userDepartment = 'Creative';
+          // this.userOffice = 'Basel 1'
+          // this.userRole = 'director'; // director restriced
+          // this.userRole = 'creative';
+          // this.userRole = 'user'
+          // this.userDepartment = 'Design'
+        }
       });
+
     });
 
   }
@@ -64,6 +70,16 @@ export class MenuComponent implements OnInit {
       }
 
     });
+    if (localStorage.getItem('projectName')) {
+      this.projectId = localStorage.getItem('projectName');
+      this.globalProjectName = this.projectId
+    } else {
+      this._BmxService.currentProjectName$.subscribe(projectName => {
+        this.projectId = (projectName !== '') ? projectName : this.projectId;
+
+        localStorage.setItem('projectName', this.projectId);
+      })
+    }
   }
 
   toggleMenu() {
@@ -81,19 +97,60 @@ export class MenuComponent implements OnInit {
   }
 
   navigateTo(value: string): void {
-    this.selectedMenuItem=value;
+    this.selectedMenuItem = value;
     if (value === "dashboard") {
       this.isDashboardMenu = true;
+      this.router.navigate(['/' + value]);
     } else if (value.includes('bmx-creation')) {
-      this.hideMenu = true;
+
+      if (localStorage.getItem('projectName')) {
+        this.projectId = localStorage.getItem('projectName');
+        this.globalProjectName = this.projectId
+        if (this.globalProjectName != null && this.globalProjectName != 'null') {
+          this.hideMenu = true;
+          console.log(this.globalProjectName)
+          this.router.navigate(['/' + value]);
+        } else {
+          this._snackBar.open(
+            'Select a project or save information for a new one', 'OK',
+            {
+              duration: 5000,
+              horizontalPosition: 'right',
+              verticalPosition: 'top',
+            }
+          );
+        }
+      } else {
+        this._BmxService.currentProjectName$.subscribe(projectName => {
+          this.globalProjectName = (projectName !== '') ? projectName : this.projectId;
+          localStorage.setItem('projectName', this.projectId);
+          if (this.globalProjectName != null && this.globalProjectName != 'null') {
+            this.hideMenu = true;
+            console.log(this.globalProjectName)
+            this.router.navigate(['/' + value]);
+          } else {
+            this._snackBar.open(
+              'Select a project or save information for a new one', 'OK',
+              {
+                duration: 5000,
+                horizontalPosition: 'right',
+                verticalPosition: 'top',
+              }
+            );
+          }
+        })
+      }
+ 
+
     }
     else {
       if (value === 'project-information') {
         localStorage.clear();
       }
       this.isDashboardMenu = false;
+      this.router.navigate(['/' + value]);
     }
-    this.router.navigate(['/' + value]);
+
   }
 
   navigateBack() {

@@ -98,7 +98,7 @@
                         <mat-select [(ngModel)]="templateName" (selectionChange)="templateSelected($event.value)"
                             formControlName="bmxTemplates">
                             <mat-option *ngFor="let template of TEMPLATES " [value]="template">
-                                {{template}}
+                                {{template.TemplateName}}
                             </mat-option>
                         </mat-select>
                     </mat-form-field>
