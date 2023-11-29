@@ -325,6 +325,9 @@ export class SurveyCreationDesignComponent implements OnInit {
 
             })
         }
+        if(this.globalProjectName == null){
+            
+        }
         if (!QRCodeStyling) {
             return;
         }
@@ -1179,7 +1182,7 @@ export class SurveyCreationDesignComponent implements OnInit {
             this.templateToDelete = component
 
         } if (type === 'save') {
-            this.dialogText == "Are you sure you want to overwrite the current project?"
+            this.dialogText = "Are you sure you want to overwrite the current project?"
         }
         this.actionType = type
         this.showDialog = true
