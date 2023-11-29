@@ -99,6 +99,7 @@ export class MenuComponent implements OnInit {
   navigateTo(value: string): void {
     this.selectedMenuItem = value;
     if (value === "dashboard") {
+      localStorage.clear()
       this.isDashboardMenu = true;
       this.router.navigate(['/' + value]);
     } else if (value.includes('bmx-creation')) {
@@ -108,7 +109,7 @@ export class MenuComponent implements OnInit {
         this.globalProjectName = this.projectId
         if (this.globalProjectName != null && this.globalProjectName != 'null') {
           this.hideMenu = true;
-          console.log(this.globalProjectName)
+  
           this.router.navigate(['/' + value]);
         } else {
           this._snackBar.open(
@@ -123,10 +124,9 @@ export class MenuComponent implements OnInit {
       } else {
         this._BmxService.currentProjectName$.subscribe(projectName => {
           this.globalProjectName = (projectName !== '') ? projectName : this.projectId;
-          localStorage.setItem('projectName', this.projectId);
           if (this.globalProjectName != null && this.globalProjectName != 'null') {
             this.hideMenu = true;
-            console.log(this.globalProjectName)
+    
             this.router.navigate(['/' + value]);
           } else {
             this._snackBar.open(
@@ -145,7 +145,6 @@ export class MenuComponent implements OnInit {
     }
     else {
       if (value === 'project-information') {
-        localStorage.clear();
       }
       this.isDashboardMenu = false;
       this.router.navigate(['/' + value]);
