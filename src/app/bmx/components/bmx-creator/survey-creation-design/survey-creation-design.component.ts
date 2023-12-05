@@ -325,6 +325,9 @@ export class SurveyCreationDesignComponent implements OnInit {
 
             })
         }
+        if(this.globalProjectName == null){
+            
+        }
         if (!QRCodeStyling) {
             return;
         }
@@ -864,30 +867,32 @@ export class SurveyCreationDesignComponent implements OnInit {
 
     resetTemplate() {
         if (confirm("Are you sure you want to reset this template?")) {
+            this.selectPageNumber(0)
+            this.bmxPages = [];
 
-            this.bmxPages = [
-                {
-                    pageNumber: 1,
-                    page: [
-                        {
-                            "componentType": "logo-header",
-                            "componentText": "templates2",
-                            "componentSettings": [
-                                {
-                                    "fontSize": "16px",
-                                    "fontFace": "Arial",
-                                    "logoWidth": 100,
-                                    "brandInstituteLogoURL": "./assets/img/bmx/BRANDMATRIX-DASHBOARD-LOGO.svg",
-                                    "brandInstituteSurveyLogoURL": "./assets/img/bmx/bm-logo-2020-high.png",
-                                    "brandInstituteMobileURL": "./assets/img/bmx/bmxCube.jpg",
-                                    "companyLogoURL": "./assets/img/bmx/insertLogo.jpg"
-                                }
-                            ]
-                        }
-                    ]
-                },
-            ];
+            this.bmxPages.push({
+                pageNumber: this.bmxPages.length + 1,
+                page: [
+                    {
+                        "componentType": "logo-header",
+                        "componentText": "templates2",
+                        "componentSettings": [
+                            {
+                                "fontSize": "16px",
+                                "fontFace": "Arial",
+                                "logoWidth": 100,
+                                "brandInstituteLogoURL": "./assets/img/bmx/BRANDMATRIX-DASHBOARD-LOGO.svg",
+                                "brandInstituteSurveyLogoURL": "./assets/img/bmx/bm-logo-2020-high.png",
+                                "brandInstituteMobileURL": "./assets/img/bmx/bmxCube.jpg",
+                                "companyLogoURL": "./assets/img/bmx/insertLogo.jpg"
+                            }
+                        ]
+                    }
+                ]
+            });
+            
         }
+      
     }
 
     templateSelected() {
@@ -1179,7 +1184,7 @@ export class SurveyCreationDesignComponent implements OnInit {
             this.templateToDelete = component
 
         } if (type === 'save') {
-            this.dialogText == "Are you sure you want to overwrite the current project?"
+            this.dialogText = "Are you sure you want to overwrite the current project?"
         }
         this.actionType = type
         this.showDialog = true
