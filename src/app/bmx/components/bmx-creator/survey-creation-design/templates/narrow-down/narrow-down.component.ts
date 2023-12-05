@@ -19,7 +19,7 @@ export class NarrowDownComponent extends RatingScaleComponent implements OnInit 
   SLECTED_ROWS = []
   deleteRows = false
   dragRows = false
-  isColumnResizerOn = true;
+  isColumnResizerOn = false;
   editSingleTableCells = false
   numRatingScale: number = 0;
   CREATION_VIDEO_PATH="assets/videos/NarrowDown.mp4" 
