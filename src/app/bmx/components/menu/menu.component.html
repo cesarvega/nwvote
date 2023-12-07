@@ -52,7 +52,7 @@
     <div class="movil">
 
       <div class="menu-container">
-        <div class="menu-item-Light" [ngClass]=""(click)="navigateTo('dashboard')">
+        <div class="menu-item-Light  directionProjectList" [ngClass]=""(click)="navigateTo('dashboard')">
           <i class="bi bi-list-task"></i> Project List
         </div>
         <div class="menu-item-Dark" [ngClass]="{'menu-item-Light': selectedMenuItem === 'project-information', 'menu-item-Dark': selectedMenuItem !== 'project-information'}" style="justify-content: flex-start;" (click)="navigateTo('project-information')">
@@ -94,7 +94,7 @@
     <div class="movil">
 
       <div class="menu-container">
-        <div class="menu-item-Dark" (click)="navigateTo('dashboard')">
+        <div class="menu-item-Dark directionProjectList" (click)="navigateTo('dashboard')">
           <i class="bi bi-list-task"></i> Project List
         </div>
         <div [ngClass]="{'menu-item-Light': selectedMenuItem === 'project-information', 'menu-item-Dark': selectedMenuItem !== 'project-information'}"  (click)="navigateTo('project-information')">
