@@ -48,9 +48,9 @@
                 </div>
                 <div class="row-field">
                     <label class="selectLabels">Closing date: </label>
-                    
-                        <mat-form-field appearance="outline" id="project-datepicker" style="width:84%">
-                            <input matInput [matDatepicker]="picker" placeholder="Elija una fecha"
+
+                        <mat-form-field appearance="outline" id="project-datepicker" style="width:55%">
+                            <input matInput [matDatepicker]="picker" placeholder="Choose a date"
                                 (dateChange)="onSelect($event.value)">
                             <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
                             <mat-datepicker #picker></mat-datepicker>
@@ -201,6 +201,6 @@
         </div>
     </div>
 
-   
+
     <br>
     <br>
