@@ -1,4 +1,4 @@
-import { Component, OnInit, Input, ViewChild } from '@angular/core';
+import { Component, OnInit, Input, ViewChild, Output, EventEmitter } from '@angular/core';
 import { HotkeysService, Hotkey } from 'angular2-hotkeys';
 import { DragulaService } from 'ng2-dragula';
 import {
@@ -31,6 +31,9 @@ export class DocxSurveyComponent implements OnInit {
 
   @Input() isMenuActive5;
   @Input() reportSettings;
+  @Output() dialog: EventEmitter<boolean> = new EventEmitter<boolean>();
+
+  
   dataSource: any;
   ELEMENT_DATA: any;
   displayedColumns = ['select', 'Name', 'Status'];
@@ -2110,7 +2113,9 @@ export class DocxSurveyComponent implements OnInit {
     }
   }
 
-
+  openProjectList(){
+    this.dialog.emit(true)
+  }
   report(): void {
 
 
