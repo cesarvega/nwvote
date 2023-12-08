@@ -49,7 +49,7 @@ export class ProjectListCheckComponent implements OnInit {
     private _hotkeysService: HotkeysService, private dragulaService: DragulaService, private _BmxService: BmxService, private router: Router,) { }
 
   ngOnInit(): void {
-    this.selected = 'Live'
+    this.selected = 'All'
     this._BmxService.getGetProjectList()
       .subscribe((arg: any) => {
         this.allData = JSON.parse(arg.d);
@@ -116,7 +116,7 @@ export class ProjectListCheckComponent implements OnInit {
 
     this.viewedData = [];
     for (let i = 0; i < this.allData.length; i++) {
-      if (this.selected == 'Live' && JSON.parse(this.allData[i].ProjectInfo).bmxStatus == 'open') {
+      if (this.selected == 'Live' && JSON.parse(this.allData[i].ProjectInfo).bmxStatus !== 'close') {
         this.viewedData.push(JSON.parse(this.allData[i].ProjectInfo));
       }
       else if (this.selected == 'Closed' && JSON.parse(this.allData[i].ProjectInfo).bmxStatus == "close") {

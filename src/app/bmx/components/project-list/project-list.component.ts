@@ -114,7 +114,7 @@ export class ProjectListComponent implements OnInit {
 
     this.viewedData = [];
     for (let i = 0; i < this.allData.length; i++) {
-      if (this.selected == 'Live' && JSON.parse(this.allData[i].ProjectInfo).bmxStatus == 'open') {
+      if (this.selected == 'Live' && JSON.parse(this.allData[i].ProjectInfo).bmxStatus != 'close') {
         this.viewedData.push(JSON.parse(this.allData[i].ProjectInfo));
       }
       else if (this.selected == 'Closed' && JSON.parse(this.allData[i].ProjectInfo).bmxStatus == "close") {
