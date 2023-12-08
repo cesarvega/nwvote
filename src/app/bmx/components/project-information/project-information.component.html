@@ -1,0 +1,206 @@
+<div *ngIf="true" class="" style="position: absolute;z-index: 1;width: 120vh;">
+
+    <h2 style="margin: 20px;">Project TEST BrandMatrix Setup</h2>
+    <div style="margin: 20px;font-size: 20px;color:#063074;font-weight: 800;">Basic Project Information</div>
+
+    <br>
+    <br>
+    <br>
+    <form [formGroup]="bmxEditData">
+        <div class="information-container" >
+            <div>
+                <div class="row-field">
+                    <label class="selectLabels">Salesboard</label>
+                    <mat-form-field appearance="outline">
+                        <input type="text" placeholder="Enter Salesboard Project" formControlName="bmxSalesboard"
+                            matInput [matAutocomplete]="auto">
+                        <mat-autocomplete #auto="matAutocomplete">
+                            <mat-option *ngFor="let settingsList of filteredOptions | async" [value]="settingsList">
+                                {{settingsList}}
+                            </mat-option>
+                        </mat-autocomplete>
+                    </mat-form-field>
+
+
+                </div>
+                <div class="row-field">
+                    <label class="selectLabels">Project</label>
+                    <mat-form-field appearance="outline">
+                        <mat-label>Enter Project Name</mat-label>
+                        <input type="text" matInput formControlName="bmxProjectName">
+                        <p *ngIf="bmxProjectName.invalid && bmxProjectName.dirty">Project Name is required only A-Z,
+                            a-z,
+                            0-9 allowed</p>
+                    </mat-form-field>
+
+
+                </div>
+
+                <div class="row-field">
+                    <label class="selectLabels">Company</label>
+                    <mat-form-field appearance="outline">
+                        <mat-label>Enter Company</mat-label>
+                        <input type="text" matInput formControlName="bmxCompany">
+                        <p *ngIf="bmxCompany.invalid && bmxCompany.dirty">Company is required only A-Z, a-z, 0-9 allowed
+                        </p>
+                    </mat-form-field>
+
+                </div>
+                <div class="row-field">
+                    <label class="selectLabels">Closing date: </label>
+
+                        <mat-form-field appearance="outline" id="project-datepicker" style="width:55%">
+                            <input matInput [matDatepicker]="picker" placeholder="Choose a date"
+                                (dateChange)="onSelect($event.value)">
+                            <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+                            <mat-datepicker #picker></mat-datepicker>
+                        </mat-form-field>
+                </div>
+            </div>
+            <div>
+                <div class="row-field">
+                    <label class="selectLabels">Department</label>
+                    <mat-form-field appearance="outline">
+                        <mat-label>Select Department</mat-label>
+                        <mat-select formControlName="bmxDepartment">
+                            <mat-option *ngFor="let settingsList of settingsData.DepartmentList" [value]="settingsList">
+                                {{settingsList}}
+                            </mat-option>
+                        </mat-select>
+                    </mat-form-field>
+                </div>
+                <div class="row-field">
+                    <label class="selectLabels">Region</label>
+                    <mat-form-field appearance="outline">
+                        <mat-label>Select Region</mat-label>
+                        <mat-select formControlName="bmxRegion">
+                            <mat-option *ngFor="let settingsList of settingsData.OfficeList" [value]="settingsList">
+                                {{settingsList}}
+                            </mat-option>
+                        </mat-select>
+                    </mat-form-field>
+                </div>
+                <div class="row-field">
+                    <label class="selectLabels">Language</label>
+                    <mat-form-field appearance="outline">
+                        <mat-label>Select Language</mat-label>
+                        <mat-select formControlName="bmxLanguage">
+                            <mat-option *ngFor="let settingsList of settingsData.LanguageList" [value]="settingsList">
+                                {{settingsList}}
+                            </mat-option>
+                        </mat-select>
+                    </mat-form-field>
+                </div>
+                <div class="row-field">
+                    <label class="selectLabels">Template</label>
+                    <mat-form-field appearance="outline">
+                        <mat-label>Load a template</mat-label>
+                        <mat-select [(ngModel)]="templateName" (selectionChange)="templateSelected($event.value)"
+                            formControlName="bmxTemplates">
+                            <mat-option *ngFor="let template of TEMPLATES " [value]="template">
+                                {{template}}
+                            </mat-option>
+                        </mat-select>
+                    </mat-form-field>
+                </div>
+            </div>
+            <!-- <button mat-raised-button color="success" style="position: absolute;right: 40px;
+            top: 650px; background-color:#063074;color: white;" (click)="saveProjectInfo()">Save</button> -->
+        </div>
+        <div style="margin: 20px;font-size: 20px;color:#063074;font-weight: 800;">Manage Directors</div>
+
+        <div style="display: flex;flex-direction: column;">
+            <div class="row-field">
+                <label class="selectLabels">Regional Directors</label>
+                <mat-form-field appearance="outline">
+                    <mat-label>Select Region</mat-label>
+                    <mat-select [(ngModel)]="bmxRegionalDirectorDropdown" formControlName="bmxRegionalOffice"
+                        (selectionChange)="officeSelected(bmxRegionalDirectorDropdown)">
+                        <mat-option *ngFor="let settingsList of settingsData.OfficeList" [value]="settingsList">
+                            {{settingsList}}
+                        </mat-option>
+                    </mat-select>
+                </mat-form-field>
+
+                <mat-form-field appearance="outline">
+                    <mat-label>Director</mat-label>
+                    <mat-select [(ngModel)]="dName" formControlName="bmxRegionalDirector">
+                        <mat-option *ngFor="let directorName of currentDirectorList" [value]="directorName.name">
+                            {{directorName.name}}
+                        </mat-option>
+                    </mat-select>
+                </mat-form-field>
+
+                <button mat-mini-fab style="background-color:#063074;outline: none;" matTooltip="add director"
+                    matTooltipPosition="above" (click)="createDirector()">
+                    <mat-icon class="full-icon" style="color: white;">add</mat-icon>
+                </button>
+                <button mat-mini-fab style="background-color:#ee7f25;outline: none;" matTooltip="add new user"
+                    matTooltipPosition="above" (click)="createCustomDirector()">
+                    <mat-icon class="full-icon" style="color: white;">highlight_alt</mat-icon>
+                </button>
+                <button mat-raised-button color="success" style="background-color:#063074;color: white;" (click)="saveProjectInfo()">Save </button>
+            </div>
+        </div>
+    </form>
+
+    <div style="display: flex; flex-direction: row;flex-wrap: wrap;justify-content: space-between;margin: 10px 39px;">
+        <div *ngFor="let director of DIRECTORS; let i = index; trackBy: trackByIndex">
+            <mat-card class="directorCard" style="margin:20px 0px;width: 400px;">
+
+                <div style="display: flex;flex-direction: row;">
+                    <div style="margin-right: 6px; color: #324395;" class="selectLabels">Name: </div>
+                    <input class="directorInfo" [(ngModel)]="DIRECTORS[i].name" placeholder="Name"
+                        [readonly]="i !== canEdit" matInput style="width:75%">
+                </div>
+
+
+                <div style="display: flex;flex-direction: row;">
+                    <div style="margin-right: 6px;color: #053074;" class="selectLabels">Title: </div>
+                    <input class="directorInfo" [(ngModel)]="DIRECTORS[i].title" placeholder="Title"
+                        [readonly]="i !== canEdit" matInput style="width:75%">
+                </div>
+
+                <div style="display: flex;flex-direction: row;">
+                    <div style="margin-right: 6px; color: #324395;" class="selectLabels">Email: </div>
+                    <input class="directorInfo" [(ngModel)]="DIRECTORS[i].email" placeholder="Email"
+                        [readonly]="i !== canEdit" matInput style="width:75%">
+                </div>
+
+                <div style="display: flex;flex-direction: row;">
+                    <div style="margin-right: 6px; color: #053074;" class="selectLabels">Phone #: </div>
+                    <input class="directorInfo" [(ngModel)]="DIRECTORS[i].phone" placeholder="Phone"
+                        [readonly]="i !== canEdit" matInput style="width:75%">
+                </div>
+                <div class="optionButton">
+                    <div *ngIf="canEdit !== i; else elseBlock">
+                        <button mat-icon-button style="position: absolute; top: 9px; right: 5px;color: #053074;"
+                            (click)="editDirector(i)">
+                            <mat-icon>edit</mat-icon>
+                        </button>
+
+                    </div>
+                    <ng-template #elseBlock>
+                        <button mat-icon-button style="position: absolute; top: 9px; right: 5px;color: #ee7f25;"
+                            (click)="editDirector(i)">
+                            <mat-icon>check_circle</mat-icon>
+                        </button>
+                    </ng-template>
+                    <button mat-icon-button matTooltip="double click" matTooltipPosition="right"
+                        style="position: absolute; top: 45px; right: 5px;color: red;" (dblclick)="removeDirector(i)">
+                        <mat-icon>delete</mat-icon>
+                    </button>
+                    <button mat-icon-button matTooltip="double click" matTooltipPosition="right"
+                        style="position: absolute; top: 72px; right: 5px;color: goldenrod;"
+                        (dblclick)="replaceMainDirector(i)">
+                        <mat-icon>star</mat-icon>
+                    </button>
+                </div>
+
+            </mat-card>
+        </div>
+    </div>
+
+
+    <br>
+    <br>

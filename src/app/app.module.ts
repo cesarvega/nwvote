@@ -52,19 +52,62 @@ import { MatSortModule } from '@angular/material/sort';
 import { MatPaginatorModule } from '@angular/material/paginator';
 import { MatSnackBarModule, MAT_SNACK_BAR_DEFAULT_OPTIONS } from '@angular/material/snack-bar';
 import { MatRadioModule } from '@angular/material/radio';
-import { BmxModule } from './bmx/bmx-module/bmx.module';
 import { CdkTableModule } from '@angular/cdk/table';
 import { ScrollingModule } from '@angular/cdk/scrolling';
 import { CdkTreeModule } from '@angular/cdk/tree';
 import { A11yModule } from '@angular/cdk/a11y';
-import { DialogComponent } from './bmx/bmx-creator/participants-email/dialog/dialog.component';
+import { InteractionType, IPublicClientApplication, PublicClientApplication } from '@azure/msal-browser';
+import { MSAL_INSTANCE, MsalService } from '@azure/msal-angular';
+import { MenuComponent } from './bmx/components/menu/menu.component';
+import { DashboardComponent } from './bmx/components/dashboard/dashboard.component';
+import { ParticipantsEmailComponent } from './bmx/components/participants-email/participants-email.component';
+import { ProjectInformationComponent } from './bmx/components/project-information/project-information.component';
+import { DialogComponent } from './bmx/components/participants-email/dialog/dialog.component';
+import { RespondentsComponent } from './bmx/components/respondents/respondents.component';
+import { ProjectReportsComponent } from './bmx/components/project-reports/project-reports.component';
+import { ProjectListComponent } from './bmx/components/project-list/project-list.component';
+import { MatAutocompleteModule } from '@angular/material/autocomplete';
+import {DocxSurveyComponent} from './bmx/components/docx-survey/docx-survey.component'
+import {BmxComponent} from './bmx/components/bmx-survey/bmx.component'
+import {BmxCreatorComponent} from './bmx/components/bmx-creator/bmx-creator.component'
+import {SurveyCreationDesignComponent} from './bmx/components/bmx-creator/survey-creation-design/survey-creation-design.component'
+import {SurveyMatrixComponent} from './bmx/components/bmx-creator/survey-matrix/survey-matrix.component'
+import {ImageUploaderComponent} from './bmx/components/bmx-creator/image-uploader/image-uploader.component'
+import {PageLineBreakComponent} from './bmx/components/project-reports/templates/page-line-break/page-line-break.component'
+import {PageTitleComponent} from './bmx/components/project-reports/templates/page-title/page-title.component'
+import {ReportFirstPageComponent} from './bmx/components/project-reports/templates/report-first-page/report-first-page.component'
+import {ImageRankComponent} from './bmx/components/bmx-creator/survey-creation-design/templates/image-rank/image-rank.component'
+import {ImageRankDragComponent} from './bmx/components/bmx-creator/survey-creation-design/templates/image-rank-drag/image-rank-drag.component'
+import {ImageRateScaleComponent} from './bmx/components/bmx-creator/survey-creation-design/templates/image-rate-scale/image-rate-scale.component'
+import {LogoHeaderComponent} from './bmx/components/bmx-creator/survey-creation-design/templates/logo-header/logo-header.component'
+import {NarrowDownComponent} from './bmx/components/bmx-creator/survey-creation-design/templates/narrow-down/narrow-down.component'
+import {QuestionAnswerComponent} from './bmx/components/bmx-creator/survey-creation-design/templates/question-answer/question-answer.component'
+import {RankScaleComponent} from './bmx/components/bmx-creator/survey-creation-design/templates/rank-scale/rank-scale.component'
+import {RatingScaleComponent} from './bmx/components/bmx-creator/survey-creation-design/templates/rating-scale/rating-scale.component'
+import {TextParagraphComponent} from './bmx/components/bmx-creator/survey-creation-design/templates/text-paragraph/text-paragraph.component'
+import {TinderComponent} from './bmx/components/bmx-creator/survey-creation-design/templates/tinder/tinder.component'
+import {SafePipe} from './bmx/components/bmx-creator/safe.pipe';
+import { SurveyDialogComponent } from './bmx/components/survey-dialog/survey-dialog.component';
+import { ProjectListCheckComponent } from './bmx/components/project-list-check/project-list-check.component'
 
 export function loadEcharts() {
   return import('echarts');
 }
 
-// NOTES : Enable BmxModule to make the Brand Matrix Apps work
 
+export function MSALInstanceFactory(): IPublicClientApplication {
+  return new PublicClientApplication({
+    auth: {
+      clientId: 'fbcbd5db-c816-4ffb-8310-316cf7781c45',
+      authority: 'https://login.microsoftonline.com/f010ce16-e13d-4c24-87af-3a1eb4d11de6', 
+      redirectUri: 'http://localhost:4200',
+    },
+    cache: {
+      cacheLocation: 'localStorage',
+      storeAuthStateInCookie: false,
+    },
+  });
+}
 @NgModule({
   declarations: [
     AppComponent,
@@ -77,7 +120,37 @@ export function loadEcharts() {
     NW3Component,
     // BmxComponent,
     SchedulerComponent,
+    DashboardComponent,
     DialogComponent,
+    MenuComponent,
+    ParticipantsEmailComponent,
+    ProjectInformationComponent,
+    RespondentsComponent,
+    ParticipantsEmailComponent,
+    ProjectReportsComponent,
+    ProjectListComponent,
+    DocxSurveyComponent,
+    BmxComponent,
+    BmxCreatorComponent,
+    SurveyCreationDesignComponent,
+    SurveyMatrixComponent,
+    ImageUploaderComponent,
+    PageLineBreakComponent,
+    PageTitleComponent,
+    ReportFirstPageComponent,
+    ImageRankComponent,
+    ImageRankDragComponent,
+    ImageRateScaleComponent,
+    LogoHeaderComponent,
+    NarrowDownComponent,
+    QuestionAnswerComponent,
+    RankScaleComponent,
+    RatingScaleComponent,
+    TextParagraphComponent,
+    TinderComponent,
+    SafePipe,
+    SurveyDialogComponent,
+    ProjectListCheckComponent
     // BmxCreatorComponent,
     // SafePipe,
     // OrderDasboardComponent
@@ -128,17 +201,17 @@ export function loadEcharts() {
     MatSnackBarModule,
     MatSortModule,
     MatPaginatorModule,
-    BmxModule,
     DragDropModule,
     ScrollingModule,
     CdkTableModule,
     CdkTreeModule,
     A11yModule,
+    MatAutocompleteModule
   ],
   entryComponents: [
     editPost, editName, DialogComponent
   ],
-  providers: [NwvoteService, BsrMobileService, Nw3Service,
+  providers: [NwvoteService, BsrMobileService, Nw3Service, {provide: MSAL_INSTANCE, useFactory:MSALInstanceFactory}, MsalService,
     { provide: MAT_SNACK_BAR_DEFAULT_OPTIONS, useValue: { duration: 1000 } }],
 
   bootstrap: [AppComponent]

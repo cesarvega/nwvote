@@ -1,0 +1,52 @@
+[debug] [2023-12-05T16:50:28.466Z] ----------------------------------------------------------------------
+[debug] [2023-12-05T16:50:28.467Z] Command:       C:\Program Files\nodejs\node.exe C:\Program Files\nodejs\node_modules\firebase-tools\lib\bin\firebase.js init
+[debug] [2023-12-05T16:50:28.468Z] CLI Version:   12.9.1
+[debug] [2023-12-05T16:50:28.468Z] Platform:      win32
+[debug] [2023-12-05T16:50:28.468Z] Node Version:  v16.20.0
+[debug] [2023-12-05T16:50:28.469Z] Time:          Tue Dec 05 2023 11:50:28 GMT-0500 (hora estándar de Colombia)
+[debug] [2023-12-05T16:50:28.469Z] ----------------------------------------------------------------------
+[debug] 
+[debug] [2023-12-05T16:50:28.544Z] > command requires scopes: ["email","openid","https://www.googleapis.com/auth/cloudplatformprojects.readonly","https://www.googleapis.com/auth/firebase","https://www.googleapis.com/auth/cloud-platform"]
+[debug] [2023-12-05T16:50:28.545Z] > authorizing via signed-in user (gonzalezmeneses1234@gmail.com)
+[info] 
+     ######## #### ########  ######## ########     ###     ######  ########
+     ##        ##  ##     ## ##       ##     ##  ##   ##  ##       ##
+     ######    ##  ########  ######   ########  #########  ######  ######
+     ##        ##  ##    ##  ##       ##     ## ##     ##       ## ##
+     ##       #### ##     ## ######## ########  ##     ##  ######  ########
+
+You're about to initialize a Firebase project in this directory:
+
+  C:\Users\Owner\Desktop\code\MRV-CV\nwvote
+
+Before we get started, keep in mind:
+
+  * You are initializing within an existing Firebase project directory
+
+[info] 
+=== Project Setup
+[info] 
+[info] First, let's associate this project directory with a Firebase project.
+[info] You can create multiple project aliases by running firebase use --add, 
+[info] but for now we'll just set up a default project.
+[info] 
+[debug] [2023-12-05T16:50:44.471Z] Using project from CLI flag: bmx-cv
+[debug] [2023-12-05T16:50:44.472Z] > refreshing access token with scopes: []
+[debug] [2023-12-05T16:50:44.474Z] >>> [apiv2][query] POST https://www.googleapis.com/oauth2/v3/token [none]
+[debug] [2023-12-05T16:50:44.474Z] >>> [apiv2][body] POST https://www.googleapis.com/oauth2/v3/token [omitted]
+[debug] [2023-12-05T16:50:44.988Z] <<< [apiv2][status] POST https://www.googleapis.com/oauth2/v3/token 200
+[debug] [2023-12-05T16:50:44.988Z] <<< [apiv2][body] POST https://www.googleapis.com/oauth2/v3/token [omitted]
+[debug] [2023-12-05T16:50:45.004Z] >>> [apiv2][query] GET https://firebase.googleapis.com/v1beta1/projects/bmx-cv [none]
+[debug] [2023-12-05T16:50:45.443Z] <<< [apiv2][status] GET https://firebase.googleapis.com/v1beta1/projects/bmx-cv 200
+[debug] [2023-12-05T16:50:45.444Z] <<< [apiv2][body] GET https://firebase.googleapis.com/v1beta1/projects/bmx-cv {"projectId":"bmx-cv","projectNumber":"1026424097815","displayName":"BMX-CV","name":"projects/bmx-cv","resources":{"hostingSite":"bmx-cv"},"state":"DELETED","etag":"1_4db11808-3205-4112-a167-d7228cc55ced"}
+[info] i  Using project bmx-cv (BMX-CV) 
+[info] 
+=== Hosting Setup
+[debug] [2023-12-05T16:50:45.451Z] >>> [apiv2][query] GET https://firebase.googleapis.com/v1beta1/projects/bmx-cv [none]
+[debug] [2023-12-05T16:50:45.865Z] <<< [apiv2][status] GET https://firebase.googleapis.com/v1beta1/projects/bmx-cv 200
+[debug] [2023-12-05T16:50:45.865Z] <<< [apiv2][body] GET https://firebase.googleapis.com/v1beta1/projects/bmx-cv {"projectId":"bmx-cv","projectNumber":"1026424097815","displayName":"BMX-CV","name":"projects/bmx-cv","resources":{"hostingSite":"bmx-cv"},"state":"DELETED","etag":"1_4db11808-3205-4112-a167-d7228cc55ced"}
+[info] 
+[info] Your public directory is the folder (relative to your project directory) that
+[info] will contain Hosting assets to be uploaded with firebase deploy. If you
+[info] have a build process for your assets, use your build's output directory.
+[info] 

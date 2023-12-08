@@ -1,0 +1,312 @@
+
+.general-container{
+  width: 300px;
+}
+.menu-container {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 1px;
+  font-family: Arial, sans-serif;
+  margin-left: -8px;
+  width: 80%;
+}
+.logo-container {
+  display: flex;
+  width: 80%;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 1px;
+  font-family: Arial, sans-serif;
+  margin-left: -8px;
+  box-shadow: 0 6px 10px 0 rgba(0,0,0,.14), 0 1px 18px 0 rgba(0,0,0,.12), 0 3px 5px -1px rgba(0,0,0,.2);
+  margin-bottom: 10px;
+  height: 76px;
+  justify-content: center;
+  padding: 10px;
+}
+.button-menu{
+width: 87%!important;
+}
+.menu-container {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 1px;
+  font-family: Arial, sans-serif;
+  margin-left: -8px;
+  width: 80%;
+}
+.menu-item-Light{
+  padding: 26px 20px;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  background-color: #BDBDBD;
+  width: 100%;
+  cursor: pointer;
+  transition: background-color 0.3s;
+  justify-content:space-between;
+}
+.directionProjectList{
+  justify-content: flex-start !important;
+}
+.menu-item-Dark {
+  padding: 23px 20px;
+  display: flex;
+  align-items: center;
+  color: white;
+  gap: 10px;
+  background-color: #353F4B;
+  width: 100%;
+  cursor: pointer;
+  transition: background-color 0.3s;
+  justify-content: space-between;
+}
+.icon-play{
+ display: flex;
+}
+
+
+.menu-item .selected {
+  border: 2px solid ;
+}
+
+/* Estilos para móvil */
+@media (max-width: 992px) {
+
+.button-menu{
+  padding: 11px 14px;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  width: 100%;
+  cursor: pointer;
+  transition: background-color 0.3s;
+  justify-content: space-between;
+}
+  .menu-container {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 1px;
+    font-family: Arial, sans-serif;
+    top: 11%;
+    background: #fff;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+
+  }
+  // .welcome {
+
+
+  // .logo-container {
+  //   gap: 32px;
+  //   margin-bottom: 10px;
+  //   height: 49px;
+  //   width: 63%;
+
+  // }
+
+  .menu-btn {
+    display: block;
+    top: 10px;
+    right: 10px;
+    cursor: pointer;
+    font-size: 24px;
+  }
+}
+.cont-welcome{
+  width: 100%;
+}
+.welcome {
+  width: 77%;
+  top: 67px;
+  margin: 10px 0px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  background-color: #353f4b;
+  box-shadow: 0 6px 10px 0 rgb(0 0 0 / 14%), 0 1px 18px 0 rgb(0 0 0 / 12%), 0 3px 5px -1px rgb(0 0 0 / 20%);
+}
+
+.welcome-role{
+  font-size: 100%;
+}
+
+.welcome .mat-icon{
+  width: unset;
+}
+
+
+.full-icon:hover {
+  transform: scale(1.5);
+  color: #ee7f25;
+}
+.full-icon {
+  color: #324395;
+  font-size: 25px;
+  transition: all 0.1s ease-in-out;
+  text-shadow: 0 0.04em 0.04em rgba(0, 0, 0, 0.35);
+  box-shadow: inset inset 0px 0px 5px #0bd659;
+}
+
+.video-container{
+  z-index: 900;
+
+}
+
+.modal-video {
+  /*display: block;  Hidden by default */
+  position: fixed; /* Stay in place */
+  top: 0%;
+  z-index: 999; /* Sit on top */
+
+  width: 100%; /* Full width */
+  height: 100%; /* Full height */
+  overflow: hidden; /* Enable scroll if needed */
+  background-color: rgb(0, 0, 0); /* Fallback color */
+  background-color: rgb(0 0 0 / 50%); /* Black w/ opacity */
+
+  /* Modal Content/Box */
+  .modal-content {
+      background-color: rgba(0, 0, 0, 0);
+      top: 0%;
+      margin: 2% auto; /* 15% from the top and centered */
+      // margin-left: 15%;
+      // padding: 20px;
+      // border: 1px solid #888;
+      width: 70%; /* Could be more or less, depending on screen size */
+      height: auto;
+      img {
+          margin-bottom: 15px;
+          height: auto;
+      }
+      img:last-child {
+          margin-bottom: 0;
+      }
+  }
+
+  .close-modal {
+      // margin-bottom: 5px;
+      position: relative;
+
+      // top: 12%;
+      left: 42.5%;
+      width: 15%;
+      padding: 0px 5px;
+      // margin-left: 36.5%;
+      color: #ffffff;
+      background-color: #ee7f24;
+      // float: right;
+      // font-size: 22px;
+      // font-weight: bold;
+      // text-align: center;
+      // height: 25px;
+      // border-radius: 5px;
+      transition: background-color 0.5s, color 0.5s;
+  }
+
+  .close-modal:hover,
+  .close-modal:focus {
+      background-color: #283e90;
+      color: white;
+      text-decoration: none;
+  }
+}
+/* escondemos el default checkbox */
+.modal-video input[type="checkbox"] {
+  position: absolute;
+  opacity: 0;
+  cursor: pointer;
+  height: 0;
+  width: 0;
+}
+
+//-------------modal-----------------//
+@media (min-width: 1025px) {
+  .modal-video .modal-content {
+      top: 10%;
+      margin: 1% auto;
+      margin-left: auto;
+      width: 55%;
+      // height: auto;
+      height: auto;
+      overflow-y: hidden;
+      overflow-x: hidden;
+  }
+
+  .modal-video .close-modal {
+      // margin-left: 42.5%;
+      top: 12%;
+  }
+
+  .modal-content::-webkit-scrollbar {
+      width: 6px;
+  }
+
+  /* Track */
+  .modal-content::-webkit-scrollbar-track {
+      background: white;
+  }
+
+  /* Handle */
+  .modal-content::-webkit-scrollbar-thumb {
+      background: #283e90;
+      border-radius: 10px;
+  }
+
+  /* Handle on hover */
+  .modal-content::-webkit-scrollbar-thumb:hover {
+      background: #283e90;
+  }
+}
+
+//-------------modal mobil-----------------------//
+
+// @media only screen and (min-width: 993px) and (max-width: 1024px) {
+//   .modal-video .modal-content {
+//       top: 3%;
+//       margin: 1% auto;
+//       margin-left: auto;
+//       width: 30%;
+//       height: auto;
+//   }
+
+
+
+//   .modal-video .close-modal {
+//       position: relative;
+//       top: 5%;
+//   }
+// }
+
+// @media only screen and (min-width: 769px) and (max-width: 992px) {
+//   .modal-video .modal-content {
+//       top: 4%;
+//       margin: 1% auto;
+//       margin-left: auto;
+//       width: 30%;
+//       height: auto;
+//   }
+
+//   .modal-video .close-modal {
+//       position: relative;
+//       top: 5%;
+//   }
+// }
+
+// @media only screen and (min-width: 576px) and (max-width: 768px) {
+//   .modal-video .modal-content {
+//       top: 4%;
+//       margin: 1% auto;
+//       margin-left: auto;
+//       width: 40%;
+//       height: auto;
+//   }
+
+
+//   .modal-video .close-modal {
+//       position: relative;
+//       top: 5%;
+//   }
+// }

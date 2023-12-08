@@ -1,0 +1,29 @@
+/* Estilo para oscurecer el fondo */
+.modal-background {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.5); /* Fondo oscuro con opacidad */
+    z-index: 1000; /* Asegura que el fondo esté por encima de otros elementos */
+  }
+  
+  /* Estilo para el modal */
+  .modal-content {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 65%; /* Ajusta según tus necesidades */
+   
+    background-color: white;
+    padding: 20px;
+    z-index: 2000; /* Asegura que el modal esté por encima del fondo oscuro */
+  }
+
+  .modal-content {
+    /* ... otros estilos ... */
+    z-index: 1000;
+  }
+  

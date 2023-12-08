@@ -1,0 +1,153 @@
+<div *ngIf="!login">
+  <div *ngIf="showCreationModalVideo && !hideMenu" id="myModal" class="modal-video"
+    style="display: flex;flex-direction: column;gap: 2px;">
+    <!-- <label class="container-checkbox">Don't show again
+      <input (click)="saveSelection()" type="checkbox" value="Bike" #modalChecked>
+      <span class="checkmark">&#x2714;</span>
+  </label> -->
+    <div class="modal-content">
+      <video src='{{CREATION_VIDEO_PATH}}' controls></video>
+
+    </div>
+    <button class="btn btn-raised close-modal" (click)="showCreationModalVideo=false">close</button>
+  </div>
+  <div *ngIf="hideMenu" class="corner_bar_menu">
+    <button *ngIf="false" matTooltip="new post it" matTooltipPosition="above" mat-icon-button color="warn"
+      aria-label="aria">
+      <mat-icon class="full-icon">note_add</mat-icon>
+    </button>
+    <!-- <button *ngIf="true" mat-icon-button matTooltip="vote" matTooltipPosition="above" mat-icon-button
+      style="border-radius: 50%; border: 2px solid grey;outline: none;" aria-label="aria">
+      GO
+  </button> -->
+    <!-- <button mat-icon-button aria-label="Proprietary" style="width: 200px;">
+    Proprietary & Confidential
+  </button> -->
+    <button (click)="toggleMenu()" matTooltip="" matTooltipPosition="above" mat-icon-button color="warn"
+      aria-label="aria">
+      <mat-icon class="full-icon">menu</mat-icon>
+    </button>
+    <!-- <button class="goButton" *ngIf="true" mat-icon-button matTooltip="vote" matTooltipPosition="above" mat-icon-button
+      aria-label="aria">
+      GO
+  </button> -->
+  </div>
+  <div *ngIf="isDashboardMenu && !isPreviewView" class="general-container">
+    <div class="logo-container">
+      <img style="    width: 100%;" src="assets/img/bmx/bm-logo-2020-md.png" alt="logo" />
+    </div>
+    <div class="cont-welcome">
+      <div class="welcome">
+        <mat-icon style="color: white;padding: 15px;">account_circle</mat-icon>
+        <div class="welcome-role"
+          style="color: white; width: 100%;text-align: center;font-family: Arial, Helvetica, sans-serif;margin-top: 10px;">
+          Welcome {{userFullName}}
+          <br>
+          Role: {{userRole}}
+        </div>
+
+      </div>
+
+    </div>
+    <div class="movil">
+
+      <div class="menu-container">
+        <div class="menu-item-Light  directionProjectList" [ngClass]=""(click)="navigateTo('dashboard')">
+          <i class="bi bi-list-task"></i> Project List
+        </div>
+        <div class="menu-item-Dark" [ngClass]="{'menu-item-Light': selectedMenuItem === 'project-information', 'menu-item-Dark': selectedMenuItem !== 'project-information'}" style="justify-content: flex-start;" (click)="navigateTo('project-information')">
+          <i class="bi bi-pencil-fill"></i> Create/Edit Matrix
+          <div>
+            <button (click)="CREATION_VIDEO_PATH='assets/videos/participants.mp4' ; showCreationModalVideo=true; "
+              class="video-button" matTooltip="see tutorial" matTooltipPosition="above" mat-icon-button
+              aria-label="ranking">
+              <mat-icon style="font-size: 26px; color: white; " class="full-icon">video_library</mat-icon>
+            </button>
+          </div>
+        </div>
+        <!-- <div class="menu-item-Dark" style="justify-content: flex-start;">
+        <i class="bi bi-box-arrow-right"></i> Sign out
+      </div> -->
+        <!-- <div class="menu-item-Dark" style="justify-content: flex-start;" (click)="navigateBack()">
+        <i class="bi bi-arrow-left-circle"></i>
+        BACK
+      </div> -->
+      </div>
+    </div>
+  </div>
+
+  <div *ngIf="!isDashboardMenu && !hideMenu && !isPreviewView" class="general-container">
+    <div class="logo-container">
+      <img style="    width: 100%;" src="assets/img/bmx/bm-logo-2020-md.png" alt="logo" />
+    </div>
+    <div>
+      <div class="welcome">
+        <mat-icon style="color: white;padding: 15px;">account_circle</mat-icon>
+        <div class="welcome-role"
+          style="color: white; width: 100%;text-align: center;font-family: Arial, Helvetica, sans-serif;margin-top: 10px;">
+          Welcome {{userFullName}}
+          <br>
+          Role: {{userRole}}
+        </div>
+      </div>
+    </div>
+    <div class="movil">
+
+      <div class="menu-container">
+        <div class="menu-item-Dark directionProjectList" (click)="navigateTo('dashboard')">
+          <i class="bi bi-list-task"></i> Project List
+        </div>
+        <div [ngClass]="{'menu-item-Light': selectedMenuItem === 'project-information', 'menu-item-Dark': selectedMenuItem !== 'project-information'}"  (click)="navigateTo('project-information')">
+          Project Information
+        </div>
+
+        <div [ngClass]="{'menu-item-Light': selectedMenuItem === 'bmx-creation/99CB72BF-D163-46A6-8A0D-E1531EC7FEDC', 'menu-item-Dark': selectedMenuItem !== 'bmx-creation/99CB72BF-D163-46A6-8A0D-E1531EC7FEDC'}"  (click)="navigateTo('bmx-creation/99CB72BF-D163-46A6-8A0D-E1531EC7FEDC')">
+          Survey Creation & Design
+        </div>
+        <div [ngClass]="{'menu-item-Light': selectedMenuItem === 'participants', 'menu-item-Dark': selectedMenuItem !== 'participants'}" (click)="navigateTo('participants')">
+          Participants
+          <div class="video-container">
+            <button (click)="CREATION_VIDEO_PATH='assets/videos/participants.mp4' ; showCreationModalVideo=true; "
+              class="video-button" matTooltip="see tutorial" matTooltipPosition="above" mat-icon-button
+              aria-label="ranking">
+              <mat-icon style="font-size: 26px; color: white; " class="full-icon">video_library</mat-icon>
+            </button>
+          </div>
+        </div>
+        <div [ngClass]="{'menu-item-Light': selectedMenuItem === 'participants-emails', 'menu-item-Dark': selectedMenuItem !== 'participants-emails'}" (click)="navigateTo('participants-emails')">
+          Survey Participants/Email <div>
+            <button (click)="CREATION_VIDEO_PATH='assets/videos/participants.mp4' ; showCreationModalVideo=true; "
+              class="video-button" matTooltip="see tutorial" matTooltipPosition="above" mat-icon-button
+              aria-label="ranking">
+              <mat-icon style="font-size: 26px; color: white; " class="full-icon">video_library</mat-icon>
+            </button>
+          </div>
+        </div>
+        <div [ngClass]="{'menu-item-Light': selectedMenuItem === 'reports', 'menu-item-Dark': selectedMenuItem !== 'reports'}" (click)="navigateTo('reports')">
+          Reports <div>
+            <button (click)="CREATION_VIDEO_PATH='assets/videos/participants.mp4' ; showCreationModalVideo=true; "
+              class="video-button" matTooltip="see tutorial" matTooltipPosition="above" mat-icon-button
+              aria-label="ranking">
+              <mat-icon style="font-size: 26px; color: white; " class="full-icon">video_library</mat-icon>
+            </button>
+          </div>
+        </div>
+        <!-- <div class="menu-item-Dark" style="justify-content: flex-start;">
+        <i class="bi bi-box-arrow-right"></i> Sign out
+      </div> -->
+
+        <!-- <div class="menu-item-Dark" style="justify-content: flex-start;" (click)="navigateBack()">
+        <i class="bi bi-arrow-left-circle"></i>
+        BACK
+      </div> -->
+      </div>
+    </div>
+  </div>
+
+  <button class="no-print" *ngIf="!isDashboardMenu && !hideMenu && !isPreviewView"
+    style="position: absolute;bottom: 30px;z-index: 9999999999;right: 30px;outline: none;" (click)="toggleMenu()"
+    mat-icon-button matTooltip="preview" matTooltipPosition="above">
+    <mat-icon class="full-icon" style="font-size: 35px;">visibility
+    </mat-icon>
+  </button>
+</div>
