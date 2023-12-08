@@ -8,8 +8,7 @@
             <mat-option value="F">Finished</mat-option>
         </mat-select>
     </mat-form-field>
-    <table mat-table [dataSource]="dataSource" class=""
-        style="width: 100%; margin-bottom: 20px; overflow-y: auto;">
+    <table mat-table [dataSource]="dataSource" class="" style="width: 100%; margin-bottom: 20px; overflow-y: auto;">
 
         <!-- Checkbox Column -->
         <ng-container matColumnDef="select">
@@ -20,8 +19,7 @@
                 </mat-checkbox>
             </th>
             <td mat-cell *matCellDef="let row">
-                <mat-checkbox (click)="$event.stopPropagation()"
-                    (change)="$event ? selection.toggle(row) : null"
+                <mat-checkbox (click)="$event.stopPropagation()" (change)="$event ? selection.toggle(row) : null"
                     (change)="$event ? selectRow($event, row) : null" [checked]="selection.isSelected(row)">
                 </mat-checkbox>
             </td>
@@ -47,7 +45,10 @@
             Download Report
 
         </button>
+
+        <button mat-raised-button style="background-color: #003180;color:white;margin: 5px 20px 0 20px;" (click)="openProjectList()">
+            Combine Repors
+        </button >
     </div>
 
 </div>
-

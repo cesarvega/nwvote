@@ -140,6 +140,7 @@ export class ProjectReportsComponent implements OnInit {
   labelPosition: 'before' | 'after' = 'after';
   disabled = false;
   numberOfpages = [];
+  showListDialog: boolean = false;
   constructor(
     @Inject(DOCUMENT) private document: any,
     public _BmxService: BmxService,
@@ -1619,7 +1620,9 @@ export class ProjectReportsComponent implements OnInit {
     this.templateTitle = 'save, update or load a template';
     this.isTemplateBoxOn = !this.isTemplateBoxOn;
   }
-
+  showDialog(){
+    this.showListDialog = !this.showListDialog
+  }
   resetTemplate() {
     this.bmxPages = [
       {
