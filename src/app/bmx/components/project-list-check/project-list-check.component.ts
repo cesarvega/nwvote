@@ -44,6 +44,7 @@ export class ProjectListCheckComponent implements OnInit {
   @Input() userOffice
   @Input() userDepartment
   @Input() userRole
+  checkedItems = [];
 
   constructor(@Inject(DOCUMENT) private document: any, private activatedRoute: ActivatedRoute, 
     private _hotkeysService: HotkeysService, private dragulaService: DragulaService, private _BmxService: BmxService, private router: Router,) { }
@@ -149,7 +150,16 @@ export class ProjectListCheckComponent implements OnInit {
     this.dataSource.paginator = this.paginator;
     this.dataSource.sort = this.sort;
   }
-
+  handleCheckboxChange(checked: boolean, element: any): void {
+    if (checked) {
+        this.checkedItems.push(element.bmxProjectName);
+    } else {
+        const index = this.checkedItems.indexOf(element.bmxProjectName);
+        if (index !== -1) {
+            this.checkedItems.splice(index, 1);
+        }
+    }
+}
   onSelect(event) {
     this.selectedDate = event;
     const dateString = event.toDateString();
@@ -170,6 +180,12 @@ export class ProjectListCheckComponent implements OnInit {
     return day !== 0 && day !== 6;
   }
   combineProjects(){
+    if (this.checkedItems.length > 0) {
+      const message = 'Selected projects:\n' + this.checkedItems.join('\n');
+      window.alert(message);
+    } else {
+      window.alert('There is not projects.');
+    }
     this.modal.emit(false)
   }
 

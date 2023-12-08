@@ -23,7 +23,7 @@
                     <ng-container matColumnDef="bmxChecked">
                         <th mat-header-cell *matHeaderCellDef mat-sort-header> checked</th>
                         <td mat-cell *matCellDef="let element">
-                            <mat-checkbox [(ngModel)]="element.checked"></mat-checkbox>
+                            <mat-checkbox [(ngModel)]="element.checked" (ngModelChange)="handleCheckboxChange($event, element)"></mat-checkbox>
                         </td>
                     </ng-container>
                     <ng-container matColumnDef="bmxCompany">
