@@ -44,12 +44,13 @@ export class ProjectListCheckComponent implements OnInit {
   @Input() userOffice
   @Input() userDepartment
   @Input() userRole
+  checkedItems = [];
 
   constructor(@Inject(DOCUMENT) private document: any, private activatedRoute: ActivatedRoute, 
     private _hotkeysService: HotkeysService, private dragulaService: DragulaService, private _BmxService: BmxService, private router: Router,) { }
 
   ngOnInit(): void {
-    this.selected = 'Live'
+    this.selected = 'All'
     this._BmxService.getGetProjectList()
       .subscribe((arg: any) => {
         this.allData = JSON.parse(arg.d);
@@ -116,7 +117,7 @@ export class ProjectListCheckComponent implements OnInit {
 
     this.viewedData = [];
     for (let i = 0; i < this.allData.length; i++) {
-      if (this.selected == 'Live' && JSON.parse(this.allData[i].ProjectInfo).bmxStatus == 'open') {
+      if (this.selected == 'Live' && JSON.parse(this.allData[i].ProjectInfo).bmxStatus !== 'close') {
         this.viewedData.push(JSON.parse(this.allData[i].ProjectInfo));
       }
       else if (this.selected == 'Closed' && JSON.parse(this.allData[i].ProjectInfo).bmxStatus == "close") {
@@ -149,7 +150,16 @@ export class ProjectListCheckComponent implements OnInit {
     this.dataSource.paginator = this.paginator;
     this.dataSource.sort = this.sort;
   }
-
+  handleCheckboxChange(checked: boolean, element: any): void {
+    if (checked) {
+        this.checkedItems.push(element.bmxProjectName);
+    } else {
+        const index = this.checkedItems.indexOf(element.bmxProjectName);
+        if (index !== -1) {
+            this.checkedItems.splice(index, 1);
+        }
+    }
+}
   onSelect(event) {
     this.selectedDate = event;
     const dateString = event.toDateString();
@@ -170,6 +180,12 @@ export class ProjectListCheckComponent implements OnInit {
     return day !== 0 && day !== 6;
   }
   combineProjects(){
+    if (this.checkedItems.length > 0) {
+      const message = 'Selected projects:\n' + this.checkedItems.join('\n');
+      window.alert(message);
+    } else {
+      window.alert('There is not projects.');
+    }
     this.modal.emit(false)
   }
 
