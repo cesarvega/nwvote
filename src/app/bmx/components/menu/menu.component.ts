@@ -51,7 +51,7 @@ export class MenuComponent implements OnInit {
           // this.userRole = 'admin'; // no restrictions
           // this.userDepartment = 'Creative';
           // this.userOffice = 'Basel 1'
-          // this.userRole = 'director'; // director restriced
+          this.userRole = 'director'; // director restriced
           // this.userRole = 'creative';
           // this.userRole = 'user'
           // this.userDepartment = 'Design'
