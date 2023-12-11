@@ -9,6 +9,7 @@ import { MatTableDataSource } from '@angular/material/table';
 import { MatSort } from '@angular/material/sort';
 import { stat } from 'fs';
 import { BmxService } from '../bmx-creator/bmx.service';
+import { AnyTxtRecord } from 'dns';
 @Component({
   selector: 'app-project-list-check',
   templateUrl: './project-list-check.component.html',
@@ -20,6 +21,7 @@ export class ProjectListCheckComponent implements OnInit {
   @Output() isMenuActive1Close: EventEmitter<boolean> = new EventEmitter<boolean>();
   @Output() isMenuActive1Email: EventEmitter<boolean> = new EventEmitter<boolean>();
   @Output() modal: EventEmitter<boolean> = new EventEmitter<boolean>();
+  @Output() projectsToCombineReports: EventEmitter<any> = new EventEmitter<AnyTxtRecord>();
 
   @ViewChild(MatSort) sort: MatSort;
   @ViewChild(MatPaginator) paginator: MatPaginator;
@@ -181,11 +183,8 @@ export class ProjectListCheckComponent implements OnInit {
   }
   combineProjects(){
     if (this.checkedItems.length > 0) {
-      const message = 'Selected projects:\n' + this.checkedItems.join('\n');
-      window.alert(message);
-    } else {
-      window.alert('There is not projects.');
-    }
+     this.projectsToCombineReports.emit(this.checkedItems)  
+    } 
     this.modal.emit(false)
   }
 

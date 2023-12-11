@@ -1,4 +1,4 @@
-<app-project-list-check *ngIf="showListDialog" (modal)="showDialog()"></app-project-list-check>
+<app-project-list-check *ngIf="showListDialog" (modal)="showDialog()" (projectsToCombineReports)="getReports($event)"></app-project-list-check>
 
 <div *ngIf="true" class="feature-modal-box">
   <mat-card class="flex-column ">

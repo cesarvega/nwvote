@@ -1620,7 +1620,7 @@ export class ProjectReportsComponent implements OnInit {
     this.templateTitle = 'save, update or load a template';
     this.isTemplateBoxOn = !this.isTemplateBoxOn;
   }
-  showDialog(){
+  showDialog() {
     this.showListDialog = !this.showListDialog
   }
   resetTemplate() {
@@ -2480,4 +2480,27 @@ export class ProjectReportsComponent implements OnInit {
       ],
     },
   ];
+
+  getReports(projectNames){
+    console.log(projectNames)
+    projectNames.forEach(projectId=>{
+      this._BmxService
+      .getBrandMatrixByProjectAllUserAnswers(projectId)
+      .subscribe((brandMatrix: any) => {
+        if (brandMatrix.d.length > 0) {
+          this.answersByAllUsers = JSON.parse(brandMatrix.d);
+  
+          // Simulate multiple users function, for testing only
+          const milUsers = this.diplicateArrayMultiple(
+            this.answersByAllUsers,
+            1
+          );
+  
+          this.getAndCalculateReport(milUsers);
+          this.usersList = milUsers.map((user) => user.Username);
+        }
+      });
+    })
+   
+  }
 }
