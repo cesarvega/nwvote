@@ -1,7 +1,7 @@
 import { Component, ElementRef, EventEmitter, Inject, Input, OnInit, Output, ViewChild, ViewEncapsulation } from '@angular/core';
 import { DOCUMENT } from '@angular/common';
 import { HotkeysService, Hotkey } from 'angular2-hotkeys';
-import { ActivatedRoute,Router } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { typeSourceSpan } from '@angular/compiler';
 import { DragulaService } from 'ng2-dragula';
 import { MatPaginator } from '@angular/material/paginator';
@@ -28,7 +28,7 @@ export class ProjectListCheckComponent implements OnInit {
   dataSource;
   allData;
   viewedData;
-  displayedColumns = ['bmxChecked','bmxCompany', 'bmxProjectName', 'bmxDepartment', 'bmxRegion', 'Created', 'Close', 'Active' ];
+  displayedColumns = ['bmxChecked', 'bmxCompany', 'bmxProjectName', 'bmxDepartment', 'bmxRegion', 'Created', 'Close', 'Active'];
   selected;
 
   title = 'ng-calendar-demo';
@@ -38,7 +38,6 @@ export class ProjectListCheckComponent implements OnInit {
   maxDate = new Date(new Date().setMonth(new Date().getMonth() + 1));
   year: any;
   DayAndDate: string;
-  projectName: any;
   projectId: any;
 
 
@@ -46,9 +45,11 @@ export class ProjectListCheckComponent implements OnInit {
   @Input() userOffice
   @Input() userDepartment
   @Input() userRole
+  @Input() projectName
+
   checkedItems = [];
 
-  constructor(@Inject(DOCUMENT) private document: any, private activatedRoute: ActivatedRoute, 
+  constructor(@Inject(DOCUMENT) private document: any, private activatedRoute: ActivatedRoute,
     private _hotkeysService: HotkeysService, private dragulaService: DragulaService, private _BmxService: BmxService, private router: Router,) { }
 
   ngOnInit(): void {
@@ -106,10 +107,10 @@ export class ProjectListCheckComponent implements OnInit {
       option.bmxStatus = status
     }
     this._BmxService.getGetProjectList()
-    .subscribe((arg: any) => {
-      this.allData = JSON.parse(arg.d);
-      this.changeView();
-    });
+      .subscribe((arg: any) => {
+        this.allData = JSON.parse(arg.d);
+        this.changeView();
+      });
   }
   deleteBM(option: string): void {
     var test = option;
@@ -135,8 +136,10 @@ export class ProjectListCheckComponent implements OnInit {
     }
 
     if (this.selectedDate) {
-      this.viewedData = this.viewedData.filter(project=>project.bmxClosingDate == this.selectedDate.toISOString())
+      this.viewedData = this.viewedData.filter(project => project.bmxClosingDate == this.selectedDate.toISOString())
     }
+
+
 
     // FILTERING BY DEPARTMENT & OFFICE
     if (this.viewedData.length > 0) {
@@ -148,20 +151,21 @@ export class ProjectListCheckComponent implements OnInit {
         this.viewedData = this.viewedData.filter((filterByDepartment: any) => filterByDepartment.bmxDepartment == this.userDepartment);
       }
     }
+    this.viewedData = this.viewedData.filter(project => project.bmxProjectName.includes(this.projectName))
     this.dataSource = new MatTableDataSource<any>(this.viewedData);
     this.dataSource.paginator = this.paginator;
     this.dataSource.sort = this.sort;
   }
   handleCheckboxChange(checked: boolean, element: any): void {
     if (checked) {
-        this.checkedItems.push(element.bmxProjectName);
+      this.checkedItems.push(element.bmxProjectName);
     } else {
-        const index = this.checkedItems.indexOf(element.bmxProjectName);
-        if (index !== -1) {
-            this.checkedItems.splice(index, 1);
-        }
+      const index = this.checkedItems.indexOf(element.bmxProjectName);
+      if (index !== -1) {
+        this.checkedItems.splice(index, 1);
+      }
     }
-}
+  }
   onSelect(event) {
     this.selectedDate = event;
     const dateString = event.toDateString();
@@ -171,7 +175,7 @@ export class ProjectListCheckComponent implements OnInit {
     this.changeView()
   }
 
-  onDeselect(){
+  onDeselect() {
     this.selectedDate = null
     this.changeView()
   }
@@ -181,10 +185,10 @@ export class ProjectListCheckComponent implements OnInit {
     // Prevent Saturday and Sunday from being selected.
     return day !== 0 && day !== 6;
   }
-  combineProjects(){
+  combineProjects() {
     if (this.checkedItems.length > 0) {
-     this.projectsToCombineReports.emit(this.checkedItems)  
-    } 
+      this.projectsToCombineReports.emit(this.checkedItems)
+    }
     this.modal.emit(false)
   }
 
