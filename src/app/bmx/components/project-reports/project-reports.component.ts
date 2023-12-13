@@ -2482,7 +2482,6 @@ export class ProjectReportsComponent implements OnInit {
   ];
 
   getReports(projectNames){
-    console.log(projectNames)
     projectNames.forEach(projectId=>{
       this._BmxService
       .getBrandMatrixByProjectAllUserAnswers(projectId)

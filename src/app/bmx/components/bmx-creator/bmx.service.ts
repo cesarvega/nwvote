@@ -7,6 +7,9 @@ import { BehaviorSubject, Observable, Subject } from 'rxjs';
 })
 export class BmxService {
 
+  private selectedProjectsSubject: BehaviorSubject<any> = new BehaviorSubject<any>(null);
+  private selectedProjects$: Observable<any> = this.selectedProjectsSubject.asObservable();
+
   private logoTemporaryWidth$: Subject<string> = new Subject()
   private projectName$ = new BehaviorSubject<string>('');
   private projectData$ = new BehaviorSubject<string>('');
@@ -15,6 +18,14 @@ export class BmxService {
   currentProjectName$ = this.projectName$.asObservable();
   currentprojectData$ = this.projectData$.asObservable();
   specialDataObservable$ = this.specialData$.asObservable();
+
+  setSelectedProjects(data: any): void {
+    return this.selectedProjectsSubject.next(data);
+  }
+
+  getSelectedProjects(): Observable<any> {
+    return this.selectedProjects$;
+  }
 
   setProjectName(projectName: any) {
     this.projectName$.next(projectName);
