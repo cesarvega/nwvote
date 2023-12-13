@@ -1,7 +1,7 @@
 import { Component, ElementRef, EventEmitter, Inject, Input, OnInit, Output, ViewChild, ViewEncapsulation } from '@angular/core';
 import { DOCUMENT } from '@angular/common';
 import { HotkeysService, Hotkey } from 'angular2-hotkeys';
-import { ActivatedRoute,Router } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { typeSourceSpan } from '@angular/compiler';
 import { DragulaService } from 'ng2-dragula';
 import { MatPaginator } from '@angular/material/paginator';
@@ -9,6 +9,7 @@ import { MatTableDataSource } from '@angular/material/table';
 import { MatSort } from '@angular/material/sort';
 import { stat } from 'fs';
 import { BmxService } from '../bmx-creator/bmx.service';
+import { AnyTxtRecord } from 'dns';
 @Component({
   selector: 'app-project-list-check',
   templateUrl: './project-list-check.component.html',
@@ -20,13 +21,14 @@ export class ProjectListCheckComponent implements OnInit {
   @Output() isMenuActive1Close: EventEmitter<boolean> = new EventEmitter<boolean>();
   @Output() isMenuActive1Email: EventEmitter<boolean> = new EventEmitter<boolean>();
   @Output() modal: EventEmitter<boolean> = new EventEmitter<boolean>();
+  @Output() projectsToCombineReports: EventEmitter<any> = new EventEmitter<AnyTxtRecord>();
 
   @ViewChild(MatSort) sort: MatSort;
   @ViewChild(MatPaginator) paginator: MatPaginator;
   dataSource;
   allData;
   viewedData;
-  displayedColumns = ['bmxChecked','bmxCompany', 'bmxProjectName', 'bmxDepartment', 'bmxRegion', 'Created', 'Close', 'Active' ];
+  displayedColumns = ['bmxChecked', 'bmxCompany', 'bmxProjectName', 'bmxDepartment', 'bmxRegion', 'Created', 'Close', 'Active'];
   selected;
 
   title = 'ng-calendar-demo';
@@ -36,7 +38,6 @@ export class ProjectListCheckComponent implements OnInit {
   maxDate = new Date(new Date().setMonth(new Date().getMonth() + 1));
   year: any;
   DayAndDate: string;
-  projectName: any;
   projectId: any;
 
 
@@ -44,9 +45,11 @@ export class ProjectListCheckComponent implements OnInit {
   @Input() userOffice
   @Input() userDepartment
   @Input() userRole
+  @Input() projectName
+
   checkedItems = [];
 
-  constructor(@Inject(DOCUMENT) private document: any, private activatedRoute: ActivatedRoute, 
+  constructor(@Inject(DOCUMENT) private document: any, private activatedRoute: ActivatedRoute,
     private _hotkeysService: HotkeysService, private dragulaService: DragulaService, private _BmxService: BmxService, private router: Router,) { }
 
   ngOnInit(): void {
@@ -104,10 +107,10 @@ export class ProjectListCheckComponent implements OnInit {
       option.bmxStatus = status
     }
     this._BmxService.getGetProjectList()
-    .subscribe((arg: any) => {
-      this.allData = JSON.parse(arg.d);
-      this.changeView();
-    });
+      .subscribe((arg: any) => {
+        this.allData = JSON.parse(arg.d);
+        this.changeView();
+      });
   }
   deleteBM(option: string): void {
     var test = option;
@@ -133,8 +136,10 @@ export class ProjectListCheckComponent implements OnInit {
     }
 
     if (this.selectedDate) {
-      this.viewedData = this.viewedData.filter(project=>project.bmxClosingDate == this.selectedDate.toISOString())
+      this.viewedData = this.viewedData.filter(project => project.bmxClosingDate == this.selectedDate.toISOString())
     }
+
+
 
     // FILTERING BY DEPARTMENT & OFFICE
     if (this.viewedData.length > 0) {
@@ -145,21 +150,21 @@ export class ProjectListCheckComponent implements OnInit {
       } else if (this.userRole == 'Creative' || this.userRole == 'Nonprop' || this.userRole == 'Design') {
         this.viewedData = this.viewedData.filter((filterByDepartment: any) => filterByDepartment.bmxDepartment == this.userDepartment);
       }
-    }
+    }   
     this.dataSource = new MatTableDataSource<any>(this.viewedData);
     this.dataSource.paginator = this.paginator;
     this.dataSource.sort = this.sort;
   }
   handleCheckboxChange(checked: boolean, element: any): void {
     if (checked) {
-        this.checkedItems.push(element.bmxProjectName);
+      this.checkedItems.push(element.bmxProjectName);
     } else {
-        const index = this.checkedItems.indexOf(element.bmxProjectName);
-        if (index !== -1) {
-            this.checkedItems.splice(index, 1);
-        }
+      const index = this.checkedItems.indexOf(element.bmxProjectName);
+      if (index !== -1) {
+        this.checkedItems.splice(index, 1);
+      }
     }
-}
+  }
   onSelect(event) {
     this.selectedDate = event;
     const dateString = event.toDateString();
@@ -169,7 +174,7 @@ export class ProjectListCheckComponent implements OnInit {
     this.changeView()
   }
 
-  onDeselect(){
+  onDeselect() {
     this.selectedDate = null
     this.changeView()
   }
@@ -179,12 +184,10 @@ export class ProjectListCheckComponent implements OnInit {
     // Prevent Saturday and Sunday from being selected.
     return day !== 0 && day !== 6;
   }
-  combineProjects(){
+  combineProjects() {
     if (this.checkedItems.length > 0) {
-      const message = 'Selected projects:\n' + this.checkedItems.join('\n');
-      window.alert(message);
-    } else {
-      window.alert('There is not projects.');
+      this._BmxService.setSelectedProjects(this.checkedItems)
+      this.projectsToCombineReports.emit(this.checkedItems)
     }
     this.modal.emit(false)
   }

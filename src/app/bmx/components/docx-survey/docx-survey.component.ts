@@ -33,7 +33,7 @@ export class DocxSurveyComponent implements OnInit {
   @Input() reportSettings;
   @Output() dialog: EventEmitter<boolean> = new EventEmitter<boolean>();
 
-  
+
   dataSource: any;
   ELEMENT_DATA: any;
   displayedColumns = ['select', 'Name', 'Status'];
@@ -68,6 +68,8 @@ export class DocxSurveyComponent implements OnInit {
   data;
   biLogo;
   companyLogo;
+  similarProjects = []
+  differentProjects = []
 
   constructor(private _hotkeysService: HotkeysService, private dragulaService: DragulaService, private _BmxService: BmxService, private http: HttpClient) { }
   ngOnInit(): any {
@@ -77,38 +79,87 @@ export class DocxSurveyComponent implements OnInit {
       this.data = projectData !== '' ? projectData : this.projectId;
     });
 
+
     this._BmxService.currentProjectName$.subscribe((projectName) => {
       this.projectId = projectName !== '' ? projectName : this.projectId;
       localStorage.setItem('projectName', this.projectId);
+      
+    this._BmxService.getSelectedProjects().subscribe((projects: any) => {
+      console.log(projects)
+      if (projects) {
+
+        projects.map((newProjectName: any) => {
+          this._BmxService.getBrandMatrixByProjectAllUserAnswers(newProjectName)
+            .subscribe(async (arg: any) => {
+              if (arg.d && arg.d.length > 0) {
+                const data = JSON.parse(arg.d);
+                if (data[0]?.BrandMatrix) {
+                  this.companyLogo = JSON.parse(data[0]?.BrandMatrix)[0].page[0].componentSettings[0].companyLogoURL;
+                  this.user = await this.createDataObject(JSON.parse(arg.d));
+                  this.changeView();
+                  //this.completedStatus(this.user);
+                  //var imageSrcString;
+                  //imageSrcString = await this.getBase64ImageFromUrl("https://tools.brandinstitute.com/bmresources/te2647/logo5.JPG")
+                  let fruits: Array<TextRun>;
+                  fruits = [];
+                  for (let i = 0; i < 10; i++) {
+                    fruits.push(new TextRun
+                      (
+                        {
+                          text: i.toString(),
+                          font:
+                          {
+                            name: "Calibri",
+                          },
+                          size: 20,
+                        }
+                      )
+
+                    )
+                  }
+                }
+                if(this.projectId.includes(newProjectName)){
+                  this.similarProjects.push(data)
+                }else{
+                  this.differentProjects.push(data)
+                }
+              }
+            });
+        })
+      }
+    })
       this._BmxService.getBrandMatrixByProjectAllUserAnswers(this.projectId)
         .subscribe(async (arg: any) => {
-          if (arg.d && arg.d.length > 0  ) {
+          if (arg.d && arg.d.length > 0) {
             const data = JSON.parse(arg.d);
-            if(data[0]?.BrandMatrix){
-            this.companyLogo = JSON.parse(data[0]?.BrandMatrix)[0].page[0].componentSettings[0].companyLogoURL;
-            this.user = await this.createDataObject(JSON.parse(arg.d));
-            this.changeView();
-            //this.completedStatus(this.user);
-            //var imageSrcString;
-            //imageSrcString = await this.getBase64ImageFromUrl("https://tools.brandinstitute.com/bmresources/te2647/logo5.JPG")
-            let fruits: Array<TextRun>;
-            fruits = [];
-            for (let i = 0; i < 10; i++) {
-              fruits.push(new TextRun
-                (
-                  {
-                    text: i.toString(),
-                    font:
+            if (data[0]?.BrandMatrix) {
+              this.companyLogo = JSON.parse(data[0]?.BrandMatrix)[0].page[0].componentSettings[0].companyLogoURL;
+              this.user = await this.createDataObject(JSON.parse(arg.d));
+              this.changeView();
+              //this.completedStatus(this.user);
+              //var imageSrcString;
+              //imageSrcString = await this.getBase64ImageFromUrl("https://tools.brandinstitute.com/bmresources/te2647/logo5.JPG")
+              let fruits: Array<TextRun>;
+              fruits = [];
+              for (let i = 0; i < 10; i++) {
+                fruits.push(new TextRun
+                  (
                     {
-                      name: "Calibri",
-                    },
-                    size: 20,
-                  }
-                )
+                      text: i.toString(),
+                      font:
+                      {
+                        name: "Calibri",
+                      },
+                      size: 20,
+                    }
+                  )
 
-              )
+                )
+              }
+              this.similarProjects.push(data)
+
             }
-          }}
+          }
         });
     });
   }
@@ -2113,7 +2164,7 @@ export class DocxSurveyComponent implements OnInit {
     }
   }
 
-  openProjectList(){
+  openProjectList() {
     this.dialog.emit(true)
   }
   report(): void {
