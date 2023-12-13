@@ -68,8 +68,7 @@ export class DocxSurveyComponent implements OnInit {
   data;
   biLogo;
   companyLogo;
-  similarProjects = []
-  differentProjects = []
+  projectList = []
 
   constructor(private _hotkeysService: HotkeysService, private dragulaService: DragulaService, private _BmxService: BmxService, private http: HttpClient) { }
   ngOnInit(): any {
@@ -83,51 +82,29 @@ export class DocxSurveyComponent implements OnInit {
     this._BmxService.currentProjectName$.subscribe((projectName) => {
       this.projectId = projectName !== '' ? projectName : this.projectId;
       localStorage.setItem('projectName', this.projectId);
-      
-    this._BmxService.getSelectedProjects().subscribe((projects: any) => {
-      console.log(projects)
-      if (projects) {
 
-        projects.map((newProjectName: any) => {
-          this._BmxService.getBrandMatrixByProjectAllUserAnswers(newProjectName)
-            .subscribe(async (arg: any) => {
-              if (arg.d && arg.d.length > 0) {
-                const data = JSON.parse(arg.d);
-                if (data[0]?.BrandMatrix) {
-                  this.companyLogo = JSON.parse(data[0]?.BrandMatrix)[0].page[0].componentSettings[0].companyLogoURL;
-                  this.user = await this.createDataObject(JSON.parse(arg.d));
-                  this.changeView();
-                  //this.completedStatus(this.user);
-                  //var imageSrcString;
-                  //imageSrcString = await this.getBase64ImageFromUrl("https://tools.brandinstitute.com/bmresources/te2647/logo5.JPG")
-                  let fruits: Array<TextRun>;
-                  fruits = [];
-                  for (let i = 0; i < 10; i++) {
-                    fruits.push(new TextRun
-                      (
-                        {
-                          text: i.toString(),
-                          font:
-                          {
-                            name: "Calibri",
-                          },
-                          size: 20,
-                        }
-                      )
+      this._BmxService.getSelectedProjects().subscribe((projects: any) => {
+        if (projects) {
 
-                    )
-                  }
-                }
-                if(this.projectId.includes(newProjectName)){
-                  this.similarProjects.push(data)
-                }else{
-                  this.differentProjects.push(data)
-                }
-              }
-            });
-        })
-      }
-    })
+          projects.map((newProjectName: any) => {
+            if (this.projectId.includes(newProjectName)) {
+              this.projectList.push({
+                name: newProjectName,
+                combine: 1
+              })
+            } else {
+              this.projectList.push({
+                name: newProjectName,
+                combine: 0
+              })
+            }
+          })
+          this.projectList.push({
+            name: this.projectId,
+            combine: 1
+          })
+        }
+      })
       this._BmxService.getBrandMatrixByProjectAllUserAnswers(this.projectId)
         .subscribe(async (arg: any) => {
           if (arg.d && arg.d.length > 0) {
@@ -156,8 +133,7 @@ export class DocxSurveyComponent implements OnInit {
 
                 )
               }
-              this.similarProjects.push(data)
-
+              
             }
           }
         });
@@ -3319,9 +3295,7 @@ export class DocxSurveyComponent implements OnInit {
 
 
     Packer.toBlob(this.doc).then((blob) => {
-      console.log(blob);
       saveAs(blob, this.data.bmxProjectName + ".docx");
-      console.log("Document created successfully");
     });
 
     this.user = temp;
