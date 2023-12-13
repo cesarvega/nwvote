@@ -192,4 +192,9 @@ export class ProjectListCheckComponent implements OnInit {
     this.modal.emit(false)
   }
 
+  close(){
+    this.modal.emit(false)
+
+  }
+
 }
