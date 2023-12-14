@@ -85,26 +85,10 @@ export class DocxSurveyComponent implements OnInit {
 
       this._BmxService.getSelectedProjects().subscribe((projects: any) => {
         if (projects) {
-
-          projects.map((newProjectName: any) => {
-            if (this.projectId.includes(newProjectName)) {
-              this.projectList.push({
-                name: newProjectName,
-                combine: 1
-              })
-            } else {
-              this.projectList.push({
-                name: newProjectName,
-                combine: 0
-              })
-            }
-          })
-          this.projectList.push({
-            name: this.projectId,
-            combine: 1
-          })
+          this.projectList = projects;
         }
-      })
+      });
+
       this._BmxService.getBrandMatrixByProjectAllUserAnswers(this.projectId)
         .subscribe(async (arg: any) => {
           if (arg.d && arg.d.length > 0) {
@@ -133,7 +117,7 @@ export class DocxSurveyComponent implements OnInit {
 
                 )
               }
-              
+
             }
           }
         });
