@@ -2482,5 +2482,24 @@ export class ProjectReportsComponent implements OnInit {
   ];
 
   getReports(projectNames){
+    // projectNames.forEach(projectId=>{
+    //   this._BmxService
+    //   .getBrandMatrixByProjectAllUserAnswers(projectId)
+    //   .subscribe((brandMatrix: any) => {
+    //     if (brandMatrix.d.length > 0) {
+    //       this.answersByAllUsers = JSON.parse(brandMatrix.d);
+
+    //       // Simulate multiple users function, for testing only
+    //       const milUsers = this.diplicateArrayMultiple(
+    //         this.answersByAllUsers,
+    //         1
+    //       );
+
+    //       this.getAndCalculateReport(milUsers);
+    //       this.usersList = milUsers.map((user) => user.Username);
+    //     }
+    //   });
+    // })
+
   }
 }

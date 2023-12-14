@@ -141,14 +141,16 @@ export class RatingScaleComponent implements OnInit {
 
   ngOnInit(): void {
     this.showDialog = false
-
+    console.log(this.bmxItem)
     // COLUMN NAMES
-    this.numRatingScale = this.bmxItem.componentText[0].STARS.length
+
     this.rankingScaleValue = this.numRatingScale;
     let values = Object.keys(this.bmxItem.componentText[0])
     this.rowsCount = this.bmxItem.componentText.length - 1
     this.bmxItem.componentSettings[0].minRule = this.bmxItem.componentSettings[0].minRule == 0 ? this.rowsCount : this.bmxItem.componentSettings[0].minRule;
     this.bmxItem.componentSettings[0].maxRule = this.bmxItem.componentSettings[0].maxRule == 0 ? this.rowsCount : this.bmxItem.componentSettings[0].maxRule;
+      this.numRatingScale = this.bmxItem.componentText[0].STARS?.length
+   
     values.forEach(value => {
       if (typeof value == "string" && value != "STARS" && value != "CRITERIA") {
         this.columnsNames.push(value)
@@ -457,6 +459,9 @@ export class RatingScaleComponent implements OnInit {
             this.columnsNames[index] = 'katakana'
           }
           else {
+            this.columnsNames[0] = 'name candidates'
+            this.columnsNames[1] = 'rationale'
+
             this.columnsNames[index] = 'ExtraColumn' + this.extraColumnCounter
             this.extraColumnCounter++
           }

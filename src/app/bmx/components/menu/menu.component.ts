@@ -33,8 +33,8 @@ export class MenuComponent implements OnInit {
   globalProjectName: string;
 
   constructor(private router: Router, private location: Location, private _BmxService: BmxService, private activatedRoute: ActivatedRoute, public _snackBar: MatSnackBar,) {
-    this.activatedRoute.params.subscribe((params) => {
-      this.userGUI = params['id'];
+    this.activatedRoute.queryParams.subscribe((queryParams) => {
+      this.userGUI = queryParams['id'];
 
       // localStorage.setItem('projectId', this.projectId);
       this._BmxService.getMatrixUser(this.userGUI).subscribe((data: any) => {
