@@ -1,4 +1,6 @@
 import { Component, OnInit } from '@angular/core';
+import { ActivatedRoute } from '@angular/router';
+import { BmxService } from '../bmx-creator/bmx.service';
 
 @Component({
   selector: 'app-dashboard',
@@ -6,10 +8,13 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./dashboard.component.scss']
 })
 export class DashboardComponent implements OnInit {
+  userData: any ;
 
-  constructor() { }
+  constructor( private activatedRoute: ActivatedRoute,  private _BmxService: BmxService) { }
 
   ngOnInit(): void {
+   this.userData =  localStorage.getItem('userData')
+   this.userData = JSON.parse(this.userData)
   }
 
 }

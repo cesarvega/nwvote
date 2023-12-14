@@ -1,7 +1,7 @@
 import { Component, ElementRef, EventEmitter, Inject, Input, OnInit, Output, ViewChild, ViewEncapsulation } from '@angular/core';
 import { DOCUMENT } from '@angular/common';
 import { HotkeysService, Hotkey } from 'angular2-hotkeys';
-import { ActivatedRoute,Router } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { typeSourceSpan } from '@angular/compiler';
 import { DragulaService } from 'ng2-dragula';
 import { MatPaginator } from '@angular/material/paginator';
@@ -42,18 +42,25 @@ export class ProjectListComponent implements OnInit {
   @Input() userOffice
   @Input() userDepartment
   @Input() userRole
+  userData: any;
 
-  constructor(@Inject(DOCUMENT) private document: any, private activatedRoute: ActivatedRoute, 
+  constructor(@Inject(DOCUMENT) private document: any, private activatedRoute: ActivatedRoute,
     private _hotkeysService: HotkeysService, private dragulaService: DragulaService, private _BmxService: BmxService, private router: Router,) { }
 
   ngOnInit(): void {
     this.selected = 'Live'
     this._BmxService.getGetProjectList()
+    this.userData = localStorage.getItem('userData')
+    this.userData = JSON.parse(this.userData)
+    this._BmxService.getGetProjectList()
       .subscribe((arg: any) => {
         this.allData = JSON.parse(arg.d);
         // this.allData = JSON.parse(obj);
+        this.userDepartment = this.userData.Department;
+        this.userRole = this.userData.Role
         this.changeView();
       });
+
   }
 
 
@@ -101,10 +108,10 @@ export class ProjectListComponent implements OnInit {
       option.bmxStatus = status
     }
     this._BmxService.getGetProjectList()
-    .subscribe((arg: any) => {
-      this.allData = JSON.parse(arg.d);
-      this.changeView();
-    });
+      .subscribe((arg: any) => {
+        this.allData = JSON.parse(arg.d);
+        this.changeView();
+      });
   }
   deleteBM(option: string): void {
     var test = option;
@@ -130,7 +137,7 @@ export class ProjectListComponent implements OnInit {
     }
 
     if (this.selectedDate) {
-      this.viewedData = this.viewedData.filter(project=>project.bmxClosingDate == this.selectedDate.toISOString())
+      this.viewedData = this.viewedData.filter(project => project.bmxClosingDate == this.selectedDate.toISOString())
     }
 
     // FILTERING BY DEPARTMENT & OFFICE
@@ -143,6 +150,7 @@ export class ProjectListComponent implements OnInit {
         this.viewedData = this.viewedData.filter((filterByDepartment: any) => filterByDepartment.bmxDepartment == this.userDepartment);
       }
     }
+
     this.dataSource = new MatTableDataSource<any>(this.viewedData);
     this.dataSource.paginator = this.paginator;
     this.dataSource.sort = this.sort;
@@ -157,7 +165,7 @@ export class ProjectListComponent implements OnInit {
     this.changeView()
   }
 
-  onDeselect(){
+  onDeselect() {
     this.selectedDate = null
     this.changeView()
   }

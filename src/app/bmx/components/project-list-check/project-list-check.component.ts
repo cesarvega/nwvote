@@ -150,7 +150,7 @@ export class ProjectListCheckComponent implements OnInit {
       } else if (this.userRole == 'Creative' || this.userRole == 'Nonprop' || this.userRole == 'Design') {
         this.viewedData = this.viewedData.filter((filterByDepartment: any) => filterByDepartment.bmxDepartment == this.userDepartment);
       }
-    }   
+    }
     this.dataSource = new MatTableDataSource<any>(this.viewedData);
     this.dataSource.paginator = this.paginator;
     this.dataSource.sort = this.sort;
@@ -187,7 +187,7 @@ export class ProjectListCheckComponent implements OnInit {
   combineProjects() {
     if (this.checkedItems.length > 0) {
       this._BmxService.setSelectedProjects(this.checkedItems)
-      this.projectsToCombineReports.emit(this.checkedItems)
+      // this.projectsToCombineReports.emit(this.checkedItems)
     }
     this.modal.emit(false)
   }

@@ -45,7 +45,7 @@ export class DocxSurveyComponent implements OnInit {
   maxDate = new Date(new Date().setMonth(new Date().getMonth() + 1));
   sD: any;
   doc;
-  total;
+  total = 0;
   completed = 0;
   design = false;
 
@@ -69,9 +69,13 @@ export class DocxSurveyComponent implements OnInit {
   biLogo;
   companyLogo;
   projectList = []
+  firstload = true;
 
   constructor(private _hotkeysService: HotkeysService, private dragulaService: DragulaService, private _BmxService: BmxService, private http: HttpClient) { }
   ngOnInit(): any {
+    this.firstload = true;
+    this.user = [];
+    this.projectList = [];
     const fs = require('fs');
     this.selection = new SelectionModel<any>(true, []);
     this._BmxService.currentprojectData$.subscribe((projectData) => {
@@ -84,64 +88,65 @@ export class DocxSurveyComponent implements OnInit {
       localStorage.setItem('projectName', this.projectId);
 
       this._BmxService.getSelectedProjects().subscribe((projects: any) => {
-        if (projects) {
-
-          projects.map((newProjectName: any) => {
-            if (this.projectId.includes(newProjectName)) {
-              this.projectList.push({
-                name: newProjectName,
-                combine: 1
-              })
-            } else {
-              this.projectList.push({
-                name: newProjectName,
-                combine: 0
-              })
-            }
-          })
-          this.projectList.push({
-            name: this.projectId,
-            combine: 1
-          })
+        if (projects && !this.firstload) {
+          this.projectList = this.projectList.concat(projects);
+          this.mergeData(this.projectList);
         }
-      })
-      this._BmxService.getBrandMatrixByProjectAllUserAnswers(this.projectId)
-        .subscribe(async (arg: any) => {
-          if (arg.d && arg.d.length > 0) {
-            const data = JSON.parse(arg.d);
-            if (data[0]?.BrandMatrix) {
-              this.companyLogo = JSON.parse(data[0]?.BrandMatrix)[0].page[0].componentSettings[0].companyLogoURL;
-              this.user = await this.createDataObject(JSON.parse(arg.d));
-              this.changeView();
-              //this.completedStatus(this.user);
-              //var imageSrcString;
-              //imageSrcString = await this.getBase64ImageFromUrl("https://tools.brandinstitute.com/bmresources/te2647/logo5.JPG")
-              let fruits: Array<TextRun>;
-              fruits = [];
-              for (let i = 0; i < 10; i++) {
-                fruits.push(new TextRun
-                  (
-                    {
-                      text: i.toString(),
-                      font:
-                      {
-                        name: "Calibri",
-                      },
-                      size: 20,
-                    }
-                  )
-
-                )
-              }
-              
-            }
-          }
-        });
+      });
     });
+    this.projectList = [];
+    this.projectList.push(this.projectId);
+    this.mergeData(this.projectList);
+    this.firstload = false;
+  }
+
+  mergeData(t: any)
+  {
+    this.user = [];
+    for (var i = 0; i < t.length; i++) {
+
+      this._BmxService.getBrandMatrixByProjectAllUserAnswers(t[i])
+      .subscribe(async (arg: any) => {
+        if (arg.d && arg.d.length > 0) {
+          const data = JSON.parse(arg.d);
+          if (data[0]?.BrandMatrix) {
+            this.companyLogo = JSON.parse(data[0]?.BrandMatrix)[0].page[0].componentSettings[0].companyLogoURL;
+            var temp = await this.createDataObject(JSON.parse(arg.d));
+            this.user = this.user.concat(temp);
+            /*this.user = await this.createDataObject(JSON.parse(arg.d));*/
+            this.changeView();
+            //this.completedStatus(this.user);
+            //var imageSrcString;
+            //imageSrcString = await this.getBase64ImageFromUrl("https://tools.brandinstitute.com/bmresources/te2647/logo5.JPG")
+            let fruits: Array<TextRun>;
+            fruits = [];
+            for (let i = 0; i < 10; i++) {
+              fruits.push(new TextRun
+                (
+                  {
+                    text: i.toString(),
+                    font:
+                    {
+                      name: "Calibri",
+                    },
+                    size: 20,
+                  }
+                )
+
+              )
+            }
+
+          }
+        }
+      });
+    }
+    this.changeView();
   }
 
   async createDataObject(t: any): Promise<any> {
     var done = [];
+    this.total = 0;
+    this.completed = 0;
     this.companyLogo = await this.imageToBuffer(this.companyLogo);
     this.biLogo = await this.imageToBuffer('https://tools.brandinstitute.com/bmresources/brandInstituteAssets/bi-logo.PNG');
     this.projectName = t[0].ProjectName;
@@ -327,7 +332,7 @@ export class DocxSurveyComponent implements OnInit {
         done.push(recept);
       }
     }
-    this.total = done.length;
+    this.total += done.length;
     return done;
   }
 

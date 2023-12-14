@@ -25,6 +25,10 @@ export class MenuComponent implements OnInit {
   userName = ''
   userDepartment: string;
   userOffice: any;
+  id: string;
+
+  // constructor(private router: Router, private _BmxService: BmxService, private activatedRoute: ActivatedRoute,) {
+
   projectId: string;
   globalProjectName: string;
 
@@ -47,7 +51,7 @@ export class MenuComponent implements OnInit {
           // this.userRole = 'admin'; // no restrictions
           // this.userDepartment = 'Creative';
           // this.userOffice = 'Basel 1'
-          // this.userRole = 'director'; // director restriced
+          this.userRole = 'director'; // director restriced
           // this.userRole = 'creative';
           // this.userRole = 'user'
           // this.userDepartment = 'Design'
@@ -60,9 +64,22 @@ export class MenuComponent implements OnInit {
 
   ngOnInit(): void {
 
+    //clean local storage
     this.router.events.subscribe((event) => {
 
       if (event instanceof NavigationEnd) {
+        this.id = this.activatedRoute.snapshot.queryParamMap.get('id');
+
+        // localStorage.setItem('projectId', this.projectId);
+        this._BmxService.getMatrixUser(this.id).subscribe((data: any) => {
+          data = JSON.parse(data.d);
+          localStorage.setItem('userData', JSON.stringify(data))
+          this.userFullName = data.FullName;
+          this.userRole = data.Role;
+          this.userName = data.UserName;
+          this.userOffice = data.Office;
+          this.userDepartment = data.Role;
+        });
         this.isDashboardMenu = event.url.includes('dashboard') || event.url === '/';
         this.isPreviewView = event.url.includes('survey')
         this.selectedMenuItem = event.url.slice(1)
@@ -81,6 +98,7 @@ export class MenuComponent implements OnInit {
       })
     }
   }
+
 
   toggleMenu() {
     this.hideMenu = !this.hideMenu;
@@ -109,7 +127,7 @@ export class MenuComponent implements OnInit {
         this.globalProjectName = this.projectId
         if (this.globalProjectName != null && this.globalProjectName != 'null') {
           this.hideMenu = true;
-  
+
           this.router.navigate(['/' + value]);
         } else {
           this._snackBar.open(
@@ -126,7 +144,7 @@ export class MenuComponent implements OnInit {
           this.globalProjectName = (projectName !== '') ? projectName : this.projectId;
           if (this.globalProjectName != null && this.globalProjectName != 'null') {
             this.hideMenu = true;
-    
+
             this.router.navigate(['/' + value]);
           } else {
             this._snackBar.open(
@@ -140,7 +158,7 @@ export class MenuComponent implements OnInit {
           }
         })
       }
- 
+
 
     }
     else {
