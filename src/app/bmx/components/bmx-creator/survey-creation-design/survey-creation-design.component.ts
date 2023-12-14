@@ -917,6 +917,29 @@ export class SurveyCreationDesignComponent implements OnInit {
 
     saveData() {
         // RESET VOTES IN TEMPLATE
+        
+        this.projectInfo = JSON.parse(
+            localStorage.getItem('fakeproject' + '_project_info')
+        );
+        this.bmxCompleteObject = {
+            userInfo: { username: 'John Smith' },
+            projectInfo: this.projectInfo,
+            bmx: this.bmxPages,
+            // tables: []
+        };
+        this.bmxPages.forEach((pageElement) => {
+            pageElement.page.forEach((component) => {
+                if (
+                    component.componentType == 'rate-scale' ||
+                    component.componentType == 'ranking-scale' ||
+                    component.componentType == 'image-rate-scale' ||
+                    component.componentType == 'narrow-down' ||
+                    component.componentType == 'question-answer'
+                ) {
+                    this.calculateTableDefinitions(component);
+                }
+            });
+        });
         this.bmxPages.forEach((pageToreset: any) => {
 
             pageToreset.page.forEach(category => {
@@ -965,28 +988,6 @@ export class SurveyCreationDesignComponent implements OnInit {
             });
         });
 
-        this.projectInfo = JSON.parse(
-            localStorage.getItem('fakeproject' + '_project_info')
-        );
-        this.bmxCompleteObject = {
-            userInfo: { username: 'John Smith' },
-            projectInfo: this.projectInfo,
-            bmx: this.bmxPages,
-            // tables: []
-        };
-        this.bmxPages.forEach((pageElement) => {
-            pageElement.page.forEach((component) => {
-                if (
-                    component.componentType == 'rate-scale' ||
-                    component.componentType == 'ranking-scale' ||
-                    component.componentType == 'image-rate-scale' ||
-                    component.componentType == 'narrow-down' ||
-                    component.componentType == 'question-answer'
-                ) {
-                    this.calculateTableDefinitions(component);
-                }
-            });
-        });
         // console.log(this.bmxCompleteObject.bmx[4]["page"][3]['componentText']);
         this._BmxService
             .saveOrUpdateBradnMatrixTemplate(this.bmxPages, this.projectId)
