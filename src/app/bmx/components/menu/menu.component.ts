@@ -36,6 +36,10 @@ export class MenuComponent implements OnInit {
     this.activatedRoute.queryParams.subscribe((queryParams) => {
       this.userGUI = queryParams['id'];
 
+      if (this.userGUI == undefined || this.userGUI == null || this.userGUI == '') {
+        window.location.href = 'http://daymaster.brandinstitute.com/auth/bmx2.asp';
+      }
+
       // localStorage.setItem('projectId', this.projectId);
       this._BmxService.getMatrixUser(this.userGUI).subscribe((data: any) => {
         if (data.d != '') {
@@ -51,11 +55,15 @@ export class MenuComponent implements OnInit {
           // this.userRole = 'admin'; // no restrictions
           // this.userDepartment = 'Creative';
           // this.userOffice = 'Basel 1'
-          this.userRole = 'director'; // director restriced
+          // this.userRole = 'director'; // director restriced
           // this.userRole = 'creative';
           // this.userRole = 'user'
           // this.userDepartment = 'Design'
+        } else {
+          alert('User not found');
         }
+
+
       });
 
     });
