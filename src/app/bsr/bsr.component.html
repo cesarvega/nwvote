@@ -1,7 +1,7 @@
 <mat-sidenav-container class="main-container" *ngIf="true" [hasBackdrop]="false">
 
   <!-- OVERVIEW SLIDE -->
-  <mat-sidenav class="overview"  mode="over" [opened]="overview">
+  <mat-sidenav class="overview" mode="over" [opened]="overview">
     <mat-card (click)="goToSlide(i)" *ngFor="let item of appSlidesData; let i = index">
       <p style="color: #004684;cursor: pointer;border-bottom: #004684;">{{i+1}}. - {{item.SlideDescription}}</p>
       <!-- <img [src]="'http://www.bipresents.com/' + item.SlideBGFileName" alt="overview"
@@ -24,13 +24,13 @@
       </button>
 
       <!-- COMMENTS BOX -->
-      <div class="comment-to-top" cdkDrag cdkDragRootElement=".cdk-overlay-pane" cdkDragHandle
-      fxLayout="col" *ngIf="isCommentBox" fxLayoutAlign="center center">
+      <div class="comment-to-top" cdkDrag cdkDragRootElement=".cdk-overlay-pane" cdkDragHandle fxLayout="col"
+        *ngIf="isCommentBox" fxLayoutAlign="center center">
 
         <div fxFlex class="mat-elevation-z4 comment-box">
           <div class="col">
             <div class="row">
-              <div class="handle" style="float: left; font-size: 9px;" >.</div>
+              <div class="handle" style="float: left; font-size: 9px;">.</div>
               <button (click)="displayCommentBox()" mat-stroked-button style="color: #004684;
                     position: absolute;
                     right: 7px;
@@ -93,6 +93,7 @@
           mat-icon-button color="warn" aria-label="aria">
           <mat-icon class="full-icon">note_add</mat-icon>
         </button>
+
         <button *ngIf="!createPostIt" (click)="bsr()" mat-icon-button matTooltip="post its" matTooltipPosition="above"
           mat-icon-button color="warn" aria-label="aria">
           <mat-icon class="full-icon">lightbulb_outline</mat-icon>
@@ -117,6 +118,13 @@
         <button *ngIf="createPostIt" (click)="newBlankPostIt()" matTooltip="new post" matTooltipPosition="above"
           mat-icon-button color="warn" aria-label="aria">
           <mat-icon class="full-icon">note_add</mat-icon>
+        </button>
+        <button *ngIf="!createPostIt" (click)="wideScreenView()" mat-icon-button matTooltip="Wide screen" matTooltipPosition="above"
+          mat-icon-button color="warn" aria-label="aria"> <svg class="full-icon" style="height: 20px" xmlns="http://www.w3.org/2000/svg"
+            viewBox="0 0 448 512"><!--! Font Awesome Pro 6.4.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license (Commercial License) Copyright 2023 Fonticons, Inc. -->
+            <path
+              d="M64 32C28.7 32 0 60.7 0 96V416c0 35.3 28.7 64 64 64H384c35.3 0 64-28.7 64-64V96c0-35.3-28.7-64-64-64H64zM224 160c6.7 0 13 2.8 17.6 7.7l104 112c6.5 7 8.2 17.2 4.4 25.9s-12.5 14.4-22 14.4H120c-9.5 0-18.2-5.7-22-14.4s-2.1-18.9 4.4-25.9l104-112c4.5-4.9 10.9-7.7 17.6-7.7z" />
+          </svg>
         </button>
         <button (click)="openFullscreen()" matTooltip="full-screen" matTooltipPosition="above" mat-icon-button
           color="warn" aria-label="aria">
@@ -173,7 +181,7 @@
 
       <!-- PRESENTATION MENU-->
       <div *ngIf="!createPostIt" fxLayoutAlign="center center" class="col">
-        <div class="slide-box mat-elevation-z12" [style.background]="slideBackground">
+        <div  [class.slide-box-wide]="wideView" [class.slide-box]="!wideView"  [style.background]="slideBackground">
 
 
           <mat-toolbar class="toolbar mat-elevation-z4 bounceIn" *ngIf="false">
@@ -292,12 +300,12 @@
 
                     <!-- POST_REPEATER -->
 
-                    <div class="row post-it-container " [ngStyle]="{'max-width': myMaxWith }"
-                    dragula="TASKS" [dragulaModel]="conceptData.concepts" (dragulaModelChange)="conceptData.concepts = $event">
+                    <div class="row post-it-container " [ngStyle]="{'max-width': myMaxWith }" dragula="TASKS"
+                      [dragulaModel]="conceptData.concepts" (dragulaModelChange)="conceptData.concepts = $event">
                       <div [ngClass]="postItListTheme" *ngFor="let item of conceptData.concepts; let i = index;">
 
-                        <mat-card  class="mat-elevation-z4 post-card">
-                          <div class="emoji-handle" >
+                        <mat-card class="mat-elevation-z4 post-card">
+                          <div class="emoji-handle">
                             <!-- <svg width="24px" fill="currentColor" viewBox="0 0 24 24">
                               <path d="M10 9h4V6h3l-5-5-5 5h3v3zm-1 1H6V7l-5 5 5 5v-3h3v-4zm14 2l-5-5v3h-3v4h3v3l5-5zm-9 3h-4v3H7l5 5 5-5h-3v-3z"></path>
                               <path d="M0 0h24v24H0z" fill="none"></path>
@@ -307,7 +315,9 @@
                           <!-- TITLE -->
                           <mat-card-title>
                             <div class="post-title">
-                              <div class="mat-h2" style="line-height: 100%;">{{item.concept}}<div class="handle" style="float: right;width: 250px;    font-size: 1px;">.</div></div>
+                              <div class="mat-h2" style="line-height: 100%;">{{item.concept}}<div class="handle"
+                                  style="float: right;width: 250px;    font-size: 1px;">.</div>
+                              </div>
 
                               <hr>
                             </div>
@@ -328,7 +338,7 @@
 
 
                     </div>
-                                    </div>
+                  </div>
                 </div>
 
                 <!-- NAMES BOX 1 -->
@@ -409,11 +419,11 @@
                 </div>
 
               </div>
-              </div>
+            </div>
 
-              <div class="row">
-                <!-- SEARCH RESULTS -->
-                <!-- <div class="col" *ngIf="isSearching">
+            <div class="row">
+              <!-- SEARCH RESULTS -->
+              <!-- <div class="col" *ngIf="isSearching">
                   <div class="search-results">
                     <mat-card (click)="goToSlide(i)" class="example-card"
                       *ngFor="let item of appSearchSlidesData; let i = index">
@@ -428,70 +438,70 @@
                   </div>
                 </div> -->
 
-                <div class="col-md-12" fxLayoutAlign="center center">
-                  <!-- MENU BSR-->
-                  <mat-toolbar class="toolbar-postit mat-elevation-z4 bounceIn" *ngIf="false">
-                    <!-- <mat-toolbar class="toolbar-postit mat-elevation-z4 bounceIn" *ngIf="mainMenu"> -->
+              <div class="col-md-12" fxLayoutAlign="center center">
+                <!-- MENU BSR-->
+                <mat-toolbar class="toolbar-postit mat-elevation-z4 bounceIn" *ngIf="false">
+                  <!-- <mat-toolbar class="toolbar-postit mat-elevation-z4 bounceIn" *ngIf="mainMenu"> -->
 
-                    <button (click)="home()" mat-icon-button aria-label="Example icon-button with a heart icon"
-                      matTooltip="Home" matTooltipPosition="above">
-                      <mat-icon>home</mat-icon>
-                    </button>
+                  <button (click)="home()" mat-icon-button aria-label="Example icon-button with a heart icon"
+                    matTooltip="Home" matTooltipPosition="above">
+                    <mat-icon>home</mat-icon>
+                  </button>
 
-                    <button matTooltip="New Concept" matTooltipPosition="above" (click)="newBlankPostIt()"
-                      mat-icon-button color="primary" aria-label="Example icon-button with a heart icon">
-                      <mat-icon>note_add</mat-icon>
-                    </button>
+                  <button matTooltip="New Concept" matTooltipPosition="above" (click)="newBlankPostIt()" mat-icon-button
+                    color="primary" aria-label="Example icon-button with a heart icon">
+                    <mat-icon>note_add</mat-icon>
+                  </button>
 
-                    <input class="search" placeholder="search" type="text" (input)="searchTerm($event.target.value)">
+                  <input class="search" placeholder="search" type="text" (input)="searchTerm($event.target.value)">
 
-                    <button (click)="moveBackward()" mat-icon-button color="accent"
-                      aria-label="Example icon-button with a heart icon">
-                      <mat-icon>chevron_left</mat-icon>
-                    </button>
+                  <button (click)="moveBackward()" mat-icon-button color="accent"
+                    aria-label="Example icon-button with a heart icon">
+                    <mat-icon>chevron_left</mat-icon>
+                  </button>
 
-                    <button (click)="moveForward()" mat-icon-button color="warn"
-                      aria-label="Example icon-button with a heart icon">
-                      <mat-icon>chevron_right</mat-icon>
-                    </button>
-
-
-                    <button *ngIf="!isNSR" (click)="openDialog('mobileInfo', 'do')" mat-icon-button color="primary"
-                      aria-label="Example icon-button with a heart icon">
-                      <mat-icon>phone_iphone</mat-icon>
-                    </button>
+                  <button (click)="moveForward()" mat-icon-button color="warn"
+                    aria-label="Example icon-button with a heart icon">
+                    <mat-icon>chevron_right</mat-icon>
+                  </button>
 
 
-                    <button mat-icon-button aria-label="page" style="width: 100px;font-size: 23px;">
-                      {{pageCounter}}
-                    </button>
+                  <button *ngIf="!isNSR" (click)="openDialog('mobileInfo', 'do')" mat-icon-button color="primary"
+                    aria-label="Example icon-button with a heart icon">
+                    <mat-icon>phone_iphone</mat-icon>
+                  </button>
 
-                    <button (click)="displayHelp(false)" mat-icon-button color="warn"
-                      aria-label="Example icon-button with a heart icon">
-                      <mat-icon style="color: green !important;">help</mat-icon>
-                    </button>
 
-                    <button (click)="mainMenu = false" mat-icon-button color="warn"
-                      aria-label="Example icon-button with a heart icon">
-                      <mat-icon style="color: grey !important;">keyboard_arrow_down</mat-icon>
-                    </button>
+                  <button mat-icon-button aria-label="page" style="width: 100px;font-size: 23px;">
+                    {{pageCounter}}
+                  </button>
 
-                    <!-- <button class="fullscreen" (click)="openFullscreen()" mat-icon-button color="warn" aria-label="aria">
+                  <button (click)="displayHelp(false)" mat-icon-button color="warn"
+                    aria-label="Example icon-button with a heart icon">
+                    <mat-icon style="color: green !important;">help</mat-icon>
+                  </button>
+
+                  <button (click)="mainMenu = false" mat-icon-button color="warn"
+                    aria-label="Example icon-button with a heart icon">
+                    <mat-icon style="color: grey !important;">keyboard_arrow_down</mat-icon>
+                  </button>
+
+                  <!-- <button class="fullscreen" (click)="openFullscreen()" mat-icon-button color="warn" aria-label="aria">
                       <mat-icon style="color: grey !important;">fullscreen</mat-icon>
                     </button> -->
 
-                  </mat-toolbar>
-                </div>
+                </mat-toolbar>
               </div>
             </div>
           </div>
         </div>
-
       </div>
 
-      <button (click)="moveForward()" class="menu-right-icon" disableRipple mat-icon-button color="red">
-        <mat-icon>keyboard_arrow_right</mat-icon>
-      </button>
+    </div>
+
+    <button (click)="moveForward()" class="menu-right-icon" disableRipple mat-icon-button color="red">
+      <mat-icon>keyboard_arrow_right</mat-icon>
+    </button>
 
 
   </mat-sidenav-content>

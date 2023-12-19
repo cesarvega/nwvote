@@ -82,6 +82,7 @@ export class BsrComponent implements OnInit {
   BackgroundUrlOff = 'url(http://bipresents.com/nw2/assets/images/BackGrounds/Backgrounds2019/';
   baseUrl: any;
   restUrl: any;
+  wideView: boolean = false;
 
   constructor(@Inject(DOCUMENT) private document: any, private _formBuilder: FormBuilder,
     private _hotkeysService: HotkeysService,
@@ -183,6 +184,8 @@ export class BsrComponent implements OnInit {
         this.currentPageNumber = 0;
 
       }
+      this.wideView = res[0].isWide
+      console.log(res[0],this.wideView)
     })
 
     this._BsrService.getPost().subscribe((res: any) => {
@@ -399,6 +402,10 @@ export class BsrComponent implements OnInit {
       });
     });
 
+  }
+
+  wideScreenView(){
+    this.wideView = !this.wideView
   }
 
   sideMenu() {
@@ -792,6 +799,7 @@ export class editPost {
   public myAngularxQrCode: string = null;
   isQRcode: boolean;
   nameid: any = '';
+  wideView: boolean = false;
   constructor(
     public dialogRef: MatDialogRef<editPost>,
     @Inject(MAT_DIALOG_DATA) public data: DialogData, private _formBuilder: FormBuilder, private _BsrService: BsrService, private activatedRoute: ActivatedRoute,) {
