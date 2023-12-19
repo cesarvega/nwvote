@@ -706,9 +706,32 @@ mat-tab-group ::-webkit-scrollbar {
   // opacity: 0;
 }
 
+.menu-left-icon-wide {
+  position: relative;
+  top: 469px;
+  z-index: 99;
+  left: -44px;
+  outline: none;
+  :hover {
+    transform: scale(1.5);
+  }
+  // opacity: 0;
+}
+
 .menu-right-icon {
   position: relative;
-  right: -1425px;
+  right: -1317px;
+  top: -290px;
+  z-index: 99;
+  outline: none;
+  :hover {
+    transform: scale(1.5);
+  }
+}
+
+.menu-right-icon-wide {
+  position: relative;
+  right: -1434px;
   top: -290px;
   z-index: 99;
   outline: none;
