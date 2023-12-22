@@ -1,29 +1,49 @@
 @mixin BoxShadow($dp) {
   @if $dp==0 {
     box-shadow: none;
-  } @else if $dp==1 {
+  }
+
+  @else if $dp==1 {
     box-shadow: 0 1px 1px 0 rgba(0, 0, 0, 0.14), 0 2px 1px -1px rgba(0, 0, 0, 0.12), 0 1px 3px 0 rgba(0, 0, 0, 0.2);
-  } @else if $dp==2 {
+  }
+
+  @else if $dp==2 {
     box-shadow: 0 2px 2px 0 rgba(0, 0, 0, 0.14), 0 3px 1px -2px rgba(0, 0, 0, 0.12), 0 1px 5px 0 rgba(0, 0, 0, 0.2);
-  } @else if $dp==3 {
+  }
+
+  @else if $dp==3 {
     box-shadow: 0 3px 4px 0 rgba(0, 0, 0, 0.14), 0 3px 3px -2px rgba(0, 0, 0, 0.12), 0 1px 8px 0 rgba(0, 0, 0, 0.2);
-  } @else if $dp==4 {
+  }
+
+  @else if $dp==4 {
     box-shadow: 0 4px 5px 0 rgba(0, 0, 0, 0.14), 0 1px 10px 0 rgba(0, 0, 0, 0.12), 0 2px 4px -1px rgba(0, 0, 0, 0.2);
-  } @else if $dp==6 {
+  }
+
+  @else if $dp==6 {
     box-shadow: 0 6px 10px 0 rgba(0, 0, 0, 0.14), 0 1px 18px 0 rgba(0, 0, 0, 0.12), 0 3px 5px -1px rgba(0, 0, 0, 0.2);
-  } @else if $dp==8 {
+  }
+
+  @else if $dp==8 {
     box-shadow: 0 8px 10px 1px rgba(0, 0, 0, 0.14), 0 3px 14px 2px rgba(0, 0, 0, 0.12),
       0 5px 5px -3px rgba(0, 0, 0, 0.2);
-  } @else if $dp==9 {
+  }
+
+  @else if $dp==9 {
     box-shadow: 0 9px 12px 1px rgba(0, 0, 0, 0.14), 0 3px 16px 2px rgba(0, 0, 0, 0.12),
       0 5px 6px -3px rgba(0, 0, 0, 0.2);
-  } @else if $dp==12 {
+  }
+
+  @else if $dp==12 {
     box-shadow: 0 12px 17px 2px rgba(0, 0, 0, 0.14), 0 5px 22px 4px rgba(0, 0, 0, 0.12),
       0 7px 8px -4px rgba(0, 0, 0, 0.2);
-  } @else if $dp==16 {
+  }
+
+  @else if $dp==16 {
     box-shadow: 0 16px 24px 2px rgba(0, 0, 0, 0.14), 0 6px 30px 5px rgba(0, 0, 0, 0.12),
       0 8px 10px -5px rgba(0, 0, 0, 0.2);
-  } @else if $dp==24 {
+  }
+
+  @else if $dp==24 {
     box-shadow: 0 24px 38px 3px rgba(0, 0, 0, 0.14), 0 9px 46px 8px rgba(0, 0, 0, 0.12),
       0 11px 15px -7px rgba(0, 0, 0, 0.2);
   }
@@ -49,22 +69,57 @@
   top: 70px;
   right: -76px;
   overflow: hidden;
-  -ms-overflow-style: none; /* IE and Edge */
+  -ms-overflow-style: none;
+  /* IE and Edge */
   scrollbar-width: none;
   @include BoxShadow(4);
   // animation: flip .5s ease 0.1s forwards;
 }
+
 .presentation-box {
-  -ms-overflow-style: none; /* IE and Edge */
-  scrollbar-width: none; /* Firefox */
+  -ms-overflow-style: none;
+  /* IE and Edge */
+  scrollbar-width: none;
+  /* Firefox */
 }
 
 .presentation-box::-webkit-scrollbar {
   display: none;
 }
-.container{
+
+.presentation-box-wide {
+  aspect-ratio: 16/9;
+  height: 714px;
+  border: solid 4px lightgray;
+  border-radius: 6px;
+  background-repeat: no-repeat;
+  background-size: cover;
+  position: relative;
+  top: 70px;
+  right: -76px;
+  overflow: hidden;
+  -ms-overflow-style: none;
+  /* IE and Edge */
+  scrollbar-width: none;
+  @include BoxShadow(4);
+  // animation: flip .5s ease 0.1s forwards;
+}
+
+.presentation-box-wide {
+  -ms-overflow-style: none;
+  /* IE and Edge */
+  scrollbar-width: none;
+  /* Firefox */
+}
+
+.presentation-box-wide::-webkit-scrollbar {
+  display: none;
+}
+
+.container {
   // max-width: 2000px !important;
 }
+
 .slide-box {
   width: 900px;
   height: 727px;
@@ -80,8 +135,10 @@
 }
 
 .slide-box-wide {
-  width: 1600px; /* Set the desired width */
-  height: 727px; /* Keep the height the same as in the original class */
+  width: 1600px;
+  /* Set the desired width */
+  height: 727px;
+  /* Keep the height the same as in the original class */
   border: solid 4px lightgray;
   border-radius: 6px;
   background-repeat: no-repeat !important;
@@ -92,9 +149,9 @@
   overflow: hidden;
   opacity: 1;
 }
-.flexible-item-wide-screen {
 
-}
+.flexible-item-wide-screen {}
+
 .slide-box img {
   width: 100%;
   height: 100%;
@@ -176,16 +233,28 @@
 
 .toptoolbar {
   background-repeat: no-repeat;
-  background-size: initial;
+  background-size: cover;
   background-image: url(../../assets/img/toolbarBg.jpg);
   height: 53px;
   position: absolute;
-  top: 74px;
-  left: 95px;
-  width: 940px;
+
+  width: 100%;
   z-index: 9999;
   border-radius: 5px;
 }
+
+.toptoolbar-wide {
+  background-repeat: no-repeat;
+  background-size: cover;
+  background-image: url(../../assets/img/toolbarBg.jpg);
+  height: 53px;
+  position: absolute;
+
+  width: 100%;
+  z-index: 9999;
+  border-radius: 5px;
+}
+
 
 .postit-box {
   width: 950px;
@@ -211,6 +280,19 @@
   height: 552px;
   position: relative;
   right: 8px;
+  top: 134px;
+  overflow-x: hidden;
+  overflow-y: scroll;
+  padding: 10px;
+}
+
+.names-container-wide {
+  background-color: white;
+  width: 300px;
+  max-width: 313px;
+  height: 552px;
+  position: relative;
+  right: -300px;
   top: 134px;
   overflow-x: hidden;
   overflow-y: scroll;
@@ -312,6 +394,20 @@
   border-bottom-right-radius: 2px;
   padding: 20px;
 }
+
+.name-form-wide {
+  position: relative;
+  top: 133px;
+  width: 300px;
+  background-color: white;
+  height: 90px;
+  border-bottom-left-radius: 12px;
+  border-bottom-right-radius: 2px;
+  padding: 20px;
+  right: -306px;
+
+}
+
 .name-form2 {
   position: relative;
   bottom: -140px;
@@ -430,8 +526,10 @@
   height: 280px;
   background-color: #d6f8fd;
   overflow: hidden;
-  -ms-overflow-style: none; /* IE and Edge */
+  -ms-overflow-style: none;
+  /* IE and Edge */
   scrollbar-width: none;
+
   .deleteButton {
     display: none;
   }
@@ -440,6 +538,7 @@
 .post-card:hover {
   @include BoxShadow(12);
   background-color: lightyellow;
+
   .deleteButton {
     display: inline;
     color: #ff0000d1;
@@ -460,7 +559,8 @@
   width: 253px;
   word-break: break-all;
   // cursor: grab;
-  -ms-overflow-style: none; /* IE and Edge */
+  -ms-overflow-style: none;
+  /* IE and Edge */
   scrollbar-width: none;
   text-shadow: 0px 1px 100000 1 n m/ px #555;
 }
@@ -480,7 +580,8 @@
 
 .post-content:hover {
   overflow-y: scroll;
-  -ms-overflow-style: none; /* IE and Edge */
+  -ms-overflow-style: none;
+  /* IE and Edge */
   scrollbar-width: none;
 }
 
@@ -492,6 +593,7 @@
   font-size: 16px;
   color: black;
 }
+
 .synonymsIcon2 {
   cursor: context-menu;
   position: absolute;
@@ -504,6 +606,7 @@
 .synonymsIcon:hover {
   color: red;
 }
+
 .synonymsIcon2:hover {
   color: orangered;
 }
@@ -578,10 +681,12 @@ table {
   // left: 956px;
   // z-index: 999;box-shadow: none;
 }
+
 .tabs-emojis {
   overflow-y: scroll;
   max-height: 600px;
 }
+
 .tabs-emojis::-webkit-scrollbar {
   display: none;
 }
@@ -597,6 +702,7 @@ table {
   height: 38px;
   z-index: 999999;
 }
+
 .emoji-box {
   background-color: white;
   position: fixed;
@@ -611,13 +717,16 @@ table {
   overflow-y: hidden;
   width: 741px;
   z-index: 99999;
-  animation: jackInTheBox; /* referring directly to the animation's @keyframe declaration */
-  animation-duration: 0.4s; /* don't forget to set a duration! */
+  animation: jackInTheBox;
+  /* referring directly to the animation's @keyframe declaration */
+  animation-duration: 0.4s;
+  /* don't forget to set a duration! */
 }
 
 mat-tab-group ::-webkit-scrollbar {
   display: none;
 }
+
 .emoji-mobile-box {
   background-color: #fff;
   position: absolute;
@@ -659,6 +768,7 @@ mat-tab-group ::-webkit-scrollbar {
   animation: bounceIn 0.5s ease-in-out 0s 1 forwards;
   overflow: hidden;
 }
+
 .comment-field {
   width: 516px;
   position: absolute;
@@ -700,9 +810,11 @@ mat-tab-group ::-webkit-scrollbar {
   z-index: 99;
   left: 76px;
   outline: none;
+
   :hover {
     transform: scale(1.5);
   }
+
   // opacity: 0;
 }
 
@@ -712,18 +824,21 @@ mat-tab-group ::-webkit-scrollbar {
   z-index: 99;
   left: -44px;
   outline: none;
+
   :hover {
     transform: scale(1.5);
   }
+
   // opacity: 0;
 }
 
 .menu-right-icon {
   position: relative;
-  right: -1487px;
-  top: -290px;
+  left: 1027px;
+  top: 470px;
   z-index: 99;
   outline: none;
+
   :hover {
     transform: scale(1.5);
   }
@@ -731,13 +846,22 @@ mat-tab-group ::-webkit-scrollbar {
 
 .menu-right-icon-wide {
   position: relative;
-  right: -1584px;
-  top: -290px;
+  left: 1229px;
+  top: 470px;
   z-index: 99;
   outline: none;
+
   :hover {
     transform: scale(1.5);
   }
+}
+
+.menu-right-icon-wide-post{
+  position: relative;
+  left: 1429px;
+  top: 470px;
+  z-index: 99;
+  outline: none;
 }
 
 .corner_bar_menu {
@@ -757,6 +881,7 @@ mat-tab-group ::-webkit-scrollbar {
 .full-icon:hover {
   transform: scale(2.1);
 }
+
 .full-icon {
   color: grey !important;
   font-size: 20px;
@@ -773,6 +898,7 @@ $postItanimations: shakeY, shakeY, shakeY, shakeY, shakeY, shakeY, shakeY, shake
 $postItseconds: 1, 2, 3;
 $postItHeaderColors: #d6f8fd, #d6f8fd, #d6f8fd, #d6f8fd, #d6f8fd, #d6f8fd, #d6f8fd, #d6f8fd, #d6f8fd;
 $postItHeaderColorsLength: length($postItHeaderColors);
+
 .post-it-list {
   @for $i from 1 through 3 {
     // &:nth-of-type(#{$postItHeaderColorsLength}n + #{$i}) .post-card {
@@ -796,6 +922,7 @@ $postItHeaderColorsLength: length($postItHeaderColors);
 
 // theme
 $postItHeaderColors2: #d6f8fd, #dcd6fd, #d6fde9, #fdfcd6, #d6f8fd, #fdd6e8, #fddfd6, #d6f8fd, #d6f8fd;
+
 .post-it-list-theme {
   @for $i from 1 through 8 {
     &:nth-of-type(#{$postItHeaderColorsLength}n + #{$i}) .post-card {
@@ -840,31 +967,42 @@ $postItHeaderColors2: #d6f8fd, #dcd6fd, #d6fde9, #fdfcd6, #d6f8fd, #fdd6e8, #fdd
   display: inline-block;
   margin: 0 0.5rem;
 
-  animation: shakeX; /* referring directly to the animation's @keyframe declaration */
-  animation-duration: 0.1s; /* don't forget to set a duration! */
+  animation: shakeX;
+  /* referring directly to the animation's @keyframe declaration */
+  animation-duration: 0.1s;
+  /* don't forget to set a duration! */
 }
+
 .bounceOut {
   display: inline-block;
   margin: 0 0.5rem;
   // overflow: scroll;
-  animation: shakeX; /* referring directly to the animation's @keyframe declaration */
-  animation-duration: 0.1s; /* don't forget to set a duration! */
+  animation: shakeX;
+  /* referring directly to the animation's @keyframe declaration */
+  animation-duration: 0.1s;
+  /* don't forget to set a duration! */
 }
 
 .shakeIn {
   display: inline-block;
   margin: 0 0.5rem;
 
-  animation: shakeX; /* referring directly to the animation's @keyframe declaration */
-  animation-duration: 0.1s; /* don't forget to set a duration! */
-  animation-delay: 0.5s; /* don't forget to set a duration! */
+  animation: shakeX;
+  /* referring directly to the animation's @keyframe declaration */
+  animation-duration: 0.1s;
+  /* don't forget to set a duration! */
+  animation-delay: 0.5s;
+  /* don't forget to set a duration! */
 }
+
 .shakeOut {
   display: inline-block;
   margin: 0 0.5rem;
 
-  animation: shakeX; /* referring directly to the animation's @keyframe declaration */
-  animation-duration: 0.1s; /* don't forget to set a duration! */
+  animation: shakeX;
+  /* referring directly to the animation's @keyframe declaration */
+  animation-duration: 0.1s;
+  /* don't forget to set a duration! */
 }
 
 /* The animation code */
@@ -872,6 +1010,7 @@ $postItHeaderColors2: #d6f8fd, #dcd6fd, #d6fde9, #fdfcd6, #d6f8fd, #fdd6e8, #fdd
   from {
     opacity: 0.5;
   }
+
   to {
     opacity: 1;
   }
@@ -881,6 +1020,7 @@ $postItHeaderColors2: #d6f8fd, #dcd6fd, #d6fde9, #fdfcd6, #d6f8fd, #fdd6e8, #fdd
   0% {
     opacity: 0;
   }
+
   100% {
     opacity: 1;
   }
@@ -893,11 +1033,14 @@ $postItHeaderColors2: #d6f8fd, #dcd6fd, #d6fde9, #fdfcd6, #d6f8fd, #fdd6e8, #fdd
   // transition: opacity 0.5s ease-out;
   // animation-direction: alternate;
   // animation: tada; /* referring directly to the animation's @keyframe declaration */
-  animation-delay: 0.1s; /* don't forget to set a duration! */
-  animation-duration: 0.5s; /* don't forget to set a duration! */
+  animation-delay: 0.1s;
+  /* don't forget to set a duration! */
+  animation-duration: 0.5s;
+  /* don't forget to set a duration! */
   animation-iteration-count: 1;
   animation-fill-mode: forwards;
 }
+
 .brandstorm:hover {
   color: #eee !important;
   display: inline-block;
@@ -907,8 +1050,10 @@ $postItHeaderColors2: #d6f8fd, #dcd6fd, #d6fde9, #fdfcd6, #d6f8fd, #fdd6e8, #fdd
   // animation: tada, wooble;
   // animation-direction: alternate;
   // animation: bounce; /* referring directly to the animation's @keyframe declaration */
-  animation-delay: 0.1s; /* don't forget to set a duration! */
-  animation-duration: 0.5s; /* don't forget to set a duration! */
+  animation-delay: 0.1s;
+  /* don't forget to set a duration! */
+  animation-duration: 0.5s;
+  /* don't forget to set a duration! */
   animation-iteration-count: 1;
   animation-timing-function: ease-out;
   animation-fill-mode: both;
@@ -940,10 +1085,12 @@ $postItHeaderColors2: #d6f8fd, #dcd6fd, #d6fde9, #fdfcd6, #d6f8fd, #fdd6e8, #fdd
   filter: alpha(opacity=80);
   pointer-events: none;
 }
+
 /* high-performance display:none; helper */
 .gu-hide {
   left: -9999px !important;
 }
+
 /* added to mirrorContainer (default = body) while dragging */
 .gu-unselectable {
   -webkit-user-select: none !important;
@@ -951,6 +1098,7 @@ $postItHeaderColors2: #d6f8fd, #dcd6fd, #d6fde9, #fdfcd6, #d6f8fd, #fdd6e8, #fdd
   -ms-user-select: none !important;
   user-select: none !important;
 }
+
 /* added to the source element while its mirror is dragged */
 .gu-transit {
   opacity: 0.2;
@@ -966,6 +1114,3 @@ $postItHeaderColors2: #d6f8fd, #dcd6fd, #d6fde9, #fdfcd6, #d6f8fd, #fdd6e8, #fdd
   position: relative;
   z-index: 9999;
 }
-
-
-
