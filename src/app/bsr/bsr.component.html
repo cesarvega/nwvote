@@ -1,4 +1,4 @@
-<mat-sidenav-container class="main-container" *ngIf="true" [hasBackdrop]="false">
+<mat-sidenav-container class="main-container" *ngIf="true" [hasBackdrop]="false" [ngStyle]="{'left': !wideView ? 0 : '-390px'}">
 
   <!-- OVERVIEW SLIDE -->
   <mat-sidenav class="overview" mode="over" [opened]="overview">
