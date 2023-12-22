@@ -72,8 +72,8 @@ export class ProjectInformationComponent implements OnInit {
           pageNumber: 1,
           page: this.brandMatrixObjects,
       },
-  ]; 
-  
+  ];
+
   biUserId = 'user@bi.com';
   templateTitle: string = '';
 
@@ -196,11 +196,11 @@ export class ProjectInformationComponent implements OnInit {
     finalString = finalString.replace("[\\u2022,\\u2023,\\u25E6,\\u2043,\\u2219]\\s\\d", '');
     this._BmxService.saveProjectInfo(this.bmxEditData.get('bmxProjectName').value.toString(), finalString, 'user@bi.com').subscribe(result => {
       var so = result;
-      this.saveProjectSuccess.emit(true)      
+      this.saveProjectSuccess.emit(true)
     });
     if(this.templateName.length > 3){
-      this.saveOrUpdateTemplate(this.templateName);     
-    } 
+      this.saveOrUpdateTemplate(this.templateName);
+    }
 
     // SET DATA STREAM TO AN OBSERVABLE
     this._BmxService.setprojectData(finalString)
@@ -294,37 +294,29 @@ export class ProjectInformationComponent implements OnInit {
 
     this.bmxSalesboard = new FormControl(
       '', [
-      Validators.required,
     ]);
     this.bmxDepartment = new FormControl(
       '', [
-      Validators.required,
     ]);
     this.bmxProjectName = new FormControl(
       '', [
-      Validators.required,
-      Validators.pattern("^[a-zA-Z0-9]+$")
+
     ]);
     this.bmxRegion = new FormControl(
       '', [
-      Validators.required,
     ]);
     this.bmxCompany = new FormControl(
       '', [
-      Validators.required,
-      // Validators.pattern("^[a-zA-Z0-9]+$")
+
     ]);
     this.bmxLanguage = new FormControl(
       '', [
-      Validators.required,
     ]);
     this.bmxTemplates = new FormControl(
       '', [
-      Validators.required,
     ]);
     this.bmxRegionalOffice = new FormControl(
       '', [
-      Validators.required,
     ]);
     this.bmxRegionalDirector = new FormControl();
   }
@@ -369,23 +361,23 @@ export class ProjectInformationComponent implements OnInit {
     });
   }
 
-  templateSelected(templateName: string) {    
+  templateSelected(templateName: string) {
     this.isSaveOrUpdate = true;
     this.templateName = templateName;
-    this.loadTemplate(this.templateName);       
+    this.loadTemplate(this.templateName);
   }
 
   saveOrUpdateTemplate(templateName) {
       //localStorage.setItem(templateName, JSON.stringify(this.bmxPages));
       localStorage.setItem('template', JSON.stringify(this.bmxPages));
-      //this.bmxPages = JSON.parse(localStorage.getItem('template'));     
+      //this.bmxPages = JSON.parse(localStorage.getItem('template'));
       this._BmxService.saveBrandMatrixTemplate(templateName, this.bmxPages, this.biUserId).subscribe((template: any) => {
         this.templateTitle = "Template '" + templateName + "' saved 🧐";
         this._snackBar.open(this.templateTitle, 'OK', {
           duration: 5000,
           horizontalPosition: 'right',
           verticalPosition: 'top',
-        })        
+        })
       })
 
       if (this.TEMPLATES.indexOf(templateName) < 0) {
@@ -407,7 +399,7 @@ export class ProjectInformationComponent implements OnInit {
             verticalPosition: 'top',
         })
     })
-  }  
+  }
 }
 
 
