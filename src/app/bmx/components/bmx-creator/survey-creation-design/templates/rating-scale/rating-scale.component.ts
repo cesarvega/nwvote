@@ -568,6 +568,7 @@ export class RatingScaleComponent implements OnInit {
         });
       }
     }
+  
     setTimeout(() => {
       this.rowsCount = this.bmxItem.componentText.length - 1;
 
@@ -580,6 +581,8 @@ export class RatingScaleComponent implements OnInit {
       if (this.bmxItem.componentSettings[0].CRITERIA) {
         //MULTIPLY FOR THE AMOUNT OF CRITERIA
         this.bmxItem.componentSettings[0].minRule = this.bmxItem.componentSettings[0].minRule * this.bmxItem.componentText[0].CRITERIA.length
+        this.bmxItem.componentSettings[0].maxRule = this.bmxItem.componentSettings[0].maxRule * this.bmxItem.componentText[0].CRITERIA.length
+
       }
       this.dragRows = false;
     }, 1000);

@@ -294,37 +294,28 @@ export class ProjectInformationComponent implements OnInit {
 
     this.bmxSalesboard = new FormControl(
       '', [
-      Validators.required,
     ]);
     this.bmxDepartment = new FormControl(
       '', [
-      Validators.required,
     ]);
     this.bmxProjectName = new FormControl(
       '', [
-      Validators.required,
-      Validators.pattern("^[a-zA-Z0-9]+$")
     ]);
     this.bmxRegion = new FormControl(
       '', [
-      Validators.required,
     ]);
     this.bmxCompany = new FormControl(
       '', [
-      Validators.required,
       // Validators.pattern("^[a-zA-Z0-9]+$")
     ]);
     this.bmxLanguage = new FormControl(
       '', [
-      Validators.required,
     ]);
     this.bmxTemplates = new FormControl(
       '', [
-      Validators.required,
     ]);
     this.bmxRegionalOffice = new FormControl(
       '', [
-      Validators.required,
     ]);
     this.bmxRegionalDirector = new FormControl();
   }
@@ -408,6 +399,12 @@ export class ProjectInformationComponent implements OnInit {
         })
     })
   }  
+
+  getCurrentDate(): Date {
+    const today = new Date();
+    today.setHours(0, 0, 0, 0); // Establecer la hora a las 00:00:00
+    return today;
+  }
 }
 
 
