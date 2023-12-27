@@ -12,7 +12,7 @@
             <input type="file" class="file-input" (change)="onFileSelected($event)" #fileUpload style="display: none;"
                 accept="image/x-png,image/gif,image/jpeg">
 
-            <mat-icon *ngIf="showLogoIcon" matTooltip="click to hide" matTooltipPosition="left"
+            <mat-icon *ngIf="showLogoIcon && bmxClientPageOverview" matTooltip="click to hide" matTooltipPosition="left"
                 style="cursor: pointer;position: absolute;top: 19px;right: 167px;z-index: 999;" (click)="deleteIcon()">
                 add_circle</mat-icon>
 
