@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { BehaviorSubject, Observable, Subject } from 'rxjs';
+import { Console } from 'console';
 
 @Injectable({
   providedIn: 'root'
@@ -208,6 +209,7 @@ export class BmxService {
   // save template string
 
   saveOrUpdateBradnMatrixTemplate(bmxCompleteObject,projectName) {
+    console.log(bmxCompleteObject, projectName)
     const payloadString = JSON.stringify({
       ProjectName: projectName,
       BrandMatrix: JSON.stringify(bmxCompleteObject).replace(this.searchApostropheRegExp, '`')
@@ -251,9 +253,11 @@ export class BmxService {
     })
    }
 
-  saveBrandMatrixTemplate(templateName, templateObj, username) {
+  saveBrandMatrixTemplate(templateName,  templateObj, username, DisplayName?) {
+    console.log(templateObj)
     const payloadString = JSON.stringify({
       TemplateName: templateName,
+      DisplayName: DisplayName,
       Username: username,
       BrandMatrix: JSON.stringify(templateObj).replace(this.searchApostropheRegExp, '`')
     })
