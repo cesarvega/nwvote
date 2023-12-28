@@ -277,7 +277,7 @@ export class SurveyCreationDesignComponent implements OnInit {
 
         this._BmxService.getGeneralLists().subscribe((arg: any) => {
             this.TEMPLATES = (JSON.parse(arg.d).BrandMatrixTemplateList.length > 0) ?
-                JSON.parse(arg.d).BrandMatrixTemplateList.map(obj => obj.TemplateName) :
+                JSON.parse(arg.d).BrandMatrixTemplateList.map(obj => { return {template: obj.TemplateName, displayname: obj.DisplayName}}) :
                 this.TEMPLATES
         });
 

@@ -348,8 +348,8 @@
     <mat-form-field appearance="outline">
         <mat-label>Templates</mat-label>
         <mat-select [(ngModel)]="templateName" (selectionChange)="templateSelected()">
-            <mat-option *ngFor="let template of TEMPLATES " [value]="template">
-                {{template}}
+            <mat-option *ngFor="let template of TEMPLATES " [value]="template.template">
+                {{template.displayname? template.displayname: template.template}}
             </mat-option>
         </mat-select>
     </mat-form-field>
