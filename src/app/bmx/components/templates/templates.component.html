@@ -1,0 +1,22 @@
+<div style="    position: relative;
+left: 90%;
+top: 5%;
+max-height: 90vh;
+overflow-y: scroll;"
+>
+
+    <div *ngFor="let template of TEMPLATES " class="template-item" (click)=" selectedTemplateName = template.templateName; templateName = template.templateName; templateSelected(template.templateName) ; selectedTemplateName= template.displayName? template.displayName : template.templateName">
+        <span class="template-info" style="    display: flex;
+        justify-content: space-between;
+        align-items: center;">
+            {{template.displayName}} <mat-icon class="edit-icon" style="z-index: 1001;"
+                (click)=" selectedTemplateName = template.templateName; templateName = template.templateName; templateSelected(template.templateName) ; selectedTemplateName= template.displayName? template.displayName : template.templateName">edit
+            </mat-icon>
+        </span>
+    </div>
+
+</div>
+
+
+
+<!--   📆📆📆📆📆📆📆📆📆 END CALENDAR-->
