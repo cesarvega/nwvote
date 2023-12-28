@@ -1,8 +1,8 @@
 <div *ngIf="showCreationModalVideo" id="myModal" class="modal-video"
   style="display: flex;flex-direction: column;gap: 2px;">
   <!-- <label class="container-checkbox">Don't show again
-      <input (click)="saveSelection()" type="checkbox" value="Bike" #modalChecked> 
-      <span class="checkmark">&#x2714;</span>        
+      <input (click)="saveSelection()" type="checkbox" value="Bike" #modalChecked>
+      <span class="checkmark">&#x2714;</span>
   </label> -->
   <div class="modal-content">
     <video src='{{CREATION_VIDEO_PATH}}' controls></video>
@@ -64,7 +64,7 @@
         style="color: white; width: 100%;text-align: center;font-family: Arial, Helvetica, sans-serif;margin-top: 10px;">
         Welcome {{userFullName}}
         <br>
-        Role: {{userRole}}
+        Role: {{userRole}} <span style="font-size: 10px;">v 1.0.1</span>
       </div>
     </div>
 
@@ -124,7 +124,7 @@
             <mat-icon style="font-size: 26px; color: white; " class="full-icon">video_library</mat-icon>
           </button>
           </div>
-          
+
         </div>
 
       </div>
