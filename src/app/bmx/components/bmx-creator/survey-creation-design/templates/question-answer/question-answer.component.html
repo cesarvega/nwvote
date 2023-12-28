@@ -173,65 +173,70 @@
        max-height: 36rem;
     bottom: -2; ">
 
-<div class="example-handle" cdkDragHandle style="cursor: move; height: 25px; width: 100%;"><svg width="24px" fill="currentColor" viewBox="0 0 24 24">
+<div class="example-handle" cdkDragHandle style="display: flex;
+    flex-direction: row;
+    justify-content: center;cursor: move; height: 25px; width: 100%;"><svg width="24px" fill="currentColor" viewBox="0 0 24 24">
     <path d="M10 9h4V6h3l-5-5-5 5h3v3zm-1 1H6V7l-5 5 5 5v-3h3v-4zm14 2l-5-5v3h-3v4h3v3l5-5zm-9 3h-4v3H7l5 5 5-5h-3v-3z"></path>
     <path d="M0 0h24v24H0z" fill="none"></path>
   </svg></div>
-     <!-- Cards Criteria-->
-     <mat-card class="example-card">
-      <mat-card-header>
-        <mat-card-title>Criteria</mat-card-title>
-      </mat-card-header>
-
-      <div class="sm-section2-rkScale" >
-        <div class="sm-column-box-rkScale">
-          <mat-form-field appearance="outline" style="width: 40%">
-            <mat-label>Category Name</mat-label>
-            <input matInput [(ngModel)]="bmxItem.componentSettings[0].categoryName" placeholder="Category Name" style="font-size: 20px;color: #324395;">
-            <mat-hint>Enter the name of the category</mat-hint> <!-- Hint text for Category Name -->
-          </mat-form-field>
-
-          <mat-form-field appearance="outline" style="width: 40%">
-            <mat-label>Category Description</mat-label>
-            <input matInput [(ngModel)]="bmxItem.componentSettings[0].categoryName"
-            [value]="bmxItem.componentSettings[0].categoryName"placeholder="Category Description" style="font-size: 20px;color: #ee7f25;">
-            <mat-hint>Add a category to the left side</mat-hint> <!-- Hint text for Category Description -->
-          </mat-form-field>
-        </div>
-        <mat-checkbox [(ngModel)]="randomizeTestNames">Randomize Questions</mat-checkbox>
-
-
-      </div>
-      <mat-card-content>
-
-      </mat-card-content>
-
-    </mat-card>
-
-    <!-- Cards Test Name-->
+      <!-- Cards Test Name-->
     <mat-card class="example-card">
       <mat-card-header>
-        <mat-card-title>Test Names</mat-card-title>
+          <mat-card-title>Test Names</mat-card-title>
       </mat-card-header>
       <mat-card-content>
-        <div style="text-align: center;">
-          <div style="font-size: 16px;margin: 20px;color: #48535e;">Copy & Paste TEST NAMES</div>
-          <!-- <div style="font-size: 14px;margin-bottom: 20px;color: lightgray;">Brief Description Here</div> -->
-      </div>
-      <div style="display: flex; justify-content: center; align-items: center;">
-        <mat-form-field style="width: 90%; margin-left: 20px;" appearance="outline">
-          <mat-label>Copy & Paste TEST NAMES</mat-label>
-          <textarea matInput [(ngModel)]="testNamesInput" (paste)="onPaste()"
-              placeholder="Paste test names here" cdkTextareaAutosize
-              cdkAutosizeMinRows="2" cdkAutosizeMaxRows="5"></textarea>
-          <mat-hint>Type or paste the test names here that you want to include</mat-hint>
-        </mat-form-field>
-      </div>
+          <div style="text-align: center;">
+              <div style="font-size: 16px;margin: 20px;color: #48535e;">Copy & Paste TEST NAMES</div>
+              <!-- <div style="font-size: 14px;margin-bottom: 20px;color: lightgray;">Brief Description Here</div> -->
+          </div>
+          <div style="display: flex; justify-content: center; align-items: center;">
+              <mat-form-field style="width: 90%; margin-left: 20px;" appearance="outline">
+                  <mat-label>Copy & Paste TEST NAMES</mat-label>
+                  <textarea matInput [(ngModel)]="testNamesInput" (paste)="onPaste()"
+                      placeholder="Paste test names here" cdkTextareaAutosize cdkAutosizeMinRows="2"
+                      cdkAutosizeMaxRows="5"></textarea>
+                  <mat-hint>Type or paste the test names here that you want to include</mat-hint>
+              </mat-form-field>
+          </div>
 
       </mat-card-content>
 
-    </mat-card>
+  </mat-card>
+  <br>
+<!-- Cards Criteria-->
+  <mat-card class="example-card">
+      <mat-card-header>
+          <mat-card-title>Category</mat-card-title>
+      </mat-card-header>
+      <br>
+      <div class="sm-section2-rkScale">
+        <div class="sm-column-box-rkScale">
+          <mat-form-field appearance="outline" style="width: 40%">
+              <mat-label>Category Name</mat-label>
+              <input matInput [(ngModel)]="bmxItem.componentSettings[0].categoryName" placeholder="Category Name"
+                  style="font-size: 20px;color: #324395;">
+              <mat-hint>Enter the name of the category</mat-hint> <!-- Hint text for Category Name -->
+          </mat-form-field>
 
+          <mat-form-field appearance="outline" style="width: 40%">
+              <mat-label>Sub category Description</mat-label>
+              <input matInput [(ngModel)]="bmxItem.componentSettings[0].categoryDescription"
+                  placeholder="Sub category Description" style="font-size: 20px;color: #ee7f25;">
+              <mat-hint>Enter a brief description of the Sub category </mat-hint>
+              <!-- Hint text for Category Description -->
+          </mat-form-field>
+      </div>
+          <br>
+
+          <mat-checkbox [(ngModel)]="randomizeTestNames">Randomize Names</mat-checkbox>
+
+      </div>
+      <mat-card-content>
+
+      </mat-card-content>
+
+  </mat-card>
+  <br>
 
 
 
