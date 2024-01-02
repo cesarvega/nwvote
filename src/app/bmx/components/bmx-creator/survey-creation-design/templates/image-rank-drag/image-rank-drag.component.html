@@ -160,7 +160,7 @@
             aria-label="ranking">
             <mat-icon style="font-size: 26px;" class="full-icon">collections</mat-icon>
         </button>
-        <button (click)="selectedIndex = i;editSingleTableCells = false" class="add-column"
+        <button (click)="selectedIndex = i;editSingleTableCells = false; verifyCritera()" class="add-column"
             matTooltip="insert test names" matTooltipPosition="above" *ngIf="i !== selectedIndex" mat-icon-button>
             <mat-icon style="font-size: 25px;" class="full-icon">edit</mat-icon>
         </button>
@@ -241,7 +241,7 @@
       <div style="display: flex; justify-content: center; align-items: center;">
         <mat-form-field style="width: 90%; margin-left: 20px;" appearance="outline">
           <mat-label>Copy & Paste TEST NAMES</mat-label>
-          <textarea matInput [(ngModel)]="testNamesInput" (paste)="onPaste()"
+          <textarea matInput [(ngModel)]="testNamesInput" (paste)="onPaste()" (ngModelChange)="upLoadNamesAndRationales(testNamesInput)"
               placeholder="Paste test names here" cdkTextareaAutosize
               cdkAutosizeMinRows="2" cdkAutosizeMaxRows="5"></textarea>
           <mat-hint>Type or paste the test names here that you want to include</mat-hint>

@@ -430,7 +430,11 @@ export class RatingScaleComponent implements OnInit {
   }
   // ⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️ END STARS METHODS  ⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️
 
-  upLoadNamesAndRationales(list: string) {
+  upLoadNamesAndRationales(list: any) {
+    if(typeof list == 'object'){
+      list = list.clipboardData.getData('text')
+    }
+    console.log(typeof list)
     this.uploadImagesIcon = true
     this.bmxItem.componentSettings[0].randomizeTestNames = (this.randomizeTestNames) ? true : false
     this.recordHistory()
@@ -589,7 +593,14 @@ export class RatingScaleComponent implements OnInit {
     // this.swapColumns(0)
   }
 
+  verifyCritera(){
+    if (this.bmxItem.componentSettings[0].CRITERIA) {
+      //MULTIPLY FOR THE AMOUNT OF CRITERIA
+      this.bmxItem.componentSettings[0].minRule = this.bmxItem.componentSettings[0].minRule / this.bmxItem.componentText[0].CRITERIA.length
+      this.bmxItem.componentSettings[0].maxRule = this.bmxItem.componentSettings[0].maxRule / this.bmxItem.componentText[0].CRITERIA.length
 
+    }
+  }
   // DEPRECATED
   ramdomizeArray() {
     this.TESTNAMES_LIST.sort(() => Math.random() - 0.5);
