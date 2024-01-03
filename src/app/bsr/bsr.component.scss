@@ -122,11 +122,11 @@
 
 .slide-box {
   width: 900px;
-  height: 727px;
+  height: 720px;
   border: solid 4px lightgray;
   border-radius: 6px;
   background-repeat: no-repeat !important;
-  background-size: contain !important;
+  background-size: 100% 100% !important;
   position: relative;
   top: 70px;
   right: -26px;
@@ -135,17 +135,17 @@
 }
 
 .slide-box-wide {
-  width: 987px;
+  width: 1100px;
   /* Set the desired width */
-  height: 727px;
+  height: 720px;
   /* Keep the height the same as in the original class */
   border: solid 4px lightgray;
   border-radius: 6px;
   background-repeat: no-repeat !important;
-  background-size: cover !important;
+  background-size: 100% 100% !important;
   position: relative;
   top: 70px;
-  right: -26px;
+  right: -3px;
   overflow: hidden;
   opacity: 1;
 }
@@ -808,7 +808,7 @@ mat-tab-group ::-webkit-scrollbar {
   position: relative;
   top: 469px;
   z-index: 99;
-  left: 76px;
+  left: 207px;
   outline: none;
 
   :hover {
@@ -822,7 +822,7 @@ mat-tab-group ::-webkit-scrollbar {
   position: relative;
   top: 469px;
   z-index: 99;
-  left: -1px;
+  left: 99px;
   outline: none;
 
   :hover {
@@ -834,7 +834,7 @@ mat-tab-group ::-webkit-scrollbar {
 
 .menu-right-icon {
   position: relative;
-  left: 1014px;
+  left: 1163px;
   top: 470px;
   z-index: 99;
   outline: none;
@@ -846,7 +846,7 @@ mat-tab-group ::-webkit-scrollbar {
 
 .menu-right-icon-wide {
   position: relative;
-  left: 1078px;
+  left: 1260px;
   top: 470px;
   z-index: 99;
   outline: none;
