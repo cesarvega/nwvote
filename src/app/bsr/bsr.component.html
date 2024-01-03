@@ -19,9 +19,7 @@
         </button>
       </div>
 
-      <button (click)="moveBackward()" [class.menu-left-icon]="!wideView" [class.menu-left-icon-wide]="wideView"  disableRipple mat-icon-button color="red">
-        <mat-icon>keyboard_arrow_left</mat-icon>
-      </button>
+   
 
       <!-- COMMENTS BOX -->
       <div class="comment-to-top" cdkDrag cdkDragRootElement=".cdk-overlay-pane" cdkDragHandle fxLayout="col"
@@ -181,6 +179,9 @@
 
       <!-- PRESENTATION MENU-->
       <div *ngIf="!createPostIt" fxLayoutAlign="center center" class="col">
+        <button (click)="moveBackward()" [class.menu-left-icon]="!wideView" [class.menu-left-icon-wide]="wideView"  disableRipple mat-icon-button color="red">
+          <mat-icon>keyboard_arrow_left</mat-icon>
+        </button>
         <div  [class.slide-box-wide]="wideView" [class.slide-box]="!wideView"  [style.background]="slideBackground">
 
 
@@ -242,7 +243,9 @@
           </mat-toolbar>
 
         </div>
-
+        <button (click)="moveForward()" [class.menu-right-icon]="!wideView" [class.menu-right-icon-wide]="wideView &&  !createPostIt"   [class.menu-right-icon-wide-post]="wideView &&  createPostIt"  disableRipple mat-icon-button color="red">
+          <mat-icon>keyboard_arrow_right</mat-icon>
+        </button>
       </div>
 
 
@@ -497,9 +500,7 @@
         </div>
       </div>
 
-      <button (click)="moveForward()" [class.menu-right-icon]="!wideView" [class.menu-right-icon-wide]="wideView &&  !createPostIt"   [class.menu-right-icon-wide-post]="wideView &&  createPostIt"  disableRipple mat-icon-button color="red">
-        <mat-icon>keyboard_arrow_right</mat-icon>
-      </button>
+    
     </div>
 
 
