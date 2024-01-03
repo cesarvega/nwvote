@@ -122,7 +122,7 @@
 
 .slide-box {
   width: 900px;
-  height: 720px;
+  height: 679px;
   border: solid 4px lightgray;
   border-radius: 6px;
   background-repeat: no-repeat !important;
@@ -135,9 +135,8 @@
 }
 
 .slide-box-wide {
-  width: 1100px;
-  /* Set the desired width */
-  height: 720px;
+  width: 1237px;
+  height: 679px;
   /* Keep the height the same as in the original class */
   border: solid 4px lightgray;
   border-radius: 6px;
@@ -279,7 +278,7 @@
   max-width: 313px;
   height: 552px;
   position: relative;
-  right: 8px;
+  right: 52px;
   top: 134px;
   overflow-x: hidden;
   overflow-y: scroll;
@@ -292,7 +291,7 @@
   max-width: 313px;
   height: 552px;
   position: relative;
-  right: -300px;
+  right: -267px ;
   top: 134px;
   overflow-x: hidden;
   overflow-y: scroll;
@@ -393,6 +392,7 @@
   border-bottom-left-radius: 12px;
   border-bottom-right-radius: 2px;
   padding: 20px;
+  right: 44px;
 }
 
 .name-form-wide {
@@ -404,7 +404,7 @@
   border-bottom-left-radius: 12px;
   border-bottom-right-radius: 2px;
   padding: 20px;
-  right: -306px;
+  right: -277px;
 
 }
 
@@ -822,7 +822,7 @@ mat-tab-group ::-webkit-scrollbar {
   position: relative;
   top: 469px;
   z-index: 99;
-  left: 99px;
+  left: 37px;
   outline: none;
 
   :hover {
@@ -834,10 +834,11 @@ mat-tab-group ::-webkit-scrollbar {
 
 .menu-right-icon {
   position: relative;
-  left: 1163px;
-  top: 470px;
+  left: 1215px;
+  /* top: 470px; */
   z-index: 99;
   outline: none;
+  transform: translate(50%, -240px );
 
   :hover {
     transform: scale(1.5);
@@ -846,10 +847,11 @@ mat-tab-group ::-webkit-scrollbar {
 
 .menu-right-icon-wide {
   position: relative;
-  left: 1260px;
-  top: 470px;
+  right: -1376px;
+  /* top: 473px; */
   z-index: 99;
   outline: none;
+  transform: translate(50%, -240px );
 
   :hover {
     transform: scale(1.5);
