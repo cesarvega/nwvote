@@ -83,6 +83,7 @@ export class BsrComponent implements OnInit {
   baseUrl: any;
   restUrl: any;
   wideView: boolean = false;
+  SummarySlide: any;
 
   constructor(@Inject(DOCUMENT) private document: any, private _formBuilder: FormBuilder,
     private _hotkeysService: HotkeysService,
@@ -164,6 +165,7 @@ export class BsrComponent implements OnInit {
     this._BsrService.getSlides(this.projectId).subscribe((res: any) => {
       console.log(res);
       this.appSlidesData = res;
+      this.SummarySlide = res[0].SummarySlide
       // this.appSearchSlidesData = res;
       localStorage.setItem(this.projectName + '_appSlideData', JSON.stringify(res));
       this.totalNumberOfSlides = res.length;
@@ -348,6 +350,7 @@ export class BsrComponent implements OnInit {
         this.searchBoxLeftProperty = '777px';
       }
       this.pageCounter = this.currentPageNumber + 1 + '/' + this.totalNumberOfSlides;
+      this.currentPageNumber+1 == this.SummarySlide?  this.createPostIt = true : this.createPostIt = false
     } else {
       this.goToSlide(this.currentPageNumber);
     }
@@ -367,6 +370,8 @@ export class BsrComponent implements OnInit {
         this.createPostIt = true;
         this.searchBoxLeftProperty = '777px';
       }
+      this.currentPageNumber+1 == this.SummarySlide?  this.createPostIt = true : this.createPostIt = false
+
     }
   }
 
