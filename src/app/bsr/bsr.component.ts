@@ -82,7 +82,7 @@ export class BsrComponent implements OnInit {
   BackgroundUrlOff = 'url(http://bipresents.com/nw2/assets/images/BackGrounds/Backgrounds2019/';
   baseUrl: any;
   restUrl: any;
-  wideView: boolean = false;
+  wideView: boolean = true;
 
   constructor(@Inject(DOCUMENT) private document: any, private _formBuilder: FormBuilder,
     private _hotkeysService: HotkeysService,
@@ -184,7 +184,7 @@ export class BsrComponent implements OnInit {
         this.currentPageNumber = 0;
 
       }
-      this.wideView = res[0].isWide
+      // this.wideView = res[0].isWide
       console.log(res[0],this.wideView)
     })
 

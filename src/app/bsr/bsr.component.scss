@@ -126,7 +126,7 @@
   border: solid 4px lightgray;
   border-radius: 6px;
   background-repeat: no-repeat !important;
-  background-size: cover !important;
+  background-size: contain !important;
   position: relative;
   top: 70px;
   right: -26px;
@@ -135,7 +135,7 @@
 }
 
 .slide-box-wide {
-  width: 1600px;
+  width: 1010px;
   /* Set the desired width */
   height: 727px;
   /* Keep the height the same as in the original class */
@@ -822,7 +822,7 @@ mat-tab-group ::-webkit-scrollbar {
   position: relative;
   top: 469px;
   z-index: 99;
-  left: -44px;
+  left: -1px;
   outline: none;
 
   :hover {
@@ -834,7 +834,7 @@ mat-tab-group ::-webkit-scrollbar {
 
 .menu-right-icon {
   position: relative;
-  left: 1027px;
+  left: 1014px;
   top: 470px;
   z-index: 99;
   outline: none;
@@ -846,7 +846,7 @@ mat-tab-group ::-webkit-scrollbar {
 
 .menu-right-icon-wide {
   position: relative;
-  left: 1229px;
+  left: 1078px;
   top: 470px;
   z-index: 99;
   outline: none;
