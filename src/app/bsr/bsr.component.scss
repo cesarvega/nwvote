@@ -806,11 +806,9 @@ mat-tab-group ::-webkit-scrollbar {
 
 .menu-left-icon {
   position: relative;
-  top: 469px;
   z-index: 99;
-  left: 207px;
   outline: none;
-
+  transform: translate(50%, 16px);
   :hover {
     transform: scale(1.5);
   }
@@ -820,10 +818,11 @@ mat-tab-group ::-webkit-scrollbar {
 
 .menu-left-icon-wide {
   position: relative;
-  top: 469px;
+  /* top: 469px; */
   z-index: 99;
-  left: 37px;
+  left: -19px;
   outline: none;
+  transform: translate(50%, 11px);
 
   :hover {
     transform: scale(1.5);
@@ -834,11 +833,10 @@ mat-tab-group ::-webkit-scrollbar {
 
 .menu-right-icon {
   position: relative;
-  left: 1215px;
   /* top: 470px; */
   z-index: 99;
   outline: none;
-  transform: translate(50%, -240px );
+  transform: translate(50%, 16px );
 
   :hover {
     transform: scale(1.5);
@@ -847,11 +845,10 @@ mat-tab-group ::-webkit-scrollbar {
 
 .menu-right-icon-wide {
   position: relative;
-  right: -1376px;
-  /* top: 473px; */
+  right: 15px;
   z-index: 99;
   outline: none;
-  transform: translate(50%, -240px );
+  transform: translate(50%, 7px);
 
   :hover {
     transform: scale(1.5);
