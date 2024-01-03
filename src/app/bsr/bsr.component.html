@@ -23,9 +23,6 @@
         <mat-icon>keyboard_arrow_left</mat-icon>
       </button>
 
-      <button (click)="moveForward()" [class.menu-right-icon]="!wideView" [class.menu-right-icon-wide]="wideView &&  !createPostIt"   [class.menu-right-icon-wide-post]="wideView &&  createPostIt"  disableRipple mat-icon-button color="red">
-        <mat-icon>keyboard_arrow_right</mat-icon>
-      </button>
       <!-- COMMENTS BOX -->
       <div class="comment-to-top" cdkDrag cdkDragRootElement=".cdk-overlay-pane" cdkDragHandle fxLayout="col"
         *ngIf="isCommentBox" fxLayoutAlign="center center">
@@ -500,6 +497,9 @@
         </div>
       </div>
 
+      <button (click)="moveForward()" [class.menu-right-icon]="!wideView" [class.menu-right-icon-wide]="wideView &&  !createPostIt"   [class.menu-right-icon-wide-post]="wideView &&  createPostIt"  disableRipple mat-icon-button color="red">
+        <mat-icon>keyboard_arrow_right</mat-icon>
+      </button>
     </div>
 
 
