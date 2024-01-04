@@ -141,7 +141,7 @@
             <mat-icon style="font-size: 26px;    z-index: 9;" class="full-icon">swap_horizontal_circle</mat-icon>
         </button>
 
-        <button (click)="selectedIndex = i;editSingleTableCells = false" class="add-column"
+        <button (click)="selectedIndex = i;editSingleTableCells = false; verifyCritera()" class="add-column"
             matTooltip="insert test names" matTooltipPosition="above" *ngIf="i !== selectedIndex" mat-icon-button>
             <mat-icon style="font-size: 25px;" class="full-icon">edit</mat-icon>
         </button>
@@ -154,9 +154,28 @@
 
 
 <!-- 🔧🔧🔧🔧🔧🔧🔧🔧🔧🔧🔧🔧🔧🔧🔧🔧🔧🔧🔧🔧🔧 CONFIG BOX 🔧🔧🔧🔧🔧🔧🔧🔧🔧🔧🔧🔧🔧🔧🔧🔧🔧🔧🔧🔧🔧🔧🔧 -->
-<div *ngIf="i === selectedIndex" class="mat-elevation-z4" cdkDrag style="position: absolute;width: 50%;background: #fafafa;z-index: 1;top: -65px;left: 25%;border: lightgrey 3px solid; overflow: auto;
-       max-height: 36rem;
-    bottom: -2; ">
+<div *ngIf="i === selectedIndex" class="mat-elevation-z4" cdkDrag
+    style="position: absolute;width: 62vw;background: #fafafa;z-index: 1;top: -8px;left: 15%;border: lightgrey 3px solid;">
+    <div style="position: absolute;
+    top: 10px;
+    right: 10px;
+    color: #ccc;
+    cursor: move;
+    width: 1024px;
+    height: 54px;" cdkDragHandle> </div>
+    <div style="text-align: center;">
+        <div style="font-size: 16px;margin: 20px;color: #48535e;">PASTE TEST NAMES</div>
+        <!-- <div style="font-size: 14px;margin-bottom: 20px;color: lightgray;">Brief Description Here</div> -->
+    </div>
+    <div>
+        <mat-form-field style="width: 90%;margin-left: 20px;" appearance="outline">
+            <mat-label>Copy & Paste TEST NAMES</mat-label>
+            <textarea matInput rows="4" cols="50" [(ngModel)]="testNamesInput" placeholder="" (ngModelChange)="upLoadNamesAndRationales(testNamesInput)"></textarea>
+        </mat-form-field>
+        <p style="margin-left: 30px; color: #757575;">
+            Add the names you want to test
+        </p>
+    </div>
 
     <div class="example-handle" cdkDragHandle style="display: flex;
 flex-direction: row;

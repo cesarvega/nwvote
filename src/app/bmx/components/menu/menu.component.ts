@@ -72,13 +72,16 @@ export class MenuComponent implements OnInit {
 
         // localStorage.setItem('projectId', this.projectId);
         this._BmxService.getMatrixUser(this.id).subscribe((data: any) => {
-          data = JSON.parse(data.d);
-          localStorage.setItem('userData', JSON.stringify(data))
-          this.userFullName = data.FullName;
-          this.userRole = data.Role;
-          this.userName = data.UserName;
-          this.userOffice = data.Office;
-          this.userDepartment = data.Role;
+          if(data.d){
+            data = JSON.parse(data.d);
+            localStorage.setItem('userData', JSON.stringify(data))
+            this.userFullName = data.FullName;
+            this.userRole = data.Role;
+            this.userName = data.UserName;
+            this.userOffice = data.Office;
+            this.userDepartment = data.Role;
+          }
+        
         });
         this.isDashboardMenu = event.url.includes('dashboard') || event.url === '/';
         this.isPreviewView = event.url.includes('survey')

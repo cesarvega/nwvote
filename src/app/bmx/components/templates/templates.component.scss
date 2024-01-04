@@ -1,0 +1,30 @@
+.template-item {
+    margin-bottom: 10px; /* Agrega un espacio entre los elementos */
+    padding: 10px;
+    background-color: #f0f0f0;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+  }
+  
+  .template-item:hover {
+    background-color: #e0e0e0;
+  }
+  
+  .template-info {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+  
+  .edit-icon {
+    margin-left: 10px;
+    cursor: pointer;
+     /* Cambia el color según tu preferencia */
+  }
+  
+  .edit-icon:hover {
+    /* Cambia el color de resaltado en hover según tu preferencia */
+    cursor: pointer;
+}

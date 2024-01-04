@@ -277,7 +277,7 @@ export class SurveyCreationDesignComponent implements OnInit {
 
         this._BmxService.getGeneralLists().subscribe((arg: any) => {
             this.TEMPLATES = (JSON.parse(arg.d).BrandMatrixTemplateList.length > 0) ?
-                JSON.parse(arg.d).BrandMatrixTemplateList.map(obj => { return {template: obj.TemplateName, displayname: obj.DisplayName}}) :
+                JSON.parse(arg.d).BrandMatrixTemplateList.map(obj => { return { template: obj.TemplateName, displayname: obj.DisplayName } }) :
                 this.TEMPLATES
         });
 
@@ -315,18 +315,18 @@ export class SurveyCreationDesignComponent implements OnInit {
                     //     verticalPosition: 'top'
                     //   })
                 } else {
-                    if(localStorage.getItem('template')){
+                    if (localStorage.getItem('template')) {
                         this.bmxPages = JSON.parse(localStorage.getItem('template'))
-                    }else{
+                    } else {
                         this.bmxPages = this.SAMPLE_BMX
                     }
-                    
+
                 }
 
             })
         }
-        if(this.globalProjectName == null){
-            
+        if (this.globalProjectName == null) {
+
         }
         if (!QRCodeStyling) {
             return;
@@ -811,7 +811,7 @@ export class SurveyCreationDesignComponent implements OnInit {
             localStorage.setItem(templateName, JSON.stringify(this.bmxPages));
             console.log(this.bmxPages)
             this._BmxService.saveBrandMatrixTemplate(templateName, this.bmxPages, this.biUserId).subscribe((template: any) => {
-                
+
                 let x1 = JSON.parse(template.d)
                 console.log(x1)
                 this.templateTitle = "Template '" + templateName + "' saved 🧐";
@@ -829,7 +829,7 @@ export class SurveyCreationDesignComponent implements OnInit {
             setTimeout(() => {
                 //this.openSaveTemplateBox();
             }, 1000);
-
+            this.isTemplateBoxOn = false
         }
     }
 
@@ -890,9 +890,9 @@ export class SurveyCreationDesignComponent implements OnInit {
                     }
                 ]
             });
-            
+
         }
-      
+
     }
 
     templateSelected() {
@@ -917,7 +917,7 @@ export class SurveyCreationDesignComponent implements OnInit {
 
     saveData() {
         // RESET VOTES IN TEMPLATE
-        
+
         this.projectInfo = JSON.parse(
             localStorage.getItem('fakeproject' + '_project_info')
         );

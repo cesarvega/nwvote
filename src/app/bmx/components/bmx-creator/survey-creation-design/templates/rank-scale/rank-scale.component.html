@@ -161,7 +161,7 @@
             matTooltipPosition="above" mat-icon-button aria-label="ranking">
             <mat-icon style="font-size: 26px;    z-index: 9;" class="full-icon">swap_horizontal_circle</mat-icon>
         </button>
-        <button (click)="selectedIndex = i; editSingleTableCells = false" class="add-column"
+        <button (click)="selectedIndex = i; editSingleTableCells = false; verifyCritera()" class="add-column"
             matTooltip="insert test names" matTooltipPosition="above" *ngIf="i !== selectedIndex" mat-icon-button>
             <mat-icon style="font-size: 25px;" class="full-icon">edit</mat-icon>
         </button>
@@ -198,7 +198,7 @@
       <div>
           <mat-form-field style="width: 90%;margin-left: 20px;" appearance="outline">
               <mat-label>Copy & Paste TEST NAMES</mat-label>
-              <textarea matInput rows="4" cols="50" [(ngModel)]="testNamesInput" placeholder=""></textarea>
+              <textarea matInput rows="4" cols="50" [(ngModel)]="testNamesInput" placeholder="" (ngModelChange)="upLoadNamesAndRationales(testNamesInput)"></textarea>
           </mat-form-field>
           <p style="margin-left: 30px; color: #757575;">
               Add the names you want to test
