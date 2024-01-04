@@ -1,4 +1,5 @@
-<mat-sidenav-container class="main-container" *ngIf="true" [hasBackdrop]="false" [ngStyle]="{'left': !wideView || !createPostIt? 0 : '-390px'}" style="margin-top: 40px;">
+<mat-sidenav-container class="main-container" *ngIf="true" [hasBackdrop]="false"
+  [ngStyle]="{'left': !wideView || !createPostIt? 0 : '-390px'}" style="margin-top: 40px;">
 
   <!-- OVERVIEW SLIDE -->
   <mat-sidenav class="overview" mode="over" [opened]="overview">
@@ -10,7 +11,7 @@
   </mat-sidenav>
 
   <mat-sidenav-content style="overflow-y: hidden;">
-    <div class="container" style="    max-width: 1500px;"> 
+    <div class="container" style="    max-width: 1500px;">
 
       <!-- MENU ICON -->
       <div fxLayout="row" fxLayoutAlign="center center">
@@ -19,7 +20,7 @@
         </button>
       </div>
 
-   
+
 
       <!-- COMMENTS BOX -->
       <div class="comment-to-top" cdkDrag cdkDragRootElement=".cdk-overlay-pane" cdkDragHandle fxLayout="col"
@@ -117,8 +118,9 @@
           mat-icon-button color="warn" aria-label="aria">
           <mat-icon class="full-icon">note_add</mat-icon>
         </button>
-        <button  (click)="wideScreenView()" mat-icon-button matTooltip="Wide screen" matTooltipPosition="above"
-          mat-icon-button color="warn" aria-label="aria"> <svg class="full-icon" style="height: 20px" xmlns="http://www.w3.org/2000/svg"
+        <button (click)="wideScreenView()" mat-icon-button matTooltip="Wide screen" matTooltipPosition="above"
+          mat-icon-button color="warn" aria-label="aria"> <svg class="full-icon" style="height: 20px"
+            xmlns="http://www.w3.org/2000/svg"
             viewBox="0 0 448 512"><!--! Font Awesome Pro 6.4.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license (Commercial License) Copyright 2023 Fonticons, Inc. -->
             <path
               d="M64 32C28.7 32 0 60.7 0 96V416c0 35.3 28.7 64 64 64H384c35.3 0 64-28.7 64-64V96c0-35.3-28.7-64-64-64H64zM224 160c6.7 0 13 2.8 17.6 7.7l104 112c6.5 7 8.2 17.2 4.4 25.9s-12.5 14.4-22 14.4H120c-9.5 0-18.2-5.7-22-14.4s-2.1-18.9 4.4-25.9l104-112c4.5-4.9 10.9-7.7 17.6-7.7z" />
@@ -179,10 +181,11 @@
 
       <!-- PRESENTATION MENU-->
       <div *ngIf="!createPostIt" fxLayoutAlign="center center" class="col">
-        <button (click)="moveBackward()" [class.menu-left-icon]="!wideView" [class.menu-left-icon-wide]="wideView"  disableRipple mat-icon-button color="red">
+        <button (click)="moveBackward()" [class.menu-left-icon]="!wideView" [class.menu-left-icon-wide]="wideView"
+          disableRipple mat-icon-button color="red">
           <mat-icon>keyboard_arrow_left</mat-icon>
         </button>
-        <div  [class.slide-box-wide]="wideView" [class.slide-box]="!wideView"  [style.background]="slideBackground">
+        <div [class.slide-box-wide]="wideView" [class.slide-box]="!wideView" [style.background]="slideBackground">
 
 
           <mat-toolbar class="toolbar mat-elevation-z4 bounceIn" *ngIf="false">
@@ -243,7 +246,9 @@
           </mat-toolbar>
 
         </div>
-        <button (click)="moveForward()" [class.menu-right-icon]="!wideView" [class.menu-right-icon-wide]="wideView &&  !createPostIt"   [class.menu-right-icon-wide-post]="wideView &&  createPostIt"  disableRipple mat-icon-button color="red">
+        <button (click)="moveForward()" [class.menu-right-icon]="!wideView"
+          [class.menu-right-icon-wide]="wideView &&  !createPostIt"
+          [class.menu-right-icon-wide-post]="wideView &&  createPostIt" disableRipple mat-icon-button color="red">
           <mat-icon>keyboard_arrow_right</mat-icon>
         </button>
       </div>
@@ -268,7 +273,7 @@
             <div class="col-md-12">
 
               <!-- Brandstorm and Names toolbar -->
-         
+
             </div>
           </div>
 
@@ -278,9 +283,15 @@
             <div class="col-md-12">
               <div class="row">
                 <div class="col-md-8">
-
-                  <div class="presentation-box " [class.presentation-box-wide]="wideView" [class.presentation-box]="!wideView" style="overflow-y: scroll;">
-                    <mat-toolbar [class.toptoolbar-wide]="wideView" [class.toptoolbar]="!wideView" class=" mat-elevation-z12" color="primary"  >
+                  <button (click)="moveBackward()" [class.menu-left-icon]="!wideView"
+                    [class.menu-left-icon-wide]="wideView" [class.menu-left-alt]="createPostIt" disableRipple
+                    mat-icon-button color="red">
+                    <mat-icon>keyboard_arrow_left</mat-icon>
+                  </button>
+                  <div class="presentation-box " [class.presentation-box-wide]="wideView"
+                    [class.presentation-box]="!wideView" style="overflow-y: scroll;">
+                    <mat-toolbar [class.toptoolbar-wide]="wideView" [class.toptoolbar]="!wideView"
+                      class=" mat-elevation-z12" color="primary">
                       <div class="row">
                         <div (click)="theme()" class="col brandstorm"
                           style="color: white; font-size: 40px;font-family: Arial">
@@ -294,17 +305,19 @@
                             right: 4px;" matBadgeColor="warn" [matBadgeHidden]="!(nameCandidates.length > 0)"
                             [matBadge]="nameCandidates.length" matBadgeSize="medium"></span>
                         </div>
-                        <button class="screen-button" mat-raised-button *ngIf="isScreenButton&&isNSR" (click)="screenNames()">
+                        <button class="screen-button" mat-raised-button *ngIf="isScreenButton&&isNSR"
+                          (click)="screenNames()">
                           <!-- <mat-icon>folder_special</mat-icon> -->
                           screen
                         </button>
-      
+
                       </div>
                     </mat-toolbar>
                     <!-- POST_REPEATER -->
 
-                    <div class="row post-it-container " [ngStyle]="{'max-width': !wideView ? myMaxWith : '1080px'}" dragula="TASKS"
-                      [dragulaModel]="conceptData.concepts" (dragulaModelChange)="conceptData.concepts = $event">
+                    <div class="row post-it-container " [ngStyle]="{'max-width': !wideView ? myMaxWith : '1080px'}"
+                      dragula="TASKS" [dragulaModel]="conceptData.concepts"
+                      (dragulaModelChange)="conceptData.concepts = $event">
                       <div [ngClass]="postItListTheme" *ngFor="let item of conceptData.concepts; let i = index;">
 
                         <mat-card class="mat-elevation-z4 post-card">
@@ -342,13 +355,18 @@
 
                     </div>
                   </div>
+                  <button (click)="moveForward()" class="menu-right-icon-post"
+                  [class.menu-right-icon-wide-post]="wideView &&  createPostIt" disableRipple mat-icon-button color="red">
+                  <mat-icon>keyboard_arrow_right</mat-icon>
+                </button>
                 </div>
 
                 <!-- NAMES BOX 1 -->
                 <div class="col-md-4" *ngIf="nameBox && nameBoxB">
                   <!-- NAMES  nameCandidates BOX -->
                   <!-- <button mat-button class="screen-button">screen</button> -->
-                  <div [class.names-container-wide]="wideView" [class.names-container]="!wideView" class=" bounceOut mat-elevation-z2" [ngStyle]="{'max-width': myMaxRWith  }">
+                  <div [class.names-container-wide]="wideView" [class.names-container]="!wideView"
+                    class=" bounceOut mat-elevation-z2" [ngStyle]="{'max-width': myMaxRWith  }">
                     <div *ngFor="let  nameCandidate of nameCandidates; let i = index">
                       <span *ngIf="!isScreeningNames" (dblclick)="openDialog(nameCandidate, 'deleteName')"
                         style="font-size:22px;margin: 10px;cursor: pointer;overflow: scroll;"
@@ -364,8 +382,8 @@
                     </div>
                   </div>
 
-                  <form name="loginForm" [formGroup]="loginForm" novalidate  [class.name-form-wide]="wideView" [class.name-form]="!wideView" class=" mat-elevation-z4"
-                    fxLayoutAlign="center center">
+                  <form name="loginForm" [formGroup]="loginForm" novalidate [class.name-form-wide]="wideView"
+                    [class.name-form]="!wideView" class=" mat-elevation-z4" fxLayoutAlign="center center">
 
                     <mat-form-field appearance="outline">
                       <input matInput type="New Name" placeholder="name1, name2, name3" formControlName="name"
@@ -500,7 +518,7 @@
         </div>
       </div>
 
-    
+
     </div>
 
 
