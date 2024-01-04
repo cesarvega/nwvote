@@ -1,5 +1,8 @@
 <mat-sidenav-container class="main-container" *ngIf="true" [hasBackdrop]="false"
-  [ngStyle]="{'left': !wideView || !createPostIt? 0 : '-390px'}" style="margin-top: 40px;">
+[ngStyle]="{
+  'left': !wideView || !createPostIt ? '0' : '-390px',
+  'margin-top': createPostIt ? '0px' : '40px'
+}" >
 
   <!-- OVERVIEW SLIDE -->
   <mat-sidenav class="overview" mode="over" [opened]="overview">
