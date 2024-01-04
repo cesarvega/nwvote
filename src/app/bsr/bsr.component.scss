@@ -808,7 +808,7 @@ mat-tab-group ::-webkit-scrollbar {
   position: relative;
   z-index: 99;
   outline: none;
-  transform: translate(50%, 16px);
+  transform: translate(50%, 82px);
   :hover {
     transform: scale(1.5);
   }
@@ -822,7 +822,7 @@ mat-tab-group ::-webkit-scrollbar {
   z-index: 99;
   left: -19px;
   outline: none;
-  transform: translate(50%, 11px);
+  transform: translate(50%, 82px);
 
   :hover {
     transform: scale(1.5);
@@ -836,7 +836,7 @@ mat-tab-group ::-webkit-scrollbar {
   /* top: 470px; */
   z-index: 99;
   outline: none;
-  transform: translate(50%, 16px );
+  transform: translate(50%, 82px );
 
   :hover {
     transform: scale(1.5);
@@ -848,19 +848,30 @@ mat-tab-group ::-webkit-scrollbar {
   right: 15px;
   z-index: 99;
   outline: none;
-  transform: translate(50%, 7px);
+  transform: translate(50%, 82px);
 
   :hover {
     transform: scale(1.5);
   }
 }
+.menu-left-alt{
+  position: relative;
+  right: 15px;
+  z-index: 99;
+  outline: none;
+  transform: translate(50%, 475px);
 
+  :hover {
+    transform: scale(1.5);
+  }
+}
 .menu-right-icon-wide-post{
   position: relative;
-  left: 1429px;
+  left: 1368px;
   top: 470px;
   z-index: 99;
   outline: none;
+  transform: translate(50%, -742px) !important;
 }
 
 .corner_bar_menu {
@@ -871,6 +882,14 @@ mat-tab-group ::-webkit-scrollbar {
   z-index: 9999;
   background: white;
   border-radius: 5px;
+}
+.menu-right-icon-post{
+  position: relative;
+  z-index: 99;
+  right: -1023px;
+  outline: none;
+  transform: translate(50%, -278px);
+  
 }
 
 ::ng-deep .mat-tooltip {
