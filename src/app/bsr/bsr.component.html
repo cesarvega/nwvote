@@ -285,7 +285,7 @@
           <div class="row">
             <div class="col-md-12">
               <div class="row">
-                <div class="col-md-8">
+                <div class="col-md-8" style="z-index: 999;">
                   <button (click)="moveBackward()" [class.menu-left-icon]="!wideView"
                     [class.menu-left-icon-wide]="wideView" [class.menu-left-alt]="createPostIt" disableRipple
                     mat-icon-button color="red">
@@ -300,8 +300,8 @@
                           style="color: white; font-size: 40px;font-family: Arial">
                           Brainstorm
                         </div>
-                        <div class="col" (click)="toggleNamebox()"
-                          style="color: white; font-size: 30px;font-family: Arial; right: -730px;cursor: pointer;"
+                        <div class="col" (click)="toggleNamebox()" [class.name-title-wide]="wideView"
+                        [class.name-title]="!wideView"
                           [matTooltip]="'Names Created '+ nameCandidates.length" matTooltipPosition="right">
                           Names
                           <span *ngIf="nameCandidates.length > 0" style="position: absolute;    top: 6px;
@@ -369,7 +369,7 @@
                   <!-- NAMES  nameCandidates BOX -->
                   <!-- <button mat-button class="screen-button">screen</button> -->
                   <div [class.names-container-wide]="wideView" [class.names-container]="!wideView"
-                    class=" bounceOut mat-elevation-z2" [ngStyle]="{'max-width': myMaxRWith  }">
+                    class=" bounceOut mat-elevation-z2" [ngStyle]="{'max-width': myMaxRWith  }" style="z-index: 99999;">
                     <div *ngFor="let  nameCandidate of nameCandidates; let i = index">
                       <span *ngIf="!isScreeningNames" (dblclick)="openDialog(nameCandidate, 'deleteName')"
                         style="font-size:22px;margin: 10px;cursor: pointer;overflow: scroll;"
@@ -386,7 +386,7 @@
                   </div>
 
                   <form name="loginForm" [formGroup]="loginForm" novalidate [class.name-form-wide]="wideView"
-                    [class.name-form]="!wideView" class=" mat-elevation-z4" fxLayoutAlign="center center">
+                    [class.name-form]="!wideView" class=" mat-elevation-z4" fxLayoutAlign="center center" style="z-index: 99999;">
 
                     <mat-form-field appearance="outline">
                       <input matInput type="New Name" placeholder="name1, name2, name3" formControlName="name"
