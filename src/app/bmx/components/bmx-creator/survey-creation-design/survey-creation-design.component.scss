@@ -49,7 +49,7 @@
 @media print {
     .no-print,
     .no-print * {
-        
+
         display: none !important;
     }
 
@@ -79,15 +79,17 @@
     flex-direction: row;
     align-items: center;
     position: absolute;
-    justify-content: center;
-    bottom: 10px;
-    left: 40%;
+    justify-content: flex-end;
+    bottom: 17px;
+    width: 45%;
 }
 .page-buttons-heigth-minus-50 {
     display: flex;
     flex-direction: row;
     align-items: center;
-    
+    gap: 8px;
+    position: absolute;
+
 }
 .page-buttons-heigth-40 {
     display: flex;
