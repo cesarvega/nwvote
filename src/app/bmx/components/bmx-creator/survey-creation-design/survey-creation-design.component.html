@@ -197,9 +197,9 @@
                     </button>
                 </div>
                 <button class="no-print" *ngIf="globalProjectName.length > 0"
-                    style="position: relative;z-index: 9999999999; left: 20px;;outline: none; bottom: 15px;"
+                    style="position: relative;z-index: 9999999999;     right: -685px;outline: none; bottom: 15px;"
                     mat-raised-button class="project-name-global">
-                    PROJECT: {{globalProjectName}}
+                    PROJECT: {{globalDisplayName != ''? globalDisplayName: globalProjectName}}
                 </button>
             </div>
         </div>
@@ -370,5 +370,5 @@
         </button>
     </div>
     <mat-icon (click)="isTemplateUpdate = false" style="cursor: pointer;" class="full-icon">close</mat-icon>
-    
+
 </div>

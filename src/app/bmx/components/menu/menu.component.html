@@ -72,8 +72,13 @@
         <i class="bi bi-arrow-left-circle"></i>
         BACK
       </div> -->
+      <div class="menu-item-Dark directionProjectList" (click)="navigateTo('templates')">
+        <i class="bi bi-list-task"></i>Templates
       </div>
+      </div>
+      
     </div>
+  
   </div>
 
   <div *ngIf="!isDashboardMenu && !hideMenu && !isPreviewView" class="general-container">
@@ -150,16 +155,12 @@
         <i class="bi bi-arrow-left-circle"></i>
         BACK
       </div> -->
-        <div class="menu-item-Dark directionProjectList" (click)="navigateTo('templates')">
-          <i class="bi bi-list-task"></i>Templates
-        </div>
+
       </div>
     </div>
   </div>
 
-  <button class="hide-button" *ngIf="!isDashboardMenu && !hideMenu && !isPreviewView"
-    
-  (click)="toggleMenu()"
+  <button class="hide-button" *ngIf="!isDashboardMenu && !hideMenu && !isPreviewView" (click)="toggleMenu()"
     mat-icon-button matTooltip="Hide menu" matTooltipPosition="above">
     <mat-icon class="full-icon" style="font-size: 35px;margin-bottom: 7px;">arrow_back
     </mat-icon>
