@@ -140,7 +140,7 @@ export class ProjectListComponent implements OnInit {
     if (this.selectedDate) {
       this.viewedData = this.viewedData.filter(project => project.bmxClosingDate == this.selectedDate.toISOString())
     }
-
+    console.log(this.viewedData)
     // FILTERING BY DEPARTMENT & OFFICE
     if (this.viewedData.length > 0) {
       if (this.userRole == 'Director') {

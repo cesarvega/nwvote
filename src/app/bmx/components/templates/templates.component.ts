@@ -1,9 +1,12 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import { BmxService } from '../bmx-creator/bmx.service';
 import { Observable } from 'rxjs';
 import { FormControl, FormGroup } from '@angular/forms';
 import { map, startWith } from 'rxjs/operators';
 import { Router } from '@angular/router';
+import { MatSort } from '@angular/material/sort';
+import { MatPaginator } from '@angular/material/paginator';
+import { MatTableDataSource } from '@angular/material/table';
 
 @Component({
   selector: 'app-templates',
@@ -29,7 +32,10 @@ export class TemplatesComponent implements OnInit {
 
   DIRECTORS: Array<any> = [];
   selectedTemplateName = ''
+  @ViewChild(MatSort) sort: MatSort;
+  @ViewChild(MatPaginator) paginator: MatPaginator;
 
+  dataSource;
 
   selectedDirector;
   officeLocations: Array<any> = [];
@@ -50,6 +56,7 @@ export class TemplatesComponent implements OnInit {
     { TemplateName: 'Naming Contest' },
     { TemplateName: 'Question & Answer' },
   ];
+  displayedColumns = ['displayName', 'TemplateName', 'Created',  'Edit', 'Delete'];
   bmxEditData: FormGroup;
   filteredOptions: Observable<string[]>;
   salesboardObj = [];
@@ -75,17 +82,15 @@ export class TemplatesComponent implements OnInit {
         })
 
 
-
+        this.dataSource = new MatTableDataSource<any>(this.TEMPLATES);
+        this.dataSource.paginator = this.paginator;
+        this.dataSource.sort = this.sort;
       });
       this.currentDirectorList = this.allDirectors;
       for (var i = 0; i < this.DIRECTORS?.length; i++) {
         this.DIRECTORS[i] = this.allDirectors.find(o => o.name === this.DIRECTORS[i].name);
       }
-      this.filteredOptions = this.bmxEditData.controls['bmxSalesboard'].valueChanges
-        .pipe(
-          startWith(''),
-          map(value => this._filter(value))
-        );
+ 
       // END 🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖 AUTOCOMPLETE
     });
   }
@@ -95,18 +100,20 @@ export class TemplatesComponent implements OnInit {
     return this.settingsData['SalesBoardProjectList'].filter(option => option.toLowerCase().includes(filterValue));/*.slice(0, 10);*/
   }
 
-  templateSelected(templateName: string) {
+  templateSelected(templateName: string, displayName: string) {
     this.isSaveOrUpdate = true;
     this.templateName = templateName;
     console.log(templateName)
     const cadenaSinUnderscores = templateName.replace(/_/g, '');
     this.editBM(cadenaSinUnderscores)
+    localStorage.setItem('displayName', displayName);
   }
   
     editBM(option: string): void {
     this._BmxService.setProjectName(option);
     var test = option;
     localStorage.setItem('projectName', option);
+    
     this.router.navigate(['bmx-creation/99CB72BF-D163-46A6-8A0D-E1531EC7FEDC'])
   }
 }
