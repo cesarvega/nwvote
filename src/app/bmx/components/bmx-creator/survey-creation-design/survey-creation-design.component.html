@@ -196,11 +196,12 @@
                         <mat-icon class="full-icon">chevron_right</mat-icon>
                     </button>
                 </div>
+                <div class="button-name">
                 <button class="no-print" *ngIf="globalProjectName.length > 0"
-                    style="position: relative;z-index: 9999999999;     right: -685px;outline: none; bottom: 15px;"
+                    style="position: relative;z-index: 9999999999;     outline: none; bottom: 15px;"
                     mat-raised-button class="project-name-global">
                     PROJECT: {{globalDisplayName != ''? globalDisplayName: globalProjectName}}
-                </button>
+                </button></div>
             </div>
         </div>
 
