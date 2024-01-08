@@ -44,12 +44,17 @@
     transition: all 0.1s ease-in-out;
     text-shadow: 0 0.04em 0.04em rgba(0, 0, 0, 0.35);
     box-shadow: inset inset 0px 0px 5px #0bd659;
+    bottom: 15px;
+    @media (max-width: 712px){
+      bottom: 30px;
+    }
+
 }
 
 @media print {
     .no-print,
     .no-print * {
-        
+
         display: none !important;
     }
 
@@ -75,19 +80,35 @@
 }
 
 .page-buttons {
-    display: flex;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  position: absolute;
+  bottom: 17px;
+  width: 81%;
+  right: 3rem;
+
+  @media (max-width: 712px){
+    width: 95%;
+    right: 1rem;
+  }
+}
+.button-name{
+  display: flex;
+  width: 100%;
+  justify-content: flex-end;
+}
+.page-buttons-heigth-minus-50 {
+   gap:5px;
+  display: flex;
     flex-direction: row;
     align-items: center;
     position: absolute;
+    width: 100%;
     justify-content: center;
-    bottom: 10px;
-    left: 40%;
-}
-.page-buttons-heigth-minus-50 {
-    display: flex;
-    flex-direction: row;
-    align-items: center;
-    
+    @media (max-width: 712px){
+      gap:8px;
+    }
 }
 .page-buttons-heigth-40 {
     display: flex;
@@ -198,4 +219,7 @@
 
 ::ng-deep .mat-button-wrapper{
     font-size: 1vw;
+    @media (max-width: 712px){
+      font-size: 2.5vw;
+    }
  }

@@ -1,19 +1,47 @@
 <div style="    position: relative;
-left: 90%;
-top: 5%;
-max-height: 90vh;
-overflow-y: scroll;"
+top: 5%;"
 >
+    <table mat-table [dataSource]="dataSource" matSort class="mat-elevation-z8" style="width: 100%;">
+        <!-- Position Column -->
+        <ng-container matColumnDef="displayName">
+            <th mat-header-cell *matHeaderCellDef mat-sort-header> Display name</th>
+            <td mat-cell *matCellDef="let element"> {{element.displayName}} </td>
+        </ng-container>
+        <ng-container matColumnDef="TemplateName">
+            <th mat-header-cell *matHeaderCellDef mat-sort-header>Template name </th>
+            <td mat-cell *matCellDef="let element"> {{element.templateName}} </td>
+        </ng-container>
 
-    <div *ngFor="let template of TEMPLATES " class="template-item" (click)=" selectedTemplateName = template.templateName; templateName = template.templateName; templateSelected(template.templateName) ; selectedTemplateName= template.displayName? template.displayName : template.templateName">
-        <span class="template-info" style="    display: flex;
-        justify-content: space-between;
-        align-items: center;">
-            {{template.displayName}} <mat-icon class="edit-icon" style="z-index: 1001;"
-                (click)=" selectedTemplateName = template.templateName; templateName = template.templateName; templateSelected(template.templateName) ; selectedTemplateName= template.displayName? template.displayName : template.templateName">edit
-            </mat-icon>
-        </span>
-    </div>
+        <ng-container matColumnDef="Created">
+            <th mat-header-cell *matHeaderCellDef mat-sort-header> Created </th>
+            <td mat-cell *matCellDef="let element"> {{element.Created}} </td>
+        </ng-container>
+
+
+
+        <ng-container matColumnDef="Edit">
+            <th mat-header-cell *matHeaderCellDef mat-sort-header style="width: 3.33%;"> </th>
+            <td mat-cell *matCellDef="let element">
+                <button mat-icon-button style="color: #48bcb4;"
+                    aria-label="Example icon button with a home icon"  (click)=" selectedTemplateName = element.templateName; templateName = element.templateName; templateSelected(element.templateName, element.displayName) ; selectedTemplateName= element.displayName? element.displayName : element.templateName">
+                    <mat-icon>build</mat-icon>
+                </button>
+            </td>
+        </ng-container>
+        <ng-container matColumnDef="Delete">
+            <th mat-header-cell *matHeaderCellDef mat-sort-header style="width: 3.33%;"> </th>
+            <td mat-cell *matCellDef="let element">
+                <button mat-icon-button style="color: #bc488a;"
+                    aria-label="Example icon button with a home icon" >
+                    <mat-icon>delete</mat-icon>
+                </button>
+            </td>
+        </ng-container>
+
+        <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+        <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+    </table>
+    <mat-paginator [pageSizeOptions]="[10, 15, 20]" showFirstLastButtons></mat-paginator>
 
 </div>
 
