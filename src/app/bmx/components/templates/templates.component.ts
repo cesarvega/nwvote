@@ -36,7 +36,14 @@ export class TemplatesComponent implements OnInit {
   @ViewChild(MatPaginator) paginator: MatPaginator;
 
   dataSource;
-
+  brandMatrixObjects = [
+  ];
+  bmxPages: any = [
+    {
+      pageNumber: 1,
+      page: this.brandMatrixObjects,
+    },
+  ];
   selectedDirector;
   officeLocations: Array<any> = [];
   allDirectors: Array<any> = [];
@@ -48,6 +55,7 @@ export class TemplatesComponent implements OnInit {
   dName;
   canEdit;
   isDisplay = true;
+  biUserId = 'user@bi.com';
   TEMPLATES = [
     { TemplateName: 'Standard Personal Preference' },
     { TemplateName: 'Ranking' },
@@ -56,10 +64,12 @@ export class TemplatesComponent implements OnInit {
     { TemplateName: 'Naming Contest' },
     { TemplateName: 'Question & Answer' },
   ];
-  displayedColumns = ['displayName', 'TemplateName', 'Created',  'Edit', 'Delete'];
+  displayedColumns = ['displayName', 'TemplateName', 'Created', 'Name', 'Edit', 'Delete'];
   bmxEditData: FormGroup;
   filteredOptions: Observable<string[]>;
   salesboardObj = [];
+  showModal = false;
+ newTemplateName = ''
   ngOnInit(): void {
     this._BmxService.getGeneralLists()
     .subscribe((arg: any) => {
@@ -115,5 +125,61 @@ export class TemplatesComponent implements OnInit {
     localStorage.setItem('projectName', option);
     
     this.router.navigate(['bmx-creation/99CB72BF-D163-46A6-8A0D-E1531EC7FEDC'])
+  }
+
+  
+  openModal() {
+    this.showModal = true;
+  }
+
+  closeModal() {
+    this.showModal = false;
+  }
+
+  saveNewName() {
+
+    this._BmxService.saveBrandMatrixTemplate(this.templateName, this.bmxPages, this.biUserId, this.newTemplateName).subscribe()
+    this._BmxService.getGeneralLists()
+      .subscribe((arg: any) => {
+        this.settingsData = JSON.parse(arg.d);
+        this.TEMPLATES = (this.settingsData.BrandMatrixTemplateList.length) > 0 ? JSON.parse(arg.d).BrandMatrixTemplateList.map(obj => { return { templateName: obj.TemplateName, displayName: obj.DisplayName } }) : this.TEMPLATES
+
+        // END 🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖 AUTOCOMPLETE
+        this._BmxService.getGeneralLists()
+        .subscribe((arg: any) => {
+          this.settingsData = JSON.parse(arg.d);
+          console.log(this.settingsData)
+          this.TEMPLATES = (this.settingsData.BrandMatrixTemplateList.length) > 0 ? JSON.parse(arg.d).BrandMatrixTemplateList.map(obj => { return { templateName: obj.TemplateName, displayName: obj.DisplayName } }) : this.TEMPLATES
+    
+          this.settingsData.OfficeList.unshift('All');
+          //console.log(JSON.parse(arg.d));
+          //AUTOCOMPLETE 🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖
+          this.settingsData.SalesBoardProjectList.forEach(myObject => { this.salesboardObj.push({ name: myObject['SalesBoardProjectList'] }) });
+          this.settingsData.DirectorList.forEach(directorObj => {
+            this.allDirectors.push({
+              name: directorObj.Director,
+              id: directorObj.Id,
+              title: directorObj.Title,
+              email: directorObj.Email,
+              phone: directorObj.Phone,
+              office: directorObj.Office,
+            })
+    
+    
+            this.dataSource = new MatTableDataSource<any>(this.TEMPLATES);
+            this.dataSource.paginator = this.paginator;
+            this.dataSource.sort = this.sort;
+          });
+          this.currentDirectorList = this.allDirectors;
+          for (var i = 0; i < this.DIRECTORS?.length; i++) {
+            this.DIRECTORS[i] = this.allDirectors.find(o => o.name === this.DIRECTORS[i].name);
+          }
+     
+          // END 🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖 AUTOCOMPLETE
+        });
+      });
+    this.showModal = false;
+    this.selectedTemplateName = this.newTemplateName
+    this.newTemplateName = '';
   }
 }
