@@ -94,13 +94,16 @@
   justify-content: flex-end;
 }
 .page-buttons-heigth-minus-50 {
-   gap:1px;
+   gap:5px;
   display: flex;
     flex-direction: row;
     align-items: center;
     position: absolute;
     width: 100%;
     justify-content: center;
+    @media (max-width: 712px){
+      gap:8px;
+    }
 }
 .page-buttons-heigth-40 {
     display: flex;
