@@ -69,40 +69,41 @@ export class TemplatesComponent implements OnInit {
   filteredOptions: Observable<string[]>;
   salesboardObj = [];
   showModal = false;
- newTemplateName = ''
+  newTemplateName = ''
+  selectedDisplayName = ''
   ngOnInit(): void {
     this._BmxService.getGeneralLists()
-    .subscribe((arg: any) => {
-      this.settingsData = JSON.parse(arg.d);
-      console.log(this.settingsData)
-      this.TEMPLATES = (this.settingsData.BrandMatrixTemplateList.length) > 0 ? JSON.parse(arg.d).BrandMatrixTemplateList.map(obj => { return { templateName: obj.TemplateName, displayName: obj.DisplayName } }) : this.TEMPLATES
+      .subscribe((arg: any) => {
+        this.settingsData = JSON.parse(arg.d);
+        console.log(this.settingsData)
+        this.TEMPLATES = (this.settingsData.BrandMatrixTemplateList.length) > 0 ? JSON.parse(arg.d).BrandMatrixTemplateList.map(obj => { return { templateName: obj.TemplateName, displayName: obj.DisplayName } }) : this.TEMPLATES
 
-      this.settingsData.OfficeList.unshift('All');
-      //console.log(JSON.parse(arg.d));
-      //AUTOCOMPLETE 🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖
-      this.settingsData.SalesBoardProjectList.forEach(myObject => { this.salesboardObj.push({ name: myObject['SalesBoardProjectList'] }) });
-      this.settingsData.DirectorList.forEach(directorObj => {
-        this.allDirectors.push({
-          name: directorObj.Director,
-          id: directorObj.Id,
-          title: directorObj.Title,
-          email: directorObj.Email,
-          phone: directorObj.Phone,
-          office: directorObj.Office,
-        })
+        this.settingsData.OfficeList.unshift('All');
+        //console.log(JSON.parse(arg.d));
+        //AUTOCOMPLETE 🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖
+        this.settingsData.SalesBoardProjectList.forEach(myObject => { this.salesboardObj.push({ name: myObject['SalesBoardProjectList'] }) });
+        this.settingsData.DirectorList.forEach(directorObj => {
+          this.allDirectors.push({
+            name: directorObj.Director,
+            id: directorObj.Id,
+            title: directorObj.Title,
+            email: directorObj.Email,
+            phone: directorObj.Phone,
+            office: directorObj.Office,
+          })
 
 
-        this.dataSource = new MatTableDataSource<any>(this.TEMPLATES);
-        this.dataSource.paginator = this.paginator;
-        this.dataSource.sort = this.sort;
+          this.dataSource = new MatTableDataSource<any>(this.TEMPLATES);
+          this.dataSource.paginator = this.paginator;
+          this.dataSource.sort = this.sort;
+        });
+        this.currentDirectorList = this.allDirectors;
+        for (var i = 0; i < this.DIRECTORS?.length; i++) {
+          this.DIRECTORS[i] = this.allDirectors.find(o => o.name === this.DIRECTORS[i].name);
+        }
+
+        // END 🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖 AUTOCOMPLETE
       });
-      this.currentDirectorList = this.allDirectors;
-      for (var i = 0; i < this.DIRECTORS?.length; i++) {
-        this.DIRECTORS[i] = this.allDirectors.find(o => o.name === this.DIRECTORS[i].name);
-      }
- 
-      // END 🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖 AUTOCOMPLETE
-    });
   }
   private _filter(value: string): string[] {
     const filterValue = value.toLowerCase();
@@ -113,21 +114,22 @@ export class TemplatesComponent implements OnInit {
   templateSelected(templateName: string, displayName: string) {
     this.isSaveOrUpdate = true;
     this.templateName = templateName;
-    console.log(templateName)
+    console.log(this.selectedDisplayName)
+
     const cadenaSinUnderscores = templateName.replace(/_/g, '');
     this.editBM(cadenaSinUnderscores)
     localStorage.setItem('displayName', displayName);
   }
-  
-    editBM(option: string): void {
+
+  editBM(option: string): void {
     this._BmxService.setProjectName(option);
     var test = option;
     localStorage.setItem('projectName', option);
-    
+
     this.router.navigate(['bmx-creation/99CB72BF-D163-46A6-8A0D-E1531EC7FEDC'])
   }
 
-  
+
   openModal() {
     this.showModal = true;
   }
@@ -146,40 +148,41 @@ export class TemplatesComponent implements OnInit {
 
         // END 🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖 AUTOCOMPLETE
         this._BmxService.getGeneralLists()
-        .subscribe((arg: any) => {
-          this.settingsData = JSON.parse(arg.d);
-          console.log(this.settingsData)
-          this.TEMPLATES = (this.settingsData.BrandMatrixTemplateList.length) > 0 ? JSON.parse(arg.d).BrandMatrixTemplateList.map(obj => { return { templateName: obj.TemplateName, displayName: obj.DisplayName } }) : this.TEMPLATES
-    
-          this.settingsData.OfficeList.unshift('All');
-          //console.log(JSON.parse(arg.d));
-          //AUTOCOMPLETE 🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖
-          this.settingsData.SalesBoardProjectList.forEach(myObject => { this.salesboardObj.push({ name: myObject['SalesBoardProjectList'] }) });
-          this.settingsData.DirectorList.forEach(directorObj => {
-            this.allDirectors.push({
-              name: directorObj.Director,
-              id: directorObj.Id,
-              title: directorObj.Title,
-              email: directorObj.Email,
-              phone: directorObj.Phone,
-              office: directorObj.Office,
-            })
-    
-    
-            this.dataSource = new MatTableDataSource<any>(this.TEMPLATES);
-            this.dataSource.paginator = this.paginator;
-            this.dataSource.sort = this.sort;
+          .subscribe((arg: any) => {
+            this.settingsData = JSON.parse(arg.d);
+            console.log(this.settingsData)
+            this.TEMPLATES = (this.settingsData.BrandMatrixTemplateList.length) > 0 ? JSON.parse(arg.d).BrandMatrixTemplateList.map(obj => { return { templateName: obj.TemplateName, displayName: obj.DisplayName } }) : this.TEMPLATES
+
+            this.settingsData.OfficeList.unshift('All');
+            //console.log(JSON.parse(arg.d));
+            //AUTOCOMPLETE 🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖
+            this.settingsData.SalesBoardProjectList.forEach(myObject => { this.salesboardObj.push({ name: myObject['SalesBoardProjectList'] }) });
+            this.settingsData.DirectorList.forEach(directorObj => {
+              this.allDirectors.push({
+                name: directorObj.Director,
+                id: directorObj.Id,
+                title: directorObj.Title,
+                email: directorObj.Email,
+                phone: directorObj.Phone,
+                office: directorObj.Office,
+              })
+
+
+              this.dataSource = new MatTableDataSource<any>(this.TEMPLATES);
+              this.dataSource.paginator = this.paginator;
+              this.dataSource.sort = this.sort;
+            });
+            this.currentDirectorList = this.allDirectors;
+            for (var i = 0; i < this.DIRECTORS?.length; i++) {
+              this.DIRECTORS[i] = this.allDirectors.find(o => o.name === this.DIRECTORS[i].name);
+            }
+
+            // END 🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖 AUTOCOMPLETE
           });
-          this.currentDirectorList = this.allDirectors;
-          for (var i = 0; i < this.DIRECTORS?.length; i++) {
-            this.DIRECTORS[i] = this.allDirectors.find(o => o.name === this.DIRECTORS[i].name);
-          }
-     
-          // END 🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖 AUTOCOMPLETE
-        });
       });
     this.showModal = false;
     this.selectedTemplateName = this.newTemplateName
     this.newTemplateName = '';
+    console.log(this.selectedDisplayName)
   }
 }

@@ -62,12 +62,6 @@
   z-index: 1000;
 }
 
-.close-button {
-  width: 100%;
-  display: flex;
-  justify-content: flex-end;
-
-}
 
 .modal-content{
   display: flex;
@@ -79,4 +73,9 @@
 
 ::ng-deep .mat-select-value .edit-icon{
   display: none !important;
+}
+
+.close-button {
+position: relative;
+left: 50%;
 }
