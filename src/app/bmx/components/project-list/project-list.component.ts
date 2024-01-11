@@ -136,10 +136,11 @@ export class ProjectListComponent implements OnInit {
         }
       }
     }
+    this.viewedData =  this.viewedData.filter(project => !this.templates.includes(project.bmxProjectName))
     if (this.selectedDate) {
       this.viewedData = this.viewedData.filter(project => project.bmxClosingDate == this.selectedDate.toISOString())
     }
-
+    console.log(this.viewedData)
     // FILTERING BY DEPARTMENT & OFFICE
     if (this.viewedData.length > 0) {
       if (this.userRole == 'Director') {

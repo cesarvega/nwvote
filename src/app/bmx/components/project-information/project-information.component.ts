@@ -29,7 +29,7 @@ export class ProjectInformationComponent implements OnInit {
   };
   stringBmxEditData: any;
   isSaveOrUpdate = false;
-  templateName = '';
+
 
   DIRECTORS: Array<any> = [];
 
@@ -81,6 +81,7 @@ export class ProjectInformationComponent implements OnInit {
   showModal = false;
   newTemplateName = ''
   selectedTemplateName = ''
+  templateName = '';
   ngOnInit(): void {
     this.canEdit = null;
     this.createFormControls();
