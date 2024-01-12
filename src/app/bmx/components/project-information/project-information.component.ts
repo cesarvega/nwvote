@@ -206,9 +206,9 @@ export class ProjectInformationComponent implements OnInit {
       var so = result;
       this.saveProjectSuccess.emit(true)
     });
-    if (this.templateName.length > 3) {
-      this.saveOrUpdateTemplate(this.templateName);
-    }
+    // if (this.templateName.length > 3) {
+    //   this.saveOrUpdateTemplate(this.templateName);
+    // }
 
     // SET DATA STREAM TO AN OBSERVABLE
     this._BmxService.setprojectData(finalString)

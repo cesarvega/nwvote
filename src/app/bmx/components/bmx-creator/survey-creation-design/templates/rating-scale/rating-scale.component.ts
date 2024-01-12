@@ -7,6 +7,7 @@ import * as  dragula from 'dragula';
 import { BmxService } from '../../../bmx.service';
 import { DeviceDetectorService } from 'ngx-device-detector';
 import { MatCheckboxModule } from '@angular/material/checkbox';
+import { Console } from 'console';
 
 @Component({
   selector: 'app-rating-scale',
@@ -164,6 +165,7 @@ export class RatingScaleComponent implements OnInit {
       if (index > 0) {
         if (item.RATE > 0) {
           amountOfAnswersRateCounter++
+          this.maxRuleCounter++
           if (this.bmxItem.componentText.length - 1 == amountOfAnswersRateCounter) {
             this.bmxItem.componentSettings[0].categoryRulesPassed = true
           }
@@ -178,6 +180,17 @@ export class RatingScaleComponent implements OnInit {
       })
 
     })
+
+    this.bmxItem.componentText.forEach((item, index) => {
+      if (index > 0) {
+        item.CRITERIA.forEach(item=>{
+          if(item.RATE>0){
+            this.maxRuleCounter++
+          }
+        })
+      }
+    })
+
 
     this.randomizeTestNames = this.bmxItem.componentSettings[0].randomizeTestNames
 
@@ -376,9 +389,17 @@ export class RatingScaleComponent implements OnInit {
 
   // CRITERIA STARS
 
-  setCriteriaRating(starId, criteriaId, testNameId) {
+  setCriteriaRating(starId, criteriaId, testNameId) 
+  {
+     this.bmxItem.componentText[testNameId].CRITERIA.forEach(criteria=>{
+        if(criteria.RATE>0  ){
+          this.maxRuleCounter--
+        }
+        criteria.RATE = 0
+      })
     if (this.maxRuleCounter < this.bmxItem.componentSettings[0].maxRule || this.bmxItem.componentSettings[0].maxRule == 0) {
       if (this.bmxItem.componentSettings[0].maxRule > 0) { this.maxRuleCounter++ }
+     
       this.bmxItem.componentText[testNameId].CRITERIA[criteriaId].RATE = starId
       this.bmxItem.componentSettings[0].ratedCounter++
       if (this.bmxItem.componentSettings[0].ratedCounter >= this.bmxItem.componentSettings[0].minRule) {
@@ -387,6 +408,7 @@ export class RatingScaleComponent implements OnInit {
     }
     //autosave
     this.autoSave.emit();
+    console.log(this.maxRuleCounter)
   }
 
   selectCriteriaStar(starId, criteriaId, testNameId): void {
@@ -584,8 +606,8 @@ export class RatingScaleComponent implements OnInit {
 
       if (this.bmxItem.componentSettings[0].CRITERIA) {
         //MULTIPLY FOR THE AMOUNT OF CRITERIA
-        this.bmxItem.componentSettings[0].minRule = this.bmxItem.componentSettings[0].minRule * this.bmxItem.componentText[0].CRITERIA.length
-        this.bmxItem.componentSettings[0].maxRule = this.bmxItem.componentSettings[0].maxRule * this.bmxItem.componentText[0].CRITERIA.length
+        this.bmxItem.componentSettings[0].minRule = this.bmxItem.componentSettings[0].minRule
+        this.bmxItem.componentSettings[0].maxRule = this.bmxItem.componentSettings[0].maxRule 
 
       }
       this.dragRows = false;
@@ -596,8 +618,8 @@ export class RatingScaleComponent implements OnInit {
   verifyCritera(){
     if (this.bmxItem.componentSettings[0].CRITERIA) {
       //MULTIPLY FOR THE AMOUNT OF CRITERIA
-      this.bmxItem.componentSettings[0].minRule = this.bmxItem.componentSettings[0].minRule / this.bmxItem.componentText[0].CRITERIA.length
-      this.bmxItem.componentSettings[0].maxRule = this.bmxItem.componentSettings[0].maxRule / this.bmxItem.componentText[0].CRITERIA.length
+      this.bmxItem.componentSettings[0].minRule = this.bmxItem.componentSettings[0].minRule 
+      this.bmxItem.componentSettings[0].maxRule = this.bmxItem.componentSettings[0].maxRule 
 
     }
   }
