@@ -1165,7 +1165,6 @@ export class SurveyMatrixComponent extends SurveyCreationDesignComponent impleme
                 }
               }
               // HANDLING SPECAIL REQUEST END  ******************************************//
-
               if (component.componentSettings[0].CRITERIA) {
 
                 row.CRITERIA.forEach((criteria) => {
@@ -1181,12 +1180,12 @@ export class SurveyMatrixComponent extends SurveyCreationDesignComponent impleme
                       }
                     }
                   } else {
-
-                    let rater = row.CRITERIA.filter((criteria) => (criteria.RATE == -1 || criteria.RATE == 0))
+                    let rater = row.CRITERIA.filter((criteria) => (criteria.RATE != -1 || criteria.RATE != 0))
                     if (component.componentSettings[0].categoryRulesPassed) {
                       component.componentSettings[0].categoryRulesPassed = (index > 0 && rater.length > 0) ? false : true;
                     }
-                    if (index > 0 && rater.length == 0) {
+                    console.log(index, rater.length)
+                    if (index > 0 && rater.length <= index) {
                       minRuleCounter++
                     }
                   }
@@ -1232,14 +1231,14 @@ export class SurveyMatrixComponent extends SurveyCreationDesignComponent impleme
             // EVALUATION AFTER COUNTING
 
             if (component.componentSettings[0].CRITERIA) {
-              minRuleCounter = minRuleCounter / 2
+              minRuleCounter = minRuleCounter 
             }
 
             if (component.componentType == 'narrow-down') {
               component.componentSettings[0].categoryRulesPassed = (minRuleCounter != component.componentSettings[0].minRule) ? false : true;
             }
-            console.log(minRuleCounter, component.componentSettings[0].maxRule )
-            if (component.componentSettings[0].minRule == minRuleCounter && minRuleCounter <= component.componentSettings[0].maxRule ) {
+    
+            if (component.componentSettings[0].minRule <= minRuleCounter && minRuleCounter <= component.componentSettings[0].maxRule ) {
               component.componentSettings[0].categoryRulesPassed = true;
             }
             if (
