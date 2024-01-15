@@ -254,7 +254,6 @@ export class BmxService {
    }
 
   saveBrandMatrixTemplate(templateName,  templateObj, username, DisplayName?) {
-    console.log(DisplayName)
     let payloadString
     if(DisplayName){
        payloadString = JSON.stringify({
