@@ -1171,11 +1171,11 @@ export class SurveyMatrixComponent extends SurveyCreationDesignComponent impleme
                   // NARROW DOWN WITH CRITERIA
                   if (component.componentType == 'narrow-down') {
                     if (row.SELECTED_ROW) {
-                      let rater = row.CRITERIA.filter((criteria) => (criteria.RATE == -1 || criteria.RATE == 0))
+                      let rater = row.CRITERIA.filter((criteria) => (criteria.RATE == -1 || criteria.RATE != 0))
                       if (component.componentSettings[0].categoryRulesPassed) {
                         component.componentSettings[0].categoryRulesPassed = (index > 0 && rater.length > 0) ? false : true;
                       }
-                      if (index > 0 && rater.length == 0) {
+                      if (index > 0 && rater.length <= index) {
                         minRuleCounter++
                       }
                     }

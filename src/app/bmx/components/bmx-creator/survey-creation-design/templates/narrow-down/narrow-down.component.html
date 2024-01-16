@@ -476,7 +476,7 @@ justify-content: center;cursor: move; height: 25px; width: 100%;"><svg width="24
                             <!-- 🩸🩸🩸🩸🩸🩸🩸🩸🩸🩸🩸🩸🩸 RATE BUTTONS 🩸🩸🩸🩸🩸🩸🩸🩸🩸🩸🩸🩸🩸🩸🩸🩸🩸🩸🩸🩸🩸🩸🩸🩸 -->
                             <div style="display: flex;">
                                 <button
-                                    (click)="maxRuleCounterMinus();bmxItem.componentText[y]['RATE'] = 0;leaveStar(y)"
+                                    (click)="maxRuleCounterMinus();bmxItem.componentText[y]['RATE'] = 0;leaveStar(y);  "
                                     *ngIf="bmxItem.componentText[y]['RATE']>0 && y != 0 " style="background-color: #ee7f25;
                            color: white;
                            min-width: 20px;
@@ -490,7 +490,7 @@ justify-content: center;cursor: move; height: 25px; width: 100%;"><svg width="24
 
                             <div style="display: flex;gap: 60px;flex-direction: column;">
                                 <div *ngFor="let criteria of testName.CRITERIA  let x =  index">
-                                    <button (click)="criteria.RATE = 0;leaveCriteriaStar(y,x)"
+                                    <button (click)="criteria.RATE = 0;leaveCriteriaStar(y,x);maxRuleCounterMinus()"
                                         *ngIf="criteria.RATE>0 && y != 0 " style="background-color: #ee7f25;
                             color: white;
                             min-width: 20px;
