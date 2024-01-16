@@ -401,6 +401,7 @@ export class ProjectInformationComponent implements OnInit {
   }
 
   loadTemplate(templateName) {
+    console.log(templateName)
     this._BmxService.getBrandMatrixTemplateByName(templateName).subscribe((template: any) => {
       console.log(template)
       this.bmxPages = JSON.parse(template.d);
