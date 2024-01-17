@@ -209,7 +209,7 @@ export class ProjectInformationComponent implements OnInit {
     if (this.templateName.length > 3) {
       localStorage.setItem('template', JSON.stringify(this.bmxPages));
 
-  
+
     }
 
     // SET DATA STREAM TO AN OBSERVABLE
