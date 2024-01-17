@@ -55,14 +55,5 @@ export class NarrowDownComponent extends RatingScaleComponent implements OnInit 
     if (this.bmxItem.componentSettings[0]['displaySound'] == true) {
       this.displaySound = true;
     }
-    this.bmxItem.componentText.forEach((item, index) => {
-      if (index > 0) {
-        item.CRITERIA.forEach(item=>{
-          if(item.RATE>0){
-            this.maxRuleCounter++
-          }
-        })
-      }
-    })
   }
 }

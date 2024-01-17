@@ -114,6 +114,7 @@ export class SurveyCreationDesignComponent implements OnInit {
     UNDO = []
     globalProjectName = '';
     templateToDelete: any;
+    selectedDisplayNem: any;
 
     constructor(
         @Inject(DOCUMENT) private document: any,
@@ -807,11 +808,12 @@ export class SurveyCreationDesignComponent implements OnInit {
     }
 
     // TEMPLATE METHODS
-    saveOrUpdateTemplate(templateName) {
+    saveOrUpdateTemplate(templateName, displayName?:any) {
         if (confirm('Are you sure you want to save or update ' + templateName + ' template?')) {
             localStorage.setItem(templateName, JSON.stringify(this.bmxPages));
             console.log(this.bmxPages)
-            this._BmxService.saveBrandMatrixTemplate(templateName, this.bmxPages, this.biUserId).subscribe((template: any) => {
+            console.log(displayName, templateName)
+            this._BmxService.saveBrandMatrixTemplate(templateName, this.bmxPages, this.biUserId, this.selectedDisplayNem? this.selectedDisplayNem: templateName).subscribe((template: any) => {
 
                 let x1 = JSON.parse(template.d)
                 console.log(x1)
@@ -898,6 +900,8 @@ export class SurveyCreationDesignComponent implements OnInit {
 
     templateSelected() {
         this.isSaveOrUpdate = true;
+        const selectedTemplate = this.TEMPLATES.find((template: any) => template.template === this.templateName);
+        this.selectedDisplayNem = selectedTemplate
     }
 
     delete() {

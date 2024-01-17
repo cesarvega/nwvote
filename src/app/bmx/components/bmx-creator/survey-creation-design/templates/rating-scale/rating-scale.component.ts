@@ -253,13 +253,13 @@ export class RatingScaleComponent implements OnInit {
 
     if (rate.target && this.bmxItem.componentType == 'narrow-down') {
 
-      if (this.selectedRowCounter >= this.bmxItem.componentSettings[0].maxRule && !this.bmxItem.componentText[testNameId].SELECTED_ROW) {
+      if (this.selectedRowCounter >= this.bmxItem.componentSettings[0].minRule && !this.bmxItem.componentText[testNameId].SELECTED_ROW) {
         this.selectedNarrowDownTimer = 4000
         for (let index = 0; index < this.bmxItem.componentText.length; index++) {
           // REMOVE FIRST CHECKED VALUE
           if (this.bmxItem.componentText[index].SELECTED_ROW) {
             // ASK BEFROE REMOVE IT
-            this._snackBar.open(this.bmxItem.componentText[index].nameCandidates + ' was uncheck becuse you can only select up to ' + this.bmxItem.componentSettings[0].maxRule
+            this._snackBar.open(this.bmxItem.componentText[index].nameCandidates + ' was uncheck becuse you can only select up to ' + this.bmxItem.componentSettings[0].minRule
               + ' test names ', 'OK', {
               duration: 6000,
               verticalPosition: 'top',
@@ -390,17 +390,9 @@ export class RatingScaleComponent implements OnInit {
 
   // CRITERIA STARS
 
-  setCriteriaRating(starId, criteriaId, testNameId) 
-  {
-     this.bmxItem.componentText[testNameId].CRITERIA.forEach(criteria=>{
-        if(criteria.RATE>0  ){
-          this.maxRuleCounter--
-        }
-        criteria.RATE = 0
-      })
+  setCriteriaRating(starId, criteriaId, testNameId) {
     if (this.maxRuleCounter < this.bmxItem.componentSettings[0].maxRule || this.bmxItem.componentSettings[0].maxRule == 0) {
       if (this.bmxItem.componentSettings[0].maxRule > 0) { this.maxRuleCounter++ }
-     
       this.bmxItem.componentText[testNameId].CRITERIA[criteriaId].RATE = starId
       this.bmxItem.componentSettings[0].ratedCounter++
       if (this.bmxItem.componentSettings[0].ratedCounter >= this.bmxItem.componentSettings[0].minRule) {
@@ -409,7 +401,6 @@ export class RatingScaleComponent implements OnInit {
     }
     //autosave
     this.autoSave.emit();
-    console.log(this.maxRuleCounter)
   }
 
   selectCriteriaStar(starId, criteriaId, testNameId): void {

@@ -50,7 +50,9 @@
     <div class="movil">
 
       <div class="menu-container">
-        <div class="menu-item-Light  directionProjectList" [ngClass]="" (click)="navigateTo('dashboard')">
+        <div class="menu-item-Dark directionProjectList"  
+        [ngClass]="{'menu-item-Light': selectedMenuItem === 'dashboard', 'menu-item-Dark': selectedMenuItem !== 'dashboard'}"
+         (click)="navigateTo('dashboard')">
           <i class="bi bi-list-task"></i> Project List
         </div>
         <div class="menu-item-Dark"
@@ -72,7 +74,7 @@
         <i class="bi bi-arrow-left-circle"></i>
         BACK
       </div> -->
-      <div class="menu-item-Dark directionProjectList" (click)="navigateTo('templates')">
+      <div class="menu-item-Dark directionProjectList"   [ngClass]="{'menu-item-Light': selectedMenuItem === 'templates', 'menu-item-Dark': selectedMenuItem !== 'templates'}"(click)="navigateTo('templates')">
         <i class="bi bi-list-task"></i>Templates
       </div>
       </div>

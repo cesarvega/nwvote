@@ -6,6 +6,7 @@ import { map, startWith } from 'rxjs/operators';
 import { MatSelectChange } from '@angular/material/select';
 import { Validators } from '@angular/forms';
 import { BmxService } from '../bmx-creator/bmx.service';
+import { Router } from '@angular/router';
 
 
 @Component({
@@ -16,7 +17,7 @@ import { BmxService } from '../bmx-creator/bmx.service';
 export class ProjectInformationComponent implements OnInit {
   DIRECTORS_Filtered: any[];
 
-  constructor(private _BmxService: BmxService, private _snackBar: MatSnackBar) { }
+  constructor(private _BmxService: BmxService, private _snackBar: MatSnackBar, private router: Router) { }
   settingsData = {
     SalesBoardProjectList: [],
     BrandMatrixTemplateList: [],
@@ -216,6 +217,7 @@ export class ProjectInformationComponent implements OnInit {
     this._BmxService.setprojectData(finalString)
     this._snackBar.open('Saved Succesfully');
     localStorage.setItem('department', this.bmxEditData.get('bmxDepartment').value.toString());
+    this.router.navigate(['/bmx-creation/99CB72BF-D163-46A6-8A0D-E1531EC7FEDC']) 
   }
 
   createDirector(): void {

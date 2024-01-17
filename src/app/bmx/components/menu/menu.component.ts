@@ -83,7 +83,7 @@ export class MenuComponent implements OnInit {
           }
         
         });
-        this.isDashboardMenu = event.url.includes('dashboard') || event.url === '/';
+        this.isDashboardMenu = event.url.includes('dashboard') || event.url === '/' || event.url.includes('templates') ;
         this.isPreviewView = event.url.includes('survey')
         this.selectedMenuItem = event.url.slice(1)
         this.login = event.url.includes('login')
@@ -123,7 +123,12 @@ export class MenuComponent implements OnInit {
       localStorage.clear()
       this.isDashboardMenu = true;
       this.router.navigate(['/' + value]);
-    } else if (value.includes('bmx-creation')) {
+    }else if(value === 'templates'){
+      localStorage.clear()
+      this.isDashboardMenu = true;
+      this.router.navigate(['/' + value]);
+    } 
+    else if (value.includes('bmx-creation')) {
 
       if (localStorage.getItem('projectName')) {
         this.projectId = localStorage.getItem('projectName');
