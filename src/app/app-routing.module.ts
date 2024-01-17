@@ -35,7 +35,7 @@ const routes: Routes = [
   {path: 'login', component: LoginComponent},
   {path: 'signout', component: LoginComponent},
   { path: '**', redirectTo: 'dashboard' },
- 
+
 ];
 
 @NgModule({

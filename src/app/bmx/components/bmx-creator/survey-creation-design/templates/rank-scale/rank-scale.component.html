@@ -185,29 +185,29 @@
     <path d="M0 0h24v24H0z" fill="none"></path>
   </svg></div>
 
-    <!-- Cards Test Name-->
-    <mat-card class="example-card">
-      <mat-card-header>
+   <!-- Cards Test Name-->
+   <mat-card class="example-card">
+    <mat-card-header>
         <mat-card-title>Test Names</mat-card-title>
-      </mat-card-header>
-      <mat-card-content>
+    </mat-card-header>
+    <mat-card-content>
         <div style="text-align: center;">
-          <div style="font-size: 16px;margin: 20px;color: #48535e;">PASTE TEST NAMES</div>
-          <!-- <div style="font-size: 14px;margin-bottom: 20px;color: lightgray;">Brief Description Here</div> -->
-      </div>
-      <div>
-          <mat-form-field style="width: 90%;margin-left: 20px;" appearance="outline">
-              <mat-label>Copy & Paste TEST NAMES</mat-label>
-              <textarea matInput rows="4" cols="50" [(ngModel)]="testNamesInput" placeholder="" (ngModelChange)="upLoadNamesAndRationales(testNamesInput)"></textarea>
-          </mat-form-field>
-          <p style="margin-left: 30px; color: #757575;">
-              Add the names you want to test
-          </p>
-      </div>
+            <div style="font-size: 16px;margin: 20px;color: #48535e;">Copy & Paste TEST NAMES</div>
+            <!-- <div style="font-size: 14px;margin-bottom: 20px;color: lightgray;">Brief Description Here</div> -->
+        </div>
+        <div style="display: flex; justify-content: center; align-items: center;">
+            <mat-form-field style="width: 90%; margin-left: 20px;" appearance="outline">
+                <mat-label>Copy & Paste TEST NAMES</mat-label>
+                <textarea matInput [(ngModel)]="testNamesInput" (paste)="onPaste()" (ngModelChange)="upLoadNamesAndRationales(testNamesInput)"
+                    placeholder="Paste test names here" cdkTextareaAutosize cdkAutosizeMinRows="2"
+                    cdkAutosizeMaxRows="5"></textarea>
+                <mat-hint>Type or paste the test names here that you want to include</mat-hint>
+            </mat-form-field>
+        </div>
 
-      </mat-card-content>
+    </mat-card-content>
 
-    </mat-card>
+</mat-card>
 <br>
   <!-- Cards Criteria-->
      <mat-card class="example-card">
@@ -241,7 +241,7 @@
           <div class="sm-row-box-rkScale">
             <div>
                 <div style="display: flex;flex-direction: column;justify-content: center;gap: 10px;align-items: center; ">
-                    <div style="font-size: 16px;margin-top: 10px;color: #48535e;text-align: center;">MIN:
+                    <div style="font-size: 16px;margin-top: 10px;color: #48535e;text-align: center;">Min number of selections to vote on :
                         {{bmxItem.componentSettings[0].minRule}}</div>
                     <input type="number" min="0" [max]="rowsCount" [(ngModel)]="bmxItem.componentSettings[0].minRule"
                         style="width:53px; padding: 0px 10px;" [value]="bmxItem.componentSettings[0].minRule">
@@ -250,7 +250,7 @@
             </div>
             <div>
                 <div style="display: flex;flex-direction: column;justify-content:center;gap: 10px;align-items: center;">
-                    <div style="font-size: 16px;margin-top: 10px;color: #48535e;text-align: center;">MAX:
+                    <div style="font-size: 16px;margin-top: 10px;color: #48535e;text-align: center;">Max number of selections to vote on :
                         {{bmxItem.componentSettings[0].maxRule}}</div>
                     <input type="number" min="0" [max]="rowsCount" [(ngModel)]="bmxItem.componentSettings[0].maxRule"
                         style="width:53px; padding: 0px 10px;" [value]="bmxItem.componentSettings[0].maxRule">
