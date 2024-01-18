@@ -76,8 +76,8 @@ export class TemplatesComponent implements OnInit {
       .subscribe((arg: any) => {
         this.settingsData = JSON.parse(arg.d);
         console.log(this.settingsData)
-        this.TEMPLATES = (this.settingsData.BrandMatrixTemplateList.length) > 0 ? JSON.parse(arg.d).BrandMatrixTemplateList.map(obj => { return { templateName: obj.TemplateName, displayName: obj.DisplayName } }) : this.TEMPLATES
-
+        this.TEMPLATES = (this.settingsData.BrandMatrixTemplateList.length) > 0 ? JSON.parse(arg.d).BrandMatrixTemplateList.map(obj => { return { templateName: obj.TemplateName, displayName: obj.DisplayName, brandMatrix: obj.BrandMatrix } }) : this.TEMPLATES
+        console.log(this.TEMPLATES)
         this.settingsData.OfficeList.unshift('All');
         //console.log(JSON.parse(arg.d));
         //AUTOCOMPLETE 🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖
@@ -111,20 +111,24 @@ export class TemplatesComponent implements OnInit {
     return this.settingsData['SalesBoardProjectList'].filter(option => option.toLowerCase().includes(filterValue));/*.slice(0, 10);*/
   }
 
-  templateSelected(templateName: string, displayName: string) {
+  templateSelected(templateName: string, displayName: string, brandMatrix:any) {
     this.isSaveOrUpdate = true;
     this.templateName = templateName;
-    console.log(this.selectedDisplayName)
 
     const cadenaSinUnderscores = templateName.replace(/_/g, '');
-    this.editBM(cadenaSinUnderscores)
+    const dataString = JSON.stringify(brandMatrix);
+
     localStorage.setItem('displayName', displayName);
+    localStorage.setItem('brandMatrix', dataString)
+    this.editBM(cadenaSinUnderscores)
+  
+   
   }
 
   editBM(option: string): void {
     this._BmxService.setProjectName(option);
     var test = option;
-    localStorage.setItem('projectName', option);
+    localStorage.setItem('templates', 'true');
 
     this.router.navigate(['bmx-creation/99CB72BF-D163-46A6-8A0D-E1531EC7FEDC'])
   }
