@@ -128,6 +128,7 @@ export class SurveyMatrixComponent extends SurveyCreationDesignComponent impleme
       this.globalProjectName = res ? res : '';
     });
     this._BmxService.getProjectInfo(this.projectId).subscribe((arg: any) => {
+      console.log(arg)
       this.status = JSON.parse(arg.d).bmxStatus
       this.bmxClientPageOverview = false     
 
