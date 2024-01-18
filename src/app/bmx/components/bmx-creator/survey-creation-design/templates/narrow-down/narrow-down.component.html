@@ -237,21 +237,21 @@ justify-content: center;cursor: move; height: 25px; width: 100%;"><svg width="24
       <div class="sm-row-box-rkScale">
         <div>
             <div style="display: flex;flex-direction: column;justify-content: center;gap: 10px;align-items: center; ">
-                <div style="font-size: 16px;margin-top: 10px;color: #48535e;text-align: center;">Min number of selections to vote on :
+                <div style="font-size: 16px;margin-top: 10px;color: #48535e;text-align: center;">MIN:
                     {{bmxItem.componentSettings[0].minRule}}</div>
                 <input type="number" min="0" [max]="rowsCount" [(ngModel)]="bmxItem.componentSettings[0].minRule"
                     style="width:53px; padding: 0px 10px;" [value]="bmxItem.componentSettings[0].minRule">
             </div>
-            <div style="font-size: 13px;color: #48535e;">Min Number Of Questions To Answer</div>
+            <div style="font-size: 13px;color: #48535e;">Min Numberof selections to vote on</div>
         </div>
         <div>
             <div style="display: flex;flex-direction: column;justify-content:center;gap: 10px;align-items: center;">
-                <div style="font-size: 16px;margin-top: 10px;color: #48535e;text-align: center;">Max number of selections to vote on :
+                <div style="font-size: 16px;margin-top: 10px;color: #48535e;text-align: center;">MAX:
                     {{bmxItem.componentSettings[0].maxRule}}</div>
                 <input type="number" min="0" [max]="rowsCount" [(ngModel)]="bmxItem.componentSettings[0].maxRule"
                     style="width:53px; padding: 0px 10px;" [value]="bmxItem.componentSettings[0].maxRule">
             </div>
-            <div style="font-size: 13px;color: #48535e;">Max Number Of Questions To Answer</div>
+            <div style="font-size: 13px;color: #48535e;">Max Number of selections to vote on</div>
         </div>
     </div>
 
