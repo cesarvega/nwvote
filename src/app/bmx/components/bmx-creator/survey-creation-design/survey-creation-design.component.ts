@@ -116,7 +116,7 @@ export class SurveyCreationDesignComponent implements OnInit {
     globalProjectName = '';
     templateToDelete: any;
     selectedDisplayNem: any;
-
+    isTemplate = 'false'
     constructor(
         @Inject(DOCUMENT) private document: any,
         public _BmxService: BmxService,
@@ -290,8 +290,8 @@ export class SurveyCreationDesignComponent implements OnInit {
         // if (this.TEMPLATE_NAME === 'Standard Personal Preference') {
         //     this.createNewBmxComponent('rate-scale');
         // }
-        const isTemplate = localStorage.getItem('templates')
-        if(isTemplate == 'true'){
+         this.isTemplate = localStorage.getItem('templates')
+        if(this.isTemplate == 'true'){
             const storedDataString  = localStorage.getItem('brandMatrix')
             const bmxMatrix = JSON.parse(storedDataString)
             if (bmxMatrix) {
