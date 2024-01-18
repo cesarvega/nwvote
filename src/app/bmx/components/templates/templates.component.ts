@@ -76,7 +76,9 @@ export class TemplatesComponent implements OnInit {
       .subscribe((arg: any) => {
         this.settingsData = JSON.parse(arg.d);
         console.log(this.settingsData)
-        this.TEMPLATES = (this.settingsData.BrandMatrixTemplateList.length) > 0 ? JSON.parse(arg.d).BrandMatrixTemplateList.map(obj => { return { templateName: obj.TemplateName, displayName: obj.DisplayName } }) : this.TEMPLATES
+        this.TEMPLATES = (this.settingsData.BrandMatrixTemplateList.length) > 0 ?
+         JSON.parse(arg.d).BrandMatrixTemplateList.map(obj => { return { templateName: obj.TemplateName, displayName: obj.DisplayName, Created:obj.LastUpdate } }) :
+         this.TEMPLATES
 
         this.settingsData.OfficeList.unshift('All');
         //console.log(JSON.parse(arg.d));
