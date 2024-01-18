@@ -121,8 +121,8 @@ export class TemplatesComponent implements OnInit {
     localStorage.setItem('displayName', displayName);
     localStorage.setItem('brandMatrix', dataString)
     this.editBM(cadenaSinUnderscores)
-  
-   
+
+
   }
 
   editBM(option: string): void {
