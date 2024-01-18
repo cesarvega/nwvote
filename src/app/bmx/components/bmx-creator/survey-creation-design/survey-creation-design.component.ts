@@ -98,7 +98,7 @@ export class SurveyCreationDesignComponent implements OnInit {
     brandMatrixObjects = [
 
     ];
-    globalDisplayName:any = ''
+    globalDisplayName: any = ''
     bmxPages: any = [
         {
             pageNumber: 1,
@@ -290,9 +290,9 @@ export class SurveyCreationDesignComponent implements OnInit {
         // if (this.TEMPLATE_NAME === 'Standard Personal Preference') {
         //     this.createNewBmxComponent('rate-scale');
         // }
-         this.isTemplate = localStorage.getItem('templates')
-        if(this.isTemplate == 'true'){
-            const storedDataString  = localStorage.getItem('brandMatrix')
+        this.isTemplate = localStorage.getItem('templates')
+        if (this.isTemplate == 'true') {
+            const storedDataString = localStorage.getItem('brandMatrix')
             const bmxMatrix = JSON.parse(storedDataString)
             if (bmxMatrix) {
                 let objeto = JSON.parse(bmxMatrix);
@@ -323,11 +323,11 @@ export class SurveyCreationDesignComponent implements OnInit {
                 }
 
             }
-            this.title='TEMPLATE'
+            this.title = 'TEMPLATE'
         }
         else if (this.bmxPagesClient) {
             this.bmxPages = this.bmxPagesClient;
-            
+
         } else {
             //   this.bmxPages = this.SAMPLE_BMX;
             this._BmxService.getBrandMatrixByProject(this.projectId).subscribe((brandMatrix: any) => {
@@ -363,7 +363,7 @@ export class SurveyCreationDesignComponent implements OnInit {
                 }
 
             })
-            this.title='PROJECT'
+            this.title = 'PROJECT'
 
         }
         if (this.globalProjectName == null) {
@@ -847,12 +847,12 @@ export class SurveyCreationDesignComponent implements OnInit {
     }
 
     // TEMPLATE METHODS
-    saveOrUpdateTemplate(templateName, displayName?:any) {
+    saveOrUpdateTemplate(templateName, displayName?: any) {
         if (confirm('Are you sure you want to save or update ' + templateName + ' template?')) {
             localStorage.setItem(templateName, JSON.stringify(this.bmxPages));
             console.log(this.bmxPages)
             console.log(displayName, templateName)
-            this._BmxService.saveBrandMatrixTemplate(templateName, this.bmxPages, this.biUserId, this.selectedDisplayNem? this.selectedDisplayNem: templateName).subscribe((template: any) => {
+            this._BmxService.saveBrandMatrixTemplate(templateName, this.bmxPages, this.biUserId, this.selectedDisplayNem ? this.selectedDisplayNem : templateName).subscribe((template: any) => {
 
                 let x1 = JSON.parse(template.d)
                 console.log(x1)
@@ -1248,6 +1248,10 @@ export class SurveyCreationDesignComponent implements OnInit {
         this.bmxPages.forEach((pageToreset: any) => {
             pageToreset.page[0].componentSettings[0].logoWidth = this.temporalWidthLogo
         })
+    }
+    saveTemplate() {
+           const templateToChange = localStorage.getItem('templateName')
+           this.saveOrUpdateTemplate(templateToChange)
     }
 }
 // https://brandmatrix.brandinstitute.com/BMX/survey/ImageStarRate/guest
