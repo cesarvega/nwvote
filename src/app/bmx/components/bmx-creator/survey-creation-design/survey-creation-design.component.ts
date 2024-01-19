@@ -848,7 +848,8 @@ export class SurveyCreationDesignComponent implements OnInit {
 
     // TEMPLATE METHODS
     saveOrUpdateTemplate(templateName, displayName?: any) {
-        if (confirm('Are you sure you want to save or update ' + this.selectedDisplayNem+ ' template?')) {
+        if (confirm('Are you sure you want to save or update ' + this.selectedDisplayNem + ' template?')) {
+            const nameToShow = this.selectedDisplayNem 
             localStorage.setItem(templateName, JSON.stringify(this.bmxPages));
             console.log(this.bmxPages)
             console.log(displayName, templateName)
@@ -856,7 +857,7 @@ export class SurveyCreationDesignComponent implements OnInit {
 
                 let x1 = JSON.parse(template.d)
                 console.log(x1)
-                this.templateTitle = "Template '" + this.selectedDisplayNem + "' saved 🧐";
+                this.templateTitle = "Template '" + nameToShow + "' saved 🧐";
                 this._snackBar.open(this.templateTitle, 'OK', {
                     duration: 5000,
                     horizontalPosition: 'right',
