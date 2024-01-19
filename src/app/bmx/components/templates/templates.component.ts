@@ -7,6 +7,7 @@ import { Router } from '@angular/router';
 import { MatSort } from '@angular/material/sort';
 import { MatPaginator } from '@angular/material/paginator';
 import { MatTableDataSource } from '@angular/material/table';
+import { element } from 'protractor';
 
 @Component({
   selector: 'app-templates',
@@ -71,6 +72,9 @@ export class TemplatesComponent implements OnInit {
   showModal = false;
   newTemplateName = ''
   selectedDisplayName = ''
+  showNewTemplateModal = false
+  newTemplate = false
+  existingTemplate = false
   ngOnInit(): void {
     this._BmxService.getGeneralLists()
       .subscribe((arg: any) => {
@@ -111,10 +115,10 @@ export class TemplatesComponent implements OnInit {
     return this.settingsData['SalesBoardProjectList'].filter(option => option.toLowerCase().includes(filterValue));/*.slice(0, 10);*/
   }
 
-  templateSelected(templateName: string, displayName: string, brandMatrix:any) {
+  templateSelected(templateName: string, displayName: string, brandMatrix: any) {
     this.isSaveOrUpdate = true;
     this.templateName = templateName;
-
+    console.log(brandMatrix)
     const cadenaSinUnderscores = templateName.replace(/_/g, '');
     const dataString = JSON.stringify(brandMatrix);
 
@@ -123,6 +127,10 @@ export class TemplatesComponent implements OnInit {
     this.editBM(cadenaSinUnderscores)
     localStorage.setItem('templateName', templateName)
 
+  }
+  templateSelectedUpdate(templateName: string) {
+    this.isSaveOrUpdate = true;
+    this.selectedTemplateName = templateName;
   }
 
   editBM(option: string): void {
@@ -140,22 +148,30 @@ export class TemplatesComponent implements OnInit {
 
   closeModal() {
     this.showModal = false;
+    this.newTemplate = false;
+    this.existingTemplate = false
   }
 
-  saveNewName() {
-
-    this._BmxService.saveBrandMatrixTemplate(this.templateName, this.bmxPages, this.biUserId, this.newTemplateName).subscribe()
+  saveNewName(newTemplate?: any) {
+    this.showModal = false;
+    this.newTemplate = false;
+    this.existingTemplate = false
+    this.showNewTemplateModal = false
+    if (newTemplate) {
+      this.templateName = this.newTemplateName
+    }
+    this._BmxService.saveBrandMatrixTemplate(this.templateName, this.bmxPages, this.biUserId, this.newTemplateName).subscribe(data=> console.log(data))
     this._BmxService.getGeneralLists()
       .subscribe((arg: any) => {
         this.settingsData = JSON.parse(arg.d);
         this.TEMPLATES = (this.settingsData.BrandMatrixTemplateList.length) > 0 ? JSON.parse(arg.d).BrandMatrixTemplateList.map(obj => { return { templateName: obj.TemplateName, displayName: obj.DisplayName } }) : this.TEMPLATES
-
+        console.log()
         // END 🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖 AUTOCOMPLETE
         this._BmxService.getGeneralLists()
           .subscribe((arg: any) => {
             this.settingsData = JSON.parse(arg.d);
             console.log(this.settingsData)
-            this.TEMPLATES = (this.settingsData.BrandMatrixTemplateList.length) > 0 ? JSON.parse(arg.d).BrandMatrixTemplateList.map(obj => { return { templateName: obj.TemplateName, displayName: obj.DisplayName } }) : this.TEMPLATES
+            this.TEMPLATES = (this.settingsData.BrandMatrixTemplateList.length) > 0 ? JSON.parse(arg.d).BrandMatrixTemplateList.map(obj => { return { templateName: obj.TemplateName, displayName: obj.DisplayName,  brandMatrix: obj.BrandMatrix  } }) : this.TEMPLATES
 
             this.settingsData.OfficeList.unshift('All');
             //console.log(JSON.parse(arg.d));
@@ -189,4 +205,21 @@ export class TemplatesComponent implements OnInit {
     this.newTemplateName = '';
     console.log(this.selectedDisplayName)
   }
+
+  saveTemplateFromAnExistingOne(templateName) {
+    this.loadTemplate(templateName)
+  }
+
+  loadTemplate(templateName) {
+    // if (localStorage.getItem(templateName)) {
+    //   this.bmxPages = JSON.parse(localStorage.getItem(templateName));
+    // }
+    this._BmxService.getBrandMatrixTemplateByName(templateName).subscribe((template: any) => {
+      console.log(template)
+      this.bmxPages = JSON.parse(template.d);
+      this.saveNewName(true)
+    })
+    //this.openSaveTemplateBox();
+  }
+
 }
