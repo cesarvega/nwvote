@@ -118,7 +118,7 @@ export class TemplatesComponent implements OnInit {
   templateSelected(templateName: string, displayName: string, brandMatrix: any) {
     this.isSaveOrUpdate = true;
     this.templateName = templateName;
-    console.log(brandMatrix)
+    console.log(templateName, brandMatrix)
     const cadenaSinUnderscores = templateName.replace(/_/g, '');
     const dataString = JSON.stringify(brandMatrix);
 
@@ -134,6 +134,7 @@ export class TemplatesComponent implements OnInit {
   }
 
   editBM(option: string): void {
+    console.log(option)
     this._BmxService.setProjectName(option);
     var test = option;
     localStorage.setItem('templates', 'true');
@@ -159,6 +160,8 @@ export class TemplatesComponent implements OnInit {
     this.showNewTemplateModal = false
     if (newTemplate) {
       this.templateName = this.newTemplateName
+    }else{
+      this.bmxPages = JSON.parse(this.bmxPages)
     }
     this._BmxService.saveBrandMatrixTemplate(this.templateName, this.bmxPages, this.biUserId, this.newTemplateName).subscribe(data=> console.log(data))
     this._BmxService.getGeneralLists()
@@ -203,6 +206,7 @@ export class TemplatesComponent implements OnInit {
     this.showModal = false;
     this.selectedTemplateName = this.newTemplateName
     this.newTemplateName = '';
+    this.bmxPages = ''
     console.log(this.selectedDisplayName)
   }
 
@@ -215,8 +219,8 @@ export class TemplatesComponent implements OnInit {
     //   this.bmxPages = JSON.parse(localStorage.getItem(templateName));
     // }
     this._BmxService.getBrandMatrixTemplateByName(templateName).subscribe((template: any) => {
-      console.log(template)
       this.bmxPages = JSON.parse(template.d);
+      console.log(this.bmxPages)
       this.saveNewName(true)
     })
     //this.openSaveTemplateBox();
