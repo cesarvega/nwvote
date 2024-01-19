@@ -848,7 +848,7 @@ export class SurveyCreationDesignComponent implements OnInit {
 
     // TEMPLATE METHODS
     saveOrUpdateTemplate(templateName, displayName?: any) {
-        if (confirm('Are you sure you want to save or update ' + templateName + ' template?')) {
+        if (confirm('Are you sure you want to save or update ' + this.selectedDisplayNem?this.selectedDisplayNem:templateName + ' template?')) {
             localStorage.setItem(templateName, JSON.stringify(this.bmxPages));
             console.log(this.bmxPages)
             console.log(displayName, templateName)
@@ -856,7 +856,7 @@ export class SurveyCreationDesignComponent implements OnInit {
 
                 let x1 = JSON.parse(template.d)
                 console.log(x1)
-                this.templateTitle = "Template '" + templateName + "' saved 🧐";
+                this.templateTitle = "Template '" + this.selectedDisplayNem?this.selectedDisplayNem:templateName+ "' saved 🧐";
                 this._snackBar.open(this.templateTitle, 'OK', {
                     duration: 5000,
                     horizontalPosition: 'right',
@@ -1251,7 +1251,9 @@ export class SurveyCreationDesignComponent implements OnInit {
     }
     saveTemplate() {
            const templateToChange = localStorage.getItem('templateName')
+            this.selectedDisplayNem = localStorage.getItem('displayName')
            this.saveOrUpdateTemplate(templateToChange)
+           this.selectedDisplayNem = null
     }
 }
 // https://brandmatrix.brandinstitute.com/BMX/survey/ImageStarRate/guest
