@@ -186,6 +186,7 @@ export class BsrComponent implements OnInit {
         this.currentPageNumber = 0;
 
       }
+      this.currentPageNumber = 0;
       this.wideView = res[0].isWide
       console.log(res[0],this.wideView)
     })
@@ -342,6 +343,7 @@ export class BsrComponent implements OnInit {
     this.appSearchSlidesData = [];
     this.isCommentBox = false;
     this.createPostIt = false;
+    console.log(this.currentPageNumber)
     if (this.totalNumberOfSlides > this.currentPageNumber + 1) {
       this.currentPageNumber = 1 + this.currentPageNumber;
       this.slideBackground = this.baseBackgroundUrl + this.appSlidesData[this.currentPageNumber].SlideBGFileName + ')';
@@ -441,9 +443,7 @@ export class BsrComponent implements OnInit {
     localStorage.setItem(this.projectName + '_createPostIt', this.createPostIt.toString());
     this.nameIndexCounter = parseInt(localStorage.getItem(this.projectName + '_namesIndexCounte'));
     this.onInputChange(parseInt(localStorage.getItem(this.projectName + '_namesBoxIndex')));
-    this.currentPageNumber = this.postItPresentationIndex;
     this.pageCounter = this.postItPresentationIndex + 1 + '/' + this.totalNumberOfSlides;
-    this.currentPageNumber = this.postItPresentationIndex;
 
   }
 
