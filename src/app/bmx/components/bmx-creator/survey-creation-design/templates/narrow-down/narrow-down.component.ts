@@ -48,8 +48,8 @@ export class NarrowDownComponent extends RatingScaleComponent implements OnInit 
 
     this.randomizeTestNames = this.bmxItem.componentSettings[0].randomizeTestNames
     this.rowsCount = this.bmxItem.componentText.length - 1;
-    this.bmxItem.componentSettings[0].minRule = this.bmxItem.componentSettings[0].minRule == 0?this.rowsCount:this.bmxItem.componentSettings[0].minRule;
-    this.bmxItem.componentSettings[0].maxRule = this.bmxItem.componentSettings[0].maxRule == 0?this.rowsCount:this.bmxItem.componentSettings[0].maxRule;
+    this.bmxItem.componentSettings[0].minRule = this.bmxItem.componentSettings[0].minRule == 0?0 :this.bmxItem.componentSettings[0].minRule;
+    this.bmxItem.componentSettings[0].maxRule = this.bmxItem.componentSettings[0].maxRule == 0?0 :this.bmxItem.componentSettings[0].maxRule;
     console.log(this.bmxItem.componentSettings[0].minRule)
 
     if (this.bmxItem.componentSettings[0]['displaySound'] == true) {
