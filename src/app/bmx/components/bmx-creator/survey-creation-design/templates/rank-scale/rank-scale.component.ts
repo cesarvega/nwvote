@@ -102,6 +102,8 @@ export class RankScaleComponent extends RatingScaleComponent implements OnInit {
     if (this.bmxItem.componentSettings[0]['displaySound'] == true) {
       this.displaySound = true;
     }
+    const filteredCriteria = this.CRITERIA.filter(criteriaItem => this.selectedCriteria.map(item => item.name).includes(criteriaItem.name));
+    this.newselectedCriteria = filteredCriteria
   }
 
   checkDragEvetn(event: CdkDragDrop<string[]>) {

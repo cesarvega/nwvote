@@ -47,7 +47,7 @@ export class RatingScaleComponent implements OnInit {
   tempItems = [];
   selectedColumn
   ratingScaleIcon = 'grade';
-  selectedCriteria
+  selectedCriteria: any[] = []
   newCriteria = ''
   extraColumnCounter = 1
   radioColumnCounter = 1
@@ -102,6 +102,7 @@ export class RatingScaleComponent implements OnInit {
   actionType: any;
   dialogText: string;
   templateToDelete: any;
+  newselectedCriteria: any;
 
   //----------end modal------//
 
@@ -150,8 +151,7 @@ export class RatingScaleComponent implements OnInit {
     this.rowsCount = this.bmxItem.componentText.length - 1
     this.bmxItem.componentSettings[0].minRule = this.bmxItem.componentSettings[0].minRule == 0 ? 0 : this.bmxItem.componentSettings[0].minRule;
     this.bmxItem.componentSettings[0].maxRule = this.bmxItem.componentSettings[0].maxRule == 0 ? 0 : this.bmxItem.componentSettings[0].maxRule;
-      this.numRatingScale = this.bmxItem.componentText[0].STARS?.length
-   
+    this.numRatingScale = this.bmxItem.componentText[0].STARS?.length
     values.forEach(value => {
       if (typeof value == "string" && value != "STARS" && value != "CRITERIA") {
         this.columnsNames.push(value)
@@ -183,18 +183,30 @@ export class RatingScaleComponent implements OnInit {
     })
 
     this.bmxItem.componentText.forEach((item, index) => {
-      if(item.CRITERIA){
-      if (index > 0 ) {
-        item.CRITERIA.forEach(item=>{
-          if(item.RATE>0){
-            this.maxRuleCounter++
-          }
-        })
+      if (item.CRITERIA) {
+        if (index > 0) {
+          item.CRITERIA.forEach(item => {
+            if (item.RATE > 0) {
+              this.maxRuleCounter++
+            }
+
+          })
+        }
       }
-    }
     })
-
-
+  
+    if (this.bmxItem.componentText[0].CRITERIA) {
+      const newArray = []
+      this.newselectedCriteria = []
+      this.bmxItem.componentText[0].CRITERIA.forEach((item, index) => {
+        this.selectedCriteria.push(item)
+       newArray.push({name:item.name})
+        
+      })
+      this.newselectedCriteria = newArray
+      this.ASSIGNED_CRITERIA = this.selectedCriteria
+    }
+    console.log(this.newselectedCriteria)
     this.randomizeTestNames = this.bmxItem.componentSettings[0].randomizeTestNames
 
     if (this.bmxItem.componentSettings[0]['displaySound'] == true) {
@@ -214,7 +226,10 @@ export class RatingScaleComponent implements OnInit {
     } else {
       this.VIDEO_PATH = this.PATH2;
     }
+    const filteredCriteria = this.CRITERIA.filter(criteriaItem => this.selectedCriteria.map(item => item.name).includes(criteriaItem.name));
+    this.newselectedCriteria = filteredCriteria
     this.launchPathModal.emit(this.VIDEO_PATH)
+    console.log(this.newselectedCriteria)
   }
 
   openSelected(y: any) {
@@ -448,7 +463,7 @@ export class RatingScaleComponent implements OnInit {
   // ⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️ END STARS METHODS  ⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️
 
   upLoadNamesAndRationales(list: any) {
-    if(typeof list == 'object'){
+    if (typeof list == 'object') {
       list = list.clipboardData.getData('text')
     }
     console.log(typeof list)
@@ -589,7 +604,7 @@ export class RatingScaleComponent implements OnInit {
         });
       }
     }
-  
+
     setTimeout(() => {
       this.rowsCount = this.bmxItem.componentText.length - 1;
 
@@ -602,7 +617,7 @@ export class RatingScaleComponent implements OnInit {
       if (this.bmxItem.componentSettings[0].CRITERIA) {
         //MULTIPLY FOR THE AMOUNT OF CRITERIA
         this.bmxItem.componentSettings[0].minRule = this.bmxItem.componentSettings[0].minRule
-        this.bmxItem.componentSettings[0].maxRule = this.bmxItem.componentSettings[0].maxRule 
+        this.bmxItem.componentSettings[0].maxRule = this.bmxItem.componentSettings[0].maxRule
 
       }
       this.dragRows = false;
@@ -610,11 +625,11 @@ export class RatingScaleComponent implements OnInit {
     // this.swapColumns(0)
   }
 
-  verifyCritera(){
+  verifyCritera() {
     if (this.bmxItem.componentSettings[0].CRITERIA) {
       //MULTIPLY FOR THE AMOUNT OF CRITERIA
-      this.bmxItem.componentSettings[0].minRule = this.bmxItem.componentSettings[0].minRule 
-      this.bmxItem.componentSettings[0].maxRule = this.bmxItem.componentSettings[0].maxRule 
+      this.bmxItem.componentSettings[0].minRule = this.bmxItem.componentSettings[0].minRule
+      this.bmxItem.componentSettings[0].maxRule = this.bmxItem.componentSettings[0].maxRule
 
     }
   }
@@ -881,7 +896,8 @@ export class RatingScaleComponent implements OnInit {
   }
 
   criteriaSelection(selectedCriteria) {
-    this.ASSIGNED_CRITERIA = selectedCriteria
+ 
+    this.ASSIGNED_CRITERIA = this.newselectedCriteria
   }
 
   addCriteria(newCriteria) {
