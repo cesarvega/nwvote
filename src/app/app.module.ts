@@ -90,6 +90,7 @@ import {SafePipe} from './bmx/components/bmx-creator/safe.pipe';
 import { SurveyDialogComponent } from './bmx/components/survey-dialog/survey-dialog.component';
 import { ProjectListCheckComponent } from './bmx/components/project-list-check/project-list-check.component'
 import {TemplatesComponent} from './bmx/components/templates/templates.component'
+import { CommonModule } from '@angular/common';
 
 export function loadEcharts() {
   return import('echarts');
@@ -158,6 +159,7 @@ export function MSALInstanceFactory(): IPublicClientApplication {
     // OrderDasboardComponent
   ],
   imports: [
+    CommonModule,
     BrowserModule,
     HammerModule,
     AppRoutingModule,
