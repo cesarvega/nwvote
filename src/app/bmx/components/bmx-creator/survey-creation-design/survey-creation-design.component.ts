@@ -659,7 +659,7 @@ export class SurveyCreationDesignComponent implements OnInit {
                 componentText: this.TestNameDataModel,
                 componentSettings: [
                     {
-                        minRule: 3,
+                        minRule: 0,
                         maxRule: 0,
                         fontSize: 16,
                         columnWidth: 150,

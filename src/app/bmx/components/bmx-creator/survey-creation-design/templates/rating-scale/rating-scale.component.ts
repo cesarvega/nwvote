@@ -467,7 +467,6 @@ export class RatingScaleComponent implements OnInit {
     if (typeof list == 'object') {
       list = list.clipboardData.getData('text')
     }
-    console.log(typeof list)
     this.uploadImagesIcon = true
     this.bmxItem.componentSettings[0].randomizeTestNames = (this.randomizeTestNames) ? true : false
     this.recordHistory()
@@ -537,6 +536,7 @@ export class RatingScaleComponent implements OnInit {
               }
             }
             objectColumnDesign['CRITERIA'] = []
+            console.log(this.ASSIGNED_CRITERIA)
             this.ASSIGNED_CRITERIA.forEach((criteria, index) => {
               objectColumnDesign['CRITERIA'].push({
                 name: criteria.name,

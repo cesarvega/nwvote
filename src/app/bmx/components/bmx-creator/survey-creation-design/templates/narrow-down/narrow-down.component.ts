@@ -46,18 +46,17 @@ export class NarrowDownComponent extends RatingScaleComponent implements OnInit 
       }
     });
 
+      console.log(this.bmxItem.componentSettings)
     this.randomizeTestNames = this.bmxItem.componentSettings[0].randomizeTestNames
     this.rowsCount = this.bmxItem.componentText.length - 1;
     this.bmxItem.componentSettings[0].minRule = this.bmxItem.componentSettings[0].minRule == 0?0 :this.bmxItem.componentSettings[0].minRule;
     this.bmxItem.componentSettings[0].maxRule = this.bmxItem.componentSettings[0].maxRule == 0?0 :this.bmxItem.componentSettings[0].maxRule;
-    console.log(this.bmxItem.componentSettings[0].minRule)
 
     if (this.bmxItem.componentSettings[0]['displaySound'] == true) {
       this.displaySound = true;
     }
     const filteredCriteria = this.CRITERIA.filter(criteriaItem => this.selectedCriteria.map(item => item.name).includes(criteriaItem.name));
     this.newselectedCriteria = filteredCriteria
-    this.rankingScaleValue = this.bmxItem.componentText[0].STARS.length;
-
+    this.rankingScaleValue = this.bmxItem.componentText[0].STARS?.length;
   }
 }
