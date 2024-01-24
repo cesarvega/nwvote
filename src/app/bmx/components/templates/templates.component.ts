@@ -58,14 +58,14 @@ export class TemplatesComponent implements OnInit {
   isDisplay = true;
   biUserId = 'user@bi.com';
   TEMPLATES = [
-    { TemplateName: 'Standard Personal Preference' },
-    { TemplateName: 'Ranking' },
-    { TemplateName: 'NarrowDown' },
-    { TemplateName: 'This or That' },
-    { TemplateName: 'Naming Contest' },
-    { TemplateName: 'Question & Answer' },
+    { TemplateName: 'Standard Personal Preference',displayName:'' },
+    { TemplateName: 'Ranking',displayName:'' },
+    { TemplateName: 'NarrowDown',displayName:'' },
+    { TemplateName: 'This or That',displayName:'' },
+    { TemplateName: 'Naming Contest',displayName:'' },
+    { TemplateName: 'Question & Answer',displayName:'' },
   ];
-  displayedColumns = ['displayName', 'TemplateName', 'Created', 'Name', 'Edit', 'Delete'];
+  displayedColumns = ['index','TemplateName', 'Created', 'Name', 'Edit', 'Delete'];
   bmxEditData: FormGroup;
   filteredOptions: Observable<string[]>;
   salesboardObj = [];
@@ -80,8 +80,9 @@ export class TemplatesComponent implements OnInit {
       .subscribe((arg: any) => {
         this.settingsData = JSON.parse(arg.d);
         console.log(this.settingsData)
-        this.TEMPLATES = (this.settingsData.BrandMatrixTemplateList.length) > 0 ? JSON.parse(arg.d).BrandMatrixTemplateList.map(obj => { return { templateName: obj.TemplateName, displayName: obj.DisplayName, brandMatrix: obj.BrandMatrix } }) : this.TEMPLATES
+        this.TEMPLATES = (this.settingsData.BrandMatrixTemplateList.length) > 0 ? JSON.parse(arg.d).BrandMatrixTemplateList.map((obj, index) => { return {index: index+1, templateName: obj.TemplateName, displayName: obj.DisplayName, brandMatrix: obj.BrandMatrix,created: obj.LastUpdate } }) : this.TEMPLATES
         console.log(this.TEMPLATES)
+      
         this.settingsData.OfficeList.unshift('All');
         //console.log(JSON.parse(arg.d));
         //AUTOCOMPLETE 🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖
@@ -95,8 +96,6 @@ export class TemplatesComponent implements OnInit {
             phone: directorObj.Phone,
             office: directorObj.Office,
           })
-
-
           this.dataSource = new MatTableDataSource<any>(this.TEMPLATES);
           this.dataSource.paginator = this.paginator;
           this.dataSource.sort = this.sort;

@@ -57,13 +57,12 @@ export class ProjectListComponent implements OnInit {
       .subscribe((arg: any) => {
         this.allData = JSON.parse(arg.d);
         // this.allData = JSON.parse(obj);
-        this.userDepartment = this.userData.Department;
-        this.userRole = this.userData.Role
+        this.userDepartment = this.userData != null?this.userData.Department:'';
+        this.userRole = this.userData != null?this.userData.Role:'';
         this.changeView();
       });
 
   }
-
 
   applyFilter(filterValue: string): void {
     filterValue = filterValue.trim(); // Remove whitespace

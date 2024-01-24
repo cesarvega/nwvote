@@ -17,13 +17,7 @@
   width: 40%;;" (click)="saveNewName()">Save </button>
 </div>
 
-<button mat-raised-button color="success" style=" background-color: #063074;
-color: white;
-width: 140px;
-position: relative;
-top: 2%;
-left: 85%;
-  " (click)=" showNewTemplateModal = true">Add template
+<button mat-raised-button color="success" style=" background-color: #063074;color: white;width: 140px;position: relative;top: 2%;left: 85%;" (click)=" showNewTemplateModal = true">Add template
 </button>
 
 
@@ -100,22 +94,24 @@ left: 85%;
 </div>
 
 
-<div style="    position: relative;
-top: 5%;">
+<div style="position: relative;top: 5%;">
     <table mat-table [dataSource]="dataSource" matSort class="mat-elevation-z8" style="width: 100%;">
         <!-- Position Column -->
+        <ng-container matColumnDef="index">
+            <th mat-header-cell *matHeaderCellDef mat-sort-header>#</th>
+            <td mat-cell *matCellDef="let element">{{ element.index }}</td>
+        </ng-container>
         <ng-container matColumnDef="displayName">
-            <th mat-header-cell *matHeaderCellDef mat-sort-header> Display name</th>
+            <th mat-header-cell *matHeaderCellDef mat-sort-header>Template name</th>
             <td mat-cell *matCellDef="let element"> {{element.displayName}} </td>
         </ng-container>
         <ng-container matColumnDef="TemplateName">
             <th mat-header-cell *matHeaderCellDef mat-sort-header>Template name </th>
             <td mat-cell *matCellDef="let element"> {{element.templateName}} </td>
         </ng-container>
-
         <ng-container matColumnDef="Created">
             <th mat-header-cell *matHeaderCellDef mat-sort-header> Created </th>
-            <td mat-cell *matCellDef="let element"> {{element.Created}} </td>
+            <td mat-cell *matCellDef="let element"> {{element.created | date:'dd MMMM yyyy, HH:mm:ss'}} </td>
         </ng-container>
 
         <ng-container matColumnDef="Name">
