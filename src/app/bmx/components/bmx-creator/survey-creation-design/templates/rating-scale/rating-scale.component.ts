@@ -272,13 +272,13 @@ export class RatingScaleComponent implements OnInit {
 
     if (rate.target && this.bmxItem.componentType == 'narrow-down') {
 
-      if (this.selectedRowCounter >= this.bmxItem.componentSettings[0].minRule && !this.bmxItem.componentText[testNameId].SELECTED_ROW) {
+      if (this.selectedRowCounter >= this.bmxItem.componentSettings[0].maxRule && !this.bmxItem.componentText[testNameId].SELECTED_ROW) {
         this.selectedNarrowDownTimer = 4000
         for (let index = 0; index < this.bmxItem.componentText.length; index++) {
           // REMOVE FIRST CHECKED VALUE
           if (this.bmxItem.componentText[index].SELECTED_ROW) {
             // ASK BEFROE REMOVE IT
-            this._snackBar.open(this.bmxItem.componentText[index].nameCandidates + ' was uncheck becuse you can only select up to ' + this.bmxItem.componentSettings[0].minRule
+            this._snackBar.open(this.bmxItem.componentText[index].nameCandidates + ' was uncheck becuse you can only select up to ' + this.bmxItem.componentSettings[0].maxRule
               + ' test names ', 'OK', {
               duration: 6000,
               verticalPosition: 'top',
@@ -467,7 +467,6 @@ export class RatingScaleComponent implements OnInit {
     if (typeof list == 'object') {
       list = list.clipboardData.getData('text')
     }
-    console.log(typeof list)
     this.uploadImagesIcon = true
     this.bmxItem.componentSettings[0].randomizeTestNames = (this.randomizeTestNames) ? true : false
     this.recordHistory()
@@ -537,6 +536,7 @@ export class RatingScaleComponent implements OnInit {
               }
             }
             objectColumnDesign['CRITERIA'] = []
+            console.log(this.ASSIGNED_CRITERIA)
             this.ASSIGNED_CRITERIA.forEach((criteria, index) => {
               objectColumnDesign['CRITERIA'].push({
                 name: criteria.name,
