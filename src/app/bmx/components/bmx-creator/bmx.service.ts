@@ -89,11 +89,11 @@ export class BmxService {
     }
   }
 
-  setLogoTemporaryWidth(width: string){
+  setLogoTemporaryWidth(width: string) {
     this.logoTemporaryWidth$.next(width)
   }
 
-  getLogoTemporaryWidth$(): Observable<string>{
+  getLogoTemporaryWidth$(): Observable<string> {
     return this.logoTemporaryWidth$.asObservable();
   }
 
@@ -102,20 +102,19 @@ export class BmxService {
     // return this.http.get(this.webBaseUrl + 'api/NW_GetProjectIdWithProjectName?projectName=' + projectName, httpOptions);
   }
 
-  getBiLogo()
-  {
+  getBiLogo() {
     return this.http.get("assets/img/bmxLogo.png");
   }
 
   getMatrixUser(userGUid: any) {
-    var input = JSON.stringify({ "UserId":userGUid });
+    var input = JSON.stringify({ "UserId": userGUid });
     return this.http.post(this.webBaseUrl + this.brandMatrixUserGet, { token: '646EBF52-1846-47C2-9F62-DC50AE5BF692', payload: input });
     // return this.http.get(this.webBaseUrl + 'api/NW_GetProjectIdWithProjectName?projectName=' + projectName, httpOptions);
 
   }
 
   getMatrixClient(userGUid: any) {
-    var input = JSON.stringify({ "Newid":userGUid });
+    var input = JSON.stringify({ "Newid": userGUid });
     return this.http.post(this.webBaseUrl + this.brandMatrixLoadFromNewId, { token: '646EBF52-1846-47C2-9F62-DC50AE5BF692', payload: input });
     // return this.http.get(this.webBaseUrl + 'api/NW_GetProjectIdWithProjectName?projectName=' + projectName, httpOptions);
 
@@ -134,29 +133,29 @@ export class BmxService {
   }
 
   BrandMatrixDelParticipantList(projectName: any, partList: any) {
-    var input = JSON.stringify({ "ProjectName":projectName, "ParticipantList":partList});
+    var input = JSON.stringify({ "ProjectName": projectName, "ParticipantList": partList });
     return this.http.post(this.webBaseUrl + this.DelParticipantList, { token: '646EBF52-1846-47C2-9F62-DC50AE5BF692', payload: input });
     // return this.http.get(this.webBaseUrl + 'api/NW_GetProjectIdWithProjectName?projectName=' + projectName, httpOptions);
 
   }
 
   BrandMatrixUptParticipantList(projectName: any, partList: any) {
-    var input = JSON.stringify({ "ProjectName":projectName, "ParticipantList":partList});
+    var input = JSON.stringify({ "ProjectName": projectName, "ParticipantList": partList });
     return this.http.post(this.webBaseUrl + this.UptParticipantList, { token: '646EBF52-1846-47C2-9F62-DC50AE5BF692', payload: input });
     // return this.http.get(this.webBaseUrl + 'api/NW_GetProjectIdWithProjectName?projectName=' + projectName, httpOptions);
 
   }
 
   BrandMatrixSaveParticipantList(projectName: any, partList: any) {
-    var input = JSON.stringify({ "ProjectName":projectName, "ParticipantList":partList});
+    var input = JSON.stringify({ "ProjectName": projectName, "ParticipantList": partList });
     return this.http.post(this.webBaseUrl + this.SaveParticipantList, { token: '646EBF52-1846-47C2-9F62-DC50AE5BF692', payload: input });
     // return this.http.get(this.webBaseUrl + 'api/NW_GetProjectIdWithProjectName?projectName=' + projectName, httpOptions);
 
   }
 
   saveProjectInfo(projectName: any, projectData: any, user: any) {
-    var input = JSON.stringify({ "ProjectName":projectName, "ProjectInfo":projectData, "Username":user});
-    return this.http.post(this.webBaseUrl + this.SaveProjectInfo, { token: '646EBF52-1846-47C2-9F62-DC50AE5BF692', payload: input});
+    var input = JSON.stringify({ "ProjectName": projectName, "ProjectInfo": projectData, "Username": user });
+    return this.http.post(this.webBaseUrl + this.SaveProjectInfo, { token: '646EBF52-1846-47C2-9F62-DC50AE5BF692', payload: input });
     // return this.http.get(this.webBaseUrl + 'api/NW_GetProjectIdWithProjectName?projectName=' + projectName, httpOptions);
   }
 
@@ -170,8 +169,7 @@ export class BmxService {
     return this.http.post(this.webBaseUrl + this.BrandMatrixResourceUpload, { token: '646EBF52-1846-47C2-9F62-DC50AE5BF692', payload: resourceData });
   }
 
-  sendEmail(resourceData: any)
-  {
+  sendEmail(resourceData: any) {
     return this.http.post(this.webBaseUrl + this.SendEmail, { token: '646EBF52-1846-47C2-9F62-DC50AE5BF692', payload: resourceData });
 
   }
@@ -182,7 +180,7 @@ export class BmxService {
   }
 
   setCustomEmail(resourceData: any) {
-    return this.http.post(this.webBaseUrl + this.SaveEmail, { token: '646EBF52-1846-47C2-9F62-DC50AE5BF692', payload: resourceData});
+    return this.http.post(this.webBaseUrl + this.SaveEmail, { token: '646EBF52-1846-47C2-9F62-DC50AE5BF692', payload: resourceData });
     // return this.http.get(this.webBaseUrl + 'api/NW_GetProjectIdWithProjectName?projectName=' + projectName, httpOptions);
   }
 
@@ -190,25 +188,25 @@ export class BmxService {
 
   getBrandMatrixByProject(projectName) {
     return this.http.post(this.webBaseUrl + this.brandMatrixGet, {
-      token: '646EBF52-1846-47C2-9F62-DC50AE5BF692', payload: JSON.stringify({"ProjectName": projectName})
+      token: '646EBF52-1846-47C2-9F62-DC50AE5BF692', payload: JSON.stringify({ "ProjectName": projectName })
     })
   }
 
   getBrandMatrixByProjectAndUserAnswers(projectName, username) {
     return this.http.post(this.webBaseUrl + this.brandMatrixGetUserAnswers, {
-      token: '646EBF52-1846-47C2-9F62-DC50AE5BF692', payload: JSON.stringify({"ProjectName": projectName ,"UserName": username })
+      token: '646EBF52-1846-47C2-9F62-DC50AE5BF692', payload: JSON.stringify({ "ProjectName": projectName, "UserName": username })
     })
-   }
+  }
 
   getBrandMatrixByProjectAllUserAnswers(projectName) {
     return this.http.post(this.webBaseUrl + this.brandMatrixGetALLUserAnswers, {
-      token: '646EBF52-1846-47C2-9F62-DC50AE5BF692', payload: JSON.stringify({"ProjectName": projectName })
+      token: '646EBF52-1846-47C2-9F62-DC50AE5BF692', payload: JSON.stringify({ "ProjectName": projectName })
     })
-   }
+  }
 
   // save template string
 
-  saveOrUpdateBradnMatrixTemplate(bmxCompleteObject,projectName) {
+  saveOrUpdateBradnMatrixTemplate(bmxCompleteObject, projectName) {
     console.log(bmxCompleteObject, projectName)
     const payloadString = JSON.stringify({
       ProjectName: projectName,
@@ -219,7 +217,7 @@ export class BmxService {
     })
   }
 
-  saveOrUpdateAnswers(bmxCompleteObject,projectName, username, status?) {
+  saveOrUpdateAnswers(bmxCompleteObject, projectName, username, status?) {
     //debugger
     const payloadString = JSON.stringify({
       ProjectName: projectName,
@@ -241,36 +239,35 @@ export class BmxService {
     return this.http.post(this.webBaseUrl + this.brandMatrixTemplateGet, {
       token: '646EBF52-1846-47C2-9F62-DC50AE5BF692', payload: payloadString
     })
-   }
+  }
 
   deleteBrandMatrixTemplateByName(templateName, username) {
     const payloadString = JSON.stringify({
       TemplateName: templateName,
-      Username: username,
     })
     return this.http.post(this.webBaseUrl + this.brandMatrixTemplateDelete, {
       token: '646EBF52-1846-47C2-9F62-DC50AE5BF692', payload: payloadString
     })
-   }
+  }
 
-  saveBrandMatrixTemplate(templateName,  templateObj, username, DisplayName?) {
+  saveBrandMatrixTemplate(templateName, templateObj, username, DisplayName?) {
     let payloadString
     console.log(DisplayName)
-    if(DisplayName){
-       payloadString = JSON.stringify({
+    if (DisplayName) {
+      payloadString = JSON.stringify({
         TemplateName: templateName,
         DisplayName: DisplayName,
         Username: username,
         BrandMatrix: JSON.stringify(templateObj).replace(this.searchApostropheRegExp, '`')
       })
-    }else{
-       payloadString = JSON.stringify({
+    } else {
+      payloadString = JSON.stringify({
         TemplateName: templateName,
         Username: username,
         BrandMatrix: JSON.stringify(templateObj).replace(this.searchApostropheRegExp, '`')
       })
     }
- 
+
     return this.http.post(this.webBaseUrl + this.brandMatrixTemplateSave, {
       token: '646EBF52-1846-47C2-9F62-DC50AE5BF692', payload: payloadString
     })
