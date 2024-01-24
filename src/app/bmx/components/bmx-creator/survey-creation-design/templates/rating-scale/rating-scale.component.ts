@@ -161,6 +161,7 @@ export class RatingScaleComponent implements OnInit {
 
     // IF RATING SCALE IS SET
     let amountOfAnswersRateCounter = 0
+    console.log(this.bmxItem.componentText)
     this.bmxItem.componentText.forEach((item, index) => {
       if (index > 0) {
         if (item.RATE > 0) {
@@ -182,13 +183,15 @@ export class RatingScaleComponent implements OnInit {
     })
 
     this.bmxItem.componentText.forEach((item, index) => {
-      if (index > 0) {
+      if(item.CRITERIA){
+      if (index > 0 ) {
         item.CRITERIA.forEach(item=>{
           if(item.RATE>0){
             this.maxRuleCounter++
           }
         })
       }
+    }
     })
 
 
