@@ -141,7 +141,7 @@ top: 5%;">
         <ng-container matColumnDef="Delete">
             <th mat-header-cell *matHeaderCellDef mat-sort-header style="width: 3.33%;"> </th>
             <td mat-cell *matCellDef="let element">
-                <button mat-icon-button style="color: #bc488a;" aria-label="Example icon button with a home icon">
+                <button (click)="deleteTemplate(element.templateName)" mat-icon-button style="color: #bc488a;" aria-label="Example icon button with a home icon">
                     <mat-icon>delete</mat-icon>
                 </button>
             </td>
