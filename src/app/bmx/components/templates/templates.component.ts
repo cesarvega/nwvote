@@ -7,6 +7,7 @@ import { Router } from '@angular/router';
 import { MatSort } from '@angular/material/sort';
 import { MatPaginator } from '@angular/material/paginator';
 import { MatTableDataSource } from '@angular/material/table';
+import { element } from 'protractor';
 
 @Component({
   selector: 'app-templates',
@@ -71,13 +72,16 @@ export class TemplatesComponent implements OnInit {
   showModal = false;
   newTemplateName = ''
   selectedDisplayName = ''
+  showNewTemplateModal = false
+  newTemplate = false
+  existingTemplate = false
   ngOnInit(): void {
     this._BmxService.getGeneralLists()
       .subscribe((arg: any) => {
         this.settingsData = JSON.parse(arg.d);
         console.log(this.settingsData)
-        this.TEMPLATES = (this.settingsData.BrandMatrixTemplateList.length) > 0 ? JSON.parse(arg.d).BrandMatrixTemplateList.map(obj => { return { templateName: obj.TemplateName, displayName: obj.DisplayName } }) : this.TEMPLATES
-
+        this.TEMPLATES = (this.settingsData.BrandMatrixTemplateList.length) > 0 ? JSON.parse(arg.d).BrandMatrixTemplateList.map(obj => { return { templateName: obj.TemplateName, displayName: obj.DisplayName, brandMatrix: obj.BrandMatrix } }) : this.TEMPLATES
+        console.log(this.TEMPLATES)
         this.settingsData.OfficeList.unshift('All');
         //console.log(JSON.parse(arg.d));
         //AUTOCOMPLETE 🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖
@@ -111,20 +115,29 @@ export class TemplatesComponent implements OnInit {
     return this.settingsData['SalesBoardProjectList'].filter(option => option.toLowerCase().includes(filterValue));/*.slice(0, 10);*/
   }
 
-  templateSelected(templateName: string, displayName: string) {
+  templateSelected(templateName: string, displayName: string, brandMatrix: any) {
     this.isSaveOrUpdate = true;
     this.templateName = templateName;
-    console.log(this.selectedDisplayName)
-
+    console.log(templateName, brandMatrix)
     const cadenaSinUnderscores = templateName.replace(/_/g, '');
-    this.editBM(cadenaSinUnderscores)
+    const dataString = JSON.stringify(brandMatrix);
+
     localStorage.setItem('displayName', displayName);
+    localStorage.setItem('brandMatrix', dataString)
+    this.editBM(cadenaSinUnderscores)
+    localStorage.setItem('templateName', templateName)
+
+  }
+  templateSelectedUpdate(templateName: string) {
+    this.isSaveOrUpdate = true;
+    this.selectedTemplateName = templateName;
   }
 
   editBM(option: string): void {
+    console.log(option)
     this._BmxService.setProjectName(option);
     var test = option;
-    localStorage.setItem('projectName', option);
+    localStorage.setItem('templates', 'true');
 
     this.router.navigate(['bmx-creation/99CB72BF-D163-46A6-8A0D-E1531EC7FEDC'])
   }
@@ -135,23 +148,35 @@ export class TemplatesComponent implements OnInit {
   }
 
   closeModal() {
+    console.log('a')
     this.showModal = false;
+    this.newTemplate = false;
+    this.showNewTemplateModal = false
+    this.existingTemplate = false
   }
 
-  saveNewName() {
-
-    this._BmxService.saveBrandMatrixTemplate(this.templateName, this.bmxPages, this.biUserId, this.newTemplateName).subscribe()
+  saveNewName(newTemplate?: any) {
+    this.showModal = false;
+    this.newTemplate = false;
+    this.existingTemplate = false
+    this.showNewTemplateModal = false
+    if (newTemplate) {
+      this.templateName = this.newTemplateName
+    }else{
+      this.bmxPages = JSON.parse(this.bmxPages)
+    }
+    this._BmxService.saveBrandMatrixTemplate(this.templateName, this.bmxPages, this.biUserId, this.newTemplateName).subscribe(data=> console.log(data))
     this._BmxService.getGeneralLists()
       .subscribe((arg: any) => {
         this.settingsData = JSON.parse(arg.d);
         this.TEMPLATES = (this.settingsData.BrandMatrixTemplateList.length) > 0 ? JSON.parse(arg.d).BrandMatrixTemplateList.map(obj => { return { templateName: obj.TemplateName, displayName: obj.DisplayName } }) : this.TEMPLATES
-
+        console.log()
         // END 🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖 AUTOCOMPLETE
         this._BmxService.getGeneralLists()
           .subscribe((arg: any) => {
             this.settingsData = JSON.parse(arg.d);
             console.log(this.settingsData)
-            this.TEMPLATES = (this.settingsData.BrandMatrixTemplateList.length) > 0 ? JSON.parse(arg.d).BrandMatrixTemplateList.map(obj => { return { templateName: obj.TemplateName, displayName: obj.DisplayName } }) : this.TEMPLATES
+            this.TEMPLATES = (this.settingsData.BrandMatrixTemplateList.length) > 0 ? JSON.parse(arg.d).BrandMatrixTemplateList.map(obj => { return { templateName: obj.TemplateName, displayName: obj.DisplayName,  brandMatrix: obj.BrandMatrix  } }) : this.TEMPLATES
 
             this.settingsData.OfficeList.unshift('All');
             //console.log(JSON.parse(arg.d));
@@ -183,6 +208,24 @@ export class TemplatesComponent implements OnInit {
     this.showModal = false;
     this.selectedTemplateName = this.newTemplateName
     this.newTemplateName = '';
+    this.bmxPages = ''
     console.log(this.selectedDisplayName)
   }
+
+  saveTemplateFromAnExistingOne(templateName) {
+    this.loadTemplate(templateName)
+  }
+
+  loadTemplate(templateName) {
+    // if (localStorage.getItem(templateName)) {
+    //   this.bmxPages = JSON.parse(localStorage.getItem(templateName));
+    // }
+    this._BmxService.getBrandMatrixTemplateByName(templateName).subscribe((template: any) => {
+      this.bmxPages = JSON.parse(template.d);
+      console.log(this.bmxPages)
+      this.saveNewName(true)
+    })
+    //this.openSaveTemplateBox();
+  }
+
 }

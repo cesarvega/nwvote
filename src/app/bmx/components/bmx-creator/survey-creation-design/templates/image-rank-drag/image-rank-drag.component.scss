@@ -319,11 +319,11 @@
     color: #9fa8da;
   }
 
-  textarea:focus {
-    min-height: 3rem;
-    cursor: text;
-    box-shadow: inset 5px 7px 7px #d1d9e9, inset -19px -31px 1px #ffffff;
-  }
+  // textarea:focus {
+  //   min-height: 3rem;
+  //   cursor: text;
+  //   box-shadow: inset 5px 7px 7px #d1d9e9, inset -19px -31px 1px #ffffff;
+  // }
 
   textarea:placeholder-shown {
     background: none;

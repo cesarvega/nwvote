@@ -43,14 +43,16 @@
           style="color: white; width: 100%;text-align: center;font-family: Arial, Helvetica, sans-serif;margin-top: 10px;">
           Welcome {{userFullName}}
           <br>
-          Role: {{userRole}} <span style="font-size: 10px;">v 1.0.1</span>
+          Role: {{userRole}} <span style="font-size: 10px;">v 1.0.2</span>
         </div>
       </div>
     </div>
     <div class="movil">
 
       <div class="menu-container">
-        <div class="menu-item-Light  directionProjectList" [ngClass]="" (click)="navigateTo('dashboard')">
+        <div class="menu-item-Dark directionProjectList"
+        [ngClass]="{'menu-item-Light': selectedMenuItem === 'dashboard', 'menu-item-Dark': selectedMenuItem !== 'dashboard'}"
+         (click)="navigateTo('dashboard')">
           <i class="bi bi-list-task"></i> Project List
         </div>
         <div class="menu-item-Dark"
@@ -72,7 +74,7 @@
         <i class="bi bi-arrow-left-circle"></i>
         BACK
       </div> -->
-      <div class="menu-item-Dark directionProjectList" (click)="navigateTo('templates')">
+      <div class="menu-item-Dark directionProjectList"   [ngClass]="{'menu-item-Light': selectedMenuItem === 'templates', 'menu-item-Dark': selectedMenuItem !== 'templates'}"(click)="navigateTo('templates')">
         <i class="bi bi-list-task"></i>Templates
       </div>
       </div>
@@ -92,7 +94,7 @@
           style="color: white; width: 100%;text-align: center;font-family: Arial, Helvetica, sans-serif;margin-top: 10px;">
           Welcome {{userFullName}}
           <br>
-          Role: {{userRole}} <span style="font-size: 10px;">v 1.0.1</span>
+          Role: {{userRole}} <span style="font-size: 10px;">v 1.0.2</span>
         </div>
       </div>
     </div>

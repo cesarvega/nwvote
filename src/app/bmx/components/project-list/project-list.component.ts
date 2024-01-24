@@ -85,8 +85,10 @@ export class ProjectListComponent implements OnInit {
     this._BmxService.setProjectName(option);
     var test = option;
     localStorage.setItem('projectName', option);
+    localStorage.setItem('templates', 'false');
     this.isMenuActive1Close.emit(false);
     this.router.navigate(['project-information'])
+    
   }
 
   setBMStatus(option): void {
