@@ -66,7 +66,7 @@ export class TemplatesComponent implements OnInit {
     { TemplateName: 'Naming Contest',displayName:'' },
     { TemplateName: 'Question & Answer',displayName:'' },
   ];
-  displayedColumns = ['index','TemplateName', 'Created', 'Name', 'Edit', 'Delete'];
+  displayedColumns = ['index','displayName', 'Created', 'Name', 'Edit', 'Delete'];
   bmxEditData: FormGroup;
   filteredOptions: Observable<string[]>;
   salesboardObj = [];
@@ -81,7 +81,7 @@ export class TemplatesComponent implements OnInit {
       .subscribe((arg: any) => {
         this.settingsData = JSON.parse(arg.d);
         console.log(this.settingsData)
-        this.TEMPLATES = (this.settingsData.BrandMatrixTemplateList.length) > 0 ? JSON.parse(arg.d).BrandMatrixTemplateList.map((obj, index) => { return {index: index+1, templateName: obj.TemplateName, displayName: obj.DisplayName, brandMatrix: obj.BrandMatrix,created: obj.LastUpdate } }) : this.TEMPLATES
+        this.TEMPLATES = (this.settingsData.BrandMatrixTemplateList.length) > 0 ? JSON.parse(arg.d).BrandMatrixTemplateList.map((obj, index) => { return {index: index+1, displayName: obj.DisplayName, brandMatrix: obj.BrandMatrix,created: obj.LastUpdate } }) : this.TEMPLATES
         console.log(this.TEMPLATES)
       
         this.settingsData.OfficeList.unshift('All');
