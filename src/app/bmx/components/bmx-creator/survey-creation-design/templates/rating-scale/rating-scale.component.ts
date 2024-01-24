@@ -162,6 +162,7 @@ export class RatingScaleComponent implements OnInit {
     // IF RATING SCALE IS SET
     let amountOfAnswersRateCounter = 0
     console.log(this.bmxItem.componentText)
+    this.rankingScaleValue = this.bmxItem.componentText[0].STARS.length;
     this.bmxItem.componentText.forEach((item, index) => {
       if (index > 0) {
         if (item.RATE > 0) {

@@ -119,6 +119,8 @@ export class ImageRateScaleComponent extends RatingScaleComponent implements OnI
     console.log(this.bmxItem.componentText)
     const filteredCriteria = this.CRITERIA.filter(criteriaItem => this.selectedCriteria.map(item => item.name).includes(criteriaItem.name));
     this.newselectedCriteria = filteredCriteria
+    this.rankingScaleValue = this.bmxItem.componentText[0].STARS.length;
+
   }
 
   epicFunction() {
