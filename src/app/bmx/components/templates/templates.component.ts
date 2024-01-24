@@ -17,7 +17,7 @@ import { MatSnackBar } from '@angular/material/snack-bar';
 })
 export class TemplatesComponent implements OnInit {
 
-  constructor(private _BmxService: BmxService, private router: Router,  public _snackBar: MatSnackBar,) { }
+  constructor(private _BmxService: BmxService, private router: Router,  public _snackBar: MatSnackBar) { }
   settingsData = {
     SalesBoardProjectList: [],
     BrandMatrixTemplateList: [],
@@ -81,7 +81,7 @@ export class TemplatesComponent implements OnInit {
       .subscribe((arg: any) => {
         this.settingsData = JSON.parse(arg.d);
         console.log(this.settingsData)
-        this.TEMPLATES = (this.settingsData.BrandMatrixTemplateList.length) > 0 ? JSON.parse(arg.d).BrandMatrixTemplateList.map((obj, index) => { return {index: index+1, displayName: obj.DisplayName, brandMatrix: obj.BrandMatrix,created: obj.LastUpdate } }) : this.TEMPLATES
+        this.TEMPLATES = (this.settingsData.BrandMatrixTemplateList.length) > 0 ? JSON.parse(arg.d).BrandMatrixTemplateList.map((obj, index) => { return {index: index+1,displayName: obj.DisplayName, templateName: obj.TemplateName, brandMatrix: obj.BrandMatrix,created: obj.LastUpdate } }) : this.TEMPLATES
         console.log(this.TEMPLATES)
       
         this.settingsData.OfficeList.unshift('All');
@@ -154,7 +154,7 @@ export class TemplatesComponent implements OnInit {
     this.showNewTemplateModal = false
     this.existingTemplate = false
   }
-
+  
   saveNewName(newTemplate?: any) {
     this.showModal = false;
     this.newTemplate = false;
@@ -170,13 +170,13 @@ export class TemplatesComponent implements OnInit {
       .subscribe((arg: any) => {
         this.settingsData = JSON.parse(arg.d);
         this.TEMPLATES = (this.settingsData.BrandMatrixTemplateList.length) > 0 ? JSON.parse(arg.d).BrandMatrixTemplateList.map(obj => { return { templateName: obj.TemplateName, displayName: obj.DisplayName } }) : this.TEMPLATES
-        console.log()
+        
         // END 🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖 AUTOCOMPLETE
         this._BmxService.getGeneralLists()
           .subscribe((arg: any) => {
             this.settingsData = JSON.parse(arg.d);
             console.log(this.settingsData)
-            this.TEMPLATES = (this.settingsData.BrandMatrixTemplateList.length) > 0 ? JSON.parse(arg.d).BrandMatrixTemplateList.map(obj => { return { templateName: obj.TemplateName, displayName: obj.DisplayName,  brandMatrix: obj.BrandMatrix  } }) : this.TEMPLATES
+            this.TEMPLATES = (this.settingsData.BrandMatrixTemplateList.length) > 0 ? JSON.parse(arg.d).BrandMatrixTemplateList.map((obj, index) => { return {index: index+1,displayName: obj.DisplayName, templateName: obj.TemplateName, brandMatrix: obj.BrandMatrix,created: obj.LastUpdate } }) : this.TEMPLATES
 
             this.settingsData.OfficeList.unshift('All');
             //console.log(JSON.parse(arg.d));
