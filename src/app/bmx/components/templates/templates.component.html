@@ -28,7 +28,7 @@ left: 85%;
 
 
 <div *ngIf="showNewTemplateModal" class="modal-content" style="gap: 10px;">
-    <button mat-icon-button class="close-button" aria-label="Close" (click)="showNewTemplateModal = false">
+    <button mat-icon-button class="close-button" aria-label="Close" (click)="closeModal()">
         <mat-icon>close</mat-icon>
     </button>
 
@@ -37,12 +37,12 @@ left: 85%;
         <div style="display: flex; align-items: center; gap:unset 15px;  justify-content: space-between;">
             Create a new empty template <button mat-raised-button color="success" style=" background-color: #063074;
             color: white;
-            width: 20%;;" (click)="newTemplate = true">Create </button>
+            width: 200px;" (click)="newTemplate = true">Create new template</button>
         </div>
         <div style="display: flex; align-items: center; gap:unset 15px;  justify-content: space-between;">
             Create a new template from an existing one <button mat-raised-button color="success" style=" background-color: #063074;
             color: white;
-            width: 20%;;" (click)="existingTemplate = true">Create </button>
+            width: 200px;" (click)="existingTemplate = true">Create from template</button>
         </div>
     </div>
 

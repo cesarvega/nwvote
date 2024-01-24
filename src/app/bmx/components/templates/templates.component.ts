@@ -148,8 +148,10 @@ export class TemplatesComponent implements OnInit {
   }
 
   closeModal() {
+    console.log('a')
     this.showModal = false;
     this.newTemplate = false;
+    this.showNewTemplateModal = false
     this.existingTemplate = false
   }
 
