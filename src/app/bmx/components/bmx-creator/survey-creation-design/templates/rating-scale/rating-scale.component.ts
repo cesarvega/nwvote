@@ -464,6 +464,7 @@ export class RatingScaleComponent implements OnInit {
   // ⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️ END STARS METHODS  ⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️
 
   upLoadNamesAndRationales(list: any) {
+    console.log(list)
     if (typeof list == 'object') {
       list = list.clipboardData.getData('text')
     }
@@ -896,8 +897,7 @@ export class RatingScaleComponent implements OnInit {
     this.showDialog = false
   }
 
-  criteriaSelection(selectedCriteria) {
- 
+  criteriaSelection(selectedCriteria) { 
     this.ASSIGNED_CRITERIA = this.newselectedCriteria
   }
 
