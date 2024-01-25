@@ -310,9 +310,6 @@ export class ParticipantsEmailComponent implements OnInit {
       `;
       this.BCC = 'design@brandinstitute.com'
     }
-    for (var i = 0; i < this.DIRECTORS?.length; i++) {
-      this.BCC = this.DIRECTORS[i].email.trim() + '; ' + this.BCC;
-    }
   }
 
   /*
@@ -337,9 +334,9 @@ export class ParticipantsEmailComponent implements OnInit {
     this.fixedString = this.fixedString.replace("BI_PARTNAME", Fname + " " + Lname);
     this.fixedString = this.fixedString.replaceAll("PROJECTNAME", this.projectId.toString());
     let str = ""
-    for (let d of this.DIRECTORS) {
-      str += d.name.toString().trim() + "<br>" + d.title.toString().trim() + "<br>" + d.phone.toString().trim() + " " + d.email.toString().trim() + "<br><br>"
-    }
+
+      str += this.DIRECTORS[0].name.toString().trim() + "<br>" + this.DIRECTORS[0].title.toString().trim() + "<br>" + this.DIRECTORS[0].phone.toString().trim() + " " + this.DIRECTORS[0].email.toString().trim() + "<br><br>"
+
     this.fixedString = this.fixedString.replace("BI_DIRECTOR ", str);
   }
 
@@ -417,11 +414,6 @@ export class ParticipantsEmailComponent implements OnInit {
     this.fixedString = this.Subject + "<br><br>" + this.fixedString;
     this.replaceEmailInfo('tester', 'tester', '***************');
     let email = this.fixedString;
-    for (let d of this.DIRECTORS) {
-      email += d.name.toString().trim() + "<br>" + d.title.toString().trim() + "<br>" + d.phone.toString().trim() + " " + d.email.toString().trim() + "<br><br>"
-    }
-    this.fixedString = this.fixedString.replace("BI_DIRECTOR ", email);
-    this.fixedString = temp;
     this.dialog.open(DialogComponent, { data: { email: email } });
   }
 
@@ -456,6 +448,7 @@ export class ParticipantsEmailComponent implements OnInit {
     let email = this.fixedString;
     for (let d of this.DIRECTORS) {
       email += d.name.toString().trim() + "<br>" + d.title.toString().trim() + "<br>" + d.phone.toString().trim() + " " + d.email.toString().trim() + "<br><br>"
+      return
     }
     this.fixedString = this.fixedString.replace("BI_DIRECTOR ", email);
     this.fixedString = temp;
