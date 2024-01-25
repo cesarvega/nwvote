@@ -7,6 +7,7 @@ import * as  dragula from 'dragula';
 import { BmxService } from '../../../bmx.service';
 import { DeviceDetectorService } from 'ngx-device-detector';
 import { MatCheckboxModule } from '@angular/material/checkbox';
+import { Console } from 'console';
 
 @Component({
   selector: 'app-rating-scale',
@@ -141,14 +142,16 @@ export class RatingScaleComponent implements OnInit {
 
   ngOnInit(): void {
     this.showDialog = false
-
+    console.log(this.bmxItem)
     // COLUMN NAMES
-    this.numRatingScale = this.bmxItem.componentText[0].STARS.length
+
     this.rankingScaleValue = this.numRatingScale;
     let values = Object.keys(this.bmxItem.componentText[0])
     this.rowsCount = this.bmxItem.componentText.length - 1
-    this.bmxItem.componentSettings[0].minRule = this.bmxItem.componentSettings[0].minRule == 0 ? this.rowsCount : this.bmxItem.componentSettings[0].minRule;
-    this.bmxItem.componentSettings[0].maxRule = this.bmxItem.componentSettings[0].maxRule == 0 ? this.rowsCount : this.bmxItem.componentSettings[0].maxRule;
+    this.bmxItem.componentSettings[0].minRule = this.bmxItem.componentSettings[0].minRule == 0 ? 0 : this.bmxItem.componentSettings[0].minRule;
+    this.bmxItem.componentSettings[0].maxRule = this.bmxItem.componentSettings[0].maxRule == 0 ? 0 : this.bmxItem.componentSettings[0].maxRule;
+      this.numRatingScale = this.bmxItem.componentText[0].STARS?.length
+   
     values.forEach(value => {
       if (typeof value == "string" && value != "STARS" && value != "CRITERIA") {
         this.columnsNames.push(value)
@@ -158,10 +161,12 @@ export class RatingScaleComponent implements OnInit {
 
     // IF RATING SCALE IS SET
     let amountOfAnswersRateCounter = 0
+    console.log(this.bmxItem.componentText)
     this.bmxItem.componentText.forEach((item, index) => {
       if (index > 0) {
         if (item.RATE > 0) {
           amountOfAnswersRateCounter++
+          this.maxRuleCounter++
           if (this.bmxItem.componentText.length - 1 == amountOfAnswersRateCounter) {
             this.bmxItem.componentSettings[0].categoryRulesPassed = true
           }
@@ -176,6 +181,19 @@ export class RatingScaleComponent implements OnInit {
       })
 
     })
+
+    this.bmxItem.componentText.forEach((item, index) => {
+      if(item.CRITERIA){
+      if (index > 0 ) {
+        item.CRITERIA.forEach(item=>{
+          if(item.RATE>0){
+            this.maxRuleCounter++
+          }
+        })
+      }
+    }
+    })
+
 
     this.randomizeTestNames = this.bmxItem.componentSettings[0].randomizeTestNames
 
@@ -230,6 +248,7 @@ export class RatingScaleComponent implements OnInit {
     if (this.bmxItem.componentSettings[0].ratedCounter >= this.bmxItem.componentSettings[0].minRule) {
       this.bmxItem.componentSettings[0].categoryRulesPassed = true
     } else { this.bmxItem.componentSettings[0].categoryRulesPassed = false }
+    console.log(this.maxRuleCounter)
   }
 
   // ⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️ STARS METHODS  ⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️
@@ -428,7 +447,11 @@ export class RatingScaleComponent implements OnInit {
   }
   // ⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️ END STARS METHODS  ⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️
 
-  upLoadNamesAndRationales(list: string) {
+  upLoadNamesAndRationales(list: any) {
+    if(typeof list == 'object'){
+      list = list.clipboardData.getData('text')
+    }
+    console.log(typeof list)
     this.uploadImagesIcon = true
     this.bmxItem.componentSettings[0].randomizeTestNames = (this.randomizeTestNames) ? true : false
     this.recordHistory()
@@ -457,6 +480,9 @@ export class RatingScaleComponent implements OnInit {
             this.columnsNames[index] = 'katakana'
           }
           else {
+            this.columnsNames[0] = 'name candidates'
+            this.columnsNames[1] = 'rationale'
+
             this.columnsNames[index] = 'ExtraColumn' + this.extraColumnCounter
             this.extraColumnCounter++
           }
@@ -563,6 +589,7 @@ export class RatingScaleComponent implements OnInit {
         });
       }
     }
+  
     setTimeout(() => {
       this.rowsCount = this.bmxItem.componentText.length - 1;
 
@@ -574,14 +601,23 @@ export class RatingScaleComponent implements OnInit {
 
       if (this.bmxItem.componentSettings[0].CRITERIA) {
         //MULTIPLY FOR THE AMOUNT OF CRITERIA
-        this.bmxItem.componentSettings[0].minRule = this.bmxItem.componentSettings[0].minRule * this.bmxItem.componentText[0].CRITERIA.length
+        this.bmxItem.componentSettings[0].minRule = this.bmxItem.componentSettings[0].minRule
+        this.bmxItem.componentSettings[0].maxRule = this.bmxItem.componentSettings[0].maxRule 
+
       }
       this.dragRows = false;
     }, 1000);
     // this.swapColumns(0)
   }
 
+  verifyCritera(){
+    if (this.bmxItem.componentSettings[0].CRITERIA) {
+      //MULTIPLY FOR THE AMOUNT OF CRITERIA
+      this.bmxItem.componentSettings[0].minRule = this.bmxItem.componentSettings[0].minRule 
+      this.bmxItem.componentSettings[0].maxRule = this.bmxItem.componentSettings[0].maxRule 
 
+    }
+  }
   // DEPRECATED
   ramdomizeArray() {
     this.TESTNAMES_LIST.sort(() => Math.random() - 0.5);

@@ -33,8 +33,8 @@ export class MenuComponent implements OnInit {
   globalProjectName: string;
 
   constructor(private router: Router, private location: Location, private _BmxService: BmxService, private activatedRoute: ActivatedRoute, public _snackBar: MatSnackBar,) {
-    this.activatedRoute.params.subscribe((params) => {
-      this.userGUI = params['id'];
+    this.activatedRoute.queryParams.subscribe((queryParams) => {
+      this.userGUI = queryParams['id'];
 
       // localStorage.setItem('projectId', this.projectId);
       this._BmxService.getMatrixUser(this.userGUI).subscribe((data: any) => {
@@ -51,7 +51,7 @@ export class MenuComponent implements OnInit {
           // this.userRole = 'admin'; // no restrictions
           // this.userDepartment = 'Creative';
           // this.userOffice = 'Basel 1'
-          this.userRole = 'director'; // director restriced
+          // this.userRole = 'director'; // director restriced
           // this.userRole = 'creative';
           // this.userRole = 'user'
           // this.userDepartment = 'Design'
@@ -72,15 +72,18 @@ export class MenuComponent implements OnInit {
 
         // localStorage.setItem('projectId', this.projectId);
         this._BmxService.getMatrixUser(this.id).subscribe((data: any) => {
-          data = JSON.parse(data.d);
-          localStorage.setItem('userData', JSON.stringify(data))
-          this.userFullName = data.FullName;
-          this.userRole = data.Role;
-          this.userName = data.UserName;
-          this.userOffice = data.Office;
-          this.userDepartment = data.Role;
+          if(data.d){
+            data = JSON.parse(data.d);
+            localStorage.setItem('userData', JSON.stringify(data))
+            this.userFullName = data.FullName;
+            this.userRole = data.Role;
+            this.userName = data.UserName;
+            this.userOffice = data.Office;
+            this.userDepartment = data.Role;
+          }
+        
         });
-        this.isDashboardMenu = event.url.includes('dashboard') || event.url === '/';
+        this.isDashboardMenu = event.url.includes('dashboard') || event.url === '/' || event.url.includes('templates') ;
         this.isPreviewView = event.url.includes('survey')
         this.selectedMenuItem = event.url.slice(1)
         this.login = event.url.includes('login')
@@ -120,7 +123,12 @@ export class MenuComponent implements OnInit {
       localStorage.clear()
       this.isDashboardMenu = true;
       this.router.navigate(['/' + value]);
-    } else if (value.includes('bmx-creation')) {
+    }else if(value === 'templates'){
+      localStorage.clear()
+      this.isDashboardMenu = true;
+      this.router.navigate(['/' + value]);
+    } 
+    else if (value.includes('bmx-creation')) {
 
       if (localStorage.getItem('projectName')) {
         this.projectId = localStorage.getItem('projectName');

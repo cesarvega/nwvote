@@ -53,7 +53,7 @@
             *ngIf="i !== selectedIndex" mat-icon-button>
             <mat-icon style="font-size: 25px;" class="full-icon"> text_fields</mat-icon>
         </button>
-        <button (click)="selectedIndex = i" class="add-column" matTooltip="insert test names" matTooltipPosition="above"
+        <button (click)="selectedIndex = i; verifyCritera() " class="add-column" matTooltip="insert test names" matTooltipPosition="above"
             *ngIf="i !== selectedIndex" mat-icon-button>
             <mat-icon style="font-size: 25px;" class="full-icon">edit</mat-icon>
         </button>
@@ -68,46 +68,16 @@
        max-height: 36rem;
     bottom: -2; ">
 
-    <div class="example-handle" cdkDragHandle style="cursor: move; height: 25px; width: 100%;"><svg width="24px"
+    <div class="example-handle" cdkDragHandle style="display: flex;
+flex-direction: row;
+justify-content: center;cursor: move; height: 25px; width: 100%;"><svg width="24px"
             fill="currentColor" viewBox="0 0 24 24">
             <path
                 d="M10 9h4V6h3l-5-5-5 5h3v3zm-1 1H6V7l-5 5 5 5v-3h3v-4zm14 2l-5-5v3h-3v4h3v3l5-5zm-9 3h-4v3H7l5 5 5-5h-3v-3z">
             </path>
             <path d="M0 0h24v24H0z" fill="none"></path>
         </svg></div>
-    <!-- Cards Criteria-->
-    <mat-card class="example-card">
-        <mat-card-header>
-            <mat-card-title>Criteria</mat-card-title>
-        </mat-card-header>
-        <br>
-        <div class="sm-section2-rkScale">
-            <div class="sm-column-box-rkScale">
-                <mat-form-field appearance="outline" style="width: 40%">
-                    <mat-label>Category Name</mat-label>
-                    <input matInput [(ngModel)]="bmxItem.componentSettings[0].categoryName" placeholder="Category Name"
-                        style="font-size: 20px;color: #324395;">
-                    <mat-hint>Enter the name of the category</mat-hint> <!-- Hint text for Category Name -->
-                </mat-form-field>
 
-                <mat-form-field appearance="outline" style="width: 40%">
-                    <mat-label>Category Description</mat-label>
-                    <input matInput [(ngModel)]="bmxItem.componentSettings[0].categoryName"
-                        [value]="bmxItem.componentSettings[0].categoryName" placeholder="Category Description"
-                        style="font-size: 20px;color: #ee7f25;">
-                    <mat-hint>Add a category to the left side</mat-hint> <!-- Hint text for Category Description -->
-                </mat-form-field>
-            </div>
-            <br>
-
-
-        </div>
-        <mat-card-content>
-
-        </mat-card-content>
-
-    </mat-card>
-    <br>
     <!-- Cards Test Name-->
     <mat-card class="example-card">
         <mat-card-header>
@@ -121,7 +91,7 @@
             <div style="display: flex; justify-content: center; align-items: center;">
                 <mat-form-field style="width: 90%; margin-left: 20px;" appearance="outline">
                     <mat-label>Copy & Paste TEST NAMES</mat-label>
-                    <textarea matInput [(ngModel)]="testNamesInput" (paste)="onPaste()"
+                    <textarea matInput [(ngModel)]="testNamesInput" (paste)="onPaste()" (ngModelChange)="upLoadNamesAndRationales(testNamesInput)"
                         placeholder="Paste test names here" cdkTextareaAutosize cdkAutosizeMinRows="2"
                         cdkAutosizeMaxRows="5"></textarea>
                     <mat-hint>Type or paste the test names here that you want to include</mat-hint>
@@ -132,7 +102,39 @@
 
     </mat-card>
     <br>
+ <!-- Cards Criteria-->
+    <mat-card class="example-card">
+        <mat-card-header>
+            <mat-card-title>Category</mat-card-title>
+        </mat-card-header>
+        <br>
+        <div class="sm-section2-rkScale">
+          <div class="sm-column-box-rkScale">
+            <mat-form-field appearance="outline" style="width: 40%">
+                <mat-label>Category Name</mat-label>
+                <input matInput [(ngModel)]="bmxItem.componentSettings[0].categoryName" placeholder="Category Name"
+                    style="font-size: 20px;color: #324395;">
+                <mat-hint>Enter the name of the category</mat-hint> <!-- Hint text for Category Name -->
+            </mat-form-field>
 
+            <mat-form-field appearance="outline" style="width: 40%">
+                <mat-label>Sub category Description</mat-label>
+                <input matInput [(ngModel)]="bmxItem.componentSettings[0].categoryDescription"
+                    placeholder="Sub category Description" style="font-size: 20px;color: #ee7f25;">
+                <mat-hint>Enter a brief description of the Sub category </mat-hint>
+                <!-- Hint text for Category Description -->
+            </mat-form-field>
+        </div>
+            <br>
+
+
+        </div>
+        <mat-card-content>
+
+        </mat-card-content>
+
+    </mat-card>
+    <br>
     <!-- Cards Select Ranking-->
     <mat-card class="example-card">
         <mat-card-header>
@@ -144,18 +146,15 @@
 
 
                 <div class="sm-row-box-rkScale">
-                    <div>
-                        <div style="font-size: 16px;margin-top: 10px;color: #48535e;">SELECT RATING RANGE</div>
-                        <br>
-                        <div
-                            style="text-align: center;display: flex;flex-direction: row;justify-content: space-around;">
-                            {{numRatingScale}} <input [(ngModel)]="rankingScaleValue" type="range" id="volume"
-                                name="volume" min="0" max="10">
-                            10 <br>
-                        </div>
-                        <label for="volume">{{rankingScaleValue}}</label>
+                  <div>
+                    <div style="font-size: 16px;margin-top: 10px;color: #48535e;">SELECT RATING RANGE</div>
+                    <br>
+                    <div style="text-align: center;display: flex;flex-direction: row;justify-content: space-around;">
 
+                        <input [(ngModel)]="rankingScaleValue" type="range" id="volume" name="volume" min="0" max="10">
+                        {{rankingScaleValue}}
                     </div>
+                </div>
                     <div style="    margin-top: 0.5rem;
         ">
                         <div style="display: flex; flex-direction: column">

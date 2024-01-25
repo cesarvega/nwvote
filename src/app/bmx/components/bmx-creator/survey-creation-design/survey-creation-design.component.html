@@ -196,11 +196,15 @@
                         <mat-icon class="full-icon">chevron_right</mat-icon>
                     </button>
                 </div>
-                <button class="no-print" *ngIf="globalProjectName.length > 0"
-                    style="position: relative;z-index: 9999999999; left: 20px;;outline: none; bottom: 15px;"
-                    mat-raised-button class="project-name-global">
-                    PROJECT: {{globalProjectName}}
-                </button>
+                <div class="button-name">
+                  <button *ngIf="globalProjectName"
+                          class="no-print project-name-global"
+                          mat-raised-button
+                          style="position: relative; z-index: 9999999999; outline: none;">
+                    {{title}}: {{ globalDisplayName ? globalDisplayName : globalProjectName }}
+                  </button>
+                </div>
+
             </div>
         </div>
 
@@ -287,7 +291,7 @@
                 </mat-icon>
             </button>
             <br>
-            <button *ngIf="true" (click)="openDialog('save')" mat-icon-button matTooltip="save brandmatrix"
+            <button *ngIf="true" (click)="isTemplate=='true'?saveTemplate() : openDialog('save')" mat-icon-button matTooltip="{{isTemplate == 'true' ? 'Save Template' : 'Save Brand Matrix'}}"
                 matTooltipPosition="right">
                 <mat-icon class="full-icon">cloud_upload
                 </mat-icon>
@@ -348,8 +352,8 @@
     <mat-form-field appearance="outline">
         <mat-label>Templates</mat-label>
         <mat-select [(ngModel)]="templateName" (selectionChange)="templateSelected()">
-            <mat-option *ngFor="let template of TEMPLATES " [value]="template">
-                {{template}}
+            <mat-option *ngFor="let template of TEMPLATES " [value]="template.template">
+                {{template.displayname? template.displayname: template.template}}
             </mat-option>
         </mat-select>
     </mat-form-field>
@@ -370,5 +374,5 @@
         </button>
     </div>
     <mat-icon (click)="isTemplateUpdate = false" style="cursor: pointer;" class="full-icon">close</mat-icon>
-    
+
 </div>

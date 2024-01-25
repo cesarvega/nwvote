@@ -6,6 +6,7 @@ import { map, startWith } from 'rxjs/operators';
 import { MatSelectChange } from '@angular/material/select';
 import { Validators } from '@angular/forms';
 import { BmxService } from '../bmx-creator/bmx.service';
+import { Router } from '@angular/router';
 
 
 @Component({
@@ -16,18 +17,20 @@ import { BmxService } from '../bmx-creator/bmx.service';
 export class ProjectInformationComponent implements OnInit {
   DIRECTORS_Filtered: any[];
 
-  constructor(private _BmxService: BmxService, private _snackBar: MatSnackBar) { }
+  constructor(private _BmxService: BmxService, private _snackBar: MatSnackBar, private router: Router) { }
   settingsData = {
     SalesBoardProjectList: [],
     BrandMatrixTemplateList: [],
     DepartmentList: [],
     OfficeList: [],
     LanguageList: '',
-    DirectorList: []
+    DirectorList: [],
+    DisplayName: '',
+    TemplateName: ''
   };
   stringBmxEditData: any;
   isSaveOrUpdate = false;
-  templateName = '';
+
 
   DIRECTORS: Array<any> = [];
 
@@ -68,15 +71,18 @@ export class ProjectInformationComponent implements OnInit {
   brandMatrixObjects = [
   ];
   bmxPages: any = [
-      {
-          pageNumber: 1,
-          page: this.brandMatrixObjects,
-      },
-  ]; 
-  
+    {
+      pageNumber: 1,
+      page: this.brandMatrixObjects,
+    },
+  ];
+  displayTemplate = ''
   biUserId = 'user@bi.com';
   templateTitle: string = '';
-
+  showModal = false;
+  newTemplateName = ''
+  selectedTemplateName = ''
+  templateName = '';
   ngOnInit(): void {
     this.canEdit = null;
     this.createFormControls();
@@ -125,7 +131,9 @@ export class ProjectInformationComponent implements OnInit {
     this._BmxService.getGeneralLists()
       .subscribe((arg: any) => {
         this.settingsData = JSON.parse(arg.d);
-        this.TEMPLATES = (this.settingsData.BrandMatrixTemplateList.length) > 0 ? JSON.parse(arg.d).BrandMatrixTemplateList.map(obj => obj.TemplateName) : this.TEMPLATES
+        console.log(this.settingsData)
+        this.TEMPLATES = (this.settingsData.BrandMatrixTemplateList.length) > 0 ? JSON.parse(arg.d).BrandMatrixTemplateList.map(obj => { return { templateName: obj.TemplateName, displayName: obj.DisplayName } }) : this.TEMPLATES
+
         this.settingsData.OfficeList.unshift('All');
         //console.log(JSON.parse(arg.d));
         //AUTOCOMPLETE 🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖
@@ -139,6 +147,7 @@ export class ProjectInformationComponent implements OnInit {
             phone: directorObj.Phone,
             office: directorObj.Office,
           })
+
 
 
         });
@@ -196,16 +205,17 @@ export class ProjectInformationComponent implements OnInit {
     finalString = finalString.replace("[\\u2022,\\u2023,\\u25E6,\\u2043,\\u2219]\\s\\d", '');
     this._BmxService.saveProjectInfo(this.bmxEditData.get('bmxProjectName').value.toString(), finalString, 'user@bi.com').subscribe(result => {
       var so = result;
-      this.saveProjectSuccess.emit(true)      
+      this.saveProjectSuccess.emit(true)
     });
-    if(this.templateName.length > 3){
-      this.saveOrUpdateTemplate(this.templateName);     
-    } 
+    if (this.templateName.length > 3) {
+      localStorage.setItem('template', JSON.stringify(this.bmxPages));
+    }
 
     // SET DATA STREAM TO AN OBSERVABLE
     this._BmxService.setprojectData(finalString)
     this._snackBar.open('Saved Succesfully');
     localStorage.setItem('department', this.bmxEditData.get('bmxDepartment').value.toString());
+    this.router.navigate(['/bmx-creation/99CB72BF-D163-46A6-8A0D-E1531EC7FEDC']) 
   }
 
   createDirector(): void {
@@ -294,37 +304,28 @@ export class ProjectInformationComponent implements OnInit {
 
     this.bmxSalesboard = new FormControl(
       '', [
-      Validators.required,
     ]);
     this.bmxDepartment = new FormControl(
       '', [
-      Validators.required,
     ]);
     this.bmxProjectName = new FormControl(
       '', [
-      Validators.required,
-      Validators.pattern("^[a-zA-Z0-9]+$")
     ]);
     this.bmxRegion = new FormControl(
       '', [
-      Validators.required,
     ]);
     this.bmxCompany = new FormControl(
       '', [
-      Validators.required,
       // Validators.pattern("^[a-zA-Z0-9]+$")
     ]);
     this.bmxLanguage = new FormControl(
       '', [
-      Validators.required,
     ]);
     this.bmxTemplates = new FormControl(
       '', [
-      Validators.required,
     ]);
     this.bmxRegionalOffice = new FormControl(
       '', [
-      Validators.required,
     ]);
     this.bmxRegionalDirector = new FormControl();
   }
@@ -369,45 +370,72 @@ export class ProjectInformationComponent implements OnInit {
     });
   }
 
-  templateSelected(templateName: string) {    
+  templateSelected(templateName: string) {
     this.isSaveOrUpdate = true;
     this.templateName = templateName;
-    this.loadTemplate(this.templateName);       
+    this.loadTemplate(this.templateName);
+    this.displayTemplate = templateName
   }
 
-  saveOrUpdateTemplate(templateName) {
-      //localStorage.setItem(templateName, JSON.stringify(this.bmxPages));
-      localStorage.setItem('template', JSON.stringify(this.bmxPages));
-      //this.bmxPages = JSON.parse(localStorage.getItem('template'));     
-      this._BmxService.saveBrandMatrixTemplate(templateName, this.bmxPages, this.biUserId).subscribe((template: any) => {
-        this.templateTitle = "Template '" + templateName + "' saved 🧐";
-        this._snackBar.open(this.templateTitle, 'OK', {
-          duration: 5000,
-          horizontalPosition: 'right',
-          verticalPosition: 'top',
-        })        
+  saveOrUpdateTemplate(templateName, newName?: any) {
+    //localStorage.setItem(templateName, JSON.stringify(this.bmxPages));
+    localStorage.setItem('template', JSON.stringify(this.bmxPages));
+    //this.bmxPages = JSON.parse(localStorage.getItem('template'));
+    this._BmxService.saveBrandMatrixTemplate(templateName, this.bmxPages, this.biUserId).subscribe((template: any) => {
+      this.templateTitle = "Template '" + templateName + "' saved 🧐";
+      this._snackBar.open(this.templateTitle, 'OK', {
+        duration: 5000,
+        horizontalPosition: 'right',
+        verticalPosition: 'top',
       })
+    })
 
-      if (this.TEMPLATES.indexOf(templateName) < 0) {
-        this.TEMPLATES.push(templateName);
-      }
+    if (this.TEMPLATES.indexOf(templateName) < 0) {
+      this.TEMPLATES.push(templateName);
+    }
 
-      setTimeout(() => {
-              //this.openSaveTemplateBox();
-      }, 1000);
+    setTimeout(() => {
+      //this.openSaveTemplateBox();
+    }, 1000);
 
   }
 
   loadTemplate(templateName) {
+    console.log(templateName)
     this._BmxService.getBrandMatrixTemplateByName(templateName).subscribe((template: any) => {
-        this.bmxPages = JSON.parse(template.d);
-        this._snackBar.open('template ' + "'" + templateName + "'" + ' loaded 😀', 'OK', {
-            duration: 5000,
-            horizontalPosition: 'right',
-            verticalPosition: 'top',
-        })
+      console.log(template)
+      this.bmxPages = JSON.parse(template.d);
+      this._snackBar.open('template ' + "'" + templateName + "'" + ' loaded 😀', 'OK', {
+        duration: 5000,
+        horizontalPosition: 'right',
+        verticalPosition: 'top',
+      })
     })
-  }  
+  }
+
+  openModal() {
+    this.showModal = true;
+  }
+
+  closeModal() {
+    this.showModal = false;
+  }
+
+  saveNewName() {
+
+    this._BmxService.saveBrandMatrixTemplate(this.templateName, this.bmxPages, this.biUserId, this.newTemplateName).subscribe()
+    this._BmxService.getGeneralLists()
+      .subscribe((arg: any) => {
+        this.settingsData = JSON.parse(arg.d);
+        this.TEMPLATES = (this.settingsData.BrandMatrixTemplateList.length) > 0 ? JSON.parse(arg.d).BrandMatrixTemplateList.map(obj => { return { templateName: obj.TemplateName, displayName: obj.DisplayName } }) : this.TEMPLATES
+
+        // END 🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖 AUTOCOMPLETE
+      });
+    this.showModal = false;
+    this.selectedTemplateName = this.newTemplateName
+    this.newTemplateName = '';
+  }
+
 }
 
 

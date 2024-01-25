@@ -55,8 +55,8 @@ export class RankScaleComponent extends RatingScaleComponent implements OnInit {
     this.rankingType = this.bmxItem.componentSettings[0].rankType
 
     this.rowsCount =  this.bmxItem.componentText.length - 1;
-    this.bmxItem.componentSettings[0].minRule = this.bmxItem.componentSettings[0].minRule == 0?this.rankingScaleValue:this.bmxItem.componentSettings[0].minRule;
-    this.bmxItem.componentSettings[0].maxRule = this.bmxItem.componentSettings[0].maxRule == 0?this.rowsCount:this.bmxItem.componentSettings[0].maxRule;
+    this.bmxItem.componentSettings[0].minRule = this.bmxItem.componentSettings[0].minRule == 0?0 :this.bmxItem.componentSettings[0].minRule;
+    this.bmxItem.componentSettings[0].maxRule = this.bmxItem.componentSettings[0].maxRule == 0?0 :this.bmxItem.componentSettings[0].maxRule;
 
     if (this.rankingType == 'dropDown') {
       this.draggableBag = ''
@@ -159,14 +159,14 @@ export class RankScaleComponent extends RatingScaleComponent implements OnInit {
           }
       });
       this.TESTNAMES_LIST = [];
-      for (let i = 0; i < rows.length; i++) {
-        if (rows[i] != "" && rows[i].length > 6) {
+      for (const element of rows) {
+        if (element != "" && element.length > 6) {
           let objectColumnDesign = {};
           if (this.ASSIGNED_CRITERIA.length > 0) {
 
             for (let e = 0; e < this.columnsNames.length; e++) {
-              if ((rows[i].split("\t").length > 0)) {
-                objectColumnDesign[this.columnsNames[e]] = rows[i].split("\t")[e]
+              if ((element.split("\t").length > 0)) {
+                objectColumnDesign[this.columnsNames[e]] = element.split("\t")[e]
               }
             }
             objectColumnDesign['CRITERIA'] = []
@@ -181,8 +181,8 @@ export class RankScaleComponent extends RatingScaleComponent implements OnInit {
 
             objectColumnDesign['STARS'] = this.createRatingStars(this.rankingScaleValue, this.ratingScaleIcon);
             for (let e = 0; e < this.columnsNames.length; e++) {
-              if ((rows[i].split("\t").length > 0)) {
-                objectColumnDesign[this.columnsNames[e]] = rows[i].split("\t")[e]
+              if ((element.split("\t").length > 0)) {
+                objectColumnDesign[this.columnsNames[e]] = element.split("\t")[e]
               }
             }
           }
@@ -197,6 +197,7 @@ export class RankScaleComponent extends RatingScaleComponent implements OnInit {
         row.STARS = this.createRatingStars(this.rankingScaleValue, this.ratingScaleIcon)
       });
     }
+    console.log(this.rowsCount, this.CRITERIA.length)
 
     setTimeout(() => {
       this.rowsCount = this.bmxItem.componentText.length - 1;

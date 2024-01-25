@@ -12,7 +12,7 @@ import { MsalService } from '@azure/msal-angular';
 })
 export class BmxCreatorComponent implements OnInit {
   // https://getemoji.com/
-  userName = 'Alexa';
+  userName = 'Alexa ';
   bmxClientPageDesignMode = false; // TURN FALSE TO PLAY ON DEVELOPMENT
   bmxClientPageOverview = false;
   displayRightSideMenu = false;

@@ -15,6 +15,7 @@ import { ProjectReportsComponent } from './bmx/components/project-reports/projec
 import { RespondentsComponent } from './bmx/components/respondents/respondents.component';
 import {BmxCreatorComponent} from './bmx/components/bmx-creator/bmx-creator.component'
 import { SurveyMatrixComponent } from './bmx/components/bmx-creator/survey-matrix/survey-matrix.component';
+import { TemplatesComponent } from './bmx/components/templates/templates.component';
 
 
 
@@ -29,10 +30,12 @@ const routes: Routes = [
   {path: 'participants', component: RespondentsComponent },
   {path: 'reports', component: ProjectReportsComponent},
   {path: 'participants-emails',component: ParticipantsEmailComponent},
+  {path: 'templates',component: TemplatesComponent},
+
   {path: 'login', component: LoginComponent},
   {path: 'signout', component: LoginComponent},
   { path: '**', redirectTo: 'dashboard' },
- 
+
 ];
 
 @NgModule({

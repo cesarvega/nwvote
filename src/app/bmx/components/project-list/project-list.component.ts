@@ -26,6 +26,7 @@ export class ProjectListComponent implements OnInit {
   viewedData;
   displayedColumns = ['bmxCompany', 'bmxProjectName', 'bmxDepartment', 'bmxRegion', 'Created', 'Close', 'Active', 'Email', 'Edit', 'Delete'];
   selected;
+  templates = ['AJP', 'AJP1to5', 'AJPENG', 'AJPENGTM', 'AJPTM', 'APNonprop', 'BIINTERNALPROJECTSTANDARD', 'BIPROBONODRAGRANK',  'BIPROBONOLOGIN', 'BIPROBONOMINIMUM', 'BIPROBONOMORAGATRAIL', 'BIPROBONONonproprietary', 'BIPROBONOPfizer21', 'BIPROBONOPNN', 'BIPROBONOTEST7', 'BIPROBONOTM', 'BIPROBONOTOPRANK', 'BIPROBONOYN'  ]
 
   title = 'ng-calendar-demo';
   selectedDate = null;
@@ -84,8 +85,10 @@ export class ProjectListComponent implements OnInit {
     this._BmxService.setProjectName(option);
     var test = option;
     localStorage.setItem('projectName', option);
+    localStorage.setItem('templates', 'false');
     this.isMenuActive1Close.emit(false);
     this.router.navigate(['project-information'])
+    
   }
 
   setBMStatus(option): void {
@@ -135,11 +138,11 @@ export class ProjectListComponent implements OnInit {
         }
       }
     }
-
+    this.viewedData =  this.viewedData.filter(project => !this.templates.includes(project.bmxProjectName))
     if (this.selectedDate) {
       this.viewedData = this.viewedData.filter(project => project.bmxClosingDate == this.selectedDate.toISOString())
     }
-
+    console.log(this.viewedData)
     // FILTERING BY DEPARTMENT & OFFICE
     if (this.viewedData.length > 0) {
       if (this.userRole == 'Director') {

@@ -88,7 +88,7 @@ export class DocxSurveyComponent implements OnInit {
     this._BmxService.currentProjectName$.subscribe((projectName) => {
       this.projectId = projectName !== '' ? projectName : this.projectId;
       localStorage.setItem('projectName', this.projectId);
-      
+
       this._BmxService.getSelectedProjects().subscribe((projects: any) => {
         if (projects && !this.firstload) {
           this.projectList = this.projectList.concat(projects);
