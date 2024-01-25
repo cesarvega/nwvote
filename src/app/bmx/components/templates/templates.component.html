@@ -12,9 +12,7 @@
         </mat-form-field>
 
     </div>
-    <button mat-raised-button color="success" style=" background-color: #063074;
-  color: white;
-  width: 40%;;" (click)="saveNewName()">Save </button>
+    <button mat-raised-button color="success" style=" background-color: #063074; color: white; width: 40%;;" (click)="saveNewName()">Save </button>
 </div>
 
 <button mat-raised-button color="success" style=" background-color: #063074;color: white;width: 140px;position: relative;top: 2%;left: 85%;" (click)=" showNewTemplateModal = true">Add template
@@ -111,14 +109,14 @@
         </ng-container>
         <ng-container matColumnDef="Created">
             <th mat-header-cell *matHeaderCellDef mat-sort-header> Created </th>
-            <td mat-cell *matCellDef="let element"> {{element.created | date:'dd MMMM yyyy, HH:mm:ss'}} </td>
+            <td mat-cell *matCellDef="let element"> {{element.created | date:'dd MMMM yyyy, hh:mm:ss a'}} </td>
         </ng-container>
 
         <ng-container matColumnDef="Name">
             <th mat-header-cell *matHeaderCellDef mat-sort-header style="width: 3.33%;"> </th>
             <td mat-cell *matCellDef="let element">
                 <button mat-icon-button
-                    (click)=" selectedDisplayName = element.displayName;openModal(); selectedTemplateName = element.templateName; templateName = element.templateName; bmxPages = element.brandMatrix"
+                    (click)="selectedDisplayName = element.displayName;openModal(); selectedTemplateName = element.templateName; templateName = element.templateName; bmxPages = element.brandMatrix"
                     aria-label="Example icon button with a home icon">
                     <mat-icon>edit</mat-icon>
                 </button>
