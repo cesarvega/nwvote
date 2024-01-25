@@ -267,7 +267,7 @@ justify-content: center;cursor: move; height: 25px; width: 100%;"><svg width="24
                     <div style="display: flex; flex-direction: column; width: 40%;">
                         <mat-form-field appearance="outline" style="margin: 0px; width: 100%;">
                             <mat-label>Choose Criteria</mat-label>
-                            <mat-select multiple [(ngModel)]="selectedCriteria"
+                            <mat-select multiple [(ngModel)]="newselectedCriteria"
                                 (selectionChange)="criteriaSelection(selectedCriteria)">
                                 <mat-option *ngFor="let criteriaItem of CRITERIA; let c = index" [value]="criteriaItem">
                                     {{criteriaItem.name}}
