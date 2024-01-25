@@ -2,6 +2,7 @@ import { Component, OnInit, Input, ViewChild } from '@angular/core';
 import { MatTableDataSource } from '@angular/material/table';
 import { SelectionModel } from '@angular/cdk/collections';
 import { HighlightSpanKind } from 'typescript';
+import { BmxService } from '../bmx.service';
 import { DragulaService } from 'ng2-dragula';
 import { HotkeysService, Hotkey } from 'angular2-hotkeys';
 import { MatSort } from '@angular/material/sort';
@@ -10,7 +11,6 @@ import { MatPaginator } from '@angular/material/paginator';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { MatDialog, MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { DialogComponent } from './dialog/dialog.component';
-import { BmxService } from '../bmx-creator/bmx.service';
 
 
 @Component({
@@ -106,18 +106,16 @@ export class ParticipantsEmailComponent implements OnInit {
 
     this._BmxService.currentProjectName$.subscribe(projectName => {
       this.projectId = (projectName !== '') ? projectName : this.projectId;
-      this.Subject = this.projectId?.toString().trim() + ' Naming Initiative';
+      this.Subject = this.projectId.toString().trim() + ' Naming Initiative';
     })
 
     this._BmxService.getProjectInfo(this.projectId)
       .subscribe((arg: any) => {
-        if (arg.d && arg.d.length > 0) {
-          var data = JSON.parse(arg.d)
-          this.DIRECTORS = data.bmxRegionalOffice;
-          this.From = this.DIRECTORS[0].email.trim();
-        }
+        var data = JSON.parse(arg.d);
+        this.DIRECTORS = data.bmxRegionalOffice;
+        this.From = this.DIRECTORS[0].email.trim();
       });
-
+      
     this._BmxService.BrandMatrixGetParticipantList(this.projectId)
       .subscribe((arg: any) => {
         this.allData = JSON.parse(arg.d).ParticipantList;
@@ -132,7 +130,7 @@ export class ParticipantsEmailComponent implements OnInit {
         this.changeView();
       });
 
-
+      
 
     this._BmxService.getCustomEmail(this.projectId)
       .subscribe((arg: any) => {
@@ -142,7 +140,8 @@ export class ParticipantsEmailComponent implements OnInit {
           this.emailTemp = 'Creative';
           this.changeTemplate('Creative');
         }
-        else {
+        else
+        {
           this.brandMatrixObjects[1].componentText = arg.d;
         }
         //this.DIRECTORS = data.bmxRegionalOffice;
@@ -180,7 +179,7 @@ export class ParticipantsEmailComponent implements OnInit {
     }
     // SAMPLE DATA FOR CKEDITOR
     //this.model.editorData = this.sampleHtml;
-
+    
   }
 
   isAllSelected() {
@@ -310,6 +309,10 @@ export class ParticipantsEmailComponent implements OnInit {
       `;
       this.BCC = 'design@brandinstitute.com'
     }
+    for(var i = 0; i < this.DIRECTORS.length; i++)
+      {
+        this.BCC = this.DIRECTORS[i].email.trim() + '; ' + this.BCC;
+      }
   }
 
   /*
@@ -334,9 +337,9 @@ export class ParticipantsEmailComponent implements OnInit {
     this.fixedString = this.fixedString.replace("BI_PARTNAME", Fname + " " + Lname);
     this.fixedString = this.fixedString.replaceAll("PROJECTNAME", this.projectId.toString());
     let str = ""
-
-      str += this.DIRECTORS[0].name.toString().trim() + "<br>" + this.DIRECTORS[0].title.toString().trim() + "<br>" + this.DIRECTORS[0].phone.toString().trim() + " " + this.DIRECTORS[0].email.toString().trim() + "<br><br>"
-
+    for (let d of this.DIRECTORS) {
+      str += d.name.toString().trim() + "<br>" + d.title.toString().trim() + "<br>" + d.phone.toString().trim() + " " + d.email.toString().trim() + "<br><br>"
+    }
     this.fixedString = this.fixedString.replace("BI_DIRECTOR ", str);
   }
 
@@ -351,7 +354,7 @@ export class ParticipantsEmailComponent implements OnInit {
         var so = result;
       });
 
-
+      
 
 
     for (var i = 0; i < this.RESPONDENTS_LIST.length; i++) {
@@ -363,7 +366,7 @@ export class ParticipantsEmailComponent implements OnInit {
         "emailTemp": this.emailTemp,
         "linkType": this.linkType,
         "From": this.From,
-        "BCC": this.BCC,
+        "BCC" : this.BCC,
         /*"CC" : this.CC,*/
         "Subject": this.Subject,
         "Message": this.fixedString,
@@ -414,32 +417,43 @@ export class ParticipantsEmailComponent implements OnInit {
     this.fixedString = this.Subject + "<br><br>" + this.fixedString;
     this.replaceEmailInfo('tester', 'tester', '***************');
     let email = this.fixedString;
+    for (let d of this.DIRECTORS) {
+      email += d.name.toString().trim() + "<br>" + d.title.toString().trim() + "<br>" + d.phone.toString().trim() + " " + d.email.toString().trim() + "<br><br>"
+    }
+    this.fixedString = this.fixedString.replace("BI_DIRECTOR ", email);
+    this.fixedString = temp;
     this.dialog.open(DialogComponent, { data: { email: email } });
   }
 
-  getTitle(option: string) {
-    if (option == "NS") {
-      return "Not Started";
-    }
-    else if (option == "F") {
-      return "Finished";
-    }
-    else {
-      return "On page " + option;
-    }
+  getTitle(option: string)
+  {
+    if(option == "NS")
+      {
+        return "Not Started";
+      }
+      else if(option == "F")
+      {
+        return "Finished";
+      }
+      else 
+      {
+        return "On page " + option;
+      }
     return option;
   }
 
-  sendConfirm() {
+  sendConfirm()
+  {
     let confirmEmail = "<u>Sent Emails</u><br>";
 
-    for (var i = 0; i < this.RESPONDENTS_LIST.length; i++) {
+    for (var i = 0; i < this.RESPONDENTS_LIST.length; i++) 
+    {
       confirmEmail = confirmEmail + this.RESPONDENTS_LIST[i].FirstName + " " + this.RESPONDENTS_LIST[i].LastName + " " + this.RESPONDENTS_LIST[i].Email + "<br>"
     }
-
+    
     confirmEmail = confirmEmail + "----------------------------------------------------------------------------" + "<br><br>";
-
-
+    
+    
 
     let temp = this.brandMatrixObjects[1].componentText;
     this.fixedString = this.brandMatrixObjects[1].componentText;
@@ -448,7 +462,6 @@ export class ParticipantsEmailComponent implements OnInit {
     let email = this.fixedString;
     for (let d of this.DIRECTORS) {
       email += d.name.toString().trim() + "<br>" + d.title.toString().trim() + "<br>" + d.phone.toString().trim() + " " + d.email.toString().trim() + "<br><br>"
-      return
     }
     this.fixedString = this.fixedString.replace("BI_DIRECTOR ", email);
     this.fixedString = temp;
@@ -461,7 +474,7 @@ export class ParticipantsEmailComponent implements OnInit {
       "emailTemp": this.emailTemp,
       "linkType": this.linkType,
       "From": this.From,
-      "BCC": "",
+      "BCC" : "",
       /*"CC" : this.CC,*/
       "Subject": this.Subject,
       "Message": confirmEmail,
@@ -474,6 +487,6 @@ export class ParticipantsEmailComponent implements OnInit {
       var so = result;
     });
   }
-
+  
 
 }
