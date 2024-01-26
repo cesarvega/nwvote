@@ -1,7 +1,28 @@
 <div *ngIf="showDialog">
-    <app-survey-dialog  (onConfirm)="confirmAction()" (onCancel)="closeDialog()" [dialogText]="dialogText"></app-survey-dialog>
+    <app-survey-dialog (onConfirm)="confirmAction()" (onCancel)="closeDialog()"
+        [dialogText]="dialogText"></app-survey-dialog>
 </div>
 
+
+<div *ngIf="showSaveTemplate">
+    <app-survey-dialog (onConfirm)="saveOrUpdateTemplate(templateName)" (onCancel)="closeDialog()"
+        [dialogText]="dialogText"></app-survey-dialog>
+</div>
+
+<div *ngIf="showDelete">
+    <app-survey-dialog (onConfirm)="deleteTemplate(templateName)" (onCancel)="closeDialog()"
+        [dialogText]="dialogText"></app-survey-dialog>
+</div>
+
+<div *ngIf="showDeletePage">
+    <app-survey-dialog (onConfirm)="deletePage()" (onCancel)="closeDialog()"
+        [dialogText]="dialogText"></app-survey-dialog>
+</div>
+
+<div *ngIf="showReset">
+    <app-survey-dialog (onConfirm)="resetTemplate()" (onCancel)="closeDialog()"
+        [dialogText]="dialogText"></app-survey-dialog>
+</div>
 
 <div style="display: flex; margin: 0px;
     width: 100%;">
@@ -18,8 +39,8 @@
                 <div class="emoji-handle">.</div>
                 <div style="position: absolute;right: 0px;">
                     <button *ngIf="bmxClientPageOverview" matTooltip="double click to delete" matTooltipPosition="above"
-                        style="outline: none;color:#f10a0a;top: 60px;" mat-icon-button (dblclick)="openDialog('delete',i)"
-                        aria-label="delte">
+                        style="outline: none;color:#f10a0a;top: 60px;" mat-icon-button
+                        (dblclick)="openDialog('delete',i)" aria-label="delte">
                         <mat-icon style="font-size: 17px;">cancel</mat-icon>
                     </button>
                 </div>
@@ -33,8 +54,8 @@
             <div *ngIf="bmxItem.componentType === 'logo-header'" class="paragraph">
                 <div style="position: absolute;right: 0px;">
                     <button *ngIf="bmxClientPageOverview" matTooltip="double click to delete" matTooltipPosition="above"
-                        style="outline: none;color:#f10a0a;top: 19px;" mat-icon-button (dblclick)="openDialog('delete', i)"
-                        aria-label="delte">
+                        style="outline: none;color:#f10a0a;top: 19px;" mat-icon-button
+                        (dblclick)="openDialog('delete', i)" aria-label="delte">
                         <mat-icon style="font-size: 17px;">cancel</mat-icon>
                     </button>
                 </div>
@@ -51,8 +72,8 @@
                 <div class="emoji-handle">.</div>
                 <div style="position: absolute;right: 0px;">
                     <button *ngIf="bmxClientPageOverview" matTooltip="double click to delete" matTooltipPosition="above"
-                        style="outline: none;color:#f10a0a;top: 30px;" mat-icon-button (dblclick)="openDialog('delete', i)"
-                        aria-label="delte">
+                        style="outline: none;color:#f10a0a;top: 30px;" mat-icon-button
+                        (dblclick)="openDialog('delete', i)" aria-label="delte">
                         <mat-icon style="font-size: 17px;">cancel</mat-icon>
                     </button>
                 </div>
@@ -67,8 +88,8 @@
                 <div class="emoji-handle">.</div>
                 <div style="position: absolute;right: 0px;">
                     <button *ngIf="bmxClientPageOverview" matTooltip="double click to delete" matTooltipPosition="above"
-                        style="outline: none;color:#f10a0a;top: 7px;" mat-icon-button (dblclick)="openDialog('delete', i)"
-                        aria-label="delte">
+                        style="outline: none;color:#f10a0a;top: 7px;" mat-icon-button
+                        (dblclick)="openDialog('delete', i)" aria-label="delte">
                         <mat-icon style="font-size: 17px;">cancel</mat-icon>
                     </button>
                 </div>
@@ -84,8 +105,8 @@
                 <div class="emoji-handle">.</div>
                 <div style="position: absolute;right: 0px;">
                     <button *ngIf="bmxClientPageOverview" matTooltip="double click to delete" matTooltipPosition="above"
-                        style="outline: none;color:#f10a0a;top: 19px;" mat-icon-button (dblclick)="openDialog('delete', i)"
-                        aria-label="delte">
+                        style="outline: none;color:#f10a0a;top: 19px;" mat-icon-button
+                        (dblclick)="openDialog('delete', i)" aria-label="delte">
                         <mat-icon style="font-size: 17px;">cancel</mat-icon>
                     </button>
                 </div>
@@ -99,8 +120,8 @@
                 <div class="emoji-handle">.</div>
                 <div style="position: absolute;right: 0px;">
                     <button *ngIf="bmxClientPageOverview" matTooltip="double click to delete" matTooltipPosition="above"
-                        style="outline: none;color:#f10a0a;top: 19px;" mat-icon-button (dblclick)="openDialog('delete', i)"
-                        aria-label="delte">
+                        style="outline: none;color:#f10a0a;top: 19px;" mat-icon-button
+                        (dblclick)="openDialog('delete', i)" aria-label="delte">
                         <mat-icon style="font-size: 17px;">cancel</mat-icon>
                     </button>
                 </div>
@@ -115,8 +136,8 @@
                 <div class="emoji-handle">.</div>
                 <div style="position: absolute;right: 0px;">
                     <button *ngIf="bmxClientPageOverview" matTooltip="double click to delete" matTooltipPosition="above"
-                        style="outline: none;color:#f10a0a;top: 19px;" mat-icon-button (dblclick)="openDialog('delete', i)"
-                        aria-label="delte">
+                        style="outline: none;color:#f10a0a;top: 19px;" mat-icon-button
+                        (dblclick)="openDialog('delete', i)" aria-label="delte">
                         <mat-icon style="font-size: 17px;">cancel</mat-icon>
                     </button>
                 </div>
@@ -130,8 +151,8 @@
                 <div class="emoji-handle">.</div>
                 <div style="position: absolute;right: 0px;">
                     <button *ngIf="bmxClientPageOverview" matTooltip="double click to delete" matTooltipPosition="above"
-                        style="outline: none;color:#f10a0a;top: 19px;" mat-icon-button (dblclick)="openDialog('delete', i)"
-                        aria-label="delte">
+                        style="outline: none;color:#f10a0a;top: 19px;" mat-icon-button
+                        (dblclick)="openDialog('delete', i)" aria-label="delte">
                         <mat-icon style="font-size: 17px;">cancel</mat-icon>
                     </button>
                 </div>
@@ -146,8 +167,8 @@
                 <div class="emoji-handle">.</div>
                 <div style="position: absolute;right: 0px;">
                     <button *ngIf="bmxClientPageOverview" matTooltip="double click to delete" matTooltipPosition="above"
-                        style="outline: none;color:#f10a0a;top: 19px;" mat-icon-button (dblclick)="openDialog('delete', i)"
-                        aria-label="delte">
+                        style="outline: none;color:#f10a0a;top: 19px;" mat-icon-button
+                        (dblclick)="openDialog('delete', i)" aria-label="delte">
                         <mat-icon style="font-size: 17px;">cancel</mat-icon>
                     </button>
                 </div>
@@ -163,8 +184,8 @@
                 <div class="emoji-handle">.</div>
                 <div style="position: absolute;right: 0px;">
                     <button *ngIf="bmxClientPageOverview" matTooltip="double click to delete" matTooltipPosition="above"
-                        style="outline: none;color:#f10a0a;top: 19px;" mat-icon-button (dblclick)="openDialog('delete', i)"
-                        aria-label="delte">
+                        style="outline: none;color:#f10a0a;top: 19px;" mat-icon-button
+                        (dblclick)="openDialog('delete', i)" aria-label="delte">
                         <mat-icon style="font-size: 17px;">cancel</mat-icon>
                     </button>
                 </div>
@@ -197,12 +218,10 @@
                     </button>
                 </div>
                 <div class="button-name">
-                  <button *ngIf="globalProjectName"
-                          class="no-print project-name-global"
-                          mat-raised-button
-                          style="position: relative; z-index: 9999999999; outline: none;">
-                    {{title}}: {{ globalDisplayName ? globalDisplayName : globalProjectName }}
-                  </button>
+                    <button *ngIf="globalProjectName" class="no-print project-name-global" mat-raised-button
+                        style="position: relative; z-index: 9999999999; outline: none;">
+                        {{title}}: {{ globalDisplayName ? globalDisplayName : globalProjectName }}
+                    </button>
                 </div>
 
             </div>
@@ -270,7 +289,7 @@
                 mat-icon-button aria-label="aria">
                 <mat-icon class="full-icon-secondary">post_add</mat-icon>
             </button>
-            <button *ngIf="!false" (dblclick)="deletePage()" matTooltip="double click to delete current page"
+            <button *ngIf="!false" (dblclick)="showDeletePage = true" matTooltip="double click to delete current page"
                 matTooltipPosition="right" mat-icon-button aria-label="aria">
                 <mat-icon class="full-icon-secondary">layers_clear</mat-icon>
             </button>
@@ -285,13 +304,14 @@
                 </div>
             </button>
 
-            <button *ngIf="true" (dblclick)="resetTemplate()" mat-icon-button
+            <button *ngIf="true" (dblclick)="showReset = true" mat-icon-button
                 matTooltip="double click to reset template" matTooltipPosition="right">
                 <mat-icon class="full-icon-secondary">delete_sweep
                 </mat-icon>
             </button>
             <br>
-            <button *ngIf="true" (click)="isTemplate=='true'?saveTemplate() : openDialog('save')" mat-icon-button matTooltip="{{isTemplate == 'true' ? 'Save Template' : 'Save Brand Matrix'}}"
+            <button *ngIf="true" (click)="isTemplate=='true'?saveTemplate() : openDialog('save')" mat-icon-button
+                matTooltip="{{isTemplate == 'true' ? 'Save Template' : 'Save Brand Matrix'}}"
                 matTooltipPosition="right">
                 <mat-icon class="full-icon">cloud_upload
                 </mat-icon>
@@ -320,10 +340,9 @@
 </div>
 
 <!--  MODAL BOX TO SAVE TEMPLATES -->
-<div *ngIf="isTemplateBoxOn" class="save-template-box"
+<div *ngIf="isTemplateBoxOn && !showSaveTemplate" class="save-template-box"
     style="display: flex;flex-direction: column;align-items: center;justify-content: space-evenly;">
     <h2 style="text-align: center;padding-top: 5px;color: #2a3f8a;">{{templateTitle}}</h2>
-
     <mat-form-field appearance="outline">
         <mat-label>New Template Name</mat-label>
         <input matInput [(ngModel)]="templateName" placeholder="New Name" (click)="isSaveOrUpdate = false">
@@ -334,14 +353,15 @@
 
     <div *ngIf="templateName.length > 3"
         style="display: flex;flex-direction: row;justify-content: space-evenly; width: 300px;">
-        <button (click)="saveOrUpdateTemplate(templateName)" mat-raised-button
-            style="color: white;background-color: #2a3f8a">
+        <button (click)="showSaveTemplate = true; changeDialog(templateName)" mat-raised-button style="color: white;background-color: #2a3f8a">
             save
         </button>
     </div>
     <mat-icon (click)="isTemplateBoxOn = false" style="cursor: pointer;" class="full-icon">close
     </mat-icon>
 </div>
+
+
 
 <!--  MODAL BOX TO UPDATE TEMPLATES -->
 <div *ngIf="isTemplateUpdate" class="save-template-box"
@@ -357,18 +377,22 @@
             </mat-option>
         </mat-select>
     </mat-form-field>
-    <div *ngIf="templateName.length > 3"style="display: flex;flex-direction: row;justify-content: space-evenly; width: 300px;">
-        <button *ngIf="isSaveOrUpdate" (click)="loadTemplate(templateName)" mat-raised-button style="color: white;background-color: #8a2a5a ">
+    <div *ngIf="templateName.length > 3"
+        style="display: flex;flex-direction: row;justify-content: space-evenly; width: 300px;">
+        <button *ngIf="isSaveOrUpdate" (click)="loadTemplate(templateName)" mat-raised-button
+            style="color: white;background-color: #8a2a5a ">
             load
         </button>
 
         <p *ngIf="isSaveOrUpdate">or</p>
-        <button *ngIf="isSaveOrUpdate" (click)="saveOrUpdateTemplate(templateName)" mat-raised-button style="color: white;background-color: #2a3f8a">
+        <button *ngIf="isSaveOrUpdate" (click)="saveOrUpdateTemplate(templateName)" mat-raised-button
+            style="color: white;background-color: #2a3f8a">
             update
         </button>
 
         <p *ngIf="isSaveOrUpdate">or</p>
-        <button *ngIf="isSaveOrUpdate" (dblclick)="deleteTemplate(templateName)" matTooltip="double click to delete template" matTooltipPosition="below" mat-raised-button
+        <button *ngIf="isSaveOrUpdate" (dblclick)="showDelete = true; changeDialogDelete(templateName)"
+            matTooltip="double click to delete template" matTooltipPosition="below" mat-raised-button
             style="color: white;background-color: #972044">
             delete
         </button>

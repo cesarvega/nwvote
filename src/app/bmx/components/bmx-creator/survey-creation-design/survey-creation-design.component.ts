@@ -73,6 +73,10 @@ export class SurveyCreationDesignComponent implements OnInit {
     isSaveOrUpdate = false;
     isOverViewPageOn = false;
     templateTitle;
+    showSaveTemplate = false
+    showDelete = false
+    showDeletePage = false
+    showReset = false
     title = ''
     TEMPLATES = [
         { TemplateName: 'Standard Personal Preference' },
@@ -384,7 +388,6 @@ export class SurveyCreationDesignComponent implements OnInit {
     }
 
     deletePage() {
-        if (confirm("Are you sure you want to delete this page?")) {
             if (this.currentPage > 0) {
 
                 this.bmxPages.splice(this.currentPage, 1)
@@ -394,8 +397,7 @@ export class SurveyCreationDesignComponent implements OnInit {
                 });
                 this.currentPage--
             }
-        }
-
+            this.showDeletePage = false
     }
 
     createPage() {
@@ -848,16 +850,14 @@ export class SurveyCreationDesignComponent implements OnInit {
 
     // TEMPLATE METHODS
     saveOrUpdateTemplate(templateName, displayName?: any) {
-        if (confirm('Are you sure you want to save or update ' + this.selectedDisplayNem + ' template?')) {
+            this.showSaveTemplate = false
             const nameToShow = this.selectedDisplayNem 
             localStorage.setItem(templateName, JSON.stringify(this.bmxPages));
-            console.log(this.bmxPages)
-            console.log(displayName, templateName)
             this._BmxService.saveBrandMatrixTemplate(templateName, this.bmxPages, this.biUserId, this.selectedDisplayNem ? this.selectedDisplayNem : templateName).subscribe((template: any) => {
 
                 let x1 = JSON.parse(template.d)
                 console.log(x1)
-                this.templateTitle = "Template '" + nameToShow + "' saved 🧐";
+                this.templateTitle = "Template '" + templateName + "' saved 🧐";
                 this._snackBar.open(this.templateTitle, 'OK', {
                     duration: 5000,
                     horizontalPosition: 'right',
@@ -873,7 +873,6 @@ export class SurveyCreationDesignComponent implements OnInit {
                 //this.openSaveTemplateBox();
             }, 1000);
             this.isTemplateBoxOn = false
-        }
     }
 
     loadTemplate(templateName) {
@@ -896,7 +895,6 @@ export class SurveyCreationDesignComponent implements OnInit {
         // if (localStorage.getItem(templateName)) {
         //   this.bmxPages = JSON.parse(localStorage.getItem(templateName));
         // }
-        if (confirm('Are you sure you want to delete ' + templateName + ' template?')) {
             this._BmxService.deleteBrandMatrixTemplateByName(templateName, this.biUserId).subscribe((template: any) => {
                 this._snackBar.open('template ' + "'" + templateName + "'" + ' deleted 😳', 'OK', {
                     duration: 5000,
@@ -904,12 +902,12 @@ export class SurveyCreationDesignComponent implements OnInit {
                     verticalPosition: 'top',
                 })
             })
-        }
+            this.showDelete = false
         this.openSaveTemplateBox();
     }
 
     resetTemplate() {
-        if (confirm("Are you sure you want to reset this template?")) {
+      
             this.selectPageNumber(0)
             this.bmxPages = [];
 
@@ -934,7 +932,7 @@ export class SurveyCreationDesignComponent implements OnInit {
                 ]
             });
 
-        }
+            this.showReset = false
 
     }
 
@@ -1223,8 +1221,19 @@ export class SurveyCreationDesignComponent implements OnInit {
 
     closeDialog() {
         this.showDialog = false
+        this.showSaveTemplate = false
+        this.showDelete = false
+        this.showDeletePage = false
+        this.showReset = false
     }
 
+    changeDialog(templateName){
+        this.dialogText = 'Are you sure you want to save or update ' + templateName + ' template?'
+    }
+
+    changeDialogDelete(templateName){
+        this.dialogText = 'Are you sure you want to delete ' + templateName + ' template?'
+    }
     openDialog(type: any, component?: any) {
         if (type === 'delete') {
             this.templateToDelete = component
