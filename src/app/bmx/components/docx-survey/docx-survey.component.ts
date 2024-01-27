@@ -1743,6 +1743,7 @@ export class DocxSurveyComponent implements OnInit {
                 rankings.set(combinedStr, (rankings.get(combinedStr) + y.answers[k].score[0].RATE + y.answers[k].score[1].RATE));
               }
               else {
+                console.log(y)
                 rankings.set(combinedStr, (y.answers[k].score[0]?.RATE + y.answers[k].score[1]?.RATE));
               }
 

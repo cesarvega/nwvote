@@ -107,7 +107,10 @@ export class ProjectInformationComponent implements OnInit {
             } else if (data.bmxStatus == "close") {
               this.status = "close"
             }
+            localStorage.setItem('company', data.bmxCompany )
+            console.log(data)
             var list;
+            this._BmxService.setDirectors(data.bmxRegionalOffice)
             /*
             for (let i = 0; i < data.DirectorList.length; i++) {
               let director: any = {}
@@ -201,6 +204,7 @@ export class ProjectInformationComponent implements OnInit {
       "bmxStatus": this.status.toString,
       "bmxClosingDate": this.selectedDate,
     }
+    this._BmxService.setprojectData(this.DIRECTORS)
     var finalString = JSON.stringify(projectInfo);
     finalString = finalString.replace("[\\u2022,\\u2023,\\u25E6,\\u2043,\\u2219]\\s\\d", '');
     this._BmxService.saveProjectInfo(this.bmxEditData.get('bmxProjectName').value.toString(), finalString, 'user@bi.com').subscribe(result => {

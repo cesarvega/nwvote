@@ -15,10 +15,12 @@ export class BmxService {
   private projectName$ = new BehaviorSubject<string>('');
   private projectData$ = new BehaviorSubject<string>('');
   private specialData$ = new BehaviorSubject<string>('');
+  private directors$ = new BehaviorSubject<any>('');
 
   currentProjectName$ = this.projectName$.asObservable();
   currentprojectData$ = this.projectData$.asObservable();
   specialDataObservable$ = this.specialData$.asObservable();
+  directorsObservable$ = this.directors$.asObservable();
 
   setSelectedProjects(data: any): void {
     return this.selectedProjectsSubject.next(data);
@@ -37,6 +39,14 @@ export class BmxService {
   }
   setSpecialDataObservable(projectData: any) {
     this.specialData$.next(projectData);
+  }
+  setDirectors(directos){
+    this.directors$.next(directos)
+
+  }
+
+  getDirectos(){
+    return this.directors$
   }
 
   //webBaseUrl = 'https://tools.brandinstitute.com//wsBrandMatrix/wsBrandMatrix.asmx';
