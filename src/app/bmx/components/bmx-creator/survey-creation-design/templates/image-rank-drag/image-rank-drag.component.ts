@@ -86,9 +86,7 @@ export class ImageRankDragComponent extends RatingScaleComponent implements OnIn
     console.log(isMobile);  // returns if the device is a mobile device (android / iPhone / windows-phone etc)
     console.log(isTablet);  // returns if the device us a tablet (iPad etc)
   }
-  ngOnInit(): void {    this.showDialog = false
-
-    console.log(this.bmxClientPageOverview, 'hola')
+  ngOnInit(): void {    this.showDialog = false    
     this.numRatingScale = this.bmxItem.componentText[0].STARS.length
     this.rankingScaleValue = this.numRatingScale;
     let values = Object.keys(this.bmxItem.componentText[0])
