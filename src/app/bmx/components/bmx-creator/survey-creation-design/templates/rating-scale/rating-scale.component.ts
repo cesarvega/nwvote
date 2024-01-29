@@ -149,6 +149,7 @@ export class RatingScaleComponent implements OnInit {
     this.rankingScaleValue = this.numRatingScale;
     let values = Object.keys(this.bmxItem.componentText[0])
     this.rowsCount = this.bmxItem.componentText.length - 1
+    console.log(this.bmxItem.componentSettings[0])
     this.bmxItem.componentSettings[0].minRule = this.bmxItem.componentSettings[0].minRule == 0 ? 0 : this.bmxItem.componentSettings[0].minRule;
     this.bmxItem.componentSettings[0].maxRule = this.bmxItem.componentSettings[0].maxRule == 0 ? 0 : this.bmxItem.componentSettings[0].maxRule;
     this.numRatingScale = this.bmxItem.componentText[0].STARS?.length
@@ -231,6 +232,7 @@ export class RatingScaleComponent implements OnInit {
     this.newselectedCriteria = filteredCriteria
     this.launchPathModal.emit(this.VIDEO_PATH)
     console.log(this.newselectedCriteria)
+    console.log(this.maxRuleCounter,  this.bmxItem.componentSettings[0].maxRule )
   }
 
   openSelected(y: any) {
@@ -348,7 +350,8 @@ export class RatingScaleComponent implements OnInit {
       //   this._bmxService.setSpecialDataObservable(payload)
       // }
     } else {
-      if (this.maxRuleCounter < this.bmxItem.componentSettings[0].maxRule && this.bmxItem.componentText[testNameId].RATE == 0 || this.bmxItem.componentSettings[0].maxRule == 0) {
+      console.log(this.maxRuleCounter,  this.bmxItem.componentSettings[0].maxRule)
+      if (this.maxRuleCounter < this.bmxItem.componentSettings[0].maxRule || this.bmxItem.componentSettings[0].maxRule == 0) {
 
         if (this.bmxItem.componentSettings[0].maxRule > 0) { this.maxRuleCounter++ }
         this.bmxItem.componentText[testNameId].RATE = rate
@@ -358,9 +361,10 @@ export class RatingScaleComponent implements OnInit {
         } else { this.bmxItem.componentSettings[0].categoryRulesPassed = false }
         //autosave
         this.autoSave.emit();
-      } else if (this.maxRuleCounter <= this.bmxItem.componentSettings[0].maxRule && this.bmxItem.componentText[testNameId].RATE != 0) {
+      } else if (this.maxRuleCounter < this.bmxItem.componentSettings[0].maxRule) {
         this.bmxItem.componentText[testNameId].RATE = rate
         //autosave
+        if (this.bmxItem.componentSettings[0].maxRule > 0) { this.maxRuleCounter++ }
         this.autoSave.emit();
       } else {
         if (this.bmxItem.componentType != 'narrow-down' && this.bmxItem.componentSettings[0].maxRule > 0) {
