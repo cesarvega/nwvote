@@ -279,7 +279,10 @@ export class SurveyCreationDesignComponent implements OnInit {
                 localStorage.setItem('projectName', this.projectId);
             })
         }
-        this._BmxService.getDirectos().subscribe(directors => this.directors = directors)
+        this._BmxService.getDirectos().subscribe(directors =>
+            this.directors = directors
+
+        )
 
         this.myAngularxQrCode = this.myAngularxQrCode + this.projectId + '/' + this.biUsername
 
@@ -338,7 +341,6 @@ export class SurveyCreationDesignComponent implements OnInit {
             console.log('a')
             //   this.bmxPages = this.SAMPLE_BMX;
             this._BmxService.getBrandMatrixByProject(this.projectId).subscribe((brandMatrix: any) => {
-                console.log(JSON.parse(brandMatrix.d))
                 if (brandMatrix.d.length > 0) {
                     let objeto = JSON.parse(brandMatrix.d);
                     let logoUrl = ""
@@ -371,7 +373,6 @@ export class SurveyCreationDesignComponent implements OnInit {
                 }
                 this._BmxService.getDirectos().subscribe(directors => {
                     this.directors = directors
-                    console.log(this.bmxPages)
                     const index = this.bmxPages[0].page[1].componentText.indexOf('<p style="text-align:center">BI_DIRECTOR</p>');
 
                     if (index !== -1) {
@@ -383,6 +384,13 @@ export class SurveyCreationDesignComponent implements OnInit {
 
                         this.bmxPages[0].page[1].componentText = this.bmxPages[0].page[1].componentText + newParagraphs.join('')
                     }
+
+                    const name = localStorage.getItem('projectName')
+                    const company = localStorage.getItem('company')
+                    const replacedText = this.bmxPages[0].page[1].componentText
+                        .replace(/\[PROJECT NAME\]/g, name)
+                        .replace(/\[Company Name\]/g, company)
+                    this.bmxPages[0].page[1].componentText = replacedText;
                 })
             })
             this.title = 'PROJECT'
@@ -892,7 +900,6 @@ export class SurveyCreationDesignComponent implements OnInit {
         }, 1000);
         this.isTemplateBoxOn = false
     }
-
     loadTemplate(templateName) {
         const name = localStorage.getItem('projectName')
         const company = localStorage.getItem('company')
@@ -909,7 +916,6 @@ export class SurveyCreationDesignComponent implements OnInit {
 
 
             this.bmxPages[0].page[1].componentText = replacedText;
-            console.log(this.bmxPages[0].page[1].componentText)
             const index = this.bmxPages[0].page[1].componentText.indexOf('<p>&nbsp;</p>');
 
             this.bmxPages[0].page[1].componentText = this.bmxPages[0].page[1].componentText.substring(0, index);
