@@ -1,7 +1,7 @@
 <div class="desktop"  (mouseenter)="showLogoIcon = true" (mouseleave)="showLogoIcon = false">
-    <!-- <span
-        style="color: #053074;font-size: 30px;outline: none;font-family: Arial, Helvetica, 
-        sans-serif;text-align: center;padding-top: 20px;">{{bmxItem.componentText}}</span> -->
+    <span *ngIf="this.isBrandMatrixSurvey" style="color: #053074;font-size: 30px;outline: none;font-family: Arial, Helvetica, 
+        sans-serif;text-align: center;padding-top: 20px;">{{bmxItem.componentText}}
+    </span>
     <div class="emoji-handle">.</div>
     <div style="display: flex;flex-direction: row;justify-items: center;justify-content: space-between;align-items: center;margin: -30px 35px;">
         <div>

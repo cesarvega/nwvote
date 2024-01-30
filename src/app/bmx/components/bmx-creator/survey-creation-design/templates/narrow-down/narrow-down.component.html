@@ -314,8 +314,7 @@ justify-content: center;cursor: move; height: 25px; width: 100%;"><svg width="24
                     </div>
                 </div>
 
-                    <div style="    margin-top: 0.5rem;
-        ">
+                    <div style=" margin-top: 0.5rem; ">
                         <div style="font-size: 14px;color: #48535e;">CHOOSE RATING ICON</div>
                         <br>
                         <mat-radio-group aria-label="Select an option" [(ngModel)]="ratingScaleIcon">
@@ -341,7 +340,7 @@ justify-content: center;cursor: move; height: 25px; width: 100%;"><svg width="24
             <mat-icon>cancel</mat-icon><br>Cancel
         </button>
         <button style="outline: none;color:#76d354;margin-bottom: 50px;" mat-icon-button
-            (click)="selectedIndex = '';upLoadNamesAndRationales(testNamesInput)" [disabled]="false"
+            (click)="selectedIndex = '';criteriaSelection(newselectedCriteria);upLoadNamesAndRationales(testNamesInput)" [disabled]="false"
             aria-label="ranking">
             <mat-icon>check_circle</mat-icon><br> Done
         </button>

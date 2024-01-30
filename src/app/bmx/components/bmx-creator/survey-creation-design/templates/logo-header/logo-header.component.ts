@@ -1,4 +1,5 @@
 import {
+  AfterViewInit,
   Component,
   ElementRef,
   EventEmitter,
@@ -39,13 +40,14 @@ export class LogoHeaderComponent implements OnInit {
   projectId: any;
   biUsername: any;
   imageLogoSrc 
-  showLogoIcon = false
+  showLogoIcon = false;  
 
-  constructor(private _BmxService: BmxService) {}
+  constructor(private _BmxService: BmxService,private el: ElementRef) {}
 
   ngOnInit(): void {
     this.bmxItem.componentText = (localStorage.getItem('projectName'))?localStorage.getItem('projectName'):this.bmxItem.componentText;
     this.imageLogoSrc = this.bmxItem.componentSettings[0].companyLogoURL
+    console.log(this.isBrandMatrixSurvey)
   }
 
   onFileSelected(event) {

@@ -30,7 +30,10 @@ export class NarrowDownComponent extends RatingScaleComponent implements OnInit 
 
   ngOnInit(): void {
     this.showDialog = false
-
+    let selectedCriteria = [];
+    if(this.bmxItem.componentText[0].CRITERIA){
+      this.selectedCriteria = this.bmxItem.componentText[0].CRITERIA;
+    }    
     if(this.bmxItem.componentText[0].hasOwnProperty("STARS")){
       this.numRatingScale = this.bmxItem.componentText[0].STARS.length
     }
@@ -46,7 +49,7 @@ export class NarrowDownComponent extends RatingScaleComponent implements OnInit 
       }
     });
 
-      console.log(this.bmxItem.componentSettings)
+    console.log(this.bmxItem.componentSettings)
     this.randomizeTestNames = this.bmxItem.componentSettings[0].randomizeTestNames
     this.rowsCount = this.bmxItem.componentText.length - 1;
     this.bmxItem.componentSettings[0].minRule = this.bmxItem.componentSettings[0].minRule == 0?0 :this.bmxItem.componentSettings[0].minRule;
@@ -57,6 +60,6 @@ export class NarrowDownComponent extends RatingScaleComponent implements OnInit 
     }
     const filteredCriteria = this.CRITERIA.filter(criteriaItem => this.selectedCriteria.map(item => item.name).includes(criteriaItem.name));
     this.newselectedCriteria = filteredCriteria
-    this.rankingScaleValue = this.bmxItem.componentText[0].STARS?.length;
+    this.rankingScaleValue = this.bmxItem.componentText[0].CRITERIA[0].STARS?.length;
   }
 }

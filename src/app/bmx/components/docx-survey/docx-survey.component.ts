@@ -1743,7 +1743,8 @@ export class DocxSurveyComponent implements OnInit {
                 rankings.set(combinedStr, (rankings.get(combinedStr) + y.answers[k].score[0].RATE + y.answers[k].score[1].RATE));
               }
               else {
-                rankings.set(combinedStr, (y.answers[k].score[0].RATE + y.answers[k].score[1].RATE));
+                console.log(y)
+                rankings.set(combinedStr, (y.answers[k].score[0]?.RATE + y.answers[k].score[1]?.RATE));
               }
 
 
@@ -1919,7 +1920,7 @@ export class DocxSurveyComponent implements OnInit {
                 new TextRun
                   (
                     {
-                      text: "[" + overall[i].question[j].resp[k].name + "]" + " " + overall[i].question[j].resp[k].value[0].RATE.toString() + " " + overall[i].question[j].resp[k].value[1].RATE.toString(),
+                      text: "[" + overall[i].question[j].resp[k].name + "]" + " " + overall[i].question[j].resp[k].value[0]?.RATE.toString() + " " + overall[i].question[j].resp[k].value[1]?.RATE.toString(),
                       font:
                       {
                         name: "Open Sans",
@@ -2403,7 +2404,7 @@ export class DocxSurveyComponent implements OnInit {
     else if (this.reportType === "criteria") {
       var test = overall[0][1][0].score[0].name
       row.push(
-        this.createHeader(["Name", this.nameTyping, "Rationale", overall[0][1][0].score[0].name, overall[0][1][0].score[1].name], "criteria")
+        this.createHeader(["Name", this.nameTyping, "Rationale", overall[0][1][0].score[0]?.name, overall[0][1][0].score[1]?.name], "criteria")
       )
     }
     else if (this.reportType === "vote") {
@@ -2764,7 +2765,7 @@ export class DocxSurveyComponent implements OnInit {
                 new TextRun
                   (
                     {
-                      text: overall[i][1][j].score[1].RATE,
+                      text: overall[i][1][j].score[1]?.RATE,
                       font:
                       {
                         name: "Open Sans",

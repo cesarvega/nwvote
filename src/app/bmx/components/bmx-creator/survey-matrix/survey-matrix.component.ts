@@ -865,11 +865,12 @@ export class SurveyMatrixComponent extends SurveyCreationDesignComponent impleme
                       key === 'nameCandidates' &&
                       templateRow[key] === answerRow[key]
                     ) {
+                      console.log(templateRow.CRITERIA)
+                      console.log(answerRow)
                       templateRow.CRITERIA.forEach(
                         (criteria, criteriaIndex) => {
                           if (answerRow.CRITERIA) {
-                            criteria.RATE =
-                              answerRow.CRITERIA[criteriaIndex].RATE;
+                            criteria.RATE = answerRow.CRITERIA[criteriaIndex].RATE;
                             criteria.STARS.forEach((starRow) => {
                               if (
                                 starRow.id <=
