@@ -204,7 +204,8 @@ export class ProjectInformationComponent implements OnInit {
       "bmxStatus": this.status.toString,
       "bmxClosingDate": this.selectedDate,
     }
-    this._BmxService.setprojectData(this.DIRECTORS)
+    this._BmxService.setDirectors(this.DIRECTORS)
+    localStorage.setItem('company', this.bmxEditData.get('bmxCompany').value.toString(), )
     var finalString = JSON.stringify(projectInfo);
     finalString = finalString.replace("[\\u2022,\\u2023,\\u25E6,\\u2043,\\u2219]\\s\\d", '');
     this._BmxService.saveProjectInfo(this.bmxEditData.get('bmxProjectName').value.toString(), finalString, 'user@bi.com').subscribe(result => {
