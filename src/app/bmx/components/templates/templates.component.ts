@@ -82,8 +82,7 @@ export class TemplatesComponent implements OnInit {
         this.settingsData = JSON.parse(arg.d);
         console.log(this.settingsData)
         this.TEMPLATES = (this.settingsData.BrandMatrixTemplateList.length) > 0 ? JSON.parse(arg.d).BrandMatrixTemplateList.map((obj, index) => { return {index: index+1,displayName: obj.DisplayName, templateName: obj.TemplateName, brandMatrix: obj.BrandMatrix,created: obj.LastUpdate } }) : this.TEMPLATES
-        console.log(this.TEMPLATES)
-      
+        console.log(this.TEMPLATES)      
         this.settingsData.OfficeList.unshift('All');
         //console.log(JSON.parse(arg.d));
         //AUTOCOMPLETE 🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖
@@ -141,7 +140,6 @@ export class TemplatesComponent implements OnInit {
 
     this.router.navigate(['templates-edition/99CB72BF-D163-46A6-8A0D-E1531EC7FEDC'])
   }
-
 
   openModal() {
     this.showModal = true;

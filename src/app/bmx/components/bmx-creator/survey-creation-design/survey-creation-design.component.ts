@@ -332,6 +332,7 @@ export class SurveyCreationDesignComponent implements OnInit {
 
             }
             this.title = 'TEMPLATE'
+            this.loadTemplate(this.projectId)
         }
         else if (this.bmxPagesClient) {
             this.bmxPages = this.bmxPagesClient;
@@ -373,6 +374,7 @@ export class SurveyCreationDesignComponent implements OnInit {
                 }
                 this._BmxService.getDirectos().subscribe(directors => {
                     this.directors = directors
+                    console.log(this.bmxPages)
                     const index = this.bmxPages[0].page[1].componentText.indexOf('<p style="text-align:center">BI_DIRECTOR</p>');
 
                     if (index !== -1) {
@@ -901,6 +903,7 @@ export class SurveyCreationDesignComponent implements OnInit {
         this.isTemplateBoxOn = false
     }
     loadTemplate(templateName) {
+        console.log(templateName)
         const name = localStorage.getItem('projectName')
         const company = localStorage.getItem('company')
         this._BmxService.getBrandMatrixTemplateByName(templateName).subscribe((template: any) => {
@@ -913,7 +916,6 @@ export class SurveyCreationDesignComponent implements OnInit {
             const replacedText = originalText
                 .replace(/\[PROJECT NAME\]/g, name)
                 .replace(/\[Company Name\]/g, company)
-
 
             this.bmxPages[0].page[1].componentText = replacedText;
             const index = this.bmxPages[0].page[1].componentText.indexOf('<p>&nbsp;</p>');
