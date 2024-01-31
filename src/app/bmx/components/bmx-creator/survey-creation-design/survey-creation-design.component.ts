@@ -479,7 +479,7 @@ export class SurveyCreationDesignComponent implements OnInit {
         } else if (componentType === 'rate-scale') {
             this.TestNameDataModel = [];
             this.TestNameDataModel.push({
-                nameCandidates: 'NAME',
+                nameCandidates: 'Name Candidates',
                 rationale: 'RATIONALE',
                 RATE: 'RATE',
                 STARS: this.createRatingStars(),
@@ -522,7 +522,7 @@ export class SurveyCreationDesignComponent implements OnInit {
         else if (componentType === 'ranking-scale') {
             this.TestNameDataModel = [];
             this.TestNameDataModel.push({
-                nameCandidates: 'NAME',
+                nameCandidates: 'Name Candidates',
                 rationale: 'RATIONALE',
                 RATE: 'RATE',
                 STARS: this.createRankinScale(),
@@ -571,7 +571,7 @@ export class SurveyCreationDesignComponent implements OnInit {
         else if (componentType === 'image-rank-drag') {
             this.TestNameDataModel = [];
             this.TestNameDataModel.push({
-                nameCandidates: 'NAME',
+                nameCandidates: 'Name Candidates',
                 rationale: 'RATIONALE',
                 RATE: 'RATE',
                 STARS: this.createRankinScale(),
@@ -669,7 +669,7 @@ export class SurveyCreationDesignComponent implements OnInit {
         else if (componentType === 'narrow-down') {
             this.TestNameDataModel = [];
             this.TestNameDataModel.push({
-                name: 'NAME',
+                name: 'Name Candidates',
                 rationale: 'RATIONALE',
                 RATE: 'RATE',
                 // STARS: this.createRatingStars()
