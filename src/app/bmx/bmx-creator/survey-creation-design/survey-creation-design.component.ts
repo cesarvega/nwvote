@@ -812,6 +812,7 @@ export class SurveyCreationDesignComponent implements OnInit {
     }
 
     loadTemplate(templateName) {
+        console.log(templateName)
         // if (localStorage.getItem(templateName)) {
         //   this.bmxPages = JSON.parse(localStorage.getItem(templateName));
         // }
@@ -881,7 +882,6 @@ export class SurveyCreationDesignComponent implements OnInit {
     delete() {
         this.isTemplateBoxOn = true;
     }
-
 
     openSaveTemplateBox() {
         this.templateName = '';
