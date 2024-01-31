@@ -139,7 +139,7 @@ export class TemplatesComponent implements OnInit {
     var test = option;
     localStorage.setItem('templates', 'true');
 
-    this.router.navigate(['bmx-creation/99CB72BF-D163-46A6-8A0D-E1531EC7FEDC'])
+    this.router.navigate(['templates-edition/99CB72BF-D163-46A6-8A0D-E1531EC7FEDC'])
   }
 
 
