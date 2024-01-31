@@ -27,6 +27,7 @@ const routes: Routes = [
     component: SurveyMatrixComponent
   },
   {path: 'project-information', component: ProjectInformationComponent},
+  {path: 'templates-edition/:id',component: SurveyCreationDesignComponent},
   {path: 'participants', component: RespondentsComponent },
   {path: 'reports', component: ProjectReportsComponent},
   {path: 'participants-emails',component: ParticipantsEmailComponent},
