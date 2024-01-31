@@ -1222,7 +1222,10 @@ export class SurveyCreationDesignComponent implements OnInit {
     }
 
     previewSurvey() {
-        window.open('survey/' + this.projectId + '/' + (this.biUsername ? this.biUsername : 'guest'));
+        console.log(this.projectId)
+        const projectUrl = this.projectId.replace(/\//g,'-')
+        console.log('survey/' + projectUrl + '/' + (this.biUsername ? this.biUsername : 'guest'))
+        window.open('survey/' + projectUrl + '/' + (this.biUsername ? this.biUsername : 'guest'));
     }
 
 
