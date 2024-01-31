@@ -127,6 +127,7 @@ export class SurveyMatrixComponent extends SurveyCreationDesignComponent impleme
     this._BmxService.currentProjectName$.subscribe((res) => {
       this.globalProjectName = res ? res : '';
     });
+    this.projectId = localStorage.getItem('projectName')
     this._BmxService.getProjectInfo(this.projectId).subscribe((arg: any) => {
       console.log(arg)
       this.status = JSON.parse(arg.d).bmxStatus
