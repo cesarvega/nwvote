@@ -316,7 +316,7 @@
                 <mat-icon class="full-icon">cloud_upload
                 </mat-icon>
             </button>
-            <button *ngIf="true" (click)="previewSurvey()" mat-icon-button matTooltip="preview brand matrix"
+            <button *ngIf="true && this.isTemplate != 'true' " (click)="previewSurvey()" mat-icon-button matTooltip="preview brand matrix"
                 matTooltipPosition="right">
                 <mat-icon class="full-icon">visibility
                 </mat-icon>
