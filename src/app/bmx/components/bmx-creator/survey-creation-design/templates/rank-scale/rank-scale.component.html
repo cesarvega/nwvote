@@ -297,7 +297,7 @@
 
                 <mat-checkbox [(ngModel)]="bmxItem.componentSettings[1].isImageType">Rank Logos</mat-checkbox>
             </div>
-            <div class="sm-row-box-rkScale">
+            <div class="sm-row-box-rkScale" *ngIf="this.bmxItem.componentSettings[0].rankType == 'dragAndDrop'">
                 <div>
                     <div
                         style="display: flex;flex-direction: column;justify-content: center;gap: 10px;align-items: center; ">
