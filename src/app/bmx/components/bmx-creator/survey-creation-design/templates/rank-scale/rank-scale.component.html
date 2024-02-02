@@ -207,7 +207,7 @@
                             style="text-align: center;display: flex;flex-direction: row;justify-content: space-around;">
 
                             <input [(ngModel)]="rankingScaleValue" type="range" id="volume" name="volume" min="0"
-                                max="10">
+                                [max]="this.rowsCount">
                             {{rankingScaleValue}}
                         </div>
                     </div>
