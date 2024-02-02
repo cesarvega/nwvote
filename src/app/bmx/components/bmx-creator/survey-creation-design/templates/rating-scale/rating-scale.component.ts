@@ -187,14 +187,17 @@ export class RatingScaleComponent implements OnInit {
     })
 
     this.bmxItem.componentText.forEach((item, index) => {
+      let intValue = 0
       if (item.CRITERIA) {
         if (index > 0) {
           item.CRITERIA.forEach(item => {
             if (item.RATE > 0) {
-              this.maxRuleCounter++
+              intValue = intValue + item.RATE
             }
-
           })
+          if(intValue>0){
+            this.maxRuleCounter++
+          }
         }
       }
     })
