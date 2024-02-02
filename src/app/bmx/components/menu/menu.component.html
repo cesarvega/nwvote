@@ -76,6 +76,13 @@
       </div> -->
       <div class="menu-item-Dark directionProjectList"   [ngClass]="{'menu-item-Light': selectedMenuItem === 'templates', 'menu-item-Dark': selectedMenuItem !== 'templates'}"(click)="navigateTo('templates')">
         <i class="bi bi-list-task"></i>Templates
+        <div class="video-container">
+          <button (click)="CREATION_VIDEO_PATH='assets/videos/templates.mp4' ; showCreationModalVideo=true; "
+            class="video-button" matTooltip="see tutorial" matTooltipPosition="above" mat-icon-button
+            aria-label="ranking">
+            <mat-icon style="font-size: 26px; color: white; margin-left: 55px; " class="full-icon">video_library</mat-icon>
+          </button>
+        </div>
       </div>
       </div>
 
