@@ -150,7 +150,12 @@ export class RatingScaleComponent implements OnInit {
     this.rowsCount = this.bmxItem.componentText.length - 1
     this.bmxItem.componentSettings[0].minRule = this.bmxItem.componentSettings[0].minRule == 0 ? 0 : this.bmxItem.componentSettings[0].minRule;
     this.bmxItem.componentSettings[0].maxRule = this.bmxItem.componentSettings[0].maxRule == 0 ? 0 : this.bmxItem.componentSettings[0].maxRule;
-    this.numRatingScale = this.bmxItem.componentText[0].STARS?.length
+    if(this.bmxItem.componentSettings[0].CRITERIA){
+      this.numRatingScale = this.bmxItem.componentText[0].CRITERIA[0].STARS.length
+    }else{
+      this.numRatingScale = this.bmxItem.componentText[0].STARS?.length
+    }
+    
     values.forEach(value => {
       if (typeof value == "string" && value != "STARS" && value != "CRITERIA") {
         this.columnsNames.push(value)
@@ -160,7 +165,7 @@ export class RatingScaleComponent implements OnInit {
 
     // IF RATING SCALE IS SET
     let amountOfAnswersRateCounter = 0
-    this.rankingScaleValue = this.bmxItem.componentText[0].STARS.length;
+    this.rankingScaleValue = this.numRatingScale;
     this.bmxItem.componentText.forEach((item, index) => {
       if (index > 0) {
         if (item.RATE > 0) {
