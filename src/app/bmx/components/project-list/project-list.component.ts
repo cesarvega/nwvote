@@ -68,6 +68,7 @@ export class ProjectListComponent implements OnInit {
     filterValue = filterValue.trim(); // Remove whitespace
     filterValue = filterValue.toLowerCase(); // Datasource defaults to lowercase matches
     this.dataSource.filter = filterValue;
+    console.log(this.dataSource)
     if (this.dataSource.paginator) {
       this.dataSource.paginator.firstPage();
     }
@@ -141,7 +142,6 @@ export class ProjectListComponent implements OnInit {
     if (this.selectedDate) {
       this.viewedData = this.viewedData.filter(project => project.bmxClosingDate == this.selectedDate.toISOString())
     }
-    console.log(this.viewedData)
     // FILTERING BY DEPARTMENT & OFFICE
     if (this.viewedData.length > 0) {
       if (this.userRole == 'Director') {
