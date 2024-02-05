@@ -1241,10 +1241,11 @@ export class SurveyMatrixComponent extends SurveyCreationDesignComponent impleme
             if (component.componentType == 'narrow-down') {
               component.componentSettings[0].categoryRulesPassed = (minRuleCounter != component.componentSettings[0].minRule) ? false : true;
             }
-            console.log(minRuleCounter, component.componentSettings[0].maxRule )
-            if (component.componentSettings[0].minRule == minRuleCounter && minRuleCounter <= component.componentSettings[0].maxRule ) {
+            console.log(minRuleCounter, component.componentSettings[0].maxRule, )
+            if (minRuleCounter <= component.componentSettings[0].maxRule ) {
               component.componentSettings[0].categoryRulesPassed = true;
             }
+            console.log( component.componentSettings[0].minRule,  component.componentSettings[0].categoryRulesPassed, (component.componentSettings[0].minRule - minRuleCounter) )
             if (
               component.componentSettings[0].minRule == 0 ||
               component.componentSettings[0].categoryRulesPassed ||

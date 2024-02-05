@@ -414,7 +414,6 @@ export class RatingScaleComponent implements OnInit {
 
   setCriteriaRating(starId, criteriaId, testNameId) {
     let intCounter = 0
-    console.log(this.maxRuleCounter,  this.bmxItem.componentSettings[0].maxRule)
     this.bmxItem.componentText[testNameId].CRITERIA.forEach((criteria)=>{
       intCounter = intCounter + criteria.RATE
      })
