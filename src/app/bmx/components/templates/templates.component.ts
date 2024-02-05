@@ -153,7 +153,6 @@ export class TemplatesComponent implements OnInit {
   }
 
   closeModal() {
-    console.log('a')
     this.showModal = false;
     this.newTemplate = false;
     this.showNewTemplateModal = false
@@ -214,7 +213,6 @@ export class TemplatesComponent implements OnInit {
     this.selectedTemplateName = this.newTemplateName
     this.newTemplateName = '';
     this.bmxPages = ''
-    console.log(this.selectedDisplayName)
   }
 
   saveTemplateFromAnExistingOne(templateName) {
