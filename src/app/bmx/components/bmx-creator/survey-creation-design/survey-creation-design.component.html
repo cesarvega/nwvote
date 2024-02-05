@@ -3,7 +3,6 @@
         [dialogText]="dialogText"></app-survey-dialog>
 </div>
 
-
 <div *ngIf="showSaveTemplate">
     <app-survey-dialog (onConfirm)="saveOrUpdateTemplate(templateName)" (onCancel)="closeDialog()"
         [dialogText]="dialogText"></app-survey-dialog>

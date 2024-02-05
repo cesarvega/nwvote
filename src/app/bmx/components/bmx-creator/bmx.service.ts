@@ -217,7 +217,6 @@ export class BmxService {
   // save template string
 
   saveOrUpdateBradnMatrixTemplate(bmxCompleteObject, projectName) {
-    console.log(bmxCompleteObject, projectName)
     const payloadString = JSON.stringify({
       ProjectName: projectName,
       BrandMatrix: JSON.stringify(bmxCompleteObject).replace(this.searchApostropheRegExp, '`')
@@ -262,7 +261,6 @@ export class BmxService {
 
   saveBrandMatrixTemplate(templateName, templateObj, username, DisplayName?) {
     let payloadString
-    console.log(DisplayName)
     if (DisplayName) {
       payloadString = JSON.stringify({
         TemplateName: templateName,
