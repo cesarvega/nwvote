@@ -55,7 +55,6 @@ export class ProjectListComponent implements OnInit {
       });
   }
 
-
   applyFilter(filterValue: string): void {
     filterValue = filterValue.trim(); // Remove whitespace
     filterValue = filterValue.toLowerCase(); // Datasource defaults to lowercase matches
@@ -130,7 +129,5 @@ export class ProjectListComponent implements OnInit {
     // Prevent Saturday and Sunday from being selected.
     return day !== 0 && day !== 6;
   }
-
-
 
 }
