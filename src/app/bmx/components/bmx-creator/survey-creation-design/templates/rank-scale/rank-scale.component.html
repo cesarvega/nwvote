@@ -197,8 +197,6 @@
         <mat-card-content>
             <div class="sm-section3-rkScale">
 
-
-
                 <div class="sm-row-box-rkScale">
                     <div *ngIf="this.bmxItem.componentSettings[0].rankType !='dragAndDrop'">
                         <div style="font-size: 16px;margin-top: 10px;color: #48535e;">SELECT RATING RANGE</div>
@@ -211,10 +209,8 @@
                             {{rankingScaleValue}}
                         </div>
                     </div>
-                    <div style="    margin-top: 0.5rem;
-        ">
-                        <mat-radio-group aria-label="Select an option"
-                            [(ngModel)]="this.bmxItem.componentSettings[0].rankType"
+                    <div style="margin-top: 0.5rem;">
+                        <mat-radio-group aria-label="Select an option"[(ngModel)]="this.bmxItem.componentSettings[0].rankType"
                             (change)="rankingTableType(this.bmxItem.componentSettings[0].rankType)">
                             <div style="display: flex;flex-direction: column;gap: 1px;">
                                 <mat-radio-button value="dropDown">Drop-Down</mat-radio-button>
@@ -297,12 +293,12 @@
 
                 <mat-checkbox [(ngModel)]="bmxItem.componentSettings[1].isImageType">Rank Logos</mat-checkbox>
             </div>
-            <div class="sm-row-box-rkScale" *ngIf="this.bmxItem.componentSettings[0].rankType == 'dragAndDrop'">
+            <div class="sm-row-box-rkScale" *ngIf="this.bmxItem.componentSettings[0].rankType != 'dragAndDrop'">
                 <div>
-                    <div
-                        style="display: flex;flex-direction: column;justify-content: center;gap: 10px;align-items: center; ">
+                    <div style="display: flex;flex-direction: column;justify-content: center;gap: 10px;align-items: center; ">
                         <div style="font-size: 16px;margin-top: 10px;color: #48535e;text-align: center;"> Minimum:
-                            {{bmxItem.componentSettings[0].minRule}}</div>
+                            {{bmxItem.componentSettings[0].minRule}}
+                        </div>
                         <input type="number" min="0" [max]="rowsCount"
                             [(ngModel)]="bmxItem.componentSettings[0].minRule" style="width:53px; padding: 0px 10px;"
                             [value]="bmxItem.componentSettings[0].minRule">
@@ -310,10 +306,10 @@
                     <div style="font-size: 13px;color: #48535e;">Min number of selections to vote on</div>
                 </div>
                 <div>
-                    <div
-                        style="display: flex;flex-direction: column;justify-content:center;gap: 10px;align-items: center;">
+                    <div style="display: flex;flex-direction: column;justify-content:center;gap: 10px;align-items: center;">
                         <div style="font-size: 16px;margin-top: 10px;color: #48535e;text-align: center;"> Maximun:
-                            {{bmxItem.componentSettings[0].maxRule}}</div>
+                            {{bmxItem.componentSettings[0].maxRule}}
+                        </div>
                         <input type="number" min="0" [max]="rowsCount"
                             [(ngModel)]="bmxItem.componentSettings[0].maxRule" style="width:53px; padding: 0px 10px;"
                             [value]="bmxItem.componentSettings[0].maxRule">
