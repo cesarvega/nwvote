@@ -181,12 +181,12 @@
     width: 1024px;
     height: 54px;" cdkDragHandle> </div>
     <div style="text-align: center;">
-        <div style="font-size: 16px;margin: 20px;color: #48535e;">PASTE TEST NAMES</div>
+        <div style="font-size: 16px;margin: 20px;color: #48535e;">PASTE TEST QUESTIONS</div>
         <!-- <div style="font-size: 14px;margin-bottom: 20px;color: lightgray;">Brief Description Here</div> -->
     </div>
     <div>
         <mat-form-field style="width: 90%;margin-left: 20px;" appearance="outline">
-            <mat-label>Copy & Paste TEST NAMES</mat-label>
+            <mat-label>Copy & Paste TEST QUESTIONS</mat-label>
             <textarea matInput rows="4" cols="50" [(ngModel)]="testNamesInput" placeholder=""></textarea>
         </mat-form-field>
     </div>
@@ -579,7 +579,7 @@
                             style="text-align: center;padding: 10px 4px;">{{(testName[columnName])}}</p> -->
                         <div style="display: flex;align-items: center;justify-content: space-evenly;">
                             <mat-icon
-                                style="cursor: pointer;position: absolute;left: 20px;color: #324395;margin-top: -10px;"
+                                style="cursor: pointer;position: absolute;left: 60px;color: #324395;margin-top: -10px;"
                                 (click)="playTestNameSound(testName[columnName])" *ngIf="y !== 0  && !editSingleTableCells && (columnName.includes('nameCandidates') == true) &&
                                      displaySound">
                                 volume_up

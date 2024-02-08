@@ -20,16 +20,16 @@ export class RankScaleComponent extends RatingScaleComponent implements OnInit {
   @Input() bmxClientPageDesignMode;
   @Input() bmxClientPageOverview;
   @Output() autoSave = new EventEmitter();
-  CREATION_VIDEO_PATH="assets/videos/RankMatrix.mp4" 
+  CREATION_VIDEO_PATH = "assets/videos/RankMatrix.mp4"
   VIDEO_PATH: any[] = [];
 
   PATH1: any[] = [
     'assets/img/bmx/tutorial/image-drag.JPG',
-    
+
   ]
 
   PATH2: any[] = [
-    'assets/img/bmx/tutorial/image-drag2.JPG',  
+    'assets/img/bmx/tutorial/image-drag2.JPG',
   ]
   isImageType = true
 
@@ -41,8 +41,8 @@ export class RankScaleComponent extends RatingScaleComponent implements OnInit {
 
   allowScrolling = true
 
-  constructor(dragulaService: DragulaService, _snackBar: MatSnackBar, _bmxService: BmxService,public deviceService: DeviceDetectorService) {
-    super(dragulaService, _snackBar, _bmxService,deviceService)
+  constructor(dragulaService: DragulaService, _snackBar: MatSnackBar, _bmxService: BmxService, public deviceService: DeviceDetectorService) {
+    super(dragulaService, _snackBar, _bmxService, deviceService)
   }
 
   ngOnInit(): void {
@@ -54,9 +54,9 @@ export class RankScaleComponent extends RatingScaleComponent implements OnInit {
     // this.rankingTableType( this.bmxItem.componentSettings[0].rankType)
     this.rankingType = this.bmxItem.componentSettings[0].rankType
 
-    this.rowsCount =  this.bmxItem.componentText.length - 1;
-    this.bmxItem.componentSettings[0].minRule = this.bmxItem.componentSettings[0].minRule == 0?0 :this.bmxItem.componentSettings[0].minRule;
-    this.bmxItem.componentSettings[0].maxRule = this.bmxItem.componentSettings[0].maxRule == 0?0 :this.bmxItem.componentSettings[0].maxRule;
+    this.rowsCount = this.bmxItem.componentText.length - 1;
+    this.bmxItem.componentSettings[0].minRule = this.bmxItem.componentSettings[0].minRule == 0 ? 0 : this.bmxItem.componentSettings[0].minRule;
+    this.bmxItem.componentSettings[0].maxRule = this.bmxItem.componentSettings[0].maxRule == 0 ? 0 : this.bmxItem.componentSettings[0].maxRule;
 
     if (this.rankingType == 'dropDown') {
       this.draggableBag = ''
@@ -191,9 +191,9 @@ export class RankScaleComponent extends RatingScaleComponent implements OnInit {
             }
           }
 
-          this.TESTNAMES_LIST.push(objectColumnDesign);         
+          this.TESTNAMES_LIST.push(objectColumnDesign);
         }
-      }      
+      }
       this.bmxItem.componentText = this.deleteDuplicates(this.TESTNAMES_LIST, 'nameCandidates');
       this.columnsNames.push('RATE')
     } else {
@@ -202,12 +202,16 @@ export class RankScaleComponent extends RatingScaleComponent implements OnInit {
       });
     }
     console.log(this.rowsCount, this.CRITERIA.length)
-
+    console.log(this.rowsCount)
     setTimeout(() => {
-      this.rowsCount = this.bmxItem.componentText.length - 1;
-      if(this.newSet){
+      if (this.bmxItem.componentSettings[0].rankType == 'radio') {
+        this.rowsCount = 20
+      } else {
+        this.rowsCount = this.bmxItem.componentText.length - 1;
+      }
+      if (this.newSet) {
         this.bmxItem.componentSettings[0].minRule = this.rowsCount;
-        this.bmxItem.componentSettings[0].maxRule = this.rowsCount;        
+        this.bmxItem.componentSettings[0].maxRule = this.rowsCount;
         this.newSet = false;
       }
 
@@ -222,7 +226,9 @@ export class RankScaleComponent extends RatingScaleComponent implements OnInit {
     setTimeout(() => {
       this.dragRows = false;
     }, 1000);
+
     this.bmxItem.componentSettings[0].selectedRanking = this.rankingScaleValue
+
   }
 
 
@@ -255,6 +261,7 @@ export class RankScaleComponent extends RatingScaleComponent implements OnInit {
       this.draggableBag = ''
       this.isdropDown = false
       this.radioColumnCounter = 1
+      this.rowsCount = 20
       for (let index = 0; index < this.rankingScaleValue; index++) {
         this.insertRadioColumn()
       }

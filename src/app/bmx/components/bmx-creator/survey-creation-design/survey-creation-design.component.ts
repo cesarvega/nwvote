@@ -332,6 +332,7 @@ export class SurveyCreationDesignComponent implements OnInit {
 
             }
             this.title = 'TEMPLATE'
+            this.loadTemplate(this.projectId)
         }
         else if (this.bmxPagesClient) {
             this.bmxPages = this.bmxPagesClient;
@@ -373,6 +374,7 @@ export class SurveyCreationDesignComponent implements OnInit {
                 }
                 this._BmxService.getDirectos().subscribe(directors => {
                     this.directors = directors
+                    console.log(this.bmxPages)
                     const index = this.bmxPages[0].page[1].componentText.indexOf('<p style="text-align:center">BI_DIRECTOR</p>');
 
                     if (index !== -1) {
@@ -479,7 +481,7 @@ export class SurveyCreationDesignComponent implements OnInit {
         } else if (componentType === 'rate-scale') {
             this.TestNameDataModel = [];
             this.TestNameDataModel.push({
-                nameCandidates: 'NAME',
+                nameCandidates: 'Name Candidates',
                 rationale: 'RATIONALE',
                 RATE: 'RATE',
                 STARS: this.createRatingStars(),
@@ -522,7 +524,7 @@ export class SurveyCreationDesignComponent implements OnInit {
         else if (componentType === 'ranking-scale') {
             this.TestNameDataModel = [];
             this.TestNameDataModel.push({
-                nameCandidates: 'NAME',
+                nameCandidates: 'Name Candidates',
                 rationale: 'RATIONALE',
                 RATE: 'RATE',
                 STARS: this.createRankinScale(),
@@ -571,7 +573,7 @@ export class SurveyCreationDesignComponent implements OnInit {
         else if (componentType === 'image-rank-drag') {
             this.TestNameDataModel = [];
             this.TestNameDataModel.push({
-                nameCandidates: 'NAME',
+                nameCandidates: 'Name Candidates',
                 rationale: 'RATIONALE',
                 RATE: 'RATE',
                 STARS: this.createRankinScale(),
@@ -669,7 +671,7 @@ export class SurveyCreationDesignComponent implements OnInit {
         else if (componentType === 'narrow-down') {
             this.TestNameDataModel = [];
             this.TestNameDataModel.push({
-                name: 'NAME',
+                name: 'Name Candidates',
                 rationale: 'RATIONALE',
                 RATE: 'RATE',
                 // STARS: this.createRatingStars()
@@ -901,6 +903,7 @@ export class SurveyCreationDesignComponent implements OnInit {
         this.isTemplateBoxOn = false
     }
     loadTemplate(templateName) {
+        console.log(templateName)
         const name = localStorage.getItem('projectName')
         const company = localStorage.getItem('company')
         this._BmxService.getBrandMatrixTemplateByName(templateName).subscribe((template: any) => {
@@ -913,7 +916,6 @@ export class SurveyCreationDesignComponent implements OnInit {
             const replacedText = originalText
                 .replace(/\[PROJECT NAME\]/g, name)
                 .replace(/\[Company Name\]/g, company)
-
 
             this.bmxPages[0].page[1].componentText = replacedText;
             const index = this.bmxPages[0].page[1].componentText.indexOf('<p>&nbsp;</p>');
@@ -1222,7 +1224,10 @@ export class SurveyCreationDesignComponent implements OnInit {
     }
 
     previewSurvey() {
-        window.open('survey/' + this.projectId + '/' + (this.biUsername ? this.biUsername : 'guest'));
+        console.log(this.projectId)
+        const projectUrl = this.projectId.replace(/\//g,'-')
+        console.log('survey/' + projectUrl + '/' + (this.biUsername ? this.biUsername : 'guest'))
+        window.open('survey/' + projectUrl + '/' + (this.biUsername ? this.biUsername : 'guest'));
     }
 
 

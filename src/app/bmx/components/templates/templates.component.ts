@@ -80,10 +80,7 @@ export class TemplatesComponent implements OnInit {
     this._BmxService.getGeneralLists()
       .subscribe((arg: any) => {
         this.settingsData = JSON.parse(arg.d);
-        console.log(this.settingsData)
         this.TEMPLATES = (this.settingsData.BrandMatrixTemplateList.length) > 0 ? JSON.parse(arg.d).BrandMatrixTemplateList.map((obj, index) => { return {index: index+1,displayName: obj.DisplayName, templateName: obj.TemplateName, brandMatrix: obj.BrandMatrix,created: obj.LastUpdate } }) : this.TEMPLATES
-        console.log(this.TEMPLATES)
-      
         this.settingsData.OfficeList.unshift('All');
         //console.log(JSON.parse(arg.d));
         //AUTOCOMPLETE 🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖
@@ -115,6 +112,15 @@ export class TemplatesComponent implements OnInit {
     return this.settingsData['SalesBoardProjectList'].filter(option => option.toLowerCase().includes(filterValue));/*.slice(0, 10);*/
   }
 
+  applyFilter(filterValue: string): void {
+    filterValue = filterValue.trim(); // Remove whitespace
+    filterValue = filterValue.toLowerCase(); // Datasource defaults to lowercase matches
+    this.dataSource.filter = filterValue;
+    if (this.dataSource.paginator) {
+      this.dataSource.paginator.firstPage();
+    }
+  }
+
   templateSelected(templateName: string, displayName: string, brandMatrix: any) {
     this.isSaveOrUpdate = true;
     this.templateName = templateName;
@@ -139,16 +145,14 @@ export class TemplatesComponent implements OnInit {
     var test = option;
     localStorage.setItem('templates', 'true');
 
-    this.router.navigate(['bmx-creation/99CB72BF-D163-46A6-8A0D-E1531EC7FEDC'])
+    this.router.navigate(['templates-edition/99CB72BF-D163-46A6-8A0D-E1531EC7FEDC'])
   }
-
 
   openModal() {
     this.showModal = true;
   }
 
   closeModal() {
-    console.log('a')
     this.showModal = false;
     this.newTemplate = false;
     this.showNewTemplateModal = false
@@ -209,7 +213,6 @@ export class TemplatesComponent implements OnInit {
     this.selectedTemplateName = this.newTemplateName
     this.newTemplateName = '';
     this.bmxPages = ''
-    console.log(this.selectedDisplayName)
   }
 
   saveTemplateFromAnExistingOne(templateName) {

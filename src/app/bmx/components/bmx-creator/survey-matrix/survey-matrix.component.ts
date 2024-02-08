@@ -127,6 +127,7 @@ export class SurveyMatrixComponent extends SurveyCreationDesignComponent impleme
     this._BmxService.currentProjectName$.subscribe((res) => {
       this.globalProjectName = res ? res : '';
     });
+    this.projectId = localStorage.getItem('projectName')
     this._BmxService.getProjectInfo(this.projectId).subscribe((arg: any) => {
       console.log(arg)
       this.status = JSON.parse(arg.d).bmxStatus
@@ -1156,7 +1157,7 @@ export class SurveyMatrixComponent extends SurveyCreationDesignComponent impleme
             // ANSWERS COUNTER
             let minRuleCounter = 0
             component.componentText.forEach((row, index) => {
-
+              let intCounter = 0
               // HANDLING SPECAIL REQUEST ******************************************//
               if (component.componentSettings[1]) {
                 if (!component.componentSettings[1].isImageType && row.RATE == 1) {
@@ -1188,11 +1189,13 @@ export class SurveyMatrixComponent extends SurveyCreationDesignComponent impleme
                     if (component.componentSettings[0].categoryRulesPassed) {
                       component.componentSettings[0].categoryRulesPassed = (index > 0 && rater.length > 0) ? false : true;
                     }
-                    if (index > 0 && rater.length == 0) {
-                      minRuleCounter++
-                    }
+                    intCounter = intCounter + criteria.RATE
                   }
                 });
+                if(intCounter>0){
+                  minRuleCounter++
+                }
+                console.log(component)
               } else {
                 // ONLY NARROWDOWN
                 if (component.componentType == 'narrow-down') {
@@ -1233,15 +1236,12 @@ export class SurveyMatrixComponent extends SurveyCreationDesignComponent impleme
 
             // EVALUATION AFTER COUNTING
 
-            if (component.componentSettings[0].CRITERIA) {
-              minRuleCounter = minRuleCounter / 2
-            }
 
             if (component.componentType == 'narrow-down') {
               component.componentSettings[0].categoryRulesPassed = (minRuleCounter != component.componentSettings[0].minRule) ? false : true;
             }
-            console.log(minRuleCounter, component.componentSettings[0].maxRule )
-            if (component.componentSettings[0].minRule == minRuleCounter && minRuleCounter <= component.componentSettings[0].maxRule ) {
+            // console.log(minRuleCounter, component.componentSettings[0].maxRule )
+            if (component.componentSettings[0].minRule <= minRuleCounter && minRuleCounter <= component.componentSettings[0].maxRule ) {
               component.componentSettings[0].categoryRulesPassed = true;
             }
             if (

@@ -238,16 +238,16 @@
     <!-- Cards Test Name-->
     <mat-card class="example-card">
       <mat-card-header>
-        <mat-card-title>Test Names</mat-card-title>
+        <mat-card-title>Test Questions</mat-card-title>
       </mat-card-header>
       <mat-card-content>
         <div style="text-align: center;">
-          <div style="font-size: 16px;margin: 20px;color: #48535e;">Copy & Paste TEST NAMES</div>
+          <div style="font-size: 16px;margin: 20px;color: #48535e;">Copy & Paste TEST QUESTIONS</div>
           <!-- <div style="font-size: 14px;margin-bottom: 20px;color: lightgray;">Brief Description Here</div> -->
       </div>
       <div style="display: flex; justify-content: center; align-items: center;">
         <mat-form-field style="width: 90%; margin-left: 20px;" appearance="outline">
-          <mat-label>Copy & Paste TEST NAMES</mat-label>
+          <mat-label>Copy & Paste TEST QUESTIONS</mat-label>
           <textarea matInput [(ngModel)]="testNamesInput" (paste)="onPaste()" (ngModelChange)="upLoadNamesAndRationales(testNamesInput)"
               placeholder="Paste test names here" cdkTextareaAutosize
               cdkAutosizeMinRows="2" cdkAutosizeMaxRows="5"></textarea>
@@ -441,16 +441,16 @@ justify-content: center;cursor: move; height: 25px; width: 100%;"><svg width="24
     <!-- Cards Test Name-->
     <mat-card class="example-card">
       <mat-card-header>
-        <mat-card-title>Test Names</mat-card-title>
+        <mat-card-title>Test Questions</mat-card-title>
       </mat-card-header>
       <mat-card-content>
         <div style="text-align: center;">
-          <div style="font-size: 16px;margin: 20px;color: #48535e;">Copy & Paste TEST NAMES</div>
+          <div style="font-size: 16px;margin: 20px;color: #48535e;">Copy & Paste TEST QUESTIONS</div>
           <!-- <div style="font-size: 14px;margin-bottom: 20px;color: lightgray;">Brief Description Here</div> -->
       </div>
       <div style="display: flex; justify-content: center; align-items: center;">
         <mat-form-field style="width: 90%; margin-left: 20px;" appearance="outline">
-          <mat-label>Copy & Paste TEST NAMES</mat-label>
+          <mat-label>Copy & Paste TEST QUESTIONS</mat-label>
           <textarea matInput [(ngModel)]="testNamesInput" (paste)="onPaste()" (ngModelChange)="upLoadNamesAndRationales(testNamesInput)"
               placeholder="Paste test names here" cdkTextareaAutosize
               cdkAutosizeMinRows="2" cdkAutosizeMaxRows="5"></textarea>
@@ -462,60 +462,6 @@ justify-content: center;cursor: move; height: 25px; width: 100%;"><svg width="24
 
     </mat-card>
     <br>
-<!-- Cards Criteria-->
-<mat-card class="example-card">
-  <mat-card-header>
-      <mat-card-title>Category</mat-card-title>
-  </mat-card-header>
-  <br>
-  <div class="sm-section2-rkScale">
-      <div class="sm-column-box-rkScale">
-          <mat-form-field appearance="outline" style="width: 40%">
-              <mat-label>Category Name</mat-label>
-              <input matInput [(ngModel)]="bmxItem.componentSettings[0].categoryName" placeholder="Category Name"
-                  style="font-size: 20px;color: #324395;">
-              <mat-hint>Enter the name of the category</mat-hint> <!-- Hint text for Category Name -->
-          </mat-form-field>
-
-          <mat-form-field appearance="outline" style="width: 40%">
-              <mat-label>Sub category Description</mat-label>
-              <input matInput [(ngModel)]="bmxItem.componentSettings[0].categoryDescription"
-                  placeholder="Sub category Description" style="font-size: 20px;color: #ee7f25;">
-              <mat-hint>Enter a brief description of the Sub category </mat-hint>
-              <!-- Hint text for Category Description -->
-          </mat-form-field>
-      </div>
-      <br>
-      <mat-checkbox [(ngModel)]="randomizeTestNames">Randomize Names</mat-checkbox>
-      <div class="sm-row-box-rkScale">
-        <div>
-            <div style="display: flex;flex-direction: column;justify-content: center;gap: 10px;align-items: center; ">
-                <div style="font-size: 16px;margin-top: 10px;color: #48535e;text-align: center;">Minimum:
-                    {{bmxItem.componentSettings[0].minRule}}</div>
-                <input type="number" min="0" [max]="rowsCount" [(ngModel)]="bmxItem.componentSettings[0].minRule"
-                    style="width:53px; padding: 0px 10px;" [value]="bmxItem.componentSettings[0].minRule">
-            </div>
-            <div style="font-size: 13px;color: #48535e;">Min number of selections to vote on</div>
-        </div>
-        <div>
-            <div style="display: flex;flex-direction: column;justify-content:center;gap: 10px;align-items: center;">
-                <div style="font-size: 16px;margin-top: 10px;color: #48535e;text-align: center;">Maximun:
-                    {{bmxItem.componentSettings[0].maxRule}}</div>
-                <input type="number" min="0" [max]="rowsCount" [(ngModel)]="bmxItem.componentSettings[0].maxRule"
-                    style="width:53px; padding: 0px 10px;" [value]="bmxItem.componentSettings[0].maxRule">
-            </div>
-            <div style="font-size: 13px;color: #48535e;">Max number of selections to vote on</div>
-        </div>
-    </div>
-
-  </div>
-  <mat-card-content>
-
-  </mat-card-content>
-
-</mat-card>
-<br>
-    <!-- Cards Select Ranking-->
     <mat-card class="example-card">
         <mat-card-header>
             <mat-card-title>Select Ranking & Criteria</mat-card-title>
@@ -586,6 +532,62 @@ justify-content: center;cursor: move; height: 25px; width: 100%;"><svg width="24
         </mat-card-content>
 
     </mat-card>
+    <br>
+<!-- Cards Criteria-->
+<mat-card class="example-card">
+  <mat-card-header>
+      <mat-card-title>Category</mat-card-title>
+  </mat-card-header>
+  <br>
+  <div class="sm-section2-rkScale">
+      <div class="sm-column-box-rkScale">
+          <mat-form-field appearance="outline" style="width: 40%">
+              <mat-label>Category Name</mat-label>
+              <input matInput [(ngModel)]="bmxItem.componentSettings[0].categoryName" placeholder="Category Name"
+                  style="font-size: 20px;color: #324395;">
+              <mat-hint>Enter the name of the category</mat-hint> <!-- Hint text for Category Name -->
+          </mat-form-field>
+
+          <mat-form-field appearance="outline" style="width: 40%">
+              <mat-label>Sub category Description</mat-label>
+              <input matInput [(ngModel)]="bmxItem.componentSettings[0].categoryDescription"
+                  placeholder="Sub category Description" style="font-size: 20px;color: #ee7f25;">
+              <mat-hint>Enter a brief description of the Sub category </mat-hint>
+              <!-- Hint text for Category Description -->
+          </mat-form-field>
+      </div>
+      <br>
+      <mat-checkbox [(ngModel)]="randomizeTestNames">Randomize Names</mat-checkbox>
+      <div class="sm-row-box-rkScale">
+        <div>
+            <div style="display: flex;flex-direction: column;justify-content: center;gap: 10px;align-items: center; ">
+                <div style="font-size: 16px;margin-top: 10px;color: #48535e;text-align: center;">Minimum:
+                    {{bmxItem.componentSettings[0].minRule}}</div>
+                <input type="number" min="0" [max]="rowsCount" [(ngModel)]="bmxItem.componentSettings[0].minRule"
+                    style="width:53px; padding: 0px 10px;" [value]="bmxItem.componentSettings[0].minRule">
+            </div>
+            <div style="font-size: 13px;color: #48535e;">Min number of selections to vote on</div>
+        </div>
+        <div>
+            <div style="display: flex;flex-direction: column;justify-content:center;gap: 10px;align-items: center;">
+                <div style="font-size: 16px;margin-top: 10px;color: #48535e;text-align: center;">Maximun:
+                    {{bmxItem.componentSettings[0].maxRule}}</div>
+                <input type="number" min="0" [max]="rowsCount" [(ngModel)]="bmxItem.componentSettings[0].maxRule"
+                    style="width:53px; padding: 0px 10px;" [value]="bmxItem.componentSettings[0].maxRule">
+            </div>
+            <div style="font-size: 13px;color: #48535e;">Max number of selections to vote on</div>
+        </div>
+    </div>
+
+  </div>
+  <mat-card-content>
+
+  </mat-card-content>
+
+</mat-card>
+<br>
+    <!-- Cards Select Ranking-->
+
 
     <!-- BUTTON-->
     <div class="sm-row-box-rkScale">

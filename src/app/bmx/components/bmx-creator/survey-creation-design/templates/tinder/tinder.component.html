@@ -81,16 +81,16 @@ justify-content: center;cursor: move; height: 25px; width: 100%;"><svg width="24
     <!-- Cards Test Name-->
     <mat-card class="example-card">
         <mat-card-header>
-            <mat-card-title>Test Names</mat-card-title>
+            <mat-card-title>Test Questions</mat-card-title>
         </mat-card-header>
         <mat-card-content>
             <div style="text-align: center;">
-                <div style="font-size: 16px;margin: 20px;color: #48535e;">Copy & Paste TEST NAMES</div>
+                <div style="font-size: 16px;margin: 20px;color: #48535e;">Copy & Paste TEST QUESTIONS</div>
                 <!-- <div style="font-size: 14px;margin-bottom: 20px;color: lightgray;">Brief Description Here</div> -->
             </div>
             <div style="display: flex; justify-content: center; align-items: center;">
                 <mat-form-field style="width: 90%; margin-left: 20px;" appearance="outline">
-                    <mat-label>Copy & Paste TEST NAMES</mat-label>
+                    <mat-label>Copy & Paste TEST QUESTIONS</mat-label>
                     <textarea matInput [(ngModel)]="testNamesInput" (paste)="onPaste()" (ngModelChange)="upLoadNamesAndRationales(testNamesInput)"
                         placeholder="Paste test names here" cdkTextareaAutosize cdkAutosizeMinRows="2"
                         cdkAutosizeMaxRows="5"></textarea>
@@ -98,6 +98,42 @@ justify-content: center;cursor: move; height: 25px; width: 100%;"><svg width="24
                 </mat-form-field>
             </div>
 
+        </mat-card-content>
+
+    </mat-card>
+    <br>
+    <mat-card class="example-card">
+        <mat-card-header>
+            <mat-card-title>Select Ranking</mat-card-title>
+        </mat-card-header>
+        <mat-card-content>
+            <div class="sm-section3-rkScale">
+
+
+
+                <div class="sm-row-box-rkScale">
+                  <div>
+                    <div style="font-size: 16px;margin-top: 10px;color: #48535e;">SELECT RATING RANGE</div>
+                    <br>
+                    <div style="text-align: center;display: flex;flex-direction: row;justify-content: space-around;">
+
+                        <input [(ngModel)]="rankingScaleValue" type="range" id="volume" name="volume" min="0" max="10">
+                        {{rankingScaleValue}}
+                    </div>
+                </div>
+                    <div style="    margin-top: 0.5rem;
+        ">
+                        <div style="display: flex; flex-direction: column">
+                            <mat-checkbox [(ngModel)]="randomizeTestNames">Randomize Names</mat-checkbox>
+                            <mat-checkbox #showIcon [(ngModel)]="showNeutralIcon">Add Neutral Button</mat-checkbox>
+                            <mat-checkbox #changePreference (click)="changePreferenceScore()"
+                                [(ngModel)]="ranking">Preference
+                                Score</mat-checkbox>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
         </mat-card-content>
 
     </mat-card>
@@ -136,41 +172,7 @@ justify-content: center;cursor: move; height: 25px; width: 100%;"><svg width="24
     </mat-card>
     <br>
     <!-- Cards Select Ranking-->
-    <mat-card class="example-card">
-        <mat-card-header>
-            <mat-card-title>Select Ranking</mat-card-title>
-        </mat-card-header>
-        <mat-card-content>
-            <div class="sm-section3-rkScale">
-
-
-
-                <div class="sm-row-box-rkScale">
-                  <div>
-                    <div style="font-size: 16px;margin-top: 10px;color: #48535e;">SELECT RATING RANGE</div>
-                    <br>
-                    <div style="text-align: center;display: flex;flex-direction: row;justify-content: space-around;">
-
-                        <input [(ngModel)]="rankingScaleValue" type="range" id="volume" name="volume" min="0" max="10">
-                        {{rankingScaleValue}}
-                    </div>
-                </div>
-                    <div style="    margin-top: 0.5rem;
-        ">
-                        <div style="display: flex; flex-direction: column">
-                            <mat-checkbox [(ngModel)]="randomizeTestNames">Randomize Names</mat-checkbox>
-                            <mat-checkbox #showIcon [(ngModel)]="showNeutralIcon">Add Neutral Button</mat-checkbox>
-                            <mat-checkbox #changePreference (click)="changePreferenceScore()"
-                                [(ngModel)]="ranking">Preference
-                                Score</mat-checkbox>
-                        </div>
-                    </div>
-
-                </div>
-            </div>
-        </mat-card-content>
-
-    </mat-card>
+ 
 
     <!-- BUTTON-->
     <div class="sm-row-box-rkScale">
