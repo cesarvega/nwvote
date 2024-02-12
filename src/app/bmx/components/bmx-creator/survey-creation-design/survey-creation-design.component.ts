@@ -281,7 +281,6 @@ export class SurveyCreationDesignComponent implements OnInit {
         }
         this._BmxService.getDirectos().subscribe(directors =>
             this.directors = directors
-
         )
 
         this.myAngularxQrCode = this.myAngularxQrCode + this.projectId + '/' + this.biUsername
@@ -302,16 +301,16 @@ export class SurveyCreationDesignComponent implements OnInit {
         if (this.isTemplate == 'true') {
             const storedDataString = localStorage.getItem('brandMatrix')
             const bmxMatrix = JSON.parse(storedDataString)
+            console.log(bmxMatrix)
             if (bmxMatrix) {
                 let objeto = JSON.parse(bmxMatrix);
                 let logoUrl = ""
-                this.bmxPages = JSON.parse(bmxMatrix)
+                this.bmxPages = JSON.parse(bmxMatrix)                
                 logoUrl = this.bmxPages[0].page[0].componentSettings[0].companyLogoURL;
 
                 for (let index = 0; index < this.bmxPages.length; index++) {
                     this.bmxPages[index].page[0].componentSettings[0].companyLogoURL = logoUrl
                 }
-                //console.log(this.bmxPages)
                 if (this.widthLogo != "" && this.widthLogo != undefined) {
 
                     this.bmxPages.forEach((pageToreset: any) => {
@@ -337,7 +336,6 @@ export class SurveyCreationDesignComponent implements OnInit {
         else if (this.bmxPagesClient) {
             this.bmxPages = this.bmxPagesClient;
             console.log('a')
-
         } else {
             console.log('a')
             //   this.bmxPages = this.SAMPLE_BMX;
@@ -346,7 +344,7 @@ export class SurveyCreationDesignComponent implements OnInit {
                     let objeto = JSON.parse(brandMatrix.d);
                     let logoUrl = ""
                     this.bmxPages = JSON.parse(brandMatrix.d)
-
+                    console.log(this.bmxPages)
                     logoUrl = this.bmxPages[0].page[0].componentSettings[0].companyLogoURL;
 
                     for (let index = 0; index < this.bmxPages.length; index++) {
@@ -370,11 +368,9 @@ export class SurveyCreationDesignComponent implements OnInit {
                     } else {
                         this.bmxPages = this.SAMPLE_BMX
                     }
-
                 }
                 this._BmxService.getDirectos().subscribe(directors => {
-                    this.directors = directors
-                    console.log(this.bmxPages)
+                    this.directors = directors                    
                     const index = this.bmxPages[0].page[1].componentText.indexOf('<p style="text-align:center">BI_DIRECTOR</p>');
 
                     if (index !== -1) {
@@ -713,7 +709,7 @@ export class SurveyCreationDesignComponent implements OnInit {
         else if (componentType === 'question-answer') {
             this.TestNameDataModel = [];
             this.TestNameDataModel.push({
-                name: 'Questions',
+                name: 'Questionseses',
                 // rationale: 'RATIONALE',
                 STARS: this.createRatingStars(),
             });
@@ -878,6 +874,7 @@ export class SurveyCreationDesignComponent implements OnInit {
 
     // TEMPLATE METHODS
     saveOrUpdateTemplate(templateName, displayName?: any) {
+        console.log(templateName)
         this.showSaveTemplate = false
         const nameToShow = this.selectedDisplayNem
         localStorage.setItem(templateName, JSON.stringify(this.bmxPages));
