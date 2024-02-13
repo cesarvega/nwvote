@@ -578,10 +578,8 @@
                             style="text-align: center;height: 32px;width: 358px;font-size: 16px;border: 1px solid #dddddd;"
                             class="row-box" [(ngModel)]="testName[columnName]" rows="4" cols="50"></textarea>
 
-
                         <img class="row-box" style="width: 300px;" [src]="testName[columnName]"
                             *ngIf="(y !== 0) && (columnName == 'name' || columnName == 'nameCandidates')">
-
 
                         <!-- TEXT AREA TO EDIT TABLE CELL CONTENT -->
                         <textarea *ngIf="y !== 0  && editSingleTableCells && (columnName.includes('RadioColumn') != true) && 

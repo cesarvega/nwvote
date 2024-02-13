@@ -54,8 +54,7 @@ export class SurveyCreationDesignComponent implements OnInit {
     
     BI_DIRECTOR
     
-    BI_DIRECTOR1
-    `;
+    BI_DIRECTOR1`;
     selectedOption: any;
     rankingScaleValue = 5;
 
@@ -276,7 +275,8 @@ export class SurveyCreationDesignComponent implements OnInit {
         //     this.createNewBmxComponent('rate-scale');
         // }
         if (this.bmxPagesClient) {
-            this.bmxPages = this.bmxPagesClient;            
+            this.bmxPages = this.bmxPagesClient; 
+            console.log(this.bmxPages)          
             
         } else {
             //   this.bmxPages = this.SAMPLE_BMX;
@@ -285,6 +285,7 @@ export class SurveyCreationDesignComponent implements OnInit {
                 if (brandMatrix.d.length > 0) {
                     let logoUrl = ""
                     this.bmxPages = JSON.parse(brandMatrix.d)
+                    console.log(this.bmxPages)
                     logoUrl = this.bmxPages[0].page[0].componentSettings[0].companyLogoURL;
 
                     for (let index = 0; index < this.bmxPages.length; index++) {
