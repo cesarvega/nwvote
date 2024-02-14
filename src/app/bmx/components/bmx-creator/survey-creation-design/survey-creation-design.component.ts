@@ -709,7 +709,7 @@ export class SurveyCreationDesignComponent implements OnInit {
         else if (componentType === 'question-answer') {
             this.TestNameDataModel = [];
             this.TestNameDataModel.push({
-                name: 'Questionseses',
+                name: 'Questions',
                 // rationale: 'RATIONALE',
                 STARS: this.createRatingStars(),
             });

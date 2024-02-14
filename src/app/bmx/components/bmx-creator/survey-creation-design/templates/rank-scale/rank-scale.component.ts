@@ -201,8 +201,6 @@ export class RankScaleComponent extends RatingScaleComponent implements OnInit {
         row.STARS = this.createRatingStars(this.rankingScaleValue, this.ratingScaleIcon)
       });
     }
-    console.log(this.rowsCount, this.CRITERIA.length)
-    console.log(this.rowsCount)
     setTimeout(() => {
       if (this.bmxItem.componentSettings[0].rankType == 'radio') {
         this.rowsCount = 20
@@ -228,6 +226,7 @@ export class RankScaleComponent extends RatingScaleComponent implements OnInit {
     }, 1000);
 
     this.bmxItem.componentSettings[0].selectedRanking = this.rankingScaleValue
+    console.log(this.bmxItem)
 
   }
 
@@ -238,7 +237,7 @@ export class RankScaleComponent extends RatingScaleComponent implements OnInit {
     this.columnsNames = []
     this.RadioColumnList = []
     values.forEach(value => {
-      if (typeof value == "string" && value != "STARS" && value != "CRITERIA") {
+      if (typeof value == "string" && value != "STARS" && value != "CRITERIA" && value != "RATE") {
         this.columnsNames.push(value)
       }
     });
