@@ -67,7 +67,7 @@ export class TemplatesComponent implements OnInit {
     { TemplateName: 'Naming Contest', displayName: '' },
     { TemplateName: 'Question & Answer', displayName: '' },
   ];
-  displayedColumns = ['index', 'displayName', 'Created', 'Name', 'Edit', 'Delete'];
+  displayedColumns = [  'index' , 'Created', 'displayName',  'Created', 'Name', 'Edit', 'Delete'];
   bmxEditData: FormGroup;
   filteredOptions: Observable<string[]>;
   salesboardObj = [];
@@ -99,7 +99,14 @@ export class TemplatesComponent implements OnInit {
           })
           this.dataSource = new MatTableDataSource<any>(this.TEMPLATES);
           this.dataSource.paginator = this.paginator;
+          console.log(this.sort)
           this.dataSource.sort = this.sort;
+          this.dataSource.sortingDataAccessor = (item, property) => {
+            switch(property) {
+              case 'created': return new Date(item.created);
+              default: return item[property];
+            }
+          };
         });
         this.currentDirectorList = this.allDirectors;
         for (var i = 0; i < this.DIRECTORS?.length; i++) {
@@ -123,7 +130,9 @@ export class TemplatesComponent implements OnInit {
       this.dataSource.paginator.firstPage();
     }
   }
-
+  formatDate(date: Date): string {
+    return date ? date.getTime().toString() : '';
+  }
   templateSelected(templateName: string, displayName: string, brandMatrix: any) {
     this.isSaveOrUpdate = true;
     this.templateName = templateName;
@@ -203,6 +212,12 @@ export class TemplatesComponent implements OnInit {
               this.dataSource = new MatTableDataSource<any>(this.TEMPLATES);
               this.dataSource.paginator = this.paginator;
               this.dataSource.sort = this.sort;
+              this.dataSource.sortingDataAccessor = (item, property) => {
+                switch(property) {
+                  case 'created': return new Date(item.created);
+                  default: return item[property];
+                }
+              };
             });
             this.currentDirectorList = this.allDirectors;
             for (var i = 0; i < this.DIRECTORS?.length; i++) {
@@ -274,6 +289,12 @@ export class TemplatesComponent implements OnInit {
               this.dataSource = new MatTableDataSource<any>(this.TEMPLATES);
               this.dataSource.paginator = this.paginator;
               this.dataSource.sort = this.sort;
+              this.dataSource.sortingDataAccessor = (item, property) => {
+                switch(property) {
+                  case 'created': return new Date(item.created);
+                  default: return item[property];
+                }
+              };
             });
             this.currentDirectorList = this.allDirectors;
             for (var i = 0; i < this.DIRECTORS?.length; i++) {
@@ -311,6 +332,12 @@ export class TemplatesComponent implements OnInit {
                       this.dataSource = new MatTableDataSource<any>(this.TEMPLATES);
                       this.dataSource.paginator = this.paginator;
                       this.dataSource.sort = this.sort;
+                      this.dataSource.sortingDataAccessor = (item, property) => {
+                        switch(property) {
+                          case 'created': return new Date(item.created);
+                          default: return item[property];
+                        }
+                      };
                     });
                     this.currentDirectorList = this.allDirectors;
                     for (var i = 0; i < this.DIRECTORS?.length; i++) {
