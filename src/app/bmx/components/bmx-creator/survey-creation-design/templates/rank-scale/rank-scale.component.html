@@ -198,13 +198,13 @@
             <div class="sm-section3-rkScale">
 
                 <div class="sm-row-box-rkScale">
-                    <div *ngIf="this.bmxItem.componentSettings[0].rankType !='dragAndDrop'">
+                    <div *ngIf="this.bmxItem.componentSettings[0].rankType !='dragAndDrop' && showBar">
                         <div style="font-size: 16px;margin-top: 10px;color: #48535e;">SELECT RATING RANGE</div>
                         <br>
                         <div
                             style="text-align: center;display: flex;flex-direction: row;justify-content: space-around;">
 
-                            <input [(ngModel)]="rankingScaleValue" type="range" id="volume" name="volume" min="0"
+                            <input  [(ngModel)]="rankingScaleValue" type="range" id="volume" name="volume" min="0"
                                 [max]="this.rowsCount">
                             {{rankingScaleValue}}
                         </div>
@@ -251,7 +251,7 @@
                 <mat-form-field style="width: 90%;margin-left: 20px;" appearance="outline">
                     <mat-label>Copy & Paste TEST NAMES</mat-label>
                     <textarea matInput rows="4" cols="50" [(ngModel)]="testNamesInput" placeholder=""
-                        (ngModelChange)="upLoadNamesAndRationales(testNamesInput)"></textarea>
+                        (ngModelChange)="upLoadNamesAndRationales(testNamesInput); "></textarea>
                 </mat-form-field>
                 <p style="margin-left: 30px; color: #757575;">
                     Add the names you want to test
