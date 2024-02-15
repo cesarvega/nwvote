@@ -77,9 +77,9 @@ export class ImageRateScaleComponent extends RatingScaleComponent implements OnI
    {super(dragulaService,_snackBar,_bmxService,deviceService); this.epicFunction();}
 
   ngOnInit(): void { 
+    
     this.showDialog = false
- 
-    this.showDialog = false
+    console.log(this.bmxItem)
     this.bmxItem.componentText.forEach(data =>{
       if (data.RATE>0){
         this.ratedCounter++
@@ -116,11 +116,12 @@ export class ImageRateScaleComponent extends RatingScaleComponent implements OnI
 
     this.launchPathModal.emit(this.VIDEO_PATH)
     console.log(this.bmxItem)
-    console.log(this.bmxItem.componentText)
     const filteredCriteria = this.CRITERIA.filter(criteriaItem => this.selectedCriteria.map(item => item.name).includes(criteriaItem.name));
     this.newselectedCriteria = filteredCriteria
-    this.rankingScaleValue = this.bmxItem.componentText[0].STARS.length;
-
+    if(this.bmxItem.componentText[0].STARS){
+      this.rankingScaleValue = this.bmxItem.componentText[0].STARS.length;
+    }
+    
   }
 
   epicFunction() {
@@ -238,7 +239,6 @@ export class ImageRateScaleComponent extends RatingScaleComponent implements OnI
   }
 
   checkAutosave(testNameId:any) {
-    console.log(this.bmxItem.componentText[testNameId].RATE)
      if (this.ratedCounter < this.bmxItem.componentSettings[0].maxRule && this.actualRate == 0|| this.bmxItem.componentSettings[0].maxRule == 0  ) {
         this.ratedCounter = this.ratedCounter + 1
         this.autoSave.emit()

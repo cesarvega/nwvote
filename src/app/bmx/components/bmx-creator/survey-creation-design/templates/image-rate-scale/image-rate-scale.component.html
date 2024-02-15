@@ -238,11 +238,11 @@
     <!-- Cards Test Name-->
     <mat-card class="example-card">
       <mat-card-header>
-        <mat-card-title>Test Questions</mat-card-title>
+        <mat-card-title>Test Names</mat-card-title>
       </mat-card-header>
       <mat-card-content>
         <div style="text-align: center;">
-          <div style="font-size: 16px;margin: 20px;color: #48535e;">Copy & Paste TEST QUESTIONS</div>
+          <div style="font-size: 16px;margin: 20px;color: #48535e;">Copy & Paste TEST NAMES</div>
           <!-- <div style="font-size: 14px;margin-bottom: 20px;color: lightgray;">Brief Description Here</div> -->
       </div>
       <div style="display: flex; justify-content: center; align-items: center;">
@@ -441,11 +441,11 @@ justify-content: center;cursor: move; height: 25px; width: 100%;"><svg width="24
     <!-- Cards Test Name-->
     <mat-card class="example-card">
       <mat-card-header>
-        <mat-card-title>Test Questions</mat-card-title>
+        <mat-card-title>Test Names</mat-card-title>
       </mat-card-header>
       <mat-card-content>
         <div style="text-align: center;">
-          <div style="font-size: 16px;margin: 20px;color: #48535e;">Copy & Paste TEST QUESTIONS</div>
+          <div style="font-size: 16px;margin: 20px;color: #48535e;">Copy & Paste TEST NAMES</div>
           <!-- <div style="font-size: 14px;margin-bottom: 20px;color: lightgray;">Brief Description Here</div> -->
       </div>
       <div style="display: flex; justify-content: center; align-items: center;">
@@ -764,7 +764,7 @@ justify-content: center;cursor: move; height: 25px; width: 100%;"><svg width="24
                             class="row-box" [(ngModel)]="testName[columnName]" rows="4" cols="50"></textarea>
 
 
-                        <img class="row-box" style="width: 300px;" [src]="testName[columnName]"
+                        <img class="row-box" style="width:300px;" [src]="testName[columnName]"
                             *ngIf="(y !== 0) && (columnName == 'name' || columnName == 'nameCandidates')">
 
 
@@ -931,7 +931,7 @@ justify-content: center;cursor: move; height: 25px; width: 100%;"><svg width="24
                             (change)="saveRadioColumValue(columnName, y)">
 
                         <img (click)="(selectedCard == y)?selectedCard = '':selectedCard = y" class="row-box"
-                            style="width: 300px;" [src]="testName[columnName]"
+                            style="width:300px;" [src]="testName[columnName]"
                             *ngIf="(y !== 0) && (columnName == 'name' || columnName == 'nameCandidates')">
 
                         <!-- TEXT_AREA COLUMN-->

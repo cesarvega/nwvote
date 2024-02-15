@@ -328,13 +328,10 @@
 
     <!-- BUTTON-->
     <div class="sm-row-box-rkScale">
-        <button style="outline: none;color:#d35854;margin-bottom: 50px;" mat-icon-button (click)="selectedIndex = ''"
-            aria-label="ranking">
+        <button style="outline: none;color:#d35854;margin-bottom: 50px;" mat-icon-button (click)="selectedIndex = ''"aria-label="ranking">
             <mat-icon>cancel</mat-icon><br>Cancel
         </button>
-        <button style="outline: none;color:#76d354;margin-bottom: 50px;" mat-icon-button
-            (click)="selectedIndex = '';upLoadNamesAndRationales(testNamesInput)" [disabled]="false"
-            aria-label="ranking">
+        <button style="outline: none;color:#76d354;margin-bottom: 50px;" mat-icon-button (click)="selectedIndex = '';upLoadNamesAndRationales(testNamesInput)" [disabled]="false" aria-label="ranking">
             <mat-icon>check_circle</mat-icon><br> Done
         </button>
     </div>
@@ -484,7 +481,7 @@
                             style="text-align: center;height: 32px;width: 358px;font-size: 16px;border: 1px solid #dddddd;"
                             class="row-box" [(ngModel)]="testName[columnName]"></textarea>
 
-                        <img class="row-box" style="width: 300px;" [src]="testName[columnName]" *ngIf=" bmxItem.componentSettings[1].isImageType && (y !== 0) && (columnName == 'name' ||
+                        <img class="row-box" style="width:300px;" [src]="testName[columnName]" *ngIf=" bmxItem.componentSettings[1].isImageType && (y !== 0) && (columnName == 'name' ||
                              columnName == 'nameCandidates')">
 
 
