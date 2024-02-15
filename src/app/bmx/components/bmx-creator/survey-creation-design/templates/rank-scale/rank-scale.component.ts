@@ -20,6 +20,7 @@ export class RankScaleComponent extends RatingScaleComponent implements OnInit {
   @Input() bmxClientPageDesignMode;
   @Input() bmxClientPageOverview;
   @Output() autoSave = new EventEmitter();
+  showBar= false
   CREATION_VIDEO_PATH = "assets/videos/RankMatrix.mp4"
   VIDEO_PATH: any[] = [];
 
@@ -137,8 +138,10 @@ export class RankScaleComponent extends RatingScaleComponent implements OnInit {
     this.bmxItem.componentSettings[0].randomizeTestNames = (this.randomizeTestNames) ? true : false
     if (!list) { list = this.listString; }
     if (list) {
+      this.showBar = true
       this.listString = list;
       const rows = list.split("\n");
+      this.rankingScaleValue=rows.length -1
       this.columnsNames = [];
       this.columnsNames = rows[0].toLowerCase().split("\t");
 
