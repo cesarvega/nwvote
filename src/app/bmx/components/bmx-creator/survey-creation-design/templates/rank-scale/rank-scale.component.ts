@@ -133,7 +133,7 @@ export class RankScaleComponent extends RatingScaleComponent implements OnInit {
     return startCounter;
   }
 
-  upLoadNamesAndRationales(list: string) {
+  upLoadNamesAndRationales(list: string, type?:any) {
     this.dragRows = true;
     this.bmxItem.componentSettings[0].randomizeTestNames = (this.randomizeTestNames) ? true : false
     if (!list) { list = this.listString; }
@@ -141,7 +141,9 @@ export class RankScaleComponent extends RatingScaleComponent implements OnInit {
       this.showBar = true
       this.listString = list;
       const rows = list.split("\n");
-      this.rankingScaleValue=rows.length -1
+      if(type){
+        this.rankingScaleValue=rows.length -1
+      }
       this.columnsNames = [];
       this.columnsNames = rows[0].toLowerCase().split("\t");
 

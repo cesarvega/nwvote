@@ -493,7 +493,7 @@ export class RatingScaleComponent implements OnInit {
   }
   // ⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️ END STARS METHODS  ⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️
 
-  upLoadNamesAndRationales(list: any) {
+  upLoadNamesAndRationales(list: any, type?:any) {
     if (typeof list == 'object') {
       list = list.clipboardData.getData('text')
     }

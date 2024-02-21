@@ -242,7 +242,7 @@
                 <mat-form-field style="width: 90%;margin-left: 20px;" appearance="outline">
                     <mat-label>Copy & Paste TEST NAMES</mat-label>
                     <textarea matInput rows="4" cols="50" [(ngModel)]="testNamesInput" placeholder=""
-                        (ngModelChange)="upLoadNamesAndRationales(testNamesInput); "></textarea>
+                        (ngModelChange)="upLoadNamesAndRationales(testNamesInput, true); "></textarea>
                 </mat-form-field>
                 <p style="margin-left: 30px; color: #757575;">
                     Add the names you want to test
@@ -367,7 +367,7 @@
             <mat-icon>cancel</mat-icon><br>Cancel
         </button>
         <button style="outline: none;color:#76d354;margin-bottom: 50px;" mat-icon-button
-            (click)="selectedIndex = '';upLoadNamesAndRationales(testNamesInput)" [disabled]="false"
+            (click)="selectedIndex = '';upLoadNamesAndRationales(testNamesInput, false)" [disabled]="false"
             aria-label="ranking">
             <mat-icon>check_circle</mat-icon><br> Done
         </button>
