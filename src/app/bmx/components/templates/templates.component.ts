@@ -67,7 +67,7 @@ export class TemplatesComponent implements OnInit {
     { TemplateName: 'Naming Contest', displayName: '' },
     { TemplateName: 'Question & Answer', displayName: '' },
   ];
-  displayedColumns = [  'index' , 'Created', 'displayName',  'Created', 'Name', 'Edit', 'Delete'];
+  displayedColumns = ['index','displayName', 'Created', 'Name', 'Edit', 'Delete'];
   bmxEditData: FormGroup;
   filteredOptions: Observable<string[]>;
   salesboardObj = [];
