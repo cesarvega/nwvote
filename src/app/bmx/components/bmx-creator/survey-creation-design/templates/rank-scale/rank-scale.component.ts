@@ -20,7 +20,7 @@ export class RankScaleComponent extends RatingScaleComponent implements OnInit {
   @Input() bmxClientPageDesignMode;
   @Input() bmxClientPageOverview;
   @Output() autoSave = new EventEmitter();
-  showBar= false
+  showBar = false
   CREATION_VIDEO_PATH = "assets/videos/RankMatrix.mp4"
   VIDEO_PATH: any[] = [];
 
@@ -78,9 +78,38 @@ export class RankScaleComponent extends RatingScaleComponent implements OnInit {
     values.forEach(value => {
       if (typeof value == "string" && value != "STARS" && value != "CRITERIA" && value != "RATE") {
         this.columnsNames.push(value)
+        console.log(this.bmxItem.componentText)
       }
     });
 
+    let result = '';
+
+    // Obtener las claves de la primera fila (los nombres de las propiedades)
+    let firstObject = this.bmxItem.componentText[0];
+    let columnNames = [];
+    for (let key in firstObject) {
+      if (key !== 'STARS' && key !== 'RATE') {
+        columnNames.push(key);
+      }
+    }
+
+    // Construir la primera fila con los nombres de las columnas
+    result += columnNames.join('\t') + '\n';
+
+    // Agregar cada objeto como una fila en el resultado
+    for (let obj of this.bmxItem.componentText) {
+      let values = [];
+      for (let key in obj) {
+        if (key !== 'STARS' && key !== 'RATE') {
+          values.push(obj[key]);
+        }
+      }
+      result += values.join('\t') + '\n';
+    }
+    const rows = result.split("\n");
+    if (rows.length > 0) { this.showBar = true }
+    this.testNamesInput = result
+    console.log(result, this.bmxItem.componentText)
     this.randomizeTestNames = this.bmxItem.componentSettings[0].randomizeTestNames
 
 
@@ -133,7 +162,7 @@ export class RankScaleComponent extends RatingScaleComponent implements OnInit {
     return startCounter;
   }
 
-  upLoadNamesAndRationales(list: string, type?:any) {
+  upLoadNamesAndRationales(list: string, type?: any) {
     this.dragRows = true;
     this.bmxItem.componentSettings[0].randomizeTestNames = (this.randomizeTestNames) ? true : false
     if (!list) { list = this.listString; }
@@ -141,8 +170,8 @@ export class RankScaleComponent extends RatingScaleComponent implements OnInit {
       this.showBar = true
       this.listString = list;
       const rows = list.split("\n");
-      if(type){
-        this.rankingScaleValue=rows.length -1
+      if (type) {
+        this.rankingScaleValue = rows.length - 1
       }
       this.columnsNames = [];
       this.columnsNames = rows[0].toLowerCase().split("\t");

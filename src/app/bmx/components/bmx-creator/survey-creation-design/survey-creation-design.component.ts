@@ -59,7 +59,7 @@ export class SurveyCreationDesignComponent implements OnInit {
     `;
     selectedOption: any;
     rankingScaleValue = 5;
-
+    testNamesInput: string
     displayInstructions = false;
 
     selectedStarRatingIndex = '';
@@ -1012,7 +1012,6 @@ export class SurveyCreationDesignComponent implements OnInit {
 
     saveData() {
         // RESET VOTES IN TEMPLATE
-
         this.projectInfo = JSON.parse(
             localStorage.getItem('fakeproject' + '_project_info')
         );
