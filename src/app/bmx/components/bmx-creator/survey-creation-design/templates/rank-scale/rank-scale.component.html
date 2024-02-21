@@ -187,8 +187,8 @@
             <path d="M0 0h24v24H0z" fill="none"></path>
         </svg></div>
 
-     <!-- Cards Select Ranking-->
-     <mat-card class="example-card">
+    <!-- Cards Select Ranking-->
+    <mat-card class="example-card">
         <mat-card-header>
             <mat-card-title>Select Ranking
 
@@ -198,19 +198,10 @@
             <div class="sm-section3-rkScale">
 
                 <div class="sm-row-box-rkScale">
-                    <div *ngIf="this.bmxItem.componentSettings[0].rankType !='dragAndDrop' && showBar">
-                        <div style="font-size: 16px;margin-top: 10px;color: #48535e;">SELECT RATING RANGE</div>
-                        <br>
-                        <div
-                            style="text-align: center;display: flex;flex-direction: row;justify-content: space-around;">
-
-                            <input  [(ngModel)]="rankingScaleValue" type="range" id="volume" name="volume" min="0"
-                                [max]="this.rowsCount">
-                            {{rankingScaleValue}}
-                        </div>
-                    </div>
+                
                     <div style="margin-top: 0.5rem;">
-                        <mat-radio-group aria-label="Select an option"[(ngModel)]="this.bmxItem.componentSettings[0].rankType"
+                        <mat-radio-group aria-label="Select an option"
+                            [(ngModel)]="this.bmxItem.componentSettings[0].rankType"
                             (change)="rankingTableType(this.bmxItem.componentSettings[0].rankType)">
                             <div style="display: flex;flex-direction: column;gap: 1px;">
                                 <mat-radio-button value="dropDown">Drop-Down</mat-radio-button>
@@ -263,6 +254,47 @@
     </mat-card>
 
     <br>
+
+    <mat-card class="example-card" *ngIf="showBar">
+        <mat-card-header>
+            <mat-card-title>Select Ranking
+
+            </mat-card-title>
+        </mat-card-header>
+        <mat-card-content>
+            <div class="sm-section3-rkScale">
+
+                <div class="sm-row-box-rkScale">
+                    <div *ngIf="this.bmxItem.componentSettings[0].rankType !='dragAndDrop' && showBar">
+                        <div style="font-size: 16px;margin-top: 10px;color: #48535e;">SELECT RANK</div>
+                        <br>
+                        <div
+                            style="text-align: center;display: flex;flex-direction: row;justify-content: space-around;">
+
+                            <input [(ngModel)]="rankingScaleValue" type="range" id="volume" name="volume" min="0"
+                                [max]="this.rowsCount">
+                            {{rankingScaleValue}}
+                        </div>
+                    </div>
+               
+                    <!-- <select>
+                  <option value="">
+                      <mat-icon style="color:#e6ad11;">rectangle</mat-icon>
+                  </option>
+                  <option value="valid" selected>
+                      <mat-icon style="color:#76d354;">grade</mat-icon>
+                  </option>
+                  <option value="invalid">
+                      <mat-icon style="color:#e6ad11;">rectangle</mat-icon>
+                  </option>
+              </select> -->
+                </div>
+            </div>
+        </mat-card-content>
+
+    </mat-card>
+
+    <br>
     <!-- Cards Criteria-->
     <mat-card class="example-card">
         <mat-card-header>
@@ -295,7 +327,8 @@
             </div>
             <div class="sm-row-box-rkScale" *ngIf="this.bmxItem.componentSettings[0].rankType != 'dragAndDrop'">
                 <div>
-                    <div style="display: flex;flex-direction: column;justify-content: center;gap: 10px;align-items: center; ">
+                    <div
+                        style="display: flex;flex-direction: column;justify-content: center;gap: 10px;align-items: center; ">
                         <div style="font-size: 16px;margin-top: 10px;color: #48535e;text-align: center;"> Minimum:
                             {{bmxItem.componentSettings[0].minRule}}
                         </div>
@@ -306,7 +339,8 @@
                     <div style="font-size: 13px;color: #48535e;">Min number of selections to vote on</div>
                 </div>
                 <div>
-                    <div style="display: flex;flex-direction: column;justify-content:center;gap: 10px;align-items: center;">
+                    <div
+                        style="display: flex;flex-direction: column;justify-content:center;gap: 10px;align-items: center;">
                         <div style="font-size: 16px;margin-top: 10px;color: #48535e;text-align: center;"> Maximun:
                             {{bmxItem.componentSettings[0].maxRule}}
                         </div>
@@ -328,10 +362,13 @@
 
     <!-- BUTTON-->
     <div class="sm-row-box-rkScale">
-        <button style="outline: none;color:#d35854;margin-bottom: 50px;" mat-icon-button (click)="selectedIndex = ''"aria-label="ranking">
+        <button style="outline: none;color:#d35854;margin-bottom: 50px;" mat-icon-button (click)="selectedIndex = ''"
+            aria-label="ranking">
             <mat-icon>cancel</mat-icon><br>Cancel
         </button>
-        <button style="outline: none;color:#76d354;margin-bottom: 50px;" mat-icon-button (click)="selectedIndex = '';upLoadNamesAndRationales(testNamesInput)" [disabled]="false" aria-label="ranking">
+        <button style="outline: none;color:#76d354;margin-bottom: 50px;" mat-icon-button
+            (click)="selectedIndex = '';upLoadNamesAndRationales(testNamesInput)" [disabled]="false"
+            aria-label="ranking">
             <mat-icon>check_circle</mat-icon><br> Done
         </button>
     </div>
