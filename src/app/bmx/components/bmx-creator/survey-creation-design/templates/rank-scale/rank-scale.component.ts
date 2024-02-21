@@ -20,6 +20,7 @@ export class RankScaleComponent extends RatingScaleComponent implements OnInit {
   @Input() bmxClientPageDesignMode;
   @Input() bmxClientPageOverview;
   @Output() autoSave = new EventEmitter();
+  showBar= false
   CREATION_VIDEO_PATH = "assets/videos/RankMatrix.mp4"
   VIDEO_PATH: any[] = [];
 
@@ -137,8 +138,10 @@ export class RankScaleComponent extends RatingScaleComponent implements OnInit {
     this.bmxItem.componentSettings[0].randomizeTestNames = (this.randomizeTestNames) ? true : false
     if (!list) { list = this.listString; }
     if (list) {
+      this.showBar = true
       this.listString = list;
       const rows = list.split("\n");
+      this.rankingScaleValue=rows.length -1
       this.columnsNames = [];
       this.columnsNames = rows[0].toLowerCase().split("\t");
 
@@ -201,8 +204,6 @@ export class RankScaleComponent extends RatingScaleComponent implements OnInit {
         row.STARS = this.createRatingStars(this.rankingScaleValue, this.ratingScaleIcon)
       });
     }
-    console.log(this.rowsCount, this.CRITERIA.length)
-    console.log(this.rowsCount)
     setTimeout(() => {
       if (this.bmxItem.componentSettings[0].rankType == 'radio') {
         this.rowsCount = 20
@@ -228,6 +229,7 @@ export class RankScaleComponent extends RatingScaleComponent implements OnInit {
     }, 1000);
 
     this.bmxItem.componentSettings[0].selectedRanking = this.rankingScaleValue
+    console.log(this.bmxItem)
 
   }
 
@@ -238,7 +240,7 @@ export class RankScaleComponent extends RatingScaleComponent implements OnInit {
     this.columnsNames = []
     this.RadioColumnList = []
     values.forEach(value => {
-      if (typeof value == "string" && value != "STARS" && value != "CRITERIA") {
+      if (typeof value == "string" && value != "STARS" && value != "CRITERIA" && value != "RATE") {
         this.columnsNames.push(value)
       }
     });

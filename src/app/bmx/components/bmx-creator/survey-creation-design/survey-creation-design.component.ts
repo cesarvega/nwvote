@@ -121,7 +121,7 @@ export class SurveyCreationDesignComponent implements OnInit {
     templateToDelete: any;
     selectedDisplayNem: any;
     isTemplate = 'false'
-    directors: any;
+    directors: any[] = [];
     constructor(
         @Inject(DOCUMENT) private document: any,
         public _BmxService: BmxService,
@@ -305,7 +305,7 @@ export class SurveyCreationDesignComponent implements OnInit {
             if (bmxMatrix) {
                 let objeto = JSON.parse(bmxMatrix);
                 let logoUrl = ""
-                this.bmxPages = JSON.parse(bmxMatrix)                
+                this.bmxPages = JSON.parse(bmxMatrix)
                 logoUrl = this.bmxPages[0].page[0].componentSettings[0].companyLogoURL;
 
                 for (let index = 0; index < this.bmxPages.length; index++) {
@@ -370,25 +370,28 @@ export class SurveyCreationDesignComponent implements OnInit {
                     }
                 }
                 this._BmxService.getDirectos().subscribe(directors => {
-                    this.directors = directors                    
-                    const index = this.bmxPages[0].page[1].componentText.indexOf('<p style="text-align:center">BI_DIRECTOR</p>');
+                    this.directors = directors
+                    const index = this.bmxPages[0].page[1]?.componentText.indexOf('<p style="text-align:center">BI_DIRECTOR</p>');
 
                     if (index !== -1) {
-                        this.bmxPages[0].page[1].componentText = this.bmxPages[0].page[1].componentText.substring(0, index);
-                        const newParagraphs = this.directors.map(person => {
-                            return `<p style="display: flex;
-                        justify-content: center;"> ${person.name}  ${person.email} ${person.phone}</p>`;
-                        });
-
-                        this.bmxPages[0].page[1].componentText = this.bmxPages[0].page[1].componentText + newParagraphs.join('')
+                        if(    this.bmxPages[0].page[1]){
+                            this.bmxPages[0].page[1].componentText = this.bmxPages[0].page[1]?.componentText.substring(0, index);
+                            const newParagraphs = this.directors.map(person => {
+                                return `<p style="display: flex;
+                            justify-content: center;"> ${person.name}  ${person.email} ${person.phone}</p>`;
+                            });
+    
+                            this.bmxPages[0].page[1].componentText = this.bmxPages[0].page[1].componentText + newParagraphs.join('')
+                            const name = localStorage.getItem('projectName')
+                            const company = localStorage.getItem('company')
+                            const replacedText = this.bmxPages[0].page[1].componentText
+                                .replace(/\[PROJECT NAME\]/g, name)
+                                .replace(/\[Company Name\]/g, company)
+                            this.bmxPages[0].page[1].componentText = replacedText;
+                        }
                     }
 
-                    const name = localStorage.getItem('projectName')
-                    const company = localStorage.getItem('company')
-                    const replacedText = this.bmxPages[0].page[1].componentText
-                        .replace(/\[PROJECT NAME\]/g, name)
-                        .replace(/\[Company Name\]/g, company)
-                    this.bmxPages[0].page[1].componentText = replacedText;
+                 
                 })
             })
             this.title = 'PROJECT'
@@ -709,7 +712,7 @@ export class SurveyCreationDesignComponent implements OnInit {
         else if (componentType === 'question-answer') {
             this.TestNameDataModel = [];
             this.TestNameDataModel.push({
-                name: 'Questionseses',
+                name: 'Questions',
                 // rationale: 'RATIONALE',
                 STARS: this.createRatingStars(),
             });
@@ -903,35 +906,40 @@ export class SurveyCreationDesignComponent implements OnInit {
         console.log(templateName)
         const name = localStorage.getItem('projectName')
         const company = localStorage.getItem('company')
-        this._BmxService.getBrandMatrixTemplateByName(templateName).subscribe((template: any) => {
-            this.bmxPages = JSON.parse(template.d);
+        const isTemplate = localStorage.getItem('templates')
+        if (!isTemplate) {
+            this._BmxService.getBrandMatrixTemplateByName(templateName).subscribe((template: any) => {
+                this.bmxPages = JSON.parse(template.d);
 
-            this.bmxPages[0].page[1].componentText
-            const originalText = this.bmxPages[0].page[1].componentText;
+                this.bmxPages[0].page[1].componentText
+                const originalText = this.bmxPages[0].page[1].componentText;
 
-            // Reemplazar los valores dinámicamente
-            const replacedText = originalText
-                .replace(/\[PROJECT NAME\]/g, name)
-                .replace(/\[Company Name\]/g, company)
+                // Reemplazar los valores dinámicamente
+                const replacedText = originalText
+                    .replace(/\[PROJECT NAME\]/g, name)
+                    .replace(/\[Company Name\]/g, company)
 
-            this.bmxPages[0].page[1].componentText = replacedText;
-            const index = this.bmxPages[0].page[1].componentText.indexOf('<p>&nbsp;</p>');
+                this.bmxPages[0].page[1].componentText = replacedText;
+                const index = this.bmxPages[0].page[1].componentText.indexOf('<p>&nbsp;</p>');
 
-            this.bmxPages[0].page[1].componentText = this.bmxPages[0].page[1].componentText.substring(0, index);
-
-            const newParagraphs = this.directors.map(person => {
-                return `<p style="display: flex;
+                this.bmxPages[0].page[1].componentText = this.bmxPages[0].page[1].componentText.substring(0, index);
+                let newParagraphs: any = []
+                if (this.directors.length > 0) {
+                    newParagraphs = this.directors.map(person => {
+                        return `<p style="display: flex;
                 justify-content: center;"> ${person.name}  ${person.email} ${person.phone}</p>`;
-            });
-
-            this.bmxPages[0].page[1].componentText = this.bmxPages[0].page[1].componentText + newParagraphs.join('')
-
-            this._snackBar.open('template ' + "'" + templateName + "'" + ' loaded 😀', 'OK', {
-                duration: 5000,
-                horizontalPosition: 'right',
-                verticalPosition: 'top',
+                    });
+                }
+                if (newParagraphs != '') {
+                    this.bmxPages[0].page[1].componentText = this.bmxPages[0].page[1].componentText + newParagraphs.join('')
+                }
+                this._snackBar.open('template ' + "'" + templateName + "'" + ' loaded 😀', 'OK', {
+                    duration: 5000,
+                    horizontalPosition: 'right',
+                    verticalPosition: 'top',
+                })
             })
-        })
+        }
         //this.openSaveTemplateBox();
     }
 
@@ -1222,7 +1230,7 @@ export class SurveyCreationDesignComponent implements OnInit {
 
     previewSurvey() {
         console.log(this.projectId)
-        const projectUrl = this.projectId.replace(/\//g,'-')
+        const projectUrl = this.projectId.replace(/\//g, '-')
         console.log('survey/' + projectUrl + '/' + (this.biUsername ? this.biUsername : 'guest'))
         window.open('survey/' + projectUrl + '/' + (this.biUsername ? this.biUsername : 'guest'));
     }
