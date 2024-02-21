@@ -26,6 +26,7 @@ export class MenuComponent implements OnInit {
   userDepartment: string;
   userOffice: any;
   id: string;
+  versionNumber = 'v1.0.9';
 
   // constructor(private router: Router, private _BmxService: BmxService, private activatedRoute: ActivatedRoute,) {
 
@@ -81,7 +82,7 @@ export class MenuComponent implements OnInit {
             this.userOffice = data.Office;
             this.userDepartment = data.Role;
           }
-        
+
         });
         this.isDashboardMenu = event.url.includes('dashboard') || event.url === '/' || event.url.includes('templates') ;
         this.isPreviewView = event.url.includes('survey')
@@ -127,7 +128,7 @@ export class MenuComponent implements OnInit {
       localStorage.clear()
       this.isDashboardMenu = true;
       this.router.navigate(['/' + value]);
-    } 
+    }
     else if (value.includes('bmx-creation')) {
 
       if (localStorage.getItem('projectName')) {
