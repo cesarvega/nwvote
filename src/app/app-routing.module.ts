@@ -20,8 +20,9 @@ import { TemplatesComponent } from './bmx/components/templates/templates.compone
 
 
 const routes: Routes = [
-  {path: 'dashboard', component: DashboardComponent},
   {path: 'bmx-creation/:id', component:SurveyCreationDesignComponent },
+  {path: 'dashboard', component: DashboardComponent},
+  
    {//BI BRAND MATRIX
     path: 'survey/:id/:username',
     component: SurveyMatrixComponent
