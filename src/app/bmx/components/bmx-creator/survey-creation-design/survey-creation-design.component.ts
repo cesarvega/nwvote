@@ -374,24 +374,24 @@ export class SurveyCreationDesignComponent implements OnInit {
                     const index = this.bmxPages[0].page[1]?.componentText.indexOf('<p style="text-align:center">BI_DIRECTOR</p>');
 
                     if (index !== -1) {
-                        if(    this.bmxPages[0].page[1]){
+                        if (this.bmxPages[0].page[1]) {
                             this.bmxPages[0].page[1].componentText = this.bmxPages[0].page[1]?.componentText.substring(0, index);
                             const newParagraphs = this.directors.map(person => {
                                 return `<p style="display: flex;
                             justify-content: center;"> ${person.name}  ${person.email} ${person.phone}</p>`;
                             });
-    
                             this.bmxPages[0].page[1].componentText = this.bmxPages[0].page[1].componentText + newParagraphs.join('')
-                            const name = localStorage.getItem('projectName')
-                            const company = localStorage.getItem('company')
-                            const replacedText = this.bmxPages[0].page[1].componentText
-                                .replace(/\[PROJECT NAME\]/g, name)
-                                .replace(/\[Company Name\]/g, company)
-                            this.bmxPages[0].page[1].componentText = replacedText;
                         }
                     }
+                    const name = localStorage.getItem('projectName')
+                    console.log(name)
+                    const company = localStorage.getItem('company')
+                    const replacedText = this.bmxPages[0].page[1].componentText
+                        .replace(/\[PROJECT NAME\]/g, name)
+                        .replace(/\[Project Name\]/g, name)
+                        .replace(/\[Company Name\]/g, company)
+                    this.bmxPages[0].page[1].componentText = replacedText;
 
-                 
                 })
             })
             this.title = 'PROJECT'
