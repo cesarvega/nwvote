@@ -82,8 +82,8 @@
                         <div *ngIf="showModalVideo" id="myModal" class="modal-video"
                             style="display: flex;flex-direction: column;gap: 2px;">
                             <!-- <label class="container-checkbox">Don't show again
-                            <input (click)="saveSelection()" type="checkbox" value="Bike" #modalChecked> 
-                            <span class="checkmark">&#x2714;</span>        
+                            <input (click)="saveSelection()" type="checkbox" value="Bike" #modalChecked>
+                            <span class="checkmark">&#x2714;</span>
                         </label> -->
                             <mat-checkbox #modalChecked (click)="saveSelection()"
                                 class="example-margin container-checkbox">Don't show again</mat-checkbox>
@@ -205,7 +205,7 @@
                         <!-- <div *ngIf="showModalVideo" id="myModal" class="modal-video" CV
                     style="display: flex;flex-direction: column;gap: 6px;">
                         <mat-checkbox (click)="saveSelection()" class="example-margin container-checkbox" >Don't show again</mat-checkbox>
-                    
+
                         <div class="modal-content">
                             <img *ngFor="let path of VIDEO_PATH" [src]="path" alt="Girl in a jacket">
                         </div>
@@ -312,8 +312,8 @@
     top: 40%;
     left: 50%;
     transform: translate(-50%, -50%);
-    z-index: 999;    
-    width: 465px;animation: 
+    z-index: 999;
+    width: 465px;animation:
     fadeIn 3s ease 4s forwards;" slot="end" autoplay loop [src]="'assets/img/cubo.json'">
 </lottie-player>
 <lottie-player class="lottie-player" *ngIf="loadingLottie" style="
@@ -321,7 +321,7 @@
     top: 40%;
     left: 50%;
     transform: translate(-50%, -50%);
-    z-index: 999;    
-    width: 70px;animation: 
+    z-index: 999;
+    width: 70px;animation:
     fadeIn 3s ease 4s forwards;" slot="end" autoplay loop [src]="'assets/img/esfera.json'">
 </lottie-player> -->
