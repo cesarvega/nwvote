@@ -423,12 +423,8 @@ export class RatingScaleComponent implements OnInit {
         
          this.bmxItem.componentText[testNameId].CRITERIA.forEach((criteria)=>{
           intCounter = intCounter + criteria.RATE
-          console.log(criteria.RATE)
          })
-         console.log('a')
-         console.log(intCounter)
          if(intCounter<=0){
-          console.log('b')
           this.maxRuleCounter++ 
          }
       }
@@ -966,6 +962,7 @@ export class RatingScaleComponent implements OnInit {
   }
 
   openDialog(type: any, component?: any) {
+    this.actionType = type
     if (type === 'delete') {
       this.templateToDelete = component
       this.dialogText = "Are you sure you want to delete this component?"
@@ -978,7 +975,7 @@ export class RatingScaleComponent implements OnInit {
       this.dialogText = "Are you sure you want to delete this column?"
     }
 
-    this.actionType = type
+   
     this.showDialog = true
   }
 
@@ -1054,7 +1051,6 @@ export class RatingScaleComponent implements OnInit {
       localStorage.setItem('showModal', JSON.stringify(false));
 
     } else {
-      console.log('es falso')
     }
   }
 
