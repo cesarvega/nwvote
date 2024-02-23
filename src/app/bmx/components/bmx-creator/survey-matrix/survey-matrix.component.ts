@@ -108,7 +108,7 @@ export class SurveyMatrixComponent extends SurveyCreationDesignComponent impleme
   ) {
     super(document, _BmxService, _snackBar, activatedRoute);
     activatedRoute.params.subscribe((params) => {
-      this.projectId = params['id'];
+      this.projectId = params['id'].trim();
       this.username = params['username'];
       localStorage.setItem('projectId', this.projectId);
     });
@@ -127,11 +127,11 @@ export class SurveyMatrixComponent extends SurveyCreationDesignComponent impleme
     this._BmxService.currentProjectName$.subscribe((res) => {
       this.globalProjectName = res ? res : '';
     });
-    this.projectId = localStorage.getItem('projectName')
+    this.projectId = localStorage.getItem('projectId')
     this._BmxService.getProjectInfo(this.projectId).subscribe((arg: any) => {
       console.log(arg)
       this.status = JSON.parse(arg.d).bmxStatus
-      this.bmxClientPageOverview = false     
+      this.bmxClientPageOverview = false
 
       if (!this.username) {
         this.myAngularxQrCode = this.myAngularxQrCode + this.projectId
@@ -505,7 +505,7 @@ export class SurveyMatrixComponent extends SurveyCreationDesignComponent impleme
                     this.bmxPagesClient = JSON.parse(
                       brandMatrix.d.replace(this.searchGraveAccentRegExp, "'")
                     );
-                    // CHECK IF THE PAGE IS CATEGORY PAGE                  
+                    // CHECK IF THE PAGE IS CATEGORY PAGE
                     this.bmxPagesClient.forEach((page, index) => {
                       this.isCategoryPage[index] = { isCategory: false };
                       page.page.forEach((component) => {
@@ -648,7 +648,7 @@ export class SurveyMatrixComponent extends SurveyCreationDesignComponent impleme
                           if (index > 0) {
                             templateRow[key] = answerRow[key];
                             // THERE IS A BUG WHEN 2 OR MORE COMMENTS COLUMNS ARE IN THE MATRIX
-                            // SO FOR NOW I COMMENT THE LINE BELOW 
+                            // SO FOR NOW I COMMENT THE LINE BELOW
                             // answerComponent.componentText.splice(index, 1);
                           }
                         } else if (key.includes('RadioColumn')) {
@@ -1331,5 +1331,5 @@ export class SurveyMatrixComponent extends SurveyCreationDesignComponent impleme
         );
       });
   }
-  
+
 }
