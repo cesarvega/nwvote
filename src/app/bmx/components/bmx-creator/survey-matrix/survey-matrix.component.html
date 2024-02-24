@@ -12,7 +12,7 @@
             style="position: absolute;bottom: 10px;color: grey;z-index: 9999999999;right: 33px;outline: none;">
             <mat-icon class="full-icon" style="font-size: 35px;">qr_code
             </mat-icon>
-        </button> -->
+         </button> -->
             <button (click)="openFullscreen()" mat-icon-button matTooltip="design tools" matTooltipPosition="above"
                 *ngIf="true"
                 style="position: absolute;bottom: 9px;color: grey;z-index: 9999999999;right: -3px;outline: none;">
@@ -32,7 +32,8 @@
 
 
                 <!-- BRAND MATRIX MODULAR TEMPLATE COMPONENTS  🧑🏻‍🚀🧑🏻‍🚀🧑🏻‍🚀🧑🏻‍🚀🧑🏻‍🚀🧑🏻‍🚀🧑🏻‍🚀🧑🏻‍🚀🧑🏻‍🚀🧑🏻‍🚀🧑🏻‍🚀🧑🏻‍🚀🧑🏻‍🚀 -->
-                <div *ngFor="let bmxItem of bmxPagesClient[currentPage]?.page; let i = index" style="display: flex;flex-direction: column;align-content: center;">
+                <div *ngFor="let bmxItem of bmxPagesClient[currentPage]?.page; let i = index"
+                    style="display: flex;flex-direction: column;align-content: center;">
 
                     <div *ngIf="bmxItem.componentType === 'page-title'" class="paragraph">
                         <div class="emoji-handle">.</div>
