@@ -421,11 +421,13 @@ export class TinderComponent extends RatingScaleComponent implements OnInit {
   }
 
   uploadNames(){
-    this.bmxItem.componentText.push(this.newCandidate)
-    this.dataSource.push(this.newCandidate)
+
+    this.bmxItem.componentText.push({name: 'QUETION' +  this.bmxItem.componentText.length,...this.newCandidate})
+    this.dataSource.push({name: 'QUETION' +  this.bmxItem.componentText.length,...this.newCandidate})
     this.newCandidate.nameCandidates = "";
     this.newCandidate.rationale = "";
     this.showModalAddRow = false;
+    this.xpercent = 100 / (this.bmxItem.componentText.length - 1);
   }
 
   deleteName(element: any){

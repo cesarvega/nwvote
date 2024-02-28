@@ -111,11 +111,11 @@ justify-content: center;cursor: move; height: 25px; width: 100%;"><svg width="24
 
 
 
-                <div class="sm-row-box-rkScale" >
+                <div class="sm-row-box-rkScale">
                     <div *ngIf="ranking">
                         <div style="font-size: 16px;margin-top: 10px;color: #48535e;">SELECT RATING RANGE</div>
                         <br>
-                        <div 
+                        <div
                             style="text-align: center;display: flex;flex-direction: row;justify-content: space-around;">
 
                             <input [(ngModel)]="rankingScaleValue" type="range" id="volume" name="volume" min="0"
@@ -127,7 +127,8 @@ justify-content: center;cursor: move; height: 25px; width: 100%;"><svg width="24
                  ">
                         <div style="display: flex; flex-direction: column">
                             <mat-checkbox [(ngModel)]="randomizeTestNames">Randomize Names</mat-checkbox>
-                            <mat-checkbox *ngIf="!ranking"  #showIcon [(ngModel)]="showNeutralIcon">Add Neutral Button</mat-checkbox>
+                            <mat-checkbox *ngIf="!ranking" #showIcon [(ngModel)]="showNeutralIcon">Add Neutral
+                                Button</mat-checkbox>
                             <mat-checkbox #changePreference (click)="changePreferenceScore()"
                                 [(ngModel)]="ranking">Preference
                                 Score</mat-checkbox>
@@ -406,11 +407,13 @@ justify-content: center;cursor: move; height: 25px; width: 100%;"><svg width="24
 <div *ngIf="showModalTable" class="modal-video" style="display: flex;flex-direction: column;gap: 2px;">
 
     <div class="modal-content">
-        <div class="content-button">
-            <button mat-button (click)="showModalTable = false">Save</button>
-        </div>
-        <div class="content-table">
-            <table mat-table [dataSource]="dataSource" class="mat-elevation-z8">
+
+        <div class="content-table" style="display: flex;
+        justify-content: center;
+        background: white;
+        flex-direction: column;
+    ">
+            <table mat-table [dataSource]="dataSource" class="mat-elevation-z8" style="box-shadow: none !important;">
 
                 <!--- Note that these columns can be defined in any order.
                       The actual rendered columns are set as a property on the row definition" -->
@@ -434,19 +437,23 @@ justify-content: center;cursor: move; height: 25px; width: 100%;"><svg width="24
                 <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
                 <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
             </table>
+            <div class="content-button" style="width: 100%; display: flex; justify-content: space-between;">
+                <button mat-button *ngIf="!showNewInput"
+                    (click)="showModalAddRow = true; showModalTable = false"><mat-icon>add_box</mat-icon></button>
+                <button mat-button (click)="showModalTable = false">Save</button>
+            </div>
+
         </div>
-        <div class="content-button">
-            <button mat-button *ngIf="!showNewInput"
-                (click)="showModalAddRow = true; showModalTable = false"><mat-icon>add_box</mat-icon></button>
-        </div>
+
     </div>
 
 </div>
 
 <!-- modal add row -->
-<div *ngIf="showModalAddRow" id="myModalrow" class="modal-video">
+<div *ngIf="showModalAddRow" id="myModalrow" class="modal-video" class="modal-video"
+    style="display: flex;flex-direction: column;gap: 2px;">
 
-    <div class="modal-content-add-row" style="background: white; padding: 15px">
+    <div class="modal-content-add-row" style="background: white; padding: 15px" class="modal-content">
         <div class="content-input">
             <mat-form-field class="example-full-width">
                 <mat-label>Name Candidates</mat-label>
@@ -457,8 +464,10 @@ justify-content: center;cursor: move; height: 25px; width: 100%;"><svg width="24
                 <textarea rows="4" matInput [(ngModel)]="newCandidate.rationale"
                     value="{{newCandidate.rationale}}"></textarea>
             </mat-form-field>
-            <button mat-raised-button color="primary" (click)="uploadNames()" style="color: white">Save</button>
-            <button mat-raised-button (click)="showModalAddRow = false" style="margin-left: 2px;">Cancel</button>
+            <button mat-raised-button color="primary" (click)="uploadNames();showModalTable = true"
+                style="color: white">Save</button>
+            <button mat-raised-button (click)="showModalAddRow = false;showModalTable = true "
+                style="margin-left: 2px;">Cancel</button>
         </div>
     </div>
 </div>
