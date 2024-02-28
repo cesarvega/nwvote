@@ -450,6 +450,7 @@ export class TinderComponent extends RatingScaleComponent implements OnInit {
     this.dataSource.forEach((data)=>{
       if(!data.nameCandidates){
         data.nameCandidates = 'TESTE NAME'
+        data.rationale = 'Rationale of an undisclosed length'
       }
     
     })
