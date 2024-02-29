@@ -344,14 +344,14 @@ export class TinderComponent extends RatingScaleComponent implements OnInit {
     }
   }
 
-  moveRight(testName: string) {
+  moveRight() {
 
-    if (this.value <= 100) {
+    if (this.testNameIndex < this.bmxItem.componentText.length - 1) {
       this.value = this.value + this.xpercent;
       if (this.testNameIndex < this.bmxItem.componentText.length - 1) {
 
         this.testNameIndex++
-
+        console.log(this.bmxItem.componentText[this.testNameIndex])
         if (this.bmxItem.componentText[this.testNameIndex]['vote'] != undefined || this.bmxItem.componentText[this.testNameIndex]['RATE'] != undefined) {
           this.hasVoted = true;
           if (this.ranking) {
@@ -387,7 +387,7 @@ export class TinderComponent extends RatingScaleComponent implements OnInit {
     }
   }
 
-  moveleft(testName: string) {
+  moveleft() {
     if (1 < this.testNameIndex) {
       this.value = this.value - this.xpercent;
       this.testNameIndex--
@@ -424,35 +424,38 @@ export class TinderComponent extends RatingScaleComponent implements OnInit {
 
   uploadNames() {
 
-    this.bmxItem.componentText.push({ name: 'QUETION' + this.bmxItem.componentText.length, ...this.newCandidate })
-    this.dataSource.push({ name: 'QUETION' + this.bmxItem.componentText.length, ...this.newCandidate })
+    console.log(this.xpercent, this.value)
+    this.bmxItem.componentText.push({ name: 'QUESTION' + ' ' + (this.bmxItem.componentText.length - 1), ...this.newCandidate })
+    this.dataSource = this.bmxItem.componentText.slice(1)
     this.newCandidate.nameCandidates = "";
     this.newCandidate.rationale = "";
     this.showModalAddRow = false;
     this.xpercent = 100 / (this.bmxItem.componentText.length - 1);
+    this.value = this.xpercent * this.testNameIndex
+    console.log(this.bmxItem.componentText, this.dataSource)
   }
 
   deleteName(element: any) {
-    let x
-    x = this.bmxItem.componentText.splice(this.bmxItem.componentText.indexOf(element), 1);
-
-    if (x[0].nameCandidates == element.nameCandidates) {
-      this.dataSource.splice(this.dataSource.indexOf(element), 1);
-    }
-
+    this.dataSource.splice(this.dataSource.indexOf(element), 1);
+    // Eliminar el elemento del array this.bmxItem.componentText
+    this.bmxItem.componentText.splice(this.bmxItem.componentText.indexOf(element), 1);
+    // Eliminar el elemento del array this.dataSource
+    this.xpercent = 100 / (this.bmxItem.componentText.length - 1);
+    this.value = this.xpercent * this.testNameIndex
+    this.moveleft()
     this.table.renderRows();
   }
 
   getDataSource() {
     this.dataSource = this.bmxItem.componentText.slice(1)
-    
+
     // console.log(this.bmxItem)
-    this.dataSource.forEach((data)=>{
-      if(!data.nameCandidates){
-        data.nameCandidates = 'TESTE NAME'
+    this.dataSource.forEach((data) => {
+      if (!data.nameCandidates) {
+        data.nameCandidates = 'TEST NAME'
         data.rationale = 'Rationale of an undisclosed length'
       }
-    
+
     })
     console.log(this.dataSource)
     if (this.bmxItem.componentSettings[0].ranking == undefined) {
