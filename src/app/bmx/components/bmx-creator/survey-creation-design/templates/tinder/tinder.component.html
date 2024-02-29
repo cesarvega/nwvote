@@ -53,8 +53,8 @@
             *ngIf="i !== selectedIndex" mat-icon-button>
             <mat-icon style="font-size: 25px;" class="full-icon"> text_fields</mat-icon>
         </button>
-        <button (click)="selectedIndex = i; verifyCritera() " class="add-column" matTooltip="insert test names" matTooltipPosition="above"
-            *ngIf="i !== selectedIndex" mat-icon-button>
+        <button (click)="selectedIndex = i; verifyCritera() " class="add-column" matTooltip="insert test names"
+            matTooltipPosition="above" *ngIf="i !== selectedIndex" mat-icon-button>
             <mat-icon style="font-size: 25px;" class="full-icon">edit</mat-icon>
         </button>
     </div>
@@ -70,8 +70,8 @@
 
     <div class="example-handle" cdkDragHandle style="display: flex;
 flex-direction: row;
-justify-content: center;cursor: move; height: 25px; width: 100%;"><svg width="24px"
-            fill="currentColor" viewBox="0 0 24 24">
+justify-content: center;cursor: move; height: 25px; width: 100%;"><svg width="24px" fill="currentColor"
+            viewBox="0 0 24 24">
             <path
                 d="M10 9h4V6h3l-5-5-5 5h3v3zm-1 1H6V7l-5 5 5 5v-3h3v-4zm14 2l-5-5v3h-3v4h3v3l5-5zm-9 3h-4v3H7l5 5 5-5h-3v-3z">
             </path>
@@ -91,9 +91,9 @@ justify-content: center;cursor: move; height: 25px; width: 100%;"><svg width="24
             <div style="display: flex; justify-content: center; align-items: center;">
                 <mat-form-field style="width: 90%; margin-left: 20px;" appearance="outline">
                     <mat-label>Copy & Paste TEST NAMES</mat-label>
-                    <textarea matInput [(ngModel)]="testNamesInput" (paste)="onPaste()" (ngModelChange)="upLoadNamesAndRationales(testNamesInput)"
-                        placeholder="Paste test names here" cdkTextareaAutosize cdkAutosizeMinRows="2"
-                        cdkAutosizeMaxRows="5"></textarea>
+                    <textarea matInput [(ngModel)]="testNamesInput" (paste)="onPaste()"
+                        (ngModelChange)="upLoadNamesAndRationales(testNamesInput)" placeholder="Paste test names here"
+                        cdkTextareaAutosize cdkAutosizeMinRows="2" cdkAutosizeMaxRows="5"></textarea>
                     <mat-hint>Type or paste the test names here that you want to include</mat-hint>
                 </mat-form-field>
             </div>
@@ -112,20 +112,23 @@ justify-content: center;cursor: move; height: 25px; width: 100%;"><svg width="24
 
 
                 <div class="sm-row-box-rkScale">
-                  <div>
-                    <div style="font-size: 16px;margin-top: 10px;color: #48535e;">SELECT RATING RANGE</div>
-                    <br>
-                    <div style="text-align: center;display: flex;flex-direction: row;justify-content: space-around;">
+                    <div *ngIf="ranking">
+                        <div style="font-size: 16px;margin-top: 10px;color: #48535e;">SELECT RATING RANGE</div>
+                        <br>
+                        <div
+                            style="text-align: center;display: flex;flex-direction: row;justify-content: space-around;">
 
-                        <input [(ngModel)]="rankingScaleValue" type="range" id="volume" name="volume" min="0" max="10">
-                        {{rankingScaleValue}}
+                            <input [(ngModel)]="rankingScaleValue" type="range" id="volume" name="volume" min="0"
+                                max="10">
+                            {{rankingScaleValue}}
+                        </div>
                     </div>
-                </div>
                     <div style="    margin-top: 0.5rem;
-        ">
+                 ">
                         <div style="display: flex; flex-direction: column">
                             <mat-checkbox [(ngModel)]="randomizeTestNames">Randomize Names</mat-checkbox>
-                            <mat-checkbox #showIcon [(ngModel)]="showNeutralIcon">Add Neutral Button</mat-checkbox>
+                            <mat-checkbox *ngIf="!ranking" #showIcon [(ngModel)]="showNeutralIcon">Add Neutral
+                                Button</mat-checkbox>
                             <mat-checkbox #changePreference (click)="changePreferenceScore()"
                                 [(ngModel)]="ranking">Preference
                                 Score</mat-checkbox>
@@ -138,29 +141,29 @@ justify-content: center;cursor: move; height: 25px; width: 100%;"><svg width="24
 
     </mat-card>
     <br>
- <!-- Cards Criteria-->
+    <!-- Cards Criteria-->
     <mat-card class="example-card">
         <mat-card-header>
             <mat-card-title>Category</mat-card-title>
         </mat-card-header>
         <br>
         <div class="sm-section2-rkScale">
-          <div class="sm-column-box-rkScale">
-            <mat-form-field appearance="outline" style="width: 40%">
-                <mat-label>Category Name</mat-label>
-                <input matInput [(ngModel)]="bmxItem.componentSettings[0].categoryName" placeholder="Category Name"
-                    style="font-size: 20px;color: #324395;">
-                <mat-hint>Enter the name of the category</mat-hint> <!-- Hint text for Category Name -->
-            </mat-form-field>
+            <div class="sm-column-box-rkScale">
+                <mat-form-field appearance="outline" style="width: 40%">
+                    <mat-label>Category Name</mat-label>
+                    <input matInput [(ngModel)]="bmxItem.componentSettings[0].categoryName" placeholder="Category Name"
+                        style="font-size: 20px;color: #324395;">
+                    <mat-hint>Enter the name of the category</mat-hint> <!-- Hint text for Category Name -->
+                </mat-form-field>
 
-            <mat-form-field appearance="outline" style="width: 40%">
-                <mat-label>Sub category Description</mat-label>
-                <input matInput [(ngModel)]="bmxItem.componentSettings[0].categoryDescription"
-                    placeholder="Sub category Description" style="font-size: 20px;color: #ee7f25;">
-                <mat-hint>Enter a brief description of the Sub category </mat-hint>
-                <!-- Hint text for Category Description -->
-            </mat-form-field>
-        </div>
+                <mat-form-field appearance="outline" style="width: 40%">
+                    <mat-label>Sub category Description</mat-label>
+                    <input matInput [(ngModel)]="bmxItem.componentSettings[0].categoryDescription"
+                        placeholder="Sub category Description" style="font-size: 20px;color: #ee7f25;">
+                    <mat-hint>Enter a brief description of the Sub category </mat-hint>
+                    <!-- Hint text for Category Description -->
+                </mat-form-field>
+            </div>
             <br>
 
 
@@ -172,7 +175,7 @@ justify-content: center;cursor: move; height: 25px; width: 100%;"><svg width="24
     </mat-card>
     <br>
     <!-- Cards Select Ranking-->
- 
+
 
     <!-- BUTTON-->
     <div class="sm-row-box-rkScale">
@@ -404,11 +407,13 @@ justify-content: center;cursor: move; height: 25px; width: 100%;"><svg width="24
 <div *ngIf="showModalTable" class="modal-video" style="display: flex;flex-direction: column;gap: 2px;">
 
     <div class="modal-content">
-        <div class="content-button">
-            <button mat-button (click)="showModalTable = false">Save</button>
-        </div>
-        <div class="content-table">
-            <table mat-table [dataSource]="dataSource" class="mat-elevation-z8">
+
+        <div class="content-table" style="display: flex;
+        justify-content: center;
+        background: white;
+        flex-direction: column;
+    ">
+            <table mat-table [dataSource]="dataSource" class="mat-elevation-z8" style="box-shadow: none !important;">
 
                 <!--- Note that these columns can be defined in any order.
                       The actual rendered columns are set as a property on the row definition" -->
@@ -417,7 +422,7 @@ justify-content: center;cursor: move; height: 25px; width: 100%;"><svg width="24
                 <ng-container matColumnDef="nameCandidates">
                     <th mat-header-cell *matHeaderCellDef> Name Candidates</th>
                     <td mat-cell *matCellDef="let element"><input type="text" matInput
-                            [(ngModel)]="element.nameCandidates" [value]="element.nameCandidates"></td>
+                            [(ngModel)]="element.nameCandidates" ></td>
                 </ng-container>
                 <ng-container matColumnDef="rationale">
                     <th mat-header-cell *matHeaderCellDef> Rationales</th>
@@ -432,19 +437,23 @@ justify-content: center;cursor: move; height: 25px; width: 100%;"><svg width="24
                 <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
                 <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
             </table>
+            <div class="content-button" style="width: 100%; display: flex; justify-content: space-between;">
+                <button mat-button *ngIf="!showNewInput"
+                    (click)="showModalAddRow = true; showModalTable = false"><mat-icon>add_box</mat-icon></button>
+                <button mat-button (click)="showModalTable = false">Save</button>
+            </div>
+
         </div>
-        <div class="content-button">
-            <button mat-button *ngIf="!showNewInput"
-                (click)="showModalAddRow = true; showModalTable = false"><mat-icon>add_box</mat-icon></button>
-        </div>
+
     </div>
 
 </div>
 
 <!-- modal add row -->
-<div *ngIf="showModalAddRow" id="myModalrow" class="modal-video">
+<div *ngIf="showModalAddRow" id="myModalrow" class="modal-video" class="modal-video"
+    style="display: flex;flex-direction: column;gap: 2px;">
 
-    <div class="modal-content-add-row" style="background: white; padding: 15px">
+    <div class="modal-content-add-row" style="background: white; padding: 15px" class="modal-content">
         <div class="content-input">
             <mat-form-field class="example-full-width">
                 <mat-label>Name Candidates</mat-label>
@@ -455,8 +464,10 @@ justify-content: center;cursor: move; height: 25px; width: 100%;"><svg width="24
                 <textarea rows="4" matInput [(ngModel)]="newCandidate.rationale"
                     value="{{newCandidate.rationale}}"></textarea>
             </mat-form-field>
-            <button mat-raised-button color="primary" (click)="uploadNames()" style="color: white">Save</button>
-            <button mat-raised-button (click)="showModalAddRow = false" style="margin-left: 2px;">Cancel</button>
+            <button mat-raised-button color="primary" (click)="uploadNames();showModalTable = true"
+                style="color: white">Save</button>
+            <button mat-raised-button (click)="showModalAddRow = false;showModalTable = true "
+                style="margin-left: 2px;">Cancel</button>
         </div>
     </div>
 </div>

@@ -100,30 +100,32 @@
             <td mat-cell *matCellDef="let element">{{element.created | date:'dd MMMM yyyy, hh:mm:ss a'}}</td>
         </ng-container>
         
+
+        <ng-container matColumnDef="Edit">
+            <th mat-header-cell *matHeaderCellDef mat-sort-header style="width: 3.33%;"> </th>
+            <td mat-cell *matCellDef="let element">
+                <button mat-icon-button matTooltip="edit template" style="color: #48bcb4;" aria-label="Example icon button with a home icon"
+                    (click)=" selectedTemplateName = element.templateName; templateName = element.templateName; templateSelected(element.templateName, element.displayName, element.brandMatrix) ; selectedTemplateName= element.displayName? element.displayName : element.templateName">
+                    <mat-icon>build</mat-icon>
+                </button>
+            </td>
+        </ng-container>
+
         <ng-container matColumnDef="Name">
             <th mat-header-cell *matHeaderCellDef mat-sort-header style="width: 3.33%;"> </th>
             <td mat-cell *matCellDef="let element">
-                <button mat-icon-button
+                <button mat-icon-button matTooltip="change template name" mat-icon-button
                     (click)="selectedDisplayName = element.displayName;openModal(); selectedTemplateName = element.templateName; templateName = element.templateName; bmxPages = element.brandMatrix"
                     aria-label="Example icon button with a home icon">
                     <mat-icon>edit</mat-icon>
                 </button>
             </td>
         </ng-container>
-
-        <ng-container matColumnDef="Edit">
-            <th mat-header-cell *matHeaderCellDef mat-sort-header style="width: 3.33%;"> </th>
-            <td mat-cell *matCellDef="let element">
-                <button mat-icon-button style="color: #48bcb4;" aria-label="Example icon button with a home icon"
-                    (click)=" selectedTemplateName = element.templateName; templateName = element.templateName; templateSelected(element.templateName, element.displayName, element.brandMatrix) ; selectedTemplateName= element.displayName? element.displayName : element.templateName">
-                    <mat-icon>build</mat-icon>
-                </button>
-            </td>
-        </ng-container>
+      
         <ng-container matColumnDef="Delete">
             <th mat-header-cell *matHeaderCellDef mat-sort-header style="width: 3.33%;"> </th>
             <td mat-cell *matCellDef="let element">
-                <button (click)="showDialogComponent(element.templateName)" mat-icon-button style="color: #bc488a;" aria-label="Example icon button with a home icon">
+                <button mat-icon-button matTooltip="delete template" (click)="showDialogComponent(element.templateName)" mat-icon-button style="color: #bc488a;" aria-label="Example icon button with a home icon">
                     <mat-icon>delete</mat-icon>
                 </button>
             </td>
