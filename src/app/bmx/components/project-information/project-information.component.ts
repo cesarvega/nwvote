@@ -107,7 +107,7 @@ export class ProjectInformationComponent implements OnInit {
             } else if (data.bmxStatus == "close") {
               this.status = "close"
             }
-            localStorage.setItem('company', data.bmxCompany )
+            localStorage.setItem('company', data.bmxCompany)
             console.log(data)
             var list;
             this._BmxService.setDirectors(data.bmxRegionalOffice)
@@ -192,35 +192,39 @@ export class ProjectInformationComponent implements OnInit {
     this.selectedDate = event;
   }
   saveProjectInfo() {
-    this._BmxService.setProjectName(this.bmxEditData.get('bmxProjectName').value.toString());
-    const projectInfo: JSON = <JSON><unknown>{
-      "bmxSalesboard": this.bmxEditData.get('bmxSalesboard').value.toString(),
-      "bmxDepartment": this.bmxEditData.get('bmxDepartment').value.toString(),
-      "bmxProjectName": this.bmxEditData.get('bmxProjectName').value.toString().trim(),
-      "bmxRegion": this.bmxEditData.get('bmxRegion').value.toString(),
-      "bmxCompany": this.bmxEditData.get('bmxCompany').value.toString(),
-      "bmxLanguage": this.bmxEditData.get('bmxLanguage').value.toString(),
-      "bmxRegionalOffice": this.DIRECTORS,
-      "bmxStatus": this.status.toString,
-      "bmxClosingDate": this.selectedDate,
-    }
-    this._BmxService.setDirectors(this.DIRECTORS)
-    localStorage.setItem('company', this.bmxEditData.get('bmxCompany').value.toString(), )
-    var finalString = JSON.stringify(projectInfo);
-    finalString = finalString.replace("[\\u2022,\\u2023,\\u25E6,\\u2043,\\u2219]\\s\\d", '');
-    this._BmxService.saveProjectInfo(this.bmxEditData.get('bmxProjectName').value.toString(), finalString, 'user@bi.com').subscribe(result => {
-      var so = result;
-      this.saveProjectSuccess.emit(true)
-    });
-    if (this.templateName.length > 3) {
-      localStorage.setItem('template', JSON.stringify(this.bmxPages));
-    }
+    if (this.bmxEditData.valid) {
 
-    // SET DATA STREAM TO AN OBSERVABLE
-    this._BmxService.setprojectData(finalString)
-    this._snackBar.open('Saved Succesfully');
-    localStorage.setItem('department', this.bmxEditData.get('bmxDepartment').value.toString());
-    this.router.navigate(['/bmx-creation/99CB72BF-D163-46A6-8A0D-E1531EC7FEDC']) 
+
+      this._BmxService.setProjectName(this.bmxEditData.get('bmxProjectName').value.toString());
+      const projectInfo: JSON = <JSON><unknown>{
+        "bmxSalesboard": this.bmxEditData.get('bmxSalesboard').value.toString(),
+        "bmxDepartment": this.bmxEditData.get('bmxDepartment').value.toString(),
+        "bmxProjectName": this.bmxEditData.get('bmxProjectName').value.toString().trim(),
+        "bmxRegion": this.bmxEditData.get('bmxRegion').value.toString(),
+        "bmxCompany": this.bmxEditData.get('bmxCompany').value.toString(),
+        "bmxLanguage": this.bmxEditData.get('bmxLanguage').value.toString(),
+        "bmxRegionalOffice": this.DIRECTORS,
+        "bmxStatus": this.status.toString,
+        "bmxClosingDate": this.selectedDate,
+      }
+      this._BmxService.setDirectors(this.DIRECTORS)
+      localStorage.setItem('company', this.bmxEditData.get('bmxCompany').value.toString(),)
+      var finalString = JSON.stringify(projectInfo);
+      finalString = finalString.replace("[\\u2022,\\u2023,\\u25E6,\\u2043,\\u2219]\\s\\d", '');
+      this._BmxService.saveProjectInfo(this.bmxEditData.get('bmxProjectName').value.toString(), finalString, 'user@bi.com').subscribe(result => {
+        var so = result;
+        this.saveProjectSuccess.emit(true)
+      });
+      if (this.templateName.length > 3) {
+        localStorage.setItem('template', JSON.stringify(this.bmxPages));
+      }
+
+      // SET DATA STREAM TO AN OBSERVABLE
+      this._BmxService.setprojectData(finalString)
+      this._snackBar.open('Saved Succesfully');
+      localStorage.setItem('department', this.bmxEditData.get('bmxDepartment').value.toString());
+      this.router.navigate(['/bmx-creation/99CB72BF-D163-46A6-8A0D-E1531EC7FEDC'])
+    }
   }
 
   createDirector(): void {
@@ -309,22 +313,23 @@ export class ProjectInformationComponent implements OnInit {
 
     this.bmxSalesboard = new FormControl(
       '', [
+      Validators.required,
     ]);
     this.bmxDepartment = new FormControl(
-      '', [
+      '', [Validators.required,
     ]);
     this.bmxProjectName = new FormControl(
-      '', [
+      '', [Validators.required,
     ]);
     this.bmxRegion = new FormControl(
-      '', [
+      '', [Validators.required,
     ]);
     this.bmxCompany = new FormControl(
-      '', [
+      '', [Validators.required,
       // Validators.pattern("^[a-zA-Z0-9]+$")
     ]);
     this.bmxLanguage = new FormControl(
-      '', [
+      '', [Validators.required,
     ]);
     this.bmxTemplates = new FormControl(
       '', [
