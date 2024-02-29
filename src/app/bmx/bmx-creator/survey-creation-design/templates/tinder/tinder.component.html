@@ -1,8 +1,8 @@
 <div *ngIf="showCreationModalVideo && bmxClientPageOverview" id="myModal" class="modal-video"
     style="display: flex;flex-direction: column;gap: 2px;">
     <!-- <label class="container-checkbox">Don't show again
-        <input (click)="saveSelection()" type="checkbox" value="Bike" #modalChecked> 
-        <span class="checkmark">&#x2714;</span>        
+        <input (click)="saveSelection()" type="checkbox" value="Bike" #modalChecked>
+        <span class="checkmark">&#x2714;</span>
     </label> -->
     <div class="modal-content">
         <video src='{{CREATION_VIDEO_PATH}}' controls></video>
@@ -50,7 +50,7 @@
             *ngIf="i !== selectedIndex" mat-icon-button>
             <mat-icon style="font-size: 25px;" class="full-icon"> text_fields</mat-icon>
         </button>
-        <button (click)="selectedIndex = i" class="add-column" matTooltip="insert test names" matTooltipPosition="above"
+        <button (click)="selectedIndex = i" class="add-column" matTooltip="" matTooltipPosition="above"
             *ngIf="i !== selectedIndex" mat-icon-button>
             <mat-icon style="font-size: 25px;" class="full-icon">edit</mat-icon>
         </button>
