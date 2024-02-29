@@ -38,6 +38,14 @@
 
         <!-- RATIONALE -->
         <div style="display: flex;flex-direction: column;align-items: center;">
+            <p style="margin: 0 0 -12px;color: #324395;">select
+            </p>
+            <input type="range" style="margin: 20px;width: 50px;"
+                [(ngModel)]="bmxItem.componentSettings[0].selectWidth" class="slider-font-size" tickInterval="0.5"
+                min="50" max="600" [value]="bmxItem.componentSettings[0].selectWidth">
+        </div>
+
+        <div style="display: flex;flex-direction: column;align-items: center;">
             <p style="margin: 0 0 -12px;color: #324395;">rationale
             </p>
             <input type="range" style="margin: 20px;width: 50px;"
@@ -374,7 +382,7 @@ justify-content: center;cursor: move; height: 25px; width: 100%;"><svg width="24
                 <!--⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️ RANK COLUMN ⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️ -->
                 <div style="min-width: 80px;background-color:white;display: flex;align-items: center;
               justify-content: center;border-left: rgb(231, 230, 230) 1px solid;
-              border-right: rgb(231, 230, 230) 1px solid;border-top: rgb(231, 230, 230) 1px solid;">
+              border-right: rgb(231, 230, 230) 1px solid;border-top: rgb(231, 230, 230) 1px solid;" [style.width]="bmxItem.componentSettings[0].selectWidth + 'px'">
                     <div *ngIf="(y !== 0)">
                         <!-- CHECK BOX -->
                         <input type="checkbox" [disabled]="false" [checked]="this.bmxItem.componentText[y].SELECTED_ROW"
