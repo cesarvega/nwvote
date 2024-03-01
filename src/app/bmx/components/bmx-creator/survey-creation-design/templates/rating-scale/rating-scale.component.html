@@ -21,6 +21,13 @@
             flex-direction: row;
             justify-content: start;background: #ffffffd9;
             gap: 0px;position: absolute;left: -713px;z-index: 1;border: 2px dashed #324395;">
+               <div style="display: flex;flex-direction: column;align-items: center;">
+                <p style="margin: 0 0 -12px;color: #324395;">rate
+                </p>
+                <input type="range" style="margin: 20px;width: 50px;" [(ngModel)]="bmxItem.componentSettings[0].rateWidth"
+                    class="slider-font-size" tickInterval="0.5" min="50" max="400"
+                    [value]="bmxItem.componentSettings[0].rateWidth">
+            </div>
         <!-- NAME CANDIATES -->
         <div style="display: flex;flex-direction: column;align-items: center;">
             <p style="margin: 0 0 -12px;color: #324395;">candidates
@@ -38,13 +45,7 @@
                 min="50" max="600" [value]="bmxItem.componentSettings[0].rationalewidth">
         </div>
         <!-- RATE -->
-        <div style="display: flex;flex-direction: column;align-items: center;">
-            <p style="margin: 0 0 -12px;color: #324395;">rate
-            </p>
-            <input type="range" style="margin: 20px;width: 50px;" [(ngModel)]="bmxItem.componentSettings[0].rateWidth"
-                class="slider-font-size" tickInterval="0.5" min="50" max="400"
-                [value]="bmxItem.componentSettings[0].rateWidth">
-        </div>
+     
         <!-- COMMENTS -->
         <div style="display: flex;flex-direction: column;align-items: center;">
             <p style="margin: 0 0 -12px;color: #324395;">comments
@@ -379,11 +380,7 @@ justify-content: center;cursor: move; height: 25px; width: 100%;"><svg width="24
                                     matTooltipPosition="above"
                                     (dblclick)="openDialog('delete column', columnName)">x</span>
                                 <mat-icon style="cursor: pointer;" (click)="swapColumns(e)">chevron_right</mat-icon>
-                                <mat-icon style="cursor: pointer;"
-                                    (click)="columnFontSizeAdjust(columnName, 'decrease')">remove</mat-icon>
-                                <mat-icon style="cursor: pointer;">text_format</mat-icon>
-                                <mat-icon style="cursor: pointer;"
-                                    (click)="columnFontSizeAdjust(columnName, 'increase')">add</mat-icon>
+                       
                             </div>
                         </div>
                     </div>
