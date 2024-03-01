@@ -34,6 +34,13 @@
             [(ngModel)]="bmxItem.componentSettings[0].selectWidth" class="slider-font-size" tickInterval="0.5"
             min="50" max="600" [value]="bmxItem.componentSettings[0].selectWidth">
     </div>
+    <div style="display: flex;flex-direction: column;align-items: center;">
+        <p style="margin: 0 0 -12px;color: #324395;">rate
+        </p>
+        <input type="range" style="margin: 20px;width: 50px;" [(ngModel)]="bmxItem.componentSettings[0].rateWidth"
+            class="slider-font-size" tickInterval="0.5" min="50" max="400"
+            [value]="bmxItem.componentSettings[0].rateWidth">
+    </div>
         <!-- NAME CANDIATES -->
         <div style="display: flex;flex-direction: column;align-items: center;">
             <p style="margin: 0 0 -12px;color: #324395;">candidates
@@ -55,13 +62,7 @@
         </div>
 
         <!-- RATE -->
-        <div style="display: flex;flex-direction: column;align-items: center;">
-            <p style="margin: 0 0 -12px;color: #324395;">rate
-            </p>
-            <input type="range" style="margin: 20px;width: 50px;" [(ngModel)]="bmxItem.componentSettings[0].rateWidth"
-                class="slider-font-size" tickInterval="0.5" min="50" max="400"
-                [value]="bmxItem.componentSettings[0].rateWidth">
-        </div>
+      
 
         <!-- COMMENTS -->
         <div style="display: flex;flex-direction: column;align-items: center;">
