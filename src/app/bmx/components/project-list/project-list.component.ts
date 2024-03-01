@@ -13,7 +13,8 @@ import { BmxService } from '../bmx-creator/bmx.service';
 @Component({
   selector: 'app-project-list',
   templateUrl: './project-list.component.html',
-  styleUrls: ['./project-list.component.scss']
+  styleUrls: ['./project-list.component.scss'],
+  encapsulation: ViewEncapsulation.None,
 })
 export class ProjectListComponent implements OnInit {
   @Input() isMenuActive1;
@@ -88,7 +89,7 @@ export class ProjectListComponent implements OnInit {
     localStorage.setItem('templates', 'false');
     this.isMenuActive1Close.emit(false);
     this.router.navigate(['project-information'])
-    
+
   }
 
   setBMStatus(option): void {
