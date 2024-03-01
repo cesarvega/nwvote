@@ -45,11 +45,8 @@ export class LogoHeaderComponent implements OnInit {
   constructor(private _BmxService: BmxService,private el: ElementRef) {}
 
   ngOnInit(): void {
-    console.log(this.bmxItem)
     this.bmxItem.componentText = (localStorage.getItem('projectId'))?localStorage.getItem('projectId'):this.bmxItem.componentText;
     this.imageLogoSrc = this.bmxItem.componentSettings[0].companyLogoURL
-    console.log(this.isBrandMatrixSurvey)
-    console.log(this.bmxItem)
   }
 
   onFileSelected(event) {
@@ -74,7 +71,6 @@ export class LogoHeaderComponent implements OnInit {
               .split(event.target.result.split(',')[0] + ',')
               .pop(),
           };
-          console.log(this.resourceData)
           this._BmxService
             .saveFileResources(JSON.stringify(this.resourceData))
             .subscribe((result: any) => {

@@ -88,6 +88,8 @@ export class NarrowDownComponent extends RatingScaleComponent implements OnInit 
     }
     const filteredCriteria = this.CRITERIA.filter(criteriaItem => this.selectedCriteria.map(item => item.name).includes(criteriaItem.name));
     this.newselectedCriteria = filteredCriteria
-    this.rankingScaleValue = this.bmxItem.componentText[0].CRITERIA[0].STARS?.length;
+    if(this.bmxItem.componentText[0]?.CRITERIA){
+      this.rankingScaleValue = this.bmxItem.componentText[0]?.CRITERIA[0]?.STARS?.length;
+    }
   }
 }
