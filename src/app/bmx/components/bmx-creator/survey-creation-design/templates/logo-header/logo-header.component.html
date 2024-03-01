@@ -8,7 +8,7 @@
             <img style="width: 231px;margin-left: 8px;margin-top: 60px;" [src]="(isBrandMatrixSurvey)?bmxItem.componentSettings[0].brandInstituteSurveyLogoURL:
                 bmxItem.componentSettings[0].brandInstituteLogoURL">
         </div>
-        <div>
+        <div >
             <input type="file" class="file-input" (change)="onFileSelected($event)" #fileUpload style="display: none;"
                 accept="image/x-png,image/gif,image/jpeg">
 
@@ -25,7 +25,7 @@
 
             </div>
 
-            <img (mouseenter)="displayLogoWidthRange = true" (dblclick)="fileUpload.click()" [width]="bmxItem.componentSettings[0].logoWidth" style="margin-top: 60px;cursor: pointer;"
+            <img (mouseenter)="displayLogoWidthRange = true" (dblclick)=" !creationMode? fileUpload.click(): ''" [width]="bmxItem.componentSettings[0].logoWidth" style="margin-top: 60px;cursor: pointer;"
                 [src]="bmxItem.componentSettings[0].companyLogoURL">
         </div>
     </div>
