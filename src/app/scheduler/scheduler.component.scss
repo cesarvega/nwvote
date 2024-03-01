@@ -164,10 +164,10 @@
 }
 
 ::ng-deep .mat-calendar-body-today:not(.mat-calendar-body-selected){
-    border-color:lightskyblue;
+    border-color:rgb(141, 250, 135);
   }
 ::ng-deep .mat-calendar-body-selected:not(.mat-calendar-body-active){
-    color: white;
+    color: rgb(169, 23, 23);
   }
 
   .displayNone{

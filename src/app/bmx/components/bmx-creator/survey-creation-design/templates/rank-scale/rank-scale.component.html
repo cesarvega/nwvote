@@ -27,6 +27,14 @@
         flex-direction: row;
         justify-content: start;background: #ffffffd9;
         gap: 0px;position: absolute;left: -748px;z-index: 1;border: 2px dashed #324395;">
+             <!-- RATE -->
+             <div style="display: flex;flex-direction: column;align-items: center;">
+                <p style="margin: 0 0 -12px;color: #324395;">rank
+                </p>
+                <input type="range" style="margin: 20px;width: 50px;" [(ngModel)]="bmxItem.componentSettings[0].rateWidth"
+                    class="slider-font-size" tickInterval="0.5" min="50" max="400"
+                    [value]="bmxItem.componentSettings[0].rateWidth">
+            </div>
         <!-- NAME CANDIATES -->
         <div style="display: flex;flex-direction: column;align-items: center;">
             <p style="margin: 0 0 -12px;color: #324395;">candidates
@@ -45,14 +53,7 @@
                 min="50" max="600" [value]="bmxItem.componentSettings[0].rationalewidth">
         </div>
 
-        <!-- RATE -->
-        <div style="display: flex;flex-direction: column;align-items: center;">
-            <p style="margin: 0 0 -12px;color: #324395;">rank
-            </p>
-            <input type="range" style="margin: 20px;width: 50px;" [(ngModel)]="bmxItem.componentSettings[0].rateWidth"
-                class="slider-font-size" tickInterval="0.5" min="50" max="400"
-                [value]="bmxItem.componentSettings[0].rateWidth">
-        </div>
+   
 
         <!-- COMMENTS -->
         <div style="display: flex;flex-direction: column;align-items: center;">
@@ -173,7 +174,7 @@
 
 
 <!-- 🔧🔧🔧🔧🔧🔧🔧🔧🔧🔧🔧🔧🔧🔧🔧🔧🔧🔧🔧🔧🔧 CONFIG BOX 🔧🔧🔧🔧🔧🔧🔧🔧🔧🔧🔧🔧🔧🔧🔧🔧🔧🔧🔧🔧🔧🔧🔧 -->
-<div *ngIf="i === selectedIndex" class="mat-elevation-z4" cdkDrag style="position: absolute;width: 50%;background: #fafafa;z-index: 1;top: -65px;left: 25%;border: lightgrey 3px solid; overflow: auto;
+<div *ngIf="i === selectedIndex" class="mat-elevation-z4" cdkDrag style="position: absolute;width: 50%;background: #fafafa;z-index: 1;top: -65px;left: 25%;border: #063074 4px solid; overflow: auto;
        max-height: 36rem;
     bottom: -2; ">
 
@@ -490,13 +491,7 @@
                                 matTooltipPosition="above" (dblclick)="openDialog('delete column', columnName)">x</span>
                             <mat-icon style="cursor: pointer;" (click)="swapColumns(e)">chevron_right</mat-icon>
 
-                            <mat-icon style="cursor: pointer;" (click)="columnFontSizeAdjust(columnName, 'decrease')">
-                                remove</mat-icon>
-
-                            <mat-icon style="cursor: pointer;">text_format</mat-icon>
-
-                            <mat-icon style="cursor: pointer;" (click)="columnFontSizeAdjust(columnName, 'increase')">
-                                add</mat-icon>
+                        
                         </div>
                     </div>
 
@@ -660,13 +655,7 @@
                                 matTooltipPosition="above" (dblclick)="openDialog('delete column', columnName)">x</span>
                             <mat-icon style="cursor: pointer;" (click)="swapColumns(e)">chevron_right</mat-icon>
 
-                            <mat-icon style="cursor: pointer;" (click)="columnFontSizeAdjust(columnName, 'decrease')">
-                                remove</mat-icon>
-
-                            <mat-icon style="cursor: pointer;">text_format</mat-icon>
-
-                            <mat-icon style="cursor: pointer;" (click)="columnFontSizeAdjust(columnName, 'increase')">
-                                add</mat-icon>
+                         
                         </div>
                     </div>
 

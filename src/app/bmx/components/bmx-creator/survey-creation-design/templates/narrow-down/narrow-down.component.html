@@ -27,6 +27,20 @@
     flex-direction: row;
     justify-content: start;background: #ffffffd9;
     gap: 0px;position: absolute;left: -713px;z-index: 1;border: 2px dashed #324395;">
+       <div style="display: flex;flex-direction: column;align-items: center;">
+        <p style="margin: 0 0 -12px;color: #324395;">select
+        </p>
+        <input type="range" style="margin: 20px;width: 50px;"
+            [(ngModel)]="bmxItem.componentSettings[0].selectWidth" class="slider-font-size" tickInterval="0.5"
+            min="50" max="600" [value]="bmxItem.componentSettings[0].selectWidth">
+    </div>
+    <div style="display: flex;flex-direction: column;align-items: center;">
+        <p style="margin: 0 0 -12px;color: #324395;">rate
+        </p>
+        <input type="range" style="margin: 20px;width: 50px;" [(ngModel)]="bmxItem.componentSettings[0].rateWidth"
+            class="slider-font-size" tickInterval="0.5" min="50" max="400"
+            [value]="bmxItem.componentSettings[0].rateWidth">
+    </div>
         <!-- NAME CANDIATES -->
         <div style="display: flex;flex-direction: column;align-items: center;">
             <p style="margin: 0 0 -12px;color: #324395;">candidates
@@ -37,6 +51,8 @@
         </div>
 
         <!-- RATIONALE -->
+     
+
         <div style="display: flex;flex-direction: column;align-items: center;">
             <p style="margin: 0 0 -12px;color: #324395;">rationale
             </p>
@@ -46,13 +62,7 @@
         </div>
 
         <!-- RATE -->
-        <div style="display: flex;flex-direction: column;align-items: center;">
-            <p style="margin: 0 0 -12px;color: #324395;">rate
-            </p>
-            <input type="range" style="margin: 20px;width: 50px;" [(ngModel)]="bmxItem.componentSettings[0].rateWidth"
-                class="slider-font-size" tickInterval="0.5" min="50" max="400"
-                [value]="bmxItem.componentSettings[0].rateWidth">
-        </div>
+      
 
         <!-- COMMENTS -->
         <div style="display: flex;flex-direction: column;align-items: center;">
@@ -162,7 +172,7 @@
             <mat-icon style="font-size: 26px;    z-index: 9;" class="full-icon">swap_horizontal_circle</mat-icon>
         </button>
         <button (click)="selectedIndex = i; editSingleTableCells = false; verifyCritera()" class="add-column"
-            matTooltip="insert test names" matTooltipPosition="above" *ngIf="i !== selectedIndex" mat-icon-button>
+            matTooltip="Setup settings" matTooltipPosition="above" *ngIf="i !== selectedIndex" mat-icon-button>
             <mat-icon style="font-size: 25px;" class="full-icon">edit</mat-icon>
         </button>
     </div>
@@ -171,7 +181,7 @@
 <br>
 <!--🥑🥑🥑🥑🥑🥑🥑🥑🥑🥑🥑🥑🥑🥑🥑🥑🥑🥑🥑🥑 CONFIGURATION BOX 🥑🥑🥑🥑🥑🥑🥑🥑🥑🥑🥑🥑🥑🥑🥑🥑🥑🥑-->
 
-<div *ngIf="i === selectedIndex" class="mat-elevation-z4" cdkDrag style="position: absolute;width: 50%;background: #fafafa;z-index: 1;top: -65px;left: 25%;border: lightgrey 3px solid; overflow: auto;
+<div *ngIf="i === selectedIndex" class="mat-elevation-z4" cdkDrag style="position: absolute;width: 50%;background: #fafafa;z-index: 1;top: -65px;left: 25%;border: #063074 4px solid; overflow: auto;
        max-height: 36rem;
     bottom: -2; ">
 
@@ -374,7 +384,7 @@ justify-content: center;cursor: move; height: 25px; width: 100%;"><svg width="24
                 <!--⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️ RANK COLUMN ⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️ -->
                 <div style="min-width: 80px;background-color:white;display: flex;align-items: center;
               justify-content: center;border-left: rgb(231, 230, 230) 1px solid;
-              border-right: rgb(231, 230, 230) 1px solid;border-top: rgb(231, 230, 230) 1px solid;">
+              border-right: rgb(231, 230, 230) 1px solid;border-top: rgb(231, 230, 230) 1px solid;" [style.width]="bmxItem.componentSettings[0].selectWidth + 'px'">
                     <div *ngIf="(y !== 0)">
                         <!-- CHECK BOX -->
                         <input type="checkbox" [disabled]="false" [checked]="this.bmxItem.componentText[y].SELECTED_ROW"
@@ -427,14 +437,7 @@ justify-content: center;cursor: move; height: 25px; width: 100%;"><svg width="24
                             <span class="header-delete-icon" matTooltip="double click to delete column"
                                 matTooltipPosition="above" (dblclick)="openDialog('delete column', columnName)">x</span>
                             <mat-icon style="cursor: pointer;" (click)="swapColumns(e)">chevron_right</mat-icon>
-
-                            <mat-icon style="cursor: pointer;" (click)="columnFontSizeAdjust(columnName, 'decrease')">
-                                remove</mat-icon>
-
-                            <mat-icon style="cursor: pointer;">text_format</mat-icon>
-
-                            <mat-icon style="cursor: pointer;" (click)="columnFontSizeAdjust(columnName, 'increase')">
-                                add</mat-icon>
+                          
                         </div>
 
                     </div>

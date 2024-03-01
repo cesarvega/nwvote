@@ -12,7 +12,7 @@
                         <mat-option value="Closed">Closed</mat-option>
                         <mat-option value="All">All</mat-option>
                     </mat-select>
-                </mat-form-field>         
+                </mat-form-field>
             </div>
             <div>
                 <table mat-table [dataSource]="dataSource" matSort class="mat-elevation-z8" style="width: 100%;">
@@ -68,7 +68,7 @@
                             </button>
                         </td>
                     </ng-container>
-    
+
                     <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
                     <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
                 </table>
@@ -83,8 +83,8 @@
                     <mat-calendar (selectedChange)="selected = $event"></mat-calendar>
                 </mat-card>
             </div>
-        </div>        
+        </div>
     </div>
-    
+
     <!--   📆📆📆📆📆📆📆📆📆 END CALENDAR-->
-   
+

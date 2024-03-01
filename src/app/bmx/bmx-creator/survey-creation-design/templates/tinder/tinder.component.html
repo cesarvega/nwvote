@@ -1,8 +1,8 @@
 <div *ngIf="showCreationModalVideo && bmxClientPageOverview" id="myModal" class="modal-video"
     style="display: flex;flex-direction: column;gap: 2px;">
     <!-- <label class="container-checkbox">Don't show again
-        <input (click)="saveSelection()" type="checkbox" value="Bike" #modalChecked> 
-        <span class="checkmark">&#x2714;</span>        
+        <input (click)="saveSelection()" type="checkbox" value="Bike" #modalChecked>
+        <span class="checkmark">&#x2714;</span>
     </label> -->
     <div class="modal-content">
         <video src='{{CREATION_VIDEO_PATH}}' controls></video>
@@ -50,7 +50,7 @@
             *ngIf="i !== selectedIndex" mat-icon-button>
             <mat-icon style="font-size: 25px;" class="full-icon"> text_fields</mat-icon>
         </button>
-        <button (click)="selectedIndex = i" class="add-column" matTooltip="insert test names" matTooltipPosition="above"
+        <button (click)="selectedIndex = i" class="add-column" matTooltip="" matTooltipPosition="above"
             *ngIf="i !== selectedIndex" mat-icon-button>
             <mat-icon style="font-size: 25px;" class="full-icon">edit</mat-icon>
         </button>
@@ -62,7 +62,7 @@
 
 <!-- 🔧🔧🔧🔧🔧🔧🔧🔧🔧🔧🔧🔧🔧🔧🔧🔧🔧🔧🔧🔧🔧 CONFIG BOX 🔧🔧🔧🔧🔧🔧🔧🔧🔧🔧🔧🔧🔧🔧🔧🔧🔧🔧🔧🔧🔧🔧🔧 -->
 <div *ngIf="i === selectedIndex" class="mat-elevation-z4" cdkDrag
-    style="position: absolute;width: 62vw;background: #fafafa;z-index: 1;top: -8px;left: 15%;border: lightgrey 3px solid;">
+    style="position: absolute;width: 62vw;background: #fafafa;z-index: 1;top: -8px;left: 15%;border: #063074 4px solid;">
     <div style="position: absolute;
     top: 10px;
     right: 10px;
