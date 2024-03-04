@@ -369,6 +369,7 @@ export class TinderComponent extends RatingScaleComponent implements OnInit {
         }
       });
     }
+    this.autoSave.emit();
   }
 
   moveRight() {
