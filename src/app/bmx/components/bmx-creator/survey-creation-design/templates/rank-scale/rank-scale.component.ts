@@ -88,7 +88,7 @@ export class RankScaleComponent extends RatingScaleComponent implements OnInit {
     let firstObject = this.bmxItem.componentText[0];
     let columnNames = [];
     for (let key in firstObject) {
-      if (key !== 'STARS' && key !== 'RATE') {
+      if (key !== 'STARS' && key !== 'RATE' && key !== 'nameCandidates' && key !== 'rationale') {
         columnNames.push(key);
       }
     }
