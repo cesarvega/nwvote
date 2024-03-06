@@ -151,7 +151,6 @@ export class TinderComponent extends RatingScaleComponent implements OnInit {
     for (let obj of this.bmxItem.componentText) {
       let values = [];
       for (let key in obj) {
-        console.log(obj)
         if (key !== 'STARS' && key !== 'RATE' && key !== 'CRITERIA' && key !== 'Comments' && key !== 'name') {
           values.push(obj[key]);
         }
