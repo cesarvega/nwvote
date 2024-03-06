@@ -150,12 +150,12 @@ export class RatingScaleComponent implements OnInit {
     this.rowsCount = this.bmxItem.componentText.length - 1
     this.bmxItem.componentSettings[0].minRule = this.bmxItem.componentSettings[0].minRule == 0 ? 0 : this.bmxItem.componentSettings[0].minRule;
     this.bmxItem.componentSettings[0].maxRule = this.bmxItem.componentSettings[0].maxRule == 0 ? 0 : this.bmxItem.componentSettings[0].maxRule;
-    if(this.bmxItem.componentSettings[0].CRITERIA){
+    if (this.bmxItem.componentSettings[0].CRITERIA) {
       this.numRatingScale = this.bmxItem.componentText[0].CRITERIA[0].STARS.length
-    }else{
+    } else {
       this.numRatingScale = this.bmxItem.componentText[0].STARS?.length
     }
-    
+    console.log(this.bmxItem.componentText[0])
     values.forEach(value => {
       if (typeof value == "string" && value != "STARS" && value != "CRITERIA") {
         this.columnsNames.push(value)
@@ -168,26 +168,24 @@ export class RatingScaleComponent implements OnInit {
     let firstObject = this.bmxItem.componentText[0];
     let columnNames = [];
     for (let key in firstObject) {
-      if (key !== 'STARS' && key !== 'RATE') {
+      if (key === 'Name Candidates' || key === 'Rationales' ) {
         columnNames.push(key);
       }
     }
-
-    // Construir la primera fila con los nombres de las columnas
-    result += columnNames.join('\t') + '\n';
 
     // Agregar cada objeto como una fila en el resultado
     for (let obj of this.bmxItem.componentText) {
       let values = [];
       for (let key in obj) {
-        if (key !== 'STARS' && key !== 'RATE') {
+        if (key !== 'STARS' && key !== 'RATE' && key !== 'CRITERIA' && key !== 'Comments') {
           values.push(obj[key]);
         }
       }
-      result += values.join('\t') + '\n';
+      if (values.length > 0) {  // Verificar si hay valores para esta fila
+        result += values.join('\t') + '\n';  // Agregar la línea al resultado
+      }
     }
-
-    this.testNamesInput = result
+    this.testNamesInput = result;
     // this.columnsNames.push('RATE')
 
     // IF RATING SCALE IS SET
@@ -222,20 +220,20 @@ export class RatingScaleComponent implements OnInit {
               intValue = intValue + item.RATE
             }
           })
-          if(intValue>0){
+          if (intValue > 0) {
             this.maxRuleCounter++
           }
         }
       }
     })
-  
+
     if (this.bmxItem.componentText[0].CRITERIA) {
       const newArray = []
       this.newselectedCriteria = []
       this.bmxItem.componentText[0].CRITERIA.forEach((item, index) => {
         this.selectedCriteria.push(item)
-       newArray.push({name:item.name})
-        
+        newArray.push({ name: item.name })
+
       })
       this.newselectedCriteria = newArray
       this.ASSIGNED_CRITERIA = this.selectedCriteria
@@ -441,36 +439,36 @@ export class RatingScaleComponent implements OnInit {
 
   setCriteriaRating(starId, criteriaId, testNameId) {
     let intCounter = 0
-    this.bmxItem.componentText[testNameId].CRITERIA.forEach((criteria)=>{
+    this.bmxItem.componentText[testNameId].CRITERIA.forEach((criteria) => {
       intCounter = intCounter + criteria.RATE
-     })
+    })
     if (this.maxRuleCounter < this.bmxItem.componentSettings[0].maxRule || this.bmxItem.componentSettings[0].maxRule == 0) {
       intCounter = 0
-      if (this.bmxItem.componentSettings[0].maxRule > 0) { 
-        
-         this.bmxItem.componentText[testNameId].CRITERIA.forEach((criteria)=>{
+      if (this.bmxItem.componentSettings[0].maxRule > 0) {
+
+        this.bmxItem.componentText[testNameId].CRITERIA.forEach((criteria) => {
           intCounter = intCounter + criteria.RATE
-         })
-         if(intCounter<=0){
-          this.maxRuleCounter++ 
-         }
+        })
+        if (intCounter <= 0) {
+          this.maxRuleCounter++
+        }
       }
       this.bmxItem.componentText[testNameId].CRITERIA[criteriaId].RATE = starId
-    
+
       this.bmxItem.componentSettings[0].ratedCounter++
       if (this.bmxItem.componentSettings[0].ratedCounter >= this.bmxItem.componentSettings[0].minRule) {
         this.bmxItem.componentSettings[0].categoryRulesPassed = true
       }
       else { this.bmxItem.componentSettings[0].categoryRulesPassed = false }
-    }else if(intCounter>0){
+    } else if (intCounter > 0) {
       this.bmxItem.componentText[testNameId].CRITERIA[criteriaId].RATE = starId
-    
+
       this.bmxItem.componentSettings[0].ratedCounter++
       if (this.bmxItem.componentSettings[0].ratedCounter >= this.bmxItem.componentSettings[0].minRule) {
         this.bmxItem.componentSettings[0].categoryRulesPassed = true
       }
       else { this.bmxItem.componentSettings[0].categoryRulesPassed = false }
-    } 
+    }
     //autosave
     this.autoSave.emit();
   }
@@ -516,7 +514,7 @@ export class RatingScaleComponent implements OnInit {
   }
   // ⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️ END STARS METHODS  ⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️
 
-  upLoadNamesAndRationales(list: any, type?:any) {
+  upLoadNamesAndRationales(list: any, type?: any) {
     if (typeof list == 'object') {
       list = list.clipboardData.getData('text')
     }
@@ -946,7 +944,7 @@ export class RatingScaleComponent implements OnInit {
     this.showDialog = false
   }
 
-  criteriaSelection(selectedCriteria) { 
+  criteriaSelection(selectedCriteria) {
     this.ASSIGNED_CRITERIA = this.newselectedCriteria
   }
 
@@ -1002,7 +1000,7 @@ export class RatingScaleComponent implements OnInit {
       this.dialogText = "Are you sure you want to delete this column?"
     }
 
-   
+
     this.showDialog = true
   }
 
