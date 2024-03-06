@@ -74,6 +74,7 @@ export class NarrowDownComponent extends RatingScaleComponent implements OnInit 
       if (values.length > 0) {  // Verificar si hay valores para esta fila
         result += values.join('\t') + '\n';  // Agregar la línea al resultado
       }
+      
     }
     this.testNamesInput = result;
 
