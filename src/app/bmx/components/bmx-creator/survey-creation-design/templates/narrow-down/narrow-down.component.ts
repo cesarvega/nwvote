@@ -67,7 +67,7 @@ export class NarrowDownComponent extends RatingScaleComponent implements OnInit 
       let values = [];
       for (let key in obj) {
         console.log(obj)
-        if (key !== 'STARS' && key !== 'RATE' && key !== 'CRITERIA' && key !== 'Comments') {
+        if (key === 'nameCandidates' || key === 'rationale'){
           values.push(obj[key]);
         }
       }
