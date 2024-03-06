@@ -66,13 +66,15 @@ export class NarrowDownComponent extends RatingScaleComponent implements OnInit 
     for (let obj of this.bmxItem.componentText) {
       let values = [];
       for (let key in obj) {
-        if (key === 'name' || key === 'rationale'){
+        console.log(obj)
+        if (key === 'nameCandidates' || key === 'rationale' || key === 'name'){
           values.push(obj[key]);
         }
       }
       if (values.length > 0) {  // Verificar si hay valores para esta fila
         result += values.join('\t') + '\n';  // Agregar la línea al resultado
       }
+      
     }
     this.testNamesInput = result;
 
