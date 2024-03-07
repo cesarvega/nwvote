@@ -576,15 +576,13 @@ export class RatingScaleComponent implements OnInit {
                 } else {
                   columnValue = rows[i].split("\t")[e].trim()
                 }
-                if (i == 0) {
-                  objectColumnDesign['RATE'] = 'RATE'
-                }
                 objectColumnDesign[columnName] = columnValue
                 if (i != 0) {
                   this.autoSizeColumns(columnName, columnValue)
                 }
               }
             }
+            objectColumnDesign['RATE'] = i > 0 ? -1 : 'RATE'
             objectColumnDesign['CRITERIA'] = []
             this.ASSIGNED_CRITERIA.forEach((criteria, index) => {
               objectColumnDesign['CRITERIA'].push({

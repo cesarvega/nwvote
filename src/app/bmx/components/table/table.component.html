@@ -1,0 +1,13 @@
+<table class="centered">
+    <thead>
+      <tr>
+        <th *ngFor="let name of tHeader">{{name}}</th>          
+      </tr>
+    </thead>
+
+    <tbody>
+      <tr *ngFor="let item of tBody; index as i" (click)="setUserState(i)" style="cursor: pointer" [ngStyle]="{'background-color': tData[i].selected?'#fff':'#4db6ac'}">
+        <td *ngFor="let value of item">{{value}}</td>       
+      </tr>    
+    </tbody>
+</table>
