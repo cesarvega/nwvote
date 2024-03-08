@@ -50,6 +50,7 @@ export class ImageRateScaleComponent extends RatingScaleComponent implements OnI
   numRatingScale: number = 0;
   ratedCounter = 0
   actualRate = 0
+  
   //------modal-----------//
   @Output() launchPathModal = new EventEmitter(); 
 
@@ -72,6 +73,8 @@ export class ImageRateScaleComponent extends RatingScaleComponent implements OnI
   //--------open cards---------//
    openElements: any[]=[];
   //selectedCard: any
+  dataSource:any[] = []
+
 
   constructor(private _BmxService: BmxService,dragulaService: DragulaService, _snackBar: MatSnackBar,  _bmxService: BmxService,public deviceService: DeviceDetectorService)
    {super(dragulaService,_snackBar,_bmxService,deviceService); this.epicFunction();}
@@ -121,7 +124,7 @@ export class ImageRateScaleComponent extends RatingScaleComponent implements OnI
     if(this.bmxItem.componentText[0].STARS){
       this.rankingScaleValue = this.bmxItem.componentText[0].STARS.length;
     }
-    
+    this.dataSource = this.bmxItem.componentText.slice(1)
   }
 
   epicFunction() {
