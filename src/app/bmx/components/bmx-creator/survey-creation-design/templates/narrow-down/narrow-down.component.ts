@@ -50,32 +50,32 @@ export class NarrowDownComponent extends RatingScaleComponent implements OnInit 
     });
 
     
+
     let result = '';
 
     // Obtener las claves de la primera fila (los nombres de las propiedades)
     let firstObject = this.bmxItem.componentText[0];
     let columnNames = [];
     for (let key in firstObject) {
-      if (key !== 'STARS' && key !== 'RATE') {
+      if (key === 'Name Candidates' || key === 'Rationales' ) {
         columnNames.push(key);
       }
     }
-
-    // Construir la primera fila con los nombres de las columnas
-    result += columnNames.join('\t') + '\n';
 
     // Agregar cada objeto como una fila en el resultado
     for (let obj of this.bmxItem.componentText) {
       let values = [];
       for (let key in obj) {
-        if (key !== 'STARS' && key !== 'RATE') {
+        if (key === 'nameCandidates' || key === 'rationale' || key === 'name'){
           values.push(obj[key]);
         }
       }
-      result += values.join('\t') + '\n';
+      if (values.length > 0) {  // Verificar si hay valores para esta fila
+        result += values.join('\t') + '\n';  // Agregar la línea al resultado
+      }
+      
     }
-
-    this.testNamesInput = result
+    this.testNamesInput = result;
 
     console.log(this.bmxItem.componentSettings)
     this.randomizeTestNames = this.bmxItem.componentSettings[0].randomizeTestNames

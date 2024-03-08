@@ -88,28 +88,24 @@ export class RankScaleComponent extends RatingScaleComponent implements OnInit {
     let firstObject = this.bmxItem.componentText[0];
     let columnNames = [];
     for (let key in firstObject) {
-      if (key !== 'STARS' && key !== 'RATE') {
+      if (key === 'Name Candidates' || key === 'Rationales' ) {
         columnNames.push(key);
       }
     }
-
-    // Construir la primera fila con los nombres de las columnas
-    result += columnNames.join('\t') + '\n';
 
     // Agregar cada objeto como una fila en el resultado
     for (let obj of this.bmxItem.componentText) {
       let values = [];
       for (let key in obj) {
-        if (key !== 'STARS' && key !== 'RATE') {
+        if (key !== 'STARS' && key !== 'RATE' && key !== 'CRITERIA' && key !== 'Comments') {
           values.push(obj[key]);
         }
       }
-      result += values.join('\t') + '\n';
+      if (values.length > 0) {  // Verificar si hay valores para esta fila
+        result += values.join('\t') + '\n';  // Agregar la línea al resultado
+      }
     }
-    const rows = result.split("\n");
-    if (rows.length > 0) { this.showBar = true }
-    this.testNamesInput = result
-    console.log(result, this.bmxItem.componentText)
+    this.testNamesInput = result;
     this.randomizeTestNames = this.bmxItem.componentSettings[0].randomizeTestNames
 
 
