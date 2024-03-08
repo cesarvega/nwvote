@@ -45,7 +45,7 @@
                 min="50" max="600" [value]="bmxItem.componentSettings[0].rationalewidth">
         </div>
         <!-- RATE -->
-     
+
         <!-- COMMENTS -->
         <div style="display: flex;flex-direction: column;align-items: center;">
             <p style="margin: 0 0 -12px;color: #324395;">comments
@@ -302,7 +302,7 @@ justify-content: center;cursor: move; height: 25px; width: 100%;"><svg width="24
             </div>
             <div>
                 <div style="display: flex;flex-direction: column;justify-content:center;gap: 10px;align-items: center;">
-                    <div style="font-size: 16px;margin-top: 10px;color: #48535e;text-align: center;">Maximun:
+                    <div style="font-size: 16px;margin-top: 10px;color: #48535e;text-align: center;">Maximum:
                         {{bmxItem.componentSettings[0].maxRule}}
                     </div>
                     <input type="number" min="0" [max]="rowsCount" [(ngModel)]="bmxItem.componentSettings[0].maxRule"
@@ -380,7 +380,7 @@ justify-content: center;cursor: move; height: 25px; width: 100%;"><svg width="24
                                     matTooltipPosition="above"
                                     (dblclick)="openDialog('delete column', columnName)">x</span>
                                 <mat-icon style="cursor: pointer;" (click)="swapColumns(e)">chevron_right</mat-icon>
-                       
+
                             </div>
                         </div>
                     </div>
