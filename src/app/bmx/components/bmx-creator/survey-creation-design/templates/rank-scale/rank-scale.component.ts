@@ -41,6 +41,7 @@ export class RankScaleComponent extends RatingScaleComponent implements OnInit {
   isdropDown = true
 
   allowScrolling = true
+  dataSource:any[] = []
 
   constructor(dragulaService: DragulaService, _snackBar: MatSnackBar, _bmxService: BmxService, public deviceService: DeviceDetectorService) {
     super(dragulaService, _snackBar, _bmxService, deviceService)
@@ -131,6 +132,7 @@ export class RankScaleComponent extends RatingScaleComponent implements OnInit {
     const filteredCriteria = this.CRITERIA.filter(criteriaItem => this.selectedCriteria.map(item => item.name).includes(criteriaItem.name));
     this.newselectedCriteria = filteredCriteria
     this.rankingScaleValue = this.bmxItem.componentText[0].STARS.length;
+    this.dataSource = this.bmxItem.componentText.slice(1)
 
   }
 

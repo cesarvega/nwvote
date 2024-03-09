@@ -19,6 +19,7 @@ export class QuestionAnswerComponent extends RatingScaleComponent implements OnI
   @Output() autoSave = new EventEmitter();
   @ViewChild('autosize') autosize: CdkTextareaAutosize;
   CREATION_VIDEO_PATH = "assets/videos/QuestionAndAnswer.mp4"
+  dataSource:any[] = []
 
   allComplete: boolean = false;
   constructor(dragulaService: DragulaService, _snackBar: MatSnackBar, _bmxService: BmxService, public deviceService: DeviceDetectorService) {
@@ -64,7 +65,7 @@ export class QuestionAnswerComponent extends RatingScaleComponent implements OnI
     this.randomizeTestNames = this.bmxItem.componentSettings[0].randomizeTestNames
     this.rowsCount = this.bmxItem.componentText.length - 1;
 
-
+    this.dataSource = this.bmxItem.componentText.slice(1)
   }
 
   upLoadNamesAndRationales(list: string) {

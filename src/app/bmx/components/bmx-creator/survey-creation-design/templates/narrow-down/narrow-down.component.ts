@@ -23,6 +23,7 @@ export class NarrowDownComponent extends RatingScaleComponent implements OnInit 
   editSingleTableCells = false
   numRatingScale: number = 0;
   CREATION_VIDEO_PATH="assets/videos/NarrowDown.mp4" 
+  dataSource:any[] = []
 
   constructor(dragulaService: DragulaService, _snackBar: MatSnackBar,  _bmxService: BmxService,public deviceService: DeviceDetectorService) {
     super(dragulaService,_snackBar, _bmxService,deviceService)
@@ -91,5 +92,6 @@ export class NarrowDownComponent extends RatingScaleComponent implements OnInit 
     if(this.bmxItem.componentText[0]?.CRITERIA){
       this.rankingScaleValue = this.bmxItem.componentText[0]?.CRITERIA[0]?.STARS?.length;
     }
+    this.dataSource = this.bmxItem.componentText.slice(1)
   }
 }

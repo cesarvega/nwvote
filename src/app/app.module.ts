@@ -91,6 +91,7 @@ import { SurveyDialogComponent } from './bmx/components/survey-dialog/survey-dia
 import { ProjectListCheckComponent } from './bmx/components/project-list-check/project-list-check.component'
 import {TemplatesComponent} from './bmx/components/templates/templates.component';
 import { CommonModule } from '@angular/common';
+import { TableComponent } from './bmx/components/table/table.component';
 
 export function loadEcharts() {
   return import('echarts');
@@ -152,6 +153,7 @@ export function MSALInstanceFactory(): IPublicClientApplication {
     TinderComponent,
     SafePipe,
     SurveyDialogComponent,
+    TableComponent,
     ProjectListCheckComponent,
     TemplatesComponent,
     // BmxCreatorComponent,
