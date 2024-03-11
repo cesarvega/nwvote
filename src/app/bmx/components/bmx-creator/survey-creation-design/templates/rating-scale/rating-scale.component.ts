@@ -103,7 +103,9 @@ export class RatingScaleComponent implements OnInit {
   dialogText: string;
   templateToDelete: any;
   newselectedCriteria: any;
-
+  showModalTable= false
+  displayedColumns: string[] = ['nameCandidates', 'rationale', 'delete'];
+  dataSource:any[] = []
   //----------end modal------//
 
   constructor(private dragulaService: DragulaService, public _snackBar: MatSnackBar, public _bmxService: BmxService, public deviceService: DeviceDetectorService) {
@@ -260,6 +262,9 @@ export class RatingScaleComponent implements OnInit {
     const filteredCriteria = this.CRITERIA.filter(criteriaItem => this.selectedCriteria.map(item => item.name).includes(criteriaItem.name));
     this.newselectedCriteria = filteredCriteria
     this.launchPathModal.emit(this.VIDEO_PATH)
+    console.log(this.bmxItem.componentText.slice(1))
+    this.dataSource = this.bmxItem.componentText.slice(1)
+    console.log(this.columnsNames)
   }
 
   openSelected(y: any) {
@@ -668,6 +673,7 @@ export class RatingScaleComponent implements OnInit {
 
       }
       this.dragRows = false;
+      console.log(this.bmxItem.componentText.slice(1))
     }, 1000);
     // this.swapColumns(0)
   }
