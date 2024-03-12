@@ -250,4 +250,20 @@ export class ImageRateScaleComponent extends RatingScaleComponent implements OnI
     } 
   }
 
+  openWindow(index:any, bool:any){
+    if(this.showEdit){
+      this.selectedIndex=index
+      this.editSingleTableCells = bool
+      this.verifyCritera()
+    }else{
+      this._snackBar.open('First upload the logos to use'
+     , 'OK', {
+      duration: 6000,
+      verticalPosition: 'top',
+    }).afterDismissed().subscribe(action => {
+
+    })
+    }
+  }
+
 }
