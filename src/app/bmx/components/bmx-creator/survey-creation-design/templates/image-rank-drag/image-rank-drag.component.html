@@ -161,7 +161,7 @@
             <mat-icon style="font-size: 26px;" class="full-icon">collections</mat-icon>
         </button>
         <button (click)="selectedIndex = i;editSingleTableCells = false; verifyCritera()" class="add-column"
-            matTooltip="Setup settings" matTooltipPosition="above" *ngIf="i !== selectedIndex" mat-icon-button>
+            matTooltip="Setup settings" matTooltipPosition="above" *ngIf="i !== selectedIndex && showEdit" mat-icon-button>
             <mat-icon style="font-size: 25px;" class="full-icon">edit</mat-icon>
         </button>
         <button  (click)="toggleImageUploadBox()" class="add-column" matTooltip="uploadImages"

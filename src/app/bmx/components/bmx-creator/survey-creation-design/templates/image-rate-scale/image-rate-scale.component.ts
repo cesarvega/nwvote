@@ -50,7 +50,7 @@ export class ImageRateScaleComponent extends RatingScaleComponent implements OnI
   numRatingScale: number = 0;
   ratedCounter = 0
   actualRate = 0
-  
+  showEdit = false
   //------modal-----------//
   @Output() launchPathModal = new EventEmitter(); 
 
@@ -217,7 +217,7 @@ export class ImageRateScaleComponent extends RatingScaleComponent implements OnI
     setTimeout(() => {
       this.uploadImagesBox = false;    
     }, 1000);
-    console.log(this.bmxItem.componentText)
+   this.showEdit = true
   }
 
   deleteImage(index){

@@ -55,7 +55,7 @@ export class ImageRankDragComponent extends RatingScaleComponent implements OnIn
   showModalTable = false
   dataSource: any[] = []
   //------modal-----------//
-
+  showEdit = false
 
   CREATION_VIDEO_PATH = "assets/videos/imageDragAndDrop.mp4"
 
@@ -214,7 +214,7 @@ export class ImageRankDragComponent extends RatingScaleComponent implements OnIn
     setTimeout(() => {
       this.uploadImagesBox = false;
     }, 1000);
-    console.log(this.bmxItem.componentText)
+    this.showEdit = true
   }
 
   deleteImage(index) {
