@@ -50,7 +50,7 @@ export class ImageRateScaleComponent extends RatingScaleComponent implements OnI
   numRatingScale: number = 0;
   ratedCounter = 0
   actualRate = 0
-  
+  showEdit = false
   //------modal-----------//
   @Output() launchPathModal = new EventEmitter(); 
 
@@ -217,7 +217,7 @@ export class ImageRateScaleComponent extends RatingScaleComponent implements OnI
     setTimeout(() => {
       this.uploadImagesBox = false;    
     }, 1000);
-    console.log(this.bmxItem.componentText)
+   this.showEdit = true
   }
 
   deleteImage(index){
@@ -248,6 +248,22 @@ export class ImageRateScaleComponent extends RatingScaleComponent implements OnI
     } else if(this.ratedCounter <= this.bmxItem.componentSettings[0].maxRule && this.actualRate != 0){
       this.autoSave.next()    
     } 
+  }
+
+  openWindow(index:any, bool:any){
+    if(this.showEdit){
+      this.selectedIndex=index
+      this.editSingleTableCells = bool
+      this.verifyCritera()
+    }else{
+      this._snackBar.open('First upload the logos to use'
+     , 'OK', {
+      duration: 6000,
+      verticalPosition: 'top',
+    }).afterDismissed().subscribe(action => {
+
+    })
+    }
   }
 
 }

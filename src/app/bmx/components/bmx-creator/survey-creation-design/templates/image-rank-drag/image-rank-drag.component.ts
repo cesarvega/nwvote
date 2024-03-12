@@ -52,21 +52,22 @@ export class ImageRankDragComponent extends RatingScaleComponent implements OnIn
 
   ratedCounter = 0
   actualRate = 0
-
+  showModalTable = false
+  dataSource: any[] = []
   //------modal-----------//
- 
+  showEdit = false
 
-  CREATION_VIDEO_PATH="assets/videos/imageDragAndDrop.mp4" 
-  
+  CREATION_VIDEO_PATH = "assets/videos/imageDragAndDrop.mp4"
+
   VIDEO_PATH: any[] = [];
 
   PATH1: any[] = [
     'assets/img/bmx/tutorial/image-drag.JPG',
-    
+
   ]
 
   PATH2: any[] = [
-    'assets/img/bmx/tutorial/image-drag2.JPG',  
+    'assets/img/bmx/tutorial/image-drag2.JPG',
   ]
   deviceInfo = null;
   public isDesktopDevice: any = null;
@@ -74,10 +75,10 @@ export class ImageRankDragComponent extends RatingScaleComponent implements OnIn
   //----------end modal--------//
 
   //--------open cards---------//
-  openElements: any[]=[];
+  openElements: any[] = [];
   //selectedCard: any
 
-  constructor(private _BmxService: BmxService, dragulaService: DragulaService, _snackBar: MatSnackBar, _bmxService: BmxService,public deviceService: DeviceDetectorService) { super(dragulaService, _snackBar, _bmxService,deviceService); this.epicFunction(); }
+  constructor(private _BmxService: BmxService, dragulaService: DragulaService, _snackBar: MatSnackBar, _bmxService: BmxService, public deviceService: DeviceDetectorService) { super(dragulaService, _snackBar, _bmxService, deviceService); this.epicFunction(); }
   epicFunction() {
     this.deviceInfo = this.deviceService.getDeviceInfo();
     const isMobile = this.deviceService.isMobile();
@@ -86,7 +87,8 @@ export class ImageRankDragComponent extends RatingScaleComponent implements OnIn
     console.log(isMobile);  // returns if the device is a mobile device (android / iPhone / windows-phone etc)
     console.log(isTablet);  // returns if the device us a tablet (iPad etc)
   }
-  ngOnInit(): void {    this.showDialog = false    
+  ngOnInit(): void {
+    this.showDialog = false
     this.numRatingScale = this.bmxItem.componentText[0].STARS.length
     this.rankingScaleValue = this.numRatingScale;
     let values = Object.keys(this.bmxItem.componentText[0])
@@ -96,10 +98,10 @@ export class ImageRankDragComponent extends RatingScaleComponent implements OnIn
       }
     });
 
-    this.rowsCount =  this.bmxItem.componentText.length - 1
-    this.bmxItem.componentSettings[0].minRule = this.bmxItem.componentSettings[0].minRule == 0?0 :this.bmxItem.componentSettings[0].minRule;
-    this.bmxItem.componentSettings[0].maxRule = this.bmxItem.componentSettings[0].maxRule == 0?0 :this.bmxItem.componentSettings[0].maxRule;
-    
+    this.rowsCount = this.bmxItem.componentText.length - 1
+    this.bmxItem.componentSettings[0].minRule = this.bmxItem.componentSettings[0].minRule == 0 ? 0 : this.bmxItem.componentSettings[0].minRule;
+    this.bmxItem.componentSettings[0].maxRule = this.bmxItem.componentSettings[0].maxRule == 0 ? 0 : this.bmxItem.componentSettings[0].maxRule;
+
     this.randomizeTestNames = this.bmxItem.componentSettings[0].randomizeTestNames
 
     if (this.rankingType == 'dropDown') {
@@ -122,18 +124,18 @@ export class ImageRankDragComponent extends RatingScaleComponent implements OnIn
     // }else{
     //   this.VIDEO_PATH = this.PATH1;
     // }
-    if(window.innerWidth <= 1024){
+    if (window.innerWidth <= 1024) {
       this.VIDEO_PATH = this.PATH1;
-    }else{
+    } else {
       this.VIDEO_PATH = this.PATH2;
     }
-    this.launchPathModal.emit(this.VIDEO_PATH)    
+    this.launchPathModal.emit(this.VIDEO_PATH)
 
-    this.launchPathModal.emit(this.VIDEO_PATH)    
+    this.launchPathModal.emit(this.VIDEO_PATH)
     const filteredCriteria = this.CRITERIA.filter(criteriaItem => this.selectedCriteria.map(item => item.name).includes(criteriaItem.name));
     this.newselectedCriteria = filteredCriteria
     this.rankingScaleValue = this.bmxItem.componentText[0].STARS.length;
-
+    this.dataSource = this.bmxItem.componentText.slice(1)
   }
 
   onFileSelected(event) {
@@ -161,25 +163,25 @@ export class ImageRankDragComponent extends RatingScaleComponent implements OnIn
 
   //----------open cards-----------//
 
-  openSelected(y: any){
+  openSelected(y: any) {
 
     if (this.openElements.indexOf(y) === -1) {
       this.openElements.push(y);
     } else {
-      this.openElements.splice(this.openElements.indexOf(y),1);
+      this.openElements.splice(this.openElements.indexOf(y), 1);
     }
     console.log(this.openElements)
-  } 
+  }
 
-  open(y: any){
+  open(y: any) {
 
-    if(this.openElements.indexOf(y) == -1){
+    if (this.openElements.indexOf(y) == -1) {
       return false;
-    }else{
+    } else {
       console.log('true')
       return true;
     }
-    
+
   }
 
   //---------end open cards--------------//  
@@ -189,30 +191,30 @@ export class ImageRankDragComponent extends RatingScaleComponent implements OnIn
     this.reset();
   }
 
-  uploadAllImages(){
-    
-    if(this.IMAGES_UPLOADED.length<this.bmxItem.componentText.length){
-      this.bmxItem.componentText.splice(this.IMAGES_UPLOADED.length+1, this.bmxItem.componentText.length+1)
+  uploadAllImages() {
+
+    if (this.IMAGES_UPLOADED.length < this.bmxItem.componentText.length) {
+      this.bmxItem.componentText.splice(this.IMAGES_UPLOADED.length + 1, this.bmxItem.componentText.length + 1)
     }
-    this.IMAGES_UPLOADED.forEach((imageObject , index) => {
+    this.IMAGES_UPLOADED.forEach((imageObject, index) => {
       imageObject['FileContent'] = imageObject['FileContent'].split(imageObject['FileContent'].split(",")[0] + ',').pop()
-      this._BmxService.saveFileResources(JSON.stringify(imageObject)).subscribe((result:any) => {
+      this._BmxService.saveFileResources(JSON.stringify(imageObject)).subscribe((result: any) => {
         this.IMAGES_UPLOADED.shift()
-        if(index==0){
-          this.bmxItem.componentText[index ].nameCandidates = "LOGO"
+        if (index == 0) {
+          this.bmxItem.componentText[index].nameCandidates = "LOGO"
         }
-        if( this.bmxItem.componentText[index + 1]){
-          this.bmxItem.componentText[index +1].nameCandidates = JSON.parse(result.d).FileUrl
-        }else{
-          this.bmxItem.componentText.push({nameCandidates:JSON.parse(result.d).FileUrl})
+        if (this.bmxItem.componentText[index + 1]) {
+          this.bmxItem.componentText[index + 1].nameCandidates = JSON.parse(result.d).FileUrl
+        } else {
+          this.bmxItem.componentText.push({ nameCandidates: JSON.parse(result.d).FileUrl })
         }
-        
+
       });
     });
     setTimeout(() => {
-      this.uploadImagesBox = false;    
+      this.uploadImagesBox = false;
     }, 1000);
-    console.log(this.bmxItem.componentText)
+    this.showEdit = true
   }
 
   deleteImage(index) {
@@ -228,17 +230,17 @@ export class ImageRankDragComponent extends RatingScaleComponent implements OnIn
     this.uploadSub = null;
   }
 
-  saveRate(testNameId:any){
+  saveRate(testNameId: any) {
     this.actualRate = this.bmxItem.componentText[testNameId].RATE
   }
 
-  checkAutosave(testNameId:any) {
-     if (this.ratedCounter < this.bmxItem.componentSettings[0].maxRule && this.actualRate == 0|| this.bmxItem.componentSettings[0].maxRule == 0  ) {
-        this.ratedCounter = this.ratedCounter + 1
-        this.autoSave.emit()
-    } else if(this.ratedCounter <= this.bmxItem.componentSettings[0].maxRule && this.actualRate != 0){
-      this.autoSave.next()    
-    } 
+  checkAutosave(testNameId: any) {
+    if (this.ratedCounter < this.bmxItem.componentSettings[0].maxRule && this.actualRate == 0 || this.bmxItem.componentSettings[0].maxRule == 0) {
+      this.ratedCounter = this.ratedCounter + 1
+      this.autoSave.emit()
+    } else if (this.ratedCounter <= this.bmxItem.componentSettings[0].maxRule && this.actualRate != 0) {
+      this.autoSave.next()
+    }
   }
 
   checkDragEvetn(event: CdkDragDrop<string[]>) {
@@ -252,6 +254,20 @@ export class ImageRankDragComponent extends RatingScaleComponent implements OnIn
       this.autoSave.emit()
     }
   }
+  openWindow(index:any, bool:any){
+    if(this.showEdit){
+      this.selectedIndex=index
+      this.editSingleTableCells = bool
+      this.verifyCritera()
+    }else{
+      this._snackBar.open('First upload the logos to use'
+     , 'OK', {
+      duration: 6000,
+      verticalPosition: 'top',
+    }).afterDismissed().subscribe(action => {
 
+    })
+    }
+  }
 }
 

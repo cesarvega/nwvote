@@ -551,8 +551,7 @@ export class RatingScaleComponent implements OnInit {
             this.columnsNames[index] = 'katakana'
           }
           else {
-            this.columnsNames[0] = 'name candidates'
-            this.columnsNames[1] = 'rationale'
+        
 
             this.columnsNames[index] = 'ExtraColumn' + this.extraColumnCounter
             this.extraColumnCounter++
