@@ -1,4 +1,4 @@
-<div style="overflow-x: scroll;">
+<div>
   <div *ngIf="showDialog"><app-survey-dialog (onConfirm)="confirmAction()" (onCancel)="closeDialog()"
     [dialogText]="dialogText"></app-survey-dialog>
 </div>
@@ -167,7 +167,7 @@
             <mat-icon style="font-size: 26px;    z-index: 9;" class="full-icon">swap_horizontal_circle</mat-icon>
         </button>
 
-        <button (click)="selectedIndex = i; editSingleTableCells = false; verifyCritera()" class="add-column"
+        <button (click)="openWindow(i, false)" class="add-column"
             matTooltip="Setup settings" matTooltipPosition="above" *ngIf="i !== selectedIndex" mat-icon-button>
             <mat-icon style="font-size: 25px;" class="full-icon">edit</mat-icon>
         </button>
@@ -244,16 +244,16 @@
     <!-- Cards Test Name-->
     <mat-card class="example-card">
       <mat-card-header>
-        <mat-card-title>Test Names</mat-card-title>
+        <mat-card-title>Columns</mat-card-title>
       </mat-card-header>
       <mat-card-content>
         <div style="text-align: center;">
-          <div style="font-size: 16px;margin: 20px;color: #48535e;">Copy & Paste TEST NAMES</div>
+          <div style="font-size: 16px;margin: 20px;color: #48535e;">Copy & Paste Columns</div>
           <!-- <div style="font-size: 14px;margin-bottom: 20px;color: lightgray;">Brief Description Here</div> -->
       </div>
       <div style="display: flex; justify-content: center; align-items: center;">
         <mat-form-field style="width: 90%; margin-left: 20px;" appearance="outline">
-          <mat-label>Copy & Paste TEST QUESTIONS</mat-label>
+          <mat-label>Copy & Paste Columns</mat-label>
           <textarea matInput [(ngModel)]="testNamesInput" (paste)="onPaste()" (ngModelChange)="upLoadNamesAndRationales(testNamesInput)"
               placeholder="Paste test names here" cdkTextareaAutosize
               cdkAutosizeMinRows="2" cdkAutosizeMaxRows="5"></textarea>
@@ -448,16 +448,16 @@ justify-content: center;cursor: move; height: 25px; width: 100%;"><svg width="24
     <!-- Cards Test Name-->
     <mat-card class="example-card">
       <mat-card-header>
-        <mat-card-title>Test Names</mat-card-title>
+        <mat-card-title>Columns</mat-card-title>
       </mat-card-header>
       <mat-card-content>
         <div style="text-align: center;">
-          <div style="font-size: 16px;margin: 20px;color: #48535e;">Copy & Paste TEST NAMES</div>
+          <div style="font-size: 16px;margin: 20px;color: #48535e;">Copy & Paste Columns</div>
           <!-- <div style="font-size: 14px;margin-bottom: 20px;color: lightgray;">Brief Description Here</div> -->
       </div>
       <div style="display: flex; justify-content: center; align-items: center;">
         <mat-form-field style="width: 90%; margin-left: 20px;" appearance="outline">
-          <mat-label>Copy & Paste TEST QUESTIONS</mat-label>
+          <mat-label>Copy & Paste Columns</mat-label>
           <textarea matInput [(ngModel)]="testNamesInput" (paste)="onPaste()" (ngModelChange)="upLoadNamesAndRationales(testNamesInput)"
               placeholder="Paste test names here" cdkTextareaAutosize
               cdkAutosizeMinRows="2" cdkAutosizeMaxRows="5"></textarea>
