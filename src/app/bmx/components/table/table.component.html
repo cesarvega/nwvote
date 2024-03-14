@@ -1,7 +1,7 @@
 <div  class="modal-video" style="display: flex;flex-direction: column;gap: 2px;">
 
   <div *ngIf="displayedColumns.length>0" class="modal-content">
-    
+
       <div class="content-table" style="display: flex;
       justify-content: center;
       background: white;
@@ -14,13 +14,13 @@
           <td mat-cell *matCellDef="let elemento"> <input type="text" matInput [(ngModel)]="elemento[columna]"
             [value]="elemento[columna]"></td>
         </ng-container>
-        
+
         <!-- Define las filas de la tabla -->
         <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
         <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
       </table>
           <div class="content-button" style="width: 100%; display: flex; justify-content: flex-end;">
-              
+
               <button mat-button (click)="saveChanges()" >Save</button>
           </div>
 
