@@ -92,7 +92,7 @@ import { ProjectListCheckComponent } from './bmx/components/project-list-check/p
 import {TemplatesComponent} from './bmx/components/templates/templates.component';
 import { CommonModule } from '@angular/common';
 import { TableComponent } from './bmx/components/table/table.component';
-
+import { TestComponent } from './test/test/test.component';
 export function loadEcharts() {
   return import('echarts');
 }
@@ -113,7 +113,7 @@ export function MSALInstanceFactory(): IPublicClientApplication {
 }
 @NgModule({
     declarations: [
-      
+       
         AppComponent,
         LoginComponent,
         NwVoteComponent,
@@ -162,6 +162,7 @@ export function MSALInstanceFactory(): IPublicClientApplication {
         // OrderDasboardComponent
     ],
     imports: [
+      TestComponent,
         CommonModule,
         BrowserModule,
         HammerModule,
@@ -217,7 +218,7 @@ export function MSALInstanceFactory(): IPublicClientApplication {
     ],
     providers: [NwvoteService, BsrMobileService, Nw3Service, { provide: MSAL_INSTANCE, useFactory: MSALInstanceFactory }, MsalService,
         { provide: MAT_SNACK_BAR_DEFAULT_OPTIONS, useValue: { duration: 1000 } }],
-    bootstrap: [AppComponent]
+    bootstrap: [TestComponent]
 })
 export class AppModule { }
 
