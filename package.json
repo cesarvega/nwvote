@@ -3,7 +3,7 @@
   "version": "0.0.0",
   "scripts": {
     "ng": "ng",
-    "start": "ng serve",
+    "start": "set NODE_OPTIONS=--openssl-legacy-provider && ng serve",
     "build": "ng build",
     "test": "ng test",
     "lint": "ng lint",
@@ -23,6 +23,7 @@
     "@angular/core": "~9.1.0",
     "@angular/flex-layout": "^9.0.0-beta.29",
     "@angular/forms": "~9.1.0",
+    "@angular/localize": "^9.1.13",
     "@angular/material": "^9.2.2",
     "@angular/platform-browser": "~9.1.0",
     "@angular/platform-browser-dynamic": "~9.1.0",
