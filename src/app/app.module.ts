@@ -38,7 +38,7 @@ import { QRCodeModule } from 'angularx-qrcode';
 import { DeviceDetectorModule } from 'ngx-device-detector';
 import { NW3Component } from './nw3/nw3.component';
 import { Nw3Service } from './nw3/nw3.service';
-import { HammerGestureConfig, HAMMER_GESTURE_CONFIG, HammerModule } from '@angular/platform-browser';
+import { HammerGestureConfig, HammerModule } from '@angular/platform-browser';
 import { SchedulerComponent } from './scheduler/scheduler.component';
 import { AngularDateTimePickerModule } from 'angular2-datetimepicker';
 import { MatDatepickerModule } from '@angular/material/datepicker';
