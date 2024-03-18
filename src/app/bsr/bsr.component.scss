@@ -532,7 +532,7 @@
   width: auto;
 }
 
-.mat-dialog-container {
+.mat-mdc-dialog-container {
   display: block;
   padding: 46px 20px 110px 26px;
   border-radius: 4px;
@@ -598,6 +598,7 @@ table {
   animation-duration: 0.4s; /* don't forget to set a duration! */
 }
 
+/* TODO(mdc-migration): The following rule targets internal classes of tabs that may no longer apply for the MDC version. */
 mat-tab-group ::-webkit-scrollbar {
   display: none;
 }
@@ -710,7 +711,7 @@ mat-tab-group ::-webkit-scrollbar {
   border-radius: 5px;
 }
 
-::ng-deep .mat-tooltip {
+::ng-deep .mat-mdc-tooltip {
   font-size: 24px;
 }
 

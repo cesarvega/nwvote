@@ -12,7 +12,7 @@ import {
 import { BmxService } from '../bmx.service';
 import { DOCUMENT } from '@angular/common';
 import QRCodeStyling from 'qr-code-styling';
-import { MatLegacySnackBar as MatSnackBar } from '@angular/material/legacy-snack-bar';
+import { MatSnackBar } from '@angular/material/snack-bar';
 import { ActivatedRoute } from '@angular/router';
 @Component({
     selector: 'app-survey-creation-design',

@@ -127,7 +127,7 @@
     background: #324395 !important;
   }
   
-  ::ng-deep .mat-tooltip {
+  ::ng-deep .mat-mdc-tooltip {
     background-color: #324395;
     font-size: 18px;
   }
@@ -152,10 +152,10 @@
     top: 8px;
     right: 42px;    
     border-radius: 5px;
-    
+    /* TODO(mdc-migration): The following rule targets internal classes of list that may no longer apply for the MDC version.*/
     mat-list-item{
         color: white;    }
-
+    /* TODO(mdc-migration): The following rule targets internal classes of list that may no longer apply for the MDC version.*/
     mat-list-item:hover{
         background-color: white;
         color: #324395;

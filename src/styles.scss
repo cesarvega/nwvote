@@ -16,7 +16,7 @@
 // Include the common styles for Angular Material. We include this here so that you only
 // have to load a single css file for Angular Material in your app.
 // Be sure that you only ever include this mixin once!
-$custom-typography: mat.define-legacy-typography-config(
+$custom-typography: mat.define-typography-config(
     $font-family: 'sofia-pro'
 );
 
@@ -29,8 +29,8 @@ $custom-typography: mat.define-legacy-typography-config(
 //  If you don't need the default component typographies but still want the hierarchy styles,
 //  you can delete this line and instead use:
 //    `@include mat.legacy-typography-hierarchy($custom-typography);`
-@include mat.all-legacy-component-typographies($custom-typography);
-@include mat.legacy-core();
+@include mat.all-component-typographies($custom-typography);
+@include mat.core();
 
 $custom-orange: (
     50: #004684,
@@ -81,7 +81,7 @@ $firestarter-theme: mat.define-light-theme($firestarter-primary, $firestarter-ac
 // Include theme styles for core and each component used in your app.
 // Alternatively, you can import and @include the theme mixins for each component
 // that you are using.
-@include mat.all-legacy-component-themes($firestarter-theme);
+@include mat.all-component-themes($firestarter-theme);
 
 /* You can add global styles to this file, and also import other style files */
 

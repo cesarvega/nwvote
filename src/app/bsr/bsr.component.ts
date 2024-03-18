@@ -730,7 +730,7 @@ export class BsrComponent implements OnInit {
 
 
 
-import { MatLegacySliderChange as MatSliderChange } from '@angular/material/legacy-slider';
+import { MatSliderChange } from '@angular/material/slider';
 import { ActivatedRoute } from '@angular/router';
 // import { ThrowStmt } from '@angular/compiler/src/output/output_ast';
 import { DragulaService } from 'ng2-dragula';

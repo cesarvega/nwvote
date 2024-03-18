@@ -2,7 +2,7 @@
 
   <!-- OVERVIEW SLIDE -->
   <mat-sidenav class="overview"  mode="over" [opened]="overview">
-    <mat-card (click)="goToSlide(i)" *ngFor="let item of appSlidesData; let i = index">
+    <mat-card appearance="outlined" (click)="goToSlide(i)" *ngFor="let item of appSlidesData; let i = index">
       <p style="color: #004684;cursor: pointer;border-bottom: #004684;">{{i+1}}. - {{item.SlideDescription}}</p>
       <!-- <img [src]="'http://www.bipresents.com/' + item.SlideBGFileName" alt="overview"
         style="max-width: 250px;cursor: pointer;"> -->
@@ -147,8 +147,9 @@
           <mat-icon class="full-icon">font_download</mat-icon>
           <!-- <mat-slider #slider *ngIf="diplayFontSizeSlider" (change)="setFontSize()" [(ngModel)]="font_size"
             class="slider-font-size" thumbLabel tickInterval="2" min="20" max="38" [value]="font_size"></mat-slider> -->
-            <mat-slider #slider *ngIf="diplayFontSizeSlider" (change)="setFontSize()" [(ngModel)]="font_size"
-            class="slider-font-size" thumbLabel tickInterval="2" min="20" max="38" ></mat-slider>
+            <!-- TODO: The 'tickInterval' property no longer exists -->
+            <mat-slider #slider *ngIf="diplayFontSizeSlider" [(ngModel)]="font_size"
+            class="slider-font-size" thumbLabel min="20" max="38"  #ngSlider><input matSliderThumb (change)="setFontSize()" #ngSliderThumb="matSliderThumb" /></mat-slider>
         </button>
         <button *ngIf="createPostIt" (click)="theme()" mat-icon-button matTooltip="toggle theme"
           matTooltipPosition="above">
@@ -241,7 +242,7 @@
 
 
       <div class="col searchy" [style.left]="searchBoxLeftProperty" *ngIf="appSearchSlidesData.length&&mainMenu">
-        <mat-card (click)="goToSlideFromSearch(item.$id)" *ngFor="let item of appSearchSlidesData; let i = index">
+        <mat-card appearance="outlined" (click)="goToSlideFromSearch(item.$id)" *ngFor="let item of appSearchSlidesData; let i = index">
           <p>{{item.SlideDescription}}</p>
           <img [src]="'http://www.bipresents.com/' + item.SlideBGFileName" alt="overview"
             style="max-width: 90px;cursor: pointer;">
@@ -298,7 +299,7 @@
                     dragula="TASKS" [dragulaModel]="conceptData.concepts" (dragulaModelChange)="conceptData.concepts = $event">
                       <div [ngClass]="postItListTheme" *ngFor="let item of conceptData.concepts; let i = index;">
 
-                        <mat-card  class="mat-elevation-z4 post-card">
+                        <mat-card  appearance="outlined"  class="mat-elevation-z4 post-card">
                           <div class="emoji-handle" >
                             <!-- <svg width="24px" fill="currentColor" viewBox="0 0 24 24">
                               <path d="M10 9h4V6h3l-5-5-5 5h3v3zm-1 1H6V7l-5 5 5 5v-3h3v-4zm14 2l-5-5v3h-3v4h3v3l5-5zm-9 3h-4v3H7l5 5 5-5h-3v-3z"></path>
