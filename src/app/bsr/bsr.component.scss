@@ -852,7 +852,7 @@ $postItHeaderColors2: #d6f8fd, #dcd6fd, #d6fde9, #fdfcd6, #d6f8fd, #fdd6e8, #fdd
   opacity: 1;
   // transition: opacity 0.5s ease-out;
   // animation-direction: alternate;
-  // animation: tada; /* referring directly to the animation's @keyframe declaration */
+  // animation: tada; __<<ngThemingMigrationEscapedComment20>>__
   animation-delay: 0.1s; /* don't forget to set a duration! */
   animation-duration: 0.5s; /* don't forget to set a duration! */
   animation-iteration-count: 1;
@@ -866,7 +866,7 @@ $postItHeaderColors2: #d6f8fd, #dcd6fd, #d6fde9, #fdfcd6, #d6f8fd, #fdd6e8, #fdd
   transition: opacity 0.5s ease-out;
   // animation: tada, wooble;
   // animation-direction: alternate;
-  // animation: bounce; /* referring directly to the animation's @keyframe declaration */
+  // animation: bounce; __<<ngThemingMigrationEscapedComment23>>__
   animation-delay: 0.1s; /* don't forget to set a duration! */
   animation-duration: 0.5s; /* don't forget to set a duration! */
   animation-iteration-count: 1;
