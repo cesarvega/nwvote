@@ -155,7 +155,7 @@ export function MSALInstanceFactory(): IPublicClientApplication {
         SurveyDialogComponent,
         TableComponent,
         ProjectListCheckComponent,
-        TemplatesComponent,
+        TemplatesComponent
         // BmxCreatorComponent,
         // SafePipe,
         // OrderDasboardComponent
