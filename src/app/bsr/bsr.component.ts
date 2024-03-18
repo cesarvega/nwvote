@@ -732,7 +732,7 @@ export class BsrComponent implements OnInit {
 
 import { MatSliderChange } from '@angular/material/slider';
 import { ActivatedRoute } from '@angular/router';
-import { ThrowStmt } from '@angular/compiler/src/output/output_ast';
+// import { ThrowStmt } from '@angular/compiler/src/output/output_ast';
 import { DragulaService } from 'ng2-dragula';
 
 // CKEDITOR WYSIWYG // **************************************************************************************************

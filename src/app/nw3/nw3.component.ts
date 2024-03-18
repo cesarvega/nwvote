@@ -6,7 +6,7 @@ import { HotkeysService, Hotkey } from 'angular2-hotkeys';
 import Speech from 'speak-tts';
 import { Nw3Service } from './nw3.service';
 import { ActivatedRoute } from '@angular/router';
-import { typeSourceSpan } from '@angular/compiler';
+// import { typeSourceSpan } from '@angular/compiler';
 
 @Component({
   selector: 'app-nw3',

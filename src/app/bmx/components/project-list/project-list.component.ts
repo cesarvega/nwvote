@@ -2,7 +2,7 @@ import { Component, ElementRef, EventEmitter, Inject, Input, OnInit, Output, Vie
 import { DOCUMENT } from '@angular/common';
 import { HotkeysService, Hotkey } from 'angular2-hotkeys';
 import { ActivatedRoute, Router } from '@angular/router';
-import { typeSourceSpan } from '@angular/compiler';
+// import { typeSourceSpan } from '@angular/compiler';
 import { DragulaService } from 'ng2-dragula';
 import { MatPaginator } from '@angular/material/paginator';
 import { MatTableDataSource } from '@angular/material/table';
