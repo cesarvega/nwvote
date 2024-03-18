@@ -1,4 +1,4 @@
-import { DatePipe } from '@angular/common';
+// import { DatePipe } from '@angular/common';
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
@@ -116,7 +116,7 @@ export class SchedulerComponent implements OnInit {
     // });
 
     this.form = this._formBuilder.group({
-      company: ['', Validators.required],
+      company: ['',   Validators.required],
       firstName: ['', Validators.required],
       lastName: ['', Validators.required],
       email: ['', Validators.email],
