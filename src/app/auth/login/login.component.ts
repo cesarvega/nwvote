@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { NwvoteService } from '../../nw-vote/nwvote.service';
-import { FormBuilder, Validators, FormGroup } from '@angular/forms';
+import { UntypedFormBuilder, Validators, UntypedFormGroup } from '@angular/forms';
 import { Router, ActivatedRoute } from '@angular/router';
 import { MsalService } from '@azure/msal-angular';
 import { HttpClient } from '@angular/common/http';
@@ -11,9 +11,9 @@ import { HttpClient } from '@angular/common/http';
 })
 export class LoginComponent implements OnInit {
 
-  loginForm: FormGroup;
+  loginForm: UntypedFormGroup;
   projectname = ''
-  constructor(private _formBuilder: FormBuilder,
+  constructor(private _formBuilder: UntypedFormBuilder,
     public _NwvoteService: NwvoteService, private activatedRoute: ActivatedRoute,
     private router: Router, private msalService: MsalService, private http: HttpClient) { }
 

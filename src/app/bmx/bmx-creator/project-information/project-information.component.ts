@@ -1,6 +1,6 @@
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { Component, OnInit,Output, EventEmitter } from '@angular/core';
-import { FormControl, FormGroup } from '@angular/forms';
+import { UntypedFormControl, UntypedFormGroup } from '@angular/forms';
 import { BmxService } from '../bmx.service';
 import { Observable } from 'rxjs';
 import { map, startWith } from 'rxjs/operators';
@@ -42,15 +42,15 @@ export class ProjectInformationComponent implements OnInit {
   canEdit;
   isDisplay = true;
 
-  bmxEditData: FormGroup;
-  bmxSalesboard: FormControl;
-  bmxDepartment: FormControl;
-  bmxProjectName: FormControl;
-  bmxRegion: FormControl;
-  bmxCompany: FormControl;
-  bmxLanguage: FormControl;
-  bmxRegionalOffice: FormControl;
-  bmxRegionalDirector: FormControl;
+  bmxEditData: UntypedFormGroup;
+  bmxSalesboard: UntypedFormControl;
+  bmxDepartment: UntypedFormControl;
+  bmxProjectName: UntypedFormControl;
+  bmxRegion: UntypedFormControl;
+  bmxCompany: UntypedFormControl;
+  bmxLanguage: UntypedFormControl;
+  bmxRegionalOffice: UntypedFormControl;
+  bmxRegionalDirector: UntypedFormControl;
 
 
   ngOnInit(): void {
@@ -127,7 +127,7 @@ export class ProjectInformationComponent implements OnInit {
   }
   //AUTOCOMPLETE 🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖
   filteredOptions: Observable<string[]>;
-  salesboardFilter = new FormControl();
+  salesboardFilter = new UntypedFormControl();
   salesboardObj = [];
   projectName: string;
   private _filter(value: string): string[] {
@@ -254,41 +254,41 @@ export class ProjectInformationComponent implements OnInit {
 
   createFormControls() {
 
-    this.bmxSalesboard = new FormControl(
+    this.bmxSalesboard = new UntypedFormControl(
       '', [
       Validators.required,
     ]);
-    this.bmxDepartment = new FormControl(
+    this.bmxDepartment = new UntypedFormControl(
       '', [
       Validators.required,
     ]);
-    this.bmxProjectName = new FormControl(
+    this.bmxProjectName = new UntypedFormControl(
       '', [
       Validators.required,
       Validators.pattern("^[a-zA-Z0-9]+$")
     ]);
-    this.bmxRegion = new FormControl(
+    this.bmxRegion = new UntypedFormControl(
       '', [
       Validators.required,
     ]);
-    this.bmxCompany = new FormControl(
+    this.bmxCompany = new UntypedFormControl(
       '', [
       Validators.required,
       // Validators.pattern("^[a-zA-Z0-9]+$")
     ]);
-    this.bmxLanguage = new FormControl(
+    this.bmxLanguage = new UntypedFormControl(
       '', [
       Validators.required,
     ]);
-    this.bmxRegionalOffice = new FormControl(
+    this.bmxRegionalOffice = new UntypedFormControl(
       '', [
       Validators.required,
     ]);
-    this.bmxRegionalDirector = new FormControl();
+    this.bmxRegionalDirector = new UntypedFormControl();
   }
 
   createForm() {
-    this.bmxEditData = new FormGroup({
+    this.bmxEditData = new UntypedFormGroup({
       bmxSalesboard: this.bmxSalesboard,
       bmxDepartment: this.bmxDepartment,
       bmxProjectName: this.bmxProjectName,

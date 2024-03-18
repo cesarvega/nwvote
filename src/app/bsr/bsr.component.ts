@@ -1,11 +1,11 @@
 import { OverlayContainer } from '@angular/cdk/overlay';
 import { Component, OnInit, Inject, ViewEncapsulation, ViewChild } from '@angular/core';
-import { FormControl } from '@angular/forms';
+import { UntypedFormControl } from '@angular/forms';
 import { HotkeysService, Hotkey } from 'angular2-hotkeys';
 import { CdkDragDrop, moveItemInArray, CdkDropListGroup, transferArrayItem } from '@angular/cdk/drag-drop';
 import { BsrService } from './bsr.service';
 
-import { FormBuilder, Validators, FormGroup } from '@angular/forms';
+import { UntypedFormBuilder, Validators, UntypedFormGroup } from '@angular/forms';
 import { MatDialog, MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { DOCUMENT } from '@angular/common';
 //import { BsrService } from './services/bsr.service';
@@ -29,7 +29,7 @@ export class BsrComponent implements OnInit {
   font_size = '30';
   font_size_text = this.font_size + 'px';
   diplayFontSizeSlider = false;
-  loginForm: FormGroup;
+  loginForm: UntypedFormGroup;
   isMouseOver: boolean = false;
   sliderVal = 51;
   totalNumberOfnames = 51;
@@ -47,7 +47,7 @@ export class BsrComponent implements OnInit {
   isScreeningNames = false;
   slideBackground = 'url(http://www.bipresents.com/';
   baseBackgroundUrl = 'url(http://www.bipresents.com/';
-  myControl = new FormControl();
+  myControl = new UntypedFormControl();
   options: string[] = ['One', 'Two', 'Three'];
   totalNumberOfSlides: any;
   pageCounter = '';
@@ -83,7 +83,7 @@ export class BsrComponent implements OnInit {
   baseUrl: any;
   restUrl: any;
 
-  constructor(@Inject(DOCUMENT) private document: any, private _formBuilder: FormBuilder,
+  constructor(@Inject(DOCUMENT) private document: any, private _formBuilder: UntypedFormBuilder,
     private _hotkeysService: HotkeysService,
     private _BsrService: BsrService, public dialog: MatDialog, private activatedRoute: ActivatedRoute,
     private dragulaService: DragulaService) {
@@ -764,12 +764,12 @@ export class editPost {
 
   ckconfig: any;
   synonyms: any;
-  loginForm: FormGroup;
+  loginForm: UntypedFormGroup;
   isDeleting = false;
   isDeletingName = false;
   dataEditor = '<p>Hello, world!</p>';
   infoMessage = true;
-  popupwindowData: { form: FormGroup; oldValue: string; };
+  popupwindowData: { form: UntypedFormGroup; oldValue: string; };
   title: string;
   editName: string;
   concept: any;
@@ -797,7 +797,7 @@ export class editPost {
   nameid: any = '';
   constructor(
     public dialogRef: MatDialogRef<editPost>,
-    @Inject(MAT_DIALOG_DATA) public data: DialogData, private _formBuilder: FormBuilder, private _BsrService: BsrService, private activatedRoute: ActivatedRoute,) {
+    @Inject(MAT_DIALOG_DATA) public data: DialogData, private _formBuilder: UntypedFormBuilder, private _BsrService: BsrService, private activatedRoute: ActivatedRoute,) {
     this.editName = this.data.nameId;
     this.dataEditor = this.data.name.html;
     this.model.editorData = this.data.name.html;
