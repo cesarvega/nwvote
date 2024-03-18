@@ -8,7 +8,7 @@ import {
 } from '@angular/core';
 import { DOCUMENT } from '@angular/common';
 import QRCodeStyling from 'qr-code-styling';
-import { MatSnackBar } from '@angular/material/snack-bar';
+import { MatLegacySnackBar as MatSnackBar } from '@angular/material/legacy-snack-bar';
 import { ActivatedRoute } from '@angular/router';
 import { HotkeysService, Hotkey } from 'angular2-hotkeys';
 import { faFileWord } from '@fortawesome/free-solid-svg-icons';

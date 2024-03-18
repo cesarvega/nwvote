@@ -145,8 +145,10 @@
         <button *ngIf="createPostIt" (click)="diplayFontSizeSlider = !diplayFontSizeSlider" matTooltip="font size"
           matTooltipPosition="above" mat-icon-button color="warn" aria-label="aria">
           <mat-icon class="full-icon">font_download</mat-icon>
-          <mat-slider #slider *ngIf="diplayFontSizeSlider" (change)="setFontSize()" [(ngModel)]="font_size"
-            class="slider-font-size" thumbLabel tickInterval="2" min="20" max="38" [value]="font_size"></mat-slider>
+          <!-- <mat-slider #slider *ngIf="diplayFontSizeSlider" (change)="setFontSize()" [(ngModel)]="font_size"
+            class="slider-font-size" thumbLabel tickInterval="2" min="20" max="38" [value]="font_size"></mat-slider> -->
+            <mat-slider #slider *ngIf="diplayFontSizeSlider" (change)="setFontSize()" [(ngModel)]="font_size"
+            class="slider-font-size" thumbLabel tickInterval="2" min="20" max="38" ></mat-slider>
         </button>
         <button *ngIf="createPostIt" (click)="theme()" mat-icon-button matTooltip="toggle theme"
           matTooltipPosition="above">

@@ -7,8 +7,8 @@ import { HotkeysService, Hotkey } from 'angular2-hotkeys';
 import { MatSort } from '@angular/material/sort';
 import { CdkDragStart, CdkDropList, moveItemInArray } from '@angular/cdk/drag-drop';
 import { MatPaginator } from '@angular/material/paginator';
-import { MatSnackBar } from '@angular/material/snack-bar';
-import { MatDialog, MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
+import {  MatSnackBar } from '@angular/material/snack-bar';
+import {  MatDialog,  MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { DialogComponent } from './dialog/dialog.component';
 import { BmxService } from '../bmx-creator/bmx.service';
 

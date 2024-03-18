@@ -4,7 +4,7 @@ import { DragulaService } from 'ng2-dragula';
 import { Subscription } from 'rxjs/internal/Subscription';
 import { BmxService } from '../../../bmx.service';
 import { RatingScaleComponent } from '../rating-scale/rating-scale.component';
-import { MatSnackBar } from '@angular/material/snack-bar';
+import {MatSnackBar } from '@angular/material/snack-bar';
 import { DeviceDetectorService } from 'ngx-device-detector';
 
 @Component({
@@ -77,7 +77,7 @@ export class ImageRateScaleComponent extends RatingScaleComponent implements OnI
 
 
   constructor(private _BmxService: BmxService,dragulaService: DragulaService, _snackBar: MatSnackBar,  _bmxService: BmxService,public deviceService: DeviceDetectorService)
-   {super(dragulaService,_snackBar,_bmxService,deviceService); this.epicFunction();}
+   {super(dragulaService,null,_bmxService,deviceService); this.epicFunction();}
 
   ngOnInit(): void { 
     

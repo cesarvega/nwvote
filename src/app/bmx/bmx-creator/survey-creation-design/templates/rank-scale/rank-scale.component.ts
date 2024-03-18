@@ -42,7 +42,7 @@ export class RankScaleComponent extends RatingScaleComponent implements OnInit {
   allowScrolling = true
 
   constructor(dragulaService: DragulaService, _snackBar: MatSnackBar, _bmxService: BmxService,public deviceService: DeviceDetectorService) {
-    super(dragulaService, _snackBar, _bmxService,deviceService)
+    super(dragulaService, null, _bmxService,deviceService)
   }
 
   ngOnInit(): void {

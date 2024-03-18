@@ -3,7 +3,7 @@ import { CommonModule } from '@angular/common';
 import { BmxCreatorComponent } from '../bmx-creator/bmx-creator.component';
 import { BrowserModule } from '@angular/platform-browser';
 // import { NgModule } from '@angular/core';
-import { FlexLayoutModule } from '@angular/flex-layout';
+// import { FlexLayoutModule } from '@angular/flex-layout';
 // import { AppRoutingModule } from './app-routing.module';
 // import { AppComponent } from './app.component';
 // import { LoginComponent } from './auth/login/login.component';
@@ -140,7 +140,7 @@ export function loadEcharts() {
     MatCardModule,
     MatDialogModule,
     MatIconModule,
-    FlexLayoutModule,
+    // FlexLayoutModule,
     DragDropModule,
     MatTooltipModule,
     MatGridListModule,
@@ -169,7 +169,7 @@ export function loadEcharts() {
     CommonModule,
     BmxRoutingModule,
     MatAutocompleteModule,
-    FontAwesomeModule,
+    // FontAwesomeModule,
   ], schemas: [ CUSTOM_ELEMENTS_SCHEMA ],
 })
 export class BmxModule { }

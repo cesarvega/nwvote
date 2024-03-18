@@ -16,10 +16,10 @@ import { ActivatedRoute } from '@angular/router';
 import { BmxService } from '../bmx.service';
 import { DragulaService } from 'ng2-dragula';
 import { SurveyCreationDesignComponent } from '../survey-creation-design/survey-creation-design.component';
-import { MatSnackBar } from '@angular/material/snack-bar';
+import { MatLegacySnackBar as MatSnackBar } from '@angular/material/legacy-snack-bar';
 import QRCodeStyling from 'qr-code-styling';
 import { DeviceDetectorService } from 'ngx-device-detector';
-import { MatCheckboxModule } from '@angular/material/checkbox';
+import { MatLegacyCheckboxModule as MatCheckboxModule } from '@angular/material/legacy-checkbox';
 
 @Component({
   selector: 'app-survey-matrix',

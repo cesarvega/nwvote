@@ -25,7 +25,7 @@ export class NarrowDownComponent extends RatingScaleComponent implements OnInit 
   CREATION_VIDEO_PATH="assets/videos/NarrowDown.mp4" 
 
   constructor(dragulaService: DragulaService, _snackBar: MatSnackBar,  _bmxService: BmxService,public deviceService: DeviceDetectorService) {
-    super(dragulaService,_snackBar, _bmxService,deviceService)
+    super(dragulaService,null, _bmxService,deviceService)
   }
 
   ngOnInit(): void {

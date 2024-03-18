@@ -77,7 +77,7 @@ export class ImageRankDragComponent extends RatingScaleComponent implements OnIn
   openElements: any[]=[];
   //selectedCard: any
 
-  constructor(private _BmxService: BmxService, dragulaService: DragulaService, _snackBar: MatSnackBar, _bmxService: BmxService,public deviceService: DeviceDetectorService) { super(dragulaService, _snackBar, _bmxService,deviceService); this.epicFunction(); }
+  constructor(private _BmxService: BmxService, dragulaService: DragulaService, _snackBar: MatSnackBar, _bmxService: BmxService,public deviceService: DeviceDetectorService) { super(dragulaService, null, _bmxService,deviceService); this.epicFunction(); }
   epicFunction() {
     this.deviceInfo = this.deviceService.getDeviceInfo();
     const isMobile = this.deviceService.isMobile();

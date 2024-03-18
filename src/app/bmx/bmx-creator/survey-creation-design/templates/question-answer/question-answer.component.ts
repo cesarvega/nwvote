@@ -2,7 +2,7 @@ import { Component, ElementRef, EventEmitter, Inject, Input, OnInit, Output, Vie
 import { CdkTextareaAutosize } from '@angular/cdk/text-field';
 import { DragulaService } from 'ng2-dragula';
 import { RatingScaleComponent } from '../rating-scale/rating-scale.component';
-import { MatSnackBar } from '@angular/material/snack-bar';
+import {  MatSnackBar } from '@angular/material/snack-bar';
 import { BmxService } from '../../../bmx.service';
 import { DeviceDetectorService } from 'ngx-device-detector';
 
@@ -22,7 +22,7 @@ export class QuestionAnswerComponent extends RatingScaleComponent implements OnI
 
   allComplete: boolean = false;
   constructor(dragulaService: DragulaService, _snackBar: MatSnackBar, _bmxService: BmxService,public deviceService: DeviceDetectorService) {
-    super(dragulaService, _snackBar, _bmxService,deviceService);
+    super(dragulaService,null, _bmxService,deviceService);
   }
 
   ngOnInit(): void {

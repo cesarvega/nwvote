@@ -6,7 +6,7 @@ import { MatSnackBar } from '@angular/material/snack-bar';
 import { BmxService } from '../../../bmx.service';
 import { DeviceDetectorService } from 'ngx-device-detector';
 import { MatDialog } from '@angular/material/dialog';
-import { MatTable } from '@angular/material/table';
+import {  MatTable } from '@angular/material/table';
 
 @Component({
   selector: 'app-tinder',
@@ -71,7 +71,7 @@ export class TinderComponent extends RatingScaleComponent implements OnInit {
   displayedColumns: string[] = ['nameCandidates', 'rationale', 'delete'];
 
   constructor(dragulaService: DragulaService, _snackBar: MatSnackBar, _bmxService: BmxService, public deviceService: DeviceDetectorService, public dialog: MatDialog) {
-    super(dragulaService, _snackBar, _bmxService, deviceService)
+    super(dragulaService, null, _bmxService, deviceService)
 
   }
   ngOnInit(): void {

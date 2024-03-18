@@ -1,12 +1,12 @@
 import { OverlayContainer } from '@angular/cdk/overlay';
 import { Component, OnInit, Inject, ViewEncapsulation, ViewChild } from '@angular/core';
-import { UntypedFormControl } from '@angular/forms';
+import { FormControl, FormGroup, UntypedFormControl } from '@angular/forms';
 import { HotkeysService, Hotkey } from 'angular2-hotkeys';
 import { CdkDragDrop, moveItemInArray, CdkDropListGroup, transferArrayItem } from '@angular/cdk/drag-drop';
 import { BsrService } from './bsr.service';
 
 import { UntypedFormBuilder, Validators, UntypedFormGroup } from '@angular/forms';
-import { MatDialog, MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
+import { MatDialog,  MatDialogRef,MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { DOCUMENT } from '@angular/common';
 //import { BsrService } from './services/bsr.service';
 
@@ -83,7 +83,7 @@ export class BsrComponent implements OnInit {
   baseUrl: any;
   restUrl: any;
 
-  constructor(@Inject(DOCUMENT) private document: any, private _formBuilder: UntypedFormBuilder,
+  constructor(@Inject(DOCUMENT) private document: any, 
     private _hotkeysService: HotkeysService,
     private _BsrService: BsrService, public dialog: MatDialog, private activatedRoute: ActivatedRoute,
     private dragulaService: DragulaService) {
@@ -210,10 +210,10 @@ export class BsrComponent implements OnInit {
     }, 1000);
 
     this.getCommentsByIndex(0);
-    this.loginForm = this._formBuilder.group({
-      rationale: [''],
-      suma: [''],
-      name: ['']
+    this.loginForm = new FormGroup({
+      rationale: new FormControl("") ,
+      suma: new FormControl(""),
+      name:new FormControl("")
     });
     this.nameIndexCounter = (localStorage.getItem(this.projectName + '_namesIndexCounte')) ? parseInt(localStorage.getItem(this.projectName + '_namesIndexCounte')) : 0;
 
@@ -730,7 +730,7 @@ export class BsrComponent implements OnInit {
 
 
 
-import { MatSliderChange } from '@angular/material/slider';
+import { MatLegacySliderChange as MatSliderChange } from '@angular/material/legacy-slider';
 import { ActivatedRoute } from '@angular/router';
 // import { ThrowStmt } from '@angular/compiler/src/output/output_ast';
 import { DragulaService } from 'ng2-dragula';
@@ -797,7 +797,7 @@ export class editPost {
   nameid: any = '';
   constructor(
     public dialogRef: MatDialogRef<editPost>,
-    @Inject(MAT_DIALOG_DATA) public data: DialogData, private _formBuilder: UntypedFormBuilder, private _BsrService: BsrService, private activatedRoute: ActivatedRoute,) {
+    @Inject(MAT_DIALOG_DATA) public data: DialogData,private _BsrService: BsrService, private activatedRoute: ActivatedRoute,) {
     this.editName = this.data.nameId;
     this.dataEditor = this.data.name.html;
     this.model.editorData = this.data.name.html;
@@ -874,10 +874,10 @@ export class editPost {
       removeButtons: 'Smiley,tableselection,Image,Superscript,Subscript,Save,NewPage,Preview,Print,Templates,Replace,SelectAll,Form,Checkbox,Radio,TextField,Textarea,Find,Select,Button,ImageButton,HiddenField,CopyFormatting,CreateDiv,BidiLtr,BidiRtl,Language,Flash,PageBreak,Iframe,ShowBlocks,Cut,Copy,Paste,Table,Format,Source,Maximize,Styles,Anchor,SpecialChar,PasteFromWord,PasteText,Scayt,RemoveFormat,Indent,Outdent,Blockquote'
 
     }
-    this.loginForm = this._formBuilder.group({
-      rationale: [''],
-      suma: [''],
-      name: [this.concept]
+    this.loginForm = new FormGroup({
+      rationale:new FormControl(""),
+      suma: new FormControl(""),
+      name: new FormControl(this.concept)
     });
   }
 

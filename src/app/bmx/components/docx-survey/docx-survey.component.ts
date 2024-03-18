@@ -12,7 +12,7 @@ import {
 import { saveAs } from 'file-saver';
 import { Buffer } from 'buffer';
 
-import { MatTableDataSource } from '@angular/material/table';
+import { MatLegacyTableDataSource as MatTableDataSource } from '@angular/material/legacy-table';
 import { SelectionModel } from '@angular/cdk/collections';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { BmxService } from '../bmx-creator/bmx.service';

@@ -18,7 +18,7 @@ import { QuestionAnswerComponent } from '../survey-creation-design/templates/que
 import { table } from 'console';
 import { map } from 'rxjs/operators';
 import { JAN } from '@angular/material/core';
-import { MatTableDataSource } from '@angular/material/table';
+import { MatLegacyTableDataSource as MatTableDataSource } from '@angular/material/legacy-table';
 import { SelectionModel } from '@angular/cdk/collections';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 

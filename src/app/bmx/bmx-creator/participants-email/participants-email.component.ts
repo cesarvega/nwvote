@@ -7,9 +7,9 @@ import { DragulaService } from 'ng2-dragula';
 import { HotkeysService, Hotkey } from 'angular2-hotkeys';
 import { MatSort } from '@angular/material/sort';
 import { CdkDragStart, CdkDropList, moveItemInArray } from '@angular/cdk/drag-drop';
-import { MatPaginator } from '@angular/material/paginator';
+import {  MatPaginator } from '@angular/material/paginator';
 import { MatSnackBar } from '@angular/material/snack-bar';
-import { MatDialog, MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
+import {  MatDialog, MatDialogRef,  MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { DialogComponent } from './dialog/dialog.component';
 
 

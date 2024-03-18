@@ -1,5 +1,5 @@
 import { Component, ElementRef, EventEmitter, Inject, Input, OnInit, Output, ViewChild, ViewEncapsulation } from '@angular/core';
-import { MatPaginator } from '@angular/material/paginator';
+import {  MatPaginator } from '@angular/material/paginator';
 import { MatTableDataSource } from '@angular/material/table';
 import { HotkeysService, Hotkey } from 'angular2-hotkeys';
 import { ActivatedRoute } from '@angular/router';

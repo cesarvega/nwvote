@@ -1,6 +1,6 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { CUSTOM_ELEMENTS_SCHEMA, NgModule } from '@angular/core';
-import { FlexLayoutModule } from '@angular/flex-layout';
+// import { FlexLayoutModule } from '@angular/flex-layout';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { LoginComponent } from './auth/login/login.component';
@@ -33,7 +33,7 @@ import { CKEditorModule } from 'ckeditor4-angular';
 import { MatBadgeModule } from '@angular/material/badge';
 import { MatTableModule } from '@angular/material/table';
 import { MatTabsModule } from '@angular/material/tabs';
-import { MatSelectModule } from '@angular/material/select';
+import {  MatSelectModule } from '@angular/material/select';
 import { QRCodeModule } from 'angularx-qrcode';
 import { DeviceDetectorModule } from 'ngx-device-detector';
 import { NW3Component } from './nw3/nw3.component';
@@ -43,15 +43,15 @@ import { SchedulerComponent } from './scheduler/scheduler.component';
 import { AngularDateTimePickerModule } from 'angular2-datetimepicker';
 import { MatDatepickerModule } from '@angular/material/datepicker';
 import { MatNativeDateModule } from '@angular/material/core';
-import { MatProgressBarModule } from '@angular/material/progress-bar';
+import {  MatProgressBarModule } from '@angular/material/progress-bar';
 import { DragulaModule } from 'ng2-dragula';
-import { MatListModule } from '@angular/material/list';
+import {  MatListModule } from '@angular/material/list';
 import { NgxEchartsModule } from 'ngx-echarts';
 import { NgxChartsModule } from '@swimlane/ngx-charts';
 import { MatSortModule } from '@angular/material/sort';
 import { MatPaginatorModule } from '@angular/material/paginator';
-import { MatSnackBarModule, MAT_SNACK_BAR_DEFAULT_OPTIONS } from '@angular/material/snack-bar';
-import { MatRadioModule } from '@angular/material/radio';
+import {  MatSnackBarModule, MAT_SNACK_BAR_DEFAULT_OPTIONS } from '@angular/material/snack-bar';
+import {  MatRadioModule } from '@angular/material/radio';
 import { CdkTableModule } from '@angular/cdk/table';
 import { ScrollingModule } from '@angular/cdk/scrolling';
 import { CdkTreeModule } from '@angular/cdk/tree';
@@ -180,7 +180,7 @@ export function MSALInstanceFactory(): IPublicClientApplication {
         MatCardModule,
         MatDialogModule,
         MatIconModule,
-        FlexLayoutModule,
+        // FlexLayoutModule,
         DragDropModule,
         MatTooltipModule,
         MatGridListModule,

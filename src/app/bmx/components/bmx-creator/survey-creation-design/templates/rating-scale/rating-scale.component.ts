@@ -6,7 +6,7 @@ import { Subscription } from 'rxjs';
 import * as  dragula from 'dragula';
 import { BmxService } from '../../../bmx.service';
 import { DeviceDetectorService } from 'ngx-device-detector';
-import { MatCheckboxModule } from '@angular/material/checkbox';
+import {  MatCheckboxModule } from '@angular/material/checkbox';
 import { Console } from 'console';
 
 @Component({
