@@ -1,3 +1,17 @@
+
+# To RUN LEGACY  if compatibility issue with Node.js version 17 and above
+
+run in command prompt for windows this command as administrator 
+
+set NODE_OPTIONS=--openssl-legacy-provider
+
+the run the app in the same terminal 
+
+use this for Unix-based system (like Linux or macOS),
+
+ng config -g cli.warnings.versionMismatch false
+
+
 # NW-Vote, BSR desktop , and BSR mobile 
 
 This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 9.1.0.
