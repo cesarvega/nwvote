@@ -55,6 +55,7 @@ export class RankScaleComponent extends RatingScaleComponent implements OnInit {
     this.createRatingStars(this.rankingScaleValue)
     // this.rankingTableType( this.bmxItem.componentSettings[0].rankType)
     this.rankingType = this.bmxItem.componentSettings[0].rankType
+    this.rankingType = 'dinamycRadio' //HARD CODE
 
     this.rowsCount = this.bmxItem.componentText.length - 1;
     this.bmxItem.componentSettings[0].minRule = this.bmxItem.componentSettings[0].minRule == 0 ? 0 : this.bmxItem.componentSettings[0].minRule;
@@ -67,7 +68,7 @@ export class RankScaleComponent extends RatingScaleComponent implements OnInit {
       this.draggableBag = 'DRAGGABLE_RANK_ROW'
       this.isdropDown = false
 
-    } else if (this.rankingType == 'radio') {
+    } else if (this.rankingType == 'radio' || this.rankingType == 'dinamycRadio') {
       this.draggableBag = ''
       this.isdropDown = false
       this.radioColumnCounter = 1
@@ -79,9 +80,10 @@ export class RankScaleComponent extends RatingScaleComponent implements OnInit {
     values.forEach(value => {
       if (typeof value == "string" && value != "STARS" && value != "CRITERIA" && value != "RATE") {
         this.columnsNames.push(value)
-        console.log(this.bmxItem.componentText)
+        console.log(this.columnsNames)
       }
     });
+    //this.columnsNames.push("RadioColumn4", "RadioColumn5");//HARD CODE
 
     let result = '';
 
@@ -133,7 +135,7 @@ export class RankScaleComponent extends RatingScaleComponent implements OnInit {
     this.newselectedCriteria = filteredCriteria
     this.rankingScaleValue = this.bmxItem.componentText[0].STARS.length;
     this.dataSource = this.bmxItem.componentText.slice(1)
-
+    console.log(this.dataSource)
   }
 
   checkDragEvetn(event: CdkDragDrop<string[]>) {
@@ -261,7 +263,6 @@ export class RankScaleComponent extends RatingScaleComponent implements OnInit {
     console.log(this.bmxItem)
 
   }
-
 
   rankingTableType(rankingType) {
     this.bmxItem.componentSettings[0].rankType = rankingType
