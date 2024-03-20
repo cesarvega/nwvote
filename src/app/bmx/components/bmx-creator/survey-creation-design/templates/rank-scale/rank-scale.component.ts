@@ -236,7 +236,7 @@ export class RankScaleComponent extends RatingScaleComponent implements OnInit {
       });
     }
     setTimeout(() => {
-      if (this.bmxItem.componentSettings[0].rankType == 'radio') {
+      if (this.bmxItem.componentSettings[0].rankType == 'radio' || this.bmxItem.componentSettings[0].rankType == 'dinamycRadio') {
         this.rowsCount = 20
       } else {
         this.rowsCount = this.bmxItem.componentText.length - 1;
@@ -288,7 +288,7 @@ export class RankScaleComponent extends RatingScaleComponent implements OnInit {
       this.draggableBag = 'DRAGGABLE_RANK_ROW'
       this.isdropDown = false
 
-    } else if (rankingType == 'radio') {
+    } else if (rankingType == 'radio' || rankingType == 'dinamycRadio') {
       this.bmxItem.componentSettings[0].rateWidth = 80
       this.draggableBag = ''
       this.isdropDown = false
