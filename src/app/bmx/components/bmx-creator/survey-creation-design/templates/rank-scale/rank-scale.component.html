@@ -405,7 +405,7 @@ bottom: -2; ">
             <!--⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️ RANK RENDERER ⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️ -->
             <div [ngClass]="(this.bmxItem.componentSettings[0].rankType == 'dragAndDrop')?'rank-column':
                             (this.bmxItem.componentSettings[0].rankType == 'dropDown')?'rank-column1':'rank-column1'"
-                [style.width]="bmxItem.componentSettings[0].rateWidth + 'px'">
+                [style.width]="bmxItem.componentSettings[0].rateWidth + 'px'" *ngIf="this.bmxItem.componentSettings[0].rankType != 'dinamycRadio'">
                 <div *ngIf="(y !== 0)">
                     <!--☂️☂️☂️☂️☂️☂️☂️☂️☂️☂️☂️☂️☂️ DROP DOWN ☂️☂️☂️☂️☂️☂️☂️☂️☂️☂️☂️☂️☂️☂️☂️☂️-->
                     <mat-form-field *ngIf="this.bmxItem.componentSettings[0].rankType == 'dropDown'"
@@ -566,7 +566,7 @@ bottom: -2; ">
             <!--⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️ RANK RENDERER ⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️ -->
             <div [ngClass]="(this.bmxItem.componentSettings[0].rankType == 'dragAndDrop')?'rank-column':
                         (this.bmxItem.componentSettings[0].rankType == 'dropDown')?'rank-column1':'rank-column1'"
-                [style.width]="bmxItem.componentSettings[0].rateWidth + 'px'">
+                [style.width]="bmxItem.componentSettings[0].rateWidth + 'px'" *ngIf="this.bmxItem.componentSettings[0].rankType != 'dinamycRadio'">
                 <div *ngIf="(y !== 0)">
                     <!--☂️☂️☂️☂️☂️☂️☂️☂️☂️☂️☂️☂️☂️ DROP DOWN ☂️☂️☂️☂️☂️☂️☂️☂️☂️☂️☂️☂️☂️☂️☂️☂️-->
                     <mat-form-field *ngIf="this.bmxItem.componentSettings[0].rankType == 'dropDown'"
@@ -663,7 +663,7 @@ bottom: -2; ">
                     <!-- IF ELSE TEMPLATE INPUTS  -- BELOW RADION BUTTONS COLUMN -->
                     <input type="radio" *ngIf="y !== 0  &&  columnName.includes('RadioColumn') == true && this.rankingType == 'dinamycRadio'"
                         [name]="bmxItem.componentText[y].nameCandidates" [checked]="testName[columnName]"
-                        (click)="saveRadioColumValue(columnName, y)">
+                        (click)="saveRadioColumValue(columnName, y); ">
 
                     <!-- TEXT_AREA COLUMN COMMENTS-->
                     <textarea *ngIf="y !== 0  && columnName.includes('Comments') == true"
