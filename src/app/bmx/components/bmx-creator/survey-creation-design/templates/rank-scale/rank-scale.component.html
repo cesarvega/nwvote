@@ -257,7 +257,7 @@ bottom: -2; ">
 
 <br>
 
-<mat-card class="example-card" *ngIf="showBar">
+<mat-card class="example-card" *ngIf="this.bmxItem.componentSettings[0].rankType !='dragAndDrop'">
     <mat-card-header>
         <mat-card-title>Select Ranking
 
@@ -266,7 +266,7 @@ bottom: -2; ">
     <mat-card-content>
         <div class="sm-section3-rkScale">
             <div class="sm-row-box-rkScale">
-                <div *ngIf="this.bmxItem.componentSettings[0].rankType !='dragAndDrop' && showBar">
+                <div >
                     <div style="font-size: 16px;margin-top: 10px;color: #48535e;">SELECT RANK</div>
                     <br>
                     <div
@@ -425,7 +425,7 @@ bottom: -2; ">
 
                     <!--☂️☂️☂️☂️☂️☂️☂️☂️☂️☂️☂️☂️☂️ RADIO ☂️☂️☂️☂️☂️☂️☂️☂️☂️☂️☂️☂️☂️☂️☂️☂️-->
                     <button (click)="bmxItem.componentText[y]['RATE'] = 0;leaveStar(y);"
-                        *ngIf="this.bmxItem.componentText[y].RATE > 0 && (this.bmxItem.componentSettings[0].rankType == 'radio'|| this.bmxItem.componentSettings[0].rankType == 'dinamycRadio')" mat-button style="background-color:#ee7f25 ;color: white;
+                        *ngIf="this.bmxItem.componentText[y].RATE > 0 && this.bmxItem.componentSettings[0].rankType == 'radio'" mat-button style="background-color:#ee7f25 ;color: white;
                         animation: rubberBand 700ms ease-in forwards;">{{this.bmxItem.componentText[y].RATE}}
                     </button>
 
@@ -659,11 +659,11 @@ bottom: -2; ">
                     <!-- IF ELSE TEMPLATE INPUTS  -- BELOW RADION BUTTONS COLUMN -->
                     <input type="radio" *ngIf="y !== 0  &&  columnName.includes('RadioColumn') == true && (this.rankingType == 'radio')"
                         [name]="columnName + i" [checked]="testName[columnName]"
-                        (click)="saveRadioColumValue(columnName, y)">
+                        (click)="saveRadioColumValue(columnName, y); " >
                     <!-- IF ELSE TEMPLATE INPUTS  -- BELOW RADION BUTTONS COLUMN -->
                     <input type="radio" *ngIf="y !== 0  &&  columnName.includes('RadioColumn') == true && this.rankingType == 'dinamycRadio'"
                         [name]="bmxItem.componentText[y].nameCandidates" [checked]="testName[columnName]"
-                        (click)="saveRadioColumValue(columnName, y); ">
+                        (click)="saveRadioColumValue(columnName, y);">
 
                     <!-- TEXT_AREA COLUMN COMMENTS-->
                     <textarea *ngIf="y !== 0  && columnName.includes('Comments') == true"

@@ -846,7 +846,7 @@ export class RatingScaleComponent implements OnInit {
   }
 
   saveRadioColumValue(name, y) {
-    console.log()
+ 
     this.RadioColumnList = []
     let values = Object.keys(this.bmxItem.componentText[y])
     values.forEach(columnName => {

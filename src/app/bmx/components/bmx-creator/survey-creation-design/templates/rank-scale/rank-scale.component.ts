@@ -41,7 +41,7 @@ export class RankScaleComponent extends RatingScaleComponent implements OnInit {
   isdropDown = true
 
   allowScrolling = true
-  dataSource:any[] = []
+  dataSource: any[] = []
 
   constructor(dragulaService: DragulaService, _snackBar: MatSnackBar, _bmxService: BmxService, public deviceService: DeviceDetectorService) {
     super(dragulaService, _snackBar, _bmxService, deviceService)
@@ -91,7 +91,7 @@ export class RankScaleComponent extends RatingScaleComponent implements OnInit {
     let firstObject = this.bmxItem.componentText[0];
     let columnNames = [];
     for (let key in firstObject) {
-      if (key === 'Name Candidates' || key === 'Rationales' ) {
+      if (key === 'Name Candidates' || key === 'Rationales') {
         columnNames.push(key);
       }
     }
@@ -314,5 +314,7 @@ export class RankScaleComponent extends RatingScaleComponent implements OnInit {
   }
 
   ASSIGNED_CRITERIA = []
-
+  
+ 
 }
+
