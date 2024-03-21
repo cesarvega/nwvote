@@ -1,7 +1,7 @@
 <div class="page-design noselect disable-dbl-tap-zoom">
     <div class="desktop">
         <button *ngIf="true" (click)="seeTutorial()" class="see-tutorial" mat-icon-button matTooltip="See tutorial" matTooltipPosition="above"
-                 
+
             style="position: absolute;color: grey;z-index: 9999999999;outline: none;">
             <mat-icon class="full-icon" style="font-size: 36px;">contact_support
             </mat-icon>
@@ -23,7 +23,7 @@
             style="position: absolute;bottom: 9px;color: grey;z-index: 9999999999;right: 25px;outline: none;">
             <mat-icon class="full-icon" style="font-size: 35px;">save
             </mat-icon>
-        </button>        
+        </button>
     </div>
     <div class="display">
         <div style="flex-direction: column;" class="bmx-page" *ngIf="true">
@@ -58,7 +58,7 @@
 
                 <!-- BMX PARAGRAPH EDITOR 📑📑📑📑📑📑📑📑📑📑📑📑📑📑📑📑📑📑📑📑📑📑📑📑📑📑📑📑📑📑 -->
                 <div *ngIf="bmxItem.componentType === 'text-editor'" class="paragraph">
-                    
+
                     <app-text-paragraph [bmxItem]="bmxItem" [i]="i" [bmxClientPageDesignMode]="bmxClientPageDesignMode" [currentPage]="currentPage" [template]="typeTemplate"
                         [bmxClientPageOverview]="bmxClientPageOverview" style="margin-top: 25px"></app-text-paragraph>
                 </div>
@@ -67,28 +67,28 @@
 
                 <!-- STARS SCALE 👽👽👽👽👽👽👽👽👽👽👽👽👽👽👽👽👽👽👽👽👽👽👽👽👽👽👽👽👽👽👽👽👽👽👽👽👽👽👽👽👽👽-->
                 <div *ngIf="bmxItem.componentType === 'rate-scale'" class="paragraph " style="margin-bottom: 30px;">
-                    <button *ngIf="!showModalVideo" (click)="seeTutorial()" class="see-tutorial-mobil" mat-icon-button matTooltip="See tutorial" matTooltipPosition="above"
-                 
+                    <button *ngIf="!showModalVideo" (click)="seeTutorial()" class="see-tutorial-mobil" mat-icon-button matTooltip="see tutorial" matTooltipPosition="above"
+
                         style="position: fixed;color: grey;z-index: 9999999999;outline: none;">
                         <mat-icon class="full-icon" style="font-size: 36px;">contact_support
                         </mat-icon>
                     </button>
-                   
+
                     <!-- modal -->
                     <div *ngIf="showModalVideo" id="myModal" class="modal-video" style="display: flex;flex-direction: column;gap: 2px;">
                         <!-- <label class="container-checkbox">Don't show again
-                            <input (click)="saveSelection()" type="checkbox" value="Bike" #modalChecked> 
-                            <span class="checkmark">&#x2714;</span>        
+                            <input (click)="saveSelection()" type="checkbox" value="Bike" #modalChecked>
+                            <span class="checkmark">&#x2714;</span>
                         </label> -->
                         <mat-checkbox #modalChecked (click)="saveSelection()" class="example-margin container-checkbox" >Don't show again</mat-checkbox>
-                    
+
                         <div class="modal-content">
                             <img *ngFor="let path of VIDEO_PATH" [src]="path" alt="tutorial">
                         </div>
                         <button class="btn btn-raised close-modal" (click)="showModalVideo=false">close</button>
                     </div>
                     <!-- modal end -->
-                  
+
                     <app-rating-scale [bmxItem]="bmxItem" [i]="i" [bmxClientPageDesignMode]="bmxClientPageDesignMode"
                         [bmxClientPageOverview]="bmxClientPageOverview" (launchPathModal)="setPath($event)" (autoSave)="autoSave()"></app-rating-scale>
 
@@ -116,23 +116,23 @@
 
                 <!--IMAGE RANK DRAG 👽👽👽👽👽👽👽👽👽👽👽👽👽👽👽👽👽👽👽👽👽👽👽👽👽👽👽👽👽👽👽👽👽👽👽👽👽👽👽👽👽-->
                 <div *ngIf="bmxItem.componentType === 'image-rank-drag'" class="paragraph">
-                    <button *ngIf="!showModalVideo" (click)="seeTutorial()" class="see-tutorial-mobil" mat-icon-button matTooltip="See tutorial" matTooltipPosition="above"
-                 
+                    <button *ngIf="!showModalVideo" (click)="seeTutorial()" class="see-tutorial-mobil" mat-icon-button matTooltip="see tutorial" matTooltipPosition="above"
+
                         style="position: fixed;color: grey;z-index: 9999999999;outline: none;">
                         <mat-icon class="full-icon" style="font-size: 36px;">contact_support
                         </mat-icon>
                     </button>
                     <!-- modal -->
                    <div *ngIf="showModalVideo" id="myModal" class="modal-video"> CV
-                        
+
                         <mat-checkbox (click)="saveSelection()" class="example-margin container-checkbox" >Don't show again</mat-checkbox>
-                    
+
                         <div class="modal-content">
                             <img *ngFor="let path of VIDEO_PATH" [src]="path" alt="Girl in a jacket">
                         </div>
                         <button class="close-modal" (click)="showModalVideo=false">Close</button>
-                    </div> 
-                    <!-- modal end -->                   
+                    </div>
+                    <!-- modal end -->
 
                     <app-image-rank-drag [bmxItem]="bmxItem" [i]="i" [bmxClientPageDesignMode]="bmxClientPageDesignMode"
                         [bmxClientPageOverview]="bmxClientPageOverview" (launchPathModal)="setPath($event)" (autoSave)="autoSave()"></app-image-rank-drag>
@@ -148,8 +148,8 @@
 
                 <!-- IMAGE SCALE 👀👀👀👀👀👀👀👀👀👀👀👀👀👀👀👀👀👀👀👀👀👀👀👀👀👀👀👀👀👀👀👀👀👀👀👀👀👀-->
                 <div *ngIf="bmxItem.componentType === 'image-rate-scale'" class="paragraph">
-                    <button *ngIf="!showModalVideo" (click)="seeTutorial()" class="see-tutorial-mobil" mat-icon-button matTooltip="See tutorial" matTooltipPosition="above"
-                 
+                    <button *ngIf="!showModalVideo" (click)="seeTutorial()" class="see-tutorial-mobil" mat-icon-button matTooltip="see tutorial" matTooltipPosition="above"
+
                         style="position: fixed;color: grey;z-index: 9999999999;outline: none;">
                         <mat-icon class="full-icon" style="font-size: 36px;">contact_support
                         </mat-icon>
@@ -158,7 +158,7 @@
                    <div *ngIf="showModalVideo" id="myModal" class="modal-video" CV
                     style="display: flex;flex-direction: column;gap: 6px;">
                         <mat-checkbox (click)="saveSelection()" class="example-margin container-checkbox" >Don't show again</mat-checkbox>
-                    
+
                         <div class="modal-content">
                             <img *ngFor="let path of VIDEO_PATH" [src]="path" alt="Girl in a jacket">
                         </div>
@@ -181,8 +181,8 @@
 
                 <!-- TINDER  🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥-->
                 <div *ngIf="bmxItem.componentType === 'tinder'" class="paragraph">
-                    <button *ngIf="!showModalVideo" (click)="seeTutorial()" class="see-tutorial-mobil" mat-icon-button matTooltip="See tutorial" matTooltipPosition="above"
-                 
+                    <button *ngIf="!showModalVideo" (click)="seeTutorial()" class="see-tutorial-mobil" mat-icon-button matTooltip="see tutorial" matTooltipPosition="above"
+
                         style="position: fixed;color: grey;z-index: 9999999999;outline: none;">
                         <mat-icon class="full-icon" style="font-size: 36px;">contact_support
                         </mat-icon>
@@ -191,7 +191,7 @@
                     <!-- <div *ngIf="showModalVideo" id="myModal" class="modal-video" CV
                     style="display: flex;flex-direction: column;gap: 6px;">
                         <mat-checkbox (click)="saveSelection()" class="example-margin container-checkbox" >Don't show again</mat-checkbox>
-                    
+
                         <div class="modal-content">
                             <img *ngFor="let path of VIDEO_PATH" [src]="path" alt="Girl in a jacket">
                         </div>
@@ -238,7 +238,7 @@
                             {{page.pageNumber}}
                         </button> -->
                     </div>
-                    <button  [style.background]="(continueButtonToComple == 'Complete')?'#05b85e':'#324395'" style="color: white;" *ngIf="isBrandMatrixSurvey && surveyLanguage != 'Japanese'" 
+                    <button  [style.background]="(continueButtonToComple == 'Complete')?'#05b85e':'#324395'" style="color: white;" *ngIf="isBrandMatrixSurvey && surveyLanguage != 'Japanese'"
                                 (click)="changePage('next')" mat-raised-button>
                         <span class="menu-descriptions">{{continueButtonToComple}}</span> <mat-icon class="full-icon">
                            {{ (continueButtonToComple != 'Complete')?'chevron_right':'task_alt'}}</mat-icon>
@@ -267,8 +267,8 @@
     top: 40%;
     left: 50%;
     transform: translate(-50%, -50%);
-    z-index: 999;    
-    width: 465px;animation: 
+    z-index: 999;
+    width: 465px;animation:
     fadeIn 3s ease 4s forwards;" slot="end" autoplay loop
     [src]="'assets/img/cubo.json'">
 </lottie-player>
@@ -277,8 +277,8 @@
     top: 40%;
     left: 50%;
     transform: translate(-50%, -50%);
-    z-index: 999;    
-    width: 70px;animation: 
+    z-index: 999;
+    width: 70px;animation:
     fadeIn 3s ease 4s forwards;" slot="end" autoplay loop
     [src]="'assets/img/esfera.json'">
 </lottie-player>
