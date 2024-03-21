@@ -84,7 +84,7 @@ export class RatingScaleComponent implements OnInit {
   showCreationModalVideo: boolean = false
   openElements: any[] = [];
   CREATION_VIDEO_PATH = "assets/videos/RateMatrix.mp4"
-  //------modal-----------//   
+  //------modal-----------//
   VIDEO_PATH: any[] = [];
 
   PATH1: any[] = [
@@ -872,12 +872,22 @@ export class RatingScaleComponent implements OnInit {
                 });
               }
             });
+          } else {
+            this.bmxItem.componentText.forEach((element, i) => {
+              // if (element.RATE == index + 1) {
+                this.bmxItem.componentText[i].RATE = 0
+                this.RadioColumnList.forEach(radioColumnName => {
+                  this.bmxItem.componentText[i][radioColumnName] = false
+                });
+              // }
+            });
           }
+
         }
-        this.bmxItem.componentText[y].RATE = index + 1
-      }
-      // } 
-    });
+          this.bmxItem.componentText[y].RATE = index + 1
+        }
+        // }
+      });
     //autosave
     this.autoSave.emit();
   }
