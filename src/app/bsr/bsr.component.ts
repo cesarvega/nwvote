@@ -1,7 +1,6 @@
 import { OverlayContainer } from '@angular/cdk/overlay';
 import { Component, OnInit, Inject, ViewEncapsulation, ViewChild } from '@angular/core';
 import { FormControl, FormGroup, UntypedFormControl } from '@angular/forms';
-import { HotkeysService, Hotkey } from 'angular2-hotkeys';
 import { CdkDragDrop, moveItemInArray, CdkDropListGroup, transferArrayItem } from '@angular/cdk/drag-drop';
 import { BsrService } from './bsr.service';
 
@@ -84,55 +83,9 @@ export class BsrComponent implements OnInit {
   restUrl: any;
 
   constructor(@Inject(DOCUMENT) private document: any, 
-    private _hotkeysService: HotkeysService,
-    private _BsrService: BsrService, public dialog: MatDialog, private activatedRoute: ActivatedRoute,
-    private dragulaService: DragulaService) {
+    private _BsrService: BsrService, public dialog: MatDialog, private activatedRoute: ActivatedRoute) {
 
-    dragulaService.createGroup('TASKS', {
-      moves: (el, container, handle) => {
-        return handle.classList.contains('handle');
-      }
-    })
-
-    // keyboard keymaps
-    this._hotkeysService.add(new Hotkey('right', (event: KeyboardEvent): boolean => {
-
-      this.moveForward();
-      return false;
-    }, undefined, 'Move to next slide'));
-    this._hotkeysService.add(new Hotkey('left', (event: KeyboardEvent): boolean => {
-      this.moveBackward();
-      return false;
-    }, undefined, 'Move to previous slide'));
-    this._hotkeysService.add(new Hotkey('up', (event: KeyboardEvent): boolean => {
-      this.mainMenu = true;
-      return false;
-    }, undefined, 'Show menu'));
-    this._hotkeysService.add(new Hotkey('down', (event: KeyboardEvent): boolean => {
-      this.mainMenu = false;
-      return false;
-    }, undefined, 'Hide menu'));
-    this._hotkeysService.add(new Hotkey('o', (event: KeyboardEvent): boolean => {
-      this.sideMenu();
-      return false;
-    }, undefined, 'Hide/Show slide overview'));
-    // this._hotkeysService.add(new Hotkey('b', (event: KeyboardEvent): boolean => {
-    //   // this.removeBackground();
-    //   return false;
-    // }, undefined, 'Remove background'));
-    // this._hotkeysService.add(new Hotkey('s', (event: KeyboardEvent): boolean => {
-    //   // this.timeToDisplayticker();
-    //   return false;
-    // }, undefined, 'Show stock ticker'));
-    this._hotkeysService.add(new Hotkey('esc', (event: KeyboardEvent): boolean => {
-      this._hotkeysService.cheatSheetToggle.next(false);
-      this.mainMenu = false;
-      return false;
-    }, undefined, 'Hide help sheet'));
-    this._hotkeysService.add(new Hotkey('ctrl+b', (event: KeyboardEvent): boolean => {
-      this.bsr();
-      return false;
-    }, undefined, 'Toogle Presentation Mode'));
+   
   }
 
   ngOnInit(): void {
@@ -508,8 +461,8 @@ export class BsrComponent implements OnInit {
   }
 
   displayHelp(display: boolean) {
-    (display) ? this._hotkeysService.cheatSheetToggle.next() : this._hotkeysService.cheatSheetToggle.next(display);
-    this._hotkeysService.cheatSheetToggle.next(true)
+    // (display) ? this._hotkeysService.cheatSheetToggle.next() : this._hotkeysService.cheatSheetToggle.next(display);
+    // this._hotkeysService.cheatSheetToggle.next(true)
   }
 
   goToSlide(i) {
@@ -733,7 +686,7 @@ export class BsrComponent implements OnInit {
 import { MatSliderChange } from '@angular/material/slider';
 import { ActivatedRoute } from '@angular/router';
 // import { ThrowStmt } from '@angular/compiler/src/output/output_ast';
-import { DragulaService } from 'ng2-dragula';
+// import { DragulaService } from 'ng2-dragula';
 
 // CKEDITOR WYSIWYG // **************************************************************************************************
 

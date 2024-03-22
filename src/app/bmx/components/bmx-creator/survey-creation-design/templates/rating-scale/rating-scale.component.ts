@@ -1,9 +1,9 @@
 import { Component, ElementRef, EventEmitter, HostListener, Inject, Input, OnInit, Output, ViewChild, ViewEncapsulation } from '@angular/core';
 import { CdkTextareaAutosize } from '@angular/cdk/text-field';
-import { DragulaService } from 'ng2-dragula';
+// import { DragulaService } from 'ng2-dragula';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { Subscription } from 'rxjs';
-import * as  dragula from 'dragula';
+// import * as  dragula from 'dragula';
 import { BmxService } from '../../../bmx.service';
 import { DeviceDetectorService } from 'ngx-device-detector';
 import {  MatCheckboxModule } from '@angular/material/checkbox';
@@ -108,32 +108,32 @@ export class RatingScaleComponent implements OnInit {
   dataSource:any[] = []
   //----------end modal------//
 
-  constructor(private dragulaService: DragulaService, public _snackBar: MatSnackBar, public _bmxService: BmxService, public deviceService: DeviceDetectorService) {
+  constructor( public _snackBar: MatSnackBar, public _bmxService: BmxService, public deviceService: DeviceDetectorService) {
     // DRAG AND DROP
-    let drake = dragula();
-    // this.dragulaService.add(this.BAG, drake);
+    // let drake = dragula();
+    // // this.dragulaService.add(this.BAG, drake);
 
-    this.dragulaService.drag(this.BAG)
-      .subscribe(({ el }) => {
-        console.log('drag' + el);
-      })
-    this.subs.add(this.dragulaService.drop(this.BAG)
-      .subscribe(({ el }) => {
-        console.log('drop' + el);
-      })
-    );
-    this.subs.add(this.dragulaService.over(this.BAG)
-      .subscribe(({ el, container }) => {
+    // this.dragulaService.drag(this.BAG)
+    //   .subscribe(({ el }) => {
+    //     console.log('drag' + el);
+    //   })
+    // this.subs.add(this.dragulaService.drop(this.BAG)
+    //   .subscribe(({ el }) => {
+    //     console.log('drop' + el);
+    //   })
+    // );
+    // this.subs.add(this.dragulaService.over(this.BAG)
+    //   .subscribe(({ el, container }) => {
 
-        console.log('over', container);
-      })
-    );
-    this.subs.add(this.dragulaService.out(this.BAG)
-      .subscribe(({ el, container }) => {
+    //     console.log('over', container);
+    //   })
+    // );
+    // this.subs.add(this.dragulaService.out(this.BAG)
+    //   .subscribe(({ el, container }) => {
 
-        console.log('out', container);
-      })
-    );
+    //     console.log('out', container);
+    //   })
+    // );
   }
 
   epicFunction() {

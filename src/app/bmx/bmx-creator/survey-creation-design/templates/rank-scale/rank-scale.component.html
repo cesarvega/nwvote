@@ -298,10 +298,10 @@
             {{bmxItem.componentSettings[0].categoryDescription}}</div>
     </div>
     <!--  [dragula]="draggableBag"  -->
-    <div class="scroller-style main-container" cdkDropList (cdkDropListDropped)="checkDragEvetn($event)"
+    <!-- <div class="scroller-style main-container" cdkDropList (cdkDropListDropped)="checkDragEvetn($event)"
         [cdkDropListAutoScrollDisabled]="false" [cdkDropListLockAxis]="'y'"
         [dragula]="(dragRows)?'DRAGGABLE_ROW':(rankingType == 'dragAndDrop')?draggableBag:''"
-        [(dragulaModel)]="bmxItem.componentText" (dragulaModelChange)="checkDragEvetn($event);">
+        [(dragulaModel)]="bmxItem.componentText" (dragulaModelChange)="checkDragEvetn($event);"> -->
 
         <div *ngFor="let testName of bmxItem.componentText; let y = index" cdkDrag>
 
@@ -472,7 +472,7 @@
             </div>
         </div>
     </div>
-</div>
+
 
 
 

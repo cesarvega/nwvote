@@ -1,4 +1,4 @@
-import { DragulaService } from 'ng2-dragula';
+// import { DragulaService } from 'ng2-dragula';
 import { Component, ElementRef, EventEmitter, Inject, Input, OnInit, Output, ViewChild, ViewEncapsulation } from '@angular/core';
 import { CdkTextareaAutosize } from '@angular/cdk/text-field';
 import { RatingScaleComponent } from '../rating-scale/rating-scale.component';
@@ -70,10 +70,10 @@ export class TinderComponent extends RatingScaleComponent implements OnInit {
   dataSource: any[]=[]
   displayedColumns: string[] = ['nameCandidates', 'rationale','delete'];
 
-  constructor(dragulaService: DragulaService, _snackBar: MatSnackBar,   _bmxService: BmxService,public deviceService: DeviceDetectorService,public dialog: MatDialog) {
-    super(dragulaService, _snackBar, _bmxService,deviceService)
+  // constructor( _snackBar: MatSnackBar,   _bmxService: BmxService,public deviceService: DeviceDetectorService,public dialog: MatDialog) {
+  //   // super(dragulaService, _snackBar, _bmxService,deviceService)
 
-  }
+  // }
   ngOnInit(): void {
     console.log(this.bmxItem)
     this.getDataSource()

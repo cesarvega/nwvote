@@ -306,8 +306,8 @@
         <div style="font-size: 18px;color: #ee7f25;padding-bottom: 20px;">
             {{bmxItem.componentSettings[0].categoryDescription}}</div>
     </div>
-    <div class="scroller-style main-container" [dragula]="(dragRows)?'DRAGGABLE_ROW':''"
-        [(dragulaModel)]="bmxItem.componentText" (dragulaModelChange)="checkDragEvetn($event);">
+    <!-- <div class="scroller-style main-container" [dragula]="(dragRows)?'DRAGGABLE_ROW':''"
+        [(dragulaModel)]="bmxItem.componentText" (dragulaModelChange)="checkDragEvetn($event);"> -->
 
         <div *ngFor="let testName of bmxItem.componentText; let y = index">
 
@@ -520,7 +520,8 @@
             </div>
         </div>
     </div>
-</div>
+
+
 <!--💲💲💲💲💲💲💲💲💲💲💲💲💲💲💲💲💲💲💲💲💲💲💲💲💲💲💲💲💲💲💲💲💲 END TABLE GENERATOR 💲💲💲💲💲💲💲💲💲💲💲💲💲💲💲💲💲💲💲💲💲💲💲💲💲💲💲💲💲💲💲💲💲💲-->
 
 <!--📱📱📱📱📱📱📱📱📱📱📱📱📱📱📱📱📱📱📱📱📱📱📱📱📱📱📱📱📱📱📱 TABLE 📱 MOBILE 📱 GENERATOR 📱📱📱📱📱📱📱📱📱📱📱📱📱📱📱📱📱📱📱📱📱📱📱📱📱📱📱📱📱📱📱📱📱📱-->

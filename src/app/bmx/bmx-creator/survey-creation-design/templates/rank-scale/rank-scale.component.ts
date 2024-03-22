@@ -1,4 +1,4 @@
-import { DragulaService } from 'ng2-dragula';
+// import { DragulaService } from 'ng2-dragula';
 import { Component, ElementRef, EventEmitter, Inject, Input, OnInit, Output, ViewChild, ViewEncapsulation } from '@angular/core';
 import { CdkTextareaAutosize } from '@angular/cdk/text-field';
 import { RatingScaleComponent } from '../rating-scale/rating-scale.component';
@@ -41,9 +41,9 @@ export class RankScaleComponent extends RatingScaleComponent implements OnInit {
 
   allowScrolling = true
 
-  constructor(dragulaService: DragulaService, _snackBar: MatSnackBar, _bmxService: BmxService,public deviceService: DeviceDetectorService) {
-    super(dragulaService, null, _bmxService,deviceService)
-  }
+  // constructor(dragulaService: DragulaService, _snackBar: MatSnackBar, _bmxService: BmxService,public deviceService: DeviceDetectorService) {
+  //   super(dragulaService, null, _bmxService,deviceService)
+  // }
 
   ngOnInit(): void {
     console.log(this.bmxItem)

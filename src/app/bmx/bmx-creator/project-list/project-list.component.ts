@@ -1,9 +1,8 @@
 import { Component, ElementRef, EventEmitter, Inject, Input, OnInit, Output, ViewChild, ViewEncapsulation } from '@angular/core';
 import { DOCUMENT } from '@angular/common';
-import { HotkeysService, Hotkey } from 'angular2-hotkeys';
 import { ActivatedRoute } from '@angular/router';
 // import { typeSourceSpan } from '@angular/compiler';
-import { DragulaService } from 'ng2-dragula';
+// import { DragulaService } from 'ng2-dragula';
 import {  MatPaginator } from '@angular/material/paginator';
 import { MatTableDataSource } from '@angular/material/table';
 import { MatSort } from '@angular/material/sort';
@@ -42,17 +41,17 @@ export class ProjectListComponent implements OnInit {
   @Input() userDepartment
   @Input() userRole
 
-  constructor(@Inject(DOCUMENT) private document: any, private activatedRoute: ActivatedRoute,
-    private _hotkeysService: HotkeysService, private dragulaService: DragulaService, private _BmxService: BmxService) { }
+  // constructor(@Inject(DOCUMENT) private document: any, private activatedRoute: ActivatedRoute,
+  //   private _hotkeysService: HotkeysService, private dragulaService: DragulaService, private _BmxService: BmxService) { }
 
   ngOnInit(): void {
     this.selected = 'Live'
-    this._BmxService.getGetProjectList()
-      .subscribe((arg: any) => {
-        this.allData = JSON.parse(arg.d);
-        // this.allData = JSON.parse(obj);
-        this.changeView();
-      });
+    // this._BmxService.getGetProjectList()
+    //   .subscribe((arg: any) => {
+    //     this.allData = JSON.parse(arg.d);
+    //     // this.allData = JSON.parse(obj);
+    //     this.changeView();
+    //   });
   }
 
   applyFilter(filterValue: string): void {
@@ -66,13 +65,13 @@ export class ProjectListComponent implements OnInit {
 
   sendEmail(option: string): void {
     var test = option;
-    this._BmxService.setProjectName(option);
+    // this._BmxService.setProjectName(option);
     localStorage.setItem('projectName', option);
     this.isMenuActive1Email.emit(false);
   }
 
   editBM(option: string): void {
-    this._BmxService.setProjectName(option);
+    // this._BmxService.setProjectName(option);
     var test = option;
     localStorage.setItem('projectName', option);
     this.isMenuActive1Close.emit(false);

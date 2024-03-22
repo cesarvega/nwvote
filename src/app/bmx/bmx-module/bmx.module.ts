@@ -1,14 +1,11 @@
 import { CUSTOM_ELEMENTS_SCHEMA, NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { BmxCreatorComponent } from '../bmx-creator/bmx-creator.component';
-import { BrowserModule } from '@angular/platform-browser';
 // import { NgModule } from '@angular/core';
 // import { FlexLayoutModule } from '@angular/flex-layout';
 // import { AppRoutingModule } from './app-routing.module';
 // import { AppComponent } from './app.component';
 // import { LoginComponent } from './auth/login/login.component';
 // import { NwVoteComponent } from './nw-vote/nw-vote.component';
-import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { MatRippleModule } from '@angular/material/core';
 // import { NwvoteService } from './nw-vote/nwvote.service';
 import { HttpClientModule } from '@angular/common/http';
@@ -29,7 +26,7 @@ import { MatTooltipModule } from '@angular/material/tooltip';
 import { MatGridListModule } from '@angular/material/grid-list';
 import { MatSidenavModule } from '@angular/material/sidenav';
 // import { MatDatepickerModule } from '@angular/material';
-import { HotkeyModule } from 'angular2-hotkeys';
+// import { HotkeyModule } from 'angular2-hotkeys';
 // import { CKEditorModule } from '@ckeditor/ckeditor5-angular';
 import { FormsModule } from '@angular/forms';
 import { MatSlideToggleModule } from '@angular/material/slide-toggle';
@@ -44,16 +41,15 @@ import { DeviceDetectorModule } from 'ngx-device-detector';
 // import { NW3Component } from './nw3/nw3.component';
 // import { Nw3Service } from './nw3/nw3.service';
 // import { BmxComponent } from './bmx/bmx.component';
-import { HammerGestureConfig, HAMMER_GESTURE_CONFIG, HammerModule } from '@angular/platform-browser';
+import { HammerModule } from '@angular/platform-browser';
 // import { SchedulerComponent } from './scheduler/scheduler.component';
-import { AngularDateTimePickerModule } from 'angular2-datetimepicker';
+// import { AngularDateTimePickerModule } from 'angular2-datetimepicker';
 import { MatDatepickerModule } from '@angular/material/datepicker';
 import { MatNativeDateModule } from '@angular/material/core';
 import { MatProgressBarModule } from '@angular/material/progress-bar';
-import { DragulaModule } from 'ng2-dragula';
+// import { DragulaModule } from 'ng2-dragula';
 import { MatListModule } from '@angular/material/list';
 import { NgxEchartsModule } from 'ngx-echarts';
-import * as echarts from 'echarts';
 import { NgxChartsModule } from '@swimlane/ngx-charts';
 import { MatSortModule } from '@angular/material/sort';
 import { MatPaginatorModule } from '@angular/material/paginator';
@@ -64,10 +60,10 @@ import { SafePipe } from './safe.pipe';
 import { BmxRoutingModule } from './bmx-routing.module';
 import { BmxComponent } from '../bmx-survey/bmx.component';
 import { ProjectListComponent } from '../bmx-creator/project-list/project-list.component';
-import { RespondentsComponent } from '../bmx-creator/respondents/respondents.component';
+// import { RespondentsComponent } from '../bmx-creator/respondents/respondents.component';
 import { SurveyCreationDesignComponent } from '../bmx-creator/survey-creation-design/survey-creation-design.component';
 import { ImageUploaderComponent } from '../bmx-creator/image-uploader/image-uploader.component';
-import { ParticipantsEmailComponent } from '../bmx-creator/participants-email/participants-email.component';
+// import { ParticipantsEmailComponent } from '../bmx-creator/participants-email/participants-email.component';
 // import { RespondentsComponent } from '../bmx-creator/respodents/RespondentsComponent';
 // import { BmxModule } from './bmx/bmx/bmx.module';
 import { MatAutocompleteModule } from '@angular/material/autocomplete';
@@ -85,9 +81,8 @@ import { TinderComponent } from '../bmx-creator/survey-creation-design/templates
 import { ReportFirstPageComponent } from '../bmx-creator/project-reports/templates/report-first-page/report-first-page.component';
 import { PageLineBreakComponent } from '../bmx-creator/project-reports/templates/page-line-break/page-line-break.component';
 import { PageTitleComponent } from '../bmx-creator/project-reports/templates/page-title/page-title.component';
-import { DocxSurveyComponent } from '../bmx-creator/docx-survey/docx-survey.component';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
-import { ImageRankComponent } from '../bmx-creator/survey-creation-design/templates/image-rank/image-rank.component';
+// import { ImageRankComponent } from '../bmx-creator/survey-creation-design/templates/image-rank/image-rank.component';
 import { ImageRankDragComponent } from '../bmx-creator/survey-creation-design/templates/image-rank-drag/image-rank-drag.component';
 
 export function loadEcharts() {
@@ -96,19 +91,19 @@ export function loadEcharts() {
 
 
 @NgModule({
-  declarations: [BmxComponent,
-    BmxCreatorComponent,
+  declarations: [
+    BmxComponent,
     SafePipe,
     ProjectListComponent,
-    RespondentsComponent,
+  
     SurveyCreationDesignComponent,
     ImageUploaderComponent,
-    ParticipantsEmailComponent,
+  
     ProjectInformationComponent,
     RatingScaleComponent,
     RankScaleComponent,
     ImageRateScaleComponent,
-    ImageRankComponent,
+    // ImageRankComponent,
     ImageRankDragComponent,
     LogoHeaderComponent,
     TextParagraphComponent,
@@ -119,13 +114,11 @@ export function loadEcharts() {
     TinderComponent,
     ReportFirstPageComponent,
     PageLineBreakComponent,
-    PageTitleComponent,
-    DocxSurveyComponent,
+    PageTitleComponent
+    // DocxSurveyComponent
   ],
   imports: [
-    BrowserModule,
     HammerModule,
-    BrowserAnimationsModule,
     MatSlideToggleModule,
     MatRippleModule,
     MatFormFieldModule,
@@ -145,24 +138,24 @@ export function loadEcharts() {
     MatTooltipModule,
     MatGridListModule,
     MatSidenavModule,
-    CKEditorModule,
+    // CKEditorModule,
     FormsModule,
     MatTableModule,
-    HotkeyModule.forRoot(),
+    // HotkeyModule.forRoot(),
     MatSliderModule,
     MatTabsModule,
-    QRCodeModule,
+    // QRCodeModule,
     MatRadioModule,
-    DeviceDetectorModule,
+    // DeviceDetectorModule,
     //AngularDateTimePickerModule,
     MatDatepickerModule,
     MatSelectModule,
     MatNativeDateModule,
     MatProgressBarModule,
     NgxChartsModule,
-    DragulaModule.forRoot(),
+    // DragulaModule.forRoot(),
     MatListModule,
-    NgxEchartsModule.forRoot({ echarts: loadEcharts }),
+    // NgxEchartsModule.forRoot({ echarts: loadEcharts }),
     MatSnackBarModule,
     MatSortModule,
     MatPaginatorModule,
@@ -170,6 +163,11 @@ export function loadEcharts() {
     BmxRoutingModule,
     MatAutocompleteModule,
     // FontAwesomeModule,
-  ], schemas: [ CUSTOM_ELEMENTS_SCHEMA ],
+  ], 
+  exports:[
+    
+  ],
+  
+  schemas: [ CUSTOM_ELEMENTS_SCHEMA ],
 })
 export class BmxModule { }
