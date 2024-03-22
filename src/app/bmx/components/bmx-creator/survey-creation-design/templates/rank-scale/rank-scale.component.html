@@ -569,7 +569,15 @@ bottom: -2; ">
                 [style.width]="bmxItem.componentSettings[0].rateWidth + 'px'" *ngIf="this.bmxItem.componentSettings[0].rankType != 'dinamycRadio'">
                 <div *ngIf="(y !== 0)">
                     <!--☂️☂️☂️☂️☂️☂️☂️☂️☂️☂️☂️☂️☂️ DROP DOWN ☂️☂️☂️☂️☂️☂️☂️☂️☂️☂️☂️☂️☂️☂️☂️☂️-->
-               
+                    <mat-form-field *ngIf="this.bmxItem.componentSettings[0].rankType == 'dropDown'"
+                        appearance="outline" style="width: 110px;padding-top: 13px;height: 80px;">
+                        <mat-label>Rank 1 to {{rankingScaleValue}}</mat-label>
+                        <mat-select matNativeControl [(ngModel)]="bmxItem.componentText[y].RATE"
+                            (selectionChange)="setRating(bmxItem.componentText[y].RATE,y)">
+                            <mat-option *ngFor="let star of  testName.STARS; let x =  index" [value]="star.icon">
+                                {{star.icon}}</mat-option>
+                        </mat-select>
+                    </mat-form-field>
 
 
                     <!--☂️☂️☂️☂️☂️☂️☂️☂️☂️☂️☂️☂️☂️ DRAG AND DROP ☂️☂️☂️☂️☂️☂️☂️☂️☂️☂️☂️☂️☂️☂️☂️☂️-->
