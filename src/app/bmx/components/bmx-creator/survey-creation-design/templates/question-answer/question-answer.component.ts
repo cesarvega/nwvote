@@ -163,4 +163,6 @@ export class QuestionAnswerComponent extends RatingScaleComponent implements OnI
   autosaveAnswer(event: any) {
     this.autoSave.emit();
   }
+
+  rankingTableType(rankingType) {}
 }
