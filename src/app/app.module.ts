@@ -1,6 +1,6 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { CUSTOM_ELEMENTS_SCHEMA, NgModule } from '@angular/core';
-import { FlexLayoutModule } from '@angular/flex-layout';
+// import { FlexLayoutModule } from '@angular/flex-layout';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { LoginComponent } from './auth/login/login.component';
@@ -102,7 +102,7 @@ export function MSALInstanceFactory(): IPublicClientApplication {
   return new PublicClientApplication({
     auth: {
       clientId: 'fbcbd5db-c816-4ffb-8310-316cf7781c45',
-      authority: 'https://login.microsoftonline.com/f010ce16-e13d-4c24-87af-3a1eb4d11de6', 
+      authority: 'https://login.microsoftonline.com/f010ce16-e13d-4c24-87af-3a1eb4d11de6',
       redirectUri: 'http://localhost:4200',
     },
     cache: {
