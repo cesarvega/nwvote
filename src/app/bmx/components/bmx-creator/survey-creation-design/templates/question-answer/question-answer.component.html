@@ -359,12 +359,23 @@
                             <div *ngFor="let checkBoxName of testName[columnName].split(','); let m = index"
                                 style="display: flex;flex-direction: row;gap:10px; justify-content: space-between;  ">
                                 <label for="">{{checkBoxName}}</label>
-                                <input type="radio" 
-                                [name]="bmxItem.componentText[y].nameCandidates" [checked]="testName[columnName]"
-                                (click)="saveRadioColumValue(columnName, y);">
+                                <input type="radio" [name]="bmxItem.componentText[y].nameCandidates"
+                                    [checked]="testName[columnName]" (click)="saveRadioColumValue(columnName, y);">
                             </div>
                         </div>
-
+                        <div
+                            *ngIf="y !== 0  &&  columnName.includes('options') == true && this.bmxItem.componentSettings[0].rankType == 'dropDown'">
+                            <mat-form-field *ngIf="this.bmxItem.componentSettings[0].rankType == 'dropDown'"
+                                appearance="outline" style="width: 110px;padding-top: 13px;height: 80px;">
+                                <mat-label>Rank 1 to {{rankingScaleValue}}</mat-label>
+                                <mat-select matNativeControl [(ngModel)]="bmxItem.componentText[y].RATE"
+                                    (selectionChange)="setRating(bmxItem.componentText[y].RATE,y)">
+                                    <mat-option *ngFor="let checkBoxName of testName[columnName].split(','); let m = index"
+                                        [value]="checkBoxName">
+                                        {{checkBoxName}}</mat-option>
+                                </mat-select>
+                            </mat-form-field>
+                        </div>
                         <!-- TEXT_AREA COLUMN-->
                         <!-- <textarea *ngIf="y !== 0  && columnName.includes('Answers') == true"
                             [style.width]="(columnName == 'rationale')?bmxItem.componentSettings[0].rationalewidth + 'px':bmxItem.componentSettings[0].columnWidth +'px'"
