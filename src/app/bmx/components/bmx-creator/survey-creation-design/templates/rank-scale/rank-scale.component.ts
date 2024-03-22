@@ -41,7 +41,7 @@ export class RankScaleComponent extends RatingScaleComponent implements OnInit {
   isdropDown = true
 
   allowScrolling = true
-  dataSource:any[] = []
+  dataSource: any[] = []
 
   constructor(dragulaService: DragulaService, _snackBar: MatSnackBar, _bmxService: BmxService, public deviceService: DeviceDetectorService) {
     super(dragulaService, _snackBar, _bmxService, deviceService)
@@ -55,6 +55,7 @@ export class RankScaleComponent extends RatingScaleComponent implements OnInit {
     this.createRatingStars(this.rankingScaleValue)
     // this.rankingTableType( this.bmxItem.componentSettings[0].rankType)
     this.rankingType = this.bmxItem.componentSettings[0].rankType
+    this.rankingType = 'dinamycRadio' //HARD CODE
 
     this.rowsCount = this.bmxItem.componentText.length - 1;
     this.bmxItem.componentSettings[0].minRule = this.bmxItem.componentSettings[0].minRule == 0 ? 0 : this.bmxItem.componentSettings[0].minRule;
@@ -67,7 +68,7 @@ export class RankScaleComponent extends RatingScaleComponent implements OnInit {
       this.draggableBag = 'DRAGGABLE_RANK_ROW'
       this.isdropDown = false
 
-    } else if (this.rankingType == 'radio') {
+    } else if (this.rankingType == 'radio' || this.rankingType == 'dinamycRadio') {
       this.draggableBag = ''
       this.isdropDown = false
       this.radioColumnCounter = 1
@@ -79,9 +80,10 @@ export class RankScaleComponent extends RatingScaleComponent implements OnInit {
     values.forEach(value => {
       if (typeof value == "string" && value != "STARS" && value != "CRITERIA" && value != "RATE") {
         this.columnsNames.push(value)
-        console.log(this.bmxItem.componentText)
+        console.log(this.columnsNames)
       }
     });
+    //this.columnsNames.push("RadioColumn4", "RadioColumn5");//HARD CODE
 
     let result = '';
 
@@ -89,7 +91,7 @@ export class RankScaleComponent extends RatingScaleComponent implements OnInit {
     let firstObject = this.bmxItem.componentText[0];
     let columnNames = [];
     for (let key in firstObject) {
-      if (key === 'Name Candidates' || key === 'Rationales' ) {
+      if (key === 'Name Candidates' || key === 'Rationales') {
         columnNames.push(key);
       }
     }
@@ -133,7 +135,7 @@ export class RankScaleComponent extends RatingScaleComponent implements OnInit {
     this.newselectedCriteria = filteredCriteria
     this.rankingScaleValue = this.bmxItem.componentText[0].STARS.length;
     this.dataSource = this.bmxItem.componentText.slice(1)
-
+    console.log(this.dataSource)
   }
 
   checkDragEvetn(event: CdkDragDrop<string[]>) {
@@ -234,7 +236,7 @@ export class RankScaleComponent extends RatingScaleComponent implements OnInit {
       });
     }
     setTimeout(() => {
-      if (this.bmxItem.componentSettings[0].rankType == 'radio') {
+      if (this.bmxItem.componentSettings[0].rankType == 'radio' || this.bmxItem.componentSettings[0].rankType == 'dinamycRadio') {
         this.rowsCount = 20
       } else {
         this.rowsCount = this.bmxItem.componentText.length - 1;
@@ -262,7 +264,6 @@ export class RankScaleComponent extends RatingScaleComponent implements OnInit {
 
   }
 
-
   rankingTableType(rankingType) {
     this.bmxItem.componentSettings[0].rankType = rankingType
     let values = Object.keys(this.bmxItem.componentText[0])
@@ -287,7 +288,7 @@ export class RankScaleComponent extends RatingScaleComponent implements OnInit {
       this.draggableBag = 'DRAGGABLE_RANK_ROW'
       this.isdropDown = false
 
-    } else if (rankingType == 'radio') {
+    } else if (rankingType == 'radio' || rankingType == 'dinamycRadio') {
       this.bmxItem.componentSettings[0].rateWidth = 80
       this.draggableBag = ''
       this.isdropDown = false
@@ -313,5 +314,7 @@ export class RankScaleComponent extends RatingScaleComponent implements OnInit {
   }
 
   ASSIGNED_CRITERIA = []
-
+  
+ 
 }
+

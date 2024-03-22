@@ -84,7 +84,7 @@ export class RatingScaleComponent implements OnInit {
   showCreationModalVideo: boolean = false
   openElements: any[] = [];
   CREATION_VIDEO_PATH = "assets/videos/RateMatrix.mp4"
-  //------modal-----------//   
+  //------modal-----------//
   VIDEO_PATH: any[] = [];
 
   PATH1: any[] = [
@@ -103,9 +103,9 @@ export class RatingScaleComponent implements OnInit {
   dialogText: string;
   templateToDelete: any;
   newselectedCriteria: any;
-  showModalTable= false
+  showModalTable = false
   displayedColumns: string[] = ['nameCandidates', 'rationale', 'delete'];
-  dataSource:any[] = []
+  dataSource: any[] = []
   //----------end modal------//
 
   constructor(private dragulaService: DragulaService, public _snackBar: MatSnackBar, public _bmxService: BmxService, public deviceService: DeviceDetectorService) {
@@ -170,7 +170,7 @@ export class RatingScaleComponent implements OnInit {
     let firstObject = this.bmxItem.componentText[0];
     let columnNames = [];
     for (let key in firstObject) {
-      if (key === 'Name Candidates' || key === 'Rationales' ) {
+      if (key === 'Name Candidates' || key === 'Rationales') {
         columnNames.push(key);
       }
     }
@@ -551,7 +551,7 @@ export class RatingScaleComponent implements OnInit {
             this.columnsNames[index] = 'katakana'
           }
           else {
-        
+
 
             this.columnsNames[index] = 'ExtraColumn' + this.extraColumnCounter
             this.extraColumnCounter++
@@ -846,7 +846,7 @@ export class RatingScaleComponent implements OnInit {
   }
 
   saveRadioColumValue(name, y) {
-
+ 
     this.RadioColumnList = []
     let values = Object.keys(this.bmxItem.componentText[y])
     values.forEach(columnName => {
@@ -863,19 +863,31 @@ export class RatingScaleComponent implements OnInit {
       // if (columnName.includes('RadioColumn')) {
       if (this.bmxItem.componentText[y][columnName]) {
         if (this.bmxItem.componentType == 'ranking-scale' || true) {
-          this.bmxItem.componentText.forEach((element, i) => {
-            if (element.RATE == index + 1) {
-              this.bmxItem.componentText[i].RATE = 0
-              this.RadioColumnList.forEach(radioColumnName => {
-                this.bmxItem.componentText[i][radioColumnName] = false
-              });
-            }
-          });
+          if (this.bmxItem.componentSettings[0].rankType != 'dinamycRadio') {
+            this.bmxItem.componentText.forEach((element, i) => {
+              if (element.RATE == index + 1) {
+                this.bmxItem.componentText[i].RATE = 0
+                this.RadioColumnList.forEach(radioColumnName => {
+                  this.bmxItem.componentText[i][radioColumnName] = false
+                });
+              }
+            });
+          } else {
+            this.bmxItem.componentText.forEach((element, i) => {
+              // if (element.RATE == index + 1) {
+                this.bmxItem.componentText[i].RATE = 0
+                this.RadioColumnList.forEach(radioColumnName => {
+                  this.bmxItem.componentText[i][radioColumnName] = false
+                });
+              // }
+            });
+          }
+
         }
-        this.bmxItem.componentText[y].RATE = index + 1
-      }
-      // } 
-    });
+          this.bmxItem.componentText[y].RATE = index + 1
+        }
+        // }
+      });
     //autosave
     this.autoSave.emit();
   }
