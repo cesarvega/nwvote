@@ -919,6 +919,7 @@ export class SurveyMatrixComponent extends SurveyCreationDesignComponent impleme
                       // IF THE TESTNAME IS THE SAME TRANSFER THE ANSWER TO THE TEMPLATE
                       templateRow[key] === answerRow[key]
                     ) {
+                      console.log(answerRow.RATE)
                       templateRow.RATE = answerRow.RATE;
                       templateRow.STARS.forEach((starRow) => {
                         if (starRow.id <= answerRow.RATE) {
@@ -1301,17 +1302,16 @@ export class SurveyMatrixComponent extends SurveyCreationDesignComponent impleme
   }
 
   saveUserAnswers(pageNumber?) {
-
+    console.log(this.bmxPagesClient)
     let pageStatus = (this.totalOfpages == this.currentPage + 1) ? 999 : this.currentPage + 1;
     this.continueButtonToComple = (this.totalOfpages == this.currentPage + 1) ? 'Complete' : 'Continue';
-
     this._BmxService
       // .saveOrUpdateAnswers(this.bmxPagesClient, this.projectId, this.username, (pageNumber ? pageNumber : pageStatus))
       .saveOrUpdateAnswers(this.bmxPagesClient, this.projectId, this.username, pageStatus)
       .subscribe((res: any) => {
         this.loadingLottie = true;
         let newResp = JSON.parse(res.d)
-        console.log('%cANSWERS!', 'color:#007bff', res);
+        console.log('%cANSWERS!', 'color:#007bff', newResp);
         let page = res.d.replace(this.searchGraveAccentRegExp, "'");
         let message = ''
         if (this.surveyLanguage == 'Japanese') {

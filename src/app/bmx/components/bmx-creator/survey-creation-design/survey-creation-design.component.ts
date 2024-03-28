@@ -1012,6 +1012,7 @@ export class SurveyCreationDesignComponent implements OnInit {
     }
 
     saveData() {
+        console.log('a')
         // RESET VOTES IN TEMPLATE
         this.projectInfo = JSON.parse(
             localStorage.getItem('fakeproject' + '_project_info')

@@ -50,7 +50,6 @@ export class RankScaleComponent extends RatingScaleComponent implements OnInit {
   ngOnInit(): void {
     this.showDialog = false
 
-    console.log(this.bmxItem)
     this.rankingScaleValue = this.bmxItem.componentSettings[0].selectedRanking
     this.createRatingStars(this.rankingScaleValue)
     // this.rankingTableType( this.bmxItem.componentSettings[0].rankType)
@@ -78,11 +77,9 @@ export class RankScaleComponent extends RatingScaleComponent implements OnInit {
     let values = Object.keys(this.bmxItem.componentText[0])
 
     values.forEach(value => {
-      console.log(value)
       if (isNaN(Number(value))) {
         if (typeof value == "string" && value != "STARS" && value != "CRITERIA" && value != "RATE") {
           this.columnsNames.push(value)
-          console.log(this.columnsNames)
         }
       }
     });
@@ -103,7 +100,6 @@ export class RankScaleComponent extends RatingScaleComponent implements OnInit {
     for (let obj of this.bmxItem.componentText) {
       let values = [];
       for (let key in obj) {
-        console.log(isNaN(Number(key)), key)
     
           if (key !== 'STARS' && key !== 'RATE' && key !== 'CRITERIA' && key !== 'Comments') {
             if (isNaN(Number(obj[key]))) {
@@ -116,7 +112,6 @@ export class RankScaleComponent extends RatingScaleComponent implements OnInit {
       }
     }
 
-    console.log(result)
     this.testNamesInput = result;
     this.randomizeTestNames = this.bmxItem.componentSettings[0].randomizeTestNames
 
@@ -144,7 +139,6 @@ export class RankScaleComponent extends RatingScaleComponent implements OnInit {
     this.newselectedCriteria = filteredCriteria
     this.rankingScaleValue = this.bmxItem.componentText[0].STARS.length;
     this.dataSource = this.bmxItem.componentText.slice(1)
-    console.log(this.dataSource)
   }
 
   checkDragEvetn(event: CdkDragDrop<string[]>) {
@@ -271,7 +265,6 @@ export class RankScaleComponent extends RatingScaleComponent implements OnInit {
     }, 1000);
 
     this.bmxItem.componentSettings[0].selectedRanking = this.rankingScaleValue
-    console.log(this.bmxItem)
 
   }
 

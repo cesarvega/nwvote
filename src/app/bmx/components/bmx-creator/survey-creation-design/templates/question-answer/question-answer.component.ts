@@ -20,8 +20,7 @@ export class QuestionAnswerComponent extends RatingScaleComponent implements OnI
   @ViewChild('autosize') autosize: CdkTextareaAutosize;
   CREATION_VIDEO_PATH = "assets/videos/QuestionAndAnswer.mp4"
   dataSource:any[] = []
-  draggableBag
-  isdropDown = false
+
   allComplete: boolean = false;
   constructor(dragulaService: DragulaService, _snackBar: MatSnackBar, _bmxService: BmxService, public deviceService: DeviceDetectorService) {
     super(dragulaService, _snackBar, _bmxService, deviceService);
@@ -53,7 +52,6 @@ export class QuestionAnswerComponent extends RatingScaleComponent implements OnI
     for (let obj of this.bmxItem.componentText) {
       let values = [];
       for (let key in obj) {
-        console.log(obj)
         if (key !== 'STARS' && key !== 'RATE' && key !== 'CRITERIA' && key !== 'Comments') {
           values.push(obj[key]);
         }
@@ -135,10 +133,20 @@ export class QuestionAnswerComponent extends RatingScaleComponent implements OnI
 
   saveMultipleChoice(checkBoxName, indexRow, value) {
     if (value.target.checked) {
-      this.bmxItem.componentText[indexRow]['multipleChoice'] = (!this.bmxItem.componentText[indexRow]['multipleChoice']) ? checkBoxName + ',' : this.bmxItem.componentText[indexRow]['multipleChoice'] += checkBoxName + ','
+      this.bmxItem.componentText[indexRow].RATE = (!this.bmxItem.componentText[indexRow].RATE) ? checkBoxName + ',' : this.bmxItem.componentText[indexRow].RATE += checkBoxName + ','
     } else {
-      this.bmxItem.componentText[indexRow]['multipleChoice'] = this.bmxItem.componentText[indexRow]['multipleChoice'].replace(checkBoxName + ',', '')
+      this.bmxItem.componentText[indexRow].RATE = this.bmxItem.componentText[indexRow].RATE.replace(checkBoxName + ',', '')
     }
+    this.autoSave.emit();
+  }
+  saveChoice(checkBoxName, indexRow, value) {
+    console.log(value)
+    if (value.target.checked) {
+      this.bmxItem.componentText[indexRow].RATE =  checkBoxName 
+    } else {
+      this.bmxItem.componentText[indexRow].RATE = -1
+    }
+    this.autoSave.emit();
   }
 
   insertAnswerColumn() {
@@ -164,41 +172,4 @@ export class QuestionAnswerComponent extends RatingScaleComponent implements OnI
   autosaveAnswer(event: any) {
     this.autoSave.emit();
   }
-  rankingTableType(rankingType) {
-    this.bmxItem.componentSettings[0].rankType = rankingType
-    let values = Object.keys(this.bmxItem.componentText[0])
-    this.columnsNames = []
-    this.RadioColumnList = []
-    values.forEach(value => {
-      if (typeof value == "string" && value != "STARS" && value != "CRITERIA" && value != "RATE") {
-        this.columnsNames.push(value)
-      }
-    });
-    this.columnsNames.forEach(columnName => {
-      if (columnName.includes('RadioColumn')) {
-        this.deleteColumn(columnName)
-      }
-    });
-    if (rankingType == 'dropDown') {
-      this.bmxItem.componentSettings[0].rateWidth = 120
-      this.draggableBag = ''
-      this.isdropDown = true
-    } else if (rankingType == 'dragAndDrop') {
-      this.bmxItem.componentSettings[0].rateWidth = 80
-      this.draggableBag = 'DRAGGABLE_RANK_ROW'
-      this.isdropDown = false
-
-    } else if (rankingType == 'radio' || rankingType == 'dinamycRadio') {
-      this.bmxItem.componentSettings[0].rateWidth = 80
-      this.draggableBag = ''
-      this.isdropDown = false
-      this.radioColumnCounter = 1
-      this.rowsCount = 20
-      for (let index = 0; index < this.rankingScaleValue; index++) {
-        this.insertRadioColumn()
-      }
-    }
-  }
-
-
 }

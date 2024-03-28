@@ -191,7 +191,7 @@
                     <div style="margin-top: 0.5rem;">
                         <mat-radio-group aria-label="Select an option"
                             [(ngModel)]="this.bmxItem.componentSettings[0].rankType"
-                            (change)="rankingTableType(this.bmxItem.componentSettings[0].rankType)">
+                           >
                             <div style="display: flex;flex-direction: column;gap: 1px;">
                                 <mat-radio-button value="dropDown">Drop-Down</mat-radio-button>
                                 <mat-radio-button value="radio">Radio Buttons</mat-radio-button>
@@ -301,7 +301,7 @@
             {{bmxItem.componentSettings[0].categoryDescription}}</div>
 
     </div>
-    <div class="scroller-style main-container" >
+    <div class="scroller-style main-container">
 
         <div *ngFor="let testName of bmxItem.componentText; let y = index">
 
@@ -340,6 +340,17 @@
                     <!-- 🟡🟡🟡🟡🟡🟡🟡🟡🟡🟡🟡🟡🟡🟡 TABLE CELLS  🟡🟡🟡🟡🟡🟡🟡🟡🟡🟡🟡🟡🟡🟡🟡🟡 -->
                     <div>
 
+                        <div
+                            *ngIf="y !== 0  &&  columnName.includes('options') == true && this.bmxItem.componentSettings[0].rankType == 'radio'">
+                            <div *ngFor="let checkBoxName of testName[columnName].split(','); let m = index"
+                                style="display: flex;flex-direction: row;gap:10px; justify-content: space-between;  ">
+                                <label for="">{{checkBoxName}}</label>
+                                <!-- <input type="checkbox" [checked]="allComplete" -->
+                                <input type="radio"
+                                    [checked]=" testName['RATE']==checkBoxName"
+                                    (change)="saveChoice(checkBoxName, y,  $event)">
+                            </div>
+                        </div>
                         <!-- IF ELSE TEMPLATE INPUTS  -->
                         <div
                             *ngIf="y !== 0  &&  columnName.includes('options') == true && this.bmxItem.componentSettings[0].rankType == 'checkbox'">
@@ -348,20 +359,11 @@
                                 <label for="">{{checkBoxName}}</label>
                                 <!-- <input type="checkbox" [checked]="allComplete" -->
                                 <input type="checkbox"
-                                    [checked]="(testName['multipleChoice'] && testName['multipleChoice'].includes(checkBoxName))?true:allComplete"
+                                    [checked]=" testName['RATE'].includes(checkBoxName)"
                                     (change)="saveMultipleChoice(checkBoxName, y,  $event)">
                             </div>
                         </div>
 
-                        <div
-                            *ngIf="y !== 0  &&  columnName.includes('options') == true && this.bmxItem.componentSettings[0].rankType == 'radio'">
-                            <div *ngFor="let checkBoxName of testName[columnName].split(','); let m = index"
-                                style="display: flex;flex-direction: row;gap:10px; justify-content: space-between;  ">
-                                <label for="">{{checkBoxName}}</label>
-                                <input type="radio" [name]="bmxItem.componentText[y].nameCandidates"
-                                    [checked]="testName[columnName]" (click)="saveRadioColumValue(columnName, y);">
-                            </div>
-                        </div>
                         <div
                             *ngIf="y !== 0  &&  columnName.includes('options') == true && this.bmxItem.componentSettings[0].rankType == 'dropDown'">
                             <mat-form-field *ngIf="this.bmxItem.componentSettings[0].rankType == 'dropDown'"
@@ -369,7 +371,8 @@
                                 <mat-label>Rank 1 to {{rankingScaleValue}}</mat-label>
                                 <mat-select matNativeControl [(ngModel)]="bmxItem.componentText[y].RATE"
                                     (selectionChange)="setRating(bmxItem.componentText[y].RATE,y)">
-                                    <mat-option *ngFor="let checkBoxName of testName[columnName].split(','); let m = index"
+                                    <mat-option
+                                        *ngFor="let checkBoxName of testName[columnName].split(','); let m = index"
                                         [value]="checkBoxName">
                                         {{checkBoxName}}</mat-option>
                                 </mat-select>
