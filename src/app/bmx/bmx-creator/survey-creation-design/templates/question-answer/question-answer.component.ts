@@ -18,7 +18,7 @@ export class QuestionAnswerComponent extends RatingScaleComponent implements OnI
   @Input() bmxClientPageOverview;
   @Output() autoSave = new EventEmitter();
   @ViewChild('autosize') autosize: CdkTextareaAutosize;
-  CREATION_VIDEO_PATH="assets/videos/QuestionAndAnswer.mp4" 
+  CREATION_VIDEO_PATH="assets/videos/QuestionAndAnswer.mp4"
 
   allComplete: boolean = false;
   constructor(dragulaService: DragulaService, _snackBar: MatSnackBar, _bmxService: BmxService,public deviceService: DeviceDetectorService) {

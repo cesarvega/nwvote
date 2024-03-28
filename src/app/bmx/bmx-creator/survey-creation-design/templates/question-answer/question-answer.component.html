@@ -321,6 +321,8 @@
                                 <!-- <input type="checkbox" [checked]="allComplete" -->
                                 <input type="checkbox" [checked]="(testName['multipleChoice'] && testName['multipleChoice'].includes(checkBoxName))?true:allComplete"
                                     (change)="saveMultipleChoice(checkBoxName, y,  $event)">
+                                <input type="radio" [checked]="(testName['multipleChoice'] && testName['multipleChoice'].includes(checkBoxName))?true:allComplete"
+                                    (change)="saveMultipleChoice(checkBoxName, y,  $event)">
                             </div>
                         </div>
 
