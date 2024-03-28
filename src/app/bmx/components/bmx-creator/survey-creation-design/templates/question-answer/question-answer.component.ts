@@ -133,9 +133,9 @@ export class QuestionAnswerComponent extends RatingScaleComponent implements OnI
 
   saveMultipleChoice(checkBoxName, indexRow, value) {
     if (value.target.checked) {
-      this.bmxItem.componentText[indexRow].RATE = (!this.bmxItem.componentText[indexRow].RATE) ? checkBoxName + ',' : this.bmxItem.componentText[indexRow].RATE += checkBoxName + ','
+      this.bmxItem.componentText[indexRow].multipleChoice = (!this.bmxItem.componentText[indexRow].multipleChoice) ? checkBoxName + ',' : this.bmxItem.componentText[indexRow].multipleChoice += checkBoxName + ','
     } else {
-      this.bmxItem.componentText[indexRow].RATE = this.bmxItem.componentText[indexRow].RATE.replace(checkBoxName + ',', '')
+      this.bmxItem.componentText[indexRow].multipleChoice = this.bmxItem.componentText[indexRow].multipleChoice.replace(checkBoxName + ',', '')
     }
     this.autoSave.emit();
   }
