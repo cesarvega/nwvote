@@ -356,7 +356,7 @@
                                 <label for="">{{checkBoxName}}</label>
                                 <!-- <input type="checkbox" [checked]="allComplete" -->
                                 <input type="checkbox"
-                                    [checked]="(testName['multipleChoice'] && testName['multipleChoice'].includes(checkBoxName))?true:allComplete"
+                                    [checked]="(testName['multipleChoice'] && testName['multipleChoice']==checkBoxName)?true:allComplete"
                                     (change)="saveMultipleChoice(checkBoxName, y,  $event)">
                             </div>
                         </div>
