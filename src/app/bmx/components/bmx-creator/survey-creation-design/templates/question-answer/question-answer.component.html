@@ -347,7 +347,7 @@
                                 <label for="">{{checkBoxName}}</label>
                                 <!-- <input type="checkbox" [checked]="allComplete" -->
                                 <input type="radio"
-                                    [checked]=" testName['RATE']==checkBoxName"
+                                    [checked]="testName['RATE']==checkBoxName"
                                     (change)="saveChoice(checkBoxName, y,  $event)">
                             </div>
                         </div>
@@ -359,7 +359,7 @@
                                 <label for="">{{checkBoxName}}</label>
                                 <!-- <input type="checkbox" [checked]="allComplete" -->
                                 <input type="checkbox"
-                                    [checked]=" testName['RATE'].includes(checkBoxName)"
+                                    [checked]="(testName['RATE'] && testName['RATE'].includes(checkBoxName))?true:allComplete"
                                     (change)="saveMultipleChoice(checkBoxName, y,  $event)">
                             </div>
                         </div>
