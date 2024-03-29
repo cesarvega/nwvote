@@ -354,7 +354,7 @@
                             style="display: flex;flex-direction: row;gap:10px; justify-content: space-between;  ">
                                 <label for="">{{checkBoxName}}</label>
                                 <!-- <input type="checkbox" [checked]="allComplete" -->
-                                <input type="checkbox" [checked]="(testName['multipleChoice'] && testName['multipleChoice'].includes(checkBoxName))?true:allComplete"
+                                <input type="checkbox" [checked]="(testName['RATE'] && testName['RATE']!=-1 && isChecked(checkBoxName, y))?true:allComplete"
                                     (change)="saveMultipleChoice(checkBoxName, y,  $event)">
                             </div>
                         </div>
@@ -467,7 +467,7 @@
                             style="display: flex;flex-direction: row;gap:10px; justify-content: space-between;  ">
                                 <label for="">{{checkBoxName}}</label>
                                 <!-- <input type="checkbox" [checked]="allComplete" -->
-                                <input type="checkbox" [checked]="(testName['multipleChoice'] && testName['multipleChoice'].includes(checkBoxName))?true:allComplete"
+                                <input type="checkbox" [checked]="(testName['RATE'] && testName['RATE']!=-1 && isChecked(checkBoxName, y))?true:allComplete"
                                     (change)="saveMultipleChoice(checkBoxName, y,  $event)">
                             </div>
                         </div>

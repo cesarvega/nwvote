@@ -133,9 +133,9 @@ export class QuestionAnswerComponent extends RatingScaleComponent implements OnI
 
   saveMultipleChoice(checkBoxName, indexRow, value) {
     if (value.target.checked) {
-      this.bmxItem.componentText[indexRow].multipleChoice = (!this.bmxItem.componentText[indexRow].multipleChoice) ? checkBoxName + ',' : this.bmxItem.componentText[indexRow].multipleChoice += checkBoxName + ','
+      this.bmxItem.componentText[indexRow].RATE = (!this.bmxItem.componentText[indexRow].RATE) ? checkBoxName + ',' : this.bmxItem.componentText[indexRow].RATE += checkBoxName + ','
     } else {
-      this.bmxItem.componentText[indexRow].multipleChoice = this.bmxItem.componentText[indexRow].multipleChoice.replace(checkBoxName + ',', '')
+      this.bmxItem.componentText[indexRow].RATE = this.bmxItem.componentText[indexRow].RATE.replace(checkBoxName + ',', '')
     }
     this.autoSave.emit();
   }
@@ -171,5 +171,12 @@ export class QuestionAnswerComponent extends RatingScaleComponent implements OnI
 
   autosaveAnswer(event: any) {
     this.autoSave.emit();
+  }
+  isChecked(checkBoxName, indexRow) {
+    // Paso 1: Separar la cadena en un arreglo de opciones y eliminar los espacios en blanco
+    const multipleChoiceArray = this.bmxItem.componentText[indexRow].RATE.split(",").map(option => option.trim());
+  
+    // Paso 2: Verificar si checkBoxName está presente en el arreglo
+    return multipleChoiceArray.includes(checkBoxName);
   }
 }
