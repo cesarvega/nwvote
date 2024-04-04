@@ -41,12 +41,12 @@
             </p>
             <input type="range" style="margin: 20px;width: 50px;"
                 [(ngModel)]="bmxItem.componentSettings[0].rationalewidth" class="slider-font-size" tickInterval="0.5"
-                min="50" max="600" [value]="bmxItem.componentSettings[0].rationalewidth">
+                min="50" max="600" [value]="bmxItem.componentSettings[0].rationalweidth">
         </div>
 
         <!-- COMMENTS -->
         <div style="display: flex;flex-direction: column;align-items: center;">
-            <p style="margin: 0 0 -12px;color: #324395;">comments
+            <p style="margin: 0 0 -12px;color: #324395;">options
             </p>
             <input type="range" style="margin: 20px;width: 50px;"
                 [(ngModel)]="bmxItem.componentSettings[0].commentsWidth" class="slider-font-size" tickInterval="0.5"
@@ -152,10 +152,6 @@
             class="add-column" matTooltip="setup settings" matTooltipPosition="above" *ngIf="i !== selectedIndex"
             mat-icon-button>
             <mat-icon style="font-size: 25px;" class="full-icon">edit</mat-icon>
-        </button>
-        <button (click)="showModalTable = true" class="add-column" matTooltip="update names" matTooltipPosition="above"
-            *ngIf="i !== selectedIndex" mat-icon-button>
-            <mat-icon style="font-size: 25px;" class="full-icon"> text_fields</mat-icon>
         </button>
     </div>
 </div>
@@ -308,7 +304,7 @@
             <div class="test-name-table">
                 <div *ngFor="let columnName of columnsNames; let e =  index"
                     style="display: flex;align-items: center;justify-content: center;" [ngClass]="(e%2==0)?'red':'blue'"
-                    [style.width]="(columnName == 'name' )?bmxItem.componentSettings[0].nameCandidatesWidth + 'px': columnName.includes('Answers')==true? bmxItem.componentSettings[0].rationalewidth + 'px' :bmxItem.componentSettings[0].columnWidth +'px'">
+                    [style.width]="(columnName == 'name' )?bmxItem.componentSettings[0].nameCandidatesWidth + 'px': columnName.includes('options')==true? bmxItem.componentSettings[0].nameCandidatesWidth + 'px': columnName.includes('Answers') == true ? bmxItem.componentSettings[0].rationalewidth +'px' : bmxItem.componentSettings[0].commentsWidth +'px'">
 
                     <div *ngIf="(y == 0)" class="header-title " (mouseenter)="selectedColumn = e"
                         (mouseleave)="selectedColumn = ''">
@@ -349,12 +345,14 @@
                                     (change)="saveChoice(checkBoxName, y,  $event)">
                             </div>
                         </div>
-                        <div *ngIf="y !== 0  &&  columnName.includes('options') == true && this.bmxItem.componentSettings[0].rankType == 'checkbox'">
+                        <div
+                            *ngIf="y !== 0  &&  columnName.includes('options') == true && this.bmxItem.componentSettings[0].rankType == 'checkbox'">
                             <div *ngFor="let checkBoxName of testName[columnName].split(','); let m = index"
-                            style="display: flex;flex-direction: row;gap:10px; justify-content: space-between;  ">
+                                style="display: flex;flex-direction: row;gap:10px; justify-content: space-between;  ">
                                 <label for="">{{checkBoxName}}</label>
                                 <!-- <input type="checkbox" [checked]="allComplete" -->
-                                <input type="checkbox" [checked]="(testName['RATE'] && testName['RATE']!=-1 && isChecked(checkBoxName, y))?true:allComplete"
+                                <input type="checkbox"
+                                    [checked]="(testName['RATE'] && testName['RATE']!=-1 && isChecked(checkBoxName, y))?true:allComplete"
                                     (change)="saveMultipleChoice(checkBoxName, y,  $event)">
                             </div>
                         </div>
@@ -389,6 +387,7 @@
                             class="row-box" [(ngModel)]="testName[columnName]"
                             (focusout)="testName[columnName] ? autosaveAnswer($event) : null" rows="4"
                             cols="50"></textarea>
+
 
                         <!-- TEXT AREA TO EDIT TABLE CELL CONTENT -->
                         <textarea
@@ -451,7 +450,7 @@
                     <div>
 
                         <!-- IF ELSE TEMPLATE INPUTS  -->
-                   
+
                         <div
                             *ngIf="y !== 0  &&  columnName.includes('options') == true && this.bmxItem.componentSettings[0].rankType == 'radio'">
                             <div *ngFor="let checkBoxName of testName[columnName].split(','); let m = index"
@@ -462,12 +461,14 @@
                                     (change)="saveChoice(checkBoxName, y,  $event)">
                             </div>
                         </div>
-                        <div *ngIf="y !== 0  &&  columnName.includes('options') == true && this.bmxItem.componentSettings[0].rankType == 'checkbox'">
+                        <div
+                            *ngIf="y !== 0  &&  columnName.includes('options') == true && this.bmxItem.componentSettings[0].rankType == 'checkbox'">
                             <div *ngFor="let checkBoxName of testName[columnName].split(','); let m = index"
-                            style="display: flex;flex-direction: row;gap:10px; justify-content: space-between;  ">
+                                style="display: flex;flex-direction: row;gap:10px; justify-content: space-between;  ">
                                 <label for="">{{checkBoxName}}</label>
                                 <!-- <input type="checkbox" [checked]="allComplete" -->
-                                <input type="checkbox" [checked]="(testName['RATE'] && testName['RATE']!=-1 && isChecked(checkBoxName, y))?true:allComplete"
+                                <input type="checkbox"
+                                    [checked]="(testName['RATE'] && testName['RATE']!=-1 && isChecked(checkBoxName, y))?true:allComplete"
                                     (change)="saveMultipleChoice(checkBoxName, y,  $event)">
                             </div>
                         </div>
