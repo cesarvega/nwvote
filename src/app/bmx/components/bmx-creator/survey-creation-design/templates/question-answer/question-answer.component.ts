@@ -63,7 +63,7 @@ export class QuestionAnswerComponent extends RatingScaleComponent implements OnI
     this.testNamesInput = result;
     this.randomizeTestNames = this.bmxItem.componentSettings[0].randomizeTestNames
     this.rowsCount = this.bmxItem.componentText.length - 1;
-
+    console.log(this.bmxItem.componentSettings[0].rationalewidth)
     this.dataSource = this.bmxItem.componentText.slice(1)
   }
 

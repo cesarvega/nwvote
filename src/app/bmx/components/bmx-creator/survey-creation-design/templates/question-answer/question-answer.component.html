@@ -42,6 +42,7 @@
             <input type="range" style="margin: 20px;width: 50px;"
                 [(ngModel)]="bmxItem.componentSettings[0].rationalewidth" class="slider-font-size" tickInterval="0.5"
                 min="50" max="600" [value]="bmxItem.componentSettings[0].rationalweidth">
+                
         </div>
 
         <!-- COMMENTS -->
@@ -51,7 +52,9 @@
             <input type="range" style="margin: 20px;width: 50px;"
                 [(ngModel)]="bmxItem.componentSettings[0].commentsWidth" class="slider-font-size" tickInterval="0.5"
                 min="50" max="400" [value]="bmxItem.componentSettings[0].commentsWidth">
-        </div>
+        
+            </div>
+
 
         <!-- REST OF THE COLUMNS -->
         <div style="display: flex;flex-direction: column;align-items: center;">
@@ -223,7 +226,7 @@
             <div style="display: flex; justify-content: center; align-items: center;">
                 <mat-form-field style="width: 90%; margin-left: 20px;" appearance="outline">
                     <mat-label>Copy & Paste Columns</mat-label>
-                    <textarea matInput [(ngModel)]="testNamesInput" (paste)="onPaste()"
+                    <textarea matInput [(ngModel)]="testNamesInput" (paste)="onPaste(); bmxItem.componentSettings[0].commentsWidth = 250"
                         (ngModelChange)="upLoadNamesAndRationales(testNamesInput)" placeholder="Paste test names here"
                         cdkTextareaAutosize cdkAutosizeMinRows="2" cdkAutosizeMaxRows="5"></textarea>
                     <mat-hint>Type or paste the test names here that you want to include</mat-hint>
