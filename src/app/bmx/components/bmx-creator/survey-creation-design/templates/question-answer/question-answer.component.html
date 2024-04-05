@@ -33,7 +33,7 @@
             </p>
             <input type="range" style="margin: 20px;width: 50px;"
                 [(ngModel)]="bmxItem.componentSettings[0].nameCandidatesWidth" class="slider-font-size"
-                tickInterval="0.5" min="50" max="400" [value]="bmxItem.componentSettings[0].nameCandidatesWidth">
+                tickInterval="0.5" min="50" max="900" [value]="bmxItem.componentSettings[0].nameCandidatesWidth">
         </div>
 
         <div style="display: flex;flex-direction: column;align-items: center;">
@@ -41,7 +41,7 @@
             </p>
             <input type="range" style="margin: 20px;width: 50px;"
                 [(ngModel)]="bmxItem.componentSettings[0].rationalewidth" class="slider-font-size" tickInterval="0.5"
-                min="50" max="600" [value]="bmxItem.componentSettings[0].rationalweidth">
+                min="50" max="900" [value]="bmxItem.componentSettings[0].rationalweidth">
                 
         </div>
 
@@ -51,7 +51,7 @@
             </p>
             <input type="range" style="margin: 20px;width: 50px;"
                 [(ngModel)]="bmxItem.componentSettings[0].commentsWidth" class="slider-font-size" tickInterval="0.5"
-                min="50" max="400" [value]="bmxItem.componentSettings[0].commentsWidth">
+                min="50" max="900" [value]="bmxItem.componentSettings[0].commentsWidth">
         
             </div>
 
@@ -61,7 +61,7 @@
             <p style="margin: 0 0 -12px;color: #324395;">other columns
             </p>
             <input type="range" style="margin: 20px;width: 50px;" [(ngModel)]="bmxItem.componentSettings[0].columnWidth"
-                class="slider-font-size" tickInterval="0.5" min="50" max="700"
+                class="slider-font-size" tickInterval="0.5" min="50" max="900"
                 [value]="bmxItem.componentSettings[0].columnWidth">
         </div>
 
@@ -226,7 +226,7 @@
             <div style="display: flex; justify-content: center; align-items: center;">
                 <mat-form-field style="width: 90%; margin-left: 20px;" appearance="outline">
                     <mat-label>Copy & Paste Columns</mat-label>
-                    <textarea matInput [(ngModel)]="testNamesInput" (paste)="onPaste(); bmxItem.componentSettings[0].commentsWidth = 250"
+                    <textarea matInput [(ngModel)]="testNamesInput" (paste)="onPaste(); bmxItem.componentSettings[0].commentsWidth = 250; bmxItem.componentSettings[0].nameCandidatesWidth = 500"
                         (ngModelChange)="upLoadNamesAndRationales(testNamesInput)" placeholder="Paste test names here"
                         cdkTextareaAutosize cdkAutosizeMinRows="2" cdkAutosizeMaxRows="5"></textarea>
                     <mat-hint>Type or paste the test names here that you want to include</mat-hint>
@@ -305,11 +305,15 @@
 
             <!-- <div *ngIf="(y !== 0)" style="color: white;font-size: xx-small;">.</div> -->
             <div class="test-name-table">
-                <div *ngFor="let columnName of columnsNames; let e =  index"
-                    style="display: flex;align-items: center;justify-content: center;" [ngClass]="(e%2==0)?'red':'blue'"
-                    [style.width]="(columnName == 'name' )?bmxItem.componentSettings[0].nameCandidatesWidth + 'px': columnName.includes('options')==true? bmxItem.componentSettings[0].nameCandidatesWidth + 'px': columnName.includes('Answers') == true ? bmxItem.componentSettings[0].rationalewidth +'px' : bmxItem.componentSettings[0].commentsWidth +'px'">
-
-                    <div *ngIf="(y == 0)" class="header-title " (mouseenter)="selectedColumn = e"
+                <div *ngFor="let columnName of columnsNames; let e = index"
+                style="display: flex;align-items: center;"
+                [ngClass]="(e % 2 === 0) ? 'red' : 'blue'"
+                [style.width]="(columnName.includes('name')) ? bmxItem.componentSettings[0].nameCandidatesWidth + 'px' : 
+                              (columnName.includes('options')) ? bmxItem.componentSettings[0].commentsWidth + 'px' : 
+                              (columnName.includes('Answers')) ? bmxItem.componentSettings[0].rationalewidth + 'px' : 
+                              bmxItem.componentSettings[0].columnWidth + 'px'"
+                [style.justify-content]="(testName[columnName] === 'Questions') ? 'center' : 'flex-start'">
+                <div *ngIf="(y == 0)" class="header-title " (mouseenter)="selectedColumn = e"
                         (mouseleave)="selectedColumn = ''">
 
                         <!-- IF YOU WANT TO DELET ALL COLUMNS PASS THE COLUMN NAME  NOT testName[columnName]-->
