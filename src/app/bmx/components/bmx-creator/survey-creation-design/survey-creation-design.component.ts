@@ -411,6 +411,7 @@ export class SurveyCreationDesignComponent implements OnInit {
     }
 
     checkDragEvetn(e) {
+        console.log(this.bmxPages[this.currentPage])
         console.log(e);
     }
 

@@ -551,10 +551,10 @@ export class RatingScaleComponent implements OnInit {
             this.columnsNames[index] = 'katakana'
           }
           else {
-
-
-            this.columnsNames[index] = 'ExtraColumn' + this.extraColumnCounter
-            this.extraColumnCounter++
+            if (this.bmxItem.componentSettings[0].rankType != 'radio' || this.bmxItem.componentSettings[0].rankType != 'dinamycRadio') {
+              this.columnsNames[index] = 'ExtraColumn' + this.extraColumnCounter
+              this.extraColumnCounter++
+            }
           }
       });
 
@@ -846,7 +846,7 @@ export class RatingScaleComponent implements OnInit {
   }
 
   saveRadioColumValue(name, y) {
- 
+
     this.RadioColumnList = []
     let values = Object.keys(this.bmxItem.componentText[y])
     values.forEach(columnName => {
@@ -875,19 +875,19 @@ export class RatingScaleComponent implements OnInit {
           } else {
             this.bmxItem.componentText.forEach((element, i) => {
               // if (element.RATE == index + 1) {
-                this.bmxItem.componentText[i].RATE = 0
-                this.RadioColumnList.forEach(radioColumnName => {
-                  this.bmxItem.componentText[i][radioColumnName] = false
-                });
+              this.bmxItem.componentText[i].RATE = 0
+              this.RadioColumnList.forEach(radioColumnName => {
+                this.bmxItem.componentText[i][radioColumnName] = false
+              });
               // }
             });
           }
 
         }
-          this.bmxItem.componentText[y].RATE = index + 1
-        }
-        // }
-      });
+        this.bmxItem.componentText[y].RATE = index + 1
+      }
+      // }
+    });
     //autosave
     this.autoSave.emit();
   }

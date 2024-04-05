@@ -35,7 +35,7 @@ export class RankScaleComponent extends RatingScaleComponent implements OnInit {
   isImageType = true
 
   rankingType = 'dropDown'
-  rankingTypeOptions = ['dropDown', 'dragAndDrop', 'radio']
+  rankingTypeOptions = ['dropDown', 'dragAndDrop', 'radio', 'dinamycRadio']
 
   draggableBag
   isdropDown = true
@@ -78,9 +78,12 @@ export class RankScaleComponent extends RatingScaleComponent implements OnInit {
     let values = Object.keys(this.bmxItem.componentText[0])
 
     values.forEach(value => {
-      if (typeof value == "string" && value != "STARS" && value != "CRITERIA" && value != "RATE") {
-        this.columnsNames.push(value)
-        console.log(this.columnsNames)
+      console.log(value)
+      if (isNaN(Number(value))) {
+        if (typeof value == "string" && value != "STARS" && value != "CRITERIA" && value != "RATE") {
+          this.columnsNames.push(value)
+          console.log(this.columnsNames)
+        }
       }
     });
     //this.columnsNames.push("RadioColumn4", "RadioColumn5");//HARD CODE
@@ -100,14 +103,20 @@ export class RankScaleComponent extends RatingScaleComponent implements OnInit {
     for (let obj of this.bmxItem.componentText) {
       let values = [];
       for (let key in obj) {
-        if (key !== 'STARS' && key !== 'RATE' && key !== 'CRITERIA' && key !== 'Comments') {
-          values.push(obj[key]);
+        console.log(isNaN(Number(key)), key)
+    
+          if (key !== 'STARS' && key !== 'RATE' && key !== 'CRITERIA' && key !== 'Comments') {
+            if (isNaN(Number(obj[key]))) {
+            values.push(obj[key]);
+          }
         }
       }
       if (values.length > 0) {  // Verificar si hay valores para esta fila
         result += values.join('\t') + '\n';  // Agregar la línea al resultado
       }
     }
+
+    console.log(result)
     this.testNamesInput = result;
     this.randomizeTestNames = this.bmxItem.componentSettings[0].randomizeTestNames
 
@@ -192,8 +201,10 @@ export class RankScaleComponent extends RatingScaleComponent implements OnInit {
             this.columnsNames[index] = 'katakana'
           }
           else {
-            this.columnsNames[index] = 'ExtraColumn' + this.extraColumnCounter
-            this.extraColumnCounter++
+            if (this.bmxItem.componentSettings[0].rankType != 'radio' || this.bmxItem.componentSettings[0].rankType != 'dinamycRadio') {
+              this.columnsNames[index] = 'ExtraColumn' + this.extraColumnCounter
+              this.extraColumnCounter++
+            }
           }
       });
       this.TESTNAMES_LIST = [];
@@ -314,7 +325,7 @@ export class RankScaleComponent extends RatingScaleComponent implements OnInit {
   }
 
   ASSIGNED_CRITERIA = []
-  
- 
+
+
 }
 

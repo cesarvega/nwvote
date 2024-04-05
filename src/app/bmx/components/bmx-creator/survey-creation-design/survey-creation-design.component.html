@@ -25,7 +25,7 @@
 
 <div style="display: flex; margin: 0px;
     width: 100%;">
-    <div style="flex-direction: column;" class="bmx-page">
+    <div style="flex-direction: column;" class="bmx-page" >
         <div style="width: 100%;">
             &nbsp;
         </div>
@@ -58,9 +58,9 @@
                         <mat-icon style="font-size: 17px;">cancel</mat-icon>
                     </button>
                 </div>
-                <app-logo-header [bmxItem]="bmxItem" [isBrandMatrixSurvey]="isBrandMatrixSurvey" [i]="i"
+                <app-logo-header [bmxItem]="bmxItem" [isBrandMatrixSurvey]="isBrandMatrixSurvey" [i]="i" 
                     (logoChanged)="logoChanged($event)" (resizeWidthLogo)="resizeWidthLogo($event)"
-                    [bmxClientPageDesignMode]="bmxClientPageDesignMode" [bmxClientPageOverview]="bmxClientPageOverview" cdkDrag>
+                    [bmxClientPageDesignMode]="bmxClientPageDesignMode" [bmxClientPageOverview]="bmxClientPageOverview">
                 </app-logo-header>
             </div>
             <!--😋😋😋😋😋😋😋😋😋😋😋😋😋😋😋😋😋😋😋😋😋😋😋😋😋😋😋😋😋😋😋😋😋😋😋😋😋😋 END BMX HEADER  -->
@@ -284,7 +284,7 @@
             <br>
         </div>
         <div style="display: flex;flex-direction: column;">
-            <button *ngIf="!false" (click)="createPage()" matTooltip="create New Page" matTooltipPosition="right"
+            <button *ngIf="!false" (click)="createPage()" matTooltip="Create New Page" matTooltipPosition="right"
                 mat-icon-button aria-label="aria">
                 <mat-icon class="full-icon-secondary">post_add</mat-icon>
             </button>
@@ -310,7 +310,7 @@
             </button>
             <br>
             <button *ngIf="true" (click)="isTemplate=='true'?saveTemplate() : openDialog('save')" mat-icon-button
-                matTooltip="{{isTemplate == 'true' ? 'save template' : 'save brand matrix'}}"
+                matTooltip="{{isTemplate == 'true' ? 'Save Template' : 'Save Brand Matrix'}}"
                 matTooltipPosition="right">
                 <mat-icon class="full-icon">cloud_upload
                 </mat-icon>

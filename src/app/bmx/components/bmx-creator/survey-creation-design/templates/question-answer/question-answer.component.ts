@@ -20,7 +20,8 @@ export class QuestionAnswerComponent extends RatingScaleComponent implements OnI
   @ViewChild('autosize') autosize: CdkTextareaAutosize;
   CREATION_VIDEO_PATH = "assets/videos/QuestionAndAnswer.mp4"
   dataSource:any[] = []
-
+  draggableBag
+  isdropDown = false
   allComplete: boolean = false;
   constructor(dragulaService: DragulaService, _snackBar: MatSnackBar, _bmxService: BmxService, public deviceService: DeviceDetectorService) {
     super(dragulaService, _snackBar, _bmxService, deviceService);
@@ -163,4 +164,41 @@ export class QuestionAnswerComponent extends RatingScaleComponent implements OnI
   autosaveAnswer(event: any) {
     this.autoSave.emit();
   }
+  rankingTableType(rankingType) {
+    this.bmxItem.componentSettings[0].rankType = rankingType
+    let values = Object.keys(this.bmxItem.componentText[0])
+    this.columnsNames = []
+    this.RadioColumnList = []
+    values.forEach(value => {
+      if (typeof value == "string" && value != "STARS" && value != "CRITERIA" && value != "RATE") {
+        this.columnsNames.push(value)
+      }
+    });
+    this.columnsNames.forEach(columnName => {
+      if (columnName.includes('RadioColumn')) {
+        this.deleteColumn(columnName)
+      }
+    });
+    if (rankingType == 'dropDown') {
+      this.bmxItem.componentSettings[0].rateWidth = 120
+      this.draggableBag = ''
+      this.isdropDown = true
+    } else if (rankingType == 'dragAndDrop') {
+      this.bmxItem.componentSettings[0].rateWidth = 80
+      this.draggableBag = 'DRAGGABLE_RANK_ROW'
+      this.isdropDown = false
+
+    } else if (rankingType == 'radio' || rankingType == 'dinamycRadio') {
+      this.bmxItem.componentSettings[0].rateWidth = 80
+      this.draggableBag = ''
+      this.isdropDown = false
+      this.radioColumnCounter = 1
+      this.rowsCount = 20
+      for (let index = 0; index < this.rankingScaleValue; index++) {
+        this.insertRadioColumn()
+      }
+    }
+  }
+
+
 }
