@@ -1,7 +1,7 @@
 import { Component, OnInit, ViewEncapsulation } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { BmxService } from './bmx.service';
-import { DragulaService } from 'ng2-dragula';
+// import { DragulaService } from 'ng2-dragula';
 @Component({
   selector: 'app-bmx-creator',
   templateUrl: './bmx-creator.component.html',
@@ -123,7 +123,7 @@ export class BmxCreatorComponent implements OnInit {
 
   constructor(
     private activatedRoute: ActivatedRoute,
-    dragulaService: DragulaService,
+  
     private _BmxService: BmxService
   ) {
     this.activatedRoute.params.subscribe((params) => {
@@ -170,11 +170,11 @@ export class BmxCreatorComponent implements OnInit {
     });
 
     // DRAGGING SERVICE FOR SURVEY CREATOR
-    dragulaService.createGroup('TASKS', {
-      moves: (el, container, handle) => {
-        return handle.classList.contains('emoji-handle');
-      },
-    });
+    // dragulaService.createGroup('TASKS', {
+    //   moves: (el, container, handle) => {
+    //     return handle.classList.contains('emoji-handle');
+    //   },
+    // });
     // document.body.style.zoom = 1.10;
   }
 

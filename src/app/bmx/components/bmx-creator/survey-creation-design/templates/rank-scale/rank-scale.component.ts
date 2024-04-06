@@ -1,331 +1,317 @@
-import { DragulaService } from 'ng2-dragula';
-import { Component, ElementRef, EventEmitter, Inject, Input, OnInit, Output, ViewChild, ViewEncapsulation } from '@angular/core';
-import { CdkTextareaAutosize } from '@angular/cdk/text-field';
-import { RatingScaleComponent } from '../rating-scale/rating-scale.component';
-import { MatSnackBar } from '@angular/material/snack-bar';
-import { BmxService } from '../../../bmx.service';
-import { DeviceDetectorService } from 'ngx-device-detector';
-import { CdkDragDrop, moveItemInArray } from '@angular/cdk/drag-drop';
+// import { DragulaService } from 'ng2-dragula';
+// import { Component, ElementRef, EventEmitter, Inject, Input, OnInit, Output, ViewChild, ViewEncapsulation } from '@angular/core';
+// import { CdkTextareaAutosize } from '@angular/cdk/text-field';
+// import { RatingScaleComponent } from '../rating-scale/rating-scale.component';
+// import {  MatSnackBar } from '@angular/material/snack-bar';
+// import { BmxService } from '../../../bmx.service';
+// import { DeviceDetectorService } from 'ngx-device-detector';
+// import { CdkDragDrop, moveItemInArray } from '@angular/cdk/drag-drop';
 
 
-@Component({
-  selector: 'app-rank-scale',
-  templateUrl: './rank-scale.component.html',
-  styleUrls: ['./rank-scale.component.scss']
-})
-export class RankScaleComponent extends RatingScaleComponent implements OnInit {
+// @Component({
+//   selector: 'app-rank-scale',
+//   templateUrl: './rank-scale.component.html',
+//   styleUrls: ['./rank-scale.component.scss']
+// })
+// export class RankScaleComponent extends RatingScaleComponent implements OnInit {
 
-  @Input() bmxItem;
-  @Input() i;
-  @Input() bmxClientPageDesignMode;
-  @Input() bmxClientPageOverview;
-  @Output() autoSave = new EventEmitter();
-  showBar = false
-  CREATION_VIDEO_PATH = "assets/videos/RankMatrix.mp4"
-  VIDEO_PATH: any[] = [];
+//   @Input() bmxItem;
+//   @Input() i;
+//   @Input() bmxClientPageDesignMode;
+//   @Input() bmxClientPageOverview;
+//   @Output() autoSave = new EventEmitter();
+//   showBar = false
+//   CREATION_VIDEO_PATH = "assets/videos/RankMatrix.mp4"
+//   VIDEO_PATH: any[] = [];
 
-  PATH1: any[] = [
-    'assets/img/bmx/tutorial/image-drag.JPG',
+//   PATH1: any[] = [
+//     'assets/img/bmx/tutorial/image-drag.JPG',
 
-  ]
+//   ]
 
-  PATH2: any[] = [
-    'assets/img/bmx/tutorial/image-drag2.JPG',
-  ]
-  isImageType = true
+//   PATH2: any[] = [
+//     'assets/img/bmx/tutorial/image-drag2.JPG',
+//   ]
+//   isImageType = true
 
-  rankingType = 'dropDown'
-  rankingTypeOptions = ['dropDown', 'dragAndDrop', 'radio', 'dinamycRadio']
+//   rankingType = 'dropDown'
+//   rankingTypeOptions = ['dropDown', 'dragAndDrop', 'radio']
 
-  draggableBag
-  isdropDown = true
+//   draggableBag
+//   isdropDown = true
 
-  allowScrolling = true
-  dataSource: any[] = []
+//   allowScrolling = true
+//   dataSource:any[] = []
 
-  constructor(dragulaService: DragulaService, _snackBar: MatSnackBar, _bmxService: BmxService, public deviceService: DeviceDetectorService) {
-    super(dragulaService, _snackBar, _bmxService, deviceService)
-  }
+//   constructor(dragulaService: DragulaService, _snackBar: MatSnackBar, _bmxService: BmxService, public deviceService: DeviceDetectorService) {
+//     super(dragulaService, null, _bmxService, deviceService)
+//   }
 
-  ngOnInit(): void {
-    this.showDialog = false
+//   ngOnInit(): void {
+//     this.showDialog = false
 
-    console.log(this.bmxItem)
-    this.rankingScaleValue = this.bmxItem.componentSettings[0].selectedRanking
-    this.createRatingStars(this.rankingScaleValue)
-    // this.rankingTableType( this.bmxItem.componentSettings[0].rankType)
-    this.rankingType = this.bmxItem.componentSettings[0].rankType
-    this.rankingType = 'dinamycRadio' //HARD CODE
+//     console.log(this.bmxItem)
+//     this.rankingScaleValue = this.bmxItem.componentSettings[0].selectedRanking
+//     this.createRatingStars(this.rankingScaleValue)
+//     // this.rankingTableType( this.bmxItem.componentSettings[0].rankType)
+//     this.rankingType = this.bmxItem.componentSettings[0].rankType
 
-    this.rowsCount = this.bmxItem.componentText.length - 1;
-    this.bmxItem.componentSettings[0].minRule = this.bmxItem.componentSettings[0].minRule == 0 ? 0 : this.bmxItem.componentSettings[0].minRule;
-    this.bmxItem.componentSettings[0].maxRule = this.bmxItem.componentSettings[0].maxRule == 0 ? 0 : this.bmxItem.componentSettings[0].maxRule;
+//     this.rowsCount = this.bmxItem.componentText.length - 1;
+//     this.bmxItem.componentSettings[0].minRule = this.bmxItem.componentSettings[0].minRule == 0 ? 0 : this.bmxItem.componentSettings[0].minRule;
+//     this.bmxItem.componentSettings[0].maxRule = this.bmxItem.componentSettings[0].maxRule == 0 ? 0 : this.bmxItem.componentSettings[0].maxRule;
 
-    if (this.rankingType == 'dropDown') {
-      this.draggableBag = ''
-      this.isdropDown = true
-    } else if (this.rankingType == 'dragAndDrop') {
-      this.draggableBag = 'DRAGGABLE_RANK_ROW'
-      this.isdropDown = false
+//     if (this.rankingType == 'dropDown') {
+//       this.draggableBag = ''
+//       this.isdropDown = true
+//     } else if (this.rankingType == 'dragAndDrop') {
+//       this.draggableBag = 'DRAGGABLE_RANK_ROW'
+//       this.isdropDown = false
 
-    } else if (this.rankingType == 'radio' || this.rankingType == 'dinamycRadio') {
-      this.draggableBag = ''
-      this.isdropDown = false
-      this.radioColumnCounter = 1
-    }
+//     } else if (this.rankingType == 'radio') {
+//       this.draggableBag = ''
+//       this.isdropDown = false
+//       this.radioColumnCounter = 1
+//     }
 
-    // COLUMN NAMES
-    let values = Object.keys(this.bmxItem.componentText[0])
+//     // COLUMN NAMES
+//     let values = Object.keys(this.bmxItem.componentText[0])
 
-    values.forEach(value => {
-      console.log(value)
-      if (isNaN(Number(value))) {
-        if (typeof value == "string" && value != "STARS" && value != "CRITERIA" && value != "RATE") {
-          this.columnsNames.push(value)
-          console.log(this.columnsNames)
-        }
-      }
-    });
-    //this.columnsNames.push("RadioColumn4", "RadioColumn5");//HARD CODE
+//     values.forEach(value => {
+//       if (typeof value == "string" && value != "STARS" && value != "CRITERIA" && value != "RATE") {
+//         this.columnsNames.push(value)
+//         console.log(this.bmxItem.componentText)
+//       }
+//     });
 
-    let result = '';
+//     let result = '';
 
-    // Obtener las claves de la primera fila (los nombres de las propiedades)
-    let firstObject = this.bmxItem.componentText[0];
-    let columnNames = [];
-    for (let key in firstObject) {
-      if (key === 'Name Candidates' || key === 'Rationales') {
-        columnNames.push(key);
-      }
-    }
+//     // Obtener las claves de la primera fila (los nombres de las propiedades)
+//     let firstObject = this.bmxItem.componentText[0];
+//     let columnNames = [];
+//     for (let key in firstObject) {
+//       if (key === 'Name Candidates' || key === 'Rationales' ) {
+//         columnNames.push(key);
+//       }
+//     }
 
-    // Agregar cada objeto como una fila en el resultado
-    for (let obj of this.bmxItem.componentText) {
-      let values = [];
-      for (let key in obj) {
-        console.log(isNaN(Number(key)), key)
-    
-          if (key !== 'STARS' && key !== 'RATE' && key !== 'CRITERIA' && key !== 'Comments') {
-            if (isNaN(Number(obj[key]))) {
-            values.push(obj[key]);
-          }
-        }
-      }
-      if (values.length > 0) {  // Verificar si hay valores para esta fila
-        result += values.join('\t') + '\n';  // Agregar la línea al resultado
-      }
-    }
-
-    console.log(result)
-    this.testNamesInput = result;
-    this.randomizeTestNames = this.bmxItem.componentSettings[0].randomizeTestNames
+//     // Agregar cada objeto como una fila en el resultado
+//     for (let obj of this.bmxItem.componentText) {
+//       let values = [];
+//       for (let key in obj) {
+//         if (key !== 'STARS' && key !== 'RATE' && key !== 'CRITERIA' && key !== 'Comments') {
+//           values.push(obj[key]);
+//         }
+//       }
+//       if (values.length > 0) {  // Verificar si hay valores para esta fila
+//         result += values.join('\t') + '\n';  // Agregar la línea al resultado
+//       }
+//     }
+//     this.testNamesInput = result;
+//     this.randomizeTestNames = this.bmxItem.componentSettings[0].randomizeTestNames
 
 
-    // HANDLIN SPECIAL REQUEST
-    if (this.bmxItem.componentSettings[1]) {
-      if (this.bmxItem.componentSettings[1].isImageType && !this.bmxClientPageOverview) {
-        this._bmxService.specialDataObservable$.subscribe((arg: any) => {
-          this.bmxItem.componentSettings[1].categoryTobeRender = 'Category ' + arg.tesName
-        });
+//     // HANDLIN SPECIAL REQUEST
+//     if (this.bmxItem.componentSettings[1]) {
+//       if (this.bmxItem.componentSettings[1].isImageType && !this.bmxClientPageOverview) {
+//         this._bmxService.specialDataObservable$.subscribe((arg: any) => {
+//           this.bmxItem.componentSettings[1].categoryTobeRender = 'Category ' + arg.tesName
+//         });
 
-      }
-    } else {
-      this.bmxItem.componentSettings.push({
-        isImageType: false,
-        categoryTobeRender: '',
-        isSpecialRquest: false,
-      })
-    }
+//       }
+//     } else {
+//       this.bmxItem.componentSettings.push({
+//         isImageType: false,
+//         categoryTobeRender: '',
+//         isSpecialRquest: false,
+//       })
+//     }
 
-    if (this.bmxItem.componentSettings[0]['displaySound'] == true) {
-      this.displaySound = true;
-    }
-    const filteredCriteria = this.CRITERIA.filter(criteriaItem => this.selectedCriteria.map(item => item.name).includes(criteriaItem.name));
-    this.newselectedCriteria = filteredCriteria
-    this.rankingScaleValue = this.bmxItem.componentText[0].STARS.length;
-    this.dataSource = this.bmxItem.componentText.slice(1)
-    console.log(this.dataSource)
-  }
+//     if (this.bmxItem.componentSettings[0]['displaySound'] == true) {
+//       this.displaySound = true;
+//     }
+//     const filteredCriteria = this.CRITERIA.filter(criteriaItem => this.selectedCriteria.map(item => item.name).includes(criteriaItem.name));
+//     this.newselectedCriteria = filteredCriteria
+//     this.rankingScaleValue = this.bmxItem.componentText[0].STARS.length;
+//     this.dataSource = this.bmxItem.componentText.slice(1)
 
-  checkDragEvetn(event: CdkDragDrop<string[]>) {
-    if (this.bmxItem.componentSettings[0].rankType == 'dragAndDrop') {
-      moveItemInArray(this.bmxItem.componentText, event.previousIndex, event.currentIndex);
-      this.bmxItem.componentText.forEach((row, rowIndex) => {
-        if (rowIndex > 0) {
-          row.RATE = rowIndex
-        }
-      })
-    }
-    this.autoSave.emit()
-  }
+//   }
 
-  createRatingStars(ratingScale, ratingScaleIcon?) {
-    let startCounter: any = []
-    for (let index = 0; index < ratingScale; index++) {
-      startCounter.push({
-        id: index,
-        icon: index + 1,
-        styleClass: 'rating-star'
-      });
-    }
-    return startCounter;
-  }
+//   checkDragEvetn(event: CdkDragDrop<string[]>) {
+//     if (this.bmxItem.componentSettings[0].rankType == 'dragAndDrop') {
+//       moveItemInArray(this.bmxItem.componentText, event.previousIndex, event.currentIndex);
+//       this.bmxItem.componentText.forEach((row, rowIndex) => {
+//         if (rowIndex > 0) {
+//           row.RATE = rowIndex
+//         }
+//       })
+//     }
+//     this.autoSave.emit()
+//   }
 
-  upLoadNamesAndRationales(list: string, type?: any) {
-    this.dragRows = true;
-    this.bmxItem.componentSettings[0].randomizeTestNames = (this.randomizeTestNames) ? true : false
-    if (!list) { list = this.listString; }
-    if (list) {
-      this.showBar = true
-      this.listString = list;
-      const rows = list.split("\n");
-      if (type) {
-        this.rankingScaleValue = rows.length - 1
-      }
-      this.columnsNames = [];
-      this.columnsNames = rows[0].toLowerCase().split("\t");
+//   createRatingStars(ratingScale, ratingScaleIcon?) {
+//     let startCounter: any = []
+//     for (let index = 0; index < ratingScale; index++) {
+//       startCounter.push({
+//         id: index,
+//         icon: index + 1,
+//         styleClass: 'rating-star'
+//       });
+//     }
+//     return startCounter;
+//   }
 
-      let nameCandidatesCounter = 0
-      this.extraColumnCounter = 1
-      // COLUMNS NAMES CHECK
-      this.columnsNames.forEach((column, index) => {
-        column = column.toLowerCase()
-        if (nameCandidatesCounter == 0 && column.includes('candidates') || column == 'questions') {
-          this.columnsNames[index] = 'nameCandidates'
-          nameCandidatesCounter++
-        } else
-          if (column == 'name rationale' || column == 'rationale' || column == 'rationales') {
-            this.columnsNames[index] = 'rationale'
-          }
-          else if (column == 'katakana') {
-            this.columnsNames[index] = 'katakana'
-          }
-          else {
-            if (this.bmxItem.componentSettings[0].rankType != 'radio' || this.bmxItem.componentSettings[0].rankType != 'dinamycRadio') {
-              this.columnsNames[index] = 'ExtraColumn' + this.extraColumnCounter
-              this.extraColumnCounter++
-            }
-          }
-      });
-      this.TESTNAMES_LIST = [];
-      for (const element of rows) {
-        if (element != "" && element.length > 6) {
-          let objectColumnDesign = {};
-          if (this.ASSIGNED_CRITERIA.length > 0) {
+//   upLoadNamesAndRationales(list: string, type?: any) {
+//     this.dragRows = true;
+//     this.bmxItem.componentSettings[0].randomizeTestNames = (this.randomizeTestNames) ? true : false
+//     if (!list) { list = this.listString; }
+//     if (list) {
+//       this.showBar = true
+//       this.listString = list;
+//       const rows = list.split("\n");
+//       if (type) {
+//         this.rankingScaleValue = rows.length - 1
+//       }
+//       this.columnsNames = [];
+//       this.columnsNames = rows[0].toLowerCase().split("\t");
 
-            for (let e = 0; e < this.columnsNames.length; e++) {
-              if ((element.split("\t").length > 0)) {
-                objectColumnDesign[this.columnsNames[e]] = element.split("\t")[e]
-              }
-            }
-            objectColumnDesign['CRITERIA'] = []
-            this.ASSIGNED_CRITERIA.forEach(criteria => {
-              objectColumnDesign['CRITERIA'].push({
-                name: criteria.name,
-                STARS: this.createRatingStars(this.rankingScaleValue, this.ratingScaleIcon),
-                RATE: -1,
-              })
-            });
-          } else {
+//       let nameCandidatesCounter = 0
+//       this.extraColumnCounter = 1
+//       // COLUMNS NAMES CHECK
+//       this.columnsNames.forEach((column, index) => {
+//         column = column.toLowerCase()
+//         if (nameCandidatesCounter == 0 && column.includes('candidates') || column == 'questions') {
+//           this.columnsNames[index] = 'nameCandidates'
+//           nameCandidatesCounter++
+//         } else
+//           if (column == 'name rationale' || column == 'rationale' || column == 'rationales') {
+//             this.columnsNames[index] = 'rationale'
+//           }
+//           else if (column == 'katakana') {
+//             this.columnsNames[index] = 'katakana'
+//           }
+//           else {
+//             this.columnsNames[index] = 'ExtraColumn' + this.extraColumnCounter
+//             this.extraColumnCounter++
+//           }
+//       });
+//       this.TESTNAMES_LIST = [];
+//       for (const element of rows) {
+//         if (element != "" && element.length > 6) {
+//           let objectColumnDesign = {};
+//           if (this.ASSIGNED_CRITERIA.length > 0) {
 
-            objectColumnDesign['STARS'] = this.createRatingStars(this.rankingScaleValue, this.ratingScaleIcon);
-            for (let e = 0; e < this.columnsNames.length; e++) {
-              if ((element.split("\t").length > 0)) {
-                objectColumnDesign[this.columnsNames[e]] = element.split("\t")[e]
-              }
-            }
-          }
+//             for (let e = 0; e < this.columnsNames.length; e++) {
+//               if ((element.split("\t").length > 0)) {
+//                 objectColumnDesign[this.columnsNames[e]] = element.split("\t")[e]
+//               }
+//             }
+//             objectColumnDesign['CRITERIA'] = []
+//             this.ASSIGNED_CRITERIA.forEach(criteria => {
+//               objectColumnDesign['CRITERIA'].push({
+//                 name: criteria.name,
+//                 STARS: this.createRatingStars(this.rankingScaleValue, this.ratingScaleIcon),
+//                 RATE: -1,
+//               })
+//             });
+//           } else {
 
-          this.TESTNAMES_LIST.push(objectColumnDesign);
-        }
-      }
-      this.bmxItem.componentText = this.deleteDuplicates(this.TESTNAMES_LIST, 'nameCandidates');
-      this.columnsNames.push('RATE')
-    } else {
-      this.bmxItem.componentText.forEach((row, index) => {
-        row.STARS = this.createRatingStars(this.rankingScaleValue, this.ratingScaleIcon)
-      });
-    }
-    setTimeout(() => {
-      if (this.bmxItem.componentSettings[0].rankType == 'radio' || this.bmxItem.componentSettings[0].rankType == 'dinamycRadio') {
-        this.rowsCount = 20
-      } else {
-        this.rowsCount = this.bmxItem.componentText.length - 1;
-      }
-      if (this.newSet) {
-        this.bmxItem.componentSettings[0].minRule = this.rowsCount;
-        this.bmxItem.componentSettings[0].maxRule = this.rowsCount;
-        this.newSet = false;
-      }
+//             objectColumnDesign['STARS'] = this.createRatingStars(this.rankingScaleValue, this.ratingScaleIcon);
+//             for (let e = 0; e < this.columnsNames.length; e++) {
+//               if ((element.split("\t").length > 0)) {
+//                 objectColumnDesign[this.columnsNames[e]] = element.split("\t")[e]
+//               }
+//             }
+//           }
 
-      if (this.bmxItem.componentSettings[0].CRITERIA) {
-        //MULTIPLY FOR THE AMOUNT OF CRITERIA
-        this.bmxItem.componentSettings[0].minRule = this.bmxItem.componentSettings[0].minRule * this.bmxItem.componentText[0].CRITERIA.length
-      }
-      this.dragRows = false;
-    }, 1000);
+//           this.TESTNAMES_LIST.push(objectColumnDesign);
+//         }
+//       }
+//       this.bmxItem.componentText = this.deleteDuplicates(this.TESTNAMES_LIST, 'nameCandidates');
+//       this.columnsNames.push('RATE')
+//     } else {
+//       this.bmxItem.componentText.forEach((row, index) => {
+//         row.STARS = this.createRatingStars(this.rankingScaleValue, this.ratingScaleIcon)
+//       });
+//     }
+//     setTimeout(() => {
+//       if (this.bmxItem.componentSettings[0].rankType == 'radio') {
+//         this.rowsCount = 20
+//       } else {
+//         this.rowsCount = this.bmxItem.componentText.length - 1;
+//       }
+//       if (this.newSet) {
+//         this.bmxItem.componentSettings[0].minRule = this.rowsCount;
+//         this.bmxItem.componentSettings[0].maxRule = this.rowsCount;
+//         this.newSet = false;
+//       }
 
-    this.rankingTableType(this.bmxItem.componentSettings[0].rankType)
-    setTimeout(() => {
-      this.dragRows = false;
-    }, 1000);
+//       if (this.bmxItem.componentSettings[0].CRITERIA) {
+//         //MULTIPLY FOR THE AMOUNT OF CRITERIA
+//         this.bmxItem.componentSettings[0].minRule = this.bmxItem.componentSettings[0].minRule * this.bmxItem.componentText[0].CRITERIA.length
+//       }
+//       this.dragRows = false;
+//     }, 1000);
 
-    this.bmxItem.componentSettings[0].selectedRanking = this.rankingScaleValue
-    console.log(this.bmxItem)
+//     this.rankingTableType(this.bmxItem.componentSettings[0].rankType)
+//     setTimeout(() => {
+//       this.dragRows = false;
+//     }, 1000);
 
-  }
+//     this.bmxItem.componentSettings[0].selectedRanking = this.rankingScaleValue
+//     console.log(this.bmxItem)
 
-  rankingTableType(rankingType) {
-    this.bmxItem.componentSettings[0].rankType = rankingType
-    let values = Object.keys(this.bmxItem.componentText[0])
-    this.columnsNames = []
-    this.RadioColumnList = []
-    values.forEach(value => {
-      if (typeof value == "string" && value != "STARS" && value != "CRITERIA" && value != "RATE") {
-        this.columnsNames.push(value)
-      }
-    });
-    this.columnsNames.forEach(columnName => {
-      if (columnName.includes('RadioColumn')) {
-        this.deleteColumn(columnName)
-      }
-    });
-    if (rankingType == 'dropDown') {
-      this.bmxItem.componentSettings[0].rateWidth = 120
-      this.draggableBag = ''
-      this.isdropDown = true
-    } else if (rankingType == 'dragAndDrop') {
-      this.bmxItem.componentSettings[0].rateWidth = 80
-      this.draggableBag = 'DRAGGABLE_RANK_ROW'
-      this.isdropDown = false
-
-    } else if (rankingType == 'radio' || rankingType == 'dinamycRadio') {
-      this.bmxItem.componentSettings[0].rateWidth = 80
-      this.draggableBag = ''
-      this.isdropDown = false
-      this.radioColumnCounter = 1
-      this.rowsCount = 20
-      for (let index = 0; index < this.rankingScaleValue; index++) {
-        this.insertRadioColumn()
-      }
-    }
-  }
+//   }
 
 
-  toggleScrolling() {
-    this.allowScrolling = !this.allowScrolling
-    if (this.allowScrolling) {
-      window.onscroll = function () { };
-    } else {
-      var x = window.scrollX;
-      var y = window.scrollY;
-      window.onscroll = function () { window.scrollTo(x, y); };
-    }
+//   rankingTableType(rankingType) {
+//     this.bmxItem.componentSettings[0].rankType = rankingType
+//     let values = Object.keys(this.bmxItem.componentText[0])
+//     this.columnsNames = []
+//     this.RadioColumnList = []
+//     values.forEach(value => {
+//       if (typeof value == "string" && value != "STARS" && value != "CRITERIA" && value != "RATE") {
+//         this.columnsNames.push(value)
+//       }
+//     });
+//     this.columnsNames.forEach(columnName => {
+//       if (columnName.includes('RadioColumn')) {
+//         this.deleteColumn(columnName)
+//       }
+//     });
+//     if (rankingType == 'dropDown') {
+//       this.bmxItem.componentSettings[0].rateWidth = 120
+//       this.draggableBag = ''
+//       this.isdropDown = true
+//     } else if (rankingType == 'dragAndDrop') {
+//       this.bmxItem.componentSettings[0].rateWidth = 80
+//       this.draggableBag = 'DRAGGABLE_RANK_ROW'
+//       this.isdropDown = false
 
-  }
+//     } else if (rankingType == 'radio') {
+//       this.bmxItem.componentSettings[0].rateWidth = 80
+//       this.draggableBag = ''
+//       this.isdropDown = false
+//       this.radioColumnCounter = 1
+//       this.rowsCount = 20
+//       for (let index = 0; index < this.rankingScaleValue; index++) {
+//         this.insertRadioColumn()
+//       }
+//     }
+//   }
 
-  ASSIGNED_CRITERIA = []
 
+//   toggleScrolling() {
+//     this.allowScrolling = !this.allowScrolling
+//     if (this.allowScrolling) {
+//       window.onscroll = function () { };
+//     } else {
+//       var x = window.scrollX;
+//       var y = window.scrollY;
+//       window.onscroll = function () { window.scrollTo(x, y); };
+//     }
 
-}
+//   }
 
+//   ASSIGNED_CRITERIA = []
+
+// }

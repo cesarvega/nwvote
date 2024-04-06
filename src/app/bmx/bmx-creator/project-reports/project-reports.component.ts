@@ -11,7 +11,6 @@ import { DOCUMENT } from '@angular/common';
 import QRCodeStyling from 'qr-code-styling';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { ActivatedRoute } from '@angular/router';
-import { HotkeysService, Hotkey } from 'angular2-hotkeys';
 import { faFileWord } from '@fortawesome/free-solid-svg-icons';
 
 @Component({
@@ -144,7 +143,6 @@ export class ProjectReportsComponent implements OnInit {
     @Inject(DOCUMENT) private document: any,
     public _BmxService: BmxService,
     public _snackBar: MatSnackBar,
-    private _hotkeysService: HotkeysService,
     activatedRoute: ActivatedRoute
   ) {
     let qrCodeColotThemes = {
@@ -271,17 +269,17 @@ export class ProjectReportsComponent implements OnInit {
       localStorage.setItem('projectName', this.projectId);
     });
 
-    this._hotkeysService.add(
-      new Hotkey(
-        'ctrl+`',
-        (event: KeyboardEvent): boolean => {
-          this.bmxClientPageOverview = !this.bmxClientPageOverview;
-          return false;
-        },
-        undefined,
-        'Hide/Show slide overview'
-      )
-    );
+    // this._hotkeysService.add(
+    //   new Hotkey(
+    //     'ctrl+`',
+    //     (event: KeyboardEvent): boolean => {
+    //       this.bmxClientPageOverview = !this.bmxClientPageOverview;
+    //       return false;
+    //     },
+    //     undefined,
+    //     'Hide/Show slide overview'
+    //   )
+    // );
   }
 
   ngOnInit(): void {

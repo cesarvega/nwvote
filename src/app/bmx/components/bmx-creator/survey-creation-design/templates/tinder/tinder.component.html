@@ -53,7 +53,7 @@
             *ngIf="i !== selectedIndex" mat-icon-button>
             <mat-icon style="font-size: 25px;" class="full-icon"> text_fields</mat-icon>
         </button>
-        <button (click)="selectedIndex = i; verifyCritera() " class="add-column" matTooltip="setup settings"
+        <button (click)="selectedIndex = i; verifyCritera() " class="add-column" matTooltip="Setup settings"
             matTooltipPosition="above" *ngIf="i !== selectedIndex" mat-icon-button>
             <mat-icon style="font-size: 25px;" class="full-icon">edit</mat-icon>
         </button>
@@ -79,7 +79,7 @@ justify-content: center;cursor: move; height: 25px; width: 100%;"><svg width="24
         </svg></div>
 
     <!-- Cards Test Name-->
-    <mat-card class="example-card">
+    <mat-card appearance="outlined" class="example-card">
         <mat-card-header>
             <mat-card-title>Columns</mat-card-title>
         </mat-card-header>
@@ -102,7 +102,7 @@ justify-content: center;cursor: move; height: 25px; width: 100%;"><svg width="24
 
     </mat-card>
     <br>
-    <mat-card class="example-card">
+    <mat-card appearance="outlined" class="example-card">
         <mat-card-header>
             <mat-card-title>Select Ranking</mat-card-title>
         </mat-card-header>
@@ -142,7 +142,7 @@ justify-content: center;cursor: move; height: 25px; width: 100%;"><svg width="24
     </mat-card>
     <br>
     <!-- Cards Criteria-->
-    <mat-card class="example-card">
+    <mat-card appearance="outlined" class="example-card">
         <mat-card-header>
             <mat-card-title>Category</mat-card-title>
         </mat-card-header>

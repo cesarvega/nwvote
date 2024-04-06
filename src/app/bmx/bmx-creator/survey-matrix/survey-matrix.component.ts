@@ -10,11 +10,10 @@ import {
   ViewEncapsulation,
 } from '@angular/core';
 import { DOCUMENT } from '@angular/common';
-import { HotkeysService, Hotkey } from 'angular2-hotkeys';
 import Speech from 'speak-tts';
 import { ActivatedRoute } from '@angular/router';
 import { BmxService } from '../bmx.service';
-import { DragulaService } from 'ng2-dragula';
+// import { DragulaService } from 'ng2-dragula';
 import { SurveyCreationDesignComponent } from '../survey-creation-design/survey-creation-design.component';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import QRCodeStyling from 'qr-code-styling';
@@ -76,23 +75,23 @@ export class SurveyMatrixComponent extends SurveyCreationDesignComponent impleme
 
   //----------end modal------//
 
-  constructor(@Inject(DOCUMENT) document: any, activatedRoute: ActivatedRoute,private deviceService: DeviceDetectorService,
-   _hotkeysService: HotkeysService, dragulaService: DragulaService, public _snackBar: MatSnackBar, _BmxService: BmxService
-  ) {
-    super(document, _BmxService, _snackBar, activatedRoute);
-    activatedRoute.params.subscribe((params) => {
-      this.projectId = params['id'];
-      this.username = params['username'];
-      localStorage.setItem('projectId', this.projectId);
-    });
-    this.epicFunction();
-  }
+  // constructor(@Inject(DOCUMENT) document: any, activatedRoute: ActivatedRoute,private deviceService: DeviceDetectorService,
+  //  _hotkeysService: HotkeysService, dragulaService: DragulaService, public _snackBar: MatSnackBar, _BmxService: BmxService
+  // ) {
+  //   super(document, _BmxService, _snackBar, activatedRoute);
+  //   activatedRoute.params.subscribe((params) => {
+  //     this.projectId = params['id'];
+  //     this.username = params['username'];
+  //     localStorage.setItem('projectId', this.projectId);
+  //   });
+  //   this.epicFunction();
+  // }
 
   epicFunction() {
-    this.deviceInfo = this.deviceService.getDeviceInfo();
-    const isMobile = this.deviceService.isMobile();
-    const isTablet = this.deviceService.isTablet();
-    this.isDesktopDevice = this.deviceService.isDesktop();
+    // this.deviceInfo = this.deviceService.getDeviceInfo();
+    // const isMobile = this.deviceService.isMobile();
+    // const isTablet = this.deviceService.isTablet();
+    // this.isDesktopDevice = this.deviceService.isDesktop();
   }
 
   ngOnInit(): void {    

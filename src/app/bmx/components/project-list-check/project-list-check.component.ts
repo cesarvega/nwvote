@@ -1,15 +1,17 @@
 import { Component, ElementRef, EventEmitter, Inject, Input, OnInit, Output, ViewChild, ViewEncapsulation } from '@angular/core';
 import { DOCUMENT } from '@angular/common';
-import { HotkeysService, Hotkey } from 'angular2-hotkeys';
+// import { HotkeysService, Hotkey } from 'angular2-hotkeys';
 import { ActivatedRoute, Router } from '@angular/router';
-import { typeSourceSpan } from '@angular/compiler';
-import { DragulaService } from 'ng2-dragula';
+// import { typeSourceSpan } from '@angular/compiler';
+// import { DragulaService } from 'ng2-dragula';
 import { MatPaginator } from '@angular/material/paginator';
 import { MatTableDataSource } from '@angular/material/table';
 import { MatSort } from '@angular/material/sort';
 import { stat } from 'fs';
 import { BmxService } from '../bmx-creator/bmx.service';
 import { AnyTxtRecord } from 'dns';
+
+
 @Component({
   selector: 'app-project-list-check',
   templateUrl: './project-list-check.component.html',
@@ -49,8 +51,7 @@ export class ProjectListCheckComponent implements OnInit {
 
   checkedItems = [];
 
-  constructor(@Inject(DOCUMENT) private document: any, private activatedRoute: ActivatedRoute,
-    private _hotkeysService: HotkeysService, private dragulaService: DragulaService, private _BmxService: BmxService, private router: Router,) { }
+  constructor(@Inject(DOCUMENT) private document: any, private activatedRoute: ActivatedRoute, private _BmxService: BmxService, private router: Router,) { }
 
   ngOnInit(): void {
     this.selected = 'All'

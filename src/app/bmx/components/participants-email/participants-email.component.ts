@@ -2,13 +2,13 @@ import { Component, OnInit, Input, ViewChild } from '@angular/core';
 import { MatTableDataSource } from '@angular/material/table';
 import { SelectionModel } from '@angular/cdk/collections';
 import { HighlightSpanKind } from 'typescript';
-import { DragulaService } from 'ng2-dragula';
-import { HotkeysService, Hotkey } from 'angular2-hotkeys';
+// import { DragulaService } from 'ng2-dragula';
+// import { HotkeysService, Hotkey } from 'angular2-hotkeys';
 import { MatSort } from '@angular/material/sort';
 import { CdkDragStart, CdkDropList, moveItemInArray } from '@angular/cdk/drag-drop';
 import { MatPaginator } from '@angular/material/paginator';
-import { MatSnackBar } from '@angular/material/snack-bar';
-import { MatDialog, MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
+import {  MatSnackBar } from '@angular/material/snack-bar';
+import {  MatDialog,  MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { DialogComponent } from './dialog/dialog.component';
 import { BmxService } from '../bmx-creator/bmx.service';
 
@@ -97,7 +97,7 @@ export class ParticipantsEmailComponent implements OnInit {
     },
   ];
 
-  constructor(private _hotkeysService: HotkeysService, private dragulaService: DragulaService, private _BmxService: BmxService, private _snackBar: MatSnackBar, private dialog: MatDialog) {
+  constructor(private _BmxService: BmxService, private _snackBar: MatSnackBar, private dialog: MatDialog) {
 
   }
 

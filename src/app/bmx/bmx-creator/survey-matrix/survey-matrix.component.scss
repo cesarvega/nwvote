@@ -125,6 +125,7 @@
     }
 }
 
+/* TODO(mdc-migration): The following rule targets internal classes of checkbox that may no longer apply for the MDC version. */
 ::ng-deep .mat-checkbox-background,
 .mat-checkbox-background {
     background-color: #e9ecef80;
@@ -144,6 +145,7 @@
     
 }
 
+/* TODO(mdc-migration): The following rule targets internal classes of checkbox that may no longer apply for the MDC version. */
 ::ng-deep .mat-checkbox-background, 
 .mat-checkbox-background{
     background-color: #e9ecef80;
@@ -442,7 +444,7 @@
     background: #324395 !important;
 }
 
-::ng-deep .mat-tooltip {
+::ng-deep .mat-mdc-tooltip {
     background-color: #324395;
     font-size: 18px;
 }

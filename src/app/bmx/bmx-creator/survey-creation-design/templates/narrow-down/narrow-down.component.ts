@@ -1,6 +1,6 @@
 import { Component, ElementRef, EventEmitter, Inject, Input, OnInit, Output, ViewChild, ViewEncapsulation } from '@angular/core';
 import { CdkTextareaAutosize } from '@angular/cdk/text-field';
-import { DragulaService } from 'ng2-dragula';
+// import { DragulaService } from 'ng2-dragula';
 import { RatingScaleComponent } from '../rating-scale/rating-scale.component';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { BmxService } from '../../../bmx.service';
@@ -24,9 +24,9 @@ export class NarrowDownComponent extends RatingScaleComponent implements OnInit 
   numRatingScale: number = 0;
   CREATION_VIDEO_PATH="assets/videos/NarrowDown.mp4" 
 
-  constructor(dragulaService: DragulaService, _snackBar: MatSnackBar,  _bmxService: BmxService,public deviceService: DeviceDetectorService) {
-    super(dragulaService,_snackBar, _bmxService,deviceService)
-  }
+  // constructor(dragulaService: DragulaService, _snackBar: MatSnackBar,  _bmxService: BmxService,public deviceService: DeviceDetectorService) {
+  //   super(dragulaService,null, _bmxService,deviceService)
+  // }
 
   ngOnInit(): void {
     if(this.bmxItem.componentText[0].hasOwnProperty("STARS")){

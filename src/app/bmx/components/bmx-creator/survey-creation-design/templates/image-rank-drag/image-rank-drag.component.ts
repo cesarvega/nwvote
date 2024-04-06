@@ -1,273 +1,275 @@
-import { Component, ElementRef, EventEmitter, Inject, Input, OnInit, Output, ViewChild, ViewEncapsulation } from '@angular/core';
-import { CdkTextareaAutosize } from '@angular/cdk/text-field';
-import { DragulaService } from 'ng2-dragula';
-import { Subscription } from 'rxjs/internal/Subscription';
-import { BmxService } from '../../../bmx.service';
-import { RatingScaleComponent } from '../rating-scale/rating-scale.component';
-import { MatSnackBar } from '@angular/material/snack-bar';
-import { CdkDragDrop, moveItemInArray } from '@angular/cdk/drag-drop';
-import { DeviceDetectorService } from 'ngx-device-detector';
-@Component({
-  selector: 'app-image-rank-drag',
-  templateUrl: './image-rank-drag.component.html',
-  styleUrls: ['./image-rank-drag.component.scss']
-})
-export class ImageRankDragComponent extends RatingScaleComponent implements OnInit {
+// import { Component, ElementRef, EventEmitter, Inject, Input, OnInit, Output, ViewChild, ViewEncapsulation } from '@angular/core';
+// import { CdkTextareaAutosize } from '@angular/cdk/text-field';
+// // import { DragulaService } from 'ng2-dragula';
+// import { Subscription } from 'rxjs/internal/Subscription';
+// import { BmxService } from '../../../bmx.service';
+// import { RatingScaleComponent } from '../rating-scale/rating-scale.component';
+// import {  MatSnackBar } from '@angular/material/snack-bar';
+// import { CdkDragDrop, moveItemInArray } from '@angular/cdk/drag-drop';
+// import { DeviceDetectorService } from 'ngx-device-detector';
+// @Component({
+//   selector: 'app-image-rank-drag',
+//   templateUrl: './image-rank-drag.component.html',
+//   styleUrls: ['./image-rank-drag.component.scss']
+// })
+// export class ImageRankDragComponent extends RatingScaleComponent implements OnInit {
 
-  //  INTRUCTIONS : Load the excel firs and the the images
-  @Input() bmxItem;
-  @Input() i;
-  @Input() bmxClientPageDesignMode;
-  @Input() bmxClientPageOverview;
-  @ViewChild('autosize') autosize: CdkTextareaAutosize;
-  imageurls = [];
+//   //  INTRUCTIONS : Load the excel firs and the the images
+//   @Input() bmxItem;
+//   @Input() i;
+//   @Input() bmxClientPageDesignMode;
+//   @Input() bmxClientPageOverview;
+//   @ViewChild('autosize') autosize: CdkTextareaAutosize;
+//   imageurls = [];
 
-  @Output() launchPathModal = new EventEmitter();
+//   @Output() launchPathModal = new EventEmitter();
 
-  IMAGES_UPLOADED = [
+//   IMAGES_UPLOADED = [
 
-  ];
+//   ];
 
-  AUTOSIZE_OPTIONS = [
-    { name: 'Client Logo', rationale: 'Sist, Assist, Syst' },
-    { name: 'Test Logo', rationale: 'Hance, En-' },
-    { name: 'Diagram', rationale: 'Evo' },
-    { name: 'Other', rationale: 'Gard, Guard' }
-  ];
+//   AUTOSIZE_OPTIONS = [
+//     { name: 'Client Logo', rationale: 'Sist, Assist, Syst' },
+//     { name: 'Test Logo', rationale: 'Hance, En-' },
+//     { name: 'Diagram', rationale: 'Evo' },
+//     { name: 'Other', rationale: 'Gard, Guard' }
+//   ];
 
-  // TEMPLATE SELECTOR VARABLES
-  isTemplateSelected = '';
-  isSelectedButton = '';
-  fileName = '';
-  uploadProgress: number;
-  uploadSub: Subscription;
-  resourceData: any;
-  logoWidth = 200
-  uploadImagesBox = false;
-  showMatrixMenu: boolean = false;
-  numRatingScale: number = 0;
+//   // TEMPLATE SELECTOR VARABLES
+//   isTemplateSelected = '';
+//   isSelectedButton = '';
+//   fileName = '';
+//   uploadProgress: number;
+//   uploadSub: Subscription;
+//   resourceData: any;
+//   logoWidth = 200
+//   uploadImagesBox = false;
+//   showMatrixMenu: boolean = false;
+//   numRatingScale: number = 0;
 
-  draggableBag
-  isdropDown = true
+//   draggableBag
+//   isdropDown = true
 
-  ratedCounter = 0
-  actualRate = 0
-  showModalTable = false
-  dataSource: any[] = []
-  //------modal-----------//
-  showEdit = false
+//   ratedCounter = 0
+//   actualRate = 0
+//   showModalTable = false
+//   dataSource: any[] = []
+//   //------modal-----------//
+//   showEdit = false
 
-  CREATION_VIDEO_PATH = "assets/videos/imageDragAndDrop.mp4"
+//   CREATION_VIDEO_PATH = "assets/videos/imageDragAndDrop.mp4"
 
-  VIDEO_PATH: any[] = [];
+//   VIDEO_PATH: any[] = [];
 
-  PATH1: any[] = [
-    'assets/img/bmx/tutorial/image-drag.JPG',
+//   PATH1: any[] = [
+//     'assets/img/bmx/tutorial/image-drag.JPG',
 
-  ]
+//   ]
 
-  PATH2: any[] = [
-    'assets/img/bmx/tutorial/image-drag2.JPG',
-  ]
-  deviceInfo = null;
-  public isDesktopDevice: any = null;
+//   PATH2: any[] = [
+//     'assets/img/bmx/tutorial/image-drag2.JPG',
+//   ]
+//   deviceInfo = null;
+//   public isDesktopDevice: any = null;
 
-  //----------end modal--------//
+//   //----------end modal--------//
 
-  //--------open cards---------//
-  openElements: any[] = [];
-  //selectedCard: any
+//   //--------open cards---------//
+//   openElements: any[] = [];
+//   //selectedCard: any
 
-  constructor(private _BmxService: BmxService, dragulaService: DragulaService, _snackBar: MatSnackBar, _bmxService: BmxService, public deviceService: DeviceDetectorService) { super(dragulaService, _snackBar, _bmxService, deviceService); this.epicFunction(); }
-  epicFunction() {
-    this.deviceInfo = this.deviceService.getDeviceInfo();
-    const isMobile = this.deviceService.isMobile();
-    const isTablet = this.deviceService.isTablet();
-    this.isDesktopDevice = this.deviceService.isDesktop();
-    console.log(isMobile);  // returns if the device is a mobile device (android / iPhone / windows-phone etc)
-    console.log(isTablet);  // returns if the device us a tablet (iPad etc)
-  }
-  ngOnInit(): void {
-    this.showDialog = false
-    this.numRatingScale = this.bmxItem.componentText[0].STARS.length
-    this.rankingScaleValue = this.numRatingScale;
-    let values = Object.keys(this.bmxItem.componentText[0])
-    values.forEach(value => {
-      if (typeof value == "string" && value != "STARS" && value != "CRITERIA") {
-        this.columnsNames.push(value)
-      }
-    });
+//   constructor(private _BmxService: BmxService,  _snackBar: MatSnackBar, _bmxService: BmxService, public deviceService: DeviceDetectorService) { 
+    
+//     super(dragulaService,null, _bmxService, deviceService); this.epicFunction(); }
+//   epicFunction() {
+//     this.deviceInfo = this.deviceService.getDeviceInfo();
+//     const isMobile = this.deviceService.isMobile();
+//     const isTablet = this.deviceService.isTablet();
+//     this.isDesktopDevice = this.deviceService.isDesktop();
+//     console.log(isMobile);  // returns if the device is a mobile device (android / iPhone / windows-phone etc)
+//     console.log(isTablet);  // returns if the device us a tablet (iPad etc)
+//   }
+//   ngOnInit(): void {
+//     this.showDialog = false
+//     this.numRatingScale = this.bmxItem.componentText[0].STARS.length
+//     this.rankingScaleValue = this.numRatingScale;
+//     let values = Object.keys(this.bmxItem.componentText[0])
+//     values.forEach(value => {
+//       if (typeof value == "string" && value != "STARS" && value != "CRITERIA") {
+//         this.columnsNames.push(value)
+//       }
+//     });
 
-    this.rowsCount = this.bmxItem.componentText.length - 1
-    this.bmxItem.componentSettings[0].minRule = this.bmxItem.componentSettings[0].minRule == 0 ? 0 : this.bmxItem.componentSettings[0].minRule;
-    this.bmxItem.componentSettings[0].maxRule = this.bmxItem.componentSettings[0].maxRule == 0 ? 0 : this.bmxItem.componentSettings[0].maxRule;
+//     this.rowsCount = this.bmxItem.componentText.length - 1
+//     this.bmxItem.componentSettings[0].minRule = this.bmxItem.componentSettings[0].minRule == 0 ? 0 : this.bmxItem.componentSettings[0].minRule;
+//     this.bmxItem.componentSettings[0].maxRule = this.bmxItem.componentSettings[0].maxRule == 0 ? 0 : this.bmxItem.componentSettings[0].maxRule;
 
-    this.randomizeTestNames = this.bmxItem.componentSettings[0].randomizeTestNames
+//     this.randomizeTestNames = this.bmxItem.componentSettings[0].randomizeTestNames
 
-    if (this.rankingType == 'dropDown') {
-      // this.draggableBag = ''
-      // this.isdropDown = true
-      this.draggableBag = 'DRAGGABLE_RANK_ROW'
-      this.isdropDown = false
-    } else if (this.rankingType == 'dragAndDrop') {
-      this.draggableBag = 'DRAGGABLE_RANK_ROW'
-      this.isdropDown = false
+//     if (this.rankingType == 'dropDown') {
+//       // this.draggableBag = ''
+//       // this.isdropDown = true
+//       this.draggableBag = 'DRAGGABLE_RANK_ROW'
+//       this.isdropDown = false
+//     } else if (this.rankingType == 'dragAndDrop') {
+//       this.draggableBag = 'DRAGGABLE_RANK_ROW'
+//       this.isdropDown = false
 
-    } else if (this.rankingType == 'radio') {
-      this.draggableBag = ''
-      this.isdropDown = false
-      this.radioColumnCounter = 1
-    }
+//     } else if (this.rankingType == 'radio') {
+//       this.draggableBag = ''
+//       this.isdropDown = false
+//       this.radioColumnCounter = 1
+//     }
 
-    // if(this.isDesktopDevice){
-    //   this.VIDEO_PATH = this.PATH2;
-    // }else{
-    //   this.VIDEO_PATH = this.PATH1;
-    // }
-    if (window.innerWidth <= 1024) {
-      this.VIDEO_PATH = this.PATH1;
-    } else {
-      this.VIDEO_PATH = this.PATH2;
-    }
-    this.launchPathModal.emit(this.VIDEO_PATH)
+//     // if(this.isDesktopDevice){
+//     //   this.VIDEO_PATH = this.PATH2;
+//     // }else{
+//     //   this.VIDEO_PATH = this.PATH1;
+//     // }
+//     if (window.innerWidth <= 1024) {
+//       this.VIDEO_PATH = this.PATH1;
+//     } else {
+//       this.VIDEO_PATH = this.PATH2;
+//     }
+//     this.launchPathModal.emit(this.VIDEO_PATH)
 
-    this.launchPathModal.emit(this.VIDEO_PATH)
-    const filteredCriteria = this.CRITERIA.filter(criteriaItem => this.selectedCriteria.map(item => item.name).includes(criteriaItem.name));
-    this.newselectedCriteria = filteredCriteria
-    this.rankingScaleValue = this.bmxItem.componentText[0].STARS.length;
-    this.dataSource = this.bmxItem.componentText.slice(1)
-  }
+//     this.launchPathModal.emit(this.VIDEO_PATH)
+//     const filteredCriteria = this.CRITERIA.filter(criteriaItem => this.selectedCriteria.map(item => item.name).includes(criteriaItem.name));
+//     this.newselectedCriteria = filteredCriteria
+//     this.rankingScaleValue = this.bmxItem.componentText[0].STARS.length;
+//     this.dataSource = this.bmxItem.componentText.slice(1)
+//   }
 
-  onFileSelected(event) {
-    if (event.target.files && event.target.files[0]) {
-      let filesAmount = event.target.files.length;
-      for (let i = 0; i < filesAmount; i++) {
-        let reader = new FileReader();
-        let FileName = event.target.files[i].name
-        let FileType = event.target.files[i].type
-        reader.onload = (event: any) => {
-          this.resourceData = {
-            "ProjectName": localStorage.getItem('projectName'),
-            "FileName": FileName.split(' ').join(''),
-            "ItemType": 'logo-rate',
-            "FileType": FileType,
-            "FileContent": event.target.result
-            // "FileContent" : event.target.result.split(event.target.result.split(",")[0] + ',').pop()
-          }
-          this.IMAGES_UPLOADED.push(this.resourceData);
-        }
-        reader.readAsDataURL(event.target.files[i]);
-      }
-    }
-  }
+//   onFileSelected(event) {
+//     if (event.target.files && event.target.files[0]) {
+//       let filesAmount = event.target.files.length;
+//       for (let i = 0; i < filesAmount; i++) {
+//         let reader = new FileReader();
+//         let FileName = event.target.files[i].name
+//         let FileType = event.target.files[i].type
+//         reader.onload = (event: any) => {
+//           this.resourceData = {
+//             "ProjectName": localStorage.getItem('projectName'),
+//             "FileName": FileName.split(' ').join(''),
+//             "ItemType": 'logo-rate',
+//             "FileType": FileType,
+//             "FileContent": event.target.result
+//             // "FileContent" : event.target.result.split(event.target.result.split(",")[0] + ',').pop()
+//           }
+//           this.IMAGES_UPLOADED.push(this.resourceData);
+//         }
+//         reader.readAsDataURL(event.target.files[i]);
+//       }
+//     }
+//   }
 
-  //----------open cards-----------//
+//   //----------open cards-----------//
 
-  openSelected(y: any) {
+//   openSelected(y: any) {
 
-    if (this.openElements.indexOf(y) === -1) {
-      this.openElements.push(y);
-    } else {
-      this.openElements.splice(this.openElements.indexOf(y), 1);
-    }
-    console.log(this.openElements)
-  }
+//     if (this.openElements.indexOf(y) === -1) {
+//       this.openElements.push(y);
+//     } else {
+//       this.openElements.splice(this.openElements.indexOf(y), 1);
+//     }
+//     console.log(this.openElements)
+//   }
 
-  open(y: any) {
+//   open(y: any) {
 
-    if (this.openElements.indexOf(y) == -1) {
-      return false;
-    } else {
-      console.log('true')
-      return true;
-    }
+//     if (this.openElements.indexOf(y) == -1) {
+//       return false;
+//     } else {
+//       console.log('true')
+//       return true;
+//     }
 
-  }
+//   }
 
-  //---------end open cards--------------//  
+//   //---------end open cards--------------//  
 
-  cancelUpload() {
-    this.uploadSub.unsubscribe();
-    this.reset();
-  }
+//   cancelUpload() {
+//     this.uploadSub.unsubscribe();
+//     this.reset();
+//   }
 
-  uploadAllImages() {
+//   uploadAllImages() {
 
-    if (this.IMAGES_UPLOADED.length < this.bmxItem.componentText.length) {
-      this.bmxItem.componentText.splice(this.IMAGES_UPLOADED.length + 1, this.bmxItem.componentText.length + 1)
-    }
-    this.IMAGES_UPLOADED.forEach((imageObject, index) => {
-      imageObject['FileContent'] = imageObject['FileContent'].split(imageObject['FileContent'].split(",")[0] + ',').pop()
-      this._BmxService.saveFileResources(JSON.stringify(imageObject)).subscribe((result: any) => {
-        this.IMAGES_UPLOADED.shift()
-        if (index == 0) {
-          this.bmxItem.componentText[index].nameCandidates = "LOGO"
-        }
-        if (this.bmxItem.componentText[index + 1]) {
-          this.bmxItem.componentText[index + 1].nameCandidates = JSON.parse(result.d).FileUrl
-        } else {
-          this.bmxItem.componentText.push({ nameCandidates: JSON.parse(result.d).FileUrl })
-        }
+//     if (this.IMAGES_UPLOADED.length < this.bmxItem.componentText.length) {
+//       this.bmxItem.componentText.splice(this.IMAGES_UPLOADED.length + 1, this.bmxItem.componentText.length + 1)
+//     }
+//     this.IMAGES_UPLOADED.forEach((imageObject, index) => {
+//       imageObject['FileContent'] = imageObject['FileContent'].split(imageObject['FileContent'].split(",")[0] + ',').pop()
+//       this._BmxService.saveFileResources(JSON.stringify(imageObject)).subscribe((result: any) => {
+//         this.IMAGES_UPLOADED.shift()
+//         if (index == 0) {
+//           this.bmxItem.componentText[index].nameCandidates = "LOGO"
+//         }
+//         if (this.bmxItem.componentText[index + 1]) {
+//           this.bmxItem.componentText[index + 1].nameCandidates = JSON.parse(result.d).FileUrl
+//         } else {
+//           this.bmxItem.componentText.push({ nameCandidates: JSON.parse(result.d).FileUrl })
+//         }
 
-      });
-    });
-    setTimeout(() => {
-      this.uploadImagesBox = false;
-    }, 1000);
-    this.showEdit = true
-  }
+//       });
+//     });
+//     setTimeout(() => {
+//       this.uploadImagesBox = false;
+//     }, 1000);
+//     this.showEdit = true
+//   }
 
-  deleteImage(index) {
-    this.IMAGES_UPLOADED.splice(index, 1)
-  }
+//   deleteImage(index) {
+//     this.IMAGES_UPLOADED.splice(index, 1)
+//   }
 
-  toggleImageUploadBox() {
-    this.uploadImagesBox = !this.uploadImagesBox
-  }
+//   toggleImageUploadBox() {
+//     this.uploadImagesBox = !this.uploadImagesBox
+//   }
 
-  reset() {
-    this.uploadProgress = null;
-    this.uploadSub = null;
-  }
+//   reset() {
+//     this.uploadProgress = null;
+//     this.uploadSub = null;
+//   }
 
-  saveRate(testNameId: any) {
-    this.actualRate = this.bmxItem.componentText[testNameId].RATE
-  }
+//   saveRate(testNameId: any) {
+//     this.actualRate = this.bmxItem.componentText[testNameId].RATE
+//   }
 
-  checkAutosave(testNameId: any) {
-    if (this.ratedCounter < this.bmxItem.componentSettings[0].maxRule && this.actualRate == 0 || this.bmxItem.componentSettings[0].maxRule == 0) {
-      this.ratedCounter = this.ratedCounter + 1
-      this.autoSave.emit()
-    } else if (this.ratedCounter <= this.bmxItem.componentSettings[0].maxRule && this.actualRate != 0) {
-      this.autoSave.next()
-    }
-  }
+//   checkAutosave(testNameId: any) {
+//     if (this.ratedCounter < this.bmxItem.componentSettings[0].maxRule && this.actualRate == 0 || this.bmxItem.componentSettings[0].maxRule == 0) {
+//       this.ratedCounter = this.ratedCounter + 1
+//       this.autoSave.emit()
+//     } else if (this.ratedCounter <= this.bmxItem.componentSettings[0].maxRule && this.actualRate != 0) {
+//       this.autoSave.next()
+//     }
+//   }
 
-  checkDragEvetn(event: CdkDragDrop<string[]>) {
-    if (event.previousIndex > 0) {
-      moveItemInArray(this.bmxItem.componentText, event.previousIndex, event.currentIndex);
-      this.bmxItem.componentText.forEach((row, rowIndex) => {
-        if (rowIndex > 0) {
-          row.RATE = rowIndex
-        }
-      })
-      this.autoSave.emit()
-    }
-  }
-  openWindow(index:any, bool:any){
-    if(this.showEdit){
-      this.selectedIndex=index
-      this.editSingleTableCells = bool
-      this.verifyCritera()
-    }else{
-      this._snackBar.open('First upload the logos to use'
-     , 'OK', {
-      duration: 6000,
-      verticalPosition: 'top',
-    }).afterDismissed().subscribe(action => {
+//   checkDragEvetn(event: CdkDragDrop<string[]>) {
+//     if (event.previousIndex > 0) {
+//       moveItemInArray(this.bmxItem.componentText, event.previousIndex, event.currentIndex);
+//       this.bmxItem.componentText.forEach((row, rowIndex) => {
+//         if (rowIndex > 0) {
+//           row.RATE = rowIndex
+//         }
+//       })
+//       this.autoSave.emit()
+//     }
+//   }
+//   openWindow(index:any, bool:any){
+//     if(this.showEdit){
+//       this.selectedIndex=index
+//       this.editSingleTableCells = bool
+//       this.verifyCritera()
+//     }else{
+//       this._snackBar.open('First upload the logos to use'
+//      , 'OK', {
+//       duration: 6000,
+//       verticalPosition: 'top',
+//     }).afterDismissed().subscribe(action => {
 
-    })
-    }
-  }
-}
+//     })
+//     }
+//   }
+// }
 

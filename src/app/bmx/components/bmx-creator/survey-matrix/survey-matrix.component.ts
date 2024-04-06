@@ -10,11 +10,11 @@ import {
   ViewEncapsulation,
 } from '@angular/core';
 import { DOCUMENT } from '@angular/common';
-import { HotkeysService, Hotkey } from 'angular2-hotkeys';
+// import { HotkeysService, Hotkey } from 'angular2-hotkeys';
 import Speech from 'speak-tts';
 import { ActivatedRoute } from '@angular/router';
 import { BmxService } from '../bmx.service';
-import { DragulaService } from 'ng2-dragula';
+// import { DragulaService } from 'ng2-dragula';
 import { SurveyCreationDesignComponent } from '../survey-creation-design/survey-creation-design.component';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import QRCodeStyling from 'qr-code-styling';
@@ -103,8 +103,7 @@ export class SurveyMatrixComponent extends SurveyCreationDesignComponent impleme
 
   //----------end modal------//
 
-  constructor(@Inject(DOCUMENT) document: any, activatedRoute: ActivatedRoute, private deviceService: DeviceDetectorService,
-    _hotkeysService: HotkeysService, dragulaService: DragulaService, public _snackBar: MatSnackBar, _BmxService: BmxService
+  constructor(@Inject(DOCUMENT) document: any, activatedRoute: ActivatedRoute, private deviceService: DeviceDetectorService, public _snackBar: MatSnackBar, _BmxService: BmxService
   ) {
     super(document, _BmxService, _snackBar, activatedRoute);
     activatedRoute.params.subscribe((params) => {
@@ -713,7 +712,7 @@ export class SurveyMatrixComponent extends SurveyCreationDesignComponent impleme
           });
         }
         // ❤️❤️❤️❤️❤️❤️❤️❤️❤️❤️❤️❤️❤️❤️❤️❤️❤️❤️❤️❤️❤️❤️❤️❤️❤️❤️❤️❤️❤️❤️❤️❤️❤️❤️❤️❤️❤️❤️❤️❤️❤️❤️❤️
-        else if (answerComponent.componentType == 'ranking-scale' || answerComponent.componentType == 'image-rank-drag' || answerComponent.componentType == 'question-answer') {
+        else if (answerComponent.componentType == 'ranking-scale' || answerComponent.componentType == 'image-rank-drag') {
           if (
             templateComponent.componentSettings[0].rankType == 'dragAndDrop' &&
             answerComponent.componentText.length > 1 &&
@@ -741,7 +740,7 @@ export class SurveyMatrixComponent extends SurveyCreationDesignComponent impleme
                         templateRow[key] === answerRow[key]
                       ) {
                         templateRow.RATE = answerRow.RATE;
-                        templateRow.STARS?.forEach((starRow) => {
+                        templateRow.STARS.forEach((starRow) => {
                           if (starRow.id <= answerRow.RATE) {
                             starRow.styleClass = 'active-rating-star';
                           }
@@ -1192,7 +1191,7 @@ export class SurveyMatrixComponent extends SurveyCreationDesignComponent impleme
                     intCounter = intCounter + criteria.RATE
                   }
                 });
-                if (intCounter > 0) {
+                if(intCounter>0){
                   minRuleCounter++
                 }
                 console.log(component)
@@ -1241,7 +1240,7 @@ export class SurveyMatrixComponent extends SurveyCreationDesignComponent impleme
               component.componentSettings[0].categoryRulesPassed = (minRuleCounter != component.componentSettings[0].minRule) ? false : true;
             }
             // console.log(minRuleCounter, component.componentSettings[0].maxRule )
-            if (component.componentSettings[0].minRule <= minRuleCounter && minRuleCounter <= component.componentSettings[0].maxRule) {
+            if (component.componentSettings[0].minRule <= minRuleCounter && minRuleCounter <= component.componentSettings[0].maxRule ) {
               component.componentSettings[0].categoryRulesPassed = true;
             }
             if (

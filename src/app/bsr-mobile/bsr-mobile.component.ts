@@ -1,9 +1,9 @@
 import { Component, OnInit, Inject, HostBinding } from '@angular/core';
 // import { NwvoteService } from '../../nw-vote/nwvote.service';
-import { FormBuilder, Validators, FormGroup } from '@angular/forms';
+import { UntypedFormBuilder, Validators, UntypedFormGroup } from '@angular/forms';
 import { Router, ActivatedRoute } from '@angular/router';
 import { BsrMobileService } from './bsr-mobile.service';
-import { MatDialog, MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
+import {  MatDialog, MatDialogRef,  MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { DeviceDetectorService } from 'ngx-device-detector';
 
 @Component({
@@ -18,8 +18,8 @@ export class BsrMobileComponent implements OnInit {
   isBSROpen = false;
   newNames = [];
   userEmail;
-  loginForm: FormGroup;
-  newNameForm: FormGroup;
+  loginForm: UntypedFormGroup;
+  newNameForm: UntypedFormGroup;
   projectName = ''
   property: any;
   projectId: any;
@@ -31,7 +31,7 @@ export class BsrMobileComponent implements OnInit {
   bulletPointLine = '';
   summarized: any;
   deviceInfo: any;
-  constructor(private _formBuilder: FormBuilder, private bsrService: BsrMobileService,
+  constructor(private _formBuilder: UntypedFormBuilder, private bsrService: BsrMobileService,
     private activatedRoute: ActivatedRoute,
     public dialog: MatDialog,
     private router: Router) {
@@ -224,10 +224,10 @@ export interface DialogData {
 })
 export class editName {
 
-  loginForm: FormGroup;
+  loginForm: UntypedFormGroup;
   isDeleting = true;
   infoMessage = true;
-  popupwindowData: { form: FormGroup; oldValue: string; };
+  popupwindowData: { form: UntypedFormGroup; oldValue: string; };
   editName: string;
   favourite: boolean;
   source: string;
@@ -235,7 +235,7 @@ export class editName {
 
   constructor(
     public dialogRef: MatDialogRef<editName>,
-    @Inject(MAT_DIALOG_DATA) public data: DialogData, private _formBuilder: FormBuilder) {
+    @Inject(MAT_DIALOG_DATA) public data: DialogData, private _formBuilder: UntypedFormBuilder) {
 
 
 

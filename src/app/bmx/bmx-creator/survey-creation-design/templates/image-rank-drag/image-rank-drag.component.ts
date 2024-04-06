@@ -1,6 +1,6 @@
 import { Component, ElementRef, EventEmitter, Inject, Input, OnInit, Output, ViewChild, ViewEncapsulation } from '@angular/core';
 import { CdkTextareaAutosize } from '@angular/cdk/text-field';
-import { DragulaService } from 'ng2-dragula';
+// import { DragulaService } from 'ng2-dragula';
 import { Subscription } from 'rxjs/internal/Subscription';
 import { BmxService } from '../../../bmx.service';
 import { RatingScaleComponent } from '../rating-scale/rating-scale.component';
@@ -77,7 +77,7 @@ export class ImageRankDragComponent extends RatingScaleComponent implements OnIn
   openElements: any[]=[];
   //selectedCard: any
 
-  constructor(private _BmxService: BmxService, dragulaService: DragulaService, _snackBar: MatSnackBar, _bmxService: BmxService,public deviceService: DeviceDetectorService) { super(dragulaService, _snackBar, _bmxService,deviceService); this.epicFunction(); }
+  // constructor(private _BmxService: BmxService,  _snackBar: MatSnackBar, _bmxService: BmxService,public deviceService: DeviceDetectorService) { super(dragulaService, null, _bmxService,deviceService); this.epicFunction(); }
   epicFunction() {
     this.deviceInfo = this.deviceService.getDeviceInfo();
     const isMobile = this.deviceService.isMobile();
@@ -193,18 +193,18 @@ export class ImageRankDragComponent extends RatingScaleComponent implements OnIn
     }
     this.IMAGES_UPLOADED.forEach((imageObject , index) => {
       imageObject['FileContent'] = imageObject['FileContent'].split(imageObject['FileContent'].split(",")[0] + ',').pop()
-      this._BmxService.saveFileResources(JSON.stringify(imageObject)).subscribe((result:any) => {
-        this.IMAGES_UPLOADED.shift()
-        if(index==0){
-          this.bmxItem.componentText[index ].nameCandidates = "LOGO"
-        }
-        if( this.bmxItem.componentText[index + 1]){
-          this.bmxItem.componentText[index +1].nameCandidates = JSON.parse(result.d).FileUrl
-        }else{
-          this.bmxItem.componentText.push({nameCandidates:JSON.parse(result.d).FileUrl})
-        }
+      // this._BmxService.saveFileResources(JSON.stringify(imageObject)).subscribe((result:any) => {
+      //   this.IMAGES_UPLOADED.shift()
+      //   if(index==0){
+      //     this.bmxItem.componentText[index ].nameCandidates = "LOGO"
+      //   }
+      //   if( this.bmxItem.componentText[index + 1]){
+      //     this.bmxItem.componentText[index +1].nameCandidates = JSON.parse(result.d).FileUrl
+      //   }else{
+      //     this.bmxItem.componentText.push({nameCandidates:JSON.parse(result.d).FileUrl})
+      //   }
         
-      });
+      // });
     });
     setTimeout(() => {
       this.uploadImagesBox = false;    

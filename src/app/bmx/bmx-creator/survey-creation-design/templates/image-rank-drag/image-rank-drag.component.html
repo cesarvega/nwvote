@@ -364,26 +364,26 @@
     </div>
     <div style="display: flex;flex-direction: row; gap:10; padding-top: 10px;">
 
-        <div class="template-list" [dragula]="'draggableBag'" [(dragulaModel)]="IMAGES_UPLOADED"
+        <!-- <div class="template-list" [dragula]="'draggableBag'" [(dragulaModel)]="IMAGES_UPLOADED"
             style="display: flex;flex-direction: column; overflow-y: scroll;width: 100%;justify-content: center;">
             <div *ngFor="let template of IMAGES_UPLOADED; let imgIndex = index" [ngClass]="(imgIndex%2==0)?'red':'blue'"
-                class="image-row">
+                class="image-row"> -->
 
-                <div class="image-cell">
+                <!-- <div class="image-cell">
                     <div style="font-size: 25px;color: #003180;width: 40px;">{{imgIndex + 1}}</div>
                     <img [src]="template.FileContent" [width]="logoWidth">
-                </div>
+                </div> -->
 
-                <input type="text" [value]="template.FileName">
-                <p>{{template.FileType}}</p>
-                <button (dblclick)="deleteImage(imgIndex)" mat-icon-button style="background-color: #ffffff;"
+                <!-- <input type="text" [value]="template.FileName"> -->
+                <!-- <p>{{template.FileType}}</p> -->
+                <!-- <button (dblclick)="deleteImage(imgIndex)" mat-icon-button style="background-color: #ffffff;"
                     matTooltip="double click to delete " matTooltipPosition="above">
                     <mat-icon style="color: #e20000;">delete</mat-icon>
-                </button>
+                </button> -->
 
             </div>
         </div>
-    </div>
+    <!-- </div> -->
 
     <hr>
     <div
@@ -393,7 +393,7 @@
             <mat-icon>cancel</mat-icon><br>Cancel
         </button>
     </div>
-</div>
+<!-- </div> -->
 <!-- 👩🏽‍🔧👩🏽‍🔧👩🏽‍🔧👩🏽‍🔧👩🏽‍🔧👩🏽‍🔧👩🏽‍🔧👩🏽‍🔧👩🏽‍🔧👩🏽‍🔧👩🏽‍🔧👩🏽‍🔧👩🏽‍🔧👩🏽‍🔧👩🏽‍🔧👩🏽‍🔧👩🏽‍🔧👩🏽‍🔧👩🏽‍🔧👩🏽‍🔧👩🏽‍🔧👩🏽‍🔧 END UPLOAD IMAGES BOX 👩🏽‍🔧👩🏽‍🔧👩🏽‍🔧👩🏽‍🔧👩🏽‍🔧👩🏽‍🔧👩🏽‍🔧👩🏽‍🔧👩🏽‍🔧👩🏽‍🔧👩🏽‍🔧👩🏽‍🔧👩🏽‍🔧👩🏽‍🔧👩🏽‍🔧👩🏽‍🔧👩🏽‍🔧👩🏽‍🔧👩🏽‍🔧👩🏽‍🔧👩🏽‍🔧👩🏽‍🔧 -->
 
 

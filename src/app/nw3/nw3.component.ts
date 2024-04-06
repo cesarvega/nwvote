@@ -2,11 +2,10 @@ import { Component, ElementRef, EventEmitter, Inject, Input, OnInit, Output, Vie
 import { DOCUMENT } from '@angular/common';
 import { trigger, transition, useAnimation } from '@angular/animations';
 import { pulse, flash } from 'ng-animate';
-import { HotkeysService, Hotkey } from 'angular2-hotkeys';
 import Speech from 'speak-tts';
 import { Nw3Service } from './nw3.service';
 import { ActivatedRoute } from '@angular/router';
-import { typeSourceSpan } from '@angular/compiler';
+// import { typeSourceSpan } from '@angular/compiler';
 
 @Component({
   selector: 'app-nw3',
@@ -352,8 +351,7 @@ export class NW3Component implements OnInit {
 
 
   constructor(@Inject(DOCUMENT) private document: any,
-    private _NW3Service: Nw3Service, private activatedRoute: ActivatedRoute,
-    private _hotkeysService: HotkeysService) {
+    private _NW3Service: Nw3Service, private activatedRoute: ActivatedRoute) {
 
     this.activatedRoute.params.subscribe(params => {
       this.projectName = params['id'];
@@ -364,74 +362,7 @@ export class NW3Component implements OnInit {
       })
     });
 
-    this._hotkeysService.add(new Hotkey('right', (event: KeyboardEvent): boolean => {
-
-      // but true to go through positive 
-      if (this.stopMovingForward || this.vote) {
-        this.playSound('03 Primary System Sounds/navigation_forward-selection-minimal.wav', this.soundVolume);
-        this.selectPage('next');
-      }
-      return false;
-    }, undefined, 'Move to next slide'));
-    this._hotkeysService.add(new Hotkey('left', (event: KeyboardEvent): boolean => {
-      this.playSound('03 Primary System Sounds/navigation_backward-selection-minimal.wav', this.soundVolume);
-      this.selectPage('previous');
-      return false;
-    }, undefined, 'Move to previous slide'));
-    this._hotkeysService.add(new Hotkey('up', (event: KeyboardEvent): boolean => {
-      this.hideMenu = false;
-      return false;
-    }, undefined, 'Show menu'));
-    this._hotkeysService.add(new Hotkey('down', (event: KeyboardEvent): boolean => {
-      this.hideMenu = true;
-      return false;
-    }, undefined, 'Hide menu'));
-    this._hotkeysService.add(new Hotkey('o', (event: KeyboardEvent): boolean => {
-      this.isTableOfContent = (this.isTableOfContent) ? false : true;
-      // this.hideShowOverview.emit(this.overViewState + ',' + this.currentPage);
-      return false;
-    }, undefined, 'Hide/Show slide overview'));
-    this._hotkeysService.add(new Hotkey('b', (event: KeyboardEvent): boolean => {
-      // this.removeBackground();
-      return false;
-    }, undefined, 'Remove background'));
-    this._hotkeysService.add(new Hotkey('s', (event: KeyboardEvent): boolean => {
-      // this.timeToDisplayticker();
-      return false;
-    }, undefined, 'Show stock ticker'));
-    this._hotkeysService.add(new Hotkey('esc', (event: KeyboardEvent): boolean => {
-      // this.displayHelp(false);
-      return false;
-    }, undefined, 'Hide help sheet'));
-    this._hotkeysService.add(new Hotkey('shift+r', (event: KeyboardEvent): boolean => {
-      if (this.stopMovingForward === false) {
-        this.stopMovingForward = true;
-        this.vote = true;
-      } else {
-        this.stopMovingForward = false;
-      }
-      return false;
-    }, undefined, ''));
-    this._hotkeysService.add(new Hotkey('1', (event: KeyboardEvent): boolean => {
-      this.selectedOpt('Positive');
-      // console.log('1 number key');
-      return false;
-    }, undefined, 'Set slide to positive'));
-    this._hotkeysService.add(new Hotkey('2', (event: KeyboardEvent): boolean => {
-      this.selectedOpt('Neutral');
-      // console.log('2 number key');
-      return false;
-    }, undefined, 'Set slide to neutral'));
-    this._hotkeysService.add(new Hotkey('3', (event: KeyboardEvent): boolean => {
-      this.selectedOpt('Negative');
-      // console.log('3 number key');
-      return false;
-    }, undefined, 'Set slide to negative'));
-    this._hotkeysService.add(new Hotkey('4', (event: KeyboardEvent): boolean => {
-      this.recraft();
-      // console.log('3 number key');
-      return false;
-    }, undefined, 'Set slide to recraft'));
+ 
 
     // text to speech
     this.myspeech
