@@ -158,7 +158,7 @@
             <mat-icon style="font-size: 26px;    z-index: 9;" class="full-icon">swap_horizontal_circle</mat-icon>
         </button>
         <button (click)="selectedIndex = i; editSingleTableCells = false" class="add-column"
-            matTooltip="Setup settings" matTooltipPosition="above" *ngIf="i !== selectedIndex" mat-icon-button>
+            matTooltip="setup settings" matTooltipPosition="above" *ngIf="i !== selectedIndex" mat-icon-button>
             <mat-icon style="font-size: 25px;" class="full-icon">edit</mat-icon>
         </button>
     </div>
@@ -308,8 +308,8 @@
             {{bmxItem.componentSettings[0].categoryDescription}}</div>
 
     </div>
-    <!-- <div class="scroller-style main-container" [dragula]="(dragRows)?'DRAGGABLE_ROW':''"
-        [(dragulaModel)]="bmxItem.componentText" (dragulaModelChange)="checkDragEvetn($event);"> -->
+    <div class="scroller-style main-container" [dragula]="(dragRows)?'DRAGGABLE_ROW':''"
+        [(dragulaModel)]="bmxItem.componentText" (dragulaModelChange)="checkDragEvetn($event);">
 
         <div *ngFor="let testName of bmxItem.componentText; let y = index">
 
@@ -533,7 +533,7 @@
         <mat-icon style="font-size: 25px;">edit</mat-icon>
     </button> -->
     </div>
-
+</div>
 
 <!--💲💲💲💲💲💲💲💲💲💲💲💲💲💲💲💲💲💲💲💲💲💲💲💲💲💲💲💲💲💲💲💲💲 END TABLE GENERATOR 💲💲💲💲💲💲💲💲💲💲💲💲💲💲💲💲💲💲💲💲💲💲💲💲💲💲💲💲💲💲💲💲💲💲-->
 
