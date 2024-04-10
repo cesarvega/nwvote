@@ -139,7 +139,7 @@
         </button>
 
         <button (click)="selectedIndex = i;editSingleTableCells = false" class="add-column"
-            matTooltip="Setup settings" matTooltipPosition="above" *ngIf="i !== selectedIndex" mat-icon-button>
+            matTooltip="setup settings" matTooltipPosition="above" *ngIf="i !== selectedIndex" mat-icon-button>
             <mat-icon style="font-size: 25px;" class="full-icon">edit</mat-icon>
         </button>
 
@@ -344,7 +344,7 @@
                     style="display: flex;align-items: center;justify-content: center;" [ngClass]="(e%2==0)?'red':'blue'"
                     [style.padding]="bmxItem.componentSettings[0].rowHeight + 'px'" [style.width]="(columnName == 'rationale')?bmxItem.componentSettings[0].rationalewidth + 'px':
                     (columnName == 'RATE')?bmxItem.componentSettings[0].rateWidth + 'px':
-                    (columnName == 'nameCandidates')?bmxItem.componentSettings[0].nameCandidatesWidth + 'px':
+                    (columnName == 'name Candidates')?bmxItem.componentSettings[0].nameCandidatesWidth + 'px':
                     (columnName.includes('Comments'))?bmxItem.componentSettings[0].commentsWidth + 'px':
                     (columnName.includes('RadioColumn'))?bmxItem.componentSettings[0].radioColumnsWidth + 'px' :
                     bmxItem.componentSettings[0].columnWidth + 'px'">
