@@ -91,7 +91,6 @@ import { ProjectListCheckComponent } from './bmx/components/project-list-check/p
 import {TemplatesComponent} from './bmx/components/templates/templates.component';
 import { CommonModule } from '@angular/common';
 import { TableComponent } from './bmx/components/table/table.component';
-import { TestComponent } from './test/test/test.component';
 import { BmxModule } from './bmx/bmx-module/bmx.module';
 export function loadEcharts() {
   return import('echarts');
@@ -161,7 +160,6 @@ export function MSALInstanceFactory(): IPublicClientApplication {
         // OrderDasboardComponent
     ],
     imports: [
-      TestComponent,
         CommonModule,
         BrowserModule,
         HammerModule,
