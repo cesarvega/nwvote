@@ -47,7 +47,7 @@ import { HammerModule } from '@angular/platform-browser';
 import { MatDatepickerModule } from '@angular/material/datepicker';
 import { MatNativeDateModule } from '@angular/material/core';
 import { MatProgressBarModule } from '@angular/material/progress-bar';
-// import { DragulaModule } from 'ng2-dragula';
+import { DragulaModule } from 'ng2-dragula';
 import { MatListModule } from '@angular/material/list';
 import { NgxEchartsModule } from 'ngx-echarts';
 import { NgxChartsModule } from '@swimlane/ngx-charts';
@@ -70,21 +70,23 @@ import { MatAutocompleteModule } from '@angular/material/autocomplete';
 import { ProjectInformationComponent } from '../bmx-creator/project-information/project-information.component';
 import { RatingScaleComponent } from '../bmx-creator/survey-creation-design/templates/rating-scale/rating-scale.component';
 import { RankScaleComponent } from '../bmx-creator/survey-creation-design/templates/rank-scale/rank-scale.component';
-import { ImageRateScaleComponent } from '../bmx-creator/survey-creation-design/templates/image-rate-scale/image-rate-scale.component';
+// import { ImageRateScaleComponent } from '../bmx-creator/survey-creation-design/templates/image-rate-scale/image-rate-scale.component';
 import { LogoHeaderComponent } from '../bmx-creator/survey-creation-design/templates/logo-header/logo-header.component';
 import { TextParagraphComponent } from '../bmx-creator/survey-creation-design/templates/text-paragraph/text-paragraph.component';
 import { ProjectReportsComponent } from '../bmx-creator/project-reports/project-reports.component';
 import { NarrowDownComponent } from '../bmx-creator/survey-creation-design/templates/narrow-down/narrow-down.component';
-import { QuestionAnswerComponent } from '../bmx-creator/survey-creation-design/templates/question-answer/question-answer.component';
+// import { QuestionAnswerComponent } from '../bmx-creator/survey-creation-design/templates/question-answer/question-answer.component';
 import { SurveyMatrixComponent } from '../bmx-creator/survey-matrix/survey-matrix.component';
-import { TinderComponent } from '../bmx-creator/survey-creation-design/templates/tinder/tinder.component';
+// import { TinderComponent } from '../bmx-creator/survey-creation-design/templates/tinder/tinder.component';
 import { ReportFirstPageComponent } from '../bmx-creator/project-reports/templates/report-first-page/report-first-page.component';
 import { PageLineBreakComponent } from '../bmx-creator/project-reports/templates/page-line-break/page-line-break.component';
 import { PageTitleComponent } from '../bmx-creator/project-reports/templates/page-title/page-title.component';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 // import { ImageRankComponent } from '../bmx-creator/survey-creation-design/templates/image-rank/image-rank.component';
-import { ImageRankDragComponent } from '../bmx-creator/survey-creation-design/templates/image-rank-drag/image-rank-drag.component';
-
+// import { ImageRankDragComponent } from '../bmx-creator/survey-creation-design/templates/image-rank-drag/image-rank-drag.component';
+// import { DocxSurveyComponent } from '../components/docx-survey/docx-survey.component';
+// import { DocxSurveyComponent } from './components/docx-survey/docx-survey.component';
+// F:\MRVRCorp\BI\nw-vote-git\bmx-17\src\app\bmx\components\docx-survey
 export function loadEcharts() {
   return import('echarts');
 }
@@ -95,26 +97,26 @@ export function loadEcharts() {
     BmxComponent,
     SafePipe,
     ProjectListComponent,
-  
+
     SurveyCreationDesignComponent,
     ImageUploaderComponent,
-  
+
     ProjectInformationComponent,
     RatingScaleComponent,
     RankScaleComponent,
-    ImageRateScaleComponent,
+    // ImageRateScaleComponent,
     // ImageRankComponent,
-    ImageRankDragComponent,
+    // ImageRankDragComponent,
     LogoHeaderComponent,
     TextParagraphComponent,
     ProjectReportsComponent,
     NarrowDownComponent,
-    QuestionAnswerComponent,
+    // QuestionAnswerComponent,
     SurveyMatrixComponent,
-    TinderComponent,
+    // TinderComponent,
     ReportFirstPageComponent,
     PageLineBreakComponent,
-    PageTitleComponent
+    PageTitleComponent,
     // DocxSurveyComponent
   ],
   imports: [
@@ -153,7 +155,7 @@ export function loadEcharts() {
     MatNativeDateModule,
     MatProgressBarModule,
     NgxChartsModule,
-    // DragulaModule.forRoot(),
+    DragulaModule.forRoot(),
     MatListModule,
     // NgxEchartsModule.forRoot({ echarts: loadEcharts }),
     MatSnackBarModule,
@@ -163,11 +165,11 @@ export function loadEcharts() {
     BmxRoutingModule,
     MatAutocompleteModule,
     // FontAwesomeModule,
-  ], 
-  exports:[
-    
   ],
-  
+  exports:[
+
+  ],
+
   schemas: [ CUSTOM_ELEMENTS_SCHEMA ],
 })
 export class BmxModule { }

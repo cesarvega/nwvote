@@ -1,6 +1,6 @@
 import { Component, ElementRef, EventEmitter, Inject, Input, OnInit, Output, ViewChild, ViewEncapsulation } from '@angular/core';
 import { CdkTextareaAutosize } from '@angular/cdk/text-field';
-// import { DragulaService } from 'ng2-dragula';
+import { DragulaService } from 'ng2-dragula';
 import { RatingScaleComponent } from '../rating-scale/rating-scale.component';
 import {  MatSnackBar } from '@angular/material/snack-bar';
 import { BmxService } from '../../../bmx.service';
@@ -18,12 +18,12 @@ export class QuestionAnswerComponent extends RatingScaleComponent implements OnI
   @Input() bmxClientPageOverview;
   @Output() autoSave = new EventEmitter();
   @ViewChild('autosize') autosize: CdkTextareaAutosize;
-  CREATION_VIDEO_PATH="assets/videos/QuestionAndAnswer.mp4" 
+  CREATION_VIDEO_PATH="assets/videos/QuestionAndAnswer.mp4"
 
   allComplete: boolean = false;
-  // constructor(dragulaService: DragulaService, _snackBar: MatSnackBar, _bmxService: BmxService,public deviceService: DeviceDetectorService) {
-  //   super(dragulaService,null, _bmxService,deviceService);
-  // }
+  constructor(dragulaService: DragulaService, _snackBar: MatSnackBar, _bmxService: BmxService,public deviceService: DeviceDetectorService) {
+    super(dragulaService,null, _bmxService,deviceService);
+  }
 
   ngOnInit(): void {
     // COLUMN NAMES

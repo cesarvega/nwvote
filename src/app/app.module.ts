@@ -43,7 +43,7 @@ import { SchedulerComponent } from './scheduler/scheduler.component';
 import { MatDatepickerModule } from '@angular/material/datepicker';
 import { MatNativeDateModule } from '@angular/material/core';
 import {  MatProgressBarModule } from '@angular/material/progress-bar';
-// import { DragulaModule } from 'ng2-dragula';
+import { DragulaModule } from 'ng2-dragula';
 import {  MatListModule } from '@angular/material/list';
 import { NgxEchartsModule } from 'ngx-echarts';
 import { NgxChartsModule } from '@swimlane/ngx-charts';
@@ -56,7 +56,7 @@ import { ScrollingModule } from '@angular/cdk/scrolling';
 import { CdkTreeModule } from '@angular/cdk/tree';
 import { A11yModule } from '@angular/cdk/a11y';
 import { InteractionType, IPublicClientApplication, PublicClientApplication } from '@azure/msal-browser';
-// import { MSAL_INSTANCE, MsalService } from '@azure/msal-angular';
+import { MSAL_INSTANCE, MsalService } from '@azure/msal-angular';
 import { MenuComponent } from './bmx/components/menu/menu.component';
 import { DashboardComponent } from './bmx/components/dashboard/dashboard.component';
 import { ParticipantsEmailComponent } from './bmx/components/participants-email/participants-email.component';
@@ -66,7 +66,7 @@ import { RespondentsComponent } from './bmx/components/respondents/respondents.c
 import { ProjectReportsComponent } from './bmx/components/project-reports/project-reports.component';
 import { ProjectListComponent } from './bmx/components/project-list/project-list.component';
 import { MatAutocompleteModule } from '@angular/material/autocomplete';
-// import {DocxSurveyComponent} from './bmx/components/docx-survey/docx-survey.component'
+import {DocxSurveyComponent} from './bmx/components/docx-survey/docx-survey.component'
 import {BmxComponent} from './bmx/components/bmx-survey/bmx.component'
 import {BmxCreatorComponent} from './bmx/components/bmx-creator/bmx-creator.component'
 import {SurveyCreationDesignComponent} from './bmx/components/bmx-creator/survey-creation-design/survey-creation-design.component'
@@ -75,23 +75,24 @@ import {ImageUploaderComponent} from './bmx/components/bmx-creator/image-uploade
 import {PageLineBreakComponent} from './bmx/components/project-reports/templates/page-line-break/page-line-break.component'
 import {PageTitleComponent} from './bmx/components/project-reports/templates/page-title/page-title.component'
 import {ReportFirstPageComponent} from './bmx/components/project-reports/templates/report-first-page/report-first-page.component'
-// import {ImageRankComponent} from './bmx/components/bmx-creator/survey-creation-design/templates/image-rank/image-rank.component'
-// import {ImageRankDragComponent} from './bmx/components/bmx-creator/survey-creation-design/templates/image-rank-drag/image-rank-drag.component'
-// import {ImageRateScaleComponent} from './bmx/components/bmx-creator/survey-creation-design/templates/image-rate-scale/image-rate-scale.component'
+
 import {LogoHeaderComponent} from './bmx/components/bmx-creator/survey-creation-design/templates/logo-header/logo-header.component'
-// import {NarrowDownComponent} from './bmx/components/bmx-creator/survey-creation-design/templates/narrow-down/narrow-down.component'
-// import {QuestionAnswerComponent} from './bmx/components/bmx-creator/survey-creation-design/templates/question-answer/question-answer.component'
-// import {RankScaleComponent} from './bmx/components/bmx-creator/survey-creation-design/templates/rank-scale/rank-scale.component'
+import {NarrowDownComponent} from './bmx/components/bmx-creator/survey-creation-design/templates/narrow-down/narrow-down.component'
+import {QuestionAnswerComponent} from './bmx/components/bmx-creator/survey-creation-design/templates/question-answer/question-answer.component'
+import {RankScaleComponent} from './bmx/components/bmx-creator/survey-creation-design/templates/rank-scale/rank-scale.component'
 import {RatingScaleComponent} from './bmx/components/bmx-creator/survey-creation-design/templates/rating-scale/rating-scale.component'
 import {TextParagraphComponent} from './bmx/components/bmx-creator/survey-creation-design/templates/text-paragraph/text-paragraph.component'
-// import {TinderComponent} from './bmx/components/bmx-creator/survey-creation-design/templates/tinder/tinder.component'
+import {TinderComponent} from './bmx/components/bmx-creator/survey-creation-design/templates/tinder/tinder.component'
 import {SafePipe} from './bmx/components/bmx-creator/safe.pipe';
 import { SurveyDialogComponent } from './bmx/components/survey-dialog/survey-dialog.component';
 import { ProjectListCheckComponent } from './bmx/components/project-list-check/project-list-check.component'
 import {TemplatesComponent} from './bmx/components/templates/templates.component';
 import { CommonModule } from '@angular/common';
 import { TableComponent } from './bmx/components/table/table.component';
-import { BmxModule } from './bmx/bmx-module/bmx.module';
+// import { TinderComponent } from './bmx/bmx-creator/survey-creation-design/templates/tinder/tinder.component';
+import { ImageRankDragComponent } from './bmx/components/bmx-creator/survey-creation-design/templates/image-rank-drag/image-rank-drag.component';
+import { ImageRateScaleComponent } from './bmx/components/bmx-creator/survey-creation-design/templates/image-rate-scale/image-rate-scale.component';
+import { ImageRankComponent } from './bmx/components/bmx-creator/survey-creation-design/templates/image-rank/image-rank.component';
 export function loadEcharts() {
   return import('echarts');
 }
@@ -118,6 +119,7 @@ export function MSALInstanceFactory(): IPublicClientApplication {
         BsrMobileComponent,
         editName,
         editPost,
+        SafePipe,
         BsrComponent,
         NW3Component,
         BmxComponent,
@@ -131,7 +133,7 @@ export function MSALInstanceFactory(): IPublicClientApplication {
         ParticipantsEmailComponent,
         ProjectReportsComponent,
         ProjectListComponent,
-        // DocxSurveyComponent,
+        DocxSurveyComponent,
         BmxComponent,
         // BmxCreatorComponent,
         SurveyCreationDesignComponent,
@@ -140,17 +142,16 @@ export function MSALInstanceFactory(): IPublicClientApplication {
         PageLineBreakComponent,
         PageTitleComponent,
         ReportFirstPageComponent,
-        // ImageRankComponent,
-        // ImageRankDragComponent,
-        // ImageRateScaleComponent,
+        ImageRankComponent,
+        ImageRankDragComponent,
+        ImageRateScaleComponent,
         LogoHeaderComponent,
-        // NarrowDownComponent,
-        // QuestionAnswerComponent,
-        // RankScaleComponent,
+        NarrowDownComponent,
+        QuestionAnswerComponent,
+        RankScaleComponent,
         RatingScaleComponent,
         TextParagraphComponent,
-        // TinderComponent,
-        SafePipe,
+        TinderComponent,
         SurveyDialogComponent,
         TableComponent,
         ProjectListCheckComponent,
@@ -200,7 +201,7 @@ export function MSALInstanceFactory(): IPublicClientApplication {
         MatProgressBarModule,
         NgxChartsModule,
         // AngularEditorModule,
-        // DragulaModule.forRoot(),
+        DragulaModule.forRoot(),
         MatListModule,
         // NgxEchartsModule.forRoot({ echarts: loadEcharts }),
         MatSnackBarModule,
@@ -211,10 +212,11 @@ export function MSALInstanceFactory(): IPublicClientApplication {
         CdkTableModule,
         CdkTreeModule,
         A11yModule,
-        MatAutocompleteModule
+        MatAutocompleteModule,
+        // BmxModule
     ],
-    // providers: [NwvoteService, BsrMobileService, Nw3Service, { provide: MSAL_INSTANCE, useFactory: MSALInstanceFactory }, MsalService,
-    //     { provide: MAT_SNACK_BAR_DEFAULT_OPTIONS, useValue: { duration: 1000 } }],
+    providers: [
+        { provide: MAT_SNACK_BAR_DEFAULT_OPTIONS, useValue: { duration: 1000 } }],
     bootstrap: [AppComponent]
 })
 export class AppModule { }
