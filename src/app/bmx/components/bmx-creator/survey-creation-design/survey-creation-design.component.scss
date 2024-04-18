@@ -30,6 +30,39 @@
     }
 }
 
+.no-print{
+    color: #324395;
+        font-size: 25px;
+        transition: all 0.1s ease-in-out;
+        text-shadow: 0 0.04em 0.04em rgba(0, 0, 0, 0.35);
+}
+
+
+.project-name-global{
+    color: #324395;
+    font-size: 25px;
+    transition: all 0.1s ease-in-out;
+    text-shadow: 0 0.04em 0.04em rgba(0, 0, 0, 0.35);
+    box-shadow: inset inset 0px 0px 5px #0bd659;
+    bottom: 15px;
+    @media (max-width: 712px){
+      bottom: 30px;
+    }
+
+}
+
+@media print {
+    .no-print,
+    .no-print * {
+
+        display: none !important;
+    }
+
+    .break-page {
+        page-break-after: always;
+    }
+}
+
 .paragraph {
     display: flex;
     flex-direction: column;
@@ -47,34 +80,51 @@
 }
 
 .page-buttons {
-    display: flex;
-    flex-direction: row;
-    align-items: center;
-    justify-content: center;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  position: absolute;
+  bottom: 17px;
+  width: 81%;
+  right: 3rem;
+
+  @media (max-width: 712px){
+    width: 95%;
+    right: 1rem;
+  }
+}
+.button-name{
+  display: flex;
+  width: 100%;
+  justify-content: flex-end;
 }
 .page-buttons-heigth-minus-50 {
-    display: flex;
+   gap:5px;
+  display: flex;
     flex-direction: row;
     align-items: center;
+    position: absolute;
+    width: 100%;
     justify-content: center;
-    position: fixed;
-    bottom: -7px;
+    @media (max-width: 712px){
+      gap:8px;
+    }
 }
 .page-buttons-heigth-40 {
     display: flex;
     flex-direction: row;
     align-items: center;
     justify-content: center;
-    position: fixed;
     bottom: 40px;
 }
 
 .bmx-page {
     // width: 628%;
     height: 90.8vh;
-    width: 100vw;
+    width: 100%;
     overflow-y: scroll;
     @include BoxShadow(2);
+    padding-bottom: 8%;
 }
 
 .bmx-page::-webkit-scrollbar {
@@ -94,11 +144,11 @@
     background-color: white;
     border: solid 6px darkgray;
     @include BoxShadow(6);
-    color: #8831da;
+    color: #000;
 }
 
 .full-icon:hover {
-    transform: scale(2);
+    transform: scale(1.5);
     color: #ee7f25;
 }
 .full-icon {
@@ -109,7 +159,7 @@
     box-shadow: inset inset 0px 0px 5px #0bd659;
 }
 .full-icon-secondary:hover {
-    transform: scale(2);
+    transform: scale(1.5);
     color: #324395;
 }
 .full-icon-secondary {
@@ -126,8 +176,8 @@
     color: white !important;
     background: #324395 !important;
   }
-  
-  ::ng-deep .mat-tooltip {
+
+  ::ng-deep .mat-mdc-tooltip {
     background-color: #324395;
     font-size: 18px;
   }
@@ -146,16 +196,16 @@
     display: none;
     min-width: 200px;
     background-color: #324395;
-      
+
     position: absolute;
     z-index: 1;
     top: 8px;
-    right: 42px;    
+    right: 42px;
     border-radius: 5px;
-    
+    /* TODO(mdc-migration): The following rule targets internal classes of list that may no longer apply for the MDC version.*/
     mat-list-item{
         color: white;    }
-
+    /* TODO(mdc-migration): The following rule targets internal classes of list that may no longer apply for the MDC version.*/
     mat-list-item:hover{
         background-color: white;
         color: #324395;
@@ -164,7 +214,14 @@
 
   #openSaveTamplate:hover .list-save-template{
     display: block;
-    
-  }
-  
 
+  }
+
+
+/* TODO(mdc-migration): The following rule targets internal classes of button that may no longer apply for the MDC version.*/
+::ng-deep .mat-button-wrapper{
+    font-size: 1rem;
+    @media (max-width: 712px){
+      font-size: 2.5rem;
+    }
+ }
