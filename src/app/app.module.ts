@@ -28,7 +28,8 @@ import { MatSidenavModule } from '@angular/material/sidenav';
 import { FormsModule } from '@angular/forms';
 import { MatSlideToggleModule } from '@angular/material/slide-toggle';
 import { MatSliderModule } from '@angular/material/slider';
-import { CKEditorModule } from 'ckeditor4-angular';
+// import { CKEditorModule } from 'ckeditor4-angular';
+import { CKEditorModule } from '@ckeditor/ckeditor5-angular';
 import { MatBadgeModule } from '@angular/material/badge';
 import { MatTableModule } from '@angular/material/table';
 import { MatTabsModule } from '@angular/material/tabs';
@@ -185,7 +186,7 @@ export function MSALInstanceFactory(): IPublicClientApplication {
         MatTooltipModule,
         MatGridListModule,
         MatSidenavModule,
-        // CKEditorModule,
+        CKEditorModule,
         FormsModule,
         MatTableModule,
         // HotkeyModule.forRoot(),
