@@ -164,39 +164,6 @@
             </div>
             <!-- END TINDER  🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥 -->
 
-<<<<<<< HEAD
-                    <button  (click)="changePage('previous')" mat-icon-button>
-                        <mat-icon class="full-icon">chevron_left</mat-icon>
-                    </button>
-                    <button style="padding: 1px;"(click)="changePage('previous')" mat-icon-button>
-                        Prev
-                    </button>
-                    <div class="bmxPages">
-                      <div *ngFor="let page of bmxPages; let pageIndex = index">
-                        <button style="min-width: 35px;" (click)="selectPageNumber(pageIndex)"
-                            [ngClass]="(currentPage === pageIndex)?'pageNumberActive':'pageNumber'" mat-raised-button>
-                            {{page.pageNumber}}
-                        </button>
-                    </div>
-                    </div>
-
-                    <button (click)="changePage('next')" mat-icon-button>
-                        Next
-                    </button>
-                    <button (click)="changePage('next')" mat-icon-button>
-                        <mat-icon class="full-icon">chevron_right</mat-icon>
-                    </button>
-                </div>
-                <div class="button-name">
-                    <button *ngIf="globalProjectName" class="no-print project-name-global" mat-raised-button
-                        style="position: relative; z-index: 9999999999; outline: none;">
-                        {{title}}: {{ globalDisplayName ? globalDisplayName : globalProjectName }}
-                    </button>
-                </div>
-
-            </div>
-=======
->>>>>>> 5dcd30337a611109632ed5d280b1ce292f47bf55
         </div>
 
 
