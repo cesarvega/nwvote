@@ -173,23 +173,23 @@
 
   <div style="display: flex; flex-direction: row;flex-wrap: wrap;justify-content: space-between;margin: 10px 39px;">
     <div *ngFor="let director of DIRECTORS; let i = index; trackBy: trackByIndex">
-      <mat-card appearance="outlined" class="directorCard" style="margin:20px 0px;width: 400px;">
+      <mat-card appearance="outlined" class="directorCard" style="margin:20px 0px;width: 400px; gap: 5px;">
 
         <div style="display: flex;flex-direction: row;">
-          <div style="margin-right: 6px; color: #324395;" class="selectLabels">Name: </div>
+          <div style="margin-right: 19px; color: #324395;" class="selectLabels">Name: </div>
           <input class="directorInfo" [(ngModel)]="DIRECTORS[i].name" placeholder="Name" [readonly]="i !== canEdit"
             matInput style="width:75%">
         </div>
 
 
         <div style="display: flex;flex-direction: row;">
-          <div style="margin-right: 6px;color: #053074;" class="selectLabels">Title: </div>
+          <div style="margin-right: 29px;color: #053074;" class="selectLabels">Title: </div>
           <input class="directorInfo" [(ngModel)]="DIRECTORS[i].title" placeholder="Title" [readonly]="i !== canEdit"
             matInput style="width:75%">
         </div>
 
         <div style="display: flex;flex-direction: row;">
-          <div style="margin-right: 6px; color: #324395;" class="selectLabels">Email: </div>
+          <div style="margin-right: 23px; color: #324395;" class="selectLabels">Email: </div>
           <input class="directorInfo" [(ngModel)]="DIRECTORS[i].email" placeholder="Email" [readonly]="i !== canEdit"
             matInput style="width:75%">
         </div>

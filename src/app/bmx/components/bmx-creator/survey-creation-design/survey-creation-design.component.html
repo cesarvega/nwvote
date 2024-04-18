@@ -197,17 +197,19 @@
             <div class="page-buttons">
                 <div [ngClass]="bmxClientPageDesignMode?'page-buttons-heigth-40':'page-buttons-heigth-minus-50'">
 
-                    <button (click)="changePage('previous')" mat-icon-button>
+                    <button  (click)="changePage('previous')" mat-icon-button>
                         <mat-icon class="full-icon">chevron_left</mat-icon>
                     </button>
-                    <button (click)="changePage('previous')" mat-icon-button>
+                    <button style="padding: 1px;"(click)="changePage('previous')" mat-icon-button>
                         Prev
                     </button>
-                    <div *ngFor="let page of bmxPages; let pageIndex = index">
+                    <div class="bmxPages">
+                      <div *ngFor="let page of bmxPages; let pageIndex = index">
                         <button style="min-width: 35px;" (click)="selectPageNumber(pageIndex)"
                             [ngClass]="(currentPage === pageIndex)?'pageNumberActive':'pageNumber'" mat-raised-button>
                             {{page.pageNumber}}
                         </button>
+                    </div>
                     </div>
 
                     <button (click)="changePage('next')" mat-icon-button>
