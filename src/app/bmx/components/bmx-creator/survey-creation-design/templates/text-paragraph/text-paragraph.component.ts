@@ -18,6 +18,7 @@ export class TextParagraphComponent implements OnInit {
   ckconfig;
   projectName: any;
   previousText = '';
+  Editor: any = '';
 
   constructor(private _bmxService: BmxService) { }
 
