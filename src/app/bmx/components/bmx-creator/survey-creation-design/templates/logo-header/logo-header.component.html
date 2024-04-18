@@ -1,18 +1,20 @@
 <div class="desktop"  (mouseenter)="showLogoIcon = true" (mouseleave)="showLogoIcon = false">
-    <span *ngIf="this.isBrandMatrixSurvey" style="color: #053074;font-size: 30px;outline: none;font-family: Arial, Helvetica, 
-        sans-serif;text-align: center;padding-top: 20px;">{{bmxItem.componentText}}
-    </span>
+    <!-- <span
+        style="color: #053074;font-size: 30px;outline: none;font-family: Arial, Helvetica, 
+        sans-serif;text-align: center;padding-top: 20px;">{{bmxItem.componentText}}</span> -->
     <div class="emoji-handle">.</div>
-    <div style="display: flex;flex-direction: row;justify-items: center;justify-content: space-between;align-items: center;margin: -30px 35px;">
+    <div
+        style="display: flex;flex-direction: row;justify-items: center;justify-content: space-between;align-items: center;margin: -30px 35px;">
         <div>
             <img style="width: 231px;margin-left: 8px;margin-top: 60px;" [src]="(isBrandMatrixSurvey)?bmxItem.componentSettings[0].brandInstituteSurveyLogoURL:
                 bmxItem.componentSettings[0].brandInstituteLogoURL">
         </div>
-        <div >
+        <div>
             <input type="file" class="file-input" (change)="onFileSelected($event)" #fileUpload style="display: none;"
                 accept="image/x-png,image/gif,image/jpeg">
 
-            <mat-icon *ngIf="showLogoIcon && bmxClientPageOverview" matTooltip="click to hide" matTooltipPosition="left"
+
+            <mat-icon *ngIf="showLogoIcon" matTooltip="click to hide" matTooltipPosition="left"
                 style="cursor: pointer;position: absolute;top: 19px;right: 167px;z-index: 999;" (click)="deleteIcon()">
                 add_circle</mat-icon>
 
@@ -25,7 +27,8 @@
 
             </div>
 
-            <img (mouseenter)="displayLogoWidthRange = true" (dblclick)=" !creationMode? fileUpload.click(): ''" [width]="bmxItem.componentSettings[0].logoWidth" style="margin-top: 60px;cursor: pointer;"
+            <img (mouseenter)="displayLogoWidthRange = true" (dblclick)="fileUpload.click()"
+                [width]="bmxItem.componentSettings[0].logoWidth" style="margin-top: 60px;cursor: pointer;"
                 [src]="bmxItem.componentSettings[0].companyLogoURL">
         </div>
     </div>
@@ -33,7 +36,8 @@
 
 <!-- MOBILE CODE -->
 <div class="mobile">
-    <div style="display: flex;flex-direction: column;justify-items: center;justify-content: space-between;align-items: center;">
+    <div
+        style="display: flex;flex-direction: column;justify-items: center;justify-content: space-between;align-items: center;">
         <div>
             <img style="width: 50px; margin-bottom: 13px;" [src]="bmxItem.componentSettings[0].brandInstituteMobileURL">
         </div>
@@ -43,7 +47,8 @@
                 [src]="bmxItem.componentSettings[0].companyLogoURL"> -->
         </div>
         <div>
-            <span style="color: #053074;font-size: 20px;outline: none;font-family: Arial, Helvetica, sans-serif;text-align: center;padding-top: 20px;">{{bmxItem.componentText}}</span>
+            <span
+                style="color: #053074;font-size: 20px;outline: none;font-family: Arial, Helvetica, sans-serif;text-align: center;padding-top: 20px;">{{bmxItem.componentText}}</span>
         </div>
     </div>
 </div>

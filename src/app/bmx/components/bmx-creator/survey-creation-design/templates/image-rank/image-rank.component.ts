@@ -2,7 +2,7 @@ import { DragulaService } from 'ng2-dragula';
 import { Component, ElementRef, EventEmitter, Inject, Input, OnInit, Output, ViewChild, ViewEncapsulation } from '@angular/core';
 import { CdkTextareaAutosize } from '@angular/cdk/text-field';
 import { RatingScaleComponent } from '../rating-scale/rating-scale.component';
-import {MatSnackBar } from '@angular/material/snack-bar';
+import { MatSnackBar } from '@angular/material/snack-bar';
 import { BmxService } from '../../../bmx.service';
 import { DeviceDetectorService } from 'ngx-device-detector';
 
@@ -32,20 +32,18 @@ export class ImageRankComponent  extends RatingScaleComponent implements OnInit 
   CREATION_VIDEO_PATH=''
 
   constructor(dragulaService: DragulaService, _snackBar: MatSnackBar, _bmxService: BmxService,public deviceService: DeviceDetectorService) {
-    super(dragulaService,null, _bmxService,deviceService)
+    super(dragulaService, _snackBar, _bmxService,deviceService)
   }
 
   ngOnInit(): void {
-    this.showDialog = false
-
     this.rankingScaleValue = this.bmxItem.componentSettings[0].selectedRanking
     this.createRatingStars(this.rankingScaleValue)
     // this.rankingTableType( this.bmxItem.componentSettings[0].rankType)
     this.rankingType = this.bmxItem.componentSettings[0].rankType
 
     this.rowsCount =  this.bmxItem.componentText.length - 1
-    this.bmxItem.componentSettings[0].minRule = this.bmxItem.componentSettings[0].minRule == 0?0:this.bmxItem.componentSettings[0].minRule;
-    this.bmxItem.componentSettings[0].maxRule = this.bmxItem.componentSettings[0].maxRule == 0?0:this.bmxItem.componentSettings[0].maxRule;
+    this.bmxItem.componentSettings[0].minRule = this.bmxItem.componentSettings[0].minRule == 0?this.rowsCount:this.bmxItem.componentSettings[0].minRule;
+    this.bmxItem.componentSettings[0].maxRule = this.bmxItem.componentSettings[0].maxRule == 0?this.rowsCount:this.bmxItem.componentSettings[0].maxRule;
 
     if (this.rankingType == 'dropDown') {
       this.draggableBag = ''
@@ -67,7 +65,7 @@ export class ImageRankComponent  extends RatingScaleComponent implements OnInit 
       if (typeof value == "string" && value != "STARS" && value != "CRITERIA" && value != "RATE") {
         this.columnsNames.push(value)
       }
-
+      
     });
 
     this.randomizeTestNames = this.bmxItem.componentSettings[0].randomizeTestNames
@@ -185,13 +183,13 @@ export class ImageRankComponent  extends RatingScaleComponent implements OnInit 
 
     setTimeout(() => {
       this.rowsCount = this.bmxItem.componentText.length - 1;
-
+      
       if(this.newSet){
         this.bmxItem.componentSettings[0].minRule = this.rowsCount;
-        this.bmxItem.componentSettings[0].maxRule = this.rowsCount;
+        this.bmxItem.componentSettings[0].maxRule = this.rowsCount;        
         this.newSet = false;
       }
-
+      
       if (this.bmxItem.componentSettings[0].CRITERIA) {
         //MULTIPLY FOR THE AMOUNT OF CRITERIA
         this.bmxItem.componentSettings[0].minRule = this.bmxItem.componentSettings[0].minRule * this.bmxItem.componentText[0].CRITERIA.length

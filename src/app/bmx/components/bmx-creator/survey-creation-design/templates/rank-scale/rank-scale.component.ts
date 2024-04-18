@@ -2,7 +2,7 @@ import { DragulaService } from 'ng2-dragula';
 import { Component, ElementRef, EventEmitter, Inject, Input, OnInit, Output, ViewChild, ViewEncapsulation } from '@angular/core';
 import { CdkTextareaAutosize } from '@angular/cdk/text-field';
 import { RatingScaleComponent } from '../rating-scale/rating-scale.component';
-import {  MatSnackBar } from '@angular/material/snack-bar';
+import { MatSnackBar } from '@angular/material/snack-bar';
 import { BmxService } from '../../../bmx.service';
 import { DeviceDetectorService } from 'ngx-device-detector';
 import { CdkDragDrop, moveItemInArray } from '@angular/cdk/drag-drop';
@@ -20,17 +20,16 @@ export class RankScaleComponent extends RatingScaleComponent implements OnInit {
   @Input() bmxClientPageDesignMode;
   @Input() bmxClientPageOverview;
   @Output() autoSave = new EventEmitter();
-  showBar = false
-  CREATION_VIDEO_PATH = "assets/videos/RankMatrix.mp4"
+  CREATION_VIDEO_PATH="assets/videos/RankMatrix.mp4" 
   VIDEO_PATH: any[] = [];
 
   PATH1: any[] = [
     'assets/img/bmx/tutorial/image-drag.JPG',
-
+    
   ]
 
   PATH2: any[] = [
-    'assets/img/bmx/tutorial/image-drag2.JPG',
+    'assets/img/bmx/tutorial/image-drag2.JPG',  
   ]
   isImageType = true
 
@@ -41,24 +40,21 @@ export class RankScaleComponent extends RatingScaleComponent implements OnInit {
   isdropDown = true
 
   allowScrolling = true
-  dataSource:any[] = []
 
-  constructor(dragulaService: DragulaService, _snackBar: MatSnackBar, _bmxService: BmxService, public deviceService: DeviceDetectorService) {
-    super(dragulaService, _snackBar, _bmxService, deviceService)
+  constructor(dragulaService: DragulaService, _snackBar: MatSnackBar, _bmxService: BmxService,public deviceService: DeviceDetectorService) {
+    super(dragulaService, _snackBar, _bmxService,deviceService)
   }
 
   ngOnInit(): void {
-    this.showDialog = false
-
     console.log(this.bmxItem)
     this.rankingScaleValue = this.bmxItem.componentSettings[0].selectedRanking
     this.createRatingStars(this.rankingScaleValue)
     // this.rankingTableType( this.bmxItem.componentSettings[0].rankType)
     this.rankingType = this.bmxItem.componentSettings[0].rankType
 
-    this.rowsCount = this.bmxItem.componentText.length - 1;
-    this.bmxItem.componentSettings[0].minRule = this.bmxItem.componentSettings[0].minRule == 0 ? 0 : this.bmxItem.componentSettings[0].minRule;
-    this.bmxItem.componentSettings[0].maxRule = this.bmxItem.componentSettings[0].maxRule == 0 ? 0 : this.bmxItem.componentSettings[0].maxRule;
+    this.rowsCount =  this.bmxItem.componentText.length - 1;
+    this.bmxItem.componentSettings[0].minRule = this.bmxItem.componentSettings[0].minRule == 0?this.rankingScaleValue:this.bmxItem.componentSettings[0].minRule;
+    this.bmxItem.componentSettings[0].maxRule = this.bmxItem.componentSettings[0].maxRule == 0?this.rowsCount:this.bmxItem.componentSettings[0].maxRule;
 
     if (this.rankingType == 'dropDown') {
       this.draggableBag = ''
@@ -79,34 +75,9 @@ export class RankScaleComponent extends RatingScaleComponent implements OnInit {
     values.forEach(value => {
       if (typeof value == "string" && value != "STARS" && value != "CRITERIA" && value != "RATE") {
         this.columnsNames.push(value)
-        console.log(this.bmxItem.componentText)
       }
     });
 
-    let result = '';
-
-    // Obtener las claves de la primera fila (los nombres de las propiedades)
-    let firstObject = this.bmxItem.componentText[0];
-    let columnNames = [];
-    for (let key in firstObject) {
-      if (key === 'Name Candidates' || key === 'Rationales' ) {
-        columnNames.push(key);
-      }
-    }
-
-    // Agregar cada objeto como una fila en el resultado
-    for (let obj of this.bmxItem.componentText) {
-      let values = [];
-      for (let key in obj) {
-        if (key !== 'STARS' && key !== 'RATE' && key !== 'CRITERIA' && key !== 'Comments') {
-          values.push(obj[key]);
-        }
-      }
-      if (values.length > 0) {  // Verificar si hay valores para esta fila
-        result += values.join('\t') + '\n';  // Agregar la línea al resultado
-      }
-    }
-    this.testNamesInput = result;
     this.randomizeTestNames = this.bmxItem.componentSettings[0].randomizeTestNames
 
 
@@ -129,11 +100,6 @@ export class RankScaleComponent extends RatingScaleComponent implements OnInit {
     if (this.bmxItem.componentSettings[0]['displaySound'] == true) {
       this.displaySound = true;
     }
-    const filteredCriteria = this.CRITERIA.filter(criteriaItem => this.selectedCriteria.map(item => item.name).includes(criteriaItem.name));
-    this.newselectedCriteria = filteredCriteria
-    this.rankingScaleValue = this.bmxItem.componentText[0].STARS.length;
-    this.dataSource = this.bmxItem.componentText.slice(1)
-
   }
 
   checkDragEvetn(event: CdkDragDrop<string[]>) {
@@ -160,17 +126,13 @@ export class RankScaleComponent extends RatingScaleComponent implements OnInit {
     return startCounter;
   }
 
-  upLoadNamesAndRationales(list: string, type?: any) {
+  upLoadNamesAndRationales(list: string) {
     this.dragRows = true;
     this.bmxItem.componentSettings[0].randomizeTestNames = (this.randomizeTestNames) ? true : false
     if (!list) { list = this.listString; }
     if (list) {
-      this.showBar = true
       this.listString = list;
       const rows = list.split("\n");
-      if (type) {
-        this.rankingScaleValue = rows.length - 1
-      }
       this.columnsNames = [];
       this.columnsNames = rows[0].toLowerCase().split("\t");
 
@@ -195,14 +157,14 @@ export class RankScaleComponent extends RatingScaleComponent implements OnInit {
           }
       });
       this.TESTNAMES_LIST = [];
-      for (const element of rows) {
-        if (element != "" && element.length > 6) {
+      for (let i = 0; i < rows.length; i++) {
+        if (rows[i] != "" && rows[i].length > 6) {
           let objectColumnDesign = {};
           if (this.ASSIGNED_CRITERIA.length > 0) {
 
             for (let e = 0; e < this.columnsNames.length; e++) {
-              if ((element.split("\t").length > 0)) {
-                objectColumnDesign[this.columnsNames[e]] = element.split("\t")[e]
+              if ((rows[i].split("\t").length > 0)) {
+                objectColumnDesign[this.columnsNames[e]] = rows[i].split("\t")[e]
               }
             }
             objectColumnDesign['CRITERIA'] = []
@@ -217,15 +179,15 @@ export class RankScaleComponent extends RatingScaleComponent implements OnInit {
 
             objectColumnDesign['STARS'] = this.createRatingStars(this.rankingScaleValue, this.ratingScaleIcon);
             for (let e = 0; e < this.columnsNames.length; e++) {
-              if ((element.split("\t").length > 0)) {
-                objectColumnDesign[this.columnsNames[e]] = element.split("\t")[e]
+              if ((rows[i].split("\t").length > 0)) {
+                objectColumnDesign[this.columnsNames[e]] = rows[i].split("\t")[e]
               }
             }
           }
 
-          this.TESTNAMES_LIST.push(objectColumnDesign);
+          this.TESTNAMES_LIST.push(objectColumnDesign);         
         }
-      }
+      }      
       this.bmxItem.componentText = this.deleteDuplicates(this.TESTNAMES_LIST, 'nameCandidates');
       this.columnsNames.push('RATE')
     } else {
@@ -233,15 +195,12 @@ export class RankScaleComponent extends RatingScaleComponent implements OnInit {
         row.STARS = this.createRatingStars(this.rankingScaleValue, this.ratingScaleIcon)
       });
     }
+
     setTimeout(() => {
-      if (this.bmxItem.componentSettings[0].rankType == 'radio') {
-        this.rowsCount = 20
-      } else {
-        this.rowsCount = this.bmxItem.componentText.length - 1;
-      }
-      if (this.newSet) {
+      this.rowsCount = this.bmxItem.componentText.length - 1;
+      if(this.newSet){
         this.bmxItem.componentSettings[0].minRule = this.rowsCount;
-        this.bmxItem.componentSettings[0].maxRule = this.rowsCount;
+        this.bmxItem.componentSettings[0].maxRule = this.rowsCount;        
         this.newSet = false;
       }
 
@@ -256,10 +215,7 @@ export class RankScaleComponent extends RatingScaleComponent implements OnInit {
     setTimeout(() => {
       this.dragRows = false;
     }, 1000);
-
     this.bmxItem.componentSettings[0].selectedRanking = this.rankingScaleValue
-    console.log(this.bmxItem)
-
   }
 
 
@@ -269,7 +225,7 @@ export class RankScaleComponent extends RatingScaleComponent implements OnInit {
     this.columnsNames = []
     this.RadioColumnList = []
     values.forEach(value => {
-      if (typeof value == "string" && value != "STARS" && value != "CRITERIA" && value != "RATE") {
+      if (typeof value == "string" && value != "STARS" && value != "CRITERIA") {
         this.columnsNames.push(value)
       }
     });
@@ -292,7 +248,6 @@ export class RankScaleComponent extends RatingScaleComponent implements OnInit {
       this.draggableBag = ''
       this.isdropDown = false
       this.radioColumnCounter = 1
-      this.rowsCount = 20
       for (let index = 0; index < this.rankingScaleValue; index++) {
         this.insertRadioColumn()
       }
