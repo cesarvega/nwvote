@@ -1,6 +1,6 @@
 
-<button *ngIf="openSettings && bmxClientPageOverview" class="cancel"
-    (click)=" replaceBiI_Markers(); openSettings = !openSettings" mat-icon-button>
+<button *ngIf="openSettings && bmxClientPageOverview" class="cancel" (click)=" replaceBiI_Markers(); openSettings = !openSettings"
+    mat-icon-button>
     <mat-icon class="full-icon" style="font-size: 25px;">check_circle</mat-icon>
 </button>
 <button *ngIf="!openSettings && bmxClientPageOverview" mat-icon-button class="edit-icon"
@@ -8,12 +8,8 @@
     <mat-icon class="full-icon" style="font-size: 25px;">edit</mat-icon>
 </button>
 
-<div class="paragram-desktop" *ngIf="currentPage == 1 && template== 'tinder' ; else regularTemplate"
-    style="margin: 30px;font-size: 20px;" [innerHTML]="bmxItem.componentText | safe: 'html'"></div>
-<ng-template #regularTemplate>
-    <div class="paragram-mobile" style="margin: 30px;font-size: 20px;"
-        [innerHTML]="bmxItem.componentText | safe: 'html'"></div>
-</ng-template>
+<div class="paragram-desktop" *ngIf="currentPage == 1 && template== 'tinder' ; else regularTemplate" style="margin: 30px;font-size: 20px;" [innerHTML]="bmxItem.componentText | safe: 'html'"></div>
+<ng-template #regularTemplate><div class="paragram-mobile" style="margin: 30px;font-size: 20px;" [innerHTML]="bmxItem.componentText | safe: 'html'"></div></ng-template>
 
 <div cdkDrag>
     <ckeditor *ngIf="openSettings && bmxClientPageOverview" [editor]="Editor" id="txtTexto" class="ckeditorcev"
@@ -30,7 +26,7 @@
     <div style="text-align: left;width: 300px;">email</div>
     <div style="text-align: left;width: 300px;">phone</div>
 </div> -->
-<!--
+<!-- 
 <div style="display: flex;flex-direction: column;justify-content: center;align-items: center;">
     <div style="font-family: auto;
     font-size: 16px;

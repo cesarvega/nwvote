@@ -1,5 +1,4 @@
 import {
-  AfterViewInit,
   Component,
   ElementRef,
   EventEmitter,
@@ -23,7 +22,6 @@ export class LogoHeaderComponent implements OnInit {
   @Input() bmxClientPageDesignMode;
   @Input() bmxClientPageOverview;
   @Input() isBrandMatrixSurvey;
-  @Input() creationMode = false
   displayInstructions: boolean;
   openSettings = false;
   displayLogoWidthRange = false;
@@ -40,17 +38,18 @@ export class LogoHeaderComponent implements OnInit {
   IMAGES_UPLOADED = [];
   projectId: any;
   biUsername: any;
-  imageLogoSrc
-  showLogoIcon = false;
-  constructor(private _BmxService: BmxService, private el: ElementRef) { }
+  imageLogoSrc 
+  showLogoIcon = false
+
+  constructor(private _BmxService: BmxService) {}
 
   ngOnInit(): void {
-    this.bmxItem.componentText = (localStorage.getItem('projectId')) ? localStorage.getItem('projectId') : this.bmxItem.componentText;
+    this.bmxItem.componentText = (localStorage.getItem('projectName'))?localStorage.getItem('projectName'):this.bmxItem.componentText;
     this.imageLogoSrc = this.bmxItem.componentSettings[0].companyLogoURL
   }
 
   onFileSelected(event) {
-    if (event.target.files && event.target.files[0] && !this.creationMode) {
+    if (event.target.files && event.target.files[0]) {
       let filesAmount = event.target.files.length;
       let fileName = event.target.files[0].name;
       let fileType = event.target.files[0].type;
@@ -63,7 +62,7 @@ export class LogoHeaderComponent implements OnInit {
             url: event.target.result,
           });
           this.resourceData = {
-            ProjectName: localStorage.getItem('projectId'),
+            ProjectName: localStorage.getItem('projectName'),
             FileName: fileName,
             ItemType: 'company-logo',
             FileType: fileType,
@@ -71,6 +70,7 @@ export class LogoHeaderComponent implements OnInit {
               .split(event.target.result.split(',')[0] + ',')
               .pop(),
           };
+          console.log(this.resourceData)
           this._BmxService
             .saveFileResources(JSON.stringify(this.resourceData))
             .subscribe((result: any) => {
@@ -86,7 +86,7 @@ export class LogoHeaderComponent implements OnInit {
     }
   }
 
-  resizeLogo(event: any) {
+  resizeLogo(event: any){
     this.resizeWidthLogo.emit(event)
     this._BmxService.setLogoTemporaryWidth(event)
   }
@@ -104,8 +104,8 @@ export class LogoHeaderComponent implements OnInit {
       });
   }
 
-  deleteIcon() {
-    this.bmxItem.componentSettings[0].companyLogoURL = (this.bmxItem.componentSettings[0].companyLogoURL == '') ? this.imageLogoSrc : '';
+  deleteIcon(){
+    this.bmxItem.componentSettings[0].companyLogoURL = (this.bmxItem.componentSettings[0].companyLogoURL == '')?this.imageLogoSrc:'';
   }
 
   addLogo

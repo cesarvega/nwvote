@@ -23,7 +23,7 @@ export class SurveyCreationDesignComponent implements OnInit {
     @Input() isMenuActive11;
     @Input() bmxClientPageDesignMode;
     @Input() bmxClientPageOverview;
-
+    
     isMobile = true
     @Input() isBrandMatrixSurvey
     @ViewChild('canvas', { static: true }) canvas: ElementRef;
@@ -32,11 +32,10 @@ export class SurveyCreationDesignComponent implements OnInit {
     popUpQRCode = false;
     elem: any;
     isFullscreen: any;
-    showDialog = false
-    actionType: any
+
     @Input() widthLogo: string = "";
 
-    showMenuCreator: boolean = false;
+    showMenuCreator: boolean =  false;
     iconMenuShow: string = "add_circle_outline";
     TEMPLATE_NAME = 'Standart Personal Preference';
 
@@ -55,29 +54,23 @@ export class SurveyCreationDesignComponent implements OnInit {
     
     BI_DIRECTOR
     
-    BI_DIRECTOR1
-    `;
+    BI_DIRECTOR1`;
     selectedOption: any;
     rankingScaleValue = 5;
-    testNamesInput: string
+
     displayInstructions = false;
 
     selectedStarRatingIndex = '';
     selectedRating = 0;
     newTestNames = [];
     ratingScale = 5;
-    dialogText = 'Are you sure you want to delete this component?'
+
     // TEMPLATE BOX
     isTemplateBoxOn = false;
     isTemplateUpdate = false;
     isSaveOrUpdate = false;
     isOverViewPageOn = false;
     templateTitle;
-    showSaveTemplate = false
-    showDelete = false
-    showDeletePage = false
-    showReset = false
-    title = ''
     TEMPLATES = [
         { TemplateName: 'Standard Personal Preference' },
         { TemplateName: 'Ranking' },
@@ -102,7 +95,7 @@ export class SurveyCreationDesignComponent implements OnInit {
     brandMatrixObjects = [
 
     ];
-    globalDisplayName: any = ''
+
     bmxPages: any = [
         {
             pageNumber: 1,
@@ -110,18 +103,14 @@ export class SurveyCreationDesignComponent implements OnInit {
         },
     ];
 
-    projectInfo: any;
+    projectInfo: string;
     qrCode: QRCodeStyling;
     projectId: any;
     biUsername: string;
     biUserId = 'user@bi.com';
 
-    UNDO = []
-    globalProjectName = '';
-    templateToDelete: any;
-    selectedDisplayNem: any;
-    isTemplate = 'false'
-    directors: any[] = [];
+    UNDO = [] 
+
     constructor(
         @Inject(DOCUMENT) private document: any,
         public _BmxService: BmxService,
@@ -257,39 +246,27 @@ export class SurveyCreationDesignComponent implements OnInit {
         //     this.projectInfo = arg;
         //     localStorage.setItem('projectInfo', this.projectInfo);
         // })
-        this._BmxService.currentProjectName$.subscribe((res) => {
-            this.globalProjectName = res ? res : '';
-        });
+
     }
 
     temporalWidthLogo: string = "";
 
-    ngOnInit(): void {
-        this.bmxClientPageOverview = true
+    ngOnInit(): void {   
 
         this.isBrandMatrixSurvey = false;
-        if (localStorage.getItem('projectName')) {
-            this.projectId = localStorage.getItem('projectName');
-            this.globalProjectName = this.projectId
-            this.globalDisplayName = localStorage.getItem('displayName');
-        } else {
-            this._BmxService.currentProjectName$.subscribe(projectName => {
-                this.projectId = (projectName !== '') ? projectName : this.projectId;
-
-                localStorage.setItem('projectName', this.projectId);
-            })
-        }
-        this._BmxService.getDirectos().subscribe(directors =>
-            this.directors = directors
-        )
+        this._BmxService.currentProjectName$.subscribe(projectName => {
+            this.projectId = (projectName !== '') ? projectName : this.projectId;
+            localStorage.setItem('projectName', this.projectId);
+        })
 
         this.myAngularxQrCode = this.myAngularxQrCode + this.projectId + '/' + this.biUsername
 
-        this._BmxService.getGeneralLists().subscribe((arg: any) => {
-            this.TEMPLATES = (JSON.parse(arg.d).BrandMatrixTemplateList.length > 0) ?
-                JSON.parse(arg.d).BrandMatrixTemplateList.map(obj => { return { template: obj.TemplateName, displayname: obj.DisplayName } }) :
-                this.TEMPLATES
-        });
+        this._BmxService.getGeneralLists()
+            .subscribe((arg: any) => {
+                this.TEMPLATES = (JSON.parse(arg.d).BrandMatrixTemplateList.length > 0) ?
+                    JSON.parse(arg.d).BrandMatrixTemplateList.map(obj => obj.TemplateName) :
+                    this.TEMPLATES
+            });
 
         // SAMPLE DATA FOR CKEDITOR
         this.model.editorData = this.sampleHtml;
@@ -297,65 +274,29 @@ export class SurveyCreationDesignComponent implements OnInit {
         // if (this.TEMPLATE_NAME === 'Standard Personal Preference') {
         //     this.createNewBmxComponent('rate-scale');
         // }
-        this.isTemplate = localStorage.getItem('templates')
-        if (this.isTemplate == 'true') {
-            const storedDataString = localStorage.getItem('brandMatrix')
-            const bmxMatrix = JSON.parse(storedDataString)
-            console.log(bmxMatrix)
-            if (bmxMatrix) {
-                let objeto = JSON.parse(bmxMatrix);
-                let logoUrl = ""
-                this.bmxPages = JSON.parse(bmxMatrix)
-                logoUrl = this.bmxPages[0].page[0].componentSettings[0].companyLogoURL;
-
-                for (let index = 0; index < this.bmxPages.length; index++) {
-                    this.bmxPages[index].page[0].componentSettings[0].companyLogoURL = logoUrl
-                }
-                if (this.widthLogo != "" && this.widthLogo != undefined) {
-
-                    this.bmxPages.forEach((pageToreset: any) => {
-                        pageToreset.page[0].componentSettings[0].logoWidth = this.widthLogo;
-                    })
-                }
-                // this._snackBar.open('bmx LOADED for project  ' + this.projectId , 'OK', {
-                //     duration: 5000,
-                //     horizontalPosition: 'left',
-                //     verticalPosition: 'top'
-                //   })
-            } else {
-                if (localStorage.getItem('template')) {
-                    this.bmxPages = JSON.parse(localStorage.getItem('template'))
-                } else {
-                    this.bmxPages = this.SAMPLE_BMX
-                }
-
-            }
-            this.title = 'TEMPLATE'
-            this.loadTemplate(this.projectId)
-        }
-        else if (this.bmxPagesClient) {
-            this.bmxPages = this.bmxPagesClient;
-            console.log('a')
+        if (this.bmxPagesClient) {
+            this.bmxPages = this.bmxPagesClient; 
+            console.log(this.bmxPages)          
+            
         } else {
-            console.log('a')
             //   this.bmxPages = this.SAMPLE_BMX;
+
             this._BmxService.getBrandMatrixByProject(this.projectId).subscribe((brandMatrix: any) => {
                 if (brandMatrix.d.length > 0) {
-                    let objeto = JSON.parse(brandMatrix.d);
                     let logoUrl = ""
                     this.bmxPages = JSON.parse(brandMatrix.d)
                     console.log(this.bmxPages)
                     logoUrl = this.bmxPages[0].page[0].componentSettings[0].companyLogoURL;
 
                     for (let index = 0; index < this.bmxPages.length; index++) {
-                        this.bmxPages[index].page[0].componentSettings[0].companyLogoURL = logoUrl
+                        this.bmxPages[index].page[0].componentSettings[0].companyLogoURL = logoUrl                        
                     }
                     //console.log(this.bmxPages)
-                    if (this.widthLogo != "" && this.widthLogo != undefined) {
-
+                    if(this.widthLogo != "" && this.widthLogo != undefined){
+            
                         this.bmxPages.forEach((pageToreset: any) => {
                             pageToreset.page[0].componentSettings[0].logoWidth = this.widthLogo;
-                        })
+                        }) 
                     }
                     // this._snackBar.open('bmx LOADED for project  ' + this.projectId , 'OK', {
                     //     duration: 5000,
@@ -363,42 +304,10 @@ export class SurveyCreationDesignComponent implements OnInit {
                     //     verticalPosition: 'top'
                     //   })
                 } else {
-                    if (localStorage.getItem('template')) {
-                        this.bmxPages = JSON.parse(localStorage.getItem('template'))
-                    } else {
-                        this.bmxPages = this.SAMPLE_BMX
-                    }
+                    this.bmxPages = this.SAMPLE_BMX
                 }
-                this._BmxService.getDirectos().subscribe(directors => {
-                    this.directors = directors
-                    const index = this.bmxPages[0].page[1]?.componentText.indexOf('<p style="text-align:center">BI_DIRECTOR</p>');
 
-                    if (index !== -1) {
-                        if (this.bmxPages[0].page[1]) {
-                            this.bmxPages[0].page[1].componentText = this.bmxPages[0].page[1]?.componentText.substring(0, index);
-                            const newParagraphs = this.directors.map(person => {
-                                return `<p style="display: flex;
-                            justify-content: center;"> ${person.name}  ${person.email} ${person.phone}</p>`;
-                            });
-                            this.bmxPages[0].page[1].componentText = this.bmxPages[0].page[1].componentText + newParagraphs.join('')
-                        }
-                    }
-                    const name = localStorage.getItem('projectName')
-                    console.log(name)
-                    const company = localStorage.getItem('company')
-                    const replacedText = this.bmxPages[0].page[1].componentText
-                        .replace(/\[PROJECT NAME\]/g, name)
-                        .replace(/\[Project Name\]/g, name)
-                        .replace(/\[Company Name\]/g, company)
-                    this.bmxPages[0].page[1].componentText = replacedText;
-
-                })
             })
-            this.title = 'PROJECT'
-
-        }
-        if (this.globalProjectName == null) {
-
         }
         if (!QRCodeStyling) {
             return;
@@ -415,16 +324,18 @@ export class SurveyCreationDesignComponent implements OnInit {
     }
 
     deletePage() {
-        if (this.currentPage > 0) {
+        if (confirm("Are you sure you want to delete this page?")) {
+            if (this.currentPage > 0) {
 
-            this.bmxPages.splice(this.currentPage, 1)
+                this.bmxPages.splice(this.currentPage, 1)
 
-            this.bmxPages.forEach((page, index) => {
-                page.pageNumber = index + 1
-            });
-            this.currentPage--
+                this.bmxPages.forEach((page, index) => {
+                    page.pageNumber = index + 1
+                });
+                this.currentPage--
+            }
         }
-        this.showDeletePage = false
+
     }
 
     createPage() {
@@ -572,7 +483,7 @@ export class SurveyCreationDesignComponent implements OnInit {
         else if (componentType === 'image-rank-drag') {
             this.TestNameDataModel = [];
             this.TestNameDataModel.push({
-                nameCandidates: 'Name Candidates',
+                nameCandidates: 'NAME',
                 rationale: 'RATIONALE',
                 RATE: 'RATE',
                 STARS: this.createRankinScale(),
@@ -688,7 +599,7 @@ export class SurveyCreationDesignComponent implements OnInit {
                 componentText: this.TestNameDataModel,
                 componentSettings: [
                     {
-                        minRule: 0,
+                        minRule: 3,
                         maxRule: 0,
                         fontSize: 16,
                         columnWidth: 150,
@@ -825,10 +736,10 @@ export class SurveyCreationDesignComponent implements OnInit {
     changePage(direction) {
         if (direction === 'next' && this.bmxPages.length - 1 > this.currentPage) {
             this.currentPage = this.currentPage + 1;
-
+            
         } else if (direction === 'previous' && this.currentPage >= 1) {
             this.currentPage = this.currentPage - 1;
-
+          
         }
     }
 
@@ -871,75 +782,49 @@ export class SurveyCreationDesignComponent implements OnInit {
     }
 
     deleteComponent(i) {
-        this.bmxPages[this.currentPage].page.splice(i, 1);
-        this.showDialog = false
+        if (confirm('Are you sure you want to delete this component?')) {
+            this.bmxPages[this.currentPage].page.splice(i, 1);
+        }
     }
 
     // TEMPLATE METHODS
-    saveOrUpdateTemplate(templateName, displayName?: any) {
-        console.log(templateName)
-        this.showSaveTemplate = false
-        const nameToShow = this.selectedDisplayNem
-        localStorage.setItem(templateName, JSON.stringify(this.bmxPages));
-        this._BmxService.saveBrandMatrixTemplate(templateName, this.bmxPages, this.biUserId, this.selectedDisplayNem ? this.selectedDisplayNem : templateName).subscribe((template: any) => {
+    saveOrUpdateTemplate(templateName) {
+        if (confirm('Are you sure you want to save or update ' + templateName + ' template?')) {
+            localStorage.setItem(templateName, JSON.stringify(this.bmxPages));
 
-            let x1 = JSON.parse(template.d)
-            console.log(x1)
-            this.templateTitle = "Template '" + templateName + "' saved 🧐";
-            this._snackBar.open(this.templateTitle, 'OK', {
-                duration: 5000,
-                horizontalPosition: 'right',
-                verticalPosition: 'top',
-            })
-        })
-
-        if (this.TEMPLATES.indexOf(templateName) < 0) {
-            this.TEMPLATES.push(templateName);
-        }
-
-        setTimeout(() => {
-            //this.openSaveTemplateBox();
-        }, 1000);
-        this.isTemplateBoxOn = false
-    }
-    loadTemplate(templateName) {
-        console.log(templateName)
-        const name = localStorage.getItem('projectName')
-        const company = localStorage.getItem('company')
-        const isTemplate = localStorage.getItem('templates')
-        if (!isTemplate) {
-            this._BmxService.getBrandMatrixTemplateByName(templateName).subscribe((template: any) => {
-                this.bmxPages = JSON.parse(template.d);
-
-                this.bmxPages[0].page[1].componentText
-                const originalText = this.bmxPages[0].page[1].componentText;
-
-                // Reemplazar los valores dinámicamente
-                const replacedText = originalText
-                    .replace(/\[PROJECT NAME\]/g, name)
-                    .replace(/\[Company Name\]/g, company)
-
-                this.bmxPages[0].page[1].componentText = replacedText;
-                const index = this.bmxPages[0].page[1].componentText.indexOf('<p>&nbsp;</p>');
-
-                this.bmxPages[0].page[1].componentText = this.bmxPages[0].page[1].componentText.substring(0, index);
-                let newParagraphs: any = []
-                if (this.directors.length > 0) {
-                    newParagraphs = this.directors.map(person => {
-                        return `<p style="display: flex;
-                justify-content: center;"> ${person.name}  ${person.email} ${person.phone}</p>`;
-                    });
-                }
-                if (newParagraphs != '') {
-                    this.bmxPages[0].page[1].componentText = this.bmxPages[0].page[1].componentText + newParagraphs.join('')
-                }
-                this._snackBar.open('template ' + "'" + templateName + "'" + ' loaded 😀', 'OK', {
+            this._BmxService.saveBrandMatrixTemplate(templateName, this.bmxPages, this.biUserId).subscribe((template: any) => {
+                this.templateTitle = "Template '" + templateName + "' saved 🧐";
+                this._snackBar.open(this.templateTitle, 'OK', {
                     duration: 5000,
                     horizontalPosition: 'right',
                     verticalPosition: 'top',
                 })
             })
+
+            if (this.TEMPLATES.indexOf(templateName) < 0) {
+                this.TEMPLATES.push(templateName);
+            }
+
+            setTimeout(() => {
+                //this.openSaveTemplateBox();
+            }, 1000);
+
         }
+    }
+
+    loadTemplate(templateName) {
+        console.log(templateName)
+        // if (localStorage.getItem(templateName)) {
+        //   this.bmxPages = JSON.parse(localStorage.getItem(templateName));
+        // }
+        this._BmxService.getBrandMatrixTemplateByName(templateName).subscribe((template: any) => {
+            this.bmxPages = JSON.parse(template.d);
+            this._snackBar.open('template ' + "'" + templateName + "'" + ' loaded 😀', 'OK', {
+                duration: 5000,
+                horizontalPosition: 'right',
+                verticalPosition: 'top',
+            })
+        })
         //this.openSaveTemplateBox();
     }
 
@@ -947,52 +832,53 @@ export class SurveyCreationDesignComponent implements OnInit {
         // if (localStorage.getItem(templateName)) {
         //   this.bmxPages = JSON.parse(localStorage.getItem(templateName));
         // }
-        this._BmxService.deleteBrandMatrixTemplateByName(templateName, this.biUserId).subscribe((template: any) => {
-            this._snackBar.open('template ' + "'" + templateName + "'" + ' deleted 😳', 'OK', {
-                duration: 5000,
-                horizontalPosition: 'right',
-                verticalPosition: 'top',
+        if (confirm('Are you sure you want to delete ' + templateName + ' template?')) {
+            this._BmxService.deleteBrandMatrixTemplateByName(templateName, this.biUserId).subscribe((template: any) => {
+                this._snackBar.open('template ' + "'" + templateName + "'" + ' deleted 😳', 'OK', {
+                    duration: 5000,
+                    horizontalPosition: 'right',
+                    verticalPosition: 'top',
+                })
             })
-        })
-        this.showDelete = false
+        }
+
+
         this.openSaveTemplateBox();
     }
 
     resetTemplate() {
+        if (confirm("Are you sure you want to reset this template?")) {
 
-        this.selectPageNumber(0)
-        this.bmxPages = [];
-
-        this.bmxPages.push({
-            pageNumber: this.bmxPages.length + 1,
-            page: [
+            this.bmxPages = [
                 {
-                    "componentType": "logo-header",
-                    "componentText": "templates2",
-                    "componentSettings": [
+                    pageNumber: 1,
+                    page: [
                         {
-                            "fontSize": "16px",
-                            "fontFace": "Arial",
-                            "logoWidth": 100,
-                            "brandInstituteLogoURL": "./assets/img/bmx/BRANDMATRIX-DASHBOARD-LOGO.svg",
-                            "brandInstituteSurveyLogoURL": "./assets/img/bmx/bm-logo-2020-high.png",
-                            "brandInstituteMobileURL": "./assets/img/bmx/bmxCube.jpg",
-                            "companyLogoURL": "./assets/img/bmx/insertLogo.jpg"
+                            "componentType": "logo-header",
+                            "componentText": "templates2",
+                            "componentSettings": [
+                                {
+                                    "fontSize": "16px",
+                                    "fontFace": "Arial",
+                                    "logoWidth": 100,
+                                    "brandInstituteLogoURL": "./assets/img/bmx/BRANDMATRIX-DASHBOARD-LOGO.svg",
+                                    "brandInstituteSurveyLogoURL": "./assets/img/bmx/bm-logo-2020-high.png",
+                                    "brandInstituteMobileURL": "./assets/img/bmx/bmxCube.jpg",
+                                    "companyLogoURL": "./assets/img/bmx/insertLogo.jpg"
+                                }
+                            ]
                         }
                     ]
-                }
-            ]
-        });
-
-        this.showReset = false
-
+                },
+            ];
+        }
     }
+
 
     templateSelected() {
         this.isSaveOrUpdate = true;
-        const selectedTemplate = this.TEMPLATES.find((template: any) => template.template === this.templateName);
-        this.selectedDisplayNem = selectedTemplate
     }
+
 
     delete() {
         this.isTemplateBoxOn = true;
@@ -1012,29 +898,7 @@ export class SurveyCreationDesignComponent implements OnInit {
 
     saveData() {
         // RESET VOTES IN TEMPLATE
-        this.projectInfo = JSON.parse(
-            localStorage.getItem('fakeproject' + '_project_info')
-        );
-        this.bmxCompleteObject = {
-            userInfo: { username: 'John Smith' },
-            projectInfo: this.projectInfo,
-            bmx: this.bmxPages,
-            // tables: []
-        };
-        this.bmxPages.forEach((pageElement) => {
-            pageElement.page.forEach((component) => {
-                if (
-                    component.componentType == 'rate-scale' ||
-                    component.componentType == 'ranking-scale' ||
-                    component.componentType == 'image-rate-scale' ||
-                    component.componentType == 'narrow-down' ||
-                    component.componentType == 'question-answer'
-                ) {
-                    this.calculateTableDefinitions(component);
-                }
-            });
-        });
-        this.bmxPages.forEach((pageToreset: any) => {
+        this.bmxPages.forEach((pageToreset: any) => {    
 
             pageToreset.page.forEach(category => {
                 if (
@@ -1082,24 +946,49 @@ export class SurveyCreationDesignComponent implements OnInit {
             });
         });
 
-        // console.log(this.bmxCompleteObject.bmx[4]["page"][3]['componentText']);
-        this._BmxService
-            .saveOrUpdateBradnMatrixTemplate(this.bmxPages, this.projectId)
-            .subscribe((res: any) => {
-                let logoUrl = ""
-                this.bmxPages = JSON.parse(res.d)
-                logoUrl = this.bmxPages[0].page[0].componentSettings[0].companyLogoURL;
+        if (confirm('Are you sure you want save overwrite this project?')) {
 
-                for (let index = 0; index < this.bmxPages.length; index++) {
-                    this.bmxPages[index].page[0].componentSettings[0].companyLogoURL = logoUrl
-                }
-                // console.log('%cBMX!', 'color:orange', res);
-                this._snackBar.open('Project ' + this.projectId + ' saved', 'OK', {
-                    duration: 5000,
-                    verticalPosition: 'top',
-                })
+            this.projectInfo = JSON.parse(
+                localStorage.getItem('fakeproject' + '_project_info')
+            );
+            this.bmxCompleteObject = {
+                userInfo: { username: 'John Smith' },
+                projectInfo: this.projectInfo,
+                bmx: this.bmxPages,
+                // tables: []
+            };
+            this.bmxPages.forEach((pageElement) => {
+                pageElement.page.forEach((component) => {
+                    if (
+                        component.componentType == 'rate-scale' ||
+                        component.componentType == 'ranking-scale' ||
+                        component.componentType == 'image-rate-scale' ||
+                        component.componentType == 'narrow-down' ||
+                        component.componentType == 'question-answer'
+                    ) {
+                        this.calculateTableDefinitions(component);
+                    }
+                });
             });
-        this.showDialog = false
+            // console.log(this.bmxCompleteObject.bmx[4]["page"][3]['componentText']);
+            
+            this._BmxService
+                .saveOrUpdateBradnMatrixTemplate(this.bmxPages, this.projectId)
+                .subscribe((res:any) => {                    
+                    let logoUrl = ""
+                    this.bmxPages = JSON.parse(res.d)
+                    logoUrl = this.bmxPages[0].page[0].componentSettings[0].companyLogoURL;
+
+                    for (let index = 0; index < this.bmxPages.length; index++) {
+                        this.bmxPages[index].page[0].componentSettings[0].companyLogoURL = logoUrl                        
+                    }
+                    // console.log('%cBMX!', 'color:orange', res);
+                    this._snackBar.open('Project ' + this.projectId + ' saved', 'OK', {
+                        duration: 5000,
+                        verticalPosition: 'top',
+                    })
+                });
+        }
     }
 
     // 🌭🌭🌭🌭🌭🌭🌭🌭🌭🌭🌭🌭🌭🌭🌭🌭🌭🌭🌭🌭🌭🌭🌭PRIVATE METHODS 🌭🌭🌭🌭🌭🌭🌭🌭🌭🌭🌭🌭🌭🌭🌭🌭🌭🌭🌭🌭🌭🌭🌭
@@ -1228,10 +1117,7 @@ export class SurveyCreationDesignComponent implements OnInit {
     }
 
     previewSurvey() {
-        console.log(this.projectId)
-        const projectUrl = this.projectId.replace(/\//g, '-')
-        console.log('survey/' + projectUrl + '/' + (this.biUsername ? this.biUsername : 'guest'))
-        window.open('survey/' + projectUrl + '/' + (this.biUsername ? this.biUsername : 'guest'));
+        window.open('survey/' + this.projectId + '/' + (this.biUsername ? this.biUsername : 'guest'));
     }
 
 
@@ -1258,66 +1144,26 @@ export class SurveyCreationDesignComponent implements OnInit {
         }
     ]
 
-    showMenucreateNewBmx() {
+    showMenucreateNewBmx(){
         this.showMenuCreator = !this.showMenuCreator;
-        if (this.showMenuCreator) {
+        if(this.showMenuCreator){
             this.iconMenuShow = "remove_circle_outline"
-        } else {
+        }else{
             this.iconMenuShow = "add_circle_outline"
         }
     }
 
-    logoChanged(logoUrl: any) {
+    logoChanged(logoUrl: any){
         for (let index = 0; index < this.bmxPages.length; index++) {
-            this.bmxPages[index].page[0].componentSettings[0].companyLogoURL = logoUrl
-        }
+            this.bmxPages[index].page[0].componentSettings[0].companyLogoURL = logoUrl                        
+        }        
     }
 
-    closeDialog() {
-        this.showDialog = false
-        this.showSaveTemplate = false
-        this.showDelete = false
-        this.showDeletePage = false
-        this.showReset = false
-    }
-
-    changeDialog(templateName) {
-        this.dialogText = 'Are you sure you want to save or update ' + templateName + ' template?'
-    }
-
-    changeDialogDelete(templateName) {
-        this.dialogText = 'Are you sure you want to delete ' + templateName + ' template?'
-    }
-    openDialog(type: any, component?: any) {
-        if (type === 'delete') {
-            this.templateToDelete = component
-
-        } if (type === 'save') {
-            this.dialogText = "Are you sure you want to overwrite the current project?"
-        }
-        this.actionType = type
-        this.showDialog = true
-    }
-
-    confirmAction() {
-        if (this.actionType === 'delete') {
-            this.deleteComponent(this.templateToDelete)
-        } else if (this.actionType === 'save') {
-            this.saveData()
-        }
-    }
-
-    resizeWidthLogo(event: any) {
+    resizeWidthLogo(event: any){
         this.temporalWidthLogo = event;
         this.bmxPages.forEach((pageToreset: any) => {
             pageToreset.page[0].componentSettings[0].logoWidth = this.temporalWidthLogo
-        })
-    }
-    saveTemplate() {
-        const templateToChange = localStorage.getItem('templateName')
-        this.selectedDisplayNem = localStorage.getItem('displayName')
-        this.saveOrUpdateTemplate(templateToChange)
-        this.selectedDisplayNem = null
+        }) 
     }
 }
 // https://brandmatrix.brandinstitute.com/BMX/survey/ImageStarRate/guest

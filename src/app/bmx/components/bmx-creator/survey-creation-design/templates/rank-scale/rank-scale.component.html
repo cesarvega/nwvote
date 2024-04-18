@@ -1,6 +1,3 @@
-<div *ngIf="showDialog"><app-survey-dialog (onConfirm)="confirmAction()" (onCancel)="closeDialog()"
-        [dialogText]="dialogText"></app-survey-dialog>
-</div>
 <div *ngIf="showCreationModalVideo && bmxClientPageOverview" id="myModal" class="modal-video"
     style="display: flex;flex-direction: column;gap: 2px;">
     <!-- <label class="container-checkbox">Don't show again
@@ -27,14 +24,6 @@
         flex-direction: row;
         justify-content: start;background: #ffffffd9;
         gap: 0px;position: absolute;left: -748px;z-index: 1;border: 2px dashed #324395;">
-             <!-- RATE -->
-             <div style="display: flex;flex-direction: column;align-items: center;">
-                <p style="margin: 0 0 -12px;color: #324395;">rank
-                </p>
-                <input type="range" style="margin: 20px;width: 50px;" [(ngModel)]="bmxItem.componentSettings[0].rateWidth"
-                    class="slider-font-size" tickInterval="0.5" min="50" max="400"
-                    [value]="bmxItem.componentSettings[0].rateWidth">
-            </div>
         <!-- NAME CANDIATES -->
         <div style="display: flex;flex-direction: column;align-items: center;">
             <p style="margin: 0 0 -12px;color: #324395;">candidates
@@ -53,7 +42,14 @@
                 min="50" max="600" [value]="bmxItem.componentSettings[0].rationalewidth">
         </div>
 
-
+        <!-- RATE -->
+        <div style="display: flex;flex-direction: column;align-items: center;">
+            <p style="margin: 0 0 -12px;color: #324395;">rank
+            </p>
+            <input type="range" style="margin: 20px;width: 50px;" [(ngModel)]="bmxItem.componentSettings[0].rateWidth"
+                class="slider-font-size" tickInterval="0.5" min="50" max="400"
+                [value]="bmxItem.componentSettings[0].rateWidth">
+        </div>
 
         <!-- COMMENTS -->
         <div style="display: flex;flex-direction: column;align-items: center;">
@@ -103,12 +99,13 @@
     <!-- ⏺⏺⏺⏺⏺⏺⏺⏺⏺⏺⏺⏺⏺⏺⏺⏺⏺⏺⏺⏺⏺⏺  END  ⏺⏺⏺⏺⏺⏺⏺⏺⏺⏺⏺⏺⏺⏺⏺⏺⏺⏺ -->
 
     <div style="display: flex; flex-direction: row-reverse;">
-        <button (click)="showMatrixMenuBmx()" mat-icon-button matTooltip="{{textToolTip}}" matTooltipPosition="right">
+        <button (click)="showMatrixMenuBmx()" mat-icon-button matTooltip="{{textToolTip}}"
+            matTooltipPosition="right">
             <mat-icon class="full-icon">{{iconMenuShow}}</mat-icon>
         </button>
         <div *ngIf="showMatrixMenu">
-            <button (click)="openDialog('undo'); editSingleTableCells = false" class="add-column"
-                matTooltip="undo last change" matTooltipPosition="above" mat-icon-button aria-label="ranking">
+            <button (click)="undo(); editSingleTableCells = false" class="add-column" matTooltip="undo last change"
+                matTooltipPosition="above" mat-icon-button aria-label="ranking">
                 <mat-icon style="font-size: 26px;" class="full-icon">undo</mat-icon>
             </button>
             <button (click)="selectedIndex = ''; editSingleTableCells = false" class="add-column" matTooltip="cancel"
@@ -148,8 +145,8 @@
                 <mat-icon style="font-size: 26px;" class="full-icon">explicit</mat-icon>
             </button>
         </div>
-        <button (click)="showCreationModalVideo=true; editSingleTableCells = false" class="add-column"
-            matTooltip="see tutorial" matTooltipPosition="above" mat-icon-button aria-label="ranking">
+        <button (click)="showCreationModalVideo=true; editSingleTableCells = false" class="add-column" matTooltip="see tutorial"
+            matTooltipPosition="above" mat-icon-button aria-label="ranking">
             <mat-icon style="font-size: 26px;" class="full-icon">video_library</mat-icon>
         </button>
 
@@ -162,14 +159,10 @@
             matTooltipPosition="above" mat-icon-button aria-label="ranking">
             <mat-icon style="font-size: 26px;    z-index: 9;" class="full-icon">swap_horizontal_circle</mat-icon>
         </button>
-        <button (click)="selectedIndex = i; editSingleTableCells = false; verifyCritera()" class="add-column"
+        <button (click)="selectedIndex = i; editSingleTableCells = false" class="add-column"
             matTooltip="setup settings" matTooltipPosition="above" *ngIf="i !== selectedIndex" mat-icon-button>
             <mat-icon style="font-size: 25px;" class="full-icon">edit</mat-icon>
         </button>
-        <button (click)="showModalTable = true" class="add-column" matTooltip="Update names" matTooltipPosition="above"
-        *ngIf="i !== selectedIndex" mat-icon-button>
-        <mat-icon style="font-size: 25px;" class="full-icon"> text_fields</mat-icon>
-    </button>
     </div>
 </div>
 <!-- ➗➗➗➗➗➗➗➗➗➗➗➗➗➗➗➗➗➗➗  END  ➗➗➗➗➗➗➗➗➗➗➗➗➗➗➗➗➗ -->
@@ -178,204 +171,111 @@
 
 
 <!-- 🔧🔧🔧🔧🔧🔧🔧🔧🔧🔧🔧🔧🔧🔧🔧🔧🔧🔧🔧🔧🔧 CONFIG BOX 🔧🔧🔧🔧🔧🔧🔧🔧🔧🔧🔧🔧🔧🔧🔧🔧🔧🔧🔧🔧🔧🔧🔧 -->
-<div *ngIf="i === selectedIndex" class="mat-elevation-z4" cdkDrag style="position: absolute;width: 50%;background: #fafafa;z-index: 1;top: -65px;left: 25%;border: #063074 4px solid; overflow: auto;
-       max-height: 36rem;
-    bottom: -2; ">
+<div *ngIf="i === selectedIndex" class="mat-elevation-z4" cdkDrag
+    style="position: absolute;width: 62vw;background: #fafafa;z-index: 1;top: -8px;left: 15%;border: #063074 4px solid;">
+    <div style="position: absolute;
+    top: 10px;
+    right: 10px;
+    color: #ccc;
+    cursor: move;
+    width: 1024px;
+    height: 54px;" cdkDragHandle> </div>
+    <div style="text-align: center;">
+        <div style="font-size: 16px;margin: 20px;color: #48535e;">PASTE TEST QUESTIONS</div>
+        <!-- <div style="font-size: 14px;margin-bottom: 20px;color: lightgray;">Brief Description Here</div> -->
+    </div>
+    <div>
+        <mat-form-field style="width: 90%;margin-left: 20px;" appearance="outline">
+            <mat-label>Copy & Paste TEST QUESTIONS</mat-label>
+            <textarea matInput rows="4" cols="50" [(ngModel)]="testNamesInput" placeholder=""></textarea>
+        </mat-form-field>
+    </div>
 
-    <div class="example-handle" cdkDragHandle style="display: flex;
-    flex-direction: row;
-    justify-content: center;cursor: move; height: 25px; width: 100%;"><svg width="24px" fill="currentColor"
-            viewBox="0 0 24 24">
-            <path
-                d="M10 9h4V6h3l-5-5-5 5h3v3zm-1 1H6V7l-5 5 5 5v-3h3v-4zm14 2l-5-5v3h-3v4h3v3l5-5zm-9 3h-4v3H7l5 5 5-5h-3v-3z">
-            </path>
-            <path d="M0 0h24v24H0z" fill="none"></path>
-        </svg></div>
+    <hr>
+    <div style="display: flex;flex-direction: row;justify-content: space-around;gap: 10px;">
 
-    <!-- Cards Select Ranking-->
-    <mat-card appearance="outlined" class="example-card">
-        <mat-card-header>
-            <mat-card-title>Select Ranking
+        <input type="text" [(ngModel)]="bmxItem.componentSettings[0].categoryName"
+            [value]="bmxItem.componentSettings[0].categoryName" placeholder="Category Name"
+            style="font-size: 20px;color: #324395;padding-bottom: 7px;padding-left: 10px;width: 20%">
+        <input type="text" [(ngModel)]="bmxItem.componentSettings[0].categoryDescription"
+            [value]="bmxItem.componentSettings[0].categoryDescription" placeholder="Category Description"
+            style="font-size: 20px;color: #ee7f25;padding-bottom: 4px;padding-left: 7px;width: 20%">
 
-            </mat-card-title>
-        </mat-card-header>
-        <mat-card-content>
-            <div class="sm-section3-rkScale">
+        <mat-checkbox [(ngModel)]="randomizeTestNames">Randomize Names</mat-checkbox>
 
-                <div class="sm-row-box-rkScale">
+        <mat-checkbox [(ngModel)]="bmxItem.componentSettings[1].isImageType">Rank Logos</mat-checkbox>
 
-                    <div style="margin-top: 0.5rem;">
-                        <mat-radio-group aria-label="Select an option"
-                            [(ngModel)]="this.bmxItem.componentSettings[0].rankType"
-                            (change)="rankingTableType(this.bmxItem.componentSettings[0].rankType)">
-                            <div style="display: flex;flex-direction: column;gap: 1px;">
-                                <mat-radio-button value="dropDown">Drop-Down</mat-radio-button>
-                                <mat-radio-button value="dragAndDrop">Drag & Drop</mat-radio-button>
-                                <mat-radio-button value="radio">Radio Butons</mat-radio-button>
-                            </div>
-                        </mat-radio-group>
-                    </div>
-                    <!-- <select>
-                  <option value="">
-                      <mat-icon style="color:#e6ad11;">rectangle</mat-icon>
-                  </option>
-                  <option value="valid" selected>
-                      <mat-icon style="color:#76d354;">grade</mat-icon>
-                  </option>
-                  <option value="invalid">
-                      <mat-icon style="color:#e6ad11;">rectangle</mat-icon>
-                  </option>
-              </select> -->
-                </div>
-            </div>
-        </mat-card-content>
+        <div style="display: flex;flex-direction: column;justify-content: center;gap: 10px;">
+            <div style="font-size: 16px;margin-top: 10px;color: #48535e;text-align: center;">MIN:
+                {{bmxItem.componentSettings[0].minRule}}</div>
+            <input type="range" min="0" [max]="rowsCount" [(ngModel)]="bmxItem.componentSettings[0].minRule"
+                style="width:120px; padding: 0px 10px;">
+        </div>
+        <div style="display: flex;flex-direction: column;justify-content:center;gap: 10px;">
+            <div style="font-size: 16px;margin-top: 10px;color: #48535e;text-align: center;">MAX:
+                {{bmxItem.componentSettings[0].maxRule}}</div>
+            <input type="range" min="0" [max]="rowsCount" [(ngModel)]="bmxItem.componentSettings[0].maxRule"
+                style="width:120px; padding: 0px 10px;">
+        </div>
 
-    </mat-card>
 
-    <br>
-    <!-- Cards Test Name-->
-    <mat-card appearance="outlined" class="example-card">
-        <mat-card-header>
-            <mat-card-title>Columns</mat-card-title>
-        </mat-card-header>
-        <mat-card-content>
-            <div style="text-align: center;">
-                <div style="font-size: 16px;margin: 20px;color: #48535e;">PASTE Columns</div>
-                <!-- <div style="font-size: 14px;margin-bottom: 20px;color: lightgray;">Brief Description Here</div> -->
-            </div>
-            <div>
-                <mat-form-field style="width: 90%;margin-left: 20px;" appearance="outline">
-                    <mat-label>Copy & Paste Columns</mat-label>
-                    <textarea matInput rows="4" cols="50" [(ngModel)]="testNamesInput" placeholder=""
-                        (ngModelChange)="upLoadNamesAndRationales(testNamesInput, true); "></textarea>
-                </mat-form-field>
-                <p style="margin-left: 30px; color: #757575;">
-                    Add the names you want to test
-                </p>
-            </div>
+    </div>
 
-        </mat-card-content>
-
-    </mat-card>
-
-    <br>
-
-    <mat-card appearance="outlined" class="example-card" *ngIf="showBar">
-        <mat-card-header>
-            <mat-card-title>Select Ranking
-
-            </mat-card-title>
-        </mat-card-header>
-        <mat-card-content>
-            <div class="sm-section3-rkScale">
-
-                <div class="sm-row-box-rkScale">
-                    <div *ngIf="this.bmxItem.componentSettings[0].rankType !='dragAndDrop' && showBar">
-                        <div style="font-size: 16px;margin-top: 10px;color: #48535e;">SELECT RANK</div>
-                        <br>
-                        <div
-                            style="text-align: center;display: flex;flex-direction: row;justify-content: space-around;">
-
-                            <input [(ngModel)]="rankingScaleValue" type="range" id="volume" name="volume" min="0"
-                                [max]="this.rowsCount">
-                            {{rankingScaleValue}}
-                        </div>
-                    </div>
-
-                    <!-- <select>
-                  <option value="">
-                      <mat-icon style="color:#e6ad11;">rectangle</mat-icon>
-                  </option>
-                  <option value="valid" selected>
-                      <mat-icon style="color:#76d354;">grade</mat-icon>
-                  </option>
-                  <option value="invalid">
-                      <mat-icon style="color:#e6ad11;">rectangle</mat-icon>
-                  </option>
-              </select> -->
-                </div>
-            </div>
-        </mat-card-content>
-
-    </mat-card>
-
-    <br>
-    <!-- Cards Criteria-->
-    <mat-card appearance="outlined" class="example-card">
-        <mat-card-header>
-            <mat-card-title>Category</mat-card-title>
-        </mat-card-header>
-        <br>
-        <div class="sm-section2-rkScale">
-            <div class="sm-column-box-rkScale">
-                <mat-form-field appearance="outline" style="width: 40%">
-                    <mat-label>Category Name</mat-label>
-                    <input matInput [(ngModel)]="bmxItem.componentSettings[0].categoryName" placeholder="Category Name"
-                        style="font-size: 20px;color: #324395;">
-                    <mat-hint>Add a category to the left side</mat-hint>
-                </mat-form-field>
-
-                <mat-form-field appearance="outline" style="width: 40%">
-                    <mat-label>Sub category Description</mat-label>
-                    <input matInput [(ngModel)]="bmxItem.componentSettings[0].categoryDescription"
-                        placeholder="Sub category Description" style="font-size: 20px;color: #ee7f25;">
-                    <mat-hint>Enter a brief description of the Sub category </mat-hint>
-                    <!-- Hint text for Category Description -->
-                </mat-form-field>
-            </div>
+    <hr>
+    <div style="text-align: center;display: flex;flex-direction: row;justify-content: space-around;">
+        <div>
+            <div style="font-size: 16px;margin-top: 10px;color: #48535e;">SELECT RANKIN RANGE</div>
             <br>
 
-            <div class="sm-row-box-rkScale">
-                <mat-checkbox [(ngModel)]="randomizeTestNames">Randomize Names</mat-checkbox>
+            <div style="text-align: center;display: flex;flex-direction: row;justify-content: space-around;">
+                2 <input [(ngModel)]="rankingScaleValue" type="range" id="volume" name="volume" min="2" max="10">
+                10 <br>
+            </div>
+            <label for="volume">{{rankingScaleValue}}</label>
+            <!-- <hr> -->
 
-                <!-- <mat-checkbox [(ngModel)]="bmxItem.componentSettings[1].isImageType">Rank Logos</mat-checkbox> -->
-            </div>
-            <div class="sm-row-box-rkScale"
-                *ngIf="this.bmxItem.componentSettings[0].rankType != 'dragAndDrop' && this.bmxItem.componentSettings[0].rankType != 'dropDown'">
-                <div>
-                    <div
-                        style="display: flex;flex-direction: column;justify-content: center;gap: 10px;align-items: center; ">
-                        <div style="font-size: 16px;margin-top: 10px;color: #48535e;text-align: center;"> Minimum:
-                            {{bmxItem.componentSettings[0].minRule}}
-                        </div>
-                        <input type="number" min="0" [max]="rowsCount"
-                            [(ngModel)]="bmxItem.componentSettings[0].minRule" style="width:53px; padding: 0px 10px;"
-                            [value]="bmxItem.componentSettings[0].minRule">
-                    </div>
-                    <div style="font-size: 13px;color: #48535e;">Min number of selections to vote on</div>
-                </div>
-                <div>
-                    <div
-                        style="display: flex;flex-direction: column;justify-content:center;gap: 10px;align-items: center;">
-                        <div style="font-size: 16px;margin-top: 10px;color: #48535e;text-align: center;"> Maximum:
-                            {{bmxItem.componentSettings[0].maxRule}}
-                        </div>
-                        <input type="number" min="0" [max]="rowsCount"
-                            [(ngModel)]="bmxItem.componentSettings[0].maxRule" style="width:53px; padding: 0px 10px;"
-                            [value]="bmxItem.componentSettings[0].maxRule">
-                    </div>
-                    <div style="font-size: 13px;color: #48535e;">Max number of selections to vote on</div>
-                </div>
-            </div>
         </div>
-        <mat-card-content>
 
-        </mat-card-content>
+        <div style="display: flex;flex-direction: column;gap: 1px;">
+            <!-- <mat-form-field appearance="outline">
+                <mat-label>choose criteria</mat-label>
+                <mat-select multiple [(ngModel)]="selectedCriteria"
+                    (selectionChange)="criteriaSelection(selectedCriteria)">
+                    <mat-option *ngFor="let cirteriaItem of CRITERIA" [value]="cirteriaItem">{{cirteriaItem.name}}
+                    </mat-option>
+                </mat-select>
+            </mat-form-field> -->
+            <mat-radio-group aria-label="Select an option" [(ngModel)]="this.bmxItem.componentSettings[0].rankType"
+                (change)="rankingTableType(this.bmxItem.componentSettings[0].rankType)">
+                <div style="display: flex;flex-direction: column;gap: 1px;">
+                    <mat-radio-button value="dropDown">Drop-Down</mat-radio-button>
+                    <mat-radio-button value="dragAndDrop">Drag & Drop</mat-radio-button>
+                    <mat-radio-button value="radio">Radio Butons</mat-radio-button>
+                </div>
+            </mat-radio-group>
 
-    </mat-card>
-    <br>
+        </div>
 
-
-    <!-- BUTTON-->
-    <div class="sm-row-box-rkScale">
+        <div>
+            <!-- <div style="font-size: 16px;margin-top: 10px;color: #48535e;">CHOOSE RATING ICON</div>
+            <br>
+            <mat-radio-group aria-label="Select an option" [(ngModel)]="ratingScaleIcon">
+                <mat-icon style="color:#76d354;">grade</mat-icon>
+                <mat-radio-button value="grade">
+                </mat-radio-button>
+                <mat-icon style="color:#e6ad11;">settings_cell</mat-icon>
+                <mat-radio-button value="settings_cell">
+                </mat-radio-button>
+            </mat-radio-group>
+            <hr> -->
+        </div>
         <button style="outline: none;color:#d35854;margin-bottom: 50px;" mat-icon-button (click)="selectedIndex = ''"
             aria-label="ranking">
             <mat-icon>cancel</mat-icon><br>Cancel
         </button>
         <button style="outline: none;color:#76d354;margin-bottom: 50px;" mat-icon-button
-            (click)="selectedIndex = '';upLoadNamesAndRationales(testNamesInput, false)" [disabled]="false"
-            aria-label="ranking">
-            <mat-icon>check_circle</mat-icon><br> Done
+            (click)="selectedIndex = '';upLoadNamesAndRationales(testNamesInput)" aria-label="ranking">
+            <mat-icon>check_circle</mat-icon><br> DONE
         </button>
     </div>
 </div>
@@ -401,8 +301,7 @@
     <div class="scroller-style main-container" cdkDropList (cdkDropListDropped)="checkDragEvetn($event)"
         [cdkDropListAutoScrollDisabled]="false" [cdkDropListLockAxis]="'y'"
         [dragula]="(dragRows)?'DRAGGABLE_ROW':(rankingType == 'dragAndDrop')?draggableBag:''"
-        [(dragulaModel)]="bmxItem.componentText" (dragulaModelChange)="checkDragEvetn($event);"
-        *ngIf="this.bmxItem.componentSettings[0].rankType == 'dragAndDrop'">
+        [(dragulaModel)]="bmxItem.componentText" (dragulaModelChange)="checkDragEvetn($event);">
 
         <div *ngFor="let testName of bmxItem.componentText; let y = index" cdkDrag>
 
@@ -492,10 +391,16 @@
                             position: absolute;top: 35px;background: white;border: #324395 dashed 1px;"
                             (mouseleave)="selectedColumn = ''">
                             <span class="header-delete-icon" matTooltip="double click to delete column"
-                                matTooltipPosition="above" (dblclick)="openDialog('delete column', columnName)">x</span>
+                                matTooltipPosition="above" (dblclick)="deleteColumn(columnName)">x</span>
                             <mat-icon style="cursor: pointer;" (click)="swapColumns(e)">chevron_right</mat-icon>
 
+                            <mat-icon style="cursor: pointer;" (click)="columnFontSizeAdjust(columnName, 'decrease')">
+                                remove</mat-icon>
 
+                            <mat-icon style="cursor: pointer;">text_format</mat-icon>
+
+                            <mat-icon style="cursor: pointer;" (click)="columnFontSizeAdjust(columnName, 'increase')">
+                                add</mat-icon>
                         </div>
                     </div>
 
@@ -519,7 +424,7 @@
                             style="text-align: center;height: 32px;width: 358px;font-size: 16px;border: 1px solid #dddddd;"
                             class="row-box" [(ngModel)]="testName[columnName]"></textarea>
 
-                        <img class="row-box" style="width:300px;" [src]="testName[columnName]" *ngIf=" bmxItem.componentSettings[1].isImageType && (y !== 0) && (columnName == 'name' ||
+                        <img class="row-box" style="width: 300px;" [src]="testName[columnName]" *ngIf=" bmxItem.componentSettings[1].isImageType && (y !== 0) && (columnName == 'name' ||
                              columnName == 'nameCandidates')">
 
 
@@ -567,170 +472,6 @@
             </div>
         </div>
     </div>
-    <div class="scroller-style main-container" *ngIf="this.bmxItem.componentSettings[0].rankType != 'dragAndDrop'">
-
-        <div *ngFor="let testName of bmxItem.componentText; let y = index">
-
-            <div class="test-name-table">
-
-                <!--⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️ RANK RENDERER ⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️ -->
-                <div [ngClass]="(this.bmxItem.componentSettings[0].rankType == 'dragAndDrop')?'rank-column':
-                            (this.bmxItem.componentSettings[0].rankType == 'dropDown')?'rank-column1':'rank-column1'"
-                    [style.width]="bmxItem.componentSettings[0].rateWidth + 'px'">
-                    <div *ngIf="(y !== 0)">
-                        <!--☂️☂️☂️☂️☂️☂️☂️☂️☂️☂️☂️☂️☂️ DROP DOWN ☂️☂️☂️☂️☂️☂️☂️☂️☂️☂️☂️☂️☂️☂️☂️☂️-->
-                        <mat-form-field *ngIf="this.bmxItem.componentSettings[0].rankType == 'dropDown'"
-                            appearance="outline" style="width: 110px;padding-top: 13px;height: 80px;">
-                            <mat-label>Rank 1 to {{rankingScaleValue}}</mat-label>
-                            <mat-select matNativeControl [(ngModel)]="bmxItem.componentText[y].RATE"
-                                (selectionChange)="setRating(bmxItem.componentText[y].RATE,y)">
-                                <mat-option *ngFor="let star of  testName.STARS; let x =  index" [value]="star.icon">
-                                    {{star.icon}}</mat-option>
-                            </mat-select>
-                        </mat-form-field>
-
-
-                        <!--☂️☂️☂️☂️☂️☂️☂️☂️☂️☂️☂️☂️☂️ DRAG AND DROP ☂️☂️☂️☂️☂️☂️☂️☂️☂️☂️☂️☂️☂️☂️☂️☂️-->
-                        <button *ngIf="this.bmxItem.componentSettings[0].rankType == 'dragAndDrop'" mat-button style="background-color:#ee7f25 ;color: white;
-                        animation: rubberBand 700ms ease-in  forwards;">{{y}}</button>
-
-
-                        <!--☂️☂️☂️☂️☂️☂️☂️☂️☂️☂️☂️☂️☂️ RADIO ☂️☂️☂️☂️☂️☂️☂️☂️☂️☂️☂️☂️☂️☂️☂️☂️-->
-                        <button (click)="bmxItem.componentText[y]['RATE'] = 0;leaveStar(y);"
-                            *ngIf="this.bmxItem.componentText[y].RATE > 0 && this.bmxItem.componentSettings[0].rankType == 'radio'"
-                            mat-button style="background-color:#ee7f25 ;color: white;
-                        animation: rubberBand 700ms ease-in  forwards;">{{this.bmxItem.componentText[y].RATE}}</button>
-
-                        <!-- 🩸🩸🩸🩸🩸🩸🩸🩸🩸🩸🩸🩸🩸 RATE BUTTONS 🩸🩸🩸🩸🩸🩸🩸🩸🩸🩸🩸🩸🩸🩸🩸🩸🩸🩸🩸🩸🩸🩸🩸🩸 -->
-                        <div style="display: flex;">
-                            <button (click)="bmxItem.componentText[y]['RATE'] = 0;leaveStar(y)" *ngIf="bmxItem.componentText[y]['RATE']>0 && y != 0 &&
-                            this.bmxItem.componentSettings[0].rankType == 'dropDown'" style="background-color: #ee7f25;
-                                color: white;
-                                min-width: 20px;
-                                line-height: 19px;
-                                padding: 2px 0px;
-                                margin: -45px 10px;
-                                position: absolute;
-                                animation: rubberBand 700ms ease-in  forwards;"
-                                mat-button>{{bmxItem.componentText[y]['RATE']}}</button>
-                        </div>
-                        <!-- 🩸🩸🩸🩸🩸🩸🩸🩸🩸🩸🩸🩸🩸 END RATE BUTTONS 🩸🩸🩸🩸🩸🩸🩸🩸🩸🩸🩸🩸🩸🩸🩸🩸🩸🩸🩸🩸🩸🩸🩸🩸 -->
-                    </div>
-                    <!-- COLUMN HEADER -->
-                    <textarea *ngIf="y == 0 && editSingleTableCells"
-                        [style.font-size]="bmxItem.componentSettings[0].fontSize +'px'"
-                        style="text-align: center; font-weight: bold;color: #324395;min-width: 200px;" class="row-box"
-                        [(ngModel)]="bmxItem.componentSettings[0].ratingScaleTitle"
-                        value="bmxItem.componentSettings[0].ratingScaleTitle">
-                </textarea>
-                    <div class="rating-text" *ngIf="y == 0 && !editSingleTableCells">
-                        {{bmxItem.componentSettings[0].ratingScaleTitle}}
-                    </div>
-                </div>
-                <!--⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️ RANK STARS ⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️ -->
-
-                <div *ngFor="let columnName of columnsNames; let e =  index"
-                    style="display: flex;align-items: center;justify-content: center;" [ngClass]="(e%2==0)?'red':'blue'"
-                    [style.padding]="bmxItem.componentSettings[0].rowHeight + 'px'" [style.width]="(columnName == 'rationale')?bmxItem.componentSettings[0].rationalewidth + 'px':
-                (columnName == 'RATE')?bmxItem.componentSettings[0].rateWidth + 'px':
-                (columnName == 'nameCandidates')?bmxItem.componentSettings[0].nameCandidatesWidth + 'px':
-                (columnName.includes('Comments'))?bmxItem.componentSettings[0].commentsWidth + 'px':
-                (columnName.includes('RadioColumn'))?bmxItem.componentSettings[0].radioColumnsWidth + 'px' :
-                bmxItem.componentSettings[0].columnWidth + 'px'">
-
-                    <!-- 🟢🟢🟢🟢🟢🟢🟢🟢🟢🟢🟢🟢🟢🟢 HEADER TEXT AREA 🟢🟢🟢🟢🟢🟢🟢🟢🟢🟢🟢🟢🟢🟢🟢🟢 -->
-
-                    <div *ngIf="(y == 0)" class="header-title" (mouseenter)="selectedColumn = e">
-                        <div>
-                            <textarea *ngIf="editSingleTableCells"
-                                [style.font-size]="bmxItem.componentSettings[0].fontSize +'px'"
-                                style="text-align: center; font-weight: bold;color: #324395;" class="row-box"
-                                [(ngModel)]="testName[columnName]" value="testName[columnName]"></textarea>
-
-                            <p style="text-align: center; font-weight: bold;color: #324395;margin: 0 0 0px;padding:5px 1px"
-                                [style.font-size]="bmxItem.componentSettings[0].fontSize +'px'"
-                                *ngIf=" !editSingleTableCells">{{testName[columnName]}}
-                            </p>
-                        </div>
-                        <div *ngIf="selectedColumn === e && bmxClientPageOverview && !editSingleTableCells" style="display: flex;flex-direction: row;justify-content: space-around;
-                        position: absolute;top: 35px;background: white;border: #324395 dashed 1px;"
-                            (mouseleave)="selectedColumn = ''">
-                            <span class="header-delete-icon" matTooltip="double click to delete column"
-                                matTooltipPosition="above" (dblclick)="openDialog('delete column', columnName)">x</span>
-                            <mat-icon style="cursor: pointer;" (click)="swapColumns(e)">chevron_right</mat-icon>
-
-
-                        </div>
-                    </div>
-
-                    <!-- 🟢🟢🟢🟢🟢🟢🟢🟢🟢🟢🟢🟢🟢🟢 END HEADER TEXT AREA  🟢🟢🟢🟢🟢🟢🟢🟢🟢🟢🟢🟢🟢🟢🟢🟢 -->
-
-
-                    <!-- 🟡🟡🟡🟡🟡🟡🟡🟡🟡🟡🟡🟡🟡🟡 TABLE CELLS  🟡🟡🟡🟡🟡🟡🟡🟡🟡🟡🟡🟡🟡🟡🟡🟡 -->
-                    <div>
-
-                        <!-- IF ELSE TEMPLATE INPUTS  -- BELOW RADION BUTTONS COLUMN -->
-                        <input type="radio" *ngIf="y !== 0  &&  columnName.includes('RadioColumn') == true"
-                            [name]="columnName + i" [checked]="testName[columnName]"
-                            (click)="saveRadioColumValue(columnName, y)">
-
-
-                        <!-- TEXT_AREA COLUMN COMMENTS-->
-                        <textarea *ngIf="y !== 0  && columnName.includes('Comments') == true "
-                            [style.width]="(bmxItem.componentSettings[0].commentsWidth - 20) +'px'"
-                            [style.font-size]="bmxItem.componentSettings[0].fontSize +'px'" cdkTextareaAutosize
-                            [cdkAutosizeMinRows]="bmxItem.componentSettings[0].rowHeight"
-                            style="text-align: center;height: 32px;width: 358px;font-size: 16px;border: 1px solid #dddddd;"
-                            class="row-box" [(ngModel)]="testName[columnName]"></textarea>
-
-                        <img class="row-box" style="width:300px;" [src]="testName[columnName]" *ngIf=" bmxItem.componentSettings[1].isImageType && (y !== 0) && (columnName == 'name' ||
-                         columnName == 'nameCandidates')">
-
-
-                        <!-- TEXT AREA TO EDIT TABLE CELL CONTENT -->
-                        <textarea *ngIf="y !== 0  && editSingleTableCells && (columnName.includes('RadioColumn') != true) &&
-                   columnName.includes('Comments') != true &&  columnName.includes('RATE') != true"
-                            [style.width]="(columnName == 'rationale')?(bmxItem.componentSettings[0].rationalewidth - 10) + 'px':(bmxItem.componentSettings[0].columnWidth -10) +'px'"
-                            [style.font-size]="bmxItem.componentSettings[0].fontSize +'px'" cdkTextareaAutosize
-                            [cdkAutosizeMinRows]="bmxItem.componentSettings[0].rowHeight"
-                            style="outline: none;text-align: center;margin: 0 10px;" class="row-box"
-                            [(ngModel)]="testName[columnName]"></textarea>
-
-                        <!-- <p *ngIf="y !== 0  && !editSingleTableCells && (columnName.includes('RadioColumn') != true) &&
-                      columnName.includes('Comments') != true &&  columnName.includes('RATE') != true &&
-                       ((columnName.includes('name') != true)||!bmxItem.componentSettings[1].isImageType)"
-                        [style.font-size]="bmxItem.componentSettings[0].fontSize +'px'"
-                        [style.width]="(columnName == 'rationale')?bmxItem.componentSettings[0].rationalewidth + 'px':bmxItem.componentSettings[0].columnWidth +'px'"
-                        style="text-align: center;margin: 0 0 0px;"
-                        [innerHTML]="testName[columnName] | safe: 'html'">{{testName[columnName]}}</p> -->
-
-                        <div style="display: flex;">
-                            <mat-icon style="cursor: pointer;color: #324395;"
-                                (click)="playTestNameSound(testName[columnName])"
-                                *ngIf="y !== 0  && !editSingleTableCells && (columnName.includes('nameCandidates') == true) && displaySound">
-                                volume_up
-                            </mat-icon>
-                            <p *ngIf="y !== 0  && !editSingleTableCells && (columnName.includes('RadioColumn') != true)
-                                &&  columnName.includes('Comments') != true &&  columnName.includes('RATE') != true"
-                                [style.font-size]="bmxItem.componentSettings[0].fontSize +'px'"
-                                [style.width]="(columnName == 'rationale')?bmxItem.componentSettings[0].rationalewidth + 'px':(columnName == 'nameCandidates')?100 +'%':bmxItem.componentSettings[0].rationalewidth + 'px'"
-                                style="text-align: center;margin: 0 0 0px;padding: 4px"
-                                [innerHTML]="testName[columnName] | safe: 'html'">{{testName[columnName]}}
-                            </p>
-                        </div>
-                    </div>
-                    <!-- 🟡🟡🟡🟡🟡🟡🟡🟡🟡🟡🟡🟡🟡🟡 END TABLE CELLS 🟡🟡🟡🟡🟡🟡🟡🟡🟡🟡🟡🟡🟡🟡🟡🟡 -->
-                </div>
-                <div *ngIf="(y !== 0) && bmxClientPageOverview && deleteRows"
-                    style="min-width: 100px; position: absolute;right: 0px;">
-                    <button style="outline: none;margin:3px -8px;" (dblclick)="deletRow(y)" mat-icon-button
-                        matTooltip="double click to delete row" matTooltipPosition="left" aria-label="ranking">
-                        <mat-icon>delete_outline</mat-icon>
-                    </button>
-                </div>
-            </div>
-        </div>
-    </div>
 </div>
 
 
@@ -758,7 +499,7 @@
         <div *ngFor="let testName of bmxItem.componentText; let y = index" style="margin-bottom: 10px;" cdkDrag
             [ngClass]="(y == 0)?'ROW-CERO':''"> -->
 
-    <div class="scroller-style main-container" *ngIf="this.bmxItem.componentSettings[0].rankType == 'dragAndDrop'"  cdkDropList (cdkDropListDropped)="checkDragEvetn($event)"
+    <div class="scroller-style main-container" cdkDropList (cdkDropListDropped)="checkDragEvetn($event)"
         [cdkDropListAutoScrollDisabled]="false" [cdkDropListLockAxis]="'y'">
 
         <div *ngFor="let testName of bmxItem.componentText; let y = index" style="margin-bottom: 10px;" cdkDrag>
@@ -879,127 +620,6 @@
         </div>
 
     </div>
-    <div class="scroller-style main-container" *ngIf="this.bmxItem.componentSettings[0].rankType != 'dragAndDrop'">
-
-        <div *ngFor="let testName of bmxItem.componentText; let y = index" style="margin-bottom: 10px;">
-
-            <div class="test-name-table" *ngIf="(y != 0)"
-                [style.touch-action]="(this.bmxItem.componentSettings[0].rankType == 'dragAndDrop')?'none':''"
-                [style.height]="(selectedCard == y && this.bmxItem.componentSettings[0].rankType == 'radio')?'200px':(selectedCard == y)?'':'45px'">
-
-                <button *ngIf="this.bmxItem.componentSettings[0].rankType == 'dragAndDrop'&& y != 0  " style="background-color: #ee7f25;color: white;margin: 5px;width: 30px;
-                height: 30px;
-                line-height: 30px;right: 7px;
-                position: absolute;animation: rubberBand 700ms ease-in  forwards;" mat-icon-button>{{y}}</button>
-
-
-                <button (click)="bmxItem.componentText[y]['RATE'] = 0;saveRadioColumValue('', y)"
-                    *ngIf="bmxItem.componentText[y]['RATE']>0 && y != 0 " style="background-color: #ee7f25;color: white;margin: 5px;width: 30px;
-                height: 30px;
-                line-height: 30px;right: 7px;
-                position: absolute;animation: rubberBand 700ms ease-in  forwards;"
-                    mat-icon-button>{{bmxItem.componentText[y]['RATE']}}</button>
-                <!-- 🟢🟢🟢🟢🟢🟢🟢🟢🟢🟢🟢🟢🟢🟢 HEADER TEXT AREA 🟢🟢🟢🟢🟢🟢🟢🟢🟢🟢🟢🟢🟢🟢🟢🟢 -->
-
-
-                <div style="display: flex;gap: 23px;padding-top: 10px;position: absolute;right: 24px;">
-                    <div *ngFor="let criteria of testName.CRITERIA  let x =  index">
-                        <button *ngIf="criteria.RATE>0 && y != 0 " style="background-color: #ee7f25;
-                         color: white;
-                         min-width: 20px;
-                         line-height: 20px;
-                         padding: 2px 0px;
-                         position: absolute;
-                         animation: rubberBand 700ms ease-in  forwards;" mat-button>{{criteria.RATE}}</button>
-                    </div>
-                </div>
-                <!-- <button *ngIf="this.bmxItem.componentSettings[0].rankType == 'dragAndDrop'" mat-button
-            style="background-color:#ee7f25 ;color: white;">{{y}}</button> -->
-
-                <div *ngFor="let columnName of columnsNames; let e =  index">
-                    <!-- 🟢🟢🟢🟢🟢🟢🟢🟢🟢🟢🟢🟢🟢🟢 END HEADER TEXT AREA  🟢🟢🟢🟢🟢🟢🟢🟢🟢🟢🟢🟢🟢🟢🟢🟢 -->
-
-                    <!-- 🟡🟡🟡🟡🟡🟡🟡🟡🟡🟡🟡🟡🟡🟡 TABLE CELLS  🟡🟡🟡🟡🟡🟡🟡🟡🟡🟡🟡🟡🟡🟡🟡🟡 -->
-                    <div>
-
-                        <!-- IF ELSE TEMPLATE INPUTS  -->
-                        <div style="background-color: lightgray;">
-                            <div *ngIf="selectedCard == y" style="position: absolute;margin-top: 5px;"
-                                [style.left.px]="(e * 40)">
-                                <span *ngIf="y !== 0  &&  columnName.includes('RadioColumn') == true"
-                                    style="padding-right: 8px;">{{e - 1}}</span>
-                                <input type="radio" *ngIf="y !== 0  &&  columnName.includes('RadioColumn') == true"
-                                    [name]="'rate' + y" [checked]="testName[columnName]"
-                                    (change)="saveRadioColumValue(columnName, y)">
-                            </div>
-                        </div>
-
-                        <img (click)="(selectedCard == y)?selectedCard = '':selectedCard = y" class="row-box"
-                            style="width: 300px;" [src]="testName[columnName]"
-                            *ngIf=" bmxItem.componentSettings[1].isImageType && (y !== 0) && (columnName == 'name' || columnName == 'nameCandidates')">
-                        <!-- TEXT_AREA COMMENTS-->
-                        <div style="display: flex;
-                    justify-content: center;">
-                            <textarea *ngIf="y !== 0  && columnName.includes('Comments') == true && selectedCard == y"
-                                [style.width]="'95%'" [style.font-size]="bmxItem.componentSettings[0].fontSize +'px'"
-                                cdkTextareaAutosize [cdkAutosizeMinRows]="bmxItem.componentSettings[0].rowHeight" style="text-align: center;height: 64px;width: 358px;font-size: 16px;border: 1px solid grey;
-                        animation: bounceIn 500ms ease-in forwards;padding: 0 4px;margin: 30px 0;" class="row-box"
-                                [(ngModel)]="testName[columnName]" placeholder="comments" rows="4" cols="50"></textarea>
-                        </div>
-
-
-                        <!-- TEST NAME CELL -->
-                        <!-- <p (click)="(selectedCard == y)?selectedCard = '':selectedCard = y" *ngIf="y !== 0  && !editSingleTableCells && (columnName.includes('RadioColumn') != true) &&
-                          columnName.includes('Comments') != true &&
-                          columnName.includes('kata') != true &&
-                          columnName.includes('ratio') != true"
-                        [style.font-size]=" (columnName.includes('name') == true)?'27px':'20px'"
-                        [style.color]="(columnName.includes('name') == true)?'#324395':'#bababa'"
-                        style="text-align: center;padding: 10px 4px;">{{(testName[columnName])}}</p> -->
-                        <div style="display: flex;align-items: center;justify-content: space-evenly;">
-                            <mat-icon
-                                style="cursor: pointer;position: absolute;left: 60px;color: #324395;margin-top: -10px;"
-                                (click)="playTestNameSound(testName[columnName])" *ngIf="y !== 0  && !editSingleTableCells && (columnName.includes('nameCandidates') == true) &&
-                                 displaySound">
-                                volume_up
-                            </mat-icon>
-                            <p (click)="(selectedCard == y)?selectedCard = '':selectedCard = y" *ngIf="y !== 0  && !editSingleTableCells && (columnName.includes('RadioColumn') != true) &&
-                              columnName.includes('Comments') != true &&  columnName.includes('RATE') != true &&
-                              columnName.includes('kata') != true &&
-                              columnName.includes('ratio') != true"
-                                [style.font-size]=" (columnName.includes('name') == true)?'27px':'20px'"
-                                [style.color]="(columnName.includes('name') == true)?'#324395':'#bababa'"
-                                style="text-align: center;padding: 10px 4px;">{{(testName[columnName])}}</p>
-                        </div>
-
-
-                        <p *ngIf="y !== 0  && !editSingleTableCells && (columnName.includes('RadioColumn') != true) &&
-                          columnName.includes('Comments') != true && selectedCard == y &&
-                          columnName.includes('name') != true"
-                            [style.font-size]=" (columnName.includes('name') == true)?'27px':'20px'"
-                            [style.color]="(columnName.includes('name') == true)?'#324395':'#bababa'"
-                            style="text-align: center;padding: 5px 4px;"
-                            [innerHTML]="testName[columnName] | safe: 'html'">{{testName[columnName]}}</p>
-
-
-                    </div>
-                    <!-- 🟡🟡🟡🟡🟡🟡🟡🟡🟡🟡🟡🟡🟡🟡 END TABLE CELLS 🟡🟡🟡🟡🟡🟡🟡🟡🟡🟡🟡🟡🟡🟡🟡🟡 -->
-                </div>
-                <mat-form-field *ngIf="this.bmxItem.componentSettings[0].rankType == 'dropDown' && selectedCard == y"
-                    appearance="outline" style="width: 130px;padding-top: 13px;height: 80px;">
-                    <mat-label>Rank 1 to {{rankingScaleValue}}</mat-label>
-                    <mat-select matNativeControl [(ngModel)]="bmxItem.componentText[y].RATE"
-                        (selectionChange)="setRating(bmxItem.componentText[y].RATE,y)">
-                        <mat-option *ngFor="let star of  testName.STARS; let x =  index" [value]="star.icon">
-                            {{star.icon}}</mat-option>
-                    </mat-select>
-                </mat-form-field>
-            </div>
-
-        </div>
-
-    </div>
 </div>
 
 <!--🥑🥑🥑🥑🥑🥑🥑🥑🥑🥑🥑🥑🥑🥑🥑🥑🥑🥑🥑🥑🥑🥑🥑🥑🥑END RATING TABLE 🥑🥑🥑🥑🥑🥑🥑🥑🥑🥑🥑🥑🥑🥑🥑🥑🥑🥑🥑🥑🥑🥑🥑-->
-<app-table *ngIf="showModalTable" (save)="showModalTable = $event" [displayedColumns]="columnsNames" [dataSource]="dataSource" ></app-table>

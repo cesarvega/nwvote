@@ -1,13 +1,12 @@
-// import { DragulaService } from 'ng2-dragula';
+import { DragulaService } from 'ng2-dragula';
 import { Component, ElementRef, EventEmitter, Inject, Input, OnInit, Output, ViewChild, ViewEncapsulation } from '@angular/core';
 import { CdkTextareaAutosize } from '@angular/cdk/text-field';
 import { RatingScaleComponent } from '../rating-scale/rating-scale.component';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { BmxService } from '../../../bmx.service';
 import { DeviceDetectorService } from 'ngx-device-detector';
-import { MatDialog } from '@angular/material/dialog';
-import {  MatTable } from '@angular/material/table';
-import { DragulaService } from 'ng2-dragula';
+import {MatDialog} from '@angular/material/dialog';
+import {MatTable} from '@angular/material/table';
 
 @Component({
   selector: 'app-tinder',
@@ -31,7 +30,7 @@ export class TinderComponent extends RatingScaleComponent implements OnInit {
   rankingAmountArr: number[];
   rankingScaleValue = 0;
   currentrank = undefined;
-  colorText: string = "";
+  colorText:  string = "";
   greenColor = '#12772F';
   redColor = '#C50A19';
   neutralColor = '#f37e00';
@@ -49,7 +48,7 @@ export class TinderComponent extends RatingScaleComponent implements OnInit {
 
   @Output() launchPathModal = new EventEmitter();
   @Output() autoSave = new EventEmitter();
-  CREATION_VIDEO_PATH = "assets/videos/tinder.mp4"
+  CREATION_VIDEO_PATH="assets/videos/tinder.mp4"
   PATH1: any[] = [
     'assets/img/bmx/tutorial/tutorial-tinder1.JPG',
   ]
@@ -68,44 +67,42 @@ export class TinderComponent extends RatingScaleComponent implements OnInit {
 
   testNameIndex = 1
 
-  dataSource: any[] = []
-  displayedColumns: string[] = ['nameCandidates', 'rationale', 'delete'];
+  dataSource: any[]=[]
+  displayedColumns: string[] = ['nameCandidates', 'rationale','delete'];
 
-  constructor(dragulaService: DragulaService,_snackBar: MatSnackBar, _bmxService: BmxService, public deviceService: DeviceDetectorService, public dialog: MatDialog) {
-    super(dragulaService, null, _bmxService, deviceService)
+  constructor(dragulaService: DragulaService, _snackBar: MatSnackBar,   _bmxService: BmxService,public deviceService: DeviceDetectorService,public dialog: MatDialog) {
+    super(dragulaService, _snackBar, _bmxService,deviceService)
 
   }
   ngOnInit(): void {
     console.log(this.bmxItem)
-    this.showDialog = false
     this.getDataSource()
-
-    if (this.dataSource[0].vote != undefined || this.dataSource[0].RATE != undefined) {
+    if(this.dataSource[0].vote != undefined ||  this.dataSource[0].RATE != undefined){
       this.hasVoted = true
-      if (this.ranking) {
-        if (this.dataSource[0].RATE != undefined) {
+      if(this.ranking){
+        if(this.dataSource[0].RATE != undefined){
           this.setRateColor(this.dataSource[0].RATE)
           this.currentrank = this.bmxItem.componentText[this.testNameIndex]['RATE'] - 1;
-        } else {
+        }else{
           this.colorText = "";
           this.currentrank = undefined;
           this.hasVoted = false
         }
 
-      } else {
+      }else{
 
-        if (this.bmxItem.componentText[this.testNameIndex]['vote'] == "positive") {
+        if(this.bmxItem.componentText[this.testNameIndex]['vote']  == "positive"){
           this.colorText = this.greenColor
         }
-        if (this.bmxItem.componentText[this.testNameIndex]['vote'] == "negative") {
+        if(this.bmxItem.componentText[this.testNameIndex]['vote']  == "negative"){
           this.colorText = this.redColor
         }
-        if (this.bmxItem.componentText[this.testNameIndex]['vote'] == "neutral") {
+        if(this.bmxItem.componentText[this.testNameIndex]['vote']  == "neutral"){
           this.colorText = this.neutralColor
         }
       }
 
-    } else {
+    }else{
       this.hasVoted = false
     }
     this.xpercent = 100 / (this.bmxItem.componentText.length - 1);
@@ -137,49 +134,24 @@ export class TinderComponent extends RatingScaleComponent implements OnInit {
         this.columnsNames.push(value)
       }
     });
-    let result = '';
-    result += 'Name Candidates\tRATIONALE\n';
-    // Obtener las claves de la primera fila (los nombres de las propiedades)
-    let firstObject = this.bmxItem.componentText[0];
-    let columnNames = [];
-    for (let key in firstObject) {
-      if (key === 'Name Candidates' || key === 'Rationales') {
-        columnNames.push(key);
-      }
-    }
-
-    // Agregar cada objeto como una fila en el resultado
-    for (let obj of this.bmxItem.componentText) {
-      let values = [];
-      for (let key in obj) {
-        if (key !== 'STARS' && key !== 'RATE' && key !== 'CRITERIA' && key !== 'Comments' && key !== 'name') {
-          values.push(obj[key]);
-        }
-      }
-      if (values.length > 0) {  // Verificar si hay valores para esta fila
-        result += values.join('\t') + '\n';  // Agregar la línea al resultado
-      }
-    }
-    this.testNamesInput = result;
     this.randomizeTestNames = this.bmxItem.componentSettings[0].randomizeTestNames
 
     if (this.bmxItem.componentSettings[0]['displaySound'] == true) {
       this.displaySound = true;
     }
 
-    this.ranking ? this.VIDEO_PATH = this.PATH2 : this.VIDEO_PATH = this.PATH1
+    this.ranking?this.VIDEO_PATH = this.PATH2:this.VIDEO_PATH = this.PATH1
     this.launchPathModal.emit(this.VIDEO_PATH)
-    this.rankingAmountArr = Array(this.bmxItem.componentText[0].STARS.length).fill(0).map((_, index) => index + 1);
-    this.rankingScaleValue = this.bmxItem.componentText[0].STARS.length
-    console.log(this.dataSource)
+    this.rankingAmountArr = Array(this.bmxItem.componentText[0].STARS.length).fill(0).map((_, index) => index+1);
+    this.rankingScaleValue =this.bmxItem.componentText[0].STARS.length
   }
 
-  setRateColor(rate: number) {
-    if (rate > 0 && rate <= 3) {
+  setRateColor(rate: number){
+    if(rate > 0 && rate <= 3){
       this.colorText = this.redColor
-    } else if (rate >= 4 && rate <= 5) {
+    }else if(rate >= 4 && rate <= 5){
       this.colorText = this.neutralColor
-    } else {
+    }else{
       this.colorText = this.greenColor
     }
   }
@@ -198,7 +170,7 @@ export class TinderComponent extends RatingScaleComponent implements OnInit {
 
   upLoadNamesAndRationales(list: string) {
     this.bmxItem.componentSettings[0].randomizeTestNames = (this.randomizeTestNames) ? true : false
-    this.rankingAmountArr = Array(this.rankingScaleValue).fill(0).map((_, index) => index + 1);
+    this.rankingAmountArr = Array(this.rankingScaleValue).fill(0).map((_, index) => index+1);
     if (!list) { list = this.listString; }
     if (list) {
       this.listString = list;
@@ -224,12 +196,12 @@ export class TinderComponent extends RatingScaleComponent implements OnInit {
       for (let i = 0; i < rows.length; i++) {
         if (rows[i] != "" && rows[i].length > 6) {
           let objectColumnDesign = {};
-          objectColumnDesign['STARS'] = this.createRatingStars(this.rankingScaleValue, this.ratingScaleIcon);
-          for (let e = 0; e < this.columnsNames.length; e++) {
-            if ((rows[i].split("\t").length > 0)) {
-              objectColumnDesign[this.columnsNames[e]] = rows[i].split("\t")[e].trim()
+            objectColumnDesign['STARS'] = this.createRatingStars(this.rankingScaleValue, this.ratingScaleIcon);
+            for (let e = 0; e < this.columnsNames.length; e++) {
+              if ((rows[i].split("\t").length > 0)) {
+                objectColumnDesign[this.columnsNames[e]] = rows[i].split("\t")[e].trim()
+              }
             }
-          }
           this.TESTNAMES_LIST.push(objectColumnDesign);
         }
       }
@@ -244,7 +216,7 @@ export class TinderComponent extends RatingScaleComponent implements OnInit {
         row.STARS = this.createRatingStars(this.rankingScaleValue, this.ratingScaleIcon)
       });
     }
-
+ 
   }
 
   // delete row diplicates from array of object by property
@@ -334,13 +306,13 @@ export class TinderComponent extends RatingScaleComponent implements OnInit {
     if (!this.ranking) {
       this.bmxItem.componentText[this.testNameIndex]['vote'] = vote
 
-      if (vote == "positive") {
+      if(vote == "positive"){
         this.colorText = this.greenColor
       }
-      if (vote == "negative") {
+      if(vote == "negative"){
         this.colorText = this.redColor
       }
-      if (vote == "neutral") {
+      if(vote == "neutral"){
         this.colorText = this.neutralColor
       }
 
@@ -359,7 +331,7 @@ export class TinderComponent extends RatingScaleComponent implements OnInit {
   resetVotes() {
     if (confirm('Are you sure you want to reset the votes?')) {
       this.bmxItem.componentText.forEach((row, index) => {
-        if (index > 0) {
+        if (index>0) {
           row['vote'] = undefined;
           row['RATE'] = undefined;
           this.colorText = "";
@@ -367,42 +339,41 @@ export class TinderComponent extends RatingScaleComponent implements OnInit {
         }
       });
     }
-    this.autoSave.emit();
   }
 
-  moveRight() {
+  moveRight(testName:string) {
 
-    if (this.testNameIndex < this.bmxItem.componentText.length - 1) {
+    if(this.value <= 100){
       this.value = this.value + this.xpercent;
       if (this.testNameIndex < this.bmxItem.componentText.length - 1) {
 
         this.testNameIndex++
-        console.log(this.bmxItem.componentText[this.testNameIndex])
-        if (this.bmxItem.componentText[this.testNameIndex]['vote'] != undefined || this.bmxItem.componentText[this.testNameIndex]['RATE'] != undefined) {
+
+        if(this.bmxItem.componentText[this.testNameIndex]['vote'] != undefined || this.bmxItem.componentText[this.testNameIndex]['RATE'] != undefined){
           this.hasVoted = true;
-          if (this.ranking) {
-            if (this.bmxItem.componentText[this.testNameIndex]['RATE'] != undefined) {
+          if(this.ranking){
+            if(this.bmxItem.componentText[this.testNameIndex]['RATE'] != undefined){
               this.setRateColor(this.bmxItem.componentText[this.testNameIndex]['RATE'])
               this.currentrank = this.bmxItem.componentText[this.testNameIndex]['RATE'] - 1;
-            } else {
+            }else{
               this.colorText = "";
               this.currentrank = undefined;
               this.hasVoted = false
             }
-          } else {
+          }else{
 
-            if (this.bmxItem.componentText[this.testNameIndex]['vote'] == "positive") {
+            if(this.bmxItem.componentText[this.testNameIndex]['vote']  == "positive"){
               this.colorText = this.greenColor
             }
-            if (this.bmxItem.componentText[this.testNameIndex]['vote'] == "negative") {
+            if(this.bmxItem.componentText[this.testNameIndex]['vote']  == "negative"){
               this.colorText = this.redColor
             }
-            if (this.bmxItem.componentText[this.testNameIndex]['vote'] == "neutral") {
+            if(this.bmxItem.componentText[this.testNameIndex]['vote']  == "neutral"){
               this.colorText = this.neutralColor
             }
 
           }
-        } else {
+        }else{
           this.hasVoted = false;
           this.currentrank = undefined;
           this.colorText = ""
@@ -413,34 +384,34 @@ export class TinderComponent extends RatingScaleComponent implements OnInit {
     }
   }
 
-  moveleft() {
+  moveleft(testName:string) {
     if (1 < this.testNameIndex) {
       this.value = this.value - this.xpercent;
       this.testNameIndex--
-      if (this.bmxItem.componentText[this.testNameIndex]['vote'] != undefined || this.bmxItem.componentText[this.testNameIndex]['RATE'] != undefined) {
+      if(this.bmxItem.componentText[this.testNameIndex]['vote'] != undefined || this.bmxItem.componentText[this.testNameIndex]['RATE'] != undefined){
         this.hasVoted = true;
-        if (this.ranking) {
-          if (this.dataSource[0].RATE != undefined) {
+        if(this.ranking){
+          if(this.dataSource[0].RATE != undefined){
             this.setRateColor(this.bmxItem.componentText[this.testNameIndex]['RATE'])
             this.currentrank = this.bmxItem.componentText[this.testNameIndex]['RATE'] - 1;
-          } else {
+          }else{
             this.colorText = "";
             this.currentrank = undefined;
             this.hasVoted = false
           }
-        } else {
-          if (this.bmxItem.componentText[this.testNameIndex]['vote'] == "positive") {
+        }else{
+          if(this.bmxItem.componentText[this.testNameIndex]['vote']  == "positive"){
             this.colorText = this.greenColor
           }
-          if (this.bmxItem.componentText[this.testNameIndex]['vote'] == "negative") {
+          if(this.bmxItem.componentText[this.testNameIndex]['vote']  == "negative"){
             this.colorText = this.redColor
           }
-          if (this.bmxItem.componentText[this.testNameIndex]['vote'] == "neutral") {
+          if(this.bmxItem.componentText[this.testNameIndex]['vote']  == "neutral"){
             this.colorText = this.neutralColor
           }
         }
 
-      } else {
+      }else{
         this.hasVoted = false;
       }
       this.bmxItem.componentText[this.testNameIndex].comments = this.bmxItem.componentText[this.testNameIndex].comments
@@ -448,51 +419,36 @@ export class TinderComponent extends RatingScaleComponent implements OnInit {
 
   }
 
-  uploadNames() {
-
-    console.log(this.xpercent, this.value)
-    this.bmxItem.componentText.push({ name: 'QUESTION' + ' ' + (this.bmxItem.componentText.length - 1), ...this.newCandidate })
-    this.dataSource = this.bmxItem.componentText.slice(1)
+  uploadNames(){
+    this.bmxItem.componentText.push(this.newCandidate)
+    this.dataSource.push(this.newCandidate)
     this.newCandidate.nameCandidates = "";
     this.newCandidate.rationale = "";
     this.showModalAddRow = false;
-    this.xpercent = 100 / (this.bmxItem.componentText.length - 1);
-    this.value = this.xpercent * this.testNameIndex
-    console.log(this.bmxItem.componentText, this.dataSource)
   }
 
-  deleteName(element: any) {
-    this.dataSource.splice(this.dataSource.indexOf(element), 1);
-    // Eliminar el elemento del array this.bmxItem.componentText
-    this.bmxItem.componentText.splice(this.bmxItem.componentText.indexOf(element), 1);
-    // Eliminar el elemento del array this.dataSource
-    this.xpercent = 100 / (this.bmxItem.componentText.length - 1);
-    this.value = this.xpercent * this.testNameIndex
-    this.moveleft()
+  deleteName(element: any){
+    let x
+    x =  this.bmxItem.componentText.splice(this.bmxItem.componentText.indexOf(element), 1);
+
+    if(x[0].nameCandidates == element.nameCandidates){
+      this.dataSource.splice(this.dataSource.indexOf(element), 1);
+    }
+
     this.table.renderRows();
   }
 
-  getDataSource() {
+  getDataSource(){
     this.dataSource = this.bmxItem.componentText.slice(1)
-
     // console.log(this.bmxItem)
-    this.dataSource.forEach((data) => {
-      if (!data.nameCandidates) {
-        data.nameCandidates = 'TEST NAME'
-        data.rationale = 'Rationale of an undisclosed length'
-      }
-
-    })
-    console.log(this.dataSource)
-    if (this.bmxItem.componentSettings[0].ranking == undefined) {
+    if(this.bmxItem.componentSettings[0].ranking == undefined){
       this.bmxItem.componentSettings[0].ranking = this.ranking
-    } else {
+    }else{
       this.ranking = this.bmxItem.componentSettings[0].ranking
     }
   }
 
-  changePreferenceScore() {
+  changePreferenceScore(){
     this.bmxItem.componentSettings[0].ranking = !this.ranking
   }
 }
-
