@@ -1,5 +1,5 @@
-<div class="container" style="display: flex; gap: 150px;">
-    <div class="email-container" style="width: 52%;">
+<div class="container" style="display: flex; gap: 5%;max-width: 100%;">
+    <div class="email-container" style="width: 100% !important;">
         <h2 style="margin: 20px;">Project TEST BrandMatrix Setup</h2>
         <!-- HEADER INPUTS -->
         <div style="display: flex;flex-direction: row;justify-content: space-evenly;">
@@ -7,31 +7,16 @@
             <div>
                 <div style="margin: 23px 20px;font-size: 20px;color:#063074;font-weight: 800;">Email Settings</div>
                 <div
-                    style="line-height: 1;
-                    margin-left: 13px;
-                    font-size: 15px;
-                    width: 283px;
-                    color: grey;
-                    font-weight: 100;
-                    display: flex;
-                    flex-direction: row;
-                    justify-content: space-between;
-                    margin-bottom: 15px;">
+                    style="line-height: 1; margin-left: 40px;font-size: 15px;
+                color:grey;font-weight: 100;width: 300px;display: flex;flex-direction: row; justify-content: space-between;margin-bottom: 10px;">
                     Send Director Confirmation
                     Emails
                     <input type="checkbox" [checked]="dirConfirm" (change)="dirConfirm = !dirConfirm" />
                 </div>
 
                 <div
-                    style="line-height: 1;
-                    margin-left: 13px;
-                    font-size: 15px;
-                    width: 283px;
-                    color: grey;
-                    font-weight: 100;
-                    display: flex;
-                    flex-direction: row;
-                    justify-content: space-between;">
+                    style="line-height: 1; margin-left: 40px;font-size: 15px;
+                color:grey;font-weight: 100;width: 300px;display: flex;flex-direction: row; justify-content: space-between;">
                     Send Department Confirmation
                     Emails
                     <input type="checkbox" [checked]="deptConfirm" (change)="deptConfirm = !deptConfirm" />
@@ -45,7 +30,7 @@
                     <div style="display: flex;justify-content: space-around;">
                         <div>
                             <div style="margin: 20px;font-size: 20px;color:#063074;font-weight: 800;">Templates</div>
-                            <mat-form-field appearance="outline" style="margin-left: 20px;     width: 130px;">
+                            <mat-form-field appearance="outline" style="margin-left: 20px;">
                                 <mat-label>Choose Template</mat-label>
                                 <mat-select class="selectLabels" [(ngModel)]="emailTemp"
                                     (selectionChange)="changeTemplate(emailTemp)">
@@ -57,7 +42,7 @@
                         </div>
                         <div>
                             <div style="margin: 20px;font-size: 20px;color:#063074;font-weight: 800;">Link Type</div>
-                            <mat-form-field appearance="outline" style="margin-left: 20px;  width: 130px">
+                            <mat-form-field appearance="outline" style="margin-left: 20px;">
                                 <mat-label>Direct Link</mat-label>
                                 <mat-select class="selectLabels" [(ngModel)]="linkType">
                                     <mat-option *ngFor="let link of LINK_TYPE" [value]="link">
@@ -144,7 +129,7 @@
 
     </div>
     <div class="participants-container" style="    position: relative;
-    top: 8vh;
+    top: 8vh; width: 40% !important;
 ">
         <div style="display: flex;flex-direction: row;margin-bottom: 20px; justify-content: space-between; ">
             <div style="color:#063074;font-size: 20px;margin-right: 20px;font-weight: 800;">To :</div>
@@ -153,7 +138,7 @@
             <textarea matInput rows="4" cols="50" placeholder="Recipients">{{to}}</textarea>
         </mat-form-field>
         <div style="display: block;width: 100%; max-height: 500px; overflow: auto;">
-            <mat-form-field appearance="outline" style="border-radius: 0px; padding-top: 10px;">
+            <mat-form-field appearance="outline" style="border-radius: 0px;padding-top: 5px;">
                 <mat-label>Sort By</mat-label>
                 <mat-select [(value)]="selected" (selectionChange)="changeView()">
                     <mat-option value="All">All</mat-option>
