@@ -170,7 +170,7 @@ export class RatingScaleComponent implements OnInit {
     let firstObject = this.bmxItem.componentText[0];
     let columnNames = [];
     for (let key in firstObject) {
-      if (key === 'Name Candidates' || key === 'Rationales' ) {
+      if (key === 'Name Candidates' || key === 'Rationales') {
         columnNames.push(key);
       }
     }
@@ -551,10 +551,10 @@ export class RatingScaleComponent implements OnInit {
             this.columnsNames[index] = 'katakana'
           }
           else {
-
-
-            this.columnsNames[index] = 'ExtraColumn' + this.extraColumnCounter
-            this.extraColumnCounter++
+            if (this.bmxItem.componentSettings[0].rankType != 'radio' || this.bmxItem.componentSettings[0].rankType != 'dinamycRadio') {
+              this.columnsNames[index] = 'ExtraColumn' + this.extraColumnCounter
+              this.extraColumnCounter++
+            }
           }
       });
 
@@ -863,14 +863,26 @@ export class RatingScaleComponent implements OnInit {
       // if (columnName.includes('RadioColumn')) {
       if (this.bmxItem.componentText[y][columnName]) {
         if (this.bmxItem.componentType == 'ranking-scale' || true) {
-          this.bmxItem.componentText.forEach((element, i) => {
-            if (element.RATE == index + 1) {
+          if (this.bmxItem.componentSettings[0].rankType != 'dinamycRadio') {
+            this.bmxItem.componentText.forEach((element, i) => {
+              if (element.RATE == index + 1) {
+                this.bmxItem.componentText[i].RATE = 0
+                this.RadioColumnList.forEach(radioColumnName => {
+                  this.bmxItem.componentText[i][radioColumnName] = false
+                });
+              }
+            });
+          } else {
+            this.bmxItem.componentText.forEach((element, i) => {
+              // if (element.RATE == index + 1) {
               this.bmxItem.componentText[i].RATE = 0
               this.RadioColumnList.forEach(radioColumnName => {
                 this.bmxItem.componentText[i][radioColumnName] = false
               });
-            }
-          });
+              // }
+            });
+          }
+
         }
         this.bmxItem.componentText[y].RATE = index + 1
       }

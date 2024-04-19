@@ -2,7 +2,7 @@ import { Component, ElementRef, EventEmitter, Inject, Input, OnInit, Output, Vie
 import { CdkTextareaAutosize } from '@angular/cdk/text-field';
 import { DragulaService } from 'ng2-dragula';
 import { RatingScaleComponent } from '../rating-scale/rating-scale.component';
-import {  MatSnackBar } from '@angular/material/snack-bar';
+import { MatSnackBar } from '@angular/material/snack-bar';
 import { BmxService } from '../../../bmx.service';
 import { DeviceDetectorService } from 'ngx-device-detector';
 
@@ -22,11 +22,11 @@ export class NarrowDownComponent extends RatingScaleComponent implements OnInit 
   isColumnResizerOn = false;
   editSingleTableCells = false
   numRatingScale: number = 0;
-  CREATION_VIDEO_PATH="assets/videos/NarrowDown.mp4"
+  CREATION_VIDEO_PATH="assets/videos/NarrowDown.mp4" 
   dataSource:any[] = []
 
   constructor(dragulaService: DragulaService, _snackBar: MatSnackBar,  _bmxService: BmxService,public deviceService: DeviceDetectorService) {
-    super(dragulaService,null, _bmxService,deviceService)
+    super(dragulaService,_snackBar, _bmxService,deviceService)
   }
 
   ngOnInit(): void {
@@ -34,11 +34,11 @@ export class NarrowDownComponent extends RatingScaleComponent implements OnInit 
     let selectedCriteria = [];
     if(this.bmxItem.componentText[0].CRITERIA){
       this.selectedCriteria = this.bmxItem.componentText[0].CRITERIA;
-    }
+    }    
     if(this.bmxItem.componentText[0].hasOwnProperty("STARS")){
       this.numRatingScale = this.bmxItem.componentText[0].STARS.length
     }
-
+    
     this.rankingScaleValue = this.numRatingScale;
 
     // COLUMN NAMES
@@ -50,7 +50,7 @@ export class NarrowDownComponent extends RatingScaleComponent implements OnInit 
       }
     });
 
-
+    
 
     let result = '';
 
@@ -74,7 +74,7 @@ export class NarrowDownComponent extends RatingScaleComponent implements OnInit 
       if (values.length > 0) {  // Verificar si hay valores para esta fila
         result += values.join('\t') + '\n';  // Agregar la línea al resultado
       }
-
+      
     }
     this.testNamesInput = result;
 

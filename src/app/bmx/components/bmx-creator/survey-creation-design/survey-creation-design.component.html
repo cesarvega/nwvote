@@ -1,4 +1,3 @@
-<!-- CURRENT -->
 <div *ngIf="showDialog">
     <app-survey-dialog (onConfirm)="confirmAction()" (onCancel)="closeDialog()"
         [dialogText]="dialogText"></app-survey-dialog>
@@ -26,7 +25,7 @@
 
 <div style="display: flex; margin: 0px;
     width: 100%;">
-    <div style="flex-direction: column;" class="bmx-page">
+    <div style="flex-direction: column;" class="bmx-page" >
         <div style="width: 100%;">
             &nbsp;
         </div>
@@ -59,7 +58,7 @@
                         <mat-icon style="font-size: 17px;">cancel</mat-icon>
                     </button>
                 </div>
-                <app-logo-header [bmxItem]="bmxItem" [isBrandMatrixSurvey]="isBrandMatrixSurvey" [i]="i"
+                <app-logo-header [bmxItem]="bmxItem" [isBrandMatrixSurvey]="isBrandMatrixSurvey" [i]="i" 
                     (logoChanged)="logoChanged($event)" (resizeWidthLogo)="resizeWidthLogo($event)"
                     [bmxClientPageDesignMode]="bmxClientPageDesignMode" [bmxClientPageOverview]="bmxClientPageOverview">
                 </app-logo-header>
@@ -88,7 +87,7 @@
                 <div class="emoji-handle">.</div>
                 <div style="position: absolute;right: 0px;">
                     <button *ngIf="bmxClientPageOverview" matTooltip="double click to delete" matTooltipPosition="above"
-                        style="outline: none;color:green;top: 7px;" mat-icon-button
+                        style="outline: none;color:#f10a0a;top: 7px;" mat-icon-button
                         (dblclick)="openDialog('delete', i)" aria-label="delte">
                         <mat-icon style="font-size: 17px;">cancel</mat-icon>
                     </button>
@@ -105,7 +104,7 @@
                 <div class="emoji-handle">.</div>
                 <div style="position: absolute;right: 0px;">
                     <button *ngIf="bmxClientPageOverview" matTooltip="double click to delete" matTooltipPosition="above"
-                        style="outline: none;color:blue;top: 19px;" mat-icon-button
+                        style="outline: none;color:#f10a0a;top: 19px;" mat-icon-button
                         (dblclick)="openDialog('delete', i)" aria-label="delte">
                         <mat-icon style="font-size: 17px;">cancel</mat-icon>
                     </button>

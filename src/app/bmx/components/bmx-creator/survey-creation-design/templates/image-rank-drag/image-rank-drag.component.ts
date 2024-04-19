@@ -1,13 +1,12 @@
 import { Component, ElementRef, EventEmitter, Inject, Input, OnInit, Output, ViewChild, ViewEncapsulation } from '@angular/core';
 import { CdkTextareaAutosize } from '@angular/cdk/text-field';
-// import { DragulaService } from 'ng2-dragula';
+import { DragulaService } from 'ng2-dragula';
 import { Subscription } from 'rxjs/internal/Subscription';
 import { BmxService } from '../../../bmx.service';
 import { RatingScaleComponent } from '../rating-scale/rating-scale.component';
-import {  MatSnackBar } from '@angular/material/snack-bar';
+import { MatSnackBar } from '@angular/material/snack-bar';
 import { CdkDragDrop, moveItemInArray } from '@angular/cdk/drag-drop';
 import { DeviceDetectorService } from 'ngx-device-detector';
-import { DragulaService } from 'ng2-dragula';
 @Component({
   selector: 'app-image-rank-drag',
   templateUrl: './image-rank-drag.component.html',
@@ -79,9 +78,7 @@ export class ImageRankDragComponent extends RatingScaleComponent implements OnIn
   openElements: any[] = [];
   //selectedCard: any
 
-  constructor(dragulaService: DragulaService, private _BmxService: BmxService,  _snackBar: MatSnackBar, _bmxService: BmxService, public deviceService: DeviceDetectorService) {
-    super(dragulaService,null, _bmxService, deviceService); this.epicFunction();
-   }
+  constructor(private _BmxService: BmxService, dragulaService: DragulaService, _snackBar: MatSnackBar, _bmxService: BmxService, public deviceService: DeviceDetectorService) { super(dragulaService, _snackBar, _bmxService, deviceService); this.epicFunction(); }
   epicFunction() {
     this.deviceInfo = this.deviceService.getDeviceInfo();
     const isMobile = this.deviceService.isMobile();
@@ -187,7 +184,7 @@ export class ImageRankDragComponent extends RatingScaleComponent implements OnIn
 
   }
 
-  //---------end open cards--------------//
+  //---------end open cards--------------//  
 
   cancelUpload() {
     this.uploadSub.unsubscribe();

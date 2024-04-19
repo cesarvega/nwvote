@@ -18,9 +18,9 @@ export class TextParagraphComponent implements OnInit {
   ckconfig;
   projectName: any;
   previousText = '';
-
+  Editor = ClassicEditor;
   constructor(private _bmxService: BmxService) { }
-  public Editor = ClassicEditor;
+
   ngOnInit(): void {
     this.ckconfig = {
       allowedContent: false,

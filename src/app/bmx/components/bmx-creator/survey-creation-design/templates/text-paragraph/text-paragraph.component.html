@@ -16,14 +16,12 @@
 </ng-template>
 
 <div cdkDrag>
-    <ckeditor *ngIf="openSettings && bmxClientPageOverview" [editor]="Editor" id="txtTexto" class="ckeditorcev"
-        style="animation: fadeIn 0.5s ease forwards;" [ngModelOptions]="{standalone: true}"
-        [(ngModel)]="bmxItem.componentText" [data]="bmxItem.componentText" [config]="ckconfig">
-    </ckeditor>
+  <ckeditor *ngIf="openSettings && bmxClientPageOverview" [editor]="Editor" id="txtTexto" class="ckeditorcev"
+ [ngModelOptions]="{standalone: true}"
+  [(ngModel)]="bmxItem.componentText" [data]="bmxItem.componentText">
+</ckeditor>
 </div>
 
-<ckeditor *ngIf="openSettings && bmxClientPageOverview" id="txtTexto" class="ckeditorcev" [editor]="Editor"
-          [(ngModel)]="bmxItem.componentText" [ngModelOptions]="{standalone: true}"  [data]="bmxItem.componentText"></ckeditor>
 
 <!-- <div style="display: flex;justify-content: space-around; align-items: center;width: 90vw;">
     <div style="text-align: left;width: 400px;">
