@@ -34,12 +34,32 @@
 
     .email-container {
         width: -webkit-fill-available !important;
+
     }
-    .invite{
+
+    .invite {
         width: 95%;
     }
 }
 
+@media (max-width: 1499px) {
 
+    .container {
+        display: flex;
+        gap: 5%;
+        max-width: 100%;
+        padding: 0;
+        flex-direction: column-reverse;
+        display: flex;
+        gap: 5%;
+        max-width: 100%;
+        padding: 0;
+        align-items: center;
 
+    }
 
+    .participants-container {
+        width: 60%;
+        margin-bottom: 40px;
+    }
+}
