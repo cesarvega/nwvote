@@ -18,14 +18,18 @@ export class QuestionAnswerComponent extends RatingScaleComponent implements OnI
   @Input() bmxClientPageOverview;
   @Output() autoSave = new EventEmitter();
   @ViewChild('autosize') autosize: CdkTextareaAutosize;
-  CREATION_VIDEO_PATH="assets/videos/QuestionAndAnswer.mp4"
-
+  CREATION_VIDEO_PATH = "assets/videos/QuestionAndAnswer.mp4"
+  dataSource:any[] = []
+  draggableBag
+  isdropDown = false
   allComplete: boolean = false;
-  constructor(dragulaService: DragulaService, _snackBar: MatSnackBar, _bmxService: BmxService,public deviceService: DeviceDetectorService) {
-    super(dragulaService, _snackBar, _bmxService,deviceService);
+  constructor(dragulaService: DragulaService, _snackBar: MatSnackBar, _bmxService: BmxService, public deviceService: DeviceDetectorService) {
+    super(dragulaService, _snackBar, _bmxService, deviceService);
   }
 
   ngOnInit(): void {
+    this.showDialog = false
+
     // COLUMN NAMES
     let values = Object.keys(this.bmxItem.componentText[0])
     values.forEach(value => {
@@ -33,8 +37,36 @@ export class QuestionAnswerComponent extends RatingScaleComponent implements OnI
         this.columnsNames.push(value)
       }
     });
+   
+    let result = '';
+
+    // Obtener las claves de la primera fila (los nombres de las propiedades)
+    let firstObject = this.bmxItem.componentText[0];
+    let columnNames = [];
+    for (let key in firstObject) {
+      if (key === 'Name Candidates' || key === 'Rationales' ) {
+        columnNames.push(key);
+      }
+    }
+
+    // Agregar cada objeto como una fila en el resultado
+    for (let obj of this.bmxItem.componentText) {
+      let values = [];
+      for (let key in obj) {
+        console.log(obj)
+        if (key !== 'STARS' && key !== 'RATE' && key !== 'CRITERIA' && key !== 'Comments') {
+          values.push(obj[key]);
+        }
+      }
+      if (values.length > 0) {  // Verificar si hay valores para esta fila
+        result += values.join('\t') + '\n';  // Agregar la línea al resultado
+      }
+    }
+    this.testNamesInput = result;
     this.randomizeTestNames = this.bmxItem.componentSettings[0].randomizeTestNames
     this.rowsCount = this.bmxItem.componentText.length - 1;
+
+    this.dataSource = this.bmxItem.componentText.slice(1)
   }
 
   upLoadNamesAndRationales(list: string) {
@@ -129,7 +161,44 @@ export class QuestionAnswerComponent extends RatingScaleComponent implements OnI
     // this.commentColumnCounter++
   }
 
-  autosaveAnswer(event: any){
+  autosaveAnswer(event: any) {
     this.autoSave.emit();
   }
+  rankingTableType(rankingType) {
+    this.bmxItem.componentSettings[0].rankType = rankingType
+    let values = Object.keys(this.bmxItem.componentText[0])
+    this.columnsNames = []
+    this.RadioColumnList = []
+    values.forEach(value => {
+      if (typeof value == "string" && value != "STARS" && value != "CRITERIA" && value != "RATE") {
+        this.columnsNames.push(value)
+      }
+    });
+    this.columnsNames.forEach(columnName => {
+      if (columnName.includes('RadioColumn')) {
+        this.deleteColumn(columnName)
+      }
+    });
+    if (rankingType == 'dropDown') {
+      this.bmxItem.componentSettings[0].rateWidth = 120
+      this.draggableBag = ''
+      this.isdropDown = true
+    } else if (rankingType == 'dragAndDrop') {
+      this.bmxItem.componentSettings[0].rateWidth = 80
+      this.draggableBag = 'DRAGGABLE_RANK_ROW'
+      this.isdropDown = false
+
+    } else if (rankingType == 'radio' || rankingType == 'dinamycRadio') {
+      this.bmxItem.componentSettings[0].rateWidth = 80
+      this.draggableBag = ''
+      this.isdropDown = false
+      this.radioColumnCounter = 1
+      this.rowsCount = 20
+      for (let index = 0; index < this.rankingScaleValue; index++) {
+        this.insertRadioColumn()
+      }
+    }
+  }
+
+
 }

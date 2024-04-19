@@ -8,7 +8,12 @@
 }
 
 .edit-icon {
-    display: none;    
+    color: #324395;
+    position: absolute;
+    margin: 33px;
+    right: 0px;
+    z-index: 999999;
+    top: 0;
 }
 
 .paragram-desktop{
@@ -20,6 +25,6 @@
         display: none;
     }
     .paragram-mobile{
-        line-height: 25px;        
+        line-height: 25px;
     }
 }

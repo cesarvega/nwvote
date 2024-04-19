@@ -107,7 +107,7 @@
             <div style="width: 100%;margin-top: 20px;">
                 <!-- CKEDITOR -->
                 <div>
-                    <div style="margin: 30px;" [innerHTML]="brandMatrixObjects[1].componentText | safe: 'html'"></div>
+                    <!-- <div style="margin: 30px;" [innerHTML]="brandMatrixObjects[1].componentText | safe: 'html'"></div> -->
                     <ckeditor [editor]="Editor" id="txtTexto" style="animation: fadeIn 0.5s ease forwards;"
                          [(ngModel)]="brandMatrixObjects[1].componentText"
                         [data]="brandMatrixObjects[1].componentText" >

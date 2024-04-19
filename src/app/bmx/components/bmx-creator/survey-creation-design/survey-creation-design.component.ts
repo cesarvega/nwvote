@@ -386,13 +386,12 @@ export class SurveyCreationDesignComponent implements OnInit {
                     const name = localStorage.getItem('projectName')
                     console.log(name)
                     const company = localStorage.getItem('company')
-                    if(this.bmxPages[0].page[1]){
                     const replacedText = this.bmxPages[0].page[1].componentText
                         .replace(/\[PROJECT NAME\]/g, name)
                         .replace(/\[Project Name\]/g, name)
                         .replace(/\[Company Name\]/g, company)
                     this.bmxPages[0].page[1].componentText = replacedText;
-                }
+
                 })
             })
             this.title = 'PROJECT'

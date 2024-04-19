@@ -1,6 +1,6 @@
 import { Component,AfterViewInit, ElementRef, EventEmitter, Inject, Input, OnInit, Output, ViewChild, ViewEncapsulation } from '@angular/core';
 import { BmxService } from '../../../bmx.service';
-
+import * as ClassicEditor from '@ckeditor/ckeditor5-build-classic';
 @Component({
   selector: 'app-text-paragraph',
   templateUrl: './text-paragraph.component.html',
@@ -18,11 +18,10 @@ export class TextParagraphComponent implements OnInit {
   ckconfig;
   projectName: any;
   previousText = '';
-  Editor: any = '';
-
+  Editor = ClassicEditor;
   constructor(private _bmxService: BmxService) { }
 
-  ngOnInit(): void {    
+  ngOnInit(): void {
     this.ckconfig = {
       allowedContent: false,
       width: '99.6%',
@@ -49,8 +48,8 @@ export class TextParagraphComponent implements OnInit {
       removeButtons: 'Smiley,tableselection,Image,Save,NewPage,Preview,Print,Templates,Replace,SelectAll,Form,Checkbox,Radio,TextField,Textarea,Find,Select,Button,ImageButton,HiddenField,CopyFormatting,CreateDiv,BidiLtr,BidiRtl,Language,Flash,PageBreak,Iframe,ShowBlocks,Cut,Copy,Paste,Table,Format,Source,Maximize,Styles,Anchor,SpecialChar,PasteFromWord,PasteText,Scayt,RemoveFormat,Indent,Outdent,Blockquote'
 
     }
-    this.previousText = this.bmxItem.componentText  
-  } 
+    this.previousText = this.bmxItem.componentText
+  }
 
   replaceBiI_Markers() {
     this.previousText = this.bmxItem.componentText
@@ -64,7 +63,7 @@ export class TextParagraphComponent implements OnInit {
 
       arg.bmxRegionalOffice.forEach((director: any, index: number) => {
 
-     
+
     // let directorString =  `<div style="display: flex;justify-content: space-evenly; align-items: center;width: 90vw;">
     //     <div style="text-align: left;width: 400px;">
     //         <div >${director.name.trim()}</div>
