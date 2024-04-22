@@ -67,7 +67,7 @@ export class QuestionAnswerComponent extends RatingScaleComponent implements OnI
     this.rowsCount = this.bmxItem.componentText.length - 1;
 
     this.dataSource = this.bmxItem.componentText.slice(1)
-    this.rankingType=this.bmxItem.componentSettings[0].rankType
+    this.rankingType = this.bmxItem.componentSettings[0].rankType
   }
 
   upLoadNamesAndRationales(list: string) {
@@ -136,12 +136,18 @@ export class QuestionAnswerComponent extends RatingScaleComponent implements OnI
 
   saveMultipleChoice(checkBoxName, indexRow, value) {
     if (this.rankingType == 'radio') {
-      if (value.target.checked) {
-        this.bmxItem.componentText[indexRow]['RATE'] = (!this.bmxItem.componentText[indexRow]['RATE']) ? checkBoxName  : this.bmxItem.componentText[indexRow]['RATE'] = checkBoxName
-      } else {
-        this.bmxItem.componentText[indexRow]['RATE'] = this.bmxItem.componentText[indexRow]['RATE'].replace(checkBoxName, '')
+      
+      if (this.bmxItem.componentText[indexRow]['RATE'] == checkBoxName) {
+        this.bmxItem.componentText[indexRow]['RATE'] = ''
+      }else{
+        if (value.target.checked) {
+     
+          this.bmxItem.componentText[indexRow]['RATE'] = (!this.bmxItem.componentText[indexRow]['RATE']) ? checkBoxName : this.bmxItem.componentText[indexRow]['RATE'] = checkBoxName
+        } else {
+          this.bmxItem.componentText[indexRow]['RATE'] = this.bmxItem.componentText[indexRow]['RATE'].replace(checkBoxName, '')
+        }
       }
-    }else{
+    } else {
       if (value.target.checked) {
         this.bmxItem.componentText[indexRow]['multipleChoice'] = (!this.bmxItem.componentText[indexRow]['multipleChoice']) ? checkBoxName + ',' : this.bmxItem.componentText[indexRow]['multipleChoice'] += checkBoxName + ','
       } else {
@@ -197,7 +203,7 @@ export class QuestionAnswerComponent extends RatingScaleComponent implements OnI
       this.draggableBag = 'DRAGGABLE_RANK_ROW'
       this.isdropDown = false
 
-    } 
+    }
   }
 
 
