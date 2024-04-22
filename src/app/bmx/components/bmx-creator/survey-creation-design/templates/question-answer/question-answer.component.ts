@@ -19,7 +19,7 @@ export class QuestionAnswerComponent extends RatingScaleComponent implements OnI
   @Output() autoSave = new EventEmitter();
   @ViewChild('autosize') autosize: CdkTextareaAutosize;
   CREATION_VIDEO_PATH = "assets/videos/QuestionAndAnswer.mp4"
-  dataSource:any[] = []
+  dataSource: any[] = []
   draggableBag
   isdropDown = false
   allComplete: boolean = false;
@@ -37,14 +37,14 @@ export class QuestionAnswerComponent extends RatingScaleComponent implements OnI
         this.columnsNames.push(value)
       }
     });
-   
+
     let result = '';
 
     // Obtener las claves de la primera fila (los nombres de las propiedades)
     let firstObject = this.bmxItem.componentText[0];
     let columnNames = [];
     for (let key in firstObject) {
-      if (key === 'Name Candidates' || key === 'Rationales' ) {
+      if (key === 'Name Candidates' || key === 'Rationales') {
         columnNames.push(key);
       }
     }
@@ -67,6 +67,7 @@ export class QuestionAnswerComponent extends RatingScaleComponent implements OnI
     this.rowsCount = this.bmxItem.componentText.length - 1;
 
     this.dataSource = this.bmxItem.componentText.slice(1)
+    this.rankingType=this.bmxItem.componentSettings[0].rankType
   }
 
   upLoadNamesAndRationales(list: string) {
@@ -134,10 +135,18 @@ export class QuestionAnswerComponent extends RatingScaleComponent implements OnI
   }
 
   saveMultipleChoice(checkBoxName, indexRow, value) {
-    if (value.target.checked) {
-      this.bmxItem.componentText[indexRow]['multipleChoice'] = (!this.bmxItem.componentText[indexRow]['multipleChoice']) ? checkBoxName + ',' : this.bmxItem.componentText[indexRow]['multipleChoice'] += checkBoxName + ','
-    } else {
-      this.bmxItem.componentText[indexRow]['multipleChoice'] = this.bmxItem.componentText[indexRow]['multipleChoice'].replace(checkBoxName + ',', '')
+    if (this.rankingType == 'radio') {
+      if (value.target.checked) {
+        this.bmxItem.componentText[indexRow]['RATE'] = (!this.bmxItem.componentText[indexRow]['RATE']) ? checkBoxName  : this.bmxItem.componentText[indexRow]['RATE'] = checkBoxName
+      } else {
+        this.bmxItem.componentText[indexRow]['RATE'] = this.bmxItem.componentText[indexRow]['RATE'].replace(checkBoxName, '')
+      }
+    }else{
+      if (value.target.checked) {
+        this.bmxItem.componentText[indexRow]['multipleChoice'] = (!this.bmxItem.componentText[indexRow]['multipleChoice']) ? checkBoxName + ',' : this.bmxItem.componentText[indexRow]['multipleChoice'] += checkBoxName + ','
+      } else {
+        this.bmxItem.componentText[indexRow]['multipleChoice'] = this.bmxItem.componentText[indexRow]['multipleChoice'].replace(checkBoxName + ',', '')
+      }
     }
   }
 
@@ -188,16 +197,7 @@ export class QuestionAnswerComponent extends RatingScaleComponent implements OnI
       this.draggableBag = 'DRAGGABLE_RANK_ROW'
       this.isdropDown = false
 
-    } else if (rankingType == 'radio' || rankingType == 'dinamycRadio') {
-      this.bmxItem.componentSettings[0].rateWidth = 80
-      this.draggableBag = ''
-      this.isdropDown = false
-      this.radioColumnCounter = 1
-      this.rowsCount = 20
-      for (let index = 0; index < this.rankingScaleValue; index++) {
-        this.insertRadioColumn()
-      }
-    }
+    } 
   }
 
 

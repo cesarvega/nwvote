@@ -356,11 +356,14 @@
                         <div
                             *ngIf="y !== 0  &&  columnName.includes('options') == true && this.bmxItem.componentSettings[0].rankType == 'radio'">
                             <div *ngFor="let checkBoxName of testName[columnName].split(','); let m = index"
-                                style="display: flex;flex-direction: row;gap:10px; justify-content: space-between;  ">
-                                <label for="">{{checkBoxName}}</label>
-                                <input type="radio" [name]="bmxItem.componentText[y].nameCandidates"
-                                    [checked]="testName[columnName]" (click)="saveRadioColumValue(columnName, y);">
-                            </div>
+                            style="display: flex;flex-direction: row;gap:10px; justify-content: space-between;  ">
+                            <label for="">{{checkBoxName}}</label>
+                            <!-- <input type="checkbox" [checked]="allComplete" -->
+                            <input type="radio"
+                                [checked]="(testName['RATE'] && testName['RATE'] == checkBoxName )?true:allComplete"
+                                (change)="saveMultipleChoice(checkBoxName, y,  $event)">
+                                {{testName['multipleChoice']}}
+                        </div>
                         </div>
                         <div
                             *ngIf="y !== 0  &&  columnName.includes('options') == true && this.bmxItem.componentSettings[0].rankType == 'dropDown'">
