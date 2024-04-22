@@ -1,5 +1,5 @@
 <div style="width: 100%; display: flex; align-items: flex-start;">
-    <div >
+    <div style="width: 75%;">
         <div style="display: flex;justify-content: space-between; margin-top: 20px;">
             <div style="margin: 20px;font-size: 20px;color:#063074;font-weight: 800;">MATRIX LIST</div>
             <mat-form-field style="float:right; padding-right: 20px" appearance="outline">
@@ -16,7 +16,7 @@
             </mat-form-field>
         </div>
         <div>
-            <table mat-table [dataSource]="dataSource" matSort class="mat-elevation-z8" style="width: 100%;">
+            <table mat-table [dataSource]="dataSource" matSort class="mat-elevation-z8 table" style="width: 100%;">
                 <!-- Position Column -->
                 <ng-container matColumnDef="bmxCompany">
                     <th mat-header-cell *matHeaderCellDef mat-sort-header> Client</th>
@@ -97,7 +97,7 @@
         </div>
     </div>
     <!-- CALENDAR  📆📆📆📆📆📆📆📆📆-->
-    <div style="width: 25%;position: relative;
+    <div class="calendar" style="width: 25%;position: relative;
         left: 70px;">
         <div style="width: 100%;">
             <mat-card appearance="outlined" class="demo-inline-calendar-card">
