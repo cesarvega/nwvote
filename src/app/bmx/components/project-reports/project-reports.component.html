@@ -1,5 +1,5 @@
 <app-project-list-check *ngIf="showListDialog" (modal)="showDialog()" (projectsToCombineReports)="getReports($event)" [projectName]="projectId"></app-project-list-check>
-  
+
 <div *ngIf="true" class="feature-modal-box">
   <mat-card appearance="outlined" class="flex-column ">
     <mat-icon style="color: #032c72; animation: fadeIn 0.6s ease-in-out 0.3s backwards;">
@@ -14,7 +14,7 @@
       </div>
       <hr>
       <div class="pages-to-print">
-        <h3>pages to be printed</h3>
+        <h3>Pages To Be Printed</h3>
         <div class="page-buttons">
           <div *ngFor="let page of numberOfpages; let pageIndex = index" class="label-buttons">
             <button style="min-width: 35px;" (click)="togglePaeToPrint(pageIndex)"
