@@ -50,7 +50,6 @@ export class RankScaleComponent extends RatingScaleComponent implements OnInit {
   ngOnInit(): void {
     this.showDialog = false
 
-    console.log(this.bmxItem)
     this.rankingScaleValue = this.bmxItem.componentSettings[0].selectedRanking
     this.createRatingStars(this.rankingScaleValue)
     // this.rankingTableType( this.bmxItem.componentSettings[0].rankType)
@@ -99,10 +98,9 @@ export class RankScaleComponent extends RatingScaleComponent implements OnInit {
     for (let obj of this.bmxItem.componentText) {
       let values = [];
       for (let key in obj) {
-        console.log(isNaN(Number(key)), key)
-    
-          if (key !== 'STARS' && key !== 'RATE' && key !== 'CRITERIA' && !key.includes('Comments')) {
-            if (isNaN(Number(obj[key]))) {
+
+        if (key !== 'STARS' && key !== 'RATE' && key !== 'CRITERIA' && !key.includes('Comments')) {
+          if (isNaN(Number(obj[key]))) {
             values.push(obj[key]);
           }
         }
@@ -112,7 +110,6 @@ export class RankScaleComponent extends RatingScaleComponent implements OnInit {
       }
     }
 
-    console.log(result)
     this.testNamesInput = result;
     this.randomizeTestNames = this.bmxItem.componentSettings[0].randomizeTestNames
 
@@ -140,7 +137,6 @@ export class RankScaleComponent extends RatingScaleComponent implements OnInit {
     this.newselectedCriteria = filteredCriteria
     this.rankingScaleValue = this.bmxItem.componentText[0].STARS.length;
     this.dataSource = this.bmxItem.componentText.slice(1)
-    console.log(this.dataSource)
   }
 
   checkDragEvetn(event: CdkDragDrop<string[]>) {
@@ -204,7 +200,9 @@ export class RankScaleComponent extends RatingScaleComponent implements OnInit {
           }
       });
       this.TESTNAMES_LIST = [];
+      let index = 0;
       for (const element of rows) {
+
         if (element != "" && element.length > 6) {
           let objectColumnDesign = {};
           if (this.ASSIGNED_CRITERIA.length > 0) {
@@ -223,7 +221,21 @@ export class RankScaleComponent extends RatingScaleComponent implements OnInit {
               })
             });
           } else {
-
+            for (const key in this.bmxItem.componentText[1]) {
+              if (this.bmxItem.componentText[1].hasOwnProperty(key) && key.startsWith("Comments")) {
+                // Obtiene el número de la propiedad de comentarios
+                const num = key.replace("Comments", "");
+                // Agrega la propiedad de comentarios al arreglo this.columnsNames
+                objectColumnDesign[key] = "";
+              }
+            }
+            for (const key in objectColumnDesign) {
+              if (objectColumnDesign.hasOwnProperty(key) && key.startsWith("Comments")) {
+                // Obtiene el número de la propiedad de comentarios
+                // Agrega la propiedad de comentarios al arreglo this.columnsNames
+                this.columnsNames.push(key)
+              }
+            }
             objectColumnDesign['STARS'] = this.createRatingStars(this.rankingScaleValue, this.ratingScaleIcon);
             for (let e = 0; e < this.columnsNames.length; e++) {
               if ((element.split("\t").length > 0)) {
@@ -231,8 +243,24 @@ export class RankScaleComponent extends RatingScaleComponent implements OnInit {
               }
             }
           }
+          const newObj = {};
 
-          this.TESTNAMES_LIST.push(objectColumnDesign);
+          // Copia las propiedades que no contienen "Comments"
+          for (const key in objectColumnDesign) {
+            if (objectColumnDesign.hasOwnProperty(key) && !key.includes("Comments")) {
+              newObj[key] = objectColumnDesign[key];
+            }
+          }
+
+          // Copia las propiedades que contienen "Comments"
+          for (const key in objectColumnDesign) {
+            if (objectColumnDesign.hasOwnProperty(key) && key.includes("Comments")) {
+              index == 0? newObj[key] = 'Comments': newObj[key] = '';
+             
+            }
+          }
+          this.TESTNAMES_LIST.push(newObj);
+          index++
         }
       }
       this.bmxItem.componentText = this.deleteDuplicates(this.TESTNAMES_LIST, 'nameCandidates');
@@ -267,7 +295,6 @@ export class RankScaleComponent extends RatingScaleComponent implements OnInit {
     }, 1000);
 
     this.bmxItem.componentSettings[0].selectedRanking = this.rankingScaleValue
-    console.log(this.bmxItem)
 
   }
 
