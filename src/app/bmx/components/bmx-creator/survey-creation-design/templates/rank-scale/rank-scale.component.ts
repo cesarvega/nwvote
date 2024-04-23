@@ -78,12 +78,8 @@ export class RankScaleComponent extends RatingScaleComponent implements OnInit {
     let values = Object.keys(this.bmxItem.componentText[0])
 
     values.forEach(value => {
-      console.log(value)
-      if (isNaN(Number(value))) {
-        if (typeof value == "string" && value != "STARS" && value != "CRITERIA" && value != "RATE") {
-          this.columnsNames.push(value)
-          console.log(this.columnsNames)
-        }
+      if (typeof value == "string" && value != "STARS" && value != "CRITERIA") {
+        this.columnsNames.push(value)
       }
     });
     //this.columnsNames.push("RadioColumn4", "RadioColumn5");//HARD CODE
@@ -105,7 +101,7 @@ export class RankScaleComponent extends RatingScaleComponent implements OnInit {
       for (let key in obj) {
         console.log(isNaN(Number(key)), key)
     
-          if (key !== 'STARS' && key !== 'RATE' && key !== 'CRITERIA' && key !== 'Comments') {
+          if (key !== 'STARS' && key !== 'RATE' && key !== 'CRITERIA' && !key.includes('Comments')) {
             if (isNaN(Number(obj[key]))) {
             values.push(obj[key]);
           }
