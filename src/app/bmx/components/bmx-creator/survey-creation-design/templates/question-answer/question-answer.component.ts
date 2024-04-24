@@ -5,6 +5,7 @@ import { RatingScaleComponent } from '../rating-scale/rating-scale.component';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { BmxService } from '../../../bmx.service';
 import { DeviceDetectorService } from 'ngx-device-detector';
+import { isNamespaceExport } from 'typescript';
 
 @Component({
   selector: 'app-question-answer',
@@ -53,7 +54,6 @@ export class QuestionAnswerComponent extends RatingScaleComponent implements OnI
     for (let obj of this.bmxItem.componentText) {
       let values = [];
       for (let key in obj) {
-        console.log(obj)
         if (key !== 'STARS' && key !== 'RATE' && key !== 'CRITERIA' && key !== 'Comments') {
           values.push(obj[key]);
         }
@@ -69,7 +69,19 @@ export class QuestionAnswerComponent extends RatingScaleComponent implements OnI
     this.dataSource = this.bmxItem.componentText.slice(1)
     this.rankingType = this.bmxItem.componentSettings[0].rankType
   }
-
+  veryfy(values: any, name: any) {
+    if (typeof values == 'string' && values.split(',')) {
+      values=values.replace(/-1/g, "")
+      const findedValue = values.split(',').find((value: any) => value == name)
+      if (findedValue) {
+        return true
+      } else {
+        return false
+      }
+    } else {
+      return false
+    }
+  }
   upLoadNamesAndRationales(list: string) {
     this.bmxItem.componentSettings[0].randomizeTestNames = (this.randomizeTestNames) ? true : false
     if (!list) { list = this.listString; }
@@ -136,12 +148,12 @@ export class QuestionAnswerComponent extends RatingScaleComponent implements OnI
 
   saveMultipleChoice(checkBoxName, indexRow, value) {
     if (this.rankingType == 'radio') {
-      
+
       if (this.bmxItem.componentText[indexRow]['RATE'] == checkBoxName) {
         this.bmxItem.componentText[indexRow]['RATE'] = ''
-      }else{
+      } else {
         if (value.target.checked) {
-     
+
           this.bmxItem.componentText[indexRow]['RATE'] = (!this.bmxItem.componentText[indexRow]['RATE']) ? checkBoxName : this.bmxItem.componentText[indexRow]['RATE'] = checkBoxName
         } else {
           this.bmxItem.componentText[indexRow]['RATE'] = this.bmxItem.componentText[indexRow]['RATE'].replace(checkBoxName, '')
@@ -149,9 +161,9 @@ export class QuestionAnswerComponent extends RatingScaleComponent implements OnI
       }
     } else {
       if (value.target.checked) {
-        this.bmxItem.componentText[indexRow]['multipleChoice'] = (!this.bmxItem.componentText[indexRow]['multipleChoice']) ? checkBoxName + ',' : this.bmxItem.componentText[indexRow]['multipleChoice'] += checkBoxName + ','
+        this.bmxItem.componentText[indexRow]['RATE'] = (!this.bmxItem.componentText[indexRow]['RATE']) ? (checkBoxName + ',').replace(/-1/g, "") : this.bmxItem.componentText[indexRow]['RATE'] += (checkBoxName + ',').replace(/-1/g, "") 
       } else {
-        this.bmxItem.componentText[indexRow]['multipleChoice'] = this.bmxItem.componentText[indexRow]['multipleChoice'].replace(checkBoxName + ',', '')
+        this.bmxItem.componentText[indexRow]['RATE'] = this.bmxItem.componentText[indexRow]['RATE'].replace(checkBoxName + ',', '')
       }
     }
   }
