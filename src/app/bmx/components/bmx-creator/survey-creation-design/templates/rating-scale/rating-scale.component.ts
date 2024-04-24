@@ -906,11 +906,14 @@ export class RatingScaleComponent implements OnInit {
           } else {
             this.bmxItem.componentText.forEach((element, i) => {
               // if (element.RATE == index + 1) {
-              this.bmxItem.componentText[i].RATE = 0
+              if (this.bmxItem.componentSettings[0].rankType != 'dinamycRadio') {
+                this.bmxItem.componentText[i].RATE = 0
+              }
               this.RadioColumnList.forEach(radioColumnName => {
                 if (this.bmxItem.componentSettings[0].rankType != 'dinamycRadio') {
-                this.bmxItem.componentText[i][radioColumnName] = false}
-                
+                  this.bmxItem.componentText[i][radioColumnName] = false
+                }
+
               });
               // }
             });
