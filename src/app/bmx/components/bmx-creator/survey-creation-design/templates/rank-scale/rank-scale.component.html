@@ -502,7 +502,7 @@ bottom: -2; ">
                     <input type="radio" *ngIf="y !== 0  &&  columnName.includes('RadioColumn') == true"
                         [name]="columnName + i" [checked]="testName[columnName]"
                         (click)="saveRadioColumValue(columnName, y)">
-
+                        
 
                     <!-- TEXT_AREA COLUMN COMMENTS-->
                     <textarea *ngIf="y !== 0  && columnName.includes('Comments') == true "

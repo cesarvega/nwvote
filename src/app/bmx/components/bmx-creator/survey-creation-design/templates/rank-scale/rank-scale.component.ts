@@ -165,6 +165,7 @@ export class RankScaleComponent extends RatingScaleComponent implements OnInit {
 
   upLoadNamesAndRationales(list: string, type?: any) {
     this.dragRows = true;
+    console.log(this.bmxItem.componentText)
     this.bmxItem.componentSettings[0].randomizeTestNames = (this.randomizeTestNames) ? true : false
     if (!list) { list = this.listString; }
     if (list) {
@@ -295,6 +296,7 @@ export class RankScaleComponent extends RatingScaleComponent implements OnInit {
     }, 1000);
 
     this.bmxItem.componentSettings[0].selectedRanking = this.rankingScaleValue
+    console.log(this.bmxItem.componentText)
 
   }
 

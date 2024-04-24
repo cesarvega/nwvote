@@ -844,12 +844,17 @@ export class RatingScaleComponent implements OnInit {
     this.bmxItem.componentSettings[0].commentsWidth = 165
   }
 
+
   insertRadioColumn() {
     this.recordHistory()
     this.columnsNames.push('RadioColumn' + (this.radioColumnCounter));
     this.bmxItem.componentText.forEach((object, index) => {
       let coulmnName = 'RadioColumn' + this.radioColumnCounter
-
+      if (index == 0) {
+        object[coulmnName] = this.radioColumnCounter
+      } else {
+        object[coulmnName] = false
+      }
     });
     this.radioColumnCounter++
   }
@@ -903,7 +908,9 @@ export class RatingScaleComponent implements OnInit {
               // if (element.RATE == index + 1) {
               this.bmxItem.componentText[i].RATE = 0
               this.RadioColumnList.forEach(radioColumnName => {
-                this.bmxItem.componentText[i][radioColumnName] = false
+                if (this.bmxItem.componentSettings[0].rankType != 'dinamycRadio') {
+                this.bmxItem.componentText[i][radioColumnName] = false}
+                
               });
               // }
             });
