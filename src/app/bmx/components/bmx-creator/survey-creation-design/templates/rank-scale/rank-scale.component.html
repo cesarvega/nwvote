@@ -204,7 +204,10 @@ bottom: -2; ">
 
                 <div style="margin-top: 0.5rem;">
                     <mat-radio-group aria-label="Select an option" [(ngModel)]="this.bmxItem.componentSettings[0].rankType" (change)="rankingTableType(this.bmxItem.componentSettings[0].rankType)">
-                        <div style="display: flex;flex-direction: column;gap: 1px;">
+                        <div style="display: flex;
+                        flex-direction: column;
+                        gap: 1px;
+                        align-items: flex-start;">
                             <mat-radio-button value="dropDown">Drop-Down</mat-radio-button>
                             <mat-radio-button value="dragAndDrop">Drag & Drop</mat-radio-button>
                             <mat-radio-button value="radio">Radio Buttons</mat-radio-button>
