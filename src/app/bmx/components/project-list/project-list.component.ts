@@ -120,11 +120,10 @@ export class ProjectListComponent implements OnInit {
     var test = option;
   }
 
-  changeView(): void {  
+  changeView(): void {
 
     this.viewedData = [];
     for (let i = 0; i < this.allData.length; i++) {
-      console.log(this.allData)
       if (this.selected == 'Live' && this.allData[i].ProjectInfo && JSON.parse(this.allData[i].ProjectInfo).bmxStatus != 'close') {
         this.viewedData.push(JSON.parse(this.allData[i].ProjectInfo));
       }

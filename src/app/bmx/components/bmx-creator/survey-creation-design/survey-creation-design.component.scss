@@ -51,8 +51,8 @@
 }
 
 .no-print {
-  color: #324395;
-  font-size: 25px;
+  color: #324395 !important;
+  font-size: 25px !important;
   transition: all 0.1s ease-in-out;
   text-shadow: 0 0.04em 0.04em rgba(0, 0, 0, 0.35);
 }
@@ -92,9 +92,9 @@
 }
 
 .pageNumberActive {
-  min-width: 40px;
-  color: white;
-  background-color: #ee7f24;
+  min-width: 40px !important;
+  color: white !important;
+  background-color: #ee7f24 !important;
 }
 
 .pageNumber {
