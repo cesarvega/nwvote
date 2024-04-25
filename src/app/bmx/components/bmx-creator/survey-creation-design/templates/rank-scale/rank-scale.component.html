@@ -365,15 +365,23 @@ bottom: -2; ">
 
 <!-- BUTTON-->
 <div class="sm-row-box-rkScale">
-    <button style="outline: none;color:#d35854;margin-bottom: 50px;" mat-icon-button (click)="selectedIndex = ''"
-        aria-label="ranking">
-        <mat-icon>cancel</mat-icon><br>Cancel
-    </button>
-    <button style="outline: none;color:#76d354;margin-bottom: 50px;" mat-icon-button
-        (click)="selectedIndex = '';upLoadNamesAndRationales(testNamesInput, false)" [disabled]="false"
-        aria-label="ranking">
-        <mat-icon>check_circle</mat-icon><br> Done
-    </button>
+  <div class="button-cancel" style=" display: flex;
+  flex-direction: column;
+  align-items: center; ">
+    <button style="outline: none;color:#d35854;   font-size: 21px;" mat-icon-button (click)="selectedIndex = ''"
+      aria-label="ranking">
+      <mat-icon>cancel</mat-icon>
+  </button>
+  <p style="margin-top: -11; color: #D35854; font-size: 21px;">Cancel</p>
+  </div>
+  <div class="button-Done"style="display: flex; flex-direction: column; align-items: center;">
+  <button style="outline: none;color:#76d354;   font-size: 21px;" mat-icon-button
+      (click)="selectedIndex = '';upLoadNamesAndRationales(testNamesInput, false)" [disabled]="false"
+      aria-label="ranking">
+      <mat-icon>check_circle</mat-icon>
+  </button>
+  <p style="margin-top: -1; color: #76D354; font-size: 21px;">Done</p>
+</div>
 </div>
 </div>
 <!-- 🔧🔧🔧🔧🔧🔧🔧🔧🔧🔧🔧🔧🔧🔧🔧🔧🔧🔧🔧🔧🔧🔧END CONFIG BOX 🔧🔧🔧🔧🔧🔧🔧🔧🔧🔧🔧🔧🔧🔧🔧🔧🔧🔧🔧🔧🔧 -->
@@ -502,7 +510,7 @@ bottom: -2; ">
                     <input type="radio" *ngIf="y !== 0  &&  columnName.includes('RadioColumn') == true"
                         [name]="columnName + i" [checked]="testName[columnName]"
                         (click)="saveRadioColumValue(columnName, y)">
-                        
+
 
                     <!-- TEXT_AREA COLUMN COMMENTS-->
                     <textarea *ngIf="y !== 0  && columnName.includes('Comments') == true "

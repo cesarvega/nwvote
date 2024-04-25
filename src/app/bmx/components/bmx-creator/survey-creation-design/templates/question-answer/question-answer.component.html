@@ -279,11 +279,14 @@
     <!-- BUTTON-->
     <div class="sm-row-box-rkScale">
 
-        <button style="outline: none;color:#76d354;margin-bottom: 50px;" mat-icon-button
+      <div class="button-Done"style="display: flex; flex-direction: column; align-items: center;">
+        <button style="outline: none;color:#76d354;" mat-icon-button
             (click)="selectedIndex = '';upLoadNamesAndRationales(testNamesInput)" [disabled]="false"
             aria-label="ranking">
-            <mat-icon>check_circle</mat-icon> Done
+            <mat-icon>check_circle</mat-icon>
         </button>
+        <p style="margin-top: -1; color: #76D354; font-size: 21px;">Done</p>
+    </div>
     </div>
 </div>
 
@@ -350,7 +353,7 @@
                                 <input type="checkbox"
                                 [checked]="(testName['RATE'] && veryfy(testName['RATE'],checkBoxName))?true:allComplete"
                                 (change)="saveMultipleChoice(checkBoxName, y,  $event)">
-                            
+
                             </div>
                         </div>
 
