@@ -7,8 +7,6 @@ import {
 } from "@ngrx/signals";
 import {computed} from "@angular/core";
 import {Message} from "../+models/message";
-import {Baseline} from "../+models/baseline";
-import {Internet} from "../+models/internet";
 import {withStorageSync} from "./storege-sync.feature";
 import {environment} from "../../../environments/environment";
 
@@ -93,43 +91,6 @@ export const BMX_STORE = signalStore(
             updateInternetResponse(data: any) {
                 patchState(store, {internetResponse: data});
             },
-            internet(): Internet {
-                const entity = store.addressQualificationResponse()?.context?.entity;
-
-                return {
-                    "marketSegment": 'CON',
-                    "qualForExternalVideo": false,
-                    "addressDetailId": entity.addressId,
-                    "propertyId": entity.propertyId === null ? '' : entity.propertyId,
-                    //"propertyId": entity.addressId,
-                    "fullAddress": entity.fullAddress,
-                    "instantInternet": entity.instantInternet,
-                    "lineType": '',
-                    "customerType": 'Residential',
-                    "productType": '',
-                    "speed": entity?.o2Details?.FastestDownloadDataService?.downstreamBandwidth,
-                    "provisioningCode": entity?.o2Details?.FastestDownloadDataService?.serviceName
-                };
-            },
-            baseline(): Baseline {
-                const entity = store.addressQualificationResponse()?.context?.entity;
-                const agentId = store.urlSearchParams().agentId;
-
-                return {
-                    transactionId: entity.partnerSessionId,
-                    partnerId: entity.partnerId,
-                    salesCode: entity.salesCode,
-                    partnerOrderId: store.transactionResponse().uuid,
-                    agentId: agentId ? agentId : 'N/A',
-                    channel: entity.channel,
-                    siteId: entity.siteId,
-                    wirecenter: entity.wireCenter,
-                    intent: entity.intent
-                };
-            },
-            getInternetProducts(): any {
-                return store.internetResponse()?.productResponse?.productDetails;
-            }
         })
     ),
     withComputed((store) => ({
