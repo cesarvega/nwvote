@@ -19,7 +19,10 @@ export const environment = {
     storageBucket: "mrvrman.appspot.com",
     messagingSenderId: "108322920951",
     appId: "1:108322920951:web:79253f06045b2c222bb6f2"
-  }
+  },
+  provider: 'appBmxStore',
+  isgAwsLogs: 'isgAwsLogsm',
+  apiUrl: 'apiUrl',
 };
 
 /*

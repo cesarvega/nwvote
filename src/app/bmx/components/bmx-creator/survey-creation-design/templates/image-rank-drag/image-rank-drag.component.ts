@@ -184,7 +184,7 @@ export class ImageRankDragComponent extends RatingScaleComponent implements OnIn
 
   }
 
-  //---------end open cards--------------//  
+  //---------end open cards--------------//
 
   cancelUpload() {
     this.uploadSub.unsubscribe();
@@ -239,7 +239,7 @@ export class ImageRankDragComponent extends RatingScaleComponent implements OnIn
       this.ratedCounter = this.ratedCounter + 1
       this.autoSave.emit()
     } else if (this.ratedCounter <= this.bmxItem.componentSettings[0].maxRule && this.actualRate != 0) {
-      this.autoSave.next()
+      this.autoSave.next(0)
     }
   }
 

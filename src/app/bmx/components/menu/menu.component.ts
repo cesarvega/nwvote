@@ -1,15 +1,20 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, inject, OnInit} from '@angular/core';
 import { Router, NavigationEnd, ActivatedRoute } from '@angular/router';
 import { Location } from '@angular/common';
 import { BmxService } from '../bmx-creator/bmx.service';
 import { MatSnackBar } from '@angular/material/snack-bar';
+import { BMX_STORE as BMX_STORE } from 'src/app/signals/+store/brs.store';
+import { signal } from '@angular/core';
 
 @Component({
   selector: 'app-menu',
   templateUrl: './menu.component.html',
-  styleUrls: ['./menu.component.scss']
+  styleUrls: ['./menu.component.scss'],
 })
 export class MenuComponent implements OnInit {
+
+  readonly bmxStore = inject(BMX_STORE);
+
   isMenuVisible: boolean = true;
   isDashboardMenu: boolean = true;
   userFullName: string = "Carlos Gomez"
@@ -32,6 +37,11 @@ export class MenuComponent implements OnInit {
 
   projectId: string;
   globalProjectName: string;
+
+  count = signal(0);
+  // appStore = defineSignalStore({
+  //   count: signal(0)
+  // });
 
   constructor(private router: Router, private location: Location, private _BmxService: BmxService, private activatedRoute: ActivatedRoute, public _snackBar: MatSnackBar,) {
     this.activatedRoute.queryParams.subscribe((queryParams) => {
@@ -64,6 +74,39 @@ export class MenuComponent implements OnInit {
   }
 
   ngOnInit(): void {
+
+    if (location.search) {
+
+      const searchParams = new URLSearchParams(location.search);
+      const obj: any = {};
+      searchParams.forEach((value, key) => {
+        obj[key] = value;
+      });
+
+      this.bmxStore.updateUrlSearchParams(obj);
+
+      // const firstName = this.bmxStore.urlSearchParams().firstName();
+
+      if (
+          this.bmxStore.urlSearchParams()?.agentId === undefined ||
+          this.bmxStore.urlSearchParams()?.agentId === null
+      ) {
+          this.bmxStore.updateMessageInfo({
+              message: 'Data not found',
+              description: 'Data not found in foot print.',
+              icon: 'info',
+              display: true
+          });
+          return;
+      }
+
+      this.bmxStore.updateMessageInfo({
+        message: 'Data not found',
+        description: 'Data not found in foot print.',
+        icon: 'info',
+        display: true
+    });
+  }
 
     //clean local storage
     this.router.events.subscribe((event) => {

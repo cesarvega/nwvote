@@ -58,7 +58,7 @@
                         <mat-icon style="font-size: 17px;">cancel</mat-icon>
                     </button>
                 </div>
-                <app-logo-header [bmxItem]="bmxItem" [isBrandMatrixSurvey]="isBrandMatrixSurvey" [i]="i" 
+                <app-logo-header [bmxItem]="bmxItem" [isBrandMatrixSurvey]="isBrandMatrixSurvey" [i]="i"
                     (logoChanged)="logoChanged($event)" (resizeWidthLogo)="resizeWidthLogo($event)"
                     [bmxClientPageDesignMode]="bmxClientPageDesignMode" [bmxClientPageOverview]="bmxClientPageOverview">
                 </app-logo-header>
@@ -292,7 +292,7 @@
                 matTooltipPosition="right" mat-icon-button aria-label="aria">
                 <mat-icon class="full-icon-secondary">layers_clear</mat-icon>
             </button>
-            <button mat-icon-button color="warn" aria-label="aria" id="openSaveTamplate" style="border: none">
+            <!-- <button mat-icon-button color="warn" aria-label="aria" id="openSaveTamplate" style="border: none">
                 <mat-icon class="full-icon-secondary">category</mat-icon>
                 <div class="list-save-template">
                     <mat-list role="list">
@@ -301,7 +301,7 @@
                             template</mat-list-item>
                     </mat-list>
                 </div>
-            </button>
+            </button> -->
 
             <button *ngIf="true" (dblclick)="showReset = true" mat-icon-button
                 matTooltip="double click to reset template" matTooltipPosition="right">

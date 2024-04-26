@@ -1,38 +1,10 @@
-# NW-Vote, BSR desktop , and BSR mobile 
+# BMX INSTALL INSTRUCTIONS
 
-This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 9.1.0.
+Open the terminal a the project root level
 
-## Development server
+Run the command rmdir /s node_modules to delete the folder
 
-Run `ng serve` for a dev server. Navigate to `http://localhost:4200/`. The app will automatically reload if you change any of the source files.
+Run npm i --forde to install new dependencies
 
-## Code scaffolding
+Run ng serve ro run the app
 
-NW Vote app and BSR desktop and mobile app versions 
-
-
-## Further help
-
-Uncomment paths to make each app functions 
- // {// NW Vote 
-  //   path: 'login',
-  //   component: LoginComponent
-  // },
-  // {
-  //   path: 'vote',
-  //   component: NwVoteComponent
-  // },
-  {// BSR-Mobile
-    path: ':id',
-
-    component: BsrMobileComponent
-  },
-  // {//BSR
-  //   path: ':id',
-  //   component: BsrComponent
-  // },
-  {
-    path: '',
-    redirectTo: '',
-    pathMatch: 'full'
-  }
