@@ -1,49 +1,65 @@
-.container {
-    width: 100%;
-    display: flex;
-    align-items: flex-start;
-}
+@media (max-width: 1720px) {
 
-.email-container {
-    border: hotpink solid 0px;
-    width: 60%;
-}
-
-.participants-container {
-    border: hotpink solid 0px;
-    width: 35%;
-    padding: 7% 0px 0px 22px;
-    margin-left: 45px;
-}
-.mat-checkbox-inner-container-no-side-margin {
-    margin-top: 9px;
-}
-
-::ng-deep label{
-    margin-top: 9px;
-}
-
-@media screen and(max-width: 1203px) {
-    .container {
+    // .container {
+    //     display: flex;
+    //     width: 100%;
+    //     flex-direction: column;
+    //     justify-content: space-between;
+    // }
+    .options {
         display: flex;
-        flex-direction: column-reverse;
-        align-items: center;
-        width: 80%;
-        margin-left: 20px;
+        flex-direction: column !important;
     }
 
     .email-container {
-        width: 120%;
+        width: 40% !important;
     }
 
-    .participants-container {
-        width: 100%;
-        margin: 0px;
-        padding-left: 0px;
+
+}
+
+
+@media (max-width: 1720px) {
+
+    // .container {
+    //     display: flex;
+    //     width: 100%;
+    //     flex-direction: column;
+    //     justify-content: space-between;
+    // }
+    .options {
+        display: flex;
+        flex-direction: column !important;
+    }
+
+    .email-container {
+        width: -webkit-fill-available !important;
+
+    }
+
+    .invite {
+        width: 95%;
     }
 }
 
-tr.mat-row,
-tr.mat-footer-row {
-    height: 30px;
+@media (max-width: 1499px) {
+
+    .container {
+        display: flex;
+        gap: 5%;
+        max-width: 100%;
+        padding: 0;
+        flex-direction: column-reverse;
+        display: flex;
+        gap: 5%;
+        max-width: 100%;
+        padding: 0;
+        align-items: center;
+
+    }
+
+    .participants-container {
+        width: 60%;
+        margin-bottom: 40px;
+    }
 }

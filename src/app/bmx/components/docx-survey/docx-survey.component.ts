@@ -1,5 +1,4 @@
 import { Component, OnInit, Input, ViewChild, Output, EventEmitter } from '@angular/core';
-import { HotkeysService, Hotkey } from 'angular2-hotkeys';
 import { DragulaService } from 'ng2-dragula';
 import {
   Document, Packer, Paragraph, TextRun, ImageRun, HorizontalPositionAlign,
@@ -73,7 +72,7 @@ export class DocxSurveyComponent implements OnInit {
   dsiLogo;
   reportTheme;
 
-  constructor(private _hotkeysService: HotkeysService, private dragulaService: DragulaService, private _BmxService: BmxService, private http: HttpClient) { }
+  constructor( private dragulaService: DragulaService, private _BmxService: BmxService, private http: HttpClient) { }
   ngOnInit(): any {
     this.firstload = true;
     this.user = [];
@@ -120,7 +119,7 @@ export class DocxSurveyComponent implements OnInit {
             //this.completedStatus(this.user);
             //var imageSrcString;
             //imageSrcString = await this.getBase64ImageFromUrl("https://tools.brandinstitute.com/bmresources/te2647/logo5.JPG")
-            
+
           }
         }
       });
@@ -495,7 +494,7 @@ export class DocxSurveyComponent implements OnInit {
                 fill: "EDEDED",
                 type: shade,
                 color: "auto",
-            }, 
+            },
                 width: {
                   size: 33,
                   type: WidthType.PERCENTAGE,
@@ -547,7 +546,7 @@ export class DocxSurveyComponent implements OnInit {
                       size: .5,
                       color: "C9C9C9",
                 },
-              },  
+              },
                 width: {
                   size: 33,
                   type: WidthType.PERCENTAGE,
@@ -601,7 +600,7 @@ export class DocxSurveyComponent implements OnInit {
                 right: {
                   style: BorderStyle.NIL
                 },
-              }, 
+              },
                 width: {
                   size: 33,
                   type: WidthType.PERCENTAGE,
@@ -647,7 +646,7 @@ export class DocxSurveyComponent implements OnInit {
         size: 100,
         type: WidthType.PERCENTAGE,
       },
-      
+
       rows: row
 
     });
@@ -716,7 +715,7 @@ export class DocxSurveyComponent implements OnInit {
                 fill: "EDEDED",
                 type: shade,
                 color: "auto",
-            }, 
+            },
                   width: {
                     size: 10,
                     type: WidthType.PERCENTAGE,
@@ -772,7 +771,7 @@ export class DocxSurveyComponent implements OnInit {
                 fill: "EDEDED",
                 type: shade,
                 color: "auto",
-            }, 
+            },
                   width: {
                     size: 40,
                     type: WidthType.PERCENTAGE,
@@ -827,7 +826,7 @@ export class DocxSurveyComponent implements OnInit {
                 fill: "EDEDED",
                 type: shade,
                 color: "auto",
-            }, 
+            },
                   width: {
                     size: 40,
                     type: WidthType.PERCENTAGE,
@@ -885,7 +884,7 @@ export class DocxSurveyComponent implements OnInit {
                 fill: "EDEDED",
                 type: shade,
                 color: "auto",
-            }, 
+            },
                   width: {
                     size: 10,
                     type: WidthType.PERCENTAGE,
@@ -954,7 +953,7 @@ export class DocxSurveyComponent implements OnInit {
                 fill: "EDEDED",
                 type: shade,
                 color: "auto",
-            }, 
+            },
                   width: {
                     size: 33,
                     type: WidthType.PERCENTAGE,
@@ -1008,7 +1007,7 @@ export class DocxSurveyComponent implements OnInit {
                 fill: "EDEDED",
                 type: shade,
                 color: "auto",
-            }, 
+            },
                   width: {
                     size: 33,
                     type: WidthType.PERCENTAGE,
@@ -1056,7 +1055,7 @@ export class DocxSurveyComponent implements OnInit {
                 fill: "EDEDED",
                 type: shade,
                 color: "auto",
-            }, 
+            },
                   width: {
                     size: 33,
                     type: WidthType.PERCENTAGE,
@@ -1192,7 +1191,7 @@ export class DocxSurveyComponent implements OnInit {
                 fill: "EDEDED",
                 type: shade,
                 color: "auto",
-            }, 
+            },
                 width: {
                   size: 33,
                   type: WidthType.PERCENTAGE,
@@ -1246,7 +1245,7 @@ export class DocxSurveyComponent implements OnInit {
                 fill: "EDEDED",
                 type: shade,
                 color: "auto",
-            }, 
+            },
                 width: {
                   size: 33,
                   type: WidthType.PERCENTAGE,
@@ -1827,7 +1826,7 @@ export class DocxSurveyComponent implements OnInit {
         {
           shade = ShadingType.CLEAR;
           onShader = false;
-        } 
+        }
         else
         {
           shade = ShadingType.NIL;
@@ -1984,7 +1983,7 @@ export class DocxSurveyComponent implements OnInit {
                 fill: "EDEDED",
                 type: shade,
                 color: "auto",
-            }, 
+            },
                     width: {
                       size: 10,
                       type: WidthType.PERCENTAGE,
@@ -2026,7 +2025,7 @@ export class DocxSurveyComponent implements OnInit {
                 fill: "EDEDED",
                 type: shade,
                 color: "auto",
-            }, 
+            },
                     width: {
                       size: 30,
                       type: WidthType.PERCENTAGE,
@@ -2080,7 +2079,7 @@ export class DocxSurveyComponent implements OnInit {
                 fill: "EDEDED",
                 type: shade,
                 color: "auto",
-            }, 
+            },
                     width: {
                       size: 30,
                       type: WidthType.PERCENTAGE,
@@ -2137,7 +2136,7 @@ export class DocxSurveyComponent implements OnInit {
                 fill: "EDEDED",
                 type: shade,
                 color: "auto",
-            }, 
+            },
                     width: {
                       size: 30,
                       type: WidthType.PERCENTAGE,
@@ -2188,7 +2187,7 @@ export class DocxSurveyComponent implements OnInit {
                 fill: "EDEDED",
                 type: shade,
                 color: "auto",
-            }, 
+            },
                     width: {
                       size: 33,
                       type: WidthType.PERCENTAGE,
@@ -2230,7 +2229,7 @@ export class DocxSurveyComponent implements OnInit {
                 fill: "EDEDED",
                 type: shade,
                 color: "auto",
-            }, 
+            },
                     width: {
                       size: 33,
                       type: WidthType.PERCENTAGE,
@@ -2278,7 +2277,7 @@ export class DocxSurveyComponent implements OnInit {
                 fill: "EDEDED",
                 type: shade,
                 color: "auto",
-            }, 
+            },
                     width: {
                       size: 33,
                       type: WidthType.PERCENTAGE,
@@ -2413,14 +2412,14 @@ export class DocxSurveyComponent implements OnInit {
       )
     }
     for (var i = 0; i < overall.length; i++) {
-      
+
 
       for (var j = 0; j < overall[i][1].length; j++) {
         if(onShader == true)
         {
           shade = ShadingType.CLEAR;
           onShader = false;
-        } 
+        }
         else
         {
           shade = ShadingType.NIL;
@@ -2490,7 +2489,7 @@ export class DocxSurveyComponent implements OnInit {
                 fill: "EDEDED",
                 type: shade,
                 color: "auto",
-            }, 
+            },
           width: {
             size: 30,
             type: WidthType.PERCENTAGE,
@@ -2533,7 +2532,7 @@ export class DocxSurveyComponent implements OnInit {
                 fill: "EDEDED",
                 type: shade,
                 color: "auto",
-            }, 
+            },
             width: {
               size: 30,
               type: WidthType.PERCENTAGE,
@@ -2587,7 +2586,7 @@ export class DocxSurveyComponent implements OnInit {
                 fill: "EDEDED",
                 type: shade,
                 color: "auto",
-            }, 
+            },
             width: {
               size: 30,
               type: WidthType.PERCENTAGE,
@@ -2648,7 +2647,7 @@ export class DocxSurveyComponent implements OnInit {
                 fill: "EDEDED",
                 type: shade,
                 color: "auto",
-            }, 
+            },
             width: {
               size: 33,
               type: WidthType.PERCENTAGE,
@@ -2701,7 +2700,7 @@ export class DocxSurveyComponent implements OnInit {
                 fill: "EDEDED",
                 type: shade,
                 color: "auto",
-            }, 
+            },
             children: [new Paragraph({
               spacing: {
                 before: 0,
@@ -2753,9 +2752,9 @@ export class DocxSurveyComponent implements OnInit {
                 fill: "EDEDED",
                 type: shade,
                 color: "auto",
-            }, 
+            },
             children: [new Paragraph({
-              
+
               spacing: {
                 before: 0,
                 after: 0,
@@ -2814,7 +2813,7 @@ export class DocxSurveyComponent implements OnInit {
                 fill: "EDEDED",
                 type: shade,
                 color: "auto",
-            }, 
+            },
             width: {
               size: 10,
               type: WidthType.PERCENTAGE,
@@ -2870,7 +2869,7 @@ export class DocxSurveyComponent implements OnInit {
                 fill: "EDEDED",
                 type: shade,
                 color: "auto",
-            }, 
+            },
             width: {
               size: 10,
               type: WidthType.PERCENTAGE,
@@ -2902,7 +2901,7 @@ export class DocxSurveyComponent implements OnInit {
 
         row.push(new TableRow
           (
-            
+
             {
               height: {
                 value: 500,
@@ -3884,7 +3883,7 @@ export class DocxSurveyComponent implements OnInit {
                     new TextRun({
                       children: [PageNumber.CURRENT],
                       size: 20,
-                      
+
                     }),
                     new TextRun({
                       text: "",
@@ -3936,5 +3935,5 @@ export class DocxSurveyComponent implements OnInit {
 
     this.user = temp;
   }
-  
+
 }

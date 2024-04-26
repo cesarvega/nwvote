@@ -1,7 +1,7 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { BmxService } from '../bmx-creator/bmx.service';
 import { Observable } from 'rxjs';
-import { FormControl, FormGroup } from '@angular/forms';
+import { FormControl, UntypedFormGroup } from '@angular/forms';
 import { map, startWith } from 'rxjs/operators';
 import { Router } from '@angular/router';
 import { MatSort } from '@angular/material/sort';
@@ -68,7 +68,7 @@ export class TemplatesComponent implements OnInit {
     { TemplateName: 'Question & Answer', displayName: '' },
   ];
   displayedColumns = ['index','displayName', 'Created', 'Edit' , 'Name', 'Delete'];
-  bmxEditData: FormGroup;
+  bmxEditData: UntypedFormGroup;
   filteredOptions: Observable<string[]>;
   salesboardObj = [];
   showModal = false;

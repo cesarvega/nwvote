@@ -1,8 +1,8 @@
 import { Component, ElementRef, EventEmitter, Inject, Input, OnInit, Output, ViewChild, ViewEncapsulation } from '@angular/core';
 import { DOCUMENT } from '@angular/common';
-import { HotkeysService, Hotkey } from 'angular2-hotkeys';
+// import { HotkeysService, Hotkey } from 'angular2-hotkeys';
 import { ActivatedRoute, Router } from '@angular/router';
-import { typeSourceSpan } from '@angular/compiler';
+// import { typeSourceSpan } from '@angular/compiler';
 import { DragulaService } from 'ng2-dragula';
 import { MatPaginator } from '@angular/material/paginator';
 import { MatTableDataSource } from '@angular/material/table';
@@ -46,8 +46,7 @@ export class ProjectListComponent implements OnInit {
   @Input() userRole
   userData: any;
 
-  constructor(@Inject(DOCUMENT) private document: any, private activatedRoute: ActivatedRoute,
-    private _hotkeysService: HotkeysService, private dragulaService: DragulaService, private _BmxService: BmxService, private router: Router,) { }
+  constructor(@Inject(DOCUMENT) private document: any, private activatedRoute: ActivatedRoute,private dragulaService: DragulaService, private _BmxService: BmxService, private router: Router,) { }
 
   ngOnInit(): void {
     this.selected = 'Live'
@@ -125,10 +124,10 @@ export class ProjectListComponent implements OnInit {
 
     this.viewedData = [];
     for (let i = 0; i < this.allData.length; i++) {
-      if (this.selected == 'Live' && JSON.parse(this.allData[i].ProjectInfo).bmxStatus != 'close') {
+      if (this.selected == 'Live' && this.allData[i].ProjectInfo && JSON.parse(this.allData[i].ProjectInfo).bmxStatus != 'close') {
         this.viewedData.push(JSON.parse(this.allData[i].ProjectInfo));
       }
-      else if (this.selected == 'Closed' && JSON.parse(this.allData[i].ProjectInfo).bmxStatus == "close") {
+      else if (this.selected == 'Closed' && this.allData[i].ProjectInfo && JSON.parse(this.allData[i].ProjectInfo).bmxStatus == "close") {
         this.viewedData.push(JSON.parse(this.allData[i].ProjectInfo))
       }
       else if (this.selected == 'All') {

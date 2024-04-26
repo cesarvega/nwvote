@@ -1,4 +1,4 @@
-import { FormGroup } from '@angular/forms';
+import { UntypedFormGroup } from '@angular/forms';
 import { Injectable } from '@angular/core';
 
 import { HttpClient } from '@angular/common/http';
@@ -13,7 +13,7 @@ export class FormService {
 
   constructor(private httpClient: HttpClient) { }
 
-  markFormGroupTouched(formGroup: FormGroup): void {
+  markFormGroupTouched(formGroup: UntypedFormGroup): void {
     Object.values(formGroup.controls).forEach((control: any) => {
       control.markAsTouched();
       console.log(control.value);      
@@ -24,7 +24,7 @@ export class FormService {
   }
 
 
-  validateForm(formToValidate: FormGroup, formErrors: any, checkDirty?: boolean): void {
+  validateForm(formToValidate: UntypedFormGroup, formErrors: any, checkDirty?: boolean): void {
     const form = formToValidate;
     for (const field in formErrors) {
       if (field) {

@@ -1,6 +1,6 @@
-import { DatePipe } from '@angular/common';
+// import { DatePipe } from '@angular/common';
 import { Component, OnInit, ViewChild } from '@angular/core';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { UntypedFormBuilder, UntypedFormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Observable } from 'rxjs';
 import { MatDatepicker } from '@angular/material/datepicker'
@@ -13,9 +13,9 @@ import { FormService } from './form.service';
 })
 export class SchedulerComponent implements OnInit {
 
-  form: FormGroup;
+  form: UntypedFormGroup;
   today: Date;
-  options: FormGroup;
+  options: UntypedFormGroup;
   callType = ['New Project Discussion', 'INN/USAN', 'Introduction'];
   selected;
   call = 'call';
@@ -69,7 +69,7 @@ export class SchedulerComponent implements OnInit {
     token: '6C08E006-1E00-46DC-A844-76888612BB0E'
     , payload: ''
   };
-  constructor(private _formBuilder: FormBuilder,
+  constructor(private _formBuilder: UntypedFormBuilder,
     public _FormService: FormService,
     private paramsRouter: ActivatedRoute) {
 
@@ -116,7 +116,7 @@ export class SchedulerComponent implements OnInit {
     // });
 
     this.form = this._formBuilder.group({
-      company: ['', Validators.required],
+      company: ['',   Validators.required],
       firstName: ['', Validators.required],
       lastName: ['', Validators.required],
       email: ['', Validators.email],

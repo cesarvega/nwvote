@@ -2,8 +2,7 @@ import { HttpClient, HttpEventType } from '@angular/common/http';
 import { Component, Input, OnInit } from '@angular/core';
 import { Subscription } from 'rxjs/internal/Subscription';
 import { BmxService } from '../bmx.service';
-import { HotkeysService, Hotkey } from 'angular2-hotkeys';
-import { DragulaService } from 'ng2-dragula';
+// import { DragulaService } from 'ng2-dragula';
 import { ActivatedRoute } from '@angular/router';
 
 @Component({

@@ -1,0 +1,91 @@
+@use '@angular/material' as mat;
+
+// Define your custom palettes from hex codes
+$myPrimary: mat.define-palette((
+  50:  #e6f0f8,   // Lightest shade
+  100: #b8d6ed,
+  200: #8abce3,
+  300: #5ca2d9,
+  400: #328dd0,
+  500: #063075,   // Your desired primary color
+  600: #052c68,
+  700: #04245c,
+  800: #031c4f,
+  900: #021340,   // Darkest shade
+  contrast: (
+    50: rgba(black, 0.87),
+    100: rgba(black, 0.87),
+    200: rgba(black, 0.87),
+    300: rgba(black, 0.87),
+    400: rgba(black, 0.87),
+    500: white,
+    600: white,
+    700: white,
+    800: white,
+    900: white,
+  )
+));
+
+$myAccent: mat.define-palette((
+  50:  #fff3e0,   // Lightest shade
+  100: #ffe0b2,
+  200: #ffcc80,
+  300: #ffb74d,
+  400: #ffa726,
+  500: #F28026,   // Your desired secondary color
+  600: #e27224,
+  700: #c66422,
+  800: #aa5620,
+  900: #8d471d,   // Darkest shade
+  contrast: (
+    50: rgba(black, 0.87),
+    100: rgba(black, 0.87),
+    200: rgba(black, 0.87),
+    300: rgba(black, 0.87),
+    400: rgba(black, 0.87),
+    500: white,
+    600: white,
+    700: white,
+    800: white,
+    900: white,
+  )
+));
+
+// Create your theme
+$my-theme: mat.define-light-theme((
+  color: (
+    primary: $myPrimary,
+    accent: $myAccent,
+  )
+));
+
+@include mat.all-component-themes($my-theme);
+
+
+@import "../../node_modules/bootstrap/scss/functions";
+@import "../../node_modules/bootstrap/scss/variables";
+
+$primary:       #063075;
+$secondary:     #F28026;
+$success:       $green;
+$info:          $cyan;
+$warning:       $yellow;
+$danger:        $danger;
+$light:         $gray-100;
+$dark:          $gray-900;
+
+$theme-colors: (
+  "primary":    $primary,
+  "primary-rgb":    $primary,
+  "secondary":  $secondary,
+  "success":    $success,
+  "info":       $info,
+  "warning":    $warning,
+  "danger":     $danger,
+  "light":      $light,
+  "dark":       $dark
+);
+
+@import '../../node_modules/bootstrap/scss/bootstrap.scss';
+
+

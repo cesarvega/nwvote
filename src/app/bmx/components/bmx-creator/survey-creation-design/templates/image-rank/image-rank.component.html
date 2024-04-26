@@ -281,7 +281,7 @@ justify-content: center;cursor: move; height: 25px; width: 100%;"><svg width="24
                                 <input matInput [(ngModel)]="newCriteria" style="font-size: 12px;">
                                 <mat-hint>Enter a criteria  and click add</mat-hint> <!-- Hint for New Criteria -->
                             </mat-form-field>
-                            <mat-icon style="cursor: pointer; font-size: 33px; color: #324395;"
+                            <mat-icon style="cursor: pointer;color: #324395;"
                                 (click)="addCriteria(newCriteria); newCriteria=''">add_box</mat-icon>
                         </div>
                     </div>
@@ -338,17 +338,27 @@ justify-content: center;cursor: move; height: 25px; width: 100%;"><svg width="24
 
     <!-- BUTTON-->
     <div class="sm-row-box-rkScale">
-        <button style="outline: none;color:#d35854;margin-bottom: 50px;" mat-icon-button (click)="selectedIndex = ''"
+      <div class="button-cancel" style=" display: flex;
+  flex-direction: column;
+  align-items: center; ">
+        <button style="outline: none;color:#d35854;" mat-icon-button (click)="selectedIndex = ''"
             aria-label="ranking">
-            <mat-icon>cancel</mat-icon><br>Cancel
+            <mat-icon>cancel</mat-icon>
         </button>
-        <button style="outline: none;color:#76d354;margin-bottom: 50px;" mat-icon-button
+        <p style="margin-top: -11; color: #D35854; font-size: 21px;">Cancel</p>
+      </div>
+
+      <div class="button-Done"style="display: flex; flex-direction: column; align-items: center;">
+        <button style="outline: none;color:#76d354;" mat-icon-button
             (click)="selectedIndex = '';upLoadNamesAndRationales(testNamesInput)" [disabled]="false"
             aria-label="ranking">
-            <mat-icon>check_circle</mat-icon><br> Done
+            <mat-icon>check_circle</mat-icon>
         </button>
+        <p style="margin-top: -1; color: #76D354; font-size: 21px;">Done</p>
+    </div>
     </div>
 </div>
+
 <!-- 🔧🔧🔧🔧🔧🔧🔧🔧🔧🔧🔧🔧🔧🔧🔧🔧🔧🔧🔧🔧🔧🔧END CONFIG BOX 🔧🔧🔧🔧🔧🔧🔧🔧🔧🔧🔧🔧🔧🔧🔧🔧🔧🔧🔧🔧🔧 -->
 
 

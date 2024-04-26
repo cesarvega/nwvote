@@ -2,16 +2,16 @@ import { Component, OnInit, Input, ViewChild } from '@angular/core';
 import { MatTableDataSource } from '@angular/material/table';
 import { SelectionModel } from '@angular/cdk/collections';
 import { HighlightSpanKind } from 'typescript';
-import { DragulaService } from 'ng2-dragula';
-import { HotkeysService, Hotkey } from 'angular2-hotkeys';
+// import { DragulaService } from 'ng2-dragula';
+// import { HotkeysService, Hotkey } from 'angular2-hotkeys';
 import { MatSort } from '@angular/material/sort';
 import { CdkDragStart, CdkDropList, moveItemInArray } from '@angular/cdk/drag-drop';
 import { MatPaginator } from '@angular/material/paginator';
-import { MatSnackBar } from '@angular/material/snack-bar';
-import { MatDialog, MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
+import {  MatSnackBar } from '@angular/material/snack-bar';
+import {  MatDialog,  MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { DialogComponent } from './dialog/dialog.component';
 import { BmxService } from '../bmx-creator/bmx.service';
-
+import * as ClassicEditor from '@ckeditor/ckeditor5-build-classic';
 
 @Component({
   selector: 'app-participants-email',
@@ -38,9 +38,9 @@ export class ParticipantsEmailComponent implements OnInit {
   projectId;
   fixedString;
   sampleHtml = `Dear PARTICIPANT,
-  You have been selected to participate in the brand name selection for BI Pharma's new ADSSK & CCC Inhibitor for the treatment of multiple cancer types. 
+  You have been selected to participate in the brand name selection for BI Pharma's new ADSSK & CCC Inhibitor for the treatment of multiple cancer types.
   In this survey, you'll be voting on multiple name candidates that have been developed specifically for this compound. The survey will guide you, and an instructions button is available at any time for your assistance.
-  We hope you enjoy this piece of your branding process. Please select Continue below to officially start your survey. 
+  We hope you enjoy this piece of your branding process. Please select Continue below to officially start your survey.
   Best,
   The Brand Institute Team`
   selectedOption: any;
@@ -97,7 +97,9 @@ export class ParticipantsEmailComponent implements OnInit {
     },
   ];
 
-  constructor(private _hotkeysService: HotkeysService, private dragulaService: DragulaService, private _BmxService: BmxService, private _snackBar: MatSnackBar, private dialog: MatDialog) {
+  public Editor = ClassicEditor;
+
+  constructor(private _BmxService: BmxService, private _snackBar: MatSnackBar, private dialog: MatDialog) {
 
   }
 
@@ -252,19 +254,19 @@ export class ParticipantsEmailComponent implements OnInit {
       this.brandMatrixObjects[1].componentText = `Dear BI_PARTNAME,<br><br>
 
       Brand Institute has been contracted to create a brand name for (insert description of what is being named here).  The internal name for this project is PROJECTNAME.  You have been chosen to vote for your favorite names via our online BrandMatrix™ prioritization survey.<br><br>
-      
+
       To access the online voting site, please click on the link below to be logged in automatically. Voting instructions are provided in the link and will only take a few minutes of your time.<br><br>
-      
+
       Your link:<br>
       <a href="BI_LINK">BI_LINK</a><br>
       (if you cannot click on the link, please copy and paste into your browser)<br><br>
-      
-      Your input is valued.  Please place your votes by (insert closing date and time). We hope you enjoy this interactive exercise!<br><br>  
-      
+
+      Your input is valued.  Please place your votes by (insert closing date and time). We hope you enjoy this interactive exercise!<br><br>
+
       Best regards,<br><br>
-      
-      BI_DIRECTOR 
-      
+
+      BI_DIRECTOR
+
       Should you experience any difficulty with this survey, please contact us or your project team leader immediately.`
       this.BCC = 'creative@brandinstitute.com'
     }
@@ -272,19 +274,19 @@ export class ParticipantsEmailComponent implements OnInit {
       this.brandMatrixObjects[1].componentText = `Dear BI_PARTNAME,<br><br>
 
       Brand Institute has been contracted to create a nonproprietary (USAN/INN) name for (insert nonproprietary name or product description).  The internal name for this project is PROJECTNAME.  You have been chosen to vote for your favorite names via our online BrandMatrix™ prioritization survey.<br><br>
-      
+
       To access the online voting site, please click on the link below to be logged in automatically. Voting instructions are provided in the link and will only take a few minutes of your time.<br><br>
-      
+
       Your link:<br>
       <a href="BI_LINK">BI_LINK</a><br>
       (if you cannot click on the link, please copy and paste into your browser)<br><br>
-      
-      Your input is valued.  Please place your votes by (insert closing date and time). We hope you enjoy this interactive exercise!<br><br>  
-      
+
+      Your input is valued.  Please place your votes by (insert closing date and time). We hope you enjoy this interactive exercise!<br><br>
+
       Best regards,<br><br>
-      
-      BI_DIRECTOR 
-      
+
+      BI_DIRECTOR
+
       Should you experience any difficulty with this survey, please contact us or your project team leader immediately.
       `;
       this.BCC = 'chicago-nonproprietary@brandinstitute.com';
@@ -293,19 +295,19 @@ export class ParticipantsEmailComponent implements OnInit {
       this.brandMatrixObjects[1].componentText = `Dear BI_PARTNAME,<br><br>
 
       Brand Institute has been contracted to create a visual identity for (insert description of what the logo is being developed for).  The internal name for this project is PROJECTNAME.  You have been chosen to vote for your favorite logo options via our online BrandMatrix™ prioritization survey.<br><br>
-      
+
       To access the online voting site, please click on the link below to be logged in automatically. Voting instructions are provided in the link and will only take a few minutes of your time.<br><br>
-      
+
       Your link:<br>
       <a href="BI_LINK">BI_LINK</a><br>
       (if you cannot click on the link, please copy and paste into your browser)<br><br>
 
       Your input is valued.  Please place your votes by (insert closing date and time). We hope you enjoy this interactive exercise!<br><br>
-      
+
       Best regards,<br><br>
-      
-      BI_DIRECTOR 
-      
+
+      BI_DIRECTOR
+
       Should you experience any difficulty with this survey, please contact us or your project team leader immediately.
       `;
       this.BCC = 'design@brandinstitute.com'

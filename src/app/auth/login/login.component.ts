@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { NwvoteService } from '../../nw-vote/nwvote.service';
-import { FormBuilder, Validators, FormGroup } from '@angular/forms';
+import { UntypedFormBuilder, Validators, UntypedFormGroup } from '@angular/forms';
 import { Router, ActivatedRoute } from '@angular/router';
 import { MsalService } from '@azure/msal-angular';
 import { HttpClient } from '@angular/common/http';
@@ -11,11 +11,11 @@ import { HttpClient } from '@angular/common/http';
 })
 export class LoginComponent implements OnInit {
 
-  loginForm: FormGroup;
+  loginForm: UntypedFormGroup;
   projectname = ''
-  constructor(private _formBuilder: FormBuilder,
+  constructor(private _formBuilder: UntypedFormBuilder,
     public _NwvoteService: NwvoteService, private activatedRoute: ActivatedRoute,
-    private router: Router, private msalService: MsalService, private http: HttpClient) { }
+    private router: Router,  private http: HttpClient) { }
 
   ngOnInit(): void {
 
@@ -32,10 +32,10 @@ export class LoginComponent implements OnInit {
 
     this.projectname = this.activatedRoute.snapshot.queryParamMap.get('project');
     this.handleLoginRedirectCallback().then((response) => {
-      if (response !== null) {
-        this.msalService.instance.setActiveAccount(response.account)
-         this.router.navigate(['/bmx', '99CB72BF-D163-46A6-8A0D-E1531EC7FEDC']);
-      }
+      // if (response !== null) {
+      //   this.msalService.instance.setActiveAccount(response.account)
+      //    this.router.navigate(['/bmx', '99CB72BF-D163-46A6-8A0D-E1531EC7FEDC']);
+      // }
     });
 
   }
@@ -54,22 +54,22 @@ export class LoginComponent implements OnInit {
     })
   }
   signInMicrosoft() {
-    this.msalService.loginRedirect()
+    // this.msalService.loginRedirect()
   }
 
   async handleLoginRedirectCallback() {
-    const response = await this.msalService.instance.handleRedirectPromise();
-    return response
+    // const response = await this.msalService.instance.handleRedirectPromise();
+    // return response
   }
 
   signOut() {
-    this.msalService.logout();
+    // this.msalService.logout();
   }
 
-  async callGraphAPI() {
-    const tokenResponse = await this.msalService.acquireTokenSilent({
-      scopes: ['https://graph.microsoft.com/user.read'],
-    }).toPromise();
+  // async callGraphAPI() {
+  //   const tokenResponse = await this.msalService.acquireTokenSilent({
+  //     scopes: ['https://graph.microsoft.com/user.read'],
+  //   }).toPromise();
 
     if (tokenResponse) {
       const headers = { Authorization: `Bearer ${tokenResponse.accessToken}` };
@@ -79,4 +79,4 @@ export class LoginComponent implements OnInit {
     }
   }
 
-}
+

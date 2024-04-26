@@ -1,10 +1,9 @@
 import { MatSnackBar } from '@angular/material/snack-bar';
-import { Validators, FormControl } from '@angular/forms';
+import { Validators, UntypedFormControl } from '@angular/forms';
 import { Component, Inject, OnInit, ElementRef, ViewChild } from '@angular/core';
 import { DOCUMENT } from '@angular/common';
 import { trigger, transition, useAnimation } from '@angular/animations';
 import { pulse, flash } from 'ng-animate';
-import { HotkeysService, Hotkey } from 'angular2-hotkeys';
 import { BmxService } from './bmx.service';
 import { Router, ActivatedRoute } from '@angular/router';
 import Speech from 'speak-tts';
@@ -78,7 +77,7 @@ export class BmxComponent implements OnInit {
     });
    }
 
-   emailFormControl = new FormControl('', [
+   emailFormControl = new UntypedFormControl('', [
     Validators.required,
     Validators.email,
   ]);

@@ -16,7 +16,7 @@
             </mat-form-field>
         </div>
         <div>
-            <table mat-table [dataSource]="dataSource" matSort class="mat-elevation-z8" style="width: 100%;">
+            <table mat-table [dataSource]="dataSource" matSort class="mat-elevation-z8 table" style="width: 100%;">
                 <!-- Position Column -->
                 <ng-container matColumnDef="bmxCompany">
                     <th mat-header-cell *matHeaderCellDef mat-sort-header> Client</th>
@@ -93,14 +93,14 @@
                 <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
                 <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
             </table>
-            <mat-paginator [pageSizeOptions]="[10, 15, 20]" showFirstLastButtons></mat-paginator>
+            <mat-paginator style="margin-top: 1px;" [pageSizeOptions]="[10, 15, 20]" showFirstLastButtons></mat-paginator>
         </div>
     </div>
     <!-- CALENDAR  📆📆📆📆📆📆📆📆📆-->
-    <div style="width: 25%;position: relative;
-        left: 40px;">
+    <div class="calendar" style="width: 25%;position: relative;
+        left: 70px;">
         <div style="width: 100%;">
-            <mat-card class="demo-inline-calendar-card">
+            <mat-card appearance="outlined" class="demo-inline-calendar-card">
                 <mat-calendar  [selected]="selectedDate" (selectedChange)="onSelect($event)"></mat-calendar>
                 <button mat-button (click)="onDeselect()">Reset date</button>
 

@@ -7,6 +7,7 @@
   gap: 5vh;
 }
 
+/* TODO(mdc-migration): The following rule targets internal classes of form-field that may no longer apply for the MDC version.*/
 ::ng-deep .mat-form-field-appearance-outline .mat-form-field-flex {
   padding: 0 0.75em 0 0.75em;
   margin-top: -0.25em;
@@ -161,6 +162,11 @@ table {
   width: 40%;
 }
 
+/* TODO(mdc-migration): The following rule targets internal classes of select that may no longer apply for the MDC version.*/
 ::ng-deep .mat-select-value .edit-icon{
   display: none !important;
+}
+
+input{
+  border: none;
 }

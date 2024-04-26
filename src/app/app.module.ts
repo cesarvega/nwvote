@@ -1,6 +1,6 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { CUSTOM_ELEMENTS_SCHEMA, NgModule } from '@angular/core';
-import { FlexLayoutModule } from '@angular/flex-layout';
+// import { FlexLayoutModule } from '@angular/flex-layout';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { LoginComponent } from './auth/login/login.component';
@@ -25,33 +25,33 @@ import { BsrComponent, editPost } from './bsr/bsr.component';
 import { MatTooltipModule } from '@angular/material/tooltip';
 import { MatGridListModule } from '@angular/material/grid-list';
 import { MatSidenavModule } from '@angular/material/sidenav';
-import { HotkeyModule } from 'angular2-hotkeys';
 import { FormsModule } from '@angular/forms';
 import { MatSlideToggleModule } from '@angular/material/slide-toggle';
 import { MatSliderModule } from '@angular/material/slider';
-import { CKEditorModule } from 'ckeditor4-angular';
+// import { CKEditorModule } from 'ckeditor4-angular';
+import { CKEditorModule } from '@ckeditor/ckeditor5-angular';
 import { MatBadgeModule } from '@angular/material/badge';
 import { MatTableModule } from '@angular/material/table';
 import { MatTabsModule } from '@angular/material/tabs';
-import { MatSelectModule } from '@angular/material/select';
+import {  MatSelectModule } from '@angular/material/select';
 import { QRCodeModule } from 'angularx-qrcode';
 import { DeviceDetectorModule } from 'ngx-device-detector';
 import { NW3Component } from './nw3/nw3.component';
 import { Nw3Service } from './nw3/nw3.service';
-import { HammerGestureConfig, HAMMER_GESTURE_CONFIG, HammerModule } from '@angular/platform-browser';
+import { HammerGestureConfig, HammerModule } from '@angular/platform-browser';
 import { SchedulerComponent } from './scheduler/scheduler.component';
-import { AngularDateTimePickerModule } from 'angular2-datetimepicker';
+// import { AngularDateTimePickerModule } from 'angular2-datetimepicker';
 import { MatDatepickerModule } from '@angular/material/datepicker';
 import { MatNativeDateModule } from '@angular/material/core';
-import { MatProgressBarModule } from '@angular/material/progress-bar';
+import {  MatProgressBarModule } from '@angular/material/progress-bar';
 import { DragulaModule } from 'ng2-dragula';
-import { MatListModule } from '@angular/material/list';
+import {  MatListModule } from '@angular/material/list';
 import { NgxEchartsModule } from 'ngx-echarts';
 import { NgxChartsModule } from '@swimlane/ngx-charts';
 import { MatSortModule } from '@angular/material/sort';
 import { MatPaginatorModule } from '@angular/material/paginator';
-import { MatSnackBarModule, MAT_SNACK_BAR_DEFAULT_OPTIONS } from '@angular/material/snack-bar';
-import { MatRadioModule } from '@angular/material/radio';
+import {  MatSnackBarModule, MAT_SNACK_BAR_DEFAULT_OPTIONS } from '@angular/material/snack-bar';
+import {  MatRadioModule } from '@angular/material/radio';
 import { CdkTableModule } from '@angular/cdk/table';
 import { ScrollingModule } from '@angular/cdk/scrolling';
 import { CdkTreeModule } from '@angular/cdk/tree';
@@ -76,9 +76,7 @@ import {ImageUploaderComponent} from './bmx/components/bmx-creator/image-uploade
 import {PageLineBreakComponent} from './bmx/components/project-reports/templates/page-line-break/page-line-break.component'
 import {PageTitleComponent} from './bmx/components/project-reports/templates/page-title/page-title.component'
 import {ReportFirstPageComponent} from './bmx/components/project-reports/templates/report-first-page/report-first-page.component'
-import {ImageRankComponent} from './bmx/components/bmx-creator/survey-creation-design/templates/image-rank/image-rank.component'
-import {ImageRankDragComponent} from './bmx/components/bmx-creator/survey-creation-design/templates/image-rank-drag/image-rank-drag.component'
-import {ImageRateScaleComponent} from './bmx/components/bmx-creator/survey-creation-design/templates/image-rate-scale/image-rate-scale.component'
+
 import {LogoHeaderComponent} from './bmx/components/bmx-creator/survey-creation-design/templates/logo-header/logo-header.component'
 import {NarrowDownComponent} from './bmx/components/bmx-creator/survey-creation-design/templates/narrow-down/narrow-down.component'
 import {QuestionAnswerComponent} from './bmx/components/bmx-creator/survey-creation-design/templates/question-answer/question-answer.component'
@@ -92,7 +90,11 @@ import { ProjectListCheckComponent } from './bmx/components/project-list-check/p
 import {TemplatesComponent} from './bmx/components/templates/templates.component';
 import { CommonModule } from '@angular/common';
 import { TableComponent } from './bmx/components/table/table.component';
-
+// import { TinderComponent } from './bmx/bmx-creator/survey-creation-design/templates/tinder/tinder.component';
+import { ImageRankDragComponent } from './bmx/components/bmx-creator/survey-creation-design/templates/image-rank-drag/image-rank-drag.component';
+import { ImageRateScaleComponent } from './bmx/components/bmx-creator/survey-creation-design/templates/image-rate-scale/image-rate-scale.component';
+import { ImageRankComponent } from './bmx/components/bmx-creator/survey-creation-design/templates/image-rank/image-rank.component';
+import { SignalComponent } from './signal/signal.component';
 export function loadEcharts() {
   return import('echarts');
 }
@@ -102,7 +104,7 @@ export function MSALInstanceFactory(): IPublicClientApplication {
   return new PublicClientApplication({
     auth: {
       clientId: 'fbcbd5db-c816-4ffb-8310-316cf7781c45',
-      authority: 'https://login.microsoftonline.com/f010ce16-e13d-4c24-87af-3a1eb4d11de6', 
+      authority: 'https://login.microsoftonline.com/f010ce16-e13d-4c24-87af-3a1eb4d11de6',
       redirectUri: 'http://localhost:4200',
     },
     cache: {
@@ -112,115 +114,113 @@ export function MSALInstanceFactory(): IPublicClientApplication {
   });
 }
 @NgModule({
-  declarations: [
-    AppComponent,
-    LoginComponent,
-    NwVoteComponent,
-    BsrMobileComponent,
-    editName,
-    editPost,
-    BsrComponent,
-    NW3Component,
-    // BmxComponent,
-    SchedulerComponent,
-    DashboardComponent,
-    DialogComponent,
-    MenuComponent,
-    ParticipantsEmailComponent,
-    ProjectInformationComponent,
-    RespondentsComponent,
-    ParticipantsEmailComponent,
-    ProjectReportsComponent,
-    ProjectListComponent,
-    DocxSurveyComponent,
-    BmxComponent,
-    BmxCreatorComponent,
-    SurveyCreationDesignComponent,
-    SurveyMatrixComponent,
-    ImageUploaderComponent,
-    PageLineBreakComponent,
-    PageTitleComponent,
-    ReportFirstPageComponent,
-    ImageRankComponent,
-    ImageRankDragComponent,
-    ImageRateScaleComponent,
-    LogoHeaderComponent,
-    NarrowDownComponent,
-    QuestionAnswerComponent,
-    RankScaleComponent,
-    RatingScaleComponent,
-    TextParagraphComponent,
-    TinderComponent,
-    SafePipe,
-    SurveyDialogComponent,
-    TableComponent,
-    ProjectListCheckComponent,
-    TemplatesComponent,
-    // BmxCreatorComponent,
-    // SafePipe,
-    // OrderDasboardComponent
-  ],
-  imports: [
-    CommonModule,
-    BrowserModule,
-    HammerModule,
-    AppRoutingModule,
-    BrowserAnimationsModule,
-    MatSlideToggleModule,
-    MatRippleModule,
-    MatFormFieldModule,
-    HttpClientModule,
-    ReactiveFormsModule,
-    MatCheckboxModule,
-    MatToolbarModule,
-    MatButtonModule,
-    MatInputModule,
-    MatDatepickerModule,
-    MatBadgeModule,
-    MatCardModule,
-    MatDialogModule,
-    MatIconModule,
-    FlexLayoutModule,
-    DragDropModule,
-    MatTooltipModule,
-    MatGridListModule,
-    MatSidenavModule,
-    CKEditorModule,
-    FormsModule,
-    MatTableModule,
-    HotkeyModule.forRoot(),
-    MatSliderModule,
-    MatTabsModule,
-    QRCodeModule,
-    DeviceDetectorModule,
-    //AngularDateTimePickerModule,
-    MatDatepickerModule,
-    MatSelectModule,
-    MatRadioModule,
-    MatNativeDateModule,
-    MatProgressBarModule,
-    NgxChartsModule,
-    // AngularEditorModule,
-    DragulaModule.forRoot(),
-    MatListModule,
-    NgxEchartsModule.forRoot({ echarts: loadEcharts }),
-    MatSnackBarModule,
-    MatSortModule,
-    MatPaginatorModule,
-    DragDropModule,
-    ScrollingModule,
-    CdkTableModule,
-    CdkTreeModule,
-    A11yModule,
-    MatAutocompleteModule
-  ],
-  entryComponents: [
-    editPost, editName, DialogComponent
-  ],
-  providers: [NwvoteService, BsrMobileService, Nw3Service, {provide: MSAL_INSTANCE, useFactory:MSALInstanceFactory}, MsalService,
-    { provide: MAT_SNACK_BAR_DEFAULT_OPTIONS, useValue: { duration: 1000 } }],
-
-  bootstrap: [AppComponent]
+    declarations: [
+        AppComponent,
+        // LoginComponent,
+        NwVoteComponent,
+        BsrMobileComponent,
+        editName,
+        editPost,
+        SafePipe,
+        BsrComponent,
+        NW3Component,
+        BmxComponent,
+        SchedulerComponent,
+        DashboardComponent,
+        DialogComponent,
+        MenuComponent,
+        ParticipantsEmailComponent,
+        ProjectInformationComponent,
+        RespondentsComponent,
+        ParticipantsEmailComponent,
+        ProjectReportsComponent,
+        ProjectListComponent,
+        DocxSurveyComponent,
+        BmxComponent,
+        // BmxCreatorComponent,
+        SurveyCreationDesignComponent,
+        SurveyMatrixComponent,
+        ImageUploaderComponent,
+        PageLineBreakComponent,
+        PageTitleComponent,
+        ReportFirstPageComponent,
+        ImageRankComponent,
+        ImageRankDragComponent,
+        ImageRateScaleComponent,
+        LogoHeaderComponent,
+        NarrowDownComponent,
+        QuestionAnswerComponent,
+        RankScaleComponent,
+        RatingScaleComponent,
+        TextParagraphComponent,
+        TinderComponent,
+        SurveyDialogComponent,
+        TableComponent,
+        ProjectListCheckComponent,
+        TemplatesComponent,
+        // BmxCreatorComponent,
+        // SafePipe,
+        // OrderDasboardComponent
+    ],
+    imports: [
+        CommonModule,
+        BrowserModule,
+        HammerModule,
+        AppRoutingModule,
+        BrowserAnimationsModule,
+        MatSlideToggleModule,
+        MatRippleModule,
+        MatFormFieldModule,
+        HttpClientModule,
+        ReactiveFormsModule,
+        MatCheckboxModule,
+        MatToolbarModule,
+        MatButtonModule,
+        MatInputModule,
+        MatDatepickerModule,
+        MatBadgeModule,
+        MatCardModule,
+        MatDialogModule,
+        MatIconModule,
+        // FlexLayoutModule,
+        // DragDropModule,
+        MatTooltipModule,
+        MatGridListModule,
+        MatSidenavModule,
+        CKEditorModule,
+        FormsModule,
+        MatTableModule,
+        // HotkeyModule.forRoot(),
+        MatSliderModule,
+        MatTabsModule,
+        // QRCodeModule,
+        // DeviceDetectorModule,
+        //AngularDateTimePickerModule,
+        MatDatepickerModule,
+        MatSelectModule,
+        MatRadioModule,
+        MatNativeDateModule,
+        MatProgressBarModule,
+        NgxChartsModule,
+        // AngularEditorModule,
+        DragulaModule.forRoot(),
+        MatListModule,
+        // NgxEchartsModule.forRoot({ echarts: loadEcharts }),
+        MatSnackBarModule,
+        MatSortModule,
+        MatPaginatorModule,
+        DragDropModule,
+        ScrollingModule,
+        CdkTableModule,
+        CdkTreeModule,
+        A11yModule,
+        MatAutocompleteModule,
+        SignalComponent
+        // BmxModule
+    ],
+    providers: [
+        { provide: MAT_SNACK_BAR_DEFAULT_OPTIONS, useValue: { duration: 1000 } }],
+    bootstrap: [AppComponent]
 })
 export class AppModule { }
 

@@ -1,12 +1,11 @@
 import { OverlayContainer } from '@angular/cdk/overlay';
 import { Component, OnInit, Inject, ViewEncapsulation, ViewChild } from '@angular/core';
-import { FormControl } from '@angular/forms';
-import { HotkeysService, Hotkey } from 'angular2-hotkeys';
+import { FormControl, FormGroup, UntypedFormControl } from '@angular/forms';
 import { CdkDragDrop, moveItemInArray, CdkDropListGroup, transferArrayItem } from '@angular/cdk/drag-drop';
 import { BsrService } from './bsr.service';
 
-import { FormBuilder, Validators, FormGroup } from '@angular/forms';
-import { MatDialog, MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
+import { UntypedFormBuilder, Validators, UntypedFormGroup } from '@angular/forms';
+import { MatDialog,  MatDialogRef,MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { DOCUMENT } from '@angular/common';
 //import { BsrService } from './services/bsr.service';
 
@@ -29,7 +28,7 @@ export class BsrComponent implements OnInit {
   font_size = '30';
   font_size_text = this.font_size + 'px';
   diplayFontSizeSlider = false;
-  loginForm: FormGroup;
+  loginForm: UntypedFormGroup;
   isMouseOver: boolean = false;
   sliderVal = 51;
   totalNumberOfnames = 51;
@@ -47,7 +46,7 @@ export class BsrComponent implements OnInit {
   isScreeningNames = false;
   slideBackground = 'url(http://www.bipresents.com/';
   baseBackgroundUrl = 'url(http://www.bipresents.com/';
-  myControl = new FormControl();
+  myControl = new UntypedFormControl();
   options: string[] = ['One', 'Two', 'Three'];
   totalNumberOfSlides: any;
   pageCounter = '';
@@ -83,56 +82,10 @@ export class BsrComponent implements OnInit {
   baseUrl: any;
   restUrl: any;
 
-  constructor(@Inject(DOCUMENT) private document: any, private _formBuilder: FormBuilder,
-    private _hotkeysService: HotkeysService,
-    private _BsrService: BsrService, public dialog: MatDialog, private activatedRoute: ActivatedRoute,
-    private dragulaService: DragulaService) {
+  constructor(@Inject(DOCUMENT) private document: any, 
+    private _BsrService: BsrService, public dialog: MatDialog, private activatedRoute: ActivatedRoute) {
 
-    dragulaService.createGroup('TASKS', {
-      moves: (el, container, handle) => {
-        return handle.classList.contains('handle');
-      }
-    })
-
-    // keyboard keymaps
-    this._hotkeysService.add(new Hotkey('right', (event: KeyboardEvent): boolean => {
-
-      this.moveForward();
-      return false;
-    }, undefined, 'Move to next slide'));
-    this._hotkeysService.add(new Hotkey('left', (event: KeyboardEvent): boolean => {
-      this.moveBackward();
-      return false;
-    }, undefined, 'Move to previous slide'));
-    this._hotkeysService.add(new Hotkey('up', (event: KeyboardEvent): boolean => {
-      this.mainMenu = true;
-      return false;
-    }, undefined, 'Show menu'));
-    this._hotkeysService.add(new Hotkey('down', (event: KeyboardEvent): boolean => {
-      this.mainMenu = false;
-      return false;
-    }, undefined, 'Hide menu'));
-    this._hotkeysService.add(new Hotkey('o', (event: KeyboardEvent): boolean => {
-      this.sideMenu();
-      return false;
-    }, undefined, 'Hide/Show slide overview'));
-    // this._hotkeysService.add(new Hotkey('b', (event: KeyboardEvent): boolean => {
-    //   // this.removeBackground();
-    //   return false;
-    // }, undefined, 'Remove background'));
-    // this._hotkeysService.add(new Hotkey('s', (event: KeyboardEvent): boolean => {
-    //   // this.timeToDisplayticker();
-    //   return false;
-    // }, undefined, 'Show stock ticker'));
-    this._hotkeysService.add(new Hotkey('esc', (event: KeyboardEvent): boolean => {
-      this._hotkeysService.cheatSheetToggle.next(false);
-      this.mainMenu = false;
-      return false;
-    }, undefined, 'Hide help sheet'));
-    this._hotkeysService.add(new Hotkey('ctrl+b', (event: KeyboardEvent): boolean => {
-      this.bsr();
-      return false;
-    }, undefined, 'Toogle Presentation Mode'));
+   
   }
 
   ngOnInit(): void {
@@ -210,10 +163,10 @@ export class BsrComponent implements OnInit {
     }, 1000);
 
     this.getCommentsByIndex(0);
-    this.loginForm = this._formBuilder.group({
-      rationale: [''],
-      suma: [''],
-      name: ['']
+    this.loginForm = new FormGroup({
+      rationale: new FormControl("") ,
+      suma: new FormControl(""),
+      name:new FormControl("")
     });
     this.nameIndexCounter = (localStorage.getItem(this.projectName + '_namesIndexCounte')) ? parseInt(localStorage.getItem(this.projectName + '_namesIndexCounte')) : 0;
 
@@ -508,8 +461,8 @@ export class BsrComponent implements OnInit {
   }
 
   displayHelp(display: boolean) {
-    (display) ? this._hotkeysService.cheatSheetToggle.next() : this._hotkeysService.cheatSheetToggle.next(display);
-    this._hotkeysService.cheatSheetToggle.next(true)
+    // (display) ? this._hotkeysService.cheatSheetToggle.next() : this._hotkeysService.cheatSheetToggle.next(display);
+    // this._hotkeysService.cheatSheetToggle.next(true)
   }
 
   goToSlide(i) {
@@ -732,8 +685,8 @@ export class BsrComponent implements OnInit {
 
 import { MatSliderChange } from '@angular/material/slider';
 import { ActivatedRoute } from '@angular/router';
-import { ThrowStmt } from '@angular/compiler/src/output/output_ast';
-import { DragulaService } from 'ng2-dragula';
+// import { ThrowStmt } from '@angular/compiler/src/output/output_ast';
+// import { DragulaService } from 'ng2-dragula';
 
 // CKEDITOR WYSIWYG // **************************************************************************************************
 
@@ -764,12 +717,12 @@ export class editPost {
 
   ckconfig: any;
   synonyms: any;
-  loginForm: FormGroup;
+  loginForm: UntypedFormGroup;
   isDeleting = false;
   isDeletingName = false;
   dataEditor = '<p>Hello, world!</p>';
   infoMessage = true;
-  popupwindowData: { form: FormGroup; oldValue: string; };
+  popupwindowData: { form: UntypedFormGroup; oldValue: string; };
   title: string;
   editName: string;
   concept: any;
@@ -797,7 +750,7 @@ export class editPost {
   nameid: any = '';
   constructor(
     public dialogRef: MatDialogRef<editPost>,
-    @Inject(MAT_DIALOG_DATA) public data: DialogData, private _formBuilder: FormBuilder, private _BsrService: BsrService, private activatedRoute: ActivatedRoute,) {
+    @Inject(MAT_DIALOG_DATA) public data: DialogData,private _BsrService: BsrService, private activatedRoute: ActivatedRoute,) {
     this.editName = this.data.nameId;
     this.dataEditor = this.data.name.html;
     this.model.editorData = this.data.name.html;
@@ -874,10 +827,10 @@ export class editPost {
       removeButtons: 'Smiley,tableselection,Image,Superscript,Subscript,Save,NewPage,Preview,Print,Templates,Replace,SelectAll,Form,Checkbox,Radio,TextField,Textarea,Find,Select,Button,ImageButton,HiddenField,CopyFormatting,CreateDiv,BidiLtr,BidiRtl,Language,Flash,PageBreak,Iframe,ShowBlocks,Cut,Copy,Paste,Table,Format,Source,Maximize,Styles,Anchor,SpecialChar,PasteFromWord,PasteText,Scayt,RemoveFormat,Indent,Outdent,Blockquote'
 
     }
-    this.loginForm = this._formBuilder.group({
-      rationale: [''],
-      suma: [''],
-      name: [this.concept]
+    this.loginForm = new FormGroup({
+      rationale:new FormControl(""),
+      suma: new FormControl(""),
+      name: new FormControl(this.concept)
     });
   }
 

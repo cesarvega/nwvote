@@ -10,7 +10,7 @@ import {
   ViewEncapsulation,
 } from '@angular/core';
 import { DOCUMENT } from '@angular/common';
-import { HotkeysService, Hotkey } from 'angular2-hotkeys';
+// import { HotkeysService, Hotkey } from 'angular2-hotkeys';
 import Speech from 'speak-tts';
 import { ActivatedRoute } from '@angular/router';
 import { BmxService } from '../bmx.service';
@@ -104,7 +104,7 @@ export class SurveyMatrixComponent extends SurveyCreationDesignComponent impleme
   //----------end modal------//
 
   constructor(@Inject(DOCUMENT) document: any, activatedRoute: ActivatedRoute, private deviceService: DeviceDetectorService,
-    _hotkeysService: HotkeysService, dragulaService: DragulaService, public _snackBar: MatSnackBar, _BmxService: BmxService
+  dragulaService: DragulaService, public _snackBar: MatSnackBar, _BmxService: BmxService
   ) {
     super(document, _BmxService, _snackBar, activatedRoute);
     activatedRoute.params.subscribe((params) => {

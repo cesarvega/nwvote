@@ -1,7 +1,7 @@
 import { Component, OnInit, ViewEncapsulation } from '@angular/core';
 import {Router, ActivatedRoute } from '@angular/router';
 import { BmxService } from './bmx.service';
-import { DragulaService } from 'ng2-dragula';
+// import { DragulaService } from 'ng2-dragula';
 import { MsalService } from '@azure/msal-angular';
 
 @Component({
@@ -125,9 +125,9 @@ export class BmxCreatorComponent implements OnInit {
 
   constructor(
     private activatedRoute: ActivatedRoute,
-    dragulaService: DragulaService,
+    // dragulaService: DragulaService,
     private _BmxService: BmxService,
-    private msalService: MsalService,
+    // private msalService: MsalService,
     private router: Router
   ) {
     this.activatedRoute.params.subscribe((params) => {
@@ -221,7 +221,7 @@ export class BmxCreatorComponent implements OnInit {
     // }
   }
   signOut() {
-    this.msalService.logout();
+    // this.msalService.logout();
     window.location.href = '/login'
   }
   // menu functionallity toggles the active link scss

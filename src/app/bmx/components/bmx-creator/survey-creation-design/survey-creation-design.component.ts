@@ -18,6 +18,7 @@ import { ActivatedRoute } from '@angular/router';
     selector: 'app-survey-creation-design',
     templateUrl: './survey-creation-design.component.html',
     styleUrls: ['./survey-creation-design.component.scss'],
+    encapsulation: ViewEncapsulation.Emulated
 })
 export class SurveyCreationDesignComponent implements OnInit {
     @Input() isMenuActive11;

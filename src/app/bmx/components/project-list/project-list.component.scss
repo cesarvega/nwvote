@@ -3,3 +3,34 @@
   // background-color: #fff !important;
   color: #fff !important;
 }
+
+.table{
+  td{
+    text-align: center;
+  }
+}
+@media screen and (max-width: 1510px){
+  .table{
+    td{
+      padding: 5px 3px 0 9px !important;
+    }
+  }
+  .calendar{
+    width: 25%;
+    position: relative;
+    left: 30px !important;
+  }
+}
+
+@media screen and (max-width: 1390px){
+  .table{
+    td{
+      padding: 0px 3px 0 0px !important;
+    }
+  }
+  .calendar{
+    width: 25%;
+    position: relative;
+    left: 30px !important;
+  }
+}

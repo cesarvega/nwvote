@@ -19,7 +19,10 @@ export const environment = {
     storageBucket: "mrvrman.appspot.com",
     messagingSenderId: "108322920951",
     appId: "1:108322920951:web:79253f06045b2c222bb6f2"
-  }
+  },
+  provider: 'appBmxStore',
+  isgAwsLogs: 'isgAwsLogsm',
+  apiUrl: 'apiUrl',
 };
 
 /*
@@ -29,4 +32,4 @@ export const environment = {
  * This import should be commented out in production mode because it will have a negative impact
  * on performance if an error is thrown.
  */
-// import 'zone.js/dist/zone-error';  // Included with Angular CLI.
+// import 'zone.js/plugins/zone-error';  // Included with Angular CLI.

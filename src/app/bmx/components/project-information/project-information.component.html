@@ -119,10 +119,9 @@
                 style="display: flex; justify-content: space-between">
                 <span style="    display: flex;
                 justify-content: space-between;
-                align-items: center;">
-                  {{template.displayName}} <mat-icon  class="edit-icon"
-                    style="z-index: 1001;" (click)="openModal(); selectedTemplateName = template.templateName; templateName = template.templateName">edit
-                  </mat-icon>
+                align-items: center;
+                font-size: 0.9rem;">
+                  {{template.displayName}}
                 </span>
 
               </mat-option>
@@ -173,23 +172,23 @@
 
   <div style="display: flex; flex-direction: row;flex-wrap: wrap;justify-content: space-between;margin: 10px 39px;">
     <div *ngFor="let director of DIRECTORS; let i = index; trackBy: trackByIndex">
-      <mat-card class="directorCard" style="margin:20px 0px;width: 400px;">
+      <mat-card appearance="outlined" class="directorCard" style="width: 400px;gap: 5px;padding: 10px;margin: 10px;">
 
         <div style="display: flex;flex-direction: row;">
-          <div style="margin-right: 6px; color: #324395;" class="selectLabels">Name: </div>
+          <div style="margin-right: 19px; color: #324395;" class="selectLabels">Name: </div>
           <input class="directorInfo" [(ngModel)]="DIRECTORS[i].name" placeholder="Name" [readonly]="i !== canEdit"
             matInput style="width:75%">
         </div>
 
 
         <div style="display: flex;flex-direction: row;">
-          <div style="margin-right: 6px;color: #053074;" class="selectLabels">Title: </div>
+          <div style="margin-right: 29px;color: #053074;" class="selectLabels">Title: </div>
           <input class="directorInfo" [(ngModel)]="DIRECTORS[i].title" placeholder="Title" [readonly]="i !== canEdit"
             matInput style="width:75%">
         </div>
 
         <div style="display: flex;flex-direction: row;">
-          <div style="margin-right: 6px; color: #324395;" class="selectLabels">Email: </div>
+          <div style="margin-right: 23px; color: #324395;" class="selectLabels">Email: </div>
           <input class="directorInfo" [(ngModel)]="DIRECTORS[i].email" placeholder="Email" [readonly]="i !== canEdit"
             matInput style="width:75%">
         </div>

@@ -279,11 +279,14 @@
     <!-- BUTTON-->
     <div class="sm-row-box-rkScale">
 
-        <button style="outline: none;color:#76d354;margin-bottom: 50px;" mat-icon-button
+      <div class="button-Done"style="display: flex; flex-direction: column; align-items: center;">
+        <button style="outline: none;color:#76d354;" mat-icon-button
             (click)="selectedIndex = '';upLoadNamesAndRationales(testNamesInput)" [disabled]="false"
             aria-label="ranking">
-            <mat-icon>check_circle</mat-icon> Done
+            <mat-icon>check_circle</mat-icon>
         </button>
+        <p style="margin-top: -1; color: #76D354; font-size: 21px;">Done</p>
+    </div>
     </div>
 </div>
 
@@ -348,19 +351,22 @@
                                 <label for="">{{checkBoxName}}</label>
                                 <!-- <input type="checkbox" [checked]="allComplete" -->
                                 <input type="checkbox"
-                                    [checked]="(testName['multipleChoice'] && testName['multipleChoice'].includes(checkBoxName))?true:allComplete"
-                                    (change)="saveMultipleChoice(checkBoxName, y,  $event)">
+                                [checked]="(testName['RATE'] && veryfy(testName['RATE'],checkBoxName))?true:allComplete"
+                                (change)="saveMultipleChoice(checkBoxName, y,  $event)">
+
                             </div>
                         </div>
 
                         <div
                             *ngIf="y !== 0  &&  columnName.includes('options') == true && this.bmxItem.componentSettings[0].rankType == 'radio'">
                             <div *ngFor="let checkBoxName of testName[columnName].split(','); let m = index"
-                                style="display: flex;flex-direction: row;gap:10px; justify-content: space-between;  ">
-                                <label for="">{{checkBoxName}}</label>
-                                <input type="radio" [name]="bmxItem.componentText[y].nameCandidates"
-                                    [checked]="testName[columnName]" (click)="saveRadioColumValue(columnName, y);">
-                            </div>
+                            style="display: flex;flex-direction: row;gap:10px; justify-content: space-between;  ">
+                            <label for="">{{checkBoxName}}</label>
+                            <!-- <input type="checkbox" [checked]="allComplete" -->
+                            <input type="radio"
+                                [checked]="(testName['RATE'] && testName['RATE'] == checkBoxName )?true:allComplete"
+                                (click)="saveMultipleChoice(checkBoxName, y,  $event)">
+                        </div>
                         </div>
                         <div
                             *ngIf="y !== 0  &&  columnName.includes('options') == true && this.bmxItem.componentSettings[0].rankType == 'dropDown'">
