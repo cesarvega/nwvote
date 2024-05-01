@@ -443,6 +443,7 @@ export class RatingScaleComponent implements OnInit {
   // CRITERIA STARS
 
   setCriteriaRating(starId, criteriaId, testNameId) {
+    console.log('aaaaaaa')
     let intCounter = 0
     this.bmxItem.componentText[testNameId].CRITERIA.forEach((criteria) => {
       intCounter = intCounter + criteria.RATE
