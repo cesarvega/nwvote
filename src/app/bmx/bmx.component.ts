@@ -1,11 +1,6 @@
 import { Component, Inject, OnInit } from '@angular/core';
-import { DOCUMENT } from '@angular/common';
 import { trigger, transition, useAnimation } from '@angular/animations';
-import { pulse, flash } from 'ng-animate';
-import { HotkeysService, Hotkey } from 'angular2-hotkeys';
 import { Router, ActivatedRoute } from '@angular/router';
-import Speech from 'speak-tts';
-
 
 @Component({
   selector: 'app-bmx',
@@ -51,7 +46,7 @@ export class BmxComponent implements OnInit {
       localStorage.setItem('projectId',  this.projectId);
       // this.bsrService.getProjectData(this.projectId).subscribe(arg => {
       //   this.projectName = JSON.parse(arg[0].bsrData).projectdescription;
-      //   localStorage.setItem('projectName',  this.projectId);        
+      //   localStorage.setItem('projectName',  this.projectId);
       // });
     });
    }
@@ -60,7 +55,7 @@ export class BmxComponent implements OnInit {
     window.scrollTo(0, 1);
   }
 
-  
+
   goVote(){
     this.isGoVoteOn = ! this.isGoVoteOn;
   }

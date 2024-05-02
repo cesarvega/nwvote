@@ -94,6 +94,7 @@ import { TableComponent } from './bmx/components/table/table.component';
 import { ImageRankDragComponent } from './bmx/components/bmx-creator/survey-creation-design/templates/image-rank-drag/image-rank-drag.component';
 import { ImageRateScaleComponent } from './bmx/components/bmx-creator/survey-creation-design/templates/image-rate-scale/image-rate-scale.component';
 import { ImageRankComponent } from './bmx/components/bmx-creator/survey-creation-design/templates/image-rank/image-rank.component';
+import { SignalComponent } from './signal/signal.component';
 export function loadEcharts() {
   return import('echarts');
 }
@@ -156,7 +157,7 @@ export function MSALInstanceFactory(): IPublicClientApplication {
         SurveyDialogComponent,
         TableComponent,
         ProjectListCheckComponent,
-        TemplatesComponent
+        TemplatesComponent,
         // BmxCreatorComponent,
         // SafePipe,
         // OrderDasboardComponent
@@ -214,6 +215,7 @@ export function MSALInstanceFactory(): IPublicClientApplication {
         CdkTreeModule,
         A11yModule,
         MatAutocompleteModule,
+        SignalComponent
         // BmxModule
     ],
     providers: [
