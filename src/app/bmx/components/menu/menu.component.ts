@@ -31,7 +31,7 @@ export class MenuComponent implements OnInit {
   userDepartment: string;
   userOffice: any;
   id: string;
-  versionNumber = 'v1.0.22';
+  versionNumber = 'v1.0.23';
 
   // constructor(private router: Router, private _BmxService: BmxService, private activatedRoute: ActivatedRoute,) {
 
@@ -75,38 +75,38 @@ export class MenuComponent implements OnInit {
 
   ngOnInit(): void {
 
-    if (location.search) {
+  //   if (location.search) {
 
-      const searchParams = new URLSearchParams(location.search);
-      const obj: any = {};
-      searchParams.forEach((value, key) => {
-        obj[key] = value;
-      });
+  //     const searchParams = new URLSearchParams(location.search);
+  //     const obj: any = {};
+  //     searchParams.forEach((value, key) => {
+  //       obj[key] = value;
+  //     });
 
-      this.bmxStore.updateUrlSearchParams(obj);
+  //     this.bmxStore.updateUrlSearchParams(obj);
 
-      // const firstName = this.bmxStore.urlSearchParams().firstName();
+  //     // const firstName = this.bmxStore.urlSearchParams().firstName();
 
-      if (
-          this.bmxStore.urlSearchParams()?.agentId === undefined ||
-          this.bmxStore.urlSearchParams()?.agentId === null
-      ) {
-          this.bmxStore.updateMessageInfo({
-              message: 'Data not found',
-              description: 'Data not found in foot print.',
-              icon: 'info',
-              display: true
-          });
-          return;
-      }
+  //     if (
+  //         this.bmxStore.urlSearchParams()?.agentId === undefined ||
+  //         this.bmxStore.urlSearchParams()?.agentId === null
+  //     ) {
+  //         this.bmxStore.updateMessageInfo({
+  //             message: 'Data not found',
+  //             description: 'Data not found in foot print.',
+  //             icon: 'info',
+  //             display: true
+  //         });
+  //         return;
+  //     }
 
-      this.bmxStore.updateMessageInfo({
-        message: 'Data not found',
-        description: 'Data not found in foot print.',
-        icon: 'info',
-        display: true
-    });
-  }
+  //     this.bmxStore.updateMessageInfo({
+  //       message: 'Data not found',
+  //       description: 'Data not found in foot print.',
+  //       icon: 'info',
+  //       display: true
+  //   });
+  // }
 
     //clean local storage
     this.router.events.subscribe((event) => {

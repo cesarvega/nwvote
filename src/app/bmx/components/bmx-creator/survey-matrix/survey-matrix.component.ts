@@ -1311,7 +1311,6 @@ export class SurveyMatrixComponent extends SurveyCreationDesignComponent impleme
       .subscribe((res: any) => {
         this.loadingLottie = true;
         let newResp = JSON.parse(res.d)
-        console.log('%cANSWERS!', 'color:#007bff', res);
         let page = res.d.replace(this.searchGraveAccentRegExp, "'");
         let message = ''
         if (this.surveyLanguage == 'Japanese') {
