@@ -317,12 +317,14 @@ export class RatingScaleComponent implements OnInit {
             }).afterDismissed().subscribe(action => {
 
             })
-
+            this.maxRuleCounter=this.maxRuleCounter-1
             this.bmxItem.componentText[index].SELECTED_ROW = false;
             break
           }
         }
-      } else {
+      } 
+      
+      else {
         if (this.bmxItem.componentText[testNameId]["CRITERIA"]) {
           this.bmxItem.componentText[testNameId]["CRITERIA"].forEach(criteria => {
             criteria.RATE = 0
@@ -379,7 +381,9 @@ export class RatingScaleComponent implements OnInit {
       //   }
       //   this._bmxService.setSpecialDataObservable(payload)
       // }
-    } else {
+    } 
+    
+    if((!rate.target && this.bmxItem.componentType == 'narrow-down')||this.bmxItem.componentType != 'narrow-down' ){
       if (this.maxRuleCounter < this.bmxItem.componentSettings[0].maxRule || this.bmxItem.componentSettings[0].maxRule == 0) {
 
         if (this.bmxItem.componentSettings[0].maxRule > 0) { this.maxRuleCounter++ }
@@ -443,7 +447,6 @@ export class RatingScaleComponent implements OnInit {
   // CRITERIA STARS
 
   setCriteriaRating(starId, criteriaId, testNameId) {
-    console.log('aaaaaaa')
     let intCounter = 0
     this.bmxItem.componentText[testNameId].CRITERIA.forEach((criteria) => {
       intCounter = intCounter + criteria.RATE
