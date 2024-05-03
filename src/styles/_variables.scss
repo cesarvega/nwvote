@@ -1,113 +1,113 @@
-:root {
-    --gray0: #f8f8f8;
-    --gray1: #dbe1e8;
-    --gray2: #b2becd;
-    --gray3: #6c7983;
-    --gray4: #454e56;
-    --gray5: #2a2e35;
-    --gray6: #12181b;
-    --blue: #0084a5;
-    --purple: #a82dd1;
-    --yellow: #fff565;
-    --black: #000000;
-    --bs-yellow: #fec800;
-    --bs-light-grey: #ececec;
-    --bs-black: black;
-    --bs-wwhite: white;
-    --bs-orange: #FA783C;
-    --bs-purpu: rgb(67, 67, 249);
-    --bs-red: red;
-    --bs-smoke: #ced4da;
-    --bs-dark-grey: rgb(118, 118, 118);
-    --bs-internal-light-dark: rgb(133, 133, 133);
-    --bs-blue: #007bff;
-    --bs-Light-Blue: #86b7fe;
-}
+  :root {
+      --gray0: #f8f8f8;
+      --gray1: #dbe1e8;
+      --gray2: #b2becd;
+      --gray3: #6c7983;
+      --gray4: #454e56;
+      --gray5: #2a2e35;
+      --gray6: #12181b;
+      --blue: #0084a5;
+      --purple: #a82dd1;
+      --yellow: #fff565;
+      --black: #000000;
+      --bs-yellow: #fec800;
+      --bs-light-grey: #ececec;
+      --bs-black: black;
+      --bs-wwhite: white;
+      --bs-orange: #FA783C;
+      --bs-purpu: rgb(67, 67, 249);
+      --bs-red: red;
+      --bs-smoke: #ced4da;
+      --bs-dark-grey: rgb(118, 118, 118);
+      --bs-internal-light-dark: rgb(133, 133, 133);
+      --bs-blue: #007bff;
+      --bs-Light-Blue: #86b7fe;
+  }
 
-$brand-green: #428f89;
-$background-green: #3c5959;
-$background-dark-green: #003732;
-$orange: #e8993a;
-$yellow: #f0b850;
-$yellow-light: #f0e677;
-$grey-dk: #394240;
-$black-87-opacity: #394240;
-//Type Stacks
-$helvetica-stack: "Helvetica",
-sans-serif;
-$futura-stack: "Futura",
-sans-serif; //not imported yet
-$georgia-stack: "Georgia",
-sans-serif;
+  $brand-green: #428f89;
+  $background-green: #3c5959;
+  $background-dark-green: #003732;
+  $orange: #e8993a;
+  $yellow: #f0b850;
+  $yellow-light: #f0e677;
+  $grey-dk: #394240;
+  $black-87-opacity: #394240;
+  //Type Stacks
+  $helvetica-stack: "Helvetica",
+  sans-serif;
+  $futura-stack: "Futura",
+  sans-serif; //not imported yet
+  $georgia-stack: "Georgia",
+  sans-serif;
 
-$bs-background-grey-light: rgb(236, 236, 236);
-$bs-grey-chip: #dee2e6;
-$bs-background-white: white;
-$bs-yellow-primary: #fcc729;
-$bs-orange-primary: #FA783C;
-$bs-lila-primary: #a72dd0;
-$bs-grey-border: #ced4da;
-$bs-blue-edit: rgb(67, 67, 249);
-$bs-blue-link: #007bff;
+  $bs-background-grey-light: rgb(236, 236, 236);
+  $bs-grey-chip: #dee2e6;
+  $bs-background-white: white;
+  $bs-yellow-primary: #fcc729;
+  $bs-orange-primary: #FA783C;
+  $bs-lila-primary: #a72dd0;
+  $bs-grey-border: #ced4da;
+  $bs-blue-edit: rgb(67, 67, 249);
+  $bs-blue-link: #007bff;
 
-$bs-background-grey-light: rgb(236, 236, 236);
-$bs-grey-chip: #dee2e6;
-$bs-background-white: white;
-$bs-yellow-primary: #fcc729;
-$bs-orange-primary: #FA783C;
-$bs-lila-primary: #a72dd0;
-$bs-grey-border: #ced4da;
-$bs-blue-edit: rgb(67, 67, 249);
-$bs-blue-link: #007bff;
+  $bs-background-grey-light: rgb(236, 236, 236);
+  $bs-grey-chip: #dee2e6;
+  $bs-background-white: white;
+  $bs-yellow-primary: #fcc729;
+  $bs-orange-primary: #FA783C;
+  $bs-lila-primary: #a72dd0;
+  $bs-grey-border: #ced4da;
+  $bs-blue-edit: rgb(67, 67, 249);
+  $bs-blue-link: #007bff;
 
-$vs-blue: #00819D;
-$vs-blue-highlight: #008BC6;
-$vs-blue-light: #F1F5F8;
-$vs-white: white;
-$vs-green: #B7D53A;
-$white-text: #ffffff;
-$vs-red: #9d1d00;
-$vs-red-highlight: #b92706;
-$vs-red-button: #b92706;
-$vs-blue-button: #008BC6;
-$vs-blueO-button: #356CA1;
-$vs-green-button: #B7D53A;
-// SM
-$border-color: #00819D;
-$color-black: black;
-$card-background: #DAECF6;
-$button-green: #04A04B;
-$button-grey: #EEEEEE;
-$card-grey: #F5F5F5;
-$content-background: white;
-$card-background-color: #FBF7DD;
-$card-header-color: #896E37;
-$border-color-card: #F9F3D0;
-$btn-background-color: #f0f0f0;
-$btn-color: #333;
-$btn-background-blue: #80C8E0;
-$btn-color-blue: #fff;
-$btn-color-orange: #529C31;
-$btn-color-grey: #636569;
-$btn-background-green: #4FA34F;
-$border-color-green: #33A847;
-$color-green2: #5C9379;
-$color-blue2: #495057;
+  $vs-blue: #00819D;
+  $vs-blue-highlight: #008BC6;
+  $vs-blue-light: #F1F5F8;
+  $vs-white: white;
+  $vs-green: #B7D53A;
+  $white-text: #ffffff;
+  $vs-red: #9d1d00;
+  $vs-red-highlight: #b92706;
+  $vs-red-button: #b92706;
+  $vs-blue-button: #008BC6;
+  $vs-blueO-button: #356CA1;
+  $vs-green-button: #B7D53A;
+  // SM
+  $border-color: #00819D;
+  $color-black: black;
+  $card-background: #DAECF6;
+  $button-green: #04A04B;
+  $button-grey: #EEEEEE;
+  $card-grey: #F5F5F5;
+  $content-background: white;
+  $card-background-color: #FBF7DD;
+  $card-header-color: #896E37;
+  $border-color-card: #F9F3D0;
+  $btn-background-color: #f0f0f0;
+  $btn-color: #333;
+  $btn-background-blue: #80C8E0;
+  $btn-color-blue: #fff;
+  $btn-color-orange: #529C31;
+  $btn-color-grey: #636569;
+  $btn-background-green: #4FA34F;
+  $border-color-green: #33A847;
+  $color-green2: #5C9379;
+  $color-blue2: #495057;
 
-$color-loader: #00AE42;
-$color-loader2:#93D500;
-$color-red: red;
-$color-installationDate: #003595;
-$color-orange: #FF9E18;
-$text-orange: #FF9E18;
-$color-grey: lightgrey;
-$color-weekdays: #003595;
-$color-purple:#374385;
-$color-currentMonth:#93D500;
-$grey-chip: #E8E8E8;
-$color-blue: #0075A3;
-$color-yellow: #FFCD00;
-$color-green1: #F68C1E;
-$color-green2: #E98012;
-$color-black : #000000;
+  $color-loader: #00AE42;
+  $color-loader2:#93D500;
+  $color-red: red;
+  $color-installationDate: #003595;
+  $color-orange: #FF9E18;
+  $text-orange: #FF9E18;
+  $color-grey: lightgrey;
+  $color-weekdays: #003595;
+  $color-purple:#374385;
+  $color-currentMonth:#93D500;
+  $grey-chip: #E8E8E8;
+  $color-blue: #0075A3;
+  $color-yellow: #FFCD00;
+  $color-green1: #F68C1E;
+  $color-green2: #E98012;
+  $color-black : #000000;
 
