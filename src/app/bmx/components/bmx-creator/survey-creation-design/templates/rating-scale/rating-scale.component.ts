@@ -179,7 +179,7 @@ export class RatingScaleComponent implements OnInit {
     for (let obj of this.bmxItem.componentText) {
       let values = [];
       for (let key in obj) {
-        if (key !== 'STARS' && key !== 'RATE' && key !== 'CRITERIA' && !key.includes('Comments')) {
+        if (key !== 'STARS' && key !== 'RATE' && key !== 'CRITERIA' && key !== 'Comments') {
           values.push(obj[key]);
         }
       }
@@ -317,14 +317,12 @@ export class RatingScaleComponent implements OnInit {
             }).afterDismissed().subscribe(action => {
 
             })
-            this.maxRuleCounter=this.maxRuleCounter-1
+
             this.bmxItem.componentText[index].SELECTED_ROW = false;
             break
           }
         }
-      } 
-      
-      else {
+      } else {
         if (this.bmxItem.componentText[testNameId]["CRITERIA"]) {
           this.bmxItem.componentText[testNameId]["CRITERIA"].forEach(criteria => {
             criteria.RATE = 0
@@ -381,9 +379,7 @@ export class RatingScaleComponent implements OnInit {
       //   }
       //   this._bmxService.setSpecialDataObservable(payload)
       // }
-    } 
-    
-    if((!rate.target && this.bmxItem.componentType == 'narrow-down')||this.bmxItem.componentType != 'narrow-down' ){
+    } else {
       if (this.maxRuleCounter < this.bmxItem.componentSettings[0].maxRule || this.bmxItem.componentSettings[0].maxRule == 0) {
 
         if (this.bmxItem.componentSettings[0].maxRule > 0) { this.maxRuleCounter++ }
@@ -524,7 +520,6 @@ export class RatingScaleComponent implements OnInit {
   // ⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️ END STARS METHODS  ⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️
 
   upLoadNamesAndRationales(list: any, type?: any) {
-    console.log(this.bmxItem.componentText)
     if (typeof list == 'object') {
       list = list.clipboardData.getData('text')
     }
@@ -624,38 +619,8 @@ export class RatingScaleComponent implements OnInit {
             }
             objectColumnDesign['RATE'] = i > 0 ? -1 : 'RATE'
           }
-
-          for (const key in this.bmxItem.componentText[1]) {
-            if (this.bmxItem.componentText[1].hasOwnProperty(key) && key.startsWith("Comments")) {
-              // Obtiene el número de la propiedad de comentarios
-              const num = key.replace("Comments", "");
-              // Agrega la propiedad de comentarios al arreglo this.columnsNames
-              objectColumnDesign[key] = "";
-            }
-          }
-          for (const key in objectColumnDesign) {
-            if (objectColumnDesign.hasOwnProperty(key) && key.startsWith("Comments")) {
-              // Obtiene el número de la propiedad de comentarios
-              // Agrega la propiedad de comentarios al arreglo this.columnsNames
-              this.columnsNames.push(key)
-            }
-          }
           if (this.bmxItem.componentType == 'narrow-down') {
             objectColumnDesign['SELECTED_ROW'] = false
-          }
-          const newObj = {};
-          for (const key in objectColumnDesign) {
-            if (objectColumnDesign.hasOwnProperty(key) && !key.includes("Comments")) {
-              newObj[key] = objectColumnDesign[key];
-            }
-          }
-
-          // Copia las propiedades que contienen "Comments"
-          for (const key in objectColumnDesign) {
-            if (objectColumnDesign.hasOwnProperty(key) && key.includes("Comments")) {
-              i == 0 ? newObj[key] = 'Comments' : newObj[key] = '';
-
-            }
           }
           this.TESTNAMES_LIST.push(objectColumnDesign);
         }
@@ -729,6 +694,7 @@ export class RatingScaleComponent implements OnInit {
   deleteDuplicates(array, property) {
     let newArray = [];
     let lookupObject = {};
+
     for (let i in array) {
       lookupObject[array[i][property]] = array[i];
     }
@@ -848,7 +814,6 @@ export class RatingScaleComponent implements OnInit {
     this.bmxItem.componentSettings[0].commentsWidth = 165
   }
 
-
   insertRadioColumn() {
     this.recordHistory()
     this.columnsNames.push('RadioColumn' + (this.radioColumnCounter));
@@ -910,14 +875,9 @@ export class RatingScaleComponent implements OnInit {
           } else {
             this.bmxItem.componentText.forEach((element, i) => {
               // if (element.RATE == index + 1) {
-              if (this.bmxItem.componentSettings[0].rankType != 'dinamycRadio') {
-                this.bmxItem.componentText[i].RATE = 0
-              }
+              this.bmxItem.componentText[i].RATE = 0
               this.RadioColumnList.forEach(radioColumnName => {
-                if (this.bmxItem.componentSettings[0].rankType != 'dinamycRadio') {
-                  this.bmxItem.componentText[i][radioColumnName] = false
-                }
-
+                this.bmxItem.componentText[i][radioColumnName] = false
               });
               // }
             });

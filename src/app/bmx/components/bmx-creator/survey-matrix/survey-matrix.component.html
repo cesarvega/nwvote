@@ -263,13 +263,13 @@
                         </div>
                         <button [style.background]="(continueButtonToComple == 'Complete')?'#05b85e':'#324395'"
                             style="color: white !important;" *ngIf="isBrandMatrixSurvey && surveyLanguage != 'Japanese'"
-                            (click)="changePage('next')" mat-raised-button style="flex-direction: row-reverse;    gap: 13px;">
+                            (click)="changePage('next')" mat-raised-button style="" style="flex-direction: row-reverse;    gap: 13px;">
                             <span class="menu-descriptions" style="color: white  !important;">{{continueButtonToComple}}</span>
                              <mat-icon style="margin-right: 0 !important; margin-left: 5px !important; margin-top: 1.5px !important; "
                                 class="full-icon" style="color: white  !important; margin-right: 0 !important;">
                                 {{ (continueButtonToComple != 'Complete')?'chevron_right':'task_alt'}}</mat-icon>
                         </button>
-
+                     
                         <!-- <button *ngIf="isBrandMatrixSurvey" (click)="changePage('next')" mat-icon-button>
                         <mat-icon class="full-icon">chevron_right</mat-icon>
                     </button> -->
