@@ -488,7 +488,7 @@ justify-content: center;cursor: move; height: 25px; width: 100%;"><svg width="24
                         <p *ngIf="y !== 0  && !editSingleTableCells && (columnName.includes('RadioColumn') != true)
                         &&  columnName.includes('Comments') != true &&  columnName.includes('RATE') != true"
                             [style.font-size]="bmxItem.componentSettings[0].fontSize +'px'"
-                            [style.width]="(columnName == 'rationale')?bmxItem.componentSettings[0].rationalewidth + 'px':bmxItem.componentSettings[0].columnWidth +'px'"
+                            [style.width]="(columnName == 'rationale')?bmxItem.componentSettings[0].rationalewidth-50 + 'px':bmxItem.componentSettings[0].columnWidth-50 +'px'"
                             style="text-align: center;margin: 0 0 0px;padding: 4px;"
                             [innerHTML]="testName[columnName] | safe: 'html'">{{testName[columnName]}}
                         </p>
