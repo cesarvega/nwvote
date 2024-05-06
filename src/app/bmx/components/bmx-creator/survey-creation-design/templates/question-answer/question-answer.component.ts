@@ -43,17 +43,21 @@ export class QuestionAnswerComponent extends RatingScaleComponent implements OnI
     let firstObject = this.bmxItem.componentText[0];
     let columnNames = [];
     for (let key in firstObject) {
-      if (key === 'Name Candidates' || key === 'Rationales' ) {
+      if (key === 'Name Candidates' || key === 'Rationales') {
+        console.log(key)
         columnNames.push(key);
       }
     }
-
+  
     // Agregar cada objeto como una fila en el resultado
     for (let obj of this.bmxItem.componentText) {
       let values = [];
       for (let key in obj) {
-        if (key !== 'STARS' && key !== 'RATE' && key !== 'CRITERIA' && key !== 'Comments') {
-          values.push(obj[key]);
+  
+        if (key !== 'STARS' && key !== 'RATE' && key !== 'CRITERIA' && !key.includes('Answers')) {
+          if (isNaN(Number(obj[key]))) {
+            values.push(obj[key]);
+          }
         }
       }
       if (values.length > 0) {  // Verificar si hay valores para esta fila
@@ -88,6 +92,7 @@ export class QuestionAnswerComponent extends RatingScaleComponent implements OnI
         }
       });
       this.TESTNAMES_LIST = [];
+      let index = 0;
       for (let i = 0; i < rows.length; i++) {
         if (rows[i] != "" && rows[i].length > 6) {
           let objectColumnDesign = {};
@@ -116,9 +121,52 @@ export class QuestionAnswerComponent extends RatingScaleComponent implements OnI
                 // objectColumnDesign[this.columnsNames[e]] = 'multipleChoice'
               }
             }
+            for (const key in this.bmxItem.componentText[1]) {
+              if (this.bmxItem.componentText[1].hasOwnProperty(key) && key.startsWith("Answers")) {
+                // Obtiene el número de la propiedad de comentarios
+                const num = key.replace("Answers", "");
+                // Agrega la propiedad de comentarios al arreglo this.columnsNames
+                objectColumnDesign[key] = "";
+              }
+            }
+            for (const key in objectColumnDesign) {
+              if (objectColumnDesign.hasOwnProperty(key) && key.startsWith("Answers")) {
+                // Obtiene el número de la propiedad de comentarios
+                // Agrega la propiedad de comentarios al arreglo this.columnsNames
+                if(!this.columnsNames.find((columnName:any)=>columnName==key)){
+                  this.columnsNames.push(key)
+                }
+               
+              }
+            }
+            objectColumnDesign['STARS'] = this.createRatingStars(this.rankingScaleValue, this.ratingScaleIcon);
+            for (let b = 0; b < this.columnsNames.length; b++) {
+              if ((rows[i].split("\t").length > 0)) {
+                objectColumnDesign[this.columnsNames[b]] = rows[i].split("\t")[b]
+              }
+            }
+          }
+          if (this.bmxItem.componentType == 'narrow-down') {
+            objectColumnDesign['SELECTED_ROW'] = false
+          }
+          const newObj = {};
+
+          // Copia las propiedades que no contienen "Comments"
+          for (const key in objectColumnDesign) {
+            if (objectColumnDesign.hasOwnProperty(key) && !key.includes("Answers")) {
+              newObj[key] = objectColumnDesign[key];
+            }
           }
 
-          this.TESTNAMES_LIST.push(objectColumnDesign);
+          // Copia las propiedades que contienen "Comments"
+          for (const key in objectColumnDesign) {
+            if (objectColumnDesign.hasOwnProperty(key) && key.includes("Answers")) {
+              index == 0? newObj[key] = 'Answers': newObj[key] = '';
+             
+            }
+          }
+          this.TESTNAMES_LIST.push(newObj);
+          index++
         }
       }
       this.bmxItem.componentText = this.TESTNAMES_LIST;
