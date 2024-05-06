@@ -148,7 +148,6 @@ export class RatingScaleComponent implements OnInit {
     // COLUMN NAMES
 
     this.rankingScaleValue = this.numRatingScale;
-    let values = Object.keys(this.bmxItem.componentText[0])
     this.rowsCount = this.bmxItem.componentText.length - 1
     this.bmxItem.componentSettings[0].minRule = this.bmxItem.componentSettings[0].minRule == 0 ? 0 : this.bmxItem.componentSettings[0].minRule;
     this.bmxItem.componentSettings[0].maxRule = this.bmxItem.componentSettings[0].maxRule == 0 ? 0 : this.bmxItem.componentSettings[0].maxRule;
@@ -157,40 +156,43 @@ export class RatingScaleComponent implements OnInit {
     } else {
       this.numRatingScale = this.bmxItem.componentText[0].STARS?.length
     }
+  // COLUMN NAMES
+  let values = Object.keys(this.bmxItem.componentText[0])
 
-    values.forEach(value => {
-      if (typeof value == "string" && value != "STARS" && value != "CRITERIA") {
-        this.columnsNames.push(value)
-      }
-    });
-    //this.columnsNames.push("RadioColumn4", "RadioColumn5");//HARD CODE
-
-    let result = '';
-
-    // Obtener las claves de la primera fila (los nombres de las propiedades)
-    let firstObject = this.bmxItem.componentText[0];
-    let columnNames = [];
-    for (let key in firstObject) {
-      if (key === 'Name Candidates' || key === 'Rationales') {
-        columnNames.push(key);
-      }
+  values.forEach(value => {
+    if (typeof value == "string" && value != "STARS" && value != "CRITERIA") {
+      this.columnsNames.push(value)
     }
+  });
+  //this.columnsNames.push("RadioColumn4", "RadioColumn5");//HARD CODE
 
-    // Agregar cada objeto como una fila en el resultado
-    for (let obj of this.bmxItem.componentText) {
-      let values = [];
-      for (let key in obj) {
+  let result = '';
 
-        if (key !== 'STARS' && key !== 'RATE' && key !== 'CRITERIA' && !key.includes('Comments')) {
-          if (isNaN(Number(obj[key]))) {
-            values.push(obj[key]);
-          }
+  // Obtener las claves de la primera fila (los nombres de las propiedades)
+  let firstObject = this.bmxItem.componentText[0];
+  let columnNames = [];
+  for (let key in firstObject) {
+    if (key === 'Name Candidates' || key === 'Rationales') {
+      console.log(key)
+      columnNames.push(key);
+    }
+  }
+
+  // Agregar cada objeto como una fila en el resultado
+  for (let obj of this.bmxItem.componentText) {
+    let values = [];
+    for (let key in obj) {
+
+      if (key !== 'STARS' && key !== 'RATE' && key !== 'CRITERIA' && !key.includes('Comments')) {
+        if (isNaN(Number(obj[key]))) {
+          values.push(obj[key]);
         }
       }
-      if (values.length > 0) {  // Verificar si hay valores para esta fila
-        result += values.join('\t') + '\n';  // Agregar la línea al resultado
-      }
     }
+    if (values.length > 0) {  // Verificar si hay valores para esta fila
+      result += values.join('\t') + '\n';  // Agregar la línea al resultado
+    }
+  }
 
     this.testNamesInput = result;
     this.randomizeTestNames = this.bmxItem.componentSettings[0].randomizeTestNames
@@ -603,6 +605,7 @@ export class RatingScaleComponent implements OnInit {
               })
             });
           } else {
+            console.log(rows[i])
             this.bmxItem.componentSettings[0].CRITERIA = false
             objectColumnDesign['STARS'] = this.createRatingStars(this.rankingScaleValue, this.ratingScaleIcon);
             for (let e = 0; e < this.columnsNames.length; e++) {
@@ -616,7 +619,7 @@ export class RatingScaleComponent implements OnInit {
                     columnValue = rows[i].split("\t")[e].trim()
                   }
                 } else {
-                  columnValue = rows[i].split("\t")[e].trim()
+                  columnValue = rows[i].split("\t")[e]
                 }
                 objectColumnDesign[columnName] = columnValue
                 if (i != 0) {
@@ -638,15 +641,19 @@ export class RatingScaleComponent implements OnInit {
               if (objectColumnDesign.hasOwnProperty(key) && key.startsWith("Comments")) {
                 // Obtiene el número de la propiedad de comentarios
                 // Agrega la propiedad de comentarios al arreglo this.columnsNames
-                this.columnsNames.push(key)
+                if(!this.columnsNames.find((columnName:any)=>columnName==key)){
+                  this.columnsNames.push(key)
+                }
+               
               }
             }
             objectColumnDesign['STARS'] = this.createRatingStars(this.rankingScaleValue, this.ratingScaleIcon);
-            for (let e = 0; e < this.columnsNames.length; e++) {
+            for (let b = 0; b < this.columnsNames.length; b++) {
               if ((rows[i].split("\t").length > 0)) {
-                objectColumnDesign[this.columnsNames[e]] = rows[i].split("\t")[e]
+                objectColumnDesign[this.columnsNames[b]] = rows[i].split("\t")[b]
               }
             }
+            console.log(this.columnsNames)
           }
           if (this.bmxItem.componentType == 'narrow-down') {
             objectColumnDesign['SELECTED_ROW'] = false
