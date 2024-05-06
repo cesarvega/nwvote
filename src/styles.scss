@@ -6,5 +6,9 @@ app-survey-creation-design {
 app-dashboard{
     width: 76%;
 }
-
+.mat-icon {
+   
+    overflow: visible !important;
+}
 @import './styles/theme';
+

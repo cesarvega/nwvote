@@ -5,7 +5,6 @@ import { RatingScaleComponent } from '../rating-scale/rating-scale.component';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { BmxService } from '../../../bmx.service';
 import { DeviceDetectorService } from 'ngx-device-detector';
-import { isNamespaceExport } from 'typescript';
 
 @Component({
   selector: 'app-question-answer',
@@ -20,9 +19,8 @@ export class QuestionAnswerComponent extends RatingScaleComponent implements OnI
   @Output() autoSave = new EventEmitter();
   @ViewChild('autosize') autosize: CdkTextareaAutosize;
   CREATION_VIDEO_PATH = "assets/videos/QuestionAndAnswer.mp4"
-  dataSource: any[] = []
-  draggableBag
-  isdropDown = false
+  dataSource:any[] = []
+
   allComplete: boolean = false;
   constructor(dragulaService: DragulaService, _snackBar: MatSnackBar, _bmxService: BmxService, public deviceService: DeviceDetectorService) {
     super(dragulaService, _snackBar, _bmxService, deviceService);
@@ -38,7 +36,7 @@ export class QuestionAnswerComponent extends RatingScaleComponent implements OnI
         this.columnsNames.push(value)
       }
     });
-
+   
     let result = '';
 
     // Obtener las claves de la primera fila (los nombres de las propiedades)
@@ -46,16 +44,20 @@ export class QuestionAnswerComponent extends RatingScaleComponent implements OnI
     let columnNames = [];
     for (let key in firstObject) {
       if (key === 'Name Candidates' || key === 'Rationales') {
+        console.log(key)
         columnNames.push(key);
       }
     }
-
+  
     // Agregar cada objeto como una fila en el resultado
     for (let obj of this.bmxItem.componentText) {
       let values = [];
       for (let key in obj) {
-        if (key !== 'STARS' && key !== 'RATE' && key !== 'CRITERIA' && key !== 'Comments') {
-          values.push(obj[key]);
+  
+        if (key !== 'STARS' && key !== 'RATE' && key !== 'CRITERIA' && !key.includes('Answers')) {
+          if (isNaN(Number(obj[key]))) {
+            values.push(obj[key]);
+          }
         }
       }
       if (values.length > 0) {  // Verificar si hay valores para esta fila
@@ -65,23 +67,10 @@ export class QuestionAnswerComponent extends RatingScaleComponent implements OnI
     this.testNamesInput = result;
     this.randomizeTestNames = this.bmxItem.componentSettings[0].randomizeTestNames
     this.rowsCount = this.bmxItem.componentText.length - 1;
-
+    console.log(this.bmxItem.componentSettings[0].rationalewidth)
     this.dataSource = this.bmxItem.componentText.slice(1)
-    this.rankingType = this.bmxItem.componentSettings[0].rankType
   }
-  veryfy(values: any, name: any) {
-    if (typeof values == 'string' && values.split(',')) {
-      values=values.replace(/-1/g, "")
-      const findedValue = values.split(',').find((value: any) => value == name)
-      if (findedValue) {
-        return true
-      } else {
-        return false
-      }
-    } else {
-      return false
-    }
-  }
+
   upLoadNamesAndRationales(list: string) {
     this.bmxItem.componentSettings[0].randomizeTestNames = (this.randomizeTestNames) ? true : false
     if (!list) { list = this.listString; }
@@ -103,6 +92,7 @@ export class QuestionAnswerComponent extends RatingScaleComponent implements OnI
         }
       });
       this.TESTNAMES_LIST = [];
+      let index = 0;
       for (let i = 0; i < rows.length; i++) {
         if (rows[i] != "" && rows[i].length > 6) {
           let objectColumnDesign = {};
@@ -131,9 +121,52 @@ export class QuestionAnswerComponent extends RatingScaleComponent implements OnI
                 // objectColumnDesign[this.columnsNames[e]] = 'multipleChoice'
               }
             }
+            for (const key in this.bmxItem.componentText[1]) {
+              if (this.bmxItem.componentText[1].hasOwnProperty(key) && key.startsWith("Answers")) {
+                // Obtiene el número de la propiedad de comentarios
+                const num = key.replace("Answers", "");
+                // Agrega la propiedad de comentarios al arreglo this.columnsNames
+                objectColumnDesign[key] = "";
+              }
+            }
+            for (const key in objectColumnDesign) {
+              if (objectColumnDesign.hasOwnProperty(key) && key.startsWith("Answers")) {
+                // Obtiene el número de la propiedad de comentarios
+                // Agrega la propiedad de comentarios al arreglo this.columnsNames
+                if(!this.columnsNames.find((columnName:any)=>columnName==key)){
+                  this.columnsNames.push(key)
+                }
+               
+              }
+            }
+            objectColumnDesign['STARS'] = this.createRatingStars(this.rankingScaleValue, this.ratingScaleIcon);
+            for (let b = 0; b < this.columnsNames.length; b++) {
+              if ((rows[i].split("\t").length > 0)) {
+                objectColumnDesign[this.columnsNames[b]] = rows[i].split("\t")[b]
+              }
+            }
+          }
+          if (this.bmxItem.componentType == 'narrow-down') {
+            objectColumnDesign['SELECTED_ROW'] = false
+          }
+          const newObj = {};
+
+          // Copia las propiedades que no contienen "Comments"
+          for (const key in objectColumnDesign) {
+            if (objectColumnDesign.hasOwnProperty(key) && !key.includes("Answers")) {
+              newObj[key] = objectColumnDesign[key];
+            }
           }
 
-          this.TESTNAMES_LIST.push(objectColumnDesign);
+          // Copia las propiedades que contienen "Comments"
+          for (const key in objectColumnDesign) {
+            if (objectColumnDesign.hasOwnProperty(key) && key.includes("Answers")) {
+              index == 0? newObj[key] = 'Answers': newObj[key] = '';
+             
+            }
+          }
+          this.TESTNAMES_LIST.push(newObj);
+          index++
         }
       }
       this.bmxItem.componentText = this.TESTNAMES_LIST;
@@ -147,25 +180,21 @@ export class QuestionAnswerComponent extends RatingScaleComponent implements OnI
   }
 
   saveMultipleChoice(checkBoxName, indexRow, value) {
-    if (this.rankingType == 'radio') {
-
-      if (this.bmxItem.componentText[indexRow]['RATE'] == checkBoxName) {
-        this.bmxItem.componentText[indexRow]['RATE'] = ''
-      } else {
-        if (value.target.checked) {
-
-          this.bmxItem.componentText[indexRow]['RATE'] = (!this.bmxItem.componentText[indexRow]['RATE']) ? checkBoxName : this.bmxItem.componentText[indexRow]['RATE'] = checkBoxName
-        } else {
-          this.bmxItem.componentText[indexRow]['RATE'] = this.bmxItem.componentText[indexRow]['RATE'].replace(checkBoxName, '')
-        }
-      }
+    if (value.target.checked) {
+      this.bmxItem.componentText[indexRow].RATE = (!this.bmxItem.componentText[indexRow].RATE) ? checkBoxName + ',' : this.bmxItem.componentText[indexRow].RATE += checkBoxName + ','
     } else {
-      if (value.target.checked) {
-        this.bmxItem.componentText[indexRow]['RATE'] = (!this.bmxItem.componentText[indexRow]['RATE']) ? (checkBoxName + ',').replace(/-1/g, "") : this.bmxItem.componentText[indexRow]['RATE'] += (checkBoxName + ',').replace(/-1/g, "") 
-      } else {
-        this.bmxItem.componentText[indexRow]['RATE'] = this.bmxItem.componentText[indexRow]['RATE'].replace(checkBoxName + ',', '')
-      }
+      this.bmxItem.componentText[indexRow].RATE = this.bmxItem.componentText[indexRow].RATE.replace(checkBoxName + ',', '')
     }
+    this.autoSave.emit();
+  }
+  saveChoice(checkBoxName, indexRow, value) {
+    console.log(value)
+    if (value.target.checked) {
+      this.bmxItem.componentText[indexRow].RATE =  checkBoxName 
+    } else {
+      this.bmxItem.componentText[indexRow].RATE = -1
+    }
+    this.autoSave.emit();
   }
 
   insertAnswerColumn() {
@@ -191,32 +220,11 @@ export class QuestionAnswerComponent extends RatingScaleComponent implements OnI
   autosaveAnswer(event: any) {
     this.autoSave.emit();
   }
-  rankingTableType(rankingType) {
-    this.bmxItem.componentSettings[0].rankType = rankingType
-    let values = Object.keys(this.bmxItem.componentText[0])
-    this.columnsNames = []
-    this.RadioColumnList = []
-    values.forEach(value => {
-      if (typeof value == "string" && value != "STARS" && value != "CRITERIA" && value != "RATE") {
-        this.columnsNames.push(value)
-      }
-    });
-    this.columnsNames.forEach(columnName => {
-      if (columnName.includes('RadioColumn')) {
-        this.deleteColumn(columnName)
-      }
-    });
-    if (rankingType == 'dropDown') {
-      this.bmxItem.componentSettings[0].rateWidth = 120
-      this.draggableBag = ''
-      this.isdropDown = true
-    } else if (rankingType == 'dragAndDrop') {
-      this.bmxItem.componentSettings[0].rateWidth = 80
-      this.draggableBag = 'DRAGGABLE_RANK_ROW'
-      this.isdropDown = false
-
-    }
+  isChecked(checkBoxName, indexRow) {
+    // Paso 1: Separar la cadena en un arreglo de opciones y eliminar los espacios en blanco
+    const multipleChoiceArray = this.bmxItem.componentText[indexRow].RATE.split(",").map(option => option.trim());
+  
+    // Paso 2: Verificar si checkBoxName está presente en el arreglo
+    return multipleChoiceArray.includes(checkBoxName);
   }
-
-
 }

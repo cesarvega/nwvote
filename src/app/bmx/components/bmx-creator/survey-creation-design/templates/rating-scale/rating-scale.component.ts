@@ -39,7 +39,7 @@ export class RatingScaleComponent implements OnInit {
   testNamesInput: string
   TestNameDataModel: any[];
   ratingScale = 5;
-  numRatingScale: number = 0;
+  numRatingScale: number = 5;
   TESTNAMES_LIST = [];
   columnsNames = [];
   columnsNamesHeader: string[];
@@ -148,7 +148,6 @@ export class RatingScaleComponent implements OnInit {
     // COLUMN NAMES
 
     this.rankingScaleValue = this.numRatingScale;
-    let values = Object.keys(this.bmxItem.componentText[0])
     this.rowsCount = this.bmxItem.componentText.length - 1
     this.bmxItem.componentSettings[0].minRule = this.bmxItem.componentSettings[0].minRule == 0 ? 0 : this.bmxItem.componentSettings[0].minRule;
     this.bmxItem.componentSettings[0].maxRule = this.bmxItem.componentSettings[0].maxRule == 0 ? 0 : this.bmxItem.componentSettings[0].maxRule;
@@ -157,12 +156,15 @@ export class RatingScaleComponent implements OnInit {
     } else {
       this.numRatingScale = this.bmxItem.componentText[0].STARS?.length
     }
-    console.log(this.bmxItem.componentText[0])
+    // COLUMN NAMES
+    let values = Object.keys(this.bmxItem.componentText[0])
+
     values.forEach(value => {
       if (typeof value == "string" && value != "STARS" && value != "CRITERIA") {
         this.columnsNames.push(value)
       }
     });
+    //this.columnsNames.push("RadioColumn4", "RadioColumn5");//HARD CODE
 
     let result = '';
 
@@ -179,16 +181,21 @@ export class RatingScaleComponent implements OnInit {
     for (let obj of this.bmxItem.componentText) {
       let values = [];
       for (let key in obj) {
+
         if (key !== 'STARS' && key !== 'RATE' && key !== 'CRITERIA' && !key.includes('Comments')) {
-          values.push(obj[key]);
+          if (isNaN(Number(obj[key]))) {
+            values.push(obj[key]);
+          }
         }
       }
       if (values.length > 0) {  // Verificar si hay valores para esta fila
         result += values.join('\t') + '\n';  // Agregar la línea al resultado
       }
     }
+
     this.testNamesInput = result;
-    // this.columnsNames.push('RATE')
+    this.randomizeTestNames = this.bmxItem.componentSettings[0].randomizeTestNames
+
 
     // IF RATING SCALE IS SET
     let amountOfAnswersRateCounter = 0
@@ -317,12 +324,14 @@ export class RatingScaleComponent implements OnInit {
             }).afterDismissed().subscribe(action => {
 
             })
-
+            this.maxRuleCounter=this.maxRuleCounter-1
             this.bmxItem.componentText[index].SELECTED_ROW = false;
             break
           }
         }
-      } else {
+      } 
+      
+      else {
         if (this.bmxItem.componentText[testNameId]["CRITERIA"]) {
           this.bmxItem.componentText[testNameId]["CRITERIA"].forEach(criteria => {
             criteria.RATE = 0
@@ -343,7 +352,7 @@ export class RatingScaleComponent implements OnInit {
         // }
       }
 
-      if (this.selectedRowCounter == this.bmxItem.componentSettings[0].minRule) {
+      if (this.selectedRowCounter == this.bmxItem.componentSettings[0].minRule && !this.bmxClientPageOverview) {
         this.bmxItem.componentSettings[0].categoryRulesPassed = true
         setTimeout(() => {
           this._snackBar.open('Great ' + this.bmxItem.componentSettings[0].minRule
@@ -379,7 +388,11 @@ export class RatingScaleComponent implements OnInit {
       //   }
       //   this._bmxService.setSpecialDataObservable(payload)
       // }
-    } else {
+    } 
+    if(!rate.target && this.bmxItem.componentType == 'narrow-down' ){
+      this.maxRuleCounter=this.maxRuleCounter-1
+    }
+    if((!rate.target && this.bmxItem.componentType == 'narrow-down')||this.bmxItem.componentType != 'narrow-down' ){
       if (this.maxRuleCounter < this.bmxItem.componentSettings[0].maxRule || this.bmxItem.componentSettings[0].maxRule == 0) {
 
         if (this.bmxItem.componentSettings[0].maxRule > 0) { this.maxRuleCounter++ }
@@ -520,7 +533,6 @@ export class RatingScaleComponent implements OnInit {
   // ⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️ END STARS METHODS  ⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️
 
   upLoadNamesAndRationales(list: any, type?: any) {
-    console.log(this.bmxItem.componentText)
     if (typeof list == 'object') {
       list = list.clipboardData.getData('text')
     }
@@ -562,6 +574,7 @@ export class RatingScaleComponent implements OnInit {
       this.TESTNAMES_LIST = [];
       this.autoSizeColumns('RATE', '', this.rankingScaleValue)
       // TEST NAMES CHECK
+      let index = 0;
       for (let i = 0; i < rows.length; i++) {
         if (rows[i] != "" && rows[i].length > 6) {
           let objectColumnDesign = {};
@@ -597,6 +610,7 @@ export class RatingScaleComponent implements OnInit {
               })
             });
           } else {
+            console.log(rows[i])
             this.bmxItem.componentSettings[0].CRITERIA = false
             objectColumnDesign['STARS'] = this.createRatingStars(this.rankingScaleValue, this.ratingScaleIcon);
             for (let e = 0; e < this.columnsNames.length; e++) {
@@ -610,7 +624,7 @@ export class RatingScaleComponent implements OnInit {
                     columnValue = rows[i].split("\t")[e].trim()
                   }
                 } else {
-                  columnValue = rows[i].split("\t")[e].trim()
+                  columnValue = rows[i].split("\t")[e]
                 }
                 objectColumnDesign[columnName] = columnValue
                 if (i != 0) {
@@ -619,27 +633,38 @@ export class RatingScaleComponent implements OnInit {
               }
             }
             objectColumnDesign['RATE'] = i > 0 ? -1 : 'RATE'
-          }
 
-          for (const key in this.bmxItem.componentText[1]) {
-            if (this.bmxItem.componentText[1].hasOwnProperty(key) && key.startsWith("Comments")) {
-              // Obtiene el número de la propiedad de comentarios
-              const num = key.replace("Comments", "");
-              // Agrega la propiedad de comentarios al arreglo this.columnsNames
-              objectColumnDesign[key] = "";
+            for (const key in this.bmxItem.componentText[1]) {
+              if (this.bmxItem.componentText[1].hasOwnProperty(key) && key.startsWith("Comments")) {
+                // Obtiene el número de la propiedad de comentarios
+                const num = key.replace("Comments", "");
+                // Agrega la propiedad de comentarios al arreglo this.columnsNames
+                objectColumnDesign[key] = "";
+              }
             }
-          }
-          for (const key in objectColumnDesign) {
-            if (objectColumnDesign.hasOwnProperty(key) && key.startsWith("Comments")) {
-              // Obtiene el número de la propiedad de comentarios
-              // Agrega la propiedad de comentarios al arreglo this.columnsNames
-              this.columnsNames.push(key)
+            for (const key in objectColumnDesign) {
+              if (objectColumnDesign.hasOwnProperty(key) && key.startsWith("Comments")) {
+                // Obtiene el número de la propiedad de comentarios
+                // Agrega la propiedad de comentarios al arreglo this.columnsNames
+                if (!this.columnsNames.find((columnName: any) => columnName == key)) {
+                  this.columnsNames.push(key)
+                }
+
+              }
+            }
+            objectColumnDesign['STARS'] = this.createRatingStars(this.rankingScaleValue, this.ratingScaleIcon);
+            for (let b = 0; b < this.columnsNames.length; b++) {
+              if ((rows[i].split("\t").length > 0)) {
+                objectColumnDesign[this.columnsNames[b]] = rows[i].split("\t")[b]
+              }
             }
           }
           if (this.bmxItem.componentType == 'narrow-down') {
             objectColumnDesign['SELECTED_ROW'] = false
           }
           const newObj = {};
+
+          // Copia las propiedades que no contienen "Comments"
           for (const key in objectColumnDesign) {
             if (objectColumnDesign.hasOwnProperty(key) && !key.includes("Comments")) {
               newObj[key] = objectColumnDesign[key];
@@ -649,11 +674,12 @@ export class RatingScaleComponent implements OnInit {
           // Copia las propiedades que contienen "Comments"
           for (const key in objectColumnDesign) {
             if (objectColumnDesign.hasOwnProperty(key) && key.includes("Comments")) {
-              i == 0 ? newObj[key] = 'Comments' : newObj[key] = '';
+              index == 0 ? newObj[key] = 'Comments' : newObj[key] = '';
 
             }
           }
-          this.TESTNAMES_LIST.push(objectColumnDesign);
+          this.TESTNAMES_LIST.push(newObj);
+          index++
         }
       }
 
@@ -725,6 +751,7 @@ export class RatingScaleComponent implements OnInit {
   deleteDuplicates(array, property) {
     let newArray = [];
     let lookupObject = {};
+
     for (let i in array) {
       lookupObject[array[i][property]] = array[i];
     }
@@ -844,7 +871,6 @@ export class RatingScaleComponent implements OnInit {
     this.bmxItem.componentSettings[0].commentsWidth = 165
   }
 
-
   insertRadioColumn() {
     this.recordHistory()
     this.columnsNames.push('RadioColumn' + (this.radioColumnCounter));
@@ -906,14 +932,9 @@ export class RatingScaleComponent implements OnInit {
           } else {
             this.bmxItem.componentText.forEach((element, i) => {
               // if (element.RATE == index + 1) {
-              if (this.bmxItem.componentSettings[0].rankType != 'dinamycRadio') {
-                this.bmxItem.componentText[i].RATE = 0
-              }
+              this.bmxItem.componentText[i].RATE = 0
               this.RadioColumnList.forEach(radioColumnName => {
-                if (this.bmxItem.componentSettings[0].rankType != 'dinamycRadio') {
-                  this.bmxItem.componentText[i][radioColumnName] = false
-                }
-
+                this.bmxItem.componentText[i][radioColumnName] = false
               });
               // }
             });
