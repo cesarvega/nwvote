@@ -39,7 +39,7 @@ export class RatingScaleComponent implements OnInit {
   testNamesInput: string
   TestNameDataModel: any[];
   ratingScale = 5;
-  numRatingScale: number = 0;
+  numRatingScale: number = 5;
   TESTNAMES_LIST = [];
   columnsNames = [];
   columnsNamesHeader: string[];
@@ -173,7 +173,6 @@ export class RatingScaleComponent implements OnInit {
   let columnNames = [];
   for (let key in firstObject) {
     if (key === 'Name Candidates' || key === 'Rationales') {
-      console.log(key)
       columnNames.push(key);
     }
   }
@@ -653,7 +652,6 @@ export class RatingScaleComponent implements OnInit {
                 objectColumnDesign[this.columnsNames[b]] = rows[i].split("\t")[b]
               }
             }
-            console.log(this.columnsNames)
           }
           if (this.bmxItem.componentType == 'narrow-down') {
             objectColumnDesign['SELECTED_ROW'] = false
