@@ -156,42 +156,42 @@ export class RatingScaleComponent implements OnInit {
     } else {
       this.numRatingScale = this.bmxItem.componentText[0].STARS?.length
     }
-  // COLUMN NAMES
-  let values = Object.keys(this.bmxItem.componentText[0])
+    // COLUMN NAMES
+    let values = Object.keys(this.bmxItem.componentText[0])
 
-  values.forEach(value => {
-    if (typeof value == "string" && value != "STARS" && value != "CRITERIA") {
-      this.columnsNames.push(value)
-    }
-  });
-  //this.columnsNames.push("RadioColumn4", "RadioColumn5");//HARD CODE
+    values.forEach(value => {
+      if (typeof value == "string" && value != "STARS" && value != "CRITERIA") {
+        this.columnsNames.push(value)
+      }
+    });
+    //this.columnsNames.push("RadioColumn4", "RadioColumn5");//HARD CODE
 
-  let result = '';
+    let result = '';
 
-  // Obtener las claves de la primera fila (los nombres de las propiedades)
-  let firstObject = this.bmxItem.componentText[0];
-  let columnNames = [];
-  for (let key in firstObject) {
-    if (key === 'Name Candidates' || key === 'Rationales') {
-      columnNames.push(key);
-    }
-  }
-
-  // Agregar cada objeto como una fila en el resultado
-  for (let obj of this.bmxItem.componentText) {
-    let values = [];
-    for (let key in obj) {
-
-      if (key !== 'STARS' && key !== 'RATE' && key !== 'CRITERIA' && !key.includes('Comments')) {
-        if (isNaN(Number(obj[key]))) {
-          values.push(obj[key]);
-        }
+    // Obtener las claves de la primera fila (los nombres de las propiedades)
+    let firstObject = this.bmxItem.componentText[0];
+    let columnNames = [];
+    for (let key in firstObject) {
+      if (key === 'Name Candidates' || key === 'Rationales') {
+        columnNames.push(key);
       }
     }
-    if (values.length > 0) {  // Verificar si hay valores para esta fila
-      result += values.join('\t') + '\n';  // Agregar la línea al resultado
+
+    // Agregar cada objeto como una fila en el resultado
+    for (let obj of this.bmxItem.componentText) {
+      let values = [];
+      for (let key in obj) {
+
+        if (key !== 'STARS' && key !== 'RATE' && key !== 'CRITERIA' && !key.includes('Comments')) {
+          if (isNaN(Number(obj[key]))) {
+            values.push(obj[key]);
+          }
+        }
+      }
+      if (values.length > 0) {  // Verificar si hay valores para esta fila
+        result += values.join('\t') + '\n';  // Agregar la línea al resultado
+      }
     }
-  }
 
     this.testNamesInput = result;
     this.randomizeTestNames = this.bmxItem.componentSettings[0].randomizeTestNames
@@ -640,10 +640,10 @@ export class RatingScaleComponent implements OnInit {
               if (objectColumnDesign.hasOwnProperty(key) && key.startsWith("Comments")) {
                 // Obtiene el número de la propiedad de comentarios
                 // Agrega la propiedad de comentarios al arreglo this.columnsNames
-                if(!this.columnsNames.find((columnName:any)=>columnName==key)){
+                if (!this.columnsNames.find((columnName: any) => columnName == key)) {
                   this.columnsNames.push(key)
                 }
-               
+
               }
             }
             objectColumnDesign['STARS'] = this.createRatingStars(this.rankingScaleValue, this.ratingScaleIcon);
@@ -668,8 +668,8 @@ export class RatingScaleComponent implements OnInit {
           // Copia las propiedades que contienen "Comments"
           for (const key in objectColumnDesign) {
             if (objectColumnDesign.hasOwnProperty(key) && key.includes("Comments")) {
-              index == 0? newObj[key] = 'Comments': newObj[key] = '';
-             
+              index == 0 ? newObj[key] = 'Comments' : newObj[key] = '';
+
             }
           }
           this.TESTNAMES_LIST.push(newObj);
