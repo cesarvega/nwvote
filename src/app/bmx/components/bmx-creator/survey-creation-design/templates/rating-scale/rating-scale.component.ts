@@ -324,12 +324,14 @@ export class RatingScaleComponent implements OnInit {
             }).afterDismissed().subscribe(action => {
 
             })
-
+            this.maxRuleCounter=this.maxRuleCounter-1
             this.bmxItem.componentText[index].SELECTED_ROW = false;
             break
           }
         }
-      } else {
+      } 
+      
+      else {
         if (this.bmxItem.componentText[testNameId]["CRITERIA"]) {
           this.bmxItem.componentText[testNameId]["CRITERIA"].forEach(criteria => {
             criteria.RATE = 0
@@ -350,7 +352,7 @@ export class RatingScaleComponent implements OnInit {
         // }
       }
 
-      if (this.selectedRowCounter == this.bmxItem.componentSettings[0].minRule) {
+      if (this.selectedRowCounter == this.bmxItem.componentSettings[0].minRule && !this.bmxClientPageOverview) {
         this.bmxItem.componentSettings[0].categoryRulesPassed = true
         setTimeout(() => {
           this._snackBar.open('Great ' + this.bmxItem.componentSettings[0].minRule
@@ -386,7 +388,11 @@ export class RatingScaleComponent implements OnInit {
       //   }
       //   this._bmxService.setSpecialDataObservable(payload)
       // }
-    } else {
+    } 
+    if(!rate.target && this.bmxItem.componentType == 'narrow-down' ){
+      this.maxRuleCounter=this.maxRuleCounter-1
+    }
+    if((!rate.target && this.bmxItem.componentType == 'narrow-down')||this.bmxItem.componentType != 'narrow-down' ){
       if (this.maxRuleCounter < this.bmxItem.componentSettings[0].maxRule || this.bmxItem.componentSettings[0].maxRule == 0) {
 
         if (this.bmxItem.componentSettings[0].maxRule > 0) { this.maxRuleCounter++ }
