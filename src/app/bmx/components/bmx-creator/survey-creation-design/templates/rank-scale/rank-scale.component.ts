@@ -77,7 +77,7 @@ export class RankScaleComponent extends RatingScaleComponent implements OnInit {
     let values = Object.keys(this.bmxItem.componentText[0])
 
     values.forEach(value => {
-      if (typeof value == "string" && value != "STARS" && value != "CRITERIA") {
+      if (typeof value == "string" && value != "STARS" && value != "CRITERIA" && value != 'RATE') {
         this.columnsNames.push(value)
       }
     });

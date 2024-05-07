@@ -324,13 +324,13 @@ export class RatingScaleComponent implements OnInit {
             }).afterDismissed().subscribe(action => {
 
             })
-            this.maxRuleCounter=this.maxRuleCounter-1
+            this.maxRuleCounter = this.maxRuleCounter - 1
             this.bmxItem.componentText[index].SELECTED_ROW = false;
             break
           }
         }
-      } 
-      
+      }
+
       else {
         if (this.bmxItem.componentText[testNameId]["CRITERIA"]) {
           this.bmxItem.componentText[testNameId]["CRITERIA"].forEach(criteria => {
@@ -388,11 +388,11 @@ export class RatingScaleComponent implements OnInit {
       //   }
       //   this._bmxService.setSpecialDataObservable(payload)
       // }
-    } 
-    if(!rate.target && this.bmxItem.componentType == 'narrow-down' ){
-      this.maxRuleCounter=this.maxRuleCounter-1
     }
-    if((!rate.target && this.bmxItem.componentType == 'narrow-down')||this.bmxItem.componentType != 'narrow-down' ){
+    if (!rate.target && this.bmxItem.componentType == 'narrow-down') {
+      this.maxRuleCounter = this.maxRuleCounter - 1
+    }
+    if ((!rate.target && this.bmxItem.componentType == 'narrow-down') || this.bmxItem.componentType != 'narrow-down') {
       if (this.maxRuleCounter < this.bmxItem.componentSettings[0].maxRule || this.bmxItem.componentSettings[0].maxRule == 0) {
 
         if (this.bmxItem.componentSettings[0].maxRule > 0) { this.maxRuleCounter++ }
@@ -585,15 +585,26 @@ export class RatingScaleComponent implements OnInit {
               if ((rows[i].split("\t").length > 0)) {
                 const columnName = this.columnsNames[e]
                 let columnValue
-                if (this.bmxItem.componentText.length > i && columnName == 'nameCandidates') {
+                if (this.bmxItem.componentText.length > i && (columnName == 'nameCandidates' && (this.bmxItem.componentType == 'image-rate-scale' || this.bmxItem.componentType == 'ranking-scale'))) {
                   if (this.bmxItem.componentText[0].nameCandidates == "LOGO") {
                     columnValue = this.bmxItem.componentText[i].nameCandidates
                   } else {
-                    columnValue = rows[i].split("\t")[e].trim()
+                    if ((this.bmxItem.componentType == 'image-rate-scale' || this.bmxItem.componentType == 'ranking-scale') && columnName == 'nameCandidates') {
+                      columnValue = this.bmxItem.componentText[i].nameCandidates
+                    } else {
+                      columnValue = rows[i].split("\t")[e].trim()
+                    }
                   }
                 } else {
                   columnValue = rows[i].split("\t")[e].trim()
                 }
+
+                if ((this.bmxItem.componentType == 'image-rate-scale' || this.bmxItem.componentType == 'image-rank-drag') && columnName == 'nameCandidates') {
+                  if (this.bmxItem.componentText[i]) {
+                    columnValue = this.bmxItem.componentText[i].nameCandidates
+                  }
+                }
+
                 objectColumnDesign[columnName] = columnValue
                 if (i != 0) {
                   this.autoSizeColumns(columnName, columnValue)
@@ -617,14 +628,22 @@ export class RatingScaleComponent implements OnInit {
               if ((rows[i].split("\t").length > 0)) {
                 const columnName = this.columnsNames[e]
                 let columnValue
-                if (this.bmxItem.componentText.length > i && columnName == 'nameCandidates') {
+                if (this.bmxItem.componentText.length > i && (columnName == 'nameCandidates' && (this.bmxItem.componentType == 'image-rate-scale' || this.bmxItem.componentType == 'ranking-scale'))) {
                   if (this.bmxItem.componentText[0].nameCandidates == "LOGO") {
+                    columnValue = this.bmxItem.componentText[i].nameCandidates
+                  } else {
+                    if (this.bmxItem.componentType == 'image-rate-scale' || this.bmxItem.componentType == 'ranking-scale') {
+                      columnValue = this.bmxItem.componentText[i].nameCandidates
+                    } else {
+                      columnValue = rows[i].split("\t")[e].trim()
+                    }
+                  }
+                } else {
+                  if ((this.bmxItem.componentType == 'image-rate-scale' || this.bmxItem.componentType == 'ranking-scale') && columnName == 'nameCandidates') {
                     columnValue = this.bmxItem.componentText[i].nameCandidates
                   } else {
                     columnValue = rows[i].split("\t")[e].trim()
                   }
-                } else {
-                  columnValue = rows[i].split("\t")[e]
                 }
                 objectColumnDesign[columnName] = columnValue
                 if (i != 0) {
@@ -932,9 +951,14 @@ export class RatingScaleComponent implements OnInit {
           } else {
             this.bmxItem.componentText.forEach((element, i) => {
               // if (element.RATE == index + 1) {
-              this.bmxItem.componentText[i].RATE = 0
+              if (this.bmxItem.componentSettings[0].rankType != 'dinamycRadio') {
+                this.bmxItem.componentText[i].RATE = 0
+              }
               this.RadioColumnList.forEach(radioColumnName => {
-                this.bmxItem.componentText[i][radioColumnName] = false
+                if (this.bmxItem.componentSettings[0].rankType != 'dinamycRadio') {
+                  this.bmxItem.componentText[i][radioColumnName] = false
+                }
+
               });
               // }
             });
