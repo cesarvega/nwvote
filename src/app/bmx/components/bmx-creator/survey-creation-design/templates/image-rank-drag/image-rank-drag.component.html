@@ -416,4 +416,39 @@
   {{ y == 0 ? bmxItem.componentSettings[0].ratingScaleTitle : y }}
 </button>
 
+<div *ngFor="let columnName of columnsNames; let e =  index" class="column-container"
+[ngClass]="(columnName.includes('Comments') == true)?'red':'blue'"
+[style.padding]="bmxItem.componentSettings[0].rowHeight + 'px'" [style.width]="(columnName == 'rationale')?bmxItem.componentSettings[0].rationalewidth + 'px':
+(columnName == 'RATE')?bmxItem.componentSettings[0].rateWidth + 'px':
+(columnName == 'nameCandidates')?bmxItem.componentSettings[0].nameCandidatesWidth + 'px':
+(columnName.includes('Comments'))?bmxItem.componentSettings[0].commentsWidth + 'px':
+(columnName.includes('RadioColumn'))?bmxItem.componentSettings[0].radioColumnsWidth + 'px' :
+bmxItem.componentSettings[0].columnWidth + 'px'">
 
+ <!-- 🟢🟢🟢🟢🟢🟢🟢🟢🟢🟢🟢🟢🟢🟢 HEADER TEXT AREA 🟢🟢🟢🟢🟢🟢🟢🟢🟢🟢🟢🟢🟢🟢🟢🟢 -->
+
+<div *ngIf="(y == 0)" class="header-title" (mouseenter)="selectedColumn = e">
+  <div class="flex-row space-between">
+      <textarea *ngIf="editSingleTableCells"
+                class="editable-area row-box"
+                [(ngModel)]="testName[columnName]"
+                [style.font-size]="bmxItem.componentSettings[0].fontSize + 'px'"></textarea>
+
+      <p *ngIf="!editSingleTableCells"   class="header-text"
+         [style.font-size]="bmxItem.componentSettings[0].fontSize + 'px'">
+         {{ testName[columnName] }}
+      </p>
+
+      <div *ngIf="selectedColumn === e && bmxClientPageOverview && !editSingleTableCells"
+           class="options-container"
+           (mouseleave)="selectedColumn = ''">
+          <span class="header-delete-icon"
+                matTooltip="double click to delete column"
+                matTooltipPosition="above"
+                (dblclick)="openDialog('delete column', columnName)">x</span>
+          <mat-icon class="header-icon"
+                    (click)="swapColumns(e)">chevron_right</mat-icon>
+      </div>
+  </div>
+</div>
+ <!-- 🟢🟢🟢🟢🟢🟢🟢🟢🟢🟢🟢🟢🟢🟢 END HEADER TEXT AREA  🟢🟢🟢🟢🟢🟢🟢🟢🟢🟢🟢🟢🟢🟢🟢🟢 -->

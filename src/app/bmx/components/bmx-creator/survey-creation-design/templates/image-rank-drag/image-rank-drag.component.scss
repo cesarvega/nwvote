@@ -397,10 +397,6 @@
   margin-bottom: 45px;
 }
 
-.draggable-item {
-  /* Styles for draggable items if needed */
-}
-
 .editable-textarea {
   text-align: center;
   font-weight: bold;
@@ -413,7 +409,55 @@
   background-color:#ee7f25 ;
 }
 
+.column-container {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
 
+
+.flex-row.space-between {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+}
+
+.editable-area, .header-text {
+  text-align: center;
+  font-weight: bold;
+  color: #324395;
+}
+
+
+.editable-area {
+  font-size: var(--font-size-dynamic);
+}
+
+.header-text {
+  margin: 0;
+  font-size: var(--font-size-dynamic);
+}
+
+.options-container {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-around;
+  position: absolute;
+  top: 35px;
+  background: white;
+  border: 1px dashed #324395;
+}
+
+.header-icon {
+  cursor: pointer;
+}
+
+
+
+.mat-tooltip {
+  position: absolute;
+  top: 50%;
+}
 
 
 
