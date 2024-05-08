@@ -592,7 +592,9 @@ export class RatingScaleComponent implements OnInit {
                       columnValue = rows[i].split("\t")[e].trim()
                   }
                 } else {
-                  columnValue = rows[i].split("\t")[e].trim()
+                  if(rows[i].split("\t")[e]){
+                    columnValue = rows[i].split("\t")[e].trim()
+                  }
                 }
 
 
@@ -636,31 +638,32 @@ export class RatingScaleComponent implements OnInit {
                 }
               }
             }
-            objectColumnDesign['RATE'] = i > 0 ? -1 : 'RATE'
+         
+          }
+          objectColumnDesign['RATE'] = i > 0 ? -1 : 'RATE'
 
-            for (const key in this.bmxItem.componentText[1]) {
-              if (this.bmxItem.componentText[1].hasOwnProperty(key) && key.startsWith("Comments")) {
-                // Obtiene el número de la propiedad de comentarios
-                const num = key.replace("Comments", "");
-                // Agrega la propiedad de comentarios al arreglo this.columnsNames
-                objectColumnDesign[key] = "";
-              }
+          for (const key in this.bmxItem.componentText[1]) {
+            if (this.bmxItem.componentText[1].hasOwnProperty(key) && key.startsWith("Comments")) {
+              // Obtiene el número de la propiedad de comentarios
+              const num = key.replace("Comments", "");
+              // Agrega la propiedad de comentarios al arreglo this.columnsNames
+              objectColumnDesign[key] = "";
             }
-            for (const key in objectColumnDesign) {
-              if (objectColumnDesign.hasOwnProperty(key) && key.startsWith("Comments")) {
-                // Obtiene el número de la propiedad de comentarios
-                // Agrega la propiedad de comentarios al arreglo this.columnsNames
-                if (!this.columnsNames.find((columnName: any) => columnName == key)) {
-                  this.columnsNames.push(key)
-                }
+          }
+          for (const key in objectColumnDesign) {
+            if (objectColumnDesign.hasOwnProperty(key) && key.startsWith("Comments")) {
+              // Obtiene el número de la propiedad de comentarios
+              // Agrega la propiedad de comentarios al arreglo this.columnsNames
+              if (!this.columnsNames.find((columnName: any) => columnName == key)) {
+                this.columnsNames.push(key)
+              }
 
-              }
             }
-            objectColumnDesign['STARS'] = this.createRatingStars(this.rankingScaleValue, this.ratingScaleIcon);
-            for (let b = 0; b < this.columnsNames.length; b++) {
-              if ((rows[i].split("\t").length > 0)) {
-                objectColumnDesign[this.columnsNames[b]] = rows[i].split("\t")[b]
-              }
+          }
+          objectColumnDesign['STARS'] = this.createRatingStars(this.rankingScaleValue, this.ratingScaleIcon);
+          for (let b = 0; b < this.columnsNames.length; b++) {
+            if ((rows[i].split("\t").length > 0)) {
+              objectColumnDesign[this.columnsNames[b]] = rows[i].split("\t")[b]
             }
           }
           if (this.bmxItem.componentType == 'narrow-down') {
