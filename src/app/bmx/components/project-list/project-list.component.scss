@@ -4,6 +4,12 @@
   color: #fff !important;
 }
 
+.table th, .table td {
+  padding: 0.75rem 0.3rem 0.75rem 0.75rem !important;
+  vertical-align: top;
+  border-top: 1px solid #dee2e6;
+}
+
 .table{
   td{
     text-align: start;
