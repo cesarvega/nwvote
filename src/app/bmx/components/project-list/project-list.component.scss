@@ -1,7 +1,32 @@
 /* Global styles.css or component's css with encapsulation set to None */
+
+
+::ng-deep .mat-sort-header-container {
+  display: flex;
+  cursor: pointer;
+  align-items: center;
+  letter-spacing: normal;
+  outline: 0;
+  justify-content: center !important;
+}
+
+.mat-sort-header-container {
+  display: flex;
+  cursor: pointer;
+  align-items: center;
+  letter-spacing: normal;
+  outline: 0;
+  justify-content: center !important;
+}
 .mat-calendar-body-selected {
   // background-color: #fff !important;
   color: #fff !important;
+}
+
+.table thead th {
+  vertical-align: bottom;
+  border-bottom: 2px solid #dee2e6;
+  padding: 0.75rem 0.2rem 0.75rem 1rem !important;
 }
 
 .table{
@@ -9,6 +34,8 @@
     text-align: center;
   }
 }
+
+
 @media screen and (max-width: 1510px){
   .table{
     td{
@@ -25,7 +52,7 @@
 @media screen and (max-width: 1390px){
   .table{
     td{
-      padding: 0px 3px 0 0px !important;
+      padding: 0px 5px 0 0px !important;
     }
   }
   .calendar{
