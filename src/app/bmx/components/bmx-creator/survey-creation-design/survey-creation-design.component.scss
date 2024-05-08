@@ -52,21 +52,24 @@
 
 .no-print {
   color: #324395 !important;
-  font-size: 19px !important; /* Tamaño predeterminado para pantallas grandes */
+  font-size: 19px !important;
+  /* Tamaño predeterminado para pantallas grandes */
   transition: all 0.1s ease-in-out;
   text-shadow: 0 0.04em 0.04em rgba(0, 0, 0, 0.35);
 
 }
+
 @media (max-width: 1600px) {
-    .no-print {
-      font-size: 16px !important;
-    }
+  .no-print {
+    font-size: 16px !important;
   }
+}
+
 @media (max-width: 1430px) {
-    .no-print {
-      font-size: 14px !important;
-    }
+  .no-print {
+    font-size: 14px !important;
   }
+}
 
 .project-name-global {
   color: #324395;
@@ -188,9 +191,20 @@
   color: #ee7f25;
 }
 
+.mat-mdc-icon-button.mat-mdc-button-base {
+  --mdc-icon-button-state-layer-size: 39px;
+  width: var(--mdc-icon-button-state-layer-size);
+  height: var(--mdc-icon-button-state-layer-size);
+  padding: 12px !important;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+
 .full-icon {
   color: #324395;
-  font-size: 25px;
+  font-size: 21px;
   transition: all 0.1s ease-in-out;
   text-shadow: 0 0.04em 0.04em rgba(0, 0, 0, 0.35);
   box-shadow: inset inset 0px 0px 5px #0bd659;

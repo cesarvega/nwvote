@@ -164,6 +164,7 @@ export class RatingScaleComponent implements OnInit {
         this.columnsNames.push(value)
       }
     });
+    console.log(this.columnsNames)
     //this.columnsNames.push("RadioColumn4", "RadioColumn5");//HARD CODE
 
     let result = '';
@@ -589,10 +590,10 @@ export class RatingScaleComponent implements OnInit {
                   if (this.bmxItem.componentText[0].nameCandidates == "LOGO") {
                     columnValue = this.bmxItem.componentText[i].nameCandidates
                   } else {
-                      columnValue = rows[i].split("\t")[e].trim()
+                    columnValue = rows[i].split("\t")[e].trim()
                   }
                 } else {
-                  if(rows[i].split("\t")[e]){
+                  if (rows[i].split("\t")[e]) {
                     columnValue = rows[i].split("\t")[e].trim()
                   }
                 }
@@ -628,7 +629,7 @@ export class RatingScaleComponent implements OnInit {
                     columnValue = rows[i].split("\t")[e].trim()
                   }
                 } else {
-                  if(rows[i].split("\t")[e]){
+                  if (rows[i].split("\t")[e]) {
                     columnValue = rows[i].split("\t")[e].trim()
                   }
                 }
@@ -638,7 +639,7 @@ export class RatingScaleComponent implements OnInit {
                 }
               }
             }
-         
+
           }
           objectColumnDesign['RATE'] = i > 0 ? -1 : 'RATE'
 
@@ -682,15 +683,15 @@ export class RatingScaleComponent implements OnInit {
           for (const key in objectColumnDesign) {
             if (objectColumnDesign.hasOwnProperty(key) && key.includes("Comments")) {
               index == 0 ? newObj[key] = 'Comments' : newObj[key] = '';
-
             }
           }
           this.TESTNAMES_LIST.push(newObj);
           index++
         }
       }
-
+      console.log(this.TESTNAMES_LIST)
       this.bmxItem.componentText = this.deleteDuplicates(this.TESTNAMES_LIST, 'nameCandidates');
+      console.log( this.bmxItem.componentText)
       this.columnsNames.push('RATE')
     } else {
       this.autoSizeColumns('RATE', '', this.rankingScaleValue)
