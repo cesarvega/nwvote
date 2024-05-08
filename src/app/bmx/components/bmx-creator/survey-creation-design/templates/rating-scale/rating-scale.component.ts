@@ -585,25 +585,16 @@ export class RatingScaleComponent implements OnInit {
               if ((rows[i].split("\t").length > 0)) {
                 const columnName = this.columnsNames[e]
                 let columnValue
-                if (this.bmxItem.componentText.length > i && (columnName == 'nameCandidates' && (this.bmxItem.componentType == 'image-rate-scale' || this.bmxItem.componentType == 'ranking-scale'))) {
+                if (this.bmxItem.componentText.length > i && columnName == 'nameCandidates') {
                   if (this.bmxItem.componentText[0].nameCandidates == "LOGO") {
                     columnValue = this.bmxItem.componentText[i].nameCandidates
                   } else {
-                    if ((this.bmxItem.componentType == 'image-rate-scale' || this.bmxItem.componentType == 'ranking-scale') && columnName == 'nameCandidates') {
-                      columnValue = this.bmxItem.componentText[i].nameCandidates
-                    } else {
                       columnValue = rows[i].split("\t")[e].trim()
-                    }
                   }
                 } else {
                   columnValue = rows[i].split("\t")[e].trim()
                 }
 
-                if ((this.bmxItem.componentType == 'image-rate-scale' || this.bmxItem.componentType == 'image-rank-drag') && columnName == 'nameCandidates') {
-                  if (this.bmxItem.componentText[i]) {
-                    columnValue = this.bmxItem.componentText[i].nameCandidates
-                  }
-                }
 
                 objectColumnDesign[columnName] = columnValue
                 if (i != 0) {
@@ -628,20 +619,14 @@ export class RatingScaleComponent implements OnInit {
               if ((rows[i].split("\t").length > 0)) {
                 const columnName = this.columnsNames[e]
                 let columnValue
-                if (this.bmxItem.componentText.length > i && (columnName == 'nameCandidates' && (this.bmxItem.componentType == 'image-rate-scale' || this.bmxItem.componentType == 'ranking-scale'))) {
+                if (this.bmxItem.componentText.length > i && columnName == 'nameCandidates') {
                   if (this.bmxItem.componentText[0].nameCandidates == "LOGO") {
                     columnValue = this.bmxItem.componentText[i].nameCandidates
                   } else {
-                    if (this.bmxItem.componentType == 'image-rate-scale' || this.bmxItem.componentType == 'ranking-scale') {
-                      columnValue = this.bmxItem.componentText[i].nameCandidates
-                    } else {
-                      columnValue = rows[i].split("\t")[e].trim()
-                    }
+                    columnValue = rows[i].split("\t")[e].trim()
                   }
                 } else {
-                  if ((this.bmxItem.componentType == 'image-rate-scale' || this.bmxItem.componentType == 'ranking-scale') && columnName == 'nameCandidates') {
-                    columnValue = this.bmxItem.componentText[i].nameCandidates
-                  } else {
+                  if(rows[i].split("\t")[e]){
                     columnValue = rows[i].split("\t")[e].trim()
                   }
                 }
