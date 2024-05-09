@@ -642,6 +642,17 @@ export class RatingScaleComponent implements OnInit {
 
           }
           objectColumnDesign['RATE'] = i > 0 ? -1 : 'RATE'
+          objectColumnDesign['STARS'] = this.createRatingStars(this.rankingScaleValue, this.ratingScaleIcon);
+          for (let b = 0; b < this.columnsNames.length; b++) {
+            if ((rows[i].split("\t").length > 0)) {
+              objectColumnDesign[this.columnsNames[b]] = rows[i].split("\t")[b]
+            }
+          }
+          if (this.bmxItem.componentType == 'narrow-down') {
+            objectColumnDesign['SELECTED_ROW'] = false
+          }
+          const newObj = {};
+
 
           for (const key in this.bmxItem.componentText[1]) {
             if (this.bmxItem.componentText[1].hasOwnProperty(key) && key.startsWith("Comments")) {
@@ -650,6 +661,9 @@ export class RatingScaleComponent implements OnInit {
               // Agrega la propiedad de comentarios al arreglo this.columnsNames
               objectColumnDesign[key] = "";
             }
+          }
+          if (index == 0) {
+            this.columnsNames.push('RATE')
           }
           for (const key in objectColumnDesign) {
             if (objectColumnDesign.hasOwnProperty(key) && key.startsWith("Comments")) {
@@ -661,16 +675,6 @@ export class RatingScaleComponent implements OnInit {
 
             }
           }
-          objectColumnDesign['STARS'] = this.createRatingStars(this.rankingScaleValue, this.ratingScaleIcon);
-          for (let b = 0; b < this.columnsNames.length; b++) {
-            if ((rows[i].split("\t").length > 0)) {
-              objectColumnDesign[this.columnsNames[b]] = rows[i].split("\t")[b]
-            }
-          }
-          if (this.bmxItem.componentType == 'narrow-down') {
-            objectColumnDesign['SELECTED_ROW'] = false
-          }
-          const newObj = {};
 
           // Copia las propiedades que no contienen "Comments"
           for (const key in objectColumnDesign) {
@@ -689,10 +693,9 @@ export class RatingScaleComponent implements OnInit {
           index++
         }
       }
-      console.log(this.TESTNAMES_LIST)
+
       this.bmxItem.componentText = this.deleteDuplicates(this.TESTNAMES_LIST, 'nameCandidates');
-      console.log( this.bmxItem.componentText)
-      this.columnsNames.push('RATE')
+
     } else {
       this.autoSizeColumns('RATE', '', this.rankingScaleValue)
       if (this.ASSIGNED_CRITERIA.length > 0) {
