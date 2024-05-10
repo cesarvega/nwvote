@@ -17,7 +17,6 @@ import { MatSnackBar } from '@angular/material/snack-bar';
 })
 export class TemplatesComponent implements OnInit {
 
-
   constructor(private _BmxService: BmxService, private router: Router, public _snackBar: MatSnackBar) { }
   settingsData = {
     SalesBoardProjectList: [],
@@ -67,7 +66,7 @@ export class TemplatesComponent implements OnInit {
     { TemplateName: 'Naming Contest', displayName: '' },
     { TemplateName: 'Question & Answer', displayName: '' },
   ];
-  displayedColumns = ['index','displayName', 'Created', 'Edit' , 'Name', 'Delete'];
+  displayedColumns = ['index','displayName', 'created', 'Edit' , 'Name', 'Delete'];
   bmxEditData: UntypedFormGroup;
   filteredOptions: Observable<string[]>;
   salesboardObj = [];
@@ -98,9 +97,9 @@ export class TemplatesComponent implements OnInit {
             office: directorObj.Office,
           })
           this.dataSource = new MatTableDataSource<any>(this.TEMPLATES);
-          this.dataSource.paginator = this.paginator;
-          console.log(this.sort)
+          this.dataSource.paginator = this.paginator;          
           this.dataSource.sort = this.sort;
+          console.log(this.dataSource.sort)
           this.dataSource.sortingDataAccessor = (item, property) => {
             switch(property) {
               case 'created': return new Date(item.created);
