@@ -316,10 +316,18 @@ width: 87%!important;
 .hide-button{
   position: absolute;
   top: 20px;
-  left: 233px;
-  outline: none; 
+  left: 220px;
+  outline: none;
   background-color: white;
   box-shadow: 0 6px 10px 0 rgba(0, 0, 0, 0.14), 0 1px 18px 0 rgba(0, 0, 0, 0.12), 0 3px 5px -1px rgba(0, 0, 0, 0.2);
   border-radius: 0px;
   display: flex;
+  z-index: 8;
+
+}
+.mat-mdc-icon-button.mat-mdc-button-base {
+  --mdc-icon-button-state-layer-size: 38px;
+  width: var(--mdc-icon-button-state-layer-size);
+  height: var(--mdc-icon-button-state-layer-size);
+  padding: 10px;
 }
