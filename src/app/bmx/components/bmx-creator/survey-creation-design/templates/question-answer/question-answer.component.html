@@ -42,7 +42,7 @@ position: absolute;height: 54px;align-items: center">
         <input type="range" style="margin: 20px;width: 50px;"
             [(ngModel)]="bmxItem.componentSettings[0].rationalewidth" class="slider-font-size" tickInterval="0.5"
             min="50" max="900" [value]="bmxItem.componentSettings[0].rationalweidth">
-            
+
     </div>
 
     <!-- COMMENTS -->
@@ -52,7 +52,7 @@ position: absolute;height: 54px;align-items: center">
         <input type="range" style="margin: 20px;width: 50px;"
             [(ngModel)]="bmxItem.componentSettings[0].commentsWidth" class="slider-font-size" tickInterval="0.5"
             min="50" max="900" [value]="bmxItem.componentSettings[0].commentsWidth">
-    
+
         </div>
 
 
@@ -277,11 +277,17 @@ justify-content: center;cursor: move; height: 25px; width: 100%;"><svg width="24
 <!-- BUTTON-->
 <div class="sm-row-box-rkScale">
 
-    <button style="outline: none;color:#76d354;margin-bottom: 50px;" mat-icon-button
-        (click)="selectedIndex = '';upLoadNamesAndRationales(testNamesInput)" [disabled]="false"
-        aria-label="ranking">
-        <mat-icon>check_circle</mat-icon> Done
-    </button>
+
+
+    <div class="button-Done"style="display: flex; flex-direction: column; align-items: center;">
+
+      <button style="outline: none;color:#76d354;   font-size: 21px;" mat-icon-button
+      (click)="selectedIndex = '';upLoadNamesAndRationales(testNamesInput)" [disabled]="false"
+      aria-label="ranking">
+          <mat-icon>check_circle</mat-icon>
+      </button>
+      <p style="margin-top: -1; color: #76D354; font-size: 21px;">Done</p>
+    </div>
 </div>
 </div>
 
@@ -308,9 +314,9 @@ justify-content: center;cursor: move; height: 25px; width: 100%;"><svg width="24
             <div *ngFor="let columnName of columnsNames; let e = index"
             style="display: flex;align-items: center; justify-content: center;"
             [ngClass]="(e % 2 === 0) ? 'red' : 'blue'"
-            [style.width]="(columnName.includes('name')) ? bmxItem.componentSettings[0].nameCandidatesWidth + 'px' : 
-                          (columnName.includes('options')) ? bmxItem.componentSettings[0].commentsWidth + 'px' : 
-                          (columnName.includes('Answers')) ? bmxItem.componentSettings[0].rationalewidth + 'px' : 
+            [style.width]="(columnName.includes('name')) ? bmxItem.componentSettings[0].nameCandidatesWidth + 'px' :
+                          (columnName.includes('options')) ? bmxItem.componentSettings[0].commentsWidth + 'px' :
+                          (columnName.includes('Answers')) ? bmxItem.componentSettings[0].rationalewidth + 'px' :
                           bmxItem.componentSettings[0].columnWidth + 'px'"
             [style.justify-content]="(testName[columnName] === 'Questions') ? 'center' : 'flex-start'">
             <div *ngIf="(y == 0)" class="header-title " (mouseenter)="selectedColumn = e"
