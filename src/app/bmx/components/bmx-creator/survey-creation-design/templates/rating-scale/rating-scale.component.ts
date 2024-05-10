@@ -144,9 +144,9 @@ export class RatingScaleComponent implements OnInit {
   }
 
   ngOnInit(): void {
+    console.log(this.bmxItem)
     this.showDialog = false
     // COLUMN NAMES
-
     this.rankingScaleValue = this.numRatingScale;
     this.rowsCount = this.bmxItem.componentText.length - 1
     this.bmxItem.componentSettings[0].minRule = this.bmxItem.componentSettings[0].minRule == 0 ? 0 : this.bmxItem.componentSettings[0].minRule;
@@ -644,15 +644,15 @@ export class RatingScaleComponent implements OnInit {
           objectColumnDesign['RATE'] = i > 0 ? -1 : 'RATE'
           objectColumnDesign['STARS'] = this.createRatingStars(this.rankingScaleValue, this.ratingScaleIcon);
           for (let b = 0; b < this.columnsNames.length; b++) {
-            if ((rows[i].split("\t").length > 0)) {
+            if ((rows[i].split("\t").length > 0) && this.columnsNames[b] !== 'nameCandidates') {
               objectColumnDesign[this.columnsNames[b]] = rows[i].split("\t")[b]
             }
           }
           if (this.bmxItem.componentType == 'narrow-down') {
             objectColumnDesign['SELECTED_ROW'] = false
           }
+          console.log(objectColumnDesign)
           const newObj = {};
-
 
           for (const key in this.bmxItem.componentText[1]) {
             if (this.bmxItem.componentText[1].hasOwnProperty(key) && key.startsWith("Comments")) {
