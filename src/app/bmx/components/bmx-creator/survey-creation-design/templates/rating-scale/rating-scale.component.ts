@@ -144,7 +144,6 @@ export class RatingScaleComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    console.log(this.bmxItem)
     this.showDialog = false
     // COLUMN NAMES
     this.rankingScaleValue = this.numRatingScale;
