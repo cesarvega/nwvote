@@ -1,5 +1,5 @@
 import { Component, ElementRef, EventEmitter, Inject, Input, OnInit, Output, ViewChild, ViewEncapsulation } from '@angular/core';
-import {  MatPaginator } from '@angular/material/paginator';
+import { MatPaginator } from '@angular/material/paginator';
 import { MatTableDataSource } from '@angular/material/table';
 // import { HotkeysService, Hotkey } from 'angular2-hotkeys';
 import { ActivatedRoute } from '@angular/router';
@@ -41,7 +41,7 @@ export class RespondentsComponent implements OnInit {
     /*{'firstName':'firstName', 'lastName':'lastName', 'email':'email', 'group':'group', 'subGroup':'subGroup', 'weight':'weight' }*/
 
   ]
-  constructor( private _BmxService: BmxService) { }
+  constructor(private _BmxService: BmxService) { }
 
   ngOnInit(): void {
 
@@ -86,35 +86,38 @@ export class RespondentsComponent implements OnInit {
 
 
   upLoadResp(list: string): void {
-    const temp = list.split("\n");
-    for (var i = 0; i < temp.length; i++) {
-      if (this.RESPONDENTS_LIST.map(e => e.Email).indexOf(temp[i].split("\t")[2]) == -1 && this.RESPONDENTS_LIST.map(e => e.Email).indexOf(temp[i].split(" ")[2]) == -1) {
-        if (temp[i] != "" && temp[i].includes('\t') && temp[i].split("\t").length > 3) {
-          this.RESPONDENTS_LIST.push({ 'ProjectName': this.projectId, 'UserId': (this.RESPONDENTS_LIST.length + 1), 'Password': '', 'FirstName': temp[i].split("\t")[0], 'LastName': temp[i].split("\t")[1], 'Email': temp[i].split("\t")[2], 'Type': temp[i].split("\t")[3], 'Status': '', 'SubGroup': temp[i].split("\t")[4], 'AnswerWeight': temp[i].split("\t")[5] });
-        }
-        else if (temp[i] != "" && temp[i].includes('\t') && temp[i].split("\t").length == 3) {
-          this.RESPONDENTS_LIST.push({ 'ProjectName': this.projectId, 'UserId': (this.RESPONDENTS_LIST.length + 1), 'Password': '', 'FirstName': temp[i].split("\t")[0], 'LastName': temp[i].split("\t")[1], 'Email': temp[i].split("\t")[2], 'Type': 'A', 'Status': '', 'SubGroup': '1', 'AnswerWeight': '1' });
-        }
-        else if (temp[i] != "" && temp[i].split(" ").length > 3) {
-          this.RESPONDENTS_LIST.push({ 'ProjectName': this.projectId, 'UserId': (this.RESPONDENTS_LIST.length + 1), 'Password': '', 'FirstName': temp[i].split(" ")[0], 'LastName': temp[i].split(" ")[1], 'Email': temp[i].split(" ")[2], 'Type': temp[i].split(" ")[3], 'Status': '', 'SubGroup': '', 'AnswerWeight': temp[i].split(" ")[5] });
-        }
-        else if (temp[i] != "" && temp[i].split(" ").length == 3) {
-          this.RESPONDENTS_LIST.push({ 'ProjectName': this.projectId, 'UserId': (this.RESPONDENTS_LIST.length + 1), 'Password': '', 'FirstName': temp[i].split(" ")[0], 'LastName': temp[i].split(" ")[1], 'Email': temp[i].split(" ")[2], 'Type': 'A', 'Status': '', 'SubGroup': '1', 'AnswerWeight': '1' });
+    console.log(list.split("\n").length)
+    if (list!='') {
+      const temp = list.split("\n");
+      for (var i = 0; i < temp.length; i++) {
+        if (this.RESPONDENTS_LIST.map(e => e.Email).indexOf(temp[i].split("\t")[2]) == -1 && this.RESPONDENTS_LIST.map(e => e.Email).indexOf(temp[i].split(" ")[2]) == -1) {
+          if (temp[i] != "" && temp[i].includes('\t') && temp[i].split("\t").length > 3) {
+            this.RESPONDENTS_LIST.push({ 'ProjectName': this.projectId, 'UserId': (this.RESPONDENTS_LIST.length + 1), 'Password': '', 'FirstName': temp[i].split("\t")[0], 'LastName': temp[i].split("\t")[1], 'Email': temp[i].split("\t")[2], 'Type': temp[i].split("\t")[3], 'Status': '', 'SubGroup': temp[i].split("\t")[4], 'AnswerWeight': temp[i].split("\t")[5] });
+          }
+          else if (temp[i] != "" && temp[i].includes('\t') && temp[i].split("\t").length == 3) {
+            this.RESPONDENTS_LIST.push({ 'ProjectName': this.projectId, 'UserId': (this.RESPONDENTS_LIST.length + 1), 'Password': '', 'FirstName': temp[i].split("\t")[0], 'LastName': temp[i].split("\t")[1], 'Email': temp[i].split("\t")[2], 'Type': 'A', 'Status': '', 'SubGroup': '1', 'AnswerWeight': '1' });
+          }
+          else if (temp[i] != "" && temp[i].split(" ").length > 3) {
+            this.RESPONDENTS_LIST.push({ 'ProjectName': this.projectId, 'UserId': (this.RESPONDENTS_LIST.length + 1), 'Password': '', 'FirstName': temp[i].split(" ")[0], 'LastName': temp[i].split(" ")[1], 'Email': temp[i].split(" ")[2], 'Type': temp[i].split(" ")[3], 'Status': '', 'SubGroup': '', 'AnswerWeight': temp[i].split(" ")[5] });
+          }
+          else if (temp[i] != "" && temp[i].split(" ").length == 3) {
+            this.RESPONDENTS_LIST.push({ 'ProjectName': this.projectId, 'UserId': (this.RESPONDENTS_LIST.length + 1), 'Password': '', 'FirstName': temp[i].split(" ")[0], 'LastName': temp[i].split(" ")[1], 'Email': temp[i].split(" ")[2], 'Type': 'A', 'Status': '', 'SubGroup': '1', 'AnswerWeight': '1' });
 
+          }
         }
       }
+      this.myTestDiv.nativeElement.value = '';
+      this.RESPONDENTS_LIST.sort((a, b) => a.FirstName.localeCompare(b.FirstName));
+      this.dataSource = new MatTableDataSource<any>(this.RESPONDENTS_LIST);
+
+
+      var finalString = JSON.stringify(this.RESPONDENTS_LIST);
+      finalString = finalString.replace("[\\u2022,\\u2023,\\u25E6,\\u2043,\\u2219]\\s\\d", '');
+      this._BmxService.BrandMatrixSaveParticipantList(this.projectId, this.RESPONDENTS_LIST).subscribe(result => {
+        var so = result;
+      });
+      localStorage.setItem('fakeprojectname' + '_repondants list', JSON.stringify(this.RESPONDENTS_LIST))
     }
-    this.myTestDiv.nativeElement.value = '';
-    this.RESPONDENTS_LIST.sort((a, b) => a.FirstName.localeCompare(b.FirstName));
-    this.dataSource = new MatTableDataSource<any>(this.RESPONDENTS_LIST);
-
-
-    var finalString = JSON.stringify(this.RESPONDENTS_LIST);
-    finalString = finalString.replace("[\\u2022,\\u2023,\\u25E6,\\u2043,\\u2219]\\s\\d", '');
-    this._BmxService.BrandMatrixSaveParticipantList(this.projectId, this.RESPONDENTS_LIST).subscribe(result => {
-      var so = result;
-    });
-    localStorage.setItem('fakeprojectname' + '_repondants list', JSON.stringify(this.RESPONDENTS_LIST))
   }
 
   deletPart(option: string): void {
