@@ -999,6 +999,27 @@ export class RatingScaleComponent implements OnInit {
     });
 
   }
+  swapColumnsLeft(index): void {
+    this.recordHistory();
+    let temp = this.columnsNames[index];
+    // Update columnsNames array order
+    for (let i = index; i > 0; i--) {
+        this.columnsNames[i] = this.columnsNames[i - 1];
+    }
+    this.columnsNames[0] = temp;
+    let newRow = {};
+    // Re-order brand matrix columns
+    this.bmxItem.componentText.forEach((row, rowIndex) => {
+        for (let i = this.columnsNames.length - 1; i > 0; i--) {
+            Object.keys(row).forEach(key => {
+                if (this.columnsNames[i] == key) {
+                    newRow[key] = row[key];
+                }
+            });
+        }
+        this.bmxItem.componentText[rowIndex] = this.mergeObjects(newRow, row);
+    });
+}
 
   mergeObjects(obj1, obj2) {
     let obj3 = {};
