@@ -519,6 +519,8 @@ height: 54px;" cdkDragHandle> </div>
                           <span class="header-delete-icon" matTooltip="double click to delete column"
                               matTooltipPosition="above"
                               (dblclick)="openDialog('delete column', columnName)">x</span>
+                              <mat-icon style="cursor: pointer;" matTooltip="move column to the left"
+                              matTooltipPosition="above" (click)="swapColumnsLeft(e)">chevron_left</mat-icon>
                           <mat-icon style="cursor: pointer;" (click)="swapColumns(e)">chevron_right</mat-icon>
 
 

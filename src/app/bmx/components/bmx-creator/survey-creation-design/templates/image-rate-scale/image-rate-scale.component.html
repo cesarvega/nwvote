@@ -496,6 +496,8 @@ justify-content: center;cursor: move; height: 25px; width: 100%;"><svg width="24
                                 [style.font-size]="bmxItem.componentSettings[0].fontSize +'px'"
                                 *ngIf=" !editSingleTableCells">{{testName[columnName]}}
                             </p>
+                            <mat-icon style="cursor: pointer;" matTooltip="move column to the left"
+                            matTooltipPosition="above" (click)="swapColumnsLeft(e)">chevron_left</mat-icon>
                             <mat-icon *ngIf="selectedColumn === e && bmxClientPageOverview" style="cursor: pointer;"
                                 (click)="swapColumns(e)">chevron_right</mat-icon>
 
