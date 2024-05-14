@@ -1295,7 +1295,8 @@ export class SurveyCreationDesignComponent implements OnInit {
             this.templateToDelete = component
 
         } if (type === 'save') {
-            this.dialogText = "Are you sure you want to overwrite the current project?"
+           const projectName= this.globalDisplayName ? this.globalDisplayName : this.globalProjectName 
+            this.dialogText = `Are you sure you want to overwrite ${projectName}?`
         }
         this.actionType = type
         this.showDialog = true
