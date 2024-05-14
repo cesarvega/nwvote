@@ -52,8 +52,8 @@
                     <!-- BMX HEADER 😋😋😋😋😋😋😋😋😋😋😋😋😋😋😋😋😋😋😋😋😋😋😋😋😋😋😋😋😋😋😋😋😋😋😋😋😋😋 -->
 
                     <div *ngIf="bmxItem.componentType === 'logo-header'">
-                        <app-logo-header [isBrandMatrixSurvey]="isBrandMatrixSurvey" [creationMode]="true" [bmxItem]="bmxItem" [i]="i"
-                            [bmxClientPageDesignMode]="bmxClientPageDesignMode"
+                        <app-logo-header [isBrandMatrixSurvey]="isBrandMatrixSurvey" [creationMode]="true"
+                            [bmxItem]="bmxItem" [i]="i" [bmxClientPageDesignMode]="bmxClientPageDesignMode"
                             [bmxClientPageOverview]="bmxClientPageOverview"></app-logo-header>
                     </div>
                     <!--😋😋😋😋😋😋😋😋😋😋😋😋😋😋😋😋😋😋😋😋😋😋😋😋😋😋😋😋😋😋😋😋😋😋😋😋😋😋 END BMX HEADER  -->
@@ -249,23 +249,26 @@
                             <mat-icon class="full-icon">chevron_left</mat-icon> <span
                                 class="menu-descriptions">戻る</span>
                         </button>
-                        <div *ngFor="let page of bmxPagesClient; let pageIndex = index">
+                        <div *ngFor="let page of bmxPagesClient; let pageIndex = index" >
                             <button disableRipple style="min-width: 35px;cursor: auto;outline: none;box-shadow:none;"
-                                [ngClass]="(currentPage === pageIndex)?'pageNumberActive':'pageNumber'"
+                                [ngClass]="currentPage == pageIndex?'pageNumberActive':'pageNumber'"
                                 mat-raised-button>
-                                {{page.pageNumber}}
+                                {{page.pageNumber}} 
                             </button>
                             <!-- DISBLE CLICKING ON THE BUTTONS -->
                             <!-- <button style="min-width: 35px;" (click)="selectPageNumber(pageIndex)"
                             [ngClass]="(currentPage === pageIndex)?'pageNumberActive':'pageNumber'" mat-raised-button>
                             {{page.pageNumber}}
-                        </button> -->
-                        </div>
+                         </button> -->
+                        </div>  
                         <button [style.background]="(continueButtonToComple == 'Complete')?'#05b85e':'#324395'"
                             style="color: white !important;" *ngIf="isBrandMatrixSurvey && surveyLanguage != 'Japanese'"
-                            (click)="changePage('next')" mat-raised-button style="flex-direction: row-reverse;    gap: 13px;">
-                            <span class="menu-descriptions" style="color: white  !important;">{{continueButtonToComple}}</span>
-                             <mat-icon style="margin-right: 0 !important; margin-left: 5px !important; margin-top: 1.5px !important; "
+                            (click)="changePage('next')" mat-raised-button style=""
+                            style="flex-direction: row-reverse;    gap: 13px;">
+                            <span class="menu-descriptions"
+                                style="color: white  !important;">{{continueButtonToComple}}</span>
+                            <mat-icon
+                                style="margin-right: 0 !important; margin-left: 5px !important; margin-top: 1.5px !important; "
                                 class="full-icon" style="color: white  !important; margin-right: 0 !important;">
                                 {{ (continueButtonToComple != 'Complete')?'chevron_right':'task_alt'}}</mat-icon>
                         </button>

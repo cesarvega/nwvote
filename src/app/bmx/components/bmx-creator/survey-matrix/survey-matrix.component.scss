@@ -438,9 +438,9 @@
 }
 
 .pageNumberActive {
-    min-width: 40px;
-    color: white;
-    background-color: #ee7f24;
+    min-width: 40px !important;
+    color: white !important;
+    background-color: #ee7f24 !important;
     // border-radius: 50%;
 }
 .pageNumber {

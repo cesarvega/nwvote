@@ -77,7 +77,7 @@ export class RankScaleComponent extends RatingScaleComponent implements OnInit {
     let values = Object.keys(this.bmxItem.componentText[0])
 
     values.forEach(value => {
-      if (typeof value == "string" && value != "STARS" && value != "CRITERIA") {
+      if (typeof value == "string" && value != "STARS" && value != "CRITERIA" && value != 'RATE') {
         this.columnsNames.push(value)
       }
     });
@@ -222,6 +222,7 @@ export class RankScaleComponent extends RatingScaleComponent implements OnInit {
               })
             });
           } else {
+            console.log(element)
             for (const key in this.bmxItem.componentText[1]) {
               if (this.bmxItem.componentText[1].hasOwnProperty(key) && key.startsWith("Comments")) {
                 // Obtiene el número de la propiedad de comentarios
@@ -353,4 +354,3 @@ export class RankScaleComponent extends RatingScaleComponent implements OnInit {
 
 
 }
-

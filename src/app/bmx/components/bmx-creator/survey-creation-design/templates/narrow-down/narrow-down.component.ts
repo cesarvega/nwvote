@@ -21,7 +21,6 @@ export class NarrowDownComponent extends RatingScaleComponent implements OnInit 
   dragRows = false
   isColumnResizerOn = false;
   editSingleTableCells = false
-  numRatingScale: number = 0;
   CREATION_VIDEO_PATH="assets/videos/NarrowDown.mp4" 
   dataSource:any[] = []
 
@@ -32,14 +31,13 @@ export class NarrowDownComponent extends RatingScaleComponent implements OnInit 
   ngOnInit(): void {
     this.showDialog = false
     let selectedCriteria = [];
-    if(this.bmxItem.componentText[0].CRITERIA){
-      this.selectedCriteria = this.bmxItem.componentText[0].CRITERIA;
-    }    
-    if(this.bmxItem.componentText[0].hasOwnProperty("STARS")){
-      this.numRatingScale = this.bmxItem.componentText[0].STARS.length
-    }
-    
     this.rankingScaleValue = this.numRatingScale;
+    if (this.bmxItem.componentSettings[0].CRITERIA) {
+      this.numRatingScale = this.bmxItem.componentText[0].CRITERIA[0].STARS.length
+    } else {
+      this.numRatingScale = this.bmxItem.componentText[0].STARS?.length
+    }
+
 
     // COLUMN NAMES
     let values = Object.keys(this.bmxItem.componentText[0])
@@ -78,7 +76,8 @@ export class NarrowDownComponent extends RatingScaleComponent implements OnInit 
     }
     this.testNamesInput = result;
 
-    console.log(this.bmxItem.componentSettings)
+    this.rankingScaleValue = this.numRatingScale;
+
     this.randomizeTestNames = this.bmxItem.componentSettings[0].randomizeTestNames
     this.rowsCount = this.bmxItem.componentText.length - 1;
     this.bmxItem.componentSettings[0].minRule = this.bmxItem.componentSettings[0].minRule == 0?0 :this.bmxItem.componentSettings[0].minRule;

@@ -218,6 +218,7 @@ export class ImageRateScaleComponent extends RatingScaleComponent implements OnI
       this.uploadImagesBox = false;
     }, 1000);
    this.showEdit = true
+   console.log(this.bmxItem.componentText)
   }
 
   deleteImage(index){

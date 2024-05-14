@@ -28,6 +28,47 @@
         0 11px 15px -7px rgba(0, 0, 0, 0.2);
     }
   }
+  .settings-container {
+    display: flex;
+    flex-direction: row-reverse;
+    justify-content: end;
+    position: absolute;
+    top: -30px;
+    right: 50px;
+    border: 2px dashed #324395;
+    background: #ffffffd9;
+    height: 54px;
+    align-items: center;
+    padding-right: 38px;
+}
+
+.column-resizer {
+    display: flex;
+    flex-direction: row;
+    justify-content: start;
+    background: #ffffffd9;
+    gap: 0px;
+    position: absolute;
+    left: -740px;
+    z-index: 1;
+    border: 2px dashed #324395;
+}
+
+.flex-column-center {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.margin-label {
+    margin: 0 0 -12px;
+    color: #324395;
+}
+
+.input-range {
+    margin: 20px;
+    width: 50px;
+}
 
   .active-rating-star {
     color: #76d354;
