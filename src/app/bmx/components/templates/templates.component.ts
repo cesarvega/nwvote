@@ -84,7 +84,6 @@ export class TemplatesComponent implements OnInit {
         this.settingsData = JSON.parse(arg.d);
         this.TEMPLATES = (this.settingsData.BrandMatrixTemplateList.length) > 0 ? JSON.parse(arg.d).BrandMatrixTemplateList.map((obj, index) => { return { index: index + 1, displayName: obj.DisplayName, templateName: obj.TemplateName, brandMatrix: obj.BrandMatrix, created: obj.LastUpdate } }) : this.TEMPLATES
         this.settingsData.OfficeList.unshift('All');
-        //console.log(JSON.parse(arg.d));
         //AUTOCOMPLETE 🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖
         this.settingsData.SalesBoardProjectList.forEach(myObject => { this.salesboardObj.push({ name: myObject['SalesBoardProjectList'] }) });
         this.settingsData.DirectorList.forEach(directorObj => {
@@ -97,9 +96,8 @@ export class TemplatesComponent implements OnInit {
             office: directorObj.Office,
           })
           this.dataSource = new MatTableDataSource<any>(this.TEMPLATES);
-          this.dataSource.paginator = this.paginator;          
+          this.dataSource.paginator = this.paginator;
           this.dataSource.sort = this.sort;
-          console.log(this.dataSource.sort)
           this.dataSource.sortingDataAccessor = (item, property) => {
             switch(property) {
               case 'created': return new Date(item.created);
@@ -117,7 +115,7 @@ export class TemplatesComponent implements OnInit {
   }
   private _filter(value: string): string[] {
     const filterValue = value.toLowerCase();
-    //console.log(value);
+
     return this.settingsData['SalesBoardProjectList'].filter(option => option.toLowerCase().includes(filterValue));/*.slice(0, 10);*/
   }
 
@@ -135,7 +133,6 @@ export class TemplatesComponent implements OnInit {
   templateSelected(templateName: string, displayName: string, brandMatrix: any) {
     this.isSaveOrUpdate = true;
     this.templateName = templateName;
-    console.log(templateName, brandMatrix)
     const cadenaSinUnderscores = templateName.replace(/_/g, '');
     const dataString = JSON.stringify(brandMatrix);
 
@@ -151,7 +148,6 @@ export class TemplatesComponent implements OnInit {
   }
 
   editBM(option: string): void {
-    console.log(option)
     this._BmxService.setProjectName(option);
     var test = option;
     localStorage.setItem('templates', 'true');
@@ -180,7 +176,6 @@ export class TemplatesComponent implements OnInit {
     } else {
       this.bmxPages = JSON.parse(this.bmxPages)
     }
-    this._BmxService.saveBrandMatrixTemplate(this.templateName, this.bmxPages, this.biUserId, this.newTemplateName).subscribe(data => console.log(data))
     this._BmxService.getGeneralLists()
       .subscribe((arg: any) => {
         this.settingsData = JSON.parse(arg.d);
@@ -190,11 +185,9 @@ export class TemplatesComponent implements OnInit {
         this._BmxService.getGeneralLists()
           .subscribe((arg: any) => {
             this.settingsData = JSON.parse(arg.d);
-            console.log(this.settingsData)
             this.TEMPLATES = (this.settingsData.BrandMatrixTemplateList.length) > 0 ? JSON.parse(arg.d).BrandMatrixTemplateList.map((obj, index) => { return { index: index + 1, displayName: obj.DisplayName, templateName: obj.TemplateName, brandMatrix: obj.BrandMatrix, created: obj.LastUpdate } }) : this.TEMPLATES
 
             this.settingsData.OfficeList.unshift('All');
-            //console.log(JSON.parse(arg.d));
             //AUTOCOMPLETE 🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖
             this.settingsData.SalesBoardProjectList.forEach(myObject => { this.salesboardObj.push({ name: myObject['SalesBoardProjectList'] }) });
             this.settingsData.DirectorList.forEach(directorObj => {
@@ -242,7 +235,6 @@ export class TemplatesComponent implements OnInit {
     // }
     this._BmxService.getBrandMatrixTemplateByName(templateName).subscribe((template: any) => {
       this.bmxPages = JSON.parse(template.d);
-      console.log(this.bmxPages)
       this.saveNewName(true)
     })
     //this.openSaveTemplateBox();
@@ -267,11 +259,8 @@ export class TemplatesComponent implements OnInit {
         this._BmxService.getGeneralLists()
           .subscribe((arg: any) => {
             this.settingsData = JSON.parse(arg.d);
-            console.log(this.settingsData)
             this.TEMPLATES = (this.settingsData.BrandMatrixTemplateList.length) > 0 ? JSON.parse(arg.d).BrandMatrixTemplateList.map(obj => { return { templateName: obj.TemplateName, displayName: obj.DisplayName, brandMatrix: obj.BrandMatrix } }) : this.TEMPLATES
-            console.log(this.TEMPLATES)
             this.settingsData.OfficeList.unshift('All');
-            //console.log(JSON.parse(arg.d));
             //AUTOCOMPLETE 🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖
             this.settingsData.SalesBoardProjectList.forEach(myObject => { this.salesboardObj.push({ name: myObject['SalesBoardProjectList'] }) });
             this.settingsData.DirectorList.forEach(directorObj => {
@@ -310,11 +299,9 @@ export class TemplatesComponent implements OnInit {
                 this._BmxService.getGeneralLists()
                   .subscribe((arg: any) => {
                     this.settingsData = JSON.parse(arg.d);
-                    console.log(this.settingsData)
                     this.TEMPLATES = (this.settingsData.BrandMatrixTemplateList.length) > 0 ? JSON.parse(arg.d).BrandMatrixTemplateList.map((obj, index) => { return { index: index + 1, displayName: obj.DisplayName, templateName: obj.TemplateName, brandMatrix: obj.BrandMatrix, created: obj.LastUpdate } }) : this.TEMPLATES
 
                     this.settingsData.OfficeList.unshift('All');
-                    //console.log(JSON.parse(arg.d));
                     //AUTOCOMPLETE 🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖
                     this.settingsData.SalesBoardProjectList.forEach(myObject => { this.salesboardObj.push({ name: myObject['SalesBoardProjectList'] }) });
                     this.settingsData.DirectorList.forEach(directorObj => {
