@@ -308,12 +308,14 @@
                 </mat-icon>
             </button>
             <br>
+
             <button *ngIf="true" (click)="isTemplate=='true'?saveTemplate() : openDialog('save')" mat-icon-button
-                matTooltip="{{isTemplate == 'true' ? 'save template' : 'save brand matrix'}}"
-                matTooltipPosition="right">
-                <mat-icon class="full-icon">cloud_upload
-                </mat-icon>
-            </button>
+            matTooltip="{{isTemplate == 'true' ? 'save template' : 'save brand matrix'}}"
+            matTooltipPosition="right">
+        <mat-icon class="full-icon">save</mat-icon>
+    </button>
+
+
             <button *ngIf="true && this.isTemplate != 'true' " (click)="previewSurvey()" mat-icon-button matTooltip="preview brand matrix"
                 matTooltipPosition="right">
                 <mat-icon class="full-icon">visibility
