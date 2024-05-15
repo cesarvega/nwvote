@@ -331,7 +331,7 @@ export class RankScaleComponent extends RatingScaleComponent implements OnInit {
       this.draggableBag = ''
       this.isdropDown = false
       this.radioColumnCounter = 1
-      this.rowsCount = 20
+      this.rowsCount = this.bmxItem.componentText.length - 1;
       for (let index = 0; index < this.rankingScaleValue; index++) {
         this.insertRadioColumn()
       }
