@@ -57,6 +57,7 @@ export class RankScaleComponent extends RatingScaleComponent implements OnInit {
     this.rankingType = 'dinamycRadio' //HARD CODE
 
     this.rowsCount = this.bmxItem.componentText.length - 1;
+    console.log(this.bmxItem.componentText)
     this.bmxItem.componentSettings[0].minRule = this.bmxItem.componentSettings[0].minRule == 0 ? 0 : this.bmxItem.componentSettings[0].minRule;
     this.bmxItem.componentSettings[0].maxRule = this.bmxItem.componentSettings[0].maxRule == 0 ? 0 : this.bmxItem.componentSettings[0].maxRule;
 
@@ -274,7 +275,7 @@ export class RankScaleComponent extends RatingScaleComponent implements OnInit {
     }
     setTimeout(() => {
       if (this.bmxItem.componentSettings[0].rankType == 'radio' || this.bmxItem.componentSettings[0].rankType == 'dinamycRadio') {
-        this.rowsCount = 20
+        this.rowsCount = this.bmxItem.componentText.length - 1;
       } else {
         this.rowsCount = this.bmxItem.componentText.length - 1;
       }
