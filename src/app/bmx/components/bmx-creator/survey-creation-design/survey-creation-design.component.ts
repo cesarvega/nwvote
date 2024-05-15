@@ -601,7 +601,7 @@ export class SurveyCreationDesignComponent implements OnInit {
                         rationalewidth: 250,
                         rowHeight: 0,
                         radioColumnsWidth: 75,
-                        nameCandidatesWidth: 135,
+                        nameCandidatesWidth: 300,
                         rateWidth: 135,
                         commentsWidth: 165,
                         selectedRanking: 7,
