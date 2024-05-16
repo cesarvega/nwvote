@@ -977,42 +977,39 @@ export class RatingScaleComponent implements OnInit {
     this.bmxItem.componentText.push(newRow)
   }
 
-  swapColumns(index): void {
-    this.recordHistory()
-    let temp = this.columnsNames[index];
-    // update columnsNames array order
-    for (let i = index; i < this.columnsNames.length - 1; i++) {
-      this.columnsNames[i] = this.columnsNames[i + 1];
-    }
-    this.columnsNames[this.columnsNames.length - 1] = temp;
-    let newRow = {}
-    // re-order brand matrix columns
-    this.bmxItem.componentText.forEach((row, rowIndex) => {
-      for (let i = 0; i < this.columnsNames.length - 1; i++) {
-        Object.keys(row).forEach(key => {
-          if (this.columnsNames[i] == key) {
-            newRow[key] = row[key]
-          }
-        })
-      }
-      this.bmxItem.componentText[rowIndex] = this.mergeObjects(newRow, row)
-    });
+  swapColumns(index: number): void {
+    this.recordHistory();
+    const temp = this.columnsNames[index];
+    // Intercambia la columna en la posición index con la siguiente
+    this.columnsNames[index] = this.columnsNames[index + 1];
+    this.columnsNames[index + 1] = temp;
 
-  }
+    const newRow: { [key: string]: any } = {};
+    this.bmxItem.componentText.forEach((row, rowIndex) => {
+        for (let i = 0; i < this.columnsNames.length - 1; i++) {
+            Object.keys(row).forEach(key => {
+                if (this.columnsNames[i] === key) {
+                    newRow[key] = row[key];
+                }
+            });
+        }
+        this.bmxItem.componentText[rowIndex] = this.mergeObjects(newRow, row);
+    });
+}
+
+
   swapColumnsLeft(index): void {
     this.recordHistory();
-    let temp = this.columnsNames[index];
-    // Update columnsNames array order
-    for (let i = index; i > 0; i--) {
-        this.columnsNames[i] = this.columnsNames[i - 1];
-    }
-    this.columnsNames[0] = temp;
-    let newRow = {};
-    // Re-order brand matrix columns
+    const temp = this.columnsNames[index];
+    // Intercambia la columna en la posición index con la anterior
+    this.columnsNames[index] = this.columnsNames[index - 1];
+    this.columnsNames[index - 1] = temp;
+
+    const newRow: { [key: string]: any } = {};
     this.bmxItem.componentText.forEach((row, rowIndex) => {
-        for (let i = this.columnsNames.length - 1; i > 0; i--) {
+        for (let i = 0; i < this.columnsNames.length - 1; i++) {
             Object.keys(row).forEach(key => {
-                if (this.columnsNames[i] == key) {
+                if (this.columnsNames[i] === key) {
                     newRow[key] = row[key];
                 }
             });

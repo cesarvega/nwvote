@@ -28,13 +28,7 @@ position: absolute;height: 54px;align-items: center">
     justify-content: start;background: #ffffffd9;
     gap: 0px;position: absolute;left: -748px;z-index: 1;border: 2px dashed #324395;">
         <!-- RATE -->
-        <div style="display: flex;flex-direction: column;align-items: center;">
-            <p style="margin: 0 0 -12px;color: #324395;">rank
-            </p>
-            <input type="range" style="margin: 20px;width: 50px;" [(ngModel)]="bmxItem.componentSettings[0].rateWidth"
-                class="slider-font-size" tickInterval="0.5" min="50" max="400"
-                [value]="bmxItem.componentSettings[0].rateWidth">
-        </div>
+        
         <!-- NAME CANDIATES -->
         <div style="display: flex;flex-direction: column;align-items: center;">
             <p style="margin: 0 0 -12px;color: #324395;">candidates
@@ -53,7 +47,13 @@ position: absolute;height: 54px;align-items: center">
                 min="50" max="600" [value]="bmxItem.componentSettings[0].rationalewidth">
         </div>
 
-
+        <div style="display: flex;flex-direction: column;align-items: center;">
+            <p style="margin: 0 0 -12px;color: #324395;">rank
+            </p>
+            <input type="range" style="margin: 20px;width: 50px;" [(ngModel)]="bmxItem.componentSettings[0].rateWidth"
+                class="slider-font-size" tickInterval="0.5" min="50" max="400"
+                [value]="bmxItem.componentSettings[0].rateWidth">
+        </div>
 
         <!-- COMMENTS -->
         <div style="display: flex;flex-direction: column;align-items: center;">
