@@ -554,4 +554,4 @@ justify-content: center;cursor: move; height: 25px; width: 100%;"><svg width="24
 
 <!--📱📱📱📱📱📱📱📱📱📱📱📱📱📱📱📱📱📱📱📱📱📱📱📱📱📱📱📱📱📱📱 END TABLE GENERATOR 📱📱📱📱📱📱📱📱📱📱📱📱📱📱📱📱📱📱📱📱📱📱📱📱📱📱📱📱📱📱📱📱📱📱-->
 <app-table *ngIf="showModalTable" (save)="showModalTable = $event" [displayedColumns]="columnsNames"
-[dataSource]="dataSource"></app-table>
+[dataSource]="dataSource" (cancelEvent)="showModalTable = false"></app-table>
