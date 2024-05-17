@@ -601,7 +601,7 @@ export class SurveyCreationDesignComponent implements OnInit {
                         rationalewidth: 250,
                         rowHeight: 0,
                         radioColumnsWidth: 75,
-                        nameCandidatesWidth: 135,
+                        nameCandidatesWidth: 300,
                         rateWidth: 135,
                         commentsWidth: 165,
                         selectedRanking: 7,
@@ -1295,7 +1295,8 @@ export class SurveyCreationDesignComponent implements OnInit {
             this.templateToDelete = component
 
         } if (type === 'save') {
-            this.dialogText = "Are you sure you want to overwrite the current project?"
+           const projectName= this.globalDisplayName ? this.globalDisplayName : this.globalProjectName 
+            this.dialogText = `Are you sure you want to overwrite ${projectName}?`
         }
         this.actionType = type
         this.showDialog = true

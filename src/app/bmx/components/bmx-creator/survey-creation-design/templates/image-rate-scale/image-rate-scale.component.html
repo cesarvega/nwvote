@@ -479,26 +479,27 @@ justify-content: center;cursor: move; height: 25px; width: 100%;"><svg width="24
                 bmxItem.componentSettings[0].columnWidth + 'px'">
 
                     <!-- 🟢🟢🟢🟢🟢🟢🟢🟢🟢🟢🟢🟢🟢🟢 HEADER TEXT AREA 🟢🟢🟢🟢🟢🟢🟢🟢🟢🟢🟢🟢🟢🟢🟢🟢 -->
-                    <div *ngIf="(y == 0)" class="header-title " (mouseenter)="selectedColumn = e"
-                        (mouseleave)="selectedColumn = ''">
-                        <div style="display: flex;flex-direction: row;justify-content: space-between;">
-
-                            <span *ngIf="selectedColumn === e && bmxClientPageOverview" class="header-delete-icon"
-                                matTooltip="double click to delete column" matTooltipPosition="above"
-                                (dblclick)="openDialog('delete column', columnName)">x</span>
-
+                    <div *ngIf="(y == 0)" class="header-title" (mouseenter)="selectedColumn = e" >
+                        <div>
                             <textarea *ngIf="editSingleTableCells"
                                 [style.font-size]="bmxItem.componentSettings[0].fontSize +'px'"
                                 style="text-align: center; font-weight: bold;color: #324395;" class="row-box"
                                 [(ngModel)]="testName[columnName]" value="testName[columnName]"></textarea>
 
-                            <p style="text-align: center; font-weight: bold;color: #324395;margin: 0 0 0px;"
+                            <p style="text-align: center; font-weight: bold;color: #324395;margin: 0 0 0px;padding:5px 1px"
                                 [style.font-size]="bmxItem.componentSettings[0].fontSize +'px'"
                                 *ngIf=" !editSingleTableCells">{{testName[columnName]}}
                             </p>
-                            <mat-icon *ngIf="selectedColumn === e && bmxClientPageOverview" style="cursor: pointer;"
-                                (click)="swapColumns(e)">chevron_right</mat-icon>
+                        </div>
+                        <div *ngIf="selectedColumn === e && bmxClientPageOverview && !editSingleTableCells" style="display: flex;flex-direction: row;justify-content: space-around;
+                        position: absolute;top: 35px;background: white;border: #324395 dashed 1px;"
+                            (mouseleave)="selectedColumn = ''">
+                            <span class="header-delete-icon" matTooltip="double click to delete column"
+                                matTooltipPosition="above" (dblclick)="openDialog('delete column', columnName)">x</span>
+                                <mat-icon style="cursor: pointer;" matTooltip="move column to the left"
+                                matTooltipPosition="above" (click)="swapColumnsLeft(e)">chevron_left</mat-icon>
 
+                            <mat-icon style="cursor: pointer;" (click)="swapColumns(e)">chevron_right</mat-icon>
 
                         </div>
                     </div>

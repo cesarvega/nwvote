@@ -92,7 +92,7 @@
             <mat-label>Select Region</mat-label>
             <mat-select formControlName="bmxRegion">
               <mat-option *ngFor="let settingsList of settingsData.OfficeList" [value]="settingsList">
-                {{settingsList}}
+                {{settingsList != 'Seattle'&&settingsList}}
               </mat-option>
             </mat-select>
           </mat-form-field>
@@ -142,7 +142,7 @@
           <mat-select [(ngModel)]="bmxRegionalDirectorDropdown" formControlName="bmxRegionalOffice"
             (selectionChange)="officeSelected(bmxRegionalDirectorDropdown)">
             <mat-option *ngFor="let settingsList of settingsData.OfficeList" [value]="settingsList">
-              {{settingsList}}
+              {{settingsList != 'Seattle'&&settingsList}}
             </mat-option>
           </mat-select>
         </mat-form-field>
