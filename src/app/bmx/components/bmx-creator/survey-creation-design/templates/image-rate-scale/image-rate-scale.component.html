@@ -88,7 +88,7 @@
         <div style="display: flex;flex-direction: column;align-items: center;">
             <p style="margin: 0 0 -12px;color: #324395;">font size: {{bmxItem.componentSettings[0].fontSize}}</p>
             <input type="range" style="margin: 20px;width: 50px;" [(ngModel)]="bmxItem.componentSettings[0].fontSize"
-                class="slider-font-size" tickInterval="0.1" min="2" max="40"
+                class="slider-font-size" tickInterval="0.1" min="2" max="0"
                 [value]="bmxItem.componentSettings[0].fontSize">
         </div>
 
@@ -808,4 +808,4 @@ justify-content: center;cursor: move; height: 25px; width: 100%;"><svg width="24
 </div>
 
 <!--📱📱📱📱📱📱📱📱📱📱📱📱📱📱📱📱📱📱📱📱📱📱📱📱📱📱📱📱📱📱📱 END TABLE GENERATOR 📱📱📱📱📱📱📱📱📱📱📱📱📱📱📱📱📱📱📱📱📱📱📱📱📱📱📱📱📱📱📱📱📱📱-->
-<app-table *ngIf="showModalTable" (save)="showModalTable = $event" [displayedColumns]="columnsNames" [dataSource]="dataSource" ></app-table>
+<app-table *ngIf="showModalTable" (save)="showModalTable = $event" [displayedColumns]="columnsNames" [dataSource]="dataSource"  (cancelEvent)="showModalTable = false"></app-table>

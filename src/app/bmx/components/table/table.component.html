@@ -1,8 +1,8 @@
-<div  class="modal-video" style="display: flex;flex-direction: column;gap: 2px;">
+<div class="modal-video" style="display: flex;flex-direction: column;gap: 2px;">
 
   <div *ngIf="displayedColumns.length>0" class="modal-content">
 
-      <div class="content-table" style="display: flex;
+    <div class="content-table" style="display: flex;
       justify-content: center;
       background: white;
       flex-direction: column;
@@ -10,21 +10,24 @@
       <table mat-table [dataSource]="dataSource" class="mat-elevation-z8" style="box-shadow: none !important;">
         <!-- Itera sobre las columnas definidas en displayedColumns -->
         <ng-container *ngFor="let columna of displayedColumns" [matColumnDef]="columna">
-          <th mat-header-cell *matHeaderCellDef>  {{ columna }} </th>
+          <th mat-header-cell *matHeaderCellDef> {{ columna }} </th>
           <td mat-cell *matCellDef="let elemento"> <input type="text" matInput [(ngModel)]="elemento[columna]"
-            [value]="elemento[columna]"></td>
+              [value]="elemento[columna]"></td>
         </ng-container>
 
         <!-- Define las filas de la tabla -->
         <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
         <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
       </table>
-          <div class="content-button" style="width: 100%; display: flex; justify-content: flex-end;">
+      <div class="content-button" style="width: 100%; display: flex; justify-content: flex-end;">
 
-              <button mat-button (click)="saveChanges()" >Save</button>
-          </div>
+        <button mat-button (click)="cancel()">Cancel</button>
+
+        <button mat-button (click)="saveChanges()">Save</button>
 
       </div>
+
+    </div>
 
   </div>
 
