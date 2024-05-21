@@ -91,3 +91,32 @@
 </div>
 
 <!-- HEADER INPUTS -->
+
+
+<!--scss inline update <div class="image-rank-upload-container">
+    <div class="image-rank-upload-box">
+        <input type="file" class="file-input" (change)="onFileSelected($event)" #fileUpload style="display: none;" multiple>
+        <mat-icon class="image-rank-cloud-icon">cloud_upload</mat-icon>
+        <br>
+        <br>
+        <h3 class="image-rank-upload-text">Drag files to upload</h3>
+        <button mat-raised-button class="image-rank-upload-button" (click)="fileUpload.click()">
+            Select files to upload
+        </button>
+    </div>
+    <div class="image-rank-upload-title">
+        <span> Title To Your Upload </span><br>
+        <mat-form-field class="image-rank-form-field" appearance="outline">
+            <mat-label>Upload Title</mat-label>
+            <input matInput placeholder="Upload Title" value="">
+        </mat-form-field>
+        <h6 class="image-rank-upload-note">* This title will appear as the gallery name for the group of files, and it will be demarcated with a 1, 2, 3, or so on </h6>
+    </div>
+    <div>
+        {{fileName || "No file uploaded yet."}}
+        <mat-progress-bar class="progress-bar" mode="determinate" [value]="uploadProgress" *ngIf="uploadProgress"></mat-progress-bar>
+        <mat-icon class="cancel-upload" (click)="cancelUpload()" *ngIf="uploadProgress">delete_forever</mat-icon>
+    </div>
+</div>
+ -->
+
