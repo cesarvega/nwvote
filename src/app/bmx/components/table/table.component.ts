@@ -17,6 +17,7 @@ export class TableComponent implements OnInit {
   tBody: any[] = [];
   @Input() displayedColumns: any = []
   @Output() save = new EventEmitter();
+  @Output() cancelEvent = new EventEmitter()
   ngOnInit(): void {
     this.displayedColumns = this.filtrarValores(this.displayedColumns)
   }
@@ -37,6 +38,10 @@ export class TableComponent implements OnInit {
   saveChanges(){
     this.save.emit(false)
   }
+  cancel(){
+    this.cancelEvent.emit(true)
+  }
+
 }
 
 

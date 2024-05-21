@@ -1021,3 +1021,5 @@ bottom: -2; ">
 </div>
 
 <!--🥑🥑🥑🥑🥑🥑🥑🥑🥑🥑🥑🥑🥑🥑🥑🥑🥑🥑🥑🥑🥑🥑🥑🥑🥑END RATING TABLE 🥑🥑🥑🥑🥑🥑🥑🥑🥑🥑🥑🥑🥑🥑🥑🥑🥑🥑🥑🥑🥑🥑🥑-->
+<app-table *ngIf="showModalTable" (save)="showModalTable = $event" [displayedColumns]="columnsNames"
+    [dataSource]="dataSource" (cancelEvent)="showModalTable = false"></app-table>
