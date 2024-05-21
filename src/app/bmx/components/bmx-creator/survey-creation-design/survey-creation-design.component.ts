@@ -580,11 +580,16 @@ export class SurveyCreationDesignComponent implements OnInit {
                 STARS: this.createRankinScale(),
             });
             for (let index = 0; index < 5; index++) {
+                let imageIndex = index + 1;
                 this.TestNameDataModel.push({
-                    nameCandidates: 'TEST NAME ' + index,
-                    rationale: 'Rationale of an undisclosed length',
-                    RATE: -1, // it wont render since is not a string
-                    STARS: this.createRankinScale(),
+                    // name: 'TEST NAME ' + index,
+                    nameCandidates:
+                        './assets/img/bmx/logoTestNames/logo' +
+                        imageIndex.toString() +
+                        '.JPG',
+                    // logoURL: './assets/img/bmx/logoTestNames/logo' + imageIndex.toString() + '.JPG',
+                    RATE: -1,
+                    STARS: this.createRatingStars(),
                 });
             }
             this.bmxPages[this.currentPage].page.push({

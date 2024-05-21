@@ -768,4 +768,4 @@ align-items: center; ">
 
 <!--📱📱📱📱📱📱📱📱📱📱📱📱📱📱📱📱📱📱📱📱📱📱📱📱📱📱📱📱📱📱📱 END TABLE GENERATOR 📱📱📱📱📱📱📱📱📱📱📱📱📱📱📱📱📱📱📱📱📱📱📱📱📱📱📱📱📱📱📱📱📱📱-->
 <app-table *ngIf="showModalTable" (save)="showModalTable = $event" [displayedColumns]="columnsNames"
-[dataSource]="dataSource"></app-table>
+[dataSource]="dataSource" (cancelEvent)="showModalTable = false"></app-table>

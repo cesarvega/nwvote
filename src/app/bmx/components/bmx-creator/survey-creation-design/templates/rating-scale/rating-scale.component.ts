@@ -694,6 +694,7 @@ export class RatingScaleComponent implements OnInit {
       }
 
       this.bmxItem.componentText = this.deleteDuplicates(this.TESTNAMES_LIST, 'nameCandidates');
+      this.dataSource = this.bmxItem.componentText.slice(1)
 
     } else {
       this.autoSizeColumns('RATE', '', this.rankingScaleValue)

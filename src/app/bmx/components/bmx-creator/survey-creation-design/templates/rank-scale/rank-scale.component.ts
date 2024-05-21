@@ -268,6 +268,7 @@ export class RankScaleComponent extends RatingScaleComponent implements OnInit {
       }
       this.bmxItem.componentText = this.deleteDuplicates(this.TESTNAMES_LIST, 'nameCandidates');
       this.columnsNames.push('RATE')
+      this.dataSource = this.bmxItem.componentText.slice(1)
     } else {
       this.bmxItem.componentText.forEach((row, index) => {
         row.STARS = this.createRatingStars(this.rankingScaleValue, this.ratingScaleIcon)
@@ -299,7 +300,6 @@ export class RankScaleComponent extends RatingScaleComponent implements OnInit {
 
     this.bmxItem.componentSettings[0].selectedRanking = this.rankingScaleValue
     console.log(this.bmxItem.componentText)
-
   }
 
   rankingTableType(rankingType) {
