@@ -979,45 +979,49 @@ export class RatingScaleComponent implements OnInit {
   }
 
   swapColumns(index: number): void {
+    if (index < 0 || index >= this.columnsNames.length - 1) {
+        // No se puede mover hacia la derecha si está en el último índice o fuera de rango
+        return;
+    }
     this.recordHistory();
     const temp = this.columnsNames[index];
     // Intercambia la columna en la posición index con la siguiente
     this.columnsNames[index] = this.columnsNames[index + 1];
     this.columnsNames[index + 1] = temp;
 
-    const newRow: { [key: string]: any } = {};
     this.bmxItem.componentText.forEach((row, rowIndex) => {
-        for (let i = 0; i < this.columnsNames.length - 1; i++) {
-            Object.keys(row).forEach(key => {
-                if (this.columnsNames[i] === key) {
-                    newRow[key] = row[key];
-                }
-            });
-        }
+        const newRow: { [key: string]: any } = {};
+        this.columnsNames.forEach((col, i) => {
+            if (row.hasOwnProperty(col)) {
+                newRow[col] = row[col];
+            }
+        });
         this.bmxItem.componentText[rowIndex] = this.mergeObjects(newRow, row);
     });
 }
 
-
-  swapColumnsLeft(index): void {
+swapColumnsLeft(index: number): void {
+    if (index <= 0 || index >= this.columnsNames.length) {
+        // No se puede mover hacia la izquierda si está en el primer índice o fuera de rango
+        return;
+    }
     this.recordHistory();
     const temp = this.columnsNames[index];
     // Intercambia la columna en la posición index con la anterior
     this.columnsNames[index] = this.columnsNames[index - 1];
     this.columnsNames[index - 1] = temp;
 
-    const newRow: { [key: string]: any } = {};
     this.bmxItem.componentText.forEach((row, rowIndex) => {
-        for (let i = 0; i < this.columnsNames.length - 1; i++) {
-            Object.keys(row).forEach(key => {
-                if (this.columnsNames[i] === key) {
-                    newRow[key] = row[key];
-                }
-            });
-        }
+        const newRow: { [key: string]: any } = {};
+        this.columnsNames.forEach((col, i) => {
+            if (row.hasOwnProperty(col)) {
+                newRow[col] = row[col];
+            }
+        });
         this.bmxItem.componentText[rowIndex] = this.mergeObjects(newRow, row);
     });
 }
+
 
   mergeObjects(obj1, obj2) {
     let obj3 = {};
