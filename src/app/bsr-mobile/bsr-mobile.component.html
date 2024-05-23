@@ -6,7 +6,11 @@
             justify-content: space-between;
             align-items: center;
             ">
-           <span *ngIf="projectId !== 'an4057'"> BI PROJECT: {{projectName}} </span>
+           <span *ngIf="projectId !== 'du4689' else alt" > BI PROJECT: {{projectName}} </span>
+
+           <ng-template #alt>
+            <span style="font-size: 13px;padding-right: 8px;"> BI PROJECT: Class Name for Balcinrenone/Dapagliflozin </span>
+        </ng-template>
 
             <mat-icon *ngIf="isUserLogged" (click)="openDialog('displayInfo', '', '', '', '')"
                 style="color: white;background-color: #004684;  outline: none;cursor: pointer;">help</mat-icon>
@@ -23,7 +27,7 @@
 
                         <img class="logo" src="./assets/img/NAMEPAGE_LOGO-01.svg">
                         <br>
-                       <div *ngIf="projectId !== 'an4057' else ant">
+                       <div *ngIf="projectId !== 'du4689' else ant">
                           <div class="title secondary-text">Welcome to the NamePage<sup style="font-size: 10px;">TM</sup>
                             for Project </div>
                           <div class="title secondary-text" style="color: #004684;">
@@ -34,7 +38,7 @@
                             <div class="title secondary-text">Welcome to the NamePage<sup style="font-size: 10px;">TM</sup>
                               for </div>
                             <div class="title secondary-text" style="color: #004684;">
-                              Project AZD5305
+                              Class Name for Balcinrenone/Dapagliflozin
                             </div>
                         </ng-template>
                         <div class="mat-small secondary-text">Please enter your information below to continue.
@@ -89,11 +93,11 @@
             </div>
 
 
-            <div *ngIf="isUserLogged" fxLayout="column" fxLayoutAlign="center center" id="login">
+            <div  *ngIf="isUserLogged" fxLayout="column" fxLayoutAlign="center center" id="login">
                 <br>
                 <div class="mat-body-1">Name Suggestions: {{newNames.length}}</div>
                 <mat-card appearance="outlined" class="names-list-card">
-                    <div *ngFor="let item of  newNames; let i = index" class="name-box"
+                    <div  *ngFor="let item of  newNames; let i = index" class="name-box"
                         (click)="openDialog(item.name, item.nameid, item.rationale, item.favourite, item.source)">
                         <div> {{item.name}}</div>
                         <div>

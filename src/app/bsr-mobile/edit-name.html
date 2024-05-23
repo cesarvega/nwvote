@@ -1,4 +1,11 @@
-<div *ngIf="infoMessage">
+<div class="container-modal" style=" display: flex;
+justify-content: center;
+align-items: center;
+flex-direction: column;
+background-color: white;
+padding: 20px;
+border-radius: 10px;
+box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);" *ngIf="infoMessage">
     <form name="loginForm" [formGroup]="loginForm" novalidate>
 
 
@@ -10,16 +17,16 @@
             <mat-label>Edit Name</mat-label>
             <input matInput type="name" placeholder="name" formControlName="name">
         </mat-form-field>
-        <br>
+        
         <mat-form-field *ngIf="isDeleting" appearance="outline" style="max-width: 350px; min-width: 260px;">
             <mat-label>Rationale</mat-label>
             <input matInput type="text" placeholder="rationale" formControlName="rationale">
         </mat-form-field>
-        <br>
+        
 
-        <div class="row" style="text-align: center;">
+        <div class="row" style="margin-top: -8px; text-align: center; justify-content: center;">
 
-            <div class="" fxFlex fxLayoutAlign="center center">
+            <div class="row-icon" style="display: flex; gap: 56px;" fxFlex fxLayoutAlign="center center">
 
                 <div fxFlex *ngIf="isDeleting">
                     <button (click)="buttonOption('delete')" class="delete-update-buttons" mat-mini-fab
@@ -76,16 +83,20 @@
 
     </form>
 </div>
-<div *ngIf="!infoMessage">
+<div class="modal-container-help" style=" display: block;
+padding: 24px;
+
+" *ngIf="!infoMessage">
     <div class="mat-h4" style="text-align: center;">Help</div>
     <hr>
     <div class="mat-h3" style="text-align: center;color: #004684;">Touch or click a name to edit or delete. v0.4
     </div>
 
-    <div fxLayoutAlign="end end">
+    <div class="end-button" style="display: flex;justify-content: flex-end;" fxLayoutAlign="end end">
         <button (click)="buttonOption('dismiss')" class="refreshbutton" mat-mini-fab style="font-size: 8px;"
             color="success" aria-label="icon">
             <mat-icon>cancel</mat-icon>
         </button>
     </div>
 </div>
+
