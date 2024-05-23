@@ -28,13 +28,14 @@ export class TextParagraphComponent implements OnInit {
 
   ngOnInit(): void {
     this.config = {
+      language: 'en', // Especificar el idioma
       blockToolbar: [
         'paragraph', 'heading1', 'heading2', 'heading3',
         '|',
         'bulletedList', 'numberedList',
         '|',
         'blockQuote', 'uploadImage'
-    ],
+      ],
       toolbar: {
         items: [
           'bold', 'italic', 'underline', 'strikethrough', 'subscript', 'superscript', '|',
@@ -62,12 +63,10 @@ export class TextParagraphComponent implements OnInit {
           // More heading options...
         ]
       },
-      // plugins: 'BlockToolbar',
-      // removePlugins: 'horizontalrule,specialchar,about,others',
       removeButtons: 'Smiley,tableselection,Image,Save,NewPage,Preview,Print,Templates,Replace,SelectAll,Form,Checkbox,Radio,TextField,Textarea,Find,Select,Button,ImageButton,HiddenField,CopyFormatting,CreateDiv,BidiLtr,BidiRtl,Language,Flash,PageBreak,Iframe,ShowBlocks,Cut,Copy,Paste,Table,Format,Source,Maximize,Styles,Anchor,SpecialChar,PasteFromWord,PasteText,Scayt,RemoveFormat,Indent,Outdent,Blockquote',
-      basicstyles: { name: 'basicstyles', items: ['Bold', 'Italic', 'Underline', 'Strike', 'Subscript', 'Superscript'] } // Aquí se añadieron 'Subscript' y 'Superscript'
-      // Additional configurations...
+      basicstyles: { name: 'basicstyles', items: ['Bold', 'Italic', 'Underline', 'Strike', 'Subscript', 'Superscript'] }
     };
+  
     this.previousText = this.bmxItem.componentText
   }
 
