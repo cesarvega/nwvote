@@ -233,7 +233,6 @@
         .names-list-card {
             height: 260px;
             overflow-y: scroll;
-            min-width: 330px;
             line-height: 26px;
             border-bottom: #1e41ea solid 1px;
             opacity: 0;
@@ -241,7 +240,6 @@
         }
 
         .bsr-mobile-container {
-            max-width: 500px;
             position: absolute;
             min-height: 100%;
             overflow-y: hidden;
@@ -308,7 +306,6 @@
         }
 
         .bsr-mobile-container {
-            max-width: 500px;
             position: relative;
             min-height: 100%;
             overflow-y: hidden;
