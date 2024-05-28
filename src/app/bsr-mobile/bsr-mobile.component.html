@@ -1,359 +1,286 @@
-<div class="container mat-elevation-z4 bsr-mobile-container">
-    <div class="row">
-
-        <mat-toolbar  class="toolbar " fxLayoutAlign="space-between center" style=" text-align: center;border-bottom-left-radius: 6px;border-bottom-right-radius: 6px;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            ">
-           <span *ngIf="projectId !== 'du4689' else alt" > BI PROJECT: {{projectName}} </span>
-
-           <ng-template #alt>
-            <span style="font-size: 13px;padding-right: 8px;"> BI PROJECT: Class Name for Balcinrenone/Dapagliflozin </span>
+<!-- DESKTOP -->
+<div *ngIf="!isMobile" class="container mat-elevation-z4 bsr-container">
+     <mat-toolbar class="toolbar" fxLayoutAlign="space-between center">
+        <span *ngIf="projectId !== 'du4689'; else alt" class="toolbar-text">BI PROJECT: {{ projectName }}</span>
+        <ng-template #alt>
+          <span class="toolbar-text">BI PROJECT: Class Name for Balcinrenone/Dapagliflozin</span>
         </ng-template>
-
-            <mat-icon *ngIf="isUserLogged" (click)="openDialog('displayInfo', '', '', '', '')"
-                style="color: white;background-color: #004684;  outline: none;cursor: pointer;">help</mat-icon>
-
-        </mat-toolbar>
-
-        <div class="col container">
-
-            <div *ngIf="!isUserLogged && !isUserLeaving && !isBSROpen" id="login">
-
-                <div id="login-form-wrapper" fxLayout="column" fxLayoutAlign="center center">
-
-                    <div id="login-form">
-
-                        <img class="logo" src="./assets/img/NAMEPAGE_LOGO-01.svg">
-                        <br>
-                       <div *ngIf="projectId !== 'du4689' else ant">
-                          <div class="title secondary-text">Welcome to the NamePage<sup style="font-size: 10px;">TM</sup>
-                            for Project </div>
-                          <div class="title secondary-text" style="color: #004684;">
-                              {{projectName}}
-                          </div>
-                       </div>
-                        <ng-template #ant>
-                            <div class="title secondary-text">Welcome to the NamePage<sup style="font-size: 10px;">TM</sup>
-                              for </div>
-                            <div class="title secondary-text" style="color: #004684;">
-                              Class Name for Balcinrenone/Dapagliflozin
-                            </div>
-                        </ng-template>
-                        <div class="mat-small secondary-text">Please enter your information below to continue.
-                        </div>
-
-                        <form name="loginForm" [formGroup]="loginForm" novalidate class="open-close-container">
-
-                            <mat-form-field appearance="outline">
-                                <mat-label>Name</mat-label>
-                                <input matInput type="name" placeholder="name" formControlName="name">
-                                <mat-error>
-                                    name is required
-                                </mat-error>
-                            </mat-form-field>
-
-                            <mat-form-field appearance="outline">
-                                <mat-label>Email</mat-label>
-                                <input matInput placeholder="Email" formControlName="email">
-                                <mat-error *ngIf="loginForm.get('email').hasError('required')">
-                                    Email is required
-                                </mat-error>
-                                <mat-error *ngIf="!loginForm.get('email').hasError('required') &&
-                              loginForm.get('email').hasError('email')">
-                                    Please enter a valid email address
-                                </mat-error>
-                            </mat-form-field>
-
-                            <mat-error *ngIf="false">
-                                Username or password incorrect or not register
-                            </mat-error>
-
-                            <div class="remember-forgot-password" fxLayout="row" fxLayout.xs="column"
-                                fxLayoutAlign="space-between center">
-                                <mat-checkbox matInput formControlName="suma" class="remember-me secondary-text"
-                                    aria-label="Remember Me">
-                                    Summarize your input once finished?
-                                </mat-checkbox>
-                            </div>
-
-                            <button (click)="submitCredentials()" mat-raised-button style="color: white;"
-                                color="primary" class="submit-button clickToSumit" aria-label="LOG IN"
-                                [disabled]="loginForm.invalid">
-                                SUBMIT
-                            </button>
-
-                        </form>
-
-                    </div>
-
+        <mat-icon *ngIf="isUserLogged" (click)="openDialog('displayInfo', '', '', '', '')" class="help-icon">help</mat-icon>
+      </mat-toolbar>
+    <div class="content-wrapper">
+     
+  
+      <div class="col container">
+        <!-- LOGIN PAGE  -->
+        <div *ngIf="!isUserLogged && !isUserLeaving && !isBSROpen" id="login">
+          <div id="login-form-wrapper" fxLayout="column" fxLayoutAlign="center center">
+            <div class="loginPage" id="login-form">
+              <img class="logo" src="./assets/img/NAMEPAGE_LOGO-01.svg">
+              <br>
+              <div style="display: flex; flex-direction: column; align-items: center; align-content: center" *ngIf="projectId !== 'du4689'; else ant">
+                <div class="title secondary-text">Welcome to the NamePage<sup style="font-size: 10px;">TM</sup> for Project</div>
+                <div class="title secondary-text" style="color: #004684;">{{ projectName }}</div>
+              </div>
+              <ng-template #ant>
+                <div class="title secondary-text">Welcome to the NamePage<sup style="font-size: 10px;">TM</sup> for</div>
+                <div class="title secondary-text" style="color: #004684;">Class Name for Balcinrenone/Dapagliflozin</div>
+              </ng-template>
+              <div class="mat-small secondary-text">Please enter your information below to continue.</div>
+              <form name="loginForm" [formGroup]="loginForm" novalidate class="open-close-container">
+                <mat-form-field appearance="outline">
+                  <mat-label>Name</mat-label>
+                  <input matInput type="name" placeholder="name" formControlName="name">
+                  <mat-error>Name is required</mat-error>
+                </mat-form-field>
+                <mat-form-field appearance="outline">
+                  <mat-label>Email</mat-label>
+                  <input matInput placeholder="Email" formControlName="email">
+                  <mat-error *ngIf="loginForm.get('email').hasError('required')">Email is required</mat-error>
+                  <mat-error *ngIf="!loginForm.get('email').hasError('required') && loginForm.get('email').hasError('email')">Please enter a valid email address</mat-error>
+                </mat-form-field>
+                <mat-error *ngIf="false">Username or password incorrect or not registered</mat-error>
+                <div class="remember-forgot-password" fxLayout="row" fxLayout.xs="column" fxLayoutAlign="space-between center">
+                  <mat-checkbox matInput formControlName="suma" class="remember-me secondary-text" aria-label="Remember Me">
+                    Summarize your input once finished?
+                  </mat-checkbox>
                 </div>
-
+                <button (click)="submitCredentials()" mat-raised-button class="submit-button" color="primary" aria-label="LOG IN" [disabled]="loginForm.invalid">SUBMIT</button>
+              </form>
             </div>
-
-
-            <div  *ngIf="isUserLogged" fxLayout="column" fxLayoutAlign="center center" id="login">
-                <br>
-                <div class="mat-body-1">Name Suggestions: {{newNames.length}}</div>
-                <mat-card appearance="outlined" class="names-list-card">
-                    <div  *ngFor="let item of  newNames; let i = index" class="name-box"
-                        (click)="openDialog(item.name, item.nameid, item.rationale, item.favourite, item.source)">
-                        <div> {{item.name}}</div>
-                        <div>
-                            <span *ngIf="(item.favourite==='true')?true:false" style="font-size: 17px;color: red;"
-                                class="material-icons">
-                                favorite
-                            </span>
-                            <span *ngIf="(item.source === 'Anonymous')" style="font-size: 17px;" class="material-icons">
-                                font_download
-                            </span>
-                        </div>
-
-                    </div>
-
-                </mat-card>
-                <br>
-
-                <form name="newNameForm" [formGroup]="newNameForm" novalidate class="name-suggestions-field">
-
-                    <mat-form-field appearance="outline" style="min-width: 330px;">
-                        <mat-label>Name Suggestions</mat-label>
-                        <input matInput type="text" placeholder="name_1, name_2, name_3...." #reference
-                            formControlName="name">
-
-                    </mat-form-field>
-
-                    <!-- <button class="emoji-button" (click)="emojiToggle()" mat-icon-button color="accent"
-                        aria-label="emoji">
-                        <mat-icon>tag_faces</mat-icon>
-                    </button> -->
-
-                    <div class="col" style="text-align: center;">
-                        <div class="col" style="text-align: center;">
-
-                            <button (click)="sendNewName(); reference.value=''" mat-raised-button color="primary"
-                                class="clickToSumit mat-elvation-z2" aria-label="LOG IN">
-                                CLICK TO SUBMIT
-                            </button>
-                            <br>
-                            <br>
-
-                        </div>
-                        <div class="col">
-                            <mat-checkbox class="remember-me secondary" aria-label="Anonymous" matInput
-                                formControlName="suma">
-                                Enable Anonymous Submit?
-                            </mat-checkbox>
-                            <br>
-                            <div *ngIf="displayBulletPoints" style="display: flex;flex-direction: column;">
-                                <p>Key Nonproprietary Naming Rules </p>
-                            <ul style="font-size: 10px;text-align: initial;">
-                                <li>{{bulletPointLine}}</li>
-                                <li>H, J, K, W & Y forbidden for global harmonization </li>
-                                <li>No beginning with CRI (Crinetics- Company name) </li>
-                                <li>No Double consonants and double vowels </li>
-                            </ul>
-                            </div>
-                            <br *ngIf="!displayBulletPoints">
-                            <br *ngIf="!displayBulletPoints">
-                            <br *ngIf="!displayBulletPoints">
-                        </div>
-
-                        <div class="col">
-                        </div>
-                        <div class="col">
-                            <button (click)="finish()" mat-raised-button style="color: white;" color="accent"
-                                class="clickToSumit mat-elvation-z2" aria-label="LOG IN">
-                                CLICK TO FINISH
-                            </button>
-                        </div>
-                    </div>
-                </form>
-            </div>
-
-            <!-- THANK YOU PAGE  -->
-            <div *ngIf="!isUserLogged && isUserLeaving && !isBSROpen" id="login">
-
-                <div id="login-form-wrapper" fxLayout="column" fxLayoutAlign="center center">
-
-                    <div id="login-form">
-
-                        <img class="logo" src="assets/img/NAMEPAGE_LOGO-01.svg">
-                        <br> <br>
-
-                        <div class="title " style="color: #004684;">
-                            Thank you for using NamePage.
-                        </div>
-                        <div class="title " style="color: #004684;">
-                            To submit additional names, please refresh the page.
-                        </div>
-                        <br>
-
-                        <button mat-mini-fab (click)="reloadpage()" class="refreshbutton" aria-label="icon">
-                            <mat-icon>refresh</mat-icon>
-                        </button>
-
-                    </div>
-
-                </div>
-
-            </div>
-            <!-- BSR CLOSED  -->
-            <div *ngIf="isBSROpen" id="login">
-
-                <div id="login-form-wrapper" fxLayout="column" fxLayoutAlign="center center">
-
-                    <div id="login-form">
-
-                        <img class="logo" src="assets/img/NAMEPAGE_LOGO-01.svg">
-                        <br> <br>
-
-                        <div class="title " style="color: #004684;">
-                            Thank you for using NamePage.
-                        </div>
-                        <div class="title " style="color: #004684;">
-                            The BSR project <br><span style="font-weight: bold;">{{ projectName}}</span><br> has been
-                            closed.
-                        </div>
-                        <br>
-
-                        <button mat-mini-fab (click)="reloadpage()" class="refreshbutton" aria-label="icon">
-                            <mat-icon>refresh</mat-icon>
-                        </button>
-
-                    </div>
-
-                </div>
-
-            </div>
-
+          </div>
         </div>
-
-        <!-- //COVGOZE, DYZPELVID, ジズペルビド , EQMANI, BETACOZ, COVGOZE, DYZPELVID , -->
-        <!-- EMOJIES  -->
-
-        <div *ngIf="isEmojiTime mat-elevation-z4" cdkDrag class="test-emoji">
-            <div class="example-handle" cdkDragHandle>
-                <svg width="24px" fill="currentColor" viewBox="0 0 24 24">
-                    <path
-                        d="M10 9h4V6h3l-5-5-5 5h3v3zm-1 1H6V7l-5 5 5 5v-3h3v-4zm14 2l-5-5v3h-3v4h3v3l5-5zm-9 3h-4v3H7l5 5 5-5h-3v-3z">
-                    </path>
-                </svg>
+        <!-- NAMES PAGE  -->
+        <div *ngIf="isUserLogged" fxLayout="column" fxLayoutAlign="center center" id="login">
+            <br>
+            <div class="mat-body-1">Name Suggestions: {{ newNames.length }}</div>
+            <mat-card appearance="outlined" class="names-list-card">
+              <div class="name-box-header">
+                <div class="name-header">Name</div>
+                <div class="actions-header">Actions</div>
+              </div>
+              <div class="table-container">
+                <div *ngFor="let item of newNames; let i = index" class="name-box" (click)="openDialog(item.name, item.nameid, item.rationale, item.favourite, item.source)">
+                  <div class="name-cell">{{ item.name }}</div>
+                  <div class="actions-cell">
+                    <span *ngIf="(item.favourite === 'true')" class="favorite-icon material-icons">favorite</span>
+                    <span *ngIf="(item.source === 'Anonymous')" class="source-icon material-icons">font_download</span>
+                  </div>
+                </div>
+              </div>
+            </mat-card>
+            <br>
+            <form name="newNameForm" [formGroup]="newNameForm" novalidate class="name-suggestions-field">
+              <mat-form-field appearance="outline" class="form-field">
+                <mat-label>Name Suggestions</mat-label>
+                <input matInput type="text" placeholder="name_1, name_2, name_3...." #reference formControlName="name">
+              </mat-form-field>
+              <div class="col" style="text-align: center;">
+                <div class="col" style="text-align: center;">
+                  <button (click)="sendNewName(); reference.value=''" mat-raised-button color="primary" class="clickToSubmit mat-elevation-z2" aria-label="LOG IN">CLICK TO SUBMIT</button>
+                  <br>
+                  <br>
+                </div>
+                <div class="col">
+                  <mat-checkbox class="remember-me secondary" aria-label="Anonymous" matInput formControlName="suma">Enable Anonymous Submit?</mat-checkbox>
+                  <br>
+                  <div *ngIf="displayBulletPoints" style="display: flex; flex-direction: column;">
+                    <p>Key Nonproprietary Naming Rules</p>
+                    <ul style="font-size: 10px; text-align: initial;">
+                      <li>{{ bulletPointLine }}</li>
+                      <li>H, J, K, W & Y forbidden for global harmonization</li>
+                      <li>No beginning with CRI (Crinetics- Company name)</li>
+                      <li>No Double consonants and double vowels</li>
+                    </ul>
+                  </div>
+                  <br *ngIf="!displayBulletPoints">
+                  <br *ngIf="!displayBulletPoints">
+                  <br *ngIf="!displayBulletPoints">
+                </div>
+                <div class="col"></div>
+                <div class="col">
+                  <button (click)="finish()" mat-raised-button color="accent" class="clickToSubmit mat-elevation-z2" aria-label="LOG IN" style="color: white;">CLICK TO FINISH</button>
+                </div>
+              </div>
+            </form>
+          </div>
+          
+        <!-- THANK YOU PAGE -->
+        <div *ngIf="!isUserLogged && isUserLeaving && !isBSROpen" id="login">
+          <div id="login-form-wrapper" fxLayout="column" fxLayoutAlign="center center">
+            <div class="thankYouPage" id="login-form">
+              <img class="logo" src="assets/img/NAMEPAGE_LOGO-01.svg">
+              <br> <br>
+              <div class="title" style="color: #004684;">Thank you for using NamePage.</div>
+              <div class="title" style="color: #004684;">To submit additional names, please refresh the page.</div>
+              <br>
+              <button mat-mini-fab (click)="reloadpage()" class="refreshbutton" aria-label="icon">
+                <mat-icon>refresh</mat-icon>
+              </button>
             </div>
-            <div class="tab-1">
-                Faces
-                <hr>
-                😀 😃 😄 😁 😆 😅 😂 🤣 😊 😇 🙂 🙃 😉 😌 😍 🥰 😘 😗 😙 😚 😋 😛 😝 😜 🤪 🤨 🧐
-                🤓 😎 🤩 🥳 😏 😒 😞 😔 😟 😕 🙁 ☹️ 😣 😖 😫 😩 🥺 😢 😭 😤 😠 😡 🤬 🤯 😳 🥵 🥶 😱 😨 😰 😥 😓 🤗 🤔 🤭
-                🤫 🤥 😶 😐 😑 😬 🙄 😯 😦 😧 😮 😲 🥱 😴 🤤 😪 😵 🤐 🥴 🤢 🤮 🤧 😷 🤒 🤕 🤑 🤠 😈 👿 👹 👺 🤡 💩 👻 💀
-                ☠️ 👽 👾 🤖 🎃 😺 😸 😹 😻 😼 😽 🙀 😿 😾
-                ❤️ 🧡 💛 💚 💙 💜 🖤 🤍 🤎 💔 ❣️ 💕 💞 💓 💗 💖 💘 💝 💟
-
-                Gestures and Body Parts
-                <hr>
-                👋 🤚 🖐 ✋ 🖖 👌 🤏 ✌️ 🤞 🤟 🤘 🤙 👈 👉 👆 🖕 👇 ☝️ 👍 👎 ✊ 👊 🤛 🤜 👏 🙌 👐 🤲 🤝 🙏 ✍️ 💅 🤳 💪 🦾
-                🦵 🦿 🦶 👂 🦻 👃 🧠 🦷 🦴 👀 👁 👅 👄 💋 🩸
-
-                People and Fantasy
-                <hr>
-                👶 🧒 👦 👧 🧑 👱 👨 🧔 👨‍🦰 👨‍🦱 👨‍🦳 👨‍🦲 👩 👩‍🦰 🧑‍🦰 👩‍🦱 🧑‍🦱 👩‍🦳 🧑‍🦳 👩‍🦲 🧑‍🦲 👱‍♀️
-                👱‍♂️ 🧓 👴 👵 🙍 🙍‍♂️ 🙍‍♀️ 🙎 🙎‍♂️ 🙎‍♀️ 🙅 🙅‍♂️ 🙅‍♀️ 🙆 🙆‍♂️ 🙆‍♀️ 💁 💁‍♂️ 💁‍♀️ 🙋 🙋‍♂️ 🙋‍♀️
-                🧏 🧏‍♂️ 🧏‍♀️ 🙇 🙇‍♂️ 🙇‍♀️ 🤦 🤦‍♂️ 🤦‍♀️ 🤷 🤷‍♂️ 🤷‍♀️ 🧑‍⚕️ 👨‍⚕️ 👩‍⚕️ 🧑‍🎓 👨‍🎓 👩‍🎓 🧑‍🏫
-                👨‍🏫 👩‍🏫 🧑‍⚖️ 👨‍⚖️ 👩‍⚖️ 🧑‍🌾 👨‍🌾 👩‍🌾 🧑‍🍳 👨‍🍳 👩‍🍳 🧑‍🔧 👨‍🔧 👩‍🔧 🧑‍🏭 👨‍🏭 👩‍🏭
-                🧑‍💼 👨‍💼 👩‍💼 🧑‍🔬 👨‍🔬 👩‍🔬 🧑‍💻 👨‍💻 👩‍💻 🧑‍🎤 👨‍🎤 👩‍🎤 🧑‍🎨 👨‍🎨 👩‍🎨 🧑‍✈️ 👨‍✈️
-                👩‍✈️ 🧑‍🚀 👨‍🚀 👩‍🚀 🧑‍🚒 👨‍🚒 👩‍🚒 👮 👮‍♂️ 👮‍♀️ 🕵 🕵️‍♂️ 🕵️‍♀️ 💂 💂‍♂️ 💂‍♀️ 👷 👷‍♂️ 👷‍♀️
-                🤴 👸 👳 👳‍♂️ 👳‍♀️ 👲 🧕 🤵 👰 🤰 🤱 👼 🎅 🤶 🦸 🦸‍♂️ 🦸‍♀️ 🦹 🦹‍♂️ 🦹‍♀️ 🧙 🧙‍♂️ 🧙‍♀️ 🧚 🧚‍♂️
-                🧚‍♀️ 🧛 🧛‍♂️ 🧛‍♀️ 🧜 🧜‍♂️ 🧜‍♀️ 🧝 🧝‍♂️ 🧝‍♀️ 🧞 🧞‍♂️ 🧞‍♀️ 🧟 🧟‍♂️ 🧟‍♀️ 💆 💆‍♂️ 💆‍♀️ 💇 💇‍♂️
-                💇‍♀️ 🚶 🚶‍♂️ 🚶‍♀️ 🧍 🧍‍♂️ 🧍‍♀️ 🧎 🧎‍♂️ 🧎‍♀️ 🧑‍🦯 👨‍🦯 👩‍🦯 🧑‍🦼 👨‍🦼 👩‍🦼 🧑‍🦽 👨‍🦽 👩‍🦽
-                🏃 🏃‍♂️ 🏃‍♀️ 💃 🕺 🕴 👯 👯‍♂️ 👯‍♀️ 🧖 🧖‍♂️ 🧖‍♀️ 🧘 🧑‍🤝‍🧑 👭 👫 👬 💏 👨‍❤️‍💋‍👨 👩‍❤️‍💋‍👩 💑
-                👨‍❤️‍👨 👩‍❤️‍👩 👪 👨‍👩‍👦 👨‍👩‍👧 👨‍👩‍👧‍👦 👨‍👩‍👦‍👦 👨‍👩‍👧‍👧 👨‍👨‍👦 👨‍👨‍👧 👨‍👨‍👧‍👦
-                👨‍👨‍👦‍👦 👨‍👨‍👧‍👧 👩‍👩‍👦 👩‍👩‍👧 👩‍👩‍👧‍👦 👩‍👩‍👦‍👦 👩‍👩‍👧‍👧 👨‍👦 👨‍👦‍👦 👨‍👧
-                👨‍👧‍👦 👨‍👧‍👧 👩‍👦 👩‍👦‍👦 👩‍👧 👩‍👧‍👦 👩‍👧‍👧 🗣 👤 👥 👣
-            </div>
-            <mat-tab-group>
-                <mat-tab id="first-tab" label="First" style="overflow-y: hidden;">
-                    <div style="overflow-y: scroll;overflow-x: hidden;">
-                        😀 😃 😄 😁 😆 😅 😂 🤣 ☺️ 😊 😇 🙂 🙃 😉 😌 😍 🥰 😘 😗 😙 😚 😋 😛 😝 😜 🤪 🤨 🧐
-                        🤓 😎 🤩 🥳 😏 😒 😞 😔 😟 😕 🙁 ☹️ 😣 😖 😫 😩 🥺 😢 😭 😤 😠 😡 🤬 🤯 😳 🥵 🥶 😱 😨 😰 😥 😓
-                        🤗 🤔 🤭
-                        🤫 🤥 😶 😐 😑 😬 🙄 😯 😦 😧 😮 😲 🥱 😴 🤤 😪 😵 🤐 🥴 🤢 🤮 🤧 😷 🤒 🤕 🤑 🤠 😈 👿 👹 👺 🤡
-                        💩 👻 💀
-                        ☠️ 👽 👾 🤖 🎃 😺 😸 😹 😻 😼 😽 🙀 😿 😾
-
-                        Gestures and Body Parts
-                        👋 🤚 🖐 ✋ 🖖 👌 🤏 ✌️ 🤞 🤟 🤘 🤙 👈 👉 👆 🖕 👇 ☝️ 👍 👎 ✊ 👊 🤛 🤜 👏 🙌 👐 🤲 🤝 🙏 ✍️ 💅 🤳
-                        💪 🦾
-                        🦵 🦿 🦶 👂 🦻 👃 🧠 🦷 🦴 👀 👁 👅 👄 💋 🩸
-
-                        People and Fantasy
-                        👶 🧒 👦 👧 🧑 👱 👨 🧔 👨‍🦰 👨‍🦱 👨‍🦳 👨‍🦲 👩 👩‍🦰 🧑‍🦰 👩‍🦱 🧑‍🦱 👩‍🦳 🧑‍🦳 👩‍🦲
-                        🧑‍🦲 👱‍♀️
-                        👱‍♂️ 🧓 👴 👵 🙍 🙍‍♂️ 🙍‍♀️ 🙎 🙎‍♂️ 🙎‍♀️ 🙅 🙅‍♂️ 🙅‍♀️ 🙆 🙆‍♂️ 🙆‍♀️ 💁 💁‍♂️ 💁‍♀️ 🙋
-                        🙋‍♂️ 🙋‍♀️
-                        🧏 🧏‍♂️ 🧏‍♀️ 🙇 🙇‍♂️ 🙇‍♀️ 🤦 🤦‍♂️ 🤦‍♀️ 🤷 🤷‍♂️ 🤷‍♀️ 🧑‍⚕️ 👨‍⚕️ 👩‍⚕️ 🧑‍🎓 👨‍🎓 👩‍🎓
-                        🧑‍🏫
-                        👨‍🏫 👩‍🏫 🧑‍⚖️ 👨‍⚖️ 👩‍⚖️ 🧑‍🌾 👨‍🌾 👩‍🌾 🧑‍🍳 👨‍🍳 👩‍🍳 🧑‍🔧 👨‍🔧 👩‍🔧 🧑‍🏭 👨‍🏭
-                        👩‍🏭
-                        🧑‍💼 👨‍💼 👩‍💼 🧑‍🔬 👨‍🔬 👩‍🔬 🧑‍💻 👨‍💻 👩‍💻 🧑‍🎤 👨‍🎤 👩‍🎤 🧑‍🎨 👨‍🎨 👩‍🎨 🧑‍✈️
-                        👨‍✈️
-                        👩‍✈️ 🧑‍🚀 👨‍🚀 👩‍🚀 🧑‍🚒 👨‍🚒 👩‍🚒 👮 👮‍♂️ 👮‍♀️ 🕵 🕵️‍♂️ 🕵️‍♀️ 💂 💂‍♂️ 💂‍♀️ 👷
-                        👷‍♂️ 👷‍♀️
-                        🤴 👸 👳 👳‍♂️ 👳‍♀️ 👲 🧕 🤵 👰 🤰 🤱 👼 🎅 🤶 🦸 🦸‍♂️ 🦸‍♀️ 🦹 🦹‍♂️ 🦹‍♀️ 🧙 🧙‍♂️ 🧙‍♀️ 🧚
-                        🧚‍♂️
-                        🧚‍♀️ 🧛 🧛‍♂️ 🧛‍♀️ 🧜 🧜‍♂️ 🧜‍♀️ 🧝 🧝‍♂️ 🧝‍♀️ 🧞 🧞‍♂️ 🧞‍♀️ 🧟 🧟‍♂️ 🧟‍♀️ 💆 💆‍♂️ 💆‍♀️
-                        💇 💇‍♂️
-                        💇‍♀️ 🚶 🚶‍♂️ 🚶‍♀️ 🧍 🧍‍♂️ 🧍‍♀️ 🧎 🧎‍♂️ 🧎‍♀️ 🧑‍🦯 👨‍🦯 👩‍🦯 🧑‍🦼 👨‍🦼 👩‍🦼 🧑‍🦽
-                        👨‍🦽 👩‍🦽
-                        🏃 🏃‍♂️ 🏃‍♀️ 💃 🕺 🕴 👯 👯‍♂️ 👯‍♀️ 🧖 🧖‍♂️ 🧖‍♀️ 🧘 🧑‍🤝‍🧑 👭 👫 👬 💏 👨‍❤️‍💋‍👨
-                        👩‍❤️‍💋‍👩 💑
-                        👨‍❤️‍👨 👩‍❤️‍👩 👪 👨‍👩‍👦 👨‍👩‍👧 👨‍👩‍👧‍👦 👨‍👩‍👦‍👦 👨‍👩‍👧‍👧 👨‍👨‍👦 👨‍👨‍👧
-                        👨‍👨‍👧‍👦
-                        👨‍👨‍👦‍👦 👨‍👨‍👧‍👧 👩‍👩‍👦 👩‍👩‍👧 👩‍👩‍👧‍👦 👩‍👩‍👦‍👦 👩‍👩‍👧‍👧 👨‍👦 👨‍👦‍👦
-                        👨‍👧
-                        👨‍👧‍👦 👨‍👧‍👧 👩‍👦 👩‍👦‍👦 👩‍👧 👩‍👧‍👦 👩‍👧‍👧 🗣 👤 👥 👣
-                    </div>
-                </mat-tab>
-                <mat-tab label="Second"> 🐶 🐱 🐭 🐹 🐰 🦊 🐻 🐼 🐨 🐯 🦁 🐮 🐷 🐽 🐸 🐵 🙈 🙉 🙊 🐒 🐔 🐧 🐦 🐤 🐣 🐥
-                    🦆 🦅
-                    🦉
-                    🦇 🐺 🐗 🐴 🦄 🐝 🐛 🦋
-                    🐌 🐞 🐜 🦟 🦗 🕷 🕸 🦂 🐢 🐍 🦎 🦖 🦕 🐙 🦑 🦐 🦞 🦀 🐡 🐠 🐟 🐬 🐳 🐋 🦈 🐊 🐅 🐆 🦓 🦍 🦧 🐘 🦛
-                    🦏 🐪
-                    🐫
-                    🦒
-                    🦘 🐃 🐂 🐄 🐎 🐖 🐏 🐑 🦙 🐐 🦌 🐕 🐩 🦮 🐕‍🦺 🐈 🐓 🦃 🦚 🦜 🦢 🦩 🕊 🐇 🦝 🦨 🦡 🦦 🦥 🐁 🐀 🐿
-                    🦔 🐾
-                    🐉
-                    🐲
-                    🌵 🎄 🌲 🌳 🌴 🌱 🌿 ☘️ 🍀 🎍 🎋 🍃 🍂 🍁 🍄 🐚 🌾 💐 🌷 🌹 🥀 🌺 🌸 🌼 🌻 🌞 🌝 🌛 🌜 🌚 🌕 🌖 🌗
-                    🌘 🌑
-                    🌒
-                    🌓
-                    🌔 🌙 🌎 🌍 🌏 🪐 💫 ⭐️ 🌟 ✨ ⚡️ ☄️ 💥 🔥 🌪 🌈 ☀️ 🌤 ⛅️ 🌥 ☁️ 🌦 🌧 ⛈ 🌩 🌨 ❄️ ☃️ ⛄️ 🌬 💨 💧 💦 ☔️
-                    ☂️
-                    🌊 🌫
-                </mat-tab>
-                <mat-tab label="Third">
-                    [̲̅ə̲̅٨̲̅٥̲̅٦̲̅] ✯ℋᵅᵖᵖᵞ ℬⁱʳᵗᑋᵈᵃᵞ✯ ⋆｡˚ᎶᎾᎾⅅ ℕᏐᎶℍᎢ⋆｡˚✩ 💪👦👉 ◨██══════██◧ ✌♫♪˙❤‿❤˙♫♪✌
-                    ☆❋──❁ɢ∞פ ʍօ®ɴɪɴɢ❃──❋[̲̅$̲̅(̲̅5̲̅)̲̅$̲̅] ┌∩┐(ಠ_ಠ)┌∩┐ ———–[]=¤ԅ༼ ･ 〜 ･ ༽╯
-                    ✌（◕ω◕）✌ 乂❤‿❤乂 ⎧ᴿᴵᴾ⎫◟◟◟◟◟◟◟ ❀◟(ó ̯ ò, ) ლ(´ ❥ `ლ) 🐕≡≡≡===💨 ヽ(ﾟεﾟヽ)))))
-                    ʕっ•ᴥ•ʔ ♥️♥️🖤🖤☠️💀☠️🖤🖤♥️♥️ ★ PLΔyBӨY ★ ̿̿’̿’\̵͇̿̿\=(•̪●)=/̵͇̿̿/’̿̿ ̿ ̿ ̿ ʕ•͡-•ʔ __̴ı̴̴̡̡̡
-                    ̡͌l̡̡̡ ̡͌l̡*̡̡ ̴̡ı̴̴̡ ̡̡͡|̲̲̲͡͡͡ ̲▫̲͡ ̲̲̲͡͡π̲̲͡͡ ̲̲͡▫̲̲͡͡ ̲|̡̡̡ ̡ ̴̡ı̴̡̡ ̡͌l̡̡̡̡.___
-                    v^√√v^──√v^√v^──√v^√√v^── 🏃‍♂️三三☲=💨 ⋆⋆⃟⊱✪⃝⃞⃝⊰⋆⃟⋆⋆ ◤◢◣◥◤◢◣◥ ◦°˚\😃/˚°◦ ♞▀▄▀▄♝▀▄
-                    🐓🐓🥚 ══► 🍳 [̲̅$̲̅(̲̅10)̲̅$̲̅] ｍ（｡≧ _ ≦｡）ｍ Ꮹꄲꄲძ ℳꄲᖇᘉɪ̊ᘉ꒸.͙✼̥୭⁺ ◙▒◙♫♩♬ (ó﹏ò｡) 🌷 ꒐꓄'ꇙ ꇙꉣꋪ꒐ꋊꍌ 🌷
-                </mat-tab>
-            </mat-tab-group>
+          </div>
         </div>
-
+        <!-- BSR CLOSED -->
+        <div *ngIf="isBSROpen" id="login">
+          <div id="login-form-wrapper" fxLayout="column" fxLayoutAlign="center center">
+            <div id="login-form">
+              <img class="logo" src="assets/img/NAMEPAGE_LOGO-01.svg">
+              <br> <br>
+              <div class="title" style="color: #004684;">Thank you for using NamePage.</div>
+              <div class="title" style="color: #004684;">The BSR project <br><span style="font-weight: bold;">{{ projectName }}</span><br> has been closed.</div>
+              <br>
+              <button mat-mini-fab (click)="reloadpage()" class="refreshbutton" aria-label="icon">
+                <mat-icon>refresh</mat-icon>
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
     </div>
-</div>
+  </div>
+  
 
 
 
 
-<!-- <div class="register" fxLayout="column" fxLayoutAlign="center center">
-                <span class="text secondary-text">Don't have an account?</span>
-                <a class="link" [routerLink]="'/apps/register/auth/register'">Create an account</a>
-                <a class="link" [routerLink]="'/apps/contacts'">Contact us</a>
-            </div> -->
+
+
+
+  <!-- MOBILE -->
+  <div *ngIf="isMobile" class="  bsr-mobile-container">
+   
+      <mat-toolbar class="toolbar" fxLayoutAlign="space-between center">
+        <span *ngIf="projectId !== 'du4689'; else alt" class="toolbar-text">BI PROJECT: {{ projectName }}</span>
+        <ng-template #alt>
+          <span class="toolbar-text">BI PROJECT: Class Name for Balcinrenone/Dapagliflozin</span>
+        </ng-template>
+        <mat-icon *ngIf="isUserLogged" (click)="openDialog('displayInfo', '', '', '', '')" class="help-icon">help</mat-icon>
+      </mat-toolbar>
+      
+      <div class="col container">
+        <!-- LOGIN PAGE  -->
+        <div *ngIf="!isUserLogged && !isUserLeaving && !isBSROpen" id="login">
+          <div id="login-form-wrapper" fxLayout="column" fxLayoutAlign="center center">
+            <div class="loginPage" id="login-form">
+              <img class="logo" src="./assets/img/NAMEPAGE_LOGO-01.svg">
+              <br>
+              <div style="display: flex; flex-direction: column; align-items: center; align-content: center" *ngIf="projectId !== 'du4689'; else ant">
+                <div class="title secondary-text">Welcome to the NamePage<sup style="font-size: 10px;">TM</sup> for Project</div>
+                <div class="title secondary-text" style="color: #004684;">{{ projectName }}</div>
+              </div>
+              <ng-template #ant>
+                <div class="title secondary-text">Welcome to the NamePage<sup style="font-size: 10px;">TM</sup> for</div>
+                <div class="title secondary-text" style="color: #004684;">Class Name for Balcinrenone/Dapagliflozin</div>
+              </ng-template>
+              <div class="mat-small secondary-text">Please enter your information below to continue.</div>
+              <form name="loginForm" [formGroup]="loginForm" novalidate class="open-close-container">
+                <mat-form-field appearance="outline">
+                  <mat-label>Name</mat-label>
+                  <input matInput type="name" placeholder="name" formControlName="name">
+                  <mat-error>Name is required</mat-error>
+                </mat-form-field>
+                <mat-form-field appearance="outline">
+                  <mat-label>Email</mat-label>
+                  <input matInput placeholder="Email" formControlName="email">
+                  <mat-error *ngIf="loginForm.get('email').hasError('required')">Email is required</mat-error>
+                  <mat-error *ngIf="!loginForm.get('email').hasError('required') && loginForm.get('email').hasError('email')">Please enter a valid email address</mat-error>
+                </mat-form-field>
+                <mat-error *ngIf="false">Username or password incorrect or not registered</mat-error>
+                <div class="remember-forgot-password" fxLayout="row" fxLayout.xs="column" fxLayoutAlign="space-between center">
+                  <mat-checkbox matInput formControlName="suma" class="remember-me secondary-text" aria-label="Remember Me">
+                    Summarize your input once finished?
+                  </mat-checkbox>
+                </div>
+                <button (click)="submitCredentials()" mat-raised-button class="submit-button" color="primary" aria-label="LOG IN" [disabled]="loginForm.invalid">SUBMIT</button>
+              </form>
+            </div>
+          </div>
+        </div>
+        <!-- NAMES PAGE  -->
+        <div *ngIf="isUserLogged" fxLayout="column" fxLayoutAlign="center center" id="login">
+          <br>
+          <div class="mat-body-1">Name Suggestions: {{ newNames.length }}</div>
+          <mat-card appearance="outlined" class="names-list-card">
+            <div class="name-box-header">
+              <div class="name-header">Name</div>
+              <div class="actions-header">Actions</div>
+            </div>
+            <div class="table-container">
+              <div *ngFor="let item of newNames; let i = index" class="name-box" (click)="openDialog(item.name, item.nameid, item.rationale, item.favourite, item.source)">
+                <div class="name-cell">{{ item.name }}</div>
+                <div class="actions-cell">
+                  <span *ngIf="(item.favourite === 'true')" class="favorite-icon material-icons">favorite</span>
+                  <span *ngIf="(item.source === 'Anonymous')" class="source-icon material-icons">font_download</span>
+                </div>
+              </div>
+            </div>
+          </mat-card>
+          <br>
+          <form name="newNameForm" [formGroup]="newNameForm" novalidate class="name-suggestions-field">
+            <mat-form-field appearance="outline" class="form-field">
+                <mat-label>Name Suggestions</mat-label>
+                <input matInput type="text" placeholder="name_1, name_2, name_3...." #reference formControlName="name">
+              </mat-form-field>
+              
+            <div class="col" style="text-align: center;">
+              <div class="col" style="text-align: center;">
+                <button (click)="sendNewName(); reference.value=''" mat-raised-button color="primary" class="clickToSubmit mat-elevation-z2" aria-label="LOG IN">CLICK TO SUBMIT</button>
+                <br>
+                <br>
+              </div>
+              <div class="col">
+                <mat-checkbox class="remember-me secondary" aria-label="Anonymous" matInput formControlName="suma">Enable Anonymous Submit?</mat-checkbox>
+                <br>
+                <div *ngIf="displayBulletPoints" style="display: flex; flex-direction: column;">
+                  <p>Key Nonproprietary Naming Rules</p>
+                  <ul style="font-size: 10px; text-align: initial;">
+                    <li>{{ bulletPointLine }}</li>
+                    <li>H, J, K, W & Y forbidden for global harmonization</li>
+                    <li>No beginning with CRI (Crinetics- Company name)</li>
+                    <li>No Double consonants and double vowels</li>
+                  </ul>
+                </div>
+                <br *ngIf="!displayBulletPoints">
+                <br *ngIf="!displayBulletPoints">
+                <br *ngIf="!displayBulletPoints">
+              </div>
+              <div class="col"></div>
+              <div class="col">
+                <button (click)="finish()" mat-raised-button color="accent" class="clickToSubmit mat-elevation-z2" aria-label="LOG IN" style="color: white;">CLICK TO FINISH</button>
+              </div>
+            </div>
+          </form>
+        </div>
+        <!-- THANK YOU PAGE -->
+        <div *ngIf="!isUserLogged && isUserLeaving && !isBSROpen" id="login">
+          <div id="login-form-wrapper" fxLayout="column" fxLayoutAlign="center center">
+            <div class="thankYouPage" id="login-form">
+              <img class="logo" src="assets/img/NAMEPAGE_LOGO-01.svg">
+              <br> <br>
+              <div class="title" style="color: #004684;">Thank you for using NamePage.</div>
+              <div class="title" style="color: #004684;">To submit additional names, please refresh the page.</div>
+              <br>
+              <button mat-mini-fab (click)="reloadpage()" class="refreshbutton" aria-label="icon">
+                <mat-icon>refresh</mat-icon>
+              </button>
+            </div>
+          </div>
+        </div>
+        <!-- BSR CLOSED -->
+        <div *ngIf="isBSROpen" id="login">
+          <div id="login-form-wrapper" fxLayout="column" fxLayoutAlign="center center">
+            <div id="login-form">
+              <img class="logo" src="assets/img/NAMEPAGE_LOGO-01.svg">
+              <br> <br>
+              <div class="title" style="color: #004684;">Thank you for using NamePage.</div>
+              <div class="title" style="color: #004684;">The BSR project <br><span style="font-weight: bold;">{{ projectName }}</span><br> has been closed.</div>
+              <br>
+              <button mat-mini-fab (click)="reloadpage()" class="refreshbutton" aria-label="icon">
+                <mat-icon>refresh</mat-icon>
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+    
+ 
+  

@@ -2,27 +2,28 @@
 justify-content: center;
 align-items: center;
 flex-direction: column;
-background-color: white;
-padding: 20px;
+margin: 34px;
 border-radius: 10px;
-box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);" *ngIf="infoMessage">
-    <form name="loginForm" [formGroup]="loginForm" novalidate>
+" *ngIf="infoMessage">
+    <form  name="loginForm" [formGroup]="loginForm" novalidate>
 
 
         <div *ngIf="!isDeleting" class="mat-h2" style="text-align: center;">Are you sure you want to delete? </div>
         <div *ngIf="!isDeleting" class="mat-h1" style="text-align: center;color: #004684;">{{editName}}</div>
         <div *ngIf="!isDeleting" class="mat-h4">If you delete this name, it will be removed permanently.</div>
 
-        <mat-form-field *ngIf="isDeleting" appearance="outline" style="max-width: 350px; min-width: 260px;">
-            <mat-label>Edit Name</mat-label>
-            <input matInput type="name" placeholder="name" formControlName="name">
-        </mat-form-field>
-        
-        <mat-form-field *ngIf="isDeleting" appearance="outline" style="max-width: 350px; min-width: 260px;">
-            <mat-label>Rationale</mat-label>
-            <input matInput type="text" placeholder="rationale" formControlName="rationale">
-        </mat-form-field>
-        
+        <div class="columns-input" style="display: flex; flex-direction: column;">
+            <mat-form-field *ngIf="isDeleting" appearance="outline" class="responsive-input">
+              <mat-label>Edit Name</mat-label>
+              <input matInput type="name" placeholder="name" formControlName="name">
+            </mat-form-field>
+            
+            <mat-form-field *ngIf="isDeleting" appearance="outline" class="responsive-input">
+              <mat-label>Rationale</mat-label>
+              <input matInput type="text" placeholder="rationale" formControlName="rationale">
+            </mat-form-field>
+          </div>
+          
 
         <div class="row" style="margin-top: -8px; text-align: center; justify-content: center;">
 
@@ -89,7 +90,7 @@ padding: 24px;
 " *ngIf="!infoMessage">
     <div class="mat-h4" style="text-align: center;">Help</div>
     <hr>
-    <div class="mat-h3" style="text-align: center;color: #004684;">Touch or click a name to edit or delete. v0.5
+    <div class="mat-h3" style="text-align: center;color: #004684;">Touch or click a name to edit or delete. v0.5.05
     </div>
 
     <div class="end-button" style="display: flex;justify-content: flex-end;" fxLayoutAlign="end end">

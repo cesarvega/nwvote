@@ -5,6 +5,7 @@ import { Router, ActivatedRoute } from '@angular/router';
 import { BsrMobileService } from './bsr-mobile.service';
 import {  MatDialog, MatDialogRef,  MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { DeviceDetectorService } from 'ngx-device-detector';
+import { BreakpointObserver, Breakpoints } from '@angular/cdk/layout';
 
 @Component({
   selector: 'app-bsr-mobile',
@@ -12,7 +13,7 @@ import { DeviceDetectorService } from 'ngx-device-detector';
   styleUrls: ['./bsr-mobile.component.scss']
 })
 export class BsrMobileComponent implements OnInit {
-
+  isMobile: boolean = false;
   isUserLogged = false;
   isUserLeaving = false;
   isBSROpen = false;
@@ -31,7 +32,7 @@ export class BsrMobileComponent implements OnInit {
   bulletPointLine = '';
   summarized: any;
   deviceInfo: any;
-  constructor(private _formBuilder: UntypedFormBuilder, private bsrService: BsrMobileService,
+  constructor(private _formBuilder: UntypedFormBuilder,private breakpointObserver: BreakpointObserver, private bsrService: BsrMobileService,
     private activatedRoute: ActivatedRoute,
     public dialog: MatDialog,
     private router: Router) {
@@ -80,7 +81,10 @@ export class BsrMobileComponent implements OnInit {
       name: ['', Validators.required]
     });
 
-
+    this.breakpointObserver.observe(['(max-width: 599px)'])
+    .subscribe(result => {
+      this.isMobile = result.matches;
+    });
     // setTimeout(() => {
     //   this.submitCredentials()
     //   setTimeout(() => {

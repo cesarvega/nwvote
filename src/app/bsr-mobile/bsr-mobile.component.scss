@@ -1,546 +1,229 @@
-@mixin BoxShadow($dp) {
-    @if $dp==0 {
-        box-shadow: none;
-    } @else if $dp==1 {
-        box-shadow: 0 1px 1px 0 rgba(0, 0, 0, 0.14), 0 2px 1px -1px rgba(0, 0, 0, 0.12), 0 1px 3px 0 rgba(0, 0, 0, 0.2);
-    } @else if $dp==2 {
-        box-shadow: 0 2px 2px 0 rgba(0, 0, 0, 0.14), 0 3px 1px -2px rgba(0, 0, 0, 0.12), 0 1px 5px 0 rgba(0, 0, 0, 0.2);
-    } @else if $dp==3 {
-        box-shadow: 0 3px 4px 0 rgba(0, 0, 0, 0.14), 0 3px 3px -2px rgba(0, 0, 0, 0.12), 0 1px 8px 0 rgba(0, 0, 0, 0.2);
-    } @else if $dp==4 {
-        box-shadow: 0 4px 5px 0 rgba(0, 0, 0, 0.14), 0 1px 10px 0 rgba(0, 0, 0, 0.12), 0 2px 4px -1px rgba(0, 0, 0, 0.2);
-    } @else if $dp==6 {
-        box-shadow: 0 6px 10px 0 rgba(0, 0, 0, 0.14), 0 1px 18px 0 rgba(0, 0, 0, 0.12),
-            0 3px 5px -1px rgba(0, 0, 0, 0.2);
-    } @else if $dp==8 {
-        box-shadow: 0 8px 10px 1px rgba(0, 0, 0, 0.14), 0 3px 14px 2px rgba(0, 0, 0, 0.12),
-            0 5px 5px -3px rgba(0, 0, 0, 0.2);
-    } @else if $dp==9 {
-        box-shadow: 0 9px 12px 1px rgba(0, 0, 0, 0.14), 0 3px 16px 2px rgba(0, 0, 0, 0.12),
-            0 5px 6px -3px rgba(0, 0, 0, 0.2);
-    } @else if $dp==12 {
-        box-shadow: 0 12px 17px 2px rgba(0, 0, 0, 0.14), 0 5px 22px 4px rgba(0, 0, 0, 0.12),
-            0 7px 8px -4px rgba(0, 0, 0, 0.2);
-    } @else if $dp==16 {
-        box-shadow: 0 16px 24px 2px rgba(0, 0, 0, 0.14), 0 6px 30px 5px rgba(0, 0, 0, 0.12),
-            0 8px 10px -5px rgba(0, 0, 0, 0.2);
-    } @else if $dp==24 {
-        box-shadow: 0 24px 38px 3px rgba(0, 0, 0, 0.14), 0 9px 46px 8px rgba(0, 0, 0, 0.12),
-            0 11px 15px -7px rgba(0, 0, 0, 0.2);
-    }
-}
 
-:host {
-    .toolbar {
-        background-color: #004684;
-        color: rgba(255, 255, 255, 0.87);
-        height: 56px;
-        max-height: 56px;
-        display: flex;
-        box-sizing: border-box;
-        padding: 0 16px;
-        width: 100%;
-        flex-direction: row;
-        align-items: center;
-        white-space: nowrap;
+  .bsr-container{
+    display: flex;
+    flex-direction: column;
+    background-color: #f0f0f0;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    border: solid #020263;
+    border-radius: 10px;
+    transform: translate(-50%, -50%);
+    max-width: 400px;
+    width: 100%;
+    padding: 0; 
+    margin: 0;  
+    height: 680px;
+  }
+  
+  .toolbar {
+    text-align: center;
+    border-bottom-left-radius: 6px;
+    border-bottom-right-radius: 6px;
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+    background-color: #004684;
+    color: rgba(255, 255, 255, 0.87);
+    height: 56px;
+    max-height: 56px;
+    box-sizing: border-box;
+    width: 100%;  
+    flex-direction: row;
+    align-items: center;
+    white-space: nowrap;
+    font-size: 13px;
+    padding: 0; 
+  }
+  
+  .login-form-wrapper {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    background: white;
+    border-radius: 10px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+  }
+  .name-suggestions-field{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+  .form-wrapper {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    background: white;
+    border-radius: 10px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+  }
+  
+  
+  .toolbar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background-color: #004684;
+    color: rgba(255, 255, 255, 0.87);
+    height: 56px;
+    padding: 0 16px;
+    box-sizing: border-box;
+    width: 100%;
+  }
+  
+  .toolbar-text {
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    flex-grow: 1;
+    font-size: 13px;
+  }
+  
+  .help-icon {
+    color: white;
+    background-color: #004684;
+    outline: none;
+    cursor: pointer;
+  }
+  
+  .login-form,
+  .names-form {
+    text-align: center;
+    width: 100%;
+    padding: 20px;
+  }
+  
+  .logo {
+    max-width: 100%;
+    height: auto;
+  }
+  
+  .title {
+    margin-top: 10px;
+    font-size: 1.4em;
+  }
+  
+  .secondary-text {
+    color: #666;
+  }
+  
+  .mat-small {
+    margin-top: 10px;
+    font-size: 0.9em;
+  }
+  
+  .open-close-container {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+    margin-top: 20px;
+  }
+  
+  .remember-forgot-password {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+  }
+  
+  .table-container {
+    max-height: 400px; 
+    overflow-y: auto;
+  }
+  
+  .names-list-card {
+    display: flex;
+    flex-direction: column;
+    height: 187px;
+  }
+  
+  .name-box-header {
+    display: flex;
+    justify-content: space-between;
+    font-weight: bold;
+    padding: 8px;
+    border-bottom: 1px solid #ccc;
+  }
+  
+  .name-box {
+    display: flex;
+    justify-content: space-between;
+    padding: 8px;
+    border-bottom: 1px solid #eee;
+  }
+  
+  .name-cell {
+    flex: 1;
+  }
+  
+  .actions-cell {
+    display: flex;
+    justify-content: flex-end;
+  }
+  
+  .favorite-icon {
+    font-size: 17px;
+    color: red;
+  }
+  
+  .source-icon {
+    font-size: 17px;
+    margin-left: 8px;
+  }
+  
+  .textarea-container {
+    max-height: 150px; 
+    overflow-y: auto;
+  }
+  
+  .textarea-container textarea {
+    height: 100%;
+    resize: none; 
+  }
+  
+  .thankYouPage{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+  .bsr-mobile-container {
+    display: flex;
+    flex-direction: column;
+    width: 100vw;
+    height: 99vh;
+  }
+  .form-field {
+    margin-left: auto;
+    margin-right: auto;
+    min-width: 280px; 
+    max-width: 100%;
+    width: 90%;
+    box-sizing: border-box;
+  }
+  .responsive-input {
+    max-width: 350px;
+    min-width: 260px;
+  }
+  
+ 
+  
+  @media (max-width: 600px) {
+    .remember-forgot-password {
+      flex-direction: column;
+      align-items: flex-start;
     }
-
    
-    .name-box {
-        font-size: 20px;
-        cursor: pointer;
-        border-bottom: navy dashed 0.01em;
-        display: flex;
-        flex-direction: row;
-        justify-content: space-between;        
+    .toolbar-text {
+      font-size: 12px;
     }
-
-    .name-box:hover{
-        @include BoxShadow(2)
-       }
-
-    .emoji-icon {
-        outline: none;
-        position: absolute;
-        top: -70px;
-        right: -17px;
-        opacity: 1;
-        animation: flip 0.4s 0.8s ease-in-out 1 forwards;
+    .responsive-input {
+      max-width: 100%;
+      min-width: 100%;
     }
-
-    .tab-emoji {
-        max-width: 380px;
-        min-width: 380px;
-    }
-
-    .names-list-card::-webkit-scrollbar {
-        display: none;
-    }
-
-    .name-input-field {
-        left: 0px;
-        animation: slideInDown 0.4s ease 0.6s backwards;
-    }
-    .full-width {
-        width: 100%;
-    }
-    
-    mat-form-field {
-        display: block;
-        margin-bottom: 16px;
-    }
-    
-
-    .finish-button {
-        right: 0px;
-        animation: rotateInDownLeft 0.2s ease 0.4s backwards;
-    }
-
-    .enable-anonymous {
-        animation: bounceIn 0.2s ease 0.6s backwards;
-    }
-
-    .remember-me {
-        // opacity: 0;
-        margin-bottom: 8px;
-        // animation: jackInTheBox 1s ease 2s forwards;
-    }
-
-    @keyframes cv-fadeIn {
-        from {
-            opacity: 0;
-        }
-        to {
-            opacity: 1;
-        }
-    }
-
-    .example-handle {
-        position: absolute;
-        top: 10px;
-        right: 10px;
-        color: #ccc;
-        cursor: move;
-        width: 24px;
-        height: 24px;
-        position: absolute;
-        right: auto;
-        top: 10px;
-        z-index: 99;
-    }
-
-    .tab-1 {
-        overflow-y: scroll;
-        max-height: 200px;
-        line-height: 30px;
-        letter-spacing: -0.054em;
-        scrollbar-width: thin;
-        background-color: white;
-        opacity: 0.97;
-    }
-
-    .tab-1::-webkit-scrollbar {
-        display: none;
-    }
-
-    .test-emoji {
-        display: flex;
-        justify-content: center;
-        align-content: center;
-        position: absolute;
-        top: 480px;
-        border: navy solid 2px;
-        padding: 5px;
-        margin: 5px;
-        border-radius: 10px;
-    }
-    
-
-    //desktop
-    @media (min-width: 576px) {
-        .names-list-card {
-            height: 320px;
-            overflow-y: scroll;
-            min-width: 330px;
-            line-height: 26px;
-            border-bottom: #1e41ea solid 1px;
-            opacity: 0;
-            animation: slideInDown 0.5s ease 0.1s backwards, cv-fadeIn 0.4s ease-in-out 0s forwards;
-        }
-        .bsr-mobile-container {
-            max-width: 400px;
-            position: absolute;
-            min-height: 90%;
-            top: 50%;
-            left: 50%;
-            overflow-y: hidden;
-            border: solid #020263;
-            border-radius: 10px;
-            transform: translate(-50%, -50%);
-        }
-        .tab-emoji {
-            max-width: 355px;
-            min-width: 355px;
-            overflow-y: scroll;
-        }
-        .emoji-mobile-box {
-            background-color: #fff;
-            position: absolute;
-            top: 12%;
-            border: lightgrey solid 4px;
-            border-radius: 10px;
-            padding: 10px;
-            max-height: 220px;
-            max-width: 387px;
-            font-size: 14px;
-            margin: 7px;
-            line-height: 19px;
-
-            opacity: 0;
-            animation: slideInDown 0.3s ease 0.1s backwards, cv-fadeIn 1s ease-in-out 0.3s forwards;
-        }
-
-        .tab-1 {
-            overflow-y: scroll;
-            max-height: 200px;
-            line-height: 30px;
-            letter-spacing: -0.054em;
-            scrollbar-width: thin;
-            background-color: white;
-            opacity: 0.97;
-        }
-
-        .tab-1::-webkit-scrollbar {
-            display: none;
-        }
-
-      
-
-        .test-emoji {
-            display: flex;
-            justify-content: center;
-            align-content: center;
-            position: absolute;
-            top: 518px;
-            border: navy solid 2px;
-            padding: 5px;
-            margin: 5px;
-            border-radius: 10px;
-        }
-    }
-    //mobile
-    @media (max-width: 576px) {
-        .names-list-card {
-            height: 260px;
-            overflow-y: scroll;
-            min-width: 330px;
-            line-height: 26px;
-            border-bottom: #1e41ea solid 1px;
-            opacity: 0;
-            animation: slideInDown 0.5s ease 0.3s backwards, cv-fadeIn 1s ease-in-out 0.3s forwards;
-        }
-
-        .bsr-mobile-container {
-            position: absolute;
-            min-height: 100%;
-            overflow-y: hidden;
-        }
-
-        .tab-emoji {
-            max-width: 380px;
-            min-width: 380px;
-        }
-
-        .emoji-mobile-box {
-            background-color: #ffffff;
-            position: absolute;
-            top: 14%;
-            border: lightgrey 2px solid;
-            border-radius: 10px;
-            padding: 0px 11px 0px 16px;
-            margin: 10px;
-            max-height: 220px;
-            font-size: 14px;
-            line-height: 19px;
-            opacity: 0;
-            animation: slideInDown 0.3s ease 0.1s backwards, cv-fadeIn 1s ease-in-out 0.3s forwards;
-        }
-        
-        .tab-1 {
-            overflow-y: scroll;
-            max-height: 175px;
-            line-height: 30px;
-            letter-spacing: -0.054em;
-            scrollbar-width: thin;
-            background-color: white;
-            opacity: 0.97;
-        }
-
-        .tab-1::-webkit-scrollbar {
-            display: none;
-        }
-
-        .test-emoji {
-            display: flex;
-            justify-content: center;
-            align-content: center;
-            position: absolute;
-            top: 455px;
-            border: navy solid 2px;
-            padding: 5px;
-            margin: 5px;
-            border-radius: 10px;
-        }
-
-      
-    }
-    // small mobile
-    @media (max-width: 400px) {
-        .names-list-card {
-            height: 260px;
-            overflow-y: scroll;
-            min-width: 330px;
-            line-height: 26px;
-            border-bottom: #1e41ea solid 1px;
-            opacity: 0;
-            animation: slideInDown 0.5s ease 0.3s backwards, cv-fadeIn 1s ease-in-out 0.3s forwards;
-        }
-
-        .bsr-mobile-container {
-            position: relative;
-            min-height: 100%;
-            overflow-y: hidden;
-        }
-
-        .tab-emoji {
-            max-width: 380px;
-            min-width: 380px;
-        }
-
-        .emoji-mobile-box {
-            background-color: #ffffff;
-            position: absolute;
-            top: 14%;
-            border: lightgrey 2px solid;
-            border-radius: 10px;
-            padding: 0px 11px 0px 16px;
-            margin: 10px;
-            max-height: 220px;
-            font-size: 14px;
-            line-height: 19px;
-            opacity: 0;
-            animation: slideInDown 0.3s ease 0.1s backwards, cv-fadeIn 1s ease-in-out 0.3s forwards;
-        }
-
-        .tab-1 {
-            overflow-y: scroll;
-            max-height: 175px;
-            line-height: 30px;
-            letter-spacing: -0.054em;
-            scrollbar-width: thin;
-            background-color: white;
-            opacity: 0.97;
-        }
-
-        .tab-1::-webkit-scrollbar {
-            display: none;
-        }
-
-        .test-emoji {
-            display: flex;
-            justify-content: center;
-            align-content: center;
-            position: absolute;
-            top: 455px;
-            border: navy solid 2px;
-            padding: 5px;
-            margin: 5px;
-            border-radius: 10px;
-        }
-
-      
-    }
-
-    .emoji-mobile-box {
-        overflow: hidden;
-    }
-    .emoji-mobile-box::-webkit-scrollbar {
-        display: none;
-    }
-
-    #login {
-        width: 100%;
-        // background: url('/assets/images/backgrounds/dark-material-bg.jpg') no-repeat;
-        background-color: white;
-        background-size: cover;
-
-        #login-form-wrapper {
-            flex: 1 0 auto;
-            padding: 5px;
-
-            #login-form {
-                // padding: 32px;
-                background: #ffffff;
-                text-align: center;
-
-                .logo {
-                    width: 286px;
-                }
-
-                .title {
-                    font-size: 20px;
-                    margin: 22px 0 18px 0;
-                }
-
-                form {
-                    width: 100%;
-                    text-align: left;
-
-                    mat-form-field {
-                        width: 100%;
-                    }
-                    /* TODO(mdc-migration): The following rule targets internal classes of checkbox that may no longer apply for the MDC version.*/
-                    mat-checkbox {
-                        margin: 0;
-                    }
-
-                    .remember-forgot-password {
-                        font-size: 13px;
-                        margin-top: 8px;
-
-                        .forgot-password {
-                            font-size: 13px;
-                            font-weight: 500;
-                            margin-bottom: 8px;
-                        }
-                    }
-
-                    .submit-button {
-                        width: 220px;
-                        margin: 8px auto;
-                        display: block;
-                    }
-                }
-
-                .register {
-                    margin: 22px auto 24px auto;
-                    font-weight: 500;
-
-                    .text {
-                        margin-right: 8px;
-                    }
-                }
-
-                .separator {
-                    font-size: 15px;
-                    font-weight: 600;
-                    margin: 14px auto;
-                    position: relative;
-                    overflow: hidden;
-                    width: 100px;
-                    color: rgba(0, 0, 0, 0.54);
-
-                    .text {
-                        display: inline-flex;
-                        position: relative;
-                        padding: 0 8px;
-                        z-index: 9999;
-
-                        &:before,
-                        &:after {
-                            content: "";
-                            display: block;
-                            width: 30px;
-                            position: absolute;
-                            top: 10px;
-                            border-top: 1px solid rgba(0, 0, 0, 0.12);
-                        }
-
-                        &:before {
-                            right: 100%;
-                        }
-
-                        &:after {
-                            left: 100%;
-                        }
-                    }
-                }
-
-                button {
-                    &.google,
-                    &.facebook {
-                        width: 192px;
-                        text-transform: none;
-                        color: #ffffff;
-                        font-size: 13px;
-                    }
-
-                    &.google {
-                        background-color: #d73d32;
-                        margin-bottom: 8px;
-                    }
-
-                    &.facebook {
-                        background-color: rgb(63, 92, 154);
-                    }
-                }
-            }
-        }
-    }
-
-    .delete-update-buttons {
-        color: #004684;
-        background-color: white;
-        font-size: 8px;
-        outline: none;
-        // animation: heartBeat 1s ease-in-out 0.3s 1 forwards;
-        z-index: 999999;
-    }
-    .refreshbutton {
-        color: #004684;
-        background-color: white;
-        font-size: 8px;
-        outline: none;
-        animation: heartBeat 1s ease-in-out 0.3s 1 forwards;
-    }
-
-    .clickToSumit {
-        color: white;
-        right: 0px;
-        animation: slideInDown 0.2s ease 0.1s backwards;
-        // animation: name duration timing-function delay iteration-count direction fill-mode;
-    }
-
-    .clickToSumit:hover {
-        @include BoxShadow(6);
-    }
-
-    // Edit-Name.html
-
-    .infoAlertBox {
-        animation: bounce 0.5 ease 0s 1 normal forwards;
-    }
-
-    .emoji-button {
-        outline: none;
-        position: relative;
-        top: -70px;
-        left: 143px;
-        animation: headShake 0.6s ease-in-out 1.2s 1 normal forwards;
-    }
-
-    .alertButons {
-        // color: #004684;
-        background-color: white;
-        font-size: 8px;
-        outline: none;
-        // animation: heartBeat 1s ease-in-out 0.3s 1 forwards;
-    }
-
-    .name-suggestions-field {
-        display: flex;
-        flex-direction: column;
-        justify-content: space-around;
-        align-items: center;
-    }
-}
+  }
+  
+  
