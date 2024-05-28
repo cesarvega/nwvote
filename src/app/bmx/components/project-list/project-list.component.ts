@@ -27,7 +27,7 @@ export class ProjectListComponent implements OnInit {
   viewedData;
   displayedColumns = ['bmxCompany', 'bmxProjectName', 'bmxDepartment', 'bmxRegion', 'Created', 'Close', 'Active', 'Email', 'Edit', 'Delete'];
   selected;
-  templates = ['AJP', 'AJP1to5', 'AJPENG', 'AJPENGTM', 'AJPTM', 'APNonprop', 'BIINTERNALPROJECTSTANDARD', 'BIPROBONODRAGRANK',  'BIPROBONOLOGIN', 'BIPROBONOMINIMUM', 'BIPROBONOMORAGATRAIL', 'BIPROBONONonproprietary', 'BIPROBONOPfizer21', 'BIPROBONOPNN', 'BIPROBONOTEST7', 'BIPROBONOTM', 'BIPROBONOTOPRANK', 'BIPROBONOYN'  ]
+  templates = ['AJP', 'AJP1to5', 'AJPENG', 'AJPENGTM', 'AJPTM', 'APNonprop', 'BIINTERNALPROJECTSTANDARD', 'BIPROBONODRAGRANK', 'BIPROBONOLOGIN', 'BIPROBONOMINIMUM', 'BIPROBONOMORAGATRAIL', 'BIPROBONONonproprietary', 'BIPROBONOPfizer21', 'BIPROBONOPNN', 'BIPROBONOTEST7', 'BIPROBONOTM', 'BIPROBONOTOPRANK', 'BIPROBONOYN']
 
   title = 'ng-calendar-demo';
   selectedDate = null;
@@ -38,6 +38,7 @@ export class ProjectListComponent implements OnInit {
   DayAndDate: string;
   projectName: any;
   projectId: any;
+  biUserId = 'user@bi.com';
 
 
 
@@ -45,8 +46,10 @@ export class ProjectListComponent implements OnInit {
   @Input() userDepartment
   @Input() userRole
   userData: any;
+  showDialog = false
 
-  constructor(@Inject(DOCUMENT) private document: any, private activatedRoute: ActivatedRoute,private dragulaService: DragulaService, private _BmxService: BmxService, private router: Router,) { }
+  dialogText = ''
+  constructor(@Inject(DOCUMENT) private document: any, private activatedRoute: ActivatedRoute, private dragulaService: DragulaService, private _BmxService: BmxService, private router: Router,) { }
 
   ngOnInit(): void {
     this.selected = 'Live'
@@ -57,8 +60,8 @@ export class ProjectListComponent implements OnInit {
       .subscribe((arg: any) => {
         this.allData = JSON.parse(arg.d);
         // this.allData = JSON.parse(obj);
-        this.userDepartment = this.userData != null?this.userData.Department:'';
-        this.userRole = this.userData != null?this.userData.Role:'';
+        this.userDepartment = this.userData != null ? this.userData.Department : '';
+        this.userRole = this.userData != null ? this.userData.Role : '';
         this.changeView();
       });
 
@@ -117,7 +120,17 @@ export class ProjectListComponent implements OnInit {
       });
   }
   deleteBM(option: string): void {
-    var test = option;
+    this._BmxService.deleteBrandMatrixProject(option, this.biUserId).subscribe((res: any) => {
+      this.showDialog = false
+      this._BmxService.getGetProjectList()
+      .subscribe((arg: any) => {
+        this.allData = JSON.parse(arg.d);
+        // this.allData = JSON.parse(obj);
+        this.userDepartment = this.userData != null ? this.userData.Department : '';
+        this.userRole = this.userData != null ? this.userData.Role : '';
+        this.changeView();
+      });
+    })
   }
 
   changeView(): void {
@@ -138,7 +151,7 @@ export class ProjectListComponent implements OnInit {
         }
       }
     }
-    this.viewedData =  this.viewedData.filter(project => !this.templates.includes(project.bmxProjectName))
+    this.viewedData = this.viewedData.filter(project => !this.templates.includes(project.bmxProjectName))
     if (this.selectedDate) {
       this.viewedData = this.viewedData.filter(project => project.bmxClosingDate == this.selectedDate.toISOString())
     }
@@ -179,5 +192,7 @@ export class ProjectListComponent implements OnInit {
   }
 
 
-
+  closeDialog() {
+    this.showDialog = false
+  }
 }
