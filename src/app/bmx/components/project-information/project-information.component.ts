@@ -76,6 +76,7 @@ export class ProjectInformationComponent implements OnInit {
       page: this.brandMatrixObjects,
     },
   ];
+  loader=false
   displayTemplate = ''
   biUserId = 'user@bi.com';
   templateTitle: string = '';
@@ -84,6 +85,7 @@ export class ProjectInformationComponent implements OnInit {
   selectedTemplateName = ''
   templateName = '';
   ngOnInit(): void {
+    this.loader=true
     this.canEdit = null;
     this.createFormControls();
     this.createForm();
@@ -128,6 +130,7 @@ export class ProjectInformationComponent implements OnInit {
 
             this._BmxService.setprojectData(this.bmxEditData.value)
           }
+          this.loader=false
         });
     }
 

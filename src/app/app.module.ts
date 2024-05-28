@@ -95,6 +95,7 @@ import { ImageRankDragComponent } from './bmx/components/bmx-creator/survey-crea
 import { ImageRateScaleComponent } from './bmx/components/bmx-creator/survey-creation-design/templates/image-rate-scale/image-rate-scale.component';
 import { ImageRankComponent } from './bmx/components/bmx-creator/survey-creation-design/templates/image-rank/image-rank.component';
 import { SignalComponent } from './signal/signal.component';
+import { LoaderComponent } from './bmx/components/loader/loader.component';
 export function loadEcharts() {
   return import('echarts');
 }
@@ -158,6 +159,7 @@ export function MSALInstanceFactory(): IPublicClientApplication {
         TableComponent,
         ProjectListCheckComponent,
         TemplatesComponent,
+        LoaderComponent
         // BmxCreatorComponent,
         // SafePipe,
         // OrderDasboardComponent
