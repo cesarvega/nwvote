@@ -61,9 +61,8 @@ export class ProjectListComponent implements OnInit {
         this.allData = JSON.parse(arg.d);
         // this.allData = JSON.parse(obj);
         this.userDepartment = this.userData != null ? this.userData.Department : '';
-        this.userRole = this.userData != null ? this.userData.Role : '';
+        this.userRole = this.userData != null ? this.userData.Role : 'admin';
         this.changeView();
-        this.userRole = 'admin'
         if (this.userRole === 'admin') {
           this.displayedColumns.push('Delete');
         }
