@@ -40,12 +40,12 @@ export class BmxService {
   setSpecialDataObservable(projectData: any) {
     this.specialData$.next(projectData);
   }
-  setDirectors(directos){
+  setDirectors(directos) {
     this.directors$.next(directos)
 
   }
 
-  getDirectos(){
+  getDirectos() {
     return this.directors$
   }
 
@@ -72,6 +72,7 @@ export class BmxService {
   brandMatrixTemplateSave = '/BrandMatrixTemplateSave'
   brandMatrixTemplateGet = '/BrandMatrixTemplateGet'
   brandMatrixTemplateDelete = '/BrandMatrixTemplateDelete'
+  brandMatrixDelete =  '/BrandMatrixDelete'
 
   GetParticipantList = '/BrandMatrixGetParticipantList';
   SaveParticipantList = '/BrandMatrixAddParticipantList';
@@ -163,11 +164,6 @@ export class BmxService {
 
   }
 
-  saveProjectInfo(projectName: any, projectData: any, user: any) {
-    var input = JSON.stringify({ "ProjectName": projectName, "ProjectInfo": projectData, "Username": user });
-    return this.http.post(this.webBaseUrl + this.SaveProjectInfo, { token: '646EBF52-1846-47C2-9F62-DC50AE5BF692', payload: input });
-    // return this.http.get(this.webBaseUrl + 'api/NW_GetProjectIdWithProjectName?projectName=' + projectName, httpOptions);
-  }
 
   // PROJECT INFORMATON
   getProjectInfo(projectName: any) {
@@ -281,4 +277,14 @@ export class BmxService {
     })
   }
 
+  
+  saveProjectInfo(projectName: any, projectData: any, user: any) {
+    var input = JSON.stringify({ "ProjectName": projectName, "ProjectInfo": projectData, "Username": user });
+    return this.http.post(this.webBaseUrl + this.SaveProjectInfo, { token: '646EBF52-1846-47C2-9F62-DC50AE5BF692', payload: input });
+    // return this.http.get(this.webBaseUrl + 'api/NW_GetProjectIdWithProjectName?projectName=' + projectName, httpOptions);
+  }
+  deleteBrandMatrixProject(projectName: any, user: any) {
+    var input = JSON.stringify({ "ProjectName": projectName,  "Username": user });
+    return this.http.post(this.webBaseUrl + this.brandMatrixDelete, { token: '646EBF52-1846-47C2-9F62-DC50AE5BF692', payload: input });
+  }
 }

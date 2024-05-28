@@ -1,3 +1,7 @@
+<div *ngIf="showDialog">
+    <app-survey-dialog (onConfirm)="deleteBM(projectName)" (onCancel)="closeDialog()"
+        [dialogText]="dialogText"></app-survey-dialog>
+</div>
 <div style="width: 100%; display: flex; align-items: flex-start; gap: 0%;">
     <div style="width: 75%;">
         <div style="display: flex;justify-content: space-between; margin-top: 20px;">
@@ -84,7 +88,8 @@
                     <th mat-header-cell *matHeaderCellDef mat-sort-header style="width: 3.33%;"> </th>
                     <td mat-cell *matCellDef="let element">
                         <button mat-icon-button style="color: #bc488a;"
-                            aria-label="Example icon button with a home icon" (click)="deleteBM(element.ProjectId)">
+                            aria-label="Example icon button with a home icon"
+                            (click)="showDialog = true;projectName = element.bmxProjectName ; dialogText = 'Are you sure you want to delete ' + element.bmxProjectName">
                             <mat-icon>delete</mat-icon>
                         </button>
                     </td>
@@ -93,7 +98,8 @@
                 <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
                 <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
             </table>
-            <mat-paginator style="margin-top: 1px;" [pageSizeOptions]="[10, 15, 20]" showFirstLastButtons></mat-paginator>
+            <mat-paginator style="margin-top: 1px;" [pageSizeOptions]="[10, 15, 20]"
+                showFirstLastButtons></mat-paginator>
         </div>
     </div>
     <!-- CALENDAR  📆📆📆📆📆📆📆📆📆-->
@@ -101,7 +107,7 @@
         left: 70px;">
         <div style="width: 100%;">
             <mat-card appearance="outlined" class="demo-inline-calendar-card">
-                <mat-calendar  [selected]="selectedDate" (selectedChange)="onSelect($event)"></mat-calendar>
+                <mat-calendar [selected]="selectedDate" (selectedChange)="onSelect($event)"></mat-calendar>
                 <button mat-button (click)="onDeselect()">Reset date</button>
 
             </mat-card>

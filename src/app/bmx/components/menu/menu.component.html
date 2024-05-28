@@ -126,7 +126,7 @@
           [ngClass]="{'menu-item-Light': selectedMenuItem === 'participants', 'menu-item-Dark': selectedMenuItem !== 'participants'}"
           (click)="navigateTo('participants')">
           Participants
-          <div class="video-container">
+          <div class="video-container" style="z-index: 1;">
             <button (click)="CREATION_VIDEO_PATH='assets/videos/participants.mp4' ; showCreationModalVideo=true; "
               class="video-button" matTooltip="see tutorial" matTooltipPosition="above" mat-icon-button
               aria-label="ranking">
