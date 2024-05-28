@@ -25,7 +25,7 @@ export class ProjectListComponent implements OnInit {
   dataSource;
   allData;
   viewedData;
-  displayedColumns = ['bmxCompany', 'bmxProjectName', 'bmxDepartment', 'bmxRegion', 'Created', 'Close', 'Active', 'Email', 'Edit', 'Delete'];
+  displayedColumns = ['bmxCompany', 'bmxProjectName', 'bmxDepartment', 'bmxRegion', 'Created', 'Close', 'Active', 'Email', 'Edit'];
   selected;
   templates = ['AJP', 'AJP1to5', 'AJPENG', 'AJPENGTM', 'AJPTM', 'APNonprop', 'BIINTERNALPROJECTSTANDARD', 'BIPROBONODRAGRANK', 'BIPROBONOLOGIN', 'BIPROBONOMINIMUM', 'BIPROBONOMORAGATRAIL', 'BIPROBONONonproprietary', 'BIPROBONOPfizer21', 'BIPROBONOPNN', 'BIPROBONOTEST7', 'BIPROBONOTM', 'BIPROBONOTOPRANK', 'BIPROBONOYN']
 
@@ -44,7 +44,7 @@ export class ProjectListComponent implements OnInit {
 
   @Input() userOffice
   @Input() userDepartment
-  @Input() userRole
+  @Input() userRole = 'admin'
   userData: any;
   showDialog = false
 
@@ -61,8 +61,12 @@ export class ProjectListComponent implements OnInit {
         this.allData = JSON.parse(arg.d);
         // this.allData = JSON.parse(obj);
         this.userDepartment = this.userData != null ? this.userData.Department : '';
-        this.userRole = this.userData != null ? this.userData.Role : '';
+        this.userRole = this.userData != null ? this.userData.Role : 'admin';
         this.changeView();
+        if (this.userRole === 'admin') {
+          this.displayedColumns.push('Delete');
+        }
+        
       });
 
   }

@@ -132,6 +132,8 @@ export class ProjectInformationComponent implements OnInit {
           }
           this.loader=false
         });
+    }else{
+      this.loader=false
     }
 
     this._BmxService.getGeneralLists()
@@ -167,6 +169,7 @@ export class ProjectInformationComponent implements OnInit {
             map(value => this._filter(value))
           );
         // END 🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖 AUTOCOMPLETE
+
       });
     //this.bmxEditData.setValue(JSON.parse(localStorage.getItem('fakeproject' + '_project_info')));
 

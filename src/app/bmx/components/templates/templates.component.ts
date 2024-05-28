@@ -176,6 +176,7 @@ export class TemplatesComponent implements OnInit {
     } else {
       this.bmxPages = JSON.parse(this.bmxPages)
     }
+    this._BmxService.saveBrandMatrixTemplate(this.templateName, this.bmxPages, this.biUserId, this.newTemplateName).subscribe(data=> console.log(data))
     this._BmxService.getGeneralLists()
       .subscribe((arg: any) => {
         this.settingsData = JSON.parse(arg.d);
