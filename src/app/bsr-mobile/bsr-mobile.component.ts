@@ -4,6 +4,7 @@ import { UntypedFormBuilder, Validators, UntypedFormGroup } from '@angular/forms
 import { Router, ActivatedRoute } from '@angular/router';
 import { BsrMobileService } from './bsr-mobile.service';
 import {  MatDialog, MatDialogRef,  MAT_DIALOG_DATA } from '@angular/material/dialog';
+import { BreakpointObserver, Breakpoints } from '@angular/cdk/layout';
 import { DeviceDetectorService } from 'ngx-device-detector';
 
 @Component({
@@ -13,6 +14,7 @@ import { DeviceDetectorService } from 'ngx-device-detector';
 })
 export class BsrMobileComponent implements OnInit {
 
+  isMobile: boolean;
   isUserLogged = false;
   isUserLeaving = false;
   isBSROpen = false;
@@ -31,10 +33,11 @@ export class BsrMobileComponent implements OnInit {
   bulletPointLine = '';
   summarized: any;
   deviceInfo: any;
-  constructor(private _formBuilder: UntypedFormBuilder, private bsrService: BsrMobileService,
+  constructor(private breakpointObserver: BreakpointObserver , private _formBuilder: UntypedFormBuilder, private bsrService: BsrMobileService,
     private activatedRoute: ActivatedRoute,
     public dialog: MatDialog,
     private router: Router) {
+      this.isMobile = false;
 
     this.activatedRoute.params.subscribe(params => {
       this.projectId = params['id'];
@@ -58,6 +61,7 @@ export class BsrMobileComponent implements OnInit {
         }
       });
     });
+    
   }
 
   ngOnInit(): void {
@@ -79,7 +83,10 @@ export class BsrMobileComponent implements OnInit {
       suma: [false],
       name: ['', Validators.required]
     });
-
+    this.breakpointObserver.observe(['(max-width: 600px)']).subscribe(result => {
+      this.isMobile = result.matches;
+    });
+  
 
     // setTimeout(() => {
     //   this.submitCredentials()
