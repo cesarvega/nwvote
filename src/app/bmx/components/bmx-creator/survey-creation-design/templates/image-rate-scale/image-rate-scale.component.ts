@@ -118,8 +118,10 @@ export class ImageRateScaleComponent extends RatingScaleComponent implements OnI
     }
 
     this.launchPathModal.emit(this.VIDEO_PATH)
-    console.log(this.bmxItem)
     const filteredCriteria = this.CRITERIA.filter(criteriaItem => this.selectedCriteria.map(item => item.name).includes(criteriaItem.name));
+    
+    this.bmxItem.componentSettings[0].minRule = this.bmxItem.componentSettings[0].minRule > 0 ? this.bmxItem.componentSettings[0].minRule : this.bmxItem.componentText.length;
+    this.bmxItem.componentSettings[0].maxRule = this.bmxItem.componentSettings[0].maxRule > 0 ? this.bmxItem.componentSettings[0].maxRule : this.bmxItem.componentText.length;
     this.newselectedCriteria = filteredCriteria
     if(this.bmxItem.componentText[0].STARS){
       this.rankingScaleValue = this.bmxItem.componentText[0].STARS.length;
