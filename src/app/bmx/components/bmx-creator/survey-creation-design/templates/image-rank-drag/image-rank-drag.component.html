@@ -14,23 +14,22 @@
 
     <!-- ⏺⏺⏺⏺⏺⏺⏺⏺⏺⏺⏺⏺⏺⏺⏺⏺⏺⏺⏺⏺RAGE INPUTS FOR COLUMN SETTINGS ⏺⏺⏺⏺⏺⏺⏺⏺⏺⏺⏺⏺⏺⏺⏺⏺⏺⏺⏺ -->
 
-    <div *ngIf="isColumnResizerOn && bmxClientPageOverview" class="column-resizer" >
+    <div *ngIf="isColumnResizerOn && bmxClientPageOverview" class="column-resizer">
         <!-- NAME CANDIATES -->
         <div class="settings-option">
             <p class="settings-label">candidates
             </p>
-            <input type="range" class="slider-font-size"
-                [(ngModel)]="bmxItem.componentSettings[0].nameCandidatesWidth" class="slider-font-size"
-                tickInterval="0.5" min="50" max="400" [value]="bmxItem.componentSettings[0].nameCandidatesWidth">
+            <input type="range" class="slider-font-size" [(ngModel)]="bmxItem.componentSettings[0].nameCandidatesWidth"
+                class="slider-font-size" tickInterval="0.5" min="50" max="400"
+                [value]="bmxItem.componentSettings[0].nameCandidatesWidth">
         </div>
 
         <!-- RATIONALE -->
         <div class="settings-option">
             <p class="settings-label">rationale
             </p>
-            <input type="range" 
-                [(ngModel)]="bmxItem.componentSettings[0].rationalewidth" class="slider-font-size" tickInterval="0.5"
-                min="50" max="600" [value]="bmxItem.componentSettings[0].rationalewidth">
+            <input type="range" [(ngModel)]="bmxItem.componentSettings[0].rationalewidth" class="slider-font-size"
+                tickInterval="0.5" min="50" max="600" [value]="bmxItem.componentSettings[0].rationalewidth">
         </div>
 
         <!-- RATE -->
@@ -46,9 +45,9 @@
         <div class="settings-option">
             <p class="settings-label">comments
             </p>
-            <input type="range" class="slider-font-size"
-                [(ngModel)]="bmxItem.componentSettings[0].commentsWidth" class="slider-font-size" tickInterval="0.5"
-                min="50" max="400" [value]="bmxItem.componentSettings[0].commentsWidth">
+            <input type="range" class="slider-font-size" [(ngModel)]="bmxItem.componentSettings[0].commentsWidth"
+                class="slider-font-size" tickInterval="0.5" min="50" max="400"
+                [value]="bmxItem.componentSettings[0].commentsWidth">
         </div>
 
         <!-- REST OF THE COLUMNS -->
@@ -56,33 +55,29 @@
             <p class="settings-label">other columns
             </p>
             <input type="range" class="slider-font-size" [(ngModel)]="bmxItem.componentSettings[0].columnWidth"
-               tickInterval="0.5" min="50" max="400"
-                [value]="bmxItem.componentSettings[0].columnWidth">
+                tickInterval="0.5" min="50" max="400" [value]="bmxItem.componentSettings[0].columnWidth">
         </div>
 
         <!-- ROW HEIGHT -->
 
         <div class="settings-option">
             <p class="settings-label">row height</p>
-            <input type="range" class="slider-font-size"[(ngModel)]="bmxItem.componentSettings[0].rowHeight"
-                tickInterval="0.5" min="-10" max="20"
-                [value]="bmxItem.componentSettings[0].rowHeight">
+            <input type="range" class="slider-font-size" [(ngModel)]="bmxItem.componentSettings[0].rowHeight"
+                tickInterval="0.5" min="-10" max="20" [value]="bmxItem.componentSettings[0].rowHeight">
         </div>
 
         <!-- FONT -->
         <div class="settings-option">
             <p class="settings-label">font size: {{bmxItem.componentSettings[0].fontSize}}</p>
             <input type="range" class="row-height-settings" [(ngModel)]="bmxItem.componentSettings[0].fontSize"
-                 tickInterval="0.1" min="2" max="50"
-                [value]="bmxItem.componentSettings[0].fontSize">
+                tickInterval="0.1" min="2" max="50" [value]="bmxItem.componentSettings[0].fontSize">
         </div>
 
         <!-- RADIO -->
         <div *ngIf="radioColumnCounter > 1" class="settings-option">
             <p class="settings-label">radio</p>
-            <input type="range" class="slider-font-size"
-                [(ngModel)]="bmxItem.componentSettings[0].radioColumnsWidth"  tickInterval="0.5"
-                min="50" max="100" [value]="bmxItem.componentSettings[0].radioColumnsWidth">
+            <input type="range" class="slider-font-size" [(ngModel)]="bmxItem.componentSettings[0].radioColumnsWidth"
+                tickInterval="0.5" min="50" max="100" [value]="bmxItem.componentSettings[0].radioColumnsWidth">
         </div>
     </div>
 
@@ -90,12 +85,12 @@
 
     <div class="menu-container">
         <button (click)="showMatrixMenuBmx()" mat-icon-button matTooltip="{{textToolTip}}">
-            <mat-icon  class="full-icon">{{iconMenuShow}}</mat-icon>
+            <mat-icon class="full-icon">{{iconMenuShow}}</mat-icon>
         </button>
         <div *ngIf="showMatrixMenu">
             <button (click)="openDialog('undo');editSingleTableCells = false" class="add-column"
                 matTooltip="undo last change" matTooltipPosition="above" mat-icon-button aria-label="ranking">
-                <mat-icon  class="full-icon">undo</mat-icon>
+                <mat-icon class="full-icon">undo</mat-icon>
             </button>
             <button (click)="selectedIndex = '';editSingleTableCells = false" class="add-column" matTooltip="cancel"
                 matTooltipPosition="above" *ngIf="i === selectedIndex" mat-icon-button>
@@ -104,37 +99,37 @@
             <button (click)="deleteRows = !deleteRows;editSingleTableCells = false"
                 [ngClass]="(!deleteRows)?'add-column':'add-column-active'" matTooltip="delete rows"
                 matTooltipPosition="above" mat-icon-button aria-label="ranking">
-                <mat-icon  class="full-icon">delete_outline</mat-icon>
+                <mat-icon class="full-icon">delete_outline</mat-icon>
             </button>
             <button (click)="insertTextColumn();editSingleTableCells = false" class="add-column"
                 matTooltip="add text column" matTooltipPosition="above" mat-icon-button aria-label="ranking">
-                <mat-icon  class="full-icon">view_list</mat-icon>
+                <mat-icon class="full-icon">view_list</mat-icon>
             </button>
             <button (click)="insertRow();editSingleTableCells = false" class="add-column" matTooltip="insert row"
                 matTooltipPosition="above" mat-icon-button aria-label="ranking">
-                <mat-icon  class="full-icon">vertical_distribute</mat-icon>
+                <mat-icon class="full-icon">vertical_distribute</mat-icon>
             </button>
             <button (click)="dragRows = !dragRows;editSingleTableCells = false"
                 [ngClass]="(!dragRows)?'add-column':'add-column-active'" matTooltip="drag rows"
                 matTooltipPosition="above" mat-icon-button aria-label="ranking">
-                <mat-icon  class="full-icon">drag_indicator</mat-icon>
+                <mat-icon class="full-icon">drag_indicator</mat-icon>
             </button>
 
             <button (click)="editSingleTableCells = !editSingleTableCells"
                 [ngClass]="(!editSingleTableCells)?'add-column':'add-column-active'" matTooltip="edit table cells"
                 matTooltipPosition="above" mat-icon-button aria-label="ranking">
-                <mat-icon  class="full-icon">explicit</mat-icon>
+                <mat-icon class="full-icon">explicit</mat-icon>
             </button>
         </div>
 
         <button (click)="showCreationModalVideo=true; editSingleTableCells = false" class="add-column"
             matTooltip="see tutorial" matTooltipPosition="above" mat-icon-button aria-label="ranking">
-            <mat-icon  class="full-icon">video_library</mat-icon>
+            <mat-icon class="full-icon">video_library</mat-icon>
         </button>
 
         <button (click)="insertCommentBoxColumn();editSingleTableCells = false" class="add-column"
             matTooltip="add comments column" matTooltipPosition="above" mat-icon-button aria-label="ranking">
-            <mat-icon  class="full-icon">wysiwyg</mat-icon>
+            <mat-icon class="full-icon">wysiwyg</mat-icon>
         </button>
 
         <button (click)="isColumnResizerOn = !isColumnResizerOn;editSingleTableCells = false"
@@ -145,7 +140,7 @@
         <button *ngIf="uploadImagesIcon" (click)="toggleImageUploadBox();editSingleTableCells = false"
             class="add-column" matTooltip="upload Images" matTooltipPosition="above" mat-icon-button
             aria-label="ranking">
-            <mat-icon  class="full-icon">collections</mat-icon>
+            <mat-icon class="full-icon">collections</mat-icon>
         </button>
         <button (click)="openWindow(i, false)" class="add-column" matTooltip="setup settings" matTooltipPosition="above"
             *ngIf="i !== selectedIndex " mat-icon-button>
@@ -153,7 +148,7 @@
         </button>
         <button (click)="toggleImageUploadBox()" class="add-column" matTooltip="uploadImages" matTooltipPosition="above"
             mat-icon-button aria-label="ranking">
-            <mat-icon  class="full-icon">collections</mat-icon>
+            <mat-icon class="full-icon">collections</mat-icon>
         </button>
         <button (click)="showModalTable = true" class="add-column" matTooltip="update names" matTooltipPosition="above"
             *ngIf="i !== selectedIndex" mat-icon-button>
@@ -166,14 +161,9 @@
 
 <!-- 🔧🔧🔧🔧🔧🔧🔧🔧🔧🔧🔧🔧🔧🔧🔧🔧🔧🔧🔧🔧🔧 CONFIG BOX 🔧🔧🔧🔧🔧🔧🔧🔧🔧🔧🔧🔧🔧🔧🔧🔧🔧🔧🔧🔧🔧🔧🔧 -->
 
-<div *ngIf="i === selectedIndex" class="mat-elevation-z4" cdkDrag style="position: absolute;width: 50%;background: #fafafa;z-index: 1;top: -65px;left: 25%;border: #063074 4px solid; overflow: auto;
- max-height: 36rem;
-bottom: -2; ">
+<div *ngIf="i === selectedIndex" class="mat-elevation-z4 config-modal" cdkDrag>
 
-    <div class="example-handle" cdkDragHandle style="display: flex;
-flex-direction: row;
-justify-content: center;cursor: move; height: 25px; width: 100%;"><svg width="24px" fill="currentColor"
-            viewBox="0 0 24 24">
+    <div class="example-handle drag-handle" cdkDragHandle><svg width="24px" fill="currentColor" viewBox="0 0 24 24">
             <path
                 d="M10 9h4V6h3l-5-5-5 5h3v3zm-1 1H6V7l-5 5 5 5v-3h3v-4zm14 2l-5-5v3h-3v4h3v3l5-5zm-9 3h-4v3H7l5 5 5-5h-3v-3z">
             </path>
@@ -187,11 +177,10 @@ justify-content: center;cursor: move; height: 25px; width: 100%;"><svg width="24
         </mat-card-header>
         <mat-card-content>
             <div style="text-align: center;">
-                <div style="font-size: 16px;margin: 20px;color: #48535e;">Copy & Paste Columns</div>
-                <!-- <div style="font-size: 14px;margin-bottom: 20px;color: lightgray;">Brief Description Here</div> -->
+                <div class="description">Copy & Paste Columns</div>
             </div>
-            <div style="display: flex; justify-content: center; align-items: center;">
-                <mat-form-field style="width: 90%; margin-left: 20px;" appearance="outline">
+            <div class="form-field-container">
+                <mat-form-field class="form-field" appearance="outline">
                     <mat-label>Copy & Paste Columns</mat-label>
                     <textarea matInput [(ngModel)]="testNamesInput" (paste)="onPaste()"
                         (ngModelChange)="upLoadNamesAndRationales(testNamesInput)" placeholder="Paste test names here"
@@ -212,20 +201,20 @@ justify-content: center;cursor: move; height: 25px; width: 100%;"><svg width="24
             <div class="sm-section3-rkScale">
 
                 <div class="sm-column-box-rkScale" style="gap: 4rem;">
-                    <div style="display: flex; flex-direction: column; width: 40%;">
-                        <div style="font-size: 12px; color: #48535e;">CREATE NEW CRITERIA</div>
+                    <div class="new-criteria-container">
+                        <div class="criteria-label">CREATE NEW CRITERIA</div>
                         <div style="display: flex;">
                             <mat-form-field style="flex: 1; width: 100%;" appearance="outline">
                                 <mat-label>New Criteria</mat-label>
                                 <input matInput [(ngModel)]="newCriteria" style="font-size: 12px;">
                                 <mat-hint>Enter a criteria and click add</mat-hint> <!-- Hint for New Criteria -->
                             </mat-form-field>
-                            <mat-icon style="cursor: pointer; font-size: 33px; color: #324395;"
+                            <mat-icon class="add-icon"
                                 (click)="addCriteria(newCriteria); newCriteria=''">add_box</mat-icon>
                         </div>
                     </div>
 
-                    <div style="display: flex; flex-direction: column; width: 40%;">
+                    <div class="choose-criteria-container" >
                         <mat-form-field appearance="outline" style="margin: 0px; width: 100%;">
                             <mat-label>Choose Criteria</mat-label>
                             <mat-select multiple [(ngModel)]="newselectedCriteria"
@@ -233,7 +222,7 @@ justify-content: center;cursor: move; height: 25px; width: 100%;"><svg width="24
                                 <mat-option *ngFor="let criteriaItem of CRITERIA; let c = index" [value]="criteriaItem">
                                     {{criteriaItem.name}}
                                     <mat-icon matTooltip="Double click to delete criteria" matTooltipPosition="right"
-                                        style="cursor: pointer; font-size: 15px; color: #ee7f25;"
+                                    class="delete-icon" 
                                         (dblclick)="deleteCriteria(c);">
                                         cancel</mat-icon>
                                 </mat-option>
@@ -246,10 +235,9 @@ justify-content: center;cursor: move; height: 25px; width: 100%;"><svg width="24
 
                 <div class="sm-row-box-rkScale">
                     <div>
-                        <div style="font-size: 16px;margin-top: 10px;color: #48535e;">SELECT RATING RANGE</div>
+                        <div class="section-title" >SELECT RATING RANGE</div>
                         <br>
-                        <div
-                            style="text-align: center;display: flex;flex-direction: row;justify-content: space-around;">
+                        <div class="rating-range-input">
 
                             <input [(ngModel)]="rankingScaleValue" type="range" id="volume" name="volume" min="0"
                                 max="10">
@@ -259,15 +247,13 @@ justify-content: center;cursor: move; height: 25px; width: 100%;"><svg width="24
 
                     <div style="    margin-top: 0.5rem;
   ">
-                        <div style="font-size: 14px;color: #48535e;">CHOOSE RATING ICON</div>
+                        <div class="section-subtitle">CHOOSE RATING ICON</div>
                         <br>
                         <mat-radio-group aria-label="Select an option" [(ngModel)]="ratingScaleIcon">
-                            <mat-icon style="color:#76d354;">grade</mat-icon>
-                            <mat-radio-button value="grade">
-                            </mat-radio-button>
-                            <mat-icon style="color:#e6ad11;">rectangle</mat-icon>
-                            <mat-radio-button value="rectangle">
-                            </mat-radio-button>
+                            <mat-icon class="icon-green">grade</mat-icon>
+                            <mat-radio-button value="grade"></mat-radio-button>
+                            <mat-icon class="icon-yellow">rectangle</mat-icon>
+                            <mat-radio-button value="rectangle"></mat-radio-button>
                         </mat-radio-group>
                     </div>
 
@@ -288,16 +274,15 @@ justify-content: center;cursor: move; height: 25px; width: 100%;"><svg width="24
                 <mat-form-field appearance="outline" style="width: 40%">
                     <mat-label>Category Name</mat-label>
                     <input matInput [(ngModel)]="bmxItem.componentSettings[0].categoryName" placeholder="Category Name"
-                        style="font-size: 20px;color: #324395;">
+                    class="category-name-input">
                     <mat-hint>Enter the name of the category</mat-hint> <!-- Hint text for Category Name -->
                 </mat-form-field>
 
                 <mat-form-field appearance="outline" style="width: 40%">
                     <mat-label>Sub category Description</mat-label>
                     <input matInput [(ngModel)]="bmxItem.componentSettings[0].categoryDescription"
-                        placeholder="Sub category Description" style="font-size: 20px;color: #ee7f25;">
+                    class="sub-category-input"   placeholder="Sub category Description">
                     <mat-hint>Enter a brief description of the Sub category </mat-hint>
-                    <!-- Hint text for Category Description -->
                 </mat-form-field>
             </div>
             <br>
@@ -338,26 +323,23 @@ justify-content: center;cursor: move; height: 25px; width: 100%;"><svg width="24
 
 
     <!-- BUTTON-->
-    <div class="sm-row-box-rkScale">
-        <div class="button-cancel" style=" display: flex;
-flex-direction: column;
-align-items: center; ">
-            <button style="outline: none;color:#d35854;" mat-icon-button (click)="selectedIndex = ''"
-                aria-label="ranking">
+    <div class="sm-row-box-rkScale button-container">
+        <div class="button-cancel">
+            <button class="button-icon-cancel" mat-icon-button (click)="selectedIndex = ''" aria-label="ranking">
                 <mat-icon>cancel</mat-icon>
             </button>
-            <p style="margin-top: -11; color: #D35854; font-size: 21px;">Cancel</p>
+            <p class="button-text-cancel">Cancel</p>
         </div>
-
-        <div class="button-Done" style="display: flex; flex-direction: column; align-items: center;">
-            <button style="outline: none;color:#76d354;" mat-icon-button
-                (click)="selectedIndex = '';upLoadNamesAndRationales(testNamesInput)" [disabled]="false"
-                aria-label="ranking">
+    
+        <div class="button-done">
+            <button class="button-icon-done" mat-icon-button (click)="selectedIndex = '';upLoadNamesAndRationales(testNamesInput)" 
+                [disabled]="false" aria-label="ranking">
                 <mat-icon>check_circle</mat-icon>
             </button>
-            <p style="margin-top: -1; color: #76D354; font-size: 21px;">Done</p>
+            <p class="button-text-done">Done</p>
         </div>
     </div>
+    
 </div>
 
 <!-- 🔧🔧🔧🔧🔧🔧🔧🔧🔧🔧🔧🔧🔧🔧🔧🔧🔧🔧🔧🔧🔧🔧END CONFIG BOX 🔧🔧🔧🔧🔧🔧🔧🔧🔧🔧🔧🔧🔧🔧🔧🔧🔧🔧🔧🔧🔧 -->
