@@ -134,6 +134,9 @@ export class ImageRankDragComponent extends RatingScaleComponent implements OnIn
     this.launchPathModal.emit(this.VIDEO_PATH)
     const filteredCriteria = this.CRITERIA.filter(criteriaItem => this.selectedCriteria.map(item => item.name).includes(criteriaItem.name));
     this.newselectedCriteria = filteredCriteria
+    
+    this.bmxItem.componentSettings[0].minRule = this.bmxItem.componentSettings[0].minRule > 0 ? this.bmxItem.componentSettings[0].minRule : this.bmxItem.componentText.length;
+    this.bmxItem.componentSettings[0].maxRule = this.bmxItem.componentSettings[0].maxRule > 0 ? this.bmxItem.componentSettings[0].maxRule : this.bmxItem.componentText.length;
     this.rankingScaleValue = this.bmxItem.componentText[0].STARS.length;
     this.dataSource = this.bmxItem.componentText.slice(1)
   }

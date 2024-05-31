@@ -80,14 +80,15 @@ export class NarrowDownComponent extends RatingScaleComponent implements OnInit 
 
     this.randomizeTestNames = this.bmxItem.componentSettings[0].randomizeTestNames
     this.rowsCount = this.bmxItem.componentText.length - 1;
-    this.bmxItem.componentSettings[0].minRule = this.bmxItem.componentSettings[0].minRule == 0?0 :this.bmxItem.componentSettings[0].minRule;
-    this.bmxItem.componentSettings[0].maxRule = this.bmxItem.componentSettings[0].maxRule == 0?0 :this.bmxItem.componentSettings[0].maxRule;
 
     if (this.bmxItem.componentSettings[0]['displaySound'] == true) {
       this.displaySound = true;
     }
     const filteredCriteria = this.CRITERIA.filter(criteriaItem => this.selectedCriteria.map(item => item.name).includes(criteriaItem.name));
     this.newselectedCriteria = filteredCriteria
+    
+    this.bmxItem.componentSettings[0].minRule = this.bmxItem.componentSettings[0].minRule > 0 ? this.bmxItem.componentSettings[0].minRule : this.bmxItem.componentText.length;
+    this.bmxItem.componentSettings[0].maxRule = this.bmxItem.componentSettings[0].maxRule > 0 ? this.bmxItem.componentSettings[0].maxRule : this.bmxItem.componentText.length;
     if(this.bmxItem.componentText[0]?.CRITERIA){
       this.rankingScaleValue = this.bmxItem.componentText[0]?.CRITERIA[0]?.STARS?.length;
     }

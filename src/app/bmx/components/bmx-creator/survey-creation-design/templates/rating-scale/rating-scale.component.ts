@@ -148,8 +148,6 @@ export class RatingScaleComponent implements OnInit {
     // COLUMN NAMES
     this.rankingScaleValue = this.numRatingScale;
     this.rowsCount = this.bmxItem.componentText.length - 1
-    this.bmxItem.componentSettings[0].minRule = this.bmxItem.componentSettings[0].minRule == 0 ? 0 : this.bmxItem.componentSettings[0].minRule;
-    this.bmxItem.componentSettings[0].maxRule = this.bmxItem.componentSettings[0].maxRule == 0 ? 0 : this.bmxItem.componentSettings[0].maxRule;
     if (this.bmxItem.componentSettings[0].CRITERIA) {
       this.numRatingScale = this.bmxItem.componentText[0].CRITERIA[0].STARS.length
     } else {
@@ -261,6 +259,8 @@ export class RatingScaleComponent implements OnInit {
     //   this.VIDEO_PATH = this.PATH1;
     // }
 
+    this.bmxItem.componentSettings[0].minRule = this.bmxItem.componentSettings[0].minRule > 0 ? this.bmxItem.componentSettings[0].minRule : this.bmxItem.componentText.length;
+    this.bmxItem.componentSettings[0].maxRule = this.bmxItem.componentSettings[0].maxRule > 0 ? this.bmxItem.componentSettings[0].maxRule : this.bmxItem.componentText.length;
     if (window.innerWidth <= 1024) {
       this.VIDEO_PATH = this.PATH1;
     } else {
@@ -980,8 +980,8 @@ export class RatingScaleComponent implements OnInit {
 
   swapColumns(index: number): void {
     if (index < 0 || index >= this.columnsNames.length - 1) {
-        // No se puede mover hacia la derecha si está en el último índice o fuera de rango
-        return;
+      // No se puede mover hacia la derecha si está en el último índice o fuera de rango
+      return;
     }
     this.recordHistory();
     const temp = this.columnsNames[index];
@@ -990,20 +990,20 @@ export class RatingScaleComponent implements OnInit {
     this.columnsNames[index + 1] = temp;
 
     this.bmxItem.componentText.forEach((row, rowIndex) => {
-        const newRow: { [key: string]: any } = {};
-        this.columnsNames.forEach((col, i) => {
-            if (row.hasOwnProperty(col)) {
-                newRow[col] = row[col];
-            }
-        });
-        this.bmxItem.componentText[rowIndex] = this.mergeObjects(newRow, row);
+      const newRow: { [key: string]: any } = {};
+      this.columnsNames.forEach((col, i) => {
+        if (row.hasOwnProperty(col)) {
+          newRow[col] = row[col];
+        }
+      });
+      this.bmxItem.componentText[rowIndex] = this.mergeObjects(newRow, row);
     });
-}
+  }
 
-swapColumnsLeft(index: number): void {
+  swapColumnsLeft(index: number): void {
     if (index <= 0 || index >= this.columnsNames.length) {
-        // No se puede mover hacia la izquierda si está en el primer índice o fuera de rango
-        return;
+      // No se puede mover hacia la izquierda si está en el primer índice o fuera de rango
+      return;
     }
     this.recordHistory();
     const temp = this.columnsNames[index];
@@ -1012,15 +1012,15 @@ swapColumnsLeft(index: number): void {
     this.columnsNames[index - 1] = temp;
 
     this.bmxItem.componentText.forEach((row, rowIndex) => {
-        const newRow: { [key: string]: any } = {};
-        this.columnsNames.forEach((col, i) => {
-            if (row.hasOwnProperty(col)) {
-                newRow[col] = row[col];
-            }
-        });
-        this.bmxItem.componentText[rowIndex] = this.mergeObjects(newRow, row);
+      const newRow: { [key: string]: any } = {};
+      this.columnsNames.forEach((col, i) => {
+        if (row.hasOwnProperty(col)) {
+          newRow[col] = row[col];
+        }
+      });
+      this.bmxItem.componentText[rowIndex] = this.mergeObjects(newRow, row);
     });
-}
+  }
 
 
   mergeObjects(obj1, obj2) {
