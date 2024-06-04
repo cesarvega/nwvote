@@ -41,7 +41,7 @@ export class RatingScaleComponent implements OnInit {
   ratingScale = 5;
   numRatingScale: number = 5;
   TESTNAMES_LIST = [];
-  columnsNames = [];
+  columnsNames:any = [];
   columnsNamesHeader: string[];
   listString: string;
   tempItems = [];

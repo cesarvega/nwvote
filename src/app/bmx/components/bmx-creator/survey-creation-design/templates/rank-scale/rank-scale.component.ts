@@ -57,7 +57,6 @@ export class RankScaleComponent extends RatingScaleComponent implements OnInit {
     this.rankingType = 'dinamycRadio' //HARD CODE
 
     this.rowsCount = this.bmxItem.componentText.length - 1;
-    console.log(this.bmxItem.componentText)
     this.bmxItem.componentSettings[0].minRule = this.bmxItem.componentSettings[0].minRule == 0 ? 0 : this.bmxItem.componentSettings[0].minRule;
     this.bmxItem.componentSettings[0].maxRule = this.bmxItem.componentSettings[0].maxRule == 0 ? 0 : this.bmxItem.componentSettings[0].maxRule;
 
@@ -94,7 +93,6 @@ export class RankScaleComponent extends RatingScaleComponent implements OnInit {
         columnNames.push(key);
       }
     }
-
     // Agregar cada objeto como una fila en el resultado
     for (let obj of this.bmxItem.componentText) {
       let values = [];
@@ -163,7 +161,7 @@ export class RankScaleComponent extends RatingScaleComponent implements OnInit {
     }
     return startCounter;
   }
-
+  
   upLoadNamesAndRationales(list: string, type?: any) {
     this.dragRows = true;
     console.log(this.bmxItem.componentText)

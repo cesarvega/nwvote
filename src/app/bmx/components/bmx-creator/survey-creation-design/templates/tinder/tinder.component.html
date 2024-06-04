@@ -14,12 +14,7 @@
     <button class="btn btn-raised close-modal" (click)="showCreationModalVideo=false">close</button>
 </div>
 <!-- ➗➗➗➗➗➗➗➗➗➗➗➗➗➗➗➗➗➗➗  SETTINGS ICONS  ➗➗➗➗➗➗➗➗➗➗➗➗➗➗➗➗➗ -->
-<div *ngIf="bmxClientPageOverview" style="display: flex;
-    flex-direction: row-reverse;
-    justify-content: end;
-    top: -30px;
-    right: 50px;border: 2px dashed #324395;padding-right: 10px;background: #ffffffd9;
-    position: absolute;height: 54px;align-items: center;padding-right: 38px;">
+<div *ngIf="bmxClientPageOverview" class="pageOverview" style="">
 
     <div>
         <button (click)="openDialog('undo')" class="add-column" matTooltip="undo last change" matTooltipPosition="above"

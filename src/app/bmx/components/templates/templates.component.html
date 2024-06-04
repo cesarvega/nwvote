@@ -1,4 +1,4 @@
-<div *ngIf="showModal" class="modal-background"></div>
+<div *ngIf="showModal " class="modal-background"></div>
 <div *ngIf="showModal" class="modal-content">
     <button mat-icon-button class="close-button" aria-label="Close" (click)="closeModal()">
         <mat-icon>close</mat-icon>
@@ -13,7 +13,11 @@
     </div>
     <button mat-raised-button color="success" style=" background-color: #063074; color: white; width: 40%;;" (click)="saveNewName()">Save </button>
 </div>
-<div *ngIf="showDialog">
+<div *ngIf="showErrorDialog">
+    <app-survey-dialog (onConfirm)="showErrorDialog = false; showNewTemplateModal = true" (onCancel)="showErrorDialog = false; showNewTemplateModal=true"
+        [dialogText]="errorMessage"></app-survey-dialog>
+</div>
+<div *ngIf="showDialog" class="error-dialog">
     <app-survey-dialog (onConfirm)="deleteTemplate(nameToDialog)" (onCancel)="closeDialog()"
         [dialogText]="'Are you sure you want to delete this template'"></app-survey-dialog>
 </div>

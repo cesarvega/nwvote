@@ -15,6 +15,16 @@
     <!-- ⏺⏺⏺⏺⏺⏺⏺⏺⏺⏺⏺⏺⏺⏺⏺⏺⏺⏺⏺⏺RAGE INPUTS FOR COLUMN SETTINGS ⏺⏺⏺⏺⏺⏺⏺⏺⏺⏺⏺⏺⏺⏺⏺⏺⏺⏺⏺ -->
 
     <div *ngIf="isColumnResizerOn && bmxClientPageOverview" class="column-resizer">
+
+        <!-- RATE -->
+        <div class="settings-option">
+            <p class="settings-label">rank
+            </p>
+            <input type="range" class="slider-font-size" [(ngModel)]="bmxItem.componentSettings[0].rateWidth"
+                class="slider-font-size" tickInterval="0.5" min="50" max="400"
+                [value]="bmxItem.componentSettings[0].rateWidth">
+        </div>
+
         <!-- NAME CANDIATES -->
         <div class="settings-option">
             <p class="settings-label">candidates
@@ -30,15 +40,6 @@
             </p>
             <input type="range" [(ngModel)]="bmxItem.componentSettings[0].rationalewidth" class="slider-font-size"
                 tickInterval="0.5" min="50" max="600" [value]="bmxItem.componentSettings[0].rationalewidth">
-        </div>
-
-        <!-- RATE -->
-        <div class="settings-option">
-            <p class="settings-label">rate
-            </p>
-            <input type="range" class="slider-font-size" [(ngModel)]="bmxItem.componentSettings[0].rateWidth"
-                class="slider-font-size" tickInterval="0.5" min="50" max="400"
-                [value]="bmxItem.componentSettings[0].rateWidth">
         </div>
 
         <!-- COMMENTS -->
@@ -214,7 +215,7 @@
                         </div>
                     </div>
 
-                    <div class="choose-criteria-container" >
+                    <div class="choose-criteria-container">
                         <mat-form-field appearance="outline" style="margin: 0px; width: 100%;">
                             <mat-label>Choose Criteria</mat-label>
                             <mat-select multiple [(ngModel)]="newselectedCriteria"
@@ -222,8 +223,7 @@
                                 <mat-option *ngFor="let criteriaItem of CRITERIA; let c = index" [value]="criteriaItem">
                                     {{criteriaItem.name}}
                                     <mat-icon matTooltip="Double click to delete criteria" matTooltipPosition="right"
-                                    class="delete-icon" 
-                                        (dblclick)="deleteCriteria(c);">
+                                        class="delete-icon" (dblclick)="deleteCriteria(c);">
                                         cancel</mat-icon>
                                 </mat-option>
                             </mat-select>
@@ -235,7 +235,7 @@
 
                 <div class="sm-row-box-rkScale">
                     <div>
-                        <div class="section-title" >SELECT RATING RANGE</div>
+                        <div class="section-title">SELECT RATING RANGE</div>
                         <br>
                         <div class="rating-range-input">
 
@@ -274,14 +274,14 @@
                 <mat-form-field appearance="outline" style="width: 40%">
                     <mat-label>Category Name</mat-label>
                     <input matInput [(ngModel)]="bmxItem.componentSettings[0].categoryName" placeholder="Category Name"
-                    class="category-name-input">
+                        class="category-name-input">
                     <mat-hint>Enter the name of the category</mat-hint> <!-- Hint text for Category Name -->
                 </mat-form-field>
 
                 <mat-form-field appearance="outline" style="width: 40%">
                     <mat-label>Sub category Description</mat-label>
                     <input matInput [(ngModel)]="bmxItem.componentSettings[0].categoryDescription"
-                    class="sub-category-input"   placeholder="Sub category Description">
+                        class="sub-category-input" placeholder="Sub category Description">
                     <mat-hint>Enter a brief description of the Sub category </mat-hint>
                 </mat-form-field>
             </div>
@@ -330,16 +330,17 @@
             </button>
             <p class="button-text-cancel">Cancel</p>
         </div>
-    
+
         <div class="button-done">
-            <button class="button-icon-done" mat-icon-button (click)="selectedIndex = '';upLoadNamesAndRationales(testNamesInput)" 
-                [disabled]="false" aria-label="ranking">
+            <button class="button-icon-done" mat-icon-button
+                (click)="selectedIndex = '';upLoadNamesAndRationales(testNamesInput)" [disabled]="false"
+                aria-label="ranking">
                 <mat-icon>check_circle</mat-icon>
             </button>
             <p class="button-text-done">Done</p>
         </div>
     </div>
-    
+
 </div>
 
 <!-- 🔧🔧🔧🔧🔧🔧🔧🔧🔧🔧🔧🔧🔧🔧🔧🔧🔧🔧🔧🔧🔧🔧END CONFIG BOX 🔧🔧🔧🔧🔧🔧🔧🔧🔧🔧🔧🔧🔧🔧🔧🔧🔧🔧🔧🔧🔧 -->
