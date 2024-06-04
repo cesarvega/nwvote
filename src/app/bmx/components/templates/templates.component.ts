@@ -80,6 +80,8 @@ export class TemplatesComponent implements OnInit {
   nameToDialog: any;
   showErrorDialog = false
   errorMessage = "There is already a template with that name"
+  showConfirmDialog = false
+  showConfirmDialogExisting = false
   ngOnInit(): void {
     this._BmxService.getGeneralLists()
       .subscribe((arg: any) => {
