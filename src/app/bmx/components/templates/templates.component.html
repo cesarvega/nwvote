@@ -21,14 +21,6 @@
     <app-survey-dialog (onConfirm)="deleteTemplate(nameToDialog)" (onCancel)="closeDialog()"
         [dialogText]="'Are you sure you want to delete this template'"></app-survey-dialog>
 </div>
-<div *ngIf="showConfirmDialog" class="error-dialog">
-    <app-survey-dialog (onConfirm)="saveNewName(true); showConfirmDialog = false " (onCancel)="showConfirmDialog = false"
-        [dialogText]="'Are you sure you want to save this template'"></app-survey-dialog>
-</div>
-<div *ngIf="showConfirmDialogExisting" class="error-dialog">
-    <app-survey-dialog (onConfirm)="saveTemplateFromAnExistingOne(selectedTemplateName); showConfirmDialogExisting = false " (onCancel)="showConfirmDialog = false"
-        [dialogText]="'Are you sure you want to save this template'"></app-survey-dialog>
-</div>
 <div style="position: relative; top: 10px">
     <mat-form-field style="padding-right: 20px" appearance="outline">
         <mat-label>Search</mat-label>
@@ -36,7 +28,6 @@
     </mat-form-field>
     <button mat-raised-button color="success" style=" background-color: #063074;color: white;width: 140px;position: relative;left: 65%;" (click)=" showNewTemplateModal = true">Add template</button>    
 </div>
-
 
 <div *ngIf="showNewTemplateModal" class="modal-content" style="gap: 10px;">
     <button mat-icon-button class="close-button" aria-label="Close" (click)="closeModal()">
@@ -78,7 +69,7 @@
                 load
             </button>
         </div>
-        <button mat-raised-button color="success" style=" background-color: #063074;color: white; width: 40%;;" (click)=" showConfirmDialogExisting = true; showNewTemplateModal = false ">Save </button>
+        <button mat-raised-button color="success" style=" background-color: #063074;color: white; width: 40%;;" (click)="saveTemplateFromAnExistingOne(selectedTemplateName)">Save </button>
     </div>
 
     <div *ngIf="newTemplate" style="display: flex;flex-direction: column;align-items: center;">
@@ -89,7 +80,7 @@
                 <input type="text" placeholder="Enter a new name" matInput [(ngModel)]="newTemplateName">
             </mat-form-field>
         </div>
-        <button mat-raised-button color="success" style=" background-color: #063074;color: white;width: 40%;" (click)="showConfirmDialog = true; showNewTemplateModal = false">Save </button>
+        <button mat-raised-button color="success" style=" background-color: #063074;color: white;width: 40%;" (click)="saveNewName(true)">Save </button>
     </div>
 </div>
 

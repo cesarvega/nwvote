@@ -67,7 +67,7 @@ export class SurveyCreationDesignComponent implements OnInit {
     selectedRating = 0;
     newTestNames = [];
     ratingScale = 5;
-    dialogText = 'Are you sure you want to delete this component?'
+    dialogText = 'Are you sure you want to delete this template?'
     // TEMPLATE BOX
     isTemplateBoxOn = false;
     isTemplateUpdate = false;
@@ -123,6 +123,7 @@ export class SurveyCreationDesignComponent implements OnInit {
     selectedDisplayNem: any;
     isTemplate = 'false'
     directors: any[] = [];
+    showConfirmTemplate: boolean = false;
     constructor(
         @Inject(DOCUMENT) private document: any,
         public _BmxService: BmxService,
@@ -1298,13 +1299,20 @@ export class SurveyCreationDesignComponent implements OnInit {
     openDialog(type: any, component?: any) {
         if (type === 'delete') {
             this.templateToDelete = component
+            this.showDialog = true
 
         } if (type === 'save') {
            const projectName= this.globalDisplayName ? this.globalDisplayName : this.globalProjectName 
             this.dialogText = `Are you sure you want to overwrite ${projectName}?`
+            this.showDialog = true
+
+        } if (type === 'template'){
+            this.selectedDisplayNem = localStorage.getItem('displayName')
+            this.dialogText = `Are you sure you want to overwrite ${this.selectedDisplayNem}?`
+            this.showConfirmTemplate = true
+
         }
         this.actionType = type
-        this.showDialog = true
     }
 
     confirmAction() {
