@@ -101,9 +101,26 @@
     max-width: 100%;
     height: auto;
   }
-  
+  // .title-container{
+  //   display: flex;
+  //   flex-direction: column;
+  //   align-items: center;
+  //   align-content: center;
+  //   flex-wrap: wrap;
+  // }
+  // .title {
+  //   margin-top: 10px;
+  //   font-size: 1.4em;
+  // }
+  .title-container {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+  }
   .title {
-    margin-top: 10px;
+    color: #004684;
     font-size: 1.4em;
   }
   
@@ -224,6 +241,7 @@
       max-width: 100%;
       min-width: 100%;
     }
+    
   }
   
   
