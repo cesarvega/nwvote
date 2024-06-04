@@ -66,7 +66,7 @@ export class TemplatesComponent implements OnInit {
     { TemplateName: 'Naming Contest', displayName: '' },
     { TemplateName: 'Question & Answer', displayName: '' },
   ];
-  displayedColumns = ['index','displayName', 'created', 'Edit' , 'Name', 'Delete'];
+  displayedColumns = ['index', 'displayName', 'created', 'Edit', 'Name', 'Delete'];
   bmxEditData: UntypedFormGroup;
   filteredOptions: Observable<string[]>;
   salesboardObj = [];
@@ -78,6 +78,8 @@ export class TemplatesComponent implements OnInit {
   existingTemplate = false
   showDialog = false
   nameToDialog: any;
+  showErrorDialog = false
+  errorMessage = "There is already a template with that name"
   ngOnInit(): void {
     this._BmxService.getGeneralLists()
       .subscribe((arg: any) => {
@@ -99,7 +101,7 @@ export class TemplatesComponent implements OnInit {
           this.dataSource.paginator = this.paginator;
           this.dataSource.sort = this.sort;
           this.dataSource.sortingDataAccessor = (item, property) => {
-            switch(property) {
+            switch (property) {
               case 'created': return new Date(item.created);
               default: return item[property];
             }
@@ -167,63 +169,69 @@ export class TemplatesComponent implements OnInit {
   }
 
   saveNewName(newTemplate?: any) {
-    this.showModal = false;
-    this.newTemplate = false;
-    this.existingTemplate = false
-    this.showNewTemplateModal = false
-    if (newTemplate) {
-      this.templateName = this.newTemplateName
-    } else {
-      this.bmxPages = JSON.parse(this.bmxPages)
-    }
-    this._BmxService.saveBrandMatrixTemplate(this.templateName, this.bmxPages, this.biUserId, this.newTemplateName).subscribe(data=> console.log(data))
-    this._BmxService.getGeneralLists()
-      .subscribe((arg: any) => {
-        this.settingsData = JSON.parse(arg.d);
-        this.TEMPLATES = (this.settingsData.BrandMatrixTemplateList.length) > 0 ? JSON.parse(arg.d).BrandMatrixTemplateList.map(obj => { return { templateName: obj.TemplateName, displayName: obj.DisplayName } }) : this.TEMPLATES
+    const existingTemplate = this.TEMPLATES.find(template => template.displayName == this.newTemplateName)
+    if (!existingTemplate) {
+      this.showModal = false;
+      this.newTemplate = false;
+      this.existingTemplate = false
+      this.showNewTemplateModal = false
+      if (newTemplate) {
+        this.templateName = this.newTemplateName
+      } else {
+        this.bmxPages = JSON.parse(this.bmxPages)
+      }
+      this._BmxService.saveBrandMatrixTemplate(this.templateName, this.bmxPages, this.biUserId, this.newTemplateName).subscribe(data => console.log(data))
+      this._BmxService.getGeneralLists()
+        .subscribe((arg: any) => {
+          this.settingsData = JSON.parse(arg.d);
+          this.TEMPLATES = (this.settingsData.BrandMatrixTemplateList.length) > 0 ? JSON.parse(arg.d).BrandMatrixTemplateList.map(obj => { return { templateName: obj.TemplateName, displayName: obj.DisplayName } }) : this.TEMPLATES
 
-        // END 🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖 AUTOCOMPLETE
-        this._BmxService.getGeneralLists()
-          .subscribe((arg: any) => {
-            this.settingsData = JSON.parse(arg.d);
-            this.TEMPLATES = (this.settingsData.BrandMatrixTemplateList.length) > 0 ? JSON.parse(arg.d).BrandMatrixTemplateList.map((obj, index) => { return { index: index + 1, displayName: obj.DisplayName, templateName: obj.TemplateName, brandMatrix: obj.BrandMatrix, created: obj.LastUpdate } }) : this.TEMPLATES
+          // END 🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖 AUTOCOMPLETE
+          this._BmxService.getGeneralLists()
+            .subscribe((arg: any) => {
+              this.settingsData = JSON.parse(arg.d);
+              this.TEMPLATES = (this.settingsData.BrandMatrixTemplateList.length) > 0 ? JSON.parse(arg.d).BrandMatrixTemplateList.map((obj, index) => { return { index: index + 1, displayName: obj.DisplayName, templateName: obj.TemplateName, brandMatrix: obj.BrandMatrix, created: obj.LastUpdate } }) : this.TEMPLATES
 
-            this.settingsData.OfficeList.unshift('All');
-            //AUTOCOMPLETE 🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖
-            this.settingsData.SalesBoardProjectList.forEach(myObject => { this.salesboardObj.push({ name: myObject['SalesBoardProjectList'] }) });
-            this.settingsData.DirectorList.forEach(directorObj => {
-              this.allDirectors.push({
-                name: directorObj.Director,
-                id: directorObj.Id,
-                title: directorObj.Title,
-                email: directorObj.Email,
-                phone: directorObj.Phone,
-                office: directorObj.Office,
-              })
+              this.settingsData.OfficeList.unshift('All');
+              //AUTOCOMPLETE 🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖
+              this.settingsData.SalesBoardProjectList.forEach(myObject => { this.salesboardObj.push({ name: myObject['SalesBoardProjectList'] }) });
+              this.settingsData.DirectorList.forEach(directorObj => {
+                this.allDirectors.push({
+                  name: directorObj.Director,
+                  id: directorObj.Id,
+                  title: directorObj.Title,
+                  email: directorObj.Email,
+                  phone: directorObj.Phone,
+                  office: directorObj.Office,
+                })
 
 
-              this.dataSource = new MatTableDataSource<any>(this.TEMPLATES);
-              this.dataSource.paginator = this.paginator;
-              this.dataSource.sort = this.sort;
-              this.dataSource.sortingDataAccessor = (item, property) => {
-                switch(property) {
-                  case 'created': return new Date(item.created);
-                  default: return item[property];
-                }
-              };
+                this.dataSource = new MatTableDataSource<any>(this.TEMPLATES);
+                this.dataSource.paginator = this.paginator;
+                this.dataSource.sort = this.sort;
+                this.dataSource.sortingDataAccessor = (item, property) => {
+                  switch (property) {
+                    case 'created': return new Date(item.created);
+                    default: return item[property];
+                  }
+                };
+              });
+              this.currentDirectorList = this.allDirectors;
+              for (var i = 0; i < this.DIRECTORS?.length; i++) {
+                this.DIRECTORS[i] = this.allDirectors.find(o => o.name === this.DIRECTORS[i].name);
+              }
+
+              // END 🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖 AUTOCOMPLETE
             });
-            this.currentDirectorList = this.allDirectors;
-            for (var i = 0; i < this.DIRECTORS?.length; i++) {
-              this.DIRECTORS[i] = this.allDirectors.find(o => o.name === this.DIRECTORS[i].name);
-            }
-
-            // END 🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖 AUTOCOMPLETE
-          });
-      });
-    this.showModal = false;
-    this.selectedTemplateName = this.newTemplateName
-    this.newTemplateName = '';
-    this.bmxPages = ''
+        });
+      this.showModal = false;
+      this.selectedTemplateName = this.newTemplateName
+      this.newTemplateName = '';
+      this.bmxPages = ''
+    }else{
+      this.showErrorDialog = true
+      this.showNewTemplateModal = false
+    }
   }
 
   saveTemplateFromAnExistingOne(templateName) {
@@ -279,7 +287,7 @@ export class TemplatesComponent implements OnInit {
               this.dataSource.paginator = this.paginator;
               this.dataSource.sort = this.sort;
               this.dataSource.sortingDataAccessor = (item, property) => {
-                switch(property) {
+                switch (property) {
                   case 'created': return new Date(item.created);
                   default: return item[property];
                 }
@@ -320,7 +328,7 @@ export class TemplatesComponent implements OnInit {
                       this.dataSource.paginator = this.paginator;
                       this.dataSource.sort = this.sort;
                       this.dataSource.sortingDataAccessor = (item, property) => {
-                        switch(property) {
+                        switch (property) {
                           case 'created': return new Date(item.created);
                           default: return item[property];
                         }
@@ -333,16 +341,16 @@ export class TemplatesComponent implements OnInit {
 
                     // END 🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖 AUTOCOMPLETE
                   });
-                  this.nameToDialog = ''
+                this.nameToDialog = ''
               });
           });
       });
   }
-  closeDialog(){
+  closeDialog() {
     this.showDialog = false
   }
 
-  showDialogComponent(templateName:any){
+  showDialogComponent(templateName: any) {
     this.showDialog = true
     this.nameToDialog = templateName
   }

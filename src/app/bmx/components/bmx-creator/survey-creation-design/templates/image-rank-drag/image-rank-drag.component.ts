@@ -24,7 +24,7 @@ export class ImageRankDragComponent extends RatingScaleComponent implements OnIn
 
   @Output() launchPathModal = new EventEmitter();
 
-  IMAGES_UPLOADED = [
+  IMAGES_UPLOADED:any = [
 
   ];
 
@@ -39,8 +39,8 @@ export class ImageRankDragComponent extends RatingScaleComponent implements OnIn
   isTemplateSelected = '';
   isSelectedButton = '';
   fileName = '';
-  uploadProgress: number;
-  uploadSub: Subscription;
+  uploadProgress: number | null;
+  uploadSub: any;
   resourceData: any;
   logoWidth = 200
   uploadImagesBox = false;
@@ -69,7 +69,7 @@ export class ImageRankDragComponent extends RatingScaleComponent implements OnIn
   PATH2: any[] = [
     'assets/img/bmx/tutorial/image-drag2.JPG',
   ]
-  deviceInfo = null;
+  deviceInfo;any = null;
   public isDesktopDevice: any = null;
 
   //----------end modal--------//
@@ -199,7 +199,7 @@ export class ImageRankDragComponent extends RatingScaleComponent implements OnIn
     if (this.IMAGES_UPLOADED.length < this.bmxItem.componentText.length) {
       this.bmxItem.componentText.splice(this.IMAGES_UPLOADED.length + 1, this.bmxItem.componentText.length + 1)
     }
-    this.IMAGES_UPLOADED.forEach((imageObject, index) => {
+    this.IMAGES_UPLOADED.forEach((imageObject:any, index) => {
       imageObject['FileContent'] = imageObject['FileContent'].split(imageObject['FileContent'].split(",")[0] + ',').pop()
       this._BmxService.saveFileResources(JSON.stringify(imageObject)).subscribe((result: any) => {
         this.IMAGES_UPLOADED.shift()

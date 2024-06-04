@@ -105,24 +105,163 @@
 }
 
 .slider-font-size {
-  margin: 20px!important;
-  width: 50px!important;
+  margin: 20px !important;
+  width: 50px !important;
 }
 
 .row-height-settings {
-  width: 60px!important;
-  margin: 20px!important;
+  width: 60px !important;
+  margin: 20px !important;
 }
 .menu-container {
   display: flex;
   flex-direction: row-reverse;
 }
 
-.full-icon{
-  font-size: 26px
+.full-icon {
+  font-size: 26px;
+}
+.config-modal {
+  position: absolute;
+  width: 50%;
+  background: #fafafa;
+  z-index: 1;
+  top: -65px;
+  left: 25%;
+  border: #063074 4px solid;
+  overflow: auto;
+  max-height: 36rem;
+  bottom: -2;
+}
+.drag-handle {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  cursor: move;
+  height: 25px;
+  width: 100%;
+}
+.description {
+  font-size: 16px;
+  margin: 20px;
+  color: #48535e;
 }
 
+.form-field-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.form-field {
+  width: 90%;
+  margin-left: 20px;
+}
 
+.new-criteria-container {
+  display: flex;
+  flex-direction: column;
+  width: 40%;
+}
+
+.criteria-label {
+  font-size: 12px;
+  color: #48535e;
+}
+.add-icon {
+  cursor: pointer;
+  font-size: 33px;
+  color: #324395;
+}
+.choose-criteria-container {
+  display: flex;
+  flex-direction: column;
+  width: 40%;
+}
+.delete-icon {
+  cursor: pointer;
+  font-size: 15px;
+  color: #ee7f25;
+}
+.section-title {
+  font-size: 16px;
+  margin-top: 10px;
+  color: #48535e;
+}
+.rating-range-input {
+  text-align: center;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-around;
+}
+.section-subtitle {
+  font-size: 14px;
+  color: #48535e;
+}
+
+.icon-green {
+  color: #76d354;
+}
+
+.icon-yellow {
+  color: #e6ad11;
+}
+.category-name-input {
+  font-size: 20px;
+  color: #324395;
+}
+.sub-category-input {
+  font-size: 20px;
+  color: #ee7f25;
+}
+.min-selection .max-selection {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  gap: 10px;
+  align-items: center;
+}
+.selection-title {
+  font-size: 16px;
+  margin-top: 10px;
+  color: #48535e;
+  text-align: center;
+}
+.selection-input {
+  width: 53px;
+  padding: 0px 10px;
+}
+.selection-hint {
+  font-size: 13px;
+  color: #48535e;
+}
+.button-cancel {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+.button-icon-cancel {
+  outline: none;
+  color: #d35854;
+}
+.button-text-cancel {
+  margin-top: -11;
+  color: #d35854;
+  font-size: 21px;
+}
+.button-Done {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+.button-icon-done {
+  outline: none;
+  color: #76d354;
+}
+.button-text-done {
+  margin-top: -1;
+  color: #76d354;
+  font-size: 21px;
+}
 // New code
 .container-checkbox input:checked ~ .checkmark {
   background-color: black;
