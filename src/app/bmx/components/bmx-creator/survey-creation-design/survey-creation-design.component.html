@@ -25,7 +25,7 @@
 
 
 <div *ngIf="showConfirmTemplate">
-    <app-survey-dialog (onConfirm)="saveTemplate()" (onCancel)="showConfirmTemplate = false"
+    <app-survey-dialog (onConfirm)="saveTemplate(); showConfirmTemplate = false" (onCancel)="showConfirmTemplate = false"
         [dialogText]="'Are you sure you want to overwrite this template'"></app-survey-dialog>
 </div>
 
