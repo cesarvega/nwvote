@@ -14,7 +14,7 @@
     <button mat-raised-button color="success" style=" background-color: #063074; color: white; width: 40%;;" (click)="saveNewName()">Save </button>
 </div>
 <div *ngIf="showErrorDialog">
-    <app-survey-dialog (onConfirm)="showErrorDialog = false; showNewTemplateModal = true" (onCancel)="showErrorDialog = false; showNewTemplateModal=true"
+    <app-survey-dialog (onConfirm)="showErrorDialog = false; showNewTemplateModal = true" (onCancel)="showErrorDialog = false; showNewTemplateModal=false"
         [dialogText]="errorMessage"></app-survey-dialog>
 </div>
 <div *ngIf="showDialog" class="error-dialog">

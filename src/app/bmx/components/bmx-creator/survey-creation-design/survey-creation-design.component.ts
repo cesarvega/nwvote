@@ -245,7 +245,7 @@ export class SurveyCreationDesignComponent implements OnInit {
 
         // TESTING ROUTER DATA
         activatedRoute.params.subscribe(params => {
-            this.projectId = params['id'];
+            this.projectId =localStorage.getItem('projectName');
             this.biUsername = params['biUsername'];
             localStorage.setItem('projectId', this.projectId);
             // this.bsrService.getProjectData(this.projectId).subscribe(arg => {
@@ -340,16 +340,14 @@ export class SurveyCreationDesignComponent implements OnInit {
         }
         else if (this.bmxPagesClient) {
             this.bmxPages = this.bmxPagesClient;
-            console.log('a')
         } else {
-            console.log('a')
             //   this.bmxPages = this.SAMPLE_BMX;
             this._BmxService.getBrandMatrixByProject(this.projectId).subscribe((brandMatrix: any) => {
+                console.log(brandMatrix)
                 if (brandMatrix.d.length > 0) {
                     let objeto = JSON.parse(brandMatrix.d);
                     let logoUrl = ""
                     this.bmxPages = JSON.parse(brandMatrix.d)
-                    console.log(this.bmxPages)
                     logoUrl = this.bmxPages[0].page[0].componentSettings[0].companyLogoURL;
 
                     for (let index = 0; index < this.bmxPages.length; index++) {
@@ -1243,7 +1241,6 @@ export class SurveyCreationDesignComponent implements OnInit {
     }
 
     previewSurvey() {
-        console.log(this.projectId)
         const projectUrl = this.projectId.replace(/\//g, '-')
         console.log('survey/' + projectUrl + '/' + (this.biUsername ? this.biUsername : 'guest'))
         window.open('survey/' + projectUrl + '/' + (this.biUsername ? this.biUsername : 'guest'));
