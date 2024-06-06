@@ -72,7 +72,7 @@ export class DocxSurveyComponent implements OnInit {
   dsiLogo;
   reportTheme;
 
-  constructor( private dragulaService: DragulaService, private _BmxService: BmxService, private http: HttpClient) { }
+  constructor(private dragulaService: DragulaService, private _BmxService: BmxService, private http: HttpClient) { }
   ngOnInit(): any {
     this.firstload = true;
     this.user = [];
@@ -101,28 +101,27 @@ export class DocxSurveyComponent implements OnInit {
     this.firstload = false;
   }
 
-  mergeData(t: any)
-  {
+  mergeData(t: any) {
     this.user = [];
     for (var i = 0; i < t.length; i++) {
 
       this._BmxService.getBrandMatrixByProjectAllUserAnswers(t[i])
-      .subscribe(async (arg: any) => {
-        if (arg.d && arg.d.length > 0) {
-          const data = JSON.parse(arg.d);
-          if (data[0]?.BrandMatrix) {
-            this.companyLogo = JSON.parse(data[0]?.BrandMatrix)[0].page[0].componentSettings[0].companyLogoURL;
-            var temp = await this.createDataObject(JSON.parse(arg.d));
-            this.user = this.user.concat(temp);
-            /*this.user = await this.createDataObject(JSON.parse(arg.d));*/
-            this.changeView();
-            //this.completedStatus(this.user);
-            //var imageSrcString;
-            //imageSrcString = await this.getBase64ImageFromUrl("https://tools.brandinstitute.com/bmresources/te2647/logo5.JPG")
+        .subscribe(async (arg: any) => {
+          if (arg.d && arg.d.length > 0) {
+            const data = JSON.parse(arg.d);
+            if (data[0]?.BrandMatrix) {
+              this.companyLogo = JSON.parse(data[0]?.BrandMatrix)[0].page[0].componentSettings[0].companyLogoURL;
+              var temp = await this.createDataObject(JSON.parse(arg.d));
+              this.user = this.user.concat(temp);
+              /*this.user = await this.createDataObject(JSON.parse(arg.d));*/
+              this.changeView();
+              //this.completedStatus(this.user);
+              //var imageSrcString;
+              //imageSrcString = await this.getBase64ImageFromUrl("https://tools.brandinstitute.com/bmresources/te2647/logo5.JPG")
 
+            }
           }
-        }
-      });
+        });
     }
     this.changeView();
   }
@@ -190,9 +189,11 @@ export class DocxSurveyComponent implements OnInit {
                   rational: ""
                 }
                 answMC.comment = r[y].Comments0;
-                if (r[y].nameCandidates.includes("tools.brandinstitute")) {
-                  this.design = true;
-                  answMC.nameCandidate = await this.imageToBuffer(r[y].nameCandidates);
+                if (r[y].nameCandidates != null) {
+                  if (r[y].nameCandidates.includes("tools.brandinstitute")) {
+                    this.design = true;
+                    answMC.nameCandidate = await this.imageToBuffer(r[y].nameCandidates);
+                  }
                 }
                 else {
                   answMC.nameCandidate = this.getModTestName(r[y].nameCandidates);
@@ -216,9 +217,11 @@ export class DocxSurveyComponent implements OnInit {
                     rationale: ""
                   }
                   answCR.comment = r[y].Comments0;
-                  if (r[y].nameCandidates.includes("tools.brandinstitute")) {
-                    this.design = true;
-                    answCR.nameCandidate = await this.imageToBuffer(r[y].nameCandidates);
+                  if (r[y].nameCandidates != null) {
+                    if (r[y].nameCandidates.includes("tools.brandinstitute")) {
+                      this.design = true;
+                      answCR.nameCandidate = await this.imageToBuffer(r[y].nameCandidates);
+                    }
                   }
                   else {
                     answCR.nameCandidate = this.getModTestName(r[y].nameCandidates);
@@ -240,9 +243,11 @@ export class DocxSurveyComponent implements OnInit {
                   }
                   answRT.comment = r[y].Comments0;
                   answRT.nameCandidate = r[y].nameCandidates;
-                  if (r[y].nameCandidates.includes("tools.brandinstitute")) {
-                    this.design = true;
-                    answRT.nameCandidate = await this.imageToBuffer(r[y].nameCandidates);
+                  if (r[y].nameCandidates != null) {
+                    if (r[y].nameCandidates.includes("tools.brandinstitute")) {
+                      this.design = true;
+                      answRT.nameCandidate = await this.imageToBuffer(r[y].nameCandidates);
+                    }
                   }
                   else {
                     answRT.nameCandidate = this.getModTestName(r[y].nameCandidates);
@@ -266,9 +271,11 @@ export class DocxSurveyComponent implements OnInit {
                     rationale: ""
                   }
                   answCR.comment = r[y].Comments0;
-                  if (r[y].nameCandidates.includes("tools.brandinstitute")) {
-                    this.design = true;
-                    answCR.nameCandidate = await this.imageToBuffer(r[y].nameCandidates);
+                  if (r[y].nameCandidates != null) {
+                    if (r[y].nameCandidates.includes("tools.brandinstitute")) {
+                      this.design = true;
+                      answCR.nameCandidate = await this.imageToBuffer(r[y].nameCandidates);
+                    }
                   }
                   else {
                     answCR.nameCandidate = this.getModTestName(r[y].nameCandidates);
@@ -290,9 +297,11 @@ export class DocxSurveyComponent implements OnInit {
                   }
                   answRT.comment = r[y].Comments0;
                   answRT.nameCandidate = r[y].nameCandidates;
-                  if (r[y].nameCandidates.includes("tools.brandinstitute")) {
-                    this.design = true;
-                    answRT.nameCandidate = await this.imageToBuffer(r[y].nameCandidates);
+                  if (r[y].nameCandidates != null) {
+                    if (r[y].nameCandidates.includes("tools.brandinstitute")) {
+                      this.design = true;
+                      answRT.nameCandidate = await this.imageToBuffer(r[y].nameCandidates);
+                    }
                   }
                   else {
                     answRT.nameCandidate = this.getModTestName(r[y].nameCandidates);
@@ -389,18 +398,18 @@ export class DocxSurveyComponent implements OnInit {
           },
           borders: {
             top: {
-                style: BorderStyle.NIL,
+              style: BorderStyle.NIL,
             },
             bottom: {
               style: BorderStyle.NIL,
             },
             left: {
               style: BorderStyle.NIL,
+            },
+            right: {
+              style: BorderStyle.NIL,
+            },
           },
-          right: {
-            style: BorderStyle.NIL,
-          },
-        },
           children: [new Paragraph({
             spacing: {
               before: 0,
@@ -432,7 +441,7 @@ export class DocxSurveyComponent implements OnInit {
       height: {
         value: 442.8571,
         rule: HeightRule.ATLEAST
-    },
+      },
       children: arr,
     });
 
@@ -450,12 +459,10 @@ export class DocxSurveyComponent implements OnInit {
     );
 
     for (var i = 0; i < this.user.length; i++) {
-      if(i%2 == 0)
-      {
+      if (i % 2 == 0) {
         shade = ShadingType.CLEAR;
       }
-      else
-      {
+      else {
         shade = ShadingType.NIL;
       }
 
@@ -467,34 +474,34 @@ export class DocxSurveyComponent implements OnInit {
             height: {
               value: 500,
               rule: HeightRule.ATLEAST
-          },
+            },
             children: [
               new TableCell({
                 verticalAlign: VerticalAlign.CENTER,
                 borders: {
                   top: {
-                      style: BorderStyle.SINGLE,
-                      size: .5,
-                      color: "C9C9C9",
+                    style: BorderStyle.SINGLE,
+                    size: .5,
+                    color: "C9C9C9",
                   },
                   bottom: {
                     style: BorderStyle.SINGLE,
-                      size: .5,
-                      color: "C9C9C9",
+                    size: .5,
+                    color: "C9C9C9",
                   },
                   left: {
                     style: BorderStyle.NIL,
+                  },
+                  right: {
+                    style: BorderStyle.SINGLE,
+                    size: .5,
+                    color: "C9C9C9",
+                  },
+                }, shading: {
+                  fill: "EDEDED",
+                  type: shade,
+                  color: "auto",
                 },
-                right: {
-                  style: BorderStyle.SINGLE,
-                      size: .5,
-                      color: "C9C9C9",
-                },
-              },shading: {
-                fill: "EDEDED",
-                type: shade,
-                color: "auto",
-            },
                 width: {
                   size: 33,
                   type: WidthType.PERCENTAGE,
@@ -527,26 +534,26 @@ export class DocxSurveyComponent implements OnInit {
                 verticalAlign: VerticalAlign.CENTER,
                 borders: {
                   top: {
-                      style: BorderStyle.SINGLE,
-                      size: .5,
-                      color: "C9C9C9",
+                    style: BorderStyle.SINGLE,
+                    size: .5,
+                    color: "C9C9C9",
                   },
                   bottom: {
                     style: BorderStyle.SINGLE,
-                      size: .5,
-                      color: "C9C9C9",
+                    size: .5,
+                    color: "C9C9C9",
                   },
                   left: {
                     style: BorderStyle.SINGLE,
-                      size: .5,
-                      color: "C9C9C9",
+                    size: .5,
+                    color: "C9C9C9",
+                  },
+                  right: {
+                    style: BorderStyle.SINGLE,
+                    size: .5,
+                    color: "C9C9C9",
+                  },
                 },
-                right: {
-                  style: BorderStyle.SINGLE,
-                      size: .5,
-                      color: "C9C9C9",
-                },
-              },
                 width: {
                   size: 33,
                   type: WidthType.PERCENTAGE,
@@ -555,7 +562,7 @@ export class DocxSurveyComponent implements OnInit {
                   fill: "EDEDED",
                   type: shade,
                   color: "auto",
-              },
+                },
                 children: [new Paragraph({
                   spacing: {
                     before: 0,
@@ -583,24 +590,24 @@ export class DocxSurveyComponent implements OnInit {
                 verticalAlign: VerticalAlign.CENTER,
                 borders: {
                   top: {
-                      style: BorderStyle.SINGLE,
-                      size: .5,
-                      color: "C9C9C9",
+                    style: BorderStyle.SINGLE,
+                    size: .5,
+                    color: "C9C9C9",
                   },
                   bottom: {
                     style: BorderStyle.SINGLE,
-                      size: .5,
-                      color: "C9C9C9",
+                    size: .5,
+                    color: "C9C9C9",
                   },
                   left: {
                     style: BorderStyle.SINGLE,
-                      size: .5,
-                      color: "C9C9C9",
+                    size: .5,
+                    color: "C9C9C9",
+                  },
+                  right: {
+                    style: BorderStyle.NIL
+                  },
                 },
-                right: {
-                  style: BorderStyle.NIL
-                },
-              },
                 width: {
                   size: 33,
                   type: WidthType.PERCENTAGE,
@@ -609,7 +616,7 @@ export class DocxSurveyComponent implements OnInit {
                   fill: "EDEDED",
                   type: shade,
                   color: "auto",
-              },
+                },
                 children: [new Paragraph({
                   spacing: {
                     before: 0,
@@ -671,12 +678,10 @@ export class DocxSurveyComponent implements OnInit {
     }
 
     for (var i = 0; i < overall.length; i++) {
-      if(i%2 == 0)
-      {
+      if (i % 2 == 0) {
         shade = ShadingType.CLEAR;
       }
-      else
-      {
+      else {
         shade = ShadingType.NIL;
       }
 
@@ -686,36 +691,36 @@ export class DocxSurveyComponent implements OnInit {
 
             {
               height: {
-              value: 500,
-              rule: HeightRule.ATLEAST
-          },
+                value: 500,
+                rule: HeightRule.ATLEAST
+              },
               children: [
                 new TableCell({
                   verticalAlign: VerticalAlign.CENTER,
-                borders: {
-                  top: {
+                  borders: {
+                    top: {
                       style: BorderStyle.SINGLE,
                       size: .5,
                       color: "C9C9C9",
-                  },
-                  bottom: {
-                    style: BorderStyle.SINGLE,
+                    },
+                    bottom: {
+                      style: BorderStyle.SINGLE,
                       size: .5,
                       color: "C9C9C9",
-                  },
-                  left: {
-                    style: BorderStyle.NIL,
-                },
-                right: {
-                  style: BorderStyle.SINGLE,
+                    },
+                    left: {
+                      style: BorderStyle.NIL,
+                    },
+                    right: {
+                      style: BorderStyle.SINGLE,
                       size: .5,
                       color: "C9C9C9",
-                },
-              },shading: {
-                fill: "EDEDED",
-                type: shade,
-                color: "auto",
-            },
+                    },
+                  }, shading: {
+                    fill: "EDEDED",
+                    type: shade,
+                    color: "auto",
+                  },
                   width: {
                     size: 10,
                     type: WidthType.PERCENTAGE,
@@ -746,32 +751,32 @@ export class DocxSurveyComponent implements OnInit {
                 }),
                 new TableCell({
                   verticalAlign: VerticalAlign.CENTER,
-                borders: {
-                  top: {
+                  borders: {
+                    top: {
                       style: BorderStyle.SINGLE,
                       size: .5,
                       color: "C9C9C9",
-                  },
-                  bottom: {
-                    style: BorderStyle.SINGLE,
+                    },
+                    bottom: {
+                      style: BorderStyle.SINGLE,
                       size: .5,
                       color: "C9C9C9",
-                  },
-                  left: {
-                    style: BorderStyle.SINGLE,
-                    size: .5,
-                    color : "C9C9C9"
-                },
-                right: {
-                  style: BorderStyle.SINGLE,
+                    },
+                    left: {
+                      style: BorderStyle.SINGLE,
+                      size: .5,
+                      color: "C9C9C9"
+                    },
+                    right: {
+                      style: BorderStyle.SINGLE,
                       size: .5,
                       color: "C9C9C9",
-                },
-              },shading: {
-                fill: "EDEDED",
-                type: shade,
-                color: "auto",
-            },
+                    },
+                  }, shading: {
+                    fill: "EDEDED",
+                    type: shade,
+                    color: "auto",
+                  },
                   width: {
                     size: 40,
                     type: WidthType.PERCENTAGE,
@@ -801,32 +806,32 @@ export class DocxSurveyComponent implements OnInit {
                 }),
                 new TableCell({
                   verticalAlign: VerticalAlign.CENTER,
-                borders: {
-                  top: {
+                  borders: {
+                    top: {
                       style: BorderStyle.SINGLE,
                       size: .5,
                       color: "C9C9C9",
-                  },
-                  bottom: {
-                    style: BorderStyle.SINGLE,
+                    },
+                    bottom: {
+                      style: BorderStyle.SINGLE,
                       size: .5,
                       color: "C9C9C9",
-                  },
-                  right: {
-                    style: BorderStyle.SINGLE,
-                    size: .5,
-                    color: "C9C9C9"
-                },
-                left: {
-                  style: BorderStyle.SINGLE,
+                    },
+                    right: {
+                      style: BorderStyle.SINGLE,
+                      size: .5,
+                      color: "C9C9C9"
+                    },
+                    left: {
+                      style: BorderStyle.SINGLE,
                       size: .5,
                       color: "C9C9C9",
-                },
-              },shading: {
-                fill: "EDEDED",
-                type: shade,
-                color: "auto",
-            },
+                    },
+                  }, shading: {
+                    fill: "EDEDED",
+                    type: shade,
+                    color: "auto",
+                  },
                   width: {
                     size: 40,
                     type: WidthType.PERCENTAGE,
@@ -861,30 +866,30 @@ export class DocxSurveyComponent implements OnInit {
                 }),
                 new TableCell({
                   verticalAlign: VerticalAlign.CENTER,
-                borders: {
-                  top: {
+                  borders: {
+                    top: {
                       style: BorderStyle.SINGLE,
                       size: .5,
                       color: "C9C9C9",
-                  },
-                  bottom: {
-                    style: BorderStyle.SINGLE,
+                    },
+                    bottom: {
+                      style: BorderStyle.SINGLE,
                       size: .5,
                       color: "C9C9C9",
-                  },
-                  right: {
-                    style: BorderStyle.NIL,
-                },
-                left: {
-                  style: BorderStyle.SINGLE,
+                    },
+                    right: {
+                      style: BorderStyle.NIL,
+                    },
+                    left: {
+                      style: BorderStyle.SINGLE,
                       size: .5,
                       color: "C9C9C9",
-                },
-              },shading: {
-                fill: "EDEDED",
-                type: shade,
-                color: "auto",
-            },
+                    },
+                  }, shading: {
+                    fill: "EDEDED",
+                    type: shade,
+                    color: "auto",
+                  },
                   width: {
                     size: 10,
                     type: WidthType.PERCENTAGE,
@@ -926,34 +931,34 @@ export class DocxSurveyComponent implements OnInit {
               height: {
                 value: 500,
                 rule: HeightRule.ATLEAST
-            },
+              },
               children: [
                 new TableCell({
                   verticalAlign: VerticalAlign.CENTER,
-                borders: {
-                  top: {
+                  borders: {
+                    top: {
                       style: BorderStyle.SINGLE,
                       size: .5,
                       color: "C9C9C9",
-                  },
-                  bottom: {
-                    style: BorderStyle.SINGLE,
+                    },
+                    bottom: {
+                      style: BorderStyle.SINGLE,
                       size: .5,
                       color: "C9C9C9",
-                  },
-                  left: {
-                    style: BorderStyle.NIL,
-                },
-                right: {
-                  style: BorderStyle.SINGLE,
+                    },
+                    left: {
+                      style: BorderStyle.NIL,
+                    },
+                    right: {
+                      style: BorderStyle.SINGLE,
                       size: .5,
                       color: "C9C9C9",
-                },
-              },shading: {
-                fill: "EDEDED",
-                type: shade,
-                color: "auto",
-            },
+                    },
+                  }, shading: {
+                    fill: "EDEDED",
+                    type: shade,
+                    color: "auto",
+                  },
                   width: {
                     size: 33,
                     type: WidthType.PERCENTAGE,
@@ -984,30 +989,30 @@ export class DocxSurveyComponent implements OnInit {
                 }),
                 new TableCell({
                   verticalAlign: VerticalAlign.CENTER,
-                borders: {
-                  top: {
+                  borders: {
+                    top: {
                       style: BorderStyle.SINGLE,
                       size: .5,
                       color: "C9C9C9",
-                  },
-                  bottom: {
-                    style: BorderStyle.SINGLE,
+                    },
+                    bottom: {
+                      style: BorderStyle.SINGLE,
                       size: .5,
                       color: "C9C9C9",
-                  },
-                  left: {
-                    style: BorderStyle.NIL,
-                },
-                right: {
-                  style: BorderStyle.SINGLE,
+                    },
+                    left: {
+                      style: BorderStyle.NIL,
+                    },
+                    right: {
+                      style: BorderStyle.SINGLE,
                       size: .5,
                       color: "C9C9C9",
-                },
-              },shading: {
-                fill: "EDEDED",
-                type: shade,
-                color: "auto",
-            },
+                    },
+                  }, shading: {
+                    fill: "EDEDED",
+                    type: shade,
+                    color: "auto",
+                  },
                   width: {
                     size: 33,
                     type: WidthType.PERCENTAGE,
@@ -1032,30 +1037,30 @@ export class DocxSurveyComponent implements OnInit {
                 }),
                 new TableCell({
                   verticalAlign: VerticalAlign.CENTER,
-                borders: {
-                  top: {
+                  borders: {
+                    top: {
                       style: BorderStyle.SINGLE,
                       size: .5,
                       color: "C9C9C9",
-                  },
-                  bottom: {
-                    style: BorderStyle.SINGLE,
+                    },
+                    bottom: {
+                      style: BorderStyle.SINGLE,
                       size: .5,
                       color: "C9C9C9",
-                  },
-                  left: {
-                    style: BorderStyle.NIL,
-                },
-                right: {
-                  style: BorderStyle.SINGLE,
+                    },
+                    left: {
+                      style: BorderStyle.NIL,
+                    },
+                    right: {
+                      style: BorderStyle.SINGLE,
                       size: .5,
                       color: "C9C9C9",
-                },
-              },shading: {
-                fill: "EDEDED",
-                type: shade,
-                color: "auto",
-            },
+                    },
+                  }, shading: {
+                    fill: "EDEDED",
+                    type: shade,
+                    color: "auto",
+                  },
                   width: {
                     size: 33,
                     type: WidthType.PERCENTAGE,
@@ -1117,12 +1122,10 @@ export class DocxSurveyComponent implements OnInit {
       this.createHeader(["Question", "Scores",], "hello")
     )
     for (var i = 0; i < overall.length; i++) {
-      if(i%2 == 0)
-      {
+      if (i % 2 == 0) {
         shade = ShadingType.CLEAR;
       }
-      else
-      {
+      else {
         shade = ShadingType.NIL;
       }
       let textRow = [];
@@ -1170,28 +1173,28 @@ export class DocxSurveyComponent implements OnInit {
                 verticalAlign: VerticalAlign.CENTER,
                 borders: {
                   top: {
-                      style: BorderStyle.SINGLE,
-                      size: .5,
-                      color: "C9C9C9",
+                    style: BorderStyle.SINGLE,
+                    size: .5,
+                    color: "C9C9C9",
                   },
                   bottom: {
                     style: BorderStyle.SINGLE,
-                      size: .5,
-                      color: "C9C9C9",
+                    size: .5,
+                    color: "C9C9C9",
                   },
                   left: {
                     style: BorderStyle.NIL,
+                  },
+                  right: {
+                    style: BorderStyle.SINGLE,
+                    size: .5,
+                    color: "C9C9C9",
+                  },
+                }, shading: {
+                  fill: "EDEDED",
+                  type: shade,
+                  color: "auto",
                 },
-                right: {
-                  style: BorderStyle.SINGLE,
-                      size: .5,
-                      color: "C9C9C9",
-                },
-              },shading: {
-                fill: "EDEDED",
-                type: shade,
-                color: "auto",
-            },
                 width: {
                   size: 33,
                   type: WidthType.PERCENTAGE,
@@ -1224,28 +1227,28 @@ export class DocxSurveyComponent implements OnInit {
                 verticalAlign: VerticalAlign.CENTER,
                 borders: {
                   top: {
-                      style: BorderStyle.SINGLE,
-                      size: .5,
-                      color: "C9C9C9",
+                    style: BorderStyle.SINGLE,
+                    size: .5,
+                    color: "C9C9C9",
                   },
                   bottom: {
                     style: BorderStyle.SINGLE,
-                      size: .5,
-                      color: "C9C9C9",
+                    size: .5,
+                    color: "C9C9C9",
                   },
                   left: {
                     style: BorderStyle.NIL,
+                  },
+                  right: {
+                    style: BorderStyle.SINGLE,
+                    size: .5,
+                    color: "C9C9C9",
+                  },
+                }, shading: {
+                  fill: "EDEDED",
+                  type: shade,
+                  color: "auto",
                 },
-                right: {
-                  style: BorderStyle.SINGLE,
-                      size: .5,
-                      color: "C9C9C9",
-                },
-              },shading: {
-                fill: "EDEDED",
-                type: shade,
-                color: "auto",
-            },
                 width: {
                   size: 33,
                   type: WidthType.PERCENTAGE,
@@ -1290,30 +1293,32 @@ export class DocxSurveyComponent implements OnInit {
       var x = this.user[i];
       for (var j = 0; j < x.responses.length; j++) {
         var y = x.responses[j];
-        if (pagesPring.includes(y.page)) {
-          if (y.questyonType === "multipleChoice") {
-            for (var k = 0; k < y.answers.length; k++) {
-              for (var l = 0; l < y.answers[k].score.length; l++) {
-                if (rankings.has(y.answers[k].nameCandidate)) {
-                  var temp = rankings.get(y.answers[k].nameCandidate)
-                  if (temp.has(y.answers[k].score[l])) {
-                    temp.set(y.answers[k].score[l], (temp.get(y.answers[k].score[l]) + 1));
-                    rankings.set(y.answers[k].nameCandidate, temp);
+        if (pagesPring != null) {
+          if (pagesPring.includes(y.page)) {
+            if (y.questyonType === "multipleChoice") {
+              for (var k = 0; k < y.answers.length; k++) {
+                for (var l = 0; l < y.answers[k].score.length; l++) {
+                  if (rankings.has(y.answers[k].nameCandidate)) {
+                    var temp = rankings.get(y.answers[k].nameCandidate)
+                    if (temp.has(y.answers[k].score[l])) {
+                      temp.set(y.answers[k].score[l], (temp.get(y.answers[k].score[l]) + 1));
+                      rankings.set(y.answers[k].nameCandidate, temp);
+                    }
+                    else {
+                      temp.set(y.answers[k].score[l], 1)
+                      rankings.set(y.answers[k].nameCandidate, temp);
+                    }
                   }
                   else {
-                    temp.set(y.answers[k].score[l], 1)
-                    rankings.set(y.answers[k].nameCandidate, temp);
+                    answer = new Map();
+                    answer.set(y.answers[k].score[l], 1)
+                    rankings.set(y.answers[k].nameCandidate, answer);
                   }
-                }
-                else {
-                  answer = new Map();
-                  answer.set(y.answers[k].score[l], 1)
-                  rankings.set(y.answers[k].nameCandidate, answer);
                 }
               }
             }
-          }
 
+          }
         }
       }
     }
@@ -1351,12 +1356,10 @@ export class DocxSurveyComponent implements OnInit {
       this.createHeader(["Name", "Rationale", "Comments"], "byComment")
     )
     for (var i = 0; i < overall.length; i++) {
-      if(i%2 == 0)
-      {
+      if (i % 2 == 0) {
         shade = ShadingType.CLEAR;
       }
-      else
-      {
+      else {
         shade = ShadingType.NIL;
       }
       a = [];
@@ -1430,34 +1433,34 @@ export class DocxSurveyComponent implements OnInit {
               height: {
                 value: 500,
                 rule: HeightRule.ATLEAST
-            },
+              },
               children: [
                 new TableCell({
                   verticalAlign: VerticalAlign.CENTER,
-                borders: {
-                  top: {
+                  borders: {
+                    top: {
                       style: BorderStyle.SINGLE,
                       size: .5,
                       color: "C9C9C9",
-                  },
-                  bottom: {
-                    style: BorderStyle.SINGLE,
+                    },
+                    bottom: {
+                      style: BorderStyle.SINGLE,
                       size: .5,
                       color: "C9C9C9",
-                  },
-                  left: {
-                    style: BorderStyle.NIL,
-                },
-                right: {
-                  style: BorderStyle.SINGLE,
+                    },
+                    left: {
+                      style: BorderStyle.NIL,
+                    },
+                    right: {
+                      style: BorderStyle.SINGLE,
                       size: .5,
                       color: "C9C9C9",
-                },
-              },shading: {
-                fill: "EDEDED",
-                type: shade,
-                color: "auto",
-            },
+                    },
+                  }, shading: {
+                    fill: "EDEDED",
+                    type: shade,
+                    color: "auto",
+                  },
                   width: {
                     size: 33,
                     type: WidthType.PERCENTAGE,
@@ -1488,32 +1491,32 @@ export class DocxSurveyComponent implements OnInit {
                 }),
                 new TableCell({
                   verticalAlign: VerticalAlign.CENTER,
-                borders: {
-                  top: {
+                  borders: {
+                    top: {
                       style: BorderStyle.SINGLE,
                       size: .5,
                       color: "C9C9C9",
-                  },
-                  bottom: {
-                    style: BorderStyle.SINGLE,
+                    },
+                    bottom: {
+                      style: BorderStyle.SINGLE,
                       size: .5,
                       color: "C9C9C9",
-                  },
-                  left: {
-                    style: BorderStyle.SINGLE,
-                    size: .5,
-                    color: "C9C9C9",
-                },
-                right: {
-                  style: BorderStyle.SINGLE,
+                    },
+                    left: {
+                      style: BorderStyle.SINGLE,
                       size: .5,
                       color: "C9C9C9",
-                },
-              },shading: {
-                fill: "EDEDED",
-                type: shade,
-                color: "auto",
-            },
+                    },
+                    right: {
+                      style: BorderStyle.SINGLE,
+                      size: .5,
+                      color: "C9C9C9",
+                    },
+                  }, shading: {
+                    fill: "EDEDED",
+                    type: shade,
+                    color: "auto",
+                  },
                   width: {
                     size: 33,
                     type: WidthType.PERCENTAGE,
@@ -1549,30 +1552,30 @@ export class DocxSurveyComponent implements OnInit {
                 }),
                 new TableCell({
                   verticalAlign: VerticalAlign.CENTER,
-                borders: {
-                  top: {
+                  borders: {
+                    top: {
                       style: BorderStyle.SINGLE,
                       size: .5,
                       color: "C9C9C9",
-                  },
-                  bottom: {
-                    style: BorderStyle.SINGLE,
+                    },
+                    bottom: {
+                      style: BorderStyle.SINGLE,
                       size: .5,
                       color: "C9C9C9",
-                  },
-                  right: {
-                    style: BorderStyle.NIL,
-                },
-                left: {
-                  style: BorderStyle.SINGLE,
+                    },
+                    right: {
+                      style: BorderStyle.NIL,
+                    },
+                    left: {
+                      style: BorderStyle.SINGLE,
                       size: .5,
                       color: "C9C9C9",
-                },
-              },shading: {
-                fill: "EDEDED",
-                type: shade,
-                color: "auto",
-            },
+                    },
+                  }, shading: {
+                    fill: "EDEDED",
+                    type: shade,
+                    color: "auto",
+                  },
                   width: {
                     size: 33,
                     type: WidthType.PERCENTAGE,
@@ -1605,30 +1608,30 @@ export class DocxSurveyComponent implements OnInit {
 
                 new TableCell({
                   verticalAlign: VerticalAlign.CENTER,
-                borders: {
-                  top: {
+                  borders: {
+                    top: {
                       style: BorderStyle.SINGLE,
                       size: .5,
                       color: "C9C9C9",
-                  },
-                  bottom: {
-                    style: BorderStyle.SINGLE,
+                    },
+                    bottom: {
+                      style: BorderStyle.SINGLE,
                       size: .5,
                       color: "C9C9C9",
-                  },
-                  left: {
-                    style: BorderStyle.NIL,
-                },
-                right: {
-                  style: BorderStyle.SINGLE,
+                    },
+                    left: {
+                      style: BorderStyle.NIL,
+                    },
+                    right: {
+                      style: BorderStyle.SINGLE,
                       size: .5,
                       color: "C9C9C9",
-                },
-              },shading: {
-                fill: "EDEDED",
-                type: shade,
-                color: "auto",
-            },
+                    },
+                  }, shading: {
+                    fill: "EDEDED",
+                    type: shade,
+                    color: "auto",
+                  },
                   width: {
                     size: 33,
                     type: WidthType.PERCENTAGE,
@@ -1653,30 +1656,30 @@ export class DocxSurveyComponent implements OnInit {
                 }),
                 new TableCell({
                   verticalAlign: VerticalAlign.CENTER,
-                borders: {
-                  top: {
+                  borders: {
+                    top: {
                       style: BorderStyle.SINGLE,
                       size: .5,
                       color: "C9C9C9",
-                  },
-                  bottom: {
-                    style: BorderStyle.SINGLE,
+                    },
+                    bottom: {
+                      style: BorderStyle.SINGLE,
                       size: .5,
                       color: "C9C9C9",
-                  },
-                  right: {
-                    style: BorderStyle.NIL,
-                },
-                left: {
-                  style: BorderStyle.SINGLE,
+                    },
+                    right: {
+                      style: BorderStyle.NIL,
+                    },
+                    left: {
+                      style: BorderStyle.SINGLE,
                       size: .5,
                       color: "C9C9C9",
-                },
-              },shading: {
-                fill: "EDEDED",
-                type: shade,
-                color: "auto",
-            },
+                    },
+                  }, shading: {
+                    fill: "EDEDED",
+                    type: shade,
+                    color: "auto",
+                  },
                   width: {
                     size: 33,
                     type: WidthType.PERCENTAGE,
@@ -1719,21 +1722,23 @@ export class DocxSurveyComponent implements OnInit {
       var x = this.user[i];
       for (var j = 0; j < x.responses.length; j++) {
         var y = x.responses[j];
-        if (pagesPring.includes(y.page)) {
-          if (y.questyonType === 'rate') {
-            for (var k = 0; k < y.answers.length; k++) {
-              var combinedStr = y.answers[k].nameCandidate + "*" + y.answers[k].rationale;
+        if (pagesPring != null) {
 
-              if (rankings.has(combinedStr)) {
-                rankings.set(combinedStr, (Number(rankings.get(combinedStr)) + Number((y.answers[k].score))));
+          if (pagesPring.includes(y.page)) {
+            if (y.questyonType === 'rate') {
+              for (var k = 0; k < y.answers.length; k++) {
+                var combinedStr = y.answers[k].nameCandidate + "*" + y.answers[k].rationale;
+
+                if (rankings.has(combinedStr)) {
+                  rankings.set(combinedStr, (Number(rankings.get(combinedStr)) + Number((y.answers[k].score))));
+                }
+                else {
+                  rankings.set(combinedStr, Number((y.answers[k].score)));
+                }
+
+
               }
-              else {
-                rankings.set(combinedStr, Number((y.answers[k].score)));
-              }
-
-
             }
-
           }
           else if (y.questyonType === 'criteria') {
             for (var k = 0; k < y.answers.length; k++) {
@@ -1787,22 +1792,23 @@ export class DocxSurveyComponent implements OnInit {
       var x = this.user[i];
       for (var j = 0; j < x.responses.length; j++) {
         var y = x.responses[j];
-        if (pagesPring.includes(y.page)) {
-          for (var k = 0; k < y.answers.length; k++) {
-            a = [];
-            var combinedStr = y.answers[k].nameCandidate + "*" + y.answers[k].rationale;
-            if (comments.has(combinedStr) && (y.answers[k].comment !== "" && y.answers[k].comment !== undefined)) {
-              a = comments.get(combinedStr)
-              a.push({ name: this.user[i].name, comment: y.answers[k].comment })
-              comments.set(combinedStr, a);
-            }
-            else if (!comments.has(combinedStr) && (y.answers[k].comment !== "" && y.answers[k].comment !== undefined)) {
-              a.push({ name: this.user[i].name, comment: y.answers[k].comment })
-              comments.set(combinedStr, a);
-            }
+        if (pagesPring != null) {
+          if (pagesPring.includes(y.page)) {
+            for (var k = 0; k < y.answers.length; k++) {
+              a = [];
+              var combinedStr = y.answers[k].nameCandidate + "*" + y.answers[k].rationale;
+              if (comments.has(combinedStr) && (y.answers[k].comment !== "" && y.answers[k].comment !== undefined)) {
+                a = comments.get(combinedStr)
+                a.push({ name: this.user[i].name, comment: y.answers[k].comment })
+                comments.set(combinedStr, a);
+              }
+              else if (!comments.has(combinedStr) && (y.answers[k].comment !== "" && y.answers[k].comment !== undefined)) {
+                a.push({ name: this.user[i].name, comment: y.answers[k].comment })
+                comments.set(combinedStr, a);
+              }
 
+            }
           }
-
         }
       }
     }
@@ -1822,13 +1828,11 @@ export class DocxSurveyComponent implements OnInit {
     var skip = false;
     for (var i = 0; i < overall.length; i++) {
       for (var j = 0; j < overall[i].question.length; j++) {
-        if(onShader)
-        {
+        if (onShader) {
           shade = ShadingType.CLEAR;
           onShader = false;
         }
-        else
-        {
+        else {
           shade = ShadingType.NIL;
           onShader = true;
         }
@@ -1955,35 +1959,35 @@ export class DocxSurveyComponent implements OnInit {
                 height: {
                   value: 500,
                   rule: HeightRule.ATLEAST
-              },
+                },
 
                 children: [
                   new TableCell({
                     verticalAlign: VerticalAlign.CENTER,
-                borders: {
-                  top: {
-                      style: BorderStyle.SINGLE,
-                      size: .5,
-                      color: "C9C9C9",
-                  },
-                  bottom: {
-                    style: BorderStyle.SINGLE,
-                      size: .5,
-                      color: "C9C9C9",
-                  },
-                  left: {
-                    style: BorderStyle.NIL,
-                },
-                right: {
-                  style: BorderStyle.SINGLE,
-                      size: .5,
-                      color: "C9C9C9",
-                },
-              },shading: {
-                fill: "EDEDED",
-                type: shade,
-                color: "auto",
-            },
+                    borders: {
+                      top: {
+                        style: BorderStyle.SINGLE,
+                        size: .5,
+                        color: "C9C9C9",
+                      },
+                      bottom: {
+                        style: BorderStyle.SINGLE,
+                        size: .5,
+                        color: "C9C9C9",
+                      },
+                      left: {
+                        style: BorderStyle.NIL,
+                      },
+                      right: {
+                        style: BorderStyle.SINGLE,
+                        size: .5,
+                        color: "C9C9C9",
+                      },
+                    }, shading: {
+                      fill: "EDEDED",
+                      type: shade,
+                      color: "auto",
+                    },
                     width: {
                       size: 10,
                       type: WidthType.PERCENTAGE,
@@ -2000,32 +2004,32 @@ export class DocxSurveyComponent implements OnInit {
                   }),
                   new TableCell({
                     verticalAlign: VerticalAlign.CENTER,
-                borders: {
-                  top: {
-                      style: BorderStyle.SINGLE,
-                      size: .5,
-                      color: "C9C9C9",
-                  },
-                  bottom: {
-                    style: BorderStyle.SINGLE,
-                      size: .5,
-                      color: "C9C9C9",
-                  },
-                  left: {
-                    style: BorderStyle.SINGLE,
-                      size: .5,
-                      color: "C9C9C9",
-                },
-                right: {
-                  style: BorderStyle.SINGLE,
-                      size: .5,
-                      color: "C9C9C9",
-                },
-              },shading: {
-                fill: "EDEDED",
-                type: shade,
-                color: "auto",
-            },
+                    borders: {
+                      top: {
+                        style: BorderStyle.SINGLE,
+                        size: .5,
+                        color: "C9C9C9",
+                      },
+                      bottom: {
+                        style: BorderStyle.SINGLE,
+                        size: .5,
+                        color: "C9C9C9",
+                      },
+                      left: {
+                        style: BorderStyle.SINGLE,
+                        size: .5,
+                        color: "C9C9C9",
+                      },
+                      right: {
+                        style: BorderStyle.SINGLE,
+                        size: .5,
+                        color: "C9C9C9",
+                      },
+                    }, shading: {
+                      fill: "EDEDED",
+                      type: shade,
+                      color: "auto",
+                    },
                     width: {
                       size: 30,
                       type: WidthType.PERCENTAGE,
@@ -2054,32 +2058,32 @@ export class DocxSurveyComponent implements OnInit {
                   }),
                   new TableCell({
                     verticalAlign: VerticalAlign.CENTER,
-                borders: {
-                  top: {
-                      style: BorderStyle.SINGLE,
-                      size: .5,
-                      color: "C9C9C9",
-                  },
-                  bottom: {
-                    style: BorderStyle.SINGLE,
-                      size: .5,
-                      color: "C9C9C9",
-                  },
-                right: {
-                  style: BorderStyle.SINGLE,
-                      size: .5,
-                      color: "C9C9C9",
-                },
-                left: {
-                  style: BorderStyle.SINGLE,
-                      size: .5,
-                      color: "C9C9C9",
-                },
-              },shading: {
-                fill: "EDEDED",
-                type: shade,
-                color: "auto",
-            },
+                    borders: {
+                      top: {
+                        style: BorderStyle.SINGLE,
+                        size: .5,
+                        color: "C9C9C9",
+                      },
+                      bottom: {
+                        style: BorderStyle.SINGLE,
+                        size: .5,
+                        color: "C9C9C9",
+                      },
+                      right: {
+                        style: BorderStyle.SINGLE,
+                        size: .5,
+                        color: "C9C9C9",
+                      },
+                      left: {
+                        style: BorderStyle.SINGLE,
+                        size: .5,
+                        color: "C9C9C9",
+                      },
+                    }, shading: {
+                      fill: "EDEDED",
+                      type: shade,
+                      color: "auto",
+                    },
                     width: {
                       size: 30,
                       type: WidthType.PERCENTAGE,
@@ -2113,30 +2117,30 @@ export class DocxSurveyComponent implements OnInit {
                   }),
                   new TableCell({
                     verticalAlign: VerticalAlign.CENTER,
-                borders: {
-                  top: {
-                      style: BorderStyle.SINGLE,
-                      size: .5,
-                      color: "C9C9C9",
-                  },
-                  bottom: {
-                    style: BorderStyle.SINGLE,
-                      size: .5,
-                      color: "C9C9C9",
-                  },
-                  right: {
-                    style: BorderStyle.NIL,
-                },
-                left: {
-                  style: BorderStyle.SINGLE,
-                      size: .5,
-                      color: "C9C9C9",
-                },
-              },shading: {
-                fill: "EDEDED",
-                type: shade,
-                color: "auto",
-            },
+                    borders: {
+                      top: {
+                        style: BorderStyle.SINGLE,
+                        size: .5,
+                        color: "C9C9C9",
+                      },
+                      bottom: {
+                        style: BorderStyle.SINGLE,
+                        size: .5,
+                        color: "C9C9C9",
+                      },
+                      right: {
+                        style: BorderStyle.NIL,
+                      },
+                      left: {
+                        style: BorderStyle.SINGLE,
+                        size: .5,
+                        color: "C9C9C9",
+                      },
+                    }, shading: {
+                      fill: "EDEDED",
+                      type: shade,
+                      color: "auto",
+                    },
                     width: {
                       size: 30,
                       type: WidthType.PERCENTAGE,
@@ -2160,34 +2164,34 @@ export class DocxSurveyComponent implements OnInit {
                 height: {
                   value: 500,
                   rule: HeightRule.ATLEAST
-              },
+                },
                 children: [
                   new TableCell({
                     verticalAlign: VerticalAlign.CENTER,
-                borders: {
-                  top: {
-                      style: BorderStyle.SINGLE,
-                      size: .5,
-                      color: "C9C9C9",
-                  },
-                  bottom: {
-                    style: BorderStyle.SINGLE,
-                      size: .5,
-                      color: "C9C9C9",
-                  },
-                  left: {
-                    style: BorderStyle.NIL,
-                },
-                right: {
-                  style: BorderStyle.SINGLE,
-                      size: .5,
-                      color: "C9C9C9",
-                },
-              },shading: {
-                fill: "EDEDED",
-                type: shade,
-                color: "auto",
-            },
+                    borders: {
+                      top: {
+                        style: BorderStyle.SINGLE,
+                        size: .5,
+                        color: "C9C9C9",
+                      },
+                      bottom: {
+                        style: BorderStyle.SINGLE,
+                        size: .5,
+                        color: "C9C9C9",
+                      },
+                      left: {
+                        style: BorderStyle.NIL,
+                      },
+                      right: {
+                        style: BorderStyle.SINGLE,
+                        size: .5,
+                        color: "C9C9C9",
+                      },
+                    }, shading: {
+                      fill: "EDEDED",
+                      type: shade,
+                      color: "auto",
+                    },
                     width: {
                       size: 33,
                       type: WidthType.PERCENTAGE,
@@ -2204,32 +2208,32 @@ export class DocxSurveyComponent implements OnInit {
                   }),
                   new TableCell({
                     verticalAlign: VerticalAlign.CENTER,
-                borders: {
-                  top: {
-                      style: BorderStyle.SINGLE,
-                      size: .5,
-                      color: "C9C9C9",
-                  },
-                  bottom: {
-                    style: BorderStyle.SINGLE,
-                      size: .5,
-                      color: "C9C9C9",
-                  },
-                  left: {
-                    style: BorderStyle.SINGLE,
+                    borders: {
+                      top: {
+                        style: BorderStyle.SINGLE,
                         size: .5,
                         color: "C9C9C9",
-                  },
-                right: {
-                  style: BorderStyle.SINGLE,
-                      size: .5,
-                      color: "C9C9C9",
-                },
-              },shading: {
-                fill: "EDEDED",
-                type: shade,
-                color: "auto",
-            },
+                      },
+                      bottom: {
+                        style: BorderStyle.SINGLE,
+                        size: .5,
+                        color: "C9C9C9",
+                      },
+                      left: {
+                        style: BorderStyle.SINGLE,
+                        size: .5,
+                        color: "C9C9C9",
+                      },
+                      right: {
+                        style: BorderStyle.SINGLE,
+                        size: .5,
+                        color: "C9C9C9",
+                      },
+                    }, shading: {
+                      fill: "EDEDED",
+                      type: shade,
+                      color: "auto",
+                    },
                     width: {
                       size: 33,
                       type: WidthType.PERCENTAGE,
@@ -2254,30 +2258,30 @@ export class DocxSurveyComponent implements OnInit {
                   }),
                   new TableCell({
                     verticalAlign: VerticalAlign.CENTER,
-                borders: {
-                  top: {
-                      style: BorderStyle.SINGLE,
-                      size: .5,
-                      color: "C9C9C9",
-                  },
-                  bottom: {
-                    style: BorderStyle.SINGLE,
-                      size: .5,
-                      color: "C9C9C9",
-                  },
-                  right: {
-                    style: BorderStyle.NIL,
-                },
-                left: {
-                  style: BorderStyle.SINGLE,
-                      size: .5,
-                      color: "C9C9C9",
-                },
-              },shading: {
-                fill: "EDEDED",
-                type: shade,
-                color: "auto",
-            },
+                    borders: {
+                      top: {
+                        style: BorderStyle.SINGLE,
+                        size: .5,
+                        color: "C9C9C9",
+                      },
+                      bottom: {
+                        style: BorderStyle.SINGLE,
+                        size: .5,
+                        color: "C9C9C9",
+                      },
+                      right: {
+                        style: BorderStyle.NIL,
+                      },
+                      left: {
+                        style: BorderStyle.SINGLE,
+                        size: .5,
+                        color: "C9C9C9",
+                      },
+                    }, shading: {
+                      fill: "EDEDED",
+                      type: shade,
+                      color: "auto",
+                    },
                     width: {
                       size: 33,
                       type: WidthType.PERCENTAGE,
@@ -2325,32 +2329,35 @@ export class DocxSurveyComponent implements OnInit {
       var x = this.user[i];
       for (var j = 0; j < x.responses.length; j++) {
         var y = x.responses[j];
-        if (pagesPring.includes(y.page)) {
-          for (var k = 0; k < y.answers.length; k++) {
-            a = [];
-            var combinedStr = y.answers[k].nameCandidate + "*" + y.answers[k].rationale;
-            if (page.has(y.page)) {
-              var temp = page.get(y.page)
-              if (temp.has(combinedStr)) {
-                a = temp.get(combinedStr);
-                a.push({ name: this.user[i].name, value: y.answers[k].score })
-                temp.set(combinedStr, a)
-                page.set(y.page, temp)
+        if (pagesPring != null) {
+
+          if (pagesPring.includes(y.page)) {
+            for (var k = 0; k < y.answers.length; k++) {
+              a = [];
+              var combinedStr = y.answers[k].nameCandidate + "*" + y.answers[k].rationale;
+              if (page.has(y.page)) {
+                var temp = page.get(y.page)
+                if (temp.has(combinedStr)) {
+                  a = temp.get(combinedStr);
+                  a.push({ name: this.user[i].name, value: y.answers[k].score })
+                  temp.set(combinedStr, a)
+                  page.set(y.page, temp)
+                }
+                else {
+                  a.push({ name: this.user[i].name, value: y.answers[k].score })
+                  temp.set(combinedStr, a)
+                  page.set(y.page, temp);
+                }
               }
               else {
                 a.push({ name: this.user[i].name, value: y.answers[k].score })
-                temp.set(combinedStr, a)
-                page.set(y.page, temp);
+                var names = new Map();
+                names.set(combinedStr, a)
+                page.set(y.page, names);
               }
             }
-            else {
-              a.push({ name: this.user[i].name, value: y.answers[k].score })
-              var names = new Map();
-              names.set(combinedStr, a)
-              page.set(y.page, names);
-            }
-          }
 
+          }
         }
       }
     }
@@ -2415,13 +2422,11 @@ export class DocxSurveyComponent implements OnInit {
 
 
       for (var j = 0; j < overall[i][1].length; j++) {
-        if(onShader == true)
-        {
+        if (onShader == true) {
           shade = ShadingType.CLEAR;
           onShader = false;
         }
-        else
-        {
+        else {
           shade = ShadingType.NIL;
           onShader = true;
         }
@@ -2466,30 +2471,30 @@ export class DocxSurveyComponent implements OnInit {
 
         cell.push(new TableCell({
           verticalAlign: VerticalAlign.CENTER,
-                borders: {
-                  top: {
-                      style: BorderStyle.SINGLE,
-                      size: .5,
-                      color: "C9C9C9",
-                  },
-                  bottom: {
-                    style: BorderStyle.SINGLE,
-                      size: .5,
-                      color: "C9C9C9",
-                  },
-                  left: {
-                    style: BorderStyle.NIL,
-                },
-                right: {
-                  style: BorderStyle.SINGLE,
-                      size: .5,
-                      color: "C9C9C9",
-                },
-              },shading: {
-                fill: "EDEDED",
-                type: shade,
-                color: "auto",
+          borders: {
+            top: {
+              style: BorderStyle.SINGLE,
+              size: .5,
+              color: "C9C9C9",
             },
+            bottom: {
+              style: BorderStyle.SINGLE,
+              size: .5,
+              color: "C9C9C9",
+            },
+            left: {
+              style: BorderStyle.NIL,
+            },
+            right: {
+              style: BorderStyle.SINGLE,
+              size: .5,
+              color: "C9C9C9",
+            },
+          }, shading: {
+            fill: "EDEDED",
+            type: shade,
+            color: "auto",
+          },
           width: {
             size: 30,
             type: WidthType.PERCENTAGE,
@@ -2507,31 +2512,31 @@ export class DocxSurveyComponent implements OnInit {
         if (!this.design) {
           cell.push(new TableCell({
             verticalAlign: VerticalAlign.CENTER,
-                borders: {
-                  top: {
-                      style: BorderStyle.SINGLE,
-                      size: .5,
-                      color: "C9C9C9",
-                  },
-                  bottom: {
-                    style: BorderStyle.SINGLE,
-                      size: .5,
-                      color: "C9C9C9",
-                  },
-                  left: {
-                    style: BorderStyle.SINGLE,
-                      size: .5,
-                      color: "C9C9C9",
-                },
-                right: {
-                  style: BorderStyle.SINGLE,
-                      size: .5,
-                      color: "C9C9C9",
-                },
-              },shading: {
-                fill: "EDEDED",
-                type: shade,
-                color: "auto",
+            borders: {
+              top: {
+                style: BorderStyle.SINGLE,
+                size: .5,
+                color: "C9C9C9",
+              },
+              bottom: {
+                style: BorderStyle.SINGLE,
+                size: .5,
+                color: "C9C9C9",
+              },
+              left: {
+                style: BorderStyle.SINGLE,
+                size: .5,
+                color: "C9C9C9",
+              },
+              right: {
+                style: BorderStyle.SINGLE,
+                size: .5,
+                color: "C9C9C9",
+              },
+            }, shading: {
+              fill: "EDEDED",
+              type: shade,
+              color: "auto",
             },
             width: {
               size: 30,
@@ -2561,31 +2566,31 @@ export class DocxSurveyComponent implements OnInit {
           }));
           cell.push(new TableCell({
             verticalAlign: VerticalAlign.CENTER,
-                borders: {
-                  top: {
-                      style: BorderStyle.SINGLE,
-                      size: .5,
-                      color: "C9C9C9",
-                  },
-                  bottom: {
-                    style: BorderStyle.SINGLE,
-                      size: .5,
-                      color: "C9C9C9",
-                  },
-                  left: {
-                    style: BorderStyle.SINGLE,
-                      size: .5,
-                      color: "C9C9C9",
-                },
-                right: {
-                  style: BorderStyle.SINGLE,
-                      size: .5,
-                      color: "C9C9C9",
-                },
-              },shading: {
-                fill: "EDEDED",
-                type: shade,
-                color: "auto",
+            borders: {
+              top: {
+                style: BorderStyle.SINGLE,
+                size: .5,
+                color: "C9C9C9",
+              },
+              bottom: {
+                style: BorderStyle.SINGLE,
+                size: .5,
+                color: "C9C9C9",
+              },
+              left: {
+                style: BorderStyle.SINGLE,
+                size: .5,
+                color: "C9C9C9",
+              },
+              right: {
+                style: BorderStyle.SINGLE,
+                size: .5,
+                color: "C9C9C9",
+              },
+            }, shading: {
+              fill: "EDEDED",
+              type: shade,
+              color: "auto",
             },
             width: {
               size: 30,
@@ -2622,31 +2627,31 @@ export class DocxSurveyComponent implements OnInit {
         else {
           cell.push(new TableCell({
             verticalAlign: VerticalAlign.CENTER,
-                borders: {
-                  top: {
-                      style: BorderStyle.SINGLE,
-                      size: .5,
-                      color: "C9C9C9",
-                  },
-                  bottom: {
-                    style: BorderStyle.SINGLE,
-                      size: .5,
-                      color: "C9C9C9",
-                  },
-                  left: {
-                    style: BorderStyle.SINGLE,
-                      size: .5,
-                      color: "C9C9C9",
-                },
-                right: {
-                  style: BorderStyle.SINGLE,
-                      size: .5,
-                      color: "C9C9C9",
-                },
-              },shading: {
-                fill: "EDEDED",
-                type: shade,
-                color: "auto",
+            borders: {
+              top: {
+                style: BorderStyle.SINGLE,
+                size: .5,
+                color: "C9C9C9",
+              },
+              bottom: {
+                style: BorderStyle.SINGLE,
+                size: .5,
+                color: "C9C9C9",
+              },
+              left: {
+                style: BorderStyle.SINGLE,
+                size: .5,
+                color: "C9C9C9",
+              },
+              right: {
+                style: BorderStyle.SINGLE,
+                size: .5,
+                color: "C9C9C9",
+              },
+            }, shading: {
+              fill: "EDEDED",
+              type: shade,
+              color: "auto",
             },
             width: {
               size: 33,
@@ -2675,31 +2680,31 @@ export class DocxSurveyComponent implements OnInit {
         if (this.reportType === "criteria") {
           cell.push(new TableCell({
             verticalAlign: VerticalAlign.CENTER,
-                borders: {
-                  top: {
-                      style: BorderStyle.SINGLE,
-                      size: .5,
-                      color: "C9C9C9",
-                  },
-                  bottom: {
-                    style: BorderStyle.SINGLE,
-                      size: .5,
-                      color: "C9C9C9",
-                  },
-                  left: {
-                    style: BorderStyle.SINGLE,
-                      size: .5,
-                      color: "C9C9C9",
-                },
-                right: {
-                  style: BorderStyle.SINGLE,
-                      size: .5,
-                      color: "C9C9C9",
-                },
-              },shading: {
-                fill: "EDEDED",
-                type: shade,
-                color: "auto",
+            borders: {
+              top: {
+                style: BorderStyle.SINGLE,
+                size: .5,
+                color: "C9C9C9",
+              },
+              bottom: {
+                style: BorderStyle.SINGLE,
+                size: .5,
+                color: "C9C9C9",
+              },
+              left: {
+                style: BorderStyle.SINGLE,
+                size: .5,
+                color: "C9C9C9",
+              },
+              right: {
+                style: BorderStyle.SINGLE,
+                size: .5,
+                color: "C9C9C9",
+              },
+            }, shading: {
+              fill: "EDEDED",
+              type: shade,
+              color: "auto",
             },
             children: [new Paragraph({
               spacing: {
@@ -2727,31 +2732,31 @@ export class DocxSurveyComponent implements OnInit {
             ,)
           cell.push(new TableCell({
             verticalAlign: VerticalAlign.CENTER,
-                borders: {
-                  top: {
-                      style: BorderStyle.SINGLE,
-                      size: .5,
-                      color: "C9C9C9",
-                  },
-                  bottom: {
-                    style: BorderStyle.SINGLE,
-                      size: .5,
-                      color: "C9C9C9",
-                  },
-                  left: {
-                    style: BorderStyle.SINGLE,
-                      size: .5,
-                      color: "C9C9C9",
-                },
-                right: {
-                  style: BorderStyle.SINGLE,
-                      size: .5,
-                      color: "C9C9C9",
-                },
-              },shading: {
-                fill: "EDEDED",
-                type: shade,
-                color: "auto",
+            borders: {
+              top: {
+                style: BorderStyle.SINGLE,
+                size: .5,
+                color: "C9C9C9",
+              },
+              bottom: {
+                style: BorderStyle.SINGLE,
+                size: .5,
+                color: "C9C9C9",
+              },
+              left: {
+                style: BorderStyle.SINGLE,
+                size: .5,
+                color: "C9C9C9",
+              },
+              right: {
+                style: BorderStyle.SINGLE,
+                size: .5,
+                color: "C9C9C9",
+              },
+            }, shading: {
+              fill: "EDEDED",
+              type: shade,
+              color: "auto",
             },
             children: [new Paragraph({
 
@@ -2788,31 +2793,31 @@ export class DocxSurveyComponent implements OnInit {
           }
           cell.push(new TableCell({
             verticalAlign: VerticalAlign.CENTER,
-                borders: {
-                  top: {
-                      style: BorderStyle.SINGLE,
-                      size: .5,
-                      color: "C9C9C9",
-                  },
-                  bottom: {
-                    style: BorderStyle.SINGLE,
-                      size: .5,
-                      color: "C9C9C9",
-                  },
-                  left: {
-                    style: BorderStyle.SINGLE,
-                      size: .5,
-                      color: "C9C9C9",
-                },
-                right: {
-                  style: BorderStyle.SINGLE,
-                      size: .5,
-                      color: "C9C9C9",
-                },
-              },shading: {
-                fill: "EDEDED",
-                type: shade,
-                color: "auto",
+            borders: {
+              top: {
+                style: BorderStyle.SINGLE,
+                size: .5,
+                color: "C9C9C9",
+              },
+              bottom: {
+                style: BorderStyle.SINGLE,
+                size: .5,
+                color: "C9C9C9",
+              },
+              left: {
+                style: BorderStyle.SINGLE,
+                size: .5,
+                color: "C9C9C9",
+              },
+              right: {
+                style: BorderStyle.SINGLE,
+                size: .5,
+                color: "C9C9C9",
+              },
+            }, shading: {
+              fill: "EDEDED",
+              type: shade,
+              color: "auto",
             },
             width: {
               size: 10,
@@ -2844,31 +2849,31 @@ export class DocxSurveyComponent implements OnInit {
         else {
           cell.push(new TableCell({
             verticalAlign: VerticalAlign.CENTER,
-                borders: {
-                  top: {
-                      style: BorderStyle.SINGLE,
-                      size: .5,
-                      color: "C9C9C9",
-                  },
-                  bottom: {
-                    style: BorderStyle.SINGLE,
-                      size: .5,
-                      color: "C9C9C9",
-                  },
-                  left: {
-                    style: BorderStyle.SINGLE,
-                      size: .5,
-                      color: "C9C9C9",
-                },
-                right: {
-                  style: BorderStyle.SINGLE,
-                      size: .5,
-                      color: "C9C9C9",
-                },
-              },shading: {
-                fill: "EDEDED",
-                type: shade,
-                color: "auto",
+            borders: {
+              top: {
+                style: BorderStyle.SINGLE,
+                size: .5,
+                color: "C9C9C9",
+              },
+              bottom: {
+                style: BorderStyle.SINGLE,
+                size: .5,
+                color: "C9C9C9",
+              },
+              left: {
+                style: BorderStyle.SINGLE,
+                size: .5,
+                color: "C9C9C9",
+              },
+              right: {
+                style: BorderStyle.SINGLE,
+                size: .5,
+                color: "C9C9C9",
+              },
+            }, shading: {
+              fill: "EDEDED",
+              type: shade,
+              color: "auto",
             },
             width: {
               size: 10,
@@ -2906,7 +2911,7 @@ export class DocxSurveyComponent implements OnInit {
               height: {
                 value: 500,
                 rule: HeightRule.ATLEAST
-            },
+              },
               children: cell
             }
           )
@@ -2944,22 +2949,24 @@ export class DocxSurveyComponent implements OnInit {
         var x = this.user[i];
         for (var j = 0; j < x.responses.length; j++) {
           var y = x.responses[j];
-          if (pagesPring.includes(y.page)) {
-            for (var k = 0; k < y.answers.length; k++) {
-              a = [];
-              var combinedStr = y.answers[k].nameCandidate + "*" + y.answers[k].rationale;
-              if (comments.has(x.name) && y.answers[k].score.length !== 0) {
-                a = comments.get(x.name)
-                a.push({ question: combinedStr, score: y.answers[k].score.toString() })
-                comments.set(x.name, a);
-              }
-              else if (!comments.has(x.name) && y.answers[k].score.length !== 0) {
-                a.push({ question: combinedStr, score: y.answers[k].score.toString() })
-                comments.set(x.name, a);
+          if (pagesPring != null) {
+
+            if (pagesPring.includes(y.page)) {
+              for (var k = 0; k < y.answers.length; k++) {
+                a = [];
+                var combinedStr = y.answers[k].nameCandidate + "*" + y.answers[k].rationale;
+                if (comments.has(x.name) && y.answers[k].score.length !== 0) {
+                  a = comments.get(x.name)
+                  a.push({ question: combinedStr, score: y.answers[k].score.toString() })
+                  comments.set(x.name, a);
+                }
+                else if (!comments.has(x.name) && y.answers[k].score.length !== 0) {
+                  a.push({ question: combinedStr, score: y.answers[k].score.toString() })
+                  comments.set(x.name, a);
+                }
               }
             }
           }
-
 
         }
       }
@@ -2997,11 +3004,14 @@ export class DocxSurveyComponent implements OnInit {
   }
 
   getModTestName(testname: string) {
-    if (testname.includes('<span')) {
-      return testname.substring(
-        testname.indexOf(">") + 1,
-        testname.lastIndexOf("</")
-      );
+    if (testname != null) {
+
+      if (testname.includes('<span')) {
+        return testname.substring(
+          testname.indexOf(">") + 1,
+          testname.lastIndexOf("</")
+        );
+      }
     }
     else
       return testname;
@@ -3262,7 +3272,7 @@ export class DocxSurveyComponent implements OnInit {
         margins: {
           right: convertInchesToTwip(0.08),
           left: convertInchesToTwip(0.08),
-      },
+        },
         rows: [
           new TableRow({
             children: [
@@ -3466,7 +3476,7 @@ export class DocxSurveyComponent implements OnInit {
                 relative: VerticalPositionRelativeFrom.PAGE,
                 align: VerticalPositionAlign.CENTER,
               },
-          },
+            },
           }),
         ]
       }),
@@ -3486,7 +3496,7 @@ export class DocxSurveyComponent implements OnInit {
           new ImageRun({
             data: Buffer.from(this.companyLogo, "base64"),
             transformation: {
-              width: 299.5200              ,
+              width: 299.5200,
               height: 120.1923,
             },
           }),
