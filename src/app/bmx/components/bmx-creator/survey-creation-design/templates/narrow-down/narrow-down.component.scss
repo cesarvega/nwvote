@@ -338,6 +338,31 @@ mat-form-field {
   margin-right: 12px;
 }
 
+.page-overview {
+  display: flex;
+  flex-direction: row;
+  justify-content: start;
+  background: #ffffffd9;
+  gap: 0px;
+  position: absolute;
+  left: -748px;
+  z-index: 1;
+  border: 2px dashed #324395;
+}
+
+.config-box {
+  position: absolute;
+  width: 50%;
+  background: #fafafa;
+  z-index: 1;
+  top: -65px;
+  left: 25%;
+  border: #063074 4px solid;
+  overflow: auto;
+  max-height: 36rem;
+  bottom: -2;
+}
+
 // INPUT RANGE STYLE
 
 input[type="range"] {

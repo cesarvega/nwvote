@@ -45,13 +45,9 @@
           <label class="selectLabels">Project</label>
           <mat-form-field appearance="outline">
             <mat-label>Enter Project Name</mat-label>
-            <input type="text" matInput formControlName="bmxProjectName">
-            <p *ngIf="bmxProjectName.invalid && bmxProjectName.dirty">Project Name is required only A-Z,
-              a-z,
-              0-9 allowed</p>
+            <input type="text" matInput formControlName="bmxProjectName" (input)="replaceInvalidCharacters($event)">
+            <p *ngIf="bmxProjectName.invalid && bmxProjectName.dirty">Project Name is required. Only A-Z, a-z, 0-9 allowed</p>
           </mat-form-field>
-
-
         </div>
 
         <div class="row-field">

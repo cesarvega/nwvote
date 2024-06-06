@@ -451,7 +451,13 @@ export class ProjectInformationComponent implements OnInit {
     this.selectedTemplateName = this.newTemplateName
     this.newTemplateName = '';
   }
-
+  replaceInvalidCharacters(event: Event): void {
+    const input = event.target as HTMLInputElement;
+    let value = input.value;
+    value = value.replace(/[\/\\]/g, ''); // Replace / and \ with an empty string
+    this.bmxProjectName.setValue(value, { emitEvent: false });
+  }
+  
 }
 
 

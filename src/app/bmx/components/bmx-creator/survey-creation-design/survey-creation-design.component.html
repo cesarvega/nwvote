@@ -23,6 +23,12 @@
         [dialogText]="dialogText"></app-survey-dialog>
 </div>
 
+
+<div *ngIf="showConfirmTemplate">
+    <app-survey-dialog (onConfirm)="saveTemplate(); showConfirmTemplate = false" (onCancel)="showConfirmTemplate = false"
+        [dialogText]="'Are you sure you want to overwrite this template'"></app-survey-dialog>
+</div>
+
 <div style="display: flex; margin: 0px;width: 99%;">
     <div style="flex-direction: column;" class="bmx-page" >
         <div style="width: 100%;">
@@ -309,7 +315,7 @@
             </button>
             <br>
 
-            <button *ngIf="true" (click)="isTemplate=='true'?saveTemplate() : openDialog('save')" mat-icon-button
+            <button *ngIf="true" (click)="isTemplate=='true'?showConfirmTemplate = true : openDialog('save')" mat-icon-button
             matTooltip="{{isTemplate == 'true' ? 'save template' : 'save brand matrix'}}"
             matTooltipPosition="right">
         <mat-icon class="full-icon">save</mat-icon>

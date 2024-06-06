@@ -67,7 +67,7 @@ export class SurveyCreationDesignComponent implements OnInit {
     selectedRating = 0;
     newTestNames = [];
     ratingScale = 5;
-    dialogText = 'Are you sure you want to delete this component?'
+    dialogText = 'Are you sure you want to delete this template?'
     // TEMPLATE BOX
     isTemplateBoxOn = false;
     isTemplateUpdate = false;
@@ -123,6 +123,7 @@ export class SurveyCreationDesignComponent implements OnInit {
     selectedDisplayNem: any;
     isTemplate = 'false'
     directors: any[] = [];
+    showConfirmTemplate: boolean = false;
     constructor(
         @Inject(DOCUMENT) private document: any,
         public _BmxService: BmxService,
@@ -244,7 +245,7 @@ export class SurveyCreationDesignComponent implements OnInit {
 
         // TESTING ROUTER DATA
         activatedRoute.params.subscribe(params => {
-            this.projectId = params['id'];
+            this.projectId =localStorage.getItem('projectName');
             this.biUsername = params['biUsername'];
             localStorage.setItem('projectId', this.projectId);
             // this.bsrService.getProjectData(this.projectId).subscribe(arg => {
@@ -307,10 +308,13 @@ export class SurveyCreationDesignComponent implements OnInit {
                 let objeto = JSON.parse(bmxMatrix);
                 let logoUrl = ""
                 this.bmxPages = JSON.parse(bmxMatrix)
-                logoUrl = this.bmxPages[0].page[0].componentSettings[0].companyLogoURL;
-
+                if (this.bmxPages[0].page[0]) {
+                    logoUrl = this.bmxPages[0].page[0].componentSettings[0].companyLogoURL;
+                }
                 for (let index = 0; index < this.bmxPages.length; index++) {
-                    this.bmxPages[index].page[0].componentSettings[0].companyLogoURL = logoUrl
+                    if (this.bmxPages[0].page[0]) {
+                        this.bmxPages[index].page[0].componentSettings[0].companyLogoURL = logoUrl
+                    }
                 }
                 if (this.widthLogo != "" && this.widthLogo != undefined) {
 
@@ -336,16 +340,14 @@ export class SurveyCreationDesignComponent implements OnInit {
         }
         else if (this.bmxPagesClient) {
             this.bmxPages = this.bmxPagesClient;
-            console.log('a')
         } else {
-            console.log('a')
             //   this.bmxPages = this.SAMPLE_BMX;
             this._BmxService.getBrandMatrixByProject(this.projectId).subscribe((brandMatrix: any) => {
+                console.log(brandMatrix)
                 if (brandMatrix.d.length > 0) {
                     let objeto = JSON.parse(brandMatrix.d);
                     let logoUrl = ""
                     this.bmxPages = JSON.parse(brandMatrix.d)
-                    console.log(this.bmxPages)
                     logoUrl = this.bmxPages[0].page[0].componentSettings[0].companyLogoURL;
 
                     for (let index = 0; index < this.bmxPages.length; index++) {
@@ -889,7 +891,11 @@ export class SurveyCreationDesignComponent implements OnInit {
         const nameToShow = this.selectedDisplayNem
         localStorage.setItem(templateName, JSON.stringify(this.bmxPages));
         this._BmxService.saveBrandMatrixTemplate(templateName, this.bmxPages, this.biUserId, this.selectedDisplayNem ? this.selectedDisplayNem : templateName).subscribe((template: any) => {
+            let dataString = JSON.stringify(this.bmxPages);
+                 dataString = JSON.stringify(dataString);
 
+            localStorage.setItem('brandMatrix', dataString)
+            
             let x1 = JSON.parse(template.d)
             console.log(x1)
             this.templateTitle = "Template '" + templateName + "' saved 🧐";
@@ -1235,7 +1241,6 @@ export class SurveyCreationDesignComponent implements OnInit {
     }
 
     previewSurvey() {
-        console.log(this.projectId)
         const projectUrl = this.projectId.replace(/\//g, '-')
         console.log('survey/' + projectUrl + '/' + (this.biUsername ? this.biUsername : 'guest'))
         window.open('survey/' + projectUrl + '/' + (this.biUsername ? this.biUsername : 'guest'));
@@ -1298,13 +1303,20 @@ export class SurveyCreationDesignComponent implements OnInit {
     openDialog(type: any, component?: any) {
         if (type === 'delete') {
             this.templateToDelete = component
+            this.showDialog = true
 
         } if (type === 'save') {
-           const projectName= this.globalDisplayName ? this.globalDisplayName : this.globalProjectName 
+            const projectName = this.globalDisplayName ? this.globalDisplayName : this.globalProjectName
             this.dialogText = `Are you sure you want to overwrite ${projectName}?`
+            this.showDialog = true
+
+        } if (type === 'template') {
+            this.selectedDisplayNem = localStorage.getItem('displayName')
+            this.dialogText = `Are you sure you want to overwrite ${this.selectedDisplayNem}?`
+            this.showConfirmTemplate = true
+
         }
         this.actionType = type
-        this.showDialog = true
     }
 
     confirmAction() {
