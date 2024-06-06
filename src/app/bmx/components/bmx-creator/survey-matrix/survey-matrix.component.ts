@@ -108,7 +108,7 @@ export class SurveyMatrixComponent extends SurveyCreationDesignComponent impleme
   ) {
     super(document, _BmxService, _snackBar, activatedRoute);
     activatedRoute.params.subscribe((params) => {
-      this.projectId = params['id'].trim();
+      this.projectId = localStorage.getItem('projectId');
       this.username = params['username'];
       localStorage.setItem('projectId', this.projectId);
     });
@@ -128,8 +128,8 @@ export class SurveyMatrixComponent extends SurveyCreationDesignComponent impleme
       this.globalProjectName = res ? res : '';
     });
     this.projectId = localStorage.getItem('projectId')
+    console.log(this.projectId)
     this._BmxService.getProjectInfo(this.projectId).subscribe((arg: any) => {
-      console.log(arg)
       this.status = JSON.parse(arg.d).bmxStatus
       this.bmxClientPageOverview = false
 

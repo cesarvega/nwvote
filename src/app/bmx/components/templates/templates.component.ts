@@ -231,6 +231,8 @@ export class TemplatesComponent implements OnInit {
       this.newTemplateName = '';
       this.bmxPages = ''
     }else{
+      
+      this.showModal = false;
       this.showErrorDialog = true
       this.showNewTemplateModal = false
     }
