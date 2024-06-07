@@ -363,6 +363,14 @@ mat-form-field {
   bottom: -2;
 }
 
+.example-handle {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  cursor: move;
+  height: 25px;
+  width: 100%;
+}
 // INPUT RANGE STYLE
 
 input[type="range"] {
