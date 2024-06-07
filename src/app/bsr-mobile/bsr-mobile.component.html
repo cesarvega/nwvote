@@ -17,13 +17,15 @@
             <div class="loginPage" id="login-form">
               <img class="logo" src="./assets/img/NAMEPAGE_LOGO-01.svg">
               <br>
-              <div style="display: flex; flex-direction: column; align-items: center; align-content: center" *ngIf="projectId !== 'du4689'; else ant">
+              <div class="project-info" *ngIf="projectId !== 'du4689'; else ant">
                 <div class="title secondary-text">Welcome to the NamePage<sup style="font-size: 10px;">TM</sup> for Project</div>
-                <div class="title secondary-text" style="color: #004684;">{{ projectName }}</div>
+                <div class="title  ">{{ projectName }}</div>
               </div>
               <ng-template #ant>
-                <div class="title secondary-text">Welcome to the NamePage<sup style="font-size: 10px;">TM</sup> for</div>
-                <div class="title secondary-text" style="color: #004684;">Class Name for Balcinrenone/Dapagliflozin</div>
+                <div class="project-info">
+                  <div class="title secondary-text">Welcome to the NamePage<sup style="font-size: 10px;">TM</sup> for</div>
+                  <div class="title  ">Class Name for Balcinrenone/Dapagliflozin</div>
+                </div>
               </ng-template>
               <div class="mat-small secondary-text">Please enter your information below to continue.</div>
               <form name="loginForm" [formGroup]="loginForm" novalidate class="open-close-container">
@@ -49,6 +51,10 @@
             </div>
           </div>
         </div>
+        
+        
+       
+        
         <!-- NAMES PAGE  -->
         <div *ngIf="isUserLogged" fxLayout="column" fxLayoutAlign="center center" id="login">
             <br>
@@ -124,12 +130,13 @@
         <!-- BSR CLOSED -->
         <div *ngIf="isBSROpen" id="login">
           <div id="login-form-wrapper" fxLayout="column" fxLayoutAlign="center center">
-            <div id="login-form">
+            <div class="brs-close" id="login-form">
               <img class="logo" src="assets/img/NAMEPAGE_LOGO-01.svg">
               <br> <br>
-              <div class="title" style="color: #004684;">Thank you for using NamePage.</div>
-              <div class="title" style="color: #004684;">The BSR project <br><span style="font-weight: bold;">{{ projectName }}</span><br> has been closed.</div>
-              <br>
+              <div class="title-container">
+                <div class="title">Thank you for using NamePage.</div>
+                <div class="subtitle">The BSR project <span class="project-name">{{ projectName }}</span> has been closed.</div>
+              </div><br>
               <button mat-mini-fab (click)="reloadpage()" class="refreshbutton" aria-label="icon">
                 <mat-icon>refresh</mat-icon>
               </button>
@@ -165,13 +172,15 @@
             <div class="loginPage" id="login-form">
               <img class="logo" src="./assets/img/NAMEPAGE_LOGO-01.svg">
               <br>
-              <div style="display: flex; flex-direction: column; align-items: center; align-content: center" *ngIf="projectId !== 'du4689'; else ant">
+              <div class="project-info" *ngIf="projectId !== 'du4689'; else ant">
                 <div class="title secondary-text">Welcome to the NamePage<sup style="font-size: 10px;">TM</sup> for Project</div>
-                <div class="title secondary-text" style="color: #004684;">{{ projectName }}</div>
+                <div class="title  ">{{ projectName }}</div>
               </div>
               <ng-template #ant>
-                <div class="title secondary-text">Welcome to the NamePage<sup style="font-size: 10px;">TM</sup> for</div>
-                <div class="title secondary-text" style="color: #004684;">Class Name for Balcinrenone/Dapagliflozin</div>
+                <div class="project-info">
+                  <div class="title secondary-text">Welcome to the NamePage<sup style="font-size: 10px;">TM</sup> for</div>
+                  <div class="title  ">Class Name for Balcinrenone/Dapagliflozin</div>
+                </div>
               </ng-template>
               <div class="mat-small secondary-text">Please enter your information below to continue.</div>
               <form name="loginForm" [formGroup]="loginForm" novalidate class="open-close-container">
@@ -272,12 +281,13 @@
         <!-- BSR CLOSED -->
         <div *ngIf="isBSROpen" id="login">
           <div id="login-form-wrapper" fxLayout="column" fxLayoutAlign="center center">
-            <div id="login-form">
+            <div class="brs-close" id="login-form">
               <img class="logo" src="assets/img/NAMEPAGE_LOGO-01.svg">
               <br> <br>
-              <div class="title" style="color: #004684;">Thank you for using NamePage.</div>
-              <div class="title" style="color: #004684;">The BSR project <br><span style="font-weight: bold;">{{ projectName }}</span><br> has been closed.</div>
-              <br>
+              <div class="title-container">
+                <div class="title">Thank you for using NamePage.</div>
+                <div class="subtitle">The BSR project <span class="project-name">{{ projectName }}</span> has been closed.</div>
+              </div><br>
               <button mat-mini-fab (click)="reloadpage()" class="refreshbutton" aria-label="icon">
                 <mat-icon>refresh</mat-icon>
               </button>
