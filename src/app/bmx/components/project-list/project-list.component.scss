@@ -4,39 +4,53 @@
   color: #fff !important;
 }
 
-.table th, .table td {
+.table th,
+.table td {
   padding: 0.75rem 0.3rem 0.75rem 0.75rem !important;
   vertical-align: top;
   border-top: 1px solid #dee2e6;
 }
 
-.table{
-  td{
+.table {
+  td {
     text-align: start;
   }
 }
-@media screen and (max-width: 1510px){
-  .table{
-    td{
+@media screen and (max-width: 1510px) {
+  .table {
+    td {
       padding: 5px 0px 0 0.75rem !important;
     }
   }
-  .calendar{ 
+  .calendar {
     width: 25%;
     position: relative;
     left: 30px !important;
   }
 }
 
-@media screen and (max-width: 1390px){
-  .table{
-    td{
-      padding: 0px 0px 0 0.75rem  !important;
+@media screen and (max-width: 1390px) {
+  .table {
+    td {
+      padding: 0px 0px 0 0.75rem !important;
     }
   }
-  .calendar{
+  .calendar {
     width: 25%;
     position: relative;
     left: 30px !important;
   }
+}
+
+.list-container {
+  width: 100%;
+  display: flex;
+  align-items: flex-start;
+  gap: 0%;
+}
+
+.list-header {
+  display: flex;
+  justify-content: space-between;
+  margin-top: 20px;
 }

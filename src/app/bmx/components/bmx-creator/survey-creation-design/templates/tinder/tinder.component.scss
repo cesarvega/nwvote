@@ -384,6 +384,20 @@ mat-form-field {
   padding-right: 38px;
 }
 
+.config-box {
+  position: absolute;
+  width: 50%;
+  background: #fafafa;
+  z-index: 1;
+  top: -65px;
+  left: 25%;
+  border: #063074 4px solid;
+  overflow: auto;
+  z-index: 10;
+  max-height: 36rem;
+  bottom: -2;
+}
+
 // INPUT RANGE STYLE
 
 input[type="range"] {

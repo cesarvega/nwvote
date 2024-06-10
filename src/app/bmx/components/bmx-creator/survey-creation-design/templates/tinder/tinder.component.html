@@ -14,7 +14,7 @@
     <button class="btn btn-raised close-modal" (click)="showCreationModalVideo=false">close</button>
 </div>
 <!-- ➗➗➗➗➗➗➗➗➗➗➗➗➗➗➗➗➗➗➗  SETTINGS ICONS  ➗➗➗➗➗➗➗➗➗➗➗➗➗➗➗➗➗ -->
-<div *ngIf="bmxClientPageOverview" class="pageOverview" style="">
+<div *ngIf="bmxClientPageOverview" class="pageOverview" >
 
     <div>
         <button (click)="openDialog('undo')" class="add-column" matTooltip="undo last change" matTooltipPosition="above"
@@ -59,9 +59,7 @@
 
 
 <!-- 🔧🔧🔧🔧🔧🔧🔧🔧🔧🔧🔧🔧🔧🔧🔧🔧🔧🔧🔧🔧🔧 CONFIG BOX 🔧🔧🔧🔧🔧🔧🔧🔧🔧🔧🔧🔧🔧🔧🔧🔧🔧🔧🔧🔧🔧🔧🔧 -->
-<div *ngIf="i === selectedIndex" class="mat-elevation-z4" cdkDrag style="position: absolute;width: 50%;background: #fafafa;z-index: 1;top: -65px;left: 25%;border: #063074 4px solid; overflow: auto; z-index: 10;
-       max-height: 36rem;
-    bottom: -2; ">
+<div *ngIf="i === selectedIndex" class="mat-elevation-z4 config-box" cdkDrag >
 
     <div class="example-handle" cdkDragHandle style="display: flex;
 flex-direction: row;

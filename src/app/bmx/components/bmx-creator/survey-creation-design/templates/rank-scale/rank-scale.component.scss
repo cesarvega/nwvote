@@ -87,6 +87,19 @@
 }
 
 // 🔧🔧🔧🔧 CONFIG BOX 🔧🔧🔧🔧🔧🔧
+.config-config {
+  position: absolute;
+  width: 50%;
+  background: #fafafa;
+  z-index: 1;
+  top: -65px;
+  left: 25%;
+  border: #063074 4px solid;
+  overflow: auto;
+  max-height: 36rem;
+  bottom: -2;
+}
+
 .sm-section2-rkScale {
   display: flex;
   flex-direction: column;

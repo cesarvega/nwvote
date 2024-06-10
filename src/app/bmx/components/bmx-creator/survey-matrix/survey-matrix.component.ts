@@ -108,8 +108,8 @@ export class SurveyMatrixComponent extends SurveyCreationDesignComponent impleme
   ) {
     super(document, _BmxService, _snackBar, activatedRoute);
     activatedRoute.params.subscribe((params) => {
-      this.projectId = localStorage.getItem('projectId');
       this.username = params['username'];
+      this.projectId = params['id'];
       localStorage.setItem('projectId', this.projectId);
     });
     this.epicFunction();
