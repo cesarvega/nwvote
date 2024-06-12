@@ -443,6 +443,17 @@
   }
 }
 
+.upload-image-box {
+  position: absolute;
+  width: 62vw;
+  background: #fafafa;
+  z-index: 1;
+  top: -8px;
+  left: 15%;
+  border: #063074 4px solid;
+  z-index: 20;
+}
+
 .image-row {
   display: flex;
   flex-direction: row;
