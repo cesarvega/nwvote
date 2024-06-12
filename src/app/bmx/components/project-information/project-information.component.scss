@@ -109,8 +109,7 @@ table {
   }
   .information-container {
     display: flex;
-    flex-direction: column;
-    justify-content: space-between;
+    justify-content: flex-start;
     margin-left: 96px;
     align-items: baseline;
   }
