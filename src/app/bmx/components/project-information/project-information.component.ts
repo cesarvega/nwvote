@@ -245,7 +245,11 @@ export class ProjectInformationComponent implements OnInit {
       director.office = ''
       director.type = 'BI'
       director = this.allDirectors.find(o => o.name === this.dName)
-      this.DIRECTORS.push(director);
+
+      console.log(director)
+      if(!this.DIRECTORS.some((actualDirector)=>actualDirector.email == director.email)){
+        this.DIRECTORS.push(director);
+      }
 
     }
 
