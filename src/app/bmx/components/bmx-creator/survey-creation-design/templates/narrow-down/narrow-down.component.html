@@ -179,9 +179,7 @@ style="display: flex;flex-direction: column;gap: 2px;">
 
 <div *ngIf="i === selectedIndex" class="mat-elevation-z4 config-box">
 
-<div class="example-handle" cdkDragHandle style="display: flex;
-flex-direction: row;
-justify-content: center;cursor: move; height: 25px; width: 100%;"><svg width="24px" fill="currentColor"
+<div class="example-handle" cdkDragHandle ><svg width="24px" fill="currentColor"
         viewBox="0 0 24 24">
         <path
             d="M10 9h4V6h3l-5-5-5 5h3v3zm-1 1H6V7l-5 5 5 5v-3h3v-4zm14 2l-5-5v3h-3v4h3v3l5-5zm-9 3h-4v3H7l5 5 5-5h-3v-3z">
@@ -540,13 +538,20 @@ align-items: center; ">
 
 
                     <!-- TEXT_AREA COLUMN COMMENTS-->
-                    <textarea *ngIf="y !== 0  && columnName.includes('Comments') == true"
-                        [style.width]="(bmxItem.componentSettings[0].commentsWidth - 20) +'px'"
-                        [style.font-size]="bmxItem.componentSettings[0].fontSize +'px'" cdkTextareaAutosize
-                        [cdkAutosizeMinRows]="bmxItem.componentSettings[0].rowHeight"
-                        style="text-align: center;height: 32px;width: 358px;font-size: 16px;border: 1px solid #dddddd;"
-                        class="row-box" [(ngModel)]="testName[columnName]"></textarea>
+                    <textarea *ngIf="y !== 0 && columnName.includes('Comments')"
+                    cdkTextareaAutosize
+                    [cdkAutosizeMinRows]="bmxItem.componentSettings[0].rowHeight"
+                    [cdkAutosizeMaxRows]="10" 
+                    [style.width]="(bmxItem.componentSettings[0].commentsWidth - 20) + 'px'"
+                    [style.fontSize]="bmxItem.componentSettings[0].fontSize + 'px'"
+                    [style.textAlign]="'center'"
+                    [style.border]="'1px solid #dddddd'"
+                    class="row-box"
+                    [style.height]="'132px'"
 
+                    [(ngModel)]="testName[columnName]">
+          </textarea>
+          
 
                     <!-- TEXT AREA TO EDIT TABLE CELL CONTENT -->
                     <textarea *ngIf="y !== 0  && editSingleTableCells && (columnName.includes('RadioColumn') != true) &&

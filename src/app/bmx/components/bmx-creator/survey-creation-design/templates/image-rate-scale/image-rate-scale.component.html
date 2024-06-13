@@ -17,16 +17,11 @@
 </div>
 <!-- ➗➗➗➗➗➗➗➗➗➗➗➗➗➗➗➗➗➗➗  SETTINGS ICONS  ➗➗➗➗➗➗➗➗➗➗➗➗➗➗➗➗➗ -->
 
-<div *ngIf="bmxClientPageOverview" style="display: flex;
-    flex-direction: row-reverse;
-    justify-content: end;
-    top: -30px;
-    right: 50px;border: 2px dashed #324395;padding-right: 10px;background: #ffffffd9;
-    position: absolute;height: 54px;align-items: center" >
+<div *ngIf="bmxClientPageOverview" class="overview" >
 
     <!-- ⏺⏺⏺⏺⏺⏺⏺⏺⏺⏺⏺⏺⏺⏺⏺⏺⏺⏺⏺⏺RAGE INPUTS FOR COLUMN SETTINGS ⏺⏺⏺⏺⏺⏺⏺⏺⏺⏺⏺⏺⏺⏺⏺⏺⏺⏺⏺ -->
 
-    <div *ngIf="isColumnResizerOn && bmxClientPageOverview" class="pageOverview" >
+    <div *ngIf="isColumnResizerOn && bmxClientPageOverview" class="pageOverviee" >
 
 
         <!-- NAME CANDIATES -->
@@ -185,15 +180,9 @@
 
 <!-- 🔧🔧🔧🔧🔧🔧🔧🔧🔧🔧🔧🔧🔧🔧🔧🔧🔧🔧🔧🔧🔧🔧END CONFIG BOX 🔧🔧🔧🔧🔧🔧🔧🔧🔧🔧🔧🔧🔧🔧🔧🔧🔧🔧🔧🔧🔧 -->
 <!-- 👩🏽‍🔧👩🏽‍🔧👩🏽‍🔧👩🏽‍🔧👩🏽‍🔧👩🏽‍🔧👩🏽‍🔧👩🏽‍🔧👩🏽‍🔧👩🏽‍🔧👩🏽‍🔧👩🏽‍🔧👩🏽‍🔧👩🏽‍🔧👩🏽‍🔧👩🏽‍🔧👩🏽‍🔧👩🏽‍🔧👩🏽‍🔧👩🏽‍🔧👩🏽‍🔧👩🏽‍🔧 UPLOAD IMAGES BOX 👩🏽‍🔧👩🏽‍🔧👩🏽‍🔧👩🏽‍🔧👩🏽‍🔧👩🏽‍🔧👩🏽‍🔧👩🏽‍🔧👩🏽‍🔧👩🏽‍🔧👩🏽‍🔧👩🏽‍🔧👩🏽‍🔧👩🏽‍🔧👩🏽‍🔧👩🏽‍🔧👩🏽‍🔧👩🏽‍🔧👩🏽‍🔧👩🏽‍🔧👩🏽‍🔧👩🏽‍🔧 -->
-<div *ngIf="uploadImagesBox" class="mat-elevation-z4" cdkDrag
-    style="position: absolute;width: 62vw;background: #fafafa;z-index: 1;top: -8px;left: 15%;border: #063074 4px solid;">
-    <div style="position: absolute;
-    top: 10px;
-    right: 10px;
-    color: #ccc;
-    cursor: move;
-    width: 1024px;
-    height: 54px;" cdkDragHandle> </div>
+<div *ngIf="uploadImagesBox" class="mat-elevation-z4 upload-image-box" cdkDrag
+    >
+    <div class="image-box-drag" cdkDragHandle> </div>
     <div style="text-align: center;">
         <div style="font-size: 16px;margin: 20px;color: #48535e;">UPLOAD IMAGES</div>
         <!-- <div style="font-size: 14px;margin-bottom: 20px;color: lightgray;">Brief Description Here</div> -->
@@ -260,9 +249,7 @@ z-index: 1;top: -65px;left: 25%;border: #063074 3px solid; overflow: auto;
        max-height: 36rem;
     bottom: -2; ">
 
-    <div class="example-handle" cdkDragHandle style="display: flex;
-flex-direction: row;
-justify-content: center;cursor: move; height: 25px; width: 100%;"><svg width="24px" fill="currentColor"
+    <div class="example-handle" cdkDragHandle ><svg width="24px" fill="currentColor"
             viewBox="0 0 24 24">
             <path
                 d="M10 9h4V6h3l-5-5-5 5h3v3zm-1 1H6V7l-5 5 5 5v-3h3v-4zm14 2l-5-5v3h-3v4h3v3l5-5zm-9 3h-4v3H7l5 5 5-5h-3v-3z">
@@ -597,12 +584,19 @@ justify-content: center;cursor: move; height: 25px; width: 100%;"><svg width="24
 
 
                         <!-- TEXT_AREA COLUMN-->
-                        <textarea *ngIf="y !== 0  && columnName.includes('Comments') == true"
-                            [style.width]="(bmxItem.componentSettings[0].commentsWidth - 20) +'px'"
-                            [style.font-size]="bmxItem.componentSettings[0].fontSize +'px'" cdkTextareaAutosize
-                            [cdkAutosizeMinRows]="bmxItem.componentSettings[0].rowHeight"
-                            style="text-align: center;height: 32px;width: 358px;font-size: 16px;border: 1px solid #dddddd;"
-                            class="row-box" [(ngModel)]="testName[columnName]" rows="4" cols="50"></textarea>
+                        <textarea *ngIf="y !== 0 && columnName.includes('Comments')"
+                        cdkTextareaAutosize
+                        [cdkAutosizeMinRows]="bmxItem.componentSettings[0].rowHeight"
+                        [cdkAutosizeMaxRows]="10" 
+                        [style.width]="(bmxItem.componentSettings[0].commentsWidth - 20) + 'px'"
+                        [style.fontSize]="bmxItem.componentSettings[0].fontSize + 'px'"
+                        [style.textAlign]="'center'"
+                        [style.border]="'1px solid #dddddd'"
+                        class="row-box"
+                        [style.height]="'132px'"
+    
+                        [(ngModel)]="testName[columnName]">
+              </textarea>
 
 
                         <img class="row-box" style="width:300px;" [src]="testName[columnName]"
