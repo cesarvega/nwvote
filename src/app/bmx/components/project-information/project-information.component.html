@@ -1,6 +1,6 @@
 <div *ngIf="showModal" class="modal-background"></div>
 <div *ngIf="showDialog"><app-survey-dialog (onConfirm)="showDialog = false" (onCancel)="showDialog = false"
-  [dialogText]="dialogText" [title]="'Project already exist'"></app-survey-dialog>
+    [dialogText]="dialogText" [title]="'Project already exist'"></app-survey-dialog>
 </div>
 <div *ngIf="showModal" class="modal-content">
   <button mat-icon-button class="close-button" aria-label="Close" (click)="closeModal()">
@@ -66,9 +66,8 @@
         </div>
         <div class="row-field">
           <label class="selectLabels">Closing date: </label>
-
           <mat-form-field appearance="outline" id="project-datepicker" style="width:55%">
-            <input matInput [matDatepicker]="picker" placeholder="Choose a date" (dateChange)="onSelect($event.value)">
+            <input matInput [matDatepicker]="picker" placeholder="Choose a date" (dateChange)="onSelect($event.value)" formControlName="bmxClosingDate">
             <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
             <mat-datepicker #picker></mat-datepicker>
           </mat-form-field>
@@ -160,7 +159,7 @@
             </mat-select>
           </mat-form-field>
         </div>
-        <div class="buttons-container" >
+        <div class="buttons-container">
           <button mat-mini-fab style="background-color:#063074;outline: none;" matTooltip="add director"
             matTooltipPosition="above" (click)="createDirector()">
             <mat-icon class="full-icon" style="color: white;">add</mat-icon>

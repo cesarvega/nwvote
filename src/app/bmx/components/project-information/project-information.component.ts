@@ -57,6 +57,7 @@ export class ProjectInformationComponent implements OnInit {
   bmxCompany: UntypedFormControl;
   bmxLanguage: UntypedFormControl;
   bmxTemplates: UntypedFormControl;
+  bmxClosingDate: UntypedFormControl;
   bmxRegionalOffice: UntypedFormControl;
   bmxRegionalDirector: UntypedFormControl;
   status = "open"
@@ -100,6 +101,7 @@ export class ProjectInformationComponent implements OnInit {
         .subscribe((arg: any) => {
           if (arg.d && arg.d.length > 0) {
             var data = JSON.parse(arg.d);
+            console.log(data)
             this.bmxEditData.patchValue({ bmxSalesboard: data.bmxSalesboard });
             this.bmxEditData.patchValue({ bmxProjectName: data.bmxProjectName });
             this.bmxEditData.patchValue({ bmxDepartment: data.bmxDepartment });
@@ -107,6 +109,8 @@ export class ProjectInformationComponent implements OnInit {
             this.bmxEditData.patchValue({ bmxLanguage: data.bmxLanguage });
             this.bmxEditData.patchValue({ bmxCompany: data.bmxCompany });
             this.bmxEditData.patchValue({ bmxStatus: data.bmxStatus });
+            this.bmxEditData.patchValue({ bmxClosingDate: new Date(data.bmxClosingDate) });
+            console.log(data.bmxClosingDate)
             if (!data.bmxStatus || data.bmxStatus == "open") {
               this.status = "open"
             } else if (data.bmxStatus == "close") {
@@ -196,11 +200,19 @@ export class ProjectInformationComponent implements OnInit {
     localStorage.setItem('fakeproject' + '_project_info', JSON.stringify(this.bmxEditData.value));
     //console.log(this.bmxEditData.value);
   }
-  onSelect(event) {
-    console.log(event);
+  onSelect(event: Date) {
     this.selectedDate = event;
-  }
+    const today = new Date();
+
+    if (event < today) {
+      this.status = 'close';
+    } else {
+      this.status = 'open';
+    }
+
+}
   saveProjectInfo() {
+    console.log(this.status)
     if (this.bmxEditData.valid) {
       const storageName = localStorage.getItem('projectName')
       console.log(storageName, typeof storageName, this.projectName)
@@ -214,8 +226,9 @@ export class ProjectInformationComponent implements OnInit {
           "bmxCompany": this.bmxEditData.get('bmxCompany').value.toString(),
           "bmxLanguage": this.bmxEditData.get('bmxLanguage').value.toString(),
           "bmxRegionalOffice": this.DIRECTORS,
-          "bmxStatus": this.status.toString,
+          "bmxStatus": this.status,
           "bmxClosingDate": this.selectedDate,
+          "bmxCreated": new Date().toLocaleDateString(),
         }
         this._BmxService.setDirectors(this.DIRECTORS)
         localStorage.setItem('company', this.bmxEditData.get('bmxCompany').value.toString(),)
@@ -251,8 +264,9 @@ export class ProjectInformationComponent implements OnInit {
               "bmxCompany": this.bmxEditData.get('bmxCompany').value.toString(),
               "bmxLanguage": this.bmxEditData.get('bmxLanguage').value.toString(),
               "bmxRegionalOffice": this.DIRECTORS,
-              "bmxStatus": this.status.toString,
+              "bmxStatus": this.status,
               "bmxClosingDate": this.selectedDate,
+              "bmxCreated": new Date().toLocaleDateString(),
             }
             this._BmxService.setDirectors(this.DIRECTORS)
             localStorage.setItem('company', this.bmxEditData.get('bmxCompany').value.toString(),)
@@ -394,6 +408,9 @@ export class ProjectInformationComponent implements OnInit {
     this.bmxTemplates = new UntypedFormControl(
       '', [
     ]);
+    this.bmxClosingDate = new UntypedFormControl(
+      '', [
+    ]);
     this.bmxRegionalOffice = new UntypedFormControl(
       '', [
     ]);
@@ -411,6 +428,7 @@ export class ProjectInformationComponent implements OnInit {
       bmxTemplates: this.bmxTemplates,
       bmxRegionalOffice: this.bmxRegionalOffice,
       bmxRegionalDirector: this.bmxRegionalDirector,
+      bmxClosingDate: this.bmxClosingDate
     });
   }
 
