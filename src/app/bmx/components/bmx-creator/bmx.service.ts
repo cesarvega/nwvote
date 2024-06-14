@@ -91,6 +91,7 @@ export class BmxService {
   baseUrl: any;
   restUrl: any;
 
+  validProject = '/IsValidProject'
   constructor(private http: HttpClient) {
 
     if (this.actualSite.includes('https://d3lyn5npnikbck.cloudfront.net')) {
@@ -286,5 +287,10 @@ export class BmxService {
   deleteBrandMatrixProject(projectName: any, user: any) {
     var input = JSON.stringify({ "ProjectName": projectName,  "Username": user });
     return this.http.post(this.webBaseUrl + this.brandMatrixDelete, { token: '646EBF52-1846-47C2-9F62-DC50AE5BF692', payload: input });
+  }
+
+  isValid(projectName: any) {
+    var input = JSON.stringify({ "projectName": projectName});
+    return this.http.post(this.webBaseUrl + this.validProject, { token: '646EBF52-1846-47C2-9F62-DC50AE5BF692', payload: input });
   }
 }

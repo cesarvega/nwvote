@@ -16,6 +16,7 @@ import { Router } from '@angular/router';
 })
 export class ProjectInformationComponent implements OnInit {
   DIRECTORS_Filtered: any[];
+  dialogText: any;
 
   constructor(private _BmxService: BmxService, private _snackBar: MatSnackBar, private router: Router) { }
   settingsData = {
@@ -76,7 +77,7 @@ export class ProjectInformationComponent implements OnInit {
       page: this.brandMatrixObjects,
     },
   ];
-  loader=false
+  loader = false
   displayTemplate = ''
   biUserId = 'user@bi.com';
   templateTitle: string = '';
@@ -84,8 +85,10 @@ export class ProjectInformationComponent implements OnInit {
   newTemplateName = ''
   selectedTemplateName = ''
   templateName = '';
+  showDialog = false
+
   ngOnInit(): void {
-    this.loader=true
+    this.loader = true
     this.canEdit = null;
     this.createFormControls();
     this.createForm();
@@ -130,10 +133,10 @@ export class ProjectInformationComponent implements OnInit {
 
             this._BmxService.setprojectData(this.bmxEditData.value)
           }
-          this.loader=false
+          this.loader = false
         });
-    }else{
-      this.loader=false
+    } else {
+      this.loader = false
     }
 
     this._BmxService.getGeneralLists()
@@ -199,37 +202,84 @@ export class ProjectInformationComponent implements OnInit {
   }
   saveProjectInfo() {
     if (this.bmxEditData.valid) {
+      const storageName = localStorage.getItem('projectName')
+      console.log(storageName, typeof storageName, this.projectName)
+      if (storageName != 'null' && storageName!= null && storageName!= undefined && storageName!= 'undefined')  {
+        this._BmxService.setProjectName(this.bmxEditData.get('bmxProjectName').value.toString());
+        const projectInfo: JSON = <JSON><unknown>{
+          "bmxSalesboard": this.bmxEditData.get('bmxSalesboard').value.toString(),
+          "bmxDepartment": this.bmxEditData.get('bmxDepartment').value.toString(),
+          "bmxProjectName": this.bmxEditData.get('bmxProjectName').value.toString().trim(),
+          "bmxRegion": this.bmxEditData.get('bmxRegion').value.toString(),
+          "bmxCompany": this.bmxEditData.get('bmxCompany').value.toString(),
+          "bmxLanguage": this.bmxEditData.get('bmxLanguage').value.toString(),
+          "bmxRegionalOffice": this.DIRECTORS,
+          "bmxStatus": this.status.toString,
+          "bmxClosingDate": this.selectedDate,
+        }
+        this._BmxService.setDirectors(this.DIRECTORS)
+        localStorage.setItem('company', this.bmxEditData.get('bmxCompany').value.toString(),)
+        var finalString = JSON.stringify(projectInfo);
+        finalString = finalString.replace("[\\u2022,\\u2023,\\u25E6,\\u2043,\\u2219]\\s\\d", '');
+        this._BmxService.saveProjectInfo(this.bmxEditData.get('bmxProjectName').value.toString(), finalString, 'user@bi.com').subscribe(result => {
+          var so = result;
+          this.saveProjectSuccess.emit(true)
+        });
+        if (this.templateName.length > 3) {
+          localStorage.setItem('template', JSON.stringify(this.bmxPages));
+        }
 
+        // SET DATA STREAM TO AN OBSERVABLE
+        this._BmxService.setprojectData(finalString)
+        this._snackBar.open('Saved Succesfully');
+        localStorage.setItem('department', this.bmxEditData.get('bmxDepartment').value.toString());
+        this.router.navigate(['/bmx-creation/99CB72BF-D163-46A6-8A0D-E1531EC7FEDC'])
+      } else {
+        const newName = this.bmxEditData.get('bmxProjectName').value.toString().trim()
+        console.log(newName)
+        this._BmxService.isValid(newName).subscribe((res: any) => {
+          const jsonString = res
+          const parsedObject = JSON.parse(jsonString.d);
+          const message = parsedObject.Message;
+          if (message == "Available") {
+            this._BmxService.setProjectName(this.bmxEditData.get('bmxProjectName').value.toString());
+            const projectInfo: JSON = <JSON><unknown>{
+              "bmxSalesboard": this.bmxEditData.get('bmxSalesboard').value.toString(),
+              "bmxDepartment": this.bmxEditData.get('bmxDepartment').value.toString(),
+              "bmxProjectName": this.bmxEditData.get('bmxProjectName').value.toString().trim(),
+              "bmxRegion": this.bmxEditData.get('bmxRegion').value.toString(),
+              "bmxCompany": this.bmxEditData.get('bmxCompany').value.toString(),
+              "bmxLanguage": this.bmxEditData.get('bmxLanguage').value.toString(),
+              "bmxRegionalOffice": this.DIRECTORS,
+              "bmxStatus": this.status.toString,
+              "bmxClosingDate": this.selectedDate,
+            }
+            this._BmxService.setDirectors(this.DIRECTORS)
+            localStorage.setItem('company', this.bmxEditData.get('bmxCompany').value.toString(),)
+            var finalString = JSON.stringify(projectInfo);
+            finalString = finalString.replace("[\\u2022,\\u2023,\\u25E6,\\u2043,\\u2219]\\s\\d", '');
+            this._BmxService.saveProjectInfo(this.bmxEditData.get('bmxProjectName').value.toString(), finalString, 'user@bi.com').subscribe(result => {
+              var so = result;
+              this.saveProjectSuccess.emit(true)
+            });
+            if (this.templateName.length > 3) {
+              localStorage.setItem('template', JSON.stringify(this.bmxPages));
+            }
 
-      this._BmxService.setProjectName(this.bmxEditData.get('bmxProjectName').value.toString());
-      const projectInfo: JSON = <JSON><unknown>{
-        "bmxSalesboard": this.bmxEditData.get('bmxSalesboard').value.toString(),
-        "bmxDepartment": this.bmxEditData.get('bmxDepartment').value.toString(),
-        "bmxProjectName": this.bmxEditData.get('bmxProjectName').value.toString().trim(),
-        "bmxRegion": this.bmxEditData.get('bmxRegion').value.toString(),
-        "bmxCompany": this.bmxEditData.get('bmxCompany').value.toString(),
-        "bmxLanguage": this.bmxEditData.get('bmxLanguage').value.toString(),
-        "bmxRegionalOffice": this.DIRECTORS,
-        "bmxStatus": this.status.toString,
-        "bmxClosingDate": this.selectedDate,
+            // SET DATA STREAM TO AN OBSERVABLE
+            this._BmxService.setprojectData(finalString)
+            this._snackBar.open('Saved Succesfully');
+            localStorage.setItem('department', this.bmxEditData.get('bmxDepartment').value.toString());
+            this.router.navigate(['/bmx-creation/99CB72BF-D163-46A6-8A0D-E1531EC7FEDC'])
+          }else{
+            this.showDialog = true
+            this.dialogText = message
+          }
+        })
+
       }
-      this._BmxService.setDirectors(this.DIRECTORS)
-      localStorage.setItem('company', this.bmxEditData.get('bmxCompany').value.toString(),)
-      var finalString = JSON.stringify(projectInfo);
-      finalString = finalString.replace("[\\u2022,\\u2023,\\u25E6,\\u2043,\\u2219]\\s\\d", '');
-      this._BmxService.saveProjectInfo(this.bmxEditData.get('bmxProjectName').value.toString(), finalString, 'user@bi.com').subscribe(result => {
-        var so = result;
-        this.saveProjectSuccess.emit(true)
-      });
-      if (this.templateName.length > 3) {
-        localStorage.setItem('template', JSON.stringify(this.bmxPages));
-      }
 
-      // SET DATA STREAM TO AN OBSERVABLE
-      this._BmxService.setprojectData(finalString)
-      this._snackBar.open('Saved Succesfully');
-      localStorage.setItem('department', this.bmxEditData.get('bmxDepartment').value.toString());
-      this.router.navigate(['/bmx-creation/99CB72BF-D163-46A6-8A0D-E1531EC7FEDC'])
+
     }
   }
 
@@ -247,7 +297,7 @@ export class ProjectInformationComponent implements OnInit {
       director = this.allDirectors.find(o => o.name === this.dName)
 
       console.log(director)
-      if(!this.DIRECTORS.some((actualDirector)=>actualDirector.email == director.email)){
+      if (!this.DIRECTORS.some((actualDirector) => actualDirector.email == director.email)) {
         this.DIRECTORS.push(director);
       }
 
@@ -461,7 +511,7 @@ export class ProjectInformationComponent implements OnInit {
     value = value.replace(/[\/\\]/g, ''); // Replace / and \ with an empty string
     this.bmxProjectName.setValue(value, { emitEvent: false });
   }
-  
+
 }
 
 

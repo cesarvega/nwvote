@@ -1,4 +1,7 @@
 <div *ngIf="showModal" class="modal-background"></div>
+<div *ngIf="showDialog"><app-survey-dialog (onConfirm)="showDialog = false" (onCancel)="showDialog = false"
+  [dialogText]="dialogText" [title]="'Project already exist'"></app-survey-dialog>
+</div>
 <div *ngIf="showModal" class="modal-content">
   <button mat-icon-button class="close-button" aria-label="Close" (click)="closeModal()">
     <mat-icon>close</mat-icon>
