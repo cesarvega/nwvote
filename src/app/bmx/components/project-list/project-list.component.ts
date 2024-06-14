@@ -66,9 +66,7 @@ export class ProjectListComponent implements OnInit {
         if (this.userRole === 'admin') {
           this.displayedColumns.push('Delete');
         }
-        
       });
-
   }
 
   applyFilter(filterValue: string): void {
@@ -130,8 +128,6 @@ export class ProjectListComponent implements OnInit {
       .subscribe((arg: any) => {
         this.allData = JSON.parse(arg.d);
         // this.allData = JSON.parse(obj);
-        this.userDepartment = this.userData != null ? this.userData.Department : '';
-        this.userRole = this.userData != null ? this.userData.Role : '';
         this.changeView();
       });
     })

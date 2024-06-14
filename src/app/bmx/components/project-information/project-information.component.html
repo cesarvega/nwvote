@@ -173,7 +173,10 @@
     </div>
   </form>
 
-  <div style="display: flex; flex-direction: row;flex-wrap: wrap;justify-content: space-between;margin: 10px 39px;">
+  <div style=" display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 20px; 
+  padding: 10px 39px;">
     <div *ngFor="let director of DIRECTORS; let i = index; trackBy: trackByIndex">
       <mat-card appearance="outlined" class="directorCard" style="width: 400px;gap: 5px;padding: 10px;margin: 10px;">
 
