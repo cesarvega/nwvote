@@ -14,13 +14,10 @@
   </div>
 </ng-template>
 
-<ckeditor 
-  *ngIf="openSettings && bmxClientPageOverview" 
-  [editor]="Editor" 
-  id="txtTexto" 
-  class="ckeditorcev"
-  
-  [(ngModel)]="bmxItem.componentText" 
-  [data]="bmxItem.componentText" 
-  [ngModelOptions]="{ updateOn: 'blur' }">
+
+
+<ckeditor   *ngIf="openSettings && bmxClientPageOverview" 
+[editor]="Editor" id="txtTexto" style="animation: fadeIn 0.5s ease forwards;"
+[(ngModel)]="bmxItem.componentText"   [data]="bmxItem.componentText" 
+>
 </ckeditor>

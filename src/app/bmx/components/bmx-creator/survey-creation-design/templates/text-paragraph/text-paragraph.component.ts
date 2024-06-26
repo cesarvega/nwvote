@@ -27,46 +27,29 @@ export class TextParagraphComponent implements OnInit {
   constructor(private _bmxService: BmxService) { }
 
   ngOnInit(): void {
-    this.config = {
-      language: 'en', // Especificar el idioma
-      blockToolbar: [
-        'paragraph', 'heading1', 'heading2', 'heading3',
-        '|',
-        'bulletedList', 'numberedList',
-        '|',
-        'blockQuote', 'uploadImage'
+    this.ckconfig = {
+      allowedContent: false,
+      width: '99.6%',
+      contentsCss: ["body {font-size: 24px;}"],
+      height: 280,
+      forcePasteAsPlainText: true,
+      toolbarLocation: 'top',
+      toolbarGroups: [
+        { name: 'clipboard', groups: ['clipboard', ''] },
+        { name: 'insert' },
+        { name: 'forms' },
+        { name: 'tools' },
+        { name: 'document', groups: ['mode', 'document', 'doctools'] },
+        { name: 'others' },
+        { name: 'basicstyles', groups: ['basicstyles', 'cleanup'] },
+        { name: 'colors' },
+        { name: 'paragraph', groups: ['list', 'indent', 'blocks', 'align', 'bidi'] },
+        { name: 'styles' },
+        { name: 'links' },
+        { name: 'about' }
       ],
-      toolbar: {
-        items: [
-          'bold', 'italic', 'underline', 'strikethrough', 'subscript', 'superscript', '|',
-          'fontSize', 'fontFamily', '|', 'color', 'backgroundColor', '|',
-          'alignment', '|', 'numberedList', 'bulletedList', '|',
-          'indent', 'outdent', '|', 'link', 'blockquote', 'imageUpload', '|',
-          'undo', 'redo', '|', 'code', 'codeBlock'
-        ]
-      },
-      image: {
-        toolbar: [
-          'imageStyle:full', 'imageStyle:side', '|', 'imageTextAlternative'
-        ]
-      },
-      table: {
-        contentToolbar: [
-          'tableColumn', 'tableRow', 'mergeTableCells', '|', 'tableProperties', 'tableCellProperties'
-        ]
-      },
-      heading: {
-        options: [
-          { model: 'paragraph', title: 'Paragraph', class: 'ck-heading_paragraph' },
-          { model: 'heading1', view: 'h1', title: 'Heading 1', class: 'ck-heading_heading1' },
-          { model: 'heading2', view: 'h2', title: 'Heading 2', class: 'ck-heading_heading2' }
-          // More heading options...
-        ]
-      },
-      removeButtons: 'Smiley,tableselection,Image,Save,NewPage,Preview,Print,Templates,Replace,SelectAll,Form,Checkbox,Radio,TextField,Textarea,Find,Select,Button,ImageButton,HiddenField,CopyFormatting,CreateDiv,BidiLtr,BidiRtl,Language,Flash,PageBreak,Iframe,ShowBlocks,Cut,Copy,Paste,Table,Format,Source,Maximize,Styles,Anchor,SpecialChar,PasteFromWord,PasteText,Scayt,RemoveFormat,Indent,Outdent,Blockquote',
-      basicstyles: { name: 'basicstyles', items: ['Bold', 'Italic', 'Underline', 'Strike', 'Subscript', 'Superscript'] }
-    };
-  
+      addPlugins: 'simplebox,tabletools',
+    }
     this.previousText = this.bmxItem.componentText
   }
 
