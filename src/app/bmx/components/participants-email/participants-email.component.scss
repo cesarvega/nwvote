@@ -1,9 +1,8 @@
-.invite{
+.invite {
     margin: 20px 0 60px 0;
 }
 
 @media (max-width: 1720px) {
-
     // .container {
     //     display: flex;
     //     width: 100%;
@@ -17,13 +16,9 @@
     .email-container {
         width: 40% !important;
     }
-
-
 }
 
-
 @media (max-width: 1720px) {
-
     // .container {
     //     display: flex;
     //     width: 100%;
@@ -36,7 +31,6 @@
 
     .email-container {
         width: -webkit-fill-available !important;
-
     }
 
     .invite {
@@ -45,7 +39,6 @@
 }
 
 @media (max-width: 1499px) {
-
     .container {
         display: flex;
         gap: 5%;
@@ -57,7 +50,6 @@
         max-width: 100%;
         padding: 0;
         align-items: center;
-
     }
 
     .participants-container {
@@ -66,7 +58,14 @@
     }
 }
 
-input{
+input {
     border: 1px solid #868686;
     border-radius: 3px;
+}
+
+.input {
+    display: flex;
+    flex-direction: row;
+    margin-bottom: 20px;
+    justify-content: space-between;
 }

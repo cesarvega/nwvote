@@ -67,7 +67,8 @@
         <div class="row-field">
           <label class="selectLabels">Closing date: </label>
           <mat-form-field appearance="outline" id="project-datepicker" style="width:55%">
-            <input matInput [matDatepicker]="picker" placeholder="Choose a date" (dateChange)="onSelect($event.value)" formControlName="bmxClosingDate">
+            <input matInput [matDatepicker]="picker" placeholder="Choose a date" (dateChange)="onSelect($event.value)"
+              formControlName="bmxClosingDate">
             <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
             <mat-datepicker #picker></mat-datepicker>
           </mat-form-field>
@@ -183,26 +184,26 @@
       <mat-card appearance="outlined" class="directorCard" style="width: 400px;gap: 5px;padding: 10px;margin: 10px;">
 
         <div style="display: flex;flex-direction: row;">
-          <div style="margin-right: 19px; color: #324395;" class="selectLabels">Name: </div>
+          <div class="selectLabels">Name: </div>
           <input class="directorInfo" [(ngModel)]="DIRECTORS[i].name" placeholder="Name" [readonly]="i !== canEdit"
             matInput style="width:75%">
         </div>
 
 
         <div style="display: flex;flex-direction: row;">
-          <div style="margin-right: 29px;color: #053074;" class="selectLabels">Title: </div>
+          <div class="selectLabels">Title: </div>
           <input class="directorInfo" [(ngModel)]="DIRECTORS[i].title" placeholder="Title" [readonly]="i !== canEdit"
             matInput style="width:75%">
         </div>
 
         <div style="display: flex;flex-direction: row;">
-          <div style="margin-right: 23px; color: #324395;" class="selectLabels">Email: </div>
+          <div class="selectLabels">Email: </div>
           <input class="directorInfo" [(ngModel)]="DIRECTORS[i].email" placeholder="Email" [readonly]="i !== canEdit"
             matInput style="width:75%">
         </div>
 
         <div style="display: flex;flex-direction: row;">
-          <div style="margin-right: 6px; color: #053074;" class="selectLabels">Phone #: </div>
+          <div class="selectLabels">Phone #: </div>
           <input class="directorInfo" [(ngModel)]="DIRECTORS[i].phone" placeholder="Phone" [readonly]="i !== canEdit"
             matInput style="width:75%">
         </div>
@@ -238,3 +239,6 @@
 
   <br>
   <br>
+
+
+  <!-- -->

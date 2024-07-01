@@ -28,7 +28,7 @@ export class TextParagraphComponent implements OnInit {
 
   ngOnInit(): void {
     this.ckconfig = {
-      language: 'en', // Especificar el idioma
+      language: 'en', 
       // blockToolbar: [
       //   'paragraph', 'heading1', 'heading2', 'heading3',
       //   '|',
@@ -38,13 +38,17 @@ export class TextParagraphComponent implements OnInit {
       // ],
       toolbar: {
         items: [
-          'bold', 'italic', 'underline', 'strikethrough', 'subscript', 'superscript', '|',
-          // 'fontSize', 'fontFamily', '|', 'color', 'backgroundColor', '|',
-          // 'alignment', '|', 'numberedList', 'bulletedList', '|',
-          // 'indent', 'outdent', '|', 'link', 'blockquote', 'imageUpload', '|',
-          // 'undo', 'redo', '|', 'code', 'codeBlock'
+          'bold','italic', 'numberedList','bulletedList', 
+           'outdent',  'indent','link', 'blockquote','imageUpload','undo','redo',
+          //   
+          //  '|', '|','color','backgroundColor','|', 'alignment','|','|', '|','code',   
+          //   '|', 'left', 'strikethrough','subscript', 'codeBlock''underline',
+         //  'superscript','|','center','right','justify''fontSize','fontFamily',
+
+
         ]
       },
+     
       image: {
         toolbar: [
           'imageStyle:full', 'imageStyle:side', '|', 'imageTextAlternative'
@@ -144,3 +148,4 @@ export class TextParagraphComponent implements OnInit {
   }
 
 }
+
