@@ -205,3 +205,31 @@ table {
 input {
   border: none;
 }
+
+.button-golden {
+  position: absolute;
+  top: 72px;
+  right: 5px;
+  color: goldenrod;
+}
+
+.button-red {
+  position: absolute;
+  top: 45px;
+  right: 5px;
+  color: red;
+}
+
+.button-orange {
+  position: absolute;
+  top: 9px;
+  right: 5px;
+  color: #ee7f25;
+}
+
+.button-blue {
+  position: absolute;
+  top: 9px;
+  right: 5px;
+  color: #053074;
+}

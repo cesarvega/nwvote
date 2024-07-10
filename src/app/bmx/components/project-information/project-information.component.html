@@ -209,24 +209,22 @@
         </div>
         <div class="optionButton">
           <div *ngIf="canEdit !== i; else elseBlock">
-            <button mat-icon-button style="position: absolute; top: 9px; right: 5px;color: #053074;"
-              (click)="editDirector(i)">
+            <button mat-icon-button class="button-blue" (click)="editDirector(i)">
               <mat-icon>edit</mat-icon>
             </button>
 
           </div>
           <ng-template #elseBlock>
-            <button mat-icon-button style="position: absolute; top: 9px; right: 5px;color: #ee7f25;"
-              (click)="editDirector(i)">
+            <button mat-icon-button class="button-orange" (click)="editDirector(i)">
               <mat-icon>check_circle</mat-icon>
             </button>
           </ng-template>
-          <button mat-icon-button matTooltip="double click" matTooltipPosition="right"
-            style="position: absolute; top: 45px; right: 5px;color: red;" (dblclick)="removeDirector(i)">
+          <button mat-icon-button matTooltip="double click" matTooltipPosition="right" class="button-red"
+            (dblclick)="removeDirector(i)">
             <mat-icon>delete</mat-icon>
           </button>
-          <button mat-icon-button matTooltip="double click" matTooltipPosition="right"
-            style="position: absolute; top: 72px; right: 5px;color: goldenrod;" (dblclick)="replaceMainDirector(i)">
+          <button mat-icon-button matTooltip="double click" matTooltipPosition="right" class="button-golden"
+            (dblclick)="replaceMainDirector(i)">
             <mat-icon>star</mat-icon>
           </button>
         </div>
@@ -240,5 +238,4 @@
   <br>
   <br>
 
-
-  <!-- -->
+  

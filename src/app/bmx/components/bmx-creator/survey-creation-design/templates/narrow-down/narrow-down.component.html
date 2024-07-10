@@ -19,7 +19,7 @@ style="display: flex;flex-direction: column;gap: 2px;">
 <!-- ⏺⏺⏺⏺⏺⏺⏺⏺⏺⏺⏺⏺⏺⏺⏺⏺⏺⏺⏺⏺RAGE INPUTS FOR COLUMN SETTINGS ⏺⏺⏺⏺⏺⏺⏺⏺⏺⏺⏺⏺⏺⏺⏺⏺⏺⏺⏺ -->
 
 <div *ngIf="isColumnResizerOn && bmxClientPageOverview" class="pageOverview" >
-    <div style="display: flex;flex-direction: column;align-items: center;">
+    <div class='row'>
         <p style="margin: 0 0 -12px;color: #324395;">select
         </p>
         <input type="range" style="margin: 20px;width: 50px;" [(ngModel)]="bmxItem.componentSettings[0].selectWidth"
@@ -28,7 +28,7 @@ style="display: flex;flex-direction: column;gap: 2px;">
     </div>
 
     <!-- NAME CANDIATES -->
-    <div style="display: flex;flex-direction: column;align-items: center;">
+    <div class='row'>
         <p style="margin: 0 0 -12px;color: #324395;">candidates
         </p>
         <input type="range" style="margin: 20px;width: 50px;"
@@ -39,7 +39,7 @@ style="display: flex;flex-direction: column;gap: 2px;">
     <!-- RATIONALE -->
 
 
-    <div style="display: flex;flex-direction: column;align-items: center;">
+    <div class='row'>
         <p style="margin: 0 0 -12px;color: #324395;">rationale
         </p>
         <input type="range" style="margin: 20px;width: 50px;"
@@ -48,7 +48,7 @@ style="display: flex;flex-direction: column;gap: 2px;">
     </div>
 
     <!-- RATE -->
-    <div style="display: flex;flex-direction: column;align-items: center;">
+    <div class='row'>
         <p style="margin: 0 0 -12px;color: #324395;">rate
         </p>
         <input type="range" style="margin: 20px;width: 50px;" [(ngModel)]="bmxItem.componentSettings[0].rateWidth"
@@ -57,7 +57,7 @@ style="display: flex;flex-direction: column;gap: 2px;">
     </div>
 
     <!-- COMMENTS -->
-    <div *ngIf="columnsNames.includes('Comments0')" style="display: flex;flex-direction: column;align-items: center;">
+    <div *ngIf="columnsNames.includes('Comments0')" class='row'>
         <p style="margin: 0 0 -12px;color: #324395;">comments
         </p>
         <input type="range" style="margin: 20px;width: 50px;"
@@ -66,7 +66,7 @@ style="display: flex;flex-direction: column;gap: 2px;">
     </div>
 
     <!-- REST OF THE COLUMNS -->
-    <div style="display: flex;flex-direction: column;align-items: center;">
+    <div class='row'>
         <p style="margin: 0 0 -12px;color: #324395;">other columns
         </p>
         <input type="range" style="margin: 20px;width: 50px;" [(ngModel)]="bmxItem.componentSettings[0].columnWidth"
@@ -76,7 +76,7 @@ style="display: flex;flex-direction: column;gap: 2px;">
 
     <!-- ROW HEIGHT -->
 
-    <div style="display: flex;flex-direction: column;align-items: center;">
+    <div class='row'>
         <p style="margin: 0 0 -12px;color: #324395;">row height</p>
         <input type="range" style="margin: 20px;width: 60px;" [(ngModel)]="bmxItem.componentSettings[0].rowHeight"
             class="slider-font-size" tickInterval="0.5" min="-10" max="20"
@@ -84,7 +84,7 @@ style="display: flex;flex-direction: column;gap: 2px;">
     </div>
 
     <!-- FONT -->
-    <div style="display: flex;flex-direction: column;align-items: center;">
+    <div class='row'>
         <p style="margin: 0 0 -12px;color: #324395;">font size: {{bmxItem.componentSettings[0].fontSize}}</p>
         <input type="range" style="margin: 20px;width: 50px;" [(ngModel)]="bmxItem.componentSettings[0].fontSize"
             class="slider-font-size" tickInterval="0.1" min="2" max="50"
@@ -92,7 +92,7 @@ style="display: flex;flex-direction: column;gap: 2px;">
     </div>
 
     <!-- RADIO -->
-    <div *ngIf="radioColumnCounter > 1" style="display: flex;flex-direction: column;align-items: center;">
+    <div *ngIf="radioColumnCounter > 1" class='row'>
         <p style="margin: 0 0 -12px;color: #324395;">radio</p>
         <input type="range" style="margin: 20px;width: 50px;"
             [(ngModel)]="bmxItem.componentSettings[0].radioColumnsWidth" class="slider-font-size" tickInterval="0.5"

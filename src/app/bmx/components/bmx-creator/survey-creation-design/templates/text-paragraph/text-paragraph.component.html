@@ -7,19 +7,15 @@
   <mat-icon class="full-icon" style="font-size: 25px;">edit</mat-icon>
 </button>
 
-<div class="paragram-desktop" *ngIf="currentPage == 1 && template == 'tinder'; else regularTemplate"
+<div class="paragram-desktop ql-editor" *ngIf="currentPage === 1 && template === 'tinder'; else regularTemplate"
   style="margin: 30px;font-size: 20px;" [innerHTML]="bmxItem.componentText | safe: 'html'"></div>
 <ng-template #regularTemplate>
-  <div class="paragram-mobile" style="margin: 30px;font-size: 20px;" [innerHTML]="bmxItem.componentText | safe: 'html'"></div>
+  <div class="paragram-mobile ql-editor" style="margin: 30px;font-size: 20px;" [innerHTML]="bmxItem.componentText | safe: 'html'">
+  </div>
 </ng-template>
 
-<ckeditor
-  *ngIf="openSettings && bmxClientPageOverview"
-  [editor]="Editor"
-  id="txtTexto"
-  class="ckeditorcev"
-  [config]="ckconfig"
+<quill-editor *ngIf="openSettings && bmxClientPageOverview"
   [(ngModel)]="bmxItem.componentText"
-  [data]="bmxItem.componentText"
-  [ngModelOptions]="{ updateOn: 'blur' }">
-</ckeditor>
+  [styles]="{ height: '280px' }"
+  [modules]="editorConfig">
+</quill-editor>
