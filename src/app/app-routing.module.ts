@@ -28,18 +28,18 @@ const routes: Routes = [
   //   path: 'vote',
   //   component: NwVoteComponent
   // },
-  {// BSR-Mobile https://mynamepage.com/te2687
-    path: ':id',
-    component: BsrMobileComponent
-  },
+  // {// BSR-Mobile https://mynamepage.com/te2687
+  //   path: ':id',
+  //   component: BsrMobileComponent
+  // },
   // {// SCHEDULER
   //   path: ':id',
   //   component: SchedulerComponent
   // },
-  // {//BSR  color of the bar #002f5b  https://www.bipresents.com/pa3930
-  //   path: ':id',
-  //   component: BsrComponent
-  // },
+  {//BSR  color of the bar #002f5b  https://www.bipresents.com/pa3930
+    path: ':id',
+    component: BsrComponent
+  },
 
  
 
