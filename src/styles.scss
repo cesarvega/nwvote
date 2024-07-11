@@ -15,6 +15,9 @@ app-dashboard {
 @import './styles/theme';
 
 
+@import '~quill/dist/quill.core.css';
+@import '~quill/dist/quill.bubble.css';
+@import '~quill/dist/quill.snow.css';
 
 .mat-mdc-icon-button.mat-mdc-button-base {
 

@@ -95,6 +95,8 @@ import { ImageRankDragComponent } from './bmx/components/bmx-creator/survey-crea
 import { ImageRateScaleComponent } from './bmx/components/bmx-creator/survey-creation-design/templates/image-rate-scale/image-rate-scale.component';
 import { ImageRankComponent } from './bmx/components/bmx-creator/survey-creation-design/templates/image-rank/image-rank.component';
 import { SignalComponent } from './signal/signal.component';
+import { QuillModule } from 'ngx-quill';
+
 export function loadEcharts() {
   return import('echarts');
 }
@@ -215,7 +217,9 @@ export function MSALInstanceFactory(): IPublicClientApplication {
         CdkTreeModule,
         A11yModule,
         MatAutocompleteModule,
-        SignalComponent
+        SignalComponent,
+        QuillModule
+
         // BmxModule
     ],
     providers: [

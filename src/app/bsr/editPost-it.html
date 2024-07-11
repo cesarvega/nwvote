@@ -324,10 +324,13 @@
                         <h2 class="text-bold " style="margin: 5px;">Key Words and Concepts</h2>
 
                         <mat-icon class="synonymsIcon" matTooltip="copy to clip board before search"
-                            matTooltipPosition="above" (click)="getSynonyms()">layers</mat-icon>
-                        <ckeditor id="txtTexto" class="ckeditorcev" [ngModelOptions]="{standalone: true}"
-                            [(ngModel)]="model.editorData" [data]="dataEditor" [config]="ckconfig"></ckeditor>
-
+                            matTooltipPosition="above" (click)="getSynonyms(model.editorData)">layers</mat-icon>
+                            <quill-editor  [ngModelOptions]="{standalone: true}"
+                            [(ngModel)]="model.editorData"
+                            [styles]="{ height: '280px' }"
+                            [modules]="editorConfig">
+                          </quill-editor>
+                          
                     </div>
 
                     <div class="newnames" style="display: flex;flex-direction: column;border-radius: 8px;
@@ -446,7 +449,7 @@
     <div class="emoji-handle" cdkDragHandle>
     </div>
 
-    <div class="col">
+    <div class="col" >
 
         <div class="row">
             <!-- <p style="margin-right: 5px;">search Results for </p>
