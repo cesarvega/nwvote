@@ -1,11 +1,11 @@
 import { OverlayContainer } from '@angular/cdk/overlay';
-import { Component, OnInit, Inject, ViewEncapsulation, ViewChild } from '@angular/core';
+import { Component, OnInit, Inject, ViewEncapsulation, ViewChild, ApplicationRef } from '@angular/core';
 import { FormControl, FormGroup, UntypedFormControl } from '@angular/forms';
 import { CdkDragDrop, moveItemInArray, CdkDropListGroup, transferArrayItem } from '@angular/cdk/drag-drop';
 import { BsrService } from './bsr.service';
 
 import { UntypedFormBuilder, Validators, UntypedFormGroup } from '@angular/forms';
-import { MatDialog,  MatDialogRef,MAT_DIALOG_DATA } from '@angular/material/dialog';
+import { MatDialog, MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { DOCUMENT } from '@angular/common';
 //import { BsrService } from './services/bsr.service';
 
@@ -62,7 +62,7 @@ export class BsrComponent implements OnInit {
   nameBox = true;
   nameBoxB = true;
   myMaxWith = '900px';
-  myMaxWith2:any;
+  myMaxWith2: any;
   myMaxRWith = '900px';
   myMaxRightWith = '8px';
   showSlider: boolean = false;
@@ -81,11 +81,10 @@ export class BsrComponent implements OnInit {
   BackgroundUrlOff = 'url(http://bipresents.com/nw2/assets/images/BackGrounds/Backgrounds2019/';
   baseUrl: any;
   restUrl: any;
-
-  constructor(@Inject(DOCUMENT) private document: any, 
+  constructor(@Inject(DOCUMENT) private document: any,
     private _BsrService: BsrService, public dialog: MatDialog, private activatedRoute: ActivatedRoute) {
 
-   
+
   }
 
   ngOnInit(): void {
@@ -164,9 +163,9 @@ export class BsrComponent implements OnInit {
 
     this.getCommentsByIndex(0);
     this.loginForm = new FormGroup({
-      rationale: new FormControl("") ,
+      rationale: new FormControl(""),
       suma: new FormControl(""),
-      name:new FormControl("")
+      name: new FormControl("")
     });
     this.nameIndexCounter = (localStorage.getItem(this.projectName + '_namesIndexCounte')) ? parseInt(localStorage.getItem(this.projectName + '_namesIndexCounte')) : 0;
 
@@ -345,11 +344,11 @@ export class BsrComponent implements OnInit {
     }
     this._BsrService.newPost(JSON.stringify(newConcepData)).subscribe(arg => {
       this._BsrService.getPost().subscribe((res: any) => {
+        this.conceptData = JSON.parse(res[0].bsrData);
         this.conceptData.concepts.forEach(element => {
           element.concept = element.concept.replace(/`/g, "'");
           element.html = element.html.replace(/`/g, "'");
         });
-        this.conceptData = JSON.parse(res[0].bsrData);
       });
     });
 
@@ -474,10 +473,10 @@ export class BsrComponent implements OnInit {
       this.createPostIt = true;
 
     } else {
-      if(i){
+      if (i) {
         let slideBG = this.appSlidesData[i].SlideBGFileName;
         this.slideBackground = this.baseBackgroundUrl + slideBG + ')';
-      }      
+      }
 
       this.createPostIt = false;
     }
@@ -732,8 +731,7 @@ export class editPost {
     editorData: '',
     namesData: ''
   };
-
-
+  editorConfig: any
   newNamesPerConcept = ''
   conceptid = ''
 
@@ -750,12 +748,32 @@ export class editPost {
   nameid: any = '';
   constructor(
     public dialogRef: MatDialogRef<editPost>,
-    @Inject(MAT_DIALOG_DATA) public data: DialogData,private _BsrService: BsrService, private activatedRoute: ActivatedRoute,) {
+    @Inject(MAT_DIALOG_DATA) public data: DialogData, private _BsrService: BsrService, private activatedRoute: ActivatedRoute, private appRef: ApplicationRef)  {
     this.editName = this.data.nameId;
     this.dataEditor = this.data.name.html;
     this.model.editorData = this.data.name.html;
     this.title = this.data.name.Name;
+    this.editorConfig = {
+      toolbar: [
+        ['bold', 'italic', 'underline', 'strike'],        // toggled buttons
+        ['blockquote', 'code-block'],
 
+        [{ 'header': 1 }, { 'header': 2 }],               // custom button values
+        [{ 'list': 'ordered' }, { 'list': 'bullet' }],
+        [{ 'script': 'sub' }, { 'script': 'super' }],      // superscript/subscript
+        [{ 'indent': '-1' }, { 'indent': '+1' }],          // outdent/indent
+        [{ 'direction': 'rtl' }],                         // text direction
+
+        [{ 'size': ['small', false, 'large', 'huge'] }],  // custom dropdown
+        [{ 'header': [1, 2, 3, 4, 5, 6, false] }],
+
+        [{ 'color': [] }, { 'background': [] }],          // dropdown with defaults from theme
+        [{ 'font': [] }],
+        [{ 'align': [] }],
+
+        ['clean']                                         // remove formatting button
+      ]
+    };
     if (this.data.name.names) {
       this.data.name.names.forEach(newName => {
         this.newNamesPerConcept += newName.name + '\n';
@@ -828,7 +846,7 @@ export class editPost {
 
     }
     this.loginForm = new FormGroup({
-      rationale:new FormControl(""),
+      rationale: new FormControl(""),
       suma: new FormControl(""),
       name: new FormControl(this.concept)
     });
@@ -885,19 +903,31 @@ export class editPost {
     this.dialogRef.close(this.popupwindowData);
   }
 
-  async getSynonyms() {
-    this.synonymWord = await navigator.clipboard.readText();
+  async getSynonyms(synonyms: any) {
+    const regex = /<p>(.*?)<\/p>/g;
+    const result = [];
+    let match;
+
+    while ((match = regex.exec(synonyms)) !== null) {
+      result.push(match[1]); // match[1] contiene el texto entre <p> y </p>
+    }
+    this.synonymWord = result.join(', ')
 
     this.isSynonymBox = true;
-    this._BsrService.getSinonyms(this.synonymWord).subscribe((res: any) => {
-      let counter = 0
-      this.dataSource = [];
-      res.forEach(synonym => {
-        this.dataSource.push({ position: counter, synonyms: synonym.word, weight: 1.0079, symbol: 'H' })
-        counter++;
-      });
-      console.log(res);
-    })
+    
+    let counter = 0
+    this.dataSource = [];
+    result.forEach(element => {
+      this._BsrService.getSinonyms(element).subscribe((res: any) => {
+    
+        res = JSON.parse(res)
+        res.forEach(synonym => {
+          this.dataSource.push({ position: counter, synonyms: synonym.word, weight: 1.0079, symbol: 'H' })
+          counter++;
+        });
+        this.appRef.tick();
+      })
+    });
   }
 
   setAll(evt) {

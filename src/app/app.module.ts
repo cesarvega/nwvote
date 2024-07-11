@@ -193,7 +193,7 @@ export function MSALInstanceFactory(): IPublicClientApplication {
         // HotkeyModule.forRoot(),
         MatSliderModule,
         MatTabsModule,
-        // QRCodeModule,
+ // QRCodeModule,
         // DeviceDetectorModule,
         //AngularDateTimePickerModule,
         MatDatepickerModule,

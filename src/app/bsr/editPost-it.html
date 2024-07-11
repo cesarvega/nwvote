@@ -1,0 +1,496 @@
+
+<div style="position: relative;overflow: hidden;" fxLayoutAlign="center center">
+    <!-- <div style="position: relative;overflow: hidden;background-image: url(toolbarBg.jpg);background-repeat: no-repeat;"
+    fxLayoutAlign="center center"> -->
+    <!-- EMOJIS -->
+    <div *ngIf="isEmojiTime" class="emoji-box mat-elevation-z8" cdkDrag>
+        <div class="emoji-handle" cdkDragHandle>
+            <!-- <svg width="24px" fill="currentColor" viewBox="0 0 24 24">
+              <path d="M10 9h4V6h3l-5-5-5 5h3v3zm-1 1H6V7l-5 5 5 5v-3h3v-4zm14 2l-5-5v3h-3v4h3v3l5-5zm-9 3h-4v3H7l5 5 5-5h-3v-3z"></path>
+              <path d="M0 0h24v24H0z" fill="none"></path>
+            </svg> -->
+        </div>
+        <div class="col">
+            <div class="row cancel-emoji">
+                <mat-icon (click)="emojiToggle()">cancel</mat-icon>
+            </div>
+            <div class="row ">
+                <mat-tab-group class="tabs-emojis">
+                    <mat-tab label="Emoji" style="overflow-y: scroll;">
+                        <br>
+                        Faces<br>
+                        😀 😃 😄 😁 😆 😅 😂 🤣 😊 😇 🙂 🙃 😉 😌 😍 🥰 😘 😗 😙 😚 😋 😛 😝 😜 🤪 🤨 🧐
+                        🤓 😎 🤩 🥳 😏 😒 😞 😔 😟 😕 🙁 ☹️ 😣 😖 😫 😩 🥺 😢 😭 😤 😠 😡 🤬 🤯 😳 🥵 🥶 😱 😨 😰 😥 😓
+                        🤗 🤔 🤭
+                        🤫 🤥 😶 😐 😑 😬 🙄 😯 😦 😧 😮 😲 🥱 😴 🤤 😪 😵 🤐 🥴 🤢 🤮 🤧 😷 🤒 🤕 🤑 🤠 😈 👿 👹 👺 🤡
+                        💩 👻 💀
+                        ☠️ 👽 👾 🤖 🎃 😺 😸 😹 😻 😼 😽 🙀 😿 😾
+                        ❤️ 🧡 💛 💚 💙 💜 🖤 🤍 🤎 💔 ❣️ 💕 💞 💓 💗 💖 💘 💝 💟
+                        <br>
+                        Gestures and Body Parts<br>
+                        👋 🤚 🖐 ✋ 🖖 👌 🤏 ✌️ 🤞 🤟 🤘 🤙 👈 👉 👆 🖕 👇 ☝️ 👍 👎 ✊ 👊 🤛 🤜 👏 🙌 👐 🤲 🤝 🙏 ✍️ 💅 🤳
+                        💪 🦾
+                        🦵 🦿 🦶 👂 🦻 👃 🧠 🦷 🦴 👀 👁 👅 👄 💋 🩸
+                        <br>
+                        People and Fantasy<br>
+                        👶 🧒 👦 👧 🧑 👱 👨 🧔 👨‍🦰 👨‍🦱 👨‍🦳 👨‍🦲 👩 👩‍🦰 🧑‍🦰 👩‍🦱 🧑‍🦱 👩‍🦳 🧑‍🦳 👩‍🦲
+                        🧑‍🦲 👱‍♀️
+                        👱‍♂️ 🧓 👴 👵 🙍 🙍‍♂️ 🙍‍♀️ 🙎 🙎‍♂️ 🙎‍♀️ 🙅 🙅‍♂️ 🙅‍♀️ 🙆 🙆‍♂️ 🙆‍♀️ 💁 💁‍♂️ 💁‍♀️ 🙋
+                        🙋‍♂️ 🙋‍♀️
+                        🧏 🧏‍♂️ 🧏‍♀️ 🙇 🙇‍♂️ 🙇‍♀️ 🤦 🤦‍♂️ 🤦‍♀️ 🤷 🤷‍♂️ 🤷‍♀️ 🧑‍⚕️ 👨‍⚕️ 👩‍⚕️ 🧑‍🎓 👨‍🎓 👩‍🎓
+                        🧑‍🏫
+                        👨‍🏫 👩‍🏫 🧑‍⚖️ 👨‍⚖️ 👩‍⚖️ 🧑‍🌾 👨‍🌾 👩‍🌾 🧑‍🍳 👨‍🍳 👩‍🍳 🧑‍🔧 👨‍🔧 👩‍🔧 🧑‍🏭 👨‍🏭
+                        👩‍🏭
+                        🧑‍💼 👨‍💼 👩‍💼 🧑‍🔬 👨‍🔬 👩‍🔬 🧑‍💻 👨‍💻 👩‍💻 🧑‍🎤 👨‍🎤 👩‍🎤 🧑‍🎨 👨‍🎨 👩‍🎨 🧑‍✈️
+                        👨‍✈️
+                        👩‍✈️ 🧑‍🚀 👨‍🚀 👩‍🚀 🧑‍🚒 👨‍🚒 👩‍🚒 👮 👮‍♂️ 👮‍♀️ 🕵 🕵️‍♂️ 🕵️‍♀️ 💂 💂‍♂️ 💂‍♀️ 👷
+                        👷‍♂️ 👷‍♀️
+                        🤴 👸 👳 👳‍♂️ 👳‍♀️ 👲 🧕 🤵 👰 🤰 🤱 👼 🎅 🤶 🦸 🦸‍♂️ 🦸‍♀️ 🦹 🦹‍♂️ 🦹‍♀️ 🧙 🧙‍♂️ 🧙‍♀️ 🧚
+                        🧚‍♂️
+                        🧚‍♀️ 🧛 🧛‍♂️ 🧛‍♀️ 🧜 🧜‍♂️ 🧜‍♀️ 🧝 🧝‍♂️ 🧝‍♀️ 🧞 🧞‍♂️ 🧞‍♀️ 🧟 🧟‍♂️ 🧟‍♀️ 💆 💆‍♂️ 💆‍♀️
+                        💇 💇‍♂️
+                        💇‍♀️ 🚶 🚶‍♂️ 🚶‍♀️ 🧍 🧍‍♂️ 🧍‍♀️ 🧎 🧎‍♂️ 🧎‍♀️ 🧑‍🦯 👨‍🦯 👩‍🦯 🧑‍🦼 👨‍🦼 👩‍🦼 🧑‍🦽
+                        👨‍🦽 👩‍🦽
+                        🏃 🏃‍♂️ 🏃‍♀️ 💃 🕺 🕴 👯 👯‍♂️ 👯‍♀️ 🧖 🧖‍♂️ 🧖‍♀️ 🧘 🧑‍🤝‍🧑 👭 👫 👬 💏 👨‍❤️‍💋‍👨
+                        👩‍❤️‍💋‍👩 💑
+                        👨‍❤️‍👨 👩‍❤️‍👩 👪 👨‍👩‍👦 👨‍👩‍👧 👨‍👩‍👧‍👦 👨‍👩‍👦‍👦 👨‍👩‍👧‍👧 👨‍👨‍👦 👨‍👨‍👧
+                        👨‍👨‍👧‍👦
+                        👨‍👨‍👦‍👦 👨‍👨‍👧‍👧 👩‍👩‍👦 👩‍👩‍👧 👩‍👩‍👧‍👦 👩‍👩‍👦‍👦 👩‍👩‍👧‍👧 👨‍👦 👨‍👦‍👦
+                        👨‍👧
+                        👨‍👧‍👦 👨‍👧‍👧 👩‍👦 👩‍👦‍👦 👩‍👧 👩‍👧‍👦 👩‍👧‍👧 🗣 👤 👥 👣
+                    </mat-tab>
+                    <mat-tab label="Nature"> 🐶 🐱 🐭 🐹 🐰 🦊 🐻 🐼 🐨 🐯 🦁 🐮 🐷 🐽 🐸 🐵 🙈 🙉 🙊 🐒 🐔 🐧 🐦 🐤 🐣
+                        🐥 🦆 🦅
+                        🦉
+                        🦇 🐺 🐗 🐴 🦄 🐝 🐛 🦋
+                        🐌 🐞 🐜 🦟 🦗 🕷 🕸 🦂 🐢 🐍 🦎 🦖 🦕 🐙 🦑 🦐 🦞 🦀 🐡 🐠 🐟 🐬 🐳 🐋 🦈 🐊 🐅 🐆 🦓 🦍 🦧 🐘
+                        🦛 🦏 🐪
+                        🐫
+                        🦒
+                        🦘 🐃 🐂 🐄 🐎 🐖 🐏 🐑 🦙 🐐 🦌 🐕 🐩 🦮 🐕‍🦺 🐈 🐓 🦃 🦚 🦜 🦢 🦩 🕊 🐇 🦝 🦨 🦡 🦦 🦥 🐁 🐀
+                        🐿 🦔 🐾
+                        🐉
+                        🐲
+                        🌵 🎄 🌲 🌳 🌴 🌱 🌿 ☘️ 🍀 🎍 🎋 🍃 🍂 🍁 🍄 🐚 🌾 💐 🌷 🌹 🥀 🌺 🌸 🌼 🌻 🌞 🌝 🌛 🌜 🌚 🌕 🌖
+                        🌗 🌘 🌑
+                        🌒
+                        🌓
+                        🌔 🌙 🌎 🌍 🌏 🪐 💫 ⭐️ 🌟 ✨ ⚡️ ☄️ 💥 🔥 🌪 🌈 ☀️ 🌤 ⛅️ 🌥 ☁️ 🌦 🌧 ⛈ 🌩 🌨 ❄️ ☃️ ⛄️ 🌬 💨 💧 💦
+                        ☔️ ☂️
+                        🌊 🌫
+                        ⌚️ 📱 📲 💻 ⌨️ 🖥 🖨 🖱 🖲 🕹 🗜 💽 💾 💿 📀 📼 📷 📸 📹 🎥 📽 🎞 📞 ☎️ 📟 📠 📺 📻 🎙 🎚 🎛 🧭
+                        ⏱ ⏲ ⏰ 🕰 ⌛️ ⏳ 📡 🔋 🔌 💡 🔦 🕯 🪔 🧯 🛢 💸 💵 💴 💶 💷 💰 💳 💎 ⚖️ 🧰 🔧 🔨 ⚒ 🛠 ⛏ 🔩 ⚙️ 🧱 ⛓
+                        🧲 🔫 💣 🧨 🪓 🔪 🗡 ⚔️ 🛡 🚬 ⚰️ ⚱️ 🏺 🔮 📿 🧿 💈 ⚗️ 🔭 🔬 🕳 🩹 🩺 💊 💉 🩸 🧬 🦠 🧫 🧪 🌡 🧹
+                        🧺 🧻 🚽 🚰 🚿 🛁 🛀 🧼 🪒 🧽 🧴 🛎 🔑 🗝 🚪 🪑 🛋 🛏 🛌 🧸 🖼 🛍 🛒 🎁 🎈 🎏 🎀 🎊 🎉 🎎 🏮 🎐
+                        🧧 ✉️ 📩 📨 📧 💌 📥 📤 📦 🏷 📪 📫 📬 📭 📮 📯 📜 📃 📄 📑 🧾 📊 📈 📉 🗒 🗓 📆 📅 🗑 📇 🗃 🗳
+                        🗄 📋 📁 📂 🗂 🗞 📰 📓 📔 📒 📕 📗 📘 📙 📚 📖 🔖 🧷 🔗 📎 🖇 📐 📏 🧮 📌 📍 ✂️ 🖊 🖋 ✒️ 🖌 🖍
+                        📝 ✏️ 🔍 🔎 🔏 🔐 🔒 🔓
+                    </mat-tab>
+                    <mat-tab label="Cool">
+                        [̲̅ə̲̅٨̲̅٥̲̅٦̲̅] ✯ℋᵅᵖᵖᵞ ℬⁱʳᵗᑋᵈᵃᵞ✯ ⋆｡˚ᎶᎾᎾⅅ ℕᏐᎶℍᎢ⋆｡˚✩ 💪👦👉 ◨██══════██◧ ✌♫♪˙❤‿❤˙♫♪✌
+                        ☆❋──❁ɢ∞פ ʍօ®ɴɪɴɢ❃──❋[̲̅$̲̅(̲̅5̲̅)̲̅$̲̅] ┌∩┐(ಠ_ಠ)┌∩┐ ———–[]=¤ԅ༼ ･ 〜 ･ ༽╯
+                        ✌（◕ω◕）✌ 乂❤‿❤乂 ⎧ᴿᴵᴾ⎫◟◟◟◟◟◟◟ ❀◟(ó ̯ ò, ) ლ(´ ❥ `ლ) 🐕≡≡≡===💨 ヽ(ﾟεﾟヽ)))))
+                        ʕっ•ᴥ•ʔ ♥️♥️🖤🖤☠️💀☠️🖤🖤♥️♥️ ★ PLΔyBӨY ★ ̿̿’̿’\̵͇̿̿\=(•̪●)=/̵͇̿̿/’̿̿ ̿ ̿ ̿ ʕ•͡-•ʔ __̴ı̴̴̡̡̡
+                        ̡͌l̡̡̡ ̡͌l̡*̡̡ ̴̡ı̴̴̡ ̡̡͡|̲̲̲͡͡͡ ̲▫̲͡ ̲̲̲͡͡π̲̲͡͡ ̲̲͡▫̲̲͡͡ ̲|̡̡̡ ̡ ̴̡ı̴̡̡ ̡͌l̡̡̡̡.___
+                        v^√√v^──√v^√v^──√v^√√v^── 🏃‍♂️三三☲=💨 ⋆⋆⃟⊱✪⃝⃞⃝⊰⋆⃟⋆⋆ ◤◢◣◥◤◢◣◥ ◦°˚\😃/˚°◦ ♞▀▄▀▄♝▀▄
+                        🐓🐓🥚 ══► 🍳 [̲̅$̲̅(̲̅10)̲̅$̲̅] ｍ（｡≧ _ ≦｡）ｍ Ꮹꄲꄲძ ℳꄲᖇᘉɪ̊ᘉ꒸.͙✼̥୭⁺ ◙▒◙♫♩♬ (ó﹏ò｡) 🌷 ꒐꓄'ꇙ ꇙꉣꋪ꒐ꋊꍌ 🌷
+                    </mat-tab>
+                </mat-tab-group>
+            </div>
+
+
+        </div>
+
+    </div>
+
+
+    <!-- DELETE BOX -->
+    <div *ngIf="infoMessage && !isMobileInfo" style="width: 400px;">
+
+        <div *ngIf="!isDeleting" class="mat-h2" style="text-align: center;">Are you sure you want to delete? </div>
+        <!-- <div *ngIf="!isDeleting" class="mat-h4">This post will be removed permanently.</div> -->
+        <div *ngIf="!isDeleting" class="mat-h1" style="text-align: center;color: #004684;">{{concept}}</div>
+        <hr>
+
+        <div class="row" style="text-align: center;">
+
+            <div fxFlex fxLayoutAlign="end end">
+                <div fxFlex>
+
+                    <button *ngIf="!isDeleting" (click)="buttonOption('cancel')" class="refreshbutton" mat-mini-fab
+                        style="color: white;background-color: grey;padding: 3px;outline: none;" color="success"
+                        aria-label="icon">
+                        <mat-icon>cancel</mat-icon>
+                    </button><br>
+                    <div style="color: #000;">cancel</div>
+                </div>
+
+                <div fxFlex>
+
+                    <button *ngIf="!isDeleting && isDeletingName" (click)="buttonOption('delete')" class="refreshbutton"
+                        mat-mini-fab style="color: white;background-color: red;padding: 3px;outline: none;"
+                        color="success" aria-label="icon">
+                        <mat-icon>check</mat-icon>
+                    </button><br>
+
+                    <button *ngIf="!isDeleting && !isDeletingName" (click)="buttonOption('deleteName')"
+                        class="refreshbutton" mat-mini-fab
+                        style="color: white;background-color: red;padding: 4px;outline: none;" color="success"
+                        aria-label="icon">
+                        <mat-icon>delete</mat-icon>
+                    </button>
+                    <div style="color: #000;">delete</div>
+                </div>
+            </div>
+        </div>
+
+
+    </div>
+    <!-- MOBILE INFO PICTURE DISPLAY -->
+    <div *ngIf="isMobileInfo">
+
+
+
+        <div class="row" layout-align="center center">
+
+            <!-- <qrcode [qrdata]="myAngularxQrCode" [width]="256" [errorCorrectionLevel]="'M'"></qrcode> -->
+
+            <div flex="" class="text-center flex" style="margin:0 18px">
+                <p>1. Access
+                <img class="instruction-style " src="assets/img/bsr/login_page.JPG" alt="Login">
+            </div>
+            <div flex="" class="text-center flex" style="margin-right:10px">
+                <p>2.
+                    Enter name suggestions</p>
+                <img class="instruction-style" src="assets/img/bsr/page_creation.JPG" alt="Candidates">
+            </div>
+            <div flex="" class="text-center flex">
+                <p>3.
+                    Edit name suggestions (optional)</p>
+                <img class="instruction-style" src="assets/img/bsr/editing_name.JPG" alt="Edit, Save and Delete">
+            </div>
+            <div flex="" class="text-center flex" style="margin: 0px 15px;">
+                <p>4.
+                    Complete</p>
+                <img class="instruction-style" src="assets/img/bsr/thank_you_page.JPG" alt="Logout">
+            </div>
+
+
+
+            <mat-icon (click)="buttonOption('')" style="    color: #004684;
+            position: absolute;
+            bottom: -15px;
+            outline: none;
+            right: -7px;
+            font-size: 17px;
+            cursor: pointer;
+            ">disabled_by_default</mat-icon>
+
+
+        </div>
+
+
+        <div ng-hide="!bsrMenubarController.isItNSR" class="nonprop-name-rule-style" aria-hidden="false">
+
+            <!-- <h4>
+                The letters h, j, k, w, and y should be avoided
+            </h4>
+
+            <h2 style="line-height: 1.5;margin-top:0px;">
+                A B C D E F G H I J K L M N O P Q R S T U V W <mark>X</mark> Y <mark>Z</mark>
+            </h2>
+
+            <h4>
+                Do Not Start With
+            </h4>
+
+            <ul>
+                <li>
+                    No Double Letters (OO, EE, etc.) OR Triple Consonants
+                </li>
+                <li>
+                    Avoid Double Vowels (Qu- is the only exception)
+                </li>
+                <li>
+                    No Numerical Connotations (TRI, DUB, etc.)
+                </li>
+                <li>
+                    Preferences: “F” not “PH” / “T” not “TH”/ “E” not “AE” or “OE”/ “I” not “Y”
+                </li>
+                <li>
+                    Avoid Beginning Letter Combination with “ME” or “STR”
+                </li>
+                <li>
+                    Total Name (Prefix+Stem) = 4 to 5 Syllables
+                </li>
+                <li>
+                    Special Cases Exist – Please Note Rules Above Are for Prefix + Stem Structure
+                </li>
+                <li>
+                    <mark>Use the letters X, and Z to a minimum</mark>
+                </li>
+            </ul>
+
+            <h4>
+                <b>
+                    <u>
+                        Rules concerning letters
+                    </u>
+                </b>
+            </h4>
+
+            <ul>
+                <li>
+                    The beginning letter sequences “ar-”, “rac-”, “lev-”, “dex-”, “zu-“ or “es-” are reserved for
+                    stereochemical configurations
+                </li>
+                <li type="square" style="padding-left:30px;">
+                    Only used if an isomer of the compound has already been assigned a nonproprietary name
+                </li>
+            </ul>
+
+            <h4>
+                <b>
+                    <u>
+                        Rules concerning meanings
+                    </u>
+                </b>
+            </h4>
+
+            <ul>
+                <li>
+                    Prefixes should not explicitly or implicitly contain any references to:
+                </li>
+                <li type="square" style="padding-left:30px;">
+                    chemical structure (unless present in the compound)
+                </li>
+                <li type="square" style="padding-left:30px;">
+                    anatomical targets or medical conditions to treat
+                </li>
+                <li type="disc" style="padding-left:60px;">
+                    eg “bone-”, “tumo-”, “melan-”
+                </li>
+                <li type="square" style="padding-left:30px;">
+                    promotional language
+                </li>
+                <li type="disc" style="padding-left:60px;">
+                    eg “best-”, “dura-”, “efex-”
+                </li>
+                <li type="square" style="padding-left:30px;">
+                    the name of the manufacturer
+                </li>
+            </ul> -->
+        </div>
+
+
+    </div>
+
+    <!-- EDITOR CARD -->
+    <div *ngIf="!infoMessage && !isMobileInfo && !isQRcode">
+        <form name="loginForm" [formGroup]="loginForm" novalidate>
+            <div class="editPostit" style="display: flex;flex-direction: column;">
+
+                <div class="postItTitle" style="    display: flex;
+                flex-direction: column;
+                border-radius: 8px;
+                border: 1px solid #004684;
+                height: 90px;
+                font-size: 30px;
+                width: 99%">
+
+                    <!-- CONCEPT TITLE -->
+                    <div style="display: flex; flex-direction: row; color: #004684; margin: 10px;">
+                        <mat-icon style="padding-top: 8px;">assignment</mat-icon>
+                        <h2 class="text-bold " style="padding-left: 5px;">CONCEPT TITLE</h2>
+                    </div>
+                    <mat-form-field *ngIf="!isDeleting" style="
+                       font-size: 32px;
+    position: relative;
+    top: -70px;
+    width: 98%;
+    margin: 5px 10px;
+    line-height: 33px;
+                    ">
+                        <input matInput type="Concept" formControlName="name">
+                    </mat-form-field>
+
+
+                </div>
+
+                <div class="secondRow" style="display: flex;flex-direction: row;">
+
+                    <div class="ckeditor" style="border-radius: 8px; margin: 10px 0;
+                    border: 1px solid #004684; color: #004684;  max-width: 650px;  min-width: 350px;">
+                        <h2 class="text-bold " style="margin: 5px;">Key Words and Concepts</h2>
+
+                        <mat-icon class="synonymsIcon" matTooltip="copy to clip board before search"
+                            matTooltipPosition="above" (click)="getSynonyms()">layers</mat-icon>
+                        <ckeditor id="txtTexto" class="ckeditorcev" [ngModelOptions]="{standalone: true}"
+                            [(ngModel)]="model.editorData" [data]="dataEditor" [config]="ckconfig"></ckeditor>
+
+                    </div>
+
+                    <div class="newnames" style="display: flex;flex-direction: column;border-radius: 8px;
+                    border: 1px solid #004684; padding-left: 10px; margin: 10px;">
+                        <h2 class="text-bold " style="color: #004684;">New Names</h2>
+                        <textarea style="" matInput cdkTextareaAutosize cdkAutosizeMinRows="23" formControlName="suma"
+                            appearance="outline" [value]="newNamesPerConcept" [(ngModel)]="newNamesPerConcept"
+                            formControlName="suma"></textarea>
+
+                    </div>
+
+                </div>
+
+                <div style="    display: flex;
+                flex-direction: row;
+                justify-content: center;
+                position: absolute;
+                height: 0px;
+                right: 13px;
+                bottom: 73px;">
+                    <button (click)="buttonOption('savePost')" class="post-it-done-button" mat-fab color="success"
+                        aria-label="icon">
+                        <mat-icon style="line-height: 26px;">check</mat-icon>
+                    </button>
+                </div>
+            </div>
+        </form>
+    </div>
+
+
+    <!-- OLD POST IT -->
+    <!-- <div *ngIf="!infoMessage && !isMobileInfo && !isQRcode" class="">
+    <form name="loginForm" [formGroup]="loginForm" novalidate class="">
+        <div class="container" fxLayout="column" fxLayoutAlign="center center">
+            <div class="row ">
+                <div class="col">
+                    <div class="title-card">
+
+                        <div class="p-16" style="color: #004684;padding: 10px;" fxLayout="row"
+                            fxLayoutAlign="start center">
+                            <mat-icon style="margin-right: 10px;">assignment</mat-icon>
+                            <h2 class="text-bold ">CONCEPT TITLE</h2>
+                        </div>
+
+                        <div fxLayoutAlign="center center">
+                            <mat-form-field *ngIf="!isDeleting" style="width: 954px;
+                            position: relative;
+                            top: -20px;
+                            font-size: 31px;">
+                              
+                                <input matInput type="Concept" formControlName="name">
+                            </mat-form-field>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col">
+                    <div class="ckeditor-card">
+
+                        <div class="p-16" style="color: #004684;padding: 10px;" fxLayout="row"
+                            fxLayoutAlign="start center">
+
+                            <h2 class="text-bold ">Key Words and Concepts</h2>
+
+                            <mat-icon class="synonymsIcon" matTooltip="copy to clip board before search"
+                                matTooltipPosition="above" (click)="getSynonyms()">layers</mat-icon>
+                        </div>
+
+                       
+                        <ckeditor id="txtTexto" class="ckeditorcev" [ngModelOptions]="{standalone: true}"
+                            [(ngModel)]="model.editorData" [data]="dataEditor" [config]="ckconfig"></ckeditor>
+                    </div>
+                </div>
+                <div class="col">
+                    <div class="new-names-card " style="overflow: hidden;">
+
+                        <div class="p-16" style="color: #004684;padding: 5px;" fxLayout="row"
+                            fxLayoutAlign="start center">
+                            <h2 class="text-bold ">New Names</h2>
+                        </div>
+
+                       
+                        <div class="p-16" style="padding: 10px;height: 780px;" fxLayout="row"
+                            fxLayoutAlign="start center">
+                            <textarea matInput cdkTextareaAutosize cdkAutosizeMinRows="23" formControlName="suma"
+                                cdkAutosizeMaxRows="23" style="
+                                                        height: 460px;
+                                                        width: 248px;
+                                                        position: absolute;
+                                                        font-size: 30px;
+                                                        line-height: 28px;
+                                                        top: 40px;" appearance="outline"
+                                formControlName="suma"></textarea>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </form>
+
+    <button (click)="buttonOption('savePost')" class="post-it-done-button" mat-fab color="success"
+        aria-label="icon">
+        <mat-icon>check</mat-icon>
+    </button>
+</div> -->
+
+
+<!-- QR CODE-->
+<div *ngIf="isQRcode" class="qr_code">
+    <p style="font-family: sans-serif;font-size: 28px;margin: 0px;">scan me</p>
+    <p><a style="color: black;" target="_blank">{{myAngularxQrCode}}</a></p>
+</div>
+
+<div *ngIf="isSynonymBox" class="synonyms-box mat-elevation-z8" cdkDrag>
+    <div class="emoji-handle" cdkDragHandle>
+    </div>
+
+    <div class="col">
+
+        <div class="row">
+            <!-- <p style="margin-right: 5px;">search Results for </p>
+            <p style="color: red;">{{synonymWord}}</p> -->
+            <p>{{dataSource.length}} Results for </p>
+            <p style="color: red;margin-left: 5px;">{{synonymWord}}</p>
+        </div>
+
+        <div class="row" style="overflow-y: scroll; height: 360px;">
+
+            <table mat-table [dataSource]="dataSource" class="mat-elevation-z8">
+
+                <!-- Position Column -->
+                <ng-container matColumnDef="position">
+                    <th mat-header-cell *matHeaderCellDef> No. </th>
+                    <td mat-cell *matCellDef="let element"> {{element.position}} </td>
+                </ng-container>
+
+                <!-- Name Column -->
+                <ng-container matColumnDef="name">
+                    <th mat-header-cell *matHeaderCellDef> Synonyms </th>
+                    <td mat-cell *matCellDef="let element"> {{element.synonyms}} </td>
+                </ng-container>
+
+                <!-- Weight Column -->
+                <ng-container matColumnDef="weight">
+                    <th mat-header-cell *matHeaderCellDef> Select </th>
+                    <td mat-cell *matCellDef="let element">
+                        <mat-checkbox (change)="setAll(element.synonyms)">
+                        </mat-checkbox>
+                    </td>
+
+                </ng-container>
+
+
+
+                <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+                <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+            </table>
+        </div>
+
+        <div class="row">
+            <button mat-button class="" style="    position: relative;
+            right: -660px;" (click)="addSynonymsToEditor()">DONE</button>
+        </div>
+    </div>
+</div>
