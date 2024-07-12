@@ -69,7 +69,7 @@ import { ProjectListComponent } from './bmx/components/project-list/project-list
 import { MatAutocompleteModule } from '@angular/material/autocomplete';
 import {DocxSurveyComponent} from './bmx/components/docx-survey/docx-survey.component'
 import {BmxComponent} from './bmx/components/bmx-survey/bmx.component'
-import {BmxCreatorComponent} from './bmx/components/bmx-creator/bmx-creator.component'
+// import {BmxCreatorComponent} from './bmx/components/bmx-creator/bmx-creator.component'
 import {SurveyCreationDesignComponent} from './bmx/components/bmx-creator/survey-creation-design/survey-creation-design.component'
 import {SurveyMatrixComponent} from './bmx/components/bmx-creator/survey-matrix/survey-matrix.component'
 import {ImageUploaderComponent} from './bmx/components/bmx-creator/image-uploader/image-uploader.component'
@@ -138,7 +138,7 @@ export function MSALInstanceFactory(): IPublicClientApplication {
         ProjectReportsComponent,
         ProjectListComponent,
         DocxSurveyComponent,
-        BmxComponent,
+        // BmxComponent,
         // BmxCreatorComponent,
         SurveyCreationDesignComponent,
         SurveyMatrixComponent,

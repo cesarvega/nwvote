@@ -1,9 +1,9 @@
 import { OverlayContainer } from '@angular/cdk/overlay';
-import { Component, OnInit, Inject, ViewEncapsulation, ViewChild, ApplicationRef } from '@angular/core';
+import { Component, OnInit, Inject, ViewEncapsulation, ViewChild, ChangeDetectorRef  } from '@angular/core';
 import { FormControl, FormGroup, UntypedFormControl } from '@angular/forms';
 import { CdkDragDrop, moveItemInArray, CdkDropListGroup, transferArrayItem } from '@angular/cdk/drag-drop';
 import { BsrService } from './bsr.service';
-
+// import { HotkeysService, Hotkey } from 'angular2-hotkeys';
 import { UntypedFormBuilder, Validators, UntypedFormGroup } from '@angular/forms';
 import { MatDialog, MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { DOCUMENT } from '@angular/common';
@@ -82,7 +82,9 @@ export class BsrComponent implements OnInit {
   baseUrl: any;
   restUrl: any;
   constructor(@Inject(DOCUMENT) private document: any,
-    private _BsrService: BsrService, public dialog: MatDialog, private activatedRoute: ActivatedRoute) {
+    private _BsrService: BsrService, public dialog: MatDialog, private activatedRoute: ActivatedRoute,  
+    // private _hotkeysService: HotkeysService,
+  ) {
 
 
   }
@@ -90,7 +92,7 @@ export class BsrComponent implements OnInit {
   ngOnInit(): void {
 
     this.baseUrl = this._BsrService.getBaseUrlForResources();
-
+    window.addEventListener('keydown', this.handleKeyDown.bind(this));
     if (this.baseUrl === 'https://bitools.s3.amazonaws.com/nw-resources/') {
       this.BackgroundUrl = 'https://d3lyn5npnikbck.cloudfront.net/'
     }
@@ -298,6 +300,12 @@ export class BsrComponent implements OnInit {
         this.searchBoxLeftProperty = '777px';
       }
       this.pageCounter = this.currentPageNumber + 1 + '/' + this.totalNumberOfSlides;
+      if(this.appSlidesData[this.currentPageNumber].SlideDescription == 'Brainstorm'){
+        this.bsr()
+      }else{
+        this.createPostIt = false;
+
+      }
     } else {
       this.goToSlide(this.currentPageNumber);
     }
@@ -317,6 +325,18 @@ export class BsrComponent implements OnInit {
         this.createPostIt = true;
         this.searchBoxLeftProperty = '777px';
       }
+      if(this.appSlidesData[this.currentPageNumber].SlideDescription == 'Brainstorm'){
+        this.bsr()
+      }else{
+        this.createPostIt = false;
+      }
+    }
+  }
+  handleKeyDown(event: KeyboardEvent): void {
+    if (event.key === 'ArrowRight') {
+      this.moveForward();
+    } else if (event.key === 'ArrowLeft') {
+      this.moveBackward();
     }
   }
 
@@ -382,9 +402,7 @@ export class BsrComponent implements OnInit {
     localStorage.setItem(this.projectName + '_createPostIt', this.createPostIt.toString());
     this.nameIndexCounter = parseInt(localStorage.getItem(this.projectName + '_namesIndexCounte'));
     this.onInputChange(parseInt(localStorage.getItem(this.projectName + '_namesBoxIndex')));
-    this.currentPageNumber = this.postItPresentationIndex;
     this.pageCounter = this.postItPresentationIndex + 1 + '/' + this.totalNumberOfSlides;
-    this.currentPageNumber = this.postItPresentationIndex;
 
   }
 
@@ -467,7 +485,7 @@ export class BsrComponent implements OnInit {
   goToSlide(i) {
     this.overview = false;
     this.currentPageNumber = i;
-
+    
 
     if (this.postItPresentationIndex == this.currentPageNumber) {
       this.createPostIt = true;
@@ -480,7 +498,8 @@ export class BsrComponent implements OnInit {
 
       this.createPostIt = false;
     }
-
+    
+  
     this.pageCounter = i + 1 + '/' + this.totalNumberOfSlides;
   }
 
@@ -684,6 +703,7 @@ export class BsrComponent implements OnInit {
 
 import { MatSliderChange } from '@angular/material/slider';
 import { ActivatedRoute } from '@angular/router';
+import { BehaviorSubject,forkJoin, map } from 'rxjs';
 // import { ThrowStmt } from '@angular/compiler/src/output/output_ast';
 // import { DragulaService } from 'ng2-dragula';
 
@@ -742,13 +762,13 @@ export class editPost {
 
   displayedColumns: string[] = ['name', 'weight'];
   synonymWord: string = ' Copy name to clipboard ';
-  dataSource: any[];
+  dataSource = new BehaviorSubject<any[]>([]);
   public myAngularxQrCode: string = null;
   isQRcode: boolean;
   nameid: any = '';
   constructor(
     public dialogRef: MatDialogRef<editPost>,
-    @Inject(MAT_DIALOG_DATA) public data: DialogData, private _BsrService: BsrService, private activatedRoute: ActivatedRoute, private appRef: ApplicationRef)  {
+    @Inject(MAT_DIALOG_DATA) public data: DialogData, private _BsrService: BsrService, private activatedRoute: ActivatedRoute, private cdr: ChangeDetectorRef )  {
     this.editName = this.data.nameId;
     this.dataEditor = this.data.name.html;
     this.model.editorData = this.data.name.html;
@@ -907,7 +927,7 @@ export class editPost {
     const regex = /<p>(.*?)<\/p>/g;
     const result = [];
     let match;
-
+    console.log(synonyms)
     while ((match = regex.exec(synonyms)) !== null) {
       result.push(match[1]); // match[1] contiene el texto entre <p> y </p>
     }
@@ -915,19 +935,26 @@ export class editPost {
 
     this.isSynonymBox = true;
     
-    let counter = 0
-    this.dataSource = [];
-    result.forEach(element => {
-      this._BsrService.getSinonyms(element).subscribe((res: any) => {
-    
-        res = JSON.parse(res)
+    let counter = 0;
+    const requests = result.map(element =>
+      this._BsrService.getSinonyms(element).pipe(
+        map((res: any) => JSON.parse(res))
+      )
+    );
+
+    forkJoin(requests).subscribe((results: any[]) => {
+      const data: any[] = [];
+      results.forEach(res => {
         res.forEach(synonym => {
-          this.dataSource.push({ position: counter, synonyms: synonym.word, weight: 1.0079, symbol: 'H' })
+          data.push({ position: counter, synonyms: synonym.word, weight: 1.0079, symbol: 'H' });
           counter++;
         });
-        this.appRef.tick();
-      })
+      });
+      this.dataSource.next(data); // Actualiza el BehaviorSubject
+      this.cdr.markForCheck(); // Forzar la detección de cambios
     });
+
+    
   }
 
   setAll(evt) {

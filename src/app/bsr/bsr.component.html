@@ -19,8 +19,11 @@
           </button>
         </div>
   
-        <button (click)="moveBackward()" class="menu-left-icon" disableRipple mat-icon-button color="red">
+        <button (click)="moveBackward()" [ngClass]="createPostIt?'menu-left-icon-post':'menu-left-icon'" disableRipple mat-icon-button color="red">
           <mat-icon>keyboard_arrow_left</mat-icon>
+        </button>
+        <button (click)="moveForward()"  [ngClass]="createPostIt?'menu-right-icon-post':'menu-right-icon'"  disableRipple mat-icon-button color="red">
+          <mat-icon>keyboard_arrow_right</mat-icon>
         </button>
   
         <!-- COMMENTS BOX -->
@@ -164,7 +167,7 @@
           </button>
           <button (click)="mainMenu = false" matTooltip="hide menu" matTooltipPosition="above" mat-icon-button
             color="warn" aria-label="aria">
-            <mat-icon class="full-icon">keyboard_arrow_down</mat-icon>
+            <mat-icon class="full-icon">keyboard_arrow_right</mat-icon>
           </button>
   
         </div>
@@ -361,13 +364,20 @@
                         <input matInput type="New Name" placeholder="name1, name2, name3" formControlName="name"
                           [(ngModel)]="newName">
                       </mat-form-field>
-                      <button (click)="submitNewName(); newName=''" mat-icon-button color="success" aria-label="icon"
-                        style="outline: none;">
-                        <mat-icon style="font-size: 50px;
+                      <button style (click)="submitNewName(); newName=''" mat-icon-button color="success" aria-label="icon"
+                        style="outline: none;
+                          position: absolute;
+                        outline: none;
+                        font-size: 50px;
                         position: absolute;
-                        top: 0px;
+                        top: 24px;
                         z-index: 1;
-                        left: 0px;">play_arrow</mat-icon>
+                        left: 239px;
+                      display: flex;
+                      justify-content: center;
+                      align-items: center;"  >
+                        <mat-icon class="play-arrow">play_arrow</mat-icon>  
+                    
                       </button>
                       <p *ngIf="!isNSR" style="position: absolute;
                       top: 60px;">www.mynamepage.com/{{projectName}}</p>
@@ -400,11 +410,18 @@
                           [(ngModel)]="newName">
                       </mat-form-field>
                       <button (click)="submitNewName(); newName=''" mat-icon-button color="success" aria-label="icon"
-                        style="outline: none;">
-                        <mat-icon style="font-size: 50px;
+                         style="outline: none;
                         position: absolute;
-                        top: 0px;
-                        left: 0px;">play_arrow</mat-icon>
+                      outline: none;
+                      font-size: 50px;
+                      position: absolute;
+                      top: 24px;
+                      z-index: 1;
+                      left: 239px;
+                      display: flex;
+                      justify-content: center;
+                      align-items: center;" >
+                        <mat-icon  class="play-arrow">play_arrow</mat-icon>
                       </button>
                       <p style="position: absolute;
                       top: 60px;">www.mynamepage.com/{{projectName}}</p>
@@ -476,7 +493,7 @@
   
                       <button (click)="mainMenu = false" mat-icon-button color="warn"
                         aria-label="Example icon-button with a heart icon">
-                        <mat-icon style="color: grey !important;">keyboard_arrow_down</mat-icon>
+                        <mat-icon style="color: grey !important;">keyboard_arrow_right</mat-icon>
                       </button>
   
                       <!-- <button class="fullscreen" (click)="openFullscreen()" mat-icon-button color="warn" aria-label="aria">
@@ -492,10 +509,7 @@
   
         </div>
   
-        <button (click)="moveForward()" class="menu-right-icon" disableRipple mat-icon-button color="red">
-          <mat-icon>keyboard_arrow_right</mat-icon>
-        </button>
-  
+        
   
     </mat-sidenav-content>
   

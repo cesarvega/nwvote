@@ -1,5 +1,4 @@
-
-<div style="position: relative;overflow: hidden;" fxLayoutAlign="center center">
+<div style="padding: 1rem; position: relative;overflow: hidden;" fxLayoutAlign="center center">
     <!-- <div style="position: relative;overflow: hidden;background-image: url(toolbarBg.jpg);background-repeat: no-repeat;"
     fxLayoutAlign="center center"> -->
     <!-- EMOJIS -->
@@ -105,22 +104,26 @@
 
 
     <!-- DELETE BOX -->
-    <div *ngIf="infoMessage && !isMobileInfo" style="width: 400px;">
+    <div *ngIf="infoMessage && !isMobileInfo" style="width: 400px; padding: 2rem;">
 
         <div *ngIf="!isDeleting" class="mat-h2" style="text-align: center;">Are you sure you want to delete? </div>
         <!-- <div *ngIf="!isDeleting" class="mat-h4">This post will be removed permanently.</div> -->
         <div *ngIf="!isDeleting" class="mat-h1" style="text-align: center;color: #004684;">{{concept}}</div>
         <hr>
 
-        <div class="row" style="text-align: center;">
+        <div class="row" style="text-align: center;
+        display: flex;
+        flex-direction: row;
+        justify-content: center;">
 
-            <div fxFlex fxLayoutAlign="end end">
+            <div fxFlex fxLayoutAlign="end end" style="display: flex;flex-direction: row; gap: 1rem;">
                 <div fxFlex>
 
                     <button *ngIf="!isDeleting" (click)="buttonOption('cancel')" class="refreshbutton" mat-mini-fab
                         style="color: white;background-color: grey;padding: 3px;outline: none;" color="success"
                         aria-label="icon">
-                        <mat-icon>cancel</mat-icon>
+                        <mat-icon
+                            style=" display: flex;flex-direction: column;    justify-content: center;">cancel</mat-icon>
                     </button><br>
                     <div style="color: #000;">cancel</div>
                 </div>
@@ -130,14 +133,14 @@
                     <button *ngIf="!isDeleting && isDeletingName" (click)="buttonOption('delete')" class="refreshbutton"
                         mat-mini-fab style="color: white;background-color: red;padding: 3px;outline: none;"
                         color="success" aria-label="icon">
-                        <mat-icon>check</mat-icon>
+                        <mat-icon style=" display: flex;flex-direction: column;    justify-content: center;">check</mat-icon>
                     </button><br>
 
                     <button *ngIf="!isDeleting && !isDeletingName" (click)="buttonOption('deleteName')"
                         class="refreshbutton" mat-mini-fab
                         style="color: white;background-color: red;padding: 4px;outline: none;" color="success"
                         aria-label="icon">
-                        <mat-icon>delete</mat-icon>
+                        <mat-icon >delete</mat-icon>
                     </button>
                     <div style="color: #000;">delete</div>
                 </div>
@@ -157,7 +160,7 @@
 
             <div flex="" class="text-center flex" style="margin:0 18px">
                 <p>1. Access
-                <img class="instruction-style " src="assets/img/bsr/login_page.JPG" alt="Login">
+                    <img class="instruction-style " src="assets/img/bsr/login_page.JPG" alt="Login">
             </div>
             <div flex="" class="text-center flex" style="margin-right:10px">
                 <p>2.
@@ -311,7 +314,7 @@
     margin: 5px 10px;
     line-height: 33px;
                     ">
-                        <input matInput type="Concept" formControlName="name">
+                        <input style=" padding-left: 0.5rem;" matInput type="Concept" formControlName="name">
                     </mat-form-field>
 
 
@@ -325,18 +328,16 @@
 
                         <mat-icon class="synonymsIcon" matTooltip="copy to clip board before search"
                             matTooltipPosition="above" (click)="getSynonyms(model.editorData)">layers</mat-icon>
-                            <quill-editor  [ngModelOptions]="{standalone: true}"
-                            [(ngModel)]="model.editorData"
-                            [styles]="{ height: '280px' }"
-                            [modules]="editorConfig">
-                          </quill-editor>
-                          
+                        <quill-editor [ngModelOptions]="{standalone: true}" [(ngModel)]="model.editorData"
+                            [styles]="{ height: '280px' }" [modules]="editorConfig">
+                        </quill-editor>
+
                     </div>
 
-                    <div class="newnames" style="display: flex;flex-direction: column;border-radius: 8px;
+                    <div class="newnames" style="display: flex;flex-direction: column;border-radius: 8px;width: 30%;
                     border: 1px solid #004684; padding-left: 10px; margin: 10px;">
                         <h2 class="text-bold " style="color: #004684;">New Names</h2>
-                        <textarea style="" matInput cdkTextareaAutosize cdkAutosizeMinRows="23" formControlName="suma"
+                        <textarea style="width: 94%;" matInput cdkTextareaAutosize cdkAutosizeMinRows="23" formControlName="suma"
                             appearance="outline" [value]="newNamesPerConcept" [(ngModel)]="newNamesPerConcept"
                             formControlName="suma"></textarea>
 
@@ -439,61 +440,61 @@
 </div> -->
 
 
-<!-- QR CODE-->
-<div *ngIf="isQRcode" class="qr_code">
-    <p style="font-family: sans-serif;font-size: 28px;margin: 0px;">scan me</p>
-    <p><a style="color: black;" target="_blank">{{myAngularxQrCode}}</a></p>
-</div>
-
-<div *ngIf="isSynonymBox" class="synonyms-box mat-elevation-z8" cdkDrag>
-    <div class="emoji-handle" cdkDragHandle>
+    <!-- QR CODE-->
+    <div *ngIf="isQRcode" class="qr_code">
+        <p style="font-family: sans-serif;font-size: 28px;margin: 0px;">scan me</p>
+        <p><a style="color: black;" target="_blank">{{myAngularxQrCode}}</a></p>
     </div>
 
-    <div class="col" >
+    <div *ngIf="isSynonymBox" class="synonyms-box mat-elevation-z8" cdkDrag>
+        <div class="emoji-handle" cdkDragHandle>
+        </div>
 
-        <div class="row">
-            <!-- <p style="margin-right: 5px;">search Results for </p>
+        <div class="col">
+
+            <div class="row">
+                <!-- <p style="margin-right: 5px;">search Results for </p>
             <p style="color: red;">{{synonymWord}}</p> -->
-            <p>{{dataSource.length}} Results for </p>
-            <p style="color: red;margin-left: 5px;">{{synonymWord}}</p>
-        </div>
+            <p>{{ (dataSource | async).length }} Results for </p>
+                <p style="color: red;margin-left: 5px;">{{synonymWord}}</p>
+            </div>
 
-        <div class="row" style="overflow-y: scroll; height: 360px;">
+            <div class="row" style="overflow-y: scroll; height: 360px;">
 
-            <table mat-table [dataSource]="dataSource" class="mat-elevation-z8">
+                <table mat-table [dataSource]="dataSource | async" class="mat-elevation-z8">
 
-                <!-- Position Column -->
-                <ng-container matColumnDef="position">
-                    <th mat-header-cell *matHeaderCellDef> No. </th>
-                    <td mat-cell *matCellDef="let element"> {{element.position}} </td>
-                </ng-container>
+                    <!-- Position Column -->
+                    <ng-container matColumnDef="position">
+                        <th mat-header-cell *matHeaderCellDef> No. </th>
+                        <td mat-cell *matCellDef="let element"> {{element.position}} </td>
+                    </ng-container>
 
-                <!-- Name Column -->
-                <ng-container matColumnDef="name">
-                    <th mat-header-cell *matHeaderCellDef> Synonyms </th>
-                    <td mat-cell *matCellDef="let element"> {{element.synonyms}} </td>
-                </ng-container>
+                    <!-- Name Column -->
+                    <ng-container matColumnDef="name">
+                        <th mat-header-cell *matHeaderCellDef> Synonyms </th>
+                        <td mat-cell *matCellDef="let element"> {{element.synonyms}} </td>
+                    </ng-container>
 
-                <!-- Weight Column -->
-                <ng-container matColumnDef="weight">
-                    <th mat-header-cell *matHeaderCellDef> Select </th>
-                    <td mat-cell *matCellDef="let element">
-                        <mat-checkbox (change)="setAll(element.synonyms)">
-                        </mat-checkbox>
-                    </td>
+                    <!-- Weight Column -->
+                    <ng-container matColumnDef="weight">
+                        <th mat-header-cell *matHeaderCellDef> Select </th>
+                        <td mat-cell *matCellDef="let element">
+                            <mat-checkbox (change)="setAll(element.synonyms)">
+                            </mat-checkbox>
+                        </td>
 
-                </ng-container>
+                    </ng-container>
 
 
 
-                <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
-                <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
-            </table>
-        </div>
+                    <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+                    <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+                </table>
+            </div>
 
-        <div class="row">
-            <button mat-button class="" style="    position: relative;
+            <div class="row">
+                <button mat-button class="" style="    position: relative;
             right: -660px;" (click)="addSynonymsToEditor()">DONE</button>
+            </div>
         </div>
     </div>
-</div>
