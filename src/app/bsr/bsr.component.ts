@@ -81,6 +81,8 @@ export class BsrComponent implements OnInit {
   BackgroundUrlOff = 'url(http://bipresents.com/nw2/assets/images/BackGrounds/Backgrounds2019/';
   baseUrl: any;
   restUrl: any;
+  open: boolean = false;
+  width = true
   constructor(@Inject(DOCUMENT) private document: any,
     private _BsrService: BsrService, public dialog: MatDialog, private activatedRoute: ActivatedRoute,  
     // private _hotkeysService: HotkeysService,
@@ -96,7 +98,7 @@ export class BsrComponent implements OnInit {
     if (this.baseUrl === 'https://bitools.s3.amazonaws.com/nw-resources/') {
       this.BackgroundUrl = 'https://d3lyn5npnikbck.cloudfront.net/'
     }
-    console.log(this.BackgroundUrl)
+   
 
     this.font_size_text = (localStorage.getItem(this.projectName + '_font_size_text')) ? localStorage.getItem(this.projectName + '_font_size_text') : '26px';
     this.font_size = (localStorage.getItem(this.projectName + '_font_size')) ? localStorage.getItem(this.projectName + '_font_size') : '26';
@@ -112,16 +114,14 @@ export class BsrComponent implements OnInit {
 
     this.assignCopy();
     this.elem = document.documentElement;
-    this.currentPageNumber = 0;
+  
     this.postItListTheme = localStorage.getItem(this.projectName + '_post-it-list-theme');
     this._BsrService.getSlides(this.projectId).subscribe((res: any) => {
-      console.log(res);
       this.appSlidesData = res;
       // this.appSearchSlidesData = res;
       localStorage.setItem(this.projectName + '_appSlideData', JSON.stringify(res));
       this.totalNumberOfSlides = res.length;
       this.pageCounter = '1/' + (parseInt(this.totalNumberOfSlides));
-      console.log(this.slideBackground + res)
       let slideRes = res[0].SlideBGFileName
       this.slideBackground = this.slideBackground + slideRes + ')';
       this.appSlidesData.forEach(element => {
@@ -132,7 +132,8 @@ export class BsrComponent implements OnInit {
       this.createPostIt = (localStorage.getItem(this.projectName + '_createPostIt') === 'true') ? true : false;
       if (this.createPostIt) {
         this.searchBoxLeftProperty = '777px';
-        this.currentPageNumber = (this.createPostIt) ? this.postItPresentationIndex : 0;
+        this.currentPageNumber = (this.createPostIt) ? this.appSlidesData[0].SummarySlide -1: 0;
+        this.pageCounter = (this.createPostIt) ? this.appSlidesData[0].SummarySlide + '/' + (parseInt(this.totalNumberOfSlides)) : '1/' + (parseInt(this.totalNumberOfSlides));
       } else {
         this.searchBoxLeftProperty = '611px;';
         this.currentPageNumber = 0;
@@ -151,17 +152,16 @@ export class BsrComponent implements OnInit {
         element.concept = element.concept.replace(/`/g, "'");
         element.html = element.html.replace(/`/g, "'");
       });
-      console.log(this.conceptData);
     });
 
-    setInterval(() => {
-      this._BsrService.getNameCandidates(this.projectId).subscribe((res: any) => {
-        res.forEach(name => {
-          name.html = name.html.replace(/\\/g, '');
-        });
-        this.nameCandidates = (res.length > 0) ? res : [];
-      });
-    }, 1000);
+    // setInterval(() => {
+    //   this._BsrService.getNameCandidates(this.projectId).subscribe((res: any) => {
+    //     res.forEach(name => {
+    //       name.html = name.html.replace(/\\/g, '');
+    //     });
+    //     this.nameCandidates = (res.length > 0) ? res : [];
+    //   });
+    // }, 1000);
 
     this.getCommentsByIndex(0);
     this.loginForm = new FormGroup({
@@ -173,6 +173,7 @@ export class BsrComponent implements OnInit {
 
 
     this.onInputChange(parseInt(localStorage.getItem(this.projectName + '_namesBoxIndex')));
+    this.currentPageNumber = 1;
   }
 
   getCommentsByIndex(index) {
@@ -257,7 +258,6 @@ export class BsrComponent implements OnInit {
       element.html = element.html.replace(/`/g, "'");
     });
     moveItemInArray(this.conceptData.concepts, event.previousIndex, event.currentIndex);
-    console.log(event.previousIndex, event.currentIndex);
     let orderArray = [];
     this.conceptData.concepts.forEach(ele => {
       orderArray.push(JSON.stringify(ele.conceptid))
@@ -273,7 +273,6 @@ export class BsrComponent implements OnInit {
         if (JSON.parse(res[0].bsrData).presentationtype === 'NSR') {
           this.isNSR = true;
         }
-        console.log(this.conceptData);
       });
 
     });
@@ -300,7 +299,7 @@ export class BsrComponent implements OnInit {
         this.searchBoxLeftProperty = '777px';
       }
       this.pageCounter = this.currentPageNumber + 1 + '/' + this.totalNumberOfSlides;
-      if(this.appSlidesData[this.currentPageNumber].SlideDescription == 'Brainstorm'){
+      if(this.currentPageNumber+ 1 == this.appSlidesData[this.currentPageNumber].SummarySlide){
         this.bsr()
       }else{
         this.createPostIt = false;
@@ -317,7 +316,7 @@ export class BsrComponent implements OnInit {
     this.appSearchSlidesData = [];
     this.isCommentBox = false;
     this.createPostIt = false
-    if (this.currentPageNumber >= 1) {
+        if (this.currentPageNumber >= 1) {
       this.currentPageNumber = this.currentPageNumber - 1;
       this.pageCounter = this.currentPageNumber + 1 + '/' + this.totalNumberOfSlides;
       this.slideBackground = this.baseBackgroundUrl + this.appSlidesData[this.currentPageNumber].SlideBGFileName + ')';
@@ -325,7 +324,8 @@ export class BsrComponent implements OnInit {
         this.createPostIt = true;
         this.searchBoxLeftProperty = '777px';
       }
-      if(this.appSlidesData[this.currentPageNumber].SlideDescription == 'Brainstorm'){
+      if(this.currentPageNumber+ 1 == this.appSlidesData[this.currentPageNumber].SummarySlide){
+        
         this.bsr()
       }else{
         this.createPostIt = false;
@@ -333,11 +333,13 @@ export class BsrComponent implements OnInit {
     }
   }
   handleKeyDown(event: KeyboardEvent): void {
+    if(!this.open ){
     if (event.key === 'ArrowRight') {
       this.moveForward();
     } else if (event.key === 'ArrowLeft') {
       this.moveBackward();
     }
+  }
   }
 
   submitNewName() {
@@ -402,7 +404,6 @@ export class BsrComponent implements OnInit {
     localStorage.setItem(this.projectName + '_createPostIt', this.createPostIt.toString());
     this.nameIndexCounter = parseInt(localStorage.getItem(this.projectName + '_namesIndexCounte'));
     this.onInputChange(parseInt(localStorage.getItem(this.projectName + '_namesBoxIndex')));
-    this.pageCounter = this.postItPresentationIndex + 1 + '/' + this.totalNumberOfSlides;
 
   }
 
@@ -511,7 +512,7 @@ export class BsrComponent implements OnInit {
   }
 
   openDialog(item, nameid): void {
-
+    this.open = true
     const dialogRef = this.dialog.open(editPost, {
 
       // width: ((nameid === 'edit')?'80%':'100%'),
@@ -522,7 +523,7 @@ export class BsrComponent implements OnInit {
     this.conceptid = item.conceptid;
 
     dialogRef.afterClosed().subscribe(result => {
-
+      this.open = false
       this.conceptData.concepts.forEach(element => {
         element.concept = element.concept.replace(/`/g, "'");
         element.html = element.html.replace(/`/g, "'");
@@ -541,7 +542,6 @@ export class BsrComponent implements OnInit {
               element.concept = element.concept.replace(/`/g, "'");
               element.html = element.html.replace(/`/g, "'");
             });
-            console.log(this.conceptData);
           });
         });
       } else if (result === 'deleteName') {
@@ -558,7 +558,6 @@ export class BsrComponent implements OnInit {
           if (JSON.parse(res[0].bsrData).presentationtype === 'NSR') {
             this.isNSR = true;
           }
-          console.log(this.conceptData);
         });
       }
       this._BsrService.getNameCandidates(this.projectId).subscribe((res: any) => {
@@ -760,6 +759,7 @@ export class editPost {
   isSynonymBox = false;
   isEmojiTime: boolean = false;
 
+
   displayedColumns: string[] = ['name', 'weight'];
   synonymWord: string = ' Copy name to clipboard ';
   dataSource = new BehaviorSubject<any[]>([]);
@@ -922,17 +922,20 @@ export class editPost {
     }
     this.dialogRef.close(this.popupwindowData);
   }
-
   async getSynonyms(synonyms: any) {
     const regex = /<p>(.*?)<\/p>/g;
     const result = [];
     let match;
-    console.log(synonyms)
+  
     while ((match = regex.exec(synonyms)) !== null) {
-      result.push(match[1]); // match[1] contiene el texto entre <p> y </p>
+      // match[1] contiene el texto entre <p> y </p>
+      // Eliminamos cualquier otra etiqueta HTML en el contenido
+      const tempElement = document.createElement('div');
+      tempElement.innerHTML = match[1];
+      result.push(tempElement.textContent || tempElement.innerText || ''); 
     }
-    this.synonymWord = result.join(', ')
-
+  
+    this.synonymWord = result.join(', ');
     this.isSynonymBox = true;
     
     let counter = 0;
@@ -941,7 +944,7 @@ export class editPost {
         map((res: any) => JSON.parse(res))
       )
     );
-
+  
     forkJoin(requests).subscribe((results: any[]) => {
       const data: any[] = [];
       results.forEach(res => {
@@ -953,8 +956,6 @@ export class editPost {
       this.dataSource.next(data); // Actualiza el BehaviorSubject
       this.cdr.markForCheck(); // Forzar la detección de cambios
     });
-
-    
   }
 
   setAll(evt) {

@@ -179,7 +179,7 @@
   
         <!-- PRESENTATION MENU-->
         <div *ngIf="!createPostIt" fxLayoutAlign="center center" class="col">
-          <div class="slide-box mat-elevation-z12" [style.background]="slideBackground">
+          <div [ngClass]="{'slide-box': !width, 'slide-box-width': width}"  class="mat-elevation-z12" [style.background]="slideBackground">
   
   
             <mat-toolbar class="toolbar mat-elevation-z4 bounceIn" *ngIf="false">

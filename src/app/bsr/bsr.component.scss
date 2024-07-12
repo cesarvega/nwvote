@@ -109,6 +109,23 @@
   // animation: flip .5s ease 0.1s forwards;
 }
 
+.slide-box-width {
+ 
+  border: solid 4px lightgray ;
+  border-radius: 6px;
+  background-repeat: no-repeat;
+  background-size: cover;
+  top: 70px;
+  right: -26px;
+  opacity: 1;
+  position: relative;
+  width: 1100px;
+  height: 724px; /* Altura fija del contenedor */
+  overflow: hidden; /* Oculta cualquier contenido que se desborde */
+  background-repeat: no-repeat !important;
+  background-size: 100% 724px !important; /* Cubre todo el ancho y mantiene la altura fija */
+  background-position: center center; 
+}
 .toolbar {
   position: absolute;
   bottom: 11px;
@@ -131,7 +148,6 @@
     color: rgb(71, 71, 71);
     height: 30px;
     z-index: 9999;
- 
   }
 
   button:focus {
@@ -305,7 +321,8 @@
   z-index: 9999;
   display: flex;
   align-items: center;
-  justify-content: center;}
+  justify-content: center;
+}
 
 .post-button {
   color: whitesmoke;
@@ -565,7 +582,7 @@
   outline: none;
   cursor: pointer;
 }
-::-webkit-scrollbar{
+::-webkit-scrollbar {
   display: none !important;
 }
 .delete-info {
@@ -745,20 +762,19 @@ mat-tab-group ::-webkit-scrollbar {
   z-index: 99;
   top: 421px;
   z-index: 99;
-  left: 1030px;
+  left: 1158px;
   outline: none;
   :hover {
     transform: scale(1.5);
   }
 }
-.menu-right-icon-post{
+.menu-right-icon-post {
   position: relative;
   z-index: 99;
   top: 421px;
   z-index: 99;
   left: 1081px;
 }
-
 
 .corner_bar_menu {
   position: absolute;
