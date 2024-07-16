@@ -82,7 +82,7 @@ export class BsrComponent implements OnInit {
   baseUrl: any;
   restUrl: any;
   open: boolean = false;
-  width = true
+  wide = true
   constructor(@Inject(DOCUMENT) private document: any,
     private _BsrService: BsrService, public dialog: MatDialog, private activatedRoute: ActivatedRoute,  
     // private _hotkeysService: HotkeysService,
@@ -123,13 +123,14 @@ export class BsrComponent implements OnInit {
       this.totalNumberOfSlides = res.length;
       this.pageCounter = '1/' + (parseInt(this.totalNumberOfSlides));
       let slideRes = res[0].SlideBGFileName
+      this.wide = res[0].isWide != null ? true:false
       this.slideBackground = this.slideBackground + slideRes + ')';
       this.appSlidesData.forEach(element => {
         if (element.SlideType === "NameSummary") {
           this.postItPresentationIndex = parseInt(element.$id) - 1;
         }
       });
-      this.createPostIt = (localStorage.getItem(this.projectName + '_createPostIt') === 'true') ? true : false;
+      this.createPostIt = false;
       if (this.createPostIt) {
         this.searchBoxLeftProperty = '777px';
         this.currentPageNumber = (this.createPostIt) ? this.appSlidesData[0].SummarySlide -1: 0;
@@ -184,6 +185,9 @@ export class BsrComponent implements OnInit {
         this.commentBoxText = '';
       }
     });
+  }
+  wideScreenView(){
+    this.wide = !this.wide
   }
 
   boxWidth = 155;
