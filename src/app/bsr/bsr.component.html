@@ -19,7 +19,7 @@
           </button>
         </div>
   
-        <button (click)="moveBackward()"    [class.menu-left-icon-wide-post]="wide &&  createPostIt"   [class.menu-left-icon]="!wide || (wide && !createPostIt) " disableRipple mat-icon-button color="red">
+        <button (click)="moveBackward()"    [class.menu-left-icon-wide-post]="wide &&  createPostIt"    [class.menu-left-icon-wide]="wide &&  !createPostIt" [class.menu-left-icon]="!wide" disableRipple mat-icon-button color="red">
           <mat-icon>keyboard_arrow_left</mat-icon>
         </button>
         <button (click)="moveForward()" [class.menu-right-icon]="!wide"
@@ -290,7 +290,8 @@
                       Brainstorm
                     </div>
                     <div class="col" (click)="toggleNamebox()"
-                      style="color: white; font-size: 30px;font-family: Arial; right: -370px;cursor: pointer;"
+                      [class.name-title]="wide"
+                      [class.name-title-wide]="wide"
                       [matTooltip]="'Names Created '+ nameCandidates.length" matTooltipPosition="right">
                       Names
                       <span *ngIf="nameCandidates.length > 0" style="position: absolute;    top: 6px;
@@ -318,7 +319,7 @@
   
                       <!-- POST_REPEATER -->
   
-                      <div class="row post-it-container " [style.max-width]="wide && createPostIt? '947px': '925px'" [ngStyle]="{'max-width': myMaxWith }"
+                      <div class="row post-it-container " [style.max-width]="wide && createPostIt? '947px': '925px'" 
                       dragula="TASKS" [dragulaModel]="conceptData.concepts" (dragulaModelChange)="conceptData.concepts = $event">
                         <div [ngClass]="postItListTheme" *ngFor="let item of conceptData.concepts; let i = index;">
   
@@ -390,7 +391,7 @@
                         outline: none;
                         font-size: 50px;
                         position: absolute;
-                        top: 24px;
+                        top: 13px;
                         z-index: 1;
                         left: 239px;
                       display: flex;
@@ -400,7 +401,9 @@
                     
                       </button>
                       <p *ngIf="!isNSR" style="position: absolute;
-                      top: 60px;">www.mynamepage.com/{{projectName}}</p>
+                      top: 66px;
+                      right: 56px;
+                      font-weight: 500;">www.mynamepage.com/{{projectName}}</p>
                     </form>
                   </div>
   
@@ -444,7 +447,8 @@
                         <mat-icon  class="play-arrow">play_arrow</mat-icon>
                       </button>
                       <p style="position: absolute;
-                      top: 60px;">www.mynamepage.com/{{projectName}}</p>
+                      top: 60px;
+                      font-weight: 500;">www.mynamepage.com/{{projectName}}</p>
                     </form>
                   </div>
   

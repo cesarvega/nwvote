@@ -60,7 +60,6 @@ export class BsrService {
   awsResourcesUrl = "https://bitools.s3.amazonaws.com/nw-resources/"
 
   constructor(private http: HttpClient) {
-    console.log(window.location.host)
     if (this.actualSite.includes('https://d3lyn5npnikbck.cloudfront.net') || this.actualSite.includes('http://localhost:4200/')) {
       this.baseUrl = "https://bitools.s3.amazonaws.com/nw-resources/"
     } else {
@@ -135,7 +134,6 @@ export class BsrService {
     //return this.http.post(this.webBaseUrl + this.apiCall, JSON.stringify(this._SP_GetCandidateNames + "'" + projectId + "'"), httpOptions);
 
     // CG
-    console.log("name candidates")
     const data = {
       token: this.awsToken
       , app: 'BSR'
@@ -170,13 +168,11 @@ export class BsrService {
           const data = JSON.parse(response);
           //console.log(data)
           return data;
-
         }
       ));
   }
 
   getPost() {
-    console.log(this.projectName)
     const urlGetPosit = '[BI_GUIDELINES].[dbo].[bsr_GetProjectData] ' + "'" + localStorage.getItem(this.projectName + '_projectId') + "'";
     //return this.http.post(this.webBaseUrl + this.apiCall, JSON.stringify(urlGetPosit), httpOptions);
 
@@ -198,7 +194,6 @@ export class BsrService {
   }
 
   newPost(newConcept) {
-    console.log(newConcept)
     let _SP_NewComcept = "[BI_GUIDELINES].[bsrv2].[bsr_updConcept] N'" + newConcept + "'";
     // return this.http.post(this.webBaseUrl + this.apiCall, JSON.stringify(_SP_NewComcept), httpOptions);
 

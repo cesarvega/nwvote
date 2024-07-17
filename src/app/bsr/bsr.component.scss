@@ -87,20 +87,20 @@
   background-image: url(../../assets/img/toolbarBg.jpg);
   top: 74px;
   left: -76px;
-    width: 1227px;
+  width: 1260px;
   z-index: 9999;
   border-radius: 5px;
 }
 .presentation-box-wide {
-  width: 1235px;
+  width: 1270px;
   height: 714px;
   border: solid 4px lightgray;
   border-radius: 6px;
   background-repeat: no-repeat;
   background-size: cover;
   position: relative;
-  top: 70px;
-  right: 95px;
+  right: -30px;
+  right: 96px;
   overflow: hidden;
   -ms-overflow-style: none;
   scrollbar-width: none;
@@ -123,12 +123,12 @@
   // height: 700px;
   // max-width: 2000px;
   // max-height: 800px;
-  width: 968px;
-  height: 727px;
+  width: 900px;
+  height: 679px;
   border: solid 4px lightgray;
   border-radius: 6px;
-  background-repeat: no-repeat;
-  background-size: 100% 724px !important;
+  background-repeat: no-repeat !important;
+  background-size: 100% 100% !important;
   position: relative;
   top: 70px;
   right: -26px;
@@ -138,20 +138,17 @@
 }
 
 .slide-box-width {
+  width: 1237px;
+  height: 679px;
   border: solid 4px lightgray;
   border-radius: 6px;
-  background-repeat: no-repeat;
-  background-size: cover;
-  top: 70px;
-  right: -26px;
-  opacity: 1;
-  position: relative;
-  width: 1100px;
-  height: 724px; /* Altura fija del contenedor */
-  overflow: hidden; /* Oculta cualquier contenido que se desborde */
   background-repeat: no-repeat !important;
-  background-size: 100% 724px !important; /* Cubre todo el ancho y mantiene la altura fija */
-  background-position: center center;
+  background-size: 100% 100% !important;
+  position: relative;
+  top: 70px;
+  right: 62px;
+  overflow: hidden;
+  opacity: 1;
 }
 .toolbar {
   position: absolute;
@@ -277,23 +274,23 @@
   background-color: white;
   width: 300px;
   max-width: 313px;
-  height: 552px;
+  height: 503px;
   position: relative;
   right: 8px;
-  top: 134px;
+  top: 163px;
   overflow-x: hidden;
   overflow-y: scroll;
   padding: 10px;
 }
 
-.names-container-wide{
+.names-container-wide {
   background-color: white;
   width: 300px;
-  right: -106px;
+  right: -134px;
   max-width: 313px;
-  height: 552px;
+  height: 503px;
   position: relative;
-  top: 134px;
+  top: 163px;
   overflow-x: hidden;
   overflow-y: scroll;
   padding: 10px;
@@ -378,7 +375,20 @@
   align-items: center;
   justify-content: center;
 }
-
+.name-title {
+  color: white;
+  font-size: 30px;
+  font-family: Arial;
+  right: -473px;
+  cursor: pointer;
+}
+.name-title-wide {
+  color: white;
+  font-size: 30px;
+  font-family: Arial;
+  right: -694px;
+  cursor: pointer;
+}
 .post-button {
   color: whitesmoke;
   width: 30px;
@@ -389,17 +399,25 @@
 
 .name-form {
   position: relative;
-  top: 133px;
+  top: 174px;
   width: 300px;
   background-color: white;
   height: 90px;
   border-bottom-left-radius: 12px;
   border-bottom-right-radius: 2px;
-  padding: 20px;
+  padding: 10px 20px 20px 20px;
 }
 
-.name-form-wide{
-  left: 115px;
+.name-form-wide {
+  position: relative;
+  top: 174px;
+  width: 300px;
+  background-color: white;
+  height: 90px;
+  border-bottom-left-radius: 12px;
+  border-bottom-right-radius: 2px;
+  padding: 10px 20px 20px 20px;
+  left: 142px;
 }
 
 .name-form2 {
@@ -805,6 +823,16 @@ mat-tab-group ::-webkit-scrollbar {
     transform: scale(1.5);
   }
 }
+.menu-left-icon-wide {
+  position: relative;
+  top: 469px;
+  z-index: 99;
+  left: -102px;
+  outline: none;
+  :hover {
+    transform: scale(1.5);
+  }
+}
 
 .menu-left-icon-wide-post {
   position: relative;
@@ -823,7 +851,7 @@ mat-tab-group ::-webkit-scrollbar {
   z-index: 99;
   top: 421px;
   z-index: 99;
-  left: 1025px;
+  left: 958px;
   outline: none;
   :hover {
     transform: scale(1.5);
@@ -842,7 +870,7 @@ mat-tab-group ::-webkit-scrollbar {
   z-index: 99;
   top: 421px;
   z-index: 99;
-  left: 1205px;
+  left: 1215px;
   outline: none;
 
   :hover {
@@ -854,7 +882,7 @@ mat-tab-group ::-webkit-scrollbar {
   z-index: 99;
   top: 421px;
   z-index: 99;
-  left: 1182px;
+  left: 1215px;
   outline: none;
 }
 

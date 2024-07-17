@@ -61,7 +61,7 @@ export class BsrComponent implements OnInit {
   nameCandidates: any = [];
   nameBox = true;
   nameBoxB = true;
-  myMaxWith = '900px';
+  myMaxWith = '1080px';
   myMaxWith2: any;
   myMaxRWith = '900px';
   myMaxRightWith = '8px';
@@ -155,14 +155,14 @@ export class BsrComponent implements OnInit {
       });
     });
 
-    // setInterval(() => {
-    //   this._BsrService.getNameCandidates(this.projectId).subscribe((res: any) => {
-    //     res.forEach(name => {
-    //       name.html = name.html.replace(/\\/g, '');
-    //     });
-    //     this.nameCandidates = (res.length > 0) ? res : [];
-    //   });
-    // }, 1000);
+     setInterval(() => {
+       this._BsrService.getNameCandidates(this.projectId).subscribe((res: any) => {
+         res.forEach(name => {
+           name.html = name.html.replace(/\\/g, '');
+         });
+        this.nameCandidates = (res.length > 0) ? res : [];
+       });
+    }, 1000);
 
     this.getCommentsByIndex(0);
     this.loginForm = new FormGroup({
