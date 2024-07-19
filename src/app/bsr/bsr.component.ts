@@ -177,6 +177,7 @@ export class BsrComponent implements OnInit {
     this.currentPageNumber = 1;
   }
 
+
   getCommentsByIndex(index) {
     this._BsrService.getComments(index).subscribe((arg: any) => {
       if (arg.length > 0) {
@@ -770,6 +771,16 @@ export class editPost {
   public myAngularxQrCode: string = null;
   isQRcode: boolean;
   nameid: any = '';
+  showQrCode=false
+  closeQrCodePopup() {
+    this.showQrCode = !this.showQrCode;
+  }
+  onQrCodeClose() {
+    this.showQrCode = false;
+  }
+  openCorpwebsite() {
+    window.open(this.myAngularxQrCode, '_blank');
+  }
   constructor(
     public dialogRef: MatDialogRef<editPost>,
     @Inject(MAT_DIALOG_DATA) public data: DialogData, private _BsrService: BsrService, private activatedRoute: ActivatedRoute, private cdr: ChangeDetectorRef )  {

@@ -1,0 +1,13 @@
+.qr-code-popup {
+  position: relative;
+  top: 50%;
+  left: -33%;
+  /* transform: translate(-50%, -50%); */
+  /* background-color: #D1DA03; */
+  padding: 20px;
+  /* border: 7px solid #252525; */
+  z-index: 1000;
+  img{
+    height: 300px;
+  }
+  }

@@ -71,7 +71,7 @@
   background-repeat: no-repeat;
   background-size: cover;
   position: relative;
-  top: 70px;
+  top: 13px;
   right: -76px;
   overflow: hidden;
   -ms-overflow-style: none; /* IE and Edge */
@@ -85,7 +85,7 @@
   height: 53px;
   position: absolute;
   background-image: url(../../assets/img/toolbarBg.jpg);
-  top: 74px;
+  top: 17px;
   left: -76px;
   width: 1260px;
   z-index: 9999;
@@ -123,6 +123,7 @@
   // height: 700px;
   // max-width: 2000px;
   // max-height: 800px;
+
   width: 900px;
   height: 679px;
   border: solid 4px lightgray;
@@ -130,8 +131,8 @@
   background-repeat: no-repeat !important;
   background-size: 100% 100% !important;
   position: relative;
-  top: 70px;
-  right: -26px;
+  top: 13px;
+  right: -115px;
   overflow: hidden;
   opacity: 1;
   // animation: flip .5s ease 0.1s forwards;
@@ -145,7 +146,7 @@
   background-repeat: no-repeat !important;
   background-size: 100% 100% !important;
   position: relative;
-  top: 70px;
+  top: 13px;
   right: 62px;
   overflow: hidden;
   opacity: 1;
@@ -194,6 +195,18 @@
   }
 }
 
+.mat-mdc-card-title{
+  height: 50px;
+  padding-left: 5px;
+  font-size: 18px !important;
+  margin-bottom: 18px;
+}
+.mat-h2, .mat-headline-6, .mat-typography .mat-h2, .mat-typography .mat-headline-6, .mat-typography h2 {
+  font: 500 20px / 32px Roboto, sans-serif;
+  letter-spacing: .0125em;
+  margin: 0 0 4px;
+  margin-top: 4px;
+}
 .toolbar-postit {
   position: absolute;
   bottom: -59px;
@@ -246,7 +259,7 @@
   background-image: url(../../assets/img/toolbarBg.jpg);
   height: 53px;
   position: absolute;
-  top: 74px;
+  top: 17px;
   left: 95px;
   width: 940px;
   z-index: 9999;
@@ -277,7 +290,7 @@
   height: 503px;
   position: relative;
   right: 8px;
-  top: 163px;
+  top: 119px;
   overflow-x: hidden;
   overflow-y: scroll;
   padding: 10px;
@@ -290,7 +303,7 @@
   max-width: 313px;
   height: 503px;
   position: relative;
-  top: 163px;
+  top: 119px;
   overflow-x: hidden;
   overflow-y: scroll;
   padding: 10px;
@@ -379,7 +392,7 @@
   color: white;
   font-size: 30px;
   font-family: Arial;
-  right: -473px;
+  right: -384px;
   cursor: pointer;
 }
 .name-title-wide {
@@ -399,18 +412,18 @@
 
 .name-form {
   position: relative;
-  top: 174px;
-  width: 300px;
-  background-color: white;
-  height: 90px;
-  border-bottom-left-radius: 12px;
-  border-bottom-right-radius: 2px;
-  padding: 10px 20px 20px 20px;
+    top: 120px;
+    width: 300px;
+    background-color: white;
+    height: 90px;
+    border-bottom-left-radius: 12px;
+    border-bottom-right-radius: 2px;
+    padding: 10px 20px 20px 20px;
 }
 
 .name-form-wide {
   position: relative;
-  top: 174px;
+  top: 120px;
   width: 300px;
   background-color: white;
   height: 90px;
@@ -579,6 +592,7 @@
   scrollbar-width: none;
   text-shadow: 0px 1px 100000 1 n m/ px #555;
   padding: 0.5rem;
+  padding-bottom: 0.3rem;
 }
 
 .post-content {
@@ -653,13 +667,23 @@
 }
 
 .screen-button {
-  position: absolute;
-  top: 60px;
-  right: 17px;
+  position: relative;
+  left: 282px;
+  top: 52px;
   z-index: 999999;
   outline: none;
   cursor: pointer;
 }
+
+.screen-button-wide {
+  position: relative;
+  left: 590px;
+  top: 52px;
+  z-index: 999999;
+  outline: none;
+  cursor: pointer;
+}
+
 ::-webkit-scrollbar {
   display: none !important;
 }
@@ -815,9 +839,9 @@ mat-tab-group ::-webkit-scrollbar {
 
 .menu-left-icon {
   position: relative;
-  top: 469px;
+  top: 439px;
   z-index: 99;
-  left: -25px;
+  left: 81px;
   outline: none;
   :hover {
     transform: scale(1.5);
@@ -825,9 +849,9 @@ mat-tab-group ::-webkit-scrollbar {
 }
 .menu-left-icon-wide {
   position: relative;
-  top: 469px;
+  top: 443px;
   z-index: 99;
-  left: -102px;
+  left: -80px;
   outline: none;
   :hover {
     transform: scale(1.5);
@@ -849,9 +873,9 @@ mat-tab-group ::-webkit-scrollbar {
 .menu-right-icon {
   position: relative;
   z-index: 99;
-  top: 421px;
+  top: 391px;
   z-index: 99;
-  left: 958px;
+  left: 1026px;
   outline: none;
   :hover {
     transform: scale(1.5);
@@ -887,6 +911,7 @@ mat-tab-group ::-webkit-scrollbar {
 }
 
 .corner_bar_menu {
+ 
   position: absolute;
   right: 60px;
   color: grey !important;
@@ -895,13 +920,14 @@ mat-tab-group ::-webkit-scrollbar {
   display: flex;
   align-items: center;
   justify-content: center;
-  bottom: 85px;
+  bottom: 22px;
   outline: none;
   z-index: 9999;
   background: white;
   border-radius: 5px;
   display: flex;
   align-items: center;
+
 }
 
 ::ng-deep .mat-mdc-tooltip {
@@ -1129,4 +1155,68 @@ $postItHeaderColors2: #d6f8fd, #dcd6fd, #d6fde9, #fdfcd6, #d6f8fd, #fdd6e8, #fdd
 
 .ql-editor {
   white-space: normal !important;
+  padding: 0px !important;
+  line-height: 0.8;
+}
+quill-editor{
+  font-size: 16px;
+  color: #000;
+}
+
+.ql-container {
+  font-size: 20px;
+}
+
+::ng-deep .mat-mdc-text-field-wrapper:hover{
+  width: 100%;
+  background-color: #fff !important;
+  height: 80px !important;
+
+}
+::ng-deep .mat-mdc-text-field-wrapper{
+  width: 100%;
+  background-color: #fff !important;
+  height: 80px !important;
+
+}
+::ng-deep .mdc-text-field--outlined .mdc-notched-outline {
+  z-index: 1;
+  height: 54px;
+}
+::ng-deep .mdc-text-field--filled:not(.mdc-text-field--disabled) .mdc-line-ripple::before {
+  border: none !important;
+  border-bottom-color: var(--mdc-filled-text-field-active-indicator-color);
+}
+
+::ng-deep .mdc-text-field--filled:not(.mdc-text-field--disabled) .mdc-line-ripple::before :hover {
+  border: none !important;
+  border-bottom-color: var(--mdc-filled-text-field-active-indicator-color);
+}
+
+::ng-deep  .mat-mdc-form-field-infix {
+  flex: auto;
+  min-width: 0;
+  width: 180px;
+  position: relative;
+  box-sizing: border-box;
+  height: 80px;
+}
+
+input:focus-visible{
+  outline: none;
+}
+
+
+.mdc-notched-outline {
+  display: flex;
+  position: absolute;
+  top: 0;
+  right: 0;
+  left: 0;
+  box-sizing: border-box;
+  width: 100%;
+  max-width: 100%;
+  height: 70% !important;
+  text-align: left;
+  pointer-events: none;
 }

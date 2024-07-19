@@ -96,6 +96,7 @@ import { ImageRateScaleComponent } from './bmx/components/bmx-creator/survey-cre
 import { ImageRankComponent } from './bmx/components/bmx-creator/survey-creation-design/templates/image-rank/image-rank.component';
 import { SignalComponent } from './signal/signal.component';
 import { QuillModule } from 'ngx-quill';
+import { QrCodePopupComponentComponent } from './qr-code-popup-component/qr-code-popup-component.component';
 
 export function loadEcharts() {
   return import('echarts');
@@ -163,6 +164,7 @@ export function MSALInstanceFactory(): IPublicClientApplication {
         // BmxCreatorComponent,
         // SafePipe,
         // OrderDasboardComponent
+        
     ],
     imports: [
         CommonModule,
@@ -195,7 +197,6 @@ export function MSALInstanceFactory(): IPublicClientApplication {
         // HotkeyModule.forRoot(),
         MatSliderModule,
         MatTabsModule,
- // QRCodeModule,
         // DeviceDetectorModule,
         //AngularDateTimePickerModule,
         MatDatepickerModule,
@@ -218,7 +219,8 @@ export function MSALInstanceFactory(): IPublicClientApplication {
         A11yModule,
         MatAutocompleteModule,
         SignalComponent,
-        QuillModule
+        QuillModule,
+        QrCodePopupComponentComponent
 
         // BmxModule
     ],

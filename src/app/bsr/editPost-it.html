@@ -133,14 +133,15 @@
                     <button *ngIf="!isDeleting && isDeletingName" (click)="buttonOption('delete')" class="refreshbutton"
                         mat-mini-fab style="color: white;background-color: red;padding: 3px;outline: none;"
                         color="success" aria-label="icon">
-                        <mat-icon style=" display: flex;flex-direction: column;    justify-content: center;">check</mat-icon>
+                        <mat-icon
+                            style=" display: flex;flex-direction: column;    justify-content: center;">check</mat-icon>
                     </button><br>
 
                     <button *ngIf="!isDeleting && !isDeletingName" (click)="buttonOption('deleteName')"
                         class="refreshbutton" mat-mini-fab
                         style="color: white;background-color: red;padding: 4px;outline: none;" color="success"
                         aria-label="icon">
-                        <mat-icon >delete</mat-icon>
+                        <mat-icon>delete</mat-icon>
                     </button>
                     <div style="color: #000;">delete</div>
                 </div>
@@ -304,18 +305,16 @@
                     <!-- CONCEPT TITLE -->
                     <div style="display: flex; flex-direction: row; color: #004684; margin: 10px;">
                         <mat-icon style="padding-top: 8px;">assignment</mat-icon>
-                        <h2 class="text-bold " style="padding-left: 5px;">CONCEPT TITLE</h2>
+                        <h2 class="text-bold " style="padding-left: 5px; z-index: 999;">CONCEPT TITLE</h2>
                     </div>
-                    <mat-form-field *ngIf="!isDeleting" style="
-                       font-size: 32px;
-    position: relative;
-    top: -70px;
-    width: 98%;
-    margin: 5px 10px;
-    line-height: 33px;
-                    ">
-                        <input style=" padding-left: 0.5rem;" matInput type="Concept" formControlName="name">
-                    </mat-form-field>
+
+                    <input style="
+                        padding-left: 0.5rem;
+                        position: relative;
+                        top: -27px;
+                        width: 824px;
+                        left: 5px;
+                        border: none;" matInput type="Concept" formControlName="name">
 
 
                 </div>
@@ -328,7 +327,7 @@
 
                         <mat-icon class="synonymsIcon" matTooltip="copy to clip board before search"
                             matTooltipPosition="above" (click)="getSynonyms(model.editorData)">layers</mat-icon>
-                        <quill-editor [ngModelOptions]="{standalone: true}" [(ngModel)]="model.editorData"
+                        <quill-editor #editor [ngModelOptions]="{standalone: true}" [(ngModel)]="model.editorData"
                             [styles]="{ height: '280px' }" [modules]="editorConfig">
                         </quill-editor>
 
@@ -337,9 +336,9 @@
                     <div class="newnames" style="display: flex;flex-direction: column;border-radius: 8px;width: 30%;
                     border: 1px solid #004684; padding-left: 10px; margin: 10px;">
                         <h2 class="text-bold " style="color: #004684;">New Names</h2>
-                        <textarea style="width: 94%;" matInput cdkTextareaAutosize cdkAutosizeMinRows="23" formControlName="suma"
-                            appearance="outline" [value]="newNamesPerConcept" [(ngModel)]="newNamesPerConcept"
-                            formControlName="suma"></textarea>
+                        <textarea style="width: 94%;" matInput cdkTextareaAutosize cdkAutosizeMinRows="23"
+                            formControlName="suma" appearance="outline" [value]="newNamesPerConcept"
+                            [(ngModel)]="newNamesPerConcept" formControlName="suma"></textarea>
 
                     </div>
 
@@ -443,6 +442,9 @@
     <!-- QR CODE-->
     <div *ngIf="isQRcode" class="qr_code">
         <p style="font-family: sans-serif;font-size: 28px;margin: 0px;">scan me</p>
+ <app-qr-code-popup-component style="width: 60%;" (closePopup)="onQrCodeClose()" 
+                [url]="myAngularxQrCode"></app-qr-code-popup-component>
+
         <p><a style="color: black;" target="_blank">{{myAngularxQrCode}}</a></p>
     </div>
 
@@ -455,7 +457,7 @@
             <div class="row">
                 <!-- <p style="margin-right: 5px;">search Results for </p>
             <p style="color: red;">{{synonymWord}}</p> -->
-            <p>{{ (dataSource | async).length }} Results for </p>
+                <p>{{ (dataSource | async).length }} Results for </p>
                 <p style="color: red;margin-left: 5px;">{{synonymWord}}</p>
             </div>
 

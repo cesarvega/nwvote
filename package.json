@@ -51,7 +51,7 @@
     "@types/hammerjs": "^2.0.39",
     "@types/raphael": "^2.3.2",
     "angular2-datetimepicker": "^1.1.1",
-    "angularx-qrcode": "^2.3.5",
+    "angularx-qrcode": "^2.3.7",
     "animate.css": "^4.1.1",
     "audit": "0.0.6",
     "bootstrap": "^4.4.1",
@@ -68,14 +68,17 @@
     "ng2-dragula": "^5.1.0",
     "ngx-device-detector": "^1.4.6",
     "ngx-echarts": "^7.0.1",
+    "ngx-qrcode2": "^9.0.0",
     "ngx-quill": "^26.0.4",
     "npm": "^10.5.0",
     "qr-code-styling": "^1.6.0-rc.1",
+    "quill": "^2.0.2",
     "rxjs": "^7.8.1",
     "speak-tts": "^2.0.8",
     "ts-node": "~8.3.0",
     "tslint": "~6.1.0",
-    "zone.js": "~0.14.4"
+    "zone.js": "~0.14.4",
+    "qrcode":  "^1.5.3"
   },
   "devDependencies": {
     "@angular-devkit/build-angular": "^17.3.0",
