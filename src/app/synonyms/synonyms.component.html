@@ -1,0 +1,22 @@
+<div class="container">
+    <input [(ngModel)]="inputText" placeholder="Enter words separated by commas">
+    <button (click)="getSynonyms()">SEARCH</button>
+  </div>
+  
+  <div class="synonyms-modal">
+    <div *ngFor="let item of dataSource | async">
+      <h3>{{ item.word }}</h3>
+      <div class="synonyms-container">
+        <div *ngFor="let synonym of item.synonyms" class="synonym-item">
+          <label>
+            <input type="checkbox" [(ngModel)]="synonym.selected" (change)="toggleSelection(item.word, synonym)">
+            {{ synonym.word }}
+          </label>
+        </div>
+      </div>
+    </div>
+    <div class="button-container">
+      <button (click)="emitSelectedSynonyms()" class="mat-button">DONE</button>
+    </div>
+  </div>
+  

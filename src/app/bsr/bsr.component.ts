@@ -1,5 +1,5 @@
 import { OverlayContainer } from '@angular/cdk/overlay';
-import { Component, OnInit, Inject, ViewEncapsulation, ViewChild, ChangeDetectorRef  } from '@angular/core';
+import { Component, OnInit, Inject, ViewEncapsulation, ViewChild, ChangeDetectorRef } from '@angular/core';
 import { FormControl, FormGroup, UntypedFormControl } from '@angular/forms';
 import { CdkDragDrop, moveItemInArray, CdkDropListGroup, transferArrayItem } from '@angular/cdk/drag-drop';
 import { BsrService } from './bsr.service';
@@ -74,8 +74,8 @@ export class BsrComponent implements OnInit {
   commentBoxText = "";
   elem: any;
   isFullscreen = false;
-  namesBoxIndexValue = 52;
-  namesBoxIndex = 0;
+  namesBoxIndexValue = 30;
+  namesBoxIndex = 2;
   wideScreen = false;
   BackgroundUrl = 'http://bipresents.com/nw2/';
   BackgroundUrlOff = 'url(http://bipresents.com/nw2/assets/images/BackGrounds/Backgrounds2019/';
@@ -84,7 +84,7 @@ export class BsrComponent implements OnInit {
   open: boolean = false;
   wide = true
   constructor(@Inject(DOCUMENT) private document: any,
-    private _BsrService: BsrService, public dialog: MatDialog, private activatedRoute: ActivatedRoute,  
+    private _BsrService: BsrService, public dialog: MatDialog, private activatedRoute: ActivatedRoute,
     // private _hotkeysService: HotkeysService,
   ) {
 
@@ -92,13 +92,13 @@ export class BsrComponent implements OnInit {
   }
 
   ngOnInit(): void {
-
+    this.toggleNamebox()
     this.baseUrl = this._BsrService.getBaseUrlForResources();
     window.addEventListener('keydown', this.handleKeyDown.bind(this));
     if (this.baseUrl === 'https://bitools.s3.amazonaws.com/nw-resources/') {
       this.BackgroundUrl = 'https://d3lyn5npnikbck.cloudfront.net/'
     }
-   
+
 
     this.font_size_text = (localStorage.getItem(this.projectName + '_font_size_text')) ? localStorage.getItem(this.projectName + '_font_size_text') : '26px';
     this.font_size = (localStorage.getItem(this.projectName + '_font_size')) ? localStorage.getItem(this.projectName + '_font_size') : '26';
@@ -114,7 +114,7 @@ export class BsrComponent implements OnInit {
 
     this.assignCopy();
     this.elem = document.documentElement;
-  
+
     this.postItListTheme = localStorage.getItem(this.projectName + '_post-it-list-theme');
     this._BsrService.getSlides(this.projectId).subscribe((res: any) => {
       this.appSlidesData = res;
@@ -123,7 +123,7 @@ export class BsrComponent implements OnInit {
       this.totalNumberOfSlides = res.length;
       this.pageCounter = '1/' + (parseInt(this.totalNumberOfSlides));
       let slideRes = res[0].SlideBGFileName
-      this.wide = res[0].isWide != null ? true:false
+      this.wide = res[0].isWide != null ? true : false
       this.slideBackground = this.slideBackground + slideRes + ')';
       this.appSlidesData.forEach(element => {
         if (element.SlideType === "NameSummary") {
@@ -133,7 +133,7 @@ export class BsrComponent implements OnInit {
       this.createPostIt = false;
       if (this.createPostIt) {
         this.searchBoxLeftProperty = '777px';
-        this.currentPageNumber = (this.createPostIt) ? this.appSlidesData[0].SummarySlide -1: 0;
+        this.currentPageNumber = (this.createPostIt) ? this.appSlidesData[0].SummarySlide - 1 : 0;
         this.pageCounter = (this.createPostIt) ? this.appSlidesData[0].SummarySlide + '/' + (parseInt(this.totalNumberOfSlides)) : '1/' + (parseInt(this.totalNumberOfSlides));
       } else {
         this.searchBoxLeftProperty = '611px;';
@@ -155,13 +155,13 @@ export class BsrComponent implements OnInit {
       });
     });
 
-     setInterval(() => {
-       this._BsrService.getNameCandidates(this.projectId).subscribe((res: any) => {
-         res.forEach(name => {
-           name.html = name.html.replace(/\\/g, '');
-         });
+    setInterval(() => {
+      this._BsrService.getNameCandidates(this.projectId).subscribe((res: any) => {
+        res.forEach(name => {
+          name.html = name.html.replace(/\\/g, '');
+        });
         this.nameCandidates = (res.length > 0) ? res : [];
-       });
+      });
     }, 1000);
 
     this.getCommentsByIndex(0);
@@ -187,7 +187,7 @@ export class BsrComponent implements OnInit {
       }
     });
   }
-  wideScreenView(){
+  wideScreenView() {
     this.wide = !this.wide
   }
 
@@ -304,9 +304,9 @@ export class BsrComponent implements OnInit {
         this.searchBoxLeftProperty = '777px';
       }
       this.pageCounter = this.currentPageNumber + 1 + '/' + this.totalNumberOfSlides;
-      if(this.currentPageNumber+ 1 == this.appSlidesData[this.currentPageNumber].SummarySlide){
+      if (this.currentPageNumber + 1 == this.appSlidesData[this.currentPageNumber].SummarySlide) {
         this.bsr()
-      }else{
+      } else {
         this.createPostIt = false;
 
       }
@@ -321,7 +321,7 @@ export class BsrComponent implements OnInit {
     this.appSearchSlidesData = [];
     this.isCommentBox = false;
     this.createPostIt = false
-        if (this.currentPageNumber >= 1) {
+    if (this.currentPageNumber >= 1) {
       this.currentPageNumber = this.currentPageNumber - 1;
       this.pageCounter = this.currentPageNumber + 1 + '/' + this.totalNumberOfSlides;
       this.slideBackground = this.baseBackgroundUrl + this.appSlidesData[this.currentPageNumber].SlideBGFileName + ')';
@@ -329,22 +329,25 @@ export class BsrComponent implements OnInit {
         this.createPostIt = true;
         this.searchBoxLeftProperty = '777px';
       }
-      if(this.currentPageNumber+ 1 == this.appSlidesData[this.currentPageNumber].SummarySlide){
-        
+      if (this.currentPageNumber + 1 == this.appSlidesData[this.currentPageNumber].SummarySlide) {
+
         this.bsr()
-      }else{
+      } else {
         this.createPostIt = false;
       }
     }
   }
   handleKeyDown(event: KeyboardEvent): void {
-    if(!this.open ){
-    if (event.key === 'ArrowRight') {
-      this.moveForward();
-    } else if (event.key === 'ArrowLeft') {
-      this.moveBackward();
+    if (!this.open) {
+      if (event.key === 'ArrowRight') {
+        this.moveForward();
+      } else if (event.key === 'ArrowLeft') {
+        this.moveBackward();
+      } else if (event.key === 'o' || event.key === 'O') {
+        // Cambia el valor de la variable aquí
+        this.overview = !this.overview; // Asegúrate de reemplazar "yourVariable" y "newValue" con los nombres y valores adecuados.
+      }
     }
-  }
   }
 
   submitNewName() {
@@ -491,7 +494,7 @@ export class BsrComponent implements OnInit {
   goToSlide(i) {
     this.overview = false;
     this.currentPageNumber = i;
-    
+
 
     if (this.postItPresentationIndex == this.currentPageNumber) {
       this.createPostIt = true;
@@ -504,8 +507,8 @@ export class BsrComponent implements OnInit {
 
       this.createPostIt = false;
     }
-    
-  
+
+
     this.pageCounter = i + 1 + '/' + this.totalNumberOfSlides;
   }
 
@@ -615,7 +618,7 @@ export class BsrComponent implements OnInit {
       this.namesBoxIndex = 0;
       this.onInputChange(15);
     }
-
+    console.log(this.namesBoxIndex)
   }
 
 
@@ -645,7 +648,6 @@ export class BsrComponent implements OnInit {
       this.nameBoxB = false;
       this.isScreenButton = true;
     }
-    this.namesBoxIndexValue = value;
     localStorage.setItem(this.projectName + '_namesBoxIndex', this.namesBoxIndexValue.toString());
   }
 
@@ -707,7 +709,7 @@ export class BsrComponent implements OnInit {
 
 import { MatSliderChange } from '@angular/material/slider';
 import { ActivatedRoute } from '@angular/router';
-import { BehaviorSubject,forkJoin, map } from 'rxjs';
+import { BehaviorSubject, forkJoin, map } from 'rxjs';
 // import { ThrowStmt } from '@angular/compiler/src/output/output_ast';
 // import { DragulaService } from 'ng2-dragula';
 
@@ -771,7 +773,7 @@ export class editPost {
   public myAngularxQrCode: string = null;
   isQRcode: boolean;
   nameid: any = '';
-  showQrCode=false
+  showQrCode = false
   closeQrCodePopup() {
     this.showQrCode = !this.showQrCode;
   }
@@ -783,7 +785,7 @@ export class editPost {
   }
   constructor(
     public dialogRef: MatDialogRef<editPost>,
-    @Inject(MAT_DIALOG_DATA) public data: DialogData, private _BsrService: BsrService, private activatedRoute: ActivatedRoute, private cdr: ChangeDetectorRef )  {
+    @Inject(MAT_DIALOG_DATA) public data: DialogData, private _BsrService: BsrService, private activatedRoute: ActivatedRoute, private cdr: ChangeDetectorRef) {
     this.editName = this.data.nameId;
     this.dataEditor = this.data.name.html;
     this.model.editorData = this.data.name.html;
@@ -888,48 +890,53 @@ export class editPost {
   }
 
 
-  buttonOption(option) {
+ 
+buttonOption(option) {
+  if (option === 'delete') {
+    this.isDeleting = false;
+    this.dialogRef.close('delete');
+  } else if (option === 'savePost') {
+    this.isDeleting = false;
+    this.projectId = localStorage.getItem(this._BsrService.getProjectName() + '_projectId');
 
-    if (option === 'delete') {
-      this.isDeleting = false;
-      this.dialogRef.close('delete');
-    }
-    else if (option === 'savePost') {
-      this.isDeleting = false;
+    // Asegúrate de que `this.model.editorData` y otros campos tengan valores válidos o una cadena vacía
+    const editorData = this.model.editorData && this.model.editorData.trim() ? this.model.editorData : '';
 
-      this.projectId = localStorage.getItem(this._BsrService.getProjectName() + '_projectId');
+    const newConcepData = {
+      projectId: this.projectId,
+      concept: this.loginForm.value.name.replace(/'/g, "`"),
+      conceptid: JSON.stringify(this.data.name.conceptid),
+      attributesArray: this.data.name.attributes,
+      namesArray: this.model.namesData ? this.model.namesData.split("\n").filter(name => name.trim() !== '') : [''],
+      conceptHtml: editorData
+    };
 
-      let newConcepData = {
-        projectId: this.projectId,
-        concept: this.loginForm.value.name.replace(/'/g, "`"),
-        conceptid: JSON.stringify(this.data.name.conceptid),
-        attributesArray: this.data.name.attributes,
-        namesArray: this.model.namesData.split("\n"),
-        conceptHtml: this.model.editorData
-      }
-      this._BsrService.updatePost(JSON.stringify(newConcepData)).subscribe(arg => {
-        this.dialogRef.close('savePost');
-      });
-
-    }
-    else if (option === 'deleteName') {
-      this.isDeleting = false;
-      this._BsrService.deleteName(this.data.name.NameId).subscribe(arg => { });
-      this.dialogRef.close('deleteName');
-    } else {
-      this.dialogRef.close('cancel');
-    }
-    // this.loginForm.value.suma.split('\n').forEach(element => {
-
-    // this.newNamesPerConcept.replace(/'/g, "`");
-    this.newNamesPerConcept.split('\n').forEach((element, index) => {
-      const tempArray = this.nameid.split('\n');
-      this._BsrService.sendNewName(element, false, this.conceptid, tempArray[index]).subscribe(arg => {
-      });
+    this._BsrService.updatePost(JSON.stringify(newConcepData)).subscribe(arg => {
+      this.dialogRef.close('savePost');
     });
-
+  } else if (option === 'deleteName') {
+    this.isDeleting = false;
+    this._BsrService.deleteName(this.data.name.NameId).subscribe(arg => { });
+    this.dialogRef.close('deleteName');
+  } else {
+    this.dialogRef.close('cancel');
   }
 
+  // Asegúrate de que `newNamesPerConcept` y `nameid` tengan valores válidos o una cadena vacía
+  if (this.newNamesPerConcept && this.nameid) {
+    const newNames = this.newNamesPerConcept.split('\n').filter(name => name.trim() !== '');
+    const nameIds = this.nameid.split('\n');
+
+    newNames.forEach((element, index) => {
+      const tempArray = this.nameid.split('\n');
+      const nameId = tempArray[index] ? tempArray[index] : '';
+      if (nameId) {
+        this._BsrService.sendNewName(element, false, this.conceptid, nameId).subscribe(arg => {
+        });
+      }
+    });
+  }
+}
   onNoClick(): void {
     this.popupwindowData = {
       form: this.loginForm,
@@ -941,45 +948,48 @@ export class editPost {
     const regex = /<p>(.*?)<\/p>/g;
     const result = [];
     let match;
-  
+
     while ((match = regex.exec(synonyms)) !== null) {
       // match[1] contiene el texto entre <p> y </p>
       // Eliminamos cualquier otra etiqueta HTML en el contenido
       const tempElement = document.createElement('div');
       tempElement.innerHTML = match[1];
-      result.push(tempElement.textContent || tempElement.innerText || ''); 
+      result.push(tempElement.textContent || tempElement.innerText || '');
     }
-  
+
     this.synonymWord = result.join(', ');
     this.isSynonymBox = true;
-    
-    let counter = 0;
+
     const requests = result.map(element =>
       this._BsrService.getSinonyms(element).pipe(
-        map((res: any) => JSON.parse(res))
+        map((res: any) => {
+          const parsedRes = JSON.parse(res);
+          return { word: element, synonyms: parsedRes };
+        })
       )
     );
-  
+
     forkJoin(requests).subscribe((results: any[]) => {
       const data: any[] = [];
-      results.forEach(res => {
-        res.forEach(synonym => {
-          data.push({ position: counter, synonyms: synonym.word, weight: 1.0079, symbol: 'H' });
-          counter++;
-        });
+      results.forEach((res, index) => {
+        const word = res.word;
+        const synonyms = res.synonyms.map((synonym: any) => synonym.word);
+        data.push({ word, synonyms });
       });
       this.dataSource.next(data); // Actualiza el BehaviorSubject
-      this.cdr.markForCheck(); // Forzar la detección de cambios
+      this.cdr.markForCheck(); // Forzar la detección de 
+      console.log(this.dataSource.getValue())
     });
   }
-
   setAll(evt) {
     this.model.editorData = this.model.editorData.concat('<p>' + evt + '</p>');
   }
 
-  addSynonymsToEditor() {
-    this.isSynonymBox = false;
-    // this.model.editorData = this.model.editorData.concat('<p>' + this.dataSource[0].synonyms + '</p>');
+  addSynonymsToEditor(synonyms) {
+    synonyms.forEach(synonym => {
+      this.model.editorData += `<p>${synonym}</p>`;
+    });
+    this.isSynonymBox = false
   }
   emojiToggle() {
     this.isEmojiTime = !this.isEmojiTime;

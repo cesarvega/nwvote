@@ -97,6 +97,7 @@ import { ImageRankComponent } from './bmx/components/bmx-creator/survey-creation
 import { SignalComponent } from './signal/signal.component';
 import { QuillModule } from 'ngx-quill';
 import { QrCodePopupComponentComponent } from './qr-code-popup-component/qr-code-popup-component.component';
+import { SynonymsComponent } from './synonyms/synonyms.component';
 
 export function loadEcharts() {
   return import('echarts');
@@ -220,7 +221,8 @@ export function MSALInstanceFactory(): IPublicClientApplication {
         MatAutocompleteModule,
         SignalComponent,
         QuillModule,
-        QrCodePopupComponentComponent
+        QrCodePopupComponentComponent,
+        SynonymsComponent
 
         // BmxModule
     ],

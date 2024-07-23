@@ -327,10 +327,9 @@
 
                         <mat-icon class="synonymsIcon" matTooltip="copy to clip board before search"
                             matTooltipPosition="above" (click)="getSynonyms(model.editorData)">layers</mat-icon>
-                        <quill-editor #editor [ngModelOptions]="{standalone: true}" [(ngModel)]="model.editorData"
+                            <quill-editor #editor [ngModelOptions]="{standalone: true}" [(ngModel)]="model.editorData"
                             [styles]="{ height: '280px' }" [modules]="editorConfig">
-                        </quill-editor>
-
+              </quill-editor>
                     </div>
 
                     <div class="newnames" style="display: flex;flex-direction: column;border-radius: 8px;width: 30%;
@@ -449,54 +448,5 @@
     </div>
 
     <div *ngIf="isSynonymBox" class="synonyms-box mat-elevation-z8" cdkDrag>
-        <div class="emoji-handle" cdkDragHandle>
-        </div>
-
-        <div class="col">
-
-            <div class="row">
-                <!-- <p style="margin-right: 5px;">search Results for </p>
-            <p style="color: red;">{{synonymWord}}</p> -->
-                <p>{{ (dataSource | async).length }} Results for </p>
-                <p style="color: red;margin-left: 5px;">{{synonymWord}}</p>
-            </div>
-
-            <div class="row" style="overflow-y: scroll; height: 360px;">
-
-                <table mat-table [dataSource]="dataSource | async" class="mat-elevation-z8">
-
-                    <!-- Position Column -->
-                    <ng-container matColumnDef="position">
-                        <th mat-header-cell *matHeaderCellDef> No. </th>
-                        <td mat-cell *matCellDef="let element"> {{element.position}} </td>
-                    </ng-container>
-
-                    <!-- Name Column -->
-                    <ng-container matColumnDef="name">
-                        <th mat-header-cell *matHeaderCellDef> Synonyms </th>
-                        <td mat-cell *matCellDef="let element"> {{element.synonyms}} </td>
-                    </ng-container>
-
-                    <!-- Weight Column -->
-                    <ng-container matColumnDef="weight">
-                        <th mat-header-cell *matHeaderCellDef> Select </th>
-                        <td mat-cell *matCellDef="let element">
-                            <mat-checkbox (change)="setAll(element.synonyms)">
-                            </mat-checkbox>
-                        </td>
-
-                    </ng-container>
-
-
-
-                    <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
-                    <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
-                </table>
-            </div>
-
-            <div class="row">
-                <button mat-button class="" style="    position: relative;
-            right: -660px;" (click)="addSynonymsToEditor()">DONE</button>
-            </div>
-        </div>
+        <app-synonyms (selectedSynonyms)="addSynonymsToEditor($event)"> </app-synonyms>
     </div>

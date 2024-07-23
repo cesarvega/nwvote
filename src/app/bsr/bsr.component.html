@@ -2,7 +2,7 @@
 
   <!-- OVERVIEW SLIDE -->
   <mat-sidenav class="overview" mode="over" [opened]="overview">
-    <mat-card appearance="outlined" (click)="goToSlide(i)" *ngFor="let item of appSlidesData; let i = index">
+    <mat-card appearance="outlined" (click)="goToSlide(i)" style="padding: 1px 15px;" *ngFor="let item of appSlidesData; let i = index">
       <p style="color: #004684;cursor: pointer;border-bottom: #004684;">{{i+1}}. - {{item.SlideDescription}}</p>
       <!-- <img [src]="'http://www.bipresents.com/' + item.SlideBGFileName" alt="overview"
           style="max-width: 250px;cursor: pointer;"> -->
@@ -20,7 +20,7 @@
       </div>
 
       <button (click)="moveBackward()" [class.menu-left-icon-wide-post]="wide &&  createPostIt"
-        [class.menu-left-icon-wide]="wide &&  !createPostIt" [class.menu-left-icon]="!wide" disableRipple
+        [class.menu-left-icon-wide]="wide &&  !createPostIt" [class.menu-left-icon]="!wide && !createPostIt"  [class.menu-left-icon-post]="!wide && createPostIt"   disableRipple
         mat-icon-button color="red">
         <mat-icon>keyboard_arrow_left</mat-icon>
       </button>
@@ -283,6 +283,7 @@
               <!-- Brandstorm and Names toolbar -->
               <mat-toolbar [class.toolbar-postit-wide]="wide && createPostIt" [class.toptoolbar]="!wide"
                 class=" mat-elevation-z12" color="primary">
+                
                 <div class="row">
                   <div (click)="theme()" class="col brandstorm"
                     style="color: white; font-size: 40px;font-family: Arial">
@@ -315,10 +316,9 @@
 
                   <div class="presentation-box " [class.presentation-box-wide]="wide && createPostIt"
                     style="overflow-y: scroll;">
-
                     <!-- POST_REPEATER -->
 
-                    <div class="row post-it-container " [style.max-width]="wide && createPostIt? '947px': '925px'"
+                    <div class="row post-it-container "  [style.max-width]="namesBoxIndex == 1? '1320px': namesBoxIndex == 0 && wide?'931px': wide && createPostIt? '947px': '925px'"
                       dragula="TASKS" [dragulaModel]="conceptData.concepts"
                       (dragulaModelChange)="conceptData.concepts = $event">
                       <div [ngClass]="postItListTheme" *ngFor="let item of conceptData.concepts; let i = index;">
@@ -388,7 +388,7 @@
                       <input matInput type="New Name" placeholder="name1, name2, name3" formControlName="name"
                         [(ngModel)]="newName">
                     </mat-form-field>
-                    <button style (click)="submitNewName(); newName=''" mat-icon-button color="success"
+                    <button style (click)="submitNewName(); newName=''" mat-icon-button color="success" [class.button2]="nameIndexCounter==2" 
                       aria-label="icon" style="outline: none;
                           position: absolute;
                         outline: none;
@@ -413,7 +413,7 @@
 
                 <div class="col-md-4 " *ngIf="nameBox && !nameBoxB">
                   <!-- NAMES BOX 2-->
-                  <div class="names-container2 bounceIn">
+                  <div [class.names-container2]="!wide" [class.names-container2-wide]="wide">
                     <div *ngFor="let  nameCandidate of nameCandidates; let i = index">
                       <span *ngIf="!isScreeningNames" (dblclick)="openDialog(nameCandidate, 'deleteName')"
                         style="font-size:22px;margin: 10px;cursor: pointer;overflow: scroll;"
@@ -435,7 +435,7 @@
                       <input matInput type="New Name" placeholder="name1, name2, name3" formControlName="name"
                         [(ngModel)]="newName">
                     </mat-form-field>
-                    <button (click)="submitNewName(); newName=''" mat-icon-button color="success" aria-label="icon"
+                    <button (click)="submitNewName(); newName=''" [class.form-button2]="namesBoxIndex == 0" mat-icon-button color="success" aria-label="icon"
                       style="outline: none;
                         position: absolute;
                       outline: none;
