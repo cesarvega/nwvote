@@ -144,9 +144,9 @@
                 <mat-label>Sort By</mat-label>
                 <mat-select [(value)]="selected" (selectionChange)="changeView()">
                     <mat-option value="All">All</mat-option>
-                    <mat-option value="NS">Not Started</mat-option>
-                    <mat-option value="NF">Not Finished</mat-option>
-                    <mat-option value="F">Finished</mat-option>
+                    <mat-option value="Not Started">Not Started</mat-option>
+                    <mat-option value="Not Finished">Not Finished</mat-option>
+                    <mat-option value="Finished">Finished</mat-option>
                 </mat-select>
             </mat-form-field>
             <table mat-table [dataSource]="dataSource" matSort class="mat-elevation-z8"
