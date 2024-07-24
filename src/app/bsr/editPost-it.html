@@ -152,142 +152,68 @@
     </div>
     <!-- MOBILE INFO PICTURE DISPLAY -->
     <div *ngIf="isMobileInfo">
-
-
-
-        <div class="row" layout-align="center center">
-
-            <!-- <qrcode [qrdata]="myAngularxQrCode" [width]="256" [errorCorrectionLevel]="'M'"></qrcode> -->
-
-            <div flex="" class="text-center flex" style="margin:0 18px">
-                <p>1. Access
-                    <img class="instruction-style " src="assets/img/bsr/login_page.JPG" alt="Login">
+        <div class="container">
+          <div class="row justify-content-center">
+            <div class="col-12 col-md-3 text-center mb-3">
+              <div>
+                <p style="font-size: 0.9rem;">1. Access</p>
+              </div>
+              <div>
+                <img class="instruction-style img-fluid" src="assets/img/bsr/login_page.JPG" alt="Login" style="max-width: 100%; height: auto;">
+              </div>
             </div>
-            <div flex="" class="text-center flex" style="margin-right:10px">
-                <p>2.
-                    Enter name suggestions</p>
-                <img class="instruction-style" src="assets/img/bsr/page_creation.JPG" alt="Candidates">
+            <div class="col-12 col-md-3 text-center mb-3">
+              <div>
+                <p style="font-size: 0.9rem;">2. Enter name suggestions</p>
+              </div>
+              <div>
+                <img class="instruction-style img-fluid" src="assets/img/bsr/page_creation.JPG" alt="Candidates" style="max-width: 100%; height: auto;">
+              </div>
             </div>
-            <div flex="" class="text-center flex">
-                <p>3.
-                    Edit name suggestions (optional)</p>
-                <img class="instruction-style" src="assets/img/bsr/editing_name.JPG" alt="Edit, Save and Delete">
+            <div class="col-12 col-md-3 text-center mb-3">
+              <div>
+                <p style="font-size: 0.9rem;">3. Edit name suggestions (optional)</p>
+              </div>
+              <div>
+                <img class="instruction-style img-fluid" src="assets/img/bsr/editing_name.JPG" alt="Edit, Save and Delete" style="max-width: 100%; height: auto;">
+              </div>
             </div>
-            <div flex="" class="text-center flex" style="margin: 0px 15px;">
-                <p>4.
-                    Complete</p>
-                <img class="instruction-style" src="assets/img/bsr/thank_you_page.JPG" alt="Logout">
+            <div class="col-12 col-md-3 text-center mb-3">
+              <div>
+                <p style="font-size: 0.9rem;">4. Complete</p>
+              </div>
+              <div>
+                <img class="instruction-style img-fluid" src="assets/img/bsr/thank_you_page.JPG" alt="Logout" style="max-width: 100%; height: auto;">
+              </div>
             </div>
-
-
-
-            <mat-icon (click)="buttonOption('')" style="    color: #004684;
-            position: absolute;
-            bottom: -15px;
-            outline: none;
-            right: -7px;
-            font-size: 17px;
-            cursor: pointer;
-            ">disabled_by_default</mat-icon>
-
-
+          </div>
         </div>
-
-
-        <div ng-hide="!bsrMenubarController.isItNSR" class="nonprop-name-rule-style" aria-hidden="false">
-
-            <!-- <h4>
-                The letters h, j, k, w, and y should be avoided
-            </h4>
-
-            <h2 style="line-height: 1.5;margin-top:0px;">
-                A B C D E F G H I J K L M N O P Q R S T U V W <mark>X</mark> Y <mark>Z</mark>
-            </h2>
-
-            <h4>
-                Do Not Start With
-            </h4>
-
-            <ul>
-                <li>
-                    No Double Letters (OO, EE, etc.) OR Triple Consonants
-                </li>
-                <li>
-                    Avoid Double Vowels (Qu- is the only exception)
-                </li>
-                <li>
-                    No Numerical Connotations (TRI, DUB, etc.)
-                </li>
-                <li>
-                    Preferences: “F” not “PH” / “T” not “TH”/ “E” not “AE” or “OE”/ “I” not “Y”
-                </li>
-                <li>
-                    Avoid Beginning Letter Combination with “ME” or “STR”
-                </li>
-                <li>
-                    Total Name (Prefix+Stem) = 4 to 5 Syllables
-                </li>
-                <li>
-                    Special Cases Exist – Please Note Rules Above Are for Prefix + Stem Structure
-                </li>
-                <li>
-                    <mark>Use the letters X, and Z to a minimum</mark>
-                </li>
-            </ul>
-
-            <h4>
-                <b>
-                    <u>
-                        Rules concerning letters
-                    </u>
-                </b>
-            </h4>
-
-            <ul>
-                <li>
-                    The beginning letter sequences “ar-”, “rac-”, “lev-”, “dex-”, “zu-“ or “es-” are reserved for
-                    stereochemical configurations
-                </li>
-                <li type="square" style="padding-left:30px;">
-                    Only used if an isomer of the compound has already been assigned a nonproprietary name
-                </li>
-            </ul>
-
-            <h4>
-                <b>
-                    <u>
-                        Rules concerning meanings
-                    </u>
-                </b>
-            </h4>
-
-            <ul>
-                <li>
-                    Prefixes should not explicitly or implicitly contain any references to:
-                </li>
-                <li type="square" style="padding-left:30px;">
-                    chemical structure (unless present in the compound)
-                </li>
-                <li type="square" style="padding-left:30px;">
-                    anatomical targets or medical conditions to treat
-                </li>
-                <li type="disc" style="padding-left:60px;">
-                    eg “bone-”, “tumo-”, “melan-”
-                </li>
-                <li type="square" style="padding-left:30px;">
-                    promotional language
-                </li>
-                <li type="disc" style="padding-left:60px;">
-                    eg “best-”, “dura-”, “efex-”
-                </li>
-                <li type="square" style="padding-left:30px;">
-                    the name of the manufacturer
-                </li>
-            </ul> -->
-        </div>
-
-
-    </div>
+        <mat-icon (click)="buttonOption('')" style="color: #004684; position: absolute; bottom: 10px; right: 10px; font-size: 24px; cursor: pointer;">disabled_by_default</mat-icon>
+      </div>
+      
+      <style>
+        .instruction-style {
+          max-width: 100%;
+          height: auto;
+        }
+        
+        @media (max-width: 768px) {
+          .instruction-style {
+            max-width: 80%;
+            height: auto;
+          }
+        }
+      
+        .text-center p {
+          word-wrap: break-word;
+        }
+      
+        .row {
+          display: flex;
+          flex-wrap: wrap;
+        }
+      </style>
+      
 
     <!-- EDITOR CARD -->
     <div *ngIf="!infoMessage && !isMobileInfo && !isQRcode">

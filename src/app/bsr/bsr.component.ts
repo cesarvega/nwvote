@@ -75,7 +75,7 @@ export class BsrComponent implements OnInit {
   elem: any;
   isFullscreen = false;
   namesBoxIndexValue = 30;
-  namesBoxIndex = 2;
+  namesBoxIndex = 1;
   wideScreen = false;
   BackgroundUrl = 'http://bipresents.com/nw2/';
   BackgroundUrlOff = 'url(http://bipresents.com/nw2/assets/images/BackGrounds/Backgrounds2019/';
@@ -615,8 +615,8 @@ export class BsrComponent implements OnInit {
       this.namesBoxIndex++;
       this.onInputChange(30);
     } else {
-      this.namesBoxIndex = 0;
-      this.onInputChange(15);
+      this.namesBoxIndex = 1;
+      this.onInputChange(52);
     }
     console.log(this.namesBoxIndex)
   }
@@ -929,12 +929,13 @@ buttonOption(option) {
 
     newNames.forEach((element, index) => {
       const tempArray = this.nameid.split('\n');
-      const nameId = tempArray[index] ? tempArray[index] : '';
+      const nameId = tempArray[index] ? tempArray[index] : '0';
       if (nameId) {
         this._BsrService.sendNewName(element, false, this.conceptid, nameId).subscribe(arg => {
         });
       }
     });
+    
   }
 }
   onNoClick(): void {
