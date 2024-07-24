@@ -890,7 +890,7 @@ export class editPost {
   }
 
 
- 
+
 buttonOption(option) {
   if (option === 'delete') {
     this.isDeleting = false;
@@ -929,7 +929,7 @@ buttonOption(option) {
 
     newNames.forEach((element, index) => {
       const tempArray = this.nameid.split('\n');
-      const nameId = tempArray[index] ? tempArray[index] : '';
+      const nameId = tempArray[index] ? tempArray[index] : '0';
       if (nameId) {
         this._BsrService.sendNewName(element, false, this.conceptid, nameId).subscribe(arg => {
         });
@@ -977,7 +977,7 @@ buttonOption(option) {
         data.push({ word, synonyms });
       });
       this.dataSource.next(data); // Actualiza el BehaviorSubject
-      this.cdr.markForCheck(); // Forzar la detección de 
+      this.cdr.markForCheck(); // Forzar la detección de
       console.log(this.dataSource.getValue())
     });
   }
