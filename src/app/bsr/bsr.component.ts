@@ -890,7 +890,7 @@ export class editPost {
   }
 
 
- 
+
 buttonOption(option) {
   if (option === 'delete') {
     this.isDeleting = false;
@@ -978,7 +978,7 @@ buttonOption(option) {
         data.push({ word, synonyms });
       });
       this.dataSource.next(data); // Actualiza el BehaviorSubject
-      this.cdr.markForCheck(); // Forzar la detección de 
+      this.cdr.markForCheck(); // Forzar la detección de
       console.log(this.dataSource.getValue())
     });
   }
