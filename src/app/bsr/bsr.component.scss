@@ -949,7 +949,7 @@ mat-tab-group ::-webkit-scrollbar {
 }
 
 .corner_bar_menu {
- 
+
   position: absolute;
   right: 60px;
   color: grey !important;
@@ -1196,14 +1196,15 @@ $postItHeaderColors2: #d6f8fd, #dcd6fd, #d6fde9, #fdfcd6, #d6f8fd, #fdd6e8, #fdd
   padding: 0px !important;
   line-height: 0.8;
 }
+
 quill-editor{
-  font-size: 16px;
   color: #000;
 }
 
-.ql-container {
-  font-size: 20px;
+:host ::ng-deep .ql-editor {
+  font-size: 20px !important; /* Adjust the size as needed */
 }
+
 
 ::ng-deep .mat-mdc-text-field-wrapper:hover{
   width: 100%;
