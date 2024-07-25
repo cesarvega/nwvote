@@ -144,10 +144,7 @@
           mat-icon-button color="warn" aria-label="aria">
           <mat-icon class="full-icon">qr_code</mat-icon>
         </button>
-        <button (click)="displayHelp(false)" matTooltip="info" matTooltipPosition="above" mat-icon-button color="warn"
-          aria-label="aria">
-          <mat-icon class="full-icon">help</mat-icon>
-        </button>
+      
         <button *ngIf="!isNSR" (click)="openDialog('mobileInfo', 'do')" matTooltip="mobile app" mat-icon-button
           color="red">
           <mat-icon class="full-icon">phone_iphone</mat-icon>
