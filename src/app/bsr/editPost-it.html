@@ -114,9 +114,10 @@
         <div class="row" style="text-align: center;
         display: flex;
         flex-direction: row;
-        justify-content: center;">
+        justify-content: center;
+       ">
 
-            <div fxFlex fxLayoutAlign="end end" style="display: flex;flex-direction: row; gap: 1rem;">
+            <div fxFlex fxLayoutAlign="end end" style="display: flex;flex-direction: row; gap: 1rem; align-items: flex-end;">
                 <div fxFlex>
 
                     <button *ngIf="!isDeleting" (click)="buttonOption('cancel')" class="refreshbutton" mat-mini-fab
@@ -151,39 +152,39 @@
 
     </div>
     <!-- MOBILE INFO PICTURE DISPLAY -->
-    <div *ngIf="isMobileInfo">
+    <div class="cont" *ngIf="isMobileInfo">
         <div class="container">
           <div class="row justify-content-center">
-            <div class="col-12 col-md-3 text-center mb-3">
+            <div class="col-12 col-md-6 col-lg-3 text-center mb-3">
               <div>
-                <p style="font-size: 0.9rem;">1. Access</p>
+                <p class="instruction-text">1. Access</p>
               </div>
               <div>
-                <img class="instruction-style img-fluid" src="assets/img/bsr/login_page.JPG" alt="Login" style="max-width: 100%; height: auto;">
-              </div>
-            </div>
-            <div class="col-12 col-md-3 text-center mb-3">
-              <div>
-                <p style="font-size: 0.9rem;">2. Enter name suggestions</p>
-              </div>
-              <div>
-                <img class="instruction-style img-fluid" src="assets/img/bsr/page_creation.JPG" alt="Candidates" style="max-width: 100%; height: auto;">
+                <img class="instruction-style img-fluid" src="assets/img/bsr/login_page.JPG" alt="Login">
               </div>
             </div>
-            <div class="col-12 col-md-3 text-center mb-3">
+            <div class="col-12 col-md-6 col-lg-3 text-center mb-3">
               <div>
-                <p style="font-size: 0.9rem;">3. Edit name suggestions (optional)</p>
+                <p class="instruction-text">2. Enter name suggestions</p>
               </div>
               <div>
-                <img class="instruction-style img-fluid" src="assets/img/bsr/editing_name.JPG" alt="Edit, Save and Delete" style="max-width: 100%; height: auto;">
+                <img class="instruction-style img-fluid" src="assets/img/bsr/page_creation.JPG" alt="Candidates">
               </div>
             </div>
-            <div class="col-12 col-md-3 text-center mb-3">
+            <div class="col-12 col-md-6 col-lg-3 text-center mb-3">
               <div>
-                <p style="font-size: 0.9rem;">4. Complete</p>
+                <p class="instruction-text">3. Edit name suggestions (optional)</p>
               </div>
               <div>
-                <img class="instruction-style img-fluid" src="assets/img/bsr/thank_you_page.JPG" alt="Logout" style="max-width: 100%; height: auto;">
+                <img class="instruction-style img-fluid" src="assets/img/bsr/editing_name.JPG" alt="Edit, Save and Delete">
+              </div>
+            </div>
+            <div class="col-12 col-md-6 col-lg-3 text-center mb-3">
+              <div>
+                <p class="instruction-text">4. Complete</p>
+              </div>
+              <div>
+                <img class="instruction-style img-fluid" src="assets/img/bsr/thank_you_page.JPG" alt="Logout">
               </div>
             </div>
           </div>
@@ -196,23 +197,96 @@
           max-width: 100%;
           height: auto;
         }
-        
+      
+        .instruction-text {
+          font-size: 16px;
+          white-space: nowrap;
+          overflow: hidden;
+          text-overflow: ellipsis;
+          transition: font-size 0.3s ease;
+        }
+      
+        .cont {
+          overflow-y: auto;
+          max-height: 90vh; 
+        }
+      
+        @media (min-width: 1441px) {
+          .instruction-text {
+            font-size: 14px;
+          }
+        }
+      
+        @media (min-width: 1281px) and (max-width: 1440px) {
+          .instruction-text {
+            font-size: 12px;
+          }
+        }
+      
+        @media (min-width: 1025px) and (max-width: 1280px) {
+          .instruction-text {
+            font-size: 10px;
+          }
+        }
+      
+        @media (max-width: 1024px) {
+          .instruction-text {
+            font-size: 16px; 
+          }
+        }
+      
         @media (max-width: 768px) {
           .instruction-style {
             max-width: 80%;
             height: auto;
           }
+          .instruction-text {
+            font-size: 16px; 
+          }
+          .row {
+            display: flex;
+            flex-wrap: wrap;
+          }
+          .col-12 {
+            flex: 0 0 100%;
+            max-width: 100%;
+          }
         }
       
-        .text-center p {
-          word-wrap: break-word;
+        @media (min-width: 769px) and (max-width: 992px) {
+          .col-md-6 {
+            flex: 0 0 50%;
+            max-width: 50%;
+          }
+          .instruction-style {
+            max-width: 90%;
+            height: auto;
+          }
+          .instruction-text {
+            font-size: 16px; 
+          }
         }
       
-        .row {
-          display: flex;
-          flex-wrap: wrap;
+        @media (min-width: 993px) and (max-width: 1024px) {
+          .col-lg-3 {
+            flex: 0 0 25%;
+            max-width: 25%;
+          }
+          .instruction-style {
+            max-width: 100%;
+            height: auto;
+          }
+          .instruction-text {
+            font-size: 16px; /
+          }
+        }
+      
+        .mb-3 {
+          margin-bottom: 1rem !important;
         }
       </style>
+      
+      
       
 
     <!-- EDITOR CARD -->
