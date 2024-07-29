@@ -2,10 +2,10 @@
 
   <div *ngIf="displayedColumns.length>0" class="modal-content">
 
-    <div class="content-table" style="display: flex;
-      justify-content: center;
-      background: white;
-      flex-direction: column;
+    <div class="content-table" style="    background: white;
+    flex-direction: column;
+    max-height: 700px;
+    overflow-y: scroll;
   ">
       <table mat-table [dataSource]="dataSource" class="mat-elevation-z8" style="box-shadow: none !important;">
         <!-- Itera sobre las columnas definidas en displayedColumns -->

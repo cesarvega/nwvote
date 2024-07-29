@@ -128,7 +128,7 @@
           Participants
           <div class="video-container" style="z-index: 1;">
             <button (click)="CREATION_VIDEO_PATH='assets/videos/participants.mp4' ; showCreationModalVideo=true; "
-              class="video-button" matTooltip="see tutorial" matTooltipPosition="above" mat-icon-button
+              cla ="video-button" matTooltip="see tutorial" matTooltipPosition="above" mat-icon-button
               aria-label="ranking">
               <mat-icon style="font-size: 26px; color: white; " class="full-icon">video_library</mat-icon>
             </button>
@@ -175,6 +175,10 @@
     </mat-icon>
   </button>
 </div>
+<<<<<<< HEAD
+=======
+
+>>>>>>> 04ee8609e3916d9967d25e18ccc740ae78cd6038
 <div *ngIf="showErrorMessage">
   <app-survey-dialog (onConfirm)="showErrorMessage = false" (onCancel)="showErrorMessage = false"
       [dialogText]="'You must submit a user to display the information'"></app-survey-dialog>
