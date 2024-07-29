@@ -161,7 +161,7 @@ export class RatingScaleComponent implements OnInit {
         this.columnsNames.push(value)
       }
     });
-    console.log(this.columnsNames)
+  
     //this.columnsNames.push("RadioColumn4", "RadioColumn5");//HARD CODE
 
     let result = '';
@@ -269,9 +269,7 @@ export class RatingScaleComponent implements OnInit {
     const filteredCriteria = this.CRITERIA.filter(criteriaItem => this.selectedCriteria.map(item => item.name).includes(criteriaItem.name));
     this.newselectedCriteria = filteredCriteria
     this.launchPathModal.emit(this.VIDEO_PATH)
-    console.log(this.bmxItem.componentText.slice(1))
     this.dataSource = this.bmxItem.componentText.slice(1)
-    console.log(this.columnsNames)
   }
 
   openSelected(y: any) {
@@ -614,7 +612,6 @@ export class RatingScaleComponent implements OnInit {
               })
             });
           } else {
-            console.log(rows[i])
             this.bmxItem.componentSettings[0].CRITERIA = false
             objectColumnDesign['STARS'] = this.createRatingStars(this.rankingScaleValue, this.ratingScaleIcon);
             for (let e = 0; e < this.columnsNames.length; e++) {
@@ -650,7 +647,6 @@ export class RatingScaleComponent implements OnInit {
           if (this.bmxItem.componentType == 'narrow-down') {
             objectColumnDesign['SELECTED_ROW'] = false
           }
-          console.log(objectColumnDesign)
           const newObj = {};
 
           for (const key in this.bmxItem.componentText[1]) {
@@ -685,7 +681,7 @@ export class RatingScaleComponent implements OnInit {
           // Copia las propiedades que contienen "Comments"
           for (const key in objectColumnDesign) {
             if (objectColumnDesign.hasOwnProperty(key) && key.includes("Comments")) {
-              index == 0 ? newObj[key] = 'Comments' : newObj[key] = '';
+              index == 0 ? newObj[key] = this.bmxItem.componentText[0][key] : newObj[key] = '';
             }
           }
           this.TESTNAMES_LIST.push(newObj);
@@ -740,7 +736,6 @@ export class RatingScaleComponent implements OnInit {
 
       }
       this.dragRows = false;
-      console.log(this.bmxItem.componentText.slice(1))
     }, 1000);
     // this.swapColumns(0)
   }
