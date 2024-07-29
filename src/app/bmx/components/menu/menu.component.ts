@@ -31,13 +31,13 @@ export class MenuComponent implements OnInit {
   userDepartment: string;
   userOffice: any;
   id: string;
-  versionNumber = 'v1.0.28';
+  versionNumber = 'v1.0.29';
 
   // constructor(private router: Router, private _BmxService: BmxService, private activatedRoute: ActivatedRoute,) {
 
   projectId: string;
   globalProjectName: string;
-
+  showErrorMessage = false
   count = signal(0);
   // appStore = defineSignalStore({
   //   count: signal(0)
@@ -115,18 +115,36 @@ export class MenuComponent implements OnInit {
         this.id = this.activatedRoute.snapshot.queryParamMap.get('id');
 
         // localStorage.setItem('projectId', this.projectId);
-        this._BmxService.getMatrixUser(this.id).subscribe((data: any) => {
-          if(data.d){
-            data = JSON.parse(data.d);
-            localStorage.setItem('userData', JSON.stringify(data))
-            this.userFullName = data.FullName;
-            this.userRole = data.Role;
-            this.userName = data.UserName;
-            this.userOffice = data.Office;
-            this.userDepartment = data.Role;
-          }
-
-        });
+     
+        if (this.userGUI) {
+          localStorage.setItem('userGui', this.userGUI);
+        } else {
+          this.userGUI = localStorage.getItem('userGui')
+        }
+        if (this.userGUI) {
+          this._BmxService.getMatrixUser(this.userGUI).subscribe((data: any) => {
+            if (data.d != '') {
+              data = JSON.parse(data.d);
+              this.userName = data.UserName;
+              this.userFullName = data.FullName;
+              this.userOffice = data.Office;
+              this.userRole = data.Role;
+              this.userDepartment = data.Role;
+  
+              // TEST DATA
+              // this.userOffice = 'Miami';
+              // this.userRole = 'admin'; // no restrictions
+              // this.userDepartment = 'Creative';
+              // this.userOffice = 'Basel 1'
+              // this.userRole = 'director'; // director restriced
+              // this.userRole = 'creative';
+              // this.userRole = 'user'
+              // this.userDepartment = 'Design'
+            }
+          });
+        } else {
+          this.showErrorMessage = true
+        }
         this.isDashboardMenu = event.url.includes('dashboard') || event.url === '/' || event.url.includes('templates') ;
         this.isPreviewView = event.url.includes('survey')
         this.selectedMenuItem = event.url.slice(1)
