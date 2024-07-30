@@ -1195,6 +1195,9 @@ $postItHeaderColors2: #d6f8fd, #dcd6fd, #d6fde9, #fdfcd6, #d6f8fd, #fdd6e8, #fdd
   white-space: normal !important;
   padding: 0px !important;
   line-height: 0.8;
+  li{
+    list-style-type: unset !important;
+  }
 }
 
 quill-editor{
