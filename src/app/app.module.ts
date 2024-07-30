@@ -107,7 +107,7 @@ export function MSALInstanceFactory(): IPublicClientApplication {
   return new PublicClientApplication({
     auth: {
       clientId: 'fbcbd5db-c816-4ffb-8310-316cf7781c45',
-      authority: 'https://login.microsoftonline.com/f010ce16-e13d-4c24-87af-3a1eb4d11de6',
+      authority: 'https://login.microsoftonline.com/f010ce16-e13d-4c24-87af-3a1eb4d11de6', 
       redirectUri: 'http://localhost:4200',
     },
     cache: {
@@ -119,7 +119,7 @@ export function MSALInstanceFactory(): IPublicClientApplication {
 @NgModule({
     declarations: [
         AppComponent,
-        // LoginComponent,
+        LoginComponent,
         NwVoteComponent,
         BsrMobileComponent,
         editName,
@@ -223,8 +223,8 @@ export function MSALInstanceFactory(): IPublicClientApplication {
         QuillModule
         // BmxModule
     ],
-    providers: [
-        { provide: MAT_SNACK_BAR_DEFAULT_OPTIONS, useValue: { duration: 1000 } }],
+    providers: [NwvoteService, BsrMobileService, Nw3Service, {provide: MSAL_INSTANCE, useFactory:MSALInstanceFactory}, MsalService,
+      { provide: MAT_SNACK_BAR_DEFAULT_OPTIONS, useValue: { duration: 1000 } }],
     bootstrap: [AppComponent]
 })
 export class AppModule { }
