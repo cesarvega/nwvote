@@ -1198,14 +1198,19 @@ $postItHeaderColors2: #d6f8fd, #dcd6fd, #d6fde9, #fdfcd6, #d6f8fd, #fdd6e8, #fdd
   li{
     list-style-type: unset !important;
   }
+  ol{
+    padding-left: 0px !important;
+  }
 }
 
 quill-editor{
   color: #000;
+ 
 }
 
 :host ::ng-deep .ql-editor {
   font-size: 20px !important; /* Adjust the size as needed */
+  tab-size: 1;
 }
 
 
@@ -1249,6 +1254,10 @@ input:focus-visible{
 }
 
 
+.comment-field ::ng-deep .mdc-text-field--outlined .mdc-notched-outline {
+  z-index: 1;
+  height: 164px;
+}
 .mdc-notched-outline {
   display: flex;
   position: absolute;
@@ -1261,4 +1270,61 @@ input:focus-visible{
   height: 70% !important;
   text-align: left;
   pointer-events: none;
+}
+
+.dialog-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(255, 255, 255, 0.8); /* Fondo blanco semitransparente */
+  backdrop-filter: blur(10px); /* Efecto de desenfoque */
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 1000;
+}
+
+.dialog-content {
+  max-width: 90%;
+  max-height: 90%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  overflow: hidden;
+}
+
+.dialog-content img {
+  max-width: 100%;
+  max-height: 100%;
+  border-radius: 10px;
+  box-shadow: 0 0 20px rgba(0, 0, 0, 0.2); /* Sombra suave alrededor de la imagen */
+}
+
+.hotkeys-close{
+  position: fixed;
+  top: 20px;
+  right: 20px;
+  font-size: 2em;
+  font-weight: 700;
+  padding: 5px 10px;
+  border: 1px solid #ddd;
+  border-radius: 5px;
+  min-height: 45px;
+  min-width: 45px;
+  text-align: center;
+}
+
+.mat-tooltip {
+  font-size: 16px; /* Cambia el tamaño del texto del tooltip */
+  padding: 8px 12px; /* Cambia el relleno (padding) del tooltip */
+  max-width: 200px; /* Cambia el ancho máximo del tooltip */
+}
+
+/* Si deseas que el tooltip tenga un tamaño específico para este caso en particular */
+.custom-tooltip {
+  font-size: 18px;
+  padding: 10px 14px;
+  max-width: 250px;
 }

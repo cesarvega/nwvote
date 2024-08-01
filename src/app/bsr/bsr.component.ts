@@ -83,6 +83,7 @@ export class BsrComponent implements OnInit {
   restUrl: any;
   open: boolean = false;
   wide = true
+  showHotKeys = false
   constructor(@Inject(DOCUMENT) private document: any,
     private _BsrService: BsrService, public dialog: MatDialog, private activatedRoute: ActivatedRoute,
     // private _hotkeysService: HotkeysService,
@@ -181,7 +182,7 @@ export class BsrComponent implements OnInit {
   getCommentsByIndex(index) {
     this._BsrService.getComments(index).subscribe((arg: any) => {
       if (arg.length > 0) {
-        this.commentBoxText = arg[0].Comments;
+        this.commentBoxText = JSON.parse(arg)[0].Comments;
       } else {
         this.commentBoxText = '';
       }
@@ -338,8 +339,18 @@ export class BsrComponent implements OnInit {
     }
   }
   handleKeyDown(event: KeyboardEvent): void {
-    if (!this.open) {
-      if (event.key === 'ArrowRight') {
+    const focusedElement = document.activeElement as HTMLElement;
+    if (focusedElement  && focusedElement.id === 'mat-input-0' ) {
+      return; // Si el foco está en el textarea, no hacer nada
+    }
+    if (!this.open && !this.isCommentBox) {
+      if (event.key === 'ArrowUp') {
+        this.mainMenu = true
+      } else if (event.key === 'ArrowDown') {
+        this.mainMenu = false
+      } 
+
+      else if (event.key === 'ArrowRight') {
         this.moveForward();
       } else if (event.key === 'ArrowLeft') {
         this.moveBackward();
@@ -427,7 +438,6 @@ export class BsrComponent implements OnInit {
       let comment = this.projectId + "','" + this.currentPageNumber + "',N'" + this.commentBoxText + "'";
 
       this._BsrService.sendComment(comment).subscribe((res: any) => {
-
         let newConcepData = {
           projectId: this.projectId,
           conceptid: '-1',
@@ -437,8 +447,8 @@ export class BsrComponent implements OnInit {
           names: []
         }
 
-        this._BsrService.newPost(JSON.stringify(newConcepData)).subscribe(arg => {
-          this.conceptData = JSON.parse(arg[0].bsrData);
+        this._BsrService.newPost(JSON.stringify(newConcepData)).subscribe((arg: any) => {
+          this.conceptData = JSON.parse(JSON.parse(arg)[0].bsrData);
           let summayConceptId = '';
           this.conceptData.concepts.forEach(element => {
             if (element.concept === "SUMMARY" || element.concept === "summary") {
@@ -449,7 +459,7 @@ export class BsrComponent implements OnInit {
 
           // SUMMIRIZE COMMENTS INTO A POST IT
           let comments = '';
-
+          res = JSON.parse(res)
           res.forEach(element => {
             comments += "<p>" + element.Comments + "<p>"
           });
@@ -618,7 +628,6 @@ export class BsrComponent implements OnInit {
       this.namesBoxIndex = 1;
       this.onInputChange(52);
     }
-    console.log(this.namesBoxIndex)
   }
 
 
@@ -774,6 +783,7 @@ export class editPost {
   isQRcode: boolean;
   nameid: any = '';
   showQrCode = false
+  projectName = ''
   closeQrCodePopup() {
     this.showQrCode = !this.showQrCode;
   }
@@ -819,12 +829,10 @@ export class editPost {
       });
     }
 
-
     this.conceptid = this.data.name.conceptid;
 
     this.projectId = '';
-
-    // assign a value
+   this.projectName = this._BsrService.getProjectName()    // assign a value
     // this.myAngularxQrCode = 'http://www.bipresents.com/'+ this.projectId;
     this.myAngularxQrCode = ' www.mynamepage.com/' + localStorage.getItem(this._BsrService.getProjectName() + '_projectName');
     if (this.data.name.Name) {
@@ -923,10 +931,12 @@ buttonOption(option) {
   }
 
   // Asegúrate de que `newNamesPerConcept` y `nameid` tengan valores válidos o una cadena vacía
-  if (this.newNamesPerConcept && this.nameid) {
+  if(!this.nameid){
+    this.nameid = ''
+  }
+  if (this.newNamesPerConcept) {
     const newNames = this.newNamesPerConcept.split('\n').filter(name => name.trim() !== '');
     const nameIds = this.nameid.split('\n');
-
     newNames.forEach((element, index) => {
       const tempArray = this.nameid.split('\n');
       const nameId = tempArray[index] ? tempArray[index] : '0';
@@ -979,7 +989,6 @@ buttonOption(option) {
       });
       this.dataSource.next(data); // Actualiza el BehaviorSubject
       this.cdr.markForCheck(); // Forzar la detección de
-      console.log(this.dataSource.getValue())
     });
   }
   setAll(evt) {

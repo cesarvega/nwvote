@@ -75,7 +75,31 @@ app-dashboard {
 }
 
 .ql-editor li {
-    list-style-type: unset !important;
-    padding-left: 1.5em;
     position: relative;
 }
+
+.card-list{
+   ol li{    
+        list-style-type: unset !important;
+        padding-left: 0.2em !important;
+    }
+    ul li{
+       
+        list-style-type: unset !important;
+        padding-left: 0.2em !important;
+    }
+  }
+
+  
+.quill-editor{
+    .ql-container{
+      .ql-editor{
+        ol{
+          padding-left: 0 !important;
+        }
+        ul{
+            padding-left: 0 !important;
+        }
+      }
+    }
+  }
