@@ -340,7 +340,7 @@ export class BsrComponent implements OnInit {
   }
   handleKeyDown(event: KeyboardEvent): void {
     const focusedElement = document.activeElement as HTMLElement;
-    if (focusedElement  && focusedElement.id === 'mat-input-0' ) {
+    if (focusedElement && focusedElement.id === 'mat-input-0') {
       return; // Si el foco está en el textarea, no hacer nada
     }
     if (!this.open && !this.isCommentBox) {
@@ -348,7 +348,7 @@ export class BsrComponent implements OnInit {
         this.mainMenu = true
       } else if (event.key === 'ArrowDown') {
         this.mainMenu = false
-      } 
+      }
 
       else if (event.key === 'ArrowRight') {
         this.moveForward();
@@ -707,7 +707,8 @@ export class BsrComponent implements OnInit {
 
   setFontSize() {
     // console.log(this.font_size);
-    this.font_size_text = this.font_size + 'px';
+    this.font_size_text = this.font_size + 'px !important';
+    console.log(this.font_size_text)
     localStorage.setItem(this.projectName + '_font_size_text', this.font_size_text);
     localStorage.setItem(this.projectName + '_font_size', this.font_size);
   }
@@ -832,7 +833,7 @@ export class editPost {
     this.conceptid = this.data.name.conceptid;
 
     this.projectId = '';
-   this.projectName = this._BsrService.getProjectName()    // assign a value
+    this.projectName = this._BsrService.getProjectName()    // assign a value
     // this.myAngularxQrCode = 'http://www.bipresents.com/'+ this.projectId;
     this.myAngularxQrCode = ' www.mynamepage.com/' + localStorage.getItem(this._BsrService.getProjectName() + '_projectName');
     if (this.data.name.Name) {
@@ -899,55 +900,55 @@ export class editPost {
 
 
 
-buttonOption(option) {
-  if (option === 'delete') {
-    this.isDeleting = false;
-    this.dialogRef.close('delete');
-  } else if (option === 'savePost') {
-    this.isDeleting = false;
-    this.projectId = localStorage.getItem(this._BsrService.getProjectName() + '_projectId');
+  buttonOption(option) {
+    if (option === 'delete') {
+      this.isDeleting = false;
+      this.dialogRef.close('delete');
+    } else if (option === 'savePost') {
+      this.isDeleting = false;
+      this.projectId = localStorage.getItem(this._BsrService.getProjectName() + '_projectId');
 
-    // Asegúrate de que `this.model.editorData` y otros campos tengan valores válidos o una cadena vacía
-    const editorData = this.model.editorData && this.model.editorData.trim() ? this.model.editorData : '';
+      // Asegúrate de que `this.model.editorData` y otros campos tengan valores válidos o una cadena vacía
+      const editorData = this.model.editorData && this.model.editorData.trim() ? this.model.editorData : '';
 
-    const newConcepData = {
-      projectId: this.projectId,
-      concept: this.loginForm.value.name.replace(/'/g, "`"),
-      conceptid: JSON.stringify(this.data.name.conceptid),
-      attributesArray: this.data.name.attributes,
-      namesArray: this.model.namesData ? this.model.namesData.split("\n").filter(name => name.trim() !== '') : [''],
-      conceptHtml: editorData
-    };
+      const newConcepData = {
+        projectId: this.projectId,
+        concept: this.loginForm.value.name.replace(/'/g, "`"),
+        conceptid: JSON.stringify(this.data.name.conceptid),
+        attributesArray: this.data.name.attributes,
+        namesArray: this.model.namesData ? this.model.namesData.split("\n").filter(name => name.trim() !== '') : [''],
+        conceptHtml: editorData
+      };
 
-    this._BsrService.updatePost(JSON.stringify(newConcepData)).subscribe(arg => {
-      this.dialogRef.close('savePost');
-    });
-  } else if (option === 'deleteName') {
-    this.isDeleting = false;
-    this._BsrService.deleteName(this.data.name.NameId).subscribe(arg => { });
-    this.dialogRef.close('deleteName');
-  } else {
-    this.dialogRef.close('cancel');
+      this._BsrService.updatePost(JSON.stringify(newConcepData)).subscribe(arg => {
+        this.dialogRef.close('savePost');
+      });
+    } else if (option === 'deleteName') {
+      this.isDeleting = false;
+      this._BsrService.deleteName(this.data.name.NameId).subscribe(arg => { });
+      this.dialogRef.close('deleteName');
+    } else {
+      this.dialogRef.close('cancel');
+    }
+
+    // Asegúrate de que `newNamesPerConcept` y `nameid` tengan valores válidos o una cadena vacía
+    if (!this.nameid) {
+      this.nameid = ''
+    }
+    if (this.newNamesPerConcept) {
+      const newNames = this.newNamesPerConcept.split('\n').filter(name => name.trim() !== '');
+      const nameIds = this.nameid.split('\n');
+      newNames.forEach((element, index) => {
+        const tempArray = this.nameid.split('\n');
+        const nameId = tempArray[index] ? tempArray[index] : '0';
+        if (nameId) {
+          this._BsrService.sendNewName(element, false, this.conceptid, nameId).subscribe(arg => {
+          });
+        }
+      });
+
+    }
   }
-
-  // Asegúrate de que `newNamesPerConcept` y `nameid` tengan valores válidos o una cadena vacía
-  if(!this.nameid){
-    this.nameid = ''
-  }
-  if (this.newNamesPerConcept) {
-    const newNames = this.newNamesPerConcept.split('\n').filter(name => name.trim() !== '');
-    const nameIds = this.nameid.split('\n');
-    newNames.forEach((element, index) => {
-      const tempArray = this.nameid.split('\n');
-      const nameId = tempArray[index] ? tempArray[index] : '0';
-      if (nameId) {
-        this._BsrService.sendNewName(element, false, this.conceptid, nameId).subscribe(arg => {
-        });
-      }
-    });
-    
-  }
-}
   onNoClick(): void {
     this.popupwindowData = {
       form: this.loginForm,

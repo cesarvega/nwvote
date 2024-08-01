@@ -347,7 +347,7 @@
                           <!-- HTML-CONTENT -->
                           <mat-card-content class="post-content" [ngStyle]="{'font-size': font_size_text}"
                             (click)="openDialog(item, 'edit')">
-                            <div class="ql-editor card-list"  [innerHTML]="item.html"></div>
+                            <div class="ql-editor card-list" [style.font-size]="font_size_text" [innerHTML]="item.html"></div>
                           </mat-card-content>
 
                           <mat-icon class="deleteButton" (click)="openDialog(item, 'delete')">cancel</mat-icon>
