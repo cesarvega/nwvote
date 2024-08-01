@@ -21,13 +21,17 @@ export class LoginComponent implements OnInit {
     private router: Router, 
     private msalService: MsalService, 
     private http: HttpClient
-  ) { }
+  ) { 
+    this.msalService.initialize().subscribe(res=>{
+      this.signOutAll()
+    })
+  }
 
   ngOnInit(): void {
     // Clean local storage
     localStorage.setItem('userTokenId', '');
     localStorage.setItem('project', '');
-
+ 
     this.loginForm = this._formBuilder.group({
       email: ['', Validators.required],
       suma: [''],
@@ -35,18 +39,10 @@ export class LoginComponent implements OnInit {
     });
 
     this.projectname = this.activatedRoute.snapshot.queryParamMap.get('project') || '';
-
-    this.handleLoginRedirectCallback().then((response) => {
-      if (response !== null) {
-        this.msalService.instance.setActiveAccount(response.account);
-        this.router.navigate(['/bmx', '99CB72BF-D163-46A6-8A0D-E1531EC7FEDC']);
-      }
-    });
   }
 
   submitCredentials() {
     this._NwvoteService.login(this.loginForm.value, this.projectname).subscribe((res: any) => {
-      console.log(res);
       const user = JSON.parse(res.d)[0];
       if (user.userToken) {
         localStorage.setItem('username', user.username);
@@ -82,4 +78,18 @@ export class LoginComponent implements OnInit {
       });
     }
   }
+  async signOutAll() {
+    const accounts = this.msalService.instance.getAllAccounts();
+    for (const account of accounts) {
+      try {
+        await this.msalService.instance.logoutRedirect({
+          account: account,
+          postLogoutRedirectUri: window.location.origin
+        });
+      } catch (error) {
+        console.error('Error during logout:', error);
+      }
+    }
+  }
+  
 }
