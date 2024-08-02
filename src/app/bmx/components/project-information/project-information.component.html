@@ -20,7 +20,6 @@
 </div>
 
 <div *ngIf="true" class="" style="position: absolute;z-index: 1;">
-<div *ngIf="true" class="" style="position: absolute;z-index: 1;">
 
   <h2 style="margin: 20px;">Project TEST BrandMatrix Setup</h2>
   <div style="margin: 20px;font-size: 20px;color:#063074;font-weight: 800;">Basic Project Information</div>
@@ -52,8 +51,6 @@
             <input type="text" matInput formControlName="bmxProjectName" (input)="replaceInvalidCharacters($event)">
             <p *ngIf="bmxProjectName.invalid && bmxProjectName.dirty">Project Name is required. Only A-Z, a-z, 0-9
               allowed</p>
-            <p *ngIf="bmxProjectName.invalid && bmxProjectName.dirty">Project Name is required. Only A-Z, a-z, 0-9
-              allowed</p>
           </mat-form-field>
         </div>
 
@@ -62,7 +59,6 @@
           <mat-form-field appearance="outline">
             <mat-label>Enter Company</mat-label>
             <input type="text" matInput formControlName="bmxCompany">
-            <p *ngIf="bmxCompany.invalid && bmxCompany.dirty">
             <p *ngIf="bmxCompany.invalid && bmxCompany.dirty">
             </p>
           </mat-form-field>
@@ -91,7 +87,6 @@
           </mat-form-field>
         </div>
 
-
         <div class="row-field">
           <label class="selectLabels">Region</label>
           <mat-form-field appearance="outline">
@@ -115,7 +110,6 @@
           </mat-form-field>
         </div>
 
-
         <div class="row-field">
           <label class="selectLabels">Template</label>
           <mat-form-field appearance="outline">
@@ -123,8 +117,6 @@
             <mat-select [(ngModel)]="templateName" (selectionChange)="templateSelected($event.value)"
               formControlName="bmxTemplates">
               <mat-select-trigger>{{selectedTemplateName}}</mat-select-trigger>
-              <mat-option *ngFor="let template of TEMPLATES " [value]="template.templateName"
-                (click)="selectedTemplateName= template.displayName? template.displayName : template.templateName"
               <mat-option *ngFor="let template of TEMPLATES " [value]="template.templateName"
                 (click)="selectedTemplateName= template.displayName? template.displayName : template.templateName"
                 style="display: flex; justify-content: space-between">
@@ -146,18 +138,6 @@
     <div style="margin: 20px;font-size: 20px;color:#063074;font-weight: 800;">Manage Directors</div>
 
     <div style="display: flex;flex-direction: column;">
-      <div class="row-field bottom-row" style="align-items: center; justify-content: flex-start;">
-        <div class="directors-container">
-          <label class="selectLabels" style="width: 144px; padding-top: 15px;">Regional Directors</label>
-          <mat-form-field appearance="outline">
-            <mat-label>Select Region</mat-label>
-            <mat-select [(ngModel)]="bmxRegionalDirectorDropdown" formControlName="bmxRegionalOffice"
-              (selectionChange)="officeSelected(bmxRegionalDirectorDropdown)">
-              <mat-option *ngFor="let settingsList of settingsData.OfficeList" [value]="settingsList">
-                {{settingsList != 'Seattle'&&settingsList}}
-              </mat-option>
-            </mat-select>
-          </mat-form-field>
       <div class="row-field bottom-row" style="align-items: center; justify-content: flex-start;">
         <div class="directors-container">
           <label class="selectLabels" style="width: 144px; padding-top: 15px;">Regional Directors</label>
