@@ -40,6 +40,7 @@
 }
 
 .selectLabels {
+.selectLabels {
   // width: 100%;
   margin-right: 19px;
   color: #324395;
@@ -123,8 +124,10 @@ table {
     gap: 2px;
   }
 
+
   .information-container {
     display: flex;
+    justify-content: flex-start;
     justify-content: flex-start;
     margin-left: 96px;
     align-items: baseline;
@@ -161,6 +164,10 @@ table {
   /* Fondo oscuro con opacidad */
   z-index: 1000;
   /* Asegura que el fondo esté por encima de otros elementos */
+  background: rgba(0, 0, 0, 0.5);
+  /* Fondo oscuro con opacidad */
+  z-index: 1000;
+  /* Asegura que el fondo esté por encima de otros elementos */
 }
 
 /* Estilo para el modal */
@@ -171,9 +178,13 @@ table {
   transform: translate(-50%, -50%);
   width: 65%;
   /* Ajusta según tus necesidades */
+  width: 65%;
+  /* Ajusta según tus necesidades */
 
   background-color: white;
   padding: 10px 20px 20px 20px;
+  z-index: 2000;
+  /* Asegura que el modal esté por encima del fondo oscuro */
   z-index: 2000;
   /* Asegura que el modal esté por encima del fondo oscuro */
 }
@@ -190,6 +201,7 @@ table {
 }
 
 .modal-content {
+.modal-content {
   display: flex;
   align-items: center;
   justify-content: center;
@@ -199,9 +211,11 @@ table {
 
 /* TODO(mdc-migration): The following rule targets internal classes of select that may no longer apply for the MDC version.*/
 ::ng-deep .mat-select-value .edit-icon {
+::ng-deep .mat-select-value .edit-icon {
   display: none !important;
 }
 
+input {
 input {
   border: none;
 }

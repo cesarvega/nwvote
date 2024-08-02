@@ -125,10 +125,10 @@ export class ParticipantsEmailComponent implements OnInit {
         this.allData = JSON.parse(arg.d).ParticipantList;
         for (let p of this.allData) {
           if (Number(p.Status) < 0) {
-            p.Status = 'NS'
+            p.Status = 'Not Started'
           }
           else if (Number(p.Status) === 999) {
-            p.Status = 'F'
+            p.Status = 'Finished'
           }
         }
         this.changeView();
@@ -230,14 +230,14 @@ export class ParticipantsEmailComponent implements OnInit {
   changeView(): void {
     this.viewedData = [];
     for (let i = 0; i < this.allData.length; i++) {
-      if (this.selected == 'NS' && this.allData[i].Status == 'NS') {
+      if (this.selected == 'Not Started' && this.allData[i].Status == 'Not Started') {
         this.viewedData.push(this.allData[i])
       }
-      else if (this.selected == 'NF' && Number(this.allData[i].Status) >= 0) {
+      else if (this.selected == 'Not Finished' && Number(this.allData[i].Status) >= 0) {
 
         this.viewedData.push(this.allData[i])
       }
-      else if (this.selected == 'F' && this.allData[i].Status == 'F') {
+      else if (this.selected == 'Finished' && this.allData[i].Status == 'Finished') {
         this.viewedData.push(this.allData[i])
       }
       else if (this.selected == 'All') {
@@ -336,8 +336,14 @@ export class ParticipantsEmailComponent implements OnInit {
     this.fixedString = this.fixedString.replace("BI_PARTNAME", Fname + " " + Lname);
     this.fixedString = this.fixedString.replaceAll("PROJECTNAME", this.projectId.toString());
     let str = ""
-
-      str += this.DIRECTORS[0].name.toString().trim() + "<br>" + this.DIRECTORS[0].title.toString().trim() + "<br>" + this.DIRECTORS[0].phone.toString().trim() + " " + this.DIRECTORS[0].email.toString().trim() + "<br><br>"
+      if(this.DIRECTORS.length == 0)
+      {
+        str += "No director" + "<br>" + "No director" + "<br>" + "No director" + " " + "No director" + "<br><br>"
+      }
+      else
+      {
+        str += this.DIRECTORS[0].name.toString().trim() + "<br>" + this.DIRECTORS[0].title.toString().trim() + "<br>" + this.DIRECTORS[0].phone.toString().trim() + " " + this.DIRECTORS[0].email.toString().trim() + "<br><br>"
+      }
 
     this.fixedString = this.fixedString.replace("BI_DIRECTOR ", str);
   }
