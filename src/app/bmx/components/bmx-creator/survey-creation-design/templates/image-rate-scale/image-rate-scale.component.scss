@@ -202,6 +202,8 @@
 .row-box {
   border: none;
   // max-width: 300px;
+  min-height: 30px !important;
+
 }
 
 .rationale-box {
@@ -357,6 +359,35 @@ mat-form-field {
   position: absolute;
   height: 54px;
   align-items: center;
+}
+
+.upload-image-box {
+  position: absolute;
+  width: 62vw;
+  background: #fafafa;
+  z-index: 1;
+  top: -8px;
+  left: 15%;
+  border: #063074 4px solid;
+}
+
+.image-box-drag {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  color: #ccc;
+  cursor: move;
+  width: 1024px;
+  height: 54px;
+}
+
+.example-handle {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  cursor: move;
+  height: 25px;
+  width: 100%;
 }
 // INPUT RANGE STYLE
 

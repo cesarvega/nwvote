@@ -8,7 +8,7 @@
                 <div style="margin: 23px 20px;font-size: 20px;color:#063074;font-weight: 800;">Email Settings</div>
                 <div
                     style="line-height: 1; margin-left: 40px;font-size: 15px;
-                color:grey;font-weight: 100;width: 300px;display: flex;flex-direction: row; justify-content: space-between;margin-bottom: 10px;">
+                color:grey;font-weight: 100;width: 300px;display: flex;flex-direction: row; justify-content: space-between;margin-bottom: 16px;">
                     Send Director Confirmation
                     Emails
                     <input type="checkbox" [checked]="dirConfirm" (change)="dirConfirm = !dirConfirm" />
@@ -61,56 +61,58 @@
         </div>
 
         <!-- EMAIL EDITOR FORM -->
-        <div class="invite" style="margin-left: 20px;">
-            <div style="margin-bottom: 20px;font-size: 20px;color:#063074;font-weight: 800;">SEND INVITE</div>
-            <div style="display: flex;flex-direction: row;margin-bottom: 20px; justify-content: space-between; ">
-                <div style="color:#063074;font-size: 20px;margin-right: 20px;">FROM:</div>
-                <input style="width: 458px;" mat-input type="text" placeholder="director@brandinstitute.com"
-                    [(ngModel)]="From">
-            </div>
-            <div style="display: flex;flex-direction: row;margin-bottom: 20px;justify-content: space-between;">
-                <div style="color:#063074;font-size: 20px;margin-right: 20px;">CC:</div>
-                <input style="width: 458px;" mat-input type="text" placeholder="CC" [(ngModel)]="CC">
-            </div>
-            <div style="display: flex;flex-direction: row;margin-bottom: 20px;justify-content: space-between;">
-                <div style="color:#063074;font-size: 20px;margin-right: 20px;">BCC:</div>
-                <input style="width: 458px;" mat-input type="text"
-                    placeholder="creative@brandinstitue.com,director1@brandinstitue.com,direct..." [(ngModel)]="BCC">
-            </div>
-            <div style="display: flex;flex-direction: row;margin-bottom: 20px;justify-content: space-between;">
-                <div style="color:#063074;font-size: 20px;margin-right: 20px;">SUBJECT:</div>
-                <input style="width: 458px;" mat-input type="text" placeholder="Subject" [(ngModel)]="Subject">
-            </div>
+        <div class="inputs-container">
+            <div class="invite" style="margin-left: 20px;">
+                <div style="margin-bottom: 20px;font-size: 20px;color:#063074;font-weight: 800;">SEND INVITE</div>
+                <div class="input">
+                    <div style="color:#063074;font-size: 20px;margin-right: 20px;">FROM:</div>
+                    <input style="width: 458px;" mat-input type="text" placeholder="director@brandinstitute.com"
+                        [(ngModel)]="From">
+                </div>
+                <div class="input">
+                    <div style="color:#063074;font-size: 20px;margin-right: 20px;">CC:</div>
+                    <input style="width: 458px;" mat-input type="text" placeholder="CC" [(ngModel)]="CC">
+                </div>
+                <div class="input" >
+                    <div style="color:#063074;font-size: 20px;margin-right: 20px;">BCC:</div>
+                    <input style="width: 458px;" mat-input type="text"
+                        placeholder="creative@brandinstitue.com,director1@brandinstitue.com,direct..."
+                        [(ngModel)]="BCC">
+                </div>
+                <div class="input">
+                    <div style="color:#063074;font-size: 20px;margin-right: 20px;">SUBJECT:</div>
+                    <input style="width: 458px;" mat-input type="text" placeholder="Subject" [(ngModel)]="Subject">
+                </div>
 
-            <div style="display: flex;flex-direction: row;">
-                <mat-icon style="color: #003180;font-size: 25px;">attach_file</mat-icon>
-                <div style="color: grey;">
-                    <div *ngFor="let file of attachments; let i = index">
-                        {{file.FileName}}
-                        <button mat-icon-button (click)="deleteFile(i)">
-                            <mat-icon>delete</mat-icon>
-                        </button>
+                <div style="display: flex;flex-direction: row;">
+                    <mat-icon style="color: #003180;font-size: 25px;">attach_file</mat-icon>
+                    <div style="color: grey;">
+                        <div *ngFor="let file of attachments; let i = index">
+                            {{file.FileName}}
+                            <button mat-icon-button (click)="deleteFile(i)">
+                                <mat-icon>delete</mat-icon>
+                            </button>
+                        </div>
                     </div>
+                    <div>
+                        <input type="file" class="file-input" (change)="onFileSelected($event)" #fileUpload
+                            style="display: none;" multiple>
+                        <button mat-raised-button style="background-color: #003180;color:white;margin: -7px 0px 0 12px;"
+                            (click)="fileUpload.click()">
+                            Choose File(s)
+                        </button>
+
+
+                    </div>
+
                 </div>
-                <div>
-                    <input type="file" class="file-input" (change)="onFileSelected($event)" #fileUpload
-                        style="display: none;" multiple>
-                    <button mat-raised-button style="background-color: #003180;color:white;margin: -7px 0px 0 12px;"
-                        (click)="fileUpload.click()">
-                        Choose File(s)
-                    </button>
-
-
-                </div>
-
             </div>
             <div style="width: 100%;margin-top: 20px;">
                 <!-- CKEDITOR -->
                 <div>
                     <!-- <div style="margin: 30px;" [innerHTML]="brandMatrixObjects[1].componentText | safe: 'html'"></div> -->
                     <ckeditor [editor]="Editor" id="txtTexto" style="animation: fadeIn 0.5s ease forwards;"
-                         [(ngModel)]="brandMatrixObjects[1].componentText"
-                        [data]="brandMatrixObjects[1].componentText" >
+                        [(ngModel)]="brandMatrixObjects[1].componentText" [data]="brandMatrixObjects[1].componentText">
                     </ckeditor>
                     <div style="display: flex;justify-content: flex-end;">
                         <button mat-raised-button style="background-color: #003180;color:white;margin:20px"
@@ -158,7 +160,7 @@
                             [indeterminate]="selection.hasValue() && !isAllSelected()">
                         </mat-checkbox>
                     </th>
-                    <td mat-cell *matCellDef="let row"  style="padding-right: 15px;">
+                    <td mat-cell *matCellDef="let row" style="padding-right: 15px;">
                         <mat-checkbox style="  margin-top: 9px;" (click)="$event.stopPropagation()"
                             (change)="$event ? selection.toggle(row) : null"
                             (change)="$event ? selectRow($event, row) : null" [checked]="selection.isSelected(row)">

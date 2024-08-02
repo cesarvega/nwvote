@@ -347,8 +347,8 @@
 
 
 <!-- 👩🏽‍🔧👩🏽‍🔧👩🏽‍🔧👩🏽‍🔧👩🏽‍🔧👩🏽‍🔧👩🏽‍🔧👩🏽‍🔧👩🏽‍🔧👩🏽‍🔧👩🏽‍🔧👩🏽‍🔧👩🏽‍🔧👩🏽‍🔧👩🏽‍🔧👩🏽‍🔧👩🏽‍🔧👩🏽‍🔧👩🏽‍🔧👩🏽‍🔧👩🏽‍🔧👩🏽‍🔧 UPLOAD IMAGES BOX 👩🏽‍🔧👩🏽‍🔧👩🏽‍🔧👩🏽‍🔧👩🏽‍🔧👩🏽‍🔧👩🏽‍🔧👩🏽‍🔧👩🏽‍🔧👩🏽‍🔧👩🏽‍🔧👩🏽‍🔧👩🏽‍🔧👩🏽‍🔧👩🏽‍🔧👩🏽‍🔧👩🏽‍🔧👩🏽‍🔧👩🏽‍🔧👩🏽‍🔧👩🏽‍🔧👩🏽‍🔧 -->
-<div *ngIf="uploadImagesBox" class="mat-elevation-z4"
-    style="position: absolute;width: 62vw;background: #fafafa;z-index: 1;top: -8px;left: 15%;border: #063074 4px solid; z-index: 20;">
+<div *ngIf="uploadImagesBox" class="mat-elevation-z4 upload-image-box"
+    >
     <div style="position: absolute;
 top: 10px;
 right: 10px;
@@ -586,12 +586,20 @@ height: 54px;" cdkDragHandle> </div>
 
 
                         <!-- TEXT_AREA COLUMN-->
-                        <textarea *ngIf="y !== 0  && columnName.includes('Comments') == true"
-                            [style.width]="(bmxItem.componentSettings[0].commentsWidth - 20) +'px'"
-                            [style.font-size]="bmxItem.componentSettings[0].fontSize +'px'" cdkTextareaAutosize
-                            [cdkAutosizeMinRows]="bmxItem.componentSettings[0].rowHeight"
-                            style="text-align: center;height: 32px;width: 358px;font-size: 16px;border: 1px solid #dddddd;"
-                            class="row-box" [(ngModel)]="testName[columnName]" rows="4" cols="50"></textarea>
+                        <textarea *ngIf="y !== 0 && columnName.includes('Comments')"
+                        cdkTextareaAutosize
+                        [cdkAutosizeMinRows]="bmxItem.componentSettings[0].rowHeight"
+                        [cdkAutosizeMaxRows]="10" 
+                        [style.width]="(bmxItem.componentSettings[0].commentsWidth - 20) + 'px'"
+                        [style.fontSize]="bmxItem.componentSettings[0].fontSize + 'px'"
+                        [style.textAlign]="'center'"
+                        [style.border]="'1px solid #dddddd'"
+                        class="row-box"
+                        [style.height]="'132px'"
+    
+                        [(ngModel)]="testName[columnName]">
+              </textarea>
+
 
 
                         <img class="row-box" style="width: 300px;" [src]="testName[columnName]"

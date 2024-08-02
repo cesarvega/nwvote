@@ -25,7 +25,7 @@ export class ProjectListComponent implements OnInit {
   dataSource;
   allData;
   viewedData;
-  displayedColumns = ['bmxCompany', 'bmxProjectName', 'bmxDepartment', 'bmxRegion', 'Created', 'Close', 'Active', 'Email', 'Edit'];
+  displayedColumns = ['bmxCompany', 'bmxProjectName', 'bmxDepartment', 'bmxRegion', 'bmxCreated', 'Close', 'Active', 'Email', 'Edit'];
   selected;
   templates = ['AJP', 'AJP1to5', 'AJPENG', 'AJPENGTM', 'AJPTM', 'APNonprop', 'BIINTERNALPROJECTSTANDARD', 'BIPROBONODRAGRANK', 'BIPROBONOLOGIN', 'BIPROBONOMINIMUM', 'BIPROBONOMORAGATRAIL', 'BIPROBONONonproprietary', 'BIPROBONOPfizer21', 'BIPROBONOPNN', 'BIPROBONOTEST7', 'BIPROBONOTM', 'BIPROBONOTOPRANK', 'BIPROBONOYN']
 
@@ -60,15 +60,15 @@ export class ProjectListComponent implements OnInit {
       .subscribe((arg: any) => {
         this.allData = JSON.parse(arg.d);
         // this.allData = JSON.parse(obj);
+        console.log(this.allData)
+
         this.userDepartment = this.userData != null ? this.userData.Department : '';
         this.userRole = this.userData != null ? this.userData.Role : 'admin';
         this.changeView();
         if (this.userRole === 'admin') {
           this.displayedColumns.push('Delete');
         }
-        
       });
-
   }
 
   applyFilter(filterValue: string): void {
@@ -130,8 +130,6 @@ export class ProjectListComponent implements OnInit {
       .subscribe((arg: any) => {
         this.allData = JSON.parse(arg.d);
         // this.allData = JSON.parse(obj);
-        this.userDepartment = this.userData != null ? this.userData.Department : '';
-        this.userRole = this.userData != null ? this.userData.Role : '';
         this.changeView();
       });
     })

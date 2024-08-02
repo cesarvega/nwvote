@@ -448,8 +448,6 @@ export class TinderComponent extends RatingScaleComponent implements OnInit {
   }
 
   uploadNames() {
-
-    console.log(this.xpercent, this.value)
     this.bmxItem.componentText.push({ name: 'QUESTION' + ' ' + (this.bmxItem.componentText.length - 1), ...this.newCandidate })
     this.dataSource = this.bmxItem.componentText.slice(1)
     this.newCandidate.nameCandidates = "";
@@ -457,7 +455,6 @@ export class TinderComponent extends RatingScaleComponent implements OnInit {
     this.showModalAddRow = false;
     this.xpercent = 100 / (this.bmxItem.componentText.length - 1);
     this.value = this.xpercent * this.testNameIndex
-    console.log(this.bmxItem.componentText, this.dataSource)
   }
 
   deleteName(element: any) {
@@ -465,7 +462,7 @@ export class TinderComponent extends RatingScaleComponent implements OnInit {
     // Eliminar el elemento del array this.bmxItem.componentText
     this.bmxItem.componentText.splice(this.bmxItem.componentText.indexOf(element), 1);
     // Eliminar el elemento del array this.dataSource
-    this.xpercent = 100 / (this.bmxItem.componentText.length - 1);
+    this.xpercent = (this.bmxItem.componentText.length - 1) / 100 ;
     this.value = this.xpercent * this.testNameIndex
     this.moveleft()
     this.table.renderRows();
