@@ -4,6 +4,7 @@ import { FormBuilder, Validators, FormGroup } from '@angular/forms';
 import { Router, ActivatedRoute } from '@angular/router';
 import { MsalService } from '@azure/msal-angular';
 import { HttpClient } from '@angular/common/http';
+import { AuthenticationResult } from '@azure/msal-browser';
 
 @Component({
   selector: 'app-login',
@@ -54,7 +55,11 @@ export class LoginComponent implements OnInit {
   }
 
   signInMicrosoft() {
-    this.msalService.loginRedirect();
+    this.msalService.loginPopup().subscribe((response:AuthenticationResult)=>{
+        this.msalService.instance.setActiveAccount(response.account)
+        this.router.navigate(['/bmx', response.account.tenantId]);
+        localStorage.setItem('userGui', response.account.tenantId)
+    })
   }
 
   async handleLoginRedirectCallback() {
