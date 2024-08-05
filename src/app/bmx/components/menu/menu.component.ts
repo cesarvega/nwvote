@@ -5,6 +5,7 @@ import { BmxService } from '../bmx-creator/bmx.service';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { BMX_STORE as BMX_STORE } from 'src/app/signals/+store/brs.store';
 import { signal } from '@angular/core';
+import { MsalService } from '@azure/msal-angular';
 
 @Component({
   selector: 'app-menu',
@@ -43,12 +44,12 @@ export class MenuComponent implements OnInit {
   //   count: signal(0)
   // });
 
-  constructor(private router: Router, private location: Location, private _BmxService: BmxService, private activatedRoute: ActivatedRoute, public _snackBar: MatSnackBar,) {
+  constructor(private router: Router, private location: Location, private _BmxService: BmxService, private activatedRoute: ActivatedRoute, public _snackBar: MatSnackBar, private msalService: MsalService,) {
     this.activatedRoute.queryParams.subscribe((queryParams) => {
       this.userGUI = queryParams['id'];
 
 
-      if (this.userGUI) {
+      if (this.userGUI && this.userGUI != '') {
         localStorage.setItem('userGui', this.userGUI);
       } else {
         this.userGUI = localStorage.getItem('userGui')
@@ -72,6 +73,12 @@ export class MenuComponent implements OnInit {
             // this.userRole = 'creative';
             // this.userRole = 'user'
             // this.userDepartment = 'Design'
+          } else {
+            const account = this.msalService.instance.getActiveAccount()
+            if (account) {
+              this.userFullName = account.name
+              this.userName = account.username
+            }
           }
         });
       } else {
@@ -82,7 +89,7 @@ export class MenuComponent implements OnInit {
   }
 
   ngOnInit(): void {
-
+    this.msalService.initialize()
     //   if (location.search) {
 
     //     const searchParams = new URLSearchParams(location.search);
@@ -136,7 +143,7 @@ export class MenuComponent implements OnInit {
 
         });
         this.isDashboardMenu = event.url.includes('dashboard') || event.url === '/' || event.url.includes('templates');
-     
+
         if (this.userGUI) {
           localStorage.setItem('userGui', this.userGUI);
         } else {
@@ -151,7 +158,7 @@ export class MenuComponent implements OnInit {
               this.userOffice = data.Office;
               this.userRole = data.Role;
               this.userDepartment = data.Role;
-  
+
               // TEST DATA
               // this.userOffice = 'Miami';
               // this.userRole = 'admin'; // no restrictions
@@ -164,12 +171,26 @@ export class MenuComponent implements OnInit {
             }
           });
         } else {
+          const userData = JSON.parse(localStorage.getItem('userData'))
+          this.userFullName = userData.name
+          this.userName = userData.username
           this.showErrorMessage = true
         }
-        this.isDashboardMenu = event.url.includes('dashboard') || event.url === '/' || event.url.includes('templates') ;
+        this.isDashboardMenu = event.url.includes('dashboard') || event.url === '/' || event.url.includes('templates');
         this.isPreviewView = event.url.includes('survey')
         this.selectedMenuItem = event.url.slice(1)
         this.login = event.url.includes('login')
+      }
+      if (this.userGUI) {
+        localStorage.setItem('userGui', this.userGUI);
+      } else {
+        this.userGUI = localStorage.getItem('userGui')
+      }
+  
+        const account = this.msalService.instance.getActiveAccount()
+        if (account) {
+          this.userFullName = account.name
+          this.userName = account.username
       }
 
     });
@@ -196,9 +217,6 @@ export class MenuComponent implements OnInit {
     this.router.navigate(['/bmx-creator']);
   }
 
-  signOut(): void {
-    this.router.navigate(['/login']);
-  }
 
   navigateTo(value: string): void {
     this.selectedMenuItem = value;
@@ -263,6 +281,12 @@ export class MenuComponent implements OnInit {
 
   navigateBack() {
     this.router.navigate(['/']);
+  }
+
+  async signOut() {
+    await this.msalService.logout().subscribe((response: any) => {
+      this.router.navigate(['/login']);
+    })
   }
 
 }

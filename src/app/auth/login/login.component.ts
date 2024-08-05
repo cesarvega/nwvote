@@ -17,13 +17,13 @@ export class LoginComponent implements OnInit {
 
   constructor(
     private _formBuilder: FormBuilder,
-    public _NwvoteService: NwvoteService, 
+    public _NwvoteService: NwvoteService,
     private activatedRoute: ActivatedRoute,
-    private router: Router, 
-    private msalService: MsalService, 
+    private router: Router,
+    private msalService: MsalService,
     private http: HttpClient
-  ) { 
-    this.msalService.initialize().subscribe(res=>{
+  ) {
+    this.msalService.initialize().subscribe(res => {
       this.signOutAll()
     })
   }
@@ -32,7 +32,7 @@ export class LoginComponent implements OnInit {
     // Clean local storage
     localStorage.setItem('userTokenId', '');
     localStorage.setItem('project', '');
- 
+
     this.loginForm = this._formBuilder.group({
       email: ['', Validators.required],
       suma: [''],
@@ -54,11 +54,13 @@ export class LoginComponent implements OnInit {
     });
   }
 
-  signInMicrosoft() {
-    this.msalService.loginPopup().subscribe((response:AuthenticationResult)=>{
-        this.msalService.instance.setActiveAccount(response.account)
-        this.router.navigate(['/bmx', response.account.tenantId]);
-        localStorage.setItem('userGui', response.account.tenantId)
+  async signInMicrosoft() {
+    await this.msalService.loginPopup().subscribe( async (response: AuthenticationResult) => {
+      console.log(response)
+      await this.msalService.instance.setActiveAccount(response.account)
+      localStorage.setItem('userData', JSON.stringify(response.account))
+      localStorage.setItem('userGui', JSON.stringify(response.account.tenantId))
+      this.router.navigate(['/dashboard']);
     })
   }
 
@@ -96,5 +98,5 @@ export class LoginComponent implements OnInit {
       }
     }
   }
-  
+
 }
