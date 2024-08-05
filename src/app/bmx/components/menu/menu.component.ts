@@ -185,7 +185,6 @@ export class MenuComponent implements OnInit {
     }
   }
 
-
   toggleMenu() {
     this.hideMenu = !this.hideMenu;
   }
@@ -250,7 +249,6 @@ export class MenuComponent implements OnInit {
         })
       }
 
-
     }
     else {
       if (value === 'project-information') {
@@ -264,5 +262,4 @@ export class MenuComponent implements OnInit {
   navigateBack() {
     this.router.navigate(['/']);
   }
-
 }

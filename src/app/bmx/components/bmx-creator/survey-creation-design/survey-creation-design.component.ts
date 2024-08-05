@@ -374,7 +374,6 @@ export class SurveyCreationDesignComponent implements OnInit {
                 }
                 this._BmxService.getDirectos().subscribe(directors => {
                     this.directors = directors;
-                    // Encuentra la primera ocurrencia de BI_DIRECTOR seguido de un número
                     const regex = /BI_DIRECTOR_\d+/;
                     const emailRegex = /<div style="font-size: 18px; font-family: sofia-pro; line-height: 1.5">([a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,})<\/div>/g;
                     const componentText = this.bmxPages[0].page[1]?.componentText;
@@ -388,14 +387,10 @@ export class SurveyCreationDesignComponent implements OnInit {
                             if (index !== -1) {
                                 let verify = this.bmxPages[0].page[1]?.componentText;
 
-                                // Verifica si el correo del director ya existe en el texto
-                                // Crea el HTML con los nuevos párrafos
                                 let updatedText = componentText;
 
-                                // Elimina todos los BI_DIRECTOR del texto
                                 updatedText = updatedText.replace(/<p style="text-align:center"><br \/>BI_DIRECTOR.*?<\/p>/g, '');
 
-                                // Obtiene los correos electrónicos de los directores ya presentes en el texto
                                 const existingEmails = updatedText.match(/\b[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\.[A-Z|a-z]{2,}\b/g) || [];
                                 const newParagraphs = this.directors.map(person => {
                                     console.log(person.email, existingEmails)
@@ -415,14 +410,12 @@ export class SurveyCreationDesignComponent implements OnInit {
                                     }
                                 }).join('');
 
-                                // Reemplaza todo el contenido desde el primer BI_DIRECTOR encontrado
                                  updatedText = componentText.substring(0, index) + newParagraphs;
                                  updatedText = updatedText.replace(/_1/g, '');
-                                // Verificar y reemplazar/eliminar correos duplicados
                                 this.directors.forEach(person => {
                                     updatedText = updatedText.replace(emailRegex, (match, p1) => {
                                         if (p1 === person.email) {
-                                            return ''; // Eliminar coincidencia
+                                            return ''; 
                                         }
                                         return match;
                                     });
@@ -432,7 +425,6 @@ export class SurveyCreationDesignComponent implements OnInit {
                             }
                         }
 
-                        // Reemplaza los placeholders en el texto
                         const name = localStorage.getItem('projectName');
                         const company = localStorage.getItem('company');
                         const replacedText = this.bmxPages[0].page[1].componentText
@@ -978,7 +970,6 @@ export class SurveyCreationDesignComponent implements OnInit {
                 this.bmxPages[0].page[1].componentText
                 const originalText = this.bmxPages[0].page[1].componentText;
 
-                // Reemplazar los valores dinámicamente
                 const replacedText = originalText
                     .replace(/\[PROJECT NAME\]/g, name)
                     .replace(/\[Company Name\]/g, company)
@@ -1251,7 +1242,6 @@ export class SurveyCreationDesignComponent implements OnInit {
             });
             table.tableRows.push(tableR);
         });
-
         // this.bmxCompleteObject['tables'].push(table)
     }
 
@@ -1296,7 +1286,6 @@ export class SurveyCreationDesignComponent implements OnInit {
         console.log('survey/' + projectUrl + '/' + (this.biUsername ? this.biUsername : 'guest'))
         window.open('survey/' + projectUrl + '/' + (this.biUsername ? this.biUsername : 'guest'));
     }
-
 
     SAMPLE_BMX = [
         {
