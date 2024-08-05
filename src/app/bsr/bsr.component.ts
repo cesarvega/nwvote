@@ -10,11 +10,6 @@ import { DOCUMENT } from '@angular/common';
 //import { BsrService } from './services/bsr.service';
 
 
-///CKEDITOR NOTES, para que el toolbar del editor pueda ser configurado
-//  es necesario de instalar el ckeditor4  y el ckeditor5 y
-//  en el index.html importar el script <script src="https://cdn.ckeditor.com/4.14.1/full-all/ckeditor.js"></script>
-//  <ckeditor  [(ngModel)]="model.editorData" [data]="dataEditor" [config]="ckconfig"></ckeditor>
-
 @Component({
   selector: 'app-bsr',
   templateUrl: './bsr.component.html',
@@ -341,7 +336,7 @@ export class BsrComponent implements OnInit {
   handleKeyDown(event: KeyboardEvent): void {
     const focusedElement = document.activeElement as HTMLElement;
     if (focusedElement && focusedElement.id === 'mat-input-0') {
-      return; // Si el foco está en el textarea, no hacer nada
+      return; 
     }
     if (!this.open && !this.isCommentBox) {
       if (event.key === 'ArrowUp') {
@@ -355,8 +350,16 @@ export class BsrComponent implements OnInit {
       } else if (event.key === 'ArrowLeft') {
         this.moveBackward();
       } else if (event.key === 'o' || event.key === 'O') {
-        // Cambia el valor de la variable aquí
-        this.overview = !this.overview; // Asegúrate de reemplazar "yourVariable" y "newValue" con los nombres y valores adecuados.
+       
+        this.overview = !this.overview; 
+      }else if ((event.key === 'b' || event.key === 'B') && event.ctrlKey) {
+       
+        if(!this.createPostIt){
+          this.bsr()
+        }else{
+          this.home()
+        }
+        
       }
     }
   }
@@ -908,7 +911,6 @@ export class editPost {
       this.isDeleting = false;
       this.projectId = localStorage.getItem(this._BsrService.getProjectName() + '_projectId');
 
-      // Asegúrate de que `this.model.editorData` y otros campos tengan valores válidos o una cadena vacía
       const editorData = this.model.editorData && this.model.editorData.trim() ? this.model.editorData : '';
 
       const newConcepData = {
@@ -931,7 +933,7 @@ export class editPost {
       this.dialogRef.close('cancel');
     }
 
-    // Asegúrate de que `newNamesPerConcept` y `nameid` tengan valores válidos o una cadena vacía
+   
     if (!this.nameid) {
       this.nameid = ''
     }
@@ -962,8 +964,7 @@ export class editPost {
     let match;
 
     while ((match = regex.exec(synonyms)) !== null) {
-      // match[1] contiene el texto entre <p> y </p>
-      // Eliminamos cualquier otra etiqueta HTML en el contenido
+     
       const tempElement = document.createElement('div');
       tempElement.innerHTML = match[1];
       result.push(tempElement.textContent || tempElement.innerText || '');
@@ -988,8 +989,8 @@ export class editPost {
         const synonyms = res.synonyms.map((synonym: any) => synonym.word);
         data.push({ word, synonyms });
       });
-      this.dataSource.next(data); // Actualiza el BehaviorSubject
-      this.cdr.markForCheck(); // Forzar la detección de
+      this.dataSource.next(data); 
+      this.cdr.markForCheck(); 
     });
   }
   setAll(evt) {
