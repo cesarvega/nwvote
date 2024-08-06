@@ -32,7 +32,7 @@ export class MenuComponent implements OnInit {
   userDepartment: string;
   userOffice: any;
   id: string;
-  versionNumber = 'v1.0.29';
+  versionNumber = 'v1.0.3';
   showErrorMessage = false;
 
   // constructor(private router: Router, private _BmxService: BmxService, private activatedRoute: ActivatedRoute,) {
@@ -73,11 +73,13 @@ export class MenuComponent implements OnInit {
             // this.userRole = 'creative';
             // this.userRole = 'user'
             // this.userDepartment = 'Design'
+            this.showErrorMessage = false
           } else {
             const account = this.msalService.instance.getActiveAccount()
             if (account) {
               this.userFullName = account.name
               this.userName = account.username
+              this.showErrorMessage = false
             }
           }
         });
@@ -139,6 +141,7 @@ export class MenuComponent implements OnInit {
             this.userName = data.UserName;
             this.userOffice = data.Office;
             this.userDepartment = data.Role;
+            this.showErrorMessage = false
           }
 
         });
@@ -168,13 +171,14 @@ export class MenuComponent implements OnInit {
               // this.userRole = 'creative';
               // this.userRole = 'user'
               // this.userDepartment = 'Design'
+              this.showErrorMessage = false
             }
           });
         } else {
           const userData = JSON.parse(localStorage.getItem('userData'))
           this.userFullName = userData.name
           this.userName = userData.username
-          this.showErrorMessage = true
+          this.showErrorMessage = false
         }
         this.isDashboardMenu = event.url.includes('dashboard') || event.url === '/' || event.url.includes('templates');
         this.isPreviewView = event.url.includes('survey')
@@ -191,6 +195,7 @@ export class MenuComponent implements OnInit {
         if (account) {
           this.userFullName = account.name
           this.userName = account.username
+          this.showErrorMessage = false
       }
 
     });

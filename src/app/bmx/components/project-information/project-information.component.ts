@@ -293,7 +293,6 @@ export class ProjectInformationComponent implements OnInit {
 
       }
 
-
     }
   }
 
@@ -380,8 +379,6 @@ export class ProjectInformationComponent implements OnInit {
 
     }
   }
-
-
 
   createFormControls() {
 
