@@ -108,7 +108,7 @@ export function MSALInstanceFactory(): IPublicClientApplication {
     auth: {
       clientId: 'fbcbd5db-c816-4ffb-8310-316cf7781c45',
       authority: 'https://login.microsoftonline.com/f010ce16-e13d-4c24-87af-3a1eb4d11de6',
-      redirectUri: 'http://bmcreator2.brandinstitute.com/dashboard',
+      redirectUri: 'https://bmcreator2.brandinstitute.com',
     },
     cache: {
       cacheLocation: 'localStorage',
