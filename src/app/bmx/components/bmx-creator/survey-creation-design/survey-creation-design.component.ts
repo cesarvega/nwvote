@@ -52,11 +52,7 @@ export class SurveyCreationDesignComponent implements OnInit {
     sampleHtml2 = `
     You have been chosen to participate in the selection process for Integrated BioTherapeutics' new tagline (Project Code Name: BI_PROJECTNAME). In this interactive BrandMatrix evaluation, you will be asked to identify and evaluate your favorite tagline options. 
     
-    Should you have any questions or comments regarding the BrandMatrixTM, please contact one of the following individuals:
-    
-    BI_DIRECTOR
-    
-    BI_DIRECTOR1
+    Should you have any questions or comments regarding the BrandMatrixTM, please contact one of the following individuals:<br />BI_DIRECTOR<br />BI_DIRECTOR1    
     `;
     selectedOption: any;
     rankingScaleValue = 5;
@@ -343,7 +339,6 @@ export class SurveyCreationDesignComponent implements OnInit {
         } else {
             //   this.bmxPages = this.SAMPLE_BMX;
             this._BmxService.getBrandMatrixByProject(this.projectId).subscribe((brandMatrix: any) => {
-                console.log(brandMatrix)
                 if (brandMatrix.d.length > 0) {
                     let objeto = JSON.parse(brandMatrix.d);
                     let logoUrl = ""
@@ -374,10 +369,14 @@ export class SurveyCreationDesignComponent implements OnInit {
                 }
                 this._BmxService.getDirectos().subscribe(directors => {
                     this.directors = directors;
-                    const regex = /BI_DIRECTOR_\d+/;
+                    if (directors) {
+                        localStorage.setItem('directors', JSON.stringify(directors))
+                    } else {
+                        this.directors = JSON.parse(localStorage.getItem('directors'))
+                    }
+                    const regex = /BI_DIRECTOR\d*/;
                     const emailRegex = /<div style="font-size: 18px; font-family: sofia-pro; line-height: 1.5">([a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,})<\/div>/g;
                     const componentText = this.bmxPages[0].page[1]?.componentText;
-
                     if (componentText) {
                         const match = componentText.match(regex);
 
@@ -393,25 +392,22 @@ export class SurveyCreationDesignComponent implements OnInit {
 
                                 const existingEmails = updatedText.match(/\b[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\.[A-Z|a-z]{2,}\b/g) || [];
                                 const newParagraphs = this.directors.map(person => {
-                                    console.log(person.email, existingEmails)
                                     const existingEmailsLower = existingEmails.map(email => email.toLowerCase());
 
                                     const emailExists = existingEmailsLower.some(existingEmail => existingEmail.toLowerCase().trim() === person.email.toLowerCase().trim());
-                                    console.log(existingEmailsLower[0].toLowerCase().trim(), person.email.toLowerCase().trim(),  emailExists)
                                     if (emailExists == false) {
                                         return `
-                                        <div style="display: flex; flex-direction: column; justify-content: center; align-items: center;">
+                                        <div class='ql-editor' style="display: flex; flex-direction: column; justify-content: center; align-items: center;">
                                             <div style="font-size: 23px; font-family: sofia-pro; line-height: 1.5">${person.name}</div>
                                             <div style="font-size: 18px; font-family: sofia-pro; line-height: 1.5">${person.title}</div>
-                                            <div style="font-size: 18px; font-family: sofia-pro; line-height: 1.5">${person.email}</div>
-                                            <div style="font-size: 18px; font-family: sofia-pro; line-height: 1.5">${person.phone}</div>
-                                            <br />
+                                            <div style="font-size: 23px; font-family: sofia-pro; line-height: 1.5">${person.email.trim()}</div>
+                                            <div style="font-size: 23px; font-family: sofia-pro; line-height: 1.5">${person.phone.trim()}</div>
                                         </div>`;
                                     }
                                 }).join('');
 
-                                 updatedText = componentText.substring(0, index) + newParagraphs;
-                                 updatedText = updatedText.replace(/_1/g, '');
+                                updatedText = componentText.substring(0, index) + newParagraphs;
+                                updatedText = updatedText.replace(/_1/g, '');
                                 this.directors.forEach(person => {
                                     updatedText = updatedText.replace(emailRegex, (match, p1) => {
                                         if (p1 === person.email) {
@@ -432,8 +428,6 @@ export class SurveyCreationDesignComponent implements OnInit {
                             .replace(/\[Project Name\]/g, name)
                             .replace(/\[Company Name\]/g, company);
                         this.bmxPages[0].page[1].componentText = replacedText;
-
-                        console.log(this.bmxPages[0].page[1].componentText);
                     }
                 });
 

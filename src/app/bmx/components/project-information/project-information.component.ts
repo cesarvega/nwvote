@@ -101,7 +101,6 @@ export class ProjectInformationComponent implements OnInit {
         .subscribe((arg: any) => {
           if (arg.d && arg.d.length > 0) {
             var data = JSON.parse(arg.d);
-            console.log(data)
             this.bmxEditData.patchValue({ bmxSalesboard: data.bmxSalesboard });
             this.bmxEditData.patchValue({ bmxProjectName: data.bmxProjectName });
             this.bmxEditData.patchValue({ bmxDepartment: data.bmxDepartment });
@@ -110,14 +109,12 @@ export class ProjectInformationComponent implements OnInit {
             this.bmxEditData.patchValue({ bmxCompany: data.bmxCompany });
             this.bmxEditData.patchValue({ bmxStatus: data.bmxStatus });
             this.bmxEditData.patchValue({ bmxClosingDate: new Date(data.bmxClosingDate) });
-            console.log(data.bmxClosingDate)
             if (!data.bmxStatus || data.bmxStatus == "open") {
               this.status = "open"
             } else if (data.bmxStatus == "close") {
               this.status = "close"
             }
             localStorage.setItem('company', data.bmxCompany)
-            console.log(data)
             var list;
             this._BmxService.setDirectors(data.bmxRegionalOffice)
             /*
@@ -146,7 +143,6 @@ export class ProjectInformationComponent implements OnInit {
     this._BmxService.getGeneralLists()
       .subscribe((arg: any) => {
         this.settingsData = JSON.parse(arg.d);
-        console.log(this.settingsData)
         this.TEMPLATES = (this.settingsData.BrandMatrixTemplateList.length) > 0 ? JSON.parse(arg.d).BrandMatrixTemplateList.map(obj => { return { templateName: obj.TemplateName, displayName: obj.DisplayName } }) : this.TEMPLATES
 
         this.settingsData.OfficeList.unshift('All');
@@ -203,19 +199,11 @@ export class ProjectInformationComponent implements OnInit {
   onSelect(event: Date) {
     this.selectedDate = event;
     const today = new Date();
-
-    if (event < today) {
-      this.status = 'close';
-    } else {
       this.status = 'open';
-    }
-
 }
   saveProjectInfo() {
-    console.log(this.status)
     if (this.bmxEditData.valid) {
       const storageName = localStorage.getItem('projectName')
-      console.log(storageName, typeof storageName, this.projectName)
       if (storageName != 'null' && storageName!= null && storageName!= undefined && storageName!= 'undefined')  {
         this._BmxService.setProjectName(this.bmxEditData.get('bmxProjectName').value.toString());
         const projectInfo: JSON = <JSON><unknown>{
@@ -249,7 +237,6 @@ export class ProjectInformationComponent implements OnInit {
         this.router.navigate(['/bmx-creation/99CB72BF-D163-46A6-8A0D-E1531EC7FEDC'])
       } else {
         const newName = this.bmxEditData.get('bmxProjectName').value.toString().trim()
-        console.log(newName)
         this._BmxService.isValid(newName).subscribe((res: any) => {
           const jsonString = res
           const parsedObject = JSON.parse(jsonString.d);
@@ -309,7 +296,6 @@ export class ProjectInformationComponent implements OnInit {
       director.type = 'BI'
       director = this.allDirectors.find(o => o.name === this.dName)
 
-      console.log(director)
       if (!this.DIRECTORS.some((actualDirector) => actualDirector.email == director.email)) {
         this.DIRECTORS.push(director);
       }
@@ -486,9 +472,7 @@ export class ProjectInformationComponent implements OnInit {
   }
 
   loadTemplate(templateName) {
-    console.log(templateName)
     this._BmxService.getBrandMatrixTemplateByName(templateName).subscribe((template: any) => {
-      console.log(template)
       this.bmxPages = JSON.parse(template.d);
       this._snackBar.open('template ' + "'" + templateName + "'" + ' loaded 😀', 'OK', {
         duration: 5000,
