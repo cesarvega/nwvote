@@ -8,3 +8,4 @@ Run npm i --force to install new dependencies
 
 Run ng serve ro run the app
 
+ng build --configuration production --base-href /bipresentstest/
