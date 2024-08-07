@@ -98,12 +98,12 @@
       <!-- CORNER MENUS -->
 
       <div *ngIf="!mainMenu" class="bar_fullscreen" class="corner_bar_menu">
-        <button *ngIf="createPostIt" (click)="newBlankPostIt()" matTooltip="post-it" matTooltipPosition="above"
+        <button *ngIf="createPostIt" (click)="newBlankPostIt()" matTooltip="add post-it" matTooltipPosition="above"
           mat-icon-button color="warn" aria-label="aria">
           <mat-icon class="full-icon">note_add</mat-icon>
         </button>
 
-        <button *ngIf="!createPostIt" (click)="bsr()" mat-icon-button matTooltip="post its" matTooltipPosition="above"
+        <button *ngIf="!createPostIt" (click)="bsr()" mat-icon-button matTooltip="add post its" matTooltipPosition="above"
           mat-icon-button color="warn" aria-label="aria">
           <mat-icon class="full-icon">lightbulb_outline</mat-icon>
         </button>
@@ -124,7 +124,7 @@
           mat-icon-button color="warn" aria-label="aria">
           <mat-icon class="full-icon">lightbulb_outline</mat-icon>
         </button>
-        <button *ngIf="createPostIt" (click)="newBlankPostIt()" matTooltip="post-it" matTooltipPosition="above"
+        <button *ngIf="createPostIt" (click)="newBlankPostIt()" matTooltip="add post-it" matTooltipPosition="above"
           mat-icon-button color="warn" aria-label="aria">
           <mat-icon class="full-icon">note_add</mat-icon>
         </button>
@@ -289,8 +289,8 @@
                     style="color: white; font-size: 40px;font-family: Arial">
                     Brainstorm
                   </div>
-                  <div class="col" (click)="toggleNamebox()" [class.name-title]="!wide" [class.name-title-wide]="wide"
-                    [matTooltip]="'Names Created '+ nameCandidates.length" matTooltipPosition="right">
+                  <div class="col " (click)="toggleNamebox()" [class.name-title]="!wide" [class.name-title-wide]="wide"
+                    [matTooltip]="'Names Created: '+ nameCandidates.length" matTooltipPosition="right">
                     Names
                     <span *ngIf="nameCandidates.length > 0" style="position: absolute;    top: 6px;
                         right: 4px;" matBadgeColor="warn" [matBadgeHidden]="!(nameCandidates.length > 0)"

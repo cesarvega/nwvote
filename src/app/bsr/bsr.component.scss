@@ -965,11 +965,16 @@ mat-tab-group ::-webkit-scrollbar {
   border-radius: 5px;
   display: flex;
   align-items: center;
+}
+
+
+::ng-deep .mat-tooltip{
+  font-size: 40px !important;
 
 }
 
-::ng-deep .mat-mdc-tooltip {
-  font-size: 24px;
+::ng-deep .mdc-tooltip {
+  font-size: 50px !important;
 }
 
 .full-icon:hover {
@@ -1278,8 +1283,8 @@ input:focus-visible{
   left: 0;
   width: 100%;
   height: 100%;
-  background: rgba(255, 255, 255, 0.8); /* Fondo blanco semitransparente */
-  backdrop-filter: blur(10px); /* Efecto de desenfoque */
+  background: rgba(255, 255, 255, 0.8); 
+  backdrop-filter: blur(10px); 
   display: flex;
   justify-content: center;
   align-items: center;
@@ -1299,7 +1304,7 @@ input:focus-visible{
   max-width: 100%;
   max-height: 100%;
   border-radius: 10px;
-  box-shadow: 0 0 20px rgba(0, 0, 0, 0.2); /* Sombra suave alrededor de la imagen */
+  box-shadow: 0 0 20px rgba(0, 0, 0, 0.2); 
 }
 
 .hotkeys-close{
@@ -1317,12 +1322,11 @@ input:focus-visible{
 }
 
 .mat-tooltip {
-  font-size: 16px; /* Cambia el tamaño del texto del tooltip */
-  padding: 8px 12px; /* Cambia el relleno (padding) del tooltip */
-  max-width: 200px; /* Cambia el ancho máximo del tooltip */
+  font-size: 16px; 
+  padding: 8px 12px; 
+  max-width: 200px; 
 }
 
-/* Si deseas que el tooltip tenga un tamaño específico para este caso en particular */
 .custom-tooltip {
   font-size: 18px;
   padding: 10px 14px;

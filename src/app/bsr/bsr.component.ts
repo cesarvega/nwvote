@@ -336,7 +336,7 @@ export class BsrComponent implements OnInit {
   handleKeyDown(event: KeyboardEvent): void {
     const focusedElement = document.activeElement as HTMLElement;
     if (focusedElement && focusedElement.id === 'mat-input-0') {
-      return; 
+      return;
     }
     if (!this.open && !this.isCommentBox) {
       if (event.key === 'ArrowUp') {
@@ -350,16 +350,18 @@ export class BsrComponent implements OnInit {
       } else if (event.key === 'ArrowLeft') {
         this.moveBackward();
       } else if (event.key === 'o' || event.key === 'O') {
-       
-        this.overview = !this.overview; 
-      }else if ((event.key === 'b' || event.key === 'B') && event.ctrlKey) {
-       
-        if(!this.createPostIt){
+
+        this.overview = !this.overview;
+      } else if ((event.key === 'b' || event.key === 'B') && event.ctrlKey) {
+
+        if (!this.createPostIt) {
           this.bsr()
-        }else{
+        } else {
           this.home()
         }
-        
+
+      } else if (event.key === 'Escape') {
+        this.showHotKeys = false
       }
     }
   }
@@ -933,7 +935,7 @@ export class editPost {
       this.dialogRef.close('cancel');
     }
 
-   
+
     if (!this.nameid) {
       this.nameid = ''
     }
@@ -964,7 +966,7 @@ export class editPost {
     let match;
 
     while ((match = regex.exec(synonyms)) !== null) {
-     
+
       const tempElement = document.createElement('div');
       tempElement.innerHTML = match[1];
       result.push(tempElement.textContent || tempElement.innerText || '');
@@ -989,8 +991,8 @@ export class editPost {
         const synonyms = res.synonyms.map((synonym: any) => synonym.word);
         data.push({ word, synonyms });
       });
-      this.dataSource.next(data); 
-      this.cdr.markForCheck(); 
+      this.dataSource.next(data);
+      this.cdr.markForCheck();
     });
   }
   setAll(evt) {
