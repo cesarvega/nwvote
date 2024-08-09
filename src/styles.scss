@@ -1,3 +1,4 @@
+
 app-survey-creation-design {
     /* Estilos específicos para app-survey-creation-design */
     width: 100%;
@@ -102,3 +103,14 @@ app-dashboard {
     padding: 8px;
 }
 
+.comment-box {
+    .mdc-text-field--outlined .mdc-notched-outline {
+        padding: 0px 0px 0 15px;
+    }
+}
+.comment-box {
+    .mat-mdc-text-field-wrapper.mdc-text-field--outlined .mdc-text-field__input {
+        padding: 0px 0px 0 15px;
+
+    }
+}

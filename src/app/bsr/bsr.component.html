@@ -33,31 +33,31 @@
 
 
       <!-- COMMENTS BOX -->
-      <div class="comment-to-top" cdkDrag cdkDragRootElement=".cdk-overlay-pane" cdkDragHandle fxLayout="col"
-        *ngIf="isCommentBox" fxLayoutAlign="center center">
-
+      <div class="comment-to-top" cdkDrag cdkDragRootElement=".cdk-overlay-pane" fxLayout="col" *ngIf="isCommentBox"
+        fxLayoutAlign="center center">
         <div fxFlex class="mat-elevation-z4 comment-box">
-          <div class="col">
+          <div cdkDragHandle style="height: 20px; width: 100%;"></div>
+          <div class="col" >
             <div class="row">
               <div class="handle" style="float: left; font-size: 9px;">.</div>
               <button (click)="displayCommentBox()" mat-stroked-button style="color: #004684;
-                      position: absolute;
-                      right: 7px;
-                      z-index: 9999;
-                      top: 201px;" color="primary" aria-label="LOG IN" [disabled]="loginForm.invalid">
+                 position: absolute;
+                 right: 7px;
+                 z-index: 9999;
+                 top: 185px;" color="primary" aria-label="LOG IN" [disabled]="loginForm.invalid">
                 CANCEL
               </button>
               <button (click)="comment()" mat-stroked-button style="color: #004684;
-                      position: absolute;
-                      right: 100px;
-                      z-index: 9999;
-                      top: 201px;" color="primary" aria-label="LOG IN" [disabled]="loginForm.invalid">
+                 position: absolute;
+                 right: 100px;
+                 z-index: 9999;
+                 top: 185px;" color="primary" aria-label="LOG IN" [disabled]="loginForm.invalid">
                 SUBMIT
               </button>
               <form name="loginForm" [formGroup]="loginForm" novalidate class="open-close-container">
-                <mat-form-field class="comment-field " appearance="outline">
+                <mat-form-field class="comment-field" appearance="outline">
                   <mat-label>Comment's Box</mat-label>
-                  <textarea matInput cdkTextareaAutosize cdkAutosizeMinRows="4"  [(ngModel)]="commentBoxText"
+                  <textarea matInput cdkTextareaAutosize cdkAutosizeMinRows="4" [(ngModel)]="commentBoxText"
                     formControlName="suma" cdkAutosizeMaxRows="4" appearance="outline" id="commentBox"></textarea>
                 </mat-form-field>
               </form>
@@ -103,8 +103,8 @@
           <mat-icon class="full-icon">note_add</mat-icon>
         </button>
 
-        <button *ngIf="!createPostIt" (click)="bsr()" mat-icon-button matTooltip="add post its" matTooltipPosition="above"
-          mat-icon-button color="warn" aria-label="aria">
+        <button *ngIf="!createPostIt" (click)="bsr()" mat-icon-button matTooltip="add post its"
+          matTooltipPosition="above" mat-icon-button color="warn" aria-label="aria">
           <mat-icon class="full-icon">lightbulb_outline</mat-icon>
         </button>
         <!-- <button mat-icon-button aria-label="Proprietary" style="width: 200px;">
@@ -120,8 +120,8 @@
         <button (click)="home()" mat-icon-button matTooltip="home" matTooltipPosition="above">
           <mat-icon class="full-icon">home</mat-icon>
         </button>
-        <button *ngIf="!createPostIt" (click)="bsr()" mat-icon-button matTooltip="brainstorming" matTooltipPosition="above"
-          mat-icon-button color="warn" aria-label="aria">
+        <button *ngIf="!createPostIt" (click)="bsr()" mat-icon-button matTooltip="brainstorming"
+          matTooltipPosition="above" mat-icon-button color="warn" aria-label="aria">
           <mat-icon class="full-icon">lightbulb_outline</mat-icon>
         </button>
         <button *ngIf="createPostIt" (click)="newBlankPostIt()" matTooltip="add post-it" matTooltipPosition="above"
@@ -286,13 +286,13 @@
 
                 <div class="row">
                   <div (click)="theme()" class="col brandstorm"
-                    style="color: white; font-size: 40px;font-family: Arial">
+                    style="color: white; font-size: 40px; font-family: Montserrat !important;">
                     Brainstorm
                   </div>
                   <div class="col " (click)="toggleNamebox()" [class.name-title]="!wide" [class.name-title-wide]="wide"
                     [matTooltip]="'Names Created: '+ nameCandidates.length" matTooltipPosition="right">
                     Names
-                    <span *ngIf="nameCandidates.length > 0" style="position: absolute;    top: 6px;
+                    <span *ngIf="nameCandidates.length > 0" style="position: absolute;    top: 6px; font-family: Montserrat !important;
                         right: 4px;" matBadgeColor="warn" [matBadgeHidden]="!(nameCandidates.length > 0)"
                       [matBadge]="nameCandidates.length" matBadgeSize="medium"></span>
                   </div>
@@ -322,7 +322,7 @@
                       [style.max-width]="namesBoxIndex == 1? '1320px': namesBoxIndex == 0 && wide?'931px': wide && createPostIt? '947px': '925px'"
                       dragula="TASKS" [dragulaModel]="conceptData.concepts"
                       (dragulaModelChange)="conceptData.concepts = $event">
-                      <div [ngClass]="postItListTheme" *ngFor="let item of conceptData.concepts; let i = index;">
+                      <div style="z-index: 999;" [ngClass]="postItListTheme" *ngFor="let item of conceptData.concepts; let i = index;">
 
                         <mat-card appearance="outlined" class="mat-elevation-z4 post-card">
                           <div class="emoji-handle">
@@ -347,7 +347,8 @@
                           <!-- HTML-CONTENT -->
                           <mat-card-content class="post-content" [ngStyle]="{'font-size': font_size_text}"
                             (click)="openDialog(item, 'edit')">
-                            <div class="ql-editor card-list" [style.font-size]="font_size_text" [innerHTML]="item.html"></div>
+                            <div class="ql-editor card-list" [style.font-size]="font_size_text" [innerHTML]="item.html">
+                            </div>
                           </mat-card-content>
 
                           <mat-icon class="deleteButton" (click)="openDialog(item, 'delete')">cancel</mat-icon>
@@ -485,8 +486,8 @@
                     <mat-icon>home</mat-icon>
                   </button>
 
-                  <button matTooltip="brainstorming" matTooltipPosition="above" (click)="newBlankPostIt()" mat-icon-button
-                    color="primary" aria-label="Example icon-button with a heart icon">
+                  <button matTooltip="brainstorming" matTooltipPosition="above" (click)="newBlankPostIt()"
+                    mat-icon-button color="primary" aria-label="Example icon-button with a heart icon">
                     <mat-icon>note_add</mat-icon>
                   </button>
 

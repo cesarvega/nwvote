@@ -61,6 +61,8 @@
   left: 0;
   right: 0;
   background: #fff;
+  font-family: "Open Sans" ;
+  font-weight: 500;
 }
 
 .presentation-box {
@@ -424,7 +426,7 @@
 .name-title-wide {
   color: white;
   font-size: 30px;
-  font-family: Arial;
+  font-family: Montserrat !important;
   right: -694px;
   cursor: pointer;
 }
@@ -819,13 +821,13 @@ mat-tab-group ::-webkit-scrollbar {
 
 .comment-box {
   position: absolute;
-  // background-color: white;
   background-color: #fff;
   width: 100%;
-  top: 463px;
+  top: 346px;
   z-index: 99999;
   max-width: 560px;
   height: 250px;
+  left: 294px;
   border: aliceblue 2px solid;
   animation: bounceIn 0.5s ease-in-out 0s 1 forwards;
   overflow: hidden;
@@ -1199,7 +1201,7 @@ $postItHeaderColors2: #d6f8fd, #dcd6fd, #d6fde9, #fdfcd6, #d6f8fd, #fdd6e8, #fdd
 .ql-editor {
   white-space: normal !important;
   padding: 0px !important;
-  line-height: 0.8;
+  line-height: 1.2;
   li{
     list-style-type: unset !important;
   }
