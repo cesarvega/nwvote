@@ -23,16 +23,16 @@ export class MenuComponent implements OnInit {
   CREATION_VIDEO_PATH: string = ''
   showCreationModalVideo: boolean = false
   hideMenu: boolean = false;
-  showMenu: boolean = false;
-  isPreviewView: boolean = true
-  login = true
+  showMenu: boolean = true;
+  isPreviewView: boolean = false
+  login = false
   selectedMenuItem: string = 'dashboard';
   userGUI: any;
   userName = ''
   userDepartment: string;
   userOffice: any;
   id: string;
-  versionNumber = 'v1.0.4';
+  versionNumber = 'v1.0.7';
   showErrorMessage = false;
 
   // constructor(private router: Router, private _BmxService: BmxService, private activatedRoute: ActivatedRoute,) {
@@ -182,7 +182,6 @@ export class MenuComponent implements OnInit {
         }
         this.isDashboardMenu = event.url.includes('dashboard') || event.url === '/' || event.url.includes('templates');
         this.isPreviewView = event.url.includes('survey')
-        this.selectedMenuItem = event.url.slice(1)
         this.login = event.url.includes('login')
       }
       if (this.userGUI) {
@@ -190,12 +189,12 @@ export class MenuComponent implements OnInit {
       } else {
         this.userGUI = localStorage.getItem('userGui')
       }
-  
-        const account = this.msalService.instance.getActiveAccount()
-        if (account) {
-          this.userFullName = account.name
-          this.userName = account.username
-          this.showErrorMessage = false
+
+      const account = this.msalService.instance.getActiveAccount()
+      if (account) {
+        this.userFullName = account.name
+        this.userName = account.username
+        this.showErrorMessage = false
       }
 
     });
@@ -287,11 +286,19 @@ export class MenuComponent implements OnInit {
   navigateBack() {
     this.router.navigate(['/']);
   }
-
-  async signOut() {
-    await this.msalService.logout().subscribe((response: any) => {
-      this.router.navigate(['/login']);
-    })
-  }
-
+signOut() {
+  this.msalService.logoutPopup().subscribe({
+    next: (response: any) => {
+      if (response) {
+        sessionStorage.clear()
+        this.router.navigate(['/login']);
+      }
+    },
+    error: (err: any) => {
+      sessionStorage.clear()
+      console.error('Error during logout:', err);
+    }
+  });
+}
+  
 }
