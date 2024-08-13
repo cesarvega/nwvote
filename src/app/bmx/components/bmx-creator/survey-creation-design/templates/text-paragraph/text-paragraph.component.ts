@@ -20,7 +20,7 @@ export class TextParagraphComponent implements OnInit {
   projectName: string;
   previousText = '';
   editorConfig = {};
-
+  directors = []
   constructor(private _bmxService: BmxService) { }
 
   ngOnInit(): void {
@@ -30,9 +30,9 @@ export class TextParagraphComponent implements OnInit {
         ['blockquote', 'code-block'],
 
         [{ 'header': 1 }, { 'header': 2 }],               // custom button values
-        [{ 'list': 'ordered'}, { 'list': 'bullet' }],
-        [{ 'script': 'sub'}, { 'script': 'super' }],      // superscript/subscript
-        [{ 'indent': '-1'}, { 'indent': '+1' }],          // outdent/indent
+        [{ 'list': 'ordered' }, { 'list': 'bullet' }],
+        [{ 'script': 'sub' }, { 'script': 'super' }],      // superscript/subscript
+        [{ 'indent': '-1' }, { 'indent': '+1' }],          // outdent/indent
         [{ 'direction': 'rtl' }],                         // text direction
 
         [{ 'size': ['small', false, 'large', 'huge'] }],  // custom dropdown
@@ -45,32 +45,75 @@ export class TextParagraphComponent implements OnInit {
         ['clean']                                         // remove formatting button
       ]
     };
-    this.previousText = this.bmxItem.componentText;
+
+    this.replaceBiI_Markers()
   }
 
   replaceBiI_Markers(): void {
-    this.previousText = this.bmxItem.componentText;
-    this._bmxService.currentprojectData$.subscribe((arg: any) => {
-      if (!arg.bmxProjectName) {
-        arg = JSON.parse(arg);
+    this._bmxService.getDirectos().subscribe(directors => {
+      this.directors = directors;
+      if (directors) {
+        localStorage.setItem('directors', JSON.stringify(directors))
+      } else {
+        this.directors = JSON.parse(localStorage.getItem('directors'))
       }
-      this.projectName = arg.bmxProjectName;
+      const regex = /BI_DIRECTOR\d*/;
+      const emailRegex = /<div style="font-size: 18px; font-family: sofia-pro; line-height: 1.5">([a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,})<\/div>/g;
+      const componentText = this.bmxItem.componentText;
+      if (componentText) {
+        const match = componentText.match(regex);
 
-      this.bmxItem.componentText = this.bmxItem.componentText.replace('BI_PROJECTNAME', this.projectName);
+        if (match) {
+          const index = componentText.indexOf(match[0]);
 
-      arg.bmxRegionalOffice.forEach((director: any, index: number) => {
-        let directorString = `
-          <div style="display: flex;flex-direction: column;justify-content: center;align-items: center;">
-            <div style="font-size: 23px;font-family: sofia-pro;line-height: 1.5">${director.name.trim()}</div>
-            <div style="font-size: 18px;font-family: sofia-pro;line-height: 1.5">${director.title.trim()}</div>
-            <div style="font-size: 18px;font-family: sofia-pro;line-height: 1.5">${director.email.trim()}</div>
-            <div style="font-size: 18px;font-family: sofia-pro;line-height: 1.5">${director.phone.trim()}</div>
-          </div><br>`;
+          if (index !== -1) {
+            let verify = this.bmxItem.componentText
 
-        if (index <= 4) {
-          this.bmxItem.componentText = this.bmxItem.componentText.replace(`BI_DIRECTOR${index}`, directorString);
+            let updatedText = componentText;
+
+            updatedText = updatedText.replace(/<p style="text-align:center"><br \/>BI_DIRECTOR.*?<\/p>/g, '');
+
+            const existingEmails = updatedText.match(/\b[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\.[A-Z|a-z]{2,}\b/g) || [];
+            const newParagraphs = this.directors.map(person => {
+              const existingEmailsLower = existingEmails.map(email => email.toLowerCase());
+
+              const emailExists = existingEmailsLower.some(existingEmail => existingEmail.toLowerCase().trim() === person.email.toLowerCase().trim());
+              if (emailExists == false) {
+                return `
+                          <div class='ql-editor' style="display: flex; flex-direction: column; justify-content: center; align-items: center;">
+                              <p></p>
+                              <div style="text-align:center; font-size: 23px; font-family: sofia-pro; line-height: 1.5">${person.name}</div>
+                              <div style="text-align:center; font-size: 18px; font-family: sofia-pro; line-height: 1.5">${person.title}</div>
+                              <div style="text-align:center; font-size: 23px; font-family: sofia-pro; line-height: 1.5">${person.email.trim()}</div>
+                              <div style="text-align:center; font-size: 23px; font-family: sofia-pro; line-height: 1.5">${person.phone.trim()}</div>
+                          </div>`;
+              }
+            }).join('');
+
+            updatedText = componentText.substring(0, index) + newParagraphs;
+            updatedText = updatedText.replace(/_1/g, '');
+            this.directors.forEach(person => {
+              updatedText = updatedText.replace(emailRegex, (match, p1) => {
+                if (p1 === person.email) {
+                  return '';
+                }
+                return match;
+              });
+            });
+
+            this.bmxItem.componentText = updatedText;
+          }
         }
-      });
+
+        const name = localStorage.getItem('projectName');
+        const company = localStorage.getItem('company');
+        const replacedText = this.bmxItem.componentText
+          .replace(/\[PROJECT NAME\]/g, name)
+          .replace(/\[Project Name\]/g, name)
+          .replace(/\[Company Name\]/g, company);
+        this.bmxItem.componentText = replacedText;
+      }
+      this.previousText = this.bmxItem.componentText;
     });
   }
 

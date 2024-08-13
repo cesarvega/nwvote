@@ -1,6 +1,6 @@
-@import '~quill/dist/quill.core.css';
-@import '~quill/dist/quill.bubble.css';
-@import '~quill/dist/quill.snow.css';
+@import "~quill/dist/quill.core.css";
+@import "~quill/dist/quill.bubble.css";
+@import "~quill/dist/quill.snow.css";
 
 app-survey-creation-design {
     /* Estilos específicos para app-survey-creation-design */
@@ -12,22 +12,23 @@ app-dashboard {
 }
 
 .mat-icon {
-
     overflow: visible !important;
 }
 
-@import './styles/theme';
-
-
+@import "./styles/theme";
 
 .mat-mdc-icon-button.mat-mdc-button-base {
-
     display: flex;
     align-items: center;
     justify-content: center;
-
 }
 
 .header-delete-icon {
     padding-top: 2.5px;
+}
+
+.ql-editor {
+    p {
+        min-height: 15px;
+    }
 }

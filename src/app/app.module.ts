@@ -106,9 +106,9 @@ export function loadEcharts() {
 export function MSALInstanceFactory(): IPublicClientApplication {
   return new PublicClientApplication({
     auth: {
-      clientId: 'fbcbd5db-c816-4ffb-8310-316cf7781c45',
+      clientId: '469a5f6b-cef4-44bf-8c57-60849c37f488',
       authority: 'https://login.microsoftonline.com/f010ce16-e13d-4c24-87af-3a1eb4d11de6',
-      redirectUri: 'http://localhost:4200',
+      redirectUri: 'https://bmcreator2.brandinstitute.com',
     },
     cache: {
       cacheLocation: 'localStorage',
