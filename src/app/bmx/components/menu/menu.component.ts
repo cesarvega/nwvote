@@ -32,7 +32,7 @@ export class MenuComponent implements OnInit {
   userDepartment: string;
   userOffice: any;
   id: string;
-  versionNumber = 'v1.0.7';
+  versionNumber = 'v1.0.8';
   showErrorMessage = false;
 
   // constructor(private router: Router, private _BmxService: BmxService, private activatedRoute: ActivatedRoute,) {
@@ -291,13 +291,16 @@ signOut() {
     next: (response: any) => {
       if (response) {
         sessionStorage.clear()
-        this.router.navigate(['/login']);
+
       }
+      this.router.navigate(['/login']);
     },
     error: (err: any) => {
       sessionStorage.clear()
       console.error('Error during logout:', err);
+      this.router.navigate(['/login']);
     }
+
   });
 }
   

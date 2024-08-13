@@ -18,27 +18,8 @@ display: flex;
 
                     <form name="loginForm" [formGroup]="loginForm" novalidate class="open-close-container">
 
-                        <mat-form-field appearance="outline">
-                            <mat-label>Email</mat-label>
-                            <input matInput placeholder="Email" formControlName="email">
-                            <mat-error *ngIf="loginForm.get('email').hasError('required')">
-                                Email is required
-                            </mat-error>
-                            <mat-error *ngIf="!loginForm.get('email').hasError('required') &&
-                              loginForm.get('email').hasError('email')">
-                                Please enter a valid email address
-                            </mat-error>
-                        </mat-form-field>
-
-                        <mat-form-field appearance="outline">
-                            <mat-label>Name</mat-label>
-                            <input matInput type="name" placeholder="name" formControlName="name">
-                            <mat-error>
-                                name is required
-                            </mat-error>
-                        </mat-form-field>
-                        <button class="submit-button" mat-raised-button style="color: white;" color="primary"
-                            (click)="submitCredentials()">Sign In</button>
+             
+               
                         <button class="submit-button" mat-raised-button style="color: white;" color="primary"
                             (click)="signInMicrosoft()">Sign In with microsoft</button>
                         <mat-error *ngIf="false">
