@@ -8,6 +8,7 @@ import { BmxService } from '../../../bmx.service';
 import { DeviceDetectorService } from 'ngx-device-detector';
 import { MatCheckboxModule } from '@angular/material/checkbox';
 import { Console } from 'console';
+import * as XLSX from 'xlsx';
 
 @Component({
   selector: 'app-rating-scale',
@@ -269,7 +270,7 @@ export class RatingScaleComponent implements OnInit {
     const filteredCriteria = this.CRITERIA.filter(criteriaItem => this.selectedCriteria.map(item => item.name).includes(criteriaItem.name));
     this.newselectedCriteria = filteredCriteria
     this.launchPathModal.emit(this.VIDEO_PATH)
-    this.dataSource = this.bmxItem.componentText.slice(1)
+    this.dataSource = this.bmxItem.componentText
   }
 
   openSelected(y: any) {
@@ -690,7 +691,7 @@ export class RatingScaleComponent implements OnInit {
       }
 
       this.bmxItem.componentText = this.deleteDuplicates(this.TESTNAMES_LIST, 'nameCandidates');
-      this.dataSource = this.bmxItem.componentText.slice(1)
+      this.dataSource = this.bmxItem.componentText
 
     } else {
       this.autoSizeColumns('RATE', '', this.rankingScaleValue)
@@ -1183,5 +1184,33 @@ export class RatingScaleComponent implements OnInit {
     } else {
     }
   }
+  readExcelFile(file: File): void {
+    const reader = new FileReader();
+    reader.onload = (e: any) => {
+      const data = new Uint8Array(e.target.result);
+      const workbook = XLSX.read(data, { type: 'array' });
 
+      // Suponiendo que quieres leer la primera hoja
+      const worksheet = workbook.Sheets[workbook.SheetNames[0]];
+      const jsonData = XLSX.utils.sheet_to_json(worksheet, { header: 1 });
+
+      // Procesar los datos y crear el objeto ordenado
+      const headers = jsonData[0] as string[];
+      const rows = jsonData.slice(1);
+
+      const result = rows.map(row => {
+        const obj: any = {};
+        headers.forEach((header, index) => {
+          obj[header] = row[index];
+        });
+        return obj;
+      });
+
+      console.log(result); // Aquí tienes el objeto ordenado con los valores del archivo
+    };
+
+    reader.readAsArrayBuffer(file);
+  }  extactExcelData(){
+
+  }
 }

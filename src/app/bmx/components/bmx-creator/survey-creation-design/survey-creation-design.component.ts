@@ -339,6 +339,7 @@ export class SurveyCreationDesignComponent implements OnInit {
         } else {
             //   this.bmxPages = this.SAMPLE_BMX;
             this._BmxService.getBrandMatrixByProject(this.projectId).subscribe((brandMatrix: any) => {
+                console.log(brandMatrix)
                 if (brandMatrix.d.length > 0) {
                     let objeto = JSON.parse(brandMatrix.d);
                     let logoUrl = ""
@@ -962,7 +963,6 @@ export class SurveyCreationDesignComponent implements OnInit {
                 this.bmxPages[0].page[1].componentText
                 const originalText = this.bmxPages[0].page[1].componentText;
 
-                // Reemplazar los valores dinámicamente
                 const replacedText = originalText
                     .replace(/\[PROJECT NAME\]/g, name)
                     .replace(/\[Company Name\]/g, company)
@@ -1235,7 +1235,6 @@ export class SurveyCreationDesignComponent implements OnInit {
             });
             table.tableRows.push(tableR);
         });
-
         // this.bmxCompleteObject['tables'].push(table)
     }
 
@@ -1280,7 +1279,6 @@ export class SurveyCreationDesignComponent implements OnInit {
         console.log('survey/' + projectUrl + '/' + (this.biUsername ? this.biUsername : 'guest'))
         window.open('survey/' + projectUrl + '/' + (this.biUsername ? this.biUsername : 'guest'));
     }
-
 
     SAMPLE_BMX = [
         {

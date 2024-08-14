@@ -32,7 +32,7 @@ export class LoginComponent implements OnInit {
     // Clean local storage
     localStorage.setItem('userTokenId', '');
     localStorage.setItem('project', '');
-
+ 
     this.loginForm = this._formBuilder.group({
       email: ['', Validators.required],
       suma: [''],
@@ -57,10 +57,9 @@ export class LoginComponent implements OnInit {
   async signInMicrosoft() {
     sessionStorage.clear()
     await this.msalService.loginPopup().subscribe( async (response: AuthenticationResult) => {
-      console.log(response)
       await this.msalService.instance.setActiveAccount(response.account)
       localStorage.setItem('userData', JSON.stringify(response.account))
-      localStorage.setItem('userGui', JSON.stringify(response.account.tenantId))
+      localStorage.setItem('userGui', JSON.stringify(response.account))
       this.router.navigate(['/dashboard']);
       sessionStorage.clear()
     })

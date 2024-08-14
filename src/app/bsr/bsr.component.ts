@@ -272,7 +272,6 @@ export class BsrComponent implements OnInit {
         if (JSON.parse(res[0].bsrData).presentationtype === 'NSR') {
           this.isNSR = true;
         }
-        console.log(this.conceptData);
       });
 
     });

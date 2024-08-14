@@ -101,6 +101,7 @@ export class ProjectInformationComponent implements OnInit {
         .subscribe((arg: any) => {
           if (arg.d && arg.d.length > 0) {
             var data = JSON.parse(arg.d);
+            console.log(data)
             this.bmxEditData.patchValue({ bmxSalesboard: data.bmxSalesboard });
             this.bmxEditData.patchValue({ bmxProjectName: data.bmxProjectName });
             this.bmxEditData.patchValue({ bmxDepartment: data.bmxDepartment });
@@ -202,6 +203,7 @@ export class ProjectInformationComponent implements OnInit {
       this.status = 'open';
 }
   saveProjectInfo() {
+    console.log(this.status)
     if (this.bmxEditData.valid) {
       const storageName = localStorage.getItem('projectName')
       if (storageName != 'null' && storageName!= null && storageName!= undefined && storageName!= 'undefined')  {
