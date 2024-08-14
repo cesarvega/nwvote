@@ -8,6 +8,7 @@ import { BmxService } from '../../../bmx.service';
 import { DeviceDetectorService } from 'ngx-device-detector';
 import { MatCheckboxModule } from '@angular/material/checkbox';
 import { Console } from 'console';
+import * as XLSX from 'xlsx';
 
 @Component({
   selector: 'app-rating-scale',
@@ -1183,5 +1184,33 @@ export class RatingScaleComponent implements OnInit {
     } else {
     }
   }
+  readExcelFile(file: File): void {
+    const reader = new FileReader();
+    reader.onload = (e: any) => {
+      const data = new Uint8Array(e.target.result);
+      const workbook = XLSX.read(data, { type: 'array' });
 
+      // Suponiendo que quieres leer la primera hoja
+      const worksheet = workbook.Sheets[workbook.SheetNames[0]];
+      const jsonData = XLSX.utils.sheet_to_json(worksheet, { header: 1 });
+
+      // Procesar los datos y crear el objeto ordenado
+      const headers = jsonData[0] as string[];
+      const rows = jsonData.slice(1);
+
+      const result = rows.map(row => {
+        const obj: any = {};
+        headers.forEach((header, index) => {
+          obj[header] = row[index];
+        });
+        return obj;
+      });
+
+      console.log(result); // Aquí tienes el objeto ordenado con los valores del archivo
+    };
+
+    reader.readAsArrayBuffer(file);
+  }  extactExcelData(){
+
+  }
 }

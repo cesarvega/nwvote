@@ -60,7 +60,6 @@ export class ProjectListComponent implements OnInit {
       .subscribe((arg: any) => {
         this.allData = JSON.parse(arg.d);
         // this.allData = JSON.parse(obj);
-        console.log(this.allData)
 
         this.userDepartment = this.userData != null ? this.userData.Department : '';
         this.userRole = this.userData != null ? this.userData.Role : 'admin';
@@ -75,7 +74,6 @@ export class ProjectListComponent implements OnInit {
     filterValue = filterValue.trim(); // Remove whitespace
     filterValue = filterValue.toLowerCase(); // Datasource defaults to lowercase matches
     this.dataSource.filter = filterValue;
-    console.log(this.dataSource)
     if (this.dataSource.paginator) {
       this.dataSource.paginator.firstPage();
     }

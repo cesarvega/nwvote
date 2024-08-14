@@ -45,48 +45,6 @@ export class MenuComponent implements OnInit {
   // });
 
   constructor(private router: Router, private location: Location, private _BmxService: BmxService, private activatedRoute: ActivatedRoute, public _snackBar: MatSnackBar, private msalService: MsalService,) {
-    this.activatedRoute.queryParams.subscribe((queryParams) => {
-      this.userGUI = queryParams['id'];
-
-
-      if (this.userGUI && this.userGUI != '') {
-        localStorage.setItem('userGui', this.userGUI);
-      } else {
-        this.userGUI = localStorage.getItem('userGui')
-      }
-      if (this.userGUI) {
-        this._BmxService.getMatrixUser(this.userGUI).subscribe((data: any) => {
-          if (data.d != '') {
-            data = JSON.parse(data.d);
-            this.userName = data.UserName;
-            this.userFullName = data.FullName;
-            this.userOffice = data.Office;
-            this.userRole = data.Role;
-            this.userDepartment = data.Role;
-
-            // TEST DATA
-            // this.userOffice = 'Miami';
-            // this.userRole = 'admin'; // no restrictions
-            // this.userDepartment = 'Creative';
-            // this.userOffice = 'Basel 1'
-            // this.userRole = 'director'; // director restriced
-            // this.userRole = 'creative';
-            // this.userRole = 'user'
-            // this.userDepartment = 'Design'
-            this.showErrorMessage = false
-          } else {
-            const account = this.msalService.instance.getActiveAccount()
-            if (account) {
-              this.userFullName = account.name
-              this.userName = account.username
-              this.showErrorMessage = false
-            }
-          }
-        });
-      } else {
-        this.showErrorMessage = true
-      }
-    });
 
   }
 
@@ -127,12 +85,17 @@ export class MenuComponent implements OnInit {
 
     //clean local storage
     this.router.events.subscribe((event) => {
-
-      if (event instanceof NavigationEnd) {
+      const account = this.msalService.instance.getActiveAccount()
+      if (account) {
+        this.userFullName = account.name
+        this.userName = account.username
+        this.showErrorMessage = false
+      }
         this.id = this.activatedRoute.snapshot.queryParamMap.get('id');
+        if (event instanceof NavigationEnd) {
 
         // localStorage.setItem('projectId', this.projectId);
-        this._BmxService.getMatrixUser(this.id).subscribe((data: any) => {
+        this._BmxService.getMatrixUser(this.userName).subscribe((data: any) => {
           if (data.d) {
             data = JSON.parse(data.d);
             localStorage.setItem('userData', JSON.stringify(data))
@@ -153,8 +116,8 @@ export class MenuComponent implements OnInit {
           this.userGUI = localStorage.getItem('userGui')
         }
         if (this.userGUI) {
-          this._BmxService.getMatrixUser(this.userGUI).subscribe((data: any) => {
-            if (data.d != '') {
+          this._BmxService.getMatrixUser(this.userName).subscribe((data: any) => {       
+              if (data.d != '') {
               data = JSON.parse(data.d);
               this.userName = data.UserName;
               this.userFullName = data.FullName;
@@ -183,20 +146,7 @@ export class MenuComponent implements OnInit {
         this.isDashboardMenu = event.url.includes('dashboard') || event.url === '/' || event.url.includes('templates');
         this.isPreviewView = event.url.includes('survey')
         this.login = event.url.includes('login')
-      }
-      if (this.userGUI) {
-        localStorage.setItem('userGui', this.userGUI);
-      } else {
-        this.userGUI = localStorage.getItem('userGui')
-      }
-
-      const account = this.msalService.instance.getActiveAccount()
-      if (account) {
-        this.userFullName = account.name
-        this.userName = account.username
-        this.showErrorMessage = false
-      }
-
+        }
     });
     if (localStorage.getItem('projectName')) {
       this.projectId = localStorage.getItem('projectName');
@@ -208,6 +158,7 @@ export class MenuComponent implements OnInit {
         localStorage.setItem('projectName', this.projectId);
       })
     }
+    
   }
 
   toggleMenu() {
