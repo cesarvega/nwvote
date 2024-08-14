@@ -269,7 +269,7 @@ export class RatingScaleComponent implements OnInit {
     const filteredCriteria = this.CRITERIA.filter(criteriaItem => this.selectedCriteria.map(item => item.name).includes(criteriaItem.name));
     this.newselectedCriteria = filteredCriteria
     this.launchPathModal.emit(this.VIDEO_PATH)
-    this.dataSource = this.bmxItem.componentText.slice(1)
+    this.dataSource = this.bmxItem.componentText
   }
 
   openSelected(y: any) {
@@ -690,7 +690,7 @@ export class RatingScaleComponent implements OnInit {
       }
 
       this.bmxItem.componentText = this.deleteDuplicates(this.TESTNAMES_LIST, 'nameCandidates');
-      this.dataSource = this.bmxItem.componentText.slice(1)
+      this.dataSource = this.bmxItem.componentText
 
     } else {
       this.autoSizeColumns('RATE', '', this.rankingScaleValue)

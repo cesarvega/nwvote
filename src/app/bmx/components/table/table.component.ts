@@ -19,7 +19,10 @@ export class TableComponent implements OnInit {
   @Output() save = new EventEmitter();
   @Output() cancelEvent = new EventEmitter()
   ngOnInit(): void {
+    console.log(this.displayedColumns, this.dataSource)
+
     this.displayedColumns = this.filtrarValores(this.displayedColumns)
+    console.log(this.displayedColumns)
   }
 
   eliminarPropiedades(objeto: any) {
