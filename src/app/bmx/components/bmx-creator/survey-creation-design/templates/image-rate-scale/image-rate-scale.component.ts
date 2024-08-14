@@ -23,6 +23,7 @@ export class ImageRateScaleComponent extends RatingScaleComponent implements OnI
   @Output() autoSave = new EventEmitter();
   @Output() launchTutorial = new EventEmitter();
 
+  
   firstTime = true
 
   imageurls =[];
