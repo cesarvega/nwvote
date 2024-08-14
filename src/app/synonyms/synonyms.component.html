@@ -1,15 +1,16 @@
-<div class="container">
+<div style="padding: 30px 0 0 0 ;">
+  <div class="container">
     <input [(ngModel)]="inputText" placeholder="Word1, Word2, Word3">
     <button (click)="getSynonyms()">SEARCH</button>
   </div>
-  
+
   <div class="synonyms-modal">
     <div *ngFor="let item of dataSource | async">
       <h3>{{ item.word }} ({{item.synonyms.length}})</h3>
       <div class="synonyms-container">
         <div *ngFor="let synonym of item.synonyms" class="synonym-item">
           <label>
-            <input type="checkbox"  [(ngModel)]="synonym.selected" (change)="toggleSelection(item.word, synonym)">
+            <input type="checkbox" [(ngModel)]="synonym.selected" (change)="toggleSelection(item.word, synonym)">
             {{ synonym.word }}
           </label>
         </div>
@@ -19,4 +20,4 @@
       <button (click)="emitSelectedSynonyms()" class="mat-button">DONE</button>
     </div>
   </div>
-  
+</div>
