@@ -161,7 +161,7 @@ export class RatingScaleComponent implements OnInit {
         this.columnsNames.push(value)
       }
     });
-  
+
     //this.columnsNames.push("RadioColumn4", "RadioColumn5");//HARD CODE
 
     let result = '';
@@ -170,9 +170,9 @@ export class RatingScaleComponent implements OnInit {
     let firstObject = this.bmxItem.componentText[0];
     let columnNames = [];
     for (let key in firstObject) {
-      if (key === 'Name Candidates' || key === 'Rationales') {
+      // if (key === 'Name Candidates' || key === 'Rationales') {
         columnNames.push(key);
-      }
+      // }
     }
 
     // Agregar cada objeto como una fila en el resultado
