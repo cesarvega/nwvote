@@ -1,0 +1,43 @@
+.modal-video {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.5);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 1000;
+}
+
+.modal-content {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    padding: 22px 10px !important;
+    padding-left: 0px !important;
+    width: 53% !important;
+    pointer-events: auto;
+    background-color: #fff;
+    background-clip: padding-box;
+    border: 1px solid rgba(0, 0, 0, 0.2);
+    border-radius: 0.3rem;
+    outline: 0;
+    justify-content: center;
+    align-items: center;
+}
+
+.handsontable-container {
+    height: 381px !important;
+    width: 100% !important;
+    display: flex;
+    justify-content: center;
+}
+
+.content-button {
+    display: flex;
+    justify-content: flex-end;
+    padding: 8px;
+    background: white;
+}
