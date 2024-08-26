@@ -54,11 +54,27 @@ export class NamesUploaderComponent implements AfterViewInit {
     }
   }
 
+
   updateDataSource(changes: any[]): void {
     if (changes) {
       changes.forEach(([rowIndex, prop, oldValue, newValue]) => {
-        if (rowIndex !== undefined && this.displayedColumns[prop]) {
-          const columnName = this.displayedColumns[prop];
+        if (rowIndex !== undefined) {
+          // Check if we need to add new rows
+          if (rowIndex >= this.dataSource.length) {
+            while (rowIndex >= this.dataSource.length) {
+              this.dataSource.push({
+                ...this.dataSource[0],
+                nameCandidates: '',
+                rationale: '',
+                RATE: -1,
+                STARS: this.dataSource[1].STARS, // Keep the STARS structure
+                Comments0: ''
+              });
+            }
+          }
+
+          // Update the existing row
+          const columnName = this.displayedColumns.filter(col => col !== 'STARS' && col !== 'RATE')[prop];
           if (columnName && this.dataSource[rowIndex]) {
             this.dataSource[rowIndex][columnName] = newValue;
           }
@@ -67,6 +83,7 @@ export class NamesUploaderComponent implements AfterViewInit {
     } else {
       console.warn('No changes detected or changes is null');
     }
+
   }
 
   removeRow(rowIndex: number): void {
