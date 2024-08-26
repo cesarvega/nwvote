@@ -148,9 +148,10 @@
             matTooltip="setup settings" matTooltipPosition="above" *ngIf="i !== selectedIndex" mat-icon-button>
             <mat-icon style="font-size: 25px;" class="full-icon">edit</mat-icon>
         </button>
-        <button (click)="showModalTable = true" class="add-column" matTooltip="update names" matTooltipPosition="above"
+
+        <button (click)="showFileUploader = true" class="add-column" matTooltip="update names" matTooltipPosition="above"
             *ngIf="i !== selectedIndex" mat-icon-button>
-            <mat-icon style="font-size: 25px;" class="full-icon"> text_fields</mat-icon>
+            <mat-icon style="font-size: 25px;" class="full-icon">text_fields</mat-icon>
         </button>
     </div>
 </div>
@@ -176,22 +177,7 @@ justify-content: center;cursor: move; height: 25px; width: 100%;"><svg width="24
         <mat-card-header>
             <mat-card-title>Columns</mat-card-title>
         </mat-card-header>
-        <mat-card-content>
-            <div style="text-align: center;">
-                <div style="font-size: 16px;margin: 20px;color: #48535e;">Copy & Paste Columns</div>
-                <!-- <div style="font-size: 14px;margin-bottom: 20px;color: lightgray;">Brief Description Here</div> -->
-            </div>
-            <div style="display: flex; justify-content: center; align-items: center;">
-                <mat-form-field style="width: 90%; margin-left: 20px;" appearance="outline">
-                    <mat-label>Copy & Paste Columns </mat-label>
-                    <textarea matInput [(ngModel)]="testNamesInput" (paste)="onPaste()"
-                        (ngModelChange)="upLoadNamesAndRationales(testNamesInput)" placeholder="Paste test names here"
-                        cdkTextareaAutosize cdkAutosizeMinRows="2" cdkAutosizeMaxRows="5"></textarea>
-                    <mat-hint>Type or paste the test names here that you want to include</mat-hint>
-                </mat-form-field>
-            </div>
-
-        </mat-card-content>
+      
 
     </mat-card>
     <br>
@@ -483,22 +469,16 @@ justify-content: center;cursor: move; height: 25px; width: 100%;"><svg width="24
                             [name]="'rate' + y" [checked]="testName[columnName]"
                             (change)="saveRadioColumValue(columnName, y)">
                         <!-- TEXT_AREA COLUMN COMMENTS-->
-                        <textarea *ngIf="y !== 0 && columnName.includes('Comments')"
-                        cdkTextareaAutosize
-                        [cdkAutosizeMinRows]="bmxItem.componentSettings[0].rowHeight"
-                        [cdkAutosizeMaxRows]="10" 
-                        [style.width]="(bmxItem.componentSettings[0].commentsWidth - 20) + 'px'"
-                        [style.fontSize]="bmxItem.componentSettings[0].fontSize + 'px'"
-                        [style.textAlign]="'center'"
-                        [style.border]="'1px solid #dddddd'"
-                        class="row-box"
-                        [style.height]="'132px'"
-
-                        [(ngModel)]="testName[columnName]">
+                        <textarea *ngIf="y !== 0 && columnName.includes('Comments')" cdkTextareaAutosize
+                            [cdkAutosizeMinRows]="bmxItem.componentSettings[0].rowHeight" [cdkAutosizeMaxRows]="10"
+                            [style.width]="(bmxItem.componentSettings[0].commentsWidth - 20) + 'px'"
+                            [style.fontSize]="bmxItem.componentSettings[0].fontSize + 'px'" [style.textAlign]="'center'"
+                            [style.border]="'1px solid #dddddd'" class="row-box" [style.height]="'132px'"
+                            [(ngModel)]="testName[columnName]">
               </textarea>
-              
 
-                            
+
+
                         <!-- TEXT AREA TO EDIT TABLE CELL CONTENT -->
                         <textarea *ngIf="y !== 0  && editSingleTableCells && (columnName.includes('RadioColumn') != true) &&
                       columnName.includes('Comments') != true &&  columnName.includes('RATE') != true"
@@ -697,14 +677,10 @@ justify-content: center;cursor: move; height: 25px; width: 100%;"><svg width="24
                         <!-- TEXT_AREA COLUMN-->
                         <div style="display: flex; justify-content: center;">
                             <textarea *ngIf="y !== 0 && columnName.includes('Comments') == true && open(y)"
-                                [style.width]="'95%'" 
-                                [style.font-size]="bmxItem.componentSettings[0].fontSize +'px'"
-                                cdkTextareaAutosize 
-                                cdkAutosizeMinRows="1" 
-                                cdkAutosizeMaxRows="10"
-                                style="text-align: center; font-size: 16px; border: 1px solid grey; animation: bounceIn 500ms ease-in forwards; padding: 0 4px; margin-bottom: 10px;" 
-                                class="row-box"
-                                [(ngModel)]="testName[columnName]"
+                                [style.width]="'95%'" [style.font-size]="bmxItem.componentSettings[0].fontSize +'px'"
+                                cdkTextareaAutosize cdkAutosizeMinRows="1" cdkAutosizeMaxRows="10"
+                                style="text-align: center; font-size: 16px; border: 1px solid grey; animation: bounceIn 500ms ease-in forwards; padding: 0 4px; margin-bottom: 10px;"
+                                class="row-box" [(ngModel)]="testName[columnName]"
                                 [placeholder]="(columnName=='Comments0') ? 'comments' : (columnName=='Comments1') ? 'new names' : 'type here'">
                             </textarea>
                         </div>
@@ -788,3 +764,6 @@ justify-content: center;cursor: move; height: 25px; width: 100%;"><svg width="24
 <!--📱📱📱📱📱📱📱📱📱📱📱📱📱📱📱📱📱📱📱📱📱📱📱📱📱📱📱📱📱📱📱 END TABLE GENERATOR 📱📱📱📱📱📱📱📱📱📱📱📱📱📱📱📱📱📱📱📱📱📱📱📱📱📱📱📱📱📱📱📱📱📱-->
 <app-table *ngIf="showModalTable" (save)="showModalTable = $event" [displayedColumns]="columnsNames"
     [dataSource]="dataSource" (cancelEvent)="showModalTable = false"></app-table>
+
+<app-names-uploader *ngIf="showFileUploader"  (save)="showFileUploader = false" [displayedColumns]="columnsNames"
+[dataSource]="dataSource" (cancelEvent)="showFileUploader = false"></app-names-uploader>

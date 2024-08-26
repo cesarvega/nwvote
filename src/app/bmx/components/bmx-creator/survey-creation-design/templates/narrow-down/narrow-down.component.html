@@ -149,7 +149,6 @@ style="display: flex;flex-direction: column;gap: 2px;">
             <mat-icon style="font-size: 26px;" class="full-icon">explicit</mat-icon>
         </button>
     </div>
-
     <button (click)="showCreationModalVideo=true; editSingleTableCells = false" class="add-column"
         matTooltip="see tutorial" matTooltipPosition="above" mat-icon-button aria-label="ranking">
         <mat-icon style="font-size: 26px;" class="full-icon">video_library</mat-icon>
@@ -167,9 +166,9 @@ style="display: flex;flex-direction: column;gap: 2px;">
         matTooltip="setup settings" matTooltipPosition="above" *ngIf="i !== selectedIndex" mat-icon-button>
         <mat-icon style="font-size: 25px;" class="full-icon">edit</mat-icon>
     </button>
-    <button (click)="showModalTable = true" class="add-column" matTooltip="Update names" matTooltipPosition="above"
+    <button (click)="showFileUploader = true" class="add-column" matTooltip="update names" matTooltipPosition="above"
         *ngIf="i !== selectedIndex" mat-icon-button>
-        <mat-icon style="font-size: 25px;" class="full-icon"> text_fields</mat-icon>
+        <mat-icon style="font-size: 25px;" class="full-icon">text_fields</mat-icon>
     </button>
 </div>
 </div>
@@ -188,28 +187,6 @@ style="display: flex;flex-direction: column;gap: 2px;">
     </svg></div>
 
 <!-- Cards Test Name-->
-<mat-card class="example-card">
-    <mat-card-header>
-        <mat-card-title>Columns</mat-card-title>
-    </mat-card-header>
-    <mat-card-content>
-        <div style="text-align: center;">
-            <div style="font-size: 16px;margin: 20px;color: #48535e;">Copy & Paste Columns</div>
-            <!-- <div style="font-size: 14px;margin-bottom: 20px;color: lightgray;">Brief Description Here</div> -->
-        </div>
-        <div style="display: flex; justify-content: center; align-items: center;">
-            <mat-form-field style="width: 90%; margin-left: 20px;" appearance="outline">
-                <mat-label>Copy & Paste Columns</mat-label>
-                <textarea matInput [(ngModel)]="testNamesInput" (paste)="onPaste()"
-                    (ngModelChange)="upLoadNamesAndRationales(testNamesInput)" placeholder="Paste test names here"
-                    cdkTextareaAutosize cdkAutosizeMinRows="2" cdkAutosizeMaxRows="5"></textarea>
-                <mat-hint>Type or paste the test names here that you want to include</mat-hint>
-            </mat-form-field>
-        </div>
-
-    </mat-card-content>
-
-</mat-card>
 <br>
 
 <mat-card class="example-card">
@@ -764,3 +741,7 @@ align-items: center; ">
 <!--📱📱📱📱📱📱📱📱📱📱📱📱📱📱📱📱📱📱📱📱📱📱📱📱📱📱📱📱📱📱📱 END TABLE GENERATOR 📱📱📱📱📱📱📱📱📱📱📱📱📱📱📱📱📱📱📱📱📱📱📱📱📱📱📱📱📱📱📱📱📱📱-->
 <app-table *ngIf="showModalTable" (save)="showModalTable = $event" [displayedColumns]="columnsNames"
 [dataSource]="dataSource" (cancelEvent)="showModalTable = false"></app-table>
+
+
+<app-names-uploader *ngIf="showFileUploader"  (save)="showFileUploader = false" [displayedColumns]="columnsNames"
+[dataSource]="dataSource" (cancelEvent)="showFileUploader = false"></app-names-uploader>

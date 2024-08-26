@@ -92,6 +92,7 @@ export class NarrowDownComponent extends RatingScaleComponent implements OnInit 
     if(this.bmxItem.componentText[0]?.CRITERIA){
       this.rankingScaleValue = this.bmxItem.componentText[0]?.CRITERIA[0]?.STARS?.length;
     }
-    this.dataSource = this.bmxItem.componentText.slice(1)
+    this.dataSource = this.bmxItem.componentText
+
   }
 }

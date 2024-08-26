@@ -50,6 +50,9 @@
     "@types/echarts": "^4.9.7",
     "@types/hammerjs": "^2.0.39",
     "@types/raphael": "^2.3.2",
+    "ag-grid-angular": "^32.1.0",
+    "ag-grid-community": "^32.1.0",
+    "ag-grid-enterprise": "^32.1.0",
     "angular2-datetimepicker": "^1.1.1",
     "angularx-qrcode": "^2.3.5",
     "animate.css": "^4.1.1",
@@ -62,6 +65,7 @@
     "echarts": "^5.1.1",
     "file-saver": "^2.0.5",
     "fix": "^0.0.3",
+    "handsontable": "^14.5.0",
     "moment": "^2.29.4",
     "ng-animate": "^0.3.4",
     "ng2-dragula": "^5.1.0",
@@ -75,6 +79,7 @@
     "speak-tts": "^2.0.8",
     "ts-node": "~8.3.0",
     "tslint": "~6.1.0",
+    "xlsx": "^0.18.5",
     "zone.js": "~0.14.4"
   },
   "devDependencies": {

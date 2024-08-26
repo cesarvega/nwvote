@@ -97,6 +97,8 @@ import { ImageRankComponent } from './bmx/components/bmx-creator/survey-creation
 import { SignalComponent } from './signal/signal.component';
 import { LoaderComponent } from './bmx/components/loader/loader.component';
 import { QuillModule } from 'ngx-quill';
+import { NamesUploaderComponent } from './names-uploader/names-uploader.component';
+import { AgGridModule } from 'ag-grid-angular';
 
 export function loadEcharts() {
   return import('echarts');
@@ -161,7 +163,8 @@ export function MSALInstanceFactory(): IPublicClientApplication {
     TableComponent,
     ProjectListCheckComponent,
     TemplatesComponent,
-    LoaderComponent
+    LoaderComponent,
+    NamesUploaderComponent
     // BmxCreatorComponent,
     // SafePipe,
     // OrderDasboardComponent
@@ -220,7 +223,9 @@ export function MSALInstanceFactory(): IPublicClientApplication {
     MatAutocompleteModule,
     SignalComponent,
     QuillModule,
-    MsalModule
+    MsalModule,
+    AgGridModule
+
     // BmxModule
   ],
   providers: [NwvoteService, BsrMobileService, Nw3Service,
