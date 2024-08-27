@@ -401,14 +401,16 @@ export class RankScaleComponent extends RatingScaleComponent implements OnInit {
       this.draggableBag = 'DRAGGABLE_RANK_ROW'
       this.isdropDown = false
 
-    } else if (rankingType == 'radio' || rankingType == 'dinamycRadio') {
-      this.bmxItem.componentSettings[0].rateWidth = 80
+    }
+     if (rankingType == 'radio' || rankingType == 'dinamycRadio') {
+      console.log(' soy un radio dinamycRadio')
+      this.bmxItem.componentSettings[0].rateWidth = 120
       this.draggableBag = ''
       this.isdropDown = false
       this.radioColumnCounter = 1
       this.rowsCount = this.bmxItem.componentText.length - 1;
       for (let index = 0; index < this.rankingScaleValue; index++) {
-        this.insertRadioColumn()
+      this.insertRadioColumn()
       }
     }
   }

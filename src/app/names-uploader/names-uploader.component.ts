@@ -60,7 +60,6 @@ export class NamesUploaderComponent implements AfterViewInit {
       changes.forEach(([rowIndex, prop, oldValue, newValue]) => {
         // Check if we need to add new rows
         if (this.dataSource[rowIndex]) {
-          console.log(this.dataSource)
           this.dataSource[rowIndex].STARS = this.dataSource[0].STARS ? [...(this.dataSource.length > 0 ? this.dataSource[0].STARS : [])] : [...(this.dataSource.length > 0 ? this.dataSource[1].STARS : [])] // Keep the STARS structure
           this.dataSource[rowIndex].RATE = -1
           this.dataSource[rowIndex].CRITERIA = this.dataSource[1].CRITERIA ? this.dataSource[1].CRITERIA:[]// Keep the STARS structure
@@ -92,7 +91,23 @@ export class NamesUploaderComponent implements AfterViewInit {
   saveChanges(): void {
     this.save.emit(this.dataSource);
   }
+  addRow(): void {
+    // Crea una nueva fila vacía basada en las columnas
+    const nuevaFila = this.displayedColumns.reduce((acc: any, col: string) => {
+      if (col !== 'STARS' && col !== 'RATE') {
+        acc[col] = ''; // Asigna un valor vacío a cada columna
+      }
+      return acc;
+    }, {});
 
+    // Agrega la nueva fila al dataSource
+    this.dataSource.push(nuevaFila);
+
+    // Recarga los datos en la tabla para reflejar la nueva fila
+    if (this.hotInstance) {
+      this.hotInstance.loadData(this.dataSource);
+    }
+  }
   cancel(): void {
     this.cancelEvent.emit(true);
   }

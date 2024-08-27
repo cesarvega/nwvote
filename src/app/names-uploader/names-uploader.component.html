@@ -1,9 +1,15 @@
-<div class="modal-video">
-    <div *ngIf="displayedColumns.length > 0" class="modal-content">
-      <div #hotContainer class="handsontable-container"></div>
-      <div class="content-button">
-        <button mat-button (click)="cancel()">Cancel</button>
-        <button mat-button (click)="saveChanges()">Save</button>
-      </div>
+<div class="">
+    <div class="modal-video">
+        <div *ngIf="displayedColumns.length > 0" class="modal-content">
+            <!-- Botón para agregar una nueva fila -->
+            <button mat-fab color="primary" (click)="addRow()" style="margin-bottom: 10px;">
+                +
+            </button>
+            <div #hotContainer class="handsontable-container"></div>
+            <div class="content-button">
+                <button mat-button (click)="cancel()">Cancel</button>
+                <button mat-button (click)="saveChanges()">Save</button>
+            </div>
+        </div>
     </div>
-  </div>
+</div>

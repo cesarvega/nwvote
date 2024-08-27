@@ -153,6 +153,7 @@
             *ngIf="i !== selectedIndex" mat-icon-button>
             <mat-icon style="font-size: 25px;" class="full-icon">text_fields</mat-icon>
         </button>
+
     </div>
 </div>
 <!-- ➗➗➗➗➗➗➗➗➗➗➗➗➗➗➗➗➗➗➗  END  ➗➗➗➗➗➗➗➗➗➗➗➗➗➗➗➗➗ -->
@@ -177,7 +178,7 @@ justify-content: center;cursor: move; height: 25px; width: 100%;"><svg width="24
         <mat-card-header>
             <mat-card-title>Columns</mat-card-title>
         </mat-card-header>
-      
+
 
     </mat-card>
     <br>
@@ -765,5 +766,5 @@ justify-content: center;cursor: move; height: 25px; width: 100%;"><svg width="24
 <app-table *ngIf="showModalTable" (save)="showModalTable = $event" [displayedColumns]="columnsNames"
     [dataSource]="dataSource" (cancelEvent)="showModalTable = false"></app-table>
 
-<app-names-uploader *ngIf="showFileUploader"  (save)="showFileUploader = false" [displayedColumns]="columnsNames"
+<app-names-uploader *ngIf="showFileUploader"  (save)="upLoadNamesAndRationales(testNamesInput, false); showFileUploader = false" [displayedColumns]="columnsNames"
 [dataSource]="dataSource" (cancelEvent)="showFileUploader = false"></app-names-uploader>

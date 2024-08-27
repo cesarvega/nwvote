@@ -144,6 +144,7 @@ export class RatingScaleComponent implements OnInit {
     this.isDesktopDevice = this.deviceService.isDesktop();
   }
 
+
   ngOnInit(): void {
     this.showDialog = false
     // COLUMN NAMES
@@ -171,9 +172,9 @@ export class RatingScaleComponent implements OnInit {
     let firstObject = this.bmxItem.componentText[0];
     let columnNames = [];
     for (let key in firstObject) {
-      if (key === 'Name Candidates' || key === 'Rationales') {
+      // if (key === 'Name Candidates' || key === 'Rationales') {
         columnNames.push(key);
-      }
+      // }
     }
 
     // Agregar cada objeto como una fila en el resultado
