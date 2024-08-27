@@ -12,15 +12,14 @@ export class NamesUploaderComponent implements AfterViewInit {
   @Output() save = new EventEmitter();
   @Output() cancelEvent = new EventEmitter();
   @ViewChild('hotContainer', { static: false }) hotContainer!: ElementRef;
-  private hotInstance!: Handsontable; // Store Handsontable instance
+  private hotInstance!: Handsontable;
 
   ngAfterViewInit() {
-    console.log(this.dataSource, this.displayedColumns)
     if (this.hotContainer) {
       const container = this.hotContainer.nativeElement;
       this.hotInstance = new Handsontable(container, {
-        data: this.dataSource, // Directly use the dataSource for the table data
-        colHeaders: [...this.displayedColumns.filter(col => col !== 'STARS' && col !== 'RATE'), 'Actions'], // Add Actions column
+        data: this.dataSource,
+        colHeaders: [...this.displayedColumns.filter(col => col !== 'STARS' && col !== 'RATE'), 'Actions'],
         columns: [
           ...this.displayedColumns.filter(col => col !== 'STARS' && col !== 'RATE' && !col.includes('RadioColumn') ).map(col => ({ data: col })),
           {
@@ -31,14 +30,14 @@ export class NamesUploaderComponent implements AfterViewInit {
               button.innerText = 'Delete';
               button.onclick = () => this.removeRow(row);
               td.appendChild(button);
-              td.style.textAlign = 'center'; // Center the button in the cell
+              td.style.textAlign = 'center';
             }
           }
         ],
         rowHeaders: true,
         filters: true,
         dropdownMenu: true,
-        contextMenu: false, // Disables default context menu
+        contextMenu: false,
         licenseKey: 'non-commercial-and-evaluation',
         height: 300,
         width: 1024,
@@ -54,26 +53,33 @@ export class NamesUploaderComponent implements AfterViewInit {
     }
   }
 
+  addRow(): void {
+    // Crea una nueva fila vacía basada en las columnas
+    const nuevaFila = this.displayedColumns.reduce((acc: any, col: string) => {
+      if (col !== 'STARS' && col !== 'RATE') {
+        acc[col] = ''; // Asigna un valor vacío a cada columna
+      }
+      return acc;
+    }, {});
+
+    // Agrega la nueva fila al dataSource
+    this.dataSource.push(nuevaFila);
+
+    // Recarga los datos en la tabla para reflejar la nueva fila
+    if (this.hotInstance) {
+      this.hotInstance.loadData(this.dataSource);
+    }
+  }
 
   updateDataSource(changes: any[]): void {
     if (changes) {
       changes.forEach(([rowIndex, prop, oldValue, newValue]) => {
         if (rowIndex !== undefined) {
-          // Check if we need to add new rows
           if (rowIndex >= this.dataSource.length) {
             while (rowIndex >= this.dataSource.length) {
-              this.dataSource.push({
-                ...this.dataSource[0],
-                nameCandidates: '',
-                rationale: '',
-                RATE: -1,
-                STARS: this.dataSource[1].STARS, // Keep the STARS structure
-                Comments0: ''
-              });
+              this.dataSource.push({});
             }
           }
-
-          // Update the existing row
           const columnName = this.displayedColumns.filter(col => col !== 'STARS' && col !== 'RATE')[prop];
           if (columnName && this.dataSource[rowIndex]) {
             this.dataSource[rowIndex][columnName] = newValue;
@@ -83,18 +89,13 @@ export class NamesUploaderComponent implements AfterViewInit {
     } else {
       console.warn('No changes detected or changes is null');
     }
-
   }
 
   removeRow(rowIndex: number): void {
-    // Verify that the index is valid
     if (rowIndex >= 0 && rowIndex < this.dataSource.length) {
-      // Remove the row from the dataSource
       this.dataSource.splice(rowIndex, 1);
-
-      // Re-render the table with updated data
       if (this.hotInstance) {
-        this.hotInstance.loadData(this.dataSource); // Reload the data from the dataSource
+        this.hotInstance.loadData(this.dataSource);
       }
     } else {
       console.warn('Row index out of bounds:', rowIndex);
@@ -109,3 +110,4 @@ export class NamesUploaderComponent implements AfterViewInit {
     this.cancelEvent.emit(true);
   }
 }
+

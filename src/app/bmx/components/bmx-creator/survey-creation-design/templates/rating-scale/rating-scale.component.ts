@@ -144,6 +144,7 @@ export class RatingScaleComponent implements OnInit {
     this.isDesktopDevice = this.deviceService.isDesktop();
   }
 
+
   ngOnInit(): void {
     this.showDialog = false
     // COLUMN NAMES
