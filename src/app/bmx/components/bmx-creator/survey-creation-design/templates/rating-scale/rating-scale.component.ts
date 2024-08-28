@@ -1079,7 +1079,7 @@ export class RatingScaleComponent implements OnInit {
   }
 
   checkDragEvetn(e) {
-    // console.log(e);
+    this.dataSource=e
   }
 
   toogleColumnResizer() {

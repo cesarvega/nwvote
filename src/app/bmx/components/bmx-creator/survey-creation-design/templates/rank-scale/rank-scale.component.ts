@@ -148,6 +148,7 @@ export class RankScaleComponent extends RatingScaleComponent implements OnInit {
         }
       })
     }
+    this.dataSource=this.bmxItem.componentText
     this.autoSave.emit()
   }
 
