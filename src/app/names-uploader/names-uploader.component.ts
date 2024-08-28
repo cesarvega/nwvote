@@ -61,7 +61,7 @@ export class NamesUploaderComponent implements AfterViewInit {
         // Check if we need to add new rows
         if (this.dataSource[rowIndex]) {
           this.dataSource[rowIndex].STARS = this.dataSource[0].STARS ? [...(this.dataSource.length > 0 ? this.dataSource[0].STARS : [])] : [...(this.dataSource.length > 0 ? this.dataSource[1].STARS : [])] // Keep the STARS structure
-          this.dataSource[rowIndex].RATE = -1
+          this.dataSource[rowIndex].RATE = rowIndex!=0?-1:this.dataSource[0].RATE
           this.dataSource[rowIndex].CRITERIA = this.dataSource[1].CRITERIA ? this.dataSource[1].CRITERIA:[]// Keep the STARS structure
           if(!this.dataSource[1].CRITERIA){
           delete this.dataSource[rowIndex].CRITERIA
