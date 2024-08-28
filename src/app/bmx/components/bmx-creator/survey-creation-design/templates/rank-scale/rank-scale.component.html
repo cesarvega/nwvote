@@ -20,7 +20,7 @@
 
     <div *ngIf="isColumnResizerOn && bmxClientPageOverview" class="page-overview">
         <!-- RATE -->
-        
+
         <div *ngIf="this.bmxItem.componentSettings[0].rankType != 'dinamycRadio'" style="display: flex;flex-direction: column;align-items: center;">
             <p style="margin: 0 0 -12px;color: #324395;">rank
             </p>
@@ -49,7 +49,7 @@
 
 
         <!-- COMMENTS -->
-        
+
         <div *ngIf="columnsNames.includes('Comments0')" style="display: flex;flex-direction: column;align-items: center;">
             <p style="margin: 0 0 -12px;color: #324395;">comments
             </p>
@@ -156,12 +156,12 @@
             matTooltipPosition="above" mat-icon-button aria-label="ranking">
             <mat-icon style="font-size: 26px;    z-index: 9;" class="full-icon">swap_horizontal_circle</mat-icon>
         </button>
-        
+
         <button (click)="selectedIndex = i; editSingleTableCells = false; verifyCritera()" class="add-column"
             matTooltip="setup settings" matTooltipPosition="above" *ngIf="i !== selectedIndex" mat-icon-button>
             <mat-icon style="font-size: 25px;" class="full-icon">edit</mat-icon>
         </button>
-        
+
         <button (click)="showFileUploader = true" class="add-column" matTooltip="update names" matTooltipPosition="above"
             *ngIf="i !== selectedIndex" mat-icon-button>
             <mat-icon style="font-size: 25px;" class="full-icon">text_fields</mat-icon>
@@ -236,7 +236,7 @@
 
     <mat-card class="example-card" *ngIf="this.bmxItem.componentSettings[0].rankType !='dragAndDrop'">
         <mat-card-header>
-            <mat-card-title>Select Ranking
+            <mat-card-title>Select Ranking radio
 
             </mat-card-title>
         </mat-card-header>
@@ -246,11 +246,10 @@
                     <div>
                         <div style="font-size: 16px;margin-top: 10px;color: #48535e;">SELECT RANK</div>
                         <br>
-                        <div
-                            style="text-align: center;display: flex;flex-direction: row;justify-content: space-around;">
-
+                        <div style="text-align: center;display: flex;flex-direction: row;justify-content: space-around;">
                             <input [(ngModel)]="rankingScaleValue" type="range" id="volume" name="volume" min="0"
-                                [max]="this.rowsCount">
+                            (change)="rankingTableType(this.bmxItem.componentSettings[0].rankType)"
+                            [max]="this.rowsCount">
                             {{rankingScaleValue}}
                         </div>
                     </div>
@@ -325,7 +324,7 @@
                         </div>
                         <input type="number" min="0" [max]="rowsCount"
                             [(ngModel)]="bmxItem.componentSettings[0].maxRule" style="width:53px; padding: 0px 10px;"
-                            [value]="bmxItem.componentSettings[0].maxRule">
+                           >
                     </div>
                     <div style="font-size: 13px;color: #48535e;">Max number of selections to vote on</div>
                 </div>
@@ -667,7 +666,7 @@
                         <textarea *ngIf="y !== 0 && columnName.includes('Comments')"
                         cdkTextareaAutosize
                         [cdkAutosizeMinRows]="bmxItem.componentSettings[0].rowHeight"
-                        [cdkAutosizeMaxRows]="10" 
+                        [cdkAutosizeMaxRows]="10"
                         [style.width]="(bmxItem.componentSettings[0].commentsWidth - 20) + 'px'"
                         [style.fontSize]="bmxItem.componentSettings[0].fontSize + 'px'"
                         [style.textAlign]="'center'"
@@ -677,7 +676,7 @@
 
                         [(ngModel)]="testName[columnName]">
               </textarea>
-              
+
 
                         <img class="row-box" style="width:300px;" [src]="testName[columnName]" *ngIf=" bmxItem.componentSettings[1].isImageType && (y !== 0) && (columnName == 'name' ||
                      columnName == 'nameCandidates')">
@@ -1002,5 +1001,5 @@
 <app-table *ngIf="showModalTable" (save)="showModalTable = $event" [displayedColumns]="columnsNames"
     [dataSource]="dataSource" (cancelEvent)="showModalTable = false"></app-table>
 
-    <app-names-uploader *ngIf="showFileUploader"  (save)="showFileUploader = false" [displayedColumns]="columnsNames"
+    <app-names-uploader *ngIf="showFileUploader"  (save)="showFileUploader = false;upLoadNamesAndRationales(testNamesInput, false)" [displayedColumns]="columnsNames"
 [dataSource]="dataSource" (cancelEvent)="showFileUploader = false"></app-names-uploader>

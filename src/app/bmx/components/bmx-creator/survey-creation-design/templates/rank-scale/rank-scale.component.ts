@@ -201,8 +201,8 @@ export class RankScaleComponent extends RatingScaleComponent implements OnInit {
 
       // Insertar la columna RATE en la posición original
       const originalRatePosition = rateColumnIndex !== -1 ? rateColumnIndex : this.columnsNames.length;
-      
-      if(rateColumnIndex!=-1){
+
+      if (rateColumnIndex != -1) {
         this.columnsNames.splice(originalRatePosition, 0, 'RATE');
       }
 
@@ -324,7 +324,12 @@ export class RankScaleComponent extends RatingScaleComponent implements OnInit {
           delete row['CRITERIA'];
         });
       }
-
+      this.removeAllRadioColumns();
+      if (this.bmxItem.componentSettings[0].rankType == 'radio' || this.bmxItem.componentSettings[0].rankType == 'dinamycRadio' ) {
+        for (let index = 0; index < this.rankingScaleValue; index++) {
+          this.insertRadioColumn();
+        }
+      }
       this.dataSource = this.bmxItem.componentText;
 
     } else {
@@ -396,14 +401,16 @@ export class RankScaleComponent extends RatingScaleComponent implements OnInit {
       this.draggableBag = 'DRAGGABLE_RANK_ROW'
       this.isdropDown = false
 
-    } else if (rankingType == 'radio' || rankingType == 'dinamycRadio') {
-      this.bmxItem.componentSettings[0].rateWidth = 80
+    }
+     if (rankingType == 'radio' || rankingType == 'dinamycRadio') {
+      console.log(' soy un radio dinamycRadio')
+      this.bmxItem.componentSettings[0].rateWidth = 120
       this.draggableBag = ''
       this.isdropDown = false
       this.radioColumnCounter = 1
       this.rowsCount = this.bmxItem.componentText.length - 1;
       for (let index = 0; index < this.rankingScaleValue; index++) {
-        this.insertRadioColumn()
+      this.insertRadioColumn()
       }
     }
   }

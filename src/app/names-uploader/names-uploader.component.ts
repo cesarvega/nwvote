@@ -22,7 +22,7 @@ export class NamesUploaderComponent implements AfterViewInit {
         data: this.dataSource, // Directly use the dataSource for the table data
         colHeaders: [...this.displayedColumns.filter(col => col !== 'STARS' && col !== 'RATE'), 'Actions'], // Add Actions column
         columns: [
-          ...this.displayedColumns.filter(col => col !== 'STARS' && col !== 'RATE' && !col.includes('RadioColumn') ).map(col => ({ data: col })),
+          ...this.displayedColumns.filter(col => col !== 'STARS' && col !== 'RATE' && !col.includes('RadioColumn')).map(col => ({ data: col })),
           {
             data: 'actions',
             renderer: (instance, td, row, col, prop, value, cellProperties) => {
@@ -58,32 +58,19 @@ export class NamesUploaderComponent implements AfterViewInit {
   updateDataSource(changes: any[]): void {
     if (changes) {
       changes.forEach(([rowIndex, prop, oldValue, newValue]) => {
-        if (rowIndex !== undefined) {
-          // Check if we need to add new rows
-          if (rowIndex >= this.dataSource.length) {
-            while (rowIndex >= this.dataSource.length) {
-              this.dataSource.push({
-                ...this.dataSource[0],
-                nameCandidates: '',
-                rationale: '',
-                RATE: -1,
-                STARS: this.dataSource[1].STARS, // Keep the STARS structure
-                Comments0: ''
-              });
-            }
-          }
-
-          // Update the existing row
-          const columnName = this.displayedColumns.filter(col => col !== 'STARS' && col !== 'RATE')[prop];
-          if (columnName && this.dataSource[rowIndex]) {
-            this.dataSource[rowIndex][columnName] = newValue;
+        // Check if we need to add new rows
+        if (this.dataSource[rowIndex]) {
+          this.dataSource[rowIndex].STARS = this.dataSource[0].STARS ? [...(this.dataSource.length > 0 ? this.dataSource[0].STARS : [])] : [...(this.dataSource.length > 0 ? this.dataSource[1].STARS : [])] // Keep the STARS structure
+          this.dataSource[rowIndex].RATE = rowIndex!=0?-1:this.dataSource[0].RATE
+          this.dataSource[rowIndex].CRITERIA = this.dataSource[1].CRITERIA ? this.dataSource[1].CRITERIA:[]// Keep the STARS structure
+          if(!this.dataSource[1].CRITERIA){
+          delete this.dataSource[rowIndex].CRITERIA
           }
         }
       });
     } else {
       console.warn('No changes detected or changes is null');
     }
-
   }
 
   removeRow(rowIndex: number): void {
@@ -104,7 +91,23 @@ export class NamesUploaderComponent implements AfterViewInit {
   saveChanges(): void {
     this.save.emit(this.dataSource);
   }
+  addRow(): void {
+    // Crea una nueva fila vacía basada en las columnas
+    const nuevaFila = this.displayedColumns.reduce((acc: any, col: string) => {
+      if (col !== 'STARS' && col !== 'RATE') {
+        acc[col] = ''; // Asigna un valor vacío a cada columna
+      }
+      return acc;
+    }, {});
 
+    // Agrega la nueva fila al dataSource
+    this.dataSource.push(nuevaFila);
+
+    // Recarga los datos en la tabla para reflejar la nueva fila
+    if (this.hotInstance) {
+      this.hotInstance.loadData(this.dataSource);
+    }
+  }
   cancel(): void {
     this.cancelEvent.emit(true);
   }
