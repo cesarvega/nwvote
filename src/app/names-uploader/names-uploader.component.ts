@@ -45,7 +45,7 @@ export class NamesUploaderComponent implements AfterViewInit {
         rowHeaders: true,
         filters: true,
         dropdownMenu: true,
-        contextMenu: false, 
+        contextMenu: false,
         licenseKey: 'non-commercial-and-evaluation',
         height: 300,
         width: 1024,
@@ -55,46 +55,46 @@ export class NamesUploaderComponent implements AfterViewInit {
           this.updateDataSource(changes);
         },
         afterPaste: (changes: any[]) => {
-      //    this.displayedColumns = changes[0];
-    //  console.log(this.displayedColumns)
- //     console.log(changes[0][0])
- console.log(this.isRanking)
- //console.log("up tipo")
- if (changes[0].length >= this.displayedColumns.length) {
-  const support = changes[0].length - this.displayedColumns.length;
-  const newColumns: { name: string, values: any[] }[] = []; // types
-//
-  for (let index = 0; index < (this.isRanking === "ranking-scale" ?support :support+1) ; index++) {
-   let columnIndex:number =0
+          //    this.displayedColumns = changes[0];
+          //  console.log(this.displayedColumns)
+          //     console.log(changes[0][0])
+          //console.log(this.isRanking)
+          //console.log("up tipo")
+          if (changes[0].length >= this.displayedColumns.length) {
+            const support = changes[0].length - this.displayedColumns.length;
+            const newColumns: { name: string, values: any[] }[] = []; // types
+            //
+            for (let index = 0; index < (this.isRanking === "ranking-scale" ? support : support + 1); index++) {
+              let columnIndex: number = 0
 
-    if(this.isRanking === "ranking-scale") {
-      columnIndex = this.displayedColumns.length + index   ;
-    }else {
-      columnIndex = this.displayedColumns.length + index  - 1;
+              if (this.isRanking === "ranking-scale") {
+                columnIndex = this.displayedColumns.length + index;
+              } else {
+                columnIndex = this.displayedColumns.length + index - 1;
 
-    }
+              }
 
-    //console.log(columnIndex)
-    //Extract the values of the new column from changes.
+              //console.log(columnIndex)
+              //Extract the values of the new column from changes.
 
-    const columnValues = changes.map(change => change[columnIndex]);
+              const columnValues = changes.map(change => change[columnIndex]);
 
 
-    const columnName = ` ${changes[0][columnIndex]}`;
+              const columnName = ` ${changes[0][columnIndex]}`;
+              // new column in temporal array
+              newColumns.push({ name: columnName, values: columnValues });
+            }
 
-    // new column in temporal array
-    newColumns.push({ name: columnName, values: columnValues });
-  }
+            // Add new columns
+            newColumns.forEach(col => this.addColumn(col.name, col.values));
 
-  // Add new columns
-  newColumns.forEach(col => this.addColumn(col.name, col.values));
+          }
+          this.removeColumnsWithNumbers()
 
-}
-this.removeColumnsWithNumbers()
+          //this.updateDataSource(changes);
 
-//this.updateDataSource(changes);
-
-}});
+        }
+      });
 
       container.style.overflowX = 'auto';
       container.style.overflowY = 'auto';
@@ -125,7 +125,7 @@ this.removeColumnsWithNumbers()
 
           // Update the existing row
           const columnName = this.displayedColumns.filter(col => col !== 'STARS' && col !== 'RATE')[prop];
-          
+
         }
       });
     } else {
@@ -135,6 +135,7 @@ this.removeColumnsWithNumbers()
 
   addColumn(columnName: string, columnData: any[] = []): void {
     this.displayedColumns.push(columnName);
+
     // Add the new column to each row in dataSource with the provided data or empty strings
     this.dataSource.forEach((row, index) => {
       row[columnName] = columnData[index] !== undefined ? columnData[index] : ''; // Set the value or an empty string
@@ -145,7 +146,7 @@ this.removeColumnsWithNumbers()
       colHeaders: [...this.displayedColumns, 'Actions'],
       columns: [
         ...this.displayedColumns
-          .filter(col => col !== 'STARS' && col !== 'RATE'  && !col.includes('RadioColumn'))
+          .filter(col => col !== 'STARS' && col !== 'RATE' && !col.includes('RadioColumn'))
           .map(col => ({
             data: col,
             width: 150,
@@ -168,7 +169,30 @@ this.removeColumnsWithNumbers()
     // Reload the data in Handsontable to reflect the changes
     this.hotInstance.loadData(this.dataSource);
   }
+  removeColumnsWithNumbers(): void {
+    // Filtra las columnas cuyos nombres no contengan números
+    this.displayedColumns = this.displayedColumns.filter(col => !/\d/.test(col));
 
+    // Remueve las columnas con números de cada fila en el dataSource
+    this.dataSource.forEach(row => {
+      Object.keys(row).forEach(key => {
+        if (/\d/.test(key)) {
+          delete row[key];
+        }
+      });
+    });
+
+    // Re-renderiza la tabla con los datos actualizados
+    if (this.hotInstance) {
+      this.hotInstance.loadData(this.dataSource);
+      this.hotInstance.updateSettings({
+        columns: this.displayedColumns.map(col => ({ data: col })),
+        colHeaders: this.displayedColumns
+      });
+    } else {
+      console.warn('hotInstance is not available');
+    }
+  }
   addRow(): void {
     const newRow = this.displayedColumns.reduce((acc, col) => {
       acc[col] = ''; // Initialize each column in the new row with an empty string
@@ -194,30 +218,6 @@ this.removeColumnsWithNumbers()
       }
     } else {
       console.warn('Row index out of bounds:', rowIndex);
-    }
-  }
-  removeColumnsWithNumbers(): void {
-    // Filtra las columnas cuyos nombres no contengan números
-    this.displayedColumns = this.displayedColumns.filter(col => !/\d/.test(col));
-
-    // Remueve las columnas con números de cada fila en el dataSource
-    this.dataSource.forEach(row => {
-      Object.keys(row).forEach(key => {
-        if (/\d/.test(key)) {
-          delete row[key];
-        }
-      });
-    });
-
-    // Re-renderiza la tabla con los datos actualizados
-    if (this.hotInstance) {
-      this.hotInstance.loadData(this.dataSource);
-      this.hotInstance.updateSettings({
-        columns: this.displayedColumns.map(col => ({ data: col })),
-        colHeaders: this.displayedColumns
-      });
-    } else {
-      console.warn('hotInstance is not available');
     }
   }
 
