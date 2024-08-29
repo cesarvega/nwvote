@@ -63,6 +63,8 @@ export class NamesUploaderComponent implements AfterViewInit {
  //console.log("up tipo")
  if (changes[0].length >= this.displayedColumns.length) {
   const support = changes[0].length - this.displayedColumns.length;
+   console.log(this.displayedColumns)
+
   const newColumns: { name: string, values: any[] }[] = []; // types
 //
   for (let index = 0; index < (this.isRanking === "ranking-scale" ?support :support+1) ; index++) {
@@ -71,7 +73,7 @@ export class NamesUploaderComponent implements AfterViewInit {
     if(this.isRanking === "ranking-scale") {
       columnIndex = this.displayedColumns.length + index   ;
     }else {
-   //   columnIndex = this.displayedColumns.length + index  - 1;
+     columnIndex = this.displayedColumns.length + index  - 1;
 
     }
 
@@ -95,7 +97,7 @@ export class NamesUploaderComponent implements AfterViewInit {
 if (this.isRanking === "rate-scale") {
   return
 }else{
-this.removeColumnsWithNumbers()
+//
 //this.updateDataSource(changes);
 }
 }});
@@ -139,7 +141,7 @@ this.removeColumnsWithNumbers()
 
   addColumn(columnName: string, columnData: any[] = []): void {
     this.displayedColumns.push(columnName);
-  //  console.log(this.displayedColumns)
+    console.log(this.displayedColumns)
    // console.log(columnData)
 
     // Add the new column to each row in dataSource with the provided data or empty strings
@@ -150,7 +152,7 @@ this.removeColumnsWithNumbers()
 
     // Update Handsontable with the new column
     this.hotInstance.updateSettings({
-      colHeaders: [...this.displayedColumns, 'Actions'],
+      colHeaders: [...this.displayedColumns, 'actions'],
       columns: [
         ...this.displayedColumns
           .filter(col => col !== 'STARS' && col !== 'RATE'  && !col.includes('RadioColumn'))
@@ -233,6 +235,7 @@ this.removeColumnsWithNumbers()
   }
 
   saveChanges(): void {
+    this.removeColumnsWithNumbers()
     this.save.emit(this.dataSource);
   }
 
