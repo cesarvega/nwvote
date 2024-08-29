@@ -25,7 +25,7 @@ export class NamesUploaderComponent implements AfterViewInit {
             .filter(col => col !== 'STARS' && col !== 'RATE' && !col.includes('RadioColumn'))
             .map(col => ({
               data: col,
-              width: 150, // Establecer un ancho máximo de 150px por columna
+              width: 150,
             })),
           {
             data: 'actions',
@@ -38,7 +38,7 @@ export class NamesUploaderComponent implements AfterViewInit {
               td.style.textAlign = 'center'; // Center the button in the cell
             },
             readOnly: true,
-            width: 100, // Ancho de la columna de acciones
+            width: 100,
           }
         ],
         rowHeaders: true,
@@ -48,8 +48,8 @@ export class NamesUploaderComponent implements AfterViewInit {
         licenseKey: 'non-commercial-and-evaluation',
         height: 300,
         width: 1024,
-        colWidths: 150, // Establece un ancho máximo para todas las columnas
-        stretchH: 'all', // Establece que las columnas se estiren proporcionalmente dentro del ancho total disponible
+        colWidths: 150, // maxWhit for columns
+        stretchH: 'all', // Set the columns to stretch proportionally within the total available width
         afterChange: (changes: any[]) => {
           this.updateDataSource(changes);
         },
@@ -61,26 +61,25 @@ export class NamesUploaderComponent implements AfterViewInit {
  console.log(changes)
  if (changes[0].length > this.displayedColumns.length) {
   const support = changes[0].length - this.displayedColumns.length;
-  const newColumns: { name: string, values: any[] }[] = []; // Asegurar el tipo correcto
+  const newColumns: { name: string, values: any[] }[] = []; // types
 
   for (let index = 0; index < support; index++) {
     const columnIndex = this.displayedColumns.length + index;
 
-    // Extraer los valores de la nueva columna desde changes
+    //Extract the values of the new column from changes.
+
     const columnValues = changes.map(change => change[columnIndex]);
 
-    // Generar un nombre para la nueva columna
+
     const columnName = `New Column ${columnIndex + 1}`;
 
-    // Acumular la nueva columna en el array temporal
+    // new column in temporal array
     newColumns.push({ name: columnName, values: columnValues });
   }
 
-  // Ahora, agregar todas las nuevas columnas
+  // Add new columns
   newColumns.forEach(col => this.addColumn(col.name, col.values));
 
-  // Actualizar dataSource con los cambios (si es necesario)
-  // this.dataSource = changes;
 }
 
 
@@ -88,8 +87,7 @@ export class NamesUploaderComponent implements AfterViewInit {
 
 }});
 
-      // Añadir estilo CSS para el contenedor para manejar el desbordamiento
-      container.style.overflowX = 'auto'; // Habilitar la barra de desplazamiento horizontal
+      container.style.overflowX = 'auto';
       container.style.overflowY = 'auto';
     } else {
       console.error('hotContainer is not available');
@@ -142,7 +140,7 @@ export class NamesUploaderComponent implements AfterViewInit {
           .filter(col => col !== 'STARS' && col !== 'RATE' && !col.includes('RadioColumn'))
           .map(col => ({
             data: col,
-            width: 150, // Establecer un ancho máximo de 150px por columna
+            width: 150,
           })),
         {
           data: 'actions',
@@ -154,7 +152,7 @@ export class NamesUploaderComponent implements AfterViewInit {
             td.appendChild(button);
             td.style.textAlign = 'center'; // Center the button in the cell
           },
-          width: 100, // Ancho de la columna de acciones
+          width: 100,
         }
       ],
     });
