@@ -1,5 +1,9 @@
-<div class="modal-video">
+<div class="">
+  <div class="modal-video">
     <div *ngIf="displayedColumns.length > 0" class="modal-content">
+
+      <button mat-button (click)="addRow()">Add Row</button>
+
       <div #hotContainer class="handsontable-container"></div>
       <div class="content-button">
         <button mat-button (click)="cancel()">Cancel</button>
@@ -7,4 +11,5 @@
       </div>
     </div>
   </div>
-  
+</div>
+

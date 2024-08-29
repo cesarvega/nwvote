@@ -237,7 +237,7 @@ style="display: flex;flex-direction: column;gap: 2px;">
                         style="text-align: center;display: flex;flex-direction: row;justify-content: space-around;">
 
                         <input [(ngModel)]="rankingScaleValue" type="range" id="volume" name="volume" min="0"
-                            max="10">
+                            max="10" >
                         {{rankingScaleValue}}
                     </div>
                 </div>
@@ -518,7 +518,7 @@ align-items: center; ">
                     <textarea *ngIf="y !== 0 && columnName.includes('Comments')"
                     cdkTextareaAutosize
                     [cdkAutosizeMinRows]="bmxItem.componentSettings[0].rowHeight"
-                    [cdkAutosizeMaxRows]="10" 
+                    [cdkAutosizeMaxRows]="10"
                     [style.width]="(bmxItem.componentSettings[0].commentsWidth - 20) + 'px'"
                     [style.fontSize]="bmxItem.componentSettings[0].fontSize + 'px'"
                     [style.textAlign]="'center'"
@@ -528,7 +528,7 @@ align-items: center; ">
 
                     [(ngModel)]="testName[columnName]">
           </textarea>
-          
+
 
                     <!-- TEXT AREA TO EDIT TABLE CELL CONTENT -->
                     <textarea *ngIf="y !== 0  && editSingleTableCells && (columnName.includes('RadioColumn') != true) &&
