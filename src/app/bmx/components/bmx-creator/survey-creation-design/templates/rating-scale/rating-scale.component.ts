@@ -270,7 +270,7 @@ export class RatingScaleComponent implements OnInit {
     const filteredCriteria = this.CRITERIA.filter(criteriaItem => this.selectedCriteria.map(item => item.name).includes(criteriaItem.name));
     this.newselectedCriteria = filteredCriteria
     this.launchPathModal.emit(this.VIDEO_PATH)
-    this.dataSource = this.bmxItem.componentText
+    this.dataSource = this.bmxItem.componentText      
   }
 
   openSelected(y: any) {
