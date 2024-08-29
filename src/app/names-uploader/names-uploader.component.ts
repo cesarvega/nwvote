@@ -94,12 +94,7 @@ export class NamesUploaderComponent implements AfterViewInit {
 
 }
 //
-if (this.isRanking === "rate-scale") {
-  return
-}else{
-//
-//this.updateDataSource(changes);
-}
+
 }});
 
       container.style.overflowX = 'auto';
@@ -235,8 +230,12 @@ if (this.isRanking === "rate-scale") {
   }
 
   saveChanges(): void {
-    this.removeColumnsWithNumbers()
     this.save.emit(this.dataSource);
+    if (this.isRanking === "rate-scale") {
+      null
+          }else{
+            this.removeColumnsWithNumbers()
+          }
   }
 
   cancel(): void {
