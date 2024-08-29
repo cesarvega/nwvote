@@ -39,7 +39,7 @@ export class QuestionAnswerComponent extends RatingScaleComponent implements OnI
    
     let result = '';
 
-    // Obtener las claves de la primera fila (los nombres de las propiedades)
+    // Get the keys of the first row (the property names)
     let firstObject = this.bmxItem.componentText[0];
     let columnNames = [];
     for (let key in firstObject) {
@@ -49,7 +49,7 @@ export class QuestionAnswerComponent extends RatingScaleComponent implements OnI
       }
     }
   
-    // Agregar cada objeto como una fila en el resultado
+    // Add each object as a row in the result
     for (let obj of this.bmxItem.componentText) {
       let values = [];
       for (let key in obj) {
@@ -60,8 +60,8 @@ export class QuestionAnswerComponent extends RatingScaleComponent implements OnI
           }
         }
       }
-      if (values.length > 0) {  // Verificar si hay valores para esta fila
-        result += values.join('\t') + '\n';  // Agregar la línea al resultado
+      if (values.length > 0) {  // Check if there are values ​​for this row
+        result += values.join('\t') + '\n';  // Add the line to the result
       }
     }
     this.testNamesInput = result;
@@ -96,7 +96,7 @@ export class QuestionAnswerComponent extends RatingScaleComponent implements OnI
       for (let i = 0; i < rows.length; i++) {
         if (rows[i] != "" && rows[i].length > 6) {
           let objectColumnDesign = {};
-          if (this.ASSIGNED_CRITERIA.length > 0) {//NO APLICA
+          if (this.ASSIGNED_CRITERIA.length > 0) {
             this.bmxItem.componentSettings[0].CRITERIA = true
             for (let e = 0; e < this.columnsNames.length; e++) {
               if ((rows[i].split("\t").length > 0)) {
@@ -123,16 +123,16 @@ export class QuestionAnswerComponent extends RatingScaleComponent implements OnI
             }
             for (const key in this.bmxItem.componentText[1]) {
               if (this.bmxItem.componentText[1].hasOwnProperty(key) && key.startsWith("Answers")) {
-                // Obtiene el número de la propiedad de comentarios
+                // Gets the number of the comments property
                 const num = key.replace("Answers", "");
-                // Agrega la propiedad de comentarios al arreglo this.columnsNames
+                // Add the comments property to the this.columnsNames array
                 objectColumnDesign[key] = "";
               }
             }
             for (const key in objectColumnDesign) {
               if (objectColumnDesign.hasOwnProperty(key) && key.startsWith("Answers")) {
-                // Obtiene el número de la propiedad de comentarios
-                // Agrega la propiedad de comentarios al arreglo this.columnsNames
+                // Gets the number of the comments property
+                // Adds the comments property to the this.columnsNames array                
                 if(!this.columnsNames.find((columnName:any)=>columnName==key)){
                   this.columnsNames.push(key)
                 }
@@ -151,14 +151,14 @@ export class QuestionAnswerComponent extends RatingScaleComponent implements OnI
           }
           const newObj = {};
 
-          // Copia las propiedades que no contienen "Comments"
+          // Copy properties that do not contain "Comments"
           for (const key in objectColumnDesign) {
             if (objectColumnDesign.hasOwnProperty(key) && !key.includes("Answers")) {
               newObj[key] = objectColumnDesign[key];
             }
           }
 
-          // Copia las propiedades que contienen "Comments"
+          // Copy properties that do not contain "Comments"
           for (const key in objectColumnDesign) {
             if (objectColumnDesign.hasOwnProperty(key) && key.includes("Answers")) {
               index == 0? newObj[key] = 'Answers': newObj[key] = '';
@@ -221,10 +221,10 @@ export class QuestionAnswerComponent extends RatingScaleComponent implements OnI
     this.autoSave.emit();
   }
   isChecked(checkBoxName, indexRow) {
-    // Paso 1: Separar la cadena en un arreglo de opciones y eliminar los espacios en blanco
+    // Step 1: Split the string into an array of options and remove whitespace
     const multipleChoiceArray = this.bmxItem.componentText[indexRow].RATE.split(",").map(option => option.trim());
   
-    // Paso 2: Verificar si checkBoxName está presente en el arreglo
+    // Step 2: Check if checkBoxName is present in the array
     return multipleChoiceArray.includes(checkBoxName);
   }
 }
