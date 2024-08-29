@@ -16,6 +16,7 @@ export class NamesUploaderComponent implements AfterViewInit {
   private hotInstance!: Handsontable; // Store Handsontable instance
 
   ngAfterViewInit() {
+    console.log(this.isRanking)
     if (this.hotContainer) {
       const container = this.hotContainer.nativeElement;
       this.hotInstance = new Handsontable(container, {
@@ -58,7 +59,7 @@ export class NamesUploaderComponent implements AfterViewInit {
       //    this.displayedColumns = changes[0];
     //  console.log(this.displayedColumns)
  //     console.log(changes[0][0])
- console.log(this.isRanking)
+ //console.log(this.isRanking)
  //console.log("up tipo")
  if (changes[0].length >= this.displayedColumns.length) {
   const support = changes[0].length - this.displayedColumns.length;
@@ -70,7 +71,7 @@ export class NamesUploaderComponent implements AfterViewInit {
     if(this.isRanking === "ranking-scale") {
       columnIndex = this.displayedColumns.length + index   ;
     }else {
-      columnIndex = this.displayedColumns.length + index  - 1;
+   //   columnIndex = this.displayedColumns.length + index  - 1;
 
     }
 
@@ -90,10 +91,13 @@ export class NamesUploaderComponent implements AfterViewInit {
   newColumns.forEach(col => this.addColumn(col.name, col.values));
 
 }
+//
+if (this.isRanking === "rate-scale") {
+  return
+}else{
 this.removeColumnsWithNumbers()
-
 //this.updateDataSource(changes);
-
+}
 }});
 
       container.style.overflowX = 'auto';
@@ -165,6 +169,7 @@ this.removeColumnsWithNumbers()
             td.style.textAlign = 'center'; // Center the button in the cell
           },
           width: 100,
+          readOnly: true,
         }
       ],
     });
@@ -201,8 +206,10 @@ this.removeColumnsWithNumbers()
     }
   }
   removeColumnsWithNumbers(): void {
+    console.log(this.displayedColumns)
     // Filtra las columnas cuyos nombres no contengan números
     this.displayedColumns = this.displayedColumns.filter(col => !/\d/.test(col));
+    console.log(this.displayedColumns)
 
     // Remueve las columnas con números de cada fila en el dataSource
     this.dataSource.forEach(row => {
