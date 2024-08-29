@@ -15,14 +15,18 @@ export class NamesUploaderComponent implements AfterViewInit {
   private hotInstance!: Handsontable; // Store Handsontable instance
 
   ngAfterViewInit() {
-    console.log(this.dataSource, this.displayedColumns)
     if (this.hotContainer) {
       const container = this.hotContainer.nativeElement;
       this.hotInstance = new Handsontable(container, {
         data: this.dataSource, // Directly use the dataSource for the table data
         colHeaders: [...this.displayedColumns.filter(col => col !== 'STARS' && col !== 'RATE'), 'Actions'], // Add Actions column
         columns: [
-          ...this.displayedColumns.filter(col => col !== 'STARS' && col !== 'RATE' && !col.includes('RadioColumn')).map(col => ({ data: col })),
+          ...this.displayedColumns
+            .filter(col => col !== 'STARS' && col !== 'RATE' && !col.includes('RadioColumn'))
+            .map(col => ({
+              data: col,
+              width: 150, // Establecer un ancho máximo de 150px por columna
+            })),
           {
             data: 'actions',
             renderer: (instance, td, row, col, prop, value, cellProperties) => {
@@ -32,7 +36,9 @@ export class NamesUploaderComponent implements AfterViewInit {
               button.onclick = () => this.removeRow(row);
               td.appendChild(button);
               td.style.textAlign = 'center'; // Center the button in the cell
-            }
+            },
+            readOnly: true,
+            width: 100, // Ancho de la columna de acciones
           }
         ],
         rowHeaders: true,
@@ -42,35 +48,132 @@ export class NamesUploaderComponent implements AfterViewInit {
         licenseKey: 'non-commercial-and-evaluation',
         height: 300,
         width: 1024,
+        colWidths: 150, // Establece un ancho máximo para todas las columnas
+        stretchH: 'all', // Establece que las columnas se estiren proporcionalmente dentro del ancho total disponible
         afterChange: (changes: any[]) => {
           this.updateDataSource(changes);
         },
         afterPaste: (changes: any[]) => {
-          this.updateDataSource(changes);
-        },
-      });
+      //    this.displayedColumns = changes[0];
+    //  console.log(this.displayedColumns)
+ //     console.log(changes[0][0])
+ console.log(this.dataSource)
+ console.log(changes)
+ if (changes[0].length > this.displayedColumns.length) {
+  const support = changes[0].length - this.displayedColumns.length;
+  const newColumns: { name: string, values: any[] }[] = []; // Asegurar el tipo correcto
+
+  for (let index = 0; index < support; index++) {
+    const columnIndex = this.displayedColumns.length + index;
+
+    // Extraer los valores de la nueva columna desde changes
+    const columnValues = changes.map(change => change[columnIndex]);
+
+    // Generar un nombre para la nueva columna
+    const columnName = `New Column ${columnIndex + 1}`;
+
+    // Acumular la nueva columna en el array temporal
+    newColumns.push({ name: columnName, values: columnValues });
+  }
+
+  // Ahora, agregar todas las nuevas columnas
+  newColumns.forEach(col => this.addColumn(col.name, col.values));
+
+  // Actualizar dataSource con los cambios (si es necesario)
+  // this.dataSource = changes;
+}
+
+
+//this.updateDataSource(changes);
+
+}});
+
+      // Añadir estilo CSS para el contenedor para manejar el desbordamiento
+      container.style.overflowX = 'auto'; // Habilitar la barra de desplazamiento horizontal
+      container.style.overflowY = 'auto';
     } else {
       console.error('hotContainer is not available');
     }
   }
 
-
   updateDataSource(changes: any[]): void {
     if (changes) {
-      changes.forEach(([rowIndex, prop, oldValue, newValue]) => {
-        // Check if we need to add new rows
-        if (this.dataSource[rowIndex]) {
-          this.dataSource[rowIndex].STARS = this.dataSource[0].STARS ? [...(this.dataSource.length > 0 ? this.dataSource[0].STARS : [])] : [...(this.dataSource.length > 0 ? this.dataSource[1].STARS : [])] // Keep the STARS structure
-          this.dataSource[rowIndex].RATE = rowIndex!=0?-1:this.dataSource[0].RATE
-          this.dataSource[rowIndex].CRITERIA = this.dataSource[1].CRITERIA ? this.dataSource[1].CRITERIA:[]// Keep the STARS structure
-          if(!this.dataSource[1].CRITERIA){
-          delete this.dataSource[rowIndex].CRITERIA
+      changes.forEach(([rowIndex, col, prop, oldValue, newValue]) => {
+        if (rowIndex !== undefined) {
+          // Check if we need to add new rows
+          if (rowIndex >= this.dataSource.length) {
+            while (rowIndex >= this.dataSource.length) {
+              this.dataSource.push({
+                ...this.dataSource[0],
+                nameCandidates: '',
+                rationale: '',
+                RATE: -1,
+                STARS: this.dataSource[1].STARS, // Keep the STARS structure
+                Comments0: ''
+              });
+            }
+          }
+
+          // Update the existing row
+          const columnName = this.displayedColumns.filter(col => col !== 'STARS' && col !== 'RATE')[prop];
+          if (columnName && this.dataSource[rowIndex]) {
+            this.dataSource[rowIndex][columnName] = newValue;
           }
         }
       });
     } else {
       console.warn('No changes detected or changes is null');
     }
+  }
+
+  addColumn(columnName: string, columnData: any[] = []): void {
+    this.displayedColumns.push(columnName);
+
+    // Add the new column to each row in dataSource with the provided data or empty strings
+    this.dataSource.forEach((row, index) => {
+      row[columnName] = columnData[index] !== undefined ? columnData[index] : ''; // Set the value or an empty string
+    });
+
+    // Update Handsontable with the new column
+    this.hotInstance.updateSettings({
+      colHeaders: [...this.displayedColumns, 'Actions'],
+      columns: [
+        ...this.displayedColumns
+          .filter(col => col !== 'STARS' && col !== 'RATE' && !col.includes('RadioColumn'))
+          .map(col => ({
+            data: col,
+            width: 150, // Establecer un ancho máximo de 150px por columna
+          })),
+        {
+          data: 'actions',
+          renderer: (instance, td, row, col, prop, value, cellProperties) => {
+            Handsontable.renderers.TextRenderer.apply(this, [instance, td, row, col, prop, value, cellProperties]);
+            const button = document.createElement('button');
+            button.innerText = 'Delete';
+            button.onclick = () => this.removeRow(row);
+            td.appendChild(button);
+            td.style.textAlign = 'center'; // Center the button in the cell
+          },
+          width: 100, // Ancho de la columna de acciones
+        }
+      ],
+    });
+
+    // Reload the data in Handsontable to reflect the changes
+    this.hotInstance.loadData(this.dataSource);
+  }
+
+  addRow(): void {
+    const newRow = this.displayedColumns.reduce((acc, col) => {
+      acc[col] = ''; // Initialize each column in the new row with an empty string
+      return acc;
+    }, {});
+
+    // Add the new row to the dataSource
+    this.dataSource.push(newRow);
+
+    // Re-render the table with the updated dataSource
+    this.hotInstance.loadData(this.dataSource);
   }
 
   removeRow(rowIndex: number): void {
@@ -91,23 +194,7 @@ export class NamesUploaderComponent implements AfterViewInit {
   saveChanges(): void {
     this.save.emit(this.dataSource);
   }
-  addRow(): void {
-    // Crea una nueva fila vacía basada en las columnas
-    const nuevaFila = this.displayedColumns.reduce((acc: any, col: string) => {
-      if (col !== 'STARS' && col !== 'RATE') {
-        acc[col] = ''; // Asigna un valor vacío a cada columna
-      }
-      return acc;
-    }, {});
 
-    // Agrega la nueva fila al dataSource
-    this.dataSource.push(nuevaFila);
-
-    // Recarga los datos en la tabla para reflejar la nueva fila
-    if (this.hotInstance) {
-      this.hotInstance.loadData(this.dataSource);
-    }
-  }
   cancel(): void {
     this.cancelEvent.emit(true);
   }

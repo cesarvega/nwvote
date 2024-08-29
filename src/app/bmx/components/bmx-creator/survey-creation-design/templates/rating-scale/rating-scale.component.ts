@@ -533,6 +533,7 @@ export class RatingScaleComponent implements OnInit {
   // ⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️ END STARS METHODS  ⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️
 
   upLoadNamesAndRationales(list: any, type?: any) {
+    console.log(this.bmxItem)
     if (typeof list == 'object') {
       list = ''
     }
@@ -610,6 +611,7 @@ export class RatingScaleComponent implements OnInit {
               });
             });
           } else {
+            console.log(this.rankingScaleValue)
             this.bmxItem.componentSettings[0].CRITERIA = false;
             objectColumnDesign['STARS'] = this.createRatingStars(this.rankingScaleValue, this.ratingScaleIcon);
             for (let e = 0; e < this.columnsNames.length; e++) {
@@ -738,7 +740,7 @@ export class RatingScaleComponent implements OnInit {
   }
   removeAllRadioColumns() {
     this.columnsNames = this.columnsNames.filter(col => !col.includes('RadioColumn'));
-  
+
     this.bmxItem.componentText.forEach((object) => {
       for (let key in object) {
         if (key.includes('RadioColumn')) {
