@@ -994,4 +994,4 @@
     [dataSource]="dataSource" (cancelEvent)="showModalTable = false"></app-table>
 
     <app-names-uploader *ngIf="showFileUploader"  (save)="showFileUploader = false;upLoadNamesAndRationales(testNamesInput, false)" [displayedColumns]="columnsNames"
-[dataSource]="dataSource" (cancelEvent)="showFileUploader = false"></app-names-uploader>
+[dataSource]="dataSource" [isRanking]="bmxItem.componentType"  (cancelEvent)="showFileUploader = false"></app-names-uploader>

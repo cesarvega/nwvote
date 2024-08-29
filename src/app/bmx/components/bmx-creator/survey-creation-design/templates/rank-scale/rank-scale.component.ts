@@ -21,6 +21,7 @@ export class RankScaleComponent extends RatingScaleComponent implements OnInit {
   @Input() bmxClientPageOverview;
   @Output() autoSave = new EventEmitter();
   showBar = false
+
   CREATION_VIDEO_PATH = "assets/videos/RankMatrix.mp4"
   VIDEO_PATH: any[] = [];
 
@@ -48,7 +49,7 @@ export class RankScaleComponent extends RatingScaleComponent implements OnInit {
 
   ngOnInit(): void {
     this.showDialog = false
-
+    console.log(this.bmxItem)
     this.rankingScaleValue = this.bmxItem.componentSettings[0].selectedRanking
     this.createRatingStars(this.rankingScaleValue)
     // this.rankingTableType( this.bmxItem.componentSettings[0].rankType)
@@ -85,6 +86,7 @@ export class RankScaleComponent extends RatingScaleComponent implements OnInit {
     let result = '';
 
     let firstObject = this.bmxItem.componentText[0];
+    console.log(firstObject)
     let columnNames = [];
     for (let key in firstObject) {
       if (key === 'Name Candidates' || key === 'Rationales') {
@@ -178,6 +180,7 @@ export class RankScaleComponent extends RatingScaleComponent implements OnInit {
 
       // COLUMNS NAMES CHECK
       const rateColumnIndex = this.columnsNames.findIndex(column => column === 'RATE');
+      console.log(rateColumnIndex + "este es el rateco")
       if (rateColumnIndex !== -1) {
         this.columnsNames.splice(rateColumnIndex, 1); 
       }
@@ -397,7 +400,6 @@ export class RankScaleComponent extends RatingScaleComponent implements OnInit {
 
     }
      if (rankingType == 'radio' || rankingType == 'dinamycRadio') {
-      console.log(' soy un radio dinamycRadio')
       this.bmxItem.componentSettings[0].rateWidth = 120
       this.draggableBag = ''
       this.isdropDown = false
@@ -407,6 +409,7 @@ export class RankScaleComponent extends RatingScaleComponent implements OnInit {
       this.insertRadioColumn()
       }
     }
+    console.log(this.bmxItem.componentText)
   }
 
   toggleScrolling() {

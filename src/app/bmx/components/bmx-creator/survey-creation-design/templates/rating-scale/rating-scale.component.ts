@@ -552,7 +552,7 @@ export class RatingScaleComponent implements OnInit {
       if (rateColumnIndex !== -1) {
         this.columnsNames.splice(rateColumnIndex, 1); // Eliminar RATE si ya existe para evitar duplicación
       }
-
+      console.log(this.columnsNames)
       this.columnsNames.forEach((column, index) => {
         column = column.toLowerCase();
         if (nameCandidatesCounter == 0 && column.includes('candidates') || column == 'questions') {
