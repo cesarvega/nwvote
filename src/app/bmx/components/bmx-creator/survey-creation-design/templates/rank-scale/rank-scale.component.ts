@@ -88,6 +88,7 @@ export class RankScaleComponent extends RatingScaleComponent implements OnInit {
 
     // Obtener las claves de la primera fila (los nombres de las propiedades)
     let firstObject = this.bmxItem.componentText[0];
+    console.log(firstObject)
     let columnNames = [];
     for (let key in firstObject) {
       if (key === 'Name Candidates' || key === 'Rationales') {
@@ -181,6 +182,7 @@ export class RankScaleComponent extends RatingScaleComponent implements OnInit {
 
       // COLUMNS NAMES CHECK
       const rateColumnIndex = this.columnsNames.findIndex(column => column === 'RATE');
+      console.log(rateColumnIndex + "este es el rateco")
       if (rateColumnIndex !== -1) {
         this.columnsNames.splice(rateColumnIndex, 1); // Eliminar RATE si ya existe para evitar duplicación
       }
@@ -381,6 +383,8 @@ export class RankScaleComponent extends RatingScaleComponent implements OnInit {
   rankingTableType(rankingType) {
     this.bmxItem.componentSettings[0].rankType = rankingType
     let values = Object.keys(this.bmxItem.componentText[0])
+    console.log(this.bmxItem)
+    console.log(values)
     this.columnsNames = []
     this.RadioColumnList = []
     values.forEach(value => {

@@ -58,7 +58,7 @@ export class NamesUploaderComponent implements AfterViewInit {
       //    this.displayedColumns = changes[0];
     //  console.log(this.displayedColumns)
  //     console.log(changes[0][0])
- //console.log(this.isRanking)
+ console.log(this.isRanking)
  //console.log("up tipo")
  if (changes[0].length >= this.displayedColumns.length) {
   const support = changes[0].length - this.displayedColumns.length;
@@ -80,7 +80,7 @@ export class NamesUploaderComponent implements AfterViewInit {
     const columnValues = changes.map(change => change[columnIndex]);
 
 
-    const columnName = `New Column ${columnIndex + 1}`;
+    const columnName = ` ${changes[0][columnIndex]}`;
 
     // new column in temporal array
     newColumns.push({ name: columnName, values: columnValues });
@@ -90,7 +90,7 @@ export class NamesUploaderComponent implements AfterViewInit {
   newColumns.forEach(col => this.addColumn(col.name, col.values));
 
 }
-
+this.removeColumnsWithNumbers()
 
 //this.updateDataSource(changes);
 
@@ -135,12 +135,13 @@ export class NamesUploaderComponent implements AfterViewInit {
 
   addColumn(columnName: string, columnData: any[] = []): void {
     this.displayedColumns.push(columnName);
-    console.log(this.displayedColumns)
-    console.log(columnData)
+  //  console.log(this.displayedColumns)
+   // console.log(columnData)
 
     // Add the new column to each row in dataSource with the provided data or empty strings
     this.dataSource.forEach((row, index) => {
       row[columnName] = columnData[index] !== undefined ? columnData[index] : ''; // Set the value or an empty string
+   //   console.log(columnName)
     });
 
     // Update Handsontable with the new column
@@ -148,7 +149,7 @@ export class NamesUploaderComponent implements AfterViewInit {
       colHeaders: [...this.displayedColumns, 'Actions'],
       columns: [
         ...this.displayedColumns
-          .filter(col => col !== 'STARS' && col !== 'RATE' && !col.includes('RadioColumn'))
+          .filter(col => col !== 'STARS' && col !== 'RATE'  && !col.includes('RadioColumn'))
           .map(col => ({
             data: col,
             width: 150,
@@ -197,6 +198,30 @@ export class NamesUploaderComponent implements AfterViewInit {
       }
     } else {
       console.warn('Row index out of bounds:', rowIndex);
+    }
+  }
+  removeColumnsWithNumbers(): void {
+    // Filtra las columnas cuyos nombres no contengan números
+    this.displayedColumns = this.displayedColumns.filter(col => !/\d/.test(col));
+
+    // Remueve las columnas con números de cada fila en el dataSource
+    this.dataSource.forEach(row => {
+      Object.keys(row).forEach(key => {
+        if (/\d/.test(key)) {
+          delete row[key];
+        }
+      });
+    });
+
+    // Re-renderiza la tabla con los datos actualizados
+    if (this.hotInstance) {
+      this.hotInstance.loadData(this.dataSource);
+      this.hotInstance.updateSettings({
+        columns: this.displayedColumns.map(col => ({ data: col })),
+        colHeaders: this.displayedColumns
+      });
+    } else {
+      console.warn('hotInstance is not available');
     }
   }
 
