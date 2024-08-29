@@ -106,7 +106,8 @@ export class NamesUploaderComponent implements AfterViewInit {
                 nameCandidates: '',
                 rationale: '',
                 RATE: -1,
-                STARS: this.dataSource[1].STARS, // Keep the STARS structure
+                STARS: this.dataSource[0].STARS ? [...(this.dataSource.length > 0 ? this.dataSource[0].STARS : [])] : [...(this.dataSource.length > 0 ? this.dataSource[1].STARS : [])] // Keep the STARS structure
+                , // Keep the STARS structure
                 Comments0: ''
               });
             }
@@ -114,12 +115,8 @@ export class NamesUploaderComponent implements AfterViewInit {
           }
 
           // Update the existing row
-          this.dataSource[rowIndex].STARS = this.dataSource[0].STARS ? [...(this.dataSource.length > 0 ? this.dataSource[0].STARS : [])] : [...(this.dataSource.length > 0 ? this.dataSource[1].STARS : [])] // Keep the STARS structure
-
           const columnName = this.displayedColumns.filter(col => col !== 'STARS' && col !== 'RATE')[prop];
-          if (columnName && this.dataSource[rowIndex]) {
-            this.dataSource[rowIndex][columnName] = newValue;
-          }
+          
         }
       });
     } else {
@@ -129,8 +126,6 @@ export class NamesUploaderComponent implements AfterViewInit {
 
   addColumn(columnName: string, columnData: any[] = []): void {
     this.displayedColumns.push(columnName);
-    console.log(this.displayedColumns)
-    console.log(columnData)
 
     // Add the new column to each row in dataSource with the provided data or empty strings
     this.dataSource.forEach((row, index) => {
