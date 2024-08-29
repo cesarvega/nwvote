@@ -55,7 +55,7 @@ export class NarrowDownComponent extends RatingScaleComponent implements OnInit 
 
     let result = '';
 
-    // Obtener las claves de la primera fila (los nombres de las propiedades)
+  // get keys from first row /names of propierties/
     let firstObject = this.bmxItem.componentText[0];
     let columnNames = [];
     for (let key in firstObject) {
@@ -64,7 +64,7 @@ export class NarrowDownComponent extends RatingScaleComponent implements OnInit 
       }
     }
 
-    // Agregar cada objeto como una fila en el resultado
+    //  add one by one object like a row into result
     for (let obj of this.bmxItem.componentText) {
       let values = [];
       for (let key in obj) {
@@ -72,8 +72,8 @@ export class NarrowDownComponent extends RatingScaleComponent implements OnInit 
           values.push(obj[key]);
         }
       }
-      if (values.length > 0) {  // Verificar si hay valores para esta fila
-        result += values.join('\t') + '\n';  // Agregar la línea al resultado
+      if (values.length > 0) {  // Verify values for this row
+        result += values.join('\t') + '\n';  // add result
       }
 
     }
