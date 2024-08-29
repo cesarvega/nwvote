@@ -59,13 +59,13 @@ export class NamesUploaderComponent implements AfterViewInit {
  //     console.log(changes[0][0])
  console.log(this.dataSource)
  console.log(changes)
- if (changes[0].length > this.displayedColumns.length) {
+ if (changes[0].length >= this.displayedColumns.length) {
   const support = changes[0].length - this.displayedColumns.length;
   const newColumns: { name: string, values: any[] }[] = []; // types
 
-  for (let index = 0; index < support; index++) {
-    const columnIndex = this.displayedColumns.length + index;
-
+  for (let index = 0; index < support+1; index++) {
+    const columnIndex = this.displayedColumns.length + index -1 ;
+    console.log(columnIndex)
     //Extract the values of the new column from changes.
 
     const columnValues = changes.map(change => change[columnIndex]);
@@ -126,6 +126,8 @@ export class NamesUploaderComponent implements AfterViewInit {
 
   addColumn(columnName: string, columnData: any[] = []): void {
     this.displayedColumns.push(columnName);
+    console.log(this.displayedColumns)
+    console.log(columnData)
 
     // Add the new column to each row in dataSource with the provided data or empty strings
     this.dataSource.forEach((row, index) => {
