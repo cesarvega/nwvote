@@ -381,8 +381,6 @@ export class RankScaleComponent extends RatingScaleComponent implements OnInit {
   rankingTableType(rankingType) {
     this.bmxItem.componentSettings[0].rankType = rankingType
     let values = Object.keys(this.bmxItem.componentText[0])
-    console.log(this.bmxItem)
-    console.log(values)
     this.columnsNames = []
     this.RadioColumnList = []
     values.forEach(value => {
@@ -406,7 +404,6 @@ export class RankScaleComponent extends RatingScaleComponent implements OnInit {
 
     }
      if (rankingType == 'radio' || rankingType == 'dinamycRadio') {
-      console.log(' soy un radio dinamycRadio')
       this.bmxItem.componentSettings[0].rateWidth = 120
       this.draggableBag = ''
       this.isdropDown = false
@@ -416,6 +413,7 @@ export class RankScaleComponent extends RatingScaleComponent implements OnInit {
       this.insertRadioColumn()
       }
     }
+    console.log(this.bmxItem.componentText)
   }
 
 
