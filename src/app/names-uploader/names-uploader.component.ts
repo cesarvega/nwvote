@@ -25,7 +25,7 @@ export class NamesUploaderComponent implements AfterViewInit {
             .filter(col => col !== 'STARS' && col !== 'RATE' && !col.includes('RadioColumn'))
             .map(col => ({
               data: col,
-              width: 150, 
+              width: 150,
             })),
           {
             data: 'actions',
@@ -38,7 +38,7 @@ export class NamesUploaderComponent implements AfterViewInit {
               td.style.textAlign = 'center'; // Center the button in the cell
             },
             readOnly: true,
-            width: 100, 
+            width: 100,
           }
         ],
         rowHeaders: true,
@@ -48,8 +48,8 @@ export class NamesUploaderComponent implements AfterViewInit {
         licenseKey: 'non-commercial-and-evaluation',
         height: 300,
         width: 1024,
-        colWidths: 150, 
-        stretchH: 'all', 
+        colWidths: 150, // maxWhit for columns
+        stretchH: 'all', // Set the columns to stretch proportionally within the total available width
         afterChange: (changes: any[]) => {
           this.updateDataSource(changes);
         },
@@ -59,26 +59,27 @@ export class NamesUploaderComponent implements AfterViewInit {
  //     console.log(changes[0][0])
  console.log(this.dataSource)
  console.log(changes)
- if (changes[0].length > this.displayedColumns.length) {
+ if (changes[0].length >= this.displayedColumns.length) {
   const support = changes[0].length - this.displayedColumns.length;
-  const newColumns: { name: string, values: any[] }[] = []; 
+  const newColumns: { name: string, values: any[] }[] = []; // types
 
-  for (let index = 0; index < support; index++) {
-    const columnIndex = this.displayedColumns.length + index;
+  for (let index = 0; index < support+1; index++) {
+    const columnIndex = this.displayedColumns.length + index -1 ;
+    console.log(columnIndex)
+    //Extract the values of the new column from changes.
 
     const columnValues = changes.map(change => change[columnIndex]);
 
+
     const columnName = `New Column ${columnIndex + 1}`;
 
-   
+    // new column in temporal array
     newColumns.push({ name: columnName, values: columnValues });
   }
 
-  
+  // Add new columns
   newColumns.forEach(col => this.addColumn(col.name, col.values));
 
-  // Actualizar dataSource con los cambios (si es necesario)
-  // this.dataSource = changes;
 }
 
 
@@ -86,8 +87,7 @@ export class NamesUploaderComponent implements AfterViewInit {
 
 }});
 
-    
-      container.style.overflowX = 'auto'; 
+      container.style.overflowX = 'auto';
       container.style.overflowY = 'auto';
     } else {
       console.error('hotContainer is not available');
@@ -129,6 +129,8 @@ export class NamesUploaderComponent implements AfterViewInit {
 
   addColumn(columnName: string, columnData: any[] = []): void {
     this.displayedColumns.push(columnName);
+    console.log(this.displayedColumns)
+    console.log(columnData)
 
     // Add the new column to each row in dataSource with the provided data or empty strings
     this.dataSource.forEach((row, index) => {
@@ -143,7 +145,7 @@ export class NamesUploaderComponent implements AfterViewInit {
           .filter(col => col !== 'STARS' && col !== 'RATE' && !col.includes('RadioColumn'))
           .map(col => ({
             data: col,
-            width: 150, 
+            width: 150,
           })),
         {
           data: 'actions',
@@ -155,7 +157,7 @@ export class NamesUploaderComponent implements AfterViewInit {
             td.appendChild(button);
             td.style.textAlign = 'center'; // Center the button in the cell
           },
-          width: 100, 
+          width: 100,
         }
       ],
     });
