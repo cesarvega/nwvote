@@ -112,9 +112,12 @@ export class NamesUploaderComponent implements AfterViewInit {
                 Comments0: ''
               });
             }
+
           }
 
           // Update the existing row
+          this.dataSource[rowIndex].STARS = this.dataSource[0].STARS ? [...(this.dataSource.length > 0 ? this.dataSource[0].STARS : [])] : [...(this.dataSource.length > 0 ? this.dataSource[1].STARS : [])] // Keep the STARS structure
+
           const columnName = this.displayedColumns.filter(col => col !== 'STARS' && col !== 'RATE')[prop];
           if (columnName && this.dataSource[rowIndex]) {
             this.dataSource[rowIndex][columnName] = newValue;
