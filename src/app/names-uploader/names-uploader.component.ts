@@ -9,6 +9,7 @@ import Handsontable from 'handsontable';
 export class NamesUploaderComponent implements AfterViewInit {
   @Input() displayedColumns: string[] = [];
   @Input() dataSource: any[] = [];
+  @Input() isRanking: string = "";
   @Output() save = new EventEmitter();
   @Output() cancelEvent = new EventEmitter();
   @ViewChild('hotContainer', { static: false }) hotContainer!: ElementRef;
@@ -57,15 +58,23 @@ export class NamesUploaderComponent implements AfterViewInit {
       //    this.displayedColumns = changes[0];
     //  console.log(this.displayedColumns)
  //     console.log(changes[0][0])
- console.log(this.dataSource)
- console.log(changes)
+ //console.log(this.isRanking)
+ //console.log("up tipo")
  if (changes[0].length >= this.displayedColumns.length) {
   const support = changes[0].length - this.displayedColumns.length;
   const newColumns: { name: string, values: any[] }[] = []; // types
+//
+  for (let index = 0; index < (this.isRanking === "ranking-scale" ?support :support+1) ; index++) {
+   let columnIndex:number =0
 
-  for (let index = 0; index < support+1; index++) {
-    const columnIndex = this.displayedColumns.length + index -1 ;
-    console.log(columnIndex)
+    if(this.isRanking === "ranking-scale") {
+      columnIndex = this.displayedColumns.length + index   ;
+    }else {
+      columnIndex = this.displayedColumns.length + index  - 1;
+
+    }
+
+    //console.log(columnIndex)
     //Extract the values of the new column from changes.
 
     const columnValues = changes.map(change => change[columnIndex]);

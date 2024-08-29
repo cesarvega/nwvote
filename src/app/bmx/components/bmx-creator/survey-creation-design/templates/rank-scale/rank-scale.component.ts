@@ -21,6 +21,7 @@ export class RankScaleComponent extends RatingScaleComponent implements OnInit {
   @Input() bmxClientPageOverview;
   @Output() autoSave = new EventEmitter();
   showBar = false
+
   CREATION_VIDEO_PATH = "assets/videos/RankMatrix.mp4"
   VIDEO_PATH: any[] = [];
 
@@ -49,7 +50,7 @@ export class RankScaleComponent extends RatingScaleComponent implements OnInit {
 
   ngOnInit(): void {
     this.showDialog = false
-
+    console.log(this.bmxItem)
     this.rankingScaleValue = this.bmxItem.componentSettings[0].selectedRanking
     this.createRatingStars(this.rankingScaleValue)
     // this.rankingTableType( this.bmxItem.componentSettings[0].rankType)
