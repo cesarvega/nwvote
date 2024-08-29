@@ -23,7 +23,7 @@ export class NarrowDownComponent extends RatingScaleComponent implements OnInit 
   editSingleTableCells = false
   CREATION_VIDEO_PATH="assets/videos/NarrowDown.mp4"
   dataSource:any[] = []
-
+  rankingScaleValue = 5
   constructor(dragulaService: DragulaService, _snackBar: MatSnackBar,  _bmxService: BmxService,public deviceService: DeviceDetectorService) {
     super(dragulaService,_snackBar, _bmxService,deviceService)
   }
@@ -35,11 +35,12 @@ export class NarrowDownComponent extends RatingScaleComponent implements OnInit 
     this.rankingScaleValue = this.numRatingScale;
 
     if (this.bmxItem.componentSettings[0].CRITERIA) {
-      this.numRatingScale = this.bmxItem.componentText[0].CRITERIA[0].STARS.length
+      this.numRatingScale = this.bmxItem.componentText[1].CRITERIA[0].STARS.length
     } else {
-      this.numRatingScale = this.bmxItem.componentText[0].STARS?.length
+      this.numRatingScale = this.bmxItem.componentText[1].STARS?.length
     }
-
+    console.log(this.numRatingScale)
+    this.rankingScaleValue = this.numRatingScale;
 
     // COLUMN NAMES
     let values = Object.keys(this.bmxItem.componentText[0])

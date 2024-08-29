@@ -168,7 +168,6 @@ export class RatingScaleComponent implements OnInit {
 
     let result = '';
 
-    // Obtener las claves de la primera fila (los nombres de las propiedades)
     let firstObject = this.bmxItem.componentText[0];
     let columnNames = [];
     for (let key in firstObject) {
@@ -177,7 +176,6 @@ export class RatingScaleComponent implements OnInit {
       // }
     }
 
-    // Agregar cada objeto como una fila en el resultado
     for (let obj of this.bmxItem.componentText) {
       let values = [];
       for (let key in obj) {
@@ -188,8 +186,8 @@ export class RatingScaleComponent implements OnInit {
           }
         }
       }
-      if (values.length > 0) {  // Verificar si hay valores para esta fila
-        result += values.join('\t') + '\n';  // Agregar la línea al resultado
+      if (values.length > 0) { 
+        result += values.join('\t') + '\n';  
       }
     }
 
@@ -1081,7 +1079,7 @@ export class RatingScaleComponent implements OnInit {
   }
 
   checkDragEvetn(e) {
-    // console.log(e);
+    this.dataSource=e
   }
 
   toogleColumnResizer() {
