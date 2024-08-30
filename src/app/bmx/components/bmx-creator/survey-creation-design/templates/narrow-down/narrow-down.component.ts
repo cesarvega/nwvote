@@ -24,7 +24,7 @@ export class NarrowDownComponent extends RatingScaleComponent implements OnInit 
   CREATION_VIDEO_PATH="assets/videos/NarrowDown.mp4"
   dataSource:any[] = []
   rankingScaleValue = 5
-  
+
   constructor(dragulaService: DragulaService, _snackBar: MatSnackBar,  _bmxService: BmxService,public deviceService: DeviceDetectorService) {
     super(dragulaService,_snackBar, _bmxService,deviceService)
   }
@@ -95,6 +95,7 @@ export class NarrowDownComponent extends RatingScaleComponent implements OnInit 
       this.rankingScaleValue = this.bmxItem.componentText[0]?.CRITERIA[0]?.STARS?.length;
     }
     this.dataSource = this.bmxItem.componentText
+    this.recordHistory();
 
   }
 }

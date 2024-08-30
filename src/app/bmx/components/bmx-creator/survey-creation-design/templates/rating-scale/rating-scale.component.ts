@@ -25,7 +25,7 @@ export class RatingScaleComponent implements OnInit {
   selectedRowCounter = 0;
   selectedIndex: any = ''
   displayInstructions = false;
-
+  isRealUpdate: boolean = false;
   selectedStarRatingIndex = ''
   selectedRating: any;
   uploadImagesIcon = false
@@ -271,6 +271,7 @@ export class RatingScaleComponent implements OnInit {
     this.newselectedCriteria = filteredCriteria
     this.launchPathModal.emit(this.VIDEO_PATH)
     this.dataSource = this.bmxItem.componentText
+    this.recordHistory()
   }
 
   openSelected(y: any) {
@@ -531,14 +532,17 @@ export class RatingScaleComponent implements OnInit {
   }
   // ⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️ END STARS METHODS  ⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️
 
-  upLoadNamesAndRationales(list: any, type?: any) {
+  upLoadNamesAndRationales(list: any, type?: any, update?:boolean) {
     console.log(this.bmxItem)
     if (typeof list == 'object') {
       list = ''
     }
     this.uploadImagesIcon = true;
     this.bmxItem.componentSettings[0].randomizeTestNames = this.randomizeTestNames ? true : false;
-    this.recordHistory();
+    if (update) {
+      this.recordHistory();
+    }
+
     this.dragRows = true;
     if (!list) { list = this.listString; }
     if (list) {
@@ -1100,6 +1104,7 @@ export class RatingScaleComponent implements OnInit {
     const history = JSON.parse(JSON.stringify(this.bmxItem))
     const columsNames = JSON.parse(JSON.stringify(this.columnsNames))
     this.HISTORY.push([history, columsNames])
+
   }
   closeDialog() {
     this.showDialog = false
@@ -1142,7 +1147,10 @@ export class RatingScaleComponent implements OnInit {
   }
 
   undo() {
+    console.log(this.HISTORY)
+    console.log(this.bmxItem)
     if (this.HISTORY.length > 0) {
+
       this.dragRows = true;
       const temp = this.HISTORY.pop()
       Object.assign(this.bmxItem, temp[0])

@@ -103,8 +103,8 @@ export class RankScaleComponent extends RatingScaleComponent implements OnInit {
           }
         }
       }
-      if (values.length > 0) {  
-        result += values.join('\t') + '\n';  
+      if (values.length > 0) {
+        result += values.join('\t') + '\n';
       }
     }
 
@@ -135,6 +135,7 @@ export class RankScaleComponent extends RatingScaleComponent implements OnInit {
     this.newselectedCriteria = filteredCriteria
     this.rankingScaleValue = this.bmxItem.componentText[0].STARS.length;
     this.dataSource = this.bmxItem.componentText
+    this.recordHistory();
 
   }
 
@@ -162,13 +163,15 @@ export class RankScaleComponent extends RatingScaleComponent implements OnInit {
     }
     return startCounter;
   }
-  upLoadNamesAndRationales(list: any, type?: any) {
+  upLoadNamesAndRationales(list: any, type?: any, update?:boolean) {
     if (typeof list == 'object') {
       list = ''
     }
     this.uploadImagesIcon = true;
     this.bmxItem.componentSettings[0].randomizeTestNames = this.randomizeTestNames ? true : false;
-    this.recordHistory();
+    if (update) {
+      this.recordHistory();
+    }
     this.dragRows = true;
     if (!list) { list = this.listString; }
     if (list) {
@@ -182,7 +185,7 @@ export class RankScaleComponent extends RatingScaleComponent implements OnInit {
       const rateColumnIndex = this.columnsNames.findIndex(column => column === 'RATE');
       console.log(rateColumnIndex + "este es el rateco")
       if (rateColumnIndex !== -1) {
-        this.columnsNames.splice(rateColumnIndex, 1); 
+        this.columnsNames.splice(rateColumnIndex, 1);
       }
 
       this.columnsNames.forEach((column, index) => {
@@ -295,7 +298,7 @@ export class RankScaleComponent extends RatingScaleComponent implements OnInit {
             if (objectColumnDesign.hasOwnProperty(key) && key.includes("Comments")) {
               newObj[key] = index == 0 ? this.bmxItem.componentText[0][key] : '';
             }
-          }          
+          }
           this.TESTNAMES_LIST.push(newObj);
           index++;
         }
@@ -371,7 +374,7 @@ export class RankScaleComponent extends RatingScaleComponent implements OnInit {
       }
 
       this.dragRows = false;
-    }, 0);  
+    }, 0);
   }
 
   rankingTableType(rankingType) {
