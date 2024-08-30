@@ -13,10 +13,19 @@ export class NamesUploaderComponent implements AfterViewInit {
   @Output() save = new EventEmitter();
   @Output() cancelEvent = new EventEmitter();
   @ViewChild('hotContainer', { static: false }) hotContainer!: ElementRef;
+  prevDataSource: any[] = [];
+
   private hotInstance!: Handsontable; // Store Handsontable instance
 
+  ngOnInit(): void {
+    this.prevDataSource = JSON.parse(JSON.stringify(this.dataSource));
+
+  }
   ngAfterViewInit() {
-    console.log(this.isRanking)
+
+
+
+
     if (this.hotContainer) {
       const container = this.hotContainer.nativeElement;
       this.hotInstance = new Handsontable(container, {
@@ -63,7 +72,7 @@ export class NamesUploaderComponent implements AfterViewInit {
  //console.log("up tipo")
  if (changes[0].length >= this.displayedColumns.length) {
   const support = changes[0].length - this.displayedColumns.length;
-   console.log(this.displayedColumns)
+ //  console.log(this.displayedColumns)
 
   const newColumns: { name: string, values: any[] }[] = []; // types
 //
@@ -83,7 +92,7 @@ export class NamesUploaderComponent implements AfterViewInit {
     const columnValues = changes.map(change => change[columnIndex]);
 
 
-    const columnName = ` ${changes[0][columnIndex]}`;
+    const columnName = `new ${changes[0][columnIndex]}`;
 
     // new column in temporal array
     newColumns.push({ name: columnName, values: columnValues });
@@ -203,15 +212,16 @@ export class NamesUploaderComponent implements AfterViewInit {
     }
   }
   removeColumnsWithNumbers(): void {
-    console.log(this.displayedColumns)
-    // Filtra las columnas cuyos nombres no contengan números
-    this.displayedColumns = this.displayedColumns.filter(col => !/\d/.test(col));
-    console.log(this.displayedColumns)
+    console.log(this.displayedColumns);
 
-    // Remueve las columnas con números de cada fila en el dataSource
+    // Filtra las columnas cuyos nombres no estén compuestos exclusivamente por números
+    this.displayedColumns = this.displayedColumns.filter(col => !/^\d+$/.test(col));
+    console.log(this.displayedColumns);
+
+    // Remueve las columnas con nombres compuestos exclusivamente por números de cada fila en el dataSource
     this.dataSource.forEach(row => {
       Object.keys(row).forEach(key => {
-        if (/\d/.test(key)) {
+        if (/^\d+$/.test(key)) {
           delete row[key];
         }
       });
@@ -229,6 +239,36 @@ export class NamesUploaderComponent implements AfterViewInit {
     }
   }
 
+  removeEmptyColumns(): void {
+    // Get all column names
+    const columnNames = this.displayedColumns.slice(); // Make a copy of displayedColumns
+
+    columnNames.forEach(column => {
+      // Check if all values in the column are empty
+      const isEmptyColumn = this.dataSource.every(row => !row[column] || row[column].trim() === '');
+
+      if (isEmptyColumn) {
+        // Remove the column from displayedColumns
+        this.displayedColumns = this.displayedColumns.filter(col => col !== column);
+
+        // Remove the column from each row in dataSource
+        this.dataSource.forEach(row => delete row[column]);
+      }
+    });
+
+    // Re-render the table with the updated dataSource and displayedColumns
+    if (this.hotInstance) {
+      this.hotInstance.loadData(this.dataSource);
+      this.hotInstance.updateSettings({
+        columns: this.displayedColumns.map(col => ({ data: col })),
+        colHeaders: this.displayedColumns
+      });
+    } else {
+      console.warn('hotInstance is not available');
+    }
+  }
+
+
   saveChanges(): void {
     this.save.emit(this.dataSource);
     if (this.isRanking === "rate-scale") {
@@ -239,6 +279,44 @@ export class NamesUploaderComponent implements AfterViewInit {
   }
 
   cancel(): void {
-    this.cancelEvent.emit(true);
+    // Restore the original data from prevDataSource
+    this.dataSource = JSON.parse(JSON.stringify(this.prevDataSource));
+    // Restore the original displayedColumns (in case columns were added/removed)
+    this.displayedColumns = Object.keys(this.prevDataSource[0]);
+  //  this.updateDataSource(this.dataSource[0])
+    // Reload the data in Handsontable to reflect the original data
+    if (this.hotInstance) {
+      this.hotInstance.loadData(this.dataSource);
+      this.hotInstance.updateSettings({
+        colHeaders: [...this.displayedColumns, 'Actions'],
+        columns: [
+          ...this.displayedColumns
+            .filter(col => col !== 'STARS' && col !== 'RATE' && !col.includes('RadioColumn'))
+            .map(col => ({
+              data: col,
+              width: 150,
+            })),
+          {
+            data: 'actions',
+            renderer: (instance, td, row, col, prop, value, cellProperties) => {
+              Handsontable.renderers.TextRenderer.apply(this, [instance, td, row, col, prop, value, cellProperties]);
+              const button = document.createElement('button');
+              button.innerText = 'Delete';
+              button.onclick = () => this.removeRow(row);
+              td.appendChild(button);
+              td.style.textAlign = 'center'; // Center the button in the cell
+            },
+            width: 100,
+            readOnly: true,
+          }
+        ],
+      });
+    } else {
+      console.warn('hotInstance is not available');
+    }
+
+    //this.save.emit(this.prevDataSource);
+
   }
+
 }
