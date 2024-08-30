@@ -27,7 +27,6 @@ export class RankScaleComponent extends RatingScaleComponent implements OnInit {
 
   PATH1: any[] = [
     'assets/img/bmx/tutorial/image-drag.JPG',
-
   ]
 
   PATH2: any[] = [
@@ -237,7 +236,6 @@ export class RankScaleComponent extends RatingScaleComponent implements OnInit {
               }
             }
 
-
             if (rateColumnIndex != -1) {
               objectColumnDesign['RATE'] = i > 0 ? -1 : 'RATE';
             } objectColumnDesign['CRITERIA'] = [];
@@ -297,8 +295,7 @@ export class RankScaleComponent extends RatingScaleComponent implements OnInit {
             if (objectColumnDesign.hasOwnProperty(key) && key.includes("Comments")) {
               newObj[key] = index == 0 ? this.bmxItem.componentText[0][key] : '';
             }
-          }
-
+          }          
           this.TESTNAMES_LIST.push(newObj);
           index++;
         }
@@ -374,9 +371,8 @@ export class RankScaleComponent extends RatingScaleComponent implements OnInit {
       }
 
       this.dragRows = false;
-    }, 0);
+    }, 0);  
   }
-
 
   rankingTableType(rankingType) {
     this.bmxItem.componentSettings[0].rankType = rankingType
@@ -415,7 +411,6 @@ export class RankScaleComponent extends RatingScaleComponent implements OnInit {
     }
     console.log(this.bmxItem.componentText)
   }
-
 
   toggleScrolling() {
     this.allowScrolling = !this.allowScrolling

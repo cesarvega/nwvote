@@ -202,10 +202,7 @@
                         <mat-radio-group aria-label="Select an option"
                             [(ngModel)]="this.bmxItem.componentSettings[0].rankType"
                             (change)="rankingTableType(this.bmxItem.componentSettings[0].rankType)">
-                            <div style="display: flex;
-                        flex-direction: column;
-                        gap: 1px;
-                        align-items: flex-start;">
+                            <div style="display: flex;flex-direction: column;gap: 1px;align-items: flex-start;">
                                 <mat-radio-button value="dropDown">DropDown</mat-radio-button>
                                 <mat-radio-button value="dragAndDrop">Drag & Drop</mat-radio-button>
                                 <mat-radio-button value="radio">Radio Buttons</mat-radio-button>
@@ -340,9 +337,7 @@
 
     <!-- BUTTON-->
     <div class="sm-row-box-rkScale">
-        <div class="button-cancel" style=" display: flex;
-  flex-direction: column;
-  align-items: center; ">
+        <div class="button-cancel" style=" display: flex; flex-direction: column;  align-items: center; ">
             <button style="outline: none;color:#d35854;   font-size: 21px;" mat-icon-button (click)="selectedIndex = ''"
                 aria-label="ranking">
                 <mat-icon>cancel</mat-icon>
@@ -360,7 +355,6 @@
     </div>
 </div>
 <!-- 🔧🔧🔧🔧🔧🔧🔧🔧🔧🔧🔧🔧🔧🔧🔧🔧🔧🔧🔧🔧🔧🔧END CONFIG BOX 🔧🔧🔧🔧🔧🔧🔧🔧🔧🔧🔧🔧🔧🔧🔧🔧🔧🔧🔧🔧🔧 -->
-
 
 
 <!--🥑🥑🥑🥑🥑🥑🥑🥑🥑🥑🥑🥑🥑🥑🥑🥑🥑🥑🥑🥑🥑🥑🥑🥑🥑 RATING TABLE 🥑🥑🥑🥑🥑🥑🥑🥑🥑🥑🥑🥑🥑🥑🥑🥑🥑🥑🥑🥑🥑🥑🥑-->
@@ -416,7 +410,7 @@
                         <button (click)="bmxItem.componentText[y]['RATE'] = 0;leaveStar(y);"
                             *ngIf="this.bmxItem.componentText[y].RATE > 0 && this.bmxItem.componentSettings[0].rankType == 'radio'"
                             mat-button style="background-color:#ee7f25 ;color: white;
-                        animation: rubberBand 700ms ease-in forwards;">{{this.bmxItem.componentText[y].RATE}}
+                            animation: rubberBand 700ms ease-in forwards;">{{this.bmxItem.componentText[y].RATE}}
                         </button>
 
                         <!-- 🩸🩸🩸🩸🩸🩸🩸🩸🩸🩸🩸🩸🩸 RATE BUTTONS 🩸🩸🩸🩸🩸🩸🩸🩸🩸🩸🩸🩸🩸🩸🩸🩸🩸🩸🩸🩸🩸🩸🩸🩸 -->
@@ -573,7 +567,6 @@
                             </mat-select>
                         </mat-form-field>
 
-
                         <!--☂️☂️☂️☂️☂️☂️☂️☂️☂️☂️☂️☂️☂️ DRAG AND DROP ☂️☂️☂️☂️☂️☂️☂️☂️☂️☂️☂️☂️☂️☂️☂️☂️-->
                         <button *ngIf="this.bmxItem.componentSettings[0].rankType == 'dragAndDrop'" mat-button style="background-color:#ee7f25 ;color: white;
                     animation: rubberBand 700ms ease-in  forwards;">{{y}}</button>
@@ -582,8 +575,7 @@
                         <!--☂️☂️☂️☂️☂️☂️☂️☂️☂️☂️☂️☂️☂️ RADIO ☂️☂️☂️☂️☂️☂️☂️☂️☂️☂️☂️☂️☂️☂️☂️☂️-->
                         <button (click)="bmxItem.componentText[y]['RATE'] = 0;leaveStar(y);"
                             *ngIf="this.bmxItem.componentText[y].RATE > 0 && (this.bmxItem.componentSettings[0].rankType == 'radio'|| this.bmxItem.componentSettings[0].rankType == 'dinamycRadio')"
-                            mat-button style="background-color:#ee7f25 ;color: white;
-                    animation: rubberBand 700ms ease-in  forwards;">{{this.bmxItem.componentText[y].RATE}}</button>
+                            mat-button style="background-color:#ee7f25 ;color: white;animation: rubberBand 700ms ease-in  forwards;">{{this.bmxItem.componentText[y].RATE}}</button>
 
                         <!-- 🩸🩸🩸🩸🩸🩸🩸🩸🩸🩸🩸🩸🩸 RATE BUTTONS 🩸🩸🩸🩸🩸🩸🩸🩸🩸🩸🩸🩸🩸🩸🩸🩸🩸🩸🩸🩸🩸🩸🩸🩸 -->
                         <div style="display: flex;">

@@ -269,7 +269,7 @@ export class RatingScaleComponent implements OnInit {
     const filteredCriteria = this.CRITERIA.filter(criteriaItem => this.selectedCriteria.map(item => item.name).includes(criteriaItem.name));
     this.newselectedCriteria = filteredCriteria
     this.launchPathModal.emit(this.VIDEO_PATH)
-    this.dataSource = this.bmxItem.componentText
+    this.dataSource = this.bmxItem.componentText      
   }
 
   openSelected(y: any) {
@@ -985,12 +985,12 @@ export class RatingScaleComponent implements OnInit {
 
   swapColumns(index: number): void {
     if (index < 0 || index >= this.columnsNames.length - 1) {
-      // No se puede mover hacia la derecha si está en el último índice o fuera de rango
+      // Cannot move right if at last index or out of range
       return;
     }
     this.recordHistory();
     const temp = this.columnsNames[index];
-    // Intercambia la columna en la posición index con la siguiente
+    // Swap the column at position index with the following
     this.columnsNames[index] = this.columnsNames[index + 1];
     this.columnsNames[index + 1] = temp;
 
@@ -1007,12 +1007,12 @@ export class RatingScaleComponent implements OnInit {
 
   swapColumnsLeft(index: number): void {
     if (index <= 0 || index >= this.columnsNames.length) {
-      // No se puede mover hacia la izquierda si está en el primer índice o fuera de rango
+      // Cannot move left if at first index or out of range
       return;
     }
     this.recordHistory();
     const temp = this.columnsNames[index];
-    // Intercambia la columna en la posición index con la anterior
+    // Swap the column at position index with the previous one
     this.columnsNames[index] = this.columnsNames[index - 1];
     this.columnsNames[index - 1] = temp;
 
