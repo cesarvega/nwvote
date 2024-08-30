@@ -27,7 +27,6 @@ export class RankScaleComponent extends RatingScaleComponent implements OnInit {
 
   PATH1: any[] = [
     'assets/img/bmx/tutorial/image-drag.JPG',
-
   ]
 
   PATH2: any[] = [
@@ -86,7 +85,6 @@ export class RankScaleComponent extends RatingScaleComponent implements OnInit {
 
     let result = '';
 
-    // Obtener las claves de la primera fila (los nombres de las propiedades)
     let firstObject = this.bmxItem.componentText[0];
     console.log(firstObject)
     let columnNames = [];
@@ -95,7 +93,6 @@ export class RankScaleComponent extends RatingScaleComponent implements OnInit {
         columnNames.push(key);
       }
     }
-    // Agregar cada objeto como una fila en el resultado
     for (let obj of this.bmxItem.componentText) {
       let values = [];
       for (let key in obj) {
@@ -106,8 +103,8 @@ export class RankScaleComponent extends RatingScaleComponent implements OnInit {
           }
         }
       }
-      if (values.length > 0) {  // Verificar si hay valores para esta fila
-        result += values.join('\t') + '\n';  // Agregar la línea al resultado
+      if (values.length > 0) {  
+        result += values.join('\t') + '\n';  
       }
     }
 
@@ -150,6 +147,7 @@ export class RankScaleComponent extends RatingScaleComponent implements OnInit {
         }
       })
     }
+    this.dataSource=this.bmxItem.componentText
     this.autoSave.emit()
   }
 
@@ -184,7 +182,7 @@ export class RankScaleComponent extends RatingScaleComponent implements OnInit {
       const rateColumnIndex = this.columnsNames.findIndex(column => column === 'RATE');
       console.log(rateColumnIndex + "este es el rateco")
       if (rateColumnIndex !== -1) {
-        this.columnsNames.splice(rateColumnIndex, 1); // Eliminar RATE si ya existe para evitar duplicación
+        this.columnsNames.splice(rateColumnIndex, 1); 
       }
 
       this.columnsNames.forEach((column, index) => {
@@ -202,7 +200,6 @@ export class RankScaleComponent extends RatingScaleComponent implements OnInit {
         }
       });
 
-      // Insertar la columna RATE en la posición original
       const originalRatePosition = rateColumnIndex !== -1 ? rateColumnIndex : this.columnsNames.length;
 
       if (rateColumnIndex != -1) {
@@ -238,7 +235,6 @@ export class RankScaleComponent extends RatingScaleComponent implements OnInit {
                 }
               }
             }
-
 
             if (rateColumnIndex != -1) {
               objectColumnDesign['RATE'] = i > 0 ? -1 : 'RATE';
@@ -299,8 +295,7 @@ export class RankScaleComponent extends RatingScaleComponent implements OnInit {
             if (objectColumnDesign.hasOwnProperty(key) && key.includes("Comments")) {
               newObj[key] = index == 0 ? this.bmxItem.componentText[0][key] : '';
             }
-          }
-
+          }          
           this.TESTNAMES_LIST.push(newObj);
           index++;
         }
@@ -376,15 +371,12 @@ export class RankScaleComponent extends RatingScaleComponent implements OnInit {
       }
 
       this.dragRows = false;
-    }, 0);
+    }, 0);  
   }
-
 
   rankingTableType(rankingType) {
     this.bmxItem.componentSettings[0].rankType = rankingType
     let values = Object.keys(this.bmxItem.componentText[0])
-    console.log(this.bmxItem)
-    console.log(values)
     this.columnsNames = []
     this.RadioColumnList = []
     values.forEach(value => {
@@ -408,7 +400,6 @@ export class RankScaleComponent extends RatingScaleComponent implements OnInit {
 
     }
      if (rankingType == 'radio' || rankingType == 'dinamycRadio') {
-      console.log(' soy un radio dinamycRadio')
       this.bmxItem.componentSettings[0].rateWidth = 120
       this.draggableBag = ''
       this.isdropDown = false
@@ -418,8 +409,8 @@ export class RankScaleComponent extends RatingScaleComponent implements OnInit {
       this.insertRadioColumn()
       }
     }
+    console.log(this.bmxItem.componentText)
   }
-
 
   toggleScrolling() {
     this.allowScrolling = !this.allowScrolling

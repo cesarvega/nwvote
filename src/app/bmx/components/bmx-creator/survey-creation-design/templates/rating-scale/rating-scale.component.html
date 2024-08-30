@@ -16,9 +16,7 @@
 <!-- ➗➗➗➗➗➗➗➗➗➗➗➗➗➗➗➗➗➗➗  SETTINGS ICONS  ➗➗➗➗➗➗➗➗➗➗➗➗➗➗➗➗➗ -->
 <div *ngIf="bmxClientPageOverview" class="overview">
     <!-- ⏺⏺⏺⏺⏺⏺⏺⏺⏺⏺⏺⏺⏺⏺⏺⏺⏺⏺⏺⏺RAGE INPUTS FOR COLUMN SETTINGS ⏺⏺⏺⏺⏺⏺⏺⏺⏺⏺⏺⏺⏺⏺⏺⏺⏺⏺⏺ -->
-    <div *ngIf="isColumnResizerOn" class="" style="display: flex;
-        flex-direction: row;
-        justify-content: start;background: #ffffffd9;
+    <div *ngIf="isColumnResizerOn" class="" style="display: flex;flex-direction: row;justify-content: start;background: #ffffffd9;
         gap: 0px;position: absolute;left: -713px;z-index: 1;border: 2px dashed #324395;">
 
         <!-- NAME CANDIATES -->
@@ -158,20 +156,18 @@
 </div>
 <!-- ➗➗➗➗➗➗➗➗➗➗➗➗➗➗➗➗➗➗➗  END  ➗➗➗➗➗➗➗➗➗➗➗➗➗➗➗➗➗ -->
 <!--🥑🥑🥑🥑🥑🥑🥑🥑🥑🥑🥑🥑🥑🥑🥑🥑🥑🥑🥑🥑 CONFIGURATION BOX 🥑🥑🥑🥑🥑🥑🥑🥑🥑🥑🥑🥑🥑🥑🥑🥑🥑🥑-->
-<div *ngIf="i === selectedIndex" class="mat-elevation-z4" cdkDrag style="position: absolute;width: 50%;
-background: #fafafa;z-index: 1;top: -65px;left: 25%;border: #063074 4px solid; overflow: auto;
-   max-height: 36rem;
-bottom: -2; ">
+<div *ngIf="i === selectedIndex" class="mat-elevation-z4" cdkDrag style="position: absolute;width: 50%;background: #fafafa;
+    z-index: 1;top: -65px;left: 25%;border: #063074 4px solid; overflow: auto; max-height: 36rem;bottom: -2; ">
 
-    <div class="example-handle" cdkDragHandle style="display: flex;
-flex-direction: row;
-justify-content: center;cursor: move; height: 25px; width: 100%;"><svg width="24px" fill="currentColor"
+    <div class="example-handle" cdkDragHandle style="display: flex;flex-direction: row;justify-content: center;
+            cursor: move; height: 25px; width: 100%;"><svg width="24px" fill="currentColor"
             viewBox="0 0 24 24">
             <path
                 d="M10 9h4V6h3l-5-5-5 5h3v3zm-1 1H6V7l-5 5 5 5v-3h3v-4zm14 2l-5-5v3h-3v4h3v3l5-5zm-9 3h-4v3H7l5 5 5-5h-3v-3z">
             </path>
             <path d="M0 0h24v24H0z" fill="none"></path>
-        </svg></div>
+        </svg>
+    </div>
 
     <!-- Cards Test Name-->
     <mat-card class="example-card">
@@ -284,8 +280,7 @@ justify-content: center;cursor: move; height: 25px; width: 100%;"><svg width="24
             <mat-checkbox [(ngModel)]="randomizeTestNames">Randomize Names</mat-checkbox>
             <div class="sm-row-box-rkScale">
                 <div>
-                    <div
-                        style="display: flex;flex-direction: column;justify-content: center;gap: 10px;align-items: center; ">
+                    <div style="display: flex;flex-direction: column;justify-content: center;gap: 10px;align-items: center; ">
                         <div style="font-size: 16px;margin-top: 10px;color: #48535e;text-align: center;">Minimum:
                             {{bmxItem.componentSettings[0].minRule}}
                         </div>
@@ -296,8 +291,7 @@ justify-content: center;cursor: move; height: 25px; width: 100%;"><svg width="24
                     <div style="font-size: 13px;color: #48535e;">Min number of selections to vote on</div>
                 </div>
                 <div>
-                    <div
-                        style="display: flex;flex-direction: column;justify-content:center;gap: 10px;align-items: center;">
+                    <div style="display: flex;flex-direction: column;justify-content:center;gap: 10px;align-items: center;">
                         <div style="font-size: 16px;margin-top: 10px;color: #48535e;text-align: center;">Maximum:
                             {{bmxItem.componentSettings[0].maxRule}}
                         </div>
@@ -311,18 +305,13 @@ justify-content: center;cursor: move; height: 25px; width: 100%;"><svg width="24
 
         </div>
         <mat-card-content>
-
         </mat-card-content>
-
     </mat-card>
     <br>
 
-
     <!-- BUTTON-->
     <div class="sm-row-box-rkScale">
-        <div class="button-cancel" style=" display: flex;
-  flex-direction: column;
-  align-items: center; ">
+        <div class="button-cancel" style=" display: flex;flex-direction: column; align-items: center;">
             <button style="outline: none;color:#d35854;   font-size: 21px;" mat-icon-button (click)="selectedIndex = ''"
                 aria-label="ranking">
                 <mat-icon>cancel</mat-icon>
@@ -360,11 +349,11 @@ justify-content: center;cursor: move; height: 25px; width: 100%;"><svg width="24
                     style="display: flex;align-items: center;justify-content: center; flex-direction: column;"
                     [ngClass]="(columnName.includes('Comments') == true)?'red':'blue'"
                     [style.padding]="bmxItem.componentSettings[0].rowHeight + 'px'" [style.width]="(columnName == 'rationale')?bmxItem.componentSettings[0].rationalewidth + 'px':
-            (columnName == 'RATE')?bmxItem.componentSettings[0].rateWidth + 'px':
-            (columnName == 'nameCandidates')?bmxItem.componentSettings[0].nameCandidatesWidth + 'px':
-            (columnName.includes('Comments'))?bmxItem.componentSettings[0].commentsWidth + 'px':
-            (columnName.includes('RadioColumn'))?bmxItem.componentSettings[0].radioColumnsWidth + 'px' :
-            bmxItem.componentSettings[0].columnWidth + 'px'">
+                    (columnName == 'RATE')?bmxItem.componentSettings[0].rateWidth + 'px':
+                    (columnName == 'nameCandidates')?bmxItem.componentSettings[0].nameCandidatesWidth + 'px':
+                    (columnName.includes('Comments'))?bmxItem.componentSettings[0].commentsWidth + 'px':
+                    (columnName.includes('RadioColumn'))?bmxItem.componentSettings[0].radioColumnsWidth + 'px' :
+                    bmxItem.componentSettings[0].columnWidth + 'px'">
                     <!-- 🟢🟢🟢🟢🟢🟢🟢🟢🟢🟢🟢🟢🟢🟢 HEADER TEXT AREA 🟢🟢🟢🟢🟢🟢🟢🟢🟢🟢🟢🟢🟢🟢🟢🟢 -->
                     <div *ngIf="(y == 0)" class="header-title " (mouseenter)="selectedColumn = e">
                         <div style="display: flex;flex-direction: column;justify-content: center;align-items: center;">
@@ -379,7 +368,7 @@ justify-content: center;cursor: move; height: 25px; width: 100%;"><svg width="24
                                 </p>
                             </div>
                             <div *ngIf="selectedColumn === e && bmxClientPageOverview && !editSingleTableCells" style="display: flex;flex-direction: row;justify-content: space-around;
-                    position: absolute;top: 35px;background: white;border: #324395 dashed 1px;"
+                                position: absolute;top: 35px;background: white;border: #324395 dashed 1px;"
                                 (mouseleave)="selectedColumn = ''">
                                 <span class="header-delete-icon" matTooltip="double click to delete column"
                                     matTooltipPosition="above"
@@ -428,29 +417,29 @@ justify-content: center;cursor: move; height: 25px; width: 100%;"><svg width="24
                             </div>
                             <!-- 🩸🩸🩸🩸🩸🩸🩸🩸🩸🩸🩸🩸🩸 RATE BUTTONS 🩸🩸🩸🩸🩸🩸🩸🩸🩸🩸🩸🩸🩸🩸🩸🩸🩸🩸🩸🩸🩸🩸🩸🩸 -->
                             <div style="display: flex;">
-                                <button
-                                    (click)="maxRuleCounterMinus();bmxItem.componentText[y]['RATE'] = 0;leaveStar(y)"
-                                    *ngIf="bmxItem.componentText[y]['RATE']>0 && y != 0 " style="background-color: #ee7f25;
-                    color: white;
-                    min-width: 20px;
-                    line-height: 19px;
-                    padding: 1px 0px;
-                    margin: -12px 6px;
-                    position: absolute;
-                    animation: rubberBand 700ms ease-in  forwards;height: 25px;"
-                                    mat-button>{{bmxItem.componentText[y]['RATE']}}</button>
+                                <button (click)="maxRuleCounterMinus();bmxItem.componentText[y]['RATE'] = 0;leaveStar(y)"
+                                    *ngIf="bmxItem.componentText[y]['RATE']>0 && y != 0 " style="background-color: #ee7f25; color: white;
+                                            min-width: 20px;
+                                            line-height: 19px;
+                                            padding: 1px 0px;
+                                            margin: -12px 6px;
+                                            position: absolute;
+                                            animation: rubberBand 700ms ease-in  forwards;height: 25px;"mat-button>
+                                        {{bmxItem.componentText[y]['RATE']}}
+                                </button>
                             </div>
                             <div style="display: flex;gap: 60px;flex-direction: column;">
                                 <div *ngFor="let criteria of testName.CRITERIA  let x =  index">
                                     <button (click)="criteria.RATE = 0;leaveCriteriaStar(y,x);maxRuleCounterMinus()"
-                                        *ngIf="criteria.RATE>0 && y != 0 " style="background-color: #ee7f25;
-                     color: white;
-                     min-width: 20px;
-                     line-height: 19px;
-                     padding: 2px 0px;
-                     margin: -5px -8px;
-                     position: absolute;
-                     animation: rubberBand 700ms ease-in  forwards;height: 25px;" mat-button>{{criteria.RATE}}</button>
+                                        *ngIf="criteria.RATE>0 && y != 0 " style="background-color: #ee7f25;color: white;
+                                            min-width: 20px;
+                                            line-height: 19px;
+                                            padding: 2px 0px;
+                                            margin: -5px -8px;
+                                            position: absolute;
+                                            animation: rubberBand 700ms ease-in  forwards;height: 25px;" mat-button>
+                                        {{criteria.RATE}}
+                                    </button>
                                 </div>
                             </div>
                             <!-- 🩸🩸🩸🩸🩸🩸🩸🩸🩸🩸🩸🩸🩸 END RATE BUTTONS 🩸🩸🩸🩸🩸🩸🩸🩸🩸🩸🩸🩸🩸🩸🩸🩸🩸🩸🩸🩸🩸🩸🩸🩸 -->
@@ -767,4 +756,4 @@ justify-content: center;cursor: move; height: 25px; width: 100%;"><svg width="24
     [dataSource]="dataSource" (cancelEvent)="showModalTable = false"></app-table>
 
 <app-names-uploader *ngIf="showFileUploader"  (save)="upLoadNamesAndRationales(testNamesInput, false); showFileUploader = false" [displayedColumns]="columnsNames"
-[dataSource]="dataSource" [isRanking]="bmxItem.componentType" (cancelEvent)="showFileUploader = false"></app-names-uploader>
+[dataSource]="dataSource" [isRanking]="bmxItem.componentType" (cancelEvent)="cancelEvent($event)"></app-names-uploader>

@@ -894,7 +894,7 @@ $postItHeaderColors2: #d6f8fd, #dcd6fd, #d6fde9, #fdfcd6, #d6f8fd, #fdd6e8, #fdd
 /* in-flight clone */
 .gu-mirror {
   position: fixed !important;
-  margin: 0 !important;
+  margin: 10 !important;
   z-index: 9999 !important;
   opacity: 0.8;
   -ms-filter: "progid:DXImageTransform.Microsoft.Alpha(Opacity=80)";

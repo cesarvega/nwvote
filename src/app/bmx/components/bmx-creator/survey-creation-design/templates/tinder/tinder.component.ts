@@ -138,7 +138,7 @@ export class TinderComponent extends RatingScaleComponent implements OnInit {
     });
     let result = '';
     result += 'Name Candidates\tRATIONALE\n';
-    // Obtener las claves de la primera fila (los nombres de las propiedades)
+    // Get the keys of the first row (the property names)
     let firstObject = this.bmxItem.componentText[0];
     let columnNames = [];
     for (let key in firstObject) {
@@ -147,7 +147,7 @@ export class TinderComponent extends RatingScaleComponent implements OnInit {
       }
     }
 
-    // Agregar cada objeto como una fila en el resultado
+    // Add each object as a row in the result
     for (let obj of this.bmxItem.componentText) {
       let values = [];
       for (let key in obj) {
@@ -155,8 +155,8 @@ export class TinderComponent extends RatingScaleComponent implements OnInit {
           values.push(obj[key]);
         }
       }
-      if (values.length > 0) {  // Verificar si hay valores para esta fila
-        result += values.join('\t') + '\n';  // Agregar la línea al resultado
+      if (values.length > 0) {  // Check if there are values ​​for this row
+        result += values.join('\t') + '\n';  // Add the line to the result
       }
     }
     this.testNamesInput = result;
@@ -459,9 +459,9 @@ export class TinderComponent extends RatingScaleComponent implements OnInit {
 
   deleteName(element: any) {
     this.dataSource.splice(this.dataSource.indexOf(element), 1);
-    // Eliminar el elemento del array this.bmxItem.componentText
+    // Remove the element from the array this.bmx Item.component Text
     this.bmxItem.componentText.splice(this.bmxItem.componentText.indexOf(element), 1);
-    // Eliminar el elemento del array this.dataSource
+    // Remove the element from the this.dataSource array
     this.xpercent = (this.bmxItem.componentText.length - 1) / 100 ;
     this.value = this.xpercent * this.testNameIndex
     this.moveleft()
@@ -471,7 +471,6 @@ export class TinderComponent extends RatingScaleComponent implements OnInit {
   getDataSource() {
     this.dataSource = this.bmxItem.componentText.slice(1)
 
-    // console.log(this.bmxItem)
     this.dataSource.forEach((data) => {
       if (!data.nameCandidates) {
         data.nameCandidates = 'TEST NAME'

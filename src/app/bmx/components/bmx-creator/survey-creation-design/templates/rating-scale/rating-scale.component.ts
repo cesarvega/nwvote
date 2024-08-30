@@ -147,6 +147,7 @@ export class RatingScaleComponent implements OnInit {
 
   ngOnInit(): void {
     this.showDialog = false
+   // console.log(this.bmxItem)
     // COLUMN NAMES
     this.rankingScaleValue = this.numRatingScale;
     this.rowsCount = this.bmxItem.componentText.length - 1
@@ -168,7 +169,6 @@ export class RatingScaleComponent implements OnInit {
 
     let result = '';
 
-    // Obtener las claves de la primera fila (los nombres de las propiedades)
     let firstObject = this.bmxItem.componentText[0];
     let columnNames = [];
     for (let key in firstObject) {
@@ -177,7 +177,6 @@ export class RatingScaleComponent implements OnInit {
       // }
     }
 
-    // Agregar cada objeto como una fila en el resultado
     for (let obj of this.bmxItem.componentText) {
       let values = [];
       for (let key in obj) {
@@ -188,8 +187,8 @@ export class RatingScaleComponent implements OnInit {
           }
         }
       }
-      if (values.length > 0) {  // Verificar si hay valores para esta fila
-        result += values.join('\t') + '\n';  // Agregar la línea al resultado
+      if (values.length > 0) {
+        result += values.join('\t') + '\n';
       }
     }
 
@@ -987,12 +986,12 @@ export class RatingScaleComponent implements OnInit {
 
   swapColumns(index: number): void {
     if (index < 0 || index >= this.columnsNames.length - 1) {
-      // No se puede mover hacia la derecha si está en el último índice o fuera de rango
+      // Cannot move right if at last index or out of range
       return;
     }
     this.recordHistory();
     const temp = this.columnsNames[index];
-    // Intercambia la columna en la posición index con la siguiente
+    // Swap the column at position index with the following
     this.columnsNames[index] = this.columnsNames[index + 1];
     this.columnsNames[index + 1] = temp;
 
@@ -1009,12 +1008,12 @@ export class RatingScaleComponent implements OnInit {
 
   swapColumnsLeft(index: number): void {
     if (index <= 0 || index >= this.columnsNames.length) {
-      // No se puede mover hacia la izquierda si está en el primer índice o fuera de rango
+      // Cannot move left if at first index or out of range
       return;
     }
     this.recordHistory();
     const temp = this.columnsNames[index];
-    // Intercambia la columna en la posición index con la anterior
+    // Swap the column at position index with the previous one
     this.columnsNames[index] = this.columnsNames[index - 1];
     this.columnsNames[index - 1] = temp;
 
@@ -1081,7 +1080,7 @@ export class RatingScaleComponent implements OnInit {
   }
 
   checkDragEvetn(e) {
-    // console.log(e);
+    this.dataSource=e
   }
 
   toogleColumnResizer() {
@@ -1179,7 +1178,12 @@ export class RatingScaleComponent implements OnInit {
     { name: 'Fit to Corporate Mission' },
     { name: 'Overall Likeability' },
   ]
-
+  cancelEvent(event:any){
+    this.bmxItem.componentText = event.dataSource
+    this.columnsNames = event.columnsNames
+    this.showFileUploader = false
+    this.dataSource = event.dataSource
+  }
   showMatrixMenuBmx() {
     this.showMatrixMenu = !this.showMatrixMenu;
     if (this.showMatrixMenu) {

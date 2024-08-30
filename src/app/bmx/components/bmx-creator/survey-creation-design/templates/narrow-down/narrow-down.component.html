@@ -742,6 +742,5 @@ align-items: center; ">
 <app-table *ngIf="showModalTable" (save)="showModalTable = $event" [displayedColumns]="columnsNames"
 [dataSource]="dataSource" (cancelEvent)="showModalTable = false"></app-table>
 
-
-<app-names-uploader *ngIf="showFileUploader"  (save)="showFileUploader = false;upLoadNamesAndRationales(testNamesInput, false)" [displayedColumns]="columnsNames"
-[dataSource]="dataSource"  (cancelEvent)="showFileUploader = false"></app-names-uploader>
+<app-names-uploader *ngIf="showFileUploader"  (save)="upLoadNamesAndRationales(testNamesInput, false); showFileUploader = false" [displayedColumns]="columnsNames"
+[dataSource]="dataSource" [isRanking]="bmxItem.componentType" (cancelEvent)="cancelEvent($event)"></app-names-uploader>
