@@ -1161,6 +1161,7 @@ export class RatingScaleComponent implements OnInit {
       }, 1000);
     }
     this.showDialog = false
+    this.recordHistory()
   }
 
   playTestNameSound(testNameSound: string) {
