@@ -58,6 +58,7 @@ export class NamesUploaderComponent implements AfterViewInit {
           this.updateDataSource(changes);
         },
         afterPaste: (changes: any[]) => {
+          console.log(changes[0])
  if (changes[0].length >= this.displayedColumns.length) {
   const support = changes[0].length - this.displayedColumns.length;
 
@@ -88,6 +89,10 @@ export class NamesUploaderComponent implements AfterViewInit {
   newColumns.forEach(col => this.addColumn(col.name, col.values));
 
 }
+
+
+
+
 //
 
 }});
@@ -257,34 +262,7 @@ export class NamesUploaderComponent implements AfterViewInit {
     }
   }
 
-  removeEmptyColumns(): void {
-    // Get all column names
-    const columnNames = this.displayedColumns.slice(); // Make a copy of displayedColumns
 
-    columnNames.forEach(column => {
-      // Check if all values in the column are empty
-      const isEmptyColumn = this.dataSource.every(row => !row[column] || row[column].trim() === '');
-
-      if (isEmptyColumn) {
-        // Remove the column from displayedColumns
-        this.displayedColumns = this.displayedColumns.filter(col => col !== column);
-
-        // Remove the column from each row in dataSource
-        this.dataSource.forEach(row => delete row[column]);
-      }
-    });
-
-    // Re-render the table with the updated dataSource and displayedColumns
-    if (this.hotInstance) {
-      this.hotInstance.loadData(this.dataSource);
-      this.hotInstance.updateSettings({
-        columns: this.displayedColumns.map(col => ({ data: col })),
-        colHeaders: this.displayedColumns
-      });
-    } else {
-      console.warn('hotInstance is not available');
-    }
-  }
 
 
   saveChanges(): void {

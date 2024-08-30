@@ -147,7 +147,7 @@ export class RatingScaleComponent implements OnInit {
 
   ngOnInit(): void {
     this.showDialog = false
-   // console.log(this.bmxItem)
+   console.log(this.bmxItem    )
     // COLUMN NAMES
     this.rankingScaleValue = this.numRatingScale;
     this.rowsCount = this.bmxItem.componentText.length - 1

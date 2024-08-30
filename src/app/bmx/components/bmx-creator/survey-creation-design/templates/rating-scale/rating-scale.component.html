@@ -320,7 +320,7 @@
         </div>
         <div class="button-Done" style="display: flex; flex-direction: column; align-items: center;">
             <button style="outline: none;color:#76d354;   font-size: 21px;" mat-icon-button
-                (click)="selectedIndex = '';upLoadNamesAndRationales(testNamesInput, false, true)" [disabled]="false"
+                (click)="selectedIndex = '';upLoadNamesAndRationales(testNamesInput, false,true)" [disabled]="false"
                 aria-label="ranking">
                 <mat-icon>check_circle</mat-icon>
             </button>
@@ -755,5 +755,5 @@
 <app-table *ngIf="showModalTable" (save)="showModalTable = $event" [displayedColumns]="columnsNames"
     [dataSource]="dataSource" (cancelEvent)="showModalTable = false"></app-table>
 
-<app-names-uploader *ngIf="showFileUploader"  (save)="upLoadNamesAndRationales(testNamesInput, false, false); showFileUploader = false" [displayedColumns]="columnsNames"
+<app-names-uploader *ngIf="showFileUploader"  (save)="upLoadNamesAndRationales(testNamesInput, false); showFileUploader = false" [displayedColumns]="columnsNames"
 [dataSource]="dataSource" [isRanking]="bmxItem.componentType" (cancelEvent)="cancelEvent($event)"></app-names-uploader>
