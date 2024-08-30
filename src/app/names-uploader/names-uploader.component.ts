@@ -14,9 +14,11 @@ export class NamesUploaderComponent implements AfterViewInit {
   @Output() cancelEvent = new EventEmitter();
   @ViewChild('hotContainer', { static: false }) hotContainer!: ElementRef;
   private hotInstance!: Handsontable;
-
+  dataSourceCopy
+  displayedColumnsCopy
   ngAfterViewInit() {
-    console.log(this.isRanking)
+    this.dataSourceCopy = JSON.parse(JSON.stringify(this.dataSource));
+    this.displayedColumnsCopy =JSON.parse(JSON.stringify(this.displayedColumns));
     if (this.hotContainer) {
       const container = this.hotContainer.nativeElement;
       this.hotInstance = new Handsontable(container, {
@@ -56,14 +58,8 @@ export class NamesUploaderComponent implements AfterViewInit {
           this.updateDataSource(changes);
         },
         afterPaste: (changes: any[]) => {
-      //    this.displayedColumns = changes[0];
-    //  console.log(this.displayedColumns)
- //     console.log(changes[0][0])
- //console.log(this.isRanking)
- //console.log("up tipo")
  if (changes[0].length >= this.displayedColumns.length) {
   const support = changes[0].length - this.displayedColumns.length;
-   console.log(this.displayedColumns)
 
   const newColumns: { name: string, values: any[] }[] = []; // types
 //
@@ -77,11 +73,9 @@ export class NamesUploaderComponent implements AfterViewInit {
 
     }
 
-    //console.log(columnIndex)
     //Extract the values of the new column from changes.
 
     const columnValues = changes.map(change => change[columnIndex]);
-
 
     const columnName = ` ${changes[0][columnIndex]}`;
 
@@ -103,7 +97,6 @@ export class NamesUploaderComponent implements AfterViewInit {
       console.error('hotContainer is not available');
     }
   }
-
   updateDataSource(changes: any[]): void {
     if (changes) {
       changes.forEach(([rowIndex, col, prop, oldValue, newValue]) => {
@@ -126,13 +119,11 @@ export class NamesUploaderComponent implements AfterViewInit {
     } else {
       console.warn('No changes detected or changes is null');
     }
-    console.log(this.dataSource)
 
   }
 
   addColumn(columnName: string, columnData: any[] = []): void {
     this.displayedColumns.push(columnName);
-    console.log(this.displayedColumns)
    // console.log(columnData)
 
     // Add the new column to each row in dataSource with the provided data or empty strings
@@ -236,10 +227,8 @@ export class NamesUploaderComponent implements AfterViewInit {
     }
   }
   removeColumnsWithNumbers(): void {
-    console.log(this.displayedColumns)
     // Filtra las columnas cuyos nombres no contengan números
     this.displayedColumns = this.displayedColumns.filter(col => !/\d/.test(col));
-    console.log(this.displayedColumns)
 
     // Remueve las columnas con números de cada fila en el dataSource
     this.dataSource.forEach(row => {
@@ -272,6 +261,8 @@ export class NamesUploaderComponent implements AfterViewInit {
   }
 
   cancel(): void {
-    this.cancelEvent.emit(true);
+    this.dataSource = this.dataSourceCopy
+    this.displayedColumns = this.displayedColumnsCopy
+    this.cancelEvent.emit({dataSource:this.dataSource, columnsNames:this.displayedColumns});
   }
 }

@@ -767,4 +767,4 @@ justify-content: center;cursor: move; height: 25px; width: 100%;"><svg width="24
     [dataSource]="dataSource" (cancelEvent)="showModalTable = false"></app-table>
 
 <app-names-uploader *ngIf="showFileUploader"  (save)="upLoadNamesAndRationales(testNamesInput, false); showFileUploader = false" [displayedColumns]="columnsNames"
-[dataSource]="dataSource" [isRanking]="bmxItem.componentType" (cancelEvent)="showFileUploader = false"></app-names-uploader>
+[dataSource]="dataSource" [isRanking]="bmxItem.componentType" (cancelEvent)="cancelEvent($event)"></app-names-uploader>

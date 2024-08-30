@@ -24,12 +24,12 @@ export class NarrowDownComponent extends RatingScaleComponent implements OnInit 
   CREATION_VIDEO_PATH="assets/videos/NarrowDown.mp4"
   dataSource:any[] = []
   rankingScaleValue = 5
+  
   constructor(dragulaService: DragulaService, _snackBar: MatSnackBar,  _bmxService: BmxService,public deviceService: DeviceDetectorService) {
     super(dragulaService,_snackBar, _bmxService,deviceService)
   }
 
   ngOnInit(): void {
-    console.log(this.bmxItem)
     this.showDialog = false
     let selectedCriteria = [];
     this.rankingScaleValue = this.numRatingScale;

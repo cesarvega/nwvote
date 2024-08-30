@@ -1177,7 +1177,12 @@ export class RatingScaleComponent implements OnInit {
     { name: 'Fit to Corporate Mission' },
     { name: 'Overall Likeability' },
   ]
-
+  cancelEvent(event:any){
+    this.bmxItem.componentText = event.dataSource
+    this.columnsNames = event.columnsNames
+    this.showFileUploader = false
+    this.dataSource = event.dataSource
+  }
   showMatrixMenuBmx() {
     this.showMatrixMenu = !this.showMatrixMenu;
     if (this.showMatrixMenu) {
