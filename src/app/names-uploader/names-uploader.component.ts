@@ -58,12 +58,11 @@ export class NamesUploaderComponent implements AfterViewInit {
           this.updateDataSource(changes);
         },
         afterPaste: (changes: any[]) => {
-          console.log(changes[0])
+         // console.log(changes[0])
  if (changes[0].length >= this.displayedColumns.length) {
   const support = changes[0].length - this.displayedColumns.length;
-
   const newColumns: { name: string, values: any[] }[] = []; // types
-//
+  //console.log(changes)
   for (let index = 0; index < (this.isRanking === "ranking-scale" ?support :support+1) ; index++) {
    let columnIndex:number =0
 
@@ -77,7 +76,8 @@ export class NamesUploaderComponent implements AfterViewInit {
     //Extract the values of the new column from changes.
 
     const columnValues = changes.map(change => change[columnIndex]);
-
+    console.log(index)
+    //console.log(columnValues)
 
     const columnName = `new ${changes[0][columnIndex]}`;
 
@@ -130,7 +130,12 @@ export class NamesUploaderComponent implements AfterViewInit {
 
   addColumn(columnName: string, columnData: any[] = []): void {
     this.displayedColumns.push(columnName);
-   // console.log(columnData)
+    //console.log("---------------")
+    //console.log(columnData)
+   // console.log("---------------")
+
+   console.log(this.dataSource[0])
+
 
     // Add the new column to each row in dataSource with the provided data or empty strings
     this.dataSource.forEach((row, index) => {
@@ -162,55 +167,61 @@ export class NamesUploaderComponent implements AfterViewInit {
     });
 
     this.hotInstance.loadData(this.dataSource);
-    this.removeDuplicateColumns(); // Llamar a la función para eliminar columnas duplicadas
   }
 
   removeDuplicateColumns(): void {
     const columnsToRemove: string[] = [];
+    const seenColumns: Set<string> = new Set();
 
     this.displayedColumns.forEach((col, colIndex) => {
-      for (let i = colIndex + 1; i < this.displayedColumns.length; i++) {
-        const col2 = this.displayedColumns[i];
-        const isDuplicate = this.dataSource.every((row, rowIndex) => row[col] === row[col2]);
+        for (let i = colIndex + 1; i < this.displayedColumns.length; i++) {
+            const col2 = this.displayedColumns[i];
+            const isDuplicate = this.dataSource.every(row => row[col] === row[col2]);
 
-        if (isDuplicate) {
-          columnsToRemove.push(col2);
+            if (isDuplicate) {
+                if (!seenColumns.has(col)) {
+                    seenColumns.add(col);
+                } else {
+                    columnsToRemove.push(col2);
+                    break; // Detener después de encontrar y marcar la segunda columna duplicada
+                }
+            }
         }
-      }
     });
 
     columnsToRemove.forEach(col => {
-      this.displayedColumns = this.displayedColumns.filter(c => c !== col);
-      this.dataSource.forEach(row => delete row[col]);
+        this.displayedColumns = this.displayedColumns.filter(c => c !== col);
+        this.dataSource.forEach(row => delete row[col]);
     });
 
     this.hotInstance.updateSettings({
-      colHeaders: [...this.displayedColumns, 'Actions'],
-      columns: [
-        ...this.displayedColumns
-          .filter(col => col !== 'STARS' && col !== 'RATE' && !col.includes('RadioColumn'))
-          .map(col => ({
-            data: col,
-            width: 150,
-          })),
-        {
-          data: 'actions',
-          renderer: (instance, td, row, col, prop, value, cellProperties) => {
-            Handsontable.renderers.TextRenderer.apply(this, [instance, td, row, col, prop, value, cellProperties]);
-            const button = document.createElement('button');
-            button.innerText = 'Delete';
-            button.onclick = () => this.removeRow(row);
-            td.appendChild(button);
-            td.style.textAlign = 'center';
-          },
-          width: 100,
-          readOnly: true,
-        }
-      ],
+        colHeaders: [...this.displayedColumns, 'Actions'],
+        columns: [
+            ...this.displayedColumns
+                .filter(col => col !== 'STARS' && col !== 'RATE' && !col.includes('RadioColumn'))
+                .map(col => ({
+                    data: col,
+                    width: 150,
+                })),
+            {
+                data: 'actions',
+                renderer: (instance, td, row, col, prop, value, cellProperties) => {
+                    Handsontable.renderers.TextRenderer.apply(this, [instance, td, row, col, prop, value, cellProperties]);
+                    const button = document.createElement('button');
+                    button.innerText = 'Delete';
+                    button.onclick = () => this.removeRow(row);
+                    td.appendChild(button);
+                    td.style.textAlign = 'center';
+                },
+                width: 100,
+                readOnly: true,
+            }
+        ],
     });
 
     this.hotInstance.loadData(this.dataSource);
-  }
+}
+
 
   addRow(): void {
     const newRow = this.displayedColumns.reduce((acc, col) => {
@@ -268,10 +279,13 @@ export class NamesUploaderComponent implements AfterViewInit {
   saveChanges(): void {
     this.save.emit(this.dataSource);
     if (this.isRanking === "rate-scale") {
-      null
-          }else{
+      console.log("es rate escale")
+      this.removeColumnsWithNumbers()
+
+    }else{
             this.removeColumnsWithNumbers()
-          }
+    }
+    this.removeDuplicateColumns();
   }
 
   cancel(): void {
