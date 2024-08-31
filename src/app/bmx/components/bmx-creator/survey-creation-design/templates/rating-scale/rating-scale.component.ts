@@ -147,7 +147,7 @@ export class RatingScaleComponent implements OnInit {
 
   ngOnInit(): void {
     this.showDialog = false
-   console.log(this.bmxItem    )
+   //console.log(this.bmxItem.componentText    )
     // COLUMN NAMES
     this.rankingScaleValue = this.numRatingScale;
     this.rowsCount = this.bmxItem.componentText.length - 1
@@ -574,7 +574,7 @@ export class RatingScaleComponent implements OnInit {
       });
 
       // Insertar la columna RATE en la posición original
-      const originalRatePosition = rateColumnIndex !== -1 ? rateColumnIndex : this.columnsNames.length;
+      const originalRatePosition =  this.columnsNames.length +1 ;
       this.columnsNames.splice(originalRatePosition, 0, 'RATE');
 
       this.TESTNAMES_LIST = [];
