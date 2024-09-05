@@ -533,7 +533,6 @@ export class RatingScaleComponent implements OnInit {
   // ⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️ END STARS METHODS  ⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️
 
   upLoadNamesAndRationales(list: any, type?: any, update?: boolean) {
-    console.log(this.bmxItem)
     if (typeof list == 'object') {
       list = ''
     }
@@ -557,7 +556,6 @@ export class RatingScaleComponent implements OnInit {
       if (rateColumnIndex !== -1) {
         this.columnsNames.splice(rateColumnIndex, 1); // Eliminar RATE si ya existe para evitar duplicación
       }
-      console.log(this.columnsNames)
       this.columnsNames.forEach((column, index) => {
         column = column.toLowerCase();
         if (nameCandidatesCounter == 0 && column.includes('candidates') || column == 'questions') {
@@ -614,7 +612,6 @@ export class RatingScaleComponent implements OnInit {
               });
             });
           } else {
-            console.log(this.rankingScaleValue)
             this.bmxItem.componentSettings[0].CRITERIA = false;
             objectColumnDesign['STARS'] = this.createRatingStars(this.rankingScaleValue, this.ratingScaleIcon);
             for (let e = 0; e < this.columnsNames.length; e++) {
@@ -723,23 +720,6 @@ export class RatingScaleComponent implements OnInit {
         });
       }
     }
-
-    setTimeout(() => {
-      this.rowsCount = this.bmxItem.componentText.length - 1;
-
-      if (this.newSet) {
-        this.bmxItem.componentSettings[0].minRule = this.rowsCount;
-        this.bmxItem.componentSettings[0].maxRule = this.rowsCount;
-        this.newSet = false;
-      }
-
-      if (this.bmxItem.componentSettings[0].CRITERIA) {
-        this.bmxItem.componentSettings[0].minRule = this.bmxItem.componentSettings[0].minRule;
-        this.bmxItem.componentSettings[0].maxRule = this.bmxItem.componentSettings[0].maxRule;
-      }
-
-      this.dragRows = false;
-    }, 0);
   }
   removeAllRadioColumns() {
     this.columnsNames = this.columnsNames.filter(col => !col.includes('RadioColumn'));
@@ -751,7 +731,6 @@ export class RatingScaleComponent implements OnInit {
         }
       }
     });
-    console.log(this.bmxItem.componentText)
     this.radioColumnCounter = 1;
   }
 

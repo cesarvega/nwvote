@@ -82,7 +82,6 @@ export class ImageRateScaleComponent extends RatingScaleComponent implements OnI
   ngOnInit(): void {
 
     this.showDialog = false
-    console.log(this.bmxItem)
     this.bmxItem.componentText.forEach(data =>{
       if (data.RATE>0){
         this.ratedCounter++
@@ -119,7 +118,6 @@ export class ImageRateScaleComponent extends RatingScaleComponent implements OnI
 
     this.launchPathModal.emit(this.VIDEO_PATH)
     const filteredCriteria = this.CRITERIA.filter(criteriaItem => this.selectedCriteria.map(item => item.name).includes(criteriaItem.name));
-    
     this.bmxItem.componentSettings[0].minRule = this.bmxItem.componentSettings[0].minRule > 0 ? this.bmxItem.componentSettings[0].minRule : this.bmxItem.componentText.length;
     this.bmxItem.componentSettings[0].maxRule = this.bmxItem.componentSettings[0].maxRule > 0 ? this.bmxItem.componentSettings[0].maxRule : this.bmxItem.componentText.length;
     this.newselectedCriteria = filteredCriteria
@@ -134,8 +132,6 @@ export class ImageRateScaleComponent extends RatingScaleComponent implements OnI
     const isMobile = this.deviceService.isMobile();
     const isTablet = this.deviceService.isTablet();
     this.isDesktopDevice = this.deviceService.isDesktop();
-    console.log(isMobile);  // returns if the device is a mobile device (android / iPhone / windows-phone etc)
-    console.log(isTablet);  // returns if the device us a tablet (iPad etc)
   }
 
   onFileSelected(event) {
