@@ -147,7 +147,7 @@ export class RatingScaleComponent implements OnInit {
 
   ngOnInit(): void {
     this.showDialog = false
-   //console.log(this.bmxItem.componentText    )
+    //console.log(this.bmxItem.componentText    )
     // COLUMN NAMES
     this.rankingScaleValue = this.numRatingScale;
     this.rowsCount = this.bmxItem.componentText.length - 1
@@ -173,7 +173,7 @@ export class RatingScaleComponent implements OnInit {
     let columnNames = [];
     for (let key in firstObject) {
       // if (key === 'Name Candidates' || key === 'Rationales') {
-        columnNames.push(key);
+      columnNames.push(key);
       // }
     }
 
@@ -532,7 +532,7 @@ export class RatingScaleComponent implements OnInit {
   }
   // ⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️ END STARS METHODS  ⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️
 
-  upLoadNamesAndRationales(list: any, type?: any, update?:boolean) {
+  upLoadNamesAndRationales(list: any, type?: any, update?: boolean) {
     console.log(this.bmxItem)
     if (typeof list == 'object') {
       list = ''
@@ -574,7 +574,7 @@ export class RatingScaleComponent implements OnInit {
       });
 
       // Insertar la columna RATE en la posición original
-      const originalRatePosition =  this.columnsNames.length +1 ;
+      const originalRatePosition = this.columnsNames.length + 1;
       this.columnsNames.splice(originalRatePosition, 0, 'RATE');
 
       this.TESTNAMES_LIST = [];
@@ -692,12 +692,12 @@ export class RatingScaleComponent implements OnInit {
         });
       }
       this.removeAllRadioColumns();
-      if (this.bmxItem.componentSettings[0].rankType == 'radio' || this.bmxItem.componentSettings[0].rankType == 'dinamycRadio' ) {
+      if (this.bmxItem.componentSettings[0].rankType == 'radio' || this.bmxItem.componentSettings[0].rankType == 'dinamycRadio') {
         for (let index = 0; index < this.rankingScaleValue; index++) {
-        this.insertRadioColumn();
+          this.insertRadioColumn();
+        }
       }
-    }
-         this.dataSource = this.bmxItem.componentText;
+      this.dataSource = this.bmxItem.componentText;
     } else {
       this.autoSizeColumns('RATE', '', this.rankingScaleValue);
       if (this.ASSIGNED_CRITERIA.length > 0) {
@@ -1084,7 +1084,7 @@ export class RatingScaleComponent implements OnInit {
   }
 
   checkDragEvetn(e) {
-    this.dataSource=e
+    this.dataSource = e
   }
 
   toogleColumnResizer() {
@@ -1147,8 +1147,6 @@ export class RatingScaleComponent implements OnInit {
   }
 
   undo() {
-    console.log(this.HISTORY)
-    console.log(this.bmxItem)
     if (this.HISTORY.length > 0) {
 
       this.dragRows = true;
@@ -1161,7 +1159,10 @@ export class RatingScaleComponent implements OnInit {
       }, 1000);
     }
     this.showDialog = false
+
     this.recordHistory()
+    this.dataSource =
+    this.bmxItem.componentText
   }
 
   playTestNameSound(testNameSound: string) {
@@ -1187,7 +1188,7 @@ export class RatingScaleComponent implements OnInit {
     { name: 'Fit to Corporate Mission' },
     { name: 'Overall Likeability' },
   ]
-  cancelEvent(event:any){
+  cancelEvent(event: any) {
     this.bmxItem.componentText = event.dataSource
     this.columnsNames = event.columnsNames
     this.showFileUploader = false
