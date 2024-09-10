@@ -544,6 +544,7 @@ export class RatingScaleComponent implements OnInit {
 
     this.dragRows = true;
     if (!list) { list = this.listString; }
+    list = 'list'
     if (list) {
       this.listString = list;
       const rows = list.split("\n");

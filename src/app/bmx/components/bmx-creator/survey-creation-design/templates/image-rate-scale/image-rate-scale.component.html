@@ -17,83 +17,75 @@
 </div>
 <!-- ➗➗➗➗➗➗➗➗➗➗➗➗➗➗➗➗➗➗➗  SETTINGS ICONS  ➗➗➗➗➗➗➗➗➗➗➗➗➗➗➗➗➗ -->
 
-<div *ngIf="bmxClientPageOverview" class="overview" >
+<div *ngIf="bmxClientPageOverview" class="overview">
 
     <!-- ⏺⏺⏺⏺⏺⏺⏺⏺⏺⏺⏺⏺⏺⏺⏺⏺⏺⏺⏺⏺RAGE INPUTS FOR COLUMN SETTINGS ⏺⏺⏺⏺⏺⏺⏺⏺⏺⏺⏺⏺⏺⏺⏺⏺⏺⏺⏺ -->
 
-    <div *ngIf="isColumnResizerOn && bmxClientPageOverview" class="pageOverviee" >
-
-
-        <!-- NAME CANDIATES -->
-        <div style="display: flex;flex-direction: column;align-items: center;">
-            <p style="margin: 0 0 -12px;color: #324395;">candidates
-            </p>
-            <input type="range" style="margin: 20px;width: 50px;"
-                [(ngModel)]="bmxItem.componentSettings[0].nameCandidatesWidth" class="slider-font-size"
-                tickInterval="0.5" min="50" max="400" [value]="bmxItem.componentSettings[0].nameCandidatesWidth">
-        </div>
-
-        <!-- RATIONALE -->
-        <div *ngIf="columnsNames.includes('rationale')"
-            style="display: flex;flex-direction: column;align-items: center;">
-            <p style="margin: 0 0 -12px;color: #324395;">rationale
-            </p>
-            <input type="range" style="margin: 20px;width: 50px;"
-                [(ngModel)]="bmxItem.componentSettings[0].rationalewidth" class="slider-font-size" tickInterval="0.5"
-                min="50" max="600" [value]="bmxItem.componentSettings[0].rationalewidth">
-        </div>
+    <div *ngIf="isColumnResizerOn && bmxClientPageOverview" class="column-resizer">
 
         <!-- RATE -->
-        <div style="display: flex;flex-direction: column;align-items: center;">
-            <p style="margin: 0 0 -12px;color: #324395;">rank
+        <div class="settings-option">
+            <p class="settings-label">rank
             </p>
-            <input type="range" style="margin: 20px;width: 50px;" [(ngModel)]="bmxItem.componentSettings[0].rateWidth"
+            <input type="range" class="slider-font-size" [(ngModel)]="bmxItem.componentSettings[0].rateWidth"
                 class="slider-font-size" tickInterval="0.5" min="50" max="400"
                 [value]="bmxItem.componentSettings[0].rateWidth">
         </div>
-        <!-- COMMENTS -->
-        <div *ngIf="columnsNames.includes('Comments0')"
-            style="display: flex;flex-direction: column;align-items: center;">
-            <p style="margin: 0 0 -12px;color: #324395;">comments
+
+        <!-- NAME CANDIATES -->
+        <div class="settings-option">
+            <p class="settings-label">candidates
             </p>
-            <input type="range" style="margin: 20px;width: 50px;"
-                [(ngModel)]="bmxItem.componentSettings[0].commentsWidth" class="slider-font-size" tickInterval="0.5"
-                min="50" max="400" [value]="bmxItem.componentSettings[0].commentsWidth">
+            <input type="range" class="slider-font-size" [(ngModel)]="bmxItem.componentSettings[0].nameCandidatesWidth"
+                class="slider-font-size" tickInterval="0.5" min="50" max="400"
+                [value]="bmxItem.componentSettings[0].nameCandidatesWidth">
+        </div>
+
+        <!-- RATIONALE -->
+        <div class="settings-option">
+            <p class="settings-label">rationale
+            </p>
+            <input type="range" [(ngModel)]="bmxItem.componentSettings[0].rationalewidth" class="slider-font-size"
+                tickInterval="0.5" min="50" max="600" [value]="bmxItem.componentSettings[0].rationalewidth">
+        </div>
+
+        <!-- COMMENTS -->
+        <div class="settings-option">
+            <p class="settings-label">comments
+            </p>
+            <input type="range" class="slider-font-size" [(ngModel)]="bmxItem.componentSettings[0].commentsWidth"
+                class="slider-font-size" tickInterval="0.5" min="50" max="400"
+                [value]="bmxItem.componentSettings[0].commentsWidth">
         </div>
 
         <!-- REST OF THE COLUMNS -->
-        <div *ngIf="columnsNames.includes('ExtraColumn1')"
-            style="display: flex;flex-direction: column;align-items: center;">
-            <p style="margin: 0 0 -12px;color: #324395;">other columns
+        <div class="settings-option">
+            <p class="settings-label">other columns
             </p>
-            <input type="range" style="margin: 20px;width: 50px;" [(ngModel)]="bmxItem.componentSettings[0].columnWidth"
-                class="slider-font-size" tickInterval="0.5" min="50" max="400"
-                [value]="bmxItem.componentSettings[0].columnWidth">
+            <input type="range" class="slider-font-size" [(ngModel)]="bmxItem.componentSettings[0].columnWidth"
+                tickInterval="0.5" min="50" max="400" [value]="bmxItem.componentSettings[0].columnWidth">
         </div>
 
         <!-- ROW HEIGHT -->
 
-        <div style="display: flex;flex-direction: column;align-items: center;">
-            <p style="margin: 0 0 -12px;color: #324395;">row height</p>
-            <input type="range" style="margin: 20px;width: 60px;" [(ngModel)]="bmxItem.componentSettings[0].rowHeight"
-                class="slider-font-size" tickInterval="0.5" min="-10" max="20"
-                [value]="bmxItem.componentSettings[0].rowHeight">
+        <div class="settings-option">
+            <p class="settings-label">row height</p>
+            <input type="range" class="slider-font-size" [(ngModel)]="bmxItem.componentSettings[0].rowHeight"
+                tickInterval="0.5" min="-10" max="20" [value]="bmxItem.componentSettings[0].rowHeight">
         </div>
 
         <!-- FONT -->
-        <div style="display: flex;flex-direction: column;align-items: center;">
-            <p style="margin: 0 0 -12px;color: #324395;">font size: {{bmxItem.componentSettings[0].fontSize}}</p>
-            <input type="range" style="margin: 20px;width: 50px;" [(ngModel)]="bmxItem.componentSettings[0].fontSize"
-                class="slider-font-size" tickInterval="0.1" min="2" max="0"
-                [value]="bmxItem.componentSettings[0].fontSize">
+        <div class="settings-option">
+            <p class="settings-label">font size: {{bmxItem.componentSettings[0].fontSize}}</p>
+            <input type="range" class="row-height-settings" [(ngModel)]="bmxItem.componentSettings[0].fontSize"
+                tickInterval="0.1" min="2" max="50" [value]="bmxItem.componentSettings[0].fontSize">
         </div>
 
         <!-- RADIO -->
-        <div *ngIf="radioColumnCounter > 1" style="display: flex;flex-direction: column;align-items: center;">
-            <p style="margin: 0 0 -12px;color: #324395;">radio</p>
-            <input type="range" style="margin: 20px;width: 50px;"
-                [(ngModel)]="bmxItem.componentSettings[0].radioColumnsWidth" class="slider-font-size" tickInterval="0.5"
-                min="50" max="100" [value]="bmxItem.componentSettings[0].radioColumnsWidth">
+        <div *ngIf="radioColumnCounter > 1" class="settings-option">
+            <p class="settings-label">radio</p>
+            <input type="range" class="slider-font-size" [(ngModel)]="bmxItem.componentSettings[0].radioColumnsWidth"
+                tickInterval="0.5" min="50" max="100" [value]="bmxItem.componentSettings[0].radioColumnsWidth">
         </div>
     </div>
 
@@ -168,7 +160,7 @@
             matTooltip="uploadImages" matTooltipPosition="above" mat-icon-button aria-label="ranking">
             <mat-icon style="font-size: 26px;" class="full-icon">collections</mat-icon>
         </button>
-        <button (click)="showModalTable = true" class="add-column" matTooltip="update names" matTooltipPosition="above"
+        <button (click)="showFileUploader = true" class="add-column" matTooltip="update names" matTooltipPosition="above"
             *ngIf="i !== selectedIndex" mat-icon-button>
             <mat-icon style="font-size: 25px;" class="full-icon"> text_fields</mat-icon>
         </button>
@@ -180,8 +172,7 @@
 
 <!-- 🔧🔧🔧🔧🔧🔧🔧🔧🔧🔧🔧🔧🔧🔧🔧🔧🔧🔧🔧🔧🔧🔧END CONFIG BOX 🔧🔧🔧🔧🔧🔧🔧🔧🔧🔧🔧🔧🔧🔧🔧🔧🔧🔧🔧🔧🔧 -->
 <!-- 👩🏽‍🔧👩🏽‍🔧👩🏽‍🔧👩🏽‍🔧👩🏽‍🔧👩🏽‍🔧👩🏽‍🔧👩🏽‍🔧👩🏽‍🔧👩🏽‍🔧👩🏽‍🔧👩🏽‍🔧👩🏽‍🔧👩🏽‍🔧👩🏽‍🔧👩🏽‍🔧👩🏽‍🔧👩🏽‍🔧👩🏽‍🔧👩🏽‍🔧👩🏽‍🔧👩🏽‍🔧 UPLOAD IMAGES BOX 👩🏽‍🔧👩🏽‍🔧👩🏽‍🔧👩🏽‍🔧👩🏽‍🔧👩🏽‍🔧👩🏽‍🔧👩🏽‍🔧👩🏽‍🔧👩🏽‍🔧👩🏽‍🔧👩🏽‍🔧👩🏽‍🔧👩🏽‍🔧👩🏽‍🔧👩🏽‍🔧👩🏽‍🔧👩🏽‍🔧👩🏽‍🔧👩🏽‍🔧👩🏽‍🔧👩🏽‍🔧 -->
-<div *ngIf="uploadImagesBox" class="mat-elevation-z4 upload-image-box" cdkDrag
-    >
+<div *ngIf="uploadImagesBox" class="mat-elevation-z4 upload-image-box" cdkDrag>
     <div class="image-box-drag" cdkDragHandle> </div>
     <div style="text-align: center;">
         <div style="font-size: 16px;margin: 20px;color: #48535e;">UPLOAD IMAGES</div>
@@ -249,8 +240,7 @@ z-index: 1;top: -65px;left: 25%;border: #063074 3px solid; overflow: auto;
        max-height: 36rem;
     bottom: -2; ">
 
-    <div class="example-handle" cdkDragHandle ><svg width="24px" fill="currentColor"
-            viewBox="0 0 24 24">
+    <div class="example-handle" cdkDragHandle><svg width="24px" fill="currentColor" viewBox="0 0 24 24">
             <path
                 d="M10 9h4V6h3l-5-5-5 5h3v3zm-1 1H6V7l-5 5 5 5v-3h3v-4zm14 2l-5-5v3h-3v4h3v3l5-5zm-9 3h-4v3H7l5 5 5-5h-3v-3z">
             </path>
@@ -584,18 +574,12 @@ z-index: 1;top: -65px;left: 25%;border: #063074 3px solid; overflow: auto;
 
 
                         <!-- TEXT_AREA COLUMN-->
-                        <textarea *ngIf="y !== 0 && columnName.includes('Comments')"
-                        cdkTextareaAutosize
-                        [cdkAutosizeMinRows]="bmxItem.componentSettings[0].rowHeight"
-                        [cdkAutosizeMaxRows]="10" 
-                        [style.width]="(bmxItem.componentSettings[0].commentsWidth - 20) + 'px'"
-                        [style.fontSize]="bmxItem.componentSettings[0].fontSize + 'px'"
-                        [style.textAlign]="'center'"
-                        [style.border]="'1px solid #dddddd'"
-                        class="row-box"
-                        [style.height]="'132px'"
-    
-                        [(ngModel)]="testName[columnName]">
+                        <textarea *ngIf="y !== 0 && columnName.includes('Comments')" cdkTextareaAutosize
+                            [cdkAutosizeMinRows]="bmxItem.componentSettings[0].rowHeight" [cdkAutosizeMaxRows]="10"
+                            [style.width]="(bmxItem.componentSettings[0].commentsWidth - 20) + 'px'"
+                            [style.fontSize]="bmxItem.componentSettings[0].fontSize + 'px'" [style.textAlign]="'center'"
+                            [style.border]="'1px solid #dddddd'" class="row-box" [style.height]="'132px'"
+                            [(ngModel)]="testName[columnName]">
               </textarea>
 
 
@@ -809,5 +793,7 @@ z-index: 1;top: -65px;left: 25%;border: #063074 3px solid; overflow: auto;
 </div>
 
 <!--📱📱📱📱📱📱📱📱📱📱📱📱📱📱📱📱📱📱📱📱📱📱📱📱📱📱📱📱📱📱📱 END TABLE GENERATOR 📱📱📱📱📱📱📱📱📱📱📱📱📱📱📱📱📱📱📱📱📱📱📱📱📱📱📱📱📱📱📱📱📱📱-->
-<app-table *ngIf="showModalTable" (save)="showModalTable = $event" [displayedColumns]="columnsNames"
-    [dataSource]="dataSource" (cancelEvent)="showModalTable = false"></app-table>
+<app-names-uploader
+    *ngIf="showFileUploader"  [componentSetting]="bmxItem.componentSettings" (save)="upLoadNamesAndRationales(testNamesInput, false); showFileUploader = false"
+    [displayedColumns]="columnsNames" [dataSource]="dataSource"  [isRanking]="bmxItem.componentType"
+    (cancelEvent)="cancelEvent($event)"></app-names-uploader>

@@ -138,7 +138,7 @@ export class ImageRankDragComponent extends RatingScaleComponent implements OnIn
     this.bmxItem.componentSettings[0].minRule = this.bmxItem.componentSettings[0].minRule > 0 ? this.bmxItem.componentSettings[0].minRule : this.bmxItem.componentText.length;
     this.bmxItem.componentSettings[0].maxRule = this.bmxItem.componentSettings[0].maxRule > 0 ? this.bmxItem.componentSettings[0].maxRule : this.bmxItem.componentText.length;
     this.rankingScaleValue = this.bmxItem.componentText[0].STARS.length;
-    this.dataSource = this.bmxItem.componentText.slice(1)
+    this.dataSource = this.bmxItem.componentText
   }
 
   onFileSelected(event) {
@@ -209,7 +209,15 @@ export class ImageRankDragComponent extends RatingScaleComponent implements OnIn
         if (this.bmxItem.componentText[index + 1]) {
           this.bmxItem.componentText[index + 1].nameCandidates = JSON.parse(result.d).FileUrl
         } else {
-          this.bmxItem.componentText.push({ nameCandidates: JSON.parse(result.d).FileUrl })
+          this.bmxItem.componentText.push({ ...this.bmxItem.componentText[1], nameCandidates: JSON.parse(result.d).FileUrl })
+          const lastItem = this.bmxItem.componentText[this.bmxItem.componentText.length - 1];
+          for (const key in lastItem) {
+            if (lastItem.hasOwnProperty(key)) {
+              if(key != 'RATE'&& key != 'nameCandidates' && key!= 'STARS'){
+                lastItem[key]=''
+              }
+            }
+          }
         }
 
       });
