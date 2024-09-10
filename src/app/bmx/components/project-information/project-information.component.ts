@@ -17,8 +17,11 @@ import { Router } from '@angular/router';
 export class ProjectInformationComponent implements OnInit {
   DIRECTORS_Filtered: any[];
   dialogText: any;
+  minDate: Date;
 
-  constructor(private _BmxService: BmxService, private _snackBar: MatSnackBar, private router: Router) { }
+  constructor(private _BmxService: BmxService, private _snackBar: MatSnackBar, private router: Router) {
+    this.minDate = new Date();
+   }
   settingsData = {
     SalesBoardProjectList: [],
     BrandMatrixTemplateList: [],
@@ -203,7 +206,6 @@ export class ProjectInformationComponent implements OnInit {
       this.status = 'open';
 }
   saveProjectInfo() {
-    console.log(this.status)
     if (this.bmxEditData.valid) {
       const storageName = localStorage.getItem('projectName')
       if (storageName != 'null' && storageName!= null && storageName!= undefined && storageName!= 'undefined')  {
