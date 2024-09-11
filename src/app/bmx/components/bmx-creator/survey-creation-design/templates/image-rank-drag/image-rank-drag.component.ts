@@ -131,10 +131,13 @@ export class ImageRankDragComponent extends RatingScaleComponent implements OnIn
     this.launchPathModal.emit(this.VIDEO_PATH)
     const filteredCriteria = this.CRITERIA.filter(criteriaItem => this.selectedCriteria.map(item => item.name).includes(criteriaItem.name));
     this.newselectedCriteria = filteredCriteria
-    
+    console.log(this.bmxItem.componentText)
     this.dataSource = this.bmxItem.componentText
   }
 
+  substractRatedCounter() {
+    this.ratedCounter--
+  }
   onFileSelected(event) {
     if (event.target.files && event.target.files[0]) {
       let filesAmount = event.target.files.length;
@@ -251,11 +254,7 @@ export class ImageRankDragComponent extends RatingScaleComponent implements OnIn
   checkDragEvetn(event: CdkDragDrop<string[]>) {
     if (event.previousIndex > 0) {
       moveItemInArray(this.bmxItem.componentText, event.previousIndex, event.currentIndex);
-      this.bmxItem.componentText.forEach((row, rowIndex) => {
-        if (rowIndex > 0) {
-          row.RATE = rowIndex
-        }
-      })
+     
       this.autoSave.emit()
     }
   }
