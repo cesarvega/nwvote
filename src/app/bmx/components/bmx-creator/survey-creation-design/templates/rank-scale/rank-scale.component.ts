@@ -21,12 +21,12 @@ export class RankScaleComponent extends RatingScaleComponent implements OnInit {
   @Input() bmxClientPageOverview;
   @Output() autoSave = new EventEmitter();
   showBar = false
+
   CREATION_VIDEO_PATH = "assets/videos/RankMatrix.mp4"
   VIDEO_PATH: any[] = [];
 
   PATH1: any[] = [
     'assets/img/bmx/tutorial/image-drag.JPG',
-
   ]
 
   PATH2: any[] = [
@@ -49,7 +49,7 @@ export class RankScaleComponent extends RatingScaleComponent implements OnInit {
 
   ngOnInit(): void {
     this.showDialog = false
-
+    console.log(this.bmxItem)
     this.rankingScaleValue = this.bmxItem.componentSettings[0].selectedRanking
     this.createRatingStars(this.rankingScaleValue)
     // this.rankingTableType( this.bmxItem.componentSettings[0].rankType)
@@ -58,8 +58,6 @@ export class RankScaleComponent extends RatingScaleComponent implements OnInit {
 
     this.rowsCount = this.bmxItem.componentText.length - 1;
 
-    this.bmxItem.componentSettings[0].minRule = this.bmxItem.componentSettings[0].minRule > 0 ? this.bmxItem.componentSettings[0].minRule : this.bmxItem.componentText.length-1;
-    this.bmxItem.componentSettings[0].maxRule = this.bmxItem.componentSettings[0].maxRule > 0 ? this.bmxItem.componentSettings[0].maxRule : this.bmxItem.componentText.length-1;
     if (this.rankingType == 'dropDown') {
       this.draggableBag = ''
       this.isdropDown = true
@@ -85,15 +83,14 @@ export class RankScaleComponent extends RatingScaleComponent implements OnInit {
 
     let result = '';
 
-    // Obtener las claves de la primera fila (los nombres de las propiedades)
     let firstObject = this.bmxItem.componentText[0];
+    console.log(firstObject)
     let columnNames = [];
     for (let key in firstObject) {
       if (key === 'Name Candidates' || key === 'Rationales') {
         columnNames.push(key);
       }
     }
-    // Agregar cada objeto como una fila en el resultado
     for (let obj of this.bmxItem.componentText) {
       let values = [];
       for (let key in obj) {
@@ -104,8 +101,8 @@ export class RankScaleComponent extends RatingScaleComponent implements OnInit {
           }
         }
       }
-      if (values.length > 0) {  // Verificar si hay valores para esta fila
-        result += values.join('\t') + '\n';  // Agregar la línea al resultado
+      if (values.length > 0) {
+        result += values.join('\t') + '\n';
       }
     }
 
@@ -135,7 +132,9 @@ export class RankScaleComponent extends RatingScaleComponent implements OnInit {
     const filteredCriteria = this.CRITERIA.filter(criteriaItem => this.selectedCriteria.map(item => item.name).includes(criteriaItem.name));
     this.newselectedCriteria = filteredCriteria
     this.rankingScaleValue = this.bmxItem.componentText[0].STARS.length;
-    this.dataSource = this.bmxItem.componentText.slice(1)
+    this.dataSource = this.bmxItem.componentText
+    this.recordHistory();
+
   }
 
   checkDragEvetn(event: CdkDragDrop<string[]>) {
@@ -147,6 +146,7 @@ export class RankScaleComponent extends RatingScaleComponent implements OnInit {
         }
       })
     }
+    this.dataSource=this.bmxItem.componentText
     this.autoSave.emit()
   }
 
@@ -161,123 +161,205 @@ export class RankScaleComponent extends RatingScaleComponent implements OnInit {
     }
     return startCounter;
   }
-  
-  upLoadNamesAndRationales(list: string, type?: any) {
+  upLoadNamesAndRationales(list: any, type?: any, update?:boolean) {
+    if (typeof list == 'object') {
+      list = ''
+    }
+    this.uploadImagesIcon = true;
+    this.bmxItem.componentSettings[0].randomizeTestNames = this.randomizeTestNames ? true : false;
+    if (update) {
+      this.recordHistory();
+    }
     this.dragRows = true;
-    console.log(this.bmxItem.componentText)
-    this.bmxItem.componentSettings[0].randomizeTestNames = (this.randomizeTestNames) ? true : false
     if (!list) { list = this.listString; }
     if (list) {
-      this.showBar = true
       this.listString = list;
       const rows = list.split("\n");
-      if (type) {
-        this.rankingScaleValue = rows.length - 1
-      }
-      this.columnsNames = [];
-      this.columnsNames = rows[0].toLowerCase().split("\t");
 
-      let nameCandidatesCounter = 0
-      this.extraColumnCounter = 1
+      let nameCandidatesCounter = 0;
+      this.extraColumnCounter = 1;
+
       // COLUMNS NAMES CHECK
-      this.columnsNames.forEach((column, index) => {
-        column = column.toLowerCase()
-        if (nameCandidatesCounter == 0 && column.includes('candidates') || column == 'questions') {
-          this.columnsNames[index] = 'nameCandidates'
-          nameCandidatesCounter++
-        } else
-          if (column == 'name rationale' || column == 'rationale' || column == 'rationales') {
-            this.columnsNames[index] = 'rationale'
-          }
-          else if (column == 'katakana') {
-            this.columnsNames[index] = 'katakana'
-          }
-          else {
-            if (this.bmxItem.componentSettings[0].rankType != 'radio' || this.bmxItem.componentSettings[0].rankType != 'dinamycRadio') {
-              this.columnsNames[index] = 'ExtraColumn' + this.extraColumnCounter
-              this.extraColumnCounter++
-            }
-          }
-      });
-      this.TESTNAMES_LIST = [];
-      let index = 0;
-      for (const element of rows) {
+      const rateColumnIndex = this.columnsNames.findIndex(column => column === 'RATE');
+      console.log(rateColumnIndex + "este es el rateco")
+      if (rateColumnIndex !== -1) {
+        this.columnsNames.splice(rateColumnIndex, 1);
+      }
 
-        if (element != "" && element.length > 6) {
+      this.columnsNames.forEach((column, index) => {
+        column = column.toLowerCase();
+        if (nameCandidatesCounter == 0 && column.includes('candidates') || column == 'questions') {
+          nameCandidatesCounter++;
+        } else if (column == 'name rationale' || column == 'rationale' || column == 'rationales') {
+          // Logic for rationale columns
+        } else if (column == 'katakana') {
+          // Logic for katakana column
+        } else {
+          if (this.bmxItem.componentSettings[0].rankType != 'radio' || this.bmxItem.componentSettings[0].rankType != 'dinamycRadio') {
+            this.extraColumnCounter++;
+          }
+        }
+      });
+
+      const originalRatePosition = rateColumnIndex !== -1 ? rateColumnIndex : this.columnsNames.length;
+
+      if (rateColumnIndex != -1) {
+        this.columnsNames.splice(originalRatePosition, 0, 'RATE');
+      }
+
+      this.TESTNAMES_LIST = [];
+      if (rateColumnIndex != -1) {
+        this.autoSizeColumns('RATE', '', this.rankingScaleValue);
+      }
+
+      // TEST NAMES CHECK
+      let index = 0;
+      for (let i = 0; i < rows.length; i++) {
+        if (rows[i] != "" && rows[i].length > 6) {
           let objectColumnDesign = {};
-          if (this.ASSIGNED_CRITERIA.length > 0) {
+          if (this.ASSIGNED_CRITERIA.length > 0) { // CRITERIA
+            this.bmxItem.componentSettings[0].CRITERIA = true;
+            this.bmxItem.componentSettings[0].rateWidth = (this.bmxItem.componentSettings[0].rateWidth < 220) ? 220 : this.bmxItem.componentSettings[0].rateWidth;
 
             for (let e = 0; e < this.columnsNames.length; e++) {
-              if ((element.split("\t").length > 0)) {
-                objectColumnDesign[this.columnsNames[e]] = element.split("\t")[e]
+              if (rows[i].split("\t").length > 0) {
+                const columnName = this.columnsNames[e];
+                let columnValue;
+                if (this.bmxItem.componentText.length > i && columnName == 'nameCandidates') {
+                  columnValue = this.bmxItem.componentText[i].nameCandidates == "LOGO" ? this.bmxItem.componentText[i].nameCandidates : rows[i].split("\t")[e].trim();
+                } else {
+                  columnValue = rows[i].split("\t")[e] ? rows[i].split("\t")[e].trim() : '';
+                }
+                objectColumnDesign[columnName] = columnValue;
+                if (i != 0) {
+                  this.autoSizeColumns(columnName, columnValue);
+                }
               }
             }
-            objectColumnDesign['CRITERIA'] = []
-            this.ASSIGNED_CRITERIA.forEach(criteria => {
+
+            if (rateColumnIndex != -1) {
+              objectColumnDesign['RATE'] = i > 0 ? -1 : 'RATE';
+            } objectColumnDesign['CRITERIA'] = [];
+            this.ASSIGNED_CRITERIA.forEach((criteria, index) => {
               objectColumnDesign['CRITERIA'].push({
                 name: criteria.name,
                 STARS: this.createRatingStars(this.rankingScaleValue, this.ratingScaleIcon),
                 RATE: -1,
-              })
+              });
             });
           } else {
-            console.log(element)
-            for (const key in this.bmxItem.componentText[1]) {
-              if (this.bmxItem.componentText[1].hasOwnProperty(key) && key.startsWith("Comments")) {
-                // Obtiene el número de la propiedad de comentarios
-                const num = key.replace("Comments", "");
-                // Agrega la propiedad de comentarios al arreglo this.columnsNames
-                objectColumnDesign[key] = "";
-              }
-            }
-            for (const key in objectColumnDesign) {
-              if (objectColumnDesign.hasOwnProperty(key) && key.startsWith("Comments")) {
-                // Obtiene el número de la propiedad de comentarios
-                // Agrega la propiedad de comentarios al arreglo this.columnsNames
-                this.columnsNames.push(key)
-              }
-            }
+            this.bmxItem.componentSettings[0].CRITERIA = false;
             objectColumnDesign['STARS'] = this.createRatingStars(this.rankingScaleValue, this.ratingScaleIcon);
             for (let e = 0; e < this.columnsNames.length; e++) {
-              if ((element.split("\t").length > 0)) {
-                objectColumnDesign[this.columnsNames[e]] = element.split("\t")[e]
+              if (rows[i].split("\t").length > 0) {
+                const columnName = this.columnsNames[e];
+                let columnValue;
+                if (this.bmxItem.componentText.length > i && columnName == 'nameCandidates') {
+                  columnValue = this.bmxItem.componentText[i].nameCandidates == "LOGO" ? this.bmxItem.componentText[i].nameCandidates : rows[i].split("\t")[e].trim();
+                } else {
+                  columnValue = rows[i].split("\t")[e] ? rows[i].split("\t")[e].trim() : '';
+                }
+                objectColumnDesign[columnName] = columnValue;
+                if (i != 0) {
+                  this.autoSizeColumns(columnName, columnValue);
+                }
               }
             }
           }
+          if (rateColumnIndex != -1) {
+            objectColumnDesign['RATE'] = i > 0 ? -1 : 'RATE';
+          }
+          objectColumnDesign['STARS'] = this.createRatingStars(this.rankingScaleValue, this.ratingScaleIcon);
+          for (let b = 0; b < this.columnsNames.length; b++) {
+            if (rows[i].split("\t").length > 0 && this.columnsNames[b] !== 'nameCandidates') {
+              objectColumnDesign[this.columnsNames[b]] = rows[i].split("\t")[b];
+            }
+          }
+          if (this.bmxItem.componentType == 'narrow-down') {
+            objectColumnDesign['SELECTED_ROW'] = false;
+          }
           const newObj = {};
 
-          // Copia las propiedades que no contienen "Comments"
+          for (const key in this.bmxItem.componentText[1]) {
+            if (this.bmxItem.componentText[1].hasOwnProperty(key) && key.startsWith("Comments")) {
+              objectColumnDesign[key] = "";
+            }
+          }
+
           for (const key in objectColumnDesign) {
             if (objectColumnDesign.hasOwnProperty(key) && !key.includes("Comments")) {
               newObj[key] = objectColumnDesign[key];
             }
           }
 
-          // Copia las propiedades que contienen "Comments"
           for (const key in objectColumnDesign) {
             if (objectColumnDesign.hasOwnProperty(key) && key.includes("Comments")) {
-              index == 0? newObj[key] = 'Comments': newObj[key] = '';
-             
+              newObj[key] = index == 0 ? this.bmxItem.componentText[0][key] : '';
             }
           }
           this.TESTNAMES_LIST.push(newObj);
-          index++
+          index++;
         }
       }
-      this.bmxItem.componentText = this.deleteDuplicates(this.TESTNAMES_LIST, 'nameCandidates');
-      this.columnsNames.push('RATE')
-      this.dataSource = this.bmxItem.componentText.slice(1)
-    } else {
-      this.bmxItem.componentText.forEach((row, index) => {
-        row.STARS = this.createRatingStars(this.rankingScaleValue, this.ratingScaleIcon)
-      });
-    }
-    setTimeout(() => {
-      if (this.bmxItem.componentSettings[0].rankType == 'radio' || this.bmxItem.componentSettings[0].rankType == 'dinamycRadio') {
-        this.rowsCount = this.bmxItem.componentText.length - 1;
+      if (this.ASSIGNED_CRITERIA.length > 0) { // CRITERIA
+        this.bmxItem.componentText.forEach((row, index) => {
+          let CRITERIA = [];
+          this.ASSIGNED_CRITERIA.forEach(criteria => {
+            CRITERIA.push({
+              name: criteria.name,
+              STARS: this.createRatingStars(this.rankingScaleValue, this.ratingScaleIcon),
+              RATE: index > 0 ? -1 : row.RATE,
+            });
+          });
+          row.CRITERIA = CRITERIA;
+          delete row["'STARS'"];
+        });
       } else {
-        this.rowsCount = this.bmxItem.componentText.length - 1;
+        this.bmxItem.componentText.forEach((row, index) => {
+          if (rateColumnIndex != -1) {
+            row.RATE = index > 0 ? -1 : row.RATE;
+          }
+          row.STARS = this.createRatingStars(this.rankingScaleValue, this.ratingScaleIcon);
+          delete row['CRITERIA'];
+        });
       }
+      this.removeAllRadioColumns();
+      if (this.bmxItem.componentSettings[0].rankType == 'radio' || this.bmxItem.componentSettings[0].rankType == 'dinamycRadio' ) {
+        for (let index = 0; index < this.rankingScaleValue; index++) {
+          this.insertRadioColumn();
+        }
+      }
+      this.dataSource = this.bmxItem.componentText;
+
+    } else {
+      this.autoSizeColumns('RATE', '', this.rankingScaleValue);
+      if (this.ASSIGNED_CRITERIA.length > 0) {
+        this.bmxItem.componentSettings[0].CRITERIA = true;
+        this.bmxItem.componentText.forEach((row, index) => {
+          let CRITERIA = [];
+          this.ASSIGNED_CRITERIA.forEach(criteria => {
+            CRITERIA.push({
+              name: criteria.name,
+              STARS: this.createRatingStars(this.rankingScaleValue, this.ratingScaleIcon),
+              RATE: index > 0 ? -1 : 'RATE',
+            });
+          });
+          row.CRITERIA = CRITERIA;
+          delete row["'STARS'"];
+        });
+      } else {
+        this.bmxItem.componentSettings[0].CRITERIA = false;
+        this.bmxItem.componentText.forEach((row, index) => {
+          row.STARS = this.createRatingStars(this.rankingScaleValue, this.ratingScaleIcon);
+          row.RATE = index > 0 ? -1 : 'RATE';
+          delete row['CRITERIA'];
+        });
+      }
+    }
+
+    setTimeout(() => {
+      this.rowsCount = this.bmxItem.componentText.length - 1;
+
       if (this.newSet) {
         this.bmxItem.componentSettings[0].minRule = this.rowsCount;
         this.bmxItem.componentSettings[0].maxRule = this.rowsCount;
@@ -285,19 +367,12 @@ export class RankScaleComponent extends RatingScaleComponent implements OnInit {
       }
 
       if (this.bmxItem.componentSettings[0].CRITERIA) {
-        //MULTIPLY FOR THE AMOUNT OF CRITERIA
-        this.bmxItem.componentSettings[0].minRule = this.bmxItem.componentSettings[0].minRule * this.bmxItem.componentText[0].CRITERIA.length
+        this.bmxItem.componentSettings[0].minRule = this.bmxItem.componentSettings[0].minRule;
+        this.bmxItem.componentSettings[0].maxRule = this.bmxItem.componentSettings[0].maxRule;
       }
-      this.dragRows = false;
-    }, 1000);
 
-    this.rankingTableType(this.bmxItem.componentSettings[0].rankType)
-    setTimeout(() => {
       this.dragRows = false;
-    }, 1000);
-
-    this.bmxItem.componentSettings[0].selectedRanking = this.rankingScaleValue
-    console.log(this.bmxItem.componentText)
+    }, 0);
   }
 
   rankingTableType(rankingType) {
@@ -324,18 +399,19 @@ export class RankScaleComponent extends RatingScaleComponent implements OnInit {
       this.draggableBag = 'DRAGGABLE_RANK_ROW'
       this.isdropDown = false
 
-    } else if (rankingType == 'radio' || rankingType == 'dinamycRadio') {
-      this.bmxItem.componentSettings[0].rateWidth = 80
+    }
+     if (rankingType == 'radio' || rankingType == 'dinamycRadio') {
+      this.bmxItem.componentSettings[0].rateWidth = 120
       this.draggableBag = ''
       this.isdropDown = false
       this.radioColumnCounter = 1
       this.rowsCount = this.bmxItem.componentText.length - 1;
       for (let index = 0; index < this.rankingScaleValue; index++) {
-        this.insertRadioColumn()
+      this.insertRadioColumn()
       }
     }
+    console.log(this.bmxItem.componentText)
   }
-
 
   toggleScrolling() {
     this.allowScrolling = !this.allowScrolling

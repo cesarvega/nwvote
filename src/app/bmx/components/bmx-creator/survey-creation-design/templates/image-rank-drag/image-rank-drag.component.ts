@@ -99,9 +99,6 @@ export class ImageRankDragComponent extends RatingScaleComponent implements OnIn
     });
 
     this.rowsCount = this.bmxItem.componentText.length - 1
-    this.bmxItem.componentSettings[0].minRule = this.bmxItem.componentSettings[0].minRule == 0 ? 0 : this.bmxItem.componentSettings[0].minRule;
-    this.bmxItem.componentSettings[0].maxRule = this.bmxItem.componentSettings[0].maxRule == 0 ? 0 : this.bmxItem.componentSettings[0].maxRule;
-
     this.randomizeTestNames = this.bmxItem.componentSettings[0].randomizeTestNames
 
     if (this.rankingType == 'dropDown') {
@@ -134,13 +131,13 @@ export class ImageRankDragComponent extends RatingScaleComponent implements OnIn
     this.launchPathModal.emit(this.VIDEO_PATH)
     const filteredCriteria = this.CRITERIA.filter(criteriaItem => this.selectedCriteria.map(item => item.name).includes(criteriaItem.name));
     this.newselectedCriteria = filteredCriteria
-    
-    this.bmxItem.componentSettings[0].minRule = this.bmxItem.componentSettings[0].minRule > 0 ? this.bmxItem.componentSettings[0].minRule : this.bmxItem.componentText.length;
-    this.bmxItem.componentSettings[0].maxRule = this.bmxItem.componentSettings[0].maxRule > 0 ? this.bmxItem.componentSettings[0].maxRule : this.bmxItem.componentText.length;
-    this.rankingScaleValue = this.bmxItem.componentText[0].STARS.length;
-    this.dataSource = this.bmxItem.componentText.slice(1)
+    console.log(this.bmxItem.componentText)
+    this.dataSource = this.bmxItem.componentText
   }
 
+  substractRatedCounter() {
+    this.ratedCounter--
+  }
   onFileSelected(event) {
     if (event.target.files && event.target.files[0]) {
       let filesAmount = event.target.files.length;
@@ -209,7 +206,15 @@ export class ImageRankDragComponent extends RatingScaleComponent implements OnIn
         if (this.bmxItem.componentText[index + 1]) {
           this.bmxItem.componentText[index + 1].nameCandidates = JSON.parse(result.d).FileUrl
         } else {
-          this.bmxItem.componentText.push({ nameCandidates: JSON.parse(result.d).FileUrl })
+          this.bmxItem.componentText.push({ ...this.bmxItem.componentText[1], nameCandidates: JSON.parse(result.d).FileUrl })
+          const lastItem = this.bmxItem.componentText[this.bmxItem.componentText.length - 1];
+          for (const key in lastItem) {
+            if (lastItem.hasOwnProperty(key)) {
+              if(key != 'RATE'&& key != 'nameCandidates' && key!= 'STARS'){
+                lastItem[key]=''
+              }
+            }
+          }
         }
 
       });
@@ -249,11 +254,7 @@ export class ImageRankDragComponent extends RatingScaleComponent implements OnIn
   checkDragEvetn(event: CdkDragDrop<string[]>) {
     if (event.previousIndex > 0) {
       moveItemInArray(this.bmxItem.componentText, event.previousIndex, event.currentIndex);
-      this.bmxItem.componentText.forEach((row, rowIndex) => {
-        if (rowIndex > 0) {
-          row.RATE = rowIndex
-        }
-      })
+     
       this.autoSave.emit()
     }
   }

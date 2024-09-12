@@ -1,9 +1,9 @@
 @import "~quill/dist/quill.core.css";
 @import "~quill/dist/quill.bubble.css";
 @import "~quill/dist/quill.snow.css";
+@import "~handsontable/dist/handsontable.full.min.css";
 
 app-survey-creation-design {
-    /* Estilos específicos para app-survey-creation-design */
     width: 100%;
 }
 
@@ -33,8 +33,45 @@ app-dashboard {
     }
 }
 
- 
-thead{
+thead {
     display: none;
-   }
-  
+}
+.handsontable col,
+.handsontable col.rowHeader {
+    width: 100%;
+}
+
+.ht_master .wtHolder {
+    height: 246px;
+    width: 576px;
+    overflow: hidden;
+    overflow-y: auto;
+    display: flex;
+    justify-content: center;
+    width: 100%;
+}
+
+.ht_master:not(.innerBorderInlineStart):not(.emptyColumns) tbody tr th,
+.ht_master:not(.innerBorderInlineStart):not(.emptyColumns) thead tr th:first-child,
+.ht_master:not(.innerBorderInlineStart):not(.emptyColumns) ~ .handsontable:not(.htGhostTable) tbody tr th,
+.ht_master:not(.innerBorderInlineStart):not(.emptyColumns)
+    ~ .handsontable:not(.ht_clone_top):not(.htGhostTable)
+    thead
+    tr
+    th:first-child {
+    width: 0px;
+    /* border-left: 1px solid #ccc; */
+    border-right-width: 0;
+    border: none !important;
+    background: transparent !important;
+}
+
+.handsontable .relative {
+    position: relative;
+    display: none;
+}
+
+.handsontable .wtHider {
+    overflow-x: auto;
+    overflow-y: hidden;
+}

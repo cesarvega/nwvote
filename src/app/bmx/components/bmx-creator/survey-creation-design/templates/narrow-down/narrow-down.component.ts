@@ -21,8 +21,9 @@ export class NarrowDownComponent extends RatingScaleComponent implements OnInit 
   dragRows = false
   isColumnResizerOn = false;
   editSingleTableCells = false
-  CREATION_VIDEO_PATH="assets/videos/NarrowDown.mp4" 
+  CREATION_VIDEO_PATH="assets/videos/NarrowDown.mp4"
   dataSource:any[] = []
+  rankingScaleValue = 5
 
   constructor(dragulaService: DragulaService, _snackBar: MatSnackBar,  _bmxService: BmxService,public deviceService: DeviceDetectorService) {
     super(dragulaService,_snackBar, _bmxService,deviceService)
@@ -32,12 +33,14 @@ export class NarrowDownComponent extends RatingScaleComponent implements OnInit 
     this.showDialog = false
     let selectedCriteria = [];
     this.rankingScaleValue = this.numRatingScale;
-    if (this.bmxItem.componentSettings[0].CRITERIA) {
-      this.numRatingScale = this.bmxItem.componentText[0].CRITERIA[0].STARS.length
-    } else {
-      this.numRatingScale = this.bmxItem.componentText[0].STARS?.length
-    }
 
+    if (this.bmxItem.componentSettings[0].CRITERIA) {
+      this.numRatingScale = this.bmxItem.componentText[1].CRITERIA[0].STARS.length
+    } else {
+      this.numRatingScale = this.bmxItem.componentText[1].STARS?.length
+    }
+    console.log(this.numRatingScale)
+    this.rankingScaleValue = this.numRatingScale;
 
     // COLUMN NAMES
     let values = Object.keys(this.bmxItem.componentText[0])
@@ -48,11 +51,11 @@ export class NarrowDownComponent extends RatingScaleComponent implements OnInit 
       }
     });
 
-    
+
 
     let result = '';
 
-    // Obtener las claves de la primera fila (los nombres de las propiedades)
+  // get keys from first row /names of propierties/
     let firstObject = this.bmxItem.componentText[0];
     let columnNames = [];
     for (let key in firstObject) {
@@ -61,7 +64,7 @@ export class NarrowDownComponent extends RatingScaleComponent implements OnInit 
       }
     }
 
-    // Agregar cada objeto como una fila en el resultado
+    //  add one by one object like a row into result
     for (let obj of this.bmxItem.componentText) {
       let values = [];
       for (let key in obj) {
@@ -69,14 +72,13 @@ export class NarrowDownComponent extends RatingScaleComponent implements OnInit 
           values.push(obj[key]);
         }
       }
-      if (values.length > 0) {  // Verificar si hay valores para esta fila
-        result += values.join('\t') + '\n';  // Agregar la línea al resultado
+      if (values.length > 0) {  // Verify values for this row
+        result += values.join('\t') + '\n';  // add result
       }
-      
     }
     this.testNamesInput = result;
 
-    this.rankingScaleValue = this.numRatingScale;
+   // this.rankingScaleValue = this.numRatingScale;
 
     this.randomizeTestNames = this.bmxItem.componentSettings[0].randomizeTestNames
     this.rowsCount = this.bmxItem.componentText.length - 1;
@@ -86,12 +88,12 @@ export class NarrowDownComponent extends RatingScaleComponent implements OnInit 
     }
     const filteredCriteria = this.CRITERIA.filter(criteriaItem => this.selectedCriteria.map(item => item.name).includes(criteriaItem.name));
     this.newselectedCriteria = filteredCriteria
-    
-    this.bmxItem.componentSettings[0].minRule = this.bmxItem.componentSettings[0].minRule > 0 ? this.bmxItem.componentSettings[0].minRule : this.bmxItem.componentText.length-1;
-    this.bmxItem.componentSettings[0].maxRule = this.bmxItem.componentSettings[0].maxRule > 0 ? this.bmxItem.componentSettings[0].maxRule : this.bmxItem.componentText.length-1;
+
     if(this.bmxItem.componentText[0]?.CRITERIA){
       this.rankingScaleValue = this.bmxItem.componentText[0]?.CRITERIA[0]?.STARS?.length;
     }
-    this.dataSource = this.bmxItem.componentText.slice(1)
+    this.dataSource = this.bmxItem.componentText
+    this.recordHistory();
+
   }
 }

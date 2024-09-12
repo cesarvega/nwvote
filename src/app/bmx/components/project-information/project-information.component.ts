@@ -17,8 +17,11 @@ import { Router } from '@angular/router';
 export class ProjectInformationComponent implements OnInit {
   DIRECTORS_Filtered: any[];
   dialogText: any;
+  minDate: Date;
 
-  constructor(private _BmxService: BmxService, private _snackBar: MatSnackBar, private router: Router) { }
+  constructor(private _BmxService: BmxService, private _snackBar: MatSnackBar, private router: Router) {
+    this.minDate = new Date();
+   }
   settingsData = {
     SalesBoardProjectList: [],
     BrandMatrixTemplateList: [],
@@ -101,7 +104,6 @@ export class ProjectInformationComponent implements OnInit {
         .subscribe((arg: any) => {
           if (arg.d && arg.d.length > 0) {
             var data = JSON.parse(arg.d);
-            console.log(data)
             this.bmxEditData.patchValue({ bmxSalesboard: data.bmxSalesboard });
             this.bmxEditData.patchValue({ bmxProjectName: data.bmxProjectName });
             this.bmxEditData.patchValue({ bmxDepartment: data.bmxDepartment });
@@ -109,7 +111,8 @@ export class ProjectInformationComponent implements OnInit {
             this.bmxEditData.patchValue({ bmxLanguage: data.bmxLanguage });
             this.bmxEditData.patchValue({ bmxCompany: data.bmxCompany });
             this.bmxEditData.patchValue({ bmxStatus: data.bmxStatus });
-            this.bmxEditData.patchValue({ bmxClosingDate: new Date(data.bmxClosingDate) });
+            this.bmxEditData.patchValue({ bmxClosingDate: data.bmxClosingDate? new Date(data.bmxClosingDate): null });
+            this.selectedDate = data.bmxClosingDate? new Date(data.bmxClosingDate): null 
             if (!data.bmxStatus || data.bmxStatus == "open") {
               this.status = "open"
             } else if (data.bmxStatus == "close") {
@@ -203,7 +206,6 @@ export class ProjectInformationComponent implements OnInit {
       this.status = 'open';
 }
   saveProjectInfo() {
-    console.log(this.status)
     if (this.bmxEditData.valid) {
       const storageName = localStorage.getItem('projectName')
       if (storageName != 'null' && storageName!= null && storageName!= undefined && storageName!= 'undefined')  {
@@ -393,9 +395,7 @@ export class ProjectInformationComponent implements OnInit {
     this.bmxTemplates = new UntypedFormControl(
       '', [
     ]);
-    this.bmxClosingDate = new UntypedFormControl(
-      '', [
-    ]);
+    this.bmxClosingDate = new UntypedFormControl();
     this.bmxRegionalOffice = new UntypedFormControl(
       '', [
     ]);

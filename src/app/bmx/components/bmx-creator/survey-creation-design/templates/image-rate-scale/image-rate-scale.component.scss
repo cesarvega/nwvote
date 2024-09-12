@@ -146,7 +146,41 @@
 .test-name-table:hover {
   @include BoxShadow(6);
 }
+.settings-option {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
 
+.settings-label {
+  margin: 0 0 -12px;
+  color: #324395;
+}
+.column-resizer {
+  display: flex;
+  flex-direction: row;
+  justify-content: start;
+  background: #ffffffd9;
+  gap: 0px;
+  position: absolute;
+  left: -713px;
+  z-index: 1;
+  border: 2px dashed #324395;
+}
+
+.slider-font-size {
+  margin: 20px !important;
+  width: 50px !important;
+}
+
+.row-height-settings {
+  width: 60px !important;
+  margin: 20px !important;
+}
+.menu-container {
+  display: flex;
+  flex-direction: row-reverse;
+}
 .red {
   background-color: white;
   border-left: rgb(231, 230, 230) 1px solid;

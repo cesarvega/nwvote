@@ -1,0 +1,50 @@
+.modal-video {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.5);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 1000;
+  overflow: hidden; /* Previene que el contenido se salga de los límites */
+}
+
+.modal-content {
+  position: absolute;
+  display: flex;
+  flex-direction: column;
+  padding: 22px 10px !important;
+  padding-left: 0px !important;
+  width: 53% !important;
+  max-width: 100%; /* Asegura que el modal no exceda el ancho de la pantalla */
+  max-height: 80%; /* Asegura que el modal no exceda la altura de la pantalla */
+  pointer-events: auto;
+  background-color: #fff;
+  background-clip: padding-box;
+  border: 1px solid rgba(0, 0, 0, 0.2);
+  border-radius: 0.3rem;
+  outline: 0;
+  justify-content: center;
+  align-items: center;
+  overflow: auto; /* Agrega barras de desplazamiento si el contenido es muy grande */
+}
+
+.handsontable-container {
+  height: 100%; /* Utiliza todo el espacio disponible en el modal */
+  width: 100%; /* Utiliza todo el espacio disponible en el modal */
+  max-height: 100%; /* No permite que la tabla exceda la altura del modal */
+  max-width: 100%; /* No permite que la tabla exceda el ancho del modal */
+  display: flex;
+  justify-content: center;
+  overflow: auto; /* Agrega barras de desplazamiento si la tabla es muy grande */
+}
+
+.content-button {
+    display: flex;
+    justify-content: flex-end;
+    padding: 8px;
+    background: white;
+}

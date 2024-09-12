@@ -116,17 +116,12 @@
                 <mat-icon class="full-icon">drag_indicator</mat-icon>
             </button>
 
-            <button (click)="editSingleTableCells = !editSingleTableCells"
-                [ngClass]="(!editSingleTableCells)?'add-column':'add-column-active'" matTooltip="edit table cells"
-                matTooltipPosition="above" mat-icon-button aria-label="ranking">
-                <mat-icon class="full-icon">explicit</mat-icon>
-            </button>
         </div>
 
-        <button (click)="showCreationModalVideo=true; editSingleTableCells = false" class="add-column"
+<!--<button (click)="showCreationModalVideo=true; editSingleTableCells = false" class="add-column"
             matTooltip="see tutorial" matTooltipPosition="above" mat-icon-button aria-label="ranking">
             <mat-icon class="full-icon">video_library</mat-icon>
-        </button>
+        </button> -->
 
         <button (click)="insertCommentBoxColumn();editSingleTableCells = false" class="add-column"
             matTooltip="add comments column" matTooltipPosition="above" mat-icon-button aria-label="ranking">
@@ -143,6 +138,12 @@
             aria-label="ranking">
             <mat-icon class="full-icon">collections</mat-icon>
         </button>
+        
+            <button (click)="editSingleTableCells = !editSingleTableCells"
+                [ngClass]="(!editSingleTableCells)?'add-column':'add-column-active'" matTooltip="edit table cells"
+                matTooltipPosition="above" mat-icon-button aria-label="ranking">
+                <mat-icon class="full-icon">explicit</mat-icon>
+            </button>
         <button (click)="openWindow(i, false)" class="add-column" matTooltip="setup settings" matTooltipPosition="above"
             *ngIf="i !== selectedIndex " mat-icon-button>
             <mat-icon style="font-size: 25px;" class="full-icon">edit</mat-icon>
@@ -151,7 +152,7 @@
             mat-icon-button aria-label="ranking">
             <mat-icon class="full-icon">collections</mat-icon>
         </button>
-        <button (click)="showModalTable = true" class="add-column" matTooltip="update names" matTooltipPosition="above"
+        <button (click)="showFileUploader = true" class="add-column" matTooltip="update names" matTooltipPosition="above"
             *ngIf="i !== selectedIndex" mat-icon-button>
             <mat-icon style="font-size: 25px;" class="full-icon"> text_fields</mat-icon>
         </button>
@@ -172,27 +173,7 @@
         </svg></div>
 
     <!-- Cards Test Name-->
-    <mat-card class="example-card">
-        <mat-card-header>
-            <mat-card-title>Columns</mat-card-title>
-        </mat-card-header>
-        <mat-card-content>
-            <div style="text-align: center;">
-                <div class="description">Copy & Paste Columns</div>
-            </div>
-            <div class="form-field-container">
-                <mat-form-field class="form-field" appearance="outline">
-                    <mat-label>Copy & Paste Columns</mat-label>
-                    <textarea matInput [(ngModel)]="testNamesInput" (paste)="onPaste()"
-                        (ngModelChange)="upLoadNamesAndRationales(testNamesInput)" placeholder="Paste test names here"
-                        cdkTextareaAutosize cdkAutosizeMinRows="2" cdkAutosizeMaxRows="5"></textarea>
-                    <mat-hint>Type or paste the test names here that you want to include</mat-hint>
-                </mat-form-field>
-            </div>
-
-        </mat-card-content>
-
-    </mat-card>
+    
     <br>
     <mat-card class="example-card">
         <mat-card-header>
@@ -274,14 +255,14 @@
                 <mat-form-field appearance="outline" style="width: 40%">
                     <mat-label>Category Name</mat-label>
                     <input matInput [(ngModel)]="bmxItem.componentSettings[0].categoryName" placeholder="Category Name"
-                        class="category-name-input">
+                        class="category-name-input" style="font-size: 20px;color: #324395;"> 
                     <mat-hint>Enter the name of the category</mat-hint> <!-- Hint text for Category Name -->
                 </mat-form-field>
 
                 <mat-form-field appearance="outline" style="width: 40%">
                     <mat-label>Sub category Description</mat-label>
                     <input matInput [(ngModel)]="bmxItem.componentSettings[0].categoryDescription"
-                        class="sub-category-input" placeholder="Sub category Description">
+                        class="sub-category-input" placeholder="Sub category Description" style="font-size: 20px;color: #ee7f25;">
                     <mat-hint>Enter a brief description of the Sub category </mat-hint>
                 </mat-form-field>
             </div>
@@ -537,6 +518,34 @@ height: 54px;" cdkDragHandle> </div>
                             </div>
 
                             <!-- 🩸🩸🩸🩸🩸🩸🩸🩸🩸🩸🩸🩸🩸 RATE BUTTONS 🩸🩸🩸🩸🩸🩸🩸🩸🩸🩸🩸🩸🩸🩸🩸🩸🩸🩸🩸🩸🩸🩸🩸🩸 -->
+                            <div style="display: flex;">
+                                <button
+                                    (click)="maxRuleCounterMinus();bmxItem.componentText[y]['RATE'] = 0;leaveStar(y);substractRatedCounter()"
+                                    *ngIf="bmxItem.componentText[y]['RATE']>0 && y != 0 " style="background-color: #ee7f25;
+                            color: white;
+                            min-width: 20px;
+                            line-height: 19px;
+                            padding: 1px 0px;
+                            margin: -12px 0px;
+                             position: absolute;
+                                animation: rubberBand 700ms ease-in  forwards;    height: 25px;"
+                                    mat-button>{{bmxItem.componentText[y]['RATE']}}</button>
+                            </div>
+
+                            <div style="display: flex;gap: 60px;flex-direction: column;">
+                                <div *ngFor="let criteria of testName.CRITERIA  let x =  index">
+                                    <button (click)="criteria.RATE = 0;leaveCriteriaStar(y,x);maxRuleCounterMinus()"
+                                        *ngIf="criteria.RATE>0 && y != 0 " style="background-color: #ee7f25;
+                             color: white;
+                             min-width: 20px;
+                             line-height: 19px;
+                             padding: 2px 0px;
+                             margin: -5px -2px;
+                             position: absolute;
+                             animation: rubberBand 700ms ease-in  forwards;    height: 25px;"
+                                        mat-button>{{criteria.RATE}}</button>
+                                </div>
+                            </div>
                             <!-- <div style="display: flex;"> -->
                             <div style="display: none;">
                                 <button
@@ -809,5 +818,8 @@ height: 54px;" cdkDragHandle> </div>
 </div>
 
 <!--📱📱📱📱📱📱📱📱📱📱📱📱📱📱📱📱📱📱📱📱📱📱📱📱📱📱📱📱📱📱📱 END TABLE GENERATOR 📱📱📱📱📱📱📱📱📱📱📱📱📱📱📱📱📱📱📱📱📱📱📱📱📱📱📱📱📱📱📱📱📱📱-->
-<app-table *ngIf="showModalTable" (save)="showModalTable = $event" [displayedColumns]="columnsNames"
-    [dataSource]="dataSource" (cancelEvent)="showModalTable = false"></app-table>
+
+<app-names-uploader
+    *ngIf="showFileUploader" (save)="upLoadNamesAndRationales(testNamesInput, false); showFileUploader = false"
+    [displayedColumns]="columnsNames" [dataSource]="dataSource" [isRanking]="bmxItem.componentType"
+    (cancelEvent)="cancelEvent($event)"></app-names-uploader>

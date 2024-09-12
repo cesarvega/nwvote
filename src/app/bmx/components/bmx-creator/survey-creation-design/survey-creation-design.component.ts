@@ -627,6 +627,7 @@ export class SurveyCreationDesignComponent implements OnInit {
                         '.JPG',
                     // logoURL: './assets/img/bmx/logoTestNames/logo' + imageIndex.toString() + '.JPG',
                     RATE: -1,
+                    rationale: 'Rationale of an undisclosed length',
                     STARS: this.createRatingStars(),
                 });
             }
