@@ -108,8 +108,11 @@ export class TextParagraphComponent implements OnInit {
         const name = localStorage.getItem('projectName');
         const company = localStorage.getItem('company');
         const replacedText = this.bmxItem.componentText
+          .replace(/BI_PROJECTNAME/g, name)
+          .replace(/COMPANY_NAME’s/g, company)
           .replace(/\[PROJECT NAME\]/g, name)
           .replace(/\[Project Name\]/g, name)
+
           .replace(/\[Company Name\]/g, company);
         this.bmxItem.componentText = replacedText;
       }
