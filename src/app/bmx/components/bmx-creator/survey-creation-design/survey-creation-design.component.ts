@@ -424,9 +424,14 @@ export class SurveyCreationDesignComponent implements OnInit {
 
                         const name = localStorage.getItem('projectName');
                         const company = localStorage.getItem('company');
+                        console.log(this.bmxPages[0].page[1])
                         const replacedText = this.bmxPages[0].page[1].componentText
+                            .replace(/PROJECT_NAME/g, name)
+                            .replace(/BI_PROJECTNAME/g, name)
+                            .replace(/COMPANY_NAME’s/g, company)
                             .replace(/\[PROJECT NAME\]/g, name)
                             .replace(/\[Project Name\]/g, name)
+
                             .replace(/\[Company Name\]/g, company);
                         this.bmxPages[0].page[1].componentText = replacedText;
                     }
@@ -966,6 +971,7 @@ export class SurveyCreationDesignComponent implements OnInit {
 
                 const replacedText = originalText
                     .replace(/\[PROJECT NAME\]/g, name)
+                    .replace(/\[PROJECT_NAME\]/g, name)
                     .replace(/\[Company Name\]/g, company)
 
                 this.bmxPages[0].page[1].componentText = replacedText;
