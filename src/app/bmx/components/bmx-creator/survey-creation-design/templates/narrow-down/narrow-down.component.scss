@@ -103,10 +103,12 @@
   display: flex;
   flex-direction: row;
   justify-content: start;
-  background: #ffffffd9;
+  background: rgba(255, 255, 255, 0.8509803922);
   gap: 0px;
   position: absolute;
   left: -713px;
+  padding-right: 18px;
+  gap: 19px;
   z-index: 1;
   border: 2px dashed #324395;
 }
