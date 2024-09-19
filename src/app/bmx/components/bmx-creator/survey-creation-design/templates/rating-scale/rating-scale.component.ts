@@ -538,7 +538,7 @@ export class RatingScaleComponent implements OnInit {
     if (update) {
       this.recordHistory();
     }
-
+    console.log(list)
     this.dragRows = true;
     if (!list) { list = this.listString; }
     list = 'list'
@@ -718,7 +718,20 @@ export class RatingScaleComponent implements OnInit {
         });
       }
     }
+    this.bmxItem.componentText = this.removeDuplicates(this.bmxItem.componentText)
+    this.dataSource = this.bmxItem.componentText
   }
+  removeDuplicates(arr) {
+    const seen = new Set();
+    return arr.filter(item => {
+      const name = item['New Column 4'] || item.nameCandidates ||  item.name || item.rationale; // Usar nameCandidates o name si no existe
+      console.log(name)
+      const duplicate = seen.has(name);
+      seen.add(name);
+      return !duplicate;
+    });
+  }
+
   removeAllRadioColumns() {
     this.columnsNames = this.columnsNames.filter(col => !col.includes('RadioColumn'));
 
@@ -1139,7 +1152,7 @@ export class RatingScaleComponent implements OnInit {
 
     this.recordHistory()
     this.dataSource =
-    this.bmxItem.componentText
+      this.bmxItem.componentText
   }
 
   playTestNameSound(testNameSound: string) {

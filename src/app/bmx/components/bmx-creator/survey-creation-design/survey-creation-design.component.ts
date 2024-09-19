@@ -618,7 +618,6 @@ export class SurveyCreationDesignComponent implements OnInit {
             this.TestNameDataModel = [];
             this.TestNameDataModel.push({
                 nameCandidates: 'Name Candidates',
-                rationale: 'RATIONALE',
                 RATE: 'RATE',
                 STARS: this.createRankinScale(),
             });
@@ -632,7 +631,6 @@ export class SurveyCreationDesignComponent implements OnInit {
                         '.JPG',
                     // logoURL: './assets/img/bmx/logoTestNames/logo' + imageIndex.toString() + '.JPG',
                     RATE: -1,
-                    rationale: 'Rationale of an undisclosed length',
                     STARS: this.createRatingStars(),
                 });
             }
@@ -656,7 +654,7 @@ export class SurveyCreationDesignComponent implements OnInit {
                         selectedRanking: 7,
                         categoryRulesPassed: false,
                         ratedCounter: 0,
-                        categoryName: 'Category image-rank-drag',
+                        categoryName: 'Category Logo Rating',
                         categoryDescription: 'This is image-rank-drag matrix',
                         ratingScaleTitle: 'RANK',
                         rankType: 'dragAndDrop',

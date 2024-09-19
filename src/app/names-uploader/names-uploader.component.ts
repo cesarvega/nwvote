@@ -38,7 +38,7 @@ export class NamesUploaderComponent implements AfterViewInit {
       const container = this.hotContainer.nativeElement;
       this.hotInstance = new Handsontable(container, {
         data: this.dataSource,
-        colHeaders: [...this.displayedColumns.filter(col => col !== 'RATE'), 'Actions'], 
+        colHeaders: [...this.displayedColumns.filter(col => col !== 'RATE'), 'Actions'],
         columns: [
           ...this.displayedColumns
             .filter(col => col !== 'RATE' && !col.includes('RadioColumn'))
@@ -50,11 +50,13 @@ export class NamesUploaderComponent implements AfterViewInit {
             data: 'actions',
             renderer: (instance, td, row, col, prop, value, cellProperties) => {
               Handsontable.renderers.TextRenderer.apply(this, [instance, td, row, col, prop, value, cellProperties]);
-              const button = document.createElement('button');
-              button.innerText = 'Delete';
-              button.onclick = () => this.removeRow(row);
-              td.appendChild(button);
-              td.style.textAlign = 'center';
+              if (row !== 0) {
+                const button = document.createElement('button');
+                button.innerText = 'Delete';
+                button.onclick = () => this.removeRow(row);
+                td.appendChild(button);
+                td.style.textAlign = 'center';
+              }
             },
             readOnly: true,
             width: 100,
@@ -76,11 +78,11 @@ export class NamesUploaderComponent implements AfterViewInit {
             },
             'row_below': {
               name: 'Insert row below',
-              callback: () => this.addRow(), 
+              callback: () => this.addRow(),
             },
             'row_above': {
               name: 'Insert row above',
-              callback: () => this.addRow(), 
+              callback: () => this.addRow(),
             },
           }
         },
@@ -90,10 +92,8 @@ export class NamesUploaderComponent implements AfterViewInit {
         colWidths: 150,
         stretchH: 'all',
         afterChange: (changes: any[]) => {
-          this.updateDataSource(changes);
         },
         afterPaste: (changes: any[]) => {
-          this.pasteFromClipboard()
         }
       });
 
@@ -107,25 +107,24 @@ export class NamesUploaderComponent implements AfterViewInit {
     const selected = this.hotInstance.getSelected();
     if (selected && selected.length) {
       const [startRow, startCol] = selected[0];
-  
+
       const lines = data.split('\n').filter(line => line.trim().length > 0);
       const pastedColumnsCount = lines[0].split('\t').length;
       const numberOfRowsToAdd = (startRow + lines.length) - this.hotInstance.countRows();
-      const numberOfColsToAdd = (startCol + pastedColumnsCount) - (this.hotInstance.countCols() - 1); // Exclude "Actions" column
-  
+      const numberOfColsToAdd = (startCol + pastedColumnsCount) - (this.hotInstance.countCols() - 1);
+
       if (numberOfRowsToAdd > 0) {
         for (let i = 0; i < numberOfRowsToAdd; i++) {
           this.addRow();
         }
       }
-  
-      // Asegurarse de añadir suficientes columnas
+
       if (numberOfColsToAdd > 0) {
         const newColumns = [];
         for (let i = 0; i < numberOfColsToAdd; i++) {
           const columnName = `New Column ${this.displayedColumns.length + 1}`;
           newColumns.push(columnName);
-          this.displayedColumns.splice(this.displayedColumns.length - 1, 0, columnName); // Insert before "Actions"
+          this.displayedColumns.splice(this.displayedColumns.length - 1, 0, columnName);
         }
         this.hotInstance.updateSettings({
           colHeaders: [...this.displayedColumns],
@@ -152,22 +151,22 @@ export class NamesUploaderComponent implements AfterViewInit {
           ],
         });
       }
-  
-      // Ajustar las celdas pegadas correctamente
+
       lines.forEach((line, rowIndex) => {
         const cells = line.split('\t');
         cells.forEach((cell, colIndex) => {
           const row = startRow + rowIndex;
           const col = startCol + colIndex;
-          if (row < this.hotInstance.countRows() && col < this.hotInstance.countCols() - 1) { // Exclude "Actions" column
+          if (row < this.hotInstance.countRows() && col < this.hotInstance.countCols() - 1) {
             this.hotInstance.setDataAtCell(row, col, cell);
           }
         });
       });
+      this.updateDataSourceWithComments()
+
+      this.removeDuplicateRowsInFirstColumn();
     }
   }
-  
-
 
   async pasteFromClipboard(): Promise<void> {
     try {
@@ -177,7 +176,8 @@ export class NamesUploaderComponent implements AfterViewInit {
       console.error('Failed to read clipboard contents: ', error);
     }
   }
-
+  
+  
 
   updateDataSource(changes: any[]): void {
     if (changes) {
@@ -190,12 +190,13 @@ export class NamesUploaderComponent implements AfterViewInit {
                 nameCandidates: '',
                 rationale: '',
                 RATE: -1,
-                STARS: this.dataSource[1].STARS ? [...(this.dataSource.length > 0 ? this.dataSource[1].STARS : [])] : [...(this.dataSource.length > 0 ? this.dataSource[1].STARS : [])],
+                STARS: this.dataSource[1].STARS,
                 Comments0: ''
               });
             }
           }
           const columnName = this.displayedColumns.filter(col => col !== 'STARS' && col !== 'RATE')[prop];
+          this.updateDataSourceWithComments()
         }
       });
     } else {
@@ -213,7 +214,7 @@ export class NamesUploaderComponent implements AfterViewInit {
     });
 
     this.hotInstance.updateSettings({
-      colHeaders: [...this.displayedColumns.filter(col => col !== 'RATE'), 'Actions'],       columns: [
+      colHeaders: [...this.displayedColumns.filter(col => col !== 'RATE'), 'Actions'], columns: [
         ...this.displayedColumns
           .filter(col => col !== 'RATE' && !col.includes('RadioColumn'))
           .map(col => ({
@@ -242,11 +243,11 @@ export class NamesUploaderComponent implements AfterViewInit {
   addRow(): void {
     const newRow = this.displayedColumns.reduce((acc, col) => {
       if (col === 'STARS') {
-        acc[col] = this.dataSource.length > 0 ? [...this.dataSource[1].STARS] : []; 
+        acc[col] = this.dataSource.length > 0 ? [...this.dataSource[1].STARS] : [];
       } else if (col === 'RATE') {
-        acc[col] = this.dataSource.length > 0 ? this.dataSource[1].RATE : -1; 
+        acc[col] = this.dataSource.length > 0 ? this.dataSource[1].RATE : -1;
       } else {
-        acc[col] = ''; 
+        acc[col] = '';
       }
       return acc;
     }, {});
@@ -257,13 +258,13 @@ export class NamesUploaderComponent implements AfterViewInit {
   removeDuplicateColumns(): void {
     const columnsToRemove: string[] = [];
     const seenColumns: Set<string> = new Set();
-  
+
     this.displayedColumns.forEach((col, colIndex) => {
-      if (col === 'STARS') return; // Evitar eliminar la columna STARS
+      if (col === 'STARS') return;
       for (let i = colIndex + 1; i < this.displayedColumns.length; i++) {
         const col2 = this.displayedColumns[i];
         const isDuplicate = this.dataSource.every(row => row[col] === row[col2]);
-  
+
         if (isDuplicate) {
           if (!seenColumns.has(col)) {
             seenColumns.add(col);
@@ -274,12 +275,12 @@ export class NamesUploaderComponent implements AfterViewInit {
         }
       }
     });
-  
+
     columnsToRemove.forEach(col => {
       this.displayedColumns = this.displayedColumns.filter(c => c !== col);
       this.dataSource.forEach(row => delete row[col]);
     });
-  
+
     this.hotInstance.updateSettings({
       colHeaders: [...this.displayedColumns.filter(col => col !== 'RATE'), 'Actions'], // Oculta RATE
       columns: [
@@ -304,10 +305,10 @@ export class NamesUploaderComponent implements AfterViewInit {
         }
       ],
     });
-  
+
     this.hotInstance.loadData(this.dataSource);
   }
-  
+
 
   removeRow(rowIndex: number): void {
     if (rowIndex >= 0 && rowIndex < this.dataSource.length) {
@@ -321,9 +322,9 @@ export class NamesUploaderComponent implements AfterViewInit {
   }
   removeColumnsWithNumbers(): void {
     console.log(this.displayedColumns);
-  
-    this.displayedColumns = this.displayedColumns.filter(col => !/^\d+$/.test(col) && col !== 'STARS'); // Evitar eliminar STARS
-  
+
+    this.displayedColumns = this.displayedColumns.filter(col => !/^\d+$/.test(col) && col !== 'STARS');
+
     this.dataSource.forEach(row => {
       Object.keys(row).forEach(key => {
         if (/^\d+$/.test(key)) {
@@ -331,7 +332,7 @@ export class NamesUploaderComponent implements AfterViewInit {
         }
       });
     });
-  
+
     if (this.hotInstance) {
       this.hotInstance.loadData(this.dataSource);
       this.hotInstance.updateSettings({
@@ -342,17 +343,107 @@ export class NamesUploaderComponent implements AfterViewInit {
       console.warn('hotInstance is not available');
     }
   }
+  updateDataSourceWithComments(): void {
+    // Clona la estructura actual de dataSource para no modificar el original directamente
+    const updatedDataSource = JSON.parse(JSON.stringify(this.dataSource));
+    
+    // Crea un mapeo de dataSourceCopy basado en la clave única, asumiendo `nameCandidates` como clave única aquí
+    const dataSourceCopyMap = new Map(this.dataSourceCopy.map(item => [item.nameCandidates, item]));
   
-
+    // Itera sobre cada elemento en updatedDataSource y actualiza los campos de Comments
+    updatedDataSource.forEach(item => {
+      const copyItem = dataSourceCopyMap.get(item.nameCandidates);
+      if (copyItem) {
+        // Actualiza las claves Comments en los elementos actuales de dataSource
+        Object.keys(copyItem).forEach(key => {
+          if (key.startsWith('Comments')) {
+            item[key] = copyItem[key];
+          }
+        });
+      }
+    });
+  
+    // Rellena las columnas de Comments faltantes en updatedDataSource
+    updatedDataSource.forEach(item => {
+      // Asegúrate de agregar las claves Comments con valores vacíos si no existen en el dataSource
+      const allCommentKeys = [].concat(
+        ...this.dataSourceCopy.map(item => Object.keys(item).filter(key => key.startsWith('Comments')))
+      );
+  
+      allCommentKeys.forEach(key => {
+        if (!(key in item)) {
+          item[key] = '';
+        }
+      });
+    });
+  
+    // Verifica si hay cambios en el dataSource y actualiza Handsontable
+    if (JSON.stringify(this.dataSource) !== JSON.stringify(updatedDataSource)) {
+      this.dataSource = updatedDataSource;
+      if (this.hotInstance) {
+        // Actualiza la configuración de Handsontable si es necesario
+        this.hotInstance.updateSettings({
+          colHeaders: [...new Set(
+            this.dataSource
+              .map(item => Object.keys(item).filter(key => key.startsWith('Comments')))
+              .reduce((acc, val) => acc.concat(val), [])
+          )], // Actualiza los encabezados de columna Comments
+          columns: this.displayedColumns.map(col => ({
+            data: col,
+            width: 150,
+          })),
+        });
+        this.hotInstance.loadData(this.dataSource);
+      }
+    }
+  }
+  
+  
+  
   saveChanges(): void {
-    this.save.emit(this.dataSource);
+this.updateDataSourceWithComments()
+    this.removeDuplicateRowsInFirstColumn();
+
+
     if (this.isRanking === "rate-scale") {
     }
 
-      this.removeColumnsWithNumbers();
-
-      this.removeDuplicateColumns();
+    this.removeColumnsWithNumbers();
+    this.removeDuplicateColumns();
+    console.log(this.dataSource)
+    this.save.emit(this.dataSource);
   }
+  removeDuplicateRowsInFirstColumn(): void {
+    if (this.displayedColumns.length === 0) {
+        console.warn('No columns available');
+        return;
+    }
+
+    const firstColumn = this.displayedColumns[0];
+    const secondColumn = this.displayedColumns.find(col => col === 'New Column 4');
+
+    const columnToCheck = this.componentSetting && this.componentSetting[0].categoryName === 'Category Logo Rating' && secondColumn
+        ? secondColumn
+        : firstColumn;
+
+    const uniqueValues = new Set();
+    const rowsToKeep: any[] = [];
+
+    this.dataSource.forEach(row => {
+        const value = row[columnToCheck];
+        if (!uniqueValues.has(value)) {
+            uniqueValues.add(value);
+            rowsToKeep.push(row);
+        }
+    });
+
+    this.dataSource = rowsToKeep;
+
+    if (this.hotInstance) {
+        this.hotInstance.loadData(this.dataSource);
+    }
+}
+
 
   cancel(): void {
     this.dataSource = this.dataSourceCopy;

@@ -354,7 +354,7 @@ z-index: 1;top: -65px;left: 25%;border: #063074 3px solid; overflow: auto;
                         style="display: flex;flex-direction: column;justify-content: center;gap: 10px;align-items: center; ">
                         <div style="font-size: 16px;margin-top: 10px;color: #48535e;text-align: center;">Minimum:
                             {{bmxItem.componentSettings[0].minRule}}</div>
-                        <input type="number" min="0" [max]="rowsCount"
+                        <input type="number" min="0" [max]="bmxItem.componentText.length"
                             [(ngModel)]="bmxItem.componentSettings[0].minRule" style="width:53px; padding: 0px 10px;"
                             [value]="bmxItem.componentSettings[0].minRule">
                     </div>
@@ -365,7 +365,7 @@ z-index: 1;top: -65px;left: 25%;border: #063074 3px solid; overflow: auto;
                         style="display: flex;flex-direction: column;justify-content:center;gap: 10px;align-items: center;">
                         <div style="font-size: 16px;margin-top: 10px;color: #48535e;text-align: center;">Maximum:
                             {{bmxItem.componentSettings[0].maxRule}}</div>
-                        <input type="number" min="0" [max]="rowsCount"
+                        <input type="number" min="0" [max]="bmxItem.componentText.length"
                             [(ngModel)]="bmxItem.componentSettings[0].maxRule" style="width:53px; padding: 0px 10px;"
                             [value]="bmxItem.componentSettings[0].maxRule">
                     </div>
@@ -563,7 +563,7 @@ z-index: 1;top: -65px;left: 25%;border: #063074 3px solid; overflow: auto;
 
 
                         <img class="row-box" style="width:300px;" [src]="testName[columnName]"
-                            *ngIf="(y !== 0) && (columnName == 'name' || columnName == 'nameCandidates')">
+                            *ngIf="(y !== 0) && (columnName == 'name' || columnName == 'nameCandidates' )">
 
 
                         <!-- TEXT AREA TO EDIT TABLE CELL CONTENT -->

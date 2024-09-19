@@ -47,7 +47,7 @@ export class ImageRateScaleComponent extends RatingScaleComponent implements OnI
   resourceData: any;
   logoWidth = 200
   uploadImagesBox = false;
-  numRatingScale: number = 0;
+  numRatingScale: number = 5;
   ratedCounter = 0
   actualRate = 0
   showEdit = false

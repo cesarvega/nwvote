@@ -274,7 +274,7 @@
                         style="display: flex;flex-direction: column;justify-content: center;gap: 10px;align-items: center; ">
                         <div style="font-size: 16px;margin-top: 10px;color: #48535e;text-align: center;">Minimum:
                             {{bmxItem.componentSettings[0].minRule}}</div>
-                        <input type="number" min="0" [max]="rowsCount"
+                        <input type="number" min="0" [max]="bmxItem.componentText.length"
                             [(ngModel)]="bmxItem.componentSettings[0].minRule" style="width:53px; padding: 0px 10px;"
                             [value]="bmxItem.componentSettings[0].minRule">
                     </div>
@@ -285,7 +285,7 @@
                         style="display: flex;flex-direction: column;justify-content:center;gap: 10px;align-items: center;">
                         <div style="font-size: 16px;margin-top: 10px;color: #48535e;text-align: center;">Maximum:
                             {{bmxItem.componentSettings[0].maxRule}}</div>
-                        <input type="number" min="0" [max]="rowsCount"
+                        <input type="number" min="0" [max]="bmxItem.componentText.length"
                             [(ngModel)]="bmxItem.componentSettings[0].maxRule" style="width:53px; padding: 0px 10px;"
                             [value]="bmxItem.componentSettings[0].maxRule">
                     </div>
@@ -612,7 +612,7 @@ height: 54px;" cdkDragHandle> </div>
 
 
                         <img class="row-box" style="width: 300px;" [src]="testName[columnName]"
-                            *ngIf="(y !== 0) && (columnName == 'name' || columnName == 'nameCandidates')">
+                            *ngIf="(y !== 0) && (columnName == 'name' || columnName == 'nameCandidates' )">
 
 
                         <!-- TEXT AREA TO EDIT TABLE CELL CONTENT -->
@@ -820,6 +820,6 @@ height: 54px;" cdkDragHandle> </div>
 <!--📱📱📱📱📱📱📱📱📱📱📱📱📱📱📱📱📱📱📱📱📱📱📱📱📱📱📱📱📱📱📱 END TABLE GENERATOR 📱📱📱📱📱📱📱📱📱📱📱📱📱📱📱📱📱📱📱📱📱📱📱📱📱📱📱📱📱📱📱📱📱📱-->
 
 <app-names-uploader
-    *ngIf="showFileUploader" (save)="upLoadNamesAndRationales(testNamesInput, false); showFileUploader = false"
+    *ngIf="showFileUploader" (save)="upLoadNamesAndRationales(testNamesInput, false); showFileUploader = false" [componentSetting]="bmxItem.componentSettings"
     [displayedColumns]="columnsNames" [dataSource]="dataSource" [isRanking]="bmxItem.componentType"
     (cancelEvent)="cancelEvent($event)"></app-names-uploader>

@@ -285,7 +285,7 @@
                         <div style="font-size: 16px;margin-top: 10px;color: #48535e;text-align: center;">Minimum:
                             {{bmxItem.componentSettings[0].minRule}}
                         </div>
-                        <input type="number" min="0" [max]="rowsCount"
+                        <input type="number" min="0" [max]="bmxItem.componentText.length"
                             [(ngModel)]="bmxItem.componentSettings[0].minRule" style="width:53px; padding: 0px 10px;"
                             [value]="bmxItem.componentSettings[0].minRule">
                     </div>
@@ -296,7 +296,7 @@
                         <div style="font-size: 16px;margin-top: 10px;color: #48535e;text-align: center;">Maximum:
                             {{bmxItem.componentSettings[0].maxRule}}
                         </div>
-                        <input type="number" min="0" [max]="rowsCount"
+                        <input type="number" min="0" [max]="bmxItem.componentText.length"
                             [(ngModel)]="bmxItem.componentSettings[0].maxRule" style="width:53px; padding: 0px 10px;"
                             [value]="bmxItem.componentSettings[0].maxRule">
                     </div>

@@ -373,6 +373,9 @@ export class RankScaleComponent extends RatingScaleComponent implements OnInit {
 
       this.dragRows = false;
     }, 0);
+    this.bmxItem.componentText = this.removeDuplicates(this.bmxItem.componentText)
+    this.dataSource = this.bmxItem.componentText
+
   }
 
   rankingTableType(rankingType) {
