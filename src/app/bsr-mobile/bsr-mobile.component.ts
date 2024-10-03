@@ -1,4 +1,4 @@
-import { Component, OnInit, Inject, HostBinding } from '@angular/core';
+import { Component, OnInit, Inject, HostBinding, inject } from '@angular/core';
 // import { NwvoteService } from '../../nw-vote/nwvote.service';
 import { UntypedFormBuilder, Validators, UntypedFormGroup } from '@angular/forms';
 import { Router, ActivatedRoute } from '@angular/router';
@@ -6,6 +6,7 @@ import { BsrMobileService } from './bsr-mobile.service';
 import {  MatDialog, MatDialogRef,  MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { BreakpointObserver, Breakpoints } from '@angular/cdk/layout';
 import { DeviceDetectorService } from 'ngx-device-detector';
+import { BMX_STORE } from '../signals/+store/brs.store';
 
 @Component({
   selector: 'app-bsr-mobile',
@@ -33,6 +34,8 @@ export class BsrMobileComponent implements OnInit {
   bulletPointLine = '';
   summarized: any;
   deviceInfo: any;
+  readonly bmxStore = inject(BMX_STORE);
+
   constructor(private breakpointObserver: BreakpointObserver , private _formBuilder: UntypedFormBuilder, private bsrService: BsrMobileService,
     private activatedRoute: ActivatedRoute,
     public dialog: MatDialog,
@@ -42,6 +45,7 @@ export class BsrMobileComponent implements OnInit {
     this.activatedRoute.params.subscribe(params => {
       this.projectId = params['id'];
       localStorage.setItem('projectId',  this.projectId);
+      this.bmxStore.updateProjectId(this.projectId)
       this.bsrService.getProjectData(this.projectId).subscribe(arg => {
         this.projectName = JSON.parse(arg[0].bsrData).projectdescription;
         if(JSON.parse(arg[0].bsrData).presentationstatus !== 'OPEN'){

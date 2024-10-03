@@ -2,6 +2,7 @@ import {
   Component,
   ElementRef,
   EventEmitter,
+  inject,
   Inject,
   Input,
   OnInit,
@@ -20,6 +21,7 @@ import { MatSnackBar } from '@angular/material/snack-bar';
 import QRCodeStyling from 'qr-code-styling';
 import { DeviceDetectorService } from 'ngx-device-detector';
 import { MatCheckboxModule } from '@angular/material/checkbox';
+import { BMX_STORE } from 'src/app/signals/+store/brs.store';
 
 @Component({
   selector: 'app-survey-matrix',
@@ -102,6 +104,7 @@ export class SurveyMatrixComponent extends SurveyCreationDesignComponent impleme
   public isDesktopDevice: any = null;
 
   //----------end modal------//
+  readonly bmxStore = inject(BMX_STORE);
 
   constructor(@Inject(DOCUMENT) document: any, activatedRoute: ActivatedRoute, private deviceService: DeviceDetectorService,
   dragulaService: DragulaService, public _snackBar: MatSnackBar, _BmxService: BmxService
@@ -111,6 +114,7 @@ export class SurveyMatrixComponent extends SurveyCreationDesignComponent impleme
       this.username = params['username'];
       this.projectId = params['id'];
       localStorage.setItem('projectId', this.projectId);
+      this.bmxStore.updateProjectId(this.projectId)
     });
     this.epicFunction();
     this.bmxPagesClient = this.SAMPLE_BMX_CLIENT;
@@ -128,11 +132,10 @@ export class SurveyMatrixComponent extends SurveyCreationDesignComponent impleme
       this.globalProjectName = res ? res : '';
     });
     this.projectId = localStorage.getItem('projectId')
-    console.log(this.projectId)
     this._BmxService.getProjectInfo(this.projectId).subscribe((arg: any) => {
       this.status = JSON.parse(arg.d).bmxStatus
       this.bmxClientPageOverview = false
-
+      this.bmxStore.updateProjectInfo(arg)
       if (!this.username) {
         this.myAngularxQrCode = this.myAngularxQrCode + this.projectId
       } else {

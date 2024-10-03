@@ -1,6 +1,6 @@
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { Validators, UntypedFormControl } from '@angular/forms';
-import { Component, Inject, OnInit, ElementRef, ViewChild } from '@angular/core';
+import { Component, Inject, OnInit, ElementRef, ViewChild, inject } from '@angular/core';
 import { DOCUMENT } from '@angular/common';
 import { trigger, transition, useAnimation } from '@angular/animations';
 import { pulse, flash } from 'ng-animate';
@@ -12,6 +12,7 @@ import { keyframes, animate, state, style } from '@angular/animations';
 import { Haptics } from '@capacitor/haptics';
 import { Plugin } from '@capacitor/core';
 import { eventNames } from 'process';
+import { BMX_STORE } from 'src/app/signals/+store/brs.store';
 
 @Component({
   selector: 'app-bmx',
@@ -40,6 +41,7 @@ export class BmxComponent implements OnInit {
   projectId: any;
   SWIPE_ACTION = { LEFT: 'swipeleft', RIGHT: 'swiperight' };
    // our list of avatars
+   readonly bmxStore = inject(BMX_STORE);
 
    
    avatars = [
@@ -70,6 +72,8 @@ export class BmxComponent implements OnInit {
     this.activatedRoute.params.subscribe(params => {
       this.projectId = params['id'];
       localStorage.setItem('projectId',  this.projectId);
+      this.bmxStore.updateProjectId(this.projectId)
+
       // this.bsrService.getProjectData(this.projectId).subscribe(arg => {
       //   this.projectName = JSON.parse(arg[0].bsrData).projectdescription;
       //   localStorage.setItem('projectName',  this.projectId);        

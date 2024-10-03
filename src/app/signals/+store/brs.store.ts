@@ -20,8 +20,9 @@ type AppState = {
     templates: any,
     userData: any,
     userGui: any,
+    currentProjectInfo: any,
+    projectList:any,
     messageInfo: Message,
-
 } 
 
 const initialStateMessage: Message = {message: '', description: '', icon: 'info', display: false};
@@ -35,11 +36,23 @@ const initialState: AppState = {
     templates: null,
     userData: null,
     userGui: null,
+    currentProjectInfo: null, 
+    projectList: null,
     messageInfo: initialStateMessage
 };
+const syncConfig = {
+    key: 'appState', 
+    storage: () => localStorage, 
+    partialState: ['company', 'data', 'directors', 'projectId', 'projectName', 'templates', 'userData', 'userGui', 'currentProjectInfo', 'projectList', 'messageInfo'],  // Claves a sincronizar
+};
+
 export const BMX_STORE = signalStore(
     { providedIn: "root" },
     withState(initialState),
+    withStorageSync({
+        key: 'appState', 
+        storage: () => localStorage, 
+    }),  
     
     withMethods((store) => ({
         updateCompany(companyData: any) {
@@ -72,6 +85,11 @@ export const BMX_STORE = signalStore(
         resetMessageInfo() {
             patchState(store, {messageInfo: initialStateMessage});
         },
-        
+        updateProjectInfo(data: Message) {
+            patchState(store, {currentProjectInfo: data});
+        },
+        updateProjectList(data: Message) {
+            patchState(store, {projectList: data});
+        },
     }))
 );

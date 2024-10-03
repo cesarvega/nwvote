@@ -50,6 +50,7 @@ export class ProjectListComponent implements OnInit {
   showDialog = false
 
   dialogText = ''
+  
   constructor(@Inject(DOCUMENT) private document: any, private activatedRoute: ActivatedRoute, private dragulaService: DragulaService, private _BmxService: BmxService, private router: Router,) { }
   readonly bmxStore = inject(BMX_STORE);
 
@@ -62,7 +63,7 @@ export class ProjectListComponent implements OnInit {
       .subscribe((arg: any) => {
         this.allData = JSON.parse(arg.d);
         // this.allData = JSON.parse(obj);
-
+        this.bmxStore.updateProjectList(this.allData)
         this.userDepartment = this.userData != null ? this.userData.Department : '';
         this.userRole = this.userData != null ? this.userData.Role : 'admin';
         this.changeView();
