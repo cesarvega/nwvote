@@ -268,6 +268,8 @@
             </div>
             <br>
             <mat-checkbox [(ngModel)]="randomizeTestNames">Randomize Names</mat-checkbox>
+            <mat-checkbox [(ngModel)]="alphabeticallyTestNames">alphabetic order</mat-checkbox>
+
             <div class="sm-row-box-rkScale">
                 <div>
                     <div
@@ -314,7 +316,7 @@
 
         <div class="button-done">
             <button class="button-icon-done" mat-icon-button
-                (click)="selectedIndex = '';upLoadNamesAndRationales(testNamesInput)" [disabled]="false"
+                (click)="selectedIndex = '';upLoadNamesAndRationales(testNamesInput,dataSource );" [disabled]="false"
                 aria-label="ranking">
                 <mat-icon>check_circle</mat-icon>
             </button>
@@ -441,7 +443,7 @@ height: 54px;" cdkDragHandle> </div>
             animation: rubberBand 700ms ease-in  forwards;" [style.backgroundColor]="(y==0)?'#ee7f25':'#324395'"
                     [style.fontSize]="(y==0)?'':'30px'">{{(y==0)?bmxItem.componentSettings[0].ratingScaleTitle:y}}</button>
 
-                <div *ngFor="let columnName of columnsNames; let e =  index"
+                <div *ngFor="let columnName of columnsNames; let e =  index"  [style.background-color]="y == 0 ? 'rgb(217 217 217)' : 'white'"
                     style="display: flex;align-items: center;justify-content: center;"
                     [ngClass]="(columnName.includes('Comments') == true)?'red':'blue'"
                     [style.padding]="bmxItem.componentSettings[0].rowHeight + 'px'" [style.width]="(columnName == 'rationale')?bmxItem.componentSettings[0].rationalewidth + 'px':
@@ -457,13 +459,13 @@ height: 54px;" cdkDragHandle> </div>
                         <div style="display: flex;flex-direction: row;justify-content: space-between;">
 
                             <textarea *ngIf="editSingleTableCells"
-                                [style.font-size]="bmxItem.componentSettings[0].fontSize +'px'"
+                                [style.font-size]="bmxItem.componentSettings[0].fontSize +'px'"  [style.background-color]="y == 0 ? 'rgb(217 217 217)' : 'white'"
                                 style="text-align: center; font-weight: bold;color: #324395;" class="row-box"
                                 [(ngModel)]="testName[columnName]" value="testName[columnName]"></textarea>
 
                             <p style="text-align: center; font-weight: bold;color: #324395;margin: 0 0 0px;"
                                 [style.font-size]="bmxItem.componentSettings[0].fontSize +'px'"
-                                *ngIf=" !editSingleTableCells">{{testName[columnName]}}
+                                *ngIf=" !editSingleTableCells"  [style.background-color]="y == 0 ? 'rgb(217 217 217)' : 'white'">{{testName[columnName]}}
                             </p>
                             <div *ngIf="selectedColumn === e && bmxClientPageOverview && !editSingleTableCells" style="display: flex;flex-direction: row;justify-content: space-around;
                       position: absolute;top: 35px;background: white;border: #324395 dashed 1px;"
@@ -820,6 +822,6 @@ height: 54px;" cdkDragHandle> </div>
 <!--📱📱📱📱📱📱📱📱📱📱📱📱📱📱📱📱📱📱📱📱📱📱📱📱📱📱📱📱📱📱📱 END TABLE GENERATOR 📱📱📱📱📱📱📱📱📱📱📱📱📱📱📱📱📱📱📱📱📱📱📱📱📱📱📱📱📱📱📱📱📱📱-->
 
 <app-names-uploader
-    *ngIf="showFileUploader" (save)="upLoadNamesAndRationales(testNamesInput, false); showFileUploader = false" [componentSetting]="bmxItem.componentSettings"
+    *ngIf="showFileUploader" (save)="upLoadNamesAndRationales(testNamesInput, $event); showFileUploader = false" [componentSetting]="bmxItem.componentSettings"
     [displayedColumns]="columnsNames" [dataSource]="dataSource" [isRanking]="bmxItem.componentType"
     (cancelEvent)="cancelEvent($event)"></app-names-uploader>

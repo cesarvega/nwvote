@@ -170,6 +170,13 @@ export class QuestionAnswerComponent extends RatingScaleComponent implements OnI
         }
       }
       this.bmxItem.componentText = this.TESTNAMES_LIST;
+
+      if (this.alphabeticallyTestNames) {
+        setTimeout(() => {
+          
+        this.sortAlphabetically()
+        }, 1000);
+      }
     } else {
       // this.bmxItem.componentText.forEach((row, index) => {
       //   row.STARS = this.createRatingStars(this.rankingScaleValue, this.ratingScaleIcon)
@@ -178,7 +185,17 @@ export class QuestionAnswerComponent extends RatingScaleComponent implements OnI
       // });
     }
   }
+  sortAlphabetically() {
+    const firstElement = this.bmxItem.componentText[0];
 
+    const sortedRest = this.bmxItem.componentText.slice(1).sort((a, b) => {
+        const aName = a.NewCategoryLogo || a.nameCandidates || a.name;
+        const bName = b.NewCategoryLogo || b.nameCandidates || b.name
+        return aName.localeCompare(bName);
+    });
+    this.bmxItem.componentText = [firstElement, ...sortedRest];
+    return sortedRest
+  }
   saveMultipleChoice(checkBoxName, indexRow, value) {
     if (value.target.checked) {
       this.bmxItem.componentText[indexRow].RATE = (!this.bmxItem.componentText[indexRow].RATE) ? checkBoxName + ',' : this.bmxItem.componentText[indexRow].RATE += checkBoxName + ','

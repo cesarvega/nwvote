@@ -1269,7 +1269,7 @@ export class SurveyMatrixComponent extends SurveyCreationDesignComponent impleme
                 ok = 'OK'
               } else {
                 message1 = ' You must rate at least '
-                message2 = ' Test Names '
+                message2 = ' candidates '
                 ok = 'OK'
               }
               this._snackBar.open(

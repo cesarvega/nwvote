@@ -24,7 +24,7 @@ export class ImageRankDragComponent extends RatingScaleComponent implements OnIn
 
   @Output() launchPathModal = new EventEmitter();
 
-  IMAGES_UPLOADED:any = [
+  IMAGES_UPLOADED: any = [
 
   ];
 
@@ -69,7 +69,7 @@ export class ImageRankDragComponent extends RatingScaleComponent implements OnIn
   PATH2: any[] = [
     'assets/img/bmx/tutorial/image-drag2.JPG',
   ]
-  deviceInfo;any = null;
+  deviceInfo; any = null;
   public isDesktopDevice: any = null;
 
   //----------end modal--------//
@@ -196,7 +196,7 @@ export class ImageRankDragComponent extends RatingScaleComponent implements OnIn
     if (this.IMAGES_UPLOADED.length < this.bmxItem.componentText.length) {
       this.bmxItem.componentText.splice(this.IMAGES_UPLOADED.length + 1, this.bmxItem.componentText.length + 1)
     }
-    this.IMAGES_UPLOADED.forEach((imageObject:any, index) => {
+    this.IMAGES_UPLOADED.forEach((imageObject: any, index) => {
       imageObject['FileContent'] = imageObject['FileContent'].split(imageObject['FileContent'].split(",")[0] + ',').pop()
       this._BmxService.saveFileResources(JSON.stringify(imageObject)).subscribe((result: any) => {
         this.IMAGES_UPLOADED.shift()
@@ -210,8 +210,8 @@ export class ImageRankDragComponent extends RatingScaleComponent implements OnIn
           const lastItem = this.bmxItem.componentText[this.bmxItem.componentText.length - 1];
           for (const key in lastItem) {
             if (lastItem.hasOwnProperty(key)) {
-              if(key != 'RATE'&& key != 'nameCandidates' && key!= 'STARS'){
-                lastItem[key]=''
+              if (key != 'RATE' && key != 'nameCandidates' && key != 'STARS') {
+                lastItem[key] = ''
               }
             }
           }
@@ -252,25 +252,25 @@ export class ImageRankDragComponent extends RatingScaleComponent implements OnIn
   }
 
   checkDragEvetn(event: CdkDragDrop<string[]>) {
-    if (event.previousIndex > 0) {
+    if (event.previousIndex > 0 && event.currentIndex > 0) {
       moveItemInArray(this.bmxItem.componentText, event.previousIndex, event.currentIndex);
-     
+
       this.autoSave.emit()
     }
   }
-  openWindow(index:any, bool:any){
-    if(this.showEdit){
-      this.selectedIndex=index
+  openWindow(index: any, bool: any) {
+    if (this.showEdit) {
+      this.selectedIndex = index
       this.editSingleTableCells = bool
       this.verifyCritera()
-    }else{
+    } else {
       this._snackBar.open('First upload the logos to use'
-     , 'OK', {
-      duration: 6000,
-      verticalPosition: 'top',
-    }).afterDismissed().subscribe(action => {
+        , 'OK', {
+        duration: 6000,
+        verticalPosition: 'top',
+      }).afterDismissed().subscribe(action => {
 
-    })
+      })
     }
   }
 }

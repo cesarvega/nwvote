@@ -5,6 +5,7 @@ import { RatingScaleComponent } from '../rating-scale/rating-scale.component';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { BmxService } from '../../../bmx.service';
 import { DeviceDetectorService } from 'ngx-device-detector';
+import { CdkDragDrop, moveItemInArray } from '@angular/cdk/drag-drop';
 
 @Component({
   selector: 'app-narrow-down',
@@ -95,5 +96,12 @@ export class NarrowDownComponent extends RatingScaleComponent implements OnInit 
     this.dataSource = this.bmxItem.componentText
     this.recordHistory();
 
+  }
+  checkDragEvetn(event: CdkDragDrop<string[]>) {
+    if (event.previousIndex > 0 && event.currentIndex > 0) {
+      moveItemInArray(this.bmxItem.componentText, event.previousIndex, event.currentIndex);
+
+      this.autoSave.emit()
+    }
   }
 }

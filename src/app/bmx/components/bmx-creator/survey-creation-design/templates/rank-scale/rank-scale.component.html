@@ -61,8 +61,7 @@
         </div>
 
         <!-- REST OF THE COLUMNS -->
-        <div
-            style="display: flex;flex-direction: column;align-items: center;">
+        <div style="display: flex;flex-direction: column;align-items: center;">
             <p style="margin: 0 0 -12px;color: #324395;">other columns
             </p>
             <input type="range" style="margin: 20px;width: 50px;" [(ngModel)]="bmxItem.componentSettings[0].columnWidth"
@@ -156,10 +155,10 @@
         </button>
 
         <button (click)="editSingleTableCells = !editSingleTableCells"
-        [ngClass]="(!editSingleTableCells)?'add-column':'add-column-active'" matTooltip="edit table cells"
-        matTooltipPosition="above" mat-icon-button aria-label="ranking">
-        <mat-icon style="font-size: 26px;" class="full-icon">explicit</mat-icon>
-    </button>
+            [ngClass]="(!editSingleTableCells)?'add-column':'add-column-active'" matTooltip="edit table cells"
+            matTooltipPosition="above" mat-icon-button aria-label="ranking">
+            <mat-icon style="font-size: 26px;" class="full-icon">explicit</mat-icon>
+        </button>
         <button (click)="selectedIndex = i; editSingleTableCells = false; verifyCritera()" class="add-column"
             matTooltip="setup settings" matTooltipPosition="above" *ngIf="i !== selectedIndex" mat-icon-button>
             <mat-icon style="font-size: 25px;" class="full-icon">edit</mat-icon>
@@ -298,6 +297,7 @@
 
             <div class="sm-row-box-rkScale">
                 <mat-checkbox [(ngModel)]="randomizeTestNames">Randomize Names</mat-checkbox>
+                <mat-checkbox [(ngModel)]="alphabeticallyTestNames">Alphabetic order</mat-checkbox>
 
                 <!-- <mat-checkbox [(ngModel)]="bmxItem.componentSettings[1].isImageType">Rank Logos</mat-checkbox> -->
             </div>
@@ -346,8 +346,8 @@
         </div>
         <div class="button-Done" style="display: flex; flex-direction: column; align-items: center;">
             <button style="outline: none;color:#76d354;   font-size: 21px;" mat-icon-button
-                (click)="selectedIndex = '';upLoadNamesAndRationales(testNamesInput, false, true)" [disabled]="false"
-                aria-label="ranking">
+                (click)="selectedIndex = '';upLoadNamesAndRationales(testNamesInput, dataSource, true)"
+                [disabled]="false" aria-label="ranking">
                 <mat-icon>check_circle</mat-icon>
             </button>
             <p style="margin-top: -1; color: #76D354; font-size: 21px;">Done</p>
@@ -373,21 +373,21 @@
         </div>
     </div>
     <!--  [dragula]="draggableBag"  -->
-    <div class="scroller-style main-container" cdkDropList (cdkDropListDropped)="checkDragEvetn($event)"
+    <div class="scroller-style main-container" cdkDropList
         [cdkDropListAutoScrollDisabled]="false" [cdkDropListLockAxis]="'y'"
         [dragula]="(dragRows)?'DRAGGABLE_ROW':(rankingType == 'dragAndDrop')?draggableBag:''"
-        [(dragulaModel)]="bmxItem.componentText" (dragulaModelChange)="checkDragEvetn($event);"
+        (cdkDropListDropped)="checkDragEvetnType($event)"
         *ngIf="this.bmxItem.componentSettings[0].rankType == 'dragAndDrop'">
-
-        <div *ngFor="let testName of bmxItem.componentText; let y = index" cdkDrag>
+        <div *ngFor="let testName of bmxItem.componentText; let y = index"  cdkDrag>
 
             <div class="test-name-table">
 
                 <!--⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️ RANK RENDERER ⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️ -->
-                <div [ngClass]="(this.bmxItem.componentSettings[0].rankType == 'dragAndDrop')?'rank-column':
+                <div [style.background-color]="y == 0 ? 'rgb(217 217 217)' : 'white'" [ngClass]="(this.bmxItem.componentSettings[0].rankType == 'dragAndDrop')?'rank-column':
                             (this.bmxItem.componentSettings[0].rankType == 'dropDown')?'rank-column1':'rank-column1'"
                     [style.width]="bmxItem.componentSettings[0].rateWidth + 'px'"
-                    *ngIf="this.bmxItem.componentSettings[0].rankType != 'dinamycRadio'">
+                    *ngIf="this.bmxItem.componentSettings[0].rankType != 'dinamycRadio'"
+                    [style.background-color]="y == 0 ? 'rgb(217 217 217)' : 'white'">
                     <div *ngIf="(y !== 0)">
                         <!--☂️☂️☂️☂️☂️☂️☂️☂️☂️☂️☂️☂️☂️ DROP DOWN ☂️☂️☂️☂️☂️☂️☂️☂️☂️☂️☂️☂️☂️☂️☂️☂️-->
                         <mat-form-field *ngIf="this.bmxItem.componentSettings[0].rankType == 'dropDown'"
@@ -442,6 +442,7 @@
                 <!--⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️ RANK STARS ⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️ -->
 
                 <div *ngFor="let columnName of columnsNames; let e =  index"
+                    [style.background-color]="y == 0 ? 'rgb(217 217 217)' : 'white'"
                     style="display: flex;align-items: center;justify-content: center; flex-direction: column;"
                     [ngClass]="(e%2==0)?'red':'blue'" [style.padding]="bmxItem.componentSettings[0].rowHeight + 'px'"
                     [style.width]="(columnName == 'rationale')?bmxItem.componentSettings[0].rationalewidth + 'px':
@@ -458,11 +459,15 @@
                             <textarea *ngIf="editSingleTableCells"
                                 [style.font-size]="bmxItem.componentSettings[0].fontSize +'px'"
                                 style="text-align: center; font-weight: bold;color: #324395;" class="row-box"
-                                [(ngModel)]="testName[columnName]" value="testName[columnName]"></textarea>
+                                [(ngModel)]="testName[columnName]" value="testName[columnName]"
+                                [style.background-color]="y == 0 ? 'rgb(217 217 217)' : 'white'"></textarea>
 
                             <p style="text-align: center; font-weight: bold;color: #324395;margin: 0 0 0px;padding:5px 1px"
+                                [style.background-color]="y == 0 ? 'rgb(217 217 217)' : 'white'"
                                 [style.font-size]="bmxItem.componentSettings[0].fontSize +'px'"
-                                *ngIf=" !editSingleTableCells">{{testName[columnName]}}
+                                *ngIf=" !editSingleTableCells"
+                                [style.background-color]="y == 0 ? 'rgb(217 217 217)' : 'white'">
+                                {{testName[columnName]}}
                             </p>
                         </div>
                         <div *ngIf="selectedColumn === e && bmxClientPageOverview && !editSingleTableCells" style="display: flex;flex-direction: row;justify-content: space-around;
@@ -544,14 +549,16 @@
             </div>
         </div>
     </div>
-    <div class="scroller-style main-container" *ngIf="this.bmxItem.componentSettings[0].rankType != 'dragAndDrop'">
+    <div class="scroller-style main-container" *ngIf="this.bmxItem.componentSettings[0].rankType != 'dragAndDrop'" cdkDropList
+    [dragula]="(dragRows) ? 'DRAGGABLE_ROW' : ''"
+    (cdkDropListDropped)="checkDragEvetn($event)">
 
-        <div *ngFor="let testName of bmxItem.componentText; let y = index">
-
+        <div *ngFor="let testName of bmxItem.componentText; let y = index" [cdkDragDisabled]="!dragRows" cdkDrag>
+    
             <div class="test-name-table">
 
                 <!--⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️ RANK RENDERER ⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️ -->
-                <div [ngClass]="(this.bmxItem.componentSettings[0].rankType == 'dragAndDrop')?'rank-column':
+                <div [style.background-color]="y == 0 ? 'rgb(217 217 217)' : 'white'" [ngClass]="(this.bmxItem.componentSettings[0].rankType == 'dragAndDrop')?'rank-column':
                         (this.bmxItem.componentSettings[0].rankType == 'dropDown')?'rank-column1':'rank-column1'"
                     [style.width]="bmxItem.componentSettings[0].rateWidth + 'px'"
                     *ngIf="this.bmxItem.componentSettings[0].rankType != 'dinamycRadio'">
@@ -575,7 +582,8 @@
                         <!--☂️☂️☂️☂️☂️☂️☂️☂️☂️☂️☂️☂️☂️ RADIO ☂️☂️☂️☂️☂️☂️☂️☂️☂️☂️☂️☂️☂️☂️☂️☂️-->
                         <button (click)="bmxItem.componentText[y]['RATE'] = 0;leaveStar(y);"
                             *ngIf="this.bmxItem.componentText[y].RATE > 0 && (this.bmxItem.componentSettings[0].rankType == 'radio'|| this.bmxItem.componentSettings[0].rankType == 'dinamycRadio')"
-                            mat-button style="background-color:#ee7f25 ;color: white;animation: rubberBand 700ms ease-in  forwards;">{{this.bmxItem.componentText[y].RATE}}</button>
+                            mat-button
+                            style="background-color:#ee7f25 ;color: white;animation: rubberBand 700ms ease-in  forwards;">{{this.bmxItem.componentText[y].RATE}}</button>
 
                         <!-- 🩸🩸🩸🩸🩸🩸🩸🩸🩸🩸🩸🩸🩸 RATE BUTTONS 🩸🩸🩸🩸🩸🩸🩸🩸🩸🩸🩸🩸🩸🩸🩸🩸🩸🩸🩸🩸🩸🩸🩸🩸 -->
                         <div style="display: flex;">
@@ -606,6 +614,7 @@
                 <!--⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️ RANK STARS ⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️ -->
 
                 <div *ngFor="let columnName of columnsNames; let e =  index"
+                    [style.background-color]="y == 0 ? 'rgb(217 217 217)' : 'white'"
                     style="display: flex;align-items: center;justify-content: center; flex-direction: column;"
                     [ngClass]="(e%2==0)?'red':'blue'" [style.padding]="bmxItem.componentSettings[0].rowHeight + 'px'"
                     [style.width]="(columnName == 'rationale')?bmxItem.componentSettings[0].rationalewidth + 'px':
@@ -622,11 +631,14 @@
                             <textarea *ngIf="editSingleTableCells"
                                 [style.font-size]="bmxItem.componentSettings[0].fontSize +'px'"
                                 style="text-align: center; font-weight: bold;color: #324395;" class="row-box"
-                                [(ngModel)]="testName[columnName]" value="testName[columnName]"></textarea>
+                                [(ngModel)]="testName[columnName]" value="testName[columnName]"
+                                [style.background-color]="y == 0 ? 'rgb(217 217 217)' : 'white'"></textarea>
 
                             <p style="text-align: center; font-weight: bold;color: #324395;margin: 0 0 0px;padding:5px 1px"
                                 [style.font-size]="bmxItem.componentSettings[0].fontSize +'px'"
-                                *ngIf=" !editSingleTableCells">{{testName[columnName]}}
+                                *ngIf=" !editSingleTableCells"
+                                [style.background-color]="y == 0 ? 'rgb(217 217 217)' : 'white'">
+                                {{testName[columnName]}}
                             </p>
                         </div>
                         <div *ngIf="selectedColumn === e && bmxClientPageOverview && !editSingleTableCells" style="display: flex;flex-direction: row;justify-content: space-around;
@@ -995,6 +1007,6 @@
     [dataSource]="dataSource" (cancelEvent)="showModalTable = false"></app-table>
 
 <app-names-uploader *ngIf="showFileUploader"
-    (save)="upLoadNamesAndRationales(testNamesInput, false,false); showFileUploader = false" [displayedColumns]="columnsNames"
-    [dataSource]="dataSource" [isRanking]="bmxItem.componentType"
+    (save)="upLoadNamesAndRationales(testNamesInput, $event,false); showFileUploader = false"
+    [displayedColumns]="columnsNames" [dataSource]="dataSource" [isRanking]="bmxItem.componentType"
     (cancelEvent)="cancelEvent($event)"></app-names-uploader>

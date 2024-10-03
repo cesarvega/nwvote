@@ -135,16 +135,32 @@ export class RankScaleComponent extends RatingScaleComponent implements OnInit {
     this.dataSource = this.bmxItem.componentText
     this.recordHistory();
 
+    
   }
+  sortAlphabetically() {
+    console.log(this.bmxItem.componentText)
+    const firstElement = this.bmxItem.componentText[0];
 
+    const sortedRest = this.bmxItem.componentText.slice(1).sort((a, b) => {
+      return a.nameCandidates.localeCompare(b.nameCandidates);
+    });
+
+    this.bmxItem.componentText = [firstElement, ...sortedRest];
+}
+checkDragEvetnType(event: CdkDragDrop<string[]>) {
+  if (event.previousIndex > 0 && event.currentIndex > 0) {
+    moveItemInArray(this.bmxItem.componentText, event.previousIndex, event.currentIndex);
+
+    this.autoSave.emit()
+  }
+  this.dataSource=this.bmxItem.componentText
+  this.autoSave.emit()
+}
   checkDragEvetn(event: CdkDragDrop<string[]>) {
-    if (this.bmxItem.componentSettings[0].rankType == 'dragAndDrop') {
+    if (event.previousIndex > 0 && event.currentIndex > 0) {
       moveItemInArray(this.bmxItem.componentText, event.previousIndex, event.currentIndex);
-      this.bmxItem.componentText.forEach((row, rowIndex) => {
-        if (rowIndex > 0) {
-          row.RATE = rowIndex
-        }
-      })
+
+      this.autoSave.emit()
     }
     this.dataSource=this.bmxItem.componentText
     this.autoSave.emit()
@@ -161,7 +177,10 @@ export class RankScaleComponent extends RatingScaleComponent implements OnInit {
     }
     return startCounter;
   }
-  upLoadNamesAndRationales(list: any, type?: any, update?:boolean) {
+  upLoadNamesAndRationales(list: any, dataSourceCopy: any, update?:boolean) {
+    
+    this.bmxItem.componentText = dataSourceCopy
+    this.dataSource = dataSourceCopy
     if (typeof list == 'object') {
       list = ''
     }
@@ -373,9 +392,11 @@ export class RankScaleComponent extends RatingScaleComponent implements OnInit {
 
       this.dragRows = false;
     }, 0);
-    this.bmxItem.componentText = this.removeDuplicates(this.bmxItem.componentText)
-    this.dataSource = this.bmxItem.componentText
-
+    
+    this.bmxItem.componentText = this.dataSource
+    if (this.alphabeticallyTestNames) {
+      this.sortAlphabetically()
+    }
   }
 
   rankingTableType(rankingType) {

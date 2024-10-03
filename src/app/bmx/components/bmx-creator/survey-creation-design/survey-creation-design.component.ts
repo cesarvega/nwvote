@@ -900,7 +900,7 @@ export class SurveyCreationDesignComponent implements OnInit {
                         this._snackBar.open(
                             'You must rate at least ' +
                             component.componentSettings[0].minRule +
-                            ' Test Names',
+                            ' candidates',
                             'OK',
                             {
                                 duration: 5000,

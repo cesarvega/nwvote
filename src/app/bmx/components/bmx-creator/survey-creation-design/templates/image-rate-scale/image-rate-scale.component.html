@@ -348,6 +348,8 @@ z-index: 1;top: -65px;left: 25%;border: #063074 3px solid; overflow: auto;
             </div>
             <br>
             <mat-checkbox [(ngModel)]="randomizeTestNames">Randomize Names</mat-checkbox>
+            <mat-checkbox [(ngModel)]="alphabeticallyTestNames">Alphabetic order</mat-checkbox>
+
             <div class="sm-row-box-rkScale">
                 <div>
                     <div
@@ -397,7 +399,7 @@ z-index: 1;top: -65px;left: 25%;border: #063074 3px solid; overflow: auto;
 
         <div class="button-Done" style="display: flex; flex-direction: column; align-items: center;">
             <button style="outline: none;color:#76d354;" mat-icon-button
-                (click)="selectedIndex = '';upLoadNamesAndRationales(testNamesInput)" [disabled]="false"
+                (click)="selectedIndex = '';upLoadNamesAndRationales(testNamesInput, dataSource );" [disabled]="false"
                 aria-label="ranking">
                 <mat-icon>check_circle</mat-icon>
             </button>
@@ -423,14 +425,16 @@ z-index: 1;top: -65px;left: 25%;border: #063074 3px solid; overflow: auto;
         <div style="font-size: 18px;color: #ee7f25;padding-bottom: 20px;">
             {{bmxItem.componentSettings[0].categoryDescription}}</div>
     </div>
-    <div class="scroller-style main-container" style="margin-bottom: 45px;" [dragula]="(dragRows)?'DRAGGABLE_ROW':''"
-        [(dragulaModel)]="bmxItem.componentText" (dragulaModelChange)="checkDragEvetn($event);">
+    <div class="scroller-style main-container" style="margin-bottom: 45px;" cdkDropList
+    [dragula]="(dragRows) ? 'DRAGGABLE_ROW' : ''"
+    (cdkDropListDropped)="checkDragEvetn($event)">
 
-        <div *ngFor="let testName of bmxItem.componentText; let y = index">
+        <div *ngFor="let testName of bmxItem.componentText; let y = index" [cdkDragDisabled]="!dragRows" cdkDrag>
+    
 
             <!-- <div *ngIf="(y !== 0)" style="color: white;font-size: xx-small;">.</div> -->
             <div class="test-name-table">
-                <div *ngFor="let columnName of columnsNames; let e =  index"
+                <div *ngFor="let columnName of columnsNames; let e =  index"  [style.background-color]="y == 0 ? 'rgb(217 217 217)' : 'white'"
                     style="display: flex;align-items: center;justify-content: center;"
                     [ngClass]="(columnName.includes('Comments') == true)?'red':'blue'"
                     [style.padding]="bmxItem.componentSettings[0].rowHeight + 'px'" [style.width]="(columnName == 'rationale')?bmxItem.componentSettings[0].rationalewidth + 'px':
@@ -446,11 +450,11 @@ z-index: 1;top: -65px;left: 25%;border: #063074 3px solid; overflow: auto;
                             <textarea *ngIf="editSingleTableCells"
                                 [style.font-size]="bmxItem.componentSettings[0].fontSize +'px'"
                                 style="text-align: center; font-weight: bold;color: #324395;" class="row-box"
-                                [(ngModel)]="testName[columnName]" value="testName[columnName]"></textarea>
+                                [(ngModel)]="testName[columnName]" value="testName[columnName]"  [style.background-color]="y == 0 ? 'rgb(217 217 217)' : 'white'"></textarea>
 
                             <p style="text-align: center; font-weight: bold;color: #324395;margin: 0 0 0px;padding:5px 1px"
                                 [style.font-size]="bmxItem.componentSettings[0].fontSize +'px'"
-                                *ngIf=" !editSingleTableCells">{{testName[columnName]}}
+                                *ngIf=" !editSingleTableCells"  [style.background-color]="y == 0 ? 'rgb(217 217 217)' : 'white'">{{testName[columnName]}}
                             </p>
                         </div>
                         <div *ngIf="selectedColumn === e && bmxClientPageOverview && !editSingleTableCells" style="display: flex;flex-direction: row;justify-content: space-around;
@@ -773,6 +777,6 @@ z-index: 1;top: -65px;left: 25%;border: #063074 3px solid; overflow: auto;
 
 <!--📱📱📱📱📱📱📱📱📱📱📱📱📱📱📱📱📱📱📱📱📱📱📱📱📱📱📱📱📱📱📱 END TABLE GENERATOR 📱📱📱📱📱📱📱📱📱📱📱📱📱📱📱📱📱📱📱📱📱📱📱📱📱📱📱📱📱📱📱📱📱📱-->
 <app-names-uploader
-    *ngIf="showFileUploader"  [componentSetting]="bmxItem.componentSettings" (save)="upLoadNamesAndRationales(testNamesInput, false); showFileUploader = false"
+    *ngIf="showFileUploader"  [componentSetting]="bmxItem.componentSettings" (save)="upLoadNamesAndRationales(testNamesInput, $event ); showFileUploader = false"
     [displayedColumns]="columnsNames" [dataSource]="dataSource"  [isRanking]="bmxItem.componentType"
     (cancelEvent)="cancelEvent($event)"></app-names-uploader>

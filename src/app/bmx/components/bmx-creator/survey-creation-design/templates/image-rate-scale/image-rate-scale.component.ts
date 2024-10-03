@@ -6,6 +6,7 @@ import { BmxService } from '../../../bmx.service';
 import { RatingScaleComponent } from '../rating-scale/rating-scale.component';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { DeviceDetectorService } from 'ngx-device-detector';
+import { CdkDragDrop, moveItemInArray } from '@angular/cdk/drag-drop';
 
 @Component({
   selector: 'app-image-rate-scale',
@@ -245,6 +246,13 @@ export class ImageRateScaleComponent extends RatingScaleComponent implements OnI
       this.autoSave.emit()
     } else if (this.ratedCounter <= this.bmxItem.componentSettings[0].maxRule && this.actualRate != 0) {
       this.autoSave.next(0)
+    }
+  }
+  checkDragEvetn(event: CdkDragDrop<string[]>) {
+    if (event.previousIndex > 0 && event.currentIndex > 0) {
+      moveItemInArray(this.bmxItem.componentText, event.previousIndex, event.currentIndex);
+
+      this.autoSave.emit()
     }
   }
 

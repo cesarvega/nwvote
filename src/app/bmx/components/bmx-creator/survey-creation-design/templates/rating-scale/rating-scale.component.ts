@@ -8,6 +8,7 @@ import { BmxService } from '../../../bmx.service';
 import { DeviceDetectorService } from 'ngx-device-detector';
 import { MatCheckboxModule } from '@angular/material/checkbox';
 import { Console } from 'console';
+import { CdkDragDrop, moveItemInArray } from '@angular/cdk/drag-drop';
 
 @Component({
   selector: 'app-rating-scale',
@@ -66,12 +67,13 @@ export class RatingScaleComponent implements OnInit {
   BAG = "DRAGGABLE_RANK_ROW";
   subs = new Subscription();
   rowsCount = 0
-
+  dragList= []
   HISTORY = []
   RANGEARRAY = ['columnWidth1', 'columnWidth2', 'columnWidth3']
   selectedNarrowDownTimer = 0;
   columnFontSize = 15;
   randomizeTestNames = false
+  alphabeticallyTestNames = false
   displaySound = false
   showMatrixMenu: boolean = false;
   iconMenuShow: string = "add_circle_outline";
@@ -407,7 +409,7 @@ export class RatingScaleComponent implements OnInit {
         this.autoSave.emit();
       } else {
         if (this.bmxItem.componentType != 'narrow-down' && this.bmxItem.componentSettings[0].maxRule > 0) {
-          this._snackBar.open('you can only rate up to ' + this.bmxItem.componentSettings[0].maxRule + ' Test Names', 'OK', {
+          this._snackBar.open('you can only rate up to ' + this.bmxItem.componentSettings[0].maxRule + ' candidates', 'OK', {
             duration: 5000,
             verticalPosition: 'top',
           })
@@ -529,7 +531,10 @@ export class RatingScaleComponent implements OnInit {
   }
   // ⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️ END STARS METHODS  ⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️
 
-  upLoadNamesAndRationales(list: any, type?: any, update?: boolean) {
+  upLoadNamesAndRationales(list: any, dataSourceCopy: any, update?: boolean,) {
+    console.log('datasource:', dataSourceCopy)
+    this.bmxItem.componentText = dataSourceCopy
+    this.dataSource = dataSourceCopy
     if (typeof list == 'object') {
       list = ''
     }
@@ -538,7 +543,6 @@ export class RatingScaleComponent implements OnInit {
     if (update) {
       this.recordHistory();
     }
-    console.log(list)
     this.dragRows = true;
     if (!list) { list = this.listString; }
     list = 'list'
@@ -552,7 +556,7 @@ export class RatingScaleComponent implements OnInit {
       // COLUMNS NAMES CHECK
       const rateColumnIndex = this.columnsNames.findIndex(column => column === 'RATE');
       if (rateColumnIndex !== -1) {
-        this.columnsNames.splice(rateColumnIndex, 1); // Eliminar RATE si ya existe para evitar duplicación
+        this.columnsNames.splice(rateColumnIndex, 1);
       }
       this.columnsNames.forEach((column, index) => {
         column = column.toLowerCase();
@@ -569,7 +573,6 @@ export class RatingScaleComponent implements OnInit {
         }
       });
 
-      // Insertar la columna RATE en la posición original
       const originalRatePosition = this.columnsNames.length + 1;
       this.columnsNames.splice(originalRatePosition, 0, 'RATE');
 
@@ -718,13 +721,30 @@ export class RatingScaleComponent implements OnInit {
         });
       }
     }
-    this.bmxItem.componentText = this.removeDuplicates(this.bmxItem.componentText)
-    this.dataSource = this.bmxItem.componentText
+    this.bmxItem.componentText = this.dataSource
+    if (this.alphabeticallyTestNames) {
+      setTimeout(() => {
+        
+      this.sortAlphabetically()
+      }, 1000);
+    }
+  }
+  sortAlphabetically() {
+    const firstElement = this.bmxItem.componentText[0];
+
+    const sortedRest = this.bmxItem.componentText.slice(1).sort((a, b) => {
+        const aName = a.NewCategoryLogo || a.nameCandidates || a.name;
+        const bName = b.NewCategoryLogo || b.nameCandidates || b.name
+        return aName.localeCompare(bName);
+    });
+    this.bmxItem.componentText = [firstElement, ...sortedRest];
+    return sortedRest
   }
   removeDuplicates(arr) {
+    console.log(arr)
     const seen = new Set();
     return arr.filter(item => {
-      const name = item['New Column 4'] || item.nameCandidates ||  item.name || item.rationale; // Usar nameCandidates o name si no existe
+      const name = item['New Column 4'] || item.nameCandidates || item.name || item.rationale;
       console.log(name)
       const duplicate = seen.has(name);
       seen.add(name);
@@ -1073,8 +1093,12 @@ export class RatingScaleComponent implements OnInit {
     }
   }
 
-  checkDragEvetn(e) {
-    this.dataSource = e
+  checkDragEvetn(event: CdkDragDrop<string[]>) {
+    if (event.previousIndex > 0 && event.currentIndex > 0) {
+      moveItemInArray(this.bmxItem.componentText, event.previousIndex, event.currentIndex);
+
+      this.autoSave.emit()
+    }
   }
 
   toogleColumnResizer() {

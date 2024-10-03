@@ -455,8 +455,24 @@ export class TinderComponent extends RatingScaleComponent implements OnInit {
     this.showModalAddRow = false;
     this.xpercent = 100 / (this.bmxItem.componentText.length - 1);
     this.value = this.xpercent * this.testNameIndex
+    if (this.alphabeticallyTestNames) {
+      setTimeout(() => {
+        
+      this.sortAlphabetically()
+      }, 1000);
+    }
   }
+  sortAlphabetically() {
+    const firstElement = this.bmxItem.componentText[0];
 
+    const sortedRest = this.bmxItem.componentText.slice(1).sort((a, b) => {
+        const aName = a.NewCategoryLogo || a.nameCandidates || a.name;
+        const bName = b.NewCategoryLogo || b.nameCandidates || b.name
+        return aName.localeCompare(bName);
+    });
+    this.bmxItem.componentText = [firstElement, ...sortedRest];
+    return sortedRest
+  }
   deleteName(element: any) {
     this.dataSource.splice(this.dataSource.indexOf(element), 1);
     // Remove the element from the array this.bmx Item.component Text

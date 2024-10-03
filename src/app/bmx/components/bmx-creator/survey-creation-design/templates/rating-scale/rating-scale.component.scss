@@ -124,14 +124,16 @@
   .test-name-table {
     display: flex;
     flex-direction: column;
-    // gap: 16px;
-    // padding-top: 10px;
     align-items: center;
+    -webkit-box-shadow: 0px 0px 24px -1px rgba(0, 0, 0, 0.75);
+    -moz-box-shadow: 0px 0px 24px -1px rgba(0, 0, 0, 0.75);
+    box-shadow: 0px 0px 8px -1px rgba(0, 0, 0, 0.75);
     border: 2px solid rgb(235, 235, 235);
     border-radius: 5px;
     width: 100vw;
     overflow: hidden;
     transition: height 1s ease-in;
+    background-color: #fff !important;
   }
 
   .mobile {
@@ -166,6 +168,7 @@
 
 .test-name-table:last-child {
   border-bottom: rgb(231, 230, 230) 1px solid;
+  background-color: #a7a6a6;
 }
 
 .main-container {
