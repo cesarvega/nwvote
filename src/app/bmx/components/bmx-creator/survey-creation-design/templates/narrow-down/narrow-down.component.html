@@ -636,10 +636,11 @@ align-items: center; ">
 
             <!-- 🟢🟢🟢🟢🟢🟢🟢🟢🟢🟢🟢🟢🟢🟢 TABLE CELLS 🟢🟢🟢🟢🟢🟢🟢🟢🟢🟢🟢🟢🟢🟢🟢🟢 -->
             <!-- CHECKBOX & TABLE IN A ROW -->
-            <div style="display: flex;flex-direction: row;align-items: center;">
+            <div 
+            [ngClass]="(selectedCard != y)?'noSelected':'selected'">
                 <div *ngIf="(y !== 0)" [ngClass]="(selectedCard != y)?'noSelectedCard':'selectedCard'">
                     <input type="checkbox" [disabled]="false"
-                        style="position: absolute;left: 6px;margin: -16px 8px;"
+                        
                         [checked]="this.bmxItem.componentText[y].SELECTED_ROW"
                         (change)="setRating($event,y);leaveStar(y);">
                 </div>

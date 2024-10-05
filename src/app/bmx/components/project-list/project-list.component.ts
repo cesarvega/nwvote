@@ -1,4 +1,4 @@
-import { Component, ElementRef, EventEmitter, inject, Inject, Input, OnInit, Output, ViewChild, ViewEncapsulation } from '@angular/core';
+import { Component, ElementRef, EventEmitter, Inject, Input, OnInit, Output, ViewChild, ViewEncapsulation } from '@angular/core';
 import { DOCUMENT } from '@angular/common';
 // import { HotkeysService, Hotkey } from 'angular2-hotkeys';
 import { ActivatedRoute, Router } from '@angular/router';
@@ -9,7 +9,6 @@ import { MatTableDataSource } from '@angular/material/table';
 import { MatSort } from '@angular/material/sort';
 import { stat } from 'fs';
 import { BmxService } from '../bmx-creator/bmx.service';
-import { BMX_STORE } from 'src/app/signals/+store/brs.store';
 
 @Component({
   selector: 'app-project-list',
@@ -50,20 +49,18 @@ export class ProjectListComponent implements OnInit {
   showDialog = false
 
   dialogText = ''
-  
   constructor(@Inject(DOCUMENT) private document: any, private activatedRoute: ActivatedRoute, private dragulaService: DragulaService, private _BmxService: BmxService, private router: Router,) { }
-  readonly bmxStore = inject(BMX_STORE);
 
   ngOnInit(): void {
     this.selected = 'Live'
     this._BmxService.getGetProjectList()
-    this.userData = this.bmxStore.userData()
-        this.userData = JSON.parse(this.userData)
+    this.userData = localStorage.getItem('userData')
+    this.userData = JSON.parse(this.userData)
     this._BmxService.getGetProjectList()
       .subscribe((arg: any) => {
         this.allData = JSON.parse(arg.d);
         // this.allData = JSON.parse(obj);
-        this.bmxStore.updateProjectList(this.allData)
+
         this.userDepartment = this.userData != null ? this.userData.Department : '';
         this.userRole = this.userData != null ? this.userData.Role : 'admin';
         this.changeView();
@@ -85,19 +82,15 @@ export class ProjectListComponent implements OnInit {
   sendEmail(option: string): void {
     var test = option;
     this._BmxService.setProjectName(option);
-    //localStorage.setItem('projectName', option);
-    this.bmxStore.updateProjectName(option)
+    localStorage.setItem('projectName', option);
     this.isMenuActive1Email.emit(false);
   }
 
   editBM(option: string): void {
     this._BmxService.setProjectName(option);
     var test = option;
-    //localStorage.setItem('projectName', option);
-    //localStorage.setItem('templates', 'false');
-    this.bmxStore.updateProjectName(option)
-    this.bmxStore.updateTemplates('false')
-
+    localStorage.setItem('projectName', option);
+    localStorage.setItem('templates', 'false');
     this.isMenuActive1Close.emit(false);
     this.router.navigate(['project-information'])
 

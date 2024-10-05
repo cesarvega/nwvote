@@ -137,8 +137,8 @@ export class ProjectInformationComponent implements OnInit {
             this.bmxEditData.patchValue({ bmxRegionalOffice: this.DIRECTORS });
 
             this._BmxService.setprojectData(this.bmxEditData.value)
+            this.loader = false
           }
-          this.loader = false
         });
     } else {
       this.loader = false
