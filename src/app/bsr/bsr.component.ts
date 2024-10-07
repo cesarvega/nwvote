@@ -349,7 +349,7 @@ export class BsrComponent implements OnInit {
         this.moveForward();
       } else if (event.key === 'ArrowLeft') {
         this.moveBackward();
-      } else if (event.key === 'o' || event.key === 'O') {
+      } else if (event.shiftKey && (event.key === 'o' || event.key === 'O')){
 
         this.overview = !this.overview;
       } else if ((event.key === 'b' || event.key === 'B') && event.ctrlKey) {
