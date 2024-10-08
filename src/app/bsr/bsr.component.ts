@@ -80,7 +80,8 @@ export class BsrComponent implements OnInit {
   wide = true
   showHotKeys = false
   constructor(@Inject(DOCUMENT) private document: any,
-    private _BsrService: BsrService, public dialog: MatDialog, private activatedRoute: ActivatedRoute,
+    private _BsrService: BsrService, public dialog: MatDialog, private activatedRoute: ActivatedRoute,         public _snackBar: MatSnackBar,
+
     // private _hotkeysService: HotkeysService,
   ) {
 
@@ -533,45 +534,47 @@ export class BsrComponent implements OnInit {
     this.pageCounter = ii + 1 + '/' + this.totalNumberOfSlides;
   }
 
-  openDialog(item, nameid): void {
-    this.open = true
-    const dialogRef = this.dialog.open(editPost, {
 
+  openDialog(item, nameid) {
+    this.open = true;
+    const dialogRef = this.dialog.open(editPost, {
       // width: ((nameid === 'edit')?'80%':'100%'),
       // height: ((nameid === 'edit') ? '777px' : '200px'),
-      data: { name: item, nameId: nameid }
+      data: {
+        name: item,
+        nameId: nameid
+      }
     });
-
     this.conceptid = item.conceptid;
-
     dialogRef.afterClosed().subscribe(result => {
-      this.open = false
-      this.conceptData.concepts.forEach(element => {
-        element.concept = element.concept.replace(/`/g, "'");
-        element.html = element.html.replace(/`/g, "'");
-      });
-
-      if (result === 'delete') {
-        if (this.conceptid === '-1') {
-          this.conceptid = "'" + -1 + '"';
-        }
-        this._BsrService.deletePost(this.conceptid).subscribe(arg => {
-          this._BsrService.getPost().subscribe((res: any) => {
-
-
-            this.conceptData = JSON.parse(res[0].bsrData);
-            this.conceptData.concepts.forEach(element => {
-              element.concept = element.concept.replace(/`/g, "'");
-              element.html = element.html.replace(/`/g, "'");
+      const editPostInstance = dialogRef.componentInstance;
+      // Llamar a buttonOption en cualquier momento necesario
+      editPostInstance.buttonOption('savePost'); // Aquí llamas a buttonOption directamente
+      setTimeout(() => {
+        this.open = false;
+        this.conceptData.concepts.forEach(element => {
+          element.concept = element.concept.replace(/`/g, "'");
+          element.html = element.html.replace(/`/g, "'");
+        });
+        if (result === 'delete') {
+          if (this.conceptid === '-1') {
+            this.conceptid = "'" + -1 + '"';
+          }
+          this._BsrService.deletePost(this.conceptid).subscribe(arg => {
+            this._BsrService.getPost().subscribe(res => {
+              this.conceptData = JSON.parse(res[0].bsrData);
+              this.conceptData.concepts.forEach(element => {
+                element.concept = element.concept.replace(/`/g, "'");
+                element.html = element.html.replace(/`/g, "'");
+              });
             });
           });
-        });
-      } else if (result === 'deleteName') {
-        this._BsrService.getNameCandidates(this.projectId).subscribe((res: any) => {
-          this.nameCandidates = res;
-        });
-      } else if (result === 'savePost') {
-        this._BsrService.getPost().subscribe((res: any) => {
+        } else if (result === 'deleteName') {
+          this._BsrService.getNameCandidates(this.projectId).subscribe(res => {
+            this.nameCandidates = res;
+          });
+        }
+        this._BsrService.getPost().subscribe(res => {
           this.conceptData = JSON.parse(res[0].bsrData);
           this.conceptData.concepts.forEach(element => {
             element.concept = element.concept.replace(/`/g, "'");
@@ -581,14 +584,18 @@ export class BsrComponent implements OnInit {
             this.isNSR = true;
           }
         });
-      }
-      this._BsrService.getNameCandidates(this.projectId).subscribe((res: any) => {
-        this.nameCandidates = res;
-      });
-    }
-    );
+        editPostInstance.buttonOption('savePost'); // Aquí llamas a buttonOption directamente
+        this._snackBar.open('Data was saved', 'OK', {
+          duration: 5000,
+          horizontalPosition: 'right',
+          verticalPosition: 'top'
+        });
+        this._BsrService.getNameCandidates(this.projectId).subscribe(res => {
+          this.nameCandidates = res;
+        });
+      }, 500);
+    });
   }
-
 
   assignCopy() {
     // this.appSearchSlidesData = Object.assign([], this.appSlidesData);
@@ -724,6 +731,7 @@ export class BsrComponent implements OnInit {
 import { MatSliderChange } from '@angular/material/slider';
 import { ActivatedRoute } from '@angular/router';
 import { BehaviorSubject, forkJoin, map } from 'rxjs';
+import { MatSnackBar } from '@angular/material/snack-bar';
 // import { ThrowStmt } from '@angular/compiler/src/output/output_ast';
 // import { DragulaService } from 'ng2-dragula';
 
