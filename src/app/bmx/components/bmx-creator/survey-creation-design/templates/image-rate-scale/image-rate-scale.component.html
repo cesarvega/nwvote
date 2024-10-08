@@ -617,8 +617,8 @@ z-index: 1;top: -65px;left: 25%;border: #063074 3px solid; overflow: auto;
 
         <div *ngFor="let testName of bmxItem.componentText; let y = index" style="margin-bottom: 10px;">
 
-            <div (click)="openSelected(y)" class="test-name-table" *ngIf="(y != 0)"
-                [style.height]="(open(y))?'':'100px'">
+            <div (click)="openSelected(y); selectedIndex = y" class="test-name-table" *ngIf="(y != 0)"
+                [style.height]="(selectedIndex == y)?'':'100px'">
                 <!-- 🩸🩸🩸🩸🩸🩸🩸🩸🩸🩸🩸🩸🩸 RATE BUTTONS 🩸🩸🩸🩸🩸🩸🩸🩸🩸🩸🩸🩸🩸🩸🩸🩸🩸🩸🩸🩸🩸🩸🩸🩸 -->
 
                 <button (click)="maxRuleCounterMinus();bmxItem.componentText[y]['RATE'] = 0;leaveStar(y)"
@@ -658,7 +658,7 @@ z-index: 1;top: -65px;left: 25%;border: #063074 3px solid; overflow: auto;
                     <!-- 🟡🟡🟡🟡🟡🟡🟡🟡🟡🟡🟡🟡🟡🟡 TABLE CELLS  🟡🟡🟡🟡🟡🟡🟡🟡🟡🟡🟡🟡🟡🟡🟡🟡 -->
                     <div>
                         <!--⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️ STARS RENDERER ⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️ -->
-                        <div *ngIf="y !== 0 && open(y) &&  columnName.includes('RATE') == true"
+                        <div *ngIf="y !== 0 && selectedIndex == y &&  columnName.includes('RATE') == true"
                             style="display: flex;align-items: center;justify-content: center;">
                             <div *ngIf="(y !== 0)">
                                 <div *ngIf="testName.CRITERIA; else elseBlock">
@@ -738,13 +738,7 @@ z-index: 1;top: -65px;left: 25%;border: #063074 3px solid; overflow: auto;
 
                         <!-- TEXT_AREA COLUMN-->
                         <div style="display: flex;justify-content: center;">
-                            <textarea *ngIf="y !== 0  && columnName.includes('Comments') == true && open(y)"
-                                [style.width]="'95%'" [style.font-size]="bmxItem.componentSettings[0].fontSize +'px'"
-                                cdkTextareaAutosize [cdkAutosizeMinRows]="bmxItem.componentSettings[0].rowHeight + 2"
-                                style="text-align: center;height: 32px;width: 358px;font-size: 16px;border: 1px solid grey;
-                            animation: bounceIn 500ms ease-in forwards;padding: 0 4px;margin-bottom: 10px;"
-                                class="row-box" [(ngModel)]="testName[columnName]" placeholder="comments" rows="4"
-                                cols="50"></textarea>
+                           
                         </div>
 
                         <!-- <p (click)="(selectedCard == y)?selectedCard = '':selectedCard = y" *ngIf="y !== 0  && !editSingleTableCells && (columnName.includes('RadioColumn') != true) &&
@@ -755,14 +749,13 @@ z-index: 1;top: -65px;left: 25%;border: #063074 3px solid; overflow: auto;
                             [style.color]="(columnName.includes('name') == true)?'#324395':'#bababa'"
                             style="text-align: center;padding: 10px 4px;">{{testName[columnName]}}</p> -->
 
-                        <p *ngIf="y !== 0  && !editSingleTableCells && (columnName.includes('RadioColumn') != true) &&
-                              columnName.includes('Comments') != true && selectedCard == y &&
+                        <p *ngIf="y !== 0  && !editSingleTableCells &&
+                              columnName.includes('Comments') != true && selectedIndex == y &&
                               columnName.includes('name') != true &&  columnName.includes('RATE') != true"
                             [style.font-size]=" (columnName.includes('name') == true)?'27px':'20px'"
                             [style.color]="(columnName.includes('name') == true)?'#324395':'#bababa'"
                             style="text-align: center;padding: 5px 4px;"
                             [innerHTML]="testName[columnName] | safe: 'html'">{{testName[columnName]}}</p>
-
 
                     </div>
                     <!-- 🟡🟡🟡🟡🟡🟡🟡🟡🟡🟡🟡🟡🟡🟡 END TABLE CELLS 🟡🟡🟡🟡🟡🟡🟡🟡🟡🟡🟡🟡🟡🟡🟡🟡 -->

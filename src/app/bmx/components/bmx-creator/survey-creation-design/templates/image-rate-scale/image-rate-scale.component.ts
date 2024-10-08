@@ -52,6 +52,7 @@ export class ImageRateScaleComponent extends RatingScaleComponent implements OnI
   ratedCounter = 0
   actualRate = 0
   showEdit = false
+  selectedIndex
   //------modal-----------//
   @Output() launchPathModal = new EventEmitter();
 
