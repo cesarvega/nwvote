@@ -19,6 +19,8 @@ export class RankScaleComponent extends RatingScaleComponent implements OnInit {
   @Input() i;
   @Input() bmxClientPageDesignMode;
   @Input() bmxClientPageOverview;
+  @Input() bmxPages
+  @Input() currentPage
   @Output() autoSave = new EventEmitter();
   showBar = false
 
@@ -156,6 +158,23 @@ checkDragEvetnType(event: CdkDragDrop<string[]>) {
   this.dataSource=this.bmxItem.componentText
   this.autoSave.emit()
 }
+
+moveItemUp(): void {
+  if (this.i > 0) {
+      const temp = this.bmxPages[this.currentPage].page[this.i];
+      this.bmxPages[this.currentPage].page[this.i] = this.bmxPages[this.currentPage].page[this.i - 1];
+      this.bmxPages[this.currentPage].page[this.i - 1] = temp;
+  }
+}
+
+moveItemDown(): void {
+  if (this.i < this.bmxPages[this.currentPage].page.length - 1) {
+      const temp = this.bmxPages[this.currentPage].page[this.i];
+      this.bmxPages[this.currentPage].page[this.i] = this.bmxPages[this.currentPage].page[this.i + 1];
+      this.bmxPages[this.currentPage].page[this.i + 1] = temp;
+  }
+}
+
   checkDragEvetn(event: CdkDragDrop<string[]>) {
     if (event.previousIndex > 0 && event.currentIndex > 0) {
       moveItemInArray(this.bmxItem.componentText, event.previousIndex, event.currentIndex);

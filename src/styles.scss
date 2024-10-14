@@ -32,6 +32,11 @@ app-dashboard {
         min-height: 15px;
     }
 }
+.ql-editor {
+    p:nth-of-type(2){
+        font-family: sofia-pro;
+    }
+}
 
 thead {
     display: none;
@@ -76,7 +81,12 @@ thead {
     overflow-y: hidden;
 }
 
-
-app-survey-matrix{
+app-survey-matrix {
     width: 100%;
+}
+.ql-editor{
+.ql-align-center:nth-of-type(2) {
+    /* Tus estilos aquí */
+    font-family: sofia-pro;
+}
 }

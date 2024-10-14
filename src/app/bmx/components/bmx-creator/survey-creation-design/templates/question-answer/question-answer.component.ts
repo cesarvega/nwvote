@@ -16,6 +16,8 @@ export class QuestionAnswerComponent extends RatingScaleComponent implements OnI
   @Input() i;
   @Input() bmxClientPageDesignMode;
   @Input() bmxClientPageOverview;
+  @Input() bmxPages
+  @Input() currentPage
   @Output() autoSave = new EventEmitter();
   @ViewChild('autosize') autosize: CdkTextareaAutosize;
   CREATION_VIDEO_PATH = "assets/videos/QuestionAndAnswer.mp4"
@@ -243,5 +245,20 @@ export class QuestionAnswerComponent extends RatingScaleComponent implements OnI
   
     // Step 2: Check if checkBoxName is present in the array
     return multipleChoiceArray.includes(checkBoxName);
+  }
+  moveItemUp(): void {
+    if (this.i > 0) {
+      const temp = this.bmxPages[this.currentPage].page[this.i];
+      this.bmxPages[this.currentPage].page[this.i] = this.bmxPages[this.currentPage].page[this.i - 1];
+      this.bmxPages[this.currentPage].page[this.i - 1] = temp;
+    }
+  }
+
+  moveItemDown(): void {
+    if (this.i < this.bmxPages[this.currentPage].page.length - 1) {
+      const temp = this.bmxPages[this.currentPage].page[this.i];
+      this.bmxPages[this.currentPage].page[this.i] = this.bmxPages[this.currentPage].page[this.i + 1];
+      this.bmxPages[this.currentPage].page[this.i + 1] = temp;
+    }
   }
 }

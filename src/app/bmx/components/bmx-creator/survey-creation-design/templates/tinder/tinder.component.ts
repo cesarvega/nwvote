@@ -45,7 +45,8 @@ export class TinderComponent extends RatingScaleComponent implements OnInit {
   @Input() bmxClientPageDesignMode;
   @Input() bmxClientPageOverview;
   @Input() survey;
-
+  @Input() bmxPages
+  @Input() currentPage
   @Output() launchPathModal = new EventEmitter();
   @Output() autoSave = new EventEmitter();
   CREATION_VIDEO_PATH = "assets/videos/tinder.mp4"
@@ -457,8 +458,8 @@ export class TinderComponent extends RatingScaleComponent implements OnInit {
     this.value = this.xpercent * this.testNameIndex
     if (this.alphabeticallyTestNames) {
       setTimeout(() => {
-        
-      this.sortAlphabetically()
+
+        this.sortAlphabetically()
       }, 1000);
     }
   }
@@ -466,9 +467,9 @@ export class TinderComponent extends RatingScaleComponent implements OnInit {
     const firstElement = this.bmxItem.componentText[0];
 
     const sortedRest = this.bmxItem.componentText.slice(1).sort((a, b) => {
-        const aName = a.NewCategoryLogo || a.nameCandidates || a.name;
-        const bName = b.NewCategoryLogo || b.nameCandidates || b.name
-        return aName.localeCompare(bName);
+      const aName = a.NewCategoryLogo || a.nameCandidates || a.name;
+      const bName = b.NewCategoryLogo || b.nameCandidates || b.name
+      return aName.localeCompare(bName);
     });
     this.bmxItem.componentText = [firstElement, ...sortedRest];
     return sortedRest
@@ -478,7 +479,7 @@ export class TinderComponent extends RatingScaleComponent implements OnInit {
     // Remove the element from the array this.bmx Item.component Text
     this.bmxItem.componentText.splice(this.bmxItem.componentText.indexOf(element), 1);
     // Remove the element from the this.dataSource array
-    this.xpercent = (this.bmxItem.componentText.length - 1) / 100 ;
+    this.xpercent = (this.bmxItem.componentText.length - 1) / 100;
     this.value = this.xpercent * this.testNameIndex
     this.moveleft()
     this.table.renderRows();
@@ -504,6 +505,21 @@ export class TinderComponent extends RatingScaleComponent implements OnInit {
 
   changePreferenceScore() {
     this.bmxItem.componentSettings[0].ranking = !this.ranking
+  }
+  moveItemUp(): void {
+    if (this.i > 0) {
+      const temp = this.bmxPages[this.currentPage].page[this.i];
+      this.bmxPages[this.currentPage].page[this.i] = this.bmxPages[this.currentPage].page[this.i - 1];
+      this.bmxPages[this.currentPage].page[this.i - 1] = temp;
+    }
+  }
+
+  moveItemDown(): void {
+    if (this.i < this.bmxPages[this.currentPage].page.length - 1) {
+      const temp = this.bmxPages[this.currentPage].page[this.i];
+      this.bmxPages[this.currentPage].page[this.i] = this.bmxPages[this.currentPage].page[this.i + 1];
+      this.bmxPages[this.currentPage].page[this.i + 1] = temp;
+    }
   }
 }
 

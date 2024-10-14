@@ -1,4 +1,4 @@
-<button *ngIf="openSettings && bmxClientPageOverview" class="cancel"
+<button  *ngIf="openSettings && bmxClientPageOverview" class="cancel"
   (click)="replaceBiI_Markers(); openSettings = !openSettings" mat-icon-button>
   <mat-icon class="full-icon" style="font-size: 25px;">check_circle</mat-icon>
 </button>
@@ -7,15 +7,30 @@
   <mat-icon class="full-icon" style="font-size: 25px;">edit</mat-icon>
 </button>
 
+<button (click)="moveItemUp()" class="edit-icon" style="right: 50px;" matTooltip="move up" matTooltipPosition="above" mat-icon-button>
+  <mat-icon style="font-size: 25px; " class="full-icon">arrow_upward</mat-icon>
+</button>
+
+<button (click)="moveItemDown()" class="edit-icon" style="right: 100px;" matTooltip="move down" matTooltipPosition="above" mat-icon-button>
+  <mat-icon style="font-size: 25px; " class="full-icon">arrow_downward</mat-icon>
+</button>
+
 <div class="paragram-desktop ql-editor" *ngIf="currentPage === 1 && template === 'tinder'; else regularTemplate"
   style="margin: 30px;font-size: 20px;" [innerHTML]="bmxItem.componentText | safe: 'html'"></div>
 <ng-template #regularTemplate>
-  <div class="paragram-mobile ql-editor" style="margin: 30px;font-size: 20px;" [innerHTML]="bmxItem.componentText | safe: 'html'">
+  <div class="paragram-mobile ql-editor" style="margin: 30px;font-size: 20px;"
+    [innerHTML]="bmxItem.componentText | safe: 'html'">
   </div>
 </ng-template>
+<div class="only-save-div">
+  <button *ngIf="openSettings && bmxClientPageOverview" mat-icon-button class="edit-icon-v2"
+(click)=" openSettings = !openSettings;">
+<mat-icon class="full-icon" style="font-size: 25px;">check_circle</mat-icon>
+</button>
+</div>
 
-<quill-editor *ngIf="openSettings && bmxClientPageOverview"
-  [(ngModel)]="bmxItem.componentText"
-  [styles]="{ height: '280px' }"
-  [modules]="editorConfig">
+<quill-editor *ngIf="openSettings && bmxClientPageOverview" [(ngModel)]="bmxItem.componentText"
+  [styles]="{ height: '280px' }" [modules]="editorConfig" (ngModelChange)="applyTitleStyle()">
 </quill-editor>
+ 
+

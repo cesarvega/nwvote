@@ -1,4 +1,4 @@
-import { Component, Input, OnInit, ChangeDetectionStrategy } from '@angular/core';
+import { Component, Input, OnInit, ChangeDetectionStrategy, EventEmitter, Output } from '@angular/core';
 import { BmxService } from '../../../bmx.service';
 import { Observable } from 'rxjs';
 
@@ -13,9 +13,9 @@ export class TextParagraphComponent implements OnInit {
   @Input() i: number;
   @Input() bmxClientPageDesignMode: boolean;
   @Input() bmxClientPageOverview: boolean;
-  @Input() currentPage: number;
+  @Input() bmxPages
+  @Input() currentPage
   @Input() template: string;
-
   openSettings = false;
   projectName: string;
   previousText = '';
@@ -79,13 +79,14 @@ export class TextParagraphComponent implements OnInit {
 
               const emailExists = existingEmailsLower.some(existingEmail => existingEmail.toLowerCase().trim() === person.email.toLowerCase().trim());
               if (emailExists == false) {
+                console.log(emailExists)
                 return `
-                          <div class='ql-editor' style="display: flex; flex-direction: column; justify-content: center; align-items: center;">
+                          <div style="display: flex; flex-direction: column; justify-content: center; align-items: center;">
                               <p></p>
-                              <div style="text-align:center; font-size: 23px; font-family: sofia-pro; line-height: 1.5">${person.name}</div>
-                              <div style="text-align:center; font-size: 18px; font-family: sofia-pro; line-height: 1.5">${person.title}</div>
-                              <div style="text-align:center; font-size: 23px; font-family: sofia-pro; line-height: 1.5">${person.email.trim()}</div>
-                              <div style="text-align:center; font-size: 23px; font-family: sofia-pro; line-height: 1.5">${person.phone.trim()}</div>
+                              <p style="text-align:center; font-size: 23px; font-family: sofia-pro; line-height: 1.5">${person.name}</p>
+                              <a id="person-title" style="text-align:center; font-size: 18px; font-family: sofia-pro; line-height: 1.5">${person.title}</a>
+                              <p style="text-align:center; font-size: 23px; font-family: sofia-pro; line-height: 1.5">${person.email.trim()}</p>
+                              <p style="text-align:center; font-size: 23px; font-family: sofia-pro; line-height: 1.5">${person.phone.trim()}</p>
                           </div>`;
               }
             }).join('');
@@ -123,5 +124,29 @@ export class TextParagraphComponent implements OnInit {
   editTextWithEditor(): void {
     this.bmxItem.componentText = this.previousText;
   }
+  moveItemUp(): void {
+    if (this.i > 0) {
+        const temp = this.bmxPages[this.currentPage].page[this.i];
+        this.bmxPages[this.currentPage].page[this.i] = this.bmxPages[this.currentPage].page[this.i - 1];
+        this.bmxPages[this.currentPage].page[this.i - 1] = temp;
+    }
+}
+
+moveItemDown(): void {
+    if (this.i < this.bmxPages[this.currentPage].page.length - 1) {
+        const temp = this.bmxPages[this.currentPage].page[this.i];
+        this.bmxPages[this.currentPage].page[this.i] = this.bmxPages[this.currentPage].page[this.i + 1];
+        this.bmxPages[this.currentPage].page[this.i + 1] = temp;
+    }
+}applyTitleStyle() {
+  const titleElement = document.getElementById('person-title');
+  if (titleElement) {
+    titleElement.style.fontSize = '18px';
+    titleElement.style.fontFamily = 'sofia-pro';
+    titleElement.style.textAlign = 'center';
+    titleElement.style.lineHeight = '1.5';
+  }
+}
+
 }
 

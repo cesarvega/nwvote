@@ -14,6 +14,8 @@ import { DOCUMENT } from '@angular/common';
 import QRCodeStyling from 'qr-code-styling';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { ActivatedRoute } from '@angular/router';
+import { CdkDragDrop, moveItemInArray } from '@angular/cdk/drag-drop';
+
 @Component({
     selector: 'app-survey-creation-design',
     templateUrl: './survey-creation-design.component.html',
@@ -398,7 +400,7 @@ export class SurveyCreationDesignComponent implements OnInit {
                                     const emailExists = existingEmailsLower.some(existingEmail => existingEmail.toLowerCase().trim() === person.email.toLowerCase().trim());
                                     if (emailExists == false) {
                                         return `
-                                        <div class='ql-editor' style="display: flex; flex-direction: column; justify-content: center; align-items: center;">
+                                        <div style="display: flex; flex-direction: column; justify-content: center; align-items: center;">
                                             <div style="font-size: 23px; font-family: sofia-pro; line-height: 1.5">${person.name}</div>
                                             <div style="font-size: 18px; font-family: sofia-pro; line-height: 1.5">${person.title}</div>
                                             <div style="font-size: 23px; font-family: sofia-pro; line-height: 1.5">${person.email.trim()}</div>
@@ -458,7 +460,32 @@ export class SurveyCreationDesignComponent implements OnInit {
         console.log(this.bmxPages[this.currentPage])
         console.log(e);
     }
+    drop(event: CdkDragDrop<any[]>) {
+        moveItemInArray(this.bmxPages[this.currentPage].page, event.previousIndex, event.currentIndex);
+      } 
+      isEditing = false;
 
+onEditStart() {
+  this.isEditing = true;
+}
+moveItemUp(index: number): void {
+    if (index > 0) {
+        const temp = this.bmxPages[this.currentPage].page[index];
+        this.bmxPages[this.currentPage].page[index] = this.bmxPages[this.currentPage].page[index - 1];
+        this.bmxPages[this.currentPage].page[index - 1] = temp;
+    }
+}
+
+moveItemDown(index: number): void {
+    if (index < this.bmxPages[this.currentPage].page.length - 1) {
+        const temp = this.bmxPages[this.currentPage].page[index];
+        this.bmxPages[this.currentPage].page[index] = this.bmxPages[this.currentPage].page[index + 1];
+        this.bmxPages[this.currentPage].page[index + 1] = temp;
+    }
+}
+onEditEnd() {
+  this.isEditing = false;
+}
     deletePage() {
         if (this.currentPage > 0) {
 

@@ -224,7 +224,8 @@ export function MSALInstanceFactory(): IPublicClientApplication {
     SignalComponent,
     QuillModule,
     MsalModule,
-    AgGridModule
+    AgGridModule,
+    
 
     // BmxModule
   ],

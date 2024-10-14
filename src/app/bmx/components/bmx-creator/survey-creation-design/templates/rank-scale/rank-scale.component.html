@@ -168,6 +168,16 @@
             matTooltipPosition="above" *ngIf="i !== selectedIndex" mat-icon-button>
             <mat-icon style="font-size: 25px;" class="full-icon">text_fields</mat-icon>
         </button>
+        
+        <button (click)="moveItemUp()" class="add-column" matTooltip="move up"
+            matTooltipPosition="above" *ngIf="i !== selectedIndex" mat-icon-button>
+            <mat-icon style="font-size: 25px;" class="full-icon">arrow_upward</mat-icon>
+        </button>
+        
+        <button (click)="moveItemDown()" class="add-column" matTooltip="move down"
+            matTooltipPosition="above" *ngIf="i !== selectedIndex" mat-icon-button>
+            <mat-icon style="font-size: 25px;" class="full-icon">arrow_downward</mat-icon>
+        </button>
     </div>
 </div>
 <!-- ➗➗➗➗➗➗➗➗➗➗➗➗➗➗➗➗➗➗➗  END  ➗➗➗➗➗➗➗➗➗➗➗➗➗➗➗➗➗ -->

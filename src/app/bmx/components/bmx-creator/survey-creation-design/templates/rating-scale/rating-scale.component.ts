@@ -20,6 +20,8 @@ export class RatingScaleComponent implements OnInit {
   @Input() i;
   @Input() bmxClientPageDesignMode;
   @Input() bmxClientPageOverview;
+  @Input() bmxPages
+  @Input() currentPage
   @ViewChild('autosize') autosize: CdkTextareaAutosize;
   @Output() autoSave = new EventEmitter();
   rankingScaleValue = 5;
@@ -916,6 +918,21 @@ export class RatingScaleComponent implements OnInit {
     this.radioColumnCounter++
   }
 
+  moveItemUp(): void {
+    if (this.i > 0) {
+        const temp = this.bmxPages[this.currentPage].page[this.i];
+        this.bmxPages[this.currentPage].page[this.i] = this.bmxPages[this.currentPage].page[this.i - 1];
+        this.bmxPages[this.currentPage].page[this.i - 1] = temp;
+    }
+}
+
+moveItemDown(): void {
+    if (this.i < this.bmxPages[this.currentPage].page.length - 1) {
+        const temp = this.bmxPages[this.currentPage].page[this.i];
+        this.bmxPages[this.currentPage].page[this.i] = this.bmxPages[this.currentPage].page[this.i + 1];
+        this.bmxPages[this.currentPage].page[this.i + 1] = temp;
+    }
+}
   columnFontSizeAdjust(columnName, direction) {
     if (!columnName.includes('RATE') && !columnName.includes('RadioColumn') && !columnName.includes('Comments')) {
       if (direction == 'increase') {
