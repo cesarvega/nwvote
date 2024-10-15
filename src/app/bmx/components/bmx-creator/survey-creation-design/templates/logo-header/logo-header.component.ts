@@ -45,7 +45,7 @@ export class LogoHeaderComponent implements OnInit {
   constructor(private _BmxService: BmxService, private el: ElementRef) { }
 
   ngOnInit(): void {
-    this.bmxItem.componentText = (localStorage.getItem('projectId')) ? localStorage.getItem('projectId') : this.bmxItem.componentText;
+    this.bmxItem.componentText = (localStorage.getItem('displayName')) ? localStorage.getItem('displayName')  : (localStorage.getItem('projectId')) ? localStorage.getItem('projectId') :  this.bmxItem.componentText;
     this.imageLogoSrc = this.bmxItem.componentSettings[0].companyLogoURL
   }
 

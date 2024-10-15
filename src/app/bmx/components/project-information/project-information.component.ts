@@ -21,7 +21,7 @@ export class ProjectInformationComponent implements OnInit {
 
   constructor(private _BmxService: BmxService, private _snackBar: MatSnackBar, private router: Router) {
     this.minDate = new Date();
-   }
+  }
   settingsData = {
     SalesBoardProjectList: [],
     BrandMatrixTemplateList: [],
@@ -59,6 +59,7 @@ export class ProjectInformationComponent implements OnInit {
   bmxRegion: UntypedFormControl;
   bmxCompany: UntypedFormControl;
   bmxLanguage: UntypedFormControl;
+  bmxDisplayName: UntypedFormControl;
   bmxTemplates: UntypedFormControl;
   bmxClosingDate: UntypedFormControl;
   bmxRegionalOffice: UntypedFormControl;
@@ -111,14 +112,18 @@ export class ProjectInformationComponent implements OnInit {
             this.bmxEditData.patchValue({ bmxLanguage: data.bmxLanguage });
             this.bmxEditData.patchValue({ bmxCompany: data.bmxCompany });
             this.bmxEditData.patchValue({ bmxStatus: data.bmxStatus });
-            this.bmxEditData.patchValue({ bmxClosingDate: data.bmxClosingDate? new Date(data.bmxClosingDate): null });
-            this.selectedDate = data.bmxClosingDate? new Date(data.bmxClosingDate): null 
+            this.bmxEditData.patchValue({ bmxDisplayName: data.bmxDisplayName });
+            
+            this.bmxEditData.patchValue({ bmxClosingDate: data.bmxClosingDate ? new Date(data.bmxClosingDate) : null });
+            this.selectedDate = data.bmxClosingDate ? new Date(data.bmxClosingDate) : null
             if (!data.bmxStatus || data.bmxStatus == "open") {
               this.status = "open"
             } else if (data.bmxStatus == "close") {
               this.status = "close"
             }
             localStorage.setItem('company', data.bmxCompany)
+            localStorage.setItem('displayName', data.bmxDisplayName)
+
             var list;
             this._BmxService.setDirectors(data.bmxRegionalOffice)
             /*
@@ -203,12 +208,12 @@ export class ProjectInformationComponent implements OnInit {
   onSelect(event: Date) {
     this.selectedDate = event;
     const today = new Date();
-      this.status = 'open';
-}
+    this.status = 'open';
+  }
   saveProjectInfo() {
     if (this.bmxEditData.valid) {
       const storageName = localStorage.getItem('projectName')
-      if (storageName != 'null' && storageName!= null && storageName!= undefined && storageName!= 'undefined')  {
+      if (storageName != 'null' && storageName != null && storageName != undefined && storageName != 'undefined') {
         this._BmxService.setProjectName(this.bmxEditData.get('bmxProjectName').value.toString());
         const projectInfo: JSON = <JSON><unknown>{
           "bmxSalesboard": this.bmxEditData.get('bmxSalesboard').value.toString(),
@@ -217,6 +222,7 @@ export class ProjectInformationComponent implements OnInit {
           "bmxRegion": this.bmxEditData.get('bmxRegion').value.toString(),
           "bmxCompany": this.bmxEditData.get('bmxCompany').value.toString(),
           "bmxLanguage": this.bmxEditData.get('bmxLanguage').value.toString(),
+          "bmxDisplayName": this.bmxEditData.get('bmxDisplayName').value.toString(),
           "bmxRegionalOffice": this.DIRECTORS,
           "bmxStatus": this.status,
           "bmxClosingDate": this.selectedDate,
@@ -224,6 +230,8 @@ export class ProjectInformationComponent implements OnInit {
         }
         this._BmxService.setDirectors(this.DIRECTORS)
         localStorage.setItem('company', this.bmxEditData.get('bmxCompany').value.toString(),)
+        localStorage.setItem('displayName', this.bmxEditData.get('bmxDisplayName').value.toString(),)
+
         var finalString = JSON.stringify(projectInfo);
         finalString = finalString.replace("[\\u2022,\\u2023,\\u25E6,\\u2043,\\u2219]\\s\\d", '');
         this._BmxService.saveProjectInfo(this.bmxEditData.get('bmxProjectName').value.toString(), finalString, 'user@bi.com').subscribe(result => {
@@ -253,6 +261,7 @@ export class ProjectInformationComponent implements OnInit {
               "bmxProjectName": this.bmxEditData.get('bmxProjectName').value.toString().trim(),
               "bmxRegion": this.bmxEditData.get('bmxRegion').value.toString(),
               "bmxCompany": this.bmxEditData.get('bmxCompany').value.toString(),
+              "bmxDisplayName": this.bmxEditData.get('bmxDisplayName').value.toString(),
               "bmxLanguage": this.bmxEditData.get('bmxLanguage').value.toString(),
               "bmxRegionalOffice": this.DIRECTORS,
               "bmxStatus": this.status,
@@ -261,6 +270,8 @@ export class ProjectInformationComponent implements OnInit {
             }
             this._BmxService.setDirectors(this.DIRECTORS)
             localStorage.setItem('company', this.bmxEditData.get('bmxCompany').value.toString(),)
+            localStorage.setItem('displayName', this.bmxEditData.get('bmxDisplayName').value.toString(),)
+
             var finalString = JSON.stringify(projectInfo);
             finalString = finalString.replace("[\\u2022,\\u2023,\\u25E6,\\u2043,\\u2219]\\s\\d", '');
             this._BmxService.saveProjectInfo(this.bmxEditData.get('bmxProjectName').value.toString(), finalString, 'user@bi.com').subscribe(result => {
@@ -276,7 +287,7 @@ export class ProjectInformationComponent implements OnInit {
             this._snackBar.open('Saved Succesfully');
             localStorage.setItem('department', this.bmxEditData.get('bmxDepartment').value.toString());
             this.router.navigate(['/bmx-creation/99CB72BF-D163-46A6-8A0D-E1531EC7FEDC'])
-          }else{
+          } else {
             this.showDialog = true
             this.dialogText = message
           }
@@ -389,6 +400,8 @@ export class ProjectInformationComponent implements OnInit {
       '', [Validators.required,
       // Validators.pattern("^[a-zA-Z0-9]+$")
     ]);
+    this.bmxDisplayName = new UntypedFormControl(
+      '', []);
     this.bmxLanguage = new UntypedFormControl(
       '', [Validators.required,
     ]);
@@ -409,6 +422,7 @@ export class ProjectInformationComponent implements OnInit {
       bmxProjectName: this.bmxProjectName,
       bmxRegion: this.bmxRegion,
       bmxCompany: this.bmxCompany,
+      bmxDisplayName: this.bmxDisplayName,
       bmxLanguage: this.bmxLanguage,
       bmxTemplates: this.bmxTemplates,
       bmxRegionalOffice: this.bmxRegionalOffice,

@@ -271,7 +271,7 @@ export class SurveyCreationDesignComponent implements OnInit {
         if (localStorage.getItem('projectName')) {
             this.projectId = localStorage.getItem('projectName');
             this.globalProjectName = this.projectId
-            this.globalDisplayName = localStorage.getItem('displayName');
+            this.globalDisplayName = localStorage.getItem('projectName')!= 'undefined'? localStorage.getItem('projectName') : null;
         } else {
             this._BmxService.currentProjectName$.subscribe(projectName => {
                 this.projectId = (projectName !== '') ? projectName : this.projectId;
