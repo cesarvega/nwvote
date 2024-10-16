@@ -321,7 +321,7 @@
                     <div class="row post-it-container "
                       [style.max-width]="namesBoxIndex == 1? '1320px': namesBoxIndex == 0 && wide?'931px': wide && createPostIt? '947px': '925px'"
                       dragula="TASKS" [dragulaModel]="conceptData.concepts"
-                      (dragulaModelChange)="conceptData.concepts = $event">
+                      (dragulaModelChange)="conceptData.concepts = $event; orderArray(conceptData)">
                       <div style="z-index: 999;" [ngClass]="postItListTheme" *ngFor="let item of conceptData.concepts; let i = index;">
 
                         <mat-card appearance="outlined" class="mat-elevation-z4 post-card">

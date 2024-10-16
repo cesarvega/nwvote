@@ -89,6 +89,12 @@ export class BsrComponent implements OnInit {
   }
 
   ngOnInit(): void {
+    const storedName = localStorage.getItem('userName');
+    
+    // Si no hay nombre en localStorage, mostramos la alerta para pedir el nombre
+    if (!storedName) {
+      this.promptForName();
+    }
     this.toggleNamebox()
     this.baseUrl = this._BsrService.getBaseUrlForResources();
     window.addEventListener('keydown', this.handleKeyDown.bind(this));
@@ -152,14 +158,14 @@ export class BsrComponent implements OnInit {
       });
     });
 
-    setInterval(() => {
-      this._BsrService.getNameCandidates(this.projectId).subscribe((res: any) => {
-        res.forEach(name => {
-          name.html = name.html.replace(/\\/g, '');
-        });
-        this.nameCandidates = (res.length > 0) ? res : [];
-      });
-    }, 1000);
+    // setInterval(() => {
+    //   this._BsrService.getNameCandidates(this.projectId).subscribe((res: any) => {
+    //     res.forEach(name => {
+    //       name.html = name.html.replace(/\\/g, '');
+    //     });
+    //     this.nameCandidates = (res.length > 0) ? res : [];
+    //   });
+    // }, 1000);
 
     this.getCommentsByIndex(0);
     this.loginForm = new FormGroup({
@@ -172,6 +178,19 @@ export class BsrComponent implements OnInit {
 
     this.onInputChange(parseInt(localStorage.getItem(this.projectName + '_namesBoxIndex')));
     this.currentPageNumber = 1;
+  }
+
+
+  promptForName() {
+    
+     const title = "**Please enter a username**"
+      const name = prompt(`${title}\nPlease share your username and be aware that only ones user should be in the application when editing to avoid overwriting data`);
+      console.log(name)
+      if (name) {
+        localStorage.setItem('userName', name);
+      } else {
+        this.promptForName()
+      }
   }
 
 
@@ -271,6 +290,22 @@ export class BsrComponent implements OnInit {
         this.conceptData.concepts.forEach(element => {
           element.replace(/`/g, "'");
         });
+
+        if (JSON.parse(res[0].bsrData).presentationtype === 'NSR') {
+          this.isNSR = true;
+        }
+      });
+
+    });
+  }
+
+  orderArray(orderArray){
+    console.log(orderArray.concepts)
+    console.log(JSON.stringify(orderArray))
+    this._BsrService.postItOrder(this.projectId, orderArray).subscribe(arg => {
+      this._BsrService.getPost().subscribe((res: any) => {
+
+        this.conceptData = JSON.parse(res[0].bsrData);
 
         if (JSON.parse(res[0].bsrData).presentationtype === 'NSR') {
           this.isNSR = true;
