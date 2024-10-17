@@ -37,7 +37,7 @@
         fxLayoutAlign="center center">
         <div fxFlex class="mat-elevation-z4 comment-box">
           <div cdkDragHandle style="height: 20px; width: 100%;"></div>
-          <div class="col" >
+          <div class="col">
             <div class="row">
               <div class="handle" style="float: left; font-size: 9px;">.</div>
               <button (click)="displayCommentBox()" mat-stroked-button style="color: #004684;
@@ -117,8 +117,13 @@
       </div>
 
       <div *ngIf="mainMenu" class="bar_fullscreen" class="corner_bar_menu">
+
         <button (click)="home()" mat-icon-button matTooltip="home" matTooltipPosition="above">
           <mat-icon class="full-icon">home</mat-icon>
+        </button>
+        <button (click)="changeUser()" matTooltip="change user" matTooltipPosition="above" mat-icon-button color="warn"
+          aria-label="aria">
+          <mat-icon class="full-icon">supervisor_account</mat-icon>
         </button>
         <button *ngIf="!createPostIt" (click)="bsr()" mat-icon-button matTooltip="brainstorming"
           matTooltipPosition="above" mat-icon-button color="warn" aria-label="aria">
@@ -322,7 +327,8 @@
                       [style.max-width]="namesBoxIndex == 1? '1320px': namesBoxIndex == 0 && wide?'931px': wide && createPostIt? '947px': '925px'"
                       dragula="TASKS" [dragulaModel]="conceptData.concepts"
                       (dragulaModelChange)="conceptData.concepts = $event; orderArray(conceptData)">
-                      <div style="z-index: 999;" [ngClass]="postItListTheme" *ngFor="let item of conceptData.concepts; let i = index;">
+                      <div style="z-index: 999;" [ngClass]="postItListTheme"
+                        *ngFor="let item of conceptData.concepts; let i = index;">
 
                         <mat-card appearance="outlined" class="mat-elevation-z4 post-card">
                           <div class="emoji-handle">
@@ -549,3 +555,6 @@
     <img src="assets/img/hotkeys8.png" alt="">
   </div>
 </div>
+
+<app-survey-dialog-bsr *ngIf="showDialog" (onConfirm)="promptForName($event)"
+  (onCancel)="promptForName($event)"></app-survey-dialog-bsr>

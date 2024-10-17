@@ -8,6 +8,7 @@ import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 export class SurveyDialogComponent  {
 
   @Input() dialogText: string;
+  Title = 'Please enter a username'
   @Output() onConfirm = new EventEmitter();
   @Output() onCancel = new EventEmitter();
 

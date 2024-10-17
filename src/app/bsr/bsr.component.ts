@@ -79,8 +79,9 @@ export class BsrComponent implements OnInit {
   open: boolean = false;
   wide = true
   showHotKeys = false
+  showDialog = false
   constructor(@Inject(DOCUMENT) private document: any,
-    private _BsrService: BsrService, public dialog: MatDialog, private activatedRoute: ActivatedRoute,         public _snackBar: MatSnackBar,
+    private _BsrService: BsrService, public dialog: MatDialog, private activatedRoute: ActivatedRoute, public _snackBar: MatSnackBar,
 
     // private _hotkeysService: HotkeysService,
   ) {
@@ -90,10 +91,12 @@ export class BsrComponent implements OnInit {
 
   ngOnInit(): void {
     const storedName = localStorage.getItem('userName');
-    
+
     // Si no hay nombre en localStorage, mostramos la alerta para pedir el nombre
     if (!storedName) {
-      this.promptForName();
+      this.showDialog = true
+    } else {
+      this.showDialog = false
     }
     this.toggleNamebox()
     this.baseUrl = this._BsrService.getBaseUrlForResources();
@@ -181,16 +184,15 @@ export class BsrComponent implements OnInit {
   }
 
 
-  promptForName() {
-    
-     const title = "**Please enter a username**"
-      const name = prompt(`${title}\nPlease share your username and be aware that only ones user should be in the application when editing to avoid overwriting data`);
-      console.log(name)
-      if (name) {
-        localStorage.setItem('userName', name);
-      } else {
-        this.promptForName()
-      }
+  promptForName(name) {
+    if (name) {
+      localStorage.setItem('userName', name);
+      this.showDialog = false
+      return true
+    } else {
+      this.showDialog = true
+      return false
+    }
   }
 
 
@@ -299,9 +301,7 @@ export class BsrComponent implements OnInit {
     });
   }
 
-  orderArray(orderArray){
-    console.log(orderArray.concepts)
-    console.log(JSON.stringify(orderArray))
+  orderArray(orderArray) {
     this._BsrService.postItOrder(this.projectId, orderArray).subscribe(arg => {
       this._BsrService.getPost().subscribe((res: any) => {
 
@@ -400,7 +400,10 @@ export class BsrComponent implements OnInit {
       }
     }
   }
-
+  changeUser(){
+    localStorage.removeItem('userName')
+    this.showDialog = true
+  }
   submitNewName() {
 
     this.loginForm.value.name.split(',').forEach(element => {

@@ -1,8 +1,11 @@
 <div class="dialog-container">
     <div class="dialog">
-        <h2>{{Title}}</h2>
+        <h2>Please enter a username</h2>
         <p>{{ dialogText }}</p>
+        <input class="styled-input" type="text" [(ngModel)]="userName">
+        <div style="display: flex; justify-content: center; align-items: center;">
         <button clase="cancel" (click)="cancel()">Cancel</button>
         <button class="confirm" (click)="confirm()">Confirm</button>
+    </div>
     </div>
 </div>
