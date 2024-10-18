@@ -67,7 +67,7 @@ export class BsrService {
     }
   }
 
-  sendNewName(nameContainer, isNSR, conceptid?, nameid?) {
+  sendNewName(nameContainer, userName,isNSR, conceptid?, nameid?) {
     this.projectId = localStorage.getItem(this.projectName + '_projectId');
     let newNameContainer = {
       name: nameContainer.split(','),
@@ -88,7 +88,8 @@ export class BsrService {
     const param = this.projectId + ',' + JSON.stringify(newNameContainer)
 
     const data = {
-      token: this.awsToken
+      token: this.awsToken,
+      user: userName
       , app: 'BSR'
       , method: 'sendNewName'
       , param: param
@@ -209,7 +210,7 @@ export class BsrService {
 
   }
 
-  updatePost(updateConcept) {
+  updatePost(updateConcept, userName) {
     let json = JSON.parse(updateConcept);
     let newUpdateConcept = { ...json, concept: json.concept.replace("'", "`") };
     let string = JSON.stringify(newUpdateConcept);
@@ -218,7 +219,8 @@ export class BsrService {
 
     // CG
     const data = {
-      token: this.awsToken
+      token: this.awsToken,
+      user: userName
       , app: 'BSR'
       , method: 'updatePost'
       , concept: string
@@ -255,7 +257,6 @@ export class BsrService {
     // [BI_GUIDELINES].[dbo].[bsr_updConceptOrder] N'{"projectId":"CA2456","conceptIdArray":["7686","7685","7689","8105","8106"]}'
     let _SP_CHANGE_POST_IT_ORDER = '[BI_GUIDELINES].[dbo].[bsr_updConceptOrder] N' + "'" + JSON.stringify(sendStrOrder) + "'";
     //return this.http.post(this.webBaseUrl + this.apiCall, JSON.stringify(_SP_CHANGE_POST_IT_ORDER), httpOptions);
-
     // CG
     const data = {
       token: this.awsToken
@@ -263,6 +264,7 @@ export class BsrService {
       , method: 'postItOrder'
       , param: JSON.stringify(sendStrOrder)
     }
+
     return this.http.post(this.awsBaseUrl, JSON.stringify(data), httpOptions);
 
 

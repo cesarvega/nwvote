@@ -10,13 +10,21 @@ export class SurveyDialogBsrComponent  {
   @Input() dialogText: string = 'Please share your username and be aware that only ones user should be in the application when editing to avoid overwriting data';
   @Output() onConfirm = new EventEmitter();
   @Output() onCancel = new EventEmitter();
-  userName
+  @Input()  userName
+
+  ngOnInit(): void {
+    const userName= localStorage.getItem('userName')
+    if(userName){
+      this.userName = userName
+    }
+  }
+
   confirm() {
     this.onConfirm.emit(this.userName);
   }
 
   cancel() {
-    this.onCancel.emit();
+    this.onCancel.emit(this.userName);
   }
 
 }

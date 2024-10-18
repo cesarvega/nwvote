@@ -154,6 +154,7 @@ export class BsrComponent implements OnInit {
       if (JSON.parse(res[0].bsrData).presentationtype === 'NSR') {
         this.isNSR = true;
       }
+      console.log(this.conceptData)
 
       this.conceptData.concepts.forEach(element => {
         element.concept = element.concept.replace(/`/g, "'");
@@ -275,38 +276,14 @@ export class BsrComponent implements OnInit {
     this.initTable();
   }
 
-  drop(event: CdkDragDrop<string[]>) {
-    this.conceptData.concepts.forEach(element => {
-      element.concept = element.concept.replace(/`/g, "'");
-      element.html = element.html.replace(/`/g, "'");
-    });
-    moveItemInArray(this.conceptData.concepts, event.previousIndex, event.currentIndex);
-    let orderArray = [];
-    this.conceptData.concepts.forEach(ele => {
-      orderArray.push(JSON.stringify(ele.conceptid))
-    });
-    this._BsrService.postItOrder(this.projectId, orderArray).subscribe(arg => {
-      this._BsrService.getPost().subscribe((res: any) => {
-        this.conceptData = JSON.parse(res[0].bsrData);
-
-        this.conceptData.concepts.forEach(element => {
-          element.replace(/`/g, "'");
-        });
-
-        if (JSON.parse(res[0].bsrData).presentationtype === 'NSR') {
-          this.isNSR = true;
-        }
-      });
-
-    });
-  }
-
   orderArray(orderArray) {
+    orderArray = orderArray.concepts.map((element, index) => {
+      return element.conceptid
+    });
     this._BsrService.postItOrder(this.projectId, orderArray).subscribe(arg => {
       this._BsrService.getPost().subscribe((res: any) => {
 
         this.conceptData = JSON.parse(res[0].bsrData);
-
         if (JSON.parse(res[0].bsrData).presentationtype === 'NSR') {
           this.isNSR = true;
         }
@@ -400,14 +377,14 @@ export class BsrComponent implements OnInit {
       }
     }
   }
-  changeUser(){
-    localStorage.removeItem('userName')
+  changeUser() {
     this.showDialog = true
   }
   submitNewName() {
 
     this.loginForm.value.name.split(',').forEach(element => {
-      this._BsrService.sendNewName(element, this.isNSR).subscribe(arg => {
+      const userName = localStorage.getItem('userName')
+      this._BsrService.sendNewName(element, userName, this.isNSR).subscribe(arg => {
       });
     });
     setTimeout(() => {
@@ -516,8 +493,8 @@ export class BsrComponent implements OnInit {
             namesArray: '',
             conceptHtml: comments
           }
-
-          this._BsrService.updatePost(JSON.stringify(newConcepData2))
+          const userName = localStorage.getItem('userName')
+          this._BsrService.updatePost(JSON.stringify(newConcepData2), userName)
             .subscribe(arg => {
 
               this._BsrService.getPost().subscribe((res: any) => {
@@ -968,8 +945,8 @@ export class editPost {
         namesArray: this.model.namesData ? this.model.namesData.split("\n").filter(name => name.trim() !== '') : [''],
         conceptHtml: editorData
       };
-
-      this._BsrService.updatePost(JSON.stringify(newConcepData)).subscribe(arg => {
+      const userName = localStorage.getItem('userName')
+      this._BsrService.updatePost(JSON.stringify(newConcepData), userName).subscribe(arg => {
         this.dialogRef.close('savePost');
       });
     } else if (option === 'deleteName') {
