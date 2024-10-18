@@ -282,7 +282,7 @@ export class BsrComponent implements OnInit {
     });
     this._BsrService.postItOrder(this.projectId, orderArray).subscribe(arg => {
       this._BsrService.getPost().subscribe((res: any) => {
-
+        console.log(JSON.parse(res[0].bsrData))
         this.conceptData = JSON.parse(res[0].bsrData);
         if (JSON.parse(res[0].bsrData).presentationtype === 'NSR') {
           this.isNSR = true;
