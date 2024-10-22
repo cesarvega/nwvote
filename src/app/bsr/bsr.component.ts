@@ -80,8 +80,9 @@ export class BsrComponent implements OnInit {
   wide = true
   showHotKeys = false
   showDialog = false
+  clickBlocked = false;
   constructor(@Inject(DOCUMENT) private document: any,
-    private _BsrService: BsrService, public dialog: MatDialog, private activatedRoute: ActivatedRoute, public _snackBar: MatSnackBar,
+  private cdr: ChangeDetectorRef, private _BsrService: BsrService, public dialog: MatDialog, private activatedRoute: ActivatedRoute, public _snackBar: MatSnackBar,
 
     // private _hotkeysService: HotkeysService,
   ) {
@@ -92,7 +93,6 @@ export class BsrComponent implements OnInit {
   ngOnInit(): void {
     const storedName = localStorage.getItem('userName');
 
-    // Si no hay nombre en localStorage, mostramos la alerta para pedir el nombre
     if (!storedName) {
       this.showDialog = true
     } else {
@@ -162,14 +162,6 @@ export class BsrComponent implements OnInit {
       });
     });
 
-    // setInterval(() => {
-    //   this._BsrService.getNameCandidates(this.projectId).subscribe((res: any) => {
-    //     res.forEach(name => {
-    //       name.html = name.html.replace(/\\/g, '');
-    //     });
-    //     this.nameCandidates = (res.length > 0) ? res : [];
-    //   });
-    // }, 1000);
 
     this.getCommentsByIndex(0);
     this.loginForm = new FormGroup({
@@ -249,6 +241,7 @@ export class BsrComponent implements OnInit {
   reorderDroppedItem(event: CdkDragDrop<number[]>) {
     // same row/container? => move item in same row
     if (event.previousContainer === event.container) {
+      
       moveItemInArray(
         event.container.data,
         event.previousIndex,
@@ -277,24 +270,47 @@ export class BsrComponent implements OnInit {
   }
 
   orderArray(orderArray) {
-    orderArray = orderArray.concepts.map((element, index) => {
-      return element.conceptid
-    });
-    this._BsrService.postItOrder(this.projectId, orderArray).subscribe(arg => {
+    console.log(this.conceptData.concepts);
+    
+    const orderIds = orderArray.concepts.map((element) => element.conceptid);
+  
+    const uniqueOrderIds = [...new Set(orderIds)];
+  
+    //if (this.clickBlocked) return;
+  
+  
+  
+    this._BsrService.postItOrder(this.projectId, uniqueOrderIds).subscribe(arg => {
+        this.clickBlocked = true;
       this._BsrService.getPost().subscribe((res: any) => {
-        console.log(JSON.parse(res[0].bsrData))
         this.conceptData = JSON.parse(res[0].bsrData);
-        if (JSON.parse(res[0].bsrData).presentationtype === 'NSR') {
+        this.cdr.detectChanges();
+        if (this.conceptData.presentationtype === 'NSR') {
           this.isNSR = true;
+          this.clickBlocked = false;
         }
+  
+        
+        
+      }, (error) => {
+        console.error('Error al obtener los ítems:', error);
+        this.clickBlocked = false; 
       });
-
+    }, (error) => {
+      console.error('Error al subir el cambio:', error);
+      this.clickBlocked = false; 
     });
   }
+  trackByFn(index, item) {
+    return item.conceptid; 
+  }
+  
 
   dropped(event: CdkDragDrop<any>) {
     if (event.previousContainer === event.container) {
       moveItemInArray(event.container.data, event.previousIndex, event.currentIndex);
+    }else{
+      return
     }
   }
 
@@ -552,6 +568,7 @@ export class BsrComponent implements OnInit {
 
   openDialog(item, nameid) {
     this.open = true;
+    this.clickBlocked= true;
     const dialogRef = this.dialog.open(editPost, {
       // width: ((nameid === 'edit')?'80%':'100%'),
       // height: ((nameid === 'edit') ? '777px' : '200px'),
@@ -563,8 +580,7 @@ export class BsrComponent implements OnInit {
     this.conceptid = item.conceptid;
     dialogRef.afterClosed().subscribe(result => {
       const editPostInstance = dialogRef.componentInstance;
-      // Llamar a buttonOption en cualquier momento necesario
-      editPostInstance.buttonOption('savePost'); // Aquí llamas a buttonOption directamente
+      editPostInstance.buttonOption('savePost'); 
       setTimeout(() => {
         this.open = false;
         this.conceptData.concepts.forEach(element => {
@@ -599,7 +615,7 @@ export class BsrComponent implements OnInit {
             this.isNSR = true;
           }
         });
-        editPostInstance.buttonOption('savePost'); // Aquí llamas a buttonOption directamente
+        editPostInstance.buttonOption('savePost'); 
         this._snackBar.open('Data was saved', 'OK', {
           duration: 5000,
           horizontalPosition: 'right',
@@ -608,8 +624,10 @@ export class BsrComponent implements OnInit {
         this._BsrService.getNameCandidates(this.projectId).subscribe(res => {
           this.nameCandidates = res;
         });
+        this.clickBlocked= false;
       }, 500);
     });
+   
   }
 
   assignCopy() {
@@ -936,15 +954,16 @@ export class editPost {
       this.projectId = localStorage.getItem(this._BsrService.getProjectName() + '_projectId');
 
       const editorData = this.model.editorData && this.model.editorData.trim() ? this.model.editorData : '';
-
+      console.log(this.data)
       const newConcepData = {
         projectId: this.projectId,
         concept: this.loginForm.value.name.replace(/'/g, "`"),
         conceptid: JSON.stringify(this.data.name.conceptid),
         attributesArray: this.data.name.attributes,
         namesArray: this.model.namesData ? this.model.namesData.split("\n").filter(name => name.trim() !== '') : [''],
-        conceptHtml: editorData
+        conceptHtml: editorData,
       };
+      console.log(newConcepData)
       const userName = localStorage.getItem('userName')
       this._BsrService.updatePost(JSON.stringify(newConcepData), userName).subscribe(arg => {
         this.dialogRef.close('savePost');
@@ -968,7 +987,8 @@ export class editPost {
         const tempArray = this.nameid.split('\n');
         const nameId = tempArray[index] ? tempArray[index] : '0';
         if (nameId) {
-          this._BsrService.sendNewName(element, false, this.conceptid, nameId).subscribe(arg => {
+          const userName = localStorage.getItem('userName')
+          this._BsrService.sendNewName(element,userName, false, this.conceptid, nameId).subscribe(arg => {
           });
         }
       });

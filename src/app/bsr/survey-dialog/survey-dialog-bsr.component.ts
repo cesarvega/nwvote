@@ -7,7 +7,7 @@ import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 })
 export class SurveyDialogBsrComponent  {
 
-  @Input() dialogText: string = 'Please share your username and be aware that only ones user should be in the application when editing to avoid overwriting data';
+  @Input() dialogText: string = 'Please share your name and be aware that only one user should be in the application when editing to avoid overwriting data';
   @Output() onConfirm = new EventEmitter();
   @Output() onCancel = new EventEmitter();
   @Input()  userName

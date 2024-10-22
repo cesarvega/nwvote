@@ -23,6 +23,7 @@ type AppState = {
     messageInfo: Message,
     isgAwsToken: string,
     loading: boolean
+    
 }
 
 const initialStateMessage: Message = {message: '', description: '', icon: 'info', display: false};
@@ -38,7 +39,8 @@ const initialState: AppState = {
     customerInformation: null,
     messageInfo: initialStateMessage,
     isgAwsToken: '',
-    loading: false
+    loading: false, 
+   
 };
 
 export const BMX_STORE = signalStore(
