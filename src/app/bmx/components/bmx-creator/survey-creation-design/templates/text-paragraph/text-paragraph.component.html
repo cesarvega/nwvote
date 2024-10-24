@@ -7,11 +7,11 @@
   <mat-icon class="full-icon" style="font-size: 25px;">edit</mat-icon>
 </button>
 
-<button (click)="moveItemUp()" class="edit-icon" style="right: 50px;" matTooltip="move up" matTooltipPosition="above" mat-icon-button>
+<button *ngIf="!openSettings && bmxClientPageOverview" (click)="moveItemUp()" class="edit-icon" style="right: 50px;" matTooltip="move up" matTooltipPosition="above" mat-icon-button>
   <mat-icon style="font-size: 25px; " class="full-icon">arrow_upward</mat-icon>
 </button>
 
-<button (click)="moveItemDown()" class="edit-icon" style="right: 100px;" matTooltip="move down" matTooltipPosition="above" mat-icon-button>
+<button *ngIf="!openSettings && bmxClientPageOverview" (click)="moveItemDown()" class="edit-icon" style="right: 100px;" matTooltip="move down" matTooltipPosition="above" mat-icon-button>
   <mat-icon style="font-size: 25px; " class="full-icon">arrow_downward</mat-icon>
 </button>
 
