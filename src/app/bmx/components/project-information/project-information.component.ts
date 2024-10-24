@@ -61,6 +61,7 @@ export class ProjectInformationComponent implements OnInit {
   bmxLanguage: UntypedFormControl;
   bmxTemplates: UntypedFormControl;
   bmxClosingDate: UntypedFormControl;
+  bmxDisplayName: UntypedFormControl;
   bmxRegionalOffice: UntypedFormControl;
   bmxRegionalDirector: UntypedFormControl;
   status = "open"
@@ -111,6 +112,7 @@ export class ProjectInformationComponent implements OnInit {
             this.bmxEditData.patchValue({ bmxLanguage: data.bmxLanguage });
             this.bmxEditData.patchValue({ bmxCompany: data.bmxCompany });
             this.bmxEditData.patchValue({ bmxStatus: data.bmxStatus });
+            this.bmxEditData.patchValue({ bmxDisplayName: data.bmxDisplayName });
             this.bmxEditData.patchValue({ bmxClosingDate: data.bmxClosingDate? new Date(data.bmxClosingDate): null });
             this.selectedDate = data.bmxClosingDate? new Date(data.bmxClosingDate): null 
             if (!data.bmxStatus || data.bmxStatus == "open") {
@@ -137,6 +139,8 @@ export class ProjectInformationComponent implements OnInit {
             this.bmxEditData.patchValue({ bmxRegionalOffice: this.DIRECTORS });
 
             this._BmxService.setprojectData(this.bmxEditData.value)
+            this.loader = false
+          }else{
             this.loader = false
           }
         });
@@ -221,6 +225,7 @@ export class ProjectInformationComponent implements OnInit {
           "bmxStatus": this.status,
           "bmxClosingDate": this.selectedDate,
           "bmxCreated": new Date().toLocaleDateString(),
+          "bmxDisplayName": this.bmxEditData.get('bmxDisplayName').value.toString()
         }
         this._BmxService.setDirectors(this.DIRECTORS)
         localStorage.setItem('company', this.bmxEditData.get('bmxCompany').value.toString(),)
@@ -258,6 +263,7 @@ export class ProjectInformationComponent implements OnInit {
               "bmxStatus": this.status,
               "bmxClosingDate": this.selectedDate,
               "bmxCreated": new Date().toLocaleDateString(),
+              "bmxDisplayName": this.bmxEditData.get('bmxDisplayName').value.toString()
             }
             this._BmxService.setDirectors(this.DIRECTORS)
             localStorage.setItem('company', this.bmxEditData.get('bmxCompany').value.toString(),)
@@ -399,6 +405,9 @@ export class ProjectInformationComponent implements OnInit {
     this.bmxRegionalOffice = new UntypedFormControl(
       '', [
     ]);
+    this.bmxDisplayName = new UntypedFormControl(
+      '', [
+    ]);
     this.bmxRegionalDirector = new UntypedFormControl();
   }
 
@@ -413,7 +422,8 @@ export class ProjectInformationComponent implements OnInit {
       bmxTemplates: this.bmxTemplates,
       bmxRegionalOffice: this.bmxRegionalOffice,
       bmxRegionalDirector: this.bmxRegionalDirector,
-      bmxClosingDate: this.bmxClosingDate
+      bmxClosingDate: this.bmxClosingDate,
+      bmxDisplayName: this.bmxDisplayName
     });
   }
 
