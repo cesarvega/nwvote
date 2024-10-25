@@ -139,8 +139,8 @@ export class MenuComponent implements OnInit {
           });
         } else {
           const userData = JSON.parse(localStorage.getItem('userData'))
-          this.userFullName = userData.name
-          this.userName = userData.username
+          this.userFullName = userData?.name
+          this.userName = userData?.username
           this.showErrorMessage = false
         }
         this.isDashboardMenu = event.url.includes('dashboard') || event.url === '/' || event.url.includes('templates');
