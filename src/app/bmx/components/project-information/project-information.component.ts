@@ -21,7 +21,7 @@ export class ProjectInformationComponent implements OnInit {
 
   constructor(private _BmxService: BmxService, private _snackBar: MatSnackBar, private router: Router) {
     this.minDate = new Date();
-   }
+  }
   settingsData = {
     SalesBoardProjectList: [],
     BrandMatrixTemplateList: [],
@@ -101,6 +101,8 @@ export class ProjectInformationComponent implements OnInit {
     var items = localStorage.getItem('projectName');
     this._BmxService.setProjectName(items);
     if (items != undefined || items != null) {
+      this.loader = true
+
       this._BmxService.getProjectInfo(localStorage.getItem('projectName'))
         .subscribe((arg: any) => {
           if (arg.d && arg.d.length > 0) {
@@ -113,14 +115,20 @@ export class ProjectInformationComponent implements OnInit {
             this.bmxEditData.patchValue({ bmxCompany: data.bmxCompany });
             this.bmxEditData.patchValue({ bmxStatus: data.bmxStatus });
             this.bmxEditData.patchValue({ bmxDisplayName: data.bmxDisplayName });
-            this.bmxEditData.patchValue({ bmxClosingDate: data.bmxClosingDate? new Date(data.bmxClosingDate): null });
-            this.selectedDate = data.bmxClosingDate? new Date(data.bmxClosingDate): null 
+            this.bmxEditData.patchValue({ bmxClosingDate: data.bmxClosingDate ? new Date(data.bmxClosingDate) : null });
+            this.selectedDate = data.bmxClosingDate ? new Date(data.bmxClosingDate) : null
             if (!data.bmxStatus || data.bmxStatus == "open") {
               this.status = "open"
             } else if (data.bmxStatus == "close") {
               this.status = "close"
             }
             localStorage.setItem('company', data.bmxCompany)
+            if (data.bmxDisplayName) {
+              localStorage.setItem('displayName', data.bmxDisplayName)
+            } else {
+              localStorage.setItem('displayName', null)
+
+            }
             var list;
             this._BmxService.setDirectors(data.bmxRegionalOffice)
             /*
@@ -139,15 +147,12 @@ export class ProjectInformationComponent implements OnInit {
             this.bmxEditData.patchValue({ bmxRegionalOffice: this.DIRECTORS });
 
             this._BmxService.setprojectData(this.bmxEditData.value)
-            this.loader = false
-          }else{
-            this.loader = false
+          } else {
           }
         });
     } else {
-      this.loader = false
     }
-
+    this.loader = true
     this._BmxService.getGeneralLists()
       .subscribe((arg: any) => {
         this.settingsData = JSON.parse(arg.d);
@@ -180,7 +185,7 @@ export class ProjectInformationComponent implements OnInit {
             map(value => this._filter(value))
           );
         // END 🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖 AUTOCOMPLETE
-
+        this.loader = false
       });
     //this.bmxEditData.setValue(JSON.parse(localStorage.getItem('fakeproject' + '_project_info')));
 
@@ -207,12 +212,12 @@ export class ProjectInformationComponent implements OnInit {
   onSelect(event: Date) {
     this.selectedDate = event;
     const today = new Date();
-      this.status = 'open';
-}
+    this.status = 'open';
+  }
   saveProjectInfo() {
     if (this.bmxEditData.valid) {
       const storageName = localStorage.getItem('projectName')
-      if (storageName != 'null' && storageName!= null && storageName!= undefined && storageName!= 'undefined')  {
+      if (storageName != 'null' && storageName != null && storageName != undefined && storageName != 'undefined') {
         this._BmxService.setProjectName(this.bmxEditData.get('bmxProjectName').value.toString());
         const projectInfo: JSON = <JSON><unknown>{
           "bmxSalesboard": this.bmxEditData.get('bmxSalesboard').value.toString(),
@@ -225,10 +230,16 @@ export class ProjectInformationComponent implements OnInit {
           "bmxStatus": this.status,
           "bmxClosingDate": this.selectedDate,
           "bmxCreated": new Date().toLocaleDateString(),
-          "bmxDisplayName": this.bmxEditData.get('bmxDisplayName').value.toString()
+          "bmxDisplayName": this.bmxEditData.get('bmxDisplayName').value ? this.bmxEditData.get('bmxDisplayName').value.toString() : null
         }
         this._BmxService.setDirectors(this.DIRECTORS)
         localStorage.setItem('company', this.bmxEditData.get('bmxCompany').value.toString(),)
+        if (this.bmxEditData.get('bmxDisplayName').value && this.bmxEditData.get('bmxDisplayName').value.toString()) {
+          localStorage.setItem('displayName', this.bmxEditData.get('bmxDisplayName').value?.toString())
+        } else {
+          localStorage.setItem('displayName', null)
+
+        }
         var finalString = JSON.stringify(projectInfo);
         finalString = finalString.replace("[\\u2022,\\u2023,\\u25E6,\\u2043,\\u2219]\\s\\d", '');
         this._BmxService.saveProjectInfo(this.bmxEditData.get('bmxProjectName').value.toString(), finalString, 'user@bi.com').subscribe(result => {
@@ -282,7 +293,7 @@ export class ProjectInformationComponent implements OnInit {
             this._snackBar.open('Saved Succesfully');
             localStorage.setItem('department', this.bmxEditData.get('bmxDepartment').value.toString());
             this.router.navigate(['/bmx-creation/99CB72BF-D163-46A6-8A0D-E1531EC7FEDC'])
-          }else{
+          } else {
             this.showDialog = true
             this.dialogText = message
           }
