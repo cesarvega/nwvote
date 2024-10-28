@@ -125,6 +125,7 @@ export class ImageRateScaleComponent extends RatingScaleComponent implements OnI
     this.newselectedCriteria = filteredCriteria
     
     this.dataSource = this.bmxItem.componentText
+    this.recordHistory()
   }
 
   epicFunction() {
