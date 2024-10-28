@@ -1178,6 +1178,7 @@ moveItemDown(): void {
   }
 
   undo() {
+    console.log(this.HISTORY)
     if (this.HISTORY.length > 0) {
 
       this.dragRows = true;

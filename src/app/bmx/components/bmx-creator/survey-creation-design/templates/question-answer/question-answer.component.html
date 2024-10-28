@@ -232,8 +232,8 @@ justify-content: center;cursor: move; height: 25px; width: 100%;"><svg width="24
                     <mat-label>Copy & Paste Columns</mat-label>
                     <textarea matInput [(ngModel)]="testNamesInput"
                         (paste)="onPaste(); bmxItem.componentSettings[0].commentsWidth = 250; bmxItem.componentSettings[0].nameCandidatesWidth = 500"
-                        (ngModelChange)="upLoadNamesAndRationales(testNamesInput)" placeholder="Paste test names here"
-                        cdkTextareaAutosize cdkAutosizeMinRows="2" cdkAutosizeMaxRows="5"></textarea>
+                        placeholder="Paste test names here" cdkTextareaAutosize cdkAutosizeMinRows="2"
+                        cdkAutosizeMaxRows="5"></textarea>
                     <mat-hint>Type or paste the test names here that you want to include</mat-hint>
                 </mat-form-field>
             </div>
@@ -285,8 +285,8 @@ justify-content: center;cursor: move; height: 25px; width: 100%;"><svg width="24
         <div class="button-cancel" style=" display: flex;
     flex-direction: column;
     align-items: center; ">
-            <button style="outline: none;color:#d35854;   font-size: 21px;" mat-icon-button (click)="selectedIndex = ''"
-                aria-label="ranking">
+            <button style="outline: none;color:#d35854;   font-size: 21px;" mat-icon-button
+                (click)="restoreData();selectedIndex = ''" aria-label="ranking">
                 <mat-icon>cancel</mat-icon>
             </button>
             <p style="margin-top: -11; color: #D35854; font-size: 21px;">Cancel</p>
@@ -352,7 +352,6 @@ justify-content: center;cursor: move; height: 25px; width: 100%;"><svg width="24
                             [style.font-size]="bmxItem.componentSettings[0].fontSize +'px'"
                             *ngIf=" !editSingleTableCells">
                             {{testName[columnName]}}
-                            {{columnName}}
                         </p>
                     </div>
 
@@ -364,9 +363,12 @@ justify-content: center;cursor: move; height: 25px; width: 100%;"><svg width="24
 
                         <div
                             *ngIf="y !== 0  &&  columnName.includes('options') == true && this.bmxItem.componentSettings[0].rankType == 'radio'">
-                            <div *ngFor="let checkBoxName of testName[columnName].split(','); let m = index" [style.width]="bmxItem.componentSettings[0].rationalweidth + 'px'" [style.justify-content]="(columnName.includes('options')) ? 'center' : 'center'" [style.height]="bmxItem.componentSettings[0].rowHeight*10 + 'px'"
+                            <div *ngFor="let checkBoxName of testName[columnName].split(','); let m = index"
+                                [style.width]="bmxItem.componentSettings[0].rationalweidth + 'px'"
+                                [style.justify-content]="(columnName.includes('options')) ? 'center' : 'center'"
+                                [style.height]="bmxItem.componentSettings[0].rowHeight*10 + 'px'"
                                 style="display: flex;flex-direction: row;gap:10px; justify-content: space-between;  ">
-                                <label for="">{{checkBoxName}}  {{columnName.includes('options')}}</label>
+                                <label for="">{{checkBoxName}} </label>
                                 <!-- <input type="checkbox" [checked]="allComplete" -->
                                 <input type="radio" [checked]="testName['RATE']==checkBoxName"
                                     (change)="saveChoice(checkBoxName, y,  $event)">
@@ -374,7 +376,8 @@ justify-content: center;cursor: move; height: 25px; width: 100%;"><svg width="24
                         </div>
                         <div
                             *ngIf="y !== 0  &&  columnName.includes('options') == true && this.bmxItem.componentSettings[0].rankType == 'checkbox'">
-                            <div *ngFor="let checkBoxName of testName[columnName].split(','); let m = index" [style.width]="bmxItem.componentSettings[0].rationalweidth + 'px'"
+                            <div *ngFor="let checkBoxName of testName[columnName].split(','); let m = index"
+                                [style.width]="bmxItem.componentSettings[0].rationalweidth + 'px'"
                                 style="display: flex;flex-direction: row;gap:10px; justify-content: space-between;  ">
                                 <label for="">{{checkBoxName}}</label>
                                 <!-- <input type="checkbox" [checked]="allComplete" -->
@@ -481,7 +484,9 @@ justify-content: center;cursor: move; height: 25px; width: 100%;"><svg width="24
                         <div
                             *ngIf="y !== 0  &&  columnName.includes('options') == true && this.bmxItem.componentSettings[0].rankType == 'radio'">
                             <div *ngFor="let checkBoxName of testName[columnName].split(','); let m = index"
-                                style="display: flex;flex-direction: row;gap:10px; justify-content: space-between;"  [style.width]="bmxItem.componentSettings[0].rationalweidth + 'px'"  [style.justify-content]="(testName[columnName] === 'options') ? 'center' : 'flex-start'">
+                                style="display: flex;flex-direction: row;gap:10px; justify-content: space-between;"
+                                [style.width]="bmxItem.componentSettings[0].rationalweidth + 'px'"
+                                [style.justify-content]="(testName[columnName] === 'options') ? 'center' : 'flex-start'">
                                 <label for="">{{checkBoxName}}</label>
                                 <!-- <input type="checkbox" [checked]="allComplete" -->
                                 <input type="radio" [checked]="testName['RATE']==checkBoxName"

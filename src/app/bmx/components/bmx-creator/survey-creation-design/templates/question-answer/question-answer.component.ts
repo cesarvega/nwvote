@@ -24,11 +24,14 @@ export class QuestionAnswerComponent extends RatingScaleComponent implements OnI
   dataSource:any[] = []
 
   allComplete: boolean = false;
+  bmxCopycomponentText: any;
   constructor(dragulaService: DragulaService, _snackBar: MatSnackBar, _bmxService: BmxService, public deviceService: DeviceDetectorService) {
     super(dragulaService, _snackBar, _bmxService, deviceService);
   }
 
   ngOnInit(): void {
+    this.bmxCopycomponentText = JSON.parse(JSON.stringify(this.bmxItem));
+
     this.showDialog = false
 
     // COLUMN NAMES
@@ -69,8 +72,9 @@ export class QuestionAnswerComponent extends RatingScaleComponent implements OnI
     this.testNamesInput = result;
     this.randomizeTestNames = this.bmxItem.componentSettings[0].randomizeTestNames
     this.rowsCount = this.bmxItem.componentText.length - 1;
-    console.log(this.bmxItem.componentSettings[0].rationalewidth)
     this.dataSource = this.bmxItem.componentText.slice(1)
+    this.recordHistory()
+
   }
 
   upLoadNamesAndRationales(list: string) {
@@ -186,6 +190,8 @@ export class QuestionAnswerComponent extends RatingScaleComponent implements OnI
       //   // this.leaveStar(index);
       // });
     }
+    this.bmxCopycomponentText = JSON.parse(JSON.stringify(this.bmxItem));
+
   }
   sortAlphabetically() {
     const firstElement = this.bmxItem.componentText[0];
@@ -260,5 +266,8 @@ export class QuestionAnswerComponent extends RatingScaleComponent implements OnI
       this.bmxPages[this.currentPage].page[this.i] = this.bmxPages[this.currentPage].page[this.i + 1];
       this.bmxPages[this.currentPage].page[this.i + 1] = temp;
     }
+  }
+  restoreData(){
+    this.bmxItem = this.bmxCopycomponentText
   }
 }

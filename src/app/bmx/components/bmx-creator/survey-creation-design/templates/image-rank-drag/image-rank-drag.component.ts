@@ -133,8 +133,9 @@ export class ImageRankDragComponent extends RatingScaleComponent implements OnIn
     this.launchPathModal.emit(this.VIDEO_PATH)
     const filteredCriteria = this.CRITERIA.filter(criteriaItem => this.selectedCriteria.map(item => item.name).includes(criteriaItem.name));
     this.newselectedCriteria = filteredCriteria
-    console.log(this.bmxItem.componentText)
     this.dataSource = this.bmxItem.componentText
+    this.recordHistory()
+
   }
 
   substractRatedCounter() {

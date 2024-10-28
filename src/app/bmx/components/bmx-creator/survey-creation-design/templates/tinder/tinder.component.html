@@ -91,7 +91,7 @@ justify-content: center;cursor: move; height: 25px; width: 100%;"><svg width="24
                 <mat-form-field style="width: 90%; margin-left: 20px;" appearance="outline">
                     <mat-label>Copy & Paste Columns</mat-label>
                     <textarea matInput [(ngModel)]="testNamesInput" (paste)="onPaste()"
-                        (ngModelChange)="upLoadNamesAndRationales(testNamesInput);uploadNames()" placeholder="Paste test names here"
+                        placeholder="Paste test names here"
                         cdkTextareaAutosize cdkAutosizeMinRows="2" cdkAutosizeMaxRows="5"></textarea>
                     <mat-hint>Type or paste the test names here that you want to include</mat-hint>
                 </mat-form-field>
@@ -182,7 +182,7 @@ justify-content: center;cursor: move; height: 25px; width: 100%;"><svg width="24
         <div class="button-cancel" style=" display: flex;
   flex-direction: column;
   align-items: center; ">
-            <button style="outline: none;color:#d35854;" mat-icon-button (click)="selectedIndex = ''"
+            <button style="outline: none;color:#d35854;" mat-icon-button (click)="restoreData();selectedIndex = ''"
                 aria-label="ranking">
                 <mat-icon>cancel</mat-icon>
             </button>
