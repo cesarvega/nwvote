@@ -256,7 +256,7 @@
                         <div
                             style="text-align: center;display: flex;flex-direction: row;justify-content: space-around;">
                             <input [(ngModel)]="rankingScaleValue" type="range" id="volume" name="volume" min="0"
-                                (change)="rankingTableType(this.bmxItem.componentSettings[0].rankType)"
+                                
                                 [max]="this.rowsCount">
                             {{rankingScaleValue}}
                         </div>
@@ -348,7 +348,7 @@
     <!-- BUTTON-->
     <div class="sm-row-box-rkScale">
         <div class="button-cancel" style=" display: flex; flex-direction: column;  align-items: center; ">
-            <button style="outline: none;color:#d35854;   font-size: 21px;" mat-icon-button (click)="selectedIndex = ''"
+            <button style="outline: none;color:#d35854;   font-size: 21px;" mat-icon-button (click)="restoreData(); selectedIndex = ''"
                 aria-label="ranking">
                 <mat-icon>cancel</mat-icon>
             </button>
