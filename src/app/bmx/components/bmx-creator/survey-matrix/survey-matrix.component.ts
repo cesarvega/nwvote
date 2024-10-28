@@ -613,6 +613,7 @@ export class SurveyMatrixComponent extends SurveyCreationDesignComponent impleme
   seeTutorial() {
     localStorage.removeItem('showModal');
     this.showModalVideo = true;
+    
 
   }
 
