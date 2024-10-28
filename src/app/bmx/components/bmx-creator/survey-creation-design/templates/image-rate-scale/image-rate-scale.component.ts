@@ -53,6 +53,7 @@ export class ImageRateScaleComponent extends RatingScaleComponent implements OnI
   numRatingScale: number = 5;
   ratedCounter = 0
   actualRate = 0
+  showEditModal = false
   showEdit = false
   selectedIndex
   //------modal-----------//
@@ -159,7 +160,7 @@ export class ImageRateScaleComponent extends RatingScaleComponent implements OnI
   //----------open cards-----------//
 
   openSelected(y: any) {
-
+ 
     if (this.openElements.indexOf(y) === -1) {
       this.openElements.push(y);
     } else {
@@ -260,8 +261,10 @@ export class ImageRateScaleComponent extends RatingScaleComponent implements OnI
   }
 
   openWindow(index: any, bool: any) {
+
     if (this.showEdit) {
       this.selectedIndex = index
+      this.showEditModal = true
       this.editSingleTableCells = bool
       this.verifyCritera()
     } else {

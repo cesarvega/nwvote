@@ -245,7 +245,7 @@
 
 
 <!-- 👩🏽‍🔧👩🏽‍🔧👩🏽‍🔧👩🏽‍🔧👩🏽‍🔧👩🏽‍🔧👩🏽‍🔧👩🏽‍🔧👩🏽‍🔧👩🏽‍🔧👩🏽‍🔧👩🏽‍🔧👩🏽‍🔧👩🏽‍🔧👩🏽‍🔧👩🏽‍🔧👩🏽‍🔧👩🏽‍🔧👩🏽‍🔧👩🏽‍🔧👩🏽‍🔧👩🏽‍🔧 UPLOAD IMAGES BOX 👩🏽‍🔧👩🏽‍🔧👩🏽‍🔧👩🏽‍🔧👩🏽‍🔧👩🏽‍🔧👩🏽‍🔧👩🏽‍🔧👩🏽‍🔧👩🏽‍🔧👩🏽‍🔧👩🏽‍🔧👩🏽‍🔧👩🏽‍🔧👩🏽‍🔧👩🏽‍🔧👩🏽‍🔧👩🏽‍🔧👩🏽‍🔧👩🏽‍🔧👩🏽‍🔧👩🏽‍🔧 -->
-<div *ngIf="i === selectedIndex" class="mat-elevation-z4" cdkDrag style="position: absolute;width: 50%;background: #fafafa;
+<div *ngIf="i === selectedIndex && showEditModal" class="mat-elevation-z4" cdkDrag style="position: absolute;width: 50%;background: #fafafa;
 z-index: 1;top: -65px;left: 25%;border: #063074 3px solid; overflow: auto;
        max-height: 36rem;
     bottom: -2; ">
@@ -455,6 +455,7 @@ z-index: 1;top: -65px;left: 25%;border: #063074 3px solid; overflow: auto;
                 bmxItem.componentSettings[0].columnWidth + 'px'">
 
                     <!-- 🟢🟢🟢🟢🟢🟢🟢🟢🟢🟢🟢🟢🟢🟢 HEADER TEXT AREA 🟢🟢🟢🟢🟢🟢🟢🟢🟢🟢🟢🟢🟢🟢🟢🟢 -->
+                     
                     <div *ngIf="(y == 0)" class="header-title" (mouseenter)="selectedColumn = e">
                         <div>
                             <textarea *ngIf="editSingleTableCells"
@@ -586,8 +587,9 @@ z-index: 1;top: -65px;left: 25%;border: #063074 3px solid; overflow: auto;
                             [style.width]="(columnName == 'rationale')?bmxItem.componentSettings[0].rationalewidth + 'px':bmxItem.componentSettings[0].columnWidth +'px'"
                             [style.font-size]="bmxItem.componentSettings[0].fontSize +'px'" cdkTextareaAutosize
                             [cdkAutosizeMinRows]="bmxItem.componentSettings[0].rowHeight"
-                            style="outline: none;text-align: center;" class="row-box"
+                            style="outline: none;text-align: center; " class="row-box"
                             [(ngModel)]="testName[columnName]"></textarea>
+                            
 
                         <p *ngIf="y !== 0  && !editSingleTableCells && (columnName.includes('name') != true) &&
                         (columnName.includes('RadioColumn') != true) &&  columnName.includes('Comments') != true &&
@@ -625,7 +627,7 @@ z-index: 1;top: -65px;left: 25%;border: #063074 3px solid; overflow: auto;
     </div>
     <div class="scroller-style main-container">
 
-        <div *ngFor="let testName of bmxItem.componentText; let y = index" style="margin-bottom: 10px;">
+        <div *ngFor="let testName of bmxItem.componentText; let y = index" style="margin-bottom: 10px;  ">
 
             <div (click)="openSelected(y); selectedIndex = y" class="test-name-table" *ngIf="(y != 0)"
                 [style.height]="(selectedIndex == y)?'':'100px'">
@@ -666,10 +668,11 @@ z-index: 1;top: -65px;left: 25%;border: #063074 3px solid; overflow: auto;
 
 
                     <!-- 🟡🟡🟡🟡🟡🟡🟡🟡🟡🟡🟡🟡🟡🟡 TABLE CELLS  🟡🟡🟡🟡🟡🟡🟡🟡🟡🟡🟡🟡🟡🟡🟡🟡 -->
-                    <div>
+                    <div style="display: block;">
+                        
                         <!--⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️ STARS RENDERER ⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️ -->
                         <div *ngIf="y !== 0 && selectedIndex == y &&  columnName.includes('RATE') == true"
-                            style="display: flex;align-items: center;justify-content: center;">
+                            style="display: block ;align-items: center;justify-content: center;">
                             <div *ngIf="(y !== 0)">
                                 <div *ngIf="testName.CRITERIA; else elseBlock">
                                     <div *ngFor="let criteria of testName.CRITERIA  let x =  index"
@@ -725,12 +728,14 @@ z-index: 1;top: -65px;left: 25%;border: #063074 3px solid; overflow: auto;
                               </div>
                           </div> -->
                             <!-- 🩸🩸🩸🩸🩸🩸🩸🩸🩸🩸🩸🩸🩸 END RATE BUTTONS 🩸🩸🩸🩸🩸🩸🩸🩸🩸🩸🩸🩸🩸🩸🩸🩸🩸🩸🩸🩸🩸🩸🩸🩸 -->
-
-                            <textarea *ngIf="y == 0 && editSingleTableCells"
-                                [style.font-size]="bmxItem.componentSettings[0].fontSize +'px'"
-                                style="text-align: center; font-weight: bold;color: #324395;" class="row-box"
-                                [(ngModel)]="bmxItem.componentSettings[0].ratingScaleTitle"
-                                value="bmxItem.componentSettings[0].ratingScaleTitle"></textarea>
+                            <textarea *ngIf="y !== 0 && !editSingleTableCells"
+                            [style.font-size]="bmxItem.componentSettings[0].fontSize +'px'"
+                            style="outline: none;text-align: center; border: solid; " class="row-box"
+                            [(ngModel)]="bmxItem.componentSettings[0].ratingScaleTitle"
+                            value="bmxItem.componentSettings[0].ratingScaleTitle"></textarea>
+                            
+                            
+                           
                             <div [style.font-size]="bmxItem.componentSettings[0].fontSize +'px'" class="rating-text"
                                 *ngIf="y == 0 && !editSingleTableCells">
                                 {{bmxItem.componentSettings[0].ratingScaleTitle}}</div>
@@ -741,7 +746,7 @@ z-index: 1;top: -65px;left: 25%;border: #063074 3px solid; overflow: auto;
                         <input type="radio" *ngIf="y !== 0  &&  columnName.includes('RadioColumn') == true"
                             [name]="'rate' + y" [checked]="testName[columnName]"
                             (change)="saveRadioColumValue(columnName, y)">
-
+                           
                         <img (click)="(selectedCard == y)?selectedCard = '':selectedCard = y" class="row-box"
                             style="width:300px;" [src]="testName[columnName]"
                             *ngIf="(y !== 0) && (columnName == 'name' || columnName == 'nameCandidates')">
@@ -766,6 +771,9 @@ z-index: 1;top: -65px;left: 25%;border: #063074 3px solid; overflow: auto;
                             [style.color]="(columnName.includes('name') == true)?'#324395':'#bababa'"
                             style="text-align: center;padding: 5px 4px;"
                             [innerHTML]="testName[columnName] | safe: 'html'">{{testName[columnName]}}</p>
+                           
+                           
+                       
 
                     </div>
                     <!-- 🟡🟡🟡🟡🟡🟡🟡🟡🟡🟡🟡🟡🟡🟡 END TABLE CELLS 🟡🟡🟡🟡🟡🟡🟡🟡🟡🟡🟡🟡🟡🟡🟡🟡 -->

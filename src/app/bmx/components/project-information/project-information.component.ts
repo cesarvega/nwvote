@@ -127,7 +127,6 @@ export class ProjectInformationComponent implements OnInit {
               localStorage.setItem('displayName', data.bmxDisplayName)
             } else {
               localStorage.setItem('displayName', null)
-
             }
             var list;
             this._BmxService.setDirectors(data.bmxRegionalOffice)
@@ -292,6 +291,11 @@ export class ProjectInformationComponent implements OnInit {
             this._BmxService.setprojectData(finalString)
             this._snackBar.open('Saved Succesfully');
             localStorage.setItem('department', this.bmxEditData.get('bmxDepartment').value.toString());
+            if (this.bmxEditData.get('bmxDisplayName').value && this.bmxEditData.get('bmxDisplayName').value.toString()) {
+              localStorage.setItem('displayName', this.bmxEditData.get('bmxDisplayName').value?.toString())
+            } else {
+              localStorage.setItem('displayName', null)
+            }
             this.router.navigate(['/bmx-creation/99CB72BF-D163-46A6-8A0D-E1531EC7FEDC'])
           } else {
             this.showDialog = true
