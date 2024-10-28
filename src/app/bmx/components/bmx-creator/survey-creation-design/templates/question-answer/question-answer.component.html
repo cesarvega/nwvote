@@ -33,7 +33,7 @@
             </p>
             <input type="range" style="margin: 20px;width: 50px;"
                 [(ngModel)]="bmxItem.componentSettings[0].rationalewidth" class="slider-font-size" tickInterval="0.5"
-                min="50" max="900" [value]="bmxItem.componentSettings[0].rationalweidth">
+                min="50" max="900" [value]="bmxItem.componentSettings[0].rationalewidth">
 
         </div>
 
@@ -327,10 +327,11 @@ justify-content: center;cursor: move; height: 25px; width: 100%;"><svg width="24
                 <div *ngFor="let columnName of columnsNames; let e = index"
                     style="display: flex;align-items: center; justify-content: center;"
                     [ngClass]="(e % 2 === 0) ? 'red' : 'blue'" [style.width]="(columnName.includes('name')) ? bmxItem.componentSettings[0].nameCandidatesWidth + 'px' :
-                          (columnName.includes('options')) ? bmxItem.componentSettings[0].commentsWidth + 'px' :
+                          (columnName.includes('options')) ? bmxItem.componentSettings[0].rationalewidth + 'px' :
                           (columnName.includes('Answers')) ? bmxItem.componentSettings[0].rationalewidth + 'px' :
                           bmxItem.componentSettings[0].columnWidth + 'px'"
-                    [style.justify-content]="(testName[columnName] === 'Questions') ? 'center' : 'flex-start'">
+                    [style.justify-content]="(testName[columnName] === 'Questions') || (testName[columnName] === 'options') ? 'center' : 'flex-start'"
+                    [style.justify-content]="(columnName.includes('options')) ? 'center' : 'center'">
                     <div *ngIf="(y == 0)" class="header-title " (mouseenter)="selectedColumn = e"
                         (mouseleave)="selectedColumn = ''">
 
@@ -351,6 +352,7 @@ justify-content: center;cursor: move; height: 25px; width: 100%;"><svg width="24
                             [style.font-size]="bmxItem.componentSettings[0].fontSize +'px'"
                             *ngIf=" !editSingleTableCells">
                             {{testName[columnName]}}
+                            {{columnName}}
                         </p>
                     </div>
 
@@ -362,9 +364,9 @@ justify-content: center;cursor: move; height: 25px; width: 100%;"><svg width="24
 
                         <div
                             *ngIf="y !== 0  &&  columnName.includes('options') == true && this.bmxItem.componentSettings[0].rankType == 'radio'">
-                            <div *ngFor="let checkBoxName of testName[columnName].split(','); let m = index"
+                            <div *ngFor="let checkBoxName of testName[columnName].split(','); let m = index" [style.width]="bmxItem.componentSettings[0].rationalweidth + 'px'" [style.justify-content]="(columnName.includes('options')) ? 'center' : 'center'" [style.height]="bmxItem.componentSettings[0].rowHeight*10 + 'px'"
                                 style="display: flex;flex-direction: row;gap:10px; justify-content: space-between;  ">
-                                <label for="">{{checkBoxName}}</label>
+                                <label for="">{{checkBoxName}}  {{columnName.includes('options')}}</label>
                                 <!-- <input type="checkbox" [checked]="allComplete" -->
                                 <input type="radio" [checked]="testName['RATE']==checkBoxName"
                                     (change)="saveChoice(checkBoxName, y,  $event)">
@@ -372,7 +374,7 @@ justify-content: center;cursor: move; height: 25px; width: 100%;"><svg width="24
                         </div>
                         <div
                             *ngIf="y !== 0  &&  columnName.includes('options') == true && this.bmxItem.componentSettings[0].rankType == 'checkbox'">
-                            <div *ngFor="let checkBoxName of testName[columnName].split(','); let m = index"
+                            <div *ngFor="let checkBoxName of testName[columnName].split(','); let m = index" [style.width]="bmxItem.componentSettings[0].rationalweidth + 'px'"
                                 style="display: flex;flex-direction: row;gap:10px; justify-content: space-between;  ">
                                 <label for="">{{checkBoxName}}</label>
                                 <!-- <input type="checkbox" [checked]="allComplete" -->
@@ -479,7 +481,7 @@ justify-content: center;cursor: move; height: 25px; width: 100%;"><svg width="24
                         <div
                             *ngIf="y !== 0  &&  columnName.includes('options') == true && this.bmxItem.componentSettings[0].rankType == 'radio'">
                             <div *ngFor="let checkBoxName of testName[columnName].split(','); let m = index"
-                                style="display: flex;flex-direction: row;gap:10px; justify-content: space-between;  ">
+                                style="display: flex;flex-direction: row;gap:10px; justify-content: space-between;"  [style.width]="bmxItem.componentSettings[0].rationalweidth + 'px'"  [style.justify-content]="(testName[columnName] === 'options') ? 'center' : 'flex-start'">
                                 <label for="">{{checkBoxName}}</label>
                                 <!-- <input type="checkbox" [checked]="allComplete" -->
                                 <input type="radio" [checked]="testName['RATE']==checkBoxName"
