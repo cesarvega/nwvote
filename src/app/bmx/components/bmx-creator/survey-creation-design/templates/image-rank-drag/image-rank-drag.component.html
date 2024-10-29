@@ -675,7 +675,7 @@ height: 54px;" cdkDragHandle> </div>
         <div *ngFor="let testName of bmxItem.componentText; let y = index" style="margin-bottom: 10px;" cdkDrag>
 
             <div (click)="openSelected(y)" class="test-name-table" *ngIf="(y != 0)"
-                [style.height]="(open(y))?'':'100px'">
+                [style.min-height]="(open(y))?'':'100px'">
 
                 <!-- 🩸🩸🩸🩸🩸🩸🩸🩸🩸🩸🩸🩸🩸 RATE BUTTONS 🩸🩸🩸🩸🩸🩸🩸🩸🩸🩸🩸🩸🩸🩸🩸🩸🩸🩸🩸🩸🩸🩸🩸🩸 -->
                 <button (click)="maxRuleCounterMinus();bmxItem.componentText[y]['RATE'] = 0;leaveStar(y)"
