@@ -630,7 +630,7 @@ z-index: 1;top: -65px;left: 25%;border: #063074 3px solid; overflow: auto;
         <div *ngFor="let testName of bmxItem.componentText; let y = index" style="margin-bottom: 10px;  ">
 
             <div (click)="openSelected(y); selectedIndex = y" class="test-name-table" *ngIf="(y != 0)"
-                [style.height]="(selectedIndex == y)?'':'100px'">
+                [style.min-height]="(selectedIndex == y)?'':'100px'">
                 <!-- 🩸🩸🩸🩸🩸🩸🩸🩸🩸🩸🩸🩸🩸 RATE BUTTONS 🩸🩸🩸🩸🩸🩸🩸🩸🩸🩸🩸🩸🩸🩸🩸🩸🩸🩸🩸🩸🩸🩸🩸🩸 -->
 
                 <button (click)="maxRuleCounterMinus();bmxItem.componentText[y]['RATE'] = 0;leaveStar(y)"
