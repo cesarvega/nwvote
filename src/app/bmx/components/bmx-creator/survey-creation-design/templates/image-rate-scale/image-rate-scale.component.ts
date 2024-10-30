@@ -126,6 +126,7 @@ export class ImageRateScaleComponent extends RatingScaleComponent implements OnI
     
     this.dataSource = this.bmxItem.componentText
     this.recordHistory()
+    console.log(this.columnsNames)
   }
 
   epicFunction() {
