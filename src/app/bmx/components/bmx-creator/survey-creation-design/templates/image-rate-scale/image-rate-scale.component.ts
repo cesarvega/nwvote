@@ -161,22 +161,19 @@ export class ImageRateScaleComponent extends RatingScaleComponent implements OnI
 
   openSelected(y: any) {
 
-    if (this.openElements.indexOf(y) === -1) {
-      this.openElements.push(y);
-    } else {
-      this.openElements.splice(this.openElements.indexOf(y), 1);
-    }
+    this.openElements= y;
+ 
+}
+
+open(y: any) {
+
+  if (this.openElements == y) {
+    return true;
+  } else {
+    return false;
   }
 
-  open(y: any) {
-
-    if (this.openElements.indexOf(y) == -1) {
-      return false;
-    } else {
-      return true;
-    }
-
-  }
+}
 
   //---------end open cards--------------//
 

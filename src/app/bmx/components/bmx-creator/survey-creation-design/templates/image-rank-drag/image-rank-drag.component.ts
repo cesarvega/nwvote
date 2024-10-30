@@ -77,7 +77,7 @@ export class ImageRankDragComponent extends RatingScaleComponent implements OnIn
   //----------end modal--------//
 
   //--------open cards---------//
-  openElements: any[] = [];
+  openElements:any;
   //selectedCard: any
 
   constructor(private _BmxService: BmxService, dragulaService: DragulaService, _snackBar: MatSnackBar, _bmxService: BmxService, public deviceService: DeviceDetectorService) { super(dragulaService, _snackBar, _bmxService, deviceService); this.epicFunction(); }
@@ -165,27 +165,21 @@ export class ImageRankDragComponent extends RatingScaleComponent implements OnIn
   }
 
   //----------open cards-----------//
-
   openSelected(y: any) {
 
-    if (this.openElements.indexOf(y) === -1) {
-      this.openElements.push(y);
-    } else {
-      this.openElements.splice(this.openElements.indexOf(y), 1);
-    }
-    console.log(this.openElements)
+    this.openElements= y;
+ 
+}
+
+open(y: any) {
+
+  if (this.openElements == y) {
+    return true;
+  } else {
+    return false;
   }
 
-  open(y: any) {
-
-    if (this.openElements.indexOf(y) == -1) {
-      return false;
-    } else {
-      console.log('true')
-      return true;
-    }
-
-  }
+}
 
   //---------end open cards--------------//  
 
