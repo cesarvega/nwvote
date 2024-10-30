@@ -537,7 +537,7 @@ justify-content: center;cursor: move; height: 25px; width: 100%;"><svg width="24
                           columnName.includes('ratio') != true"
                             [style.font-size]=" (columnName.includes('name') == true)?'27px':'20px'"
                             [style.color]="(columnName.includes('name') == true)?'#324395':'#bababa'"
-                            style="text-align: center;padding: 10px 4px;"
+                            style="text-align: center;padding: 10px 4px; line-height: 33px;"
                             [innerHTML]="testName[columnName] | safe: 'html'">{{testName[columnName]}}</p>
 
                         <p *ngIf="y !== 0  && !editSingleTableCells && (columnName.includes('options') != true) &&

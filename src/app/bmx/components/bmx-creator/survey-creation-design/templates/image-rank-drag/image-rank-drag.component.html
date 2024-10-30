@@ -676,18 +676,13 @@ height: 54px;" cdkDragHandle> </div>
                 [style.height]="(open(y))?'':'145px'">
 
                 <!-- 🩸🩸🩸🩸🩸🩸🩸🩸🩸🩸🩸🩸🩸 RATE BUTTONS 🩸🩸🩸🩸🩸🩸🩸🩸🩸🩸🩸🩸🩸🩸🩸🩸🩸🩸🩸🩸🩸🩸🩸🩸 -->
-                <button (click)="maxRuleCounterMinus();bmxItem.componentText[y]['RATE'] = 0;leaveStar(y)"
-                    *ngIf="bmxItem.componentText[y]['RATE']>0 && y != 0 " style="background-color: #ee7f25;color: white;margin: 5px;width: 30px;
-              height: 30px;
-              line-height: 30px;right: 7px;
-              position: absolute;animation: rubberBand 700ms ease-in  forwards;"
-                    mat-icon-button>{{bmxItem.componentText[y]['RATE']}}</button>
+              
 
                 <button *ngIf=" y != 0  " style="background-color: #ee7f25;color: white;margin: 5px;width: 30px;
               height: 30px;
               line-height: 30px;right: 7px;
               position: relative;
-    left: 181px;
+    left: 160px;
              ;animation: rubberBand 700ms ease-in  forwards;" mat-icon-button>{{y}}</button>
                 <!-- 🟢🟢🟢🟢🟢🟢🟢🟢🟢🟢🟢🟢🟢🟢 HEADER TEXT AREA 🟢🟢🟢🟢🟢🟢🟢🟢🟢🟢🟢🟢🟢🟢🟢🟢 -->
 
@@ -778,7 +773,7 @@ height: 54px;" cdkDragHandle> </div>
                             <textarea *ngIf="y == 0 && editSingleTableCells"
                                 [style.font-size]="bmxItem.componentSettings[0].fontSize +'px'"
                                 style="text-align: center; font-weight: bold;color: #324395;" class="row-box"
-                                [(ngModel)]="bmxItem.componentSettings[0].ratingScaleTitle"
+                                [(ngModel)]="testName['Comments0']"
                                 value="bmxItem.componentSettings[0].ratingScaleTitle"></textarea>
                             <div [style.font-size]="bmxItem.componentSettings[0].fontSize +'px'" class="rating-text"
                                 *ngIf="y == 0 && !editSingleTableCells">

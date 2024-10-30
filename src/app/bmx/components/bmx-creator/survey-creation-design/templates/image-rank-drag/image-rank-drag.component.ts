@@ -91,7 +91,7 @@ export class ImageRankDragComponent extends RatingScaleComponent implements OnIn
   }
   ngOnInit(): void {
     this.showDialog = false
-    this.numRatingScale = this.bmxItem.componentText[0].STARS.length
+    this.numRatingScale = this.bmxItem.componentText[0]?.STARS?.length
     this.rankingScaleValue = this.numRatingScale;
     let values = Object.keys(this.bmxItem.componentText[0])
     values.forEach(value => {
