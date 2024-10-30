@@ -163,14 +163,14 @@ export class BsrComponent implements OnInit {
     });
 
     
-    setInterval(() => {
-      this._BsrService.getNameCandidates(this.projectId).subscribe((res: any) => {
-        res.forEach(name => {
-          name.html = name.html.replace(/\\/g, '');
-        });
-        this.nameCandidates = (res.length > 0) ? res : [];
-      });
-    }, 1000);
+    //  setInterval(() => {
+    //    this._BsrService.getNameCandidates(this.projectId).subscribe((res: any) => {
+    //      res.forEach(name => {
+    //        name.html = name.html.replace(/\\/g, '');
+    //      });
+    //      this.nameCandidates = (res.length > 0) ? res : [];
+    //    });
+    //  }, 1000);
 
 
     this.getCommentsByIndex(0);
@@ -280,7 +280,7 @@ export class BsrComponent implements OnInit {
   }
 
   orderArray(orderArray) {
-    console.log(this.conceptData.concepts);
+    console.log("data", this.conceptData.concepts);
     
     const orderIds = orderArray.concepts.map((element) => element.conceptid);
   
@@ -631,8 +631,15 @@ export class BsrComponent implements OnInit {
           horizontalPosition: 'right',
           verticalPosition: 'top'
         });
-        this._BsrService.getNameCandidates(this.projectId).subscribe(res => {
-          this.nameCandidates = res;
+        this._BsrService.getNameCandidates(this.projectId).subscribe({
+          
+          next:(response: any )=>{
+            this.nameCandidates = response
+          },
+          error:(error )=>{
+            console.log("cant get namecadidates")
+          },
+          
         });
         this.clickBlocked= false;
       }, 500);
@@ -840,6 +847,7 @@ export class editPost {
   nameid: any = '';
   showQrCode = false
   projectName = ''
+  
   closeQrCodePopup() {
     this.showQrCode = !this.showQrCode;
   }
@@ -851,7 +859,7 @@ export class editPost {
   }
   constructor(
     public dialogRef: MatDialogRef<editPost>,
-    @Inject(MAT_DIALOG_DATA) public data: DialogData, private _BsrService: BsrService, private activatedRoute: ActivatedRoute, private cdr: ChangeDetectorRef) {
+    @Inject(MAT_DIALOG_DATA) public data: DialogData, private _BsrService: BsrService, private activatedRoute: ActivatedRoute, private cdr: ChangeDetectorRef, public _snackBar: MatSnackBar) {
     this.editName = this.data.nameId;
     this.dataEditor = this.data.name.html;
     this.model.editorData = this.data.name.html;
@@ -964,7 +972,7 @@ export class editPost {
       this.projectId = localStorage.getItem(this._BsrService.getProjectName() + '_projectId');
 
       const editorData = this.model.editorData && this.model.editorData.trim() ? this.model.editorData : '';
-      console.log(this.data)
+      //console.log(this.data)
       const newConcepData = {
         projectId: this.projectId,
         concept: this.loginForm.value.name.replace(/'/g, "`"),
@@ -973,10 +981,23 @@ export class editPost {
         namesArray: this.model.namesData ? this.model.namesData.split("\n").filter(name => name.trim() !== '') : [''],
         conceptHtml: editorData,
       };
-      console.log(newConcepData)
+      //console.log(newConcepData)
+      
       const userName = localStorage.getItem('userName')
-      this._BsrService.updatePost(JSON.stringify(newConcepData), userName).subscribe(arg => {
-        this.dialogRef.close('savePost');
+      this._BsrService.updatePost(JSON.stringify(newConcepData), userName).subscribe({
+        next:(response: any )=>{this.dialogRef.close('savePost');},
+        error:(error)=>{
+
+          this._snackBar.open('cant save post', 'Error', {
+            duration: 5000,
+            horizontalPosition: 'right',
+            verticalPosition: 'top',
+            panelClass:["error-snackbar"]
+          });
+
+
+          
+        }
       });
     } else if (option === 'deleteName') {
       this.isDeleting = false;
@@ -998,7 +1019,9 @@ export class editPost {
         const nameId = tempArray[index] ? tempArray[index] : '0';
         if (nameId) {
           const userName = localStorage.getItem('userName')
-          this._BsrService.sendNewName(element,userName, false, this.conceptid, nameId).subscribe(arg => {
+          this._BsrService.sendNewName(element,userName, false, this.conceptid, nameId).subscribe( {
+            next:(response: any )=>{console.log("newName saved")},
+            error:(error)=>{console.log("cant save new name")},
           });
         }
       });
