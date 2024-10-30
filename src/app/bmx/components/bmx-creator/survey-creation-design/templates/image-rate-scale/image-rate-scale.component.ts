@@ -53,6 +53,7 @@ export class ImageRateScaleComponent extends RatingScaleComponent implements OnI
   numRatingScale: number = 5;
   ratedCounter = 0
   actualRate = 0
+  showEditModal = false
   showEdit = false
   selectedIndex
   //------modal-----------//
@@ -258,8 +259,10 @@ open(y: any) {
   }
 
   openWindow(index: any, bool: any) {
+
     if (this.showEdit) {
       this.selectedIndex = index
+      this.showEditModal = true
       this.editSingleTableCells = bool
       this.verifyCritera()
     } else {
