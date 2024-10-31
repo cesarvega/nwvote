@@ -32,7 +32,7 @@ export class MenuComponent implements OnInit {
   userDepartment: string;
   userOffice: any;
   id: string;
-  versionNumber = 'v1.0.13';
+  versionNumber = 'v1.0.12';
   showErrorMessage = false;
 
   // constructor(private router: Router, private _BmxService: BmxService, private activatedRoute: ActivatedRoute,) {
