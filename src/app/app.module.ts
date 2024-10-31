@@ -99,6 +99,7 @@ import { QuillModule } from 'ngx-quill';
 import { QrCodePopupComponentComponent } from './qr-code-popup-component/qr-code-popup-component.component';
 import { SynonymsComponent } from './synonyms/synonyms.component';
 import { SurveyDialogBsrComponent } from './bsr/survey-dialog/survey-dialog-bsr.component';
+import { LoaderComponent } from './bsr/loader/loader.component';
 
 export function loadEcharts() {
   return import('echarts');
@@ -163,7 +164,8 @@ export function MSALInstanceFactory(): IPublicClientApplication {
         TableComponent,
         ProjectListCheckComponent,
         TemplatesComponent,
-        SurveyDialogBsrComponent
+        SurveyDialogBsrComponent,
+        LoaderComponent
         // BmxCreatorComponent,
         // SafePipe,
         // OrderDasboardComponent
