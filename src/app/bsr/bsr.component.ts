@@ -81,6 +81,7 @@ export class BsrComponent implements OnInit {
   showHotKeys = false
   showDialog = false
   clickBlocked = false;
+  loader=false
   constructor(@Inject(DOCUMENT) private document: any,
   private cdr: ChangeDetectorRef, private _BsrService: BsrService, public dialog: MatDialog, private activatedRoute: ActivatedRoute, public _snackBar: MatSnackBar,
 
@@ -154,7 +155,6 @@ export class BsrComponent implements OnInit {
       if (JSON.parse(res[0].bsrData).presentationtype === 'NSR') {
         this.isNSR = true;
       }
-      console.log(this.conceptData)
 
       this.conceptData.concepts.forEach(element => {
         element.concept = element.concept.replace(/`/g, "'");
@@ -280,7 +280,7 @@ export class BsrComponent implements OnInit {
   }
 
   orderArray(orderArray) {
-    console.log("data", this.conceptData.concepts);
+   
     
     const orderIds = orderArray.concepts.map((element) => element.conceptid);
   
@@ -589,6 +589,7 @@ export class BsrComponent implements OnInit {
     });
     this.conceptid = item.conceptid;
     dialogRef.afterClosed().subscribe(result => {
+      this.loader = true
       const editPostInstance = dialogRef.componentInstance;
       editPostInstance.buttonOption('savePost'); 
       setTimeout(() => {
@@ -608,6 +609,8 @@ export class BsrComponent implements OnInit {
                 element.concept = element.concept.replace(/`/g, "'");
                 element.html = element.html.replace(/`/g, "'");
               });
+              this.loader = false
+
             });
           });
         } else if (result === 'deleteName') {
@@ -624,6 +627,8 @@ export class BsrComponent implements OnInit {
           if (JSON.parse(res[0].bsrData).presentationtype === 'NSR') {
             this.isNSR = true;
           }
+          this.loader = false
+
         });
         editPostInstance.buttonOption('savePost'); 
         this._snackBar.open('Data was saved', 'OK', {
@@ -769,7 +774,7 @@ export class BsrComponent implements OnInit {
   setFontSize() {
     // console.log(this.font_size);
     this.font_size_text = this.font_size + 'px !important';
-    console.log(this.font_size_text)
+   
     localStorage.setItem(this.projectName + '_font_size_text', this.font_size_text);
     localStorage.setItem(this.projectName + '_font_size', this.font_size);
   }
@@ -964,6 +969,7 @@ export class editPost {
 
 
   buttonOption(option) {
+    
     if (option === 'delete') {
       this.isDeleting = false;
       this.dialogRef.close('delete');
@@ -994,9 +1000,6 @@ export class editPost {
             verticalPosition: 'top',
             panelClass:["error-snackbar"]
           });
-
-
-          
         }
       });
     } else if (option === 'deleteName') {
