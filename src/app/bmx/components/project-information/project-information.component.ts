@@ -250,7 +250,6 @@ export class ProjectInformationComponent implements OnInit {
         }
 
         // SET DATA STREAM TO AN OBSERVABLE
-        this._BmxService.setprojectData(finalString)
         this._snackBar.open('Saved Succesfully');
         localStorage.setItem('department', this.bmxEditData.get('bmxDepartment').value.toString());
         this.router.navigate(['/bmx-creation/99CB72BF-D163-46A6-8A0D-E1531EC7FEDC'])
@@ -288,7 +287,6 @@ export class ProjectInformationComponent implements OnInit {
             }
 
             // SET DATA STREAM TO AN OBSERVABLE
-            this._BmxService.setprojectData(finalString)
             this._snackBar.open('Saved Succesfully');
             localStorage.setItem('department', this.bmxEditData.get('bmxDepartment').value.toString());
             if (this.bmxEditData.get('bmxDisplayName').value && this.bmxEditData.get('bmxDisplayName').value.toString()) {
