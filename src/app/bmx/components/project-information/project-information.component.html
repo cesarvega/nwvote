@@ -65,9 +65,9 @@
 
         </div>
         <div class="row-field">
-          <label class="selectLabels">Closing date: </label>
+          <label class="selectLabels">Closing Date: </label>
           <mat-form-field appearance="outline" id="project-datepicker" style="width:55%">
-            <input matInput [matDatepicker]="picker" placeholder="Choose a date" [value]="selectedDate"
+            <input matInput [matDatepicker]="picker" placeholder="Choose A Date" [value]="selectedDate"
                    (dateChange)="onSelect($event.value)"
                    [min]="minDate">
             <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
@@ -76,9 +76,9 @@
         </div>
         
         <div class="row-field">
-          <label class="selectLabels">Display name</label>
+          <label class="selectLabels">Display Name</label>
           <mat-form-field appearance="outline">
-            <mat-label>Enter Company</mat-label>
+            <mat-label>Preview Name </mat-label>
             <input type="text" matInput formControlName="bmxDisplayName">
           </mat-form-field>
 
@@ -123,7 +123,7 @@
         <div class="row-field">
           <label class="selectLabels">Template</label>
           <mat-form-field appearance="outline">
-            <mat-label>Load a template</mat-label>
+            <mat-label>Load A Template</mat-label>
             <mat-select [(ngModel)]="templateName" (selectionChange)="templateSelected($event.value)"
               formControlName="bmxTemplates">
               <mat-select-trigger>{{selectedTemplateName}}</mat-select-trigger>
