@@ -105,7 +105,7 @@
 
     <!-- DELETE BOX -->
     <div *ngIf="infoMessage && !isMobileInfo" style="width: 400px; padding: 2rem;">
-
+      
         <div *ngIf="!isDeleting" class="mat-h2" style="text-align: center;">Are you sure you want to delete? </div>
         <!-- <div *ngIf="!isDeleting" class="mat-h4">This post will be removed permanently.</div> -->
         <div *ngIf="!isDeleting" class="mat-h1" style="text-align: center;color: #004684;">{{concept}}</div>
@@ -327,7 +327,7 @@
                         <mat-icon class="synonymsIcon" matTooltip="access thesaurus"
                             matTooltipPosition="above" (click)="getSynonyms(model.editorData)">layers</mat-icon>
                             <quill-editor #editor [ngModelOptions]="{standalone: true}" class="quill-editor" [(ngModel)]="model.editorData"
-                            [styles]="{ height: '280px' }" [modules]="editorConfig">
+                            [styles]="{ height: '400px' }" [modules]="editorConfig">
               </quill-editor>
                     </div>
 

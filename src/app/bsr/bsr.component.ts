@@ -81,9 +81,9 @@ export class BsrComponent implements OnInit {
   showHotKeys = false
   showDialog = false
   clickBlocked = false;
-  loader=false
+  loader = false
   constructor(@Inject(DOCUMENT) private document: any,
-  private cdr: ChangeDetectorRef, private _BsrService: BsrService, public dialog: MatDialog, private activatedRoute: ActivatedRoute, public _snackBar: MatSnackBar,
+    private cdr: ChangeDetectorRef, private _BsrService: BsrService, public dialog: MatDialog, private activatedRoute: ActivatedRoute, public _snackBar: MatSnackBar,
 
     // private _hotkeysService: HotkeysService,
   ) {
@@ -162,15 +162,15 @@ export class BsrComponent implements OnInit {
       });
     });
 
-    
-    //  setInterval(() => {
-    //    this._BsrService.getNameCandidates(this.projectId).subscribe((res: any) => {
-    //      res.forEach(name => {
-    //        name.html = name.html.replace(/\\/g, '');
-    //      });
-    //      this.nameCandidates = (res.length > 0) ? res : [];
-    //    });
-    //  }, 1000);
+
+    setInterval(() => {
+      this._BsrService.getNameCandidates(this.projectId).subscribe((res: any) => {
+        res.forEach(name => {
+          name.html = name.html.replace(/\\/g, '');
+        });
+        this.nameCandidates = (res.length > 0) ? res : [];
+      });
+    }, 1000);
 
 
     this.getCommentsByIndex(0);
@@ -251,7 +251,7 @@ export class BsrComponent implements OnInit {
   reorderDroppedItem(event: CdkDragDrop<number[]>) {
     // same row/container? => move item in same row
     if (event.previousContainer === event.container) {
-      
+
       moveItemInArray(
         event.container.data,
         event.previousIndex,
@@ -280,18 +280,18 @@ export class BsrComponent implements OnInit {
   }
 
   orderArray(orderArray) {
-   
-    
+
+
     const orderIds = orderArray.concepts.map((element) => element.conceptid);
-  
+
     const uniqueOrderIds = [...new Set(orderIds)];
-  
+
     //if (this.clickBlocked) return;
-  
-  
-  
+
+
+
     this._BsrService.postItOrder(this.projectId, uniqueOrderIds).subscribe(arg => {
-        this.clickBlocked = true;
+      this.clickBlocked = true;
       this._BsrService.getPost().subscribe((res: any) => {
         this.conceptData = JSON.parse(res[0].bsrData);
         this.cdr.detectChanges();
@@ -299,27 +299,27 @@ export class BsrComponent implements OnInit {
           this.isNSR = true;
           this.clickBlocked = false;
         }
-  
-        
-        
+
+
+
       }, (error) => {
         console.error('Error al obtener los ítems:', error);
-        this.clickBlocked = false; 
+        this.clickBlocked = false;
       });
     }, (error) => {
       console.error('Error al subir el cambio:', error);
-      this.clickBlocked = false; 
+      this.clickBlocked = false;
     });
   }
   trackByFn(index, item) {
-    return item.conceptid; 
+    return item.conceptid;
   }
-  
+
 
   dropped(event: CdkDragDrop<any>) {
     if (event.previousContainer === event.container) {
       moveItemInArray(event.container.data, event.previousIndex, event.currentIndex);
-    }else{
+    } else {
       return
     }
   }
@@ -578,7 +578,7 @@ export class BsrComponent implements OnInit {
 
   openDialog(item, nameid) {
     this.open = true;
-    this.clickBlocked= true;
+    this.clickBlocked = true;
     const dialogRef = this.dialog.open(editPost, {
       // width: ((nameid === 'edit')?'80%':'100%'),
       // height: ((nameid === 'edit') ? '777px' : '200px'),
@@ -589,10 +589,15 @@ export class BsrComponent implements OnInit {
     });
     this.conceptid = item.conceptid;
     dialogRef.afterClosed().subscribe(result => {
-      this.loader = true
+      if (result !== 'cancel' ) {
+        this.loader = true
+      }
       const editPostInstance = dialogRef.componentInstance;
-      editPostInstance.buttonOption('savePost'); 
+      if (result !== 'deleteName' && result !== 'cancel' ) {
+        editPostInstance.buttonOption('savePost');
+      }
       setTimeout(() => {
+
         this.open = false;
         this.conceptData.concepts.forEach(element => {
           element.concept = element.concept.replace(/`/g, "'");
@@ -611,45 +616,64 @@ export class BsrComponent implements OnInit {
               });
               this.loader = false
 
-            });
+            },
+              error => {
+                this.loader = false
+
+              });
           });
-        } else if (result === 'deleteName') {
+        } else if (result === 'deleteName' && result !== 'cancel' ) {
           this._BsrService.getNameCandidates(this.projectId).subscribe(res => {
             this.nameCandidates = res;
           });
         }
-        this._BsrService.getPost().subscribe(res => {
-          this.conceptData = JSON.parse(res[0].bsrData);
-          this.conceptData.concepts.forEach(element => {
-            element.concept = element.concept.replace(/`/g, "'");
-            element.html = element.html.replace(/`/g, "'");
-          });
-          if (JSON.parse(res[0].bsrData).presentationtype === 'NSR') {
-            this.isNSR = true;
-          }
-          this.loader = false
+   
+        if (result !== 'cancel' ) {
 
-        });
-        editPostInstance.buttonOption('savePost'); 
-        this._snackBar.open('Data was saved', 'OK', {
-          duration: 5000,
-          horizontalPosition: 'right',
-          verticalPosition: 'top'
-        });
+          this._BsrService.getPost().subscribe(
+            res => {
+              this.conceptData = JSON.parse(res[0].bsrData);
+              this.conceptData.concepts.forEach(element => {
+                element.concept = element.concept.replace(/`/g, "'");
+                element.html = element.html.replace(/`/g, "'");
+              });
+              if (JSON.parse(res[0].bsrData).presentationtype === 'NSR') {
+                this.isNSR = true;
+              }
+              this.loader = false
+              this._snackBar.open('Data was saved', 'OK', {
+                duration: 5000,
+                horizontalPosition: 'right',
+                verticalPosition: 'top'
+              });
+            },
+            error => {
+              this.loader = false
+              this._snackBar.open('There was an error saving data', 'OK', {
+                duration: 5000,
+                horizontalPosition: 'right',
+                verticalPosition: 'top'
+              });
+
+            });
+        }
+        if (result !== 'deleteName' && result !== 'cancel' ) {
+          editPostInstance.buttonOption('savePost');
+        }
         this._BsrService.getNameCandidates(this.projectId).subscribe({
-          
-          next:(response: any )=>{
+
+          next: (response: any) => {
             this.nameCandidates = response
           },
-          error:(error )=>{
+          error: (error) => {
             console.log("cant get namecadidates")
           },
-          
+
         });
-        this.clickBlocked= false;
+        this.clickBlocked = false;
       }, 500);
     });
-   
+
   }
 
   assignCopy() {
@@ -774,7 +798,7 @@ export class BsrComponent implements OnInit {
   setFontSize() {
     // console.log(this.font_size);
     this.font_size_text = this.font_size + 'px !important';
-   
+
     localStorage.setItem(this.projectName + '_font_size_text', this.font_size_text);
     localStorage.setItem(this.projectName + '_font_size', this.font_size);
   }
@@ -787,6 +811,7 @@ import { MatSliderChange } from '@angular/material/slider';
 import { ActivatedRoute } from '@angular/router';
 import { BehaviorSubject, forkJoin, map } from 'rxjs';
 import { MatSnackBar } from '@angular/material/snack-bar';
+import { error } from 'console';
 // import { ThrowStmt } from '@angular/compiler/src/output/output_ast';
 // import { DragulaService } from 'ng2-dragula';
 
@@ -852,7 +877,7 @@ export class editPost {
   nameid: any = '';
   showQrCode = false
   projectName = ''
-  
+
   closeQrCodePopup() {
     this.showQrCode = !this.showQrCode;
   }
@@ -969,11 +994,13 @@ export class editPost {
 
 
   buttonOption(option) {
-    
+    if (option === 'savePost' && this.infoMessage){
+      this.dialogRef.close('cancel');
+    }
     if (option === 'delete') {
       this.isDeleting = false;
       this.dialogRef.close('delete');
-    } else if (option === 'savePost') {
+    } else if (option === 'savePost' && !this.infoMessage) {
       this.isDeleting = false;
       this.projectId = localStorage.getItem(this._BsrService.getProjectName() + '_projectId');
 
@@ -988,17 +1015,17 @@ export class editPost {
         conceptHtml: editorData,
       };
       //console.log(newConcepData)
-      
+
       const userName = localStorage.getItem('userName')
       this._BsrService.updatePost(JSON.stringify(newConcepData), userName).subscribe({
-        next:(response: any )=>{this.dialogRef.close('savePost');},
-        error:(error)=>{
+        next: (response: any) => { this.dialogRef.close('savePost'); },
+        error: (error) => {
 
           this._snackBar.open('cant save post', 'Error', {
             duration: 5000,
             horizontalPosition: 'right',
             verticalPosition: 'top',
-            panelClass:["error-snackbar"]
+            panelClass: ["error-snackbar"]
           });
         }
       });
@@ -1014,7 +1041,7 @@ export class editPost {
     if (!this.nameid) {
       this.nameid = ''
     }
-    if (this.newNamesPerConcept) {
+    if (this.newNamesPerConcept ) {
       const newNames = this.newNamesPerConcept.split('\n').filter(name => name.trim() !== '');
       const nameIds = this.nameid.split('\n');
       newNames.forEach((element, index) => {
@@ -1022,9 +1049,9 @@ export class editPost {
         const nameId = tempArray[index] ? tempArray[index] : '0';
         if (nameId) {
           const userName = localStorage.getItem('userName')
-          this._BsrService.sendNewName(element,userName, false, this.conceptid, nameId).subscribe( {
-            next:(response: any )=>{console.log("newName saved")},
-            error:(error)=>{console.log("cant save new name")},
+          this._BsrService.sendNewName(element, userName, false, this.conceptid, nameId).subscribe({
+            next: (response: any) => { console.log("newName saved") },
+            error: (error) => { console.log("cant save new name") },
           });
         }
       });
@@ -1040,39 +1067,57 @@ export class editPost {
   }
   async getSynonyms(synonyms: any) {
     const regex = /<p>(.*?)<\/p>/g;
-    const result = [];
+    const result: string[] = [];
     let match;
-
+  
     while ((match = regex.exec(synonyms)) !== null) {
-
-      const tempElement = document.createElement('div');
-      tempElement.innerHTML = match[1];
-      result.push(tempElement.textContent || tempElement.innerText || '');
+      if (match[1]) {
+        const tempElement = document.createElement('div');
+        tempElement.innerHTML = match[1];
+        const text = tempElement.textContent || tempElement.innerText || '';
+        if (text.trim()) {
+          result.push(text);
+        }
+      }
     }
-
+  
     this.synonymWord = result.join(', ');
     this.isSynonymBox = true;
-
+  
     const requests = result.map(element =>
       this._BsrService.getSinonyms(element).pipe(
         map((res: any) => {
-          const parsedRes = JSON.parse(res);
-          return { word: element, synonyms: parsedRes };
+          try {
+            const parsedRes = JSON.parse(res);
+            const synonyms = Array.isArray(parsedRes) ? parsedRes : [];
+            return { word: element, synonyms };
+          } catch (error) {
+            console.error('Error parsing response:', error);
+            return { word: element, synonyms: [] };
+          }
         })
       )
     );
-
+  
     forkJoin(requests).subscribe((results: any[]) => {
       const data: any[] = [];
-      results.forEach((res, index) => {
+      results.forEach((res) => {
         const word = res.word;
-        const synonyms = res.synonyms.map((synonym: any) => synonym.word);
-        data.push({ word, synonyms });
+        const synonyms = (res.synonyms || []).map((synonym: any) => synonym.word).filter((word: string) => word);
+        if (synonyms.length > 0) {
+          data.push({ word, synonyms });
+        }
       });
-      this.dataSource.next(data);
-      this.cdr.markForCheck();
+  
+      if (data.length > 0) {
+        this.dataSource.next(data);
+        this.cdr.markForCheck();
+      } else {
+        console.warn('No valid data found.');
+      }
     });
   }
+  
   setAll(evt) {
     this.model.editorData = this.model.editorData.concat('<p>' + evt + '</p>');
   }
