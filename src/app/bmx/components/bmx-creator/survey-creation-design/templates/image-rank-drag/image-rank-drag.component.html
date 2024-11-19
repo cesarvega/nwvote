@@ -89,84 +89,78 @@
             <mat-icon class="full-icon">{{iconMenuShow}}</mat-icon>
         </button>
         <div *ngIf="showMatrixMenu">
-            <button (click)="openDialog('undo');editSingleTableCells = false" class="add-column"
+            <button (click)="openDialog('undo'); editSingleTableCells = false" class="add-column"
                 matTooltip="undo last change" matTooltipPosition="above" mat-icon-button aria-label="ranking">
                 <mat-icon class="full-icon">undo</mat-icon>
             </button>
-            <button (click)="selectedIndex = '';editSingleTableCells = false" class="add-column" matTooltip="cancel"
+            <button (click)="selectedIndex = ''; editSingleTableCells = false" class="add-column" matTooltip="cancel"
                 matTooltipPosition="above" *ngIf="i === selectedIndex" mat-icon-button>
-                <mat-icon style="font-size: 25px;" class="full-icon">check_circle</mat-icon>
+                <mat-icon [style.color]="(selectedIndex !== '') ? '#ee7f25' : '#063074'" style="font-size: 25px;" class="full-icon">check_circle</mat-icon>
             </button>
-            <button (click)="deleteRows = !deleteRows;editSingleTableCells = false"
-                [ngClass]="(!deleteRows)?'add-column':'add-column-active'" matTooltip="delete rows"
+            <button (click)="deleteRows = !deleteRows; editSingleTableCells = false"
+                [ngClass]="(!deleteRows) ? 'add-column' : 'add-column-active'" matTooltip="delete rows"
                 matTooltipPosition="above" mat-icon-button aria-label="ranking">
-                <mat-icon class="full-icon">delete_outline</mat-icon>
+                <mat-icon [style.color]="deleteRows ? '#ee7f25' : '#063074'" class="full-icon">delete_outline</mat-icon>
             </button>
-            <button (click)="insertTextColumn();editSingleTableCells = false" class="add-column"
+            <button (click)="insertTextColumn(); editSingleTableCells = false" class="add-column"
                 matTooltip="add text column" matTooltipPosition="above" mat-icon-button aria-label="ranking">
                 <mat-icon class="full-icon">view_list</mat-icon>
             </button>
-            <button (click)="insertRow();editSingleTableCells = false" class="add-column" matTooltip="insert row"
+            <button (click)="insertRow(); editSingleTableCells = false" class="add-column" matTooltip="insert row"
                 matTooltipPosition="above" mat-icon-button aria-label="ranking">
                 <mat-icon class="full-icon">vertical_distribute</mat-icon>
             </button>
-            <button (click)="dragRows = !dragRows;editSingleTableCells = false"
-                [ngClass]="(!dragRows)?'add-column':'add-column-active'" matTooltip="drag rows"
+            <button (click)="dragRows = !dragRows; editSingleTableCells = false"
+                [ngClass]="(!dragRows) ? 'add-column' : 'add-column-active'" matTooltip="drag rows"
                 matTooltipPosition="above" mat-icon-button aria-label="ranking">
-                <mat-icon class="full-icon">drag_indicator</mat-icon>
+                <mat-icon [style.color]="dragRows ? '#ee7f25' : '#063074'" class="full-icon">drag_indicator</mat-icon>
             </button>
-
         </div>
-
-        <!--<button (click)="showCreationModalVideo=true; editSingleTableCells = false" class="add-column"
-            matTooltip="see tutorial" matTooltipPosition="above" mat-icon-button aria-label="ranking">
-            <mat-icon class="full-icon">video_library</mat-icon>
-        </button> -->
-
-        <button (click)="insertCommentBoxColumn();editSingleTableCells = false" class="add-column"
+    
+        <button (click)="insertCommentBoxColumn(); editSingleTableCells = false" class="add-column"
             matTooltip="add comments column" matTooltipPosition="above" mat-icon-button aria-label="ranking">
             <mat-icon class="full-icon">wysiwyg</mat-icon>
         </button>
-
-        <button (click)="isColumnResizerOn = !isColumnResizerOn;editSingleTableCells = false"
-            [ngClass]="(!isColumnResizerOn)?'add-column':'add-column-active'" matTooltip="columns width"
+    
+        <button (click)="isColumnResizerOn = !isColumnResizerOn; editSingleTableCells = false"
+            [ngClass]="(!isColumnResizerOn) ? 'add-column' : 'add-column-active'" matTooltip="columns width"
             matTooltipPosition="above" mat-icon-button aria-label="ranking">
-            <mat-icon style="font-size: 26px;    z-index: 9;" class="full-icon">swap_horizontal_circle</mat-icon>
+            <mat-icon [style.color]="isColumnResizerOn ? '#ee7f25' : '#063074'" style="font-size: 26px; z-index: 9;" class="full-icon">swap_horizontal_circle</mat-icon>
         </button>
-        <button *ngIf="uploadImagesIcon" (click)="toggleImageUploadBox();editSingleTableCells = false"
-            class="add-column" matTooltip="upload Images" matTooltipPosition="above" mat-icon-button
-            aria-label="ranking">
+        <button *ngIf="uploadImagesIcon" (click)="toggleImageUploadBox(); editSingleTableCells = false"
+            class="add-column" matTooltip="upload Images" matTooltipPosition="above" mat-icon-button aria-label="ranking">
             <mat-icon class="full-icon">collections</mat-icon>
         </button>
-
+    
         <button (click)="editSingleTableCells = !editSingleTableCells"
-            [ngClass]="(!editSingleTableCells)?'add-column':'add-column-active'" matTooltip="edit table cells"
+            [ngClass]="(!editSingleTableCells) ? 'add-column' : 'add-column-active'" matTooltip="edit table cells"
             matTooltipPosition="above" mat-icon-button aria-label="ranking">
-            <mat-icon class="full-icon">explicit</mat-icon>
+            <mat-icon [style.color]="editSingleTableCells ? '#ee7f25' : '#063074'" class="full-icon">explicit</mat-icon>
         </button>
         <button (click)="openWindow(i, false)" class="add-column" matTooltip="setup settings" matTooltipPosition="above"
-            *ngIf="i !== selectedIndex " mat-icon-button>
-            <mat-icon style="font-size: 25px;" class="full-icon">edit</mat-icon>
+            *ngIf="i !== selectedIndex" mat-icon-button>
+            <mat-icon [style.color]="(i !== selectedIndex) ? '#063074' : '#ee7f25'" style="font-size: 25px;" class="full-icon">edit</mat-icon>
         </button>
-        <button (click)="toggleImageUploadBox()" class="add-column" matTooltip="uploadImages" matTooltipPosition="above"
+        <button (click)="toggleImageUploadBox()" class="add-column" matTooltip="upload images" matTooltipPosition="above"
             mat-icon-button aria-label="ranking">
-            <mat-icon class="full-icon">collections</mat-icon>
+            <mat-icon [style.color]="uploadImagesBox ? '#ee7f25' : '#063074'" class="full-icon">collections</mat-icon>
         </button>
         <button (click)="showFileUploader = true" class="add-column" matTooltip="update names"
             matTooltipPosition="above" *ngIf="i !== selectedIndex" mat-icon-button>
-            <mat-icon style="font-size: 25px;" class="full-icon"> text_fields</mat-icon>
+            <mat-icon [style.color]="(i !== selectedIndex) ? '#063074' : '#ee7f25'" style="font-size: 25px;" class="full-icon">text_fields</mat-icon>
         </button>
-
+    
         <button (click)="moveItemUp()" class="add-column" matTooltip="move up" matTooltipPosition="above"
             *ngIf="i !== selectedIndex" mat-icon-button>
-            <mat-icon style="font-size: 25px;" class="full-icon">arrow_upward</mat-icon>
+            <mat-icon [style.color]="(i !== selectedIndex) ? '#063074' : '#ee7f25'" style="font-size: 25px;" class="full-icon">arrow_upward</mat-icon>
         </button>
-
+    
         <button (click)="moveItemDown()" class="add-column" matTooltip="move down" matTooltipPosition="above"
             *ngIf="i !== selectedIndex" mat-icon-button>
-            <mat-icon style="font-size: 25px;" class="full-icon">arrow_downward</mat-icon>
+            <mat-icon [style.color]="(i !== selectedIndex) ? '#063074' : '#ee7f25'" style="font-size: 25px;" class="full-icon">arrow_downward</mat-icon>
         </button>
     </div>
+    
 </div>
 <!-- ➗➗➗➗➗➗➗➗➗➗➗➗➗➗➗➗➗➗➗  END  ➗➗➗➗➗➗➗➗➗➗➗➗➗➗➗➗➗ -->
 
@@ -278,16 +272,19 @@
                 </mat-form-field>
             </div>
             <br>
-            <mat-checkbox [(ngModel)]="randomizeTestNames">Randomize Names</mat-checkbox>
-            <mat-checkbox [(ngModel)]="alphabeticallyTestNames">alphabetic order</mat-checkbox>
-
+            <mat-checkbox [(ngModel)]="randomizeTestNames" (change)="onRandomizeChange($event)">
+                Randomize Names
+              </mat-checkbox>
+              <mat-checkbox [(ngModel)]="alphabeticallyTestNames" (change)="onAlphabeticallyChange($event)">
+                Alphabetic order
+              </mat-checkbox>
             <div class="sm-row-box-rkScale">
                 <div>
                     <div
                         style="display: flex;flex-direction: column;justify-content: center;gap: 10px;align-items: center; ">
                         <div style="font-size: 16px;margin-top: 10px;color: #48535e;text-align: center;">Minimum:
                             {{bmxItem.componentSettings[0].minRule}}</div>
-                        <input type="number" min="0" [max]="bmxItem.componentText.length"
+                        <input type="number" min="0" [max]="bmxItem.componentText.length-1"
                             [(ngModel)]="bmxItem.componentSettings[0].minRule" style="width:53px; padding: 0px 10px;"
                             [value]="bmxItem.componentSettings[0].minRule">
                     </div>
@@ -298,7 +295,7 @@
                         style="display: flex;flex-direction: column;justify-content:center;gap: 10px;align-items: center;">
                         <div style="font-size: 16px;margin-top: 10px;color: #48535e;text-align: center;">Maximum:
                             {{bmxItem.componentSettings[0].maxRule}}</div>
-                        <input type="number" min="0" [max]="bmxItem.componentText.length"
+                        <input type="number" min="0" [max]="bmxItem.componentText.length-1"
                             [(ngModel)]="bmxItem.componentSettings[0].maxRule" style="width:53px; padding: 0px 10px;"
                             [value]="bmxItem.componentSettings[0].maxRule">
                     </div>

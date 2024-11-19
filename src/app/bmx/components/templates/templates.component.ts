@@ -87,7 +87,7 @@ export class TemplatesComponent implements OnInit {
       .subscribe((arg: any) => {
         this.settingsData = JSON.parse(arg.d);
         this.TEMPLATES = (this.settingsData.BrandMatrixTemplateList.length) > 0 ? JSON.parse(arg.d).BrandMatrixTemplateList.map((obj, index) => { return { index: index + 1, displayName: obj.DisplayName, templateName: obj.TemplateName, brandMatrix: obj.BrandMatrix, created: obj.LastUpdate } }) : this.TEMPLATES
-        this.settingsData.OfficeList.unshift('All');
+        this.settingsData.OfficeList.unshift('Test-Region');
         //AUTOCOMPLETE 🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖
         this.settingsData.SalesBoardProjectList.forEach(myObject => { this.salesboardObj.push({ name: myObject['SalesBoardProjectList'] }) });
         this.settingsData.DirectorList.forEach(directorObj => {
@@ -194,7 +194,7 @@ export class TemplatesComponent implements OnInit {
               this.settingsData = JSON.parse(arg.d);
               this.TEMPLATES = (this.settingsData.BrandMatrixTemplateList.length) > 0 ? JSON.parse(arg.d).BrandMatrixTemplateList.map((obj, index) => { return { index: index + 1, displayName: obj.DisplayName, templateName: obj.TemplateName, brandMatrix: obj.BrandMatrix, created: obj.LastUpdate } }) : this.TEMPLATES
 
-              this.settingsData.OfficeList.unshift('All');
+              this.settingsData.OfficeList.unshift('Test-Region');
               //AUTOCOMPLETE 🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖
               this.settingsData.SalesBoardProjectList.forEach(myObject => { this.salesboardObj.push({ name: myObject['SalesBoardProjectList'] }) });
               this.settingsData.DirectorList.forEach(directorObj => {
@@ -273,7 +273,7 @@ export class TemplatesComponent implements OnInit {
           .subscribe((arg: any) => {
             this.settingsData = JSON.parse(arg.d);
             this.TEMPLATES = (this.settingsData.BrandMatrixTemplateList.length) > 0 ? JSON.parse(arg.d).BrandMatrixTemplateList.map(obj => { return { templateName: obj.TemplateName, displayName: obj.DisplayName, brandMatrix: obj.BrandMatrix } }) : this.TEMPLATES
-            this.settingsData.OfficeList.unshift('All');
+            this.settingsData.OfficeList.unshift('Test-Region');
             //AUTOCOMPLETE 🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖
             this.settingsData.SalesBoardProjectList.forEach(myObject => { this.salesboardObj.push({ name: myObject['SalesBoardProjectList'] }) });
             this.settingsData.DirectorList.forEach(directorObj => {
@@ -314,7 +314,7 @@ export class TemplatesComponent implements OnInit {
                     this.settingsData = JSON.parse(arg.d);
                     this.TEMPLATES = (this.settingsData.BrandMatrixTemplateList.length) > 0 ? JSON.parse(arg.d).BrandMatrixTemplateList.map((obj, index) => { return { index: index + 1, displayName: obj.DisplayName, templateName: obj.TemplateName, brandMatrix: obj.BrandMatrix, created: obj.LastUpdate } }) : this.TEMPLATES
 
-                    this.settingsData.OfficeList.unshift('All');
+                    this.settingsData.OfficeList.unshift('Test-Region');
                     //AUTOCOMPLETE 🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖
                     this.settingsData.SalesBoardProjectList.forEach(myObject => { this.salesboardObj.push({ name: myObject['SalesBoardProjectList'] }) });
                     this.settingsData.DirectorList.forEach(directorObj => {
