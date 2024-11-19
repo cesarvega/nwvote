@@ -170,7 +170,7 @@ export class BsrComponent implements OnInit {
         });
         this.nameCandidates = (res.length > 0) ? res : [];
       });
-    }, 3000);
+    }, 10000);
 
 
     this.getCommentsByIndex(0);
