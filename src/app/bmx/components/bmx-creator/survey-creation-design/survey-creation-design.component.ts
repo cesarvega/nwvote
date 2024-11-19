@@ -381,7 +381,7 @@ export class SurveyCreationDesignComponent implements OnInit {
                     const emailRegex = /<div style="font-size: 18px; font-family: sofia-pro; line-height: 1.5">([a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,})<\/div>/g;
                     const componentText = this.bmxPages[0].page[1]?.componentText;
                     if (componentText) {
-                        const match = componentText.match(regex);
+                        const match = componentText?.match(regex);
 
                         if (match) {
                             const index = componentText.indexOf(match[0]);

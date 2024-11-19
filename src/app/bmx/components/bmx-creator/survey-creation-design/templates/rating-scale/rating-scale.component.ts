@@ -6,7 +6,7 @@ import { Subscription } from 'rxjs';
 import * as  dragula from 'dragula';
 import { BmxService } from '../../../bmx.service';
 import { DeviceDetectorService } from 'ngx-device-detector';
-import { MatCheckboxModule } from '@angular/material/checkbox';
+import { MatCheckboxChange, MatCheckboxModule } from '@angular/material/checkbox';
 import { Console } from 'console';
 import { CdkDragDrop, moveItemInArray } from '@angular/cdk/drag-drop';
 
@@ -293,7 +293,17 @@ export class RatingScaleComponent implements OnInit {
     }
 
   }
+  onRandomizeChange(event: MatCheckboxChange): void {
+    if (event.checked) {
+      this.alphabeticallyTestNames = false;
+    }
+  }
 
+  onAlphabeticallyChange(event: MatCheckboxChange): void {
+    if (event.checked) {
+      this.randomizeTestNames = false;
+    }
+  }
   maxRuleCounterMinus() {
     if (this.maxRuleCounter != 0) {
       this.maxRuleCounter--;

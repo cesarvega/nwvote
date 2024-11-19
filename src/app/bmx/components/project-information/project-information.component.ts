@@ -60,6 +60,7 @@ export class ProjectInformationComponent implements OnInit {
   bmxCompany: UntypedFormControl;
   bmxLanguage: UntypedFormControl;
   bmxTemplates: UntypedFormControl;
+  bmxTemplate: UntypedFormControl;
   bmxClosingDate: UntypedFormControl;
   bmxDisplayName: UntypedFormControl;
   bmxRegionalOffice: UntypedFormControl;
@@ -116,6 +117,8 @@ export class ProjectInformationComponent implements OnInit {
             this.bmxEditData.patchValue({ bmxStatus: data.bmxStatus });
             this.bmxEditData.patchValue({ bmxDisplayName: data.bmxDisplayName });
             this.bmxEditData.patchValue({ bmxClosingDate: data.bmxClosingDate ? new Date(data.bmxClosingDate) : null });
+            this.bmxEditData.patchValue({ bmxTemplate: data.bmxTemplate });
+            this.templateSelected(data.bmxTemplate)
             this.selectedDate = data.bmxClosingDate ? new Date(data.bmxClosingDate) : null
             if (!data.bmxStatus || data.bmxStatus == "open") {
               this.status = "open"
@@ -142,7 +145,9 @@ export class ProjectInformationComponent implements OnInit {
               director.office = ''
               this.DIRECTORS.push(director);
             }*/
+            if(data.bmxRegionalOffice[0]){
             this.DIRECTORS = data.bmxRegionalOffice;
+          }
             this.bmxEditData.patchValue({ bmxRegionalOffice: this.DIRECTORS });
 
             this._BmxService.setprojectData(this.bmxEditData.value)
@@ -157,7 +162,7 @@ export class ProjectInformationComponent implements OnInit {
         this.settingsData = JSON.parse(arg.d);
         this.TEMPLATES = (this.settingsData.BrandMatrixTemplateList.length) > 0 ? JSON.parse(arg.d).BrandMatrixTemplateList.map(obj => { return { templateName: obj.TemplateName, displayName: obj.DisplayName } }) : this.TEMPLATES
 
-        this.settingsData.OfficeList.unshift('All');
+        this.settingsData.OfficeList.unshift('Test-Region');
         //console.log(JSON.parse(arg.d));
         //AUTOCOMPLETE 🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖
         this.settingsData.SalesBoardProjectList.forEach(myObject => { this.salesboardObj.push({ name: myObject['SalesBoardProjectList'] }) });
@@ -229,7 +234,9 @@ export class ProjectInformationComponent implements OnInit {
           "bmxStatus": this.status,
           "bmxClosingDate": this.selectedDate,
           "bmxCreated": new Date().toLocaleDateString(),
-          "bmxDisplayName": this.bmxEditData.get('bmxDisplayName').value ? this.bmxEditData.get('bmxDisplayName').value.toString() : null
+          "bmxDisplayName": this.bmxEditData.get('bmxDisplayName').value ? this.bmxEditData.get('bmxDisplayName').value.toString() : null,
+          "bmxTemplate": this.bmxEditData.get('bmxTemplate').value.toString(),
+
         }
         this._BmxService.setDirectors(this.DIRECTORS)
         localStorage.setItem('company', this.bmxEditData.get('bmxCompany').value.toString(),)
@@ -272,7 +279,9 @@ export class ProjectInformationComponent implements OnInit {
               "bmxStatus": this.status,
               "bmxClosingDate": this.selectedDate,
               "bmxCreated": new Date().toLocaleDateString(),
-              "bmxDisplayName": this.bmxEditData.get('bmxDisplayName').value.toString()
+              "bmxDisplayName": this.bmxEditData.get('bmxDisplayName').value.toString(),
+              "bmxTemplate": this.bmxEditData.get('bmxTemplate').value.toString(),
+
             }
             this._BmxService.setDirectors(this.DIRECTORS)
             localStorage.setItem('company', this.bmxEditData.get('bmxCompany').value.toString(),)
@@ -414,6 +423,9 @@ export class ProjectInformationComponent implements OnInit {
     this.bmxTemplates = new UntypedFormControl(
       '', [
     ]);
+    this.bmxTemplate = new UntypedFormControl(
+      '', [
+    ]);
     this.bmxClosingDate = new UntypedFormControl();
     this.bmxRegionalOffice = new UntypedFormControl(
       '', [
@@ -436,7 +448,9 @@ export class ProjectInformationComponent implements OnInit {
       bmxRegionalOffice: this.bmxRegionalOffice,
       bmxRegionalDirector: this.bmxRegionalDirector,
       bmxClosingDate: this.bmxClosingDate,
-      bmxDisplayName: this.bmxDisplayName
+      bmxDisplayName: this.bmxDisplayName,
+      bmxTemplate: this.bmxTemplate
+
     });
   }
 
@@ -463,6 +477,12 @@ export class ProjectInformationComponent implements OnInit {
     });
     this.bmxEditData.get('bmxSalesboard').valueChanges.subscribe(val => {
       this.bmxEditData.patchValue({ bmxProjectName: val });
+      this.bmxEditData.patchValue({ bmxDisplayName: val });
+
+    });
+    this.bmxEditData.get('bmxProjectName').valueChanges.subscribe(val => {
+      this.bmxEditData.patchValue({ bmxDisplayName: val });
+
     });
   }
 
@@ -498,13 +518,16 @@ export class ProjectInformationComponent implements OnInit {
 
   loadTemplate(templateName) {
     this._BmxService.getBrandMatrixTemplateByName(templateName).subscribe((template: any) => {
-      this.bmxPages = JSON.parse(template.d);
-      this._snackBar.open('template ' + "'" + templateName + "'" + ' loaded 😀', 'OK', {
-        duration: 5000,
-        horizontalPosition: 'right',
-        verticalPosition: 'top',
-      })
+      if (template.d) {
+        this.bmxPages = JSON.parse(template.d);
+        this._snackBar.open('template ' + "'" + templateName + "'" + ' loaded 😀', 'OK', {
+          duration: 5000,
+          horizontalPosition: 'right',
+          verticalPosition: 'top',
+        })
+      }
     })
+
   }
 
   openModal() {
