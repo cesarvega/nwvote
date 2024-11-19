@@ -319,13 +319,13 @@
             <br>
 
             <button *ngIf="true" (click)="isTemplate=='true'?showConfirmTemplate = true : openDialog('save')" mat-icon-button
-            matTooltip="{{isTemplate == 'true' ? 'save template' : 'save brand matrix'}}"
+            matTooltip="{{isTemplate == 'true' ? 'save template' : 'save BrandMatrix'}}"
             matTooltipPosition="right">
         <mat-icon class="full-icon">save</mat-icon>
     </button>
 
 
-            <button *ngIf="true && this.isTemplate != 'true' " (click)="previewSurvey()" mat-icon-button matTooltip="preview brand matrix"
+            <button *ngIf="true && this.isTemplate != 'true' " (click)="previewSurvey()" mat-icon-button matTooltip="preview BrandMatrix"
                 matTooltipPosition="right">
                 <mat-icon class="full-icon">visibility
                 </mat-icon>
