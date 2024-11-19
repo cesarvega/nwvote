@@ -163,6 +163,7 @@ export class ProjectInformationComponent implements OnInit {
         this.TEMPLATES = (this.settingsData.BrandMatrixTemplateList.length) > 0 ? JSON.parse(arg.d).BrandMatrixTemplateList.map(obj => { return { templateName: obj.TemplateName, displayName: obj.DisplayName } }) : this.TEMPLATES
 
         this.settingsData.OfficeList.unshift('Test-Region');
+        this.settingsData.OfficeList= this.settingsData.OfficeList.filter( office => office !='Seattle')
         //console.log(JSON.parse(arg.d));
         //AUTOCOMPLETE 🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖
         this.settingsData.SalesBoardProjectList.forEach(myObject => { this.salesboardObj.push({ name: myObject['SalesBoardProjectList'] }) });
@@ -223,6 +224,7 @@ export class ProjectInformationComponent implements OnInit {
       const storageName = localStorage.getItem('projectName')
       if (storageName != 'null' && storageName != null && storageName != undefined && storageName != 'undefined') {
         this._BmxService.setProjectName(this.bmxEditData.get('bmxProjectName').value.toString());
+        console.log(this.bmxEditData.get('bmxTemplate'))
         const projectInfo: JSON = <JSON><unknown>{
           "bmxSalesboard": this.bmxEditData.get('bmxSalesboard').value.toString(),
           "bmxDepartment": this.bmxEditData.get('bmxDepartment').value.toString(),
@@ -235,7 +237,7 @@ export class ProjectInformationComponent implements OnInit {
           "bmxClosingDate": this.selectedDate,
           "bmxCreated": new Date().toLocaleDateString(),
           "bmxDisplayName": this.bmxEditData.get('bmxDisplayName').value ? this.bmxEditData.get('bmxDisplayName').value.toString() : null,
-          "bmxTemplate": this.bmxEditData.get('bmxTemplate').value.toString(),
+          "bmxTemplate": this.bmxEditData.get('bmxTemplate').value?this.bmxEditData.get('bmxTemplate').value.toString():null,
 
         }
         this._BmxService.setDirectors(this.DIRECTORS)
@@ -252,7 +254,7 @@ export class ProjectInformationComponent implements OnInit {
           var so = result;
           this.saveProjectSuccess.emit(true)
         });
-        if (this.templateName.length > 3) {
+        if (this.templateName && this.templateName.length > 3) {
           localStorage.setItem('template', JSON.stringify(this.bmxPages));
         }
 
@@ -280,7 +282,7 @@ export class ProjectInformationComponent implements OnInit {
               "bmxClosingDate": this.selectedDate,
               "bmxCreated": new Date().toLocaleDateString(),
               "bmxDisplayName": this.bmxEditData.get('bmxDisplayName').value.toString(),
-              "bmxTemplate": this.bmxEditData.get('bmxTemplate').value.toString(),
+              "bmxTemplate": this.bmxEditData.get('bmxTemplate').value?this.bmxEditData.get('bmxTemplate').value.toString():null,
 
             }
             this._BmxService.setDirectors(this.DIRECTORS)

@@ -194,26 +194,26 @@
 
         <div style="display: flex;flex-direction: row;">
           <div class="selectLabels">Name: </div>
-          <input class="directorInfo" [(ngModel)]="DIRECTORS[i].name" placeholder="Name" [readonly]="i !== canEdit"
+          <input class="directorInfo" [ngStyle]="{'pointer-events': canEdit !== i ? 'none' : 'all'}" [(ngModel)]="DIRECTORS[i].name" placeholder="Name" [readonly]="i !== canEdit"
             matInput style="width:75%">
         </div>
 
 
         <div style="display: flex;flex-direction: row;">
           <div class="selectLabels">Title: </div>
-          <input class="directorInfo" [(ngModel)]="DIRECTORS[i].title" placeholder="Title" [readonly]="i !== canEdit"
+          <input class="directorInfo"  [ngStyle]="{'pointer-events': canEdit !== i ? 'none' : 'all'}" [(ngModel)]="DIRECTORS[i].title" placeholder="Title" [readonly]="i !== canEdit"
             matInput style="width:75%">
         </div>
 
         <div style="display: flex;flex-direction: row;">
           <div class="selectLabels">Email: </div>
-          <input class="directorInfo" [(ngModel)]="DIRECTORS[i].email" placeholder="Email" [readonly]="i !== canEdit"
+          <input class="directorInfo"  [ngStyle]="{'pointer-events': canEdit !== i ? 'none' : 'all'}" [(ngModel)]="DIRECTORS[i].email" placeholder="Email" [readonly]="i !== canEdit"
             matInput style="width:75%">
         </div>
 
         <div style="display: flex;flex-direction: row;">
           <div class="selectLabels">Phone #: </div>
-          <input class="directorInfo" [(ngModel)]="DIRECTORS[i].phone" placeholder="Phone" [readonly]="i !== canEdit"
+          <input class="directorInfo"  [ngStyle]="{'pointer-events': canEdit !== i ? 'none' : 'all'}" [(ngModel)]="DIRECTORS[i].phone" placeholder="Phone" [readonly]="i !== canEdit"
             matInput style="width:75%">
         </div>
         <div class="optionButton">
