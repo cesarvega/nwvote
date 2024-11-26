@@ -1021,10 +1021,23 @@ moveItemDown(): void {
 
   insertRow(): void {
     this.recordHistory()
-    const newRow = Object.assign({}, this.bmxItem.componentText[0]);
+    let newRow = Object.assign({}, this.bmxItem.componentText[0]);
+    newRow= this.clearCommentsKeys(newRow)
     this.bmxItem.componentText.push(newRow)
   }
-
+   clearCommentsKeys(obj: any): any {
+    for (const key in obj) {
+      if (obj.hasOwnProperty(key)) {
+        if (key.includes('Comments')) {
+          obj[key] = ""; // Cambiar el valor a ""
+        } else if (typeof obj[key] === 'object' && !Array.isArray(obj[key])) {
+          // Si el valor es un objeto anidado, procesarlo recursivamente
+          this.clearCommentsKeys(obj[key]);
+        }
+      }
+    }
+    return obj;
+  }
   swapColumns(index: number): void {
     if (index < 0 || index >= this.columnsNames.length - 1) {
       // Cannot move right if at last index or out of range

@@ -174,7 +174,7 @@
             matTooltipPosition="above" (click)="createDirector()">
             <mat-icon class="full-icon" style="color: white;">add</mat-icon>
           </button>
-          <button mat-mini-fab style="background-color:#ee7f25;outline: none;" matTooltip="add new user"
+          <button mat-mini-fab style="background-color:#ee7f25;outline: none;" matTooltip="create new director"
             matTooltipPosition="above" (click)="createCustomDirector()">
             <mat-icon class="full-icon" style="color: white;">highlight_alt</mat-icon>
           </button>
@@ -188,9 +188,9 @@
   <div style=" display: grid;
   grid-template-columns: repeat(2, 1fr);
   gap: 20px; 
-  padding: 10px 39px;">
+  padding: 10px 39px;" *ngIf='DIRECTORS' >
     <div *ngFor="let director of DIRECTORS; let i = index; trackBy: trackByIndex">
-      <mat-card appearance="outlined" class="directorCard" style="width: 400px;gap: 5px;padding: 10px;margin: 10px;">
+      <mat-card *ngIf='director' appearance="outlined" class="directorCard" style="width: 400px;gap: 5px;padding: 10px;margin: 10px;">
 
         <div style="display: flex;flex-direction: row;">
           <div class="selectLabels">Name: </div>
@@ -217,22 +217,22 @@
             matInput style="width:75%">
         </div>
         <div class="optionButton">
-          <div *ngIf="canEdit !== i; else elseBlock">
-            <button mat-icon-button class="button-blue" (click)="editDirector(i)">
-              <mat-icon>edit</mat-icon>
+          <div *ngIf="canEdit !== i; else elseBlock" >
+            <button mat-icon-button class="button-blue" matTooltip="click to edit info" matTooltipPosition="right" (click)="editDirector(i)">
+              <mat-icon >edit</mat-icon>
             </button>
 
           </div>
           <ng-template #elseBlock>
-            <button mat-icon-button class="button-orange" (click)="editDirector(i)">
+            <button mat-icon-button class="button-orange"  matTooltipPosition="right" (click)="editDirector(i)">
               <mat-icon>check_circle</mat-icon>
             </button>
           </ng-template>
-          <button mat-icon-button matTooltip="double click" matTooltipPosition="right" class="button-red"
+          <button mat-icon-button matTooltip="double click to delete" matTooltipPosition="right" class="button-red"
             (dblclick)="removeDirector(i)">
             <mat-icon>delete</mat-icon>
           </button>
-          <button mat-icon-button matTooltip="double click" matTooltipPosition="right" class="button-golden"
+          <button mat-icon-button matTooltip="double click to set main director" matTooltipPosition="right" class="button-golden"
             (dblclick)="replaceMainDirector(i)">
             <mat-icon>star</mat-icon>
           </button>
