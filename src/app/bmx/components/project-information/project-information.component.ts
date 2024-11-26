@@ -118,7 +118,6 @@ export class ProjectInformationComponent implements OnInit {
             this.bmxEditData.patchValue({ bmxDisplayName: data.bmxDisplayName });
             this.bmxEditData.patchValue({ bmxClosingDate: data.bmxClosingDate ? new Date(data.bmxClosingDate) : null });
             this.bmxEditData.patchValue({ bmxTemplate: data.bmxTemplate });
-            this.templateSelected(data.bmxTemplate)
             this.selectedDate = data.bmxClosingDate ? new Date(data.bmxClosingDate) : null
             if (!data.bmxStatus || data.bmxStatus == "open") {
               this.status = "open"
@@ -145,9 +144,9 @@ export class ProjectInformationComponent implements OnInit {
               director.office = ''
               this.DIRECTORS.push(director);
             }*/
-            if(data.bmxRegionalOffice[0]){
-            this.DIRECTORS = data.bmxRegionalOffice;
-          }
+            if (data.bmxRegionalOffice[0]) {
+              this.DIRECTORS = data.bmxRegionalOffice;
+            }
             this.bmxEditData.patchValue({ bmxRegionalOffice: this.DIRECTORS });
 
             this._BmxService.setprojectData(this.bmxEditData.value)
@@ -163,7 +162,7 @@ export class ProjectInformationComponent implements OnInit {
         this.TEMPLATES = (this.settingsData.BrandMatrixTemplateList.length) > 0 ? JSON.parse(arg.d).BrandMatrixTemplateList.map(obj => { return { templateName: obj.TemplateName, displayName: obj.DisplayName } }) : this.TEMPLATES
 
         this.settingsData.OfficeList.unshift('Test-Region');
-        this.settingsData.OfficeList= this.settingsData.OfficeList.filter( office => office !='Seattle')
+        this.settingsData.OfficeList = this.settingsData.OfficeList.filter(office => office != 'Seattle')
         //console.log(JSON.parse(arg.d));
         //AUTOCOMPLETE 🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖
         this.settingsData.SalesBoardProjectList.forEach(myObject => { this.salesboardObj.push({ name: myObject['SalesBoardProjectList'] }) });
@@ -182,7 +181,9 @@ export class ProjectInformationComponent implements OnInit {
         });
         this.currentDirectorList = this.allDirectors;
         for (var i = 0; i < this.DIRECTORS?.length; i++) {
-          this.DIRECTORS[i] = this.allDirectors.find(o => o.name === this.DIRECTORS[i].name);
+          if (this.DIRECTORS[i]) {
+            this.DIRECTORS[i] = this.allDirectors.find(o => o.name === this.DIRECTORS[i].name);
+          }
         }
         this.filteredOptions = this.bmxEditData.controls['bmxSalesboard'].valueChanges
           .pipe(
@@ -224,7 +225,6 @@ export class ProjectInformationComponent implements OnInit {
       const storageName = localStorage.getItem('projectName')
       if (storageName != 'null' && storageName != null && storageName != undefined && storageName != 'undefined') {
         this._BmxService.setProjectName(this.bmxEditData.get('bmxProjectName').value.toString());
-        console.log(this.bmxEditData.get('bmxTemplate'))
         const projectInfo: JSON = <JSON><unknown>{
           "bmxSalesboard": this.bmxEditData.get('bmxSalesboard').value.toString(),
           "bmxDepartment": this.bmxEditData.get('bmxDepartment').value.toString(),
@@ -237,7 +237,7 @@ export class ProjectInformationComponent implements OnInit {
           "bmxClosingDate": this.selectedDate,
           "bmxCreated": new Date().toLocaleDateString(),
           "bmxDisplayName": this.bmxEditData.get('bmxDisplayName').value ? this.bmxEditData.get('bmxDisplayName').value.toString() : null,
-          "bmxTemplate": this.bmxEditData.get('bmxTemplate').value?this.bmxEditData.get('bmxTemplate').value.toString():null,
+          "bmxTemplate": this.bmxEditData.get('bmxTemplate').value ? this.bmxEditData.get('bmxTemplate').value.toString() : null,
 
         }
         this._BmxService.setDirectors(this.DIRECTORS)
@@ -282,7 +282,7 @@ export class ProjectInformationComponent implements OnInit {
               "bmxClosingDate": this.selectedDate,
               "bmxCreated": new Date().toLocaleDateString(),
               "bmxDisplayName": this.bmxEditData.get('bmxDisplayName').value.toString(),
-              "bmxTemplate": this.bmxEditData.get('bmxTemplate').value?this.bmxEditData.get('bmxTemplate').value.toString():null,
+              "bmxTemplate": this.bmxEditData.get('bmxTemplate').value ? this.bmxEditData.get('bmxTemplate').value.toString() : null,
 
             }
             this._BmxService.setDirectors(this.DIRECTORS)
@@ -330,7 +330,7 @@ export class ProjectInformationComponent implements OnInit {
       director.type = 'BI'
       director = this.allDirectors.find(o => o.name === this.dName)
 
-      if (!this.DIRECTORS.some((actualDirector) => actualDirector.email == director.email)) {
+      if (director && !this.DIRECTORS.some((actualDirector) => actualDirector?.email == director.email)) {
         this.DIRECTORS.push(director);
       }
 
