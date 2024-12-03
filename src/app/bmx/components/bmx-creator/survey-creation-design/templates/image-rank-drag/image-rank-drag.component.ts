@@ -29,7 +29,8 @@ export class ImageRankDragComponent extends RatingScaleComponent implements OnIn
   IMAGES_UPLOADED: any = [
 
   ];
-
+  type='multiple'
+  index=null
   AUTOSIZE_OPTIONS = [
     { name: 'Client Logo', rationale: 'Sist, Assist, Syst' },
     { name: 'Test Logo', rationale: 'Hance, En-' },
@@ -142,6 +143,8 @@ export class ImageRankDragComponent extends RatingScaleComponent implements OnIn
     this.ratedCounter--
   }
   onFileSelected(event) {
+    if (this.type == 'multiple') {
+
     if (event.target.files && event.target.files[0]) {
       let filesAmount = event.target.files.length;
       for (let i = 0; i < filesAmount; i++) {
@@ -162,6 +165,28 @@ export class ImageRankDragComponent extends RatingScaleComponent implements OnIn
         reader.readAsDataURL(event.target.files[i]);
       }
     }
+  } else {
+    if (event.target.files && event.target.files.length > 0) {
+      // Solo permite el primer archivo
+      const file = event.target.files[0];
+      const reader = new FileReader();
+      const fileName = file.name;
+      const fileType = file.type;
+
+      reader.onload = (event: any) => {
+        this.resourceData = {
+          "ProjectName": localStorage.getItem('projectName'),
+          "FileName": fileName.split(' ').join(''),
+          "ItemType": 'logo-rate',
+          "FileType": fileType,
+          "FileContent": event.target.result
+        };
+        this.IMAGES_UPLOADED = [this.resourceData]; // Solo guarda una imagen
+      };
+
+      reader.readAsDataURL(file);
+    }
+  }
   }
 
   //----------open cards-----------//
@@ -189,7 +214,7 @@ open(y: any) {
   }
 
   uploadAllImages() {
-
+    if(this.type == 'multiple'){
     if (this.IMAGES_UPLOADED.length < this.bmxItem.componentText.length) {
       this.bmxItem.componentText.splice(this.IMAGES_UPLOADED.length + 1, this.bmxItem.componentText.length + 1)
     }
@@ -220,6 +245,31 @@ open(y: any) {
       this.uploadImagesBox = false;
     }, 1000);
     this.showEdit = true
+  }else{
+    this.IMAGES_UPLOADED.forEach((imageObject) => {
+      imageObject['FileContent'] = imageObject['FileContent'].split(imageObject['FileContent'].split(",")[0] + ',').pop()
+      this._BmxService.saveFileResources(JSON.stringify(imageObject)).subscribe((result: any) => {
+        this.IMAGES_UPLOADED.shift()
+        if (this.index == 0) {
+          this.bmxItem.componentText[this.index].nameCandidates = "LOGO"
+        }
+        if (this.bmxItem.componentText[this.index]) {
+          this.bmxItem.componentText[this.index].nameCandidates = JSON.parse(result.d).FileUrl
+        } else {
+          this.bmxItem.componentText.push({ ...this.bmxItem.componentText[1], nameCandidates: JSON.parse(result.d).FileUrl })
+          const lastItem = this.bmxItem.componentText[this.bmxItem.componentText.length - 1];
+          for (const key in lastItem) {
+            if (lastItem.hasOwnProperty(key)) {
+              if (key != 'RATE' && key != 'nameCandidates' && key != 'STARS') {
+                lastItem[key] = ''
+              }
+            }
+          }
+        }
+
+      });
+    });
+  }
   }
 
   deleteImage(index) {
@@ -227,8 +277,9 @@ open(y: any) {
   }
 
   toggleImageUploadBox() {
+    console.log(this.bmxItem)
     this.uploadImagesBox = !this.uploadImagesBox
-  }
+  } 
 
   reset() {
     this.uploadProgress = null;

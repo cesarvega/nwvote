@@ -33,7 +33,8 @@ export class ImageRateScaleComponent extends RatingScaleComponent implements OnI
   IMAGES_UPLOADED = [
 
   ];
-
+  type='multiple'
+  index=null
   AUTOSIZE_OPTIONS = [
     { name: 'Client Logo', rationale: 'Sist, Assist, Syst' },
     { name: 'Test Logo', rationale: 'Hance, En-' },
@@ -86,6 +87,7 @@ export class ImageRateScaleComponent extends RatingScaleComponent implements OnI
   ngOnInit(): void {
 
     this.showDialog = false
+    console.log(this.bmxItem.componentText)
     this.bmxItem.componentText.forEach(data => {
       if (data.RATE > 0) {
         this.ratedCounter++
@@ -106,6 +108,10 @@ export class ImageRateScaleComponent extends RatingScaleComponent implements OnI
       }
     });
 
+    if(!this.bmxClientPageOverview){
+      this.columnsNames = this.columnsNames.filter((name)=> name != 'UPLOAD')
+    }
+
     this.randomizeTestNames = this.bmxItem.componentSettings[0].randomizeTestNames
     this.rowsCount = this.bmxItem.componentText.length - 1;
 
@@ -123,7 +129,7 @@ export class ImageRateScaleComponent extends RatingScaleComponent implements OnI
     this.launchPathModal.emit(this.VIDEO_PATH)
     const filteredCriteria = this.CRITERIA.filter(criteriaItem => this.selectedCriteria.map(item => item.name).includes(criteriaItem.name));
     this.newselectedCriteria = filteredCriteria
-    
+
     this.dataSource = this.bmxItem.componentText
     this.recordHistory()
     console.log(this.columnsNames)
@@ -137,24 +143,47 @@ export class ImageRateScaleComponent extends RatingScaleComponent implements OnI
   }
 
   onFileSelected(event) {
-    if (event.target.files && event.target.files[0]) {
-      let filesAmount = event.target.files.length;
-      for (let i = 0; i < filesAmount; i++) {
-        let reader = new FileReader();
-        let FileName = event.target.files[i].name
-        let FileType = event.target.files[i].type
+    if (this.type == 'multiple') {
+      if (event.target.files && event.target.files[0]) {
+        let filesAmount = event.target.files.length;
+        for (let i = 0; i < filesAmount; i++) {
+          let reader = new FileReader();
+          let FileName = event.target.files[i].name
+          let FileType = event.target.files[i].type
+          reader.onload = (event: any) => {
+            this.resourceData = {
+              "ProjectName": localStorage.getItem('projectName'),
+              "FileName": FileName.split(' ').join(''),
+              "ItemType": 'logo-rate',
+              "FileType": FileType,
+              "FileContent": event.target.result
+              // "FileContent" : event.target.result.split(event.target.result.split(",")[0] + ',').pop()
+            }
+            this.IMAGES_UPLOADED.push(this.resourceData);
+          }
+          reader.readAsDataURL(event.target.files[i]);
+        }
+      }
+    } else {
+      if (event.target.files && event.target.files.length > 0) {
+        // Solo permite el primer archivo
+        const file = event.target.files[0];
+        const reader = new FileReader();
+        const fileName = file.name;
+        const fileType = file.type;
+
         reader.onload = (event: any) => {
           this.resourceData = {
             "ProjectName": localStorage.getItem('projectName'),
-            "FileName": FileName.split(' ').join(''),
+            "FileName": fileName.split(' ').join(''),
             "ItemType": 'logo-rate',
-            "FileType": FileType,
+            "FileType": fileType,
             "FileContent": event.target.result
-            // "FileContent" : event.target.result.split(event.target.result.split(",")[0] + ',').pop()
-          }
-          this.IMAGES_UPLOADED.push(this.resourceData);
-        }
-        reader.readAsDataURL(event.target.files[i]);
+          };
+          this.IMAGES_UPLOADED = [this.resourceData]; // Solo guarda una imagen
+        };
+
+        reader.readAsDataURL(file);
       }
     }
   }
@@ -163,19 +192,19 @@ export class ImageRateScaleComponent extends RatingScaleComponent implements OnI
 
   openSelected(y: any) {
 
-    this.openElements= y;
- 
-}
+    this.openElements = y;
 
-open(y: any) {
-
-  if (this.openElements == y) {
-    return true;
-  } else {
-    return false;
   }
 
-}
+  open(y: any) {
+
+    if (this.openElements == y) {
+      return true;
+    } else {
+      return false;
+    }
+
+  }
 
   //---------end open cards--------------//
 
@@ -185,41 +214,65 @@ open(y: any) {
   }
 
   uploadAllImages() {
+    if(this.type == 'multiple'){
+      if (this.firstTime) {
+        this.firstTime = false
+      }
 
-    if (this.firstTime) {
-      this.firstTime = false
-    }
-
-    if (this.IMAGES_UPLOADED.length < this.bmxItem.componentText.length) {
-      this.bmxItem.componentText.splice(this.IMAGES_UPLOADED.length + 1, this.bmxItem.componentText.length + 1)
-    }
-    this.IMAGES_UPLOADED.forEach((imageObject, index) => {
-      imageObject['FileContent'] = imageObject['FileContent'].split(imageObject['FileContent'].split(",")[0] + ',').pop()
-      this._BmxService.saveFileResources(JSON.stringify(imageObject)).subscribe((result: any) => {
-        this.IMAGES_UPLOADED.shift()
-        if (index == 0) {
-          this.bmxItem.componentText[index].nameCandidates = "LOGO"
-        }
-        if (this.bmxItem.componentText[index + 1]) {
-          this.bmxItem.componentText[index + 1].nameCandidates = JSON.parse(result.d).FileUrl
-        } else {
-          this.bmxItem.componentText.push({ ...this.bmxItem.componentText[1], nameCandidates: JSON.parse(result.d).FileUrl })
-          const lastItem = this.bmxItem.componentText[this.bmxItem.componentText.length - 1];
-          for (const key in lastItem) {
-            if (lastItem.hasOwnProperty(key)) {
-              if(key != 'RATE'&& key != 'nameCandidates' && key!= 'STARS'){
-                lastItem[key]=''
+      if (this.IMAGES_UPLOADED.length < this.bmxItem.componentText.length) {
+        this.bmxItem.componentText.splice(this.IMAGES_UPLOADED.length + 1, this.bmxItem.componentText.length + 1)
+      }
+      this.IMAGES_UPLOADED.forEach((imageObject, index) => {
+        imageObject['FileContent'] = imageObject['FileContent'].split(imageObject['FileContent'].split(",")[0] + ',').pop()
+        this._BmxService.saveFileResources(JSON.stringify(imageObject)).subscribe((result: any) => {
+          this.IMAGES_UPLOADED.shift()
+          if (index == 0) {
+            this.bmxItem.componentText[index].nameCandidates = "LOGO"
+          }
+          if (this.bmxItem.componentText[index + 1]) {
+            this.bmxItem.componentText[index + 1].nameCandidates = JSON.parse(result.d).FileUrl
+          } else {
+            this.bmxItem.componentText.push({ ...this.bmxItem.componentText[1], nameCandidates: JSON.parse(result.d).FileUrl })
+            const lastItem = this.bmxItem.componentText[this.bmxItem.componentText.length - 1];
+            for (const key in lastItem) {
+              if (lastItem.hasOwnProperty(key)) {
+                if (key != 'RATE' && key != 'nameCandidates' && key != 'STARS') {
+                  lastItem[key] = ''
+                }
+              }
+            }
+          }          
+        });
+      });
+      setTimeout(() => {
+        this.uploadImagesBox = false;
+      }, 1000);
+      this.showEdit = true
+    }else{
+      this.IMAGES_UPLOADED.forEach((imageObject) => {
+        imageObject['FileContent'] = imageObject['FileContent'].split(imageObject['FileContent'].split(",")[0] + ',').pop()
+        this._BmxService.saveFileResources(JSON.stringify(imageObject)).subscribe((result: any) => {
+          this.IMAGES_UPLOADED.shift()
+          if (this.index == 0) {
+            this.bmxItem.componentText[this.index].nameCandidates = "LOGO"
+          }
+          if (this.bmxItem.componentText[this.index]) {
+            this.bmxItem.componentText[this.index].nameCandidates = JSON.parse(result.d).FileUrl
+          } else {
+            this.bmxItem.componentText.push({ ...this.bmxItem.componentText[1], nameCandidates: JSON.parse(result.d).FileUrl })
+            const lastItem = this.bmxItem.componentText[this.bmxItem.componentText.length - 1];
+            for (const key in lastItem) {
+              if (lastItem.hasOwnProperty(key)) {
+                if (key != 'RATE' && key != 'nameCandidates' && key != 'STARS') {
+                  lastItem[key] = ''
+                }
               }
             }
           }
-        }
-
+          this.uploadImagesBox = false;
+        });
       });
-    });
-    setTimeout(() => {
-      this.uploadImagesBox = false;
-    }, 1000);
-    this.showEdit = true
+    }
   }
 
   deleteImage(index) {
@@ -227,6 +280,10 @@ open(y: any) {
   }
 
   toggleImageUploadBox() {
+    this.uploadImagesBox = !this.uploadImagesBox
+  }
+  toggleUploadSingleImageBox() {
+    console.log(this.bmxItem)
     this.uploadImagesBox = !this.uploadImagesBox
   }
 
@@ -278,17 +335,17 @@ open(y: any) {
   }
   moveItemUp(): void {
     if (this.i > 0) {
-        const temp = this.bmxPages[this.currentPage].page[this.i];
-        this.bmxPages[this.currentPage].page[this.i] = this.bmxPages[this.currentPage].page[this.i - 1];
-        this.bmxPages[this.currentPage].page[this.i - 1] = temp;
+      const temp = this.bmxPages[this.currentPage].page[this.i];
+      this.bmxPages[this.currentPage].page[this.i] = this.bmxPages[this.currentPage].page[this.i - 1];
+      this.bmxPages[this.currentPage].page[this.i - 1] = temp;
     }
   }
-  
+
   moveItemDown(): void {
     if (this.i < this.bmxPages[this.currentPage].page.length - 1) {
-        const temp = this.bmxPages[this.currentPage].page[this.i];
-        this.bmxPages[this.currentPage].page[this.i] = this.bmxPages[this.currentPage].page[this.i + 1];
-        this.bmxPages[this.currentPage].page[this.i + 1] = temp;
+      const temp = this.bmxPages[this.currentPage].page[this.i];
+      this.bmxPages[this.currentPage].page[this.i] = this.bmxPages[this.currentPage].page[this.i + 1];
+      this.bmxPages[this.currentPage].page[this.i + 1] = temp;
     }
   }
 }
