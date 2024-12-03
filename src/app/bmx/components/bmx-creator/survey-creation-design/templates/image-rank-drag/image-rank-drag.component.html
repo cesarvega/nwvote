@@ -127,7 +127,7 @@
             matTooltipPosition="above" mat-icon-button aria-label="ranking">
             <mat-icon [style.color]="isColumnResizerOn ? '#ee7f25' : '#063074'" style="font-size: 26px; z-index: 9;" class="full-icon">swap_horizontal_circle</mat-icon>
         </button>
-        <button *ngIf="uploadImagesIcon" (click)="toggleImageUploadBox(); editSingleTableCells = false"
+        <button *ngIf="uploadImagesIcon" (click)="toggleImageUploadBox(); editSingleTableCells = false; type = 'multiple'"
             class="add-column" matTooltip="upload Images" matTooltipPosition="above" mat-icon-button aria-label="ranking">
             <mat-icon class="full-icon">collections</mat-icon>
         </button>
@@ -616,9 +616,10 @@ height: 54px;" cdkDragHandle> </div>
                             [(ngModel)]="testName[columnName]">
               </textarea>
 
+              <mat-icon class="row-box" (click)="toggleImageUploadBox(); type = 'simple'; index = y"  *ngIf="(y !== 0) && (columnName == 'UPLOAD' || columnName == 'UPLOAD' )">cloud_upload</mat-icon>
 
 
-                        <img class="row-box" style="width: 300px;" [src]="testName[columnName]"
+                        <img class="row-box" style="width: 300px;" [src]="testName[columnName]" (dblclick)="toggleImageUploadBox(); type = 'simple'; index = y" 
                             *ngIf="(y !== 0) && (columnName == 'name' || columnName == 'nameCandidates' )">
 
 
@@ -631,7 +632,7 @@ height: 54px;" cdkDragHandle> </div>
                             style="outline: none;text-align: center;" class="row-box"
                             [(ngModel)]="testName[columnName]"></textarea>
 
-                        <p *ngIf="y !== 0  && !editSingleTableCells && (columnName.includes('name') != true) &&
+                        <p *ngIf="y !== 0  && !editSingleTableCells && (columnName.includes('name') != true) && (columnName.includes('UPLOAD') != true) &&
                   (columnName.includes('RadioColumn') != true) &&  columnName.includes('Comments') != true &&
                     columnName.includes('RATE') != true"
                             [style.font-size]="bmxItem.componentSettings[0].fontSize +'px'"

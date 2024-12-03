@@ -462,30 +462,30 @@ export class SurveyCreationDesignComponent implements OnInit {
     }
     drop(event: CdkDragDrop<any[]>) {
         moveItemInArray(this.bmxPages[this.currentPage].page, event.previousIndex, event.currentIndex);
-      } 
-      isEditing = false;
-
-onEditStart() {
-  this.isEditing = true;
-}
-moveItemUp(index: number): void {
-    if (index > 0) {
-        const temp = this.bmxPages[this.currentPage].page[index];
-        this.bmxPages[this.currentPage].page[index] = this.bmxPages[this.currentPage].page[index - 1];
-        this.bmxPages[this.currentPage].page[index - 1] = temp;
     }
-}
+    isEditing = false;
 
-moveItemDown(index: number): void {
-    if (index < this.bmxPages[this.currentPage].page.length - 1) {
-        const temp = this.bmxPages[this.currentPage].page[index];
-        this.bmxPages[this.currentPage].page[index] = this.bmxPages[this.currentPage].page[index + 1];
-        this.bmxPages[this.currentPage].page[index + 1] = temp;
+    onEditStart() {
+        this.isEditing = true;
     }
-}
-onEditEnd() {
-  this.isEditing = false;
-}
+    moveItemUp(index: number): void {
+        if (index > 0) {
+            const temp = this.bmxPages[this.currentPage].page[index];
+            this.bmxPages[this.currentPage].page[index] = this.bmxPages[this.currentPage].page[index - 1];
+            this.bmxPages[this.currentPage].page[index - 1] = temp;
+        }
+    }
+
+    moveItemDown(index: number): void {
+        if (index < this.bmxPages[this.currentPage].page.length - 1) {
+            const temp = this.bmxPages[this.currentPage].page[index];
+            this.bmxPages[this.currentPage].page[index] = this.bmxPages[this.currentPage].page[index + 1];
+            this.bmxPages[this.currentPage].page[index + 1] = temp;
+        }
+    }
+    onEditEnd() {
+        this.isEditing = false;
+    }
     deletePage() {
         if (this.currentPage > 0) {
 
@@ -701,6 +701,7 @@ onEditEnd() {
                 nameCandidates: 'LOGO',
                 // logoURL:''
                 RATE: 'RATE',
+
                 // STARS: this.createRatingStars()
             });
             for (let index = 0; index < 5; index++) {
@@ -1195,6 +1196,18 @@ onEditEnd() {
         }
         return startCounter;
     }
+    createUploadFunction() {
+        let startCounter: any = [];
+        for (let index = 1; index <= this.ratingScale; index++) {
+            startCounter.push({
+                id: index,
+                icon: 'grade',
+                styleClass: 'rating-star',
+            });
+        }
+        return startCounter;
+    }
+
 
     createRankinScale() {
         let startCounter: any = [];
