@@ -4,7 +4,6 @@ import { UntypedFormBuilder, Validators, UntypedFormGroup } from '@angular/forms
 import { Router, ActivatedRoute } from '@angular/router';
 import { BsrMobileService } from './bsr-mobile.service';
 import {  MatDialog, MatDialogRef,  MAT_DIALOG_DATA } from '@angular/material/dialog';
-import { DeviceDetectorService } from 'ngx-device-detector';
 import { BreakpointObserver, Breakpoints } from '@angular/cdk/layout';
 
 @Component({
@@ -32,6 +31,8 @@ export class BsrMobileComponent implements OnInit {
   bulletPointLine = '';
   summarized: any;
   deviceInfo: any;
+  // NOTES FOR DEPLOYMENT
+  // Server code folder name \\code\NamePage ng build no folder
   constructor(private _formBuilder: UntypedFormBuilder,private breakpointObserver: BreakpointObserver, private bsrService: BsrMobileService,
     private activatedRoute: ActivatedRoute,
     public dialog: MatDialog,
@@ -78,7 +79,7 @@ export class BsrMobileComponent implements OnInit {
 
     this.newNameForm = this._formBuilder.group({
       suma: [false],
-      name: ['', Validators.required]
+      name: ['']
     });
 
     this.breakpointObserver.observe(['(max-width: 599px)'])
@@ -176,7 +177,11 @@ export class BsrMobileComponent implements OnInit {
         else {
           this.bsrService.deleteName(result.oldValue).subscribe(arg => {
             this.bsrService.login({ email: this.userEmail, name: this.username }, this.projectId).subscribe((res: any) => {
-              this.newNames = JSON.parse('[' + res[0].Names + ']');
+              if (res.length !== 0) {
+                this.newNames = JSON.parse('[' + res[0].Names + ']');
+              }else{
+                this.newNames = JSON.parse('[]');
+              }
               this.isUserLogged = true;
             })
           });

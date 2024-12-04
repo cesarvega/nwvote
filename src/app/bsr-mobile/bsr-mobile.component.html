@@ -1,9 +1,9 @@
 <!-- DESKTOP -->
 <div *ngIf="!isMobile" class="container mat-elevation-z4 bsr-container">
      <mat-toolbar class="toolbar" fxLayoutAlign="space-between center">
-        <span *ngIf="projectId !== 'du4689'; else alt" class="toolbar-text">BI PROJECT: {{ projectName }}</span>
+        <span *ngIf="projectId !== 'na4965'; else alt" class="toolbar-text">BI PROJECT: {{ projectName }}</span>
         <ng-template #alt>
-          <span class="toolbar-text">BI PROJECT: Class Name for Balcinrenone/Dapagliflozin</span>
+          <span class="toolbar-text">navacaprant Brand Name Suggestions</span>
         </ng-template>
         <mat-icon *ngIf="isUserLogged" (click)="openDialog('displayInfo', '', '', '', '')" class="help-icon">help</mat-icon>
       </mat-toolbar>
@@ -17,14 +17,14 @@
             <div class="loginPage" id="login-form">
               <img class="logo" src="./assets/img/NAMEPAGE_LOGO-01.svg">
               <br>
-              <div class="project-info" *ngIf="projectId !== 'du4689'; else ant">
+              <div class="project-info" *ngIf="projectId !== 'na4965'; else ant">
                 <div class="title secondary-text">Welcome to the NamePage<sup style="font-size: 10px;">TM</sup> for Project</div>
                 <div class="title  ">{{ projectName }}</div>
               </div>
               <ng-template #ant>
                 <div class="project-info">
                   <div class="title secondary-text">Welcome to the NamePage<sup style="font-size: 10px;">TM</sup> for</div>
-                  <div class="title  ">Class Name for Balcinrenone/Dapagliflozin</div>
+                  <div class="title  ">navacaprant</div>
                 </div>
               </ng-template>
               <div class="mat-small secondary-text">Please enter your information below to continue.</div>
@@ -57,8 +57,13 @@
         
         <!-- NAMES PAGE  -->
         <div *ngIf="isUserLogged" fxLayout="column" fxLayoutAlign="center center" id="login">
-            <br>
-            <div class="mat-body-1">Name Suggestions: {{ newNames.length }}</div>
+            <br>            
+            <span *ngIf="projectId !== 'na4965'; else alt2">
+              <div class="mat-body-1">Name Suggestions: {{ newNames.length }}</div>
+            </span>
+            <ng-template #alt2>
+              <div class="mat-body-1">Name Suggestions (up to 5): {{ newNames.length }}</div>
+            </ng-template>
             <mat-card appearance="outlined" class="names-list-card">
               <div class="name-box-header">
                 <div class="name-header">Name</div>
@@ -158,9 +163,9 @@
   <div *ngIf="isMobile" class="  bsr-mobile-container">
    
       <mat-toolbar class="toolbar" fxLayoutAlign="space-between center">
-        <span *ngIf="projectId !== 'du4689'; else alt" class="toolbar-text">BI PROJECT: {{ projectName }}</span>
+        <span *ngIf="projectId !== 'na4965'; else alt" class="toolbar-text">BI PROJECT: {{ projectName }}</span>
         <ng-template #alt>
-          <span class="toolbar-text">BI PROJECT: Class Name for Balcinrenone/Dapagliflozin</span>
+          <span class="toolbar-text">navacaprant Brand Name Suggestions</span>
         </ng-template>
         <mat-icon *ngIf="isUserLogged" (click)="openDialog('displayInfo', '', '', '', '')" class="help-icon">help</mat-icon>
       </mat-toolbar>
@@ -172,14 +177,14 @@
             <div class="loginPage" id="login-form">
               <img class="logo" src="./assets/img/NAMEPAGE_LOGO-01.svg">
               <br>
-              <div class="project-info" *ngIf="projectId !== 'du4689'; else ant">
+              <div class="project-info" *ngIf="projectId !== 'na4965'; else ant">
                 <div class="title secondary-text">Welcome to the NamePage<sup style="font-size: 10px;">TM</sup> for Project</div>
                 <div class="title  ">{{ projectName }}</div>
               </div>
               <ng-template #ant>
                 <div class="project-info">
                   <div class="title secondary-text">Welcome to the NamePage<sup style="font-size: 10px;">TM</sup> for</div>
-                  <div class="title  ">Class Name for Balcinrenone/Dapagliflozin</div>
+                  <div class="title  ">navacaprant</div>
                 </div>
               </ng-template>
               <div class="mat-small secondary-text">Please enter your information below to continue.</div>
@@ -209,7 +214,12 @@
         <!-- NAMES PAGE  -->
         <div *ngIf="isUserLogged" fxLayout="column" fxLayoutAlign="center center" id="login">
           <br>
-          <div class="mat-body-1">Name Suggestions: {{ newNames.length }}</div>
+          <span *ngIf="projectId !== 'na4965'; else alt2">
+            <div class="mat-body-1">Name Suggestions: {{ newNames.length }}</div>
+          </span>
+          <ng-template #alt2>
+            <div class="mat-body-1">Name Suggestions (up to 5): {{ newNames.length }}</div>
+          </ng-template>
           <mat-card appearance="outlined" class="names-list-card">
             <div class="name-box-header">
               <div class="name-header">Name</div>

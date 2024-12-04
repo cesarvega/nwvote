@@ -1067,57 +1067,39 @@ export class editPost {
   }
   async getSynonyms(synonyms: any) {
     const regex = /<p>(.*?)<\/p>/g;
-    const result: string[] = [];
+    const result = [];
     let match;
-  
+
     while ((match = regex.exec(synonyms)) !== null) {
-      if (match[1]) {
-        const tempElement = document.createElement('div');
-        tempElement.innerHTML = match[1];
-        const text = tempElement.textContent || tempElement.innerText || '';
-        if (text.trim()) {
-          result.push(text);
-        }
-      }
+
+      const tempElement = document.createElement('div');
+      tempElement.innerHTML = match[1];
+      result.push(tempElement.textContent || tempElement.innerText || '');
     }
-  
+
     this.synonymWord = result.join(', ');
     this.isSynonymBox = true;
-  
+
     const requests = result.map(element =>
       this._BsrService.getSinonyms(element).pipe(
         map((res: any) => {
-          try {
-            const parsedRes = JSON.parse(res);
-            const synonyms = Array.isArray(parsedRes) ? parsedRes : [];
-            return { word: element, synonyms };
-          } catch (error) {
-            console.error('Error parsing response:', error);
-            return { word: element, synonyms: [] };
-          }
+          const parsedRes = JSON.parse(res);
+          return { word: element, synonyms: parsedRes };
         })
       )
     );
-  
+
     forkJoin(requests).subscribe((results: any[]) => {
       const data: any[] = [];
-      results.forEach((res) => {
+      results.forEach((res, index) => {
         const word = res.word;
-        const synonyms = (res.synonyms || []).map((synonym: any) => synonym.word).filter((word: string) => word);
-        if (synonyms.length > 0) {
-          data.push({ word, synonyms });
-        }
+        const synonyms = res.synonyms.map((synonym: any) => synonym.word);
+        data.push({ word, synonyms });
       });
-  
-      if (data.length > 0) {
-        this.dataSource.next(data);
-        this.cdr.markForCheck();
-      } else {
-        console.warn('No valid data found.');
-      }
+      this.dataSource.next(data);
+      this.cdr.markForCheck();
     });
   }
-  
   setAll(evt) {
     this.model.editorData = this.model.editorData.concat('<p>' + evt + '</p>');
   }
@@ -1126,6 +1108,8 @@ export class editPost {
     synonyms.forEach(synonym => {
       this.model.editorData += `<p>${synonym}</p>`;
     });
+    this.model.editorData = this.model.editorData.replace(/null/g, '');
+
     this.isSynonymBox = false
   }
   emojiToggle() {
