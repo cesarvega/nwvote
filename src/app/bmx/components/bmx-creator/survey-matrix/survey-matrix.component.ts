@@ -613,7 +613,7 @@ export class SurveyMatrixComponent extends SurveyCreationDesignComponent impleme
   seeTutorial() {
     localStorage.removeItem('showModal');
     this.showModalVideo = true;
-    
+
 
 
   }
@@ -871,8 +871,6 @@ export class SurveyMatrixComponent extends SurveyCreationDesignComponent impleme
                       key === 'nameCandidates' &&
                       templateRow[key] === answerRow[key]
                     ) {
-                      console.log(templateRow.CRITERIA)
-                      console.log(answerRow)
                       templateRow.CRITERIA.forEach(
                         (criteria, criteriaIndex) => {
                           if (answerRow.CRITERIA) {
@@ -1172,35 +1170,43 @@ export class SurveyMatrixComponent extends SurveyCreationDesignComponent impleme
                   this._BmxService.setSpecialDataObservable(payload)
                 }
               }
-              // HANDLING SPECAIL REQUEST END  ******************************************//
-
               if (component.componentSettings[0].CRITERIA) {
 
-                row.CRITERIA.forEach((criteria) => {
-                  // NARROW DOWN WITH CRITERIA
-                  if (component.componentType == 'narrow-down') {
+                let isFirstIteration = true;
+
+                row.CRITERIA.forEach((criteria, critindex) => {
+                  if (component.componentType === 'narrow-down') {
                     if (row.SELECTED_ROW) {
-                      let rater = row.CRITERIA.filter((criteria) => (criteria.RATE == -1 || criteria.RATE == 0))
+                      let rater = row.CRITERIA.filter(criteria => criteria.RATE === -1 || criteria.RATE === 0);
+                
                       if (component.componentSettings[0].categoryRulesPassed) {
                         component.componentSettings[0].categoryRulesPassed = (index > 0 && rater.length > 0) ? false : true;
                       }
-                      if (index > 0 && rater.length == 0) {
-                        minRuleCounter++
+                      const sumRate = row.CRITERIA.reduce((sum, crit) => crit.RATE > 0 ? sum + crit.RATE : sum, 0);
+                      if (isFirstIteration && sumRate > 0 ) {
+                        
+                        if (sumRate > 0) {
+                          minRuleCounter++;
+                        }
+                        isFirstIteration = false;
                       }
                     }
                   } else {
-
-                    let rater = row.CRITERIA.filter((criteria) => (criteria.RATE == -1 || criteria.RATE == 0))
+                    let rater = row.CRITERIA.filter(criteria => criteria.RATE === -1 || criteria.RATE === 0);
+                
                     if (component.componentSettings[0].categoryRulesPassed) {
                       component.componentSettings[0].categoryRulesPassed = (index > 0 && rater.length > 0) ? false : true;
                     }
-                    intCounter = intCounter + criteria.RATE
+                
+                    intCounter = criteria.RATE > 0 ? intCounter + criteria.RATE : intCounter;
                   }
                 });
+                
                 if (intCounter > 0) {
-                  minRuleCounter++
+                  minRuleCounter++;
                 }
-                console.log(component)
+                
+                
               } else {
                 // ONLY NARROWDOWN
                 if (component.componentType == 'narrow-down') {
@@ -1250,9 +1256,9 @@ export class SurveyMatrixComponent extends SurveyCreationDesignComponent impleme
               component.componentSettings[0].categoryRulesPassed = true;
             }
             if (
-            (  component.componentSettings[0].minRule == 0 ||
-              component.componentSettings[0].categoryRulesPassed ||
-              (component.componentSettings[0].minRule - minRuleCounter) <= 0) || component.componentType == 'ranking-scale'
+              (component.componentSettings[0].minRule == 0 ||
+                component.componentSettings[0].categoryRulesPassed ||
+                (component.componentSettings[0].minRule - minRuleCounter) <= 0) || component.componentType == 'ranking-scale'
             ) {
               this.currentPage = pageNumber;
               window.scroll(0, 0);
@@ -1268,7 +1274,6 @@ export class SurveyMatrixComponent extends SurveyCreationDesignComponent impleme
               let message1 = ''
               let message2 = ''
               let ok = ''
-              console.log()
               if (this.surveyLanguage == 'Japanese') {
                 message1 = ' 最低 '
                 message2 = ' ネーム案以上を選択して下さい  '

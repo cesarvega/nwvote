@@ -69,7 +69,7 @@ export class RatingScaleComponent implements OnInit {
   BAG = "DRAGGABLE_RANK_ROW";
   subs = new Subscription();
   rowsCount = 0
-  dragList= []
+  dragList = []
   HISTORY = []
   RANGEARRAY = ['columnWidth1', 'columnWidth2', 'columnWidth3']
   selectedNarrowDownTimer = 0;
@@ -594,11 +594,15 @@ export class RatingScaleComponent implements OnInit {
       // TEST NAMES CHECK
       let index = 0;
       for (let i = 0; i < rows.length; i++) {
-        if (rows[i] != "" && rows[i].length > 6) {
+        console.log(rows)
+        if (rows[i] != "" && rows[i].length > 0) {
           let objectColumnDesign = {};
+          console.log(this.ASSIGNED_CRITERIA)
+
           if (this.ASSIGNED_CRITERIA.length > 0) { // CRITERIA
             this.bmxItem.componentSettings[0].CRITERIA = true;
             this.bmxItem.componentSettings[0].rateWidth = (this.bmxItem.componentSettings[0].rateWidth < 220) ? 220 : this.bmxItem.componentSettings[0].rateWidth;
+            console.log(this.bmxItem.componentSettings[0])
 
             for (let e = 0; e < this.columnsNames.length; e++) {
               if (rows[i].split("\t").length > 0) {
@@ -651,9 +655,7 @@ export class RatingScaleComponent implements OnInit {
               objectColumnDesign[this.columnsNames[b]] = rows[i].split("\t")[b];
             }
           }
-          if (this.bmxItem.componentType == 'narrow-down') {
-            objectColumnDesign['SELECTED_ROW'] = false;
-          }
+         
           const newObj = {};
 
           for (const key in this.bmxItem.componentText[1]) {
@@ -736,8 +738,8 @@ export class RatingScaleComponent implements OnInit {
     this.bmxItem.componentText = this.dataSource
     if (this.alphabeticallyTestNames) {
       setTimeout(() => {
-        
-      this.sortAlphabetically()
+
+        this.sortAlphabetically()
       }, 1000);
     }
   }
@@ -745,9 +747,9 @@ export class RatingScaleComponent implements OnInit {
     const firstElement = this.bmxItem.componentText[0];
 
     const sortedRest = this.bmxItem.componentText.slice(1).sort((a, b) => {
-        const aName = a.NewCategoryLogo || a.nameCandidates || a.name;
-        const bName = b.NewCategoryLogo || b.nameCandidates || b.name
-        return aName.localeCompare(bName);
+      const aName = a.NewCategoryLogo || a.nameCandidates || a.name;
+      const bName = b.NewCategoryLogo || b.nameCandidates || b.name
+      return aName.localeCompare(bName);
     });
     this.bmxItem.componentText = [firstElement, ...sortedRest];
     return sortedRest
@@ -930,19 +932,19 @@ export class RatingScaleComponent implements OnInit {
 
   moveItemUp(): void {
     if (this.i > 0) {
-        const temp = this.bmxPages[this.currentPage].page[this.i];
-        this.bmxPages[this.currentPage].page[this.i] = this.bmxPages[this.currentPage].page[this.i - 1];
-        this.bmxPages[this.currentPage].page[this.i - 1] = temp;
+      const temp = this.bmxPages[this.currentPage].page[this.i];
+      this.bmxPages[this.currentPage].page[this.i] = this.bmxPages[this.currentPage].page[this.i - 1];
+      this.bmxPages[this.currentPage].page[this.i - 1] = temp;
     }
-}
+  }
 
-moveItemDown(): void {
+  moveItemDown(): void {
     if (this.i < this.bmxPages[this.currentPage].page.length - 1) {
-        const temp = this.bmxPages[this.currentPage].page[this.i];
-        this.bmxPages[this.currentPage].page[this.i] = this.bmxPages[this.currentPage].page[this.i + 1];
-        this.bmxPages[this.currentPage].page[this.i + 1] = temp;
+      const temp = this.bmxPages[this.currentPage].page[this.i];
+      this.bmxPages[this.currentPage].page[this.i] = this.bmxPages[this.currentPage].page[this.i + 1];
+      this.bmxPages[this.currentPage].page[this.i + 1] = temp;
     }
-}
+  }
   columnFontSizeAdjust(columnName, direction) {
     if (!columnName.includes('RATE') && !columnName.includes('RadioColumn') && !columnName.includes('Comments')) {
       if (direction == 'increase') {
@@ -1022,10 +1024,10 @@ moveItemDown(): void {
   insertRow(): void {
     this.recordHistory()
     let newRow = Object.assign({}, this.bmxItem.componentText[0]);
-    newRow= this.clearCommentsKeys(newRow)
+    newRow = this.clearCommentsKeys(newRow)
     this.bmxItem.componentText.push(newRow)
   }
-   clearCommentsKeys(obj: any): any {
+  clearCommentsKeys(obj: any): any {
     for (const key in obj) {
       if (obj.hasOwnProperty(key)) {
         if (key.includes('Comments')) {
