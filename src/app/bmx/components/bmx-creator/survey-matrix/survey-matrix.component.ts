@@ -107,7 +107,7 @@ export class SurveyMatrixComponent extends SurveyCreationDesignComponent impleme
   readonly bmxStore = inject(BMX_STORE);
 
   constructor(@Inject(DOCUMENT) document: any, activatedRoute: ActivatedRoute, private deviceService: DeviceDetectorService,
-  dragulaService: DragulaService, public _snackBar: MatSnackBar, _BmxService: BmxService
+    dragulaService: DragulaService, public _snackBar: MatSnackBar, _BmxService: BmxService
   ) {
     super(document, _BmxService, _snackBar, activatedRoute);
     activatedRoute.params.subscribe((params) => {
@@ -613,7 +613,7 @@ export class SurveyMatrixComponent extends SurveyCreationDesignComponent impleme
   seeTutorial() {
     localStorage.removeItem('showModal');
     this.showModalVideo = true;
-    
+
 
   }
 
@@ -1249,9 +1249,9 @@ export class SurveyMatrixComponent extends SurveyCreationDesignComponent impleme
               component.componentSettings[0].categoryRulesPassed = true;
             }
             if (
-              component.componentSettings[0].minRule == 0 ||
+            (  component.componentSettings[0].minRule == 0 ||
               component.componentSettings[0].categoryRulesPassed ||
-              (component.componentSettings[0].minRule - minRuleCounter) <= 0
+              (component.componentSettings[0].minRule - minRuleCounter) <= 0) || component.componentType == 'ranking-scale'
             ) {
               this.currentPage = pageNumber;
               window.scroll(0, 0);
@@ -1267,6 +1267,7 @@ export class SurveyMatrixComponent extends SurveyCreationDesignComponent impleme
               let message1 = ''
               let message2 = ''
               let ok = ''
+              console.log()
               if (this.surveyLanguage == 'Japanese') {
                 message1 = ' 最低 '
                 message2 = ' ネーム案以上を選択して下さい  '
