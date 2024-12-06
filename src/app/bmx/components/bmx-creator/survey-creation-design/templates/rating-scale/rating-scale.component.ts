@@ -6,8 +6,9 @@ import { Subscription } from 'rxjs';
 import * as  dragula from 'dragula';
 import { BmxService } from '../../../bmx.service';
 import { DeviceDetectorService } from 'ngx-device-detector';
-import { MatCheckboxModule } from '@angular/material/checkbox';
+import { MatCheckboxChange, MatCheckboxModule } from '@angular/material/checkbox';
 import { Console } from 'console';
+import { CdkDragDrop, moveItemInArray } from '@angular/cdk/drag-drop';
 
 @Component({
   selector: 'app-rating-scale',
@@ -19,6 +20,8 @@ export class RatingScaleComponent implements OnInit {
   @Input() i;
   @Input() bmxClientPageDesignMode;
   @Input() bmxClientPageOverview;
+  @Input() bmxPages
+  @Input() currentPage
   @ViewChild('autosize') autosize: CdkTextareaAutosize;
   @Output() autoSave = new EventEmitter();
   rankingScaleValue = 5;
@@ -66,12 +69,13 @@ export class RatingScaleComponent implements OnInit {
   BAG = "DRAGGABLE_RANK_ROW";
   subs = new Subscription();
   rowsCount = 0
-
+  dragList = []
   HISTORY = []
   RANGEARRAY = ['columnWidth1', 'columnWidth2', 'columnWidth3']
   selectedNarrowDownTimer = 0;
   columnFontSize = 15;
   randomizeTestNames = false
+  alphabeticallyTestNames = false
   displaySound = false
   showMatrixMenu: boolean = false;
   iconMenuShow: string = "add_circle_outline";
@@ -289,7 +293,17 @@ export class RatingScaleComponent implements OnInit {
     }
 
   }
+  onRandomizeChange(event: MatCheckboxChange): void {
+    if (event.checked) {
+      this.alphabeticallyTestNames = false;
+    }
+  }
 
+  onAlphabeticallyChange(event: MatCheckboxChange): void {
+    if (event.checked) {
+      this.randomizeTestNames = false;
+    }
+  }
   maxRuleCounterMinus() {
     if (this.maxRuleCounter != 0) {
       this.maxRuleCounter--;
@@ -407,7 +421,7 @@ export class RatingScaleComponent implements OnInit {
         this.autoSave.emit();
       } else {
         if (this.bmxItem.componentType != 'narrow-down' && this.bmxItem.componentSettings[0].maxRule > 0) {
-          this._snackBar.open('you can only rate up to ' + this.bmxItem.componentSettings[0].maxRule + ' Test Names', 'OK', {
+          this._snackBar.open('you can only rate up to ' + this.bmxItem.componentSettings[0].maxRule + ' candidates', 'OK', {
             duration: 5000,
             verticalPosition: 'top',
           })
@@ -529,7 +543,10 @@ export class RatingScaleComponent implements OnInit {
   }
   // ⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️ END STARS METHODS  ⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️
 
-  upLoadNamesAndRationales(list: any, type?: any, update?: boolean) {
+  upLoadNamesAndRationales(list: any, dataSourceCopy: any, update?: boolean,) {
+    console.log('datasource:', dataSourceCopy)
+    this.bmxItem.componentText = dataSourceCopy
+    this.dataSource = dataSourceCopy
     if (typeof list == 'object') {
       list = ''
     }
@@ -538,7 +555,6 @@ export class RatingScaleComponent implements OnInit {
     if (update) {
       this.recordHistory();
     }
-
     this.dragRows = true;
     if (!list) { list = this.listString; }
     list = 'list'
@@ -552,7 +568,7 @@ export class RatingScaleComponent implements OnInit {
       // COLUMNS NAMES CHECK
       const rateColumnIndex = this.columnsNames.findIndex(column => column === 'RATE');
       if (rateColumnIndex !== -1) {
-        this.columnsNames.splice(rateColumnIndex, 1); // Eliminar RATE si ya existe para evitar duplicación
+        this.columnsNames.splice(rateColumnIndex, 1);
       }
       this.columnsNames.forEach((column, index) => {
         column = column.toLowerCase();
@@ -569,7 +585,6 @@ export class RatingScaleComponent implements OnInit {
         }
       });
 
-      // Insertar la columna RATE en la posición original
       const originalRatePosition = this.columnsNames.length + 1;
       this.columnsNames.splice(originalRatePosition, 0, 'RATE');
 
@@ -579,11 +594,15 @@ export class RatingScaleComponent implements OnInit {
       // TEST NAMES CHECK
       let index = 0;
       for (let i = 0; i < rows.length; i++) {
-        if (rows[i] != "" && rows[i].length > 6) {
+        console.log(rows)
+        if (rows[i] != "" && rows[i].length > 0) {
           let objectColumnDesign = {};
+          console.log(this.ASSIGNED_CRITERIA)
+
           if (this.ASSIGNED_CRITERIA.length > 0) { // CRITERIA
             this.bmxItem.componentSettings[0].CRITERIA = true;
             this.bmxItem.componentSettings[0].rateWidth = (this.bmxItem.componentSettings[0].rateWidth < 220) ? 220 : this.bmxItem.componentSettings[0].rateWidth;
+            console.log(this.bmxItem.componentSettings[0])
 
             for (let e = 0; e < this.columnsNames.length; e++) {
               if (rows[i].split("\t").length > 0) {
@@ -636,9 +655,7 @@ export class RatingScaleComponent implements OnInit {
               objectColumnDesign[this.columnsNames[b]] = rows[i].split("\t")[b];
             }
           }
-          if (this.bmxItem.componentType == 'narrow-down') {
-            objectColumnDesign['SELECTED_ROW'] = false;
-          }
+         
           const newObj = {};
 
           for (const key in this.bmxItem.componentText[1]) {
@@ -718,7 +735,37 @@ export class RatingScaleComponent implements OnInit {
         });
       }
     }
+    this.bmxItem.componentText = this.dataSource
+    if (this.alphabeticallyTestNames) {
+      setTimeout(() => {
+
+        this.sortAlphabetically()
+      }, 1000);
+    }
   }
+  sortAlphabetically() {
+    const firstElement = this.bmxItem.componentText[0];
+
+    const sortedRest = this.bmxItem.componentText.slice(1).sort((a, b) => {
+      const aName = a.NewCategoryLogo || a.nameCandidates || a.name;
+      const bName = b.NewCategoryLogo || b.nameCandidates || b.name
+      return aName.localeCompare(bName);
+    });
+    this.bmxItem.componentText = [firstElement, ...sortedRest];
+    return sortedRest
+  }
+  removeDuplicates(arr) {
+    console.log(arr)
+    const seen = new Set();
+    return arr.filter(item => {
+      const name = item['New Column 4'] || item.nameCandidates || item.name || item.rationale;
+      console.log(name)
+      const duplicate = seen.has(name);
+      seen.add(name);
+      return !duplicate;
+    });
+  }
+
   removeAllRadioColumns() {
     this.columnsNames = this.columnsNames.filter(col => !col.includes('RadioColumn'));
 
@@ -883,6 +930,21 @@ export class RatingScaleComponent implements OnInit {
     this.radioColumnCounter++
   }
 
+  moveItemUp(): void {
+    if (this.i > 0) {
+      const temp = this.bmxPages[this.currentPage].page[this.i];
+      this.bmxPages[this.currentPage].page[this.i] = this.bmxPages[this.currentPage].page[this.i - 1];
+      this.bmxPages[this.currentPage].page[this.i - 1] = temp;
+    }
+  }
+
+  moveItemDown(): void {
+    if (this.i < this.bmxPages[this.currentPage].page.length - 1) {
+      const temp = this.bmxPages[this.currentPage].page[this.i];
+      this.bmxPages[this.currentPage].page[this.i] = this.bmxPages[this.currentPage].page[this.i + 1];
+      this.bmxPages[this.currentPage].page[this.i + 1] = temp;
+    }
+  }
   columnFontSizeAdjust(columnName, direction) {
     if (!columnName.includes('RATE') && !columnName.includes('RadioColumn') && !columnName.includes('Comments')) {
       if (direction == 'increase') {
@@ -961,10 +1023,23 @@ export class RatingScaleComponent implements OnInit {
 
   insertRow(): void {
     this.recordHistory()
-    const newRow = Object.assign({}, this.bmxItem.componentText[0]);
+    let newRow = Object.assign({}, this.bmxItem.componentText[0]);
+    newRow = this.clearCommentsKeys(newRow)
     this.bmxItem.componentText.push(newRow)
   }
-
+  clearCommentsKeys(obj: any): any {
+    for (const key in obj) {
+      if (obj.hasOwnProperty(key)) {
+        if (key.includes('Comments')) {
+          obj[key] = ""; // Cambiar el valor a ""
+        } else if (typeof obj[key] === 'object' && !Array.isArray(obj[key])) {
+          // Si el valor es un objeto anidado, procesarlo recursivamente
+          this.clearCommentsKeys(obj[key]);
+        }
+      }
+    }
+    return obj;
+  }
   swapColumns(index: number): void {
     if (index < 0 || index >= this.columnsNames.length - 1) {
       // Cannot move right if at last index or out of range
@@ -1060,8 +1135,12 @@ export class RatingScaleComponent implements OnInit {
     }
   }
 
-  checkDragEvetn(e) {
-    this.dataSource = e
+  checkDragEvetn(event: CdkDragDrop<string[]>) {
+    if (event.previousIndex > 0 && event.currentIndex > 0) {
+      moveItemInArray(this.bmxItem.componentText, event.previousIndex, event.currentIndex);
+
+      this.autoSave.emit()
+    }
   }
 
   toogleColumnResizer() {
@@ -1124,6 +1203,7 @@ export class RatingScaleComponent implements OnInit {
   }
 
   undo() {
+    console.log(this.HISTORY)
     if (this.HISTORY.length > 0) {
 
       this.dragRows = true;
@@ -1139,7 +1219,7 @@ export class RatingScaleComponent implements OnInit {
 
     this.recordHistory()
     this.dataSource =
-    this.bmxItem.componentText
+      this.bmxItem.componentText
   }
 
   playTestNameSound(testNameSound: string) {

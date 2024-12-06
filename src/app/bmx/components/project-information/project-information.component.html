@@ -65,9 +65,9 @@
 
         </div>
         <div class="row-field">
-          <label class="selectLabels">Closing date: </label>
+          <label class="selectLabels">Closing Date: </label>
           <mat-form-field appearance="outline" id="project-datepicker" style="width:55%">
-            <input matInput [matDatepicker]="picker" placeholder="Choose a date" [value]="selectedDate"
+            <input matInput [matDatepicker]="picker" placeholder="Choose a Date" [value]="selectedDate"
                    (dateChange)="onSelect($event.value)"
                    [min]="minDate">
             <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
@@ -75,6 +75,14 @@
           </mat-form-field>
         </div>
         
+        <div class="row-field">
+          <label class="selectLabels">Display Name</label>
+          <mat-form-field appearance="outline">
+            <mat-label>Display Name </mat-label>
+            <input type="text" matInput formControlName="bmxDisplayName">
+          </mat-form-field>
+
+        </div>
       </div>
       <div>
         <div class="row-field">
@@ -115,11 +123,10 @@
         <div class="row-field">
           <label class="selectLabels">Template</label>
           <mat-form-field appearance="outline">
-            <mat-label>Load a template</mat-label>
-            <mat-select [(ngModel)]="templateName" (selectionChange)="templateSelected($event.value)"
-              formControlName="bmxTemplates">
-              <mat-select-trigger>{{selectedTemplateName}}</mat-select-trigger>
-              <mat-option *ngFor="let template of TEMPLATES " [value]="template.templateName"
+            <mat-label>Load a Template</mat-label>
+            <mat-select formControlName="bmxTemplate" (selectionChange)="templateSelected($event.value)"
+            >
+              <mat-option *ngFor="let template of TEMPLATES "  [value]="template.templateName"
                 (click)="selectedTemplateName= template.displayName? template.displayName : template.templateName"
                 style="display: flex; justify-content: space-between">
                 <span style="    display: flex;
@@ -167,7 +174,7 @@
             matTooltipPosition="above" (click)="createDirector()">
             <mat-icon class="full-icon" style="color: white;">add</mat-icon>
           </button>
-          <button mat-mini-fab style="background-color:#ee7f25;outline: none;" matTooltip="add new user"
+          <button mat-mini-fab style="background-color:#ee7f25;outline: none;" matTooltip="create new director"
             matTooltipPosition="above" (click)="createCustomDirector()">
             <mat-icon class="full-icon" style="color: white;">highlight_alt</mat-icon>
           </button>
@@ -181,51 +188,51 @@
   <div style=" display: grid;
   grid-template-columns: repeat(2, 1fr);
   gap: 20px; 
-  padding: 10px 39px;">
+  padding: 10px 39px;" *ngIf='DIRECTORS' >
     <div *ngFor="let director of DIRECTORS; let i = index; trackBy: trackByIndex">
-      <mat-card appearance="outlined" class="directorCard" style="width: 400px;gap: 5px;padding: 10px;margin: 10px;">
+      <mat-card *ngIf='director' appearance="outlined" class="directorCard" style="width: 400px;gap: 5px;padding: 10px;margin: 10px;">
 
         <div style="display: flex;flex-direction: row;">
           <div class="selectLabels">Name: </div>
-          <input class="directorInfo" [(ngModel)]="DIRECTORS[i].name" placeholder="Name" [readonly]="i !== canEdit"
+          <input class="directorInfo" [ngStyle]="{'pointer-events': canEdit !== i ? 'none' : 'all'}" [(ngModel)]="DIRECTORS[i].name" placeholder="Name" [readonly]="i !== canEdit"
             matInput style="width:75%">
         </div>
 
 
         <div style="display: flex;flex-direction: row;">
           <div class="selectLabels">Title: </div>
-          <input class="directorInfo" [(ngModel)]="DIRECTORS[i].title" placeholder="Title" [readonly]="i !== canEdit"
+          <input class="directorInfo"  [ngStyle]="{'pointer-events': canEdit !== i ? 'none' : 'all'}" [(ngModel)]="DIRECTORS[i].title" placeholder="Title" [readonly]="i !== canEdit"
             matInput style="width:75%">
         </div>
 
         <div style="display: flex;flex-direction: row;">
           <div class="selectLabels">Email: </div>
-          <input class="directorInfo" [(ngModel)]="DIRECTORS[i].email" placeholder="Email" [readonly]="i !== canEdit"
+          <input class="directorInfo"  [ngStyle]="{'pointer-events': canEdit !== i ? 'none' : 'all'}" [(ngModel)]="DIRECTORS[i].email" placeholder="Email" [readonly]="i !== canEdit"
             matInput style="width:75%">
         </div>
 
         <div style="display: flex;flex-direction: row;">
           <div class="selectLabels">Phone #: </div>
-          <input class="directorInfo" [(ngModel)]="DIRECTORS[i].phone" placeholder="Phone" [readonly]="i !== canEdit"
+          <input class="directorInfo"  [ngStyle]="{'pointer-events': canEdit !== i ? 'none' : 'all'}" [(ngModel)]="DIRECTORS[i].phone" placeholder="Phone" [readonly]="i !== canEdit"
             matInput style="width:75%">
         </div>
         <div class="optionButton">
-          <div *ngIf="canEdit !== i; else elseBlock">
-            <button mat-icon-button class="button-blue" (click)="editDirector(i)">
-              <mat-icon>edit</mat-icon>
+          <div *ngIf="canEdit !== i; else elseBlock" >
+            <button mat-icon-button class="button-blue" matTooltip="click to edit info" matTooltipPosition="right" (click)="editDirector(i)">
+              <mat-icon >edit</mat-icon>
             </button>
 
           </div>
           <ng-template #elseBlock>
-            <button mat-icon-button class="button-orange" (click)="editDirector(i)">
+            <button mat-icon-button class="button-orange"  matTooltipPosition="right" (click)="editDirector(i)">
               <mat-icon>check_circle</mat-icon>
             </button>
           </ng-template>
-          <button mat-icon-button matTooltip="double click" matTooltipPosition="right" class="button-red"
+          <button mat-icon-button matTooltip="double click to delete" matTooltipPosition="right" class="button-red"
             (dblclick)="removeDirector(i)">
             <mat-icon>delete</mat-icon>
           </button>
-          <button mat-icon-button matTooltip="double click" matTooltipPosition="right" class="button-golden"
+          <button mat-icon-button matTooltip="double click to set main director" matTooltipPosition="right" class="button-golden"
             (dblclick)="replaceMainDirector(i)">
             <mat-icon>star</mat-icon>
           </button>

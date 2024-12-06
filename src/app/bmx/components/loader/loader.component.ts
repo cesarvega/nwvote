@@ -9,7 +9,6 @@ export class LoaderComponent implements OnInit {
 
  
   ngOnInit(): void {
-    console.log('aaaaaa')
   }
 
 }

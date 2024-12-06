@@ -16,17 +16,22 @@ export class QuestionAnswerComponent extends RatingScaleComponent implements OnI
   @Input() i;
   @Input() bmxClientPageDesignMode;
   @Input() bmxClientPageOverview;
+  @Input() bmxPages
+  @Input() currentPage
   @Output() autoSave = new EventEmitter();
   @ViewChild('autosize') autosize: CdkTextareaAutosize;
   CREATION_VIDEO_PATH = "assets/videos/QuestionAndAnswer.mp4"
   dataSource:any[] = []
 
   allComplete: boolean = false;
+  bmxCopycomponentText: any;
   constructor(dragulaService: DragulaService, _snackBar: MatSnackBar, _bmxService: BmxService, public deviceService: DeviceDetectorService) {
     super(dragulaService, _snackBar, _bmxService, deviceService);
   }
 
   ngOnInit(): void {
+    this.bmxCopycomponentText = JSON.parse(JSON.stringify(this.bmxItem));
+
     this.showDialog = false
 
     // COLUMN NAMES
@@ -67,8 +72,9 @@ export class QuestionAnswerComponent extends RatingScaleComponent implements OnI
     this.testNamesInput = result;
     this.randomizeTestNames = this.bmxItem.componentSettings[0].randomizeTestNames
     this.rowsCount = this.bmxItem.componentText.length - 1;
-    console.log(this.bmxItem.componentSettings[0].rationalewidth)
     this.dataSource = this.bmxItem.componentText.slice(1)
+    this.recordHistory()
+
   }
 
   upLoadNamesAndRationales(list: string) {
@@ -170,6 +176,13 @@ export class QuestionAnswerComponent extends RatingScaleComponent implements OnI
         }
       }
       this.bmxItem.componentText = this.TESTNAMES_LIST;
+
+      if (this.alphabeticallyTestNames) {
+        setTimeout(() => {
+          
+        this.sortAlphabetically()
+        }, 1000);
+      }
     } else {
       // this.bmxItem.componentText.forEach((row, index) => {
       //   row.STARS = this.createRatingStars(this.rankingScaleValue, this.ratingScaleIcon)
@@ -177,8 +190,20 @@ export class QuestionAnswerComponent extends RatingScaleComponent implements OnI
       //   // this.leaveStar(index);
       // });
     }
-  }
+    this.bmxCopycomponentText = JSON.parse(JSON.stringify(this.bmxItem));
 
+  }
+  sortAlphabetically() {
+    const firstElement = this.bmxItem.componentText[0];
+
+    const sortedRest = this.bmxItem.componentText.slice(1).sort((a, b) => {
+        const aName = a.NewCategoryLogo || a.nameCandidates || a.name;
+        const bName = b.NewCategoryLogo || b.nameCandidates || b.name
+        return aName.localeCompare(bName);
+    });
+    this.bmxItem.componentText = [firstElement, ...sortedRest];
+    return sortedRest
+  }
   saveMultipleChoice(checkBoxName, indexRow, value) {
     if (value.target.checked) {
       this.bmxItem.componentText[indexRow].RATE = (!this.bmxItem.componentText[indexRow].RATE) ? checkBoxName + ',' : this.bmxItem.componentText[indexRow].RATE += checkBoxName + ','
@@ -226,5 +251,23 @@ export class QuestionAnswerComponent extends RatingScaleComponent implements OnI
   
     // Step 2: Check if checkBoxName is present in the array
     return multipleChoiceArray.includes(checkBoxName);
+  }
+  moveItemUp(): void {
+    if (this.i > 0) {
+      const temp = this.bmxPages[this.currentPage].page[this.i];
+      this.bmxPages[this.currentPage].page[this.i] = this.bmxPages[this.currentPage].page[this.i - 1];
+      this.bmxPages[this.currentPage].page[this.i - 1] = temp;
+    }
+  }
+
+  moveItemDown(): void {
+    if (this.i < this.bmxPages[this.currentPage].page.length - 1) {
+      const temp = this.bmxPages[this.currentPage].page[this.i];
+      this.bmxPages[this.currentPage].page[this.i] = this.bmxPages[this.currentPage].page[this.i + 1];
+      this.bmxPages[this.currentPage].page[this.i + 1] = temp;
+    }
+  }
+  restoreData(){
+    this.bmxItem = this.bmxCopycomponentText
   }
 }

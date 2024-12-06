@@ -678,7 +678,7 @@ justify-content: center;cursor: move; height: 25px; width: 100%;"><svg width="24
                     </div>
                     <mat-form-field
                         *ngIf="this.bmxItem.componentSettings[0].rankType == 'dropDown' && selectedCard == y"
-                        appearance="outline" style="width: 130px;padding-top: 13px;height: 80px;">
+                        appearance="outline" style="padding-top: 13px;height: 80px;">
                         <mat-label>Rank 1 to {{rankingScaleValue}}</mat-label>
                         <mat-select matNativeControl [(ngModel)]="bmxItem.componentText[y].RATE"
                             (selectionChange)="setRating(bmxItem.componentText[y].RATE,y)">

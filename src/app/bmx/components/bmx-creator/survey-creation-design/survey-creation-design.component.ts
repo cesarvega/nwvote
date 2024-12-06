@@ -14,6 +14,8 @@ import { DOCUMENT } from '@angular/common';
 import QRCodeStyling from 'qr-code-styling';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { ActivatedRoute } from '@angular/router';
+import { CdkDragDrop, moveItemInArray } from '@angular/cdk/drag-drop';
+
 @Component({
     selector: 'app-survey-creation-design',
     templateUrl: './survey-creation-design.component.html',
@@ -269,7 +271,7 @@ export class SurveyCreationDesignComponent implements OnInit {
         if (localStorage.getItem('projectName')) {
             this.projectId = localStorage.getItem('projectName');
             this.globalProjectName = this.projectId
-            this.globalDisplayName = localStorage.getItem('displayName');
+            this.globalDisplayName = localStorage.getItem('projectId');
         } else {
             this._BmxService.currentProjectName$.subscribe(projectName => {
                 this.projectId = (projectName !== '') ? projectName : this.projectId;
@@ -379,7 +381,7 @@ export class SurveyCreationDesignComponent implements OnInit {
                     const emailRegex = /<div style="font-size: 18px; font-family: sofia-pro; line-height: 1.5">([a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,})<\/div>/g;
                     const componentText = this.bmxPages[0].page[1]?.componentText;
                     if (componentText) {
-                        const match = componentText.match(regex);
+                        const match = componentText?.match(regex);
 
                         if (match) {
                             const index = componentText.indexOf(match[0]);
@@ -398,7 +400,7 @@ export class SurveyCreationDesignComponent implements OnInit {
                                     const emailExists = existingEmailsLower.some(existingEmail => existingEmail.toLowerCase().trim() === person.email.toLowerCase().trim());
                                     if (emailExists == false) {
                                         return `
-                                        <div class='ql-editor' style="display: flex; flex-direction: column; justify-content: center; align-items: center;">
+                                        <div style="display: flex; flex-direction: column; justify-content: center; align-items: center;">
                                             <div style="font-size: 23px; font-family: sofia-pro; line-height: 1.5">${person.name}</div>
                                             <div style="font-size: 18px; font-family: sofia-pro; line-height: 1.5">${person.title}</div>
                                             <div style="font-size: 23px; font-family: sofia-pro; line-height: 1.5">${person.email.trim()}</div>
@@ -458,7 +460,32 @@ export class SurveyCreationDesignComponent implements OnInit {
         console.log(this.bmxPages[this.currentPage])
         console.log(e);
     }
+    drop(event: CdkDragDrop<any[]>) {
+        moveItemInArray(this.bmxPages[this.currentPage].page, event.previousIndex, event.currentIndex);
+    }
+    isEditing = false;
 
+    onEditStart() {
+        this.isEditing = true;
+    }
+    moveItemUp(index: number): void {
+        if (index > 0) {
+            const temp = this.bmxPages[this.currentPage].page[index];
+            this.bmxPages[this.currentPage].page[index] = this.bmxPages[this.currentPage].page[index - 1];
+            this.bmxPages[this.currentPage].page[index - 1] = temp;
+        }
+    }
+
+    moveItemDown(index: number): void {
+        if (index < this.bmxPages[this.currentPage].page.length - 1) {
+            const temp = this.bmxPages[this.currentPage].page[index];
+            this.bmxPages[this.currentPage].page[index] = this.bmxPages[this.currentPage].page[index + 1];
+            this.bmxPages[this.currentPage].page[index + 1] = temp;
+        }
+    }
+    onEditEnd() {
+        this.isEditing = false;
+    }
     deletePage() {
         if (this.currentPage > 0) {
 
@@ -618,7 +645,6 @@ export class SurveyCreationDesignComponent implements OnInit {
             this.TestNameDataModel = [];
             this.TestNameDataModel.push({
                 nameCandidates: 'Name Candidates',
-                rationale: 'RATIONALE',
                 RATE: 'RATE',
                 STARS: this.createRankinScale(),
             });
@@ -632,7 +658,6 @@ export class SurveyCreationDesignComponent implements OnInit {
                         '.JPG',
                     // logoURL: './assets/img/bmx/logoTestNames/logo' + imageIndex.toString() + '.JPG',
                     RATE: -1,
-                    rationale: 'Rationale of an undisclosed length',
                     STARS: this.createRatingStars(),
                 });
             }
@@ -656,7 +681,7 @@ export class SurveyCreationDesignComponent implements OnInit {
                         selectedRanking: 7,
                         categoryRulesPassed: false,
                         ratedCounter: 0,
-                        categoryName: 'Category image-rank-drag',
+                        categoryName: 'Category Logo Rating',
                         categoryDescription: 'This is image-rank-drag matrix',
                         ratingScaleTitle: 'RANK',
                         rankType: 'dragAndDrop',
@@ -676,6 +701,7 @@ export class SurveyCreationDesignComponent implements OnInit {
                 nameCandidates: 'LOGO',
                 // logoURL:''
                 RATE: 'RATE',
+
                 // STARS: this.createRatingStars()
             });
             for (let index = 0; index < 5; index++) {
@@ -902,7 +928,7 @@ export class SurveyCreationDesignComponent implements OnInit {
                         this._snackBar.open(
                             'You must rate at least ' +
                             component.componentSettings[0].minRule +
-                            ' Test Names',
+                            ' candidates',
                             'OK',
                             {
                                 duration: 5000,
@@ -1170,6 +1196,18 @@ export class SurveyCreationDesignComponent implements OnInit {
         }
         return startCounter;
     }
+    createUploadFunction() {
+        let startCounter: any = [];
+        for (let index = 1; index <= this.ratingScale; index++) {
+            startCounter.push({
+                id: index,
+                icon: 'grade',
+                styleClass: 'rating-star',
+            });
+        }
+        return startCounter;
+    }
+
 
     createRankinScale() {
         let startCounter: any = [];

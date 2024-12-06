@@ -7,8 +7,8 @@ import { HighlightSpanKind } from 'typescript';
 import { MatSort } from '@angular/material/sort';
 import { CdkDragStart, CdkDropList, moveItemInArray } from '@angular/cdk/drag-drop';
 import { MatPaginator } from '@angular/material/paginator';
-import {  MatSnackBar } from '@angular/material/snack-bar';
-import {  MatDialog,  MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
+import { MatSnackBar } from '@angular/material/snack-bar';
+import { MatDialog, MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { DialogComponent } from './dialog/dialog.component';
 import { BmxService } from '../bmx-creator/bmx.service';
 import * as ClassicEditor from '@ckeditor/ckeditor5-build-classic';
@@ -182,7 +182,12 @@ export class ParticipantsEmailComponent implements OnInit {
     }
     // SAMPLE DATA FOR CKEDITOR
     //this.model.editorData = this.sampleHtml;
-
+    this._BmxService.getDirectos().subscribe(directors => {
+      console.log(directors)
+      const directorsNames = directors.map(director => director.name).join(', ');
+      console.log(this.brandMatrixObjects)
+      this.brandMatrixObjects[1].componentText = this.brandMatrixObjects[1].componentText.replace('BI_DIRECTOR', directorsNames);
+    })
   }
 
   isAllSelected() {
@@ -312,6 +317,12 @@ export class ParticipantsEmailComponent implements OnInit {
       `;
       this.BCC = 'design@brandinstitute.com'
     }
+    this._BmxService.getDirectos().subscribe(directors => {
+      console.log(directors)
+      const directorsNames = directors.map(director => director.name).join(', ');
+      console.log(this.brandMatrixObjects)
+      this.brandMatrixObjects[1].componentText = this.brandMatrixObjects[1].componentText.replace('BI_DIRECTOR', directorsNames);
+    })
   }
 
   /*
@@ -337,9 +348,21 @@ export class ParticipantsEmailComponent implements OnInit {
     this.fixedString = this.fixedString.replaceAll("PROJECTNAME", this.projectId.toString());
     let str = ""
 
-      str += this.DIRECTORS[0].name.toString().trim() + "<br>" + this.DIRECTORS[0].title.toString().trim() + "<br>" + this.DIRECTORS[0].phone.toString().trim() + " " + this.DIRECTORS[0].email.toString().trim() + "<br><br>"
+    str += this.DIRECTORS[0].name.toString().trim() + "<br>" + this.DIRECTORS[0].title.toString().trim() + "<br>" + this.DIRECTORS[0].phone.toString().trim() + " " + this.DIRECTORS[0].email.toString().trim() + "<br><br>"
 
     this.fixedString = this.fixedString.replace("BI_DIRECTOR ", str);
+    this._BmxService.getDirectos().subscribe(directors => {
+      console.log(directors)
+      const directorsNames = directors.map(director => director.name).join(', ');
+      console.log(this.brandMatrixObjects)
+      this.brandMatrixObjects[1].componentText = this.brandMatrixObjects[1].componentText.replace('BI_DIRECTOR', directorsNames);
+    })
+    this._BmxService.getDirectos().subscribe(directors => {
+      console.log(directors)
+      const directorsNames = directors.map(director => director.name).join(', ');
+      console.log(this.brandMatrixObjects)
+      this.brandMatrixObjects[1].componentText = this.brandMatrixObjects[1].componentText.replace('BI_DIRECTOR', directorsNames);
+    })
   }
 
   sendEmail() {

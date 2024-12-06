@@ -1,10 +1,11 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, inject, OnInit } from '@angular/core';
 import { NwvoteService } from '../../nw-vote/nwvote.service';
 import { FormBuilder, Validators, FormGroup } from '@angular/forms';
 import { Router, ActivatedRoute } from '@angular/router';
 import { MsalService } from '@azure/msal-angular';
 import { HttpClient } from '@angular/common/http';
 import { AuthenticationResult } from '@azure/msal-browser';
+import { BMX_STORE } from 'src/app/signals/+store/brs.store';
 
 @Component({
   selector: 'app-login',
@@ -14,6 +15,7 @@ import { AuthenticationResult } from '@azure/msal-browser';
 export class LoginComponent implements OnInit {
   loginForm: FormGroup;
   projectname = '';
+  readonly bmxStore = inject(BMX_STORE);
 
   constructor(
     private _formBuilder: FormBuilder,
@@ -59,7 +61,11 @@ export class LoginComponent implements OnInit {
     await this.msalService.loginPopup().subscribe( async (response: AuthenticationResult) => {
       await this.msalService.instance.setActiveAccount(response.account)
       localStorage.setItem('userData', JSON.stringify(response.account))
+      this.bmxStore.updateUserData(JSON.stringify(response.account))
+
       localStorage.setItem('userGui', JSON.stringify(response.account))
+      this.bmxStore.updateUserGui(JSON.stringify(response.account))
+
       this.router.navigate(['/dashboard']);
       sessionStorage.clear()
     })

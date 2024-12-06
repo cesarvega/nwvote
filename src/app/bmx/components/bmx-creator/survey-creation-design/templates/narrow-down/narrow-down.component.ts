@@ -5,6 +5,7 @@ import { RatingScaleComponent } from '../rating-scale/rating-scale.component';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { BmxService } from '../../../bmx.service';
 import { DeviceDetectorService } from 'ngx-device-detector';
+import { CdkDragDrop, moveItemInArray } from '@angular/cdk/drag-drop';
 
 @Component({
   selector: 'app-narrow-down',
@@ -16,6 +17,9 @@ export class NarrowDownComponent extends RatingScaleComponent implements OnInit 
   @Input() i;
   @Input() bmxClientPageDesignMode;
   @Input() bmxClientPageOverview;
+  @Input() bmxPages
+  @Input() currentPage
+  
   SLECTED_ROWS = []
   deleteRows = false
   dragRows = false
@@ -95,5 +99,27 @@ export class NarrowDownComponent extends RatingScaleComponent implements OnInit 
     this.dataSource = this.bmxItem.componentText
     this.recordHistory();
 
+  }
+  checkDragEvetn(event: CdkDragDrop<string[]>) {
+    if (event.previousIndex > 0 && event.currentIndex > 0) {
+      moveItemInArray(this.bmxItem.componentText, event.previousIndex, event.currentIndex);
+
+      this.autoSave.emit()
+    }
+  }
+  moveItemUp(): void {
+    if (this.i > 0) {
+        const temp = this.bmxPages[this.currentPage].page[this.i];
+        this.bmxPages[this.currentPage].page[this.i] = this.bmxPages[this.currentPage].page[this.i - 1];
+        this.bmxPages[this.currentPage].page[this.i - 1] = temp;
+    }
+  }
+  
+  moveItemDown(): void {
+    if (this.i < this.bmxPages[this.currentPage].page.length - 1) {
+        const temp = this.bmxPages[this.currentPage].page[this.i];
+        this.bmxPages[this.currentPage].page[this.i] = this.bmxPages[this.currentPage].page[this.i + 1];
+        this.bmxPages[this.currentPage].page[this.i + 1] = temp;
+    }
   }
 }

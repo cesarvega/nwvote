@@ -32,7 +32,7 @@ export class MenuComponent implements OnInit {
   userDepartment: string;
   userOffice: any;
   id: string;
-  versionNumber = 'v1.0.10';
+  versionNumber = 'v1.0.13';
   showErrorMessage = false;
 
   // constructor(private router: Router, private _BmxService: BmxService, private activatedRoute: ActivatedRoute,) {
@@ -139,8 +139,8 @@ export class MenuComponent implements OnInit {
           });
         } else {
           const userData = JSON.parse(localStorage.getItem('userData'))
-          this.userFullName = userData.name
-          this.userName = userData.username
+          this.userFullName = userData?.name
+          this.userName = userData?.username
           this.showErrorMessage = false
         }
         this.isDashboardMenu = event.url.includes('dashboard') || event.url === '/' || event.url.includes('templates');

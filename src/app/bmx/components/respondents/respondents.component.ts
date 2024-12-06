@@ -44,7 +44,7 @@ export class RespondentsComponent implements OnInit {
   constructor(private _BmxService: BmxService) { }
 
   ngOnInit(): void {
-
+    console.log('respndants')
     this._BmxService.currentProjectName$.subscribe((projectName) => {
       this.projectId = projectName !== '' ? projectName : this.projectId;
     });
@@ -52,31 +52,34 @@ export class RespondentsComponent implements OnInit {
     this._BmxService.BrandMatrixGetParticipantList(this.projectId)
       .subscribe((arg: any) => {
         this.RESPONDENTS_LIST = JSON.parse(arg.d).ParticipantList;
+        this.RESPONDENTS_LIST = this.RESPONDENTS_LIST.filter(res=> res.Status > 0)
+        this.dataSource = new MatTableDataSource<any>(this.RESPONDENTS_LIST);
 
+        console.log(this.RESPONDENTS_LIST)
         localStorage.setItem('fakeprojectname' + '_repondants list', JSON.stringify(this.RESPONDENTS_LIST));
       });
 
-    this._BmxService.getProjectInfo(this.projectId)
-      .subscribe((arg: any) => {
-        if (arg.d && arg.d.length > 0) {
-          var data = JSON.parse(arg.d);
-          this.DIRECTORS = data.bmxRegionalOffice;
-          this.DIRECTORS.forEach(director => {
-            if (this.RESPONDENTS_LIST.map(e => e.Email).indexOf(director.email.trim()) == -1) {
-              this.RESPONDENTS_LIST.push({ 'ProjectName': this.projectId, 'UserId': (this.RESPONDENTS_LIST.length + 1), 'Password': '', 'FirstName': director.name.split(" ")[0], 'LastName': director.name.split(" ")[1], 'Email': director.email.trim(), 'Type': "A", 'Status': '', 'SubGroup': '1', 'AnswerWeight': '1' });
-              var finalString = JSON.stringify(this.RESPONDENTS_LIST);
-              finalString = finalString.replace("[\\u2022,\\u2023,\\u25E6,\\u2043,\\u2219]\\s\\d", '');
-              this._BmxService.BrandMatrixSaveParticipantList(this.projectId, this.RESPONDENTS_LIST).subscribe(result => {
-                var so = result;
-              });
-            }
+    // this._BmxService.getProjectInfo(this.projectId)
+      // .subscribe((arg: any) => {
+      //   if (arg.d && arg.d.length > 0) {
+      //     var data = JSON.parse(arg.d);
+      //     this.DIRECTORS = data.bmxRegionalOffice;
+      //     this.DIRECTORS.forEach(director => {
+      //       if (this.RESPONDENTS_LIST.map(e => e.Email).indexOf(director.email.trim()) == -1) {
+      //         this.RESPONDENTS_LIST.push({ 'ProjectName': this.projectId, 'UserId': (this.RESPONDENTS_LIST.length + 1), 'Password': '', 'FirstName': director.name.split(" ")[0], 'LastName': director.name.split(" ")[1], 'Email': director.email.trim(), 'Type': "A", 'Status': '', 'SubGroup': '1', 'AnswerWeight': '1' });
+      //         var finalString = JSON.stringify(this.RESPONDENTS_LIST);
+      //         console.log(this.RESPONDENTS_LIST)
+      //         finalString = finalString.replace("[\\u2022,\\u2023,\\u25E6,\\u2043,\\u2219]\\s\\d", '');
+      //         this._BmxService.BrandMatrixSaveParticipantList(this.projectId, this.RESPONDENTS_LIST).subscribe(result => {
+      //           var so = result;
+      //         });
+      //       }
 
-          })
-        }
-        this.RESPONDENTS_LIST.sort((a, b) => a.FirstName.localeCompare(b.FirstName));
-        this.dataSource = new MatTableDataSource<any>(this.RESPONDENTS_LIST);
+      //     })
+      //   }
+      //   // this.RESPONDENTS_LIST.sort((a, b) => a.FirstName.localeCompare(b.FirstName));
 
-      });
+      // });
     this._BmxService.BrandMatrixSaveParticipantList(this.projectId, this.RESPONDENTS_LIST).subscribe(result => {
       var so = result;
     });
@@ -113,6 +116,7 @@ export class RespondentsComponent implements OnInit {
 
       var finalString = JSON.stringify(this.RESPONDENTS_LIST);
       finalString = finalString.replace("[\\u2022,\\u2023,\\u25E6,\\u2043,\\u2219]\\s\\d", '');
+      console.log(this.RESPONDENTS_LIST)
       this._BmxService.BrandMatrixSaveParticipantList(this.projectId, this.RESPONDENTS_LIST).subscribe(result => {
         var so = result;
       });

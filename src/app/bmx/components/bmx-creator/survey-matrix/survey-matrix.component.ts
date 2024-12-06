@@ -2,6 +2,7 @@ import {
   Component,
   ElementRef,
   EventEmitter,
+  inject,
   Inject,
   Input,
   OnInit,
@@ -20,6 +21,7 @@ import { MatSnackBar } from '@angular/material/snack-bar';
 import QRCodeStyling from 'qr-code-styling';
 import { DeviceDetectorService } from 'ngx-device-detector';
 import { MatCheckboxModule } from '@angular/material/checkbox';
+import { BMX_STORE } from 'src/app/signals/+store/brs.store';
 
 @Component({
   selector: 'app-survey-matrix',
@@ -102,15 +104,17 @@ export class SurveyMatrixComponent extends SurveyCreationDesignComponent impleme
   public isDesktopDevice: any = null;
 
   //----------end modal------//
+  readonly bmxStore = inject(BMX_STORE);
 
   constructor(@Inject(DOCUMENT) document: any, activatedRoute: ActivatedRoute, private deviceService: DeviceDetectorService,
-  dragulaService: DragulaService, public _snackBar: MatSnackBar, _BmxService: BmxService
+    dragulaService: DragulaService, public _snackBar: MatSnackBar, _BmxService: BmxService
   ) {
     super(document, _BmxService, _snackBar, activatedRoute);
     activatedRoute.params.subscribe((params) => {
       this.username = params['username'];
       this.projectId = params['id'];
       localStorage.setItem('projectId', this.projectId);
+      this.bmxStore.updateProjectId(this.projectId)
     });
     this.epicFunction();
     this.bmxPagesClient = this.SAMPLE_BMX_CLIENT;
@@ -128,11 +132,10 @@ export class SurveyMatrixComponent extends SurveyCreationDesignComponent impleme
       this.globalProjectName = res ? res : '';
     });
     this.projectId = localStorage.getItem('projectId')
-    console.log(this.projectId)
     this._BmxService.getProjectInfo(this.projectId).subscribe((arg: any) => {
       this.status = JSON.parse(arg.d).bmxStatus
       this.bmxClientPageOverview = false
-
+      this.bmxStore.updateProjectInfo(arg)
       if (!this.username) {
         this.myAngularxQrCode = this.myAngularxQrCode + this.projectId
       } else {
@@ -611,6 +614,8 @@ export class SurveyMatrixComponent extends SurveyCreationDesignComponent impleme
     localStorage.removeItem('showModal');
     this.showModalVideo = true;
 
+
+
   }
 
   radomizedTestNames(component) {
@@ -866,8 +871,6 @@ export class SurveyMatrixComponent extends SurveyCreationDesignComponent impleme
                       key === 'nameCandidates' &&
                       templateRow[key] === answerRow[key]
                     ) {
-                      console.log(templateRow.CRITERIA)
-                      console.log(answerRow)
                       templateRow.CRITERIA.forEach(
                         (criteria, criteriaIndex) => {
                           if (answerRow.CRITERIA) {
@@ -1167,35 +1170,43 @@ export class SurveyMatrixComponent extends SurveyCreationDesignComponent impleme
                   this._BmxService.setSpecialDataObservable(payload)
                 }
               }
-              // HANDLING SPECAIL REQUEST END  ******************************************//
-
               if (component.componentSettings[0].CRITERIA) {
 
-                row.CRITERIA.forEach((criteria) => {
-                  // NARROW DOWN WITH CRITERIA
-                  if (component.componentType == 'narrow-down') {
+                let isFirstIteration = true;
+
+                row.CRITERIA.forEach((criteria, critindex) => {
+                  if (component.componentType === 'narrow-down') {
                     if (row.SELECTED_ROW) {
-                      let rater = row.CRITERIA.filter((criteria) => (criteria.RATE == -1 || criteria.RATE == 0))
+                      let rater = row.CRITERIA.filter(criteria => criteria.RATE === -1 || criteria.RATE === 0);
+                
                       if (component.componentSettings[0].categoryRulesPassed) {
                         component.componentSettings[0].categoryRulesPassed = (index > 0 && rater.length > 0) ? false : true;
                       }
-                      if (index > 0 && rater.length == 0) {
-                        minRuleCounter++
+                      const sumRate = row.CRITERIA.reduce((sum, crit) => crit.RATE > 0 ? sum + crit.RATE : sum, 0);
+                      if (isFirstIteration && sumRate > 0 ) {
+                        
+                        if (sumRate > 0) {
+                          minRuleCounter++;
+                        }
+                        isFirstIteration = false;
                       }
                     }
                   } else {
-
-                    let rater = row.CRITERIA.filter((criteria) => (criteria.RATE == -1 || criteria.RATE == 0))
+                    let rater = row.CRITERIA.filter(criteria => criteria.RATE === -1 || criteria.RATE === 0);
+                
                     if (component.componentSettings[0].categoryRulesPassed) {
                       component.componentSettings[0].categoryRulesPassed = (index > 0 && rater.length > 0) ? false : true;
                     }
-                    intCounter = intCounter + criteria.RATE
+                
+                    intCounter = criteria.RATE > 0 ? intCounter + criteria.RATE : intCounter;
                   }
                 });
+                
                 if (intCounter > 0) {
-                  minRuleCounter++
+                  minRuleCounter++;
                 }
-                console.log(component)
+                
+                
               } else {
                 // ONLY NARROWDOWN
                 if (component.componentType == 'narrow-down') {
@@ -1245,9 +1256,9 @@ export class SurveyMatrixComponent extends SurveyCreationDesignComponent impleme
               component.componentSettings[0].categoryRulesPassed = true;
             }
             if (
-              component.componentSettings[0].minRule == 0 ||
-              component.componentSettings[0].categoryRulesPassed ||
-              (component.componentSettings[0].minRule - minRuleCounter) <= 0
+              (component.componentSettings[0].minRule == 0 ||
+                component.componentSettings[0].categoryRulesPassed ||
+                (component.componentSettings[0].minRule - minRuleCounter) <= 0) || component.componentType == 'ranking-scale'
             ) {
               this.currentPage = pageNumber;
               window.scroll(0, 0);
@@ -1269,7 +1280,7 @@ export class SurveyMatrixComponent extends SurveyCreationDesignComponent impleme
                 ok = 'OK'
               } else {
                 message1 = ' You must rate at least '
-                message2 = ' Test Names '
+                message2 = ' candidates '
                 ok = 'OK'
               }
               this._snackBar.open(

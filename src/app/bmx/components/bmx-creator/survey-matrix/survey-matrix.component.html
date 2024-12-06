@@ -13,7 +13,7 @@
             <mat-icon class="full-icon" style="font-size: 35px;">qr_code
             </mat-icon>
          </button> -->
-            <button (click)="openFullscreen()" mat-icon-button matTooltip="design tools" matTooltipPosition="above"
+            <button (click)="openFullscreen()" mat-icon-button matTooltip="fullscreen" matTooltipPosition="above"
                 *ngIf="true"
                 style="position: absolute;bottom: 9px;color: grey;z-index: 9999999999;right: -3px;outline: none;">
                 <mat-icon class="full-icon" style="font-size: 35px;">fullscreen
@@ -159,6 +159,7 @@
                     <!-- END NARROW DOWN SCALE 😭😭😭😭😭😭😭😭😭😭😭😭😭😭😭😭😭😭😭😭😭😭😭😭😭😭😭😭😭😭😭😭😭😭😭😭😭 -->
 
                     <!-- IMAGE SCALE 👀👀👀👀👀👀👀👀👀👀👀👀👀👀👀👀👀👀👀👀👀👀👀👀👀👀👀👀👀👀👀👀👀👀👀👀👀👀-->
+                    
                     <div *ngIf="bmxItem.componentType === 'image-rate-scale'" class="paragraph">
                         <button *ngIf="!showModalVideo" (click)="seeTutorial()" class="see-tutorial-mobil"
                             mat-icon-button matTooltip="see tutorial" matTooltipPosition="above"

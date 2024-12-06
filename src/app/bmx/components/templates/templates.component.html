@@ -26,7 +26,7 @@
         <mat-label>Search</mat-label>
         <input matInput (keyup)="applyFilter($event.target.value)" value="" placeholder="Search Project">
     </mat-form-field>
-    <button mat-raised-button color="success" style=" background-color: #063074;color: white;width: 140px;position: relative;left: 65%;" (click)=" showNewTemplateModal = true">Add template</button>    
+    <button mat-raised-button color="success" style=" background-color: #063074;color: white;width: 140px;position: relative;left: 65%;" (click)=" showNewTemplateModal = true">Add Template</button>    
 </div>
 
 <div *ngIf="showNewTemplateModal" class="modal-content" style="gap: 10px;">
@@ -38,12 +38,12 @@
         <div style="display: flex; align-items: center; gap:unset 15px;  justify-content: space-between;">
             Create a new empty template <button mat-raised-button color="success" style=" background-color: #063074;
             color: white;
-            width: 200px;" (click)="newTemplate = true">Create new template</button>
+            width: 200px;" (click)="newTemplate = true">Create New Template</button>
         </div>
         <div style="display: flex; align-items: center; gap:unset 15px;  justify-content: space-between;">
             Create a new template from an existing one <button mat-raised-button color="success" style=" background-color: #063074;
             color: white;
-            width: 200px;" (click)="existingTemplate = true">Clone template</button>
+            width: 200px;" (click)="existingTemplate = true">Clone Template</button>
         </div>
     </div>
 

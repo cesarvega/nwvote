@@ -36,9 +36,10 @@
         </div>
 
         <!-- BRAND MATRIX MODULAR TEMPLATE COMPONENTS  🧑🏻‍🚀🧑🏻‍🚀🧑🏻‍🚀🧑🏻‍🚀🧑🏻‍🚀🧑🏻‍🚀🧑🏻‍🚀🧑🏻‍🚀🧑🏻‍🚀🧑🏻‍🚀🧑🏻‍🚀🧑🏻‍🚀🧑🏻‍🚀 -->
-        <div *ngFor="let bmxItem of bmxPages[currentPage].page; let i = index"
-            style="display: flex;flex-direction: column;margin: 10px;align-content: center;">
 
+        <div  *ngFor="let bmxItem of bmxPages[currentPage].page; let i = index"
+            style="display: flex;flex-direction: column;margin: 10px;align-content: center;">
+          
             <div *ngIf="bmxItem.componentType === 'page-title'" class="paragraph">
                 <div class="emoji-handle">.</div>
                 <div style="position: absolute;right: 0px;">
@@ -72,7 +73,7 @@
 
 
             <!-- BMX PARAGRAPH EDITOR 📑📑📑📑📑📑📑📑📑📑📑📑📑📑📑📑📑📑📑📑📑📑📑📑📑📑📑📑📑📑 -->
-            <div *ngIf="bmxItem.componentType === 'text-editor'" class="paragraph">
+            <div *ngIf="bmxItem.componentType === 'text-editor'" class="paragraph" >
                 <div class="emoji-handle">.</div>
                 <div style="position: absolute;right: 0px;">
                     <button *ngIf="bmxClientPageOverview" matTooltip="double click to delete" matTooltipPosition="above"
@@ -81,9 +82,11 @@
                         <mat-icon style="font-size: 17px;">cancel</mat-icon>
                     </button>
                 </div>
-                <app-text-paragraph [bmxItem]="bmxItem" [i]="i" [bmxClientPageDesignMode]="bmxClientPageDesignMode"
-                    [bmxClientPageOverview]="bmxClientPageOverview" style="margin-top: 25px"></app-text-paragraph>
+                <app-text-paragraph [bmxPages]="bmxPages" [currentPage]="currentPage"  [bmxItem]="bmxItem" [i]="i" [bmxClientPageDesignMode]="bmxClientPageDesignMode"
+                    [bmxClientPageOverview]="bmxClientPageOverview" (focus)="onEditStart()" (blur)="onEditEnd()"
+                    style="margin-top: 25px"></app-text-paragraph>
             </div>
+            
             <!-- 📑📑📑📑📑📑📑📑📑📑📑📑📑📑📑📑📑📑📑📑📑📑📑📑📑📑📑📑📑📑 END BMX PARAGRAPH EDITOR -->
 
 
@@ -97,7 +100,7 @@
                         <mat-icon style="font-size: 17px;">cancel</mat-icon>
                     </button>
                 </div>
-                <app-rating-scale [bmxItem]="bmxItem" [i]="i" [bmxClientPageDesignMode]="bmxClientPageDesignMode"
+                <app-rating-scale [bmxPages]="bmxPages" [currentPage]="currentPage" [bmxItem]="bmxItem"  [i]="i" [bmxClientPageDesignMode]="bmxClientPageDesignMode"
                     [bmxClientPageOverview]="bmxClientPageOverview">
                 </app-rating-scale>
             </div>
@@ -114,7 +117,7 @@
                         <mat-icon style="font-size: 17px;">cancel</mat-icon>
                     </button>
                 </div>
-                <app-rank-scale [bmxItem]="bmxItem" [i]="i" [bmxClientPageDesignMode]="bmxClientPageDesignMode"
+                <app-rank-scale [bmxPages]="bmxPages" [currentPage]="currentPage" [bmxItem]="bmxItem" [i]="i" [bmxClientPageDesignMode]="bmxClientPageDesignMode"
                     [bmxClientPageOverview]="bmxClientPageOverview"></app-rank-scale>
             </div>
             <!-- END RANK SCALE 😭😭😭😭😭😭😭😭😭😭😭😭😭😭😭😭😭😭😭😭😭😭😭😭😭😭😭😭😭😭😭😭😭😭😭😭😭 -->
@@ -129,7 +132,7 @@
                         <mat-icon style="font-size: 17px;">cancel</mat-icon>
                     </button>
                 </div>
-                <app-image-rank-drag [bmxItem]="bmxItem" [i]="i" [bmxClientPageDesignMode]="bmxClientPageDesignMode"
+                <app-image-rank-drag [bmxPages]="bmxPages" [currentPage]="currentPage" [bmxItem]="bmxItem" [i]="i" [bmxClientPageDesignMode]="bmxClientPageDesignMode"
                     [bmxClientPageOverview]="bmxClientPageOverview"></app-image-rank-drag>
             </div>
             <!-- END RANK DRAG 👽👽👽👽👽👽👽👽👽👽👽👽👽👽👽👽👽👽👽👽👽👽👽👽👽👽👽👽👽👽👽👽👽👽👽👽👽👽👽👽👽 -->
@@ -145,7 +148,7 @@
                         <mat-icon style="font-size: 17px;">cancel</mat-icon>
                     </button>
                 </div>
-                <app-narrow-down [bmxItem]="bmxItem" [i]="i" [bmxClientPageDesignMode]="bmxClientPageDesignMode"
+                <app-narrow-down [bmxPages]="bmxPages" [currentPage]="currentPage" [bmxItem]="bmxItem" [i]="i" [bmxClientPageDesignMode]="bmxClientPageDesignMode"
                     [bmxClientPageOverview]="bmxClientPageOverview"></app-narrow-down>
             </div>
             <!-- END NARROW DOWN SCALE 😭😭😭😭😭😭😭😭😭😭😭😭😭😭😭😭😭😭😭😭😭😭😭😭😭😭😭😭😭😭😭😭😭😭😭😭😭 -->
@@ -160,8 +163,9 @@
                         <mat-icon style="font-size: 17px;">cancel</mat-icon>
                     </button>
                 </div>
-                <app-image-rate-scale [bmxItem]="bmxItem" [i]="i" [bmxClientPageDesignMode]="bmxClientPageDesignMode"
-                    [bmxClientPageOverview]="bmxClientPageOverview"></app-image-rate-scale>
+                <app-image-rate-scale [bmxPages]="bmxPages" [currentPage]="currentPage" [bmxItem]="bmxItem" [i]="i" [bmxClientPageDesignMode]="bmxClientPageDesignMode"
+                    [bmxClientPageOverview]="bmxClientPageOverview">
+                </app-image-rate-scale>
             </div>
             <!-- END IMAGE SCALE 👀👀👀👀👀👀👀👀👀👀👀👀👀👀👀👀👀👀👀👀👀👀👀👀👀👀👀👀👀👀👀👀👀👀👀👀👀👀 -->
 
@@ -176,7 +180,7 @@
                         <mat-icon style="font-size: 17px;">cancel</mat-icon>
                     </button>
                 </div>
-                <app-question-answer [bmxItem]="bmxItem" [i]="i" [bmxClientPageDesignMode]="bmxClientPageDesignMode"
+                <app-question-answer [bmxPages]="bmxPages" [currentPage]="currentPage" [bmxItem]="bmxItem" [i]="i" [bmxClientPageDesignMode]="bmxClientPageDesignMode"
                     [bmxClientPageOverview]="bmxClientPageOverview"></app-question-answer>
             </div>
             <!-- END QUESTION AND ANSWER  ✒️✒️✒️✒️✒️✒️✒️✒️✒️✒️✒️✒️✒️✒️✒️✒️✒️✒️✒️✒️✒️✒️✒️✒️✒️✒️✒️✒️✒️✒️✒️✒️✒️✒️✒️✒️✒️ -->
@@ -193,7 +197,7 @@
                         <mat-icon style="font-size: 17px;">cancel</mat-icon>
                     </button>
                 </div>
-                <app-tinder [bmxItem]="bmxItem" [i]="i" [bmxClientPageDesignMode]="bmxClientPageDesignMode"
+                <app-tinder [bmxPages]="bmxPages" [currentPage]="currentPage" [bmxItem]="bmxItem" [i]="i" [bmxClientPageDesignMode]="bmxClientPageDesignMode"
                     [survey]="false" [bmxClientPageOverview]="bmxClientPageOverview"></app-tinder>
             </div>
             <!-- END TINDER  🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥 -->
@@ -316,13 +320,13 @@
             <br>
 
             <button *ngIf="true" (click)="isTemplate=='true'?showConfirmTemplate = true : openDialog('save')" mat-icon-button
-            matTooltip="{{isTemplate == 'true' ? 'save template' : 'save brand matrix'}}"
+            matTooltip="{{isTemplate == 'true' ? 'save template' : 'save BrandMatrix'}}"
             matTooltipPosition="right">
         <mat-icon class="full-icon">save</mat-icon>
     </button>
 
 
-            <button *ngIf="true && this.isTemplate != 'true' " (click)="previewSurvey()" mat-icon-button matTooltip="preview brand matrix"
+            <button *ngIf="true && this.isTemplate != 'true' " (click)="previewSurvey()" mat-icon-button matTooltip="preview BrandMatrix"
                 matTooltipPosition="right">
                 <mat-icon class="full-icon">visibility
                 </mat-icon>

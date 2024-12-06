@@ -19,6 +19,8 @@ export class RankScaleComponent extends RatingScaleComponent implements OnInit {
   @Input() i;
   @Input() bmxClientPageDesignMode;
   @Input() bmxClientPageOverview;
+  @Input() bmxPages
+  @Input() currentPage
   @Output() autoSave = new EventEmitter();
   showBar = false
 
@@ -42,14 +44,16 @@ export class RankScaleComponent extends RatingScaleComponent implements OnInit {
 
   allowScrolling = true
   dataSource: any[] = []
+  bmxCopycomponentText: any;
 
   constructor(dragulaService: DragulaService, _snackBar: MatSnackBar, _bmxService: BmxService, public deviceService: DeviceDetectorService) {
     super(dragulaService, _snackBar, _bmxService, deviceService)
   }
 
   ngOnInit(): void {
+    this.bmxCopycomponentText = JSON.parse(JSON.stringify(this.bmxItem));
+
     this.showDialog = false
-    console.log(this.bmxItem)
     this.rankingScaleValue = this.bmxItem.componentSettings[0].selectedRanking
     this.createRatingStars(this.rankingScaleValue)
     // this.rankingTableType( this.bmxItem.componentSettings[0].rankType)
@@ -84,7 +88,6 @@ export class RankScaleComponent extends RatingScaleComponent implements OnInit {
     let result = '';
 
     let firstObject = this.bmxItem.componentText[0];
-    console.log(firstObject)
     let columnNames = [];
     for (let key in firstObject) {
       if (key === 'Name Candidates' || key === 'Rationales') {
@@ -136,17 +139,48 @@ export class RankScaleComponent extends RatingScaleComponent implements OnInit {
     this.recordHistory();
 
   }
+  sortAlphabetically() {
+    const firstElement = this.bmxItem.componentText[0];
+
+    const sortedRest = this.bmxItem.componentText.slice(1).sort((a, b) => {
+      return a.nameCandidates.localeCompare(b.nameCandidates);
+    });
+
+    this.bmxItem.componentText = [firstElement, ...sortedRest];
+  }
+  checkDragEvetnType(event: CdkDragDrop<string[]>) {
+    if (event.previousIndex > 0 && event.currentIndex > 0) {
+      moveItemInArray(this.bmxItem.componentText, event.previousIndex, event.currentIndex);
+
+      this.autoSave.emit()
+    }
+    this.dataSource = this.bmxItem.componentText
+    this.autoSave.emit()
+  }
+
+  moveItemUp(): void {
+    if (this.i > 0) {
+      const temp = this.bmxPages[this.currentPage].page[this.i];
+      this.bmxPages[this.currentPage].page[this.i] = this.bmxPages[this.currentPage].page[this.i - 1];
+      this.bmxPages[this.currentPage].page[this.i - 1] = temp;
+    }
+  }
+
+  moveItemDown(): void {
+    if (this.i < this.bmxPages[this.currentPage].page.length - 1) {
+      const temp = this.bmxPages[this.currentPage].page[this.i];
+      this.bmxPages[this.currentPage].page[this.i] = this.bmxPages[this.currentPage].page[this.i + 1];
+      this.bmxPages[this.currentPage].page[this.i + 1] = temp;
+    }
+  }
 
   checkDragEvetn(event: CdkDragDrop<string[]>) {
-    if (this.bmxItem.componentSettings[0].rankType == 'dragAndDrop') {
+    if (event.previousIndex > 0 && event.currentIndex > 0) {
       moveItemInArray(this.bmxItem.componentText, event.previousIndex, event.currentIndex);
-      this.bmxItem.componentText.forEach((row, rowIndex) => {
-        if (rowIndex > 0) {
-          row.RATE = rowIndex
-        }
-      })
+
+      this.autoSave.emit()
     }
-    this.dataSource=this.bmxItem.componentText
+    this.dataSource = this.bmxItem.componentText
     this.autoSave.emit()
   }
 
@@ -161,7 +195,10 @@ export class RankScaleComponent extends RatingScaleComponent implements OnInit {
     }
     return startCounter;
   }
-  upLoadNamesAndRationales(list: any, type?: any, update?:boolean) {
+  upLoadNamesAndRationales(list: any, dataSourceCopy: any, update?: boolean) {
+
+    this.bmxItem.componentText = dataSourceCopy
+    this.dataSource = dataSourceCopy
     if (typeof list == 'object') {
       list = ''
     }
@@ -324,7 +361,7 @@ export class RankScaleComponent extends RatingScaleComponent implements OnInit {
         });
       }
       this.removeAllRadioColumns();
-      if (this.bmxItem.componentSettings[0].rankType == 'radio' || this.bmxItem.componentSettings[0].rankType == 'dinamycRadio' ) {
+      if (this.bmxItem.componentSettings[0].rankType == 'radio' || this.bmxItem.componentSettings[0].rankType == 'dinamycRadio') {
         for (let index = 0; index < this.rankingScaleValue; index++) {
           this.insertRadioColumn();
         }
@@ -373,7 +410,16 @@ export class RankScaleComponent extends RatingScaleComponent implements OnInit {
 
       this.dragRows = false;
     }, 0);
+
+    this.bmxItem.componentText = this.dataSource
+    if (this.alphabeticallyTestNames) {
+      this.sortAlphabetically()
+    }
+    this.bmxCopycomponentText = JSON.parse(JSON.stringify(this.bmxItem));
+
   }
+
+ 
 
   rankingTableType(rankingType) {
     this.bmxItem.componentSettings[0].rankType = rankingType
@@ -400,17 +446,20 @@ export class RankScaleComponent extends RatingScaleComponent implements OnInit {
       this.isdropDown = false
 
     }
-     if (rankingType == 'radio' || rankingType == 'dinamycRadio') {
+    if (rankingType == 'radio' || rankingType == 'dinamycRadio') {
       this.bmxItem.componentSettings[0].rateWidth = 120
       this.draggableBag = ''
       this.isdropDown = false
       this.radioColumnCounter = 1
       this.rowsCount = this.bmxItem.componentText.length - 1;
       for (let index = 0; index < this.rankingScaleValue; index++) {
-      this.insertRadioColumn()
+        this.insertRadioColumn()
       }
     }
-    console.log(this.bmxItem.componentText)
+  }
+
+  restoreData(){
+    this.bmxItem = this.bmxCopycomponentText
   }
 
   toggleScrolling() {

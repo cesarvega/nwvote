@@ -19,15 +19,18 @@ export class ImageRankDragComponent extends RatingScaleComponent implements OnIn
   @Input() i;
   @Input() bmxClientPageDesignMode;
   @Input() bmxClientPageOverview;
+  @Input() bmxPages
+  @Input() currentPage
   @ViewChild('autosize') autosize: CdkTextareaAutosize;
   imageurls = [];
 
   @Output() launchPathModal = new EventEmitter();
 
-  IMAGES_UPLOADED:any = [
+  IMAGES_UPLOADED: any = [
 
   ];
-
+  type='multiple'
+  index=null
   AUTOSIZE_OPTIONS = [
     { name: 'Client Logo', rationale: 'Sist, Assist, Syst' },
     { name: 'Test Logo', rationale: 'Hance, En-' },
@@ -69,13 +72,13 @@ export class ImageRankDragComponent extends RatingScaleComponent implements OnIn
   PATH2: any[] = [
     'assets/img/bmx/tutorial/image-drag2.JPG',
   ]
-  deviceInfo;any = null;
+  deviceInfo; any = null;
   public isDesktopDevice: any = null;
 
   //----------end modal--------//
 
   //--------open cards---------//
-  openElements: any[] = [];
+  openElements:any;
   //selectedCard: any
 
   constructor(private _BmxService: BmxService, dragulaService: DragulaService, _snackBar: MatSnackBar, _bmxService: BmxService, public deviceService: DeviceDetectorService) { super(dragulaService, _snackBar, _bmxService, deviceService); this.epicFunction(); }
@@ -89,7 +92,7 @@ export class ImageRankDragComponent extends RatingScaleComponent implements OnIn
   }
   ngOnInit(): void {
     this.showDialog = false
-    this.numRatingScale = this.bmxItem.componentText[0].STARS.length
+    this.numRatingScale = this.bmxItem.componentText[0]?.STARS?.length
     this.rankingScaleValue = this.numRatingScale;
     let values = Object.keys(this.bmxItem.componentText[0])
     values.forEach(value => {
@@ -131,14 +134,17 @@ export class ImageRankDragComponent extends RatingScaleComponent implements OnIn
     this.launchPathModal.emit(this.VIDEO_PATH)
     const filteredCriteria = this.CRITERIA.filter(criteriaItem => this.selectedCriteria.map(item => item.name).includes(criteriaItem.name));
     this.newselectedCriteria = filteredCriteria
-    console.log(this.bmxItem.componentText)
     this.dataSource = this.bmxItem.componentText
+    this.recordHistory()
+
   }
 
   substractRatedCounter() {
     this.ratedCounter--
   }
   onFileSelected(event) {
+    if (this.type == 'multiple') {
+
     if (event.target.files && event.target.files[0]) {
       let filesAmount = event.target.files.length;
       for (let i = 0; i < filesAmount; i++) {
@@ -159,30 +165,46 @@ export class ImageRankDragComponent extends RatingScaleComponent implements OnIn
         reader.readAsDataURL(event.target.files[i]);
       }
     }
+  } else {
+    if (event.target.files && event.target.files.length > 0) {
+      // Solo permite el primer archivo
+      const file = event.target.files[0];
+      const reader = new FileReader();
+      const fileName = file.name;
+      const fileType = file.type;
+
+      reader.onload = (event: any) => {
+        this.resourceData = {
+          "ProjectName": localStorage.getItem('projectName'),
+          "FileName": fileName.split(' ').join(''),
+          "ItemType": 'logo-rate',
+          "FileType": fileType,
+          "FileContent": event.target.result
+        };
+        this.IMAGES_UPLOADED = [this.resourceData]; // Solo guarda una imagen
+      };
+
+      reader.readAsDataURL(file);
+    }
+  }
   }
 
   //----------open cards-----------//
-
   openSelected(y: any) {
 
-    if (this.openElements.indexOf(y) === -1) {
-      this.openElements.push(y);
-    } else {
-      this.openElements.splice(this.openElements.indexOf(y), 1);
-    }
-    console.log(this.openElements)
+    this.openElements= y;
+ 
+}
+
+open(y: any) {
+
+  if (this.openElements == y) {
+    return true;
+  } else {
+    return false;
   }
 
-  open(y: any) {
-
-    if (this.openElements.indexOf(y) == -1) {
-      return false;
-    } else {
-      console.log('true')
-      return true;
-    }
-
-  }
+}
 
   //---------end open cards--------------//  
 
@@ -192,11 +214,11 @@ export class ImageRankDragComponent extends RatingScaleComponent implements OnIn
   }
 
   uploadAllImages() {
-
+    if(this.type == 'multiple'){
     if (this.IMAGES_UPLOADED.length < this.bmxItem.componentText.length) {
       this.bmxItem.componentText.splice(this.IMAGES_UPLOADED.length + 1, this.bmxItem.componentText.length + 1)
     }
-    this.IMAGES_UPLOADED.forEach((imageObject:any, index) => {
+    this.IMAGES_UPLOADED.forEach((imageObject: any, index) => {
       imageObject['FileContent'] = imageObject['FileContent'].split(imageObject['FileContent'].split(",")[0] + ',').pop()
       this._BmxService.saveFileResources(JSON.stringify(imageObject)).subscribe((result: any) => {
         this.IMAGES_UPLOADED.shift()
@@ -210,8 +232,8 @@ export class ImageRankDragComponent extends RatingScaleComponent implements OnIn
           const lastItem = this.bmxItem.componentText[this.bmxItem.componentText.length - 1];
           for (const key in lastItem) {
             if (lastItem.hasOwnProperty(key)) {
-              if(key != 'RATE'&& key != 'nameCandidates' && key!= 'STARS'){
-                lastItem[key]=''
+              if (key != 'RATE' && key != 'nameCandidates' && key != 'STARS') {
+                lastItem[key] = ''
               }
             }
           }
@@ -223,6 +245,31 @@ export class ImageRankDragComponent extends RatingScaleComponent implements OnIn
       this.uploadImagesBox = false;
     }, 1000);
     this.showEdit = true
+  }else{
+    this.IMAGES_UPLOADED.forEach((imageObject) => {
+      imageObject['FileContent'] = imageObject['FileContent'].split(imageObject['FileContent'].split(",")[0] + ',').pop()
+      this._BmxService.saveFileResources(JSON.stringify(imageObject)).subscribe((result: any) => {
+        this.IMAGES_UPLOADED.shift()
+        if (this.index == 0) {
+          this.bmxItem.componentText[this.index].nameCandidates = "LOGO"
+        }
+        if (this.bmxItem.componentText[this.index]) {
+          this.bmxItem.componentText[this.index].nameCandidates = JSON.parse(result.d).FileUrl
+        } else {
+          this.bmxItem.componentText.push({ ...this.bmxItem.componentText[1], nameCandidates: JSON.parse(result.d).FileUrl })
+          const lastItem = this.bmxItem.componentText[this.bmxItem.componentText.length - 1];
+          for (const key in lastItem) {
+            if (lastItem.hasOwnProperty(key)) {
+              if (key != 'RATE' && key != 'nameCandidates' && key != 'STARS') {
+                lastItem[key] = ''
+              }
+            }
+          }
+        }
+
+      });
+    });
+  }
   }
 
   deleteImage(index) {
@@ -230,8 +277,9 @@ export class ImageRankDragComponent extends RatingScaleComponent implements OnIn
   }
 
   toggleImageUploadBox() {
+    console.log(this.bmxItem)
     this.uploadImagesBox = !this.uploadImagesBox
-  }
+  } 
 
   reset() {
     this.uploadProgress = null;
@@ -252,25 +300,41 @@ export class ImageRankDragComponent extends RatingScaleComponent implements OnIn
   }
 
   checkDragEvetn(event: CdkDragDrop<string[]>) {
-    if (event.previousIndex > 0) {
+    if (event.previousIndex > 0 && event.currentIndex > 0) {
       moveItemInArray(this.bmxItem.componentText, event.previousIndex, event.currentIndex);
-     
+
       this.autoSave.emit()
     }
   }
-  openWindow(index:any, bool:any){
-    if(this.showEdit){
-      this.selectedIndex=index
+  openWindow(index: any, bool: any) {
+    if (this.showEdit) {
+      this.selectedIndex = index
       this.editSingleTableCells = bool
       this.verifyCritera()
-    }else{
+    } else {
       this._snackBar.open('First upload the logos to use'
-     , 'OK', {
-      duration: 6000,
-      verticalPosition: 'top',
-    }).afterDismissed().subscribe(action => {
+        , 'OK', {
+        duration: 6000,
+        verticalPosition: 'top',
+      }).afterDismissed().subscribe(action => {
 
-    })
+      })
+    }
+  }
+  
+  moveItemUp(): void {
+    if (this.i > 0) {
+        const temp = this.bmxPages[this.currentPage].page[this.i];
+        this.bmxPages[this.currentPage].page[this.i] = this.bmxPages[this.currentPage].page[this.i - 1];
+        this.bmxPages[this.currentPage].page[this.i - 1] = temp;
+    }
+  }
+  
+  moveItemDown(): void {
+    if (this.i < this.bmxPages[this.currentPage].page.length - 1) {
+        const temp = this.bmxPages[this.currentPage].page[this.i];
+        this.bmxPages[this.currentPage].page[this.i] = this.bmxPages[this.currentPage].page[this.i + 1];
+        this.bmxPages[this.currentPage].page[this.i + 1] = temp;
     }
   }
 }
