@@ -21,3 +21,11 @@ bsr-ang-17-2024
 
 The latest branch on local for the bsr
 bsr-bi-final-17-v2
+
+# DEPLOYMENT SERVER FOLDERS & BUILD COMMAND
+
+BMX 2 \dorado\wwwroot\BMCreator2 ng build
+BMX 2 survey Z:\wwwroot\BMX ng build --base-href /bmx/
+
+BSR MOBILE \code\NamePage ng build
+BSR DESKTOP bipresents 
