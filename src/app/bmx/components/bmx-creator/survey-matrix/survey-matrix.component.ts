@@ -683,12 +683,13 @@ export class SurveyMatrixComponent extends SurveyCreationDesignComponent impleme
                       templateRow.CRITERIA.forEach(
                         (criteria, criteriaIndex) => {
                           if (answerRow.CRITERIA) {
+                            console.log(answerRow)
                             criteria.RATE =
-                              answerRow.CRITERIA[criteriaIndex].RATE;
+                              answerRow.CRITERIA[criteriaIndex]?.RATE;
                             criteria.STARS.forEach((starRow) => {
                               if (
                                 starRow.id <=
-                                answerRow.CRITERIA[criteriaIndex].RATE
+                                answerRow.CRITERIA[criteriaIndex]?.RATE
                               ) {
                                 starRow.styleClass = 'active-rating-star';
                               }
@@ -784,6 +785,7 @@ export class SurveyMatrixComponent extends SurveyCreationDesignComponent impleme
                         key === 'nameCandidates' &&
                         templateRow[key] === answerRow[key]
                       ) {
+                        answerRow = templateRow
                         templateRow.CRITERIA.forEach(
                           (criteria, criteriaIndex) => {
                             criteria.RATE =
@@ -1178,13 +1180,13 @@ export class SurveyMatrixComponent extends SurveyCreationDesignComponent impleme
                   if (component.componentType === 'narrow-down') {
                     if (row.SELECTED_ROW) {
                       let rater = row.CRITERIA.filter(criteria => criteria.RATE === -1 || criteria.RATE === 0);
-                
+
                       if (component.componentSettings[0].categoryRulesPassed) {
                         component.componentSettings[0].categoryRulesPassed = (index > 0 && rater.length > 0) ? false : true;
                       }
                       const sumRate = row.CRITERIA.reduce((sum, crit) => crit.RATE > 0 ? sum + crit.RATE : sum, 0);
-                      if (isFirstIteration && sumRate > 0 ) {
-                        
+                      if (isFirstIteration && sumRate > 0) {
+
                         if (sumRate > 0) {
                           minRuleCounter++;
                         }
@@ -1193,20 +1195,20 @@ export class SurveyMatrixComponent extends SurveyCreationDesignComponent impleme
                     }
                   } else {
                     let rater = row.CRITERIA.filter(criteria => criteria.RATE === -1 || criteria.RATE === 0);
-                
+
                     if (component.componentSettings[0].categoryRulesPassed) {
                       component.componentSettings[0].categoryRulesPassed = (index > 0 && rater.length > 0) ? false : true;
                     }
-                
+
                     intCounter = criteria.RATE > 0 ? intCounter + criteria.RATE : intCounter;
                   }
                 });
-                
+
                 if (intCounter > 0) {
                   minRuleCounter++;
                 }
-                
-                
+
+
               } else {
                 // ONLY NARROWDOWN
                 if (component.componentType == 'narrow-down') {

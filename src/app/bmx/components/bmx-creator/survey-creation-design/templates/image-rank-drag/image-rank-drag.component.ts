@@ -58,7 +58,7 @@ export class ImageRankDragComponent extends RatingScaleComponent implements OnIn
   showModalTable = false
   dataSource: any[] = []
   //------modal-----------//
-  showEdit = false
+  showEdit = true
 
   CREATION_VIDEO_PATH = "assets/videos/imageDragAndDrop.mp4"
 
@@ -132,11 +132,16 @@ export class ImageRankDragComponent extends RatingScaleComponent implements OnIn
     this.launchPathModal.emit(this.VIDEO_PATH)
 
     this.launchPathModal.emit(this.VIDEO_PATH)
-    const filteredCriteria = this.CRITERIA.filter(criteriaItem => this.selectedCriteria.map(item => item.name).includes(criteriaItem.name));
+    console.log(this.selectedCriteria, this.CRITERIA)
+    const filteredCriteria = this.CRITERIA.filter(criteriaItem => {
+      this.selectedCriteria.map(item => 
+        {
+        console.log(item)
+        return item.name}).includes(criteriaItem.name)
+    });
     this.newselectedCriteria = filteredCriteria
     this.dataSource = this.bmxItem.componentText
     this.recordHistory()
-
   }
 
   substractRatedCounter() {

@@ -500,7 +500,7 @@ align-items: center; ">
                         padding: 2px 0px;
                         margin: -5px -2px;
                         position: absolute;
-                        animation: rubberBand 700ms ease-in  forwards;" mat-button>{{criteria.RATE}}</button>
+                        animation: rubberBand 700ms ease-in  forwards;    height: 26px;" mat-button>{{criteria.RATE}}</button>
                                 </div>
                             </div>
                             <!-- 🩸🩸🩸🩸🩸🩸🩸🩸🩸🩸🩸🩸🩸 END RATE BUTTONS 🩸🩸🩸🩸🩸🩸🩸🩸🩸🩸🩸🩸🩸🩸🩸🩸🩸🩸🩸🩸🩸🩸🩸🩸 -->
@@ -542,12 +542,10 @@ align-items: center; ">
                             style="outline: none;text-align: center;" class="row-box"
                             [(ngModel)]="testName[columnName]"></textarea>
 
-
-
-                        <div style="display: flex;">
+                        <div style="display: flex; ">
                             <mat-icon style="cursor: pointer;color: #324395;"
                                 (click)="playTestNameSound(testName[columnName])"
-                                *ngIf="y !== 0  && !editSingleTableCells && (columnName.includes('nameCandidates') == true) && displaySound">
+                                *ngIf="y !== 0  && !editSingleTableCells && (columnName.includes('name') == true) && displaySound">
                                 volume_up
                             </mat-icon>
                             <p *ngIf="y !== 0  && !editSingleTableCells && (columnName.includes('RadioColumn') != true) &&
@@ -557,9 +555,6 @@ align-items: center; ">
                                 style="text-align: center;margin: 0 0 0px;"
                                 [innerHTML]="testName[columnName] | safe: 'html'">{{testName[columnName]}}</p>
                         </div>
-
-
-
                     </div>
                     <!-- 🟡🟡🟡🟡🟡🟡🟡🟡🟡🟡🟡🟡🟡🟡 END TABLE CELLS 🟡🟡🟡🟡🟡🟡🟡🟡🟡🟡🟡🟡🟡🟡🟡🟡 -->
                 </div>
@@ -628,7 +623,7 @@ align-items: center; ">
                          line-height: 19px;
                          padding: 2px 0px;
                          position: absolute;
-                         animation: rubberBand 700ms ease-in  forwards;" mat-button>{{criteria.RATE}}</button>
+                         animation: rubberBand 700ms ease-in  forwards;     height: 26px;" mat-button>{{criteria.RATE}}</button>
                     </div>
                 </div>
                 <!-- 🩸🩸🩸🩸🩸🩸🩸🩸🩸🩸🩸🩸🩸 END RATE BUTTONS 🩸🩸🩸🩸🩸🩸🩸🩸🩸🩸🩸🩸🩸🩸🩸🩸🩸🩸🩸🩸🩸🩸🩸🩸 -->
@@ -662,7 +657,7 @@ align-items: center; ">
                                 </div>
 
                                 <!-- TEST NAME -->
-                                <div style="display: flex;align-items: center;justify-content: space-evenly;">
+                                <div style="display: flex;align-items: center;justify-content: space-evenly; min-width: 106px;">
                                     <mat-icon style="cursor: pointer;position: absolute;left: 48px;
                                 margin-top: -10px;color: #324395;" (click)="playTestNameSound(testName[columnName])"
                                         *ngIf="y !== 0  && !editSingleTableCells && (columnName.includes('nameCandidates') == true) &&

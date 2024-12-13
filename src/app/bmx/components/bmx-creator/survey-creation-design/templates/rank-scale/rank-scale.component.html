@@ -813,13 +813,13 @@
 
                     <!-- 🟡🟡🟡🟡🟡🟡🟡🟡🟡🟡🟡🟡🟡🟡 TABLE CELLS  🟡🟡🟡🟡🟡🟡🟡🟡🟡🟡🟡🟡🟡🟡🟡🟡 -->
 
-                    <div style="display: flex; justify-content: center;"
+                    <div style="display: flex; justify-content: center; " [ngClass]="columnName == 'rationale'?'column':'page-design-client'"
                         [style.width]=" columnName == 'nameCandidates'?bmxItem.componentSettings[0].nameCandidatesWidth-20 + 'px':''">
 
                         <!-- IF ELSE TEMPLATE INPUTS  -->
                         <div style="background-color: lightgray;">
-                            <div *ngIf="selectedCard == y" style="position: absolute;margin-top: 5px;"
-                                [style.left.px]="(e * 80)">
+                            <div *ngIf="selectedCard == y" style="position: absolute;margin-top: -34px; "
+                                [style.left.px]="(e * 50)">
                                 <span *ngIf="y !== 0  &&  columnName.includes('RadioColumn') == true"
                                     style="padding-right: 8px;">{{e - 1}}</span>
                                 <input type="radio" *ngIf="y !== 0  &&  columnName.includes('RadioColumn') == true"
