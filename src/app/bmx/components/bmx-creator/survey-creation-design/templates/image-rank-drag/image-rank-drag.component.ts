@@ -136,7 +136,6 @@ export class ImageRankDragComponent extends RatingScaleComponent implements OnIn
     const filteredCriteria = this.CRITERIA.filter(criteriaItem => {
       this.selectedCriteria.map(item => 
         {
-        console.log(item)
         return item.name}).includes(criteriaItem.name)
     });
     this.newselectedCriteria = filteredCriteria
