@@ -301,7 +301,6 @@ export class SurveyCreationDesignComponent implements OnInit {
         if (this.isTemplate == 'true') {
             const storedDataString = localStorage.getItem('brandMatrix')
             const bmxMatrix = JSON.parse(storedDataString)
-            console.log(bmxMatrix)
             if (bmxMatrix) {
                 let objeto = JSON.parse(bmxMatrix);
                 let logoUrl = ""
@@ -332,6 +331,23 @@ export class SurveyCreationDesignComponent implements OnInit {
                     this.bmxPages = this.SAMPLE_BMX
                 }
 
+            }
+            if(this.bmxPages[0].page.length==0){
+                this.bmxPages[0].page.push(  {
+                    "componentType": "logo-header",
+                    "componentText": "test_name_1",
+                    "componentSettings": [
+                        {
+                            "fontSize": "16px",
+                            "fontFace": "Arial",
+                            "logoWidth": 100,
+                            "brandInstituteLogoURL": "./assets/img/bmx/BRANDMATRIX-DASHBOARD-LOGO.svg",
+                            "brandInstituteSurveyLogoURL": "./assets/img/bmx/bm-logo-2020-high.png",
+                            "brandInstituteMobileURL": "./assets/img/bmx/bmxCube.jpg",
+                            "companyLogoURL": "./assets/img/bmx/insertLogo.jpg"
+                        }
+                    ]
+                })
             }
             this.title = 'TEMPLATE'
             this.loadTemplate(this.projectId)

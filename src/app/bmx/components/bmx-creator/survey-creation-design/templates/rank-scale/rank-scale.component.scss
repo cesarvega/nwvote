@@ -496,7 +496,10 @@ input[type="range"]:focus::-ms-fill-lower {
 input[type="range"]:focus::-ms-fill-upper {
   background: #ef7f25;
 }
-
+.column {
+  flex-direction: column;
+  padding-bottom: 40px;
+}
 @supports (-webkit-appearance: none) or (-moz-appearance: none) {
   input[type="checkbox"],
   input[type="radio"] {

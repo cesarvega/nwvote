@@ -18,6 +18,7 @@ export class ProjectInformationComponent implements OnInit {
   DIRECTORS_Filtered: any[];
   dialogText: any;
   minDate: Date;
+  oldprojectname: any;
 
   constructor(private _BmxService: BmxService, private _snackBar: MatSnackBar, private router: Router) {
     this.minDate = new Date();
@@ -118,6 +119,7 @@ export class ProjectInformationComponent implements OnInit {
             this.bmxEditData.patchValue({ bmxDisplayName: data.bmxDisplayName });
             this.bmxEditData.patchValue({ bmxClosingDate: data.bmxClosingDate ? new Date(data.bmxClosingDate) : null });
             this.bmxEditData.patchValue({ bmxTemplate: data.bmxTemplate });
+            this.oldprojectname = data.bmxProjectName 
             this.selectedDate = data.bmxClosingDate ? new Date(data.bmxClosingDate) : null
             if (!data.bmxStatus || data.bmxStatus == "open") {
               this.status = "open"
@@ -161,7 +163,6 @@ export class ProjectInformationComponent implements OnInit {
         this.settingsData = JSON.parse(arg.d);
         this.TEMPLATES = (this.settingsData.BrandMatrixTemplateList.length) > 0 ? JSON.parse(arg.d).BrandMatrixTemplateList.map(obj => { return { templateName: obj.TemplateName, displayName: obj.DisplayName } }) : this.TEMPLATES
 
-        this.settingsData.OfficeList.unshift('Test-Region');
         this.settingsData.OfficeList = this.settingsData.OfficeList.filter(office => office != 'Seattle')
         //console.log(JSON.parse(arg.d));
         //AUTOCOMPLETE 🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖
@@ -250,7 +251,8 @@ export class ProjectInformationComponent implements OnInit {
         }
         var finalString = JSON.stringify(projectInfo);
         finalString = finalString.replace("[\\u2022,\\u2023,\\u25E6,\\u2043,\\u2219]\\s\\d", '');
-        this._BmxService.saveProjectInfo(this.bmxEditData.get('bmxProjectName').value.toString(), finalString, 'user@bi.com').subscribe(result => {
+
+        this._BmxService.saveProjectInfo(this.oldprojectname ? this.oldprojectname: this.bmxEditData.get('bmxProjectName').value.toString(), finalString, 'user@bi.com').subscribe(result => {
           var so = result;
           this.saveProjectSuccess.emit(true)
         });
@@ -289,7 +291,8 @@ export class ProjectInformationComponent implements OnInit {
             localStorage.setItem('company', this.bmxEditData.get('bmxCompany').value.toString(),)
             var finalString = JSON.stringify(projectInfo);
             finalString = finalString.replace("[\\u2022,\\u2023,\\u25E6,\\u2043,\\u2219]\\s\\d", '');
-            this._BmxService.saveProjectInfo(this.bmxEditData.get('bmxProjectName').value.toString(), finalString, 'user@bi.com').subscribe(result => {
+            console.log(this.oldprojectname)
+            this._BmxService.saveProjectInfo(this.oldprojectname ? this.oldprojectname:  this.bmxEditData.get('bmxProjectName').value.toString(), finalString, 'user@bi.com').subscribe(result => {
               var so = result;
               this.saveProjectSuccess.emit(true)
             });

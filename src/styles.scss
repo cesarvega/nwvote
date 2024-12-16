@@ -32,11 +32,7 @@ app-dashboard {
         min-height: 15px;
     }
 }
-.ql-editor {
-    p:nth-of-type(2){
-        font-family: sofia-pro;
-    }
-}
+
 
 thead {
     display: none;
@@ -45,7 +41,16 @@ thead {
 .handsontable col.rowHeader {
     width: 100%;
 }
+.mdc-text-field--outlined .mat-mdc-form-field-infix, .mdc-text-field--no-label .mat-mdc-form-field-infix {
+    padding-top: var(--mat-form-field-container-vertical-padding);
+    padding-bottom: var(--mat-form-field-container-vertical-padding);
+    padding-left: 18px;
+}
 
+.mat-mdc-form-field-has-icon-suffix .mat-mdc-text-field-wrapper {
+    padding-right: 0;
+    padding-left: 0px !important;
+}
 .ht_master .wtHolder {
     height: 246px;
     width: 576px;
@@ -83,10 +88,4 @@ thead {
 
 app-survey-matrix {
     width: 100%;
-}
-.ql-editor{
-.ql-align-center:nth-of-type(2) {
-    /* Tus estilos aquí */
-    font-family: sofia-pro;
-}
 }
