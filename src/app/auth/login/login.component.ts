@@ -60,7 +60,6 @@ export class LoginComponent implements OnInit {
     sessionStorage.clear()
     await this.msalService.loginPopup().subscribe( async (response: AuthenticationResult) => {
       await this.msalService.instance.setActiveAccount(response.account)
-      localStorage.setItem('userData', JSON.stringify(response.account))
       this.bmxStore.updateUserData(JSON.stringify(response.account))
 
       localStorage.setItem('userGui', JSON.stringify(response.account))

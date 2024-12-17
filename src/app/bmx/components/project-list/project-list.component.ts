@@ -52,22 +52,27 @@ export class ProjectListComponent implements OnInit {
   constructor(@Inject(DOCUMENT) private document: any, private activatedRoute: ActivatedRoute, private dragulaService: DragulaService, private _BmxService: BmxService, private router: Router,) { }
 
   ngOnInit(): void {
+    setTimeout(() => {
     this.selected = 'Live'
-    this._BmxService.getGetProjectList()
     this.userData = localStorage.getItem('userData')
     this.userData = JSON.parse(this.userData)
     this._BmxService.getGetProjectList()
       .subscribe((arg: any) => {
+    
+          
+       
         this.allData = JSON.parse(arg.d);
         // this.allData = JSON.parse(obj);
 
         this.userDepartment = this.userData != null ? this.userData.Department : '';
         this.userRole = this.userData != null ? this.userData.Role : 'admin';
-        this.changeView();
         if (this.userRole === 'admin') {
           this.displayedColumns.push('Delete');
         }
+        this.changeView();
+      
       });
+    }, 0);
   }
 
   applyFilter(filterValue: string): void {
@@ -151,10 +156,12 @@ export class ProjectListComponent implements OnInit {
         }
       }
     }
+
     this.viewedData = this.viewedData.filter(project => !this.templates.includes(project.bmxProjectName))
     if (this.selectedDate) {
       this.viewedData = this.viewedData.filter(project => project.bmxClosingDate == this.selectedDate.toISOString())
     }
+
     // FILTERING BY DEPARTMENT & OFFICE
     if (this.viewedData.length > 0) {
       if (this.userRole == 'Director') {
@@ -162,7 +169,7 @@ export class ProjectListComponent implements OnInit {
       } if (this.userRole == 'Administrator' || this.userRole == 'Adminstrator') {
         // this.viewedData = this.viewedData.filter((filterByDepartment: any) => filterByDepartment.bmxDepartment == this.userDepartment);
       } else if (this.userRole == 'Creative' || this.userRole == 'Nonprop' || this.userRole == 'Design') {
-        this.viewedData = this.viewedData.filter((filterByDepartment: any) => filterByDepartment.bmxDepartment == this.userDepartment);
+        this.viewedData = this.viewedData.filter((filterByDepartment: any) => filterByDepartment.bmxDepartment == 'Design');
       }
     }
 

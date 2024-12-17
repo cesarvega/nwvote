@@ -105,6 +105,19 @@ export class MenuComponent implements OnInit {
             this.userOffice = data.Office;
             this.userDepartment = data.Role;
             this.showErrorMessage = false
+            if(!this.userFullName || this.userFullName == '' ){
+              let newdata :any = localStorage.getItem('userData')
+              newdata = JSON.parse(newdata);
+              if(!this.userRole || this.userRole == '' ){
+                this.router.navigate(['/login']);
+              }else{
+                this.userName = newdata.UserName;
+                this.userFullName = newdata.FullName;
+                this.userOffice = newdata.Office;
+                this.userRole = newdata.Role;
+                this.userDepartment = newdata.Role;
+              }
+            }
           }
 
         });
@@ -124,7 +137,19 @@ export class MenuComponent implements OnInit {
               this.userOffice = data.Office;
               this.userRole = data.Role;
               this.userDepartment = data.Role;
-
+              if(!this.userFullName || this.userFullName == '' ){
+                let newdata :any = localStorage.getItem('userData')
+                newdata = JSON.parse(newdata);
+                if(!this.userRole || this.userRole == '' ){
+                  this.router.navigate(['/login']);
+                }else{
+                  this.userName = newdata.UserName;
+                  this.userFullName = newdata.FullName;
+                  this.userOffice = newdata.Office;
+                  this.userRole = newdata.Role;
+                  this.userDepartment = newdata.Role;
+                }
+              }
               // TEST DATA
               // this.userOffice = 'Miami';
               // this.userRole = 'admin'; // no restrictions
@@ -175,11 +200,9 @@ export class MenuComponent implements OnInit {
   navigateTo(value: string): void {
     this.selectedMenuItem = value;
     if (value === "dashboard") {
-      localStorage.clear()
       this.isDashboardMenu = true;
       this.router.navigate(['/' + value]);
     } else if (value === 'templates') {
-      localStorage.clear()
       this.isDashboardMenu = true;
       this.router.navigate(['/' + value]);
     }
