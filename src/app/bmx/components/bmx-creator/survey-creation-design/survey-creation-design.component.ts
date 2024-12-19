@@ -357,7 +357,6 @@ export class SurveyCreationDesignComponent implements OnInit {
         } else {
             //   this.bmxPages = this.SAMPLE_BMX;
             this._BmxService.getBrandMatrixByProject(this.projectId).subscribe((brandMatrix: any) => {
-                console.log(brandMatrix)
                 if (brandMatrix.d.length > 0) {
                     let objeto = JSON.parse(brandMatrix.d);
                     let logoUrl = ""
@@ -442,7 +441,6 @@ export class SurveyCreationDesignComponent implements OnInit {
 
                         const name = localStorage.getItem('projectName');
                         const company = localStorage.getItem('company');
-                        console.log(this.bmxPages[0].page[1])
                         const replacedText = this.bmxPages[0].page[1].componentText
                             .replace(/PROJECT_NAME/g, name)
                             .replace(/BI_PROJECTNAME/g, name)
@@ -473,8 +471,6 @@ export class SurveyCreationDesignComponent implements OnInit {
     }
 
     checkDragEvetn(e) {
-        console.log(this.bmxPages[this.currentPage])
-        console.log(e);
     }
     drop(event: CdkDragDrop<any[]>) {
         moveItemInArray(this.bmxPages[this.currentPage].page, event.previousIndex, event.currentIndex);
@@ -970,7 +966,6 @@ export class SurveyCreationDesignComponent implements OnInit {
 
     // TEMPLATE METHODS
     saveOrUpdateTemplate(templateName, displayName?: any) {
-        console.log(templateName)
         this.showSaveTemplate = false
         const nameToShow = this.selectedDisplayNem
         localStorage.setItem(templateName, JSON.stringify(this.bmxPages));
@@ -981,7 +976,6 @@ export class SurveyCreationDesignComponent implements OnInit {
             localStorage.setItem('brandMatrix', dataString)
 
             let x1 = JSON.parse(template.d)
-            console.log(x1)
             this.templateTitle = "Template '" + templateName + "' saved 🧐";
             this._snackBar.open(this.templateTitle, 'OK', {
                 duration: 5000,
@@ -1000,7 +994,6 @@ export class SurveyCreationDesignComponent implements OnInit {
         this.isTemplateBoxOn = false
     }
     loadTemplate(templateName) {
-        console.log(templateName)
         const name = localStorage.getItem('projectName')
         const company = localStorage.getItem('company')
         const isTemplate = localStorage.getItem('templates')
@@ -1337,7 +1330,6 @@ export class SurveyCreationDesignComponent implements OnInit {
 
     previewSurvey() {
         const projectUrl = this.projectId.replace(/\//g, '-')
-        console.log('survey/' + projectUrl + '/' + (this.biUsername ? this.biUsername : 'guest'))
         window.open('survey/' + projectUrl + '/' + (this.biUsername ? this.biUsername : 'guest'));
     }
 

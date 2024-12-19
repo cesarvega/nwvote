@@ -169,7 +169,7 @@ export class ProjectListComponent implements OnInit {
       } if (this.userRole == 'Administrator' || this.userRole == 'Adminstrator') {
         // this.viewedData = this.viewedData.filter((filterByDepartment: any) => filterByDepartment.bmxDepartment == this.userDepartment);
       } else if (this.userRole == 'Creative' || this.userRole == 'Nonprop' || this.userRole == 'Design') {
-        this.viewedData = this.viewedData.filter((filterByDepartment: any) => filterByDepartment.bmxDepartment == 'Design');
+        this.viewedData = this.viewedData.filter((filterByDepartment: any) => filterByDepartment.bmxDepartment.toLocaleLowerCase() == this.userRole.toLocaleLowerCase());
       }
     }
 

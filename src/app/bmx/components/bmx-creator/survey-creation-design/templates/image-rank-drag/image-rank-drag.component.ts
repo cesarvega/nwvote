@@ -87,8 +87,6 @@ export class ImageRankDragComponent extends RatingScaleComponent implements OnIn
     const isMobile = this.deviceService.isMobile();
     const isTablet = this.deviceService.isTablet();
     this.isDesktopDevice = this.deviceService.isDesktop();
-    console.log(isMobile);  // returns if the device is a mobile device (android / iPhone / windows-phone etc)
-    console.log(isTablet);  // returns if the device us a tablet (iPad etc)
   }
   ngOnInit(): void {
     this.showDialog = false
@@ -132,7 +130,6 @@ export class ImageRankDragComponent extends RatingScaleComponent implements OnIn
     this.launchPathModal.emit(this.VIDEO_PATH)
 
     this.launchPathModal.emit(this.VIDEO_PATH)
-    console.log(this.selectedCriteria, this.CRITERIA)
     const filteredCriteria = this.CRITERIA.filter(criteriaItem => {
       this.selectedCriteria.map(item => 
         {
@@ -281,7 +278,6 @@ open(y: any) {
   }
 
   toggleImageUploadBox() {
-    console.log(this.bmxItem)
     this.uploadImagesBox = !this.uploadImagesBox
   } 
 

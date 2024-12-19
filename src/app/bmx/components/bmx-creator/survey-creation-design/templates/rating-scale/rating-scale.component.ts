@@ -7,7 +7,6 @@ import * as  dragula from 'dragula';
 import { BmxService } from '../../../bmx.service';
 import { DeviceDetectorService } from 'ngx-device-detector';
 import { MatCheckboxChange, MatCheckboxModule } from '@angular/material/checkbox';
-import { Console } from 'console';
 import { CdkDragDrop, moveItemInArray } from '@angular/cdk/drag-drop';
 
 @Component({
@@ -151,7 +150,6 @@ export class RatingScaleComponent implements OnInit {
 
   ngOnInit(): void {
     this.showDialog = false
-    //console.log(this.bmxItem.componentText    )
     // COLUMN NAMES
     this.rankingScaleValue = this.numRatingScale;
     this.rowsCount = this.bmxItem.componentText.length - 1
@@ -545,7 +543,6 @@ export class RatingScaleComponent implements OnInit {
   // ⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️ END STARS METHODS  ⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️
 
   upLoadNamesAndRationales(list: any, dataSourceCopy: any, update?: boolean,) {
-    console.log('datasource:', dataSourceCopy)
     this.bmxItem.componentText = dataSourceCopy
     this.dataSource = dataSourceCopy
     if (typeof list == 'object') {
@@ -595,15 +592,12 @@ export class RatingScaleComponent implements OnInit {
       // TEST NAMES CHECK
       let index = 0;
       for (let i = 0; i < rows.length; i++) {
-        console.log(rows)
         if (rows[i] != "" && rows[i].length > 0) {
           let objectColumnDesign = {};
-          console.log(this.ASSIGNED_CRITERIA)
 
           if (this.ASSIGNED_CRITERIA.length > 0) { // CRITERIA
             this.bmxItem.componentSettings[0].CRITERIA = true;
             this.bmxItem.componentSettings[0].rateWidth = (this.bmxItem.componentSettings[0].rateWidth < 220) ? 220 : this.bmxItem.componentSettings[0].rateWidth;
-            console.log(this.bmxItem.componentSettings[0])
 
             for (let e = 0; e < this.columnsNames.length; e++) {
               if (rows[i].split("\t").length > 0) {
@@ -756,11 +750,9 @@ export class RatingScaleComponent implements OnInit {
     return sortedRest
   }
   removeDuplicates(arr) {
-    console.log(arr)
     const seen = new Set();
     return arr.filter(item => {
       const name = item['New Column 4'] || item.nameCandidates || item.name || item.rationale;
-      console.log(name)
       const duplicate = seen.has(name);
       seen.add(name);
       return !duplicate;
@@ -1204,7 +1196,6 @@ export class RatingScaleComponent implements OnInit {
   }
 
   undo() {
-    console.log(this.HISTORY)
     if (this.HISTORY.length > 0) {
 
       this.dragRows = true;

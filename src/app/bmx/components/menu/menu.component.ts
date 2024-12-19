@@ -109,7 +109,6 @@ export class MenuComponent implements OnInit {
               let newdata :any = localStorage.getItem('userData')
               newdata = JSON.parse(newdata);
               if(!this.userRole || this.userRole == '' ){
-                this.router.navigate(['/login']);
               }else{
                 this.userName = newdata.UserName;
                 this.userFullName = newdata.FullName;
@@ -202,6 +201,11 @@ export class MenuComponent implements OnInit {
     if (value === "dashboard") {
       this.isDashboardMenu = true;
       this.router.navigate(['/' + value]);
+      localStorage.removeItem('templates');
+      localStorage.removeItem('projectName');
+      localStorage.removeItem('company');
+      localStorage.removeItem('displayName');
+
     } else if (value === 'templates') {
       this.isDashboardMenu = true;
       this.router.navigate(['/' + value]);
