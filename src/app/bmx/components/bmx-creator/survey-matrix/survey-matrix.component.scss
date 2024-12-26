@@ -228,6 +228,9 @@
     background-position: center, center;
     background-color: whitesmoke;
     background-blend-mode: screen;
+
+    display: flex;
+    align-items: center;
 }
 
 .errorcode {
@@ -306,7 +309,6 @@
     .page-design {
         overflow-y: hidden;
         margin-bottom: 20px;
-      
     }
 
     .page-buttons {

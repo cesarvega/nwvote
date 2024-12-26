@@ -13,7 +13,7 @@ import {
 import { DOCUMENT } from '@angular/common';
 // import { HotkeysService, Hotkey } from 'angular2-hotkeys';
 import Speech from 'speak-tts';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { BmxService } from '../bmx.service';
 import { DragulaService } from 'ng2-dragula';
 import { SurveyCreationDesignComponent } from '../survey-creation-design/survey-creation-design.component';
@@ -105,8 +105,9 @@ export class SurveyMatrixComponent extends SurveyCreationDesignComponent impleme
 
   //----------end modal------//
   readonly bmxStore = inject(BMX_STORE);
+  argd: any;
 
-  constructor(@Inject(DOCUMENT) document: any, activatedRoute: ActivatedRoute, private deviceService: DeviceDetectorService,
+  constructor(@Inject(DOCUMENT) document: any, private router: Router, activatedRoute: ActivatedRoute, private deviceService: DeviceDetectorService,
     dragulaService: DragulaService, public _snackBar: MatSnackBar, _BmxService: BmxService
   ) {
     super(document, _BmxService, _snackBar, activatedRoute);
@@ -133,6 +134,7 @@ export class SurveyMatrixComponent extends SurveyCreationDesignComponent impleme
     });
     this.projectId = localStorage.getItem('projectId')
     this._BmxService.getProjectInfo(this.projectId).subscribe((arg: any) => {
+      this.argd = arg.d
       this.status = JSON.parse(arg.d).bmxStatus
       this.bmxClientPageOverview = false
       this.bmxStore.updateProjectInfo(arg)

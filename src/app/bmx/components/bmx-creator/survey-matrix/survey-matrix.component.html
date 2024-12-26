@@ -1,5 +1,5 @@
 <div class="page-design noselect disable-dbl-tap-zoom">
-    <div *ngIf="(status !='close'); else elseBlock">
+    <div *ngIf="(status !='close') && argd != ''; else elseBlock">
 
 
         <div class="desktop">
@@ -293,7 +293,7 @@
 <ng-template #elseBlock>
     <div class="error">
 
-        <div *ngIf="(projectId === '-404'); else block" fxFlexFill fxLayout="column" fxLayoutAlign="center center">
+        <div *ngIf="(argd == ''); else block" fxFlexFill fxLayout="column" fxLayoutAlign="center center">
             <div class="errorcode"> This Project Does Not Exist</div>
             <div class="errormess">Please contact your BI Representative if this link needs to be re-activated.</div>
 

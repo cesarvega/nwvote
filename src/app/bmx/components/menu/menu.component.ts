@@ -49,6 +49,7 @@ export class MenuComponent implements OnInit {
   }
 
   ngOnInit(): void {
+ 
     this.msalService.initialize()
     //   if (location.search) {
 
@@ -120,15 +121,15 @@ export class MenuComponent implements OnInit {
           }
 
         });
-        this.isDashboardMenu = event.url.includes('dashboard') || event.url === '/' || event.url.includes('templates');
-
+        this.isDashboardMenu = event.urlAfterRedirects.includes('dashboard') || event.urlAfterRedirects === '/' || event.urlAfterRedirects.includes('templates');
         if (this.userGUI) {
           localStorage.setItem('userGui', this.userGUI);
         } else {
           this.userGUI = localStorage.getItem('userGui')
         }
         if (this.userGUI) {
-          this._BmxService.getMatrixUser(this.userName).subscribe((data: any) => {       
+          this._BmxService.getMatrixUser(this.userName).subscribe((data: any) => {     
+            console.log(data.d)  
               if (data.d != '') {
               data = JSON.parse(data.d);
               this.userName = data.UserName;
@@ -166,9 +167,13 @@ export class MenuComponent implements OnInit {
           this.userFullName = userData?.name
           this.userName = userData?.username
           this.showErrorMessage = false
+          if(!userData || userData.Error){
+            const currentUrl = this.router.url; // Obtiene la URL actual
+            this.handleNavigation(currentUrl);
+          }
         }
-        this.isDashboardMenu = event.url.includes('dashboard') || event.url === '/' || event.url.includes('templates');
-        this.isPreviewView = event.url.includes('survey')
+        this.isDashboardMenu = event.urlAfterRedirects.includes('dashboard') || event.urlAfterRedirects === '/' || event.urlAfterRedirects.includes('templates');
+        this.isPreviewView = event.urlAfterRedirects.includes('survey')
         this.login = event.url.includes('login')
         }
     });
@@ -184,7 +189,17 @@ export class MenuComponent implements OnInit {
     }
     
   }
+  handleNavigation(url: string): void {
+    // Si la URL incluye "survey", no redirige y oculta el menú
+    if (url.includes('survey')) {
+      return;
+    }
 
+    // Si la URL no incluye "survey", redirige al login
+    if (!url.includes('login')) {
+      this.router.navigate(['/login']);
+    }
+  }
   toggleMenu() {
     this.hideMenu = !this.hideMenu;
   }
