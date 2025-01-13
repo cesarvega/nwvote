@@ -13,7 +13,7 @@ import {
 import { DOCUMENT } from '@angular/common';
 // import { HotkeysService, Hotkey } from 'angular2-hotkeys';
 import Speech from 'speak-tts';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { BmxService } from '../bmx.service';
 import { DragulaService } from 'ng2-dragula';
 import { SurveyCreationDesignComponent } from '../survey-creation-design/survey-creation-design.component';
@@ -22,7 +22,8 @@ import QRCodeStyling from 'qr-code-styling';
 import { DeviceDetectorService } from 'ngx-device-detector';
 import { MatCheckboxModule } from '@angular/material/checkbox';
 import { BMX_STORE } from 'src/app/signals/+store/brs.store';
-
+import * as XLSX from 'xlsx';
+import { saveAs } from 'file-saver';
 @Component({
   selector: 'app-survey-matrix',
   templateUrl: './survey-matrix.component.html',
@@ -105,8 +106,9 @@ export class SurveyMatrixComponent extends SurveyCreationDesignComponent impleme
 
   //----------end modal------//
   readonly bmxStore = inject(BMX_STORE);
+  argd: any;
 
-  constructor(@Inject(DOCUMENT) document: any, activatedRoute: ActivatedRoute, private deviceService: DeviceDetectorService,
+  constructor(@Inject(DOCUMENT) document: any, private router: Router, activatedRoute: ActivatedRoute, private deviceService: DeviceDetectorService,
     dragulaService: DragulaService, public _snackBar: MatSnackBar, _BmxService: BmxService
   ) {
     super(document, _BmxService, _snackBar, activatedRoute);
@@ -133,6 +135,7 @@ export class SurveyMatrixComponent extends SurveyCreationDesignComponent impleme
     });
     this.projectId = localStorage.getItem('projectId')
     this._BmxService.getProjectInfo(this.projectId).subscribe((arg: any) => {
+      this.argd = arg.d
       this.status = JSON.parse(arg.d).bmxStatus
       this.bmxClientPageOverview = false
       this.bmxStore.updateProjectInfo(arg)
@@ -591,7 +594,6 @@ export class SurveyMatrixComponent extends SurveyCreationDesignComponent impleme
 
   ngAfterViewInit(): void {
     if (this.modalChecked) {
-      console.log(this.modalChecked.nativeElement.checked)
     }
 
   }
@@ -606,16 +608,12 @@ export class SurveyMatrixComponent extends SurveyCreationDesignComponent impleme
       localStorage.setItem('showModal', JSON.stringify(false));
 
     } else {
-      console.log('es falso')
     }
   }
 
   seeTutorial() {
     localStorage.removeItem('showModal');
     this.showModalVideo = true;
-
-
-
   }
 
   radomizedTestNames(component) {
@@ -683,7 +681,6 @@ export class SurveyMatrixComponent extends SurveyCreationDesignComponent impleme
                       templateRow.CRITERIA.forEach(
                         (criteria, criteriaIndex) => {
                           if (answerRow.CRITERIA) {
-                            console.log(answerRow)
                             criteria.RATE =
                               answerRow.CRITERIA[criteriaIndex]?.RATE;
                             criteria.STARS.forEach((starRow) => {
@@ -1343,5 +1340,45 @@ export class SurveyMatrixComponent extends SurveyCreationDesignComponent impleme
         );
       });
   }
-
+  downloadExcel() {
+    const excelData = this.bmxPagesClient.flatMap(item =>
+      item.page.flatMap(component => {
+        return (component.componentText && Array.isArray(component.componentText))
+          ? component.componentText.slice(1).flatMap((val, index) => {
+              const cleanRate = (rate: any) =>
+                typeof rate === 'string' && rate.startsWith('-1') 
+                  ? rate.replace('-1', '').trim() 
+                  : rate === -1
+                  ? 0 
+                  : rate;
+    
+              if (val.CRITERIA && Array.isArray(val.CRITERIA)) {
+                return val.CRITERIA.map(criteria => ({
+                  Page: item.pageNumber,
+                  NameCandidates: val.nameCandidates? val.nameCandidates: val.name,
+                  CRITERIA_NAME: criteria.name, 
+                  RATE: val.vote ? val.vote: cleanRate(criteria.RATE), 
+                  ...(component.componentType === 'image-rank-drag' && { Rank: index + 1 }),
+                }));
+              }
+    
+              return {
+                Page: item.pageNumber,
+                NameCandidates: val.nameCandidates? val.nameCandidates: val.name,
+                RATE: val.vote ? val.vote: cleanRate(val.RATE), 
+                ...(component.componentType === 'image-rank-drag' && { Rank: index + 1 }),
+              };
+            })
+          : []; 
+      })
+    );
+  
+    const worksheet: XLSX.WorkSheet = XLSX.utils.json_to_sheet(excelData);
+    const workbook: XLSX.WorkBook = XLSX.utils.book_new();
+    XLSX.utils.book_append_sheet(workbook, worksheet, 'Datos');
+  
+    const excelBuffer: any = XLSX.write(workbook, { bookType: 'xlsx', type: 'array' });
+    const blob: Blob = new Blob([excelBuffer], { type: 'application/octet-stream' });
+    saveAs(blob,  this.projectId+'_answers.xlsx');
+  }
 }

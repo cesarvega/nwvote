@@ -79,11 +79,6 @@ export class DocxSurveyComponent implements OnInit {
     this.projectList = [];
     const fs = require('fs');
     this.selection = new SelectionModel<any>(true, []);
-    this._BmxService.currentprojectData$.subscribe((projectData) => {
-      this.data = projectData !== '' ? projectData : this.projectId;
-    });
-
-
     this._BmxService.currentProjectName$.subscribe((projectName) => {
       this.projectId = projectName !== '' ? projectName : this.projectId;
       localStorage.setItem('projectName', this.projectId);
@@ -95,6 +90,13 @@ export class DocxSurveyComponent implements OnInit {
         }
       });
     });
+    this._BmxService.currentprojectData$.subscribe((projectData) => {
+      console.log(projectData)
+      this.data = projectData !== '' ? projectData : this.projectId;
+    });
+
+
+   
     this.projectList = [];
     this.projectList.push(this.projectId);
     this.mergeData(this.projectList);
@@ -3093,7 +3095,7 @@ export class DocxSurveyComponent implements OnInit {
     this.dialog.emit(true)
   }
   report(): void {
-
+    console.log(this.data)
     const currentDate: Date = new Date();
     const formatter2 = new Intl.DateTimeFormat('en-US', { year: 'numeric', month: 'short', day: '2-digit' });
     const formattedDate2: string = formatter2.format(currentDate);

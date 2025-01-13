@@ -1,5 +1,5 @@
 import { DragulaService } from 'ng2-dragula';
-import { Component, ElementRef, EventEmitter, Inject, Input, OnInit, Output, ViewChild, ViewEncapsulation } from '@angular/core';
+import { ChangeDetectorRef, Component, ElementRef, EventEmitter, Inject, Input, OnInit, Output, ViewChild, ViewEncapsulation } from '@angular/core';
 import { CdkTextareaAutosize } from '@angular/cdk/text-field';
 import { RatingScaleComponent } from '../rating-scale/rating-scale.component';
 import { MatSnackBar } from '@angular/material/snack-bar';
@@ -66,20 +66,21 @@ export class TinderComponent extends RatingScaleComponent implements OnInit {
 
   allowScrolling = true
 
-  testNameIndex = 1
+  testNameIndex = 0
 
   dataSource: any[] = []
   displayedColumns: string[] = ['nameCandidates', 'rationale', 'delete'];
   bmxCopycomponentText: any;
 
-  constructor(dragulaService: DragulaService, _snackBar: MatSnackBar, _bmxService: BmxService, public deviceService: DeviceDetectorService, public dialog: MatDialog) {
-    super(dragulaService, _snackBar, _bmxService, deviceService)
+  constructor(private cdr: ChangeDetectorRef,dragulaService: DragulaService, _snackBar: MatSnackBar, _bmxService: BmxService, public deviceService: DeviceDetectorService, public dialog: MatDialog) {
+    super(dragulaService, _snackBar, _bmxService, deviceService,)
 
   }
   ngOnInit(): void {
     this.bmxCopycomponentText = JSON.parse(JSON.stringify(this.bmxItem));
     this.showDialog = false
     this.getDataSource()
+   this.bmxItem.componentText = this.bmxItem.componentText.filter(comp => comp.name != 'Questions' )
 
     if (this.dataSource[0].vote != undefined || this.dataSource[0].RATE != undefined) {
       this.hasVoted = true
@@ -109,7 +110,7 @@ export class TinderComponent extends RatingScaleComponent implements OnInit {
     } else {
       this.hasVoted = false
     }
-    this.xpercent = 100 / (this.bmxItem.componentText.length - 1);
+    this.xpercent = 100 / (this.bmxItem.componentText.length );
     this.value = this.xpercent;
     this.rankingScaleValue = this.bmxItem.componentSettings[0].selectedRanking
     this.ratingScale = this.bmxItem.componentSettings[0].selectedRanking
@@ -131,7 +132,7 @@ export class TinderComponent extends RatingScaleComponent implements OnInit {
     }
 
     // COLUMN NAMES
-    let values = Object.keys(this.bmxItem.componentText[0])
+    let values = Object.keys(this.bmxItem.componentText[1])
 
     values.forEach(value => {
       if (typeof value == "string" && value != "STARS" && value != "CRITERIA") {
@@ -139,6 +140,7 @@ export class TinderComponent extends RatingScaleComponent implements OnInit {
       }
     });
     let result = '';
+    console.log(this.columnsNames)
     result += 'Name Candidates\tRATIONALE\n';
     // Get the keys of the first row (the property names)
     let firstObject = this.bmxItem.componentText[0];
@@ -148,7 +150,6 @@ export class TinderComponent extends RatingScaleComponent implements OnInit {
         columnNames.push(key);
       }
     }
-
     // Add each object as a row in the result
     for (let obj of this.bmxItem.componentText) {
       let values = [];
@@ -197,9 +198,20 @@ export class TinderComponent extends RatingScaleComponent implements OnInit {
     return startCounter;
   }
 
-  upLoadNamesAndRationales(list: string) {
-    this.bmxItem.componentSettings[0].randomizeTestNames = (this.randomizeTestNames) ? true : false
+  upLoadNamesAndRationales(list: any, dataSourceCopy: any, update?: boolean,) {
+    this.testNameIndex = 0
+    this.bmxItem.componentText = dataSourceCopy
+    this.dataSource = dataSourceCopy
+    if (typeof list == 'object') {
+      list = ''
+    }
+    this.uploadImagesIcon = true;
+    this.bmxItem.componentSettings[0].randomizeTestNames = this.randomizeTestNames ? true : false;
+    if (update) {
+      this.recordHistory();
+    }
     this.rankingAmountArr = Array(this.rankingScaleValue).fill(0).map((_, index) => index + 1);
+
     if (!list) { list = this.listString; }
     if (list) {
       this.listString = list;
@@ -221,20 +233,8 @@ export class TinderComponent extends RatingScaleComponent implements OnInit {
         }
       });
 
-      this.TESTNAMES_LIST = [];
-      for (let i = 0; i < rows.length; i++) {
-        if (rows[i] != "" && rows[i].length > 6) {
-          let objectColumnDesign = {};
-          objectColumnDesign['STARS'] = this.createRatingStars(this.rankingScaleValue, this.ratingScaleIcon);
-          for (let e = 0; e < this.columnsNames.length; e++) {
-            if ((rows[i].split("\t").length > 0)) {
-              objectColumnDesign[this.columnsNames[e]] = rows[i].split("\t")[e].trim()
-            }
-          }
-          this.TESTNAMES_LIST.push(objectColumnDesign);
-        }
-      }
-      this.bmxItem.componentText = this.deleteDuplicates(this.TESTNAMES_LIST, 'nameCandidates');
+      this.TESTNAMES_LIST = dataSourceCopy
+      this.bmxItem.componentText = this.deleteDuplicates(dataSourceCopy, 'nameCandidates');
       this.bmxItem.componentSettings[0].minRule = this.bmxItem.componentText.length - 1;
 
       // this.bmxItem.componentText = this.TESTNAMES_LIST;
@@ -245,11 +245,36 @@ export class TinderComponent extends RatingScaleComponent implements OnInit {
         row.STARS = this.createRatingStars(this.rankingScaleValue, this.ratingScaleIcon)
       });
     }
+
     this.uploadNames()
     this.bmxCopycomponentText = JSON.parse(JSON.stringify(this.bmxItem));
-
+    if (this.alphabeticallyTestNames) {
+      setTimeout(() => {
+        this.sortAlphabetically();
+      }, 100);
+    }
+    if(this.randomizeTestNames){
+      setTimeout(() => {
+        const event= {
+          checked: true
+        }
+        this.shuffleQuestions();
+      }, 100);
+    }
   }
+  uploadNames() {
 
+    this.newCandidate.nameCandidates = "";
+    this.newCandidate.rationale = "";
+    this.showModalAddRow = false;
+    this.xpercent = 100 / (this.bmxItem.componentText.length );
+    this.value = this.xpercent * 1;
+    this.cdr.detectChanges()
+    // Eliminar elementos donde el nombre incluye "QUESTION"
+
+ 
+  }
+ 
   // delete row diplicates from array of object by property
   deleteDuplicates(array, property) {
     let newArray = [];
@@ -375,12 +400,11 @@ export class TinderComponent extends RatingScaleComponent implements OnInit {
 
   moveRight() {
 
-    if (this.testNameIndex < this.bmxItem.componentText.length - 1) {
+    if (this.testNameIndex < this.bmxItem.componentText.length ) {
       this.value = this.value + this.xpercent;
-      if (this.testNameIndex < this.bmxItem.componentText.length - 1) {
+      if (this.testNameIndex < this.bmxItem.componentText.length ) {
 
         this.testNameIndex++
-        console.log(this.bmxItem.componentText[this.testNameIndex])
         if (this.bmxItem.componentText[this.testNameIndex]['vote'] != undefined || this.bmxItem.componentText[this.testNameIndex]['RATE'] != undefined) {
           this.hasVoted = true;
           if (this.ranking) {
@@ -417,7 +441,7 @@ export class TinderComponent extends RatingScaleComponent implements OnInit {
   }
 
   moveleft() {
-    if (1 < this.testNameIndex) {
+    if (0 < this.testNameIndex) {
       this.value = this.value - this.xpercent;
       this.testNameIndex--
       if (this.bmxItem.componentText[this.testNameIndex]['vote'] != undefined || this.bmxItem.componentText[this.testNameIndex]['RATE'] != undefined) {
@@ -450,35 +474,22 @@ export class TinderComponent extends RatingScaleComponent implements OnInit {
     }
 
   }
-
-  uploadNames() {
-    this.bmxItem.componentText.push({ name: 'QUESTION' + ' ' + (this.bmxItem.componentText.length - 1), ...this.newCandidate });
-    this.dataSource = this.bmxItem.componentText.slice(1);
-    this.newCandidate.nameCandidates = "";
-    this.newCandidate.rationale = "";
-    this.showModalAddRow = false;
-    this.xpercent = 100 / (this.bmxItem.componentText.length );
-    this.value = this.xpercent * this.testNameIndex;
-
-    // Eliminar elementos donde el nombre incluye "QUESTION"
-    this.bmxItem.componentText = this.bmxItem.componentText.filter(item => !item.name?.includes('QUESTION'));
-
-    if (this.alphabeticallyTestNames) {
-        setTimeout(() => {
-            this.sortAlphabetically();
-        }, 1000);
-    }
-}
-
+  shuffleQuestions() {
+    const shuffledQuestions = this.bmxItem.componentText.sort(() => Math.random() - 0.5);
+  
+    this.bmxItem.componentText = [...shuffledQuestions];
+    this.dataSource = this.bmxItem.componentText;
+  
+    return shuffledQuestions;
+  }
   sortAlphabetically() {
-    const firstElement = this.bmxItem.componentText[0];
-
-    const sortedRest = this.bmxItem.componentText.slice(1).sort((a, b) => {
+    const sortedRest = this.bmxItem.componentText.sort((a, b) => {
       const aName = a.NewCategoryLogo || a.nameCandidates || a.name;
       const bName = b.NewCategoryLogo || b.nameCandidates || b.name
       return aName.localeCompare(bName);
     });
-    this.bmxItem.componentText = [firstElement, ...sortedRest];
+    this.bmxItem.componentText = [...sortedRest];
+    this.dataSource = this.bmxItem.componentText
     return sortedRest
   }
   deleteName(element: any) {
@@ -486,7 +497,7 @@ export class TinderComponent extends RatingScaleComponent implements OnInit {
     // Remove the element from the array this.bmx Item.component Text
     this.bmxItem.componentText.splice(this.bmxItem.componentText.indexOf(element), 1);
     // Remove the element from the this.dataSource array
-    this.xpercent = (this.bmxItem.componentText.length - 1) / 100;
+    this.xpercent = (this.bmxItem.componentText.length ) / 100;
     this.value = this.xpercent * this.testNameIndex
     this.moveleft()
     this.table.renderRows();
@@ -502,7 +513,6 @@ export class TinderComponent extends RatingScaleComponent implements OnInit {
       }
 
     })
-    console.log(this.dataSource)
     if (this.bmxItem.componentSettings[0].ranking == undefined) {
       this.bmxItem.componentSettings[0].ranking = this.ranking
     } else {
@@ -528,9 +538,8 @@ export class TinderComponent extends RatingScaleComponent implements OnInit {
       this.bmxPages[this.currentPage].page[this.i + 1] = temp;
     }
   }
-  
-  restoreData(){
-    console.log(this.bmxItem)
+
+  restoreData() {
     this.bmxItem = this.bmxCopycomponentText
   }
 }
