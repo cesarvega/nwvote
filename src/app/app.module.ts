@@ -122,7 +122,7 @@ export function MSALInstanceFactory(): IPublicClientApplication {
 @NgModule({
     declarations: [
         AppComponent,
-        // LoginComponent,
+       LoginComponent,
         NwVoteComponent,
         BsrMobileComponent,
         editName,
@@ -165,7 +165,8 @@ export function MSALInstanceFactory(): IPublicClientApplication {
         ProjectListCheckComponent,
         TemplatesComponent,
         SurveyDialogBsrComponent,
-        LoaderComponent
+        LoaderComponent,
+        
         // BmxCreatorComponent,
         // SafePipe,
         // OrderDasboardComponent
@@ -191,6 +192,8 @@ export function MSALInstanceFactory(): IPublicClientApplication {
         MatCardModule,
         MatDialogModule,
         MatIconModule,
+        MatToolbarModule,
+        MatIconModule ,
         // FlexLayoutModule,
         // DragDropModule,
         MatTooltipModule,
@@ -226,8 +229,6 @@ export function MSALInstanceFactory(): IPublicClientApplication {
         SignalComponent,
         QuillModule,
         QrCodePopupComponentComponent,
-        SynonymsComponent
-
         // BmxModule
     ],
     providers: [
