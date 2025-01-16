@@ -72,17 +72,16 @@ export class TinderComponent extends RatingScaleComponent implements OnInit {
   displayedColumns: string[] = ['nameCandidates', 'rationale', 'delete'];
   bmxCopycomponentText: any;
 
-  constructor(private cdr: ChangeDetectorRef,dragulaService: DragulaService, _snackBar: MatSnackBar, _bmxService: BmxService, public deviceService: DeviceDetectorService, public dialog: MatDialog) {
+  constructor(private cdr: ChangeDetectorRef, dragulaService: DragulaService, _snackBar: MatSnackBar, _bmxService: BmxService, public deviceService: DeviceDetectorService, public dialog: MatDialog) {
     super(dragulaService, _snackBar, _bmxService, deviceService,)
 
   }
   ngOnInit(): void {
     this.bmxCopycomponentText = JSON.parse(JSON.stringify(this.bmxItem));
     this.showDialog = false
-    this.getDataSource()
-   this.bmxItem.componentText = this.bmxItem.componentText.filter(comp => comp.name != 'Questions' )
-
-    if (this.dataSource[0].vote != undefined || this.dataSource[0].RATE != undefined) {
+ 
+    this.bmxItem.componentText = this.bmxItem.componentText.filter(comp => comp.name != 'Questions')
+    if (this.dataSource[0]?.vote != undefined || this.dataSource[0]?.RATE != undefined) {
       this.hasVoted = true
       if (this.ranking) {
         if (this.dataSource[0].RATE != undefined) {
@@ -110,10 +109,12 @@ export class TinderComponent extends RatingScaleComponent implements OnInit {
     } else {
       this.hasVoted = false
     }
-    this.xpercent = 100 / (this.bmxItem.componentText.length );
+    this.xpercent = 100 / (this.bmxItem.componentText.length);
     this.value = this.xpercent;
     this.rankingScaleValue = this.bmxItem.componentSettings[0].selectedRanking
     this.ratingScale = this.bmxItem.componentSettings[0].selectedRanking
+    this.showNeutralIcon = this.bmxItem.componentSettings[0].neutralIcon
+
     this.createRatingStars(this.ratingScale)
     // this.rankingTableType( this.bmxItem.componentSettings[0].rankType)
     this.rankingType = this.bmxItem.componentSettings[0].rankType
@@ -132,15 +133,16 @@ export class TinderComponent extends RatingScaleComponent implements OnInit {
     }
 
     // COLUMN NAMES
-    let values = Object.keys(this.bmxItem.componentText[1])
+    this.getDataSource()
 
+    let values = Object?.keys(this.bmxItem.componentText[0])
     values.forEach(value => {
+
       if (typeof value == "string" && value != "STARS" && value != "CRITERIA") {
         this.columnsNames.push(value)
       }
     });
     let result = '';
-    console.log(this.columnsNames)
     result += 'Name Candidates\tRATIONALE\n';
     // Get the keys of the first row (the property names)
     let firstObject = this.bmxItem.componentText[0];
@@ -245,7 +247,7 @@ export class TinderComponent extends RatingScaleComponent implements OnInit {
         row.STARS = this.createRatingStars(this.rankingScaleValue, this.ratingScaleIcon)
       });
     }
-
+    this.bmxItem.componentSettings[0].neutralIcon = this.showNeutralIcon
     this.uploadNames()
     this.bmxCopycomponentText = JSON.parse(JSON.stringify(this.bmxItem));
     if (this.alphabeticallyTestNames) {
@@ -253,28 +255,29 @@ export class TinderComponent extends RatingScaleComponent implements OnInit {
         this.sortAlphabetically();
       }, 100);
     }
-    if(this.randomizeTestNames){
+    if (this.randomizeTestNames) {
       setTimeout(() => {
-        const event= {
+        const event = {
           checked: true
         }
         this.shuffleQuestions();
       }, 100);
     }
+
   }
   uploadNames() {
 
     this.newCandidate.nameCandidates = "";
     this.newCandidate.rationale = "";
     this.showModalAddRow = false;
-    this.xpercent = 100 / (this.bmxItem.componentText.length );
+    this.xpercent = 100 / (this.bmxItem.componentText.length);
     this.value = this.xpercent * 1;
     this.cdr.detectChanges()
     // Eliminar elementos donde el nombre incluye "QUESTION"
 
- 
+
   }
- 
+
   // delete row diplicates from array of object by property
   deleteDuplicates(array, property) {
     let newArray = [];
@@ -400,9 +403,9 @@ export class TinderComponent extends RatingScaleComponent implements OnInit {
 
   moveRight() {
 
-    if (this.testNameIndex < this.bmxItem.componentText.length ) {
+    if (this.testNameIndex < this.bmxItem.componentText.length-1) {
       this.value = this.value + this.xpercent;
-      if (this.testNameIndex < this.bmxItem.componentText.length ) {
+      if (this.testNameIndex < this.bmxItem.componentText.length) {
 
         this.testNameIndex++
         if (this.bmxItem.componentText[this.testNameIndex]['vote'] != undefined || this.bmxItem.componentText[this.testNameIndex]['RATE'] != undefined) {
@@ -476,10 +479,10 @@ export class TinderComponent extends RatingScaleComponent implements OnInit {
   }
   shuffleQuestions() {
     const shuffledQuestions = this.bmxItem.componentText.sort(() => Math.random() - 0.5);
-  
+
     this.bmxItem.componentText = [...shuffledQuestions];
     this.dataSource = this.bmxItem.componentText;
-  
+
     return shuffledQuestions;
   }
   sortAlphabetically() {
@@ -497,15 +500,14 @@ export class TinderComponent extends RatingScaleComponent implements OnInit {
     // Remove the element from the array this.bmx Item.component Text
     this.bmxItem.componentText.splice(this.bmxItem.componentText.indexOf(element), 1);
     // Remove the element from the this.dataSource array
-    this.xpercent = (this.bmxItem.componentText.length ) / 100;
+    this.xpercent = (this.bmxItem.componentText.length) / 100;
     this.value = this.xpercent * this.testNameIndex
     this.moveleft()
     this.table.renderRows();
   }
 
   getDataSource() {
-    this.dataSource = this.bmxItem.componentText.slice(1)
-
+    this.dataSource = this.bmxItem.componentText
     this.dataSource.forEach((data) => {
       if (!data.nameCandidates) {
         data.nameCandidates = 'TEST NAME'
@@ -518,6 +520,7 @@ export class TinderComponent extends RatingScaleComponent implements OnInit {
     } else {
       this.ranking = this.bmxItem.componentSettings[0].ranking
     }
+
   }
 
   changePreferenceScore() {

@@ -560,7 +560,7 @@ export class ProjectInformationComponent implements OnInit {
   replaceInvalidCharacters(event: Event): void {
     const input = event.target as HTMLInputElement;
     let value = input.value;
-    value = value.replace(/[\/\\]/g, ''); // Replace / and \ with an empty string
+    value = value.replace(/[\/\\]/g, '').trim(); // Replace / and \ with an empty string
     this.bmxProjectName.setValue(value, { emitEvent: false });
   }
 

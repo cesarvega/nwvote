@@ -1343,33 +1343,40 @@ export class SurveyMatrixComponent extends SurveyCreationDesignComponent impleme
   downloadExcel() {
     const excelData = this.bmxPagesClient.flatMap(item =>
       item.page.flatMap(component => {
-        return (component.componentText && Array.isArray(component.componentText))
-          ? component.componentText.slice(1).flatMap((val, index) => {
+        console.log(component);
+        
+        // Si es 'tinder', toma todo el array de 'componentText'
+        const textArray:any = (component.componentType === 'tinder')
+          ? component.componentText
+          : component.componentText?.slice(1);
+  
+        return (textArray && Array.isArray(textArray))
+          ? textArray.flatMap((val, index) => {
               const cleanRate = (rate: any) =>
-                typeof rate === 'string' && rate.startsWith('-1') 
-                  ? rate.replace('-1', '').trim() 
+                typeof rate === 'string' && rate.startsWith('-1')
+                  ? rate.replace('-1', '').trim()
                   : rate === -1
-                  ? 0 
+                  ? 0
                   : rate;
-    
+  
               if (val.CRITERIA && Array.isArray(val.CRITERIA)) {
                 return val.CRITERIA.map(criteria => ({
                   Page: item.pageNumber,
-                  NameCandidates: val.nameCandidates? val.nameCandidates: val.name,
-                  CRITERIA_NAME: criteria.name, 
-                  RATE: val.vote ? val.vote: cleanRate(criteria.RATE), 
+                  NameCandidates: val.nameCandidates ? val.nameCandidates : val.name,
+                  CRITERIA_NAME: criteria.name,
+                  RATE: val.vote ? val.vote : cleanRate(criteria.RATE),
                   ...(component.componentType === 'image-rank-drag' && { Rank: index + 1 }),
                 }));
               }
-    
+  
               return {
                 Page: item.pageNumber,
-                NameCandidates: val.nameCandidates? val.nameCandidates: val.name,
-                RATE: val.vote ? val.vote: cleanRate(val.RATE), 
+                NameCandidates: val.nameCandidates ? val.nameCandidates : val.name,
+                RATE: val.vote ? val.vote : cleanRate(val.RATE),
                 ...(component.componentType === 'image-rank-drag' && { Rank: index + 1 }),
               };
             })
-          : []; 
+          : [];
       })
     );
   
@@ -1379,6 +1386,7 @@ export class SurveyMatrixComponent extends SurveyCreationDesignComponent impleme
   
     const excelBuffer: any = XLSX.write(workbook, { bookType: 'xlsx', type: 'array' });
     const blob: Blob = new Blob([excelBuffer], { type: 'application/octet-stream' });
-    saveAs(blob,  this.projectId+'_answers.xlsx');
+    saveAs(blob, this.projectId + '_answers.xlsx');
   }
+  
 }

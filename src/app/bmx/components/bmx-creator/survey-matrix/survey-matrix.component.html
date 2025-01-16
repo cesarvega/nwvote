@@ -1,10 +1,10 @@
 <div class="page-design noselect disable-dbl-tap-zoom">
-    <div *ngIf="(status !='close'); else elseBlock">
+    <div *ngIf="(status !='close') && argd != ''; else elseBlock">
 
 
         <div class="desktop">
             <button *ngIf="true" (click)="seeTutorial()" class="see-tutorial" mat-icon-button matTooltip="see tutorial"
-                matTooltipPosition="above" >
+                matTooltipPosition="above">
                 <mat-icon class="full-icon" style="font-size: 36px;">contact_support</mat-icon>
             </button>
             <!-- <button (click)="displayQrCode()" mat-icon-button matTooltip="design tools" matTooltipPosition="above"
@@ -25,6 +25,21 @@
                 <mat-icon class="full-icon" style="font-size: 35px;">save
                 </mat-icon>
             </button>
+
+            <button *ngIf="currentPage == bmxPagesClient.length-1 " (click)="downloadExcel()" mat-icon-button
+                matTooltip="save answers" matTooltipPosition="above"
+                style="position: absolute;bottom: 9px;color: grey;z-index: 9999999999;    right: 88px;outline: none;">
+                <mat-icon class="full-icon" style="font-size: 35px;">cloud_download
+                </mat-icon>
+            </button>
+
+            <button *ngIf="currentPage == bmxPagesClient.length-1 " (click)="downloadExcel()" mat-icon-button
+                matTooltip="Download answers" matTooltipPosition="above"
+                style="position: absolute;bottom: 9px;color: grey;z-index: 9999999999;    right: 88px;outline: none;">
+                <mat-icon class="full-icon" style="font-size: 35px;">cloud_download
+                </mat-icon>
+            </button>
+
         </div>
 
         <div class="display">
@@ -34,7 +49,11 @@
                 <!-- BRAND MATRIX MODULAR TEMPLATE COMPONENTS  🧑🏻‍🚀🧑🏻‍🚀🧑🏻‍🚀🧑🏻‍🚀🧑🏻‍🚀🧑🏻‍🚀🧑🏻‍🚀🧑🏻‍🚀🧑🏻‍🚀🧑🏻‍🚀🧑🏻‍🚀🧑🏻‍🚀🧑🏻‍🚀 -->
                 <div *ngFor="let bmxItem of bmxPagesClient[currentPage]?.page; let i = index"
                     style="display: flex;flex-direction: column;align-content: center;">
-
+                    <button *ngIf="currentPage == bmxPagesClient.length-1 " (click)="downloadExcel()"
+                    class="see-tutorial-mobil" mat-icon-button matTooltip="Download answers" matTooltipPosition="above"
+                    style="position: fixed; color: grey; z-index: 9999999999; outline: none; right: 35px;">
+                    <mat-icon class="full-icon" style="font-size: 36px;">cloud_download </mat-icon>
+                </button>
                     <div *ngIf="bmxItem.componentType === 'page-title'" class="paragraph">
                         <div class="emoji-handle">.</div>
                         <div style="position: absolute;right: 0px;">
@@ -159,7 +178,7 @@
                     <!-- END NARROW DOWN SCALE 😭😭😭😭😭😭😭😭😭😭😭😭😭😭😭😭😭😭😭😭😭😭😭😭😭😭😭😭😭😭😭😭😭😭😭😭😭 -->
 
                     <!-- IMAGE SCALE 👀👀👀👀👀👀👀👀👀👀👀👀👀👀👀👀👀👀👀👀👀👀👀👀👀👀👀👀👀👀👀👀👀👀👀👀👀👀-->
-                    
+
                     <div *ngIf="bmxItem.componentType === 'image-rate-scale'" class="paragraph">
                         <button *ngIf="!showModalVideo" (click)="seeTutorial()" class="see-tutorial-mobil"
                             mat-icon-button matTooltip="see tutorial" matTooltipPosition="above"
@@ -250,18 +269,17 @@
                             <mat-icon class="full-icon">chevron_left</mat-icon> <span
                                 class="menu-descriptions">戻る</span>
                         </button>
-                        <div *ngFor="let page of bmxPagesClient; let pageIndex = index" >
+                        <div *ngFor="let page of bmxPagesClient; let pageIndex = index">
                             <button disableRipple style="min-width: 35px;cursor: auto;outline: none;box-shadow:none;"
-                                [ngClass]="currentPage == pageIndex?'pageNumberActive':'pageNumber'"
-                                mat-raised-button>
-                                {{page.pageNumber}} 
+                                [ngClass]="currentPage == pageIndex?'pageNumberActive':'pageNumber'" mat-raised-button>
+                                {{page.pageNumber}}
                             </button>
                             <!-- DISBLE CLICKING ON THE BUTTONS -->
                             <!-- <button style="min-width: 35px;" (click)="selectPageNumber(pageIndex)"
                             [ngClass]="(currentPage === pageIndex)?'pageNumberActive':'pageNumber'" mat-raised-button>
                             {{page.pageNumber}}
                          </button> -->
-                        </div>  
+                        </div>
                         <button [style.background]="(continueButtonToComple == 'Complete')?'#05b85e':'#324395'"
                             style="color: white !important;" *ngIf="isBrandMatrixSurvey && surveyLanguage != 'Japanese'"
                             (click)="changePage('next')" mat-raised-button style=""
@@ -293,7 +311,7 @@
 <ng-template #elseBlock>
     <div class="error">
 
-        <div *ngIf="(projectId === '-404'); else block" fxFlexFill fxLayout="column" fxLayoutAlign="center center">
+        <div *ngIf="(argd == ''); else block" fxFlexFill fxLayout="column" fxLayoutAlign="center center">
             <div class="errorcode"> This Project Does Not Exist</div>
             <div class="errormess">Please contact your BI Representative if this link needs to be re-activated.</div>
 

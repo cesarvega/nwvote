@@ -42,6 +42,7 @@ export class SurveyCreationDesignComponent implements OnInit {
     showMenuCreator: boolean = false;
     iconMenuShow: string = "add_circle_outline";
     TEMPLATE_NAME = 'Standart Personal Preference';
+    showDialogupdown = false
 
     model = {
         editorData: '',
@@ -122,6 +123,9 @@ export class SurveyCreationDesignComponent implements OnInit {
     isTemplate = 'false'
     directors: any[] = [];
     showConfirmTemplate: boolean = false;
+    uploadedFile: File;
+    fileName: any;
+    uploadDialog: boolean;
     constructor(
         @Inject(DOCUMENT) private document: any,
         public _BmxService: BmxService,
@@ -357,7 +361,6 @@ export class SurveyCreationDesignComponent implements OnInit {
         } else {
             //   this.bmxPages = this.SAMPLE_BMX;
             this._BmxService.getBrandMatrixByProject(this.projectId).subscribe((brandMatrix: any) => {
-                console.log(brandMatrix)
                 if (brandMatrix.d.length > 0) {
                     let objeto = JSON.parse(brandMatrix.d);
                     let logoUrl = ""
@@ -442,7 +445,6 @@ export class SurveyCreationDesignComponent implements OnInit {
 
                         const name = localStorage.getItem('projectName');
                         const company = localStorage.getItem('company');
-                        console.log(this.bmxPages[0].page[1])
                         const replacedText = this.bmxPages[0].page[1].componentText
                             .replace(/PROJECT_NAME/g, name)
                             .replace(/BI_PROJECTNAME/g, name)
@@ -473,8 +475,6 @@ export class SurveyCreationDesignComponent implements OnInit {
     }
 
     checkDragEvetn(e) {
-        console.log(this.bmxPages[this.currentPage])
-        console.log(e);
     }
     drop(event: CdkDragDrop<any[]>) {
         moveItemInArray(this.bmxPages[this.currentPage].page, event.previousIndex, event.currentIndex);
@@ -970,7 +970,6 @@ export class SurveyCreationDesignComponent implements OnInit {
 
     // TEMPLATE METHODS
     saveOrUpdateTemplate(templateName, displayName?: any) {
-        console.log(templateName)
         this.showSaveTemplate = false
         const nameToShow = this.selectedDisplayNem
         localStorage.setItem(templateName, JSON.stringify(this.bmxPages));
@@ -981,7 +980,6 @@ export class SurveyCreationDesignComponent implements OnInit {
             localStorage.setItem('brandMatrix', dataString)
 
             let x1 = JSON.parse(template.d)
-            console.log(x1)
             this.templateTitle = "Template '" + templateName + "' saved 🧐";
             this._snackBar.open(this.templateTitle, 'OK', {
                 duration: 5000,
@@ -1000,7 +998,6 @@ export class SurveyCreationDesignComponent implements OnInit {
         this.isTemplateBoxOn = false
     }
     loadTemplate(templateName) {
-        console.log(templateName)
         const name = localStorage.getItem('projectName')
         const company = localStorage.getItem('company')
         const isTemplate = localStorage.getItem('templates')
@@ -1337,7 +1334,6 @@ export class SurveyCreationDesignComponent implements OnInit {
 
     previewSurvey() {
         const projectUrl = this.projectId.replace(/\//g, '-')
-        console.log('survey/' + projectUrl + '/' + (this.biUsername ? this.biUsername : 'guest'))
         window.open('survey/' + projectUrl + '/' + (this.biUsername ? this.biUsername : 'guest'));
     }
 
@@ -1433,6 +1429,57 @@ export class SurveyCreationDesignComponent implements OnInit {
         this.saveOrUpdateTemplate(templateToChange)
         this.selectedDisplayNem = null
     }
+
+    download() {
+        const jsonContent = JSON.stringify(this.bmxPages, null, 2);
+        const blob = new Blob([jsonContent], { type: 'application/json' });
+        const url = window.URL.createObjectURL(blob);
+        const a = document.createElement('a');
+        a.href = url;
+        a.download = this.globalDisplayName ? this.globalDisplayName : this.globalProjectName + '.json';
+        a.click();
+        window.URL.revokeObjectURL(url);
+      }
+    
+      onDragOver(event: DragEvent) {
+        event.preventDefault();
+      }
+    
+      onFileDropped(event: DragEvent) {
+        event.preventDefault();
+        if (event.dataTransfer && event.dataTransfer.files.length > 0) {
+          this.uploadedFile = event.dataTransfer.files[0];
+          this.fileName = this.uploadedFile.name;
+        }
+      }
+    
+      onFileSelected(event: Event) {
+        const input = event.target as HTMLInputElement;
+        if (input.files && input.files.length > 0) {
+          this.uploadedFile = input.files[0];
+          this.fileName = this.uploadedFile.name;
+        }
+      }
+    
+      applyUpload() {
+        if (this.uploadedFile) {
+          const reader = new FileReader();
+          reader.onload = (e) => {
+            try {
+              const jsonData = JSON.parse(e.target?.result as string);
+              this.bmxPages = jsonData; // Actualiza bmxPages
+              console.log('bmxPages updated:', this.bmxPages);
+              this.uploadDialog = false; // Cierra el diálogo
+              this.fileName = null;
+            } catch (error) {
+              console.error('Invalid JSON file:', error);
+            }
+          };
+          reader.readAsText(this.uploadedFile);
+        } else {
+          console.warn('No file selected!');
+        }
+      }
 }
 // https://brandmatrix.brandinstitute.com/BMX/survey/ImageStarRate/guest
 // https://brandmatrix.brandinstitute.com/BMX/survey/ImageStarRateCriteria/guest

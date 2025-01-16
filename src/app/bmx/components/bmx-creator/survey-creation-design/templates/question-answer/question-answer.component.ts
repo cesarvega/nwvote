@@ -30,10 +30,20 @@ export class QuestionAnswerComponent extends RatingScaleComponent implements OnI
   }
 
   ngOnInit(): void {
+    this.bmxItem.componentText.forEach((comp: any) => {
+      if (typeof comp.RATE === 'string') {
+        comp.RATE = comp.RATE.replace(/^-1/, '');
+      }
+      if (this.bmxItem.componentSettings[0].rankType === 'radio') {
+        if (typeof comp.RATE === 'string') {
+          comp.RATE = comp.RATE.replace(/,$/, '');
+        }
+      }
+    });
+    console.log(this.bmxItem)
     this.bmxCopycomponentText = JSON.parse(JSON.stringify(this.bmxItem));
 
     this.showDialog = false
-
     // COLUMN NAMES
     let values = Object.keys(this.bmxItem.componentText[0])
     values.forEach(value => {
@@ -213,9 +223,8 @@ export class QuestionAnswerComponent extends RatingScaleComponent implements OnI
     this.autoSave.emit();
   }
   saveChoice(checkBoxName, indexRow, value) {
-    console.log(value)
     if (value.target.checked) {
-      this.bmxItem.componentText[indexRow].RATE =  checkBoxName 
+      this.bmxItem.componentText[indexRow].RATE = checkBoxName 
     } else {
       this.bmxItem.componentText[indexRow].RATE = -1
     }

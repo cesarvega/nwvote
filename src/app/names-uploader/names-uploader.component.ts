@@ -1,4 +1,4 @@
-import { Component, ElementRef, EventEmitter, Input, Output, ViewChild, AfterViewInit } from '@angular/core';
+import { Component, ElementRef, EventEmitter, Input, Output, ViewChild, AfterViewInit, ChangeDetectorRef } from '@angular/core';
 import Handsontable from 'handsontable';
 
 @Component({
@@ -17,12 +17,14 @@ export class NamesUploaderComponent implements AfterViewInit {
   private hotInstance!: Handsontable;
   dataSourceCopy: any[] = [];
   displayedColumnsCopy: string[] = [];
+  constructor(private cdr: ChangeDetectorRef) {}
 
   ngAfterViewInit() {
     this.dataSourceCopy = JSON.parse(JSON.stringify(this.dataSource));
     const rateColumnIndex = this.displayedColumns.findIndex(col => col === 'RATE');
 
     if (rateColumnIndex !== -1) {
+      
       const rateColumn = this.displayedColumns.splice(rateColumnIndex, 1)[0];
 
       this.displayedColumns.push(rateColumn);
@@ -33,6 +35,7 @@ export class NamesUploaderComponent implements AfterViewInit {
       const newColumnName = 'NewCategoryLogo';
       if (!this.displayedColumns.includes(newColumnName)) {
         this.displayedColumns.splice(1, 0, newColumnName);
+        this.cdr.detectChanges()
       }
 
       this.dataSource.forEach(row => {
@@ -40,6 +43,10 @@ export class NamesUploaderComponent implements AfterViewInit {
           row[newColumnName] = ''
         }
       });
+    }
+
+    if( this.componentSetting && this.componentSetting[0].categoryName == 'Tinder Category 🔥'){
+      this.displayedColumns = this.displayedColumns.filter(res => res != 'name'); // Usar '=' en lugar de '=='
     }
 
     if (this.hotContainer) {
@@ -58,7 +65,13 @@ export class NamesUploaderComponent implements AfterViewInit {
             data: 'actions',
             renderer: (instance, td, row, col, prop, value, cellProperties) => {
               Handsontable.renderers.TextRenderer.apply(this, [instance, td, row, col, prop, value, cellProperties]);
-              if (row !== 0) {
+              if (row !== 0 ) {
+                const button = document.createElement('button');
+                button.innerText = 'Delete';
+                button.onclick = () => this.removeRow(row);
+                td.appendChild(button);
+                td.style.textAlign = 'center';
+              }else if ( this.componentSetting && this.componentSetting[0].categoryName == 'Tinder Category 🔥'){
                 const button = document.createElement('button');
                 button.innerText = 'Delete';
                 button.onclick = () => this.removeRow(row);
@@ -112,6 +125,8 @@ export class NamesUploaderComponent implements AfterViewInit {
     } else {
       console.error('hotContainer is not available');
     }
+    this.cdr.markForCheck()
+
   }
   handlePaste(data: string): void {
     const selected = this.hotInstance.getSelected();
@@ -296,7 +311,6 @@ export class NamesUploaderComponent implements AfterViewInit {
         }
       ],
     });
-    console.log(this.dataSource)
     return datasource;
   }
 
@@ -342,7 +356,7 @@ export class NamesUploaderComponent implements AfterViewInit {
       if (col === 'STARS') {
         acc[col] = this.dataSource.length > 0 ? [...this.dataSource[1].STARS] : [];
       } else if (col === 'RATE') {
-        acc[col] = this.dataSource.length > 0 ? this.dataSource[1].RATE : -1;
+        acc[col] = this.dataSource.length > 0 ? this.dataSource[1] ?  this.dataSource[1].RATE: this.dataSource[0].RATE : -1;
       } else {
         acc[col] = '';
       }
@@ -442,8 +456,7 @@ export class NamesUploaderComponent implements AfterViewInit {
 
 
   saveChanges(): void {
-    console.log(this.dataSource)
-
+ 
     this.removeDuplicateRowsInFirstColumn();
 
     if (this.isRanking === "rate-scale") {
@@ -451,7 +464,6 @@ export class NamesUploaderComponent implements AfterViewInit {
 
     this.removeColumnsWithNumbers();
     this.removeDuplicateColumns();
-    console.log(this.dataSource)
     this.save.emit(this.dataSource);
   }
   removeDuplicateRowsInFirstColumn(): void {
